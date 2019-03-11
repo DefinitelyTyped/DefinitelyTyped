@@ -18899,7 +18899,6 @@ declare namespace Excel {
         address?: boolean;
         addressLocal?: boolean;
         format?: Excel.CellPropertiesFormatLoadOptions;
-        hasSpill?: boolean;
         hidden?: boolean;
         hyperlink?: boolean;
         style?: boolean;
@@ -18947,7 +18946,6 @@ declare namespace Excel {
     interface CellProperties extends SettableCellProperties {
         address?: string;
         addressLocal?: string;
-        hasSpill?: boolean;
         hidden?: boolean;
     }
     /** Represents the input parameter of setRowProperties. */
@@ -18962,7 +18960,6 @@ declare namespace Excel {
         rowIndex?: number;
         address?: string;
         addressLocal?: string;
-        hasSpill?: boolean;
     }
     /** Represents the input parameter of setColumnProperties. */
     interface SettableColumnProperties extends SettableCellProperties {
@@ -18976,7 +18973,6 @@ declare namespace Excel {
         columnIndex?: number;
         address?: string;
         addressLocal?: string;
-        hasSpill?: boolean;
     }
     /** Represents the returned format properties of getCellProperties or format input parameter of setCellProperties. */
     interface CellPropertiesFormat {
@@ -19328,7 +19324,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Provides information about the workbook AutoSave setting changed event.
+     * Provides information about the workbook's onAutoSaveSettingChanged event.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -20058,7 +20054,7 @@ declare namespace Excel {
     interface ShapeActivatedEventArgs {
         /**
          *
-         * Gets the id of the shape that is activated.
+         * Gets the id of the activated shape.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -20091,7 +20087,7 @@ declare namespace Excel {
     interface ShapeDeactivatedEventArgs {
         /**
          *
-         * Gets the id of the shape that is deactivated.
+         * Gets the id of the shape deactivated shape.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -20423,6 +20419,14 @@ declare namespace Excel {
         readonly names: Excel.NamedItemCollection;
         /**
          *
+         * Represents a collection of PivotTableStyles associated with the workbook. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly pivotTableStyles: Excel.PivotTableStyleCollection;
+        /**
+         *
          * Represents a collection of PivotTables associated with the workbook. Read-only.
          *
          * [Api set: ExcelApi 1.3]
@@ -20451,6 +20455,14 @@ declare namespace Excel {
         readonly settings: Excel.SettingCollection;
         /**
          *
+         * Represents a collection of SlicerStyles associated with the workbook. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly slicerStyles: Excel.SlicerStyleCollection;
+        /**
+         *
          * Represents a collection of Slicers associated with the workbook. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -20466,11 +20478,27 @@ declare namespace Excel {
         readonly styles: Excel.StyleCollection;
         /**
          *
+         * Represents a collection of TableStyles associated with the workbook. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly tableStyles: Excel.TableStyleCollection;
+        /**
+         *
          * Represents a collection of tables associated with the workbook. Read-only.
          *
          * [Api set: ExcelApi 1.1]
          */
         readonly tables: Excel.TableCollection;
+        /**
+         *
+         * Represents a collection of TimelineStyles associated with the workbook. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly timelineStyles: Excel.TimelineStyleCollection;
         /**
          *
          * Represents a collection of worksheets associated with the workbook. Read-only.
@@ -20480,7 +20508,7 @@ declare namespace Excel {
         readonly worksheets: Excel.WorksheetCollection;
         /**
          *
-         * True if the workbook is in auto save mode.
+         * Specifies whether or not the workbook is in autosave mode. Read-Only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -20505,8 +20533,8 @@ declare namespace Excel {
         chartDataPointTrack: boolean;
         /**
          *
-         * True if no changes have been made to the specified workbook since it was last saved.
-            You can set this property to True if you want to close a modified workbook without either saving it or being prompted to save it.
+         * Specifies whether or not changes have been made since the workbook was last saved.
+            You can set this property to true if you want to close a modified workbook without either saving it or being prompted to save it.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -20521,7 +20549,7 @@ declare namespace Excel {
         readonly name: string;
         /**
          *
-         * True if the workbook has ever been saved locally or online.
+         * Specifies whether or not the workbook has ever been saved locally or online. Read-Only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -20689,7 +20717,7 @@ declare namespace Excel {
         }): Excel.Workbook;
         /**
          *
-         * Occurs when AutoSave setting is changed on the workbook.
+         * Occurs when the autoSave setting is changed on the workbook.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
@@ -21053,7 +21081,7 @@ declare namespace Excel {
         copy(positionType?: "None" | "Before" | "After" | "Beginning" | "End", relativeTo?: Excel.Worksheet): Excel.Worksheet;
         /**
          *
-         * Deletes the worksheet from the workbook. Note that if the worksheet's visibility is set to "VeryHidden", the delete operation will fail with a GeneralException.
+         * Deletes the worksheet from the workbook.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -21309,11 +21337,11 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param base64File Required. Base64 string representing the source workbook.
-         * @param sheetNamesToInsert Optional. The speified worksheet names to insert. By default it will insert all worksheets from the source workbook.
-         * @param positionType Optional. Insert position type, see Excel.WorksheetPositionType for details. Default is "Start".
-         * @param relativeTo Optional. The referencing worksheet object or worksheet name/id in the current workbook. Default is null and based on the postionType parameter it will insert worksheets at the start or end of the current workbook.
-         * @returns An array where each item represents the Id of the new inserted worksheet.
+         * @param base64File Required. The base64-encoded string representing the source workbook file.
+         * @param sheetNamesToInsert Optional. The names of individual worksheets to insert. By default, all the worksheets from the source workbook are inserted.
+         * @param positionType Optional. Where in the current workbook the new worksheets will be inserted. See Excel.WorksheetPositionType for details. Default is "Start".
+         * @param relativeTo Optional. The worksheet in the current workbook that is referenced for the positionType parameter. Default is null and, based on positionType, it will insert worksheets at the start or end of the current workbook.
+         * @returns An array of ids corresponding to each newly inserted worksheet.
          */
         addFromBase64(base64File: string, sheetNamesToInsert?: string[], positionType?: Excel.WorksheetPositionType, relativeTo?: Worksheet | string): OfficeExtension.ClientResult<string[]>;
         /**
@@ -21322,11 +21350,11 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
-         * @param base64File Required. Base64 string representing the source workbook.
-         * @param sheetNamesToInsert Optional. The speified worksheet names to insert. By default it will insert all worksheets from the source workbook.
-         * @param positionType Optional. Insert position type, see Excel.WorksheetPositionType for details. Default is "Start".
-         * @param relativeTo Optional. The referencing worksheet object or worksheet name/id in the current workbook. Default is null and based on the postionType parameter it will insert worksheets at the start or end of the current workbook.
-         * @returns An array where each item represents the Id of the new inserted worksheet.
+         * @param base64File Required. The base64-encoded string representing the source workbook file.
+         * @param sheetNamesToInsert Optional. The names of individual worksheets to insert. By default, all the worksheets from the source workbook are inserted.
+         * @param positionType Optional. Where in the current workbook the new worksheets will be inserted. See Excel.WorksheetPositionType for details. Default is "Start".
+         * @param relativeTo Optional. The worksheet in the current workbook that is referenced for the positionType parameter. Default is null and, based on positionType, it will insert worksheets at the start or end of the current workbook.
+         * @returns An array of ids corresponding to each newly inserted worksheet.
          */
         addFromBase64(base64File: string, sheetNamesToInsert?: string[], positionType?: "None" | "Before" | "After" | "Beginning" | "End", relativeTo?: Worksheet | string): OfficeExtension.ClientResult<string[]>;
         /**
@@ -22110,7 +22138,7 @@ declare namespace Excel {
         findOrNullObject(text: string, criteria: Excel.SearchCriteria): Excel.Range;
         /**
          *
-         * Does FlashFill to current range. Flash Fill will automatically fills data when it senses a pattern, so the range must be single column range and have data around in order to find pattern.
+         * Does FlashFill to current range.Flash Fill will automatically fills data when it senses a pattern, so the range must be single column range and have data around in order to find pattern.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -22351,7 +22379,7 @@ declare namespace Excel {
         getSpecialCellsOrNullObject(cellType: "ConditionalFormats" | "DataValidations" | "Blanks" | "Constants" | "Formulas" | "SameConditionalFormat" | "SameDataValidation" | "Visible", cellValueType?: "All" | "Errors" | "ErrorsLogical" | "ErrorsNumbers" | "ErrorsText" | "ErrorsLogicalNumber" | "ErrorsLogicalText" | "ErrorsNumberText" | "Logical" | "LogicalNumbers" | "LogicalText" | "LogicalNumbersText" | "Numbers" | "NumbersText" | "Text"): Excel.RangeAreas;
         /**
          *
-         * Gets the range object containing the anchor cell for a cell getting spilled into. Fails if applied to a range with more than one cell. Read only.
+         * Gets the range object containing the anchor cell for a cell getting spilled into. Fails if applied to a range with more than one cell. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -22359,12 +22387,30 @@ declare namespace Excel {
         getSpillParent(): Excel.Range;
         /**
          *
-         * Gets the range object containing the spill range when called on an anchor cell. Fails if applied to a range with more than one cell. Read only.
+         * Gets the range object containing the anchor cell for a cell getting spilled into. Read-only.
+            If it is not a spill cell or more than once cells are give, a null object will be returned.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getSpillParentOrNullObject(): Excel.Range;
+        /**
+         *
+         * Gets the range object containing the spill range when called on an anchor cell. Fails if applied to a range with more than one cell. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
         getSpillingToRange(): Excel.Range;
+        /**
+         *
+         * Gets the range object containing the spill range when called on an anchor cell. Read-only.
+            If the range is not an anchor cell or spill range can't be found, a null object will be returned.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getSpillingToRangeOrNullObject(): Excel.Range;
         /**
          *
          * Returns a Range object that represents the surrounding region for the top-left cell in this range. A surrounding region is a range bounded by any combination of blank rows and blank columns relative to this range.
@@ -22473,7 +22519,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        setCellProperties(cellPropertiesData: SettableCellProperties[][]): void;
+        setCellProperties(cellPropertiesData: SettableCellProperties[][] | OfficeExtension.ClientResult<SettableCellProperties[][]>): void;
         /**
          *
          * Updates the range based on a single-dimensional array of column properties, encapsulating things like font, fill, borders, alignment, and so forth.
@@ -22481,7 +22527,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        setColumnProperties(columnPropertiesData: SettableColumnProperties[]): void;
+        setColumnProperties(columnPropertiesData: SettableColumnProperties[] | OfficeExtension.ClientResult<SettableColumnProperties[]>): void;
         /**
          *
          * Set a range to be recalculated when the next recalculation occurs.
@@ -22497,7 +22543,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        setRowProperties(rowPropertiesData: SettableRowProperties[]): void;
+        setRowProperties(rowPropertiesData: SettableRowProperties[] | OfficeExtension.ClientResult<SettableRowProperties[]>): void;
         /**
          *
          * Displays the card for an active cell if it has rich value content.
@@ -35325,6 +35371,730 @@ declare namespace Excel {
         toJSON(): Excel.Interfaces.StyleCollectionData;
     }
     /**
+     *
+     * Represents a collection of TableStyles.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class TableStyleCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.TableStyle[];
+        /**
+         *
+         * Creates a blank TableStyle with the specified name.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name The unique name for the new TableStyle. Will throw an invalid argument exception if the name is already in use.
+         * @param makeUniqueName Optional, defaults to false. If true, will append numbers to the name in order to make it unique, if needed.
+         * @returns The newly created TableStyle.
+         */
+        add(name: string, makeUniqueName?: boolean): Excel.TableStyle;
+        /**
+         *
+         * Gets the number of table styles in the collection.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets the default TableStyle for the parent object's scope.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns The TableStyle object that is the current default TableStyle.
+         */
+        getDefault(): Excel.TableStyle;
+        /**
+         *
+         * Gets a TableStyle by name.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name Name of the TableStyle to be retrieved.
+         * @returns The TableStyle object whose name matches the input.
+         */
+        getItem(name: string): Excel.TableStyle;
+        /**
+         *
+         * Gets a TableStyle by name. If the TableStyle does not exist, will return a null object.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name Name of the TableStyle to be retrieved.
+         * @returns The TableStyle object whose name matches the input.
+         */
+        getItemOrNullObject(name: string): Excel.TableStyle;
+        /**
+         *
+         * Sets the default TableStyle for use in the parent object's scope.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param newDefaultStyle The TableStyle object or name of the TableStyle object that should be the new default.
+         */
+        setDefault(newDefaultStyle: TableStyle | string): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.TableStyleCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.TableStyleCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.TableStyleCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.TableStyleCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.TableStyleCollection;
+        load(option?: string | string[]): Excel.TableStyleCollection;
+        load(option?: OfficeExtension.LoadOption): Excel.TableStyleCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Excel.TableStyleCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.TableStyleCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Excel.Interfaces.TableStyleCollectionData;
+    }
+    /**
+     *
+     * Represents a TableStyle, which defines the style elements by region of the Table.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class TableStyle extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
+        /**
+         *
+         * Gets the name of the TableStyle.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        name: string;
+        /**
+         *
+         * True means that this TableStyle object is read-only. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly readOnly: boolean;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.TableStyle): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.TableStyleUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.TableStyle): void;
+        /**
+         *
+         * Deletes the TableStyle.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        delete(): void;
+        /**
+         *
+         * Creates a duplicate of this TableStyle with copies of all the style elements.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns The new TableStyle object that has been duplicated from this TableStyle.
+         */
+        duplicate(): Excel.TableStyle;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.TableStyle` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.TableStyle` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.TableStyle` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.TableStyleLoadOptions): Excel.TableStyle;
+        load(option?: string | string[]): Excel.TableStyle;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.TableStyle;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.TableStyle object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.TableStyleData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.TableStyleData;
+    }
+    /**
+     *
+     * Represents a collection of PivotTable styles.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class PivotTableStyleCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.PivotTableStyle[];
+        /**
+         *
+         * Creates a blank PivotTableStyle with the specified name.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name The unique name for the new PivotTableStyle. Will throw an invalid argument exception if the name is already in use.
+         * @param makeUniqueName Optional, defaults to false. If true, will append numbers to the name in order to make it unique, if needed.
+         * @returns The newly created PivotTableStyle.
+         */
+        add(name: string, makeUniqueName?: boolean): Excel.PivotTableStyle;
+        /**
+         *
+         * Gets the number of PivotTable styles in the collection.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets the default PivotTableStyle for the parent object's scope.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns The PivotTableStyle object that is the current default PivotTableStyle.
+         */
+        getDefault(): Excel.PivotTableStyle;
+        /**
+         *
+         * Gets a PivotTableStyle by name.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name Name of the PivotTableStyle to be retrieved.
+         * @returns The PivotTableStyle object whose name matches the input.
+         */
+        getItem(name: string): Excel.PivotTableStyle;
+        /**
+         *
+         * Gets a PivotTableStyle by name. If the PivotTableStyle does not exist, will return a null object.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name Name of the PivotTableStyle to be retrieved.
+         * @returns The PivotTableStyle object whose name matches the input.
+         */
+        getItemOrNullObject(name: string): Excel.PivotTableStyle;
+        /**
+         *
+         * Sets the default PivotTableStyle for use in the parent object's scope.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param newDefaultStyle The PivotTableStyle object or name of the PivotTableStyle object that should be the new default.
+         */
+        setDefault(newDefaultStyle: PivotTableStyle | string): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.PivotTableStyleCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.PivotTableStyleCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.PivotTableStyleCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.PivotTableStyleCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.PivotTableStyleCollection;
+        load(option?: string | string[]): Excel.PivotTableStyleCollection;
+        load(option?: OfficeExtension.LoadOption): Excel.PivotTableStyleCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Excel.PivotTableStyleCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.PivotTableStyleCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Excel.Interfaces.PivotTableStyleCollectionData;
+    }
+    /**
+     *
+     * Represents a PivotTable Style, which defines style elements by PivotTable region.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class PivotTableStyle extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
+        /**
+         *
+         * Gets the name of the PivotTableStyle.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        name: string;
+        /**
+         *
+         * True means that this PivotTableStyle object is read-only. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly readOnly: boolean;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.PivotTableStyle): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.PivotTableStyleUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.PivotTableStyle): void;
+        /**
+         *
+         * Deletes the PivotTableStyle.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        delete(): void;
+        /**
+         *
+         * Creates a duplicate of this PivotTableStyle with copies of all the style elements.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns The new PivotTableStyle object that has been duplicated from this PivotTableStyle.
+         */
+        duplicate(): Excel.PivotTableStyle;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.PivotTableStyle` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.PivotTableStyle` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.PivotTableStyle` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.PivotTableStyleLoadOptions): Excel.PivotTableStyle;
+        load(option?: string | string[]): Excel.PivotTableStyle;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.PivotTableStyle;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.PivotTableStyle object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.PivotTableStyleData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.PivotTableStyleData;
+    }
+    /**
+     *
+     * Represents a collection of SlicerStyle objects.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SlicerStyleCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.SlicerStyle[];
+        /**
+         *
+         * Creates a blank SlicerStyle with the specified name.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name The unique name for the new SlicerStyle. Will throw an invalid argument exception if the name is already in use.
+         * @param makeUniqueName Optional, defaults to false. If true, will append numbers to the name in order to make it unique, if needed.
+         * @returns The newly created SlicerStyle.
+         */
+        add(name: string, makeUniqueName?: boolean): Excel.SlicerStyle;
+        /**
+         *
+         * Gets the number of slicer styles in the collection.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets the default SlicerStyle for the parent object's scope.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns The SlicerStyle object that is the current default SlicerStyle.
+         */
+        getDefault(): Excel.SlicerStyle;
+        /**
+         *
+         * Gets a SlicerStyle by name.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name Name of the SlicerStyle to be retrieved.
+         * @returns The SlicerStyle object whose name matches the input.
+         */
+        getItem(name: string): Excel.SlicerStyle;
+        /**
+         *
+         * Gets a SlicerStyle by name. If the SlicerStyle does not exist, will return a null object.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name Name of the SlicerStyle to be retrieved.
+         * @returns The SlicerStyle object whose name matches the input.
+         */
+        getItemOrNullObject(name: string): Excel.SlicerStyle;
+        /**
+         *
+         * Sets the default SlicerStyle for use in the parent object's scope.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param newDefaultStyle The SlicerStyle object or name of the SlicerStyle object that should be the new default.
+         */
+        setDefault(newDefaultStyle: SlicerStyle | string): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.SlicerStyleCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.SlicerStyleCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.SlicerStyleCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.SlicerStyleCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.SlicerStyleCollection;
+        load(option?: string | string[]): Excel.SlicerStyleCollection;
+        load(option?: OfficeExtension.LoadOption): Excel.SlicerStyleCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Excel.SlicerStyleCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.SlicerStyleCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Excel.Interfaces.SlicerStyleCollectionData;
+    }
+    /**
+     *
+     * Represents a Slicer Style, which defines style elements by region of the slicer.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SlicerStyle extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
+        /**
+         *
+         * Gets the name of the SlicerStyle.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        name: string;
+        /**
+         *
+         * True means that this SlicerStyle object is read-only. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly readOnly: boolean;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.SlicerStyle): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.SlicerStyleUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.SlicerStyle): void;
+        /**
+         *
+         * Deletes the SlicerStyle.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        delete(): void;
+        /**
+         *
+         * Creates a duplicate of this SlicerStyle with copies of all the style elements.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns The new SlicerStyle object that has been duplicated from this SlicerStyle.
+         */
+        duplicate(): Excel.SlicerStyle;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.SlicerStyle` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.SlicerStyle` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.SlicerStyle` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.SlicerStyleLoadOptions): Excel.SlicerStyle;
+        load(option?: string | string[]): Excel.SlicerStyle;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.SlicerStyle;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.SlicerStyle object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.SlicerStyleData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.SlicerStyleData;
+    }
+    /**
+     *
+     * Represents a collection of TimelineStyles.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class TimelineStyleCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.TimelineStyle[];
+        /**
+         *
+         * Creates a blank TimelineStyle with the specified name.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name The unique name for the new TimelineStyle. Will throw an invalid argument exception if the name is already in use.
+         * @param makeUniqueName Optional, defaults to false. If true, will append numbers to the name in order to make it unique, if needed.
+         * @returns The newly created TimelineStyle.
+         */
+        add(name: string, makeUniqueName?: boolean): Excel.TimelineStyle;
+        /**
+         *
+         * Gets the number of timeline styles in the collection.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets the default TimelineStyle for the parent object's scope.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns The TimelineStyle object that is the current default TimelineStyle.
+         */
+        getDefault(): Excel.TimelineStyle;
+        /**
+         *
+         * Gets a TimelineStyle by name.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name Name of the TimelineStyle to be retrieved.
+         * @returns The TimelineStyle object whose name matches the input.
+         */
+        getItem(name: string): Excel.TimelineStyle;
+        /**
+         *
+         * Gets a TimelineStyle by name. If the TimelineStyle does not exist, will return a null object.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name Name of the TimelineStyle to be retrieved.
+         * @returns The TimelineStyle object whose name matches the input.
+         */
+        getItemOrNullObject(name: string): Excel.TimelineStyle;
+        /**
+         *
+         * Sets the default TimelineStyle for use in the parent object's scope.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param newDefaultStyle The TimelineStyle object or name of the TimelineStyle object that should be the new default.
+         */
+        setDefault(newDefaultStyle: TimelineStyle | string): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.TimelineStyleCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.TimelineStyleCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.TimelineStyleCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.TimelineStyleCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.TimelineStyleCollection;
+        load(option?: string | string[]): Excel.TimelineStyleCollection;
+        load(option?: OfficeExtension.LoadOption): Excel.TimelineStyleCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Excel.TimelineStyleCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.TimelineStyleCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Excel.Interfaces.TimelineStyleCollectionData;
+    }
+    /**
+     *
+     * Represents a Timeline style, which defines style elements by region in the Timeline.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class TimelineStyle extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
+        /**
+         *
+         * Gets the name of the TimelineStyle.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        name: string;
+        /**
+         *
+         * True means that this TimelineStyle object is read-only. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly readOnly: boolean;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.TimelineStyle): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.TimelineStyleUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.TimelineStyle): void;
+        /**
+         *
+         * Deletes the TableStyle.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        delete(): void;
+        /**
+         *
+         * Creates a duplicate of this TimelineStyle with copies of all the style elements.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns The new TimelineStyle object that has been duplicated from this TimelineStyle.
+         */
+        duplicate(): Excel.TimelineStyle;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.TimelineStyle` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.TimelineStyle` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.TimelineStyle` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.TimelineStyleLoadOptions): Excel.TimelineStyle;
+        load(option?: string | string[]): Excel.TimelineStyle;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.TimelineStyle;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.TimelineStyle object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.TimelineStyleData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.TimelineStyleData;
+    }
+    /**
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
@@ -35966,7 +36736,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        getStartCell(): Excel.Range;
+        getCellAfterBreak(): Excel.Range;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          *
@@ -36266,12 +37036,36 @@ declare namespace Excel {
         readonly replies: Excel.CommentReplyCollection;
         /**
          *
-         * Get/Set the content.
+         * Get author email of the comment.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly authorEmail: string;
+        /**
+         *
+         * Get author name of the comment.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly authorName: string;
+        /**
+         *
+         * Get or set the content.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
         content: string;
+        /**
+         *
+         * Get creation time of the comment. Will return null if the comment is converted from note, as in this case, the comment will not has created date.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly creationDate: Date;
         /**
          *
          * Represents the comment identifier. Read-only.
@@ -36310,6 +37104,14 @@ declare namespace Excel {
          * @beta
          */
         delete(): void;
+        /**
+         *
+         * Get location of the comment.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getLocation(): Excel.Range;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          *
@@ -36435,12 +37237,36 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Get/Set the content.
+         * Get author email of the comment reply.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly authorEmail: string;
+        /**
+         *
+         * Get author name of the comment reply.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly authorName: string;
+        /**
+         *
+         * Get or set the content.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
         content: string;
+        /**
+         *
+         * Get creation time of the comment reply.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly creationDate: Date;
         /**
          *
          * Represents the comment reply identifier. Read-only.
@@ -36481,6 +37307,14 @@ declare namespace Excel {
         delete(): void;
         /**
          *
+         * Get location of the comment reply.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getLocation(): Excel.Range;
+        /**
+         *
          * Get its parent comment of this reply.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -36516,7 +37350,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents all the shapes in the worksheet.
+     * Represents a collection of all the shapes in the worksheet.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -36528,27 +37362,27 @@ declare namespace Excel {
         readonly items: Excel.Shape[];
         /**
          *
-         * Adds a geometric shape to worksheet. Returns a Shape object that represents the new shape.
+         * Adds a geometric shape to the worksheet. Returns a Shape object that represents the new shape.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param geometricShapeType Represents the geometric type of the shape. See Excel.GeometricShapeType for details.
+         * @param geometricShapeType Represents the type of the geometric shape. See Excel.GeometricShapeType for details.
          */
         addGeometricShape(geometricShapeType: Excel.GeometricShapeType): Excel.Shape;
         /**
          *
-         * Adds a geometric shape to worksheet. Returns a Shape object that represents the new shape.
+         * Adds a geometric shape to the worksheet. Returns a Shape object that represents the new shape.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param geometricShapeType Represents the geometric type of the shape. See Excel.GeometricShapeType for details.
+         * @param geometricShapeType Represents the type of the geometric shape. See Excel.GeometricShapeType for details.
          */
         addGeometricShape(geometricShapeType: "LineInverse" | "Triangle" | "RightTriangle" | "Rectangle" | "Diamond" | "Parallelogram" | "Trapezoid" | "NonIsoscelesTrapezoid" | "Pentagon" | "Hexagon" | "Heptagon" | "Octagon" | "Decagon" | "Dodecagon" | "Star4" | "Star5" | "Star6" | "Star7" | "Star8" | "Star10" | "Star12" | "Star16" | "Star24" | "Star32" | "RoundRectangle" | "Round1Rectangle" | "Round2SameRectangle" | "Round2DiagonalRectangle" | "SnipRoundRectangle" | "Snip1Rectangle" | "Snip2SameRectangle" | "Snip2DiagonalRectangle" | "Plaque" | "Ellipse" | "Teardrop" | "HomePlate" | "Chevron" | "PieWedge" | "Pie" | "BlockArc" | "Donut" | "NoSmoking" | "RightArrow" | "LeftArrow" | "UpArrow" | "DownArrow" | "StripedRightArrow" | "NotchedRightArrow" | "BentUpArrow" | "LeftRightArrow" | "UpDownArrow" | "LeftUpArrow" | "LeftRightUpArrow" | "QuadArrow" | "LeftArrowCallout" | "RightArrowCallout" | "UpArrowCallout" | "DownArrowCallout" | "LeftRightArrowCallout" | "UpDownArrowCallout" | "QuadArrowCallout" | "BentArrow" | "UturnArrow" | "CircularArrow" | "LeftCircularArrow" | "LeftRightCircularArrow" | "CurvedRightArrow" | "CurvedLeftArrow" | "CurvedUpArrow" | "CurvedDownArrow" | "SwooshArrow" | "Cube" | "Can" | "LightningBolt" | "Heart" | "Sun" | "Moon" | "SmileyFace" | "IrregularSeal1" | "IrregularSeal2" | "FoldedCorner" | "Bevel" | "Frame" | "HalfFrame" | "Corner" | "DiagonalStripe" | "Chord" | "Arc" | "LeftBracket" | "RightBracket" | "LeftBrace" | "RightBrace" | "BracketPair" | "BracePair" | "Callout1" | "Callout2" | "Callout3" | "AccentCallout1" | "AccentCallout2" | "AccentCallout3" | "BorderCallout1" | "BorderCallout2" | "BorderCallout3" | "AccentBorderCallout1" | "AccentBorderCallout2" | "AccentBorderCallout3" | "WedgeRectCallout" | "WedgeRRectCallout" | "WedgeEllipseCallout" | "CloudCallout" | "Cloud" | "Ribbon" | "Ribbon2" | "EllipseRibbon" | "EllipseRibbon2" | "LeftRightRibbon" | "VerticalScroll" | "HorizontalScroll" | "Wave" | "DoubleWave" | "Plus" | "FlowChartProcess" | "FlowChartDecision" | "FlowChartInputOutput" | "FlowChartPredefinedProcess" | "FlowChartInternalStorage" | "FlowChartDocument" | "FlowChartMultidocument" | "FlowChartTerminator" | "FlowChartPreparation" | "FlowChartManualInput" | "FlowChartManualOperation" | "FlowChartConnector" | "FlowChartPunchedCard" | "FlowChartPunchedTape" | "FlowChartSummingJunction" | "FlowChartOr" | "FlowChartCollate" | "FlowChartSort" | "FlowChartExtract" | "FlowChartMerge" | "FlowChartOfflineStorage" | "FlowChartOnlineStorage" | "FlowChartMagneticTape" | "FlowChartMagneticDisk" | "FlowChartMagneticDrum" | "FlowChartDisplay" | "FlowChartDelay" | "FlowChartAlternateProcess" | "FlowChartOffpageConnector" | "ActionButtonBlank" | "ActionButtonHome" | "ActionButtonHelp" | "ActionButtonInformation" | "ActionButtonForwardNext" | "ActionButtonBackPrevious" | "ActionButtonEnd" | "ActionButtonBeginning" | "ActionButtonReturn" | "ActionButtonDocument" | "ActionButtonSound" | "ActionButtonMovie" | "Gear6" | "Gear9" | "Funnel" | "MathPlus" | "MathMinus" | "MathMultiply" | "MathDivide" | "MathEqual" | "MathNotEqual" | "CornerTabs" | "SquareTabs" | "PlaqueTabs" | "ChartX" | "ChartStar" | "ChartPlus"): Excel.Shape;
         /**
          *
-         * Group a subset of shapes in a worksheet. Returns a Shape object that represents the new group of shapes.
+         * Groups a subset of shapes in this collection's worksheet. Returns a Shape object that represents the new group of shapes.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36558,12 +37392,12 @@ declare namespace Excel {
         addGroup(values: Array<string | Shape>): Excel.Shape;
         /**
          *
-         * Creates an image from a base64 string and adds it to worksheet. Returns the Shape object that represents the new Image.
+         * Creates an image from a base64-encoded string and adds it to the worksheet. Returns the Shape object that represents the new image.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param base64ImageString A base64 encoded image in JPEG or PNG formats.
+         * @param base64ImageString A base64-encoded string representing an image in either JPEG or PNG format.
          */
         addImage(base64ImageString: string): Excel.Shape;
         /**
@@ -36573,10 +37407,10 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param startLeft The distance, in points, from the start left of the line to the left side of the worksheet.
-         * @param startTop The distance, in points, from the start top of the line to the top of the worksheet.
-         * @param endLeft The distance, in points, from the end left of the line to the left of the worksheet.
-         * @param endTop The distance, in points, from the end top of the line to the top of the worksheet.
+         * @param startLeft The distance, in points, from the start of the line to the left side of the worksheet.
+         * @param startTop The distance, in points, from the start of the line to the top of the worksheet.
+         * @param endLeft The distance, in points, from the end of the line to the left of the worksheet.
+         * @param endTop The distance, in points, from the end of the line to the top of the worksheet.
          * @param connectorType Represents the connector type. See Excel.ConnectorType for details.
          */
         addLine(startLeft: number, startTop: number, endLeft: number, endTop: number, connectorType?: Excel.ConnectorType): Excel.Shape;
@@ -36587,26 +37421,26 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param startLeft The distance, in points, from the start left of the line to the left side of the worksheet.
-         * @param startTop The distance, in points, from the start top of the line to the top of the worksheet.
-         * @param endLeft The distance, in points, from the end left of the line to the left of the worksheet.
-         * @param endTop The distance, in points, from the end top of the line to the top of the worksheet.
+         * @param startLeft The distance, in points, from the start of the line to the left side of the worksheet.
+         * @param startTop The distance, in points, from the start of the line to the top of the worksheet.
+         * @param endLeft The distance, in points, from the end of the line to the left of the worksheet.
+         * @param endTop The distance, in points, from the end of the line to the top of the worksheet.
          * @param connectorType Represents the connector type. See Excel.ConnectorType for details.
          */
         addLine(startLeft: number, startTop: number, endLeft: number, endTop: number, connectorType?: "Straight" | "Elbow" | "Curve"): Excel.Shape;
         /**
          *
-         * Creates an SVG from a XML string and adds it to worksheet. Returns a Shape object that represents the new Image.
+         * Creates a scalable vector graphic (SVG) from an XML string and adds it to the worksheet. Returns a Shape object that represents the new image.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param xmlImageString An XML string that represents an SVG.
+         * @param xml An XML string that represents the SVG.
          */
-        addSVG(xmlImageString: string): Excel.Shape;
+        addSvg(xml: string): Excel.Shape;
         /**
          *
-         * Adds a textbox to worksheet by telling it's text content. Returns a Shape object that represents the new text box.
+         * Adds a text box to the worksheet with the provided text as the content. Returns a Shape object that represents the new text box.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36634,12 +37468,12 @@ declare namespace Excel {
         getItem(name: string): Excel.Shape;
         /**
          *
-         * Gets a shape based on its position in the collection.
+         * Gets a shape using its position in the collection.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param index Index value of the object to be retrieved. Zero-indexed.
+         * @param index The zero-based index of the shape to be retrieved.
          */
         getItemAt(index: number): Excel.Shape;
         /**
@@ -36668,7 +37502,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a generic shape object in the worksheet.
+     * Represents a generic shape object in the worksheet. A shape could be a geometric shape, a line, a group of shapes, etc.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -36678,7 +37512,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Returns the fill formatting of the shape object. Read-only.
+         * Returns the fill formatting of this shape. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36686,7 +37520,7 @@ declare namespace Excel {
         readonly fill: Excel.ShapeFill;
         /**
          *
-         * Returns the geometric shape for the shape object. Error will be thrown, if the shape object is other shape type (Like, Image, SmartArt, etc.) rather than GeometricShape.
+         * Returns the geometric shape associated with the shape. An error will be thrown if the shape type is not "GeometricShape".
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36694,7 +37528,7 @@ declare namespace Excel {
         readonly geometricShape: Excel.GeometricShape;
         /**
          *
-         * Returns the shape group for the shape object. Error will be thrown, if the shape object is other shape type (Like, Image, SmartArt, etc.) rather than GroupShape.
+         * Returns the shape group associated with the shape. An error will be thrown if the shape type is not "GroupShape".
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36702,7 +37536,7 @@ declare namespace Excel {
         readonly group: Excel.ShapeGroup;
         /**
          *
-         * Returns the image for the shape object. Error will be thrown, if the shape object is other shape type (Like, GeometricShape, SmartArt, etc.) rather than Image.
+         * Returns the image associated with the shape. An error will be thrown if the shape type is not "Image".
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36710,7 +37544,7 @@ declare namespace Excel {
         readonly image: Excel.Image;
         /**
          *
-         * Returns the line object for the shape object. Error will be thrown, if the shape object is other shape type (Like, GeometricShape, SmartArt, etc.) rather than Image.
+         * Returns the line associated with the shape. An error will be thrown if the shape type is not "Line".
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36718,7 +37552,7 @@ declare namespace Excel {
         readonly line: Excel.Line;
         /**
          *
-         * Returns the line formatting of the shape object. Read-only.
+         * Returns the line formatting of this shape. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36726,7 +37560,7 @@ declare namespace Excel {
         readonly lineFormat: Excel.ShapeLineFormat;
         /**
          *
-         * Represents the parent group of the specified shape.
+         * Represents the parent group of this shape.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36734,7 +37568,7 @@ declare namespace Excel {
         readonly parentGroup: Excel.Shape;
         /**
          *
-         * Returns the textFrame object of a shape. Read only.
+         * Returns the text frame object of this shape. Read only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36742,7 +37576,7 @@ declare namespace Excel {
         readonly textFrame: Excel.TextFrame;
         /**
          *
-         * Returns or sets the alternative descriptive text string for a Shape object when the object is saved to a Web page.
+         * Returns or sets the alternative description text for a Shape object.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36750,7 +37584,7 @@ declare namespace Excel {
         altTextDescription: string;
         /**
          *
-         * Returns or sets the alternative title text string for a Shape object when the object is saved to a Web page.
+         * Returns or sets the alternative title text for a Shape object.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36758,7 +37592,7 @@ declare namespace Excel {
         altTextTitle: string;
         /**
          *
-         * Returns the number of connection sites on the specified shape. Read-only.
+         * Returns the number of connection sites on this shape. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36766,7 +37600,7 @@ declare namespace Excel {
         readonly connectionSiteCount: number;
         /**
          *
-         * Represents the geometric shape type of the specified shape. See Excel.GeometricShapeType for detail. Returns null if the shape is not geometric, for example, get GeometricShapeType of a line or a chart will return null.
+         * Represents the geometric shape type of this geometric shape. See Excel.GeometricShapeType for details. Returns null if the shape type is not "GeometricShape".
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36775,7 +37609,7 @@ declare namespace Excel {
         /**
          *
          * Represents the height, in points, of the shape.
-            Throws an invalid argument exception when set with negative value or zero as input.
+            Throws an invalid argument exception when set with a negative value or zero as input.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36791,8 +37625,8 @@ declare namespace Excel {
         readonly id: string;
         /**
          *
-         * The distance, in points, from the left side of the shape to the left of the worksheet.
-            Throws an invalid argument exception when set with negative value as input.
+         * The distance, in points, from the left side of the shape to the left side of the worksheet.
+            Throws an invalid argument exception when set with a negative value as input.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36800,7 +37634,7 @@ declare namespace Excel {
         left: number;
         /**
          *
-         * Represents the level of the specified shape. Level 0 means the shape is not part of any group, level 1 means the shape is part of a top-level group, etc.
+         * Represents the level of the specified shape. For example, a level of 0 means that the shape is not part of any groups, a level of 1 means the shape is part of a top-level group, and a level of 2 means the shape is part of a sub-group of the top level.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36808,7 +37642,7 @@ declare namespace Excel {
         readonly level: number;
         /**
          *
-         * Represents if the aspect ratio locked, in boolean, of the shape.
+         * Specifies whether or not the aspect ratio of this shape is locked.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36824,7 +37658,7 @@ declare namespace Excel {
         name: string;
         /**
          *
-         * Represents the placment, value that represents the way the object is attached to the cells below it.
+         * Represents how the object is attached to the cells below it.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36840,8 +37674,8 @@ declare namespace Excel {
         rotation: number;
         /**
          *
-         * The distance, in points, from the top edge of the shape to the top of the worksheet.
-            Throws an invalid argument exception when set with negative value as input.
+         * The distance, in points, from the top edge of the shape to the top edge of the worksheet.
+            Throws an invalid argument exception when set with a negative value as input.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36849,15 +37683,15 @@ declare namespace Excel {
         top: number;
         /**
          *
-         * Returns the type of the specified shape. Read-only. See Excel.ShapeType for detail.
+         * Returns the type of this shape. See Excel.ShapeType for details. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        readonly type: Excel.ShapeType | "Unknown" | "Image" | "GeometricShape" | "Group" | "Line";
+        readonly type: Excel.ShapeType | "Unsupported" | "Image" | "GeometricShape" | "Group" | "Line";
         /**
          *
-         * Represents the visibility, in boolean, of the specified shape.
+         * Represents the visibility of this shape.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36866,7 +37700,7 @@ declare namespace Excel {
         /**
          *
          * Represents the width, in points, of the shape.
-            Throws an invalid argument exception when set with negative value or zero as input.
+            Throws an invalid argument exception when set with a negative value or zero as input.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36874,7 +37708,7 @@ declare namespace Excel {
         width: number;
         /**
          *
-         * Returns the position of the specified shape in the z-order, the very bottom shape's z-order value is 0. Read-only.
+         * Returns the position of the specified shape in the z-order, with 0 representing the bottom of the order stack. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36896,7 +37730,7 @@ declare namespace Excel {
         set(properties: Excel.Shape): void;
         /**
          *
-         * Deletes the Shape
+         * Removes the shape from the worksheet.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36904,23 +37738,43 @@ declare namespace Excel {
         delete(): void;
         /**
          *
+         * Converts the shape to an image and returns the image as a base64-encoded string. The DPI is 96. The only supported formats are `Excel.PictureFormat.BMP`, `Excel.PictureFormat.PNG`, `Excel.PictureFormat.JPEG`, and `Excel.PictureFormat.GIF`.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param format Specifies the format of the image.
+         */
+        getAsImage(format: Excel.PictureFormat): OfficeExtension.ClientResult<string>;
+        /**
+         *
+         * Converts the shape to an image and returns the image as a base64-encoded string. The DPI is 96. The only supported formats are `Excel.PictureFormat.BMP`, `Excel.PictureFormat.PNG`, `Excel.PictureFormat.JPEG`, and `Excel.PictureFormat.GIF`.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param format Specifies the format of the image.
+         */
+        getAsImage(format: "UNKNOWN" | "BMP" | "JPEG" | "GIF" | "PNG" | "SVG"): OfficeExtension.ClientResult<string>;
+        /**
+         *
          * Moves the shape horizontally by the specified number of points.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param increment Specifies how far the shape is to be moved horizontally, in points. A positive value moves the shape to the right; a negative value moves it to the left. If the sheet is RTL, IncrementLeft with a positive value should move the shape to the left instead of right.
+         * @param increment The increment, in points, the shape will be horizontally moved. A positive value moves the shape to the right and a negative value moves it to the left. If the sheet is right-to-left oriented, this is reversed: positive values will move the shape to the left and negative values will move it to the right.
          */
         incrementLeft(increment: number): void;
         /**
          *
-         * Changes the rotation of the shape around the z-axis by the specified number of degrees.
-            Use the Rotation property to set the absolute rotation of the shape.
+         * Rotates the shape clockwise around the z-axis by the specified number of degrees.
+            Use the `rotation` property to set the absolute rotation of the shape.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param increment Specifies how far the shape is to be rotated horizontally, in degrees. A positive value rotates the shape clockwise; a negative value rotates it counterclockwise.
+         * @param increment How many degrees the shape will be rotated. A positive value rotates the shape clockwise; a negative value rotates it counterclockwise.
          */
         incrementRotation(increment: number): void;
         /**
@@ -36930,93 +37784,77 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param increment Specifies how far the shape is to be moved vertically, in points. A positive value moves the shape down; a negative value moves it up.
+         * @param increment The increment, in points, the shape will be vertically moved. in points. A positive value moves the shape down and a negative value moves it up.
          */
         incrementTop(increment: number): void;
         /**
          *
-         * Saves the shape as a picture and returns the picture in the form of base64 encoded string, using the DPI sets to 96. Only support saves as to Excel.PictureFormat.BMP, Excel.PictureFormat.PNG, Excel.PictureFormat.JPEG and Excel.PictureFormat.GIF.
-         *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
-         */
-        saveAsPicture(format: Excel.PictureFormat): OfficeExtension.ClientResult<string>;
-        /**
-         *
-         * Saves the shape as a picture and returns the picture in the form of base64 encoded string, using the DPI sets to 96. Only support saves as to Excel.PictureFormat.BMP, Excel.PictureFormat.PNG, Excel.PictureFormat.JPEG and Excel.PictureFormat.GIF.
-         *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
-         */
-        saveAsPicture(format: "UNKNOWN" | "BMP" | "JPEG" | "GIF" | "PNG" | "SVG"): OfficeExtension.ClientResult<string>;
-        /**
-         *
-         * Scales the height of the shape by a specified factor. For pictures, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current height.
+         * Scales the height of the shape by a specified factor. For images, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current height.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
          * @param scaleFactor Specifies the ratio between the height of the shape after you resize it and the current or original height.
-         * @param scaleType OriginalSize to scale the shape relative to its original size. CurrentSize to scale it relative to its current size. You can specify OriginalSize for this argument only if the specified shape is a picture.
-         * @param scaleFrom Optional. One of the constants of ShapeScaleFrom which specifies which part of the shape retains its position when the shape is scaled. If omitted, it represents the shape's upper left corner retains its position.
+         * @param scaleType Specifies whether the shape is scaled relative to its original or current size. The original size scaling option only works for images.
+         * @param scaleFrom Optional. Specifies which part of the shape retains its position when the shape is scaled. If omitted, it represents the shape's upper left corner retains its position.
          */
         scaleHeight(scaleFactor: number, scaleType: Excel.ShapeScaleType, scaleFrom?: Excel.ShapeScaleFrom): void;
         /**
          *
-         * Scales the height of the shape by a specified factor. For pictures, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current height.
+         * Scales the height of the shape by a specified factor. For images, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current height.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
          * @param scaleFactor Specifies the ratio between the height of the shape after you resize it and the current or original height.
-         * @param scaleType OriginalSize to scale the shape relative to its original size. CurrentSize to scale it relative to its current size. You can specify OriginalSize for this argument only if the specified shape is a picture.
-         * @param scaleFrom Optional. One of the constants of ShapeScaleFrom which specifies which part of the shape retains its position when the shape is scaled. If omitted, it represents the shape's upper left corner retains its position.
+         * @param scaleType Specifies whether the shape is scaled relative to its original or current size. The original size scaling option only works for images.
+         * @param scaleFrom Optional. Specifies which part of the shape retains its position when the shape is scaled. If omitted, it represents the shape's upper left corner retains its position.
          */
         scaleHeight(scaleFactor: number, scaleType: "CurrentSize" | "OriginalSize", scaleFrom?: "ScaleFromTopLeft" | "ScaleFromMiddle" | "ScaleFromBottomRight"): void;
         /**
          *
-         * Scales the width of the shape by a specified factor. For pictures, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current width.
+         * Scales the width of the shape by a specified factor. For images, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current width.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
          * @param scaleFactor Specifies the ratio between the width of the shape after you resize it and the current or original width.
-         * @param scaleType OriginalSize to scale the shape relative to its original size. CurrentSize to scale it relative to its current size. You can specify OriginalSize for this argument only if the specified shape is a picture.
-         * @param scaleFrom Optional. One of the constants of ShapeScaleFrom which specifies which part of the shape retains its position when the shape is scaled. If omitted, it represents the shape's upper left corner retains its position.
+         * @param scaleType Specifies whether the shape is scaled relative to its original or current size. The original size scaling option only works for images.
+         * @param scaleFrom Optional. Specifies which part of the shape retains its position when the shape is scaled. If omitted, it represents the shape's upper left corner retains its position.
          */
         scaleWidth(scaleFactor: number, scaleType: Excel.ShapeScaleType, scaleFrom?: Excel.ShapeScaleFrom): void;
         /**
          *
-         * Scales the width of the shape by a specified factor. For pictures, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current width.
+         * Scales the width of the shape by a specified factor. For images, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current width.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
          * @param scaleFactor Specifies the ratio between the width of the shape after you resize it and the current or original width.
-         * @param scaleType OriginalSize to scale the shape relative to its original size. CurrentSize to scale it relative to its current size. You can specify OriginalSize for this argument only if the specified shape is a picture.
-         * @param scaleFrom Optional. One of the constants of ShapeScaleFrom which specifies which part of the shape retains its position when the shape is scaled. If omitted, it represents the shape's upper left corner retains its position.
+         * @param scaleType Specifies whether the shape is scaled relative to its original or current size. The original size scaling option only works for images.
+         * @param scaleFrom Optional. Specifies which part of the shape retains its position when the shape is scaled. If omitted, it represents the shape's upper left corner retains its position.
          */
         scaleWidth(scaleFactor: number, scaleType: "CurrentSize" | "OriginalSize", scaleFrom?: "ScaleFromTopLeft" | "ScaleFromMiddle" | "ScaleFromBottomRight"): void;
         /**
          *
-         * Moves the specified shape in front of or behind other shapes in the collection (that is, changes the shape's position in the z-order).
+         * Moves the specified shape up or down the collection's z-order, which shifts it in front of or behind other shapes.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param value where to move the specified shape relative to the other shapes. See Excel.ShapeZOrder for detail.
+         * @param position Where to move the shape in the z-order stack relative to the other shapes. See Excel.ShapeZOrder for details.
          */
-        setZOrder(value: Excel.ShapeZOrder): void;
+        setZOrder(position: Excel.ShapeZOrder): void;
         /**
          *
-         * Moves the specified shape in front of or behind other shapes in the collection (that is, changes the shape's position in the z-order).
+         * Moves the specified shape up or down the collection's z-order, which shifts it in front of or behind other shapes.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param value where to move the specified shape relative to the other shapes. See Excel.ShapeZOrder for detail.
+         * @param position Where to move the shape in the z-order stack relative to the other shapes. See Excel.ShapeZOrder for details.
          */
-        setZOrder(value: "BringToFront" | "BringForward" | "SendToBack" | "SendBackward"): void;
+        setZOrder(position: "BringToFront" | "BringForward" | "SendToBack" | "SendBackward"): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          *
@@ -37050,7 +37888,7 @@ declare namespace Excel {
         readonly onActivated: OfficeExtension.EventHandlers<Excel.ShapeActivatedEventArgs>;
         /**
          *
-         * Occurs when the shape is activated.
+         * Occurs when the shape is deactivated.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
@@ -37066,7 +37904,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a geometric shape object inside a worksheet. A geometric shape can be a line, rectangle, block arrow, equation, flowchart, start, banner, callout or basic shape in Excel.
+     * Represents a geometric shape inside a worksheet. A geometric shape can be a rectangle, block arrow, equation symbol, flowchart item, star, banner, callout, or any other basic shape in Excel.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -37076,7 +37914,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Returns the shape object for the geometric shape. Read-only.
+         * Returns the Shape object for the geometric shape. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37084,7 +37922,7 @@ declare namespace Excel {
         readonly shape: Excel.Shape;
         /**
          *
-         * Represents the shape identifier. Read-only.
+         * Returns the shape identifier. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37119,7 +37957,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents an image object in the worksheet.
+     * Represents an image in the worksheet. To get the corresponding Shape object, use Image.shape.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -37129,7 +37967,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Returns the shape object for the image. Read-only.
+         * Returns the Shape object associated with the image. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37145,7 +37983,7 @@ declare namespace Excel {
         readonly id: string;
         /**
          *
-         * Returns the format for the image. Read-only.
+         * Returns the format of the image. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37180,7 +38018,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a shape group object inside a worksheet.
+     * Represents a shape group inside a worksheet. To get the corresponding Shape object, use `ShapeGroup.shape`.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -37190,7 +38028,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Returns the shape object for the group. Read-only.
+         * Returns the Shape object associated with the group. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37198,7 +38036,7 @@ declare namespace Excel {
         readonly shape: Excel.Shape;
         /**
          *
-         * Returns the shape collection in the group. Read-only.
+         * Returns the collection of Shape objects. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37249,7 +38087,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a shape collection inside a shape group.
+     * Represents the shape collection inside a shape group.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -37261,7 +38099,7 @@ declare namespace Excel {
         readonly items: Excel.Shape[];
         /**
          *
-         * Returns the number of shapes in the group shape. Read-only.
+         * Returns the number of shapes in the shape group. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37274,7 +38112,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param name Name of the shape to be retrieved.
+         * @param name The name of the shape to be retrieved.
          */
         getItem(name: string): Excel.Shape;
         /**
@@ -37284,7 +38122,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param index Index value of the object to be retrieved. Zero-indexed.
+         * @param index The zero-based index value of the object to be retrieved.
          */
         getItemAt(index: number): Excel.Shape;
         /**
@@ -37313,7 +38151,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a Line object inside a worksheet.
+     * Represents a line inside a worksheet. To get the corresponding Shape object, use `Line.shape`.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -37323,7 +38161,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Represents the shape object that the beginning of the specified line is attached to. Read-only.
+         * Represents the shape to which the beginning of the specified line is attached. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37331,7 +38169,7 @@ declare namespace Excel {
         readonly beginConnectedShape: Excel.Shape;
         /**
          *
-         * Represents the shape object that the end of the specified line is attached to. Read-only.
+         * Represents the shape to which the end of the specified line is attached. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37339,7 +38177,7 @@ declare namespace Excel {
         readonly endConnectedShape: Excel.Shape;
         /**
          *
-         * Returns the shape object for the line. Read-only.
+         * Returns the Shape object associated with the line. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37352,7 +38190,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        beginArrowHeadLength: Excel.ArrowHeadLength | "Short" | "Medium" | "Long";
+        beginArrowheadLength: Excel.ArrowheadLength | "Short" | "Medium" | "Long";
         /**
          *
          * Represents the style of the arrowhead at the beginning of the specified line.
@@ -37360,7 +38198,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        beginArrowHeadStyle: Excel.ArrowHeadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
+        beginArrowheadStyle: Excel.ArrowheadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
         /**
          *
          * Represents the width of the arrowhead at the beginning of the specified line.
@@ -37368,10 +38206,10 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        beginArrowHeadWidth: Excel.ArrowHeadWidth | "Narrow" | "Medium" | "Wide";
+        beginArrowheadWidth: Excel.ArrowheadWidth | "Narrow" | "Medium" | "Wide";
         /**
          *
-         * Represents an integer that specifies the connection site that the beginning of a connector is connected to. Read-only. Returns null when the beginning of the line is not attached to any shape.
+         * Represents the connection site to which the beginning of a connector is connected. Read-only. Returns null when the beginning of the line is not attached to any shape.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37384,7 +38222,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        endArrowHeadLength: Excel.ArrowHeadLength | "Short" | "Medium" | "Long";
+        endArrowheadLength: Excel.ArrowheadLength | "Short" | "Medium" | "Long";
         /**
          *
          * Represents the style of the arrowhead at the end of the specified line.
@@ -37392,7 +38230,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        endArrowHeadStyle: Excel.ArrowHeadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
+        endArrowheadStyle: Excel.ArrowheadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
         /**
          *
          * Represents the width of the arrowhead at the end of the specified line.
@@ -37400,10 +38238,10 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        endArrowHeadWidth: Excel.ArrowHeadWidth | "Narrow" | "Medium" | "Wide";
+        endArrowheadWidth: Excel.ArrowheadWidth | "Narrow" | "Medium" | "Wide";
         /**
          *
-         * Represents an integer that specifies the connection site that the end of a connector is connected to. Read-only. Returns null when the end of the line is not attached to any shape.
+         * Represents the connection site to which the end of a connector is connected. Read-only. Returns null when the end of the line is not attached to any shape.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37419,7 +38257,7 @@ declare namespace Excel {
         readonly id: string;
         /**
          *
-         * Represents whether the beginning of the specified line is connected to a shape. Read-only.
+         * Specifies whether or not the beginning of the specified line is connected to a shape. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37427,7 +38265,7 @@ declare namespace Excel {
         readonly isBeginConnected: boolean;
         /**
          *
-         * Represents whether the end of the specified line is connected to a shape. Read-only.
+         * Specifies whether or not the end of the specified line is connected to a shape. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37462,18 +38300,10 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param shape The shape to attach the beginning of the connector to.
-         * @param connectionSite The connection site on the shape which the beginning of the connector attach to. Must be an integer between 0 and the connection site count(not included) of the specified shape.
+         * @param shape The shape to connect.
+         * @param connectionSite The connection site on the shape to which the beginning of the connector is attached. Must be an integer between 0 (inclusive) and the connection-site count of the specified shape (exclusive).
          */
-        beginConnect(shape: Excel.Shape, connectionSite: number): void;
-        /**
-         *
-         * Detaches the beginning of the specified connector from the shape it's attached to.
-         *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
-         */
-        beginDisconnect(): void;
+        connectBeginShape(shape: Excel.Shape, connectionSite: number): void;
         /**
          *
          * Attaches the end of the specified connector to a specified shape.
@@ -37481,18 +38311,26 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param shape The shape to attach the end of the connector to.
-         * @param connectionSite The connection site on the shape which the end of the connector attach to. Must be an integer between 0 and the connection site count(not included) of the specified shape.
+         * @param shape The shape to connect.
+         * @param connectionSite The connection site on the shape to which the end of the connector is attached. Must be an integer between 0 (inclusive) and the connection-site count of the specified shape (exclusive).
          */
-        endConnect(shape: Excel.Shape, connectionSite: number): void;
+        connectEndShape(shape: Excel.Shape, connectionSite: number): void;
         /**
          *
-         * Detaches the end of the specified connector from the shape it's attached to.
+         * Detaches the beginning of the specified connector from a shape.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        endDisconnect(): void;
+        disconnectBeginShape(): void;
+        /**
+         *
+         * Detaches the end of the specified connector from a shape.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        disconnectEndShape(): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          *
@@ -37522,7 +38360,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the fill formatting for a shape object.
+     * Represents the fill formatting of a shape object.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -37532,15 +38370,15 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Represents the shape fill fore color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
+         * Represents the shape fill foreground color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        foreColor: string;
+        foregroundColor: string;
         /**
          *
-         * Returns or sets the degree of transparency of the specified fill as a value from 0.0 (opaque) through 1.0 (clear). For API not supported shape types  or special fill type with inconsistent transparencies, return null. For example, gradient fill type could have inconsistent transparencies.
+         * Returns or sets the transparency percentage of the fill as a value from 0.0 (opaque) through 1.0 (clear). Returns null if the shape type does not support transparency or the shape fill has inconsistent transparency, such as with a gradient fill type.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37548,7 +38386,7 @@ declare namespace Excel {
         transparency: number;
         /**
          *
-         * Returns the fill type of the shape. Read-only. See Excel.ShapeFillType for detail.
+         * Returns the fill type of the shape. Read-only. See Excel.ShapeFillType for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37570,7 +38408,7 @@ declare namespace Excel {
         set(properties: Excel.ShapeFill): void;
         /**
          *
-         * Clears the fill formatting of a shape object.
+         * Clears the fill formatting of this shape.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37578,7 +38416,7 @@ declare namespace Excel {
         clear(): void;
         /**
          *
-         * Sets the fill formatting of a shape object to a uniform color, fill type changeing to Solid Fill.
+         * Sets the fill formatting of the shape to a uniform color. This changes the fill type to "Solid".
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37615,7 +38453,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the line formatting for the shape object. For picture and geometric shape, line formatting represents the border of shape object.
+     * Represents the line formatting for the shape object. For images and geometric shapes, line formatting represents the border of the shape.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -37633,7 +38471,7 @@ declare namespace Excel {
         color: string;
         /**
          *
-         * Represents the line style of the shape. Returns null when line is not visible or has mixed line dash style property (e.g. group type of shape). See Excel.ShapeLineStyle for details.
+         * Represents the line style of the shape. Returns null when the line is not visible or there are inconsistent dash styles. See Excel.ShapeLineStyle for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37641,7 +38479,7 @@ declare namespace Excel {
         dashStyle: Excel.ShapeLineDashStyle | "Dash" | "DashDot" | "DashDotDot" | "LongDash" | "LongDashDot" | "RoundDot" | "Solid" | "SquareDot" | "LongDashDotDot" | "SystemDash" | "SystemDot" | "SystemDashDot";
         /**
          *
-         * Represents the line style of the shape object. Returns null when line is not visible or has mixed line visible property (e.g. group type of shape). See Excel.ShapeLineStyle for details.
+         * Represents the line style of the shape. Returns null when the line is not visible or there are inconsistent styles. See Excel.ShapeLineStyle for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37649,7 +38487,7 @@ declare namespace Excel {
         style: Excel.ShapeLineStyle | "Single" | "ThickBetweenThin" | "ThickThin" | "ThinThick" | "ThinThin";
         /**
          *
-         * Represents the degree of transparency of the specified line as a value from 0.0 (opaque) through 1.0 (clear). Returns null when the shape has mixed line transparency property (e.g. group type of shape).
+         * Represents the degree of transparency of the specified line as a value from 0.0 (opaque) through 1.0 (clear). Returns null when the shape has inconsistent transparencies.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37657,7 +38495,7 @@ declare namespace Excel {
         transparency: number;
         /**
          *
-         * Represents whether the line formatting of a shape element is visible. Returns null when the shape has mixed line visible property (e.g. group type of shape).
+         * Represents whether or not the line formatting of a shape element is visible. Returns null when the shape has inconsistent visibilities.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37665,7 +38503,7 @@ declare namespace Excel {
         visible: boolean;
         /**
          *
-         * Represents weight of the line, in points. Returns null when the line is not visible or has mixed line weight property (e.g. group type of shape).
+         * Represents the weight of the line, in points. Returns null when the line is not visible or there are inconsistent line weights.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37714,7 +38552,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the text frame for a shape object.
+     * Represents the text frame of a shape object.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -37724,7 +38562,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Represents the text range in the text frame.
+         * Represents the text that is attached to a shape in the text frame, and properties and methods for manipulating the text. See Excel.TextRange for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37732,12 +38570,12 @@ declare namespace Excel {
         readonly textRange: Excel.TextRange;
         /**
          *
-         * Gets or sets the auto sizing settings for the text frame. A text frame can be set to auto size the text to fit the text frame, or auto size the text frame to fit the text, or without auto sizing.
+         * Gets or sets the automatic sizing settings for the text frame. A text frame can be set to automatically fit the text to the text frame, to automatically fit the text frame to the text, or not perform any automatic sizing.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        autoSize: Excel.ShapeAutoSize | "AutoSizeNone" | "AutoSizeTextToFitShape" | "AutoSizeShapeToFitText" | "AutoSizeMixed";
+        autoSizeSetting: Excel.ShapeAutoSize | "AutoSizeNone" | "AutoSizeTextToFitShape" | "AutoSizeShapeToFitText" | "AutoSizeMixed";
         /**
          *
          * Represents the bottom margin, in points, of the text frame.
@@ -37748,7 +38586,7 @@ declare namespace Excel {
         bottomMargin: number;
         /**
          *
-         * Specifies whether the TextFrame contains text.
+         * Specifies whether the text frame contains text.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37756,20 +38594,20 @@ declare namespace Excel {
         readonly hasText: boolean;
         /**
          *
-         * Represents the horizontal alignment of the text frame.
+         * Represents the horizontal alignment of the text frame. See Excel.ShapeTextHorizontalAlignment for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        horizontalAlignment: Excel.ShapeTextHorizontalAlignType | "Left" | "Center" | "Right" | "Justify" | "JustifyLow" | "Distributed" | "ThaiDistributed" | "ShapeTextHorizontalAlignType_MaxEnumIDs";
+        horizontalAlignment: Excel.ShapeTextHorizontalAlignment | "Left" | "Center" | "Right" | "Justify" | "JustifyLow" | "Distributed" | "ThaiDistributed";
         /**
          *
-         * Represents the horizontal overflow type of the text frame.
+         * Represents the horizontal overflow behavior of the text frame. See Excel.ShapeTextHorizontalOverflow for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        horizontalOverflow: Excel.ShapeTextHorzOverflowType | "Overflow" | "Clip" | "ShapeTextHorzOverflowType_MaxEnumIDs";
+        horizontalOverflow: Excel.ShapeTextHorizontalOverflow | "Overflow" | "Clip";
         /**
          *
          * Represents the left margin, in points, of the text frame.
@@ -37780,20 +38618,20 @@ declare namespace Excel {
         leftMargin: number;
         /**
          *
-         * Represents the text orientation of the text frame.
+         * Represents the text orientation of the text frame. See Excel.ShapeTextOrientation for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        orientation: Excel.ShapeTextOrientationType | "Horizontal" | "Vertical" | "Vertical270" | "WordArtVertical" | "EastAsianVertical" | "MongolianVertical" | "WordArtVerticalRTL" | "ShapeTextOrientationType_MaxEnumIDs";
+        orientation: Excel.ShapeTextOrientation | "Horizontal" | "Vertical" | "Vertical270" | "WordArtVertical" | "EastAsianVertical" | "MongolianVertical" | "WordArtVerticalRTL";
         /**
          *
-         * Represents the reading order of the text frame, RTL or LTR.
+         * Represents the reading order of the text frame, either left-to-right or right-to-left. See Excel.ShapeTextReadingOrder for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        readingOrder: Excel.ShapeTextReadingOrder | "LTR" | "RTL";
+        readingOrder: Excel.ShapeTextReadingOrder | "LeftToRight" | "RightToLeft";
         /**
          *
          * Represents the right margin, in points, of the text frame.
@@ -37812,20 +38650,20 @@ declare namespace Excel {
         topMargin: number;
         /**
          *
-         * Represents the vertical alignment of the text frame.
+         * Represents the vertical alignment of the text frame. See Excel.ShapeTextVerticalAlignment for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        verticalAlignment: Excel.ShapeTextVerticalAlignType | "Top" | "Middle" | "Bottom" | "Justified" | "Distributed" | "ShapeTextVerticalAlignType_MaxEnumIDs";
+        verticalAlignment: Excel.ShapeTextVerticalAlignment | "Top" | "Middle" | "Bottom" | "Justified" | "Distributed";
         /**
          *
-         * Represents the vertical overflow type of the text frame.
+         * Represents the vertical overflow behavior of the text frame. See Excel.ShapeTextVerticalOverflow for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        verticalOverflow: Excel.ShapeTextVertOverflowType | "Overflow" | "Ellipsis" | "Clip" | "ShapeTextVertOverflowType_MaxEnumIDs";
+        verticalOverflow: Excel.ShapeTextVerticalOverflow | "Overflow" | "Ellipsis" | "Clip";
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -37842,7 +38680,7 @@ declare namespace Excel {
         set(properties: Excel.TextFrame): void;
         /**
          *
-         * Deletes all the text in the textframe.
+         * Deletes all the text in the text frame.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37876,6 +38714,9 @@ declare namespace Excel {
         toJSON(): Excel.Interfaces.TextFrameData;
     }
     /**
+     *
+     * Contains the text that is attached to a shape, in addition to properties and methods for manipulating the text.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
@@ -37914,15 +38755,15 @@ declare namespace Excel {
         set(properties: Excel.TextRange): void;
         /**
          *
-         * Returns a TextRange object for characters in the given range.
+         * Returns a TextRange object for the substring in the given range.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param start Position of the first character in the returned range.
-         * @param length Optional. The number of characters to be returned. If omitted, it represents the number of characters from "start" to the end of the last paragraph in TextRange.
+         * @param start The zero-based index of the first character to get from the text range.
+         * @param length Optional. The number of characters to be returned in the new text range. If length is omitted, all the characters from start to the end of the text range's last paragraph will be returned.
          */
-        getCharacters(start: number, length?: number): Excel.TextRange;
+        getSubstring(start: number, length?: number): Excel.TextRange;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          *
@@ -37952,7 +38793,7 @@ declare namespace Excel {
     }
     /**
      *
-     * This object represents the font attributes (font name, font size, color, etc.) for a TextRange in the Shape.
+     * Represents the font attributes, such as font name, font size, and color, for a shape's TextRange object.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -37970,7 +38811,7 @@ declare namespace Excel {
         bold: boolean;
         /**
          *
-         * HTML color code representation of the text color. E.g. #FF0000 represents Red. Returns null if the TextRange includes text fragments with different colors.
+         * The HTML color code representation of the text color (e.g. "#FF0000" represents red). Returns null if the TextRange includes text fragments with different colors.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37978,7 +38819,7 @@ declare namespace Excel {
         color: string;
         /**
          *
-         * Represents the italic status of font. Return null if the TextRange includes both italic and non-italic text fragments.
+         * Represents the italic status of font. Returns null if the TextRange includes both italic and non-italic text fragments.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37986,7 +38827,7 @@ declare namespace Excel {
         italic: boolean;
         /**
          *
-         * Represents font name (e.g. "Calibri"). If the text is Complex Script or East Asian language, represents corresponding font name; otherwise represents Latin font name.
+         * Represents font name (e.g. "Calibri"). If the text is Complex Script or East Asian language, this is the corresponding font name; otherwise it is the Latin font name.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37994,7 +38835,7 @@ declare namespace Excel {
         name: string;
         /**
          *
-         * Represents font size in points (e.g. 11). Return null if the TextRange includes text fragments with different font sizes.
+         * Represents font size in points (e.g. 11). Returns null if the TextRange includes text fragments with different font sizes.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -38002,7 +38843,7 @@ declare namespace Excel {
         size: number;
         /**
          *
-         * Type of underline applied to the font. Return null if the TextRange includes text fragments with different underline styles. See Excel.ShapeFontUnderlineStyle for details.
+         * Type of underline applied to the font. Returns null if the TextRange includes text fragments with different underline styles. See Excel.ShapeFontUnderlineStyle for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -39084,6 +39925,9 @@ declare namespace Excel {
         power = "Power"
     }
     /**
+     *
+     * Specifies where in the z-order a shape should be moved relative to other shapes.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
@@ -39094,17 +39938,23 @@ declare namespace Excel {
         sendBackward = "SendBackward"
     }
     /**
+     *
+     * Specifies the type of a shape.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     enum ShapeType {
-        unknown = "Unknown",
+        unsupported = "Unsupported",
         image = "Image",
         geometricShape = "GeometricShape",
         group = "Group",
         line = "Line"
     }
     /**
+     *
+     * Specifies whether the shape is scaled relative to its original or current size.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
@@ -39113,6 +39963,9 @@ declare namespace Excel {
         originalSize = "OriginalSize"
     }
     /**
+     *
+     * Specifies which part of the shape retains its position when the shape is scaled.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
@@ -39122,18 +39975,54 @@ declare namespace Excel {
         scaleFromBottomRight = "ScaleFromBottomRight"
     }
     /**
+     *
+     * Specifies a shape's fill type.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     enum ShapeFillType {
+        /**
+         *
+         * No fill.
+         *
+         */
         noFill = "NoFill",
+        /**
+         *
+         * Solid fill.
+         *
+         */
         solid = "Solid",
+        /**
+         *
+         * Gradient fill.
+         *
+         */
         gradient = "Gradient",
+        /**
+         *
+         * Pattern fill.
+         *
+         */
         pattern = "Pattern",
+        /**
+         *
+         * Picture and texture fill.
+         *
+         */
         pictureAndTexture = "PictureAndTexture",
+        /**
+         *
+         * Mixed fill.
+         *
+         */
         mixed = "Mixed"
     }
     /**
+     *
+     * The type of underline applied to a font.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
@@ -39157,29 +40046,88 @@ declare namespace Excel {
         wavyDouble = "WavyDouble"
     }
     /**
+     *
+     * The format of the image.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     enum PictureFormat {
         unknown = "UNKNOWN",
+        /**
+         *
+         * Bitmap image.
+         *
+         */
         bmp = "BMP",
+        /**
+         *
+         * Joint Photographic Experts Group.
+         *
+         */
         jpeg = "JPEG",
+        /**
+         *
+         * Graphics Interchange Format.
+         *
+         */
         gif = "GIF",
+        /**
+         *
+         * Portable Network Graphics.
+         *
+         */
         png = "PNG",
+        /**
+         *
+         * Scalable Vector Graphic.
+         *
+         */
         svg = "SVG"
     }
     /**
+     *
+     * The style for a line.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     enum ShapeLineStyle {
+        /**
+         *
+         * Single line.
+         *
+         */
         single = "Single",
+        /**
+         *
+         * Thick line with a thin line on each side.
+         *
+         */
         thickBetweenThin = "ThickBetweenThin",
+        /**
+         *
+         * Thick line next to thin line. For horizontal lines, the thick line is above the thin line. For vertical lines, the thick line is to the left of the thin line.
+         *
+         */
         thickThin = "ThickThin",
+        /**
+         *
+         * Thick line next to thin line. For horizontal lines, the thick line is below the thin line. For vertical lines, the thick line is to the right of the thin line.
+         *
+         */
         thinThick = "ThinThick",
+        /**
+         *
+         * Two thin lines.
+         *
+         */
         thinThin = "ThinThin"
     }
     /**
+     *
+     * The dash style for a line.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
@@ -39201,7 +40149,7 @@ declare namespace Excel {
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
-    enum ArrowHeadLength {
+    enum ArrowheadLength {
         short = "Short",
         medium = "Medium",
         long = "Long"
@@ -39210,7 +40158,7 @@ declare namespace Excel {
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
-    enum ArrowHeadStyle {
+    enum ArrowheadStyle {
         none = "None",
         triangle = "Triangle",
         stealth = "Stealth",
@@ -39222,7 +40170,7 @@ declare namespace Excel {
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
-    enum ArrowHeadWidth {
+    enum ArrowheadWidth {
         narrow = "Narrow",
         medium = "Medium",
         wide = "Wide"
@@ -40529,6 +41477,9 @@ declare namespace Excel {
         fetchingData = "FetchingData"
     }
     /**
+     *
+     * Specifies the shape type for a GeometricShape object.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
@@ -40883,12 +41834,30 @@ declare namespace Excel {
         text = "Text"
     }
     /**
+     *
+     * Specifies the way that an object is attached to its underlying cells.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     enum Placement {
+        /**
+         *
+         * The object is moved with the cells.
+         *
+         */
         twoCell = "TwoCell",
+        /**
+         *
+         * The object is moved and sized with the cells.
+         *
+         */
         oneCell = "OneCell",
+        /**
+         *
+         * The object is free floating.
+         *
+         */
         absolute = "Absolute"
     }
     /**
@@ -40919,85 +41888,136 @@ declare namespace Excel {
         rectangularGradient = "RectangularGradient"
     }
     /**
+     *
+     * Specifies the horizontal alignment for the text frame in a shape.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
-    enum ShapeTextHorizontalAlignType {
+    enum ShapeTextHorizontalAlignment {
         left = "Left",
         center = "Center",
         right = "Right",
         justify = "Justify",
         justifyLow = "JustifyLow",
         distributed = "Distributed",
-        thaiDistributed = "ThaiDistributed",
-        shapeTextHorizontalAlignType_MaxEnumIDs = "ShapeTextHorizontalAlignType_MaxEnumIDs"
+        thaiDistributed = "ThaiDistributed"
     }
     /**
+     *
+     * Specifies the vertical alignment for the text frame in a shape.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
-    enum ShapeTextVerticalAlignType {
+    enum ShapeTextVerticalAlignment {
         top = "Top",
         middle = "Middle",
         bottom = "Bottom",
         justified = "Justified",
-        distributed = "Distributed",
-        shapeTextVerticalAlignType_MaxEnumIDs = "ShapeTextVerticalAlignType_MaxEnumIDs"
+        distributed = "Distributed"
     }
     /**
+     *
+     * Specifies the vertical overflow for the text frame in a shape.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
-    enum ShapeTextVertOverflowType {
+    enum ShapeTextVerticalOverflow {
+        /**
+         *
+         * Allow text to overflow the text frame vertically (can be from the top, bottom, or both depending on the text alignment).
+         *
+         */
         overflow = "Overflow",
+        /**
+         *
+         * Hide text that does not fit vertically within the text frame, and add an ellipsis (...) at the end of the visible text.
+         *
+         */
         ellipsis = "Ellipsis",
-        clip = "Clip",
-        shapeTextVertOverflowType_MaxEnumIDs = "ShapeTextVertOverflowType_MaxEnumIDs"
+        /**
+         *
+         * Hide text that does not fit vertically within the text frame.
+         *
+         */
+        clip = "Clip"
     }
     /**
+     *
+     * Specifies the horizontal overflow for the text frame in a shape.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
-    enum ShapeTextHorzOverflowType {
+    enum ShapeTextHorizontalOverflow {
         overflow = "Overflow",
-        clip = "Clip",
-        shapeTextHorzOverflowType_MaxEnumIDs = "ShapeTextHorzOverflowType_MaxEnumIDs"
+        clip = "Clip"
     }
     /**
+     *
+     * Specifies the reading order for the text frame in a shape.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     enum ShapeTextReadingOrder {
-        ltr = "LTR",
-        rtl = "RTL"
+        leftToRight = "LeftToRight",
+        rightToLeft = "RightToLeft"
     }
     /**
+     *
+     * Specifies the orientation for the text frame in a shape.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
-    enum ShapeTextOrientationType {
+    enum ShapeTextOrientation {
         horizontal = "Horizontal",
         vertical = "Vertical",
         vertical270 = "Vertical270",
         wordArtVertical = "WordArtVertical",
         eastAsianVertical = "EastAsianVertical",
         mongolianVertical = "MongolianVertical",
-        wordArtVerticalRTL = "WordArtVerticalRTL",
-        shapeTextOrientationType_MaxEnumIDs = "ShapeTextOrientationType_MaxEnumIDs"
+        wordArtVerticalRTL = "WordArtVerticalRTL"
     }
     /**
+     *
+     * Determines the type of automatic sizing allowed.
+     *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     enum ShapeAutoSize {
+        /**
+         *
+         * No autosizing.
+         *
+         */
         autoSizeNone = "AutoSizeNone",
+        /**
+         *
+         * The text is adjusted to fit the shape.
+         *
+         */
         autoSizeTextToFitShape = "AutoSizeTextToFitShape",
+        /**
+         *
+         * The shape is adjusted to fit the text.
+         *
+         */
         autoSizeShapeToFitText = "AutoSizeShapeToFitText",
+        /**
+         *
+         * A combination of automatic sizing schemes are used.
+         *
+         */
         autoSizeMixed = "AutoSizeMixed"
     }
     /**
      *
-     * Specifies the close behavior for workbook.close API.
+     * Specifies the close behavior for Workbook.close API.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -41018,7 +42038,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Specifies the save behavior for workbook.save API.
+     * Specifies the save behavior for Workbook.save API.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -44978,8 +45998,8 @@ declare namespace Excel {
             chartDataPointTrack?: boolean;
             /**
              *
-             * True if no changes have been made to the specified workbook since it was last saved.
-            You can set this property to True if you want to close a modified workbook without either saving it or being prompted to save it.
+             * Specifies whether or not changes have been made since the workbook was last saved.
+            You can set this property to true if you want to close a modified workbook without either saving it or being prompted to save it.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -48783,6 +49803,66 @@ declare namespace Excel {
         interface StyleCollectionUpdateData {
             items?: Excel.Interfaces.StyleData[];
         }
+        /** An interface for updating data on the TableStyleCollection object, for use in "tableStyleCollection.set({ ... })". */
+        interface TableStyleCollectionUpdateData {
+            items?: Excel.Interfaces.TableStyleData[];
+        }
+        /** An interface for updating data on the TableStyle object, for use in "tableStyle.set({ ... })". */
+        interface TableStyleUpdateData {
+            /**
+             *
+             * Gets the name of the TableStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: string;
+        }
+        /** An interface for updating data on the PivotTableStyleCollection object, for use in "pivotTableStyleCollection.set({ ... })". */
+        interface PivotTableStyleCollectionUpdateData {
+            items?: Excel.Interfaces.PivotTableStyleData[];
+        }
+        /** An interface for updating data on the PivotTableStyle object, for use in "pivotTableStyle.set({ ... })". */
+        interface PivotTableStyleUpdateData {
+            /**
+             *
+             * Gets the name of the PivotTableStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: string;
+        }
+        /** An interface for updating data on the SlicerStyleCollection object, for use in "slicerStyleCollection.set({ ... })". */
+        interface SlicerStyleCollectionUpdateData {
+            items?: Excel.Interfaces.SlicerStyleData[];
+        }
+        /** An interface for updating data on the SlicerStyle object, for use in "slicerStyle.set({ ... })". */
+        interface SlicerStyleUpdateData {
+            /**
+             *
+             * Gets the name of the SlicerStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: string;
+        }
+        /** An interface for updating data on the TimelineStyleCollection object, for use in "timelineStyleCollection.set({ ... })". */
+        interface TimelineStyleCollectionUpdateData {
+            items?: Excel.Interfaces.TimelineStyleData[];
+        }
+        /** An interface for updating data on the TimelineStyle object, for use in "timelineStyle.set({ ... })". */
+        interface TimelineStyleUpdateData {
+            /**
+             *
+             * Gets the name of the TimelineStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: string;
+        }
         /** An interface for updating data on the PageLayout object, for use in "pageLayout.set({ ... })". */
         interface PageLayoutUpdateData {
             /**
@@ -49078,7 +50158,7 @@ declare namespace Excel {
         interface CommentUpdateData {
             /**
              *
-             * Get/Set the content.
+             * Get or set the content.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49093,7 +50173,7 @@ declare namespace Excel {
         interface CommentReplyUpdateData {
             /**
              *
-             * Get/Set the content.
+             * Get or set the content.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49108,7 +50188,7 @@ declare namespace Excel {
         interface ShapeUpdateData {
             /**
             *
-            * Returns the fill formatting of the shape object.
+            * Returns the fill formatting of this shape.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -49116,7 +50196,7 @@ declare namespace Excel {
             fill?: Excel.Interfaces.ShapeFillUpdateData;
             /**
             *
-            * Returns the line formatting of the shape object.
+            * Returns the line formatting of this shape.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -49124,7 +50204,7 @@ declare namespace Excel {
             lineFormat?: Excel.Interfaces.ShapeLineFormatUpdateData;
             /**
              *
-             * Returns or sets the alternative descriptive text string for a Shape object when the object is saved to a Web page.
+             * Returns or sets the alternative description text for a Shape object.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49132,7 +50212,7 @@ declare namespace Excel {
             altTextDescription?: string;
             /**
              *
-             * Returns or sets the alternative title text string for a Shape object when the object is saved to a Web page.
+             * Returns or sets the alternative title text for a Shape object.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49140,7 +50220,7 @@ declare namespace Excel {
             altTextTitle?: string;
             /**
              *
-             * Represents the geometric shape type of the specified shape. See Excel.GeometricShapeType for detail. Returns null if the shape is not geometric, for example, get GeometricShapeType of a line or a chart will return null.
+             * Represents the geometric shape type of this geometric shape. See Excel.GeometricShapeType for details. Returns null if the shape type is not "GeometricShape".
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49149,7 +50229,7 @@ declare namespace Excel {
             /**
              *
              * Represents the height, in points, of the shape.
-            Throws an invalid argument exception when set with negative value or zero as input.
+            Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49157,8 +50237,8 @@ declare namespace Excel {
             height?: number;
             /**
              *
-             * The distance, in points, from the left side of the shape to the left of the worksheet.
-            Throws an invalid argument exception when set with negative value as input.
+             * The distance, in points, from the left side of the shape to the left side of the worksheet.
+            Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49166,7 +50246,7 @@ declare namespace Excel {
             left?: number;
             /**
              *
-             * Represents if the aspect ratio locked, in boolean, of the shape.
+             * Specifies whether or not the aspect ratio of this shape is locked.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49182,7 +50262,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * Represents the placment, value that represents the way the object is attached to the cells below it.
+             * Represents how the object is attached to the cells below it.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49198,8 +50278,8 @@ declare namespace Excel {
             rotation?: number;
             /**
              *
-             * The distance, in points, from the top edge of the shape to the top of the worksheet.
-            Throws an invalid argument exception when set with negative value as input.
+             * The distance, in points, from the top edge of the shape to the top edge of the worksheet.
+            Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49207,7 +50287,7 @@ declare namespace Excel {
             top?: number;
             /**
              *
-             * Represents the visibility, in boolean, of the specified shape.
+             * Represents the visibility of this shape.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49216,7 +50296,7 @@ declare namespace Excel {
             /**
              *
              * Represents the width, in points, of the shape.
-            Throws an invalid argument exception when set with negative value or zero as input.
+            Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49236,7 +50316,7 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            beginArrowHeadLength?: Excel.ArrowHeadLength | "Short" | "Medium" | "Long";
+            beginArrowheadLength?: Excel.ArrowheadLength | "Short" | "Medium" | "Long";
             /**
              *
              * Represents the style of the arrowhead at the beginning of the specified line.
@@ -49244,7 +50324,7 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            beginArrowHeadStyle?: Excel.ArrowHeadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
+            beginArrowheadStyle?: Excel.ArrowheadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
             /**
              *
              * Represents the width of the arrowhead at the beginning of the specified line.
@@ -49252,7 +50332,7 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            beginArrowHeadWidth?: Excel.ArrowHeadWidth | "Narrow" | "Medium" | "Wide";
+            beginArrowheadWidth?: Excel.ArrowheadWidth | "Narrow" | "Medium" | "Wide";
             /**
              *
              * Represents the length of the arrowhead at the end of the specified line.
@@ -49260,7 +50340,7 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            endArrowHeadLength?: Excel.ArrowHeadLength | "Short" | "Medium" | "Long";
+            endArrowheadLength?: Excel.ArrowheadLength | "Short" | "Medium" | "Long";
             /**
              *
              * Represents the style of the arrowhead at the end of the specified line.
@@ -49268,7 +50348,7 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            endArrowHeadStyle?: Excel.ArrowHeadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
+            endArrowheadStyle?: Excel.ArrowheadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
             /**
              *
              * Represents the width of the arrowhead at the end of the specified line.
@@ -49276,7 +50356,7 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            endArrowHeadWidth?: Excel.ArrowHeadWidth | "Narrow" | "Medium" | "Wide";
+            endArrowheadWidth?: Excel.ArrowheadWidth | "Narrow" | "Medium" | "Wide";
             /**
              *
              * Represents the connector type for the line.
@@ -49290,15 +50370,15 @@ declare namespace Excel {
         interface ShapeFillUpdateData {
             /**
              *
-             * Represents the shape fill fore color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
+             * Represents the shape fill foreground color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            foreColor?: string;
+            foregroundColor?: string;
             /**
              *
-             * Returns or sets the degree of transparency of the specified fill as a value from 0.0 (opaque) through 1.0 (clear). For API not supported shape types  or special fill type with inconsistent transparencies, return null. For example, gradient fill type could have inconsistent transparencies.
+             * Returns or sets the transparency percentage of the fill as a value from 0.0 (opaque) through 1.0 (clear). Returns null if the shape type does not support transparency or the shape fill has inconsistent transparency, such as with a gradient fill type.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49317,7 +50397,7 @@ declare namespace Excel {
             color?: string;
             /**
              *
-             * Represents the line style of the shape. Returns null when line is not visible or has mixed line dash style property (e.g. group type of shape). See Excel.ShapeLineStyle for details.
+             * Represents the line style of the shape. Returns null when the line is not visible or there are inconsistent dash styles. See Excel.ShapeLineStyle for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49325,7 +50405,7 @@ declare namespace Excel {
             dashStyle?: Excel.ShapeLineDashStyle | "Dash" | "DashDot" | "DashDotDot" | "LongDash" | "LongDashDot" | "RoundDot" | "Solid" | "SquareDot" | "LongDashDotDot" | "SystemDash" | "SystemDot" | "SystemDashDot";
             /**
              *
-             * Represents the line style of the shape object. Returns null when line is not visible or has mixed line visible property (e.g. group type of shape). See Excel.ShapeLineStyle for details.
+             * Represents the line style of the shape. Returns null when the line is not visible or there are inconsistent styles. See Excel.ShapeLineStyle for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49333,7 +50413,7 @@ declare namespace Excel {
             style?: Excel.ShapeLineStyle | "Single" | "ThickBetweenThin" | "ThickThin" | "ThinThick" | "ThinThin";
             /**
              *
-             * Represents the degree of transparency of the specified line as a value from 0.0 (opaque) through 1.0 (clear). Returns null when the shape has mixed line transparency property (e.g. group type of shape).
+             * Represents the degree of transparency of the specified line as a value from 0.0 (opaque) through 1.0 (clear). Returns null when the shape has inconsistent transparencies.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49341,7 +50421,7 @@ declare namespace Excel {
             transparency?: number;
             /**
              *
-             * Represents whether the line formatting of a shape element is visible. Returns null when the shape has mixed line visible property (e.g. group type of shape).
+             * Represents whether or not the line formatting of a shape element is visible. Returns null when the shape has inconsistent visibilities.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49349,7 +50429,7 @@ declare namespace Excel {
             visible?: boolean;
             /**
              *
-             * Represents weight of the line, in points. Returns null when the line is not visible or has mixed line weight property (e.g. group type of shape).
+             * Represents the weight of the line, in points. Returns null when the line is not visible or there are inconsistent line weights.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49360,12 +50440,12 @@ declare namespace Excel {
         interface TextFrameUpdateData {
             /**
              *
-             * Gets or sets the auto sizing settings for the text frame. A text frame can be set to auto size the text to fit the text frame, or auto size the text frame to fit the text, or without auto sizing.
+             * Gets or sets the automatic sizing settings for the text frame. A text frame can be set to automatically fit the text to the text frame, to automatically fit the text frame to the text, or not perform any automatic sizing.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            autoSize?: Excel.ShapeAutoSize | "AutoSizeNone" | "AutoSizeTextToFitShape" | "AutoSizeShapeToFitText" | "AutoSizeMixed";
+            autoSizeSetting?: Excel.ShapeAutoSize | "AutoSizeNone" | "AutoSizeTextToFitShape" | "AutoSizeShapeToFitText" | "AutoSizeMixed";
             /**
              *
              * Represents the bottom margin, in points, of the text frame.
@@ -49376,20 +50456,20 @@ declare namespace Excel {
             bottomMargin?: number;
             /**
              *
-             * Represents the horizontal alignment of the text frame.
+             * Represents the horizontal alignment of the text frame. See Excel.ShapeTextHorizontalAlignment for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            horizontalAlignment?: Excel.ShapeTextHorizontalAlignType | "Left" | "Center" | "Right" | "Justify" | "JustifyLow" | "Distributed" | "ThaiDistributed" | "ShapeTextHorizontalAlignType_MaxEnumIDs";
+            horizontalAlignment?: Excel.ShapeTextHorizontalAlignment | "Left" | "Center" | "Right" | "Justify" | "JustifyLow" | "Distributed" | "ThaiDistributed";
             /**
              *
-             * Represents the horizontal overflow type of the text frame.
+             * Represents the horizontal overflow behavior of the text frame. See Excel.ShapeTextHorizontalOverflow for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            horizontalOverflow?: Excel.ShapeTextHorzOverflowType | "Overflow" | "Clip" | "ShapeTextHorzOverflowType_MaxEnumIDs";
+            horizontalOverflow?: Excel.ShapeTextHorizontalOverflow | "Overflow" | "Clip";
             /**
              *
              * Represents the left margin, in points, of the text frame.
@@ -49400,20 +50480,20 @@ declare namespace Excel {
             leftMargin?: number;
             /**
              *
-             * Represents the text orientation of the text frame.
+             * Represents the text orientation of the text frame. See Excel.ShapeTextOrientation for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            orientation?: Excel.ShapeTextOrientationType | "Horizontal" | "Vertical" | "Vertical270" | "WordArtVertical" | "EastAsianVertical" | "MongolianVertical" | "WordArtVerticalRTL" | "ShapeTextOrientationType_MaxEnumIDs";
+            orientation?: Excel.ShapeTextOrientation | "Horizontal" | "Vertical" | "Vertical270" | "WordArtVertical" | "EastAsianVertical" | "MongolianVertical" | "WordArtVerticalRTL";
             /**
              *
-             * Represents the reading order of the text frame, RTL or LTR.
+             * Represents the reading order of the text frame, either left-to-right or right-to-left. See Excel.ShapeTextReadingOrder for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            readingOrder?: Excel.ShapeTextReadingOrder | "LTR" | "RTL";
+            readingOrder?: Excel.ShapeTextReadingOrder | "LeftToRight" | "RightToLeft";
             /**
              *
              * Represents the right margin, in points, of the text frame.
@@ -49432,20 +50512,20 @@ declare namespace Excel {
             topMargin?: number;
             /**
              *
-             * Represents the vertical alignment of the text frame.
+             * Represents the vertical alignment of the text frame. See Excel.ShapeTextVerticalAlignment for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            verticalAlignment?: Excel.ShapeTextVerticalAlignType | "Top" | "Middle" | "Bottom" | "Justified" | "Distributed" | "ShapeTextVerticalAlignType_MaxEnumIDs";
+            verticalAlignment?: Excel.ShapeTextVerticalAlignment | "Top" | "Middle" | "Bottom" | "Justified" | "Distributed";
             /**
              *
-             * Represents the vertical overflow type of the text frame.
+             * Represents the vertical overflow behavior of the text frame. See Excel.ShapeTextVerticalOverflow for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            verticalOverflow?: Excel.ShapeTextVertOverflowType | "Overflow" | "Ellipsis" | "Clip" | "ShapeTextVertOverflowType_MaxEnumIDs";
+            verticalOverflow?: Excel.ShapeTextVerticalOverflow | "Overflow" | "Ellipsis" | "Clip";
         }
         /** An interface for updating data on the TextRange object, for use in "textRange.set({ ... })". */
         interface TextRangeUpdateData {
@@ -49478,7 +50558,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color. E.g. #FF0000 represents Red. Returns null if the TextRange includes text fragments with different colors.
+             * The HTML color code representation of the text color (e.g. "#FF0000" represents red). Returns null if the TextRange includes text fragments with different colors.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49486,7 +50566,7 @@ declare namespace Excel {
             color?: string;
             /**
              *
-             * Represents the italic status of font. Return null if the TextRange includes both italic and non-italic text fragments.
+             * Represents the italic status of font. Returns null if the TextRange includes both italic and non-italic text fragments.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49494,7 +50574,7 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Represents font name (e.g. "Calibri"). If the text is Complex Script or East Asian language, represents corresponding font name; otherwise represents Latin font name.
+             * Represents font name (e.g. "Calibri"). If the text is Complex Script or East Asian language, this is the corresponding font name; otherwise it is the Latin font name.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49502,7 +50582,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * Represents font size in points (e.g. 11). Return null if the TextRange includes text fragments with different font sizes.
+             * Represents font size in points (e.g. 11). Returns null if the TextRange includes text fragments with different font sizes.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49510,7 +50590,7 @@ declare namespace Excel {
             size?: number;
             /**
              *
-             * Type of underline applied to the font. Return null if the TextRange includes text fragments with different underline styles. See Excel.ShapeFontUnderlineStyle for details.
+             * Type of underline applied to the font. Returns null if the TextRange includes text fragments with different underline styles. See Excel.ShapeFontUnderlineStyle for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49731,6 +50811,14 @@ declare namespace Excel {
             names?: Excel.Interfaces.NamedItemData[];
             /**
             *
+            * Represents a collection of PivotTableStyles associated with the workbook. Read-only.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            pivotTableStyles?: Excel.Interfaces.PivotTableStyleData[];
+            /**
+            *
             * Represents a collection of PivotTables associated with the workbook. Read-only.
             *
             * [Api set: ExcelApi 1.3]
@@ -49759,6 +50847,14 @@ declare namespace Excel {
             settings?: Excel.Interfaces.SettingData[];
             /**
             *
+            * Represents a collection of SlicerStyles associated with the workbook. Read-only.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            slicerStyles?: Excel.Interfaces.SlicerStyleData[];
+            /**
+            *
             * Represents a collection of Slicers associated with the workbook. Read-only.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -49774,11 +50870,27 @@ declare namespace Excel {
             styles?: Excel.Interfaces.StyleData[];
             /**
             *
+            * Represents a collection of TableStyles associated with the workbook. Read-only.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            tableStyles?: Excel.Interfaces.TableStyleData[];
+            /**
+            *
             * Represents a collection of tables associated with the workbook. Read-only.
             *
             * [Api set: ExcelApi 1.1]
             */
             tables?: Excel.Interfaces.TableData[];
+            /**
+            *
+            * Represents a collection of TimelineStyles associated with the workbook. Read-only.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            timelineStyles?: Excel.Interfaces.TimelineStyleData[];
             /**
             *
             * Represents a collection of worksheets associated with the workbook. Read-only.
@@ -49788,7 +50900,7 @@ declare namespace Excel {
             worksheets?: Excel.Interfaces.WorksheetData[];
             /**
              *
-             * True if the workbook is in auto save mode.
+             * Specifies whether or not the workbook is in autosave mode. Read-Only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49813,8 +50925,8 @@ declare namespace Excel {
             chartDataPointTrack?: boolean;
             /**
              *
-             * True if no changes have been made to the specified workbook since it was last saved.
-            You can set this property to True if you want to close a modified workbook without either saving it or being prompted to save it.
+             * Specifies whether or not changes have been made since the workbook was last saved.
+            You can set this property to true if you want to close a modified workbook without either saving it or being prompted to save it.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49829,7 +50941,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * True if the workbook has ever been saved locally or online.
+             * Specifies whether or not the workbook has ever been saved locally or online. Read-Only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54583,6 +55695,98 @@ declare namespace Excel {
         interface StyleCollectionData {
             items?: Excel.Interfaces.StyleData[];
         }
+        /** An interface describing the data returned by calling "tableStyleCollection.toJSON()". */
+        interface TableStyleCollectionData {
+            items?: Excel.Interfaces.TableStyleData[];
+        }
+        /** An interface describing the data returned by calling "tableStyle.toJSON()". */
+        interface TableStyleData {
+            /**
+             *
+             * Gets the name of the TableStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: string;
+            /**
+             *
+             * True means that this TableStyle object is read-only. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            readOnly?: boolean;
+        }
+        /** An interface describing the data returned by calling "pivotTableStyleCollection.toJSON()". */
+        interface PivotTableStyleCollectionData {
+            items?: Excel.Interfaces.PivotTableStyleData[];
+        }
+        /** An interface describing the data returned by calling "pivotTableStyle.toJSON()". */
+        interface PivotTableStyleData {
+            /**
+             *
+             * Gets the name of the PivotTableStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: string;
+            /**
+             *
+             * True means that this PivotTableStyle object is read-only. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            readOnly?: boolean;
+        }
+        /** An interface describing the data returned by calling "slicerStyleCollection.toJSON()". */
+        interface SlicerStyleCollectionData {
+            items?: Excel.Interfaces.SlicerStyleData[];
+        }
+        /** An interface describing the data returned by calling "slicerStyle.toJSON()". */
+        interface SlicerStyleData {
+            /**
+             *
+             * Gets the name of the SlicerStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: string;
+            /**
+             *
+             * True means that this SlicerStyle object is read-only. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            readOnly?: boolean;
+        }
+        /** An interface describing the data returned by calling "timelineStyleCollection.toJSON()". */
+        interface TimelineStyleCollectionData {
+            items?: Excel.Interfaces.TimelineStyleData[];
+        }
+        /** An interface describing the data returned by calling "timelineStyle.toJSON()". */
+        interface TimelineStyleData {
+            /**
+             *
+             * Gets the name of the TimelineStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: string;
+            /**
+             *
+             * True means that this TimelineStyle object is read-only. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            readOnly?: boolean;
+        }
         /** An interface describing the data returned by calling "pageLayout.toJSON()". */
         interface PageLayoutData {
             /**
@@ -54905,12 +56109,36 @@ declare namespace Excel {
             replies?: Excel.Interfaces.CommentReplyData[];
             /**
              *
-             * Get/Set the content.
+             * Get author email of the comment.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            authorEmail?: string;
+            /**
+             *
+             * Get author name of the comment.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            authorName?: string;
+            /**
+             *
+             * Get or set the content.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
             content?: string;
+            /**
+             *
+             * Get creation time of the comment. Will return null if the comment is converted from note, as in this case, the comment will not has created date.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            creationDate?: Date;
             /**
              *
              * Represents the comment identifier. Read-only.
@@ -54936,12 +56164,36 @@ declare namespace Excel {
         interface CommentReplyData {
             /**
              *
-             * Get/Set the content.
+             * Get author email of the comment reply.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            authorEmail?: string;
+            /**
+             *
+             * Get author name of the comment reply.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            authorName?: string;
+            /**
+             *
+             * Get or set the content.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
             content?: string;
+            /**
+             *
+             * Get creation time of the comment reply.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            creationDate?: Date;
             /**
              *
              * Represents the comment reply identifier. Read-only.
@@ -54967,7 +56219,7 @@ declare namespace Excel {
         interface ShapeData {
             /**
             *
-            * Returns the fill formatting of the shape object. Read-only.
+            * Returns the fill formatting of this shape. Read-only.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -54975,7 +56227,7 @@ declare namespace Excel {
             fill?: Excel.Interfaces.ShapeFillData;
             /**
             *
-            * Returns the line formatting of the shape object. Read-only.
+            * Returns the line formatting of this shape. Read-only.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -54983,7 +56235,7 @@ declare namespace Excel {
             lineFormat?: Excel.Interfaces.ShapeLineFormatData;
             /**
              *
-             * Returns or sets the alternative descriptive text string for a Shape object when the object is saved to a Web page.
+             * Returns or sets the alternative description text for a Shape object.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54991,7 +56243,7 @@ declare namespace Excel {
             altTextDescription?: string;
             /**
              *
-             * Returns or sets the alternative title text string for a Shape object when the object is saved to a Web page.
+             * Returns or sets the alternative title text for a Shape object.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54999,7 +56251,7 @@ declare namespace Excel {
             altTextTitle?: string;
             /**
              *
-             * Returns the number of connection sites on the specified shape. Read-only.
+             * Returns the number of connection sites on this shape. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55007,7 +56259,7 @@ declare namespace Excel {
             connectionSiteCount?: number;
             /**
              *
-             * Represents the geometric shape type of the specified shape. See Excel.GeometricShapeType for detail. Returns null if the shape is not geometric, for example, get GeometricShapeType of a line or a chart will return null.
+             * Represents the geometric shape type of this geometric shape. See Excel.GeometricShapeType for details. Returns null if the shape type is not "GeometricShape".
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55016,7 +56268,7 @@ declare namespace Excel {
             /**
              *
              * Represents the height, in points, of the shape.
-            Throws an invalid argument exception when set with negative value or zero as input.
+            Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55032,8 +56284,8 @@ declare namespace Excel {
             id?: string;
             /**
              *
-             * The distance, in points, from the left side of the shape to the left of the worksheet.
-            Throws an invalid argument exception when set with negative value as input.
+             * The distance, in points, from the left side of the shape to the left side of the worksheet.
+            Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55041,7 +56293,7 @@ declare namespace Excel {
             left?: number;
             /**
              *
-             * Represents the level of the specified shape. Level 0 means the shape is not part of any group, level 1 means the shape is part of a top-level group, etc.
+             * Represents the level of the specified shape. For example, a level of 0 means that the shape is not part of any groups, a level of 1 means the shape is part of a top-level group, and a level of 2 means the shape is part of a sub-group of the top level.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55049,7 +56301,7 @@ declare namespace Excel {
             level?: number;
             /**
              *
-             * Represents if the aspect ratio locked, in boolean, of the shape.
+             * Specifies whether or not the aspect ratio of this shape is locked.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55065,7 +56317,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * Represents the placment, value that represents the way the object is attached to the cells below it.
+             * Represents how the object is attached to the cells below it.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55081,8 +56333,8 @@ declare namespace Excel {
             rotation?: number;
             /**
              *
-             * The distance, in points, from the top edge of the shape to the top of the worksheet.
-            Throws an invalid argument exception when set with negative value as input.
+             * The distance, in points, from the top edge of the shape to the top edge of the worksheet.
+            Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55090,15 +56342,15 @@ declare namespace Excel {
             top?: number;
             /**
              *
-             * Returns the type of the specified shape. Read-only. See Excel.ShapeType for detail.
+             * Returns the type of this shape. See Excel.ShapeType for details. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            type?: Excel.ShapeType | "Unknown" | "Image" | "GeometricShape" | "Group" | "Line";
+            type?: Excel.ShapeType | "Unsupported" | "Image" | "GeometricShape" | "Group" | "Line";
             /**
              *
-             * Represents the visibility, in boolean, of the specified shape.
+             * Represents the visibility of this shape.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55107,7 +56359,7 @@ declare namespace Excel {
             /**
              *
              * Represents the width, in points, of the shape.
-            Throws an invalid argument exception when set with negative value or zero as input.
+            Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55115,7 +56367,7 @@ declare namespace Excel {
             width?: number;
             /**
              *
-             * Returns the position of the specified shape in the z-order, the very bottom shape's z-order value is 0. Read-only.
+             * Returns the position of the specified shape in the z-order, with 0 representing the bottom of the order stack. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55126,7 +56378,7 @@ declare namespace Excel {
         interface GeometricShapeData {
             /**
              *
-             * Represents the shape identifier. Read-only.
+             * Returns the shape identifier. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55145,7 +56397,7 @@ declare namespace Excel {
             id?: string;
             /**
              *
-             * Returns the format for the image. Read-only.
+             * Returns the format of the image. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55156,7 +56408,7 @@ declare namespace Excel {
         interface ShapeGroupData {
             /**
             *
-            * Returns the shape collection in the group. Read-only.
+            * Returns the collection of Shape objects. Read-only.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -55184,7 +56436,7 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            beginArrowHeadLength?: Excel.ArrowHeadLength | "Short" | "Medium" | "Long";
+            beginArrowheadLength?: Excel.ArrowheadLength | "Short" | "Medium" | "Long";
             /**
              *
              * Represents the style of the arrowhead at the beginning of the specified line.
@@ -55192,7 +56444,7 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            beginArrowHeadStyle?: Excel.ArrowHeadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
+            beginArrowheadStyle?: Excel.ArrowheadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
             /**
              *
              * Represents the width of the arrowhead at the beginning of the specified line.
@@ -55200,10 +56452,10 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            beginArrowHeadWidth?: Excel.ArrowHeadWidth | "Narrow" | "Medium" | "Wide";
+            beginArrowheadWidth?: Excel.ArrowheadWidth | "Narrow" | "Medium" | "Wide";
             /**
              *
-             * Represents an integer that specifies the connection site that the beginning of a connector is connected to. Read-only. Returns null when the beginning of the line is not attached to any shape.
+             * Represents the connection site to which the beginning of a connector is connected. Read-only. Returns null when the beginning of the line is not attached to any shape.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55216,7 +56468,7 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            endArrowHeadLength?: Excel.ArrowHeadLength | "Short" | "Medium" | "Long";
+            endArrowheadLength?: Excel.ArrowheadLength | "Short" | "Medium" | "Long";
             /**
              *
              * Represents the style of the arrowhead at the end of the specified line.
@@ -55224,7 +56476,7 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            endArrowHeadStyle?: Excel.ArrowHeadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
+            endArrowheadStyle?: Excel.ArrowheadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
             /**
              *
              * Represents the width of the arrowhead at the end of the specified line.
@@ -55232,10 +56484,10 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            endArrowHeadWidth?: Excel.ArrowHeadWidth | "Narrow" | "Medium" | "Wide";
+            endArrowheadWidth?: Excel.ArrowheadWidth | "Narrow" | "Medium" | "Wide";
             /**
              *
-             * Represents an integer that specifies the connection site that the end of a connector is connected to. Read-only. Returns null when the end of the line is not attached to any shape.
+             * Represents the connection site to which the end of a connector is connected. Read-only. Returns null when the end of the line is not attached to any shape.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55251,7 +56503,7 @@ declare namespace Excel {
             id?: string;
             /**
              *
-             * Represents whether the beginning of the specified line is connected to a shape. Read-only.
+             * Specifies whether or not the beginning of the specified line is connected to a shape. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55259,7 +56511,7 @@ declare namespace Excel {
             isBeginConnected?: boolean;
             /**
              *
-             * Represents whether the end of the specified line is connected to a shape. Read-only.
+             * Specifies whether or not the end of the specified line is connected to a shape. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55278,15 +56530,15 @@ declare namespace Excel {
         interface ShapeFillData {
             /**
              *
-             * Represents the shape fill fore color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
+             * Represents the shape fill foreground color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            foreColor?: string;
+            foregroundColor?: string;
             /**
              *
-             * Returns or sets the degree of transparency of the specified fill as a value from 0.0 (opaque) through 1.0 (clear). For API not supported shape types  or special fill type with inconsistent transparencies, return null. For example, gradient fill type could have inconsistent transparencies.
+             * Returns or sets the transparency percentage of the fill as a value from 0.0 (opaque) through 1.0 (clear). Returns null if the shape type does not support transparency or the shape fill has inconsistent transparency, such as with a gradient fill type.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55294,7 +56546,7 @@ declare namespace Excel {
             transparency?: number;
             /**
              *
-             * Returns the fill type of the shape. Read-only. See Excel.ShapeFillType for detail.
+             * Returns the fill type of the shape. Read-only. See Excel.ShapeFillType for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55313,7 +56565,7 @@ declare namespace Excel {
             color?: string;
             /**
              *
-             * Represents the line style of the shape. Returns null when line is not visible or has mixed line dash style property (e.g. group type of shape). See Excel.ShapeLineStyle for details.
+             * Represents the line style of the shape. Returns null when the line is not visible or there are inconsistent dash styles. See Excel.ShapeLineStyle for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55321,7 +56573,7 @@ declare namespace Excel {
             dashStyle?: Excel.ShapeLineDashStyle | "Dash" | "DashDot" | "DashDotDot" | "LongDash" | "LongDashDot" | "RoundDot" | "Solid" | "SquareDot" | "LongDashDotDot" | "SystemDash" | "SystemDot" | "SystemDashDot";
             /**
              *
-             * Represents the line style of the shape object. Returns null when line is not visible or has mixed line visible property (e.g. group type of shape). See Excel.ShapeLineStyle for details.
+             * Represents the line style of the shape. Returns null when the line is not visible or there are inconsistent styles. See Excel.ShapeLineStyle for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55329,7 +56581,7 @@ declare namespace Excel {
             style?: Excel.ShapeLineStyle | "Single" | "ThickBetweenThin" | "ThickThin" | "ThinThick" | "ThinThin";
             /**
              *
-             * Represents the degree of transparency of the specified line as a value from 0.0 (opaque) through 1.0 (clear). Returns null when the shape has mixed line transparency property (e.g. group type of shape).
+             * Represents the degree of transparency of the specified line as a value from 0.0 (opaque) through 1.0 (clear). Returns null when the shape has inconsistent transparencies.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55337,7 +56589,7 @@ declare namespace Excel {
             transparency?: number;
             /**
              *
-             * Represents whether the line formatting of a shape element is visible. Returns null when the shape has mixed line visible property (e.g. group type of shape).
+             * Represents whether or not the line formatting of a shape element is visible. Returns null when the shape has inconsistent visibilities.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55345,7 +56597,7 @@ declare namespace Excel {
             visible?: boolean;
             /**
              *
-             * Represents weight of the line, in points. Returns null when the line is not visible or has mixed line weight property (e.g. group type of shape).
+             * Represents the weight of the line, in points. Returns null when the line is not visible or there are inconsistent line weights.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55356,12 +56608,12 @@ declare namespace Excel {
         interface TextFrameData {
             /**
              *
-             * Gets or sets the auto sizing settings for the text frame. A text frame can be set to auto size the text to fit the text frame, or auto size the text frame to fit the text, or without auto sizing.
+             * Gets or sets the automatic sizing settings for the text frame. A text frame can be set to automatically fit the text to the text frame, to automatically fit the text frame to the text, or not perform any automatic sizing.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            autoSize?: Excel.ShapeAutoSize | "AutoSizeNone" | "AutoSizeTextToFitShape" | "AutoSizeShapeToFitText" | "AutoSizeMixed";
+            autoSizeSetting?: Excel.ShapeAutoSize | "AutoSizeNone" | "AutoSizeTextToFitShape" | "AutoSizeShapeToFitText" | "AutoSizeMixed";
             /**
              *
              * Represents the bottom margin, in points, of the text frame.
@@ -55372,7 +56624,7 @@ declare namespace Excel {
             bottomMargin?: number;
             /**
              *
-             * Specifies whether the TextFrame contains text.
+             * Specifies whether the text frame contains text.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55380,20 +56632,20 @@ declare namespace Excel {
             hasText?: boolean;
             /**
              *
-             * Represents the horizontal alignment of the text frame.
+             * Represents the horizontal alignment of the text frame. See Excel.ShapeTextHorizontalAlignment for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            horizontalAlignment?: Excel.ShapeTextHorizontalAlignType | "Left" | "Center" | "Right" | "Justify" | "JustifyLow" | "Distributed" | "ThaiDistributed" | "ShapeTextHorizontalAlignType_MaxEnumIDs";
+            horizontalAlignment?: Excel.ShapeTextHorizontalAlignment | "Left" | "Center" | "Right" | "Justify" | "JustifyLow" | "Distributed" | "ThaiDistributed";
             /**
              *
-             * Represents the horizontal overflow type of the text frame.
+             * Represents the horizontal overflow behavior of the text frame. See Excel.ShapeTextHorizontalOverflow for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            horizontalOverflow?: Excel.ShapeTextHorzOverflowType | "Overflow" | "Clip" | "ShapeTextHorzOverflowType_MaxEnumIDs";
+            horizontalOverflow?: Excel.ShapeTextHorizontalOverflow | "Overflow" | "Clip";
             /**
              *
              * Represents the left margin, in points, of the text frame.
@@ -55404,20 +56656,20 @@ declare namespace Excel {
             leftMargin?: number;
             /**
              *
-             * Represents the text orientation of the text frame.
+             * Represents the text orientation of the text frame. See Excel.ShapeTextOrientation for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            orientation?: Excel.ShapeTextOrientationType | "Horizontal" | "Vertical" | "Vertical270" | "WordArtVertical" | "EastAsianVertical" | "MongolianVertical" | "WordArtVerticalRTL" | "ShapeTextOrientationType_MaxEnumIDs";
+            orientation?: Excel.ShapeTextOrientation | "Horizontal" | "Vertical" | "Vertical270" | "WordArtVertical" | "EastAsianVertical" | "MongolianVertical" | "WordArtVerticalRTL";
             /**
              *
-             * Represents the reading order of the text frame, RTL or LTR.
+             * Represents the reading order of the text frame, either left-to-right or right-to-left. See Excel.ShapeTextReadingOrder for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            readingOrder?: Excel.ShapeTextReadingOrder | "LTR" | "RTL";
+            readingOrder?: Excel.ShapeTextReadingOrder | "LeftToRight" | "RightToLeft";
             /**
              *
              * Represents the right margin, in points, of the text frame.
@@ -55436,20 +56688,20 @@ declare namespace Excel {
             topMargin?: number;
             /**
              *
-             * Represents the vertical alignment of the text frame.
+             * Represents the vertical alignment of the text frame. See Excel.ShapeTextVerticalAlignment for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            verticalAlignment?: Excel.ShapeTextVerticalAlignType | "Top" | "Middle" | "Bottom" | "Justified" | "Distributed" | "ShapeTextVerticalAlignType_MaxEnumIDs";
+            verticalAlignment?: Excel.ShapeTextVerticalAlignment | "Top" | "Middle" | "Bottom" | "Justified" | "Distributed";
             /**
              *
-             * Represents the vertical overflow type of the text frame.
+             * Represents the vertical overflow behavior of the text frame. See Excel.ShapeTextVerticalOverflow for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            verticalOverflow?: Excel.ShapeTextVertOverflowType | "Overflow" | "Ellipsis" | "Clip" | "ShapeTextVertOverflowType_MaxEnumIDs";
+            verticalOverflow?: Excel.ShapeTextVerticalOverflow | "Overflow" | "Ellipsis" | "Clip";
         }
         /** An interface describing the data returned by calling "textRange.toJSON()". */
         interface TextRangeData {
@@ -55482,7 +56734,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color. E.g. #FF0000 represents Red. Returns null if the TextRange includes text fragments with different colors.
+             * The HTML color code representation of the text color (e.g. "#FF0000" represents red). Returns null if the TextRange includes text fragments with different colors.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55490,7 +56742,7 @@ declare namespace Excel {
             color?: string;
             /**
              *
-             * Represents the italic status of font. Return null if the TextRange includes both italic and non-italic text fragments.
+             * Represents the italic status of font. Returns null if the TextRange includes both italic and non-italic text fragments.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55498,7 +56750,7 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Represents font name (e.g. "Calibri"). If the text is Complex Script or East Asian language, represents corresponding font name; otherwise represents Latin font name.
+             * Represents font name (e.g. "Calibri"). If the text is Complex Script or East Asian language, this is the corresponding font name; otherwise it is the Latin font name.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55506,7 +56758,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * Represents font size in points (e.g. 11). Return null if the TextRange includes text fragments with different font sizes.
+             * Represents font size in points (e.g. 11). Returns null if the TextRange includes text fragments with different font sizes.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55514,7 +56766,7 @@ declare namespace Excel {
             size?: number;
             /**
              *
-             * Type of underline applied to the font. Return null if the TextRange includes text fragments with different underline styles. See Excel.ShapeFontUnderlineStyle for details.
+             * Type of underline applied to the font. Returns null if the TextRange includes text fragments with different underline styles. See Excel.ShapeFontUnderlineStyle for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55831,7 +57083,7 @@ declare namespace Excel {
             tables?: Excel.Interfaces.TableCollectionLoadOptions;
             /**
              *
-             * True if the workbook is in auto save mode.
+             * Specifies whether or not the workbook is in autosave mode. Read-Only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55856,8 +57108,8 @@ declare namespace Excel {
             chartDataPointTrack?: boolean;
             /**
              *
-             * True if no changes have been made to the specified workbook since it was last saved.
-            You can set this property to True if you want to close a modified workbook without either saving it or being prompted to save it.
+             * Specifies whether or not changes have been made since the workbook was last saved.
+            You can set this property to true if you want to close a modified workbook without either saving it or being prompted to save it.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55872,7 +57124,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * True if the workbook has ever been saved locally or online.
+             * Specifies whether or not the workbook has ever been saved locally or online. Read-Only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63098,6 +64350,214 @@ declare namespace Excel {
             wrapText?: boolean;
         }
         /**
+         *
+         * Represents a collection of TableStyles.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface TableStyleCollectionLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the name of the TableStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: True means that this TableStyle object is read-only. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            readOnly?: boolean;
+        }
+        /**
+         *
+         * Represents a TableStyle, which defines the style elements by region of the Table.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface TableStyleLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Gets the name of the TableStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: boolean;
+            /**
+             *
+             * True means that this TableStyle object is read-only. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            readOnly?: boolean;
+        }
+        /**
+         *
+         * Represents a collection of PivotTable styles.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface PivotTableStyleCollectionLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the name of the PivotTableStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: True means that this PivotTableStyle object is read-only. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            readOnly?: boolean;
+        }
+        /**
+         *
+         * Represents a PivotTable Style, which defines style elements by PivotTable region.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface PivotTableStyleLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Gets the name of the PivotTableStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: boolean;
+            /**
+             *
+             * True means that this PivotTableStyle object is read-only. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            readOnly?: boolean;
+        }
+        /**
+         *
+         * Represents a collection of SlicerStyle objects.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface SlicerStyleCollectionLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the name of the SlicerStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: True means that this SlicerStyle object is read-only. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            readOnly?: boolean;
+        }
+        /**
+         *
+         * Represents a Slicer Style, which defines style elements by region of the slicer.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface SlicerStyleLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Gets the name of the SlicerStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: boolean;
+            /**
+             *
+             * True means that this SlicerStyle object is read-only. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            readOnly?: boolean;
+        }
+        /**
+         *
+         * Represents a collection of TimelineStyles.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface TimelineStyleCollectionLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the name of the TimelineStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: True means that this TimelineStyle object is read-only. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            readOnly?: boolean;
+        }
+        /**
+         *
+         * Represents a Timeline style, which defines style elements by region in the Timeline.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface TimelineStyleLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Gets the name of the TimelineStyle.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: boolean;
+            /**
+             *
+             * True means that this TimelineStyle object is read-only. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            readOnly?: boolean;
+        }
+        /**
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
@@ -63653,12 +65113,36 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Get/Set the content.
+             * For EACH ITEM in the collection: Get author email of the comment.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            authorEmail?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Get author name of the comment.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            authorName?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Get or set the content.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
             content?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Get creation time of the comment. Will return null if the comment is converted from note, as in this case, the comment will not has created date.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            creationDate?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the comment identifier. Read-only.
@@ -63687,12 +65171,36 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * Get/Set the content.
+             * Get author email of the comment.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            authorEmail?: boolean;
+            /**
+             *
+             * Get author name of the comment.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            authorName?: boolean;
+            /**
+             *
+             * Get or set the content.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
             content?: boolean;
+            /**
+             *
+             * Get creation time of the comment. Will return null if the comment is converted from note, as in this case, the comment will not has created date.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            creationDate?: boolean;
             /**
              *
              * Represents the comment identifier. Read-only.
@@ -63721,12 +65229,36 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Get/Set the content.
+             * For EACH ITEM in the collection: Get author email of the comment reply.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            authorEmail?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Get author name of the comment reply.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            authorName?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Get or set the content.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
             content?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Get creation time of the comment reply.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            creationDate?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the comment reply identifier. Read-only.
@@ -63755,12 +65287,36 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * Get/Set the content.
+             * Get author email of the comment reply.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            authorEmail?: boolean;
+            /**
+             *
+             * Get author name of the comment reply.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            authorName?: boolean;
+            /**
+             *
+             * Get or set the content.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
             content?: boolean;
+            /**
+             *
+             * Get creation time of the comment reply.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            creationDate?: boolean;
             /**
              *
              * Represents the comment reply identifier. Read-only.
@@ -63780,7 +65336,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents all the shapes in the worksheet.
+         * Represents a collection of all the shapes in the worksheet.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -63789,7 +65345,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * For EACH ITEM in the collection: Returns the fill formatting of the shape object.
+            * For EACH ITEM in the collection: Returns the fill formatting of this shape.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -63797,7 +65353,7 @@ declare namespace Excel {
             fill?: Excel.Interfaces.ShapeFillLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Returns the geometric shape for the shape object. Error will be thrown, if the shape object is other shape type (Like, Image, SmartArt, etc.) rather than GeometricShape.
+            * For EACH ITEM in the collection: Returns the geometric shape associated with the shape. An error will be thrown if the shape type is not "GeometricShape".
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -63805,7 +65361,7 @@ declare namespace Excel {
             geometricShape?: Excel.Interfaces.GeometricShapeLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Returns the shape group for the shape object. Error will be thrown, if the shape object is other shape type (Like, Image, SmartArt, etc.) rather than GroupShape.
+            * For EACH ITEM in the collection: Returns the shape group associated with the shape. An error will be thrown if the shape type is not "GroupShape".
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -63813,7 +65369,7 @@ declare namespace Excel {
             group?: Excel.Interfaces.ShapeGroupLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Returns the image for the shape object. Error will be thrown, if the shape object is other shape type (Like, GeometricShape, SmartArt, etc.) rather than Image.
+            * For EACH ITEM in the collection: Returns the image associated with the shape. An error will be thrown if the shape type is not "Image".
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -63821,7 +65377,7 @@ declare namespace Excel {
             image?: Excel.Interfaces.ImageLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Returns the line object for the shape object. Error will be thrown, if the shape object is other shape type (Like, GeometricShape, SmartArt, etc.) rather than Image.
+            * For EACH ITEM in the collection: Returns the line associated with the shape. An error will be thrown if the shape type is not "Line".
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -63829,7 +65385,7 @@ declare namespace Excel {
             line?: Excel.Interfaces.LineLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Returns the line formatting of the shape object.
+            * For EACH ITEM in the collection: Returns the line formatting of this shape.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -63837,7 +65393,7 @@ declare namespace Excel {
             lineFormat?: Excel.Interfaces.ShapeLineFormatLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Represents the parent group of the specified shape.
+            * For EACH ITEM in the collection: Represents the parent group of this shape.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -63845,7 +65401,7 @@ declare namespace Excel {
             parentGroup?: Excel.Interfaces.ShapeLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Returns the textFrame object of a shape. Read only.
+            * For EACH ITEM in the collection: Returns the text frame object of this shape. Read only.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -63853,7 +65409,7 @@ declare namespace Excel {
             textFrame?: Excel.Interfaces.TextFrameLoadOptions;
             /**
              *
-             * For EACH ITEM in the collection: Returns or sets the alternative descriptive text string for a Shape object when the object is saved to a Web page.
+             * For EACH ITEM in the collection: Returns or sets the alternative description text for a Shape object.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63861,7 +65417,7 @@ declare namespace Excel {
             altTextDescription?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns or sets the alternative title text string for a Shape object when the object is saved to a Web page.
+             * For EACH ITEM in the collection: Returns or sets the alternative title text for a Shape object.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63869,7 +65425,7 @@ declare namespace Excel {
             altTextTitle?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns the number of connection sites on the specified shape. Read-only.
+             * For EACH ITEM in the collection: Returns the number of connection sites on this shape. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63877,7 +65433,7 @@ declare namespace Excel {
             connectionSiteCount?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the geometric shape type of the specified shape. See Excel.GeometricShapeType for detail. Returns null if the shape is not geometric, for example, get GeometricShapeType of a line or a chart will return null.
+             * For EACH ITEM in the collection: Represents the geometric shape type of this geometric shape. See Excel.GeometricShapeType for details. Returns null if the shape type is not "GeometricShape".
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63886,7 +65442,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the height, in points, of the shape.
-            Throws an invalid argument exception when set with negative value or zero as input.
+            Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63902,8 +65458,8 @@ declare namespace Excel {
             id?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: The distance, in points, from the left side of the shape to the left of the worksheet.
-            Throws an invalid argument exception when set with negative value as input.
+             * For EACH ITEM in the collection: The distance, in points, from the left side of the shape to the left side of the worksheet.
+            Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63911,7 +65467,7 @@ declare namespace Excel {
             left?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the level of the specified shape. Level 0 means the shape is not part of any group, level 1 means the shape is part of a top-level group, etc.
+             * For EACH ITEM in the collection: Represents the level of the specified shape. For example, a level of 0 means that the shape is not part of any groups, a level of 1 means the shape is part of a top-level group, and a level of 2 means the shape is part of a sub-group of the top level.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63919,7 +65475,7 @@ declare namespace Excel {
             level?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents if the aspect ratio locked, in boolean, of the shape.
+             * For EACH ITEM in the collection: Specifies whether or not the aspect ratio of this shape is locked.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63935,7 +65491,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the placment, value that represents the way the object is attached to the cells below it.
+             * For EACH ITEM in the collection: Represents how the object is attached to the cells below it.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63951,8 +65507,8 @@ declare namespace Excel {
             rotation?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: The distance, in points, from the top edge of the shape to the top of the worksheet.
-            Throws an invalid argument exception when set with negative value as input.
+             * For EACH ITEM in the collection: The distance, in points, from the top edge of the shape to the top edge of the worksheet.
+            Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63960,7 +65516,7 @@ declare namespace Excel {
             top?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns the type of the specified shape. Read-only. See Excel.ShapeType for detail.
+             * For EACH ITEM in the collection: Returns the type of this shape. See Excel.ShapeType for details. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63968,7 +65524,7 @@ declare namespace Excel {
             type?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the visibility, in boolean, of the specified shape.
+             * For EACH ITEM in the collection: Represents the visibility of this shape.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63977,7 +65533,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the width, in points, of the shape.
-            Throws an invalid argument exception when set with negative value or zero as input.
+            Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63985,7 +65541,7 @@ declare namespace Excel {
             width?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns the position of the specified shape in the z-order, the very bottom shape's z-order value is 0. Read-only.
+             * For EACH ITEM in the collection: Returns the position of the specified shape in the z-order, with 0 representing the bottom of the order stack. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63994,7 +65550,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents a generic shape object in the worksheet.
+         * Represents a generic shape object in the worksheet. A shape could be a geometric shape, a line, a group of shapes, etc.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -64003,7 +65559,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * Returns the fill formatting of the shape object.
+            * Returns the fill formatting of this shape.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64011,7 +65567,7 @@ declare namespace Excel {
             fill?: Excel.Interfaces.ShapeFillLoadOptions;
             /**
             *
-            * Returns the geometric shape for the shape object. Error will be thrown, if the shape object is other shape type (Like, Image, SmartArt, etc.) rather than GeometricShape.
+            * Returns the geometric shape associated with the shape. An error will be thrown if the shape type is not "GeometricShape".
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64019,7 +65575,7 @@ declare namespace Excel {
             geometricShape?: Excel.Interfaces.GeometricShapeLoadOptions;
             /**
             *
-            * Returns the shape group for the shape object. Error will be thrown, if the shape object is other shape type (Like, Image, SmartArt, etc.) rather than GroupShape.
+            * Returns the shape group associated with the shape. An error will be thrown if the shape type is not "GroupShape".
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64027,7 +65583,7 @@ declare namespace Excel {
             group?: Excel.Interfaces.ShapeGroupLoadOptions;
             /**
             *
-            * Returns the image for the shape object. Error will be thrown, if the shape object is other shape type (Like, GeometricShape, SmartArt, etc.) rather than Image.
+            * Returns the image associated with the shape. An error will be thrown if the shape type is not "Image".
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64035,7 +65591,7 @@ declare namespace Excel {
             image?: Excel.Interfaces.ImageLoadOptions;
             /**
             *
-            * Returns the line object for the shape object. Error will be thrown, if the shape object is other shape type (Like, GeometricShape, SmartArt, etc.) rather than Image.
+            * Returns the line associated with the shape. An error will be thrown if the shape type is not "Line".
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64043,7 +65599,7 @@ declare namespace Excel {
             line?: Excel.Interfaces.LineLoadOptions;
             /**
             *
-            * Returns the line formatting of the shape object.
+            * Returns the line formatting of this shape.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64051,7 +65607,7 @@ declare namespace Excel {
             lineFormat?: Excel.Interfaces.ShapeLineFormatLoadOptions;
             /**
             *
-            * Represents the parent group of the specified shape.
+            * Represents the parent group of this shape.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64059,7 +65615,7 @@ declare namespace Excel {
             parentGroup?: Excel.Interfaces.ShapeLoadOptions;
             /**
             *
-            * Returns the textFrame object of a shape. Read only.
+            * Returns the text frame object of this shape. Read only.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64067,7 +65623,7 @@ declare namespace Excel {
             textFrame?: Excel.Interfaces.TextFrameLoadOptions;
             /**
              *
-             * Returns or sets the alternative descriptive text string for a Shape object when the object is saved to a Web page.
+             * Returns or sets the alternative description text for a Shape object.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64075,7 +65631,7 @@ declare namespace Excel {
             altTextDescription?: boolean;
             /**
              *
-             * Returns or sets the alternative title text string for a Shape object when the object is saved to a Web page.
+             * Returns or sets the alternative title text for a Shape object.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64083,7 +65639,7 @@ declare namespace Excel {
             altTextTitle?: boolean;
             /**
              *
-             * Returns the number of connection sites on the specified shape. Read-only.
+             * Returns the number of connection sites on this shape. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64091,7 +65647,7 @@ declare namespace Excel {
             connectionSiteCount?: boolean;
             /**
              *
-             * Represents the geometric shape type of the specified shape. See Excel.GeometricShapeType for detail. Returns null if the shape is not geometric, for example, get GeometricShapeType of a line or a chart will return null.
+             * Represents the geometric shape type of this geometric shape. See Excel.GeometricShapeType for details. Returns null if the shape type is not "GeometricShape".
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64100,7 +65656,7 @@ declare namespace Excel {
             /**
              *
              * Represents the height, in points, of the shape.
-            Throws an invalid argument exception when set with negative value or zero as input.
+            Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64116,8 +65672,8 @@ declare namespace Excel {
             id?: boolean;
             /**
              *
-             * The distance, in points, from the left side of the shape to the left of the worksheet.
-            Throws an invalid argument exception when set with negative value as input.
+             * The distance, in points, from the left side of the shape to the left side of the worksheet.
+            Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64125,7 +65681,7 @@ declare namespace Excel {
             left?: boolean;
             /**
              *
-             * Represents the level of the specified shape. Level 0 means the shape is not part of any group, level 1 means the shape is part of a top-level group, etc.
+             * Represents the level of the specified shape. For example, a level of 0 means that the shape is not part of any groups, a level of 1 means the shape is part of a top-level group, and a level of 2 means the shape is part of a sub-group of the top level.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64133,7 +65689,7 @@ declare namespace Excel {
             level?: boolean;
             /**
              *
-             * Represents if the aspect ratio locked, in boolean, of the shape.
+             * Specifies whether or not the aspect ratio of this shape is locked.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64149,7 +65705,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * Represents the placment, value that represents the way the object is attached to the cells below it.
+             * Represents how the object is attached to the cells below it.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64165,8 +65721,8 @@ declare namespace Excel {
             rotation?: boolean;
             /**
              *
-             * The distance, in points, from the top edge of the shape to the top of the worksheet.
-            Throws an invalid argument exception when set with negative value as input.
+             * The distance, in points, from the top edge of the shape to the top edge of the worksheet.
+            Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64174,7 +65730,7 @@ declare namespace Excel {
             top?: boolean;
             /**
              *
-             * Returns the type of the specified shape. Read-only. See Excel.ShapeType for detail.
+             * Returns the type of this shape. See Excel.ShapeType for details. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64182,7 +65738,7 @@ declare namespace Excel {
             type?: boolean;
             /**
              *
-             * Represents the visibility, in boolean, of the specified shape.
+             * Represents the visibility of this shape.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64191,7 +65747,7 @@ declare namespace Excel {
             /**
              *
              * Represents the width, in points, of the shape.
-            Throws an invalid argument exception when set with negative value or zero as input.
+            Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64199,7 +65755,7 @@ declare namespace Excel {
             width?: boolean;
             /**
              *
-             * Returns the position of the specified shape in the z-order, the very bottom shape's z-order value is 0. Read-only.
+             * Returns the position of the specified shape in the z-order, with 0 representing the bottom of the order stack. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64208,7 +65764,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents a geometric shape object inside a worksheet. A geometric shape can be a line, rectangle, block arrow, equation, flowchart, start, banner, callout or basic shape in Excel.
+         * Represents a geometric shape inside a worksheet. A geometric shape can be a rectangle, block arrow, equation symbol, flowchart item, star, banner, callout, or any other basic shape in Excel.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -64217,7 +65773,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * Returns the shape object for the geometric shape.
+            * Returns the Shape object for the geometric shape.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64225,7 +65781,7 @@ declare namespace Excel {
             shape?: Excel.Interfaces.ShapeLoadOptions;
             /**
              *
-             * Represents the shape identifier. Read-only.
+             * Returns the shape identifier. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64234,7 +65790,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents an image object in the worksheet.
+         * Represents an image in the worksheet. To get the corresponding Shape object, use Image.shape.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -64243,7 +65799,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * Returns the shape object for the image.
+            * Returns the Shape object associated with the image.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64259,7 +65815,7 @@ declare namespace Excel {
             id?: boolean;
             /**
              *
-             * Returns the format for the image. Read-only.
+             * Returns the format of the image. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64268,7 +65824,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents a shape group object inside a worksheet.
+         * Represents a shape group inside a worksheet. To get the corresponding Shape object, use `ShapeGroup.shape`.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -64277,7 +65833,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * Returns the shape object for the group.
+            * Returns the Shape object associated with the group.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64294,7 +65850,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents a shape collection inside a shape group.
+         * Represents the shape collection inside a shape group.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -64303,7 +65859,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * For EACH ITEM in the collection: Returns the fill formatting of the shape object.
+            * For EACH ITEM in the collection: Returns the fill formatting of this shape.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64311,7 +65867,7 @@ declare namespace Excel {
             fill?: Excel.Interfaces.ShapeFillLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Returns the geometric shape for the shape object. Error will be thrown, if the shape object is other shape type (Like, Image, SmartArt, etc.) rather than GeometricShape.
+            * For EACH ITEM in the collection: Returns the geometric shape associated with the shape. An error will be thrown if the shape type is not "GeometricShape".
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64319,7 +65875,7 @@ declare namespace Excel {
             geometricShape?: Excel.Interfaces.GeometricShapeLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Returns the shape group for the shape object. Error will be thrown, if the shape object is other shape type (Like, Image, SmartArt, etc.) rather than GroupShape.
+            * For EACH ITEM in the collection: Returns the shape group associated with the shape. An error will be thrown if the shape type is not "GroupShape".
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64327,7 +65883,7 @@ declare namespace Excel {
             group?: Excel.Interfaces.ShapeGroupLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Returns the image for the shape object. Error will be thrown, if the shape object is other shape type (Like, GeometricShape, SmartArt, etc.) rather than Image.
+            * For EACH ITEM in the collection: Returns the image associated with the shape. An error will be thrown if the shape type is not "Image".
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64335,7 +65891,7 @@ declare namespace Excel {
             image?: Excel.Interfaces.ImageLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Returns the line object for the shape object. Error will be thrown, if the shape object is other shape type (Like, GeometricShape, SmartArt, etc.) rather than Image.
+            * For EACH ITEM in the collection: Returns the line associated with the shape. An error will be thrown if the shape type is not "Line".
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64343,7 +65899,7 @@ declare namespace Excel {
             line?: Excel.Interfaces.LineLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Returns the line formatting of the shape object.
+            * For EACH ITEM in the collection: Returns the line formatting of this shape.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64351,7 +65907,7 @@ declare namespace Excel {
             lineFormat?: Excel.Interfaces.ShapeLineFormatLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Represents the parent group of the specified shape.
+            * For EACH ITEM in the collection: Represents the parent group of this shape.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64359,7 +65915,7 @@ declare namespace Excel {
             parentGroup?: Excel.Interfaces.ShapeLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Returns the textFrame object of a shape. Read only.
+            * For EACH ITEM in the collection: Returns the text frame object of this shape. Read only.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64367,7 +65923,7 @@ declare namespace Excel {
             textFrame?: Excel.Interfaces.TextFrameLoadOptions;
             /**
              *
-             * For EACH ITEM in the collection: Returns or sets the alternative descriptive text string for a Shape object when the object is saved to a Web page.
+             * For EACH ITEM in the collection: Returns or sets the alternative description text for a Shape object.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64375,7 +65931,7 @@ declare namespace Excel {
             altTextDescription?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns or sets the alternative title text string for a Shape object when the object is saved to a Web page.
+             * For EACH ITEM in the collection: Returns or sets the alternative title text for a Shape object.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64383,7 +65939,7 @@ declare namespace Excel {
             altTextTitle?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns the number of connection sites on the specified shape. Read-only.
+             * For EACH ITEM in the collection: Returns the number of connection sites on this shape. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64391,7 +65947,7 @@ declare namespace Excel {
             connectionSiteCount?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the geometric shape type of the specified shape. See Excel.GeometricShapeType for detail. Returns null if the shape is not geometric, for example, get GeometricShapeType of a line or a chart will return null.
+             * For EACH ITEM in the collection: Represents the geometric shape type of this geometric shape. See Excel.GeometricShapeType for details. Returns null if the shape type is not "GeometricShape".
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64400,7 +65956,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the height, in points, of the shape.
-            Throws an invalid argument exception when set with negative value or zero as input.
+            Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64416,8 +65972,8 @@ declare namespace Excel {
             id?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: The distance, in points, from the left side of the shape to the left of the worksheet.
-            Throws an invalid argument exception when set with negative value as input.
+             * For EACH ITEM in the collection: The distance, in points, from the left side of the shape to the left side of the worksheet.
+            Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64425,7 +65981,7 @@ declare namespace Excel {
             left?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the level of the specified shape. Level 0 means the shape is not part of any group, level 1 means the shape is part of a top-level group, etc.
+             * For EACH ITEM in the collection: Represents the level of the specified shape. For example, a level of 0 means that the shape is not part of any groups, a level of 1 means the shape is part of a top-level group, and a level of 2 means the shape is part of a sub-group of the top level.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64433,7 +65989,7 @@ declare namespace Excel {
             level?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents if the aspect ratio locked, in boolean, of the shape.
+             * For EACH ITEM in the collection: Specifies whether or not the aspect ratio of this shape is locked.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64449,7 +66005,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the placment, value that represents the way the object is attached to the cells below it.
+             * For EACH ITEM in the collection: Represents how the object is attached to the cells below it.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64465,8 +66021,8 @@ declare namespace Excel {
             rotation?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: The distance, in points, from the top edge of the shape to the top of the worksheet.
-            Throws an invalid argument exception when set with negative value as input.
+             * For EACH ITEM in the collection: The distance, in points, from the top edge of the shape to the top edge of the worksheet.
+            Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64474,7 +66030,7 @@ declare namespace Excel {
             top?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns the type of the specified shape. Read-only. See Excel.ShapeType for detail.
+             * For EACH ITEM in the collection: Returns the type of this shape. See Excel.ShapeType for details. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64482,7 +66038,7 @@ declare namespace Excel {
             type?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the visibility, in boolean, of the specified shape.
+             * For EACH ITEM in the collection: Represents the visibility of this shape.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64491,7 +66047,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the width, in points, of the shape.
-            Throws an invalid argument exception when set with negative value or zero as input.
+            Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64499,7 +66055,7 @@ declare namespace Excel {
             width?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns the position of the specified shape in the z-order, the very bottom shape's z-order value is 0. Read-only.
+             * For EACH ITEM in the collection: Returns the position of the specified shape in the z-order, with 0 representing the bottom of the order stack. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64508,7 +66064,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents a Line object inside a worksheet.
+         * Represents a line inside a worksheet. To get the corresponding Shape object, use `Line.shape`.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -64517,7 +66073,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * Represents the shape object that the beginning of the specified line is attached to.
+            * Represents the shape to which the beginning of the specified line is attached.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64525,7 +66081,7 @@ declare namespace Excel {
             beginConnectedShape?: Excel.Interfaces.ShapeLoadOptions;
             /**
             *
-            * Represents the shape object that the end of the specified line is attached to.
+            * Represents the shape to which the end of the specified line is attached.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64533,7 +66089,7 @@ declare namespace Excel {
             endConnectedShape?: Excel.Interfaces.ShapeLoadOptions;
             /**
             *
-            * Returns the shape object for the line.
+            * Returns the Shape object associated with the line.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64546,7 +66102,7 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            beginArrowHeadLength?: boolean;
+            beginArrowheadLength?: boolean;
             /**
              *
              * Represents the style of the arrowhead at the beginning of the specified line.
@@ -64554,7 +66110,7 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            beginArrowHeadStyle?: boolean;
+            beginArrowheadStyle?: boolean;
             /**
              *
              * Represents the width of the arrowhead at the beginning of the specified line.
@@ -64562,10 +66118,10 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            beginArrowHeadWidth?: boolean;
+            beginArrowheadWidth?: boolean;
             /**
              *
-             * Represents an integer that specifies the connection site that the beginning of a connector is connected to. Read-only. Returns null when the beginning of the line is not attached to any shape.
+             * Represents the connection site to which the beginning of a connector is connected. Read-only. Returns null when the beginning of the line is not attached to any shape.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64578,7 +66134,7 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            endArrowHeadLength?: boolean;
+            endArrowheadLength?: boolean;
             /**
              *
              * Represents the style of the arrowhead at the end of the specified line.
@@ -64586,7 +66142,7 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            endArrowHeadStyle?: boolean;
+            endArrowheadStyle?: boolean;
             /**
              *
              * Represents the width of the arrowhead at the end of the specified line.
@@ -64594,10 +66150,10 @@ declare namespace Excel {
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            endArrowHeadWidth?: boolean;
+            endArrowheadWidth?: boolean;
             /**
              *
-             * Represents an integer that specifies the connection site that the end of a connector is connected to. Read-only. Returns null when the end of the line is not attached to any shape.
+             * Represents the connection site to which the end of a connector is connected. Read-only. Returns null when the end of the line is not attached to any shape.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64613,7 +66169,7 @@ declare namespace Excel {
             id?: boolean;
             /**
              *
-             * Represents whether the beginning of the specified line is connected to a shape. Read-only.
+             * Specifies whether or not the beginning of the specified line is connected to a shape. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64621,7 +66177,7 @@ declare namespace Excel {
             isBeginConnected?: boolean;
             /**
              *
-             * Represents whether the end of the specified line is connected to a shape. Read-only.
+             * Specifies whether or not the end of the specified line is connected to a shape. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64638,7 +66194,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents the fill formatting for a shape object.
+         * Represents the fill formatting of a shape object.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -64647,15 +66203,15 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * Represents the shape fill fore color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
+             * Represents the shape fill foreground color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            foreColor?: boolean;
+            foregroundColor?: boolean;
             /**
              *
-             * Returns or sets the degree of transparency of the specified fill as a value from 0.0 (opaque) through 1.0 (clear). For API not supported shape types  or special fill type with inconsistent transparencies, return null. For example, gradient fill type could have inconsistent transparencies.
+             * Returns or sets the transparency percentage of the fill as a value from 0.0 (opaque) through 1.0 (clear). Returns null if the shape type does not support transparency or the shape fill has inconsistent transparency, such as with a gradient fill type.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64663,7 +66219,7 @@ declare namespace Excel {
             transparency?: boolean;
             /**
              *
-             * Returns the fill type of the shape. Read-only. See Excel.ShapeFillType for detail.
+             * Returns the fill type of the shape. Read-only. See Excel.ShapeFillType for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64672,7 +66228,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents the line formatting for the shape object. For picture and geometric shape, line formatting represents the border of shape object.
+         * Represents the line formatting for the shape object. For images and geometric shapes, line formatting represents the border of the shape.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -64689,7 +66245,7 @@ declare namespace Excel {
             color?: boolean;
             /**
              *
-             * Represents the line style of the shape. Returns null when line is not visible or has mixed line dash style property (e.g. group type of shape). See Excel.ShapeLineStyle for details.
+             * Represents the line style of the shape. Returns null when the line is not visible or there are inconsistent dash styles. See Excel.ShapeLineStyle for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64697,7 +66253,7 @@ declare namespace Excel {
             dashStyle?: boolean;
             /**
              *
-             * Represents the line style of the shape object. Returns null when line is not visible or has mixed line visible property (e.g. group type of shape). See Excel.ShapeLineStyle for details.
+             * Represents the line style of the shape. Returns null when the line is not visible or there are inconsistent styles. See Excel.ShapeLineStyle for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64705,7 +66261,7 @@ declare namespace Excel {
             style?: boolean;
             /**
              *
-             * Represents the degree of transparency of the specified line as a value from 0.0 (opaque) through 1.0 (clear). Returns null when the shape has mixed line transparency property (e.g. group type of shape).
+             * Represents the degree of transparency of the specified line as a value from 0.0 (opaque) through 1.0 (clear). Returns null when the shape has inconsistent transparencies.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64713,7 +66269,7 @@ declare namespace Excel {
             transparency?: boolean;
             /**
              *
-             * Represents whether the line formatting of a shape element is visible. Returns null when the shape has mixed line visible property (e.g. group type of shape).
+             * Represents whether or not the line formatting of a shape element is visible. Returns null when the shape has inconsistent visibilities.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64721,7 +66277,7 @@ declare namespace Excel {
             visible?: boolean;
             /**
              *
-             * Represents weight of the line, in points. Returns null when the line is not visible or has mixed line weight property (e.g. group type of shape).
+             * Represents the weight of the line, in points. Returns null when the line is not visible or there are inconsistent line weights.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64730,7 +66286,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents the text frame for a shape object.
+         * Represents the text frame of a shape object.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -64739,7 +66295,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * Represents the text range in the text frame.
+            * Represents the text that is attached to a shape in the text frame, and properties and methods for manipulating the text. See Excel.TextRange for details.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
             * @beta
@@ -64747,12 +66303,12 @@ declare namespace Excel {
             textRange?: Excel.Interfaces.TextRangeLoadOptions;
             /**
              *
-             * Gets or sets the auto sizing settings for the text frame. A text frame can be set to auto size the text to fit the text frame, or auto size the text frame to fit the text, or without auto sizing.
+             * Gets or sets the automatic sizing settings for the text frame. A text frame can be set to automatically fit the text to the text frame, to automatically fit the text frame to the text, or not perform any automatic sizing.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
-            autoSize?: boolean;
+            autoSizeSetting?: boolean;
             /**
              *
              * Represents the bottom margin, in points, of the text frame.
@@ -64763,7 +66319,7 @@ declare namespace Excel {
             bottomMargin?: boolean;
             /**
              *
-             * Specifies whether the TextFrame contains text.
+             * Specifies whether the text frame contains text.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64771,7 +66327,7 @@ declare namespace Excel {
             hasText?: boolean;
             /**
              *
-             * Represents the horizontal alignment of the text frame.
+             * Represents the horizontal alignment of the text frame. See Excel.ShapeTextHorizontalAlignment for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64779,7 +66335,7 @@ declare namespace Excel {
             horizontalAlignment?: boolean;
             /**
              *
-             * Represents the horizontal overflow type of the text frame.
+             * Represents the horizontal overflow behavior of the text frame. See Excel.ShapeTextHorizontalOverflow for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64795,7 +66351,7 @@ declare namespace Excel {
             leftMargin?: boolean;
             /**
              *
-             * Represents the text orientation of the text frame.
+             * Represents the text orientation of the text frame. See Excel.ShapeTextOrientation for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64803,7 +66359,7 @@ declare namespace Excel {
             orientation?: boolean;
             /**
              *
-             * Represents the reading order of the text frame, RTL or LTR.
+             * Represents the reading order of the text frame, either left-to-right or right-to-left. See Excel.ShapeTextReadingOrder for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64827,7 +66383,7 @@ declare namespace Excel {
             topMargin?: boolean;
             /**
              *
-             * Represents the vertical alignment of the text frame.
+             * Represents the vertical alignment of the text frame. See Excel.ShapeTextVerticalAlignment for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64835,7 +66391,7 @@ declare namespace Excel {
             verticalAlignment?: boolean;
             /**
              *
-             * Represents the vertical overflow type of the text frame.
+             * Represents the vertical overflow behavior of the text frame. See Excel.ShapeTextVerticalOverflow for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64843,6 +66399,9 @@ declare namespace Excel {
             verticalOverflow?: boolean;
         }
         /**
+         *
+         * Contains the text that is attached to a shape, in addition to properties and methods for manipulating the text.
+         *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
@@ -64867,7 +66426,7 @@ declare namespace Excel {
         }
         /**
          *
-         * This object represents the font attributes (font name, font size, color, etc.) for a TextRange in the Shape.
+         * Represents the font attributes, such as font name, font size, and color, for a shape's TextRange object.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -64884,7 +66443,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color. E.g. #FF0000 represents Red. Returns null if the TextRange includes text fragments with different colors.
+             * The HTML color code representation of the text color (e.g. "#FF0000" represents red). Returns null if the TextRange includes text fragments with different colors.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64892,7 +66451,7 @@ declare namespace Excel {
             color?: boolean;
             /**
              *
-             * Represents the italic status of font. Return null if the TextRange includes both italic and non-italic text fragments.
+             * Represents the italic status of font. Returns null if the TextRange includes both italic and non-italic text fragments.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64900,7 +66459,7 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Represents font name (e.g. "Calibri"). If the text is Complex Script or East Asian language, represents corresponding font name; otherwise represents Latin font name.
+             * Represents font name (e.g. "Calibri"). If the text is Complex Script or East Asian language, this is the corresponding font name; otherwise it is the Latin font name.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64908,7 +66467,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * Represents font size in points (e.g. 11). Return null if the TextRange includes text fragments with different font sizes.
+             * Represents font size in points (e.g. 11). Returns null if the TextRange includes text fragments with different font sizes.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64916,7 +66475,7 @@ declare namespace Excel {
             size?: boolean;
             /**
              *
-             * Type of underline applied to the font. Return null if the TextRange includes text fragments with different underline styles. See Excel.ShapeFontUnderlineStyle for details.
+             * Type of underline applied to the font. Returns null if the TextRange includes text fragments with different underline styles. See Excel.ShapeFontUnderlineStyle for details.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -65297,6 +66856,10 @@ declare namespace Word {
          * Create a new instance of Word.Application object
          */
         static newObject(context: OfficeExtension.ClientRequestContext): Word.Application;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Application object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ApplicationData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): {
             [key: string]: string;
         };
@@ -65711,6 +67274,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Body;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Body object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.BodyData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.BodyData;
     }
     /**
@@ -65850,7 +67417,7 @@ declare namespace Word {
         readonly id: number;
         /**
          *
-         * Gets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+         * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
          *
          * [Api set: WordApi 1.1]
          */
@@ -66085,7 +67652,7 @@ declare namespace Word {
         insertOoxml(ooxml: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before', or 'After'. This method is only supported if the content control encompasses one or more paragraphs in entirety.
+         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.1]
          *
@@ -66095,7 +67662,7 @@ declare namespace Word {
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before', or 'After'. This method is only supported if the content control encompasses one or more paragraphs in entirety.
+         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.1]
          *
@@ -66221,9 +67788,9 @@ declare namespace Word {
          * Occurs when data within the content control are changed. To get the new text, load this content control in the handler. To get the old text, do not load it.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
-         * @beta
          *
          * @eventproperty
+         * @beta
          */
         readonly onDataChanged: OfficeExtension.EventHandlers<Word.ContentControlEventArgs>;
         /**
@@ -66231,9 +67798,9 @@ declare namespace Word {
          * Occurs when the content control is deleted. Do not load this content control in the handler, otherwise you won't be able to get its original properties.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
-         * @beta
          *
          * @eventproperty
+         * @beta
          */
         readonly onDeleted: OfficeExtension.EventHandlers<Word.ContentControlEventArgs>;
         /**
@@ -66241,9 +67808,9 @@ declare namespace Word {
          * Occurs when selection within the content control is changed.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
-         * @beta
          *
          * @eventproperty
+         * @beta
          */
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Word.ContentControlEventArgs>;
         /**
@@ -66254,6 +67821,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ContentControl;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.ContentControl object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ContentControlData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.ContentControlData;
     }
     /**
@@ -66361,6 +67932,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ContentControlCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.ContentControlCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ContentControlCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.ContentControlCollectionData;
     }
     /**
@@ -66443,6 +68018,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.CustomProperty;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.CustomProperty object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.CustomPropertyData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.CustomPropertyData;
     }
     /**
@@ -66524,6 +68103,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.CustomPropertyCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.CustomPropertyCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.CustomPropertyCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.CustomPropertyCollectionData;
     }
     /**
@@ -66693,6 +68276,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.CustomXmlPart;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.CustomXmlPart object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.CustomXmlPartData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.CustomXmlPartData;
     }
     /**
@@ -66781,6 +68368,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.CustomXmlPartCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.CustomXmlPartCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.CustomXmlPartCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.CustomXmlPartCollectionData;
     }
     /**
@@ -66865,6 +68456,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.CustomXmlPartScopedCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.CustomXmlPartScopedCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.CustomXmlPartScopedCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.CustomXmlPartScopedCollectionData;
     }
     /**
@@ -67011,9 +68606,9 @@ declare namespace Word {
          * Occurs when a content control is added. Run context.sync() in the handler to get the new content control's properties.
          *
          * [Api set: WordApi BETA (PREVIEW ONLY)]
-         * @beta
          *
          * @eventproperty
+         * @beta
          */
         readonly onContentControlAdded: OfficeExtension.EventHandlers<Word.ContentControlEventArgs>;
         /**
@@ -67024,6 +68619,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Document;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Document object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.DocumentData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.DocumentData;
     }
     /**
@@ -67040,6 +68639,7 @@ declare namespace Word {
          * Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc.. Read-only.
          *
          * [Api set: WordApiHiddenDocument 1.3]
+         * @beta
          */
         readonly body: Word.Body;
         /**
@@ -67047,6 +68647,7 @@ declare namespace Word {
          * Gets the collection of content control objects in the document. This includes content controls in the body of the document, headers, footers, textboxes, etc.. Read-only.
          *
          * [Api set: WordApiHiddenDocument 1.3]
+         * @beta
          */
         readonly contentControls: Word.ContentControlCollection;
         /**
@@ -67054,6 +68655,7 @@ declare namespace Word {
          * Gets the custom XML parts in the document. Read-only.
          *
          * [Api set: WordApiHiddenDocument 1.4]
+         * @beta
          */
         readonly customXmlParts: Word.CustomXmlPartCollection;
         /**
@@ -67061,6 +68663,7 @@ declare namespace Word {
          * Gets the properties of the document. Read-only.
          *
          * [Api set: WordApiHiddenDocument 1.3]
+         * @beta
          */
         readonly properties: Word.DocumentProperties;
         /**
@@ -67068,6 +68671,7 @@ declare namespace Word {
          * Gets the collection of section objects in the document. Read-only.
          *
          * [Api set: WordApiHiddenDocument 1.3]
+         * @beta
          */
         readonly sections: Word.SectionCollection;
         /**
@@ -67075,6 +68679,7 @@ declare namespace Word {
          * Gets the add-in's settings in the document. Read-only.
          *
          * [Api set: WordApiHiddenDocument 1.4]
+         * @beta
          */
         readonly settings: Word.SettingCollection;
         /**
@@ -67082,6 +68687,7 @@ declare namespace Word {
          * Indicates whether the changes in the document have been saved. A value of true indicates that the document hasn't changed since it was saved. Read-only.
          *
          * [Api set: WordApiHiddenDocument 1.3]
+         * @beta
          */
         readonly saved: boolean;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
@@ -67103,6 +68709,7 @@ declare namespace Word {
          * Deletes a bookmark, if exists, from the document.
          *
          * [Api set: WordApiHiddenDocument 1.4]
+         * @beta
          *
          * @param name Required. The bookmark name, which is case-insensitive.
          */
@@ -67112,6 +68719,7 @@ declare namespace Word {
          * Gets a bookmark's range. Throws if the bookmark does not exist.
          *
          * [Api set: WordApiHiddenDocument 1.4]
+         * @beta
          *
          * @param name Required. The bookmark name, which is case-insensitive.
          */
@@ -67121,6 +68729,7 @@ declare namespace Word {
          * Gets a bookmark's range. Returns a null object if the bookmark does not exist.
          *
          * [Api set: WordApiHiddenDocument 1.4]
+         * @beta
          *
          * @param name Required. The bookmark name, which is case-insensitive.
          */
@@ -67137,6 +68746,7 @@ declare namespace Word {
          * Saves the document. This will use the Word default file naming convention if the document has not been saved before.
          *
          * [Api set: WordApiHiddenDocument 1.3]
+         * @beta
          */
         save(): void;
         /**
@@ -67168,6 +68778,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.DocumentCreated;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.DocumentCreated object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.DocumentCreatedData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.DocumentCreatedData;
     }
     /**
@@ -67348,6 +68962,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.DocumentProperties;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.DocumentProperties object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.DocumentPropertiesData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.DocumentPropertiesData;
     }
     /**
@@ -67479,6 +69097,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Font;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Font object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.FontData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.FontData;
     }
     /**
@@ -67843,6 +69465,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.InlinePicture;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.InlinePicture object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.InlinePictureData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.InlinePictureData;
     }
     /**
@@ -67896,6 +69522,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.InlinePictureCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.InlinePictureCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.InlinePictureCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.InlinePictureCollectionData;
     }
     /**
@@ -68131,6 +69761,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.List;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.List object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ListData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.ListData;
     }
     /**
@@ -68211,6 +69845,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ListCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.ListCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ListCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.ListCollectionData;
     }
     /**
@@ -68313,6 +69951,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ListItem;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.ListItem object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ListItemData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.ListItemData;
     }
     /**
@@ -68903,6 +70545,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Paragraph;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Paragraph object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ParagraphData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.ParagraphData;
     }
     /**
@@ -68970,6 +70616,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ParagraphCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.ParagraphCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ParagraphCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.ParagraphCollectionData;
     }
     /**
@@ -69518,6 +71168,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Range;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Range object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.RangeData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.RangeData;
     }
     /**
@@ -69571,6 +71225,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.RangeCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.RangeCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.RangeCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.RangeCollectionData;
     }
     /**
@@ -69671,6 +71329,10 @@ declare namespace Word {
          * Create a new instance of Word.SearchOptions object
          */
         static newObject(context: OfficeExtension.ClientRequestContext): Word.SearchOptions;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.SearchOptions object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SearchOptionsData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.SearchOptionsData;
     }
     /**
@@ -69782,6 +71444,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Section;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Section object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SectionData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.SectionData;
     }
     /**
@@ -69835,6 +71501,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.SectionCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.SectionCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SectionCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.SectionCollectionData;
     }
     /**
@@ -69918,6 +71588,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Setting;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Setting object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SettingData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.SettingData;
     }
     /**
@@ -70005,6 +71679,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.SettingCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.SettingCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SettingCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.SettingCollectionData;
     }
     /**
@@ -70576,6 +72254,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Table;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Table object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.TableData;
     }
     /**
@@ -70629,6 +72311,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.TableCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.TableCollectionData;
     }
     /**
@@ -70918,6 +72604,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableRow;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.TableRow object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableRowData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.TableRowData;
     }
     /**
@@ -70971,6 +72661,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableRowCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.TableRowCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableRowCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.TableRowCollectionData;
     }
     /**
@@ -71241,6 +72935,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableCell;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.TableCell object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableCellData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.TableCellData;
     }
     /**
@@ -71294,6 +72992,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableCellCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.TableCellCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableCellCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.TableCellCollectionData;
     }
     /**
@@ -71369,6 +73071,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableBorder;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.TableBorder object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableBorderData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.TableBorderData;
     }
     /**
@@ -72409,6 +74115,7 @@ declare namespace Word {
             * Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc..
             *
             * [Api set: WordApiHiddenDocument 1.3]
+            * @beta
             */
             body?: Word.Interfaces.BodyUpdateData;
             /**
@@ -72416,6 +74123,7 @@ declare namespace Word {
             * Gets the properties of the document.
             *
             * [Api set: WordApiHiddenDocument 1.3]
+            * @beta
             */
             properties?: Word.Interfaces.DocumentPropertiesUpdateData;
         }
@@ -73129,48 +74837,6 @@ declare namespace Word {
             paragraphs?: Word.Interfaces.ParagraphData[];
             /**
             *
-            * Gets the parent body of the body. For example, a table cell body's parent body could be a header. Throws if there isn't a parent body. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentBody?: Word.Interfaces.BodyData;
-            /**
-            *
-            * Gets the parent body of the body. For example, a table cell body's parent body could be a header. Returns a null object if there isn't a parent body. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentBodyOrNullObject?: Word.Interfaces.BodyData;
-            /**
-            *
-            * Gets the content control that contains the body. Throws if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            parentContentControl?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the content control that contains the body. Returns a null object if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentContentControlOrNullObject?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the parent section of the body. Throws if there isn't a parent section. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentSection?: Word.Interfaces.SectionData;
-            /**
-            *
-            * Gets the parent section of the body. Returns a null object if there isn't a parent section. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentSectionOrNullObject?: Word.Interfaces.SectionData;
-            /**
-            *
             * Gets the collection of table objects in the body. Read-only.
             *
             * [Api set: WordApi 1.3]
@@ -73242,55 +74908,6 @@ declare namespace Word {
             * [Api set: WordApi 1.1]
             */
             paragraphs?: Word.Interfaces.ParagraphData[];
-            /**
-            *
-            * Gets the parent body of the content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentBody?: Word.Interfaces.BodyData;
-            /**
-            *
-            * Gets the content control that contains the content control. Throws if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            parentContentControl?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the content control that contains the content control. Returns a null object if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentContentControlOrNullObject?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the table that contains the content control. Throws if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTable?: Word.Interfaces.TableData;
-            /**
-            *
-            * Gets the table cell that contains the content control. Throws if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCell?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table cell that contains the content control. Returns a null object if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCellOrNullObject?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table that contains the content control. Returns a null object if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableOrNullObject?: Word.Interfaces.TableData;
             /**
             *
             * Gets the collection of table objects in the content control. Read-only.
@@ -73517,6 +75134,7 @@ declare namespace Word {
             * Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc.. Read-only.
             *
             * [Api set: WordApiHiddenDocument 1.3]
+            * @beta
             */
             body?: Word.Interfaces.BodyData;
             /**
@@ -73524,6 +75142,7 @@ declare namespace Word {
             * Gets the collection of content control objects in the document. This includes content controls in the body of the document, headers, footers, textboxes, etc.. Read-only.
             *
             * [Api set: WordApiHiddenDocument 1.3]
+            * @beta
             */
             contentControls?: Word.Interfaces.ContentControlData[];
             /**
@@ -73531,6 +75150,7 @@ declare namespace Word {
             * Gets the custom XML parts in the document. Read-only.
             *
             * [Api set: WordApiHiddenDocument 1.4]
+            * @beta
             */
             customXmlParts?: Word.Interfaces.CustomXmlPartData[];
             /**
@@ -73538,6 +75158,7 @@ declare namespace Word {
             * Gets the properties of the document. Read-only.
             *
             * [Api set: WordApiHiddenDocument 1.3]
+            * @beta
             */
             properties?: Word.Interfaces.DocumentPropertiesData;
             /**
@@ -73545,6 +75166,7 @@ declare namespace Word {
             * Gets the collection of section objects in the document. Read-only.
             *
             * [Api set: WordApiHiddenDocument 1.3]
+            * @beta
             */
             sections?: Word.Interfaces.SectionData[];
             /**
@@ -73552,6 +75174,7 @@ declare namespace Word {
             * Gets the add-in's settings in the document. Read-only.
             *
             * [Api set: WordApiHiddenDocument 1.4]
+            * @beta
             */
             settings?: Word.Interfaces.SettingData[];
             /**
@@ -73559,6 +75182,7 @@ declare namespace Word {
              * Indicates whether the changes in the document have been saved. A value of true indicates that the document hasn't changed since it was saved. Read-only.
              *
              * [Api set: WordApiHiddenDocument 1.3]
+             * @beta
              */
             saved?: boolean;
         }
@@ -73774,55 +75398,6 @@ declare namespace Word {
         /** An interface describing the data returned by calling "inlinePicture.toJSON()". */
         interface InlinePictureData {
             /**
-            *
-            * Gets the parent paragraph that contains the inline image. Read-only.
-            *
-            * [Api set: WordApi 1.2]
-            */
-            paragraph?: Word.Interfaces.ParagraphData;
-            /**
-            *
-            * Gets the content control that contains the inline image. Throws if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            parentContentControl?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the content control that contains the inline image. Returns a null object if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentContentControlOrNullObject?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the table that contains the inline image. Throws if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTable?: Word.Interfaces.TableData;
-            /**
-            *
-            * Gets the table cell that contains the inline image. Throws if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCell?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table cell that contains the inline image. Returns a null object if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCellOrNullObject?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table that contains the inline image. Returns a null object if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableOrNullObject?: Word.Interfaces.TableData;
-            /**
              *
              * Gets or sets a string that represents the alternative text associated with the inline image.
              *
@@ -73940,13 +75515,6 @@ declare namespace Word {
         interface ParagraphData {
             /**
             *
-            * Gets the collection of content control objects in the paragraph. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            contentControls?: Word.Interfaces.ContentControlData[];
-            /**
-            *
             * Gets the text format of the paragraph. Use this to get and set font name, size, color, and other properties. Read-only.
             *
             * [Api set: WordApi 1.1]
@@ -73961,13 +75529,6 @@ declare namespace Word {
             inlinePictures?: Word.Interfaces.InlinePictureData[];
             /**
             *
-            * Gets the List to which this paragraph belongs. Throws if the paragraph is not in a list. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            list?: Word.Interfaces.ListData;
-            /**
-            *
             * Gets the ListItem for the paragraph. Throws if the paragraph is not part of a list. Read-only.
             *
             * [Api set: WordApi 1.3]
@@ -73980,62 +75541,6 @@ declare namespace Word {
             * [Api set: WordApi 1.3]
             */
             listItemOrNullObject?: Word.Interfaces.ListItemData;
-            /**
-            *
-            * Gets the List to which this paragraph belongs. Returns a null object if the paragraph is not in a list. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            listOrNullObject?: Word.Interfaces.ListData;
-            /**
-            *
-            * Gets the parent body of the paragraph. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentBody?: Word.Interfaces.BodyData;
-            /**
-            *
-            * Gets the content control that contains the paragraph. Throws if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            parentContentControl?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the content control that contains the paragraph. Returns a null object if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentContentControlOrNullObject?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the table that contains the paragraph. Throws if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTable?: Word.Interfaces.TableData;
-            /**
-            *
-            * Gets the table cell that contains the paragraph. Throws if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCell?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table cell that contains the paragraph. Returns a null object if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCellOrNullObject?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table that contains the paragraph. Returns a null object if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableOrNullObject?: Word.Interfaces.TableData;
             /**
              *
              * Gets or sets the alignment for a paragraph. The value can be 'left', 'centered', 'right', or 'justified'.
@@ -74157,13 +75662,6 @@ declare namespace Word {
         interface RangeData {
             /**
             *
-            * Gets the collection of content control objects in the range. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            contentControls?: Word.Interfaces.ContentControlData[];
-            /**
-            *
             * Gets the text format of the range. Use this to get and set font name, size, color, and other properties. Read-only.
             *
             * [Api set: WordApi 1.1]
@@ -74176,76 +75674,6 @@ declare namespace Word {
             * [Api set: WordApi 1.2]
             */
             inlinePictures?: Word.Interfaces.InlinePictureData[];
-            /**
-            *
-            * Gets the collection of list objects in the range. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            lists?: Word.Interfaces.ListData[];
-            /**
-            *
-            * Gets the collection of paragraph objects in the range. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            paragraphs?: Word.Interfaces.ParagraphData[];
-            /**
-            *
-            * Gets the parent body of the range. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentBody?: Word.Interfaces.BodyData;
-            /**
-            *
-            * Gets the content control that contains the range. Throws if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            parentContentControl?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the content control that contains the range. Returns a null object if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentContentControlOrNullObject?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the table that contains the range. Throws if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTable?: Word.Interfaces.TableData;
-            /**
-            *
-            * Gets the table cell that contains the range. Throws if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCell?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table cell that contains the range. Returns a null object if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCellOrNullObject?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table that contains the range. Returns a null object if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableOrNullObject?: Word.Interfaces.TableData;
-            /**
-            *
-            * Gets the collection of table objects in the range. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            tables?: Word.Interfaces.TableData[];
             /**
              *
              * Gets the first hyperlink in the range, or sets a hyperlink on the range. All hyperlinks in the range are deleted when you set a new hyperlink on the range. Use a '#' to separate the address part from the optional location part.
@@ -74384,55 +75812,6 @@ declare namespace Word {
             * [Api set: WordApi 1.3]
             */
             font?: Word.Interfaces.FontData;
-            /**
-            *
-            * Gets the parent body of the table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentBody?: Word.Interfaces.BodyData;
-            /**
-            *
-            * Gets the content control that contains the table. Throws if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentContentControl?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the content control that contains the table. Returns a null object if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentContentControlOrNullObject?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the table that contains this table. Throws if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTable?: Word.Interfaces.TableData;
-            /**
-            *
-            * Gets the table cell that contains this table. Throws if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCell?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table cell that contains this table. Returns a null object if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCellOrNullObject?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table that contains this table. Returns a null object if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableOrNullObject?: Word.Interfaces.TableData;
             /**
             *
             * Gets all of the table rows. Read-only.
@@ -74588,13 +75967,6 @@ declare namespace Word {
             */
             font?: Word.Interfaces.FontData;
             /**
-            *
-            * Gets parent table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTable?: Word.Interfaces.TableData;
-            /**
              *
              * Gets the number of cells in the row. Read-only.
              *
@@ -74664,20 +76036,6 @@ declare namespace Word {
             * [Api set: WordApi 1.3]
             */
             body?: Word.Interfaces.BodyData;
-            /**
-            *
-            * Gets the parent row of the cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentRow?: Word.Interfaces.TableRowData;
-            /**
-            *
-            * Gets the parent table of the cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTable?: Word.Interfaces.TableData;
             /**
              *
              * Gets the index of the cell in its row. Read-only.
@@ -75363,6 +76721,7 @@ declare namespace Word {
             * Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc..
             *
             * [Api set: WordApiHiddenDocument 1.3]
+            * @beta
             */
             body?: Word.Interfaces.BodyLoadOptions;
             /**
@@ -75370,6 +76729,7 @@ declare namespace Word {
             * Gets the properties of the document.
             *
             * [Api set: WordApiHiddenDocument 1.3]
+            * @beta
             */
             properties?: Word.Interfaces.DocumentPropertiesLoadOptions;
             /**
@@ -75377,6 +76737,7 @@ declare namespace Word {
              * Indicates whether the changes in the document have been saved. A value of true indicates that the document hasn't changed since it was saved. Read-only.
              *
              * [Api set: WordApiHiddenDocument 1.3]
+             * @beta
              */
             saved?: boolean;
         }
@@ -81021,6 +82382,7 @@ declare namespace OneNote {
     }
     enum ErrorCodes {
         generalException = "GeneralException",
+        operationAborted = "OperationAborted",
     }
     module Interfaces {
         /**
