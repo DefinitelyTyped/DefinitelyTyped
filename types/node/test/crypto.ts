@@ -135,7 +135,7 @@ import { promisify } from 'util';
     decipher.setAAD(aad, {
         plaintextLength: ciphertext.length
     });
-    const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+    const receivedPlaintext: string = decipher.update(ciphertext, undefined, 'utf8');
     decipher.final();
 }
 
@@ -158,7 +158,7 @@ import { promisify } from 'util';
     decipher.setAAD(aad, {
         plaintextLength: ciphertext.length
     });
-    const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+    const receivedPlaintext: string = decipher.update(ciphertext, undefined, 'utf8');
     decipher.final();
 }
 
