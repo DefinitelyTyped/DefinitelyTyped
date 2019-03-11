@@ -9,15 +9,48 @@ export interface FindResult<T> {
     handlers: T[];
 }
 
-export type ValidMethods = 'GET' | 'HEAD' | 'PATCH' | 'OPTIONS' |
-    'CONNECT' | 'DELETE' | 'TRACE' | 'POST' | 'PUT';
+export type HTTPMethod =
+    | 'ACL'
+    | 'BIND'
+    | 'CHECKOUT'
+    | 'CONNECT'
+    | 'COPY'
+    | 'DELETE'
+    | 'GET'
+    | 'HEAD'
+    | 'LINK'
+    | 'LOCK'
+    | 'M-SEARCH'
+    | 'MERGE'
+    | 'MKACTIVITY'
+    | 'MKCALENDAR'
+    | 'MKCOL'
+    | 'MOVE'
+    | 'NOTIFY'
+    | 'OPTIONS'
+    | 'PATCH'
+    | 'POST'
+    | 'PROPFIND'
+    | 'PROPPATCH'
+    | 'PURGE'
+    | 'PUT'
+    | 'REBIND'
+    | 'REPORT'
+    | 'SEARCH'
+    | 'SOURCE'
+    | 'SUBSCRIBE'
+    | 'TRACE'
+    | 'UNBIND'
+    | 'UNLINK'
+    | 'UNLOCK'
+    | 'UNSUBSCRIBE';
 
 export type FindReturn<T> = FindResult<T> | false;
 
 declare class Trouter<T = any> {
-    find(method: ValidMethods, url: string): FindReturn<T>;
+    find(method: HTTPMethod, url: string): FindReturn<T>;
 
-    add(method: ValidMethods, pattern: string, ...handlers: T[]): this;
+    add(method: HTTPMethod, pattern: string, ...handlers: T[]): this;
 
     all(pattern: string, ...handlers: T[]): this;
 
