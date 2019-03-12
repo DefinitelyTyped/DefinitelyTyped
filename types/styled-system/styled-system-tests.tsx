@@ -128,8 +128,7 @@ import {
     verticalAlign,
     px,
     createMediaQuery,
-    styles,
-    TLengthStyledSystem
+    styles
 } from "styled-system";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
@@ -146,49 +145,43 @@ const boxStyle = variant({
     key: 'box',
 });
 
-interface BreakpointAlias {
-    sm?: TLengthStyledSystem;
-    md?: TLengthStyledSystem;
-    lg?: TLengthStyledSystem;
-}
-
-
 interface BoxProps
-    extends SpaceProps<TLengthStyledSystem, BreakpointAlias>,
-        WidthProps<TLengthStyledSystem, BreakpointAlias>,
-        FontSizeProps<TLengthStyledSystem, BreakpointAlias>,
+    extends SpaceProps,
+        WidthProps,
+        FontSizeProps,
         ColorProps,
-        DisplayProps<BreakpointAlias>,
-        BackgroundProps<TLengthStyledSystem, BreakpointAlias>,
-        MaxWidthProps<TLengthStyledSystem, BreakpointAlias>,
-        MinWidthProps<TLengthStyledSystem, BreakpointAlias>,
-        HeightProps<TLengthStyledSystem, BreakpointAlias>,
-        MaxHeightProps<TLengthStyledSystem, BreakpointAlias>,
-        MinHeightProps<TLengthStyledSystem, BreakpointAlias>,
+        DisplayProps,
+        BackgroundProps,
+        BgColorProps,
+        MaxWidthProps,
+        MinWidthProps,
+        HeightProps,
+        MaxHeightProps,
+        MinHeightProps,
         SizeProps,
-        RatioProps< BreakpointAlias>,
-        BorderColorProps< BreakpointAlias>,
-        FlexProps<TLengthStyledSystem, BreakpointAlias>,
-        JustifySelfProps<BreakpointAlias>,
-        AlignSelfProps<BreakpointAlias>,
-        BorderProps<TLengthStyledSystem, BreakpointAlias>,
+        RatioProps,
+        BorderColorProps,
+        FlexProps,
+        JustifySelfProps,
+        AlignSelfProps,
+        BorderProps,
         BordersProps,
-        BorderRadiusProps<TLengthStyledSystem, BreakpointAlias>,
-        PositionProps<BreakpointAlias>,
-        ZIndexProps<BreakpointAlias>,
-        TopProps<TLengthStyledSystem, BreakpointAlias>,
-        BottomProps<TLengthStyledSystem, BreakpointAlias>,
-        LeftProps<TLengthStyledSystem, BreakpointAlias>,
-        RightProps<TLengthStyledSystem, BreakpointAlias>,
-        BoxShadowProps<BreakpointAlias>,
-        BackgroundImageProps<BreakpointAlias>,
-        BackgroundPositionProps<TLengthStyledSystem, BreakpointAlias>,
-        BackgroundRepeatProps<BreakpointAlias>,
-        BackgroundSizeProps<TLengthStyledSystem, BreakpointAlias>,
-        ColorStyleProps<BreakpointAlias>,
-        TextStyleProps<BreakpointAlias>,
-        MixedProps<BreakpointAlias>,
-        VerticalAlignProps<TLengthStyledSystem, BreakpointAlias> {
+        BorderRadiusProps,
+        PositionProps,
+        ZIndexProps,
+        TopProps,
+        BottomProps,
+        LeftProps,
+        RightProps,
+        BoxShadowProps,
+        BackgroundImageProps,
+        BackgroundPositionProps,
+        BackgroundRepeatProps,
+        BackgroundSizeProps,
+        ColorStyleProps,
+        TextStyleProps,
+        MixedProps,
+        VerticalAlignProps {
             boxStyle?: string;
         }
 const Box: React.ComponentType<BoxProps> = styled`
