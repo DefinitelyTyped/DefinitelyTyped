@@ -26,7 +26,11 @@ declare module "https" {
 
         setTimeout(callback: () => void): this;
         setTimeout(msecs?: number, callback?: () => void): this;
-        // https://nodejs.org/api/http.html#http_server_maxheaderscount
+        /**
+         * Limits maximum incoming headers count. If set to 0, no limit will be applied.
+         * @default 2000
+         * {@link https://nodejs.org/api/http.html#http_server_maxheaderscount}
+         */
         maxHeadersCount: number | null;
         timeout: number;
         /**
