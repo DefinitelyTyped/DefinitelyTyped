@@ -123,12 +123,12 @@ declare module "react-jsonschema-form" {
         id: string;
         classNames: string;
         label: string;
-        description: React.ReactElement;
+        description: React.ReactElement<React.ReactNode>;
         rawDescription: string;
-        children: React.ReactElement;
-        errors: React.ReactElement;
+        children: React.ReactElement<React.ReactNode>;
+        errors: React.ReactElement<React.ReactNode>;
         rawErrors: string[];
-        help: React.ReactElement;
+        help: React.ReactElement<React.ReactNode>;
         rawHelp: string;
         hidden: boolean;
         required: boolean;
@@ -142,14 +142,14 @@ declare module "react-jsonschema-form" {
     };
 
     export type ArrayFieldTemplateProps = {
-        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement }>;
+        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement<React.ReactNode> }>;
         TitleField: React.StatelessComponent<{ id: string, title: string, required: boolean }>;
         canAdd: boolean;
         className: string;
         disabled: boolean;
         idSchema: IdSchema;
         items: {
-            children: React.ReactElement;
+            children: React.ReactElement<React.ReactNode>;
             className: string;
             disabled: boolean;
             hasMoveDown: boolean;
@@ -175,12 +175,12 @@ declare module "react-jsonschema-form" {
     };
 
     export type ObjectFieldTemplateProps = {
-        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement }>;
+        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement<React.ReactNode> }>;
         TitleField: React.StatelessComponent<{ id: string, title: string, required: boolean }>;
         title: string;
         description: string;
         properties: {
-            content: React.ReactElement;
+            content: React.ReactElement<React.ReactNode>;
             name: string;
             disabled: boolean;
             readonly: boolean;
