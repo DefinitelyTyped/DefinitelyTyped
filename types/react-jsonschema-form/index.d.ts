@@ -88,6 +88,7 @@ declare module "react-jsonschema-form" {
         formContext: any;
         onBlur: (id: string, value: string) => void;
         onFocus: (id: string, value: string) => void;
+        label: string;
     }
 
     export type Widget =
