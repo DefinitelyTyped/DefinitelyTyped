@@ -154,9 +154,9 @@ export function buildResolveInfo(
 // function. Returns the result of resolveFn or the abrupt-return Error object.
 export function resolveFieldValueOrError<TSource, TArgs, TContext>(
     exeContext: ExecutionContext,
-    fieldDef: GraphQLField<TSource, TContext, TArgs>,
+    fieldDef: GraphQLField<TSource, TArgs, TContext>,
     fieldNodes: ReadonlyArray<FieldNode>,
-    resolveFn: GraphQLFieldResolver<TSource, TContext, TArgs>,
+    resolveFn: GraphQLFieldResolver<TSource, TArgs, TContext>,
     source: TSource,
     info: GraphQLResolveInfo
 ): Error | any;
