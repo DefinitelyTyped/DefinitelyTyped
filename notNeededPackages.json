@@ -304,7 +304,7 @@
             "libraryName": "copy-text-to-clipboard",
             "typingsPackageName": "copy-text-to-clipboard",
             "sourceRepoURL": "https://github.com/sindresorhus/copy-text-to-clipboard",
-            "asOfVersion": "2.0.0"
+            "asOfVersion": "2.0.1"
         },
         {
             "libraryName": "cordova-plugin-battery-status",
