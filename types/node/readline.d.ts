@@ -110,7 +110,7 @@ declare module "readline" {
     type ReadLine = Interface; // type forwarded for backwards compatiblity
 
     type Completer = (line: string) => CompleterResult;
-    type AsyncCompleter = (line: string, callback: (err: any, result: CompleterResult) => void) => any;
+    type AsyncCompleter = (line: string, callback: (err?: null | Error, result?: CompleterResult) => void) => any;
 
     type CompleterResult = [string[], string];
 

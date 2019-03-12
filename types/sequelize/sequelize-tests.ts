@@ -1,6 +1,16 @@
 import Sequelize = require("sequelize");
 import Q = require('q');
 import Bluebird = require('bluebird');
+import SequelizeAsDefault from 'sequelize';
+import { Sequelize as SequelizeAsIndividualExport } from 'sequelize';
+
+//
+// Import checks
+// ~~~~~~~~~~~~~
+//
+Sequelize.Model.Instance
+SequelizeAsDefault.Model.Instance
+SequelizeAsIndividualExport.Model.Instance
 
 //
 //  Fixtures
@@ -238,6 +248,13 @@ product.createWarehouse({ id: 1 }, { save: true, silent: true }).then(() => { })
 warehouse.getProducts();
 warehouse.getProducts({ where: {}, scope: false });
 warehouse.getProducts({ where: {}, scope: false }).then((products) => products[0].id);
+
+interface ProductInstanceIncludeBarcode extends ProductInstance {
+    barcode: BarcodeInstance
+}
+warehouse.getProducts({ where: {}, scope: false, include: {model: Barcode, as: 'barcode'} }).then((products) => {
+    (products[0] as ProductInstanceIncludeBarcode).barcode
+});
 
 warehouse.setProducts();
 warehouse.setProducts([product]);

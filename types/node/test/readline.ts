@@ -115,7 +115,7 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
     _rl = _rl.addListener("close", () => { });
     _rl = _rl.addListener("line", (input) => {
-        const _input: any = input;
+        const _input: string = input;
     });
     _rl = _rl.addListener("pause", () => { });
     _rl = _rl.addListener("resume", () => { });

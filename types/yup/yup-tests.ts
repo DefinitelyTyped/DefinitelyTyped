@@ -420,7 +420,7 @@ const description: SchemaDescription = {
     type: "type",
     label: "label",
     meta: { key: "value" },
-    tests: ["test1", "test2"],
+    tests: [{ name: "test1", params: {} }, { name: "test2", params: {} }],
     fields: { key: "value" }
 };
 

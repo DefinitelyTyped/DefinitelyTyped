@@ -16,6 +16,7 @@
 //                 Bartosz Dotryw <https://github.com/burtek>
 //                 Jason Killian <https://github.com/jkillian>
 //                 Satyajit Sahoo <https://github.com/satya164>
+//                 Mattias Sämskar <https://github.com/mattiassamskar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2453,6 +2454,14 @@ export namespace Speech {
 
     /** Available on iOS only */
     function resume(): void;
+}
+
+/**
+ * SplashScreen
+ */
+export namespace SplashScreen {
+    function hide(): void;
+    function preventAutoHide(): void;
 }
 
 /**

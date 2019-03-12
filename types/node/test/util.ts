@@ -30,6 +30,9 @@ import { readFile } from 'fs';
         sorted: true,
         getters: 'set',
     });
+    util.inspect(["This is nice"], {
+        compact: 42,
+    });
     assert(typeof util.inspect.custom === 'symbol');
 
     util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
