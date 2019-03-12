@@ -40,7 +40,7 @@ export interface FieldArrayFieldsProps<FieldValue> {
     length: number;
     map<R>(callback: FieldIterate<FieldValue, R>): R[];
     pop(): FieldValue;
-    push(value: FieldValue): void;
+    push(value?: FieldValue): void;
     remove(index: number): void;
     shift(): FieldValue;
     swap(indexA: number, indexB: number): void;
