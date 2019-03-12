@@ -121,6 +121,14 @@ const defaultLocale = getDefaultLocale();
 	<span />
 </DatePicker>;
 
+<DatePicker
+    minDate={null}
+    maxDate={null}
+    startDate={null}
+    endDate={null}
+    onChange={() => null}
+/>;
+
 function handleRef(ref: DatePicker | null) {
     if (ref) {
         ref.setBlur();

@@ -59,10 +59,14 @@ const browserTimeout: number = browserClock.setTimeout(() => {}, 7);
 const browserInterval: number = browserClock.setInterval(() => {}, 7);
 const browserImmediate: number = browserClock.setImmediate(() => {});
 const browserAnimationFrame: number = browserClock.requestAnimationFrame(() => {});
+const browserIdleCallback: number = browserClock.requestIdleCallback(() => {});
+const browserIdleCallbackWithTimeout: number = browserClock.requestIdleCallback(() => {}, 7);
 const nodeTimeout: lolex.NodeTimer = nodeClock.setTimeout(() => {}, 7);
 const nodeInterval: lolex.NodeTimer = nodeClock.setInterval(() => {}, 7);
 const nodeImmediate: lolex.NodeTimer = nodeClock.setImmediate(() => {});
 const nodeAnimationFrame: lolex.NodeTimer = nodeClock.requestAnimationFrame(() => {});
+const nodeIdleCallback: lolex.NodeTimer = nodeClock.requestIdleCallback(() => {});
+const nodeIdleCallbackWithTimeout: lolex.NodeTimer = nodeClock.requestIdleCallback(() => {}, 7);
 
 nodeTimeout.ref();
 nodeTimeout.unref();
@@ -71,11 +75,15 @@ browserClock.clearTimeout(browserTimeout);
 browserClock.clearInterval(browserInterval);
 browserClock.clearImmediate(browserImmediate);
 browserClock.cancelAnimationFrame(browserAnimationFrame);
+browserClock.cancelIdleCallback(browserIdleCallback);
+browserClock.cancelIdleCallback(browserIdleCallbackWithTimeout);
 
 nodeClock.clearTimeout(nodeTimeout);
 nodeClock.clearInterval(nodeInterval);
 nodeClock.clearImmediate(nodeImmediate);
 nodeClock.cancelAnimationFrame(nodeAnimationFrame);
+nodeClock.cancelIdleCallback(nodeIdleCallback);
+nodeClock.cancelIdleCallback(nodeIdleCallbackWithTimeout);
 
 browserClock.tick(7);
 browserClock.tick("08");

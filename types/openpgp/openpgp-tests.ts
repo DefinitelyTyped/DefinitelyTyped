@@ -135,6 +135,23 @@ openpgp.initWorker({ path:'openpgp.worker.js' });
     return verified.signatures[0].valid;
 })();
 
+async () => {
+    let hkp = new openpgp.HKP();
+
+    const hkpOptions = {
+        query: 'alice@example.com'
+    };
+
+    const armoredPubkey = await hkp.lookup(hkpOptions);
+    await openpgp.key.readArmored(armoredPubkey);
+
+    hkp = new openpgp.HKP('https://pgp.mit.edu');
+
+    const pubkey = '-----BEGIN PGP PUBLIC KEY BLOCK ... END PGP PUBLIC KEY BLOCK-----';
+
+    await hkp.upload(pubkey);
+}
+
 // Open PGP Tests
 
 

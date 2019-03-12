@@ -48,6 +48,7 @@ import {
     registerRootComponent,
     ScreenOrientation,
     SecureStore,
+    SplashScreen,
     Svg,
     Updates
 } from 'expo';
@@ -1260,4 +1261,9 @@ async () => {
     const response13 = await Contacts.getContainersAsync({ containerId: 'containerId' });
     response13.forEach((_: Contacts.Container) => _);
 };
+// #endregion
+
+// #region SplashScreen
+SplashScreen.hide();
+SplashScreen.preventAutoHide();
 // #endregion

@@ -9297,9 +9297,11 @@ export const PointPropType: React.Validator<PointPropType>;
 export const ViewPropTypes: React.ValidationMap<ViewProps>;
 
 declare global {
-    type ReactNativeRequireFunction = (name: string) => any;
+    interface NodeRequire {
+        (id: string): any;
+    }
 
-    var require: ReactNativeRequireFunction;
+    var require: NodeRequire;
 
     /**
      * Console polyfill

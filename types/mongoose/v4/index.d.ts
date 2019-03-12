@@ -1,8 +1,9 @@
-// Type definitions for Mongoose 4.7.2
+// Type definitions for Mongoose 4.7.3
 // Project: http://mongoosejs.com/
 // Definitions by: simonxca <https://github.com/simonxca>
 //                 horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
+//                 murbanowicz <https://github.com/murbanowicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -2445,7 +2446,7 @@ declare module "mongoose" {
      *   Model#ensureIndexes. If an error occurred it is passed with the event.
      *   The fields, options, and index name are also passed.
      */
-    new(doc?: any): T;
+    new(doc?: Partial<T>): T;
 
     /**
      * Finds a single document by its _id field. findById(id) is almost*

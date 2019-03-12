@@ -185,10 +185,8 @@ declare module "crypto" {
     interface Cipher extends NodeJS.ReadWriteStream {
         update(data: BinaryLike): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
-        update(data: Binary, output_encoding: HexBase64BinaryEncoding): string;
-        update(data: Binary, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
-        // second arg ignored
-        update(data: string, input_encoding: Utf8AsciiBinaryEncoding, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: Binary, input_encoding: undefined, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: string, input_encoding: Utf8AsciiBinaryEncoding | undefined, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding?: boolean): this;
@@ -227,9 +225,8 @@ declare module "crypto" {
     interface Decipher extends NodeJS.ReadWriteStream {
         update(data: Binary): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: Binary, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
-        // second arg is ignored
-        update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: Binary, input_encoding: undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: string, input_encoding: HexBase64BinaryEncoding | undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding?: boolean): this;

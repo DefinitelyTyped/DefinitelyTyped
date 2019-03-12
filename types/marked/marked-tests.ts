@@ -51,3 +51,8 @@ renderer.heading = (text, level, raw, slugger) => {
 
 const textRenderer = new marked.TextRenderer();
 console.log(textRenderer.strong(text));
+
+const parseTestText = "- list1\n  - list1.1\n\n listend";
+const parseTestTokens: marked.TokensList = marked.lexer(parseTestText, options);
+const parser = new marked.Parser();
+console.log(parser.parse(parseTestTokens));
