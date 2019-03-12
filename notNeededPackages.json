@@ -2138,7 +2138,7 @@
         },
         {
             "libraryName": "@xmpp/jid",
-            "typingsPackageName": "xmpp-jid",
+            "typingsPackageName": "xmpp__jid",
             "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
             "asOfVersion": "1.2.0"
         },
