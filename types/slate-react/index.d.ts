@@ -380,9 +380,9 @@ export function cloneFragment(
 ): void;
 export function findDOMNode(node: Node, win?: Window): Element;
 export function findDOMRange(range: Range, win?: Window): Range;
-export function findNode(element: Element, value: Value): Node;
-export function findRange(selection: Selection, value: Value): Range;
-export function getEventRange(event: Event, value: Value): Range;
+export function findNode(element: Element, value: CoreEditor): Node;
+export function findRange(selection: Selection, value: CoreEditor): Range;
+export function getEventRange(event: Event, value: CoreEditor): Range;
 export function getEventTransfer(event: Event): { type: SlateType; node: Node };
 export function setEventTransfer(
     event: Event,
