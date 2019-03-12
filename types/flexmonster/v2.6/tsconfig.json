@@ -15,9 +15,6 @@
         "paths": {
             "flexmonster": [
                 "flexmonster/v2.6"
-            ],
-            "flexmonster/*": [
-                "flexmonster/v2.6/*"
             ]
         },
         "types": [],
