@@ -834,6 +834,8 @@ const NativeIDTest = () => (
     </ScrollView>
 );
 
+const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;
+
 const ShareTest = () => {
     Share.share(
         { title: "title", message: "message" },
