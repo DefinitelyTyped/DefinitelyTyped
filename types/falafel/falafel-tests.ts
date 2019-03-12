@@ -7,11 +7,7 @@ const src = '(' + function () {
 
 var output = falafel(src, function (node: any) {});
 
-const src2 = `(function () {'
-      + 'var xs = [ 1, 2, [ 3, 4 ] ];'
-      + 'var ys = [ 5, 6 ];'
-      + 'g([ xs, ys ]);'
-  + '})()`;
+const src2 = `(function () {var xs = [ 1, 2, [ 3, 4 ] ];})()`;
 
 output = falafel(src2,  (node: any) => {});
 
