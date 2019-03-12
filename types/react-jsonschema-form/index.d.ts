@@ -6,6 +6,7 @@
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
 //                 Sylvain Thénault <https://github.com/sthenault>
 //                 Sebastian Busch <https://github.com/sbusch>
+//                 Mehdi Lahlou <https://github.com/medfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
