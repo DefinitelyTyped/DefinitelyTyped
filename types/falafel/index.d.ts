@@ -3,6 +3,7 @@
 // Definitions by: Przemysław Struciński <https://github.com/delprzemo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-declare function falafel (src: string, opts: Function | Object, fn?: Function): string;
+
+declare function falafel (src: string, opts: Function | object, fn?: Function): string;
 
 export = falafel;
