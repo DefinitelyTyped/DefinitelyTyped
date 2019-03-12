@@ -809,14 +809,6 @@ export interface TextPropsIOS {
      * default, a gray oval highlights the text on press down.
      */
     suppressHighlighting?: boolean;
-
-    /**
-     * Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:
-     * - null/undefined (default): inherit from the parent node or the global default (0)
-     * - 0: no max, ignore parent/global default
-     * - >= 1: sets the maxFontSizeMultiplier of this node to this value
-     */
-    maxFontSizeMultiplier?: number;
 }
 
 export interface TextPropsAndroid {
@@ -912,6 +904,14 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * Used to reference react managed views from native code.
      */
     nativeID?: string;
+    
+    /**
+     * Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:
+     * - null/undefined (default): inherit from the parent node or the global default (0)
+     * - 0: no max, ignore parent/global default
+     * - >= 1: sets the maxFontSizeMultiplier of this node to this value
+     */
+    maxFontSizeMultiplier?: number | null;
 }
 
 /**
@@ -1436,6 +1436,14 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
      * or set/update maxLength to prevent unwanted edits without flicker.
      */
     value?: string;
+    
+    /**
+     * Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:
+     * - null/undefined (default): inherit from the parent node or the global default (0)
+     * - 0: no max, ignore parent/global default
+     * - >= 1: sets the maxFontSizeMultiplier of this node to this value
+     */
+    maxFontSizeMultiplier?: number | null;
 }
 
 /**
