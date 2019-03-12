@@ -22,4 +22,16 @@ let options: BootstrapGrowlIfightcrime.Options = {
 
 $(document).ready(() => {
     $.bootstrapGrowl('Alert with options', options);
+
+    const optionsWidthAuto: BootstrapGrowlIfightcrime.Options  = {
+        ...options,
+        width: 'auto'
+    };
+    $.bootstrapGrowl('Alert with options', optionsWidthAuto);
+
+    const optionsWidthError = {
+        ...options,
+        width: null
+    };
+    $.bootstrapGrowl('Alert with options', optionsWidthError); // $ExpectError
 });
