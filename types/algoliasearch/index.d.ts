@@ -1,4 +1,4 @@
-// Type definitions for algoliasearch-client-js 3.30.0
+// Type definitions for algoliasearch-client-js 3.30.1
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
