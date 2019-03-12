@@ -202,7 +202,7 @@
             "libraryName": "boxen",
             "typingsPackageName": "boxen",
             "sourceRepoURL": "https://github.com/sindresorhus/boxen",
-            "asOfVersion": "3.0.0"
+            "asOfVersion": "3.0.1"
         },
         {
             "libraryName": "Bugsnag Browser",
