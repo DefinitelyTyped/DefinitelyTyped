@@ -507,6 +507,12 @@ declare namespace algoliasearch {
      */
     analytics?: boolean;
     /**
+     * If set to true, enables the Click Analytics feature
+     * default false
+     * https://www.algolia.com/doc/api-reference/api-parameters/clickAnalytics/
+     */
+    clickAnalytics?: boolean;
+    /**
      * If set, tag your query with the specified identifiers
      * default: []
      * https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/
