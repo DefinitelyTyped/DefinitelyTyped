@@ -3,6 +3,7 @@
 // Definitions by: Dibyo Majumdar <https://github.com/mDibyo>
 //                 Aziz Khambati <https://github.com/azizhk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { Store, StoreEnhancer, Action, AnyAction } from "redux";
 
