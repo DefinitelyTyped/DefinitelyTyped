@@ -2,6 +2,7 @@
 // Project: https://github.com/x-cold/dingtalk-robot
 // Definitions by: bangbang93 <https://github.com/bangbang93>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 import { AxiosResponse } from 'axios';
 
 interface WebHookOptions {
