@@ -1,5 +1,5 @@
-// Type definitions for vscode 1.14
-// Project: https://github.com/microsoft/vscode
+// Type definitions for VS Code 1.14 extension development
+// Project: https://github.com/microsoft/vscode-extension-vscode
 // Definitions by: VS Code Team, Microsoft <https://github.com/Microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
