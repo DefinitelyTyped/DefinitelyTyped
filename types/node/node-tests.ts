@@ -579,6 +579,8 @@ import Module = require("module");
         const timeout: number = server.timeout;
         const listening: boolean = server.listening;
         const keepAliveTimeout: number = server.keepAliveTimeout;
+        const maxHeadersCount: number | null = server.maxHeadersCount;
+        const headersTimeout: number = server.headersTimeout;
         server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
     }
 }
