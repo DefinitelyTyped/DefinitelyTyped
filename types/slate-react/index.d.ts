@@ -372,20 +372,11 @@ export type SlateType =
     | "text"
     | "files";
 
-export function cloneFragment(
-    event: Event,
-    value: Value,
-    fragment?: Document,
-    callback?: () => void
-): void;
+export function cloneFragment(event: Event | React.SyntheticEvent, editor: CoreEditor, callback?: () => void): void;
 export function findDOMNode(node: Node, win?: Window): Element;
 export function findDOMRange(range: Range, win?: Window): Range;
-export function findNode(element: Element, value: CoreEditor): Node;
-export function findRange(selection: Selection, value: CoreEditor): Range;
-export function getEventRange(event: Event, value: CoreEditor): Range;
-export function getEventTransfer(event: Event): { type: SlateType; node: Node };
-export function setEventTransfer(
-    event: Event,
-    type: SlateType,
-    data: any
-): void;
+export function findNode(element: Element, editor: CoreEditor): Node;
+export function findRange(selection: Selection | Range, editor: CoreEditor): Range;
+export function getEventRange(event: Event | React.SyntheticEvent, editor: CoreEditor): Range;
+export function getEventTransfer(event: Event | React.SyntheticEvent): { type: SlateType; node: Node };
+export function setEventTransfer(event: Event | React.SyntheticEvent, type: SlateType, data: any): void;
