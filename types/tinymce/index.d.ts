@@ -320,6 +320,20 @@ export interface Settings {
   imagetools_toolbar?: string;
 
   imagetools_api_key?: string;
+
+  spellchecker_rpc_url?: string;
+
+  spellchecker_language?: string;
+
+  spellchecker_languages?: string;
+
+  spellchecker_dialog?: boolean;
+
+  spellchecker_whitelist?: string[];
+
+  spellchecker_on_load?: boolean;
+
+  spellchecker_active?: boolean;
 }
 
 export namespace settings {
