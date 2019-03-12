@@ -808,7 +808,6 @@ test = (
     />
 );
 
-
 // createContainer test
 
 const VictoryZoomBrushContainer = createContainer<

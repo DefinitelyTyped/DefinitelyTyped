@@ -5,6 +5,8 @@
 //                 Krzysztof Cebula <https://github.com/Havret>
 //                 Vitaliy Polyanskiy <https://github.com/allreadyExisted>
 //                 James Lismore <https://github.com/jlismore>
+//                 Stack Builders <https://github.com/stackbuilders>
+//                 Esteban Ibarra <https://github.com/ibarrae>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2432,8 +2434,16 @@ declare module "victory" {
     | "voronoi"
     | "zoom";
 
-    export function createContainer<V, W>(
-      c1: ContainerType,
-      c2: ContainerType
-    ): React.FunctionComponent<V & W>;
+  /**
+   * createContainer makes a container component with multiple behaviors.
+   * It allows you to effectively combine any two of the following containers:
+   * VictoryBrushContainer, VictoryCursorContainer, VictorySelectionContainer,
+   * VictoryVoronoiContainer, or VictoryZoomContainer.
+   * @param c1 : "brush" | "cursor" | "selection" | "voronoi" | "zoom"
+   * @param c2 : "brush" | "cursor" | "selection" | "voronoi" | "zoom"
+   */
+  export function createContainer<V, W>(
+    c1: ContainerType,
+    c2: ContainerType
+  ): React.FunctionComponent<V & W>;
 }
