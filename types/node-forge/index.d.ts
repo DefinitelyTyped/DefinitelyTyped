@@ -286,31 +286,31 @@ declare module "node-forge" {
         function publicKeyFromPem(pem: PEM): PublicKey;
 
         function privateKeyFromPem(pem: PEM): PrivateKey;
-        
+
         function decryptPrivateKeyInfo(obj: asn1.Asn1, password: string): asn1.Asn1;
-        
+
         function encryptPrivateKeyInfo(obj: asn1.Asn1, password: string, options?: EncryptionOptions): asn1.Asn1;
-        
+
         function encryptedPrivateKeyFromPem(pem: PEM): asn1.Asn1;
-        
+
         function encryptedPrivateKeyToPem(obj: asn1.Asn1): PEM;
-        
+
         function decryptRsaPrivateKey(pem: PEM, password: string): PrivateKey;
-        
+
         function encryptRsaPrivateKey(privateKey: PrivateKey, password: string, options?: EncryptionOptions): PEM;
-        
+
         function privateKeyFromAsn1(privateKey: asn1.Asn1): PrivateKey;
-        
+
         function privateKeyToAsn1(privateKey: PrivateKey): asn1.Asn1;
-        
+
         function publicKeyFromAsn1(publicKey: asn1.Asn1): PublicKey;
 
         function publicKeyToAsn1(publicKey: PublicKey): asn1.Asn1;
 
         function publicKeyToRSAPublicKey(publicKey: PublicKey): any;
-        
+
         function setRsaPublicKey(n: jsbn.BigInteger, e: jsbn.BigInteger): PublicKey;
-        
+
         function wrapRsaPrivateKey(privateKey: asn1.Asn1): asn1.Asn1;
     }
 
@@ -588,15 +588,6 @@ declare module "node-forge" {
 
     namespace md {
 
-        type Algorithm = "sha1" | "md5" | "sha256";
-
-        interface HMAC {
-            digest(): util.ByteBuffer;
-            getMact(): util.ByteBuffer;
-            start(md: Algorithm, key: string | util.ByteBuffer | null): void;
-            update(bytes: string | util.ByteBuffer | Buffer): void;
-        }
-
         interface MessageDigest {
             update(msg: string, encoding?: Encoding): MessageDigest;
             digest(): util.ByteStringBuffer;
@@ -609,7 +600,7 @@ declare module "node-forge" {
         namespace sha256 {
             function create(): MessageDigest;
         }
-        
+
         namespace sha384 {
             function create(): MessageDigest;
         }
@@ -621,10 +612,23 @@ declare module "node-forge" {
         namespace md5 {
             function create(): MessageDigest;
         }
-        
+
         namespace hmac {
-            function create(): HMAC;
         }
+    }
+
+    namespace hmac {
+
+      type Algorithm = "sha1" | "md5" | "sha256";
+
+      interface HMAC {
+          digest(): util.ByteBuffer;
+          getMact(): util.ByteBuffer;
+          start(md: Algorithm, key: string | util.ByteBuffer | null): void;
+          update(bytes: string | util.ByteBuffer | Buffer): void;
+      }
+
+      function create(): HMAC;
     }
 
     namespace cipher {
