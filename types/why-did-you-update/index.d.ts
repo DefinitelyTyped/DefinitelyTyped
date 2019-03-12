@@ -19,7 +19,7 @@ declare module "why-did-you-update" {
 		exclude?: RegExp;
         groupByComment?: boolean;
         collapseComponentGroups?: boolean;
-        notifier: (
+        notifier?: (
             groupByComponent: boolean,
             collapseComponentGroups: boolean,
             displayName: string,
