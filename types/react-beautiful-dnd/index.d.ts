@@ -1,4 +1,4 @@
-// Type definitions for react-beautiful-dnd 10.0
+// Type definitions for react-beautiful-dnd 10.1
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
@@ -6,6 +6,7 @@
 //                 Mark Nelissen <https://github.com/marknelissen>
 //                 Enrico Boccadifuoco <https://github.com/enricoboccadifuoco>
 //                 Taeheon Kim <https://github.com/lonyele>
+//                 Kanitkorn Sujautra <https://github.com/lukyth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -111,6 +112,7 @@ export interface DroppableProvided {
 export interface DroppableStateSnapshot {
     isDraggingOver: boolean;
     draggingOverWith?: DraggableId;
+    draggingFromThisWith?: DraggableId;
 }
 
 export interface DroppableProps {
@@ -205,6 +207,7 @@ export interface DraggableProps {
     disableInteractiveElementBlocking?: boolean;
     children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement;
     type?: TypeId;
+    shouldRespectForceTouch?: boolean;
 }
 
 export class Draggable extends React.Component<DraggableProps> { }

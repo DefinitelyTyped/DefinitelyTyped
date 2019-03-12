@@ -158,6 +158,7 @@ declare namespace request {
         use(fn: Plugin): this;
         withCredentials(): this;
         write(data: string | Buffer, encoding?: string): this;
+        maxResponseSize(size: number): this;
     }
 
     type Plugin = (req: SuperAgentRequest) => void;
