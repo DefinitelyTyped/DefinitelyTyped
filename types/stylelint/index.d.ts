@@ -73,7 +73,7 @@ export namespace formatters {
 
 export function lint(options?: Partial<LinterOptions>): Promise<LinterResult>;
 
-export type RuleOption = {
+export type ValidateOptionsAssertion = {
     actual: any;
     possible?: any;
     optional?: false;
@@ -101,7 +101,7 @@ export namespace utils {
         messages: T): T;
 
     function validateOptions(result: postcss.Result, ruleName: string,
-        ...options: RuleOption[]): boolean;
+        ...options: ValidateOptionsAssertion[]): boolean;
 
     function checkAgainstRule(options: {
         ruleName: string;
@@ -110,7 +110,7 @@ export namespace utils {
     }, callback: (warning: string) => void): void;
 }
 
-export type Plugin = (primaryOption: any, secondaryOptions: RuleOption[]) =>
+export type Plugin = (primaryOption: any, secondaryOptions?: object) =>
     (root: postcss.Root, result: postcss.Result) => void|PromiseLike<void>;
 
 export function createPlugin(
