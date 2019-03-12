@@ -1,4 +1,4 @@
-// Type definitions for redux-actions 2.3
+// Type definitions for redux-actions 2.6
 // Project: https://github.com/redux-utilities/redux-actions
 // Definitions by: Jack Hsu <https://github.com/jaysoo>,
 //                 Alex Gorbatchev <https://github.com/alexgorbatchev>,
