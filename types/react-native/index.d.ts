@@ -904,7 +904,7 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * Used to reference react managed views from native code.
      */
     nativeID?: string;
-    
+
     /**
      * Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:
      * - null/undefined (default): inherit from the parent node or the global default (0)
@@ -1436,7 +1436,7 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
      * or set/update maxLength to prevent unwanted edits without flicker.
      */
     value?: string;
-    
+
     /**
      * Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:
      * - null/undefined (default): inherit from the parent node or the global default (0)
