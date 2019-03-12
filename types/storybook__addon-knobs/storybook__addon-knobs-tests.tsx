@@ -93,16 +93,17 @@ stories.add('dynamic knobs', () => {
   );
 });
 
-const readonlyOptionsArray: ReadonlyArray<string> = ['hi'];
-select('With readonly string array', readonlyOptionsArray, readonlyOptionsArray[0]);
+// readonly option array: element can be typed string | number | string[]
+select('With readonly string array', ['hi'], 'hi');
+select('With readonly number array', [1, 2, 3, 4], 1);
+select('With readonly string[] array', [['a'], ['b', 'c']], ['a']);
+select('With mixed-typed element array', [1, 'hi', ['a']], 1);
 
 type StringLiteralType = 'Apple' | 'Banana' | 'Grapes';
 const stringLiteralArray: StringLiteralType[] = ['Apple', 'Banana', 'Grapes'];
 
-let selectedFruit: StringLiteralType;
-
 // type of value returned from `select` must be `StringLiteralType`.
-selectedFruit = select('With string literal array', stringLiteralArray, stringLiteralArray[0]);
+const _: StringLiteralType = select('With string literal array', stringLiteralArray, stringLiteralArray[0]);
 
 const optionsObject = {
   Apple: { taste: 'sweet', color: 'red' },
@@ -112,7 +113,7 @@ select('With object', optionsObject, optionsObject.Apple);
 
 const genericArray = array('With regular array', ['hi', 'there']);
 
-const userInputArray = array('With readonly array', readonlyOptionsArray);
+const userInputArray = array('With readonly array', ['hi']);
 userInputArray.push('Make sure that the output is still mutable although the input need not be!');
 
 // groups
