@@ -183,7 +183,7 @@ export interface BgColorProps<TLength = TLengthStyledSystem, TBreakpoinAlias = T
 
 export function bgColor(...args: any[]): any;
 
-export interface ColorProps extends TextColorProps, BgColorProps {}
+export interface ColorProps<TLength = TLengthStyledSystem, TBreakpoinAlias = TBreakpointAliasStyledSystem<TLengthStyledSystem>> extends TextColorProps<TBreakpoinAlias>, BgColorProps<TLength, TBreakpoinAlias> {}
 
 export function color(...args: any[]): any;
 
@@ -358,7 +358,7 @@ export interface SizeHeightProps<TLength = TLengthStyledSystem, TBreakpoinAlias 
 
 export function sizeHeight(...args: any[]): any;
 
-export interface SizeProps extends SizeHeightProps, SizeWidthProps {}
+export interface SizeProps<TLength = TLengthStyledSystem, TBreakpoinAlias = TBreakpointAliasStyledSystem<TLengthStyledSystem>> extends SizeHeightProps<TLength, TBreakpoinAlias>, SizeWidthProps<TLength, TBreakpoinAlias> {}
 
 export function size(...args: any[]): any;
 
@@ -744,11 +744,11 @@ export interface BorderLeftProps<TLength = TLengthStyledSystem, TBreakpoinAlias 
 
 export function borderLeft(...args: any[]): any;
 
-export interface BordersProps
-    extends BorderTopProps,
-        BorderRightProps,
-        BorderBottomProps,
-        BorderLeftProps {}
+export interface BordersProps<TLength = TLengthStyledSystem, TBreakpoinAlias = TBreakpointAliasStyledSystem<TLengthStyledSystem>>
+    extends BorderTopProps<TLength, TBreakpoinAlias>,
+        BorderRightProps<TLength, TBreakpoinAlias>,
+        BorderBottomProps<TLength, TBreakpoinAlias>,
+        BorderLeftProps<TLength, TBreakpoinAlias> {}
 
 export function borders(...args: any[]): any;
 
