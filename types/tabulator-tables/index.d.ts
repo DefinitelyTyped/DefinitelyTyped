@@ -90,11 +90,11 @@ declare namespace Tabulator {
             | boolean;
 
         /** The clipboardCopied event is triggered whenever data is copied to the clipboard. */
-        clipboardCopied: () => void;
+        clipboardCopied?: () => void;
         /** The clipboardPasted event is triggered whenever data is successfuly pasted into the table. */
-        clipboardPasted: () => void;
+        clipboardPasted?: () => void;
         /** The clipboardPasteError event is triggered whenever an atempt to paste data into the table has failed because it was rejected by the paste parser. */
-        clipboardPasteError: () => void;
+        clipboardPasteError?: () => void;
     }
 
     interface OptionsPersistentConfiguration {
@@ -744,9 +744,9 @@ declare namespace Tabulator {
         history?: boolean;
 
         /** The historyUndo event is triggered when the undo action is triggered. */
-        historyUndo: (action: HistoryAction, component: CellComponent | RowComponent, data: any) => void;
+        historyUndo?: (action: HistoryAction, component: CellComponent | RowComponent, data: any) => void;
         /** The historyRedo event is triggered when the redo action is triggered. */
-        historyRedo: (action: HistoryAction, component: CellComponent | RowComponent, data: any) => void;
+        historyRedo?: (action: HistoryAction, component: CellComponent | RowComponent, data: any) => void;
     }
 
     interface ColumnLayout {
@@ -1177,7 +1177,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
 
     interface RowComponent {
         /** The getData function returns the data object for the row.*/
-        getData: () => {};
+        getData: () => any;
         /** The getElement function returns the DOM node for the row.*/
         getElement: () => HTMLElement;
 
@@ -1424,9 +1424,9 @@ declare class Tabulator {
     getData: (activeOnly?: boolean) => any[];
     getDataCount: (activeOnly?: boolean) => number;
     /** The searchRows function allows you to retreive an array of row components that match any filters you pass in. it accepts the same arguments as the setFilter function. */
-    searchRows: Tabulator.FilterFunction;
+    searchRows: (field: string, type: Tabulator.FilterType, value: any) => Tabulator.RowComponent[];
     /** The searchData function allows you to retreive an array of table row data that match any filters you pass in. it accepts the same arguments as the setFilter function. */
-    searchData: Tabulator.FilterFunction;
+    searchData: (field: string, type: Tabulator.FilterType, value: any) => any[];
     /** You can retrieve the table data as a simple HTML table using the getHtml function. */
     getHtml: (activeOnly?: boolean) => void;
     /** You can retrieve the current AJAX URL of the table with the getAjaxUrl function.
