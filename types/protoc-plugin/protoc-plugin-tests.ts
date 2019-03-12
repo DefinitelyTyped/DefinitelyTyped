@@ -1,17 +1,24 @@
-import protocPlugin, {
-  CodeGeneratorRequest, CodeGeneratorResponse, CodeGeneratorResponseError,
-  OutputFiles
-} from 'protoc-plugin';
+import * as protocPlugin from 'protoc-plugin';
+import {
+  CodeGeneratorResponse as pb_CodeGeneratorResponse
+} from "google-protobuf/google/protobuf/compiler/plugin_pb";
+import FileObject = pb_CodeGeneratorResponse.File.AsObject;
+
+const {
+  CodeGeneratorRequest,
+  CodeGeneratorResponse,
+  CodeGeneratorResponseError
+} = protocPlugin;
 
 protocPlugin(filesToGenerate => {
-  const files: OutputFiles = [];
+  const files: FileObject[] = [];
   files.push({ name: "my_file.ts.d", content: "example" });
   return files;
 });
 
 CodeGeneratorRequest()
   .then(req => {
-    const files: OutputFiles = [];
+    const files: FileObject[] = [];
     files.push({ name: "my_file.ts.d", content: "example" });
     return files;
   })
