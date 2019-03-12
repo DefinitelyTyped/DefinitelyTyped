@@ -9,8 +9,8 @@ import { Store, StoreEnhancer, Action, AnyAction } from "redux";
 export type NotifyFunction = () => void;
 export type BatchFunction = (notify: NotifyFunction) => void;
 
-export interface StoreExtension<S = any, A extends Action = AnyAction> {
-    subscribeImmediate: Store<S, A>["subscribe"];
+export interface StoreExtension {
+    subscribeImmediate: Store["subscribe"];
 }
 
-export function batchedSubscribe<S = any, A extends Action = AnyAction>(batch: BatchFunction): StoreEnhancer<StoreExtension<S, A>>;
+export function batchedSubscribe(batch: BatchFunction): StoreEnhancer<StoreExtension>;
