@@ -1,13 +1,13 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "dt-header": true,
         "adjacent-overload-signatures": false,
         "array-type": false,
         "arrow-return-shorthand": false,
         "ban-types": false,
         "callable-types": false,
         "comment-format": false,
+        "dt-header": false,
         "eofline": false,
         "export-just-namespace": false,
         "import-spacing": false,
