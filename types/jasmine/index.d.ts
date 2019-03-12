@@ -194,7 +194,7 @@ declare namespace jasmine {
 
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
-    function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
+    function objectContaining<T>(sample: any): ObjectContaining<T>;
     function createSpy(name?: string, originalFn?: Function): Spy;
 
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames): any;
@@ -236,8 +236,8 @@ declare namespace jasmine {
         jasmineToString(): string;
     }
 
-    interface ObjectContaining<T> {
-        new (sample: Partial<T>): Partial<T>;
+    class ObjectContaining<T> {
+        constructor(sample: any);
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
         jasmineToString(): string;

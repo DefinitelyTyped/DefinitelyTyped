@@ -854,19 +854,17 @@ describe("jasmine.objectContaining", () => {
     });
 
     it("matches objects with the expect key/value pairs", () => {
-        // not explictly providing the type on objectContaining only guards against
-        // missmatching types on know properties
+        // let the compiler try to infer the actual type
         expect(foo).not.toEqual(jasmine.objectContaining({
             a: 37,
-            foo: 2, // <-- this does not cause an error as the compiler cannot infer the type completely
-            // b: '123', <-- this would cause an error as `b` defined as number in fooType
+            foo: 2, // <-- this should not cause a compiler error as foo will be added in a future version of the interface
+            b: '123', // <-- this should not cause a compiler error as b will be refactored to string in a future version of the interface
         }));
 
-        // explictly providing the type on objectContaining makes the guard more precise
-        // as misspelled properties are detected as well
+        // provide an explicit type hint
         expect(foo).not.toEqual(jasmine.objectContaining<fooType>({
             bar: '',
-            // foo: 1, <-- this would cause an error as `foo` is not defined in fooType
+            foo: 1, // <-- this should not cause a compiler error because we expect foo to be available in a future version of the interface
         }));
     });
 
