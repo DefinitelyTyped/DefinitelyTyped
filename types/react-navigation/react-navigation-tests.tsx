@@ -515,10 +515,9 @@ class Page2 extends React.Component {
         if (this.navigatorRef) {
             this.navigatorRef.dispatch(NavigationActions.navigate({ routeName: 'default' }));
             if (this.navigatorRef.state.nav) {
-                // $ExpectType NavigationRoute[]
+                // $ExpectType NavigationRoute<NavigationParams>[]
                 this.navigatorRef.state.nav.routes;
             }
-
         }
     }
 
