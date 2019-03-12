@@ -1,6 +1,6 @@
-import toast, { Toast, ToastOptions } from "native-toast";
+import toast = require("native-toast");
 
-let t: Toast;
+let t: toast.Toast;
 
 t = toast({
   message: "Team created",
@@ -12,7 +12,7 @@ t = toast({
 t.hide();
 t.show();
 
-const o: ToastOptions = {
+const o: toast.ToastOptions = {
   message: "test",
   position: "west"
 };
