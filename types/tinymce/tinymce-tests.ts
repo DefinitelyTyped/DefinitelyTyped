@@ -50,9 +50,12 @@ const settings: tinymce.Settings = {
   table_row_advtab: false,
   spellchecker_rpc_url: 'https://mydomain.com',
   spellchecker_language: 'en',
-  spellchecker_languages: 'US English=en,UK English=en_gb,Danish=da,Dutch=nl,Finnish=fi,French=fr,German=de,Italian=it,Norwegian=nb,Brazilian Portuguese=pt_BR,Iberian Portuguese=pt_PT,Spanish=es,Swedish=sv',
+  spellchecker_languages: 'US English=en,UK English=en_gb',
   spellchecker_dialog: true,
-  spellchecker_whitelist: ['itemOne','itemTwo'],
+  spellchecker_whitelist: [
+      'itemOne',
+      'itemTwo'
+  ],
   spellchecker_on_load: true,
   spellchecker_active: true,
 };
