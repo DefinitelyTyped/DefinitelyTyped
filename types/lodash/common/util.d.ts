@@ -1275,14 +1275,14 @@ declare module "../index" {
          *
          * @returns Returns the new empty object.
          */
-        stubObject(): any;
+        stubObject(): {};
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.stubObject
          */
-        stubObject(): any;
+        stubObject(): {};
     }
 
     interface LoDashExplicitWrapper<TValue> {

@@ -9,6 +9,7 @@
 //                 Georgii Dolzhykov <https://github.com/thorn0>,
 //                 Jack Moore <https://github.com/jtmthf>,
 //                 Dominique Rau <https://github.com/DomiR>
+//                 Will Boyce <https://github.com/wrboyce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
