@@ -1,4 +1,4 @@
-import hbs from 'htmlbars-inline-precompile';
+import hbs = require('htmlbars-inline-precompile');
 
 const likeThisDotRender = (s: string | string[]) => {};
 

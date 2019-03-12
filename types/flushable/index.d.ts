@@ -14,7 +14,8 @@ export interface FlushableOperation {
     flush: () => void;
 }
 
-export default function flushable(
+export = flushable;
+declare function flushable(
     onComplete: FlushableOnCompleteHandler,
     delay: number
 ): FlushableOperation;
