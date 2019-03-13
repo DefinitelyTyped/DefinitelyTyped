@@ -102,7 +102,6 @@ export interface OverloadedSetCommand<T, U, R> {
     (key: string | string[], arg1: T | { [key: string]: T } | T[], cb?: Callback<U>): R;
     (key: string | string[], ...args: Array<T | Callback<U>>): R;
     (key: string, args: T[], cb?: Callback<U>): R;
-    (args: [string, ...T[]], cb?: Callback<U>): R;
 }
 
 export interface OverloadedLastCommand<T1, T2, U, R> {
