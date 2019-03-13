@@ -1,12 +1,14 @@
-import * as htmlparser from "htmlparser2";
+import { DomHandler, DomHandlerOptions, Node } from "domhandler";
 
-const rawHtml = "Xyz <script language= javascript>var foo = '<<bar>>';< /  script><!--<!-- Waah! -- -->";
-const handler = new htmlparser.DomHandler((error: Error, dom: htmlparser.DomElement[]) => {
+const handler = new DomHandler((error: Error, dom: any) => {
     if (error)
     	console.error('There has been an error...');
     else
         console.log(dom);
 });
-const parser = new htmlparser.Parser(handler);
-parser.write(rawHtml);
-parser.end();
+handler.ontext = (data: string) => { console.log(data); };
+handler.onreset = () => { console.log('We have a reset.'); };
+handler.onerror = (error: Error) => { console.error(Error); };
+handler.onopentag = (name: string, attribs) => { console.log(name, attribs); };
+
+const dho: DomHandlerOptions = { normalizeWhitespace: true, withDomLvl1: true, withEndIndices: true, withStartIndices: true };

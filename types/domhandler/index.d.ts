@@ -1,4 +1,4 @@
-// Type definitions for domhandler 2.4.2
+// Type definitions for domhandler 2.4
 // Project: https://github.com/fb55/DomHandler#readme
 // Definitions by: Johan Davidsson <https://github.com/johandavidson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,12 +9,12 @@ export interface DomHandlerOptions {
      * Indicates whether the whitespace in text nodes should be normalized
      * (= all whitespace should be replaced with single spaces). The default value is "false".
      */
-    normalizeWhitespace: boolean;
+    normalizeWhitespace?: boolean;
 
     /***
      * Adds DOM level 1 properties to all elements.
      */
-    withDomLvl1: boolean;
+    withDomLvl1?: boolean;
 
     /***
      * Indicates whether a startIndex property will be added to nodes.
@@ -22,7 +22,7 @@ export interface DomHandlerOptions {
      * indicating the position of the start of the node in the document.
      * The default value is "false".
      */
-    withStartIndices: boolean;
+    withStartIndices?: boolean;
 
     /***
      * Indicates whether a endIndex property will be added to nodes.
@@ -30,7 +30,7 @@ export interface DomHandlerOptions {
      * indicating the position of the end of the node in the document.
      * The default value is "false".
      */
-    withEndIndices: boolean;
+    withEndIndices?: boolean;
 }
 
 export interface DomElement {
@@ -49,14 +49,13 @@ export interface Element extends DomElement {
 }
 
 export interface Node extends DomElement {
-    firstChild(): DomElement;
-    lastChild(): DomElement;
-    nodeType(): number;
+    readonly firstChild: DomElement;
+    readonly lastChild: DomElement;
+    readonly nodeType: number;
 }
 
 export class DomHandler {
-    constructor(callback: (error: any, dom: DomElement[]) => any);
-    constructor(callback: (error: any, dom: DomElement[]) => any, options: DomHandlerOptions);
+    constructor(callback: (error: any, dom: DomElement[]) => any, options?: DomHandlerOptions);
 
     onparserinit(parser: any): void;
 
