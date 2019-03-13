@@ -19,7 +19,7 @@ type XYPoint = [number, number];
 type BoundingBox = [number, number, number, number];
 type Projection = 'WGS84' | '900913';
 
-export default class SphericalMercator {
+declare class SphericalMercator {
     constructor(options: { size: number })
     px(ll: LatLngPoint, zoom: number): XYPoint;
     ll(px: XYPoint, zoom: number): LatLngPoint;
@@ -29,3 +29,5 @@ export default class SphericalMercator {
     forward(ll: LatLngPoint): XYPoint;
     inverse(xy: XYPoint): LatLngPoint;
 }
+
+export = SphericalMercator;

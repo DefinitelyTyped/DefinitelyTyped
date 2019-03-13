@@ -28,7 +28,8 @@ import * as net from 'net';
     server = http.createServer({ ServerResponse: MyServerResponse }, reqListener);
 
     // test public props
-    const maxHeadersCount: number = server.maxHeadersCount;
+    const maxHeadersCount: number | null = server.maxHeadersCount;
+    const headersTimeout: number = server.headersTimeout;
     const timeout: number = server.timeout;
     const listening: boolean = server.listening;
     const keepAliveTimeout: number = server.keepAliveTimeout;

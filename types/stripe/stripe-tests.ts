@@ -855,6 +855,7 @@ const event: Stripe.events.IEvent = stripe.webhooks.constructEvent(
 // ##################################################################################
 
 stripe.coupons.create({
+    name: '25% Off',
     percent_off: 25,
     duration: 'repeating',
     duration_in_months: 3,
@@ -863,6 +864,7 @@ stripe.coupons.create({
     // asynchronously called
     });
 stripe.coupons.create({
+    name: '25% Off',
     percent_off: 25,
     duration: 'repeating',
     duration_in_months: 3,

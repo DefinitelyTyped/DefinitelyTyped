@@ -18,6 +18,7 @@
 //                 Corey Psoinos <https://github.com/cpsoinos>
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Jonas Keisel <https://github.com/0xJoKe>
+//                 Andrew Delianides <https://github.com/delianides>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1255,6 +1256,11 @@ declare namespace Stripe {
             metadata: IMetadata;
 
             /**
+             * Name of the coupon displayed to customers on for instance invoices or receipts.
+             */
+            name: string;
+
+            /**
              * Percent that will be taken off the subtotal of any invoices for this customer for the duration
              * of the coupon. For example, a coupon with percent_off of 50 will make a $100 invoice $50 instead.
              */
@@ -1311,6 +1317,11 @@ declare namespace Stripe {
              * For example, you might have a 50% off coupon that the first 20 readers of your blog can use.
              */
             max_redemptions?: number;
+
+            /**
+             * Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the id is shown if name is not set.
+             */
+            name?: string;
 
             /**
              * A positive integer between 1 and 100 that represents the discount the coupon will apply (required if amount_off is not passed)

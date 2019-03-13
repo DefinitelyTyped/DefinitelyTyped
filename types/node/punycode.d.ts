@@ -8,5 +8,5 @@ declare module "punycode" {
         decode(string: string): number[];
         encode(codePoints: number[]): string;
     }
-    const version: any;
+    const version: string;
 }

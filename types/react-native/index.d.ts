@@ -17,6 +17,7 @@
 //                 Ryan Nickel <https://github.com/mrnickel>
 //                 Souvik Ghosh <https://github.com/souvik-ghosh>
 //                 Cheng Gibson <https://github.com/nossbigg>
+//                 Saransh Kataria <https://github.com/saranshkataria>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -903,6 +904,14 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * Used to reference react managed views from native code.
      */
     nativeID?: string;
+
+    /**
+     * Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:
+     * - null/undefined (default): inherit from the parent node or the global default (0)
+     * - 0: no max, ignore parent/global default
+     * - >= 1: sets the maxFontSizeMultiplier of this node to this value
+     */
+    maxFontSizeMultiplier?: number | null;
 }
 
 /**
@@ -1427,6 +1436,14 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
      * or set/update maxLength to prevent unwanted edits without flicker.
      */
     value?: string;
+
+    /**
+     * Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:
+     * - null/undefined (default): inherit from the parent node or the global default (0)
+     * - 0: no max, ignore parent/global default
+     * - >= 1: sets the maxFontSizeMultiplier of this node to this value
+     */
+    maxFontSizeMultiplier?: number | null;
 }
 
 /**
@@ -9297,9 +9314,11 @@ export const PointPropType: React.Validator<PointPropType>;
 export const ViewPropTypes: React.ValidationMap<ViewProps>;
 
 declare global {
-    type ReactNativeRequireFunction = (name: string) => any;
+    interface NodeRequire {
+        (id: string): any;
+    }
 
-    var require: ReactNativeRequireFunction;
+    var require: NodeRequire;
 
     /**
      * Console polyfill

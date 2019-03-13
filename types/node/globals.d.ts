@@ -360,7 +360,7 @@ declare const Buffer: {
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    from(data: any[]): Buffer;
+    from(data: number[]): Buffer;
     from(data: Uint8Array): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
@@ -611,12 +611,11 @@ declare namespace NodeJS {
 
     interface WritableStream extends EventEmitter {
         writable: boolean;
-        write(buffer: Buffer | string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        end(cb?: Function): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
+        write(buffer: Buffer | Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
+        write(str: string, encoding?: string, cb?: (err?: Error | null) => void): boolean;
+        end(cb?: () => void): void;
+        end(data: string | Uint8Array | Buffer, cb?: () => void): void;
+        end(str: string, encoding?: string, cb?: () => void): void;
     }
 
     interface ReadWriteStream extends ReadableStream, WritableStream { }
@@ -624,11 +623,11 @@ declare namespace NodeJS {
     interface Events extends EventEmitter { }
 
     interface Domain extends Events {
-        run(fn: Function): void;
-        add(emitter: Events): void;
-        remove(emitter: Events): void;
-        bind(cb: (err: Error, data: any) => any): any;
-        intercept(cb: (data: any) => any): any;
+        run<T>(fn: (...args: any[]) => T, ...args: any[]): T;
+        add(emitter: EventEmitter | Timer): void;
+        remove(emitter: EventEmitter | Timer): void;
+        bind<T extends Function>(cb: T): T;
+        intercept<T extends Function>(cb: T): T;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
@@ -712,9 +711,9 @@ declare namespace NodeJS {
         readonly writableLength: number;
         columns?: number;
         rows?: number;
-        _write(chunk: any, encoding: string, callback: Function): void;
-        _destroy(err: Error | null, callback: Function): void;
-        _final(callback: Function): void;
+        _write(chunk: any, encoding: string, callback: (err?: null | Error) => void): void;
+        _destroy(err: Error | null, callback: (err?: null | Error) => void): void;
+        _final(callback: (err?: null | Error) => void): void;
         setDefaultEncoding(encoding: string): this;
         cork(): void;
         uncork(): void;
@@ -726,7 +725,7 @@ declare namespace NodeJS {
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
         _read(size: number): void;
-        _destroy(err: Error | null, callback: Function): void;
+        _destroy(err: Error | null, callback: (err?: null | Error) => void): void;
         push(chunk: any, encoding?: string): boolean;
         destroy(error?: Error): void;
     }

@@ -129,8 +129,8 @@ declare module "path" {
 
     namespace posix {
         function normalize(p: string): string;
-        function join(...paths: any[]): string;
-        function resolve(...pathSegments: any[]): string;
+        function join(...paths: string[]): string;
+        function resolve(...pathSegments: string[]): string;
         function isAbsolute(p: string): boolean;
         function relative(from: string, to: string): string;
         function dirname(p: string): string;
@@ -144,8 +144,8 @@ declare module "path" {
 
     namespace win32 {
         function normalize(p: string): string;
-        function join(...paths: any[]): string;
-        function resolve(...pathSegments: any[]): string;
+        function join(...paths: string[]): string;
+        function resolve(...pathSegments: string[]): string;
         function isAbsolute(p: string): boolean;
         function relative(from: string, to: string): string;
         function dirname(p: string): string;
