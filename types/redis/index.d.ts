@@ -94,13 +94,13 @@ export interface OverloadedListCommand<T, U, R> {
 }
 
 export interface OverloadedSetCommand<T, U, R> {
-    (key: string | string[], arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb?: Callback<U>): R;
-    (key: string | string[], arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb?: Callback<U>): R;
-    (key: string | string[], arg1: T, arg2: T, arg3: T, arg4: T, cb?: Callback<U>): R;
-    (key: string | string[], arg1: T, arg2: T, arg3: T, cb?: Callback<U>): R;
-    (key: string | string[], arg1: T, arg2: T, cb?: Callback<U>): R;
-    (key: string | string[], arg1: T | { [key: string]: T } | T[], cb?: Callback<U>): R;
-    (key: string | string[], ...args: Array<T | Callback<U>>): R;
+    (key: string, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb?: Callback<U>): R;
+    (key: string, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb?: Callback<U>): R;
+    (key: string, arg1: T, arg2: T, arg3: T, arg4: T, cb?: Callback<U>): R;
+    (key: string, arg1: T, arg2: T, arg3: T, cb?: Callback<U>): R;
+    (key: string, arg1: T, arg2: T, cb?: Callback<U>): R;
+    (key: string, arg1: T | { [key: string]: T } | T[], cb?: Callback<U>): R;
+    (key: string, ...args: Array<T | Callback<U>>): R;
     (key: string, args: T[], cb?: Callback<U>): R;
 }
 
@@ -125,9 +125,9 @@ export interface Commands<R> {
      * Get information and statistics about the server.
      */
     info(cb?: Callback<ServerInfo>): R;
-    info(section?: string | string[], cb?: Callback<ServerInfo>): R;
+    info(section?: string, cb?: Callback<ServerInfo>): R;
     INFO(cb?: Callback<ServerInfo>): R;
-    INFO(section?: string | string[], cb?: Callback<ServerInfo>): R;
+    INFO(section?: string, cb?: Callback<ServerInfo>): R;
 
     /**
      * Ping the server.
