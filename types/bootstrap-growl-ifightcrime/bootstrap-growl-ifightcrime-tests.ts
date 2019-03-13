@@ -14,7 +14,6 @@ let options: BootstrapGrowlIfightcrime.Options = {
     type: 'info',
     offset: offsetOptions,
     align: 'right',
-    width: 250,
     delay: 4000,
     allow_dismiss: true,
     stackup_spacing: 10
@@ -27,11 +26,11 @@ $(document).ready(() => {
         ...options,
         width: 'auto'
     };
-    $.bootstrapGrowl('Alert with options', optionsWidthAuto);
+    $.bootstrapGrowl('Alert with options, width=auto', optionsWidthAuto);
 
-    const optionsWidthError = {
+    const optionsWidthAsNumber = {
         ...options,
-        width: null
+        width: 120
     };
-    $.bootstrapGrowl('Alert with options', optionsWidthError); // $ExpectError
+    $.bootstrapGrowl('Alert with options, width=120', optionsWidthAsNumber);
 });

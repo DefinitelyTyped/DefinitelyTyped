@@ -49,7 +49,7 @@ declare namespace BootstrapGrowlIfightcrime {
         /**
          * Integer or 'auto'
          */
-         width: number | 'auto';
+         width?: number | 'auto';
 
         /**
          * Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
