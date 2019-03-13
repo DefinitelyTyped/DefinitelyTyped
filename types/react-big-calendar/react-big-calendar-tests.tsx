@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import BigCalendar, { BigCalendarProps, Navigate, View, DateRange, DateLocalizer, ToolbarProps, EventWrapperProps } from "react-big-calendar";
+import BigCalendar, { BigCalendarProps, Navigate, View, DateRange, DateLocalizer, ToolbarProps, EventProps, EventWrapperProps } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 
 // Don't want to add this as a dependency, because it is only used for tests.
@@ -93,7 +93,7 @@ class CalendarResource {
     class FullAPIExample extends React.Component<BigCalendarProps<CalendarEvent, CalendarResource>> {
         render() {
             return (
-              <MyCalendar  {...this.props}
+              <MyCalendar {...this.props}
               date={new Date()}
               getNow={() => new Date()}
               view={'day'}
@@ -217,24 +217,22 @@ const customSlotPropGetter = (date: Date) => {
     else return {};
 };
 
-function Event(event: any) {
+function Event(props: EventProps<CalendarEvent>) {
     return (
         <span>
-            <strong>{event.title}</strong>
-            {event.desc && ':  ' + event.desc}
+            <strong>{props.event.title}</strong>
+            {props.event.desc && ':  ' + props.event.desc}
         </span>
     );
 }
 
-class EventWrapper extends React.Component<EventWrapperProps> {
-    render() {
-        const { continuesEarlier, event, label, accessors = {}, style } = this.props;
-        return (
-            <div style={style}>
-                <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}}</div>
-            </div>
-        );
-    }
+function EventWrapper(props: EventWrapperProps<CalendarEvent>) {
+    const { continuesEarlier, event, label, accessors = {}, style } = props;
+    return (
+        <div style={style}>
+            <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}}</div>
+        </div>
+    );
 }
 
 class Toolbar extends React.Component<ToolbarProps> {

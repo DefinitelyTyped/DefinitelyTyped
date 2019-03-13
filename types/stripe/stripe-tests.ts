@@ -855,6 +855,7 @@ const event: Stripe.events.IEvent = stripe.webhooks.constructEvent(
 // ##################################################################################
 
 stripe.coupons.create({
+    name: '25% Off',
     percent_off: 25,
     duration: 'repeating',
     duration_in_months: 3,
@@ -863,6 +864,7 @@ stripe.coupons.create({
     // asynchronously called
     });
 stripe.coupons.create({
+    name: '25% Off',
     percent_off: 25,
     duration: 'repeating',
     duration_in_months: 3,
@@ -1016,6 +1018,53 @@ stripe.invoices.retrieve("in_15fvyXEe31JkLCeQH7QbgZZb", { expand: ["subscription
 //#region Invoice Items tests
 // ##################################################################################
 
+//#endregion
+
+//#region Payment Intents test
+// ##################################################################################
+stripe.paymentIntents.create({
+    amount: 2000,
+    currency: "eur",
+    payment_method_types: ["card"],
+}, (err, intent) => {});
+
+stripe.paymentIntents.create({
+    amount: 2000,
+    currency: "eur",
+    payment_method_types: ["card"],
+}).then((intent) => {});
+
+stripe.paymentIntents.list({}, (err, intent) => {});
+stripe.paymentIntents.list({}).then((intent) => {});
+stripe.paymentIntents.list((err, intent) => {});
+stripe.paymentIntents.list().then((intent) => {});
+stripe.paymentIntents.list({ expired: true }, (err, intent) => {});
+stripe.paymentIntents.list({ expired: true }).then((intent) => {});
+
+stripe.paymentIntents.update("pi_Aabcxyz01aDfoo", {
+    amount: 2001,
+    currency: 'usd',
+}, (err, intent) => {});
+stripe.paymentIntents.update("pi_Aabcxyz01aDfoo", {
+    amount: 2001,
+    currency: 'usd',
+}).then((intent) => {});
+
+stripe.paymentIntents.retrieve("pi_Aabcxyz01aDfoo", (err, intent) => {});
+stripe.paymentIntents.retrieve("pi_Aabcxyz01aDfoo").then((intent) => {});
+
+stripe.paymentIntents.confirm("pi_Aabcxyz01aDfoo", {}, (err, intent) => {});
+stripe.paymentIntents.confirm("pi_Aabcxyz01aDfoo", {}).then((intent) => {});
+
+stripe.paymentIntents.capture("pi_Aabcxyz01aDfoo", {}, (err, intent) => {});
+stripe.paymentIntents.capture("pi_Aabcxyz01aDfoo", {}).then((intent) => {});
+
+stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", (err, intent) => {});
+stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo").then((intent) => {});
+stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", {}, (err, intent) => {});
+stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", {}).then((intent) => {});
+stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", { cancellation_reason: 'duplicate' }, (err, intent) => {});
+stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", { cancellation_reason: 'requested_by_customer' }).then((intent) => {});
 //#endregion
 
 //#region Payouts tests

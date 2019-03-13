@@ -902,8 +902,8 @@ export namespace DS {
      * it easy to create data bindings with the `PromiseObject` that will
      * be updated when the promise resolves.
      */
-    interface PromiseObject<T>
-        extends ObjectProxy,
+    interface PromiseObject<T extends object>
+        extends ObjectProxy<T>,
             PromiseProxyMixin<T & ObjectProxy> {}
     class PromiseObject<T> {}
     /**

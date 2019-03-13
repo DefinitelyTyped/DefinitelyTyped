@@ -226,6 +226,7 @@ export interface InteractiveMapProps extends StaticMapProps {
     keyboard?: boolean;
     onHover?: (event: PointerEvent) => void;
     onClick?: (event: PointerEvent) => void;
+    onNativeClick?: (event: PointerEvent) => void;
     onDblClick?: (event: PointerEvent) => void;
     onContextMenu?: (event: PointerEvent) => void;
     onMouseDown?: (event: PointerEvent) => void;

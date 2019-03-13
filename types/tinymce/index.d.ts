@@ -394,7 +394,7 @@ export class Editor extends util.Observable {
 
   addCommand(name: string, callback: (ui: boolean, value: {}) => boolean, scope?: {}): void;
 
-  addContextToolbar(predicate: () => boolean, items: string): void;
+  addContextToolbar(predicate: ((el: Node) => boolean) | string, items: string): void;
 
   addMenuItem(name: string, settings: {}): void;
 

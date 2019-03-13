@@ -1,6 +1,7 @@
 // Type definitions for mui-datatables 2.0
 // Project: https://github.com/gregnb/mui-datatables
 // Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
+//                 Ankith Konda <https://github.com/ankithkonda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -123,8 +124,15 @@ export interface MUIDataTableOptions {
     expandableRows?: boolean;
     renderExpandableRow?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => React.ReactNode;
     customToolbar?: () => React.ReactNode;
-    customToolbarSelect?: () => React.ReactNode;
     customFooter?: (rowCount: number, page: number, rowsPerPage: number, changeRowsPerPage: () => any, changePage: number) => React.ReactNode;
+    customToolbarSelect?: (
+        selectedRows: {
+            data: Array<{ index: number; dataIndex: number }>;
+            lookup: { [key: number]: boolean };
+        },
+        displayData: Array<{ data: any[]; dataIndex: number }>,
+        setSelectedRows: (rows: number[]) => void
+    ) => React.ReactNode;
     customSort?: (data: any[], colIndex: number, order: string) => any[];
     customSearch?: (searchQuery: string, currentRow: any[], columns: any[]) => boolean;
     elevation?: number;

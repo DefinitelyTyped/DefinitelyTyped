@@ -26,9 +26,11 @@ import { LookupOneOptions } from 'dns';
         ipv6Only: true,
     });
 
-    // close has an optional callback function. No callback parameters are
-    // specified, so any callback function is permissible.
-    server = server.close((...args: any[]) => { });
+    // close callback parameter can be either nothing (undefined) or an error
+    server = server.close(() => { });
+    server = server.close((err) => {
+        if (typeof err !== 'undefined') { const _err: Error = err; }
+    });
 
     // test the types of the address object fields
     const address: net.AddressInfo | string | null = server.address();

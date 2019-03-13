@@ -1,4 +1,4 @@
-// Type definitions for algoliasearch-client-js 3.30.0
+// Type definitions for algoliasearch-client-js 3.30.1
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
@@ -1426,6 +1426,12 @@ declare namespace algoliasearch {
      * https://www.algolia.com/doc/api-reference/api-parameters/analytics/
      */
     analytics?: boolean;
+    /**
+     * If set to true, enables the Click Analytics feature
+     * default false
+     * https://www.algolia.com/doc/api-reference/api-parameters/clickAnalytics/
+     */
+    clickAnalytics?: boolean;
     /**
      * If set, tag your query with the specified identifiers
      * default: []
