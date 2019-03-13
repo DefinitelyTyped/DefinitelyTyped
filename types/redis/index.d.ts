@@ -101,7 +101,7 @@ export interface OverloadedSetCommand<T, U, R> {
     (key: string, arg1: T, arg2: T, cb?: Callback<U>): R;
     (key: string, arg1: T | { [key: string]: T } | T[], cb?: Callback<U>): R;
     (key: string, ...args: Array<T | Callback<U>>): R;
-    (key: string, args: T[], cb?: Callback<U>): R;
+    (args: [string, ...T[]], cb?: Callback<U>): R;
 }
 
 export interface OverloadedLastCommand<T1, T2, U, R> {
@@ -125,9 +125,9 @@ export interface Commands<R> {
      * Get information and statistics about the server.
      */
     info(cb?: Callback<ServerInfo>): R;
-    info(section?: string, cb?: Callback<ServerInfo>): R;
+    info(section?: string | string[], cb?: Callback<ServerInfo>): R;
     INFO(cb?: Callback<ServerInfo>): R;
-    INFO(section?: string, cb?: Callback<ServerInfo>): R;
+    INFO(section?: string | string[], cb?: Callback<ServerInfo>): R;
 
     /**
      * Ping the server.
