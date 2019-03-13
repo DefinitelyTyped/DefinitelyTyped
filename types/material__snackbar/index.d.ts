@@ -24,7 +24,7 @@ import { MDCComponent } from 'material__base';
 import MDCSnackbarAdapter from './adapter';
 import MDCSnackbarFoundation, { MDCSnackbarData } from './foundation';
 
-export {MDCSnackbarAdapter, MDCSnackbarFoundation};
+export { MDCSnackbarAdapter, MDCSnackbarFoundation };
 
 export class MDCSnackbar extends MDCComponent<MDCSnackbarAdapter, MDCSnackbarFoundation> {
     static attachTo(root: Element): MDCSnackbar;
