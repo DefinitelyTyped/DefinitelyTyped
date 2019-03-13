@@ -726,6 +726,10 @@ R.times(i, 5);
     R.dropLastWhile(lteThree, [1, 2, 3, 4, 3, 2, 1]); // => [1, 2, 3, 4]
 });
 
+(() => {
+    R.dropRepeats([1, 1, 1, 2, 3, 4, 4, 2, 2]); // => [1, 2, 3, 4, 2]
+});
+
 () => {
     function lteTwo(x: number) {
         return x <= 2;
@@ -1670,6 +1674,16 @@ class Rectangle {
 };
 
 () => {
+    R.hasPath(['a', 'b'], {a: {b: 2}});         // true
+    R.hasPath(['a', 'b'], {a: {b: undefined}}); // => true
+    R.hasPath(['a', 'b'], {a: {c: 2}});         // => false
+    R.hasPath(['a', 'b'], {});                  // => false
+
+    const hasPathCurried = R.hasPath(['a', 'b']);
+    hasPathCurried({a: {b: 2}}); // true
+};
+
+() => {
     const raceResultsByFirstName = {
         first : "alice",
         second: "jake",
@@ -1822,6 +1836,12 @@ class Rectangle {
         {foo: {bar: [1, 2], userIds: [42]}},
         {foo: {bar: [3, 4], userIds: [34]}}
     ); // => { foo: { bar: [ 1, 2, 3, 4 ], userIds: [42] } }
+};
+
+() => {
+    R.mergeLeft({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foo: {bar: 1}}
+    const curry1 = R.mergeLeft({foo: {bar: 1}});
+    curry1({foo: {bar: 2}}); // => {foo: {bar: 1}}
 };
 
 () => {
