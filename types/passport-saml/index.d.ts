@@ -41,8 +41,8 @@ export interface SamlConfig {
     path?: string;
     protocol?: string;
     host?: string;
-    entryPoint: string;
-    issuer: string;
+    entryPoint?: string;
+    issuer?: string;
     privateCert?: string;
     cert?: string | string[] | CertCallback;
     decryptionPvk?: string;
