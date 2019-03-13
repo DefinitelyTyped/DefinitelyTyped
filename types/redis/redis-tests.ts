@@ -28,22 +28,22 @@ let client: redis.RedisClient = redis.createClient(num, str, options);
 // Test the `retry_strategy` property
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 function retryStrategyNumber(options: redis.RetryStrategyOptions): number {
-  // Ensure that the properties of RetryStrategyOptions are resilient to breaking change.
-  // If the properties of the interface changes, the variables below will also need to be adapted.
-  const error: Error = options.error;
-  const total_retry_time: number = options.total_retry_time;
-  const times_connected: number = options.times_connected;
-  const attempt: number = options.attempt;
-  return 5000;
+    // Ensure that the properties of RetryStrategyOptions are resilient to breaking change.
+    // If the properties of the interface changes, the variables below will also need to be adapted.
+    const error: Error = options.error;
+    const total_retry_time: number = options.total_retry_time;
+    const times_connected: number = options.times_connected;
+    const attempt: number = options.attempt;
+    return 5000;
 }
 function retryStrategyError(options: redis.RetryStrategyOptions): Error {
-  return new Error('Foo');
+    return new Error('Foo');
 }
 client = redis.createClient({
-  retry_strategy: retryStrategyNumber
+    retry_strategy: retryStrategyNumber
 });
 client = redis.createClient({
-  retry_strategy: retryStrategyError
+    retry_strategy: retryStrategyError
 });
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -91,7 +91,10 @@ client.hgetall(str, resCallback);
 client.hmset(str, value, okCallback);
 client.hmset(str, str, str, str, str, okCallback);
 client.hmset([str, str, value, str, value], okCallback);
-client.hmset([str, ...[str, value, str, value]], okCallback);
+client.hmset(str, [str, str, str, str]);
+client.hmset(str, [str, value, str, value], okCallback);
+client.hmset([str, str, value, str, value]);
+client.hmset([str, str, value, str, value], okCallback);
 
 // Publish / Subscribe
 client.publish(str, value);
