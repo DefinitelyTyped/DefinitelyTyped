@@ -2732,16 +2732,18 @@ declare namespace React {
 // so boolean is only resolved for T = any
 type IsExactlyAny<T> = boolean extends (T extends never ? true : false) ? true : false;
 
+// Pick properties for which the value is `any`
+type PickAny<T> = Pick<T, { [K in keyof T]: IsExactlyAny<T[K]> extends true ? K : never }[keyof T]>;
+
 // Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
 // If props is type any, use propTypes definitions, otherwise for each `any` property of props, use the propTypes type
 // If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
-type MergePropTypes<P, T> = IsExactlyAny<P> extends true ? T : ({
-    [K in keyof P]: IsExactlyAny<P[K]> extends true
-        ? K extends keyof T
-        ? T[K]
-        : P[K]
-        : P[K]
-} & Pick<T, Exclude<keyof T, keyof P>>);
+type MergePropTypes<P, T> = IsExactlyAny<P> extends true ? T : string extends keyof P ? P : (
+    // From declared props, pick properties which are either not `any` or are missing on `propTypes`.
+    & Pick<P, Exclude<keyof P, keyof PickAny<P>> | Exclude<keyof P, keyof T>>
+    // From inferred props, pick all properties except those which are not `any` on `Props`
+    & Pick<T, Exclude<keyof T, Exclude<keyof P, keyof PickAny<P>>>>
+);
 
 // Any prop that has a default prop becomes optional, but its type is unchanged
 // Undeclared default props are augmented into the resulting allowable attributes
