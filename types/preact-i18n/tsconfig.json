@@ -21,6 +21,6 @@
     },
     "files": [
         "index.d.ts",
-        "preact-i18n-test.tsx"
+        "preact-i18n-tests.tsx"
     ]
 }
