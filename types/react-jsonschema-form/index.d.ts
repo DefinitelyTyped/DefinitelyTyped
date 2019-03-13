@@ -125,12 +125,12 @@ declare module "react-jsonschema-form" {
         id: string;
         classNames: string;
         label: string;
-        description: React.ReactElement<React.ReactNode>;
+        description: React.ReactElement;
         rawDescription: string;
-        children: React.ReactElement<React.ReactNode>;
-        errors: React.ReactElement<React.ReactNode>;
+        children: React.ReactElement;
+        errors: React.ReactElement;
         rawErrors: string[];
-        help: React.ReactElement<React.ReactNode>;
+        help: React.ReactElement;
         rawHelp: string;
         hidden: boolean;
         required: boolean;
@@ -144,14 +144,14 @@ declare module "react-jsonschema-form" {
     };
 
     export type ArrayFieldTemplateProps = {
-        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement<React.ReactNode> }>;
+        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement }>;
         TitleField: React.StatelessComponent<{ id: string, title: string, required: boolean }>;
         canAdd: boolean;
         className: string;
         disabled: boolean;
         idSchema: IdSchema;
         items: {
-            children: React.ReactElement<React.ReactNode>;
+            children: React.ReactElement;
             className: string;
             disabled: boolean;
             hasMoveDown: boolean;
@@ -177,12 +177,12 @@ declare module "react-jsonschema-form" {
     };
 
     export type ObjectFieldTemplateProps = {
-        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement<React.ReactNode> }>;
+        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement }>;
         TitleField: React.StatelessComponent<{ id: string, title: string, required: boolean }>;
         title: string;
         description: string;
         properties: {
-            content: React.ReactElement<React.ReactNode>;
+            content: React.ReactElement;
             name: string;
             disabled: boolean;
             readonly: boolean;
