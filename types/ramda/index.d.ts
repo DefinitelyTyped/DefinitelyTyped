@@ -81,6 +81,7 @@
 /// <reference path="./es/drop.d.ts" />
 /// <reference path="./es/dropLast.d.ts" />
 /// <reference path="./es/dropLastWhile.d.ts" />
+/// <reference path="./es/dropRepeats.d.ts" />
 /// <reference path="./es/either.d.ts" />
 /// <reference path="./es/empty.d.ts" />
 /// <reference path="./es/endsWith.d.ts" />
@@ -105,6 +106,7 @@
 /// <reference path="./es/gte.d.ts" />
 /// <reference path="./es/has.d.ts" />
 /// <reference path="./es/hasIn.d.ts" />
+/// <reference path="./es/hasPath.d.ts" />
 /// <reference path="./es/head.d.ts" />
 /// <reference path="./es/identical.d.ts" />
 /// <reference path="./es/identity.d.ts" />
@@ -159,6 +161,7 @@
 /// <reference path="./es/mergeDeepRight.d.ts" />
 /// <reference path="./es/mergeDeepWith.d.ts" />
 /// <reference path="./es/mergeDeepWithKey.d.ts" />
+/// <reference path="./es/mergeLeft.d.ts" />
 /// <reference path="./es/merge.d.ts" />
 /// <reference path="./es/mergeWith.d.ts" />
 /// <reference path="./es/mergeWithKey.d.ts" />
@@ -328,6 +331,7 @@
 /// <reference path="./src/drop.d.ts" />
 /// <reference path="./src/dropLast.d.ts" />
 /// <reference path="./src/dropLastWhile.d.ts" />
+/// <reference path="./src/dropRepeats.d.ts" />
 /// <reference path="./src/either.d.ts" />
 /// <reference path="./src/empty.d.ts" />
 /// <reference path="./src/endsWith.d.ts" />
@@ -352,6 +356,7 @@
 /// <reference path="./src/gte.d.ts" />
 /// <reference path="./src/has.d.ts" />
 /// <reference path="./src/hasIn.d.ts" />
+/// <reference path="./src/hasPath.d.ts" />
 /// <reference path="./src/head.d.ts" />
 /// <reference path="./src/identical.d.ts" />
 /// <reference path="./src/identity.d.ts" />
@@ -406,6 +411,7 @@
 /// <reference path="./src/mergeDeepRight.d.ts" />
 /// <reference path="./src/mergeDeepWith.d.ts" />
 /// <reference path="./src/mergeDeepWithKey.d.ts" />
+/// <reference path="./src/mergeLeft.d.ts" />
 /// <reference path="./src/merge.d.ts" />
 /// <reference path="./src/mergeWith.d.ts" />
 /// <reference path="./src/mergeWithKey.d.ts" />
@@ -1105,6 +1111,11 @@ declare namespace R {
         dropLastWhile<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => T[];
 
         /**
+         * Returns a new list without any consecutively repeating elements. R.equals is used to determine equality.
+         */
+        dropRepeats<T>(list: ReadonlyArray<T>): T[];
+
+        /**
          * Returns a new list containing the last n elements of a given list, passing each value to the supplied
          * predicate function, skipping elements while the predicate function returns true.
          */
@@ -1277,6 +1288,12 @@ declare namespace R {
          */
         hasIn<T>(s: string, obj: T): boolean;
         hasIn(s: string): <T>(obj: T) => boolean;
+
+        /**
+         * Returns whether or not a path exists in an object. Only the object's own properties are checked.
+         */
+        hasPath<T>(list: ReadonlyArray<string>, obj: T): boolean;
+        hasPath(list: ReadonlyArray<string>): <T>(obj: T) => boolean;
 
         /**
          * Returns the first element in a list.
@@ -1695,6 +1712,13 @@ declare namespace R {
         mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1, b: T2): T1 & T2;
         mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1): (b: T2) => T1 & T2;
         mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any): (a: T1, b: T2) => T1 & T2;
+
+        /**
+         * Create a new object with the own properties of the first object merged with the own properties of the second object.
+         * If a key exists in both objects, the value from the first object will be used.
+         */
+        mergeLeft<T1, T2>(a: T1, b: T2): T1 & T2;
+        mergeLeft<T1>(a: T1): <T2>(b: T2) => T1 & T2;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
