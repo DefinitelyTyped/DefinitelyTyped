@@ -20,7 +20,7 @@ redis.print(err, value);
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 const options: redis.ClientOpts = {
-  host: "localhost",
+  host: 'localhost',
   port: 6379,
 };
 let client: redis.RedisClient = redis.createClient(num, str, options);
@@ -37,7 +37,7 @@ function retryStrategyNumber(options: redis.RetryStrategyOptions): number {
   return 5000;
 }
 function retryStrategyError(options: redis.RetryStrategyOptions): Error {
-  return new Error("Foo");
+  return new Error('Foo');
 }
 client = redis.createClient({
   retry_strategy: retryStrategyNumber
@@ -119,8 +119,8 @@ client.duplicate();
 
 // Pipeline
 client.cork();
-client.set("abc", "fff", strCallback);
-client.get("abc", resCallback);
+client.set('abc', 'fff', strCallback);
+client.get('abc', resCallback);
 client.uncork();
 
 // Add command
