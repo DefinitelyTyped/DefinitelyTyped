@@ -1,0 +1,90 @@
+// Type definitions for domutils 1.7
+// Project: https://github.com/FB55/domutils#readme
+// Definitions by: Johan Davidsson <https://github.com/johandavidson>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
+
+import { DomElement } from "domhandler";
+export namespace DomUtils {
+    function append(elem: DomElement, next: DomElement): void;
+    function appendChild(elem: DomElement, child: DomElement): void;
+    /***
+     * Compare the position of one node against another node in any other document.
+     * The return value is a bitmask with the following values:
+     *
+     * document order:
+     * > There is an ordering, document order, defined on all the nodes in the
+     * > document corresponding to the order in which the first character of the
+     * > XML representation of each node occurs in the XML representation of the
+     * > document after expansion of general entities. Thus, the document element
+     * > node will be the first node. Element nodes occur before their children.
+     * > Thus, document order orders element nodes in order of the occurrence of
+     * > their start-tag in the XML (after expansion of entities). The attribute
+     * > nodes of an element occur after the element and before its children. The
+     * > relative order of attribute nodes is implementation-dependent./
+     *
+     * Source:
+     * http://www.w3.org/TR/DOM-Level-3-Core/glossary.html#dt-document-order
+     * @argument nodaA The first node to use in the comparison
+     * @argument nodeB The second node to use in the comparison
+     *
+     * @return A bitmask describing the input nodes' relative position.
+     *
+     *        See http://dom.spec.whatwg.org/#dom-node-comparedocumentposition for
+     *        a description of these values.
+     */
+    function compareDocumentPosition(nodeA: DomElement, nodeB: DomElement): number;
+    function existsOne(test: any, elems: DomElement[]): boolean;
+    function filter(test: any, element: DomElement, recurse: boolean, limit: number): DomElement[];
+    function find(test: any, elems: DomElement[], recurse: boolean, limit: number): DomElement[];
+    function findAll(test: any, rootElems: DomElement[]): DomElement[];
+    function findOne(test: any, elems: DomElement[]): DomElement;
+    function findOneChild(test: any, elems: DomElement[]): DomElement;
+    function getAttributeValue(elem: DomElement, name: string): string;
+    function getChildren(elem: DomElement): DomElement[];
+    /***
+     * Legacy
+     */
+    function getElementById(id: any, element: any, recurse?: any): any;
+    /***
+     * Legacy
+     */
+    function getElements(options: any, element: any, recurse?: any, limit?: any): any;
+    /***
+     * Legacy
+     */
+    function getElementsByTagName(name: any, element: any, recurse?: any, limit?: any): any;
+    /***
+     * Legacy
+     */
+    function getElementsByTagType(type: any, element: any, recurse?: any, limit?: any): any;
+    function getInnerHTML(elem: DomElement, opts: any): string;
+    function getName(elem: DomElement): string;
+    function getOuterHTML(dom: DomElement[]): any;
+    function getOuterHTML(dom: DomElement[], opts: { decodeEntities?: boolean, xmlMode?: boolean}): any;
+    function getParent(elem: DomElement): DomElement;
+    function getSiblings(elem: DomElement): DomElement[];
+    function getText(elem: DomElement): string;
+    function hasAttrib(elem: DomElement, name: string): boolean;
+    function isTag(elem: DomElement): boolean;
+    function prepend(elem: DomElement, prev: DomElement): void;
+    function removeElement(elem: DomElement): void;
+    /***
+     * Given an array of nodes, remove any member that is contained by another.
+     */
+    function removeSubsets(nodes: DomElement[]): DomElement[];
+    function replaceElement(elem: DomElement, replacement: DomElement): void;
+    /***
+     * Legacy
+     */
+    function testElement(options: any, element: any): any;
+    /***
+     * Sort an array of nodes based on their relative position in the document and
+     * remove any duplicate nodes. If the array contains nodes that do not belong
+     * to the same document, sort order is unspecified.
+     *
+     * @argument nodes Array of DOM nodes
+     * @returns collection of unique nodes, sorted in document order
+     */
+    function uniqueSort(nodes: DomElement[]): DomElement[];
+}
