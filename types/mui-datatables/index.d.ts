@@ -124,7 +124,7 @@ export interface MUIDataTableOptions {
     renderExpandableRow?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => React.ReactNode;
     customToolbar?: () => React.ReactNode;
     customToolbarSelect?: () => React.ReactNode;
-    customFooter?: () => React.ReactNode;
+    customFooter?: (rowCount: number, page: number, rowsPerPage: number, changeRowsPerPage: () => any, changePage: number) => React.ReactNode;
     customSort?: (data: any[], colIndex: number, order: string) => any[];
     customSearch?: (searchQuery: string, currentRow: any[], columns: any[]) => boolean;
     elevation?: number;
@@ -237,7 +237,7 @@ export interface MUIDataTableFooter {
     rowCount?: number;
     page?: number;
     rowsPerPage?: number;
-    changeRowsPerPage?: any;
+    changeRowsPerPage?: (...args: any) => any;
     changePage?: any;
 }
 
