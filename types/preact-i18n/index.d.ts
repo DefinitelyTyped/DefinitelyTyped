@@ -2,7 +2,7 @@
 // Project: https://github.com/synacor/preact-i18n
 // Definitions by: Lukas Tetzlaff <https://github.com/ltetzlaff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.3
 
 import { h, Component, VNode, ComponentChild, ComponentChildren } from "preact";
 
