@@ -1815,7 +1815,10 @@ declare namespace React {
         formNoValidate?: boolean;
         formTarget?: string;
         name?: string;
-        type?: 'submit' | 'reset' | 'button';
+        // TODO: Should be `'submit' | 'reset' | 'button'`,
+        // see [[react] Make "type" button attribute match W3C spec](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/33648).
+        // This is a breaking change that cannot be done for the moment.
+        type?: string;
         value?: string | string[] | number;
     }
 
