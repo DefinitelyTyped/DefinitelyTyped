@@ -90,8 +90,6 @@ client.incr(str, resCallback);
 client.hgetall(str, resCallback);
 client.hmset(str, value, okCallback);
 client.hmset(str, str, str, str, str, okCallback);
-client.hmset([str, str, value, str, value], okCallback);
-client.hmset([str, str, value, str, value]);
 client.hmset(str, [str, str, str, str]);
 client.hmset(str, [str, value, str, value], okCallback);
 
