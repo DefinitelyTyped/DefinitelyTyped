@@ -15,6 +15,6 @@ declare module 'ember-data/types/registries/model' {
 
 const promiseFind = store.findRecord("person", 1);
 
-assertType<Person | undefined>(promiseFind.content);
+promiseFind.content; // $ExpectType Person | undefined
 
 promiseFind.get("firstName");
