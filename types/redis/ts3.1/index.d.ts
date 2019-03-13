@@ -1,20 +1,3 @@
-// Type definitions for redis 2.8
-// Project: https://github.com/NodeRedis/node_redis
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
-//                 Peter Harris <https://github.com/CodeAnimal>
-//                 TANAKA Koichi <https://github.com/MugeSo>
-//                 Stuart Schechter <https://github.com/UppaJung>
-//                 Junyoung Choi <https://github.com/Rokt33r>
-//                 James Garbutt <https://github.com/43081j>
-//                 Bartek Szczepański <https://github.com/barnski>
-//                 Pirasis Leelatanon <https://github.com/1pete>
-//                 Stanislav Dzhus <https://github.com/blablapolicja>
-//                 Jake Ferrante <https://github.com/ferrantejake>
-//                 Adebayo Opesanya <https://github.com/OpesanyaAdebayo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// Imported from: https://github.com/types/npm-redis
-
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
@@ -101,6 +84,7 @@ export interface OverloadedSetCommand<T, U, R> {
     (key: string, arg1: T, arg2: T, cb?: Callback<U>): R;
     (key: string, arg1: T | { [key: string]: T } | T[], cb?: Callback<U>): R;
     (key: string, ...args: Array<T | Callback<U>>): R;
+    (args: [string, ...T[]], cb?: Callback<U>): R;
 }
 
 export interface OverloadedLastCommand<T1, T2, U, R> {
