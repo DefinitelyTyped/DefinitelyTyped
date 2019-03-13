@@ -12,14 +12,29 @@ declare namespace Waterline {
     type Connection = {
         adapter: string;
     }
+    type ConnectionV3 = {
+        adapter: string;
+        url?: string,
+        host?: string,
+        port?: number,
+        schema?: boolean,
+        user?: string,
+        password?: string,
+        database?: string
+    }
     interface Config {
         adapters: { [index: string]: Adapter };
         connections: { [index: string]: Connection }
+    }
+    interface ConfigV3 {
+        adapters: { [index: string]: Adapter };
+        datastores: { [index: string]: ConnectionV3 }
     }
     type Ontology = {
         collections: any;
     }
     interface Waterline {
+        registerModel(collection: CollectionClassV3): void;
         loadCollection(collection: CollectionClass): void;
         initialize: (config: Config, cb: (err: Error, ontology: Ontology) => any) => any;
         collections: any;
@@ -27,6 +42,10 @@ declare namespace Waterline {
     interface CollectionClass {
         (): Collection
     }
+    interface CollectionClassV3 {
+        (): CollectionV3
+    }
+
     // used this comment https://github.com/balderdashy/waterline/issues/1154#issuecomment-167262575
     export type LifecycleCallbacks = {
         beforeValidate?: { (vaues: any, next: Function): void }[] | { (vaues: any, next: Function): void };
@@ -49,6 +68,18 @@ declare namespace Waterline {
         schema?: boolean;
         types?: any;
     }
+    export type CollectionDefinitionV3 = LifecycleCallbacks & {
+        attributes?: AttributeV3;
+        connection?: string;
+        identity?: string;
+        tableName?: string;
+        migrate?: "alter" | "drop" | "safe";
+        autoPK?: boolean;
+        schema?: boolean;
+        types?: any;
+    }
+
+    export type CollectionV3 = CollectionDefinitionV3;
     export type Collection = CollectionDefinition;
     export type Attributes = { [index: string]: Attribute } & {
         toJSON?: () => string;
@@ -64,6 +95,13 @@ declare namespace Waterline {
         BooleanAttribute | BinaryAttribute | ArrayAttribute | JsonAttribute |
         OneToOneAttribute | OneToManyAttribute | ManyToManyAttribute |
         FunctionAttribute;
+
+    export type AttributeV3 = string | StringAttributeV3 | NumberAttributeV3  |
+        BooleanAttributeV3 | JsonAttributeV3 | RefAttributeV3 |
+        OneToOneAttributeV3 | OneToManyAttributeV3 | ManyToManyAttributeV3 |
+        FunctionAttribute;
+
+
     export type DefaultsToFn<T> = () => T;
     export type BaseAttribute<T> = AttributeValidations & {
         type?: string;
@@ -76,7 +114,30 @@ declare namespace Waterline {
         index?: boolean;
         defaultsTo?: T | DefaultsToFn<T>;
     }
+    export type BaseAttributeV3<T> =  {
+        type?: string;
+        autoMigrations?: AutoMigration;
+        unique?: boolean;
+        required?: boolean;
+        columnName?: string;
+        index?: boolean;
+        allowNull?:  boolean;
+        autoCreatedAt?: boolean;
+        autoUpdatedAt?: boolean;
+        validations?: AttributeValidationsV3;
+        defaultsTo?: T | DefaultsToFn<T>;
+    }
+
+    export interface AutoMigration  {
+        autoIncrement?: boolean;
+        columnType?: string;
+    }
+
+
     export type StringAttribute = BaseAttribute<string> & {
+        type: "string";
+    }
+    export type StringAttributeV3 = BaseAttributeV3<string> & {
         type: "string";
     }
     export type EmailAttribute = BaseAttribute<string> & {
@@ -88,6 +149,9 @@ declare namespace Waterline {
     export type IntegerAttribute = BaseAttribute<number> & {
         type: "integer";
         autoIncrement?: boolean;
+    }
+    export type NumberAttributeV3 = BaseAttributeV3<number> & {
+        type: "number";
     }
     export type FloatAttribute = BaseAttribute<number> & {
         type: "float";
@@ -104,6 +168,9 @@ declare namespace Waterline {
     export type BooleanAttribute = BaseAttribute<boolean> & {
         type: 'boolean';
     }
+    export type BooleanAttributeV3 = BaseAttributeV3<number> & {
+        type: "number";
+      }
     export type BinaryAttribute = BaseAttribute<any> & {
         type: 'binary';
     }
@@ -113,10 +180,23 @@ declare namespace Waterline {
     export type JsonAttribute = BaseAttribute<any> & {
         type: 'json';
     }
+    export type JsonAttributeV3 = BaseAttributeV3<any> & {
+        type: "json";
+    }
+    export type RefAttributeV3 = BaseAttributeV3<any> & {
+        type: 'ref';
+    }
     export type OneToOneAttribute = BaseAttribute<any> & {
         model: string;
     }
+    export type OneToOneAttributeV3 = BaseAttributeV3<any> & {
+        model: string;
+    }
     export type OneToManyAttribute = BaseAttribute<any> & {
+        collection: string;
+        via: string;
+    }
+    export type OneToManyAttributeV3 = BaseAttributeV3<any> & {
         collection: string;
         via: string;
     }
@@ -125,10 +205,34 @@ declare namespace Waterline {
         via: string;
         dominant?: boolean;
     }
+    export type ManyToManyAttributeV3 = BaseAttributeV3<any> & {
+        collection: string;
+        via: string;
+        dominant?: boolean;
+    }
     type AttributeValidationSyncFn<T> = () => T;
     type AttributeValidationAsyncFn<T> = (cb: (value: T) => any) => void;
 
     export type AttributeValidation<T> = T | AttributeValidationSyncFn<T> | AttributeValidationAsyncFn<T>;
+    export interface AttributeValidationsV3 {
+        custom?: AttributeValidationAsyncFn<any>;
+        isAfter?: AttributeValidation<Date>;
+        isBefore?: AttributeValidation<Date>;
+        isBoolean?: AttributeValidation<boolean>;
+        isCreditCard?:AttributeValidation<boolean>;
+        isIP?: AttributeValidation<boolean>;
+        isNotEmptyString?:AttributeValidation<boolean>;
+        isNotIn?: AttributeValidation<string[]>;
+        isNumber?: AttributeValidation<boolean>;
+        isString?:AttributeValidation<boolean>;
+        isURL?: AttributeValidation<boolean>;
+        isUUID?: AttributeValidation<boolean>;
+        max?: AttributeValidation<number>;
+        min?: AttributeValidation<number>;
+        maxlength?: AttributeValidation<number>;
+        minLength?:  AttributeValidation<number>;
+        regex?: AttributeValidation<RegExp>
+    }
     export interface AttributeValidations {
         after?: AttributeValidation<string>;
         alpha?: AttributeValidation<boolean>;
