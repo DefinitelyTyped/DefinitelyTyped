@@ -85,7 +85,7 @@ let row1: Tabulator.RowComponent;
 let row2: Tabulator.RowComponent;
 
 // column definitions
-let colDef: Tabulator.ColumnDefinition = { title: "title" };
+let colDef: Tabulator.ColumnDefinition = { title: "title", field: "" };
 colDef.sorter = customSorter;
 
 // prettier-ignore
