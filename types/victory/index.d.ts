@@ -2445,5 +2445,5 @@ declare module "victory" {
   export function createContainer<V, W>(
     c1: ContainerType,
     c2: ContainerType
-  ): React.FunctionComponent<V & W>;
+  ): React.ComponentType<V & W>;
 }
