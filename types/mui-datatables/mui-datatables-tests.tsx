@@ -25,8 +25,20 @@ class MuiCustomTable extends React.Component<Props> {
             separator: ','
         },
         sortFilterList: false,
-        customToolbarSelect:(selectedRows, displayData, setSelectedRows)=>{
-            return <span>Custom Selected Toolbar: {`${selectedRows.data.length} - ${JSON.stringify(displayData[0])}`}<button onClick={()=>{ setSelectedRows([])}}>Set Selected Row to none</button></span>
+        customToolbarSelect: (selectedRows, displayData, setSelectedRows) => {
+            return (
+                <span>
+                    Custom Selected Toolbar:{' '}
+                    {`${selectedRows.data.length} - ${JSON.stringify(displayData[0])}`}
+                    <button
+                        onClick={() => {
+                            setSelectedRows([]);
+                        }}
+                    >
+                        Set Selected Row to none
+                    </button>
+                </span>
+            );
         },
         textLabels: {
             body: {

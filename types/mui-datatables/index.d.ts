@@ -123,7 +123,14 @@ export interface MUIDataTableOptions {
     expandableRows?: boolean;
     renderExpandableRow?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => React.ReactNode;
     customToolbar?: () => React.ReactNode;
-    customToolbarSelect?: (selectedRows: {data: Array<{ index: number; dataIndex: number }>; lookup: { [key: number]: boolean };}, displayData: Array<{ data: any[]; dataIndex: number }>,setSelectedRows: (rows: number[]) => void) => React.ReactNode;
+    customToolbarSelect?: (
+        selectedRows: {
+            data: Array<{ index: number; dataIndex: number }>; 
+            lookup: { [key: number]: boolean };
+        }, 
+        displayData: Array<{ data: any[]; dataIndex: number }>,
+        setSelectedRows: (rows: number[]) => void
+    ) => React.ReactNode;
     customFooter?: () => React.ReactNode;
     customSort?: (data: any[], colIndex: number, order: string) => any[];
     elevation?: number;
