@@ -10,6 +10,19 @@ import { Serializable, Browser, Page } from "puppeteer";
 
 export type Channel = string;
 
+/**
+ * Evaluates a function in the context of the page
+ * @param pageFunction  Function to be evaluated in the page context.
+ * @param args Arguments to pass to pageFunction.
+ *
+ * If the function passed to the Window.evaluate returns a Promise,
+ * then Window.evaluate would wait for the promise to resolve and return its value.
+ *
+ * If the function passed to the Window.evaluate returns a non-Serializable value,
+ * then Window.evaluate resolves to undefined.
+ */
+export type EvaluateFunction = (pageFunction: ((...args: any[]) => any) | string, ...args: Serializable[]) => Promise<Serializable>;
+
 export interface WindowOptions {
     /**
      * App window width in pixels.
@@ -112,7 +125,7 @@ export interface Window {
      * 'close' - Emitted when the window closes.
      * @param name 'close'
      */
-    on(name: AppEvent, callback: (...args: any) => void): void;
+    on(name: AppEvent, callback: (...args: any[]) => void): void;
 
     /**
      * Returns window bounds
@@ -129,24 +142,13 @@ export interface Window {
      */
     close(): Promise<void>;
 
-    /**
-     * Evaluates a function in the context of the page
-     * @param pageFunction  Function to be evaluated in the page context.
-     * @param args Arguments to pass to pageFunction.
-     *
-     * If the function passed to the Window.evaluate returns a Promise,
-     * then Window.evaluate would wait for the promise to resolve and return its value.
-     *
-     * If the function passed to the Window.evaluate returns a non-Serializable value,
-     * then Window.evaluate resolves to undefined.
-     */
-    evaluate(pageFunction: ((...args: any) => any) | string, ...args: Serializable[]): Promise<Serializable>;
+    evaluate: EvaluateFunction;
 
     /**
      * @param name Name of the function on the window object.
      * @param carloFunction Callback function which will be called in Carlo's context.
      */
-    exposeFunction(name: string, carloFunction: (...args: any) => any): Promise<void>;
+    exposeFunction(name: string, carloFunction: (...args: any[]) => any): Promise<void>;
 
     /**
      * Turns the window into the full screen mode. Behavior is platform specific.
@@ -293,21 +295,16 @@ export interface App {
      * @param name 'exit' or 'window'
      * @param callback
      */
-    on(name: AppEvent, callback: (...args: any) => void): void;
+    on(name: AppEvent, callback: (...args: any[]) => void): void;
 
     /**
      * Puppeteer browser object for testing.
      */
     browserForTest(): Browser;
 
-    createWindow(options: WindowOptions): Promise<Window>;
+    createWindow(options?: WindowOptions): Promise<Window>;
 
-    /**
-     * Shortcut to the main window's Window.evaluate()
-     * @param pageFunction
-     * @param args
-     */
-    evaluate(pageFunction: (...args: any) => void, ...args: any): void;
+    evaluate: EvaluateFunction;
 
     /**
      * Closes the browser window
@@ -320,14 +317,14 @@ export interface App {
      * @param name
      * @param carloFunction
      */
-    exposeFunction(name: string, carloFunction: (...args: any) => any): Promise<void>;
+    exposeFunction(name: string, carloFunction: (...args: any[]) => any): Promise<void>;
 
     /**
      * Shortcut to the main window's Window.load
      * @param uri
      * @param params
      */
-    load(uri: string, ...params: any): Promise<void>;
+    load(uri: string, ...params: any[]): Promise<void>;
 
     /**
      * Running app guarantees to have main window.

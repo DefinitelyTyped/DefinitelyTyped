@@ -6,4 +6,10 @@ async function main() {
     });
 
     app.browserForTest();
+
+    const window = await app.createWindow({});
+    window.setBounds({
+        top: 10,
+        width: 30
+    });
 }
