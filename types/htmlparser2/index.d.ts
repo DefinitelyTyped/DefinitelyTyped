@@ -1,30 +1,23 @@
-// Type definitions for htmlparser2 v3.7.x
+// Type definitions for htmlparser2 v3.10.x
 // Project: https://github.com/fb55/htmlparser2/
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
 //                 Linus Unnebäck <https://github.com/LinusU>
+//                 Johan Davidsson <https://github.com/johandavidson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 ///<reference types="node"/>
+///<reference types="domhandler"/>
+///<reference types="domutils"/>
+///<reference types="domelementtype"/>
 
 import { Writable } from 'stream'
+import { DomHandler } from 'domhandler';
+export { DomElement, DomHandlerOptions, DomHandler, Element, Node } from 'domhandler';
+export { DomUtils } from 'domutils';
+export { DomElementType } from 'domelementtype';
 
-export interface Handler {
-    onopentag?: (name: string, attribs: { [type: string]: string }) => void;
-    onopentagname?: (name: string) => void;
-    onattribute?: (name: string, value: string) => void;
-    ontext?: (text: string) => void;
-    onclosetag?: (text: string) => void;
-    onprocessinginstruction?: (name: string, data: string) => void;
-    oncomment?: (data: string) => void;
-    oncommentend?: () => void;
-    oncdatastart?: () => void;
-    oncdataend?: () => void;
-    onerror?: (error: Error) => void;
-    onreset?: () => void;
-    onend?: () => void;
-}
-
-export interface Options {
+export interface ParserOptions {
 
     /***
      * Indicates whether special tags (<script> and <style>) should get special treatment
@@ -63,31 +56,49 @@ export interface Options {
 }
 
 export declare class WritableStream extends Writable {
-    constructor(handler: Handler, options?: Options);
+    constructor(handler: DomHandler);
+    constructor(handler: DomHandler, options: ParserOptions);
 }
 
 export declare class Parser {
-    constructor(handler: Handler, options?: Options);
+    constructor(handler: DomHandler);
+    constructor(handler: DomHandler, options: ParserOptions);
 
     /***
      * Parses a chunk of data and calls the corresponding callbacks.
      * @param input
      */
     write(input: string): void;
+
     /***
      * alias for backwards compat
      */
-    parseChunk(input: string): void;
+    parseChunk(chunk: string): void;
 
     /***
      * Parses the end of the buffer and clears the stack, calls onend.
      */
     end(): void;
+
+    /***
+     * Parses the end of the buffer and clears the stack, calls onend.
+     */
+    end(chunk: string): void;
+
     /***
      * alias for backwards compat
      */
     done(): void;
 
+    /***
+     * Pauses the parser
+     */
+    pause(): void;
+
+    /***
+     * Resumes the parser
+     */
+    resume(): void;
 
     /***
      * Resets the parser, parses the data & calls end.
@@ -99,4 +110,18 @@ export declare class Parser {
      * Resets buffer & stack, calls onreset.
      */
     reset(): void;
+
+    ontext(data: any): void;
+    onopentagname(name: string): void;
+    onopentagend(): void;
+    onclosetag(name: string): void;
+    onselfclosingtag(): void;
+    onattribname(name: string): void;
+    onattribend(): void;
+    ondeclaration(): void;
+    onprocessinginstruction(value: string): void;
+    oncomment(value: string): void;
+    oncdata(value: string): void;
+    onerror(err: Error): void;
+    onend(): void;
 }
