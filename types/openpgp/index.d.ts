@@ -827,7 +827,6 @@ export namespace util {
 
     /**
      * Convert a Base-64 encoded string an array of 8-bit integer
-     * 
      * Note: accepts both Radix-64 and URL-safe strings
      * @param base64 Base-64 encoded string to convert
      * @returns An array of 8-bit integers
@@ -955,7 +954,6 @@ export namespace util {
      * If S[1] == 0, then double(S) == (S[2..128] || 0);
      * otherwise, double(S) == (S[2..128] || 0) xor
      * (zeros(120) || 10000111).
-     * 
      * Both OCB and EAX (through CMAC) require this function to be constant-time.
      * @param data
      */
