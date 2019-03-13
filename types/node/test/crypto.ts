@@ -113,7 +113,7 @@ import { promisify } from 'util';
 }
 
 {
-    const key = 'keykeykeykeykeykeykeykey';
+    const key: string | null = 'keykeykeykeykeykeykeykey';
     const nonce = crypto.randomBytes(12);
     const aad = Buffer.from('0123456789', 'hex');
 
@@ -135,7 +135,7 @@ import { promisify } from 'util';
     decipher.setAAD(aad, {
         plaintextLength: ciphertext.length
     });
-    const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+    const receivedPlaintext: string = decipher.update(ciphertext, undefined, 'utf8');
     decipher.final();
 }
 
@@ -158,7 +158,7 @@ import { promisify } from 'util';
     decipher.setAAD(aad, {
         plaintextLength: ciphertext.length
     });
-    const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+    const receivedPlaintext: string = decipher.update(ciphertext, undefined, 'utf8');
     decipher.final();
 }
 

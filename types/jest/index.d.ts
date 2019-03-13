@@ -1,5 +1,5 @@
 // Type definitions for Jest 24.0
-// Project: http://facebook.github.io/jest/
+// Project: https://jestjs.io
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
 //                 jwbay <https://github.com/jwbay>
@@ -155,6 +155,11 @@ declare namespace jest {
      */
     function resetModules(): typeof jest;
     /**
+     * Creates a sandbox registry for the modules that are loaded inside the callback function..
+     * This is useful to isolate specific modules for every test so that local module state doesn't conflict between tests.
+     */
+    function isolateModules(fn: () => void): typeof jest;
+    /**
      * Runs failed tests n-times until they pass or until the max number of retries is exhausted.
      * This only works with jest-circus!
      */
@@ -220,9 +225,10 @@ declare namespace jest {
      *   spy.mockRestore();
      * });
      */
-    function spyOn<T extends {}, M extends NonFunctionPropertyNames<T>>(object: T, method: M, accessType: 'get'): SpyInstance<T[M], []>;
-    function spyOn<T extends {}, M extends NonFunctionPropertyNames<T>>(object: T, method: M, accessType: 'set'): SpyInstance<void, [T[M]]>;
-    function spyOn<T extends {}, M extends FunctionPropertyNames<T>>(object: T, method: M): T[M] extends (...args: any[]) => any ? SpyInstance<ReturnType<T[M]>, ArgsType<T[M]>> : never;
+    function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(object: T, method: M, accessType: 'get'): SpyInstance<Required<T>[M], []>;
+    function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(object: T, method: M, accessType: 'set'): SpyInstance<void, [Required<T>[M]]>;
+    function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(object: T, method: M): Required<T>[M] extends (...args: any[]) => any ?
+        SpyInstance<ReturnType<Required<T>[M]>, ArgsType<Required<T>[M]>> : never;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -263,10 +269,27 @@ declare namespace jest {
     }
 
     interface Each {
-        (cases: any[]): (name: string, fn: (...args: any[]) => any) => void;
+        // Exclusively arrays.
+        <T extends any[]>(cases: ReadonlyArray<T>): (
+            name: string,
+            fn: (...args: T) => any,
+            timeout?: number
+        ) => void;
+        // Not arrays.
+        <T>(cases: ReadonlyArray<T>): (
+            name: string,
+            fn: (...args: T[]) => any,
+            timeout?: number
+        ) => void;
+        (cases: ReadonlyArray<ReadonlyArray<any>>): (
+            name: string,
+            fn: (...args: any[]) => any,
+            timeout?: number
+        ) => void;
         (strings: TemplateStringsArray, ...placeholders: any[]): (
             name: string,
-            fn: (arg: any) => any
+            fn: (arg: any) => any,
+            timeout?: number
         ) => void;
     }
 
@@ -1625,6 +1648,7 @@ declare namespace jest {
         numPendingTests: number;
         numPendingTestSuites: number;
         numRuntimeErrorTestSuites: number;
+        numTodoTests: number;
         numTotalTests: number;
         numTotalTestSuites: number;
         snapshot: SnapshotSummary;

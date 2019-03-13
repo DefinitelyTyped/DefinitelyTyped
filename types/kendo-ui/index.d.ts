@@ -1883,7 +1883,9 @@ declare namespace kendo.ui {
         navigateToPast(): void;
         navigateUp(): void;
         selectDates(): void;
-        selectDates(): void;
+        selectDates(datesToSelect : any): void;
+        //somehow the same interface got implemented twice which are the same
+        //kendo-ui supports date selection(https://docs.telerik.com/kendo-ui/knowledge-base/calendar-select-range-of-dates)
         value(): Date;
         value(value: Date): void;
         value(value: string): void;

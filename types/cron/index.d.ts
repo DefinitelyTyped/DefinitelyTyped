@@ -4,6 +4,8 @@
 //                 Lundarl Gholoi <https://github.com/winup>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { Moment } from 'moment';
+
 export declare class CronTime {
     /**
      * Create a new ```CronTime```.
@@ -11,13 +13,14 @@ export declare class CronTime {
      * @param zone Timezone name. You can check all timezones available at [Moment Timezone Website](http://momentjs.com/timezone/).
      * @param utcOffset UTC offset. Don't use both ```zone``` and ```utcOffset``` together or weird things may happen.
      */
-    constructor(source: string | Date, zone?: string, utcOffset?: string | number);
+    constructor(source: string | Date | Moment, zone?: string, utcOffset?: string | number);
 
     /**
      * Tells you when ```CronTime``` will be run.
      * @param i Indicate which turn of run after now. If not given return next run time.
      */
-    public sendAt(i?: number): Date;
+    public sendAt(): Moment;
+    public sendAt(i?: number): Moment[];
     /**
      * Get the number of milliseconds in the future at which to fire our callbacks.
      */
@@ -28,7 +31,7 @@ export declare interface CronJobParameters {
     /**
      * The time to fire off your job. This can be in the form of cron syntax or a JS ```Date``` object.
      */
-    cronTime: string | Date;
+    cronTime: string | Date | Moment;
     /**
      * The function to fire at the specified time. If an ```onComplete``` callback was provided, ```onTick``` will receive it as an argument. ```onTick``` may call ```onComplete``` when it has finished its work.
      */
@@ -85,7 +88,7 @@ export declare class CronJob {
      * @param utcOffset This allows you to specify the offset of your timezone rather than using the ```timeZone``` param. Probably don't use both ```timeZone``` and ```utcOffset``` together or weird things may happen.
      * @param unrefTimeout If you have code that keeps the event loop running and want to stop the node process when that finishes regardless of the state of your cronjob, you can do so making use of this parameter. This is off by default and cron will run as if it needs to control the event loop. For more information take a look at [timers#timers_timeout_unref](https://nodejs.org/api/timers.html#timers_timeout_unref) from the NodeJS docs.
      */
-    constructor(cronTime: string | Date, onTick: () => void, onComplete?: () => void, start?: boolean, timeZone?: string, context?: any, runOnInit?: boolean, utcOffset?: string | number, unrefTimeout?: boolean);
+    constructor(cronTime: string | Date | Moment, onTick: () => void, onComplete?: () => void, start?: boolean, timeZone?: string, context?: any, runOnInit?: boolean, utcOffset?: string | number, unrefTimeout?: boolean);
     /**
      * Create a new ```CronJob```.
      * @param options Job parameters.
@@ -113,7 +116,8 @@ export declare class CronJob {
      * Tells you when a ```CronTime``` will be run.
      * @param i Indicate which turn of run after now. If not given return next run time.
      */
-    public nextDates(i?: number): Date;
+    public nextDates(): Moment;
+    public nextDates(i?: number): Moment[];
     /**
      * Add another ```onTick``` function.
      * @param callback Target function.
@@ -122,8 +126,8 @@ export declare class CronJob {
 }
 
 export declare var job:
-    ((cronTime: string | Date, onTick: () => void, onComplete?: () => void, start?: boolean, timeZone?: string, context?: any, runOnInit?: boolean, utcOffset?: string | number, unrefTimeout?: boolean) => CronJob)
+    ((cronTime: string | Date | Moment, onTick: () => void, onComplete?: () => void, start?: boolean, timeZone?: string, context?: any, runOnInit?: boolean, utcOffset?: string | number, unrefTimeout?: boolean) => CronJob)
     | ((options: CronJobParameters) => CronJob);
-export declare var time: (source: string | Date, zone?: string) => CronTime;
-export declare var sendAt: (cronTime: CronTime) => Date;
-export declare var timeout: (cronTime: CronTime) => number;
+export declare var time: (source: string | Date | Moment, zone?: string) => CronTime;
+export declare var sendAt: (cronTime: string | Date | Moment) => Moment;
+export declare var timeout: (cronTime: string | Date | Moment) => number;

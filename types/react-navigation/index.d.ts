@@ -32,6 +32,7 @@
 //                 Deniss Borisovs <https://github.com/denissb>
 //                 Kenneth Skovhus <https://github.com/skovhus>
 //                 Aaron Rosen <https://github.com/azrosen92>
+//                 Haseeb Majid <https://github.com/hmajid2301>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -871,10 +872,6 @@ export interface StackNavigatorConfig
 }
 
 // Return createNavigationContainer
-export function StackNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  stackConfig?: StackNavigatorConfig
-): NavigationContainer;
 
 export function createStackNavigator(
   routeConfigMap: NavigationRouteConfigMap,
@@ -890,11 +887,6 @@ export interface SwitchNavigatorConfig {
 
 // Return createNavigationContainer
 export type _SwitchNavigatorConfig = NavigationSwitchRouterConfig;
-
-export function SwitchNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  switchConfig?: SwitchNavigatorConfig
-): NavigationContainer;
 
 export function createSwitchNavigator(
   routeConfigMap: NavigationRouteConfigMap,
@@ -922,6 +914,7 @@ export interface DrawerItemsProps {
   inactiveLabelStyle?: StyleProp<TextStyle>;
   iconContainerStyle?: StyleProp<ViewStyle>;
   drawerPosition: 'left' | 'right';
+  screenProps?: any;
 }
 export interface DrawerScene {
   route: NavigationRoute;
@@ -959,11 +952,6 @@ export interface DrawerNavigatorConfig
   };
   drawerLockMode?: DrawerLockMode;
 }
-
-export function DrawerNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  drawerConfig?: DrawerNavigatorConfig
-): NavigationContainer;
 
 export function createDrawerNavigator(
   routeConfigMap: NavigationRouteConfigMap,
@@ -1019,15 +1007,6 @@ export interface BottomTabNavigatorConfig
 }
 
 // From navigators/TabNavigator.js
-export function TabNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  drawConfig?: TabNavigatorConfig
-): NavigationContainer;
-
-export function createTabNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  drawConfig?: TabNavigatorConfig
-): NavigationContainer;
 
 export function createBottomTabNavigator(
   routeConfigMap: NavigationRouteConfigMap,

@@ -4,6 +4,7 @@
 //                 BendingBender <https://github.com/BendingBender>
 //                 CrossR <https://github.com/CrossR>
 //                 Mike Wickett <https://github.com/mwickett>
+//                 Hitomi Hatsukaze <https://github.com/htkzhtm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace marked;
@@ -100,6 +101,26 @@ declare namespace marked {
         link(href: string, title: string, text: string): string;
         image(href: string, title: string, text: string): string;
         text(text: string): string;
+    }
+
+    class TextRenderer {
+        strong(text: string): string;
+        em(text: string): string;
+        codespan(text: string): string;
+        del(text: string): string;
+        text(text: string): string;
+        link(href: string, title: string, text: string): string;
+        image(href: string, title: string, text: string): string;
+        br(): string;
+    }
+
+    class Parser {
+        constructor(options?: MarkedOptions);
+        parse(src: TokensList): string;
+        next(): Token;
+        peek(): Token | number;
+        parseText(): string;
+        tok(): string;
     }
 
     class Lexer {

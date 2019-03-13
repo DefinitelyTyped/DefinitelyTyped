@@ -245,6 +245,7 @@ interface Buffer extends Uint8Array {
     compare(otherBuffer: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
+    subarray(begin: number, end?: number): Buffer;
     writeUIntLE(value: number, offset: number, byteLength: number): number;
     writeUIntBE(value: number, offset: number, byteLength: number): number;
     writeIntLE(value: number, offset: number, byteLength: number): number;
@@ -267,6 +268,7 @@ interface Buffer extends Uint8Array {
     readFloatBE(offset: number): number;
     readDoubleLE(offset: number): number;
     readDoubleBE(offset: number): number;
+    reverse(): this;
     swap16(): Buffer;
     swap32(): Buffer;
     swap64(): Buffer;
@@ -358,7 +360,7 @@ declare const Buffer: {
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    from(data: any[]): Buffer;
+    from(data: number[]): Buffer;
     from(data: Uint8Array): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
@@ -463,7 +465,17 @@ declare namespace NodeJS {
         showProxy?: boolean;
         maxArrayLength?: number | null;
         breakLength?: number;
-        compact?: boolean;
+        /**
+         * Setting this to `false` causes each object key
+         * to be displayed on a new line. It will also add new lines to text that is
+         * longer than `breakLength`. If set to a number, the most `n` inner elements
+         * are united on a single line as long as all properties fit into
+         * `breakLength`. Short array elements are also grouped together. Note that no
+         * text will be reduced below 16 characters, no matter the `breakLength` size.
+         * For more information, see the example below.
+         * @default `true`
+         */
+        compact?: boolean | number;
         sorted?: boolean | ((a: string, b: string) => number);
     }
 
@@ -599,12 +611,11 @@ declare namespace NodeJS {
 
     interface WritableStream extends EventEmitter {
         writable: boolean;
-        write(buffer: Buffer | string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        end(cb?: Function): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
+        write(buffer: Buffer | Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
+        write(str: string, encoding?: string, cb?: (err?: Error | null) => void): boolean;
+        end(cb?: () => void): void;
+        end(data: string | Uint8Array | Buffer, cb?: () => void): void;
+        end(str: string, encoding?: string, cb?: () => void): void;
     }
 
     interface ReadWriteStream extends ReadableStream, WritableStream { }
@@ -612,11 +623,11 @@ declare namespace NodeJS {
     interface Events extends EventEmitter { }
 
     interface Domain extends Events {
-        run(fn: Function): void;
-        add(emitter: Events): void;
-        remove(emitter: Events): void;
-        bind(cb: (err: Error, data: any) => any): any;
-        intercept(cb: (data: any) => any): any;
+        run<T>(fn: (...args: any[]) => T, ...args: any[]): T;
+        add(emitter: EventEmitter | Timer): void;
+        remove(emitter: EventEmitter | Timer): void;
+        bind<T extends Function>(cb: T): T;
+        intercept<T extends Function>(cb: T): T;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
@@ -679,7 +690,7 @@ declare namespace NodeJS {
     type ExitListener = (code: number) => void;
     type RejectionHandledListener = (promise: Promise<any>) => void;
     type UncaughtExceptionListener = (error: Error) => void;
-    type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
+    type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
     type SignalsListener = (signal: Signals) => void;
@@ -700,9 +711,9 @@ declare namespace NodeJS {
         readonly writableLength: number;
         columns?: number;
         rows?: number;
-        _write(chunk: any, encoding: string, callback: Function): void;
-        _destroy(err: Error | null, callback: Function): void;
-        _final(callback: Function): void;
+        _write(chunk: any, encoding: string, callback: (err?: null | Error) => void): void;
+        _destroy(err: Error | null, callback: (err?: null | Error) => void): void;
+        _final(callback: (err?: null | Error) => void): void;
         setDefaultEncoding(encoding: string): this;
         cork(): void;
         uncork(): void;
@@ -714,9 +725,13 @@ declare namespace NodeJS {
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
         _read(size: number): void;
-        _destroy(err: Error | null, callback: Function): void;
+        _destroy(err: Error | null, callback: (err?: null | Error) => void): void;
         push(chunk: any, encoding?: string): boolean;
         destroy(error?: Error): void;
+    }
+
+    interface HRTime {
+        (time?: [number, number]): [number, number];
     }
 
     interface Process extends EventEmitter {
@@ -793,12 +808,22 @@ declare namespace NodeJS {
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
         release: ProcessRelease;
+        features: {
+            inspector: boolean;
+            debug: boolean;
+            uv: boolean;
+            ipv6: boolean;
+            tls_alpn: boolean;
+            tls_sni: boolean;
+            tls_ocsp: boolean;
+            tls: boolean;
+        };
         /**
          * Can only be set if not in worker thread.
          */
         umask(mask?: number): number;
         uptime(): number;
-        hrtime(time?: [number, number]): [number, number];
+        hrtime: HRTime;
         domain: Domain;
 
         // Worker

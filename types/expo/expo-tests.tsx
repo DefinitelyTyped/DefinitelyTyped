@@ -37,6 +37,7 @@ import {
     LinearGradient,
     Linking,
     Location,
+    Localization,
     MailComposer,
     MapEvent,
     MapStyleElement,
@@ -48,6 +49,7 @@ import {
     registerRootComponent,
     ScreenOrientation,
     SecureStore,
+    SplashScreen,
     Svg,
     Updates
 } from 'expo';
@@ -55,6 +57,16 @@ import {
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
     latitude: 0,
     longitude: 0
+});
+
+Location.watchPositionAsync({
+    accuracy: Location.Accuracy.BestForNavigation,
+    timeInterval: 10000,
+    distanceInterval: 0,
+    timeout: 10000
+}, (data) => {
+    data.coords;
+    data.timestamp;
 });
 
 Accelerometer.addListener((obj) => {
@@ -412,6 +424,7 @@ async () => {
         { resize: { width: 300 } },
         { resize: { height: 300 } },
         { resize: { height: 300, width: 300 } },
+        { crop: { originX: 0, originY: 0, height: 300, width: 300 } }
     ], {
         compress: 0.75
     });
@@ -1093,6 +1106,28 @@ async () => {
 };
 // #endregion
 
+// #region Localization
+
+let locale: string = Localization.locale;
+let locales: string[] = Localization.locales;
+let country: string | undefined = Localization.country;
+let isoCurrencyCodes: string[] | undefined = Localization.isoCurrencyCodes;
+let timezone: string = Localization.timezone;
+let isRTL: boolean = Localization.isRTL;
+
+async () => {
+    const localizationData = await Localization.getLocalizationAsync();
+
+    locale = localizationData.locale;
+    locales = localizationData.locales;
+    country = localizationData.country;
+    isoCurrencyCodes = localizationData.isoCurrencyCodes;
+    timezone = localizationData.timezone;
+    isRTL = localizationData.isRTL;
+};
+
+// #endregion
+
 // #region Contacts
 Contacts.Fields.ID === 'id';
 Contacts.Fields.Name === 'name';
@@ -1260,4 +1295,9 @@ async () => {
     const response13 = await Contacts.getContainersAsync({ containerId: 'containerId' });
     response13.forEach((_: Contacts.Container) => _);
 };
+// #endregion
+
+// #region SplashScreen
+SplashScreen.hide();
+SplashScreen.preventAutoHide();
 // #endregion

@@ -311,7 +311,7 @@ var scope = nock('http://www.google.com')
 /// Access original request and headers
 var scope = nock('http://www.google.com')
    .get('/cat-poems')
-   .reply((uri, requestBody) => {
+   .reply(function (uri, requestBody) {
      console.log('path:', this.req.path);
      console.log('headers:', this.req.headers);
      // ...

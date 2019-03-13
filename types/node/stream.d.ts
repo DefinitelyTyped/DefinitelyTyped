@@ -31,7 +31,7 @@ declare module "stream" {
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
-            _destroy(error: Error | null, callback: (error: Error | null) => void): void;
+            _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
             destroy(error?: Error): void;
 
             /**
@@ -112,7 +112,7 @@ declare module "stream" {
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
-            _destroy(error: Error | null, callback: (error: Error | null) => void): void;
+            _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
             _final(callback: (error?: Error | null) => void): void;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
@@ -212,8 +212,8 @@ declare module "stream" {
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
             _destroy(error: Error | null, callback: (error: Error | null) => void): void;
             _final(callback: (error?: Error | null) => void): void;
-            write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
+            write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: string): this;
             end(cb?: () => void): void;
             end(chunk: any, cb?: () => void): void;
@@ -288,6 +288,8 @@ declare module "stream" {
                 ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream>,
             ): Promise<void>;
         }
+
+        interface Pipe { }
     }
 
     export = internal;

@@ -558,7 +558,7 @@ declare module "http2" {
         prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
     }
 
-    export class Http2ServerResponse extends events.EventEmitter {
+    export class Http2ServerResponse extends stream.Stream {
         private constructor();
         addTrailers(trailers: OutgoingHttpHeaders): void;
         connection: net.Socket | tls.TLSSocket;
@@ -582,8 +582,8 @@ declare module "http2" {
         write(chunk: string | Buffer, callback?: (err: Error) => void): boolean;
         write(chunk: string | Buffer, encoding?: string, callback?: (err: Error) => void): boolean;
         writeContinue(): void;
-        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): void;
-        writeHead(statusCode: number, statusMessage?: string, headers?: OutgoingHttpHeaders): void;
+        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
+        writeHead(statusCode: number, statusMessage?: string, headers?: OutgoingHttpHeaders): this;
         createPushResponse(headers: OutgoingHttpHeaders, callback: (err: Error | null, res: Http2ServerResponse) => void): void;
 
         addListener(event: string, listener: (...args: any[]) => void): this;

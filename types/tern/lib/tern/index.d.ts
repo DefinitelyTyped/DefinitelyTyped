@@ -1,5 +1,5 @@
 import * as ESTree from "estree";
-import { Scope, Type } from "../infer";
+import { Context, Scope, Type } from "../infer";
 
 export { };
 
@@ -48,6 +48,10 @@ interface TernConstructor {
 export const Server: TernConstructor;
 
 export interface Server {
+    readonly cx: Context;
+    readonly options: ConstructorOptions;
+    readonly files: File[];
+    readonly plugins: any;
     /**
      * Add a set of type definitions to the server. If `atFront` is true, they will be added before all other
      * existing definitions. Otherwise, they are added at the back.
@@ -93,10 +97,12 @@ export interface Server {
     request<Q extends Query, D extends Document>(
         doc: D & { query?: Q },
         callback: (
-            error: Error | undefined,
+            error: string | null,
             response: (D extends { query: undefined } ? {} : D extends { query: Query } ? QueryResult<Q> : {}) | undefined
         ) => void
     ): void;
+    reset(): void;
+    signal(event: keyof Events, file: File): void;
 }
 
 // #### JSON Protocol ####
@@ -156,6 +162,7 @@ export interface File {
     scope: Scope;
     ast: ESTree.Program;
     type?: "full" | "part" | "delete";
+    asLineChar?(nodePosition: number): Position;
 }
 
 export interface BaseQuery {
