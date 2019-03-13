@@ -266,7 +266,7 @@ export interface MUIDataTableHeadRow {
     classes?: object;
 }
 
-export interface MUIDataTablePaginations {
+export interface MUIDataTablePagination {
     count: number;
     options: object;
     page: number;
@@ -336,5 +336,23 @@ export interface MUIDataTableViewCol {
 }
 
 declare const MUIDataTable: React.ComponentType<MUIDataTableProps>;
+
+export declare const Popover: React.Component<MUIDataTablePopover>;
+export declare const TableBodyCell: React.Component<MUIDataTableBodyCell>;
+export declare const TableBody: React.Component<MUIDataTableBody>;
+export declare const TableBodyRow: React.Component<MUIDataTableBodyRow>;
+export declare const TableFilter: React.Component<MUIDataTableFilter>;
+export declare const TableFilterList: React.Component<MUIDataTableFilterList>
+export declare const TableFooter: React.Component<MUIDataTableFooter>;
+export declare const TableHeadCell: React.Component<MUIDataTableHeadCell>;
+export declare const TableHead: React.Component<MUIDataTableHead>;
+export declare const TableHeadRow: React.Component<MUIDataTableHeadRow>;
+export declare const TablePagination: React.Component<MUIDataTablePagination>;
+export declare const TableResize: React.Component<MUIDataTableResize>;
+export declare const TableSearch: React.Component<MUIDataTableSearch>;
+export declare const TableSelectCell: React.Component<MUIDataTableSelectCell>;
+export declare const TableToolbar: React.Component<MUIDataTableToolbar>;
+export declare const TableToolbarSelect: React.Component<MUIDataTableToolbarSelect>;
+export declare const TableViewCol: React.Component<MUIDataTableViewCol>;
 
 export default MUIDataTable;
