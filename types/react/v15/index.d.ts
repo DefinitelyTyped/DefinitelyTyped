@@ -2648,7 +2648,7 @@ declare namespace React {
         autoComplete?: string;
         autoFocus?: boolean;
         autoPlay?: boolean;
-        capture?: boolean;
+        capture?: boolean | string;
         cellPadding?: number | string;
         cellSpacing?: number | string;
         charSet?: string;
