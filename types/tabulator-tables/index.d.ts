@@ -1107,7 +1107,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
     interface AutoCompleteParams {
         values: true | string[] | JSONRecord;
         listItemFormatter?: (value: string, text: string) => string;
-        searchFunc: (term: string, values: string[]) => string[];
+        searchFunc?: (term: string, values: string[]) => string[];
         allowEmpty?: boolean;
         freetext?: boolean;
         showListOnEmpty?: boolean;
