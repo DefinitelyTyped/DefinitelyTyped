@@ -7145,10 +7145,10 @@ declare namespace Stripe {
              * @param id The id of the invoice containing the lines to be retrieved
              * @param data Filtering options
              */
-            retrieveLines(id: string, data: invoices.IInvoiceLineItemRetrievalOptions, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): Promise<invoices.IInvoiceLineItem>;
-            retrieveLines(id: string, data: invoices.IInvoiceLineItemRetrievalOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): Promise<invoices.IInvoiceLineItem>;
-            retrieveLines(id: string, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): Promise<invoices.IInvoiceLineItem>;
-            retrieveLines(id: string, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): Promise<invoices.IInvoiceLineItem>;
+            retrieveLines(id: string, data: invoices.IInvoiceLineItemRetrievalOptions, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): Promise<IList<invoices.IInvoiceLineItem>>;
+            retrieveLines(id: string, data: invoices.IInvoiceLineItemRetrievalOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): Promise<IList<invoices.IInvoiceLineItem>>;
+            retrieveLines(id: string, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): Promise<IList<invoices.IInvoiceLineItem>>;
+            retrieveLines(id: string, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): Promise<IList<invoices.IInvoiceLineItem>>;
 
             /**
              * At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending,
