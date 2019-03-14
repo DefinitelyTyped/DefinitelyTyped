@@ -1813,6 +1813,13 @@ declare namespace google.maps {
     getTile(tileCoord: Point, zoom: number, ownerDocument: Document): Element;
     releaseTile(tile: Element): void;
     setOpacity(opacity: number): void;
+    alt: string;
+    maxZoom: number;
+    minZoom: number;
+    name: string;
+    projection: Projection;
+    radius: number;
+    tileSize: Size;
   }
 
   export interface ImageMapTypeOptions {
@@ -1822,13 +1829,20 @@ declare namespace google.maps {
     minZoom?: number;
     name?: string;
     opacity?: number;
-    tileSize?: Size;
+    tileSize: Size;
   }
 
   export class StyledMapType extends MVCObject implements MapType {
     constructor(styles: MapTypeStyle[], options?: StyledMapTypeOptions);
     getTile(tileCoord: Point, zoom: number, ownerDocument: Document): Element;
     releaseTile(tile: Element): void;
+    alt: string;
+    maxZoom: number;
+    minZoom: number;
+    name: string;
+    projection: Projection;
+    radius: number;
+    tileSize: Size;
   }
 
   export interface StyledMapTypeOptions {
