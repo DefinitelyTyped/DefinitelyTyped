@@ -15,8 +15,37 @@ const userCollection = Waterline.Collection.extend({
         },
     },
 });
+const userCollectionV3 = Waterline.CollectionV3.extend({
+    identity: "userv3",
+    connection: "default",
+    attributes: {
+        firstName: "string",
+        lastName: "string",
+        // Add a reference to Pets
+        pets: {
+            collection: "pet",
+            via: "owner",
+            dominant: true,
+        },
+    },
+});
 const petCollection = Waterline.Collection.extend({
     identity: "pet",
+    connection: "default",
+    attributes: {
+        breed: "string",
+        type: "string",
+        name: "string",
+
+        // Add a reference to User
+        owner: {
+            model: "user",
+        },
+    },
+});
+
+const petCollectionv3 = Waterline.CollectionV3.extend({
+    identity: "petv3",
     connection: "default",
     attributes: {
         breed: "string",
@@ -33,11 +62,25 @@ const petCollection = Waterline.Collection.extend({
 waterline.loadCollection(userCollection);
 waterline.loadCollection(petCollection);
 
+waterline.registerModel(userCollectionV3);
+waterline.registerModel(petCollectionv3);
+
 const config: Waterline.Config = {
     adapters: {
         memory: {},
     },
     connections: {
+        default: {
+            adapter: "memory",
+        },
+    },
+};
+
+const configV3: Waterline.ConfigV3 = {
+    adapters: {
+        memory: {},
+    },
+    datastores: {
         default: {
             adapter: "memory",
         },
@@ -52,6 +95,37 @@ waterline.initialize(config, (err, ontology) => {
     // Tease out fully initialised models.
     const User: Waterline.Model = ontology.collections.user;
     const Pet: Waterline.Model = ontology.collections.pet;
+
+    User.create({ // First we create a user.
+        firstName: "Neil",
+        lastName: "Armstrong",
+    }).then((user: any) => { // Then we create the pet
+        return Pet.create({
+            breed: "beagle",
+            type: "dog",
+            name: "Astro",
+            owner: user.id,
+        });
+
+    }).then((pet) => { // Then we grab all users and their pets
+        return User.find().populate("pets");
+
+    }).then((users) => { // Results of the previous then clause are passed to the next
+        console.dir(users);
+
+    }).catch((errCatch) => { // If any errors occur execution jumps to the catch block.
+        console.error(errCatch);
+    });
+});
+
+waterline.initialize(configV3, (err, ontology) => {
+    if (err) {
+        return console.error(err);
+    }
+
+    // Tease out fully initialised models.
+    const User: Waterline.Model = ontology.collections.userv3;
+    const Pet: Waterline.Model = ontology.collections.petv3;
 
     User.create({ // First we create a user.
         firstName: "Neil",
@@ -112,6 +186,49 @@ const Person = Waterline.Collection.extend({
         }
     }
 });
+
+const PersonV3 = Waterline.CollectionV3.extend({
+    identity: "person",
+    connection: "local-postgresql",
+
+    attributes: {
+
+        // Don"t allow two objects with the same value
+        lastName: {
+            type: "string",
+            unique: true
+        },
+
+        // Ensure a value is set
+        age: {
+            type: "number",
+            required: true
+        },
+
+        // Set a default value if no value is set
+        phoneNumber: {
+            type: "string",
+            defaultsTo: "111-222-3333"
+        },
+
+        // Create an auto-incrementing value (not supported by all datastores)
+        incrementMe: {
+            type: "number",
+            autoMigrations: {
+                autoIncrement: true,
+            }
+        },
+
+        // Index a value for faster queries
+        emailAddress: {
+            type: "string", // Email type will get validated by the ORM
+            index: true,
+            validations: {
+                isEmail: true,
+            }
+        }
+    }
+});
 // https://github.com/balderdashy/waterline-docs/blob/master/models/validations.md
 const validations: Waterline.Attribute = {
     type: "string",
@@ -167,6 +284,33 @@ const validations: Waterline.Attribute = {
     minLength: 4,
     maxLength: 24,
 };
+
+const validationsV3: Waterline.AttributeV3 = {
+    type: "string",
+    required: true,
+    allowNull: true,
+    autoMigrations: {
+        columnType: '_string',
+        autoIncrement: true,
+
+    },
+    validations: {
+        isString: true,
+        isBoolean: true,
+        isAfter: new Date("12/12/2001"),
+        isBefore: new Date("12/12/2019"),
+        isCreditCard:true,
+        regex: /ab+c/,
+        max: 24,
+        min: 4,
+        minLength: 4,
+        maxLength: 24,
+        isUUID: true,
+        isURL: true,
+        isNumber: true,
+    }
+};
+
 const valid2 = {
     contains: (cb: (val: string) => any) => {
         setTimeout(() => {

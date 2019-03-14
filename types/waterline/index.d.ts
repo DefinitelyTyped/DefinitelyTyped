@@ -36,7 +36,7 @@ declare namespace Waterline {
     interface Waterline {
         registerModel(collection: CollectionClassV3): void;
         loadCollection(collection: CollectionClass): void;
-        initialize: (config: Config, cb: (err: Error, ontology: Ontology) => any) => any;
+        initialize: (config: Config | ConfigV3, cb: (err: Error, ontology: Ontology) => any) => any;
         collections: any;
     }
     interface CollectionClass {
@@ -69,7 +69,7 @@ declare namespace Waterline {
         types?: any;
     }
     export type CollectionDefinitionV3 = LifecycleCallbacks & {
-        attributes?: AttributeV3;
+        attributes?: AttributesV3;
         connection?: string;
         identity?: string;
         tableName?: string;
@@ -85,10 +85,16 @@ declare namespace Waterline {
         toJSON?: () => string;
         toObject?: () => any;
     };
+    export type AttributesV3 = { [index: string]: AttributeV3 } & {
+        toJSON?: () => string;
+        toObject?: () => any;
+    };
     export type FunctionAttribute = () => any;
     // Data types https://github.com/balderdashy/waterline-docs/blob/master/models/data-types-attributes.md#data-types
     export type AttributeType = "string" | "text" | "integer" | "float" | "date" | "time"
         | "datetime" | "boolean" | "binary" | "array" | "json";
+    export type AttributeTypeV3 = "string" | "number" | "boolean" | "json" | "ref";
+
     export type Attribute = string | StringAttribute | EmailAttribute |
         IntegerAttribute | FloatAttribute |
         DateAttribute | TimeAttribute | DatetimeAttribute |
@@ -219,6 +225,7 @@ declare namespace Waterline {
         isAfter?: AttributeValidation<Date>;
         isBefore?: AttributeValidation<Date>;
         isBoolean?: AttributeValidation<boolean>;
+        isEmail?: AttributeValidation<boolean>;
         isCreditCard?:AttributeValidation<boolean>;
         isIP?: AttributeValidation<boolean>;
         isNotEmptyString?:AttributeValidation<boolean>;
@@ -344,6 +351,9 @@ declare namespace Waterline {
 declare interface WaterlineStatic {
     Collection: {
         extend: (params: Waterline.CollectionDefinition) => Waterline.CollectionClass;
+    }
+    CollectionV3: {
+        extend: (params: Waterline.CollectionDefinitionV3) => Waterline.CollectionClassV3;
     }
     new (): Waterline.Waterline;
 }
