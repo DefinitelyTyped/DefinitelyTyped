@@ -1,4 +1,4 @@
-import * as protocPlugin from 'protoc-plugin';
+import protocPlugin = require('protoc-plugin');
 import {
   CodeGeneratorResponse as pb_CodeGeneratorResponse
 } from "google-protobuf/google/protobuf/compiler/plugin_pb";
