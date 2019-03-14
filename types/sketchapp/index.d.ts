@@ -381,7 +381,7 @@ interface SketchMSSymbolMaster {
   attributedString: SketchMSAttributedString;
   name: string;
   layers: SketchMSLayer[];
-  points: SketchMSPath;
+  points?: SketchMSPath[];
   isClosed?: boolean;
   isVisible: boolean;
   nameIsFixed: boolean;
@@ -460,6 +460,8 @@ interface SketchMSPage {
   do_objectID?: string;
   _class: 'page' | 'layer';
   layers: SketchMSLayer[];
+  points?: SketchMSPath[];
+  isClosed?: boolean;
   isVisible: boolean;
   nameIsFixed: number;
   name: string;
