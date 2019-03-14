@@ -30,7 +30,16 @@ declare namespace inquirer {
         input: NodeJS.ReadStream
     }
     type StreamOptions = InputStreamOption | OutputStreamOption | (InputStreamOption & OutputStreamOption);
-
+    enum InquirerQuestionType {
+      input = 'input',
+      number = 'number',
+      confirm = 'confirm',
+      list = 'list',
+      rawlist = 'rawlist',
+      password = 'password',
+      checkbox = 'checkbox',
+      expand = 'expand'
+    }
     interface Inquirer {
         restoreDefaultPrompts(): void;
         /**
@@ -78,7 +87,7 @@ declare namespace inquirer {
     interface Question<T = Answers> {
         /**
          * Type of the prompt.
-         * Possible values:
+         * Possible values: InquirerQuestionType
          * <ul>
          *      <li>input</li>
 	     *      <li>number</li>
@@ -89,7 +98,7 @@ declare namespace inquirer {
          * </ul>
          * @defaults: 'input'
          */
-        type?: string;
+        type?: InquirerQuestionType;
         /**
          * The name to use when storing the answer in the anwers hash.
          */
