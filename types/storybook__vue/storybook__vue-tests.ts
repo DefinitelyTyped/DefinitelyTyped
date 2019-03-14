@@ -1,5 +1,5 @@
 import Vue, { ComponentOptions } from 'vue';
-import { addDecorator, configure, getStorybook, setAddon, storiesOf, StoryFunction, Story } from '@storybook/vue';
+import { addDecorator, configure, getStorybook, setAddon, storiesOf, StoryFunction, Story, addParameters, DecoratorParameters } from '@storybook/vue';
 
 interface CustomStory extends Story {
     addCentered(storyName: string, storyFn: StoryFunction): this;
@@ -22,8 +22,10 @@ const Decorator = (story: () => ComponentOptions<Vue>) => {
         }
     };
 };
+const parameters: DecoratorParameters = { parameter: 'foo' };
 
 addDecorator(Decorator);
+addParameters(parameters);
 configure(() => undefined, module);
 getStorybook().forEach(({ fileName, kind, stories }) => stories.forEach(({ name, render }) => render()));
 setAddon(addCenteredAddon);

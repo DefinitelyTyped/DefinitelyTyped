@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "clean-webpack-plugin-tests.ts"
+        "phin-tests.ts"
     ]
 }

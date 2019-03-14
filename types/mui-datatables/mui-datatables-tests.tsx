@@ -7,14 +7,14 @@ interface Props extends MUIDataTableOptions {
     textLabels?: MUIDataTableTextLabels;
 }
 
-class MuiCustomTable extends React.Component<Props> {
-    private readonly data: string[][] = this.props.data.map((asset: any) => Object.values(asset));
-    private readonly columns = this.props.data
-                                .map((entry: any) => Object.keys(entry))
-                                .flat()
-                                .map((title: string) => title.toUpperCase())
-                                .filter((element: string, index: number, array: string[]) => array.indexOf(element) === index);
-    private readonly TableOptions: MUIDataTableOptions = {
+const MuiCustomTable: React.FC<Props> = (props) => {
+    const data: string[][] = props.data.map((asset: any) => Object.values(asset));
+    const columns = props.data
+                        .map((entry: any) => Object.keys(entry))
+                        .flat()
+                        .map((title: string) => title.toUpperCase())
+                        .filter((element: string, index: number, array: string[]) => array.indexOf(element) === index);
+    const TableOptions: MUIDataTableOptions = {
         filterType: 'checkbox',
         responsive: 'scroll',
         selectableRows: false,
@@ -75,10 +75,8 @@ class MuiCustomTable extends React.Component<Props> {
         }
     };
 
-    render() {
-        return (<MUIDataTable title={this.props.title} data={this.data} columns={this.columns} options={this.TableOptions}/>);
-    }
-}
+    return (<MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions}/>);
+};
 
 const TableFruits = [
     {id: 1, name: "Apple", amount: 1},
