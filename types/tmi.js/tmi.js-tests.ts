@@ -30,7 +30,7 @@ const options: tmi.Options = {
 const client: tmi.Client = tmi.Client(options);
 
 client.connect().then(() => {
-    client.on("subscription", (channel: string, username: string, method: tmi.ResubMethod, msg: string, userstate: tmi.SubUserstate) => {
+    client.on("subscription", (channel: string, username: string, methods: tmi.SubMethods, msg: string, userstate: tmi.SubUserstate) => {
         client.say(channel, `Thank you to ${userstate["display-name"]} for subscribing!`);
         client.ping();
         client.r9kbeta(channel);
@@ -56,7 +56,7 @@ client.connect().then(() => {
         client.unmod(channel, username);
         client.whisper(username, "whisper");
         client.part(channel);
-        switch (method) {
+        switch (methods.plan) {
             case "1000":
             case "2000":
             case "3000":

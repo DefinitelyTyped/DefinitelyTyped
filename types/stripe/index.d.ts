@@ -16,8 +16,10 @@
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Slava Yultyyev <https://github.com/yultyyev>
 //                 Corey Psoinos <https://github.com/cpsoinos>
+//                 Adam Duren <https://github.com/adamduren>
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Jonas Keisel <https://github.com/0xJoKe>
+//                 Andrew Delianides <https://github.com/delianides>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1255,6 +1257,11 @@ declare namespace Stripe {
             metadata: IMetadata;
 
             /**
+             * Name of the coupon displayed to customers on for instance invoices or receipts.
+             */
+            name: string;
+
+            /**
              * Percent that will be taken off the subtotal of any invoices for this customer for the duration
              * of the coupon. For example, a coupon with percent_off of 50 will make a $100 invoice $50 instead.
              */
@@ -1311,6 +1318,11 @@ declare namespace Stripe {
              * For example, you might have a 50% off coupon that the first 20 readers of your blog can use.
              */
             max_redemptions?: number;
+
+            /**
+             * Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the id is shown if name is not set.
+             */
+            name?: string;
 
             /**
              * A positive integer between 1 and 100 that represents the discount the coupon will apply (required if amount_off is not passed)
@@ -2842,6 +2854,11 @@ declare namespace Stripe {
             arrival_date: number;
 
             /**
+             * Returns true if the payout was created by an automated payout schedule, and false if it was requested manually.
+             */
+            automatic: boolean;
+
+            /**
              * Balance transaction that describes the impact of this transfer on your account balance. [Expandable]
              */
             balance_transaction: string | balance.IBalanceTransaction;
@@ -3357,6 +3374,15 @@ declare namespace Stripe {
              * ID of the source used in this PaymentIntent.
              */
             source?: string;
+        }
+
+        interface IPaymentIntentRetrieveOptions {
+            /**
+             * The client secret of the PaymentIntent. Required if a publishable key is used to retrieve the source.
+             *
+             * REQUIRED IF USING PUBLISHABLE KEY!
+             */
+            client_secret: string;
         }
 
         interface IPaymentIntentCaptureOptions {
@@ -7278,6 +7304,17 @@ declare namespace Stripe {
              */
             retrieve(
                 id: string,
+                data: paymentIntents.IPaymentIntentRetrieveOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            retrieve(
+                id: string,
+                data: paymentIntents.IPaymentIntentRetrieveOptions,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            retrieve(
+                id: string,
                 options: HeaderOptions,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;
@@ -7304,6 +7341,15 @@ declare namespace Stripe {
                 data: paymentIntents.IPaymentIntentConfirmOptions,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;
+            confirm(
+                paymentIntentId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            confirm(
+                paymentIntentId: string,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
 
             /**
              * Capture the funds of an existing uncaptured PaymentIntent where `required_action="requires_capture"`.
@@ -7320,6 +7366,15 @@ declare namespace Stripe {
             capture(
                 paymentIntentId: string,
                 data: paymentIntents.IPaymentIntentCaptureOptions,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            capture(
+                paymentIntentId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            capture(
+                paymentIntentId: string,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;
 
@@ -7339,9 +7394,18 @@ declare namespace Stripe {
             ): Promise<paymentIntents.IPaymentIntent>;
             cancel(
                 paymentIntentId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            cancel(
+                paymentIntentId: string,
                 data: {
                     cancellation_reason?: paymentIntents.PaymentIntentCancelationReason,
                 },
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            cancel(
+                paymentIntentId: string,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;
         }

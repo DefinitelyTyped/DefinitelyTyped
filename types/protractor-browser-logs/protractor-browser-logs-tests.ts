@@ -1,5 +1,5 @@
 import { browser } from 'protractor/built';
-import browserLogs from 'protractor-browser-logs';
+import browserLogs = require('protractor-browser-logs');
 import * as webdriver from 'selenium-webdriver';
 import Entry = webdriver.logging.Entry;
 

@@ -83,6 +83,7 @@
         "test/belongs-to.ts",
         "test/record-reference.ts",
         "test/injections.ts",
-        "test/error.ts"
+        "test/error.ts",
+        "test/promises.ts"
     ]
 }

@@ -4,7 +4,10 @@
 //                 Michael Mifsud <https://github.com/xzyfer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 declare module "node-dogstatsd" {
+  import * as dgram from 'dgram';
 
   export interface StatsDOptions {
     global_tags?: string[];
@@ -25,7 +28,9 @@ declare module "node-dogstatsd" {
   }
 
   export class StatsD implements StatsDClient {
-    constructor(host: string, port?: number, socket?: string, options?: StatsDOptions);
+    public socket: dgram.Socket
+
+    constructor(host: string, port?: number, socket?: dgram.Socket, options?: StatsDOptions);
 
     timing(stat: string, time: number, sample_rate?: number, tags?: string[]): void;
 

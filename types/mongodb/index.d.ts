@@ -1848,9 +1848,9 @@ export type CommandCursorResult = object | null;
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html */
 export class CommandCursor extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#hasNext */
-    hasNext(): Promise<CommandCursorResult>;
+    hasNext(): Promise<boolean>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#hasNext */
-    hasNext(callback: MongoCallback<CommandCursorResult>): void;
+    hasNext(callback: MongoCallback<boolean>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#batchSize */
     batchSize(value: number): CommandCursor;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#clone */
