@@ -5787,18 +5787,6 @@ declare namespace Stripe {
             subscription_item: string;
             total_usage: number;
         }
-
-        interface IUsageRecordSummariesListOptions extends IListOptions {
-            /**
-             * Only summary items for the given subscription item.
-             */
-            subscription_item: string;
-            /**
-             * A limit on the number of objects to be returned. The limit can range between 1 and 100.
-             * @default 10
-             */
-            limit?: number;
-        }
     }
 
     // tslint:disable-next-line:no-unnecessary-class
@@ -5819,8 +5807,8 @@ declare namespace Stripe {
             /**
              * Creates a usage record for a specified subscription item and date, and fills it with a quantity.
              */
-            list(data: usageRecordSummaries.IUsageRecordSummariesListOptions, options: HeaderOptions, response?: IResponseFn<usageRecordSummaries.IUsageRecordSummaries>): Promise<usageRecordSummaries.IUsageRecordSummaries>;
-            list(data: usageRecordSummaries.IUsageRecordSummariesListOptions, response?: IResponseFn<usageRecordSummaries.IUsageRecordSummaries>): Promise<usageRecordSummaries.IUsageRecordSummaries>;
+            list(subscriptionItem: string, options: IListOptions, response?: IResponseFn<usageRecordSummaries.IUsageRecordSummaries>): Promise<usageRecordSummaries.IUsageRecordSummaries>;
+            list(subscriptionItem: string, response?: IResponseFn<usageRecordSummaries.IUsageRecordSummaries>): Promise<usageRecordSummaries.IUsageRecordSummaries>;
         }
 
         class Accounts extends StripeResource {
