@@ -1,4 +1,4 @@
-import { DomUtils } from 'domutils';
+import * as DomUtils from 'domutils';
 
 const elem = { name: 'elem' };
 const next = { name: 'next' };
