@@ -377,6 +377,8 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
       iconUrl: 'http://url.com',
     });
 
+    const isActive: boolean = contentPanel.isActive();
+    contentPanel.open();
     contentPanel.remove();
     const destroyed: boolean = contentPanel.destroyed;
     contentPanel.on('destroy', () => console.log());
