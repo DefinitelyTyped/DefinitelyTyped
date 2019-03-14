@@ -171,12 +171,25 @@ You can remove it by running `npm run not-needed -- typingsPackageName asOfVersi
 - `typingsPackageName`: This is the name of the directory to delete.
 - `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version.
 - `sourceRepoURL`: This should point to the repository that contains the typings.
-- `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName" so you can omit it.
+- `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName", in which case you can omit it.
 
-Any other packages in Definitely Typed that referenced the deleted package should be updated to reference the bundled types. To do this, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
+Any other packages in Definitely Typed that referenced the deleted package should be updated to reference the bundled types.
+You can get this list by looking at the errors from `npm run test`.
+To fix the errors, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
+For example:
+
+```json
+{
+  "private": true,
+  "dependencies": {
+    "foo": "^2.6.0"
+  }
+}
+```
+
+When you add a `package.json` to dependents of `foo`, you will also need to open a PR to add `foo` [to dependenciesWhitelist.txt in types-publisher](https://github.com/Microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
 
 If a package was never on Definitely Typed, it does not need to be added to `notNeededPackages.json`.
-
 
 #### Lint
 
