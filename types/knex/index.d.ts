@@ -491,7 +491,7 @@ declare namespace Knex {
         references(columnName: string): ReferencingColumnBuilder;
         onDelete(command: string): ColumnBuilder;
         onUpdate(command: string): ColumnBuilder;
-        defaultTo(value: Value): ColumnBuilder;
+        defaultTo(value: Value | null): ColumnBuilder;
         unsigned(): ColumnBuilder;
         notNullable(): ColumnBuilder;
         nullable(): ColumnBuilder;
