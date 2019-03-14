@@ -1038,7 +1038,7 @@ interface IStaticCanvasOptions {
 	 * The coordinates get updated with @method calcViewportBoundaries.
 	 * @memberOf fabric.StaticCanvas.prototype
 	 */
-	vptCoords?: {tl: number, tr: number, bl: number, br: number}
+	vptCoords?: {tl: {x: number, y: number}, tr: {x: number, y: number}, bl: {x: number, y: number}, br: {x: number, y: number}}
 	/**
 	 * Based on vptCoords and object.aCoords, skip rendering of objects that
 	 * are not included in current viewport.
