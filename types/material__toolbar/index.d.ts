@@ -25,7 +25,7 @@ import { MDCComponent } from 'material__base';
 import MDCToolbarFoundation from './foundation';
 import MDCToolbarAdapter from './adapter';
 
-export {MDCToolbarAdapter, MDCToolbarFoundation};
+export { MDCToolbarAdapter, MDCToolbarFoundation };
 
 export class MDCToolbar extends MDCComponent<MDCToolbarAdapter, MDCToolbarFoundation> {
     static attachTo(root: Element): MDCToolbar;

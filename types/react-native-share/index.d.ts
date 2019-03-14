@@ -23,7 +23,7 @@ interface ShareSingleReturn {
 }
 
 interface Options {
-    url: string;
+    url?: string;
     urls?: string[];
     type?: string;
     message?: string;

@@ -478,6 +478,7 @@ function testStub() {
         foo(arg: string): number { return 1; }
         promiseFunc() { return Promise.resolve('foo'); }
         promiseLikeFunc() { return Promise.resolve('foo') as PromiseLike<string>; }
+        fooDeep(arg: { s: string }): void { return undefined; }
     };
     const instance = new obj();
 
@@ -556,6 +557,9 @@ function testStub() {
     stub2.withArgs('a', 2).returns('true'); // $ExpectError
     stub2.withArgs('a').returns(1);
     stub2.withArgs('a').returns('a'); // $ExpectError
+
+    const stub3 = sinon.stub(instance, 'fooDeep').named('namedStubDeep');
+    stub3.calledWith({ s: sinon.match.string });
 
     const pStub = sinon.stub(instance, 'promiseFunc');
     pStub.resolves();
