@@ -2289,7 +2289,16 @@ declare namespace Stripe {
              */
             customer?: string;
 
-            date?: IDateFilter;
+            /**
+             * A filter on the list based on the object due_date field. The value can be a string with an integer Unix timestamp,
+             * or it can be a dictionary with the following options:
+             */
+            due_date?: string | IDateFilter;
+
+            /**
+             * Only return invoices for the subscription specified by this subscription ID
+             */
+            subscription?: string;
         }
 
         interface IInvoiceLineItemRetrievalOptions extends IListOptions {
