@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "expect": "^24.3.0"
+    "expect": "^24.5.0"
   }
 }
