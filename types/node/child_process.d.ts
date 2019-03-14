@@ -264,6 +264,7 @@ declare module "child_process" {
         execArgv?: string[];
         silent?: boolean;
         stdio?: StdioOptions;
+        detached?: boolean;
         windowsVerbatimArguments?: boolean;
     }
     function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;

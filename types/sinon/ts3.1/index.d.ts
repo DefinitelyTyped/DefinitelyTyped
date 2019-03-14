@@ -6,7 +6,7 @@ interface Document {} // tslint:disable-line no-empty-interface
 
 declare namespace Sinon {
     type MatchArguments<T> = {
-        [K in keyof T]: SinonMatcher | T[K];
+        [K in keyof T]: SinonMatcher | MatchArguments<T[K]> | T[K];
     };
 
     interface SinonSpyCallApi<TArgs extends any[] = any[], TReturnValue = any> {

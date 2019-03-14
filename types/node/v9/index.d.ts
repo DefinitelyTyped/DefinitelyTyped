@@ -2669,6 +2669,7 @@ declare module "child_process" {
         execArgv?: string[];
         silent?: boolean;
         stdio?: any[];
+        detached?: boolean;
         uid?: number;
         gid?: number;
         windowsVerbatimArguments?: boolean;

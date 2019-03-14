@@ -199,6 +199,12 @@
             "asOfVersion": "1.1.1"
         },
         {
+            "libraryName": "boxen",
+            "typingsPackageName": "boxen",
+            "sourceRepoURL": "https://github.com/sindresorhus/boxen",
+            "asOfVersion": "3.0.1"
+        },
+        {
             "libraryName": "Bugsnag Browser",
             "typingsPackageName": "bugsnag-js",
             "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
@@ -293,6 +299,12 @@
             "typingsPackageName": "constant-case",
             "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "copy-text-to-clipboard",
+            "typingsPackageName": "copy-text-to-clipboard",
+            "sourceRepoURL": "https://github.com/sindresorhus/copy-text-to-clipboard",
+            "asOfVersion": "2.0.1"
         },
         {
             "libraryName": "cordova-plugin-battery-status",
@@ -409,6 +421,18 @@
             "asOfVersion": "0.20.0"
         },
         {
+            "libraryName": "cp-file",
+            "typingsPackageName": "cp-file",
+            "sourceRepoURL": "https://github.com/sindresorhus/cp-file",
+            "asOfVersion": "6.1.1"
+        },
+        {
+            "libraryName": "cpy",
+            "typingsPackageName": "cpy",
+            "sourceRepoURL": "https://github.com/sindresorhus/cpy",
+            "asOfVersion": "7.1.1"
+        },
+        {
             "libraryName": "cypress",
             "typingsPackageName": "cypress",
             "sourceRepoURL": "https://cypress.io",
@@ -425,6 +449,12 @@
             "typingsPackageName": "dd-trace",
             "sourceRepoURL": "https://github.com/DataDog/dd-trace-js",
             "asOfVersion": "0.9.0"
+        },
+        {
+            "libraryName": "decamelize",
+            "typingsPackageName": "decamelize",
+            "sourceRepoURL": "https://github.com/sindresorhus/decamelize",
+            "asOfVersion": "3.0.1"
         },
         {
             "libraryName": "decimal.js",
@@ -643,6 +673,12 @@
             "asOfVersion": "2.3.1"
         },
         {
+            "libraryName": "file-type",
+            "typingsPackageName": "file-type",
+            "sourceRepoURL": "https://github.com/sindresorhus/file-type",
+            "asOfVersion": "10.9.1"
+        },
+        {
             "libraryName": "FineUploader",
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
@@ -787,6 +823,12 @@
             "asOfVersion": "1.2.0"
         },
         {
+            "libraryName": "humanize-string",
+            "typingsPackageName": "humanize-string",
+            "sourceRepoURL": "https://github.com/sindresorhus/humanize-string",
+            "asOfVersion": "2.0.1"
+        },
+        {
             "libraryName": "i18next-browser-languagedetector",
             "typingsPackageName": "i18next-browser-languagedetector",
             "sourceRepoURL": "https://github.com/i18next/i18next-browser-languagedetector",
@@ -809,6 +851,12 @@
             "typingsPackageName": "ids",
             "sourceRepoURL": "https://github.com/bpmn-io/ids",
             "asOfVersion": "0.2.2"
+        },
+        {
+            "libraryName": "image-type",
+            "typingsPackageName": "image-type",
+            "sourceRepoURL": "https://github.com/sindresorhus/image-type",
+            "asOfVersion": "4.0.1"
         },
         {
             "libraryName": "immutability-helper",
@@ -893,6 +941,12 @@
             "typingsPackageName": "is-plain-object",
             "sourceRepoURL": "https://github.com/jonschlinkert/is-plain-object",
             "asOfVersion": "2.0.4"
+        },
+        {
+            "libraryName": "is-svg",
+            "typingsPackageName": "is-svg",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-svg",
+            "asOfVersion": "4.0.1"
         },
         {
             "libraryName": "is-upper-case",
@@ -1201,6 +1255,18 @@
             "asOfVersion": "2.0.18"
         },
         {
+            "libraryName": "npm-name",
+            "typingsPackageName": "npm-name",
+            "sourceRepoURL": "https://github.com/sindresorhus/npm-name",
+            "asOfVersion": "5.2.1"
+        },
+        {
+            "libraryName": "npm-run-path",
+            "typingsPackageName": "npm-run-path",
+            "sourceRepoURL": "https://github.com/sindresorhus/npm-run-path",
+            "asOfVersion": "3.0.1"
+        },
+        {
             "libraryName": "Nuka Carousel",
             "typingsPackageName": "nuka-carousel",
             "sourceRepoURL": "https://github.com/FormidableLabs/nuka-carousel/",
@@ -1261,6 +1327,12 @@
             "asOfVersion": "3.2.1"
         },
         {
+            "libraryName": "p-some",
+            "typingsPackageName": "p-some",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-some",
+            "asOfVersion": "4.0.1"
+        },
+        {
             "libraryName": "p-throttle",
             "typingsPackageName": "p-throttle",
             "sourceRepoURL": "https://github.com/sindresorhus/p-throttle",
@@ -1289,6 +1361,12 @@
             "typingsPackageName": "path-case",
             "sourceRepoURL": "https://github.com/blakeembrey/path-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "path-key",
+            "typingsPackageName": "path-key",
+            "sourceRepoURL": "https://github.com/sindresorhus/path-key",
+            "asOfVersion": "3.0.1"
         },
         {
             "libraryName": "path-to-regexp",
@@ -1381,6 +1459,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "ps-list",
+            "typingsPackageName": "ps-list",
+            "sourceRepoURL": "https://github.com/sindresorhus/ps-list",
+            "asOfVersion": "6.2.1"
+        },
+        {
             "libraryName": "qiniu",
             "typingsPackageName": "qiniu",
             "sourceRepoURL": "https://github.com/qiniu/nodejs-sdk",
@@ -1397,6 +1481,12 @@
             "typingsPackageName": "query-string",
             "sourceRepoURL": "https://github.com/sindresorhus/query-string",
             "asOfVersion": "6.3.0"
+        },
+        {
+            "libraryName": "quick-lru",
+            "typingsPackageName": "quick-lru",
+            "sourceRepoURL": "https://github.com/sindresorhus/quick-lru",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "Raven JS",
@@ -1523,6 +1613,12 @@
             "typingsPackageName": "react-svg",
             "sourceRepoURL": "https://github.com/tanem/react-svg",
             "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "read-chunk",
+            "typingsPackageName": "read-chunk",
+            "sourceRepoURL": "https://github.com/sindresorhus/read-chunk",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "realm",
@@ -1699,6 +1795,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "@sindresorhus/slugify",
+            "typingsPackageName": "sindresorhus__slugify",
+            "sourceRepoURL": "https://github.com/sindresorhus/slugify",
+            "asOfVersion": "0.9.1"
+        },
+        {
             "libraryName": "sip.js",
             "typingsPackageName": "sip.js",
             "sourceRepoURL": "https://github.com/onsip/SIP.js",
@@ -1825,6 +1927,12 @@
             "asOfVersion": "3.12.0"
         },
         {
+            "libraryName": "time-span",
+            "typingsPackageName": "time-span",
+            "sourceRepoURL": "https://github.com/sindresorhus/time-span",
+            "asOfVersion": "3.0.1"
+        },
+        {
             "libraryName": "timezonecomplete",
             "typingsPackageName": "timezonecomplete",
             "sourceRepoURL": "https://github.com/SpiritIT/timezonecomplete",
@@ -1835,6 +1943,12 @@
             "typingsPackageName": "title-case",
             "sourceRepoURL": "https://github.com/blakeembrey/title-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "trash",
+            "typingsPackageName": "trash",
+            "sourceRepoURL": "https://github.com/sindresorhus/trash",
+            "asOfVersion": "5.0.1"
         },
         {
             "libraryName": "TsMonad",
@@ -2024,9 +2138,9 @@
         },
         {
             "libraryName": "@xmpp/jid",
-            "typingsPackageName": "xmpp-jid",
+            "typingsPackageName": "xmpp__jid",
             "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
-            "asOfVersion": "1.2.0"
+            "asOfVersion": "1.2.1"
         },
         {
             "libraryName": "xterm.js",
@@ -2044,7 +2158,7 @@
             "libraryName": "zapier-platform-core",
             "typingsPackageName": "zapier-platform-core",
             "sourceRepoURL": "https://github.com/zapier/zapier-platform-core",
-            "asOfVersion": "6.1.0"
+            "asOfVersion": "6.1.1"
         },
         {
             "libraryName": "zetapush-js",
