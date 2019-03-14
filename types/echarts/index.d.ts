@@ -7,6 +7,7 @@
 //                 Roman <https://github.com/iRON5>
 //                 Bilal <https://github.com/bilalucar>
 //                 TMTron <https://github.com/tmtron>
+//                 dwhitney <https://github.com/dwhitney>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
