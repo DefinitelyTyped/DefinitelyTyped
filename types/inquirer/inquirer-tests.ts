@@ -107,7 +107,7 @@ inquirer.prompt<{ toppings: string }>(
 inquirer.prompt(
     [
         {
-            type: "expand",
+            type: InquirerQuestionType.expand,
             message: "Conflict on `file.js`: ",
             name: "overwrite",
             choices: [
@@ -153,13 +153,13 @@ inquirer.prompt(
 
 var questions = [
     {
-        type: "input",
+        type: InquirerQuestionType.input,
         name: "first_name",
         message: "What's your first name",
         prefix: "1 - "
     },
     {
-        type: "input",
+        type: InquirerQuestionType.input,
         name: "last_name",
         message: "What's your last name",
         default: function() {
@@ -168,7 +168,7 @@ var questions = [
         suffix: "!!"
     },
     {
-        type: "input",
+        type: InquirerQuestionType.input,
         name: "phone",
         message: "What's your phone number",
         validate: function(value: string): string | boolean {
@@ -202,7 +202,7 @@ inquirer.prompt(questions, function(answers) {
 inquirer.prompt(
     [
         {
-            type: "list",
+            type: InquirerQuestionType.list,
             name: "theme",
             message: "What do you want to do?",
             choices: [
@@ -214,7 +214,7 @@ inquirer.prompt(
             ]
         },
         {
-            type: "list",
+            type: InquirerQuestionType.list,
             name: "size",
             message: "What size do you need",
             choices: ["Jumbo", "Large", "Standard", "Medium", "Small", "Micro"],
@@ -250,14 +250,14 @@ choices.push(
 inquirer.prompt(
     [
         {
-            type: "list",
+            type: InquirerQuestionType.list,
             name: "letter",
             message: "What's your favorite letter?",
             paginated: true,
             choices: choices
         },
         {
-            type: "checkbox",
+            type: InquirerQuestionType.checkbox,
             name: "name",
             message: "Select the letter contained in your name:",
             paginated: true,
@@ -282,14 +282,14 @@ inquirer.prompt(
 
 inquirer.prompt(
     {
-        type: "list",
+        type: InquirerQuestionType.list,
         name: "chocolate",
         message: "What's your favorite chocolate?",
         choices: ["Mars", "Oh Henry", "Hershey"]
     },
     function(answers: inquirer.Answers) {
         inquirer.prompt({
-            type: "list",
+            type: InquirerQuestionType.list,
             name: "beverage",
             message: "And your favorite beverage?",
             choices: ["Pepsi", "Coke", "7up", "Mountain Dew", "Red Bull"]
@@ -311,7 +311,7 @@ inquirer.prompt(
 inquirer.prompt(
     [
         {
-            type: "password",
+            type: InquirerQuestionType.password,
             message: "Enter your git password",
             name: "password"
         }
@@ -337,13 +337,13 @@ console.log("Hi, welcome to Node Pizza");
 
 var questions2 = [
     {
-        type: "confirm",
+        type: InquirerQuestionType.confirm,
         name: "toBeDelivered",
         message: "Is it for a delivery",
         default: false
     },
     {
-        type: "input",
+        type: InquirerQuestionType.input,
         name: "phone",
         message: "What's your phone number",
         validate: function(value: string): string | boolean {
@@ -358,7 +358,7 @@ var questions2 = [
         }
     },
     {
-        type: "list",
+        type: InquirerQuestionType.list,
         name: "size",
         message: "What size do you need",
         choices: ["Large", "Medium", "Small"],
@@ -367,7 +367,7 @@ var questions2 = [
         }
     },
     {
-        type: "input",
+        type: InquirerQuestionType.input,
         name: "quantity",
         message: "How many do you need",
         validate: function(value: string) {
@@ -377,7 +377,7 @@ var questions2 = [
         filter: Number
     },
     {
-        type: "expand",
+        type: InquirerQuestionType.expand,
         name: "toppings",
         message: "What about the toping",
         choices: [
@@ -399,19 +399,19 @@ var questions2 = [
         ]
     },
     {
-        type: "rawlist",
+        type: InquirerQuestionType.rawlist,
         name: "beverage",
         message: "You also get a free 2L beverage",
         choices: ["Pepsi", "7up", "Coke"]
     },
     {
-        type: "input",
+        type: InquirerQuestionType.input,
         name: "comments",
         message: "Any comments on your purchase experience",
         default: "Nope, all good!"
     },
     {
-        type: "list",
+        type: InquirerQuestionType.list,
         name: "prize",
         message: "For leaving a comments, you get a freebie",
         choices: ["cake", "fries"],
@@ -440,7 +440,7 @@ inquirer.prompt(questions, function(answers) {
 inquirer.prompt(
     [
         {
-            type: "rawlist",
+            type: InquirerQuestionType.rawlist,
             name: "theme",
             message: "What do you want to do?",
             choices: [
@@ -452,7 +452,7 @@ inquirer.prompt(
             ]
         },
         {
-            type: "rawlist",
+            type: InquirerQuestionType.rawlist,
             name: "size",
             message: "What size do you need",
             choices: ["Jumbo", "Large", "Standard", "Medium", "Small", "Micro"],
@@ -481,12 +481,12 @@ var output2: (string | boolean)[] = [];
 
 var questions3 = [
     {
-        type: "input",
+        type: InquirerQuestionType.input,
         name: "tvShow",
         message: "What's your favorite TV show?"
     },
     {
-        type: "confirm",
+        type: InquirerQuestionType.confirm,
         name: "askAgain",
         message:
             "Want to enter another TV show favorite (just hit enter for YES)?",
@@ -526,12 +526,12 @@ interface Answers4 {
 }
 var questions4 = [
     {
-        type: "confirm",
+        type: InquirerQuestionType.confirm,
         name: "bacon",
         message: "Do you like bacon?"
     },
     {
-        type: "input",
+        type: InquirerQuestionType.input,
         name: "favorite",
         message: "Bacon lover, what is your favorite type of bacon?",
         when: function(answers: Answers4) {
@@ -539,7 +539,7 @@ var questions4 = [
         }
     },
     {
-        type: "confirm",
+        type: InquirerQuestionType.confirm,
         name: "pizza",
         message: "Ok... Do you like pizza?",
         when: function(answers: Answers4) {
@@ -547,7 +547,7 @@ var questions4 = [
         }
     },
     {
-        type: "input",
+        type: InquirerQuestionType.input,
         name: "favorite",
         message: "Whew! What is your favorite type of pizza?",
         when: likesFood("pizza")
@@ -636,13 +636,13 @@ testAsyncPrompt();
 
 var questions = [
     {
-        type: "input",
+        type: InquirerQuestionType.input,
         name: "first_name",
         message: "What's your first name",
         prefix: "1 - "
     },
     {
-        type: "input",
+        type: InquirerQuestionType.input,
         name: "last_name",
         message: "What's your last name",
         default: function() {
@@ -651,7 +651,7 @@ var questions = [
         suffix: "!!"
     },
     {
-        type: "input",
+        type: InquirerQuestionType.input,
         name: "phone",
         message: "What's your phone number",
         validate: function(value: string): string | boolean {
@@ -674,7 +674,7 @@ inquirer.createPromptModule({ output: process.stderr })(questions, function(answ
 // Work with JS inquirer but rejected by typing.
 inquirer.prompt([
     {
-        type: "input",
+        type: InquirerQuestionType.input,
         name: "listOfThings",
         filter(value: string): string[] {
             return ["abc", "def"];
