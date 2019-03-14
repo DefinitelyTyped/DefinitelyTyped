@@ -6,7 +6,19 @@
 
 import { DomElement } from "domhandler";
 export namespace DomUtils {
+    /***
+     * Append an element after another
+     *
+     * @argument elem The element to append to
+     * @argument next The element be added
+     */
     function append(elem: DomElement, next: DomElement): void;
+    /***
+     * Append a child to an element
+     *
+     * @argument elem The element to append to
+     * @argument child The element to be added as a child
+     */
     function appendChild(elem: DomElement, child: DomElement): void;
     /***
      * Compare the position of one node against another node in any other document.
@@ -59,20 +71,47 @@ export namespace DomUtils {
      */
     function getElementsByTagType(type: any, element: any, recurse?: any, limit?: any): any;
     function getInnerHTML(elem: DomElement, opts: any): string;
+    /***
+     * Returns the name property of an element
+     *
+     * @argument elem The element to get the name for
+     */
     function getName(elem: DomElement): string;
-    function getOuterHTML(dom: DomElement[]): any;
-    function getOuterHTML(dom: DomElement[], opts: { decodeEntities?: boolean, xmlMode?: boolean}): any;
+    /***
+     * Returns a string representing the array of DomElements
+     *
+     * @argument dom An array of DomElement that should be stringified
+     * @argument [opts] Optional options object
+     */
+    function getOuterHTML(dom: DomElement[], opts: { decodeEntities?: boolean, xmlMode?: boolean}): string;
     function getParent(elem: DomElement): DomElement;
     function getSiblings(elem: DomElement): DomElement[];
     function getText(elem: DomElement): string;
     function hasAttrib(elem: DomElement, name: string): boolean;
     function isTag(elem: DomElement): boolean;
+    /***
+     * Prepend an element before another
+     *
+     * @argument elem The element to append to
+     * @argument prev The element be added
+     */
     function prepend(elem: DomElement, prev: DomElement): void;
+    /***
+     * Remove an element from the dom
+     *
+     * @argument elem The element to be removed
+     */
     function removeElement(elem: DomElement): void;
     /***
      * Given an array of nodes, remove any member that is contained by another.
      */
     function removeSubsets(nodes: DomElement[]): DomElement[];
+    /***
+     * Replace an element in the dom
+     *
+     * @argument elem The element to be replaced
+     * @argument replacement The element to be added
+     */
     function replaceElement(elem: DomElement, replacement: DomElement): void;
     /***
      * Legacy
