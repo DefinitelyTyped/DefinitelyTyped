@@ -20,8 +20,8 @@ redis.print(err, value);
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 const options: redis.ClientOpts = {
-    host: "localhost",
-    port: 6379,
+  host: 'localhost',
+  port: 6379,
 };
 let client: redis.RedisClient = redis.createClient(num, str, options);
 
@@ -90,6 +90,8 @@ client.incr(str, resCallback);
 client.hgetall(str, resCallback);
 client.hmset(str, value, okCallback);
 client.hmset(str, str, str, str, str, okCallback);
+client.hmset(str, [str, str, str, str]);
+client.hmset(str, [str, value, str, value], okCallback);
 
 // Publish / Subscribe
 client.publish(str, value);
@@ -115,8 +117,8 @@ client.duplicate();
 
 // Pipeline
 client.cork();
-client.set("abc", "fff", strCallback);
-client.get("abc", resCallback);
+client.set('abc', 'fff', strCallback);
+client.get('abc', resCallback);
 client.uncork();
 
 // Add command

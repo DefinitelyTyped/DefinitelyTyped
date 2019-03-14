@@ -9,16 +9,3 @@ vscode.languages.registerCompletionItemProvider('markdown', {
 		return [];
 	}
 });
-
-const nodeDependenciesProvider: vscode.TreeDataProvider<string> = {
-	getChildren() {
-		return [];
-	},
-	getTreeItem(el: string) {
-		return {
-			id: el
-		};
-	}
-};
-
-vscode.window.registerTreeDataProvider('nodeDependencies', nodeDependenciesProvider);
