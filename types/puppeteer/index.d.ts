@@ -1075,15 +1075,15 @@ export interface RemoteInfo {
 }
 
 export interface SecurityDetails {
-    /** Returns a string with the name of issuer of the certificate. (e.g. "Let's Encrypt Authority X3"). */
+    /** A string with the name of issuer of the certificate. (e.g. "Let's Encrypt Authority X3"). */
     issuer(): string;
-    /** Returns the cryptographic protocol (e.g. TLS 1.2). */
+    /** String with the security protocol (e.g. TLS 1.2). */
     protocol(): string;
-    /** Returns the name of the subject to which the certificate was issued to (e.g. "www.example.com"). */
+    /** Name of the subject to which the certificate was issued to (e.g. "www.example.com"). */
     subjectName(): string;
-    /** Returns the unix timestamp of when the certificate was registered. */
+    /** Timestamp stating the start of validity of the certificate. */
     validFrom(): number;
-    /** Returns the unix timestamp of when the certificate expires. */
+    /** Timestamp stating the end of validity of the certificate. */
     validTo(): number;
 }
 
