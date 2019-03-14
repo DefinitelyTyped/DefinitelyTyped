@@ -2866,14 +2866,14 @@ export class Video extends Component<VideoProps, VideoState> {
  * Web Browser
  */
 export namespace WebBrowser {
-    type BrowserResult = {
+    interface BrowserResult {
         type: 'cancel' | 'dismiss';
-    };
-      
-    type RedirectResult = {
+    }
+
+    interface RedirectResult {
         type: 'success';
         url: string;
-    };
+    }
 
     type AuthSessionResult = RedirectResult | BrowserResult;
 
