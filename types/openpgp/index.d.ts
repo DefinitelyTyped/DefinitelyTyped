@@ -5,6 +5,7 @@
 //                 Daniel Montesinos <https://github.com/damonpam>
 //                 Carlos Villavicencio <https://github.com/po5i>
 //                 Eric Camellini <https://github.com/ecamellini>
+//                 SardineFIsh <https://github.com/SardineFish>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -761,7 +762,7 @@ export namespace packet {
 
         getBitSize(): number;
         getFingerprint(): string;
-        getKeyId(): string;
+        getKeyId(): Keyid;
         read(input: string): any;
         write(): any;
     }
@@ -785,77 +786,264 @@ export namespace packet {
 }
 
 export namespace util {
-    /** Convert an array of integers(0.255) to a string
-        @param bin An array of (binary) integers to convert
+    /**
+     * Get transferable objects to pass buffers with zero copy (similar to "pass by reference" in C++)
+     * See: https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage
+     * Also, convert ReadableStreams to MessagePorts
+     * @param obj the options object to be passed to the web worker
+     * @returns an array of binary data to be passed
      */
-    function bin2str(bin: Array<number>): string;
+    function getTransferables(obj: Object): ArrayBuffer[];
 
-    /** Calculates a 16bit sum of a string by adding each character codes modulus 65535
-        @param text string to create a sum of
+    /**
+     * Convert MessagePorts back to ReadableStreams
+     * @param obj
+     * @returns
      */
-    function calc_checksum(text: string): number;
+    function restoreStreams(obj: Object): Object;
 
-    /** Convert a string of utf8 bytes to a native javascript string
-        @param utf8 A valid squence of utf8 bytes
+    /**
+     * Create hex string from a binary
+     * @param str String to convert
+     * @returns String containing the hexadecimal values
      */
-    function decode_utf8(utf8: string): string
+    function str_to_hex(str: String): String;
 
-    /** Convert a native javascript string to a string of utf8 bytes
-        param str The string to convert
+    /**
+     * Create binary string from a hex encoded string
+     * @param str Hex string to convert
+     * @returns
      */
-    function encode_utf8(str: string): string
+    function hex_to_str(str: String): String;
 
-    /** Return the algorithm type as string
+    /**
+     * Convert a Uint8Array to an MPI-formatted Uint8Array.
+     * Note: the output is **not** an MPI object.
+     * @see
+     * @see
+     * @param bin An array of 8-bit integers to convert
+     * @returns MPI-formatted Uint8Array
      */
-    function get_hashAlgorithmString(): string
+    function Uint8Array_to_MPI(bin: Uint8Array): Uint8Array;
 
-    /** Get native Web Cryptography api. The default configuration is to use the api when available. But it can also be deactivated with config.useWebCrypto
+    /**
+     * Convert a Base-64 encoded string an array of 8-bit integer
+     * Note: accepts both Radix-64 and URL-safe strings
+     * @param base64 Base-64 encoded string to convert
+     * @returns An array of 8-bit integers
      */
-    function getWebCrypto(): Object
+    function b64_to_Uint8Array(base64: String): Uint8Array;
 
-    /** Create binary string from a hex encoded string
-        @param str Hex string to convert
+    /**
+     * Convert an array of 8-bit integer to a Base-64 encoded string
+     * @param bytes An array of 8-bit integers to convert
+     * @param url If true, output is URL-safe
+     * @returns Base-64 encoded string
      */
-    function hex2bin(str: string): string;
+    function Uint8Array_to_b64(bytes: Uint8Array, url: boolean): String;
 
-    /** Creating a hex string from an binary array of integers (0..255)
-        @param str Array of bytes to convert
+    /**
+     * Convert a hex string to an array of 8-bit integers
+     * @param hex A hex string to convert
+     * @returns An array of 8-bit integers
      */
-    function hexidump(str: string): string;
+    function hex_to_Uint8Array(hex: String): Uint8Array;
 
-    /** Create hexstring from a binary
-        @param str string to convert
+    /**
+     * Convert an array of 8-bit integers to a hex string
+     * @param bytes Array of 8-bit integers to convert
+     * @returns Hexadecimal representation of the array
      */
-    function hexstrdump(str: string): string;
+    function Uint8Array_to_hex(bytes: Uint8Array): String;
 
-    /** Helper function to print a debug message. Debug messages are only printed if
-        @param str string of the debug message
+    /**
+     * Convert a string to an array of 8-bit integers
+     * @param str String to convert
+     * @returns An array of 8-bit integers
      */
-    function print_debug(str: string): void;
+    function str_to_Uint8Array(str: String): Uint8Array;
 
-    /** Helper function to print a debug message. Debug messages are only printed if
-        @param str string of the debug message
+    /**
+     * Convert an array of 8-bit integers to a string
+     * @param bytes An array of 8-bit integers to convert
+     * @returns String representation of the array
      */
-    function print_debug_hexstr_dump(str: string): void;
+    function Uint8Array_to_str(bytes: Uint8Array): String;
 
-    /** Shifting a string to n bits right
-        @param value The string to shift
-        @param bitcount Amount of bits to shift (MUST be smaller than 9)
+    /**
+     * Convert a native javascript string to a Uint8Array of utf8 bytes
+     * @param str The string to convert
+     * @returns A valid squence of utf8 bytes
      */
-    function shiftRight(value: string, bitcount: number): string;
+    function encode_utf8(str: String | ReadableStream): Uint8Array | ReadableStream;
 
-    /** Convert a string to an array of integers(0.255)
-        @param str string to convert
+    /**
+     * Convert a Uint8Array of utf8 bytes to a native javascript string
+     * @param utf8 A valid squence of utf8 bytes
+     * @returns A native javascript string
      */
-    function str2bin(str: string): Array<number>;
+    function decode_utf8(utf8: Uint8Array | ReadableStream): String | ReadableStream;
 
-    /** Convert a string to a Uint8Array
-        @param str string to convert
+    /**
+     * Concat a list of Uint8Arrays, Strings or Streams
+     * The caller must not mix Uint8Arrays with Strings, but may mix Streams with non-Streams.
+     * @param Array of Uint8Arrays/Strings/Streams to concatenate
+     * @returns Concatenated array
      */
-    function str2Uint8Array(str: string): Uint8Array;
+    var concat: any;
 
-    /** Convert a Uint8Array to a string. This currently functions the same as bin2str.
-        @param bin An array of (binary) integers to convert
+    /**
+     * Concat Uint8Arrays
+     * @param Array of Uint8Arrays to concatenate
+     * @returns Concatenated array
      */
-    function Uint8Array2str(bin: Uint8Array): string;
+    var concatUint8Array: any;
+
+    /**
+     * Check Uint8Array equality
+     * @param first array
+     * @param second array
+     * @returns equality
+     */
+    function equalsUint8Array(first: Uint8Array, second: Uint8Array): Boolean;
+
+    /**
+     * Calculates a 16bit sum of a Uint8Array by adding each character
+     * codes modulus 65535
+     * @param Uint8Array to create a sum of
+     * @returns 2 bytes containing the sum of all charcodes % 65535
+     */
+    function write_checksum(Uint8Array: Uint8Array): Uint8Array;
+
+    /**
+     * Helper function to print a debug message. Debug
+     * messages are only printed if
+     * @param str String of the debug message
+     */
+    function print_debug(str: String): void;
+
+    /**
+     * Helper function to print a debug message. Debug
+     * messages are only printed if
+     * @param str String of the debug message
+     */
+    function print_debug_hexarray_dump(str: String): void;
+
+    /**
+     * Helper function to print a debug message. Debug
+     * messages are only printed if
+     * @param str String of the debug message
+     */
+    function print_debug_hexstr_dump(str: String): void;
+
+    /**
+     * Helper function to print a debug error. Debug
+     * messages are only printed if
+     * @param str String of the debug message
+     */
+    function print_debug_error(str: String): void;
+
+    /**
+     * Read a stream to the end and print it to the console when it's closed.
+     * @param str String of the debug message
+     * @param input Stream to print
+     * @param concat Function to concatenate chunks of the stream (defaults to util.concat).
+     */
+    function print_entire_stream(str: String, input: ReadableStream | Uint8Array | String, concat: Function): void;
+
+    /**
+     * If S[1] == 0, then double(S) == (S[2..128] || 0);
+     * otherwise, double(S) == (S[2..128] || 0) xor
+     * (zeros(120) || 10000111).
+     * Both OCB and EAX (through CMAC) require this function to be constant-time.
+     * @param data
+     */
+    /* Illegal function name 'double' can't be used here
+    export function double(data: Uint8Array): void;
+    */
+
+    /**
+     * Shift a Uint8Array to the right by n bits
+     * @param array The array to shift
+     * @param bits Amount of bits to shift (MUST be smaller
+     *        than 8)
+     * @returns Resulting array.
+     */
+    function shiftRight(array: Uint8Array, bits: number): String;
+
+    /**
+     * Get native Web Cryptography api, only the current version of the spec.
+     * The default configuration is to use the api when available. But it can
+     * be deactivated with config.use_native
+     * @returns The SubtleCrypto api or 'undefined'
+     */
+    function getWebCrypto(): Object;
+
+    /**
+     * Get native Web Cryptography api for all browsers, including legacy
+     * implementations of the spec e.g IE11 and Safari 8/9. The default
+     * configuration is to use the api when available. But it can be deactivated
+     * with config.use_native
+     * @returns The SubtleCrypto api or 'undefined'
+     */
+    function getWebCryptoAll(): Object;
+
+    /**
+     * Detect Node.js runtime.
+     */
+    function detectNode(): void;
+
+    /**
+     * Get native Node.js module
+     * @param The module to require
+     * @returns The required module or 'undefined'
+     */
+    function nodeRequire(The: String): Object;
+
+    /**
+     * Get native Node.js crypto api. The default configuration is to use
+     * the api when available. But it can also be deactivated with config.use_native
+     * @returns The crypto module or 'undefined'
+     */
+    function getNodeCrypto(): Object;
+
+    /**
+     * Get native Node.js Buffer constructor. This should be used since
+     * Buffer is not available under browserify.
+     * @returns The Buffer constructor or 'undefined'
+     */
+    function getNodeBuffer(): Function;
+
+    /**
+     * Format user id for internal use.
+     */
+    function formatUserId(): void;
+
+    /**
+     * Parse user id.
+     */
+    function parseUserId(): void;
+
+    /**
+     * Normalize line endings to \r\n
+     */
+    function canonicalizeEOL(): void;
+
+    /**
+     * Convert line endings from canonicalized \r\n to native \n
+     */
+    function nativeEOL(): void;
+
+    /**
+     * Remove trailing spaces and tabs from each line
+     */
+    function removeTrailingSpaces(): void;
+
+    /**
+     * Encode input buffer using Z-Base32 encoding.
+     * See: https://tools.ietf.org/html/rfc6189#section-5.1.6
+     * @param data The binary data to encode
+     * @returns Binary data encoded using Z-Base32
+     */
+    function encodeZBase32(data: Uint8Array): String;
 }
