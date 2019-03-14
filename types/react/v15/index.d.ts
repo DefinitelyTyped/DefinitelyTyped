@@ -2879,7 +2879,7 @@ declare namespace React {
         alt?: string;
         autoComplete?: string;
         autoFocus?: boolean;
-        capture?: boolean; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
+        capture?: boolean | string; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean;
         crossOrigin?: string;
         disabled?: boolean;
