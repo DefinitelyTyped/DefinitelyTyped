@@ -369,6 +369,38 @@ const attr1: Waterline.CollectionDefinition = {
         next();
     },
 };
+
+const attr2: Waterline.CollectionDefinitionV3 = {
+    beforeValidate: (values, next) => {
+        next();
+        next("");
+    },
+    beforeCreate: (values, next) => {
+        next(new Error(""));
+        next();
+    },
+    afterCreate: (values, next) => {
+        next(new Error(""));
+        next();
+    },
+    beforeUpdate: (values, next) => {
+        next(new Error(""));
+        next();
+    },
+    afterUpdate: (values, next) => {
+        next(new Error(""));
+        next();
+    },
+    beforeDestroy: (values, next) => {
+        next(new Error(""));
+        next();
+    },
+    afterDestroy: (values, next) => {
+        next(new Error(""));
+        next();
+    },
+};
+
 // Queries https://github.com/balderdashy/waterline-docs/blob/master/queries/query.md
 let User: Waterline.Model = {} as any;
 User.find()
