@@ -37,16 +37,6 @@
 
     type Emote = 'Jump' | 'Yes' | 'No' | 'Wave' | 'Punch' | 'ThumbsUp';
 
-    interface API {
-        state: string;
-        'Jump': () => void;
-        'Yes': () => void;
-        'No': () => void;
-        'Wave': () => void;
-        'Punch': () => void;
-        'ThumbsUp': () => void;
-    }
-
     var api: { [name in Emote]?: () => void; } & { state: string; } = {state: 'Walking'};
 
     init();
