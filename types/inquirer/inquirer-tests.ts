@@ -50,7 +50,7 @@ cmd.on("close", function() {
 inquirer.prompt<{ toppings: string }>(
     [
         {
-            type: "checkbox",
+            type: InquirerQuestionType.checkbox,
             message: "Select toppings",
             name: "toppings",
             choices: [
