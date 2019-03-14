@@ -1033,6 +1033,12 @@
             "asOfVersion": "3.4.1"
         },
         {
+            "libraryName": "knex",
+            "typingsPackageName": "knex",
+            "sourceRepoURL": "https://github.com/tgriesser/knex",
+            "asOfVersion": "0.16.1"
+        },
+        {
             "libraryName": "knockout-paging",
             "typingsPackageName": "knockout-paging",
             "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-paging",
