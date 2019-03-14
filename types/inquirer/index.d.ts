@@ -9,6 +9,7 @@
 //                 Justin Rockwood <https://github.com/jrockwood>
 //                 Keith Kelly <https://github.com/kwkelly>
 //                 Junyoung Clare Jang <https://github.com/Ailrun>
+//                 Peter Ullrich <https://github.com/dotupNET>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.3
