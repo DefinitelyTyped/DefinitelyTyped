@@ -3901,6 +3901,11 @@ declare namespace Stripe {
              * Only return products with the given url
              */
             url?: string;
+
+            /**
+             * Only return products of this type
+             */
+            type?: string;
         }
 
         /**
