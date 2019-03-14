@@ -52,7 +52,7 @@ import {
     SplashScreen,
     Svg,
     Updates,
-    WebView
+    WebBrowser
 } from 'expo';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
@@ -1303,15 +1303,18 @@ SplashScreen.hide();
 SplashScreen.preventAutoHide();
 // #endregion
 
-// #region WebView
-async () => 
-    const result1 = await WebView.openBrowserAsync('https://google.com');
+// #region WebBrowser
+async () => {
+    const result1 = await WebBrowser.openBrowserAsync('https://google.com');
     result1.type;
 
-    const result2 = await WebView.openAuthSessionAsync('https://google.com', 'https://example.com');
-    result2.type;
-    result2.url;
+    const result2 = await WebBrowser.openAuthSessionAsync('https://google.com', 'https://example.com');
+    if (result2.type === 'success') {
+        result2.url;
+    } else {
+        result2.type;
+    }
 
-    WebView.dismissBrowser();
+    WebBrowser.dismissBrowser();
 };
 // #endregion
