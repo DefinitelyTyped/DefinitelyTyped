@@ -271,6 +271,12 @@
             "asOfVersion": "0.2.2"
         },
         {
+            "libraryName": "clean-webpack-plugin",
+            "typingsPackageName": "clean-webpack-plugin",
+            "sourceRepoURL": "https://github.com/johnagan/clean-webpack-plugin",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "colors.js (colors)",
             "typingsPackageName": "colors",
             "sourceRepoURL": "https://github.com/Marak/colors.js",
