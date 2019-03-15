@@ -2,14 +2,16 @@
  * Created by staticfunction on 8/4/14.
  */
 import * as htmlparser from 'htmlparser2';
-import { DomHandler, DomElement } from 'domhandler';
-
+import { DomHandler, DomElement, DomHandlerOptions } from 'domhandler';
+const options: DomHandlerOptions = { withEndIndices: false, withDomLvl1: true }
 const dh = new DomHandler((err: Error, dom: DomElement[]) => {
     if(err) {
         throw err;
     }
-    console.log(dom);
-});
+
+    // Use DomUtils to get name of first element in dom
+    console.log(htmlparser.DomUtils.getName(dom[0]));
+}, options);
 dh.onopentag = (name:string, attribs:{[s:string]:string}) => {
     if(name === "script" && attribs['type'] === "text/javascript"){
         console.log("JS! Hooray!");
