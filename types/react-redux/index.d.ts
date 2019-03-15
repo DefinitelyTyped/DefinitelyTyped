@@ -43,7 +43,7 @@ import {
     Store
 } from 'redux';
 
-import { NonReactStatics } from 'hoist-non-react-statics';
+import hoistNonReactStatics = require('hoist-non-react-statics');
 
 // Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
@@ -100,7 +100,7 @@ export type GetProps<C> = C extends ComponentType<infer P> ? P : never;
 export type ConnectedComponentClass<
     C extends ComponentType<any>,
     P
-> = ComponentClass<JSX.LibraryManagedAttributes<C, P>> & NonReactStatics<C> & {
+> = ComponentClass<JSX.LibraryManagedAttributes<C, P>> & hoistNonReactStatics.NonReactStatics<C> & {
     WrappedComponent: C;
 };
 
