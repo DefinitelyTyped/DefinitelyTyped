@@ -4,18 +4,15 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Johan Davidsson <https://github.com/johandavidson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 ///<reference types="node"/>
 ///<reference types="domhandler"/>
 ///<reference types="domutils"/>
-///<reference types="domelementtype"/>
 
 import { Writable } from 'stream'
 import { DomHandler } from 'domhandler';
 import * as DomUtils from 'domutils';
 export { DomElement, DomHandlerOptions, DomHandler, Element, Node } from 'domhandler';
-export { DomElementType } from 'domelementtype';
 
 export interface ParserOptions {
 

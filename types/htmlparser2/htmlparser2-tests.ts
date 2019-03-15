@@ -2,9 +2,9 @@
  * Created by staticfunction on 8/4/14.
  */
 import * as htmlparser from 'htmlparser2';
-import { DomHandler } from 'domhandler';
+import { DomHandler, DomElement } from 'domhandler';
 
-const dh = new DomHandler((err: Error, dom) => {
+const dh = new DomHandler((err: Error, dom: DomElement[]) => {
     if(err) {
         throw err;
     }
