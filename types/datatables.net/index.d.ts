@@ -704,7 +704,7 @@ declare namespace DataTables {
         /**
          * Get the footer th / td cell for the selected column.
          */
-        footer(): any;
+        footer(): Node;
 
         /**
          * Get the header th / td cell for a column.
@@ -766,12 +766,12 @@ declare namespace DataTables {
          *
          * @param t Specify if you want to get the column data index (default) or the visible index (visible).
          */
-        index(t?: string): Api;
+        index(t?: string): number;
 
         /**
          * Obtain the th / td nodes for the selected column
          */
-        nodes(): Api[];
+        nodes(): Api;
     }
 
     interface ColumnsMethodsModel {
