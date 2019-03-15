@@ -13,6 +13,10 @@ export interface IImageData {
     width: number;
 }
 
+//
+export interface IImage {
+}
+
 export interface CanvasRenderingContext2D {
     fillStyle: string;
     font: string;
@@ -50,21 +54,26 @@ export interface CanvasRenderingContext2D {
     clearRect: (x: number, y: number, width: number, height: number) => void;
     clip: () => void;
     closePath: () => void;
-    createImageData: (
+    createImageData: ( //
         width: number,
         height: number,
         imageData: IImageData
     ) => void;
-    createLinearGradient;
-    createPattern;
-    createRadialGradient;
-    drawFocusIfNeeded;
-    drawImage;
-    drawWidgetAsOnScreen;
-    drawWindow;
-    fill;
+    createLinearGradient: (
+        x0: number,
+        yo: number,
+        x1: number,
+        y1: number
+    ) => void;
+    createPattern: () => void;
+    createRadialGradient: (x0: number, y0: number, r0: number, x1: number, y1: number, r1: number);
+    drawFocusIfNeeded: (html: any) => void; //
+    drawImage: (image: IImage, sx?: number, sy?: number, sWidth?: number, sHeight?: number, dx: number, dy: number, dWidth?: number, dHeight?: number) => void; //
+    drawWidgetAsOnScreen: (window: any) => void; //
+    drawWindow: (window: any, x: number, y: number, w: number, h: number, bgColor: string, flags?: any) => void; //
+    fill: (fillRule?: any, Path2D: any) => void; //
     fillRect: (x: number, y: number, width: number, height: number) => void;
-    fillText;
+    fillText: (text: string, x:number, y: number, maxWidth?: number) => void;
     getImageData;
     getLineDash;
     isPointInPath;
