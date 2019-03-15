@@ -4,32 +4,30 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-declare module "react-medium-image-zoom" {
+import * as React from "react";
 
-  import * as React from 'react';
-
-  export interface ImageZoom_Image {
+export interface ImageZoom_Image {
     src: string;
     alt?: string;
     className?: string;
-    style?: Object;
-  }
+    style?: object;
+}
 
-  export interface ImageZoom_ZoomImage {
-      src?: string;
-      alt?: string;
-      className?: string;
-      style?: Object;
-  }
+export interface ImageZoom_ZoomImage {
+    src?: string;
+    alt?: string;
+    className?: string;
+    style?: object;
+}
 
-  export interface ImageZoomDefaultStyles {
+export interface ImageZoomDefaultStyles {
     zoomContainer?: object;
     overlay?: object;
     image?: object;
     zoomImage?: object;
-  }
+}
 
-  export interface ImageZoomProps {
+export interface ImageZoomProps {
     image: ImageZoom_Image;
     zoomImage?: ImageZoom_ZoomImage;
     zoomMargin?: number;
@@ -40,7 +38,6 @@ declare module "react-medium-image-zoom" {
     defaultStyles?: ImageZoomDefaultStyles;
     onZoom?: () => object;
     onUnzoom?: () => object;
-  }
-
-  export default class ImageZoom extends React.Component<ImageZoomProps, any> { }
 }
+
+export default class ImageZoom extends React.Component<ImageZoomProps, any> {}
