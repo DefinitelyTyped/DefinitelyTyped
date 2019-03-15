@@ -973,6 +973,7 @@ User.findAll( { order : [s.random()] } );
 User.findAll( { include : [User], order : [[User, 'id', ';DELETE YOLO INJECTIONS']] } );
 User.findAll( { include : [User], order : [['id', 'ASC NULLS LAST'], [User, 'id', 'DESC NULLS FIRST']] } );
 User.findAll( { include : [{ model : User, where : { title : 'DoDat' }, include : [{ model : User }] }] } );
+User.findAll( { include : [{ model : User, where : { title : 'DoDat' }, limit: 10, offset: 3, order : [['id', 'ASC NULLS LAST']] }] } );
 User.findAll( { attributes: ['username', 'data']});
 User.findAll( { attributes: {include: ['username', 'data']} });
 User.findAll( { attributes: [['username', 'user_name'], ['email', 'user_email']] });

@@ -3284,6 +3284,24 @@ declare namespace sequelize {
         include?: Array<Model<any, any> | IncludeOptions>;
 
         /**
+         * Specifies an ordering. If a string is provided, it will be escaped. Using an array, you can provide
+         * several columns / functions to order by. Each element can be further wrapped in a two-element array. The
+         * first element is the column / function to order by, the second is the direction. For example:
+         * `order: [['name', 'DESC']]`. In this way the column will be escaped, but the direction will not.
+         */
+        order?: string | col | literal | FindOptionsOrderArray | fn | Array<string | col | literal | FindOptionsOrderArray | fn>;
+
+        /**
+         * Limit the results
+         */
+        limit?: number;
+
+        /**
+         * Skip the results;
+         */
+        offset?: number;
+
+        /**
          * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
          * be returned. Only applies if `options.paranoid` is true for the model.
          */
