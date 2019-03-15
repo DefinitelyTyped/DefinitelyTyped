@@ -142,11 +142,11 @@ declare namespace Page {
         ): void;
     }
 
-    type PageConstructor = <D extends AnyObject, T extends AnyObject & PageInstance>(
-            options: PageInstance<D, T> & T,
+    type PageConstructor = <T extends AnyObject & PageInstance>(
+            options: PageInstance<AnyObject, T> & T,
         ) => void;
 
-    type GetCurrentPages = <D extends AnyObject = {}, T extends AnyObject = {}>() => Array<PageInstance<D, T> & T>;
+    type GetCurrentPages = <T extends AnyObject = {}>() => Array<PageInstance<AnyObject, T> & T>;
 }
 
 declare const getCurrentPages: Page.GetCurrentPages;

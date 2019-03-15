@@ -22,7 +22,6 @@
         "lib/app.d.ts",
         "lib/page.d.ts",
         "lib/common.d.ts",
-        "lib/uni.d.ts",
         "lib/vue.d.ts",
         "uni-app-tests.ts"
     ]
