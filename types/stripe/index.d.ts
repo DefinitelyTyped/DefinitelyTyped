@@ -5126,6 +5126,13 @@ declare namespace Stripe {
              * invoice with payment instructions.
              */
             billing: SubscriptionBilling;
+
+            /**
+             * ID of the default payment source for the subscription.
+             * It must belong to the customer associated with the subscription and be in a chargeable state.
+             * If not set, defaults to the customer’s default source. [Expandable]
+             */
+            default_source: string;
         }
 
         interface ISubscriptionCustCreationOptions extends IDataOptionsWithMetadata {
