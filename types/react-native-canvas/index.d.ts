@@ -71,30 +71,30 @@ export interface CanvasRenderingContext2D {
     drawImage: (image: IImage, sx?: number, sy?: number, sWidth?: number, sHeight?: number, dx: number, dy: number, dWidth?: number, dHeight?: number) => void; //
     drawWidgetAsOnScreen: (window: any) => void; //
     drawWindow: (window: any, x: number, y: number, w: number, h: number, bgColor: string, flags?: any) => void; //
-    fill: (fillRule?: any, Path2D: any) => void; //
+    fill: (fillRule?: any, Path2D: Path2D) => void; //
     fillRect: (x: number, y: number, width: number, height: number) => void;
     fillText: (text: string, x:number, y: number, maxWidth?: number) => void;
-    getImageData;
-    getLineDash;
-    isPointInPath;
-    isPointInStroke;
-    lineTo;
-    measureText;
-    moveTo;
-    putImageData;
-    quadraticCurveTo;
-    rect;
-    restore;
-    rotate;
-    save;
-    scale;
-    setLineDash;
-    setTransform;
-    stroke;
-    strokeRect;
-    strokeText;
-    transform;
-    translate;
+    getImageData: (sx: number, sy: number, sw: number, sh: number) => IImageData;
+    getLineDash: () => number[];
+    isPointInPath: (x: number, y: number, fillRule: any, path: Path2D) => boolean;
+    isPointInStroke: (x: number, y: number, path: Path2D) => boolean;
+    lineTo: (x: number, y: number) => void;
+    measureText: (text: string) => any; //
+    moveTo: (x: number, y: number) => void;
+    putImageData: (imageData: IImageData, dx: number, dy: number, dirtyX?: number, dirtyY?: number, dirtyWidth?: number, dirtyHeight?: number) => void;
+    quadraticCurveTo: (cpx: number, cpy: number, x: number, y: number) => void;
+    rect: (x: number, y: number, width: number, height: number) => void;
+    restore: () => void;
+    rotate: (angle: number) => void;
+    save: () => void;
+    scale: (x: number, y: number) => void;
+    setLineDash: (segments: number[]) => void;
+    setTransform: (a: number, b: number, c: number, d: number, e: number, f: number) => void;
+    stroke: (path: Path2D) => void;
+    strokeRect: (x: number, y:number, width: number, height: number) => void;
+    strokeText: (text: string, x: number, y: number, maxWidth?: number) => void;
+    transform: (a: number, b: number, c: number, d: number, e: number, f: number) => void;
+    translate: (x: number, y: number) => void;
 }
 
 export interface ICanvas {
