@@ -1,0 +1,1 @@
+HighchartsTreeMap(Highcharts);

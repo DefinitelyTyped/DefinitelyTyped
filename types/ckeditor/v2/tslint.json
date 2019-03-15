@@ -1,0 +1,14 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "ban-types": false,
+        "interface-name": false,
+        "no-any-union": false,
+        "no-empty-interface": false,
+        "no-internal-module": false,
+        "no-unnecessary-generics": false,
+        "no-unnecessary-qualifier": false,
+        "no-var-keyword": false,
+        "prefer-const": false
+    }
+}
