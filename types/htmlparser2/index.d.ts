@@ -13,8 +13,8 @@
 
 import { Writable } from 'stream'
 import { DomHandler } from 'domhandler';
+import * as DomUtils from 'domutils';
 export { DomElement, DomHandlerOptions, DomHandler, Element, Node } from 'domhandler';
-export { DomUtils } from 'domutils';
 export { DomElementType } from 'domelementtype';
 
 export interface ParserOptions {
@@ -125,3 +125,5 @@ export declare class Parser {
     onerror(err: Error): void;
     onend(): void;
 }
+
+export { DomUtils }
