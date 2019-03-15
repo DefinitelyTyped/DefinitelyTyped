@@ -3901,6 +3901,17 @@ declare namespace Stripe {
              * Only return products with the given url
              */
             url?: string;
+
+            /**
+             * Only return products of this type
+             */
+            type?: string;
+
+            /**
+             * A filter on the list based on the object created field. The value can be a string with an integer Unix timestamp,
+             * or it can be a dictionary with the following options:
+             */
+            created?: IDateFilter;
         }
 
         /**
