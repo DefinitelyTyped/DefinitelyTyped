@@ -220,10 +220,11 @@ const Memoized5 = React.memo<{ test: boolean }>(
     (prevProps, nextProps) => nextProps.test ? prevProps.children === nextProps.children : prevProps.test
 );
 
+<Memoized5 test>Content</Memoized5>;
 <Memoized5 test/>;
 
 // for some reason the ExpectType doesn't work if the type is namespaced
-// $ExpectType NamedExoticComponent<{}>
+// $ExpectType NamedExoticComponent<{ children?: ReactNode; }>
 const Memoized6 = React.memo(props => null);
 <Memoized6/>;
 // $ExpectError
