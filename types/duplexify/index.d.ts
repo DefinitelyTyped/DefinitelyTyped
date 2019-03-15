@@ -14,6 +14,7 @@ interface DuplexifyConstructor {
   new (writable?: stream.Writable, readable?: stream.Readable, streamOptions?: stream.DuplexOptions): duplexify.Duplexify;
 
   obj(writable?: stream.Writable, readable?: stream.Readable, streamOptions?: stream.DuplexOptions): duplexify.Duplexify;
+  default: DuplexifyConstructor;
 }
 declare var duplexify: DuplexifyConstructor;
 declare namespace duplexify {
