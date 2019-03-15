@@ -2285,6 +2285,17 @@ declare namespace Stripe {
 
         interface IInvoiceListOptions extends IListOptions {
             /**
+             * The billing mode of the invoice to retrieve. Either `charge_automatically` or `send_invoice`
+             */
+            billing?: "charge_automatically" | "send_invoice";
+
+            /**
+             * A filter on the list based on the object created field. The value can be a string with an integer Unix timestamp,
+             * or it can be a dictionary with the following options:
+             */
+            created?: IDateFilter;
+
+            /**
              * The identifier of the customer whose invoices to return. If none is provided, all invoices will be returned.
              */
             customer?: string;
@@ -2293,7 +2304,7 @@ declare namespace Stripe {
              * A filter on the list based on the object due_date field. The value can be a string with an integer Unix timestamp,
              * or it can be a dictionary with the following options:
              */
-            due_date?: string | IDateFilter;
+            due_date?: IDateFilter;
 
             /**
              * Only return invoices for the subscription specified by this subscription ID
