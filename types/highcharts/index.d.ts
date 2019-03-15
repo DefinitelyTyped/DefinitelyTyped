@@ -4,6 +4,7 @@
 //                 Dan Lewi Harkestad <https://github.com/baltie>
 //                 Albert Ozimek <https://github.com/AlbertOzimek>
 //                 Juliën Hanssens <https://github.com/hanssens>
+//                 Johns Gresham <https://github.com/jgresham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -6018,7 +6019,11 @@ declare namespace Highcharts {
          * The id of a series in the drilldown.series array to use for a drilldown for this point.
          * @since 3.0.8
          */
-        drilldown?: string;
+				drilldown?: string;
+				/**
+				 * The end value of the point. For gantt datetime axes, the end value is the timestamp in milliseconds since 1970.
+				 */
+				end?: number;
         /**
          * Individual point events
          */
@@ -6097,7 +6102,11 @@ declare namespace Highcharts {
          * Whether to display a slice offset from the center.
          * @default false
          */
-        sliced?: boolean;
+				sliced?: boolean;
+				/**
+				 * The start value of the point. For gantt datetime axes, the start value is the timestamp in milliseconds since 1970.
+				 */
+				start?: number;
         /**
          * The value of the point, resulting in a relative area of the point in the treemap.
          */
@@ -7256,7 +7265,11 @@ declare namespace Highcharts {
          * As Highcharts.Chart, but without need for the new keyword.
          * @since 4.2.0
          */
-        chart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
+				chart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
+				/**
+				 * Highcharts ganttChart which doesn't require the new keyword. Required Highcharts Gantt module.
+				 */
+				ganttChart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
         /**
          * An array containing the current chart objects in the page. A chart's position in the array is preserved
          * throughout the page's lifetime. When a chart is destroyed, the array item becomes undefined.

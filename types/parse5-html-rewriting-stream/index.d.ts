@@ -14,7 +14,7 @@ import * as stream from 'stream';
  * not affected by parser error-recovery mechanisms as in the classical
  * parsing-serialization roundtrip.
  */
-export default class RewritingStream extends stream.Transform {
+declare class RewritingStream extends stream.Transform {
     on(event: string, listener: (...args: any[]) => void): this;
 
     /**
@@ -78,3 +78,4 @@ export default class RewritingStream extends stream.Transform {
      */
     emitRaw(html: string): void;
 }
+export = RewritingStream;

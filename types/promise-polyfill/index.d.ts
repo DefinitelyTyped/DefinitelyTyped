@@ -4,10 +4,12 @@
 //                 Daniel Cassidy <https://github.com/djcsdy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface PromisePolyfillConstructor extends PromiseConstructor {
-    _immediateFn?: (handler: (() => void) | string) => void;
+declare namespace Promise {
+    interface PromisePolyfillConstructor extends PromiseConstructor {
+        _immediateFn?: (handler: (() => void) | string) => void;
+    }
 }
 
-declare const Promise: PromisePolyfillConstructor;
+declare const Promise: Promise.PromisePolyfillConstructor;
 
-export default Promise;
+export = Promise;

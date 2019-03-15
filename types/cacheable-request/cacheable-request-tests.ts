@@ -1,7 +1,6 @@
 import * as http from 'http';
 import * as https from 'https';
 import CacheableRequest = require('cacheable-request');
-import QuickLRU = require('quick-lru');
 
 // You can do
 let cacheableRequest = new CacheableRequest(http.request);
@@ -14,7 +13,6 @@ cacheableRequest = new CacheableRequest(https.request);
 
 cacheableRequest = new CacheableRequest(http.request, 'redis://user:pass@localhost:6379');
 cacheableRequest = new CacheableRequest(http.request, new Map());
-cacheableRequest = new CacheableRequest(http.request, new QuickLRU({ maxSize: 1000 }));
 
 cacheableRequest('example.com', res => {
     res; // $ExpectType ServerResponse | ResponseLike

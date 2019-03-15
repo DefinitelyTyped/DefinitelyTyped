@@ -161,7 +161,7 @@ openpgp.crypto.hash.getHashByteLength(openpgp.enums.hash.md5);
 
 openpgp.crypto.random.getRandomBigInteger(0);
 openpgp.crypto.random.getRandomBytes(0);
-openpgp.crypto.random.getRandomValues(openpgp.util.str2Uint8Array(""));
+openpgp.crypto.random.getRandomValues(openpgp.util.str_to_Uint8Array(""));
 openpgp.crypto.random.getSecureRandom(0, 1);
 
 openpgp.crypto.signature.sign(openpgp.enums.hash.md5, openpgp.enums.publicKey.rsa_encrypt, mpis, mpis, "");
@@ -177,18 +177,15 @@ openpgp.message.readArmored("");
 openpgp.packet.fromStructuredClone({});
 openpgp.packet.newPacketFromTag("");
 
-openpgp.util.bin2str([0, 1]);
-openpgp.util.calc_checksum("");
-openpgp.util.decode_utf8("");
+openpgp.util.Uint8Array_to_str(new Uint8Array([1, 0]));
+openpgp.util.decode_utf8(new Uint8Array([1, 0]));
 openpgp.util.encode_utf8("");
-openpgp.util.get_hashAlgorithmString();
 openpgp.util.getWebCrypto();
-openpgp.util.hex2bin("");
-openpgp.util.hexidump("");
-openpgp.util.hexstrdump("");
+openpgp.util.hex_to_Uint8Array("");
+openpgp.util.print_debug_hexarray_dump("");
+openpgp.util.print_debug_hexstr_dump("");
 openpgp.util.print_debug("");
 openpgp.util.print_debug_hexstr_dump("");
-openpgp.util.shiftRight("", 1);
-openpgp.util.str2bin("");
-openpgp.util.str2Uint8Array("");
-openpgp.util.Uint8Array2str(openpgp.util.str2Uint8Array(""));
+openpgp.util.shiftRight(new Uint8Array([1, 0]), 1);
+openpgp.util.str_to_Uint8Array("");
+openpgp.util.Uint8Array_to_str(openpgp.util.str_to_Uint8Array(""));
