@@ -7,6 +7,7 @@
 //                 Paul Potsides <https://github.com/strongpauly>
 //                 janb87 <https://github.com/janb87>
 //                 Daniel Thorne <https://github.com/ldthorne>
+//                 Panagiotis Rikarnto Siavelis <https://github.com/siavelis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
@@ -204,6 +205,7 @@ export interface Messages {
     today?: string;
     agenda?: string;
     showMore?: (count: number) => string;
+    noEventsInRange?: string;
 }
 
 export type Culture = string | string[];
