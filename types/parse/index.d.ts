@@ -622,7 +622,7 @@ subscription.on('close', () => {});
     class User extends Object {
 
         static current(): User | undefined;
-        static currentAsync(): Promise<User>;
+        static currentAsync(): Promise<User | null>;
         static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
         static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
         static logOut(): Promise<User>;
