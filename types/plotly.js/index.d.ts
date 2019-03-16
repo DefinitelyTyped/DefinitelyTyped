@@ -203,6 +203,8 @@ export function downloadImage(root: Root, opts: DownloadImgopts): Promise<string
 export function react(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
 export function addFrames(root: Root, frames: Array<Partial<Frame>>): Promise<PlotlyHTMLElement>;
 export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
+export function register(modules: Module | Module[]): void;
+export function setPlotConfig(config: Partial<Config>): void;
 
 // Layout
 export interface Layout {
@@ -1380,4 +1382,38 @@ export interface Slider {
 	 * Sets the length in pixels of minor step tick marks
 	 */
 	minorticklen: number;
+}
+
+export interface Module {
+    moduleType: 'trace' | 'locale' | 'transform' | 'component' | 'apiMethod';
+    name: string;
+}
+
+export interface TraceModule extends Module {
+    moduleType: 'trace';
+    categories: [];
+    meta: object;
+}
+
+export interface LocaleModule extends Module {
+    moduleType: 'locale';
+    dictionary: object;
+    format: object;
+}
+
+export interface TransformModule extends Module {
+    moduleType: 'transform';
+    transform: (gd: Root, trace: Data, opts: object) => void;
+    calcTransform: (gd: Root, trace: Data, transform: object) => void;
+    attributes: object;
+    supplyDefaults: (traceIn: Data, traceOut: Data, defaultColor: string, layout: Layout) => void;
+}
+
+export interface ComponentModule extends Module {
+    moduleType: 'component';
+}
+
+export interface ApiModule extends Module {
+    moduleType: 'apiMethod';
+    fn: (args?: any) => void;
 }
