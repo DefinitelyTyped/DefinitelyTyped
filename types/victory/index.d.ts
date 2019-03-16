@@ -54,6 +54,8 @@ declare module "victory" {
     | number
     | ((datum: any, active: boolean) => string | number);
   type NumberOrCallback = ((datum: any, active: boolean) => number) | number;
+    
+  export const createContainer = (...params: string[]) => React.ReactElement;
 
   type VictoryStyleObject = { [K in keyof React.CSSProperties]: StringOrNumberOrCallback };
   /**
