@@ -1850,6 +1850,13 @@ declare namespace Stripe {
              */
             type: string;
         }
+        
+        interface IConnectEvent extends IEvent {
+             /**
+             * The Connect account for whom the webhook is being sent. See https://stripe.com/docs/connect/webhooks
+             */
+            account: string; 
+        }
 
         interface IEventListOptions extends IListOptionsCreated {
             /**
