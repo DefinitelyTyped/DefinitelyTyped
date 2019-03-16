@@ -29,16 +29,25 @@ class CanvasTest extends React.Component {
         context.fillStyle = "purple";
         context.fill(ellipse);
 
-        context.getImageData(0, 0, 100, 100).then((imageData: ImageData) => {
-            const data = Object.values(imageData.data);
-            const length = Object.keys(data).length;
-            for (let i = 0; i < length; i += 4) {
-                data[i] = 0;
-                data[i + 1] = 0;
-                data[i + 2] = 0;
-            }
-            const imgData = new ImageData(canvas, data, 100, 100);
-            context.putImageData(imgData, 0, 0);
+        const image = new CanvasImage(canvas);
+        canvas.width = 100;
+        canvas.height = 100;
+
+        image.src =
+            "https://upload.wikimedia.org/wikipedia/commons/6/63/Biho_Takashi._Bat_Before_the_Moon%2C_ca._1910.jpg";
+        image.addEventListener("load", () => {
+            context.drawImage(image, 0, 0, 100, 100);
         });
+
+        const imageData = context.getImageData(0, 0, 100, 100);
+        const data = Object.values(imageData.data);
+        const length = Object.keys(data).length;
+        for (let i = 0; i < length; i += 4) {
+            data[i] = 0;
+            data[i + 1] = 0;
+            data[i + 2] = 0;
+        }
+        const imgData = new ImageData(canvas, data, 100, 100);
+        context.putImageData(imgData, 0, 0);
     };
 }

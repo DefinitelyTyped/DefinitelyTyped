@@ -7,14 +7,18 @@
 import * as React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 
-export interface IImageData {
-    data: number[];
-    height: number;
+export interface ICanvas {
     width: number;
+    height: number;
+    toDataURL: () => string;
+    getContext: (context: string) => CanvasRenderingContext2D;
 }
 
-//
-export interface IImage {
+export interface CanvasProps {
+    baseUrl?: string;
+    originWhitelist?: string[];
+    ref: (canvas: ICanvas) => void;
+    style?: StyleProp<ViewStyle>;
 }
 
 export interface CanvasRenderingContext2D {
@@ -54,10 +58,11 @@ export interface CanvasRenderingContext2D {
     clearRect: (x: number, y: number, width: number, height: number) => void;
     clip: () => void;
     closePath: () => void;
-    createImageData: ( //
+    createImageData: (
+        //
         width: number,
         height: number,
-        imageData: IImageData
+        imageData: ImageData
     ) => void;
     createLinearGradient: (
         x0: number,
@@ -66,22 +71,70 @@ export interface CanvasRenderingContext2D {
         y1: number
     ) => void;
     createPattern: () => void;
-    createRadialGradient: (x0: number, y0: number, r0: number, x1: number, y1: number, r1: number);
-    drawFocusIfNeeded: (html: any) => void; //
-    drawImage: (image: IImage, sx?: number, sy?: number, sWidth?: number, sHeight?: number, dx: number, dy: number, dWidth?: number, dHeight?: number) => void; //
-    drawWidgetAsOnScreen: (window: any) => void; //
-    drawWindow: (window: any, x: number, y: number, w: number, h: number, bgColor: string, flags?: any) => void; //
-    fill: (fillRule?: any, Path2D: Path2D) => void; //
+    createRadialGradient: (
+        x0: number,
+        y0: number,
+        r0: number,
+        x1: number,
+        y1: number,
+        r1: number
+    ) => void;
+    drawFocusIfNeeded: (html: HTMLElement) => void;
+    drawImage: (
+        image: Image,
+        dx: number,
+        dy: number,
+        sx?: number,
+        sy?: number,
+        sWidth?: number,
+        sHeight?: number,
+        dWidth?: number,
+        dHeight?: number
+    ) => void;
+    drawWidgetAsOnScreen: (window: any) => void;
+    drawWindow: (
+        window: any,
+        x: number,
+        y: number,
+        w: number,
+        h: number,
+        bgColor: string,
+        flags?: any
+    ) => void; //
+    fill: (Path2D: Path2D, fillRule?: any) => void;
     fillRect: (x: number, y: number, width: number, height: number) => void;
-    fillText: (text: string, x:number, y: number, maxWidth?: number) => void;
-    getImageData: (sx: number, sy: number, sw: number, sh: number) => IImageData;
+    fillText: (text: string, x: number, y: number, maxWidth?: number) => void;
+    ellipse: (
+        x: number,
+        y: number,
+        radiusX: number,
+        radiusY: number,
+        rotation: number,
+        startAngle: number,
+        endAngle: number,
+        anticlockwise?: boolean
+    ) => void;
+    getImageData: (sx: number, sy: number, sw: number, sh: number) => ImageData;
     getLineDash: () => number[];
-    isPointInPath: (x: number, y: number, fillRule: any, path: Path2D) => boolean;
+    isPointInPath: (
+        x: number,
+        y: number,
+        fillRule: any,
+        path: Path2D
+    ) => boolean;
     isPointInStroke: (x: number, y: number, path: Path2D) => boolean;
     lineTo: (x: number, y: number) => void;
-    measureText: (text: string) => any; //
+    measureText: (text: string) => any;
     moveTo: (x: number, y: number) => void;
-    putImageData: (imageData: IImageData, dx: number, dy: number, dirtyX?: number, dirtyY?: number, dirtyWidth?: number, dirtyHeight?: number) => void;
+    putImageData: (
+        imageData: ImageData,
+        dx: number,
+        dy: number,
+        dirtyX?: number,
+        dirtyY?: number,
+        dirtyWidth?: number,
+        dirtyHeight?: number
+    ) => void;
     quadraticCurveTo: (cpx: number, cpy: number, x: number, y: number) => void;
     rect: (x: number, y: number, width: number, height: number) => void;
     restore: () => void;
@@ -89,26 +142,67 @@ export interface CanvasRenderingContext2D {
     save: () => void;
     scale: (x: number, y: number) => void;
     setLineDash: (segments: number[]) => void;
-    setTransform: (a: number, b: number, c: number, d: number, e: number, f: number) => void;
+    setTransform: (
+        a: number,
+        b: number,
+        c: number,
+        d: number,
+        e: number,
+        f: number
+    ) => void;
     stroke: (path: Path2D) => void;
-    strokeRect: (x: number, y:number, width: number, height: number) => void;
+    strokeRect: (x: number, y: number, width: number, height: number) => void;
     strokeText: (text: string, x: number, y: number, maxWidth?: number) => void;
-    transform: (a: number, b: number, c: number, d: number, e: number, f: number) => void;
+    transform: (
+        a: number,
+        b: number,
+        c: number,
+        d: number,
+        e: number,
+        f: number
+    ) => void;
     translate: (x: number, y: number) => void;
 }
 
-export interface ICanvas {
-    getContext: (context: string) => CanvasRenderingContext2D;
-}
-
-export interface CanvasProps {
-    baseUrl?: string;
-    originWhitelist?: string[];
-    ref: (canvas: ICanvas) => void;
-    style?: StyleProp<ViewStyle>;
-}
-
 export default class Canvas extends React.Component<CanvasProps> {}
-export class Image extends React.Component {}
-export class ImageData extends React.Component {}
-export class Path2D extends React.Component {}
+
+export class Image {
+    constructor(canvas: ICanvas, height?: number, width?: number);
+    crossOrigin: string | undefined;
+    height: number | undefined;
+    width: number | undefined;
+    src: string | undefined;
+    addEventListener: (event: string, func: (...args: any) => any) => void;
+}
+
+export class ImageData {
+    constructor(canvas: ICanvas, data: number[], height: number, width: number);
+    readonly data: number[];
+    readonly height: number;
+    readonly width: number;
+}
+
+export class Path2D {
+    constructor(canvas: ICanvas, ...args: any);
+    addPath: (
+        path: Path2D,
+        transform?: {
+            a: number;
+            b: number;
+            c: number;
+            d: number;
+            e: number;
+            f: number;
+        }
+    ) => void;
+
+    closePath: CanvasRenderingContext2D["closePath"];
+    moveTo: CanvasRenderingContext2D["moveTo"];
+    lineTo: CanvasRenderingContext2D["lineTo"];
+    bezierCurveTo: CanvasRenderingContext2D["bezierCurveTo"];
+    quadraticCurveTo: CanvasRenderingContext2D["quadraticCurveTo"];
+    arc: CanvasRenderingContext2D["arc"];
+    arcTo: CanvasRenderingContext2D["arcTo"];
+    ellipse: CanvasRenderingContext2D["ellipse"];
+    rect: CanvasRenderingContext2D["rect"];
+}
