@@ -415,7 +415,7 @@ declare module "http2" {
         peerMaxConcurrentStreams?: number;
         selectPadding?: (frameLen: number, maxFrameLen: number) => number;
         settings?: Settings;
-        createConnection?: (option: SessionOptions) => stream.Duplex;
+        createConnection?: (authority: url.URL, option: SessionOptions) => stream.Duplex;
     }
 
     export type ClientSessionOptions = SessionOptions;
