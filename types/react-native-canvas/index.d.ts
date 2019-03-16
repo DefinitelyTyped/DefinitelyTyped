@@ -2,22 +2,15 @@
 // Project: https://github.com/iddan/react-native-canvas#readme
 // Definitions by: hmajid2301 <https://github.com/hmajid2301>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
 import * as React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 
-export interface ICanvas {
-    width: number;
-    height: number;
-    toDataURL: () => string;
-    getContext: (context: string) => CanvasRenderingContext2D;
-}
-
 export interface CanvasProps {
     baseUrl?: string;
     originWhitelist?: string[];
-    ref: (canvas: ICanvas) => void;
+    ref: (canvas: Canvas) => any;
     style?: StyleProp<ViewStyle>;
 }
 
@@ -164,10 +157,15 @@ export interface CanvasRenderingContext2D {
     translate: (x: number, y: number) => void;
 }
 
-export default class Canvas extends React.Component<CanvasProps> {}
+export default class Canvas extends React.Component<CanvasProps> {
+    width: number;
+    height: number;
+    toDataURL: () => string;
+    getContext: (context: string) => CanvasRenderingContext2D;
+}
 
 export class Image {
-    constructor(canvas: ICanvas, height?: number, width?: number);
+    constructor(canvas: Canvas, height?: number, width?: number);
     crossOrigin: string | undefined;
     height: number | undefined;
     width: number | undefined;
@@ -176,14 +174,14 @@ export class Image {
 }
 
 export class ImageData {
-    constructor(canvas: ICanvas, data: number[], height: number, width: number);
+    constructor(canvas: Canvas, data: number[], height: number, width: number);
     readonly data: number[];
     readonly height: number;
     readonly width: number;
 }
 
 export class Path2D {
-    constructor(canvas: ICanvas, ...args: any);
+    constructor(canvas: Canvas, ...args: any);
     addPath: (
         path: Path2D,
         transform?: {

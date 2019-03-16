@@ -1,7 +1,6 @@
 import * as React from "react";
 import { View } from "react-native";
 import Canvas, {
-    ICanvas,
     Image as CanvasImage,
     Path2D,
     ImageData
@@ -16,7 +15,7 @@ class CanvasTest extends React.Component {
         );
     }
 
-    handleCanvas = (canvas: ICanvas) => {
+    handleCanvas = (canvas: Canvas) => {
         canvas.width = 100;
         canvas.height = 100;
 
@@ -49,5 +48,5 @@ class CanvasTest extends React.Component {
         }
         const imgData = new ImageData(canvas, data, 100, 100);
         context.putImageData(imgData, 0, 0);
-    };
+    }
 }
