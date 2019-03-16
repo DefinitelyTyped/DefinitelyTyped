@@ -28,6 +28,7 @@
         "test/test-request.ts",
         "test/test-route.ts",
         "test/test-stream.ts",
+        "test/test-ospec.ts",
         "index.d.ts",
         "hyperscript.d.ts",
         "mount.d.ts",
@@ -36,7 +37,8 @@
         "request.d.ts",
         "route.d.ts",
         "withAttr.d.ts",
-        "stream/index.d.ts"
+        "stream/index.d.ts",
+        "ospec/index.d.ts"
     ],
     "atom": {
         "rewriteTsconfig": false
