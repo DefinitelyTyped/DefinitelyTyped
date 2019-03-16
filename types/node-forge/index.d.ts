@@ -14,7 +14,7 @@
 // TypeScript Version: 2.6
 
 /// <reference types="node" />
-
+import * as jsbn from "jsbn";
 declare module "node-forge" {
     type Byte = number;
     type Bytes = string;
@@ -23,15 +23,6 @@ declare module "node-forge" {
     type Utf8 = string;
     type OID = string;
     type Encoding = "raw" | "utf8";
-
-    namespace jsbn {
-        class BigInteger {
-            data: number[];
-            t: number;
-            s: number;
-            toString(b?: number): string;
-        }
-    }
 
     namespace pem {
 
