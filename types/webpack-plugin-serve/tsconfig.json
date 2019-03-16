@@ -11,6 +11,7 @@
         "typeRoots": [
             "../"
         ],
+        "strictFunctionTypes": false,
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
