@@ -5,7 +5,6 @@
 // TypeScript Version: 2.3
 /// <reference types="node" />
 
-
 import { Url } from 'url';
 import { Config as HttpProxyMiddlewareConfig, Proxy } from 'http-proxy-middleware';
 import * as Koa from 'koa';
@@ -16,7 +15,6 @@ import {
 import { ServerOptions as HttpsServerOptions } from 'https';
 import { ZlibOptions } from 'zlib';
 import { Compiler } from 'webpack';
-
 
 declare namespace WebpackPluginServe {
 
