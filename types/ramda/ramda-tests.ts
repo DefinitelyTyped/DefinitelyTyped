@@ -1967,6 +1967,8 @@ class Rectangle {
     const favoriteWithDefault = R.propOr("Ramda", "favoriteLibrary");
 
     const s2 = favoriteWithDefault(alice);  // => 'Ramda'
+    R.propOr('Ramda', R.__, alice)('name');  // => 'ALICE'
+    R.propOr(R.__, 'foo', alice)('default');  // => 'default'
 };
 
 () => {
