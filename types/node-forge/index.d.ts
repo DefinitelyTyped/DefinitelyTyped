@@ -10,6 +10,7 @@
 //                 timhwang21       <https://github.com/timhwang21>
 //                 supaiku0         <https://github.com/supaiku0>
 //                 Anders Kaseorg   <https://github.com/andersk>
+//                 mharj            <https://github.com/mharj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -67,6 +68,7 @@ declare module "node-forge" {
         function privateKeyInfoToPem(key: Bytes, maxline?: number): PEM;
         function publicKeyToPem(key: PublicKey, maxline?: number): PEM;
         function publicKeyFromPem(pem: PEM): PublicKey;
+        function publicKeyToRSAPublicKeyPem(key: PublicKey, maxline?: number): PEM;
         function privateKeyFromPem(pem: PEM): PrivateKey;
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
         function certificateFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
