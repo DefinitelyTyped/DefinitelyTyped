@@ -161,13 +161,9 @@ interface GraphQLList<T extends GraphQLType> {
     inspect(): string;
 }
 
-
-interface _GraphQLList<T extends GraphQLType> {
-    (type: T): GraphQLList<T>;
-    new (type: T): GraphQLList<T>;
+export class GraphQLList<T> implements GraphQLList<T> {
+    constructor(type: T)
 }
-
-export const GraphQLList: _GraphQLList<GraphQLType>;
 
 /**
  * Non-Null Modifier
@@ -196,12 +192,9 @@ interface GraphQLNonNull<T extends GraphQLNullableType> {
     inspect(): string;
 }
 
-interface _GraphQLNonNull<T extends GraphQLNullableType> {
-    (type: T): GraphQLNonNull<T>;
-    new (type: T): GraphQLNonNull<T>;
+export class GraphQLNonNull<T> implements GraphQLNonNull<T> {
+    constructor(type: T)
 }
-
-export const GraphQLNonNull: _GraphQLNonNull<GraphQLNullableType>;
 
 export type GraphQLWrappingType = GraphQLList<any> | GraphQLNonNull<any>;
 
@@ -423,14 +416,46 @@ export interface GraphQLFieldConfig<TSource, TArgs, TContext> {
     astNode?: Maybe<FieldDefinitionNode>;
 }
 
-export type GraphQLFieldConfigArgumentMap<TArgs> = { [K in keyof TArgs]: GraphQLArgumentConfig };
+export type GraphQLFieldConfigArgumentMap<TArgs> = { [K in keyof TArgs]: GraphQLArgumentConfig<TArgs[K]> };
 
-export interface GraphQLArgumentConfig {
-    type: GraphQLInputType;
-    defaultValue?: any;
-    description?: Maybe<string>;
-    astNode?: Maybe<InputValueDefinitionNode>;
-}
+type ScalarInput<T> = GraphQLEnumType | (
+    T extends string ? GraphQLScalarType :
+    T extends number ? GraphQLScalarType :
+    T extends boolean ? GraphQLScalarType :
+    GraphQLInputObjectType
+)
+
+type GraphQLArgumentConfigType<TArg> =
+    TArg extends (infer TItem)[]
+        // Because conditional types don't support recursion yer, we will only
+        // type check lists to a depth of 1.
+        // See https://github.com/Microsoft/TypeScript/issues/6230
+        ? GraphQLList<TItem extends any[] ? GraphQLList<any> : 
+            [TItem] extends [NonNullable<TItem>]
+                ? GraphQLNonNull<ScalarInput<TItem>>
+                : ScalarInput<TItem>
+        >
+        : ScalarInput<TArg>;
+
+
+export type GraphQLArgumentConfig<TArg> = [TArg] extends [NonNullable<TArg>]
+    ? ({
+        type: GraphQLNonNull<GraphQLArgumentConfigType<TArg>>;
+        defaultValue?: null;
+        description?: Maybe<string>;
+        astNode?: Maybe<InputValueDefinitionNode>;
+    } | {
+        type: GraphQLArgumentConfigType<TArg>;
+        defaultValue: TArg;
+        description?: Maybe<string>;
+        astNode?: Maybe<InputValueDefinitionNode>;
+    })
+    : {
+        type: GraphQLArgumentConfigType<NonNullable<TArg>>;
+        defaultValue?: null;
+        description?: Maybe<string>;
+        astNode?: Maybe<InputValueDefinitionNode>;
+    }
 
 export type GraphQLFieldConfigMap<TSource, TContext> = {
     [key: string]: GraphQLFieldConfig<TSource, any, TContext>;
