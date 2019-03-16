@@ -58,8 +58,7 @@ export declare class WritableStream extends Writable {
 }
 
 export declare class Parser {
-    constructor(handler: DomHandler);
-    constructor(handler: DomHandler, options: ParserOptions);
+    constructor(handler: DomHandler, options?: ParserOptions);
 
     /***
      * Parses a chunk of data and calls the corresponding callbacks.
