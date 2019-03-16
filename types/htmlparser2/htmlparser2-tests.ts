@@ -1,10 +1,10 @@
 /**
  * Created by staticfunction on 8/4/14.
  */
-import * as htmlparser from 'htmlparser2';
-import { DomHandler, DomElement, DomHandlerOptions } from 'domhandler';
-const options: DomHandlerOptions = { withEndIndices: false, withDomLvl1: true }
-const dh = new DomHandler((err: Error, dom: DomElement[]) => {
+import htmlparser = require('htmlparser2');
+
+const options: htmlparser.DomHandlerOptions = { withEndIndices: false, withDomLvl1: true }
+const dh = new htmlparser.DomHandler((err: Error, dom: htmlparser.DomElement[]) => {
     if(err) {
         throw err;
     }
