@@ -72,6 +72,7 @@ declare namespace Waterline {
         attributes?: AttributesV3;
         connection?: string;
         identity?: string;
+        primaryKey?: string,
         tableName?: string;
         migrate?: "alter" | "drop" | "safe";
         autoPK?: boolean;
@@ -127,7 +128,7 @@ declare namespace Waterline {
         required?: boolean;
         columnName?: string;
         index?: boolean;
-        allowNull?:  boolean;
+        allowNull?: boolean;
         autoCreatedAt?: boolean;
         autoUpdatedAt?: boolean;
         validations?: AttributeValidationsV3;
@@ -158,6 +159,7 @@ declare namespace Waterline {
     }
     export type NumberAttributeV3 = BaseAttributeV3<number> & {
         type: "number";
+        autoIncrement?: boolean;
     }
     export type FloatAttribute = BaseAttribute<number> & {
         type: "float";
@@ -174,8 +176,8 @@ declare namespace Waterline {
     export type BooleanAttribute = BaseAttribute<boolean> & {
         type: 'boolean';
     }
-    export type BooleanAttributeV3 = BaseAttributeV3<number> & {
-        type: "number";
+    export type BooleanAttributeV3 = BaseAttributeV3<boolean> & {
+        type: "boolean";
       }
     export type BinaryAttribute = BaseAttribute<any> & {
         type: 'binary';
@@ -236,7 +238,7 @@ declare namespace Waterline {
         isUUID?: AttributeValidation<boolean>;
         max?: AttributeValidation<number>;
         min?: AttributeValidation<number>;
-        maxlength?: AttributeValidation<number>;
+        maxLength?: AttributeValidation<number>;
         minLength?:  AttributeValidation<number>;
         regex?: AttributeValidation<RegExp>
     }
