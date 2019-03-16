@@ -53,8 +53,7 @@ export interface ParserOptions {
 }
 
 export declare class WritableStream extends Writable {
-    constructor(handler: DomHandler);
-    constructor(handler: DomHandler, options: ParserOptions);
+    constructor(handler: DomHandler, options?: ParserOptions);
 }
 
 export declare class Parser {
