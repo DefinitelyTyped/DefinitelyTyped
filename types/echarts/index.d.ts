@@ -7,6 +7,7 @@
 //                 Roman <https://github.com/iRON5>
 //                 Bilal <https://github.com/bilalucar>
 //                 TMTron <https://github.com/tmtron>
+//                 dwhitney <https://github.com/dwhitney>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -188,7 +189,7 @@ declare namespace echarts {
          *     immediately
          */
         setOption(
-            option: EChartOption,
+            option: EChartOption | EChartsResponsiveOption,
             notMerge?: boolean,
             lazyUpdate?: boolean
         ) : void
@@ -916,6 +917,26 @@ declare namespace echarts {
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#useUTC
          */
         useUTC?: boolean,
+    }
+
+    type EChartsMediaOption = {
+        query: {
+            width?: number,
+            height?: number,
+            aspectRatio?: number,
+            minWidth?: number,
+            minHeight?: number,
+            minAspectRatio?: number,
+            maxWidth?: number,
+            maxHeight?: number,
+            maxAspectRatio?: number
+        },
+        option: EChartOption
+    }
+
+    interface EChartsResponsiveOption {
+        baseOption?: EChartOption,
+        media?: EChartsMediaOption[]
     }
 
     interface EChartsOptionConfig {

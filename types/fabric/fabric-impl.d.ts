@@ -865,7 +865,7 @@ interface IShadowOptions {
 	/**
 	 * Whether the shadow should affect stroke operations
 	 */
-	affectStrike?: boolean;
+	affectStroke?: boolean;
 	/**
 	 * Indicates whether toObject should include default values
 	 */
@@ -1038,7 +1038,7 @@ interface IStaticCanvasOptions {
 	 * The coordinates get updated with @method calcViewportBoundaries.
 	 * @memberOf fabric.StaticCanvas.prototype
 	 */
-	vptCoords?: {tl: number, tr: number, bl: number, br: number}
+	vptCoords?: {tl: {x: number, y: number}, tr: {x: number, y: number}, bl: {x: number, y: number}, br: {x: number, y: number}}
 	/**
 	 * Based on vptCoords and object.aCoords, skip rendering of objects that
 	 * are not included in current viewport.
@@ -3529,6 +3529,40 @@ export class Object {
 	 * @return {fabric.Point}
 	 */
 	translateToGivenOrigin(pointL: Point, fromOriginX: string, fromOriginY: string, toOriginX: string, toOriginY: string): Point;
+	/*
+     * Calculate object dimensions from its properties
+     * @private
+     * @return {Object} .x width dimension
+     * @return {Object} .y height dimension
+     */
+	_getNonTransformedDimensions(): {x: number, y: number};
+	/**
+	 *
+	 * @param ctx
+	 * @private
+	 */
+	_renderStroke(ctx: CanvasRenderingContext2D): void;
+	/**
+	 * @private
+	 * @param {CanvasRenderingContext2D} ctx Context to render on
+	 */
+	_removeShadow(ctx: CanvasRenderingContext2D): void;
+	/**
+	 * @private
+	 * Sets line dash
+	 * @param {CanvasRenderingContext2D} ctx Context to set the dash line on
+	 * @param {Array} dashArray array representing dashes
+	 * @param {Function} alternative function to call if browser does not support lineDash
+	 */
+	_setLineDash(ctx: CanvasRenderingContext2D, dashArray: number[], alternative: Function): void;
+	/**
+	 * @private
+	 * @param {CanvasRenderingContext2D} ctx Context to render on
+	 * @param {Object} filler fabric.Pattern or fabric.Gradient
+	 * @return {Object} offset.offsetX offset for text rendering
+	 * @return {Object} offset.offsetY offset for text rendering
+	 */
+	_applyPatternGradientTransform(ctx: CanvasRenderingContext2D, filler: string | Pattern | Gradient): void;
 }
 
 interface IPathOptions extends IObjectOptions {
@@ -3940,6 +3974,20 @@ export class Text extends Object {
 	 * @return {Boolean}
 	 */
 	styleHas(property: string, lineIndex?: number): boolean;
+	/**
+	 * Measure a single line given its index. Used to calculate the initial
+	 * text bounding box. The values are calculated and stored in __lineWidths cache.
+	 * @private
+	 * @param {Number} lineIndex line number
+	 * @return {Number} Line width
+	 */
+	getLineWidth(lineIndex: number): number;
+	/**
+	 * @private
+	 * @param {Number} lineIndex index text line
+	 * @return {Number} Line left offset
+	 */
+	_getLineLeftOffset(lineIndex: number): number
 }
 interface ITextOptions extends TextOptions {
 	/**
@@ -4372,6 +4420,15 @@ export class IText extends Text {
 	 * @param {Event} e Event object
 	 */
 	setCursorByClick(e: Event): void;
+	/**
+	 * @private
+	 */
+	_getNewSelectionStartFromOffset(mouseOffset: {x: number, y: number}, prevWidth: number, width: number, index: number, jlen: number): number;
+	/**
+	 * @private
+	 * @param {CanvasRenderingContext2D} ctx Context to render on
+	 */
+	_render(ctx: CanvasRenderingContext2D): void;
 }
 interface ITextboxOptions extends ITextOptions {
 	/**
