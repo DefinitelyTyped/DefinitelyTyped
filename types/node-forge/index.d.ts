@@ -29,7 +29,7 @@ declare module "node-forge" {
             data: number[];
             t: number;
             s: number;
-            toString(): string;
+            toString(b?: number): string;
         }
     }
 

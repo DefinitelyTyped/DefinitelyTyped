@@ -343,3 +343,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     console.log('created TLS client and server, doing handshake...');
     client.handshake();
 }
+
+{
+    keypair.privateKey.e.toString(16);
+}
