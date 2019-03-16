@@ -10,5 +10,5 @@ export interface DefaultErrorIProps {
 }
 
 export default class Error<P = {}> extends React.Component<P & DefaultErrorIProps> {
-    static getInitialProps: GetInitialProps<NextContext, DefaultErrorIProps>;
+    static getInitialProps: GetInitialProps<DefaultErrorIProps, NextContext>;
 }
