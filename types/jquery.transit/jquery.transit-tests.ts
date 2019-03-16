@@ -20,7 +20,7 @@ class Assert {
 	static passedTests: number = 0;
 
 	static Results() {
-		console.log('Tests succeeded - ' + this.passedTests + '/' + this.totalTests + '; Tests failed - ' + (this.totalTests - this.passedTests) + '/' + this.totalTests);
+		console.log('Tests succeeded - ' + Assert.passedTests + '/' + Assert.totalTests + '; Tests failed - ' + (Assert.totalTests - Assert.passedTests) + '/' + Assert.totalTests);
 	}
 
 	static AssertionFailed(actual: any, expected: any, test: string) {
@@ -28,21 +28,21 @@ class Assert {
 	}
 
 	static Equal(actual: any, expected: any, test?: string) {
-		this.totalTests++;
+		Assert.totalTests++;
 		if (actual === expected) {
-			this.passedTests++;
+			Assert.passedTests++;
 			return;
 		}
-		this.AssertionFailed(actual, expected, test);
+		Assert.AssertionFailed(actual, expected, test);
 	}
 
 	static NotEqual(actual: any, expected: any, test?: string) {
-		this.totalTests++;
+		Assert.totalTests++;
 		if (actual !== expected) {
-			this.passedTests++;
+			Assert.passedTests++;
 			return;
 		}
-		this.AssertionFailed(actual, expected, test);
+		Assert.AssertionFailed(actual, expected, test);
 	}
 }
 

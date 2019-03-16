@@ -118,6 +118,7 @@ declare namespace MDNS {
     var Browser:BrowserStatic;
     var ServiceType:ServiceType;
     var rst:DefaultResolverSequenceTasks;
+    var dns_sd:any;
 
     // static functions
 

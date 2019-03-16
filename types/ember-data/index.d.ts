@@ -543,8 +543,9 @@ export namespace DS {
          * invoking the callback with the name of each relationship and its relationship
          * descriptor.
          */
-        eachRelationship(
-            callback: (name: string, details: RelationshipMeta<this>) => void,
+        eachRelationship<T extends Model>(
+            this: T,
+            callback: (name: string, details: RelationshipMeta<T>) => void,
             binding?: any
         ): any;
         /**
@@ -901,8 +902,8 @@ export namespace DS {
      * it easy to create data bindings with the `PromiseObject` that will
      * be updated when the promise resolves.
      */
-    interface PromiseObject<T>
-        extends ObjectProxy,
+    interface PromiseObject<T extends object>
+        extends ObjectProxy<T>,
             PromiseProxyMixin<T & ObjectProxy> {}
     class PromiseObject<T> {}
     /**

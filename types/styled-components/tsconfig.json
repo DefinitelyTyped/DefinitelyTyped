@@ -4,8 +4,7 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "module": "commonjs",
         "noEmit": true,
@@ -20,9 +19,11 @@
     },
     "files": [
         "index.d.ts",
+        "native.d.ts",
         "macro.d.ts",
         "cssprop.d.ts",
         "test/index.tsx",
+        "test/native.tsx",
         "test/macro.tsx"
     ]
 }

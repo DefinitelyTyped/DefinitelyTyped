@@ -472,6 +472,7 @@ const sheet = new ServerStyleSheet();
 const html = sheet.collectStyles(<SSRTitle>Hello world</SSRTitle>);
 const styleHtml = sheet.getStyleTags();
 const styleElement = sheet.getStyleElement();
+sheet.seal();
 
 const sheet2 = new ServerStyleSheet();
 const element = (
@@ -634,7 +635,8 @@ const StyledStyledDiv = styled(StyledDiv)``;
 <StyledStyledDiv ref="string" />; // $ExpectError
 
 const StyledA = StyledDiv.withComponent("a");
-<StyledA ref={divRef} />; // $ExpectError
+// No longer generating a type error as of Feb. 6th, 2019
+// <StyledA ref={divRef} />; // $ExpectError
 <StyledA
     ref={ref => {
         // $ExpectType HTMLAnchorElement | null
@@ -999,4 +1001,61 @@ function validateDefaultProps() {
     // <OtherStyledComponent />;
 
     <OtherStyledComponent requiredProp="1" />; // $ExpectError
+}
+
+interface WrapperProps {
+    className?: string;
+}
+export class WrapperClass extends React.Component<WrapperProps> {
+    render() { return <div />; }
+}
+const StyledWrapperClass = styled(WrapperClass)``;
+// React.Component typings always add `children` to props, so this should accept children
+const wrapperClass = <StyledWrapperClass>Text</StyledWrapperClass>;
+
+export class WrapperClassFuncChild extends React.Component<WrapperProps & {children: () => any}> {
+    render() { return <div />; }
+}
+const StyledWrapperClassFuncChild = styled(WrapperClassFuncChild)``;
+// React.Component typings always add `children` to props, so this should accept children
+const wrapperClassNoChildrenGood = <StyledWrapperClassFuncChild>{() => "text"}</StyledWrapperClassFuncChild>;
+const wrapperClassNoChildren = <StyledWrapperClassFuncChild>Text</StyledWrapperClassFuncChild>; // $ExpectError
+
+const WrapperFunction: React.FunctionComponent<WrapperProps> = () => <div />;
+const StyledWrapperFunction = styled(WrapperFunction)``;
+// React.FunctionComponent typings always add `children` to props, so this should accept children
+const wrapperFunction = <StyledWrapperFunction>Text</StyledWrapperFunction>;
+
+const WrapperFunc = (props: WrapperProps) => <div />;
+const StyledWrapperFunc = styled(WrapperFunc)``;
+// No `children` in props, so this should generate an error
+const wrapperFunc = <StyledWrapperFunc>Text</StyledWrapperFunc>; // $ExpectError
+
+function unionTest() {
+    interface Book {
+        kind: 'book';
+        author: string;
+    }
+
+    interface Magazine {
+        kind: 'magazine';
+        issue: number;
+    }
+
+    type SomethingToRead = (Book | Magazine);
+
+    const Readable: React.FunctionComponent<SomethingToRead> = props => {
+        if (props.kind === 'magazine') {
+            return <div>magazine #{props.issue}</div>;
+        }
+
+        return <div>magazine #{props.author}</div>;
+    };
+
+    const StyledReadable = styled(Readable)`
+        font-size: ${props => props.kind === 'book' ? 16 : 14}
+    `;
+
+    <StyledReadable kind="book" author="Hejlsberg" />;
+    <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
 }

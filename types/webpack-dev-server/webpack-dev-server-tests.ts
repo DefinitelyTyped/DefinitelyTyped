@@ -46,7 +46,7 @@ const config: WebpackDevServer.Configuration = {
         "**": "http://localhost:9090"
     },
 
-    setup: (app: Application) => {
+    setup: (app: Application, server: WebpackDevServer) => {
         // Here you can access the Express app object and add your own custom middleware to it.
         // For example, to define custom handlers for some paths:
         app.get('/some/path', (req, res) => {
@@ -72,6 +72,7 @@ const config: WebpackDevServer.Configuration = {
         aggregateTimeout: 300,
         poll: 1000
     },
+    writeToDisk: true,
     // It's a required option.
     publicPath: "/assets/",
     headers: { "X-Custom-Header": "yes" }
@@ -82,6 +83,12 @@ const c2: WebpackDevServer.Configuration = {
 };
 const c3: WebpackDevServer.Configuration = {
     stats: "verbose",
+};
+const c4: WebpackDevServer.Configuration = {
+    writeToDisk: (filePath: string) => true,
+};
+const c5: WebpackDevServer.Configuration = {
+    proxy: [{context: (pathname: string) => true}]
 };
 
 // API example

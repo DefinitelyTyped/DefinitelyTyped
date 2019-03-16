@@ -24,6 +24,6 @@ declare namespace DropdownToggle {
          */
         children(
             renderProps: DropdownToggleRenderProps
-        ): React.ReactElement<any>;
+        ): React.ReactElement;
     }
 }

@@ -5,4 +5,5 @@
 
 import { StorageEngine } from 'redux-storage';
 
-export default function createEngine(): StorageEngine;
+export = createEngine;
+declare function createEngine(): StorageEngine;

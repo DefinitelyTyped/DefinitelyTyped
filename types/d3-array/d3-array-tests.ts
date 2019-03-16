@@ -608,7 +608,8 @@ const testObject = {
 };
 
 const p1: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['name', 'val', 'when', 'more']);
-const p2: Array<Date | number[]> = d3Array.permute(testObject, ['when', 'more']);
+// $ExpectType: Array<Date | number[]>
+const p2 = d3Array.permute(testObject, ['when', 'more']);
 // $ExpectError
 const p3 = d3Array.permute(testObject, ['when', 'unknown']);
 

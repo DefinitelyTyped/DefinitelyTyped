@@ -2,6 +2,8 @@
 // Project: https://github.com/video-dev/hls.js
 // Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
 //                 Johan Brook <https://github.com/brookback>
+//                 Adrián Caballero <https://github.com/adripanico>
+//                 Alexey I. Berezin <https://github.com/beraliv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -189,33 +191,65 @@ declare namespace Hls {
      */
     interface Level {
         /**
-         * level url. might contain sever items if failover/redundant streams are found in the manifest
+         * attribute list
          */
-        url: string[];
+        attrs: LevelAttr[];
+        /**
+         * audio codec
+         */
+        audioCodec: string;
         /**
          * level bitrate
          */
         bitrate: number;
         /**
-         * level name
+         * level details
          */
-        name: string;
+        details?: LevelDetails;
         /**
-         * used codecs
+         * whether there is any error on the fragment
          */
-        codecs: string;
-        /**
-         * video width
-         */
-        width: number;
+        fragmentError?: boolean;
         /**
          * video height
          */
         height: number;
         /**
-         * level details
+         * index of the level
          */
-        details: LevelDetails;
+        level?: number;
+        /**
+         * error code
+         */
+        loadError: number;
+        /**
+         * level name
+         */
+        name: string;
+        /**
+         * array of unrecognized codecs
+         */
+        unkownCodecs: string[];
+        /**
+         * level url. might contain several items if failover/redundant streams are found in the manifest
+         */
+        url: string[];
+        /**
+         * index of current url from url[] array
+         */
+        urlId: number;
+        /**
+         * video codec
+         */
+        videoCodec: string;
+        /**
+         * video width
+         */
+        width: number;
+    }
+
+    interface LevelAttr {
+        [key: string]: string;
     }
 
     /**
@@ -1701,6 +1735,11 @@ declare class Hls {
      * If set to false, the mode will be set to hidden.
      */
     subtitleDisplay: boolean;
+    /**
+     * (default: NaN)
+     * Return current download bandwidth in bits/s if available
+     */
+    bandwidthEstimate: number;
     /**
      * calling this method will:
      *      bind videoElement and hls instances

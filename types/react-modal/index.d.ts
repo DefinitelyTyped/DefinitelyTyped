@@ -108,6 +108,9 @@ declare namespace ReactModal {
 
         /* Function accepting the ref for the overlay */
         overlayRef?: (instance: HTMLDivElement) => void;
+
+        /* String value of data-test-id attibute to be applied to to the modal content. */
+        testId?: string;
     }
 }
 

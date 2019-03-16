@@ -14,7 +14,7 @@ export type AccessorFunction<D = any> = (row: D) => any;
 export type Accessor<D = any> = string | string[] | AccessorFunction<D>;
 export type Aggregator = (values: any, rows: any) => any;
 export type TableCellRenderer = ((cellInfo: CellInfo, column: any) => React.ReactNode) | React.ReactNode;
-export type FilterRender = (params: { column: Column, filter: any, onChange: ReactTableFunction, key?: string }) => React.ReactElement<any>;
+export type FilterRender = (params: { column: Column, filter: any, onChange: ReactTableFunction, key?: string }) => React.ReactElement;
 export type PivotRenderer = ((cellInfo: CellInfo) => React.ReactNode) | (() => any) | string | React.ReactNode;
 
 export type ComponentPropsGetter0 = (finalState: any, rowInfo: undefined, column: undefined, instance?: any) => object | undefined;
@@ -51,12 +51,12 @@ export interface SortingRule {
 }
 
 export interface TableProps<D = any, ResolvedData = D> extends
-    Partial<TextProps>,
-    Partial<ComponentDecoratorProps>,
-    Partial<ControlledStateCallbackProps>,
-    Partial<PivotingProps>,
-    Partial<ControlledStateOverrideProps>,
-    Partial<ComponentProps> {
+    TextProps,
+    ComponentDecoratorProps,
+    ControlledStateCallbackProps,
+    PivotingProps,
+    ControlledStateOverrideProps,
+    ComponentProps {
     /** Default: [] */
     data: D[];
 
@@ -187,7 +187,7 @@ export interface TableProps<D = any, ResolvedData = D> extends
     /** Control callback for functional rendering */
     children: (
         state: FinalState<ResolvedData>,
-        makeTable: () => React.ReactElement<any>,
+        makeTable: () => React.ReactElement,
         instance: Instance<ResolvedData>
     ) => React.ReactNode;
 }

@@ -1,11 +1,10 @@
 // Type definitions for yargs 12.0
-// Project: https://github.com/chevex/yargs
+// Project: https://github.com/chevex/yargs, https://yargs.js.org
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
-//                 Teddy Cross <https://github.com/tkazec>
 //                 Steffen Viken Valvåg <https://github.com/steffenvv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -227,6 +226,7 @@ declare namespace yargs {
         skipValidation(key: string | ReadonlyArray<string>): Argv<T>;
 
         strict(): Argv<T>;
+        strict(enabled: boolean): Argv<T>;
 
         string<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: ToString<T[key]> }>;
         string<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: string | undefined }>;

@@ -1,4 +1,4 @@
-// Type definitions for qlik-visualizationextensions 4.0
+// Type definitions for non-npm package qlik-visualizationextensions 4.0
 // Project: http://help.qlik.com/en-US/sense-developer/June2017/Subsystems/Extensions/Content/extensions-introduction.htm
 // Definitions by: Konrad Mattheis <https://github.com/konne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1042,6 +1042,18 @@ declare namespace RootAPI {
          * @return - App JavaScript object with app methods.
          */
         openApp(appId: string, config?: any): any;
+
+        /**
+         * promise object
+         * Promise utility that can be used for asynchronous operations.
+         * Very useful for the paint method to indicate when the rendering is completed.
+         * executor
+         * Type: Function
+         * The executing function with two parameters:
+         * resolve
+         * reject
+         */
+        Promise: PromiseConstructor;
 
         /**
          * Registers an extension for use in this mashup. The extension is not installed on the

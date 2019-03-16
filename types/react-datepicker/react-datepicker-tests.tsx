@@ -76,7 +76,8 @@ const defaultLocale = getDefaultLocale();
 	popperProps={{}}
 	preventOpenOnFocus
 	previousMonthButtonLabel=""
-	readOnly
+    readOnly
+    ref={handleRef}
 	renderCustomHeader={({
 		date,
 		changeYear,
@@ -115,7 +116,29 @@ const defaultLocale = getDefaultLocale();
 	weekLabel=""
 	withPortal
 	yearDropdownItemNumber={1}
+	timeInputLabel=""
+	inlineFocusSelectedMonth={false}
+	onDayMouseEnter={(date: Date) => {}}
+	onMonthMouseLeave={() => {}}
 >
 	<div />
 	<span />
 </DatePicker>;
+
+<DatePicker
+    minDate={null}
+    maxDate={null}
+    startDate={null}
+    endDate={null}
+    onChange={() => null}
+/>;
+
+function handleRef(ref: DatePicker | null) {
+    if (ref) {
+        ref.setBlur();
+        ref.setFocus();
+        if (ref.isCalendarOpen()) {
+            ref.setOpen(false);
+        }
+    }
+}

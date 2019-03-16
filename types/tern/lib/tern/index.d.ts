@@ -1,5 +1,5 @@
 import * as ESTree from "estree";
-import { Scope, Type } from "../infer";
+import { Context, Scope, Type } from "../infer";
 
 export { };
 
@@ -48,6 +48,10 @@ interface TernConstructor {
 export const Server: TernConstructor;
 
 export interface Server {
+    readonly cx: Context;
+    readonly options: ConstructorOptions;
+    readonly files: File[];
+    readonly plugins: any;
     /**
      * Add a set of type definitions to the server. If `atFront` is true, they will be added before all other
      * existing definitions. Otherwise, they are added at the back.
@@ -93,10 +97,12 @@ export interface Server {
     request<Q extends Query, D extends Document>(
         doc: D & { query?: Q },
         callback: (
-            error: Error | undefined,
+            error: string | null,
             response: (D extends { query: undefined } ? {} : D extends { query: Query } ? QueryResult<Q> : {}) | undefined
         ) => void
     ): void;
+    reset(): void;
+    signal(event: keyof Events, file: File): void;
 }
 
 // #### JSON Protocol ####
@@ -156,6 +162,7 @@ export interface File {
     scope: Scope;
     ast: ESTree.Program;
     type?: "full" | "part" | "delete";
+    asLineChar?(nodePosition: number): Position;
 }
 
 export interface BaseQuery {
@@ -164,17 +171,20 @@ export interface BaseQuery {
     docFormat?: "full";
 }
 
+export interface BaseQueryWithFile extends BaseQuery {
+    /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
+    file: string;
+}
+
 export interface Position {
     ch: number;
     line: number;
 }
 
 /** Asks the server for a set of completions at the given point. */
-export interface CompletionsQuery extends BaseQuery {
+export interface CompletionsQuery extends BaseQueryWithFile {
     /** Asks the server for a set of completions at the given point. */
     type: "completions";
-    /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
-    file: string;
     /** Specify the location to complete at. */
     end: number | Position;
     /** Whether to include the types of the completions in the result data. Default `false` */
@@ -233,11 +243,9 @@ export interface CompletionsQueryResult {
 }
 
 /** Query the type of something. */
-export interface TypeQuery extends BaseQuery {
+export interface TypeQuery extends BaseQueryWithFile {
     /** Query the type of something. */
     type: "type";
-    /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
-    file: string;
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
@@ -282,7 +290,7 @@ export interface TypeQueryResult {
  * type is not an object or function (other types don’t store their definition site),
  * it will fail to return useful information.
  */
-export interface DefinitionQuery extends BaseQuery {
+export interface DefinitionQuery extends BaseQueryWithFile {
     /**
      * Asks for the definition of something. This will try, for a variable or property,
      * to return the point at which it was defined. If that fails, or the chosen
@@ -292,8 +300,6 @@ export interface DefinitionQuery extends BaseQuery {
      * it will fail to return useful information.
      */
     type: "definition";
-    /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
-    file: string;
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
@@ -320,11 +326,9 @@ export interface DefinitionQueryResult {
 }
 
 /** Get the documentation string and URL for a given expression, if any. */
-export interface DocumentationQuery extends BaseQuery {
+export interface DocumentationQuery extends BaseQueryWithFile {
     /** Get the documentation string and URL for a given expression, if any. */
     type: "documentation";
-    /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
-    file: string;
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
@@ -341,11 +345,9 @@ export interface DocumentationQueryResult {
 }
 
 /** Used to find all references to a given variable or property. */
-export interface RefsQuery extends BaseQuery {
+export interface RefsQuery extends BaseQueryWithFile {
     /** Used to find all references to a given variable or property. */
     type: "refs";
-    /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
-    file: string;
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
@@ -365,11 +367,9 @@ export interface RefsQueryResult {
 }
 
 /** Rename a variable in a scope-aware way. */
-export interface RenameQuery extends BaseQuery {
+export interface RenameQuery extends BaseQueryWithFile {
     /** Rename a variable in a scope-aware way. */
     type: "rename";
-    /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
-    file: string;
     /** Specify the location of the variable. */
     end: number | Position;
     /** Specify the location of the variable. */
@@ -467,7 +467,7 @@ export function registerPlugin(name: string, init: (server: Server, options?: Co
 
 export interface Desc<T extends Query["type"]> {
     run(Server: Server, query: QueryRegistry[T]["query"], file?: File): QueryRegistry[T]["result"];
-    takesfile?: boolean;
+    takesFile?: boolean;
 }
 
 /**

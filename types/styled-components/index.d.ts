@@ -1,13 +1,22 @@
 // Type definitions for styled-components 4.1
-// Project: https://github.com/styled-components/styled-components
+// Project: https://github.com/styled-components/styled-components, https://styled-components.com
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 //                 Ihor Chulinda <https://github.com/Igmat>
 //                 Adam Lavin <https://github.com/lavoaster>
-//                 Jessica Franco <https://github.com/Kovensky>
+//                 Jessica Franco <https://github.com/Jessidhia>
+//                 Jason Killian <https://github.com/jkillian>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 David Ruisinger <https://github.com/flavordaaave>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-/// <reference types="node" />
+// forward declarations
+declare global {
+    namespace NodeJS {
+        // tslint:disable-next-line:no-empty-interface
+        interface ReadableStream {}
+    }
+}
 
 import * as CSS from "csstype";
 import * as React from "react";
@@ -38,9 +47,9 @@ export type StyledProps<P> = ThemedStyledProps<P, AnyIfEmpty<DefaultTheme>>;
 // Wrap in an outer-level conditional type to allow distribution over props that are unions
 type Defaultize<P, D> = P extends any
     ? string extends keyof P ? P :
-        & Pick<P, Exclude<keyof P, keyof D>>
-        & Partial<Pick<P, Extract<keyof P, keyof D>>>
-        & Partial<Pick<D, Exclude<keyof D, keyof P>>>
+        & PickU<P, Exclude<keyof P, keyof D>>
+        & Partial<PickU<P, Extract<keyof P, keyof D>>>
+        & Partial<PickU<D, Exclude<keyof D, keyof P>>>
     : never;
 
 type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D; }
@@ -57,15 +66,23 @@ export type StyledComponentProps<
     // The props that are made optional by .attrs
     A extends keyof any
 > = WithOptionalTheme<
-    Omit<
+    OmitU<
         ReactDefaultizedProps<
             C,
             React.ComponentPropsWithRef<C>
         > & O,
         A
-    > & Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
+    > & Partial<PickU<React.ComponentPropsWithRef<C> & O, A>>,
     T
->;
+> & WithChildrenIfReactComponentClass<C>;
+
+// Because of React typing quirks, when getting props from a React.ComponentClass,
+// we need to manually add a `children` field.
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/31945
+// and https://github.com/DefinitelyTyped/DefinitelyTyped/pull/32843
+type WithChildrenIfReactComponentClass<
+    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
+> = C extends React.ComponentClass<any> ? { children?: React.ReactNode } : {};
 
 type StyledComponentPropsWithAs<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
@@ -263,24 +280,24 @@ type ThemedStyledComponentFactories<T extends object> = {
     [TTag in keyof JSX.IntrinsicElements]: ThemedStyledFunction<TTag, T>
 };
 
-type StyledComponentInnerComponent<
+export type StyledComponentInnerComponent<
     C extends React.ComponentType<any>
 > = C extends
     | StyledComponent<infer I, any, any, any>
     | StyledComponent<infer I, any, any>
     ? I
     : C;
-type StyledComponentPropsWithRef<
+export type StyledComponentPropsWithRef<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
 > = C extends AnyStyledComponent
     ? React.ComponentPropsWithRef<StyledComponentInnerComponent<C>>
     : React.ComponentPropsWithRef<C>;
-type StyledComponentInnerOtherProps<C extends AnyStyledComponent> = C extends
+export type StyledComponentInnerOtherProps<C extends AnyStyledComponent> = C extends
     | StyledComponent<any, any, infer O, any>
     | StyledComponent<any, any, infer O>
     ? O
     : never;
-type StyledComponentInnerAttrs<
+export type StyledComponentInnerAttrs<
     C extends AnyStyledComponent
 > = C extends StyledComponent<any, any, any, infer A> ? A : never;
 
@@ -330,8 +347,10 @@ export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<
 >;
 
 // Helper type operators
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, "theme"> & {
+// Pick that distributes over union types
+export type PickU<T, K extends keyof T> = T extends any ? {[P in K]: T[P]} : never;
+export type OmitU<T, K extends keyof T> = T extends any ? PickU<T, Exclude<keyof T, K>> : never;
+type WithOptionalTheme<P extends { theme?: T }, T> = OmitU<P, "theme"> & {
     theme?: T;
 };
 type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
@@ -446,6 +465,7 @@ export class ServerStyleSheet {
         readableStream: NodeJS.ReadableStream
     ): NodeJS.ReadableStream;
     readonly instance: this;
+    seal(): void;
 }
 
 type StyleSheetManagerProps =

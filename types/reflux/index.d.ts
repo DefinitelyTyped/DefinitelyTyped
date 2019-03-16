@@ -51,8 +51,6 @@ export class Component<TOfStore extends typeof Store = typeof Store, P = any, S 
     store: TOfStore;
     stores: TOfStore[];
     storeKeys: string[];
-    state: S;
-    props: P;
     mapStoreToState(storeType: TOfStore, mappingFunc: (newState: any) => any): void;
 }
 

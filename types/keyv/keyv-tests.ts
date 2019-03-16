@@ -1,5 +1,4 @@
 import Keyv = require('keyv');
-import QuickLRU = require('quick-lru');
 
 new Keyv({
     uri: 'redis://user:pass@localhost:6379',
@@ -20,10 +19,6 @@ new Keyv<boolean>({ serialize: JSON.stringify });
 new Keyv<boolean>({ deserialize: JSON.parse });
 
 new Keyv<boolean>({ store: new Map() });
-
-const lru = new QuickLRU<string, boolean>({ maxSize: 1000 });
-const opts: Keyv.Options<boolean> = { store: lru };
-new Keyv(opts);
 
 new Keyv('mongodb://user:pass@localhost:27017/dbname', { namespace: 'mongodb' });
 new Keyv('redis://user:pass@localhost:6379');

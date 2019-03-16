@@ -68,6 +68,10 @@ class F2 {
         return a + b + c + d;
     }
 
+    function addTenFixedNumbers(a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, k: 9, l: 10): number {
+        return a + b + c + d;
+    }
+
     const x1: (a: number, b: number, c: number, d: number) => number = R.curry(addFourNumbers);
     // because of the current way of currying, the following call results in a type error
     // const x2: Function = R.curry(addFourNumbers)(1,2,4)
@@ -76,6 +80,8 @@ class F2 {
     const y1: number   = R.curry(addFourNumbers)(1)(2)(3)(4);
     const y2: number   = R.curry(addFourNumbers)(1, 2)(3, 4);
     const y3: number   = R.curry(addFourNumbers)(1, 2, 3)(4);
+    const y4: number   = R.curry(addTenFixedNumbers)(R.__, 1, 2)(0)(3)(R.__, R.__)(R.__, 5)(4)(6, 7)(R.__)(8, R.__, R.__)(9, 10);
+    const y5: number   = R.curry(addTenFixedNumbers)(R.__, 1, R.__)(R.__, 2)(0, 3)(R.__, 5)(4, R.__)(R.__)(6, R.__, 8, 9, 10)(7);
 
     R.nAry(0);
     R.nAry(0, takesNoArg);
@@ -119,7 +125,8 @@ class F2 {
     const cars: Car[] = [{speed: 65}, {}];
     for (const car of cars) {
         if (typeGuardCurried(1)(2)(3)(4)(5)(car)) {
-            drive(car);
+            drive(car); // $ExpectError
+            // Generic Curry solved a previously non reported issue
         }
     }
 };
@@ -299,7 +306,7 @@ class F2 {
 
     const capitalize = (str: string) => R.pipe(
         R.split(""),
-        R.adjust(R.toUpper, 0),
+        R.adjust(0, R.toUpper),
         R.join("")
     )(str);
 
@@ -1113,6 +1120,23 @@ interface Obj {
 
     R.addIndex(R.map)(squareEnds, [8, 5, 3, 0, 9]); // => [64, 5, 3, 0, 81]
     R.addIndex(R.map)(squareEnds)([8, 5, 3, 0, 9]); // => [64, 5, 3, 0, 81]
+};
+
+() => {
+    const sampleList = ['a', 'b', 'c', 'd', 'e', 'f'];
+
+    R.move<string>(0, 2, sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
+    R.move<string>(-1, 0, sampleList); // => ['f', 'a', 'b', 'c', 'd', 'e'] list rotation
+
+    const moveCurried1 = R.move(0, 2);
+    moveCurried1<string>(sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
+
+    const moveCurried2 = R.move(0);
+    moveCurried2<string>(2, sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
+
+    const moveCurried3 = R.move(0);
+    const moveCurried4 = moveCurried3(2);
+    moveCurried4<string>(sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
 };
 
 () => {
@@ -2163,7 +2187,7 @@ class Rectangle {
         this.colors = Array.prototype.slice.call(arguments, 1);
     }
 
-    Circle.prototype.area = () => Math.PI * Math.pow(this.r, 2);
+    Circle.prototype.area = function() { return Math.PI * Math.pow(this.r, 2); };
 
     const circleN = R.constructN(2, Circle);
     let c1      = circleN(1, "red");
@@ -2552,6 +2576,11 @@ class Rectangle {
     R.replace(/foo/g, "bar", "foo foo foo"); // => 'bar bar bar'
     R.replace(/foo/g, "bar")("foo foo foo"); // => 'bar bar bar'
     R.replace(/foo/g)("bar")("foo foo foo"); // => 'bar bar bar'
+
+    // Using a function as the replacement value
+    R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`, "coo foo koo"); // => 'c0oo f4oo k8oo'
+    R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`)("coo foo koo"); // => 'c0oo f4oo k8oo'
+    R.replace(/([cfk])oo/g)((match, p1, offset) => `${p1}-${offset}`) ("coo foo koo"); // => 'c0oo f4oo k8oo'
 };
 
 /*****************************************************************
@@ -2601,7 +2630,7 @@ class Rectangle {
     const Why: any = ((val: boolean) => {
         const why = {} as any;
         why.val = val;
-        why.and = (x: boolean) => this.val && x;
+        why.and = function(x: boolean) { return this.val && x; };
         return Why;
     })(true);
     const why      = new Why(true);
@@ -2762,3 +2791,5 @@ class Why {
 () => {
     R.bind(console.log, console);
 };
+
+// Curry tests

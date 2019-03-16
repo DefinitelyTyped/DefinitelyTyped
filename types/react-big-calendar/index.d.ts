@@ -6,6 +6,8 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Paul Potsides <https://github.com/strongpauly>
 //                 janb87 <https://github.com/janb87>
+//                 Daniel Thorne <https://github.com/ldthorne>
+//                 Panagiotis Rikarnto Siavelis <https://github.com/siavelis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
@@ -112,15 +114,15 @@ export interface HeaderProps {
     localizer: DateLocalizer;
 }
 
-export interface Components {
-    event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    eventWrapper?: React.ComponentType<EventWrapperProps>;
+export interface Components<TEvent extends Event = Event> {
+    event?: React.ComponentType<EventProps<TEvent>>;
+    eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>>;
+    eventContainerWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dayWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dateCellWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    /**
-     * component used as a header for each column in the TimeGridHeader
-     */
-    header?: React.ComponentType<HeaderProps>;
+    timeSlotWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+    timeGutterHeader?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+    timeGutterWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     toolbar?: React.ComponentType<ToolbarProps>;
     agenda?: {
         date?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
@@ -140,6 +142,10 @@ export interface Components {
         dateHeader?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
         event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     };
+    /**
+     * component used as a header for each column in the TimeGridHeader
+     */
+    header?: React.ComponentType<HeaderProps>;
 }
 
 export interface ToolbarProps {
@@ -153,24 +159,29 @@ export interface ToolbarProps {
     children?: React.ReactNode;
 }
 
-export interface EventWrapperProps<T extends Event = Event> {
+export interface EventProps<TEvent extends Event = Event> {
+    event: TEvent;
+    title: string;
+}
+
+export interface EventWrapperProps<TEvent extends Event = Event> {
     // https://github.com/intljusticemission/react-big-calendar/blob/27a2656b40ac8729634d24376dff8ea781a66d50/src/TimeGridEvent.js#L28
     style?: React.CSSProperties & { xOffset: number };
     className: string;
-    event: T;
+    event: TEvent;
     isRtl: boolean;
     getters: {
-        eventProp?: EventPropGetter<T>;
+        eventProp?: EventPropGetter<TEvent>;
         slotProp?: SlotPropGetter;
         dayProp?: DayPropGetter;
     };
     onClick: (e: React.MouseEvent<HTMLElement>) => void;
     onDoubleClick: (e: React.MouseEvent<HTMLElement>) => void;
     accessors: {
-        title?: (event: T) => string;
-        tooltip?: (event: T) => string;
-        end?: (event: T) => Date;
-        start?: (event: T) => Date;
+        title?: (event: TEvent) => string;
+        tooltip?: (event: TEvent) => string;
+        end?: (event: TEvent) => Date;
+        start?: (event: TEvent) => Date;
     };
     selected: boolean;
     label: string;
@@ -194,6 +205,7 @@ export interface Messages {
     today?: string;
     agenda?: string;
     showMore?: (count: number) => string;
+    noEventsInRange?: string;
 }
 
 export type Culture = string | string[];
@@ -220,7 +232,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     localizer: DateLocalizer;
 
     date?: stringOrDate;
-    now?: Date;
+    getNow?: () => Date;
     view?: View;
     events?: TEvent[];
     onNavigate?: (newDate: Date, view: View, action: Navigate) => void;
@@ -230,6 +242,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelecting?: (range: { start: stringOrDate, end: stringOrDate }) => boolean | undefined | null;
+    onRangeChange?: (range: { start: stringOrDate, end: stringOrDate }) => void;
     selected?: any;
     views?: Views;
     drilldownView?: View | null;
@@ -252,7 +265,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     scrollToTime?: Date;
     culture?: string;
     formats?: Formats;
-    components?: Components;
+    components?: Components<TEvent>;
     messages?: Messages;
     titleAccessor?: keyof TEvent | ((event: TEvent) => string);
     allDayAccessor?: keyof TEvent | ((event: TEvent) => boolean);
@@ -282,7 +295,7 @@ export default class BigCalendar<TEvent extends Event = Event, TResource extends
     components: {
         dateCellWrapper: React.ComponentType,
         dayWrapper: React.ComponentType,
-        eventWrapper: React.ComponentType,
+        eventWrapper: React.ComponentType<TEvent>,
     };
     /**
      * create DateLocalizer from globalize

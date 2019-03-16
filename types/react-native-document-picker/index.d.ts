@@ -12,6 +12,8 @@ export const DocumentPickerUtil: {
     pdf(): string;
     audio(): string;
     plainText(): string;
+    video(): string;
+    images(): string;
 };
 
 export interface Options {

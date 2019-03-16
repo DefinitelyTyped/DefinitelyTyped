@@ -1,6 +1,7 @@
 // Type definitions for gestalt 0.75
-// Project: https://github.com/pinterest/gestalt
+// Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
+//                 Josh Gachnang <https://github.com/joshgachnang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -359,7 +360,15 @@ export type Icons =
     | "sound"
     | "speech"
     | "speech-ellipsis"
-    | "tag";
+    | "tag"
+    | "terms"
+    | "text-align-left"
+    | "text-align-center"
+    | "text-align-right"
+    | "twitter"
+    | "view-type-default"
+    | "view-type-dense"
+    | "view-type-list";
 
 export interface IconProps {
     accessibilityLabel: string;
@@ -778,7 +787,7 @@ export interface ToastProps {
     color?: "darkGray" | "orange";
     icon?: "arrow-circle-forward";
     text?: string | ReadonlyArray<string>;
-    thumbnail?: React.ReactElement<any>;
+    thumbnail?: React.ReactElement;
 }
 
 /*
@@ -930,7 +939,7 @@ export class Pog extends React.Component<PogProps, any> {}
 export class Pulsar extends React.Component<PulsarProps, any> {}
 export class RadioButton extends React.Component<RadioButtonProps, any> {}
 export class SearchField extends React.Component<SearchFieldProps, any> {}
-export class SegmentedControl extends React.Component<SearchFieldProps, any> {}
+export class SegmentedControl extends React.Component<SegmentedControlProps, any> {}
 export class SelectList extends React.Component<SelectListProps, any> {}
 export class Spinner extends React.Component<SpinnerProps, any> {}
 export class Sticky extends React.Component<StickyProps, any> {}

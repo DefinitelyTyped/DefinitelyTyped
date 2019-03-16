@@ -1,4 +1,4 @@
-// Type definitions for react-jsonschema-form 1.0.1
+// Type definitions for react-jsonschema-form 1.3
 // Project: https://github.com/mozilla-services/react-jsonschema-form
 // Definitions by: Dan Fox <https://github.com/iamdanfox>
 //                 Ivan Jiang <https://github.com/iplus26>
@@ -6,6 +6,7 @@
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
 //                 Sylvain Thénault <https://github.com/sthenault>
 //                 Sebastian Busch <https://github.com/sbusch>
+//                 Mehdi Lahlou <https://github.com/medfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -85,8 +86,9 @@ declare module "react-jsonschema-form" {
         onChange: (value: any) => void;
         options: object;
         formContext: any;
-        onBlur: (id: string, value: string) => void;
-        onFocus: (id: string, value: string) => void;
+        onBlur: (id: string, value: boolean | number | string | null) => void;
+        onFocus: (id: string, value: boolean | number | string | null) => void;
+        label: string;
     }
 
     export type Widget =
@@ -123,12 +125,12 @@ declare module "react-jsonschema-form" {
         id: string;
         classNames: string;
         label: string;
-        description: React.ReactElement<any>;
+        description: React.ReactElement;
         rawDescription: string;
-        children: React.ReactElement<any>;
-        errors: React.ReactElement<any>;
+        children: React.ReactElement;
+        errors: React.ReactElement;
         rawErrors: string[];
-        help: React.ReactElement<any>;
+        help: React.ReactElement;
         rawHelp: string;
         hidden: boolean;
         required: boolean;
@@ -142,14 +144,14 @@ declare module "react-jsonschema-form" {
     };
 
     export type ArrayFieldTemplateProps = {
-        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement<any> }>;
+        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement }>;
         TitleField: React.StatelessComponent<{ id: string, title: string, required: boolean }>;
         canAdd: boolean;
         className: string;
         disabled: boolean;
         idSchema: IdSchema;
         items: {
-            children: React.ReactElement<any>;
+            children: React.ReactElement;
             className: string;
             disabled: boolean;
             hasMoveDown: boolean;
@@ -175,12 +177,12 @@ declare module "react-jsonschema-form" {
     };
 
     export type ObjectFieldTemplateProps = {
-        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement<any> }>;
+        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement }>;
         TitleField: React.StatelessComponent<{ id: string, title: string, required: boolean }>;
         title: string;
         description: string;
         properties: {
-            content: React.ReactElement<any>;
+            content: React.ReactElement;
             name: string;
             disabled: boolean;
             readonly: boolean;

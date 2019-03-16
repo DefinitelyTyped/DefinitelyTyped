@@ -1,10 +1,12 @@
-// Type definitions for algoliasearch-client-js 3.30.0
+// Type definitions for algoliasearch-client-js 3.30.1
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
 //                 Aurélien Hervé <https://github.com/aherve>
 //                 Samuel Vaillant <https://github.com/samouss>
 //                 Kai Eichinger <https://github.com/keichinger>
+//                 Nery Ortez <https://github.com/neryortez>
+//                 Antoine Rousseau <https://github.com/antoinerousseau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -24,25 +26,25 @@ declare namespace algoliasearch {
      * Query on multiple index
      * https://github.com/algolia/algoliasearch-client-js#multiple-queries---multiplequeries
      */
-    search(
+    search<T=any>(
       queries: {
         indexName: string;
         query: string;
         params: QueryParameters;
       }[],
-      cb: (err: Error, res: MultiResponse) => void
+      cb: (err: Error, res: MultiResponse<T>) => void
     ): void;
     /**
      * Query on multiple index
      * https://github.com/algolia/algoliasearch-client-js#multiple-queries---multiplequeries
      */
-    search(
+    search<T=any>(
       queries: {
         indexName: string;
         query: string;
         params: QueryParameters;
       }[]
-    ): Promise<MultiResponse>;
+    ): Promise<MultiResponse<T>>;
     /**
      * Query for facet values of a specific facet
      */
@@ -590,14 +592,14 @@ declare namespace algoliasearch {
      * Search in an index
      * https://github.com/algolia/algoliasearch-client-js#search-in-an-index---search
      */
-    search(params: QueryParameters): Promise<Response>;
+    search<T=any>(params: QueryParameters): Promise<Response<T>>;
     /**
      * Search in an index
      * https://github.com/algolia/algoliasearch-client-js#search-in-an-index---search
      */
-    search(
+    search<T=any>(
       params: QueryParameters,
-      cb: (err: Error, res: Response) => void
+      cb: (err: Error, res: Response<T>) => void
     ): void;
     /**
      * Search in an index
@@ -1279,7 +1281,7 @@ declare namespace algoliasearch {
      * default: ""
      * https://www.algolia.com/doc/api-reference/api-parameters/aroundLatLngViaIP/
      */
-    aroundLatLngViaIP?: string;
+    aroundLatLngViaIP?: boolean;
     /**
      * Control the radius associated with a geo search. Defined in meters.
      * default: null
@@ -1425,6 +1427,12 @@ declare namespace algoliasearch {
      */
     analytics?: boolean;
     /**
+     * If set to true, enables the Click Analytics feature
+     * default false
+     * https://www.algolia.com/doc/api-reference/api-parameters/clickAnalytics/
+     */
+    clickAnalytics?: boolean;
+    /**
      * If set, tag your query with the specified identifiers
      * default: []
      * https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/
@@ -1451,6 +1459,11 @@ declare namespace algoliasearch {
 
     nbShards?: number;
     userData?: string | object;
+
+    /**
+     * https://www.algolia.com/doc/api-reference/api-parameters/sortFacetValuesBy/
+     */
+    sortFacetValuesBy?: 'count' | 'alpha';
   }
 
   namespace SearchForFacetValues {
@@ -1687,7 +1700,7 @@ declare namespace algoliasearch {
      * a list of language ISO codes (as a comma-separated string) for which stop words should be enable
      * https://github.com/algolia/algoliasearch-client-js#removestopwords
      */
-    removeStopWords?: string[];
+    removeStopWords?: boolean | string[];
     /**
      * List of attributes on which you want to apply word-splitting ("decompounding") for
      * each of the languages supported (German, Dutch, and Finnish as of 05/2018)
@@ -1772,18 +1785,28 @@ declare namespace algoliasearch {
     };
     /**
      * List of attributes on which to do a decomposition of camel case words.
-     *
-     https://www.algolia.com/doc/api-reference/api-parameters/camelCaseAttributes/
+     * https://www.algolia.com/doc/api-reference/api-parameters/camelCaseAttributes/
      */
     camelCaseAttributes?: string[];
+    /**
+     * Controls how facet values are sorted.
+     * https://www.algolia.com/doc/api-reference/api-parameters/sortFacetValuesBy/
+     */
+    sortFacetValuesBy?: 'count' | 'alpha';
+    /**
+     * Sets the languages to be used by language-specific settings and functionalities
+     * such as ignorePlurals, removeStopWords, and CJK word-detection.
+     * https://www.algolia.com/doc/api-reference/api-parameters/queryLanguages/
+     */
+    queryLanguages?: Array<'af' | 'ar' | 'az' | 'bg' | 'bn' | 'ca' | 'cs' | 'cy' | 'da' | 'de' | 'el' | 'en' | 'eo' | 'es' | 'et' | 'eu' | 'fa' | 'fi' | 'fo' | 'fr' | 'ga' | 'gl' | 'he' | 'hi' | 'hu' | 'hy' | 'id' | 'is' | 'it' | 'ja' | 'ka' | 'kk' | 'ko' | 'ku' | 'ky' | 'lt' | 'lv' | 'mi' | 'mn' | 'mr' | 'ms' | 'mt' | 'nb' | 'nl' | 'no' | 'ns' | 'pl' | 'ps' | 'pt' | 'pt-br' | 'qu' | 'ro' | 'ru' | 'sk' | 'sq' | 'sv' | 'sw' | 'ta' | 'te' | 'th' | 'tl' | 'tn' | 'tr' | 'tt' | 'uk' | 'ur' | 'uz' | 'zh'>;
   }
 
-  interface Response {
+  interface Response<T=any> {
     /**
      * Contains all the hits matching the query
      * https://www.algolia.com/doc/api-reference/api-methods/search/?language=javascript#response
      */
-    hits: any[];
+    hits: T[];
     /**
      * Current page
      * https://www.algolia.com/doc/api-reference/api-methods/search/?language=javascript#response
@@ -1842,8 +1865,8 @@ declare namespace algoliasearch {
     cursor?: string;
   }
 
-  interface MultiResponse {
-    results: Response[];
+  interface MultiResponse<T=any> {
+    results: Response<T>[];
   }
 }
 

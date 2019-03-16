@@ -640,6 +640,12 @@ export namespace AppEventsLogger {
     function flush(): void;
 
     /**
+     * Sets a custom user ID to associate with all app events.
+     * The userID is persisted until it is cleared by passing nil.
+     */
+    function setUserID(userID: string | null): void;
+
+    /**
      * For iOS only, sets and sends device token to register the current application for push notifications.
      * @platform ios
      */

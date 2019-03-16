@@ -16,6 +16,8 @@
 //                 Kacper Wiszczuk <https://github.com/esemesek>
 //                 Ryan Nickel <https://github.com/mrnickel>
 //                 Souvik Ghosh <https://github.com/souvik-ghosh>
+//                 Cheng Gibson <https://github.com/nossbigg>
+//                 Saransh Kataria <https://github.com/saranshkataria>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -902,6 +904,14 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * Used to reference react managed views from native code.
      */
     nativeID?: string;
+
+    /**
+     * Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:
+     * - null/undefined (default): inherit from the parent node or the global default (0)
+     * - 0: no max, ignore parent/global default
+     * - >= 1: sets the maxFontSizeMultiplier of this node to this value
+     */
+    maxFontSizeMultiplier?: number | null;
 }
 
 /**
@@ -1426,6 +1436,14 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
      * or set/update maxLength to prevent unwanted edits without flicker.
      */
     value?: string;
+
+    /**
+     * Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:
+     * - null/undefined (default): inherit from the parent node or the global default (0)
+     * - 0: no max, ignore parent/global default
+     * - >= 1: sets the maxFontSizeMultiplier of this node to this value
+     */
+    maxFontSizeMultiplier?: number | null;
 }
 
 /**
@@ -3918,7 +3936,7 @@ export interface ListRenderItemInfo<ItemT> {
     };
 }
 
-export type ListRenderItem<ItemT> = (info: ListRenderItemInfo<ItemT>) => React.ReactElement<any> | null;
+export type ListRenderItem<ItemT> = (info: ListRenderItemInfo<ItemT>) => React.ReactElement | null;
 
 export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
@@ -3929,17 +3947,17 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
      * Rendered when the list is empty.
      */
-    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
+    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
+    ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
+    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
@@ -4111,6 +4129,11 @@ export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
      * by taps on items or by navigation actions.
      */
     recordInteraction: () => void;
+
+    /**
+     * Displays the scroll indicators momentarily.
+     */
+    flashScrollIndicators: () => void;
 }
 
 /**
@@ -4140,7 +4163,7 @@ export interface SectionListRenderItemInfo<ItemT> extends ListRenderItemInfo<Ite
     section: SectionListData<ItemT>;
 }
 
-export type SectionListRenderItem<ItemT> = (info: SectionListRenderItemInfo<ItemT>) => React.ReactElement<any> | null;
+export type SectionListRenderItem<ItemT> = (info: SectionListRenderItemInfo<ItemT>) => React.ReactElement | null;
 
 export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
     /**
@@ -4151,22 +4174,22 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
     /**
      * Rendered when the list is empty.
      */
-    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
+    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
+    ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
+    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * Rendered in between each section.
      */
-    SectionSeparatorComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
+    SectionSeparatorComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * A marker property for telling the list to re-render (since it implements PureComponent).
@@ -4252,12 +4275,12 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
      */
-    renderSectionHeader?: (info: { section: SectionListData<ItemT> }) => React.ReactElement<any> | null;
+    renderSectionHeader?: (info: { section: SectionListData<ItemT> }) => React.ReactElement | null;
 
     /**
      * Rendered at the bottom of each section.
      */
-    renderSectionFooter?: (info: { section: SectionListData<ItemT> }) => React.ReactElement<any> | null;
+    renderSectionFooter?: (info: { section: SectionListData<ItemT> }) => React.ReactElement | null;
 
     /**
      * An array of objects with data for each section.
@@ -4317,19 +4340,19 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
      * Rendered when the list is empty. Can be a React Component Class, a render function, or
      * a rendered element.
      */
-    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
+    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * Rendered at the bottom of all the items. Can be a React Component Class, a render function, or
      * a rendered element.
      */
-    ListFooterComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
+    ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * Rendered at the top of all the items. Can be a React Component Class, a render function, or
      * a rendered element.
      */
-    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
+    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * The default accessor functions assume this is an Array<{key: string}> but you can override
@@ -4554,7 +4577,7 @@ export interface ListViewProps extends ScrollViewProps {
      * in StaticContainer or other mechanism as appropriate.  Footer is always
      * at the bottom of the list, and header at the top, on every render pass.
      */
-    renderFooter?: () => React.ReactElement<any>;
+    renderFooter?: () => React.ReactElement;
 
     /**
      * () => renderable
@@ -4564,7 +4587,7 @@ export interface ListViewProps extends ScrollViewProps {
      * in StaticContainer or other mechanism as appropriate.  Footer is always
      * at the bottom of the list, and header at the top, on every render pass.
      */
-    renderHeader?: () => React.ReactElement<any>;
+    renderHeader?: () => React.ReactElement;
 
     /**
      * (rowData, sectionID, rowID) => renderable
@@ -4578,7 +4601,7 @@ export interface ListViewProps extends ScrollViewProps {
         sectionID: string | number,
         rowID: string | number,
         highlightRow?: boolean
-    ) => React.ReactElement<any>;
+    ) => React.ReactElement;
 
     /**
      * A function that returns the scrollable component in which the list rows are rendered.
@@ -4595,7 +4618,7 @@ export interface ListViewProps extends ScrollViewProps {
      * stick to the top until it is pushed off the screen by the next section
      * header.
      */
-    renderSectionHeader?: (sectionData: any, sectionId: string | number) => React.ReactElement<any>;
+    renderSectionHeader?: (sectionData: any, sectionId: string | number) => React.ReactElement;
 
     /**
      * (sectionID, rowID, adjacentRowHighlighted) => renderable
@@ -4607,7 +4630,7 @@ export interface ListViewProps extends ScrollViewProps {
         sectionID: string | number,
         rowID: string | number,
         adjacentRowHighlighted?: boolean
-    ) => React.ReactElement<any>;
+    ) => React.ReactElement;
 
     /**
      * How early to start rendering rows before they come on screen, in
@@ -4684,12 +4707,12 @@ export interface MapViewAnnotation {
     onBlur?: () => any;
     title?: string;
     subtitle?: string;
-    leftCalloutView?: React.ReactElement<any>;
-    rightCalloutView?: React.ReactElement<any>;
-    detailCalloutView?: React.ReactElement<any>;
+    leftCalloutView?: React.ReactElement;
+    rightCalloutView?: React.ReactElement;
+    detailCalloutView?: React.ReactElement;
     tintColor?: string;
     image?: ImageURISource;
-    view?: React.ReactElement<any>;
+    view?: React.ReactElement;
     hasLeftCallout?: boolean;
     hasRightCallout?: boolean;
     onLeftCalloutPress?: () => void;
@@ -4848,7 +4871,7 @@ export class MapView extends MapViewBase {
 }
 
 interface MaskedViewIOSProps extends ViewProps {
-    maskElement: React.ReactElement<any>;
+    maskElement: React.ReactElement;
 }
 
 /**
@@ -6292,21 +6315,6 @@ export interface ScrollViewPropsIOS {
     scrollsToTop?: boolean;
 
     /**
-     * When snapToInterval is set, snapToAlignment will define the relationship of the the snapping to the scroll view.
-     *      - start (the default) will align the snap at the left (horizontal) or top (vertical)
-     *      - center will align the snap in the center
-     *      - end will align the snap at the right (horizontal) or bottom (vertical)
-     */
-    snapToAlignment?: "start" | "center" | "end";
-
-    /**
-     * When set, causes the scroll view to stop at multiples of the value of snapToInterval.
-     * This can be used for paginating through children that have lengths smaller than the scroll view.
-     * Used in combination with snapToAlignment.
-     */
-    snapToInterval?: number;
-
-    /**
      * An array of child indices determining which children get docked to the
      * top of the screen when scrolling. For example passing
      * `stickyHeaderIndices={[0]}` will cause the first child to be fixed to the
@@ -6478,6 +6486,44 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      * functionality for the ScrollView.
      */
     refreshControl?: React.ReactElement<RefreshControlProps>;
+
+    /**
+     * When `snapToInterval` is set, `snapToAlignment` will define the relationship of the the snapping to the scroll view.
+     *      - `start` (the default) will align the snap at the left (horizontal) or top (vertical)
+     *      - `center` will align the snap in the center
+     *      - `end` will align the snap at the right (horizontal) or bottom (vertical)
+     */
+    snapToAlignment?: "start" | "center" | "end";
+
+    /**
+     * When set, causes the scroll view to stop at multiples of the value of `snapToInterval`.
+     * This can be used for paginating through children that have lengths smaller than the scroll view.
+     * Used in combination with `snapToAlignment` and `decelerationRate="fast"`. Overrides less
+     * configurable `pagingEnabled` prop.
+     */
+    snapToInterval?: number;
+
+    /**
+     * When set, causes the scroll view to stop at the defined offsets. This can be used for
+     * paginating through variously sized children that have lengths smaller than the scroll view.
+     * Typically used in combination with `decelerationRate="fast"`. Overrides less configurable
+     * `pagingEnabled` and `snapToInterval` props.
+     */
+    snapToOffsets?: number[];
+
+    /**
+     * Use in conjuction with `snapToOffsets`. By default, the beginning of the list counts as a
+     * snap offset. Set `snapToStart` to false to disable this behavior and allow the list to scroll
+     * freely between its start and the first `snapToOffsets` offset. The default value is true.
+     */
+    snapToStart?: boolean;
+
+    /**
+     * Use in conjuction with `snapToOffsets`. By default, the end of the list counts as a snap
+     * offset. Set `snapToEnd` to false to disable this behavior and allow the list to scroll freely
+     * between its end and the last `snapToOffsets` offset. The default value is true.
+     */
+    snapToEnd?: boolean;
 }
 
 declare class ScrollViewComponent extends React.Component<ScrollViewProps> {}
@@ -6610,10 +6656,10 @@ export interface SwipeableListViewProps {
         sectionID: string | number,
         rowID: string | number,
         highlightRow?: boolean
-    ) => React.ReactElement<any>;
+    ) => React.ReactElement;
 
     // Callback method to render the view that will be unveiled on swipe
-    renderQuickActions(rowData: any, sectionID: string | number, rowID: string | number): React.ReactElement<any>;
+    renderQuickActions(rowData: any, sectionID: string | number, rowID: string | number): React.ReactElement;
 }
 
 /**
@@ -7633,6 +7679,9 @@ export interface PanResponderStatic {
 export interface Rationale {
     title: string;
     message: string;
+    buttonPositive: string;
+    buttonNegative?: string;
+    buttonNeutral?: string;
 }
 
 export type Permission =
@@ -8156,7 +8205,7 @@ export interface UIManagerStatic {
      * @platform ios
      */
     takeSnapshot: (
-        view?: "window" | React.ReactElement<any> | number,
+        view?: "window" | React.ReactElement | number,
         options?: {
             width?: number;
             height?: number;
@@ -8990,8 +9039,44 @@ export interface ARTStatic {
     Text: typeof ARTText;
 }
 
+export type KeyboardEventName =
+    | "keyboardWillShow"
+    | "keyboardDidShow"
+    | "keyboardWillHide"
+    | "keyboardDidHide"
+    | "keyboardWillChangeFrame"
+    | "keyboardDidChangeFrame";
+
+export type KeyboardEventEasing =
+    | "easeIn"
+    | "easeInEaseOut"
+    | "easeOut"
+    | "linear"
+    | "keyboard";
+
+type ScreenRect = {
+    screenX: number;
+    screenY: number;
+    width: number;
+    height: number;
+};
+
+export interface KeyboardEvent {
+    duration: number;
+    easing: KeyboardEventEasing;
+    endCoordinates: ScreenRect;
+    startCoordinates: ScreenRect;
+    isEventFromThisApp: boolean;
+}
+
+type KeyboardEventListener = (event: KeyboardEvent) => void;
+
 export interface KeyboardStatic extends NativeEventEmitter {
     dismiss: () => void;
+    addListener(
+        eventType: KeyboardEventName,
+        listener: KeyboardEventListener
+    ): EmitterSubscription;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -9229,7 +9314,11 @@ export const PointPropType: React.Validator<PointPropType>;
 export const ViewPropTypes: React.ValidationMap<ViewProps>;
 
 declare global {
-    function require(name: string): any;
+    interface NodeRequire {
+        (id: string): any;
+    }
+
+    var require: NodeRequire;
 
     /**
      * Console polyfill
@@ -9247,7 +9336,7 @@ declare global {
         ignoredYellowBox: string[];
     }
 
-    const console: Console;
+    var console: Console;
 
     /**
      * Navigator object for accessing location API
