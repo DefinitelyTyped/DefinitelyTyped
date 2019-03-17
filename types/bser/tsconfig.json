@@ -19,6 +19,9 @@
     },
     "files": [
         "index.d.ts",
-        "bser-tests.ts"
+        "test/tests.ts",
+        "test/sample1.ts",
+        "test/sample2.ts",
+        "test/sample3.ts"
     ]
 }
