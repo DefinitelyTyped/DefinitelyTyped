@@ -49,42 +49,6 @@ export class Accumulator {
     writeInt(value: number, size: number): void;
 }
 
-export namespace Accumulator {
-    namespace prototype {
-        function append(buf: InputWrapper): void;
-
-        function assertReadableSize(size: number): void;
-
-        function peekDouble(): number;
-        
-        function peekInt(size: number): IntWrapper;
-
-        function peekString(size: number): string;
-
-        function readAdvance(size: number): void;
-
-        function readAvail(): number;
-
-        function readDouble(): number;
-
-        // replace "IntWrapper" with "number"?
-        function readInt(bytes: number): IntWrapper;
-
-        function readString(size: number): string;
-
-        function reserve(size: number): void;
-
-        function writeAvail(): number;
-
-        function writeByte(value: number): void;
-
-        function writeDouble(value: number): void;
-
-        function writeInt(value: number, size: number): void;
-    }
-
-}
-
 export class BunserBuf extends EventEmitter {
     constructor();
 
@@ -112,37 +76,6 @@ export class BunserBuf extends EventEmitter {
     processLater(): void;
 
     raise(reason: string): void;
-
-}
-
-export namespace BunserBuf {
-    namespace prototype {
-
-        function append(buf: InputWrapper, synchronous?: false): AnyWrapper | AnyWrapper[] | undefined;
-        function append(buf: InputWrapper, synchronous: true): void;
-
-        function decodeAny(): AnyWrapper | AnyWrapper[];
-
-        function decodeArray(): AnyWrapper[];
-
-        // replace "IntWrapper" with "number"?
-        function decodeInt(relaxSizeAsserts?: boolean): false | IntWrapper;
-
-        function decodeObject(): object;
-
-        function decodeString(): string;
-
-        function decodeTemplate(): AnyWrapper[];
-
-        function expectCode(expected: number): void;
-
-        function process(synchronous?: false): AnyWrapper | AnyWrapper[] | undefined;
-        function process(synchronous: true): void;
-
-        function processLater(): void;
-
-        function raise(reason: string): void;
-    }
 
 }
 
