@@ -1,4 +1,4 @@
-import { default as EmberObject, action, computed } from "..";
+import { default as EmberObject, action, computed } from "@ember/object";
 
 // Native class syntax
 class Foo extends EmberObject {
