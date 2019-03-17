@@ -1,4 +1,5 @@
-import Vara from 'vara';
+import Vara = require('vara');
+import * as Vara2 from 'vara';
 
 const vara = new Vara('#root', 'font.json', [
     {
@@ -35,8 +36,10 @@ const vara = new Vara('#root', 'font.json', [
     }
 );
 
+const vara2 = new Vara2('#root', 'font.json', []);
+
 // $ExpectType void
-vara.ready(() => {});
+vara.ready(() => { });
 
 // $ExpectType false | TextElements
 vara.get(0);
@@ -47,7 +50,7 @@ vara.draw(0);
 vara.draw(0, 1000);
 
 // $ExpectType void
-vara.animationEnd((id, group) => {});
+vara.animationEnd((id, group) => { });
 
 // $ExpectType void
 vara.playAll();

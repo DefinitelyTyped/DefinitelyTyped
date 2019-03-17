@@ -12,7 +12,7 @@
  * however they will not override the options set above.
  * They will work as secondary options.
  */
-export interface TextProperties {
+interface TextProperties {
     /**
      * Size of the text
      */
@@ -47,7 +47,7 @@ export interface TextProperties {
     letterSpacing?: number;
 }
 
-export interface TextStep extends TextProperties {
+interface TextStep extends TextProperties {
     /**
      * Text to be shown
      */
@@ -79,7 +79,7 @@ export interface TextStep extends TextProperties {
     delay?: number;
 }
 
-export interface TextElements {
+interface TextElements {
     /**
      * Array of svg g elements, each representing a letter
      */
@@ -91,9 +91,11 @@ export interface TextElements {
     container: SVGGElement;
 }
 
-export default class Vara {
-    constructor(queryDom: string, fontJSONSource: string,
-        textStep: TextStep[], textGlobals?: TextProperties);
+declare class VaraType {
+    constructor(queryDom: string,
+        fontJSONSource: string,
+        textStep: TextStep[],
+        textGlobals?: TextProperties);
 
     /**
      * Is used to execute a function when the font is loaded and the elements are created.
@@ -153,3 +155,8 @@ export default class Vara {
 
     setPosition(element: SVGGElement, obj: { x?: number; y?: number }, relative?: { x: boolean; y: boolean; }): void;
 }
+
+declare const Vara: typeof VaraType;
+
+export = Vara;
+export as namespace Vara;
