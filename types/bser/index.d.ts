@@ -10,7 +10,13 @@ import { EventEmitter } from "events";
 
 import Int64 from "node-int64";
 
-type InputWrapper = Buffer | string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer;
+type InputWrapper =
+    | Buffer
+    | string
+    | NodeJS.TypedArray
+    | DataView
+    | ArrayBuffer
+    | SharedArrayBuffer;
 type IntWrapper = number | Int64;
 type AnyWrapper = boolean | IntWrapper | null | string | object;
 
@@ -22,7 +28,7 @@ export class Accumulator {
     assertReadableSize(size: number): void;
 
     peekDouble(): number;
-    
+
     peekInt(size: number): IntWrapper;
 
     peekString(size: number): string;
@@ -52,7 +58,10 @@ export class Accumulator {
 export class BunserBuf extends EventEmitter {
     constructor();
 
-    append(buf: InputWrapper, synchronous?: false): AnyWrapper | AnyWrapper[] | undefined;
+    append(
+        buf: InputWrapper,
+        synchronous?: false
+    ): AnyWrapper | AnyWrapper[] | undefined;
     append(buf: InputWrapper, synchronous: true): void;
 
     decodeAny(): AnyWrapper | AnyWrapper[];
@@ -76,7 +85,6 @@ export class BunserBuf extends EventEmitter {
     processLater(): void;
 
     raise(reason: string): void;
-
 }
 
 export function dumpToBuffer(val: any): Buffer;
