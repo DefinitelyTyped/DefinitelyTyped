@@ -1,17 +1,24 @@
-import { Chart, ChartData, Point } from "chart.js";
+import { Chart, Point, InteractionMode, PositionMode, BaseChartMetaConfig } from "chart.js";
 
 // alternative:
 // import chartjs = require('chart.js');
 // => chartjs.Chart
 
 const plugin = {
-    afterDraw: (chartInstance: Chart, easing: string, options?: any) => {
+    afterDraw: (chartInstance: Chart<CustomMetaConfig>, easing: string, options?: any) => {
     }
 };
 
 const ctx = new CanvasRenderingContext2D();
 
-const chart: Chart = new Chart(ctx, {
+interface CustomMetaConfig extends BaseChartMetaConfig {
+    pluginTypes: {
+        bar: boolean;
+        foo: {}
+    };
+}
+
+const chart: Chart<CustomMetaConfig> = new Chart<CustomMetaConfig>(ctx, {
     type: "bar",
     plugins: [plugin, plugin],
     data: {
@@ -31,7 +38,7 @@ const chart: Chart = new Chart(ctx, {
         hover: {
             intersect: true
         },
-        onHover(ev: MouseEvent, points: any[]) {
+         onHover(ev: MouseEvent, points: any[]) {
             return;
         },
         title: {
@@ -40,9 +47,9 @@ const chart: Chart = new Chart(ctx, {
         tooltips: {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
-            mode: 'index',
+            mode: 'index' as InteractionMode,
             itemSort: (a, b) => Math.random() - 0.5,
-            position: "average",
+            position: "average" as PositionMode,
             caretPadding: 2,
             displayColors: true,
             borderColor: "rgba(0,0,0,0)",
@@ -112,18 +119,18 @@ const tickOptions: Chart.LinearTickOptions = {
 };
 const scaleOptions: Chart.RadialLinearScale = {
     ticks: tickOptions,
-    lineArc: false,
+    // lineArc: false, -- no longer exists
     display: false,
-    scaleLabel: {
-        display: false
-    },
+    // scaleLabel: { -- radial linear scales don't have this property
+    //     display: false
+    // },
 };
-const radarChartOptions: Chart.RadialChartOptions = {
-    legend: {display: false},
+const radarChartOptions: Chart.RadialChartOptions<CustomMetaConfig> = {
+    legend: { display: false },
     scale: scaleOptions,
     responsive: true,
 };
-const chartConfig: Chart.ChartConfiguration = {
+const chartConfig: Chart.ChartConfiguration<CustomMetaConfig> = {
     type: 'radar',
     data: {
         labels: ['#apples', '#pears', '#apricots', '#acorns', '#amigas', "#orics"],
@@ -140,7 +147,7 @@ const chartConfig: Chart.ChartConfiguration = {
     },
     options: radarChartOptions
 };
-const radialChart: Chart = new Chart(new CanvasRenderingContext2D(), chartConfig);
+const radialChart: Chart<CustomMetaConfig> = new Chart<CustomMetaConfig>(new CanvasRenderingContext2D(), chartConfig);
 radialChart.update();
 
 console.log(radialChart.ctx && radialChart.ctx.font);
