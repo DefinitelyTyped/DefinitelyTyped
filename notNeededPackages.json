@@ -1069,6 +1069,12 @@
             "asOfVersion": "1.2.0"
         },
         {
+            "libraryName": "leven",
+            "typingsPackageName": "leven",
+            "sourceRepoURL": "https://github.com/sindresorhus/leven",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "Linq.JS",
             "typingsPackageName": "linq",
             "sourceRepoURL": "https://linqjs.codeplex.com/",
