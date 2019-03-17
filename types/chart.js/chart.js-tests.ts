@@ -1,4 +1,4 @@
-import { Chart, ChartData, Point } from "chart.js";
+import { Chart, Point, InteractionMode, PositionMode } from "chart.js";
 
 // alternative:
 // import chartjs = require('chart.js');
@@ -40,9 +40,9 @@ const chart: Chart = new Chart(ctx, {
         tooltips: {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
-            mode: 'index',
+            mode: 'index' as InteractionMode,
             itemSort: (a, b) => Math.random() - 0.5,
-            position: "average",
+            position: "average" as PositionMode,
             caretPadding: 2,
             displayColors: true,
             borderColor: "rgba(0,0,0,0)",
@@ -112,14 +112,14 @@ const tickOptions: Chart.LinearTickOptions = {
 };
 const scaleOptions: Chart.RadialLinearScale = {
     ticks: tickOptions,
-    lineArc: false,
+    // lineArc: false, -- no longer exists
     display: false,
-    scaleLabel: {
-        display: false
-    },
+    // scaleLabel: { -- radial linear scales don't have this property
+    //     display: false
+    // },
 };
 const radarChartOptions: Chart.RadialChartOptions = {
-    legend: {display: false},
+    legend: { display: false },
     scale: scaleOptions,
     responsive: true,
 };
