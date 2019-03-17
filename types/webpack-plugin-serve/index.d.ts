@@ -93,7 +93,7 @@ export interface WebpackPluginServeOptions {
     waitForBuild?: boolean;
 }
 
-export declare class WebpackPluginServe {
+export class WebpackPluginServe {
     constructor(opts?: WebpackPluginServeOptions);
     attach(): {
         apply(compiler: Compiler): void;
