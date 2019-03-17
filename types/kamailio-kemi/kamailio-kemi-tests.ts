@@ -1,5 +1,3 @@
-import * as KSR from "kamailio-kemi";
-
 function ksr_request_route() {
     if (KSR.maxfwd.process_maxfwd(16) < 0) {
         KSR.sl.send_reply(483, "Too Many Hops");
