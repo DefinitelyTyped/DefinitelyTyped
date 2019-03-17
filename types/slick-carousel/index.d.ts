@@ -695,6 +695,6 @@ interface JQuery {
      * Get Slick Object
      * @param methodName The name of the method
      */
-    slick(methodName: "getSlick"): Object;
+    slick(methodName: "getSlick"): JQuerySlick;
 
 }
