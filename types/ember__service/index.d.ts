@@ -13,7 +13,7 @@ export default class Service extends EmberObject {}
  * are no restrictions as to what objects a service can be injected into.
  */
 export function inject(): PropertyDecorator & ComputedProperty<Service>; // @inject() foo, foo: inject()
-export function inject(target: Object, propertyKey: string | symbol): void; // @inject foo
+export function inject(target: object, propertyKey: string | symbol): void; // @inject foo
 export function inject<K extends keyof Registry>(name: K): PropertyDecorator & ComputedProperty<Registry[K]>; // @inject('store') foo      @inject() foo
 
 // A type registry for Ember `Service`s. Meant to be declaration-merged so

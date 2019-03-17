@@ -35,7 +35,7 @@ export function inject(): ComputedProperty<Controller> & PropertyDecorator;
 export function inject<K extends keyof Registry>(
     name: K
 ): ComputedProperty<Registry[K]> & PropertyDecorator;
-export function inject(target: Object, propertyKey: string | symbol): void;
+export function inject(target: object, propertyKey: string | symbol): void;
 
 // A type registry for Ember `Controller`s. Meant to be declaration-merged
 // so string lookups resolve to the correct type.
