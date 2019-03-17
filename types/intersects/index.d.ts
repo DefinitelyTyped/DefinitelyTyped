@@ -1,6 +1,6 @@
 // Type definitions for intersects 2.5
 // Project: https://github.com/davidfig/intersects#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Voxylu <https://github.com/voxylu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function boxBox(
@@ -12,7 +12,7 @@ export function boxBox(
     y2: number,
     w2: number,
     h2: number
-): boolean
+): boolean;
 
 export function boxCircle(
     xb: number,
@@ -22,7 +22,7 @@ export function boxCircle(
     xc: number,
     yc: number,
     rc: number
-): boolean
+): boolean;
 
 export function boxEllipse(
     xb: number,
@@ -33,7 +33,7 @@ export function boxEllipse(
     ye: number,
     rex: number,
     rey: number
-): boolean
+): boolean;
 
 export function boxLine(
     xb: number,
@@ -44,7 +44,7 @@ export function boxLine(
     y1: number,
     x2: number,
     y2: number
-): boolean
+): boolean;
 
 export function boxPoint(
     x1: number,
@@ -53,7 +53,7 @@ export function boxPoint(
     h1: number,
     x2: number,
     y2: number
-): boolean
+): boolean;
 
 export function boxPolygon(
     xb: number,
@@ -61,7 +61,7 @@ export function boxPolygon(
     wb: number,
     hb: number,
     points: number[]
-): boolean
+): boolean;
 
 export function circleBox(
     xc: number,
@@ -71,7 +71,7 @@ export function circleBox(
     yb: number,
     wb: number,
     hb: number
-): boolean
+): boolean;
 
 export function circleCircle(
     x1: number,
@@ -80,7 +80,7 @@ export function circleCircle(
     x2: number,
     y2: number,
     r2: number
-): boolean
+): boolean;
 
 export function circleEllipse(
     xc: number,
@@ -90,7 +90,7 @@ export function circleEllipse(
     ye: number,
     rex: number,
     rey: number
-): boolean
+): boolean;
 
 export function circleLine(
     xc: number,
@@ -100,7 +100,7 @@ export function circleLine(
     y1: number,
     x2: number,
     y2: number
-): boolean
+): boolean;
 
 export function circlePoint(
     x1: number,
@@ -108,14 +108,14 @@ export function circlePoint(
     r1: number,
     x2: number,
     y2: number
-): boolean
+): boolean;
 
 export function circlePolygon(
     xc: number,
     yc: number,
     rc: number,
     points: number[]
-): boolean
+): boolean;
 
 export function ellipseBox(
     xe: number,
@@ -126,7 +126,7 @@ export function ellipseBox(
     yb: number,
     wb: number,
     hb: number
-): boolean
+): boolean;
 
 export function ellipseCircle(
     xe: number,
@@ -136,7 +136,7 @@ export function ellipseCircle(
     xc: number,
     yc: number,
     rc: number
-): boolean
+): boolean;
 
 export function ellipseEllipse(
     x1: number,
@@ -147,7 +147,7 @@ export function ellipseEllipse(
     y2: number,
     r2x: number,
     r2y: number
-): boolean
+): boolean;
 
 export function ellipseLine(
     xe: number,
@@ -158,7 +158,7 @@ export function ellipseLine(
     y1: number,
     x2: number,
     y2: number
-): boolean
+): boolean;
 
 export function ellipsePoint(
     xe: number,
@@ -167,7 +167,7 @@ export function ellipsePoint(
     rey: number,
     x1: number,
     y1: number
-): boolean
+): boolean;
 
 export function ellipsePolygon(
     xe: number,
@@ -175,7 +175,7 @@ export function ellipsePolygon(
     rex: number,
     rey: number,
     points: number[]
-): boolean
+): boolean;
 
 export function lineBox(
     x1: number,
@@ -186,7 +186,7 @@ export function lineBox(
     yb: number,
     wb: number,
     hb: number
-): boolean
+): boolean;
 
 export function lineCircle(
     x1: number,
@@ -196,7 +196,7 @@ export function lineCircle(
     xc: number,
     yc: number,
     rc: number
-): boolean
+): boolean;
 
 export function lineEllipse(
     x1: number,
@@ -207,7 +207,7 @@ export function lineEllipse(
     ye: number,
     rex: number,
     rey: number
-): boolean
+): boolean;
 
 export function lineLine(
     x1: number,
@@ -218,7 +218,7 @@ export function lineLine(
     y3: number,
     x4: number,
     y4: number
-): boolean
+): boolean;
 
 export function linePoint(
     x1: number,
@@ -228,7 +228,7 @@ export function linePoint(
     xp: number,
     yp: number,
     tolerance: number
-): boolean
+): boolean;
 
 export function linePolygon(
     x1: number,
@@ -237,7 +237,7 @@ export function linePolygon(
     y2: number,
     points: number[],
     tolerance: number
-): boolean
+): boolean;
 
 export function pointBox(
     x1: number,
@@ -246,7 +246,7 @@ export function pointBox(
     yb: number,
     wb: number,
     hb: number
-): boolean
+): boolean;
 
 export function pointCircle(
     x1: number,
@@ -254,7 +254,7 @@ export function pointCircle(
     xc: number,
     yc: number,
     rc: number
-): boolean
+): boolean;
 
 export function pointEllipse(
     x1: number,
@@ -263,7 +263,7 @@ export function pointEllipse(
     ye: number,
     rex: number,
     rey: number
-): boolean
+): boolean;
 
 export function pointLine(
     xp: number,
@@ -272,14 +272,14 @@ export function pointLine(
     y1: number,
     x2: number,
     y2: number
-): boolean
+): boolean;
 
 export function pointPolygon(
     x1: number,
     y1: number,
     points: number[],
     tolerance: number
-): boolean
+): boolean;
 
 export function polygonBox(
     points: number[],
@@ -287,14 +287,14 @@ export function polygonBox(
     y: number,
     w: number,
     h: number
-): boolean
+): boolean;
 
 export function polygonCircle(
     points: number[],
     xc: number,
     yc: number,
     rc: number
-): boolean
+): boolean;
 
 export function polygonEllipse(
     points: number[],
@@ -302,7 +302,7 @@ export function polygonEllipse(
     ye: number,
     rex: number,
     rey: number
-): boolean
+): boolean;
 
 export function polygonLine(
     points: number[],
@@ -311,13 +311,13 @@ export function polygonLine(
     x2: number,
     y2: number,
     tolerance: number
-): boolean
+): boolean;
 
 export function polygonPoint(
     points: number[],
     x: number,
     y: number,
     tolerance: number
-): boolean
+): boolean;
 
-export function polygonPolygon(points1: number[], points2: number[]): boolean
+export function polygonPolygon(points1: number[], points2: number[]): boolean;
