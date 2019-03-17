@@ -1,423 +1,151 @@
+import { EventEmitter } from "events";
+
 // Type definitions for bser 2.0
 // Project: https://facebook.github.io/watchman/docs/bser.html
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+/// <reference types="node-int64" />
+
+import Int64 from "node-int64";
+
+type InputWrapper = Buffer | string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer;
+type IntWrapper = number | Int64;
+type AnyWrapper = boolean | IntWrapper | null | string | object;
+
 export class Accumulator {
-    constructor(initsize: any);
+    constructor(initsize?: number);
 
-    append(buf: any): void;
+    append(buf: InputWrapper): void;
 
-    assertReadableSize(size: any): void;
+    assertReadableSize(size: number): void;
 
-    peekDouble(): any;
+    peekDouble(): number;
+    
+    peekInt(size: number): IntWrapper;
 
-    peekInt(size: any): any;
+    peekString(size: number): string;
 
-    peekString(size: any): any;
+    readAdvance(size: number): void;
 
-    readAdvance(size: any): void;
+    readAvail(): number;
 
-    readAvail(): any;
+    readDouble(): number;
 
-    readDouble(): any;
+    // replace "IntWrapper" with "number"?
+    readInt(bytes: number): IntWrapper;
 
-    readInt(bytes: any): any;
+    readString(size: number): string;
 
-    readString(size: any): any;
+    reserve(size: number): void;
 
-    reserve(size: any): void;
+    writeAvail(): number;
 
-    writeAvail(): any;
+    writeByte(value: number): void;
 
-    writeByte(value: any): void;
+    writeDouble(value: number): void;
 
-    writeDouble(value: any): void;
-
-    writeInt(value: any, size: any): void;
-
+    writeInt(value: number, size: number): void;
 }
-
-export class BunserBuf {
-    constructor();
-
-    append(buf: any, synchronous: any): any;
-
-    decodeAny(): any;
-
-    decodeArray(): any;
-
-    decodeInt(relaxSizeAsserts: any): any;
-
-    decodeObject(): any;
-
-    decodeString(): any;
-
-    decodeTemplate(): any;
-
-    expectCode(expected: any): void;
-
-    process(synchronous: any): any;
-
-    processLater(): void;
-
-    raise(reason: any): void;
-
-}
-
-export function dumpToBuffer(val: any): any;
-
-export function loadFromBuffer(input: any): any;
 
 export namespace Accumulator {
     namespace prototype {
-        function append(buf: any): void;
+        function append(buf: InputWrapper): void;
 
-        function assertReadableSize(size: any): void;
+        function assertReadableSize(size: number): void;
 
-        function peekDouble(): any;
+        function peekDouble(): number;
+        
+        function peekInt(size: number): IntWrapper;
 
-        function peekInt(size: any): any;
+        function peekString(size: number): string;
 
-        function peekString(size: any): any;
+        function readAdvance(size: number): void;
 
-        function readAdvance(size: any): void;
+        function readAvail(): number;
 
-        function readAvail(): any;
+        function readDouble(): number;
 
-        function readDouble(): any;
+        // replace "IntWrapper" with "number"?
+        function readInt(bytes: number): IntWrapper;
 
-        function readInt(bytes: any): any;
+        function readString(size: number): string;
 
-        function readString(size: any): any;
+        function reserve(size: number): void;
 
-        function reserve(size: any): void;
+        function writeAvail(): number;
 
-        function writeAvail(): any;
+        function writeByte(value: number): void;
 
-        function writeByte(value: any): void;
+        function writeDouble(value: number): void;
 
-        function writeDouble(value: any): void;
-
-        function writeInt(value: any, size: any): void;
-
-        namespace append {
-            const prototype: {
-            };
-
-        }
-
-        namespace assertReadableSize {
-            const prototype: {
-            };
-
-        }
-
-        namespace peekDouble {
-            const prototype: {
-            };
-
-        }
-
-        namespace peekInt {
-            const prototype: {
-            };
-
-        }
-
-        namespace peekString {
-            const prototype: {
-            };
-
-        }
-
-        namespace readAdvance {
-            const prototype: {
-            };
-
-        }
-
-        namespace readAvail {
-            const prototype: {
-            };
-
-        }
-
-        namespace readDouble {
-            const prototype: {
-            };
-
-        }
-
-        namespace readInt {
-            const prototype: {
-            };
-
-        }
-
-        namespace readString {
-            const prototype: {
-            };
-
-        }
-
-        namespace reserve {
-            const prototype: {
-            };
-
-        }
-
-        namespace writeAvail {
-            const prototype: {
-            };
-
-        }
-
-        namespace writeByte {
-            const prototype: {
-            };
-
-        }
-
-        namespace writeDouble {
-            const prototype: {
-            };
-
-        }
-
-        namespace writeInt {
-            const prototype: {
-            };
-
-        }
-
+        function writeInt(value: number, size: number): void;
     }
+
+}
+
+export class BunserBuf extends EventEmitter {
+    constructor();
+
+    append(buf: InputWrapper, synchronous?: false): AnyWrapper | AnyWrapper[] | undefined;
+    append(buf: InputWrapper, synchronous: true): void;
+
+    decodeAny(): AnyWrapper | AnyWrapper[];
+
+    decodeArray(): AnyWrapper[];
+
+    // replace "IntWrapper" with "number"?
+    decodeInt(relaxSizeAsserts?: boolean): false | IntWrapper;
+
+    decodeObject(): object;
+
+    decodeString(): string;
+
+    decodeTemplate(): AnyWrapper[];
+
+    expectCode(expected: number): void;
+
+    process(synchronous?: false): AnyWrapper | AnyWrapper[] | undefined;
+    process(synchronous: true): void;
+
+    processLater(): void;
+
+    raise(reason: string): void;
 
 }
 
 export namespace BunserBuf {
     namespace prototype {
-        function addListener(type: any, listener: any): any;
 
-        function append(buf: any, synchronous: any): any;
+        function append(buf: InputWrapper, synchronous?: false): AnyWrapper | AnyWrapper[] | undefined;
+        function append(buf: InputWrapper, synchronous: true): void;
 
-        function decodeAny(): any;
+        function decodeAny(): AnyWrapper | AnyWrapper[];
 
-        function decodeArray(): any;
+        function decodeArray(): AnyWrapper[];
 
-        function decodeInt(relaxSizeAsserts: any): any;
+        // replace "IntWrapper" with "number"?
+        function decodeInt(relaxSizeAsserts?: boolean): false | IntWrapper;
 
-        function decodeObject(): any;
+        function decodeObject(): object;
 
-        function decodeString(): any;
+        function decodeString(): string;
 
-        function decodeTemplate(): any;
+        function decodeTemplate(): AnyWrapper[];
 
-        function emit(type: any, args: any): any;
+        function expectCode(expected: number): void;
 
-        function eventNames(): any;
-
-        function expectCode(expected: any): void;
-
-        function getMaxListeners(): any;
-
-        function listenerCount(type: any): any;
-
-        function listeners(type: any): any;
-
-        function off(type: any, listener: any): any;
-
-        function on(type: any, listener: any): any;
-
-        function once(type: any, listener: any): any;
-
-        function prependListener(type: any, listener: any): any;
-
-        function prependOnceListener(type: any, listener: any): any;
-
-        function process(synchronous: any): any;
+        function process(synchronous?: false): AnyWrapper | AnyWrapper[] | undefined;
+        function process(synchronous: true): void;
 
         function processLater(): void;
 
-        function raise(reason: any): void;
-
-        function rawListeners(type: any): any;
-
-        function removeAllListeners(type: any, ...args: any[]): any;
-
-        function removeListener(type: any, listener: any): any;
-
-        function setMaxListeners(n: any): any;
-
-        namespace addListener {
-            const prototype: {
-            };
-
-        }
-
-        namespace append {
-            const prototype: {
-            };
-
-        }
-
-        namespace decodeAny {
-            const prototype: {
-            };
-
-        }
-
-        namespace decodeArray {
-            const prototype: {
-            };
-
-        }
-
-        namespace decodeInt {
-            const prototype: {
-            };
-
-        }
-
-        namespace decodeObject {
-            const prototype: {
-            };
-
-        }
-
-        namespace decodeString {
-            const prototype: {
-            };
-
-        }
-
-        namespace decodeTemplate {
-            const prototype: {
-            };
-
-        }
-
-        namespace emit {
-            const prototype: {
-            };
-
-        }
-
-        namespace eventNames {
-            const prototype: {
-            };
-
-        }
-
-        namespace expectCode {
-            const prototype: {
-            };
-
-        }
-
-        namespace getMaxListeners {
-            const prototype: {
-            };
-
-        }
-
-        namespace listenerCount {
-            const prototype: {
-            };
-
-        }
-
-        namespace listeners {
-            const prototype: {
-            };
-
-        }
-
-        namespace off {
-            const prototype: {
-            };
-
-        }
-
-        namespace on {
-            const prototype: {
-            };
-
-        }
-
-        namespace once {
-            const prototype: {
-            };
-
-        }
-
-        namespace prependListener {
-            const prototype: {
-            };
-
-        }
-
-        namespace prependOnceListener {
-            const prototype: {
-            };
-
-        }
-
-        namespace process {
-            const prototype: {
-            };
-
-        }
-
-        namespace processLater {
-            const prototype: {
-            };
-
-        }
-
-        namespace raise {
-            const prototype: {
-            };
-
-        }
-
-        namespace rawListeners {
-            const prototype: {
-            };
-
-        }
-
-        namespace removeAllListeners {
-            const prototype: {
-            };
-
-        }
-
-        namespace removeListener {
-            const prototype: {
-            };
-
-        }
-
-        namespace setMaxListeners {
-            const prototype: {
-            };
-
-        }
-
+        function raise(reason: string): void;
     }
 
 }
 
-export namespace dumpToBuffer {
-    const prototype: {
-    };
+export function dumpToBuffer(val: any): Buffer;
 
-}
-
-export namespace loadFromBuffer {
-    const prototype: {
-    };
-
-}
-
+export function loadFromBuffer(input: InputWrapper): AnyWrapper | AnyWrapper[];
