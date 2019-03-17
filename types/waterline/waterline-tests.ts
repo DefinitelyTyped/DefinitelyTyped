@@ -289,16 +289,11 @@ const validationsV3: Waterline.AttributeV3 = {
     type: "string",
     required: true,
     allowNull: true,
-    autoMigrations: {
-        columnType: '_string',
-        autoIncrement: true,
-
-    },
     validations: {
         isString: true,
         isBoolean: true,
         isAfter: new Date("12/12/2001"),
-        isBefore: new Date("12/12/2019"),
+        isBefore: new Date("12/12/2001"),
         isCreditCard:true,
         regex: /ab+c/,
         max: 24,
@@ -308,6 +303,8 @@ const validationsV3: Waterline.AttributeV3 = {
         isUUID: true,
         isURL: true,
         isNumber: true,
+        isNotEmptyString: true,
+        isIp: true,
     }
 };
 
@@ -369,38 +366,6 @@ const attr1: Waterline.CollectionDefinition = {
         next();
     },
 };
-
-const attr2: Waterline.CollectionDefinitionV3 = {
-    beforeValidate: (values, next) => {
-        next();
-        next("");
-    },
-    beforeCreate: (values, next) => {
-        next(new Error(""));
-        next();
-    },
-    afterCreate: (values, next) => {
-        next(new Error(""));
-        next();
-    },
-    beforeUpdate: (values, next) => {
-        next(new Error(""));
-        next();
-    },
-    afterUpdate: (values, next) => {
-        next(new Error(""));
-        next();
-    },
-    beforeDestroy: (values, next) => {
-        next(new Error(""));
-        next();
-    },
-    afterDestroy: (values, next) => {
-        next(new Error(""));
-        next();
-    },
-};
-
 // Queries https://github.com/balderdashy/waterline-docs/blob/master/queries/query.md
 let User: Waterline.Model = {} as any;
 User.find()
