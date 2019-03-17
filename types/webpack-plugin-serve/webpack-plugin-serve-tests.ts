@@ -30,7 +30,7 @@ const usage = (config: Configuration) => {
   config.output!.publicPath = '/';
 
   return config;
-}
+};
 
 const baseConfig = {
     entry: 'index.js'

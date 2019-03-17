@@ -16,93 +16,88 @@ import { ServerOptions as HttpsServerOptions } from 'https';
 import { ZlibOptions } from 'zlib';
 import { Compiler } from 'webpack';
 
-declare namespace WebpackPluginServe {
-
-    export interface CompressOptions extends ZlibOptions {
-        filter?: (content_type: string) => boolean;
-        threshold?: number;
-    }
-
-    export interface KoaStaticOptions {
-        maxage?: number;
-        hidden?: boolean;
-        index?: string;
-        defer?: boolean;
-        gzip?: boolean;
-        br?: boolean;
-        setHeaders?: (res: any, path: any, stats: any) => any;
-        extensions?: string[] | boolean;
-    }
-
-    export type RewriteTo = (context: Context) => string;
-
-    export interface Context {
-        match: RegExpMatchArray;
-        parsedUrl: Url;
-    }
-
-    export interface Rewrite {
-        from: RegExp;
-        to: string | RegExp | RewriteTo;
-    }
-
-    export interface HistoryApiFallbackOptions {
-        disableDotRule?: true;
-        htmlAcceptHeaders?: string[];
-        index?: string;
-        logger?: typeof console.log;
-        rewrites?: Rewrite[];
-        verbose?: boolean;
-    }
-
-    export interface Builtins {
-        proxy: (args: HttpProxyMiddlewareConfig) => Proxy;
-        compress: (opts: CompressOptions) => void;
-        static: (paths: string[], opts?: KoaStaticOptions) => void;
-        historyFallback: (opts: HistoryApiFallbackOptions) => void;
-        websocket: () => void;
-        four0four: (fn?: (ctx: Koa.Context) => void) => void;
-    }
-
-    export interface WebpackPluginServeOptions {
-        client?: {
-            address?: string;
-            retry?: boolean;
-            silent?: boolean;
-        };
-        compress?: boolean;
-        historyFallback?: boolean | HistoryApiFallbackOptions;
-        hmr?: boolean;
-        host?: string | Promise<string>;
-        http2?: boolean | Http2ServerOptions | Http2SecureServerOptions;
-        https?: HttpsServerOptions;
-        liveReload?: boolean;
-        log?: {
-            level: string;
-            timestamp?: boolean;
-        };
-        middleware?: (app: Koa, builtins: Builtins) => void;
-        open?:
-        | boolean
-        | {
-            wait?: boolean;
-            app?: string | ReadonlyArray<string>;
-        };
-        port?: number | Promise<number>;
-        progress?: boolean | 'minimal';
-        static?: string | string[];
-        status?: boolean;
-        waitForBuild?: boolean;
-    }
-
-    class WebpackPluginServe {
-        constructor(opts?: WebpackPluginServeOptions);
-        attach(): {
-            apply(compiler: Compiler): void;
-        };
-        hook(compiler: Compiler): void;
-        apply(compiler: Compiler): void;
-    }
+export interface CompressOptions extends ZlibOptions {
+    filter?: (content_type: string) => boolean;
+    threshold?: number;
 }
 
-export = WebpackPluginServe;
+export interface KoaStaticOptions {
+    maxage?: number;
+    hidden?: boolean;
+    index?: string;
+    defer?: boolean;
+    gzip?: boolean;
+    br?: boolean;
+    setHeaders?: (res: any, path: any, stats: any) => any;
+    extensions?: string[] | boolean;
+}
+
+export type RewriteTo = (context: Context) => string;
+
+export interface Context {
+    match: RegExpMatchArray;
+    parsedUrl: Url;
+}
+
+export interface Rewrite {
+    from: RegExp;
+    to: string | RegExp | RewriteTo;
+}
+
+export interface HistoryApiFallbackOptions {
+    disableDotRule?: true;
+    htmlAcceptHeaders?: string[];
+    index?: string;
+    logger?: typeof console.log;
+    rewrites?: Rewrite[];
+    verbose?: boolean;
+}
+
+export interface Builtins {
+    proxy: (args: HttpProxyMiddlewareConfig) => Proxy;
+    compress: (opts: CompressOptions) => void;
+    static: (paths: string[], opts?: KoaStaticOptions) => void;
+    historyFallback: (opts: HistoryApiFallbackOptions) => void;
+    websocket: () => void;
+    four0four: (fn?: (ctx: Koa.Context) => void) => void;
+}
+
+export interface WebpackPluginServeOptions {
+    client?: {
+        address?: string;
+        retry?: boolean;
+        silent?: boolean;
+    };
+    compress?: boolean;
+    historyFallback?: boolean | HistoryApiFallbackOptions;
+    hmr?: boolean;
+    host?: string | Promise<string>;
+    http2?: boolean | Http2ServerOptions | Http2SecureServerOptions;
+    https?: HttpsServerOptions;
+    liveReload?: boolean;
+    log?: {
+        level: string;
+        timestamp?: boolean;
+    };
+    middleware?: (app: Koa, builtins: Builtins) => void;
+    open?:
+    | boolean
+    | {
+        wait?: boolean;
+        app?: string | ReadonlyArray<string>;
+    };
+    port?: number | Promise<number>;
+    progress?: boolean | 'minimal';
+    static?: string | string[];
+    status?: boolean;
+    waitForBuild?: boolean;
+}
+
+export declare class WebpackPluginServe {
+    constructor(opts?: WebpackPluginServeOptions);
+    attach(): {
+        apply(compiler: Compiler): void;
+    };
+    hook(compiler: Compiler): void;
+    apply(compiler: Compiler): void;
+}
