@@ -1,26 +1,29 @@
-import { EventEmitter } from "events";
-
 // Type definitions for bser 2.0
 // Project: https://facebook.github.io/watchman/docs/bser.html
 // Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 /// <reference types="node" />
-/// <reference types="node-int64" />
 
-import Int64 from "node-int64";
+import { EventEmitter } from "events";
+import Int64 = require("node-int64");
 
-type InputWrapper =
+export type InputWrapper =
     | Buffer
     | string
     | NodeJS.TypedArray
     | DataView
     | ArrayBuffer
     | SharedArrayBuffer;
-type IntWrapper = number | Int64;
-type AnyWrapper = boolean | IntWrapper | null | string | object;
+export type IntWrapper = number | Int64;
+export type AnyWrapper = boolean | IntWrapper | null | string | object;
 
 export class Accumulator {
+    buf: Buffer;
+    readOffset: number;
+    writeOffset: number;
+
     constructor(initsize?: number);
 
     append(buf: InputWrapper): void;
@@ -56,6 +59,11 @@ export class Accumulator {
 }
 
 export class BunserBuf extends EventEmitter {
+    buf: Accumulator;
+    state: 0 | 1;
+    // replace "IntWrapper" with "number"?
+    pduLen?: false | IntWrapper;
+
     constructor();
 
     append(

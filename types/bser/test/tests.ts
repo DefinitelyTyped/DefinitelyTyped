@@ -17,7 +17,7 @@ assert.deepStrictEqual(val, [
     { age: 25 }
 ]);
 
-function roundtrip(val) {
+function roundtrip(val: any) {
     const encoded = bser.dumpToBuffer(val);
     const decoded = bser.loadFromBuffer(encoded);
     assert.deepStrictEqual(decoded, val);
