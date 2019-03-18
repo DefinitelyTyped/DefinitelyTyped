@@ -89,14 +89,14 @@ import { readFile } from 'fs';
         }
 
         static test(): void {
-            const cfn = util.callbackify(this.fn);
-            const cfnE = util.callbackify(this.fnE);
-            const cfnT1 = util.callbackify(this.fnT1);
-            const cfnT1E = util.callbackify(this.fnT1E);
-            const cfnTResult = util.callbackify(this.fnTResult);
-            const cfnTResultE = util.callbackify(this.fnTResultE);
-            const cfnT1TResult = util.callbackify(this.fnT1TResult);
-            const cfnT1TResultE = util.callbackify(this.fnT1TResultE);
+            const cfn = util.callbackify(callbackifyTest.fn);
+            const cfnE = util.callbackify(callbackifyTest.fnE);
+            const cfnT1 = util.callbackify(callbackifyTest.fnT1);
+            const cfnT1E = util.callbackify(callbackifyTest.fnT1E);
+            const cfnTResult = util.callbackify(callbackifyTest.fnTResult);
+            const cfnTResultE = util.callbackify(callbackifyTest.fnTResultE);
+            const cfnT1TResult = util.callbackify(callbackifyTest.fnT1TResult);
+            const cfnT1TResultE = util.callbackify(callbackifyTest.fnT1TResultE);
 
             cfn((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
             cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
