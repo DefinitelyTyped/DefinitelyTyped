@@ -222,6 +222,15 @@ function test_user() {
     user.signUp(null, { useMasterKey: true });
 }
 
+async function test_user_currentAsync() {
+    const asyncUser = await Parse.User.currentAsync();
+    if (asyncUser) {
+        asyncUser.set('email', 'email@example.com');
+    } else if (asyncUser === null) {
+        Parse.User.logIn('email@example.com', 'my pass');
+    }
+}
+
 function test_user_acl_roles() {
 
     const user = new Parse.User();

@@ -5965,6 +5965,10 @@ declare namespace Highcharts {
          * Define the visual z index of the series.
          */
         zIndex?: number;
+        /**
+         * When using any indicators, Define the indicators name like 'candlesticksss'.
+         */
+        linkedTo?: string;
     }
 
     interface SeriesOptions extends IndividualSeriesOptions, SeriesChart { }

@@ -17,6 +17,7 @@
         "space-before-function-paren": false,
         "typedef-whitespace": false,
         "unified-signatures": false,
-        "whitespace": false
+        "whitespace": false,
+        "no-trailing-whitespace": false
     }
 }
