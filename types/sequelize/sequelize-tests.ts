@@ -41,19 +41,26 @@ s.transaction().then( ( a ) => t = a );
 // ~~~~~~~~~~
 //
 
-interface GUserAttributes {
-    id? : number;
+interface GUserCreationAttributes {
+    id? : number
     username? : string;
     email: string;
 }
 
-interface GUserInstance extends Sequelize.Instance<GUserAttributes> {}
-const GUser = s.define<GUserInstance, GUserAttributes>('user', {
+interface GUserAttributes {
+    id : number;
+    username? : string;
+    email: string;
+}
+
+interface GUserInstance extends Sequelize.Instance<GUserAttributes>, GUserAttributes {}
+const GUser = s.define<GUserInstance, GUserAttributes, GUserCreationAttributes>('user', {
     id: Sequelize.INTEGER,
     username: Sequelize.STRING,
     email: Sequelize.STRING
 });
 GUser.create({ id : 1, username : 'one', email: 'one@lol.com' }).then((guser) => guser.save());
+GUser.create({ email: 'two@lol.com' }).then((guser) => guser.save())
 
 var schema : Sequelize.DefineAttributes = {
     key : { type : Sequelize.STRING, primaryKey : true },

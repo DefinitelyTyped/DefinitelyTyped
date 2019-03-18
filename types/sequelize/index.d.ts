@@ -3733,7 +3733,7 @@ declare namespace sequelize {
      * as factory. This class should _not_ be instantiated directly, it is created using `sequelize.define`, and
      * already created models can be loaded using `sequelize.import`
      */
-    interface Model<TInstance, TAttributes> extends Hooks<TInstance>, Associations {
+    interface Model<TInstance, TAttributes, TCreationAttributes = TAttributes> extends Hooks<TInstance>, Associations {
 
         /**
          * The Instance class
@@ -4025,7 +4025,7 @@ declare namespace sequelize {
         /**
          * Builds a new model instance and calls save on it.
          */
-        create(values?: TAttributes, options?: CreateOptions): Promise<TInstance>;
+        create(values?: TCreationAttributes, options?: CreateOptions): Promise<TInstance>;
 
         /**
          * Find a row that matches the query, or build (but don't save) the row if none is found.
@@ -6055,8 +6055,8 @@ declare namespace sequelize {
          * @param options    These options are merged with the default define options provided to the Sequelize
          *                   constructor
          */
-        define<TInstance, TAttributes>(modelName: string, attributes: DefineModelAttributes<TAttributes>,
-            options?: DefineOptions<TInstance>): Model<TInstance, TAttributes>;
+        define<TInstance, TAttributes, TCreationAttributes = TAttributes>(modelName: string, attributes: DefineModelAttributes<TCreationAttributes>,
+            options?: DefineOptions<TInstance>): Model<TInstance, TAttributes, TCreationAttributes>;
 
         /**
          * Fetch a Model which is already defined
