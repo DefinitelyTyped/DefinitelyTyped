@@ -188,4 +188,4 @@ declare class Vec2 {
      toString(): string;
 }
 
-export = Vec2;
+export default Vec2;
