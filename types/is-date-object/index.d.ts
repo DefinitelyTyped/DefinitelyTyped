@@ -2,10 +2,7 @@
 // Project: https://github.com/ljharb/is-date-object
 // Definitions by:  Adam Zerella <https://github.com/adamzerella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
-declare function isDateObject(value: Date): true;
-declare function isDateObject(value?: object): boolean;
-declare function isDateObject(value?: null | boolean | string | number): false;
+declare function isDateObject(value?: any): boolean;
 
 export = isDateObject;
