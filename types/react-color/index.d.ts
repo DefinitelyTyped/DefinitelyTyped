@@ -4,7 +4,8 @@
 //                  Marks Polakovs <https://github.com/markspolakovs>,
 //                  Matthieu Montaudouin <https://github.com/mntdn>,
 //                  Nokogiri <https://github.com/nkgrnkgr>,
-//                  0815Strohhut <https://github.com/0815Strohhut>
+//                  0815Strohhut <https://github.com/0815Strohhut>,
+//                  Daniel Fürst <https://github.com/dnlfrst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
