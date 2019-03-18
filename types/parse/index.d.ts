@@ -9,6 +9,7 @@
 //                  Andrew Goldis <https://github.com/agoldis>
 //                  Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
 //                  Diamond Lewis <https://github.com/dplewis>
+//                  Jong Eun Lee <https://github.com/yomybaby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -622,6 +623,7 @@ subscription.on('close', () => {});
     class User extends Object {
 
         static current(): User | undefined;
+        static currentAsync(): Promise<User | null>;
         static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
         static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
         static logOut(): Promise<User>;
