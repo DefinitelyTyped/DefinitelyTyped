@@ -5,6 +5,7 @@
 //                 Rogier Schouten <https://github.com/rogierschouten>
 //                 Yishai Zehavi <https://github.com/zyishai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /**
  * Names of clock methods that may be faked by install.
