@@ -176,8 +176,8 @@ export class Image {
 export class ImageData {
     constructor(canvas: Canvas, data: number[], height: number, width: number);
     readonly data: number[];
-    readonly height: number;
-    readonly width: number;
+    readonly height: number | undefined;
+    readonly width: number | undefined;
 }
 
 export class Path2D {
