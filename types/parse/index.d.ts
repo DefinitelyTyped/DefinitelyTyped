@@ -1,4 +1,4 @@
-// Type definitions for parse 2.1.0
+// Type definitions for parse 2.2.1
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
@@ -8,6 +8,7 @@
 //                  Otherwise SAS <https://github.com/owsas>
 //                  Andrew Goldis <https://github.com/agoldis>
 //                  Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
+//                  Diamond Lewis <https://github.com/dplewis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -958,6 +959,22 @@ subscription.on('close', () => {});
      * @param AsyncStorage AsyncStorage from 'react-native' package
      */
     function setAsyncStorage(AsyncStorage: any): void;
+
+    /**
+     * Gets all contents from Local Datastore.
+     */
+    function dumpLocalDatastore(): any;
+
+    /**
+     * Enable pinning in your application.
+     * This must be called before your application can use pinning.
+     */
+    function enableLocalDatastore(): void;
+
+    /**
+     * Flag that indicates whether Local Datastore is enabled.
+     */
+    function isLocalDatastoreEnabled(): any;
 
 }
 
