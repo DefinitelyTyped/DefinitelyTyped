@@ -1063,8 +1063,8 @@ declare module "mongoose" {
     /** defaults to "__v" */
     versionKey?: string | boolean;
     /**
-     * By default, Mongoose will automatically 
-     * select() any populated paths. 
+     * By default, Mongoose will automatically
+     * select() any populated paths.
      * To opt out, set selectPopulatedPaths to false.
      */
     selectPopulatedPaths?: boolean;
@@ -1077,7 +1077,7 @@ declare module "mongoose" {
     /**
      * Validation errors in a single nested schema are reported
      * both on the child and on the parent schema.
-     * Set storeSubdocValidationError to false on the child schema 
+     * Set storeSubdocValidationError to false on the child schema
      * to make Mongoose only report the parent error.
      */
     storeSubdocValidationError?: boolean;
@@ -2931,7 +2931,7 @@ declare module "mongoose" {
     findById(id: any | string | number, projection: any, options: any,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
 
-    model(name: string): Model<T>;
+    model<U extends Document>(name: string): Model<U>;
 
     /**
      * Creates a Query and specifies a $where condition.
@@ -3306,7 +3306,7 @@ declare module "mongoose" {
      * Returns another Model instance.
      * @param name model name
      */
-    model(name: string): Model<this>;
+    model<T extends Document>(name: string): Model<T>;
 
     /** Override whether mongoose thinks this doc is deleted or not */
     isDeleted(isDeleted: boolean): void;
