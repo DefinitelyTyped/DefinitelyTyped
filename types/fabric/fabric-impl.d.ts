@@ -2145,12 +2145,6 @@ export class ActiveSelection {
 	 */
 	toGroup(): Group;
 	/**
-	 * If returns true, deselection is cancelled.
-	 * @since 2.0.0
-	 * @return {Boolean} [cancel]
-	 */
-	onDeselect(): boolean;
-	/**
 	 * Returns {@link fabric.ActiveSelection} instance from an object representation
 	 * @memberOf fabric.ActiveSelection
 	 * @param object Object to create a group from
@@ -3501,7 +3495,7 @@ export class Object {
 	 * This callback function is called every time _discardActiveObject or _setActiveObject
 	 * try to to deselect this object. If the function returns true, the process is cancelled
 	 */
-	onDeselect(): void;
+	onDeselect(options: { e?: Event, object?: object }): void;
 	/**
 	 * This callback function is called every time _discardActiveObject or _setActiveObject
 	 * try to to select this object. If the function returns true, the process is cancelled
@@ -4137,7 +4131,6 @@ export class IText extends Text {
 	 * Initializes all the interactive behavior of IText
 	 */
 	initBehavior(): void;
-	onDeselect(): void;
 	/**
 	 * Initializes "added" event handler
 	 */
