@@ -5025,6 +5025,11 @@ declare namespace sequelize {
          * A hash of attributes to limit your index(Filtered Indexes - MSSQL & PostgreSQL only)
          */
         where?: AnyWhereOptions;
+
+        /**
+         * Pass CONCURRENT so other operations run while the index is created - PostgresSQL only. Default is false
+         */
+        concurrently?: boolean;
     }
 
     /**
