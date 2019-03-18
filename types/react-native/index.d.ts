@@ -1143,6 +1143,11 @@ export interface TextInputAndroidProps {
      * The color of the textInput underline.
      */
     underlineColorAndroid?: string;
+
+    /**
+     * Vertically align text when `multiline` is set to true
+     */
+    textAlignVertical?: "auto" | "top" | "bottom" | "center";
 }
 
 export type KeyboardType = "default" | "email-address" | "numeric" | "phone-pad";
