@@ -76,7 +76,7 @@ export interface WebpackPluginServeOptions {
     https?: HttpsServerOptions;
     liveReload?: boolean;
     log?: {
-        level: string;
+        level: 'trace' | 'debug' | 'info' | 'warn' | 'error';
         timestamp?: boolean;
     };
     middleware?: (app: Koa, builtins: Builtins) => void;
