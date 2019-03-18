@@ -9,7 +9,7 @@
 //                 Johan Davidsson <https://github.com/johandavidson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {ParserOptions} from "htmlparser2";
+import {Options} from "htmlparser2";
 
 export = sanitize;
 
