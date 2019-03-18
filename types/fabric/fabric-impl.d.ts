@@ -3495,7 +3495,7 @@ export class Object {
 	 * This callback function is called every time _discardActiveObject or _setActiveObject
 	 * try to to deselect this object. If the function returns true, the process is cancelled
 	 */
-	onDeselect(options: { e?: Event, object?: object }): void;
+	onDeselect(options: { e?: Event, object?: Object }): void;
 	/**
 	 * This callback function is called every time _discardActiveObject or _setActiveObject
 	 * try to to select this object. If the function returns true, the process is cancelled
