@@ -697,6 +697,12 @@
             "asOfVersion": "3.2.1"
         },
         {
+            "libraryName": "fkill",
+            "typingsPackageName": "fkill",
+            "sourceRepoURL": "https://github.com/sindresorhus/fkill",
+            "asOfVersion": "6.0.0"
+        },
+        {
             "libraryName": "flatpickr",
             "typingsPackageName": "flatpickr",
             "sourceRepoURL": "https://github.com/chmln/flatpickr",
