@@ -15,7 +15,7 @@
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
-type ImplementationCallback = (() => PromiseLike<any>) | ((done: DoneFn) => void);
+type ImplementationCallback = (() => PromiseLike<any>) | (() => void) | ((done: DoneFn) => void);
 
 /**
  * Create a group of specs (often called a suite).
