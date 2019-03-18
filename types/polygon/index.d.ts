@@ -187,4 +187,4 @@ declare class Polygon {
     toArray(): number[][];
 }
 
-export default Polygon;
+export = Polygon;
