@@ -1,3 +1,3 @@
 import getRes = require('get-res');
 
-getRes(); // $ExpectType Promise<object[]>
+getRes(); // $ExpectType Promise<Resolution[]>
