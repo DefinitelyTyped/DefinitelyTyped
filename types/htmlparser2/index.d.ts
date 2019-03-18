@@ -51,6 +51,10 @@ export interface ParserOptions {
      */
     recognizeSelfClosing?: boolean;
 }
+/** 
+ * @deprecated
+ */
+export type Options = ParserOptions
 
 export declare class WritableStream extends Writable {
     constructor(handler: DomHandler, options?: ParserOptions);
