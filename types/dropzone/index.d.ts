@@ -55,7 +55,7 @@ declare namespace Dropzone {
 		retryChunks?: boolean;
 		retryChunksLimit?: number;
 		maxFilesize?: number;
-		paramName?: string;
+		paramName?: string | () => string;
 		createImageThumbnails?: boolean;
 		maxThumbnailFilesize?: number;
 		thumbnailWidth?: number;
