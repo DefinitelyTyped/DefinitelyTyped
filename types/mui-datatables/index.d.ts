@@ -103,6 +103,7 @@ export interface MUIDataTableColumnOptions {
     sort?: boolean;
     searchable?: boolean;
     sortDirection?: 'asc' | 'desc';
+    print?: boolean;
     download?: boolean;
     hint?: string;
     customHeadRender?: (columnMeta: MUIDataTableCustomHeadRenderer, updateDirection: (params: any) => any) => string;
@@ -153,7 +154,7 @@ export interface MUIDataTableOptions {
     onRowsSelect?: (currentRowsSelected: any[], rowsSelected: any[]) => void;
     onRowsDelete?: (rowsDeleted: any[]) => void;
     onRowClick?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
-    onCellClick?: (colData: any, cellMeta: { colIndex: number, rowIndex: number, dataIndex: number }) => void;
+    onCellClick?: (colData: any, cellMeta: { colIndex: number, rowIndex: number, dataIndex: number, event: React.MouseEvent }) => void;
     onChangePage?: (currentPage: number) => void;
     onChangeRowsPerPage?: (numberOfRows: number) => void;
     onSearchChange?: (searchText: string) => void;
