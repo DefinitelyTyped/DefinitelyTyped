@@ -1,4 +1,4 @@
-// Type definitions for SuperAgent 3.8
+// Type definitions for SuperAgent 4.1
 // Project: https://github.com/visionmedia/superagent
 // Definitions by: Nico Zelaya <https://github.com/NicoZelaya>
 //                 Michael Ledin <https://github.com/mxl>
@@ -130,7 +130,7 @@ declare namespace request {
         ca(cert: Buffer): this;
         cert(cert: Buffer | string): this;
         clearTimeout(): this;
-        end(callback?: CallbackHandler): this;
+        end(callback?: CallbackHandler): void;
         field(name: string, val: MultipartValue): this;
         field(fields: { [fieldName: string]: MultipartValue }): this;
         get(field: string): string;
@@ -158,6 +158,7 @@ declare namespace request {
         use(fn: Plugin): this;
         withCredentials(): this;
         write(data: string | Buffer, encoding?: string): this;
+        maxResponseSize(size: number): this;
     }
 
     type Plugin = (req: SuperAgentRequest) => void;

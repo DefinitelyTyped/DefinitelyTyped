@@ -15,6 +15,7 @@ ReactDOM.render(
         className="bottom"
         vertical={true}
         offset={10}
+        tabIndex={-1}
     />,
     document.querySelector('.another-app')
 );

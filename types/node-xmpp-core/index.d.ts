@@ -8,7 +8,7 @@ import { Element } from 'ltx';
 import { EventEmitter } from 'events';
 
 // fixme: not ideal
-export {createElement, Element, escapeXML, escapeXMLText} from 'ltx';
+export { createElement, Element, escapeXML, escapeXMLText } from 'ltx';
 
 export class Connection extends EventEmitter {
     constructor(opts?: any);

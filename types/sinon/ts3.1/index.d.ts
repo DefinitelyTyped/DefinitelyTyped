@@ -6,7 +6,7 @@ interface Document {} // tslint:disable-line no-empty-interface
 
 declare namespace Sinon {
     type MatchArguments<T> = {
-        [K in keyof T]: SinonMatcher | T[K];
+        [K in keyof T]: SinonMatcher | MatchArguments<T[K]> | T[K];
     };
 
     interface SinonSpyCallApi<TArgs extends any[] = any[], TReturnValue = any> {
@@ -145,7 +145,32 @@ declare namespace Sinon {
         calledAfter(call: SinonSpyCall): boolean;
     }
 
-    interface SinonSpy<TArgs extends any[] = any[], TReturnValue = any>
+    /**
+     * A test spy is a function that records arguments, return value,
+     * the value of this and exception thrown (if any) for all its calls.
+     */
+    interface SinonSpy<TArgs extends any[] = any[], TReturnValue = any> extends SinonInspectable<TArgs, TReturnValue> {
+        // Methods
+        (...args: TArgs): TReturnValue;
+
+        /**
+         * Creates a spy that only records calls when the received arguments match those passed to withArgs.
+         * This is useful to be more expressive in your assertions, where you can access the spy with the same call.
+         * @param args Expected args
+         */
+        withArgs(...args: MatchArguments<TArgs>): SinonSpy<TArgs, TReturnValue>;
+
+        /**
+         * Set the displayName of the spy or stub.
+         * @param name
+         */
+        named(name: string): SinonSpy<TArgs, TReturnValue>;
+    }
+
+    /**
+     * The part of the spy API that allows inspecting the calls made on a spy.
+     */
+    interface SinonInspectable<TArgs extends any[] = any[], TReturnValue = any>
         extends Pick<
                 SinonSpyCallApi<TArgs, TReturnValue>,
                 Exclude<keyof SinonSpyCallApi<TArgs, TReturnValue>, 'args'>
@@ -209,9 +234,6 @@ declare namespace Sinon {
          * If the call did not explicitly return a value, the value at the call’s location in .returnValues will be undefined.
          */
         returnValues: TReturnValue[];
-
-        // Methods
-        (...args: any[]): any;
         /**
          * Returns true if the spy was called before @param anotherSpy
          * @param anotherSpy
@@ -232,12 +254,6 @@ declare namespace Sinon {
          * @param anotherSpy
          */
         calledImmediatelyAfter(anotherSpy: SinonSpy): boolean;
-        /**
-         * Creates a spy that only records calls when the received arguments match those passed to withArgs.
-         * This is useful to be more expressive in your assertions, where you can access the spy with the same call.
-         * @param args Expected args
-         */
-        withArgs(...args: MatchArguments<TArgs>): SinonSpy<TArgs, TReturnValue>;
         /**
          * Returns true if the spy was always called with @param obj as this.
          * @param obj
@@ -293,11 +309,6 @@ declare namespace Sinon {
          */
         invokeCallback(...args: TArgs): void;
         /**
-         * Set the displayName of the spy or stub.
-         * @param name
-         */
-        named(name: string): SinonSpy<TArgs, TReturnValue>;
-        /**
          * Returns the nth call.
          * Accessing individual calls helps with more detailed behavior verification when the spy is called more than once.
          * @param n
@@ -338,7 +349,7 @@ declare namespace Sinon {
         /**
          * Spies on the provided function
          */
-        (func: Function): SinonSpy;
+        <F extends (...args: any[]) => any>(func: F): SinonSpy<Parameters<F>, ReturnType<F>>;
         /**
          * Creates a spy for object.method and replaces the original method with the spy.
          * An exception is thrown if the property is not already a function.
@@ -1155,129 +1166,129 @@ declare namespace Sinon {
          * Passes if spy was never called
          * @param spy
          */
-        notCalled(spy: SinonSpy): void;
+        notCalled(spy: SinonInspectable): void;
         /**
          * Passes if spy was called at least once.
          */
-        called(spy: SinonSpy): void;
+        called(spy: SinonInspectable): void;
         /**
          * Passes if spy was called once and only once.
          */
-        calledOnce(spy: SinonSpy): void;
+        calledOnce(spy: SinonInspectable): void;
         /**
          * Passes if spy was called exactly twice.
          */
-        calledTwice(spy: SinonSpy): void;
+        calledTwice(spy: SinonInspectable): void;
         /**
          * Passes if spy was called exactly three times.
          */
-        calledThrice(spy: SinonSpy): void;
+        calledThrice(spy: SinonInspectable): void;
         /**
          * Passes if spy was called exactly num times.
          */
-        callCount(spy: SinonSpy, count: number): void;
+        callCount(spy: SinonInspectable, count: number): void;
         /**
          * Passes if provided spies were called in the specified order.
          * @param spies
          */
-        callOrder(...spies: SinonSpy[]): void;
+        callOrder(...spies: SinonInspectable[]): void;
         /**
          * Passes if spy was ever called with obj as its this value.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledOn(spy.firstCall, arg1, arg2, ...);.
          */
-        calledOn(spyOrSpyCall: SinonSpy | SinonSpyCall, obj: any): void;
+        calledOn(spyOrSpyCall: SinonInspectable | SinonSpyCall, obj: any): void;
         /**
          * Passes if spy was always called with obj as its this value.
          */
-        alwaysCalledOn(spy: SinonSpy, obj: any): void;
+        alwaysCalledOn(spy: SinonInspectable, obj: any): void;
         /**
          * Passes if spy was called with the provided arguments.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWith(spy.firstCall, arg1, arg2, ...);.
          * @param spyOrSpyCall
          * @param args
          */
-        calledWith(spyOrSpyCall: SinonSpy | SinonSpyCall, ...args: any[]): void;
+        calledWith<TArgs extends any[]>(spyOrSpyCall: SinonInspectable<TArgs> | SinonSpyCall<TArgs>, ...args: MatchArguments<TArgs>): void;
         /**
          * Passes if spy was always called with the provided arguments.
          * @param spy
          * @param args
          */
-        alwaysCalledWith(spy: SinonSpy, ...args: any[]): void;
+        alwaysCalledWith<TArgs extends any[]>(spy: SinonInspectable<TArgs>, ...args: MatchArguments<TArgs>): void;
         /**
          * Passes if spy was never called with the provided arguments.
          * @param spy
          * @param args
          */
-        neverCalledWith(spy: SinonSpy, ...args: any[]): void;
+        neverCalledWith<TArgs extends any[]>(spy: SinonInspectable<TArgs>, ...args: MatchArguments<TArgs>): void;
         /**
          * Passes if spy was called with the provided arguments and no others.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithExactly(spy.getCall(1), arg1, arg2, ...);.
          * @param spyOrSpyCall
          * @param args
          */
-        calledWithExactly(
-            spyOrSpyCall: SinonSpy | SinonSpyCall,
-            ...args: any[]
+        calledWithExactly<TArgs extends any[]>(
+            spyOrSpyCall: SinonInspectable<TArgs> | SinonSpyCall<TArgs>,
+            ...args: MatchArguments<TArgs>
         ): void;
         /**
          * Passes if spy was always called with the provided arguments and no others.
          */
-        alwaysCalledWithExactly(spy: SinonSpy, ...args: any[]): void;
+        alwaysCalledWithExactly<TArgs extends any[]>(spy: SinonInspectable<TArgs>, ...args: MatchArguments<TArgs>): void;
         /**
          * Passes if spy was called with matching arguments.
          * This behaves the same way as sinon.assert.calledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithMatch(spy.secondCall, arg1, arg2, ...);.
          */
-        calledWithMatch(
-            spyOrSpyCall: SinonSpy | SinonSpyCall,
-            ...args: any[]
+        calledWithMatch<TArgs extends any[]>(
+            spyOrSpyCall: SinonInspectable<TArgs> | SinonSpyCall<TArgs>,
+            ...args: TArgs
         ): void;
         /**
          * Passes if spy was always called with matching arguments.
          * This behaves the same way as sinon.assert.alwaysCalledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          */
-        alwaysCalledWithMatch(spy: SinonSpy, ...args: any[]): void;
+        alwaysCalledWithMatch<TArgs extends any[]>(spy: SinonInspectable<TArgs>, ...args: TArgs): void;
         /**
          * Passes if spy was never called with matching arguments.
          * This behaves the same way as sinon.assert.neverCalledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          * @param spy
          * @param args
          */
-        neverCalledWithMatch(spy: SinonSpy, ...args: any[]): void;
+        neverCalledWithMatch<TArgs extends any[]>(spy: SinonInspectable<TArgs>, ...args: TArgs): void;
         /**
          * Passes if spy was called with the new operator.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithNew(spy.secondCall, arg1, arg2, ...);.
          * @param spyOrSpyCall
          */
-        calledWithNew(spyOrSpyCall: SinonSpy | SinonSpyCall): void;
+        calledWithNew(spyOrSpyCall: SinonInspectable | SinonSpyCall): void;
         /**
          * Passes if spy threw any exception.
          */
-        threw(spyOrSpyCall: SinonSpy | SinonSpyCall): void;
+        threw(spyOrSpyCall: SinonInspectable | SinonSpyCall): void;
         /**
          * Passes if spy threw the given exception.
          * The exception is an actual object.
          * It’s possible to assert on a dedicated spy call: sinon.assert.threw(spy.thirdCall, exception);.
          */
-        threw(spyOrSpyCall: SinonSpy | SinonSpyCall, exception: string): void;
+        threw(spyOrSpyCall: SinonInspectable | SinonSpyCall, exception: string): void;
         /**
          * Passes if spy threw the given exception.
          * The exception is a String denoting its type.
          * It’s possible to assert on a dedicated spy call: sinon.assert.threw(spy.thirdCall, exception);.
          */
-        threw(spyOrSpyCall: SinonSpy | SinonSpyCall, exception: any): void;
+        threw(spyOrSpyCall: SinonInspectable | SinonSpyCall, exception: any): void;
         /**
          * Like threw, only required for all calls to the spy.
          */
-        alwaysThrew(spy: SinonSpy): void;
+        alwaysThrew(spy: SinonInspectable): void;
         /**
          * Like threw, only required for all calls to the spy.
          */
-        alwaysThrew(spy: SinonSpy, exception: string): void;
+        alwaysThrew(spy: SinonInspectable, exception: string): void;
         /**
          * Like threw, only required for all calls to the spy.
          */
-        alwaysThrew(spy: SinonSpy, exception: any): void;
+        alwaysThrew(spy: SinonInspectable, exception: any): void;
         /**
          * Uses sinon.match to test if the arguments can be considered a match.
          */
@@ -1714,7 +1725,7 @@ declare namespace Sinon {
         createStubInstance<TType>(
             constructor: StubbableType<TType>,
             overrides?: { [K in keyof TType]?:
-                SinonStubbedMember<TType[K]> | TType[K] extends (...args: any[]) => infer R ? R : TType[K] }
+                SinonStubbedMember<TType[K]> | (TType[K] extends (...args: any[]) => infer R ? R : TType[K]) }
         ): SinonStubbedInstance<TType>;
     }
 

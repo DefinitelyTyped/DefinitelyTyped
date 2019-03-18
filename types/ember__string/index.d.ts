@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { SafeString } from 'handlebars';
+import { SafeString } from "./-private/handlebars";
 
 export function camelize(str: string): string;
 export function capitalize(str: string): string;

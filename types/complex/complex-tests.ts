@@ -1,4 +1,4 @@
-import Complex from 'complex';
+import Complex = require('complex');
 
 let z: Complex = new Complex(2, 3);
 z = Complex.from(2, 3);

@@ -296,7 +296,7 @@ export interface SchemaDescription {
     type: string;
     label: string;
     meta: object;
-    tests: string[];
+    tests: Array<{ name: string, params: object }>;
     fields: object;
 }
 

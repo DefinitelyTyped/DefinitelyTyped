@@ -19,6 +19,7 @@
 //                 Frontend Monster <https://github.com/frontendmonster>
 //                 Ming Chen <https://github.com/mingchen>
 //                 Olga Isakova <https://github.com/penumbra1>
+//                 Orblazer <https://github.com/orblazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1431,9 +1432,17 @@ declare module "mongoose" {
      */
     unmarkModified(path: string): void;
 
+    /** Sends an replaceOne command with this document _id as the query selector.  */
+    replaceOne(replacement: any, callback?: (err: any, raw: any) => void): Query<any>;
+
     /** Sends an update command with this document _id as the query selector.  */
     update(doc: any, callback?: (err: any, raw: any) => void): Query<any>;
     update(doc: any, options: ModelUpdateOptions,
+      callback?: (err: any, raw: any) => void): Query<any>;
+
+    /** Sends an updateOne command with this document _id as the query selector.  */
+    updateOne(doc: any, callback?: (err: any, raw: any) => void): Query<any>;
+    updateOne(doc: any, options: ModelUpdateOptions,
       callback?: (err: any, raw: any) => void): Query<any>;
 
     /**
@@ -2422,6 +2431,13 @@ declare module "mongoose" {
          * @param schema discriminator model schema
          */
         discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
+
+        /**
+         * Adds a discriminator type.
+         * @param name discriminator model name
+         * @param schema discriminator model schema
+         */
+        discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema): M;
 
       }
 

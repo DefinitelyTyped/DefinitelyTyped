@@ -1,317 +1,163 @@
-import ControlAttribution from 'ol/control/attribution';
-
-import ControlControl from 'ol/control/control';
-
-import ControlFullScreen from 'ol/control/fullscreen';
-
-import ControlMousePosition from 'ol/control/mouseposition';
-
-import ControlOverviewMap from 'ol/control/overviewmap';
-
-import ControlRotate from 'ol/control/rotate';
-
-import ControlScaleLine from 'ol/control/scaleline';
-
-import ControlZoom from 'ol/control/zoom';
-
-import ControlZoomSlider from 'ol/control/zoomslider';
-
-import ControlZoomToExtent from 'ol/control/zoomtoextent';
-
-import Eventscondition from 'ol/events/condition';
-
-import EventsEvent from 'ol/events/event';
-
-import EventsEventTarget from 'ol/events/eventtarget';
-
-import FormatEsriJSON from 'ol/format/esrijson';
-
-import FormatFeature from 'ol/format/feature';
-
-import Formatfilter from 'ol/format/filter';
-
-import FormatGeoJSON from 'ol/format/geojson';
-
-import FormatGML2 from 'ol/format/gml2';
-
-import FormatGML3 from 'ol/format/gml3';
-
-import FormatGMLBase from 'ol/format/gmlbase';
-
-import FormatGPX from 'ol/format/gpx';
-
-import FormatIGC from 'ol/format/igc';
-
-import FormatJSONFeature from 'ol/format/jsonfeature';
-
-import FormatKML from 'ol/format/kml';
-
-import FormatMVT from 'ol/format/mvt';
-
-import FormatOSMXML from 'ol/format/osmxml';
-
-import FormatPolyline from 'ol/format/polyline';
-
-import FormatTextFeature from 'ol/format/textfeature';
-
-import FormatTopoJSON from 'ol/format/topojson';
-
-import FormatWFS from 'ol/format/wfs';
-
-import FormatWKT from 'ol/format/wkt';
-
-import FormatWMSCapabilities from 'ol/format/wmscapabilities';
-
-import FormatWMSGetFeatureInfo from 'ol/format/wmsgetfeatureinfo';
-
-import FormatWMTSCapabilities from 'ol/format/wmtscapabilities';
-
-import FormatXML from 'ol/format/xml';
-
-import FormatXMLFeature from 'ol/format/xmlfeature';
-
-import GeomCircle from 'ol/geom/circle';
-
-import GeomGeometry from 'ol/geom/geometry';
-
-import GeomGeometryCollection from 'ol/geom/geometrycollection';
-
-import GeomLinearRing from 'ol/geom/linearring';
-
-import GeomLineString from 'ol/geom/linestring';
-
-import GeomMultiLineString from 'ol/geom/multilinestring';
-
-import GeomMultiPoint from 'ol/geom/multipoint';
-
-import GeomMultiPolygon from 'ol/geom/multipolygon';
-
-import GeomPoint from 'ol/geom/point';
-
-import GeomPolygon from 'ol/geom/polygon';
-
-import GeomSimpleGeometry from 'ol/geom/simplegeometry';
-
-import InteractionDoubleClickZoom from 'ol/interaction/doubleclickzoom';
-
-import InteractionDragAndDrop from 'ol/interaction/draganddrop';
-
-import InteractionDragBox from 'ol/interaction/dragbox';
-
-import InteractionDragPan from 'ol/interaction/dragpan';
-
-import InteractionDragRotate from 'ol/interaction/dragrotate';
-
-import InteractionDragRotateAndZoom from 'ol/interaction/dragrotateandzoom';
-
-import InteractionDragZoom from 'ol/interaction/dragzoom';
-
-import InteractionDraw from 'ol/interaction/draw';
-
-import InteractionInteraction from 'ol/interaction/interaction';
-
-import InteractionKeyboardPan from 'ol/interaction/keyboardpan';
-
-import InteractionKeyboardZoom from 'ol/interaction/keyboardzoom';
-
-import InteractionModify from 'ol/interaction/modify';
-
-import InteractionMouseWheelZoom from 'ol/interaction/mousewheelzoom';
-
-import InteractionPinchRotate from 'ol/interaction/pinchrotate';
-
-import InteractionPinchZoom from 'ol/interaction/pinchzoom';
-
-import InteractionPointer from 'ol/interaction/pointer';
-
-import InteractionSelect from 'ol/interaction/select';
-
-import InteractionSnap from 'ol/interaction/snap';
-
-import InteractionTranslate from 'ol/interaction/translate';
-
-import LayerBase from 'ol/layer/base';
-
-import LayerGroup from 'ol/layer/group';
-
-import LayerHeatmap from 'ol/layer/heatmap';
-
-import LayerImage from 'ol/layer/image';
-
-import LayerLayer from 'ol/layer/layer';
-
-import LayerTile from 'ol/layer/tile';
-
-import LayerVector from 'ol/layer/vector';
-
-import LayerVectorTile from 'ol/layer/vectortile';
-
-import PointerPointerEvent from 'ol/pointer/pointerevent';
-
-import Proj from 'ol/proj';
-
-import ProjProjection from 'ol/proj/projection';
-
-import Rendercanvas from 'ol/render/canvas';
-
-import RenderEvent from 'ol/render/event';
-
-import RenderFeature from 'ol/render/feature';
-
-import RenderVectorContext from 'ol/render/vectorcontext';
-
-import SourceBingMaps from 'ol/source/bingmaps';
-
-import SourceCartoDB from 'ol/source/cartodb';
-
-import SourceCluster from 'ol/source/cluster';
-
-import SourceImage from 'ol/source/image';
-
-import SourceImageArcGISRest from 'ol/source/imagearcgisrest';
-
-import SourceImageCanvas from 'ol/source/imagecanvas';
-
-import SourceImageMapGuide from 'ol/source/imagemapguide';
-
-import SourceImageStatic from 'ol/source/imagestatic';
-
-import SourceImageVector from 'ol/source/imagevector';
-
-import SourceImageWMS from 'ol/source/imagewms';
-
-import SourceOSM from 'ol/source/osm';
-
-import SourceRaster from 'ol/source/raster';
-
-import SourceSource from 'ol/source/source';
-
-import SourceStamen from 'ol/source/stamen';
-
-import SourceTile from 'ol/source/tile';
-
-import SourceTileArcGISRest from 'ol/source/tilearcgisrest';
-
-import SourceTileDebug from 'ol/source/tiledebug';
-
-import SourceTileImage from 'ol/source/tileimage';
-
-import SourceTileJSON from 'ol/source/tilejson';
-
-import SourceTileUTFGrid from 'ol/source/tileutfgrid';
-
-import SourceTileWMS from 'ol/source/tilewms';
-
-import SourceUrlTile from 'ol/source/urltile';
-
-import SourceVector from 'ol/source/vector';
-
-import SourceVectorTile from 'ol/source/vectortile';
-
-import SourceWMTS from 'ol/source/wmts';
-
-import SourceXYZ from 'ol/source/xyz';
-
-import SourceZoomify from 'ol/source/zoomify';
-
-import StyleAtlasManager from 'ol/style/atlasmanager';
-
-import StyleCircle from 'ol/style/circle';
-
-import StyleFill from 'ol/style/fill';
-
-import StyleIcon from 'ol/style/icon';
-
-import StyleImage from 'ol/style/image';
-
-import StyleRegularShape from 'ol/style/regularshape';
-
-import StyleStroke from 'ol/style/stroke';
-
-import StyleStyle from 'ol/style/style';
-
-import StyleText from 'ol/style/text';
-
-import TilegridTileGrid from 'ol/tilegrid/tilegrid';
-
-import TilegridWMTS from 'ol/tilegrid/wmts';
-
-import AssertionError from 'ol/assertionerror';
-
-import Attribution from 'ol/attribution';
-
-import Collection from 'ol/collection';
-
-import Color from 'ol/color';
-
-import Colorlike from 'ol/colorlike';
-
-import Control from 'ol/control';
-
+import AssertionError from 'ol/AssertionError';
+import AtlasManager from 'ol/style/AtlasManager';
+// import Attribution from 'ol/Attribution';
+import Attribution from 'ol/control/Attribution';
+import Base from 'ol/layer/Base';
+import BingMaps from 'ol/source/BingMaps';
+import canvas from 'ol/render/canvas';
+import CartoDB from 'ol/source/CartoDB';
+import Circle from 'ol/geom/Circle';
+// import Circle from 'ol/style/Circle';
+import Cluster from 'ol/source/Cluster';
+import Collection from 'ol/Collection';
+import color from 'ol/color';
+import colorlike from 'ol/colorlike';
+import condition from 'ol/events/condition';
+import control from 'ol/control';
+import Control from 'ol/control/Control';
+// import coordinate from 'ol/coordinate';
 import DeviceOrientation from 'ol/deviceorientation';
-
-import Disposable from 'ol/disposable';
-
-import Easing from 'ol/easing';
-
-import Events from 'ol/events';
-
-import Extent from 'ol/extent';
-
-import Feature from 'ol/feature';
-
-import FeatureLoader from 'ol/featureloader';
-
-import Geolocation from 'ol/geolocation';
-
-import Graticule from 'ol/graticule';
-
-import Image from 'ol/image';
-
-import ImageBase from 'ol/imagebase';
-
-import ImageTile from 'ol/imagetile';
-
-import Interaction from 'ol/interaction';
-
-import Kinetic from 'ol/kinetic';
-
-import Loadingstrategy from 'ol/loadingstrategy';
-
-import Map from 'ol/map';
-
-import MapBrowserEvent from 'ol/mapbrowserevent';
-
-import MapBrowserPointerEvent from 'ol/mapbrowserpointerevent';
-
-import MapEvent from 'ol/mapevent';
-
-import Object from 'ol/object';
-
-import Observable from 'ol/observable';
-
-import Overlay from 'ol/overlay';
-
+import Disposable from 'ol/Disposable';
+import DoubleClickZoom from 'ol/interaction/DoubleClickZoom';
+import DragAndDrop from 'ol/interaction/DragAndDrop';
+import DragBox from 'ol/interaction/DragBox';
+import DragPan from 'ol/interaction/DragPan';
+import DragRotateAndZoom from 'ol/interaction/DragRotateAndZoom';
+import DragRotate from 'ol/interaction/DragRotate';
+import DragZoom from 'ol/interaction/DragZoom';
+import Draw from 'ol/interaction/Draw';
+import easing from 'ol/easing';
+import EsriJSON from 'ol/format/EsriJSON';
+// import Event from 'ol/events/Event';
+import Event from 'ol/render/Event';
+import events from 'ol/events';
+import EventTarget from 'ol/events/EventTarget';
+import extent from 'ol/extent';
+import Extent from 'ol/interaction/Extent';
+// import Feature from 'ol/Feature';
+import Feature from 'ol/format/Feature';
+// import Feature from 'ol/render/Feature';
+import featureloader from 'ol/featureloader';
+import Fill from 'ol/style/Fill';
+import filter from 'ol/format/filter';
+import FullScreen from 'ol/control/Fullscreen';
+import GeoJSON from 'ol/format/GeoJSON';
+import Geolocation from 'ol/Geolocation';
+import GeometryCollection from 'ol/geom/GeometryCollection';
+import Geometry from 'ol/geom/Geometry';
+import GML2 from 'ol/format/GML2';
+import GML3 from 'ol/format/GML3';
+import GMLBase from 'ol/format/GMLBase';
+import GPX from 'ol/format/GPX';
+import Graticule from 'ol/Graticule';
+import Group from 'ol/layer/Group';
+import Heatmap from 'ol/layer/Heatmap';
+import Icon from 'ol/style/Icon';
+import IGC from 'ol/format/IGC';
+import ImageArcGISRest from 'ol/source/ImageArcGISRest';
+import ImageBase from 'ol/ImageBase';
+import ImageCanvas from 'ol/source/ImageCanvas';
+// import Image from 'ol/Image';
+import Image from 'ol/layer/Image';
+// import Image from 'ol/source/Image';
+// import Image from 'ol/style/Image';
+import ImageMapGuide from 'ol/source/ImageMapGuide';
+import ImageStatic from 'ol/source/ImageStatic';
+import ImageTile from 'ol/ImageTile';
+import ImageVector from 'ol/source/ImageVector';
+import ImageWMS from 'ol/source/ImageWMS';
+import interaction from 'ol/interaction';
+import Interaction from 'ol/interaction/Interaction';
+import JSONFeature from 'ol/format/JSONFeature';
+import KeyboardPan from 'ol/interaction/KeyboardPan';
+import KeyboardZoom from 'ol/interaction/KeyboardZoom';
+import Kinetic from 'ol/Kinetic';
+import KML from 'ol/format/KML';
+import Layer from 'ol/layer/Layer';
+import LinearRing from 'ol/geom/LinearRing';
+import LineString from 'ol/geom/LineString';
+import loadingstrategy from 'ol/loadingstrategy';
+import MapBrowserEvent from 'ol/MapBrowserEvent';
+import MapBrowserPointerEvent from 'ol/MapBrowserPointerEvent';
+import MapEvent from 'ol/MapEvent';
+import Map from 'ol/Map';
+import Modify from 'ol/interaction/Modify';
+import MousePosition from 'ol/control/MousePosition';
+import MouseWheelZoom from 'ol/interaction/MouseWheelZoom';
+import MultiLineString from 'ol/geom/MultilineString';
+import MultiPoint from 'ol/geom/MultiPoint';
+import MultiPolygon from 'ol/geom/MultiPolygon';
+import MVT from 'ol/format/MVT';
+import Object from 'ol/Object';
+import Observable from 'ol/Observable';
+import ol from 'ol';
+import OSM from 'ol/source/OSM';
+import OSMXML from 'ol/format/OSMXML';
+import Overlay from 'ol/Overlay';
+import OverviewMap from 'ol/control/OverviewMap';
+import PinchRotate from 'ol/interaction/PinchRotate';
+import PinchZoom from 'ol/interaction/PinchZoom';
+import PointerEvent from 'ol/pointer/PointerEvent';
+import Pointer from 'ol/interaction/Pointer';
+import Point from 'ol/geom/Point';
+import Polygon from 'ol/geom/Polygon';
+import Polyline from 'ol/format/Polyline';
+import Projection from 'ol/proj/Projection';
+import proj from 'ol/proj';
+import Raster from 'ol/source/Raster';
+import RegularShape from 'ol/style/RegularShape';
+import Rotate from 'ol/control/Rotate';
+import ScaleLine from 'ol/control/ScaleLine';
+import Select from 'ol/interaction/Select';
+import SimpleGeometry from 'ol/geom/SimpleGeometry';
+import Snap from 'ol/interaction/Snap';
+import Source from 'ol/source/Source';
 import Sphere from 'ol/sphere';
-
-import Tile from 'ol/tile';
-
-import Tilegrid from 'ol/tilegrid';
-
-import VectorTile from 'ol/vectortile';
-
-import View from 'ol/view';
+import Stamen from 'ol/source/Stamen';
+import Stroke from 'ol/style/Stroke';
+import Style from 'ol/style/Style';
+import TextFeature from 'ol/format/TextFeature';
+import Text from 'ol/style/Text';
+import TileArcGISRest from 'ol/source/TileArcGISRest';
+import TileDebug from 'ol/source/TileDebug';
+import Tile from 'ol/layer/Tile';
+// import Tile from 'ol/source/Tile';
+// import Tile from 'ol/Tile';
+import tilegrid from 'ol/tilegrid';
+import TileGrid from 'ol/tilegrid/TileGrid';
+import TileImage from 'ol/source/TileImage';
+import TileJSON from 'ol/source/TileJSON';
+import TileUTFGrid from 'ol/source/TileUTFGrid';
+import TileWMS from 'ol/source/TileWMS';
+import TopoJSON from 'ol/format/TopoJSON';
+import Translate from 'ol/interaction/Translate';
+import UrlTile from 'ol/source/UrlTile';
+import VectorContext from 'ol/render/VectorContext';
+import Vector from 'ol/layer/Vector';
+// import Vector from 'ol/source/Vector';
+// import VectorTile from 'ol/layer/VectorTile';
+// import VectorTile from 'ol/source/VectorTile';
+import VectorTile from 'ol/VectorTile';
+import View from 'ol/View';
+import WFS from 'ol/format/WFS';
+import WKT from 'ol/format/WKT';
+import WMSCapabilities from 'ol/format/WMSCapabilities';
+import WMSGetFeatureInfo from 'ol/format/WMSGetFeatureInfo';
+import WMTSCapabilities from 'ol/format/WMTSCapabilities';
+import WMTS from 'ol/source/WMTS';
+// import WMTS from 'ol/tilegrid/WMTS';
+import XMLFeature from 'ol/format/XMLFeature';
+import XML from 'ol/format/XML';
+import XYZ from 'ol/source/XYZ';
+import Zoom from 'ol/control/Zoom';
+import Zoomify from 'ol/source/Zoomify';
+import ZoomSlider from 'ol/control/ZoomSlider';
+import ZoomToExtent from 'ol/control/ZoomToExtent';
 
 // Map
 const map: ol.Map = new Map({} as any);
 declare const mapView: View;
-declare const layerBase: LayerBase;
-declare const control: ControlControl;
-declare const interaction: InteractionInteraction;
 map.setView(mapView);
-map.addLayer(layerBase);
-map.addControl(control);
-map.addInteraction(interaction);
 
 // View
 let view: View;

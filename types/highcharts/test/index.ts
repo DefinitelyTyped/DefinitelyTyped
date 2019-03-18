@@ -2856,3 +2856,33 @@ function test_WrapTooltipBehavior() {
         // Many prototype functions use this so arrow functions should only be used to replace behaviors.
     });
 }
+
+// Tests Highcharts.ganttChart, which usings the Gantt module
+function test_GanttChart() {
+	Highcharts.ganttChart('ganttChartContainer', {
+		xAxis: {
+			min: Date.UTC(2014, 9, 18),
+			max: Date.UTC(2014, 12, 20)
+		},
+		series: [{
+			name: 'Project 1',
+			data: [
+				{
+					name: 'Lemon Tea',
+					start: Date.UTC(2014, 10, 18),
+					end: Date.UTC(2014, 11, 20)
+				},
+				{
+					name: 'Stapler',
+					start: Date.UTC(2014, 11, 18),
+					end: Date.UTC(2014, 12, 20)
+				},
+				{
+					name: 'Sierra',
+					start: Date.UTC(2014, 12, 18),
+					end: Date.UTC(2014, 12, 20)
+				},
+			],
+		}],
+	});
+}

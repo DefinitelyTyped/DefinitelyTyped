@@ -26,7 +26,7 @@ import MDCIconToggleFoundation from './foundation';
 import MDCIconToggleAdapter from './adapter';
 import { MDCRipple } from 'material__ripple';
 
-export {MDCIconToggleAdapter, MDCIconToggleFoundation};
+export { MDCIconToggleAdapter, MDCIconToggleFoundation };
 
 export class MDCIconToggle extends MDCComponent<MDCIconToggleAdapter, MDCIconToggleFoundation> {
     static attachTo(root: Element): MDCIconToggle;

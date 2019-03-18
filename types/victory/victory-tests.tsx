@@ -14,7 +14,10 @@ import {
     VictoryTheme,
     VictoryLegend,
     VictoryBoxPlot,
-    VictoryGroup
+    VictoryGroup,
+    createContainer,
+    VictoryZoomContainerProps,
+    VictoryBrushContainerProps
 } from "victory";
 
 // VictoryAnimation test
@@ -197,9 +200,9 @@ test = (
     <VictoryAxis
         scale="time"
         style={{
-            grid: { strokeWidth: tick => tick.x },
-            ticks: { stroke: tick => tick.color },
-            tickLabels: { fontSize: tick => tick.y },
+            grid: { strokeWidth: (tick: any) => tick.x },
+            ticks: { stroke: (tick: any) => tick.color },
+            tickLabels: { fontSize: (tick: any) => tick.y },
         }}
         tickValues={[
             new Date(1980, 1, 1),
@@ -611,8 +614,8 @@ test = (
         ]}
         style={{
             data: {
-                fill: d => d.x,
-                stroke: (datum, active) => active ? datum.x : datum.y,
+                fill: (d: any) => d.x,
+                stroke: (datum: any, active: boolean) => active ? datum.x : datum.y,
                 strokeWidth: 3
             }
         }}
@@ -639,6 +642,19 @@ test = (
                 strokeWidth: 3
             }
         }}
+    />
+);
+
+test = (
+    <VictoryScatter
+        data={[
+          {x: 1, y: 3},
+          {x: 2, y: 5},
+          {x: 3, y: 4},
+          {x: 4, y: 2},
+          {x: 5, y: 5}
+        ]}
+        size={(d: any) => 5}
     />
 );
 
@@ -757,6 +773,7 @@ test = (
         ]}
         gutter={10}
         orientation="horizontal"
+        title="Title"
         symbolSpacer={8}
         width={100}
         height={50}
@@ -771,5 +788,36 @@ test = (
         standalone
         padding={{ top: 20, right: 40, bottom: 60, left: 20 }}
         colorScale="heatmap"
+        events={[{
+            target: "data",
+            eventKey: "thisOne",
+            eventHandlers: {
+                onClick: () => ([
+                    {
+                        eventKey: "theOtherOne",
+                        mutation: props => ({ style: { ...props.style, fill: "orange" } })
+                    },
+                    {
+                        eventKey: "theOtherOne",
+                        target: "labels",
+                        mutation: () => ({ text: "hey" })
+                    }
+                ])
+            }
+        }]}
+    />
+);
+
+// createContainer test
+
+const VictoryZoomBrushContainer = createContainer<
+    VictoryZoomContainerProps,
+    VictoryBrushContainerProps
+>("zoom", "brush");
+
+test = (
+    <VictoryZoomBrushContainer
+        brushDomain={[0, 500]}
+        zoomDomain={[0, 500]}
     />
 );
