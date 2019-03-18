@@ -35,7 +35,7 @@ import { readFile } from 'fs';
     });
     assert(typeof util.inspect.custom === 'symbol');
 
-    util.inspect.replOptions = {
+    util.inspect.replDefaults = {
         colors: true,
     };
 

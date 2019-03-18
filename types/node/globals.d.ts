@@ -780,7 +780,7 @@ declare namespace NodeJS {
          * The signal used to trigger the creation of a diagnostic report.
          * @default 'SIGUSR2'
          */
-        signal: string;
+        signal: NodeJS.Signals;
 
         /**
          * Writes a diagnostic report to a file. If filename is not provided, the default filename

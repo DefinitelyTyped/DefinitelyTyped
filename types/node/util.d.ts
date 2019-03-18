@@ -25,7 +25,7 @@ declare module "util" {
         /**
          * Allows changing inspect settings from the repl.
          */
-        let replOptions: InspectOptions;
+        let replDefaults: InspectOptions;
     }
     /** @deprecated since v4.0.0 - use `Array.isArray()` instead. */
     function isArray(object: any): object is any[];
