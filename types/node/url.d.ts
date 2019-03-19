@@ -14,10 +14,12 @@ declare module "url" {
         slashes?: boolean;
     }
 
+    // When these types support TypeScript 3.0+, we can replace this with `unknown`.
+    type PoorMansUnknown = {} | null | undefined;
     // Input to `url.format`
     interface UrlObject extends UrlObjectCommon {
         port?: string | number;
-        query?: string | null | { [key: string]: any };
+        query?: string | null | { [key: string]: PoorMansUnknown };
     }
 
     // Output of `url.parse`
