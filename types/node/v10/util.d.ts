@@ -127,6 +127,7 @@ declare module "util" {
         function isInt32Array(object: any): object is Int32Array;
         function isMap(object: any): boolean;
         function isMapIterator(object: any): boolean;
+        function isModuleNamespaceObject(value: any): boolean;
         function isNativeError(object: any): object is Error;
         function isNumberObject(object: any): object is Number;
         function isPromise(object: any): boolean;
