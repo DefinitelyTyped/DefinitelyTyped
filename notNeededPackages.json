@@ -571,6 +571,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "React Bootstrap",
+            "typingsPackageName": "react-bootstrap",
+            "sourceRepoURL": "https://github.com/react-bootstrap/react-bootstrap",
+            "asOfVersion": "1.0.0-beta.0"
+        },
+        {
             "libraryName": "react-day-picker",
             "typingsPackageName": "react-day-picker",
             "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
