@@ -1,5 +1,6 @@
 import glob = require("glob");
 const Glob = glob.Glob;
+type GlobOptions = import('glob').IOptions;
 
 (() => {
 	const pattern = "test/a/**/[cg]/../[cg]";
@@ -25,6 +26,27 @@ const Glob = glob.Glob;
 			return;
 		}
 		console.log("matches", matches);
+	});
+	console.log("after");
+})();
+
+(() => {
+	const pattern = "test/**";
+    let options: GlobOptions = { statCache: {}, stat: true, dot: true };
+	console.log(pattern);
+
+	const mg = new Glob(pattern, options, (er, matches) => {
+		if (er) {
+			console.error(er);
+			return;
+		}
+        const file1 = matches[0];
+        const stat = options.statCache[file1];
+        if (stat.isFile()) {
+            console.log("is file");
+        } else if (stat.isDirectory()) {
+            console.log("is directory");
+        }
 	});
 	console.log("after");
 })();
