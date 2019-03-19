@@ -11,7 +11,6 @@ export interface ScrollableAnchorProps {
   children?: React.ReactNode;
 }
 
-
 export interface ConfigureAnchorsOptions {
   offset?: number;
   scrollDuration?: number;
