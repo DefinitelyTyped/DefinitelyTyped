@@ -11,7 +11,6 @@ export interface ScrollableAnchorProps {
   children?: React.ReactNode;
 }
 
-declare const ScrollableAnchor: React.ComponentType<ScrollableAnchorProps>;
 
 export interface ConfigureAnchorsOptions {
   offset?: number;
@@ -19,7 +18,7 @@ export interface ConfigureAnchorsOptions {
   keepLastAnchorHash?: boolean;
 }
 
-export default ScrollableAnchor;
+export default class ScrollableAnchor extends React.Component<ScrollableAnchorProps> { }
 export function goToTop(): void;
 export function configureAnchors(options: ConfigureAnchorsOptions): void;
 export function goToAnchor(anchorId: string, saveHashUpdate?: boolean): void;
