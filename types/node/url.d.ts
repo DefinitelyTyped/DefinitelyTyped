@@ -16,10 +16,11 @@ declare module "url" {
 
     // When these types support TypeScript 3.0+, we can replace this with `unknown`.
     type PoorMansUnknown = {} | null | undefined;
+    type UrlObjectQueryObject = { [key: string]: PoorMansUnknown };
     // Input to `url.format`
     interface UrlObject extends UrlObjectCommon {
         port?: string | number;
-        query?: string | null | { [key: string]: PoorMansUnknown };
+        query?: string | null | UrlObjectQueryObject;
     }
 
     // Output of `url.parse`
