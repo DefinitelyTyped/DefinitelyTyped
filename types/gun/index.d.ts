@@ -1,8 +1,8 @@
-// Type definitions for gun 0.9.9999991
+// Type definitions for gun 0.9
 // Project: https://github.com/amark/gun#readme
 // Definitions by: Jack Works <https://github.com/Jack-Works>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.1
 
 declare const cons: Gun.Constructor;
 export = cons;
@@ -69,6 +69,7 @@ declare namespace Gun {
     }>;
     type Saveable<DataType> = Partial<DataType> | string | number | boolean | null | ChainReference<DataType>;
     type AckCallback = (ack: { err: Error; ok: any } | { err: undefined; ok: string }) => void;
+    type Parameters<T extends (...args: any[]) => any> = T extends (...args: infer P) => any ? P : never;
     interface ChainReference<DataType = any, ReferenceKey = any, IsTop extends 'pre_root' | 'root' | false = false> {
         //#region API
         /**
@@ -407,7 +408,7 @@ declare namespace Gun {
             work(
                 data: any,
                 pair?: any,
-                callback?: (data: string | void) => void,
+                callback?: (data: string | undefined) => void,
                 opt?: Partial<{
                     name: 'SHA-256' | 'PBKDF2';
                     encode: 'base64' | 'base32' | 'base16';

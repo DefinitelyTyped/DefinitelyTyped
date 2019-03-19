@@ -108,13 +108,7 @@ bad.get('b')
     // $ExpectError
     .put(X);
 
-bad.get('b').put({
-    // $ExpectError
-    c: () => {},
-    // $ExpectError
-    d: X,
-    // $ExpectError
-    e: {
-        f: () => {}
-    }
-});
+// $ExpectError
+bad.get('b').put({ c: () => {}, d: X, e: { f: () => {} } });
+// $ExpectError
+bad.get('c').put(new X());
