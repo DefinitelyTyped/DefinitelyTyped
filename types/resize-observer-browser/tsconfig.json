@@ -19,7 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "test/resize-observer-global.test.ts",
-        "test/resize-observer-module.test.ts"
+        "test/resize-observer-browser-global.tests.ts",
+        "test/resize-observer-browser-module.tests.ts"
     ]
 }
