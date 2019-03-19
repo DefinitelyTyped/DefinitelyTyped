@@ -74,7 +74,7 @@ declare namespace G {
         options: IOptions;
         aborted: boolean;
         cache: { [path: string]: boolean | 'DIR' | 'FILE' | ReadonlyArray<string> };
-        statCache: { [path: string]: false | { isDirectory(): boolean; } | undefined };
+        statCache: { [path: string]: false | Stats | undefined };
         symlinks: { [path: string]: boolean | undefined };
         realpathCache: { [path: string]: string };
         found: string[];
