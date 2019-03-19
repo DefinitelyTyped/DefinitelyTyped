@@ -165,19 +165,19 @@ export default class Canvas extends React.Component<CanvasProps> {
 }
 
 export class Image {
-    constructor(canvas: Canvas, height?: number, width?: number);
+    constructor(canvas: Canvas, height: number, width: number);
     crossOrigin: string | undefined;
-    height: number | undefined;
-    width: number | undefined;
-    src: string | undefined;
+    height: number;
+    width: number;
+    src: string;
     addEventListener: (event: string, func: (...args: any) => any) => void;
 }
 
 export class ImageData {
-    constructor(canvas: Canvas, data: number[], height: number, width: number);
+    constructor(canvas: Canvas, height: number, width: number, data?: number[], );
     readonly data: number[];
-    readonly height: number | undefined;
-    readonly width: number | undefined;
+    readonly height: number;
+    readonly width: number;
 }
 
 export class Path2D {
