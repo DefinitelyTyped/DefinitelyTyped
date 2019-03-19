@@ -7,6 +7,9 @@
 
 /// <reference types="node" />
 
+import * as fs from "fs";
+import { Stats } = fs;
+
 import events = require("events");
 import minimatch = require("minimatch");
 
@@ -34,7 +37,7 @@ declare namespace G {
         silent?: boolean;
         strict?: boolean;
         cache?: { [path: string]: boolean | 'DIR' | 'FILE' | ReadonlyArray<string> };
-        statCache?: { [path: string]: false | { isDirectory(): boolean} | undefined };
+        statCache?: { [path: string]: false | Stats | undefined };
         symlinks?: { [path: string]: boolean | undefined };
         realpathCache?: { [path: string]: string };
         sync?: boolean;
