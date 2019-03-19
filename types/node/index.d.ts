@@ -38,6 +38,7 @@
 //                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 // NOTE: These definitions support NodeJS and TypeScript 3.2.
 
