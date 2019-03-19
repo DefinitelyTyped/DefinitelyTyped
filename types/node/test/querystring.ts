@@ -40,3 +40,9 @@ interface SampleObject { [key: string]: string; }
     result = querystring.escape(str);
     result = querystring.unescape(str);
 }
+
+{
+    const queryInput: string | null | querystring.ParsedUrlQueryInput = {};
+    // $ExpectError
+    const query: string | null | querystring.ParsedUrlQuery = queryInput;
+}

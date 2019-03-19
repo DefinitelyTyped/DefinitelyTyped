@@ -505,12 +505,6 @@ import Module = require("module");
     {
         const path: url.URL = url.pathToFileURL('file://test');
     }
-
-    {
-        const urlObjectQuery: url.UrlObject['query'] = {};
-        // $ExpectError
-        const urlQuery: url.Url['query'] = urlObjectQuery;
-    }
 }
 
 //////////////////////////////////////////////////////
