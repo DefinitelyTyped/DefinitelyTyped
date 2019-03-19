@@ -43,6 +43,15 @@ type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
 
+/**
+ * defined in scheduler/tracing
+ */
+interface SchedulerInteraction {
+    id: number;
+    name: string;
+    timestamp: number;
+}
+
 // tslint:disable-next-line:export-just-namespace
 export = React;
 export as namespace React;
@@ -356,22 +365,17 @@ declare namespace React {
     const Suspense: ExoticComponent<SuspenseProps>;
     const version: string;
 
-    interface Interaction {
-        id: number;
-        name: string;
-        timestamp: number;
-    }
     /**
      * {@link https://github.com/bvaughn/rfcs/blob/profiler/text/0000-profiler.md#detailed-design | API}
      */
-    type OnRenderCallback = (
+    type ProfilerOnRenderCallback = (
         id: string,
         phase: "mount" | "update",
         actualDuration: number,
         baseDuration: number,
         startTime: number,
         commitTime: number,
-        interactions: Set<Interaction>,
+        interactions: Set<SchedulerInteraction>,
     ) => void;
     interface ProfilerProps {
         children?: ReactNode;
