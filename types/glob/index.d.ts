@@ -8,7 +8,7 @@
 /// <reference types="node" />
 
 import * as fs from "fs";
-import { Stats } = fs;
+import Stats = fs.Stats;
 
 import events = require("events");
 import minimatch = require("minimatch");
