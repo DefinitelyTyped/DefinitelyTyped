@@ -2404,8 +2404,35 @@ export interface PlaceDetailsRequest {
      * parameter from a request, ALL possible fields will be returned, and you will be billed accordingly.
      * This applies only to Place Details requests.
      */
-    fields?: Array<keyof PlaceDetailsResult>;
+    fields?: PlaceDetailsRequestField[];
 }
+
+export type PlaceDetailsRequestField = (
+    "address_component" |
+    "adr_address" |
+    "alt_id" |
+    "formatted_address" |
+    "geometry" |
+    "icon" |
+    "id" |
+    "name" |
+    "permanently_closed" |
+    "photo" |
+    "place_id" |
+    "plus_code" |
+    "scope" |
+    "type" |
+    "url" |
+    "user_ratings_total" |
+    "utc_offset" |
+    "vicinity" |
+    "formatted_phone_number" |
+    "international_phone_number" |
+    "opening_hours" |
+    "website" |
+    "price_level" |
+    "rating" |
+    "review");
 
 export interface PlaceDetailsResponse {
     /** contains metadata on the request. */
