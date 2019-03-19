@@ -704,12 +704,12 @@ declare namespace DataTables {
         /**
          * Get the footer th / td cell for the selected column.
          */
-        footer(): Node;
+        footer(): HTMLElement;
 
         /**
          * Get the header th / td cell for a column.
          */
-        header(): Node;
+        header(): HTMLElement;
 
         /**
          * Order the table, in the direction specified, by the column selected by the column()DT selector.

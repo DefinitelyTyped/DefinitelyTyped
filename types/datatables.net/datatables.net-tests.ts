@@ -615,7 +615,7 @@ dt.columns('.select-filter').eq(0).each((colIdx: any) => {
     // Create the select list and search operation
     const select = $('<select />')
         .appendTo(
-            dt.column(colIdx).footer() as HTMLElement
+            dt.column(colIdx).footer()
         )
         .on('change', () => {
             dt
@@ -656,8 +656,8 @@ $('#listData').html(
 const columns_dataSrc = columns.dataSrc();
 // alert('Data source: ' + dt.columns([0, 1]).dataSrc().join(' '));
 
-const columns_footer: Node = columns.footer();
-const columns_header = columns.header();
+const columns_footer: HTMLElement = columns.footer();
+const columns_header: HTMLElement = columns.header();
 let columns_indexes = columns.indexes();
 columns_indexes = columns.indexes("visibile");
 const columns_nodes = columns.nodes();
@@ -699,7 +699,7 @@ const column_cache = column.cache("order");
 // Create the select list and search operation
 const select = $('<select />')
     .appendTo(
-        dt.column(0).footer() as HTMLElement
+        dt.column(0).footer()
     )
     .on('change', () => {
         dt
@@ -735,7 +735,7 @@ $('#example').on('click', 'tbody td', () => {
     alert('Data source: ' + dt.column(idx).dataSrc());
 });
 
-const column_footer: Node = column.footer();
+const column_footer: HTMLElement = column.footer();
 const column_p = dt.column(0);
 // $(column.footer()).html(
 //    column_p
@@ -745,10 +745,10 @@ const column_p = dt.column(0);
 //    })
 //    );
 
-const column_header = column.header();
+const column_header: HTMLElement = column.header();
 $('#example tbody').on('click', 'td', function() {
     const idx = dt.cell(this).index().column;
-    const title = dt.column(idx).header();
+    const title: HTMLElement = dt.column(idx).header();
 
     alert('Column title clicked on: ' + $(title).html());
 });
@@ -782,7 +782,7 @@ dt.columns('.select-filter').eq(0).each((colIdx: any) => {
     // Create the select list and search operation
     const select = $('<select />')
         .appendTo(
-            dt.column(colIdx).footer() as HTMLElement
+            dt.column(colIdx).footer()
         )
         .on('change', function() {
             dt
