@@ -266,19 +266,26 @@ declare namespace Parse {
         constructor(className?: string, options?: any);
         constructor(attributes?: string[], options?: any);
 
-        static extend(className: string, protoProps?: any, classProps?: any): any;
-        static fromJSON(json: any, override: boolean): any;
-
+        static createWithoutData<T extends Object>(id: string): T;
+        static destroyAll<T>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
+        static extend(className: string, protoProps?: any, classProps?: any): any;        
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
-        static destroyAll<T>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
-        static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
+        static fetchAllWithInclude(list: any, keys: any, options: any): any;
+        static fromJSON(json: any, override: boolean): any;
+        static pinAll(objects: Object[]): Promise<void>;
+        static pinAllWithName(name: string, objects: Object[]): Promise<void>;
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
-        static createWithoutData<T extends Object>(id: string): T;
+        static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
+        static unPinAll(objects: any): Promise<void>;
+        static unPinAllObjects(): Promise<void>;
+        static unPinAllObjectsWithName(name: string): Promise<void>;    
+        static unPinAllWithName(...args: any[]): Promise<void>;
 
-        initialize(): void;
         add(attr: string, item: any): this;
-        addUnique(attr: string, item: any): any;
+        addAll(attr: string, items: any[]): this;
+        addAllUnique(attr: string, items: any[]): this;
+        addUnique(attr: string, item: any): this;
         change(options: any): this;
         changedAttributes(diff: any): boolean;
         clear(options: any): any;
@@ -286,21 +293,29 @@ declare namespace Parse {
         destroy(options?: Object.DestroyOptions): Promise<this>;
         dirty(attr?: string): boolean;
         dirtyKeys(): string[];
+        equals(other: any): boolean;
         escape(attr: string): string;
         existed(): boolean;
         fetch(options?: Object.FetchOptions): Promise<this>;
+        fetchFromLocalDatastore(): Promise<this> | void;
+        fetchWithInclude(keys: string[], options?: any): Promise<this>;
         get(attr: string): any | undefined;
         getACL(): ACL | undefined;
         has(attr: string): boolean;
         hasChanged(attr: string): boolean;
         increment(attr: string, amount?: number): any;
+        initialize(): void;
         isNew(): boolean;
+        isPinned(...args: any[]): Promise<boolean>;
         isValid(): boolean;
         op(attr: string): any;
+        pin(): Promise<this>;
+        pinWithName(name: string): Promise<this>;
         previous(attr: string): any;
         previousAttributes(): any;
         relation(attr: string): Relation<this, Object>;
         remove(attr: string, item: any): any;
+        removeAll(attr: string, items: any): any;
         revert(): void;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
@@ -309,6 +324,8 @@ declare namespace Parse {
         set(attrs: object, options?: Object.SetOptions): boolean;
         setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
         toPointer(): Pointer;
+        unPin(): Promise<this>;
+        unPinWithName(name: string): Promise<this>;
         unset(attr: string, options?: any): any;
         validate(attrs: any, options?: SuccessFailureOptions): boolean;
     }
@@ -331,6 +348,11 @@ declare namespace Parse {
         }
     }
 
+    class Polygon  extends BaseObject {
+        constructor(arg1: GeoPoint[] | number[][]);
+        containsPoint(point: GeoPoint): boolean;
+        equals(other: Polygon | any): boolean;
+    }
     /**
      * Every Parse application installed on a device registered for
      * push notifications has an associated Installation object.
@@ -415,18 +437,23 @@ declare namespace Parse {
         constructor(objectClass: string);
         constructor(objectClass: new (...args: any[]) => T);
 
+        static and<U extends Object>(...args: Query<U>[]): Query<U>;
+        static fromJSON<U extends Object>(className: any, json: any): Query<U>;
+        static nor<U extends Object>(...args: Query<U>[]): Query<U>;
         static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
 
-        aggregate(pipeline: Query.AggregationOptions|Query.AggregationOptions[]): Query<T>;
         addAscending(key: string): Query<T>;
         addAscending(key: string[]): Query<T>;
         addDescending(key: string): Query<T>;
         addDescending(key: string[]): Query<T>;
         ascending(key: string): Query<T>;
         ascending(key: string[]): Query<T>;
+        aggregate(pipeline: Query.AggregationOptions|Query.AggregationOptions[]): Query<T>;
+        containedBy(key: string, values: any[]): Query<T>;
         containedIn(key: string, values: any[]): Query<T>;
         contains(key: string, substring: string): Query<T>;
         containsAll(key: string, values: any[]): Query<T>;
+        containsAllStartingWith(key: string, values: any[]): Query<T>;
         count(options?: Query.CountOptions): Promise<number>;
         descending(key: string): Query<T>;
         descending(key: string[]): Query<T>;
@@ -440,12 +467,16 @@ declare namespace Parse {
         exists(key: string): Query<T>;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
+        fromLocalDatastore(): void;
+        fromPin(): void;
+        fromPinWithName(name: string): void;
         fullText(key: string, value: string, options?: Query.FullTextOptions): Query<T>;
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
         greaterThan(key: string, value: any): Query<T>;
         greaterThanOrEqualTo(key: string, value: any): Query<T>;
         include(key: string): Query<T>;
         include(keys: string[]): Query<T>;
+        includeAll(): Query<T>;
         lessThan(key: string, value: any): Query<T>;
         lessThanOrEqualTo(key: string, value: any): Query<T>;
         limit(n: number): Query<T>;
@@ -455,13 +486,17 @@ declare namespace Parse {
         near(key: string, point: GeoPoint): Query<T>;
         notContainedIn(key: string, values: any[]): Query<T>;
         notEqualTo(key: string, value: any): Query<T>;
+        polygonContains(key: string, point: GeoPoint): Query<T>;
         select(...keys: string[]): Query<T>;
         skip(n: number): Query<T>;
+        sortByTextScore(): any;
         startsWith(key: string, prefix: string): Query<T>;
         subscribe(): LiveQuerySubscription;
+        withJSON(json: any): any;
         withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
         withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
         withinMiles(key: string, point: GeoPoint, maxDistance: number): Query<T>;
+        withinPolygon(key: string, points: GeoPoint[]): Query<T>;
         withinRadians(key: string, point: GeoPoint, maxDistance: number): Query<T>;
     }
 
@@ -599,6 +634,7 @@ subscription.on('close', () => {});
     class Config extends Object {
         static get(options?: SuccessFailureOptions): Promise<Config>;
         static current(): Config;
+        static save(attr: any): Promise<Config>;
 
         get(attr: string): any;
         escape(attr: string): any;
@@ -622,15 +658,16 @@ subscription.on('close', () => {});
      */
     class User extends Object {
 
+        static allowCustomUserClass(isAllowed: boolean): void;
+        static become(sessionToken: string, options?: SuccessFailureOptions): Promise<User>;
         static current(): User | undefined;
         static currentAsync(): Promise<User | null>;
         static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
         static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
         static logOut(): Promise<User>;
-        static allowCustomUserClass(isAllowed: boolean): void;
-        static become(sessionToken: string, options?: SuccessFailureOptions): Promise<User>;
         static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
         static extend(protoProps?: any, classProps?: any): any;
+        static hydrate(userJSON: any): Promise<User>;
 
         signUp(attrs: any, options?: SignUpOptions): Promise<this>;
         logIn(options?: SuccessFailureOptions): Promise<this>;
@@ -965,7 +1002,7 @@ subscription.on('close', () => {});
     /**
      * Gets all contents from Local Datastore.
      */
-    function dumpLocalDatastore(): any;
+    function dumpLocalDatastore(): Promise<{ [key: string]: any }>;
 
     /**
      * Enable pinning in your application.
@@ -976,8 +1013,9 @@ subscription.on('close', () => {});
     /**
      * Flag that indicates whether Local Datastore is enabled.
      */
-    function isLocalDatastoreEnabled(): any;
+    function isLocalDatastoreEnabled(): boolean;
 
+    function setLocalDatastoreController(controller: any): void;
 }
 
 declare module "parse/node" {
