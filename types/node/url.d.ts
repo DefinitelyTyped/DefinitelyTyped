@@ -1,5 +1,5 @@
 declare module "url" {
-    import { ParsedUrlQuery } from 'querystring';
+    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
 
     interface UrlObjectCommon {
         auth?: string;
@@ -14,13 +14,10 @@ declare module "url" {
         slashes?: boolean;
     }
 
-    // When these types support TypeScript 3.0+, we can replace this with `unknown`.
-    type PoorMansUnknown = {} | null | undefined;
-    type UrlObjectQueryObject = { [key: string]: PoorMansUnknown };
     // Input to `url.format`
     interface UrlObject extends UrlObjectCommon {
         port?: string | number;
-        query?: string | null | UrlObjectQueryObject;
+        query?: string | null | ParsedUrlQueryInput;
     }
 
     // Output of `url.parse`
