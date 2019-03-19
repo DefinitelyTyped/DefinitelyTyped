@@ -376,7 +376,7 @@ declare namespace React {
     interface ProfilerProps {
         children?: ReactNode;
         id: string;
-        onRender: OnRenderCallback;
+        onRender: ProfilerOnRenderCallback;
     }
 
     const unstable_Profiler: ExoticComponent<ProfilerProps>;
