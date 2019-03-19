@@ -1,6 +1,6 @@
 import * as querystring from 'querystring';
 
-interface SampleObject { a: string; }
+interface SampleObject { [key: string]: string; }
 
 {
     const obj: SampleObject = { a: "" };
