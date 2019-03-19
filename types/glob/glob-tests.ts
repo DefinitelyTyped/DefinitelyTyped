@@ -42,9 +42,9 @@ type GlobOptions = import('glob').IOptions;
 		}
         const file1 = matches[0];
         const stat = options.statCache[file1];
-        if (stat.isFile()) {
+        if (stat && stat.isFile()) {
             console.log("is file");
-        } else if (stat.isDirectory()) {
+        } else if (stat && stat.isDirectory()) {
             console.log("is directory");
         }
 	});
