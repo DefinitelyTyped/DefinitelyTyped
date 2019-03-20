@@ -2,7 +2,7 @@
 // Project: http://projectfluent.org
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4.0-rc
+// TypeScript Version: 3.3
 
 import * as React from 'react';
 import {
