@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "jest-console-tests.ts"
+        "wordpress__jest-console-tests.ts"
     ]
 }
