@@ -1,4 +1,4 @@
-import { openpgp } from "openpgp";
+import openpgp from "openpgp";
 
 // Open PGP Sample codes
 
