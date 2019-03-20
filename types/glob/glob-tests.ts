@@ -1,4 +1,5 @@
 import glob = require("glob");
+import fs = require("fs");
 const Glob = glob.Glob;
 type GlobOptions = import('glob').IOptions;
 
@@ -32,7 +33,7 @@ type GlobOptions = import('glob').IOptions;
 
 (() => {
 	const pattern = "test/**";
-    let options: GlobOptions = { statCache: {}, stat: true, dot: true };
+    const options: GlobOptions = { statCache: {}, stat: true, dot: true };
 	console.log(pattern);
 
 	const mg = new Glob(pattern, options, (er, matches) => {
@@ -53,4 +54,5 @@ type GlobOptions = import('glob').IOptions;
 
 declare const ignore: ReadonlyArray<string>;
 glob.sync('/foo/*', {realpath: true, realpathCache: {'/foo/bar': '/bar'}, ignore: '/foo/baz'});
-glob.sync('/*', {ignore, nodir: true, cache: {'/': ['bar', 'baz']}, statCache: {'/foo/bar': false, '/foo/baz': {isDirectory() { return true; }}}});
+const statResult = fs.statSync('/*');
+glob.sync('/*', {ignore, nodir: true, cache: {'/': ['bar', 'baz']}, statCache: {'/foo/bar': false, '/foo/baz': statResult}});
