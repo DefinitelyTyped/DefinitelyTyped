@@ -1,4 +1,4 @@
-import Vec2 from 'vec2';
+import Vec2 = require('vec2');
 
 // some constructor tests
 const instance = new Vec2([0, 1]);

@@ -1,5 +1,5 @@
 // no tests yet
-import Polygon from 'polygon';
+import Polygon = require('polygon');
 
 const polygon1 = new Polygon([
     [0, 0],
