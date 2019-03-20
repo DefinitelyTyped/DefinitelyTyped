@@ -259,7 +259,7 @@ declare namespace Remarkable {
         silent: boolean
     ) => boolean;
 
-    type Rule<T extends TagToken = TagToken, R extends string = string> = <T>(
+    type Rule<T extends TagToken = TagToken, R extends string = string> = (
         /**
          * The list of tokens currently being processed.
          */
