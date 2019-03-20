@@ -75,27 +75,26 @@ declare namespace AMap {
         constructor(options?: IndoorMap.Options);
         showIndoorMap(
             indoorId: string,
+            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
+        ): void;
+        showIndoorMap(
+            indoorId: string,
+            floor?: number,
+            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
+        ): void;
+        showIndoorMap(
+            indoorId: string,
+            floor?: number,
+            shopId?: string,
+            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
+        ): void;
+        showIndoorMap(
+            indoorId: string,
             floor?: number,
             shopId?: string,
             noMove?: boolean,
             callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
         ): void;
-        showIndoorMap(
-            indoorId: string,
-            floor?: number,
-            shopId?: string,
-            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
-        ): void;
-        showIndoorMap(
-            indoorId: string,
-            floor?: number,
-            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
-        ): void;
-        showIndoorMap(
-            indoorId: string,
-            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
-        ): void;
-
         showFloor(floor: number, noMove?: boolean): false | undefined;
         showFloorBar(): void;
         hideFloorBar(): void;
