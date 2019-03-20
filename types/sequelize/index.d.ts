@@ -4380,7 +4380,7 @@ declare namespace sequelize {
         /**
          * Inserts multiple records at once
          */
-        bulkInsert(tableName: string, records: Object[], options?: QueryOptions,
+        bulkInsert(tableName: string | { tableName: string, schema: string }, records: Object[], options?: QueryOptions,
             attributes?: string[] | string): Promise<Object>;
 
         /**
