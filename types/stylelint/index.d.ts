@@ -1,4 +1,4 @@
-// Type definitions for stylelint. 10.0
+// Type definitions for stylelint 9.10
 // Project: https://github.com/stylelint/stylelint, https://stylelint.io
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 //                 Filips Alpe <https://github.com/filipsalpe>
