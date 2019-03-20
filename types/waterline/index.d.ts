@@ -34,16 +34,13 @@ declare namespace Waterline {
         collections: any;
     }
     interface Waterline {
-        registerModel(collection: CollectionClassV3): void;
-        loadCollection(collection: CollectionClass): void;
+        registerModel(collection:  CollectionClass<Waterline.CollectionV3>): void;
+        loadCollection(collection: CollectionClass<Waterline.Collection>): void;
         initialize: (config: Config | ConfigV3, cb: (err: Error, ontology: Ontology) => any) => any;
         collections: any;
     }
-    interface CollectionClass {
-        (): Collection
-    }
-    interface CollectionClassV3 {
-        (): CollectionV3
+    interface CollectionClass<T extends Collection | CollectionV3> {
+        (): T
     }
 
     // used this comment https://github.com/balderdashy/waterline/issues/1154#issuecomment-167262575
@@ -352,10 +349,7 @@ declare namespace Waterline {
 }
 declare interface WaterlineStatic {
     Collection: {
-        extend: (params: Waterline.CollectionDefinition) => Waterline.CollectionClass;
-    }
-    CollectionV3: {
-        extend: (params: Waterline.CollectionDefinitionV3) => Waterline.CollectionClassV3;
+        extend: <T extends Waterline.CollectionDefinition | Waterline.CollectionDefinitionV3,K>(params: T) => Waterline.CollectionClass<K>;
     }
     new (): Waterline.Waterline;
 }

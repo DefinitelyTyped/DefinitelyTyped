@@ -1,6 +1,6 @@
 import Waterline = require("waterline");
 const waterline = new Waterline();
-const userCollection = Waterline.Collection.extend({
+const userCollection = Waterline.Collection.extend<Waterline.CollectionDefinition, Waterline.Collection>({
     identity: "user",
     connection: "default",
     attributes: {
@@ -15,7 +15,7 @@ const userCollection = Waterline.Collection.extend({
         },
     },
 });
-const userCollectionV3 = Waterline.CollectionV3.extend({
+const userCollectionV3 = Waterline.Collection.extend<Waterline.CollectionDefinitionV3, Waterline.CollectionV3>({
     identity: "userv3",
     connection: "default",
     attributes: {
@@ -29,7 +29,7 @@ const userCollectionV3 = Waterline.CollectionV3.extend({
         },
     },
 });
-const petCollection = Waterline.Collection.extend({
+const petCollection = Waterline.Collection.extend<Waterline.CollectionDefinition, Waterline.Collection>({
     identity: "pet",
     connection: "default",
     attributes: {
@@ -44,7 +44,7 @@ const petCollection = Waterline.Collection.extend({
     },
 });
 
-const petCollectionv3 = Waterline.CollectionV3.extend({
+const petCollectionv3 = Waterline.Collection.extend<Waterline.CollectionDefinitionV3, Waterline.CollectionV3>({
     identity: "petv3",
     connection: "default",
     attributes: {
@@ -149,7 +149,7 @@ waterline.initialize(configV3, (err, ontology) => {
     });
 });
 
-const Person = Waterline.Collection.extend({
+const Person = Waterline.Collection.extend<Waterline.CollectionDefinition, Waterline.Collection>({
     identity: "person",
     connection: "local-postgresql",
 
@@ -187,7 +187,7 @@ const Person = Waterline.Collection.extend({
     }
 });
 
-const PersonV3 = Waterline.CollectionV3.extend({
+const PersonV3 = Waterline.Collection.extend<Waterline.CollectionDefinitionV3, Waterline.CollectionV3>({
     identity: "person",
     connection: "local-postgresql",
 
