@@ -164,7 +164,7 @@ declare global {
              * @param path
              * @example await device.installApp('path/to/other/app');
              */
-            installApp(path?: any): Promise<void>;
+            installApp(path?: string): Promise<void>;
             /**
              * By default, uninstallApp() with no params will uninstall the app defined in the current configuration.
              * To uninstall another app, specify its bundle id
