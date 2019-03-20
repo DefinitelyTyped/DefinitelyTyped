@@ -9,7 +9,7 @@
 import * as React from "react";
 
 export interface FormatCharacter {
-    validate(char: string): string;
+    validate(char: string): boolean;
     transform?(char: string): string;
 }
 
