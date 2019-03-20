@@ -9,7 +9,7 @@
 //                 Johan Davidsson <https://github.com/johandavidson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Options,ParserOptions} from "htmlparser2";
+import {Options} from "htmlparser2";
 
 export = sanitize;
 
@@ -56,7 +56,7 @@ declare namespace sanitize {
     nonTextTags?: string[];
     selfClosing?: string[];
     transformTags?: { [tagName: string]: string | Transformer };
-    parser?: ParserOptions;
+    parser?: Options;
   }
 
 
