@@ -3336,6 +3336,8 @@ declare module "mongoose" {
     __v?: number;
   }
 
+  export class Document {}
+
   interface SaveOptions {
     safe?: boolean | WriteConcern;
     validateBeforeSave?: boolean;
