@@ -249,6 +249,7 @@ declare global {
              */
             atIndex(index: number): DetoxAny;
         }
+
         interface Matchers {
             (by: Matchers): Matchers;
 
@@ -303,6 +304,7 @@ declare global {
              */
             and(by: Matchers): Matchers;
         }
+
         interface Expect<R> {
             (element: Element): Expect<any>;
             /**
@@ -491,7 +493,7 @@ declare global {
              * Launch from URL
              * Mock opening the app from URL to test your app's deep link handling mechanism.
              */
-            url?: any;
+            url?: string;
             /**
              * Launch with user notifications
              */
@@ -514,6 +516,10 @@ declare global {
              * Launch config for specifying the native language and locale
              */
             languageAndLocale?: LanguageAndLocale;
+            /**
+             * Disable touch indicators on iOS.
+             */
+            disableTouchIndicators?: boolean;
         }
     }
 }
