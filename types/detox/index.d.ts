@@ -61,6 +61,13 @@ declare global {
             DetoxConstants: DetoxConstants;
         }
 
+        interface UserActivity {
+            activityType: string;
+            webpageURL?: string;
+            referrerURL?: string;
+            userInfo?: object;
+        }
+
         interface Device {
             /**
              * Launch the app
@@ -121,7 +128,7 @@ declare global {
              * Mock handling of received user activity when app is in foreground.
              * @param params
              */
-            sendUserActivity(...params: any[]): Promise<void>;
+            sendUserActivity(userActivity: UserActivity): Promise<void>;
             /**
              * Takes "portrait" or "landscape" and rotates the device to the given orientation. Currently only available in the iOS Simulator.
              * @param orientation
@@ -434,7 +441,7 @@ declare global {
             /**
              * Launch with user activity
              */
-            userActivity?: any;
+            userActivity?: UserActivity;
             /**
              * Launch into a fresh installation
              * A flag that enables relaunching into a fresh installation of the app (it will uninstall and install the binary again), default is false.

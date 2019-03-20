@@ -3,7 +3,7 @@ declare var beforeAll: (callback: () => void) => void;
 declare var afterAll: (callback: () => void) => void;
 declare var test: (test: string, callback: () => void) => void;
 
-import { by, device, element, expect, waitFor } from "detox";
+import { by, device, element, expect, waitFor, DetoxConstants } from "detox";
 
 describe("Test", () => {
     beforeAll(async () => {
@@ -38,5 +38,16 @@ describe("Test", () => {
             .toBeVisible()
             .whileElement(by.id("ScrollView630"))
             .scroll(50, "down");
+    });
+
+    test("user activity", () => {
+        const activity: Detox.UserActivity = {
+            activityType: DetoxConstants.userActivityTypes.browsingWeb,
+            webpageURL: "some://deep/link",
+            referrerURL: "https://typescriptlang.org",
+        };
+        device.launchApp({ userActivity: activity });
+
+        device.sendUserActivity(activity);
     });
 });
