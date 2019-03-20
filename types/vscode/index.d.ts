@@ -11,6 +11,7 @@
 
 /**
  * Type Definition for Visual Studio Code 1.19 Extension API
+ * See https://code.visualstudio.com/api for more information
  */
 
 declare module 'vscode' {
