@@ -31,3 +31,7 @@ declare class FontFaceObserver {
 declare module "fontfaceobserver" {
     export = FontFaceObserver;
 }
+
+declare module "fontfaceobserver/fontfaceobserver.standalone" {
+    export = FontFaceObserver;
+}
