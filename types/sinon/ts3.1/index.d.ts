@@ -29,7 +29,7 @@ declare namespace Sinon {
          * so a call that received the provided arguments (in the same spots) and possibly others as well will return true.
          * @param args
          */
-        calledWith(...args: MatchArguments<TArgs>): boolean;
+        calledWith(...args: Partial<MatchArguments<TArgs>>): boolean;
         /**
          * Returns true if spy was called at least once with the provided arguments and no others.
          */
