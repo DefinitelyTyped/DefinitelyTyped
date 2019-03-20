@@ -68,6 +68,64 @@ declare global {
             userInfo?: object;
         }
 
+        type UserNotificationTrigger =
+            | PushUserNotificationTrigger
+            | TimeIntervalUserNotificationTrigger
+            | CalendarUserNotificationTrigger
+            | LocationUserNotificationTrigger;
+
+        interface PushUserNotificationTrigger {
+            type: "push";
+        }
+        interface TimeIntervalUserNotificationTrigger {
+            type: "timeInterval";
+            repeats?: boolean;
+            timeInterval: number;
+        }
+        interface CalendarUserNotificationTrigger {
+            type: "calendar";
+            repeats?: boolean;
+            "date-components": {
+                era?: number;
+                year?: number;
+                month?: number;
+                day?: number;
+                hour?: number;
+                minute?: number;
+                second?: number;
+                weekday?: number;
+                weekdayOrdinal?: number;
+                quarter?: number;
+                weekOfMonth?: number;
+                weekOfYear?: number;
+                leapMonth?: boolean;
+            };
+        }
+        interface LocationUserNotificationTrigger {
+            type: "location";
+            repeats?: boolean;
+            center: {
+                latitude: number;
+                longitude: number;
+            };
+            radius: number;
+            notifyOn?: boolean;
+            notifyOnExit?: boolean;
+        }
+
+        interface UserNotification {
+            trigger: UserNotificationTrigger;
+            title: string;
+            subtitle: string;
+            body: string;
+            badge: number;
+            payload: object;
+            category: string;
+            "user-text": string;
+            "content-available": number;
+            "action-identifier": string;
+        }
+
         interface Device {
             /**
              * Launch the app
@@ -121,12 +179,12 @@ declare global {
             openURL(url: { url: string; sourceApp?: string }): Promise<void>;
             /**
              * Mock handling of received user notification when app is in foreground.
-             * @param params
+             * @param notification
              */
-            sendUserNotification(...params: any[]): Promise<void>;
+            sendUserNotification(notification: UserNotification): Promise<void>;
             /**
              * Mock handling of received user activity when app is in foreground.
-             * @param params
+             * @param userActivitiy
              */
             sendUserActivity(userActivity: UserActivity): Promise<void>;
             /**
@@ -437,7 +495,7 @@ declare global {
             /**
              * Launch with user notifications
              */
-            userNotification?: any;
+            userNotification?: UserNotification;
             /**
              * Launch with user activity
              */
