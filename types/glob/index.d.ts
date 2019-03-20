@@ -4,7 +4,6 @@
 //                 voy <https://github.com/voy>
 //                 Klaus Meinhardt <https://github.com/ajafff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
 
 /// <reference types="node" />
 

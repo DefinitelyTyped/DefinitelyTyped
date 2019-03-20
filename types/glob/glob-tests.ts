@@ -1,7 +1,6 @@
 import glob = require("glob");
 import fs = require("fs");
 const Glob = glob.Glob;
-type GlobOptions = import('glob').IOptions;
 
 (() => {
 	const pattern = "test/a/**/[cg]/../[cg]";
@@ -33,7 +32,7 @@ type GlobOptions = import('glob').IOptions;
 
 (() => {
 	const pattern = "test/**";
-    const options: GlobOptions = { statCache: {}, stat: true, dot: true };
+    const options: glob.IOptions = { statCache: {}, stat: true, dot: true };
 	console.log(pattern);
 
 	const mg = new Glob(pattern, options, (er, matches) => {
