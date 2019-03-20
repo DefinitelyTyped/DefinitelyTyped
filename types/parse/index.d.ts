@@ -36,6 +36,24 @@ declare namespace Parse {
         error?: Function;
     }
 
+    interface FullOptions {
+      success?: Function;
+      error?: Function;
+      useMasterKey?: boolean;
+      sessionToken?: string;
+      installationId?: string;
+      progress?: Function;
+    }
+
+    interface RequestOptions {
+      useMasterKey?: boolean;
+      sessionToken?: string;
+      installationId?: string;
+      batchSize?: number;
+      include?: string | string[];
+      progress?: Function;
+    }
+
     interface SuccessFailureOptions extends SuccessOption, ErrorOption {
     }
 
@@ -275,7 +293,7 @@ declare namespace Parse {
         static extend(className: string | { className: string }, protoProps?: any, classProps?: any): any;
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
-        static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options: Object.RequestOptions): any;
+        static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options: RequestOptions): Promise<T[]>;
         static fromJSON(json: any, override: boolean): any;
         static pinAll(objects: Object[]): Promise<void>;
         static pinAllWithName(name: string, objects: Object[]): Promise<void>;
@@ -302,7 +320,7 @@ declare namespace Parse {
         existed(): boolean;
         fetch(options?: Object.FetchOptions): Promise<this>;
         fetchFromLocalDatastore(): Promise<this> | void;
-        fetchWithInclude(keys: keys: string | Array<string | Array<string>>, options?: Object.RequestOptions): Promise<this>;
+        fetchWithInclude(keys: string | Array<string | Array<string>>, options?: RequestOptions): Promise<this>;
         get(attr: string): any | undefined;
         getACL(): ACL | undefined;
         has(attr: string): boolean;
@@ -457,7 +475,7 @@ declare namespace Parse {
         containedIn(key: string, values: any[]): Query<T>;
         contains(key: string, substring: string): Query<T>;
         containsAll(key: string, values: any[]): Query<T>;
-        containsAllStartingWith(key: string, values: string[]): Query<T>;
+        containsAllStartingWith(key: string, values: any[]): Query<T>;
         count(options?: Query.CountOptions): Promise<number>;
         descending(key: string): Query<T>;
         descending(key: string[]): Query<T>;
