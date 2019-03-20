@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.markercluster 1.0
+// Type definitions for Leaflet.markercluster 1.4
 // Project: https://github.com/Leaflet/Leaflet.markercluster
 // Definitions by: Robert Imig <https://github.com/rimig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
