@@ -227,7 +227,7 @@ declare namespace request {
         json(val: any): Request;
         aws(opts: AWSOptions, now?: boolean): Request;
         hawk(opts: HawkOptions): void;
-        auth(username: string, password: string, sendImmediately?: boolean, bearer?: string): Request;
+        auth(username: string | null, password: string | null, sendImmediately?: boolean, bearer?: string): Request;
         oauth(oauth: OAuthOptions): Request;
         jar(jar: CookieJar): Request;
 
