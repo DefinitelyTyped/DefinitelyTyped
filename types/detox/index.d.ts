@@ -43,6 +43,14 @@ declare global {
             cleanup(): Promise<void>;
         }
 
+        interface DetoxConstants {
+            userActivityTypes: {
+                searchableItem: string;
+                browsingWeb: string;
+            };
+            searchableItemActivityIdentifier: string;
+        }
+
         // Detox exports all methods from detox global and all of the global constants.
         interface DetoxExport extends Detox {
             device: Device;
@@ -50,6 +58,7 @@ declare global {
             waitFor: WaitFor;
             expect: Expect<Expect<any>>;
             by: Matchers;
+            DetoxConstants: DetoxConstants;
         }
 
         interface Device {
