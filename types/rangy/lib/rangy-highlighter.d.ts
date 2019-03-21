@@ -82,11 +82,11 @@ declare module 'rangy' {
 
         highlightSelection(className?: string, options?: HighlightOptions & { selection?: RangySelection }): Highlight[];
 
-        unhighlightSelection(selection: RangySelection): Highlight[];
+        unhighlightSelection(selection?: RangySelection): Highlight[];
 
-        getHighlightsInSelection(selection: RangySelection): Highlight[];
+        getHighlightsInSelection(selection?: RangySelection): Highlight[];
 
-        selectionOverlapsHighlight(selection: RangySelection): boolean;
+        selectionOverlapsHighlight(selection?: RangySelection): boolean;
 
         serialize(options?: { serializeHighlightText?: boolean; type?: string }): string;
 
