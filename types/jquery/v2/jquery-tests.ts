@@ -3534,7 +3534,7 @@ function test_promise_then_change_type() {
 function test_promise_then_not_return_deferred() {
   var state: string;
 
-  var deferred: JQueryDeferred<any> = $.Deferred();
+  var deferred = $.Deferred<void>();
   state = deferred.state();
   deferred = deferred.progress();
   deferred = deferred.done();
@@ -3546,7 +3546,7 @@ function test_promise_then_not_return_deferred() {
   promise = deferred.promise();
   promise = deferred.then(function () { });
 
-  var promise: JQueryPromise<any> = $.Deferred().promise();
+  var promise = $.Deferred<void>().promise();
   state = promise.state();
   promise = promise.then(function () { });
   promise = promise.progress();
