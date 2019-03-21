@@ -382,7 +382,7 @@ export namespace TrezorConnect {
   /**
    * Resets device to factory defaults and removes all private data.
    */
-  function wipeDevice(): Promise<ResponseMessage<Message>>;
+  function wipeDevice(params?: CommonParams): Promise<ResponseMessage<Message>>;
 
   /**
    * Performs device setup and generates a new seed.
