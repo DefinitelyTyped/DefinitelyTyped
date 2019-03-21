@@ -214,3 +214,28 @@ function testRangyClassApplier() {
     b = u.isEditingHost(n);
     b = u.isEditable(n);
 }
+
+import 'rangy/lib/rangy-highlighter';
+
+function testHighlighter() {
+    let highlighter: rangy.Highlighter;
+    highlighter = rangy.createHighlighter(document, "TextRange");
+    let classApplier: rangy.ClassApplier = null;
+    highlighter.addClassApplier(classApplier);
+    let h: rangy.Highlight = highlighter.getHighlightForElement(new Node);
+    highlighter.removeHighlights([h]);
+    highlighter.removeAllHighlights();
+    let r: RangyRange = rangy.createRange();
+    let hs: rangy.Highlight[] = highlighter.getIntersectingHighlights([r]);
+    let charRange: rangy.CharacterRange = {start: 1, end: 2};
+    hs = highlighter.highlightCharacterRanges("theClassName", [charRange]);
+    hs = highlighter.highlightRanges("cls", [r]);
+    hs = highlighter.highlightSelection();
+
+    let sel: RangySelection = rangy.getSelection();
+    hs = highlighter.unhighlightSelection(sel);
+    hs = highlighter.getHighlightsInSelection(sel);
+    let b: boolean = highlighter.selectionOverlapsHighlight(sel);
+    let s: string = highlighter.serialize();
+    highlighter.deserialize(s);
+}

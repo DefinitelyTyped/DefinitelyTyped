@@ -20,6 +20,7 @@
     "files": [
         "index.d.ts",
         "lib/rangy-classapplier.d.ts",
+        "lib/rangy-highlighter.d.ts",
         "rangy-tests.ts"
     ]
 }
