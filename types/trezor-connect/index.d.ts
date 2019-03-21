@@ -195,11 +195,25 @@ export type DeviceMode = 'normal' | 'bootloader' | 'initialize' | 'seedless';
 
 export type DeviceFirmwareStatus = 'valid' | 'outdated' | 'required';
 
+export interface FirmwareRelease {
+  required: boolean;
+  version: number[];
+  min_bridge_version: number[];
+  min_firmware_version: number[];
+  bootloader_version: number[];
+  min_bootloader_version: number[];
+  url: string;
+  channel: string;
+  fingerprint: string;
+  changelog: string;
+}
+
 export type Device = {
     type: 'acquired',
     path: string,
     label: string,
     firmware: DeviceFirmwareStatus,
+    firmwareRelease: FirmwareRelease,
     status: DeviceStatus,
     mode: DeviceMode,
     state: string | null,
