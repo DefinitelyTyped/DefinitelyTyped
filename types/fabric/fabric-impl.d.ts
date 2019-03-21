@@ -3642,6 +3642,9 @@ export class Polyline extends Object {
 	 * @param [skipOffset] Whether points offsetting should be skipped
 	 */
 	constructor(points: Array<{ x: number; y: number }>, options?: IPolylineOptions);
+
+    pathOffset: Point;
+
 	/**
 	 * List of attribute names to account for when parsing SVG element (used by `fabric.Polygon.fromElement`)
 	 */

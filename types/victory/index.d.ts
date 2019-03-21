@@ -2003,7 +2003,7 @@ declare module "victory" {
      * gutters are between columns. When orientation is vertical, gutters
      * are the space between rows.
      */
-    gutter?: number;
+    gutter?: number | {left: number, right: number};
     /**
      * The itemsPerRow prop determines how many items to render in each row
      * of a horizontal legend, or in each column of a vertical legend. This

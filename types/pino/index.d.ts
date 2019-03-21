@@ -444,6 +444,11 @@ declare namespace P {
          * Flushes the content of the buffer in extreme mode. It has no effect if extreme mode is not enabled.
          */
         flush(): void;
+
+        /**
+         * A utility method for determining if a given log level will write to the destination.
+         */
+        isLevelEnabled(level: LevelWithSilent | string): boolean;
     }
 
     type LevelChangeEventListener = (lvl: LevelWithSilent | string, val: number, prevLvl: LevelWithSilent | string, prevVal: number) => void;
