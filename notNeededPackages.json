@@ -2011,6 +2011,12 @@
             "asOfVersion": "0.7.3"
         },
         {
+            "libraryName": "screenfull",
+            "typingsPackageName": "screenfull",
+            "sourceRepoURL": "https://github.com/sindresorhus/screenfull.js",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "sendgrid",
             "typingsPackageName": "sendgrid",
             "sourceRepoURL": "https://github.com/sendgrid/sendgrid-nodejs",
