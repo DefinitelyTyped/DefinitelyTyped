@@ -5,6 +5,7 @@
 //                 Albert Ozimek <https://github.com/AlbertOzimek>
 //                 Juliën Hanssens <https://github.com/hanssens>
 //                 Johns Gresham <https://github.com/jgresham>
+//                 ArunkeshavaReddy Sankaramaddi <https://github.com/Arunkeshavareddy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -4458,7 +4459,10 @@ declare namespace Highcharts {
          * @default 'Solid'
          */
         dashStyle?: string;
-        dataLabels?: DataLabels;
+        /**
+         * Gantt charts use one or more data labels for each series, for showing multiple date periods.
+         */
+        dataLabels?: DataLabels | DataLabels[];
         /**
          * Enable or disable the mouse tracking for a specific series. This includes point tooltips and click events on
          * graphs and points. For large datasets it improves performance.
@@ -5984,6 +5988,7 @@ declare namespace Highcharts {
     interface ColumnRangeChartSeriesOptions extends IndividualSeriesOptions, ColumnRangeChart { }
     interface ErrorBarChartSeriesOptions extends IndividualSeriesOptions, ErrorBarChart { }
     interface FunnelChartSeriesOptions extends IndividualSeriesOptions, FunnelChart { }
+    interface GanttChartSeriesOptions extends IndividualSeriesOptions, SeriesChart { }
     interface GaugeChartSeriesOptions extends IndividualSeriesOptions, GaugeChart { }
     interface HeatMapSeriesOptions extends IndividualSeriesOptions, HeatMapChart { }
     interface LineChartSeriesOptions extends IndividualSeriesOptions, LineChart { }
@@ -6023,11 +6028,11 @@ declare namespace Highcharts {
          * The id of a series in the drilldown.series array to use for a drilldown for this point.
          * @since 3.0.8
          */
-				drilldown?: string;
-				/**
-				 * The end value of the point. For gantt datetime axes, the end value is the timestamp in milliseconds since 1970.
-				 */
-				end?: number;
+        drilldown?: string;
+        /**
+         * The end value of the point. For gantt datetime axes, the end value is the timestamp in milliseconds since 1970.
+         */
+		end?: number;
         /**
          * Individual point events
          */
@@ -6106,11 +6111,11 @@ declare namespace Highcharts {
          * Whether to display a slice offset from the center.
          * @default false
          */
-				sliced?: boolean;
-				/**
-				 * The start value of the point. For gantt datetime axes, the start value is the timestamp in milliseconds since 1970.
-				 */
-				start?: number;
+        sliced?: boolean;
+        /**
+         * The start value of the point. For gantt datetime axes, the start value is the timestamp in milliseconds since 1970.
+         */
+        start?: number;
         /**
          * The value of the point, resulting in a relative area of the point in the treemap.
          */
@@ -6684,6 +6689,16 @@ declare namespace Highcharts {
          * horizontal axis. In case of multiple axes, the yAxis node is an array of configuration objects.
          */
         yAxis?: AxisOptions[] | AxisOptions;
+    }
+
+    /**
+     * The Gantt chart uses different plot options than the base Highcharts chart Options.
+     */
+    interface GanttOptions extends Options {
+        /**
+         * The specific Gantt Series to append the GanttChart.
+         */
+        series?: GanttChartSeriesOptions[];
     }
 
     interface GlobalOptions extends Options {
@@ -7269,11 +7284,11 @@ declare namespace Highcharts {
          * As Highcharts.Chart, but without need for the new keyword.
          * @since 4.2.0
          */
-				chart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
-				/**
-				 * Highcharts ganttChart which doesn't require the new keyword. Required Highcharts Gantt module.
-				 */
-				ganttChart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
+		chart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
+		/**
+		 * Highcharts ganttChart which doesn't require the new keyword. Required Highcharts Gantt module.
+		 */
+		ganttChart(renderTo: string | HTMLElement, options: GanttOptions, callback?: (chart: ChartObject) => void): ChartObject;
         /**
          * An array containing the current chart objects in the page. A chart's position in the array is preserved
          * throughout the page's lifetime. When a chart is destroyed, the array item becomes undefined.

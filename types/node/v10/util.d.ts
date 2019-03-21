@@ -114,7 +114,7 @@ declare module "util" {
         function isArrayBuffer(object: any): object is ArrayBuffer;
         function isAsyncFunction(object: any): boolean;
         function isBooleanObject(object: any): object is Boolean;
-        function isBoxedPrimitive(object: any): object is (Number | Boolean | String | Symbol /* BigInt */);
+        function isBoxedPrimitive(object: any): object is (Number | Boolean | String | Symbol /* | Object(BigInt) | Object(Symbol) */);
         function isDataView(object: any): object is DataView;
         function isDate(object: any): object is Date;
         function isExternal(object: any): boolean;
@@ -127,6 +127,7 @@ declare module "util" {
         function isInt32Array(object: any): object is Int32Array;
         function isMap(object: any): boolean;
         function isMapIterator(object: any): boolean;
+        function isModuleNamespaceObject(value: any): boolean;
         function isNativeError(object: any): object is Error;
         function isNumberObject(object: any): object is Number;
         function isPromise(object: any): boolean;

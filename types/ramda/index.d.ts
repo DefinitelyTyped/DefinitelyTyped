@@ -2686,9 +2686,9 @@ declare namespace R {
          * sequence to transform the resulting Traversable of Applicative into
          * an Applicative of Traversable.
          */
-        traverse<T, U, A>(of: (a: U[]) => A, fn: (t: T) => U, list: ReadonlyArray<T>): A;
-        traverse<T, U, A>(of: (a: U[]) => A, fn: (t: T) => U): (list: ReadonlyArray<T>) => A;
-        traverse<T, U, A>(of: (a: U[]) => A): (fn: (t: T) => U, list: ReadonlyArray<T>) => A;
+        traverse<A, B>(of: (a: B) => ReadonlyArray<B>, fn: (t: A) => ReadonlyArray<B>, list: ReadonlyArray<A>): B[][];
+        traverse<A, B>(of: (a: B) => ReadonlyArray<B>, fn: (t: A) => ReadonlyArray<B>): (list: ReadonlyArray<A>) => B[][];
+        traverse<A, B>(of: (a: B) => ReadonlyArray<B>): (fn: (t: A) => ReadonlyArray<B>, list: ReadonlyArray<A>) => B[][];
 
         /**
          * Removes (strips) whitespace from both ends of the string.

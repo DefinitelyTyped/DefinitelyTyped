@@ -105,7 +105,7 @@ export interface DroppableProvidedProps {
 }
 export interface DroppableProvided {
     innerRef(element: HTMLElement | null): any;
-    placeholder?: React.ReactElement | null;
+    placeholder?: React.ReactElement<HTMLElement> | null;
     droppableProps: DroppableProvidedProps;
 }
 
@@ -122,7 +122,7 @@ export interface DroppableProps {
     isDropDisabled?: boolean;
     isCombineEnabled?: boolean;
     direction?: 'vertical' | 'horizontal';
-    children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement;
+    children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<HTMLElement>;
 }
 
 export class Droppable extends React.Component<DroppableProps> { }
@@ -176,7 +176,7 @@ export interface DraggableProvided {
 
     // will be removed after move to react 16
     innerRef(element?: HTMLElement | null): any;
-    placeholder?: React.ReactElement | null;
+    placeholder?: React.ReactElement<HTMLElement> | null;
 }
 
 export interface DraggableStateSnapshot {
@@ -205,7 +205,7 @@ export interface DraggableProps {
     index: number;
     isDragDisabled?: boolean;
     disableInteractiveElementBlocking?: boolean;
-    children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement;
+    children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<HTMLElement>;
     type?: TypeId;
     shouldRespectForceTouch?: boolean;
 }

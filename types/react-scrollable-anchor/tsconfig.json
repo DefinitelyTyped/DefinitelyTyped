@@ -2,13 +2,13 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
+        "jsx": "react",
         "noImplicitAny": true,
+        "strictFunctionTypes": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "screenfull-tests.ts"
+        "react-scrollable-anchor-tests.tsx"
     ]
 }
