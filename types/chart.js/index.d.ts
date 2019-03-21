@@ -512,7 +512,7 @@ declare namespace Chart {
         hoverBorderWidth?: number | number[];
         label?: string;
         lineTension?: number;
-        steppedLine?: 'before' | 'after' | boolean;
+        steppedLine?: 'before' | 'after' | 'middle' | boolean;
         pointBorderColor?: ChartColor | ChartColor[];
         pointBackgroundColor?: ChartColor | ChartColor[];
         pointBorderWidth?: number | number[];
