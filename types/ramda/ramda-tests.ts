@@ -1460,7 +1460,7 @@ type Pair = KeyValuePair<string, number>;
     const list = [1, 2, 3];
     R.traverse(of, fn, list);
     R.traverse(of, fn)(list);
-    R.traverse<number, number[], {}>(of)(fn, list);
+    R.traverse<number, number>(of)(fn, list);
 };
 
 () => {
