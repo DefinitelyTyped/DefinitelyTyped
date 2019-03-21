@@ -11,9 +11,11 @@ scrollToElement('.className', {
 
 // or if you already have a reference to the element
 const elem = document.querySelector('.className');
-scrollToElement(elem, {
-	offset: 0,
-    ease: 'out-bounce',
-    align: 'top',
-	duration: 1500
-});
+if (elem) {
+    scrollToElement(elem, {
+        offset: 0,
+        ease: 'out-bounce',
+        align: 'top',
+        duration: 1500
+    });
+}
