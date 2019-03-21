@@ -1,3 +1,5 @@
+import * as rangy from 'rangy';
+
 declare function assertAny(a:any):any;
 declare function assertBoolean(b:boolean):any;
 declare function assertString(s:string):any;
@@ -102,6 +104,10 @@ function testSelection() {
     let moved: number = selection.move('character', 1, {});
 }
 
+// consumer need this import or tsc will fail if tsconfig.json
+// don't include ["index.d.ts", "rangy-classapplier.d.ts"] in "files" field
+// this is expected!
+import 'rangy/lib/rangy-classapplier'
 
 function testRangyClassApplier() {
     function elementCreateFunction(element: Element, classApplier: RangyClassApplier): number {
