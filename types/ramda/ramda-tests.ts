@@ -822,6 +822,33 @@ R.times(i, 5);
 };
 
 () => {
+    type Prop= 'A' | 'B';
+
+    interface Type<T extends Prop> {
+        prop: T;
+    }
+
+    const a: Type<'A'> = {
+        prop: 'A',
+    };
+
+    const b: Type<'B'> = {
+        prop: 'B',
+    };
+
+    type Things = Type<'A'> | Type<'B'>;
+
+    const things: Things[] = [a, b];
+
+    const isA = (t: Things): t is Type<'A'> => t.prop === 'A';
+
+    const results: Array<Type<'A'>> = R.filter(
+        isA,
+        things
+    );
+};
+
+() => {
     function lastTwo(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
     }

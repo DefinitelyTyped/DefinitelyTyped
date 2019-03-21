@@ -600,12 +600,28 @@ declare namespace R {
         set<T, U>(str: string, obj: T): U;
     }
 
-    interface Filter {
+    interface BasicFilter {
         <T>(fn: (value: T) => boolean): FilterOnceApplied<T>;
         <T, Kind extends 'array'>(fn: (value: T) => boolean): (list: ReadonlyArray<T>) => T[];
         <T, Kind extends 'object'>(fn: (value: T) => boolean): (list: Dictionary<T>) => Dictionary<T>;
         <T>(fn: (value: T) => boolean, list: ReadonlyArray<T>): T[];
         <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
+    }
+
+    interface Filter extends BasicFilter {
+      <T, R extends T>(fn: (value: T) => value is R): FilterOnceApplied<R>;
+      <T, R extends T, Kind extends 'array'>(fn: (value: T) => value is R): (list: ReadonlyArray<T>) => R[];
+      <T, R extends T, Kind extends 'object'>(fn: (value: T) => value is R): (list: Dictionary<T>) => Dictionary<R>;
+      <T, R extends T>(fn: (value: T) => value is R, list: ReadonlyArray<T>): R[];
+      <T, R extends T>(fn: (value: T) => value is R, obj: Dictionary<T>): Dictionary<R>;
+    }
+
+    interface Reject extends BasicFilter {
+        <T, R extends T>(fn: (value: T) => value is R): FilterOnceApplied<Extract<T, R>>;
+        <T, R extends T, Kind extends 'array'>(fn: (value: T) => value is R): (list: ReadonlyArray<T>) => Array<Extract<T, R>>;
+        <T, R extends T, Kind extends 'object'>(fn: (value: T) => value is R): (list: Dictionary<T>) => Dictionary<Extract<T, R>>;
+        <T, R extends T>(fn: (value: T) => value is R, list: ReadonlyArray<T>): Array<Extract<T, R>>;
+        <T, R extends T>(fn: (value: T) => value is R, obj: Dictionary<T>): Dictionary<Extract<T, R>>;
     }
 
     interface FilterOnceApplied<T> {
@@ -805,6 +821,7 @@ declare namespace R {
          * function: the current index, and the entire list.
          */
         addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): Curry.Curry<(a: (item: T, idx: number, list?: T[]) => U, b: ReadonlyArray<T>) => U[]>;
+        addIndex<T, U extends T>(fn: (f: (item: T) => item is U, list: T[]) => U[]): Curry.Curry<(a: (item: T, idx: number, list?: T[]) => U, b: ReadonlyArray<T>) => U[]>;
         /* Special case for forEach */
         addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[]): Curry.Curry<(a: (item: T, idx: number, list?: T[]) => void, b: ReadonlyArray<T>) => T[]>;
         /* Special case for reduce */
@@ -2627,7 +2644,7 @@ declare namespace R {
          * Similar to `filter`, except that it keeps only values for which the given predicate
          * function returns falsy.
          */
-        reject: Filter;
+        reject: Reject;
 
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
