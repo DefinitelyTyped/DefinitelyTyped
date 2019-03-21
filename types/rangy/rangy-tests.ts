@@ -1,64 +1,70 @@
+/* tslint:disable:prefer-const */
 import * as rangy from 'rangy';
 
-declare function assertAny(a:any):any;
-declare function assertBoolean(b:boolean):any;
-declare function assertString(s:string):any;
-declare function assertRangyRange(r:RangyRange):any;
-declare function getRangyRange():RangyRange;
+declare function assertAny(a: any): any;
+
+declare function assertBoolean(b: boolean): any;
+
+declare function assertString(s: string): any;
+
+declare function assertRangyRange(r: RangyRange): any;
+
+declare function getRangyRange(): RangyRange;
 
 type TextRange = any; // ?
 
 function testRangyStatic() {
-    rangy.addInitListener((rangy:RangyStatic) => {
+    rangy.addInitListener((rangy: RangyStatic) => {
     });
 
     rangy.createMissingNativeApi();
     rangy.shim();
 
-    let nativeRange:Range|TextRange = rangy.createNativeRange(document);
+    let nativeRange: Range | TextRange = rangy.createNativeRange(document);
     nativeRange = rangy.createNativeRange(window);
-    nativeRange = rangy.createNativeRange(new HTMLIFrameElement);
+    nativeRange = rangy.createNativeRange(new HTMLIFrameElement());
     nativeRange = rangy.createNativeRange();
 
-    let rangyRange:RangyRange = rangy.createRange(document);
+    let rangyRange: RangyRange = rangy.createRange(document);
     rangyRange = rangy.createRange(window);
-    rangyRange = rangy.createRange(new HTMLIFrameElement);
+    rangyRange = rangy.createRange(new HTMLIFrameElement());
     rangyRange = rangy.createRange();
 
     rangyRange = rangy.createRangyRange(document);
     rangyRange = rangy.createRangyRange(window);
-    rangyRange = rangy.createRangyRange(new HTMLIFrameElement);
+    rangyRange = rangy.createRangyRange(new HTMLIFrameElement());
     rangyRange = rangy.createRangyRange();
 
-    let nativeSelection:Selection = rangy.getNativeSelection(window);
+    let nativeSelection: Selection = rangy.getNativeSelection(window);
     nativeSelection = rangy.getNativeSelection();
 
-    let rangySelection:RangySelection = rangy.getSelection();
+    let rangySelection: RangySelection = rangy.getSelection();
 
-    let initialized:boolean = rangy.initialized;
-    let supported:boolean = rangy.supported;
+    let initialized: boolean = rangy.initialized;
+    let supported: boolean = rangy.supported;
 }
 
 function testRangyRange() {
-    let rangyRange:RangyRange = rangy.createRange();
+    let rangyRange: RangyRange = rangy.createRange();
+    let node = new Node();
 
     assertBoolean(rangyRange.canSurroundContents());
-    rangyRange.collapseAfter(new Node);
-    rangyRange.collapseBefore(new Node);
-    rangyRange.collapseToPoint(new Node, 23);
-    assertAny(rangyRange.compareNode(new Node));
-    assertBoolean(rangyRange.containsNode(new Node, true));
-    assertBoolean(rangyRange.containsNodeContents(new Node));
-    assertBoolean(rangyRange.containsNodeText(new Node));
-    assertBoolean(rangyRange.containsNodeText(new Node));
+    rangyRange.collapseAfter(node);
+    rangyRange.collapseBefore(node);
+    rangyRange.collapseToPoint(node, 23);
+    assertAny(rangyRange.compareNode(node));
+    assertBoolean(rangyRange.containsNode(node, true));
+    assertBoolean(rangyRange.containsNodeContents(node));
+    assertBoolean(rangyRange.containsNodeText(node));
+    assertBoolean(rangyRange.containsNodeText(node));
     assertBoolean(rangyRange.containsRange(rangyRange));
     assertBoolean(rangyRange.equals(rangyRange));
     let bookmark: rangy.Bookmark = rangyRange.getBookmark();
-    bookmark = rangyRange.getBookmark(new Node);
-    let doc:Document = rangyRange.getDocument();
-    let nodes:Node[] = rangyRange.getNodes();
-    nodes = rangyRange.getNodes([new Node]);
-    nodes = rangyRange.getNodes([new Node], (node:Node) => true);
+    bookmark = rangyRange.getBookmark(node);
+    let doc: Document = rangyRange.getDocument();
+    let nodes: Node[] = rangyRange.getNodes();
+    nodes = rangyRange.getNodes([node]);
+    nodes = rangyRange.getNodes([node], (node: Node) => true);
     assertString(rangyRange.inspect());
     assertRangyRange(rangyRange.intersection(rangyRange));
     assertBoolean(rangyRange.intersectsOrTouchesRange(rangyRange));
@@ -69,38 +75,38 @@ function testRangyRange() {
     rangyRange.normalizeBoundaries();
     rangyRange.refresh();
     rangyRange.select();
-    rangyRange.setStartAndEnd(new Node, 23);
-    rangyRange.setStartAndEnd(new Node, 23, 42);
-    rangyRange.setStartAndEnd(new Node, 23, new Node, 42);
+    rangyRange.setStartAndEnd(node, 23);
+    rangyRange.setStartAndEnd(node, 23, 42);
+    rangyRange.setStartAndEnd(node, 23, node, 42);
     rangyRange.splitBoundaries();
     assertString(rangyRange.toHtml());
     assertRangyRange(rangyRange.union(rangyRange));
-    let characterRange: { start: number, end: number } = rangyRange.toCharacterRange(new Node);
-    let characterRange2: { start: number, end: number } = rangyRange.toCharacterRange(new Node, {})
+    let characterRange: { start: number, end: number } = rangyRange.toCharacterRange(node);
+    let characterRange2: { start: number, end: number } = rangyRange.toCharacterRange(node, {});
 }
 
 function testSelection() {
-    let selection:RangySelection = rangy.getSelection();
+    let selection: RangySelection = rangy.getSelection();
+    let node: Node = new Node();
 
     selection.detach();
-    let ranges:RangyRange[] = selection.getAllRanges();
-    let range:RangyRange = selection.getRangeAt(0);
-    let selBookmark = selection.getBookmark(new Node);
-    let nativeTextRange:TextRange = selection.getNativeTextRange();
+    let ranges: RangyRange[] = selection.getAllRanges();
+    let range: RangyRange = selection.getRangeAt(0);
+    let selBookmark = selection.getBookmark(node);
+    let nativeTextRange: TextRange = selection.getNativeTextRange();
     assertString(selection.inspect());
     assertBoolean(selection.isBackwards());
     selection.moveToBookmark(selBookmark.rangeBookmarks[0]);
-    var nativeSelection:Selection = selection.nativeSelection;
+    let nativeSelection: Selection = selection.nativeSelection;
     selection.refresh();
     selection.refresh(true);
     selection.restoreRanges({});
-    var object:Object = selection.saveRanges();
+    let o: object = selection.saveRanges();
     selection.setRanges(ranges);
     selection.setSingleRange(getRangyRange());
     assertString(selection.toHtml());
-    var node:Node = new Node();
-    object = selection.saveCharacterRanges(node, {});
-    selection.restoreCharacterRanges(node, object, {});
+    o = selection.saveCharacterRanges(node, {});
+    selection.restoreCharacterRanges(node, o, {});
     assertString(selection.toHtml());
     let moved: number = selection.move('character', 1, {});
 }
@@ -108,7 +114,7 @@ function testSelection() {
 // consumer need this import or tsc will fail if tsconfig.json
 // don't include ["index.d.ts", "rangy-classapplier.d.ts"] in "files" field
 // this is expected!
-import 'rangy/lib/rangy-classapplier'
+import 'rangy/lib/rangy-classapplier';
 
 function testRangyClassApplier() {
     function elementCreateFunction(element: Element, classApplier: RangyClassApplier): number {
@@ -158,13 +164,13 @@ function testRangyClassApplier() {
     classApplier.toggleRange(rangyRange);
     classApplier.detach(document);
     classApplier.detach(window);
-    classApplier.detach(new HTMLIFrameElement);
+    classApplier.detach(new HTMLIFrameElement());
     classApplier.detach();
 
     let className: string = classApplier.className;
     className = classApplier.cssClass;
 
-    let el = new Element;
+    let el = new Element();
 
     classApplier.copyPropertiesToElement({}, el, true);
     classApplier.copyAttributesToElement([""], el);
@@ -196,7 +202,6 @@ function testRangyClassApplier() {
     b = classApplier.isAppliedToRanges(ranges);
     classApplier.getElementsWithClassIntersectingRange(rangyRange);
 
-
     // test ClassApplierUtil
     let u = rangy.ClassApplier.util;
     b = u.hasClass(el, className);
@@ -222,7 +227,7 @@ function testHighlighter() {
     highlighter = rangy.createHighlighter(document, "TextRange");
     let classApplier: rangy.ClassApplier = null;
     highlighter.addClassApplier(classApplier);
-    let h: rangy.Highlight = highlighter.getHighlightForElement(new Node);
+    let h: rangy.Highlight = highlighter.getHighlightForElement(new Node());
     highlighter.removeHighlights([h]);
     highlighter.removeAllHighlights();
     let r: RangyRange = rangy.createRange();
