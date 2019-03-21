@@ -167,9 +167,9 @@ export default class Canvas extends React.Component<CanvasProps> {
 export class Image {
     constructor(canvas: Canvas, height?: number, width?: number);
     crossOrigin: string | undefined;
-    height: number | undefined;
-    width: number | undefined;
-    src: string | undefined;
+    height: number;
+    width: number;
+    src: string;
     addEventListener: (event: string, func: (...args: any) => any) => void;
 }
 
