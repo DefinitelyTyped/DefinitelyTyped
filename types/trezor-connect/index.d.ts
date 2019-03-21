@@ -147,6 +147,7 @@ export interface ResetDeviceParams extends CommonParams {
 
 export interface GetAddressParams extends CommonParams {
   path: string | number[];
+  address?: string;
   showOnTrezor?: boolean;
   coin?: string;
   crossChain?: boolean;
