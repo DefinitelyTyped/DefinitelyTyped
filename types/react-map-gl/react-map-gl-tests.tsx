@@ -6,6 +6,7 @@ import {
     SVGOverlay,
     HTMLOverlay,
     FullscreenControl,
+    GeolocateControl,
     CanvasRedrawOptions,
     HTMLRedrawOptions,
     SVGRedrawOptions,
@@ -39,6 +40,7 @@ class MyMap extends React.Component<{}, State> {
                     ref={this.setRefInteractive}
                 >
                     <FullscreenControl className="test-class" container={document.querySelector('body')} />
+                    <GeolocateControl className="test-class" />
                     <CanvasOverlay
                         redraw={opts => {
                             const {

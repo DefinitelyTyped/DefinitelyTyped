@@ -7,17 +7,17 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "strictFunctionTypes": true
     },
     "files": [
         "index.d.ts",
-        "redux-actions-tests.ts"
+        "polygons-intersect-tests.ts"
     ]
 }

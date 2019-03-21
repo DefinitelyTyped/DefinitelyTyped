@@ -317,6 +317,18 @@ export interface FullscreenControlProps extends BaseControlProps {
 
 export class FullscreenControl extends BaseControl<FullscreenControlProps> {}
 
+export interface GeolocateControlProps extends BaseControlProps {
+    className?: string;
+    positionOptions?: MapboxGL.PositionOptions;
+    fitBoundsOptions?: MapboxGL.FitBoundsOptions;
+    trackUserLocation?: boolean;
+    showUserLocation?: boolean;
+    onViewStateChange?: (info: ViewStateChangeInfo) => void;
+    onViewportChange?: (viewState: ViewState) => void;
+}
+
+export class GeolocateControl extends BaseControl<GeolocateControlProps> {}
+
 export interface DraggableControlProps extends BaseControlProps {
     draggable?: boolean;
     onDrag?: (event: DragEvent) => void;
