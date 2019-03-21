@@ -126,8 +126,9 @@ export interface CipherKeyValueParams extends CommonParams {
   path: string | number[];
   key?: string;
   value?: string;
-  askOnEncrypt?: true;
-  askOnDecrypt?: true;
+  askOnEncrypt?: boolean;
+  askOnDecrypt?: boolean;
+  iv?: string;
 }
 
 export interface CipherKeyValue extends CommonParams {
@@ -333,6 +334,11 @@ export namespace TrezorConnect {
    * Retrieves the set of features associated with the device.
    */
   function getFeatures(params?: CommonParams): Promise<ResponseMessage<Features>>;
+
+  /**
+   * Retrieves the settings that TrezorConnect was initialized with.
+   */
+  function getSettings(): Promise<ResponseMessage<Settings>>;
 
   /**
    * Asks device to encrypt value using the private key derived by given BIP32
