@@ -26,8 +26,8 @@ declare global {
         collapseBefore(node:Node):any;
         collapseAfter(node:Node):any;
         getNodes(nodeTypes?:any[], filter?:(node:Node) => boolean):Node[];
-        getBookmark(containerNode?:Node):{start:number, end:number};
-        moveToBookmark(bookmark:Object):any;
+        getBookmark(containerNode?: Node): rangy.Bookmark;
+        moveToBookmark(bookmark: rangy.Bookmark):void;
         getDocument():Document;
         inspect():string;
         equals(range:RangyRange):boolean;
@@ -46,8 +46,8 @@ declare global {
         getNativeTextRange():any;
         setSingleRange(range:RangyRange):any;
         setRanges(ranges:RangyRange[]):any;
-        getBookmark(containerNode:Node):any;
-        moveToBookmark(bookmark:Object):any;
+        getBookmark(containerNode:Node): rangy.SelBookmark;
+        moveToBookmark(bookmark:rangy.Bookmark): void;
         saveRanges():Object;
         restoreRanges(saved:Object):any;
         saveCharacterRanges(containerNode:Node, opts?: any):Object;
@@ -69,6 +69,16 @@ declare namespace Rangy {
     export function createMissingNativeApi():any;
     export var initialized:boolean;
     export var supported:boolean;
+
+    export interface Bookmark {
+        start: number,
+        end: number,
+        containerNode: Node
+    }
+    export interface SelBookmark {
+        backward: boolean;
+        rangeBookmarks: rangy.Bookmark[]
+    }
 }
 export = Rangy;
 export as namespace rangy;

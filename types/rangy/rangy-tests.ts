@@ -53,7 +53,7 @@ function testRangyRange() {
     assertBoolean(rangyRange.containsNodeText(new Node));
     assertBoolean(rangyRange.containsRange(rangyRange));
     assertBoolean(rangyRange.equals(rangyRange));
-    let bookmark:{start:number, end:number} = rangyRange.getBookmark();
+    let bookmark: rangy.Bookmark = rangyRange.getBookmark();
     bookmark = rangyRange.getBookmark(new Node);
     let doc:Document = rangyRange.getDocument();
     let nodes:Node[] = rangyRange.getNodes();
@@ -64,7 +64,8 @@ function testRangyRange() {
     assertBoolean(rangyRange.intersectsOrTouchesRange(rangyRange));
     assertBoolean(rangyRange.intersectsRange(rangyRange));
     assertBoolean(rangyRange.isValid());
-    rangyRange.moveToBookmark({});
+
+    rangyRange.moveToBookmark(bookmark);
     rangyRange.normalizeBoundaries();
     rangyRange.refresh();
     rangyRange.select();
@@ -84,11 +85,11 @@ function testSelection() {
     selection.detach();
     let ranges:RangyRange[] = selection.getAllRanges();
     let range:RangyRange = selection.getRangeAt(0);
-    selection.getBookmark(new Node);
+    let selBookmark = selection.getBookmark(new Node);
     let nativeTextRange:TextRange = selection.getNativeTextRange();
     assertString(selection.inspect());
     assertBoolean(selection.isBackwards());
-    selection.moveToBookmark({});
+    selection.moveToBookmark(selBookmark.rangeBookmarks[0]);
     var nativeSelection:Selection = selection.nativeSelection;
     selection.refresh();
     selection.refresh(true);
