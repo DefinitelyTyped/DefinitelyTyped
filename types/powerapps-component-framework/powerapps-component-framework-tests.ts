@@ -1,6 +1,5 @@
-// tslint:disable-next-line:no-empty-interface
-interface TInputs {};
-interface TOutputs { testString: string };
+interface TInputs { inputString?: string; }
+interface TOutputs { testString: string; }
 
 class TestControl implements ComponentFramework.StandardControl<TInputs, TOutputs> {
 	init(context: ComponentFramework.Context<TInputs>, notifyOutputChanged?: () => void, state?: ComponentFramework.Dictionary, container?: HTMLDivElement) {
@@ -11,8 +10,8 @@ class TestControl implements ComponentFramework.StandardControl<TInputs, TOutput
 	}
 	getOutputs() {
 		return {
-			testString: ''
-		}
+			testString: '',
+		};
 	}
 }
 
@@ -79,7 +78,7 @@ const dataSetApiColumn: ComponentFramework.PropertyHelper.DataSetApi.Column = {
 	disableSorting: false
 };
 
-const linkEntityExposeExpression: ComponentFramework.PropertyHelper.DataSetApi.ILinkEntityExposedExpression = {
+const linkEntityExposeExpression: ComponentFramework.PropertyHelper.DataSetApi.LinkEntityExposedExpression = {
 	name: '',
 	from: '',
 	to: '',

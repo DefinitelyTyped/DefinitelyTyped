@@ -1,34 +1,36 @@
-declare module ComponentFramework 
-{
+declare namespace ComponentFramework {
 	/**
 	 * Interface for the PowerApps Controls (Standard)
 	 */
-	interface StandardControl<TInputs, TOutputs>
-	{
+	interface StandardControl<TInputs, TOutputs> {
 		/**
 		 * Used to initialize the control instance. Controls can kick off remote server calls and other initialization actions here.
 		 * Data-set values are not initialized here, use updateView.
-		 * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to property names defined in the manifest, as well as utility functions.
+		 * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped
+		 * to property names defined in the manifest, as well as utility functions.
 		 * @param notifyOutputChanged A callback method to alert the framework that the control has new outputs ready to be retrieved asynchronously.
-		 * @param state A piece of data that persists in one session for a single user. Can be set at any point in a controls life cycle by calling 'setControlState' in the Mode interface.
+		 * @param state A piece of data that persists in one session for a single user. Can be set at any point in a controls life cycle by calling
+		 * 'setControlState' in the Mode interface.
 		 * @param container If a control is marked control-type='standard', it will receive an empty div element within which it can render its content.
 		 */
 		init(context: Context<TInputs>, notifyOutputChanged?: () => void, state?: Dictionary, container?: HTMLDivElement): void;
 
 		/**
-		 * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width, offline status, control metadata values such as label, visible, etc.
-		 * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
+		 * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width,
+		 * offline status, control metadata values such as label, visible, etc.
+		 * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names
+		 * defined in the manifest, as well as utility functions
 		 */
 		updateView(context: Context<TInputs>): void;
 
-		/** 
- 		 * Called when the control is to be removed from the DOM tree. Controls should use this call for cleanup.
+		/**
+		 * Called when the control is to be removed from the DOM tree. Controls should use this call for cleanup.
 		 * i.e. cancelling any pending remote calls, removing listeners, etc.
 		 */
 		destroy(): void;
 
-		/** 
-		 * It is called by the framework prior to a control receiving new data. 
+		/**
+		 * It is called by the framework prior to a control receiving new data.
 		 * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as "bound" or "output"
 		 */
 		getOutputs?(): TOutputs;
@@ -37,8 +39,7 @@ declare module ComponentFramework
 	/**
 	 * The entire property bag interface available to control via Context Object
 	 */
-	interface Context<TInputs>
-	{	
+	interface Context<TInputs> {
 		client: Client;
 		device: Device;
 		factory: Factory;
@@ -56,10 +57,9 @@ declare module ComponentFramework
 	/**
 	 * The interface for the context.client
 	 */
-	interface Client 
-	{
+	interface Client {
 		/**
-		 * Whether this control should disable its scrolling capabilities. 
+		 * Whether this control should disable its scrolling capabilities.
 		 */
 		disableScroll: boolean;
 
@@ -71,7 +71,7 @@ declare module ComponentFramework
 		 * Phone = 3
 		 */
 		getFormFactor(): number;
-		
+
 		/**
 		 * Returns a value to indicate which client the script is executing in.
 		 * Web: Web application, or Unified Interface
@@ -86,12 +86,10 @@ declare module ComponentFramework
 		isOffline(): boolean;
 	}
 
-
 	/**
 	 * The interface for the context.device
 	 */
-	interface Device
-	{
+	interface Device {
 		/**
 		 * Invokes the device microphone to record audio.
 		 */
@@ -126,8 +124,7 @@ declare module ComponentFramework
 	/**
 	 * The interface for the context.factory
 	 */
-	interface Factory
-	{
+	interface Factory {
 		/**
 		 * Gets the popup service which help create Popup and manage Popup easily
 		 */
@@ -142,8 +139,7 @@ declare module ComponentFramework
 	/**
 	 * The interface for the context.formatting
 	 */
-	interface Formatting
-	{
+	interface Formatting {
 		/**
 		 * Returns a formatted string that represents the currency value after being formatted.
 		 * @param value A value object to be formatted.
@@ -203,7 +199,7 @@ declare module ComponentFramework
 
 		/**
 		 * Returns a formatted string that represents a given language
-		 * @param input A language code to be formatted. Reference: https://go.microsoft.com/fwlink/?linkid=122128 
+		 * @param input A language code to be formatted. Reference: https://go.microsoft.com/fwlink/?linkid=122128
 		 * @returns A formatted string represents a given language value.
 		 */
 		formatLanguage(value: number): string;
@@ -214,7 +210,7 @@ declare module ComponentFramework
 		 * @param behavior The behavior of the datetime object to be formatted.
 		 * None = 0,
 		 * UserLocal = 1,
-		 * TimeZoneIndependent = 3	
+		 * TimeZoneIndependent = 3
 		 */
 		formatTime(value: Date, behavior: FormattingApi.DateTimeFieldBehavior): string;
 
@@ -228,13 +224,12 @@ declare module ComponentFramework
 	/**
 	 * The interface for the context.mode
 	 */
-	interface Mode
-	{
+	interface Mode {
 		/**
 		 * Height in pixels allocated to the control. If it's -1, then there is no limit on height
 		 */
 		allocatedHeight: number;
-		
+
 		/**
 		 * Width in pixels allocated to the control.
 		 */
@@ -276,13 +271,12 @@ declare module ComponentFramework
 	/**
 	 * The navigation interface of context.navigation
 	 */
-	interface Navigation
-	{
+	interface Navigation {
 		/**
 		 * Opens Alert Dialog
 		 * @param alertStrings Strings to be used in alert dialog
 		 * @param options Dialog options
-		 * @returns promise defining success or failure of operation 
+		 * @returns promise defining success or failure of operation
 		 */
 		openAlertDialog(alertStrings: NavigationApi.AlertDialogStrings, options?: NavigationApi.AlertDialogOptions): Promise<void>;
 
@@ -290,10 +284,10 @@ declare module ComponentFramework
 		 * Opens Confirm Dialog
 		 * @param confirmStrings String which will be used in the dialog
 		 * @param options Options for the dialog
-		 * @returns promise defining success or failure of operation. the success case returns a boolean specifying whether yes or no button was pressed 
+		 * @returns promise defining success or failure of operation. the success case returns a boolean specifying whether yes or no button was pressed
 		 */
 		openConfirmDialog(confirmStrings: NavigationApi.ConfirmDialogStrings, options?: NavigationApi.ConfirmDialogOptions): Promise<NavigationApi.ConfirmDialogResponse>;
-		
+
 		/**
 		 * Opens an Error Dialog.
 		 * @param options Error Dialog options.
@@ -336,8 +330,7 @@ declare module ComponentFramework
 	/**
 	 * The resource interface of context.resources
 	 */
-	interface Resources
-	{
+	interface Resources {
 		/**
 		 * Gets a resource referenced by the control manifest.
 		 * @param id The resource string identifier.
@@ -356,8 +349,7 @@ declare module ComponentFramework
 	/**
 	 * The interface for context.userSettings
 	 */
-	interface UserSettings
-	{
+	interface UserSettings {
 		/**
 		 * Date formatting information as retrieved from the server.
 		 */
@@ -370,7 +362,7 @@ declare module ComponentFramework
 
 		/**
 		 * Current user's language id
-		 * 
+		 *
 		 */
 		languageId: number;
 
@@ -404,15 +396,14 @@ declare module ComponentFramework
 	/**
 	 * The interface for context.utils
 	 */
-	interface Utility
-	{
+	interface Utility {
 		/**
 		 * Gets the entity metadata for the specified entity.
 		 * @param entityType The logical name of the entity.
 		 * @param attributes The attributes to get metadata for.
 		 */
 		getEntityMetadata(entityName: string, attributes?: string[]): Promise<PropertyHelper.EntityMetadata>;
-		
+
 		/**
 		 * Function to return if the user has Privilege for one specific entity
 		 * @entityTypeName entity type name
@@ -431,8 +422,7 @@ declare module ComponentFramework
 	/**
 	 * The interface for context.webApi
 	 */
-	interface WebApi
-	{
+	interface WebApi {
 		/**
 		 * Creates an entity record.
 		 * @param entityType logical name of the entity type record to create
@@ -461,7 +451,8 @@ declare module ComponentFramework
 		/**
 		 * Retrieves a collection of entity records.
 		 * @param entityType logical name of the entity type record to retrieve
-		 * @param options OData system query options or FetchXML query to retrieve your data. For support options, please refer to https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrievemultiplerecords
+		 * @param options OData system query options or FetchXML query to retrieve your data.
+		 * For support options, please refer to https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrievemultiplerecords
 		 * @param maxPageSize Max number of records to be retrieved per page
 		 * @returns The deferred object for the result of the operation. An object with interface RetrieveMultipleResponse will be resolved if successful.
 		 */
@@ -471,7 +462,8 @@ declare module ComponentFramework
 		 * Retrieves an entity record.
 		 * @param id GUID of the entity record you want to retrieve.
 		 * @param entityType logical name of the entity type record to retrieve
-		 * @param options OData system query options, $select and $expand, to retrieve your data. For support options, please refer to https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrieverecord
+		 * @param options OData system query options, $select and $expand, to retrieve your data.
+		 * For support options, please refer to https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrieverecord
 		 * @returns The deferred object for the result of the operation. A JSON object with the retrieved properties and values will be resolved if successful.
 		 */
 		retrieveRecord(entityType: string, id: string, options?: string): Promise<WebApi.Entity>;
@@ -479,19 +471,19 @@ declare module ComponentFramework
 
 	//////////////// Define namespace of each context first-level child interface's helper ////////////////
 
-	type Dictionary = {[key: string]: any};
+	interface Dictionary {
+		[key: string]: any;
+	}
 
 	/**
 	 * Helper of Device API interface
 	 */
-	namespace DeviceApi
-	{
-		/** 
+	namespace DeviceApi {
+		/**
 		 * Interface of input argument 'options' in context.device.captureImage
 		 */
-		interface CaptureImageOptions
-		{
-			/** 
+		interface CaptureImageOptions {
+			/**
 			 * Indicates whether to edit the image before saving.
 			 */
 			allowEdit: boolean;
@@ -501,7 +493,7 @@ declare module ComponentFramework
 			 */
 			height: number;
 
-			/** 
+			/**
 			 * Indicates whether to capture image using the front camera of the device.
 			 */
 			preferFrontCamera: boolean;
@@ -517,27 +509,25 @@ declare module ComponentFramework
 			width: number;
 		}
 
-		/** 
+		/**
 		 * Interface of return geological information in context.device.getCurrentPosition
 		 */
-		interface Position
-		{
+		interface Position {
 			/**
-			 * Contains a set of geographic coordinates along with associated accuracy as well as a set of other optional attributes such as altitude and speed. 
+			 * Contains a set of geographic coordinates along with associated accuracy as well as a set of other optional attributes such as altitude and speed.
 			 */
 			coords: Dictionary;
-			
+
 			/**
 			 * Represents the time when the object was acquired and is represented as DOMTimeStamp.
 			 */
 			timestamp: Date;
 		}
 
-		/** 
+		/**
 		 * Interface of input argument 'pickupFileOption' in context.device.pickupFile
 		 */
-		interface PickFileOptions
-		{
+		interface PickFileOptions {
 			/**
 			 * Image file types to select. Valid values are "audio", "video", or "image".
 			 */
@@ -547,7 +537,7 @@ declare module ComponentFramework
 			 * Indicates whether to allow selecting multiple files.
 			 */
 			allowMultipleFiles: boolean;
-			
+
 			/**
 			 * Maximum size of the files(s) to be selected.
 			 */
@@ -558,10 +548,8 @@ declare module ComponentFramework
 	/**
 	 * Helper of Factory Pop API interface
 	 */
-	namespace FactoryApi.Popup
-	{
-		interface PopupService
-		{
+	namespace FactoryApi.Popup {
+		interface PopupService {
 			/**
 			 * Create a new popup element
 			 * @param props The popup properties object, see Popup interface for more
@@ -605,8 +593,7 @@ declare module ComponentFramework
 			getPopupsId(): string;
 		}
 
-		const enum PopupType
-		{
+		enum PopupType {
 			/**
 			 * Root popup in the popup stack
 			 */
@@ -617,9 +604,8 @@ declare module ComponentFramework
 			 */
 			Nested,
 		}
-		
-		interface Popup
-		{
+
+		interface Popup {
 			/**
 			 * The id to be set to the anchor control if any.
 			 */
@@ -631,7 +617,7 @@ declare module ComponentFramework
 			name: string;
 
 			/**
-			 * Indicates whether popup close on an outside mouse click. 
+			 * Indicates whether popup close on an outside mouse click.
 			 * When it's false, the popup will not be closed on an outside mouse click.
 			 */
 			closeOnOutsideClick?: boolean;
@@ -660,13 +646,11 @@ declare module ComponentFramework
 	/**
 	 * Helper of Formatting API interface
 	 */
-	namespace FormattingApi
-	{
+	namespace FormattingApi {
 		/**
 		 * DateTime Field Behavior options
 		 */
-		const enum DateTimeFieldBehavior
-		{
+		enum DateTimeFieldBehavior {
 			/**
 			 * Unknown DateTime Behavior
 			 */
@@ -687,14 +671,11 @@ declare module ComponentFramework
 	/**
 	 * Helper of Navigation API interface
 	 */
-	namespace NavigationApi
-	{
-		
+	namespace NavigationApi {
 		/**
 		 * Interface for alert dialog options.
 		 */
-		interface AlertDialogOptions
-		{
+		interface AlertDialogOptions {
 			/**
 			 * Height of the alert dialog in pixels.
 			 */
@@ -709,8 +690,7 @@ declare module ComponentFramework
 		/**
 		 * Represents the String parameters for Alert Dialog.
 		 */
-		interface AlertDialogStrings
-		{
+		interface AlertDialogStrings {
 			/**
 			 * The message to be displyed in the alert dialog.
 			 */
@@ -725,8 +705,7 @@ declare module ComponentFramework
 		/**
 		 * Interface for confirm dialog options.
 		 */
-		interface ConfirmDialogOptions
-		{
+		interface ConfirmDialogOptions {
 			/**
 			 * Height of the confirmation dialog in pixels.
 			 */
@@ -741,8 +720,7 @@ declare module ComponentFramework
 		/**
 		 * Represents the String parameters for Confirm Dialog.
 		 */
-		interface ConfirmDialogStrings
-		{
+		interface ConfirmDialogStrings {
 			/**
 			 * Confirm Dialog Title.
 			 */
@@ -772,8 +750,7 @@ declare module ComponentFramework
 		/**
 		 * An object with the confirmed (Boolean) attribute is passed that indicates whether the confirm button was clicked to close the dialog.
 		 */
-		interface ConfirmDialogResponse 
-		{
+		interface ConfirmDialogResponse {
 			/**
 			 *  confirmed (Boolean) attribute is passed that indicates whether the confirm button was clicked to close the dialog.
 			 */
@@ -784,9 +761,8 @@ declare module ComponentFramework
 		 * Interface for entity form options.
 		 */
 		interface EntityFormOptions {
-
 			/**
-			 * Designates a record that will provide default values based on mapped attribute values. The lookup object has the following String properties: entityType, id, and name 
+			 * Designates a record that will provide default values based on mapped attribute values. The lookup object has the following String properties: entityType, id, and name
 			 */
 			createFromEntity?: EntityReference;
 
@@ -818,34 +794,35 @@ declare module ComponentFramework
 			/**
 			 * Indicates whether to open a quick create form. If you do not specify this, by default false is passed.
 			 */
-			useQuickCreateForm?: boolean;		
+			useQuickCreateForm?: boolean;
 
 			/**
 			 * Width of the form window to be displayed in pixels.
 			 */
-			width?: number;		
+			width?: number;
 
 			/**
 			 * Specify one of the following values for the window position of the form on the screen:
 			 *   1:center
 			 *   2:side
 			 */
-			windowPosition?: number;	
+			windowPosition?: number;
 		}
 
 		/**
 		 * Interface for error dialog options.
 		 * You must set either the errorCode or message attribute.
 		 */
-		interface ErrorDialogOptions
-		{
+		interface ErrorDialogOptions {
 			/**
-			 * Details about the error. When you specify this, the Download Log File button is available in the error message, and clicking it will let users download a text file with the content specified in this attribute.
+			 * Details about the error. When you specify this, the Download Log File button is available in the error message, and clicking it will let users download a text file with
+			 * the content specified in this attribute.
 			 */
 			details?: string;
 
 			/**
-			 *  If you just set errorCode, the message for the error code is automatically retrieved from the server and displayed in the error dialog. If you specify an errorCode value, an error dialog with a default error message is displyed.
+			 * If you just set errorCode, the message for the error code is automatically retrieved from the server and displayed in the error dialog. If you specify an errorCode value,
+			 * an error dialog with a default error message is displyed.
 			 */
 			errorCode?: number;
 
@@ -858,7 +835,7 @@ declare module ComponentFramework
 		/**
 		 * The options for openFile mode.
 		 */
-		const enum OpenFileMode {
+		enum OpenFileMode {
 			/**
 			 * default. mode open
 			 */
@@ -869,17 +846,16 @@ declare module ComponentFramework
 			 */
 			save = 2,
 		}
-		
+
 		/**
 		 * Interface for open file options.
 		 */
 		interface OpenFileOptions {
-			
 			/**
 			 * Specify whether to open or save the file
 			 * Values:
-			 *	   1  open
-			 *	   2  save
+			 *   1  open
+			 *   2  save
 			 */
 			openMode: OpenFileMode;
 		}
@@ -887,16 +863,14 @@ declare module ComponentFramework
 		/**
 		 * The object returned when a save is successful for open form.
 		 */
-		interface OpenFormSuccessResponse
-		{
+		interface OpenFormSuccessResponse {
 			savedEntityReference: EntityReference[];
 		}
 
 		/**
 		 * Interface for OpenUrl options.
 		 */
-		interface OpenUrlOptions 
-		{	
+		interface OpenUrlOptions {
 			/**
 			 * Height of the window to display the resultant page in pixels.
 			 */
@@ -911,13 +885,12 @@ declare module ComponentFramework
 		/**
 		 * Interface for OpenWebResource options.
 		 */
-		interface OpenWebResourceOptions
-		{
+		interface OpenWebResourceOptions {
 			/**
 			 * Height of the window to display the resultant page in pixels.
 			 */
 			height?: number;
-		
+
 			/**
 			 * Indicates whether to open the web resource in a new window.
 			 */
@@ -933,13 +906,11 @@ declare module ComponentFramework
 	/**
 	 * Helper of UserSettings API interface
 	 */
-	namespace UserSettingApi
-	{
+	namespace UserSettingApi {
 		/**
 		 * Day Of Week Enum
 		 */
-		const enum DayOfWeek
-		{
+		enum DayOfWeek {
 			Sunday = 0,
 			Monday = 1,
 			Tuesday = 2,
@@ -953,8 +924,7 @@ declare module ComponentFramework
 		 * The interface for Org Date Format Info exposed to a custom control
 		 * Result pattern is based on culture,examples are for 'USA' area
 		 */
-		interface DateFormattingInfo
-		{
+		interface DateFormattingInfo {
 			/**
 			 * @example "AM"
 			 */
@@ -979,104 +949,103 @@ declare module ComponentFramework
 			 * @example 0
 			 */
 			calendarWeekRule: number;
-			
+
 			/**
 			 * @example See interface Calendar
 			 */
 			calendar: Calendar;
-			
+
 			/**
 			 * @example "/"
 			 */
-			dateSeparator: string;  
-			
+			dateSeparator: string;
+
 			/**
 			 * @example { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" }
-			 */			
-			dayNames: string[];  
-			
+			 */
+			dayNames: string[];
+
 			/**
 			 * @example See interface DayOfWeek
 			 */
 			firstDayOfWeek: DayOfWeek;
-			
+
 			/**
 			 * @example "dddd, MMMM d, yyyy h:mm:ss tt"
-			 */			
-			fullDateTimePattern: string;  
-			
+			 */
+			fullDateTimePattern: string;
+
 			/**
 			 * @example "dddd, MMMM d, yyyy"
-			 */	
-			longDatePattern: string;  
-			
+			 */
+			longDatePattern: string;
+
 			/**
 			 * @example "hh:mm:ss tt"
-			 */			
-			longTimePattern: string;  
-						
+			 */
+			longTimePattern: string;
+
 			/**
 			 * @example "MMMM dd"
 			 */
-			monthDayPattern: string;  
-						
+			monthDayPattern: string;
+
 			/**
 			 * @example { "January", "February", "March", ...  "December", "" }
 			 */
-			monthGenitiveNames: string[];   
-						
+			monthGenitiveNames: string[];
+
 			/**
 			 * @example { "January", "February", "March", ...  "December", "" }
 			 */
-			monthNames: string[];  
-						
+			monthNames: string[];
+
 			/**
 			 * @example "PM"
 			 */
-			pmDesignator: string;  
-						
+			pmDesignator: string;
+
 			/**
 			 * @example "M/d/yyyy"
 			 */
-			shortDatePattern: string;  
-						
+			shortDatePattern: string;
+
 			/**
 			 * @example "h:mm tt"
 			 */
 			shortTimePattern: string;
-						
+
 			/**
 			 * @example { "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" }
 			 */
-			shortestDayNames: string[];  
-						
+			shortestDayNames: string[];
+
 			/**
 			 * @example "yyyy'-'MM'-'dd'T'HH':'mm':'ss"
 			 */
-			sortableDateTimePattern: string;  
-						
+			sortableDateTimePattern: string;
+
 			/**
 			 * @example ":"
 			 */
-			timeSeparator: string;  
-						
+			timeSeparator: string;
+
 			/**
 			 * @example "yyyy'-'MM'-'dd HH':'mm':'ss'Z'"
 			 */
-			universalSortableDateTimePattern: string;  
-						
+			universalSortableDateTimePattern: string;
+
 			/**
 			 * @example "MMMM yyyy"
 			 */
-			yearMonthPattern: string;  
+			yearMonthPattern: string;
 		}
 
 		/**
 		 * The interface for the Org System Settings Number Format Info exposed to a custom control
 		 * Comments indicate example values
 		 */
-		interface NumberFormattingInfo
-		{
+		interface NumberFormattingInfo {
 			/**
 			 * @example 2
 			 */
@@ -1211,12 +1180,11 @@ declare module ComponentFramework
 		/**
 		 * The interface for the Calendar exposed in DateFormattingInfo
 		 */
-		interface Calendar
-		{
+		interface Calendar {
 			/**
 			 * @example "/Date(-62135568000000)/"
 			 */
-			minSupportedDateTime: Date; 
+			minSupportedDateTime: Date;
 
 			/**
 			 * @example "/Date(253402300799999)/"
@@ -1231,7 +1199,7 @@ declare module ComponentFramework
 			/**
 			 * @example 1
 			 */
-			calendarType: number; 
+			calendarType: number;
 
 			/**
 			 * @example  2029
@@ -1243,35 +1211,33 @@ declare module ComponentFramework
 	/**
 	 * Helper of Utils API interface
 	 */
-	namespace UtilityApi
-	{
+	namespace UtilityApi {
 		/**
 		 * Options used when opening a lookup dialog.
 		 */
-		interface LookupOptions
-		{
+		interface LookupOptions {
 			/**
-			 *	Whether the lookup allows more than one item to be selected.
+			 * Whether the lookup allows more than one item to be selected.
 			 */
 			allowMultiSelect: boolean;
 
 			/**
-			 *	The default entity type.
+			 * The default entity type.
 			 */
 			defaultEntityType: string;
 
 			/**
-			 *	The default view to use.
+			 * The default view to use.
 			 */
 			defaultViewId: string;
 
 			/**
-			 *	The entity types to display.
+			 * The entity types to display.
 			 */
 			entityTypes: string[];
 
 			/**
-			 *	The views to be available in the view picker. Only System views are supported (not user views).
+			 * The views to be available in the view picker. Only System views are supported (not user views).
 			 */
 			viewIds: string[];
 		}
@@ -1280,27 +1246,21 @@ declare module ComponentFramework
 	/**
 	 * Objects related to interacting with the Web API.
 	 */
-	namespace WebApi
-	{
+	namespace WebApi {
 		/**
 		 * Interface that describes an entity sent or received from the SDK through the Web API.
 		 */
-		interface Entity
-		{
+		interface Entity {
 			[key: string]: any;
 		}
 
-		/**
-		 * 
-		 */
-		interface RetrieveMultipleResponse
-		{
-			/** 
-			 *  An array of JSON objects, where each object represents the retrieved entity record containing attributes and their values
+		interface RetrieveMultipleResponse {
+			/**
+			 * An array of JSON objects, where each object represents the retrieved entity record containing attributes and their values
 			 */
 			entities: Entity[];
-			
-			/** 
+
+			/**
 			 * If the number of records being retrieved is more than the value specified in the 'maxPageSize' parameter in the request, this attribute returns the URL to return next set of records.
 			 */
 			nextLink: string;
@@ -1310,12 +1270,11 @@ declare module ComponentFramework
 	/**
 	 * An object that encapsulates an Entity Reference as a plain object suitable for storing in the state tree
 	 */
-	interface EntityReference
-	{
+	interface EntityReference {
 		/**
 		 * The record id. Read-only.
 		 */
-		id: string,
+		id: string;
 
 		/**
 		 * The entity logical name. Read-only.
@@ -1328,41 +1287,38 @@ declare module ComponentFramework
 		name: string;
 	}
 
-	/** 
+	/**
 	 * Interface of one file object
-	 */		
-	interface FileObject
-	{
+	 */
+	interface FileObject {
 		/**
 		 * Contents of the file.
 		 */
 		fileContent: string;
 
-		/** 
+		/**
 		 * Name of the file.
 		 */
 		fileName: string;
 
-		/** 
+		/**
 		 * Size of the file in KB.
 		 */
 		fileSize: number;
-		
-		/** 
+
+		/**
 		 * File MIME type.
 		 */
 		mimeType: string;
 	}
-	
+
 ///////////////////// Parameter ////////////////////////
 
-	namespace PropertyTypes
-	{
-		/** 
+	namespace PropertyTypes {
+		/**
 		 * Interface for context.parameters.[property_key]
 		 */
-		interface Property
-		{
+		interface Property {
 			error: boolean;
 			errorMessage: string;
 			formatted?: string;
@@ -1372,98 +1328,87 @@ declare module ComponentFramework
 			attribute?: PropertyHelper.FieldPropertyMetadata.Metadata;
 		}
 
-		/** 
+		/**
 		 * Property Interface for context.parameters.[property_key], when property manifest type is Whole.None|FP|Decimal
 		 */
-		interface NumberProperty extends Property
-		{
+		interface NumberProperty extends Property {
 			raw: number;
 			attributes?: PropertyHelper.FieldPropertyMetadata.NumberMetadata;
 		}
-	
-		/** 
+
+		/**
 		 * Property Interface for context.parameters.[property_key], when property manifest type is Decimal
 		 */
-		interface DecimalNumberProperty extends NumberProperty
-		{
+		interface DecimalNumberProperty extends NumberProperty {
 			attributes?: PropertyHelper.FieldPropertyMetadata.DecimalNumberMetadata;
 		}
-		
-		/** 
+
+		/**
 		 * Property Interface for context.parameters.[property_key], when property manifest type is FP
 		 */
-		interface FloatingNumberProperty extends NumberProperty
-		{
+		interface FloatingNumberProperty extends NumberProperty {
 			attributes?: PropertyHelper.FieldPropertyMetadata.FloatingNumberMetadata;
 		}
 
-		/** 
+		/**
 		 * Property Interface for context.parameters.[property_key], when property manifest type is Whole.None
 		 */
-		interface WholeNumberProperty extends NumberProperty
-		{
+		interface WholeNumberProperty extends NumberProperty {
 			attributes?: PropertyHelper.FieldPropertyMetadata.WholeNumberMetadata;
 		}
 
-		/** 
+		/**
 		 * Property Interface for context.parameters.[property_key], when property manifest type starts from DateTime
 		 */
-		interface DateTimeProperty extends Property
-		{
+		interface DateTimeProperty extends Property {
 			raw: Date;
 			attributes?: PropertyHelper.FieldPropertyMetadata.DateTimeMetadata;
 		}
 
-		/** 
+		/**
 		 * Property Interface for context.parameters.[property_key], when property manifest type starts from SingleLine
 		 */
-		interface StringProperty extends Property
-		{
+		interface StringProperty extends Property {
 			raw: string;
 			attributes?: PropertyHelper.FieldPropertyMetadata.StringMetadata;
 		}
-		
-		/** 
+
+		/**
 		 * Property Interface for context.parameters.[property_key], when property manifest type is Enum
 		 */
-		interface EnumProperty<EnumType>
-		{
+		interface EnumProperty<EnumType> {
 			type: string;
 			raw: EnumType;
 		}
 
-		/** 
+		/**
 		 * Property Interface for context.parameters.[property_key], when property manifest type is OptionSet
 		 */
-		interface OptionSetProperty extends Property
-		{
+		interface OptionSetProperty extends Property {
 			raw: number;
 			attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata;
 		}
-	
-		/** 
+
+		/**
 		 * Property Interface for context.parameters.[property_key], when property manifest type is MultiSelectOptionSet
 		 */
-		interface MultiSelectOptionSetProperty extends Property
-		{
+		interface MultiSelectOptionSetProperty extends Property {
 			raw: number[];
-			attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata;	
+			attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata;
 		}
-	
-		/** 
+
+		/**
 		 * Property Interface for context.parameters.[property_key], when property manifest type is TwoOptions
 		 */
-		interface TwoOptionsProperty extends Property
-		{
+		interface TwoOptionsProperty extends Property {
 			raw: boolean;
 			attributes?: PropertyHelper.FieldPropertyMetadata.TwoOptionMetadata;
 		}
 
 		/**
-		*	The structure returned by getCellImageInfo and propagated down to the control to display conditional images.
-		*/
-		interface IImageInfo
-		{
+		 * The structure returned by getCellImageInfo and propagated down to the control to display conditional images.
+		 */
+		interface ImageInfo {
 			/**
 			 * The Url of the conditional image.
 			 */
@@ -1478,105 +1423,103 @@ declare module ComponentFramework
 		/**
 		 * The structure of a dataset property as it would be passed to a control
 		 */
-		interface DataSet
-		{
-	
+		interface DataSet {
 			/**
 			 * Adds column to the columnset
 			 * @param name column name to be added to the columnset
 			 * @param entityAlias entity alias for which the column name needs to be added
 			 */
 			addColumn?: (name: string, entityAlias?: string) => void;
-	
+
 			/**
 			 * Set of columns available in this dataset.
 			 */
 			columns: PropertyHelper.DataSetApi.Column[];
-			
+
 			/**
 			 * True if encountered error while data retrieval
 			 */
 			error: boolean;
-	
+
 			/**
 			 * The error message associated with the last encountered error, if applicable
 			 */
 			errorMessage: string;
-	
+
 			/**
 			 * The column filtering for the current query.
 			 */
-			filtering: PropertyHelper.DataSetApi.Filtering
+			filtering: PropertyHelper.DataSetApi.Filtering;
 
 			/**
 			 * Related entity info
 			 */
 			linking: PropertyHelper.DataSetApi.Linking;
-	
+
 			/**
 			 * Indicate if the dataset property is in loading state or not
 			 */
 			loading: boolean;
-	
+
 			/**
 			 * Pagination status and actions.
 			 */
 			paging: PropertyHelper.DataSetApi.Paging;
-	
+
 			/**
 			 * Map of IDs to the full record object
 			 */
 			records: {
 				[id: string]: PropertyHelper.DataSetApi.EntityRecord;
 			};
-	
+
 			/**
 			 * IDs of the records in the dataset, order by the query response result
 			 */
 			sortedRecordIds: string[];
-	
+
 			/**
 			 * The sorting status for the current query.
 			 */
 			sorting: PropertyHelper.DataSetApi.SortStatus[];
-	
+
 			/**
 			 * Clear selected record ids list
 			 */
 			clearSelectedRecordIds(): void;
-	
+
 			/**
 			 * Retrieves all selected record ids
 			 */
 			getSelectedRecordIds(): string[];
-	
+
 			/**
 			 * Get DataSet target entity logical name
 			 */
 			getTargetEntityType(): string;
-	
+
 			/**
 			 * Retrieves the view display name used by the dataset property
 			 */
 			getTitle(): string;
-	
+
 			/**
 			 * Gets Id of view used by the dataset property
 			 */
 			getViewId(): string;
-	
+
 			/**
-			 * Open dataSet item for a given EntityReference. It will check if there is a command with command button id "Mscrm.OpenRecordItem". 
+			 * Open dataSet item for a given EntityReference. It will check if there is a command with command button id "Mscrm.OpenRecordItem".
 			 * If there is, it will execute the command, otherwise it will just navigate to the associated form of the entityReference
 			 * @param entityReference entity reference
 			 */
 			openDatasetItem(entityReference: EntityReference): void;
-			
+
 			/**
 			 * Refreshes the dataset based on filters, sorting, linking, new column. New data will be pushed to control in another 'updateView' cycle.
 			 */
 			refresh(): void;
-	
+
 			/**
 			 * Set the ids of the selected records
 			 * @ids List of recordId's
@@ -1585,417 +1528,21 @@ declare module ComponentFramework
 		}
 	}
 
-	namespace PropertyHelper.FieldPropertyMetadata
-	{
-		interface Metadata
-		{
-			DisplayName: string;
-			LogicalName: string;
-			RequiredLevel: RequiredLevel;
-			IsSecured: boolean;
-			SourceType: number;
-			Description: string;
-		}
-
-		interface NumberMetadata extends Metadata
-		{
-			MinValue: number;
-			MaxValue: number;
-			ImeMode: ImeMode;
-		}
-	
-		interface StringMetadata extends Metadata 
-		{
-			MaxLength: number;
-			ImeMode: ImeMode;
-		}
-			
-		interface FloatingNumberMetadata extends NumberMetadata 
-		{
-			Precision: number;
-		}
-	
-		interface DecimalNumberMetadata extends NumberMetadata 
-		{
-			Precision: number;
-		}
-	
-		interface WholeNumberMetadata extends NumberMetadata 
-		{
-			Format: string;
-			LanguageByCode?: Dictionary; 
-			TimeZoneByCode?: Dictionary; 
-		}
-	
-		interface DateTimeMetadata extends Metadata 
-		{
-			Behavior: FormattingApi.DateTimeFieldBehavior;
-			Format: string;
-			ImeMode: ImeMode;
-		}
-	
-		interface LookupMetadata extends Metadata 
-		{
-			Targets: string[];
-		}
-	
-		interface StringMetadata extends Metadata
-		{
-			Format: string;
-		}
-	
-		interface OptionSetMetadata extends Metadata
-		{
-			Options: OptionMetadata[];
-			DefaultValue: number;
-		}
-	
-		interface TwoOptionMetadata extends Metadata
-		{
-			Options: [OptionMetadata, OptionMetadata];
-			DefaultValue: boolean;
-		}
-	}
-
-	namespace PropertyHelper.DataSetApi
-	{
-
-		/**	 
-		 * Supported Condition Operator for filtering expression condition
-		 * This is subset of full condition operators list defined in https://docs.microsoft.com/en-us/dotnet/api/microsoft.xrm.sdk.query.conditionoperator 
-		 */
-		const enum ConditionOperator
-		{
-			None = -1,
-			Equal = 0,
-			NotEqual = 1,
-			GreaterThan = 2,
-			LessThan = 3,
-			GreaterEqual = 4,
-			LessEqual = 5,
-			Like = 6,
-			In = 8,
-			Null = 12,
-			Yesterday = 14,
-			Today = 15,
-			Tomorrow = 16,
-			Last7Days = 17,
-			Next7Days = 18,
-			LastWeek = 19,
-			ThisWeek = 20,
-			LastMonth = 22,
-			ThisMonth = 23,
-			On = 25,
-			OnOrBefore = 26,
-			OnOrAfter = 27,
-			LastYear = 28,
-			ThisYear = 29,
-			LastXDays = 33,
-			NextXDays = 34,
-			LastXMonths = 37,
-			NextXMonths = 38,
-			Contains = 49,
-			InFiscalPeriodAndYear = 70,
-			Above = 75,
-			Under = 76,
-			NotUnder = 77,
-			AboveOrEqual = 78,
-			UnderOrEqual = 79,
-			ContainValues = 87
-		}
-
+	namespace PropertyHelper {
 		/**
-		 * An expression used to represent a filter condition.
+		 * Ime Mode
 		 */
-		interface ConditionExpression
-		{
-			/**
-			 * The name of the data-set column to apply the filter on.
-			 */
-			attributeName: string;
-
-			/**
-			 * The value evaluated by the condition
-			 */
-			conditionOperator: ConditionOperator;
-
-			/**
-			 * The value evaluated by the condition. 
-			 */
-			value: string | Array<string>;
-
-			/** 
-			 * Entity alias name so filtering can be used on linked entities.
-			 */
-			entityAliasName?: string;
-		}
-
-		/**
-		 * Supported Filter Operator for filtering expression linkage
-		 */
-		const enum FilterOperator
-		{
-			And = 0,
-			Or = 1
-		}
-
-		/**
-		 * An expression used to represent a filter.
-		 */
-		interface FilterExpression
-		{
-			/**
-			 * The set of conditions associated with this filter.
-			 */
-			conditions: ConditionExpression[];
-
-			/**
-			 * The operator used to combine conditions in this filter.
-			 */
-			filterOperator: FilterOperator;
-
-			/** 
-			 * Any child filters that should be evaluated after evaluating this filter.
-			 */
-			filters?: FilterExpression[];
-		}
-
-		/**
-		 * Filter state for a dataset.
-		 */
-		interface Filtering
-		{
-			/**
-			 * Returns the top-most filter associated with the data-set
-			 */
-			getFilter(): FilterExpression;
-
-			/**
-			 * Sets the top-most filter associated with the data-set
-			 * @expression filter expression to be set
-			 */
-			setFilter(expression: FilterExpression): void;
-
-			/**
-			 * Clears the filter associated with the data-set.
-			 */
-			clearFilter(): void;
-		}
-
-		/**
-		 * Metadata about a column in a dataset
-		 */
-		interface Column
-		{
-			/**
-			 * Name of the column, unique in this dataset
-			 */
-			name: string;
-
-			/**
-			 * Localized display name for the column
-			 */
-			displayName: string;
-
-			/**
-			 * The manifest type of this column's values.
-			 */
-			dataType: string;
-
-			/**
-			 * The alias of this column.
-			 */
-			alias: string;
-
-			/**
-			 * The column order for the layout
-			 */
-			order: number;
-
-			/**
-			 * Customized column width ratios
-			 */
-			visualSizeFactor: number;
-
-			/**
-			 * The column visibility state.
-			 */
-			isHidden?: boolean;
-
-			/**
-			 * Is specific column the primary attrribute of the view's entity
-			 */
-			isPrimary?: boolean;
-
-			/**
-			 * Prevents the UI from making the column sortable. 
-			 */
-			disableSorting?: boolean;
-		}
-
-		/**
-		 * Base interface for dataset record result. Supports value retrival by column name.
-		 */
-		interface EntityRecord
-		{
-			/**
-			 * Get the current formatted value of this record column.
-			 * @param columnName Column name of the record
-			 */
-			getFormattedValue(columnName: string): string;
-
-			/**
-			 * Get the record ID
-			 */
-			getRecordId(): string;
-
-			/**
-			 * Get the raw value of the record's column
-			 * @param columnName Column name of the record
-			 */
-			getValue(columnName: string): string | Date | number | number[] | boolean | EntityReference | EntityReference[];
-
-			/**
-			 * Get the object that encapsulates an Entity Reference as a plain object
-			 */
-			getNamedReference(): EntityReference;
-
-		}
-
-		/**
-		 * Column Sort Direction
-		 */
-		const enum SortDirection
-		{
-			None = -1,
-			Ascending = 0,
-			Descending = 1
-		}
-
-		/**
-		 * Current sort status of a dataset column
-		 */
-		interface SortStatus
-		{
-			/**
-			 * The name of the column
-			 */
-			name: string;
-
-			/**
-			 * The current sort direction for the column.
-			 */
-			sortDirection: SortDirection;
-		}
-
-		/**
-		 * Paging state for a dataset
-		 */
-		interface Paging
-		{
-			/**
-			 * Total number of results on the server for the current query.
-			 */
-			totalResultCount: number;
-
-			/**
-			 * Whether the result set can be paged forwards.
-			 */
-			hasNextPage: boolean;
-
-			/**
-			 * Whether the result set can be paged backwards.
-			 */
-			hasPreviousPage: boolean;
-
-			/**
-			 * Request the next page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
-			 */
-			loadNextPage(): void;
-
-			/**
-			 * Request the previous page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
-			 */
-			loadPreviousPage(): void;
-
-			/**
-			 * Reload the results from the server, and reset to page 1.
-			 */
-			reset(): void;
-
-			/**
-			 * Sets the number of results to return per page on the next data refresh.
-			 * @pageSize pageSize to be set.
-			 */
-			setPageSize(pageSize: number): void;
-		}
-
-		/**
-		 * Dataset entity linking.
-		 */
-		interface Linking
-		{
-			/**
-			 * Returns all the linked entities information
-			 */
-			getLinkedEntities(): ILinkEntityExposedExpression[];
-
-			/**
-			 * Add a new linked entity relationship with the existed query primary entity
-			 */
-			addLinkedEntity(expression: ILinkEntityExposedExpression): void;
-		}
-
-		/**
-		 * Entity linking expression 
-		 */
-		interface ILinkEntityExposedExpression {
-			
-			/**
-			 * The 'name' of the entity to link to
-			 */
-			name: string;
-
-			/**
-			 * The 'from' attribute in the link-entity relationship
-			 */
-			from: string;
-
-			/**
-			 * The 'to' attribute in the link-entity relationship
-			 */
-			to: string;
-
-			/**
-			 * The 'type' of the link, referred by the link-entity attribute
-			 */
-			linkType: string;
-
-			/**
-			 * The 'alias' for the link-entity relationship
-			 */
-			alias: string;
-		}
-	}
-
-	namespace PropertyHelper
-	{
-		/** 
-		 * Ime Mode 
-		 */
-		const enum ImeMode
-		{
+		enum ImeMode {
 			Auto = 0,
 			Inactive = 1,
 			Active = 2,
 			Disabled = 3,
 		}
-		
+
 		/**
 		 * Entity privilege types.
 		 */
-		const enum PrivilegeType
-		{
+		enum PrivilegeType {
 			None = 0,
 			Create = 1,
 			Read = 2,
@@ -2006,12 +1553,11 @@ declare module ComponentFramework
 			Append = 7,
 			AppendTo = 8,
 		}
-	
-		/** 
+
+		/**
 		 * Entity Priviledge Depth
 		 */
-		const enum PrivilegeDepth
-		{
+		enum PrivilegeDepth {
 			None = -1,
 			Basic = 0,
 			Local = 1,
@@ -2019,11 +1565,10 @@ declare module ComponentFramework
 			Global = 3,
 		}
 
-		/** 
-		 * Attribute required level 
+		/**
+		 * Attribute required level
 		 */
-		const enum RequiredLevel
-		{
+		enum RequiredLevel {
 			Unknown = -1,
 			None = 0,
 			SystemRequired = 1,
@@ -2035,16 +1580,14 @@ declare module ComponentFramework
 		 * Entity metadata refer to online documentation
 		 * https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-utility/getentitymetadata
 		 */
-		interface EntityMetadata 
-		{
+		interface EntityMetadata {
 			[key: string]: any;
 		}
 
 		/**
 		 * Option Item Metadata
 		 */
-		interface OptionMetadata
-		{
+		interface OptionMetadata {
 			Label: string;
 			Value: number;
 			Color: string;
@@ -2053,8 +1596,7 @@ declare module ComponentFramework
 		/**
 		 * Entity metadata security privileges.
 		 */
-		interface SecurityPrivilegeMetadata
-		{
+		interface SecurityPrivilegeMetadata {
 			CanBeBasic: boolean;
 			CanBeDeep: boolean;
 			CanBeGlobal: boolean;
@@ -2069,11 +1611,376 @@ declare module ComponentFramework
 		/**
 		 * Entity metadata security values
 		 */
-		interface SecurityValues
-		{
+		interface SecurityValues {
 			editable: boolean;
 			readable: boolean;
 			secured: boolean;
+		}
+
+		namespace FieldPropertyMetadata {
+			interface Metadata {
+				DisplayName: string;
+				LogicalName: string;
+				RequiredLevel: RequiredLevel;
+				IsSecured: boolean;
+				SourceType: number;
+				Description: string;
+			}
+
+			interface NumberMetadata extends Metadata {
+				MinValue: number;
+				MaxValue: number;
+				ImeMode: ImeMode;
+			}
+
+			interface StringMetadata extends Metadata {
+				MaxLength: number;
+				ImeMode: ImeMode;
+			}
+
+			interface FloatingNumberMetadata extends NumberMetadata {
+				Precision: number;
+			}
+
+			interface DecimalNumberMetadata extends NumberMetadata {
+				Precision: number;
+			}
+
+			interface WholeNumberMetadata extends NumberMetadata {
+				Format: string;
+				LanguageByCode?: Dictionary;
+				TimeZoneByCode?: Dictionary;
+			}
+
+			interface DateTimeMetadata extends Metadata {
+				Behavior: FormattingApi.DateTimeFieldBehavior;
+				Format: string;
+				ImeMode: ImeMode;
+			}
+
+			interface LookupMetadata extends Metadata {
+				Targets: string[];
+			}
+
+			interface StringMetadata extends Metadata {
+				Format: string;
+			}
+
+			interface OptionSetMetadata extends Metadata {
+				Options: OptionMetadata[];
+				DefaultValue: number;
+			}
+
+			interface TwoOptionMetadata extends Metadata {
+				Options: [OptionMetadata, OptionMetadata];
+				DefaultValue: boolean;
+			}
+		}
+
+		namespace DataSetApi {
+			/**
+			 * Supported Condition Operator for filtering expression condition
+			 * This is subset of full condition operators list defined in https://docs.microsoft.com/en-us/dotnet/api/microsoft.xrm.sdk.query.conditionoperator
+			 */
+			enum ConditionOperator {
+				None = -1,
+				Equal = 0,
+				NotEqual = 1,
+				GreaterThan = 2,
+				LessThan = 3,
+				GreaterEqual = 4,
+				LessEqual = 5,
+				Like = 6,
+				In = 8,
+				Null = 12,
+				Yesterday = 14,
+				Today = 15,
+				Tomorrow = 16,
+				Last7Days = 17,
+				Next7Days = 18,
+				LastWeek = 19,
+				ThisWeek = 20,
+				LastMonth = 22,
+				ThisMonth = 23,
+				On = 25,
+				OnOrBefore = 26,
+				OnOrAfter = 27,
+				LastYear = 28,
+				ThisYear = 29,
+				LastXDays = 33,
+				NextXDays = 34,
+				LastXMonths = 37,
+				NextXMonths = 38,
+				Contains = 49,
+				InFiscalPeriodAndYear = 70,
+				Above = 75,
+				Under = 76,
+				NotUnder = 77,
+				AboveOrEqual = 78,
+				UnderOrEqual = 79,
+				ContainValues = 87
+			}
+
+			/**
+			 * An expression used to represent a filter condition.
+			 */
+			interface ConditionExpression {
+				/**
+				 * The name of the data-set column to apply the filter on.
+				 */
+				attributeName: string;
+
+				/**
+				 * The value evaluated by the condition
+				 */
+				conditionOperator: ConditionOperator;
+
+				/**
+				 * The value evaluated by the condition.
+				 */
+				value: string | string[];
+
+				/**
+				 * Entity alias name so filtering can be used on linked entities.
+				 */
+				entityAliasName?: string;
+			}
+
+			/**
+			 * Supported Filter Operator for filtering expression linkage
+			 */
+			enum FilterOperator {
+				And = 0,
+				Or = 1
+			}
+
+			/**
+			 * An expression used to represent a filter.
+			 */
+			interface FilterExpression {
+				/**
+				 * The set of conditions associated with this filter.
+				 */
+				conditions: ConditionExpression[];
+
+				/**
+				 * The operator used to combine conditions in this filter.
+				 */
+				filterOperator: FilterOperator;
+
+				/**
+				 * Any child filters that should be evaluated after evaluating this filter.
+				 */
+				filters?: FilterExpression[];
+			}
+
+			/**
+			 * Filter state for a dataset.
+			 */
+			interface Filtering {
+				/**
+				 * Returns the top-most filter associated with the data-set
+				 */
+				getFilter(): FilterExpression;
+
+				/**
+				 * Sets the top-most filter associated with the data-set
+				 * @expression filter expression to be set
+				 */
+				setFilter(expression: FilterExpression): void;
+
+				/**
+				 * Clears the filter associated with the data-set.
+				 */
+				clearFilter(): void;
+			}
+
+			/**
+			 * Metadata about a column in a dataset
+			 */
+			interface Column {
+				/**
+				 * Name of the column, unique in this dataset
+				 */
+				name: string;
+
+				/**
+				 * Localized display name for the column
+				 */
+				displayName: string;
+
+				/**
+				 * The manifest type of this column's values.
+				 */
+				dataType: string;
+
+				/**
+				 * The alias of this column.
+				 */
+				alias: string;
+
+				/**
+				 * The column order for the layout
+				 */
+				order: number;
+
+				/**
+				 * Customized column width ratios
+				 */
+				visualSizeFactor: number;
+
+				/**
+				 * The column visibility state.
+				 */
+				isHidden?: boolean;
+
+				/**
+				 * Is specific column the primary attrribute of the view's entity
+				 */
+				isPrimary?: boolean;
+
+				/**
+				 * Prevents the UI from making the column sortable.
+				 */
+				disableSorting?: boolean;
+			}
+
+			/**
+			 * Base interface for dataset record result. Supports value retrival by column name.
+			 */
+			interface EntityRecord {
+				/**
+				 * Get the current formatted value of this record column.
+				 * @param columnName Column name of the record
+				 */
+				getFormattedValue(columnName: string): string;
+
+				/**
+				 * Get the record ID
+				 */
+				getRecordId(): string;
+
+				/**
+				 * Get the raw value of the record's column
+				 * @param columnName Column name of the record
+				 */
+				getValue(columnName: string): string | Date | number | number[] | boolean | EntityReference | EntityReference[];
+
+				/**
+				 * Get the object that encapsulates an Entity Reference as a plain object
+				 */
+				getNamedReference(): EntityReference;
+			}
+
+			/**
+			 * Column Sort Direction
+			 */
+			enum SortDirection {
+				None = -1,
+				Ascending = 0,
+				Descending = 1
+			}
+
+			/**
+			 * Current sort status of a dataset column
+			 */
+			interface SortStatus {
+				/**
+				 * The name of the column
+				 */
+				name: string;
+
+				/**
+				 * The current sort direction for the column.
+				 */
+				sortDirection: SortDirection;
+			}
+
+			/**
+			 * Paging state for a dataset
+			 */
+			interface Paging {
+				/**
+				 * Total number of results on the server for the current query.
+				 */
+				totalResultCount: number;
+
+				/**
+				 * Whether the result set can be paged forwards.
+				 */
+				hasNextPage: boolean;
+
+				/**
+				 * Whether the result set can be paged backwards.
+				 */
+				hasPreviousPage: boolean;
+
+				/**
+				 * Request the next page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
+				 */
+				loadNextPage(): void;
+
+				/**
+				 * Request the previous page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
+				 */
+				loadPreviousPage(): void;
+
+				/**
+				 * Reload the results from the server, and reset to page 1.
+				 */
+				reset(): void;
+
+				/**
+				 * Sets the number of results to return per page on the next data refresh.
+				 * @pageSize pageSize to be set.
+				 */
+				setPageSize(pageSize: number): void;
+			}
+
+			/**
+			 * Dataset entity linking.
+			 */
+			interface Linking {
+				/**
+				 * Returns all the linked entities information
+				 */
+				getLinkedEntities(): LinkEntityExposedExpression[];
+
+				/**
+				 * Add a new linked entity relationship with the existed query primary entity
+				 */
+				addLinkedEntity(expression: LinkEntityExposedExpression): void;
+			}
+
+			/**
+			 * Entity linking expression
+			 */
+			interface LinkEntityExposedExpression {
+				/**
+				 * The 'name' of the entity to link to
+				 */
+				name: string;
+
+				/**
+				 * The 'from' attribute in the link-entity relationship
+				 */
+				from: string;
+
+				/**
+				 * The 'to' attribute in the link-entity relationship
+				 */
+				to: string;
+
+				/**
+				 * The 'type' of the link, referred by the link-entity attribute
+				 */
+				linkType: string;
+
+				/**
+				 * The 'alias' for the link-entity relationship
+				 */
+				alias: string;
+			}
 		}
 	}
 }
