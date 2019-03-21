@@ -3,6 +3,7 @@
 // Definitions by: Rudolph Gottesheim <http://www.midnight-design.at/>
 //                 Bùi Việt Thành <https://github.com/ohze>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare global {
     interface RangyRange extends Range {

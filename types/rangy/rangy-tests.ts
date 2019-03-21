@@ -140,6 +140,7 @@ function testRangyClassApplier() {
     let classApplier: RangyClassApplier;
     classApplier = rangy.createClassApplier('test', options, ['test1', 'test2']);
     classApplier = rangy.createClassApplier('test', options, 'test1, test2');
+    classApplier = new rangy.ClassApplier('test', options, 'test1, test2');
 
     let rangyRange: RangyRange = rangy.createRange();
 
@@ -163,4 +164,53 @@ function testRangyClassApplier() {
     let className: string = classApplier.className;
     className = classApplier.cssClass;
 
+    let el = new Element;
+
+    classApplier.copyPropertiesToElement({}, el, true);
+    classApplier.copyAttributesToElement([""], el);
+    let b: boolean = classApplier.appliesToElement(el);
+    let nodes: Node[] = classApplier.getEmptyElements(rangyRange);
+    let n = nodes[0];
+    b = classApplier.hasClass(n);
+    n = classApplier.getSelfOrAncestorWithClass();
+    b = classApplier.isModifiable(n);
+    b = classApplier.isIgnorableWhiteSpaceNode(n);
+
+    let p: rangy.DomPosition = {node: n, offset: 2};
+    classApplier.postApply(nodes, rangyRange);
+    classApplier.postApply(nodes, rangyRange, [p]);
+    classApplier.postApply(nodes, rangyRange, [p], b);
+    el = classApplier.createContainer(n);
+    b = classApplier.elementHasProperties(el, {});
+    b = classApplier.elementHasAttributes(el, ["someAttrName"]);
+    classApplier.applyToTextNode(n);
+    b = classApplier.isRemovable(el);
+    b = classApplier.isEmptyContainer(el);
+    classApplier.removeEmptyContainers(rangyRange);
+    classApplier.undoToTextNode(n, rangyRange, el, [p]);
+    classApplier.splitAncestorWithClass(n, 1, [p]);
+    classApplier.undoToAncestor(el, [p]);
+
+    let ranges: RangyRange[] = classApplier.applyToRanges([rangyRange]);
+    ranges = classApplier.undoToRanges(ranges);
+    b = classApplier.isAppliedToRanges(ranges);
+    classApplier.getElementsWithClassIntersectingRange(rangyRange);
+
+
+    // test ClassApplierUtil
+    let u = rangy.ClassApplier.util;
+    b = u.hasClass(el, className);
+    u.addClass(el, className);
+    u.removeClass(el, className);
+    let s: string = u.getClass(el);
+    let el2: Element;
+    b = u.hasSameClasses(el, el2);
+    b = u.hasAllClasses(el, className);
+    nodes = u.replaceWithOwnChildren(n, [p]);
+    b = u.elementsHaveSameNonClassAttributes(el, el2);
+    b = u.elementHasNonClassAttributes(el, ["except1"]);
+    n = u.splitNodeAt(n, n, 1, [p]);
+    b = u.isEditableElement(n);
+    b = u.isEditingHost(n);
+    b = u.isEditable(n);
 }
