@@ -45,7 +45,7 @@ const createEvent = (): void => {
   const end = new Date();
   start.setHours(10);
   end.setHours(11);
-  let event: GoogleAppsScript.Calendar_v3.Calendar.V3.Schema.Event = {
+  let event: GoogleAppsScript.Calendar_v3.Schema.Event = {
     summary: 'Lunch Meeting',
     location: 'The Deli',
     description: 'To discuss our plans for the presentation next week.',
@@ -70,7 +70,7 @@ const createEvent = (): void => {
 declare const AdminDirectory: GoogleAppsScript.Admin_directory_v1;
 const listAllUsers = () => {
   let pageToken: string;
-  let page: GoogleAppsScript.Admin_directory_v1.Admin.Directory_v1.Schema.Users;
+  let page: GoogleAppsScript.Admin_directory_v1.Schema.Users;
   do {
     page = AdminDirectory.Users.list({
       domain: 'example.com',
@@ -78,7 +78,7 @@ const listAllUsers = () => {
       maxResults: 100,
       pageToken: pageToken
     });
-    const users: GoogleAppsScript.Admin_directory_v1.Admin.Directory_v1.Schema.User[] = page.users;
+    const users: GoogleAppsScript.Admin_directory_v1.Schema.User[] = page.users;
     if (users) {
       for (const user of users) {
         Logger.log('%s (%s)', user.name.fullName, user.primaryEmail);
