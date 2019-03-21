@@ -18,14 +18,15 @@
     },
     "files": [
         "index.d.ts",
-        "blob-test.ts",
-        "data-test.ts",
-        "face-test.ts",
-        "interest-test.ts",
-        "key-chain-test.ts",
-        "name-test.ts",
-        "network-nack-test.ts",
-        "signature-test.ts",
-        "transport-test.ts"
+        "test/blob.ts",
+        "test/data.ts",
+        "test/face.ts",
+        "test/interest.ts",
+        "test/key-chain.ts",
+        "test/memory-content-cache.ts",
+        "test/name.ts",
+        "test/network-nack.ts",
+        "test/signature.ts",
+        "test/transport.ts"
     ]
 }

@@ -1,41 +1,38 @@
-// tslint:disable-next-line no-empty-interface
-export interface Transport {
+export abstract class TransportConnectionInfo {
 }
 
-export namespace Transport {
-    // tslint:disable-next-line no-empty-interface
-    interface ConnectionInfo {
-    }
+export abstract class Transport {
+    static ConnectionInfo: TransportConnectionInfo;
+    isLocal(): boolean;
 }
 
-export class TcpTransport implements Transport {
+export class TcpTransport extends Transport {
 }
 
 export namespace TcpTransport {
-    class ConnectionInfo implements Transport.ConnectionInfo {
+    class ConnectionInfo extends TransportConnectionInfo {
         constructor(host: string, port: number);
         equals(other: ConnectionInfo): boolean;
         toString(): string;
     }
 }
 
-export class UnixTransport implements Transport {
+export class UnixTransport extends Transport {
 }
 
 export namespace UnixTransport {
-    class ConnectionInfo implements Transport.ConnectionInfo {
+    class ConnectionInfo extends TransportConnectionInfo {
         constructor(filePath: string);
         equals(other: ConnectionInfo): boolean;
         toString(): string;
     }
 }
 
-export class WebSocketTransport implements Transport {
-    isLocal(): boolean;
+export class WebSocketTransport extends Transport {
 }
 
 export namespace WebSocketTransport {
-    class ConnectionInfo implements Transport.ConnectionInfo {
+    class ConnectionInfo extends TransportConnectionInfo {
         // tslint:disable-next-line unified-signatures
         constructor(host: string, port: number);
         constructor(uri: string);

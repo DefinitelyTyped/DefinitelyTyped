@@ -4,12 +4,12 @@ import { Interest } from "./interest";
 import { KeyChain } from "./key-chain";
 import { Name } from "./name";
 import { NetworkNack } from "./network-nack";
-import { Transport } from "./transport";
+import { Transport, TransportConnectionInfo } from "./transport";
 
 export interface FaceCtorOptions {
     getTransport?: () => Transport;
-    getConnectionInfo?: () => Transport.ConnectionInfo;
-    connectionInfo?: Transport.ConnectionInfo|null;
+    getConnectionInfo?: () => TransportConnectionInfo;
+    connectionInfo?: TransportConnectionInfo|null;
     host?: string|null;
     port?: number|null;
 }
@@ -17,7 +17,7 @@ export interface FaceCtorOptions {
 export type OnInterestCallback = (prefix: Name, interest: Interest, face: Face, filterId: number, filter: InterestFilter) => any;
 
 export class Face {
-    constructor(transport: Transport, connectionInfo: Transport.ConnectionInfo);
+    constructor(transport: Transport, connectionInfo: TransportConnectionInfo);
     constructor(settings?: FaceCtorOptions);
 
     expressInterest(interest: Interest|Name,

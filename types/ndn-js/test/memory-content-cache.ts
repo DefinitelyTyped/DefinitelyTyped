@@ -12,4 +12,4 @@ cache.registerPrefix(new ndn.Name("/A"),
     cache.getStorePendingInterest());
 cache.setInterestFilter(new ndn.Name("/A"), cache.getStorePendingInterest());
 cache.setMinimumCacheLifetime(5000);
-cache.storePendingInterest(new ndn.Interest(), new ndn.UdpTransport());
+cache.storePendingInterest(new ndn.Interest(), new ndn.UnixTransport());
