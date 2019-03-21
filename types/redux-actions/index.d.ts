@@ -67,9 +67,9 @@ export type Reducer<State, Payload> = (state: State, action: Action<Payload>) =>
 
 export type ReducerMeta<State, Payload, Meta> = (state: State, action: ActionMeta<Payload, Meta>) => State;
 
-export type ReduxReducer<State, Payload> = (state: State | undefined, action: Action<Payload>) => State;
+export type ReduxCompatibleReducer<State, Payload> = (state: State | undefined, action: Action<Payload>) => State;
 
-export type ReduxReducerMeta<State, Payload, Meta> = (state: State | undefined, action: ActionMeta<Payload, Meta>) => State;
+export type ReduxCompatibleReducerMeta<State, Payload, Meta> = (state: State | undefined, action: ActionMeta<Payload, Meta>) => State;
 
 /** argument inferring borrowed from lodash definitions */
 export type ActionFunction0<R> = () => R;
@@ -153,13 +153,13 @@ export function handleAction<State, Payload>(
     actionType: string | ActionFunctions<Payload> | CombinedActionType,
     reducer: Reducer<State, Payload> | ReducerNextThrow<State, Payload>,
     initialState: State
-): ReduxReducer<State, Payload>;
+): ReduxCompatibleReducer<State, Payload>;
 
 export function handleAction<State, Payload, Meta>(
     actionType: string | ActionWithMetaFunctions<Payload, Meta> | CombinedActionType,
     reducer: ReducerMeta<State, Payload, Meta> | ReducerNextThrowMeta<State, Payload, Meta>,
     initialState: State
-): ReduxReducerMeta<State, Payload, Meta>;
+): ReduxCompatibleReducerMeta<State, Payload, Meta>;
 
 export interface Options {
     prefix?: string;
@@ -170,19 +170,19 @@ export function handleActions<StateAndPayload>(
     reducerMap: ReducerMap<StateAndPayload, StateAndPayload>,
     initialState: StateAndPayload,
     options?: Options
-): ReduxReducer<StateAndPayload, StateAndPayload>;
+): ReduxCompatibleReducer<StateAndPayload, StateAndPayload>;
 
 export function handleActions<State, Payload>(
     reducerMap: ReducerMap<State, Payload>,
     initialState: State,
     options?: Options
-): ReduxReducer<State, Payload>;
+): ReduxCompatibleReducer<State, Payload>;
 
 export function handleActions<State, Payload, Meta>(
     reducerMap: ReducerMapMeta<State, Payload, Meta>,
     initialState: State,
     options?: Options
-): ReduxReducerMeta<State, Payload, Meta>;
+): ReduxCompatibleReducerMeta<State, Payload, Meta>;
 
 // https://github.com/redux-utilities/redux-actions/blob/v2.3.0/src/combineActions.js#L21
 export function combineActions(...actionTypes: Array<ActionFunctions<any> | string | symbol>): CombinedActionType;
