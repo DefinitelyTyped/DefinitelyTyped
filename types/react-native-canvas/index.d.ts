@@ -165,7 +165,7 @@ export default class Canvas extends React.Component<CanvasProps> {
 }
 
 export class Image {
-    constructor(canvas: Canvas, height: number, width: number);
+    constructor(canvas: Canvas, height?: number, width?: number);
     crossOrigin: string | undefined;
     height: number;
     width: number;
@@ -174,7 +174,7 @@ export class Image {
 }
 
 export class ImageData {
-    constructor(canvas: Canvas, height: number, width: number, data?: number[], );
+    constructor(canvas: Canvas, data: number[], height: number, width: number);
     readonly data: number[];
     readonly height: number;
     readonly width: number;
