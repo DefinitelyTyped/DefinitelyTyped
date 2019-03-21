@@ -54,6 +54,18 @@ export interface PublicKey {
   depth: number; // BIP32 serialization format
 }
 
+export interface Utxo {
+  index: number; // index of output IN THE TRANSACTION
+  transactionHash: string; // hash of the transaction
+  value: number; // how much money sent
+  addressPath: [number, number]; // path
+  height: number | null; // null == unconfirmed
+  coinbase: boolean;
+  tsize: number; // total size - in case of segwit, total, with segwit data
+  vsize: number; // virtual size - segwit concept - same as size in non-segwit
+  own: boolean;
+}
+
 export interface GetAccountInfoParams extends CommonParams {
   path?: number[];  // NOTE:
   xpub?: string;    // if both these fields are missing, the user will select an account
@@ -69,6 +81,11 @@ export interface AccountInfo {
 
   balance: number;
   confirmed: number;
+
+  transactions: number;
+  utxo: Utxo[];
+  usedAddresses: Array<{ address: string, received: number }>;
+  unusedAddresses: string[];
 
   // These fields are returned, presumably, to save further calls when the use case requires
   // a usable address:
