@@ -3,8 +3,8 @@
 // Definitions by: Kirill Kvashonin <https://github.com/kirillurgant>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Options {
-    offset?: number;
+interface Options {
+    offset: number;
     align?: 'top' | 'middle' | 'bottom';
     ease?: string;
     duration?: number;
@@ -12,4 +12,4 @@ export interface Options {
 
 declare function scrollToElement(selector: string | HTMLElement | Element, options?: Options): void;
 
-export default scrollToElement;
+export = scrollToElement;
