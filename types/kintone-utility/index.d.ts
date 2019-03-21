@@ -11,30 +11,30 @@ export namespace rest {
         file?: { fileKey: string };
     }
 
-    function deleteAllRecords(params: { app: number; ids: ReadonlyArray<number>; isGuest?: boolean }): object;
+    function deleteAllRecords(params: { app: number; ids: ReadonlyArray<number>; isGuest?: boolean }): Promise<object>;
 
-    function deleteAllRecordsByQuery(params: { app: number; query?: string; isGuest?: boolean }): object;
+    function deleteAllRecordsByQuery(params: { app: number; query?: string; isGuest?: boolean }): Promise<object>;
 
-    function deleteRecords(params: { app: number; ids: ReadonlyArray<number>; revisions?: ReadonlyArray<number>; isGuest?: boolean }): object;
+    function deleteRecords(params: { app: number; ids: ReadonlyArray<number>; revisions?: ReadonlyArray<number>; isGuest?: boolean }): Promise<object>;
 
-    function downloadFile(params: { fileKey: string; isGuest?: boolean }): object;
+    function downloadFile(params: { fileKey: string; isGuest?: boolean }): Promise<object>;
 
     function getAllRecordsByQuery(params: {
         app: number;
         query?: string;
         fields?: ReadonlyArray<string>;
         isGuest?: boolean;
-    }): object;
+    }): Promise<object>;
 
-    function getAppDeployStatus(params: { apps: ReadonlyArray<number>; isGuest?: boolean }): object;
+    function getAppDeployStatus(params: { apps: ReadonlyArray<number>; isGuest?: boolean }): Promise<object>;
 
-    function getCustomization(params: { app: number; isPreview?: boolean; isGuest?: boolean }): object;
+    function getCustomization(params: { app: number; isPreview?: boolean; isGuest?: boolean }): Promise<object>;
 
-    function getFormFields(params: { app: number; lang?: string; isGuest?: boolean; isPreview?: boolean }): object;
+    function getFormFields(params: { app: number; lang?: string; isGuest?: boolean; isPreview?: boolean }): Promise<object>;
 
-    function getFormLayout(params: { app: number; isGuest?: boolean; isPreview?: boolean }): object;
+    function getFormLayout(params: { app: number; isGuest?: boolean; isPreview?: boolean }): Promise<object>;
 
-    function getRecord(params: { app: number; id: number; isGuest?: boolean }): object;
+    function getRecord(params: { app: number; id: number; isGuest?: boolean }): Promise<object>;
 
     function getRecords(params: {
         app: number;
@@ -42,21 +42,21 @@ export namespace rest {
         fields?: ReadonlyArray<string>;
         totalCount?: boolean;
         isGuest?: boolean;
-    }): object;
+    }): Promise<object>;
 
-    function postAllRecords(params: { app: number; records: ReadonlyArray<object>; isGuest?: boolean }): object;
+    function postAllRecords(params: { app: number; records: ReadonlyArray<object>; isGuest?: boolean }): Promise<object>;
 
     function postDeployAppSettings(params: {
         apps: Array<{ app: number; revision?: number }>;
         revert?: boolean;
         isGuest?: boolean;
-    }): object;
+    }): Promise<object>;
 
-    function postRecord(params: { app: number; record?: object; isGuest?: boolean }): object;
+    function postRecord(params: { app: number; record?: object; isGuest?: boolean }): Promise<object>;
 
-    function postRecords(params: { app: number; records: ReadonlyArray<object>; isGuest?: boolean }): object;
+    function postRecords(params: { app: number; records: ReadonlyArray<object>; isGuest?: boolean }): Promise<object>;
 
-    function putAllRecords(params: { app: number; records: ReadonlyArray<object>; isGuest?: boolean }): object;
+    function putAllRecords(params: { app: number; records: ReadonlyArray<object>; isGuest?: boolean }): Promise<object>;
 
     function putRecord(params: {
         app: number;
@@ -68,9 +68,9 @@ export namespace rest {
         revision?: number;
         record?: object;
         isGuest?: boolean;
-    }): object;
+    }): Promise<object>;
 
-    function putRecords(params: { app: number; records: ReadonlyArray<object>; isGuest?: boolean }): object;
+    function putRecords(params: { app: number; records: ReadonlyArray<object>; isGuest?: boolean }): Promise<object>;
 
     function setApiTokenAuth(apiToken: string): void;
 
@@ -94,9 +94,9 @@ export namespace rest {
         };
         revision?: number;
         isGuest?: boolean;
-    }): object;
+    }): Promise<object>;
 
-    function uploadFile(params: { fileName: string; blob: object; isGuest?: boolean }): object;
+    function uploadFile(params: { fileName: string; blob: object; isGuest?: boolean }): Promise<object>;
 
     function upsertRecord(params: {
         app: number;
@@ -106,7 +106,7 @@ export namespace rest {
         };
         record: object;
         isGuest?: boolean;
-    }): object;
+    }): Promise<object>;
 
-    function upsertRecords(params: { app: number; records: ReadonlyArray<object>; isGuest?: boolean }): object;
+    function upsertRecords(params: { app: number; records: ReadonlyArray<object>; isGuest?: boolean }): Promise<object>;
 }

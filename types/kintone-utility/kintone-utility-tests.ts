@@ -16,13 +16,13 @@ const record = {id: 1, field1: {value: 1}};
 const records = [{id: 1, field1: {value: 1}, field2: {value: 2}}];
 
 // deleteAllRecords
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.deleteAllRecords({
     app,
     ids,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.deleteAllRecords({
     app,
     ids,
@@ -30,12 +30,12 @@ kintoneUtility.rest.deleteAllRecords({
 });
 
 // deleteAllRecordsByQuery
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.deleteAllRecordsByQuery({
     app,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.deleteAllRecordsByQuery({
     app,
     query,
@@ -43,13 +43,13 @@ kintoneUtility.rest.deleteAllRecordsByQuery({
 });
 
 // deleteRecords
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.deleteRecords({
     app,
     ids
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.deleteRecords({
     app,
     ids,
@@ -58,24 +58,24 @@ kintoneUtility.rest.deleteRecords({
 });
 
 // downloadFile
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.downloadFile({
     fileKey,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.downloadFile({
     fileKey,
     isGuest: true,
 });
 
 // getAllRecordsByQuery
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.getAllRecordsByQuery({
     app,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.getAllRecordsByQuery({
     app,
     query,
@@ -84,31 +84,31 @@ kintoneUtility.rest.getAllRecordsByQuery({
 });
 
 // getAppDeployStatus
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.getAppDeployStatus({
     apps,
     isGuest: true,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.getAppDeployStatus({
     apps,
 });
 
 // getCustomization
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.getCustomization({
     app,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.getCustomization({
     app,
     isPreview: true,
     isGuest: true,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.getFormFields({
     app,
     lang: 'ja',
@@ -116,7 +116,7 @@ kintoneUtility.rest.getFormFields({
     isPreview: true,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.getFormLayout({
     app,
     isGuest: true,
@@ -124,13 +124,13 @@ kintoneUtility.rest.getFormLayout({
 });
 
 // getRecord
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.getRecord({
     app,
     id,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.getRecord({
     app,
     id,
@@ -138,12 +138,12 @@ kintoneUtility.rest.getRecord({
 });
 
 // getRecords
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.getRecords({
     app,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.getRecords({
     app,
     query,
@@ -153,13 +153,13 @@ kintoneUtility.rest.getRecords({
 });
 
 // postAllRecords
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.postAllRecords({
     app,
     records,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.postAllRecords({
     app,
     records,
@@ -167,7 +167,7 @@ kintoneUtility.rest.postAllRecords({
 });
 
 // postDeployAppSettings
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.postDeployAppSettings({
     apps: [
         {app: 1, revision: 1},
@@ -175,7 +175,7 @@ kintoneUtility.rest.postDeployAppSettings({
     ],
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.postDeployAppSettings({
     apps: [
         {app: 1, revision: 1},
@@ -186,12 +186,12 @@ kintoneUtility.rest.postDeployAppSettings({
 });
 
 // postRecord
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.postRecord({
     app,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.postRecord({
     app,
     record,
@@ -199,7 +199,7 @@ kintoneUtility.rest.postRecord({
 });
 
 // postRecords
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.postRecords({
     app,
     records,
@@ -207,13 +207,13 @@ kintoneUtility.rest.postRecords({
 });
 
 // putAllRecords
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.putAllRecords({
     app,
     records,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.putAllRecords({
     app,
     records,
@@ -221,12 +221,12 @@ kintoneUtility.rest.putAllRecords({
 });
 
 // putRecord
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.putRecord({
     app,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.putRecord({
     app,
     id,
@@ -240,13 +240,13 @@ kintoneUtility.rest.putRecord({
 });
 
 // putRecords
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.putRecords({
     app,
     records,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.putRecords({
     app,
     records,
@@ -274,12 +274,12 @@ kintoneUtility.rest.setGuestSpaceId(1);
 kintoneUtility.rest.setUserAuth('alice', 'bob');
 
 // updateCustomization
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.updateCustomization({
     app,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.updateCustomization({
     app,
     scope: '',
@@ -295,21 +295,21 @@ kintoneUtility.rest.updateCustomization({
 });
 
 // uploadFile
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.uploadFile({
     fileName: 'image.png',
     blob: {},
     isGuest: true,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.uploadFile({
     fileName: 'image.png',
     blob: {},
 });
 
 // upsertRecord
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.upsertRecord({
     app,
     updateKey: {
@@ -319,7 +319,7 @@ kintoneUtility.rest.upsertRecord({
     record,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.upsertRecord({
     app,
     updateKey: {
@@ -331,13 +331,13 @@ kintoneUtility.rest.upsertRecord({
 });
 
 // upsertRecords
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.upsertRecords({
     app,
     records,
 });
 
-// $ExpectType object
+// $ExpectType Promise<object>
 kintoneUtility.rest.upsertRecords({
     app,
     records,
