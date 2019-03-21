@@ -270,10 +270,31 @@ export interface OpReturnOutput {
 
 export type Output = RegularOutput | InternalOutput | SendMaxOutput | OpReturnOutput;
 
+export interface BinOutput {
+  amount: number;
+  script_pubkey: string;
+}
+
+export interface RefTransaction {
+  hash: string;
+  version?: number;
+  inputs: Input[];
+  bin_outputs: BinOutput[];
+  lock_time?: number;
+  extra_data?: string;
+  timestamp?: number;
+  version_group_id?: number;
+}
+
 export interface SignTransactionParams extends CommonParams {
   inputs: Input[];
   outputs: Output[];
+  refTxs: RefTransaction[];
   coin: string;
+  locktime?: number;
+  version?: number;
+  expiry?: number;
+  branchId?: number;
   push?: boolean;
 }
 
