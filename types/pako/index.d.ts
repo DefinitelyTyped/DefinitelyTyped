@@ -121,28 +121,20 @@ export function ungzip(data: Data, options?: InflateFunctionOptions): Uint8Array
 
 export class Deflate {
     constructor(options?: DeflateOptions);
-
     err: ReturnCodes;
     msg: string;
     result: Uint8Array | number[];
-
     onData(chunk: Data): void;
-
     onEnd(status: number): void;
-
     push(data: Data | ArrayBuffer, mode?: FlushValues | boolean): boolean;
 }
 
 export class Inflate {
     constructor(options?: InflateOptions);
-
     err: ReturnCodes;
     msg: string;
     result: Data;
-
     onData(chunk: Data): void;
-
     onEnd(status: number): void;
-
     push(data: Data | ArrayBuffer, mode?: FlushValues | boolean): boolean;
 }
