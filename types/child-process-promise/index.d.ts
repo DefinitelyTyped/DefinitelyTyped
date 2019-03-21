@@ -20,7 +20,7 @@ import {
  */
 
 // stop exporting everything by default
-export {}
+export {};
 
 interface PromiseResult<Enc extends string|Buffer> {
     childProcess: ChildProcess;
@@ -81,11 +81,6 @@ export function  execFile(
 ): ChildProcessPromise<PromiseResult<string>>;
 export function  execFile(
     file: Readonly<string>,
-    args: ReadonlyArray<string> | null,
-    options: Readonly<Options & ExecFileOptionsWithStringEncoding>
-): ChildProcessPromise<PromiseResult<string>>;
-export function  execFile(
-    file: Readonly<string>,
     options: Readonly<Options & ExecFileOptionsWithOtherEncoding>
 ): ChildProcessPromise<PromiseResult<string | Buffer>>;
 export function  execFile(
@@ -95,7 +90,8 @@ export function  execFile(
 ): ChildProcessPromise<PromiseResult<string | Buffer>>;
 export function  execFile(
     file: Readonly<string>,
-    args?: ReadonlyArray<string> | null
+    args?: ReadonlyArray<string> | null,
+    options?: Readonly<Options & ExecFileOptionsWithStringEncoding>
 ): ChildProcessPromise<PromiseResult<string>>;
 
 export function  spawn(
