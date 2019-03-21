@@ -2,7 +2,6 @@
 // Project: https://github.com/patrick-steele-idem/child-process-promise
 // Definitions by: Luis Paulo <https://github.com/TheDSCPL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3.3
 
 /// <reference types="node" />
 
