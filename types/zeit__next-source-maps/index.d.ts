@@ -7,7 +7,6 @@
 import { ServerConfig } from 'next';
 
 declare function withSourceMaps(
-    /** @default {} */
     nextConfig?: ServerConfig
 ): ServerConfig;
 
