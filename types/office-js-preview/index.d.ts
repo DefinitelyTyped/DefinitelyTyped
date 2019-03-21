@@ -4720,7 +4720,9 @@ declare namespace Office {
          * In Excel, if you specify formulas in the TableData object you pass for the data parameter, you might not get the results you expect due to 
          * the "calculated columns" feature of Excel, which automatically duplicates formulas within a column. To work around this when you want to 
          * write `data` that contains formulas to a selected table, try specifying the data as an array of arrays (instead of a TableData object), and 
-         * specify the coercionType as Microsoft.Office.Matrix or "matrix".
+         * specify the coercionType as Microsoft.Office.Matrix or "matrix". However, this technique will block the "calculated columns" feature only 
+         * when one of the following conditions is met: (1) you are writing to all the cells of the column, or (2) there are already at least two 
+         * different formulas in the column.
          * 
          * @param options Provides options for how to insert data to the selection.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -4904,7 +4906,9 @@ declare namespace Office {
          * In Excel, if you specify formulas in the TableData object you pass for the data parameter, you might not get the results you expect due to 
          * the "calculated columns" feature of Excel, which automatically duplicates formulas within a column. To work around this when you want to 
          * write `data` that contains formulas to a selected table, try specifying the data as an array of arrays (instead of a TableData object), and 
-         * specify the coercionType as Microsoft.Office.Matrix or "matrix".
+         * specify the coercionType as Microsoft.Office.Matrix or "matrix". However, this technique will block the "calculated columns" feature only 
+         * when one of the following conditions is met: (1) you are writing to all the cells of the column, or (2) there are already at least two 
+         * different formulas in the column.
          * 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The AsyncResult.value property always returns undefined because there is no object or data to retrieve.
