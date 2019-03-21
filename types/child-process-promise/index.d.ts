@@ -1,4 +1,4 @@
-// Type definitions for child-process-promise 2.2.1
+// Type definitions for child-process-promise 2.2
 // Project: https://github.com/patrick-steele-idem/child-process-promise
 // Definitions by: Luis Paulo <https://github.com/TheDSCPL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,6 +18,9 @@ import {
 /**
  * Simple wrapper around the child_process module that makes use of promises
  */
+
+// stop exporting everything by default
+export {}
 
 interface PromiseResult<Enc extends string|Buffer> {
     childProcess: ChildProcess;
