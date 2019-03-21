@@ -703,6 +703,7 @@ declare namespace React {
     // will show `ForwardRef(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
     interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
+        propTypes?: WeakValidationMap<P>     ;        
         defaultProps?: Partial<P>;
     }
 
