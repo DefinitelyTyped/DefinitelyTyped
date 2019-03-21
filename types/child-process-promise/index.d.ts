@@ -1,12 +1,11 @@
 // Type definitions for child-process-promise 2.2.1
-// Project: https://github.com/TheDSCPL/types_child-process-promise
+// Project: https://github.com/patrick-steele-idem/child-process-promise
 // Definitions by: Luis Paulo <https://github.com/TheDSCPL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3.3
 
 /// <reference types="node" />
 
-// import child_process = require('child_process');
 import {
     ChildProcess,
     ExecFileOptionsWithBufferEncoding, ExecFileOptionsWithOtherEncoding,
@@ -111,3 +110,4 @@ declare namespace cpp {
         options?: Readonly<Options & ForkOptions>
     ): ChildProcessPromise<SpawnPromiseResult>;
 }
+
