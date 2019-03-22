@@ -2125,6 +2125,12 @@
             "asOfVersion": "0.1.5"
         },
         {
+            "libraryName": "@storybook/addon-notes",
+            "typingsPackageName": "storybook__addon-notes",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "striptags",
             "typingsPackageName": "striptags",
             "sourceRepoURL": "https://github.com/ericnorris/striptags",
