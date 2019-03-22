@@ -111,4 +111,4 @@ declare class ElectronStore<T = {}> implements Iterable<[string, JSONValue]> {
     [Symbol.iterator](): Iterator<[string, JSONValue]>;
 }
 
-export = ElectronStore;
+export default ElectronStore;
