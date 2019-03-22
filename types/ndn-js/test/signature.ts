@@ -3,17 +3,26 @@ import ndn = require("ndn-js");
 let kl: ndn.KeyLocator = new ndn.KeyLocator();
 kl = new ndn.KeyLocator(kl);
 
-let blob: ndn.Blob = kl.getKeyData();
-const name: ndn.Name = kl.getKeyName();
 const klt: ndn.KeyLocatorType = kl.getType();
+const name: ndn.Name = kl.getKeyName();
+let blob: ndn.Blob = kl.getKeyData();
 
-kl.setKeyData(blob);
-kl.setKeyName(name);
 kl.setType(ndn.KeyLocatorType.KEY_LOCATOR_DIGEST);
+kl.setKeyName(name);
+kl.setKeyData(blob);
 
 kl.clear();
 
-let validity: ndn.ValidityPeriod;
+let validity: ndn.ValidityPeriod = new ndn.ValidityPeriod();
+validity = new ndn.ValidityPeriod(validity);
+validity = new ndn.ValidityPeriod(540109800000, 664156800000);
+let b: boolean = validity.hasPeriod();
+let n: number = validity.getNotBefore();
+n = validity.getNotAfter();
+b = validity.isValid();
+b = validity.isValid(594172800000);
+validity.equals(new ndn.ValidityPeriod());
+validity.clear();
 
 let sig0 = new ndn.DigestSha256Signature();
 blob = sig0.getSignature();
@@ -24,7 +33,7 @@ let sig: ndn.Signature = sig0;
 let sigG = new ndn.GenericSignature();
 blob = sigG.getSignature();
 blob = sigG.getSignatureInfoEncoding();
-const n: number = sigG.getTypeCode();
+n = sigG.getTypeCode();
 sigG.setSignature(blob);
 sigG.setSignatureInfoEncoding(blob);
 sigG.setSignatureInfoEncoding(blob, 1000);

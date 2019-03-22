@@ -9,18 +9,29 @@ export enum KeyLocatorType {
 export class KeyLocator {
     constructor(kl?: KeyLocator);
 
-    getKeyData(): Blob;
-    getKeyName(): Name;
     getType(): KeyLocatorType;
+    getKeyName(): Name;
+    getKeyData(): Blob;
 
-    setKeyData(keyData: Blob): void;
-    setKeyName(name: Name): void;
     setType(type: KeyLocatorType): void;
+    setKeyName(name: Name): void;
+    setKeyData(keyData: Blob): void;
 
     clear(): void;
 }
 
-export type ValidityPeriod = any;
+export class ValidityPeriod {
+    constructor(validity?: ValidityPeriod);
+    constructor(notBefore: number, notAfter: number);
+
+    hasPeriod(): boolean;
+    getNotBefore(): number;
+    getNotAfter(): number;
+    isValid(time?: number): boolean;
+
+    equals(other: ValidityPeriod): boolean;
+    clear(): void;
+}
 
 export interface Signature {
     clone(): Signature;
