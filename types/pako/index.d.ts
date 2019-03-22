@@ -152,10 +152,10 @@ declare namespace Pako {
         raw?: boolean;
         to?: 'string';
         chunkSize?: number;
+        header?: Header;
         err: ReturnCodes;
         msg: string;
         result: Data;
-        header: Header;
         onData(chunk: Data): void;
         onEnd(status: number): void;
         push(data: Data | ArrayBuffer, mode?: FlushValues | boolean): boolean;
