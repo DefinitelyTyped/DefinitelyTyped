@@ -14,11 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react-native"
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "react-native-uuid-tests.tsx"
+        "react-native-uuid-tests.ts"
     ]
 }
