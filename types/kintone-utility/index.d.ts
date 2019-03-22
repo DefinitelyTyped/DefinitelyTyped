@@ -1,4 +1,4 @@
-// Type definitions for kintone-utility 0.4
+// Type definitions for non-npm package kintone-utility 0.4
 // Project: https://github.com/kintone/kintoneUtility
 // Definitions by: TAKAHASHI Shuuji <https://github.com/shuuji3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/kintone-utility
