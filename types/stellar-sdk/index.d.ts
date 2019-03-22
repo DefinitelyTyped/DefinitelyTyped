@@ -109,10 +109,12 @@ export class Server {
     serverURL: any;  // TODO: require("urijs")
 }
 
+type CallBuilderResponse = Horizon.BaseResponse | Server.CollectionPage;
+
 export namespace Server {
-    abstract class CallBuilder<T extends Horizon.BaseResponse = Horizon.BaseResponse> {
+    abstract class CallBuilder<T extends CallBuilderResponse> {
         constructor(serverUrl: string)
-        call(): Promise<CollectionPage<T>>;
+        call(): Promise<T>;
         cursor(cursor: string): this;
         limit(limit: number | string): this;
         order(direction: 'asc' | 'desc'): this;
@@ -376,23 +378,23 @@ export namespace Server {
         incrementSequenceNumber(): void;
     }
 
-    abstract class AssetsCallBuilder extends CallBuilder<AssetRecord> {
+    abstract class AssetsCallBuilder extends CallBuilder<CollectionPage<AssetRecord>> {
         forCode(value: string): this;
         forIssuer(value: string): this;
     }
 
-    abstract class EffectCallBuilder extends CallBuilder<EffectRecord> {
+    abstract class EffectCallBuilder extends CallBuilder<CollectionPage<EffectRecord>> {
         forAccount(accountId: string): this;
         forLedger(sequence: string): this;
         forOperation(operationId: number): this;
         forTransaction(transactionId: string): this;
     }
 
-    abstract class LedgerCallBuilder extends CallBuilder<LedgerRecord> { }
+    abstract class LedgerCallBuilder extends CallBuilder<CollectionPage<LedgerRecord>> { }
 
-    abstract class OfferCallBuilder extends CallBuilder<OfferRecord> { }
+    abstract class OfferCallBuilder extends CallBuilder<CollectionPage<OfferRecord>> { }
 
-    abstract class OperationCallBuilder extends CallBuilder<OperationRecord> {
+    abstract class OperationCallBuilder extends CallBuilder<CollectionPage<OperationRecord>> {
         forAccount(accountId: string): this;
         forLedger(sequence: string): this;
         forTransaction(transactionId: string): this;
@@ -400,7 +402,7 @@ export namespace Server {
         operation(operationId: number): this;
     }
     abstract class OrderbookCallBuilder extends CallBuilder<OrderbookRecord> { }
-    abstract class PathCallBuilder extends CallBuilder<PaymentPathRecord> { }
+    abstract class PathCallBuilder extends CallBuilder<CollectionPage<PaymentPathRecord>> { }
     abstract class PaymentCallBuilder extends CallBuilder<PaymentOperationRecord> {
         forAccount(accountId: string): this;
         forLedger(sequence: string): this;
@@ -411,8 +413,8 @@ export namespace Server {
         allowHttp: boolean;
     }
 
-    abstract class TradeAggregationCallBuilder extends CallBuilder<TradeAggregationRecord> { }
-    abstract class TradesCallBuilder extends CallBuilder<TradeRecord> {
+    abstract class TradeAggregationCallBuilder extends CallBuilder<CollectionPage<TradeAggregationRecord>> { }
+    abstract class TradesCallBuilder extends CallBuilder<CollectionPage<TradeRecord>> {
         forAssetPair(base: Asset, counter: Asset): this;
         forOffer(offerId: string): this;
     }
