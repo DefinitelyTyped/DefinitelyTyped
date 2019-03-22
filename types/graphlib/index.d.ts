@@ -432,7 +432,7 @@ declare module "graphlib" {
 
 	export interface Path {
 		distance: number;
-		predecessor: string;
+		predecessor?: string;
 	}
 
 	export namespace alg {
