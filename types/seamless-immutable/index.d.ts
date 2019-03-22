@@ -1,4 +1,4 @@
-// Type definitions for Seamless-immutable 7.1
+// Type definitions for Seamless-immutable 7.2
 // Project: https://github.com/rtfeldman/seamless-immutable
 // Definitions by: alex3165 <https://github.com/alex3165>
 //                 Stepan Burguchev <https://github.com/xsburg>
@@ -57,7 +57,7 @@ declare namespace SeamlessImmutable {
         getIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M]>(propertyPath: [ K, L, M, N ]): Immutable<T[K][L][M][N]>;
         getIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M]>(propertyPath: [ K, L, M, N ], defaultValue: T[K][L][M][N]): Immutable<T[K][L][M][N]>;
         getIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>(
-            propertyPath: [ K, L, M, N, O ]): Immutable<T[K][L][M][N][O]>;
+            propertyPath: [ K, L, M, N, O ]): Immutable<T[K][L][M][N][O]>
         getIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>(
             propertyPath: [ K, L, M, N, O ], defaultValue: T[K][L][M][N][O]): Immutable<T[K][L][M][N][O]>;
         getIn(propertyPath: string[]): Immutable<any>;
@@ -105,7 +105,7 @@ declare namespace SeamlessImmutable {
             map<TTarget>(mapFuction: (item: T) => TTarget): Immutable<TTarget[]>;
             filter(filterFunction: (item: T) => boolean): Immutable<T[]>;
             slice(start?: number, end?: number): Immutable<T[]>;
-            concat(...arr: T[]): Immutable<T[]>;
+            concat(...arr: Array<T|T[]>): Immutable<T[]>;
             reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T): Immutable<T>;
             reduce<TTarget>(callbackfn: (previousValue: TTarget, currentValue: T, currentIndex: number, array: T[]) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
             reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T): Immutable<T>;
