@@ -5401,7 +5401,7 @@ export class SkinnedMesh extends Mesh {
      * @param  {Material|Material[]} material? (optional) an instance of {@link Material}. Default is a new {@link MeshBasicMaterial}.
      * @param  {boolean} useVertexTexture?
      */
-    constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material[]);
+    constructor(geometry?: BufferGeometry, material?: Material | Material[]);
 
     /**
      * Either "attached" or "detached". "attached" uses the SkinnedMesh.matrixWorld property for the base transform	matrix of the bones. "detached" uses the SkinnedMesh.bindMatrix. Default is "attached".
