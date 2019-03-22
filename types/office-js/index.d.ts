@@ -52444,9 +52444,9 @@ declare namespace Word {
          *
          * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
          *
-         * Note: Only the default highlight colors are available in Office for Windows Desktop. 
-         * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", "Black".
-         * Any other color will be converted to the closest color when applied to the font when the add-in run in Office for Windows Desktop. 
+         * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+         * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+         * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
          * 
          * [Api set: WordApi 1.1]
          */
@@ -57262,9 +57262,9 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
-             * Note: Only the default highlight colors are available in Office for Windows Desktop. 
-             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", "Black".
-             * Any other color will be converted to the closest color when applied to the font when the add-in run in Office for Windows Desktop. 
+             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
              * 
              * [Api set: WordApi 1.1]
              */
@@ -58400,9 +58400,9 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
-             * Note: Only the default highlight colors are available in Office for Windows Desktop. 
-             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", "Black".
-             * Any other color will be converted to the closest color when applied to the font when the add-in run in Office for Windows Desktop. 
+             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
              * 
              * [Api set: WordApi 1.1]
              */
@@ -60118,9 +60118,9 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
-             * Note: Only the default highlight colors are available in Office for Windows Desktop. 
-             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", "Black".
-             * Any other color will be converted to the closest color when applied to the font when the add-in run in Office for Windows Desktop. 
+             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
              * 
              * [Api set: WordApi 1.1]
              */
