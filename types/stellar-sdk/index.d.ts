@@ -1,4 +1,4 @@
-// Type definitions for stellar-sdk 0.11
+// Type definitions for stellar-sdk 0.15
 // Project: https://github.com/stellar/js-stellar-sdk
 // Definitions by: Carl Foster <https://github.com/carl-foster>
 //                 Triston Jones <https://github.com/tristonj>
@@ -6,6 +6,7 @@
 //                 Max Bause <https://github.com/maxbause>
 //                 Timur Ramazanov <https://github.com/charlie-wasp>
 //                 Kalvis Kalniņš <https://github.com/Akuukis>
+//                 Morley Zhi <https://github.com/morleyzhi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -103,7 +104,7 @@ export class Server {
     transactions(): Server.TransactionCallBuilder;
 
     fetchBaseFee(): Promise<number>;
-    fetchTimebounds(seconds: number, _isRetry?: boolean): Promise<Timebounds>;
+    fetchTimebounds(seconds: number): Promise<Timebounds>;
 
     serverURL: any;  // TODO: require("urijs")
 }
