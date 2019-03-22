@@ -69,6 +69,11 @@ export namespace Config {
     function setDefault(): void;
 }
 
+interface Timebounds {
+    minTime: number;
+    maxTime: number;
+}
+
 export class Server {
     constructor(serverURL: string, options?: Server.Options)
     accounts(): Server.AccountCallBuilder;
@@ -96,6 +101,9 @@ export class Server {
     ): Server.TradeAggregationCallBuilder;
     trades(): Server.TradesCallBuilder;
     transactions(): Server.TransactionCallBuilder;
+
+    fetchBaseFee(): Promise<number>;
+    fetchTimebounds(seconds: number, _isRetry?: boolean): Promise<Timebounds>;
 
     serverURL: any;  // TODO: require("urijs")
 }
@@ -387,6 +395,8 @@ export namespace Server {
         forAccount(accountId: string): this;
         forLedger(sequence: string): this;
         forTransaction(transactionId: string): this;
+        includeFailed(value: boolean): this;
+        operation(operationId: number): this;
     }
     abstract class OrderbookCallBuilder extends CallBuilder<OrderbookRecord> { }
     abstract class PathCallBuilder extends CallBuilder<PaymentPathRecord> { }
@@ -410,6 +420,7 @@ export namespace Server {
         transaction(transactionId: string): this;
         forAccount(accountId: string): this;
         forLedger(sequence: string | number): this;
+        includeFailed(value: boolean): this;
     }
 }
 
