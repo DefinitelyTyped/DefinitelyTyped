@@ -12,7 +12,11 @@ export interface Base {
     (tableName: string): Table<{}>;
 }
 
-export interface Table<TFields extends object> {
+export interface FieldSet {
+    [ key: string ]: undefined | string | ReadonlyArray<Attachment>;
+}
+
+export interface Table<TFields extends FieldSet> {
     select(opt?: SelectOptions): Query<TFields>;
 }
 

@@ -1,6 +1,6 @@
-import Airtable, { Attachment, Table } from "airtable";
+import Airtable, { Attachment, Table, FieldSet } from "airtable";
 
-interface Row {
+interface Row extends FieldSet {
   field1: string;
   attachments: Attachment[];
 }
