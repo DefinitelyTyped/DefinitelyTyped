@@ -354,6 +354,7 @@ export namespace Server {
             [key: string]: string
         };
         inflation_destination?: any;
+        last_modified_ledger: number;
 
         effects: CallCollectionFunction<EffectRecord>;
         offers: CallCollectionFunction<OfferRecord>;
@@ -474,6 +475,8 @@ export namespace Horizon {
     interface BalanceLineNative {
         balance: string;
         asset_type: AssetType.native;
+        buying_liabilities: string;
+        selling_liabilities: string;
     }
     interface BalanceLineAsset<T extends AssetType.credit4 | AssetType.credit12 = AssetType.credit4 | AssetType.credit12> {
         balance: string;
@@ -481,6 +484,9 @@ export namespace Horizon {
         asset_type: T;
         asset_code: string;
         asset_issuer: string;
+        buying_liabilities: string;
+        selling_liabilities: string;
+        last_modified_ledger: number;
     }
     type BalanceLine<T extends AssetType = AssetType> =
         T extends AssetType.native ? BalanceLineNative :
