@@ -2,7 +2,6 @@ import { Data } from "./data";
 import { Face, ForwardingFlags, InterestFilter, OnInterestCallback } from "./face";
 import { Interest } from "./interest";
 import { Name } from "./name";
-import { Transport } from "./transport";
 
 export class MemoryContentCache {
     constructor(face: Face, cleanupIntervalMilliseconds?: number);
@@ -15,6 +14,6 @@ export class MemoryContentCache {
                    onDataNotFound?: OnInterestCallback, flags?: ForwardingFlags): void;
     setInterestFilter(filter: InterestFilter|Name, onDataNotFound?: OnInterestCallback): void;
     setMinimumCacheLifetime(minimumCacheLifetime: number): void;
-    storePendingInterest(interest: Interest, transport: Transport): void;
+    storePendingInterest(interest: Interest, face: Face): void;
     unregisterAll(): void;
 }
