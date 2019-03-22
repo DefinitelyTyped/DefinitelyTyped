@@ -1307,6 +1307,16 @@ describe.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
     }
 );
 
+const readonlyCases: Array<ReadonlyArray<number>> = [[1, 1, 2], [1, 2, 3], [2, 1, 3]];
+describe.each(readonlyCases)(
+    ".add(%i, %i)",
+    (a, b, expected) => {
+        test(`returns ${expected}`, () => {
+            expect(a + b).toBe(expected);
+        });
+    }
+);
+
 interface Case {
     a: number;
     b: number;
