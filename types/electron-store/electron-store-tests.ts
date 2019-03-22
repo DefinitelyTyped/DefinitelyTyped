@@ -1,4 +1,4 @@
-import ElectronStore = require('electron-store');
+import ElectronStore from 'electron-store';
 
 new ElectronStore({
     defaults: {}
