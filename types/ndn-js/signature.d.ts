@@ -33,11 +33,11 @@ export class ValidityPeriod {
     clear(): void;
 }
 
-export interface Signature {
+export abstract class Signature {
     clone(): Signature;
 }
 
-export class SignatureBase<T extends Signature> implements Signature {
+export class SignatureBase<T extends Signature> extends Signature {
     constructor();
     getSignature(): Blob;
     setSignature(sigValue: Blob): void;
@@ -54,14 +54,14 @@ export class SignatureBaseKlVp<T extends Signature> extends SignatureBaseKl<T> {
     setValidityPeriod(validity?: ValidityPeriod): void;
 }
 
-export class DigestSha256Signature extends SignatureBase<DigestSha256Signature> {
-}
-
 export class GenericSignature extends SignatureBase<GenericSignature> {
     constructor();
-    getSignatureInfoEncoding(): Blob;
     getTypeCode(): number;
+    getSignatureInfoEncoding(): Blob;
     setSignatureInfoEncoding(encoding: Blob, typeCode?: number): void;
+}
+
+export class DigestSha256Signature extends SignatureBase<DigestSha256Signature> {
 }
 
 export class Sha256WithRsaSignature extends SignatureBaseKlVp<Sha256WithRsaSignature> {

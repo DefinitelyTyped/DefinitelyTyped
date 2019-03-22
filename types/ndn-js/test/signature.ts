@@ -2,15 +2,12 @@ import ndn = require("ndn-js");
 
 let kl: ndn.KeyLocator = new ndn.KeyLocator();
 kl = new ndn.KeyLocator(kl);
-
 const klt: ndn.KeyLocatorType = kl.getType();
 const name: ndn.Name = kl.getKeyName();
 let blob: ndn.Blob = kl.getKeyData();
-
 kl.setType(ndn.KeyLocatorType.KEY_LOCATOR_DIGEST);
 kl.setKeyName(name);
 kl.setKeyData(blob);
-
 kl.clear();
 
 let validity: ndn.ValidityPeriod = new ndn.ValidityPeriod();
@@ -24,12 +21,6 @@ b = validity.isValid(594172800000);
 validity.equals(new ndn.ValidityPeriod());
 validity.clear();
 
-let sig0 = new ndn.DigestSha256Signature();
-blob = sig0.getSignature();
-sig0.setSignature(blob);
-sig0 = sig0.clone();
-let sig: ndn.Signature = sig0;
-
 let sigG = new ndn.GenericSignature();
 blob = sigG.getSignature();
 blob = sigG.getSignatureInfoEncoding();
@@ -38,7 +29,13 @@ sigG.setSignature(blob);
 sigG.setSignatureInfoEncoding(blob);
 sigG.setSignatureInfoEncoding(blob, 1000);
 sigG = sigG.clone();
-sig = sigG;
+let sig: ndn.Signature = sigG;
+
+let sig0 = new ndn.DigestSha256Signature();
+blob = sig0.getSignature();
+sig0.setSignature(blob);
+sig0 = sig0.clone();
+sig = sig0;
 
 let sig1 = new ndn.Sha256WithRsaSignature();
 kl = sig1.getKeyLocator();
