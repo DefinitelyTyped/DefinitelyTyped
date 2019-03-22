@@ -1,4 +1,4 @@
-// Type definitions for react-axe v3.1.0
+// Type definitions for react-axe v3.1
 // Project: https://github.com/dequelabs/react-axe
 // Definitions by: Akshay Karthik <https://github.com/akshaykarthik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,5 +18,5 @@ declare function axe(
 ): void;
 
 declare namespace axe {
-    export type ReactAxeConfig = Spec;
+    type ReactAxeConfig = Spec;
 }
