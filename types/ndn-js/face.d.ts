@@ -48,7 +48,7 @@ export class Face {
     unsetInterestFilter(id: number): void;
 }
 
-export type ForwardingFlags = any;
+export type ForwardingFlags = any; // no declaration because this type is rarely used
 
 export class InterestFilter {
     constructor(filter: InterestFilter);

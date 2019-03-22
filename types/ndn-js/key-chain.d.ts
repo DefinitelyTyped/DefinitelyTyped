@@ -33,6 +33,7 @@ export class KeyChain {
     signWithSha256(interest: Interest): void;
 }
 
+// no declaration because these types are rarely used
 export type CertificateV2 = any;
 export type KeyParams = any;
 export type Pib = any;
