@@ -1,29 +1,49 @@
 import { Blob } from "./blob";
 import { Data } from "./data";
-import { DelegationSet } from "./delegation-set";
 import { Name } from "./name";
 
 export class Interest {
-    constructor(name?: Name);
+    constructor(name?: Name|string);
     constructor(interest: Interest);
 
-    getCanBePrefix(): boolean;
-    getForwardingHint(): DelegationSet;
-    getIncomingFaceId(): number;
-    getInterestLifetimeMilliseconds(): number;
-    getMustBeFresh(): boolean;
     getName(): Name;
+    getCanBePrefix(): boolean;
+    getMustBeFresh(): boolean;
+    getForwardingHint(): DelegationSet;
     getNonce(): Blob;
+    getInterestLifetimeMilliseconds(): number;
+    getApplicationParameters(): Blob;
+    getIncomingFaceId(): number;
 
+    setName(name: Name): Interest;
     setCanBePrefix(canBePrefix: boolean): Interest;
+    setMustBeFresh(mustBeFresh: boolean): Interest;
     setForwardingHint(fh: DelegationSet): Interest;
     setInterestLifetimeMilliseconds(lifetime: number): Interest;
-    setMustBeFresh(mustBeFresh: boolean): Interest;
-    setName(name: Name): Interest;
+    setApplicationParameters(parameters: Blob|Buffer): Interest;
 
+    appendParametersDigestToName(): Interest;
     matchesData(data: Data): boolean;
     matchesName(name: Name): boolean;
     refreshNonce(): void;
+    toUri(): string;
     wireDecode(input: Blob|Buffer): void;
     wireEncode(): Blob;
+}
+
+export class DelegationSet {
+    size(): number;
+    get(i: number): DelegationSet.Delegation;
+    find(name: Name): number;
+
+    add(preference: number, name: Name): void;
+    remove(name: Name): boolean;
+    clear(): void;
+}
+
+export namespace DelegationSet {
+    class Delegation {
+        getPreference(): number;
+        getName(): Name;
+    }
 }

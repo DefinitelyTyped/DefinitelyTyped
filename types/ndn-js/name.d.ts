@@ -53,9 +53,7 @@ export namespace Name {
 
 export class Name {
     constructor(components?: ReadonlyArray<Name.Component|Uint8Array>);
-    constructor(uri: string);
-    // tslint:disable-next-line unified-signatures
-    constructor(name: Name);
+    constructor(name: Name|string);
 
     append(value: ReadonlyArray<number>|ArrayBuffer|Uint8Array|string|Blob, type?: ComponentType, otherTypeCode?: number): Name;
     append(component: Name.Component): Name;

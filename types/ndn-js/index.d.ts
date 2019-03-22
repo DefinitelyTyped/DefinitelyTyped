@@ -6,7 +6,6 @@
 export as namespace ndn;
 export * from "./blob";
 export * from "./data";
-export * from "./delegation-set";
 export * from "./face";
 export * from "./interest";
 export * from "./key-chain";
