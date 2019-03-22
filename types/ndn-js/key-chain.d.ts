@@ -26,18 +26,33 @@ export class KeyChain {
     deleteCertificate(key: PibKey, certificateName: Name, onComplete?: () => any, onError?: (err: any) => any): void;
     setDefaultCertificate(key: PibKey, certificate: CertificateV2, onComplete?: () => any, onError?: (err: any) => any): void;
 
-    sign(data: Data, params: SigningInfo, onComplete?: (data: Data) => any, onError?: (err: any) => any): void;
     sign(interest: Interest, params: SigningInfo, onComplete?: (interest: Interest) => any, onError?: (err: any) => any): void;
-    signWithSha256(data: Data): void;
-    // tslint:disable-next-line unified-signatures
-    signWithSha256(interest: Interest): void;
+    sign(data: Data, params: SigningInfo, onComplete?: (data: Data) => any, onError?: (err: any) => any): void;
+    signWithSha256(packet: Data|Interest): void;
 }
 
 // no declaration because these types are rarely used
-export type CertificateV2 = any;
-export type KeyParams = any;
-export type Pib = any;
-export type PibIdentity = any;
-export type PibKey = any;
-export type SigningInfo = any;
-export type Tpm = any;
+export class Pib {}
+export class PibIdentity {}
+export class PibKey {}
+export class KeyParams {}
+export class CertificateV2 {}
+export class Tpm {}
+
+export class SigningInfo {
+    constructor(signerType: SigningInfo.SignerType, signerName: Name);
+    constructor(arg?: SigningInfo|PibIdentity|PibKey|string);
+
+    getSignerType(): SigningInfo.SignerType;
+    getSignerName(): Name;
+}
+
+export namespace SigningInfo {
+    enum SignerType {
+        NULL   = 0,
+        ID     = 1,
+        KEY    = 2,
+        CERT   = 3,
+        SHA256 = 4,
+    }
+}

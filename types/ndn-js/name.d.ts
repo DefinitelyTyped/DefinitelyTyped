@@ -56,9 +56,7 @@ export class Name {
     constructor(name: Name|string);
 
     append(value: ReadonlyArray<number>|ArrayBuffer|Uint8Array|string|Blob, type?: ComponentType, otherTypeCode?: number): Name;
-    append(component: Name.Component): Name;
-    // tslint:disable-next-line unified-signatures
-    append(name: Name): Name;
+    append(components: Name.Component|Name): Name;
     appendImplicitSha256Digest(digest: Blob): Name;
     appendParametersSha256Digest(digest: Blob): Name;
     appendSegment(segment: number): Name;

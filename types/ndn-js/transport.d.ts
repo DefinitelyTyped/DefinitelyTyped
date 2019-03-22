@@ -33,9 +33,7 @@ export class WebSocketTransport extends Transport {
 
 export namespace WebSocketTransport {
     class ConnectionInfo extends TransportConnectionInfo {
-        // tslint:disable-next-line unified-signatures
-        constructor(host: string, port: number);
-        constructor(uri: string);
+        constructor(hostOrUri: string, port?: number);
         equals(other: ConnectionInfo): boolean;
         toString(): string;
     }
