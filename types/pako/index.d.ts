@@ -126,16 +126,6 @@ declare namespace Pako {
     // https://github.com/nodeca/pako/blob/893381abcafa10fa2081ce60dae7d4d8e873a658/lib/deflate.js
     class Deflate {
         constructor(options?: DeflateOptions);
-        level?: -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-        windowBits?: number;
-        memLevel?: number;
-        strategy?: StrategyValues;
-        dictionary?: any;
-        raw?: boolean;
-        to?: 'string';
-        chunkSize?: number;
-        gzip?: boolean;
-        header?: Header;
         err: ReturnCodes;
         msg: string;
         result: Uint8Array | number[];
@@ -147,11 +137,6 @@ declare namespace Pako {
     // https://github.com/nodeca/pako/blob/893381abcafa10fa2081ce60dae7d4d8e873a658/lib/inflate.js
     class Inflate {
         constructor(options?: InflateOptions);
-        windowBits?: number;
-        dictionary?: any;
-        raw?: boolean;
-        to?: 'string';
-        chunkSize?: number;
         header?: Header;
         err: ReturnCodes;
         msg: string;
