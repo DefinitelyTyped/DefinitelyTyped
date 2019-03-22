@@ -639,7 +639,7 @@ declare module "node-forge" {
         function createDecipher(algorithm: Algorithm, payload: util.ByteBuffer | Bytes): BlockCipher;
 
         interface StartOptions {
-            iv?: Bytes;
+            iv?: util.ByteBuffer | Byte[] | Bytes;
             tag?: util.ByteStringBuffer;
             tagLength?: number;
             additionalData?: string;
