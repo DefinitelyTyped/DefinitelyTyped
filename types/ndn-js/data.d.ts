@@ -3,19 +3,20 @@ import { Name } from "./name";
 import { Signature } from "./signature";
 
 export class Data {
-    constructor(name?: Name);
+    constructor(name?: Name|string);
+    constructor(data: Data);
 
-    getCongestionMark(): number;
-    getContent(): Blob;
-    getFullName(): Name;
-    getIncomingFaceId(): number;
-    getMetaInfo(): MetaInfo;
     getName(): Name;
+    getFullName(): Name;
+    getMetaInfo(): MetaInfo;
+    getContent(): Blob;
     getSignature(): Signature;
+    getCongestionMark(): number;
+    getIncomingFaceId(): number;
 
-    setContent(content: Blob): Data;
-    setMetaInfo(meta: MetaInfo): Data;
     setName(name: Name): Data;
+    setMetaInfo(meta: MetaInfo): Data;
+    setContent(content: Blob|Buffer): Data;
     setSignature(sig: Signature): Data;
 
     wireDecode(input: Blob|Buffer): void;
@@ -33,13 +34,13 @@ export enum ContentType {
 export class MetaInfo {
     constructor(meta?: MetaInfo);
 
-    getFinalBlockId(): Name.Component;
-    getFreshnessPeriod(): number;
-    getOtherTypeCode(): number;
     getType(): ContentType;
+    getOtherTypeCode(): number;
+    getFreshnessPeriod(): number;
+    getFinalBlockId(): Name.Component;
 
-    setFinalBlockId(comp: Name.Component): void;
-    setFreshnessPeriod(freshness: number): void;
-    setOtherTypeCode(otherTypeCode: number): void;
     setType(type: ContentType): void;
+    setOtherTypeCode(otherTypeCode: number): void;
+    setFreshnessPeriod(freshness: number): void;
+    setFinalBlockId(comp: Name.Component): void;
 }

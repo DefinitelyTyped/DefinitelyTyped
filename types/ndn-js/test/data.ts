@@ -3,30 +3,33 @@ import ndn = require("ndn-js");
 
 let meta = new ndn.MetaInfo();
 meta = new ndn.MetaInfo(meta);
-const comp: ndn.Name.Component = meta.getFinalBlockId();
-let n: number = meta.getFreshnessPeriod();
-n = meta.getOtherTypeCode();
 const ct: ndn.ContentType = meta.getType();
+let n: number = meta.getOtherTypeCode();
+n = meta.getFreshnessPeriod();
+const comp: ndn.Name.Component = meta.getFinalBlockId();
 
-meta.setFinalBlockId(comp);
-meta.setFreshnessPeriod(5000);
-meta.setOtherTypeCode(1000);
 meta.setType(ndn.ContentType.OTHER_CODE);
+meta.setOtherTypeCode(1000);
+meta.setFreshnessPeriod(5000);
+meta.setFinalBlockId(comp);
 
 let data = new ndn.Data();
 data = new ndn.Data(new ndn.Name("/A"));
+data = new ndn.Data("/A");
+data = new ndn.Data(data);
 
-n = data.getCongestionMark();
-let blob: ndn.Blob = data.getContent();
 let name: ndn.Name = data.getName();
-n = data.getIncomingFaceId();
+name = data.getFullName();
 meta = data.getMetaInfo();
-name = data.getName();
+let blob: ndn.Blob = data.getContent();
 const sig: ndn.Signature = data.getSignature();
+n = data.getCongestionMark();
+n = data.getIncomingFaceId();
 
-data = data.setContent(blob)
+data = data.setName(name)
            .setMetaInfo(meta)
-           .setName(name)
+           .setContent(blob)
+           .setContent(Buffer.alloc(4))
            .setSignature(sig);
 
 data.wireDecode(blob);
