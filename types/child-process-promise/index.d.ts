@@ -38,7 +38,7 @@ export interface Options {
      * Pass an additional capture option to buffer the result of stdout and/or stderr
      * Default: []
      */
-    capture?: []|['stdout'|'stderr']|['stdout','stderr']|['stderr','stdout'];
+    capture?: []|['stdout'|'stderr']|['stdout', 'stderr']|['stderr', 'stdout'];
     /**
      * Array of the numbers that should be interpreted as successful execution codes
      * Default: [0]
