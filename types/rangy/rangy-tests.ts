@@ -178,7 +178,7 @@ function testRangyClassApplier() {
     let nodes: Node[] = classApplier.getEmptyElements(rangyRange);
     let n = nodes[0];
     b = classApplier.hasClass(n);
-    n = classApplier.getSelfOrAncestorWithClass();
+    let nodeOrNull: Node|null = classApplier.getSelfOrAncestorWithClass();
     b = classApplier.isModifiable(n);
     b = classApplier.isIgnorableWhiteSpaceNode(n);
 
@@ -208,10 +208,10 @@ function testRangyClassApplier() {
     u.addClass(el, className);
     u.removeClass(el, className);
     let s: string = u.getClass(el);
-    let el2: Element;
+    let el2 = new Element();
     b = u.hasSameClasses(el, el2);
     b = u.hasAllClasses(el, className);
-    nodes = u.replaceWithOwnChildren(n, [p]);
+    let nullableNodes: Array<Node|null> = u.replaceWithOwnChildren(n, [p]);
     b = u.elementsHaveSameNonClassAttributes(el, el2);
     b = u.elementHasNonClassAttributes(el, ["except1"]);
     n = u.splitNodeAt(n, n, 1, [p]);
@@ -225,10 +225,12 @@ import 'rangy/lib/rangy-highlighter';
 function testHighlighter() {
     let highlighter: rangy.Highlighter;
     highlighter = rangy.createHighlighter(document, "TextRange");
-    let classApplier: rangy.ClassApplier = null;
+    let classApplier: rangy.ClassApplier = rangy.createClassApplier("cls");
     highlighter.addClassApplier(classApplier);
-    let h: rangy.Highlight = highlighter.getHighlightForElement(new Node());
-    highlighter.removeHighlights([h]);
+    let h: rangy.Highlight|null = highlighter.getHighlightForElement(new Node());
+    if (h != null) {
+        highlighter.removeHighlights([h]);
+    }
     highlighter.removeAllHighlights();
     let r: RangyRange = rangy.createRange();
     let hs: rangy.Highlight[] = highlighter.getIntersectingHighlights([r]);
