@@ -115,9 +115,15 @@ declare namespace Rangy {
 
     function getSelection(doc?: Document | Window | HTMLIFrameElement): RangySelection;
 
-    function addInitListener(listener: (rangy: RangyStatic) => void): any;
+    function addInitListener(listener: (rangy: RangyStatic) => void): void;
 
-    function shim(): any;
+    function init(): void;
+
+    function shim(): void;
+
+    function addShimListener(listener: (win: Window) => void): void;
+
+    // dom: {...}
 
     function createMissingNativeApi(): any;
 
