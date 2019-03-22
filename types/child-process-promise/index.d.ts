@@ -19,20 +19,17 @@ import {
  * Simple wrapper around the child_process module that makes use of promises
  */
 
-// stop exporting everything by default
-export {};
-
-interface PromiseResult<Enc extends string|Buffer> {
+export interface PromiseResult<Enc extends string|Buffer> {
     childProcess: ChildProcess;
     stdout: Enc;
     stderr: Enc;
 }
 
-interface SpawnPromiseResult extends PromiseResult<string> {
+export interface SpawnPromiseResult extends PromiseResult<string> {
     code: number;
 }
 
-interface ChildProcessPromise<T> extends Promise<T> {
+export interface ChildProcessPromise<T> extends Promise<T> {
     childProcess: ChildProcess;
 }
 
