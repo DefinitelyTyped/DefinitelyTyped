@@ -426,7 +426,7 @@ declare namespace React {
         // always pass children as variadic arguments to `createElement`.
         // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
-        readonly props: Readonly<P> & Readonly<{ children?: ReactNode }>;
+        readonly props: Readonly<PropsWithChildren<P>>;
         state: Readonly<S>;
         /**
          * @deprecated
