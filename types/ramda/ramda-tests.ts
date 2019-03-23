@@ -526,34 +526,6 @@ R.times(i, 5);
 })();
 
 (() => {
-    let numberOfCalls = 0;
-
-    function trackedAdd(a: number, b: number) {
-        numberOfCalls += 1;
-        return a + b;
-    }
-
-    const memoTrackedAdd = R.memoize(trackedAdd);
-
-    memoTrackedAdd(1, 2); // => 3
-    numberOfCalls; // => 1
-    memoTrackedAdd(1, 2); // => 3
-    numberOfCalls; // => 1
-    memoTrackedAdd(2, 3); // => 5
-    numberOfCalls; // => 2
-
-    // Note that argument order matters
-    memoTrackedAdd(2, 1); // => 3
-    numberOfCalls; // => 3
-
-    function stringLength(str: string): number {
-      return str.length;
-    }
-    const memoStringLength = R.memoize(stringLength);
-    const isLong = memoStringLength('short') > 10; // false
-})();
-
-(() => {
     interface Vector {
       x: number;
       y: number;
