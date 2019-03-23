@@ -259,17 +259,17 @@ declare namespace GoogleAppsScript {
         colorId?: string;
         conferenceProperties?: Calendar_v3.Schema.ConferenceProperties;
         defaultReminders?: Calendar_v3.Schema.EventReminder[];
-        deleted?: Boolean;
+        deleted?: boolean;
         description?: string;
         etag?: string;
         foregroundColor?: string;
-        hidden?: Boolean;
+        hidden?: boolean;
         id?: string;
         kind?: string;
         location?: string;
         notificationSettings?: Calendar_v3.Schema.CalendarListEntryNotificationSettings;
-        primary?: Boolean;
-        selected?: Boolean;
+        primary?: boolean;
+        selected?: boolean;
         summary?: string;
         summaryOverride?: string;
         timeZone?: string;
@@ -287,7 +287,7 @@ declare namespace GoogleAppsScript {
         id?: string;
         kind?: string;
         params?: object;
-        payload?: Boolean;
+        payload?: boolean;
         resourceId?: string;
         resourceUri?: string;
         token?: string;
@@ -319,7 +319,7 @@ declare namespace GoogleAppsScript {
         parameters?: object;
       }
       export interface ConferenceProperties {
-        allowedConferenceSolutionTypes?: String[];
+        allowedConferenceSolutionTypes?: string[];
       }
       export interface ConferenceRequestStatus {
         statusCode?: string;
@@ -339,7 +339,7 @@ declare namespace GoogleAppsScript {
       }
       export interface EntryPoint {
         accessCode?: string;
-        entryPointFeatures?: String[];
+        entryPointFeatures?: string[];
         entryPointType?: string;
         label?: string;
         meetingCode?: string;
@@ -354,34 +354,34 @@ declare namespace GoogleAppsScript {
         reason?: string;
       }
       export interface Event {
-        anyoneCanAddSelf?: Boolean;
+        anyoneCanAddSelf?: boolean;
         attachments?: Calendar_v3.Schema.EventAttachment[];
         attendees?: Calendar_v3.Schema.EventAttendee[];
-        attendeesOmitted?: Boolean;
+        attendeesOmitted?: boolean;
         colorId?: string;
         conferenceData?: Calendar_v3.Schema.ConferenceData;
         created?: string;
         creator?: Calendar_v3.Schema.EventCreator;
         description?: string;
         end?: Calendar_v3.Schema.EventDateTime;
-        endTimeUnspecified?: Boolean;
+        endTimeUnspecified?: boolean;
         etag?: string;
         extendedProperties?: Calendar_v3.Schema.EventExtendedProperties;
         gadget?: Calendar_v3.Schema.EventGadget;
-        guestsCanInviteOthers?: Boolean;
-        guestsCanModify?: Boolean;
-        guestsCanSeeOtherGuests?: Boolean;
+        guestsCanInviteOthers?: boolean;
+        guestsCanModify?: boolean;
+        guestsCanSeeOtherGuests?: boolean;
         hangoutLink?: string;
         htmlLink?: string;
         iCalUID?: string;
         id?: string;
         kind?: string;
         location?: string;
-        locked?: Boolean;
+        locked?: boolean;
         organizer?: Calendar_v3.Schema.EventOrganizer;
         originalStartTime?: Calendar_v3.Schema.EventDateTime;
-        privateCopy?: Boolean;
-        recurrence?: String[];
+        privateCopy?: boolean;
+        recurrence?: string[];
         recurringEventId?: string;
         reminders?: Calendar_v3.Schema.EventReminders;
         sequence?: number;
@@ -406,17 +406,17 @@ declare namespace GoogleAppsScript {
         displayName?: string;
         email?: string;
         id?: string;
-        optional?: Boolean;
-        organizer?: Boolean;
-        resource?: Boolean;
+        optional?: boolean;
+        organizer?: boolean;
+        resource?: boolean;
         responseStatus?: string;
-        self?: Boolean;
+        self?: boolean;
       }
       export interface EventCreator {
         displayName?: string;
         email?: string;
         id?: string;
-        self?: Boolean;
+        self?: boolean;
       }
       export interface EventDateTime {
         date?: string;
@@ -441,7 +441,7 @@ declare namespace GoogleAppsScript {
         displayName?: string;
         email?: string;
         id?: string;
-        self?: Boolean;
+        self?: boolean;
       }
       export interface EventReminder {
         method?: string;
@@ -449,7 +449,7 @@ declare namespace GoogleAppsScript {
       }
       export interface EventReminders {
         overrides?: Calendar_v3.Schema.EventReminder[];
-        useDefault?: Boolean;
+        useDefault?: boolean;
       }
       export interface EventSource {
         title?: string;
@@ -473,7 +473,7 @@ declare namespace GoogleAppsScript {
         errors?: Calendar_v3.Schema.Error[];
       }
       export interface FreeBusyGroup {
-        calendars?: String[];
+        calendars?: string[];
         errors?: Calendar_v3.Schema.Error[];
       }
       export interface FreeBusyRequest {

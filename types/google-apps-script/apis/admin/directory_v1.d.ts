@@ -231,7 +231,7 @@ declare namespace GoogleAppsScript {
       }
       export interface OrgunitsCollection {
         // Retrieve organizational unit
-        get(customerId: string, orgUnitPath: String[]): Admin_directory_v1.Schema.OrgUnit;
+        get(customerId: string, orgUnitPath: string[]): Admin_directory_v1.Schema.OrgUnit;
         // Add organizational unit
         insert(resource: Schema.OrgUnit, customerId: string): Admin_directory_v1.Schema.OrgUnit;
         // Retrieve all organizational units
@@ -239,11 +239,11 @@ declare namespace GoogleAppsScript {
         // Retrieve all organizational units
         list(customerId: string, optionalArgs: object): Admin_directory_v1.Schema.OrgUnits;
         // Update organizational unit. This method supports patch semantics.
-        patch(resource: Schema.OrgUnit, customerId: string, orgUnitPath: String[]): Admin_directory_v1.Schema.OrgUnit;
+        patch(resource: Schema.OrgUnit, customerId: string, orgUnitPath: string[]): Admin_directory_v1.Schema.OrgUnit;
         // Remove organizational unit
-        remove(customerId: string, orgUnitPath: String[]): void;
+        remove(customerId: string, orgUnitPath: string[]): void;
         // Update organizational unit
-        update(resource: Schema.OrgUnit, customerId: string, orgUnitPath: String[]): Admin_directory_v1.Schema.OrgUnit;
+        update(resource: Schema.OrgUnit, customerId: string, orgUnitPath: string[]): Admin_directory_v1.Schema.OrgUnit;
       }
       export interface PrivilegesCollection {
         // Retrieves a paginated list of all privileges for a customer.
@@ -361,14 +361,14 @@ declare namespace GoogleAppsScript {
         kind?: string;
       }
       export interface AppAccessCollections {
-        blockedApiAccessBuckets?: String[];
-        enforceSettingsForAndroidDrive?: Boolean;
+        blockedApiAccessBuckets?: string[];
+        enforceSettingsForAndroidDrive?: boolean;
         errorMessage?: string;
         etag?: string;
         kind?: string;
         resourceId?: string;
         resourceName?: string;
-        trustDomainOwnedApps?: Boolean;
+        trustDomainOwnedApps?: boolean;
       }
       export interface Asp {
         codeId?: number;
@@ -391,11 +391,11 @@ declare namespace GoogleAppsScript {
         coordinates?: Admin_directory_v1.Schema.BuildingCoordinates;
         description?: string;
         etags?: string;
-        floorNames?: String[];
+        floorNames?: string[];
         kind?: string;
       }
       export interface BuildingAddress {
-        addressLines?: String[];
+        addressLines?: string[];
         administrativeArea?: string;
         languageCode?: string;
         locality?: string;
@@ -442,7 +442,7 @@ declare namespace GoogleAppsScript {
         id?: string;
         kind?: string;
         params?: object;
-        payload?: Boolean;
+        payload?: boolean;
         resourceId?: string;
         resourceUri?: string;
         token?: string;
@@ -479,7 +479,7 @@ declare namespace GoogleAppsScript {
         systemRamFreeReports?: Admin_directory_v1.Schema.ChromeOsDeviceSystemRamFreeReports[];
         systemRamTotal?: string;
         tpmVersionInfo?: Admin_directory_v1.Schema.ChromeOsDeviceTpmVersionInfo;
-        willAutoRenew?: Boolean;
+        willAutoRenew?: boolean;
       }
       export interface ChromeOsDeviceAction {
         action?: string;
@@ -518,7 +518,7 @@ declare namespace GoogleAppsScript {
       }
       export interface ChromeOsDeviceSystemRamFreeReports {
         reportTime?: string;
-        systemRamFreeInfo?: String[];
+        systemRamFreeInfo?: string[];
       }
       export interface ChromeOsDeviceTpmVersionInfo {
         family?: string;
@@ -535,7 +535,7 @@ declare namespace GoogleAppsScript {
         nextPageToken?: string;
       }
       export interface ChromeOsMoveDevicesToOu {
-        deviceIds?: String[];
+        deviceIds?: string[];
       }
       export interface Customer {
         alternateEmail?: string;
@@ -565,7 +565,7 @@ declare namespace GoogleAppsScript {
         etag?: string;
         kind?: string;
         parentDomainName?: string;
-        verified?: Boolean;
+        verified?: boolean;
       }
       export interface DomainAliases {
         domainAliases?: Admin_directory_v1.Schema.DomainAlias[];
@@ -577,9 +577,9 @@ declare namespace GoogleAppsScript {
         domainAliases?: Admin_directory_v1.Schema.DomainAlias[];
         domainName?: string;
         etag?: string;
-        isPrimary?: Boolean;
+        isPrimary?: boolean;
         kind?: string;
-        verified?: Boolean;
+        verified?: boolean;
       }
       export interface Domains2 {
         domains?: Admin_directory_v1.Schema.Domains[];
@@ -604,8 +604,8 @@ declare namespace GoogleAppsScript {
         nextPageToken?: string;
       }
       export interface Group {
-        adminCreated?: Boolean;
-        aliases?: String[];
+        adminCreated?: boolean;
+        aliases?: string[];
         description?: string;
         directMembersCount?: string;
         email?: string;
@@ -613,7 +613,7 @@ declare namespace GoogleAppsScript {
         id?: string;
         kind?: string;
         name?: string;
-        nonEditableAliases?: String[];
+        nonEditableAliases?: string[];
       }
       export interface Groups {
         etag?: string;
@@ -638,21 +638,21 @@ declare namespace GoogleAppsScript {
         nextPageToken?: string;
       }
       export interface MembersHasMember {
-        isMember?: Boolean;
+        isMember?: boolean;
       }
       export interface MobileDevice {
-        adbStatus?: Boolean;
+        adbStatus?: boolean;
         applications?: Admin_directory_v1.Schema.MobileDeviceApplications[];
         basebandVersion?: string;
         bootloaderVersion?: string;
         brand?: string;
         buildNumber?: string;
         defaultLanguage?: string;
-        developerOptionsStatus?: Boolean;
+        developerOptionsStatus?: boolean;
         deviceCompromisedStatus?: string;
         deviceId?: string;
         devicePasswordStatus?: string;
-        email?: String[];
+        email?: string[];
         encryptionStatus?: string;
         etag?: string;
         firstSync?: string;
@@ -662,23 +662,23 @@ declare namespace GoogleAppsScript {
         kernelVersion?: string;
         kind?: string;
         lastSync?: string;
-        managedAccountIsOnOwnerProfile?: Boolean;
+        managedAccountIsOnOwnerProfile?: boolean;
         manufacturer?: string;
         meid?: string;
         model?: string;
-        name?: String[];
+        name?: string[];
         networkOperator?: string;
         os?: string;
-        otherAccountsInfo?: String[];
+        otherAccountsInfo?: string[];
         privilege?: string;
         releaseVersion?: string;
         resourceId?: string;
         securityPatchLevel?: string;
         serialNumber?: string;
         status?: string;
-        supportsWorkProfile?: Boolean;
+        supportsWorkProfile?: boolean;
         type?: string;
-        unknownSourcesStatus?: Boolean;
+        unknownSourcesStatus?: boolean;
         userAgent?: string;
         wifiMacAddress?: string;
       }
@@ -688,7 +688,7 @@ declare namespace GoogleAppsScript {
       export interface MobileDeviceApplications {
         displayName?: string;
         packageName?: string;
-        permission?: String[];
+        permission?: string[];
         versionCode?: number;
         versionName?: string;
       }
@@ -702,7 +702,7 @@ declare namespace GoogleAppsScript {
         body?: string;
         etag?: string;
         fromAddress?: string;
-        isUnread?: Boolean;
+        isUnread?: boolean;
         kind?: string;
         notificationId?: string;
         sendTime?: string;
@@ -716,7 +716,7 @@ declare namespace GoogleAppsScript {
         unreadNotificationsCount?: number;
       }
       export interface OrgUnit {
-        blockInheritance?: Boolean;
+        blockInheritance?: boolean;
         description?: string;
         etag?: string;
         kind?: string;
@@ -734,7 +734,7 @@ declare namespace GoogleAppsScript {
       export interface Privilege {
         childPrivileges?: Admin_directory_v1.Schema.Privilege[];
         etag?: string;
-        isOuScopable?: Boolean;
+        isOuScopable?: boolean;
         kind?: string;
         privilegeName?: string;
         serviceId?: string;
@@ -747,8 +747,8 @@ declare namespace GoogleAppsScript {
       }
       export interface Role {
         etag?: string;
-        isSuperAdminRole?: Boolean;
-        isSystemRole?: Boolean;
+        isSuperAdminRole?: boolean;
+        isSystemRole?: boolean;
         kind?: string;
         roleDescription?: string;
         roleId?: string;
@@ -794,9 +794,9 @@ declare namespace GoogleAppsScript {
         fieldId?: string;
         fieldName?: string;
         fieldType?: string;
-        indexed?: Boolean;
+        indexed?: boolean;
         kind?: string;
-        multiValued?: Boolean;
+        multiValued?: boolean;
         numericIndexingSpec?: Admin_directory_v1.Schema.SchemaFieldSpecNumericIndexingSpec;
         readAccessType?: string;
       }
@@ -810,13 +810,13 @@ declare namespace GoogleAppsScript {
         schemas?: Admin_directory_v1.Schema.Schema[];
       }
       export interface Token {
-        anonymous?: Boolean;
+        anonymous?: boolean;
         clientId?: string;
         displayText?: string;
         etag?: string;
         kind?: string;
-        nativeApp?: Boolean;
-        scopes?: String[];
+        nativeApp?: boolean;
+        scopes?: string[];
         userKey?: string;
       }
       export interface Tokens {
@@ -839,10 +839,10 @@ declare namespace GoogleAppsScript {
       }
       export interface User {
         addresses?: object;
-        agreedToTerms?: Boolean;
-        aliases?: String[];
-        archived?: Boolean;
-        changePasswordAtNextLogin?: Boolean;
+        agreedToTerms?: boolean;
+        aliases?: string[];
+        archived?: boolean;
+        changePasswordAtNextLogin?: boolean;
         creationTime?: string;
         customSchemas?: object;
         customerId?: string;
@@ -854,20 +854,20 @@ declare namespace GoogleAppsScript {
         hashFunction?: string;
         id?: string;
         ims?: object;
-        includeInGlobalAddressList?: Boolean;
-        ipWhitelisted?: Boolean;
-        isAdmin?: Boolean;
-        isDelegatedAdmin?: Boolean;
-        isEnforcedIn2Sv?: Boolean;
-        isEnrolledIn2Sv?: Boolean;
-        isMailboxSetup?: Boolean;
+        includeInGlobalAddressList?: boolean;
+        ipWhitelisted?: boolean;
+        isAdmin?: boolean;
+        isDelegatedAdmin?: boolean;
+        isEnforcedIn2Sv?: boolean;
+        isEnrolledIn2Sv?: boolean;
+        isMailboxSetup?: boolean;
         keywords?: object;
         kind?: string;
         languages?: object;
         lastLoginTime?: string;
         locations?: object;
         name?: Admin_directory_v1.Schema.UserName;
-        nonEditableAliases?: String[];
+        nonEditableAliases?: string[];
         notes?: object;
         orgUnitPath?: string;
         organizations?: object;
@@ -877,7 +877,7 @@ declare namespace GoogleAppsScript {
         primaryEmail?: string;
         relations?: object;
         sshPublicKeys?: object;
-        suspended?: Boolean;
+        suspended?: boolean;
         suspensionReason?: string;
         thumbnailPhotoEtag?: string;
         thumbnailPhotoUrl?: string;
@@ -896,16 +896,16 @@ declare namespace GoogleAppsScript {
         locality?: string;
         poBox?: string;
         postalCode?: string;
-        primary?: Boolean;
+        primary?: boolean;
         region?: string;
-        sourceIsStructured?: Boolean;
+        sourceIsStructured?: boolean;
         streetAddress?: string;
         type?: string;
       }
       export interface UserEmail {
         address?: string;
         customType?: string;
-        primary?: Boolean;
+        primary?: boolean;
         type?: string;
       }
       export interface UserExternalId {
@@ -922,7 +922,7 @@ declare namespace GoogleAppsScript {
         customProtocol?: string;
         customType?: string;
         im?: string;
-        primary?: Boolean;
+        primary?: boolean;
         protocol?: string;
         type?: string;
       }
@@ -945,7 +945,7 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface UserMakeAdmin {
-        status?: Boolean;
+        status?: boolean;
       }
       export interface UserName {
         familyName?: string;
@@ -961,14 +961,14 @@ declare namespace GoogleAppsScript {
         fullTimeEquivalent?: number;
         location?: string;
         name?: string;
-        primary?: Boolean;
+        primary?: boolean;
         symbol?: string;
         title?: string;
         type?: string;
       }
       export interface UserPhone {
         customType?: string;
-        primary?: Boolean;
+        primary?: boolean;
         type?: string;
         value?: string;
       }
@@ -988,7 +988,7 @@ declare namespace GoogleAppsScript {
         gid?: string;
         homeDirectory?: string;
         operatingSystemType?: string;
-        primary?: Boolean;
+        primary?: boolean;
         shell?: string;
         systemId?: string;
         uid?: string;
@@ -1009,7 +1009,7 @@ declare namespace GoogleAppsScript {
       }
       export interface UserWebsite {
         customType?: string;
-        primary?: Boolean;
+        primary?: boolean;
         type?: string;
         value?: string;
       }
