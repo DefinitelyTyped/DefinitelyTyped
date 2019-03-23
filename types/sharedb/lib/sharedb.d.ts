@@ -1,7 +1,19 @@
 import { EventEmitter } from 'events';
 
 export type Path = ReadonlyArray<string|number>;
-export type Snapshot = number;
+export interface Snapshot {
+    id: string;
+    v: number;
+    type: string | null;
+    data: any;  // JSON object, could be undefined
+    m: SnapshotMeta | null;
+}
+
+export interface SnapshotMeta {
+    ctime: number;
+    mtime: number;
+    [key: string]: any;
+}
 
 export interface AddNumOp { p: Path; na: number; }
 
