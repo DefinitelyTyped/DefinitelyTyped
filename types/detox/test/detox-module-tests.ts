@@ -50,4 +50,55 @@ describe("Test", () => {
 
         device.sendUserActivity(activity);
     });
+
+    test("push notification", () => {
+        const pushNotification: Detox.PushNotification = {
+            trigger: {
+                type: "push",
+            },
+            title: "Test",
+            subtitle: "This is a test",
+            body: "Test Body",
+            badge: 1,
+            category: "category",
+            "user-text": "text",
+            "content-available": 0,
+            "action-identifier": "d",
+        };
+        device.sendUserNotification(pushNotification);
+    });
+
+    test("timeInterval notification", () => {
+        const notification: Detox.TimeIntervalNotification = {
+            trigger: {
+                type: "timeInterval",
+                timeInterval: 5,
+            },
+        };
+        device.sendUserNotification(notification);
+    });
+
+    test("calendar notification", () => {
+        const calendarNotification: Detox.CalendarNotification = {
+            trigger: {
+                type: "calendar",
+                "date-components": {},
+            },
+        };
+        device.sendUserNotification(calendarNotification);
+    });
+
+    test("location notification", () => {
+        const locationNotification: Detox.LocationNotification = {
+            trigger: {
+                type: "location",
+                center: {
+                    latitude: 0,
+                    longitude: 0,
+                },
+                radius: 0,
+            },
+        };
+        device.sendUserNotification(locationNotification);
+    });
 });

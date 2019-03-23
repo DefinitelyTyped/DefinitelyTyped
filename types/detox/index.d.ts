@@ -77,11 +77,13 @@ declare global {
         interface PushUserNotificationTrigger {
             type: "push";
         }
+
         interface TimeIntervalUserNotificationTrigger {
             type: "timeInterval";
             repeats?: boolean;
             timeInterval: number;
         }
+
         interface CalendarUserNotificationTrigger {
             type: "calendar";
             repeats?: boolean;
@@ -101,6 +103,7 @@ declare global {
                 leapMonth?: boolean;
             };
         }
+
         interface LocationUserNotificationTrigger {
             type: "location";
             repeats?: boolean;
@@ -115,17 +118,32 @@ declare global {
 
         interface UserNotification {
             trigger: UserNotificationTrigger;
-            title: string;
-            subtitle: string;
-            body: string;
-            badge: number;
-            payload: object;
-            category: string;
-            "user-text": string;
-            "content-available": number;
-            "action-identifier": string;
+            title?: string;
+            subtitle?: string;
+            body?: string;
+            badge?: number;
+            payload?: object;
+            category?: string;
+            "user-text"?: string;
+            "content-available"?: number;
+            "action-identifier"?: string;
         }
 
+        interface PushNotification extends UserNotification {
+            trigger: PushUserNotificationTrigger;
+        }
+
+        interface TimeIntervalNotification extends UserNotification {
+            trigger: TimeIntervalUserNotificationTrigger;
+        }
+
+        interface CalendarNotification extends UserNotification {
+            trigger: CalendarUserNotificationTrigger;
+        }
+
+        interface LocationNotification extends UserNotification {
+            trigger: LocationUserNotificationTrigger;
+        }
         interface Device {
             /**
              * Launch the app
