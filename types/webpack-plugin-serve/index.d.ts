@@ -15,43 +15,9 @@ import {
 import { ServerOptions as HttpsServerOptions } from 'https';
 import { ZlibOptions } from 'zlib';
 import { Compiler } from 'webpack';
-
-export interface CompressOptions extends ZlibOptions {
-    filter?: (content_type: string) => boolean;
-    threshold?: number;
-}
-
-export interface KoaStaticOptions {
-    maxage?: number;
-    hidden?: boolean;
-    index?: string;
-    defer?: boolean;
-    gzip?: boolean;
-    br?: boolean;
-    setHeaders?: (res: any, path: any, stats: any) => any;
-    extensions?: string[] | boolean;
-}
-
-export type RewriteTo = (context: Context) => string;
-
-export interface Context {
-    match: RegExpMatchArray;
-    parsedUrl: Url;
-}
-
-export interface Rewrite {
-    from: RegExp;
-    to: string | RegExp | RewriteTo;
-}
-
-export interface HistoryApiFallbackOptions {
-    disableDotRule?: true;
-    htmlAcceptHeaders?: string[];
-    index?: string;
-    logger?: typeof console.log;
-    rewrites?: Rewrite[];
-    verbose?: boolean;
-}
+import { Options as HistoryApiFallbackOptions } from 'connect-history-api-fallback';
+import { CompressOptions } from 'koa-compress';
+import { Options as KoaStaticOptions } from 'koa-static';
 
 export interface Builtins {
     proxy: (args: HttpProxyMiddlewareConfig) => Proxy;
