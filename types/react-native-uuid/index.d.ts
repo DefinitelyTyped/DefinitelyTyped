@@ -16,7 +16,7 @@ interface v4 {
     rng?: (...args: any) => void;
 }
 
-export interface uuid {
+interface uuid {
     v1: (options?: v1, buffer?: ArrayBuffer, offset?: number) => string;
     v4: (options?: v4, buffer?: ArrayBuffer, offset?: number) => string;
     parse: (id: string, buffer?: ArrayBuffer, offset?: number) => ArrayBuffer;
@@ -25,4 +25,4 @@ export interface uuid {
 }
 
 declare const uuid: uuid;
-export default uuid;
+export = uuid;
