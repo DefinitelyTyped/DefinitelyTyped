@@ -115,7 +115,9 @@ const scaleOptions: Chart.RadialLinearScale = {
     lineArc: false,
     display: false,
     scaleLabel: {
-        display: false
+        display: false,
+        lineHeight: 1,
+        padding: 0,
     },
 };
 const radarChartOptions: Chart.RadialChartOptions = {
