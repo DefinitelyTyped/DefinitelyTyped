@@ -3,9 +3,7 @@
 // Definitions by: Gao Yong <https://github.com/gaoyonggege>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function directoryExists (directory: string, callback?: Function): Promise<boolean>;
+declare function directoryExists(directory: string, callback?: (err: Error, exist: boolean) => {}): Promise<boolean>;
 declare namespace directoryExists {
-    export function sync (directory: string): boolean;
+    export function sync(directory: string): boolean;
 }
-
-export = directoryExists;
