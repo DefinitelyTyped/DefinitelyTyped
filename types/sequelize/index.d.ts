@@ -3198,7 +3198,7 @@ declare namespace sequelize {
      */
     type Primitives = string | number | boolean | Buffer;
     type WhereOptions<T> = {
-        [P in keyof T]?: Primitives | Array<Primitives> | WhereLogic | (T[P] extends Primitives ? null : WhereOptions<T[P]>) | col | and | or | WhereGeometryOptions | WhereNested | null;
+        [P in keyof T]?: Primitives | Array<Primitives> | WhereLogic | (T[P] extends Primitives ? null : WhereOptions<T[P]>) | col | and | or | WhereGeometryOptions | WhereNested | where | null;
     };
 
     /**
@@ -3733,7 +3733,7 @@ declare namespace sequelize {
      * as factory. This class should _not_ be instantiated directly, it is created using `sequelize.define`, and
      * already created models can be loaded using `sequelize.import`
      */
-    interface Model<TInstance, TAttributes> extends Hooks<TInstance>, Associations {
+    interface Model<TInstance, TAttributes, TCreationAttributes = TAttributes> extends Hooks<TInstance>, Associations {
 
         /**
          * The Instance class
@@ -4025,7 +4025,7 @@ declare namespace sequelize {
         /**
          * Builds a new model instance and calls save on it.
          */
-        create(values?: TAttributes, options?: CreateOptions): Promise<TInstance>;
+        create(values?: TCreationAttributes, options?: CreateOptions): Promise<TInstance>;
 
         /**
          * Find a row that matches the query, or build (but don't save) the row if none is found.
@@ -5025,6 +5025,11 @@ declare namespace sequelize {
          * A hash of attributes to limit your index(Filtered Indexes - MSSQL & PostgreSQL only)
          */
         where?: AnyWhereOptions;
+
+        /**
+         * Pass CONCURRENT so other operations run while the index is created - PostgresSQL only. Default is false
+         */
+        concurrently?: boolean;
     }
 
     /**
@@ -6050,8 +6055,8 @@ declare namespace sequelize {
          * @param options    These options are merged with the default define options provided to the Sequelize
          *                   constructor
          */
-        define<TInstance, TAttributes>(modelName: string, attributes: DefineModelAttributes<TAttributes>,
-            options?: DefineOptions<TInstance>): Model<TInstance, TAttributes>;
+        define<TInstance, TAttributes, TCreationAttributes = TAttributes>(modelName: string, attributes: DefineModelAttributes<TCreationAttributes>,
+            options?: DefineOptions<TInstance>): Model<TInstance, TAttributes, TCreationAttributes>;
 
         /**
          * Fetch a Model which is already defined

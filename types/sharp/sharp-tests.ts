@@ -26,7 +26,7 @@ sharp('input.png')
     .rotate(180)
     .resize(300)
     .flatten({ background: "#ff6600" })
-    .overlayWith('overlay.png', { gravity: sharp.gravity.southeast })
+    .composite([{ input: 'overlay.png',  gravity: sharp.gravity.southeast }])
     .sharpen()
     .withMetadata()
     .webp({

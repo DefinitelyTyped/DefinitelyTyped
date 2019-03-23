@@ -86,8 +86,8 @@ declare module "react-jsonschema-form" {
         onChange: (value: any) => void;
         options: object;
         formContext: any;
-        onBlur: (id: string, value: string) => void;
-        onFocus: (id: string, value: string) => void;
+        onBlur: (id: string, value: boolean | number | string | null) => void;
+        onFocus: (id: string, value: boolean | number | string | null) => void;
         label: string;
     }
 

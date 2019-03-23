@@ -3,8 +3,9 @@
 // Definitions by: Chris Barth <https://github.com/cjbarth>
 //                 Damian Assennato <https://github.com/dassennato>
 //                 Karol Samborski <https://github.com/ksamborski>
+//                 Jose Colella <https://github.com/josecolella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 import passport = require('passport');
 import express = require('express');
@@ -97,5 +98,5 @@ export type Profile = {
 	getAssertion(): object;  // get the assertion XML parsed as a JavaScript object
 	getSamlResponseXml(): string; // get the raw SAML response XML
 } & {
-	[attributeName: string]: string;  // arbitrary `AttributeValue`s
+	[attributeName: string]: unknown;  // arbitrary `AttributeValue`s
 };

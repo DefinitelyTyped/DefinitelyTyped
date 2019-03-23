@@ -13,6 +13,7 @@
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Kjell-Morten Bratsberg Thorsen <https://github.com/kjellmorten>
 //                 Christian D. <https://github.com/pc-jedi>
+//                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -49,9 +50,9 @@ declare namespace Bull {
 
     /**
      * When specified, the `Queue` will use this function to create new `ioredis` client connections.
-     * This is useful if you want to re-use connections.
+     * This is useful if you want to re-use connections or connect to a Redis cluster.
      */
-    createClient?(type: 'client' | 'subscriber' | 'bclient', redisOpts?: Redis.RedisOptions): Redis.Redis;
+    createClient?(type: 'client' | 'subscriber' | 'bclient', redisOpts?: Redis.RedisOptions): Redis.Redis | Redis.Cluster;
 
     /**
      * Prefix to use for all redis keys
@@ -113,6 +114,9 @@ declare namespace Bull {
   type DoneCallback = (error?: Error | null, value?: any) => void;
 
   type JobId = number | string;
+
+  type ProcessCallbackFunction<T> = (job: Job<T>, done: DoneCallback) => void;
+  type ProcessPromiseFunction<T> = (job: Job<T>) => Promise<void>;
 
   interface Job<T = any> {
     id: JobId;
@@ -397,6 +401,8 @@ declare namespace Bull {
      */
     isReady(): Promise<this>;
 
+    /* tslint:disable:unified-signatures */
+
     /**
      * Defines a processing function for the jobs placed into a given Queue.
      *
@@ -414,7 +420,9 @@ declare namespace Bull {
      * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
      * If it is resolved, its value will be the "completed" event's second argument.
      */
-    process(callback: ((job: Job<T>, done: DoneCallback) => void) | ((job: Job<T>) => Promise<any>) | string): void;
+    process(callback: ProcessCallbackFunction<T>): void;
+    process(callback: ProcessPromiseFunction<T>): void;
+    process(callback: string): void;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -435,7 +443,9 @@ declare namespace Bull {
      *
      * @param concurrency Bull will then call your handler in parallel respecting this maximum value.
      */
-    process(concurrency: number, callback: ((job: Job<T>, done: DoneCallback) => void) | ((job: Job<T>) => Promise<any>) | string): void;
+    process(concurrency: number, callback: ProcessCallbackFunction<T>): void;
+    process(concurrency: number, callback: ProcessPromiseFunction<T>): void;
+    process(concurrency: number, callback: string): void;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -456,8 +466,9 @@ declare namespace Bull {
      *
      * @param name Bull will only call the handler if the job name matches
      */
-    // tslint:disable-next-line:unified-signatures
-    process(name: string, callback: ((job: Job<T>, done: DoneCallback) => void) | ((job: Job<T>) => Promise<any>) | string): void;
+    process(name: string, callback: ProcessCallbackFunction<T>): void;
+    process(name: string, callback: ProcessPromiseFunction<T>): void;
+    process(name: string, callback: string): void;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -479,7 +490,11 @@ declare namespace Bull {
      * @param name Bull will only call the handler if the job name matches
      * @param concurrency Bull will then call your handler in parallel respecting this maximum value.
      */
-    process(name: string, concurrency: number, callback: ((job: Job<T>, done: DoneCallback) => void) | ((job: Job<T>) => Promise<any>) | string): void;
+    process(name: string, concurrency: number, callback: ProcessCallbackFunction<T>): void;
+    process(name: string, concurrency: number, callback: ProcessPromiseFunction<T>): void;
+    process(name: string, concurrency: number, callback: string): void;
+
+    /* tslint:enable:unified-signatures */
 
     /**
      * Creates a new job and adds it to the queue.
@@ -598,7 +613,7 @@ declare namespace Bull {
      * Returns a promise that will return an array of job instances of the given types.
      * Optional parameters for range and ordering are provided.
      */
-    getJobs(types: string[], start?: number, end?: number, asc?: boolean): Promise<Job[]>;
+    getJobs(types: string[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
 
     /**
      * Returns a promise that resolves with the job counts for the given queue.

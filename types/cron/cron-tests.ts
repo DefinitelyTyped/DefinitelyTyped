@@ -46,6 +46,12 @@ var job = new CronJob(moment(), () => {
   timeZone /* Time zone of this job. */
 );
 
+// Another example with system commands
+var job = new CronJob('00 30 11 * * 1-5', 'ls', { command: 'ls', args: ['./'] },
+  true, /* Start the job right now */
+  timeZone /* Time zone of this job. */
+);
+
 // For good measure
 var job = new CronJob({
   cronTime: '00 30 11 * * 1-5',
@@ -59,10 +65,14 @@ var job = new CronJob({
   start: false,
   timeZone: 'America/Los_Angeles'
 });
-console.log(job.lastDate());
-console.log(job.nextDates());// Should be a Moment object
-console.log(job.nextDates(1));// Should be an array of Moment object
-console.log(job.running);
+const ld = job.lastDate(); // $ExpectType Date
+console.log(ld);
+const nd = job.nextDates(); // $ExpectType Moment
+console.log(nd);
+const nds = job.nextDates(1); // $ExpectType Moment | Moment[]
+console.log(nds);// Should be a Moment array
+const ru = job.running // $ExpectType boolean
+console.log(ru);
 job.setTime(new CronTime('00 30 11 * * 1-2'));
 job.start();
 job.stop();

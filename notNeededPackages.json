@@ -19,6 +19,12 @@
             "asOfVersion": "3.2.0"
         },
         {
+            "libraryName": "aggregate-error",
+            "typingsPackageName": "aggregate-error",
+            "sourceRepoURL": "https://github.com/sindresorhus/aggregate-error",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "ajv",
             "typingsPackageName": "ajv",
             "sourceRepoURL": "https://github.com/epoberezkin/ajv",
@@ -271,6 +277,12 @@
             "asOfVersion": "0.2.2"
         },
         {
+            "libraryName": "clean-webpack-plugin",
+            "typingsPackageName": "clean-webpack-plugin",
+            "sourceRepoURL": "https://github.com/johnagan/clean-webpack-plugin",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "colors.js (colors)",
             "typingsPackageName": "colors",
             "sourceRepoURL": "https://github.com/Marak/colors.js",
@@ -463,6 +475,12 @@
             "asOfVersion": "7.4.0"
         },
         {
+            "libraryName": "decompress-response",
+            "typingsPackageName": "decompress-response",
+            "sourceRepoURL": "https://github.com/sindresorhus/decompress-response",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "deepmerge",
             "typingsPackageName": "deepmerge",
             "sourceRepoURL": "git@github.com:KyleAMathews/deepmerge.git",
@@ -503,6 +521,12 @@
             "typingsPackageName": "docker-file-parser",
             "sourceRepoURL": "https://github.com/joyent/docker-file-parser",
             "asOfVersion": "1.0.3"
+        },
+        {
+            "libraryName": "dom-loaded",
+            "typingsPackageName": "dom-loaded",
+            "sourceRepoURL": "https://github.com/sindresorhus/dom-loaded",
+            "asOfVersion": "1.1.0"
         },
         {
             "libraryName": "dot-case",
@@ -557,6 +581,12 @@
             "typingsPackageName": "electron-builder",
             "sourceRepoURL": "https://github.com/loopline-systems/electron-builder",
             "asOfVersion": "2.8.0"
+        },
+        {
+            "libraryName": "element-ready",
+            "typingsPackageName": "element-ready",
+            "sourceRepoURL": "https://github.com/sindresorhus/element-ready",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "email-addresses",
@@ -679,6 +709,18 @@
             "asOfVersion": "10.9.1"
         },
         {
+            "libraryName": "filenamify",
+            "typingsPackageName": "filenamify",
+            "sourceRepoURL": "https://github.com/sindresorhus/filenamify",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "filenamify-url",
+            "typingsPackageName": "filenamify-url",
+            "sourceRepoURL": "https://github.com/sindresorhus/filenamify-url",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "FineUploader",
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
@@ -689,6 +731,12 @@
             "typingsPackageName": "firebase",
             "sourceRepoURL": "https://www.firebase.com/docs/javascript/firebase",
             "asOfVersion": "3.2.1"
+        },
+        {
+            "libraryName": "fkill",
+            "typingsPackageName": "fkill",
+            "sourceRepoURL": "https://github.com/sindresorhus/fkill",
+            "asOfVersion": "6.0.0"
         },
         {
             "libraryName": "flatpickr",
@@ -737,6 +785,12 @@
             "typingsPackageName": "geolib",
             "sourceRepoURL": "https://github.com/manuelbieh/Geolib",
             "asOfVersion": "2.0.23"
+        },
+        {
+            "libraryName": "get-stream",
+            "typingsPackageName": "get-stream",
+            "sourceRepoURL": "https://github.com/sindresorhus/get-stream",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "github",
@@ -803,6 +857,18 @@
             "typingsPackageName": "handsontable",
             "sourceRepoURL": "https://handsontable.com/",
             "asOfVersion": "0.35.0"
+        },
+        {
+            "libraryName": "has-yarn",
+            "typingsPackageName": "has-yarn",
+            "sourceRepoURL": "https://github.com/sindresorhus/has-yarn",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "hasha",
+            "typingsPackageName": "hasha",
+            "sourceRepoURL": "https://github.com/sindresorhus/hasha",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "hibp",
@@ -883,6 +949,12 @@
             "asOfVersion": "4.1.0"
         },
         {
+            "libraryName": "into-stream",
+            "typingsPackageName": "into-stream",
+            "sourceRepoURL": "https://github.com/sindresorhus/into-stream",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "inversify",
             "typingsPackageName": "inversify",
             "sourceRepoURL": "http://inversify.io",
@@ -941,6 +1013,12 @@
             "typingsPackageName": "is-plain-object",
             "sourceRepoURL": "https://github.com/jonschlinkert/is-plain-object",
             "asOfVersion": "2.0.4"
+        },
+        {
+            "libraryName": "is-scoped",
+            "typingsPackageName": "is-scoped",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-scoped",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "is-svg",
@@ -1027,6 +1105,12 @@
             "asOfVersion": "3.4.1"
         },
         {
+            "libraryName": "knex",
+            "typingsPackageName": "knex",
+            "sourceRepoURL": "https://github.com/tgriesser/knex",
+            "asOfVersion": "0.16.1"
+        },
+        {
             "libraryName": "knockout-paging",
             "typingsPackageName": "knockout-paging",
             "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-paging",
@@ -1051,6 +1135,12 @@
             "asOfVersion": "1.0.1"
         },
         {
+            "libraryName": "latest-version",
+            "typingsPackageName": "latest-version",
+            "sourceRepoURL": "https://github.com/sindresorhus/latest-version",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "ldclient-js",
             "typingsPackageName": "ldclient-js",
             "sourceRepoURL": "https://github.com/launchdarkly/js-client",
@@ -1061,6 +1151,12 @@
             "typingsPackageName": "left-pad",
             "sourceRepoURL": "https://github.com/stevemao/left-pad",
             "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "leven",
+            "typingsPackageName": "leven",
+            "sourceRepoURL": "https://github.com/sindresorhus/leven",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "Linq.JS",
@@ -1151,6 +1247,12 @@
             "typingsPackageName": "maxmind",
             "sourceRepoURL": "https://github.com/runk/node-maxmind",
             "asOfVersion": "2.0.5"
+        },
+        {
+            "libraryName": "mem",
+            "typingsPackageName": "mem",
+            "sourceRepoURL": "https://github.com/sindresorhus/mem",
+            "asOfVersion": "4.2.0"
         },
         {
             "libraryName": "mendixmodelsdk",
@@ -1255,6 +1357,18 @@
             "asOfVersion": "2.0.18"
         },
         {
+            "libraryName": "npm-email",
+            "typingsPackageName": "npm-email",
+            "sourceRepoURL": "https://github.com/sindresorhus/npm-email",
+            "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "npm-keyword",
+            "typingsPackageName": "npm-keyword",
+            "sourceRepoURL": "https://github.com/sindresorhus/npm-keyword",
+            "asOfVersion": "6.0.0"
+        },
+        {
             "libraryName": "npm-name",
             "typingsPackageName": "npm-name",
             "sourceRepoURL": "https://github.com/sindresorhus/npm-name",
@@ -1265,6 +1379,12 @@
             "typingsPackageName": "npm-run-path",
             "sourceRepoURL": "https://github.com/sindresorhus/npm-run-path",
             "asOfVersion": "3.0.1"
+        },
+        {
+            "libraryName": "npm-user",
+            "typingsPackageName": "npm-user",
+            "sourceRepoURL": "https://github.com/sindresorhus/npm-user",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "Nuka Carousel",
@@ -1297,10 +1417,46 @@
             "asOfVersion": "3.2.0"
         },
         {
+            "libraryName": "p-any",
+            "typingsPackageName": "p-any",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-any",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-cancelable",
+            "typingsPackageName": "p-cancelable",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-cancelable",
+            "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "p-catch-if",
+            "typingsPackageName": "p-catch-if",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-catch-if",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-debounce",
+            "typingsPackageName": "p-debounce",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-debounce",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-each-series",
+            "typingsPackageName": "p-each-series",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-each-series",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "p-event",
             "typingsPackageName": "p-event",
             "sourceRepoURL": "https://github.com/sindresorhus/p-event",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "p-every",
+            "typingsPackageName": "p-every",
+            "sourceRepoURL": "https://github.com/kevva/p-every",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "p-limit",
@@ -1309,9 +1465,39 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "p-locate",
+            "typingsPackageName": "p-locate",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-locate",
+            "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "p-log",
+            "typingsPackageName": "p-log",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-log",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "p-map",
             "typingsPackageName": "p-map",
             "sourceRepoURL": "https://github.com/sindresorhus/p-map",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-map-series",
+            "typingsPackageName": "p-map-series",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-map-series",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-memoize",
+            "typingsPackageName": "p-memoize",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-memoize",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "p-one",
+            "typingsPackageName": "p-one",
+            "sourceRepoURL": "https://github.com/kevva/p-one",
             "asOfVersion": "2.0.0"
         },
         {
@@ -1321,10 +1507,40 @@
             "asOfVersion": "2.0.1"
         },
         {
+            "libraryName": "p-progress",
+            "typingsPackageName": "p-progress",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-progress",
+            "asOfVersion": "0.3.0"
+        },
+        {
+            "libraryName": "p-props",
+            "typingsPackageName": "p-props",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-props",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "p-queue",
             "typingsPackageName": "p-queue",
             "sourceRepoURL": "https://github.com/sindresorhus/p-queue",
             "asOfVersion": "3.2.1"
+        },
+        {
+            "libraryName": "p-reduce",
+            "typingsPackageName": "p-reduce",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-reduce",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-retry",
+            "typingsPackageName": "p-retry",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-retry",
+            "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "p-series",
+            "typingsPackageName": "p-series",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-series",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "p-some",
@@ -1333,10 +1549,28 @@
             "asOfVersion": "4.0.1"
         },
         {
+            "libraryName": "p-tap",
+            "typingsPackageName": "p-tap",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-tap",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "p-throttle",
             "typingsPackageName": "p-throttle",
             "sourceRepoURL": "https://github.com/sindresorhus/p-throttle",
             "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "p-timeout",
+            "typingsPackageName": "p-timeout",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-timeout",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "package-json",
+            "typingsPackageName": "package-json",
+            "sourceRepoURL": "https://github.com/sindresorhus/package-json",
+            "asOfVersion": "6.1.0"
         },
         {
             "libraryName": "param-case",
@@ -1373,6 +1607,12 @@
             "typingsPackageName": "path-to-regexp",
             "sourceRepoURL": "https://github.com/pillarjs/path-to-regexp",
             "asOfVersion": "1.7.0"
+        },
+        {
+            "libraryName": "path-type",
+            "typingsPackageName": "path-type",
+            "sourceRepoURL": "https://github.com/sindresorhus/path-type",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "perfect-scrollbar",
@@ -1415,6 +1655,18 @@
             "typingsPackageName": "pkg-conf",
             "sourceRepoURL": "https://github.com/sindresorhus/pkg-conf",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "pkg-dir",
+            "typingsPackageName": "pkg-dir",
+            "sourceRepoURL": "https://github.com/sindresorhus/pkg-dir",
+            "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "pkg-versions",
+            "typingsPackageName": "pkg-versions",
+            "sourceRepoURL": "https://github.com/sindresorhus/pkg-versions",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "plottable",
@@ -1759,6 +2011,12 @@
             "asOfVersion": "0.7.3"
         },
         {
+            "libraryName": "screenfull",
+            "typingsPackageName": "screenfull",
+            "sourceRepoURL": "https://github.com/sindresorhus/screenfull.js",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "sendgrid",
             "typingsPackageName": "sendgrid",
             "sourceRepoURL": "https://github.com/sendgrid/sendgrid-nodejs",
@@ -1793,6 +2051,12 @@
             "typingsPackageName": "simplesignal",
             "sourceRepoURL": "https://github.com/zeh/simplesignal",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@sindresorhus/df",
+            "typingsPackageName": "sindresorhus__df",
+            "sourceRepoURL": "https://github.com/sindresorhus/df",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "@sindresorhus/slugify",
@@ -1999,6 +2263,12 @@
             "asOfVersion": "8.0.0"
         },
         {
+            "libraryName": "unused-filename",
+            "typingsPackageName": "unused-filename",
+            "sourceRepoURL": "https://github.com/sindresorhus/unused-filename",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "upper-case",
             "typingsPackageName": "upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/upper-case",
@@ -2057,6 +2327,12 @@
             "typingsPackageName": "wait-for-localhost",
             "sourceRepoURL": "https://github.com/sindresorhus/wait-for-localhost",
             "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "wallpaper",
+            "typingsPackageName": "wallpaper",
+            "sourceRepoURL": "https://github.com/sindresorhus/wallpaper",
+            "asOfVersion": "4.3.0"
         },
         {
             "libraryName": "webcola",

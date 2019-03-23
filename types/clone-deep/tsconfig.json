@@ -10,7 +10,6 @@
     "typeRoots": ["../"],
     "types": [],
     "noEmit": true,
-    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },
   "files": ["index.d.ts", "clone-deep-tests.ts"]
