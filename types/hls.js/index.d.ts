@@ -1667,16 +1667,6 @@ declare class Hls {
      */
     startLevel: number;
     /**
-     * (default: true)
-     * if set to true, start level playlist and first fragments will be loaded automatically, after triggering of Hls.Events.MANIFEST_PARSED event
-     * if set to false, an explicit API call (hls.startLoad(startPosition=-1)) will be needed to start quality level/fragment loading.
-     */
-    autoStartLoad: boolean;
-    /**
-     * get: Return the bound videoElement from the hls instance
-     */
-    media: HTMLVideoElement;
-    /**
      *  hls.js config
      */
     config: Hls.Config;
@@ -1735,11 +1725,6 @@ declare class Hls {
      * If set to false, the mode will be set to hidden.
      */
     subtitleDisplay: boolean;
-    /**
-     * (default: NaN)
-     * Return current download bandwidth in bits/s if available
-     */
-    bandwidthEstimate: number;
     /**
      * calling this method will:
      *      bind videoElement and hls instances
