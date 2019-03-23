@@ -547,6 +547,10 @@ declare let R: R.Static;
 declare namespace R {
     type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
 
+    type CommonKeys<T1, T2> = keyof T1 & keyof T2;
+    type PropsThatAreObjects<T, K extends keyof T> = K extends keyof T ? T[K] extends object ? K : never : never;
+    type CommonPropsThatAreObjects<T1, T2> = PropsThatAreObjects<T1, keyof T1> & PropsThatAreObjects<T2, keyof T2>;
+
     type Ord = number | string | boolean | Date;
 
     type Path = ReadonlyArray<(number | string)>;
@@ -775,6 +779,11 @@ declare namespace R {
         (x: any) => any,
         (x: V0) => any,
     ];
+
+    type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
+    type MergeDeep<Primary, Secondary> = { [K in CommonPropsThatAreObjects<Primary, Secondary>]: MergeDeep<Primary[K], Secondary[K]> } &
+        { [K in Exclude<keyof Primary, CommonPropsThatAreObjects<Primary, Secondary>>]: Primary[K] } &
+        { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
 
     interface Static {
         /**
@@ -1823,15 +1832,16 @@ declare namespace R {
          *
          * @deprecated since 0.26 in favor of mergeRight
          */
-        merge<T2>(__: Placeholder, b: T2): <T1>(a: T1) => T1 & T2;
-        merge(__: Placeholder): <T1, T2>(b: T2, a: T1) => T1 & T2;
-        merge<T1, T2>(a: T1, b: T2): T1 & T2;
-        merge<T1>(a: T1): <T2>(b: T2) => T1 & T2;
+        merge<T2>(__: Placeholder, b: T2): <T1>(a: T1) => Merge<T2, T1>;
+        merge(__: Placeholder): <T1, T2>(b: T2, a: T1) => Merge<T2, T1>;
+        merge<T1, T2>(a: T1, b: T2): Merge<T2, T1>;
+        merge<T1>(a: T1): <T2>(b: T2) => Merge<T2, T1>;
 
         /**
          * Merges a list of objects together into one object.
          */
-        mergeAll<T>(list: ReadonlyArray<any>): T;
+        mergeAll<T>(list: ReadonlyArray<T>): T;
+        mergeAll(list: ReadonlyArray<any>): any;
 
         /**
          * Creates a new object with the own properties of the first object merged with the own properties of the second object.
@@ -1839,8 +1849,8 @@ declare namespace R {
          * and both values are objects, the two values will be recursively merged
          * otherwise the value from the first object will be used.
          */
-        mergeDeepLeft<T1, T2>(a: T1, b: T2): T1 & T2;
-        mergeDeepLeft<T1>(a: T1): <T2>(b: T2) => T1 & T2;
+        mergeDeepLeft<T1, T2>(a: T1, b: T2): MergeDeep<T1, T2>;
+        mergeDeepLeft<T1>(a: T1): <T2>(b: T2) => MergeDeep<T1, T2>;
 
         /**
          * Creates a new object with the own properties of the first object merged with the own properties of the second object.
@@ -1848,8 +1858,8 @@ declare namespace R {
          * and both values are objects, the two values will be recursively merged
          * otherwise the value from the second object will be used.
          */
-        mergeDeepRight<A, B>(a: A, b: B): A & B;
-        mergeDeepRight<A>(a: A): <B>(b: B) => A & B;
+        mergeDeepRight<A, B>(a: A, b: B): MergeDeep<B, A>;
+        mergeDeepRight<A>(a: A): <B>(b: B) => MergeDeep<B, A>;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects:
@@ -1857,9 +1867,9 @@ declare namespace R {
          * otherwise the provided function is applied to associated values using the resulting value as the new value
          * associated with the key. If a key only exists in one object, the value will be associated with the key of the resulting object.
          */
-        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any, a: T1, b: T2): T1 & T2;
-        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any, a: T1): (b: T2) => T1 & T2;
-        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any): (a: T1, b: T2) => T1 & T2;
+        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any, a: T1, b: T2): any;
+        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any, a: T1): (b: T2) => any;
+        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any): (a: T1, b: T2) => any;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects:
@@ -1868,23 +1878,23 @@ declare namespace R {
          * the new value associated with the key. If a key only exists in one object, the value will be associated with
          * the key of the resulting object.
          */
-        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1, b: T2): T1 & T2;
-        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1): (b: T2) => T1 & T2;
-        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any): (a: T1, b: T2) => T1 & T2;
+        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1, b: T2): any;
+        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1): (b: T2) => any;
+        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any): (a: T1, b: T2) => any;
 
         /**
          * Create a new object with the own properties of the first object merged with the own properties of the second object.
          * If a key exists in both objects, the value from the first object will be used.
          */
-        mergeLeft<T1, T2>(a: T1, b: T2): T1 & T2;
-        mergeLeft<T1>(a: T1): <T2>(b: T2) => T1 & T2;
+        mergeLeft<T1, T2>(a: T1, b: T2): Merge<T1, T2>;
+        mergeLeft<T1>(a: T1): <T2>(b: T2) => Merge<T1, T2>;
 
         /**
          * Create a new object with the own properties of the first object merged with the own properties of the second object.
          * If a key exists in both objects, the value from the second object will be used.
          */
-        mergeRight<T1, T2>(a: T1, b: T2): T1 & T2;
-        mergeRight<T1>(a: T1): <T2>(b: T2) => T1 & T2;
+        mergeRight<T1, T2>(a: T1, b: T2): Merge<T2, T1>;
+        mergeRight<T1>(a: T1): <T2>(b: T2) => Merge<T2, T1>;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
@@ -1892,9 +1902,9 @@ declare namespace R {
          * the value associated with the key in the returned object. The key will be excluded from the returned object if the
          * resulting value is undefined.
          */
-        mergeWith<U, V>(fn: (x: any, z: any) => any, a: U, b: V): U & V;
-        mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => U & V;
-        mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => U & V;
+        mergeWith<U, V>(fn: (x: any, z: any) => any, a: U, b: V): any;
+        mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => any;
+        mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => any;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
@@ -1902,9 +1912,9 @@ declare namespace R {
          * result being used as the value associated with the key in the returned object. The key will be excluded from
          * the returned object if the resulting value is undefined.
          */
-        mergeWithKey<U, V>(fn: (str: string, x: any, z: any) => any, a: U, b: V): U & V;
-        mergeWithKey<U>(fn: (str: string, x: any, z: any) => any, a: U): <V>(b: V) => U & V;
-        mergeWithKey(fn: (str: string, x: any, z: any) => any): <U, V>(a: U, b: V) => U & V;
+        mergeWithKey<U, V>(fn: (str: string, x: any, z: any) => any, a: U, b: V): any;
+        mergeWithKey<U>(fn: (str: string, x: any, z: any) => any, a: U): <V>(b: V) => any;
+        mergeWithKey(fn: (str: string, x: any, z: any) => any): <U, V>(a: U, b: V) => any;
 
         /**
          * Returns the smaller of its two arguments.
