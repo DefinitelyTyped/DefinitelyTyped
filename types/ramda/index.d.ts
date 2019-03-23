@@ -83,6 +83,7 @@
 /// <reference path="./es/dropLast.d.ts" />
 /// <reference path="./es/dropLastWhile.d.ts" />
 /// <reference path="./es/dropRepeats.d.ts" />
+/// <reference path="./es/dropRepeatsWith.d.ts" />
 /// <reference path="./es/either.d.ts" />
 /// <reference path="./es/empty.d.ts" />
 /// <reference path="./es/endsWith.d.ts" />
@@ -337,6 +338,7 @@
 /// <reference path="./src/dropLast.d.ts" />
 /// <reference path="./src/dropLastWhile.d.ts" />
 /// <reference path="./src/dropRepeats.d.ts" />
+/// <reference path="./src/dropRepeatsWith.d.ts" />
 /// <reference path="./src/either.d.ts" />
 /// <reference path="./src/empty.d.ts" />
 /// <reference path="./src/endsWith.d.ts" />
@@ -1269,6 +1271,14 @@ declare namespace R {
          * Returns a new list without any consecutively repeating elements. R.equals is used to determine equality.
          */
         dropRepeats<T>(list: ReadonlyArray<T>): T[];
+
+        /**
+         * Returns a new list without any consecutively repeating elements.
+         * Equality is determined by applying the supplied predicate to each pair of consecutive elements.
+         * The first element in a series of equal elements will be preserved.
+         */
+        dropRepeatsWith<T>(predicate: (left: T, right: T) => boolean, list: ReadonlyArray<T>): T[];
+        dropRepeatsWith<T>(predicate: (left: T, right: T) => boolean): (list: ReadonlyArray<T>) => T[];
 
         /**
          * Returns a new list containing the last n elements of a given list, passing each value to the supplied
