@@ -6,15 +6,19 @@
 
 interface Options {
     /**
-     * Path to changelog file
+     * Path to changelog file.
      */
     filePath: string;
     /**
-     * Changelog file string to parse
+     * Removes the markdown markup from the changelog entries by default.
+     * You can change its value to false to keep the markdown.
      */
     removeMarkdown: boolean;
 }
 
+/**
+ * Change log parser for node.
+ */
 declare function parseChangelog(options: Options|string, callback?: (result: string, error?: string) => void): Promise<object>;
 
 export = parseChangelog;
