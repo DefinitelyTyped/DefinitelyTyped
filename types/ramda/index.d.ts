@@ -182,6 +182,7 @@
 /// <reference path="./es/once.d.ts" />
 /// <reference path="./es/or.d.ts" />
 /// <reference path="./es/over.d.ts" />
+/// <reference path="./es/otherwise.d.ts" />
 /// <reference path="./es/pair.d.ts" />
 /// <reference path="./es/partial.d.ts" />
 /// <reference path="./es/partialRight.d.ts" />
@@ -432,6 +433,7 @@
 /// <reference path="./src/once.d.ts" />
 /// <reference path="./src/or.d.ts" />
 /// <reference path="./src/over.d.ts" />
+/// <reference path="./src/otherwise.d.ts" />
 /// <reference path="./src/pair.d.ts" />
 /// <reference path="./src/partial.d.ts" />
 /// <reference path="./src/partialRight.d.ts" />
@@ -1851,6 +1853,13 @@ declare namespace R {
         or<T>(a: T): <U>(b: U) => T | U;
         or<T extends { or?: ((...a: any[]) => any); }, U>(fn1: T, val2: U): T | U;
         or<T extends { or?: ((...a: any[]) => any); }>(fn1: T): <U>(val2: U) => T | U;
+
+        /**
+         * Returns the result of applying the onFailure function to the value inside a failed promise.
+         * This is useful for handling rejected promises inside function compositions.
+         */
+        otherwise<A, B>(onError: (error: any) => B | Promise<B>, promise: Promise<A>): Promise<B>;
+        otherwise<A, B>(onError: (error: any) => B | Promise<B>): (promise: Promise<A>) => Promise<B>;
 
         /**
          * Returns the result of "setting" the portion of the given data structure

@@ -1721,6 +1721,25 @@ class Rectangle {
 };
 
 () => {
+    interface Person { firstName: string; lastName: string; }
+    const failedFetch = (id: string): Promise<Person> => Promise.reject('bad ID');
+    const useDefault = (): Person => ({ firstName: 'Bob', lastName: 'Loblaw' });
+    const loadAlternative = (): Promise<Person> => Promise.resolve({ firstName: 'Saul', lastName: 'Goodman' });
+
+    const recoverFromFailure: (id: string) => Promise<{ firstName: string; lastName: string; }> = R.pipe(
+      failedFetch,
+      R.otherwise(useDefault),
+      R.then(R.pick(['firstName', 'lastName'])),
+    );
+
+    const recoverFromFailureByAlternative: (id: string) => Promise<Person> = R.pipe(
+      failedFetch,
+      R.otherwise(useDefault),
+      R.then(loadAlternative),
+    );
+};
+
+() => {
     const xLens = R.lens(R.prop("x"), R.assoc("x"));
     R.view(xLens, {x: 1, y: 2});            // => 1
     R.view(xLens)({x: 1, y: 2});            // => 1
