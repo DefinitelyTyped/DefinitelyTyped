@@ -244,6 +244,7 @@
 /// <reference path="./es/T.d.ts" />
 /// <reference path="./es/test.d.ts" />
 /// <reference path="./es/then.d.ts" />
+/// <reference path="./es/thunkify.d.ts" />
 /// <reference path="./es/times.d.ts" />
 /// <reference path="./es/toLower.d.ts" />
 /// <reference path="./es/toPairs.d.ts" />
@@ -498,6 +499,7 @@
 /// <reference path="./src/T.d.ts" />
 /// <reference path="./src/test.d.ts" />
 /// <reference path="./src/then.d.ts" />
+/// <reference path="./src/thunkify.d.ts" />
 /// <reference path="./src/times.d.ts" />
 /// <reference path="./src/toLower.d.ts" />
 /// <reference path="./src/toPairs.d.ts" />
@@ -2813,6 +2815,12 @@ declare namespace R {
          */
         then<A, B>(onSuccess: (a: A) => B | Promise<B>, promise: Promise<A>): Promise<B>;
         then<A, B>(onSuccess: (a: A) => B | Promise<B>): (promise: Promise<A>) => Promise<B>;
+
+        /**
+         * Creates a thunk out of a function.
+         * A thunk delays a calculation until its result is needed, providing lazy evaluation of arguments.
+         */
+        thunkify<F extends (...args: any[]) => any>(fn: F): Curry.Curry<(...args: Parameters<F>) => (() => ReturnType<F>)>;
 
         /**
          * Calls an input function `n` times, returning an array containing the results of those
