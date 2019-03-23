@@ -41,17 +41,17 @@ describe("Test", () => {
     });
 
     test("user activity", () => {
-        const activity: Detox.UserActivity = {
+        const userActivity: Detox.UserActivity = {
             activityType: DetoxConstants.userActivityTypes.browsingWeb,
             webpageURL: "some://deep/link",
             referrerURL: "https://typescriptlang.org",
         };
-        device.launchApp({ userActivity: activity });
+        device.launchApp({ userActivity });
 
-        device.sendUserActivity(activity);
+        device.sendUserActivity(userActivity);
     });
 
-    test("push notification", () => {
+    test("mocking notifications", () => {
         const pushNotification: Detox.PushNotification = {
             trigger: {
                 type: "push",
@@ -63,12 +63,10 @@ describe("Test", () => {
             category: "category",
             "user-text": "text",
             "content-available": 0,
-            "action-identifier": "d",
+            "action-identifier": "my.action",
         };
         device.sendUserNotification(pushNotification);
-    });
 
-    test("timeInterval notification", () => {
         const notification: Detox.TimeIntervalNotification = {
             trigger: {
                 type: "timeInterval",
@@ -76,9 +74,7 @@ describe("Test", () => {
             },
         };
         device.sendUserNotification(notification);
-    });
 
-    test("calendar notification", () => {
         const calendarNotification: Detox.CalendarNotification = {
             trigger: {
                 type: "calendar",
@@ -86,9 +82,7 @@ describe("Test", () => {
             },
         };
         device.sendUserNotification(calendarNotification);
-    });
 
-    test("location notification", () => {
         const locationNotification: Detox.LocationNotification = {
             trigger: {
                 type: "location",

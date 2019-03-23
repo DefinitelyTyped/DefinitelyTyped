@@ -140,6 +140,7 @@ declare global {
         type LocationNotification = UserNotification<
             LocationNotificationTrigger
         >;
+
         interface Device {
             /**
              * Launch the app
