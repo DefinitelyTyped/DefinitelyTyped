@@ -1793,11 +1793,10 @@ declare namespace R {
         median(list: ReadonlyArray<number>): number;
 
         /**
-         * A customisable version of R.memoize. memoizeWith takes an additional function that will be applied to a given
-         * argument set and used to create the cache key under which the results of the function to be memoized will be stored.
-         * Care must be taken when implementing key generation to avoid clashes that may overwrite previous entries erroneously.
+         * Creates a new function that, when invoked, caches the result of calling fn for a given argument set and returns the result.
+         * Subsequent calls to the memoized fn with the same argument set will not result in an additional call to fn; instead, the cached result for that set of arguments will be returned.
          */
-        memoizeWith<T extends (...args: any[]) => any>(keyFn: (...v: any[]) => string, fn: T): T;
+        memoizeWith<T extends (...args: any[]) => any>(keyFn: (...v: Parameters<T>) => string, fn: T): T;
 
         /**
          * Create a new object with the own properties of a
