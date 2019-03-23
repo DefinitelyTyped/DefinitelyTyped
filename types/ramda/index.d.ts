@@ -61,6 +61,7 @@
 /// <reference path="./es/compose.d.ts" />
 /// <reference path="./es/composeK.d.ts" />
 /// <reference path="./es/composeP.d.ts" />
+/// <reference path="./es/composeWith.d.ts" />
 /// <reference path="./es/concat.d.ts" />
 /// <reference path="./es/cond.d.ts" />
 /// <reference path="./es/construct.d.ts" />
@@ -197,6 +198,7 @@
 /// <reference path="./es/pipe.d.ts" />
 /// <reference path="./es/pipeK.d.ts" />
 /// <reference path="./es/pipeP.d.ts" />
+/// <reference path="./es/pipeWith.d.ts" />
 /// <reference path="./es/pluck.d.ts" />
 /// <reference path="./es/prepend.d.ts" />
 /// <reference path="./es/product.d.ts" />
@@ -312,6 +314,7 @@
 /// <reference path="./src/compose.d.ts" />
 /// <reference path="./src/composeK.d.ts" />
 /// <reference path="./src/composeP.d.ts" />
+/// <reference path="./src/composeWith.d.ts" />
 /// <reference path="./src/concat.d.ts" />
 /// <reference path="./src/cond.d.ts" />
 /// <reference path="./src/construct.d.ts" />
@@ -448,6 +451,7 @@
 /// <reference path="./src/pipe.d.ts" />
 /// <reference path="./src/pipeK.d.ts" />
 /// <reference path="./src/pipeP.d.ts" />
+/// <reference path="./src/pipeWith.d.ts" />
 /// <reference path="./src/pluck.d.ts" />
 /// <reference path="./src/prepend.d.ts" />
 /// <reference path="./src/product.d.ts" />
@@ -631,6 +635,140 @@ declare namespace R {
         '@@transducer/value': T;
         '@@transducer/reduced': true;
     }
+
+    type PipeWithFns<V0, T> = [
+        (x0: V0) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ];
+
+    type ComposeWithFns<V0, T> = [
+        (x0: V0) => T,
+    ] | [
+        (x: any) => T,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any,
+    ];
 
     interface Static {
         /**
@@ -956,6 +1094,13 @@ declare namespace R {
             fn1: (x: T1) => Promise<T2>,
             fn0: (x: V0) => Promise<T1>):
         (x: V0) => Promise<T6>;
+
+        /**
+         * Performs right-to-left function composition using transforming function.
+         * With the current typings, all functions must be unary.
+         */
+        composeWith<V0, T>(composer: (a: any) => any, fns: ComposeWithFns<V0, T>): (x0: V0) => T;
+        composeWith(composer: (a: any) => any): <V0, T>(fns: ComposeWithFns<V0, T>) => (x: V0) => T;
 
         /**
          * Returns a new list consisting of the elements of the first list followed by the elements
@@ -2304,6 +2449,13 @@ declare namespace R {
             fn7: (x: T7) => Promise<T8>,
             fn8: (x: T8) => Promise<T9>,
             fn9: (x: T9) => Promise<T10>): (x0: V0) => Promise<T10>;
+
+        /*
+         * Performs left-to-right function composition using transforming function.
+         * With the current typings, all functions must be unary.
+         */
+        pipeWith<V0, T>(composer: (a: any) => any, fns: PipeWithFns<V0, T>): (x0: V0) => T;
+        pipeWith(composer: (a: any) => any): <V0, T>(fns: PipeWithFns<V0, T>) => (x0: V0) => T;
 
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
