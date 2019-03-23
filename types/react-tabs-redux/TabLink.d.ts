@@ -16,4 +16,4 @@ export interface TabLinkProps {
     default?: boolean;
 }
 
-export declare class TabLink extends React.Component<TabLinkProps> {}
+export class TabLink extends React.Component<TabLinkProps> {}

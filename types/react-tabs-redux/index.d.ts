@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-export {Tabs, TabsProps} from './Tabs';
-export {TabLink, TabLinkProps} from './TabLink';
-export {TabContent, TabContentProps} from './TabContent';
+export { Tabs, TabsProps } from './Tabs';
+export { TabLink, TabLinkProps } from './TabLink';
+export { TabContent, TabContentProps } from './TabContent';

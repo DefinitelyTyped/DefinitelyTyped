@@ -12,4 +12,4 @@ export interface TabContentProps {
     style?: object;
 }
 
-export declare class TabContent extends React.Component<TabContentProps> {}
+export class TabContent extends React.Component<TabContentProps> {}

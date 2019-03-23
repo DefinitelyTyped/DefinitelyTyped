@@ -11,4 +11,4 @@ export interface TabsProps {
     renderActiveTabContentOnly?: boolean;
 }
 
-export declare class Tabs extends React.Component<TabsProps> {}
+export class Tabs extends React.Component<TabsProps> {}
