@@ -1034,6 +1034,8 @@ declare namespace R {
          * The typings only support arrays for now.
          * All functions must be unary.
          * R.composeK(h, g, f) is equivalent to R.compose(R.chain(h), R.chain(g), f).
+         *
+         * @deprecated since 0.26 in favor of composeWith(chain)
          */
         composeK<V0, T1>(
             fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
@@ -1066,6 +1068,8 @@ declare namespace R {
         /**
          * Performs right-to-left composition of one or more Promise-returning functions.
          * All functions must be unary.
+         *
+         * @deprecated since 0.26 in favor of composeWith(then)
          */
         composeP<V0, T1>(
             fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
@@ -1138,6 +1142,8 @@ declare namespace R {
         /**
          * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
          * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
+         *
+         * @deprecated since 0.26 in favor of includes
          */
         contains(__: Placeholder, list: string): (a: string) => boolean;
         contains<T>(__: Placeholder, list: T[]): (a: T) => boolean;
@@ -1802,6 +1808,8 @@ declare namespace R {
          * Create a new object with the own properties of a
          * merged with the own properties of object b.
          * This function will *not* mutate passed-in objects.
+         *
+         * @deprecated since 0.26 in favor of mergeRight
          */
         merge<T2>(__: Placeholder, b: T2): <T1>(a: T1) => T1 & T2;
         merge(__: Placeholder): <T1, T2>(b: T2, a: T1) => T1 & T2;
@@ -2300,11 +2308,13 @@ declare namespace R {
             fn8: (x: T8) => T9,
             fn9: (x: T9) => T10): (x0: V0, x1: V1, x2: V2) => T10;
 
-        /*
+        /**
          * Returns the left-to-right Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
          * The typings currently support arrays only as return values.
          * All functions need to be unary.
          * R.pipeK(f, g, h) is equivalent to R.pipe(f, R.chain(g), R.chain(h)).
+         *
+         * @deprecated since 0.26 in favor of pipeWith(chain)
          */
         pipeK<V0, T1>(
             fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
@@ -2372,9 +2382,11 @@ declare namespace R {
             fn8: (x: T8) => T9[],
             fn9: (x: T9) => T10[]): (x0: V0) => T10[];
 
-        /*
+        /**
          * Performs left-to-right composition of one or more Promise-returning functions.
          * All functions need to be unary.
+         *
+         * @deprecated since 0.26 in favor of pipeWith(then)
          */
         pipeP<V0, T1>(
             fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
