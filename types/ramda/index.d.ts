@@ -163,6 +163,7 @@
 /// <reference path="./es/mergeDeepWith.d.ts" />
 /// <reference path="./es/mergeDeepWithKey.d.ts" />
 /// <reference path="./es/mergeLeft.d.ts" />
+/// <reference path="./es/mergeRight.d.ts" />
 /// <reference path="./es/merge.d.ts" />
 /// <reference path="./es/mergeWith.d.ts" />
 /// <reference path="./es/mergeWithKey.d.ts" />
@@ -418,6 +419,7 @@
 /// <reference path="./src/mergeDeepWith.d.ts" />
 /// <reference path="./src/mergeDeepWithKey.d.ts" />
 /// <reference path="./src/mergeLeft.d.ts" />
+/// <reference path="./src/mergeRight.d.ts" />
 /// <reference path="./src/merge.d.ts" />
 /// <reference path="./src/mergeWith.d.ts" />
 /// <reference path="./src/mergeWithKey.d.ts" />
@@ -1876,6 +1878,13 @@ declare namespace R {
          */
         mergeLeft<T1, T2>(a: T1, b: T2): T1 & T2;
         mergeLeft<T1>(a: T1): <T2>(b: T2) => T1 & T2;
+
+        /**
+         * Create a new object with the own properties of the first object merged with the own properties of the second object.
+         * If a key exists in both objects, the value from the second object will be used.
+         */
+        mergeRight<T1, T2>(a: T1, b: T2): T1 & T2;
+        mergeRight<T1>(a: T1): <T2>(b: T2) => T1 & T2;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
