@@ -68,23 +68,36 @@ declare global {
             userInfo?: object;
         }
 
-        type UserNotificationTrigger =
-            | PushUserNotificationTrigger
-            | TimeIntervalUserNotificationTrigger
-            | CalendarUserNotificationTrigger
-            | LocationUserNotificationTrigger;
+        interface UserNotification<
+            T =
+                | PushNotificationTrigger
+                | TimeIntervalNotificationTrigger
+                | CalendarNotificationTrigger
+                | LocationNotificationTrigger
+        > {
+            trigger: T;
+            title?: string;
+            subtitle?: string;
+            body?: string;
+            badge?: number;
+            payload?: object;
+            category?: string;
+            "user-text"?: string;
+            "content-available"?: number;
+            "action-identifier"?: string;
+        }
 
-        interface PushUserNotificationTrigger {
+        interface PushNotificationTrigger {
             type: "push";
         }
 
-        interface TimeIntervalUserNotificationTrigger {
+        interface TimeIntervalNotificationTrigger {
             type: "timeInterval";
             repeats?: boolean;
             timeInterval: number;
         }
 
-        interface CalendarUserNotificationTrigger {
+        interface CalendarNotificationTrigger {
             type: "calendar";
             repeats?: boolean;
             "date-components": {
@@ -104,7 +117,7 @@ declare global {
             };
         }
 
-        interface LocationUserNotificationTrigger {
+        interface LocationNotificationTrigger {
             type: "location";
             repeats?: boolean;
             center: {
@@ -116,34 +129,17 @@ declare global {
             notifyOnExit?: boolean;
         }
 
-        interface UserNotification {
-            trigger: UserNotificationTrigger;
-            title?: string;
-            subtitle?: string;
-            body?: string;
-            badge?: number;
-            payload?: object;
-            category?: string;
-            "user-text"?: string;
-            "content-available"?: number;
-            "action-identifier"?: string;
-        }
+        type PushNotification = UserNotification<PushNotificationTrigger>;
+        type TimeIntervalNotification = UserNotification<
+            TimeIntervalNotificationTrigger
+        >;
+        type CalendarNotification = UserNotification<
+            CalendarNotificationTrigger
+        >;
 
-        interface PushNotification extends UserNotification {
-            trigger: PushUserNotificationTrigger;
-        }
-
-        interface TimeIntervalNotification extends UserNotification {
-            trigger: TimeIntervalUserNotificationTrigger;
-        }
-
-        interface CalendarNotification extends UserNotification {
-            trigger: CalendarUserNotificationTrigger;
-        }
-
-        interface LocationNotification extends UserNotification {
-            trigger: LocationUserNotificationTrigger;
-        }
+        type LocationNotification = UserNotification<
+            LocationNotificationTrigger
+        >;
         interface Device {
             /**
              * Launch the app
