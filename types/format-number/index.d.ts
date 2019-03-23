@@ -3,6 +3,7 @@
 // Definitions by: Fedai Kaya <https://github.com/codelovesme>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+
 export default function(options?: {
     negativeType?: "right" | "left" | "brackets" | null;
     negativeLeftSymbol?: string;
