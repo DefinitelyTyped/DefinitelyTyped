@@ -243,6 +243,7 @@
 /// <reference path="./es/tap.d.ts" />
 /// <reference path="./es/T.d.ts" />
 /// <reference path="./es/test.d.ts" />
+/// <reference path="./es/then.d.ts" />
 /// <reference path="./es/times.d.ts" />
 /// <reference path="./es/toLower.d.ts" />
 /// <reference path="./es/toPairs.d.ts" />
@@ -496,6 +497,7 @@
 /// <reference path="./src/tap.d.ts" />
 /// <reference path="./src/T.d.ts" />
 /// <reference path="./src/test.d.ts" />
+/// <reference path="./src/then.d.ts" />
 /// <reference path="./src/times.d.ts" />
 /// <reference path="./src/toLower.d.ts" />
 /// <reference path="./src/toPairs.d.ts" />
@@ -2805,6 +2807,12 @@ declare namespace R {
          */
         test(regexp: RegExp, str: string): boolean;
         test(regexp: RegExp): (str: string) => boolean;
+
+        /**
+         * Returns the result of applying the onSuccess function to the value inside a successfully resolved promise. This is useful for working with promises inside function compositions.
+         */
+        then<A, B>(onSuccess: (a: A) => B | Promise<B>, promise: Promise<A>): Promise<B>;
+        then<A, B>(onSuccess: (a: A) => B | Promise<B>): (promise: Promise<A>) => Promise<B>;
 
         /**
          * Calls an input function `n` times, returning an array containing the results of those

@@ -1487,6 +1487,25 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
+    interface Person { id: number; firstName: string; lastName: string; }
+    const makeQuery = (email: string) => ({ query: { email }});
+    const fetchMember = (query: any) => Promise.resolve({ id: 1, firstName: 'Jon', lastName: 'Snow' });
+    const getTitleAsync = (person: Person) => person.firstName === 'Jon' && person.lastName === 'Snow' ? Promise.resolve('King in the North') : Promise.reject('Unknown');
+
+    const getMemberName: (email: string) => Promise<{ firstName: string, lastName: string }> = R.pipe(
+        makeQuery,
+        fetchMember,
+        R.then(R.pick(['firstName', 'lastName'])),
+    );
+
+    const getMemberTitle: (email: string) => Promise<string> = R.pipe(
+        makeQuery,
+        fetchMember,
+        R.then(getTitleAsync),
+    );
+};
+
+() => {
     const a1 = R.times(R.identity, 5); // => [0, 1, 2, 3, 4]
     const a2 = R.times(R.identity)(5); // => [0, 1, 2, 3, 4]
 };
