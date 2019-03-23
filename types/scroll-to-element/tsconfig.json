@@ -7,23 +7,19 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
+        "baseUrl": "../",
         "typeRoots": [
-            "../../"
+            "../"
         ],
-        "paths": {
-            "screenfull": [
-                "screenfull/v3"
-            ]
-        },
+        "allowSyntheticDefaultImports": true,
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "screenfull-tests.ts"
+        "scroll-to-element-tests.ts"
     ]
 }

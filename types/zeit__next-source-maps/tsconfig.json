@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -15,10 +14,13 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@zeit/next-source-maps": ["zeit__next-source-maps"]
+        }
     },
     "files": [
         "index.d.ts",
-        "screenfull-tests.ts"
+        "zeit__next-source-maps-tests.ts"
     ]
 }
