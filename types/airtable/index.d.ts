@@ -4,53 +4,59 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export default class Airtable {
-    base(appId: string): Base;
-}
+export = Airtable;
 
-export interface Base {
-    (tableName: string): Table<{}>;
-}
+declare global {
+    class Airtable {
+        base(appId: string): Airtable.Base;
+    }
 
-export interface FieldSet {
-    [ key: string ]: undefined | string | ReadonlyArray<Attachment>;
-}
+    namespace Airtable {
+        interface FieldSet {
+            [ key: string ]: undefined | string | ReadonlyArray<Attachment>;
+        }
 
-export interface Table<TFields extends FieldSet> {
-    select(opt?: SelectOptions): Query<TFields>;
-}
+        interface Base {
+            (tableName: string): Table<{}>;
+        }
 
-export interface SelectOptions {
-    view?: string;
-}
+        interface Table<TFields extends FieldSet> {
+            select(opt?: SelectOptions): Query<TFields>;
+        }
 
-export interface Query<TFields extends object> {
-    all(): Promise<Response<TFields>>;
-    firstPage(): Promise<Response<TFields>>;
-}
+        interface SelectOptions {
+            view?: string;
+        }
 
-export type Response<TFields> = ReadonlyArray<Row<TFields>>;
+        interface Query<TFields extends object> {
+            all(): Promise<Response<TFields>>;
+            firstPage(): Promise<Response<TFields>>;
+        }
 
-export interface Row<TFields> {
-    id: string;
-    fields: TFields;
-}
+        type Response<TFields> = ReadonlyArray<Row<TFields>>;
 
-export interface Attachment {
-    id: string;
-    url: string;
-    filename: string;
-    size: number;
-    type: string;
-    thumbnails?: {
-        small: Thumbnail;
-        large: Thumbnail;
-        full: Thumbnail;
-    };
-}
+        interface Row<TFields> {
+            id: string;
+            fields: TFields;
+        }
 
-export interface Thumbnail {
-    url: string;
-    width: number;
-    height: number;
+        interface Attachment {
+            id: string;
+            url: string;
+            filename: string;
+            size: number;
+            type: string;
+            thumbnails?: {
+                small: Thumbnail;
+                large: Thumbnail;
+                full: Thumbnail;
+            };
+        }
+
+        interface Thumbnail {
+            url: string;
+            width: number;
+            height: number;
+        }
+    }
 }

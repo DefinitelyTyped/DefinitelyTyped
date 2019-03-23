@@ -1,15 +1,15 @@
-import Airtable, { Attachment, Table, FieldSet } from "airtable";
+import * as Airtable from 'airtable';
 
-interface Row extends FieldSet {
+interface Row extends Airtable.FieldSet {
   field1: string;
-  attachments: Attachment[];
+  attachments: Airtable.Attachment[];
 }
 
 const airtable = new Airtable();
 
 const base = airtable.base('app id');
 
-const table = base('table name') as Table<Row>;
+const table = base('table name') as Airtable.Table<Row>;
 
 async () => {
     const query = table.select();
