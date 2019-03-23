@@ -34,5 +34,4 @@ declare namespace historyApiFallback {
         from: RegExp;
         to: string | RegExp | RewriteTo;
     }
-
 }
