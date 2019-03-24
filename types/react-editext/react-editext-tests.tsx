@@ -5,7 +5,6 @@ import { render } from 'react-dom';
 
 declare const container: Element;
 
-
 render(
     <EdiText
         type='text'

@@ -39,10 +39,11 @@ export interface EdiTextProps {
      */
     hint?: React.ReactNode;
     /**
-    * If validation fails this message will appear
+     * If validation fails this message will appear
      */
     validationMessage?: string;
-    /** Pass your own validation function.
+    /**
+     * Pass your own validation function.
      * takes one param -> `value`.
      * It must return `true` or `false`
      */
@@ -88,11 +89,11 @@ export interface EdiTextProps {
      */
     saveButtonContent?: any;
     /**
-    * Content for EDIT button. Any valid element and node are allowed.
+     * Content for EDIT button. Any valid element and node are allowed.
      */
     editButtonContent?: any;
     /**
-    * Set it to `true` if you don't want to see default icons
+     * Set it to `true` if you don't want to see default icons
      * on action buttons.See Examples page for more details.
      */
     hideIcons?: boolean;
