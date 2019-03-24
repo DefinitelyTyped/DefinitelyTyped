@@ -20,12 +20,12 @@ interface PluginParameters {
     /**
      * Removing before compilation.
      */
-    before: RemoveParameters;
+    before?: RemoveParameters;
 
     /**
      * Removing after compilation.
      */
-    after: RemoveParameters;
+    after?: RemoveParameters;
 }
 
 
@@ -38,31 +38,31 @@ interface RemoveParameters {
      * Not absolute paths will be appended to this.
      * Defaults to `.` (from which directory is called).
      */
-    root: string;
+    root?: string;
 
     /**
      * A folders or files for removing.
      * Defaults to `[]`.
      */
-    include: ReadonlyArray<String>;
+    include?: ReadonlyArray<String>;
 
     /**
      * A files for excluding.
      * Defaults to `[]`.
      */
-    exclude: ReadonlyArray<String>;
+    exclude?: ReadonlyArray<String>;
 
     /**
      * A folders for custom testing.
      * Defaults to `[]`.
      */
-    test: ReadonlyArray<TestObject>;
+    test?: ReadonlyArray<TestObject>;
 
     /**
      * Print which folders or files has been removed.
      * Defaults to `true`.
      */
-    log: boolean;
+    log?: boolean;
 
     /**
      * Emulate remove process.
@@ -70,7 +70,7 @@ interface RemoveParameters {
      * Ignores `log`.
      * Defaults to `false`.
      */
-    emulate: boolean;
+    emulate?: boolean;
 
     /**
      * Allow remove of a `root` directory or outside the `root` directory.
@@ -78,7 +78,7 @@ interface RemoveParameters {
      * **Don't turn it on, if you don't know what you actually do!**
      * Defaults to `false`.
      */
-    allowRootAndOutside: boolean;
+    allowRootAndOutside?: boolean;
 }
 
 
@@ -103,7 +103,7 @@ interface TestObject {
      * Should the method be applied to files in subdirectories.
      * Defaults to `false`.
      */
-    recursive: boolean;
+    recursive?: boolean;
 }
 
 
