@@ -9,16 +9,15 @@ interface TransformResult {
     /**
      * the amount of indentation to use. Default is 0 when an object is returned.
      */
-    indent: number
+    indent: number;
     /**
      * the character to use for indentation. Default is '' (empty string) when an object is returned.
      */
-    character: string
+    character: string;
     /**
      * leading characters to use at the beginning of each line. '' (empty string) when an object is returned.
      */
-    prefix: string
-
+    prefix: string;
 }
 
 interface Callback {
@@ -28,7 +27,9 @@ interface Callback {
      * @param line the current line (string) being aligned
      * @param lines the array of all lines
      */
-    (len: number, longest: number, line: string, lines: string[]): number | TransformResult
+    (len: number, longest: number, line: string, lines: string[]):
+        | number
+        | TransformResult;
 }
 
 declare function align_text(text: string, fn: number | Callback): string;
