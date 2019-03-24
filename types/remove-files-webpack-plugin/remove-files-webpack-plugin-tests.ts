@@ -1,6 +1,5 @@
 import RemovePlugin = require("remove-files-webpack-plugin");
 
-
 new RemovePlugin({
     before: {
         root: ".",
