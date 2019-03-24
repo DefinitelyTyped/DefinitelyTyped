@@ -971,16 +971,19 @@ export interface Query {
     args: any[];
 }
 
+export type CommandFunc = (editor: Editor, ...args: any[]) => Editor;
+export type QueryFunc = (editor: Editor, ...args: any[]) => any;
+
 export interface Plugin {
-    normalizeNode?: (node: Node, editor: Editor, next: Function) => (editor: Editor) => void | void;
+    normalizeNode?: (node: Node, editor: Editor, next: () => void) => ((editor: Editor) => void) | void;
     onChange?: (editor: Editor, next: () => void) => void;
     onCommand?: (command: Command, editor: Editor, next: () => void) => void;
     onConstruct?: (editor: Editor, next: () => void) => void;
     onQuery?: (query: Query, editor: Editor, next: () => void) => void;
     validateNode?: (node: Node, editor: Editor, next: () => void) => SlateError | void;
 
-    commands?: {[name: string]: (editor: Editor, ...args: any) => Editor};
-    queries?: {[name: string]: (editor: Editor, ...args: any) => any};
+    commands?: {[name: string]: CommandFunc};
+    queries?: {[name: string]: QueryFunc};
     schema?: SchemaProperties;
 }
 
