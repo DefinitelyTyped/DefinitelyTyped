@@ -1,5 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "no-consecutive-blank-lines": false,
-    "no-unnecessary-class": "allow-constructor-only"
+    "extends": "dtslint/dt.json"
 }
