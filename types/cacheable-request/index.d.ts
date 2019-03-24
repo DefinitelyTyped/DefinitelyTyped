@@ -20,7 +20,7 @@ declare const CacheableRequest: CacheableRequest;
 
 type RequestFn = typeof request;
 
-export type StorageAdapter = Store<any>
+export type StorageAdapter = Store<any>;
 
 interface CacheableRequest {
     new (requestFn: RequestFn, storageAdapter?: string | StorageAdapter): (
