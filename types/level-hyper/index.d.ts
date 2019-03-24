@@ -268,4 +268,5 @@ export interface LevelDB {
 }
 
 export type ConstructorType = (levelDBPath: string) => LevelDB;
-export const LevelHyper: ConstructorType;
+declare const LevelHyper: ConstructorType;
+export default LevelHyper
