@@ -24,18 +24,30 @@ import '../util';
 import '../worker_threads';
 import '../zlib';
 
+import { types } from 'util';
+
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
 //////////////////////////////////////////////////////////
 {
-    {
-        const hrtimeBigint: bigint = process.hrtime.bigint();
-    }
+    const hrtimeBigint: bigint = process.hrtime.bigint();
+  
+    process.allowedNodeEnvironmentFlags.has('asdf');
 }
 
-////////////////////////////////////////////////////////////
-/// Process Tests : https://nodejs.org/api/process.html ////
-////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+/// Util Tests                                         ///
+//////////////////////////////////////////////////////////
 {
-    process.allowedNodeEnvironmentFlags.has('asdf');
+    const value: BigInt64Array | BigUint64Array | number = [] as any;
+    if (types.isBigInt64Array(value)) {
+        // $ExpectType BigInt64Array
+        const b = value;
+    } else if (types.isBigUint64Array(value)) {
+        // $ExpectType BigUint64Array
+        const b = value;
+    } else {
+        // $ExpectType number
+        const b = value;
+    }
 }

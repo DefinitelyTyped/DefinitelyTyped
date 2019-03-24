@@ -1,4 +1,4 @@
-// Type definitions for node-forge 0.7.6
+// Type definitions for node-forge 0.8.1
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal    <https://github.com/westy92>
 //                 Kay Schecker     <https://github.com/flynetworks>
@@ -10,6 +10,7 @@
 //                 timhwang21       <https://github.com/timhwang21>
 //                 supaiku0         <https://github.com/supaiku0>
 //                 Anders Kaseorg   <https://github.com/andersk>
+//                 Sascha Zarhuber  <https://github.com/saschazar21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -56,22 +57,18 @@ declare module "node-forge" {
         type PEM = string;
         type PublicKey = rsa.PublicKey | ed25519.Key;
         type PrivateKey = rsa.PrivateKey | ed25519.Key;
+        type EncryptionOptions = {
+            algorithm?: 'aes128' | 'aes192' | 'aes256' | '3des';
+            count?: number;
+            saltSize?: number;
+            prfAlgorithm?: 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
+            legacy?: boolean;
+        };
 
         interface KeyPair {
             publicKey: PublicKey;
             privateKey: PrivateKey;
         }
-
-        function pemToDer(pem: PEM): util.ByteStringBuffer;
-        function privateKeyToPem(key: PrivateKey, maxline?: number): PEM;
-        function privateKeyInfoToPem(key: Bytes, maxline?: number): PEM;
-        function publicKeyToPem(key: PublicKey, maxline?: number): PEM;
-        function publicKeyFromPem(pem: PEM): PublicKey;
-        function privateKeyFromPem(pem: PEM): PrivateKey;
-        function certificateToPem(cert: Certificate, maxline?: number): PEM;
-        function certificateFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
-        function createCaStore(certs?: ReadonlyArray<Certificate | pki.PEM>): CAStore;
-        function verifyCertificateChain(caStore: CAStore, chain: Certificate[], customVerifyCallback?: (verified: boolean | string, depth: number, chain: Certificate[]) => boolean): boolean;
 
         interface oids {
             [key: string]: string;
@@ -270,9 +267,51 @@ declare module "node-forge" {
 
         function createCertificationRequest(): Certificate;
 
-        function publicKeyToAsn1(publicKey: PublicKey): any;
+        function certificateToPem(cert: Certificate, maxline?: number): PEM;
+
+        function certificateFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
+
+        function createCaStore(certs?: ReadonlyArray<Certificate | pki.PEM>): CAStore;
+
+        function verifyCertificateChain(caStore: CAStore, chain: Certificate[], customVerifyCallback?: (verified: boolean | string, depth: number, chain: Certificate[]) => boolean): boolean;
+
+        function pemToDer(pem: PEM): util.ByteStringBuffer;
+
+        function privateKeyToPem(key: PrivateKey, maxline?: number): PEM;
+
+        function privateKeyInfoToPem(key: asn1.Asn1, maxline?: number): PEM;
+
+        function publicKeyToPem(key: PublicKey, maxline?: number): PEM;
+
+        function publicKeyFromPem(pem: PEM): PublicKey;
+
+        function privateKeyFromPem(pem: PEM): PrivateKey;
+
+        function decryptPrivateKeyInfo(obj: asn1.Asn1, password: string): asn1.Asn1;
+
+        function encryptPrivateKeyInfo(obj: asn1.Asn1, password: string, options?: EncryptionOptions): asn1.Asn1;
+
+        function encryptedPrivateKeyFromPem(pem: PEM): asn1.Asn1;
+
+        function encryptedPrivateKeyToPem(obj: asn1.Asn1): PEM;
+
+        function decryptRsaPrivateKey(pem: PEM, password: string): PrivateKey;
+
+        function encryptRsaPrivateKey(privateKey: PrivateKey, password: string, options?: EncryptionOptions): PEM;
+
+        function privateKeyFromAsn1(privateKey: asn1.Asn1): PrivateKey;
+
+        function privateKeyToAsn1(privateKey: PrivateKey): asn1.Asn1;
+
+        function publicKeyFromAsn1(publicKey: asn1.Asn1): PublicKey;
+
+        function publicKeyToAsn1(publicKey: PublicKey): asn1.Asn1;
 
         function publicKeyToRSAPublicKey(publicKey: PublicKey): any;
+
+        function setRsaPublicKey(n: jsbn.BigInteger, e: jsbn.BigInteger): PublicKey;
+
+        function wrapRsaPrivateKey(privateKey: asn1.Asn1): asn1.Asn1;
     }
 
     namespace random {
@@ -548,6 +587,7 @@ declare module "node-forge" {
     }
 
     namespace md {
+
         interface MessageDigest {
             update(msg: string, encoding?: Encoding): MessageDigest;
             digest(): util.ByteStringBuffer;
@@ -561,6 +601,10 @@ declare module "node-forge" {
             function create(): MessageDigest;
         }
 
+        namespace sha384 {
+            function create(): MessageDigest;
+        }
+
         namespace sha512 {
             function create(): MessageDigest;
         }
@@ -568,6 +612,23 @@ declare module "node-forge" {
         namespace md5 {
             function create(): MessageDigest;
         }
+
+        namespace hmac {
+        }
+    }
+
+    namespace hmac {
+
+      type Algorithm = "sha1" | "md5" | "sha256";
+
+      interface HMAC {
+          digest(): util.ByteBuffer;
+          getMact(): util.ByteBuffer;
+          start(md: Algorithm, key: string | util.ByteBuffer | null): void;
+          update(bytes: string | util.ByteBuffer | Buffer): void;
+      }
+
+      function create(): HMAC;
     }
 
     namespace cipher {
@@ -578,7 +639,7 @@ declare module "node-forge" {
         function createDecipher(algorithm: Algorithm, payload: util.ByteBuffer | Bytes): BlockCipher;
 
         interface StartOptions {
-            iv?: Bytes;
+            iv?: util.ByteBuffer | Byte[] | Bytes;
             tag?: util.ByteStringBuffer;
             tagLength?: number;
             additionalData?: string;

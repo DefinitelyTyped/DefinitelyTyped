@@ -1,7 +1,8 @@
-// Type definitions for react-window 1.5
+// Type definitions for react-window 1.7
 // Project: https://github.com/bvaughn/react-window/, http://react-window.now.sh
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Alex Guerra <https://github.com/heyimalex>
+//                 John Gozde <https://github.com/jgoz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -395,17 +396,19 @@ export class FixedSizeGrid extends Component<FixedSizeGridProps> {
      * Scroll to the specified item.
      *
      * By default, the Grid will scroll as little as possible to ensure the item is visible.
-     * You can control the alignment of the item though by specifying a second alignment parameter. Acceptable values are:
+     * You can control the alignment of the item though by specifying an `align` property. Acceptable values are:
      *
      * - auto (default) - Scroll as little as possible to ensure the item is visible. (If the item is already visible, it won't scroll at all.)
      * - center - Center align the item within the grid.
      * - end - Align the item to the bottom, right hand side of the grid.
      * - start - Align the item to the top, left hand of the grid.
+     *
+     * If either `columnIndex` or `rowIndex` are omitted, `scrollLeft` or `scrollTop` will be unchanged (respectively).
      */
     scrollToItem(params: {
         align?: Align;
-        columnIndex: number;
-        rowIndex: number;
+        columnIndex?: number;
+        rowIndex?: number;
     }): void;
 }
 
@@ -418,17 +421,19 @@ export class VariableSizeGrid extends Component<VariableSizeGridProps> {
      * Scroll to the specified item.
      *
      * By default, the Grid will scroll as little as possible to ensure the item is visible.
-     * You can control the alignment of the item though by specifying a second alignment parameter. Acceptable values are:
+     * You can control the alignment of the item though by specifying an `align` property. Acceptable values are:
      *
      * - auto (default) - Scroll as little as possible to ensure the item is visible. (If the item is already visible, it won't scroll at all.)
      * - center - Center align the item within the grid.
      * - end - Align the item to the bottom, right hand side of the grid.
      * - start - Align the item to the top, left hand of the grid.
+     *
+     * If either `columnIndex` or `rowIndex` are omitted, `scrollLeft` or `scrollTop` will be unchanged (respectively).
      */
     scrollToItem(params: {
         align?: Align;
-        columnIndex: number;
-        rowIndex: number;
+        columnIndex?: number;
+        rowIndex?: number;
     }): void;
     /**
      * VariableSizeGrid caches offsets and measurements for each column index for performance purposes.

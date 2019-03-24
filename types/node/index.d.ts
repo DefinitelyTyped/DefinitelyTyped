@@ -92,4 +92,8 @@ declare module "util" {
     namespace promisify {
         const custom: symbol;
     }
+    namespace types {
+        function isBigInt64Array(value: any): boolean;
+        function isBigUint64Array(value: any): boolean;
+    }
 }

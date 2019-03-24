@@ -333,7 +333,7 @@ interface HitsProvided<THit> {
  * https://community.algolia.com/react-instantsearch/connectors/connectHits.html
  */
 // tslint:disable-next-line:no-unnecessary-generics
-export function connectHits<THit = BasicDoc>(stateless: React.StatelessComponent<HitsProvided<THit>>): React.ComponentClass<HighlightPassedThru>;
+export function connectHits<THit = BasicDoc>(stateless: React.StatelessComponent<HitsProvided<THit>>): React.ComponentClass;
 export function connectHits<TProps extends HitsProvided<THit>, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, HitsProvided<THit>>;
 
 export function connectHitsPerPage(Composed: React.ComponentType<any>): React.ComponentClass<any>;

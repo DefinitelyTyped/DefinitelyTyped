@@ -2616,7 +2616,7 @@ export interface SvgCommonProps {
     strokeWidth?: number | string;
     strokeOpacity?: number | string;
     strokeLinecap?: string;
-    strokeLineJoin?: string;
+    strokeLinejoin?: string;
     strokeDasharray?: any[];
     strokeDashoffset?: any;
     transform?: string | object;
