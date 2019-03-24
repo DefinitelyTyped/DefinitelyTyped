@@ -2,8 +2,7 @@
 // Project: https://github.com/jonschlinkert/align-text
 // Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export = align_text;
+// TypeScript Version: 2.1
 
 interface TransformResult {
     /**
@@ -34,3 +33,5 @@ interface Callback {
 
 declare function align_text(text: string, fn: number | Callback): string;
 declare function align_text(text: string[], fn: number | Callback): string[];
+
+export = align_text;

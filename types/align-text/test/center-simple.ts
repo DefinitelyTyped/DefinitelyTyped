@@ -1,11 +1,6 @@
-import * as align from "align-text";
+import align from "align-text";
 
-function centerAlign(
-    len: number,
-    longest: number,
-    line: string,
-    lines: string[]
-) {
+function centerAlign(len: number, longest: number) {
     return Math.floor((longest - len) / 2);
 }
 
