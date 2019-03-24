@@ -4,14 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-
 /**
  * A plugin for webpack which removes files and folders before and after compilation.
  */
+// tslint:disable-next-line:no-unnecessary-class
 declare class RemovePlugin {
     constructor(parameters: PluginParameters);
 }
-
 
 /**
  * A parameters for plugin.
@@ -27,7 +26,6 @@ interface PluginParameters {
      */
     after?: RemoveParameters;
 }
-
 
 /**
  * A parameters for removing.
@@ -81,7 +79,6 @@ interface RemoveParameters {
     allowRootAndOutside?: boolean;
 }
 
-
 /**
  * A folder for custom testing of files that should be removed.
  */
@@ -105,6 +102,5 @@ interface TestObject {
      */
     recursive?: boolean;
 }
-
 
 export = RemovePlugin;
