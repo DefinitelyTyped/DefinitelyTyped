@@ -20,10 +20,8 @@ declare const CacheableRequest: CacheableRequest;
 
 type RequestFn = typeof request;
 
-export type StorageAdapter = Store<any>;
-
 interface CacheableRequest {
-    new (requestFn: RequestFn, storageAdapter?: string | StorageAdapter): (
+    new (requestFn: RequestFn, storageAdapter?: string | CacheableRequest.StorageAdapter): (
         opts: string | URL | (RequestOptions & CacheSemanticsOptions),
         cb?: (response: ServerResponse | ResponseLike) => void
     ) => CacheableRequest.Emitter;
@@ -33,6 +31,8 @@ interface CacheableRequest {
 }
 
 declare namespace CacheableRequest {
+    type StorageAdapter = Store<any>;
+
     interface Options {
         /**
          * If the cache should be used. Setting this to `false` will completely bypass the cache for the current request.
