@@ -1,0 +1,12 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // Interface is needed for merging GlideRecord types
+        "no-misused-new": false,
+        // Disabling to all separate JSDoc per signature to correspond with ServiceNow API docs
+        "unified-signatures": false
+    },
+    "linterOptions": {
+        "exclude": ["test/*.ts"]
+    }
+}
