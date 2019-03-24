@@ -256,8 +256,7 @@ import { URL } from 'url';
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
         selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-        settings,
-        allowHTTP1: true
+        settings
     };
     // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
     const secureServerOptions: SecureServerOptions = Object.assign({}, serverOptions);
@@ -326,8 +325,6 @@ import { URL } from 'url';
         response.end('', 'utf8', () => {});
         response.end(Buffer.from([]));
         response.end(Buffer.from([]), () => {});
-        response.end(Buffer.from([]), 'utf8');
-        response.end(Buffer.from([]), 'utf8', () => {});
 
         request.on('aborted', (hadError: boolean, code: number) => {});
         request.on('close', () => {});

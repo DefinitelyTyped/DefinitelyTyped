@@ -4,6 +4,7 @@
 //                 Martynas Kadisa <https://github.com/martynaskadisa>
 //                 A.MacLeay <https://github.com/amacleay>
 //                 Michael Loughry <https://github.com/MLoughry>
+//                 Alan Choi <https://github.com/alanhchoi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -50,11 +51,13 @@ export function object<T>(name: string, value: T, groupId?: string): T;
 
 export function radios<T>(name: string, options: { [s: string]: T }, value?: T, groupId?: string): string;
 
-export type SelectValue = string | number;
-export function select<T extends SelectValue>(name: string, options: { [s: string]: T }, value: T | ReadonlyArray<T>, groupId?: string): T;
-export function select<T extends SelectValue>(name: string, options: { [s: string]: ReadonlyArray<T> }, value: ReadonlyArray<T>, groupId?: string): T[];
-export function select<T extends SelectValue>(name: string, options: { [s: string]: T | ReadonlyArray<T> }, value: T | ReadonlyArray<T>, groupId?: string): T | T[];
-export function select<T extends SelectValue>(name: string, options: ReadonlyArray<T>, value: T, groupId?: string): T;
+export function select<T>(name: string, options: { [s: string]: T }, value: T, groupId?: string): T;
+export function select<
+    T extends Exclude<
+        React.OptionHTMLAttributes<HTMLOptionElement>['value'],
+        undefined
+    >
+>(name: string, options: ReadonlyArray<T>, value: T, groupId?: string): T;
 
 export function date(name: string, value?: Date, groupId?: string): Date;
 

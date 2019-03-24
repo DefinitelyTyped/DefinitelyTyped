@@ -102,7 +102,7 @@ export interface QRCodeRenderersOptions extends QRCodeOptions {
 
 export interface QRCodeSegment {
     data: string;
-    mode: 'alphanumeric' | 'numeric';
+    mode: 'alphanumeric' | 'numeric' | 'kanji' | 'byte';
 }
 
 export interface QRCode {

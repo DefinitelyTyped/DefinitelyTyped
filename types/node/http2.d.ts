@@ -424,9 +424,7 @@ declare module "http2" {
     export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions { }
     export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions { }
 
-    export interface ServerOptions extends ServerSessionOptions {
-        allowHTTP1?: boolean;
-    }
+    export interface ServerOptions extends ServerSessionOptions { }
 
     export interface SecureServerOptions extends SecureServerSessionOptions {
         allowHTTP1?: boolean;
@@ -558,7 +556,7 @@ declare module "http2" {
         prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
     }
 
-    export class Http2ServerResponse extends events.EventEmitter {
+    export class Http2ServerResponse extends stream.Stream {
         private constructor();
         addTrailers(trailers: OutgoingHttpHeaders): void;
         connection: net.Socket | tls.TLSSocket;

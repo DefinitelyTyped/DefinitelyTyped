@@ -10,6 +10,7 @@
 //                 John Wood <https://github.com/johnjesse>
 //                 Alec Flett <https://github.com/alecf>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Roey Berman <https://github.com/bergundy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

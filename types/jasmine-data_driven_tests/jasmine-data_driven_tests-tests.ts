@@ -1,5 +1,44 @@
 /// <reference types="jasmine" />
 
+using("A suite",
+      [
+          [1, 2, 3],
+          [2, 4, 6]
+      ],
+      (a, b, c) => {
+          it("can be data driven", () => {
+              expect(c).toBe(a + b);
+          });
+      }
+);
+
+xusing("A data driven suite",
+      [
+          [1, 2, 3],
+          [2, 4, 6]
+      ],
+      (a, b, c) => {
+          it("can be pending", () => {
+              expect(c).toBe(a + b);
+          });
+      }
+);
+
+using("A data driven suite",
+      [ 'a', 'b', 'c' ],
+      lhs => {
+          beforeEach(() => {
+              console.log(`lhs = ${lhs}`);
+          });
+          all("can contain data driven tests",
+              [ 'd', 'e', 'f' ],
+              rhs => {
+                  expect(lhs).not.toBe(rhs);
+              }
+          );
+      }
+);
+
 all("A data driven test is a suite with multiple specs",
     ['a', 'b', 'c'],
     value => {

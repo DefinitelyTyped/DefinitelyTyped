@@ -98,6 +98,7 @@ let _algoliaIndexSettings: IndexSettings = {
   placeholders: { '': [''] },
   camelCaseAttributes: [''],
   sortFacetValuesBy: 'count',
+  queryLanguages: ['fr', 'es'],
 };
 
 let _algoliaQueryParameters: QueryParameters = {
@@ -147,6 +148,7 @@ let _algoliaQueryParameters: QueryParameters = {
   tagFilters: [''],
   facetFilters: [''],
   analytics: false,
+  clickAnalytics: true,
   analyticsTags: [''],
   synonyms: true,
   replaceSynonymsInHighlight: false,

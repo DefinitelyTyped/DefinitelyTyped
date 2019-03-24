@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "rollup": ">=0.60.0"
+        "del": "*",
+        "rollup": ">=0.60.0 <1.2.0"
     }
 }

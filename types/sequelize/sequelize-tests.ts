@@ -1,6 +1,16 @@
 import Sequelize = require("sequelize");
 import Q = require('q');
 import Bluebird = require('bluebird');
+import SequelizeAsDefault from 'sequelize';
+import { Sequelize as SequelizeAsIndividualExport } from 'sequelize';
+
+//
+// Import checks
+// ~~~~~~~~~~~~~
+//
+Sequelize.Model.Instance
+SequelizeAsDefault.Model.Instance
+SequelizeAsIndividualExport.Model.Instance
 
 //
 //  Fixtures
@@ -31,19 +41,26 @@ s.transaction().then( ( a ) => t = a );
 // ~~~~~~~~~~
 //
 
-interface GUserAttributes {
-    id? : number;
+interface GUserCreationAttributes {
+    id? : number
     username? : string;
     email: string;
 }
 
-interface GUserInstance extends Sequelize.Instance<GUserAttributes> {}
-const GUser = s.define<GUserInstance, GUserAttributes>('user', {
+interface GUserAttributes {
+    id : number;
+    username? : string;
+    email: string;
+}
+
+interface GUserInstance extends Sequelize.Instance<GUserAttributes>, GUserAttributes {}
+const GUser = s.define<GUserInstance, GUserAttributes, GUserCreationAttributes>('user', {
     id: Sequelize.INTEGER,
     username: Sequelize.STRING,
     email: Sequelize.STRING
 });
 GUser.create({ id : 1, username : 'one', email: 'one@lol.com' }).then((guser) => guser.save());
+GUser.create({ email: 'two@lol.com' }).then((guser) => guser.save())
 
 var schema : Sequelize.DefineAttributes = {
     key : { type : Sequelize.STRING, primaryKey : true },
@@ -238,6 +255,13 @@ product.createWarehouse({ id: 1 }, { save: true, silent: true }).then(() => { })
 warehouse.getProducts();
 warehouse.getProducts({ where: {}, scope: false });
 warehouse.getProducts({ where: {}, scope: false }).then((products) => products[0].id);
+
+interface ProductInstanceIncludeBarcode extends ProductInstance {
+    barcode: BarcodeInstance
+}
+warehouse.getProducts({ where: {}, scope: false, include: {model: Barcode, as: 'barcode'} }).then((products) => {
+    (products[0] as ProductInstanceIncludeBarcode).barcode
+});
 
 warehouse.setProducts();
 warehouse.setProducts([product]);
@@ -980,6 +1004,9 @@ User.findAll( { where: { $and:[ { username: { $not: "user" } }, { theDate: new D
 User.findAll( { where: { $or:[ { username: { $not: "user" } }, { theDate: new Date() } ] } } );
 User.findAll( { where: { emails: { $overlap: ["me@mail.com", "you@mail.com"] } } } );
 
+var options: Sequelize.AnyFindOptions = { where: { $and: Sequelize.where( Sequelize.fn( 'char_length', Sequelize.col('username') ), 4 ) } };
+User.findAll( options );
+
 User.findById( 'a string' );
 User.findById( 42 );
 User.findById( Buffer.from('a buffer') );
@@ -1169,6 +1196,7 @@ queryInterface.addIndex( { schema : 'a', tableName : 'c' }, ['d', 'e'], { loggin
 queryInterface.showIndex( { schema : 'schema', tableName : 'table' }, { logging : function() {} } );
 queryInterface.addIndex( 'Group', ['from'] );
 queryInterface.addIndex( 'Group', ['from'], { indexName: 'group_from' } );
+queryInterface.addIndex("Group", ["from"], { concurrently: true });
 queryInterface.describeTable( '_Users', { logging : function() {} } );
 queryInterface.createTable( 's', { table_id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590

@@ -6,6 +6,8 @@
 //                 Ovilia <https://github.com/Ovilia>
 //                 Roman <https://github.com/iRON5>
 //                 Bilal <https://github.com/bilalucar>
+//                 TMTron <https://github.com/tmtron>
+//                 dwhitney <https://github.com/dwhitney>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -187,7 +189,7 @@ declare namespace echarts {
          *     immediately
          */
         setOption(
-            option: EChartOption,
+            option: EChartOption | EChartsResponsiveOption,
             notMerge?: boolean,
             lazyUpdate?: boolean
         ) : void
@@ -917,6 +919,26 @@ declare namespace echarts {
         useUTC?: boolean,
     }
 
+    type EChartsMediaOption = {
+        query: {
+            width?: number,
+            height?: number,
+            aspectRatio?: number,
+            minWidth?: number,
+            minHeight?: number,
+            minAspectRatio?: number,
+            maxWidth?: number,
+            maxHeight?: number,
+            maxAspectRatio?: number
+        },
+        option: EChartOption
+    }
+
+    interface EChartsResponsiveOption {
+        baseOption?: EChartOption,
+        media?: EChartsMediaOption[]
+    }
+
     interface EChartsOptionConfig {
         notMerge?: boolean,
         lazyUpdate?: boolean,
@@ -950,17 +972,21 @@ declare namespace echarts {
         sublink?: string,
         subtarget?: string,
         subtextStyle?: object,
+        textAlign?: string,
+        textVerticalAlign?: string,
+        triggerEvent?: boolean,
         padding?: number,
         itemGap?: number,
         zlevel?: number,
         z?: number,
-        left?: string,
-        top?: string,
-        right?: string,
-        bottom?: string,
+        left?: string | number,
+        top?: string | number,
+        right?: string | number,
+        bottom?: string | number,
         backgroundColor?: string,
         borderColor?: string,
         borderWidth?: number,
+        borderRadius?: number | number[],
         shadowBlur?: number,
         shadowColor?: number,
         shadowOffsetX?: number,

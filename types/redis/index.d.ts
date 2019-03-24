@@ -10,6 +10,7 @@
 //                 Pirasis Leelatanon <https://github.com/1pete>
 //                 Stanislav Dzhus <https://github.com/blablapolicja>
 //                 Jake Ferrante <https://github.com/ferrantejake>
+//                 Adebayo Opesanya <https://github.com/OpesanyaAdebayo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis

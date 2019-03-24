@@ -1,11 +1,11 @@
 declare module "querystring" {
     interface StringifyOptions {
-        encodeURIComponent?: Function;
+        encodeURIComponent?: (str: string) => string;
     }
 
     interface ParseOptions {
         maxKeys?: number;
-        decodeURIComponent?: Function;
+        decodeURIComponent?: (str: string) => string;
     }
 
     interface ParsedUrlQuery { [key: string]: string | string[]; }

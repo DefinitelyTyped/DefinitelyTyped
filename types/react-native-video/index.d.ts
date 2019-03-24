@@ -57,7 +57,8 @@ export interface VideoProperties extends ViewProps {
   /* Wrapper component */
   // Opaque type returned by require('./video.mp4')
   source: { uri?: string } | number;
-  resizeMode?: string;
+  resizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
+  posterResizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
   poster?: string;
   repeat?: boolean;
   paused?: boolean;
@@ -92,7 +93,7 @@ export interface VideoProperties extends ViewProps {
   onReadyForDisplay?(): void;
   onPlaybackStalled?(): void;
   onPlaybackResume?(): void;
-  onPlaybackRateChange?(): void;
+  onPlaybackRateChange?(data: { playbackRate: number }): void;
   onAudioFocusChanged?(): void;
   onAudioBecomingNoisy?(): void;
   selectedTextTrack?: {
