@@ -44,13 +44,13 @@ interface RemoveParameters {
      * A folders or files for removing.
      * Defaults to `[]`.
      */
-    include?: ReadonlyArray<String>;
+    include?: ReadonlyArray<string>;
 
     /**
      * A files for excluding.
      * Defaults to `[]`.
      */
-    exclude?: ReadonlyArray<String>;
+    exclude?: ReadonlyArray<string>;
 
     /**
      * A folders for custom testing.
@@ -93,7 +93,7 @@ interface TestObject {
     folder: string;
 
     /**
-     * A method that accepts an absolute file path and must return 
+     * A method that accepts an absolute file path and must return
      * boolean value that indicates should be removed that file or not.
      * Required.
      */
