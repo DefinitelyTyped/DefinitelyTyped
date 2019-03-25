@@ -19,6 +19,7 @@ declare namespace PubSubJS {
 
     interface Subscribe{
         subscribe(message: any, func: Function): any;
+        subscribeOnce(message: any, func: Function): any;
     }
 
 
