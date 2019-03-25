@@ -11,7 +11,7 @@ center([
 ]);
 
 // single-line samples
-center("foo"); //=> 'foo' (does nothing)
-center("foo", 12); //=> '    foo    '
-center("foo", 10); //=> '   foo   '
-center("foo", 8); //=> '  foo  '
+center("foo"); // => 'foo' (does nothing)
+center("foo", 12); // => '    foo    '
+center("foo", 10); // => '   foo   '
+center("foo", 8); // => '  foo  '
