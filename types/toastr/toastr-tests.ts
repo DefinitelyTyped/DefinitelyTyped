@@ -7,8 +7,8 @@ declare let stringVal: string;
 declare let stringOrUndefinedVal: string | undefined;
 declare let toastrOptionsVal: ToastrOptions;
 declare let toastrOptionsOrUndefinedVal: ToastrOptions | undefined;
-declare let jQueryVal: JQuery<HTMLElement>;
-declare let jQueryOrUndefinedVal: JQuery<HTMLElement> | undefined;
+declare let jQueryVal: JQuery;
+declare let jQueryOrUndefinedVal: JQuery | undefined;
 declare let clearOptionsVal: {force: boolean};
 declare let clearOptionsOrUndefinedVal: typeof clearOptionsVal | undefined;
 
