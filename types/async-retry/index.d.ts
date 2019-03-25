@@ -16,7 +16,7 @@ declare namespace AsyncRetry {
 		minTimeout?: number;
 		maxTimeout?: number;
 		randomize?: boolean;
-		onRetry?: (e: Error) => any;
+		onRetry?: (e: Error, attempt: number) => any;
 	}
 
 	type RetryFunction<A> = (bail: (e: Error) => void, attempt: number) => A|Promise<A>;
