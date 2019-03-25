@@ -48,7 +48,7 @@ if (valid && !invalid) {
 
 // check timezones are accepted from the string literal
 const tast4 = cron.schedule('* * * * *', () => {
-    log('will execute every minute until stopped')
+    log('will execute every minute until stopped');
 }, { timezone: 'Europe/London' });
 
 tast4.destroy();
