@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.57
+// Type definitions for react-native 0.59
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -18,6 +18,7 @@
 //                 Souvik Ghosh <https://github.com/souvik-ghosh>
 //                 Cheng Gibson <https://github.com/nossbigg>
 //                 Saransh Kataria <https://github.com/saranshkataria>
+//                 Francesco Moro <https://github.com/franzmoro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -7291,6 +7292,36 @@ export interface CameraRollStatic {
      */
     getPhotos(params: GetPhotosParamType): Promise<GetPhotosReturnType>;
 }
+
+// https://facebook.github.io/react-native/docs/checkbox.html
+export interface CheckBoxProps extends ViewProps {
+    /**
+     * If true the user won't be able to toggle the checkbox. Default value is false.
+     */
+    disabled?: boolean;
+
+    /**
+     * Used in case the props change removes the component.
+     */
+    onChange?: (value: boolean) => void;
+
+    /**
+     * Invoked with the new value when the value changes.
+     */
+    onValueChange?: (value: boolean) => void;
+
+    /**
+     * Used to locate this view in end-to-end tests.
+     */
+    testID?: string;
+
+    /**
+     * The value of the checkbox. If true the checkbox will be turned on. Default value is false.
+     */
+    value?: boolean;
+}
+
+export class CheckBox extends React.Component<CheckBoxProps> {}
 
 /** Clipboard gives you an interface for setting and getting content from Clipboard on both iOS and Android */
 export interface ClipboardStatic {
