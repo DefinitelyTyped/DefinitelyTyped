@@ -5,12 +5,12 @@ const options = {
     removeMarkdown: false
 };
 
-parseChangelog({filePath: 'path/to/CHANGELOG.md'}, (result, error) => {});
+parseChangelog({filePath: 'path/to/CHANGELOG.md'}, (error, result) => {});
 
-parseChangelog(options, (result, error) => {});
+parseChangelog(options, (error, result) => {});
 
-parseChangelog({filePath: 'path/to/CHANGELOG.md'}, (result) => {});
+parseChangelog({filePath: 'path/to/CHANGELOG.md'}, (error) => {});
 
-parseChangelog(options);
+parseChangelog(options).then((result) => {});
 
-parseChangelog('path/to/CHANGELOG.md');
+parseChangelog('path/to/CHANGELOG.md').then((result) => {});
