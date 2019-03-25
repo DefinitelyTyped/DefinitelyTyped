@@ -1,15 +1,9 @@
 // Type definitions for center-align 1.0
 // Project: https://github.com/jonschlinkert/center-align
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare function center_align(val: string, width?: number): string;
+declare function center_align(val: string[], width?: number): string[];
+
 export = center_align;
-
-declare function center_align(val: any, width: any): any;
-
-declare namespace center_align {
-    const prototype: {
-    };
-
-}
-
