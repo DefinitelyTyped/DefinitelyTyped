@@ -787,6 +787,12 @@
             "asOfVersion": "2.0.23"
         },
         {
+            "libraryName": "get-port",
+            "typingsPackageName": "get-port",
+            "sourceRepoURL": "https://github.com/sindresorhus/get-port",
+            "asOfVersion": "4.2.0"
+        },
+        {
             "libraryName": "get-stream",
             "typingsPackageName": "get-stream",
             "sourceRepoURL": "https://github.com/sindresorhus/get-stream",
