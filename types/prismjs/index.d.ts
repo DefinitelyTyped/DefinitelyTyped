@@ -184,6 +184,8 @@ export interface GrammarRest {
 	property?: GrammarValue;
 	important?: GrammarValue;
 	style?: GrammarValue;
+	comment?: GrammarValue;
+	"class-name"?: GrammarValue;
 
 	/**
 	 * An optional grammar object that will appended to this grammar.
