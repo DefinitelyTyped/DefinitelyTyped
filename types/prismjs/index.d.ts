@@ -6,6 +6,7 @@
 //                 Andre Wiggins <https://github.com/andrewiggins>
 //                 Michał Miszczyszyn <https://github.com/mmiszy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export as namespace Prism;
 export const languages: Languages;
@@ -413,7 +414,7 @@ export class Token {
 	 */
 	greedy: boolean;
 
-	// tslint:disable-next-line:no-redundant-jsdoc-2
+	// tslint:disable:no-redundant-jsdoc-2
 	/**
 	 * Converts the given token or token stream to an HTML representation.
 	 *
