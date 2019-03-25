@@ -31,7 +31,7 @@ import { types } from 'util';
 //////////////////////////////////////////////////////////
 {
     const hrtimeBigint: bigint = process.hrtime.bigint();
-  
+
     process.allowedNodeEnvironmentFlags.has('asdf');
 }
 
