@@ -14,7 +14,8 @@ import {
     Plugin,
     Node,
     Command,
-    Query
+    Query,
+    Decoration
 } from "slate";
 
 const data = Data.create({ foo: "bar " });
