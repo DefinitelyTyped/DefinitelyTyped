@@ -2990,6 +2990,12 @@ declare module "mongoose" {
     create(...docsWithCallback: any[]): Promise<T>;
 
     /**
+     * Create the collection for this model. By default, if no indexes are specified, mongoose will not create the
+     * collection for the model until any documents are created. Use this method to create the collection explicitly.
+     */
+    createCollection(options?: mongodb.CollectionCreateOptions, cb?: (err: any) => void): Promise<void>;
+
+    /**
      * Adds a discriminator type.
      * @param name discriminator model name
      * @param schema discriminator model schema
