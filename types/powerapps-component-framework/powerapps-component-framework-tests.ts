@@ -42,7 +42,7 @@ const formattingTest: ComponentFramework.Formatting = {
 	formatDateYearMonth: (value: Date) => value.toString(),
 	formatInteger: (value: number) => value.toString(),
 	formatLanguage: (value: number) => value.toString(),
-	formatTime: (value: Date, behavior: ComponentFramework.FormattingApi.DateTimeFieldBehavior) => value.toString(),
+	formatTime: (value: Date, behavior: ComponentFramework.FormattingApi.Types.DateTimeFieldBehavior) => value.toString(),
 	getWeekOfYear: (value: Date) => 0,
 };
 
@@ -64,8 +64,6 @@ const resourcesTest: ComponentFramework.Resources = {
 
 const dictionary: ComponentFramework.Dictionary = { testKey: '' };
 
-const imeModeAuto: ComponentFramework.PropertyHelper.ImeMode = ComponentFramework.PropertyHelper.ImeMode.Auto;
-
 const dataSetApiColumn: ComponentFramework.PropertyHelper.DataSetApi.Column = {
 	name: '',
 	displayName: '',
@@ -84,4 +82,29 @@ const linkEntityExposeExpression: ComponentFramework.PropertyHelper.DataSetApi.L
 	to: '',
 	linkType: '',
 	alias: ''
+};
+
+enum ImeMode {
+	Auto = 0,
+	Inactive = 1,
+	Active = 2,
+	Disabled = 3,
+}
+
+enum DateTimeFieldBehavior {
+	None = 0,
+	UserLocal = 1,
+	TimeZoneIndependent = 3,
+}
+
+const stringMetadataTest: ComponentFramework.PropertyHelper.FieldPropertyMetadata.DateTimeMetadata = {
+	DisplayName: '',
+	LogicalName: '',
+	RequiredLevel: 0,
+	IsSecured: false,
+	SourceType: 0,
+	Description: '',
+	ImeMode: ImeMode.Inactive,
+	Format: '',
+	Behavior: DateTimeFieldBehavior.TimeZoneIndependent,
 };
