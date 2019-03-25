@@ -1,3 +1,5 @@
+/* tslint:disable:unified-signatures */
+
 declare namespace sn_ws {
     /**
      * The RESTMessageV2 API allows you to send outbound REST messages using JavaScript.

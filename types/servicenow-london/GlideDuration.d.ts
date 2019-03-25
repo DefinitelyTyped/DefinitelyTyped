@@ -1,3 +1,5 @@
+/* tslint:disable:unified-signatures */
+
 /**
  * The scoped GlideDuration class provides methods for working with spans of time or durations.
  *

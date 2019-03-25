@@ -1,3 +1,5 @@
+/* tslint:disable:unified-signatures no-misused-new */
+
 /**
  * Scoped GlideRecord is used for database operations.
  */

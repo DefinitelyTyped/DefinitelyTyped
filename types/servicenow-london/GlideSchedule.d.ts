@@ -1,3 +1,5 @@
+/* tslint:disable:unified-signatures */
+
 /**
  * The scoped GlideSchedule API provides methods for performing operations on GlideSchedule
  * objects, such as adding new schedule segments to a schedule, determining if a datetime is within
