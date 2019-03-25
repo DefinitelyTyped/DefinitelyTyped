@@ -45,15 +45,11 @@ Prism.hooks.add("before-highlightall", hookCallback);
 Prism.hooks.add("future-hook", hookCallback);
 
 Prism.hooks.add("before-highlightall", env => {
-	// $ExpectType string
 	env.selector.trim();
 });
 
 Prism.hooks.add("complete", env => {
-	// $ExpectType string
 	env.code.trim();
-
-	// $ExpectType string
 	env.highlightedCode.trim();
 });
 

@@ -150,12 +150,13 @@ export namespace util {
 	/** Determine the type of the object */
 	function type(o: null): "Null";
 	function type(o: undefined): "Undefined";
+	// tslint:disable:ban-types
 	function type(o: boolean | Boolean): "Boolean";
 	function type(o: number | Number): "Number";
 	function type(o: string | String): "String";
-	function type(o: symbol | Symbol): "Symbol";
-	function type(o: RegExp): "RegExp";
 	function type(o: Function): "Function";
+	// tslint:enable:ban-types
+	function type(o: RegExp): "RegExp";
 	function type(o: any[]): "Array";
 	function type(o: any): string;
 
@@ -168,7 +169,7 @@ export namespace util {
 
 export type GrammarValue = RegExp | TokenObject | Array<RegExp | TokenObject>;
 export type Grammar = GrammarRest & Record<string, GrammarValue>;
-interface GrammarRest {
+export interface GrammarRest {
 	keyword?: GrammarValue;
 	number?: GrammarValue;
 	function?: GrammarValue;
@@ -412,6 +413,7 @@ export class Token {
 	 */
 	greedy: boolean;
 
+	// tslint:disable-next-line:no-redundant-jsdoc-2
 	/**
 	 * Converts the given token or token stream to an HTML representation.
 	 *
