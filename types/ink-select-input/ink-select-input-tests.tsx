@@ -21,10 +21,10 @@ const items: ReadonlyArray<ItemOfSelectInput> = [
 	},
 ];
 
-const Demo: React.PureComponent = () => {
-	const handleSelect = (item: ItemOfSelectInput) => {
-		console.log(item);
-	};
+class Demo extends React.PureComponent {
+	handleSelect = (item: ItemOfSelectInput) => {};
 
-	return <SelectInput items={items} onSelect={handleSelect} />;
+    render() {
+        return <SelectInput items={items} onSelect={this.handleSelect} />
+    }
 };

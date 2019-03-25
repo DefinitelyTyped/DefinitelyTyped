@@ -5,24 +5,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-declare module 'ink-select-input' {
-    import { Component } from 'react';
+import { Component } from 'react';
 
-	export interface ItemOfSelectInput {
-		label: string;
-		value: any;
-		key?: string | number;
-	}
-
-	export interface SelectInputProps<T extends ItemOfSelectInput = ItemOfSelectInput> {
-		focus?: boolean;
-		indicatorComponent?: Component;
-		itemComponent?: Component;
-		items?: ReadonlyArray<T>;
-		limit?: number;
-		initialIndex?: number;
-		onSelect?: (item: T) => void;
-	}
-
-	export default class extends Component<SelectInputProps> {}
+interface ItemOfSelectInput {
+    label: string;
+    value: any;
+    key?: string | number;
 }
+
+interface SelectInputProps<T extends ItemOfSelectInput = ItemOfSelectInput> {
+    focus?: boolean;
+    indicatorComponent?: Component;
+    itemComponent?: Component;
+    items?: ReadonlyArray<T>;
+    limit?: number;
+    initialIndex?: number;
+    onSelect?: (item: T) => void;
+}
+
+export default class extends Component<SelectInputProps> {}
