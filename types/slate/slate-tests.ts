@@ -1,4 +1,4 @@
-import { Block, Value, Data, BlockJSON, Document, Editor, KeyUtils, Range, Point, Inline, Mark, SchemaProperties } from "slate";
+import { Block, Value, Data, BlockJSON, Document, Editor, KeyUtils, Range, Point, Inline, Mark, SchemaProperties, Decoration } from "slate";
 
 const data = Data.create({ foo: "bar " });
 const value = Value.create({ data });
@@ -36,6 +36,7 @@ const point = Point.create({ key: "a", offset: 0 });
 const range = Range.create({ anchor: point, focus: point });
 const inline = Inline.create("text");
 const mark = Mark.create("bold");
+const decorations = Decoration.createList([{ anchor: Point.create({ key: "a", offset: 0 }), focus: Point.create({ key: "a", offset: 0 }), mark }]);
 
 editor.registerQuery("testQuery");
 editor.registerCommand("testCommand");
@@ -238,6 +239,7 @@ editor
 .replaceNodeByKey("a", inline)
 .replaceNodeByPath("a", inline)
 .select(range)
+.setDecorations(decorations)
 .setBlocks("paragraph")
 .setBlocksAtRange(range, "paragraph")
 .setInlines("paragraph")
