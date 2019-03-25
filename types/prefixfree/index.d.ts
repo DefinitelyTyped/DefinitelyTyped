@@ -2,12 +2,13 @@
 // Project: https://github.com/LeaVerou/prefixfree
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace StyleFix {
 	type StyleFixer = (css: string, raw: boolean, element: Element) => string;
 }
 
-declare interface StyleFix {
+interface StyleFix {
 	fix: StyleFix.StyleFixer;
 	fixers?: StyleFix.StyleFixer[];
 	optIn: boolean;
@@ -31,7 +32,7 @@ declare namespace PrefixFree {
 	type KnownPrefixJS = "Moz" | "Ms" | "O" | "Webkit";
 }
 
-declare interface PrefixFree {
+interface PrefixFree {
 	/**
 	 * The prefix used for CSS properties.
 	 *

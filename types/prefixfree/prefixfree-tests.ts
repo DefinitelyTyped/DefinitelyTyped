@@ -6,7 +6,7 @@ StyleFix.register((css, raw, element) => {
 });
 StyleFix.process();
 
-const browser = (function () {
+const browser = (() => {
 	switch (PrefixFree.prefix) {
 		case "-moz-":
 			return "firefox";
