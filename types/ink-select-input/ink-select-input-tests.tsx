@@ -10,6 +10,7 @@ const items: ReadonlyArray<ItemOfSelectInput> = [
 	{
 		label: 'First',
 		value: 'first',
+		key: 0,
 	},
 	{
 		label: 'Second',

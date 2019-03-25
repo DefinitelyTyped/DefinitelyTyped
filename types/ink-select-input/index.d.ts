@@ -7,13 +7,13 @@
 
 import { Component } from 'react';
 
-interface ItemOfSelectInput {
+export interface ItemOfSelectInput {
     label: string;
     value: any;
     key?: string | number;
 }
 
-interface SelectInputProps<T extends ItemOfSelectInput = ItemOfSelectInput> {
+export interface SelectInputProps<T extends ItemOfSelectInput = ItemOfSelectInput> {
     focus?: boolean;
     indicatorComponent?: Component;
     itemComponent?: Component;
@@ -25,5 +25,4 @@ interface SelectInputProps<T extends ItemOfSelectInput = ItemOfSelectInput> {
 
 declare class SelectInput extends Component<SelectInputProps> { }
 
-export = SelectInput;
-
+export default SelectInput;
