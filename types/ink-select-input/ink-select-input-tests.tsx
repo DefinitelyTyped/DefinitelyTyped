@@ -25,6 +25,6 @@ class Demo extends React.PureComponent {
 	handleSelect = (item: ItemOfSelectInput) => {};
 
     render() {
-        return <SelectInput items={items} onSelect={this.handleSelect} />
+        return <SelectInput items={items} onSelect={this.handleSelect} />;
     }
-};
+}
