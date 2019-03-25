@@ -58,11 +58,11 @@ const language = "js";
 Prism.util.type(language);
 
 const tokens = Prism.tokenize("var n = 1;", Prism.languages[language]);
-(function visit(token: Prism.TokenNode): Prism.TokenNode {
+(function visit(token: Prism.TokenStream): Prism.TokenStream {
 	if (typeof token === "string") {
 		return token;
 	} else if (Array.isArray(token)) {
-		return token.map(visit) as Prism.TokenNode;
+		return token.map(visit) as Prism.TokenStream;
 	} else {
 		token.alias += "visited";
 		return token;

@@ -146,7 +146,7 @@ export namespace util {
 	}
 
 	/** Encode raw strings in tokens in preparation to display as HTML */
-	function encode(tokens: TokenNode): TokenNode;
+	function encode(tokens: TokenStream): TokenStream;
 
 	/** Determine the type of the object */
 	function type(o: null): "Null";
@@ -361,7 +361,7 @@ export namespace hooks {
 	function run(name: string, env: Environment): void;
 }
 
-export type TokenNode = string | Token | Array<string | Token>;
+export type TokenStream = string | Token | Array<string | Token>;
 
 export class Token {
 	/**
@@ -375,7 +375,7 @@ export class Token {
 	 */
 	constructor(
 		type: string,
-		content: TokenNode,
+		content: TokenStream,
 		alias?: string | string[],
 		matchedStr?: string,
 		greedy?: boolean
@@ -393,7 +393,7 @@ export class Token {
 	 *
 	 * This will be a token stream if the pattern matched also defined an `inside` grammar.
 	 */
-	content: TokenNode;
+	content: TokenStream;
 
 	/**
 	 * The alias(es) of the token.
@@ -428,7 +428,7 @@ export class Token {
 	 * @private
 	 */
 	static stringify(
-		token: TokenNode,
+		token: TokenStream,
 		language: string,
 		parent?: Array<string | Token>
 	): string;
