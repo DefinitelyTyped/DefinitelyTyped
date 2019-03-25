@@ -1,4 +1,4 @@
-// Type definitions for Visual Studio Code 1.30
+// Type definitions for Visual Studio Code 1.31
 // Project: https://github.com/microsoft/vscode
 // Definitions by: Visual Studio Code Team, Microsoft <https://github.com/Microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.30 Extension API
+ * Type Definition for Visual Studio Code 1.31 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -81,7 +81,7 @@ declare module 'vscode' {
 
 		/**
 		 * The offset of the first character which is not a whitespace character as defined
-		 * by `/\s/`. **Note** that if a line is all whitespaces the length of the line is returned.
+		 * by `/\s/`. **Note** that if a line is all whitespace the length of the line is returned.
 		 */
 		readonly firstNonWhitespaceCharacterIndex: number;
 
@@ -1865,6 +1865,11 @@ declare module 'vscode' {
 	 * * `{}` to group conditions (e.g. `**​/*.{ts,js}` matches all TypeScript and JavaScript files)
 	 * * `[]` to declare a range of characters to match in a path segment (e.g., `example.[0-9]` to match on `example.0`, `example.1`, …)
 	 * * `[!...]` to negate a range of characters to match in a path segment (e.g., `example.[!0-9]` to match on `example.a`, `example.b`, but not `example.0`)
+	 *
+	 * Note: a backslash (`\`) is not valid within a glob pattern. If you have an existing file
+	 * path to match against, consider to use the [relative pattern](#RelativePattern) support
+	 * that takes care of converting any backslash into slash. Otherwise, make sure to convert
+	 * any backslash to slash when creating the glob pattern.
 	 */
 	export type GlobPattern = string | RelativePattern;
 
@@ -2035,9 +2040,20 @@ declare module 'vscode' {
 		append(parts: string): CodeActionKind;
 
 		/**
-		 * Does this kind contain `other`?
+		 * Checks if this code action kind intersects `other`.
 		 *
-		 * The kind `"refactor"` for example contains `"refactor.extract"` and ``"refactor.extract.function"`, but not `"unicorn.refactor.extract"` or `"refactory.extract"`
+		 * The kind `"refactor.extract"` for example intersects `refactor`, `"refactor.extract"` and ``"refactor.extract.function"`,
+		 * but not `"unicorn.refactor.extract"`, or `"refactor.extractAll"`.
+		 *
+		 * @param other Kind to check.
+		 */
+		intersects(other: CodeActionKind): boolean;
+
+		/**
+		 * Checks if `other` is a sub-kind of this `CodeActionKind`.
+		 *
+		 * The kind `"refactor.extract"` for example contains `"refactor.extract"` and ``"refactor.extract.function"`,
+		 * but not `"unicorn.refactor.extract"`, or `"refactor.extractAll"` or `refactor`.
 		 *
 		 * @param other Kind to check.
 		 */
@@ -2695,8 +2711,8 @@ declare module 'vscode' {
 		 *
 		 * @param document The document in which the command was invoked.
 		 * @param position The position at which the command was invoked.
-		 * @param context
 		 * @param token A cancellation token.
+		 *
 		 * @return An array of locations or a thenable that resolves to such. The lack of a result can be
 		 * signaled by returning `undefined`, `null`, or an empty array.
 		 */
@@ -3213,7 +3229,7 @@ declare module 'vscode' {
 		/**
 		 * List of characters that re-trigger signature help.
 		 *
-		 * These trigger characters are only active when signature help is alread showing. All trigger characters
+		 * These trigger characters are only active when signature help is already showing. All trigger characters
 		 * are also counted as re-trigger characters.
 		 */
 		readonly retriggerCharacters: ReadonlyArray<string>;
@@ -3339,7 +3355,7 @@ declare module 'vscode' {
 
 		/**
 		 * Keep whitespace of the [insertText](#CompletionItem.insertText) as is. By default, the editor adjusts leading
-		 * whitespace of new lines so that they match the indentation of the line for which the item is accepeted - setting
+		 * whitespace of new lines so that they match the indentation of the line for which the item is accepted - setting
 		 * this to `true` will prevent that.
 		 */
 		keepWhitespace?: boolean;
@@ -4676,6 +4692,15 @@ declare module 'vscode' {
 		storagePath: string | undefined;
 
 		/**
+		 * An absolute file path in which the extension can store global state.
+		 * The directory might not exist on disk and creation is
+		 * up to the extension. However, the parent directory is guaranteed to be existent.
+		 *
+		 * Use [`globalState`](#ExtensionContext.globalState) to store key value data.
+		 */
+		globalStoragePath: string;
+
+		/**
 		 * An absolute file path of a directory in which the extension can create log files.
 		 * The directory might not exist on disk and creation is up to the extension. However,
 		 * the parent directory is guaranteed to be existent.
@@ -5336,10 +5361,8 @@ declare module 'vscode' {
 
 		/**
 		 * The currently active task executions or an empty array.
-		 *
-		 * @readonly
 		 */
-		export let taskExecutions: ReadonlyArray<TaskExecution>;
+		export const taskExecutions: ReadonlyArray<TaskExecution>;
 
 		/**
 		 * Fires when a task starts.
@@ -5621,7 +5644,7 @@ declare module 'vscode' {
 		 *
 		 * @param source The existing file.
 		 * @param destination The destination location.
-		 * @param options Defines if existing files should be overwriten.
+		 * @param options Defines if existing files should be overwritten.
 		 * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when `source` doesn't exist.
 		 * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when parent of `destination` doesn't exist, e.g. no mkdirp-logic required.
 		 * @throws [`FileExists`](#FileSystemError.FileExists) when `destination` exists and when the `overwrite` option is not `true`.
@@ -5843,7 +5866,7 @@ declare module 'vscode' {
 	 */
 	interface WebviewPanelSerializer {
 		/**
-		 * Restore a webview panel from its seriailzed `state`.
+		 * Restore a webview panel from its serialized `state`.
 		 *
 		 * Called when a serialized webview first becomes visible.
 		 *
@@ -5851,7 +5874,7 @@ declare module 'vscode' {
 		 * serializer must restore the webview's `.html` and hook up all webview events.
 		 * @param state Persisted state from the webview content.
 		 *
-		 * @return Thanble indicating that the webview has been fully restored.
+		 * @return Thenble indicating that the webview has been fully restored.
 		 */
 		deserializeWebviewPanel(webviewPanel: WebviewPanel, state: any): Thenable<void>;
 	}
@@ -5881,24 +5904,18 @@ declare module 'vscode' {
 
 		/**
 		 * The application name of the editor, like 'VS Code'.
-		 *
-		 * @readonly
 		 */
-		export let appName: string;
+		export const appName: string;
 
 		/**
 		 * The application root folder from which the editor is running.
-		 *
-		 * @readonly
 		 */
-		export let appRoot: string;
+		export const appRoot: string;
 
 		/**
 		 * Represents the preferred user-language, like `de-CH`, `fr`, or `en-US`.
-		 *
-		 * @readonly
 		 */
-		export let language: string;
+		export const language: string;
 
 		/**
 		 * The system clipboard.
@@ -5907,18 +5924,26 @@ declare module 'vscode' {
 
 		/**
 		 * A unique identifier for the computer.
-		 *
-		 * @readonly
 		 */
-		export let machineId: string;
+		export const machineId: string;
 
 		/**
 		 * A unique identifier for the current session.
 		 * Changes each time the editor is started.
-		 *
-		 * @readonly
 		 */
-		export let sessionId: string;
+		export const sessionId: string;
+
+		/**
+		 * Opens an *external* item, e.g. a http(s) or mailto-link, using the
+		 * default application.
+		 *
+		 * *Note* that [`showTextDocument`](#window.showTextDocument) is the right
+		 * way to open a text document inside the editor, not this function.
+		 *
+		 * @param target The uri that should be opened.
+		 * @returns A promise indicating if open was successful.
+		 */
+		export function openExternal(target: Uri): Thenable<boolean>;
 	}
 
 	/**
@@ -6124,10 +6149,8 @@ declare module 'vscode' {
 
 		/**
 		 * Represents the current window's state.
-		 *
-		 * @readonly
 		 */
-		export let state: WindowState;
+		export const state: WindowState;
 
 		/**
 		 * An [event](#Event) which fires when the focus state of the current window
@@ -6846,14 +6869,23 @@ declare module 'vscode' {
 		shellArgs?: string[];
 
 		/**
-		 * A path for the current working directory to be used for the terminal.
+		 * A path or Uri for the current working directory to be used for the terminal.
 		 */
-		cwd?: string;
+		cwd?: string | Uri;
 
 		/**
 		 * Object with environment variables that will be added to the VS Code process.
 		 */
 		env?: { [key: string]: string | null };
+
+		/**
+		 * Whether the terminal process environment should be exactly as provided in
+		 * `TerminalOptions.env`. When this is false (default), the environment will be based on the
+		 * window's environment and also apply configured platform settings like
+		 * `terminal.integrated.windows.env` on top. When this is true, the complete environment
+		 * must be provided as nothing will be inherited from the process or any configuration.
+		 */
+		strictEnv?: boolean;
 	}
 
 	/**
@@ -6905,13 +6937,13 @@ declare module 'vscode' {
 	}
 
 	/**
-	 * A light-weight user input UI that is intially not visible. After
+	 * A light-weight user input UI that is initially not visible. After
 	 * configuring it through its properties the extension can make it
 	 * visible by calling [QuickInput.show](#QuickInput.show).
 	 *
 	 * There are several reasons why this UI might have to be hidden and
 	 * the extension will be notified through [QuickInput.onDidHide](#QuickInput.onDidHide).
-	 * (Examples include: an explict call to [QuickInput.hide](#QuickInput.hide),
+	 * (Examples include: an explicit call to [QuickInput.hide](#QuickInput.hide),
 	 * the user pressing Esc, some other input UI opening, etc.)
 	 *
 	 * A user pressing Enter or some other gesture implying acceptance
@@ -6980,7 +7012,7 @@ declare module 'vscode' {
 		 *
 		 * There are several reasons why this UI might have to be hidden and
 		 * the extension will be notified through [QuickInput.onDidHide](#QuickInput.onDidHide).
-		 * (Examples include: an explict call to [QuickInput.hide](#QuickInput.hide),
+		 * (Examples include: an explicit call to [QuickInput.hide](#QuickInput.hide),
 		 * the user pressing Esc, some other input UI opening, etc.)
 		 */
 		onDidHide: Event<void>;
@@ -7335,26 +7367,20 @@ declare module 'vscode' {
 		 * has been opened.~~
 		 *
 		 * @deprecated Use [`workspaceFolders`](#workspace.workspaceFolders) instead.
-		 *
-		 * @readonly
 		 */
-		export let rootPath: string | undefined;
+		export const rootPath: string | undefined;
 
 		/**
 		 * List of workspace folders or `undefined` when no folder is open.
 		 * *Note* that the first entry corresponds to the value of `rootPath`.
-		 *
-		 * @readonly
 		 */
-		export let workspaceFolders: WorkspaceFolder[] | undefined;
+		export const workspaceFolders: WorkspaceFolder[] | undefined;
 
 		/**
 		 * The name of the workspace. `undefined` when no folder
 		 * has been opened.
-		 *
-		 * @readonly
 		 */
-		export let name: string | undefined;
+		export const name: string | undefined;
 
 		/**
 		 * An event that is emitted when a workspace folder is added or removed.
@@ -7480,7 +7506,7 @@ declare module 'vscode' {
 		 * cause failure of the operation.
 		 *
 		 * When applying a workspace edit that consists only of text edits an 'all-or-nothing'-strategy is used.
-		 * A workspace edit with resource creations or deletions aborts the operation, e.g. consective edits will
+		 * A workspace edit with resource creations or deletions aborts the operation, e.g. consecutive edits will
 		 * not be attempted, when a single edit fails.
 		 *
 		 * @param edit A workspace edit.
@@ -7490,10 +7516,8 @@ declare module 'vscode' {
 
 		/**
 		 * All text documents currently known to the system.
-		 *
-		 * @readonly
 		 */
-		export let textDocuments: TextDocument[];
+		export const textDocuments: TextDocument[];
 
 		/**
 		 * Opens a document. Will return early if this document is already open. Otherwise
@@ -7935,7 +7959,7 @@ declare module 'vscode' {
 		export function registerReferenceProvider(selector: DocumentSelector, provider: ReferenceProvider): Disposable;
 
 		/**
-		 * Register a reference provider.
+		 * Register a rename provider.
 		 *
 		 * Multiple providers can be registered for a language. In that case providers are sorted
 		 * by their [score](#languages.match) and the best-matching provider is used. Failure
@@ -8521,7 +8545,7 @@ declare module 'vscode' {
 		 */
 		onWillStopSession?(): void;
 		/**
-		 * An error with the debug adapter has occured.
+		 * An error with the debug adapter has occurred.
 		 */
 		onError?(error: Error): void;
 		/**
@@ -8800,6 +8824,12 @@ declare module 'vscode' {
 		 * All extensions currently known to the system.
 		 */
 		export let all: Extension<any>[];
+
+		/**
+		 * An event which fires when `extensions.all` changes. This can happen when extensions are
+		 * installed, uninstalled, enabled or disabled.
+		 */
+		export const onDidChange: Event<void>;
 	}
 }
 
