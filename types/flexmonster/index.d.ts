@@ -186,7 +186,7 @@ declare namespace Flexmonster {
         roles?: string;
         localeIdentifier?: string;
         effectiveUserName?: string;
-        customData?: object;
+        customData?: string;
         hash?: string;
         username?: string;
         password?: string;
