@@ -104,6 +104,7 @@ const point = Point.create({ key: "a", offset: 0 });
 const range = Range.create({ anchor: point, focus: point });
 const inline = Inline.create("text");
 const mark = Mark.create("bold");
+const decorations = Decoration.createList([{ anchor: Point.create({ key: "a", offset: 0 }), focus: Point.create({ key: "a", offset: 0 }), mark }]);
 
 editor.command(pluginCommandName, 1);
 editor.query(pluginQueryName, 1);
@@ -309,6 +310,7 @@ editor
 .replaceNodeByKey("a", inline)
 .replaceNodeByPath("a", inline)
 .select(range)
+.setDecorations(decorations)
 .setBlocks("paragraph")
 .setBlocksAtRange(range, "paragraph")
 .setInlines("paragraph")

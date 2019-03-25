@@ -8,7 +8,6 @@
 //                 Dan Torberg <https://github.com/caspeco-dan>
 //                 Peter Keuter <https://github.com/pkeuter>
 //                 Jamie Saunders <https://github.com/jrsaunde>
-//                 Paul Melnikow <https://github.com/paulmelnikow>
 //                 Harry Cruse <https://github.com/crusectrl>
 //                 Andrew Palugniok <https://github.com/apalugniok>
 //                 Robert Stigsson <https://github.com/RobertStigsson>
