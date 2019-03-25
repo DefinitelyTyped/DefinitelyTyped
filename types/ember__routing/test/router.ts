@@ -52,5 +52,15 @@ const RouterServiceConsumer = Service.extend({
         const model = EmberObject.create();
         get(this, 'router')
         .transitionTo('index', model, { queryParams: { search: 'ember' }});
-    }
+    },
+    onAndRouteInfo() {
+        const router = get(this, 'router');
+        router
+            .on('routeWillChange', transition => {
+                const to = transition.to;
+            })
+            .on('routeDidChange', transition => {
+                const from = transition.from;
+            });
+    },
 });
