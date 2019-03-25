@@ -97,6 +97,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 #### Edit an existing package
 
 * `cd types/my-package-to-edit`
+* If there is a `package.json`, run `npm install`.
 * Make changes. Remember to edit tests.
   If you make breaking changes, do not forget to [update a major version](#i-want-to-update-a-package-to-a-new-major-version).
 * You may also want to add yourself to "Definitions by" section of the package header.
