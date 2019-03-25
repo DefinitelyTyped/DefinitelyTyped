@@ -29,6 +29,7 @@ const bundle4 = new FluentBundle(['en-US'], {
 
 // FluentBundle addMessages examples:
 bundle1.addMessages('foo = Foo');
+bundle2.hasMessage('foo');
 bundle2.getMessage('foo');
 
 // FluentBundle addResource examples:
@@ -42,3 +43,8 @@ bundle1.addMessages('hello = Hello, { $name }!');
 const hello = bundle2.getMessage('hello');
 bundle3.format(hello, { name: 'Jane' }, errors2);
 bundle3.format(hello, undefined, errors2);
+
+for (const [id, message] of bundle1.messages) {
+  bundle1.getMessage(id);
+  bundle1.format(message);
+}
