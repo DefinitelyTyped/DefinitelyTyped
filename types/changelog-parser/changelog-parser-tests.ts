@@ -5,7 +5,15 @@ const options = {
     removeMarkdown: false
 };
 
-parseChangelog({filePath: 'path/to/CHANGELOG.md'}, (error, result) => {});
+const fn = (obj: object): void => {};
+
+parseChangelog({filePath: 'path/to/CHANGELOG.md'}, (error, result) => {
+    if (error) {
+        throw error;
+    }
+
+    fn(result);
+});
 
 parseChangelog(options, (error, result) => {});
 
