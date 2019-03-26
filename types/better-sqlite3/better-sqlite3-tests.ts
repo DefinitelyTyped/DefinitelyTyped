@@ -11,7 +11,7 @@ const registrationOptions: Sqlite.RegistrationOptions = {
 };
 
 let db: Sqlite.Database = Sqlite('.');
-db = new Sqlite('.', { memory: true });
+db = new Sqlite('.', { memory: true, verbose: () => {} });
 db.exec('CREATE TABLE test (id INTEGER PRIMARY KEY NOT NULL, name TEXT NOT NULL);');
 db.exec('INSERT INTO test(name) VALUES("name");');
 db.pragma('data_version', { simple: true });
