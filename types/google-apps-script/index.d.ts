@@ -45,6 +45,7 @@
 /// <reference path="apis/analytics_v3.d.ts"/>
 /// <reference path="apis/bigquery_v2.d.ts"/>
 /// <reference path="apis/calendar_v3.d.ts"/>
+/// <reference path="apis/content_v2.d.ts"/>
 /// <reference path="apis/drive_v2.d.ts"/>
 /// <reference path="apis/directory_v1.d.ts"/>
 /// <reference path="apis/appsactivity_v1.d.ts"/>
