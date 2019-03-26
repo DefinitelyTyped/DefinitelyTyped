@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 import TransformRegistry from 'ember-data/types/registries/transform';
+import { assertType } from './lib/assert';
 
 declare const store: DS.Store;
 
@@ -15,8 +16,14 @@ Person.eachAttribute(() => {});
 Person.eachAttribute(() => {}, {});
 // $ExpectType void
 Person.eachAttribute((name, meta) => {
-    let m: object = meta;
-    let n: string = name;
+    assertType<'children' | 'parent'>(name);
+    assertType<{
+        type: keyof TransformRegistry;
+        options: object;
+        name: 'children' | 'parent';
+        parentType: DS.Model;
+        isAttribute: true;
+    }>(meta);
 });
 
 // $ExpectType void
@@ -25,7 +32,7 @@ Person.eachTransformedAttribute(() => {});
 Person.eachTransformedAttribute(() => {}, {});
 // $ExpectType void
 Person.eachTransformedAttribute((name, type) => {
-    let n: string = name;
+    assertType<'children' | 'parent'>(name);
     let t: keyof TransformRegistry = type;
 });
 
