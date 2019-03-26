@@ -268,21 +268,23 @@ declare module "crypto" {
 
     type KeyLike = string | Buffer | KeyObject;
 
-    interface Signer extends NodeJS.WritableStream {
+    class Signer extends stream.Writable {
         update(data: BinaryLike): Signer;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Signer;
         sign(private_key: SignPrivateKeyInput | KeyLike): Buffer;
         sign(private_key: SignPrivateKeyInput | KeyLike, output_format: HexBase64Latin1Encoding): string;
+        private constructor();
     }
 
     function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
-    interface Verify extends NodeJS.WritableStream {
+    class Verify extends stream.Writable {
         update(data: BinaryLike): Verify;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Verify;
         verify(object: Object | KeyLike, signature: Binary): boolean;
-        verify(object: Object | KeyLike, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
+        verify(object: Object | KeyLike, signature: string, signature_format?: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
         // The signature field accepts a TypedArray type, but it is only available starting ES2017
+        private constructor();
     }
     function createDiffieHellman(prime_length: number, generator?: number | Binary): DiffieHellman;
     function createDiffieHellman(prime: Binary): DiffieHellman;
