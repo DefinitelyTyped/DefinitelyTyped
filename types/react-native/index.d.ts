@@ -666,7 +666,11 @@ type GeolocationError = {
     POSITION_UNAVAILABLE: number;
     TIMEOUT: number;
 };
-
+   
+interface MatrixTransform {
+    matrix: Array<number>;
+}
+    
 interface PerpectiveTransform {
     perspective: number;
 }
@@ -717,6 +721,7 @@ interface SkewYTransform {
 
 export interface TransformsStyle {
     transform?: (
+        | MatrixTransform
         | PerpectiveTransform
         | RotateTransform
         | RotateXTransform
