@@ -55,5 +55,9 @@ export const RichText: RichText;
 export const Link: Link;
 export const HTMLSerializer: HTMLSerializer<string>;
 
-declare const _default: {RichText: RichText; Link: Link};
+declare const _default: {
+    RichText: RichText;
+    Link: Link
+};
+
 export default _default;
