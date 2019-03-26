@@ -1,4 +1,3 @@
-import { assertType } from './lib/assert';
 import Router from '@ember/routing/router';
 import Service, { inject as service } from '@ember/service';
 import EmberObject, { get } from '@ember/object';
@@ -58,9 +57,27 @@ const RouterServiceConsumer = Service.extend({
         router
             .on('routeWillChange', transition => {
                 const to = transition.to;
+                to.child; // $ExpectType RouteInfo | null
+                to.localName; // $ExpectType string
+                to.name; // $ExpectType string
+                to.paramNames; // $ExpectType string[]
+                to.params.foo; // $ExpectType string | undefined
+                to.parent; // $ExpectType RouteInfo | null
+                to.queryParams.foo; // $ExpectType string | undefined
+                to.find(info => info.name === 'foo'); // $ExpectType RouteInfo | undefined
             })
             .on('routeDidChange', transition => {
                 const from = transition.from;
+                if (from) {
+                    from.child; // $ExpectType RouteInfo | null
+                    from.localName; // $ExpectType string
+                    from.name; // $ExpectType string
+                    from.paramNames; // $ExpectType string[]
+                    from.params.foo; // $ExpectType string | undefined
+                    from.parent; // $ExpectType RouteInfo | null
+                    from.queryParams.foo; // $ExpectType string | undefined
+                    from.find(info => info.name === 'foo'); // $ExpectType RouteInfo | undefined
+                }
             });
     },
 });

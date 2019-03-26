@@ -4,7 +4,7 @@
  * It is read-only and internally immutable.
  * It is also not observable, because a `Transition` instance is never changed after creation.
  */
-export default class RouteInfo {
+export default interface RouteInfo {
     /**
      * A reference to the childe route's `RouteInfo`.
      * This can be used to traverse downward to the leafmost `RouteInfo`.
@@ -40,8 +40,10 @@ export default class RouteInfo {
      */
     readonly queryParams: { [key: string]: string | undefined };
     /**
-     * This method is similar to the `find()` method defined in ECMAScript 2015.
+     * Allows you to traverse through the linked list of `RouteInfo`s from the topmost to leafmost.
+     * Returns the first `RouteInfo` in the linked list for which the callback returns true.
+     *
      * @param callback the callback to execute.
      */
-    find(callback: (item: RouteInfo) => boolean): RouteInfo;
+    find(callback: (item: RouteInfo) => boolean): RouteInfo | undefined;
 }
