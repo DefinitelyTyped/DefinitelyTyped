@@ -16,7 +16,7 @@ jobs:
     inputs:
       verbose: false
   
-  - script: 'npm run test'
+  - script: 'git checkout -- . && npm run test'
     displayName: 'npm run test'
   
 trigger:
