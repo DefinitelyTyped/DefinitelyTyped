@@ -424,7 +424,15 @@ declare namespace sharp {
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        linear(a?: number, b?: number): Sharp;
+        linear(a?: number | null, b?: number): Sharp;
+
+        /**
+         * Recomb the image with the specified matrix.
+         * @param inputMatrix 3x3 Recombination matrix
+         * @throws {Error} Invalid parameters
+         * @returns A sharp instance that can be used to chain operations
+         */
+        recomb(inputMatrix: Matrix3x3): Sharp;
 
         //#endregion
 
@@ -1028,6 +1036,12 @@ declare namespace sharp {
         files: { current: number; max: number; };
         items: { current: number; max: number; };
     }
+
+    type Matrix3x3 = [
+        [number, number, number],
+        [number, number, number],
+        [number, number, number]
+    ];
 }
 
 export = sharp;
