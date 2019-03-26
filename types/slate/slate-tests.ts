@@ -1,4 +1,22 @@
-import { Block, Value, Data, BlockJSON, Document, Editor, KeyUtils, Range, Point, Inline, Mark, SchemaProperties, Decoration } from "slate";
+import {
+    Block,
+    Value,
+    Data,
+    BlockJSON,
+    Document,
+    Editor,
+    KeyUtils,
+    Range,
+    Point,
+    Inline,
+    Mark,
+    SchemaProperties,
+    Plugin,
+    Node,
+    Command,
+    Query,
+    Decoration
+} from "slate";
 
 const data = Data.create({ foo: "bar " });
 const value = Value.create({ data });
@@ -31,12 +49,66 @@ const doc = Document.fromJSON({
 	nodes: [node]
 });
 
-const editor = new Editor({ value });
+const schema: SchemaProperties = {
+    document: {
+        nodes: [
+            {
+                match: [
+                    { type: 'block-quote' },
+                    { type: 'heading-one' },
+                    { type: 'heading-two' },
+                    { type: 'image' },
+                    { type: 'paragraph' },
+                    { type: 'bulleted-list' },
+                    { type: 'numbered-list' },
+                    { type: 'list-item' },
+                ],
+            },
+        ],
+        last: { type: 'paragraph' },
+        normalize: (editor: Editor, { code, node }: any) => {
+            switch (code) {
+                case 'last_child_type_invalid': {
+                    const paragraph = Block.create('paragraph');
+                    return editor.insertNodeByKey(node.key, node.nodes.size, paragraph);
+                }
+            }
+        },
+    },
+    blocks: {
+        image: {
+            isVoid: true,
+        },
+    },
+};
+
+const pluginCommandName = 'plugin_command';
+const pluginQueryName = 'plugin_query';
+
+const plugin: Plugin = {
+    normalizeNode: (node: Node, editor: Editor, next: () => void) => next(),
+    onChange: (editor: Editor, next: () => void) => next(),
+    onCommand: (command: Command, editor: Editor, next: () => void) => next(),
+    onConstruct: (editor: Editor, next: () => void) => next(),
+    onQuery: (query: Query, editor: Editor, next: () => void) => next(),
+    validateNode: (node: Node, editor: Editor, next: () => void) => next(),
+
+    commands: { [pluginCommandName]: (editor: Editor, ...args: any[]) => editor },
+    queries: { [pluginQueryName]: (editor: Editor, ...args: any[]) => editor },
+    schema: {...schema},
+};
+
+const plugins = [plugin];
+
+const editor = new Editor({ value, plugins });
 const point = Point.create({ key: "a", offset: 0 });
 const range = Range.create({ anchor: point, focus: point });
 const inline = Inline.create("text");
 const mark = Mark.create("bold");
 const decorations = Decoration.createList([{ anchor: Point.create({ key: "a", offset: 0 }), focus: Point.create({ key: "a", offset: 0 }), mark }]);
+
+editor.command(pluginCommandName, 1);
+editor.query(pluginQueryName, 1);
 
 editor.registerQuery("testQuery");
 editor.registerCommand("testCommand");
@@ -289,36 +361,3 @@ editor
 KeyUtils.setGenerator(() => "Test");
 KeyUtils.create();
 KeyUtils.resetGenerator();
-
-const schema: SchemaProperties = {
-    document: {
-        nodes: [
-            {
-                match: [
-                    { type: 'block-quote' },
-                    { type: 'heading-one' },
-                    { type: 'heading-two' },
-                    { type: 'image' },
-                    { type: 'paragraph' },
-                    { type: 'bulleted-list' },
-                    { type: 'numbered-list' },
-                    { type: 'list-item' },
-                ],
-            },
-        ],
-        last: { type: 'paragraph' },
-        normalize: (editor: Editor, { code, node }: any) => {
-            switch (code) {
-                case 'last_child_type_invalid': {
-                    const paragraph = Block.create('paragraph');
-                    return editor.insertNodeByKey(node.key, node.nodes.size, paragraph);
-                }
-            }
-        },
-    },
-    blocks: {
-        image: {
-            isVoid: true,
-        },
-    },
-};
