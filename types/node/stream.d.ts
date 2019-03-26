@@ -119,11 +119,11 @@ declare module "stream" {
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
             _final(callback: (error?: Error | null) => void): void;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
-            write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
+            write(chunk: any, encoding: string, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: string): this;
             end(cb?: () => void): void;
             end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding?: string, cb?: () => void): void;
+            end(chunk: any, encoding: string, cb?: () => void): void;
             cork(): void;
             uncork(): void;
             destroy(error?: Error): void;
