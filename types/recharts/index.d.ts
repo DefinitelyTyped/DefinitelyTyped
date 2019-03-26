@@ -1,7 +1,6 @@
 // Type definitions for Recharts 1.1
 // Project: http://recharts.org/, https://github.com/recharts/recharts
-// Definitions by: Maarten Mulders <https://github.com/mthmulders>
-//                 Raphael Mueller <https://github.com/rapmue>
+// Definitions by: Raphael Mueller <https://github.com/rapmue>
 //                 Roy Xue <https://github.com/royxue>
 //                 Zheyang Song <https://github.com/ZheyangSong>
 //                 Rich Baird <https://github.com/richbai90>
