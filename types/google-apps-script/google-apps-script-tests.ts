@@ -37,6 +37,9 @@ const postTest = (payload: Object): string => {
   return UrlFetchApp.fetch(url, params).getContentText();
 };
 
+// Advanced Services
+Slides_v1.Presentations.Pages.getThumbnail('presentationId', 'pageId');
+
 // Calendar (Advanced service)
 declare const Calendar: GoogleAppsScript.Calendar_v3;
 const createEvent = (): void => {
@@ -68,6 +71,7 @@ const createEvent = (): void => {
 
 // Admin Directory (Advanced service)
 declare const AdminDirectory: GoogleAppsScript.Admin_directory_v1;
+
 const listAllUsers = () => {
   let pageToken: string;
   let page: GoogleAppsScript.Admin_directory_v1.Schema.Users;
