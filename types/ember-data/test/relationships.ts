@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DS from 'ember-data';
+import TransformRegistry from 'ember-data/types/registries/transform';
 
 declare const store: DS.Store;
 
@@ -8,22 +9,57 @@ const Person = DS.Model.extend({
     parent: DS.belongsTo('folder', { inverse: 'children' })
 });
 
+// $ExpectType void
+Person.eachAttribute(() => {});
+// $ExpectType void
+Person.eachAttribute(() => {}, {});
+// $ExpectType void
+Person.eachAttribute((name, meta) => {
+    let m: object = meta;
+    let n: string = name;
+});
+
+// $ExpectType void
+Person.eachTransformedAttribute(() => {});
+// $ExpectType void
+Person.eachTransformedAttribute(() => {}, {});
+// $ExpectType void
+Person.eachTransformedAttribute((name, type) => {
+    let n: string = name;
+    let t: keyof TransformRegistry = type;
+});
+
 const Polymorphic = DS.Model.extend({
     paymentMethods: DS.hasMany('payment-method', { polymorphic: true })
 });
 
+// $ExpectType void
 Polymorphic.eachRelationship(() => '');
+// $ExpectType void
 Polymorphic.eachRelationship(() => '', {});
+// $ExpectType void
 Polymorphic.eachRelationship((n, meta) => {
     let s: string = n;
     let m: 'belongsTo' | 'hasMany' = meta.kind;
 });
 let p = Polymorphic.create();
+// $ExpectType void
 p.eachRelationship(() => '');
+// $ExpectType void
 p.eachRelationship(() => '', {});
+// $ExpectType void
 p.eachRelationship((n, meta) => {
     let s: string = n;
     let m: 'belongsTo' | 'hasMany' = meta.kind;
+});
+
+// $ExpectType void
+Polymorphic.eachRelatedType(() => '');
+// $ExpectType void
+Polymorphic.eachRelatedType(() => '', {});
+// $ExpectType void
+Polymorphic.eachRelatedType((name) => {
+    let s: string = name;
 });
 
 export class Comment extends DS.Model {
