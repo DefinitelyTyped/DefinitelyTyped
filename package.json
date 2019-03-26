@@ -17,11 +17,13 @@
     "scripts": {
         "compile-scripts": "tsc -p scripts",
         "not-needed": "node scripts/not-needed.js",
+        "update-codeowners": "node scripts/update-codeowners.js",
         "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed",
         "lint": "dtslint types"
     },
     "devDependencies": {
-        "dtslint": "github:Microsoft/dtslint#production",
-        "types-publisher": "Microsoft/types-publisher#production"
-    }
+        "dtslint": "latest",
+        "types-publisher": "github:Microsoft/types-publisher#production"
+    },
+    "dependencies": {}
 }

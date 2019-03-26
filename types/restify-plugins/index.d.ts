@@ -265,7 +265,7 @@ export interface QueryParserOptions {
 }
 
 /**
- * Parses URL query paramters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
+ * Parses URL query parameter into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
  */
 export function queryParser(options?: QueryParserOptions): RequestHandler;
 

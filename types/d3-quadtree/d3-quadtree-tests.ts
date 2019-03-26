@@ -157,7 +157,7 @@ testDatum = quadtree.find(20, 30);
 // with radius
 testDatum = quadtree.find(20, 30, 10);
 
-// visit() --------------------------------------------------------------------
+// visit() -------------------------------------------------------------------
 
 quadtree = quadtree.visit((node, x0, y0, x1, y1) => {
     let bound: number;
@@ -199,7 +199,7 @@ quadtree = quadtree.visit((node, x0, y0, x1, y1) => {
     return 10; // fails wrong return type
 });
 
-// visitAfter() ---------------------------------------------------------------
+// visitAfter() --------------------------------------------------------------
 
 quadtree = quadtree.visitAfter((node, x0, y0, x1, y1) => {
     let bound: number;
@@ -218,7 +218,7 @@ quadtree = quadtree.visitAfter((node, x0, y0, x1, y1) => {
     }
 });
 
-// Test  QuadtreeLeaf =========================================================
+// Test QuadtreeLeaf =========================================================
 
 declare const leaf: d3Quadtree.QuadtreeLeaf<TestDatum>;
 let nextLeaf: d3Quadtree.QuadtreeLeaf<TestDatum> | undefined;
@@ -227,7 +227,7 @@ testDatum = leaf.data;
 
 nextLeaf = leaf.next ? leaf.next : undefined;
 
-// Test  QuadtreeInternalNode =================================================
+// Test QuadtreeInternalNode =================================================
 
 declare const internalNode: d3Quadtree.QuadtreeInternalNode<TestDatum>;
 let quadNode: d3Quadtree.QuadtreeInternalNode<TestDatum> | d3Quadtree.QuadtreeLeaf<TestDatum> | undefined;

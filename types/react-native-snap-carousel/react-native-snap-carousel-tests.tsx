@@ -23,7 +23,7 @@ class SnapCarouselTest extends React.Component {
         );
     }
 
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         return (
             <View>
                 <StringCarousel
@@ -35,6 +35,8 @@ class SnapCarouselTest extends React.Component {
                     enableMomentum={true}
                     keyboardDismissMode='interactive'
                     onSnapToItem={this.onSnapToItem}
+                    onBeforeSnapToItem={this.onBeforeSnapToItem}
+                    lockScrollTimeoutDuration={900}
                     onScroll={this.onScroll}
                     onLayout={this.onLayout}
                     scrollEndDragDebounceValue={100}
@@ -49,6 +51,10 @@ class SnapCarouselTest extends React.Component {
                 />
             </View>
         );
+    }
+
+    private readonly onBeforeSnapToItem = (index: number) => {
+        console.log("Before snap to: ", index);
     }
 
     private readonly onSnapToItem = (index: number) => {
@@ -75,7 +81,7 @@ class SnapCarouselWithPaginationTest extends React.Component<{}, {activeSlide: n
         );
     }
 
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         return (
             <View>
                 <StringCarousel
@@ -120,7 +126,7 @@ class SnapCarouselWithParallaxTest extends React.Component {
         );
     }
 
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         return (
             <View>
                 <StringCarousel

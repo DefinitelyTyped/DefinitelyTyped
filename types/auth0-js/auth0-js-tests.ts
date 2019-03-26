@@ -11,6 +11,7 @@ webAuth.authorize({
     responseType: 'token',
     redirectUri: 'https://example.com/auth/callback',
 	language: 'en',
+    login_hint: "email@email.com",
 	prompt: 'login',
 });
 
@@ -133,6 +134,12 @@ webAuth.passwordlessStart({
     connection: 'the_connection',
     email: 'me@example.com',
     send: 'code'
+}, (err, data) => {});
+
+webAuth.passwordlessLogin({
+    connection: 'the_connection',
+    phoneNumber: '123',
+    verificationCode: '456'
 }, (err, data) => {});
 
 webAuth.signupAndAuthorize({

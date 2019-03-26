@@ -26,7 +26,7 @@ p.eachRelationship((n, meta) => {
     let m: 'belongsTo' | 'hasMany' = meta.kind;
 });
 
-class Comment extends DS.Model {
+export class Comment extends DS.Model {
     author = DS.attr('string');
 }
 
@@ -42,8 +42,8 @@ class RelationalPost extends DS.Model {
     series = DS.belongsTo('series');
 }
 
-declare module 'ember-data' {
-    interface ModelRegistry {
+declare module 'ember-data/types/registries/model' {
+    export default interface ModelRegistry {
         'relational-post': RelationalPost;
         comment: Comment;
         series: Series;

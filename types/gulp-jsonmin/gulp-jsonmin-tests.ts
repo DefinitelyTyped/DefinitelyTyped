@@ -1,5 +1,14 @@
-import * as GulpJsonmin from 'gulp-jsonmin';
+import gulp = require('gulp');
+import gulpJsonmin = require('gulp-jsonmin');
 
-GulpJsonmin();
-GulpJsonmin({});
-GulpJsonmin({ verbose: true });
+gulp.task('build', () => {
+    return gulp.src('*.json')
+        .pipe(gulpJsonmin())
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('build', () => {
+    return gulp.src('*.json')
+        .pipe(gulpJsonmin({ verbose: true }))
+        .pipe(gulp.dest('dist'));
+});

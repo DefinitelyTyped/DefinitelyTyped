@@ -615,7 +615,7 @@ async function testChatter(conn: sf.Connection): Promise<void> {
 
     const feedResource: sf.Resource<sf.RequestResult> = chatter.resource('/feed-elements');
 
-    const feedCreateRequest: any = await (feedResource.create({
+    const feedCreateRequest: any = await feedResource.create({
         body: {
             messageSegments: [{
                 type: 'Text',
@@ -624,13 +624,13 @@ async function testChatter(conn: sf.Connection): Promise<void> {
         },
         feedElementType: 'FeedItem',
         subjectId: 'me'
-    }) as Promise<sf.RequestResult>);
+    });
 
     console.log(`feedCreateRequest.id: ${feedCreateRequest.id}`);
     const itemLikesUrl = `/feed-elements/${feedCreateRequest.id}/capabilities/chatter-likes/items`;
     const itemsLikeResource: sf.Resource<sf.RequestResult> = chatter.resource(itemLikesUrl);
 
-    const itemsLikeCreateResult: sf.RequestResult = await (itemsLikeResource.create('') as Promise<sf.RequestResult>);
+    const itemsLikeCreateResult: sf.RequestResult = await itemsLikeResource.create('');
     console.log(`itemsLikeCreateResult['likedItem']: ${itemsLikeCreateResult as any['likedItem']}`);
 }
 
@@ -715,4 +715,95 @@ async function testDescribe() {
 
         const correctlyCached = object === cachedObject;
     });
+}
+
+async function testApex(conn: sf.Connection): Promise<void> {
+    const apex: sf.Apex = conn.apex;
+
+    // Test GET
+    {
+        await apex.get('/custom-get-apex-api');
+
+        apex.get('/custom-get-apex-api', (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+
+        apex.get('/custom-get-apex-api', { headers: { 'X-Custom-Header': 'value' } });
+    }
+
+    // Test POST
+    {
+        await apex.post('/custom-apex-api', { email: 'test@example.com' });
+
+        apex.post('/custom-apex-api', (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+
+        // Including custom body
+        apex.post('/custom-apex-api', { email: 'test@example.com' }, (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+    }
+
+    // Test PUT
+    {
+        await apex.put('/custom-apex-api', { email: 'test@example.com' });
+
+        apex.put('/custom-apex-api', (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+
+        // Including custom body
+        apex.put('/custom-apex-api', { email: 'test@example.com' }, (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+    }
+
+    // Test PATCH
+    {
+        await apex.patch('/custom-apex-api', { email: 'test@example.com' });
+
+        apex.patch('/custom-apex-api', (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+
+        // Including custom body
+        apex.patch('/custom-apex-api', { email: 'test@example.com' }, (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+    }
+
+    // Test DELETE
+    {
+        await apex.del('/custom-apex-api');
+
+        apex.del('/custom-apex-api', (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+
+        // alias
+        await apex.delete('/custom-apex-api');
+
+        apex.delete('/custom-apex-api', (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+    }
 }

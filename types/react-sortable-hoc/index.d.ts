@@ -36,7 +36,7 @@ export interface SortEnd {
 
 export type SortEndHandler = (sort: SortEnd, event: SortEvent) => void;
 
-export type ContainerGetter = (element: React.ReactElement<any>) => HTMLElement;
+export type ContainerGetter = (element: React.ReactElement) => HTMLElement;
 
 export interface Dimensions {
     width: number;

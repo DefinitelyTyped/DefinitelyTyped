@@ -9,7 +9,7 @@ const app: express.Express = express();
 app.use(fileUpload({debug: true}));
 
 function isUploadedFile(file: UploadedFile | UploadedFile[]): file is UploadedFile {
-    return typeof file === 'object' && (<UploadedFile> file).name !== undefined;
+    return typeof file === 'object' && (file as UploadedFile).name !== undefined;
 }
 
 const uploadHandler: RequestHandler = (req: Request, res: Response, next: NextFunction) => {

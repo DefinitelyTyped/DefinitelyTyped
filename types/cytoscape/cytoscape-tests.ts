@@ -36,7 +36,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
       'text-halign': 'center',
       shape: 'rectangle',
       'min-zoomed-font-size': 20,
-      opacity: 1
+      opacity: 1,
+      width: 'mapData(weight, 40, 80, 20, 60)'
     }
   },
   {
@@ -125,7 +126,7 @@ cy.on('zoom', (event) => {
 cy.off('zoom');
 // events(cy); - TODO
 
-cy.add({ data: { id: 'g' }, position: {x: 200, y: 150} });
+cy.add({ data: { id: 'g', someOtherKey: 'value' }, position: {x: 200, y: 150} });
 cy.add([
   { data: { id: 'h' }, position: {x: 250, y: 100} }
 ]);

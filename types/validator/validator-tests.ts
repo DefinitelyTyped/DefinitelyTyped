@@ -425,7 +425,9 @@ let any: any;
   result = validator.isEmail('sample');
   result = validator.isEmail('sample', isEmailOptions);
 
+  let isEmptyOptions: ValidatorJS.IsEmptyOptions = {};
   result = validator.isEmpty('sample');
+  result = validator.isEmpty('sample', isEmptyOptions);
 
   let isFQDNOptions: ValidatorJS.IsFQDNOptions = {};
   result = validator.isFQDN('sample');
@@ -469,7 +471,9 @@ let any: any;
 
   result = validator.isISIN('sample');
 
+  let isISO8601Options: ValidatorJS.IsISO8601Options = {};
   result = validator.isISO8601('sample');
+  result = validator.isISO8601('sample', isISO8601Options);
 
   result = validator.isISO31661Alpha2('sample');
 
@@ -565,6 +569,7 @@ let any: any;
   result = validator.isMultibyte('sample');
 
   result = validator.isNumeric('sample');
+  result = validator.isNumeric('+358', { no_symbols: true });
 
   result = validator.isPort('sample');
 

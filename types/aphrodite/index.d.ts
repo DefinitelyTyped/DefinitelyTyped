@@ -12,14 +12,15 @@ type FontFamily =
     | BaseCSSProperties['fontFamily']
     | CSS.FontFace;
 
-type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-type CSSProperties = Omit<BaseCSSProperties, 'fontFamily'> & {
+type CSSProperties = Omit<BaseCSSProperties, 'fontFamily' | 'transition' | 'animationName' > & {
     fontFamily?: FontFamily | FontFamily[];
+    animationName?: string | OpenCSSProperties | OpenCSSProperties[];
 };
 
 // For pseudo selectors and media queries
-interface OpenCSSProperties  extends CSSProperties {
+interface OpenCSSProperties extends CSSProperties {
     [k: string]: CSSProperties[keyof CSSProperties] | CSSProperties;
 }
 

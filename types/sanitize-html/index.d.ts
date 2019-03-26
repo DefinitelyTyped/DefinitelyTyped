@@ -4,7 +4,12 @@
 //                 Afshin Darian <https://github.com/afshin>
 //                 BehindTheMath <https://github.com/BehindTheMath>
 //                 Rinze de Laat <https://github.com/biermeester>
+//                 Will Gibson <https://github.com/WillGibson>
+//                 A penguin <https://github.com/sirMerr>
+//                 Johan Davidsson <https://github.com/johandavidson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import {Options} from "htmlparser2";
 
 export = sanitize;
 
@@ -51,6 +56,7 @@ declare namespace sanitize {
     nonTextTags?: string[];
     selfClosing?: string[];
     transformTags?: { [tagName: string]: string | Transformer };
+    parser?: Options;
   }
 
 

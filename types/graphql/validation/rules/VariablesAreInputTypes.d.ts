@@ -1,4 +1,4 @@
-import ValidationContext from "../ValidationContext";
+import { ValidationContext } from "../ValidationContext";
 import { ASTVisitor } from "../../language/visitor";
 
 export function nonInputTypeOnVarMessage(variableName: string, typeName: string): string;

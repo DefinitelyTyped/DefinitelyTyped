@@ -631,22 +631,22 @@ declare module "./index" {
         orderBy<T>(
             this: LoDashExplicitSyncWrapper<_.List<T> | null | undefined>,
             iteratees?: _.Many<_.ListIterator<T, _.NotVoid>>,
-            orders?: _.Many<boolean|string>
+            orders?: _.Many<boolean|"asc"|"desc">
         ): LoDashExplicitSyncWrapper<T[]>;
         orderBy<T>(
             this: LoDashExplicitSyncWrapper<_.List<T> | null | undefined>,
             iteratees?: _.Many<_.ListIteratee<T>>,
-            orders?: _.Many<boolean|string>
+            orders?: _.Many<boolean|"asc"|"desc">
         ): LoDashExplicitSyncWrapper<T[]>;
         orderBy<T extends object>(
             this: LoDashExplicitSyncWrapper<T | null | undefined>,
             iteratees?: _.Many<_.ObjectIterator<T, _.NotVoid>>,
-            orders?: _.Many<boolean|string>
+            orders?: _.Many<boolean|"asc"|"desc">
         ): LoDashExplicitSyncWrapper<Array<T[keyof T]>>;
         orderBy<T extends object>(
             this: LoDashExplicitSyncWrapper<T | null | undefined>,
             iteratees?: _.Many<_.ObjectIteratee<T>>,
-            orders?: _.Many<boolean|string>
+            orders?: _.Many<boolean|"asc"|"desc">
         ): LoDashExplicitSyncWrapper<Array<T[keyof T]>>;
         partition<T>(
             this: LoDashExplicitSyncWrapper<_.List<T> | null | undefined>,
@@ -1132,7 +1132,7 @@ declare module "./index" {
             this: LoDashExplicitSyncWrapper<TObject | null | undefined>,
             path: TKey | [TKey],
             defaultValue: TDefault
-        ): LoDashExplicitSyncWrapper<TObject[TKey] | TDefault>;
+        ): LoDashExplicitSyncWrapper<Exclude<TObject[TKey], undefined> | TDefault>;
         get<T>(
             this: LoDashExplicitSyncWrapper<_.NumericDictionary<T>>,
             path: number
@@ -2227,22 +2227,22 @@ declare module "./index" {
         orderBy<T>(
             this: LoDashExplicitAsyncWrapper<_.List<T> | null | undefined>,
             iteratees?: _.Many<_.ListIterator<T, _.NotVoid>>,
-            orders?: _.Many<boolean|string>
+            orders?: _.Many<boolean|"asc"|"desc">
         ): LoDashExplicitAsyncWrapper<T[]>;
         orderBy<T>(
             this: LoDashExplicitAsyncWrapper<_.List<T> | null | undefined>,
             iteratees?: _.Many<_.ListIteratee<T>>,
-            orders?: _.Many<boolean|string>
+            orders?: _.Many<boolean|"asc"|"desc">
         ): LoDashExplicitAsyncWrapper<T[]>;
         orderBy<T extends object>(
             this: LoDashExplicitAsyncWrapper<T | null | undefined>,
             iteratees?: _.Many<_.ObjectIterator<T, _.NotVoid>>,
-            orders?: _.Many<boolean|string>
+            orders?: _.Many<boolean|"asc"|"desc">
         ): LoDashExplicitAsyncWrapper<Array<T[keyof T]>>;
         orderBy<T extends object>(
             this: LoDashExplicitAsyncWrapper<T | null | undefined>,
             iteratees?: _.Many<_.ObjectIteratee<T>>,
-            orders?: _.Many<boolean|string>
+            orders?: _.Many<boolean|"asc"|"desc">
         ): LoDashExplicitAsyncWrapper<Array<T[keyof T]>>;
         partition<T>(
             this: LoDashExplicitAsyncWrapper<_.List<T> | null | undefined>,
@@ -2728,7 +2728,7 @@ declare module "./index" {
             this: LoDashExplicitAsyncWrapper<TObject | null | undefined>,
             path: TKey | [TKey],
             defaultValue: TDefault
-        ): LoDashExplicitAsyncWrapper<TObject[TKey] | TDefault>;
+        ): LoDashExplicitAsyncWrapper<Exclude<TObject[TKey], undefined> | TDefault>;
         get<T>(
             this: LoDashExplicitAsyncWrapper<_.NumericDictionary<T>>,
             path: number

@@ -1,14 +1,21 @@
 declare let str: string;
 declare let strOrNull: string | null;
 declare let strOrUndefined: string | undefined;
+declare let strOrUndefinedOrNull: string | undefined | null;
 declare let date: Date;
 declare let anyObj: any;
 declare let num: number;
 declare let error: Error;
 declare let bool: boolean;
 declare let boolOrUndefined: boolean | undefined;
+declare let boolOrNumOrStr: boolean | number | string;
+declare let numOrUndefined: number | undefined;
 declare let apiGwEvtReqCtx: AWSLambda.APIGatewayEventRequestContext;
+declare let apiGwEvtReqCtxOpt: AWSLambda.APIGatewayEventRequestContext | null | undefined;
 declare let apiGwEvt: AWSLambda.APIGatewayEvent;
+declare let albEvtReqCtx: AWSLambda.ALBEventRequestContext;
+declare let albEvt: AWSLambda.ALBEvent;
+declare let albRes: AWSLambda.ALBResult;
 declare let customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
 declare let clientCtx: AWSLambda.ClientContext;
 declare let clientCtxOrUndefined: AWSLambda.ClientContext | undefined;
@@ -79,6 +86,11 @@ declare const scheduledEvent: AWSLambda.ScheduledEvent;
 str = apiGwEvtReqCtx.accountId;
 str = apiGwEvtReqCtx.apiId;
 authResponseContextOpt = apiGwEvtReqCtx.authorizer;
+numOrUndefined = apiGwEvtReqCtx.connectedAt;
+strOrUndefined = apiGwEvtReqCtx.connectionId;
+strOrUndefined = apiGwEvtReqCtx.domainName;
+strOrUndefined = apiGwEvtReqCtx.eventType;
+strOrUndefined = apiGwEvtReqCtx.extendedRequestId;
 str = apiGwEvtReqCtx.httpMethod;
 strOrNull = apiGwEvtReqCtx.identity.accessKey;
 strOrNull = apiGwEvtReqCtx.identity.accountId;
@@ -93,32 +105,67 @@ str = apiGwEvtReqCtx.identity.sourceIp;
 strOrNull = apiGwEvtReqCtx.identity.user;
 strOrNull = apiGwEvtReqCtx.identity.userAgent;
 strOrNull = apiGwEvtReqCtx.identity.userArn;
+strOrUndefined = apiGwEvtReqCtx.messageDirection;
+strOrUndefinedOrNull = apiGwEvtReqCtx.messageId;
 str = apiGwEvtReqCtx.path;
 str = apiGwEvtReqCtx.stage;
 str = apiGwEvtReqCtx.requestId;
+strOrUndefined = apiGwEvtReqCtx.requestTime;
 str = apiGwEvtReqCtx.resourceId;
 str = apiGwEvtReqCtx.resourcePath;
+strOrUndefined = apiGwEvtReqCtx.routeKey;
 
 /* API Gateway Event */
 strOrNull = apiGwEvt.body;
 str = apiGwEvt.headers["example"];
+str = apiGwEvt.multiValueHeaders["example"][0];
 str = apiGwEvt.httpMethod;
 bool = apiGwEvt.isBase64Encoded;
 str = apiGwEvt.path;
 str = apiGwEvt.pathParameters!["example"];
 str = apiGwEvt.queryStringParameters!["example"];
+str = apiGwEvt.multiValueQueryStringParameters!["example"][0];
 str = apiGwEvt.stageVariables!["example"];
 apiGwEvtReqCtx = apiGwEvt.requestContext;
 str = apiGwEvt.resource;
+
+/* Application Load Balancer Event Request Context */
+str = albEvtReqCtx.elb.targetGroupArn;
+
+/* Application Load Balancer Event */
+str = albEvt.httpMethod;
+str = albEvt.path;
+str = albEvt.queryStringParameters!["example"];
+str = albEvt.headers!["example"];
+str = albEvt.multiValueQueryStringParameters!["example"][0];
+str = albEvt.multiValueHeaders!["example"][0];
+strOrNull = albEvt.body;
+bool = albEvt.isBase64Encoded;
+
+/* Application Load Balancer Result */
+num = albRes.statusCode;
+str = albRes.statusDescription;
+boolOrNumOrStr = albRes.headers!["example"];
+boolOrNumOrStr = albRes.multiValueHeaders!["example"][0];
+str = albRes.body;
+bool = albRes.isBase64Encoded;
 
 /* API Gateway CustomAuthorizer Event */
 str = customAuthorizerEvt.type;
 str = customAuthorizerEvt.methodArn;
 strOrUndefined = customAuthorizerEvt.authorizationToken;
-str = apiGwEvt.pathParameters!["example"];
-str = apiGwEvt.queryStringParameters!["example"];
-str = apiGwEvt.stageVariables!["example"];
-apiGwEvtReqCtx = apiGwEvt.requestContext;
+strOrUndefined = customAuthorizerEvt.resource;
+strOrUndefined = customAuthorizerEvt.path;
+strOrUndefined = customAuthorizerEvt.httpMethod;
+str = customAuthorizerEvt.headers!["example"];
+str = customAuthorizerEvt.multiValueHeaders!["example"][0];
+str = customAuthorizerEvt.pathParameters!["example"];
+str = customAuthorizerEvt.queryStringParameters!["example"];
+str = customAuthorizerEvt.multiValueQueryStringParameters!["example"][0];
+str = customAuthorizerEvt.stageVariables!["example"];
+apiGwEvtReqCtxOpt = customAuthorizerEvt.requestContext;
+strOrUndefined = customAuthorizerEvt.domainName;
+strOrUndefined = customAuthorizerEvt.apiId;
 
 /* DynamoDB Stream Event */
 const dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
@@ -245,6 +292,9 @@ num = proxyResult.statusCode;
 proxyResult.headers!["example"] = str;
 proxyResult.headers!["example"] = bool;
 proxyResult.headers!["example"] = num;
+proxyResult.multiValueHeaders!["example"][0] = str;
+proxyResult.multiValueHeaders!["example"][0] = bool;
+proxyResult.multiValueHeaders!["example"][0] = num;
 boolOrUndefined = proxyResult.isBase64Encoded;
 str = proxyResult.body;
 
@@ -383,6 +433,8 @@ cognitoUserPoolEvent.triggerSource === "TokenGeneration_Authentication";
 cognitoUserPoolEvent.triggerSource === "TokenGeneration_NewPasswordChallenge";
 cognitoUserPoolEvent.triggerSource === "TokenGeneration_AuthenticateDevice";
 cognitoUserPoolEvent.triggerSource === "TokenGeneration_RefreshTokens";
+cognitoUserPoolEvent.triggerSource === "UserMigration_Authentication";
+cognitoUserPoolEvent.triggerSource === "UserMigration_ForgotPassword";
 str = cognitoUserPoolEvent.region;
 str = cognitoUserPoolEvent.userPoolId;
 strOrUndefined = cognitoUserPoolEvent.userName;
@@ -400,10 +452,11 @@ cognitoUserPoolEvent.request.session![0].challengeName === "DEVICE_SRP_AUTH";
 cognitoUserPoolEvent.request.session![0].challengeName === "DEVICE_PASSWORD_VERIFIER";
 cognitoUserPoolEvent.request.session![0].challengeName === "ADMIN_NO_SRP_AUTH";
 bool = cognitoUserPoolEvent.request.session![0].challengeResult;
-strOrUndefined = cognitoUserPoolEvent.request.session![0].challengeMetaData;
+strOrUndefined = cognitoUserPoolEvent.request.session![0].challengeMetadata;
 strOrUndefined = cognitoUserPoolEvent.request.challengeName;
 str = cognitoUserPoolEvent.request.privateChallengeParameters!["answer"];
-str = cognitoUserPoolEvent.request.challengeAnswer!["answer"];
+str = cognitoUserPoolEvent.request.challengeAnswer!;
+strOrUndefined = cognitoUserPoolEvent.request.password;
 boolOrUndefined = cognitoUserPoolEvent.response.answerCorrect;
 strOrUndefined = cognitoUserPoolEvent.response.smsMessage;
 strOrUndefined = cognitoUserPoolEvent.response.emailMessage;
@@ -413,8 +466,16 @@ boolOrUndefined = cognitoUserPoolEvent.response.issueTokens;
 boolOrUndefined = cognitoUserPoolEvent.response.failAuthentication;
 str = cognitoUserPoolEvent.response.publicChallengeParameters!["captchaUrl"];
 str = cognitoUserPoolEvent.response.privateChallengeParameters!["answer"];
-strOrUndefined = cognitoUserPoolEvent.response.challengeMetaData;
+strOrUndefined = cognitoUserPoolEvent.response.challengeMetadata;
 boolOrUndefined = cognitoUserPoolEvent.response.answerCorrect;
+str = cognitoUserPoolEvent.response.userAttributes!["username"];
+cognitoUserPoolEvent.response.finalUserStatus === "CONFIRMED";
+cognitoUserPoolEvent.response.finalUserStatus === "RESET_REQUIRED";
+cognitoUserPoolEvent.response.messageAction === "SUPPRESS";
+cognitoUserPoolEvent.response.desiredDeliveryMediums === ["EMAIL"];
+cognitoUserPoolEvent.response.desiredDeliveryMediums === ["SMS"];
+cognitoUserPoolEvent.response.desiredDeliveryMediums === ["SMS", "EMAIL"];
+boolOrUndefined = cognitoUserPoolEvent.response.forceAliasCreation;
 
 // CloudFormation Custom Resource
 switch (cloudformationCustomResourceEvent.RequestType) {
@@ -580,8 +641,29 @@ const CodePipelineEvent: AWSLambda.CodePipelineEvent = {
 
 CodePipelineEvent["CodePipeline.job"].data.encryptionKey = { type: 'KMS', id: 'key' };
 
+/* CodePipeline CloudWatch Events
+ * see https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html
+ * Their documentation says that detail.version is a string, but it is actually an integer
+ */
+const CodePipelineCloudWatchEvent: AWSLambda.CodePipelineCloudWatchEvent = {
+    version: '0',
+    id: 'event_Id',
+    'detail-type': 'CodePipeline Pipeline Execution State Change',
+    source: 'aws.codepipeline',
+    account: 'Pipeline_Account',
+    time: 'TimeStamp',
+    region: 'us-east-1',
+    resources: ['arn:aws:codepipeline:us-east-1:account_ID:myPipeline'],
+    detail: {
+        pipeline: 'myPipeline',
+        version: 1,
+        state: 'STARTED',
+        'execution-id': 'execution_Id',
+    },
+};
+
 /* CloudFront events, see http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html */
-const CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
+const CloudFrontRequestWithCustomOriginEvent: AWSLambda.CloudFrontRequestEvent = {
   Records: [
     {
       cf: {
@@ -630,7 +712,44 @@ const CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
                 "TLSv1",
                 "TLSv1.1"
               ]
-            },
+            }
+          }
+        }
+      }
+    }
+  ]
+};
+
+const CloudFrontRequestWithS3OriginEvent: AWSLambda.CloudFrontRequestEvent = {
+  Records: [
+    {
+      cf: {
+        config: {
+          distributionDomainName: "d123.cloudfront.net",
+          distributionId: "EDFDVBD6EXAMPLE",
+          eventType: "viewer-request",
+          requestId: "MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE=="
+        },
+        request: {
+          clientIp: "2001:0db8:85a3:0:0:8a2e:0370:7334",
+          method: "GET",
+          uri: "/picture.jpg",
+          querystring: "size=large",
+          headers: {
+            host: [
+              {
+                key: "Host",
+                value: "d111111abcdef8.cloudfront.net"
+              }
+            ],
+            "user-agent": [
+              {
+                key: "User-Agent",
+                value: "curl/7.51.0"
+              }
+            ]
+          },
+          origin: {
             s3: {
               authMethod: "origin-access-identity",
               customHeaders: {
@@ -785,6 +904,33 @@ const inferredHandler: AWSLambda.S3Handler = (event, context, cb) => {
 // Test using default Callback type still works.
 const defaultCallbackHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
 
+const albSyncHandler: AWSLambda.ALBHandler = (
+    event: AWSLambda.ALBEvent,
+    context: AWSLambda.Context,
+    cb: AWSLambda.ALBCallback,
+) => {
+    cb(null, {
+        statusCode: 200,
+        statusDescription: '200 OK',
+        headers: { },
+        body: '',
+        isBase64Encoded: false,
+    });
+};
+const albAsyncHandler: AWSLambda.ALBHandler = async (
+    event: AWSLambda.ALBEvent,
+    context: AWSLambda.Context,
+    cb: AWSLambda.ALBCallback,
+) => {
+    return {
+        statusCode: 200,
+        statusDescription: '200 OK',
+        headers: { },
+        body: '',
+        isBase64Encoded: false,
+    };
+};
+
 // Specific types
 let s3Handler: AWSLambda.S3Handler = (event: AWSLambda.S3Event, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
 // Test old name
@@ -812,6 +958,56 @@ apiGtwProxyHandler = proxyHandler;
 const codePipelineHandler: AWSLambda.CodePipelineHandler = (event: AWSLambda.CodePipelineEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
 
 const cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWSLambda.CloudFrontRequestEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontRequestCallback) => {
+    event = CloudFrontRequestWithCustomOriginEvent;
+    // $ExpectType CloudFrontRequestEvent
+    event;
+    let request = event.Records[0].cf.request;
+
+    let s3Origin: AWSLambda.CloudFrontS3Origin = {
+        authMethod: 'none',
+        customHeaders: {},
+        domainName: 'example.com',
+        path: '/',
+        region: 'us-east-1'
+    };
+
+    if (request.origin && request.origin.custom) {
+        request.origin.custom.domainName;
+        request.origin.custom.domainName = "example2.com";
+
+        // $ExpectError
+        s3Origin = request.origin.s3;
+
+        // $ExpectError
+        request.origin.s3.path = '/';
+    }
+
+    let customOrigin: AWSLambda.CloudFrontCustomOrigin = {
+        customHeaders: {},
+        domainName: 'example.com',
+        keepaliveTimeout: 60,
+        path: '/',
+        port: 80,
+        protocol: 'http',
+        readTimeout: 30,
+        sslProtocols: []
+    };
+
+    event = CloudFrontRequestWithS3OriginEvent;
+    // $ExpectType CloudFrontRequestEvent
+    event;
+    request = event.Records[0].cf.request;
+    if (request.origin && request.origin.s3) {
+        request.origin.s3.path;
+        request.origin.s3.path = "/new_path";
+
+        // $ExpectError
+        customOrigin = request.origin.custom;
+
+        // $ExpectError
+        request.origin.custom.path = '/';
+    }
+
     cb();
     cb(null);
     cb(new Error(''));
@@ -859,7 +1055,15 @@ const SQSEvent: AWSLambda.SQSEvent = {
                 SenderId: "594035263019",
                 ApproximateFirstReceiveTimestamp: "1529104986230"
             },
-            messageAttributes: {},
+            messageAttributes: {
+                testAttr: {
+                    stringValue: "100",
+                    binaryValue: "base64Str",
+                    stringListValues: [],
+                    binaryListValues: [],
+                    dataType: "Number"
+                }
+            },
             md5OfBody: "9bb58f26192e4ba00f01e2e7b136bbd8",
             eventSource: "aws:sqs",
             eventSourceARN: "arn:aws:sqs:us-west-2:594035263019:NOTFIFOQUEUE",
@@ -895,6 +1099,10 @@ const SQSMessageNode8AsyncHandler: AWSLambda.SQSHandler = async (
     event;
     str = event.Records[0].messageId;
     anyObj = event.Records[0].body;
+    strOrUndefined = event.Records[0].messageAttributes.testAttr.stringValue;
+    strOrUndefined = event.Records[0].messageAttributes.testAttr.binaryValue;
+    str = event.Records[0].messageAttributes.testAttr.dataType;
+
     // $ExpectType Context
     context;
     str = context.functionName;
@@ -922,4 +1130,114 @@ const firehoseEventHandler: AWSLambda.FirehoseTransformationHandler = (
             }
         ]
     });
+};
+
+declare let lexEvent: AWSLambda.LexEvent;
+lexEvent = {
+    currentIntent: {
+        name: 'intent-name',
+        slots: {
+            slot1: null,
+            slot2: 'value2',
+        },
+        slotDetails: {
+            slot1: {
+                resolutions: [
+                    { value: 'value1' },
+                ],
+                originalValue: 'originalValue',
+            }
+        },
+        confirmationStatus: 'None',
+    },
+    bot: {
+        name: 'bot name',
+        alias: 'bot alias',
+        version: 'bot version',
+    },
+    userId: 'User ID specified in the POST request to Amazon Lex.',
+    inputTranscript: 'Text used to process the request',
+    invocationSource: 'FulfillmentCodeHook',
+    outputDialogMode: 'Text',
+    messageVersion: '1.0',
+    sessionAttributes: {
+        key1: 'value1',
+        key2: 'value2',
+    },
+    requestAttributes: {
+        key1: 'value1',
+        key2: 'value2',
+    }
+};
+
+declare let lexResult: AWSLambda.LexResult;
+declare let lexDialogAction: AWSLambda.LexDialogAction;
+declare let lexDialogActionBase: AWSLambda.LexDialogActionBase;
+declare let lexDialogActionClose: AWSLambda.LexDialogActionClose;
+declare let lexDialogActionConfirmIntent: AWSLambda.LexDialogActionConfirmIntent;
+declare let lexDialogActionDelegate: AWSLambda.LexDialogActionDelegate;
+declare let lexDialogActionElicitIntent: AWSLambda.LexDialogActionElicitIntent;
+declare let lexDialogActionElicitSlot: AWSLambda.LexDialogActionElicitSlot;
+declare let lexGenericAttachment: AWSLambda.LexGenericAttachment;
+
+lexResult = {
+    sessionAttributes: {
+        attrib1: 'Value One',
+    },
+    dialogAction: {
+        type: 'Close',
+        fulfillmentState: 'Failed',
+    },
+};
+
+str = lexGenericAttachment.title;
+str = lexGenericAttachment.subTitle;
+str = lexGenericAttachment.imageUrl;
+str = lexGenericAttachment.attachmentLinkUrl;
+str = lexGenericAttachment.buttons[0].text;
+str = lexGenericAttachment.buttons[0].value;
+
+lexDialogAction.type === 'Close';
+lexDialogAction.type === 'ConfirmIntent';
+lexDialogAction.type === 'Delegate';
+lexDialogAction.type === 'ElicitIntent';
+lexDialogAction.type === 'ElicitSlot';
+
+lexDialogActionBase.message!.contentType === 'CustomPayload';
+lexDialogActionBase.message!.contentType === 'PlainText';
+lexDialogActionBase.message!.contentType === 'SSML';
+str = lexDialogActionBase.message!.content;
+num = lexDialogActionBase.responseCard!.version;
+lexDialogActionBase.responseCard!.contentType === 'application/vnd.amazonaws.card.generic';
+// $ExpectType LexGenericAttachment
+lexDialogActionBase.responseCard!.genericAttachments[0];
+
+lexDialogActionClose.type === 'Close';
+lexDialogActionClose.fulfillmentState === 'Failed';
+lexDialogActionClose.fulfillmentState === 'Fulfilled';
+
+lexDialogActionConfirmIntent.type === 'ConfirmIntent';
+str = lexDialogActionConfirmIntent.intentName;
+strOrNull = lexDialogActionConfirmIntent.slots['example'];
+
+lexDialogActionDelegate.type === 'Delegate';
+strOrNull = lexDialogActionDelegate.slots['example'];
+
+lexDialogActionElicitIntent.type === 'ElicitIntent';
+lexDialogActionElicitSlot.type === 'ElicitSlot';
+strOrNull = lexDialogActionElicitSlot.slots['example'];
+str = lexDialogActionElicitSlot.slotToElicit;
+str = lexDialogActionElicitSlot.intentName;
+
+const lexEventHandler: AWSLambda.LexHandler = async (
+    event: AWSLambda.LexEvent,
+    context: AWSLambda.Context,
+) => {
+    // $ExpectType LexEvent
+    event;
+
+    // $ExpectType Context
+    context;
+    str = context.functionName;
+    return lexResult;
 };

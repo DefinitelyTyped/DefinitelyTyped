@@ -1,4 +1,4 @@
-// Type definitions for Mustache 0.8.3
+// Type definitions for Mustache 0.8.4
 // Project: https://github.com/janl/mustache.js
 // Definitions by: Mark Ashley Bell <https://github.com/markashleybell>, Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,7 +20,7 @@ interface MustacheStatic {
     /**
      * The opening and closing tags to parse.
      */
-    tags: string;
+    tags: string[];
 
     /**
      * A simple string scanner that is used by the template parser to find tokens in template strings.
@@ -80,8 +80,11 @@ interface MustacheStatic {
      * -- or --
      *
      * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
+     *
+     * @param tags
+     * The tags to use.
      */
-    render(template: string, view: any | MustacheContext, partials?: any): string;
+    render(template: string, view: any | MustacheContext, partials?: any, tags?: string[]): string;
 
     /**
      * Renders the `template` with the given `view` and `partials` using the default writer.
@@ -198,8 +201,11 @@ declare class MustacheWriter {
      *
      * @param template
      * The template to parse.
+     *
+     * @param tags
+     * The tags to use.
      */
-    parse(template: string, tags?: any): any;
+    parse(template: string, tags?: string[]): any;
 
     /**
      * High-level method that is used to render the given `template` with the given `view`.
@@ -216,8 +222,11 @@ declare class MustacheWriter {
      * -- or --
      *
      * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
+     *
+     * @param tags
+     * The tags to use.
      */
-    render(template: string, view: any | MustacheContext, partials: any): string;
+    render(template: string, view: any | MustacheContext, partials: any, tags?: string[]): string;
 
     /**
      * Low-level method that renders the given array of `tokens` using the given `context` and `partials`.

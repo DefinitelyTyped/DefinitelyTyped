@@ -3,22 +3,42 @@ import { Component, MouseEvent, StatelessComponent } from 'react';
 import { render } from 'react-dom';
 import onClickOutside from 'react-onclickoutside';
 
-function TestStateless(props: { handleClickOutside(): void; }) {
+interface TestStatelessProps {
+    disableOnClickOutside(): void;
+    enableOnClickOutside(): void;
+    nonClickOutsideProp: string;
+}
+
+function TestStateless(props: TestStatelessProps) {
     return (
-        <div>Test</div>
+        <div onKeyUp={props.enableOnClickOutside} onKeyDown={props.disableOnClickOutside}>
+            {props.nonClickOutsideProp}
+        </div>
     );
 }
+
+const TestConfigObject = onClickOutside(TestStateless, {
+    handleClickOutside: () => console.log('Stateless HandleClickOutside'),
+    excludeScrollbar: true
+});
+
+render(
+    <TestConfigObject nonClickOutsideProp="Test" />,
+    document.getElementById("main")
+);
 
 const TestStatelessWrapped = onClickOutside(TestStateless);
 
 render(
     <TestStatelessWrapped
+        nonClickOutsideProp="Test"
         eventTypes="click"
         disableOnClickOutside
         preventDefault
         stopPropagation
         outsideClickIgnoreClass="ignore"
         handleClickOutside={() => console.log('Stateless HandleClickOutside')}
+        excludeScrollbar
     />,
     document.getElementById("main")
 );
@@ -26,6 +46,10 @@ render(
 class TestComponent extends React.Component<{ disableOnClickOutside(): void; enableOnClickOutside(): void; }> {
     handleClickOutside = () => {
         console.log('this.handleClickOutside');
+    }
+
+    logProps = () => {
+        console.log(this.props);
     }
 
     render() {
@@ -37,13 +61,19 @@ class TestComponent extends React.Component<{ disableOnClickOutside(): void; ena
     }
 }
 
-const WrappedComponent = onClickOutside<{}>(TestComponent);
+const WrappedComponent = onClickOutside(TestComponent);
+const wrappedComponentRef: React.RefObject<InstanceType<typeof WrappedComponent>> = React.createRef();
 
 render(
     <WrappedComponent
+        ref={wrappedComponentRef}
         eventTypes="whatever"
         preventDefault
         stopPropagation
     />,
     document.getElementById("main")
 );
+
+if (wrappedComponentRef.current) {
+  wrappedComponentRef.current.getInstance().logProps();
+}

@@ -1,4 +1,4 @@
-// Type definitions for ioredis 3.2
+// Type definitions for ioredis 4.0
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -7,17 +7,20 @@
 //                 Shahar Mor <https://github.com/shaharmor>
 //                 Whemoon Jang <https://github.com/palindrom615>
 //                 Francis Gulotta <https://github.com/reconbot>
+//                 Dmitry Motovilov <https://github.com/funthing>
+//                 Oleg Repin <https://github.com/iamolegga>
+//                 Ting-Wai To <https://github.com/tingwai-to>
+//                 Alex Petty <https://github.com/pettyalex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 /* =================== USAGE ===================
     import * as Redis from "ioredis";
-    var redis = new Redis();
+    const redis = new Redis();
  =============================================== */
 
 /// <reference types="node" />
 
-import Promise = require('bluebird');
 import tls = require('tls');
 
 interface RedisStatic {
@@ -27,7 +30,7 @@ interface RedisStatic {
     (port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (options?: IORedis.RedisOptions): IORedis.Redis;
-    Cluster: IORedis.Cluster;
+    Cluster: IORedis.ClusterStatic;
     Command: IORedis.Command;
 }
 
@@ -66,8 +69,8 @@ declare namespace IORedis {
         bitcount(key: KeyType): Promise<number>;
         bitcount(key: KeyType, start: number, end: number): Promise<number>;
 
-        get(key: KeyType, callback: (err: Error, res: string) => void): void;
-        get(key: KeyType): Promise<string>;
+        get(key: KeyType, callback: (err: Error, res: string | null) => void): void;
+        get(key: KeyType): Promise<string | null>;
 
         getBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
         getBuffer(key: KeyType): Promise<Buffer>;
@@ -101,9 +104,10 @@ declare namespace IORedis {
         strlen(key: KeyType, callback: (err: Error, res: number) => void): void;
         strlen(key: KeyType): Promise<number>;
 
-        del(...keys: KeyType[]): any;
+        del(...keys: KeyType[]): Promise<number>;
 
-        exists(...keys: KeyType[]): any;
+        exists(...keys: KeyType[]): Promise<number>;
+        exists(key: KeyType, callback: (err: Error, res: number) => void): void;
 
         setbit(key: KeyType, offset: number, value: any, callback: (err: Error, res: number) => void): void;
         setbit(key: KeyType, offset: number, value: any): Promise<number>;
@@ -211,7 +215,7 @@ declare namespace IORedis {
         smembers(key: KeyType, callback: (err: Error, res: any) => void): void;
         smembers(key: KeyType): Promise<any>;
 
-        zadd(key: KeyType, ...args: string[]): any;
+        zadd(key: KeyType, ...args: string[]): Promise<number | string>;
 
         zincrby(key: KeyType, increment: number, member: string, callback: (err: Error, res: any) => void): void;
         zincrby(key: KeyType, increment: number, member: string): Promise<any>;
@@ -263,12 +267,12 @@ declare namespace IORedis {
         hsetnx(key: KeyType, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
         hsetnx(key: KeyType, field: string, value: any): Promise<0 | 1>;
 
-        hget(key: KeyType, field: string, callback: (err: Error, res: string) => void): void;
-        hget(key: KeyType, field: string): Promise<string>;
+        hget(key: KeyType, field: string, callback: (err: Error, res: string | null) => void): void;
+        hget(key: KeyType, field: string): Promise<string | null>;
         hgetBuffer(key: KeyType, field: string, callback: (err: Error, res: Buffer) => void): void;
         hgetBuffer(key: KeyType, field: string): Promise<Buffer>;
 
-        hmset(key: KeyType, field: string, value: any, ...args: string[]): Promise<0 | 1>;
+        hmset(key: KeyType, ...args: any[]): Promise<0 | 1>;
         hmset(key: KeyType, data: any, callback: (err: Error, res: 0 | 1) => void): void;
         hmset(key: KeyType, data: any): Promise<0 | 1>;
 
@@ -306,12 +310,16 @@ declare namespace IORedis {
         decrby(key: KeyType, decrement: number, callback: (err: Error, res: number) => void): void;
         decrby(key: KeyType, decrement: number): Promise<number>;
 
-        getset(key: KeyType, value: any, callback: (err: Error, res: string) => void): void;
-        getset(key: KeyType, value: any): Promise<string>;
+        getset(key: KeyType, value: any, callback: (err: Error, res: string | null) => void): void;
+        getset(key: KeyType, value: any): Promise<string | null>;
 
-        mset(key: KeyType, value: any, ...args: string[]): any;
+        mset(...args: any[]): any;
+        mset(data: any, callback: (err: Error, res: string) => void): void;
+        mset(data: any): Promise<string>;
 
-        msetnx(key: KeyType, value: any, ...args: string[]): any;
+        msetnx(...args: any[]): any;
+        msetnx(data: any, callback: (err: Error, res: 0 | 1) => void): void;
+        msetnx(data: any): Promise<0 | 1>;
 
         randomkey(callback: (err: Error, res: string) => void): void;
         randomkey(): Promise<string>;
@@ -455,7 +463,13 @@ declare namespace IORedis {
         quit(callback: (err: Error, res: string) => void): void;
         quit(): Promise<string>;
 
-        scan(cursor: number, ...args: any[]): any;
+        scan(cursor: number): Promise<[string, string[]]>;
+
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
+
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
 
         sscan(key: KeyType, cursor: number, ...args: any[]): any;
 
@@ -475,6 +489,34 @@ declare namespace IORedis {
         sscanStream(key: KeyType, options?: ScanStreamOption): NodeJS.EventEmitter;
         hscanStream(key: KeyType, options?: ScanStreamOption): NodeJS.EventEmitter;
         zscanStream(key: KeyType, options?: ScanStreamOption): NodeJS.EventEmitter;
+
+        xack(key: KeyType, group: string, ...ids: string[]): any;
+
+        xadd(key: KeyType, id: string, ...args: string[]): any;
+        xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', count: number, ...args: string[]): any;
+        xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', approximate: '~', count: number, ...args: string[]): any;
+
+        xclaim(key: KeyType, group: string, consumer: string, minIdleTime: number, ...args: any[]): any;
+
+        xdel(key: KeyType, ...ids: string[]): any;
+
+        xgroup(...args: any[]): any;
+
+        xinfo(...args: any[]): any;
+
+        xlen(key: KeyType): any;
+
+        xpending(key: KeyType, group: string, ...args: any[]): any;
+
+        xrange(key: KeyType, start: string, end: string, ...args: any[]): any;
+
+        xread(...args: any[]): any;
+
+        xreadgroup(groupOption: 'GROUP' | 'group', group: string, consumer: string,  ...args: any[]): any;
+
+        xrevrange(key: KeyType, end: string, start: string, ...args: any[]): any;
+
+        xtrim(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', ...args: any[]): any;
     }
 
     interface Pipeline {
@@ -634,10 +676,10 @@ declare namespace IORedis {
 
         hsetnx(key: KeyType, field: string, value: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
-        hget(key: KeyType, field: string, callback?: (err: Error, res: string) => void): Pipeline;
+        hget(key: KeyType, field: string, callback?: (err: Error, res: string | string) => void): Pipeline;
         hgetBuffer(key: KeyType, field: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
-        hmset(key: KeyType, field: string, value: any, ...args: string[]): Pipeline;
+        hmset(key: KeyType, ...args: any[]): Pipeline;
         hmset(key: KeyType, data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         hmget(key: KeyType, ...fields: string[]): Pipeline;
@@ -666,9 +708,11 @@ declare namespace IORedis {
 
         getset(key: KeyType, value: any, callback?: (err: Error, res: string) => void): Pipeline;
 
-        mset(key: KeyType, value: any, ...args: string[]): Pipeline;
+        mset(...args: any[]): Pipeline;
+        mset(data: any, callback?: (err: Error, res: string) => void): Pipeline;
 
-        msetnx(key: KeyType, value: any, ...args: string[]): Pipeline;
+        msetnx(...args: any[]): Pipeline;
+        msetnx(data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         randomkey(callback?: (err: Error, res: string) => void): Pipeline;
 
@@ -776,8 +820,13 @@ declare namespace IORedis {
 
         quit(callback?: (err: Error, res: string) => void): Pipeline;
 
-        scan(cursor: number, ...args: any[]): Pipeline;
+        scan(cursor: number): Pipeline;
 
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number): Pipeline;
+
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string, countOption: 'count' | 'COUNT', count: number): Pipeline;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
         sscan(key: KeyType, cursor: number, ...args: any[]): Pipeline;
 
         hscan(key: KeyType, cursor: number, ...args: any[]): Pipeline;
@@ -789,6 +838,32 @@ declare namespace IORedis {
         pfadd(key: KeyType, ...elements: string[]): Pipeline;
 
         pfcount(...keys: KeyType[]): Pipeline;
+
+        xack(key: KeyType, group: string, ...ids: string[]): Pipeline;
+
+        xadd(key: KeyType, id: string, ...args: string[]): Pipeline;
+
+        xclaim(key: KeyType, group: string, consumer: string, minIdleTime: number, id: string, ...args: any[]): Pipeline;
+
+        xdel(key: KeyType, ...ids: string[]): Pipeline;
+
+        xgroup(...args: any[]): Pipeline;
+
+        xinfo(...args: any[]): Pipeline;
+
+        xlen(key: KeyType): Pipeline;
+
+        xpending(key: KeyType, group: string, ...args: any[]): Pipeline;
+
+        xrange(key: KeyType, start: string, end: string, ...args: any[]): Pipeline;
+
+        xread(...args: any[]): Pipeline;
+
+        xreadgroup(command: 'GROUP' | 'group', group: string, consumer: string,  ...args: any[]): Pipeline;
+
+        xrevrange(key: KeyType, end: string, start: string, ...args: any[]): Pipeline;
+
+        xtrim(key: KeyType, strategy: 'MAXLEN' | 'maxlen', ...args: any[]): Pipeline;
     }
 
     interface NodeConfiguration {
@@ -798,11 +873,26 @@ declare namespace IORedis {
 
     type ClusterNode = string | number | NodeConfiguration;
 
+    type NodeRole = 'master' | 'slave' | 'all';
+
+    type CallbackFunction<T = any> = (err?: NodeJS.ErrnoException | null, result?: T) => void;
+
     interface Cluster extends NodeJS.EventEmitter, Commander {
-        new(nodes: ClusterNode[], options?: ClusterOptions): Redis;
         connect(callback: () => void): Promise<any>;
         disconnect(): void;
-        nodes(role: string): Redis[];
+        nodes(role?: NodeRole): Redis[];
+        quit(callback?: CallbackFunction<'OK'>): Promise<'OK'>;
+        get(key: KeyType, callback: (err: Error, res: string | null) => void): void;
+        get(key: KeyType): Promise<string | null>;
+        set(key: KeyType, value: any, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<string>;
+        set(key: KeyType, value: any, callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, setMode: string | any[], callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, expiryMode: string, time: number | string, callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: string) => void): void;
+    }
+
+    interface ClusterStatic extends NodeJS.EventEmitter, Commander {
+        new (nodes: ClusterNode[], options?: ClusterOptions): Cluster;
     }
 
     interface RedisOptions {
@@ -842,6 +932,17 @@ declare namespace IORedis {
          * Fixed in: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/15858
          */
         retryStrategy?(times: number): number | false;
+        /**
+         * By default, all pending commands will be flushed with an error every
+         * 20 retry attempts. That makes sure commands won't wait forever when
+         * the connection is down. You can change this behavior by setting
+         * `maxRetriesPerRequest`.
+         *
+         * Set maxRetriesPerRequest to `null` to disable this behavior, and
+         * every command will wait forever until the connection is alive again
+         * (which is the default behavior before ioredis v4).
+         */
+        maxRetriesPerRequest?: number | null;
         /**
          * 1/true means reconnect, 2 means reconnect and resend failed command. Returning false will ignore
          * the error and do nothing.
@@ -895,8 +996,13 @@ declare namespace IORedis {
         count?: number;
     }
 
+    type DNSLookupFunction = (hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
+    interface NatMap {
+        [key: string]: {host: string, port: number};
+    }
+
     interface ClusterOptions {
-        clusterRetryStrategy?(times: number): number;
+        clusterRetryStrategy?(times: number, reason?: Error): number | null;
         enableOfflineQueue?: boolean;
         enableReadyCheck?: boolean;
         scaleReads?: string;
@@ -904,7 +1010,12 @@ declare namespace IORedis {
         retryDelayOnFailover?: number;
         retryDelayOnClusterDown?: number;
         retryDelayOnTryAgain?: number;
+        slotsRefreshTimeout?: number;
+        slotsRefreshInterval?: number;
         redisOptions?: RedisOptions;
+        lazyConnect?: boolean;
+        dnsLookup?: DNSLookupFunction;
+        natMap?: NatMap;
     }
 
     interface MultiOptions {

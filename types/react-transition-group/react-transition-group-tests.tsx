@@ -1,6 +1,6 @@
 import * as React from "react";
 import CSSTransition = require("react-transition-group/CSSTransition");
-import Transition, { UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING } from "react-transition-group/Transition";
+import Transition, { UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING, TransitionStatus } from "react-transition-group/Transition";
 import TransitionGroup = require("react-transition-group/TransitionGroup");
 import Components = require("react-transition-group");
 
@@ -26,12 +26,23 @@ const Test: React.StatelessComponent = () => {
         node.addEventListener("transitionend", done, false);
     }
 
+    function statusAsArgument(status: TransitionStatus) {
+        switch (status) {
+            case ENTERING:
+            case ENTERED:
+            case EXITING:
+            case EXITED:
+            case UNMOUNTED:
+                return <div>{status}</div>;
+        }
+    }
+
     return (
         <TransitionGroup
             component={Container}
             theme="test"
             className="animated-list"
-            childFactory={ (child: React.ReactElement<any>) => child }
+            childFactory={ (child: React.ReactElement) => child }
         >
             <Components.Transition
                 in
@@ -62,6 +73,10 @@ const Test: React.StatelessComponent = () => {
                              return <div>{status}</div>;
                      }
                 }}
+            </Components.Transition>
+
+            <Components.Transition in timeout={500}>
+                {statusAsArgument}
             </Components.Transition>
 
             <Transition

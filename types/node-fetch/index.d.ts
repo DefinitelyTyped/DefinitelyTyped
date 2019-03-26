@@ -2,6 +2,9 @@
 // Project: https://github.com/bitinn/node-fetch
 // Definitions by: Torsten Werner <https://github.com/torstenwerner>
 //                 Niklas Lindgren <https://github.com/nikcorg>
+//                 Vinay Bedre <https://github.com/vinaybedre>
+//                 Antonio Román <https://github.com/kyranet>
+//                 Andrew Leedham <https://github.com/AndrewLeedham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -132,7 +135,10 @@ export class Body {
 
 export class FetchError extends Error {
     name: "FetchError";
-    constructor(message: string, type: string, systemError: string);
+    constructor(message: string, type: string, systemError?: string);
+    type: string;
+    code?: string;
+    errno?: string;
 }
 
 export class Response extends Body {
@@ -168,7 +174,13 @@ export type HeaderInit = Headers | string[];
 export type BodyInit = ArrayBuffer | ArrayBufferView | NodeJS.ReadableStream | string | URLSearchParams;
 export type RequestInfo = string | Request;
 
-export default function fetch(
+declare function fetch(
     url: string | Request,
     init?: RequestInit
 ): Promise<Response>;
+
+declare namespace fetch {
+    function isRedirect(code: number): boolean;
+}
+
+export default fetch;

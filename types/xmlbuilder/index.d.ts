@@ -1,8 +1,8 @@
 // Type definitions for xmlbuilder
 // Project: https://github.com/oozcitak/xmlbuilder-js
 // Definitions by: Wallymathieu <https://github.com/wallymathieu>
+//               : GaikwadPratik <https://github.com/GaikwadPratik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 
 export = xmlbuilder;
 
@@ -20,7 +20,7 @@ declare namespace xmlbuilder {
         instruction(target: string, value: any): XMLDocType;
         root(): XMLDocType;
         document(): any;
-        toString(options?: Object, level?: Number): string;
+        toString(options?: XMLToStringOptions, level?: Number): string;
 
         ele(name: string, value?: Object): XMLDocType;
         att(elementName: string, attributeName: string, attributeType: string, defaultValueType?: string, defaultValue?: any): XMLDocType;
@@ -50,7 +50,7 @@ declare namespace xmlbuilder {
         i(target: string, value: any): XMLElementOrXMLNode;
         i(array: Array<any>): XMLElementOrXMLNode;
         i(obj: Object): XMLElementOrXMLNode;
-        toString(options?: Object, level?: Number): string;
+        toString(options?: XMLToStringOptions, level?: Number): string;
         // XMLNode:
         element(name: any, attributes?: Object, text?: any): XMLElementOrXMLNode;
         ele(name: any, attributes?: Object, text?: any): XMLElementOrXMLNode;
@@ -68,7 +68,7 @@ declare namespace xmlbuilder {
         importDocument(input: XMLElementOrXMLNode): XMLElementOrXMLNode;
         root(): XMLElementOrXMLNode;
         document(): any;
-        end(options?: Object): string;
+        end(options?: XMLEndOptions): string;
         prev(): XMLElementOrXMLNode;
         next(): XMLElementOrXMLNode;
         nod(name: any, attributes?: Object, text?: any): XMLElementOrXMLNode;
@@ -87,5 +87,48 @@ declare namespace xmlbuilder {
         u(): XMLElementOrXMLNode;
     }
 
-    function create(nameOrObjSpec: string | { [name:string]: Object }, xmldec?: Object, doctype?: any, options?: Object): XMLElementOrXMLNode;
+    interface XMLDec {
+        version?: string;
+        encoding?: string;
+        standalone?: boolean;
+    }
+
+    interface XMLDtd {
+        pubID?: string;
+        sysID?: string;
+    }
+
+    interface XMLStringifier {
+        [x: string]: ((v: any) => string) | string;
+    }
+
+    interface XMLWriter {
+        [x: string]: ((e: XMLElementOrXMLNode, level?: number) => void);
+    }
+
+    interface XMLCreateOptions {
+        headless?: boolean;
+        keepNullNodes?: boolean;
+        keepNullAttributes?: boolean;
+        ignoreDecorators?: boolean;
+        separateArrayItems?: boolean;
+        noDoubleEncoding?: boolean;
+        stringify?: XMLStringifier;
+    }
+
+    interface XMLToStringOptions {
+        pretty?: boolean;
+        indent?: string;
+        offset?: number;
+        newline?: string;
+        allowEmpty?: boolean;
+        spacebeforeslash?: string;
+    }
+
+    interface XMLEndOptions extends XMLToStringOptions {
+        writer?: XMLWriter;
+    }
+
+    function create(nameOrObjSpec: string | { [name: string]: Object }, xmldecOrOptions?: XMLDec | XMLCreateOptions, doctypeOrOptions?: XMLDtd | XMLCreateOptions, options?: XMLCreateOptions): XMLElementOrXMLNode;
+    function begin(): XMLElementOrXMLNode;
 }

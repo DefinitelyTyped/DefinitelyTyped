@@ -1,27 +1,19 @@
 // Type definitions for redux-saga-tester 1.0
 // Project: https://github.com/wix/redux-saga-tester#readme
-// Definitions by: Ben Lorantfy <https://github.com/BenLorantfy>
+// Definitions by: Ben Lorantfy <https://github.com/BenLorantfy>, Law Smith <https://github.com/lawsumisu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
-export interface AnyAction {
-    type: string;
-    [key: string]: any;
-}
-export type Reducer = (state: object, action: AnyAction) => object;
-export interface ReducerMap {
-    [key: string]: Reducer;
-}
-export type ReduxMiddleware = (options: { dispatch: (action: AnyAction) => void, getState: () => object })
-    => (next: (action: AnyAction) => any)
-    => any;
+import { Task } from 'redux-saga';
+import { AnyAction, Middleware, Reducer, ReducersMapObject } from 'redux';
+
 export type SagaFunction = (...args: any[]) => any;
 
-export interface SagaTesterOptions<StateType extends object> {
+export interface SagaTesterOptions<StateType> {
     initialState?: StateType;
-    reducers?: ReducerMap|Reducer;
-    middlewares?: ReduxMiddleware[];
-    combineReducers?: (map: ReducerMap) => Reducer;
+    reducers?: ReducersMapObject | Reducer<StateType>;
+    middlewares?: Middleware[];
+    combineReducers?: (map: ReducersMapObject) => Reducer<StateType>;
     ignoreReduxActions?: boolean;
     options?: object;
 }
@@ -32,7 +24,7 @@ export default class SagaTester<StateType extends object> {
     /**
      * Starts execution of the provided saga.
      */
-    start(saga: SagaFunction): void;
+    start(saga: SagaFunction, ...args: any[]): Task;
 
     /**
      * Dispatches an action to the redux store.

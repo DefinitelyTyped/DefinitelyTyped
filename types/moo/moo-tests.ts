@@ -20,20 +20,21 @@ lexer = moo.compile({
 
 lexer = moo.compile({
     IDEN: {
-        match: /[a-zA-Z]+/, keywords: {
+        match: /[a-zA-Z]+/,
+        type: moo.keywords({
             KW: ['while', 'if', 'else', 'moo', 'reloacows']
-        }
+        })
     },
     SPACE: { match: /\s+/, lineBreaks: true }
 });
 
 lexer = moo.compile({
     name: {
-        match: /[a-zA-Z]+/, keywords: {
+        match: /[a-zA-Z]+/, type: moo.keywords({
             'kw-class': 'class',
             'kw-def': 'def',
             'kw-if': 'if',
-        }
+        })
     }
 });
 

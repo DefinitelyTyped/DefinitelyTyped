@@ -1,81 +1,81 @@
-// Type definitions for jsSHA
+// Type definitions for jsSHA 2.0
 // Project: https://github.com/Caligatio/jsSHA
-// Definitions by: David Li <https://github.com/randombk>, Tobias Kahlert <https://github.com/SrTobi>
+// Definitions by: David Li <https://github.com/randombk>
+//                 Tobias Kahlert <https://github.com/SrTobi>
+//                 Kannan Goundan <https://github.com/cakoose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace jsSHA {
+    type StringDataFormat = 'HEX' | 'TEXT' | 'B64' | 'BYTES';
+    type ArrayBufferDataFormat = 'ARRAYBUFFER';
 
-    export interface EncodingOptions {
-        encoding? : string;
+    interface EncodingOptions {
+        encoding?: string;
     }
 
-    export interface Options extends EncodingOptions {
-        numRounds? : number;
+    interface Options extends EncodingOptions {
+        numRounds?: number;
     }
 
-    export interface OutputFormatOptions {
-        outputUpper? : boolean;
-        b64Pad? : string;
+    interface OutputFormatOptions {
+        outputUpper?: boolean;
+        b64Pad?: string;
+        shakeLen?: number;
     }
 
-    export interface jsSHA {
+    interface jsSHA {
         /**
-         * jsSHA is the workhorse of the library.  Instantiate it with the string to
-         * be hashed as the parameter
+         * Create a Hasher object.
          *
-         * @param {string} variant The desired SHA variant (SHA-1, SHA-224, SHA-256,
-         *   SHA-384, or SHA-512)
-         * @param {string} inputFormat The format of srcString: HEX, TEXT, B64, or BYTES
-         * @param {{encoding: (string|undefined), numRounds: (string|undefined)}=}
-         *   options Optional values
+         * @param variant - The desired SHA variant (SHA-1, SHA-224, SHA-256,
+         *   SHA-384, SHA-512, SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, or SHAKE256).
+         * @param inputFormat The format of srcString.
          */
-        new (variant:string, inputFormat:string, options?:Options):jsSHA;
+        new(variant: string, inputFormat: StringDataFormat, options?: Options): Hasher<string>;
+        new(variant: string, inputFormat: ArrayBufferDataFormat, options?: Options): Hasher<ArrayBuffer>;
+    }
+
+    interface Hasher<InputT> {
+        /**
+         * Sets the HMAC key for an eventual getHMAC call.  Must be called
+         * immediately after jsSHA object instantiation
+         *
+         * @param key - The key used to calculate the HMAC.
+         * @param inputFormat - The format of key.
+         */
+        setHMACKey(key: string, inputFormat: StringDataFormat, encodingOpts?: EncodingOptions): void;
+        setHMACKey(key: ArrayBuffer, inputFormat: ArrayBufferDataFormat, encodingOpts?: EncodingOptions): void;
 
         /**
-		 * Sets the HMAC key for an eventual getHMAC call.  Must be called
-		 * immediately after jsSHA object instantiation
-		 *
-		 * @param {string} key The key used to calculate the HMAC
-		 * @param {string} inputFormat The format of key, HEX, TEXT, B64, or BYTES
-		 * @param {{encoding : (string|undefined)}=} encodingOpts Associative array
-		 *   of input format options
-		 */
-        setHMACKey(key:string, inputFormat:string, encodingOpts?:EncodingOptions):void;
+         * Takes strString and hashes as many blocks as possible.  Stores the
+         * rest for either a future update or getHash call.
+         *
+         * @param srcString - The string to be hashed
+         */
+        update(srcString: InputT): void;
 
         /**
-		 * Takes strString and hashes as many blocks as possible.  Stores the
-		 * rest for either a future update or getHash call.
-		 *
-		 * @param {string} srcString The string to be hashed
-		 */
-        update(srcString:string):void;
-
-
-        /**
-		 * Returns the desired SHA hash of the string specified at instantiation
-		 * using the specified parameters
-		 *
-		 * @param {string} format The desired output formatting (B64, HEX, or BYTES)
-		 * @param {{outputUpper : (boolean|undefined), b64Pad : (string|undefined)}=}
-		 *   outputFormatOpts Hash list of output formatting options
-		 * @return {string} The string representation of the hash in the format
-		 *   specified
-		 */
-        getHash(format:string, outputFormatOpts?:OutputFormatOptions):string;
+         * Returns the desired SHA hash of the string specified at instantiation
+         * using the specified parameters
+         *
+         * @expose
+         * @param format - The desired output formatting.
+         * @returns The string representation of the hash
+         *   in the format specified.
+         */
+        getHash(format: StringDataFormat, outputFormatOpts?: OutputFormatOptions): string;
+        getHash(format: ArrayBufferDataFormat, outputFormatOpts?: OutputFormatOptions): ArrayBuffer;
 
         /**
-		 * Returns the the HMAC in the specified format using the key given by
-		 * a previous setHMACKey call.
-		 *
-		 * @param {string} format The desired output formatting
-		 *   (B64, HEX, or BYTES)
-		 * @param {{outputUpper : (boolean|undefined), b64Pad : (string|undefined)}=}
-		 *   outputFormatOpts associative array of output formatting options
-		 * @return {string} The string representation of the hash in the format
-		 *   specified
-		 */
-        getHMAC(format:string, outputFormatOpts?:OutputFormatOptions):string;
+         * Returns the the HMAC in the specified format using the key given by
+         * a previous setHMACKey call.
+         *
+         * @param format - The desired output formatting.
+         * @returns The string representation of the hash in the format
+         *   specified
+         */
+        getHMAC(format: StringDataFormat, outputFormatOpts?: OutputFormatOptions): string;
+        getHMAC(format: ArrayBufferDataFormat, outputFormatOpts?: OutputFormatOptions): ArrayBuffer;
     }
 }
 

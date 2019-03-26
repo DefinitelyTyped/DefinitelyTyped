@@ -1,7 +1,7 @@
-// Type definitions for Node.js 8.10.x
+// Type definitions for Node.js 8.10
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>
-//                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+// Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
@@ -22,6 +22,8 @@
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
+//                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
+//                 Thanik Bhongbhibhat <https://github.com/bhongy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -32,15 +34,32 @@
 interface Console {
     Console: NodeJS.ConsoleConstructor;
     assert(value: any, message?: string, ...optionalParams: any[]): void;
-    dir(obj: any, options?: NodeJS.InspectOptions): void;
+    clear(): void;
+    count(label?: string): void;
+    countReset(label?: string): void;
     debug(message?: any, ...optionalParams: any[]): void;
+    dir(obj: any, options?: NodeJS.InspectOptions): void;
     error(message?: any, ...optionalParams: any[]): void;
+    group(...label: any[]): void;
+    groupCollapsed(): void;
+    groupEnd(): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
     time(label: string): void;
     timeEnd(label: string): void;
     trace(message?: any, ...optionalParams: any[]): void;
     warn(message?: any, ...optionalParams: any[]): void;
+
+    // --- Inspector mode only ---
+    /** @deprecated Use console.timeStamp() instead. */
+    markTimeline(label?: string): void;
+    profile(label?: string): void;
+    profileEnd(label?: string): void;
+    timeStamp(label?: string): void;
+    /** @deprecated Use console.time() instead. */
+    timeline(label?: string): void;
+    /** @deprecated Use console.timeEnd() instead. */
+    timelineEnd(label?: string): void;
 }
 
 interface Error {
@@ -480,6 +499,14 @@ declare namespace NodeJS {
         system: number;
     }
 
+    export interface ProcessRelease {
+        name: string;
+        sourceUrl?: string;
+        headersUrl?: string;
+        libUrl?: string;
+        lts?: string;
+    }
+
     export interface ProcessVersions {
         http_parser: string;
         node: string;
@@ -613,6 +640,7 @@ declare namespace NodeJS {
         memoryUsage(): MemoryUsage;
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
+        release: ProcessRelease;
         umask(mask?: number): number;
         uptime(): number;
         hrtime(time?: [number, number]): [number, number];
@@ -883,6 +911,8 @@ declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
     var BuffType: typeof Buffer;
     var SlowBuffType: typeof SlowBuffer;
+    export type TranscodeEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "latin1" | "binary";
+    export function transcode(source: Buffer | Uint8Array, fromEnc: TranscodeEncoding, toEnc: TranscodeEncoding): Buffer;
     export { BuffType as Buffer, SlowBuffType as SlowBuffer };
 }
 
@@ -941,18 +971,18 @@ declare module "http" {
     // incoming headers will never contain number
     export interface IncomingHttpHeaders {
         'accept'?: string;
-        'access-control-allow-origin'?: string;
-        'access-control-allow-credentials'?: string;
-        'access-control-expose-headers'?: string;
-        'access-control-max-age'?: string;
-        'access-control-allow-methods'?: string;
-        'access-control-allow-headers'?: string;
         'accept-patch'?: string;
         'accept-ranges'?: string;
-        'authorization'?: string;
+        'access-control-allow-credentials'?: string;
+        'access-control-allow-headers'?: string;
+        'access-control-allow-methods'?: string;
+        'access-control-allow-origin'?: string;
+        'access-control-expose-headers'?: string;
+        'access-control-max-age'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
+        'authorization'?: string;
         'cache-control'?: string;
         'connection'?: string;
         'content-disposition'?: string;
@@ -973,10 +1003,11 @@ declare module "http" {
         'retry-after'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
+        'tk'?: string;
         'trailer'?: string;
         'transfer-encoding'?: string;
-        'tk'?: string;
         'upgrade'?: string;
+        'user-agent'?: string;
         'vary'?: string;
         'via'?: string;
         'warning'?: string;
@@ -1074,6 +1105,7 @@ declare module "http" {
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
+        readonly path: string;
         abort(): void;
         onSocket(socket: net.Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
@@ -1588,6 +1620,7 @@ declare module "os" {
         netmask: string;
         mac: string;
         internal: boolean;
+        cidr: string | null;
     }
 
     export interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
@@ -2012,12 +2045,11 @@ declare module "child_process" {
     import * as events from "events";
     import * as stream from "stream";
     import * as net from "net";
-
     export interface ChildProcess extends events.EventEmitter {
         stdin: stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
-        stdio: [stream.Writable, stream.Readable, stream.Readable];
+        stdio: StdioStreams;
         killed: boolean;
         pid: number;
         kill(signal?: string): void;
@@ -2079,6 +2111,12 @@ declare module "child_process" {
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "exit", listener: (code: number, signal: string) => void): this;
         prependOnceListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
+    }
+
+    export interface StdioStreams extends ReadonlyArray<stream.Readable|stream.Writable> {
+        0: stream.Writable; // stdin
+        1: stream.Readable; // stdout
+        2: stream.Readable; // stderr
     }
 
     export interface MessageOptions {
@@ -2221,6 +2259,7 @@ declare module "child_process" {
         execArgv?: string[];
         silent?: boolean;
         stdio?: any[];
+        detached?: boolean;
         uid?: number;
         gid?: number;
         windowsVerbatimArguments?: boolean;
@@ -2255,7 +2294,7 @@ declare module "child_process" {
         stderr: T;
         status: number;
         signal: string;
-        error: Error;
+        error?: Error;
     }
     export function spawnSync(command: string): SpawnSyncReturns<Buffer>;
     export function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
@@ -2418,6 +2457,7 @@ declare module "dns" {
         family?: number;
         hints?: number;
         all?: boolean;
+        verbatim?: boolean;
     }
 
     export interface LookupOneOptions extends LookupOptions {
@@ -2863,7 +2903,7 @@ declare module "net" {
         listen(options: ListenOptions, listeningListener?: Function): this;
         listen(handle: any, backlog?: number, listeningListener?: Function): this;
         listen(handle: any, listeningListener?: Function): this;
-        close(callback?: Function): this;
+        close(callback?: (err?: Error) => void): this;
         address(): { port: number; family: string; address: string; };
         getConnections(cb: (error: Error | null, count: number) => void): void;
         ref(): this;
@@ -4753,7 +4793,7 @@ declare module "path" {
     /**
      * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
      *
-     * Starting from leftmost {from} paramter, resolves {to} to an absolute path.
+     * Starting from leftmost {from} parameter, resolves {to} to an absolute path.
      *
      * If {to} isn't already absolute, {from} arguments are prepended in right to left order, until an absolute path is found. If after using all {from} paths still no absolute path is found, the current working directory is used as well. The resulting path is normalized, and trailing slashes are removed unless the path gets resolved to the root directory.
      *
@@ -5310,8 +5350,8 @@ declare module "crypto" {
     export interface Signer extends NodeJS.WritableStream {
         update(data: string | Buffer | DataView): Signer;
         update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Signer;
-        sign(private_key: string | { key: string; passphrase: string }): Buffer;
-        sign(private_key: string | { key: string; passphrase: string }, output_format: HexBase64Latin1Encoding): string;
+        sign(private_key: string | { key: string; passphrase?: string }): Buffer;
+        sign(private_key: string | { key: string; passphrase?: string }, output_format: HexBase64Latin1Encoding): string;
     }
     export function createVerify(algorith: string): Verify;
     export interface Verify extends NodeJS.WritableStream {
@@ -6670,9 +6710,7 @@ declare module "http2" {
     export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions { }
     export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions { }
 
-    export interface ServerOptions extends ServerSessionOptions {
-        allowHTTP1?: boolean;
-    }
+    export interface ServerOptions extends ServerSessionOptions { }
 
     export interface SecureServerOptions extends SecureServerSessionOptions {
         allowHTTP1?: boolean;
@@ -6772,7 +6810,8 @@ declare module "http2" {
         prependOnceListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
     }
 
-    export interface Http2ServerRequest extends stream.Readable {
+    export class Http2ServerRequest extends stream.Readable {
+        private constructor();
         headers: IncomingHttpHeaders;
         httpVersion: string;
         method: string;
@@ -6803,7 +6842,8 @@ declare module "http2" {
         prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
     }
 
-    export interface Http2ServerResponse extends events.EventEmitter {
+    export class Http2ServerResponse extends events.EventEmitter {
+        private constructor();
         addTrailers(trailers: OutgoingHttpHeaders): void;
         connection: net.Socket | tls.TLSSocket;
         end(callback?: () => void): void;

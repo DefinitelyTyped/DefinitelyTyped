@@ -30,8 +30,8 @@ import {
 // Get Menu Placement
 // ------------------------------
 
-interface MenuState { placement: 'bottom' | 'top' | null; maxHeight: number; }
-interface PlacementArgs {
+export interface MenuState { placement: 'bottom' | 'top' | null; maxHeight: number; }
+export interface PlacementArgs {
   maxHeight: number;
   menuEl: ElementRef<any>;
   minHeight: number;
@@ -47,7 +47,7 @@ export function getMenuPlacement(args: PlacementArgs): MenuState;
 
 export type MenuProps<OptionType> = CommonProps<OptionType> & {
   /** The children to be rendered. */
-  children: ReactElement<any>,
+  children: ReactElement,
   /** Callback to update the portal after possible flip. */
   getPortalPlacement: (state: MenuState) => void,
   /** Props to be passed to the menu wrapper. */

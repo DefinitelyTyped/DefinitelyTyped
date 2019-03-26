@@ -1,9 +1,10 @@
 // Type definitions for ShellJS 0.8
-// Project: http://shelljs.org
+// Project: http://shelljs.org, http://github.com/shelljs/shelljs
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
 //                 Vojtech Jasny <https://github.com/voy>
 //                 George Kalpakas <https://github.com/gkalpak>
 //                 Paul Huynh <https://github.com/pheromonez>
+//                 Alexander Futász <https://github.com/aldafu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -14,8 +15,9 @@ import glob = require("glob");
 /**
  * Changes to directory dir for the duration of the script. Changes to home directory if no argument is supplied.
  * @param dir Directory to change in.
+ * @return    Object with shell exit code, stderr and stdout.
  */
-export function cd(dir?: string): void;
+export function cd(dir?: string): ShellString;
 
 /**
  * Returns the current directory.
@@ -49,57 +51,65 @@ export function find(...path: Array<string | string[]>): ShellArray;
  * Copies files. The wildcard * is accepted.
  * @param source  The source.
  * @param   dest  The destination.
+ * @return        Object with shell exit code, stderr and stdout.
  */
-export function cp(source: string | string[], dest: string): void;
+export function cp(source: string | string[], dest: string): ShellString;
 
 /**
  * Copies files. The wildcard * is accepted.
  * @param options Available options: -f: force (default behavior) -n: no-clobber -u: only copy if source is newer than dest -r, -R: recursive -L: follow symlinks -P: don't follow symlinks
  * @param source  The source.
  * @param dest    The destination.
+ * @return        Object with shell exit code, stderr and stdout.
  */
-export function cp(options: string, source: string | string[], dest: string): void;
+export function cp(options: string, source: string | string[], dest: string): ShellString;
 
 /**
  * Removes files. The wildcard * is accepted.
  * @param ...files Files to remove.
+ * @return        Object with shell exit code, stderr and stdout.
  */
-export function rm(...files: Array<string | string[]>): void;
+export function rm(...files: Array<string | string[]>): ShellString;
 
 /**
  * Removes files. The wildcard * is accepted.
  * @param   options  Available options: -f (force), -r, -R (recursive)
  * @param ...files Files to remove.
+ * @return         Object with shell exit code, stderr and stdout.
  */
-export function rm(options: string, ...files: Array<string | string[]>): void;
+export function rm(options: string, ...files: Array<string | string[]>): ShellString;
 
 /**
  * Moves files. The wildcard * is accepted.
  * @param source The source.
  * @param dest   The destination.
+ * @return       Object with shell exit code, stderr and stdout.
  */
-export function mv(source: string | string[], dest: string): void;
+export function mv(source: string | string[], dest: string): ShellString;
 
 /**
  * Moves files. The wildcard * is accepted.
  * @param options Available options: -f: force (default behavior) -n: no-clobber
  * @param source The source.
  * @param dest   The destination.
+ * @return       Object with shell exit code, stderr and stdout.
  */
-export function mv(options: string, source: string | string[], dest: string): void;
+export function mv(options: string, source: string | string[], dest: string): ShellString;
 
 /**
  * Creates directories.
  * @param ...dir Directories to create.
+ * @return       Object with shell exit code, stderr and stdout.
  */
-export function mkdir(...dir: Array<string | string[]>): void;
+export function mkdir(...dir: Array<string | string[]>): ShellString;
 
 /**
  * Creates directories.
  * @param   options Available options: p (full paths, will create intermediate dirs if necessary)
  * @param ...dir  The directories to create.
+ * @return        Object with shell exit code, stderr and stdout.
  */
-export function mkdir(options: string, ...dir: Array<string | string[]>): void;
+export function mkdir(options: string, ...dir: Array<string | string[]>): ShellString;
 
 /**
  * Evaluates expression using the available primaries and returns corresponding value.
@@ -304,16 +314,18 @@ export function dirs(options: string): any;
  * Links source to dest. Use -f to force the link, should dest already exist.
  * @param source The source.
  * @param dest   The destination.
+ * @return       Object with shell exit code, stderr and stdout.
  */
-export function ln(source: string, dest: string): void;
+export function ln(source: string, dest: string): ShellString;
 
 /**
  * Links source to dest. Use -f to force the link, should dest already exist.
  * @param options Available options: s (symlink), f (force)
  * @param source The source.
  * @param dest   The destination.
+ * @return       Object with shell exit code, stderr and stdout.
  */
-export function ln(options: string, source: string, dest: string): void;
+export function ln(options: string, source: string, dest: string): ShellString;
 
 /**
  * Exits the current process with the given exit code.
@@ -400,8 +412,9 @@ export type ShellArray = string[] & ShellReturnValue;
  * - There is no "quiet" option since default behavior is to run silent.
  * @param octalMode The access mode. Octal.
  * @param file      The file to use.
+ * @return          Object with shell exit code, stderr and stdout.
  */
-export function chmod(octalMode: number, file: string): void;
+export function chmod(octalMode: number, file: string): ShellString;
 
 /**
  * Alters the permissions of a file or directory by either specifying the absolute permissions in octal form or expressing the changes in symbols. This command tries to mimic the POSIX behavior as much as possible. Notable exceptions:
@@ -410,8 +423,9 @@ export function chmod(octalMode: number, file: string): void;
  * @param options   Available options: -v (output a diagnostic for every file processed), -c (like -v but report only when a change is made), -R (change files and directories recursively)
  * @param octalMode The access mode. Octal.
  * @param file      The file to use.
+ * @return          Object with shell exit code, stderr and stdout.
  */
-export function chmod(options: string, octalMode: number, file: string): void;
+export function chmod(options: string, octalMode: number, file: string): ShellString;
 
 /**
  * Alters the permissions of a file or directory by either specifying the absolute permissions in octal form or expressing the changes in symbols. This command tries to mimic the POSIX behavior as much as possible. Notable exceptions:
@@ -419,8 +433,9 @@ export function chmod(options: string, octalMode: number, file: string): void;
  * - There is no "quiet" option since default behavior is to run silent.
  * @param mode      The access mode. Can be an octal string or a symbolic mode string.
  * @param file      The file to use.
+ * @return          Object with shell exit code, stderr and stdout.
  */
-export function chmod(mode: string, file: string): void;
+export function chmod(mode: string, file: string): ShellString;
 
 /**
  * Alters the permissions of a file or directory by either specifying the absolute permissions in octal form or expressing the changes in symbols. This command tries to mimic the POSIX behavior as much as possible. Notable exceptions:
@@ -429,8 +444,9 @@ export function chmod(mode: string, file: string): void;
  * @param options   Available options: -v (output a diagnostic for every file processed), -c (like -v but report only when a change is made), -R (change files and directories recursively)
  * @param mode      The access mode. Can be an octal string or a symbolic mode string.
  * @param file      The file to use.
+ * @return          Object with shell exit code, stderr and stdout.
  */
-export function chmod(options: string, mode: string, file: string): void;
+export function chmod(options: string, mode: string, file: string): ShellString;
 
 // Non-Unix commands
 
@@ -456,10 +472,10 @@ export interface TouchOptionsArray {
     '-r'?: string;
 }
 
-export function touch(...files: string[]): void;
-export function touch(files: string[]): void;
-export function touch(options: TouchOptionsLiteral, ...files: Array<string | string[]>): void;
-export function touch(options: TouchOptionsArray, ...files: Array<string | string[]>): void;
+export function touch(...files: string[]): ShellString;
+export function touch(files: string[]): ShellString;
+export function touch(options: TouchOptionsLiteral, ...files: Array<string | string[]>): ShellString;
+export function touch(options: TouchOptionsArray, ...files: Array<string | string[]>): ShellString;
 
 export interface HeadOptions {
     /** Show the first <num> lines of the files. */

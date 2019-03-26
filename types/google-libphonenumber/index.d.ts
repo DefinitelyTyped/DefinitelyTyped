@@ -124,6 +124,8 @@ declare namespace libphonenumber {
         getNddPrefixForRegion(regionCode?: string, stripNonDigits?: boolean): string | undefined;
         getNumberType(phoneNumber: PhoneNumber): PhoneNumberType;
         getCountryCodeForRegion(supportedRegion:string):string;
+        getExampleNumber(regionCode: string): PhoneNumber;
+        getExampleNumberForType(regionCode: string, type: PhoneNumberType): PhoneNumber;
         getRegionCodeForCountryCode(countryCallingCode: number): string;
         getRegionCodeForNumber(phoneNumber: PhoneNumber): string | undefined;
         getSupportedRegions():string [];

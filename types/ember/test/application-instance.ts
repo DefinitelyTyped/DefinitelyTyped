@@ -24,6 +24,6 @@ appInstance.lookup('route:basic');
 
 appInstance.boot();
 
-(async function() {
+(async () => {
   await appInstance.boot();
-}());
+})();

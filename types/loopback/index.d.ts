@@ -1,5 +1,5 @@
 // Type definitions for Loopback 3.2
-// Project: https://github.com/strongloop/loopback
+// Project: https://github.com/strongloop/loopback, http://loopback.io
 // Definitions by: Andres D Jimenez <https://github.com/kattsushi>
 //                 Tim Schumacher <https://github.com/enko>
 //                 Sequoia McDowell <https://github.com/sequoia>
@@ -3193,9 +3193,10 @@ declare namespace l {
       /**
        * The Role model
        * @class Role
+       * @inherits {PersistedModel}
        * @header Role objec
        */
-      class Role {
+      class Role extends PersistedModel {
             /**
              * List roles for a given principal.
              * @param {any} context The security context.

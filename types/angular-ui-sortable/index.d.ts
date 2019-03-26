@@ -2,17 +2,21 @@
 // Project: https://github.com/angular-ui/ui-sortable
 // Definitions by: Thodoris Greasidis <https://github.com/thgreasi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="angular" />
+/// <reference types="jqueryui" />
 
 import * as ng from 'angular';
+
+// Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
+type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 declare module 'angular' {
     export namespace ui {
 
         interface UISortableOptions<T> extends SortableOptions<T> {
-            'ui-floating'?: string | boolean;
+            'ui-floating'?: 'auto' | boolean;
         }
 
         interface UISortableProperties<T> {
@@ -79,11 +83,11 @@ declare module 'angular' {
             isCustomHelperUsed(): Boolean;
         }
 
-        interface UISortableUIItem<T> extends ng.IAugmentedJQuery {
+        interface UISortableUIItem<T> extends Omit<ng.IAugmentedJQuery, 'sortable'> {
             sortable: UISortableProperties<T>;
         }
 
-        interface UISortableUIParams<T> extends SortableUIParams {
+        interface UISortableUIParams<T> extends Omit<SortableUIParams, 'item'> {
             item: UISortableUIItem<T>;
         }
 

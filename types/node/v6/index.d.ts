@@ -1,7 +1,7 @@
-// Type definitions for Node.js v6.x
+// Type definitions for Node.js 6.14
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>
-//                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+// Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 Thomas Bouldin <https://github.com/inlined>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
@@ -741,14 +741,14 @@ declare module "http" {
     // incoming headers will never contain number
     export interface IncomingHttpHeaders {
         'accept'?: string;
-        'access-control-allow-origin'?: string;
-        'access-control-allow-credentials'?: string;
-        'access-control-expose-headers'?: string;
-        'access-control-max-age'?: string;
-        'access-control-allow-methods'?: string;
-        'access-control-allow-headers'?: string;
         'accept-patch'?: string;
         'accept-ranges'?: string;
+        'access-control-allow-credentials'?: string;
+        'access-control-allow-headers'?: string;
+        'access-control-allow-methods'?: string;
+        'access-control-allow-origin'?: string;
+        'access-control-expose-headers'?: string;
+        'access-control-max-age'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
@@ -772,10 +772,11 @@ declare module "http" {
         'retry-after'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
+        'tk'?: string;
         'trailer'?: string;
         'transfer-encoding'?: string;
-        'tk'?: string;
         'upgrade'?: string;
+        'user-agent'?: string;
         'vary'?: string;
         'via'?: string;
         'warning'?: string;
@@ -856,6 +857,7 @@ declare module "http" {
         write(str: string, encoding?: string, cb?: Function): boolean;
         write(str: string, encoding?: string, fd?: string): boolean;
 
+        readonly path: string;
         write(chunk: any, encoding?: string): void;
         abort(): void;
         setTimeout(timeout: number, callback?: Function): void;
@@ -1742,7 +1744,7 @@ declare module "child_process" {
         stdin: stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
-        stdio: [stream.Writable, stream.Readable, stream.Readable];
+        stdio: StdioStreams;
         killed: boolean;
         pid: number;
         kill(signal?: string): void;
@@ -1802,6 +1804,12 @@ declare module "child_process" {
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "exit", listener: (code: number, signal: string) => void): this;
         prependOnceListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
+    }
+
+    export interface StdioStreams extends ReadonlyArray<stream.Readable|stream.Writable> {
+        0: stream.Writable; // stdin
+        1: stream.Readable; // stdout
+        2: stream.Readable; // stderr
     }
 
     export interface SpawnOptions {
@@ -3033,7 +3041,7 @@ declare module "path" {
     /**
      * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
      *
-     * Starting from leftmost {from} paramter, resolves {to} to an absolute path.
+     * Starting from leftmost {from} parameter, resolves {to} to an absolute path.
      *
      * If {to} isn't already absolute, {from} arguments are prepended in right to left order, until an absolute path is found. If after using all {from} paths still no absolute path is found, the current working directory is used as well. The resulting path is normalized, and trailing slashes are removed unless the path gets resolved to the root directory.
      *
@@ -3610,8 +3618,8 @@ declare module "crypto" {
     export interface Signer extends NodeJS.WritableStream {
         update(data: string | Buffer): Signer;
         update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Signer;
-        sign(private_key: string | { key: string; passphrase: string }): Buffer;
-        sign(private_key: string | { key: string; passphrase: string }, output_format: HexBase64Latin1Encoding): string;
+        sign(private_key: string | { key: string; passphrase?: string }): Buffer;
+        sign(private_key: string | { key: string; passphrase?: string }, output_format: HexBase64Latin1Encoding): string;
     }
     export function createVerify(algorith: string): Verify;
     export interface Verify extends NodeJS.WritableStream {

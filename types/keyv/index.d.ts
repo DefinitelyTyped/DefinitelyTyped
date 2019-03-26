@@ -1,49 +1,33 @@
-// Type definitions for keyv 3.0
+// Type definitions for keyv 3.1
 // Project: https://github.com/lukechilds/keyv
 // Definitions by: AryloYeung <https://github.com/Arylo>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-/// <reference types="node" />
-interface KeyvOptions {
-    /** Namespace for the current instance. */
-    namespace?: string;
-    /** A custom serialization function. */
-    serialize?: (data: any) => string;
-    /** A custom deserialization function. */
-    deserialize?: (data: string) => any;
-    /** The connection string URI. */
-    uri?: string;
-    /** The storage adapter instance to be used by Keyv. */
-    store?: any;
-    /** Default TTL. Can be overridden by specififying a TTL on `.set()`. */
-    ttl?: number;
-    /** Specify an adapter to use. e.g `'redis'` or `'mongodb'`. */
-    adapter?: string;
-}
+// TypeScript Version: 2.3
 
-declare class Keyv extends NodeJS.EventEmitter {
+/// <reference types="node" />
+
+declare class Keyv<TValue = any> extends NodeJS.EventEmitter {
     /**
      * @param opts The options object is also passed through to the storage adapter. Check your storage adapter docs for any extra options.
      */
-    constructor(opts?: KeyvOptions);
+    constructor(opts?: Keyv.Options<TValue>);
     /**
      * @param uri The connection string URI.
      *
      * Merged into the options object as options.uri.
      * @param opts The options object is also passed through to the storage adapter. Check your storage adapter docs for any extra options.
      */
-    constructor(uri?: string, opts?: KeyvOptions);
-    /** Returns the namespace of a key */
-    _getKeyPrefix(key: string): string;
+    constructor(uri?: string, opts?: Keyv.Options<TValue>);
 
     /** Returns the value. */
-    get(key: string): Promise<any>;
+    get(key: string): Promise<TValue | undefined>;
     /**
      * Set a value.
      *
      * By default keys are persistent. You can set an expiry TTL in milliseconds.
      */
-    set(key: string, value: any, ttl?: number): (Promise<boolean> | undefined);
+    set(key: string, value: TValue, ttl?: number): Promise<true>;
     /**
      * Deletes an entry.
      *
@@ -52,6 +36,34 @@ declare class Keyv extends NodeJS.EventEmitter {
     delete(key: string): Promise<boolean>;
     /** Delete all entries in the current namespace. */
     clear(): Promise<void>;
+}
+
+declare namespace Keyv {
+    interface Options<TValue> {
+        /** Namespace for the current instance. */
+        namespace?: string;
+        /** A custom serialization function. */
+        serialize?: (data: TValue) => string;
+        /** A custom deserialization function. */
+        deserialize?: (data: string) => TValue;
+        /** The connection string URI. */
+        uri?: string;
+        /** The storage adapter instance to be used by Keyv. */
+        store?: Store<TValue>;
+        /** Default TTL. Can be overridden by specififying a TTL on `.set()`. */
+        ttl?: number;
+        /** Specify an adapter to use. e.g `'redis'` or `'mongodb'`. */
+        adapter?: 'redis' | 'mongodb' | 'mongo' | 'sqlite' | 'postgresql' | 'postgres' | 'mysql';
+
+        [key: string]: any;
+    }
+
+    interface Store<TValue> {
+        get(key: string): TValue | Promise<TValue | undefined> | undefined;
+        set(key: string, value: TValue, ttl?: number): any;
+        delete(key: string): boolean | Promise<boolean>;
+        clear(): void | Promise<void>;
+    }
 }
 
 export = Keyv;

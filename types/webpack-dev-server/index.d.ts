@@ -1,10 +1,11 @@
-// Type definitions for webpack-dev-server 2.9
+// Type definitions for webpack-dev-server 3.1
 // Project: https://github.com/webpack/webpack-dev-server
 // Definitions by: maestroh <https://github.com/maestroh>
 //                 Dave Parslow <https://github.com/daveparslow>
 //                 Zheyang Song <https://github.com/ZheyangSong>
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Artur Androsovych <https://github.com/arturovt>
+//                 Dave Cardwell <https://github.com/davecardwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -27,7 +28,7 @@ declare namespace WebpackDevServer {
 
     type ProxyConfigArrayItem = {
         path?: string | string[];
-        context?: string | string[]
+        context?: string | string[] | httpProxyMiddleware.Filter
     } & httpProxyMiddleware.Config;
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
@@ -51,11 +52,11 @@ declare namespace WebpackDevServer {
 
     interface Configuration {
         /** Provides the ability to execute custom middleware after all other middleware internally within the server. */
-        after?: (app: express.Application) => void;
+        after?: (app: express.Application, server: WebpackDevServer) => void;
         /** This option allows you to whitelist services that are allowed to access the dev server. */
         allowedHosts?: string[];
         /** Provides the ability to execute custom middleware prior to all other middleware internally within the server. */
-        before?: (app: express.Application) => void;
+        before?: (app: express.Application, server: WebpackDevServer) => void;
         /** This option broadcasts the server via ZeroConf networking on start. */
         bonjour?: boolean;
         /**
@@ -149,7 +150,7 @@ declare namespace WebpackDevServer {
          */
         quiet?: boolean;
         /** @deprecated Here you can access the Express app object and add your own custom middleware to it. */
-        setup?: (app: express.Application) => void;
+        setup?: (app: express.Application, server: WebpackDevServer) => void;
         /** The Unix socket to listen to (instead of a host). */
         socket?: string;
         /** It is possible to configure advanced options for serving static files from contentBase. */
@@ -158,13 +159,15 @@ declare namespace WebpackDevServer {
          * This option lets you precisely control what bundle information gets displayed.
          * This can be a nice middle ground if you want some bundle information, but not all of it.
          */
-        stats?: string | webpack.Stats;
+        stats?: webpack.Options.Stats;
         /** This option lets the browser open with your local IP. */
         useLocalIp?: boolean;
         /** Tell the server to watch the files served by the devServer.contentBase option. File changes will trigger a full page reload. */
         watchContentBase?: boolean;
         /** Control options related to watching the files. */
         watchOptions?: webpack.WatchOptions;
+        /** Tells devServer to write generated assets to the disk. */
+        writeToDisk?: boolean | ((filePath: string) => boolean);
     }
 }
 
