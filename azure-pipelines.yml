@@ -1,0 +1,24 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+jobs:
+- job: npmRunTest
+  pool:
+    vmImage: 'Ubuntu 16.04'
+    demands: npm
+
+  timeoutInMinutes: 360
+
+  steps:
+  - task: Npm@1
+    displayName: 'npm install'
+    inputs:
+      verbose: false
+  
+  - script: 'npm run test'
+    displayName: 'npm run test'
+  
+trigger:
+- master
+  
