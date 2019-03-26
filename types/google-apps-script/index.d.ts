@@ -42,14 +42,15 @@
 
 // API Types (Advanced Google Services)
 /// <reference path="apis/adsense_v1_4.d.ts"/>
+/// <reference path="apis/analytics_v3.d.ts"/>
 /// <reference path="apis/bigquery_v2.d.ts"/>
 /// <reference path="apis/calendar_v3.d.ts"/>
 /// <reference path="apis/drive_v2.d.ts"/>
+/// <reference path="apis/directory_v1.d.ts"/>
 /// <reference path="apis/appsactivity_v1.d.ts"/>
 /// <reference path="apis/reseller_v1.d.ts"/>
 /// <reference path="apis/licensing_v1.d.ts"/>
 /// <reference path="apis/gmail_v1.d.ts"/>
-/// <reference path="apis/analytics_v3.d.ts"/>
 /// <reference path="apis/analyticsreporting_v4.d.ts"/>
 /// <reference path="apis/classroom_v1.d.ts"/>
 /// <reference path="apis/mirror_v1.d.ts"/>

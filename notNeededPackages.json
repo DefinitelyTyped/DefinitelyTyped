@@ -787,6 +787,12 @@
             "asOfVersion": "2.0.23"
         },
         {
+            "libraryName": "get-port",
+            "typingsPackageName": "get-port",
+            "sourceRepoURL": "https://github.com/sindresorhus/get-port",
+            "asOfVersion": "4.2.0"
+        },
+        {
             "libraryName": "get-stream",
             "typingsPackageName": "get-stream",
             "sourceRepoURL": "https://github.com/sindresorhus/get-stream",
@@ -2009,6 +2015,12 @@
             "typingsPackageName": "scanf",
             "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
             "asOfVersion": "0.7.3"
+        },
+        {
+            "libraryName": "screenfull",
+            "typingsPackageName": "screenfull",
+            "sourceRepoURL": "https://github.com/sindresorhus/screenfull.js",
+            "asOfVersion": "4.1.0"
         },
         {
             "libraryName": "sendgrid",

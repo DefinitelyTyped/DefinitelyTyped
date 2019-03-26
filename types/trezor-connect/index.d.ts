@@ -54,6 +54,18 @@ export interface PublicKey {
   depth: number; // BIP32 serialization format
 }
 
+export interface Utxo {
+  index: number; // index of output IN THE TRANSACTION
+  transactionHash: string; // hash of the transaction
+  value: number; // how much money sent
+  addressPath: [number, number]; // path
+  height: number | null; // null == unconfirmed
+  coinbase: boolean;
+  tsize: number; // total size - in case of segwit, total, with segwit data
+  vsize: number; // virtual size - segwit concept - same as size in non-segwit
+  own: boolean;
+}
+
 export interface GetAccountInfoParams extends CommonParams {
   path?: number[];  // NOTE:
   xpub?: string;    // if both these fields are missing, the user will select an account
@@ -69,6 +81,11 @@ export interface AccountInfo {
 
   balance: number;
   confirmed: number;
+
+  transactions: number;
+  utxo: Utxo[];
+  usedAddresses: Array<{ address: string, received: number }>;
+  unusedAddresses: string[];
 
   // These fields are returned, presumably, to save further calls when the use case requires
   // a usable address:
@@ -126,8 +143,9 @@ export interface CipherKeyValueParams extends CommonParams {
   path: string | number[];
   key?: string;
   value?: string;
-  askOnEncrypt?: true;
-  askOnDecrypt?: true;
+  askOnEncrypt?: boolean;
+  askOnDecrypt?: boolean;
+  iv?: string;
 }
 
 export interface CipherKeyValue extends CommonParams {
@@ -146,6 +164,7 @@ export interface ResetDeviceParams extends CommonParams {
 
 export interface GetAddressParams extends CommonParams {
   path: string | number[];
+  address?: string;
   showOnTrezor?: boolean;
   coin?: string;
   crossChain?: boolean;
@@ -193,11 +212,25 @@ export type DeviceMode = 'normal' | 'bootloader' | 'initialize' | 'seedless';
 
 export type DeviceFirmwareStatus = 'valid' | 'outdated' | 'required';
 
+export interface FirmwareRelease {
+  required: boolean;
+  version: number[];
+  min_bridge_version: number[];
+  min_firmware_version: number[];
+  bootloader_version: number[];
+  min_bootloader_version: number[];
+  url: string;
+  channel: string;
+  fingerprint: string;
+  changelog: string;
+}
+
 export type Device = {
     type: 'acquired',
     path: string,
     label: string,
     firmware: DeviceFirmwareStatus,
+    firmwareRelease: FirmwareRelease,
     status: DeviceStatus,
     mode: DeviceMode,
     state: string | null,
@@ -270,10 +303,31 @@ export interface OpReturnOutput {
 
 export type Output = RegularOutput | InternalOutput | SendMaxOutput | OpReturnOutput;
 
+export interface BinOutput {
+  amount: number;
+  script_pubkey: string;
+}
+
+export interface RefTransaction {
+  hash: string;
+  version?: number;
+  inputs: Input[];
+  bin_outputs: BinOutput[];
+  lock_time?: number;
+  extra_data?: string;
+  timestamp?: number;
+  version_group_id?: number;
+}
+
 export interface SignTransactionParams extends CommonParams {
   inputs: Input[];
   outputs: Output[];
+  refTxs: RefTransaction[];
   coin: string;
+  locktime?: number;
+  version?: number;
+  expiry?: number;
+  branchId?: number;
   push?: boolean;
 }
 
@@ -314,6 +368,11 @@ export namespace TrezorConnect {
   function getFeatures(params?: CommonParams): Promise<ResponseMessage<Features>>;
 
   /**
+   * Retrieves the settings that TrezorConnect was initialized with.
+   */
+  function getSettings(): Promise<ResponseMessage<Settings>>;
+
+  /**
    * Asks device to encrypt value using the private key derived by given BIP32
    * path and the given key. IV is always computed automatically.
    */
@@ -323,7 +382,7 @@ export namespace TrezorConnect {
   /**
    * Resets device to factory defaults and removes all private data.
    */
-  function wipeDevice(): Promise<ResponseMessage<Message>>;
+  function wipeDevice(params?: CommonParams): Promise<ResponseMessage<Message>>;
 
   /**
    * Performs device setup and generates a new seed.

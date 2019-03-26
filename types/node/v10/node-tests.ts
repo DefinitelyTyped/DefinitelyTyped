@@ -952,6 +952,10 @@ function bufferTests() {
         const teEncodeRes: Uint8Array = te.encode("TextEncoder");
 
         // util.types
+        let b: boolean;
+        b = util.types.isBigInt64Array(15);
+        b = util.types.isBigUint64Array(15);
+        b = util.types.isModuleNamespaceObject(15);
 
         // tslint:disable-next-line:no-construct ban-types
         const maybeBoxed: number | Number = new Number(1);
@@ -4448,8 +4452,7 @@ import * as constants from 'constants';
             paddingStrategy: 0,
             peerMaxConcurrentStreams: 0,
             selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-            settings,
-            allowHTTP1: true
+            settings
         };
         // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
         const secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);
