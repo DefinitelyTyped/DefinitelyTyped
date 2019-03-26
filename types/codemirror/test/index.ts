@@ -100,3 +100,6 @@ widget1.clear();
 widget2.clear();
 htmlElement1.remove();
 htmlElement2.remove();
+
+CodeMirror.commands.selectAll();
+CodeMirror.commands.newlineAndIndent(myCodeMirror);
