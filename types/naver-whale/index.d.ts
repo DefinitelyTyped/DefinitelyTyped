@@ -3,7 +3,7 @@
 // Definitions by: tbvjaos510 <https://github.com/tbvjaos510>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // fork from @types/chrome
-// TypeScript Version: 2.4
+// TypeScript Version: 2.7
 
 /// <reference types="filesystem" />
 
