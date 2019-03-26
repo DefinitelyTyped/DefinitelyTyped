@@ -5,8 +5,8 @@
 // TypeScript Version: 2.2
 
 interface OmitOptions {
-    omitZero?: boolean,
+    omitZero?: boolean;
 }
 
-export = omitEmpty;
 declare function omitEmpty(obj: object, options?: OmitOptions): object;
+export default omitEmpty;
