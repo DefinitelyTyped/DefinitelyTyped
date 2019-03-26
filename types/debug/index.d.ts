@@ -5,6 +5,7 @@
 //                 John McLaughlin <https://github.com/zamb3zi>
 //                 Brasten Sager <https://github.com/brasten>
 //                 Nicolas Penin <https://github.com/npenin>
+//                 Kristian Brünn <https://github.com/kristianmitk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var debug: debug.Debug & { debug: debug.Debug; default: debug.Debug };
