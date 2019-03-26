@@ -9,9 +9,15 @@ import {
     TabContentProps
 } from 'react-tabs-redux';
 
-interface TestTabsProps extends TabsProps {}
-interface TestTabLinkProps extends TabLinkProps {}
-interface TestTabContentProps extends TabContentProps {}
+interface TestTabsProps extends TabsProps {
+    handleSomething: () => void;
+}
+interface TestTabLinkProps extends TabLinkProps {
+    link: string;
+}
+interface TestTabContentProps extends TabContentProps {
+    tabIndex: number;
+}
 
 class TestApp extends React.Component {
     onChange = (selectedTab: string, name: string) => {
