@@ -3,6 +3,7 @@
 // Definitions by: Corey Jepperson <https://github.com/acoreyj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = wNumb;
 /**
  * Create a wNumb
  */
