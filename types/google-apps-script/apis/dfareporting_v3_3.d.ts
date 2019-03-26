@@ -199,7 +199,7 @@ declare namespace GoogleAppsScript {
         // Inserts a new creative asset.
         insert(resource: Schema.CreativeAssetMetadata, profileId: string, advertiserId: string): Dfareporting_v3_3.Schema.CreativeAssetMetadata;
         // Inserts a new creative asset.
-        insert(resource: Schema.CreativeAssetMetadata, profileId: string, advertiserId: string, mediaData: Blob): Dfareporting_v3_3.Schema.CreativeAssetMetadata;
+        insert(resource: Schema.CreativeAssetMetadata, profileId: string, advertiserId: string, mediaData: any): Dfareporting_v3_3.Schema.CreativeAssetMetadata;
       }
       export interface CreativeFieldValuesCollection {
         // Gets one creative field value by ID.

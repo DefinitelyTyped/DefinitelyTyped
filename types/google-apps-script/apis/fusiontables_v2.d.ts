@@ -24,7 +24,7 @@ declare namespace GoogleAppsScript {
         update(resource: Schema.Column, tableId: string, columnId: string): Fusiontables_v2.Schema.Column;
       }
       export interface QueryCollection {
-        // Executes a Fusion Tables SQL statement, which can be any of 
+        // Executes a Fusion Tables SQL statement, which can be any of
         // - SELECT
         // - INSERT
         // - UPDATE
@@ -33,7 +33,7 @@ declare namespace GoogleAppsScript {
         // - DESCRIBE
         // - CREATE statement.
         sql(sql: string): Fusiontables_v2.Schema.Sqlresponse;
-        // Executes a Fusion Tables SQL statement, which can be any of 
+        // Executes a Fusion Tables SQL statement, which can be any of
         // - SELECT
         // - INSERT
         // - UPDATE
@@ -42,12 +42,12 @@ declare namespace GoogleAppsScript {
         // - DESCRIBE
         // - CREATE statement.
         sql(sql: string, optionalArgs: object): Fusiontables_v2.Schema.Sqlresponse;
-        // Executes a SQL statement which can be any of 
+        // Executes a SQL statement which can be any of
         // - SELECT
         // - SHOW
         // - DESCRIBE
         sqlGet(sql: string): Fusiontables_v2.Schema.Sqlresponse;
-        // Executes a SQL statement which can be any of 
+        // Executes a SQL statement which can be any of
         // - SELECT
         // - SHOW
         // - DESCRIBE
@@ -79,15 +79,15 @@ declare namespace GoogleAppsScript {
         // Imports more rows into a table.
         importRows(tableId: string): Fusiontables_v2.Schema.Import;
         // Imports more rows into a table.
-        importRows(tableId: string, mediaData: Blob): Fusiontables_v2.Schema.Import;
+        importRows(tableId: string, mediaData: any): Fusiontables_v2.Schema.Import;
         // Imports more rows into a table.
-        importRows(tableId: string, mediaData: Blob, optionalArgs: object): Fusiontables_v2.Schema.Import;
+        importRows(tableId: string, mediaData: any, optionalArgs: object): Fusiontables_v2.Schema.Import;
         // Imports a new table.
         importTable(name: string): Fusiontables_v2.Schema.Table;
         // Imports a new table.
-        importTable(name: string, mediaData: Blob): Fusiontables_v2.Schema.Table;
+        importTable(name: string, mediaData: any): Fusiontables_v2.Schema.Table;
         // Imports a new table.
-        importTable(name: string, mediaData: Blob, optionalArgs: object): Fusiontables_v2.Schema.Table;
+        importTable(name: string, mediaData: any, optionalArgs: object): Fusiontables_v2.Schema.Table;
         // Creates a new table.
         insert(resource: Schema.Table): Fusiontables_v2.Schema.Table;
         // Retrieves a list of tables a user owns.
@@ -105,9 +105,9 @@ declare namespace GoogleAppsScript {
         // Replaces rows of an existing table. Current rows remain visible until all replacement rows are ready.
         replaceRows(tableId: string): Fusiontables_v2.Schema.Task;
         // Replaces rows of an existing table. Current rows remain visible until all replacement rows are ready.
-        replaceRows(tableId: string, mediaData: Blob): Fusiontables_v2.Schema.Task;
+        replaceRows(tableId: string, mediaData: any): Fusiontables_v2.Schema.Task;
         // Replaces rows of an existing table. Current rows remain visible until all replacement rows are ready.
-        replaceRows(tableId: string, mediaData: Blob, optionalArgs: object): Fusiontables_v2.Schema.Task;
+        replaceRows(tableId: string, mediaData: any, optionalArgs: object): Fusiontables_v2.Schema.Task;
         // Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated.
         update(resource: Schema.Table, tableId: string): Fusiontables_v2.Schema.Table;
         // Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated.
