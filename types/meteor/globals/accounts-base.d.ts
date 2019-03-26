@@ -14,16 +14,16 @@ declare interface EmailFields {
 declare module Accounts {
     var urls: URLS;
 
-    function user(): Meteor.User;
+    function user(): Meteor.User | null;
 
-    function userId(): string;
+    function userId(): string | null;
 
     function createUser(options: {
         username?: string;
         email?: string;
         password?: string;
         profile?: Object;
-    }, callback?: Function): string;
+    }, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): string;
 
     function config(options: {
         sendVerificationEmail?: boolean;
@@ -50,15 +50,15 @@ declare module Accounts {
 }
 
 declare module Accounts {
-    function changePassword(oldPassword: string, newPassword: string, callback?: Function): void;
+    function changePassword(oldPassword: string, newPassword: string, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
     function forgotPassword(options: {
         email?: string;
-    }, callback?: Function): void;
+    }, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
-    function resetPassword(token: string, newPassword: string, callback?: Function): void;
+    function resetPassword(token: string, newPassword: string, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
-    function verifyEmail(token: string, callback?: Function): void;
+    function verifyEmail(token: string, callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
     function onEmailVerificationLink(callback: Function): void;
 
@@ -68,9 +68,9 @@ declare module Accounts {
 
     function loggingIn(): boolean;
 
-    function logout(callback?: Function): void;
+    function logout(callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
-    function logoutOtherClients(callback?: Function): void;
+    function logoutOtherClients(callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
     var ui: {
         config(options: {
