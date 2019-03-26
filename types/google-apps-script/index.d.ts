@@ -69,5 +69,5 @@
 /// <reference path="apis/tasks_v1.d.ts"/>
 /// <reference path="apis/urlshortener_v1.d.ts"/>
 /// <reference path="apis/youtube_v3.d.ts"/>
-/// <reference path="apis/youtubeAnalytics_v2.d.ts"/>
-/// <reference path="apis/youtubePartner_v1.d.ts"/>
+/// <reference path="apis/youtubeanalytics_v2.d.ts"/>
+/// <reference path="apis/youtubepartner_v1.d.ts"/>
