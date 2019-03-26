@@ -636,11 +636,11 @@ export namespace DS {
          * Iterates through the attributes of the model, calling the passed function on each
          * attribute.
          */
-        static eachAttribute<Class extends typeof DS.Model, Model extends InstanceType<Class>>(
+        static eachAttribute<Class extends typeof Model, M extends InstanceType<Class>>(
             this: Class,
             callback: (
-                name: ModelKeys<Model>,
-                meta: AttributeMeta<Model>
+                name: ModelKeys<M>,
+                meta: AttributeMeta<M>
             ) => void,
             binding?: any
         ): void;
@@ -649,7 +649,7 @@ export namespace DS {
          * the passed function on each attribute. Note the callback will not be
          * called for any attributes that do not have an transformation type.
          */
-        static eachTransformedAttribute<Class extends typeof DS.Model>(
+        static eachTransformedAttribute<Class extends typeof Model>(
             this: Class,
             callback: (
                 name: ModelKeys<InstanceType<Class>>,
