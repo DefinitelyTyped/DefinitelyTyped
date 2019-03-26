@@ -501,8 +501,9 @@ import { promisify } from 'util';
     verify.end();
     verify.verify(publicKey, signature);    // $ExpectType boolean
 
-    verify instanceof crypto.Verify;        // $ExpectType boolean
-    sign instanceof crypto.Signer;          // $ExpectType boolean
+    // ensure that instanceof works
+    verify instanceof crypto.Verify;
+    sign instanceof crypto.Signer;
 }
 
 {
