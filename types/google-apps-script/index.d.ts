@@ -41,7 +41,7 @@
 /// <reference path="google-apps-script.xml-service.d.ts"/>
 
 // API Types (Advanced Google Services)
-/// <reference path="apis/adsense_v1.4.d.ts"/>
+/// <reference path="apis/adsense_v1_4.d.ts"/>
 /// <reference path="apis/bigquery_v2.d.ts"/>
 /// <reference path="apis/calendar_v3.d.ts"/>
 /// <reference path="apis/drive_v2.d.ts"/>
@@ -57,9 +57,9 @@
 /// <reference path="apis/slides_v1.d.ts"/>
 /// <reference path="apis/groupsmigration_v1.d.ts"/>
 /// <reference path="apis/groupssettings_v1.d.ts"/>
-/// <reference path="apis/tagmanager_v1.d.ts"/>
+/// <reference path="apis/tagmanager_v2.d.ts"/>
 /// <reference path="apis/tasks_v1.d.ts"/>
 /// <reference path="apis/urlshortener_v1.d.ts"/>
-/// <reference path="apis/youtubeAnalytics_v1.d.ts"/>
+/// <reference path="apis/youtubeAnalytics_v2.d.ts"/>
 /// <reference path="apis/youtube_v3.d.ts"/>
 /// <reference path="apis/youtubePartner_v1.d.ts"/>

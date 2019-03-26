@@ -36,3 +36,6 @@ const postTest = (payload: Object): string => {
   };
   return UrlFetchApp.fetch(url, params).getContentText();
 };
+
+// Advanced Services
+Slides_v1.Presentations.Pages.getThumbnail('presentationId', 'pageId');
