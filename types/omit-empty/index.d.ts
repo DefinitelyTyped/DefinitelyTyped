@@ -1,4 +1,4 @@
-// Type definitions for omit-empty 1.0.0
+// Type definitions for omit-empty 1.0
 // Project: https://github.com/jonschlinkert/omit-empty
 // Definitions by: Shubham Kanodia <https://github.com/pastelsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
