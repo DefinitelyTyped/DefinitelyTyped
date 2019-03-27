@@ -7,7 +7,7 @@
 //                 Andrew Kaiser <https://github.com/andykais>
 //                 Mark Stewart <https://github.com/mrkstwrt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.0
 
 import Integer = require("integer");
 
