@@ -179,22 +179,6 @@ declare module "http2" {
         prependOnceListener(event: "trailers", listener: (trailers: IncomingHttpHeaders, flags: number) => void): this;
         prependOnceListener(event: "wantTrailers", listener: () => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
-        removeListener(event: "aborted", listener: () => void): this;
-        removeListener(event: "close", listener: () => void): this;
-        removeListener(event: "data", listener: (chunk: Buffer | string) => void): this;
-        removeListener(event: "drain", listener: () => void): this;
-        removeListener(event: "end", listener: () => void): this;
-        removeListener(event: "error", listener: (err: Error) => void): this;
-        removeListener(event: "finish", listener: () => void): this;
-        removeListener(event: "frameError", listener: (frameType: number, errorCode: number) => void): this;
-        removeListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        removeListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        removeListener(event: "streamClosed", listener: (code: number) => void): this;
-        removeListener(event: "timeout", listener: () => void): this;
-        removeListener(event: "trailers", listener: (trailers: IncomingHttpHeaders, flags: number) => void): this;
-        removeListener(event: "wantTrailers", listener: () => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     export class ClientHttp2Stream extends Http2Stream {
@@ -235,12 +219,6 @@ declare module "http2" {
         prependOnceListener(event: "push", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
         prependOnceListener(event: "response", listener: (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
-        removeListener(event: "continue", listener: () => {}): this;
-        removeListener(event: "headers", listener: (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void): this;
-        removeListener(event: "push", listener: (headers: IncomingHttpHeaders, flags: number) => void): this;
-        removeListener(event: "response", listener: (headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     export class ServerHttp2Stream extends Http2Stream {
@@ -372,16 +350,6 @@ declare module "http2" {
         prependOnceListener(event: "remoteSettings", listener: (settings: Settings) => void): this;
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
-        removeListener(event: "close", listener: () => void): this;
-        removeListener(event: "error", listener: (err: Error) => void): this;
-        removeListener(event: "frameError", listener: (frameType: number, errorCode: number, streamID: number) => void): this;
-        removeListener(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
-        removeListener(event: "localSettings", listener: (settings: Settings) => void): this;
-        removeListener(event: "ping", listener: () => void): this;
-        removeListener(event: "remoteSettings", listener: (settings: Settings) => void): this;
-        removeListener(event: "timeout", listener: () => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     export class ClientHttp2Session extends Http2Session {
@@ -424,12 +392,6 @@ declare module "http2" {
         prependOnceListener(event: "connect", listener: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
         prependOnceListener(event: "stream", listener: (stream: ClientHttp2Stream, headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
-        removeListener(event: "altsvc", listener: (alt: string, origin: string, stream: number) => void): this;
-        removeListener(event: "origin", listener: (origins: string[]) => void): this;
-        removeListener(event: "connect", listener: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
-        removeListener(event: "stream", listener: (stream: ClientHttp2Stream, headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number) => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     export interface AlternativeServiceOptions {
@@ -466,10 +428,6 @@ declare module "http2" {
         prependOnceListener(event: "connect", listener: (session: ServerHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
         prependOnceListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
-        removeListener(event: "connect", listener: (session: ServerHttp2Session, socket: net.Socket | tls.TLSSocket) => void): this;
-        removeListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     // Http2Server
@@ -560,14 +518,6 @@ declare module "http2" {
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        removeListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        removeListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        removeListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
-        removeListener(event: "sessionError", listener: (err: Error) => void): this;
-        removeListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
-        removeListener(event: "timeout", listener: () => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
         setTimeout(msec?: number, callback?: () => void): this;
     }
 
@@ -627,15 +577,6 @@ declare module "http2" {
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
-        removeListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        removeListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        removeListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
-        removeListener(event: "sessionError", listener: (err: Error) => void): this;
-        removeListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
-        removeListener(event: "timeout", listener: () => void): this;
-        removeListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         setTimeout(msec?: number, callback?: () => void): this;
     }
@@ -706,14 +647,6 @@ declare module "http2" {
         prependOnceListener(event: "readable", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
-        removeListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
-        removeListener(event: "close", listener: () => void): this;
-        removeListener(event: "data", listener: (chunk: any) => void): this;
-        removeListener(event: "end", listener: () => void): this;
-        removeListener(event: "readable", listener: () => void): this;
-        removeListener(event: "error", listener: (err: Error) => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     export class Http2ServerResponse extends stream.Stream {
@@ -792,14 +725,6 @@ declare module "http2" {
         prependOnceListener(event: "pipe", listener: (src: stream.Readable) => void): this;
         prependOnceListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-
-        removeListener(event: "close", listener: () => void): this;
-        removeListener(event: "drain", listener: () => void): this;
-        removeListener(event: "error", listener: (error: Error) => void): this;
-        removeListener(event: "finish", listener: () => void): this;
-        removeListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        removeListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     // Public API
