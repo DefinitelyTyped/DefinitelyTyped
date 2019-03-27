@@ -3767,13 +3767,13 @@ fp.now(); // $ExpectType number
     const value: number | string[] | boolean[] = anything;
 
     if (_.isArray(value)) {
-        const result: string[] | boolean[] = value;
+        value; // $ExpectType string[] | boolean[]
     } else {
         value; // $ExpectType number
     }
 
     if (fp.isArray(value)) {
-        const result: string[] | boolean[] = value;
+        value; // $ExpectType string[] | boolean[]
     } else {
         value; // $ExpectType number
     }

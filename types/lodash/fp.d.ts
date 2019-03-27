@@ -1893,7 +1893,10 @@ declare namespace _ {
     }
     type LodashInvokeMap2x1<TResult> = (collection: object | null | undefined) => TResult[];
     type LodashIsArguments = (value: any) => value is IArguments;
-    type LodashIsArray = (value: any) => value is any[];
+    interface LodashIsArray {
+        (value: any): value is any[];
+        <T>(value: T): value is T extends any[] ? T : never;
+    }
     type LodashIsArrayBuffer = (value: any) => value is ArrayBuffer;
     interface LodashIsArrayLike {
         <T>(value: T & string & number): boolean;

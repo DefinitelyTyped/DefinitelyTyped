@@ -391,6 +391,11 @@ declare module "../index" {
         isArray(value?: any): value is any[];
 
         /**
+         * @see _.isArray
+         */
+        isArray<T>(value?: T): value is T extends any[] ? T : never;
+
+        /**
          * DEPRECATED
          */
         isArray<T>(value?: any): value is any[];
