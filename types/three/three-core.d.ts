@@ -7051,8 +7051,9 @@ export class Path extends CurvePath<Vector2> {
 export class ShapePath {
     constructor();
 
-    subPaths: any[];
-    currentPath: any;
+    subPaths: Path[];
+    currentPath: Path;
+    color: Color;
 
     moveTo(x: number, y: number): void;
     lineTo(x: number, y: number): void;
