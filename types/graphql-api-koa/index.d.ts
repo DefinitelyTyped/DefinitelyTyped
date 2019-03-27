@@ -2,7 +2,7 @@
 // Project: https://github.com/jaydenseric/graphql-api-koa#readme
 // Definitions by: Mike Marcacci <https://github.com/mike-marcacci>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.4
 
 import { GraphQLSchema } from "graphql";
 import { Middleware, ParameterizedContext } from "koa";
