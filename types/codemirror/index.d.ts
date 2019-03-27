@@ -1224,7 +1224,7 @@ declare namespace CodeMirror {
 
     interface CommandActions {
         /** Select the whole content of the editor. */
-        selectAll(): void;
+        selectAll(cm: CodeMirror.Editor): void;
 
         /** When multiple selections are present, this deselects all but the primary selection. */
         singleSelection(cm: CodeMirror.Editor): void;
