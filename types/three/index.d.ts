@@ -60,7 +60,6 @@ export * from "./three-shaderpass";
 export * from "./three-smaapass";
 export * from "./three-ssaapass";
 export * from "./three-filmpass";
-export * from "./three-svgloader";
 export * from "./three-tgaloader";
 export * from "./three-trackballcontrols";
 export * from "./three-transformcontrols";
