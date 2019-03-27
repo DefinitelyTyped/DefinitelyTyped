@@ -2,7 +2,7 @@
 // Project: https://github.com/jaydenseric/graphql-react#readme
 // Definitions by: Mike Marcacci <https://github.com/mike-marcacci>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.4
 
 import { ReactNode, Context } from "react";
 
