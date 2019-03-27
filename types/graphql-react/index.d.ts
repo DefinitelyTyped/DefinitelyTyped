@@ -20,11 +20,11 @@ export interface GraphQLCacheValue<T> {
   parseError: null | string;
   graphQLErrors:
     | null
-    | {
+    | Array<{
         message: string;
         path: string[];
-        locations: { column: number; line: number }[];
-      }[];
+        locations: Array<{ column: number; line: number }>;
+      }>;
   data: T;
 }
 
@@ -45,7 +45,7 @@ export type GraphQLFetchOptionsOverride = (
 
 export type GraphQLOperation<V> = {
   query: string;
-} & (V extends void ? {} : { variables: V });
+} & (V extends undefined ? {} : { variables: V });
 
 export interface GraphQLOperationLoading<T> {
   cacheKey: GraphQLCacheKey;
@@ -61,14 +61,14 @@ export interface GraphQLOperationStatus<T> {
 }
 
 export class GraphQL {
-  public constructor(options?: { cache?: GraphQLCache });
+  constructor(options?: { cache?: GraphQLCache });
 
-  public on(
+  on(
     type: "reset",
     handler: (event: { exceptCacheKey: GraphQLCacheKey }) => void
   ): void;
 
-  public on(
+  on(
     type: "cache",
     handler: (event: {
       cacheKey: GraphQLCacheKey;
@@ -76,7 +76,7 @@ export class GraphQL {
     }) => void
   ): void;
 
-  public on(
+  on(
     type: "fetch",
     handler: (event: {
       cacheKey: GraphQLCacheKey;
@@ -84,12 +84,12 @@ export class GraphQL {
     }) => void
   ): void;
 
-  public off(
+  off(
     type: "reset",
     handler: (event: { exceptCacheKey: GraphQLCacheKey }) => void
   ): void;
 
-  public off(
+  off(
     type: "cache",
     handler: (event: {
       cacheKey: GraphQLCacheKey;
@@ -97,7 +97,7 @@ export class GraphQL {
     }) => void
   ): void;
 
-  public off(
+  off(
     type: "fetch",
     handler: (event: {
       cacheKey: GraphQLCacheKey;
@@ -105,15 +105,15 @@ export class GraphQL {
     }) => void
   ): void;
 
-  public reset(exceptCacheKey?: string): void;
-  public operate<T, V>(options: {
+  reset(exceptCacheKey?: string): void;
+  operate<T, V>(options: {
     operation: GraphQLOperation<V>;
     fetchOptionsOverride?: GraphQLFetchOptionsOverride;
     reloadOnLoad?: boolean;
     resetOnLoad?: boolean;
   }): GraphQLOperationLoading<T>;
 
-  public cache: GraphQLCache;
+  cache: GraphQLCache;
 }
 
 export function reportCacheErrors(event: any): void;
