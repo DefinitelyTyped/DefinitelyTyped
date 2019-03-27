@@ -28,6 +28,9 @@ var position = coords.col + coords.row;
 options.widget_base_dimensions = [100, 200];
 gridster.resize_widget_dimensions(options);
 
+options.widget_base_dimensions = ['auto', 200];
+gridster.resize_widget_dimensions(options);
+
 gridster.set_widget_min_size(0, [1, 2]);
 
 function noOptions() {
@@ -48,13 +51,13 @@ function widgetSelectorString() {
 	};
 
 	var grid: Gridster = $('.gridster ul').gridster(opts).data('gridster')
-} 
+}
 
 function withNamespace() {
 	var grid: Gridster = $('.gridster ul').gridster({
 		namespace: 'custom-gridster'
 	}).data('gridster')
-} 
+}
 
 function withStylesheet() {
 	var grid: Gridster = $('.gridster ul').gridster({

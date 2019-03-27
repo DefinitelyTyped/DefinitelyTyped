@@ -16,12 +16,13 @@
         "paths": {
             "ember-qunit": [
                 "ember-qunit/v2"
-            ]
+            ],
+            "ember": ["ember/v2"],
+            "ember-test-helpers": ["ember-test-helpers/v0"]
         },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

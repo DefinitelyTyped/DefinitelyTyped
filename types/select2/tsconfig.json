@@ -5,9 +5,9 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": false,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -15,8 +15,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

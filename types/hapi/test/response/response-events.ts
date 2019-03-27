@@ -1,13 +1,13 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-responseevents
-import { Request, ResponseObject, ResponseToolkit, Server, ServerOptions, ServerRoute } from "hapi";
+import { Lifecycle, Request, ResponseObject, ResponseToolkit, Server, ServerOptions, ServerRoute } from "hapi";
 import * as Crypto from "crypto";
 
-const preResponse = (request: Request, h: ResponseToolkit) => {
+const preResponse: Lifecycle.Method = (request, h) => {
     // In onPreResponse, the response object will be defined.
-    const response: ResponseObject = request.response!;
+    const response = <ResponseObject> request.response;
 
     const hash = Crypto.createHash('sha1');
-    response.events.on('peek', (chunk: any) => {
+    response.events.on('peek', (chunk, encoding) => {
         hash.update(chunk);
     });
 

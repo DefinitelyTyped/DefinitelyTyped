@@ -1,33 +1,57 @@
-import * as proj4 from 'proj4';
+import proj4 = require('proj4');
 
 ///////////////////////////////////////////
 // Tests data initialisation
 ///////////////////////////////////////////
-const name = 'WGS84';
 const epsg = {
     4269: '+title=NAD83 (long/lat) +proj=longlat +a=6378137.0 +b=6356752.31414036 +ellps=GRS80 +datum=NAD83 +units=degrees',
     4326: '+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees',
 };
-const point1 = [-71, 41];
-const point2 = {x: 2, y: 5};
-const mgrs = "24XWT783908";
+const firstProjection = epsg[4269];
+const secondProjection = epsg[4326];
+
+const pointArr = [-71, 41];
+const pointObj = { x: 2, y: 5 };
 
 ///////////////////////////////////////////
 // Tests Measurement
 ///////////////////////////////////////////
-proj4(epsg['4269'], epsg['4326'], point1);
-proj4(epsg['4269'], point1);
-proj4(epsg['4269'], epsg['4326']).forward(point2);
-proj4(epsg['4269'], epsg['4326']).inverse(point2);
+proj4(firstProjection, secondProjection, pointArr);
+proj4(firstProjection, pointArr);
+
+// $ExpectType number[]
+proj4(firstProjection, secondProjection, pointArr);
+// $ExpectType { x: number; y: number; }
+proj4(firstProjection, secondProjection, pointObj);
+
+// $ExpectType number[]
+proj4(firstProjection, pointArr);
+// $ExpectType { x: number; y: number; }
+proj4(firstProjection, pointObj);
+
+// $ExpectType Converter
+proj4(firstProjection, secondProjection);
+// $ExpectType Converter
+proj4(firstProjection);
+
+// $ExpectType number[]
+proj4(firstProjection, secondProjection).forward(pointArr);
+// $ExpectType { x: number; y: number; }
+proj4(firstProjection, secondProjection).forward(pointObj);
+// $ExpectType number[]
+proj4(firstProjection, secondProjection).inverse(pointArr);
+// $ExpectType { x: number; y: number; }
+proj4(firstProjection, secondProjection).inverse(pointObj);
 
 ///////////////////////////////////
 // Named Projections
 ///////////////////////////////////
-proj4.defs('WGS84', epsg['4326']);
-proj4.defs([
-  ['EPSG:4326', epsg['4326']],
-  ['EPSG:4269', epsg['4269']]
-]);
+
+// $ExpectType ProjectionDefinition
+proj4.defs('WGS84');
+proj4.defs('WGS84', secondProjection);
+// $ExpectType undefined[]
+proj4.defs([['EPSG:4326', secondProjection], ['EPSG:4269', firstProjection]]);
 proj4.defs('urn:x-ogc:def:crs:EPSG:4326', proj4.defs('EPSG:4326'));
 
 ///////////////////////////////////

@@ -1,4 +1,4 @@
-// Type definitions for microsoftteams 1.2
+// Type definitions for non-npm package microsoftteams 1.2
 // Project: https://github.com/OfficeDev/microsoft-teams-library-js
 // Definitions by: Bhargav Krishna <https://github.com/WrathOfZombies>
 //                 Jay Ongg <https://github.com/jayongg>

@@ -22,10 +22,8 @@
  * adapter to integrate the TextField helper text into your framework. See
  * https://github.com/material-components/material-components-web/blob/master/docs/authoring-components.md
  * for more information.
- *
- * @record
  */
-export default class MDCTextFieldHelperTextAdapter {
+export default interface MDCTextFieldHelperTextAdapter {
     /**
      * Adds a class to the helper text element.
      */

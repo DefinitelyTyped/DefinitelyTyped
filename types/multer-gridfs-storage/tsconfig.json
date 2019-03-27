@@ -4,11 +4,6 @@
         "lib": [
             "es6"
         ],
-        "paths": {
-            "mongodb": [
-                "mongodb/v2"
-            ]
-        },
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -19,8 +14,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

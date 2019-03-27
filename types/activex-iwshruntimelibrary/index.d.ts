@@ -1,11 +1,15 @@
-// Type definitions for Windows Script Host Object Model - IWshRuntimeLibrary 1.0
-// Project: https://msdn.microsoft.com/en-us/library/9bbdkx3k(v=vs.84).aspx
+// Type definitions for non-npm package Windows Script Host Runtime Object Model 0.0
+// Project: https://msdn.microsoft.com/en-us/library/9bbdkx3k.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+/// <reference types="activex-interop" />
+
 declare namespace IWshRuntimeLibrary {
-    // tslint:disable-next-line no-const-enum
+    type WindowStyle = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+    type ShortcutWindowStyle = 1 | 3 | 7;
+
     const enum ButtonType {
         OK,
         OKCancel,
@@ -16,7 +20,15 @@ declare namespace IWshRuntimeLibrary {
         CancelTryagainContinue
     }
 
-    // tslint:disable-next-line no-const-enum
+    const enum EventType {
+        AuditFailure = 5,
+        AuditSuccess = 4,
+        Error = 1,
+        Information = 3,
+        Success = 0,
+        Warning = 2
+    }
+
     const enum IconType {
         Stop = 16,
         QuestionMark = 32,
@@ -24,7 +36,6 @@ declare namespace IWshRuntimeLibrary {
         InformationMark = 64,
     }
 
-    // tslint:disable-next-line no-const-enum
     const enum PopupType {
         SecondButtonDefault = 256,
         ThirdButtonDefault = 512,
@@ -33,7 +44,6 @@ declare namespace IWshRuntimeLibrary {
         RTL = 1048576,
     }
 
-    // tslint:disable-next-line no-const-enum
     const enum PopupSelection {
         NoButton = -1,
         OK = 1,
@@ -47,14 +57,12 @@ declare namespace IWshRuntimeLibrary {
         Continue = 11,
     }
 
-    // tslint:disable-next-line no-const-enum
     const enum WshExecStatus {
         WshFailed = 2,
         WshFinished = 1,
         WshRunning = 0,
     }
 
-    // tslint:disable-next-line no-const-enum
     const enum WshWindowStyle {
         WshHide = 0,
         WshMaximizedFocus = 3,
@@ -64,43 +72,108 @@ declare namespace IWshRuntimeLibrary {
         WshNormalNoFocus = 4,
     }
 
-    class TextStream {
-        private 'IWshRuntimeLibrary.TextStream_typekey': TextStream;
-        private constructor();
-        readonly AtEndOfLine: boolean;
-        readonly AtEndOfStream: boolean;
-        Close(): void;
-        readonly Column: number;
-        readonly Line: number;
-        Read(Characters: number): string;
-        ReadAll(): string;
-        ReadLine(): string;
-        Skip(Characters: number): void;
-        SkipLine(): void;
-        Write(Text: string): void;
-        WriteBlankLines(Lines: number): void;
+    class TextStreamBase {
+        /**
+         * The column number of the current character position in an input stream.
+         */
+        Column: number;
 
-        /** @param string [Text=''] */
-        WriteLine(Text?: string): void;
+        /**
+         * The current line number in an input stream.
+         */
+        Line: number;
+
+        /**
+         * Closes a text stream.
+         * It is not necessary to close standard streams; they close automatically when the process ends. If
+         * you close a standard stream, be aware that any other pointers to that standard stream become invalid.
+         */
+        Close(): void;
+    }
+
+    class TextStreamWriter extends TextStreamBase {
+        private 'IWshRuntimeLibrary.TextStreamWriter_typekey': TextStreamWriter;
+        private constructor();
+
+        /**
+         * Sends a string to an output stream.
+         */
+        Write(s: string): void;
+
+        /**
+         * Sends a specified number of blank lines (newline characters) to an output stream.
+         */
+        WriteBlankLines(intLines: number): void;
+
+        /**
+         * Sends a string followed by a newline character to an output stream.
+         */
+        WriteLine(s: string): void;
+    }
+
+    class TextStreamReader extends TextStreamBase {
+        private 'IWshRuntimeLibrary.TextStreamReader_typekey': TextStreamReader;
+        private constructor();
+
+        /**
+         * Returns a specified number of characters from an input stream, starting at the current pointer position.
+         * Does not return until the ENTER key is pressed.
+         * Can only be used on a stream in reading mode; causes an error in writing or appending mode.
+         */
+        Read(characters: number): string;
+
+        /**
+         * Returns all characters from an input stream.
+         * Can only be used on a stream in reading mode; causes an error in writing or appending mode.
+         */
+        ReadAll(): string;
+
+        /**
+         * Returns an entire line from an input stream.
+         * Although this method extracts the newline character, it does not add it to the returned string.
+         * Can only be used on a stream in reading mode; causes an error in writing or appending mode.
+         */
+        ReadLine(): string;
+
+        /**
+         * Skips a specified number of characters when reading from an input text stream.
+         * Can only be used on a stream in reading mode; causes an error in writing or appending mode.
+         * @param characters Positive number of characters to skip forward. (Backward skipping is not supported.)
+         */
+        Skip(characters: number): void;
+
+        /**
+         * Skips the next line when reading from an input text stream.
+         * Can only be used on a stream in reading mode, not writing or appending mode.
+         */
+        SkipLine(): void;
+
+        /**
+         * Indicates whether the stream pointer position is at the end of a line.
+         */
+        AtEndOfLine: boolean;
+
+        /**
+         * Indicates whether the stream pointer position is at the end of a stream.
+         */
+        AtEndOfStream: boolean;
     }
 
     /** Generic Collection Object */
-    class WshCollection {
-        private 'IWshRuntimeLibrary.WshCollection_typekey': WshCollection;
-        private constructor();
+    interface WshCollection {
         Count(): number;
         Item(Index: any): any;
         readonly length: number;
+        (Index: any): any;
     }
 
     /** Environment Variables Collection Object */
-    class WshEnvironment {
-        private 'IWshRuntimeLibrary.WshEnvironment_typekey': WshEnvironment;
-        private constructor();
+    interface WshEnvironment {
         Count(): number;
         Item(Name: string): string;
-        readonly length: number;
+        readonly Length: number;
         Remove(Name: string): void;
+        (Name: string): string;
     }
 
     /** WSHExec object */
@@ -110,9 +183,9 @@ declare namespace IWshRuntimeLibrary {
         readonly ExitCode: number;
         readonly ProcessID: number;
         readonly Status: WshExecStatus;
-        readonly StdErr: TextStream;
-        readonly StdIn: TextStream;
-        readonly StdOut: TextStream;
+        readonly StdErr: TextStreamWriter;
+        readonly StdIn: TextStreamReader;
+        readonly StdOut: TextStreamWriter;
         Terminate(): void;
     }
 
@@ -161,7 +234,7 @@ declare namespace IWshRuntimeLibrary {
          * @param Force [false] Remove the connections even if the resource is in use
          * @param UpdateProfile [false] Remove the mapping from the user's profile
          */
-        RemoveNetworkDrive(Name: string, Force?: any, UpdateProfile?: any): void;
+        RemoveNetworkDrive(Name: string, Force?: boolean, UpdateProfile?: boolean): void;
 
         /**
          * Removes a shared network printer connection from your computer system
@@ -173,7 +246,7 @@ declare namespace IWshRuntimeLibrary {
          * _Name_ must be the printer's local name. If the printer was connected using the **AddWindowsPrinterConnection** method or was added manually (using the Add Printer wizard),
          * then _Name_ must be the printer's UNC name.
          */
-        RemovePrinterConnection(Name: string, Force?: any, UpdateProfile?: any): void;
+        RemovePrinterConnection(Name: string, Force?: true, UpdateProfile?: true): void;
         SetDefaultPrinter(Name: string): void;
         readonly Site: string;
         readonly UserDomain: string;
@@ -185,21 +258,107 @@ declare namespace IWshRuntimeLibrary {
     class WshShell {
         private 'IWshRuntimeLibrary.WshShell_typekey': WshShell;
         private constructor();
-        AppActivate(App: any, Wait?: any): boolean;
-        CreateShortcut(PathLink: string): any;
+
+        /**
+         * Activates an application window
+         * @param App Title of application as it appears in the title bar, or the process ID
+         * @param Wait
+         *
+         * This method changes the focus to the named application or window. The window must be attached to the calling thread's message queue. It does not affect whether it is maximized or
+         * minimized. Focus moves from the activated application window when the user takes action to change the focus (or closes the window).
+         *
+         * In determining which application to activate, the specified title is compared to the title string of each running application. If no exact match exists, any application whose title
+         * string begins with title is activated. If an application still cannot be found, any application whose title string ends with title is activated. If more than one instance of the
+         * application named by title exists, one instance is arbitrarily activated.
+         *
+         * The method might return `false` under the following conditions:
+         *
+         * * The window is not brought to the foreground.
+         * * The window is brought to the foreground but is not given keyboard focus.
+         * * A Command Prompt window (`cmd.exe`) is brought to the foreground and is given keyboard focus.
+         */
+        AppActivate(App: string | number, Wait?: any): boolean;
+
+        /**
+         * Creates a shortcut
+         * @param PathLink Path where the shortcut should be created
+         *
+         * The shortcut object exists in memory until you save it to disk with the **Save** method.
+         */
+        CreateShortcut(PathLink: string): WshShortcut | WshURLShortcut;
         CurrentDirectory: string;
-        Environment(Type?: any): WshEnvironment;
+
+        /**
+         * Note that **Environment** doesn't actually return a callable object; the call is only usable in the context of the **Environment** property. The following:
+         *
+         *     let env = new ActiveXObject('WScript.Shell').Environment;
+         *     WScript.Echo(env('System'));
+         *
+         * will return an empty string, unless there is an environment variable named `System`
+         */
+        Environment: WshEnvironment & ((Type: 'System' | 'User' | 'Process' | 'Volatile') => WshEnvironment);
         Exec(Command: string): WshExec;
         ExpandEnvironmentStrings(Src: string): string;
 
-        /** @param string [Target=''] */
-        LogEvent(Type: any, Message: string, Target?: string): boolean;
-        Popup(Text: any, SecondsToWait?: number, Title?: string, Type?: ButtonType | IconType | PopupType): PopupSelection;
+        /** @param string [Target=''] Name of the computer system where the event should be logged; default is the local computer system */
+        LogEvent(Type: EventType, Message: string, Target?: string): boolean;
+        Popup(Text: string, SecondsToWait?: number, Title?: string, Type?: ButtonType | IconType | PopupType): PopupSelection;
         RegDelete(Name: string): void;
-        RegRead(Name: string): any;
-        RegWrite(Name: string, Value: any, Type?: any): void;
-        Run(Command: string, WindowStyle?: any, WaitOnReturn?: any): number;
-        SendKeys(Keys: string, Wait?: any): void;
+
+        /**
+         * Returns the value of a key or value-name from the registry
+         * @param Name Key (ends with a final `\`) or value-name (doesn't end with a final `\`)
+         *
+         * Returns one of the following, based on the registry value type:
+         *
+         * * **REG_SZ** -- a string
+         * * **REG_DWORD** -- a number
+         * * **REG_SBINARY** -- a binary value, as a COM SafeArray containing integers
+         * * **REG_EXPAND_SZ** -- an expandable string
+         * * **REG_MULTI_SZ** -- an array of srings, as a COM SafeArray
+         */
+        RegRead(Name: string): string | number | SafeArray<string> | SafeArray<number>;
+
+        /**
+         * Creates a new key, adds another value-name to an existing key and assigns it a value, or changes the value of an existing value-name
+         * @param Name Key (ends with a final `\`) or value-name (doesn't end with a final `\`)
+         * @param Value Will be coerced to `string` or `integer` based on the value-name type:
+         * `REG_SZ | REG_EXPAND_SZ` will be converted to `string`;
+         * `REG_DWORD | REG_BINARY` will be converted to `integer`
+         * @param Type
+         */
+        RegWrite(Name: string, Value: any, Type?: 'REG_SZ' | 'REG_DWORD' | 'REG_BINARY' | 'REG_EXPAND_SZ'): void;
+
+        /**
+         * Runs a program in a new process.
+         * @param Command Command-line, including any parameters you want to pass to the executable file.
+         * @param WindowStyle Appearance of the program window. Not all programs make use of this information.
+         * @param WaitOnReturn Block script until program finishes executing.
+         *
+         * If `false` is passed into **WaitOnReturn**, the **Run** method will return 0 immediately. If `true` is passed in, **Run** will return the program's error code, if any.
+         *
+         * Environment variables will be expanded within the command line.
+         *
+         * Passing a registered file type will automatically open the program registered to the file type.
+         *
+         * Possible values for **WindowStyle**:
+         *
+         * * **0** -- Hides the window and activates another window.
+         * * **1** -- Activates and displays a window. If the window is minimized or maximized, the system restores it to its original size and position. An application should specify this flag
+         * when displaying the window for the first time.
+         * * **2** -- Activates the window and displays it as a minimized window.
+         * * **3** -- Activates the window and displays it as a maximized window.
+         * * **4** -- Displays a window in its most recent size and position. The active window remains active.
+         * * **5** -- Activates the window and displays it in its current size and position.
+         * * **6** -- Minimizes the specified window and activates the next top-level window in the Z order.
+         * * **7** -- Displays the window as a minimized window. The active window remains active.
+         * * **8** -- Displays the window in its current state. The active window remains active.
+         * * **9** -- Activates and displays the window. If the window is minimized or maximized, the system restores it to its original size and position. An application should specify this flag
+         * when restoring a minimized window.
+         * * **10** -- Sets the show-state based on the state of the program that started the application.
+         */
+        Run(Command: string, WindowStyle?: WindowStyle, WaitOnReturn?: boolean): number;
+        SendKeys(Keys: string, Wait?: boolean): void;
         readonly SpecialFolders: WshCollection;
     }
 
@@ -216,7 +375,16 @@ declare namespace IWshRuntimeLibrary {
         readonly RelativePath: string;
         Save(): void;
         TargetPath: string;
-        WindowStyle: number;
+
+        /**
+         * Possible values:
+         *
+         * * **1** -- Activates and displays a window. If the window is minimized or maximized, the system restores it to its original size and position. An application should specify this flag
+         * when displaying the window for the first time.
+         * * **3** -- Activates the window and displays it as a maximized window.
+         * * **7** -- Displays the window as a minimized window. The active window remains active.
+         */
+        WindowStyle: ShortcutWindowStyle;
         WorkingDirectory: string;
     }
 
@@ -230,18 +398,40 @@ declare namespace IWshRuntimeLibrary {
         TargetPath: string;
     }
 }
+declare namespace WSHControllerLibrary {
+    class WSHController {
+        private 'WSHControllerLibrary.WSHController_typekey': WSHController;
+        private constructor();
+        CreateScript(Command: string, Server?: any): any;
+    }
+}
 
-interface ActiveXObject {
-    set(obj: IWshRuntimeLibrary.WshEnvironment, propertyName: 'Item', parameterTypes: [string], newValue: string): void;
-    new <K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
+declare namespace ScriptSigner {
+    class Signer {
+        private 'ScriptSigner.Signer_typekey': Signer;
+        private constructor();
+
+        /** @param Store [Store='my'] */
+        Sign(FileExtension: string, Text: string, Certificate: string, Store?: string): string;
+
+        /** @param Store [Store='my'] */
+        SignFile(FileName: string, Certificate: string, Store?: string): void;
+
+        /** @param ShowUI [ShowUI=false] */
+        Verify(FileExtension: string, Text: string, ShowUI?: boolean): boolean;
+
+        /** @param ShowUI [ShowUI=false] */
+        VerifyFile(FileName: string, ShowUI?: boolean): boolean;
+    }
 }
 
 interface ActiveXObjectNameMap {
+    'WSHController': WSHControllerLibrary.WSHController;
+    'Scripting.Signer': ScriptSigner.Signer;
     'WScript.Network': IWshRuntimeLibrary.WshNetwork;
     'WScript.Shell': IWshRuntimeLibrary.WshShell;
 }
 
-interface EnumeratorConstructor {
-    new(col: IWshRuntimeLibrary.WshCollection): Enumerator;
-    new(col: IWshRuntimeLibrary.WshEnvironment): Enumerator<string>;
+interface ActiveXObject {
+    set(obj: IWshRuntimeLibrary.WshEnvironment, propertyName: 'Item', parameterTypes: [string], newValue: string): void;
 }

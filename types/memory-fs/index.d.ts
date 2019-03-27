@@ -2,6 +2,7 @@
 // Project: https://github.com/webpack/memory-fs
 // Definitions by: e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -38,24 +39,24 @@ declare class MemoryFileSystem {
 
     unlinkSync(_path: string): void;
 
-    readlinkSync(_path: string): void;
+    readlinkSync(_path: string): string;
 
     writeFileSync(_path: string, content: string | Buffer, encoding?: string): void;
 
     createReadStream(
-        path: string, options: {
+        path: string, options?: {
             start: number;
             end: number;
         }
     ): any;
 
-    createWriteStream(path: string, options: any): any;
+    createWriteStream(path: string, options?: any): any;
 
-    exists(path: string, callback: (isExist: boolean) => any): any;
+    exists(path: string, callback: (isExist: boolean) => void): void;
 
-    writeFile(path: string, content: string | Buffer, callback: (err?: Error) => any): any;
+    writeFile(path: string, content: string | Buffer, callback: (err: Error | undefined) => void): void;
 
-    writeFile(path: string, content: string | Buffer, encoding: string, callback: (err?: Error) => any): any;
+    writeFile(path: string, content: string | Buffer, encoding: string, callback: (err: Error | undefined) => void): void;
 
     join(path: string, request: string): string;
 
@@ -63,21 +64,23 @@ declare class MemoryFileSystem {
 
     normalize(path: string): string;
 
-    stat(path: string, callback: (err?: Error, result?: any) => any): void;
+    stat(path: string, callback: (err: Error | null, result?: any) => void): void;
 
-    readdir(path: string, callback: (err?: Error, result?: any) => any): void;
+    readdir(path: string, callback: (err: Error | null, result?: any) => void): void;
 
-    mkdirp(path: string, callback: (err?: Error, result?: any) => any): void;
+    mkdirp(path: string, callback: (err: Error | null, result?: any) => void): void;
 
-    rmdir(path: string, callback: (err?: Error, result?: any) => any): void;
+    rmdir(path: string, callback: (err: Error | null, result?: any) => void): void;
 
-    unlink(path: string, callback: (err?: Error, result?: any) => any): void;
+    unlink(path: string, callback: (err: Error | null, result?: any) => void): void;
 
-    readlink(path: string, callback: (err?: Error, result?: any) => any): void;
+    readlink(path: string, callback: (err: Error | null, result?: any) => void): void;
 
-    mkdir(path: string, optArg: {}, callback: (err?: Error, result?: any) => any): void;
+    mkdir(path: string, callback: (err: Error | null) => void): void;
+    mkdir(path: string, optArg: {}, callback: (err: Error | null, result?: any) => void): void;
 
-    readFile(path: string, optArg: {}, callback: (err?: Error, result?: any) => any): void;
+    readFile(path: string, callback: (err: Error | null, result?: any) => void): void;
+    readFile(path: string, optArg: {}, callback: (err: Error | null, result?: any) => void): void;
 }
 
 export = MemoryFileSystem;

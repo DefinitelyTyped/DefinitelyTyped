@@ -1,3 +1,5 @@
+/// <reference types="windows-script-host" />
+
 (() => {
     // https://wiki.openoffice.org/wiki/Documentation/DevGuide/ProUNO/Bridge/Automation_Bridge
 

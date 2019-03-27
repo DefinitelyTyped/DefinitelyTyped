@@ -1,6 +1,7 @@
-/// <reference types="activex-iwshruntimelibrary" />
+/// <reference types="windows-script-host" />
+/// <reference types="activex-scripting" />
 
-const collectionToArray = <T>(col: { Item(index: any): T } | SafeArray<T>) => {
+const collectionToArray = <T>(col: { Item(index: any): T }): T[] => {
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();
@@ -12,9 +13,9 @@ const collectionToArray = <T>(col: { Item(index: any): T } | SafeArray<T>) => {
 };
 
 const toSafeArray = <T>(...items: T[]): SafeArray<T> => {
-    const dict = new ActiveXObject('Scripting.Dictionary');
+    const dict: Scripting.Dictionary<number, T> = new ActiveXObject('Scripting.Dictionary');
     items.forEach((x, index) => dict.Add(index, x));
-    return dict.Items() as SafeArray<T>;
+    return dict.Items();
 };
 
 const VB = {
@@ -27,7 +28,7 @@ const getServer = () => {
     return server;
 };
 
-(() => {
+{
     // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693376(v=vs.85).aspx
     const server = new ActiveXObject('FaxComEx.FaxServer');
     const document = new ActiveXObject('FaxComEx.FaxDocument');
@@ -35,10 +36,10 @@ const getServer = () => {
     // https://msdn.microsoft.com/en-us/library/windows/desktop/ms692919(v=vs.85).aspx
     server.Connect('');
     server.Connect('computername');
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693502(v=vs.85).aspx
-(() => {
+{
     const getInitializedDevice = () => {
         const ret = getServer().GetDevices().ItemById(1);
         ret.ReceiveMode = FAXCOMEXLib.FAX_DEVICE_RECEIVE_MODE_ENUM.fdrmAUTO_ANSWER;
@@ -54,17 +55,17 @@ const getServer = () => {
     // abandoning changes to configuration, using the Refresh method
     device = getInitializedDevice();
     device.Refresh();
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693502(v=vs.85).aspx
-(() => {
+{
     const incomingJob = getServer().Folders.IncomingQueue.GetJobs().Item(1);
     incomingJob.Refresh();
     const currentPage = incomingJob.CurrentPage;
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms692922(v=vs.85).aspx
-(() => {
+{
     const server = getServer();
 
     WScript.Echo(`Server information:
@@ -72,10 +73,10 @@ API Version: ${server.APIVersion}
 Debug: ${server.Debug}
 Build and version: ${server.MajorBuild}.${server.MinorBuild}.${server.MajorVersion}.${server.MinorVersion}
 Server name: ${server.ServerName}`);
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693455(v=vs.85).aspx
-(() => {
+{
     const activity = getServer().Activity;
     activity.Refresh();
 
@@ -84,10 +85,10 @@ ${activity.IncomingMessages} incoming messages
 ${activity.OutgoingMessages} outgoing messages
 ${activity.RoutingMessages} routing messages
 ${activity.QueuedMessages} queued messages`);
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693400(v=vs.85).aspx
-(() => {
+{
     const device = getServer().GetDevices().Item(1);
     device.CSID = 'Accounts payable';
     device.Description = 'Primary fax device';
@@ -96,10 +97,10 @@ ${activity.QueuedMessages} queued messages`);
     device.SendEnabled = true;
     device.TSID = 'Accounts payable';
     device.Save();
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms692985(v=vs.85).aspx
-(() => {
+{
     const devices = getServer().GetDevices();
     WScript.Echo(`This server has ${devices.Count} fax devices`);
     for (let i = 1; i <= devices.Count; i++) {
@@ -124,10 +125,10 @@ Sending now: ${device.SendingNow}`);
         device.UseRoutingMethod(routingMethods[0], false);
         device.Save();
     });
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693486(v=vs.85).aspx
-(() => {
+{
     const outputRuleInfo = (rule: FAXCOMEXLib.FaxOutboundRoutingRule, index?: number) => {
         WScript.Echo(`
 Outbound routing rule number: ${index || 'unknown'}
@@ -193,13 +194,11 @@ Input 1, 2, 3, 4, or 0 to exit
             areaCode = parseInt(VB.InputBox('Enter the area code'), 10);
             rule = outboundRoutingRules.Add(countryCode, areaCode, true, '', id);
             break;
-        default:
-            return;
     }
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693408(v=vs.85).aspx
-(() => {
+{
     const server = getServer();
     const outboundRouting = server.OutboundRouting;
     const outboundRoutingGroups = outboundRouting.GetGroups();
@@ -233,13 +232,14 @@ Device status: ${routingGroup.Status}
     });
 
     // allow user to remove a routing group
-    if (VB.InputBox('Do you want to remove a routing group (Y/N)?') === 'N') { return; }
-    const itemNumber = VB.InputBox('Enter the item number for the group you want to remove');
-    outboundRoutingGroups.Remove(itemNumber);
-})();
+    if (VB.InputBox('Do you want to remove a routing group (Y/N)?') === 'Y') {
+        const itemNumber = VB.InputBox('Enter the item number for the group you want to remove');
+        outboundRoutingGroups.Remove(itemNumber);
+    }
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/aa964960(v=vs.85).aspx
-(() => {
+{
     const accountSet = getServer().FaxAccountSet;
     const accounts = collectionToArray(accountSet.GetAccounts());
     WScript.Echo(`Number of accounts: ${accounts.length}`);
@@ -248,10 +248,10 @@ Device status: ${routingGroup.Status}
     const accountName = VB.InputBox('Enter an account name');
     accountSet.AddAccount(accountName);
     accountSet.RemoveAccount(accountName);
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms692952(v=vs.85).aspx
-(() => {
+{
     const incomingJobs = collectionToArray(getServer().Folders.IncomingQueue.GetJobs());
     WScript.Echo(`There are ${incomingJobs.length} jobs in the incoming queue.`);
     const n = parseInt(VB.InputBox('Input the number of a job for which you want information'), 10);
@@ -284,10 +284,10 @@ TSID: ${job.TSID}
         job.CopyTiff(fileName);
         new ActiveXObject('WScript.Shell').Run(fileName);
     }
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms692914(v=vs.85).aspx
-(() => {
+{
     const server = new ActiveXObject('FaxComEx.FaxServer');
     server.Connect('');
     const outgoingQueue = server.Folders.OutgoingQueue;
@@ -300,10 +300,10 @@ TSID: ${job.TSID}
     outgoingQueue.DiscountRateStart = new Date(0, 0, 0, 1).getVarDate();
     outgoingQueue.UseDeviceTSID = true;
     outgoingQueue.Save();
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693393(v=vs.85).aspx
-(() => {
+{
     const outgoingQueue = getServer().Folders.OutgoingQueue;
     outgoingQueue.Refresh();
     WScript.Echo(`There are ${outgoingQueue.GetJobs().Count} faxes in the outgoing queue`);
@@ -357,10 +357,10 @@ the job?
             job.Resume();
             break;
     }
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms692936(v=vs.85).aspx
-(() => {
+{
     const document = new ActiveXObject('FaxComEx.FaxDocument');
     document.Body = 'C:\\docs\\body.txt';
     document.DocumentName = 'My First Fax';
@@ -401,10 +401,10 @@ the job?
     WScript.Echo(`The job ID is ${jobID}`);
 
     server.Disconnect();
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693479(v=vs.85).aspx
-(() => {
+{
     const document = new ActiveXObject('FaxComEx.FaxDocument');
     document.Body = 'C:\\docs\\body.txt';
     document.DocumentName = 'My First Fax';
@@ -423,15 +423,15 @@ the job?
     document.GroupBroadcastReceipts = true;
 
     const jobIDs = document.Submit('');
-    collectionToArray(jobIDs).forEach(jobID => WScript.Echo(`The job ID is ${jobID}`));
+    new VBArray(jobIDs).toArray().forEach(jobID => WScript.Echo(`The job ID is ${jobID}`));
 
     while (recipients.Count > 0) {
         recipients.Remove(1);
     }
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/aa964962(v=vs.85).aspx
-(() => {
+{
     const server = getServer();
     const prefetchCount = parseInt(VB.InputBox('How many messages should be prefetched?'), 10);
     server.CurrentAccount.Folders.IncomingArchive.Refresh();
@@ -442,7 +442,7 @@ the job?
         const message = messageIterator.Message as FAXCOMEXLib.FaxIncomingMessage;
         if (messageIterator.AtEOF) {
             WScript.Echo(`End of file reached`);
-            return;
+            break;
         }
         if (!message.WasReAssigned) {
             if (VB.InputBox('Message not reassigned. Reassign (Y/N)?') === 'Y') {
@@ -455,10 +455,10 @@ the job?
         }
         messageIterator.MoveNext();
     }
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693402(v=vs.85).aspx
-(() => {
+{
     const server = getServer();
     const prefetchCount = parseInt(VB.InputBox('How many messages should be prefetched?'), 10);
     server.Folders.OutgoingArchive.Refresh();
@@ -468,7 +468,7 @@ the job?
         if (i > 1 && VB.InputBox('View next message? (Y/N)') !== 'Y') { break; }
         if (messageIterator.AtEOF) {
             WScript.Echo(`End of file reached`);
-            return;
+            break;
         }
         const message = messageIterator.Message as FAXCOMEXLib.FaxOutgoingMessage;
 
@@ -498,10 +498,10 @@ TSID: ${message.TSID}`);
             message.Delete();
         }
     }
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693472(v=vs.85).aspx
-(() => {
+{
     const server = getServer();
     const outgoingArchive = server.Folders.OutgoingArchive;
     WScript.Echo(`
@@ -526,12 +526,11 @@ Is archive used? ${outgoingArchive.UseArchive}`.trim()
         outgoingArchive.GetMessage(messageID).CopyTiff(fileName);
         new ActiveXObject('WScript.Shell').Run(fileName);
     }
-})();
+}
 
-(() => {
+{
     const server = getServer();
     const messageIterator = server.Folders.OutgoingArchive.GetMessages();
-    if (messageIterator.AtEOF) { return; }
     messageIterator.MoveFirst();
     while (!messageIterator.AtEOF) {
         const message = messageIterator.Message;
@@ -543,10 +542,10 @@ Transmission start: ${new Date(message.TransmissionStart)}
 `.trim());
         messageIterator.MoveNext();
     }
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms692976(v=vs.85).aspx
-(() => {
+{
     const server = getServer();
     const prefetchCount = parseInt(VB.InputBox('How many messages should be prefetched?'), 10);
     server.Folders.IncomingArchive.Refresh();
@@ -557,7 +556,7 @@ Transmission start: ${new Date(message.TransmissionStart)}
         const message = messageIterator.Message as FAXCOMEXLib.FaxIncomingMessage;
         if (messageIterator.AtEOF) {
             WScript.Echo(`End of file reached`);
-            return;
+            break;
         }
         const fileName = VB.InputBox('Enter path to save TIFF file');
         message.CopyTiff(fileName);
@@ -565,10 +564,10 @@ Transmission start: ${new Date(message.TransmissionStart)}
 
         messageIterator.MoveNext();
     }
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693406(v=vs.85).aspx
-(() => {
+{
     const server = getServer();
     const incomingArchive = server.Folders.IncomingArchive;
     incomingArchive.Refresh();
@@ -587,9 +586,9 @@ Is archive used? ${incomingArchive.UseArchive}
     incomingArchive.Save();
 
     const messageID = VB.InputBox('Message ID to retrieve information? (Leave empty, or Cancel, to exit)');
-    if (messageID === '') { return; }
-    const message = incomingArchive.GetMessage(messageID);
-    WScript.Echo(`
+    if (messageID !== '') {
+        const message = incomingArchive.GetMessage(messageID);
+        WScript.Echo(`
 Caller ID: ${message.CallerId}
 CSID: ${message.CSID}
 Device name: ${message.DeviceName}
@@ -603,13 +602,14 @@ Transmission end: ${new Date(message.TransmissionEnd)}
 TSID: ${message.TSID}
 `.trim());
 
-    if (VB.InputBox('Delete this message from the archive (Y/N)?') === 'Y') {
-        message.Delete();
+        if (VB.InputBox('Delete this message from the archive (Y/N)?') === 'Y') {
+            message.Delete();
+        }
     }
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693401(v=vs.85).aspx
-(() => {
+{
     const server = getServer();
     const loggingOptions = server.LoggingOptions;
     const activityLogging = loggingOptions.ActivityLogging;
@@ -626,10 +626,10 @@ TSID: ${message.TSID}
     eventLogging.InitEventsLevel = FAXCOMEXLib.FAX_LOG_LEVEL_ENUM.fllMAX;
     eventLogging.OutboundEventsLevel = FAXCOMEXLib.FAX_LOG_LEVEL_ENUM.fllNONE;
     eventLogging.Save();
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693387(v=vs.85).aspx
-(() => {
+{
     const server = getServer();
     const receiptOptions = server.ReceiptOptions;
     receiptOptions.Refresh();
@@ -649,10 +649,10 @@ Use for inbound routing? ${receiptOptions.UseForInboundRouting}
     receiptOptions.SMTPServer = 'My SMTP Server';
     receiptOptions.UseForInboundRouting = true;
     receiptOptions.Save();
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693462(v=vs.85).aspx
-(() => {
+{
     const server = getServer();
     collectionToArray(server.GetDeviceProviders()).forEach((provider, index) => {
         WScript.Echo(`
@@ -668,29 +668,29 @@ Unique name: ${provider.UniqueName}
 
         new VBArray(provider.DeviceIds).toArray().forEach(id => WScript.Echo(id));
     });
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693437(v=vs.85).aspx -- for a fax device
-(() => {
+{
     const server = getServer();
     const device = server.GetDevices().Item(1);
     const deviceProperty = toSafeArray(1, 2, 3);
     const propertyName = '{B1F944B9-9A16-45d1-933A-4060A4871AB0}';
     device.SetExtensionProperty(propertyName, deviceProperty);
     new VBArray(device.GetExtensionProperty(propertyName)).toArray().forEach(x => WScript.Echo(x));
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693437(v=vs.85).aspx -- for a fax device
-(() => {
+{
     const server = getServer();
     const serverProperty = toSafeArray(4, 2, 3);
     const propertyName = `{AC7D0DEE-B6E5-4a44-AF45-835C58CB44D2}`;
     server.SetExtensionProperty(propertyName, serverProperty);
     new VBArray(server.GetExtensionProperty(propertyName)).toArray().forEach(x => WScript.Echo(x));
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693013(v=vs.85).aspx
-(() => {
+{
     const server = getServer();
 
     ActiveXObject.on(server, 'OnOutgoingJobAdded', ['pFaxServer', 'bstrJobId'], prm => WScript.Echo('New job added to queue'));
@@ -727,4 +727,4 @@ TSID: ${status.TSID}
         FAXCOMEXLib.FAX_SERVER_EVENTS_TYPE_ENUM.fsetFXSSVC_ENDED +
         FAXCOMEXLib.FAX_SERVER_EVENTS_TYPE_ENUM.fsetOUT_QUEUE
     );
-})();
+}

@@ -1,23 +1,127 @@
-// Type definitions for lru-cache 4.1
+// Type definitions for lru-cache 5.1
 // Project: https://github.com/isaacs/node-lru-cache
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-export = LRU;
+declare class LRUCache<K, V> {
+    constructor(options?: LRUCache.Options<K, V>);
+    constructor(max: number);
 
-declare const LRU: LRU;
+    /**
+     * Return total length of objects in cache taking into account `length` options function.
+     */
+    readonly length: number;
 
-interface LRU {
-    <K, V>(opts?: LRU.Options<K, V>): LRU.Cache<K, V>;
-    <K, V>(max: number): LRU.Cache<K, V>;
-    new <K, V>(opts?: LRU.Options<K, V>): LRU.Cache<K, V>;
-    new <K, V>(max: number): LRU.Cache<K, V>;
+    /**
+     * Return total quantity of objects currently in cache. Note,
+     * that `stale` (see options) items are returned as part of this item count.
+     */
+    readonly itemCount: number;
+
+    /**
+     * Same as Options.allowStale.
+     */
+    allowStale: boolean;
+
+    /**
+     * Same as Options.length.
+     */
+    lengthCalculator(value: V): number;
+
+    /**
+     * Same as Options.max. Resizes the cache when the `max` changes.
+     */
+    max: number;
+
+    /**
+     * Same as Options.maxAge. Resizes the cache when the `maxAge` changes.
+     */
+    maxAge: number;
+
+    /**
+     * Will update the "recently used"-ness of the key. They do what you think.
+     * `maxAge` is optional and overrides the cache `maxAge` option if provided.
+     */
+    set(key: K, value: V, maxAge?: number): boolean;
+
+    /**
+     * Will update the "recently used"-ness of the key. They do what you think.
+     * `maxAge` is optional and overrides the cache `maxAge` option if provided.
+     *
+     * If the key is not found, will return `undefined`.
+     */
+    get(key: K): V | undefined;
+
+    /**
+     * Returns the key value (or `undefined` if not found) without updating
+     * the "recently used"-ness of the key.
+     *
+     * (If you find yourself using this a lot, you might be using the wrong
+     * sort of data structure, but there are some use cases where it's handy.)
+     */
+    peek(key: K): V | undefined;
+
+    /**
+     * Check if a key is in the cache, without updating the recent-ness
+     * or deleting it for being stale.
+     */
+    has(key: K): boolean;
+
+    /**
+     * Deletes a key out of the cache.
+     */
+    del(key: K): void;
+
+    /**
+     * Clear the cache entirely, throwing away all values.
+     */
+    reset(): void;
+
+    /**
+     * Manually iterates over the entire cache proactively pruning old entries.
+     */
+    prune(): void;
+
+    /**
+     * Just like `Array.prototype.forEach`. Iterates over all the keys in the cache,
+     * in order of recent-ness. (Ie, more recently used items are iterated over first.)
+     */
+    forEach<T = this>(callbackFn: (this: T, value: V, key: K, cache: this) => void, thisArg?: T): void;
+
+    /**
+     * The same as `cache.forEach(...)` but items are iterated over in reverse order.
+     * (ie, less recently used items are iterated over first.)
+     */
+    rforEach<T = this>(callbackFn: (this: T, value: V, key: K, cache: this) => void, thisArg?: T): void;
+
+    /**
+     * Return an array of the keys in the cache.
+     */
+    keys(): K[];
+
+    /**
+     * Return an array of the values in the cache.
+     */
+    values(): V[];
+
+    /**
+     * Return an array of the cache entries ready for serialization and usage with `destinationCache.load(arr)`.
+     */
+    dump(): Array<LRUCache.Entry<K, V>>;
+
+    /**
+     * Loads another cache entries array, obtained with `sourceCache.dump()`,
+     * into the cache. The destination cache is reset before loading new entries
+     *
+     * @param cacheEntries Obtained from `sourceCache.dump()`
+     */
+    load(cacheEntries: ReadonlyArray<LRUCache.Entry<K, V>>): void;
 }
 
-declare namespace LRU {
-    interface Options<K = any, V = any> {
+declare namespace LRUCache {
+    interface Options<K, V> {
         /**
          * The maximum size of the cache, checked by applying the length
          * function to all values in the cache. Not setting this is kind of silly,
@@ -40,7 +144,7 @@ declare namespace LRU {
          * `max` like-sized things. The item is passed as the first argument,
          * and the key is passed as the second argument.
          */
-        length?(value: V): number;
+        length?(value: V, key?: K): number;
 
         /**
          * Function that is called on items when they are dropped from the cache.
@@ -69,123 +173,21 @@ declare namespace LRU {
          * not when it is overwritten.
          */
         noDisposeOnSet?: boolean;
+
+        /**
+         * When using time-expiring entries with `maxAge`, setting this to `true` will make each
+         * item's effective time update to the current time whenever it is retrieved from cache,
+         * causing it to not expire. (It can still fall out of cache based on recency of use, of
+         * course.)
+         */
+        updateAgeOnGet?: boolean;
     }
 
-    interface Cache<K, V> {
-        /**
-         * Return total length of objects in cache taking into account `length` options function.
-         */
-        readonly length: number;
-
-        /**
-         * Return total quantity of objects currently in cache. Note,
-         * that `stale` (see options) items are returned as part of this item count.
-         */
-        readonly itemCount: number;
-
-        /**
-         * Same as Options.allowStale.
-         */
-        allowStale: boolean;
-
-        /**
-         * Same as Options.length.
-         */
-        lengthCalculator(value: V): number;
-
-        /**
-         * Same as Options.max. Resizes the cache when the `max` changes.
-         */
-        max: number;
-
-        /**
-         * Same as Options.maxAge. Resizes the cache when the `maxAge` changes.
-         */
-        maxAge: number;
-
-        /**
-         * Will update the "recently used"-ness of the key. They do what you think.
-         * `maxAge` is optional and overrides the cache `maxAge` option if provided.
-         */
-        set(key: K, value: V, maxAge?: number): boolean;
-
-        /**
-         * Will update the "recently used"-ness of the key. They do what you think.
-         * `maxAge` is optional and overrides the cache `maxAge` option if provided.
-         *
-         * If the key is not found, will return `undefined`.
-         */
-        get(key: K): V | undefined;
-
-        /**
-         * Returns the key value (or `undefined` if not found) without updating
-         * the "recently used"-ness of the key.
-         *
-         * (If you find yourself using this a lot, you might be using the wrong
-         * sort of data structure, but there are some use cases where it's handy.)
-         */
-        peek(key: K): V | undefined;
-
-        /**
-         * Check if a key is in the cache, without updating the recent-ness
-         * or deleting it for being stale.
-         */
-        has(key: K): boolean;
-
-        /**
-         * Deletes a key out of the cache.
-         */
-        del(key: K): void;
-
-        /**
-         * Clear the cache entirely, throwing away all values.
-         */
-        reset(): void;
-
-        /**
-         * Manually iterates over the entire cache proactively pruning old entries.
-         */
-        prune(): void;
-
-        /**
-         * Just like `Array.prototype.forEach`. Iterates over all the keys in the cache,
-         * in order of recent-ness. (Ie, more recently used items are iterated over first.)
-         */
-        forEach<T = this>(callbackFn: (this: T, value: V, key: K, cache: this) => void, thisArg?: T): void;
-
-        /**
-         * The same as `cache.forEach(...)` but items are iterated over in reverse order.
-         * (ie, less recently used items are iterated over first.)
-         */
-        rforEach<T = this>(callbackFn: (this: T, value: V, key: K, cache: this) => void, thisArg?: T): void;
-
-        /**
-         * Return an array of the keys in the cache.
-         */
-        keys(): K[];
-
-        /**
-         * Return an array of the values in the cache.
-         */
-        values(): V[];
-
-        /**
-         * Return an array of the cache entries ready for serialization and usage with `destinationCache.load(arr)`.
-         */
-        dump(): Array<LRUEntry<K, V>>;
-
-        /**
-         * Loads another cache entries array, obtained with `sourceCache.dump()`,
-         * into the cache. The destination cache is reset before loading new entries
-         *
-         * @param cacheEntries Obtained from `sourceCache.dump()`
-         */
-        load(cacheEntries: ReadonlyArray<LRUEntry<K, V>>): void;
-    }
-
-    interface LRUEntry<K, V> {
+    interface Entry<K, V> {
         k: K;
         v: V;
         e: number;
     }
 }
+
+export = LRUCache;

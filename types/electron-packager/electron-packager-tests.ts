@@ -2,7 +2,7 @@ import packager = require("electron-packager");
 
 function callback(err: Error, appPaths: string[]) {
 	const msg = err.message;
-	const	index = appPaths.indexOf("test");
+	const index = appPaths.indexOf("test");
 }
 
 function completeFunction(buildPath: string, electronVersion: string, platform: string, arch: string, callbackFn: () => void) {
@@ -11,6 +11,12 @@ function completeFunction(buildPath: string, electronVersion: string, platform: 
 
 function ignoreFunction(path: string) {
 	return true;
+}
+
+function onCompleted(appPaths: string | string[]) {
+}
+
+function onError(error: Error) {
 }
 
 packager({
@@ -28,7 +34,7 @@ packager({
 		"requested-execution-level": "highestAvailable",
 		"application-manifest": "manifest.xml"
 	}
-}, callback);
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
@@ -44,7 +50,7 @@ packager({
 		"requested-execution-level": "requireAdministrator",
 		"application-manifest": "manifest.xml"
 	}
-}, callback);
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
@@ -52,14 +58,14 @@ packager({
 	platform: "all",
 	arch: "all",
 	electronVersion: "0.34.0"
-}, callback);
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
 	name: "myapplication",
 	electronVersion: "0.34.0",
 	all: true
-}, callback);
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
@@ -67,7 +73,7 @@ packager({
 	electronVersion: "0.34.0",
 	arch: "arm64",
 	executableName: "myapp"
-}, callback);
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
@@ -77,7 +83,7 @@ packager({
 	afterExtract: [
 		completeFunction
 	],
-	afterPrune:  [
+	afterPrune: [
 		completeFunction
 	],
 	appCopyright: "Copyright",
@@ -97,7 +103,6 @@ packager({
 	ignore: /ab+c/,
 	out: "out",
 	overwrite: true,
-	packageManager: false,
 	prune: true,
 	quiet: true,
 	tmpdir: "/tmp",
@@ -110,7 +115,7 @@ packager({
 		"requested-execution-level": "asInvoker",
 		"application-manifest": "manifest.xml"
 	}
-}, callback);
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
@@ -132,7 +137,6 @@ packager({
 		new RegExp('abc')
 	],
 	overwrite: false,
-	packageManager: "npm",
 	platform: "darwin",
 	prune: false,
 	quiet: false,
@@ -142,7 +146,7 @@ packager({
 	extendInfo: "plist.txt",
 	helperBundleId: "23223f",
 	osxSign: true
-}, callback);
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
@@ -159,9 +163,16 @@ packager({
 		strictSSL: false
 	},
 	ignore: ignoreFunction,
-	packageManager: "cnpm",
 	platform: "linux"
-}, callback);
+}).then(onCompleted).catch(onError);
+
+packager({
+	dir: ".",
+	arch: "mips64el",
+	electronVersion: "1.8.8",
+	prebuiltAsar: "prebuilt.asar",
+	platform: "linux"
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
@@ -175,10 +186,13 @@ packager({
 		quiet: true,
 		strictSSL: false
 	},
-	packageManager: "yarn",
 	platform: "mas",
 	extendInfo: {
 		foo: "bar"
+	},
+	osxNotarize: {
+		appleId: "My ID",
+		appleIdPassword: "Bad Password"
 	},
 	osxSign: {
 		identity: "myidentity",
@@ -192,4 +206,4 @@ packager({
 			"myapp2"
 		]
 	}]
-}, callback);
+}).then(onCompleted).catch(onError);

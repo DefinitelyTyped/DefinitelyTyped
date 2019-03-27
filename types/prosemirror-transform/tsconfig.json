@@ -1,25 +1,16 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
+        "lib": ["es6", "dom"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
-    "files": [
-        "index.d.ts",
-        "prosemirror-transform-tests.ts"
-    ]
+    "files": ["index.d.ts", "prosemirror-transform-tests.ts"]
 }

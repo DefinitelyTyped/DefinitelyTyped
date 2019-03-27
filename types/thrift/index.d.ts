@@ -1,5 +1,5 @@
 // Type definitions for thrift 0.10
-// Project: https://www.npmjs.com/package/thrift
+// Project: http://thrift.apache.org
 // Definitions by: Kamek <https://github.com/kamek-pf>
 //                 Kevin Greene <https://github.com/kevin-greene-ck>
 //                 Jesse Zhang <https://github.com/jessezhang91>
@@ -236,7 +236,7 @@ export interface ServerOptions<TProcessor, THandler> extends ServiceOptions<TPro
     files?: string;
     headers?: HttpHeaders;
     services?: ServiceMap<TProcessor, THandler>;
-    tls?: tls.TlsServerOptions;
+    tls?: tls.TlsOptions;
 }
 
 export interface ConnectOptions {

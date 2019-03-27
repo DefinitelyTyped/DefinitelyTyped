@@ -1,6 +1,6 @@
 import { Vnode, Component, Comp, ClassComponent, FactoryComponent, RouteResolver } from 'mithril';
-import * as h from 'mithril/hyperscript';
-import * as route from 'mithril/route';
+import h = require('mithril/hyperscript');
+import route = require('mithril/route');
 
 const component1 = {
 	view() {
@@ -89,7 +89,7 @@ route(document.body, '/', {
 	test4: {
 		onmatch(args, path) {
 			// Must provide a Promise type if we want type checking
-			return new Promise<Component<{title: string}, {}>>((resolve, reject) => {
+			return new Promise<Component<{title: string}>>((resolve, reject) => {
 				resolve(component2);
 			});
 		}
@@ -125,4 +125,18 @@ route.set('/test2', undefined, {
 
 const path: string = route.get();
 
-const fn = route.link(h('div', 'test'));
+const fn1: (e?: Event) => any = route.link(h('div', 'test'));
+
+const fn2: (v: Vnode<any, any>) => any = route.link({
+    replace: true,
+	state: {abc: 123},
+	title: "Title"
+});
+
+const ex1 = h('a', {href: '/url', oncreate: route.link});
+
+const ex2 = h('a', {href: '/url', oncreate: route.link({
+    replace: true,
+	state: {abc: 123},
+	title: "Title"
+})});

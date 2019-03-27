@@ -1140,7 +1140,7 @@ s.query( '' );
 s.query( '' ).then( function( res ) {} );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { raw : true, replacements : [1, 2] } );
 s.query( '', { raw : true, nest : false } );
-s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );
+s.query( 'select ? as foo, ? as bar', { type : sequelize.QueryTypes.SELECT, replacements : [1, 2] } );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { type : s.QueryTypes.SELECT } );
 s.query( 'select :one as foo, :two as bar', { raw : true, replacements : { one : 1, two : 2 } } );
 s.transaction().then( function( t ) { s.set( { foo : 'bar' }, { transaction : t } ); } );
@@ -1165,11 +1165,11 @@ new Sequelize( 'wat', 'trololo', 'wow', { port : 99999 } );
 new Sequelize( 'localhost', 'wtf', 'lol', { port : 99999 } );
 new Sequelize( 'sequelize', null, null, {
     replication : {
-        read : {
+        read : [{
             host : 'localhost',
             username : 'omg',
             password : 'lol'
-        }
+        }]
     }
 } );
 new Sequelize( {

@@ -17,17 +17,20 @@
             "@storybook/addon-links": [
                 "storybook__addon-links"
             ],
+            "@storybook/addon-links/react": [
+                "storybook__addon-links/react"
+            ],
             "@storybook/react": [
                 "storybook__react"
             ]
         },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
+        "react.d.ts",
         "storybook__addon-links-tests.tsx"
     ]
 }

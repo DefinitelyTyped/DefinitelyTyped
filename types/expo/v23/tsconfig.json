@@ -1,9 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
+        "lib": ["es6"],
         "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -23,8 +21,7 @@
         },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

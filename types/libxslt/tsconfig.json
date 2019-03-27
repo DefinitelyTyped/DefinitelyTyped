@@ -14,11 +14,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
+        "internal-types.d.ts",
         "libxslt-tests.ts"
     ]
 }

@@ -1,6 +1,7 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface ListGroupItemProps {
+export type ListGroupItemProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   active?: boolean;
   disabled?: boolean;
@@ -11,7 +12,7 @@ export interface ListGroupItemProps {
   href?: string;
 
   onClick?: React.MouseEventHandler<any>;
-}
+} & T;
 
-declare const ListGroupItem: React.StatelessComponent<ListGroupItemProps>;
+declare class ListGroupItem<T = {[key: string]: any}> extends React.Component<ListGroupItemProps<T>> {}
 export default ListGroupItem;

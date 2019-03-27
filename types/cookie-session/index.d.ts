@@ -15,7 +15,7 @@ declare namespace CookieSessionInterfaces {
         /**
          * The name of the cookie to set, defaults to session.
          */
-        name: string;
+        name?: string;
 
         /**
          * The list of keys to use to sign & verify cookie values. Set cookies are always signed with keys[0], while the other keys are valid for verification, allowing for key rotation.
@@ -48,6 +48,11 @@ declare namespace CookieSessionInterfaces {
         domain?: string;
 
         /**
+         * a boolean or string indicating whether the cookie is a "same site" cookie (false by default). This can be set to 'strict', 'lax', or true (which maps to 'strict').
+         */
+        sameSite?: "strict" | "lax" | boolean;
+
+        /**
          * a boolean indicating whether the cookie is only to be sent over HTTPS (false by default for HTTP, true by default for HTTPS).
          */
         secure?: boolean;
@@ -78,17 +83,17 @@ declare namespace CookieSessionInterfaces {
         /**
          * Is true if the session has been changed during the request.
          */
-        isChanged: boolean;
+        isChanged?: boolean;
 
         /**
          * Is true if the session is new.
          */
-        isNew: boolean;
+        isNew?: boolean;
 
         /**
          * Determine if the session has been populated with data or is empty.
          */
-        isPopulated: boolean;
+        isPopulated?: boolean;
 
         [propertyName: string]: any;
     }
@@ -97,7 +102,7 @@ declare namespace CookieSessionInterfaces {
         /**
          * Represents the session for the given request.
          */
-        session: CookieSessionObject;
+        session?: CookieSessionObject;
 
         /**
          * Represents the session options for the current request. These options are a shallow clone of what was provided at middleware construction and can be altered to change cookie setting behavior on a per-request basis.

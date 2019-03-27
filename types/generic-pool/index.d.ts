@@ -1,6 +1,7 @@
 // Type definitions for generic-pool 3.1
 // Project: https://github.com/coopernurse/node-pool#readme
 // Definitions by: Jerray Fu <https://github.com/jerray>
+//                 Will Boyce <https://github.com/wrboyce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -16,17 +17,20 @@ export class Pool<T> extends EventEmitter {
     max: number;
     min: number;
 
-    acquire(priority?: number): Promise<T>;
-    release(resource: T): void;
-    destroy(resource: T): void;
-    drain(): Promise<undefined>;
-    clear(): Promise<undefined[]>;
+    start(): void;
+    acquire(priority?: number): PromiseLike<T>;
+    release(resource: T): PromiseLike<void>;
+    destroy(resource: T): PromiseLike<void>;
+    drain(): PromiseLike<void>;
+    clear(): PromiseLike<void>;
+    use<U>(cb: (resource: T) => U | PromiseLike<U>): PromiseLike<U>;
+    isBorrowedResource(resource: T): boolean;
 }
 
 export interface Factory<T> {
-    create(): Promise<T>;
-    destroy(client: T): Promise<undefined>;
-    validate?(client: T): Promise<boolean>;
+    create(): PromiseLike<T>;
+    destroy(client: T): PromiseLike<void>;
+    validate?(client: T): PromiseLike<boolean>;
 }
 
 export interface Options {
@@ -34,12 +38,13 @@ export interface Options {
     min?: number;
     maxWaitingClients?: number;
     testOnBorrow?: boolean;
+    testOnReturn?: boolean;
     acquireTimeoutMillis?: number;
     fifo?: boolean;
     priorityRange?: number;
     autostart?: boolean;
     evictionRunIntervalMillis?: number;
-    numTestsPerRun?: number;
+    numTestsPerEvictionRun?: number;
     softIdleTimeoutMillis?: number;
     idleTimeoutMillis?: number;
 }

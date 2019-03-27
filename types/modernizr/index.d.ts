@@ -1,5 +1,5 @@
 // Type definitions for Modernizr 3.5
-// Project: http://modernizr.com/
+// Project: http://modernizr.com/, https://github.com/modernizr/modernizr
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
 //                 Leon Yu <https://github.com/leonyu>
@@ -448,6 +448,6 @@ interface ModernizrAPI {
 interface ModernizrStatic extends ModernizrAPI, FeatureDetects { }
 
 declare var Modernizr: ModernizrStatic;
-declare module "Modernizr" {
+declare module "modernizr" {
     export = Modernizr;
 }

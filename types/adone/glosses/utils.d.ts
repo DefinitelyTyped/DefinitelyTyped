@@ -86,17 +86,6 @@ declare namespace adone {
 
         function invertObject(source: object, options?: I.KeysOptions): object;
 
-        namespace I {
-            interface HumanizeTimeOptions {
-                msDecimalDigits?: number;
-                secDecimalDigits?: number;
-                verbose?: boolean;
-                compact?: boolean;
-            }
-        }
-        function humanizeTime(ms: number, options?: I.HumanizeTimeOptions): string;
-        function humanizeSize(num: number, space?: string): string;
-
         function parseSize(str: string | number): number | null;
 
         namespace I {
@@ -252,7 +241,225 @@ declare namespace adone {
         function delegate(object: object, property: string): I.Delegator;
 
         namespace iconv {
-            // TODO: need to normalize source code
+            namespace I {
+                namespace encoding {
+                    type Native = "UTF-8"
+                        | "UCS-2"
+                        | "UTF-16LE"
+                        | "ASCII"
+                        | "Binary"
+                        | "Base64"
+                        | "Hex";
+
+                    type Unicode = "UTF-16BE" | "UTF-16";
+
+                    type Windows = "874"
+                        | "1250"
+                        | "1251"
+                        | "1252"
+                        | "1253"
+                        | "1254"
+                        | "1255"
+                        | "1256"
+                        | "1257"
+                        | "1258"
+                        | "CP874"
+                        | "CP1251"
+                        | "CP1252"
+                        | "CP1253"
+                        | "CP1254"
+                        | "CP1255"
+                        | "CP1256"
+                        | "CP1257"
+                        | "CP1258"
+                        | "Win-1251"
+                        | "Win-1252"
+                        | "Win-1253"
+                        | "Win-1254"
+                        | "Win-1255"
+                        | "Win-1256"
+                        | "Win-1257"
+                        | "Win-1258"
+                        | "Windows-1251"
+                        | "Windows-1252"
+                        | "Windows-1253"
+                        | "Windows-1254"
+                        | "Windows-1255"
+                        | "Windows-1256"
+                        | "Windows-1257"
+                        | "Windows-1258";
+
+                    type ISO = "ISO-8829-1"
+                        | "ISO-8859-2"
+                        | "ISO-8859-3"
+                        | "ISO-8859-4"
+                        | "ISO-8859-5"
+                        | "ISO-8859-6"
+                        | "ISO-8859-7"
+                        | "ISO-8859-8"
+                        | "ISO-8859-9"
+                        | "ISO-8859-10"
+                        | "ISO-8859-11"
+                        | "ISO-8859-12"
+                        | "ISO-8859-13"
+                        | "ISO-8859-14"
+                        | "ISO-8859-15"
+                        | "ISO-8859-16";
+
+                    type IBM = "437"
+                        | "737"
+                        | "775"
+                        | "808"
+                        | "850"
+                        | "852"
+                        | "855"
+                        | "856"
+                        | "857"
+                        | "858"
+                        | "860"
+                        | "861"
+                        | "862"
+                        | "863"
+                        | "864"
+                        | "865"
+                        | "866"
+                        | "869"
+                        | "922"
+                        | "1046"
+                        | "1124"
+                        | "1125"
+                        | "1129"
+                        | "1133"
+                        | "1161"
+                        | "1163"
+                        | "CP437"
+                        | "CP737"
+                        | "CP775"
+                        | "CP808"
+                        | "CP850"
+                        | "CP852"
+                        | "CP855"
+                        | "CP856"
+                        | "CP857"
+                        | "CP858"
+                        | "CP860"
+                        | "CP861"
+                        | "CP862"
+                        | "CP863"
+                        | "CP864"
+                        | "CP865"
+                        | "CP866"
+                        | "CP869"
+                        | "CP922"
+                        | "CP1046"
+                        | "CP1124"
+                        | "CP1125"
+                        | "CP1129"
+                        | "CP1133"
+                        | "CP1161"
+                        | "CP1163"
+                        | "IBM437"
+                        | "IBM737"
+                        | "IBM775"
+                        | "IBM808"
+                        | "IBM850"
+                        | "IBM852"
+                        | "IBM855"
+                        | "IBM856"
+                        | "IBM857"
+                        | "IBM858"
+                        | "IBM860"
+                        | "IBM861"
+                        | "IBM862"
+                        | "IBM863"
+                        | "IBM864"
+                        | "IBM865"
+                        | "IBM866"
+                        | "IBM869"
+                        | "IBM922"
+                        | "IBM1046"
+                        | "IBM1124"
+                        | "IBM1125"
+                        | "IBM1129"
+                        | "IBM1133"
+                        | "IBM1161"
+                        | "IBM1163";
+
+                    type Mac = "MacCroatian"
+                        | "MacCyrillic"
+                        | "MacGreek"
+                        | "MacIceland"
+                        | "MacRoman"
+                        | "MacThai"
+                        | "MacTurkish"
+                        | "MacUkraine"
+                        | "MacCentEuro"
+                        | "Macintosh";
+
+                    type KOI8 = "KOI8-R"
+                        | "KOI8-U"
+                        | "KOI8-RU"
+                        | "KOI8-T";
+
+                    type Misc = "ArmSCII8"
+                        | "RK1048"
+                        | "TCVN"
+                        | "GEORGIAN-ACADEMY"
+                        | "GEORGIAN-PS"
+                        | "PT154"
+                        | "VISCII"
+                        | "ISO-646-CN"
+                        | "ISO-646-JP"
+                        | "HP Roman-8"
+                        | "TIS-620";
+
+                    type Singlebyte = Windows
+                        | ISO
+                        | IBM
+                        | Mac
+                        | KOI8
+                        | Misc;
+
+                    type Japanese = "Shift_JIS"
+                        | "Windows-31J"
+                        | "windows-932"
+                        | "EUC-JP";
+
+                    type Chinese = "GB2312"
+                        | "GBK"
+                        | "GB18030"
+                        | "Windows-936"
+                        | "EUC-CN";
+
+                    type Korean = "KS_C_5601"
+                        | "Windows-949"
+                        | "EUC-KR";
+
+                    type TaiwanHongKong = "Big5"
+                        | "Big5-HKSCS"
+                        | "Windows-950";
+
+                    type Multibyte = Japanese
+                        | Chinese
+                        | Korean
+                        | TaiwanHongKong;
+                }
+
+                type SupportedEncoding = encoding.Native
+                    | encoding.Unicode
+                    | encoding.Singlebyte
+                    | encoding.Multibyte;
+            }
+
+            const defaultCharUnicode: string;
+
+            const defaultCharSingleByte: "?";
+
+            function encodingExists(encoding: string): boolean;
+
+            function encode(buffer: string, encoding: I.SupportedEncoding, options?: object): Buffer;
+
+            function decode(buffer: Buffer, encoding: I.SupportedEncoding, options?: object): string;
         }
 
         namespace sqlstring {
@@ -329,7 +536,7 @@ declare namespace adone {
         namespace throttle {
             namespace I {
                 interface Options {
-                    max?: number;
+                    concurrency?: number;
                     interval?: number;
                     ordered?: boolean;
                     waitForReturn?: boolean;
@@ -337,7 +544,31 @@ declare namespace adone {
                     drop?: boolean;
                     dropLast?: boolean;
                 }
+
+                interface CreateFunction {
+                    <R>(fn: () => Promise<R>): Promise<R>;
+                    <R>(fn: () => R): Promise<R>;
+
+                    <T1, R>(fn: (a: T1) => Promise<R>, a: T1): Promise<R>;
+                    <T1, R>(fn: (a: T1) => R, a: T1): Promise<R>;
+
+                    <T1, T2, R>(fn: (a: T1, b: T2) => Promise<R>, a: T1, b: T2): Promise<R>;
+                    <T1, T2, R>(fn: (a: T1, b: T2) => R, a: T1, b: T2): Promise<R>;
+
+                    <T1, T2, T3, R>(fn: (a: T1, b: T2, c: T3) => Promise<R>, a: T1, b: T2, c: T3): Promise<R>;
+                    <T1, T2, T3, R>(fn: (a: T1, b: T2, c: T3) => R, a: T1, b: T2, c: T3): Promise<R>;
+
+                    <T1, T2, T3, T4, R>(fn: (a: T1, b: T2, c: T3, d: T4) => Promise<R>, a: T1, b: T2, c: T3, d: T4): Promise<R>;
+                    <T1, T2, T3, T4, R>(fn: (a: T1, b: T2, c: T3, d: T4) => R, a: T1, b: T2, c: T3, d: T4): Promise<R>;
+
+                    <T1, T2, T3, T4, T5, R>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => Promise<R>, a: T1, b: T2, c: T3, d: T4, e: T5): Promise<R>;
+                    <T1, T2, T3, T4, T5, R>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => R, a: T1, b: T2, c: T3, d: T4, e: T5): Promise<R>;
+
+                    <R>(fn: (...args: any[]) => Promise<R>, ...args: any[]): Promise<R>;
+                    <R>(fn: (...args: any[]) => R, ...args: any[]): Promise<R>;
+                }
             }
+            function create(options?: I.Options): I.CreateFunction;
             function create<R>(fn: () => R, options?: I.Options): () => Promise<R>;
             function create<T1, R>(fn: (a: T1) => R, options?: I.Options): (a: T1) => Promise<R>;
             function create<T1, T2, R>(fn: (a: T1, b: T2) => R, options?: I.Options): (a: T1, b: T2) => Promise<R>;

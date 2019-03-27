@@ -8,12 +8,11 @@
 //                 Patricio Zavolinsky <https://github.com/pzavolinsky>
 //                 Digiguru <https://github.com/digiguru>
 //                 Eric Anderson <https://github.com/ericanderson>
-//                 Albert Kurniawan <https://github.com/morcerf>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /*
 Known Problems & Workarounds
@@ -90,7 +89,7 @@ declare namespace React {
         ref?: Ref<T>;
     }
 
-    interface ReactElement<P> {
+    interface ReactElement<P = any> {
         type: string | ComponentClass<P> | SFC<P>;
         props: P;
         key: Key | null;
@@ -181,10 +180,10 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     type ReactText = string | number;
-    type ReactChild = ReactElement<any> | ReactText;
+    type ReactChild = ReactElement | ReactText;
 
-    // Should be Array<ReactNode> but type aliases cannot be recursive
-    type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
+    interface ReactNodeArray extends Array<ReactNode> {}
+    type ReactFragment = {} | ReactNodeArray;
     type ReactNode = ReactChild | ReactFragment | boolean | null | undefined;
 
     //
@@ -344,7 +343,7 @@ declare namespace React {
 
     type SFC<P = {}> = StatelessComponent<P>;
     interface StatelessComponent<P = {}> {
-        (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
+        (props: P & { children?: ReactNode }, context?: any): ReactElement | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -405,7 +404,7 @@ declare namespace React {
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactElement<any> | null;
+        render(): ReactElement | null;
 
         [propertyName: string]: any;
     }
@@ -2481,6 +2480,11 @@ declare namespace React {
          * @see aria-colindex @see aria-rowspan.
          */
         'aria-colspan'?: number;
+        /**
+         * Identifies the element (or elements) whose contents or presence are controlled by the current element.
+         * @see aria-owns.
+         */
+        'aria-controls'?: string;
         /** Indicates the element that represents the current item within a container or set of related elements. */
         'aria-current'?: boolean | 'false' | 'true' | 'page' | 'step' | 'location' | 'date' | 'time';
         /**
@@ -2644,7 +2648,7 @@ declare namespace React {
         autoComplete?: string;
         autoFocus?: boolean;
         autoPlay?: boolean;
-        capture?: boolean;
+        capture?: boolean | string;
         cellPadding?: number | string;
         cellSpacing?: number | string;
         charSet?: string;
@@ -2856,6 +2860,7 @@ declare namespace React {
 
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string;
+        crossOrigin?: "anonymous" | "use-credentials" | "";
         height?: number | string;
         sizes?: string;
         src?: string;
@@ -2874,7 +2879,7 @@ declare namespace React {
         alt?: string;
         autoComplete?: string;
         autoFocus?: boolean;
-        capture?: boolean; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
+        capture?: boolean | string; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean;
         crossOrigin?: string;
         disabled?: boolean;
@@ -3035,6 +3040,7 @@ declare namespace React {
     }
 
     interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
+        autoComplete?: string;
         autoFocus?: boolean;
         disabled?: boolean;
         form?: string;
@@ -3234,6 +3240,7 @@ declare namespace React {
         hanging?: number | string;
         horizAdvX?: number | string;
         horizOriginX?: number | string;
+        href?: string;
         ideographic?: number | string;
         imageRendering?: number | string;
         in2?: number | string;
@@ -3574,10 +3581,11 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
+        map<T, C extends ReactElement>(children: C[], fn: (child: C, index: number) => T): T[];
         map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): T[];
         forEach(children: ReactNode, fn: (child: ReactChild, index: number) => any): void;
         count(children: ReactNode): number;
-        only(children: ReactNode): ReactElement<any>;
+        only(children: ReactNode): ReactElement;
         toArray(children: ReactNode): ReactChild[];
     }
 
@@ -3613,7 +3621,7 @@ declare namespace React {
 declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
-        interface Element extends React.ReactElement<any> { }
+        interface Element extends React.ReactElement { }
         interface ElementClass extends React.Component<any> {
             render(): JSX.Element | null | false;
         }

@@ -85,7 +85,7 @@ declare namespace pc {
      * @author Will Eastcott
      */
     class Texture {
-        constructor(graphicsDevice: pc.GraphicsDevice, options: {
+        constructor(graphicsDevice: pc.GraphicsDevice, options?: {
             width: number,
             height: number,
             depth: number,
@@ -95,6 +95,7 @@ declare namespace pc {
             anisotropy: number,
             addressU: number,
             addressV: number,
+            addressW: number,
             mipmaps: boolean,
             cubemap: boolean,
             volume: boolean,

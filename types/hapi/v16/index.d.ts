@@ -766,7 +766,7 @@ export interface ServerConnectionOptions extends ConnectionConfigurationServerDe
     /** labels - a string or string array of labels used to server.select() specific connections matching the specified labels. Defaults to an empty array [] (no labels). */
     labels?: string | string[];
     /** tls - used to create an HTTPS connection. The tls object is passed unchanged as options to the node.js HTTPS server as described in the node.js HTTPS [documentation](https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener})  . Set to true when passing a listener object that has been configured to use TLS directly. */
-    tls?: true | https.RequestOptions;
+    tls?: boolean | https.RequestOptions;
 }
 
 /**

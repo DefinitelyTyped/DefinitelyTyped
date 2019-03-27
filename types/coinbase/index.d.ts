@@ -294,6 +294,33 @@ export interface MoneyHash {
     currency: string;
 }
 
+/**
+ * Price response
+ */
+export interface Price {
+    data: {
+        /**
+         * Currency e.g. "BTC" (see Client#getCurrencies() for available strings)
+         */
+        base: string;
+        /**
+         * Amount as floating-point in a string
+         */
+        amount: string;
+        /**
+         * Currency e.g. "EUR" (see Client#getCurrencies() for available strings)
+         */
+        currency: string;
+    };
+    warnings?: [
+        {
+            id: string
+            message: string
+            url: string
+        }
+    ];
+}
+
 export type ResourceType = "account" | "transaction" | "address" | "user" | "buy" | "sell" | "deposit" | "withdrawal" | "payment_method";
 
 /**
@@ -510,6 +537,21 @@ export class Account implements Resource {
     balance: MoneyHash;
 
     /**
+     * Allow deposits
+     */
+    allow_deposits: boolean;
+
+    /**
+     * Allow withdrawls
+     */
+    allow_withdrawals: boolean;
+
+    /**
+     * Account worth in fiat.
+     */
+    native_balance: MoneyHash;
+
+    /**
      * Promote an account as primary account.
      * Scope: wallet:accounts:update
      */
@@ -603,7 +645,7 @@ export class Account implements Resource {
      * Lists buys for an account.
      * Scope: wallet:buys:read
      */
-    getBuys(cb: (error: Error, result: Buy[]) => void): void;
+    getBuys(opts: null, cb: (error: Error, result: Buy[]) => void): void;
 
     /**
      * Show an individual buy.
@@ -636,7 +678,7 @@ export class Account implements Resource {
      * Lists sells for an account.
      * Scope: wallet:sells:read
      */
-    getSells(cb: (error: Error, result: Sell[]) => void): void;
+    getSells(opts: null, cb: (error: Error, result: Sell[]) => void): void;
 
     /**
      * Show an individual sell.
@@ -836,7 +878,7 @@ export class Buy implements Resource {
     /**
      * Associated transaction (e.g. a bank, fiat account)
      */
-    transaction: ResourceRef;
+    transaction: ResourceRef | null;
 
     /**
      * Amount in bitcoin, litecoin or ethereum
@@ -854,9 +896,9 @@ export class Buy implements Resource {
     subtotal: MoneyHash;
 
     /**
-     * Fee associated to this buy
+     * Fees associated to this buy
      */
-    fee: MoneyHash;
+    fees: Fee[];
 
     /**
      * Has this buy been committed?
@@ -874,6 +916,46 @@ export class Buy implements Resource {
     payout_at?: string;
 
     /**
+     * Unit price of the base currency.
+     */
+    unit_price: UnitPrice;
+
+    /**
+     * Hold period for transfer.
+     */
+    hold_business_days: number;
+
+    /**
+     * Is it the first buy for this symbol?
+     */
+    is_first_buy: boolean;
+
+    /**
+     * Is there another action required to make the transfer pass?
+     */
+    requires_completion_step: boolean;
+
+    /**
+     * Transfer identifier
+     */
+    id: string;
+
+    /**
+     * Reference code shown in user's dashboard.
+     */
+    user_reference: string;
+
+    /**
+     * ISO timestamp
+     */
+    created_at: string;
+
+    /**
+     * ISO timestamp
+     */
+    updated_at: string;
+
+    /**
      * Completes a buy that is created in commit: false state.
      * If the exchange rate has changed since the buy was created, this call will fail with the error “The exchange rate updated while you
      * were waiting. The new total is shown below”. The buy’s total will also be updated. You can repeat the `commit` call to accept the new
@@ -881,6 +963,32 @@ export class Buy implements Resource {
      * Scope: wallet:buys:create
      */
     commit(cb: (error: Error, transaction: Buy) => void): void;
+}
+
+export interface Fee {
+  /**
+   * Amount associated to this fee
+   */
+  amount: MoneyHash;
+  /**
+   * Fee beneficiary ("bank", "coinbase", ...)
+   */
+  type: string;
+}
+
+export interface UnitPrice {
+  /**
+   * Amount as floating-point in a string
+   */
+  amount: string;
+  /**
+   * Currency e.g. "BTC" (see Client#getCurrencies() for available strings)
+   */
+  currency: string;
+  /**
+   * Type of price
+   */
+  scale: number;
 }
 
 export type SellStatus = "created" | "completed" | "canceled";
@@ -907,7 +1015,7 @@ export class Sell implements Resource {
     /**
      * Associated transaction (e.g. a bank, fiat account)
      */
-    transaction: ResourceRef;
+    transaction: ResourceRef | null;
 
     /**
      * Amount in bitcoin, litecoin or ethereum
@@ -925,9 +1033,9 @@ export class Sell implements Resource {
     subtotal: MoneyHash;
 
     /**
-     * Fee associated to this sell
+     * Fees associated to this sell
      */
-    fee: MoneyHash;
+    fees: MoneyHash[];
 
     /**
      * Has this sell been committed?
@@ -943,6 +1051,26 @@ export class Sell implements Resource {
      * When a sell isn’t executed instantly, it will receive a payout date for the time it will be executed. ISO timestamp
      */
     payout_at?: string;
+
+    /**
+     * Transfer identifier
+     */
+    id: string;
+
+    /**
+     * Reference code shown in user's dashboard.
+     */
+    user_reference: string;
+
+    /**
+     * ISO timestamp
+     */
+    created_at: string;
+
+    /**
+     * ISO timestamp
+     */
+    updated_at: string;
 
     /**
      * Completes a sell that is created in commit: false state.
@@ -1308,7 +1436,7 @@ export class Client {
      * If you need more accurate price estimate for a specific payment method or amount, @see Account#buy() and `quote: true` option.
      * Scope: none
      */
-    getBuyPrice(opts: GetBuyPriceOpts, cb: (error: Error, result: MoneyHash) => void): void;
+    getBuyPrice(opts: GetBuyPriceOpts, cb: (error: Error, result: Price) => void): void;
 
     /**
      * Get the total price to sell one bitcoin or ether. Note that exchange rates fluctuates so the price is only correct for seconds at the time.
@@ -1316,7 +1444,7 @@ export class Client {
      * estimate for a specific payment method or amount, see sell bitcoin endpoint and quote: true option.
      * Scope: none
      */
-    getSellPrice(opts: GetSellPriceOpts, cb: (error: Error, result: MoneyHash) => void): void;
+    getSellPrice(opts: GetSellPriceOpts, cb: (error: Error, result: Price) => void): void;
 
     /**
      * Get the current market price for bitcoin. This is usually somewhere in between the buy and sell price.
@@ -1324,7 +1452,7 @@ export class Client {
      * You can also get historic prices with date parameter.
      * Scope: none
      */
-    getSpotPrice(opts: GetSpotPriceOpts, cb: (error: Error, result: MoneyHash) => void): void;
+    getSpotPrice(opts: GetSpotPriceOpts, cb: (error: Error, result: Price) => void): void;
 
     /**
      * Get the API server time.

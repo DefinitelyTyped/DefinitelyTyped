@@ -14,11 +14,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "moment-duration-format-tests.ts"
+        "moment-duration-format-tests.ts",
+        "test/module-tests.ts"
     ]
 }

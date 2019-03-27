@@ -1,6 +1,7 @@
 import { Oid } from './oid';
 import { OdbObject } from './odb-object';
 import { OdbExpandId } from './odb-expand-id';
+import { Object } from './object';
 
 export namespace Odb {
     const enum STREAM {
@@ -17,6 +18,6 @@ export class Odb {
 
     free(): void;
     read(id: Oid): Promise<OdbObject>;
-    write(data: Buffer, len: number, type: number): Promise<Oid>;
+    write(data: Buffer, len: number, type: Object.TYPE): Promise<Oid>;
     expandIds(ids: OdbExpandId, count: number): number;
 }

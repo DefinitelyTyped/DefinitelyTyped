@@ -25,7 +25,7 @@ client.getAccount("abcdef", (error: Error, account: coinbase.Account): void => {
 
     account.getBuy("abcdef", (error: Error, buy: coinbase.Buy): void => undefined);
 
-    account.getBuys((error: Error, buy: coinbase.Buy[]): void => undefined);
+    account.getBuys(null, (error: Error, buy: coinbase.Buy[]): void => undefined);
 
     account.getDeposit("abcdef", (error: Error, deposit: coinbase.Deposit): void => undefined);
 
@@ -33,7 +33,7 @@ client.getAccount("abcdef", (error: Error, account: coinbase.Account): void => {
 
     account.getSell("abcdef", (error: Error, deposit: coinbase.Sell): void => undefined);
 
-    account.getSells((error: Error, deposit: coinbase.Sell[]): void => undefined);
+    account.getSells(null, (error: Error, deposit: coinbase.Sell[]): void => undefined);
 
     account.getTransaction("abcdef", (error: Error, deposit: coinbase.Transaction): void => undefined);
 
@@ -85,7 +85,7 @@ client.getAccount("abcdef", (error: Error, account: coinbase.Account): void => {
     });
 });
 
-client.getBuyPrice({ currencyPair: "USD-BTC" }, (error: Error, result: coinbase.MoneyHash): void => undefined);
+client.getBuyPrice({ currencyPair: "USD-BTC" }, (error: Error, result: coinbase.Price): void => undefined);
 
 client.getCurrencies((error: Error, result: coinbase.Currency[]): void => undefined);
 
@@ -95,10 +95,10 @@ client.getPaymentMethod("foo", (error: Error, result: coinbase.PaymentMethod): v
 
 client.getPaymentMethods((error: Error, result: coinbase.PaymentMethod[]): void => undefined);
 
-client.getSellPrice({ currencyPair: "USD-BTC" }, (error: Error, result: coinbase.MoneyHash): void => undefined);
+client.getSellPrice({ currencyPair: "USD-BTC" }, (error: Error, result: coinbase.Price): void => undefined);
 
-client.getSpotPrice({ currencyPair: "USD-BTC" }, (error: Error, result: coinbase.MoneyHash): void => undefined);
-client.getSpotPrice({ currencyPair: "USD-BTC", date: "2017-22-01" }, (error: Error, result: coinbase.MoneyHash): void => undefined);
+client.getSpotPrice({ currencyPair: "USD-BTC" }, (error: Error, result: coinbase.Price): void => undefined);
+client.getSpotPrice({ currencyPair: "USD-BTC", date: "2017-22-01" }, (error: Error, result: coinbase.Price): void => undefined);
 
 client.getTime((error: Error, result: coinbase.Time): void => undefined);
 

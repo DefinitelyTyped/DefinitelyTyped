@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-export interface MDCSliderAdapter {
+export default interface MDCSliderAdapter {
     hasClass(className: string): boolean;
 
     addClass(className: string): void;
 
     removeClass(className: string): void;
 
-    getAttribute(name: string): string|null;
+    getAttribute(name: string): string | null;
 
     setAttribute(name: string, value: string): void;
 

@@ -16,11 +16,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
+        "dist/jquery.slim.d.ts",
         "jquery-tests.ts",
         "test/example-tests.ts",
         "test/longdesc-tests.ts",

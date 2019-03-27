@@ -1,10 +1,13 @@
-// Type definitions for kurento-utils 6.6
-// Project: https://github.com/Kurento/kurento-utils-js
+// Type definitions for kurento-utils 6.7
+// Project: https://github.com/Kurento/kurento-utils-js, https://www.kurento.org
 // Definitions by: Miloslav Nenadál <https://github.com/nenadalm>
+//                 Benjamin Riggs <https://github.com/riggs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export class WebRtcPeer {
+import { EventEmitter } from 'events';
+
+export class WebRtcPeer extends EventEmitter {
     /**
      * Using this property the user can get the peerConnection and use it directly.
      */
@@ -60,7 +63,7 @@ export class WebRtcPeer {
      */
     addIceCandidate: (
         iceCandidate: RTCIceCandidate,
-        callback?: () => void
+        callback?: (error: string | undefined) => void
     ) => void;
     /**
      * Using this method the user can get peerconnection’s local session descriptor.
@@ -73,8 +76,9 @@ export class WebRtcPeer {
     /**
      * Creates an offer that is a request to find a remote peer with a specific configuration.
      */
-    generateOffer: (error: string | undefined, sdp: string) => void;
-
+    generateOffer: (
+        callback: (error: string | undefined, sdp: string) => void
+    ) => void;
     /**
      * Create a WebRtcPeer as receive only.
      */

@@ -1,6 +1,6 @@
 var _vrEffect: THREE.VREffect;
 
-_vrEffect = new THREE.VREffect(new THREE.WebGLRenderer({antialias: true}), (error) => {
+_vrEffect = new THREE.VREffect(new THREE.WebGLRenderer({antialias: true}), function (error) {
     if (error) {
         this._stats.classList.add("error");
         this._stats.innerHTML = "WebVR API not supported";

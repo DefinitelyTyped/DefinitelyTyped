@@ -2372,13 +2372,9 @@ const AppBarExampleIconMenu = () => (
 
 // "http://www.material-ui.com/#/components/auto-complete"
 export class AutoCompleteExampleSimple extends Component<{}, {dataSource: string[]}> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      dataSource: [],
-    };
-  }
+  state = {
+    dataSource: [],
+  };
 
   handleUpdateInput = (value) => {
     this.setState({
@@ -2536,7 +2532,7 @@ const AutoCompleteExampleFilters = () => (
 
 // "http://www.material-ui.com/#/components/avatar"
 const AvatarExampleSimple = () => (
-  <List>
+  <List className="foo">
     <ListItem
       disabled={true}
       leftAvatar={
@@ -2959,12 +2955,9 @@ const CardExampleWithoutAvatar = () => (
 );
 
 class CardExampleControlled extends Component<{}, {expanded: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      expanded: false,
-    };
-  }
+  state = {
+    expanded: false,
+  };
 
   handleExpandChange = (expanded) => {
     this.setState({expanded});
@@ -3082,95 +3075,90 @@ interface DatePickerExampleToggleState {
 }
 
 class DatePickerExampleToggle extends Component<{}, DatePickerExampleToggleState> {
-  constructor(props) {
-    super(props);
+    static initState() {
+        const minDate = new Date();
+        const maxDate = new Date();
+        minDate.setFullYear(minDate.getFullYear() - 1);
+        minDate.setHours(0, 0, 0, 0);
+        maxDate.setFullYear(maxDate.getFullYear() + 1);
+        maxDate.setHours(0, 0, 0, 0);
 
-    const minDate = new Date();
-    const maxDate = new Date();
-    minDate.setFullYear(minDate.getFullYear() - 1);
-    minDate.setHours(0, 0, 0, 0);
-    maxDate.setFullYear(maxDate.getFullYear() + 1);
-    maxDate.setHours(0, 0, 0, 0);
+        return {
+            minDate,
+            maxDate,
+            autoOk: false,
+            disableYearSelection: false
+        };
+    }
+    state = DatePickerExampleToggle.initState();
 
-    this.state = {
-      minDate,
-      maxDate,
-      autoOk: false,
-      disableYearSelection: false,
-    };
-  }
+    handleChangeMinDate = (event, date) => {
+        this.setState({
+            minDate: date
+        });
+    }
 
-  handleChangeMinDate = (event, date) => {
-    this.setState({
-      minDate: date,
-    });
-  }
+    handleChangeMaxDate = (event, date) => {
+        this.setState({
+            maxDate: date
+        });
+    }
 
-  handleChangeMaxDate = (event, date) => {
-    this.setState({
-      maxDate: date,
-    });
-  }
+    handleToggle = (event, toggled) => {
+        this.setState({
+            [event.target.name]: toggled
+        });
+    }
 
-  handleToggle = (event, toggled) => {
-    this.setState({
-      [event.target.name]: toggled,
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <DatePicker
-          floatingLabelText="Ranged Date Picker"
-          autoOk={this.state.autoOk}
-          minDate={this.state.minDate}
-          maxDate={this.state.maxDate}
-          disableYearSelection={this.state.disableYearSelection}
-        />
-        <div style={optionsStyle}>
-          <DatePicker
-            onChange={this.handleChangeMinDate}
-            autoOk={this.state.autoOk}
-            floatingLabelText="Min Date"
-            defaultDate={this.state.minDate}
-            disableYearSelection={this.state.disableYearSelection}
-          />
-          <DatePicker
-            onChange={this.handleChangeMaxDate}
-            autoOk={this.state.autoOk}
-            floatingLabelText="Max Date"
-            defaultDate={this.state.maxDate}
-            disableYearSelection={this.state.disableYearSelection}
-          />
-          <Toggle
-            name="autoOk"
-            value="autoOk"
-            label="Auto Ok"
-            toggled={this.state.autoOk}
-            onToggle={this.handleToggle}
-          />
-          <Toggle
-            name="disableYearSelection"
-            value="disableYearSelection"
-            label="Disable Year Selection"
-            toggled={this.state.disableYearSelection}
-            onToggle={this.handleToggle}
-          />
-        </div>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <DatePicker
+                    floatingLabelText="Ranged Date Picker"
+                    autoOk={this.state.autoOk}
+                    minDate={this.state.minDate}
+                    maxDate={this.state.maxDate}
+                    disableYearSelection={this.state.disableYearSelection}
+                />
+                <div style={optionsStyle}>
+                    <DatePicker
+                        onChange={this.handleChangeMinDate}
+                        autoOk={this.state.autoOk}
+                        floatingLabelText="Min Date"
+                        defaultDate={this.state.minDate}
+                        disableYearSelection={this.state.disableYearSelection}
+                    />
+                    <DatePicker
+                        onChange={this.handleChangeMaxDate}
+                        autoOk={this.state.autoOk}
+                        floatingLabelText="Max Date"
+                        defaultDate={this.state.maxDate}
+                        disableYearSelection={this.state.disableYearSelection}
+                    />
+                    <Toggle
+                        name="autoOk"
+                        value="autoOk"
+                        label="Auto Ok"
+                        toggled={this.state.autoOk}
+                        onToggle={this.handleToggle}
+                    />
+                    <Toggle
+                        name="disableYearSelection"
+                        value="disableYearSelection"
+                        label="Disable Year Selection"
+                        toggled={this.state.disableYearSelection}
+                        onToggle={this.handleToggle}
+                    />
+                </div>
+            </div>
+        );
+    }
 }
 
 class DatePickerExampleControlled extends Component<{}, {controlledDate?: Date}> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      controlledDate: null,
-    };
-  }
+  state = {
+    controlledDate: null,
+  };
 
   handleChange = (event, date) => {
     this.setState({
@@ -3545,10 +3533,7 @@ const DividerExampleMenu = () => (
 
 // "http://www.material-ui.com/#/components/drawer"
 class DrawerSimpleExample extends Component<{}, {open?: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
-  }
+  state = {open: false};
 
   handleToggle = () => this.setState({open: !this.state.open});
 
@@ -3569,10 +3554,7 @@ class DrawerSimpleExample extends Component<{}, {open?: boolean}> {
 }
 
 class DrawerUndockedExample extends Component<{}, {open?: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
-  }
+  state = {open: false};
 
   handleToggle = () => this.setState({open: !this.state.open});
 
@@ -3600,10 +3582,7 @@ class DrawerUndockedExample extends Component<{}, {open?: boolean}> {
 }
 
 class DrawerOpenRightExample extends Component<{}, {open?: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
-  }
+  state = {open: false};
 
   handleToggle = () => this.setState({open: !this.state.open});
 
@@ -4248,7 +4227,7 @@ function wrapState(ComposedComponent: ComponentClass<__MaterialUI.List.Selectabl
   };
 }
 
-const SelectableList = wrapState(makeSelectable(List));
+const SelectableList = wrapState(makeSelectable<{}>(List));
 
 const ListExampleSelectable = () => (
   <Paper>
@@ -4503,6 +4482,15 @@ const IconMenuExampleSimple = () => (
     >
             <MenuItem primaryText="Sign out"/>
     </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+    >
+            {false}
+            {undefined}
+            {null}
+            {true}
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
   </div>
 );
 
@@ -4513,14 +4501,11 @@ interface IconMenuExampleControlledState {
 }
 
 class IconMenuExampleControlled extends Component<{}, IconMenuExampleControlledState> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      valueSingle: '3',
-      valueMultiple: ['3', '5'],
-    };
-  }
+  state = {
+    valueSingle: '3',
+    valueMultiple: ['3', '5'],
+    openMenu: false
+  };
 
   handleChangeSingle = (event, value) => {
     this.setState({
@@ -4689,10 +4674,7 @@ const IconMenuExampleNested = () => (
 
 // "http://www.material-ui.com/#/components/dropdown-menu"
 class DropDownMenuSimpleExample extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 1};
-  }
+  state = {value: 1};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -4725,10 +4707,7 @@ class DropDownMenuSimpleExample extends Component<{}, {value?: number}> {
 }
 
 class DropDownMenuOpenImmediateExample extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 2};
-  }
+  state = {value: 2};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -4745,7 +4724,7 @@ class DropDownMenuOpenImmediateExample extends Component<{}, {value?: number}> {
   }
 }
 
-const DropDownMenuAnchorExample: React.SFC<{}> = () => (
+const DropDownMenuAnchorExample: React.SFC = () => (
   <DropDownMenu
     value={1}
     targetOrigin={{ horizontal: 'middle', vertical: 'top' }}
@@ -4762,10 +4741,7 @@ for (let i = 0; i < 100; i++) {
 }
 
 class DropDownMenuLongMenuExample extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 10};
-  }
+  state = {value: 10};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -4779,10 +4755,7 @@ class DropDownMenuLongMenuExample extends Component<{}, {value?: number}> {
 }
 
 class DropDownMenuLabeledExample extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 2};
-  }
+  state = {value: 2};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -4831,13 +4804,10 @@ const PaperExampleCircle = () => (
 
 // "http://www.material-ui.com/#/components/popover"
 class PopoverExampleSimple extends Component<{}, {open?: boolean, anchorEl?: ReactInstance}> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      open: false,
-    };
-  }
+  state = {
+    open: false,
+    anchorEl: null
+  };
 
   handleClick = (event) => {
     // This prevents ghost click.
@@ -4882,13 +4852,10 @@ class PopoverExampleSimple extends Component<{}, {open?: boolean, anchorEl?: Rea
 }
 
 class PopoverExampleAnimation extends Component<{}, {open?: boolean, anchorEl?: ReactInstance}> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      open: false,
-    };
-  }
+  state = {
+    open: false,
+    anchorEl: null
+  };
 
   handleClick = (event) => {
     // This prevents ghost click.
@@ -4940,21 +4907,17 @@ interface PopoverExampleConfigurableState {
 }
 
 class PopoverExampleConfigurable extends Component<{}, PopoverExampleConfigurableState> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      open: false,
-      anchorOrigin: {
+  state: PopoverExampleConfigurableState = {
+    open: false,
+    anchorOrigin: {
         horizontal: 'left',
         vertical: 'bottom',
-      },
-      targetOrigin: {
+    },
+    targetOrigin: {
         horizontal: 'left',
         vertical: 'top',
-      },
-    };
-  }
+    },
+  };
 
   handleClick = (event) => {
     // This prevents ghost click.
@@ -5101,13 +5064,9 @@ const CircularProgressExampleSimple = () => (
 class CircularProgressExampleDeterminate extends Component<{}, {completed?: number}> {
   private timer: number;
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      completed: 0,
-    };
-  }
+  state = {
+    completed: 0,
+  };
 
   componentDidMount() {
     this.timer = setTimeout(() => this.progress(5), 1000);
@@ -5146,13 +5105,9 @@ const LinearProgressExampleSimple = () => (
 class LinearProgressExampleDeterminate extends Component<{}, {completed?: number}> {
   private timer: number;
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      completed: 0,
-    };
-  }
+  state = {
+    completed: 0,
+  };
 
   componentDidMount() {
     this.timer = setTimeout(() => this.progress(5), 1000);
@@ -5241,10 +5196,7 @@ const RefreshIndicatorExampleLoading = () => (
 
 // "http://www.material-ui.com/#/components/select-field"
 class SelectFieldExampleSimple extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 1};
-  }
+  state = {value: 1};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5293,10 +5245,7 @@ class SelectFieldExampleSimple extends Component<{}, {value?: number}> {
 }
 
 class SelectFieldLongMenuExample extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 10};
-  }
+  state = {value: 10};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5310,10 +5259,7 @@ class SelectFieldLongMenuExample extends Component<{}, {value?: number}> {
 }
 
 class SelectFieldExampleCustomLabel extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 1};
-  }
+  state = {value: 1};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5338,10 +5284,7 @@ const itemsPeriod = [
 ];
 
 export default class SelectFieldExampleFloatingLabel extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: null};
-  }
+  state = {value: null};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5371,10 +5314,7 @@ export default class SelectFieldExampleFloatingLabel extends Component<{}, {valu
 }
 
 class SelectFieldExampleError extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: null};
-  }
+  state = {value: null};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5420,10 +5360,7 @@ const names = [
 ];
 
 class SelectFieldExampleMultiSelect extends Component<{}, {values?: string[]}> {
-  constructor(props) {
-    super(props);
-    this.state = {values: []};
-  }
+  state = {values: []};
 
   handleChange = (event, index, values) => this.setState({values});
 
@@ -5468,10 +5405,7 @@ const persons = [
 ];
 
 class SelectFieldExampleSelectionRenderer extends Component<{}, {values?: string[]}> {
-  constructor(props) {
-    super(props);
-    this.state = {values: []};
-  }
+  state = {values: []};
 
   handleChange = (event, index, values) => this.setState({values});
 
@@ -5514,10 +5448,7 @@ class SelectFieldExampleSelectionRenderer extends Component<{}, {values?: string
 }
 
 class SelectFieldExampleDropDownMenu extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: null};
-  }
+  state = {value: null};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5701,6 +5632,10 @@ const ToggleExampleSimple = () => (
       style={styles.toggle}
     />
     <Toggle
+      label={<span>Element</span>}
+      style={styles.toggle}
+    />
+    <Toggle
       label="Toggled by default"
       defaultToggled={true}
       style={styles.toggle}
@@ -5722,12 +5657,7 @@ const ToggleExampleSimple = () => (
 
 // "http://material-ui.com/#/components/snackbar"
 class SnackbarExampleSimple extends Component<{}, {open?: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-    };
-  }
+  state = { open: false, };
 
   handleClick = () => {
     this.setState({
@@ -5761,14 +5691,11 @@ class SnackbarExampleSimple extends Component<{}, {open?: boolean}> {
 }
 
 class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDuration?: number, message?: string}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      autoHideDuration: 4000,
-      message: 'Event added to your calendar',
-      open: false,
-    };
-  }
+  state = {
+    autoHideDuration: 4000,
+    message: 'Event added to your calendar',
+    open: false,
+  };
 
   handleClick = () => {
     this.setState({
@@ -5823,16 +5750,11 @@ class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDurat
 }
 
 class SnackbarExampleTwice extends Component<{}, {open?: boolean, message?: string}> {
-  private timer: number;
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      message: 'Event 1 added to your calendar',
-      open: false,
-    };
-    this.timer = undefined;
-  }
+  state = {
+    message: 'Event 1 added to your calendar',
+    open: false,
+  };
+  private timer?: number;
 
   componentWillUnMount() {
     clearTimeout(this.timer);
@@ -6503,22 +6425,18 @@ interface TableExampleComplexState {
 }
 
 class TableExampleComplex extends Component<{}, TableExampleComplexState> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fixedHeader: true,
-      fixedFooter: true,
-      stripedRows: false,
-      showRowHover: false,
-      selectable: true,
-      multiSelectable: false,
-      enableSelectAll: false,
-      deselectOnClickaway: true,
-      showCheckboxes: true,
-      height: '300px',
-    };
-  }
+  state = {
+    fixedHeader: true,
+    fixedFooter: true,
+    stripedRows: false,
+    showRowHover: false,
+    selectable: true,
+    multiSelectable: false,
+    enableSelectAll: false,
+    deselectOnClickaway: true,
+    showCheckboxes: true,
+    height: '300px',
+  };
 
   handleToggle = (event, toggled) => {
     this.setState({
@@ -6698,12 +6616,9 @@ const TabsExampleSimple = () => (
 );
 
 class TabsExampleControlled extends Component<{}, {value?: string}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: 'a',
-    };
-  }
+  state = {
+    value: 'a',
+  };
 
   handleChange = (value) => {
     this.setState({
@@ -6903,13 +6818,9 @@ const TextFieldExampleDisabled = () => (
 );
 
 class TextFieldExampleControlled extends Component<{}, {value?: string}> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: 'Property Value',
-    };
-  }
+  state = {
+    value: 'Property Value',
+  };
 
   handleChange = (event) => {
     this.setState({
@@ -6949,10 +6860,7 @@ const TimePickerExampleSimple = () => (
 );
 
 class TimePickerExampleComplex extends Component<{}, {value24?: Date, value12?: Date}> {
-  constructor(props) {
-    super(props);
-    this.state = {value24: null, value12: null};
-  }
+  state = {value24: null, value12: null};
 
   handleChangeTimePicker24 = (event, date) => {
     this.setState({value24: date});
@@ -6994,12 +6902,9 @@ const TimePickerInternational = () => (
 
 // "http://www.material-ui.com/#/components/toolbar"
 class ToolbarExamplesSimple extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: 3,
-    };
-  }
+  state = {
+    value: 3
+  };
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -7043,12 +6948,9 @@ const componentWithWidth = withWidth()(ToolbarExamplesSimple);
 class BottomNavigationExample extends Component<{}, {
   index?: number
 }> {
-  constructor() {
-    super({});
-    this.state = {
-      index: 0
-    };
-  }
+  state = {
+    index: 0
+  };
   render() {
     return <BottomNavigation selectedIndex={this.state.index}>
       <BottomNavigationItem label='0' icon={<ActionHome/>} onClick={() => this.setState({index: 0})}/>

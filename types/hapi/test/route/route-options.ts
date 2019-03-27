@@ -1,5 +1,6 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#route-options
 import {
+    Lifecycle,
     Request,
     ResponseToolkit,
     RouteOptions,
@@ -8,7 +9,8 @@ import {
     RouteOptionsPayload,
     RouteOptionsResponse,
     RouteOptionsValidate,
-    Server
+    Server,
+    RouteOptionsSecureObject
 } from "hapi";
 
 const routeOptionsAccess: RouteOptionsAccess = {
@@ -46,7 +48,7 @@ const payloadOptions: RouteOptionsPayload = {
         }
     },
     defaultContentType: 'application/json',
-    failAction: (request: Request, h: ResponseToolkit) => {
+    failAction(request, h) {
         return 'ok: ' + request.path;
     },
     maxBytes: 1048576,
@@ -60,21 +62,21 @@ const payloadOptions: RouteOptionsPayload = {
     uploads: 'dir/'
 };
 
-const pre1 = (request: Request, h: ResponseToolkit) => {
+const pre1: Lifecycle.Method = (request, h) => {
     return 'Hello';
 };
 
-const pre2 = (request: Request, h: ResponseToolkit) => {
+const pre2: Lifecycle.Method = (request, h) => {
     return 'World';
 };
 
-const pre3 = (request: Request, h: ResponseToolkit) => {
+const pre3: Lifecycle.Method = (request, h) => {
     return `request.pre.m1 request.pre.m2`;
 };
 
 const routeOptionsResponse: RouteOptionsResponse = {
     emptyStatusCode: 200,
-    failAction: (request: Request, h: ResponseToolkit) => {
+    failAction(request, h) {
         return 'ok: ' + request.path;
     },
     modify: false,
@@ -86,12 +88,26 @@ const routeOptionsResponse: RouteOptionsResponse = {
         200: true,
         302: true,
         404: false,
-    }
+    },
+    disconnectStatusCode: 123,
+};
+
+const routeOptionSecure: RouteOptionsSecureObject = {
+    referrer: 'origin',
+    noSniff: true,
+    xframe: "deny",
+    hsts: {
+        includeSubdomains: true,
+        maxAge: 1111,
+        preload: false,
+    },
+    noOpen: false,
+    xss: true,
 };
 
 const routeOptionsValidate: RouteOptionsValidate = {
     errorFields: {},
-    failAction: (request: Request, h: ResponseToolkit) => {
+    failAction(request, h) {
         return 'ok: ' + request.path;
     },
     headers: false,
@@ -101,8 +117,18 @@ const routeOptionsValidate: RouteOptionsValidate = {
     query: true,
 };
 
+declare module 'hapi' {
+    interface RouteOptionsApp {
+        one: number;
+        two: string;
+    }
+}
+
 const routeOptions: RouteOptions = {
-    app: {},
+    app: {
+        one: 1,
+        two: "2"
+    },
     auth: routeOptionsAccess,
     bind: null,
     cache: {
@@ -119,7 +145,7 @@ const routeOptions: RouteOptions = {
     description: 'description here',
     ext: undefined,
     files: { relativeTo: '.' },
-    handler: (request: Request, h: ResponseToolkit) => {
+    handler(request, h) {
         return 'ok: ' + request.path;
     },
     id: 'test',
@@ -145,7 +171,7 @@ const routeOptions: RouteOptions = {
     security: false,
     state: {
         parse: true,
-        failAction: (request: Request, h: ResponseToolkit) => {
+        failAction(request, h) {
             return 'ok: ' + request.path;
         },
     },

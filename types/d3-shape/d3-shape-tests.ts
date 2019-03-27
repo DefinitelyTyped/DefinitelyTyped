@@ -161,8 +161,9 @@ accessorArcDatumNumberOrNull = svgArc.padRadius();
 
 // centroid(...) ---------------------------------------------------------------------
 
-const centroid: [number, number] = svgArc.centroid(arcDatum);
-// centroid = svgArc.centroid(arcDefaultDatum); // fails, wrong datum type
+let centroid: [number, number] = svgArc.centroid(arcDatum);
+// $ExpectError
+centroid = svgArc.centroid(arcDefaultDatum); // fails, wrong datum type
 
 // generate arc ----------------------------------------------------------------------
 
@@ -176,10 +177,13 @@ const wrongArc1: Selection<SVGCircleElement, ArcDatum, any, any> = select<SVGCir
 const wrongArc2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>('.arc-paths'); // mock
 
 pArc.attr('d', svgArc);
-// wrongArc1.attr('d', svgArc); // fails, incompatible this contexts
-// wrongArc2.attr('d', svgArc); // fails, incompatible datum types
+// $ExpectError
+wrongArc1.attr('d', svgArc); // fails, incompatible this contexts
+// $ExpectError
+wrongArc2.attr('d', svgArc); // fails, incompatible datum types
 
-// pathStringMaybe = svgArc(arcDatum); // fails, wrong this type for invocation
+// $ExpectError
+pathStringMaybe = svgArc(arcDatum); // fails, wrong this type for invocation
 
 // Use with custom object
 
@@ -270,13 +274,13 @@ let pie: d3Shape.Pie<any, PieDatum> = d3Shape.pie<PieDatum>();
 
 // value(...) -------------------------------------------------------------------------
 
-let defaultPieValueAccessor: (d: number | { valueOf(): number }, i?: number, data?: Array<number | { valueOf(): number }>) => number;
+let defaultPieValueAccessor: (d: number | { valueOf(): number }, i: number, data: Array<number | { valueOf(): number }>) => number;
 
 defaultPie = defaultPie.value(10);
 
 defaultPieValueAccessor = defaultPie.value();
 
-let pieValueAccessor: (d: PieDatum, i?: number, data?: PieDatum[]) => number;
+let pieValueAccessor: (d: PieDatum, i: number, data: PieDatum[]) => number;
 
 pie = pie.value((d, i, data) => {
     console.log(data.length > 0 ? data[0].val : 'no data'); // data type is Array<PieDatum>
@@ -364,8 +368,8 @@ interface LineDatum {
     missing: boolean;
 }
 
-let lineXYAccessorFn: (d: LineDatum, index?: number, data?: LineDatum[]) => number;
-let lineDefAccessorFn: (d: LineDatum, index?: number, data?: LineDatum[]) => boolean;
+let lineXYAccessorFn: (d: LineDatum, index: number, data: LineDatum[]) => number;
+let lineDefAccessorFn: (d: LineDatum, index: number, data: LineDatum[]) => boolean;
 
 interface LineRadialDatum {
     angle: number;
@@ -373,8 +377,8 @@ interface LineRadialDatum {
     missing: boolean;
 }
 
-let lineRadialAngRAccessorFn: (d: LineRadialDatum, index?: number, data?: LineRadialDatum[]) => number;
-let lineRadialDefAccessorFn: (d: LineRadialDatum, index?: number, data?: LineRadialDatum[]) => boolean;
+let lineRadialAngRAccessorFn: (d: LineRadialDatum, index: number, data: LineRadialDatum[]) => number;
+let lineRadialDefAccessorFn: (d: LineRadialDatum, index: number, data: LineRadialDatum[]) => boolean;
 
 // line(...) create Line generator =====================================================
 
@@ -541,9 +545,9 @@ interface AreaDatum {
     missing: boolean;
 }
 
-let areaXYAccessorFn: (d: AreaDatum, index?: number, data?: AreaDatum[]) => number;
-let areaXYAccessorFnMaybe: null | ((d: AreaDatum, index?: number, data?: AreaDatum[]) => number);
-let areaDefAccessorFn: (d: AreaDatum, index?: number, data?: AreaDatum[]) => boolean;
+let areaXYAccessorFn: (d: AreaDatum, index: number, data: AreaDatum[]) => number;
+let areaXYAccessorFnMaybe: null | ((d: AreaDatum, index: number, data: AreaDatum[]) => number);
+let areaDefAccessorFn: (d: AreaDatum, index: number, data: AreaDatum[]) => boolean;
 
 interface AreaRadialDatum {
     startAngle: number;
@@ -553,9 +557,9 @@ interface AreaRadialDatum {
     missing: boolean;
 }
 
-let areaRadialAngRAccessorFn: (d: AreaRadialDatum, index?: number, data?: AreaRadialDatum[]) => number;
-let areaRadialAngRAccessorFnMaybe: null | ((d: AreaRadialDatum, index?: number, data?: AreaRadialDatum[]) => number);
-let areaRadialDefAccessorFn: (d: AreaRadialDatum, index?: number, data?: AreaRadialDatum[]) => boolean;
+let areaRadialAngRAccessorFn: (d: AreaRadialDatum, index: number, data: AreaRadialDatum[]) => number;
+let areaRadialAngRAccessorFnMaybe: null | ((d: AreaRadialDatum, index: number, data: AreaRadialDatum[]) => number);
+let areaRadialDefAccessorFn: (d: AreaRadialDatum, index: number, data: AreaRadialDatum[]) => boolean;
 
 // area(...) create Area generator =====================================================
 
@@ -662,7 +666,8 @@ areaDefAccessorFn = area.defined();
 defaultArea = defaultArea.curve(d3Shape.curveLinear);
 
 area = area.curve(d3Shape.curveCardinal.tension(0.5));
-// area = area.curve(d3Shape.curveBundle.beta(0.5)); // fails, as curveBundle-based line generator does not support area-related methods
+// $ExpectError
+area = area.curve(d3Shape.curveBundle.beta(0.5)); // fails, as curveBundle-based line generator does not support area-related methods
 
 currentCurveFactory = area.curve();
 
@@ -800,7 +805,8 @@ areaRadialDefAccessorFn = areaRadial.defined();
 defaultAreaRadial = defaultAreaRadial.curve(d3Shape.curveLinear);
 
 areaRadial = areaRadial.curve(d3Shape.curveCardinal.tension(0.5));
-// areaRadial = areaRadial.curve(d3Shape.curveBundle.beta(0.5)); // fails, as curveBundle-based line generator does not support area-related methods
+// $ExpectError
+areaRadial = areaRadial.curve(d3Shape.curveBundle.beta(0.5)); // fails, as curveBundle-based line generator does not support area-related methods
 
 currentCurveFactory = areaRadial.curve();
 
@@ -868,7 +874,8 @@ curveBundleFactory = d3Shape.curveBundle.beta(0.5);
 
 lineOnlyGenerator = d3Shape.curveBundle.beta(0.5)(context!);  // force context to be non-null with post-fix for mock
 lineOnlyGenerator = d3Shape.curveBundle.beta(0.5)(path());
-// curveGenerator = d3Shape.curveBundle.beta(0.5)(context); // fails, no area related methods
+// $ExpectError
+curveGenerator = d3Shape.curveBundle.beta(0.5)(context); // fails, no area related methods
 
 let curveCardinalFactory: d3Shape.CurveCardinalFactory;
 
@@ -1153,22 +1160,28 @@ defaultLinkRadial(defaultLinkDatum);
 // vertical/horizontal
 
 pLink.attr('d', svgLink);
-// wrongLink1.attr('d', svgLink); // fails, incompatible this contexts
-// wrongLink2.attr('d', svgLink); // fails, incompatible datum types
+// $ExpectError
+wrongLink1.attr('d', svgLink); // fails, incompatible this contexts
+// $ExpectError
+wrongLink2.attr('d', svgLink); // fails, incompatible datum types
 
 pathStringMaybe = link(linkDatum);
 
-// pathStringMaybe = svgLink(linkDatum); // fails, wrong this type for invocation
+// $ExpectError
+pathStringMaybe = svgLink(linkDatum); // fails, wrong this type for invocation
 
 // radial
 
 pLink.attr('d', svgLinkRadial);
-// wrongLink1.attr('d', svgLinkRadial); // fails, incompatible this contexts
-// wrongLink2.attr('d', svgLinkRadial); // fails, incompatible datum types
+// $ExpectError
+wrongLink1.attr('d', svgLinkRadial); // fails, incompatible this contexts
+// $ExpectError
+wrongLink2.attr('d', svgLinkRadial); // fails, incompatible datum types
 
 pathStringMaybe = radialLink(linkDatum);
 
-// pathStringMaybe = svgLinkRadial(linkDatum); // fails, wrong this type for invocation
+// $ExpectError
+pathStringMaybe = svgLinkRadial(linkDatum); // fails, wrong this type for invocation
 
 // -----------------------------------------------------------------------------------
 // Test Symbols
@@ -1184,7 +1197,7 @@ interface SymbolDatum {
 let customSymbol: d3Shape.SymbolType;
 
 customSymbol = {
-    draw(context: CanvasPathMethods, size: number): void {
+    draw(context: d3Shape.CanvasPath_D3Shape, size: number): void {
         // draw custom symbol using canvas path methods
     }
 };
@@ -1259,10 +1272,13 @@ const wrongSymbol1: Selection<SVGCircleElement, SymbolDatum, any, any> = select<
 const wrongSymbol2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>('.symbol-path'); // mock
 
 pSymbol.attr('d', svgSymbol);
-// wrongSymbol1.attr('d', svgSymbol); // fails, incompatible this contexts
-// wrongSymbol2.attr('d', svgSymbol); // fails, incompatible datum types
+// $ExpectError
+wrongSymbol1.attr('d', svgSymbol); // fails, incompatible this contexts
+// $ExpectError
+wrongSymbol2.attr('d', svgSymbol); // fails, incompatible datum types
 
-// pathStringMaybe = svgSymbol(symbolDatum); // fails, wrong this type for invocation
+// $ExpectError
+pathStringMaybe = svgSymbol(symbolDatum); // fails, wrong this type for invocation
 
 // Use with custom object
 
@@ -1390,11 +1406,11 @@ keysAccessor = overlyComplicatedStack.keys();
 
 defaultStack = defaultStack.value(30);
 
-overlyComplicatedStack = overlyComplicatedStack.value((d, key, j, data) => {
+overlyComplicatedStack = overlyComplicatedStack.value((d, key, i, data) => {
     return d.values[key.name];
 });
 
-let valueAccessorFn: (this: any, d: StackDatum, key: StackKey, j?: number, data?: StackDatum[]) => number;
+let valueAccessorFn: (d: StackDatum, key: StackKey, i: number, data: StackDatum[]) => number;
 valueAccessorFn = overlyComplicatedStack.value();
 
 // order(...) ----------------------------------------------------------------------
@@ -1448,6 +1464,7 @@ seriesDatum = seriesPoint.data;
 let order: number[];
 const seriesAnyAny: d3Shape.Series<any, any> = seriesArray[0];
 
+order = d3Shape.stackOrderAppearance(seriesAnyAny);
 order = d3Shape.stackOrderAscending(seriesAnyAny);
 order = d3Shape.stackOrderDescending(seriesAnyAny);
 order = d3Shape.stackOrderInsideOut(seriesAnyAny);

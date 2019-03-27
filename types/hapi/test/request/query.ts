@@ -1,14 +1,17 @@
 // Added test in addition to docs, for request.query
-import { Lifecycle, Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from "hapi";
+import { Lifecycle, Request, RequestQuery, ResponseToolkit, Server, ServerOptions, ServerRoute } from "hapi";
 
 const options: ServerOptions = {
     port: 8000,
 };
 
-const handlerFn: Lifecycle.Method = (request: Request, h: ResponseToolkit) => {
-    const query = request.query as GetThingQuery;
+const handlerFn: Lifecycle.Method = (request, h) => {
+    const query1 = request.query;
+    console.log(query1);
+
+    const query2 = request.query;
     // http://localhost:8000/?name=test
-    return `You asked for ${query.name}`;
+    return `You asked for ${query2.name}`;
 };
 
 const serverRoute: ServerRoute = {
@@ -16,10 +19,6 @@ const serverRoute: ServerRoute = {
     method: 'GET',
     handler: handlerFn
 };
-
-interface GetThingQuery {
-    name: string;
-}
 
 const server = new Server(options);
 server.route(serverRoute);

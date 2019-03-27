@@ -1,4 +1,4 @@
-import * as PouchDB from 'pouchdb-core';
+import PouchDB = require('pouchdb-core');
 
 function isString(someString: string) {
 }
@@ -47,10 +47,19 @@ function testBulkDocs() {
     const model = { property: 'test' };
     const model2 = { property: 'test' };
 
+    const isError = (
+        result: PouchDB.Core.Response | PouchDB.Core.Error
+    ): result is PouchDB.Core.Error => {
+        return !!(result as PouchDB.Core.Error).error;
+    };
+
     db.bulkDocs([model, model2]).then((result) => {
-        result.forEach(({ ok, id, rev }) => {
+        result.forEach(result => {
+          if (!isError(result)) {
+            const { ok, id, rev } = result;
             isString(id);
             isString(rev);
+          }
         });
     });
 
@@ -104,6 +113,8 @@ function testBasics() {
     const id = 'model';
 
     const db = new PouchDB<MyModel>();
+
+    db.on("closed", () => {});
 
     db.post(model).then((result) => {
         isString(result.id);
@@ -222,12 +233,8 @@ function testChanges() {
 
 function testRemoteOptions() {
     const db = new PouchDB('http://example.com/dbname', {
-        ajax: {
-            cache: false,
-            timeout: 10000,
-            headers: {
-                'X-Some-Special-Header': 'foo'
-            },
+        fetch(url, opts) {
+            return PouchDB.fetch(url, opts);
         },
         auth: {
             username: 'mysecretusername',

@@ -75,7 +75,7 @@ export interface FtpServerOptions {
     /**
      * If this is set, the server will allow explicit TLS authentication. Value should be a dictionary which is suitable as the options argument of tls.createServer.
      */
-    tlsOptions?: tls.TlsServerOptions;
+    tlsOptions?: tls.TlsOptions;
     /**
      * If this is set to true, and tlsOptions is also set, then the server will not allow logins over non-secure connections.
      * Default false
@@ -130,20 +130,20 @@ export declare class FtpConnection extends events.EventEmitter {
  */
 export interface FtpFileSystem {
     unlink: (path: string, callback?: (err?: NodeJS.ErrnoException) => void) => void;
-    readdir: (path: string, callback?: (err: NodeJS.ErrnoException, files: string[]) => void) => void;
+    readdir: (path: string, callback?: (err?: NodeJS.ErrnoException, files?: string[]) => void) => void;
     mkdir: ((path: string, callback?: (err?: NodeJS.ErrnoException) => void) => void)
     | ((path: string, mode: number, callback?: (err?: NodeJS.ErrnoException) => void) => void)
     | ((path: string, mode: string, callback?: (err?: NodeJS.ErrnoException) => void) => void);
-    open: ((path: string, flags: string, callback?: (err: NodeJS.ErrnoException, fd: number) => any) => void)
-    | ((path: string, flags: string, mode: number, callback?: (err: NodeJS.ErrnoException, fd: number) => any) => void)
-    | ((path: string, flags: string, mode: string, callback?: (err: NodeJS.ErrnoException, fd: number) => any) => void);
+    open: ((path: string, flags: string, callback?: (err?: NodeJS.ErrnoException, fd?: number) => any) => void)
+    | ((path: string, flags: string, mode: number, callback?: (err?: NodeJS.ErrnoException, fd?: number) => any) => void)
+    | ((path: string, flags: string, mode: string, callback?: (err?: NodeJS.ErrnoException, fd?: number) => any) => void);
     close: (fd: number, callback?: (err?: NodeJS.ErrnoException) => void) => void;
     rmdir: (path: string, callback?: (err?: NodeJS.ErrnoException) => void) => void;
     rename: (oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException) => void) => void;
     /**
      * specific object properties: { mode, isDirectory(), size, mtime }
      */
-    stat: (path: string, callback?: (err: NodeJS.ErrnoException, stats: fs.Stats) => any) => void;
+    stat: (path: string, callback?: (err?: NodeJS.ErrnoException, stats?: fs.Stats) => any) => void;
     /**
      * if useReadFile option is not set or is false
      */

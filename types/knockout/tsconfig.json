@@ -15,12 +15,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
         "test/templatingBehaviors.ts",
-        "test/index.ts"
+        "test/index.ts",
+        "test/readonly.ts"
     ]
 }

@@ -57,6 +57,28 @@ testApp.config((
     /**
      * $datepickerPopupConfig tests
      */
+    $datepickerPopupConfig.datepickerMode = 'month';
+    $datepickerPopupConfig.formatDay = 'd';
+    $datepickerPopupConfig.formatDayHeader = 'E';
+    $datepickerPopupConfig.formatDayTitle = 'dd-MM-yyyy';
+    $datepickerPopupConfig.formatMonth = 'M';
+    $datepickerPopupConfig.formatMonthTitle = 'yy';
+    $datepickerPopupConfig.formatYear = 'y';
+    $datepickerPopupConfig.initDate = '1389586124979';
+    $datepickerPopupConfig.maxDate = '1389586124979';
+    $datepickerPopupConfig.maxMode = 'month';
+    $datepickerPopupConfig.minDate = '1389586124979';
+    $datepickerPopupConfig.minMode = 'month';
+    $datepickerPopupConfig.shortcutPropagation = true;
+    $datepickerPopupConfig.showWeeks = false;
+    $datepickerPopupConfig.startingDay = 1;
+    $datepickerPopupConfig.yearRange = 10;
+    $datepickerPopupConfig.monthColumns = 3;
+    $datepickerPopupConfig.yearColumns = 9;
+    $datepickerPopupConfig.yearRows = 6;
+    $datepickerPopupConfig.ngModelOptions.allowInvalid = false;
+    $datepickerPopupConfig.ngModelOptions.timezone = "EST";
+    $datepickerPopupConfig.ngModelOptions.updateOn = "click";
     $datepickerPopupConfig.altInputFormats = ["mm/dd/YYYY", "mm-dd-YY"];
     $datepickerPopupConfig.appendToBody = true;
     $datepickerPopupConfig.currentText = 'Select Today';

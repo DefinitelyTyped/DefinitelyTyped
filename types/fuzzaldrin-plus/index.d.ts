@@ -1,29 +1,39 @@
-// Type definitions for fuzzaldrin-plus
+// Type definitions for fuzzaldrin-plus 0.6.0
 // Project: https://github.com/jeancroy/fuzzaldrin-plus/
-// Definitions by: Jean Christophe Roy <https://github.com/jeancroy>, Jason Killian <https://github.com/jkillian>
+// Definitions by:  Jean Christophe Roy <https://github.com/jeancroy>,
+//                  Jason Killian <https://github.com/jkillian>
+//                  Ronald Rey <https://github.com/reyronald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
-export as namespace fuzzaldrin;
+export as namespace fuzzaldrin
 
-export interface IQueryOptions {
-    pathSeparator?: string;
-    optCharRegEx?: RegExp;
+export class Query {
+    $$__internal: Symbol
 }
 
-export interface IScoringOptions extends IQueryOptions {
-    allowErrors?: boolean;
-    isPath?: boolean;
-    useExtensionBonus?: boolean;
+export interface IOptions {
+    allowErrors?: boolean
+    usePathScoring?: boolean
+    useExtensionBonus?: boolean
+    pathSeparator?: '/' | '\\' | string
+    optCharRegEx?: RegExp
+    wrap?: { tagOpen?: string; tagClass?: string; tagClose?: string }
+    preparedQuery?: Query
 }
 
-export interface IFilterOptions extends IScoringOptions {
-    key?: string;
-    maxResults?: number;
+export type IFilterOptions = IOptions & {
+    key?: string
+    maxResults?: number
+    maxInners?: number
 }
 
-export type PreparedQuery = { __internalAPIBrand: string; };
-
-export function filter<T>(data: T[], query: string, options?: IFilterOptions): T[];
-export function score(str: string, query: string, preparedQuery?: PreparedQuery, options?: IScoringOptions): number;
-export function match(str: string, query: string, preparedQuery?: PreparedQuery, options?: IScoringOptions): number[];
-export function prepQuery(query: string, options?: IQueryOptions): PreparedQuery;
+export function filter<T>(
+    data: T[],
+    query: string,
+    options?: IFilterOptions
+): T[]
+export function score(str: string, query: string, options?: IOptions): number
+export function match(str: string, query: string, options?: IOptions): number[]
+export function wrap(str: string, query: string, options?: IOptions): string
+export function prepareQuery(query: string, options?: IOptions): Query

@@ -14,8 +14,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
@@ -23,6 +22,7 @@
         "lib/normalize.d.ts",
         "test/index.ts",
         "test/join.ts",
-        "test/normalize.ts"
+        "test/normalize.ts",
+        "test/webpack.ts"
     ]
 }

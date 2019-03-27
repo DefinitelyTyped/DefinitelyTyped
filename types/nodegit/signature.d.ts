@@ -11,7 +11,7 @@ export class Signature {
 
     free(): void;
     toString(): string;
-    name: string;
-    email: string;
-    when: Time;
+    name(): string;
+    email(): string;
+    when(): Time;
 }

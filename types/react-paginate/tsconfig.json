@@ -1,8 +1,4 @@
 {
-    "files": [
-        "index.d.ts",
-        "react-paginate-tests.tsx"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
@@ -20,7 +16,10 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
         "jsx": "react"
-    }
-}
+    },
+    "files": [
+        "index.d.ts",
+        "react-paginate-tests.tsx"
+    ]
+ }

@@ -2,7 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "esnext.asynciterable"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -14,8 +15,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

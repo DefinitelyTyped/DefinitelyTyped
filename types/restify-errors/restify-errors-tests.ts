@@ -62,6 +62,12 @@ httpError = new restifyErrors.InsufficientStorageError();
 httpError = new restifyErrors.BandwidthLimitExceededError();
 httpError = new restifyErrors.NotExtendedError();
 httpError = new restifyErrors.NetworkAuthenticationRequiredError();
+httpError = new restifyErrors.PayloadTooLargeError();
+httpError = new restifyErrors.UriTooLongError();
+httpError = new restifyErrors.MisdirectedRequestError();
+httpError = new restifyErrors.UnavailableForLegalReasonsError();
+httpError = new restifyErrors.LoopDetectedError();
+httpError = new restifyErrors.NetworkAuthenticationRequiredError();
 
 // RestErrors
 let restError = new restifyErrors.BadDigestError();

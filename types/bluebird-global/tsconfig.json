@@ -15,11 +15,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "bluebird-global-tests.ts"
+        "bluebird-global-tests.ts",
+        "test/jquery-tests.ts"
     ]
 }

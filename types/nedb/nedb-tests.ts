@@ -496,6 +496,11 @@ db.ensureIndex({ fieldName: 'somefield', unique: true }, (err: Error) => {
 db.ensureIndex({ fieldName: 'somefield', unique: true, sparse: true }, (err: Error) => {
 });
 
+// Example of using expireAfterSeconds to remove documents 1 hour
+// after their creation (db's timestampData option is true here)
+db.ensureIndex({ fieldName: 'somefield', expireAfterSeconds: 3600 }, (err: Error) => {
+});
+
 // Format of the error message when the unique constraint is not met
 db.insert({ somefield: 'nedb' }, (err: Error) => {
     // err is null
@@ -509,3 +514,14 @@ db.insert({ somefield: 'nedb' }, (err: Error) => {
 // Remove index on field somefield
 db.removeIndex('somefield', (err: Error) => {
 });
+
+db.addListener("compaction.done", () => {});
+db.on("compaction.done", () => {});
+db.once("compaction.done", () => {});
+db.prependListener("compaction.done", () => {});
+db.prependOnceListener("compaction.done", () => {});
+db.removeListener("compaction.done", () => {});
+db.off("compaction.done", () => {});
+db.listeners("compaction.done"); // $ExpectType (() => void)[]
+db.rawListeners("compaction.done"); // $ExpectType (() => void)[]
+db.listenerCount("compaction.done"); // $ExpectType number

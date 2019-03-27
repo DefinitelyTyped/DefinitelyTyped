@@ -16,10 +16,10 @@
  */
 
 import MDCFoundation from 'material__base/foundation';
-import { MDCIconToggleAdapter, IconToggleEvent } from './adapter';
+import MDCIconToggleAdapter from './adapter';
 import { cssClasses, strings } from './constants';
 
-export class MDCIconToggleFoundation extends MDCFoundation<MDCIconToggleAdapter> {
+export default class MDCIconToggleFoundation extends MDCFoundation<MDCIconToggleAdapter> {
     static readonly cssClasses: cssClasses;
 
     static readonly strings: strings;
@@ -38,27 +38,3 @@ export class MDCIconToggleFoundation extends MDCFoundation<MDCIconToggleAdapter>
 
     isKeyboardActivated(): boolean;
 }
-
-export interface KeyboardKey {
-    key: string;
-    keyCode: number;
-}
-
-export function isSpace(keyboardKey: KeyboardKey): boolean;
-
-export class IconToggleState {
-    /**
-     * The aria-label value of the icon toggle, or undefined if there is no aria-label.
-     */
-    label: string|undefined;
-    /**
-     * The text for the icon toggle, or undefined if there is no text.
-     */
-    content: string|undefined;
-    /**
-     * The CSS class to add to the icon toggle, or undefined if there is no CSS class.
-     */
-    cssClass: string|undefined;
-}
-
-export default MDCIconToggleFoundation;

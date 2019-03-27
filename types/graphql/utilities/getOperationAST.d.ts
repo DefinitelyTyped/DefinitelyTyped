@@ -1,4 +1,5 @@
-import { DocumentNode, OperationDefinitionNode } from '../language/ast';
+import Maybe from "../tsutils/Maybe";
+import { DocumentNode, OperationDefinitionNode } from "../language/ast";
 
 /**
  * Returns an operation AST given a document AST and optionally an operation
@@ -6,6 +7,6 @@ import { DocumentNode, OperationDefinitionNode } from '../language/ast';
  * provided in the document.
  */
 export function getOperationAST(
-  documentAST: DocumentNode,
-  operationName?: string,
-): OperationDefinitionNode;
+    documentAST: DocumentNode,
+    operationName: Maybe<string>
+): Maybe<OperationDefinitionNode>;

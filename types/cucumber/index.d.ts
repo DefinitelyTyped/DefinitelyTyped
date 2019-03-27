@@ -1,5 +1,5 @@
 // Type definitions for cucumber-js 4.0
-// Project: https://github.com/cucumber/cucumber-js
+// Project: http://github.com/cucumber/cucumber-js
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
 //                 Jan Molak <https://github.com/jan-molak>
 //                 Isaiah Soung <https://github.com/isoung>
@@ -60,6 +60,7 @@ export function BeforeAll(options: HookOptions | string, code: GlobalHookCode): 
 
 export function defineParameterType(transform: Transform): void;
 export function defineStep(pattern: RegExp | string, code: StepDefinitionCode): void;
+export function defineStep(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
 
 export function Given(pattern: RegExp | string, code: StepDefinitionCode): void;
 export function Given(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
@@ -80,7 +81,7 @@ export interface HookScenarioResult {
 
 export interface SourceLocation {
     line: number;
-    url: string;
+    uri: string;
 }
 
 export interface ScenarioResult {
@@ -94,7 +95,7 @@ export namespace pickle {
         locations: Location[];
         name: string;
         steps: Step[];
-        tags: string[];
+        tags: Tag[];
     }
 
     interface Location {
@@ -116,6 +117,11 @@ export namespace pickle {
         location: Location;
         value: string;
     }
+
+    interface Tag {
+        name: string;
+        location: Location;
+    }
 }
 
 export type HookCode = (this: World, scenario: HookScenarioResult, callback?: CallbackStepDefinition) => void;
@@ -123,7 +129,7 @@ export type GlobalHookCode = (callback?: CallbackStepDefinition) => void;
 
 export interface Transform {
     regexp: RegExp;
-    transformer(arg: string): any;
+    transformer(this: World, ...arg: string[]): any;
     useForSnippets?: boolean;
     preferForRegexpMatch?: boolean;
     name?: string;

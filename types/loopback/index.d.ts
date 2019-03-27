@@ -1,9 +1,10 @@
 // Type definitions for Loopback 3.2
-// Project: https://github.com/strongloop/loopback
+// Project: https://github.com/strongloop/loopback, http://loopback.io
 // Definitions by: Andres D Jimenez <https://github.com/kattsushi>
 //                 Tim Schumacher <https://github.com/enko>
 //                 Sequoia McDowell <https://github.com/sequoia>
 //                 Mike Crowe <https://github.com/drmikecrowe>
+//                 Karim Alibhai <https://github.com/karimsa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -18,6 +19,13 @@ import { NextFunction, RequestHandler } from "express";
 
 declare function l(): l.LoopBackApplication;
 declare namespace l {
+      /**
+       * General type for a callback to an async function.
+       */
+      type CallbackWithoutResult = (err: Error | null) => any;
+      type CallbackWithResult<T> = (err: Error | null, result: T) => any;
+      type CallbackWithMultipleResults<T, G> = (err: Error | null, arg0: T, arg1: G) => any;
+
       /**
        * The `App` object represents a Loopback application
        * The App object extends [Express](expressjs.com/api.html#express) and
@@ -1183,7 +1191,16 @@ declare namespace l {
              * @param {any} options An optional options object to pass to underlying data-access calls.
              * @param  {() => void} callback Callback function
              */
-            static bulkUpdate(updates: any[], options: any, callback?: () => void): Promise<void> | void;
+            static bulkUpdate(updates: any[], options: any, callback: CallbackWithoutResult): void;
+
+            /**
+             * Apply an update list
+             * **Note: this is not atomic*
+             * @param  {Array} updates An updates list, usually from [createUpdates()](#persistedmodel-createupdates).
+             * @param {any} options An optional options object to pass to underlying data-access calls.
+             * @param  {() => void} callback Callback function
+             */
+            static bulkUpdate(updates: any[], options: any): Promise<void>;
 
             /**
              * Get the changes to a model since the specified checkpoint. Provide a filter object
@@ -1194,13 +1211,29 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Array} changes An Array of [Change](#change) objects
              */
-            static changes(since: number, filter: any, callback?: (err: Error, changes: any[]) => void): Promise<any[]> | void;
+            static changes(since: number, filter: any, callback: CallbackWithResult<any>): void;
+
+            /**
+             * Get the changes to a model since the specified checkpoint. Provide a filter object
+             * to reduce the number of results returned.
+             * @param  {number} since Return only changes since this checkpoint.
+             * @param  {any}   filter   Include only changes that match this filter, the same as for [#persistedmodel-find](find()).
+             * @callback {() => void} callback Callback function called with `(err, changes)` arguments.
+             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
+             * @param {Array} changes An Array of [Change](#change) objects
+             */
+            static changes(since: number, filter: any): Promise<any[]>;
 
             /**
              * Create a checkpoint
              * @param  {() => void} callback
              */
-            static checkpoint(callback?: () => void): Promise<void> | void;
+            static checkpoint(callback?: () => void): void;
+
+            /**
+             * Create a checkpoint
+             */
+            static checkpoint(): Promise<void>;
 
             /**
              * Return the number of records that match the optional "where" filter.
@@ -1214,7 +1247,21 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {number} count number of instances updated
              */
-            static count(where?: any, callback?: (err: Error, count: number) => void): Promise<number> | void;
+            static count(where: any, callback: CallbackWithResult<number>): void;
+
+            /**
+             * Return the number of records that match the optional "where" filter.
+             * @param {any} [where] Optional where filter, like
+             * ```
+             * { key: val, key2: {gt: 'val2'}, ...}
+             * ```
+             * <br/>See
+             * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforothermethods).
+             * @callback {() => void} callback Callback function called with `(err, count)` arguments.  Required.
+             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
+             * @param {number} count number of instances updated
+             */
+            static count(where?: any): Promise<number>;
 
             /**
              * Create new instance of Model, and save to database
@@ -1223,14 +1270,37 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} models Model instances or null
              */
-            static create<T = any>(data?: any|any[], callback?: (err: Error, models: T|T[]) => void): Promise<T|T[]> | void;
+            static create<T = any>(data: any | any[], callback: CallbackWithResult<T | T[] | null>): void;
+
+            /**
+             * Create new instance of Model, and save to database
+             * @param {any}|[{any}] data Optional data argument.  Can be either a single model instance or an Array of instances
+             * @returns {T | T[]} Model instances or null
+             */
+            static create<T = any>(data?: any|any[]): Promise<T | T[] | null>;
 
             /**
              * Create a change stream. See here for more info http://loopback.io/doc/en/lb2/Realtime-server-sent-events.html
              * @param {any} options Only changes to models matching this where filter will be included in the ChangeStream.
              * @param {() => void} callback
              */
-            static createChangeStream(options: {where: any}, callback?: (err: Error, changes: any) => void): Promise<any> | void;
+            static createChangeStream(
+                  options: {
+                        where: any;
+                  },
+                  callback: CallbackWithResult<any>
+            ): void;
+
+            /**
+             * Create a change stream. See here for more info http://loopback.io/doc/en/lb2/Realtime-server-sent-events.html
+             * @param {any} options Only changes to models matching this where filter will be included in the ChangeStream.
+             * @returns {any} changes
+             */
+            static createChangeStream(
+                  options: {
+                        where: any;
+                  }
+            ): Promise<any>;
 
             /**
              * Create an update list (for `Model.bulkUpdate()`) from a delta list
@@ -1238,7 +1308,14 @@ declare namespace l {
              * @param  {Array}    deltas
              * @param  {() => void} callback
              */
-            static createUpdates(deltas: any[], callback?: () => void): Promise<void> | void;
+            static createUpdates(deltas: any[], callback: CallbackWithoutResult): void;
+
+            /**
+             * Create an update list (for `Model.bulkUpdate()`) from a delta list
+             * (result of `Change.diff()`)
+             * @param  {Array}    deltas
+             */
+            static createUpdates(deltas: any[]): Promise<void>;
 
             /**
              * Get the current checkpoint ID
@@ -1246,7 +1323,13 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {number} currentCheckpointId Current checkpoint ID
              */
-            static currentCheckpoint(callback?: (err: Error, currentCheckpointId: number) => void): Promise<number> | void;
+            static currentCheckpoint(callback: CallbackWithResult<number>): void;
+
+            /**
+             * Get the current checkpoint ID
+             * @returns {Promise<number>} resolves to currentCheckpointId
+             */
+            static currentCheckpoint(): Promise<number>;
 
             /**
              * Destroy all model instances that match the optional `where` specification
@@ -1262,7 +1345,20 @@ declare namespace l {
              * @param {any} info Additional information about the command outcome.
              * @param {number} info.count number of instances (rows, documents) destroyed
              */
-            static destroyAll(where?: any, callback?: (err: Error, info: any, infoCount: number) => void): Promise<{ info: any, infoCount: number}> | void;
+            static destroyAll(where: any, callback: CallbackWithMultipleResults<any, number>): void;
+
+            /**
+             * Destroy all model instances that match the optional `where` specification
+             * @param {any} [where] Optional where filter, like:
+             * ```
+             * {key: val, key2: {gt: 'val2'}, ...}
+             * ```
+             * <br/>See
+             * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforothermethods)
+             *
+             * @returns {Promise<{ count: number }>} number of instances (rows, documents) destroyed
+             */
+            static destroyAll(where?: any): Promise<{ info: any, infoCount: number}>;
 
             /**
              * Destroy model instance with the specified ID.
@@ -1270,7 +1366,13 @@ declare namespace l {
              * @callback {() => void} callback Callback function called with `(err)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object)
              */
-            static destroyById(id: any, callback?: (err: Error) => void): Promise<void> | void;
+            static destroyById(id: any, callback: CallbackWithoutResult): void;
+
+            /**
+             * Destroy model instance with the specified ID.
+             * @param {*} id The ID value of model instance to delete.
+             */
+            static destroyById(id: any): Promise<void>;
 
             /**
              * Get a set of deltas and conflicts since the given checkpoint
@@ -1281,7 +1383,15 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} result any with `deltas` and `conflicts` properties; see [Change.diff()](#change-diff) for details
              */
-            static diff(since: number, remoteChanges: any[], callback?: (err: Error, result: any) => void): Promise<any> | void;
+            static diff(since: number, remoteChanges: any[], callback: CallbackWithResult<any>): void;
+
+            /**
+             * Get a set of deltas and conflicts since the given checkpoint
+             * See [Change.diff()](#change-diff) for details
+             * @param  {number}  since  Find deltas since this checkpoint.
+             * @param  {Array}  remoteChanges  An Array of change objects.
+             */
+            static diff(since: number, remoteChanges: any[]): Promise<any>;
 
             /**
              * Enable the tracking of changes made to the model. Usually for replication.
@@ -1295,7 +1405,13 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {boolean} exists True if the instance with the specified ID exists; false otherwise
              */
-            static exists(id: any, callback?: (err: Error, exists: boolean) => void): Promise<boolean> | void;
+            static exists(id: any, callback: CallbackWithResult<boolean>): void;
+
+            /**
+             * Check whether a model instance exists in database
+             * @param {id} id Identifier of object (primary key value)
+             */
+            static exists(id: any): Promise<boolean>;
 
             /**
              * Find all model instances that match `filter` specification.
@@ -1322,8 +1438,60 @@ declare namespace l {
              * @param {Array} models Model instances matching the filter, or null if none found
              */
             static find<T = any>(
-                  filter?: {fields?: string|any|any[]; include?: string|any|any[]; limit?: number; order?: string; skip?: number; where?: any; },
-                  callback?: (err: Error, models: any[]) => void): Promise<T[]> | void;
+                  filter: {
+                        fields?: string|any|any[];
+                        include?: string|any|any[];
+                        limit?: number;
+                        order?: string;
+                        skip?: number;
+                        where?: any;
+                  },
+                  callback: CallbackWithResult<T[]>
+            ): void;
+
+            /**
+             * Find all model instances that match `filter` specification.
+             * See [Querying models](docs.strongloop.com/display/LB/Querying+models)
+             * @options {any} [filter] Optional Filter JSON object; see below.
+             * @property {string|any|Array} fields Identify fields to include in return result.
+             * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
+             * @property {string|any|Array} include  See PersistedModel.include documentation.
+             * <br/>See [Include filter](docs.strongloop.com/display/LB/Include+filter).
+             * @property {number} limit Maximum number of instances to return.
+             * <br/>See [Limit filter](docs.strongloop.com/display/LB/Limit+filter).
+             * @property {string} order Sort order: either "ASC" for ascending or "DESC" for descending.
+             * <br/>See [Order filter](docs.strongloop.com/display/LB/Order+filter).
+             * @property {number} skip number of results to skip.
+             * <br/>See [Skip filter](docs.strongloop.com/display/LB/Skip+filter).
+             * @property {any} where Where clause, like
+             * ```
+             * { where: { key: val, key2: {gt: 'val2'}, ...} }
+             * ```
+             * <br/>See
+             * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforqueries)
+             */
+            static find<T = any>(
+                  filter?: {
+                        fields?: string|any|any[];
+                        include?: string|any|any[];
+                        limit?: number;
+                        order?: string;
+                        skip?: number;
+                        where?: any;
+                  }
+            ): Promise<T[] | null>;
+
+            /**
+             * Find object by ID with an optional filter for include/fields
+             * @param {*} id Primary key value
+             * @callback {() => void} callback Callback function called with `(err, instance)` arguments.  Required.
+             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
+             * @param {any} instance Model instance matching the specified ID or null if no instance matches
+             */
+            static findById<T = any>(
+                  id: any,
+                  callback: CallbackWithResult<T>
+            ): void;
 
             /**
              * Find object by ID with an optional filter for include/fields
@@ -1337,7 +1505,43 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Model instance matching the specified ID or null if no instance matches
              */
-            static findById<T = any>(id: any, filter?: {fields?: string|any|any[]; include?: string|any|any[]; }, callback?: (err: Error, instance: T) => void): Promise<T> | void;
+            static findById<T = any>(
+                  id: any,
+                  filter: {
+                        fields?: string|any|any[];
+                        include?: string|any|any[];
+                  },
+                  callback: CallbackWithResult<T>
+            ): void;
+
+            /**
+             * Find object by ID with an optional filter for include/fields
+             * @param {*} id Primary key value
+             * @options {any} [filter] Optional Filter JSON object; see below.
+             * @property {string|any|Array} fields Identify fields to include in return result.
+             * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
+             * @property {string|any|Array} include  See PersistedModel.include documentation.
+             * <br/>See [Include filter](docs.strongloop.com/display/LB/Include+filter).
+             */
+            static findById<T = any>(
+                  id: any,
+                  filter?: {
+                        fields?: string|any|any[];
+                        include?: string|any|any[];
+                  },
+            ): Promise<T | null>;
+
+            /**
+             * Find one model instance that matches `filter` specification.
+             * Same as `find`, but limited to one result;
+             * Returns object, not collection
+             * @callback {() => void} callback Callback function called with `(err, returned-instance)` arguments.  Required.
+             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
+             * @param {Array} model First model instance that matches the filter or null if none found
+             */
+            static findOne<T = any>(
+                  callback: CallbackWithResult<T>
+            ): void;
 
             /**
              * Find one model instance that matches `filter` specification.
@@ -1363,14 +1567,63 @@ declare namespace l {
              * @param {Array} model First model instance that matches the filter or null if none found
              */
             static findOne<T = any>(
-                  filter?: {
+                  filter: {
                         fields?: string|any|any[];
                         include?: string|any|any[];
                         order?: string;
                         skip?: number;
                         where?: any;
                   },
-                  callback?: (err: Error, instance: T) => void): Promise<T> | void;
+                  callback: CallbackWithResult<T>
+            ): void;
+
+            /**
+             * Find one model instance that matches `filter` specification.
+             * Same as `find`, but limited to one result;
+             * Returns object, not collection
+             * @options {any} [filter] Optional Filter JSON object; see below.
+             * @property {string|any|Array} fields Identify fields to include in return result.
+             * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
+             * @property {string|any|Array} include  See PersistedModel.include documentation.
+             * <br/>See [Include filter](docs.strongloop.com/display/LB/Include+filter).
+             * @property {string} order Sort order: either "ASC" for ascending or "DESC" for descending.
+             * <br/>See [Order filter](docs.strongloop.com/display/LB/Order+filter).
+             * @property {number} skip number of results to skip.
+             * <br/>See [Skip filter](docs.strongloop.com/display/LB/Skip+filter).
+             * @property {any} where Where clause, like
+             * ```
+             * {where: { key: val, key2: {gt: 'val2'}, ...} }
+             * ```
+             * <br/>See
+             * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforqueries)
+             */
+            static findOne<T = any>(
+                  filter?: {
+                        fields?: string|any|any[];
+                        include?: string|any|any[];
+                        order?: string;
+                        skip?: number;
+                        where?: any;
+                  }
+            ): Promise<T | null>;
+
+            /**
+             * Finds one record matching the optional filter object. If not found, creates
+             * the object using the data provided as second argument. In this sense it is
+             * the same as `find`, but limited to one object. Returns an object, not
+             * collection. If you don't provide the filter object argument, it tries to
+             * locate an existing object that matches the `data` argument
+             *
+             * @param {any} data Data to insert if object matching the `where` filter is not found.
+             * @callback {() => void} callback Callback function called with `cb(err, instance, created)` arguments.  Required.
+             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
+             * @param {any} instance Model instance matching the `where` filter, if found.
+             * @param {boolean} created True if the instance matching the `where` filter was created
+             */
+            static findOrCreate<T = any>(
+                  data: any,
+                  callback: CallbackWithMultipleResults<T, boolean>
+            ): void;
 
             /**
              * Finds one record matching the optional filter object. If not found, creates
@@ -1404,7 +1657,7 @@ declare namespace l {
              */
             static findOrCreate<T = any>(
                   data: any,
-                  filter?: {
+                  filter: {
                         fields?: string | any | any[];
                         include?: string | any | any[];
                         limit?: number;
@@ -1412,7 +1665,46 @@ declare namespace l {
                         skip?: number;
                         where?: any;
                   },
-                  callback?: (err: Error, instance: any, created: boolean) => void): Promise<{instance: T, created: boolean}> | void;
+                  callback: CallbackWithMultipleResults<T, boolean>
+            ): void;
+
+            /**
+             * Finds one record matching the optional filter object. If not found, creates
+             * the object using the data provided as second argument. In this sense it is
+             * the same as `find`, but limited to one object. Returns an object, not
+             * collection. If you don't provide the filter object argument, it tries to
+             * locate an existing object that matches the `data` argument
+             *
+             * @options {any} [filter] Optional Filter object; see below.
+             * @property {string|any|Array} fields Identify fields to include in return result.
+             * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
+             * @property {string|any|Array} include  See PersistedModel.include documentation.
+             * <br/>See [Include filter](docs.strongloop.com/display/LB/Include+filter).
+             * @property {number} limit Maximum number of instances to return.
+             * <br/>See [Limit filter](docs.strongloop.com/display/LB/Limit+filter).
+             * @property {string} order Sort order: either "ASC" for ascending or "DESC" for descending.
+             * <br/>See [Order filter](docs.strongloop.com/display/LB/Order+filter).
+             * @property {number} skip number of results to skip.
+             * <br/>See [Skip filter](docs.strongloop.com/display/LB/Skip+filter).
+             * @property {any} where Where clause, like
+             * ```
+             * {where: {key: val, key2: {gt: val2}, ...}}
+             * ```
+             * <br/>See
+             * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforqueries).
+             * @param {any} data Data to insert if object matching the `where` filter is not found.
+             */
+            static findOrCreate<T = any>(
+                  data: any,
+                  filter?: {
+                        fields?: string | any | any[];
+                        include?: string | any | any[];
+                        limit?: number;
+                        order?: string;
+                        skip?: number;
+                        where?: any;
+                  }
+            ): Promise<{instance: T, created: boolean} | null>;
 
             /**
              * Get the `Change` model.
@@ -1432,7 +1724,12 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {string} sourceId Source identifier for the model or dataSource
              */
-            static getSourceId(callback?: (err: Error, sourceId: string) => void): Promise<string> | void;
+            static getSourceId(callback: CallbackWithResult<string>): void;
+
+            /**
+             * Get the source identifier for this model or dataSource
+             */
+            static getSourceId(): Promise<string>;
 
             /**
              * Handle a change error. Override this method in a subclassing model to customize
@@ -1447,7 +1744,29 @@ declare namespace l {
              * @callback {() => void} callback
              * @param {Error} er
              */
-            static rectifyChange(id: any, callback?: (err: Error) => void): Promise<void> | void;
+            static rectifyChange(id: any, callback: CallbackWithoutResult): void;
+
+            /**
+             * Specify that a change to the model with the given ID has occurred
+             * @param {*} id The ID of the model that has changed.
+             */
+            static rectifyChange(id: any): Promise<void>;
+
+            /**
+             * Replace attributes for a model instance whose id is the first input
+             * argument and persist it into the datasource.
+             * Performs validation before replacing
+             * @param {*} id The ID value of model instance to replace.
+             * @param {any} data Data to replace.
+             * @callback {() => void} callback Callback function called with `(err, instance)` arguments.
+             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
+             * @param {any} instance Replaced instance
+             */
+            static replaceById<T = any>(
+                  id: any,
+                  data: any,
+                  callback: CallbackWithResult<T>
+            ): void;
 
             /**
              * Replace attributes for a model instance whose id is the first input
@@ -1461,7 +1780,45 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Replaced instance
              */
-            static replaceById<T = any>(id: any, data: any, options?: {validate: boolean; }, callback?: (err: Error, instance: T) => void): Promise<T> | void;
+            static replaceById<T = any>(
+                  id: any,
+                  data: any,
+                  options: {
+                        validate: boolean;
+                  },
+                  callback: CallbackWithResult<T>
+            ): void;
+
+            /**
+             * Replace attributes for a model instance whose id is the first input
+             * argument and persist it into the datasource.
+             * Performs validation before replacing
+             * @param {*} id The ID value of model instance to replace.
+             * @param {any} data Data to replace.
+             * @options {any} [options] Options for replace
+             * @property {boolean} validate Perform validation before saving.  Default is true.
+             */
+            static replaceById<T = any>(
+                  id: any,
+                  data: any,
+                  options?: {
+                        validate: boolean;
+                  }
+            ): Promise<T>;
+
+            /**
+             * Replace or insert a model instance; replace existing record if one is found,
+             * such that parameter `data.id` matches `id` of model instance; otherwise,
+             * insert a new record.
+             * @param {any} data The model instance data.
+             * @callback {() => void} callback Callback function called with `cb(err, obj)` signature.
+             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
+             * @param {any} model Replaced model instance.
+             */
+            static replaceOrCreate<T = any>(
+                  data: any,
+                  callback: CallbackWithResult<T>
+            ): void;
 
             /**
              * Replace or insert a model instance; replace existing record if one is found,
@@ -1474,7 +1831,28 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} model Replaced model instance.
              */
-            static replaceOrCreate<T = any>(data: any, options?: {validate: boolean; }, callback?: (err: Error, instance: T) => void): Promise<T> | void;
+            static replaceOrCreate<T = any>(
+                  data: any,
+                  options: {
+                        validate: boolean;
+                  },
+                  callback: CallbackWithResult<T>
+            ): void;
+
+            /**
+             * Replace or insert a model instance; replace existing record if one is found,
+             * such that parameter `data.id` matches `id` of model instance; otherwise,
+             * insert a new record.
+             * @param {any} data The model instance data.
+             * @options {any} [options] Options for replaceOrCreate
+             * @property {boolean} validate Perform validation before saving.  Default is true.
+             */
+            static replaceOrCreate<T = any>(
+                  data: any,
+                  options?: {
+                        validate: boolean;
+                  }
+            ): Promise<T>;
 
             /**
              * Replicate changes since the given checkpoint to the given target model
@@ -1485,7 +1863,7 @@ declare namespace l {
              * @callback {() => void} [callback] Callback function called with `(err, conflicts)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Conflict[]} conflicts A list of changes that could not be replicated due to conflicts.
-             * @param {any] checkpoints The new checkpoints to use as the "since"
+             * @param {any} checkpoints The new checkpoints to use as the "since"
              * argument for the next replication
              */
             static replicate(
@@ -1495,6 +1873,18 @@ declare namespace l {
                   optionsFilter?: any,
                   callback?: (err: Error, conflicts: Conflict[], param: any) => void
             ): Promise<{conflicts: Conflict[], params: any}> | void;
+
+            /**
+             * Update multiple instances that match the where clause.
+             * @callback {() => void} callback Callback function called with `(err, info)` arguments.  Required.
+             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
+             * @param {any} info Additional information about the command outcome.
+             * @param {number} info.count number of instances (rows, documents) updated.
+             *
+             */
+            static updateAll(
+                  callback: CallbackWithMultipleResults<any, number>
+            ): void;
 
             /**
              * Update multiple instances that match the where clause.
@@ -1521,7 +1911,65 @@ declare namespace l {
              * @param {number} info.count number of instances (rows, documents) updated.
              *
              */
-            static updateAll(where?: any, data?: any, callback?: (err: Error, info: any, infoCount: number) => void): Promise<number> | void;
+            static updateAll(
+                  whereOrData: any,
+                  callback: CallbackWithMultipleResults<any, number>
+            ): void;
+
+            /**
+             * Update multiple instances that match the where clause.
+             *
+             * Example:
+             *
+             * ```js
+             * Employee.updateAll({managerId: 'x001'}, {managerId: 'x002'}, function(err, info) {
+             *     ...
+             * });
+             * ```
+             *
+             * @param {any} [where] Optional `where` filter, like
+             * ```
+             * { key: val, key2: {gt: 'val2'}, ...}
+             * ```
+             * <br/>see
+             * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforothermethods).
+             * @param {any} data any containing data to replace matching instances, if any.
+             *
+             * @callback {() => void} callback Callback function called with `(err, info)` arguments.  Required.
+             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
+             * @param {any} info Additional information about the command outcome.
+             * @param {number} info.count number of instances (rows, documents) updated.
+             *
+             */
+            static updateAll(
+                  where: any,
+                  data: any,
+                  callback: CallbackWithMultipleResults<any, number>
+            ): void;
+
+            /**
+             * Update multiple instances that match the where clause.
+             *
+             * Example:
+             *
+             * ```js
+             * Employee.updateAll({managerId: 'x001'}, {managerId: 'x002'}, function(err, info) {
+             *     ...
+             * });
+             * ```
+             *
+             * @param {any} [where] Optional `where` filter, like
+             * ```
+             * { key: val, key2: {gt: 'val2'}, ...}
+             * ```
+             * <br/>see
+             * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforothermethods).
+             * @param {any} data any containing data to replace matching instances, if any.
+             */
+            static updateAll(
+                  where?: any,
+                  data?: any
+            ): Promise<number>;
 
             /**
              * Update or insert a model instance
@@ -1530,7 +1978,21 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} model Updated model instance
              */
-            static upsert<T = any>(data: any, callback?: (err: Error, instance: T) => void): Promise<T> | void;
+            static upsert<T = any>(
+                  data: any,
+                  callback: CallbackWithResult<T>
+            ): void;
+
+            /**
+             * Update or insert a model instance
+             * @param {any} data The model instance data to insert.
+             * @callback {() => void} callback Callback function called with `cb(err, obj)` signature.
+             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
+             * @param {any} model Updated model instance
+             */
+            static upsert<T = any>(
+                  data: any
+            ): Promise<T>;
 
             /**
              * Update or insert a model instance based on the search criteria.
@@ -1548,14 +2010,40 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} model Updated model instance
              */
-            static upsertWithWhere<T = any>(data: any, callback?: (err: Error, instance: T) => void): Promise<T> | void;
+            static upsertWithWhere<T = any>(
+                  data: any,
+                  callback: CallbackWithResult<T>
+            ): void;
+
+            /**
+             * Update or insert a model instance based on the search criteria.
+             * If there is a single instance retrieved, update the retrieved model.
+             * Creates a new model if no model instances were found.
+             * Returns an error if multiple instances are found.
+             * * @param {any} [where]  `where` filter, like
+             * ```
+             * { key: val, key2: {gt: 'val2'}, ...}
+             * ```
+             * <br/>see
+             * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforothermethods).
+             * @param {any} data The model instance data to insert.
+             */
+            static upsertWithWhere<T = any>(
+                  data: any
+            ): Promise<T>;
 
             /**
              * Deletes the model from persistence.
              * Triggers `destroy` hook (async) before and after destroying object.
              * @param {() => void} callback Callback function
              */
-            destroy(callback?: () => void): Promise<void>  | void;
+            destroy(callback: CallbackWithoutResult): void;
+
+            /**
+             * Deletes the model from persistence.
+             * Triggers `destroy` hook (async) before and after destroying object.
+             */
+            destroy(): Promise<void>;
 
             /**
              * Get the `id` value for the `PersistedModel`
@@ -1581,7 +2069,25 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Model instance
              */
-            reload<T = any>(callback: (err: Error, instance: T) => void): Promise<T> | void;
+            reload<T = any>(callback: CallbackWithResult<T>): void;
+
+            /**
+             * Reload object from persistence.  Requires `id` member of `object` to be able to call `find`.
+             */
+            reload<T = any>(): Promise<T>;
+
+            /**
+             * Replace attributes for a model instance and persist it into the datasource.
+             * Performs validation before replacing
+             * @param {any} data Data to replace.
+             * @callback {() => void} callback Callback function called with `(err, instance)` arguments.
+             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
+             * @param {any} instance Replaced instance
+             */
+            replaceAttributes<T = any>(
+                  data: any,
+                  callback: CallbackWithResult<T>
+            ): void;
 
             /**
              * Replace attributes for a model instance and persist it into the datasource.
@@ -1593,7 +2099,38 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Replaced instance
              */
-            replaceAttributes<T = any>(data: any, options?: {validate: boolean}, callback?: (err: Error, instance: T) => void): Promise<T> | void;
+            replaceAttributes<T = any>(
+                  data: any,
+                  options: {
+                        validate: boolean
+                  },
+                  callback: CallbackWithResult<T>
+            ): void;
+
+            /**
+             * Replace attributes for a model instance and persist it into the datasource.
+             * Performs validation before replacing
+             * @param {any} data Data to replace.
+             * @options {any} [options] Options for replace
+             * @property {boolean} validate Perform validation before saving.  Default is true.
+             */
+            replaceAttributes<T = any>(
+                  data: any,
+                  options?: {
+                        validate: boolean
+                  }
+            ): Promise<T>;
+
+            /**
+             * Save model instance. If the instance doesn't have an ID, then calls [create](#persistedmodelcreatedata-cb) instead.
+             * Triggers: validate, save, update, or create.
+             * @callback {() => void} callback Optional callback function called with `(err, obj)` arguments.
+             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
+             * @param {any} instance Model instance saved or created
+             */
+            save<T = any>(
+                  callback: CallbackWithResult<T>
+            ): void;
 
             /**
              * Save model instance. If the instance doesn't have an ID, then calls [create](#persistedmodelcreatedata-cb) instead.
@@ -1606,7 +2143,28 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Model instance saved or created
              */
-            save<T = any>(options?: {validate: boolean; throws: boolean}, callback?: (err: Error, instance: T) => void): Promise<T> | void;
+            save<T = any>(
+                  options: {
+                        validate: boolean;
+                        throws: boolean
+                  },
+                  callback: CallbackWithResult<T>
+            ): void;
+
+            /**
+             * Save model instance. If the instance doesn't have an ID, then calls [create](#persistedmodelcreatedata-cb) instead.
+             * Triggers: validate, save, update, or create.
+             * @options {any} [options] See below.
+             * @property {boolean} validate Perform validation before saving.  Default is true.
+             * @property {boolean} throws If true, throw a validation error; WARNING: This can crash Node.
+             * If false, report the error via callback.  Default is false.
+             */
+            save<T = any>(
+                  options?: {
+                        validate: boolean;
+                        throws: boolean
+                  }
+            ): Promise<T>;
 
             /**
              * Set the correct `id` property for the `PersistedModel`. Uses the `setId` method if the model is attached to
@@ -1625,7 +2183,22 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Updated instance
              */
-            updateAttribute<T = any>(name: string, value: any, callback?: (err: Error, instance: T) => void): Promise<T> | void;
+            updateAttribute<T = any>(
+                  name: string,
+                  value: any,
+                  callback: CallbackWithResult<T>
+            ): void;
+
+            /**
+             * Update a single attribute.
+             * Equivalent to `updateAttributes({name: 'value'}, cb)
+             * @param {string} name Name of property.
+             * @param {any} value Value of property.
+             */
+            updateAttribute<T = any>(
+                  name: string,
+                  value: any
+            ): Promise<T>;
 
             /**
              * Update set of attributes.  Performs validation before updating
@@ -1635,7 +2208,19 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Updated instance
              */
-            updateAttributes<T = any>(data: any, callback?: (err: Error, instance: T) => void): Promise<T> | void;
+            updateAttributes<T = any>(
+                  data: any,
+                  callback: CallbackWithResult<T>
+            ): void;
+
+            /**
+             * Update set of attributes.  Performs validation before updating
+             * Triggers: `validation`, `save` and `update` hooks
+             * @param {any} data Data to update.
+             */
+            updateAttributes<T = any>(
+                  data: any
+            ): Promise<T>;
 
             // **NOTE** Deprecate for v3.x
             // /**
@@ -1688,6 +2273,7 @@ declare namespace l {
             // */
             // createany(options: any, optionsWhere: any, callback: (err: Error, changes: any) => void): void;
       }
+      // END OF PERSISTED MODEL
 
       /**
        * Serve the LoopBack favicon.
@@ -2607,9 +3193,10 @@ declare namespace l {
       /**
        * The Role model
        * @class Role
+       * @inherits {PersistedModel}
        * @header Role objec
        */
-      class Role {
+      class Role extends PersistedModel {
             /**
              * List roles for a given principal.
              * @param {any} context The security context.

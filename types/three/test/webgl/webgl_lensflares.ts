@@ -99,18 +99,11 @@
             var flareColor = new THREE.Color(0xffffff);
             flareColor.setHSL(h, s, l + 0.5);
 
-            var lensFlare = new THREE.LensFlare(textureFlare0, 700, 0.0, THREE.AdditiveBlending, flareColor);
+            var lensFlare = new THREE.LensFlare();
 
-            lensFlare.add(textureFlare2, 512, 0.0, THREE.AdditiveBlending);
-            lensFlare.add(textureFlare2, 512, 0.0, THREE.AdditiveBlending);
-            lensFlare.add(textureFlare2, 512, 0.0, THREE.AdditiveBlending);
+            lensFlare.addElement(new THREE.LensFlareElement(textureFlare2, 512, 0.0));
+            lensFlare.addElement(new THREE.LensFlareElement(textureFlare3, 512, 0.0));
 
-            lensFlare.add(textureFlare3, 60, 0.6, THREE.AdditiveBlending);
-            lensFlare.add(textureFlare3, 70, 0.7, THREE.AdditiveBlending);
-            lensFlare.add(textureFlare3, 120, 0.9, THREE.AdditiveBlending);
-            lensFlare.add(textureFlare3, 70, 1.0, THREE.AdditiveBlending);
-
-            lensFlare.customUpdateCallback = lensFlareUpdateCallback;
             lensFlare.position.copy(light.position);
 
             scene.add(lensFlare);
@@ -138,32 +131,6 @@
         // events
 
         window.addEventListener('resize', onWindowResize, false);
-
-    }
-
-    //
-
-    function lensFlareUpdateCallback(object: THREE.LensFlare) {
-
-        var f: number, fl = object.lensFlares.length;
-        var flare: THREE.LensFlareProperty;
-        var vecX = -object.positionScreen.x * 2;
-        var vecY = -object.positionScreen.y * 2;
-
-
-        for (f = 0; f < fl; f++) {
-
-            flare = object.lensFlares[f];
-
-            flare.x = object.positionScreen.x + vecX * flare.distance;
-            flare.y = object.positionScreen.y + vecY * flare.distance;
-
-            flare.rotation = 0;
-
-        }
-
-        object.lensFlares[2].y += 0.025;
-        object.lensFlares[3].rotation = object.positionScreen.x * 0.5 + THREE.Math.degToRad(45);
 
     }
 

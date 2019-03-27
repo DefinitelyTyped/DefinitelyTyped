@@ -1,32 +1,28 @@
-// Type definitions for shapefile 0.5.6
+// Type definitions for shapefile 0.6
 // Project: https://github.com/mbostock/shapefile
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>
+// Definitions by:  Denis Carriere <https://github.com/DenisCarriere>
+//                  James Bromwell <https://github.com/Thw0rted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="geojson"/>
+/// <reference types="node" />
 
-declare const shapefile: shapefile.ShapefileStatic;
+import { Feature, FeatureCollection, GeometryObject, GeoJsonProperties } from "geojson";
+import { Readable } from "stream";
 
-declare namespace shapefile {
-    interface Options {
-        encoding: string
-        highWaterMark: number
-    }
-    interface Feature {
-        done: boolean
-        value: GeoJSON.Feature<any>
-    }
-    interface Shapefile {
-        bbox: Array<number>
-        read(): Promise<Feature>;
-    }
-    interface ShapefileStatic {
-        open(shp: any, dbf?: any, options?: Options): Promise<Shapefile>;
-        read(shp: any, dbf?: any, options?: Options): Promise<GeoJSON.FeatureCollection<any>>;
-    }
+export interface Options {
+    encoding?: string;
+    highWaterMark?: number;
+}
+export interface Source<RecordType> {
+    bbox: number[];
+    read(): Promise<{done: boolean, value: RecordType}>;
+    cancel(): Promise<void>;
 }
 
-declare module "shapefile" {
-    export = shapefile
-}
+export type Openable = string | ArrayBuffer | Uint8Array | Readable | ReadableStream;
+
+export function open(shp: Openable, dbf?: Openable, options?: Options): Promise<Source<Feature>>;
+export function openShp(source: Openable, options?: Options): Promise<Source<GeometryObject>>;
+export function openDbf(source: Openable, options?: Options): Promise<Source<GeoJsonProperties>>;
+export function read(shp: Openable, dbf?: Openable, options?: Options): Promise<FeatureCollection>;

@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.26
-// Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>
+// Type definitions for Material Components Web 0.35
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -20,6 +20,6 @@
  * limitations under the License.
  */
 
-export {MDCTabFoundation, MDCTab} from './tab/index';
-export {MDCTabBarAdapter, MDCTabBarFoundation, MDCTabBar} from './tab-bar/index';
-export {MDCTabBarScrollerAdapter, MDCTabBarScrollerFoundation, MDCTabBarScroller} from './tab-bar-scroller/index';
+export { MDCTabFoundation, MDCTab, MDCTabAdapter } from './tab';
+export { MDCTabBarFoundation, MDCTabBar, MDCTabBarAdapter } from './tab-bar';
+export { MDCTabBarScrollerFoundation, MDCTabBarScroller, MDCTabBarScrollerAdapter } from './tab-bar-scroller';

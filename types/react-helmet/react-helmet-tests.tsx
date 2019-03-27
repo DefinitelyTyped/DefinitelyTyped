@@ -101,4 +101,9 @@ function HTML() {
             font-size: 12px;
         }
     `}</style>
-</Helmet>
+</Helmet>;
+
+// $ExpectError
+<Helmet link={[ invalidProp: 'foo' ]} />;
+// $ExpectError
+<Helmet meta={[ invalidProp: 'foo' ]} />;

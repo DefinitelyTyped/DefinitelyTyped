@@ -20,9 +20,14 @@ declare namespace pc {
         speed: number;
         loop: boolean;
         activate: boolean;
-        assets: pc.Asset[];
+        assets: number[];
         currentTime: number;
         duration: number;
+        playing: boolean;
+        currAnim: string;
+
+        animations: any;
+        animationsIndex: any;
 
         /**
          * @function
@@ -32,7 +37,7 @@ declare namespace pc {
          * @param {Number} [blendTime] The time in seconds to blend from the current
          * animation state to the start of the animation being set.
          */
-        play(name: string, blendTime: number): void;
+        play(name: string, blendTime?: number): void;
 
         /**
         * @function
@@ -41,6 +46,6 @@ declare namespace pc {
         * @param {String} name The name of the animation asset
         * @returns {pc.Animation} An Animation
         */
-        getAnimation(name: string): void;
+        getAnimation(name: string): pc.Animation;
     }
 }

@@ -1,7 +1,6 @@
 import express = require('express');
 import proxy = require('http-proxy-middleware');
 import { IncomingMessage } from "http";
-import * as Winston from "winston";
 
 const options = {
   target: 'http://www.example.org',
@@ -58,20 +57,36 @@ proxy({
 proxy({logLevel: 'debug'});
 
 proxy({
-  logProvider(provider) {
-    return Winston;
+  logProvider() {
+    // provider can be just log()
+    return {
+      log: console.log
+    };
   }
 });
+
 proxy({
   logProvider(provider) {
-    const logger = new (Winston.Logger)();
+    // customizing/modifying exisiting provider
+    provider.log = console.log;
+    provider.debug = console.log;
+    provider.info = console.info;
+    provider.warn = console.warn;
+    provider.error = console.error;
 
+    return provider;
+  }
+});
+
+proxy({
+  logProvider() {
+    // replacing provider
     return {
-      log: logger.log,
-      debug: logger.debug,
-      info: logger.info,
-      warn: logger.warn,
-      error: logger.error
+      log: console.log,
+      debug: console.log,
+      info: console.info,
+      warn: console.warn,
+      error: console.error
     };
   }
 });
@@ -125,3 +140,6 @@ proxy({
 proxy({
   headers: {host: 'www.example.org'}
 });
+
+// Shorthands
+proxy('/');

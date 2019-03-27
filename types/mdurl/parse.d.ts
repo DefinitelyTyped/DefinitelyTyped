@@ -1,4 +1,4 @@
-import { Url } from './'
+import { Url } from './';
 
 declare function parse(input: string, slashesDenoteHost?: boolean): Url;
 

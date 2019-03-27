@@ -10,6 +10,7 @@ import MailComposer = require('nodemailer/lib/mail-composer');
 import MailMessage = require('nodemailer/lib/mailer/mail-message');
 import mimeFuncs = require('nodemailer/lib/mime-funcs');
 import mimeTypes = require('nodemailer/lib/mime-funcs/mime-types');
+import MimeNode = require('nodemailer/lib/mime-node');
 import qp = require('nodemailer/lib/qp');
 import SendmailTransport = require('nodemailer/lib/sendmail-transport');
 import SESTransport = require('nodemailer/lib/ses-transport');
@@ -20,6 +21,8 @@ import SMTPTransport = require('nodemailer/lib/smtp-transport');
 import StreamTransport = require('nodemailer/lib/stream-transport');
 import wellKnown = require('nodemailer/lib/well-known');
 import XOAuth2 = require('nodemailer/lib/xoauth2');
+import LeWindows = require('nodemailer/lib/sendmail-transport/le-windows');
+import LeUnix = require('nodemailer/lib/sendmail-transport/le-unix');
 
 import * as fs from 'fs';
 import * as stream from 'stream';
@@ -120,7 +123,7 @@ function message_attachments_test() {
         attachments: [
             {   // utf-8 string as an attachment
                 filename: 'text1.txt',
-                content: 'hello world!'
+                content: 'hello world!',
             },
             {   // binary buffer as an attachment
                 filename: 'text2.txt',
@@ -135,12 +138,15 @@ function message_attachments_test() {
             },
             {   // stream as an attachment
                 filename: 'text4.txt',
-                content: fs.createReadStream('file.txt')
+                content: fs.createReadStream('file.txt'),
+                contentTransferEncoding: 'quoted-printable'
             },
             {   // define custom content type for the attachment
                 filename: 'text.bin',
                 content: 'hello world!',
-                contentType: 'text/plain'
+                contentType: 'text/plain',
+                contentTransferEncoding: '7bit',
+                contentDisposition: 'attachment'
             },
             {   // use URL as an attachment
                 filename: 'license.txt',
@@ -149,10 +155,13 @@ function message_attachments_test() {
             {   // encoded string as an attachment
                 filename: 'text1.txt',
                 content: 'aGVsbG8gd29ybGQh',
-                encoding: 'base64'
+                encoding: 'base64',
+                contentTransferEncoding: 'base64'
             },
             {   // data uri as an attachment
-                path: 'data:text/plain;base64,aGVsbG8gd29ybGQ='
+                path: 'data:text/plain;base64,aGVsbG8gd29ybGQ=',
+                contentDisposition: 'inline',
+                contentTransferEncoding: false
             },
             {
                 // use pregenerated MIME node
@@ -721,6 +730,24 @@ function sendmail_test() {
     });
 }
 
+// line ending transforms using windows-style newlines
+
+function sendmail_line_endings_windows_test() {
+    function process_le(mail: MailMessage) {
+        const input = mail.message.createReadStream();
+        input.pipe(new LeWindows());
+    }
+}
+
+// line ending transforms using unix-style newlines
+
+function sendmail_line_endings_unix_test() {
+    function process_le(mail: MailMessage) {
+        const input = mail.message.createReadStream();
+        input.pipe(new LeUnix());
+    }
+}
+
 // 5. SES transport
 
 // Send a message using SES transport
@@ -790,7 +817,8 @@ function stream_buffer_unix_newlines_test() {
     const transporter = nodemailer.createTransport({
         streamTransport: true,
         newline: 'unix',
-        buffer: true
+        buffer: true,
+        normalizeHeaderKey: (key) => key.toUpperCase()
     });
     transporter.sendMail({
         from: 'sender@example.com',
@@ -810,7 +838,8 @@ function stream_buffer_unix_newlines_test() {
 
 function json_test() {
     const transporter = nodemailer.createTransport({
-        jsonTransport: true
+        jsonTransport: true,
+        skipEncoding: true
     });
     transporter.sendMail({
         from: 'sender@example.com',
@@ -1030,7 +1059,8 @@ function dkim_specific_header_key_test() {
 
 function smtp_connection_test() {
     const connection = new SMTPConnection();
-    connection.connect(() => {
+    connection.connect((err) => {
+        if (err) throw err;
         connection.login({ user: 'user', pass: 'pass' }, (err) => {
             if (err) throw err;
             connection.send({ from: 'a@example.com', to: 'b@example.net' }, 'message', (err, info) => {
@@ -1090,7 +1120,11 @@ function base64_test() {
 // fetch
 
 function fetch_test() {
-    fetch('http://localhost/');
+    const stream = fetch('http://localhost/');
+
+    const statusCode: number = stream.statusCode;
+    const headers = stream.headers;
+    const contentType: string | undefined = headers['content-type'];
 
     fetch('http://localhost:/', {
         allowErrorResponse: true,
@@ -1199,6 +1233,50 @@ function mime_funcs_test() {
 
     mimeFuncs.foldLines('Testin command line', 76, true);
     mimeFuncs.foldLines('Testin command line', 76);
+}
+
+// mime-node
+
+function mime_node_test() {
+    const mb = new MimeNode('text/plain', {
+        normalizeHeaderKey: (key) => key.toUpperCase()
+    });
+
+    const child = mb.createChild('multipart/mixed');
+    mb.appendChild(child);
+    child.replace(child);
+
+    mb.setHeader('key', 'value');
+    const value: string = mb.getHeader('key');
+
+    mb.addHeader({
+        key: 'value4',
+        key2: 'value5'
+    });
+
+    mb.setHeader([
+        {
+            key: 'key',
+            value: 'value2'
+        },
+        {
+            key: 'key2',
+            value: 'value3'
+        }
+    ]);
+
+    mb.setHeader('key', ['value1', 'value2', 'value3']);
+
+    mb.setContent('abc');
+
+    mb.build((err, msg) => {
+        const msgAsString: string = msg.toString();
+    });
+
+    mb.processFunc((input) => {
+        const isReadable: boolean = input.readable;
+        return input;
+    });
 }
 
 // mime-types

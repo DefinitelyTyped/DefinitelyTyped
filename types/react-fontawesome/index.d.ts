@@ -5,18 +5,22 @@
 //                 Vincas Stonys <https://github.com/vincaslt>
 //                 Gavin Gregory <https://github.com/gavingregory>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
 export = FontAwesome;
+
+interface Intermediate extends React.AllHTMLAttributes<HTMLElement> {
+    size?: any;
+}
 
 declare namespace FontAwesome {
     type FontAwesomeSize = 'lg' | '2x' | '3x' | '4x' | '5x';
     type FontAwesomeStack = '1x' | '2x';
     type FontAwesomeFlip = 'horizontal' | 'vertical';
 
-    type FontAwesomeProps = React.HTMLProps<FontAwesome> | {
+    interface FontAwesomeProps extends Intermediate {
         ariaLabel?: string;
         border?: boolean;
         cssModule?: any;
@@ -30,7 +34,7 @@ declare namespace FontAwesome {
         spin?: boolean;
         stack?: FontAwesomeStack;
         tag?: string;
-    };
+    }
 }
 
 declare class FontAwesome extends React.Component<FontAwesome.FontAwesomeProps> {}

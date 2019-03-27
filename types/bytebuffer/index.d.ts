@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions by: SINTEF-9012 <https://github.com/SINTEF-9012>
 
+/// <reference types="node" />
 import Long = require("long");
 
 declare namespace ByteBuffer {}
@@ -70,7 +71,7 @@ declare class ByteBuffer
     /**
      * Backing buffer.
      */
-    buffer: ArrayBuffer;
+    buffer: Buffer;
 
     /**
      * Absolute limit of the contained data. Set to the backing buffer's capacity upon allocation.
@@ -126,7 +127,7 @@ declare class ByteBuffer
      * Calculates the number of UTF8 characters of a string.JavaScript itself uses UTF- 16, so that a string's length property does not reflect its actual UTF8 size if it contains code points larger than 0xFFFF.
      */
     static calculateUTF8Chars( str: string ): number;
-    
+
     /**
      * Calculates the number of UTF8 bytes of a string. This is an alias of ByteBuffer#calculateUTF8Bytes.
      */
@@ -135,17 +136,17 @@ declare class ByteBuffer
     /**
      * Calculates the actual number of bytes required to store a 32bit base 128 variable-length integer.
      */
-    static calculateVariant32( value: number ): number;
+    static calculateVarint32( value: number ): number;
 
     /**
      * Calculates the actual number of bytes required to store a 64bit base 128 variable-length integer.
      */
-    static calculateVariant64( value: number | Long ): number;
+    static calculateVarint64( value: number | Long ): number;
 
     /**
      * Concatenates multiple ByteBuffers into one.
      */
-    static concat( buffers: Array<ByteBuffer | ArrayBuffer | Uint8Array | string>, encoding?: string | boolean, litteEndian?: boolean, noAssert?: boolean ): ByteBuffer;
+    static concat( buffers: Array<ByteBuffer | Buffer | ArrayBuffer | Uint8Array | string>, encoding?: string | boolean, litteEndian?: boolean, noAssert?: boolean ): ByteBuffer;
 
     /**
      * Decodes a base64 encoded string to a ByteBuffer.
@@ -184,7 +185,7 @@ declare class ByteBuffer
      * @param littleEndian Whether to use little or big endian byte order. Defaults to ByteBuffer.DEFAULT_ENDIAN.
      * @param noAssert Whether to skip assertions of offsets and values. Defaults to ByteBuffer.DEFAULT_NOASSERT.
      */
-    static wrap( buffer: ByteBuffer | ArrayBuffer | Uint8Array | string, enc?: string | boolean, littleEndian?: boolean, noAssert?: boolean ): ByteBuffer;
+    static wrap( buffer: ByteBuffer | Buffer | ArrayBuffer | Uint8Array | string, enc?: string | boolean, littleEndian?: boolean, noAssert?: boolean ): ByteBuffer;
 
     /**
      * Decodes a zigzag encoded signed 32bit integer.
@@ -219,7 +220,7 @@ declare class ByteBuffer
     /**
      * Appends some data to this ByteBuffer. This will overwrite any contents behind the specified offset up to the appended data's length.
      */
-    append( source: ByteBuffer | ArrayBuffer | Uint8Array | string, encoding?: string | number, offset?: number ): ByteBuffer;
+    append( source: ByteBuffer | Buffer | ArrayBuffer | Uint8Array | string, encoding?: string | number, offset?: number ): ByteBuffer;
 
     /**
      * Appends this ByteBuffer's contents to another ByteBuffer. This will overwrite any contents behind the specified offset up to the length of this ByteBuffer's data.
@@ -290,7 +291,7 @@ declare class ByteBuffer
     /**
      * Prepends some data to this ByteBuffer. This will overwrite any contents before the specified offset up to the prepended data's length. If there is not enough space available before the specified offset, the backing buffer will be resized and its contents moved accordingly.
      */
-    prepend( source: ByteBuffer | string | ArrayBuffer, encoding?: string | number, offset?: number ): ByteBuffer;
+    prepend( source: ByteBuffer | string | ArrayBuffer | Buffer, encoding?: string | number, offset?: number ): ByteBuffer;
 
     /**
      * Prepends this ByteBuffer to another ByteBuffer. This will overwrite any contents before the specified offset up to the prepended data's length. If there is not enough space available before the specified offset, the backing buffer will be resized and its contents moved accordingly.
@@ -340,7 +341,7 @@ declare class ByteBuffer
     /**
      * Reads a length as uint32 prefixed UTF8 encoded string.
      */
-    readIString( offset?: number ): string;
+    readIString( offset?: number ): string | { string: string; length: number };
 
     /**
      * Reads a 32bit signed integer.This is an alias of ByteBuffer#readInt32.
@@ -385,7 +386,7 @@ declare class ByteBuffer
     /**
      * Reads an UTF8 encoded string.
      */
-    readUTF8String( chars: number, offset?: number ): string;
+    readUTF8String( chars: number, metrics?: number, offset?: number ): string | { string: string; length: number };
 
     /**
      * Reads a 16bit unsigned integer.
@@ -479,7 +480,7 @@ declare class ByteBuffer
     /**
      * Returns a copy of the backing buffer that contains this ByteBuffer's contents. Contents are the bytes between ByteBuffer#offset and ByteBuffer#limit. Will transparently ByteBuffer#flip this ByteBuffer if offset > limit but the actual offsets remain untouched.
      */
-    toBuffer( forceCopy?: boolean ): ArrayBuffer;
+    toBuffer( forceCopy?: boolean ): Buffer;
 
     /**
       *Encodes this ByteBuffer to a hex encoded string with marked offsets. Offset symbols are:
@@ -516,7 +517,7 @@ declare class ByteBuffer
     /**
      * Writes an array of bytes. This is an alias for append
      */
-    writeBytes( source: ByteBuffer | ArrayBuffer | Uint8Array | string, encoding?: string | number, offset?: number ): ByteBuffer;
+    writeBytes( source: ByteBuffer | Buffer | ArrayBuffer | Uint8Array | string, encoding?: string | number, offset?: number ): ByteBuffer;
 
     /**
      * Writes a NULL-terminated UTF8 encoded string. For this to work the specified string must not contain any NULL characters itself.
@@ -574,14 +575,19 @@ declare class ByteBuffer
     writeInt8( value: number, offset?: number ): ByteBuffer;
 
     /**
+     * Write a 64bit signed integer. This is an alias of ByteBuffer#writeInt64.
+     */
+     writeLong( value: number | Long, offset?: number ): ByteBuffer;
+
+    /**
      * Writes a 16bit signed integer. This is an alias of ByteBuffer#writeInt16.
      */
     writeShort( value: number, offset?: number ): ByteBuffer;
 
     /**
-     * Writes an UTF8 encoded string.This is an alias of ByteBuffer#writeUTF8String.
+     * Writes an UTF8 encoded string. This is an alias of ByteBuffer#writeUTF8String.
      */
-    WriteString( str: string, offset?: number ): ByteBuffer | number;
+    writeString( str: string, offset?: number ): ByteBuffer | number;
 
     /**
      * Writes an UTF8 encoded string.

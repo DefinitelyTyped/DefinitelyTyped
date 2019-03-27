@@ -26,10 +26,16 @@ export default class MDCTextFieldHelperTextFoundation extends MDCFoundation<MDCT
 
     static readonly defaultAdapter: MDCTextFieldHelperTextAdapter;
 
-    /**
-     * Sets the content of the helper text field.
-     */
     setContent(content: string): void;
+
+    /** @param isPersistent Sets the persistency of the helper text. */
+    setPersistent(isPersistent: boolean): void;
+
+    /**
+     * @param isValidation True to make the helper text act as an
+     *   error validation message.
+     */
+    setValidation(isValidation: boolean): void;
 
     /** Makes the helper text visible to the screen reader. */
     showToScreenReader(): void;

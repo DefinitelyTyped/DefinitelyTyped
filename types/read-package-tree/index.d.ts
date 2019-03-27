@@ -1,4 +1,4 @@
-// Type definitions for read-package-tree 5.1
+// Type definitions for read-package-tree 5.2
 // Project: https://github.com/npm/read-package-tree
 // Definitions by: Melvin Groenhoff <https://github.com/mgroenhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,6 +9,7 @@ declare function rpt(root: string, filterWith: (node: rpt.Node, kidName: string)
 declare namespace rpt {
     class Node {
         id: number;
+        name: string;
         package: any;
         children: Node[];
         parent: Node | null;

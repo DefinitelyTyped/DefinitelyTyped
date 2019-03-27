@@ -321,9 +321,19 @@ function bufferTests() {
         buf.swap64();
     }
 
-    // Class Method: Buffer.from(array)
+    // Class Method: Buffer.from(data)
     {
-        const buf: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+        // Array
+        const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+        // Buffer
+        const buf2: Buffer = Buffer.from(buf1);
+        // String
+        const buf3: Buffer = Buffer.from('this is a tést');
+        // ArrayBuffer
+        const arr: Uint16Array = new Uint16Array(2);
+        arr[0] = 5000;
+        arr[1] = 4000;
+        const buf4: Buffer = Buffer.from(arr.buffer);
     }
 
     // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
@@ -333,22 +343,15 @@ function bufferTests() {
         arr[1] = 4000;
 
         let buf: Buffer;
-        buf = Buffer.from(arr.buffer);
         buf = Buffer.from(arr.buffer, 1);
         buf = Buffer.from(arr.buffer, 0, 1);
     }
 
-    // Class Method: Buffer.from(buffer)
-    {
-        const buf1: Buffer = Buffer.from('buffer');
-        const buf2: Buffer = Buffer.from(buf1);
-    }
-
     // Class Method: Buffer.from(str[, encoding])
     {
-        const buf1: Buffer = Buffer.from('this is a tést');
         const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
     }
+
     // Class Method: Buffer.alloc(size[, fill[, encoding]])
     {
         const buf1: Buffer = Buffer.alloc(5);
@@ -483,11 +486,113 @@ namespace url_tests {
             pathname: 'search',
             query: { q: "you're a lizard, gary" }
         });
+
+        const myURL = new url.URL('https://a:b@你好你好?abc#foo');
+        url.format(myURL, { fragment: false, unicode: true, auth: false });
     }
 
     {
         var helloUrl = url.parse('http://example.com/?hello=world', true)
         assert.equal(helloUrl.query.hello, 'world');
+    }
+
+    {
+        const ascii: string = url.domainToASCII('español.com');
+        const unicode: string = url.domainToUnicode('xn--espaol-zwa.com');
+    }
+
+    {
+        let myURL = new url.URL('https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
+        assert.equal(myURL.hash, '#bar');
+        assert.equal(myURL.host, 'example.org:81');
+        assert.equal(myURL.hostname, 'example.org');
+        assert.equal(myURL.href, 'https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
+        assert.equal(myURL.origin, 'https://example.org:81');
+        assert.equal(myURL.password, 'thepwd');
+        assert.equal(myURL.username, 'theuser');
+        assert.equal(myURL.pathname, '/foo/path');
+        assert.equal(myURL.port, "81");
+        assert.equal(myURL.protocol, "https:");
+        assert.equal(myURL.search, "?query=string");
+        assert.equal(myURL.toString(), 'https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
+        assert(myURL.searchParams instanceof url.URLSearchParams);
+
+        myURL.host = 'example.org:82';
+        myURL.hostname = 'example.com';
+        myURL.href = 'http://other.com';
+        myURL.hash = 'baz';
+        myURL.password = "otherpwd";
+        myURL.username = "otheruser";
+        myURL.pathname = "/otherPath";
+        myURL.port = "82";
+        myURL.protocol = "http";
+        myURL.search = "a=b";
+        assert.equal(myURL.href, 'http://otheruser:otherpwd@other.com:82/otherPath?a=b#baz');
+
+        myURL = new url.URL('/foo', 'https://example.org/');
+        assert.equal(myURL.href, 'https://example.org/foo');
+        assert.equal(myURL.toJSON(), myURL.href);
+    }
+
+    {
+        const searchParams = new url.URLSearchParams('abc=123');
+
+        assert.equal(searchParams.toString(), 'abc=123');
+        searchParams.forEach((value: string, name: string, me: url.URLSearchParams): void => {
+            assert.equal(name, 'abc');
+            assert.equal(value, '123');
+            assert.equal(me, searchParams);
+        });
+
+        assert.equal(searchParams.get('abc'), '123');
+
+        searchParams.append('abc', 'xyz');
+
+        assert.deepEqual(searchParams.getAll('abc'), ['123', 'xyz']);
+
+        const entries = searchParams.entries();
+        assert.deepEqual(entries.next(), { value: ["abc", "123"], done: false});
+        assert.deepEqual(entries.next(), { value: ["abc", "xyz"], done: false});
+        assert.deepEqual(entries.next(), { value: undefined, done: true});
+
+        const keys = searchParams.keys();
+        assert.deepEqual(keys.next(), { value: "abc", done: false});
+        assert.deepEqual(keys.next(), { value: "abc", done: false});
+        assert.deepEqual(keys.next(), { value: undefined, done: true});
+
+        const values = searchParams.values();
+        assert.deepEqual(values.next(), { value: "123", done: false});
+        assert.deepEqual(values.next(), { value: "xyz", done: false});
+        assert.deepEqual(values.next(), { value: undefined, done: true});
+
+        searchParams.set('abc', 'b');
+        assert.deepEqual(searchParams.getAll('abc'), ['b']);
+
+        searchParams.delete('a');
+        assert(!searchParams.has('a'));
+        assert.equal(searchParams.get('a'), null);
+
+        searchParams.sort();
+    }
+
+    {
+        const searchParams = new url.URLSearchParams({
+            user: 'abc',
+            query: ['first', 'second']
+        });
+
+        assert.equal(searchParams.toString(), 'user=abc&query=first%2Csecond');
+        assert.deepEqual(searchParams.getAll('query'), ['first,second']);
+    }
+
+    {
+        // Using an array
+        let params = new url.URLSearchParams([
+            ['user', 'abc'],
+            ['query', 'first'],
+            ['query', 'second']
+        ]);
+        assert.equal(params.toString(), 'user=abc&query=first&query=second');
     }
 }
 
@@ -681,13 +786,13 @@ namespace crypto_tests {
         let clearText: string = "This is the clear text.";
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherText: string = cipher.update(clearText, "utf8", "hex");
-	cipherText += cipher.final("hex");
+    cipherText += cipher.final("hex");
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let clearText2: string = decipher.update(cipherText, "hex", "utf8");
-	clearText2 += decipher.final("utf8");
+    clearText2 += decipher.final("utf8");
 
-	assert.equal(clearText2, clearText);
+    assert.equal(clearText2, clearText);
     }
 
     {
@@ -696,19 +801,19 @@ namespace crypto_tests {
         let clearText: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherBuffers: Buffer[] = [];
-	cipherBuffers.push(cipher.update(clearText));
-	cipherBuffers.push(cipher.final());
+    cipherBuffers.push(cipher.update(clearText));
+    cipherBuffers.push(cipher.final());
 
         let cipherText: Buffer = Buffer.concat(cipherBuffers);
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let decipherBuffers: Buffer[] = [];
-	decipherBuffers.push(decipher.update(cipherText));
-	decipherBuffers.push(decipher.final());
+    decipherBuffers.push(decipher.update(cipherText));
+    decipherBuffers.push(decipher.final());
 
         let clearText2: Buffer = Buffer.concat(decipherBuffers);
 
-	assert.deepEqual(clearText2, clearText);
+    assert.deepEqual(clearText2, clearText);
     }
 
     {
@@ -734,8 +839,8 @@ namespace tls_tests {
     var blah = ctx.context;
 
     var connOpts: tls.ConnectionOptions = {
-	host: "127.0.0.1",
-	port: 55
+    host: "127.0.0.1",
+    port: 55
     };
     var tlsSocket = tls.connect(connOpts);
     }
@@ -938,14 +1043,14 @@ namespace http_tests {
     }
 
     {
-	var agent: http.Agent = new http.Agent({
-		keepAlive: true,
-		keepAliveMsecs: 10000,
-		maxSockets: Infinity,
-		maxFreeSockets: 256
-	});
+    var agent: http.Agent = new http.Agent({
+        keepAlive: true,
+        keepAliveMsecs: 10000,
+        maxSockets: Infinity,
+        maxFreeSockets: 256
+    });
 
-	var agent: http.Agent = http.globalAgent;
+    var agent: http.Agent = http.globalAgent;
 
         http.request({ agent: false });
         http.request({ agent: agent });
@@ -1015,6 +1120,8 @@ namespace https_tests {
     });
 
     https.request('http://www.example.com/xyz');
+
+    https.globalAgent.options.ca = [];
 }
 
 ////////////////////////////////////////////////////
@@ -1258,19 +1365,7 @@ namespace path_tests {
     // returns
     //        ['foo', 'bar', 'baz']
 
-    console.log(process.env.PATH)
-    // '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
-
-    process.env.PATH.split(path.delimiter)
-    // returns
-    //        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
-
-    console.log(process.env.PATH)
-    // 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
-
-    process.env.PATH.split(path.delimiter)
-    // returns
-    //        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
+    process.env["PATH"]; // $ExpectType string
 
     path.parse('/home/user/dir/file.txt')
     // returns
@@ -2299,6 +2394,12 @@ namespace dns_tests {
         const _err: NodeJS.ErrnoException = err;
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
+    });
+
+    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _hostname: string = hostname;
+        const _service: string = service;
     });
 
     dns.resolve("nodejs.org", (err, addresses) => {

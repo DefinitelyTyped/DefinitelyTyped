@@ -1,4 +1,4 @@
-// Type definitions for power-assert 1.4.1
+// Type definitions for power-assert 1.5.0
 // Project: https://github.com/twada/power-assert
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -61,6 +61,8 @@ declare namespace assert {
     };
 
     export function ifError(value:any):void;
+
+    export const strict: typeof assert;
 
     export interface Options {
         assertion?: empower.Options;

@@ -214,12 +214,32 @@ QUnit.log(function( details ) {
   console.log( output );
 });
 
-QUnit.moduleDone(function( details ) {
-  console.log( "Finished running: ", details.name, "Failed/total: ", details.failed, details.total );
+QUnit.log(function( details: QUnit.LogDetails ) {
+  let x: { actual: number; expected: number; message: string; module: string; name: string; result: boolean; runtime: number; source: string } = details;
+  x = details;
 });
 
-QUnit.moduleStart(function( details ) {
+QUnit.begin(function( details: QUnit.BeginDetails ) {
+  console.log( "Total tests running: ", details.totalTests);
+});
+
+QUnit.done(function( details: QUnit.DoneDetails ) {
+  console.log( "Finished. Failed/total: ", details.failed, details.total, details.passed, details.runtime );
+});
+
+QUnit.moduleDone(function( details: QUnit.ModuleDoneDetails ) {
+  console.log( "Finished running: ", details.name, "Failed/total: ", details.failed, details.total, details.passed, details.runtime );
+});
+
+QUnit.moduleStart(function( details: QUnit.ModuleStartDetails ) {
   console.log( "Now running: ", details.name );
+});
+QUnit.testDone(function( details: QUnit.TestDoneDetails ) {
+  console.log( "Finished running: ", details.name, "Failed/total: ", details.failed, details.total, details.passed, details.runtime);
+});
+
+QUnit.testStart(function( details: QUnit.TestStartDetails ) {
+  console.log( "Now running: ", details.name, ' from module ', details.module );
 });
 
 let Robot: any = () => {};
@@ -542,6 +562,53 @@ QUnit.test( "throws", function( assert ) {
   );
 });
 
+QUnit.test( "rejects", function( assert ) {
+
+  assert.rejects(Promise.reject("some error description"));
+
+  assert.rejects(
+    Promise.reject(new Error("some error description")),
+    "rejects with just a message, not using the 'expectedMatcher' argument"
+  );
+
+  assert.rejects(
+    Promise.reject(new Error("some error description")),
+    /description/,
+    "`rejectionValue.toString()` contains `description`"
+  );
+
+  // Using a custom error like object
+  class CustomError {
+    message?: string;
+    constructor(message?: string) {
+       this.message = message;
+    }
+    toString() {
+       return this.message;
+    }
+  }
+
+  assert.rejects(
+    Promise.reject(new CustomError()),
+    CustomError,
+    "raised error is an instance of CustomError"
+  );
+
+  assert.rejects(
+    Promise.reject(new CustomError("some error description")),
+    new CustomError("some error description"),
+    "raised error instance matches the CustomError instance"
+  );
+
+  assert.rejects(
+    Promise.reject(new CustomError("some error description")),
+    function( err ) {
+      return err.toString() === "some error description";
+    },
+    "raised error instance satisfies the callback function"
+  );
+});
+
 QUnit.module( "module", {
   beforeEach: function( assert ) {
     assert.ok( true, "one extra assert per test" );
@@ -551,4 +618,22 @@ QUnit.module( "module", {
 });
 QUnit.test( "test with beforeEach and afterEach", function( assert ) {
   assert.expect( 2 );
+});
+
+QUnit.todo( "a todo test", function( assert ) {
+  assert.equal( 0, 1, "0 does not equal 1, so this todo should pass" );
+});
+
+let equivResult: boolean;
+equivResult = QUnit.equiv({}, {});
+equivResult = QUnit.equiv(1, 2);
+equivResult = QUnit.equiv('foo', 'bar');
+equivResult = QUnit.equiv(['foo'], ['bar']);
+
+
+QUnit.test('steps', assert => {
+  assert.step('one');
+  assert.step('two');
+  assert.step('three');
+  assert.verifySteps(['one', 'two', 'three'], 'Counting to three correctly');
 });

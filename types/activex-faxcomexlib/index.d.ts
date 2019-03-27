@@ -1,4 +1,4 @@
-// Type definitions for Microsoft Fax Service Extended COM Type Library - FAXCOMEXLib 1.0
+// Type definitions for non-npm package Microsoft Fax Service Extended COM Type Library - FAXCOMEXLib 1.0
 // Project: https://msdn.microsoft.com/en-us/library/windows/desktop/ms684513(v=vs.85).aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 /// <reference types="activex-stdole" />
 
 declare namespace FAXCOMEXLib {
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_ACCESS_RIGHTS_ENUM {
         farMANAGE_CONFIG = 64,
         farMANAGE_IN_ARCHIVE = 256,
@@ -22,7 +22,7 @@ declare namespace FAXCOMEXLib {
         farSUBMIT_NORMAL = 2,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_ACCESS_RIGHTS_ENUM_2 {
         far2MANAGE_ARCHIVES = 256,
         far2MANAGE_CONFIG = 64,
@@ -36,7 +36,7 @@ declare namespace FAXCOMEXLib {
         far2SUBMIT_NORMAL = 2,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_ACCOUNT_EVENTS_TYPE_ENUM {
         faetFXSSVC_ENDED = 16,
         faetIN_ARCHIVE = 4,
@@ -46,21 +46,21 @@ declare namespace FAXCOMEXLib {
         faetOUT_QUEUE = 2,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_COVERPAGE_TYPE_ENUM {
         fcptLOCAL = 1,
         fcptNONE = 0,
         fcptSERVER = 2,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_DEVICE_RECEIVE_MODE_ENUM {
         fdrmAUTO_ANSWER = 1,
         fdrmMANUAL_ANSWER = 2,
         fdrmNO_ANSWER = 0,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_GROUP_STATUS_ENUM {
         fgsALL_DEV_NOT_VALID = 2,
         fgsALL_DEV_VALID = 0,
@@ -68,7 +68,7 @@ declare namespace FAXCOMEXLib {
         fgsSOME_DEV_NOT_VALID = 3,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_JOB_EXTENDED_STATUS_ENUM {
         fjesANSWERED = 5,
         fjesBAD_ADDRESS = 10,
@@ -93,7 +93,7 @@ declare namespace FAXCOMEXLib {
         fjesTRANSMITTING = 4,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_JOB_OPERATIONS_ENUM {
         fjoDELETE = 16,
         fjoPAUSE = 2,
@@ -104,7 +104,7 @@ declare namespace FAXCOMEXLib {
         fjoVIEW = 1,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_JOB_STATUS_ENUM {
         fjsCANCELED = 512,
         fjsCANCELING = 1024,
@@ -119,14 +119,14 @@ declare namespace FAXCOMEXLib {
         fjsROUTING = 2048,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_JOB_TYPE_ENUM {
         fjtRECEIVE = 1,
         fjtROUTING = 2,
         fjtSEND = 0,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_LOG_LEVEL_ENUM {
         fllMAX = 3,
         fllMED = 2,
@@ -134,14 +134,14 @@ declare namespace FAXCOMEXLib {
         fllNONE = 0,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_PRIORITY_TYPE_ENUM {
         fptHIGH = 2,
         fptLOW = 0,
         fptNORMAL = 1,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_PROVIDER_STATUS_ENUM {
         fpsBAD_GUID = 2,
         fpsBAD_VERSION = 3,
@@ -152,19 +152,19 @@ declare namespace FAXCOMEXLib {
         fpsSUCCESS = 0,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_RECEIPT_TYPE_ENUM {
         frtMAIL = 1,
         frtMSGBOX = 4,
         frtNONE = 0,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_ROUTING_RULE_CODE_ENUM {
         frrcANY_CODE = 0,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_RULE_STATUS_ENUM {
         frsALL_GROUP_DEV_NOT_VALID = 2,
         frsBAD_DEVICE = 4,
@@ -173,14 +173,14 @@ declare namespace FAXCOMEXLib {
         frsVALID = 0,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_SCHEDULE_TYPE_ENUM {
         fstDISCOUNT_PERIOD = 2,
         fstNOW = 0,
         fstSPECIFIC_TIME = 1,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_SERVER_APIVERSION_ENUM {
         fsAPI_VERSION_0 = 0,
         fsAPI_VERSION_1 = 65536,
@@ -188,7 +188,7 @@ declare namespace FAXCOMEXLib {
         fsAPI_VERSION_3 = 196608,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_SERVER_EVENTS_TYPE_ENUM {
         fsetACTIVITY = 8,
         fsetCONFIG = 4,
@@ -203,14 +203,14 @@ declare namespace FAXCOMEXLib {
         fsetQUEUE_STATE = 16,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FAX_SMTP_AUTHENTICATION_TYPE_ENUM {
         fsatANONYMOUS = 0,
         fsatBASIC = 1,
         fsatNTLM = 2,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // tslint:disable-next-line:no-const-enum
     const enum FaxConstants {
         bstrGROUPNAME_ALLDEVICES = '<All Devices>',
         lDEFAULT_PREFETCH_SIZE = 100,
@@ -326,11 +326,10 @@ declare namespace FAXCOMEXLib {
     }
 
     /** FaxAccounts Class */
-    class FaxAccounts {
-        private 'FAXCOMEXLib.FaxAccounts_typekey': FaxAccounts;
-        private constructor();
+    interface FaxAccounts {
         readonly Count: number;
         Item(vIndex: any): FaxAccount;
+        (vIndex: any): FaxAccount;
     }
 
     /** FaxAccountSet Class */
@@ -535,10 +534,7 @@ declare namespace FAXCOMEXLib {
     }
 
     /** FaxDeviceIds Class */
-    class FaxDeviceIds {
-        private 'FAXCOMEXLib.FaxDeviceIds_typekey': FaxDeviceIds;
-        private constructor();
-
+    interface FaxDeviceIds {
         /** Add a device */
         Add(lDeviceId: number): void;
         readonly Count: number;
@@ -549,6 +545,7 @@ declare namespace FAXCOMEXLib {
 
         /** Set order of the device */
         SetOrder(lDeviceId: number, lNewOrder: number): void;
+        (lIndex: number): number;
     }
 
     /** FaxDeviceProvider Class */
@@ -594,22 +591,20 @@ declare namespace FAXCOMEXLib {
     }
 
     /** FaxDeviceProviders Class */
-    class FaxDeviceProviders {
-        private 'FAXCOMEXLib.FaxDeviceProviders_typekey': FaxDeviceProviders;
-        private constructor();
+    interface FaxDeviceProviders {
         readonly Count: number;
         Item(vIndex: any): FaxDeviceProvider;
+        (vIndex: any): FaxDeviceProvider;
     }
 
     /** FaxDevices Class */
-    class FaxDevices {
-        private 'FAXCOMEXLib.FaxDevices_typekey': FaxDevices;
-        private constructor();
+    interface FaxDevices {
         readonly Count: number;
         Item(vIndex: any): FaxDevice;
 
         /** Get device by its ID */
         ItemById(lId: number): FaxDevice;
+        (vIndex: any): FaxDevice;
     }
 
     /** FaxDocument Class */
@@ -630,10 +625,10 @@ declare namespace FAXCOMEXLib {
         CallHandle: number;
 
         /** Submit the fax document on the already connected server */
-        ConnectedSubmit(pFaxServer: IFaxServer): any;
+        ConnectedSubmit(pFaxServer: IFaxServer): SafeArray<string>;
 
         /** Submit the fax document on the already connected server */
-        ConnectedSubmit2(pFaxServer: IFaxServer, pvFaxOutgoingJobIDs: any): number;
+        ConnectedSubmit2(pFaxServer: IFaxServer, pvFaxOutgoingJobIDs: SafeArray<string>): number;
 
         /** Cover page file path */
         CoverPage: string;
@@ -765,7 +760,7 @@ declare namespace FAXCOMEXLib {
         readonly MajorVersion: number;
 
         /** Array of methods exposed by extension */
-        readonly Methods: any;
+        readonly Methods: SafeArray<string>;
 
         /** The minor part of extension's build number */
         readonly MinorBuild: number;
@@ -781,11 +776,10 @@ declare namespace FAXCOMEXLib {
     }
 
     /** FaxInboundRoutingExtensions Class */
-    class FaxInboundRoutingExtensions {
-        private 'FAXCOMEXLib.FaxInboundRoutingExtensions_typekey': FaxInboundRoutingExtensions;
-        private constructor();
+    interface FaxInboundRoutingExtensions {
         readonly Count: number;
         Item(vIndex: any): FaxInboundRoutingExtension;
+        (vIndex: any): FaxInboundRoutingExtension;
     }
 
     /** FaxInboundRoutingMethod Class */
@@ -819,11 +813,10 @@ declare namespace FAXCOMEXLib {
     }
 
     /** FaxInboundRoutingMethods Class */
-    class FaxInboundRoutingMethods {
-        private 'FAXCOMEXLib.FaxInboundRoutingMethods_typekey': FaxInboundRoutingMethods;
-        private constructor();
+    interface FaxInboundRoutingMethods {
         readonly Count: number;
         Item(vIndex: any): FaxInboundRoutingMethod;
+        (vIndex: any): FaxInboundRoutingMethod;
     }
 
     /** FaxIncomingArchive Class */
@@ -935,11 +928,10 @@ declare namespace FAXCOMEXLib {
     }
 
     /** FaxIncomingJobs Class */
-    class FaxIncomingJobs {
-        private 'FAXCOMEXLib.FaxIncomingJobs_typekey': FaxIncomingJobs;
-        private constructor();
+    interface FaxIncomingJobs {
         readonly Count: number;
         Item(vIndex: any): FaxIncomingJob;
+        (vIndex: any): FaxIncomingJob;
     }
 
     /** FaxIncomingMessage Class */
@@ -1117,10 +1109,7 @@ declare namespace FAXCOMEXLib {
     }
 
     /** FaxOutboundRoutingGroups Class */
-    class FaxOutboundRoutingGroups {
-        private 'FAXCOMEXLib.FaxOutboundRoutingGroups_typekey': FaxOutboundRoutingGroups;
-        private constructor();
-
+    interface FaxOutboundRoutingGroups {
         /** Add a group */
         Add(bstrName: string): FaxOutboundRoutingGroup;
         readonly Count: number;
@@ -1128,6 +1117,7 @@ declare namespace FAXCOMEXLib {
 
         /** Remove a group */
         Remove(vIndex: number | string): void;
+        (vIndex: number | string): FaxOutboundRoutingGroup;
     }
 
     /** FaxOutboundRoutingRule Class */
@@ -1161,10 +1151,7 @@ declare namespace FAXCOMEXLib {
     }
 
     /** FaxOutboundRoutingRules Class */
-    class FaxOutboundRoutingRules {
-        private 'FAXCOMEXLib.FaxOutboundRoutingRules_typekey': FaxOutboundRoutingRules;
-        private constructor();
-
+    interface FaxOutboundRoutingRules {
         /** Add a rule */
         Add(lCountryCode: number, lAreaCode: number, bUseDevice: boolean, bstrGroupName: string, lDeviceId: number): FaxOutboundRoutingRule;
         readonly Count: number;
@@ -1178,6 +1165,7 @@ declare namespace FAXCOMEXLib {
 
         /** Remove a rule by criteria */
         RemoveByCountryAndArea(lCountryCode: number, lAreaCode: number): void;
+        (lIndex: number): FaxOutboundRoutingRule;
     }
 
     /** FaxOutgoingArchive Class */
@@ -1334,11 +1322,10 @@ declare namespace FAXCOMEXLib {
     }
 
     /** FaxOutgoingJobs Class */
-    class FaxOutgoingJobs {
-        private 'FAXCOMEXLib.FaxOutgoingJobs_typekey': FaxOutgoingJobs;
-        private constructor();
+    interface FaxOutgoingJobs {
         readonly Count: number;
         Item(vIndex: any): IFaxOutgoingJob;
+        (vIndex: any): IFaxOutgoingJob;
     }
 
     /** FaxOutgoingMessage Class */
@@ -1486,10 +1473,7 @@ declare namespace FAXCOMEXLib {
     }
 
     /** FaxRecipients Class */
-    class FaxRecipients {
-        private 'FAXCOMEXLib.FaxRecipients_typekey': FaxRecipients;
-        private constructor();
-
+    interface FaxRecipients {
         /**
          * Add a recipient
          * @param string [bstrRecipientName='']
@@ -1500,6 +1484,7 @@ declare namespace FAXCOMEXLib {
 
         /** Remove a recipient */
         Remove(lIndex: number): void;
+        (lIndex: number): FaxRecipient;
     }
 
     /** FaxSecurity Class */
@@ -2026,28 +2011,9 @@ interface ActiveXObject {
             this: FAXCOMEXLib.FaxServer, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
     on(obj: FAXCOMEXLib.FaxAccount, event: 'AddRef' | 'Release', handler: (this: FAXCOMEXLib.FaxAccount, parameter: {}) => void): void;
     on(obj: FAXCOMEXLib.FaxServer, event: 'AddRef' | 'Release', handler: (this: FAXCOMEXLib.FaxServer, parameter: {}) => void): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {
     'FaxComEx.FaxDocument': FAXCOMEXLib.FaxDocument;
     'FaxComEx.FaxServer': FAXCOMEXLib.FaxServer;
-}
-
-interface EnumeratorConstructor {
-    new(col: FAXCOMEXLib.FaxAccounts): Enumerator<FAXCOMEXLib.FaxAccount>;
-    new(col: FAXCOMEXLib.FaxDeviceIds): Enumerator<number>;
-    new(col: FAXCOMEXLib.FaxDeviceProviders): Enumerator<FAXCOMEXLib.FaxDeviceProvider>;
-    new(col: FAXCOMEXLib.FaxDevices): Enumerator<FAXCOMEXLib.FaxDevice>;
-    new(col: FAXCOMEXLib.FaxInboundRoutingExtensions): Enumerator<FAXCOMEXLib.FaxInboundRoutingExtension>;
-    new(col: FAXCOMEXLib.FaxInboundRoutingMethods): Enumerator<FAXCOMEXLib.FaxInboundRoutingMethod>;
-    new(col: FAXCOMEXLib.FaxIncomingJobs): Enumerator<FAXCOMEXLib.FaxIncomingJob>;
-    new(col: FAXCOMEXLib.FaxOutboundRoutingGroups): Enumerator<FAXCOMEXLib.FaxOutboundRoutingGroup>;
-    new(col: FAXCOMEXLib.FaxOutboundRoutingRules): Enumerator<FAXCOMEXLib.FaxOutboundRoutingRule>;
-    new(col: FAXCOMEXLib.FaxOutgoingJobs): Enumerator<FAXCOMEXLib.IFaxOutgoingJob>;
-    new(col: FAXCOMEXLib.FaxRecipients): Enumerator<FAXCOMEXLib.FaxRecipient>;
-}
-
-interface SafeArray<T = any> {
-    _brand: SafeArray<T>;
 }

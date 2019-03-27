@@ -445,8 +445,8 @@ declare namespace grunt {
              * File paths are relative to the Gruntfile unless the current working directory is changed with
              * grunt.file.setBase or the --base command-line option.
              */
-            expand(patterns: string[]): string[];
-            expand(options: IFilesConfig, patterns: string[]): string[];
+            expand(patterns: string | string[]): string[];
+            expand(options: IFilesConfig, patterns: string | string[]): string[];
 
             /**
              * Returns an array of src-dest file mapping objects.
@@ -595,6 +595,12 @@ declare namespace grunt {
             // filter?: string
             // filter?: (src: string) => boolean
             filter?: any;
+
+            /**
+             * Patterns will be matched relative to this path, and all returned filepaths will
+             * also be relative to this path.
+             */
+            cwd?: string;
         }
 
         /**

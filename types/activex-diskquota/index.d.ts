@@ -1,8 +1,10 @@
-// Type definitions for DiskQuotaTypeLibrary 1.0
+// Type definitions for non-npm package DiskQuotaTypeLibrary 1.0
 // Project: https://msdn.microsoft.com/en-us/library/windows/desktop/bb773938(v=vs.85).aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
+// TypeScript Version: 2.6
+
+/// <reference types="activex-interop" />
 
 declare namespace DiskQuotaTypeLibrary {
     // tslint:disable-next-line no-const-enum
@@ -136,7 +138,6 @@ interface ActiveXObject {
     on(
         obj: DiskQuotaTypeLibrary.DiskQuotaControl, event: 'OnUserNameChanged', argNames: ['pUser'], handler: (
             this: DiskQuotaTypeLibrary.DiskQuotaControl, parameter: {readonly pUser: DiskQuotaTypeLibrary.DIDiskQuotaUser}) => void): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {
@@ -145,8 +146,4 @@ interface ActiveXObjectNameMap {
 
 interface EnumeratorConstructor {
     new(col: DiskQuotaTypeLibrary.DiskQuotaControl): Enumerator<DiskQuotaTypeLibrary.DIDiskQuotaUser>;
-}
-
-interface SafeArray<T = any> {
-    _brand: SafeArray<T>;
 }

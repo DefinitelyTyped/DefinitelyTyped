@@ -15,7 +15,11 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "paths": {
+            "got": [
+                "got/v8"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

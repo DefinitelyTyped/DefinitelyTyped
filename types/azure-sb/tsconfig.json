@@ -14,8 +14,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "lib/servicebusservice.d.ts",
@@ -31,6 +30,7 @@
         "lib/models/subscriptionresult.d.ts",
         "lib/models/notificationhubresult.d.ts",
         "lib/models/resourceresult.d.ts",
+        "lib/serviceclient.d.ts",
         "lib/servicebusserviceclient.d.ts",
         "lib/gcmservice.d.ts",
         "lib/wnsservice.d.ts",

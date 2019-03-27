@@ -4,7 +4,7 @@
         "lib": [
             "es6"
         ],
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
@@ -14,8 +14,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

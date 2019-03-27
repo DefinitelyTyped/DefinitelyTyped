@@ -1,34 +1,51 @@
-// Type definitions for koa-websocket 2.1
+// Type definitions for koa-websocket 5.0
 // Project: https://github.com/kudos/koa-websocket
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Maël Lavault <https://github.com/moimael>
+//                 Jaco Greeff <https://github.com/jacogr>
+//                 Martin Ždila <https://github.com/zdila>
+//                 Eunchong Yu <https://github.com/Kroisse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import Koa = require('koa');
+import compose = require('koa-compose');
 import * as ws from 'ws';
 import * as http from 'http';
 import * as https from 'https';
 
-type KoaWebsocketConnectionHandler = (socket: ws) => void;
-type KoaWebsocketMiddleware = (this: KoaWebsocketMiddlewareContext, context: Koa.Context, next: () => Promise<any>) => any;
-interface KoaWebsocketMiddlewareContext extends Koa.Context {
-    websocket: ws;
-    path: string;
+declare module "koa" {
+    interface Context {
+        websocket: ws;
+        path: string;
+    }
 }
 
-declare class KoaWebsocketServer {
-    app: Koa;
-    middleware: Koa.Middleware[];
+declare namespace KoaWebsocket {
+    type Middleware = compose.Middleware<MiddlewareContext>;
 
-    constructor(app: Koa);
-    listen(server: http.Server | https.Server): ws.Server;
-    onConnection(handler: KoaWebsocketConnectionHandler): void;
-    use(middleware: KoaWebsocketMiddleware): this;
+    interface MiddlewareContext extends Koa.Context {
+        // Limitation: Declaration merging cannot overwrap existing properties.
+        // That's why this property is here, not in the merged declaration above.
+        app: App;
+    }
+
+    class Server {
+        app: App;
+        middleware: Middleware[];
+        server?: ws.Server;
+
+        constructor(app: Koa);
+
+        listen(options: ws.ServerOptions): ws.Server;
+        onConnection(socket: ws, request: http.IncomingMessage): void;
+        use(middleware: Middleware): this;
+    }
+
+    interface App extends Koa {
+        ws: Server;
+    }
 }
 
-interface KoaWebsocketApp extends Koa {
-    ws: KoaWebsocketServer;
-}
+declare function KoaWebsocket(app: Koa, wsOptions?: ws.ServerOptions, httpsOptions?: https.ServerOptions): KoaWebsocket.App;
 
-declare function websockets(app: Koa): KoaWebsocketApp;
-export = websockets;
+export = KoaWebsocket;

@@ -83,11 +83,13 @@ function totalling() {
 
 function other_samples() {
 	var t = new Table();
+	var columns = Object.freeze(t.columns());
 
 	data.forEach(product => {
 		t.cell('Product Id', product.id)
 		t.cell('Description', product.desc)
 		t.cell('Price, USD', product.price, Table.number(2))
+		t.pushDelimeter(columns)
 		t.newRow()
 	})
 

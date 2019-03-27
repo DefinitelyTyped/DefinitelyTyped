@@ -1,6 +1,7 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-type InputType =
+export type InputType =
   | 'text'
   | 'email'
   | 'select'
@@ -27,18 +28,19 @@ type InputType =
   | 'time'
   | 'color';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export type InputProps<T = {}> = React.InputHTMLAttributes<HTMLInputElement> & {
   type?: InputType;
   bsSize?: 'lg' | 'sm';
   state?: string;
   valid?: boolean;
+  invalid?: boolean;
   tag?: React.ReactType;
-  innerRef?: string | ((instance: HTMLInputElement) => any);
+  innerRef?: React.Ref<HTMLInputElement>;
   plaintext?: boolean;
   addon?: boolean;
   className?: string;
   cssModule?: CSSModule;
-}
+} & T;
 
-declare const Input: React.StatelessComponent<InputProps>;
+declare class Input<T> extends React.Component<InputProps<T>> {}
 export default Input;

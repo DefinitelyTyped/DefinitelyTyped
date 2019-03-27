@@ -1,8 +1,9 @@
 // Type definitions for croppie 2.5
-// Project: https://github.com/Foliotek/Croppie
+// Project: https://github.com/Foliotek/Croppie, http://foliotek.github.io/croppie
 // Definitions by: Connor Peet <https://github.com/connor4312>
 //                 dklmuc <https://github.com/dklmuc>
 //                 Sarun Intaralawan <https://github.com/sarunint>
+//                 Knut Erik Helgesen <https://github.com/knuthelgesen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace Croppie;
@@ -25,6 +26,8 @@ declare class Croppie {
     result(options: Croppie.ResultOptions & { type: 'blob' }): Promise<Blob>;
     result(options: Croppie.ResultOptions & { type: 'rawcanvas' }): Promise<HTMLCanvasElement>;
     result(options?: Croppie.ResultOptions): Promise<HTMLCanvasElement>;
+
+    get(): Croppie.CropData;
 
     rotate(degrees: 90 | 180 | 270 | -90 | -180 | -270): void;
 
@@ -58,5 +61,11 @@ declare namespace Croppie {
         mouseWheelZoom?: boolean;
         showZoomer?: boolean;
         viewport?: { width: number, height: number, type?: CropType };
+    }
+
+    interface CropData {
+        points?: number[];
+        orientation?: number;
+        zoom?: number;
     }
 }

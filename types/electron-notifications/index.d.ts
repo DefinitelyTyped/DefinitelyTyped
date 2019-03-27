@@ -2,7 +2,7 @@
 // Project: https://github.com/blainesch/electron-notifications
 // Definitions by: Daniel Pereira <https://github.com/djpereira>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 import * as Electron from 'electron';
 

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,14 +27,12 @@ import { MDCSelectionControlState } from 'material__selection-control';
  * Implement this adapter for your framework of choice to delegate updates to
  * the component in your framework of choice. See architecture documentation
  * for more details.
- * https://github.com/material-components/material-components-web/blob/master/docs/architecture.md
+ * https://github.com/material-components/material-components-web/blob/master/docs/code/architecture.md
  */
-export class MDCRadioAdapter {
+export default interface MDCRadioAdapter {
     addClass(className: string): void;
 
     removeClass(className: string): void;
 
     getNativeControl(): MDCSelectionControlState;
 }
-
-export default MDCRadioAdapter;

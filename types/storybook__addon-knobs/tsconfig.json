@@ -24,11 +24,13 @@
         },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "angular.d.ts",
         "index.d.ts",
-        "storybook__addon-knobs-tests.tsx"
+        "react.d.ts",
+        "storybook__addon-knobs-tests.tsx",
+        "vue.d.ts"
     ]
 }

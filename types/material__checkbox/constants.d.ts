@@ -6,7 +6,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- import { MDCStrings, MDCNumbers } from 'material__base';
+import { MDCStrings, MDCNumbers } from 'material__base';
 
 export interface cssClasses extends MDCStrings {
     UPGRADED: 'mdc-checkbox--upgraded';
@@ -35,8 +35,10 @@ export interface strings extends MDCStrings {
     TRANSITION_STATE_CHECKED: 'checked';
     TRANSITION_STATE_UNCHECKED: 'unchecked';
     TRANSITION_STATE_INDETERMINATE: 'indeterminate';
+    ARIA_CHECKED_ATTR: 'aria-checked';
+    ARIA_CHECKED_INDETERMINATE_VALUE: 'mixed';
 }
 
 export interface numbers extends MDCNumbers {
-    ANIM_END_LATCH_MS: 100;
+    ANIM_END_LATCH_MS: 250;
 }

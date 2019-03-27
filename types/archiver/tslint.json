@@ -3,6 +3,7 @@
     "rules": {
         // TODOs
         "ban-types": false,
+        "npm-naming": false,
         "dt-header": false
     }
 }

@@ -1,8 +1,8 @@
-// Type definitions for assets-webpack-plugin 3.5
-// Project: https://github.com/sporto/assets-webpack-plugin
+// Type definitions for assets-webpack-plugin 3.9
+// Project: https://github.com/ztoben/assets-webpack-plugin
 // Definitions by: Michael Strobel <https://github.com/kryops>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as webpack from 'webpack';
 
@@ -17,16 +17,34 @@ declare namespace AssetsWebpackPlugin {
 
     interface Options {
         /**
+         * If the "entrypoints" option is given, the output will be limited to the entrypoints and the chunks associated with them.
+         * false by default
+         */
+        entrypoints?: boolean;
+
+        /**
          * Name for the created json file.
          * "webpack-assets.json" by default
          */
         filename?: string;
 
         /**
+         * When set and "includeAllFileTypes" is set false, only assets matching these types will be included in the assets file.
+         * ['js', 'css'] by default
+         */
+        fileTypes?: string[];
+
+        /**
          * If false the output will not include the full path of the generated file.
          * true by default
          */
         fullPath?: boolean;
+
+        /**
+         * When set false, falls back to the "fileTypes" option array to decide which file types to include in the assets file.
+         * true by default
+         */
+        includeAllFileTypes?: boolean;
 
         /**
          * Inserts the manifest javascript as a text property in your assets.
@@ -37,6 +55,19 @@ declare namespace AssetsWebpackPlugin {
          * false by default
          */
         includeManifest?: boolean;
+
+        /**
+         * When set the assets file will only be generated in memory while running webpack-dev-server and not written to disk.
+         * false by default
+         */
+        keepInMemory?: boolean;
+
+        /**
+         * Orders the assets output so that manifest is the first entry.
+         * This is useful for cases where script tags are generated from the assets json output, and order of import is important.
+         * false by default
+         */
+        manifestFirst?: boolean;
 
         /**
          * Inject metadata into the output file. All values will be injected into the key "metadata"
@@ -66,6 +97,12 @@ declare namespace AssetsWebpackPlugin {
          * false by default
          */
         update?: boolean;
+
+        /**
+         * Will override the path to use the compiler output path set in your webpack config.
+         * false by default
+         */
+        useCompilerPath?: boolean;
     }
 }
 

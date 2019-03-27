@@ -1,5 +1,5 @@
 declare namespace pc {
-    type ComponentTypes = 'animation' | 'audiolistner' | 'camera' | 'collision' |
+    type ComponentTypes = 'animation' | 'audiolistener' | 'camera' | 'collision' |
         'element' | 'light' | 'model' | 'particlesystem' |
         'rigidbody' | 'screen' | 'script' | 'sound' | 'zone';
 
@@ -54,6 +54,8 @@ declare namespace pc {
         constructor(name?: string, app?: pc.Application)
         constructor(app?: pc.Application)
 
+        private _app: pc.Application;
+
         /**
          * @function
          * @name pc.Entity#addComponent
@@ -102,13 +104,12 @@ declare namespace pc {
         removeComponent(type: pc.ComponentTypes): void;
 
         /**
-         * @private
          * @function
          * @name pc.Entity#getGuid
          * @description Get the GUID value for this Entity
          * @returns {String} The GUID of the Entity
          */
-        private getGuid(): string;
+        public getGuid(): string;
 
         /**
          * @private
@@ -168,11 +169,11 @@ declare namespace pc {
         *   this.entity.parent.addChild(e); // Add it as a sibling to the original
         */
         clone(): pc.Entity;
-                
+
 
         // Possible attached components
         animation: pc.AnimationComponent;
-        audiolistner: pc.AudioListenerComponent;
+        audiolistener: pc.AudioListenerComponent;
         camera: pc.CameraComponent;
         collision: pc.CollisionComponent;
         element: pc.ElementComponent;

@@ -1,6 +1,8 @@
-// Type definitions for node-rsa 0.4
+// Type definitions for node-rsa 1.0
 // Project: https://github.com/rzcoder/node-rsa
 // Definitions by: Ali Taheri <https://github.com/alitaheri>
+//                 Christian Moniz <https://github.com/xm>
+//                 Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -18,20 +20,28 @@ declare class NodeRSA {
     constructor(key: NodeRSA.Key, format?: NodeRSA.Format, options?: NodeRSA.Options);
 
     /**
+     * Set and validate options for key instance.
+     */
+    setOptions(options: NodeRSA.Options): void;
+
+    /**
      * @param bits Key size in bits. 2048 by default.
      * @param exponent public exponent. 65537 by default.
      */
-    generateKeyPair(bits?: number, exponent?: number): void;
+    generateKeyPair(bits?: number, exponent?: number): NodeRSA;
 
     /**
      * Import key from PEM string, PEM/DER Buffer or components.
      */
-    importKey(key: NodeRSA.Key, format?: NodeRSA.Format): void;
+    importKey(key: NodeRSA.Key, format?: NodeRSA.Format): NodeRSA;
 
     /**
      * Export key to PEM string, PEM/DER Buffer or components.
      */
-    exportKey(format?: NodeRSA.Format): NodeRSA.Key;
+    exportKey(format?: NodeRSA.FormatPem): string;
+    exportKey(format: NodeRSA.FormatDer): Buffer;
+    exportKey(format: NodeRSA.FormatComponentsPrivate): NodeRSA.KeyComponentsPrivate;
+    exportKey(format: NodeRSA.FormatComponentsPublic): NodeRSA.KeyComponentsPublic;
 
     isPrivate(): boolean;
 
@@ -85,28 +95,33 @@ declare class NodeRSA {
 }
 
 declare namespace NodeRSA {
-    type Key = string | Buffer | KeyComponents;
+    type Key = string | Buffer | KeyComponentsPrivate | KeyComponentsPublic;
     type Data = string | object | any[];
 
-    type Format =
+    type FormatPem =
         | 'private' | 'public'
-        | 'pkcs1' | 'pkcs1-pem' | 'pkcs1-der'
-        | 'pkcs1-private' | 'pkcs1-private-pem' | 'pkcs1-private-der'
-        | 'pkcs1-public' | 'pkcs1-public-pem' | 'pkcs1-public-der'
-        | 'pkcs8' | 'pkcs8-pem' | 'pkcs8-der'
-        | 'pkcs8-private' | 'pkcs8-private-pem' | 'pkcs8-private-der'
-        | 'pkcs8-public' | 'pkcs8-public-pem' | 'pkcs8-public-der'
+        | 'pkcs1' | 'pkcs1-pem'
+        | 'pkcs1-private' | 'pkcs1-private-pem'
+        | 'pkcs1-public' | 'pkcs1-public-pem'
+        | 'pkcs8' | 'pkcs8-pem'
+        | 'pkcs8-private' | 'pkcs8-private-pem'
+        | 'pkcs8-public' | 'pkcs8-public-pem';
+    type FormatDer =
+        | 'pkcs1-der' | 'pkcs1-private-der' | 'pkcs1-public-der'
+        | 'pkcs8-der' | 'pkcs8-private-der' | 'pkcs8-public-der';
+    type FormatComponentsPrivate =
         | 'components' | 'components-pem' | 'components-der'
-        | 'components-private' | 'components-private-pem' | 'components-private-der'
+        | 'components-private' | 'components-private-pem' | 'components-private-der';
+    type FormatComponentsPublic =
         | 'components-public' | 'components-public-pem' | 'components-public-der';
+    type Format = FormatPem | FormatDer | FormatComponentsPrivate | FormatComponentsPublic;
 
     type EncryptionScheme = 'pkcs1_oaep' | 'pkcs1';
 
     type HashingAlgorithm =
         | 'ripemd160'
         | 'md4' | 'md5'
-        | 'sha' | 'sha1'
-        | 'sha224' | 'sha256' | 'sha384' | 'sha512';
+        | 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
 
     type SigningScheme = 'pkcs1' | 'pss';
 
@@ -124,7 +139,7 @@ declare namespace NodeRSA {
         | 'ascii' | 'utf8' | 'utf16le' | 'ucs2' | 'latin1'
         | 'base64' | 'hex' | 'binary' | 'buffer';
 
-    interface KeyComponents {
+    interface KeyComponentsPrivate {
         n: Buffer;
         e: Buffer | number;
         d: Buffer;
@@ -133,6 +148,11 @@ declare namespace NodeRSA {
         dmp1: Buffer;
         dmq1: Buffer;
         coeff: Buffer;
+    }
+
+    interface KeyComponentsPublic {
+        n: Buffer;
+        e: Buffer | number;
     }
 
     interface KeyBits {

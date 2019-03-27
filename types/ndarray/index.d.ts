@@ -1,5 +1,5 @@
 // Type definitions for ndarray 1.0
-// Project: https://github.com/scijs/ndarray
+// Project: https://github.com/scijs/ndarray, https://github.com/mikolalysenko/ndarray
 // Definitions by: Giff Song <https://github.com/pawsong>, taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -24,7 +24,7 @@ interface ndarray<T = number> {
 	hi(...args: number[]): ndarray<T>;
 	step(...args: number[]): ndarray<T>;
 	transpose(...args: number[]): ndarray<T>;
-	pick(...args: number[]): ndarray<T>;
+	pick(...args: Array<number | null>): ndarray<T>;
 	reshape(...shapes: number[]): ndarray<T>;
 	T: ndarray<T>;
 }

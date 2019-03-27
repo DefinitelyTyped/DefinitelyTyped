@@ -1,6 +1,7 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface FadeProps {
+export type FadeProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   in?: boolean;
   baseClass?: string;
   baseClassIn?: string;
@@ -15,7 +16,7 @@ export interface FadeProps {
   transitionLeave?: boolean;
   onLeave?: () => void;
   onEnter?: () => void;
-}
+} & T;
 
-declare const Fade: React.StatelessComponent<FadeProps>;
+declare class Fade<T = {[key: string]: any}> extends React.Component<FadeProps<T>> {}
 export default Fade;

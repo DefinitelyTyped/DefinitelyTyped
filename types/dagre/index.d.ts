@@ -1,5 +1,5 @@
 // Type definitions for dagre 0.7
-// Project: https://github.com/cpettitt/dagre
+// Project: https://github.com/dagrejs/dagre
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
 //                 Lisa Vallfors <https://github.com/Frankrike>
 //                 Pete Vilter <https://github.com/vilterp>
@@ -95,15 +95,15 @@ export interface NodeConfig {
 }
 
 export interface EdgeConfig {
-    minlen: number;
-    weight: number;
-    width: number;
-    height: number;
-    lablepos: 'l'|'c'|'r';
-    labeloffest: number;
+    minlen?: number;
+    weight?: number;
+    width?: number;
+    height?: number;
+    lablepos?: 'l'|'c'|'r';
+    labeloffest?: number;
 }
 
-export function layout(graph: graphlib.Graph, layout?: GraphLabel&NodeConfig&EdgeConfig): void;
+export function layout(graph: graphlib.Graph, layout?: GraphLabel & NodeConfig & EdgeConfig): void;
 
 export interface Edge {
     v: string;

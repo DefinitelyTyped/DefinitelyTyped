@@ -1,4 +1,4 @@
-// Type definitions for Media Session API 1.0
+// Type definitions for non-npm package Media Session API 1.0
 // Project: https://wicg.github.io/mediasession/
 // Definitions by: Julien CROUZET <https://github.com/jucrouzet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,10 +19,10 @@ interface MediaSession {
   // Current media session playback state.
   playbackState: MediaSessionPlaybackState;
   // Current media session meta data.
-  metadata?: MediaMetadata|null;
+  metadata: MediaMetadata|null;
 
   // Set/Unset actions handlers.
-  setActionHandler(action: MediaSessionAction, listener?: () => void): void;
+  setActionHandler(action: MediaSessionAction, listener: (() => void)|null): void;
 }
 
 interface MediaImage {

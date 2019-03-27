@@ -1,9 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
+        "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
@@ -15,13 +13,15 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
         "test/index.tsx",
+        "test/globals.tsx",
         "test/animated.tsx",
-        "test/init-example.tsx"
+        "test/init-example.tsx",
+        "test/ART.tsx",
+        "test/legacy-properties.tsx"
     ]
 }

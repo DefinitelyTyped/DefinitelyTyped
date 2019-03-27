@@ -18,34 +18,39 @@ export declare function arraySplice(form: string, field: string, index: number, 
 export declare function arraySwap(form: string, field: string, indexA: number, indexB: number): FormAction;
 export declare function arrayUnshift(form: string, field: string, value: any): FormAction;
 export declare function autofill(form: string, field: string, value: any): FormAction;
-export declare function blur(form: string, field: string, value: any): FormAction;
-export declare function change(form: string, field: string, value: any): FormAction;
+export declare function blur(form: string, field: string, value: any, touch?: boolean): FormAction;
+export declare function change(form: string, field: string, value: any, touch?: boolean, persistentSubmitErrors?: boolean): FormAction;
 export declare function destroy(...form: string[]): FormAction;
 export declare function focus(form: string, field: string): FormAction;
 
 export interface InitializeOptions {
     keepDirty: boolean;
     keepSubmitSucceeded: boolean;
+    updateUnregisteredFields: boolean;
+    keepValues: boolean;
 }
 
-export declare function initialize(form: string, data: any, keepDirty?: boolean | InitializeOptions, options?: InitializeOptions): FormAction;
+export declare function initialize(form: string, data: any, keepDirty?: boolean, options?: Partial<InitializeOptions>): FormAction;
+export declare function initialize(form: string, data: any, options?: Partial<InitializeOptions>): FormAction;
 export declare function registerField(form: string, name: string, type: FieldType): FormAction;
 export declare function reset(form: string): FormAction;
+export declare function resetSection(form: string, ...sections: string[]): FormAction;
 export declare function startAsyncValidation(form: string): FormAction;
-export declare function stopAsyncValidation(form: string, errors?: any): FormAction;
+export declare function stopAsyncValidation(form: string, errors?: FormErrors<any, any>): FormAction;
 export declare function setSubmitFailed(form: string, ...fields: string[]): FormAction;
 export declare function setSubmitSucceeded(form: string, ...fields: string[]): FormAction;
 export declare function startSubmit(form: string): FormAction;
-export declare function stopSubmit(form: string, errors?: any): FormAction;
+export declare function stopSubmit(form: string, errors?: FormErrors<any, any>): FormAction;
 export declare function submit(form: string): FormAction;
 export declare function clearSubmit(form: string): FormAction;
 export declare function clearSubmitErrors(form: string): FormAction;
 export declare function clearAsyncError(form: string, field: string): FormAction;
+export declare function clearFields(form: string, keepTouched: boolean, persistentSubmitErrors: boolean, ...fields: string[]): FormAction;
 export declare function touch(form: string, ...fields: string[]): FormAction;
 export declare function unregisterField(form: string, name: string): FormAction;
 export declare function untouch(form: string, ...fields: string[]): FormAction;
-export declare function updateSyncErrors(from: string, syncErrors: FormErrors<FormData>, error: any): FormAction;
-export declare function updateSyncWarnings(form: string, syncWarnings: FormWarnings<FormData>, warning: any): FormAction;
+export declare function updateSyncErrors<T = any>(from: string, syncErrors: FormErrors<any, T>, error: T): FormAction;
+export declare function updateSyncWarnings<T = any>(form: string, syncWarnings: FormWarnings<any, T>, warning: T): FormAction;
 
 declare const actions: {
     arrayInsert: typeof arrayInsert,
@@ -64,6 +69,7 @@ declare const actions: {
     clearSubmit: typeof clearSubmit,
     clearSubmitErrors: typeof clearSubmitErrors,
     clearAsyncError: typeof clearAsyncError,
+    clearFields: typeof clearFields,
     destroy: typeof destroy,
     focus: typeof focus,
     initialize: typeof initialize,

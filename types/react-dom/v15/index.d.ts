@@ -5,7 +5,7 @@
 //                 Microsoft <https://microsoft.com>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 export as namespace ReactDOM;
 
@@ -15,7 +15,7 @@ import {
     DOMAttributes, DOMElement
 } from 'react';
 
-export function findDOMNode<E extends Element>(instance: ReactInstance): E;
+export function findDOMNode<E extends Element>(instance: ReactInstance | null | undefined): E;
 export function findDOMNode(instance: ReactInstance): Element;
 
 export function render<P extends DOMAttributes<T>, T extends Element>(

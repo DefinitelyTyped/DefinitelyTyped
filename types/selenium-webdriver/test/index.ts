@@ -1,8 +1,10 @@
 import * as webdriver from 'selenium-webdriver';
 import * as chrome from 'selenium-webdriver/chrome';
+import * as edge from 'selenium-webdriver/edge';
 import * as firefox from 'selenium-webdriver/firefox';
 import * as http from 'selenium-webdriver/http';
 import * as remote from 'selenium-webdriver/remote';
+import * as safari from 'selenium-webdriver/safari';
 import * as testing from 'selenium-webdriver/testing';
 
 function TestBuilder() {
@@ -18,16 +20,25 @@ function TestBuilder() {
 
     builder = builder.setAlertBehavior('behavior');
     builder = builder.setChromeOptions(new chrome.Options());
+    builder = builder.setChromeService(new chrome.ServiceBuilder());
     builder = builder.setControlFlow(new webdriver.promise.ControlFlow());
+    builder = builder.setEdgeOptions(new edge.Options());
+    builder = builder.setEdgeService(new edge.ServiceBuilder());
     builder = builder.setEnableNativeEvents(true);
     builder = builder.setFirefoxOptions(new firefox.Options());
+    builder = builder.setFirefoxService(new firefox.ServiceBuilder());
     builder = builder.setLoggingPrefs(new webdriver.logging.Preferences());
     builder = builder.setLoggingPrefs({ key: 'value' });
     builder = builder.setProxy({ proxyType: 'type' });
+    builder = builder.setSafariOptions(new safari.Options());
     builder = builder.setScrollBehavior(1);
     builder = builder.usingServer('http://someserver');
     builder = builder.withCapabilities(new webdriver.Capabilities());
     builder = builder.withCapabilities({ something: true });
+
+    const chromeOptions: chrome.Options = builder.getChromeOptions();
+    const firefoxOptions: firefox.Options = builder.getFirefoxOptions();
+    const safariOptions: safari.Options = builder.getSafariOptions();
 }
 
 declare const promise: webdriver.promise.Promise<string>;
@@ -747,6 +758,12 @@ function TestLogging() {
     type = webdriver.logging.Type.DRIVER;
     type = webdriver.logging.Type.PERFORMANCE;
     type = webdriver.logging.Type.SERVER;
+
+    let logger: webdriver.logging.Logger = webdriver.logging.getLogger();
+    webdriver.logging.addConsoleHandler();
+    webdriver.logging.addConsoleHandler(logger);
+    webdriver.logging.removeConsoleHandler();
+    webdriver.logging.removeConsoleHandler(logger);
 }
 
 function TestLoggingEntry() {

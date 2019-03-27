@@ -2,14 +2,18 @@ import * as passport from 'passport';
 import express = require('express');
 import 'express-session';
 
-class TestStrategy implements passport.Strategy {
+class TestStrategy extends passport.Strategy {
     name = 'test';
-    constructor() { }
-    authenticate(this: passport.StrategyCreated<this>, req: express.Request) {
+
+    authenticate(req: express.Request) {
         const user: TestUser = {
             id: 0,
         };
-        this.success(user);
+        if (Math.random() > 0.5) {
+            this.fail();
+        } else {
+            this.success(user);
+        }
     }
 }
 
@@ -70,6 +74,12 @@ app.configure(() => {
 
 app.post('/login',
     passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
+    (req, res) => {
+        res.redirect('/');
+    });
+
+app.post('/login',
+    passport.authorize('local', { failureRedirect: '/login', failureFlash: true }),
     (req, res) => {
         res.redirect('/');
     });
@@ -137,3 +147,23 @@ passportInstance.use(new TestStrategy());
 
 const authenticator = new passport.Authenticator();
 authenticator.use(new TestStrategy());
+
+declare global {
+    namespace Express {
+        interface User {
+            username: string;
+        }
+    }
+}
+
+app.use((req: express.Request, res: express.Response, next: (err?: any) => void) => {
+    if (req.user) {
+        if (req.user.username) {
+            req.user.username = "hello user";
+        }
+        if (req.user.id) {
+            req.user.id = "123";
+        }
+    }
+    next();
+});

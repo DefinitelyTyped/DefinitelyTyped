@@ -1,7 +1,8 @@
 // Type definitions for D3JS d3-brush module 1.0
-// Project: https://github.com/d3/d3-brush/
+// Project: https://github.com/d3/d3-brush/, https://d3js.org/d3-brush
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Last module patch version validated against: 1.0.3
 
@@ -195,21 +196,21 @@ export interface BrushBehavior<Datum> {
  * Create a new two-dimensional brush.
  *
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
- * which the returned BrushBEhavoir will be applied.
+ * which the returned BrushBehavior will be applied.
  */
 export function brush<Datum>(): BrushBehavior<Datum>;
 /**
  * Creates a new one-dimensional brush along the x-dimension.
  *
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
- * which the returned BrushBEhavoir will be applied.
+ * which the returned BrushBehavior will be applied.
  */
 export function brushX<Datum>(): BrushBehavior<Datum>;
 /**
  * Creates a new one-dimensional brush along the y-dimension.
  *
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
- * which the returned BrushBEhavoir will be applied.
+ * which the returned BrushBehavior will be applied.
  */
 export function brushY<Datum>(): BrushBehavior<Datum>;
 

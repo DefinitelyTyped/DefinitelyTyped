@@ -1,8 +1,8 @@
 // Type definitions for react-gravatar 2.6
-// Project: http://kyleamathews.github.io/react-gravatar/
+// Project: http://kyleamathews.github.io/react-gravatar/, https://github.com/kyleamathews/react-gravatar
 // Definitions by: invliD <https://github.com/invliD>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -25,7 +25,7 @@ declare namespace Gravatar {
 	type DefaultImage = "404" | "mm" | "identicon" | "monsterid" | "wavatar" | "retro" | "blank";
 	type Rating = "g" | "pg" | "r" | "x";
 
-	interface Props {
+	interface Props extends Partial<JSX.IntrinsicElements['img']> {
 		/**
 		 * The email address used to look up the Gravatar image.
 		 * If you wish to avoid sending an email address to the client, you can compute the md5 hash on the server and

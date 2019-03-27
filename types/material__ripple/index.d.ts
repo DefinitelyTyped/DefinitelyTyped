@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.26
-// Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>
+// Type definitions for Material Components Web 0.35
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -26,24 +26,22 @@ import MDCRippleAdapter from './adapter';
 import MDCRippleFoundation from './foundation';
 import * as util from './util';
 
-export {MDCRippleAdapter, MDCRippleFoundation, util};
+export { MDCRippleAdapter, MDCRippleFoundation, util };
 
 export class MDCRipple extends MDCComponent<MDCRippleAdapter, MDCRippleFoundation> {
-  static attachTo(root: Element, bound?: {isUnbounded: boolean|undefined}): MDCRipple;
+    static attachTo(root: Element, options?: { isUnbounded?: boolean; }): MDCRipple;
 
-  static createAdapter(instance: RippleCapableSurface): MDCRippleAdapter;
+    static createAdapter(instance: RippleCapableSurface): MDCRippleAdapter;
 
-  unbounded: boolean;
+    unbounded: boolean;
 
-  activate(): void;
+    activate(): void;
 
-  deactivate(): void;
+    deactivate(): void;
 
-  layout(): void;
+    layout(): void;
 
-  getDefaultFoundation(): MDCRippleFoundation;
-
-  initialSyncWithDOM(): void;
+    initialSyncWithDOM(): void;
 }
 
 /**
@@ -57,10 +55,10 @@ export class RippleCapableSurface {
     /**
      * Whether or not the ripple bleeds out of the bounds of the element.
      */
-    unbounded: boolean|undefined;
+    unbounded: boolean | undefined;
 
     /**
      * Whether or not the ripple is attached to a disabled component.
      */
-    disabled: boolean|undefined;
+    disabled: boolean | undefined;
 }

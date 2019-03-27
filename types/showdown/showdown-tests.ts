@@ -6,6 +6,7 @@
 import showdown = require('showdown');
 
 var exampleMarkdown = '#hello, markdown',
+    exampleHTML = '<h1>hello, markdown</h1>',
     converter = new showdown.Converter();
 
 var myExt: showdown.ShowdownExtension = { type: 'output', filter: (text, converter) => { return text.replace('#', '*') } };
@@ -17,6 +18,13 @@ var preloadedExtensions = [ 'my-ext' ],
 var configuredConverter = new showdown.Converter();
     configuredConverter.addExtension({type: 'output', filter: (text, converter)=>{return text.replace('#', '*')}}, 'myext');
 
+configuredConverter.addExtension([
+  {type: 'output', filter: (text, converter)=>{return text.replace('#', '*')}},
+  {type: 'output', filter: (text, converter)=>{return text.replace('#', '*')}}
+], 'myext');
+
+console.log(showdown.helper);
+
 console.log(converter.makeHtml(exampleMarkdown));
 // should log '<h1 id="hellomarkdown">hello, markdown</h1>'
 
@@ -26,6 +34,9 @@ console.log(extensionsConverter.makeHtml(exampleMarkdown));
 console.log(configuredConverter.makeHtml(exampleMarkdown));
 // should log '<p>*hello, markdown</p>'
 
+
+console.log(converter.makeMarkdown(exampleHTML));
+// should log '#hello, markdown'
 
 showdown.extension('myExt', function () {
   var matches: string[] = [];

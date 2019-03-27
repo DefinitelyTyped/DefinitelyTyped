@@ -1,9 +1,5 @@
 import * as mongoose from 'mongoose';
 
-// test compatibility with other libraries
-import * as _ from 'lodash';
-var fs = require('fs');
-
 // dummy variables
 var cb = function () {};
 
@@ -137,6 +133,7 @@ conn1.openSet('mongodb://localhost/test', 'db', {
 conn1.close().catch(function (err) {});
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
+conn1.deleteModel('myModel');
 interface IStatics {
   staticMethod1: (a: number) => string;
 }
@@ -266,7 +263,7 @@ schema.method('name', cb).method({
 });
 schema.path('a', mongoose.Schema.Types.Buffer).path('a');
 schema.pathType('m1').toLowerCase();
-schema.plugin(function (schema, opts) {
+schema.plugin(function (schema: mongoose.Schema, opts?: any) {
   schema.get('path');
   if (opts) {
     opts.hasOwnProperty('');
@@ -428,7 +425,30 @@ new mongoose.Schema({
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-});
+}, {index: true});
+
+// plugins
+interface PluginOption {
+  modelName: string;
+  timestamp: string;
+}
+
+function logger(modelName: string, timestamp: string) {
+    // call special logger with options
+}
+
+function AwesomeLoggerPlugin(schema: mongoose.Schema, options?: PluginOption) {
+  if (options) {
+      schema.pre('save', function (next: Function) {
+          logger(options.modelName, options.timestamp)
+      })
+  }
+}
+
+new mongoose.Schema({})
+    .plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
+mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
 
 export default function(schema: mongoose.Schema) {
   schema.pre('init', function(this: mongoose.Document, next: (err?: Error) => void, data: any): void {
@@ -576,7 +596,7 @@ interface MyEntity extends mongoose.Document {
   sub: mongoose.Types.Array<MySubEntity>
 }
 var myEntity = <MyEntity> {};
-var subDocArray = _.filter(myEntity.sub, function (sd) {
+var subDocArray = myEntity.sub.filter(sd => {
   sd.property1;
   sd.property2.toLowerCase();
   return true;
@@ -743,6 +763,8 @@ query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, {
 }, cb);
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, cb);
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'});
+query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, { });
+query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, { upsert: true, new: true });
 query.findOneAndUpdate({name: 'bb'}, cb);
 query.findOneAndUpdate({name: 'bb'});
 query.findOneAndUpdate(cb);
@@ -1371,6 +1393,7 @@ MongoModel.findByIdAndRemove(999);
 MongoModel.findByIdAndRemove();
 MongoModel.findByIdAndUpdate(999, {}, {}, cb);
 MongoModel.findByIdAndUpdate(999, {}, {});
+MongoModel.findByIdAndUpdate(999, {}, { new: true, upsert: true }, cb);
 MongoModel.findByIdAndUpdate(999, {}, cb);
 MongoModel.findByIdAndUpdate(999, {});
 MongoModel.findByIdAndUpdate();
@@ -1399,6 +1422,7 @@ MongoModel.findOneAndRemove({});
 MongoModel.findOneAndRemove();
 MongoModel.findOneAndUpdate({}, {}, {}, cb);
 MongoModel.findOneAndUpdate({}, {}, {});
+MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true });
 MongoModel.findOneAndUpdate({}, {}, cb);
 MongoModel.findOneAndUpdate({}, {});
 MongoModel.findOneAndUpdate();
@@ -1471,7 +1495,7 @@ MongoModel.update({ name: 'Tobi' }, { ferret: true }, { multi: true }, cb);
 MongoModel.where('age').gte(21).lte(65).exec(cb);
 MongoModel.where('age').gte(21).lte(65).where('name', /^b/i);
 new (mongoModel.base.model(''))();
-mongoModel.baseModelName.toLowerCase();
+mongoModel.baseModelName && mongoModel.baseModelName.toLowerCase();
 mongoModel.collection.$format(99);
 mongoModel.collection.initializeOrderedBulkOp;
 mongoModel.collection.findOne;

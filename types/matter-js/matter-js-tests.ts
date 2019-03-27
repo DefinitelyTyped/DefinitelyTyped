@@ -6,9 +6,13 @@ var Engine = Matter.Engine,
 	Composites = Matter.Composites,
 	Constraint = Matter.Constraint,
 	Events = Matter.Events,
-	Query = Matter.Query;
-	
-	
+	Query = Matter.Query,
+    Plugin = Matter.Plugin;
+    
+
+Matter.use('matter-attractors');
+Plugin.use(Matter, ["matter-wrap"]);
+
 var engine = Engine.create();
 
 //Bodies
@@ -38,7 +42,8 @@ World.add(engine.world, stack);
 var constraint1 = Constraint.create({
 	bodyA: box1,
 	bodyB: box2,
-	stiffness: 0.02
+	stiffness: 0.02,
+	damping: 0.01
 });
 
 //Query 

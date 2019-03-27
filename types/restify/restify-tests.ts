@@ -50,6 +50,7 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.userAgent() === 'test';
     req.startHandlerTimer('test');
     req.endHandlerTimer('test');
+    req.absoluteUri('test');
 
     const log = req.log;
     log.debug({ params: req.params }, 'Hello there %s', 'foo');
@@ -84,6 +85,11 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     res.send({ hello: 'world' });
     res.send(201, { hello: 'world' });
     res.send(new Error('meh'));
+
+    res.set('header', 'value');
+    res.set({
+        headerName: 'value'
+    });
 
     res.json(201, { hello: 'world' });
     res.json({ hello: 'world' });
@@ -148,21 +154,28 @@ server.use(restify.plugins.throttle({
         }
     }
 }));
+server.use(restify.plugins.conditionalHandler([{
+    contentType: ['text/plain'],
+    handler: (req: restify.Request, res: restify.Response, next: restify.Next): void => {
+        res.send('OK');
+        next();
+    },
+    version: '0.0.0',
+}]));
 
 const logger = Logger.createLogger({ name: "test" });
 
 server.on('after', restify.plugins.auditLogger({ event: 'after', log: logger }));
 
 server.on('after', (req: restify.Request, res: restify.Response, route: restify.Route, err: any) => {
-    route.spec.method === 'GET';
-    route.spec.name === 'routeName';
-    route.spec.path === '/some/path';
-    route.spec.path === /\/some\/path\/.*/;
-    route.spec.versions === ['v1'];
+    route.method === 'GET';
+    route.name === 'routeName';
+    route.path === '/some/path';
+    route.path === /\/some\/path\/.*/;
     restify.plugins.auditLogger({ event: 'after', log: logger })(req, res, route, err);
 });
 
-(<any> restify).defaultResponseHeaders = function(this: restify.Request, data: any) {
+(restify as any).defaultResponseHeaders = function(this: restify.Request, data: any) {
     this.header('Server', 'helloworld');
 };
 
@@ -178,6 +191,8 @@ requestCaptureOptions.maxRequestIds = 500;
 requestCaptureOptions.dumpDefault = true;
 
 const requestCaptureStream = new restify.bunyan.RequestCaptureStream(requestCaptureOptions);
+requestCaptureStream.write(loggerStream);
+requestCaptureStream.toString();
 const asStream: stream.Stream = requestCaptureStream;
 
 const logger2: Logger = restify.bunyan.createLogger("horse");

@@ -8,4 +8,3 @@ interface Props {
 
 declare var CardBlock: React.StatelessComponent<Props>;
 export default CardBlock;
-

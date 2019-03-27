@@ -14,14 +14,18 @@
         ],
         "types": [],
         "paths": {
-            "boom": ["boom/v4"],
+            "boom": [
+                "boom/v4"
+            ],
+            "catbox": [
+                "catbox/v7"
+            ],
             "hapi": [
                 "hapi/v16"
             ]
         },
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
@@ -29,7 +33,6 @@
         "test/continuation/errors.ts",
         "test/getting-started/01-creating-a-server.ts",
         "test/getting-started/02-adding-routes.ts",
-        "test/getting-started/03-serving-static-content.ts",
         "test/getting-started/04-using-plugins.ts",
         "test/path/catch-all.ts",
         "test/path/parameters.ts",

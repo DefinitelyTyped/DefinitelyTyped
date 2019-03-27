@@ -1,6 +1,7 @@
-// Type definitions for http-assert 1.2
+// Type definitions for http-assert 1.4
 // Project: https://github.com/jshttp/http-assert
 // Definitions by: jKey Lu <https://github.com/jkeylu>
+//                 Peter Squicciarini <https://github.com/stripedpajamas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -10,6 +11,7 @@
  * @param opts custom properties to attach to the error object
  */
 declare function assert(value: any, status?: number, msg?: string, opts?: {}): void;
+declare function assert(value: any, status?: number, opts?: {}): void;
 
 declare namespace assert {
     /**
@@ -21,6 +23,7 @@ declare namespace assert {
 
     const equal: Assert;
     const notEqual: Assert;
+    const ok: Assert;
     const strictEqual: Assert;
     const notStrictEqual: Assert;
     const deepEqual: Assert;

@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.26
-// Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>
+// Type definitions for Material Components Web 0.35
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -20,7 +20,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import MDCComponent from 'material__base/component';
+import MDCMenuFoundation, { AnchorMargin } from './foundation';
+import MDCMenuAdapter from './adapter';
+import { Corner, CornerBit } from './constants';
 
-import * as util from './util';
-import { MDCSimpleMenu, MDCSimpleMenuAdapter, MDCSimpleMenuFoundation } from './simple/index';
-export { MDCSimpleMenu, MDCSimpleMenuAdapter, MDCSimpleMenuFoundation, util };
+export { MDCMenuFoundation, MDCMenuAdapter, AnchorMargin, Corner, CornerBit };
+
+export class MDCMenu extends MDCComponent<MDCMenuAdapter, MDCMenuFoundation> {
+    static attachTo(root: Element): MDCMenu;
+
+    open: boolean;
+
+    show(options?: { focusIndex?: number | null; }): void;
+
+    hide(): void;
+
+    /**
+     * @param corner Default anchor corner alignment of top-left menu corner.
+     */
+    setAnchorCorner(corner: number): void;
+
+    setAnchorMargin(margin: AnchorMargin): void;
+
+    /**
+     * Return the items within the menu. Note that this only contains the set of elements within
+     * the items container that are proper list items, and not supplemental / presentational DOM
+     * elements.
+     */
+    readonly items: Element[];
+
+    /**
+     * Return the item within the menu that is selected.
+     */
+    getOptionByIndex(index: number): Element | null;
+
+    selectedItemIndex: number;
+
+    rememberSelection: boolean;
+
+    quickOpen: boolean;
+}

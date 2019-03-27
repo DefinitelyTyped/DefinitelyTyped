@@ -1,11 +1,18 @@
 // Type definitions for @feathersjs/authentication 2.1
-// Project: http://feathersjs.com/
-// Definitions by: Abraao Alves <https://github.com/AbraaoAlves>, Jan Lohage <https://github.com/j2L4e>
+// Project: https://feathersjs.com
+// Definitions by:  Abraao Alves <https://github.com/AbraaoAlves>
+//                  Jan Lohage <https://github.com/j2L4e>
+//                  Nick Bolles <https://github.com/NickBolles>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+// TypeScript Version: 2.3
 
-import { Hook } from '@feathersjs/feathers';
+import { Hook, Params } from '@feathersjs/feathers';
+import * as self from '@feathersjs/authentication';
+import { RequestHandler, Application } from 'express';
+import { create } from 'domain';
 
-export default function feathersAuthentication(config?: FeathersAuthenticationOptions): () => void;
+declare const feathersAuthentication: ((config?: FeathersAuthenticationOptions) => () => void) & typeof self;
+export default feathersAuthentication;
 
 export const hooks: AuthHooks.Hooks;
 
@@ -47,6 +54,26 @@ export interface FeathersAuthenticationOptions {
         algorithm?: string;
         expiresIn?: string;
     };
+}
+
+export namespace express {
+    function exposeHeaders(): RequestHandler;
+    function exposeCookies(): RequestHandler;
+    function authenticate(strategy: string | string[], options?: FeathersAuthenticationOptions): RequestHandler;
+    function setCookie(options?: FeathersAuthenticationOptions): RequestHandler;
+    function successRedirect(): RequestHandler;
+    function failureRedirect(options?: FeathersAuthenticationOptions): RequestHandler;
+    function emitEvents(): RequestHandler;
+}
+
+export function service(options: FeathersAuthenticationOptions): (app?: Application) => void;
+
+export namespace service {
+    class Service<T = any> {
+        constructor(app: Application)
+        create(data: Partial<T>, params: Params): Promise<{ accessToken: string }>;
+        remove(id: null | string, params: Params): Promise<{ accessToken: string }>;
+    }
 }
 
 export namespace AuthHooks {

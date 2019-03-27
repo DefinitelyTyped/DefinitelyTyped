@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es5"
+            "es6"
         ],
         "baseUrl": "../",
         "typeRoots": [
@@ -10,7 +10,6 @@
         ],
         "types": [],
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

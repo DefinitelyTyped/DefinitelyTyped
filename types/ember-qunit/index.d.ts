@@ -1,8 +1,11 @@
-// Type definitions for ember-qunit 3.0
+// Type definitions for ember-qunit 3.4
 // Project: https://github.com/emberjs/ember-qunit#readme
 // Definitions by: Derek Wickern <https://github.com/dwickern>
+//                 Mike North <https://github.com/mike-north>
+//                 Steve Calvert <https://github.com/scalvert>
+//                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="qunit" />
 
@@ -44,6 +47,27 @@ declare module 'ember-qunit' {
      */
     export function setResolver(resolver: Ember.Resolver): void;
 
+    interface SetupTestOptions {
+        /**
+         * The resolver to use when instantiating container-managed entities in the test.
+         */
+        resolver?: Ember.Resolver;
+    }
+
+    /**
+     * Sets up acceptance tests.
+     *
+     * The `setupApplicationTest` function is used for all acceptance tests. It
+     * is invoked in the callback scope of a QUnit module (aka "nested module").
+     *
+     * Once invoked, all subsequent hooks.beforeEach and test invocations will
+     * have access to the following:
+     * * `this.owner` - the owner object that been set on the test context.
+     * * `this.pauseTest` and `this.resumeTest` - allow easy pausing/resuming of tests.
+     * * `this.element` which returns the DOM element representing the application's root element.
+     */
+    export function setupApplicationTest(hooks: NestedHooks, options?: SetupTestOptions): void;
+
     /**
      * Sets up tests that need to render snippets of templates.
      *
@@ -63,7 +87,7 @@ declare module 'ember-qunit' {
      * * this.$(...) - When jQuery is present, executes a jQuery selector with
      * the current this.element as its root
      */
-    export function setupRenderingTest(hooks: NestedHooks): void;
+    export function setupRenderingTest(hooks: NestedHooks, options?: SetupTestOptions): void;
 
     /**
      * Sets up tests that do not need to render snippets of templates.
@@ -78,11 +102,53 @@ declare module 'ember-qunit' {
      * * this.set / this.setProperties - Allows setting values on the test context.
      * * this.get / this.getProperties - Retrieves values from the test context.
      */
-    export function setupTest(hooks: NestedHooks): void;
+    export function setupTest(hooks: NestedHooks, options?: SetupTestOptions): void;
 
-    export class QUnitAdapter extends Ember.Test.Adapter {}
+    export class QUnitAdapter extends Ember.Test.Adapter { }
 
     export { module, test, skip, only, todo } from 'qunit';
+
+    interface QUnitStartOptions {
+        /**
+         * If `false` tests will not be loaded automatically.
+         */
+        loadTests?: boolean;
+
+        /**
+         * If `false` the test container will not be setup based on `devmode`,
+         * `dockcontainer`, or `nocontainer` URL params.
+         */
+        setupTestContainer?: boolean;
+
+        /**
+         * If `false` tests will not be automatically started (you must run
+         * `QUnit.start()` to kick them off).
+         */
+        startTests?: boolean;
+
+        /**
+         * If `false` the default Ember.Test adapter will not be updated.
+         */
+        setupTestAdapter?: boolean;
+
+        /**
+         * `false` opts out of the default behavior of setting `Ember.testing`
+         * to `true` before all tests and back to `false` after each test will.
+         */
+        setupEmberTesting?: boolean;
+
+        /**
+         * If `false` validation of `Ember.onerror` will be disabled.
+         */
+        setupEmberOnerrorValidation?: boolean;
+
+        /**
+         * If `false` test isolation validation will be disabled.
+         */
+        setupTestIsolationValidation?: boolean;
+    }
+
+    export function start(options?: QUnitStartOptions): void;
 }
 
 declare module 'qunit' {
@@ -147,9 +213,10 @@ declare module 'qunit' {
      * ignoring the callback argument and the respective global and module's
      * hooks.
      *
-     * @param Title of unit being tested
+     * @param name Title of unit being tested
+     * @param callback Function to close over assertions
      */
-    export const skip: typeof QUnit.skip;
+    export function skip(name: string, callback?: (this: TestContext, assert: Assert) => void): void;
 
     export default QUnit;
 }

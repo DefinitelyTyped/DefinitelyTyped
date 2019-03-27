@@ -82,10 +82,10 @@ import child = require("child_process");
 
 const version = shell.exec("node --version").stdout;
 
-const version2 = <shell.ExecOutputReturnValue> shell.exec("node --version", { async: false });
+const version2 = shell.exec("node --version", { async: false }) as shell.ExecOutputReturnValue;
 const output = version2.stdout;
 
-const asyncVersion3 = <child.ChildProcess> shell.exec("node --version", { async: true });
+const asyncVersion3 = shell.exec("node --version", { async: true }) as child.ChildProcess;
 let pid = asyncVersion3.pid;
 
 shell.exec("node --version", { silent: true }, (code, stdout, stderr) => {
@@ -116,6 +116,8 @@ shell.set('-f');
 shell.chmod(755, "/Users/brandon");
 shell.chmod("755", "/Users/brandon"); // same as above
 shell.chmod("u+x", "/Users/brandon");
+shell.chmod("-cR", 755, "/Users/brandon");
+shell.chmod("-Rv", "u+x", "/Users/brandon");
 
 shell.exit(0);
 
@@ -132,6 +134,21 @@ shell.touch('-c', ['/Users/brandom/test1', '/Users/brandom/test2']);
 shell.touch({ '-r': '/some/file.txt' }, '/Users/brandom/test1');
 shell.touch({ '-r': '/some/file.txt' }, '/Users/brandom/test1', '/Users/brandom/test2');
 shell.touch({ '-r': '/oome/file.txt' }, ['/Users/brandom/test1', '/Users/brandom/test2']);
+
+shell.head({'-n': 1}, 'file*.txt');
+shell.head('file1', 'file2');
+shell.head(['file1', 'file2']); // same as above
+
+shell.sort('foo.txt', 'bar.txt');
+shell.sort('-r', 'foo.txt');
+
+shell.tail({'-n': 1}, 'file*.txt');
+shell.tail('file1', 'file2');
+shell.tail(['file1', 'file2']); // same as above
+
+shell.uniq('foo.txt');
+shell.uniq('-i', 'foo.txt');
+shell.uniq('-cd', 'foo.txt', 'bar.txt');
 
 const tmp = shell.tempdir(); // "/tmp" for most *nix platforms
 

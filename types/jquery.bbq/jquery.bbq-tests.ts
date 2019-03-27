@@ -26,9 +26,9 @@ $.param({ a: [2,3,4] }) // "a=2&a=3&a=4"
 $.param({ a: [2,3,4] }) // "a[]=2&a[]=3&a[]=4"
 
 // <=1.3.2:
-$.param({ a: { b:1,c:2 }, d: [3,4,<any>{ e:5 }] }) // "a=[object+Object]&d=3&d=4&d=[object+Object]"
+$.param({ a: { b:1,c:2 }, d: [3,4,{ e:5 } as any] }) // "a=[object+Object]&d=3&d=4&d=[object+Object]"
 // >=1.4:
-$.param({ a: { b:1,c:2 }, d: [3,4,<any>{ e:5 }] }) // "a[b]=1&a[c]=2&d[]=3&d[]=4&d[2][e]=5"
+$.param({ a: { b:1,c:2 }, d: [3,4,{ e:5 } as any] }) // "a[b]=1&a[c]=2&d[]=3&d[]=4&d[2][e]=5"
 // *************************************************************
 
 // Not sure why this isn't set by default in qunit.js..
@@ -130,7 +130,7 @@ test( 'jQuery.param.sorted', function() {
       expected: 'a=3&a=2&a=1&b=6&b=5&b=4&x=2&z=1'
     },
     {
-      obj: {a:[<any>[4,<any>[5,6]],<any>[<any>[7,8],9]]},
+      obj: {a:[[4,[5,6] as any] as any,[[7,8] as any,9] as any]},
       traditional: false,
       expected: 'a[0][]=4&a[0][1][]=5&a[0][1][]=6&a[1][0][]=7&a[1][0][]=8&a[1][]=9',
       expected_old: 'a=4,5,6&a=7,8,9' // obviously not great, but that's the way jQuery used to roll
@@ -231,7 +231,7 @@ test( 'jQuery.param.querystring - build URL', function() {
       equal( current_url, pre + fake_encode( params ) + post, '$.param.querystring( url, Object, 2 )' );
     },
 
-    [ <any>{ a:'1', c:'2' }, 1 ],
+    [ { a:'1', c:'2' } as any, 1 ],
 
     function(result){
       var params = old_jquery
@@ -251,7 +251,7 @@ test( 'jQuery.param.querystring - build URL', function() {
       equal( current_url, pre + fake_encode( params ) + post, '$.param.querystring( url, String )' );
     },
 
-    [ <any>'foo=2&bar=3', 1 ],
+    [ 'foo=2&bar=3' as any, 1 ],
 
     function(result){
       var params = old_jquery
@@ -261,19 +261,19 @@ test( 'jQuery.param.querystring - build URL', function() {
       equal( current_url, pre + fake_encode( params ) + post, '$.param.querystring( url, String, 1 )' );
     },
 
-    [ <any>'http://example.com/test.html?/path/to/file.php#the-cow-goes-moo', 2 ],
+    [ 'http://example.com/test.html?/path/to/file.php#the-cow-goes-moo' as any, 2 ],
 
     function(result){
       equal( current_url, pre + '?/path/to/file.php' + post, '$.param.querystring( url, String, 2 )' );
     },
 
-    [ <any>'?another-example', 2 ],
+    [ '?another-example' as any, 2 ],
 
     function(result){
       equal( current_url, pre + '?another-example' + post, '$.param.querystring( url, String, 2 )' );
     },
 
-    [ <any>'i_am_out_of_witty_strings', 2 ],
+    [ 'i_am_out_of_witty_strings' as any, 2 ],
 
     function(result){
       equal( current_url, pre + '?i_am_out_of_witty_strings' + post, '$.param.querystring( url, String, 2 )' );
@@ -373,7 +373,7 @@ test( 'jQuery.param.fragment - build URL', function() {
       equal( current_url, pre + fake_encode( params ), '$.param.fragment( url, Object, 2 )' );
     },
 
-    [ <any>{ a:'1', c:'2' }, 1 ],
+    [ { a:'1', c:'2' } as any, 1 ],
 
     function(result){
       var params = old_jquery
@@ -393,7 +393,7 @@ test( 'jQuery.param.fragment - build URL', function() {
       equal( current_url, pre + fake_encode( params ), '$.param.fragment( url, String )' );
     },
 
-    [ <any>'foo=2&bar=3', 1 ],
+    [ 'foo=2&bar=3' as any, 1 ],
 
     function(result){
       var params = old_jquery
@@ -403,19 +403,19 @@ test( 'jQuery.param.fragment - build URL', function() {
       equal( current_url, pre + fake_encode( params ), '$.param.fragment( url, String, 1 )' );
     },
 
-    [ <any>'http://example.com/test.html?the-cow-goes-moo#/path/to/file.php', 2 ],
+    [ 'http://example.com/test.html?the-cow-goes-moo#/path/to/file.php' as any, 2 ],
 
     function(result){
       equal( current_url, pre + '#/path/to/file.php', '$.param.fragment( url, String, 2 )' );
     },
 
-    [ <any>'#another-example', 2 ],
+    [ '#another-example' as any, 2 ],
 
     function(result){
       equal( current_url, pre + '#another-example', '$.param.fragment( url, String, 2 )' );
     },
 
-    [ <any>'i_am_out_of_witty_strings', 2 ],
+    [ 'i_am_out_of_witty_strings' as any, 2 ],
 
     function(result){
       equal( current_url, pre + '#i_am_out_of_witty_strings', '$.param.fragment( url, String, 2 )' );
@@ -677,7 +677,7 @@ test( 'jQuery.fn.querystring', function() {
       equal( current_url, pre + fake_encode( params ) + post, '$.fn.querystring( url, Object, 2 )' );
     },
 
-    [ <any>{ a:'1', c:'2' }, 1 ],
+    [ { a:'1', c:'2' } as any, 1 ],
 
     function(result){
       var params = old_jquery
@@ -697,7 +697,7 @@ test( 'jQuery.fn.querystring', function() {
       equal( current_url, pre + fake_encode( params ) + post, '$.fn.querystring( url, String )' );
     },
 
-    [ <any>'foo=2&bar=3', 1 ],
+    [ 'foo=2&bar=3' as any, 1 ],
 
     function(result){
       var params = old_jquery
@@ -707,19 +707,19 @@ test( 'jQuery.fn.querystring', function() {
       equal( current_url, pre + fake_encode( params ) + post, '$.fn.querystring( url, String, 1 )' );
     },
 
-    [ <any>'http://example.com/test.html?/path/to/file.php#the-cow-goes-moo', 2 ],
+    [ 'http://example.com/test.html?/path/to/file.php#the-cow-goes-moo' as any, 2 ],
 
     function(result){
       equal( current_url, pre + '?/path/to/file.php' + post, '$.fn.querystring( url, String, 2 )' );
     },
 
-    [ <any>'?another-example', 2 ],
+    [ '?another-example' as any, 2 ],
 
     function(result){
       equal( current_url, pre + '?another-example' + post, '$.fn.querystring( url, String, 2 )' );
     },
 
-    [ <any>'i_am_out_of_witty_strings', 2 ],
+    [ 'i_am_out_of_witty_strings' as any, 2 ],
 
     function(result){
       equal( current_url, pre + '?i_am_out_of_witty_strings' + post, '$.fn.querystring( url, String, 2 )' );
@@ -776,7 +776,7 @@ test( 'jQuery.fn.fragment', function() {
       equal( current_url, pre + fake_encode( params ), '$.fn.fragment( url, Object, 2 )' );
     },
 
-    [ <any>{ a:'1', c:'2' }, 1 ],
+    [ { a:'1', c:'2' } as any, 1 ],
 
     function(result){
       var params = old_jquery
@@ -796,7 +796,7 @@ test( 'jQuery.fn.fragment', function() {
       equal( current_url, pre + fake_encode( params ), '$.fn.fragment( url, String )' );
     },
 
-    [ <any>'foo=2&bar=3', 1 ],
+    [ 'foo=2&bar=3' as any, 1 ],
 
     function(result){
       var params = old_jquery
@@ -806,19 +806,19 @@ test( 'jQuery.fn.fragment', function() {
       equal( current_url, pre + fake_encode( params ), '$.fn.fragment( url, String, 1 )' );
     },
 
-    [ <any>'http://example.com/test.html?the-cow-goes-moo#/path/to/file.php', 2 ],
+    [ 'http://example.com/test.html?the-cow-goes-moo#/path/to/file.php' as any, 2 ],
 
     function(result){
       equal( current_url, pre + '#/path/to/file.php', '$.fn.fragment( url, String, 2 )' );
     },
 
-    [ <any>'#another-example', 2 ],
+    [ '#another-example' as any, 2 ],
 
     function(result){
       equal( current_url, pre + '#another-example', '$.fn.fragment( url, String, 2 )' );
     },
 
-    [ <any>'i_am_out_of_witty_strings', 2 ],
+    [ 'i_am_out_of_witty_strings' as any, 2 ],
 
     function(result){
       equal( current_url, pre + '#i_am_out_of_witty_strings', '$.fn.fragment( url, String, 2 )' );
@@ -1138,10 +1138,10 @@ test( 'jQuery.bbq.pushState(), jQuery.bbq.getState(), jQuery.bbq.removeState(), 
     function(result){
       var b_str = old_jquery
           ? '[object Object]'
-          : <any>{x:['7'], y:'8', z:['9','0','true','false','undefined','']},
+          : {x:['7'], y:'8', z:['9','0','true','false','undefined','']} as any,
         b_coerce = old_jquery
           ? '[object Object]'
-          : <any>{x:[7], y:8};//z:[9,0,true,false,undefined,'']};
+          : {x:[7], y:8} as any;//z:[9,0,true,false,undefined,'']};
 
       equal( hash_actual, '#!' + hash, 'hash should begin with #!' );
       deepEqual( obj.str, { a:['4','5','6'], b:b_str }, '$.bbq.getState()' );
@@ -1156,15 +1156,15 @@ test( 'jQuery.bbq.pushState(), jQuery.bbq.getState(), jQuery.bbq.removeState(), 
       }
     },
 
-    [ <any>{ a:'1', c:'2' }, 1 ],
+    [ { a:'1', c:'2' } as any, 1 ],
 
     function(result){
       var b_str = old_jquery
           ? '[object Object]'
-          : <any>{x:['7'], y:'8', z:['9','0','true','false','undefined','']},
+          : {x:['7'], y:'8', z:['9','0','true','false','undefined','']} as any,
         b_coerce = old_jquery
           ? '[object Object]'
-          : <any>{x:[7], y:8};//, z:[9,0,true,false,undefined,'']};
+          : {x:[7], y:8} as any;//, z:[9,0,true,false,undefined,'']};
 
       equal( hash_actual, '#!' + hash, 'hash should begin with #!' );
       deepEqual( obj.str, { a:['4','5','6'], b:b_str, c:'2' }, '$.bbq.getState()' );
@@ -1175,7 +1175,7 @@ test( 'jQuery.bbq.pushState(), jQuery.bbq.getState(), jQuery.bbq.removeState(), 
       }
     },
 
-    [ <any>'#/path/to/file.php', 2 ],
+    [ '#/path/to/file.php' as any, 2 ],
 
     function(result){
       equal( hash_actual, '#!' + hash, 'hash should begin with #!' );
@@ -1201,7 +1201,7 @@ test( 'jQuery.bbq.pushState(), jQuery.bbq.getState(), jQuery.bbq.removeState(), 
       });
     },
 
-    [ <any>'#omg_ponies', 2 ],
+    [ '#omg_ponies' as any, 2 ],
 
     function(result){
       equal( hash, 'omg_ponies', 'event handler 1: $.param.fragment()' );
@@ -1220,7 +1220,7 @@ test( 'jQuery.bbq.pushState(), jQuery.bbq.getState(), jQuery.bbq.removeState(), 
       $(window).unbind( 'hashchange' );
     },
 
-    [ <any>'#almost_done?not_search', 2 ],
+    [ '#almost_done?not_search' as any, 2 ],
 
     function(result){
       equal( hash, '', 'event handler 1: $.param.fragment()' );

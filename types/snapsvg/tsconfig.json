@@ -15,13 +15,13 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
         "test/1.ts",
         "test/2.ts",
-        "test/3.ts"
+        "test/3.ts",
+        "test/4.ts"
     ]
 }

@@ -1,5 +1,4 @@
 {
-    "compileOnSave": false,
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
@@ -16,8 +15,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

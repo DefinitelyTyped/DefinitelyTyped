@@ -15,10 +15,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "youtube-tests.ts"
     ]
 }

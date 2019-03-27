@@ -1,7 +1,8 @@
 // Type definitions for D3JS d3-chord module 1.0
-// Project: https://github.com/d3/d3-chord/
+// Project: https://github.com/d3/d3-chord/, https://d3js.org/d3-chord
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Last module patch version validated against: 1.0.3
 
@@ -44,7 +45,7 @@ export interface ChordSubgroup {
  */
 export interface Chord {
     /**
-     * Chord subgroup constituting the sodurce of Chord
+     * Chord subgroup constituting the source of Chord
      */
     source: ChordSubgroup;
     /**
@@ -122,7 +123,7 @@ export interface ChordLayout {
      *
      * The default is zero.
      *
-     * @param angle Pad angle between adjecent groups in radians.
+     * @param angle Pad angle between adjacent groups in radians.
      */
     padAngle(angle: number): this;
 
@@ -233,7 +234,7 @@ export interface Ribbon {
 
 /**
  *
- * A ribbon generator to suport rendering of chords in a chord diagram.
+ * A ribbon generator to support rendering of chords in a chord diagram.
  *
  * The first generic corresponds to the type of the "this" context within which the ribbon generator and its accessor functions will be invoked.
  *

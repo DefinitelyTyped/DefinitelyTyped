@@ -14,8 +14,16 @@ tape(name, (test: tape.Test) => {
 	t = test;
 });
 
+tape.skip(cb);
 tape.skip(name, cb);
+tape.skip(opts, cb);
+tape.skip(name, opts, cb);
+
+tape.only(cb);
 tape.only(name, cb);
+tape.only(opts, cb);
+tape.only(name, opts, cb);
+
 tape.onFinish(() => {});
 
 
@@ -27,6 +35,12 @@ rs = tape.createStream(sopts);
 
 var htest: typeof tape;
 htest = tape.createHarness();
+
+class CustomException extends Error {
+  constructor(message?: string) {
+    super(message);
+  }
+}
 
 
 tape(name, (test: tape.Test) => {
@@ -146,11 +160,15 @@ tape(name, (test: tape.Test) => {
 	test.throws(fn, msg);
 	test.throws(fn, exceptionExpected);
 	test.throws(fn, exceptionExpected, msg);
+	test.throws(fn, CustomException);
+	test.throws(fn, CustomException, msg);
 
 	test.doesNotThrow(fn);
 	test.doesNotThrow(fn, msg);
 	test.doesNotThrow(fn, exceptionExpected);
 	test.doesNotThrow(fn, exceptionExpected, msg);
+	test.doesNotThrow(fn, CustomException);
+	test.doesNotThrow(fn, CustomException, msg);
 
 	test.test(name, (st) => {
 		t = st;

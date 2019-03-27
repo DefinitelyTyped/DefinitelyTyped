@@ -2,7 +2,7 @@
 // Project: https://github.com/mirrorjs/mirror
 // Definitions by: Aaronphy <https://github.com/aaronphy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.0
 
 import * as H from 'history';
 
@@ -11,8 +11,7 @@ import * as React from 'react';
 import { Connect } from 'react-redux';
 import { match } from "react-router";
 
-export type Diff<T extends string, U extends string> = ({[P in T]: P } & {[P in U]: never } & { [x: string]: never })[T];
-export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 export interface model {
   name: string;
@@ -52,8 +51,8 @@ export interface RedirectProps {
   strict?: boolean;
 }
 
-export interface RouteComponentProps<P> {
-  match: match<P>;
+export interface RouteComponentProps<Params extends { [K in keyof Params]?: string }> {
+  match: match<Params>;
   location: H.Location;
   history: H.History;
   staticContext?: any;
@@ -148,7 +147,7 @@ export interface Renderer {
   ): React.Component<P, React.ComponentState> | Element | void;
 
   (
-    element: Array<React.ReactElement<any>>,
+    element: React.ReactElement[],
     container: Element | null,
     callback?: () => void
   ): React.Component<any, React.ComponentState> | Element | void;

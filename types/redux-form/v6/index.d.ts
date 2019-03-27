@@ -1,8 +1,12 @@
 // Type definitions for redux-form 6.6
 // Project: https://github.com/erikras/redux-form
-// Definitions by: Carson Full <https://github.com/carsonf>, Daniel Lytkin <https://github.com/aikoven>, Karol Janyst <https://github.com/LKay>, Luka Zakrajsek <https://github.com/bancek>
+// Definitions by: Carson Full <https://github.com/carsonf>
+//                 Daniel Lytkin <https://github.com/aikoven>
+//                 Karol Janyst <https://github.com/LKay>
+//                 Luka Zakrajsek <https://github.com/bancek>
+//                 Mohamed Shaaban <https://github.com/mshaaban088>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.0
 
 import {
   ComponentClass,
@@ -26,11 +30,11 @@ export interface DataShape {
 }
 
 export type FormErrors<FormData extends DataShape> = {
-    [P in keyof FormData]?: ReactElement<any> | string | { _error?: string };
+    [P in keyof FormData]?: ReactElement | string | { _error?: string };
 };
 
 export type FormWarnings<FormData extends DataShape> = {
-    [P in keyof FormData]?: ReactElement<any> | string | { _warning?: string };
+    [P in keyof FormData]?: ReactElement | string | { _warning?: string };
 };
 
 export type FormMeta<FormData extends DataShape> = {
