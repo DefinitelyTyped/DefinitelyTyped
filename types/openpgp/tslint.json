@@ -5,6 +5,7 @@
         "array-type": false,
         "ban-types": false,
         "dt-header": false,
+        "npm-naming": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,

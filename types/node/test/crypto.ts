@@ -487,6 +487,42 @@ import { promisify } from 'util';
 }
 
 {
+    const { privateKey, publicKey } = crypto.generateKeyPairSync('ec', {
+        namedCurve: 'sect239k1'
+    });
+
+    const sign: crypto.Signer = crypto.createSign('SHA256');
+    sign.write('some data to sign');
+    sign.end();
+    const signature: string = sign.sign(privateKey, 'hex');
+
+    const verify: crypto.Verify = crypto.createVerify('SHA256');
+    verify.write('some data to sign');
+    verify.end();
+    verify.verify(publicKey, signature);    // $ExpectType boolean
+
+    // ensure that instanceof works
+    verify instanceof crypto.Verify;
+    sign instanceof crypto.Signer;
+}
+
+{
+    const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 2048,
+    });
+
+    const sign: crypto.Signer = crypto.createSign('SHA256');
+    sign.update('some data to sign');
+    sign.end();
+    const signature: Buffer = sign.sign(privateKey);
+
+    const verify: crypto.Verify = crypto.createVerify('SHA256');
+    verify.update('some data to sign');
+    verify.end();
+    verify.verify(publicKey, signature);    // $ExpectType boolean
+}
+
+{
     // crypto_constants_test
     let num: number;
     let str: string;

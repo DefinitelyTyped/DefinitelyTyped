@@ -212,7 +212,7 @@ declare namespace ComponentFramework {
 		 * UserLocal = 1,
 		 * TimeZoneIndependent = 3
 		 */
-		formatTime(value: Date, behavior: FormattingApi.DateTimeFieldBehavior): string;
+		formatTime(value: Date, behavior: FormattingApi.Types.DateTimeFieldBehavior): string;
 
 		/**
 		 * Gets the ISO week number of the year for a given date. Range 1-53
@@ -410,7 +410,7 @@ declare namespace ComponentFramework {
 		 * @privilegeType privilege type i.e. Create, Read, Write etc.
 		 * @privilegeDepth privilege depth i.e. basic, Global etc.
 		 */
-		hasEntityPrivilege(entityTypeName: string, privilegeType: PropertyHelper.PrivilegeType, privilegeDepth: PropertyHelper.PrivilegeDepth): boolean;
+		hasEntityPrivilege(entityTypeName: string, privilegeType: PropertyHelper.Types.PrivilegeType, privilegeDepth: PropertyHelper.Types.PrivilegeDepth): boolean;
 
 		/**
 		 * Opens a lookup dialog allowing the user to select one or more entities.
@@ -593,16 +593,13 @@ declare namespace ComponentFramework {
 			getPopupsId(): string;
 		}
 
-		enum PopupType {
+		namespace Types {
 			/**
 			 * Root popup in the popup stack
+			 * 1 - Root - Root popup in the popup stack,
+			 * 2 - Nested - Not root popup in the popup stack
 			 */
-			Root = 1,
-
-			/**
-			 * Not root popup in the popup stack
-			 */
-			Nested,
+			type PopupType = 1 | 2;
 		}
 
 		interface Popup {
@@ -634,7 +631,7 @@ declare namespace ComponentFramework {
 			/**
 			 * The type of Popup, which is described in PopupType enum. Should be only one "root" Popup for each set of Popups.
 			 */
-			type: PopupType;
+			type: Types.PopupType;
 
 			/**
 			 * Static DOM element to be inserted
@@ -646,26 +643,14 @@ declare namespace ComponentFramework {
 	/**
 	 * Helper of Formatting API interface
 	 */
-	namespace FormattingApi {
+	namespace FormattingApi.Types {
 		/**
 		 * DateTime Field Behavior options
+		 * 0 - None - Unknown DateTime Behavior,
+		 * 1 - UserLocal - Respect user local time. Dates stored as UTC,
+		 * 3 - TimeZoneIndependent - Dates and time stored without conversion to UTC
 		 */
-		enum DateTimeFieldBehavior {
-			/**
-			 * Unknown DateTime Behavior
-			 */
-			None = 0,
-
-			/**
-			 * Respect user local time. Dates stored as UTC
-			 */
-			UserLocal = 1,
-
-			/**
-			 * Dates and time stored without conversion to UTC
-			 */
-			TimeZoneIndependent = 3,
-		}
+		type DateTimeFieldBehavior = 0 | 1 | 3;
 	}
 
 	/**
@@ -832,19 +817,13 @@ declare namespace ComponentFramework {
 			message?: string;
 		}
 
-		/**
-		 * The options for openFile mode.
-		 */
-		enum OpenFileMode {
+		namespace Types {
 			/**
-			 * default. mode open
+			 * The options for openFile mode.
+			 * 1 - open - default,
+			 * 2 - save
 			 */
-			open = 1,
-
-			/**
-			 * mode save
-			 */
-			save = 2,
+			type OpenFileMode = 1 | 2;
 		}
 
 		/**
@@ -854,10 +833,10 @@ declare namespace ComponentFramework {
 			/**
 			 * Specify whether to open or save the file
 			 * Values:
-			 *   1  open
-			 *   2  save
+			 *   1 - open
+			 *   2 - save
 			 */
-			openMode: OpenFileMode;
+			openMode: Types.OpenFileMode;
 		}
 
 		/**
@@ -907,17 +886,18 @@ declare namespace ComponentFramework {
 	 * Helper of UserSettings API interface
 	 */
 	namespace UserSettingApi {
-		/**
-		 * Day Of Week Enum
-		 */
-		enum DayOfWeek {
-			Sunday = 0,
-			Monday = 1,
-			Tuesday = 2,
-			Wednesday = 3,
-			Thursday = 4,
-			Friday = 5,
-			Saturday = 6
+		namespace Types {
+			/**
+			 * Day Of Week Enum
+			 * 0 - Sunday,
+			 * 1 - Monday,
+			 * 2 - Tuesday,
+			 * 3 - Wednesday,
+			 * 4 - Thursday,
+			 * 5 - Friday,
+			 * 6 - Saturday
+			 */
+			type DayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 		}
 
 		/**
@@ -968,7 +948,7 @@ declare namespace ComponentFramework {
 			/**
 			 * @example See interface DayOfWeek
 			 */
-			firstDayOfWeek: DayOfWeek;
+			firstDayOfWeek: Types.DayOfWeek;
 
 			/**
 			 * @example "dddd, MMMM d, yyyy h:mm:ss tt"
@@ -1529,51 +1509,49 @@ declare namespace ComponentFramework {
 	}
 
 	namespace PropertyHelper {
-		/**
-		 * Ime Mode
-		 */
-		enum ImeMode {
-			Auto = 0,
-			Inactive = 1,
-			Active = 2,
-			Disabled = 3,
-		}
+		namespace Types {
+			/**
+			 * Ime Mode
+			 * 0 - Auto,
+			 * 1 - Inactive,
+			 * 2 - Active,
+			 * 3 - Disabled
+			 */
+			type ImeMode = 0 | 1 | 2 | 3;
 
-		/**
-		 * Entity privilege types.
-		 */
-		enum PrivilegeType {
-			None = 0,
-			Create = 1,
-			Read = 2,
-			Write = 3,
-			Delete = 4,
-			Assign = 5,
-			Share = 6,
-			Append = 7,
-			AppendTo = 8,
-		}
+			/**
+			 * Entity privilege types.
+			 * 0 - None
+			 * 1 - Create
+			 * 2 - Read
+			 * 3 - Write
+			 * 4 - Delete
+			 * 5 - Assign
+			 * 6 - Share
+			 * 7 - Append
+			 * 8 - AppendTo
+			 */
+			type PrivilegeType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
-		/**
-		 * Entity Priviledge Depth
-		 */
-		enum PrivilegeDepth {
-			None = -1,
-			Basic = 0,
-			Local = 1,
-			Deep = 2,
-			Global = 3,
-		}
+			/**
+			 * Entity Priviledge Depth
+			 * -1 - None
+			 * 0 - Basic
+			 * 1 - Local
+			 * 2 - Deep
+			 * 3 - Global
+			 */
+			type PrivilegeDepth = -1 | 0 | 1 | 2 | 3;
 
-		/**
-		 * Attribute required level
-		 */
-		enum RequiredLevel {
-			Unknown = -1,
-			None = 0,
-			SystemRequired = 1,
-			ApplicationRequired = 2,
-			Recommended = 3,
+			/**
+			 * Attribute required level
+			 * -1 - Unknown
+			 * 0 - None
+			 * 1 - SystemRequired
+			 * 2 - ApplicationRequired
+			 * 3 - Recommended
+			 */
+			type RequiredLevel = -1 | 0 | 1 | 2 | 3;
 		}
 
 		/**
@@ -1605,7 +1583,7 @@ declare namespace ComponentFramework {
 			CanBeParentEntityReference: boolean;
 			Name: string;
 			PrivilegeId: string;
-			PrivilegeType: PrivilegeType;
+			PrivilegeType: Types.PrivilegeType;
 		}
 
 		/**
@@ -1621,7 +1599,7 @@ declare namespace ComponentFramework {
 			interface Metadata {
 				DisplayName: string;
 				LogicalName: string;
-				RequiredLevel: RequiredLevel;
+				RequiredLevel: Types.RequiredLevel;
 				IsSecured: boolean;
 				SourceType: number;
 				Description: string;
@@ -1630,12 +1608,12 @@ declare namespace ComponentFramework {
 			interface NumberMetadata extends Metadata {
 				MinValue: number;
 				MaxValue: number;
-				ImeMode: ImeMode;
+				ImeMode: Types.ImeMode;
 			}
 
 			interface StringMetadata extends Metadata {
 				MaxLength: number;
-				ImeMode: ImeMode;
+				ImeMode: Types.ImeMode;
 			}
 
 			interface FloatingNumberMetadata extends NumberMetadata {
@@ -1653,9 +1631,9 @@ declare namespace ComponentFramework {
 			}
 
 			interface DateTimeMetadata extends Metadata {
-				Behavior: FormattingApi.DateTimeFieldBehavior;
+				Behavior: FormattingApi.Types.DateTimeFieldBehavior;
 				Format: string;
-				ImeMode: ImeMode;
+				ImeMode: Types.ImeMode;
 			}
 
 			interface LookupMetadata extends Metadata {
@@ -1678,47 +1656,28 @@ declare namespace ComponentFramework {
 		}
 
 		namespace DataSetApi {
-			/**
-			 * Supported Condition Operator for filtering expression condition
-			 * This is subset of full condition operators list defined in https://docs.microsoft.com/en-us/dotnet/api/microsoft.xrm.sdk.query.conditionoperator
-			 */
-			enum ConditionOperator {
-				None = -1,
-				Equal = 0,
-				NotEqual = 1,
-				GreaterThan = 2,
-				LessThan = 3,
-				GreaterEqual = 4,
-				LessEqual = 5,
-				Like = 6,
-				In = 8,
-				Null = 12,
-				Yesterday = 14,
-				Today = 15,
-				Tomorrow = 16,
-				Last7Days = 17,
-				Next7Days = 18,
-				LastWeek = 19,
-				ThisWeek = 20,
-				LastMonth = 22,
-				ThisMonth = 23,
-				On = 25,
-				OnOrBefore = 26,
-				OnOrAfter = 27,
-				LastYear = 28,
-				ThisYear = 29,
-				LastXDays = 33,
-				NextXDays = 34,
-				LastXMonths = 37,
-				NextXMonths = 38,
-				Contains = 49,
-				InFiscalPeriodAndYear = 70,
-				Above = 75,
-				Under = 76,
-				NotUnder = 77,
-				AboveOrEqual = 78,
-				UnderOrEqual = 79,
-				ContainValues = 87
+			namespace Types {
+				/**
+				 * Supported Condition Operator for filtering expression condition
+				 * This is subset of full condition operators list defined in https://docs.microsoft.com/en-us/dotnet/api/microsoft.xrm.sdk.query.conditionoperator
+				 */
+				type ConditionOperator = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 12 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 22 | 23
+											| 25 | 26 | 27 | 28 | 29 | 33 | 34 | 37 | 38 | 49 | 70 | 75 | 76 | 77 | 78 | 79 | 87;
+
+				/**
+				 * Supported Filter Operator for filtering expression linkage
+				 * 0 - And,
+				 * 1 - Or
+				 */
+				type FilterOperator = 0 | 1;
+
+				/**
+				 * Column Sort Direction
+				 * -1 - None,
+				 * 0 - Ascending,
+				 * 1 - Descending
+				 */
+				type SortDirection = -1 | 0 | 1;
 			}
 
 			/**
@@ -1733,7 +1692,7 @@ declare namespace ComponentFramework {
 				/**
 				 * The value evaluated by the condition
 				 */
-				conditionOperator: ConditionOperator;
+				conditionOperator: Types.ConditionOperator;
 
 				/**
 				 * The value evaluated by the condition.
@@ -1744,14 +1703,6 @@ declare namespace ComponentFramework {
 				 * Entity alias name so filtering can be used on linked entities.
 				 */
 				entityAliasName?: string;
-			}
-
-			/**
-			 * Supported Filter Operator for filtering expression linkage
-			 */
-			enum FilterOperator {
-				And = 0,
-				Or = 1
 			}
 
 			/**
@@ -1766,7 +1717,7 @@ declare namespace ComponentFramework {
 				/**
 				 * The operator used to combine conditions in this filter.
 				 */
-				filterOperator: FilterOperator;
+				filterOperator: Types.FilterOperator;
 
 				/**
 				 * Any child filters that should be evaluated after evaluating this filter.
@@ -1873,15 +1824,6 @@ declare namespace ComponentFramework {
 			}
 
 			/**
-			 * Column Sort Direction
-			 */
-			enum SortDirection {
-				None = -1,
-				Ascending = 0,
-				Descending = 1
-			}
-
-			/**
 			 * Current sort status of a dataset column
 			 */
 			interface SortStatus {
@@ -1893,7 +1835,7 @@ declare namespace ComponentFramework {
 				/**
 				 * The current sort direction for the column.
 				 */
-				sortDirection: SortDirection;
+				sortDirection: Types.SortDirection;
 			}
 
 			/**

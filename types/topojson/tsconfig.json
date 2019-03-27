@@ -20,7 +20,6 @@
     "files": [
         "index.d.ts",
         "topojson-tests.ts",
-        "test/atlas-tests.ts",
-        "test/server-tests.ts"
+        "test/atlas-tests.ts"
     ]
 }

@@ -76,5 +76,5 @@ export const createListeners = (events: Event[]): string[] => {
             acc.push(next);
             return acc;
         }
-    }, []);
+    }, [] as string[]);
 };

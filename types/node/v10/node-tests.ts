@@ -4452,8 +4452,7 @@ import * as constants from 'constants';
             paddingStrategy: 0,
             peerMaxConcurrentStreams: 0,
             selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-            settings,
-            allowHTTP1: true
+            settings
         };
         // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
         const secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);
