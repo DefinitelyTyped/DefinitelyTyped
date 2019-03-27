@@ -4,4 +4,4 @@
  *
  * This implements the GraphQL spec's BlockStringValue() static algorithm.
  */
-export default function blockStringValue(rawString: string): string;
+export function dedentBlockStringValue(rawString: string): string;
