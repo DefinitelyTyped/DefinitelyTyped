@@ -45,7 +45,6 @@ function MessageExample() {
             });
         }
     });
-
     whale.sidebarAction.show(() => {
         whale.runtime.sendMessage(`Hello Sidebar!`);
     });
