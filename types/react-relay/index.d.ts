@@ -17,8 +17,6 @@
 export {
     commitLocalUpdate,
     commitRelayModernMutation as commitMutation,
-    CRelayContext,
-    Environment,
     fetchRelayModernQuery as fetchQuery,
     GraphQLTaggedNode,
     requestRelaySubscription as requestSubscription,
@@ -198,4 +196,6 @@ export function createRefetchContainer<P>(
 // Context
 // ~~~~~~~~~~~~~~~~~~~~~
 
-export const ReactRelayContext: Context<CRelayContext<Environment>>;
+export const ReactRelayContext: React.Context<
+    RelayRuntimeTypes.CRelayContext<RelayRuntimeTypes.Environment>
+>;
