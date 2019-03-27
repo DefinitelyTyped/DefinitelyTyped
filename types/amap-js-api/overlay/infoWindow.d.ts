@@ -6,6 +6,8 @@ declare namespace AMap {
             close: Event<'close', { target: I }>;
         }
 
+        type Anchor = 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'center' | 'middle-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+
         interface Options<ExtraData = any> extends Overlay.Options<ExtraData> {
             /**
              * 是否自定义窗体
@@ -27,6 +29,10 @@ declare namespace AMap {
              * 信息窗体尺寸
              */
             size?: SizeValue;
+            /**
+             * 信息窗体锚点
+             */
+            anchor?: Anchor;
             /**
              * 信息窗体显示位置偏移量
              */
@@ -82,6 +88,15 @@ declare namespace AMap {
          * 获取信息窗体显示基点位置
          */
         getPosition(): LngLat | undefined;
+        /**
+         * 获取锚点
+         */
+        getAnchor(): InfoWindow.Anchor | undefined;
+        /**
+         * 设置锚点
+         * @param anchor 锚点
+         */
+        setAnchor(anchor?: InfoWindow.Anchor): void;
         /**
          * 设置信息窗体大小
          * @param size 大小
