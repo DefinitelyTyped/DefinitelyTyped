@@ -131,7 +131,24 @@ class CalendarResource {
                   agendaDateFormat: (date: Date, culture?: string, localizer?: object) => "some-format",
                   dayRangeHeaderFormat: (range: DateRange, culture?: string, localizer?: object) => "some-format"
               }}
-              messages={{}}
+              messages={{
+                date: 'Date',
+                time: 'Time',
+                event: 'Event',
+                allDay: 'All Day',
+                week: 'Week',
+                work_week: 'Work Week',
+                day: 'Day',
+                month: 'Month',
+                previous: 'Back',
+                next: 'Next',
+                yesterday: 'Yesterday',
+                tomorrow: 'Tomorrow',
+                today: 'Today',
+                agenda: 'Agenda',
+                noEventsInRange: 'There are no events in this range.',
+                showMore: total => `+${total} more`,
+              }}
               timeslots={24}
               defaultView={'month'}
               className={'my-calendar'}

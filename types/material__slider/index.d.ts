@@ -25,7 +25,7 @@ import MDCComponent from 'material__base/component';
 import MDCSliderFoundation from './foundation';
 import MDCSliderAdapter from './adapter';
 
-export {MDCSliderAdapter, MDCSliderFoundation};
+export { MDCSliderAdapter, MDCSliderFoundation };
 
 export class MDCSlider extends MDCComponent<MDCSliderAdapter, MDCSliderFoundation> {
     static attachTo(root: Element): MDCSlider;

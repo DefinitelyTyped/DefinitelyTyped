@@ -753,7 +753,7 @@ declare namespace Tabulator {
         /** title - Required This is the title that will be displayed in the header for this column */
         title: string;
         /** field - Required (not required in icon/button columns) this is the key for this column in the data array*/
-        field?: string;
+        field: string;
         /** visible - (boolean, default - true) determines if the column is visible. (see Column Visibility for more details */
         visible?: boolean;
 
@@ -1006,7 +1006,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
     type Formatter = "plaintext" | "textarea" | "html" | "money" | "image" | "datetime" | "datetimediff" | "link" | "tickCross" | "color" | "star" | "traffic" | "progress" | "lookup" | "buttonTick" | "buttonCross" | "rownum" | "handle" | ((cell: CellComponent, formatterParams: {}, onRendered: EmptyCallback) => string | HTMLElement);
     type FormatterParams = MoneyParams | ImageParams | LinkParams | DateTimeParams | DateTimeDifferenceParams | TickCrossParams | TrafficParams | StarRatingParams | JSONRecord | ((cell: CellComponent) => {});
 
-    type Editor = true | "input" | "textarea" | "number" | "range" | "tick" | "star" | "select" | "autocomplete" | ((cell: CellComponent, onRendered: EmptyCallback, success: ValueVoidCallback, cancel: ValueVoidCallback, editorParams: {}) => HTMLElement | false);
+    type Editor = true | "input" | "textarea" | "number" | "range" | "tickCross" | "star" | "select" | "autocomplete" | ((cell: CellComponent, onRendered: EmptyCallback, success: ValueVoidCallback, cancel: ValueVoidCallback, editorParams: {}) => HTMLElement | false);
 
     type EditorParams = NumberParams | CheckboxParams | SelectParams | AutoCompleteParams | ((cell: CellComponent) => {});
 
@@ -1107,7 +1107,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
     interface AutoCompleteParams {
         values: true | string[] | JSONRecord;
         listItemFormatter?: (value: string, text: string) => string;
-        searchFunc: (term: string, values: string[]) => string[];
+        searchFunc?: (term: string, values: string[]) => string[];
         allowEmpty?: boolean;
         freetext?: boolean;
         showListOnEmpty?: boolean;

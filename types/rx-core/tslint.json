@@ -3,6 +3,7 @@
     "rules": {
         // TODOs
         "dt-header": false,
+        "npm-naming": false,
         "unified-signatures": false,
         "no-declare-current-package": false,
         "no-empty-interface": false,

@@ -1716,8 +1716,29 @@ declare module "inspector" {
             awaitPromise?: boolean;
         }
 
+        interface SetAsyncCallStackDepthParameterType {
+            /**
+             * Maximum depth of async call stacks. Setting to `0` will effectively disable collecting async
+             * call stacks (default).
+             */
+            maxDepth: number;
+        }
+
         interface SetCustomObjectFormatterEnabledParameterType {
             enabled: boolean;
+        }
+
+        interface SetMaxCallStackSizeToCaptureParameterType {
+            size: number;
+        }
+
+        interface AddBindingParameterType {
+            name: string;
+            executionContextId?: ExecutionContextId;
+        }
+
+        interface RemoveBindingParameterType {
+            name: string;
         }
 
         interface AwaitPromiseReturnType {
@@ -1817,6 +1838,15 @@ declare module "inspector" {
              * Exception details.
              */
             exceptionDetails?: ExceptionDetails;
+        }
+
+        interface BindingCalledEventDataType {
+            name: string;
+            payload: string;
+            /**
+             * Identifier of the context where the call was made.
+             */
+            executionContextId: ExecutionContextId;
         }
 
         interface ConsoleAPICalledEventDataType {
@@ -2436,10 +2466,22 @@ declare module "inspector" {
         post(method: "Runtime.runScript", callback?: (err: Error | null, params: Runtime.RunScriptReturnType) => void): void;
 
         /**
+         * Enables or disables async call stacks tracking.
+         */
+        post(method: "Runtime.setAsyncCallStackDepth", params?: Runtime.SetAsyncCallStackDepthParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.setAsyncCallStackDepth", callback?: (err: Error | null) => void): void;
+
+        /**
          * @experimental
          */
         post(method: "Runtime.setCustomObjectFormatterEnabled", params?: Runtime.SetCustomObjectFormatterEnabledParameterType, callback?: (err: Error | null) => void): void;
         post(method: "Runtime.setCustomObjectFormatterEnabled", callback?: (err: Error | null) => void): void;
+
+        /**
+         * @experimental
+         */
+        post(method: "Runtime.setMaxCallStackSizeToCapture", params?: Runtime.SetMaxCallStackSizeToCaptureParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.setMaxCallStackSizeToCapture", callback?: (err: Error | null) => void): void;
 
         /**
          * Terminate current or next JavaScript execution.
@@ -2447,6 +2489,28 @@ declare module "inspector" {
          * @experimental
          */
         post(method: "Runtime.terminateExecution", callback?: (err: Error | null) => void): void;
+
+        /**
+         * If executionContextId is empty, adds binding with the given name on the
+         * global objects of all inspected contexts, including those created later,
+         * bindings survive reloads.
+         * If executionContextId is specified, adds binding only on global object of
+         * given execution context.
+         * Binding function takes exactly one argument, this argument should be string,
+         * in case of any other input, function throws an exception.
+         * Each binding function call produces Runtime.bindingCalled notification.
+         * @experimental
+         */
+        post(method: "Runtime.addBinding", params?: Runtime.AddBindingParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.addBinding", callback?: (err: Error | null) => void): void;
+
+        /**
+         * This method does not remove binding function from global object but
+         * unsubscribes current runtime agent from Runtime.bindingCalled notifications.
+         * @experimental
+         */
+        post(method: "Runtime.removeBinding", params?: Runtime.RemoveBindingParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.removeBinding", callback?: (err: Error | null) => void): void;
 
         /**
          * Returns supported domains.
@@ -2552,6 +2616,12 @@ declare module "inspector" {
         addListener(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
 
         /**
+         * Notification is issued every time when binding is called.
+         * @experimental
+         */
+        addListener(event: "Runtime.bindingCalled", listener: (message: InspectorNotification<Runtime.BindingCalledEventDataType>) => void): this;
+
+        /**
          * Issued when console API was called.
          */
         addListener(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
@@ -2629,6 +2699,7 @@ declare module "inspector" {
         emit(event: "HeapProfiler.resetProfiles"): boolean;
         emit(event: "Profiler.consoleProfileFinished", message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>): boolean;
         emit(event: "Profiler.consoleProfileStarted", message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>): boolean;
+        emit(event: "Runtime.bindingCalled", message: InspectorNotification<Runtime.BindingCalledEventDataType>): boolean;
         emit(event: "Runtime.consoleAPICalled", message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>): boolean;
         emit(event: "Runtime.exceptionRevoked", message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>): boolean;
         emit(event: "Runtime.exceptionThrown", message: InspectorNotification<Runtime.ExceptionThrownEventDataType>): boolean;
@@ -2702,6 +2773,12 @@ declare module "inspector" {
          * Sent when new profile recording is started using console.profile() call.
          */
         on(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
+
+        /**
+         * Notification is issued every time when binding is called.
+         * @experimental
+         */
+        on(event: "Runtime.bindingCalled", listener: (message: InspectorNotification<Runtime.BindingCalledEventDataType>) => void): this;
 
         /**
          * Issued when console API was called.
@@ -2828,6 +2905,12 @@ declare module "inspector" {
         once(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
 
         /**
+         * Notification is issued every time when binding is called.
+         * @experimental
+         */
+        once(event: "Runtime.bindingCalled", listener: (message: InspectorNotification<Runtime.BindingCalledEventDataType>) => void): this;
+
+        /**
          * Issued when console API was called.
          */
         once(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
@@ -2952,6 +3035,12 @@ declare module "inspector" {
         prependListener(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
 
         /**
+         * Notification is issued every time when binding is called.
+         * @experimental
+         */
+        prependListener(event: "Runtime.bindingCalled", listener: (message: InspectorNotification<Runtime.BindingCalledEventDataType>) => void): this;
+
+        /**
          * Issued when console API was called.
          */
         prependListener(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
@@ -3074,6 +3163,12 @@ declare module "inspector" {
          * Sent when new profile recording is started using console.profile() call.
          */
         prependOnceListener(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
+
+        /**
+         * Notification is issued every time when binding is called.
+         * @experimental
+         */
+        prependOnceListener(event: "Runtime.bindingCalled", listener: (message: InspectorNotification<Runtime.BindingCalledEventDataType>) => void): this;
 
         /**
          * Issued when console API was called.
