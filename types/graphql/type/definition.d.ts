@@ -1,5 +1,5 @@
 import Maybe from "../tsutils/Maybe";
-import { MaybePromise } from "../jsutils/MaybePromise";
+import { PromiseOrValue } from "../jsutils/PromiseOrValue";
 import {
     ScalarTypeDefinitionNode,
     ObjectTypeDefinitionNode,
@@ -97,13 +97,13 @@ export type GraphQLOutputType =
     | GraphQLEnumType
     | GraphQLList<any>
     | GraphQLNonNull<
-          | GraphQLScalarType
-          | GraphQLObjectType
-          | GraphQLInterfaceType
-          | GraphQLUnionType
-          | GraphQLEnumType
-          | GraphQLList<any>
-      >;
+        | GraphQLScalarType
+        | GraphQLObjectType
+        | GraphQLInterfaceType
+        | GraphQLUnionType
+        | GraphQLEnumType
+        | GraphQLList<any>
+    >;
 
 export function isOutputType(type: any): type is GraphQLOutputType;
 
@@ -164,7 +164,7 @@ interface GraphQLList<T extends GraphQLType> {
 
 interface _GraphQLList<T extends GraphQLType> {
     (type: T): GraphQLList<T>;
-    new (type: T): GraphQLList<T>;
+    new(type: T): GraphQLList<T>;
 }
 
 export const GraphQLList: _GraphQLList<GraphQLType>;
@@ -198,7 +198,7 @@ interface GraphQLNonNull<T extends GraphQLNullableType> {
 
 interface _GraphQLNonNull<T extends GraphQLNullableType> {
     (type: T): GraphQLNonNull<T>;
-    new (type: T): GraphQLNonNull<T>;
+    new(type: T): GraphQLNonNull<T>;
 }
 
 export const GraphQLNonNull: _GraphQLNonNull<GraphQLNullableType>;
@@ -352,7 +352,7 @@ export class GraphQLObjectType<
     TSource = any,
     TContext = any,
     TArgs = { [key: string]: any }
-> {
+    > {
     name: string;
     description: Maybe<string>;
     astNode: Maybe<ObjectTypeDefinitionNode>;
@@ -378,7 +378,7 @@ export interface GraphQLObjectTypeConfig<
     TSource,
     TContext,
     TArgs = { [key: string]: any }
-> {
+    > {
     name: string;
     interfaces?: Thunk<Maybe<GraphQLInterfaceType[]>>;
     fields: Thunk<GraphQLFieldConfigMap<TSource, TContext, TArgs>>;
@@ -392,17 +392,17 @@ export type GraphQLTypeResolver<
     TSource,
     TContext,
     TArgs = { [key: string]: any }
-> = (
-    value: TSource,
-    context: TContext,
-    info: GraphQLResolveInfo
-) => MaybePromise<Maybe<GraphQLObjectType<TSource, TContext, TArgs> | string>>;
+    > = (
+        value: TSource,
+        context: TContext,
+        info: GraphQLResolveInfo
+    ) => PromiseOrValue<Maybe<GraphQLObjectType<TSource, TContext, TArgs> | string>>;
 
 export type GraphQLIsTypeOfFn<TSource, TContext> = (
     source: TSource,
     context: TContext,
     info: GraphQLResolveInfo
-) => MaybePromise<boolean>;
+) => PromiseOrValue<boolean>;
 
 export type GraphQLFieldResolver<TSource, TContext, TArgs = { [argName: string]: any }> = (
     source: TSource,
@@ -478,9 +478,9 @@ export type GraphQLFieldMap<
     TSource,
     TContext,
     TArgs = { [key: string]: any }
-> = {
-    [key: string]: GraphQLField<TSource, TContext, TArgs>;
-};
+    > = {
+        [key: string]: GraphQLField<TSource, TContext, TArgs>;
+    };
 
 /**
  * Interface Type Definition
@@ -525,7 +525,7 @@ export interface GraphQLInterfaceTypeConfig<
     TSource,
     TContext,
     TArgs = { [key: string]: any }
-> {
+    > {
     name: string;
     fields: Thunk<GraphQLFieldConfigMap<TSource, TContext, TArgs>>;
     /**
