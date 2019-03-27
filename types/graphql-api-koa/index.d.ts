@@ -14,10 +14,7 @@ export interface ExecuteOptions {
   fieldResolver?: any;
 }
 
-export function errorHandler<StateT = any, CustomT = {}>(): Middleware<
-  StateT,
-  CustomT
->;
+export function errorHandler(): Middleware;
 
 export function execute<StateT = any, CustomT = {}>(
   options: ExecuteOptions & {
