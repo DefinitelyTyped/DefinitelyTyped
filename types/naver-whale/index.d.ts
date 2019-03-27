@@ -546,10 +546,10 @@ declare namespace whale {
 
         /**
          * 자주 가는 사이트에서 해당 url을 삭제합니다.
-         * delete가 예약어라서 정의할 수 없습니다.
          * @param url 삭제할 url
          */
-        // export function delete(url: string): void;
+        var _delete: (url: string) => void;
+        export { _delete as delete };
 
         /**
          * 자주 가는 사이트에서 해당 url을 숨깁니다.
