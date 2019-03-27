@@ -5,7 +5,7 @@
 //                 Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface TmpNameOptions {
+declare interface TmpNameOptions {
     prefix?: string;
     postfix?: string;
     template?: string;
@@ -13,58 +13,58 @@ interface TmpNameOptions {
     tries?: number;
 }
 
-interface FileOptions extends TmpNameOptions {
+declare interface FileOptions extends TmpNameOptions {
     mode?: number;
     keep?: boolean;
     discardDescriptor?: boolean;
     detachDescriptor?: boolean;
 }
 
-interface DirOptions extends TmpNameOptions {
+declare interface DirOptions extends TmpNameOptions {
     mode?: number;
     keep?: boolean;
     unsafeCleanup?: boolean;
 }
 
-interface FileResult {
+declare interface FileResult {
     name: string;
     fd: number;
     removeCallback: () => void;
 }
 
-interface DirResult {
+declare interface DirResult {
     name: string;
     removeCallback: () => void;
 }
 
-type FileCallback = (
+declare type FileCallback = (
     err: any,
     name: string,
     fd: number,
     removeCallback: () => void
 ) => void;
 
-type DirCallback = (err: any, name: string, removeCallback: () => void) => void;
+declare type DirCallback = (
+    err: any,
+    name: string,
+    removeCallback: () => void
+) => void;
 
-type TmpNameCallback = (err: any, name: string) => void;
+declare type TmpNameCallback = (err: any, name: string) => void;
 
-declare const tmp: {
-    file(options: FileOptions, cb: FileCallback): void;
-    file(cb: FileCallback): void;
+export function file(options: FileOptions, cb: FileCallback): void;
+export function file(cb: FileCallback): void;
 
-    fileSync(options?: FileOptions): FileResult;
+export function fileSync(options?: FileOptions): FileResult;
 
-    dir(options: DirOptions, cb: DirCallback): void;
-    dir(cb: DirCallback): void;
+export function dir(options: DirOptions, cb: DirCallback): void;
+export function dir(cb: DirCallback): void;
 
-    dirSync(options?: DirOptions): DirResult;
+export function dirSync(options?: DirOptions): DirResult;
 
-    tmpName(options: TmpNameOptions, cb: TmpNameCallback): void;
-    tmpName(cb: TmpNameCallback): void;
+export function tmpName(options: TmpNameOptions, cb: TmpNameCallback): void;
+export function tmpName(cb: TmpNameCallback): void;
 
-    tmpNameSync(options?: TmpNameOptions): string;
+export function tmpNameSync(options?: TmpNameOptions): string;
 
-    setGracefulCleanup(): void;
-};
-
-export = tmp;
+export function setGracefulCleanup(): void;
