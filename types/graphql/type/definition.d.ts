@@ -97,13 +97,13 @@ export type GraphQLOutputType =
     | GraphQLEnumType
     | GraphQLList<any>
     | GraphQLNonNull<
-        | GraphQLScalarType
-        | GraphQLObjectType
-        | GraphQLInterfaceType
-        | GraphQLUnionType
-        | GraphQLEnumType
-        | GraphQLList<any>
-    >;
+          | GraphQLScalarType
+          | GraphQLObjectType
+          | GraphQLInterfaceType
+          | GraphQLUnionType
+          | GraphQLEnumType
+          | GraphQLList<any>
+      >;
 
 export function isOutputType(type: any): type is GraphQLOutputType;
 
@@ -161,10 +161,9 @@ interface GraphQLList<T extends GraphQLType> {
     inspect(): string;
 }
 
-
 interface _GraphQLList<T extends GraphQLType> {
     (type: T): GraphQLList<T>;
-    new(type: T): GraphQLList<T>;
+    new (type: T): GraphQLList<T>;
 }
 
 export const GraphQLList: _GraphQLList<GraphQLType>;
@@ -198,7 +197,7 @@ interface GraphQLNonNull<T extends GraphQLNullableType> {
 
 interface _GraphQLNonNull<T extends GraphQLNullableType> {
     (type: T): GraphQLNonNull<T>;
-    new(type: T): GraphQLNonNull<T>;
+    new (type: T): GraphQLNonNull<T>;
 }
 
 export const GraphQLNonNull: _GraphQLNonNull<GraphQLNullableType>;
@@ -348,11 +347,7 @@ export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
  *     });
  *
  */
-export class GraphQLObjectType<
-    TSource = any,
-    TContext = any,
-    TArgs = { [key: string]: any }
-    > {
+export class GraphQLObjectType<TSource = any, TContext = any, TArgs = { [key: string]: any }> {
     name: string;
     description: Maybe<string>;
     astNode: Maybe<ObjectTypeDefinitionNode>;
@@ -374,11 +369,7 @@ export class GraphQLObjectType<
     inspect(): string;
 }
 
-export interface GraphQLObjectTypeConfig<
-    TSource,
-    TContext,
-    TArgs = { [key: string]: any }
-    > {
+export interface GraphQLObjectTypeConfig<TSource, TContext, TArgs = { [key: string]: any }> {
     name: string;
     interfaces?: Thunk<Maybe<GraphQLInterfaceType[]>>;
     fields: Thunk<GraphQLFieldConfigMap<TSource, TContext, TArgs>>;
@@ -388,15 +379,11 @@ export interface GraphQLObjectTypeConfig<
     extensionASTNodes?: Maybe<ReadonlyArray<ObjectTypeExtensionNode>>;
 }
 
-export type GraphQLTypeResolver<
-    TSource,
-    TContext,
-    TArgs = { [key: string]: any }
-    > = (
-        value: TSource,
-        context: TContext,
-        info: GraphQLResolveInfo
-    ) => PromiseOrValue<Maybe<GraphQLObjectType<TSource, TContext, TArgs> | string>>;
+export type GraphQLTypeResolver<TSource, TContext, TArgs = { [key: string]: any }> = (
+    value: TSource,
+    context: TContext,
+    info: GraphQLResolveInfo
+) => PromiseOrValue<Maybe<GraphQLObjectType<TSource, TContext, TArgs> | string>>;
 
 export type GraphQLIsTypeOfFn<TSource, TContext> = (
     source: TSource,
@@ -474,13 +461,9 @@ export interface GraphQLArgument {
 
 export function isRequiredArgument(arg: GraphQLArgument): boolean;
 
-export type GraphQLFieldMap<
-    TSource,
-    TContext,
-    TArgs = { [key: string]: any }
-    > = {
-        [key: string]: GraphQLField<TSource, TContext, TArgs>;
-    };
+export type GraphQLFieldMap<TSource, TContext, TArgs = { [key: string]: any }> = {
+    [key: string]: GraphQLField<TSource, TContext, TArgs>;
+};
 
 /**
  * Interface Type Definition
@@ -521,11 +504,7 @@ export class GraphQLInterfaceType {
     inspect(): string;
 }
 
-export interface GraphQLInterfaceTypeConfig<
-    TSource,
-    TContext,
-    TArgs = { [key: string]: any }
-    > {
+export interface GraphQLInterfaceTypeConfig<TSource, TContext, TArgs = { [key: string]: any }> {
     name: string;
     fields: Thunk<GraphQLFieldConfigMap<TSource, TContext, TArgs>>;
     /**

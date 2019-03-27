@@ -37,7 +37,7 @@ export interface ExecutionContext {
 }
 
 export interface ExecutionResultDataDefault {
-    [key: string]: any
+    [key: string]: any;
 }
 
 /**
@@ -73,7 +73,9 @@ export type ExecutionArgs = {
  *
  * Accepts either an object with named arguments, or individual arguments.
  */
-export function execute<TData = ExecutionResultDataDefault>(args: ExecutionArgs): PromiseOrValue<ExecutionResult<TData>>;
+export function execute<TData = ExecutionResultDataDefault>(
+    args: ExecutionArgs
+): PromiseOrValue<ExecutionResult<TData>>;
 export function execute<TData = ExecutionResultDataDefault>(
     schema: GraphQLSchema,
     document: DocumentNode,
