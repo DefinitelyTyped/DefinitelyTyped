@@ -5,7 +5,7 @@
 //                 Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare interface TmpNameOptions {
+export interface TmpNameOptions {
     prefix?: string;
     postfix?: string;
     template?: string;
@@ -13,44 +13,44 @@ declare interface TmpNameOptions {
     tries?: number;
 }
 
-declare interface FileOptions extends TmpNameOptions {
+export interface FileOptions extends TmpNameOptions {
     mode?: number;
     keep?: boolean;
     discardDescriptor?: boolean;
     detachDescriptor?: boolean;
 }
 
-declare interface DirOptions extends TmpNameOptions {
+export interface DirOptions extends TmpNameOptions {
     mode?: number;
     keep?: boolean;
     unsafeCleanup?: boolean;
 }
 
-declare interface FileResult {
+export interface FileResult {
     name: string;
     fd: number;
     removeCallback: () => void;
 }
 
-declare interface DirResult {
+export interface DirResult {
     name: string;
     removeCallback: () => void;
 }
 
-declare type FileCallback = (
+export type FileCallback = (
     err: any,
     name: string,
     fd: number,
     removeCallback: () => void
 ) => void;
 
-declare type DirCallback = (
+export type DirCallback = (
     err: any,
     name: string,
     removeCallback: () => void
 ) => void;
 
-declare type TmpNameCallback = (err: any, name: string) => void;
+export type TmpNameCallback = (err: any, name: string) => void;
 
 export function file(options: FileOptions, cb: FileCallback): void;
 export function file(cb: FileCallback): void;
