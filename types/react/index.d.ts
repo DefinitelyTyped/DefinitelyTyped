@@ -2921,6 +2921,7 @@ declare global {
             feDiffuseLighting: React.SVGProps<SVGFEDiffuseLightingElement>;
             feDisplacementMap: React.SVGProps<SVGFEDisplacementMapElement>;
             feDistantLight: React.SVGProps<SVGFEDistantLightElement>;
+            feDropShadow: React.SVGProps<SVGFEDropShadowElement>;
             feFlood: React.SVGProps<SVGFEFloodElement>;
             feFuncA: React.SVGProps<SVGFEFuncAElement>;
             feFuncB: React.SVGProps<SVGFEFuncBElement>;
