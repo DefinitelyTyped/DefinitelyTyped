@@ -4,6 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
+// The no-unnecessary-generics rule is stupid and overrestrictive. It is a
+// perfectly valid and often useful to type-constrain a wrapping object.
+/* tslint:disable:no-unnecessary-generics */
+
 import { ReactNode, Context } from "react";
 
 export const GraphQLContext: Context<GraphQL>;
