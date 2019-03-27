@@ -1,5 +1,5 @@
-// Type definitions for username 1.0
-// Project: https://www.npmjs.com/package/uslug
+// Type definitions for uslug 1.0
+// Project: https://github.com/jeremys/uslug
 // Definitions by: Junyoung Choi <https://github.com/rokt33r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
