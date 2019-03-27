@@ -2437,6 +2437,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "xmlbuilder",
+            "typingsPackageName": "xmlbuilder",
+            "sourceRepoURL": "https://github.com/oozcitak/xmlbuilder-js",
+            "asOfVersion": "11.0.1"
+        },
+        {
             "libraryName": "@xmpp/jid",
             "typingsPackageName": "xmpp__jid",
             "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
