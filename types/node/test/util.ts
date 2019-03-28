@@ -35,6 +35,10 @@ import { readFile } from 'fs';
     });
     assert(typeof util.inspect.custom === 'symbol');
 
+    util.inspect.replDefaults = {
+        colors: true,
+    };
+
     util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
 
     // util.callbackify

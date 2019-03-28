@@ -26,10 +26,12 @@ import { EventEmitter } from "events";
  * Everytime the same queue is instantiated it tries to process all the old jobs that may exist from a previous unfinished session.
  */
 declare const Bull: {
-  (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  (queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue; // tslint:disable-line unified-signatures
-  new (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  new (queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue; // tslint:disable-line unified-signatures
+  /* tslint:disable:no-unnecessary-generics unified-signatures */
+  <T = any>(queueName: string, opts?: Bull.QueueOptions): Bull.Queue<T>;
+  <T = any>(queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue<T>;
+  new <T = any>(queueName: string, opts?: Bull.QueueOptions): Bull.Queue<T>;
+  new <T = any>(queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue<T>;
+  /* tslint:enable:no-unnecessary-generics unified-signatures */
 };
 
 declare namespace Bull {
