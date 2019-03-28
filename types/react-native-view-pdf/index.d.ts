@@ -2,6 +2,8 @@
 // Project: https://github.com/rumax/react-native-PDFView#readme
 // Definitions by: Sérgio Miguel <https://github.com/thesergiomiguel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
+
 import * as React from 'react';
 
 type HTTPMethod = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
