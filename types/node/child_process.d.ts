@@ -89,7 +89,7 @@ declare module "child_process" {
             Readable, // stderr
             Readable | Writable | null | undefined, // extra, no modification
             Readable | Writable | null | undefined // extra, no modification
-        ]
+        ];
     }
 
     interface MessageOptions {
@@ -125,7 +125,7 @@ declare module "child_process" {
     }
 
     interface SpawnOptionsWithoutStdio extends SpawnOptions {
-        stdio?: undefined | 'pipe' | Array<undefined | 'pipe'>;
+        stdio?: 'pipe' | Array<undefined | 'pipe'>;
     }
 
     function spawn(command: string, options?: SpawnOptionsWithoutStdio): ChildProcessWithoutNullStreams;
