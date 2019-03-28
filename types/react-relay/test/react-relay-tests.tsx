@@ -503,10 +503,9 @@ requestSubscription(
     }
 );
 
-
 // ~~~~~~~~~~~~~~~~~~~~~
 // Context
 // ~~~~~~~~~~~~~~~~~~~~~
 
-ReactRelayContext.Consumer.prototype
-ReactRelayContext.Provider.prototype
+ReactRelayContext.Consumer.prototype;
+ReactRelayContext.Provider.prototype;
