@@ -25,14 +25,14 @@ declare module Revalidator {
     type Types = 'string' | 'number' | 'integer' | 'array' | 'boolean' | 'object' | 'null' | 'any';
     type Formats = 'url' | 'email' | 'ip-address' | 'ipv6' | 'date-time' | 'date' | 'time' | 'color' | 'host-name' | 'utc-millisec' | 'regex';
 
-    interface IErrrorProperty {
+    interface IErrorProperty {
         property: string;
         message: string;
     }
 
     interface IReturnMessage {
         valid: boolean;
-        errors: IErrrorProperty[];
+        errors: IErrorProperty[];
     }
 
     interface JSONSchemaObject<T> {
