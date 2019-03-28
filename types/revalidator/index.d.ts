@@ -35,17 +35,13 @@ declare module Revalidator {
         errors: IErrrorProperty[];
     }
 
+    interface JSONSchemaObject<T> {
+        [index: string]: JSONSchema<T>;
+    }
+
     interface JSONSchema<T> {
-        properties?: ISchemas<T>;
-    }
-
-    interface ISchemas<T> {
-        [index: string]: ISchema<T>|JSONSchema<T>;
-    }
-
-    interface ISchema<T> {
         /**The type of value should be equal to the expected value */
-        type: Types|Types[];
+        type?: Types|Types[];
         /**If true, the value should not be undefined */
         required?: boolean;
         /**The expected value regex needs to be satisfied by the value */
@@ -89,7 +85,9 @@ declare module Revalidator {
         /**Value is valid only if the dependent value is valid */
         dependencies?: string;
         /**Property to describe items for type: 'array' */
-        items?: ISchema<T>|JSONSchema<T>
+        items?: JSONSchema<T>;
+        /**Property to describe properties for type: 'object' */
+        properties?: JSONSchemaObject<T>;
     }
 }
 
