@@ -53,6 +53,13 @@ FunctionComponent2.defaultProps = {
     <b>bar</b>
 </div>;
 
+// button type attribute
+<button type="submit">foo</button>;
+<button type="reset">foo</button>;
+<button type="button">foo</button>;
+<button type="botton">foo</button>; // $ExpectError
+<button type={"botton" as string}>foo</button>; // $ExpectError
+
 interface Props {
     hello: string;
 }

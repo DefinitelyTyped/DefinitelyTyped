@@ -2415,6 +2415,7 @@ const testInfoWindow = new AMap.InfoWindow<InfoWindowExtraData>({
     closeWhenClickMap: false,
     content: 'content',
     size: [100, 100],
+    anchor: 'bottom-center',
     offset: new AMap.Pixel(10, 10),
     position: lnglat,
     showShadow: true
@@ -2448,6 +2449,20 @@ testInfoWindow.setPosition(lnglatTuple);
 
 // $ExpectType LngLat | undefined
 testInfoWindow.getPosition();
+
+const testInfoWindowAnchor = testInfoWindow.getAnchor();
+if (testInfoWindowAnchor !== undefined) {
+    // $ExpectType Anchor
+    testInfoWindowAnchor;
+} else {
+    // $ExpectType undefined
+    testInfoWindowAnchor;
+}
+
+// $ExpectType void
+testInfoWindow.setAnchor();
+// $ExpectType void
+testInfoWindow.setAnchor(testInfoWindowAnchor);
 
 // $ExpectType Size | undefined
 testInfoWindow.getSize();
@@ -2491,6 +2506,7 @@ new AMap.Marker({});
 export const testMarker = new AMap.Marker<MarkerExtraData>({
     map,
     position: lnglat,
+    anchor: 'bottom-center',
     offset: pixel,
     icon: 'iconUrl',
     content: 'htmlString',
@@ -2525,6 +2541,20 @@ testMarker.markOnAMAP({
     position: [1, 2],
     name: '123'
 });
+
+const testMarkerAnchor = testMarker.getAnchor();
+if (testMarkerAnchor) {
+    // $ExpectType Anchor
+    testMarkerAnchor;
+} else {
+    // $ExpectType undefined
+    testMarkerAnchor;
+}
+
+// $ExpectType void
+testMarker.setAnchor(testMarkerAnchor);
+// $ExpectType void
+testMarker.setAnchor();
 
 // $ExpectType Pixel
 testMarker.getOffset();
@@ -3229,6 +3259,7 @@ const testText = new AMap.Text<TextExtraData>({
     verticalAlign: 'top',
     map,
     position: lnglat,
+    anchor: 'bottom-center',
     offset: pixel,
     topWhenClick: true,
     bubble: true,
@@ -3245,6 +3276,20 @@ const testText = new AMap.Text<TextExtraData>({
     clickable: true,
     extData: { test: 1 }
 });
+
+const testTextAnchor = testText.getAnchor();
+if (testTextAnchor) {
+    // $ExpectType Anchor
+    testTextAnchor;
+} else {
+    // $ExpectType undefined
+    testTextAnchor;
+}
+
+// $ExpectType void
+testText.setAnchor(testTextAnchor);
+// $ExpectType void
+testText.setAnchor();
 
 // $ExpectType string
 testText.getText();
@@ -3363,7 +3408,7 @@ testText.setShadow(icon);
 testText.setShadow('shadow url');
 
 // $ExpectType void
-testText.setExtData({test: 1});
+testText.setExtData({ test: 1 });
 
 // $ExpectType {} | TextExtraData
 testText.getExtData();

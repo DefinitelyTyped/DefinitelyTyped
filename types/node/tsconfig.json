@@ -57,6 +57,7 @@
         "test/os.ts",
         "test/path.ts",
         "test/perf_hooks.ts",
+        "test/process.ts",
         "test/querystring.ts",
         "test/readline.ts",
         "test/repl.ts",

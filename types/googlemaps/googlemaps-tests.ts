@@ -455,3 +455,36 @@ service.findPlaceFromPhoneNumber({
 const autocomplete = new google.maps.places.Autocomplete(document.createElement('input'));
 const placeResult = autocomplete.getPlace();
 placeResult.name; // $ExpectType string
+
+/***** google.maps.ImageMapType *****/
+const imageMapType = new google.maps.ImageMapType({
+    alt: 'alt',
+    getTileUrl: (tileCoord: google.maps.Point, zoom: number) => 'string',
+    maxZoom: 20,
+    minZoom: 10,
+    name: 'name',
+    opacity: 0.5,
+    tileSize: new google.maps.Size(256, 256),
+});
+imageMapType.alt; // $ExpectType string
+imageMapType.maxZoom; // $ExpectType number
+imageMapType.minZoom; // $ExpectType number
+imageMapType.name; // $ExpectType string
+imageMapType.projection; // $ExpectType Projection
+imageMapType.radius; // $ExpectType number
+imageMapType.tileSize; // $ExpectType Size
+
+/***** google.maps.StyledMapType *****/
+const styledMapType = new google.maps.StyledMapType([], {
+    alt: 'alt',
+    maxZoom: 20,
+    minZoom: 10,
+    name: 'name',
+});
+styledMapType.alt; // $ExpectType string
+styledMapType.maxZoom; // $ExpectType number
+styledMapType.minZoom; // $ExpectType number
+styledMapType.name; // $ExpectType string
+styledMapType.projection; // $ExpectType Projection
+styledMapType.radius; // $ExpectType number
+styledMapType.tileSize; // $ExpectType Size

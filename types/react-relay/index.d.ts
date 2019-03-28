@@ -191,3 +191,11 @@ export function createRefetchContainer<P>(
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
     taggedNode: RelayRuntimeTypes.GraphQLTaggedNode
 ): RelayContainer<P>;
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// Context
+// ~~~~~~~~~~~~~~~~~~~~~
+
+export const ReactRelayContext: React.Context<
+    RelayRuntimeTypes.CRelayContext<RelayRuntimeTypes.Environment>
+>;

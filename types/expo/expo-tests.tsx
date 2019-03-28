@@ -51,7 +51,8 @@ import {
     SecureStore,
     SplashScreen,
     Svg,
-    Updates
+    Updates,
+    WebBrowser
 } from 'expo';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
@@ -1300,4 +1301,20 @@ async () => {
 // #region SplashScreen
 SplashScreen.hide();
 SplashScreen.preventAutoHide();
+// #endregion
+
+// #region WebBrowser
+async () => {
+    const result1 = await WebBrowser.openBrowserAsync('https://google.com');
+    result1.type;
+
+    const result2 = await WebBrowser.openAuthSessionAsync('https://google.com', 'https://example.com');
+    if (result2.type === 'success') {
+        result2.url;
+    } else {
+        result2.type;
+    }
+
+    WebBrowser.dismissBrowser();
+};
 // #endregion

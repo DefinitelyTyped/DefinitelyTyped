@@ -224,7 +224,27 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
-    const key: string = forge.pkcs5.pbkdf2("password", "salt", 1000, 32);
+    let md: forge.md.MessageDigest;
+    md = forge.md.sha256.create();
+
+    const key1: string = forge.pkcs5.pbkdf2("password", "salt", 1000, 32);
+    const key2: string = forge.pkcs5.pbkdf2("password", "salt", 1000, 32, md);
+
+    let key3: string;
+    forge.pkcs5.pbkdf2("password", "salt", 1000, 32, function(err: Error | null, dk: null | string) {
+        if (err === null)
+            key3 = dk;
+        else
+            throw Error("pbkdf2 key derivation fail");
+    });
+
+    let key4: string;
+    forge.pkcs5.pbkdf2("password", "salt", 1000, 32, md, function(err: Error | null, dk: null | string) {
+        if (err === null)
+            key4 = dk;
+        else
+            throw Error("pbkdf2 key derivation fail");
+    });
 }
 
 {

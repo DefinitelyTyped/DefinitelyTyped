@@ -143,7 +143,7 @@ interface IDataURLOptions {
 interface IEvent {
 	e: Event;
 	target?: Object;
-	transform?: { corner: string };
+	transform?: { corner: string, original: Object, width: number };
 }
 
 interface IFillOptions {
@@ -2145,12 +2145,6 @@ export class ActiveSelection {
 	 */
 	toGroup(): Group;
 	/**
-	 * If returns true, deselection is cancelled.
-	 * @since 2.0.0
-	 * @return {Boolean} [cancel]
-	 */
-	onDeselect(): boolean;
-	/**
 	 * Returns {@link fabric.ActiveSelection} instance from an object representation
 	 * @memberOf fabric.ActiveSelection
 	 * @param object Object to create a group from
@@ -2218,10 +2212,10 @@ export class Image {
 	 * Sets image element for this instance to a specified one.
 	 * If filters defined they are applied to new image.
 	 * You might need to call `canvas.renderAll` and `object.setCoords` after replacing, to render new image and update controls area.
-	 * @param [callback] Callback is invoked when all filters have been applied and new image is generated
+	 * @param element image element
 	 * @param [options] Options object
 	 */
-	setElement(element: HTMLImageElement, callback: Function, options: IImageOptions): Image;
+	setElement(element: HTMLImageElement, options?: IImageOptions): Image;
 	/**
 	 * Delete a single texture if in webgl mode
 	 */
@@ -3500,8 +3494,9 @@ export class Object {
 	/**
 	 * This callback function is called every time _discardActiveObject or _setActiveObject
 	 * try to to deselect this object. If the function returns true, the process is cancelled
+     * @return {Boolean} true to cancel selection
 	 */
-	onDeselect(): void;
+	onDeselect(options: { e?: Event, object?: Object }): boolean;
 	/**
 	 * This callback function is called every time _discardActiveObject or _setActiveObject
 	 * try to to select this object. If the function returns true, the process is cancelled
@@ -3647,6 +3642,9 @@ export class Polyline extends Object {
 	 * @param [skipOffset] Whether points offsetting should be skipped
 	 */
 	constructor(points: Array<{ x: number; y: number }>, options?: IPolylineOptions);
+
+    pathOffset: Point;
+
 	/**
 	 * List of attribute names to account for when parsing SVG element (used by `fabric.Polygon.fromElement`)
 	 */
@@ -4137,7 +4135,6 @@ export class IText extends Text {
 	 * Initializes all the interactive behavior of IText
 	 */
 	initBehavior(): void;
-	onDeselect(): void;
 	/**
 	 * Initializes "added" event handler
 	 */
