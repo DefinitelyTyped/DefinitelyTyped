@@ -78,6 +78,20 @@ declare module "child_process" {
         prependOnceListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
     }
 
+    // return this object when stdio option is undefined or not specified
+    interface ChildProcessWithoutNullStreams {
+        stdin: Writable;
+        stdout: Readable;
+        stderr: Readable;
+        readonly stdio: [
+            Writable, // stdin
+            Readable, // stdout
+            Readable, // stderr
+            Readable | Writable | null | undefined, // extra, no modification
+            Readable | Writable | null | undefined // extra, no modification
+        ]
+    }
+
     interface MessageOptions {
         keepOpen?: boolean;
     }
@@ -110,7 +124,13 @@ declare module "child_process" {
         windowsVerbatimArguments?: boolean;
     }
 
+    interface SpawnOptionsWithoutStdio extends SpawnOptions {
+        stdio?: undefined | undefined[];
+    }
+
+    function spawn(command: string, options?: SpawnOptionsWithoutStdio): ChildProcessWithoutNullStreams;
     function spawn(command: string, options?: SpawnOptions): ChildProcess;
+    function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptionsWithoutStdio): ChildProcessWithoutNullStreams;
     function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
     interface ExecOptions extends CommonOptions {
