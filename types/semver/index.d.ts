@@ -11,7 +11,7 @@ export type ReleaseType = "major" | "premajor" | "minor" | "preminor" | "patch" 
 
 export interface Options {
     loose?: boolean;
-    includePrerelease?: boolean
+    includePrerelease?: boolean;
 }
 
 /**
@@ -45,7 +45,7 @@ export function patch(v: string | SemVer, optionsOrLoose?: boolean | Options): n
 /**
  * Returns an array of prerelease components, or null if none exist.
  */
-export function prerelease(v: string | SemVer, optionsOrLoose?: boolean | Options): string[] | null;
+export function prerelease(v: string | SemVer, optionsOrLoose?: boolean | Options): ReadonlyArray<string> | null;
 
 // Comparison
 /**
@@ -102,16 +102,16 @@ export function rcompareIdentifiers(a: string | null, b: string | null): 1 | 0 |
 /**
  * Sorts an array of semver entries in ascending order.
  */
-export function sort(list: Array<string | SemVer>, optionsOrLoose?: boolean | Options): Array<string | SemVer>;
+export function sort<T extends string | SemVer>(list: T[], optionsOrLoose?: boolean | Options): T[];
 /**
  * Sorts an array of semver entries in descending order.
  */
-export function rsort(list: Array<string | SemVer>, optionsOrLoose?: boolean | Options): Array<string | SemVer>;
+export function rsort<T extends string | SemVer>(list: T[], optionsOrLoose?: boolean | Options): T[];
 
 /**
  * Returns difference between two versions by the release type (major, premajor, minor, preminor, patch, prepatch, or prerelease), or null if the versions are the same.
  */
-export function diff(v1: string, v2: string, optionsOrLoose?: boolean | Options): ReleaseType | null;
+export function diff(v1: string | SemVer, v2: string | SemVer, optionsOrLoose?: boolean | Options): ReleaseType | null;
 
 // Ranges
 /**
@@ -125,15 +125,15 @@ export function satisfies(version: string | SemVer, range: string | Range, optio
 /**
  * Return the highest version in the list that satisfies the range, or null if none of them do.
  */
-export function maxSatisfying(versions: Array<string | SemVer>, range: string | Range, optionsOrLoose?: boolean | Options): string | null;
+export function maxSatisfying<T extends string | SemVer>(versions: ReadonlyArray<T>, range: string | Range, optionsOrLoose?: boolean | Options): T | null;
 /**
  * Return the lowest version in the list that satisfies the range, or null if none of them do.
  */
-export function minSatisfying(versions: Array<string | SemVer>, range: string, optionsOrLoose?: boolean | Options): string | null;
+export function minSatisfying<T extends string | SemVer>(versions: ReadonlyArray<T>, range: string | Range, optionsOrLoose?: boolean | Options): T | null;
 /**
  * Return the lowest version that can possibly match the given range.
  */
-export function minVersion(range: string | Range, optionsOrLoose?: boolean | Options): SemVer;
+export function minVersion(range: string | Range, optionsOrLoose?: boolean | Options): SemVer | null;
 /**
  * Return true if version is greater than all the versions possible in the range.
  */
@@ -171,8 +171,8 @@ export class SemVer {
     minor: number;
     patch: number;
     version: string;
-    build: string[];
-    prerelease: string[];
+    build: ReadonlyArray<string>;
+    prerelease: ReadonlyArray<string>;
 
     compare(other: string | SemVer): 1 | 0 | -1;
     compareMain(other: string | SemVer): 1 | 0 | -1;
@@ -204,8 +204,8 @@ export class Range {
     format(): string;
     inspect(): string;
 
-    set: Comparator[][];
-    parseRange(range: string): Comparator[];
+    set: ReadonlyArray<ReadonlyArray<Comparator>>;
+    parseRange(range: string): ReadonlyArray<Comparator>;
     test(version: string | SemVer): boolean;
     intersects(range: Range, optionsOrLoose?: boolean | Options): boolean;
 }
