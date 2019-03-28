@@ -125,7 +125,7 @@ declare module "child_process" {
     }
 
     interface SpawnOptionsWithoutStdio extends SpawnOptions {
-        stdio?: undefined | undefined[];
+        stdio?: undefined | 'pipe' | Array<undefined | 'pipe'>;
     }
 
     function spawn(command: string, options?: SpawnOptionsWithoutStdio): ChildProcessWithoutNullStreams;
