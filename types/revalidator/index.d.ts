@@ -5,7 +5,7 @@
 
 declare module Revalidator {
 
-    interface IOptions {
+    interface Options {
         /** Enforce format constraints (default true) */
         validateFormats?: boolean;
         /** When validateFormats is true treat unrecognized formats as validation errors (default false) */
@@ -19,33 +19,33 @@ declare module Revalidator {
     }
 
     interface RevalidatorStatic {
-        validate<T>(object: T, schema: JSONSchema<T>, options?: IOptions): IReturnMessage;
+        validate(object: any, schema: JSONSchema, options?: Options): ReturnMessage;
     }
 
     type Types = 'string' | 'number' | 'integer' | 'array' | 'boolean' | 'object' | 'null' | 'any';
     type Formats = 'url' | 'email' | 'ip-address' | 'ipv6' | 'date-time' | 'date' | 'time' | 'color' | 'host-name' | 'utc-millisec' | 'regex';
 
-    interface IErrorProperty {
+    interface ErrorProperty {
         property: string;
         message: string;
     }
 
-    interface IReturnMessage {
+    interface ReturnMessage {
         valid: boolean;
-        errors: IErrorProperty[];
+        errors: ErrorProperty[];
     }
 
-    interface JSONSchemaObject<T> {
-        [index: string]: JSONSchema<T>;
+    interface JSONSchemaObject {
+        [index: string]: JSONSchema;
     }
 
-    interface JSONSchema<T> {
+    interface JSONSchema {
         /**The type of value should be equal to the expected value */
-        type?: Types|Types[];
+        type?: Types | Types[];
         /**If true, the value should not be undefined */
         required?: boolean;
         /**The expected value regex needs to be satisfied by the value */
-        pattern?: RegExp|string;
+        pattern?: RegExp | string;
         /**The length of value must be greater than or equal to expected value */
         maxLength?: number;
         /**Description for this object */
@@ -75,19 +75,21 @@ declare module Revalidator {
         /**Custom messages for different constraints */
         message?: string;
         /**Custom messages for different constraints */
-        messages?: {[index: string]: string};
+        messages?: { [index: string]: string };
         /**Default value */
         default?: any;
         /**Value must be a valid format */
         format?: Formats;
         /**Value must conform to constraint denoted by expected value */
-        conform?: (value: any, data?: T) => boolean;
+        conform?: (value: any, data?: any) => boolean;
         /**Value is valid only if the dependent value is valid */
         dependencies?: string;
         /**Property to describe items for type: 'array' */
-        items?: JSONSchema<T>;
+        items?: JSONSchema;
         /**Property to describe properties for type: 'object' */
-        properties?: JSONSchemaObject<T>;
+        properties?: JSONSchemaObject;
+        /**Property to describe regexp properties for type: 'object' */
+        patternProperties?: JSONSchemaObject;
     }
 }
 
