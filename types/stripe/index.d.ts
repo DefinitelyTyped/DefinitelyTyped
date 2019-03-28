@@ -1982,9 +1982,9 @@ declare namespace Stripe {
             billing: "charge_automatically" | "send_invoice";
 
             /**
-             * Indicates the reason why the invoice was created. subscription_cycle indicates an invoice created by a subscription advancing into a new period. subscription_update indicates an invoice created due to creating or updating a subscription. subscription is set for all old invoices to indicate either a change to a subscription or a period advancement. manual is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The upcoming value is reserved for simulated invoices per the upcoming invoice endpoint.
+             * Indicates the reason why the invoice was created. subscription_cycle indicates an invoice created by a subscription advancing into a new period. subscription_create indicates an invoice created due to creating a subscription. subscription_update indicates an invoice created due to creating or updating a subscription. subscription is set for all old invoices to indicate either a change to a subscription or a period advancement. manual is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The upcoming value is reserved for simulated invoices per the upcoming invoice endpoint. subscription_threshold indicates an invoice created due to a billing threshold being reached.
              */
-            billing_reason: "subscription_cycle" | "subscription_update" | "subscription" | "manual" | "upcoming";
+            billing_reason: "subscription_cycle" | "subscription_create" | "subscription_update" | "subscription" | "manual" | "upcoming" | "subscription_threshold";
 
             /**
              * ID of the latest charge generated for this invoice, if any. [Expandable]
