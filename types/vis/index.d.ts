@@ -1827,13 +1827,13 @@ export interface NodeOptions {
   labelHighlightBold?: boolean;
 
   level?: number;
-    
+
   margin?: {
     top?: number;
     right?: number;
     bottom?: number;
     left?: number;
-  }
+  };
 
   mass?: number;
 
