@@ -25,11 +25,17 @@ declare namespace AMap {
             offset?: Pixel;
         }
 
+        type Anchor = 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'center' | 'middle-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+
         interface Options<ExtraData = any> extends Overlay.Options<ExtraData> {
             /**
              * 点标记在地图上显示的位置
              */
             position?: LocationValue;
+            /**
+             * 标记锚点
+             */
+            anchor?: Anchor;
             /**
              * 点标记显示位置偏移量
              */
@@ -117,6 +123,14 @@ declare namespace AMap {
          * @param obj 唤起参数
          */
         markOnAMAP(obj?: { name?: string, position?: LocationValue }): void;
+        /**
+         * 获取锚点
+         */
+        getAnchor(): Marker.Anchor | undefined;
+        /**
+         * 设置锚点
+         */
+        setAnchor(anchor?: Marker.Anchor): void;
         /**
          * 获取偏移量
          */

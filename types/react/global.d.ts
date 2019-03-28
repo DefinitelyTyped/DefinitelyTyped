@@ -97,6 +97,7 @@ interface SVGFEConvolveMatrixElement extends SVGElement { }
 interface SVGFEDiffuseLightingElement extends SVGElement { }
 interface SVGFEDisplacementMapElement extends SVGElement { }
 interface SVGFEDistantLightElement extends SVGElement { }
+interface SVGFEDropShadowElement extends SVGElement { }
 interface SVGFEFloodElement extends SVGElement { }
 interface SVGFEFuncAElement extends SVGElement { }
 interface SVGFEFuncBElement extends SVGElement { }

@@ -5,9 +5,10 @@
 //                 John McLaughlin <https://github.com/zamb3zi>
 //                 Brasten Sager <https://github.com/brasten>
 //                 Nicolas Penin <https://github.com/npenin>
+//                 Kristian Brünn <https://github.com/kristianmitk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var debug: debug.Debug & {debug: debug.Debug, default: debug.Debug};
+declare var debug: debug.Debug & { debug: debug.Debug; default: debug.Debug };
 
 export = debug;
 export as namespace debug;
@@ -19,6 +20,7 @@ declare namespace debug {
         disable: () => string;
         enable: (namespaces: string) => void;
         enabled: (namespaces: string) => boolean;
+        log: (...args: any[]) => any;
 
         names: RegExp[];
         skips: RegExp[];
