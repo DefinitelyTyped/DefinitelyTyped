@@ -147,7 +147,7 @@ declare namespace Remarkable {
         parser: ParserBlock;
         options: Options;
         env: Env;
-        tokens: [ContentToken];
+        tokens: BlockContentToken[];
         bMarks: number[];
         eMarks: number[];
         tShift: number[];
@@ -175,7 +175,7 @@ declare namespace Remarkable {
         src: string;
         env: Env;
         parser: ParserInline;
-        tokens: [ContentToken];
+        tokens: ContentToken[];
         pos: number;
         posMax: number;
         level: number;
@@ -385,13 +385,13 @@ declare namespace Remarkable {
          * The content of the block. This might include inline mardown syntax
          * which may need further processing by the inline rules.
          */
-        content: string;
+        content?: string;
 
         /**
          * This is initialized with an empty array (`[]`) and will be filled
          * with the inline parser tokens as the inline parsing rules are applied.
          */
-        children: Token[];
+        children?: Token[];
     }
 
     interface ContentToken extends TagToken {
@@ -399,12 +399,12 @@ declare namespace Remarkable {
          * A text token has a `content` property. This is passed to
          * the corresponding renderer to be converted for output.
          */
-        content: any;
+        content?: any;
 
         /**
          * Is this a block element
          */
-        block: boolean;
+        block?: boolean;
     }
 
     // ---------------
@@ -449,7 +449,7 @@ declare namespace Remarkable {
 
     interface FenceToken extends ContentToken {
         content: string;
-        block: false;
+        block?: false;
 
         /**
          * Fenced block params.
@@ -469,7 +469,7 @@ declare namespace Remarkable {
          */
         subId?: number;
     }
-    interface FootnoteReferenceToken extends TagToken {}
+    interface FootnoteReferenceToken extends FootnoteGenericToken {}
     interface FootnoteReferenceOpenToken extends FootnoteReferenceToken {
         label: string;
         type: 'footnote_reference_open';
