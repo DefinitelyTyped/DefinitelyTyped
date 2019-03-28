@@ -903,7 +903,7 @@ export enum Platform {
     ACTIONS_ON_GOOGLE
 }
 
-interface MessageBase {
+export interface MessageBase {
     platform?: Platform;
     message: string;
 }
@@ -994,10 +994,10 @@ export interface Card {
     title?: string;
     subtitle?: string;
     imageUri?: string;
-    buttons?: {
+    buttons?: Array<{
         text?: string;
         postback?: string;
-    }[];
+    }>;
 }
 
 export interface SimpleResponses {
@@ -1015,18 +1015,18 @@ export interface BasicCard {
     subtitle?: string;
     formattedText?: string;
     image?: Image;
-    buttons?: {
+    buttons?: Array<{
         title: string;
         openUriAction: {
             uri: string;
         };
-    }[];
+    }>;
 }
 
 export interface Suggestions {
-    suggestions: {
+    suggestions: Array<{
         title: string;
-    }[];
+    }>;
 }
 
 export interface LinkOutSuggestion {
