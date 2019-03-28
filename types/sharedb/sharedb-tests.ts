@@ -101,6 +101,16 @@ backend.use('receive', (context, callback) => {
     );
     callback();
 });
+backend.use('reply', (context, callback) => {
+    console.log(
+        context.action,
+        context.agent,
+        context.backend,
+        context.request,
+        context.reply,
+    );
+    callback();
+});
 backend.use('readSnapshots', (context, callback) => {
     console.log(
         context.action,

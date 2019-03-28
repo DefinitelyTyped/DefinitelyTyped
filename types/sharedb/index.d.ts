@@ -125,8 +125,9 @@ declare namespace middleware {
         doc: DocContext;  // Deprecated, use 'readSnapshots' instead.
         op: OpContext;
         query: QueryContext;
-        receive: ReceiveContext;
         readSnapshots: ReadSnapshotsContext;
+        receive: ReceiveContext;
+        reply: ReplyContext;
         submit: SubmitContext;
     }
 
@@ -165,20 +166,25 @@ declare namespace middleware {
         projection: Projection | undefined;
         fields: ProjectionFields | undefined;
         channel: string;
-        query: any;
-        options: any;
+        query: ShareDB.JSONObject;
+        options: ShareDB.JSONObject;
         db: sharedb.DB | null;
         snapshotProjection: Projection | null;
-    }
-
-    interface ReceiveContext extends BaseContext {
-        data: any;
     }
 
     interface ReadSnapshotsContext extends BaseContext {
         collection: string;
         snapshots: ShareDB.Snapshot[];
         snapshotType: SnapshotType;
+    }
+
+    interface ReceiveContext extends BaseContext {
+        data: ShareDB.JSONObject;  // ClientRequest, but before any validation
+    }
+
+    interface ReplyContext extends BaseContext {
+        request: ShareDB.ClientRequest;
+        reply: ShareDB.JSONObject;
     }
 
     type SnapshotType = 'current' | 'byVersion' | 'byTimestamp';
