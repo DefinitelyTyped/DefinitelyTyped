@@ -38,7 +38,7 @@ declare namespace yargsParser {
 
     interface Options {
         alias?: { [key: string]: string | string[] };
-        array?: string[];
+        array?: string[] | { key: string, boolean?: boolean, number?: boolean, string?: boolean }[];
         boolean?: string[];
         config?: string | string[] | { [key: string]: boolean };
         configuration?: Partial<Configuration>;
