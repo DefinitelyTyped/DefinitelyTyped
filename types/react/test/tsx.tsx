@@ -229,9 +229,7 @@ const Memoized5 = React.memo<{ test: boolean }>(
 
 <Memoized5 test/>;
 
-// for some reason the ExpectType doesn't work if the type is namespaced
-// $ExpectType NamedExoticComponent<{}>
-const Memoized6 = React.memo(props => null);
+const Memoized6: React.NamedExoticComponent<object> = React.memo(props => null);
 <Memoized6/>;
 // $ExpectError
 <Memoized6 foo/>;
