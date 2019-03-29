@@ -79,9 +79,10 @@ declare namespace marked {
 
     class InlineLexer {
         constructor(links: string[], options?: MarkedOptions);
-        rules: Rules;
+        static rules: Rules;
+        static output(src: string, links: string[], options?: MarkedOptions): string;
         output(src: string): string;
-        escapes(text: string): string;
+        static escapes(text: string): string;
         outputLink(cap: string[], link: string): string;
         smartypants(text: string): string;
         mangle(text: string): string;
