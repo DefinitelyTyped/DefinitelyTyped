@@ -3,6 +3,7 @@
 // Definitions by: Resi Respati <https://github.com/resir014>
 //                 Kingdaro <https://github.com/kingdaro>
 //                 Joydip Roy <https://github.com/rjoydip>
+//                 Jason Etcovitch <https://github.com/jasonetco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
