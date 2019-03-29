@@ -1,3 +1,5 @@
+declare const htmlElement: HTMLElement;
+
 interface MyData extends Slick.SlickData {
 	title: string;
 	duration: string;
@@ -62,7 +64,7 @@ $('.newSelection');
 grid.setSelectedRows([0, 1, 2]);
 
 class SingleCellSelectionModel extends Slick.SelectionModel<MyData, Slick.Range[]> {
-	private readonly self: SingleCellSelectionModel = null;
+	private readonly self: SingleCellSelectionModel;
 	private _grid: Slick.Grid<MyData>;
 
 	constructor() {
@@ -121,14 +123,14 @@ grid.canCellBeSelected(5, 10);
 
 grid.editActiveCell(new Slick.Editors.Date<MyData>({
 	column: cols[0],
-	container: undefined,
+	container: htmlElement,
 	grid: grid
 }));
 
 grid.setActiveCell(0, 0);
 grid.editActiveCell(new Slick.Editors.Date<MyData>({
 	column: cols[0],
-	container: undefined,
+	container: htmlElement,
 	grid: grid
 }));
 
@@ -203,7 +205,8 @@ columns.forEach(column => {
 });
 
 grid.onSort.subscribe((e, args) => {
-    var sortCol:string = args.sortCols[0].sortCol.field;
+    if (!args.sortCols) return;
+    var sortCol: string | undefined = args.sortCols[0].sortCol.field;
 });
 
 grid.onMouseEnter.subscribe((e: DOMEvent, args: Slick.OnMouseEnterEventArgs<MyData>) => {
