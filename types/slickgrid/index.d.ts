@@ -554,7 +554,7 @@ declare namespace Slick {
 		/**
 		*
 		**/
-		dataItemColumnValueExtractor?: any;
+		dataItemColumnValueExtractor?: (item: any, columnDef: any) => any;
 
 		/**
 		*
@@ -690,6 +690,34 @@ declare namespace Slick {
 		*
 		**/
 		topPanelHeight?: number;
+
+
+        addNewRowCssClass?: string;
+        alwaysAllowHorizontalScroll?: boolean;
+        alwaysShowVerticalScroll?: boolean;
+        asyncPostRenderCleanupDelay?: number;
+        createFooterRow?: boolean;
+        createPreHeaderPanel?: boolean;
+        doPaging?: boolean;
+        editorCellNavOnLRKeys?: boolean;
+        emulatePagingWhenScrolling?: boolean;
+        enableAsyncPostRenderCleanup?: boolean;
+        footerRowHeight?: number;
+        frozenBottom?: boolean;
+        frozenColumn?: number;
+        frozenRow?: number;
+        minRowBuffer?: number;
+        numberedMultiColumnSort?: boolean;
+        preHeaderPanelHeight?: number;
+        preserveCopiedSelectionOnPaste?: boolean;
+        showCellSelection?: boolean;
+        showFooterRow?: boolean;
+        showPreHeaderPanel?: boolean;
+        showTopPanel?: boolean;
+        sortColNumberInSeparateSpan?: boolean;
+        suppressActiveCellChangeOnEdit?: boolean;
+        tristateMultiColumnSort?: boolean;
+        viewportClass?: string;
 	}
 
 	export interface DataProvider<T extends SlickData> {
