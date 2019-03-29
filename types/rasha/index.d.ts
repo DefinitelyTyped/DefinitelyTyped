@@ -7,7 +7,7 @@
 
 export as namespace Rasha;
 
-export type Jwk = {
+export interface Jwk {
     kty: string;
     n: string;
     e: string;
@@ -37,7 +37,7 @@ export interface ExportOptions {
     public: boolean;
 }
 
-export type RsaKeys = {
+export interface RsaKeys {
     private: string;
     public: string;
 }
