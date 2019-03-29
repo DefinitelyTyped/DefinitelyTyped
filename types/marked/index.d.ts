@@ -77,6 +77,16 @@ declare namespace marked {
      */
     function setOptions(options: MarkedOptions): typeof marked;
 
+    class InlineLexer {
+        constructor(links: string[] , options?: MarkedOptions);
+        rules: Rules;
+        output(src: string): string;
+        escapes(text: string): string;
+        outputLink(cap: string[], link: string): string;
+        smartypants(text: string): string;
+        mangle(text: string): string;
+    }
+
     class Renderer {
         constructor(options?: MarkedOptions);
         code(code: string, language: string, isEscaped: boolean): string;

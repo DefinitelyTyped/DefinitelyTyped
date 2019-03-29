@@ -56,3 +56,8 @@ const parseTestText = "- list1\n  - list1.1\n\n listend";
 const parseTestTokens: marked.TokensList = marked.lexer(parseTestText, options);
 const parser = new marked.Parser();
 console.log(parser.parse(parseTestTokens));
+
+const links = ['http', 'image'];
+const inlineLexer = new marked.InlineLexer(links);
+console.log(inlineLexer.output("http://"));
+console.log(inlineLexer.rules);
