@@ -293,12 +293,14 @@ async function testPromisify() {
     expectNonNull(childProcess.spawn('command', { stdio: undefined }));
     expectNonNull(childProcess.spawn('command', { stdio: 'pipe' }));
     expectNonNull(childProcess.spawn('command', { stdio: [undefined, undefined, undefined] }));
+    expectNonNull(childProcess.spawn('command', { stdio: [null, null, null] }));
     expectNonNull(childProcess.spawn('command', { stdio: ['pipe', 'pipe', 'pipe'] }));
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c']));
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], {}));
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: undefined }));
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: 'pipe' }));
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: [undefined, undefined, undefined] }));
+    expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: [null, null, null] }));
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: ['pipe', 'pipe', 'pipe'] }));
 }
 {
