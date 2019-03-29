@@ -22,3 +22,6 @@ new LicenseCheckerWebpackPlugin({
         return dependencies.map(d => `${d.name} ${d.licenseName}`).join('\n');
     },
 });
+
+// $ExpectType LicenseCheckerWebpackPlugin
+new LicenseCheckerWebpackPlugin();
