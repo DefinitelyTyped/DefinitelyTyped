@@ -6,6 +6,7 @@
 //                 Resi Respati <https://github.com/resir014>
 //                 Adam Laycock <https://github.com/Arcath>
 //                 Dominic Marcuse <https://github.com/dmarcuse>
+//                 Madara Uchiha <https://github.com/MadaraUchiha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
