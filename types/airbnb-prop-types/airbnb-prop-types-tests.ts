@@ -104,12 +104,13 @@ AirbnbPropTypes.forbidExtraProps<ForbidShape>({
 // $ExpectType Requireable<number>
 AirbnbPropTypes.integer();
 
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.keysOf(PropTypes.number);
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.keysOf(PropTypes.number, 'foo');
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.keysOf(PropTypes.oneOf(['foo', 'bar']));
+const top = (<T>(x?: T): T => x!)();
+type Top = typeof top;
+declare function validateRequireableTop(x: React.Requireable<Top>): void;
+
+validateRequireableTop(AirbnbPropTypes.keysOf(PropTypes.number));
+validateRequireableTop(AirbnbPropTypes.keysOf(PropTypes.number, 'foo'));
+validateRequireableTop(AirbnbPropTypes.keysOf(PropTypes.oneOf(['foo', 'bar'])));
 
 // $ExpectType Requireable<number>
 AirbnbPropTypes.mutuallyExclusiveProps(PropTypes.number);
@@ -156,23 +157,17 @@ AirbnbPropTypes.requiredBy('foo', PropTypes.string);
 // $ExpectType Validator<number>
 AirbnbPropTypes.requiredBy('bar', PropTypes.number, 42).isRequired;
 
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.restrictedProp();
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.restrictedProp(() => 'Error');
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.restrictedProp(() => new Error('Error'));
+validateRequireableTop(AirbnbPropTypes.restrictedProp());
+validateRequireableTop(AirbnbPropTypes.restrictedProp(() => 'Error'));
+validateRequireableTop(AirbnbPropTypes.restrictedProp(() => new Error('Error')));
 
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.sequenceOf({ validator: PropTypes.number });
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.sequenceOf({ validator: PropTypes.number }, { validator: PropTypes.string });
-// $ExpectType Requireable<{}>
-AirbnbPropTypes.sequenceOf(
+validateRequireableTop(AirbnbPropTypes.sequenceOf({ validator: PropTypes.number }));
+validateRequireableTop(AirbnbPropTypes.sequenceOf({ validator: PropTypes.number }, { validator: PropTypes.string }));
+validateRequireableTop(AirbnbPropTypes.sequenceOf(
     { validator: PropTypes.number, min: 0, max: 10 },
     { validator: PropTypes.string },
     { validator: PropTypes.bool },
-);
+));
 
 interface ShapeShape {
     foo: string;
