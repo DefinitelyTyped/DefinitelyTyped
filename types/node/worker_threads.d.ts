@@ -1,4 +1,3 @@
-
 declare module "worker_threads" {
     import { Context } from "vm";
     import { EventEmitter } from "events";

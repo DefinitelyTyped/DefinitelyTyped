@@ -2,10 +2,10 @@ declare module "events" {
     class internal extends NodeJS.EventEmitter { }
 
     namespace internal {
+        function once(emitter: EventEmitter, event: string | symbol): Promise<any>;
          class EventEmitter extends internal {
             /** @deprecated since v4.0.0 */
             static listenerCount(emitter: EventEmitter, event: string | symbol): number;
-            static once(emitter: EventEmitter, event: string | symbol): Promise<any>;
             static defaultMaxListeners: number;
 
             addListener(event: string | symbol, listener: (...args: any[]) => void): this;
