@@ -833,31 +833,45 @@ R.times(i, 5);
     lastTwoFn([8, 6, 7, 5, 3, 0, 9]);
 };
 
+interface XS { a: number; b?: number; c?: string; }
+
 () => {
-    const xs = [{a: 1}, {a: 2}, {a: 3}];
+    const xs = [{ a: 1 }, { a: 2 }, { a: 3, c: "someString" }];
+
     R.find(R.propEq("a", 2))(xs); // => {a: 2}
     R.find(R.propEq("a", 4))(xs); // => undefined
+    R.find<XS>(R.propEq("c", "bzz"))(xs); // => undefined
+    R.find(R.propEq("c1", "bzz"))(xs); // => undefined;
+    R.find(R.propEq("c", "someString"))(xs); // => { a: 3, c: "someString" }
+
+    R.find<XS>(R.propEq("c1", "bzz"))(xs); // $ExpectError
+    R.find<XS>(R.propEq("c", 1))(xs); // $ExpectError
+    R.find(R.propEq({}, "someString"))(xs); // $ExpectError
 };
 
 () => {
-    const xs = [{a: 1}, {a: 2}, {a: 3}];
+    const xs = [{ a: 1 }, { a: 2 }, { a: 3, c: "someString" }];
+
     R.findIndex(R.propEq("a", 2))(xs); // => 1
     R.findIndex(R.propEq("a", 4))(xs); // => -1
-
     R.findIndex((x: number) => x === 1, [1, 2, 3]);
+    R.findIndex(R.propEq("c", "bzz"))(xs); // => -1
+    R.findIndex(R.propEq("c", "someString"))(xs); // => 2
 };
 
 () => {
-    const xs = [{a: 1, b: 0}, {a: 1, b: 1}];
-    R.findLast(R.propEq("a", 1))(xs); // => {a: 1, b: 1}
+    const xs = [{ a: 1, b: 0 }, { a: 1, b: 1, c: "someString" }, { a: 2, c: "someString" }];
+    R.findLast(R.propEq("a", 1))(xs); // => { a: 1, b: 1, c: "someString" }
     R.findLast(R.propEq("a", 4))(xs); // => undefined
+    R.findLast<XS>(R.propEq("c", "someString"))(xs); // => { a: 2, c: "someString" }
 };
 
 () => {
     const xs = [{a: 1, b: 0}, {a: 1, b: 1}];
     R.findLastIndex(R.propEq("a", 1))(xs); // => 1
     R.findLastIndex(R.propEq("a", 4))(xs); // => -1
-    R.findLastIndex((x: number) => x === 1, [1, 2, 3]);
+    R.findLastIndex((x: number) => x === 1, [1, 2, 3]); // => 0
+    R.findLastIndex(R.propEq("c", "bzz"))(xs); // => -1
 };
 
 () => {

@@ -28,6 +28,7 @@
 //                 Nitesh Phadatare <https://github.com/minitesh>
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
 //                 Pierre-Antoine Mills <https://github.com/pirix-gh>
+//                 Rajab Shakirov <https://github.com/radziksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
@@ -2530,7 +2531,7 @@ declare namespace R {
          * filter a list.
          */
         propEq<T>(name: string | number, val: T, obj: any): boolean;
-        propEq<T>(name: string | number, val: T): (obj: any) => boolean;
+        propEq<T = any, K extends keyof T = any>(name: K, value: T[K]): (obj: T) => boolean;
         propEq(name: string | number): {
             <T>(val: T, obj: any): boolean;
             <T>(val: T): (obj: any) => boolean;
