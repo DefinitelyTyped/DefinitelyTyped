@@ -683,3 +683,13 @@ function keys<T>(o: T): Array<keyof T> {
 
     const enemyTerrain = new Room.Terrain("W2N5");
 }
+
+{
+    // Example taken from official blog post https://blog.screeps.com/2018/12/changelog-2018-12-14/#Creep-pull
+    const creep2 = Game.creeps.sampleCreep2;
+    
+    creep.pull(creep2); // first creep offers pulling
+    creep2.move(creep1); // second creep accepts it
+
+    creep.move(RIGHT); // actual move
+}
