@@ -1,7 +1,5 @@
 import assert = require("assert");
 import * as fs from "fs";
-import * as events from "events";
-import events2 = require("events");
 import * as url from "url";
 import * as util from "util";
 import * as http from "http";
@@ -10,83 +8,11 @@ import * as vm from "vm";
 import * as console2 from "console";
 import * as string_decoder from "string_decoder";
 import * as timers from "timers";
-import * as v8 from "v8";
 import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 import * as inspector from "inspector";
 import * as trace_events from "trace_events";
 import Module = require("module");
-
-////////////////////////////////////////////////////
-/// Events tests : http://nodejs.org/api/events.html
-////////////////////////////////////////////////////
-
-{
-    const emitter: events.EventEmitter = new events.EventEmitter();
-    const event: string | symbol = '';
-    const listener: (...args: any[]) => void = () => {};
-    const any: any = 1;
-
-    {
-        let result: events.EventEmitter;
-
-        result = emitter.addListener(event, listener);
-        result = emitter.on(event, listener);
-        result = emitter.once(event, listener);
-        result = emitter.prependListener(event, listener);
-        result = emitter.prependOnceListener(event, listener);
-        result = emitter.removeListener(event, listener);
-        result = emitter.off(event, listener);
-        result = emitter.removeAllListeners();
-        result = emitter.removeAllListeners(event);
-        result = emitter.setMaxListeners(42);
-    }
-
-    {
-        let result: number;
-
-        result = events.EventEmitter.defaultMaxListeners;
-        result = events.EventEmitter.listenerCount(emitter, event); // deprecated
-
-        result = emitter.getMaxListeners();
-        result = emitter.listenerCount(event);
-    }
-
-    {
-        let result: Function[];
-
-        result = emitter.listeners(event);
-    }
-
-    {
-        let result: boolean;
-
-        result = emitter.emit(event);
-        result = emitter.emit(event, any);
-        result = emitter.emit(event, any, any);
-        result = emitter.emit(event, any, any, any);
-    }
-
-    {
-        let result: Array<string | symbol>;
-
-        result = emitter.eventNames();
-    }
-
-    {
-        class Networker extends events.EventEmitter {
-            constructor() {
-                super();
-
-                this.emit("mingling");
-            }
-        }
-    }
-
-    {
-        new events2();
-    }
-}
 
 ////////////////////////////////////////////////////
 /// File system tests : http://nodejs.org/api/fs.html
@@ -1081,19 +1007,6 @@ import * as constants from 'constants';
     num = constants.POINT_CONVERSION_HYBRID;
     str = constants.defaultCoreCipherList;
     str = constants.defaultCipherList;
-}
-
-////////////////////////////////////////////////////
-/// v8 tests : https://nodejs.org/api/v8.html
-////////////////////////////////////////////////////
-
-{
-    const heapStats = v8.getHeapStatistics();
-    const heapSpaceStats = v8.getHeapSpaceStatistics();
-
-    const zapsGarbage: number = heapStats.does_zap_garbage;
-
-    v8.setFlagsFromString('--collect_maps');
 }
 
 ////////////////////////////////////////////////////
