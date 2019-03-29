@@ -79,7 +79,7 @@ declare module "child_process" {
     }
 
     // return this object when stdio option is undefined or not specified
-    interface ChildProcessWithoutNullStreams {
+    interface ChildProcessWithoutNullStreams extends ChildProcess {
         stdin: Writable;
         stdout: Readable;
         stderr: Readable;

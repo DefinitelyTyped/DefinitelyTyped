@@ -302,6 +302,25 @@ async function testPromisify() {
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: [undefined, undefined, undefined] }));
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: [null, null, null] }));
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: ['pipe', 'pipe', 'pipe'] }));
+
+    function expectChildProcess (cp: childProcess.ChildProcess): void {
+        return undefined;
+    }
+
+    expectChildProcess(childProcess.spawn('command'));
+    expectChildProcess(childProcess.spawn('command', {}));
+    expectChildProcess(childProcess.spawn('command', { stdio: undefined }));
+    expectChildProcess(childProcess.spawn('command', { stdio: 'pipe' }));
+    expectChildProcess(childProcess.spawn('command', { stdio: [undefined, undefined, undefined] }));
+    expectChildProcess(childProcess.spawn('command', { stdio: [null, null, null] }));
+    expectChildProcess(childProcess.spawn('command', { stdio: ['pipe', 'pipe', 'pipe'] }));
+    expectChildProcess(childProcess.spawn('command', ['a', 'b', 'c']));
+    expectChildProcess(childProcess.spawn('command', ['a', 'b', 'c'], {}));
+    expectChildProcess(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: undefined }));
+    expectChildProcess(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: 'pipe' }));
+    expectChildProcess(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: [undefined, undefined, undefined] }));
+    expectChildProcess(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: [null, null, null] }));
+    expectChildProcess(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: ['pipe', 'pipe', 'pipe'] }));
 }
 {
     process.stdin.setEncoding('utf8');
