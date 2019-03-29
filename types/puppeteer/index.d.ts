@@ -4,6 +4,7 @@
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 Konstantin Simon Maria Möllers <https://github.com/ksm2>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Serban Ghita <https://github.com/SerbanGhita>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1073,6 +1074,19 @@ export interface RemoteInfo {
     port: number;
 }
 
+export interface SecurityDetails {
+    /** A string with the name of issuer of the certificate. (e.g. "Let's Encrypt Authority X3"). */
+    issuer(): string;
+    /** String with the security protocol (e.g. TLS 1.2). */
+    protocol(): string;
+    /** Name of the subject to which the certificate was issued to (e.g. "www.example.com"). */
+    subjectName(): string;
+    /** Timestamp stating the start of validity of the certificate. */
+    validFrom(): number;
+    /** Timestamp stating the end of validity of the certificate. */
+    validTo(): number;
+}
+
 /** Response class represents responses which are received by page. */
 export interface Response {
   /** Promise which resolves to a buffer with response body. */
@@ -1094,6 +1108,8 @@ export interface Response {
   ok(): boolean;
   /** Returns remote connection info */
   remoteAddress(): RemoteInfo;
+  /** Returns an object with security details associated with the response. */
+  securityDetails(): SecurityDetails | null;
   /** A matching Request object. */
   request(): Request;
   /** Contains the status code of the response (e.g., 200 for a success). */

@@ -20,8 +20,8 @@
 //                 Frank Li <https://github.com/franklixuefei>
 //                 Jessica Franco <https://github.com/Jessidhia>
 //                 Paul Sherman <https://github.com/pshrmn>
-//                 Sunil Pai <https://github.com/threepointone>
 //                 Saransh Kataria <https://github.com/saranshkataria>
+//                 Kanitkorn Sujautra <https://github.com/lukyth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1815,7 +1815,7 @@ declare namespace React {
         formNoValidate?: boolean;
         formTarget?: string;
         name?: string;
-        type?: string;
+        type?: 'submit' | 'reset' | 'button';
         value?: string | string[] | number;
     }
 
@@ -2922,6 +2922,7 @@ declare global {
             feDiffuseLighting: React.SVGProps<SVGFEDiffuseLightingElement>;
             feDisplacementMap: React.SVGProps<SVGFEDisplacementMapElement>;
             feDistantLight: React.SVGProps<SVGFEDistantLightElement>;
+            feDropShadow: React.SVGProps<SVGFEDropShadowElement>;
             feFlood: React.SVGProps<SVGFEFloodElement>;
             feFuncA: React.SVGProps<SVGFEFuncAElement>;
             feFuncB: React.SVGProps<SVGFEFuncBElement>;

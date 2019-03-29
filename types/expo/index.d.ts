@@ -17,6 +17,8 @@
 //                 Jason Killian <https://github.com/jkillian>
 //                 Satyajit Sahoo <https://github.com/satya164>
 //                 Vinit Sood <https://github.com/vinitsood>
+//                 Mattias Sämskar <https://github.com/mattiassamskar>
+//                 Julian Hundeloh <https://github.com/jaulz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2546,6 +2548,14 @@ export namespace Speech {
 }
 
 /**
+ * SplashScreen
+ */
+export namespace SplashScreen {
+    function hide(): void;
+    function preventAutoHide(): void;
+}
+
+/**
  * SQLite
  */
 export namespace SQLite {
@@ -2606,7 +2616,7 @@ export interface SvgCommonProps {
     strokeWidth?: number | string;
     strokeOpacity?: number | string;
     strokeLinecap?: string;
-    strokeLineJoin?: string;
+    strokeLinejoin?: string;
     strokeDasharray?: any[];
     strokeDashoffset?: any;
     transform?: string | object;
@@ -2856,9 +2866,20 @@ export class Video extends Component<VideoProps, VideoState> {
  * Web Browser
  */
 export namespace WebBrowser {
-    function openBrowserAsync(url: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
-    function openAuthSessionAsync(url: string, redirectUrl?: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
-    function dismissBrowser(): Promise<{ type: 'dismissed' }>;
+    interface BrowserResult {
+        type: 'cancel' | 'dismiss';
+    }
+
+    interface RedirectResult {
+        type: 'success';
+        url: string;
+    }
+
+    type AuthSessionResult = RedirectResult | BrowserResult;
+
+    function openBrowserAsync(url: string): Promise<BrowserResult>;
+    function openAuthSessionAsync(url: string, redirectUrl?: string): Promise<RedirectResult | BrowserResult>;
+    function dismissBrowser(): void;
 }
 
 // #region Calendar

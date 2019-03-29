@@ -119,6 +119,7 @@ declare namespace request {
         withCredentials(): this;
         write(data: string | Buffer, encoding?: string): this;
         parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
+        maxResponseSize(size: number): this;
     }
 
     type Plugin = (req: Request) => void;

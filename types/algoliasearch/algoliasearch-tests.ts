@@ -148,6 +148,7 @@ let _algoliaQueryParameters: QueryParameters = {
   tagFilters: [''],
   facetFilters: [''],
   analytics: false,
+  clickAnalytics: true,
   analyticsTags: [''],
   synonyms: true,
   replaceSynonymsInHighlight: false,

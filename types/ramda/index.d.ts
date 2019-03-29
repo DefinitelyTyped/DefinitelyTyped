@@ -29,7 +29,7 @@
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
 //                 Pierre-Antoine Mills <https://github.com/pirix-gh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.3
 
 /// <reference path="./es/add.d.ts" />
 /// <reference path="./es/addIndex.d.ts" />
@@ -61,6 +61,7 @@
 /// <reference path="./es/compose.d.ts" />
 /// <reference path="./es/composeK.d.ts" />
 /// <reference path="./es/composeP.d.ts" />
+/// <reference path="./es/composeWith.d.ts" />
 /// <reference path="./es/concat.d.ts" />
 /// <reference path="./es/cond.d.ts" />
 /// <reference path="./es/construct.d.ts" />
@@ -81,6 +82,8 @@
 /// <reference path="./es/drop.d.ts" />
 /// <reference path="./es/dropLast.d.ts" />
 /// <reference path="./es/dropLastWhile.d.ts" />
+/// <reference path="./es/dropRepeats.d.ts" />
+/// <reference path="./es/dropRepeatsWith.d.ts" />
 /// <reference path="./es/either.d.ts" />
 /// <reference path="./es/empty.d.ts" />
 /// <reference path="./es/endsWith.d.ts" />
@@ -105,6 +108,7 @@
 /// <reference path="./es/gte.d.ts" />
 /// <reference path="./es/has.d.ts" />
 /// <reference path="./es/hasIn.d.ts" />
+/// <reference path="./es/hasPath.d.ts" />
 /// <reference path="./es/head.d.ts" />
 /// <reference path="./es/identical.d.ts" />
 /// <reference path="./es/identity.d.ts" />
@@ -152,13 +156,14 @@
 /// <reference path="./es/max.d.ts" />
 /// <reference path="./es/mean.d.ts" />
 /// <reference path="./es/median.d.ts" />
-/// <reference path="./es/memoize.d.ts" />
 /// <reference path="./es/memoizeWith.d.ts" />
 /// <reference path="./es/mergeAll.d.ts" />
 /// <reference path="./es/mergeDeepLeft.d.ts" />
 /// <reference path="./es/mergeDeepRight.d.ts" />
 /// <reference path="./es/mergeDeepWith.d.ts" />
 /// <reference path="./es/mergeDeepWithKey.d.ts" />
+/// <reference path="./es/mergeLeft.d.ts" />
+/// <reference path="./es/mergeRight.d.ts" />
 /// <reference path="./es/merge.d.ts" />
 /// <reference path="./es/mergeWith.d.ts" />
 /// <reference path="./es/mergeWithKey.d.ts" />
@@ -179,6 +184,7 @@
 /// <reference path="./es/once.d.ts" />
 /// <reference path="./es/or.d.ts" />
 /// <reference path="./es/over.d.ts" />
+/// <reference path="./es/otherwise.d.ts" />
 /// <reference path="./es/pair.d.ts" />
 /// <reference path="./es/partial.d.ts" />
 /// <reference path="./es/partialRight.d.ts" />
@@ -193,6 +199,7 @@
 /// <reference path="./es/pipe.d.ts" />
 /// <reference path="./es/pipeK.d.ts" />
 /// <reference path="./es/pipeP.d.ts" />
+/// <reference path="./es/pipeWith.d.ts" />
 /// <reference path="./es/pluck.d.ts" />
 /// <reference path="./es/prepend.d.ts" />
 /// <reference path="./es/product.d.ts" />
@@ -237,6 +244,8 @@
 /// <reference path="./es/tap.d.ts" />
 /// <reference path="./es/T.d.ts" />
 /// <reference path="./es/test.d.ts" />
+/// <reference path="./es/then.d.ts" />
+/// <reference path="./es/thunkify.d.ts" />
 /// <reference path="./es/times.d.ts" />
 /// <reference path="./es/toLower.d.ts" />
 /// <reference path="./es/toPairs.d.ts" />
@@ -278,10 +287,269 @@
 /// <reference path="./es/includes.d.ts" />
 /// <reference path="./tools.d.ts" />
 
+/// <reference path="./src/add.d.ts" />
+/// <reference path="./src/addIndex.d.ts" />
+/// <reference path="./src/adjust.d.ts" />
+/// <reference path="./src/all.d.ts" />
+/// <reference path="./src/allPass.d.ts" />
+/// <reference path="./src/always.d.ts" />
+/// <reference path="./src/and.d.ts" />
+/// <reference path="./src/any.d.ts" />
+/// <reference path="./src/anyPass.d.ts" />
+/// <reference path="./src/ap.d.ts" />
+/// <reference path="./src/aperture.d.ts" />
+/// <reference path="./src/append.d.ts" />
+/// <reference path="./src/apply.d.ts" />
+/// <reference path="./src/applySpec.d.ts" />
+/// <reference path="./src/applyTo.d.ts" />
+/// <reference path="./src/ascend.d.ts" />
+/// <reference path="./src/assoc.d.ts" />
+/// <reference path="./src/assocPath.d.ts" />
+/// <reference path="./src/binary.d.ts" />
+/// <reference path="./src/bind.d.ts" />
+/// <reference path="./src/both.d.ts" />
+/// <reference path="./src/call.d.ts" />
+/// <reference path="./src/chain.d.ts" />
+/// <reference path="./src/clamp.d.ts" />
+/// <reference path="./src/clone.d.ts" />
+/// <reference path="./src/comparator.d.ts" />
+/// <reference path="./src/complement.d.ts" />
+/// <reference path="./src/compose.d.ts" />
+/// <reference path="./src/composeK.d.ts" />
+/// <reference path="./src/composeP.d.ts" />
+/// <reference path="./src/composeWith.d.ts" />
+/// <reference path="./src/concat.d.ts" />
+/// <reference path="./src/cond.d.ts" />
+/// <reference path="./src/construct.d.ts" />
+/// <reference path="./src/constructN.d.ts" />
+/// <reference path="./src/contains.d.ts" />
+/// <reference path="./src/converge.d.ts" />
+/// <reference path="./src/countBy.d.ts" />
+/// <reference path="./src/curry.d.ts" />
+/// <reference path="./src/curryN.d.ts" />
+/// <reference path="./src/dec.d.ts" />
+/// <reference path="./src/defaultTo.d.ts" />
+/// <reference path="./src/descend.d.ts" />
+/// <reference path="./src/difference.d.ts" />
+/// <reference path="./src/differenceWith.d.ts" />
+/// <reference path="./src/dissoc.d.ts" />
+/// <reference path="./src/dissocPath.d.ts" />
+/// <reference path="./src/divide.d.ts" />
+/// <reference path="./src/drop.d.ts" />
+/// <reference path="./src/dropLast.d.ts" />
+/// <reference path="./src/dropLastWhile.d.ts" />
+/// <reference path="./src/dropRepeats.d.ts" />
+/// <reference path="./src/dropRepeatsWith.d.ts" />
+/// <reference path="./src/either.d.ts" />
+/// <reference path="./src/empty.d.ts" />
+/// <reference path="./src/endsWith.d.ts" />
+/// <reference path="./src/eqBy.d.ts" />
+/// <reference path="./src/eqProps.d.ts" />
+/// <reference path="./src/equals.d.ts" />
+/// <reference path="./src/evolve.d.ts" />
+/// <reference path="./src/F.d.ts" />
+/// <reference path="./src/filter.d.ts" />
+/// <reference path="./src/find.d.ts" />
+/// <reference path="./src/findIndex.d.ts" />
+/// <reference path="./src/findLast.d.ts" />
+/// <reference path="./src/findLastIndex.d.ts" />
+/// <reference path="./src/flatten.d.ts" />
+/// <reference path="./src/flip.d.ts" />
+/// <reference path="./src/forEach.d.ts" />
+/// <reference path="./src/forEachObjIndexed.d.ts" />
+/// <reference path="./src/fromPairs.d.ts" />
+/// <reference path="./src/groupBy.d.ts" />
+/// <reference path="./src/groupWith.d.ts" />
+/// <reference path="./src/gt.d.ts" />
+/// <reference path="./src/gte.d.ts" />
+/// <reference path="./src/has.d.ts" />
+/// <reference path="./src/hasIn.d.ts" />
+/// <reference path="./src/hasPath.d.ts" />
+/// <reference path="./src/head.d.ts" />
+/// <reference path="./src/identical.d.ts" />
+/// <reference path="./src/identity.d.ts" />
+/// <reference path="./src/ifElse.d.ts" />
+/// <reference path="./src/inc.d.ts" />
+/// <reference path="./src/indexBy.d.ts" />
+/// <reference path="./src/indexOf.d.ts" />
+/// <reference path="./src/init.d.ts" />
+/// <reference path="./src/innerJoin.d.ts" />
+/// <reference path="./src/insertAll.d.ts" />
+/// <reference path="./src/insert.d.ts" />
+/// <reference path="./src/intersection.d.ts" />
+/// <reference path="./src/intersectionWith.d.ts" />
+/// <reference path="./src/intersperse.d.ts" />
+/// <reference path="./src/into.d.ts" />
+/// <reference path="./src/invert.d.ts" />
+/// <reference path="./src/invertObj.d.ts" />
+/// <reference path="./src/invoker.d.ts" />
+/// <reference path="./src/isArrayLike.d.ts" />
+/// <reference path="./src/is.d.ts" />
+/// <reference path="./src/isEmpty.d.ts" />
+/// <reference path="./src/isNaN.d.ts" />
+/// <reference path="./src/isNil.d.ts" />
+/// <reference path="./src/join.d.ts" />
+/// <reference path="./src/juxt.d.ts" />
+/// <reference path="./src/keys.d.ts" />
+/// <reference path="./src/keysIn.d.ts" />
+/// <reference path="./src/last.d.ts" />
+/// <reference path="./src/lastIndexOf.d.ts" />
+/// <reference path="./src/length.d.ts" />
+/// <reference path="./src/lens.d.ts" />
+/// <reference path="./src/lensIndex.d.ts" />
+/// <reference path="./src/lensPath.d.ts" />
+/// <reference path="./src/lensProp.d.ts" />
+/// <reference path="./src/lift.d.ts" />
+/// <reference path="./src/lt.d.ts" />
+/// <reference path="./src/lte.d.ts" />
+/// <reference path="./src/mapAccum.d.ts" />
+/// <reference path="./src/mapAccumRight.d.ts" />
+/// <reference path="./src/map.d.ts" />
+/// <reference path="./src/mapObjIndexed.d.ts" />
+/// <reference path="./src/match.d.ts" />
+/// <reference path="./src/mathMod.d.ts" />
+/// <reference path="./src/maxBy.d.ts" />
+/// <reference path="./src/max.d.ts" />
+/// <reference path="./src/mean.d.ts" />
+/// <reference path="./src/median.d.ts" />
+/// <reference path="./src/memoizeWith.d.ts" />
+/// <reference path="./src/mergeAll.d.ts" />
+/// <reference path="./src/mergeDeepLeft.d.ts" />
+/// <reference path="./src/mergeDeepRight.d.ts" />
+/// <reference path="./src/mergeDeepWith.d.ts" />
+/// <reference path="./src/mergeDeepWithKey.d.ts" />
+/// <reference path="./src/mergeLeft.d.ts" />
+/// <reference path="./src/mergeRight.d.ts" />
+/// <reference path="./src/merge.d.ts" />
+/// <reference path="./src/mergeWith.d.ts" />
+/// <reference path="./src/mergeWithKey.d.ts" />
+/// <reference path="./src/minBy.d.ts" />
+/// <reference path="./src/min.d.ts" />
+/// <reference path="./src/modulo.d.ts" />
+/// <reference path="./src/move.d.ts" />
+/// <reference path="./src/multiply.d.ts" />
+/// <reference path="./src/nAry.d.ts" />
+/// <reference path="./src/negate.d.ts" />
+/// <reference path="./src/none.d.ts" />
+/// <reference path="./src/not.d.ts" />
+/// <reference path="./src/nthArg.d.ts" />
+/// <reference path="./src/nth.d.ts" />
+/// <reference path="./src/objOf.d.ts" />
+/// <reference path="./src/of.d.ts" />
+/// <reference path="./src/omit.d.ts" />
+/// <reference path="./src/once.d.ts" />
+/// <reference path="./src/or.d.ts" />
+/// <reference path="./src/over.d.ts" />
+/// <reference path="./src/otherwise.d.ts" />
+/// <reference path="./src/pair.d.ts" />
+/// <reference path="./src/partial.d.ts" />
+/// <reference path="./src/partialRight.d.ts" />
+/// <reference path="./src/partition.d.ts" />
+/// <reference path="./src/path.d.ts" />
+/// <reference path="./src/pathEq.d.ts" />
+/// <reference path="./src/pathOr.d.ts" />
+/// <reference path="./src/pathSatisfies.d.ts" />
+/// <reference path="./src/pickAll.d.ts" />
+/// <reference path="./src/pickBy.d.ts" />
+/// <reference path="./src/pick.d.ts" />
+/// <reference path="./src/pipe.d.ts" />
+/// <reference path="./src/pipeK.d.ts" />
+/// <reference path="./src/pipeP.d.ts" />
+/// <reference path="./src/pipeWith.d.ts" />
+/// <reference path="./src/pluck.d.ts" />
+/// <reference path="./src/prepend.d.ts" />
+/// <reference path="./src/product.d.ts" />
+/// <reference path="./src/project.d.ts" />
+/// <reference path="./src/prop.d.ts" />
+/// <reference path="./src/propEq.d.ts" />
+/// <reference path="./src/propIs.d.ts" />
+/// <reference path="./src/propOr.d.ts" />
+/// <reference path="./src/propSatisfies.d.ts" />
+/// <reference path="./src/props.d.ts" />
+/// <reference path="./src/range.d.ts" />
+/// <reference path="./src/reduceBy.d.ts" />
+/// <reference path="./src/reduced.d.ts" />
+/// <reference path="./src/reduce.d.ts" />
+/// <reference path="./src/reduceRight.d.ts" />
+/// <reference path="./src/reduceWhile.d.ts" />
+/// <reference path="./src/reject.d.ts" />
+/// <reference path="./src/remove.d.ts" />
+/// <reference path="./src/repeat.d.ts" />
+/// <reference path="./src/replace.d.ts" />
+/// <reference path="./src/reverse.d.ts" />
+/// <reference path="./src/scan.d.ts" />
+/// <reference path="./src/set.d.ts" />
+/// <reference path="./src/slice.d.ts" />
+/// <reference path="./src/sortBy.d.ts" />
+/// <reference path="./src/sort.d.ts" />
+/// <reference path="./src/sortWith.d.ts" />
+/// <reference path="./src/splitAt.d.ts" />
+/// <reference path="./src/split.d.ts" />
+/// <reference path="./src/splitEvery.d.ts" />
+/// <reference path="./src/splitWhen.d.ts" />
+/// <reference path="./src/startsWith.d.ts" />
+/// <reference path="./src/subtract.d.ts" />
+/// <reference path="./src/sum.d.ts" />
+/// <reference path="./src/symmetricDifference.d.ts" />
+/// <reference path="./src/symmetricDifferenceWith.d.ts" />
+/// <reference path="./src/tail.d.ts" />
+/// <reference path="./src/take.d.ts" />
+/// <reference path="./src/takeLast.d.ts" />
+/// <reference path="./src/takeLastWhile.d.ts" />
+/// <reference path="./src/takeWhile.d.ts" />
+/// <reference path="./src/tap.d.ts" />
+/// <reference path="./src/T.d.ts" />
+/// <reference path="./src/test.d.ts" />
+/// <reference path="./src/then.d.ts" />
+/// <reference path="./src/thunkify.d.ts" />
+/// <reference path="./src/times.d.ts" />
+/// <reference path="./src/toLower.d.ts" />
+/// <reference path="./src/toPairs.d.ts" />
+/// <reference path="./src/toPairsIn.d.ts" />
+/// <reference path="./src/toString.d.ts" />
+/// <reference path="./src/toUpper.d.ts" />
+/// <reference path="./src/transduce.d.ts" />
+/// <reference path="./src/transpose.d.ts" />
+/// <reference path="./src/traverse.d.ts" />
+/// <reference path="./src/trim.d.ts" />
+/// <reference path="./src/tryCatch.d.ts" />
+/// <reference path="./src/type.d.ts" />
+/// <reference path="./src/unapply.d.ts" />
+/// <reference path="./src/unary.d.ts" />
+/// <reference path="./src/uncurryN.d.ts" />
+/// <reference path="./src/unfold.d.ts" />
+/// <reference path="./src/union.d.ts" />
+/// <reference path="./src/unionWith.d.ts" />
+/// <reference path="./src/uniqBy.d.ts" />
+/// <reference path="./src/uniq.d.ts" />
+/// <reference path="./src/uniqWith.d.ts" />
+/// <reference path="./src/unless.d.ts" />
+/// <reference path="./src/unnest.d.ts" />
+/// <reference path="./src/until.d.ts" />
+/// <reference path="./src/update.d.ts" />
+/// <reference path="./src/useWith.d.ts" />
+/// <reference path="./src/values.d.ts" />
+/// <reference path="./src/valuesIn.d.ts" />
+/// <reference path="./src/view.d.ts" />
+/// <reference path="./src/when.d.ts" />
+/// <reference path="./src/where.d.ts" />
+/// <reference path="./src/whereEq.d.ts" />
+/// <reference path="./src/without.d.ts" />
+/// <reference path="./src/wrap.d.ts" />
+/// <reference path="./src/xprod.d.ts" />
+/// <reference path="./src/zip.d.ts" />
+/// <reference path="./src/zipObj.d.ts" />
+/// <reference path="./src/zipWith.d.ts" />
+/// <reference path="./src/includes.d.ts" />
+
 declare let R: R.Static;
 
 declare namespace R {
     type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
+
+    type CommonKeys<T1, T2> = keyof T1 & keyof T2;
+    type PropsThatAreObjects<T, K extends keyof T> = K extends keyof T ? T[K] extends object ? K : never : never;
+    type CommonPropsThatAreObjects<T1, T2> = PropsThatAreObjects<T1, keyof T1> & PropsThatAreObjects<T2, keyof T2>;
 
     type Ord = number | string | boolean | Date;
 
@@ -363,10 +631,13 @@ declare namespace R {
 
     // Represents all objects evolvable with Evolver E
     type Evolvable<E extends Evolver> = {
-        [P in keyof E]?: E[P] extends (value: infer V) => any ? V :
-            E[P] extends Evolver ? Evolvable<E[P]> :
-            never
+        [P in keyof E]?: Evolved<E[P]>;
     };
+
+    type Evolved<T> =
+        T extends (value: infer V) => any ? V :
+        T extends Evolver ? Evolvable<T> :
+        never;
 
     interface Placeholder { __isRamdaPlaceholder__: true; }
 
@@ -374,6 +645,145 @@ declare namespace R {
         '@@transducer/value': T;
         '@@transducer/reduced': true;
     }
+
+    type PipeWithFns<V0, T> = [
+        (x0: V0) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ] | [
+        (x0: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T,
+    ];
+
+    type ComposeWithFns<V0, T> = [
+        (x0: V0) => T,
+    ] | [
+        (x: any) => T,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any,
+    ] | [
+        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any,
+    ];
+
+    type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
+    type MergeDeep<Primary, Secondary> = { [K in CommonPropsThatAreObjects<Primary, Secondary>]: MergeDeep<Primary[K], Secondary[K]> } &
+        { [K in Exclude<keyof Primary, CommonPropsThatAreObjects<Primary, Secondary>>]: Primary[K] } &
+        { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
 
     interface Static {
         /**
@@ -637,6 +1047,8 @@ declare namespace R {
          * The typings only support arrays for now.
          * All functions must be unary.
          * R.composeK(h, g, f) is equivalent to R.compose(R.chain(h), R.chain(g), f).
+         *
+         * @deprecated since 0.26 in favor of composeWith(chain)
          */
         composeK<V0, T1>(
             fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
@@ -669,6 +1081,8 @@ declare namespace R {
         /**
          * Performs right-to-left composition of one or more Promise-returning functions.
          * All functions must be unary.
+         *
+         * @deprecated since 0.26 in favor of composeWith(then)
          */
         composeP<V0, T1>(
             fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
@@ -699,6 +1113,13 @@ declare namespace R {
             fn1: (x: T1) => Promise<T2>,
             fn0: (x: V0) => Promise<T1>):
         (x: V0) => Promise<T6>;
+
+        /**
+         * Performs right-to-left function composition using transforming function.
+         * With the current typings, all functions must be unary.
+         */
+        composeWith<V0, T>(composer: (a: any) => any, fns: ComposeWithFns<V0, T>): (x0: V0) => T;
+        composeWith(composer: (a: any) => any): <V0, T>(fns: ComposeWithFns<V0, T>) => (x: V0) => T;
 
         /**
          * Returns a new list consisting of the elements of the first list followed by the elements
@@ -734,6 +1155,8 @@ declare namespace R {
         /**
          * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
          * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
+         *
+         * @deprecated since 0.26 in favor of includes
          */
         contains(__: Placeholder, list: string): (a: string) => boolean;
         contains<T>(__: Placeholder, list: T[]): (a: T) => boolean;
@@ -854,6 +1277,19 @@ declare namespace R {
          */
         dropLastWhile<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): T[];
         dropLastWhile<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => T[];
+
+        /**
+         * Returns a new list without any consecutively repeating elements. R.equals is used to determine equality.
+         */
+        dropRepeats<T>(list: ReadonlyArray<T>): T[];
+
+        /**
+         * Returns a new list without any consecutively repeating elements.
+         * Equality is determined by applying the supplied predicate to each pair of consecutive elements.
+         * The first element in a series of equal elements will be preserved.
+         */
+        dropRepeatsWith<T>(predicate: (left: T, right: T) => boolean, list: ReadonlyArray<T>): T[];
+        dropRepeatsWith<T>(predicate: (left: T, right: T) => boolean): (list: ReadonlyArray<T>) => T[];
 
         /**
          * Returns a new list containing the last n elements of a given list, passing each value to the supplied
@@ -1028,6 +1464,12 @@ declare namespace R {
          */
         hasIn<T>(s: string, obj: T): boolean;
         hasIn(s: string): <T>(obj: T) => boolean;
+
+        /**
+         * Returns whether or not a path exists in an object. Only the object's own properties are checked.
+         */
+        hasPath<T>(list: ReadonlyArray<string>, obj: T): boolean;
+        hasPath(list: ReadonlyArray<string>): <T>(obj: T) => boolean;
 
         /**
          * Returns the first element in a list.
@@ -1378,35 +1820,28 @@ declare namespace R {
         median(list: ReadonlyArray<number>): number;
 
         /**
-         * @deprecated since v0.25.0
-         *
-         * Creates a new function that, when invoked, caches the result of calling fn for a given argument set and
-         * returns the result. Subsequent calls to the memoized fn with the same argument set will not result in an
-         * additional call to fn; instead, the cached result for that set of arguments will be returned.
+         * Creates a new function that, when invoked, caches the result of calling fn for a given argument set and returns the result.
+         * Subsequent calls to the memoized fn with the same argument set will not result in an additional call to fn; instead, the cached result for that set of arguments will be returned.
          */
-        memoize<T extends (...args: any[]) => any>(fn: T): T;
-
-        /**
-         * A customisable version of R.memoize. memoizeWith takes an additional function that will be applied to a given
-         * argument set and used to create the cache key under which the results of the function to be memoized will be stored.
-         * Care must be taken when implementing key generation to avoid clashes that may overwrite previous entries erroneously.
-         */
-        memoizeWith<T extends (...args: any[]) => any>(keyFn: (...v: any[]) => string, fn: T): T;
+        memoizeWith<T extends (...args: any[]) => any>(keyFn: (...v: Parameters<T>) => string, fn: T): T;
 
         /**
          * Create a new object with the own properties of a
          * merged with the own properties of object b.
          * This function will *not* mutate passed-in objects.
+         *
+         * @deprecated since 0.26 in favor of mergeRight
          */
-        merge<T2>(__: Placeholder, b: T2): <T1>(a: T1) => T1 & T2;
-        merge(__: Placeholder): <T1, T2>(b: T2, a: T1) => T1 & T2;
-        merge<T1, T2>(a: T1, b: T2): T1 & T2;
-        merge<T1>(a: T1): <T2>(b: T2) => T1 & T2;
+        merge<T2>(__: Placeholder, b: T2): <T1>(a: T1) => Merge<T2, T1>;
+        merge(__: Placeholder): <T1, T2>(b: T2, a: T1) => Merge<T2, T1>;
+        merge<T1, T2>(a: T1, b: T2): Merge<T2, T1>;
+        merge<T1>(a: T1): <T2>(b: T2) => Merge<T2, T1>;
 
         /**
          * Merges a list of objects together into one object.
          */
-        mergeAll<T>(list: ReadonlyArray<any>): T;
+        mergeAll<T>(list: ReadonlyArray<T>): T;
+        mergeAll(list: ReadonlyArray<any>): any;
 
         /**
          * Creates a new object with the own properties of the first object merged with the own properties of the second object.
@@ -1414,8 +1849,8 @@ declare namespace R {
          * and both values are objects, the two values will be recursively merged
          * otherwise the value from the first object will be used.
          */
-        mergeDeepLeft<T1, T2>(a: T1, b: T2): T1 & T2;
-        mergeDeepLeft<T1>(a: T1): <T2>(b: T2) => T1 & T2;
+        mergeDeepLeft<T1, T2>(a: T1, b: T2): MergeDeep<T1, T2>;
+        mergeDeepLeft<T1>(a: T1): <T2>(b: T2) => MergeDeep<T1, T2>;
 
         /**
          * Creates a new object with the own properties of the first object merged with the own properties of the second object.
@@ -1423,8 +1858,8 @@ declare namespace R {
          * and both values are objects, the two values will be recursively merged
          * otherwise the value from the second object will be used.
          */
-        mergeDeepRight<A, B>(a: A, b: B): A & B;
-        mergeDeepRight<A>(a: A): <B>(b: B) => A & B;
+        mergeDeepRight<A, B>(a: A, b: B): MergeDeep<B, A>;
+        mergeDeepRight<A>(a: A): <B>(b: B) => MergeDeep<B, A>;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects:
@@ -1432,9 +1867,9 @@ declare namespace R {
          * otherwise the provided function is applied to associated values using the resulting value as the new value
          * associated with the key. If a key only exists in one object, the value will be associated with the key of the resulting object.
          */
-        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any, a: T1, b: T2): T1 & T2;
-        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any, a: T1): (b: T2) => T1 & T2;
-        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any): (a: T1, b: T2) => T1 & T2;
+        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any, a: T1, b: T2): any;
+        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any, a: T1): (b: T2) => any;
+        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any): (a: T1, b: T2) => any;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects:
@@ -1443,9 +1878,23 @@ declare namespace R {
          * the new value associated with the key. If a key only exists in one object, the value will be associated with
          * the key of the resulting object.
          */
-        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1, b: T2): T1 & T2;
-        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1): (b: T2) => T1 & T2;
-        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any): (a: T1, b: T2) => T1 & T2;
+        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1, b: T2): any;
+        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1): (b: T2) => any;
+        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any): (a: T1, b: T2) => any;
+
+        /**
+         * Create a new object with the own properties of the first object merged with the own properties of the second object.
+         * If a key exists in both objects, the value from the first object will be used.
+         */
+        mergeLeft<T1, T2>(a: T1, b: T2): Merge<T1, T2>;
+        mergeLeft<T1>(a: T1): <T2>(b: T2) => Merge<T1, T2>;
+
+        /**
+         * Create a new object with the own properties of the first object merged with the own properties of the second object.
+         * If a key exists in both objects, the value from the second object will be used.
+         */
+        mergeRight<T1, T2>(a: T1, b: T2): Merge<T2, T1>;
+        mergeRight<T1>(a: T1): <T2>(b: T2) => Merge<T2, T1>;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
@@ -1453,9 +1902,9 @@ declare namespace R {
          * the value associated with the key in the returned object. The key will be excluded from the returned object if the
          * resulting value is undefined.
          */
-        mergeWith<U, V>(fn: (x: any, z: any) => any, a: U, b: V): U & V;
-        mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => U & V;
-        mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => U & V;
+        mergeWith<U, V>(fn: (x: any, z: any) => any, a: U, b: V): any;
+        mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => any;
+        mergeWith(fn: (x: any, z: any) => any): <U, V>(a: U, b: V) => any;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
@@ -1463,9 +1912,9 @@ declare namespace R {
          * result being used as the value associated with the key in the returned object. The key will be excluded from
          * the returned object if the resulting value is undefined.
          */
-        mergeWithKey<U, V>(fn: (str: string, x: any, z: any) => any, a: U, b: V): U & V;
-        mergeWithKey<U>(fn: (str: string, x: any, z: any) => any, a: U): <V>(b: V) => U & V;
-        mergeWithKey(fn: (str: string, x: any, z: any) => any): <U, V>(a: U, b: V) => U & V;
+        mergeWithKey<U, V>(fn: (str: string, x: any, z: any) => any, a: U, b: V): any;
+        mergeWithKey<U>(fn: (str: string, x: any, z: any) => any, a: U): <V>(b: V) => any;
+        mergeWithKey(fn: (str: string, x: any, z: any) => any): <U, V>(a: U, b: V) => any;
 
         /**
          * Returns the smaller of its two arguments.
@@ -1578,6 +2027,13 @@ declare namespace R {
         or<T>(a: T): <U>(b: U) => T | U;
         or<T extends { or?: ((...a: any[]) => any); }, U>(fn1: T, val2: U): T | U;
         or<T extends { or?: ((...a: any[]) => any); }>(fn1: T): <U>(val2: U) => T | U;
+
+        /**
+         * Returns the result of applying the onFailure function to the value inside a failed promise.
+         * This is useful for handling rejected promises inside function compositions.
+         */
+        otherwise<A, B>(onError: (error: any) => B | Promise<B>, promise: Promise<A>): Promise<B>;
+        otherwise<A, B>(onError: (error: any) => B | Promise<B>): (promise: Promise<A>) => Promise<B>;
 
         /**
          * Returns the result of "setting" the portion of the given data structure
@@ -1881,11 +2337,13 @@ declare namespace R {
             fn8: (x: T8) => T9,
             fn9: (x: T9) => T10): (x0: V0, x1: V1, x2: V2) => T10;
 
-        /*
+        /**
          * Returns the left-to-right Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
          * The typings currently support arrays only as return values.
          * All functions need to be unary.
          * R.pipeK(f, g, h) is equivalent to R.pipe(f, R.chain(g), R.chain(h)).
+         *
+         * @deprecated since 0.26 in favor of pipeWith(chain)
          */
         pipeK<V0, T1>(
             fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
@@ -1953,9 +2411,11 @@ declare namespace R {
             fn8: (x: T8) => T9[],
             fn9: (x: T9) => T10[]): (x0: V0) => T10[];
 
-        /*
+        /**
          * Performs left-to-right composition of one or more Promise-returning functions.
          * All functions need to be unary.
+         *
+         * @deprecated since 0.26 in favor of pipeWith(then)
          */
         pipeP<V0, T1>(
             fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
@@ -2022,6 +2482,13 @@ declare namespace R {
             fn7: (x: T7) => Promise<T8>,
             fn8: (x: T8) => Promise<T9>,
             fn9: (x: T9) => Promise<T10>): (x0: V0) => Promise<T10>;
+
+        /*
+         * Performs left-to-right function composition using transforming function.
+         * With the current typings, all functions must be unary.
+         */
+        pipeWith<V0, T>(composer: (a: any) => any, fns: PipeWithFns<V0, T>): (x0: V0) => T;
+        pipeWith(composer: (a: any) => any): <V0, T>(fns: PipeWithFns<V0, T>) => (x0: V0) => T;
 
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
@@ -2373,6 +2840,18 @@ declare namespace R {
         test(regexp: RegExp): (str: string) => boolean;
 
         /**
+         * Returns the result of applying the onSuccess function to the value inside a successfully resolved promise. This is useful for working with promises inside function compositions.
+         */
+        then<A, B>(onSuccess: (a: A) => B | Promise<B>, promise: Promise<A>): Promise<B>;
+        then<A, B>(onSuccess: (a: A) => B | Promise<B>): (promise: Promise<A>) => Promise<B>;
+
+        /**
+         * Creates a thunk out of a function.
+         * A thunk delays a calculation until its result is needed, providing lazy evaluation of arguments.
+         */
+        thunkify<F extends (...args: any[]) => any>(fn: F): Curry.Curry<(...args: Parameters<F>) => (() => ReturnType<F>)>;
+
+        /**
          * Calls an input function `n` times, returning an array containing the results of those
          * function calls.
          */
@@ -2437,9 +2916,9 @@ declare namespace R {
          * sequence to transform the resulting Traversable of Applicative into
          * an Applicative of Traversable.
          */
-        traverse<T, U, A>(of: (a: U[]) => A, fn: (t: T) => U, list: ReadonlyArray<T>): A;
-        traverse<T, U, A>(of: (a: U[]) => A, fn: (t: T) => U): (list: ReadonlyArray<T>) => A;
-        traverse<T, U, A>(of: (a: U[]) => A): (fn: (t: T) => U, list: ReadonlyArray<T>) => A;
+        traverse<A, B>(of: (a: B) => ReadonlyArray<B>, fn: (t: A) => ReadonlyArray<B>, list: ReadonlyArray<A>): B[][];
+        traverse<A, B>(of: (a: B) => ReadonlyArray<B>, fn: (t: A) => ReadonlyArray<B>): (list: ReadonlyArray<A>) => B[][];
+        traverse<A, B>(of: (a: B) => ReadonlyArray<B>): (fn: (t: A) => ReadonlyArray<B>, list: ReadonlyArray<A>) => B[][];
 
         /**
          * Removes (strips) whitespace from both ends of the string.

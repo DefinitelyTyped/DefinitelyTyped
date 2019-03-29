@@ -14,7 +14,10 @@ import {
     VictoryTheme,
     VictoryLegend,
     VictoryBoxPlot,
-    VictoryGroup
+    VictoryGroup,
+    createContainer,
+    VictoryZoomContainerProps,
+    VictoryBrushContainerProps
 } from "victory";
 
 // VictoryAnimation test
@@ -802,5 +805,32 @@ test = (
                 ])
             }
         }]}
+    />
+);
+
+// createContainer test
+
+const VictoryZoomBrushContainer = createContainer<
+    VictoryZoomContainerProps,
+    VictoryBrushContainerProps
+>("zoom", "brush");
+
+test = (
+    <VictoryZoomBrushContainer
+        brushDomain={[0, 500]}
+        zoomDomain={[0, 500]}
+    />
+);
+
+// Gutter test
+test = (
+    <VictoryLegend
+        x={125}
+        y={50}
+        orientation="horizontal"
+        gutter={{left: 10, right: 10}}
+        data={[
+            { name: "One" }, { name: "Two" }, { name: "Three" }
+            ]}
     />
 );
