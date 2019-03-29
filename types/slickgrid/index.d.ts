@@ -93,16 +93,16 @@ declare namespace Slick {
 		* @method subscribe
 		* @param fn {Function} Event handler.
 		*/
-		public subscribe(fn: (e: EventData, data: T) => any): void;
-		public subscribe(fn: (e: DOMEvent, data: T) => any): void;
+		public subscribe(fn: (e: EventData, data: T) => void): void;
+		public subscribe(fn: (e: DOMEvent, data: T) => void): void;
 
 		/***
 		* Removes an event handler added with <code>subscribe(fn)</code>.
 		* @method unsubscribe
 		* @param fn {Function} Event handler to be removed.
 		*/
-		public unsubscribe(fn: (e: EventData, data: T) => any): void;
-		public unsubscribe(fn: (e: DOMEvent, data: T) => any): void;
+		public unsubscribe(fn: (e: EventData, data: T) => void): void;
+		public unsubscribe(fn: (e: DOMEvent, data: T) => void): void;
 
 		/***
 		* Fires an event notifying all subscribers.
@@ -125,11 +125,11 @@ declare namespace Slick {
 	}
 
 	// todo: is this private? there are no comments in the code
-	export class EventHandler {
+	export class EventHandler <T = any> {
 		constructor();
 
-		public subscribe(event: EventData, handler: Function): EventHandler;
-		public unsubscribe(event: EventData, handler: Function): EventHandler;
+		public subscribe(event: Event<T>, handler: (e: EventData, data: T) => void): EventHandler;
+		public unsubscribe(event: Event<T>, handler: (e: EventData, data: T) => void): EventHandler;
 		public unsubscribeAll(): EventHandler;
 	}
 
