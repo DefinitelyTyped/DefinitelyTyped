@@ -13,12 +13,10 @@ export interface IdenticonOptions {
     format?: "svg" | "png";
 }
 
-declare class PNGlib {
+export interface PNGlib {
     width: number;
     height: number;
     depth: number;
-
-    constructor(width: number, height: number, depth: number);
 
     /**
      * Returns the index of a given pixel in the image data array.
@@ -38,7 +36,7 @@ declare class PNGlib {
     getDump(): string;
 }
 
-declare class Svg {
+export interface Svg {
     size: number;
     foreground: Color;
     background: Color;
@@ -51,8 +49,6 @@ declare class Svg {
             color: Color;
         }
     ];
-
-    constructor(size: number, foreground: Color, background: Color);
 
     /**
      * Returns a string with the structure 'rgb(r, g, b, a)'.
