@@ -566,13 +566,19 @@ import Module = require("module");
             foo: string;
         }
 
-        let server = new https.Server({ IncomingMessage: MyIncomingMessage});
+        let server: https.Server;
+
+        server = new https.Server();
+        server = new https.Server(reqListener);
+        server = new https.Server({ IncomingMessage: MyIncomingMessage});
 
         server = new https.Server({
             IncomingMessage: MyIncomingMessage,
             ServerResponse: MyServerResponse
         }, reqListener);
 
+        server = https.createServer();
+        server = https.createServer(reqListener);
         server = https.createServer({ IncomingMessage: MyIncomingMessage });
         server = https.createServer({ ServerResponse: MyServerResponse }, reqListener);
 
