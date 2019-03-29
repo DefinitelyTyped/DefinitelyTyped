@@ -13,7 +13,7 @@ export interface IdenticonOptions {
     format?: "svg" | "png";
 }
 
-export class PNGlib {
+declare class PNGlib {
     width: number;
     height: number;
     depth: number;
@@ -38,7 +38,7 @@ export class PNGlib {
     getDump(): string;
 }
 
-export class Svg {
+declare class Svg {
     size: number;
     foreground: Color;
     background: Color;
