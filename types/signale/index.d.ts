@@ -1,4 +1,4 @@
-// Type definitions for signale 1.2
+// Type definitions for signale 1.4
 // Project: https://github.com/klaussinani/signale
 // Definitions by: Resi Respati <https://github.com/resir014>
 //                 Kingdaro <https://github.com/kingdaro>
