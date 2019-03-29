@@ -303,7 +303,7 @@ async function testPromisify() {
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: [null, null, null] }));
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], { stdio: ['pipe', 'pipe', 'pipe'] }));
 
-    function expectChildProcess (cp: childProcess.ChildProcess): void {
+    function expectChildProcess(cp: childProcess.ChildProcess): void {
         return undefined;
     }
 
