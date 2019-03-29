@@ -18,6 +18,10 @@ import { createSecureContext, SecureContext, ConnectionOptions, connect, getCiph
 }
 
 {
+    const _server = createServer();
+}
+
+{
     let _server = createServer({});
     let _boolean: boolean;
     const _func1 = (err: Error, resp: Buffer) => { };

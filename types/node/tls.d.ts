@@ -385,6 +385,7 @@ declare module "tls" {
      * Returns Error object, populating it with the reason, host and cert on failure.  On success, returns undefined.
      */
     function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
+    function createServer(secureConnectionListener?: (socket: TLSSocket) => void): Server;
     function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
     function connect(options: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
