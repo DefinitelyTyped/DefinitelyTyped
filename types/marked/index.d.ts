@@ -78,7 +78,7 @@ declare namespace marked {
     function setOptions(options: MarkedOptions): typeof marked;
 
     class InlineLexer {
-        constructor(links: string[] , options?: MarkedOptions);
+        constructor(links: string[], options?: MarkedOptions);
         rules: Rules;
         output(src: string): string;
         escapes(text: string): string;
