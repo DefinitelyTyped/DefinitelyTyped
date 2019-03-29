@@ -137,7 +137,7 @@ AirbnbPropTypes.nonNegativeNumber();
 // $ExpectType Requireable<string>
 AirbnbPropTypes.numericString();
 
-// $ExpectType Requireable<{}>
+// $ExpectType Requireable<object>
 AirbnbPropTypes.object();
 // $ExpectType Requireable<{ foo: string; }>
 AirbnbPropTypes.object<{ foo: string }>();
