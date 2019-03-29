@@ -95,7 +95,7 @@ export interface QueryRendererProps<T extends RelayRuntimeTypes.OperationBase = 
     dataFrom?: "NETWORK_ONLY"|"STORE_THEN_NETWORK";
     environment: RelayRuntimeTypes.Environment;
     query?: RelayRuntimeTypes.GraphQLTaggedNode | null;
-    render(readyState: ReadyState<T["response"]>): React.ReactElement | undefined | null;
+    render(readyState: ReadyState<T["response"]>): React.ReactNode;
     variables: T["variables"];
     rerunParamExperimental?: RelayRuntimeTypes.RerunParam;
 }
