@@ -210,3 +210,12 @@ grid.onMouseEnter.subscribe((e: DOMEvent, args: Slick.OnMouseEnterEventArgs<MyDa
 	let cell: Slick.Cell = args.grid.getCellFromEvent(e);
 	if (!cell) { return; }
 });
+
+// EventHandler tests
+var eventHandler = new Slick.EventHandler();
+var onClickHandlerFn = (e: Slick.EventData, args: Slick.OnClickEventArgs<MyData>): void => {
+    return undefined;
+};
+eventHandler.subscribe(grid.onClick, onClickHandlerFn);
+eventHandler.unsubscribe(grid.onClick, onClickHandlerFn);
+eventHandler.unsubscribeAll();
