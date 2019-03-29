@@ -60,4 +60,5 @@ console.log(parser.parse(parseTestTokens));
 const links = ['http', 'image'];
 const inlineLexer = new marked.InlineLexer(links);
 console.log(inlineLexer.output("http://"));
-console.log(inlineLexer.rules);
+console.log(marked.InlineLexer.output("http://", links));
+console.log(marked.InlineLexer.rules);
