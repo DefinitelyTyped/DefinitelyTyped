@@ -1,7 +1,7 @@
 
-import * as xmldom from 'xmldom-reborn';
+import { DOMParser, XMLSerializer } from 'xmldom-reborn';
 
-var doc = new xmldom.DOMParser().parseFromString(
+var doc = new DOMParser().parseFromString(
   '<xml xmlns="a" xmlns:c="./lite">\n'+
   '\t<child>test</child>\n'+
   '\t<child></child>\n'+
@@ -19,7 +19,7 @@ function callback(w: any) {
 }
 
 //errorHandler is supported
-new xmldom.DOMParser({
+new DOMParser({
   /**
    * locator is always need for error position info
    */
@@ -35,5 +35,5 @@ new xmldom.DOMParser({
 
 
 // XMLSerializer provides serializeToString method
-new xmldom.XMLSerializer().serializeToString(doc) == "string";
-new xmldom.XMLSerializer().serializeToString(doc.documentElement) == "string";
+new XMLSerializer().serializeToString(doc) == "string";
+new XMLSerializer().serializeToString(doc.documentElement) == "string";
