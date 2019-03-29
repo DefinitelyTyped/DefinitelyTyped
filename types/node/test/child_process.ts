@@ -69,15 +69,15 @@ async function testPromisify() {
     });
 
     _boolean = cp.send(1, (error) => {
-        const _err: Error = error;
+        const _err: Error | null = error;
     });
     _boolean = cp.send('one', (error) => {
-        const _err: Error = error;
+        const _err: Error | null = error;
     });
     _boolean = cp.send({
         type: 'test'
     }, (error) => {
-        const _err: Error = error;
+        const _err: Error | null = error;
     });
 
     _boolean = cp.send(1, _socket);
@@ -87,15 +87,15 @@ async function testPromisify() {
     }, _socket);
 
     _boolean = cp.send(1, _socket, (error) => {
-        const _err: Error = error;
+        const _err: Error | null = error;
     });
     _boolean = cp.send('one', _socket, (error) => {
-        const _err: Error = error;
+        const _err: Error | null = error;
     });
     _boolean = cp.send({
         type: 'test'
     }, _socket, (error) => {
-        const _err: Error = error;
+        const _err: Error | null = error;
     });
 
     _boolean = cp.send(1, _socket, {
@@ -113,19 +113,19 @@ async function testPromisify() {
     _boolean = cp.send(1, _socket, {
         keepOpen: true
     }, (error) => {
-        const _err: Error = error;
+        const _err: Error | null = error;
     });
     _boolean = cp.send('one', _socket, {
         keepOpen: true
     }, (error) => {
-        const _err: Error = error;
+        const _err: Error | null = error;
     });
     _boolean = cp.send({
         type: 'test'
     }, _socket, {
             keepOpen: true
         }, (error) => {
-            const _err: Error = error;
+            const _err: Error | null = error;
         });
 
     _boolean = cp.send(1, _server);
@@ -135,15 +135,15 @@ async function testPromisify() {
     }, _server);
 
     _boolean = cp.send(1, _server, (error) => {
-        const _err: Error = error;
+        const _err: Error | null = error;
     });
     _boolean = cp.send('one', _server, (error) => {
-        const _err: Error = error;
+        const _err: Error | null = error;
     });
     _boolean = cp.send({
         type: 'test'
     }, _server, (error) => {
-        const _err: Error = error;
+        const _err: Error | null = error;
     });
 
     _boolean = cp.send(1, _server, {
@@ -161,19 +161,19 @@ async function testPromisify() {
     _boolean = cp.send(1, _server, {
         keepOpen: true
     }, (error) => {
-        const _err: Error = error;
+        const _err: Error | null = error;
     });
     _boolean = cp.send('one', _server, {
         keepOpen: true
     }, (error) => {
-        const _err: Error = error;
+        const _err: Error | null = error;
     });
     _boolean = cp.send({
         type: 'test'
     }, _server, {
             keepOpen: true
         }, (error) => {
-            const _err: Error = error;
+            const _err: Error | null = error;
         });
 
     const stdin: Writable | null = cp.stdio[0];
