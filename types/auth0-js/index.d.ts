@@ -3,6 +3,7 @@
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
 //                 Peter Blazejewicz <https://github.com/peterblazejewicz>
+//                 Bartosz Kotrys <https://github.com/bkotrys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -703,6 +704,7 @@ export interface CrossOriginLoginOptions {
     email?: string;
     password: string;
     realm?: string;
+    state?: string;
 }
 
 export interface LogoutOptions {
