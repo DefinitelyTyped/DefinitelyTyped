@@ -703,7 +703,7 @@ interface ConstructionSite<T extends BuildableStructureConstant = BuildableStruc
     remove(): number;
 }
 
-interface ConstructionSiteConstructor extends _Constructor<ConstructionSite>, _ConstructorById<ConstructionSite> {}
+interface ConstructionSiteConstructor extends _Constructor<ConstructionSite>, _ConstructorById<ConstructionSite> { }
 
 declare const ConstructionSite: ConstructionSiteConstructor;
 /**
@@ -877,6 +877,12 @@ interface Creep extends RoomObject {
      */
     move(direction: DirectionConstant): CreepMoveReturnCode;
     /**
+     * Accept another Creep's request to pull
+     * @param target Creep to accept pull request from
+     * @see Creep.move
+     */
+    move(target: Creep): CreepMoveReturnCode;
+    /**
      * Move the creep using the specified predefined path. Needs the MOVE body part.
      * @param path A path value as returned from Room.findPath or RoomPosition.findPathTo methods. Both array form and serialized string form are accepted.
      */
@@ -1025,7 +1031,7 @@ interface Creep extends RoomObject {
     withdraw(target: Structure | Tombstone, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
-interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {}
+interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> { }
 
 declare const Creep: CreepConstructor;
 /**
@@ -1082,7 +1088,7 @@ interface Flag extends RoomObject {
 }
 
 interface FlagConstructor extends _Constructor<Flag> {
-    new (name: string, color: ColorConstant, secondaryColor: ColorConstant, roomName: string, x: number, y: number): Flag;
+    new(name: string, color: ColorConstant, secondaryColor: ColorConstant, roomName: string, x: number, y: number): Flag;
     (name: string, color: ColorConstant, secondaryColor: ColorConstant, roomName: string, x: number, y: number): Flag;
 }
 
@@ -2068,9 +2074,9 @@ interface GameMap {
         opts?: RouteOptions,
     ):
         | Array<{
-              exit: ExitConstant;
-              room: string;
-          }>
+            exit: ExitConstant;
+            room: string;
+        }>
         | ERR_NO_PATH;
     /**
      * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
@@ -2254,10 +2260,10 @@ interface Memory {
     spawns: { [name: string]: SpawnMemory };
 }
 
-interface CreepMemory {}
-interface FlagMemory {}
-interface RoomMemory {}
-interface SpawnMemory {}
+interface CreepMemory { }
+interface FlagMemory { }
+interface RoomMemory { }
+interface SpawnMemory { }
 
 declare const Memory: Memory;
 /**
@@ -2291,7 +2297,7 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
     ticksToRegeneration: number;
 }
 
-interface MineralConstructor extends _Constructor<Mineral>, _ConstructorById<Mineral> {}
+interface MineralConstructor extends _Constructor<Mineral>, _ConstructorById<Mineral> { }
 
 declare const Mineral: MineralConstructor;
 /**
@@ -2315,7 +2321,7 @@ interface Nuke extends RoomObject {
 }
 
 interface NukeConstructor extends _Constructor<Nuke>, _ConstructorById<Nuke> {
-    new (id: string): Nuke;
+    new(id: string): Nuke;
 }
 
 declare const Nuke: NukeConstructor;
@@ -2439,7 +2445,7 @@ interface CostMatrix {
      * Creates a new CostMatrix containing 0's for all positions.
      * @constructor
      */
-    new (): CostMatrix;
+    new(): CostMatrix;
     /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.
@@ -2562,7 +2568,7 @@ interface Resource<T extends ResourceConstant = ResourceConstant> extends RoomOb
 }
 
 interface ResourceConstructor extends _Constructor<Resource>, _ConstructorById<Resource> {
-    new (id: string): Resource;
+    new(id: string): Resource;
 }
 
 declare const Resource: ResourceConstructor;
@@ -2586,7 +2592,7 @@ interface RoomObject {
 }
 
 interface RoomObjectConstructor extends _Constructor<RoomObject> {
-    new (x: number, y: number, roomName: string): RoomObject;
+    new(x: number, y: number, roomName: string): RoomObject;
     (x: number, y: number, roomName: string): RoomObject;
 }
 
@@ -2796,7 +2802,7 @@ interface RoomPositionConstructor extends _Constructor<RoomPosition> {
      * @param y Y position in the room.
      * @param roomName The room name.
      */
-    new (x: number, y: number, roomName: string): RoomPosition;
+    new(x: number, y: number, roomName: string): RoomPosition;
     (x: number, y: number, roomName: string): RoomPosition;
 }
 
@@ -2819,7 +2825,7 @@ interface RoomTerrainConstructor extends _Constructor<RoomTerrain> {
      * Get room terrain for the specified room. This method works for any room in the world even if you have no access to it.
      * @param roomName String name of the room.
      */
-    new (roomName: string): RoomTerrain;
+    new(roomName: string): RoomTerrain;
 }
 declare class RoomVisual {
     /**
@@ -3296,7 +3302,7 @@ interface Room {
 }
 
 interface RoomConstructor extends _Constructor<Room> {
-    new (id: string): Room;
+    new(id: string): Room;
 
     Terrain: RoomTerrainConstructor;
 
@@ -3346,7 +3352,7 @@ interface Source extends RoomObject {
     ticksToRegeneration: number;
 }
 
-interface SourceConstructor extends _Constructor<Source>, _ConstructorById<Source> {}
+interface SourceConstructor extends _Constructor<Source>, _ConstructorById<Source> { }
 
 declare const Source: SourceConstructor;
 /**
@@ -3551,7 +3557,7 @@ interface SpawnOptions {
     directions?: DirectionConstant[];
 }
 
-interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
+interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> { }
 /**
  * Parent object for structure classes
  */
@@ -3594,7 +3600,7 @@ interface Structure<T extends StructureConstant = StructureConstant> extends Roo
     notifyWhenAttacked(enabled: boolean): ScreepsReturnCode;
 }
 
-interface StructureConstructor extends _Constructor<Structure>, _ConstructorById<Structure> {}
+interface StructureConstructor extends _Constructor<Structure>, _ConstructorById<Structure> { }
 
 declare const Structure: StructureConstructor;
 
@@ -3619,7 +3625,7 @@ interface OwnedStructure<T extends StructureConstant = StructureConstant> extend
     room: Room;
 }
 
-interface OwnedStructureConstructor extends _Constructor<OwnedStructure>, _ConstructorById<OwnedStructure> {}
+interface OwnedStructureConstructor extends _Constructor<OwnedStructure>, _ConstructorById<OwnedStructure> { }
 
 declare const OwnedStructure: OwnedStructureConstructor;
 
@@ -3682,7 +3688,7 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
     unclaim(): ScreepsReturnCode;
 }
 
-interface StructureControllerConstructor extends _Constructor<StructureController>, _ConstructorById<StructureController> {}
+interface StructureControllerConstructor extends _Constructor<StructureController>, _ConstructorById<StructureController> { }
 
 declare const StructureController: StructureControllerConstructor;
 
@@ -3704,7 +3710,7 @@ interface StructureExtension extends OwnedStructure<STRUCTURE_EXTENSION> {
     energyCapacity: number;
 }
 
-interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> {}
+interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> { }
 
 declare const StructureExtension: StructureExtensionConstructor;
 
@@ -3740,7 +3746,7 @@ interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
     transferEnergy(target: Creep | StructureLink, amount?: number): ScreepsReturnCode;
 }
 
-interface StructureLinkConstructor extends _Constructor<StructureLink>, _ConstructorById<StructureLink> {}
+interface StructureLinkConstructor extends _Constructor<StructureLink>, _ConstructorById<StructureLink> { }
 
 declare const StructureLink: StructureLinkConstructor;
 
@@ -3757,7 +3763,7 @@ interface StructureKeeperLair extends OwnedStructure<STRUCTURE_KEEPER_LAIR> {
     ticksToSpawn?: number;
 }
 
-interface StructureKeeperLairConstructor extends _Constructor<StructureKeeperLair>, _ConstructorById<StructureKeeperLair> {}
+interface StructureKeeperLairConstructor extends _Constructor<StructureKeeperLair>, _ConstructorById<StructureKeeperLair> { }
 
 declare const StructureKeeperLair: StructureKeeperLairConstructor;
 
@@ -3774,7 +3780,7 @@ interface StructureObserver extends OwnedStructure<STRUCTURE_OBSERVER> {
     observeRoom(roomName: string): ScreepsReturnCode;
 }
 
-interface StructureObserverConstructor extends _Constructor<StructureObserver>, _ConstructorById<StructureObserver> {}
+interface StructureObserverConstructor extends _Constructor<StructureObserver>, _ConstructorById<StructureObserver> { }
 
 declare const StructureObserver: StructureObserverConstructor;
 
@@ -3794,7 +3800,7 @@ interface StructurePowerBank extends OwnedStructure<STRUCTURE_POWER_BANK> {
     ticksToDecay: number;
 }
 
-interface StructurePowerBankConstructor extends _Constructor<StructurePowerBank>, _ConstructorById<StructurePowerBank> {}
+interface StructurePowerBankConstructor extends _Constructor<StructurePowerBank>, _ConstructorById<StructurePowerBank> { }
 
 declare const StructurePowerBank: StructurePowerBankConstructor;
 
@@ -3832,7 +3838,7 @@ interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
     processPower(): ScreepsReturnCode;
 }
 
-interface StructurePowerSpawnConstructor extends _Constructor<StructurePowerSpawn>, _ConstructorById<StructurePowerSpawn> {}
+interface StructurePowerSpawnConstructor extends _Constructor<StructurePowerSpawn>, _ConstructorById<StructurePowerSpawn> { }
 
 declare const StructurePowerSpawn: StructurePowerSpawnConstructor;
 
@@ -3860,7 +3866,7 @@ interface StructureRampart extends OwnedStructure<STRUCTURE_RAMPART> {
     setPublic(isPublic: boolean): undefined;
 }
 
-interface StructureRampartConstructor extends _Constructor<StructureRampart>, _ConstructorById<StructureRampart> {}
+interface StructureRampartConstructor extends _Constructor<StructureRampart>, _ConstructorById<StructureRampart> { }
 
 declare const StructureRampart: StructureRampartConstructor;
 
@@ -3877,7 +3883,7 @@ interface StructureRoad extends Structure<STRUCTURE_ROAD> {
     ticksToDecay: number;
 }
 
-interface StructureRoadConstructor extends _Constructor<StructureRoad>, _ConstructorById<StructureRoad> {}
+interface StructureRoadConstructor extends _Constructor<StructureRoad>, _ConstructorById<StructureRoad> { }
 
 declare const StructureRoad: StructureRoadConstructor;
 
@@ -3898,7 +3904,7 @@ interface StructureStorage extends OwnedStructure<STRUCTURE_STORAGE> {
     storeCapacity: number;
 }
 
-interface StructureStorageConstructor extends _Constructor<StructureStorage>, _ConstructorById<StructureStorage> {}
+interface StructureStorageConstructor extends _Constructor<StructureStorage>, _ConstructorById<StructureStorage> { }
 
 declare const StructureStorage: StructureStorageConstructor;
 
@@ -3936,7 +3942,7 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
     repair(target: Structure): ScreepsReturnCode;
 }
 
-interface StructureTowerConstructor extends _Constructor<StructureTower>, _ConstructorById<StructureTower> {}
+interface StructureTowerConstructor extends _Constructor<StructureTower>, _ConstructorById<StructureTower> { }
 
 declare const StructureTower: StructureTowerConstructor;
 
@@ -3951,7 +3957,7 @@ interface StructureWall extends Structure<STRUCTURE_WALL> {
     ticksToLive: number;
 }
 
-interface StructureWallConstructor extends _Constructor<StructureWall>, _ConstructorById<StructureWall> {}
+interface StructureWallConstructor extends _Constructor<StructureWall>, _ConstructorById<StructureWall> { }
 
 declare const StructureWall: StructureWallConstructor;
 
@@ -3966,7 +3972,7 @@ interface StructureExtractor extends OwnedStructure<STRUCTURE_EXTRACTOR> {
     cooldown: number;
 }
 
-interface StructureExtractorConstructor extends _Constructor<StructureExtractor>, _ConstructorById<StructureExtractor> {}
+interface StructureExtractorConstructor extends _Constructor<StructureExtractor>, _ConstructorById<StructureExtractor> { }
 
 declare const StructureExtractor: StructureExtractorConstructor;
 
@@ -4018,7 +4024,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     runReaction(lab1: StructureLab, lab2: StructureLab): ScreepsReturnCode;
 }
 
-interface StructureLabConstructor extends _Constructor<StructureLab>, _ConstructorById<StructureLab> {}
+interface StructureLabConstructor extends _Constructor<StructureLab>, _ConstructorById<StructureLab> { }
 
 declare const StructureLab: StructureLabConstructor;
 
@@ -4049,7 +4055,7 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
     send(resourceType: ResourceConstant, amount: number, destination: string, description?: string): ScreepsReturnCode;
 }
 
-interface StructureTerminalConstructor extends _Constructor<StructureTerminal>, _ConstructorById<StructureTerminal> {}
+interface StructureTerminalConstructor extends _Constructor<StructureTerminal>, _ConstructorById<StructureTerminal> { }
 
 declare const StructureTerminal: StructureTerminalConstructor;
 
@@ -4073,7 +4079,7 @@ interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
     ticksToDecay: number;
 }
 
-interface StructureContainerConstructor extends _Constructor<StructureContainer>, _ConstructorById<StructureContainer> {}
+interface StructureContainerConstructor extends _Constructor<StructureContainer>, _ConstructorById<StructureContainer> { }
 
 declare const StructureContainer: StructureContainerConstructor;
 
@@ -4113,7 +4119,7 @@ interface StructureNuker extends OwnedStructure<STRUCTURE_NUKER> {
     launchNuke(pos: RoomPosition): ScreepsReturnCode;
 }
 
-interface StructureNukerConstructor extends _Constructor<StructureNuker>, _ConstructorById<StructureNuker> {}
+interface StructureNukerConstructor extends _Constructor<StructureNuker>, _ConstructorById<StructureNuker> { }
 
 declare const StructureNuker: StructureNukerConstructor;
 
@@ -4136,7 +4142,7 @@ interface StructurePortal extends Structure<STRUCTURE_PORTAL> {
     ticksToDecay: number | undefined;
 }
 
-interface StructurePortalConstructor extends _Constructor<StructurePortal>, _ConstructorById<StructurePortal> {}
+interface StructurePortalConstructor extends _Constructor<StructurePortal>, _ConstructorById<StructurePortal> { }
 
 declare const StructurePortal: StructurePortalConstructor;
 
@@ -4198,6 +4204,6 @@ interface Tombstone extends RoomObject {
     creep: Creep;
 }
 
-interface TombstoneConstructor extends _Constructor<Tombstone>, _ConstructorById<Tombstone> {}
+interface TombstoneConstructor extends _Constructor<Tombstone>, _ConstructorById<Tombstone> { }
 
 declare const Tombstone: TombstoneConstructor;
