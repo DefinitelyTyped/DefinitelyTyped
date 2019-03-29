@@ -129,9 +129,9 @@ declare module "child_process" {
     }
 
     function spawn(command: string, options?: SpawnOptionsWithoutStdio): ChildProcessWithoutNullStreams;
-    function spawn(command: string, options?: SpawnOptions): ChildProcess;
+    function spawn(command: string, options: SpawnOptions): ChildProcess;
     function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptionsWithoutStdio): ChildProcessWithoutNullStreams;
-    function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
+    function spawn(command: string, args: ReadonlyArray<string>, options: SpawnOptions): ChildProcess;
 
     interface ExecOptions extends CommonOptions {
         shell?: string;
