@@ -4,12 +4,16 @@
 //                 Andreas Neeven <https://github.com/aneeven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export declare const DOMParser: DOMParserStatic;
-export declare const XMLSerializer: XMLSerializerStatic;
-export declare const DOMImplementation: DOMImplementationStatic;
+declare const DOMParser: DOMParserStatic;
+declare const XMLSerializer: XMLSerializerStatic;
+declare const DOMImplementation: DOMImplementationStatic;
 
 interface DOMImplementationStatic {
     new(): DOMImplementation;
+}
+
+interface DOMParser {
+    parseFromString(xmlsource: string, mimeType?: string): Document;
 }
 
 interface DOMParserStatic {
@@ -17,16 +21,12 @@ interface DOMParserStatic {
     new(options: Options): DOMParser;
 }
 
-interface XMLSerializerStatic {
-    new(): XMLSerializer;
-}
-
-interface DOMParser {
-    parseFromString(xmlsource: string, mimeType?: string): Document;
-}
-
 interface XMLSerializer {
     serializeToString(node: Node): string;
+}
+
+interface XMLSerializerStatic {
+    new(): XMLSerializer;
 }
 
 interface Options {
@@ -42,4 +42,16 @@ interface ErrorHandlerObject {
     warning?: (msg: any) => any;
     error?: (msg: any) => any;
     fatalError?: (msg: any) => any;
+}
+
+export {
+    DOMImplementation,
+    DOMImplementationStatic,
+    DOMParser,
+    DOMParserStatic,
+    XMLSerializer,
+    XMLSerializerStatic,
+    Options,
+    ErrorHandlerFunction,
+    ErrorHandlerObject
 }
