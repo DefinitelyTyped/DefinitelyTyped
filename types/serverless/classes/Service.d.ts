@@ -12,6 +12,9 @@ declare class Service {
     provider: {
       compiledCloudFormationTemplate: {
         Resources: any[];
+        Outputs?: {
+          [key: string]: any;
+        };
       };
 
       name: string;

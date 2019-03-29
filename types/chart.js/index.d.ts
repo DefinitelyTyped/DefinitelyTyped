@@ -33,7 +33,7 @@ declare class Chart {
     clear: () => {};
     toBase64Image: () => string;
     generateLegend: () => {};
-    getElementAtEvent: (e: any) => {};
+    getElementAtEvent: (e: any) => [{}];
     getElementsAtEvent: (e: any) => Array<{}>;
     getDatasetAtEvent: (e: any) => Array<{}>;
     getDatasetMeta: (index: number) => Meta;
@@ -60,62 +60,8 @@ declare class Chart {
     static Tooltip: Chart.ChartTooltipsStaticConfiguration;
 }
 declare class PluginServiceStatic {
-    register(plugin: PluginServiceGlobalRegistration & PluginServiceRegistrationOptions): void;
-    unregister(plugin: PluginServiceGlobalRegistration & PluginServiceRegistrationOptions): void;
-}
-
-interface PluginServiceGlobalRegistration {
-    id?: string;
-}
-
-interface PluginServiceRegistrationOptions {
-    beforeInit?(chartInstance: Chart, options?: any): void;
-    afterInit?(chartInstance: Chart, options?: any): void;
-
-    beforeUpdate?(chartInstance: Chart, options?: any): void;
-    afterUpdate?(chartInstance: Chart, options?: any): void;
-
-    beforeLayout?(chartInstance: Chart, options?: any): void;
-    afterLayout?(chartInstance: Chart, options?: any): void;
-
-    beforeDatasetsUpdate?(chartInstance: Chart, options?: any): void;
-    afterDatasetsUpdate?(chartInstance: Chart, options?: any): void;
-
-    beforeDatasetUpdate?(chartInstance: Chart, options?: any): void;
-    afterDatasetUpdate?(chartInstance: Chart, options?: any): void;
-
-    // This is called at the start of a render. It is only called once, even if the animation will run for a number of frames. Use beforeDraw or afterDraw
-    // to do something on each animation frame
-    beforeRender?(chartInstance: Chart, options?: any): void;
-    afterRender?(chartInstance: Chart, options?: any): void;
-
-    // Easing is for animation
-    beforeDraw?(chartInstance: Chart, easing: string, options?: any): void;
-    afterDraw?(chartInstance: Chart, easing: string, options?: any): void;
-
-    // Before the datasets are drawn but after scales are drawn
-    beforeDatasetsDraw?(chartInstance: Chart, easing: string, options?: any): void;
-    afterDatasetsDraw?(chartInstance: Chart, easing: string, options?: any): void;
-
-    beforeDatasetDraw?(chartInstance: Chart, easing: string, options?: any): void;
-    afterDatasetDraw?(chartInstance: Chart, easing: string, options?: any): void;
-
-    // Called before drawing the `tooltip`. If any plugin returns `false`,
-    // the tooltip drawing is cancelled until another `render` is triggered.
-    beforeTooltipDraw?(chartInstance: Chart, tooltipData?: any, options?: any): void;
-    // Called after drawing the `tooltip`. Note that this hook will not,
-    // be called if the tooltip drawing has been previously cancelled.
-    afterTooltipDraw?(chartInstance: Chart, tooltipData?: any, options?: any): void;
-
-    // Called when an event occurs on the chart
-    beforeEvent?(chartInstance: Chart, event: Event, options?: any): void;
-    afterEvent?(chartInstance: Chart, event: Event, options?: any): void;
-
-    resize?(chartInstance: Chart, newChartSize: Chart.ChartSize, options?: any): void;
-    destroy?(chartInstance: Chart): void;
-
-    /** @deprecated since version 2.5.0. Use `afterLayout` instead. */
-    afterScaleUpdate?(chartInstance: Chart, options?: any): void;
+    register(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
+    unregister(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
 }
 
 interface Meta {
@@ -480,10 +426,12 @@ declare namespace Chart {
     interface ScaleTitleOptions {
         display?: boolean;
         labelString?: string;
+        lineHeight?: number | string;
         fontColor?: ChartColor;
         fontFamily?: string;
         fontSize?: number;
         fontStyle?: string;
+        padding?: ChartLayoutPaddingObject | number;
     }
 
     interface TickOptions extends NestedTickOptions {
@@ -566,7 +514,7 @@ declare namespace Chart {
         hoverBorderWidth?: number | number[];
         label?: string;
         lineTension?: number;
-        steppedLine?: 'before' | 'after' | boolean;
+        steppedLine?: 'before' | 'after' | 'middle' | boolean;
         pointBorderColor?: ChartColor | ChartColor[];
         pointBackgroundColor?: ChartColor | ChartColor[];
         pointBorderWidth?: number | number[];
@@ -682,6 +630,60 @@ declare namespace Chart {
     interface Point {
         x: number;
         y: number;
+    }
+
+    interface PluginServiceGlobalRegistration {
+        id?: string;
+    }
+
+    interface PluginServiceRegistrationOptions {
+        beforeInit?(chartInstance: Chart, options?: any): void;
+        afterInit?(chartInstance: Chart, options?: any): void;
+
+        beforeUpdate?(chartInstance: Chart, options?: any): void;
+        afterUpdate?(chartInstance: Chart, options?: any): void;
+
+        beforeLayout?(chartInstance: Chart, options?: any): void;
+        afterLayout?(chartInstance: Chart, options?: any): void;
+
+        beforeDatasetsUpdate?(chartInstance: Chart, options?: any): void;
+        afterDatasetsUpdate?(chartInstance: Chart, options?: any): void;
+
+        beforeDatasetUpdate?(chartInstance: Chart, options?: any): void;
+        afterDatasetUpdate?(chartInstance: Chart, options?: any): void;
+
+        // This is called at the start of a render. It is only called once, even if the animation will run for a number of frames. Use beforeDraw or afterDraw
+        // to do something on each animation frame
+        beforeRender?(chartInstance: Chart, options?: any): void;
+        afterRender?(chartInstance: Chart, options?: any): void;
+
+        // Easing is for animation
+        beforeDraw?(chartInstance: Chart, easing: string, options?: any): void;
+        afterDraw?(chartInstance: Chart, easing: string, options?: any): void;
+
+        // Before the datasets are drawn but after scales are drawn
+        beforeDatasetsDraw?(chartInstance: Chart, easing: string, options?: any): void;
+        afterDatasetsDraw?(chartInstance: Chart, easing: string, options?: any): void;
+
+        beforeDatasetDraw?(chartInstance: Chart, easing: string, options?: any): void;
+        afterDatasetDraw?(chartInstance: Chart, easing: string, options?: any): void;
+
+        // Called before drawing the `tooltip`. If any plugin returns `false`,
+        // the tooltip drawing is cancelled until another `render` is triggered.
+        beforeTooltipDraw?(chartInstance: Chart, tooltipData?: any, options?: any): void;
+        // Called after drawing the `tooltip`. Note that this hook will not,
+        // be called if the tooltip drawing has been previously cancelled.
+        afterTooltipDraw?(chartInstance: Chart, tooltipData?: any, options?: any): void;
+
+        // Called when an event occurs on the chart
+        beforeEvent?(chartInstance: Chart, event: Event, options?: any): void;
+        afterEvent?(chartInstance: Chart, event: Event, options?: any): void;
+
+        resize?(chartInstance: Chart, newChartSize: ChartSize, options?: any): void;
+        destroy?(chartInstance: Chart): void;
+
+        /** @deprecated since version 2.5.0. Use `afterLayout` instead. */
+        afterScaleUpdate?(chartInstance: Chart, options?: any): void;
     }
 }
 

@@ -83,9 +83,10 @@ declare namespace AngularFormly {
 	}
 
 	interface ISelectOption {
-		name: string;
+		name?: string;
 		value?: string;
 		group?: string;
+		[key: string]: any;
 	}
 
 	/**
@@ -149,14 +150,37 @@ declare namespace AngularFormly {
 	 */
 	interface IWatcher {
 		deep?: boolean; //Defaults to false
-		expression?: string | { (field: string, scope: ITemplateScope): boolean };
-		listener: (field: string, newValue: any, oldValue: any, scope: ITemplateScope, stopWatching: Function) => void;
+		expression?: string | { (field: IFieldRuntimeObject, scope: ITemplateScope): boolean };
+		listener: (field: IFieldRuntimeObject, newValue: any, oldValue: any, scope: ITemplateScope, stopWatching: Function) => void;
 		type?: string; //Defaults to $watch but can be set to $watchCollection or $watchGroup
+	}
+
+	interface IFieldRuntimeObject extends IFieldObject {
+		model: {
+			[key: string]: any;
+		};
+	}
+
+	interface IFieldConfigurationObject extends IFieldObject {
+		/**
+		 * By default, the model passed to the formly-field directive is the same as the model passed to the
+		 * formly-form. However, if the field has a model specified, then it is used for that field (and that
+		 * field only). In addition, a deep watch is added to the formly-field directive's scope to run the
+		 * expressionProperties when the specified model changes.
+		 *
+		 * Note, the formly-form directive will allow you to specify a string which is an (almost) formly
+		 * expression which allows you to define the model as relative to the scope of the form.
+		 *
+		 * see http://docs.angular-formly.com/docs/field-configuration-object#model-object--string
+		 */
+		model?: string | {
+			[key: string]: any;
+		};
 	}
 
 
 	// see http://docs.angular-formly.com/docs/field-configuration-object
-	interface IFieldConfigurationObject {
+	interface IFieldObject {
 
 
 		/**
@@ -277,22 +301,6 @@ declare namespace AngularFormly {
 		 * see http://docs.angular-formly.com/docs/field-configuration-object#link-link-function
 		 */
 		link?: ng.IDirectiveLinkFn;
-
-
-		/**
-		 * By default, the model passed to the formly-field directive is the same as the model passed to the
-		 * formly-form. However, if the field has a model specified, then it is used for that field (and that
-		 * field only). In addition, a deep watch is added to the formly-field directive's scope to run the
-		 * expressionProperties when the specified model changes.
-		 *
-		 * Note, the formly-form directive will allow you to specify a string which is an (almost) formly
-		 * expression which allows you to define the model as relative to the scope of the form.
-		 *
-		 * see http://docs.angular-formly.com/docs/field-configuration-object#model-object--string
-		 */
-		model?: string | {
-			[key: string]: any;
-		};
 
 
 		/**
@@ -617,7 +625,7 @@ declare namespace AngularFormly {
 		//The index of the field the form is on (in ng-repeat)
 		index: number;
 		//the model of the form (or the model specified by the field if it was specified).
-		model?: string | {
+		model?: {
 			[key: string]: any;
 		};
 		//Shortcut to options.validation.errorExistsAndShouldBeVisible

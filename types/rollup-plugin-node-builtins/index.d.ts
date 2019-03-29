@@ -8,9 +8,12 @@
 
 import { Plugin } from 'rollup';
 
-export interface Options {
-    crypto?: boolean;
-    fs?: boolean;
+declare namespace builtins {
+    interface Options {
+        crypto?: boolean;
+        fs?: boolean;
+    }
 }
 
-export default function builtins(options?: Options): Plugin;
+export = builtins;
+declare function builtins(options?: builtins.Options): Plugin;

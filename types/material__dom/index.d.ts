@@ -29,4 +29,4 @@
 
 import * as ponyfill from './ponyfill';
 
-export {ponyfill};
+export { ponyfill };

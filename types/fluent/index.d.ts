@@ -1,6 +1,6 @@
-// Type definitions for fluent 0.10
+// Type definitions for fluent 0.11
 // Project: http://projectfluent.org
-// Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
+// Definitions by: Huy Nguyen <https://github.com/huy-nguyen>, James Nimlos <https://github.com/jamesnimlos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -28,6 +28,8 @@ export class FluentResource extends Map {
 
 export class FluentBundle {
     constructor(locales: string | string[], options?: FluentBundleContructorOptions);
+    messages: IterableIterator<[string, FluentNode[]]>;
+    hasMessage(source: string): boolean;
     addMessages(source: string): string[];
     getMessage(id: string): FluentNode[];
     format(message: FluentNode[], args?: object, errors?: string[]): string;

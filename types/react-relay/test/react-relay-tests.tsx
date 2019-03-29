@@ -11,6 +11,7 @@ import {
     createRefetchContainer,
     requestSubscription,
     QueryRenderer,
+    ReactRelayContext,
     RelayRefetchProp,
     RelayPaginationProp,
     RelayProp,
@@ -501,3 +502,10 @@ requestSubscription(
         },
     }
 );
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// Context
+// ~~~~~~~~~~~~~~~~~~~~~
+
+ReactRelayContext.Consumer.prototype;
+ReactRelayContext.Provider.prototype;

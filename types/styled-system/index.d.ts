@@ -1,4 +1,4 @@
-// Type definitions for styled-system 3.2
+// Type definitions for styled-system 4.0
 // Project: https://github.com/jxnblk/styled-system#readme
 // Definitions by: Marshall Bowers <https://github.com/maxdeviant>
 //                 Ben McCormick <https://github.com/phobon>
@@ -51,7 +51,7 @@ export type TLengthStyledSystem = string | 0 | number;
 export type ResponsiveValue<T> = T | Array<T | null> | { [key: string]: T };
 
 /**
- * Converts shorthand margin and padding props to margin and padding CSS declarations
+ * Converts shorthand or longhand margin and padding props to margin and padding CSS declarations
  *
  * - Numbers from 0-4 (or the length of theme.space) are converted to values on the spacing scale.
  * - Negative values can be used for negative margins.
@@ -59,32 +59,51 @@ export type ResponsiveValue<T> = T | Array<T | null> | { [key: string]: T };
  * - String values are passed as raw CSS values.
  * - Array values are converted into responsive values.
  */
-
 export interface SpaceProps<TLength = TLengthStyledSystem> {
     /** Margin on top, left, bottom and right */
     m?: ResponsiveValue<CSS.MarginProperty<TLength>>;
+    /** Margin on top, left, bottom and right */
+    margin?: ResponsiveValue<CSS.MarginProperty<TLength>>;
     /** Margin for the top */
     mt?: ResponsiveValue<CSS.MarginTopProperty<TLength>>;
+    /** Margin for the top */
+    marginTop?: ResponsiveValue<CSS.MarginTopProperty<TLength>>;
     /** Margin for the right */
     mr?: ResponsiveValue<CSS.MarginRightProperty<TLength>>;
+    /** Margin for the right */
+    marginRight?: ResponsiveValue<CSS.MarginRightProperty<TLength>>;
     /** Margin for the bottom */
     mb?: ResponsiveValue<CSS.MarginBottomProperty<TLength>>;
+    /** Margin for the bottom */
+    marginBottom?: ResponsiveValue<CSS.MarginBottomProperty<TLength>>;
     /** Margin for the left */
     ml?: ResponsiveValue<CSS.MarginLeftProperty<TLength>>;
+    /** Margin for the left */
+    marginLeft?: ResponsiveValue<CSS.MarginLeftProperty<TLength>>;
     /** Margin for the left and right */
     mx?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
     /** Margin for the top and bottom */
     my?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
     /** Padding on top, left, bottom and right */
     p?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
+    /** Padding on top, left, bottom and right */
+    padding?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
     /** Padding for the top */
     pt?: ResponsiveValue<CSS.PaddingTopProperty<TLength>>;
+    /** Padding for the top */
+    paddingTop?: ResponsiveValue<CSS.PaddingTopProperty<TLength>>;
     /** Padding for the right */
     pr?: ResponsiveValue<CSS.PaddingRightProperty<TLength>>;
+    /** Padding for the right */
+    paddingRight?: ResponsiveValue<CSS.PaddingRightProperty<TLength>>;
     /** Padding for the bottom */
     pb?: ResponsiveValue<CSS.PaddingBottomProperty<TLength>>;
+    /** Padding for the bottom */
+    paddingBottom?: ResponsiveValue<CSS.PaddingBottomProperty<TLength>>;
     /** Padding for the left */
     pl?: ResponsiveValue<CSS.PaddingLeftProperty<TLength>>;
+    /** Padding for the left */
+    paddingLeft?: ResponsiveValue<CSS.PaddingLeftProperty<TLength>>;
     /** Padding for the left and right */
     px?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
     /** Padding for the top and bottom */

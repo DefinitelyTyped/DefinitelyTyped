@@ -1131,8 +1131,8 @@ declare namespace webpack {
     abstract class Stats {
         compilation: compilation.Compilation;
         hash?: string;
-        startTime?: Date;
-        endTime?: Date;
+        startTime?: number;
+        endTime?: number;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */
