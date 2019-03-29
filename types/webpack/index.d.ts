@@ -27,6 +27,7 @@ import { Tapable, HookMap,
 import * as UglifyJS from 'uglify-js';
 import * as anymatch from 'anymatch';
 import { RawSourceMap } from 'source-map';
+import Watchpack from 'watchpack';
 
 export = webpack;
 
@@ -1064,6 +1065,24 @@ declare namespace webpack {
         writeFile(path: string, data: any, callback: (err: Error | undefined | null) => void): void;
     }
 
+    class NodeWatchFileSystem {
+        constructor(inputFileSystem: InputFileSystem);
+        watch(files: string[], dirs: string[], missing: string[], startTime: number, options: Watchpack.WatcherOptions, callback: (
+            err: null,
+            files: string[],
+            dirs: string[],
+            missing: string[],
+            times1: Map<string, number>,
+            times2: Map<string, number>,
+            removals: string[]
+        ) => void, callbackUndelayed: (item: string, mtime: number, file?: string) => void): {
+            close(): void;
+            pause(): void;
+            getFileTimestamps(): Map<string, number>;
+            getContextTimestamps(): Map<string, number>;
+        }
+    }
+
     interface SortableSet<T> extends Set<T> {
         sortWith(sortFn: (a: T, b: T) => number): void;
         sort(): void;
@@ -1079,6 +1098,7 @@ declare namespace webpack {
 
         name: string;
         options: Configuration;
+        watchFileSystem: NodeWatchFileSystem;
         inputFileSystem: InputFileSystem;
         outputFileSystem: OutputFileSystem;
         fileTimestamps: Map<string, number>;
