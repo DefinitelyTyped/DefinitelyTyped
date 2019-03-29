@@ -276,11 +276,7 @@ declare module "tls" {
     }
 
     class Server extends net.Server {
-        addContext(hostName: string, credentials: {
-            key: string;
-            cert: string;
-            ca: string;
-        }): void;
+        addContext(hostName: string, credentials: SecureContextOptions): void;
 
         /**
          * events.EventEmitter
