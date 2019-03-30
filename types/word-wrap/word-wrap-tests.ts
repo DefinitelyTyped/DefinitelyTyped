@@ -18,3 +18,5 @@ wrap(str, {
 wrap(str, { trim: true });
 
 wrap(str, { cut: true });
+
+wrap(str);
