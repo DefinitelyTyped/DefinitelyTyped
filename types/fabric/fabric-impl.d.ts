@@ -143,7 +143,7 @@ interface IDataURLOptions {
 interface IEvent {
 	e: Event;
 	target?: Object;
-	transform?: { corner: string };
+	transform?: { corner: string, original: Object, width: number };
 }
 
 interface IFillOptions {
@@ -2212,10 +2212,10 @@ export class Image {
 	 * Sets image element for this instance to a specified one.
 	 * If filters defined they are applied to new image.
 	 * You might need to call `canvas.renderAll` and `object.setCoords` after replacing, to render new image and update controls area.
-	 * @param [callback] Callback is invoked when all filters have been applied and new image is generated
+	 * @param element image element
 	 * @param [options] Options object
 	 */
-	setElement(element: HTMLImageElement, callback: Function, options: IImageOptions): Image;
+	setElement(element: HTMLImageElement, options?: IImageOptions): Image;
 	/**
 	 * Delete a single texture if in webgl mode
 	 */
@@ -3642,6 +3642,9 @@ export class Polyline extends Object {
 	 * @param [skipOffset] Whether points offsetting should be skipped
 	 */
 	constructor(points: Array<{ x: number; y: number }>, options?: IPolylineOptions);
+
+    pathOffset: Point;
+
 	/**
 	 * List of attribute names to account for when parsing SVG element (used by `fabric.Polygon.fromElement`)
 	 */

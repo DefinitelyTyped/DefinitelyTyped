@@ -8,6 +8,7 @@
         "callable-types": false,
         "comment-format": false,
         "dt-header": false,
+        "npm-naming": false,
         "eofline": false,
         "export-just-namespace": false,
         "import-spacing": false,

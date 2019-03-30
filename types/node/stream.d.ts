@@ -14,6 +14,7 @@ declare module "stream" {
             objectMode?: boolean;
             read?(this: Readable, size: number): void;
             destroy?(this: Readable, error: Error | null, callback: (error: Error | null) => void): void;
+            autoDestroy?: boolean;
         }
 
         class Readable extends Stream implements NodeJS.ReadableStream {
@@ -98,11 +99,14 @@ declare module "stream" {
         interface WritableOptions {
             highWaterMark?: number;
             decodeStrings?: boolean;
+            defaultEncoding?: string;
             objectMode?: boolean;
+            emitClose?: boolean;
             write?(this: Writable, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             writev?(this: Writable, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
             destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
             final?(this: Writable, callback: (error?: Error | null) => void): void;
+            autoDestroy?: boolean;
         }
 
         class Writable extends Stream implements NodeJS.WritableStream {
@@ -115,11 +119,11 @@ declare module "stream" {
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
             _final(callback: (error?: Error | null) => void): void;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
-            write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
+            write(chunk: any, encoding: string, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: string): this;
             end(cb?: () => void): void;
             end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding?: string, cb?: () => void): void;
+            end(chunk: any, encoding: string, cb?: () => void): void;
             cork(): void;
             uncork(): void;
             destroy(error?: Error): void;

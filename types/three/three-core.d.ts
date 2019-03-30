@@ -239,6 +239,7 @@ export class AnimationAction {
     stop(): AnimationAction;
     reset(): AnimationAction;
     isRunning(): boolean;
+    isScheduled(): boolean;
     startAt(time: number): AnimationAction;
     setLoop(mode: AnimationActionLoopStyles, repetitions: number): AnimationAction;
     setEffectiveWeight(weight: number): AnimationAction;
@@ -1476,7 +1477,7 @@ export namespace GeometryUtils {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/InstancedBufferAttribute.js">src/core/InstancedBufferAttribute.js</a>
  */
 export class InstancedBufferAttribute extends BufferAttribute {
-    constructor(data: ArrayLike<number>, itemSize: number, meshPerAttribute?: number);
+    constructor(array: ArrayLike<number>, itemSize: number, normalized?: boolean, meshPerAttribute?: number);
 
     meshPerAttribute: number;
 }

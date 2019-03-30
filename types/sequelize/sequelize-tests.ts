@@ -1217,6 +1217,7 @@ queryInterface.createTable( { tableName : 'y', schema : 'a' },
 queryInterface.changeColumn( { tableName : 'a', schema : 'b' }, 'c', { type : Sequelize.FLOAT },
     { logging : () => s } );
 queryInterface.createTable( 'users', { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
+queryInterface.bulkInsert({tableName:'users', schema:'test'}, [{}, {}, {}]);
 queryInterface.createTable( 'level', { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 queryInterface.addColumn( 'users', 'someEnum', Sequelize.ENUM( 'value1', 'value2', 'value3' ) );
 queryInterface.addColumn( 'users', 'so', { type : Sequelize.ENUM, values : ['value1', 'value2', 'value3'] } );

@@ -821,3 +821,16 @@ test = (
         zoomDomain={[0, 500]}
     />
 );
+
+// Gutter test
+test = (
+    <VictoryLegend
+        x={125}
+        y={50}
+        orientation="horizontal"
+        gutter={{left: 10, right: 10}}
+        data={[
+            { name: "One" }, { name: "Two" }, { name: "Three" }
+            ]}
+    />
+);

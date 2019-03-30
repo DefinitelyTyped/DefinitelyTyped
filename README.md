@@ -452,5 +452,3 @@ GitHub doesn't [support](http://stackoverflow.com/questions/5646174/how-to-make-
 This project is licensed under the MIT license.
 
 Copyrights on the definition files are respective of each contributor listed at the beginning of each definition file.
-
-[![Analytics](https://ga-beacon.appspot.com/UA-47495295-4/borisyankov/DefinitelyTyped)](https://github.com/igrigorik/ga-beacon)

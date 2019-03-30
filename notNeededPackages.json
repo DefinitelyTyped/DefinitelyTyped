@@ -787,6 +787,12 @@
             "asOfVersion": "2.0.23"
         },
         {
+            "libraryName": "get-port",
+            "typingsPackageName": "get-port",
+            "sourceRepoURL": "https://github.com/sindresorhus/get-port",
+            "asOfVersion": "4.2.0"
+        },
+        {
             "libraryName": "get-stream",
             "typingsPackageName": "get-stream",
             "sourceRepoURL": "https://github.com/sindresorhus/get-stream",
@@ -1105,6 +1111,12 @@
             "asOfVersion": "3.4.1"
         },
         {
+            "libraryName": "knex",
+            "typingsPackageName": "knex",
+            "sourceRepoURL": "https://github.com/tgriesser/knex",
+            "asOfVersion": "0.16.1"
+        },
+        {
             "libraryName": "knockout-paging",
             "typingsPackageName": "knockout-paging",
             "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-paging",
@@ -1403,6 +1415,12 @@
             "typingsPackageName": "onsenui",
             "sourceRepoURL": "http://onsen.io",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "opn",
+            "typingsPackageName": "opn",
+            "sourceRepoURL": "https://github.com/sindresorhus/opn",
+            "asOfVersion": "5.5.0"
         },
         {
             "libraryName": "ora",
@@ -2005,6 +2023,12 @@
             "asOfVersion": "0.7.3"
         },
         {
+            "libraryName": "screenfull",
+            "typingsPackageName": "screenfull",
+            "sourceRepoURL": "https://github.com/sindresorhus/screenfull.js",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "sendgrid",
             "typingsPackageName": "sendgrid",
             "sourceRepoURL": "https://github.com/sendgrid/sendgrid-nodejs",
@@ -2111,6 +2135,12 @@
             "typingsPackageName": "ss-utils",
             "sourceRepoURL": "https://servicestack.net/",
             "asOfVersion": "0.1.5"
+        },
+        {
+            "libraryName": "@storybook/addon-notes",
+            "typingsPackageName": "storybook__addon-notes",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "striptags",

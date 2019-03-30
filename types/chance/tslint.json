@@ -3,6 +3,7 @@
     "rules": {
         "adjacent-overload-signatures": false,
         "dt-header": false,
+        "npm-naming": false,
         "no-declare-current-package": false,
         "no-single-declare-module": false,
         "no-unnecessary-generics": false,

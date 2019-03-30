@@ -35,6 +35,10 @@ import { readFile } from 'fs';
     });
     assert(typeof util.inspect.custom === 'symbol');
 
+    util.inspect.replDefaults = {
+        colors: true,
+    };
+
     util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
 
     // util.callbackify
@@ -159,6 +163,10 @@ import { readFile } from 'fs';
     const teEncodeRes: Uint8Array = te.encode("TextEncoder");
 
     // util.types
+    let b: boolean;
+    b = util.types.isBigInt64Array(15);
+    b = util.types.isBigUint64Array(15);
+    b = util.types.isModuleNamespaceObject(15);
 
     // tslint:disable-next-line:no-construct ban-types
     const maybeBoxed: number | Number = new Number(1);
