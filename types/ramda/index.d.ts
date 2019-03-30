@@ -28,6 +28,7 @@
 //                 Nitesh Phadatare <https://github.com/minitesh>
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
 //                 Pierre-Antoine Mills <https://github.com/pirix-gh>
+//                 Artem Korchunov <https://github.com/ArtemKorchunov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
@@ -2711,8 +2712,8 @@ declare namespace R {
          * Splits a string into an array of strings based on the given
          * separator.
          */
-        split(sep: string | RegExp): (str: string) => string[];
-        split(sep: string | RegExp, str: string): string[];
+        split<T>(sep: string | RegExp): (str: string) => T;
+        split<T>(sep: string | RegExp, str: string): T;
 
         /**
          * Splits a given list or string at a given index.
