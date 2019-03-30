@@ -2712,8 +2712,8 @@ declare namespace R {
          * Splits a string into an array of strings based on the given
          * separator.
          */
-        split<T>(sep: string | RegExp): (str: string) => T;
-        split<T>(sep: string | RegExp, str: string): T;
+        split<T = string[]>(sep: string | RegExp): (str: string) => T;
+        split<T = string[]>(sep: string | RegExp, str: string): T;
 
         /**
          * Splits a given list or string at a given index.
