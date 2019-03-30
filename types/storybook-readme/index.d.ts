@@ -1,4 +1,4 @@
-// Type definitions for storybook-readme 4.0
+// Type definitions for storybook-readme 5.0
 // Project: https://github.com/tuchk4/storybook-readme
 // Definitions by: Taeheon Kim  <https://github.com/lonyele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,10 +16,12 @@ export type DecoratorPattern = (
 
 export type HOCPattern = (story: RenderFunction) => Renderable | null;
 
+export type MakeDecoratorResult = (...args: any) => any;
+
 // Types added for v5
-export type addReadme = (decorator: DecoratorPattern) => React.ReactNode;
-export type addFooter = (md: string) => void;
-export type addHeader = (md: string) => void;
+export const addReadme: MakeDecoratorResult
+export function addFooter(md: string): void;
+export function addHeader(md: string): void;
 export interface ICommonConfig {
   header: string;
   footer: string;
@@ -29,7 +31,7 @@ export interface ICommonConfig {
   FooterPreview: (props: { children: React.ReactNode }) => React.ReactNode;
 }
 
-export type ConfigureReadme = (config: ICommonConfig) => void;
+export function configureReadme(config: ICommonConfig): void;
 
 // !~~~~~ Belows are for backwardCompatibility with v4 ~~~~~!
 // WithReadme Types
