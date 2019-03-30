@@ -3487,7 +3487,7 @@ declare namespace sequelize {
     /**
      * Options for Model.findOrInitialize method
      */
-    interface FindOrInitializeOptions<TAttributes> extends AnyFindOptions {
+    interface FindOrInitializeOptions<TAttributes> extends FindOptions<TAttributes> {
 
         /**
          * Default values to use if building a new instance
@@ -4380,7 +4380,7 @@ declare namespace sequelize {
         /**
          * Inserts multiple records at once
          */
-        bulkInsert(tableName: string, records: Object[], options?: QueryOptions,
+        bulkInsert(tableName: string | { tableName: string, schema: string }, records: Object[], options?: QueryOptions,
             attributes?: string[] | string): Promise<Object>;
 
         /**
