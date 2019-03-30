@@ -20,6 +20,7 @@
 //                 Ming Chen <https://github.com/mingchen>
 //                 Olga Isakova <https://github.com/penumbra1>
 //                 Orblazer <https://github.com/orblazer>
+//                 HughKu <https://github.com/HughKu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
