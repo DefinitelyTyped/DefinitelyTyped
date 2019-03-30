@@ -1975,9 +1975,9 @@ class Rectangle {
 };
 
 () => {
-    const a: boolean = R.pathSatisfies(x => x > 0, ["x"], {x: 1, y: 2}); // => true
-    const b: boolean = R.pathSatisfies(x => x > 0, ["x"])({x: 1, y: 2}); // => true
-    const c: boolean = R.pathSatisfies(x => x > 0)(["x"])({x: 1, y: 2}); // => true
+    const a: boolean = R.pathSatisfies((x: number) => x > 0, ["x"], {x: 1, y: 2}); // => true
+    const b: boolean = R.pathSatisfies((x: number) => x > 0, ["x"])({x: 1, y: 2}); // => true
+    const c: boolean = R.pathSatisfies((x: number) => x > 0)(["x"])({x: 1, y: 2}); // => true
 };
 
 () => {
@@ -2091,9 +2091,9 @@ class Rectangle {
 };
 
 () => {
-    const a: boolean = R.propSatisfies(x => x > 0, "x", {x: 1, y: 2}); // => true
-    const b: boolean = R.propSatisfies(x => x > 0, "x")({x: 1, y: 2}); // => true
-    const c: boolean = R.propSatisfies(x => x > 0)("x")({x: 1, y: 2}); // => true
+    const a: boolean = R.propSatisfies((x: number) => x > 0, "x", {x: 1, y: 2}); // => true
+    const b: boolean = R.propSatisfies((x: number) => x > 0, "x")({x: 1, y: 2}); // => true
+    const c: boolean = R.propSatisfies((x: number) => x > 0)("x")({x: 1, y: 2}); // => true
 };
 
 () => {
