@@ -891,7 +891,7 @@ declare namespace NodeJS {
         domain: Domain;
 
         // Worker
-        send?(message: any, sendHandle?: any): void;
+        send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean}, callback?: (error: Error | null) => void): boolean;
         disconnect(): void;
         connected: boolean;
 
