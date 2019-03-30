@@ -3,7 +3,7 @@ import { Argv } from '.';
 export = Yargs;
 
 declare function Yargs(
-    processArgs?: string[],
+    processArgs?: ReadonlyArray<string>,
     cwd?: string,
     parentRequire?: NodeRequireFunction,
 ): Argv;
