@@ -1045,7 +1045,7 @@ declare module "mongoose" {
     safe?: boolean | { w?: number | string; wtimeout?: number; j?: boolean };
 
     /** defaults to null */
-    shardKey?: boolean;
+    shardKey?: object;
     /** defaults to true */
     strict?: boolean | 'throw';
     /** no default */
