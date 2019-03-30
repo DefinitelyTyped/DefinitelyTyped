@@ -238,22 +238,22 @@ declare namespace Sinon {
          * Returns true if the spy was called before @param anotherSpy
          * @param anotherSpy
          */
-        calledBefore(anotherSpy: SinonSpy): boolean;
+        calledBefore(anotherSpy: SinonInspectable): boolean;
         /**
          * Returns true if the spy was called after @param anotherSpy
          * @param anotherSpy
          */
-        calledAfter(anotherSpy: SinonSpy): boolean;
+        calledAfter(anotherSpy: SinonInspectable): boolean;
         /**
          * Returns true if spy was called before @param anotherSpy, and no spy calls occurred between spy and @param anotherSpy.
          * @param anotherSpy
          */
-        calledImmediatelyBefore(anotherSpy: SinonSpy): boolean;
+        calledImmediatelyBefore(anotherSpy: SinonInspectable): boolean;
         /**
          * Returns true if spy was called after @param anotherSpy, and no spy calls occurred between @param anotherSpy and spy.
          * @param anotherSpy
          */
-        calledImmediatelyAfter(anotherSpy: SinonSpy): boolean;
+        calledImmediatelyAfter(anotherSpy: SinonInspectable): boolean;
         /**
          * Returns true if the spy was always called with @param obj as this.
          * @param obj
