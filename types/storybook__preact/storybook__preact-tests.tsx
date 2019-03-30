@@ -1,4 +1,5 @@
-import { h } from 'preact'
+/** @jsx h */
+import { h } from 'preact';
 import { storiesOf, setAddon, addDecorator, addParameters, configure, getStorybook, RenderFunction, Story, forceReRender, DecoratorParameters, clearDecorators } from '@storybook/preact';
 
 const Decorator = (story: RenderFunction) => <div>{story()}</div>;

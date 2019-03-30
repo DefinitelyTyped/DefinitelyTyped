@@ -7,7 +7,7 @@
 
 /// <reference types="webpack-env" />
 
-import * as Preact from 'preact'
+import * as Preact from 'preact';
 
 export type Renderable = Preact.AnyComponent | JSX.Element;
 export type RenderFunction = () => Renderable | Renderable[];
