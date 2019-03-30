@@ -16,10 +16,26 @@ export type DecoratorPattern = (
 
 export type HOCPattern = (story: RenderFunction) => Renderable | null;
 
+// Types added for v5
+export type addReadme = (decorator: DecoratorPattern) => React.ReactNode;
+export type addFooter = (md: string) => void;
+export type addHeader = (md: string) => void;
+export interface ICommonConfig {
+  header: string;
+  footer: string;
+  StoryPreview: (props: { children: React.ReactNode }) => React.ReactNode;
+  DocPreview: (props: { children: React.ReactNode }) => React.ReactNode;
+  HeaderPreview: (props: { children: React.ReactNode }) => React.ReactNode;
+  FooterPreview: (props: { children: React.ReactNode }) => React.ReactNode;
+}
+
+export type ConfigureReadme = (config: ICommonConfig) => void;
+
+// !~~~~~ Belows are for backwardCompatibility with v4 ~~~~~!
 // WithReadme Types
 export function withReadme(readme: Readme): DecoratorPattern;
 export function withReadme(
-  readme: Readme,
+    readme: Readme,
   story: RenderFunction
 ): RenderFunction;
 
