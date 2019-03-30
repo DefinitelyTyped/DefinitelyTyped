@@ -19,9 +19,9 @@ declare module "child_process" {
         readonly pid: number;
         readonly connected: boolean;
         kill(signal?: string): void;
-        send(message: any, callback?: (error: Error) => void): boolean;
-        send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error) => void): boolean;
-        send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error) => void): boolean;
+        send(message: any, callback?: (error: Error | null) => void): boolean;
+        send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error | null) => void): boolean;
+        send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error | null) => void): boolean;
         disconnect(): void;
         unref(): void;
         ref(): void;
