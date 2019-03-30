@@ -45,4 +45,4 @@ interface Options {
     cut?: boolean;
 }
 
-declare function word_wrap(str: string, options: Options): string;
+declare function word_wrap(str: string, options?: Options): string;
