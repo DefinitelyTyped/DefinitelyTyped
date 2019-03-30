@@ -4989,7 +4989,7 @@ fp.now(); // $ExpectType number
     _.create(prototype, properties); // $ExpectType { a: number; } & { b: string; }
     _(prototype).create(properties); // $ExpectType LoDashImplicitWrapper<{ a: number; } & { b: string; }>
     _.chain(prototype).create(properties); // $ExpectType LoDashExplicitWrapper<{ a: number; } & { b: string; }>
-    fp.create(prototype); // $ExpectType { a: number; }
+    const combined: { a: number } & object = fp.create(prototype);
 }
 
 // _.defaultsDeep
