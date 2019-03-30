@@ -16,13 +16,13 @@ export type DecoratorPattern = (
 
 export type HOCPattern = (story: RenderFunction) => Renderable | null;
 
-export type MakeDecoratorResult = (...args: any) => any;
+export type MakeDecoratorResult = (...args: any[]) => any;
 
 // Types added for v5
-export const addReadme: MakeDecoratorResult
+export const addReadme: MakeDecoratorResult;
 export function addFooter(md: string): void;
 export function addHeader(md: string): void;
-export interface ICommonConfig {
+export interface ConfigureReadmeConfig {
   header: string;
   footer: string;
   StoryPreview: (props: { children: React.ReactNode }) => React.ReactNode;
@@ -31,7 +31,7 @@ export interface ICommonConfig {
   FooterPreview: (props: { children: React.ReactNode }) => React.ReactNode;
 }
 
-export function configureReadme(config: ICommonConfig): void;
+export function configureReadme(config: ConfigureReadmeConfig): void;
 
 // !~~~~~ Belows are for backwardCompatibility with v4 ~~~~~!
 // WithReadme Types

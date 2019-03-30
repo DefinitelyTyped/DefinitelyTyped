@@ -17,7 +17,7 @@ A very simple component with markdown
 // Here are the examples for a type compatibility. Please look https://github.com/tuchk4/storybook-readme for actual usages
 
 // Tests for v5
-addDecorator(addReadme)
+addDecorator(addReadme);
 storiesOf('addParameter Example', module)
   .addParameters({
     readme: {
