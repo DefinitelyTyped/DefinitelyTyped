@@ -704,7 +704,15 @@ export interface CrossOriginLoginOptions {
     email?: string;
     password: string;
     realm?: string;
+    domain?: string;
+    clientID?: string;
+    redirectUri?: string;
+    responseType?: string;
+    responseMode?: string;
     state?: string;
+    nonce?: string;
+    scope?: string;
+    audience?: string;
 }
 
 export interface LogoutOptions {
