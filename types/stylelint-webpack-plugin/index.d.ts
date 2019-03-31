@@ -33,5 +33,6 @@ declare namespace StylelintWebpackPlugin {
         lintDirtyModulesOnly?: boolean;
         syntax?: string;
         quiet?: boolean;
+        fix?: boolean;
     }
 }

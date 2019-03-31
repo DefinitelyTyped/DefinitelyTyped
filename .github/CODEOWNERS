@@ -3663,7 +3663,7 @@
 /types/onionoo/                                     @BendingBender
 /types/onoff/                                       @marcel-ernst @Kallu609
 /types/ontime/                                      @Hirse
-/types/open/                                        @Bartvds
+/types/open/                                        @shinnn @SomaticIT @tlent @ffflorian
 /types/open-editor/                                 @BendingBender
 /types/open-graph/                                  @ffflorian
 /types/openapi-factory/                             @runebaas
@@ -3681,7 +3681,6 @@
 /types/openstack-wrapper/                           @sanjaymadane
 /types/opentok/                                     @westy92 @CatGuardian @pronebird
 /types/opentype.js/                                 @danmarshall @edzis
-/types/opn/                                         @shinnn @SomaticIT @tlent
 /types/opossum/                                     @quinnlangille @merufm @lance @mastermatt
 /types/optics-agent/                                @crevil
 /types/optimist/                                    @soywiz @chbrown

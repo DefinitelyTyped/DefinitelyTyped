@@ -603,8 +603,7 @@ declare namespace NodeJS {
         isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe(destination?: WritableStream): this;
-        unshift(chunk: string): void;
-        unshift(chunk: Buffer): void;
+        unshift(chunk: string | Buffer | Uint8Array): void;
         wrap(oldStream: ReadableStream): this;
         [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
     }
@@ -892,7 +891,7 @@ declare namespace NodeJS {
         domain: Domain;
 
         // Worker
-        send?(message: any, sendHandle?: any): void;
+        send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean}, callback?: (error: Error | null) => void): boolean;
         disconnect(): void;
         connected: boolean;
 
