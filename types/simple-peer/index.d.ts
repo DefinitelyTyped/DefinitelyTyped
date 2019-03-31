@@ -1,70 +1,118 @@
-// Type definitions for simple-peer 6.1
+// Type definitions for simple-peer 9.1
 // Project: https://github.com/feross/simple-peer
-// Definitions by: Tomasz Łaziuk <https://github.com/tlaziuk>
+// Definitions by: Andrea Busà <https://github.com/andrycodestuffs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="node" />
-
-import * as stream from 'stream';
 
 declare const SimplePeer: SimplePeer.SimplePeer;
 
 declare namespace SimplePeer {
-    interface Options {
-        initiator?: boolean; // set to true if this is the initiating peer
-        channelConfig?: {}; // custom webrtc data channel configuration (used by createDataChannel)
-        channelName?: string; // custom webrtc data channel name
-        config?: {}; // custom webrtc configuration (used by RTCPeerConnection constructor)
-        constraints?: {}; // custom webrtc video/voice constraints (used by RTCPeerConnection constructor)
-        offerConstraints?: {}; // custom offer constraints (used by createOffer method)
-        answerConstraints?: {}; // custom answer constraints (used by createAnswer method)
-        reconnectTimer?: boolean | number; // wait __ milliseconds after ICE 'disconnect' for reconnect attempt before emitting 'close'
-        sdpTransform?<T extends any>(sdp: T): T; // function to transform the generated SDP signaling data (for advanced users)
-        stream?: MediaStream; // if video/voice is desired, pass stream returned from getUserMedia
-        trickle?: boolean; // set to false to disable trickle ICE and get a single 'signal' event (slower)
-        wrtc?: {}; // RTCPeerConnection/RTCSessionDescription/RTCIceCandidate
-        objectMode?: boolean; // set to true to create the stream in Object Mode. In this mode, incoming string data is not automatically converted to Buffer objects.
-    }
+  interface TransceiverRequest {
+    kind: string;
+    init?: RTCRtpTransceiverInit;
+  }
 
-    // https://github.com/feross/simple-peer/tree/v6.1.5#peer--new-simplepeeropts
-    interface SimplePeer {
-        new (opts?: Options): Instance;
-        (opts?: Options): Instance;
+  interface SignalingData {
+    renegotiate: boolean;
+    transceiverRequest: TransceiverRequest;
+    candidate: RTCIceCandidateInit;
+    sdp: string;
+  }
 
-        // https://github.com/feross/simple-peer/tree/v6.1.5#peerwebrtc_support
-        readonly WEBRTC_SUPPORT: boolean;
-    }
+  type Data =
+    | string
+    | Buffer
+    | ArrayBufferView
+    | ArrayBuffer
+    | Blob;
 
-    type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+  // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#error-codes
+  type ErrCodes =
+    | 'ERR_WEBRTC_SUPPORT'
+    | 'ERR_CREATE_OFFER'
+    | 'ERR_CREATE_ANSWER'
+    | 'ERR_SET_LOCAL_DESCRIPTION'
+    | 'ERR_SET_REMOTE_DESCRIPTION'
+    | 'ERR_ADD_ICE_CANDIDATE'
+    | 'ERR_ICE_CONNECTION_FAILURE'
+    | 'ERR_SIGNALING'
+    | 'ERR_DATA_CHANNEL';
 
-    type SimplePeerData = string | Buffer | TypedArray | ArrayBuffer | Blob;
+  interface Err extends Error {
+    code: ErrCodes;
+  }
 
-    interface SignalData {
-        sdp?: any;
-        candidate?: any;
-    }
+  interface Instance {
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peersignaldata
+    signal(data: SignalingData): void;
 
-    interface Instance extends stream.Duplex {
-        // https://github.com/feross/simple-peer/tree/v6.1.5#peersignaldata
-        signal(data: string | SignalData): void;
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peersenddata
+    send(data: Data): void;
 
-        // https://github.com/feross/simple-peer/tree/v6.1.5#peersenddata
-        send(data: SimplePeerData): void;
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peeraddstreamstream
+    addStream(stream: MediaStream): void;
 
-        // https://github.com/feross/simple-peer/tree/v6.1.5#peersenddata
-        // TODO: https://github.com/feross/simple-peer/issues/187
-        // destroy(onclose?: () => void): void;
-        // https://nodejs.org/api/stream.html#stream_writable_destroy_error
-        // https://nodejs.org/api/stream.html#stream_readable_destroy_error
-        destroy(error?: Error): void;
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peerremovestreamstream
+    removeStream(stream: MediaStream): void;
 
-        // methods which are not documented
-        readonly bufferSize: number;
-        address(): { port: string, family: string, address: string, };
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peeraddtracktrack-stream
+    addTrack(track: MediaStreamTrack, stream: MediaStream): void;
 
-        // used for debug logging
-        _debug(message?: any, ...optionalParams: any[]): void;
-    }
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peerremovetracktrack-stream
+    removeTrack(track: MediaStreamTrack, stream: MediaStream): void;
+
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peerdestroyerr
+    destroy(err?: Err): void;
+
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#duplex-stream
+    write(data: Data): void;
+
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#events
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peeronsignal-function-data-
+    on(event: 'signal', callback: (data: SignalingData) => void): void;
+
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peeronconnect-function--
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peeronclose-function--
+    on(event: 'connect' | 'close', callback: () => void): void;
+
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peerondata-function-data-
+    on(event: 'data', callback: (data: Data) => void): void;
+
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peeronstream-function-stream-
+    on(event: 'stream', callback: (stream: MediaStream) => void): void;
+
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peerontrack-function-track-stream-
+    on(event: 'track', callback: (track: MediaStreamTrack, stream: MediaStream) => void): void;
+
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peeronerror-function-err-
+    on(event: 'error', callback: (err: Err) => void): void;
+  }
+
+  interface Opts {
+    initiator?: boolean;                    /* set to true if this is the initiating peer */
+    channelConfig?: RTCDataChannelInit;     /* custom webrtc data channel configuration (used by createDataChannel) */
+    channelName?: string;                   /* custom webrtc data channel name */
+    config?: RTCConfiguration;              /* custom webrtc configuration (used by RTCPeerConnection constructor) */
+    offerOptions?: RTCOfferOptions;         /* custom offer options (used by createOffer method) */
+    answerOptions?: RTCAnswerOptions;       /* custom answer options (used by createAnswer method) */
+    sdpTransform?: (sdp: string) => string; /* function to transform the generated SDP signaling data (for advanced users) */
+    stream?: MediaStream;                   /* if video/voice is desired, pass stream returned from getUserMedia */
+    streams?: MediaStream[];                /* an array of MediaStreams returned from getUserMedia */
+    trickle?: boolean;                      /* set to false to disable trickle ICE and get a single 'signal' event (slower) */
+    wrtc?: any;                             /* custom webrtc implementation, mainly useful in node to specify in the wrtc package */
+    objectMode?: boolean;                   /* set to true to create the stream in Object Mode. In this mode, incoming string data is not automatically converted to Buffer objects */
+  }
+
+  interface SimplePeer {
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peer--new-peeropts
+    new(opts?: Opts): Instance;
+    (opts?: Opts): Instance;
+
+    // https://github.com/feross/simple-peer/blob/v9.1.2/README.md#peerwebrtc_support
+    readonly WEBRTC_SUPPORT: boolean;
+  }
 }
 
 export = SimplePeer;
