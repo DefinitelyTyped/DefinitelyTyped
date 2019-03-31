@@ -3,16 +3,7 @@
 // Definitions by:  Lukas Tetzlaff <https://github.com/ltetzlaff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type UIntFactory<T extends UInt> = (
-    ...numbers: Array<number | string>
-) => T;
-
-export const UINT64: UIntFactory<UInt64>;
-export const UINT32: UIntFactory<UInt32>;
-
-export class UInt {
-    protected constructor()
-
+export interface Uint {
     clone(): this;
     add(x: this): this;
     subtract(x: this): this;
@@ -30,5 +21,22 @@ export class UInt {
     toString(base?: number): string;
 }
 
-export class UInt64 extends UInt {}
-export class UInt32 extends UInt {}
+export interface UintConstructor<T extends Uint> {
+    // called as a function:
+    (value: number): T;
+    (low: number, high: number): T;
+    (text: string, radix?: number): T;
+
+    // called as a constructor:
+    new (value: number): T;
+    new (low: number, high: number): T;
+    new (text: string, radix?: number): T;
+
+    prototype: T;
+  }
+
+export interface Uint64 extends Uint {}
+export interface Uint32 extends Uint {}
+
+export const UINT64: UintConstructor<Uint64>;
+export const UINT32: UintConstructor<Uint32>;
