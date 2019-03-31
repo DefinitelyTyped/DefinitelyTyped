@@ -836,7 +836,7 @@ export interface ExecOptions extends child.ExecOptions {
 	encoding?: string;
 }
 
-export interface ShellReturnValue {
+export interface ExecOutputReturnValue {
 	/** The process exit code. */
 	code: number;
 
@@ -845,7 +845,9 @@ export interface ShellReturnValue {
 
 	/** The process standard error output. */
 	stderr: string;
+}
 
+export interface ShellReturnValue extends ExecOutputReturnValue {
 	/**
 	 * Analogous to the redirection operator `>` in Unix, but works with JavaScript strings
 	 * (such as those returned by `cat`, `grep`, etc).
