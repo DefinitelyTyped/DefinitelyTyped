@@ -275,6 +275,8 @@ export interface Layout {
 	font: Partial<Font>;
 	scene: Partial<Scene>;
 	barmode: "stack" | "group" | "overlay" | "relative";
+    bargap: number;
+    bargroupgap: number;
 }
 
 export interface Legend extends Label {
