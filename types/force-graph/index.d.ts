@@ -1,4 +1,4 @@
-// Type definitions for force-graph 1.14.4
+// Type definitions for force-graph 1.14
 // Project: https://github.com/vasturiano/force-graph
 // Definitions by: Peter Kimberley <https://github.com/p-kimberley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -68,9 +68,13 @@ declare namespace ForceGraph {
     /**
      * Represents ForceGraph runtime object
      * @example:
+     *  // Create an empty ForceGraph instance on an existing DOM element
      *  let forceGraph = ForceGraph();
      *  forceGraph(myHtmlElement);
-     *  forceGraph.graphData([])
+     *  forceGraph.graphData([]);
+     *
+     *  // Destroy the ForceGraph instance
+     *  forceGraph._destructor();
      */
 
     interface ForceGraphInstance {
