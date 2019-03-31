@@ -23,20 +23,17 @@ export interface Uint {
 
 export interface UintConstructor<T extends Uint> {
     // called as a function:
-    (value: number): T;
-    (low: number, high: number): T;
+    (low: number, high?: number): T;
+    // tslint:disable-next-line:unified-signatures
     (text: string, radix?: number): T;
 
     // called as a constructor:
-    new (value: number): T;
-    new (low: number, high: number): T;
+    new (low: number, high?: number): T;
+    // tslint:disable-next-line:unified-signatures
     new (text: string, radix?: number): T;
 
     prototype: T;
   }
 
-export interface Uint64 extends Uint {}
-export interface Uint32 extends Uint {}
-
-export const UINT64: UintConstructor<Uint64>;
-export const UINT32: UintConstructor<Uint32>;
+export const UINT64: UintConstructor<Uint>;
+export const UINT32: UintConstructor<Uint>;
