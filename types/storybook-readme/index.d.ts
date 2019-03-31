@@ -37,7 +37,7 @@ export function configureReadme(config: ConfigureReadmeConfig): void;
 // WithReadme Types
 export function withReadme(readme: Readme): DecoratorPattern;
 export function withReadme(
-    readme: Readme,
+  readme: Readme,
   story: RenderFunction
 ): RenderFunction;
 
