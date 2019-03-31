@@ -362,6 +362,19 @@ declare global {
       modelForElement: (elem: HTMLElement) => Base;
     }
 
+    interface ArraySelector<T> extends PolymerElement {
+      items: T[]|null|undefined;
+      multi: boolean;
+      selected: T|T[]|null|undefined;
+      selectedItem: T|null|undefined;
+      toggle: boolean;
+
+      clearSelection(): void;
+      deselect(item: T): void;
+      isSelected(item: T): boolean;
+      select(item: T): void;
+    }
+
     interface PolymerStatic {
       Settings: Settings;
 
