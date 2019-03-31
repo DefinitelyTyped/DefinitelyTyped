@@ -74,7 +74,9 @@ declare namespace ForceGraph {
      */
 
     interface ForceGraphInstance {
+        // Init / de-init
         (element: HTMLElement): ForceGraphInstance;
+        _destructor(): void;
 
         // Data input
         graphData(data?: GraphData): ForceGraphInstance & GraphData;
