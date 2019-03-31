@@ -5,31 +5,33 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare module 'facepaint' {
-    type BaseArg = object | object[];
-    type Arg = BaseArg | BaseArg[];
+/*~ If this module is a UMD module that exposes a global variable 'myLib' when
+ *~ loaded outside a module loader environment, declare that global here.
+ *~ Otherwise, delete this declaration.
+ */
+// export as namespace facepaint;
 
-    type Selector = string;
+export type BaseArg = object | object[];
+export type Arg = BaseArg | BaseArg[];
 
-    interface DynamicStyle {
-        [key: string]: {
-            [key: string]: string | number;
-        };
-    }
+export type Selector = string;
 
-    interface DynamicStyleFunction {
-        (...args: Arg[]): DynamicStyle;
-    }
-
-    interface FacepaintOptions {
-        literal?: boolean;
-        overlap?: boolean;
-    }
-
-    function facepaint(
-        breakpoints: Selector[],
-        options?: FacepaintOptions
-    ): DynamicStyleFunction;
-
-    export default facepaint;
+export interface DynamicStyle {
+    [key: string]: {
+        [key: string]: string | number;
+    };
 }
+
+export interface DynamicStyleFunction {
+    (...args: Arg[]): DynamicStyle;
+}
+
+export interface FacepaintOptions {
+    literal?: boolean;
+    overlap?: boolean;
+}
+
+export default function facepaint(
+    breakpoints: Selector[],
+    options?: FacepaintOptions
+): DynamicStyleFunction;
