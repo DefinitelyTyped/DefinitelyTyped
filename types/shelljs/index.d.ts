@@ -13,8 +13,6 @@
 import child = require("child_process");
 import glob = require("glob");
 
-export as namespace shelljs;
-
 /**
  * Changes the current working directory dir for the duration of the script.
  * Changes to the home directory if no argument is supplied.
