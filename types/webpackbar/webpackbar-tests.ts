@@ -4,6 +4,20 @@ new WebpackBar();
 
 new WebpackBar({ color: '#ff0000' });
 
-new WebpackBar({ stream: process.stdout });
+new WebpackBar({ name: 'custom name here' });
 
-new WebpackBar({ done: (sharedState, ctx) => {} });
+new WebpackBar({ profile: false });
+
+new WebpackBar({ fancy: false });
+
+new WebpackBar({ basic: false });
+
+new WebpackBar({
+    reporter: {
+        start: (context) => {},
+    },
+});
+
+new WebpackBar({
+    reporters: ['fancy'],
+});
