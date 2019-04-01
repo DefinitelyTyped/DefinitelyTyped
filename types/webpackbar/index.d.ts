@@ -1,4 +1,4 @@
-// Type definitions for webpackbar 2.6
+// Type definitions for webpackbar 3.1
 // Project: https://github.com/nuxt/webpackbar
 // Definitions by: Ryan Clark <https://github.com/rynclark>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -38,6 +38,19 @@ declare namespace WebpackBar {
     profile: Profile | null;
   }
 
+  type Handler = (context: WebpackBar) => void;
+    
+  interface Reporter {
+    start?: Handler;
+    change?: Handler;
+    update?: Handler;
+    done?: Handler;
+    progress?: Handler;
+    allDone?: Handler;
+    beforeAllDone?: Handler;
+    afterAllDone?: Handler;
+  }
+
   interface SharedState {
     [name: string]: State;
   }
@@ -49,13 +62,13 @@ declare namespace WebpackBar {
     color?: string;
     /** Enable the profiler for files and loaders */
     profile?: boolean;
-    /** Stream to rwite to */
-    stream?: NodeJS.WriteStream;
-    /** Minimal output */
-    minimal?: boolean;
-    /** Show compiled in time */
-    compiledIn?: boolean;
-    /** Function called when all builds are finished */
-    done?: (sharedState: SharedState, ctx: WebpackBar) => void;
+    /** Enable bars reporter */
+    fancy?: boolean;
+    /** Enable a simple log reporter (only start and end) */
+    basic?: boolean;
+    /** Register a custom reporter */
+    reporter?: Reporter,
+    /** Register a custom reporter */
+    reporters?: Array<Reporter | string>,
   }
 }
