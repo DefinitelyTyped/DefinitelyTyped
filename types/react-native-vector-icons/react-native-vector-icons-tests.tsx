@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, Text, TabBarIOS } from 'react-native';
 import { createIconSet } from 'react-native-vector-icons';
-import AndDesign from 'react-native-vector-icons/AndDesign';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
@@ -29,7 +29,7 @@ class Example extends React.Component {
     return (
       <View>
         {/* Normal Icon */}
-        <AndDesign size={10} color="white" name="user" />
+        <AntDesign size={10} color="white" name="user" />
         <MaterialIcon size={30} color="red" name="exit" />
         <FontAwesome5Icon size={10} name="handshake" />
         <FontAwesome5Icon size={10} name="handshake" solid />
