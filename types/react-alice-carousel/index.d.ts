@@ -35,6 +35,7 @@ export interface Props {
   autoPlayInterval?: number;
   autoPlayDirection?: string;
   disableAutoPlayOnAction?: boolean;
+  autoPlayActionDisabled?: boolean;
   stopAutoPlayOnHover?: boolean;
   showSlideInfo?: false;
   preventEventOnTouchMove?: false;
