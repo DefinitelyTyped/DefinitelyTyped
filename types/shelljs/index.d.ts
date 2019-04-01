@@ -139,8 +139,8 @@ export interface RemoveFunction {
 	 * Removes files. The wildcard `*` is accepted.
 	 *
 	 * @param options Available options:
-	 *        - `-f`: (force),
-	 *        - `-r`, `-R`: (recursive)
+	 *        - `-f`: force
+	 *        - `-r`, `-R`: recursive
 	 * @param files   Files to remove.
 	 * @return        Object with shell exit code, stderr and stdout.
 	 */
@@ -208,7 +208,7 @@ export interface MkdirFunction {
 	 * Creates directories.
 	 *
 	 * @param options Available options:
-	 *        - `-p`: (full paths, will create intermediate dirs if necessary)
+	 *        - `-p`: full paths, will create intermediate dirs if necessary
 	 * @param dir     The directories to create.
 	 * @return        Object with shell exit code, stderr and stdout.
 	 */
@@ -229,7 +229,7 @@ export interface MkdirFunction {
  * Creates directories.
  *
  * @param options Available options:
- *        - `-p`: (full paths, will create intermediate dirs if necessary)
+ *        - `-p`: full paths, will create intermediate dirs if necessary
  * @param dir     The directories to create.
  * @return        Object with shell exit code, stderr and stdout.
  */
@@ -287,17 +287,23 @@ export interface SedFunction {
 	 * on the input using the given search regex and replacement string or function.
 	 *
 	 * @param options Available options:
-	 *        - `-i`: (Replace contents of 'file' in-place. Note that no backups will be created!)
+	 *        - `-i`: Replace contents of 'file' in-place. Note that no backups will be created!
 	 * @param searchRegex The regular expression to use for search.
 	 * @param replacement The replacement.
-	 * @param file        The file to process.
+	 * @param files       The files to process.
 	 * @return            The new string after replacement.
 	 */
 	(
 		options: string,
 		searchRegex: string | RegExp,
 		replacement: string,
-		file: string
+		files: string[]
+	): ShellString;
+	(
+		options: string,
+		searchRegex: string | RegExp,
+		replacement: string,
+		...files: string[]
 	): ShellString;
 
 	/**
@@ -306,13 +312,18 @@ export interface SedFunction {
 	 *
 	 * @param searchRegex The regular expression to use for search.
 	 * @param replacement The replacement.
-	 * @param file        The file to process.
+	 * @param files       The files to process.
 	 * @return            The new string after replacement.
 	 */
 	(
 		searchRegex: string | RegExp,
 		replacement: string,
-		file: string
+		files: string[]
+	): ShellString;
+	(
+		searchRegex: string | RegExp,
+		replacement: string,
+		...files: string[]
 	): ShellString;
 }
 
@@ -321,10 +332,10 @@ export interface SedFunction {
  * on the input using the given search regex and replacement string or function.
  *
  * @param options Available options:
- *        - `-i`: (Replace contents of 'file' in-place. Note that no backups will be created!)
+ *        - `-i`: Replace contents of 'file' in-place. Note that no backups will be created!
  * @param searchRegex The regular expression to use for search.
  * @param replacement The replacement.
- * @param file        The file to process.
+ * @param files       The files to process.
  * @return            The new string after replacement.
  */
 export const sed: SedFunction;
@@ -335,8 +346,8 @@ export interface GrepFunction {
 	 * of the file that match the given `regex_filter`. Wildcard `*` accepted.
 	 *
 	 * @param options Available options:
-	 *        - `-v`: (Inverse the sense of the regex and print
-	 *                 the lines not matching the criteria.)
+	 *        - `-v`: Inverse the sense of the regex and print
+	 *                the lines not matching the criteria.
 	 *        - `-l`: Print only filenames of matching files
 	 * @param regex_filter The regular expression to use.
 	 * @param files The files to process.
@@ -370,8 +381,8 @@ export interface GrepFunction {
  * of the file that match the given `regex_filter`. Wildcard `*` accepted.
  *
  * @param options Available options:
- *        - `-v`: (Inverse the sense of the regex and print
- *                 the lines not matching the criteria.)
+ *        - `-v`: Inverse the sense of the regex and print
+ *                the lines not matching the criteria.
  *        - `-l`: Print only filenames of matching files
  * @param regex_filter The regular expression to use.
  * @param files        The files to process.
@@ -408,16 +419,25 @@ export interface EchoFunction {
 	(...text: string[]): ShellString;
 }
 
+/**
+ * Prints string to stdout, and returns string with additional utility methods like .to().
+ *
+ * @param options Available options:
+ *        - `-e`: interpret backslash escapes (default)
+ *        - `-n`: remove trailing newline from output
+ * @param text The text to print.
+ * @return     Returns the string that was passed as argument.
+ */
 export const echo: EchoFunction;
 
 export interface PushDirFunction {
 	/**
-	 * Save the current directory on the top of the directory stack and then cd to dir.
+	 * Saves the current directory on the top of the directory stack and then cd to dir.
 	 * With no arguments, `pushd` exchanges the top two directories.
 	 *
 	 * @param options Available options:
-	 *        - `-n`: (Suppresses the normal change of directory when adding directories
-	 *                 to the stack, so that only the stack is manipulated)
+	 *        - `-n`: Suppresses the normal change of directory when adding directories
+	 *                to the stack, so that only the stack is manipulated
 	 *        - `-q`: Suppresses output to the console.
 	 * @param dir     Brings the Nth directory (counting from the left of the list printed by dirs,
 	 *                starting with zero) to the top of the list by rotating the stack.
@@ -426,12 +446,12 @@ export interface PushDirFunction {
 	(options: string, dir: "+N"): ShellArray;
 
 	/**
-	 * Save the current directory on the top of the directory stack and then cd to dir.
+	 * Saves the current directory on the top of the directory stack and then cd to dir.
 	 * With no arguments, `pushd` exchanges the top two directories.
 	 *
 	 * @param options Available options:
-	 *        - `-n`: (Suppresses the normal change of directory when adding directories
-	 *                 to the stack, so that only the stack is manipulated)
+	 *        - `-n`: Suppresses the normal change of directory when adding directories
+	 *                to the stack, so that only the stack is manipulated
 	 *        - `-q`: Suppresses output to the console.
 	 * @param dir     Brings the Nth directory (counting from the right of the list printed by dirs,
 	 *                starting with zero) to the top of the list by rotating the stack.
@@ -440,12 +460,12 @@ export interface PushDirFunction {
 	(options: string, dir: "-N"): ShellArray;
 
 	/**
-	 * Save the current directory on the top of the directory stack and then cd to dir.
+	 * Saves the current directory on the top of the directory stack and then cd to dir.
 	 * With no arguments, `pushd` exchanges the top two directories.
 	 *
 	 * @param options Available options:
-	 *        - `-n`: (Suppresses the normal change of directory when adding directories
-	 *                 to the stack, so that only the stack is manipulated)
+	 *        - `-n`: Suppresses the normal change of directory when adding directories
+	 *                to the stack, so that only the stack is manipulated
 	 *        - `-q`: Suppresses output to the console.
 	 * @param dir     Makes the current working directory be the top of the stack,
 	 *                and then executes the equivalent of `cd dir`.
@@ -454,7 +474,7 @@ export interface PushDirFunction {
 	(options: string, dir: string): ShellArray;
 
 	/**
-	 * Save the current directory on the top of the directory stack and then cd to dir.
+	 * Saves the current directory on the top of the directory stack and then cd to dir.
 	 * With no arguments, `pushd` exchanges the top two directories.
 	 *
 	 * @param dir Brings the Nth directory (counting from the left of the list printed by dirs,
@@ -464,7 +484,7 @@ export interface PushDirFunction {
 	(dir: "+N"): ShellArray;
 
 	/**
-	 * Save the current directory on the top of the directory stack and then cd to dir.
+	 * Saves the current directory on the top of the directory stack and then cd to dir.
 	 * With no arguments, `pushd` exchanges the top two directories.
 	 *
 	 * @param dir Brings the Nth directory (counting from the right of the list printed by dirs,
@@ -474,7 +494,7 @@ export interface PushDirFunction {
 	(dir: "-N"): ShellArray;
 
 	/**
-	 * Save the current directory on the top of the directory stack and then cd to dir.
+	 * Saves the current directory on the top of the directory stack and then cd to dir.
 	 * With no arguments, `pushd` exchanges the top two directories.
 	 *
 	 * @param dir Makes the current working directory be the top of the stack,
@@ -484,21 +504,21 @@ export interface PushDirFunction {
 	(dir: string): ShellArray;
 
 	/**
-	 * Save the current directory on the top of the directory stack and then cd to dir.
+	 * Saves the current directory on the top of the directory stack and then cd to dir.
 	 * With no arguments, `pushd` exchanges the top two directories.
 	 *
-	 * @return        Returns an array of paths in the stack.
+	 * @return Returns an array of paths in the stack.
 	 */
 	(): ShellArray;
 }
 
 /**
- * Save the current directory on the top of the directory stack and then cd to dir.
+ * Saves the current directory on the top of the directory stack and then cd to dir.
  * With no arguments, `pushd` exchanges the top two directories.
  *
  * @param options Available options:
- *        - `-n`: (Suppresses the normal change of directory when adding directories
- *                 to the stack, so that only the stack is manipulated)
+ *        - `-n`: Suppresses the normal change of directory when adding directories
+ *                to the stack, so that only the stack is manipulated
  *        - `-q`: Suppresses output to the console.
  * @param dir     Makes the current working directory be the top of the stack,
  *                and then executes the equivalent of `cd dir`.
@@ -515,8 +535,8 @@ export interface PopDirFunction {
 	 * i.e., `popd` is equivalent to `popd +0`. Returns an array of paths in the stack.
 	 *
 	 * @param options Available options:
-	 *        - `-n`: (Suppresses the normal change of directory when removing directories
-	 *                from the stack, so that only the stack is manipulated)
+	 *        - `-n`: Suppresses the normal change of directory when removing directories
+	 *                from the stack, so that only the stack is manipulated
 	 *        - `-q`: Suppresses output to the console.
 	 * @param dir     Removes the Nth directory (counting from the left of the list printed by dirs), starting with zero.
 	 * @return        Returns an array of paths in the stack.
@@ -531,8 +551,8 @@ export interface PopDirFunction {
 	 * i.e., `popd` is equivalent to `popd +0`. Returns an array of paths in the stack.
 	 *
 	 * @param options Available options:
-	 *        - `-n`: (Suppresses the normal change of directory when removing directories
-	 *                from the stack, so that only the stack is manipulated)
+	 *        - `-n`: Suppresses the normal change of directory when removing directories
+	 *                from the stack, so that only the stack is manipulated
 	 *        - `-q`: Suppresses output to the console.
 	 * @param dir     Removes the Nth directory (counting from the right of the list printed by dirs), starting with zero.
 	 * @return        Returns an array of paths in the stack.
@@ -547,8 +567,8 @@ export interface PopDirFunction {
 	 * i.e., `popd` is equivalent to `popd +0`. Returns an array of paths in the stack.
 	 *
 	 * @param options Available options:
-	 *        - `-n`: (Suppresses the normal change of directory when removing directories
-	 *                 from the stack, so that only the stack is manipulated)
+	 *        - `-n`: Suppresses the normal change of directory when removing directories
+	 *                from the stack, so that only the stack is manipulated
 	 *        - `-q`: Suppresses output to the console.
 	 * @param dir     You can only use -N and +N.
 	 * @return        Returns an array of paths in the stack.
@@ -611,8 +631,8 @@ export interface PopDirFunction {
  * i.e., `popd` is equivalent to `popd +0`. Returns an array of paths in the stack.
  *
  * @param options Available options:
- *        - `-n`: (Suppresses the normal change of directory when removing directories
- *                 from the stack, so that only the stack is manipulated)
+ *        - `-n`: Suppresses the normal change of directory when removing directories
+ *                from the stack, so that only the stack is manipulated
  *        - `-q`: Suppresses output to the console.
  * @param dir     You can only use -N and +N.
  * @return        Returns an array of paths in the stack.
@@ -629,7 +649,7 @@ export interface DirsFunction {
 	(options: "-c"): ShellArray;
 
 	/**
-	 * Display the list of currently remembered directories.
+	 * Displays the list of currently remembered directories.
 	 *
 	 * @param options Displays the Nth directory (counting from the left of the list
 	 *                printed by dirs when invoked without options), starting with zero.
@@ -638,7 +658,7 @@ export interface DirsFunction {
 	(options: "+N"): ShellString;
 
 	/**
-	 * Display the list of currently remembered directories.
+	 * Displays the list of currently remembered directories.
 	 *
 	 * @param options Displays the Nth directory (counting from the right of the list
 	 *                printed by dirs when invoked without options), starting with zero.
@@ -647,7 +667,7 @@ export interface DirsFunction {
 	(options: "-N"): ShellString;
 
 	/**
-	 * Display the list of currently remembered directories.
+	 * Displays the list of currently remembered directories.
 	 *
 	 * @param options Available options:
 	 *        - `-c`: Clears the directory stack by deleting all of the elements.
@@ -661,7 +681,7 @@ export interface DirsFunction {
 }
 
 /**
- * Display the list of currently remembered directories.
+ * Displays the list of currently remembered directories.
  *
  * @param options Available options:
  *        - `-c`: Clears the directory stack by deleting all of the elements.
@@ -810,7 +830,7 @@ export type ExecCallback = (
 
 export interface ExecOptions extends child.ExecOptions {
 	/**
-	 * Do not echo program output to console.
+	 * Do not echo program output to the console.
 	 *
 	 * @default false
 	 */
@@ -867,14 +887,13 @@ export interface ShellReturnValue extends ExecOutputReturnValue {
 	toEnd(file: string): void;
 
 	/**
-	 * Returns a string containing the given file, or a concatenated string
-	 * containing the files if more than one file is given (a new line character
-	 * is introduced between each file).
+	 * Returns a string containing the given pipeline, or a concatenated string
+	 * containing the pipelines if more than one input stream is given
+	 * (a new line character is introduced between each input).
 	 *
-	 * @param files Files to use. Wildcard `*` accepted.
-	 * @return A string containing the given file, or a concatenated string
-	 *         containing the files if more than one file is given
-	 *         (a new line character is introduced between each file).
+	 * @return A string containing the given pipeline, or a concatenated string
+	 *         containing the pipelines if more than one input stream is given
+	 *         (a new line character is introduced between each input).
 	 */
 	cat: CatFunction;
 
@@ -890,7 +909,7 @@ export interface ShellReturnValue extends ExecOutputReturnValue {
 	exec: ExecFunction;
 
 	/**
-	 * Read the start of a file.
+	 * Read the start of a pipeline input.
 	 */
 	head: HeadFunction;
 
@@ -899,31 +918,28 @@ export interface ShellReturnValue extends ExecOutputReturnValue {
 	 * of the file that match the given `regex_filter`. Wildcard `*` accepted.
 	 *
 	 * @param options Available options:
-	 *        - `-v`: (Inverse the sense of the regex and print
-	 *                 the lines not matching the criteria.)
+	 *        - `-v`: Inverse the sense of the regex and print
+	 *                the lines not matching the criteria.
 	 *        - `-l`: Print only filenames of matching files
 	 * @param regex_filter The regular expression to use.
-	 * @param files        The files to process.
 	 * @return Returns a string containing all lines of the file that match the given `regex_filter`.
 	 */
 	grep: GrepFunction;
 
 	/**
-	 * Reads an input string from file and performs a JavaScript `replace()`
+	 * Reads an input string from pipeline and performs a JavaScript `replace()`
 	 * on the input using the given search regex and replacement string or function.
 	 *
 	 * @param options Available options:
-	 *        - `-i`: (Replace contents of 'file' in-place. Note that no backups will be created!)
+	 *        - `-i`: Replace contents of 'file' in-place. Note that no backups will be created!
 	 * @param searchRegex The regular expression to use for search.
 	 * @param replacement The replacement.
-	 * @param file        The file to process.
 	 * @return            The new string after replacement.
 	 */
 	sed: SedFunction;
 
 	/**
-	 * Return the contents of the files, sorted line-by-line.
-	 * Sorting multiple files mixes their content (just as unix sort does).
+	 * Return the contents of the pipeline, sorted line-by-line.
 	 *
 	 * @param options Available options:
 	 *        - `-r`: Reverse the results
@@ -932,7 +948,7 @@ export interface ShellReturnValue extends ExecOutputReturnValue {
 	sort: SortFunction;
 
 	/**
-	 * Read the end of a file.
+	 * Read the end of a pipeline input.
 	 */
 	tail: TailFunction;
 
@@ -963,9 +979,9 @@ export interface ChmodFunction {
 	 * - There is no "quiet" option since default behavior is to run silent.
 	 *
 	 * @param options Available options:
-	 *        - `-v`: (output a diagnostic for every file processed),
-	 *        - `-c`: (like -v but report only when a change is made),
-	 *        - `-R`: (change files and directories recursively)
+	 *        - `-v`: output a diagnostic for every file processed
+	 *        - `-c`: like -v but report only when a change is made
+	 *        - `-R`: change files and directories recursively
 	 * @param mode    The access mode. Can be an octal string or a symbolic mode string.
 	 * @param file    The file to use.
 	 * @return        Object with shell exit code, stderr and stdout.
@@ -1000,9 +1016,9 @@ export interface ChmodFunction {
  * - There is no "quiet" option since default behavior is to run silent.
  *
  * @param options Available options:
- *        - `-v`: (output a diagnostic for every file processed),
- *        - `-c`: (like -v but report only when a change is made),
- *        - `-R`: (change files and directories recursively)
+ *        - `-v`: output a diagnostic for every file processed
+ *        - `-c`: like -v but report only when a change is made
+ *        - `-R`: change files and directories recursively
  * @param mode    The access mode. Can be an octal string or a symbolic mode string.
  * @param file    The file to use.
  * @return        Object with shell exit code, stderr and stdout.
@@ -1059,15 +1075,9 @@ export interface HeadOptions {
 }
 
 export interface HeadFunction {
-	/**
-	 * Read the start of a file.
-	 */
 	(options: HeadOptions, files: string[]): ShellString;
 	(options: HeadOptions, ...files: string[]): ShellString;
 
-	/**
-	 * Read the start of a file.
-	 */
 	(files: string[]): ShellString;
 	(...files: string[]): ShellString;
 }
@@ -1113,15 +1123,9 @@ export interface TailOptions {
 }
 
 export interface TailFunction {
-	/**
-	 * Read the end of a file.
-	 */
 	(options: TailOptions, files: string[]): ShellString;
 	(options: TailOptions, ...files: string[]): ShellString;
 
-	/**
-	 * Read the end of a file.
-	 */
 	(files: string[]): ShellString;
 	(...files: string[]): ShellString;
 }

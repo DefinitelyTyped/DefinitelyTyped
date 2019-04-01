@@ -100,9 +100,6 @@ declare let isAsync: boolean;
 
 // $ExpectType ShellString | ChildProcess
 const unknownUntilRuntime = shell.exec("node --version", {async: isAsync});
-if (typeof unknownUntilRuntime.stdout === "string") {
-	const output = unknownUntilRuntime.stdout;
-}
 
 shell.exec("node --version", {silent: true}, (code, stdout, stderr) => {
 	const version = stdout;
@@ -169,6 +166,8 @@ shell.head(["file1", "file2"]); // same as above
 
 shell.sort("foo.txt", "bar.txt");
 shell.sort("-r", "foo.txt");
+shell.sort("-r", ["file.txt"]);
+shell.sort(["file.txt"]);
 
 shell.tail({"-n": 1}, "file*.txt");
 shell.tail("file1", "file2");
