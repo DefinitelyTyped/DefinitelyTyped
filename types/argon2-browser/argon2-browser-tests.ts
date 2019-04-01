@@ -1,20 +1,34 @@
-import { argon2 } from 'argon2-browser';
+import 'argon2-browser';
 
-const mandatoryOptions = {
+const hashMandatoryOptions: argon2.HashOptions = {
   pass: 'Qwerty12?',
-  salt: 'Salty'
+  salt: 'Salty',
+};
+
+const verifyMandatoryOptions: argon2.VerifyOptions = {
+  encoded: '$argon2d$v=19$m=1024,t=1,p=1$U2FsdHlTYWx0eQ$1jpGIXoUTdOQSUFaAP8qCnsr8yTGbF2srlkfrUM+hIo',
+  pass: 'Qwerty12?',
 };
 
 (async () => {
-  (await argon2.hash(mandatoryOptions)).encoded; // string
-  (await argon2.hash(mandatoryOptions)).hash; // Uint8Array
-  (await argon2.hash(mandatoryOptions)).hashHex; // string
+  (await argon2.hash(hashMandatoryOptions)).encoded; // string
+  (await argon2.hash(hashMandatoryOptions)).hash; // Uint8Array
+  (await argon2.hash(hashMandatoryOptions)).hashHex; // string
 
-  (await argon2.hash({ ...mandatoryOptions, distPath: 'path' })).encoded; // string
-  (await argon2.hash({ ...mandatoryOptions, hashLen: 24 })).encoded; // string
-  (await argon2.hash({ ...mandatoryOptions, mem: 1024 })).encoded; // string
-  (await argon2.hash({ ...mandatoryOptions, parallelism: 1 })).encoded; // string
-  (await argon2.hash({ ...mandatoryOptions, time: 1 })).encoded; // string
-  (await argon2.hash({ ...mandatoryOptions, type: argon2.ArgonType.Argon2d })).encoded; // string
-  (await argon2.hash({ ...mandatoryOptions, type: argon2.ArgonType.Argon2i })).encoded; // string
+  (await argon2.hash({ ...hashMandatoryOptions, distPath: 'path' })).encoded; // string
+  (await argon2.hash({ ...hashMandatoryOptions, hashLen: 24 })).encoded; // string
+  (await argon2.hash({ ...hashMandatoryOptions, mem: 1024 })).encoded; // string
+  (await argon2.hash({ ...hashMandatoryOptions, parallelism: 1 })).encoded; // string
+  (await argon2.hash({ ...hashMandatoryOptions, time: 1 })).encoded; // string
+  (await argon2.hash({ ...hashMandatoryOptions, type: argon2.ArgonType.Argon2d })).encoded; // string
+  (await argon2.hash({ ...hashMandatoryOptions, type: argon2.ArgonType.Argon2i })).encoded; // string
+  (await argon2.hash({ ...hashMandatoryOptions, type: argon2.ArgonType.Argon2id })).encoded; // string
+
+  await argon2.verify(verifyMandatoryOptions);
+  await argon2.verify({...verifyMandatoryOptions, encoded: new Uint8Array([0, 1, 2, 3])});
+
+  await argon2.verify({ ...verifyMandatoryOptions, distPath: 'path' });
+  await argon2.verify({ ...verifyMandatoryOptions, type: argon2.ArgonType.Argon2d });
+  await argon2.verify({ ...verifyMandatoryOptions, type: argon2.ArgonType.Argon2i });
+  await argon2.verify({ ...verifyMandatoryOptions, type: argon2.ArgonType.Argon2id });
 })();

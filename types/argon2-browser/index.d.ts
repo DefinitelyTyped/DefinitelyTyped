@@ -1,13 +1,14 @@
-// Type definitions for argon2-browser 1.1
+// Type definitions for argon2-browser 1.5
 // Project: https://github.com/antelle/argon2-browser#readme
 // Definitions by: Ivan Gabriele <https://github.com/ivangabriele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-export namespace argon2 {
-    function hash(options: Argon2BrowserHashOptions): Promise<Argon2BrowserHashResult>;
+declare namespace argon2 {
+    function hash(options: HashOptions): Promise<HashResult>;
+    function verify(options: VerifyOptions): Promise<void>;
 
-    interface Argon2BrowserHashOptions {
+    interface HashOptions {
         distPath?: string;
         hashLen?: number;
         mem?: number;
@@ -18,14 +19,22 @@ export namespace argon2 {
         type?: ArgonType;
     }
 
-    interface Argon2BrowserHashResult {
+    interface HashResult {
         encoded: string;
         hash: Uint8Array;
         hashHex: string;
     }
 
+    interface VerifyOptions {
+        distPath?: string;
+        encoded: string | Uint8Array;
+        pass: string;
+        type?: ArgonType;
+    }
+
     enum ArgonType {
         Argon2d = 0,
-        Argon2i = 1
+        Argon2i = 1,
+        Argon2id = 2,
     }
 }
