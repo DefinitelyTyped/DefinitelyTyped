@@ -1,4 +1,4 @@
-import facepaint from 'facepaint';
+import facepaint = require('facepaint');
 
 facepaint([
     '@media(min-width: 420px)',

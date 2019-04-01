@@ -5,27 +5,31 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export type BaseArg = object | object[];
-export type Arg = BaseArg | BaseArg[];
+declare namespace facepaint {
+    type BaseArg = object | object[];
+    type Arg = BaseArg | BaseArg[];
 
-export type Selector = string;
+    type Selector = string;
 
-export interface DynamicStyle {
-    [key: string]: {
-        [key: string]: string | number;
-    };
+    interface DynamicStyle {
+        [key: string]: {
+            [key: string]: string | number;
+        };
+    }
+
+    interface DynamicStyleFunction {
+        (...args: Arg[]): DynamicStyle;
+    }
+
+    interface Options {
+        literal?: boolean;
+        overlap?: boolean;
+    }
 }
 
-export interface DynamicStyleFunction {
-    (...args: Arg[]): DynamicStyle;
-}
+declare function facepaint(
+    breakpoints: facepaint.Selector[],
+    options?: facepaint.Options
+): facepaint.DynamicStyleFunction;
 
-export interface FacepaintOptions {
-    literal?: boolean;
-    overlap?: boolean;
-}
-
-export default function facepaint(
-    breakpoints: Selector[],
-    options?: FacepaintOptions
-): DynamicStyleFunction;
+export = facepaint;
