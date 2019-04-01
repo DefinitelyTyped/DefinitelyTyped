@@ -3,8 +3,6 @@
 // Definitions by: Brian Cort <https://github.com/thatcort>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace sbd;
-
 export interface Options {
     newline_boundaries?: boolean;
     html_boundaries?: boolean;
