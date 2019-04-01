@@ -5,10 +5,6 @@
 
 declare const _Burns: Burns;
 
-export interface ObjectLiteral {
-    [key: string]: any;
-}
-
 export interface Config {
     defaultHandler?: any;
     broadcaster?: any;
@@ -18,9 +14,9 @@ export interface Config {
 declare class Burns {
     configure(config?: Config): this;
 
-    registerEvents(newEvents: ObjectLiteral): this;
+    registerEvents(newEvents: Record<string, any>): this;
 
-    dispatch(eventName: string, eventData?: ObjectLiteral, exclude?: { exclude?: any }): this;
+    dispatch(eventName: string, eventData?: Record<string, any>, exclude?: { exclude?: any }): this;
 }
 
 export default _Burns;
