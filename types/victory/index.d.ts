@@ -5,6 +5,8 @@
 //                 Krzysztof Cebula <https://github.com/Havret>
 //                 Vitaliy Polyanskiy <https://github.com/allreadyExisted>
 //                 James Lismore <https://github.com/jlismore>
+//                 Stack Builders <https://github.com/stackbuilders>
+//                 Esteban Ibarra <https://github.com/ibarrae>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2001,7 +2003,7 @@ declare module "victory" {
      * gutters are between columns. When orientation is vertical, gutters
      * are the space between rows.
      */
-    gutter?: number;
+    gutter?: number | {left: number, right: number};
     /**
      * The itemsPerRow prop determines how many items to render in each row
      * of a horizontal legend, or in each column of a vertical legend. This
@@ -2424,4 +2426,24 @@ declare module "victory" {
    * Data changes are animated with VictoryAnimation.
    */
   export class VictoryPie extends React.Component<VictoryPieProps, any> {}
+
+  export type ContainerType =
+    | "brush"
+    | "cursor"
+    | "selection"
+    | "voronoi"
+    | "zoom";
+
+  /**
+   * createContainer makes a container component with multiple behaviors.
+   * It allows you to effectively combine any two of the following containers:
+   * VictoryBrushContainer, VictoryCursorContainer, VictorySelectionContainer,
+   * VictoryVoronoiContainer, or VictoryZoomContainer.
+   * @param c1 : "brush" | "cursor" | "selection" | "voronoi" | "zoom"
+   * @param c2 : "brush" | "cursor" | "selection" | "voronoi" | "zoom"
+   */
+  export function createContainer<V, W>(
+    c1: ContainerType,
+    c2: ContainerType
+  ): React.ComponentType<V & W>;
 }

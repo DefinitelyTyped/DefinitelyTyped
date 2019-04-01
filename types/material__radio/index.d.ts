@@ -27,7 +27,7 @@ import MDCRadioAdapter from './adapter';
 import MDCRadioFoundation from './foundation';
 import { MDCRipple } from 'material__ripple';
 
-export {MDCRadioAdapter, MDCRadioFoundation};
+export { MDCRadioAdapter, MDCRadioFoundation };
 
 export class MDCRadio extends MDCComponent<MDCRadioAdapter, MDCRadioFoundation> implements MDCSelectionControl {
     static attachTo(root: Element): MDCRadio;

@@ -875,10 +875,20 @@ declare namespace IORedis {
 
     type NodeRole = 'master' | 'slave' | 'all';
 
+    type CallbackFunction<T = any> = (err?: NodeJS.ErrnoException | null, result?: T) => void;
+
     interface Cluster extends NodeJS.EventEmitter, Commander {
         connect(callback: () => void): Promise<any>;
         disconnect(): void;
         nodes(role?: NodeRole): Redis[];
+        quit(callback?: CallbackFunction<'OK'>): Promise<'OK'>;
+        get(key: KeyType, callback: (err: Error, res: string | null) => void): void;
+        get(key: KeyType): Promise<string | null>;
+        set(key: KeyType, value: any, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<string>;
+        set(key: KeyType, value: any, callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, setMode: string | any[], callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, expiryMode: string, time: number | string, callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: string) => void): void;
     }
 
     interface ClusterStatic extends NodeJS.EventEmitter, Commander {

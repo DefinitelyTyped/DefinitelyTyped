@@ -15,7 +15,7 @@
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
-type ImplementationCallback = (() => Promise<any>) | ((done: DoneFn) => void);
+type ImplementationCallback = (() => PromiseLike<any>) | (() => void) | ((done: DoneFn) => void);
 
 /**
  * Create a group of specs (often called a suite).
@@ -134,7 +134,7 @@ declare function expect(): jasmine.NothingMatcher;
  * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual - Actual computed value to test expectations against.
  */
-declare function expectAsync<T, U>(actual: Promise<T>): jasmine.AsyncMatchers<T, U>;
+declare function expectAsync<T, U>(actual: PromiseLike<T>): jasmine.AsyncMatchers<T, U>;
 
 /**
  * Explicitly mark a spec as failed.
@@ -517,25 +517,25 @@ declare namespace jasmine {
          * Expect a promise to be resolved.
          * @param expectationFailOutput
          */
-        toBeResolved(expectationFailOutput?: any): Promise<void>;
+        toBeResolved(expectationFailOutput?: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected.
          * @param expectationFailOutput
          */
-        toBeRejected(expectationFailOutput?: any): Promise<void>;
+        toBeRejected(expectationFailOutput?: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be resolved to a value equal to the expected, using deep equality comparison.
          * @param expected - Value that the promise is expected to resolve to.
          */
-        toBeResolvedTo(expected: Expected<T>): Promise<void>;
+        toBeResolvedTo(expected: Expected<T>): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected with a value equal to the expected, using deep equality comparison.
          * @param expected - Value that the promise is expected to be rejected with.
          */
-        toBeRejectedWith(expected: Expected<U>): Promise<void>;
+        toBeRejectedWith(expected: Expected<U>): PromiseLike<void>;
 
         /**
          * Add some context for an expect.

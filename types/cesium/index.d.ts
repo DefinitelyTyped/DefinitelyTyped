@@ -5,7 +5,7 @@
 //                 Jared Szechy <https://github.com/szechyjs>
 //                 Radek Goláň jr. <https://github.com/golyalpha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 // tslint:disable-next-line:export-just-namespace
 export = Cesium;
@@ -312,7 +312,7 @@ declare namespace Cesium {
         clockRange: ClockRange;
         canAnimate: boolean;
         shouldAnimate: boolean;
-        onTick: Event;
+        onTick: Event<[Clock]>;
         constructor(options: {
             startTime?: JulianDate;
             stopTime?: JulianDate;
@@ -704,11 +704,11 @@ declare namespace Cesium {
         constructor(options?: { tilingScheme?: TilingScheme; ellipsoid?: Ellipsoid });
     }
 
-    class Event {
+    class Event<T extends any[] = any[]> {
         numberOfListeners: number;
-        addEventListener(listener: (...args: any[]) => void, scope?: any): Event.RemoveCallback;
-        removeEventListener(listener: (...args: any[]) => void, scope?: any): boolean;
-        raiseEvent(...args: any[]): void;
+        addEventListener(listener: (...args: T) => void, scope?: any): Event.RemoveCallback;
+        removeEventListener(listener: (...args: T) => void, scope?: any): boolean;
+        raiseEvent(...args: T): void;
     }
 
     namespace Event {
@@ -1512,7 +1512,7 @@ declare namespace Cesium {
         retry: boolean;
         error: Error;
         constructor(provider: ImageryProvider | TerrainProvider, message: string, x?: number, y?: number, level?: number, timesRetried?: number, error?: Error);
-        static handleError(previousError: TileProviderError, provider: ImageryProvider | TerrainProvider, event: Event,
+        static handleError(previousError: TileProviderError, provider: ImageryProvider | TerrainProvider, event: Event<[TileProviderError]>,
                             message: string, x: number, y: number, level: number, retryFunction: TileProviderError.RetryFunction,
                             errorDetails?: Error): TileProviderError;
         static handleSuccess(previousError: TileProviderError): void;
@@ -1562,7 +1562,7 @@ declare namespace Cesium {
     }
 
     class TimeIntervalCollection {
-        readonly changedEvent: Event;
+        readonly changedEvent: Event<[TimeIntervalCollection]>;
         readonly start: JulianDate;
         readonly isStartIncluded: boolean;
         readonly stop: JulianDate;
@@ -4388,8 +4388,8 @@ declare namespace Cesium {
         allowDataSourcesToSuspendAnimation: boolean;
         trackedEntity: Entity;
         selectedEntity: Entity;
-        readonly trackedEntityChanged: Event;
-        readonly selectedEntityChanged: Event;
+        readonly trackedEntityChanged: Event<[Entity?]>;
+        readonly selectedEntityChanged: Event<[Entity?]>;
         readonly shadowMap: ShadowMap;
         readonly vrButton: VRButton;
         shadows: boolean;

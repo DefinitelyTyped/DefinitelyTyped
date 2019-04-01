@@ -3,8 +3,9 @@
 // Definitions by: Chris Barth <https://github.com/cjbarth>
 //                 Damian Assennato <https://github.com/dassennato>
 //                 Karol Samborski <https://github.com/ksamborski>
+//                 Jose Colella <https://github.com/josecolella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 import passport = require('passport');
 import express = require('express');
@@ -20,9 +21,9 @@ export interface CacheProvider {
     remove(key: string, callback: (err: Error | null, key: string) => void | null): void;
 }
 
-export type VerifiedCallback =	(err: Error | null, user: object, info: object) => void;
+export type VerifiedCallback = (err: Error | null, user?: object, info?: object) => void;
 
-export type VerifyWithRequest = (req: express.Request, profile: object, done: VerifiedCallback) => void;
+export type VerifyWithRequest = (req: express.Request, profile: Profile, done: VerifiedCallback) => void;
 
 export type VerifyWithoutRequest = (profile: object, done: VerifiedCallback) => void;
 
@@ -41,8 +42,8 @@ export interface SamlConfig {
     path?: string;
     protocol?: string;
     host?: string;
-    entryPoint: string;
-    issuer: string;
+    entryPoint?: string;
+    issuer?: string;
     privateCert?: string;
     cert?: string | string[] | CertCallback;
     decryptionPvk?: string;
@@ -82,3 +83,20 @@ export interface AuthenticateOptions extends passport.AuthenticateOptions {
 export interface AuthorizeOptions extends AuthenticateOptions {
     samlFallback?: string;
 }
+
+export type Profile = {
+	issuer?: string;
+	sessionIndex?: string;
+	nameID?: string;
+	nameIDFormat?: string;
+	nameQualifier?: string;
+	spNameQualifier?: string;
+	ID?: string;
+	mail?: string;  // InCommon Attribute urn:oid:0.9.2342.19200300.100.1.3
+	email?: string;  // `mail` if not present in the assertion
+	getAssertionXml(): string;  // get the raw assertion XML
+	getAssertion(): object;  // get the assertion XML parsed as a JavaScript object
+	getSamlResponseXml(): string; // get the raw SAML response XML
+} & {
+	[attributeName: string]: unknown;  // arbitrary `AttributeValue`s
+};

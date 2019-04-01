@@ -19,9 +19,9 @@ declare module "child_process" {
         readonly pid: number;
         readonly connected: boolean;
         kill(signal?: string): void;
-        send(message: any, callback?: (error: Error) => void): boolean;
-        send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error) => void): boolean;
-        send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error) => void): boolean;
+        send(message: any, callback?: (error: Error | null) => void): boolean;
+        send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error | null) => void): boolean;
+        send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error | null) => void): boolean;
         disconnect(): void;
         unref(): void;
         ref(): void;
@@ -264,6 +264,7 @@ declare module "child_process" {
         execArgv?: string[];
         silent?: boolean;
         stdio?: StdioOptions;
+        detached?: boolean;
         windowsVerbatimArguments?: boolean;
     }
     function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;

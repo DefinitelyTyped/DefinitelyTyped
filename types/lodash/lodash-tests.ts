@@ -4303,6 +4303,12 @@ fp.now(); // $ExpectType number
     _(42).isObject(); // $ExpectType boolean
     _.chain([]).isObject(); // $ExpectType LoDashExplicitWrapper<boolean>
     fp.isObject(anything); // $ExpectType boolean
+    if (fp.isObject(anything)) {
+        anything; // $ExpectType object
+    }
+    if (_.isObject(anything)) {
+        anything; // $ExpectType object
+    }
 }
 
 // _.isObjectLike
@@ -4995,7 +5001,7 @@ fp.now(); // $ExpectType number
     _.create(prototype, properties); // $ExpectType { a: number; } & { b: string; }
     _(prototype).create(properties); // $ExpectType LoDashImplicitWrapper<{ a: number; } & { b: string; }>
     _.chain(prototype).create(properties); // $ExpectType LoDashExplicitWrapper<{ a: number; } & { b: string; }>
-    fp.create(prototype); // $ExpectType { a: number; }
+    const combined: { a: number } & object = fp.create(prototype);
 }
 
 // _.defaultsDeep
@@ -6620,10 +6626,10 @@ fp.now(); // $ExpectType number
     _(undefined).defaultTo({ a: "" }); // $ExpectType { a: string; }
 
     _.chain(42).defaultTo(42); // $ExpectType LoDashExplicitWrapper<number>
-    _.chain(undefined).defaultTo(42); // $ExpectType LoDashExplicitWrapper<42>
-    _.chain(null).defaultTo(42); // $ExpectType LoDashExplicitWrapper<42>
+    const z1: _.LoDashExplicitWrapper<number> = _.chain(undefined).defaultTo(42);
+    const z2: _.LoDashExplicitWrapper<number> = _.chain(null).defaultTo(42);
     _.chain(NaN).defaultTo(42); // $ExpectType LoDashExplicitWrapper<number>
-    _.chain(undefined).defaultTo("default"); // $ExpectType LoDashExplicitWrapper<"default">
+    const z3: _.LoDashExplicitWrapper<string> =  _.chain(undefined).defaultTo("default");
     _.chain(undefined).defaultTo([true]); // $ExpectType LoDashExplicitWrapper<boolean[]>
     _.chain(undefined).defaultTo({ a: "" }); // $ExpectType LoDashExplicitWrapper<{ a: string; }>
 

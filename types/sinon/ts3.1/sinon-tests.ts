@@ -379,6 +379,7 @@ function testSpy() {
     let fn = (arg: string, arg2: number): boolean => true;
     const obj = class {
         foo() { }
+        foobar(p1?: string) { return p1; }
         set bar(val: number) { }
         get bar() { return 0; }
     };
@@ -387,8 +388,19 @@ function testSpy() {
     const spy = sinon.spy(); // $ExpectType SinonSpy<any[], any>
     const spyTwo = sinon.spy().named('spyTwo');
 
-    const methodSpy = sinon.spy(instance, 'foo');
-    const methodSpy2 = sinon.spy(instance, 'bar', ['set', 'get']);
+    const methodSpy = sinon.spy(instance, 'foo'); // $ExpectType SinonSpy<[], void>
+    const methodSpy2 = sinon.spy(instance, 'bar', ['set', 'get']); // $ExpectType SinonSpy<any[], any>
+    const methodSpy3 = sinon.spy(instance, 'foobar'); // $ExpectType SinonSpy<[(string | undefined)?], string | undefined>
+
+    methodSpy.calledBefore(methodSpy2);
+    methodSpy.calledAfter(methodSpy2);
+    methodSpy.calledImmediatelyBefore(methodSpy2);
+    methodSpy.calledImmediatelyAfter(methodSpy2);
+
+    methodSpy.calledBefore(methodSpy3);
+    methodSpy.calledAfter(methodSpy3);
+    methodSpy.calledImmediatelyBefore(methodSpy3);
+    methodSpy.calledImmediatelyAfter(methodSpy3);
 
     let count = 0;
     count = spy.callCount;
@@ -478,6 +490,7 @@ function testStub() {
         foo(arg: string): number { return 1; }
         promiseFunc() { return Promise.resolve('foo'); }
         promiseLikeFunc() { return Promise.resolve('foo') as PromiseLike<string>; }
+        fooDeep(arg: { s: string }): void { return undefined; }
     };
     const instance = new obj();
 
@@ -556,6 +569,9 @@ function testStub() {
     stub2.withArgs('a', 2).returns('true'); // $ExpectError
     stub2.withArgs('a').returns(1);
     stub2.withArgs('a').returns('a'); // $ExpectError
+
+    const stub3 = sinon.stub(instance, 'fooDeep').named('namedStubDeep');
+    stub3.calledWith({ s: sinon.match.string });
 
     const pStub = sinon.stub(instance, 'promiseFunc');
     pStub.resolves();

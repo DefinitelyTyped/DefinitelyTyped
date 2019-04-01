@@ -60,7 +60,7 @@ declare namespace yargs {
 
         command<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, description: string, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
-        command(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, any>): Argv<T>;
+        command<U>(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, U>): Argv<U>;
         command<U>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<U>;

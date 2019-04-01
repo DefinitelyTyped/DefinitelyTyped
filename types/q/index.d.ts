@@ -331,7 +331,7 @@ declare namespace Q {
 	/**
 	 * Alias for fcall()
 	 */
-	export {fcall as try};
+	export { fcall as try };
 
 	/**
 	 * Returns a promise for the result of calling the named method of an object with the given variadic arguments.
