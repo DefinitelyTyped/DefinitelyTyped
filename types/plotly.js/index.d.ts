@@ -560,6 +560,7 @@ export interface PlotData {
 	hole: number;
 	theta: Datum[];
 	r: Datum[];
+    stackgroup: string;
 }
 
 /**
