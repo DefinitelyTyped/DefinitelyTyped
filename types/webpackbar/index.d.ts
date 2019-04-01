@@ -38,8 +38,8 @@ declare namespace WebpackBar {
     profile: Profile | null;
   }
 
-  type Handler = (context: WebpackBar) => void
-    
+  type Handler = (context: WebpackBar) => void;
+
   interface Reporter {
     start?: Handler;
     change?: Handler;
