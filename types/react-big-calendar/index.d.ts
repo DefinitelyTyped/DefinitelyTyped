@@ -20,9 +20,11 @@ export type stringOrDate = string | Date;
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
 export type Views = View[] | {
+    day: boolean | React.SFC | React.Component,
+    agenda: boolean | React.SFC | React.Component,
     month: boolean | React.SFC | React.Component,
     week: boolean | React.SFC | React.Component,
-    myweek: boolean | React.SFC | React.Component,
+    work_week: boolean | React.SFC | React.Component
 };
 export type Navigate = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 
