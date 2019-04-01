@@ -1,6 +1,6 @@
 import Waterline = require("waterline");
 const waterline = new Waterline();
-const userCollection = Waterline.Collection.extend<Waterline.CollectionDefinition, Waterline.Collection>({
+const userCollection = Waterline.Collection.extend({
     identity: "user",
     connection: "default",
     attributes: {
@@ -15,7 +15,7 @@ const userCollection = Waterline.Collection.extend<Waterline.CollectionDefinitio
         },
     },
 });
-const userCollectionV3 = Waterline.Collection.extend<Waterline.CollectionDefinitionV3, Waterline.CollectionV3>({
+const userCollectionV3 = Waterline.Collection.extend({
     identity: "userv3",
     connection: "default",
     attributes: {
@@ -29,7 +29,7 @@ const userCollectionV3 = Waterline.Collection.extend<Waterline.CollectionDefinit
         },
     },
 });
-const petCollection = Waterline.Collection.extend<Waterline.CollectionDefinition, Waterline.Collection>({
+const petCollection = Waterline.Collection.extend({
     identity: "pet",
     connection: "default",
     attributes: {
@@ -44,7 +44,7 @@ const petCollection = Waterline.Collection.extend<Waterline.CollectionDefinition
     },
 });
 
-const petCollectionv3 = Waterline.Collection.extend<Waterline.CollectionDefinitionV3, Waterline.CollectionV3>({
+const petCollectionv3 = Waterline.Collection.extend({
     identity: "petv3",
     connection: "default",
     attributes: {
@@ -76,7 +76,7 @@ const config: Waterline.Config = {
     },
 };
 
-const configV3: Waterline.ConfigV3 = {
+const configV3: Waterline.Config = {
     adapters: {
         memory: {},
     },
@@ -149,7 +149,7 @@ waterline.initialize(configV3, (err, ontology) => {
     });
 });
 
-const Person = Waterline.Collection.extend<Waterline.CollectionDefinition, Waterline.Collection>({
+const Person = Waterline.Collection.extend({
     identity: "person",
     connection: "local-postgresql",
 
@@ -187,7 +187,7 @@ const Person = Waterline.Collection.extend<Waterline.CollectionDefinition, Water
     }
 });
 
-const PersonV3 = Waterline.Collection.extend<Waterline.CollectionDefinitionV3, Waterline.CollectionV3>({
+const PersonV3 = Waterline.Collection.extend({
     identity: "person",
     connection: "local-postgresql",
 
@@ -285,7 +285,7 @@ const validations: Waterline.Attribute = {
     maxLength: 24,
 };
 
-const validationsV3: Waterline.AttributeV3 = {
+const validationsV3: Waterline.Attribute = {
     type: "string",
     required: true,
     allowNull: true,

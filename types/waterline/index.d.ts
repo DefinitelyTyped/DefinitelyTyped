@@ -11,9 +11,6 @@ declare namespace Waterline {
     type Adapter = Object;
     type Connection = {
         adapter: string;
-    }
-    type ConnectionV3 = {
-        adapter: string;
         url?: string,
         host?: string,
         port?: number,
@@ -22,25 +19,24 @@ declare namespace Waterline {
         password?: string,
         database?: string
     }
+
     interface Config {
         adapters: { [index: string]: Adapter };
-        connections: { [index: string]: Connection }
+        connections?: { [index: string]: Connection }
+        datastores?: { [index: string]: Connection }
     }
-    interface ConfigV3 {
-        adapters: { [index: string]: Adapter };
-        datastores: { [index: string]: ConnectionV3 }
-    }
+
     type Ontology = {
         collections: any;
     }
     interface Waterline {
-        registerModel(collection:  CollectionClass<Waterline.CollectionV3>): void;
-        loadCollection(collection: CollectionClass<Waterline.Collection>): void;
-        initialize: (config: Config | ConfigV3, cb: (err: Error, ontology: Ontology) => any) => any;
+        registerModel(collection:  CollectionClass): void;
+        loadCollection(collection: CollectionClass): void;
+        initialize: (config: Config, cb: (err: Error, ontology: Ontology) => any) => any;
         collections: any;
     }
-    interface CollectionClass<T extends Collection | CollectionV3> {
-        (): T
+    interface CollectionClass {
+        (): Collection
     }
 
     // used this comment https://github.com/balderdashy/waterline/issues/1154#issuecomment-167262575
@@ -57,6 +53,7 @@ declare namespace Waterline {
         attributes?: Attributes;
         connection?: string;
         identity?: string;
+        primaryKey?: string,
         tableName?: string;
         migrate?: "alter" | "drop" | "safe";
         autoPK?: boolean;
@@ -65,64 +62,34 @@ declare namespace Waterline {
         schema?: boolean;
         types?: any;
     }
-    export type CollectionDefinitionV3 = LifecycleCallbacks & {
-        attributes?: AttributesV3;
-        connection?: string;
-        identity?: string;
-        primaryKey?: string,
-        tableName?: string;
-        migrate?: "alter" | "drop" | "safe";
-        autoPK?: boolean;
-        schema?: boolean;
-        types?: any;
-    }
 
-    export type CollectionV3 = CollectionDefinitionV3;
     export type Collection = CollectionDefinition;
     export type Attributes = { [index: string]: Attribute } & {
         toJSON?: () => string;
         toObject?: () => any;
     };
-    export type AttributesV3 = { [index: string]: AttributeV3 } & {
-        toJSON?: () => string;
-        toObject?: () => any;
-    };
+
     export type FunctionAttribute = () => any;
     // Data types https://github.com/balderdashy/waterline-docs/blob/master/models/data-types-attributes.md#data-types
-    export type AttributeType = "string" | "text" | "integer" | "float" | "date" | "time"
-        | "datetime" | "boolean" | "binary" | "array" | "json";
-    export type AttributeTypeV3 = "string" | "number" | "boolean" | "json" | "ref";
+    export type AttributeType = "string" | "text" | "integer" | "number" | "float" | "date" | "time"
+        | "datetime" | "boolean" | "binary" | "array" | "json" | "ref";
 
     export type Attribute = string | StringAttribute | EmailAttribute |
-        IntegerAttribute | FloatAttribute |
+        IntegerAttribute | NumberAttribute| FloatAttribute |
         DateAttribute | TimeAttribute | DatetimeAttribute |
-        BooleanAttribute | BinaryAttribute | ArrayAttribute | JsonAttribute |
+        BooleanAttribute | BinaryAttribute | ArrayAttribute | JsonAttribute | RefAttribute |
         OneToOneAttribute | OneToManyAttribute | ManyToManyAttribute |
         FunctionAttribute;
-
-    export type AttributeV3 = string | StringAttributeV3 | NumberAttributeV3  |
-        BooleanAttributeV3 | JsonAttributeV3 | RefAttributeV3 |
-        OneToOneAttributeV3 | OneToManyAttributeV3 | ManyToManyAttributeV3 |
-        FunctionAttribute;
-
 
     export type DefaultsToFn<T> = () => T;
     export type BaseAttribute<T> = AttributeValidations & {
         type?: string;
         primaryKey?: boolean;
+        autoMigrations?: AutoMigration;
         unique?: boolean;
         required?: boolean;
         enum?: Array<T>;
         size?: number;
-        columnName?: string;
-        index?: boolean;
-        defaultsTo?: T | DefaultsToFn<T>;
-    }
-    export type BaseAttributeV3<T> =  {
-        type?: string;
-        autoMigrations?: AutoMigration;
-        unique?: boolean;
-        required?: boolean;
         columnName?: string;
         index?: boolean;
         allowNull?: boolean;
@@ -141,9 +108,6 @@ declare namespace Waterline {
     export type StringAttribute = BaseAttribute<string> & {
         type: "string";
     }
-    export type StringAttributeV3 = BaseAttributeV3<string> & {
-        type: "string";
-    }
     export type EmailAttribute = BaseAttribute<string> & {
         type: "email"
     }
@@ -154,7 +118,7 @@ declare namespace Waterline {
         type: "integer";
         autoIncrement?: boolean;
     }
-    export type NumberAttributeV3 = BaseAttributeV3<number> & {
+    export type NumberAttribute = BaseAttribute<number> & {
         type: "number";
         autoIncrement?: boolean;
     }
@@ -173,9 +137,6 @@ declare namespace Waterline {
     export type BooleanAttribute = BaseAttribute<boolean> & {
         type: 'boolean';
     }
-    export type BooleanAttributeV3 = BaseAttributeV3<boolean> & {
-        type: "boolean";
-      }
     export type BinaryAttribute = BaseAttribute<any> & {
         type: 'binary';
     }
@@ -185,32 +146,17 @@ declare namespace Waterline {
     export type JsonAttribute = BaseAttribute<any> & {
         type: 'json';
     }
-    export type JsonAttributeV3 = BaseAttributeV3<any> & {
-        type: "json";
-    }
-    export type RefAttributeV3 = BaseAttributeV3<any> & {
+    export type RefAttribute = BaseAttribute<any> & {
         type: 'ref';
     }
     export type OneToOneAttribute = BaseAttribute<any> & {
-        model: string;
-    }
-    export type OneToOneAttributeV3 = BaseAttributeV3<any> & {
         model: string;
     }
     export type OneToManyAttribute = BaseAttribute<any> & {
         collection: string;
         via: string;
     }
-    export type OneToManyAttributeV3 = BaseAttributeV3<any> & {
-        collection: string;
-        via: string;
-    }
     export type ManyToManyAttribute = BaseAttribute<any> & {
-        collection: string;
-        via: string;
-        dominant?: boolean;
-    }
-    export type ManyToManyAttributeV3 = BaseAttributeV3<any> & {
         collection: string;
         via: string;
         dominant?: boolean;
@@ -349,7 +295,7 @@ declare namespace Waterline {
 }
 declare interface WaterlineStatic {
     Collection: {
-        extend: <T extends Waterline.CollectionDefinition | Waterline.CollectionDefinitionV3,K>(params: T) => Waterline.CollectionClass<K>;
+        extend:(params: Waterline.CollectionDefinition) => Waterline.CollectionClass;
     }
     new (): Waterline.Waterline;
 }
