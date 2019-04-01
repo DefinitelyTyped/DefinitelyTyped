@@ -38,7 +38,7 @@ declare namespace WebpackBar {
     profile: Profile | null;
   }
 
-  type Handler = (context: WebpackBar) => void;
+  type Handler = (context: WebpackBar) => void
     
   interface Reporter {
     start?: Handler;
@@ -67,8 +67,8 @@ declare namespace WebpackBar {
     /** Enable a simple log reporter (only start and end) */
     basic?: boolean;
     /** Register a custom reporter */
-    reporter?: Reporter,
+    reporter?: Reporter;
     /** Register a custom reporter */
-    reporters?: Array<Reporter | string>,
+    reporters?: Array<Reporter | string>;
   }
 }
