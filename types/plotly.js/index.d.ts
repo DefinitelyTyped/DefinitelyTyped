@@ -559,8 +559,8 @@ export interface PlotData {
 	labels: Datum[];
 	hole: number;
 	theta: Datum[];
-	r: Datum[];
     stackgroup: string;
+	r: Datum[];
 }
 
 /**
