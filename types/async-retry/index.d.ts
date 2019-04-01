@@ -1,4 +1,4 @@
-// Type definitions for async-retry 1.2
+// Type definitions for async-retry 1.3
 // Project: https://github.com/zeit/async-retry#readme
 // Definitions by: Albert Wu <https://github.com/albertywu>
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
@@ -16,7 +16,7 @@ declare namespace AsyncRetry {
 		minTimeout?: number;
 		maxTimeout?: number;
 		randomize?: boolean;
-		onRetry?: (e: Error) => any;
+		onRetry?: (e: Error, attempt: number) => any;
 	}
 
 	type RetryFunction<A> = (bail: (e: Error) => void, attempt: number) => A|Promise<A>;
