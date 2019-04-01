@@ -1655,7 +1655,7 @@ declare namespace algoliasearch {
      * default: ""
      * https://github.com/algolia/algoliasearch-client-js#disabletypotoleranceonattributes
      */
-    disableTypoToleranceOnAttributes?: string;
+    disableTypoToleranceOnAttributes?: string[];
     /**
      * Specify the separators (punctuation characters) to index.
      * default: ""
