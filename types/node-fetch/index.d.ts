@@ -1,10 +1,11 @@
-// Type definitions for node-fetch 2.1
+// Type definitions for node-fetch 2.3
 // Project: https://github.com/bitinn/node-fetch
 // Definitions by: Torsten Werner <https://github.com/torstenwerner>
 //                 Niklas Lindgren <https://github.com/nikcorg>
 //                 Vinay Bedre <https://github.com/vinaybedre>
 //                 Antonio Román <https://github.com/kyranet>
 //                 Andrew Leedham <https://github.com/AndrewLeedham>
+//                 Jason Li <https://github.com/JasonLi914>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -37,7 +38,7 @@ export class Request extends Body {
 export interface RequestInit {
     // whatwg/fetch standard options
     body?: BodyInit;
-    headers?: HeaderInit | { [index: string]: string };
+    headers?: HeadersInit;
     method?: string;
     redirect?: RequestRedirect;
 
@@ -98,7 +99,7 @@ export type RequestCache =
     | "reload";
 
 export class Headers implements Iterable<[string, string]> {
-    constructor(init?: Headers | { [k: string]: string });
+    constructor(init?: HeadersInit);
     forEach(callback: (value: string, name: string) => void): void;
     append(name: string, value: string): void;
     delete(name: string): void;
@@ -165,12 +166,12 @@ export type ResponseType =
     | "opaqueredirect";
 
 export interface ResponseInit {
-    headers?: HeaderInit;
+    headers?: HeadersInit;
     status: number;
     statusText?: string;
 }
 
-export type HeaderInit = Headers | string[];
+export type HeadersInit = Headers | string[][] | { [key: string]: string };
 export type BodyInit = ArrayBuffer | ArrayBufferView | NodeJS.ReadableStream | string | URLSearchParams;
 export type RequestInfo = string | Request;
 
