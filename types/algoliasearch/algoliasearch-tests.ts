@@ -78,7 +78,7 @@ let _algoliaIndexSettings: IndexSettings = {
   typoTolerance: false,
   allowTyposOnNumericTokens: false,
   ignorePlurals: false,
-  disableTypoToleranceOnAttributes: '',
+  disableTypoToleranceOnAttributes: [''],
   separatorsToIndex: '',
   queryType: 'prefixAll',
   removeWordsIfNoResults: '',
