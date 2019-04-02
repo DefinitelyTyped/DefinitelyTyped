@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 17.1
+// Type definitions for non-npm package ej.web.all 17.1
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 17.1.0.38
+*  version : 16.4.0.52
 *  Copyright Syncfusion Inc. 2001 - 2019. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -2013,11 +2013,6 @@ declare namespace ej {
              * @Default {0}
              */
             itemsCount?: number;
-
-            /** To enable or disable the diacritic characters of the Autocomplete suggestion list when filtering.
-             * @Default {false}
-             */
-            ignoreAccent?: boolean;
 
             /** Set the localization culture for Autocomplete Widget.
              */
@@ -4660,9 +4655,13 @@ declare namespace ej {
 
         export interface ChangeEventArgs {
 
-            /** return the previous color value
+            /** if the event should be canceled; otherwise, false.
              */
-            changeFrom?: string;
+            cancel?: boolean;
+
+            /** returns the color picker model
+             */
+            model?: ej.ColorPicker.Model;
 
             /** returns the name of the event
              */
@@ -4675,6 +4674,10 @@ declare namespace ej {
 
         export interface CloseEventArgs {
 
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
             /** returns the color picker model
              */
             model?: ej.ColorPicker.Model;
@@ -4685,6 +4688,10 @@ declare namespace ej {
         }
 
         export interface CreateEventArgs {
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
 
             /** returns the color picker model
              */
@@ -4712,6 +4719,10 @@ declare namespace ej {
 
         export interface OpenEventArgs {
 
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
             /** returns the color picker model
              */
             model?: ej.ColorPicker.Model;
@@ -4722,6 +4733,10 @@ declare namespace ej {
         }
 
         export interface SelectEventArgs {
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
 
             /** returns the color picker model
              */
@@ -6591,6 +6606,10 @@ declare namespace ej {
 
         export interface BeforeDateCreateEventArgs {
 
+            /** Set to true when the event has to be canceled, else false.
+             */
+            cancel?: boolean;
+
             /** returns the DatePicker model.
              */
             model?: ej.DatePicker.Model;
@@ -6637,6 +6656,10 @@ declare namespace ej {
 
         export interface ChangeEventArgs {
 
+            /** Set to true when the event has to be canceled, else false.
+             */
+            cancel?: boolean;
+
             /** returns the DatePicker model.
              */
             model?: ej.DatePicker.Model;
@@ -6655,6 +6678,10 @@ declare namespace ej {
         }
 
         export interface CloseEventArgs {
+
+            /** Set to true when the event has to be canceled, else false.
+             */
+            cancel?: boolean;
 
             /** returns the current date object.
              */
@@ -6678,6 +6705,10 @@ declare namespace ej {
         }
 
         export interface CreateEventArgs {
+
+            /** Set to true when the event has to be canceled, else false.
+             */
+            cancel?: boolean;
 
             /** returns the DatePicker model.
              */
@@ -6705,6 +6736,10 @@ declare namespace ej {
 
         export interface FocusInEventArgs {
 
+            /** Set to true when the event has to be canceled, else false.
+             */
+            cancel?: boolean;
+
             /** returns the DatePicker model.
              */
             model?: ej.DatePicker.Model;
@@ -6719,6 +6754,10 @@ declare namespace ej {
         }
 
         export interface FocusOutEventArgs {
+
+            /** Set to true when the event has to be canceled, else false.
+             */
+            cancel?: boolean;
 
             /** returns the DatePicker model.
              */
@@ -6738,6 +6777,10 @@ declare namespace ej {
         }
 
         export interface NavigateEventArgs {
+
+            /** Set to true when the event has to be canceled, else false.
+             */
+            cancel?: boolean;
 
             /** returns the current date object.
              */
@@ -6766,6 +6809,10 @@ declare namespace ej {
 
         export interface OpenEventArgs {
 
+            /** Set to true when the event has to be canceled, else false.
+             */
+            cancel?: boolean;
+
             /** returns the current date object.
              */
             date?: any;
@@ -6788,6 +6835,10 @@ declare namespace ej {
         }
 
         export interface SelectEventArgs {
+
+            /** Set to true when the event has to be canceled, else false.
+             */
+            cancel?: boolean;
 
             /** returns the selected date object.
              */
@@ -7168,6 +7219,10 @@ declare namespace ej {
 
         export interface ChangeEventArgs {
 
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
             /** returns the TimePicker model
              */
             model?: ej.DateTimePicker.Model;
@@ -7195,6 +7250,10 @@ declare namespace ej {
 
         export interface CloseEventArgs {
 
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
             /** returns the TimePicker model
              */
             model?: ej.DateTimePicker.Model;
@@ -7213,6 +7272,10 @@ declare namespace ej {
         }
 
         export interface CreateEventArgs {
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
 
             /** returns the DateTimePicker model
              */
@@ -7240,6 +7303,10 @@ declare namespace ej {
 
         export interface FocusInEventArgs {
 
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
             /** returns the TimePicker model
              */
             model?: ej.DateTimePicker.Model;
@@ -7255,6 +7322,10 @@ declare namespace ej {
 
         export interface FocusOutEventArgs {
 
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
             /** returns the TimePicker model
              */
             model?: ej.DateTimePicker.Model;
@@ -7269,6 +7340,10 @@ declare namespace ej {
         }
 
         export interface OpenEventArgs {
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
 
             /** returns the TimePicker model
              */
@@ -7570,6 +7645,10 @@ declare namespace ej {
 
         export interface ChangeEventArgs {
 
+            /** Set to true when the event has to be canceled, else false.
+             */
+            cancel?: boolean;
+
             /** returns the DateRangePicker model.
              */
             model?: ej.DateRangePicker.Model;
@@ -7593,6 +7672,10 @@ declare namespace ej {
 
         export interface CloseEventArgs {
 
+            /** Set to true when the event has to be canceled, else false.
+             */
+            cancel?: boolean;
+
             /** returns the current date object.
              */
             date?: any;
@@ -7611,6 +7694,10 @@ declare namespace ej {
         }
 
         export interface CreateEventArgs {
+
+            /** Set to true when the event has to be canceled, else false.
+             */
+            cancel?: boolean;
 
             /** returns the DateRangePicker model.
              */
@@ -7638,6 +7725,10 @@ declare namespace ej {
 
         export interface OpenEventArgs {
 
+            /** Set to true when the event has to be canceled, else false.
+             */
+            cancel?: boolean;
+
             /** returns the current date object.
              */
             date?: any;
@@ -7656,6 +7747,10 @@ declare namespace ej {
         }
 
         export interface SelectEventArgs {
+
+            /** Set to true when the event has to be canceled, else false.
+             */
+            cancel?: boolean;
 
             /** returns the selected date object.
              */
@@ -19586,16 +19681,6 @@ declare namespace ej {
              */
             timeFormat?: string;
 
-            /** Set the jQuery validation error message in TimePicker.
-             * @Default {null}
-             */
-            validationMessages?: any;
-
-            /** Set the jQuery validation rules in TimePicker.
-             * @Default {null}
-             */
-            validationRules?: any;
-
             /** Sets a specified time value on the TimePicker.
              * @Default {null}
              */
@@ -19653,6 +19738,10 @@ declare namespace ej {
 
         export interface BeforeChangeEventArgs {
 
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
             /** returns the TimePicker model
              */
             model?: ej.TimePicker.Model;
@@ -19695,6 +19784,10 @@ declare namespace ej {
 
         export interface ChangeEventArgs {
 
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
             /** returns the TimePicker model
              */
             model?: ej.TimePicker.Model;
@@ -19718,6 +19811,10 @@ declare namespace ej {
 
         export interface CloseEventArgs {
 
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
             /** returns the TimePicker model
              */
             model?: ej.TimePicker.Model;
@@ -19736,6 +19833,10 @@ declare namespace ej {
         }
 
         export interface CreateEventArgs {
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
 
             /** returns the TimePicker model
              */
@@ -19763,6 +19864,10 @@ declare namespace ej {
 
         export interface FocusInEventArgs {
 
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
             /** returns the TimePicker model
              */
             model?: ej.TimePicker.Model;
@@ -19781,6 +19886,10 @@ declare namespace ej {
         }
 
         export interface FocusOutEventArgs {
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
 
             /** returns the TimePicker model
              */
@@ -19801,6 +19910,10 @@ declare namespace ej {
 
         export interface OpenEventArgs {
 
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
             /** returns the TimePicker model
              */
             model?: ej.TimePicker.Model;
@@ -19815,6 +19928,10 @@ declare namespace ej {
         }
 
         export interface SelectEventArgs {
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
 
             /** returns the TimePicker model
              */
@@ -36619,11 +36736,11 @@ declare namespace ej {
 
             /** Returns the taskbar background of current item.
              */
-            taskbarBackground?: string;
+            TaskbarBackground?: string;
 
             /** Returns the progressbar background of current item.
              */
-            progressbarBackground?: string;
+            ProgressbarBackground?: string;
 
             /** Returns the parent taskbar background of current item.
              */
@@ -36632,34 +36749,6 @@ declare namespace ej {
             /** Returns the parent progressbar background of current item.
              */
             parentProgressbarBackground?: string;
-
-            /** Returns the taskbar text color of current item.
-             */
-            taskbarTextColor?: string;
-
-            /** Returns the taskbar border color of current item.
-             */
-            taskbarBorder?: string;
-
-            /** Returns the parent taskbar border color of current item.
-             */
-            parentTaskbarBorder?: string;
-
-            /** Returns the progressbar border color of current item.
-             */
-            progressbarBorder?: string;
-
-            /** Returns the parent progressbar border color of current item.
-             */
-            parentProgressbarBorder?: string;
-
-            /** Returns the milestone background of current item.
-             */
-            milestoneBackground?: string;
-
-            /** Returns the baseline background of current item.
-             */
-            baselineBackground?: string;
 
             /** Returns the data of the record.
              */
@@ -42077,7 +42166,7 @@ declare namespace ej {
          */
         save(Filename: string): void;
 
-        /** Used to Show the signature widget, if it is already hidden.
+        /** Used to Show the signature widget, if it is already hided.
          * @returns {void}
          */
         show(): void;
@@ -43809,10 +43898,9 @@ declare namespace ej {
              * @param {string} Pass the cell reference.
              * @param {string} Optional. Pass comment, if you want.
              * @param {number} Optional. Pass the sheet index.
-             * @param {string} Optional. Pass the scope of the name manager.
              * @returns {void}
              */
-            addNamedRange(name: string, refersTo: string, comment: string, sheetIdx: number, scope: string): void;
+            addNamedRange(name: string, refersTo: string, comment: string, sheetIdx: number): void;
 
             /** This method is used to dynamically add the tab in the ribbon.
              * @param {string} Specifies the text to be displayed in the tab.
@@ -43856,10 +43944,9 @@ declare namespace ej {
 
             /** This method is used to delete the defined name in the Spreadsheet name manager.
              * @param {string} Pass the defined name that you want to remove from name manager.
-             * @param {string} Optional. Pass the scope of the name manager.
              * @returns {void}
              */
-            removeNamedRange(name: string, scope: string): void;
+            removeNamedRange(name: string): void;
 
             /** This method is used to remove the tab form ribbon in the spreadsheet.
              * @param {number} Specifies the index of the tab to be removed from the ribbon.
