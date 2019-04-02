@@ -57,7 +57,7 @@ declare function dynamic<P = {}>(
     options: NextDynamicOptionsBase
 ): DynamicComponent<P>;
 declare function dynamic<P = {}>(
-    moduleOrOptions: AsyncComponentLoader<P> | AsyncComponent<P> | NextDynamicOptionsBase,
+    asyncModuleOrOptions: AsyncComponentLoader<P> | AsyncComponent<P> | NextDynamicOptionsBase,
     options?: any
 ): DynamicComponent<P>;
 
