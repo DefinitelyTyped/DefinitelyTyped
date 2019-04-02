@@ -23,7 +23,7 @@ const typeConstructorOptions: TypeConstructorOptions = {
 	resolve: fn,
 	construct: fn,
 	instanceOf: obj,
-	predicate: (obj) => true,
+	predicate: (obj) => false,
 	represent: fn,
 	defaultStyle: str,
 	styleAliases: map
