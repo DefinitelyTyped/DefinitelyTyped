@@ -1,4 +1,5 @@
 {
+  "private": true,
   "dependencies": {
     "hoist-non-react-statics": "^3.3.0"
   }
