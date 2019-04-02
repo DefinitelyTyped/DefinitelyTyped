@@ -11,18 +11,18 @@ const verifyMandatoryOptions: argon2.VerifyOptions = {
 };
 
 (async () => {
-  (await argon2.hash(hashMandatoryOptions)).encoded; // string
-  (await argon2.hash(hashMandatoryOptions)).hash; // Uint8Array
-  (await argon2.hash(hashMandatoryOptions)).hashHex; // string
+  (await argon2.hash(hashMandatoryOptions)).encoded; // $ExpectType string
+  (await argon2.hash(hashMandatoryOptions)).hash; // $ExpectType Uint8Array
+  (await argon2.hash(hashMandatoryOptions)).hashHex; // $ExpectType string
 
-  (await argon2.hash({ ...hashMandatoryOptions, distPath: 'path' })).encoded; // string
-  (await argon2.hash({ ...hashMandatoryOptions, hashLen: 24 })).encoded; // string
-  (await argon2.hash({ ...hashMandatoryOptions, mem: 1024 })).encoded; // string
-  (await argon2.hash({ ...hashMandatoryOptions, parallelism: 1 })).encoded; // string
-  (await argon2.hash({ ...hashMandatoryOptions, time: 1 })).encoded; // string
-  (await argon2.hash({ ...hashMandatoryOptions, type: argon2.ArgonType.Argon2d })).encoded; // string
-  (await argon2.hash({ ...hashMandatoryOptions, type: argon2.ArgonType.Argon2i })).encoded; // string
-  (await argon2.hash({ ...hashMandatoryOptions, type: argon2.ArgonType.Argon2id })).encoded; // string
+  (await argon2.hash({ ...hashMandatoryOptions, distPath: 'path' })).encoded; // $ExpectType string
+  (await argon2.hash({ ...hashMandatoryOptions, hashLen: 24 })).encoded; // $ExpectType string
+  (await argon2.hash({ ...hashMandatoryOptions, mem: 1024 })).encoded; // $ExpectType string
+  (await argon2.hash({ ...hashMandatoryOptions, parallelism: 1 })).encoded; // $ExpectType string
+  (await argon2.hash({ ...hashMandatoryOptions, time: 1 })).encoded; // $ExpectType string
+  (await argon2.hash({ ...hashMandatoryOptions, type: argon2.ArgonType.Argon2d })).encoded; // $ExpectType string
+  (await argon2.hash({ ...hashMandatoryOptions, type: argon2.ArgonType.Argon2i })).encoded; // $ExpectType string
+  (await argon2.hash({ ...hashMandatoryOptions, type: argon2.ArgonType.Argon2id })).encoded; // $ExpectType string
 
   await argon2.verify(verifyMandatoryOptions);
   await argon2.verify({...verifyMandatoryOptions, encoded: new Uint8Array([0, 1, 2, 3])});
