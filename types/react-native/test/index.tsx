@@ -21,6 +21,7 @@ import {
     BackAndroid,
     BackHandler,
     Button,
+    CheckBox,
     ColorPropType,
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
@@ -533,6 +534,16 @@ class MaskedViewTest extends React.Component {
         );
     }
 }
+
+const CheckboxTest = () => (
+    <CheckBox
+        testID="testId"
+        disabled={false}
+        onChange={value => { console.log(value); }}
+        onValueChange={value => { console.log(value); }}
+        value={true}
+    />
+);
 
 class InputAccessoryViewTest extends React.Component {
     render() {

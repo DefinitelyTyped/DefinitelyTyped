@@ -20,6 +20,7 @@
     "files": [
         "index.d.ts",
         "Icon.d.ts",
+        "AntDesign.d.ts",
         "Entypo.d.ts",
         "EvilIcons.d.ts",
         "Feather.d.ts",

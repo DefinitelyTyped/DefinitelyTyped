@@ -1417,6 +1417,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "opn",
+            "typingsPackageName": "opn",
+            "sourceRepoURL": "https://github.com/sindresorhus/opn",
+            "asOfVersion": "5.5.0"
+        },
+        {
             "libraryName": "ora",
             "typingsPackageName": "ora",
             "sourceRepoURL": "https://github.com/sindresorhus/ora",
@@ -2129,6 +2135,12 @@
             "typingsPackageName": "ss-utils",
             "sourceRepoURL": "https://servicestack.net/",
             "asOfVersion": "0.1.5"
+        },
+        {
+            "libraryName": "@storybook/addon-notes",
+            "typingsPackageName": "storybook__addon-notes",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "striptags",

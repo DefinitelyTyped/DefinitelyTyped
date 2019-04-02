@@ -6,7 +6,7 @@ export { };
 // #### Programming interface ####
 export type ConstructorOptions = CtorOptions & (SyncConstructorOptions | ASyncConstructorOptions);
 
-interface CtorOptions {
+export interface CtorOptions {
     /** The definition objects to load into the server’s environment. */
     defs?: Def[];
     /** The ECMAScript version to parse. Should be either 5 or 6. Default is 6. */
@@ -17,7 +17,7 @@ interface CtorOptions {
     plugins?: { [key: string]: object };
 }
 
-interface SyncConstructorOptions {
+export interface SyncConstructorOptions {
     /** Indicates whether `getFile` is asynchronous. Default is `false`. */
     async?: false;
     /**
@@ -29,7 +29,7 @@ interface SyncConstructorOptions {
     getFile?(filename: string): string;
 }
 
-interface ASyncConstructorOptions {
+export interface ASyncConstructorOptions {
     /** Indicates whether `getFile` is asynchronous. Default is `false`. */
     async: true;
     /**
