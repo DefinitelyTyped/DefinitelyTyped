@@ -11,7 +11,7 @@ export interface LinkProps {
     href?: string | UrlLike;
     as?: string | UrlLike;
     passHref?: boolean;
-    children: React.ReactElement;
+    children: React.ReactNode;
 }
 
 export default class Link extends React.Component<LinkProps> {}
