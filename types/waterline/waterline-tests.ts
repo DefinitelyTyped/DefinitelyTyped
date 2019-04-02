@@ -295,6 +295,12 @@ const validationsV3: Waterline.Attribute = {
         isAfter: new Date("12/12/2001"),
         isBefore: new Date("12/12/2001"),
         isCreditCard:true,
+        isHexColor: true,
+        isEmail: true,
+        isIn: ['test', 'pass'],
+        isNotIn: ['not', 'fail'],
+        isNotEmptyString: true,
+        isNumber: true,
         regex: /ab+c/,
         max: 24,
         min: 4,
@@ -302,8 +308,6 @@ const validationsV3: Waterline.Attribute = {
         maxLength: 24,
         isUUID: true,
         isURL: true,
-        isNumber: true,
-        isNotEmptyString: true,
         isIp: true,
     }
 };

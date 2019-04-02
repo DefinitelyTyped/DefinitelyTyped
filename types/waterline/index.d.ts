@@ -172,7 +172,10 @@ declare namespace Waterline {
         isBoolean?: AttributeValidation<boolean>;
         isEmail?: AttributeValidation<boolean>;
         isCreditCard?:AttributeValidation<boolean>;
+        isHexColor?: AttributeValidation<boolean>;
+        isIn?: AttributeValidation<string[]>;
         isIP?: AttributeValidation<boolean>;
+        isInteger?: AttributeValidation<boolean>;
         isNotEmptyString?:AttributeValidation<boolean>;
         isNotIn?: AttributeValidation<string[]>;
         isNumber?: AttributeValidation<boolean>;
