@@ -1,4 +1,4 @@
-// Type definitions for stream-mock 1.2.0
+// Type definitions for stream-mock 1.2
 // Project: https://github.com/BastienAr/stream-mock
 // Definitions by: Ivan Kerin <https://github.com/ivank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +15,7 @@ import {
 } from "stream";
 
 export class ReadableMock extends Readable {
-    constructor(source: any[], opts?: ReadableOptions);
+    constructor(source: ReadonlyArray<any>, opts?: ReadableOptions);
 }
 export class WritableMock extends Writable {
     data: any;
