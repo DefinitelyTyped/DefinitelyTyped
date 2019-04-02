@@ -2,11 +2,12 @@ import * as React from "react";
 import dynamic, { LoadingComponentProps } from "next-server/dynamic";
 
 const asyncComponent = import('./imports/with-default');
+const asyncSecond = import('./imports/with-default-second');
 
 // Examples from
 // https://github.com/zeit/next.js/#dynamic-import
 
-const LoadingComponent: React.StatelessComponent<LoadingComponentProps> = ({
+const LoadingComponent: React.FunctionComponent<LoadingComponentProps> = ({
     isLoading,
     error
 }) => <p>loading...</p>;
@@ -27,16 +28,26 @@ const Test2 = dynamic(() => asyncComponent, {
 const test2JSX = <Test2 foo />;
 
 // 4. With Multiple Modules At Once
-// TODO: Mapped components still doesn't infer their props.
+// For type safety, define component type in a mapped interface, and pass it into the
+// second generic.
+interface MappedModuleProps {
+    Hello1: {
+        foo?: boolean;
+    };
+    Hello2: {
+        bar?: boolean;
+    };
+}
 interface BundleComponentProps {
     foo: string;
+    bar?: boolean;
 }
 
-const HelloBundle = dynamic<BundleComponentProps>({
+const HelloBundle = dynamic<BundleComponentProps, MappedModuleProps>({
     modules: () => {
         const components = {
             Hello1: () => asyncComponent,
-            Hello2: () => asyncComponent
+            Hello2: () => asyncSecond
         };
 
         return components;
@@ -44,8 +55,8 @@ const HelloBundle = dynamic<BundleComponentProps>({
     render: (props, { Hello1, Hello2 }) => (
         <div>
             <h1>{props.foo}</h1>
-            <Hello1 />
-            <Hello2 />
+            <Hello1 foo />
+            <Hello2 bar={props.bar} />
         </div>
     )
 });

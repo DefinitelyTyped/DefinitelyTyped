@@ -9,14 +9,14 @@ type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 type AsyncComponent<P = any> = Promise<React.ComponentType<P> | { default: React.ComponentType<P> }>;
 type AsyncComponentLoader<P = any> = () => AsyncComponent<P>;
-type ModuleMapping = Record<string, AsyncComponent | AsyncComponentLoader>;
+type ModuleMapping<P = any> = Record<string, AsyncComponent<P> | AsyncComponentLoader<P>>;
 type LoadedModuleMapping = Record<string, React.ComponentType>;
 
-interface NextDynamicOptions<P = {}> extends Omit<LoadableOptions, "loading" | "modules"> {
-    modules?: () => ModuleMapping; // overridden
+type DynamicComponent<P> = React.ComponentType<P> & LoadableComponent;
+
+// Base dynamic loader options (essential Loadable config required by `next/dynamic`)
+interface NextDynamicOptionsBase extends Omit<LoadableOptions, "loading" | "modules"> {
     loading?: LoadableOptions["loading"]; // optional
-    loader?: AsyncComponentLoader<P>; // optional, overriden
-    render?: (props: P, loaded: LoadedModuleMapping) => React.ReactNode; // optional, overriden
     ssr?: boolean;
     loadableGenerated?: {
         webpack?: any;
@@ -24,18 +24,41 @@ interface NextDynamicOptions<P = {}> extends Omit<LoadableOptions, "loading" | "
     };
 }
 
-type DynamicComponent<P> = React.ComponentType<P> & LoadableComponent;
+// Dynamic loader options with `loader` key.
+interface NextDynamicLoaderOptions<P = {}> extends NextDynamicOptionsBase {
+    loader?: AsyncComponentLoader<P>;
+}
+
+// Dynamic loader options for mapped modules.
+// Note: this currently requires the mapped props of each loaded component to exist.
+// See tests for an example.
+interface NextModuleMapOptions<P, E extends { [key: string]: any }> extends NextDynamicOptionsBase {
+    modules: () => {
+        [P in keyof E]: AsyncComponentLoader<E[P]>
+    };
+    render: (props: P, loaded: {
+        [P in keyof E]: DynamicComponent<E[P]>
+    }) => React.ReactNode;
+}
 
 /**
  * Overloaded dynamic function.
  * https://github.com/zeit/next.js/blob/7.0.0/lib/dynamic.js#L55
  */
+declare function dynamic<
+    P = {},
+    E = { [key: string]: any }
+>(options: NextModuleMapOptions<P, E>): DynamicComponent<P>;
 declare function dynamic<P = {}>(
-    asyncModuleOrOptions: AsyncComponentLoader<P> | AsyncComponent<P> | NextDynamicOptions<P>
+    options: NextDynamicLoaderOptions<P>
 ): DynamicComponent<P>;
 declare function dynamic<P = {}>(
     asyncModule: AsyncComponentLoader<P> | AsyncComponent<P>,
-    options: NextDynamicOptions<P>
+    options: NextDynamicOptionsBase
+): DynamicComponent<P>;
+declare function dynamic<P = {}>(
+    moduleOrOptions: AsyncComponentLoader<P> | AsyncComponent<P> | NextDynamicOptionsBase,
+    options?: any
 ): DynamicComponent<P>;
 
 export type LoadingComponentProps = LoadableLoadingComponentProps;
