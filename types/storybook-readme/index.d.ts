@@ -23,12 +23,12 @@ export const addReadme: MakeDecoratorResult;
 export function addFooter(md: string): void;
 export function addHeader(md: string): void;
 export interface ConfigureReadmeConfig {
-  header: string;
-  footer: string;
-  StoryPreview: (props: { children: React.ReactNode }) => React.ReactNode;
-  DocPreview: (props: { children: React.ReactNode }) => React.ReactNode;
-  HeaderPreview: (props: { children: React.ReactNode }) => React.ReactNode;
-  FooterPreview: (props: { children: React.ReactNode }) => React.ReactNode;
+  header?: string;
+  footer?: string;
+  StoryPreview?: (props: { children: React.ReactNode }) => React.ReactNode;
+  DocPreview?: (props: { children: React.ReactNode }) => React.ReactNode;
+  HeaderPreview?: (props: { children: React.ReactNode }) => React.ReactNode;
+  FooterPreview?: (props: { children: React.ReactNode }) => React.ReactNode;
 }
 
 export function configureReadme(config: ConfigureReadmeConfig): void;
@@ -43,8 +43,8 @@ export function withReadme(
 
 // WithDocs Types
 export interface CustomComponents {
-  PreviewComponent: (props: { children: JSX.Element }) => JSX.Element;
-  FooterComponent: (props: { children: JSX.Element }) => JSX.Element;
+  PreviewComponent?: (props: { children: JSX.Element }) => JSX.Element;
+  FooterComponent?: (props: { children: JSX.Element }) => JSX.Element;
 }
 
 export function withDocs(
