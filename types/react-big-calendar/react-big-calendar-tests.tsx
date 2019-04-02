@@ -85,6 +85,24 @@ class CalendarResource {
     ReactDOM.render(<DnD localizer={localizer} />, document.body);
 }
 
+// overriding 'views' props
+{
+    const DaySFC: React.SFC = () => null;
+    // supplying object to 'views' prop with only some of the supported views.
+    // A view can be a boolean or an SFC
+    ReactDOM.render(<BigCalendar
+                        views={{
+                            day: DaySFC,
+                            work_week: true
+                        }}
+    />, document.body);
+}
+
+// options 'views' prop
+{
+    ReactDOM.render(<BigCalendar />, document.body);
+}
+
 {
     class MyCalendar extends BigCalendar<CalendarEvent, CalendarResource> {}
 

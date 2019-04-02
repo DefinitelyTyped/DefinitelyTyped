@@ -20,15 +20,21 @@ export type stringOrDate = string | Date;
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
 export type Views = View[] | {
-    day: boolean | React.SFC | React.Component,
-    agenda: boolean | React.SFC | React.Component,
-    month: boolean | React.SFC | React.Component,
-    week: boolean | React.SFC | React.Component,
-    work_week: boolean | React.SFC | React.Component
+    work_week?: boolean | React.SFC | React.Component,
+    day?: boolean | React.SFC | React.Component,
+    agenda?: boolean | React.SFC | React.Component,
+    month?: boolean | React.SFC | React.Component,
+    week?: boolean | React.SFC | React.Component
 };
 export type Navigate = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 
-export type Event = object;
+export interface Event {
+    allDay?: boolean;
+    title: string;
+    start: Date;
+    end: Date;
+    resource?: any;
+}
 export interface DateRange {
     start: Date;
     end: Date;
@@ -230,8 +236,8 @@ export class DateLocalizer {
     format(value: FormatInput, format: string, culture: Culture): string;
 }
 
-export interface BigCalendarProps<TEvent extends Event = Event, TResource extends object = object> extends React.Props<BigCalendar<TEvent, TResource>> {
-    localizer: DateLocalizer;
+export interface BigCalendarProps<TEvent extends Event = Event, TResource extends object = object> {
+    localizer?: DateLocalizer;
 
     date?: stringOrDate;
     getNow?: () => Date;
