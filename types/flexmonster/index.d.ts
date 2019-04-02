@@ -485,6 +485,8 @@ declare namespace Flexmonster {
         maxSymbols?: number;
         currencySymbol?: string;
         currencySymbolAlign?: string;
+        negativeCurrencyFormat?: string;
+        positiveCurrencyFormat?: string;
         nullValue?: string;
         infinityValue?: string;
         divideByZeroValue?: string;
