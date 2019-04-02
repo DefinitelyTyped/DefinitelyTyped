@@ -3,6 +3,7 @@ import Array from '@ember/array';
 import EmberObject from '@ember/object';
 import Controller from '@ember/controller';
 import Transition from '@ember/routing/-private/transition';
+import { assertType } from './lib/assert';
 
 class Post extends EmberObject {}
 
@@ -109,6 +110,9 @@ Route.extend({
         this.controllerFor('application').set('model', model);
     },
 });
+
+const route = Route.create();
+route.controllerFor('whatever'); // $ExpectType Controller
 
 class RouteUsingClass extends Route.extend({
     randomProperty: 'the .extend + extends bit type-checks properly',

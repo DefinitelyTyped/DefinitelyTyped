@@ -46,10 +46,10 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
     /**
      * Returns the controller of the current route, or a parent (or any
      * ancestor) route in a route hierarchy.
-     * 
+     *
      * The controller instance must already have been created, either through
      * entering the associated route or using `generateController`.
-     * 
+     *
      * @param name the name of the route or controller
      */
     controllerFor(name: string): Controller;
