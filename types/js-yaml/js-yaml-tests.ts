@@ -104,7 +104,7 @@ type.resolve;
 type.construct;
 // $ExpectType object | null
 type.instanceOf;
-// $ExpectType (data:object) => boolean | null
+// $ExpectType ((data: object) => boolean) | null
 type.predicate;
 // $ExpectType ((data: object) => any) | { [x: string]: (data: object) => any; } | null
 type.represent;
