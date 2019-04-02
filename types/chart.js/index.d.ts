@@ -146,8 +146,8 @@ declare namespace Chart {
     }
 
     interface ChartTooltipItem {
-        xLabel?: string;
-        yLabel?: string;
+        xLabel?: string | number;
+        yLabel?: string | number;
         datasetIndex?: number;
         index?: number;
     }
