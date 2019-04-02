@@ -106,7 +106,7 @@ export namespace AmCharts {
      * @param types - Which chart types should call this method. Defaults to all
      * if none is passed.
      */
-    function addInitHandler(handler: () => {}, types?: string[]): any;
+    function addInitHandler(handler: (chart: AmChart) => void, types?: string[]): any;
 
     class AmAngularGauge extends _AmAngularGauge { }
     class AmBalloon extends _AmBalloon { }
