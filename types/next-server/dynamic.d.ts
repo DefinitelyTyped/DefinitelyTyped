@@ -25,14 +25,14 @@ interface NextDynamicOptionsBase extends Omit<LoadableOptions, "loading" | "modu
 }
 
 // Dynamic loader options with `loader` key.
-interface NextDynamicLoaderOptions<P = {}> extends NextDynamicOptionsBase {
+interface NextDynamicLoaderOptions<P extends {}> extends NextDynamicOptionsBase {
     loader?: AsyncComponentLoader<P>;
 }
 
 // Dynamic loader options for mapped modules.
 // Note: this currently requires the mapped props of each loaded component to exist.
 // See tests for an example.
-interface NextModuleMapOptions<P, E extends { [key: string]: any }> extends NextDynamicOptionsBase {
+interface NextModuleMapOptions<P extends {}, E extends { [key: string]: any }> extends NextDynamicOptionsBase {
     modules: () => {
         [P in keyof E]: AsyncComponentLoader<E[P]>
     };
@@ -46,17 +46,17 @@ interface NextModuleMapOptions<P, E extends { [key: string]: any }> extends Next
  * https://github.com/zeit/next.js/blob/7.0.0/lib/dynamic.js#L55
  */
 declare function dynamic<
-    P = {},
-    E = { [key: string]: any }
+    P extends {},
+    E extends { [key: string]: any }
 >(options: NextModuleMapOptions<P, E>): DynamicComponent<P>;
-declare function dynamic<P = {}>(
+declare function dynamic<P extends {}>(
     options: NextDynamicLoaderOptions<P>
 ): DynamicComponent<P>;
-declare function dynamic<P = {}>(
+declare function dynamic<P extends {}>(
     asyncModule: AsyncComponentLoader<P> | AsyncComponent<P>,
     options: NextDynamicOptionsBase
 ): DynamicComponent<P>;
-declare function dynamic<P = {}>(
+declare function dynamic<P extends {}>(
     asyncModuleOrOptions: AsyncComponentLoader<P> | AsyncComponent<P> | NextDynamicOptionsBase,
     options?: any
 ): DynamicComponent<P>;

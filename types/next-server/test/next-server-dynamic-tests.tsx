@@ -28,22 +28,12 @@ const Test2 = dynamic(() => asyncComponent, {
 const test2JSX = <Test2 foo />;
 
 // 4. With Multiple Modules At Once
-// For type safety, define component type in a mapped interface, and pass it into the
-// second generic.
-interface MappedModuleProps {
-    Hello1: {
-        foo?: boolean;
-    };
-    Hello2: {
-        bar?: boolean;
-    };
-}
 interface BundleComponentProps {
     foo: string;
     bar?: boolean;
 }
 
-const HelloBundle = dynamic<BundleComponentProps, MappedModuleProps>({
+const HelloBundle = dynamic({
     modules: () => {
         const components = {
             Hello1: () => asyncComponent,
@@ -52,7 +42,7 @@ const HelloBundle = dynamic<BundleComponentProps, MappedModuleProps>({
 
         return components;
     },
-    render: (props, { Hello1, Hello2 }) => (
+    render: (props: BundleComponentProps, { Hello1, Hello2 }) => (
         <div>
             <h1>{props.foo}</h1>
             <Hello1 foo />
