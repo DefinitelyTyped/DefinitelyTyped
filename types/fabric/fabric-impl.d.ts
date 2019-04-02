@@ -2030,10 +2030,11 @@ export class Group {
 	constructor(objects?: Object[], options?: IGroupOptions, isAlreadyGrouped?: boolean);
 	/**
 	 * Adds an object to a group; Then recalculates group's dimension, position.
+     * @param [Object] object
 	 * @return thisArg
 	 * @chainable
 	 */
-	addWithUpdate(object: Object): Group;
+	addWithUpdate(object?: Object): Group;
 	/**
 	 * Removes an object from a group; Then recalculates group's dimension, position.
 	 * @return thisArg
