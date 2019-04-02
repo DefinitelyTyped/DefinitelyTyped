@@ -3,7 +3,7 @@ import { TransitionActions, TransitionProps } from "./Transition";
 
 declare namespace TransitionGroup {
     interface IntrinsicTransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div"> extends TransitionActions {
-        component?: T|null;
+        component?: T | null;
     }
 
     interface ComponentTransitionGroupProps<T extends ReactType> extends TransitionActions {
@@ -12,10 +12,10 @@ declare namespace TransitionGroup {
 
     type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div", V extends ReactType = any> =
         (IntrinsicTransitionGroupProps<T> & JSX.IntrinsicElements[T]) | (ComponentTransitionGroupProps<V>) & {
-        children?: ReactElement<TransitionProps> | Array<ReactElement<TransitionProps>>;
-        childFactory?(child: ReactElement): ReactElement;
-        [prop: string]: any;
-    };
+            children?: ReactElement<TransitionProps> | Array<ReactElement<TransitionProps>>;
+            childFactory?(child: ReactElement<TransitionProps>): ReactElement<TransitionProps>;
+            [prop: string]: any;
+        };
 }
 
 /**
@@ -75,6 +75,6 @@ declare namespace TransitionGroup {
  * components. This means you can mix and match animations across different
  * list items.
  */
-declare class TransitionGroup extends Component<TransitionGroup.TransitionGroupProps> {}
+declare class TransitionGroup extends Component<TransitionGroup.TransitionGroupProps> { }
 
 export = TransitionGroup;
