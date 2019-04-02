@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import * as stream from "stream";
+import * as stream from 'stream';
 
 export interface WritableStreamBufferOptions extends stream.WritableOptions {
     initialSize?: number;
