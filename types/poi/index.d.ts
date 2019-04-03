@@ -187,6 +187,7 @@ export class Poi {
 
     cli: CAC;
 
+    /** The current running command */
     command: CAC["command"];
 
     config: Config;
@@ -197,6 +198,7 @@ export class Poi {
 
     constructor(argv?: string[]);
 
+    /** Check if a package is included in the `dependencies` or `devDependencies` field your `package.json` */
     hasDependency(name: string): boolean;
 
     hasPlugin(name: string): boolean;
