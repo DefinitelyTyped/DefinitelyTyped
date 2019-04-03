@@ -1,6 +1,7 @@
 // Type definitions for node-pushnotifications 1.0
 // Project: https://github.com/appfeel/node-pushnotifications
 // Definitions by: Menushka Weeratunga <https://github.com/menushka>
+//                 Julian Hundeloh <https://github.com/jaulz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.1
@@ -13,8 +14,8 @@ declare class PushNotifications {
 
     setOptions(opts: PushNotifications.Settings): void;
     sendWith(method: PushNotifications.PushMethod, regIds: string[], data: PushNotifications.Data, cb: PushNotifications.Callback): void;
-    send(registrationIds: string[], data: PushNotifications.Data, cb: PushNotifications.Callback): void;
-    send(registrationIds: string[], data: PushNotifications.Data): Promise<any>;
+    send(registrationIds: PushNotifications.RegistrationId|PushNotifications.RegistrationId[], data: PushNotifications.Data, cb: PushNotifications.Callback): void;
+    send(registrationIds: PushNotifications.RegistrationId|PushNotifications.RegistrationId[], data: PushNotifications.Data): Promise<any>;
 }
 
 declare namespace PushNotifications {
@@ -177,4 +178,11 @@ declare namespace PushNotifications {
     }
     type PushMethod = (regIds: string[], data: Data, settings: Settings) => void;
     type Callback = (err: any, result: any) => void;
+    type RegistrationId = string | {
+        endpoint: string,
+        keys: {
+            auth: string,
+            p256dh: string
+        }
+    }
 }

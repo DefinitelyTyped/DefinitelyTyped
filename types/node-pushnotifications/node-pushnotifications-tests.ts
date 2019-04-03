@@ -26,6 +26,13 @@ const push = new PushNotifications(settings);
 const registrationIds = [];
 registrationIds.push('INSERT_YOUR_DEVICE_ID');
 registrationIds.push('INSERT_OTHER_DEVICE_ID');
+registrationIds.push({
+    endpoint: 'https://fcm.googleapis.com/fcm/send/...',
+    keys: {
+        auth: '...',
+        p256dh: '...'
+    }
+});
 
 const data = {
     title: 'New push notification',
@@ -41,8 +48,8 @@ push.send(registrationIds, data, (err, result) => {
     }
 });
 
-// Or you could use it as a promise:
-push.send(registrationIds, data)
+// Or you could use it as a promise and send only a single notifications:
+push.send(registrationIds[0], data)
     .then((results) => {
         console.log(results);
     })
