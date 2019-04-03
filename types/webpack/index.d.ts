@@ -45,7 +45,7 @@ declare function webpack(options: webpack.Configuration[]): webpack.MultiCompile
 
 declare namespace webpack {
     /** Webpack package version.  */
-    const version: string | void;
+    const version: string | undefined;
     
     interface Configuration {
         /** Enable production optimizations or development hints. */
