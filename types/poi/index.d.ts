@@ -50,6 +50,7 @@ export namespace Config {
         fileNames?: Output.FileNames;
         target?:
             | "web"
+            | "electron"
             | "electron-renderer"
             | "electron-main"
             | "node"
@@ -66,12 +67,14 @@ export namespace Config {
             image?: string;
         }
 
-        interface Html {
+        interface HtmlOptions {
             title?: string;
             filename?: string;
             template?: string;
             inject?: boolean;
         }
+
+        type Html = boolean | HtmlOptions;
     }
 
     interface Pages {
@@ -86,6 +89,14 @@ export namespace Config {
     interface Babel {
         jsx?: string;
         transpileModules?: string | string[];
+        namedImports?: string | Babel.NamedImportsOptions;
+    }
+    namespace Babel {
+        interface NamedImportsOptions {
+            [fileExt: string]: {
+                [ComponentName: string]: string;
+            };
+        }
     }
 
     interface Css {
@@ -129,11 +140,11 @@ export namespace Config {
         host?: string;
         port?: string | number;
         hot?: boolean;
-        hotOnly?: string;
+        hotOnly?: boolean;
         hotEntries?: string[];
         historyApiFallback?: WebpackDevServerConfig["historyApiFallback"];
         open?: boolean;
-        proxy?: WebpackDevServerConfig["proxy"];
+        proxy?: string | WebpackDevServerConfig["proxy"];
         https?: WebpackDevServerConfig["https"];
         before?: WebpackDevServerConfig["before"];
         after?: WebpackDevServerConfig["after"];
