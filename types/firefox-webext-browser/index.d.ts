@@ -1,4 +1,4 @@
-// Type definitions for non-npm package WebExtension Development in FireFox 65.0
+// Type definitions for non-npm package WebExtension Development in FireFox 67.0
 // Project: https://developer.mozilla.org/en-US/Add-ons/WebExtensions
 // Definitions by: Jasmin Bom <https://github.com/jsmnbom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -112,7 +112,7 @@ declare namespace browser._manifest {
         minimum_chrome_version?: string;
         minimum_opera_version?: string;
         icons?: {
-            [key: number]: string;
+            [key: number]: ExtensionFileUrl;
         };
         incognito?: _WebExtensionManifestIncognito;
         background?: {
@@ -363,6 +363,8 @@ declare namespace browser._manifest {
 
     type ExtensionURL = string;
 
+    type ExtensionFileUrl = string;
+
     type ImageDataOrExtensionURL = string;
 
     type ExtensionID = string;
@@ -414,8 +416,8 @@ declare namespace browser._manifest {
     }
 
     type IconPath = {
-        [key: number]: ExtensionURL;
-    } | ExtensionURL;
+        [key: number]: ExtensionFileUrl;
+    } | ExtensionFileUrl;
 
     type IconImageData = {
         [key: number]: ImageData;
@@ -426,8 +428,7 @@ declare namespace browser._manifest {
     /** @deprecated An unexpected property was found in the WebExtension manifest. */
     type UnrecognizedProperty = any;
 
-    /** @deprecated Event pages are not currently supported. This will run as a persistent background page. */
-    type PersistentBackgroundProperty = boolean;
+    type PersistentBackgroundProperty = _PersistentBackgroundProperty;
 
     /** Represents a native manifest file */
     type NativeManifest = {
@@ -502,6 +503,8 @@ declare namespace browser._manifest {
             sidebar_text?: ThemeColor;
             sidebar_highlight?: ThemeColor;
             sidebar_highlight_text?: ThemeColor;
+            toolbar_field_highlight?: ThemeColor;
+            toolbar_field_highlight_text?: ThemeColor;
         };
         icons?: {
             back?: ExtensionURL;
@@ -648,7 +651,7 @@ declare namespace browser._manifest {
         | "pkcs11"
         | "sessions";
 
-    type _WebExtensionManifestIncognito = "spanning";
+    type _WebExtensionManifestIncognito = "not_allowed" | "spanning";
 
     /** Defines the location the browserAction will appear by default. The default location is navbar. */
     type _WebExtensionManifestBrowserActionDefaultArea =
@@ -696,6 +699,8 @@ declare namespace browser._manifest {
         | "xmpp";
 
     type _MatchPattern = "<all_urls>";
+
+    type _PersistentBackgroundProperty = "undefined" | "undefined";
 
     type _ThemeTypeAdditionalBackgroundsAlignment =
         "bottom"
@@ -1315,7 +1320,7 @@ declare namespace browser.downloads {
         /** Indication of whether this download is thought to be safe or known to be suspicious. */
         danger: DangerType;
         /** The file's MIME type. */
-        mime: string;
+        mime?: string;
         /** Number of milliseconds between the unix epoch and when this download began. */
         startTime: string;
         /** Number of milliseconds between the unix epoch and when this download ended. */
@@ -2904,10 +2909,10 @@ declare namespace browser.runtime {
     /**
      * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and
      * implement surveys. Maximum 255 characters.
-     * @param url URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme.
+     * @param [url] URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme.
      *     Set an empty string to not open a new tab upon uninstallation.
      */
-    function setUninstallURL(url: string): Promise<void>;
+    function setUninstallURL(url?: string): Promise<void>;
 
     /** Reloads the app or extension. */
     function reload(): void;
@@ -3262,7 +3267,7 @@ declare namespace browser.telemetry {
         usePingSender?: boolean;
     }): Promise<any>;
 
-    /** Checks if Telemetry is enabled. */
+    /** Checks if Telemetry upload is enabled. */
     function canUpload(): Promise<any>;
 
     /**
