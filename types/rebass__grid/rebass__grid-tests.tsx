@@ -106,6 +106,9 @@ const test = () => (
         <Box alignSelf="center" />
         <Box alignSelf={["center"]} />
         <Box alignSelf={{ sm: "center" }} />
+        // as
+        <Box as="span" />
+        <Box as={Layout} />
     </div>
 );
 
