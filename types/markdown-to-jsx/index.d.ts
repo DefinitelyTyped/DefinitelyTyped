@@ -10,6 +10,8 @@ export default class Markdown extends React.Component<MarkdownProps> { }
 
 export interface MarkdownProps {
     options?: MarkdownOptions;
+    // React.ReactNode contains both null and undefined
+    // tslint:disable-next-line:no-null-undefined-union
     children?: React.ReactNode;
 }
 
@@ -66,7 +68,10 @@ export interface MarkdownOptions {
     /** Custom React.createElement behavior. */
     createElement?: <P extends {}>(
         type: React.SFC<P> | React.ComponentClass<P> | string,
+        // This typing is copied from React
+        // tslint:disable-next-line:no-null-undefined-union
         props?: React.Attributes & P | null,
+        // tslint:disable-next-line:no-null-undefined-union
         ...children: React.ReactNode[]) => React.ReactElement<P>;
 
     /** Custom function to generate an HTML id from headings. */
