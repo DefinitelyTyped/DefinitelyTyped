@@ -1898,7 +1898,7 @@ export namespace Suppression {
 }
 
 /**
- * TBD
+ * A set of threadFlowsLocations which together describe the progress of a program through a thread of execution.
  */
 export interface ThreadFlow {
     /**
