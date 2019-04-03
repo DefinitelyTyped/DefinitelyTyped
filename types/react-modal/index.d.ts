@@ -68,7 +68,7 @@ declare namespace ReactModal {
         onAfterClose?(): void;
 
         /* Function that will be run when the modal is requested to be closed, prior to actually closing. */
-        onRequestClose?(event: (MouseEvent | KeyboardEvent)): void;
+        onRequestClose?(event: (React.MouseEvent | React.KeyboardEvent)): void;
 
         /* Number indicating the milliseconds to wait before closing the modal. Defaults to zero (no timeout). */
         closeTimeoutMS?: number;
