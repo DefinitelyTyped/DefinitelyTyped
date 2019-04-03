@@ -22,6 +22,7 @@
 //                 Paul Sherman <https://github.com/pshrmn>
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -42,6 +43,15 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
+
+/**
+ * defined in scheduler/tracing
+ */
+interface SchedulerInteraction {
+    id: number;
+    name: string;
+    timestamp: number;
+}
 
 // tslint:disable-next-line:export-just-namespace
 export = React;
@@ -355,6 +365,26 @@ declare namespace React {
      */
     const Suspense: ExoticComponent<SuspenseProps>;
     const version: string;
+
+    /**
+     * {@link https://github.com/bvaughn/rfcs/blob/profiler/text/0000-profiler.md#detailed-design | API}
+     */
+    type ProfilerOnRenderCallback = (
+        id: string,
+        phase: "mount" | "update",
+        actualDuration: number,
+        baseDuration: number,
+        startTime: number,
+        commitTime: number,
+        interactions: Set<SchedulerInteraction>,
+    ) => void;
+    interface ProfilerProps {
+        children?: ReactNode;
+        id: string;
+        onRender: ProfilerOnRenderCallback;
+    }
+
+    const unstable_Profiler: ExoticComponent<ProfilerProps>;
 
     //
     // Component API
