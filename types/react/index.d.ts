@@ -1312,6 +1312,8 @@ declare namespace React {
         onWaitingCapture?: ReactEventHandler<T>;
 
         // MouseEvents
+        onAuxClick?: MouseEventHandler<T>;
+        onAuxClickCapture?: MouseEventHandler<T>;
         onClick?: MouseEventHandler<T>;
         onClickCapture?: MouseEventHandler<T>;
         onContextMenu?: MouseEventHandler<T>;
