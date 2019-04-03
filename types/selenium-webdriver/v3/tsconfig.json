@@ -7,12 +7,20 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": false,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": false,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "selenium-webdriver": [
+                "selenium-webdriver/v3"
+            ],
+            "selenium-webdriver/*": [
+                "selenium-webdriver/v3/*"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -24,11 +32,14 @@
         "firefox.d.ts",
         "http.d.ts",
         "ie.d.ts",
+        "opera.d.ts",
         "remote.d.ts",
         "safari.d.ts",
+        "testing.d.ts",
         "test/index.ts",
         "test/chrome.ts",
         "test/firefox.ts",
-        "test/remote.ts"
+        "test/remote.ts",
+        "test/testing.ts"
     ]
 }
