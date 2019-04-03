@@ -7,38 +7,160 @@
 import * as React from "react";
 
 export interface EventObject {
-  item: number;
-  slide: number;
-  itemsInSlide: number;
+    item: number;
+    slide: number;
+    itemsInSlide: number;
 }
 
 export interface Props {
-  items?: Array<{}>;
-  onSlideChange?: (e: EventObject) => void;
-  onSlideChanged?: (e: EventObject) => void;
-  onInitialized?: (e: EventObject) => void;
-  onResized?: (e: EventObject) => void;
-  keysControlDisabled?: boolean;
-  playButtonEnabled?: boolean;
-  buttonsDisabled?: boolean;
-  dotsDisabled?: boolean;
-  swipeDisabled?: boolean;
-  responsive?: {};
-  stagePadding?: {};
-  duration?: number;
-  startIndex?: number;
-  slideToIndex?: number;
-  autoPlay?: boolean;
-  infinite?: boolean;
-  mouseDragEnabled?: boolean;
-  fadeOutAnimation?: boolean;
-  autoPlayInterval?: number;
-  autoPlayDirection?: string;
-  disableAutoPlayOnAction?: boolean;
-  autoPlayActionDisabled?: boolean;
-  stopAutoPlayOnHover?: boolean;
-  showSlideInfo?: false;
-  preventEventOnTouchMove?: false;
+    /**
+    * Gallery items, preferable to use this property instead of children
+    *
+    * Default: [].
+    */
+    items?: Array<{}>;
+    /**
+    * Number of items in the slide.
+    *
+    * Default: {}.
+    */
+    responsive?: {};
+    /**
+    * Padding left and right on the stage
+    *
+    * Default: {}.
+    */
+    stagePadding?: {};
+    /**
+    * Disable keys controls (left, right, space)
+    *
+    * Default: false.
+    */
+    keysControlDisabled?: boolean;
+    /**
+    * Disable play/pause button
+    *
+    * Default: false.
+    */
+    playButtonEnabled?: boolean;
+    /**
+    * Disable buttons control
+    *
+    * Default: false.
+    */
+    buttonsDisabled?: boolean;
+    /**
+    * Disable dots navigation
+    *
+    * Default: false.
+    */
+    dotsDisabled?: boolean;
+    /**
+    * Disable swipe handlers
+    *
+    * Default: false.
+    */
+    swipeDisabled?: boolean;
+    /**
+    * Duration of slides transition (milliseconds)
+    *
+    * Default: 250.
+    */
+    duration?: number;
+    /**
+    * The starting index of the carousel
+    *
+    * Default: 0.
+    */
+    startIndex?: number;
+    /**
+    * Sets the carousel at the specified position
+    *
+    * Default: 0.
+    */
+    slideToIndex?: number;
+    /**
+    *  Set auto play mode
+    *
+    * Default: false.
+    */
+    autoPlay?: boolean;
+    /**
+    * Disable infinite mode
+    *
+    * Default: true.
+    */
+    infinite?: boolean;
+    /**
+    * Enable mouse drag animation
+    *
+    * Default: false.
+    */
+    mouseDragEnabled?: boolean;
+    /**
+    * Enable fadeout animation. Fired when 1 item is in the slide
+    *
+    * Default: false.
+    */
+    fadeOutAnimation?: boolean;
+    /**
+    * Interval of auto play animation (milliseconds). If specified, a larger value will be taken from comparing this property and the duration one
+    *
+    * Default: 250.
+    */
+    autoPlayInterval?: number;
+    /**
+    * To run auto play in the left direction specify rtl value
+    *
+    * Default: 'ltr'.
+    */
+    autoPlayDirection?: string;
+    /**
+    * If this property is identified as true auto play animation will be stopped after clicking user on any gallery button
+    *
+    * Default: false.
+    */
+    disableAutoPlayOnAction?: boolean;
+    /**
+    * If this property is identified as true auto play animation will be stopped after clicking user on any gallery button
+    *
+    * Default: false.
+    */
+    autoPlayActionDisabled?: boolean;
+    /**
+    * If this property is identified as false auto play animation won't stopped on hover
+    *
+    * Default: true.
+    */
+    stopAutoPlayOnHover?: boolean;
+    /**
+    * Show slide info
+    *
+    * Default: false.
+    */
+    showSlideInfo?: false;
+    /**
+    * Prevent the browser's touchmove event when carousel is swiping
+    *
+    * Default: false.
+    */
+    preventEventOnTouchMove?: false;
+    /**
+    * Fired when the event object is changing / returns event object
+    */
+    onSlideChange?: (e: EventObject) => void;
+    /**
+    * Fired when the event object was changed / returns event object
+    */
+    onSlideChanged?: (e: EventObject) => void;
+    /**
+    * Fired when the gallery was initialized / returns event object
+    */
+    onInitialized?: (e: EventObject) => void;
+    /**
+    * Fired when the gallery was resized / returns event object
+    */
+    onResized?: (e: EventObject) => void;
 }
 
-export default class Carousel extends React.PureComponent<Props> {}
+export default class ReactAliceCarousel extends React.PureComponent<Props> {}
