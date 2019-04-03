@@ -184,5 +184,5 @@ declare namespace PushNotifications {
             auth: string,
             p256dh: string
         }
-    }
+    };
 }
