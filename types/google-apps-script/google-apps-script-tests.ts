@@ -41,14 +41,13 @@ const postTest = (payload: Object): string => {
 Slides_v1.Presentations.Pages.getThumbnail('presentationId', 'pageId');
 
 // Calendar (Advanced service)
-declare const Calendar: GoogleAppsScript.Calendar_v3;
 const createEvent = (): void => {
   const calendarId = 'primary';
   const start = new Date();
   const end = new Date();
   start.setHours(10);
   end.setHours(11);
-  let event: GoogleAppsScript.Calendar_v3.Schema.Event = {
+  let event: GoogleAppsScript.Calendar.Schema.Event = {
     summary: 'Lunch Meeting',
     location: 'The Deli',
     description: 'To discuss our plans for the presentation next week.',
@@ -70,11 +69,9 @@ const createEvent = (): void => {
 }
 
 // Admin Directory (Advanced service)
-declare const AdminDirectory: GoogleAppsScript.Admin_directory_v1;
-
 const listAllUsers = () => {
   let pageToken: string;
-  let page: GoogleAppsScript.Admin_directory_v1.Schema.Users;
+  let page: GoogleAppsScript.AdminDirectory.Schema.Users;
   do {
     page = AdminDirectory.Users.list({
       domain: 'example.com',
@@ -82,7 +79,7 @@ const listAllUsers = () => {
       maxResults: 100,
       pageToken: pageToken
     });
-    const users: GoogleAppsScript.Admin_directory_v1.Schema.User[] = page.users;
+    const users: GoogleAppsScript.AdminDirectory.Schema.User[] = page.users;
     if (users) {
       for (const user of users) {
         Logger.log('%s (%s)', user.name.fullName, user.primaryEmail);
