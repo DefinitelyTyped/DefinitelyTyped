@@ -9,8 +9,6 @@ type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 type AsyncComponent<P = any> = Promise<React.ComponentType<P> | { default: React.ComponentType<P> }>;
 type AsyncComponentLoader<P = any> = () => AsyncComponent<P>;
-type ModuleMapping<P = any> = Record<string, AsyncComponent<P> | AsyncComponentLoader<P>>;
-type LoadedModuleMapping = Record<string, React.ComponentType>;
 
 type DynamicComponent<P> = React.ComponentType<P> & LoadableComponent;
 
