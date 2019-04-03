@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace HummusRecipe {
-    interface IRecipeOptions {
+    interface RecipeOptions {
         version?: number;
         author?: string;
         title?: string;
@@ -12,7 +12,7 @@ declare namespace HummusRecipe {
         keywords?: string[];
     }
 
-    interface ICommentOptions {
+    interface CommentOptions {
         title?: string;
         date?: string;
         open?: boolean;
@@ -29,7 +29,7 @@ declare namespace HummusRecipe {
             | "togglenoview";
     }
 
-    interface IAnotOptions {
+    interface AnotOptions {
         title?: string;
         open?: boolean;
         richText?: boolean;
@@ -55,13 +55,13 @@ declare namespace HummusRecipe {
         height?: number;
     }
 
-    interface IEncryptOptions {
+    interface EncryptOptions {
         password?: string;
         ownerPassword?: string;
         userProtectionFlag?: number;
     }
 
-    interface IImageOptions {
+    interface ImageOptions {
         width?: number;
         height?: number;
         scale?: number;
@@ -70,7 +70,7 @@ declare namespace HummusRecipe {
         align?: string;
     }
 
-    interface IInfoOptions {
+    interface InfoOptions {
         version?: string;
         author?: string;
         title?: string;
@@ -78,14 +78,14 @@ declare namespace HummusRecipe {
         keywords?: string[];
     }
 
-    interface IOverlayOptions {
+    interface OverlayOptions {
         scale?: number;
         keepAspectRatio?: boolean;
         fitWidth?: boolean;
         fitHeight?: boolean;
     }
 
-    interface ITextBoxStyle {
+    interface TextBoxStyle {
         lineWidth?: number;
         stroke?: string | number[];
         dash?: number[];
@@ -93,17 +93,17 @@ declare namespace HummusRecipe {
         opacity?: number;
     }
 
-    interface ITextBox {
+    interface TextBox {
         width?: number;
         height?: number;
         minHeight?: number;
         padding?: number | number[];
         lineHeight?: number;
         textAlign?: string;
-        style?: ITextBoxStyle;
+        style?: TextBoxStyle;
     }
 
-    interface ITextOptions {
+    interface TextOptions {
         color?: string | number[];
         opacity?: number;
         rotation?: number;
@@ -114,10 +114,10 @@ declare namespace HummusRecipe {
         highlight?: Object | Boolean;
         underline?: Object | Boolean;
         strikeOut?: Object | Boolean;
-        textBox?: ITextBox;
+        textBox?: TextBox;
     }
 
-    interface ILineToOptions {
+    interface LineToOptions {
         color?: string | number[];
         stroke?: string | number[];
         fill?: string | number[];
@@ -126,23 +126,14 @@ declare namespace HummusRecipe {
         dash?: number[];
     }
 
-    interface ILineOptions {
+    interface LineOptions {
         color?: string | number[];
         stroke?: string | number[];
         lineWidth?: number;
         dash?: number[];
     }
 
-    interface IPolygonOptions {
-        color?: string | number[];
-        stroke?: string | number[];
-        fill?: string | number[];
-        lineWidth?: number;
-        opacity?: number;
-        dash?: number[];
-    }
-
-    interface ICircleOptions {
+    interface PolygonOptions {
         color?: string | number[];
         stroke?: string | number[];
         fill?: string | number[];
@@ -151,7 +142,16 @@ declare namespace HummusRecipe {
         dash?: number[];
     }
 
-    interface IRactangleOptions {
+    interface CircleOptions {
+        color?: string | number[];
+        stroke?: string | number[];
+        fill?: string | number[];
+        lineWidth?: number;
+        opacity?: number;
+        dash?: number[];
+    }
+
+    interface RectangleOptions {
         color?: string | number[];
         stroke?: string | number[];
         fill?: string | number[];
@@ -167,14 +167,14 @@ declare class HummusRecipe {
     constructor(
         src: string,
         output: string,
-        options?: HummusRecipe.IRecipeOptions
+        options?: HummusRecipe.RecipeOptions
     );
 
     comment(
         text: string,
         x: number,
         y: number,
-        options?: HummusRecipe.ICommentOptions
+        options?: HummusRecipe.CommentOptions
     ): HummusRecipe;
 
     annot(
@@ -197,12 +197,12 @@ declare class HummusRecipe {
             | "Ink"
             | "FileAttachment"
             | "Sound",
-        options?: HummusRecipe.IAnotOptions
+        options?: HummusRecipe.AnotOptions
     ): HummusRecipe;
 
     appendPage(pdfSrc: string, pages: number | number[]): HummusRecipe;
 
-    encrypt(options: HummusRecipe.IEncryptOptions): HummusRecipe;
+    encrypt(options: HummusRecipe.EncryptOptions): HummusRecipe;
 
     registerFont(fontName: string, fontSrcPath: string): HummusRecipe;
 
@@ -210,10 +210,10 @@ declare class HummusRecipe {
         imgSrc: string,
         x: number,
         y: number,
-        options?: HummusRecipe.IImageOptions
+        options?: HummusRecipe.ImageOptions
     ): HummusRecipe;
 
-    info(options?: HummusRecipe.IInfoOptions): HummusRecipe;
+    info(options?: HummusRecipe.InfoOptions): HummusRecipe;
 
     custom(key?: string, value?: string): HummusRecipe;
 
@@ -227,7 +227,7 @@ declare class HummusRecipe {
         pdfSrc: string,
         x: number,
         y: number,
-        options?: HummusRecipe.IOverlayOptions
+        options?: HummusRecipe.OverlayOptions
     ): HummusRecipe;
 
     createPage(pageWidth: number, pageHeight: number): HummusRecipe;
@@ -244,7 +244,7 @@ declare class HummusRecipe {
         text: string,
         x: number,
         y: number,
-        options?: HummusRecipe.ITextOptions
+        options?: HummusRecipe.TextOptions
     ): HummusRecipe;
 
     moveTo(x: number, y: number): HummusRecipe;
@@ -252,24 +252,24 @@ declare class HummusRecipe {
     lineTo(
         x: number,
         y: number,
-        options?: HummusRecipe.ILineToOptions
+        options?: HummusRecipe.LineToOptions
     ): HummusRecipe;
 
     line(
         coordinates: number[],
-        options?: HummusRecipe.ILineOptions
+        options?: HummusRecipe.LineOptions
     ): HummusRecipe;
 
     polygon(
         coordinates: number[][],
-        options?: HummusRecipe.IPolygonOptions
+        options?: HummusRecipe.PolygonOptions
     ): HummusRecipe;
 
     circle(
         x: number,
         y: number,
         radius: number,
-        options?: HummusRecipe.ICircleOptions
+        options?: HummusRecipe.CircleOptions
     ): HummusRecipe;
 
     rectangle(
@@ -277,7 +277,7 @@ declare class HummusRecipe {
         y: number,
         width: number,
         height: number,
-        options?: HummusRecipe.IRactangleOptions
+        options?: HummusRecipe.RectangleOptions
     ): HummusRecipe;
 
     endPDF(callback?: Function): HummusRecipe;
