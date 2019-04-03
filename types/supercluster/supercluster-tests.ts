@@ -1,4 +1,4 @@
-import Supercluster = require('supercluster');
+import Supercluster from 'supercluster';
 
 //
 // Test 1: strictly typed

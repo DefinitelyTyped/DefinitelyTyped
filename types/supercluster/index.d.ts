@@ -1,4 +1,4 @@
-// Type definitions for supercluster 5.0
+// Type definitions for supercluster 6.0
 // Project: https://github.com/mapbox/supercluster
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 //                 Nick Zahn <https://github.com/Manc>
@@ -172,4 +172,5 @@ declare class Supercluster<P extends GeoJSON.GeoJsonProperties = Supercluster.An
      */
     getClusterExpansionZoom(clusterId: number): number;
 }
-export = Supercluster;
+
+export default Supercluster;
