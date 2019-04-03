@@ -28,8 +28,6 @@ interface NextDynamicLoaderOptions<P extends {}> extends NextDynamicOptionsBase 
 }
 
 // Dynamic loader options for mapped modules.
-// Note: this currently requires the mapped props of each loaded component to exist.
-// See tests for an example.
 interface NextModuleMapOptions<P extends {}, E extends { [key: string]: any }> extends NextDynamicOptionsBase {
     modules: () => {
         [P in keyof E]: AsyncComponentLoader<E[P]>
