@@ -79,6 +79,9 @@ import {
   TabContent,
   Table,
   Tag,
+  Toast,
+  ToastBody,
+  ToastHeader,
   Tooltip,
   Spinner,
   UncontrolledPopover,
@@ -4354,6 +4357,29 @@ function Example126() {
                 <PopoverHeader>Popover Title</PopoverHeader>
                 <PopoverBody>Lorem ipsum dolor sit amet</PopoverBody>
             </UncontrolledPopover>
+        </div>
+    );
+}
+
+function Example127() {
+    return (
+        <div>
+            <Toast>
+                <ToastHeader icon="primary">
+                    Reactstrap
+                </ToastHeader>
+                <ToastBody>
+                    This is a toast with a primary icon — check it out!
+                </ToastBody>
+            </Toast>
+            <Toast fade={false}>
+                <ToastHeader icon={<Spinner/>} toggle={() => {}}>
+                    Reactstrap
+                </ToastHeader>
+                <ToastBody>
+                    This is a toast with a custom icon — check it out!
+                </ToastBody>
+            </Toast>
         </div>
     );
 }

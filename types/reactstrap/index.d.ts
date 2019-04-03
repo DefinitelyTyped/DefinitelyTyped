@@ -1,4 +1,4 @@
-// Type definitions for reactstrap 7.1
+// Type definitions for reactstrap 8.0
 // Project: https://github.com/reactstrap/reactstrap#readme
 // Definitions by: Ali Hammad Baig <https://github.com/alihammad>
 //                 Marco Falkenberg <https://github.com/mfal>
@@ -237,6 +237,15 @@ export { TabPaneProps } from './lib/TabPane';
 import { default as Tag_ } from './lib/Tag';
 export class Tag<T = {}> extends Tag_<T> {}
 export { TagProps } from './lib/Tag';
+import { default as Toast_ } from './lib/Toast';
+export class Toast<T = {}> extends Toast_<T> {}
+export { ToastProps } from './lib/Toast';
+import { default as ToastBody_ } from './lib/ToastBody';
+export class ToastBody<T = {}> extends ToastBody_<T> {}
+export { ToastBodyProps } from './lib/ToastBody';
+import { default as ToastHeader_ } from './lib/ToastHeader';
+export class ToastHeader<T = {}> extends ToastHeader_<T> {}
+export { ToastHeaderProps } from './lib/ToastHeader';
 import { default as Tooltip_ } from './lib/Tooltip';
 export class Tooltip<T = {}> extends Tooltip_<T> {}
 export { TooltipProps } from './lib/Tooltip';
