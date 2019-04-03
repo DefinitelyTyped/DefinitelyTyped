@@ -112,9 +112,9 @@ declare namespace HummusRecipe {
         font?: string;
         size?: number;
         align?: string;
-        highlight?: Object | Boolean;
-        underline?: Object | Boolean;
-        strikeOut?: Object | Boolean;
+        highlight?: boolean;
+        underline?: boolean;
+        strikeOut?: boolean;
         textBox?: TextBox;
     }
 
@@ -281,7 +281,7 @@ declare class HummusRecipe {
         options?: HummusRecipe.RectangleOptions
     ): HummusRecipe;
 
-    endPDF(callback?: Function): HummusRecipe;
+    endPDF(callback?: () => any): HummusRecipe;
 }
 
 declare module "hummus-recipe" {
