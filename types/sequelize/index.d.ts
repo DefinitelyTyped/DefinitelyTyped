@@ -4345,9 +4345,9 @@ declare namespace sequelize {
         nameIndexes(indexes: string[], rawTablename: string): Promise<void>;
 
         /**
-         * Returns all foreign key constraints of a table
+         * Returns all foreign key constraints of each table in list
          */
-        getForeignKeysForTables(tableNames: string, options?: QueryInterfaceOptions): Promise<Object>;
+        getForeignKeysForTables(tableNames: string[], options?: QueryInterfaceOptions): Promise<Object>;
 
         /**
          * Removes an index of a table
