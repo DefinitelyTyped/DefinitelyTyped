@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-declare namespace HummusRecipe {
+export declare namespace Recipe {
     interface RecipeOptions {
         version?: number;
         author?: string;
@@ -164,19 +164,15 @@ declare namespace HummusRecipe {
     }
 }
 
-declare class HummusRecipe {
-    constructor(
-        src: string,
-        output: string,
-        options?: HummusRecipe.RecipeOptions
-    );
+export class Recipe {
+    constructor(src: string, output: string, options?: Recipe.RecipeOptions);
 
     comment(
         text: string,
         x: number,
         y: number,
-        options?: HummusRecipe.CommentOptions
-    ): HummusRecipe;
+        options?: Recipe.CommentOptions
+    ): Recipe;
 
     annot(
         x: number,
@@ -198,92 +194,78 @@ declare class HummusRecipe {
             | "Ink"
             | "FileAttachment"
             | "Sound",
-        options?: HummusRecipe.AnotOptions
-    ): HummusRecipe;
+        options?: Recipe.AnotOptions
+    ): Recipe;
 
-    appendPage(pdfSrc: string, pages: number | number[]): HummusRecipe;
+    appendPage(pdfSrc: string, pages: number | number[]): Recipe;
 
-    encrypt(options: HummusRecipe.EncryptOptions): HummusRecipe;
+    encrypt(options: Recipe.EncryptOptions): Recipe;
 
-    registerFont(fontName: string, fontSrcPath: string): HummusRecipe;
+    registerFont(fontName: string, fontSrcPath: string): Recipe;
 
     image(
         imgSrc: string,
         x: number,
         y: number,
-        options?: HummusRecipe.ImageOptions
-    ): HummusRecipe;
+        options?: Recipe.ImageOptions
+    ): Recipe;
 
-    info(options?: HummusRecipe.InfoOptions): HummusRecipe;
+    info(options?: Recipe.InfoOptions): Recipe;
 
-    custom(key?: string, value?: string): HummusRecipe;
+    custom(key?: string, value?: string): Recipe;
 
     insertPage(
         afterPageNumber: number,
         pdfSrc: string,
         srcPageNumber: number
-    ): HummusRecipe;
+    ): Recipe;
 
     overlay(
         pdfSrc: string,
         x: number,
         y: number,
-        options?: HummusRecipe.OverlayOptions
-    ): HummusRecipe;
+        options?: Recipe.OverlayOptions
+    ): Recipe;
 
-    createPage(pageWidth: number, pageHeight: number): HummusRecipe;
+    createPage(pageWidth: number, pageHeight: number): Recipe;
 
-    endPage(): HummusRecipe;
+    endPage(): Recipe;
 
-    editPage(pageNumber: number): HummusRecipe;
+    editPage(pageNumber: number): Recipe;
 
-    pageInfo(pageNumber: number): HummusRecipe;
+    pageInfo(pageNumber: number): Recipe;
 
-    split(outputDir: string, prefix: string): HummusRecipe;
+    split(outputDir: string, prefix: string): Recipe;
 
     text(
         text: string,
         x: number,
         y: number,
-        options?: HummusRecipe.TextOptions
-    ): HummusRecipe;
+        options?: Recipe.TextOptions
+    ): Recipe;
 
-    moveTo(x: number, y: number): HummusRecipe;
+    moveTo(x: number, y: number): Recipe;
 
-    lineTo(
-        x: number,
-        y: number,
-        options?: HummusRecipe.LineToOptions
-    ): HummusRecipe;
+    lineTo(x: number, y: number, options?: Recipe.LineToOptions): Recipe;
 
-    line(
-        coordinates: number[],
-        options?: HummusRecipe.LineOptions
-    ): HummusRecipe;
+    line(coordinates: number[], options?: Recipe.LineOptions): Recipe;
 
-    polygon(
-        coordinates: number[][],
-        options?: HummusRecipe.PolygonOptions
-    ): HummusRecipe;
+    polygon(coordinates: number[][], options?: Recipe.PolygonOptions): Recipe;
 
     circle(
         x: number,
         y: number,
         radius: number,
-        options?: HummusRecipe.CircleOptions
-    ): HummusRecipe;
+        options?: Recipe.CircleOptions
+    ): Recipe;
 
     rectangle(
         x: number,
         y: number,
         width: number,
         height: number,
-        options?: HummusRecipe.RectangleOptions
-    ): HummusRecipe;
+        options?: Recipe.RectangleOptions
+    ): Recipe;
 
-    endPDF(callback?: () => any): HummusRecipe;
-}
-
-declare module "hummus-recipe" {
-    export = HummusRecipe;
+    endPDF(callback?: () => any): Recipe;
 }
