@@ -38,7 +38,7 @@ const postTest = (payload: Object): string => {
 };
 
 // Advanced Services
-Slides_v1.Presentations.Pages.getThumbnail('presentationId', 'pageId');
+Slides.Presentations.Pages.getThumbnail('presentationId', 'pageId');
 
 // Calendar (Advanced service)
 const createEvent = (): void => {
