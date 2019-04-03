@@ -6,8 +6,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,7 +18,8 @@
     },
     "files": [
         "index.d.ts",
-        "elastic-apm-node-tests.ts",
-        "start.d.ts"
+        "http.d.ts",
+        "https.d.ts",
+        "follow-redirects-tests.ts"
     ]
 }
