@@ -15,6 +15,7 @@ filesize(265318, {standard: "iec"});  // "259.1 KiB"
 filesize(265318, {standard: "iec", fullform: true}); // "259.1 kibibytes"
 filesize(12, {fullform: true, fullforms: ["байтов"]});  // "12 байтов"
 filesize(265318, {separator: ","});   // "259,1 KB"
+filesize(265318, {locale: 'de-DE'});  // "259,1 KB"
 
 const size = filesize.partial({standard: "iec"});
 size(265318);

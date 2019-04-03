@@ -800,14 +800,14 @@ namespace util_tests {
             }
 
             static test(): void {
-                var cfn = util.callbackify(this.fn);
-                var cfnE = util.callbackify(this.fnE);
-                var cfnT1 = util.callbackify(this.fnT1);
-                var cfnT1E = util.callbackify(this.fnT1E);
-                var cfnTResult = util.callbackify(this.fnTResult);
-                var cfnTResultE = util.callbackify(this.fnTResultE);
-                var cfnT1TResult = util.callbackify(this.fnT1TResult);
-                var cfnT1TResultE = util.callbackify(this.fnT1TResultE);
+                var cfn = util.callbackify(callbackifyTest.fn);
+                var cfnE = util.callbackify(callbackifyTest.fnE);
+                var cfnT1 = util.callbackify(callbackifyTest.fnT1);
+                var cfnT1E = util.callbackify(callbackifyTest.fnT1E);
+                var cfnTResult = util.callbackify(callbackifyTest.fnTResult);
+                var cfnTResultE = util.callbackify(callbackifyTest.fnTResultE);
+                var cfnT1TResult = util.callbackify(callbackifyTest.fnT1TResult);
+                var cfnT1TResultE = util.callbackify(callbackifyTest.fnT1TResultE);
 
                 cfn((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
                 cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
@@ -1299,10 +1299,11 @@ namespace tls_tests {
         // close callback parameter is optional
         _server = _server.close();
 
-        // close callback parameter doesn't specify any arguments, so any
-        // function is acceptable
+        // close callback parameter can be either nothing (undefined) or an error
         _server = _server.close(() => { });
-        _server = _server.close((...args: any[]) => { });
+        _server = _server.close((err) => {
+            if (typeof err !== 'undefined') { const _err: Error = err; }
+        });
     }
 
     {
@@ -2788,9 +2789,11 @@ namespace net_tests {
             .ref()
             .unref();
 
-        // close has an optional callback function. No callback parameters are
-        // specified, so any callback function is permissible.
-        server = server.close((...args: any[]) => { });
+        // close callback parameter can be either nothing (undefined) or an error
+        server = server.close(() => { });
+        server = server.close((err) => {
+            if (typeof err !== 'undefined') { const _err: Error = err; }
+        });
 
         // test the types of the address object fields
         let address = server.address();
@@ -3683,8 +3686,7 @@ namespace http2_tests {
             paddingStrategy: 0,
             peerMaxConcurrentStreams: 0,
             selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-            settings,
-            allowHTTP1: true
+            settings
         };
         // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
         let secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);

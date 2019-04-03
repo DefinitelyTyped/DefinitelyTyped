@@ -9,6 +9,7 @@
 //                 Hanna Greaves <https://github.com/sgreav>
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Jack Allen <https://github.com/jackall3n>
+//                 Benjamin Evenson <https://github.com/benjiro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import {
@@ -331,6 +332,7 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     replaceNodeByPath: CoreEditor['replaceNodeByPath'];
     removeTextByKey: CoreEditor['removeTextByKey'];
     removeTextByPath: CoreEditor['removeTextByPath'];
+    setDecorations: CoreEditor['setDecorations'];
     setMarkByKey: CoreEditor['setMarkByKey'];
     setMarksByPath: CoreEditor['setMarksByPath'];
     setNodeByKey: CoreEditor['setNodeByKey'];
@@ -372,20 +374,11 @@ export type SlateType =
     | "text"
     | "files";
 
-export function cloneFragment(
-    event: Event,
-    value: Value,
-    fragment?: Document,
-    callback?: () => void
-): void;
+export function cloneFragment(event: Event | React.SyntheticEvent, editor: CoreEditor, callback?: () => void): void;
 export function findDOMNode(node: Node, win?: Window): Element;
 export function findDOMRange(range: Range, win?: Window): Range;
-export function findNode(element: Element, value: Value): Node;
-export function findRange(selection: Selection, value: Value): Range;
-export function getEventRange(event: Event, value: Value): Range;
-export function getEventTransfer(event: Event): { type: SlateType; node: Node };
-export function setEventTransfer(
-    event: Event,
-    type: SlateType,
-    data: any
-): void;
+export function findNode(element: Element, editor: CoreEditor): Node;
+export function findRange(selection: Selection | Range, editor: CoreEditor): Range;
+export function getEventRange(event: Event | React.SyntheticEvent, editor: CoreEditor): Range;
+export function getEventTransfer(event: Event | React.SyntheticEvent): { type: SlateType; node: Node };
+export function setEventTransfer(event: Event | React.SyntheticEvent, type: SlateType, data: any): void;

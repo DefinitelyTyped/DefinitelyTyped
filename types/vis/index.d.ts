@@ -1828,6 +1828,13 @@ export interface NodeOptions {
 
   level?: number;
 
+  margin?: {
+    top?: number;
+    right?: number;
+    bottom?: number;
+    left?: number;
+  };
+
   mass?: number;
 
   physics?: boolean;
@@ -1839,11 +1846,11 @@ export interface NodeOptions {
   shape?: string;
 
   shapeProperties?: {
-    borderDashes: boolean | number[], // only for borders
-    borderRadius: number,     // only for box shape
-    interpolation: boolean,  // only for image and circularImage shapes
-    useImageSize: boolean,  // only for image and circularImage shapes
-    useBorderWithImage: boolean  // only for image shape
+    borderDashes?: boolean | number[], // only for borders
+    borderRadius?: number,     // only for box shape
+    interpolation?: boolean,  // only for image and circularImage shapes
+    useImageSize?: boolean,  // only for image and circularImage shapes
+    useBorderWithImage?: boolean  // only for image shape
   };
 
   size?: number;

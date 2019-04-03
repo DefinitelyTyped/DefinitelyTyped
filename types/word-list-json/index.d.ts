@@ -8,8 +8,6 @@ interface Lengths {
     [key: string]: number;
 }
 
-export const lengths: Lengths;
-
 type wordsArray = string[];
 interface Words extends wordsArray {
     lengths: Lengths;
@@ -17,4 +15,4 @@ interface Words extends wordsArray {
 
 declare const words: Words;
 
-export default words;
+export = words;

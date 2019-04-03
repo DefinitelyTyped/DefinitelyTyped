@@ -6,7 +6,6 @@
 //                 Frank Tan <https://github.com/tansongyang>
 //                 Nicholas Boll <https://github.com/nicholasboll>
 //                 Dibyo Majumdar <https://github.com/mdibyo>
-//                 Prashant Deva <https://github.com/pdeva>
 //                 Thomas Charlat <https://github.com/kallikrein>
 //                 Valentin Descamps <https://github.com/val1984>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
@@ -43,6 +42,8 @@ import {
     Dispatch,
     Store
 } from 'redux';
+
+import hoistNonReactStatics = require('hoist-non-react-statics');
 
 // Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
@@ -86,7 +87,7 @@ export type Matching<InjectedProps, DecorationTargetProps> = {
  */
 export type Shared<
     InjectedProps,
-    DecorationTargetProps extends Shared<InjectedProps, DecorationTargetProps>
+    DecorationTargetProps
     > = {
         [P in Extract<keyof InjectedProps, keyof DecorationTargetProps>]?: InjectedProps[P] extends DecorationTargetProps[P] ? DecorationTargetProps[P] : never;
     };
@@ -96,7 +97,10 @@ export type GetProps<C> = C extends ComponentType<infer P> ? P : never;
 
 // Applies LibraryManagedAttributes (proper handling of defaultProps
 // and propTypes), as well as defines WrappedComponent.
-export type ConnectedComponentClass<C, P> = ComponentClass<JSX.LibraryManagedAttributes<C, P>> & {
+export type ConnectedComponentClass<
+    C extends ComponentType<any>,
+    P
+> = ComponentClass<JSX.LibraryManagedAttributes<C, P>> & hoistNonReactStatics.NonReactStatics<C> & {
     WrappedComponent: C;
 };
 
