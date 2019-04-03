@@ -1,7 +1,7 @@
-import * as HummusRecipe from 'hummus-recipe';
+import { Recipe } from 'hummus-recipe';
 
 // $ExpectType Recipe
-const pdf = new HummusRecipe.Recipe("new", "test.pdf", {
+const pdf = new Recipe("new", "test.pdf", {
     version: 1.6,
     author: "John Doe",
     title: "Hummus Recipe",
