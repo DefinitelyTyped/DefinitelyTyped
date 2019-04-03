@@ -1,4 +1,4 @@
-// Type definitions for finalhandler
+// Type definitions for finalhandler v1.1.1
 // Project: https://github.com/pillarjs/finalhandler
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 //                 Mark Veronda <https://github.com/hbomark>
