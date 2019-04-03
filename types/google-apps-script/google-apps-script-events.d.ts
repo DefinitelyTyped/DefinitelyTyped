@@ -3,9 +3,9 @@
 // Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../google-apps-script.script.d.ts" />
-/// <reference path="../google-apps-script.spreadsheet.d.ts" />
-/// <reference path="../google-apps-script.slides.d.ts" />
+/// <reference path="google-apps-script.script.d.ts" />
+/// <reference path="google-apps-script.spreadsheet.d.ts" />
+/// <reference path="google-apps-script.slides.d.ts" />
 
 declare namespace GoogleAppsScript {
   /**
