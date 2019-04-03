@@ -571,6 +571,12 @@
             "asOfVersion": "1.5.0"
         },
         {
+            "libraryName": "elastic-apm-node",
+            "typingsPackageName": "elastic-apm-node",
+            "sourceRepoURL": "https://github.com/elastic/apm-agent-nodejs",
+            "asOfVersion": "2.7.0"
+        },
+        {
             "libraryName": "electron",
             "typingsPackageName": "electron",
             "sourceRepoURL": "https://github.com/electron/electron",
