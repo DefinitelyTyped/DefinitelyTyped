@@ -218,6 +218,83 @@ declare namespace Stripe {
             business_primary_color?: string;
 
             /**
+             * Optional information related to the business.
+             */
+            business_profile?: {
+                /**
+                 * The merchant category code for the account. MCCs are used to classify businesses
+                 * based on the goods or services they provide.
+                 */
+                mcc?: string;
+
+                /**
+                 * The customer-facing business name.
+                 */
+                name?: string;
+
+                /**
+                 * Internal-only description of the product sold or service provided by the
+                 * business. It’s used by Stripe for risk and underwriting purposes.
+                 */
+                product_description?: string;
+
+                /**
+                 * A publicly available mailing address for sending support issues to.
+                 */
+                support_address?: {
+                    /**
+                     * Address line 1 (Street address/PO Box/Company name)
+                     */
+                    line1?: string;
+
+                    /**
+                     * Address line 2 (Apartment/Suite/Unit/Building)
+                     */
+                    line2?: string;
+
+                    /**
+                     * City/Suburb/Town/Village
+                     */
+                    city?: string;
+
+                    /**
+                     * State/Province/County
+                     */
+                    state?: string;
+
+                    /**
+                     * Zip/Postal Code
+                     */
+                    postal_code?: string;
+
+                    /**
+                     * 2-letter country code
+                     */
+                    country?: string;
+                };
+
+                /**
+                 * A publicly available email address for sending support issues to.
+                 */
+                support_email?: string;
+
+                /**
+                 * A publicly available phone number to call with support issues.
+                 */
+                support_phone?: string;
+
+                /**
+                 * A publicly available website for handling support issues.
+                 */
+                support_url?: string;
+
+                /**
+                 * The business’s publicly available website.
+                 */
+                url?: string;
+            };
+
+            /**
              * The URL that best shows the service or product provided for this account
              */
             business_url?: string;
@@ -283,6 +360,149 @@ declare namespace Stripe {
              * purposes.
              */
             product_description?: string;
+
+            /**
+             * Account options for customizing how the account functions within Stripe.
+             */
+            settings?: {
+                /**
+                 * Settings used to apply the account’s branding to email receipts, invoices,
+                 * Checkout, and other products.
+                 */
+                branding?: {
+                    /**
+                     * (ID of a file upload) An icon for the account. Must be square and at
+                     * least 128px x 128px.
+                     */
+                    icon?: string;
+
+                    /**
+                     * (ID of a file upload) A logo for the account that will be used in
+                     * Checkout instead of the icon and without the account’s name next to it
+                     * if provided. Must be at least 128px x 128px. This can be unset by
+                     * updating the value to null and then saving.
+                     */
+                    logo?: string;
+
+                    /**
+                     * A CSS hex color value representing the primary branding color for this account.
+                     */
+                    primary_color?: string;
+                };
+
+                /**
+                 * Settings specific to card charging on the account.
+                 */
+                card_payments?: {
+                    /**
+                     * Automatically declines certain charge types regardless of whether the card
+                     * issuer accepted or declined the charge.
+                     */
+                    decline_on?: {
+                        /**
+                         * Whether Stripe automatically declines charges with an incorrect ZIP or
+                         * postal code. This setting only applies when a ZIP or postal code is
+                         * provided and they fail bank verification.
+                         */
+                        avs_failure?: boolean;
+
+                        /**
+                         * Whether Stripe automatically declines charges with an incorrect CVC.
+                         * This setting only applies when a CVC is provided and it fails bank
+                         * verification.
+                         */
+                        cvc_failure?: boolean;
+                    };
+
+                    /**
+                     * The default text that appears on credit card statements when a charge is
+                     * made. This field prefixes any dynamic statement_descriptor specified on the
+                     * charge. statement_descriptor_prefix is useful for maximizing descriptor space
+                     * for the dynamic portion.
+                     */
+                    statement_descriptor_prefix?: string;
+                };
+
+                /**
+                 * Settings used to configure the account within the Stripe dashboard.
+                 */
+                dashboard?: {
+                    /**
+                     * The display name for this account. This is used on the Stripe Dashboard to
+                     * differentiate between accounts.
+                     */
+                    display_name?: string;
+
+                    /**
+                     * The timezone used in the Stripe Dashboard for this account. A list of
+                     * possible time zone values is maintained at the IANA Time Zone Database.
+                     */
+                    timezone?: string;
+                };
+
+                /**
+                 * Settings that apply across payment methods for charging on the account.
+                 */
+                payments?: {
+                    /**
+                     * The default text that appears on credit card statements when a charge is
+                     * made. This field prefixes any dynamic statement_descriptor specified on the
+                     * charge.
+                     */
+                    statement_descriptor?: string;
+                };
+
+                /**
+                 * Settings specific to the account’s payouts.
+                 */
+                payouts?: {
+                    /**
+                     * A Boolean indicating if Stripe should try to reclaim negative balances from
+                     * an attached bank account. See our Understanding Connect Account Balances
+                     * documentation for details. Default value is true for Express accounts and
+                     * false for Custom accounts.
+                     */
+                    debit_negative_balances?: boolean;
+
+                    /**
+                     * Details on when funds from charges are available, and when they are paid out
+                     * to an external account. See our Setting Bank and Debit Card Payouts
+                     * documentation for details.
+                     */
+                    schedule?: {
+                        /**
+                         * The number of days charges for the account will be held before being paid out.
+                         * May also be the string “minimum” for the lowest available value (based on
+                         * country). Default is “minimum”. Does not apply when interval is “manual”.
+                         */
+                        delay_days?: number | string;
+
+                        /**
+                         * How frequently funds will be paid out. One of "manual" (for only triggered
+                         * via API call), "daily", "weekly", or "monthly". Default is "daily".
+                         */
+                        interval?: "manual" | "daily" | "weekly" | "monthly";
+
+                        /**
+                         * The day of the month funds will be paid out. Required and available only if
+                         * interval is "monthly".
+                         */
+                        monthly_anchor?: number;
+
+                        /**
+                         * The day of the week funds will be paid out, of the style ‘monday’,
+                         * ‘tuesday’, etc. Required and available only if interval is weekly.
+                         */
+                        weekly_anchor?: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
+                    };
+
+                    /**
+                     * The text that appears on the bank account statement for payouts. If not set,
+                     * this defaults to the platform’s bank descriptor as set in the Dashboard.
+                     */
+                    statement_descriptor?: string;
+                };
+            };
 
             /**
              * The text that will appear on credit card statements by default if a charge is
