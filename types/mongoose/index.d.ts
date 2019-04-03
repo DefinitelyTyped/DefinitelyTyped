@@ -20,6 +20,7 @@
 //                 Ming Chen <https://github.com/mingchen>
 //                 Olga Isakova <https://github.com/penumbra1>
 //                 Orblazer <https://github.com/orblazer>
+//                 Erik Lopez <https://github.com/niuware>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1499,6 +1500,8 @@ declare module "mongoose" {
     depopulate?: boolean;
     /** whether to include the version key (defaults to true) */
     versionKey?: boolean;
+    /** whether to convert Maps to POJOs. (defaults to false) */
+    flattenMaps?: boolean;
   }
 
   namespace Types {
