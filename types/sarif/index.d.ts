@@ -958,14 +958,14 @@ export interface Message {
     arguments?: string[];
 
     /**
+     * The identifier for this message.
+     */
+    id?: string;
+
+    /**
      * A Markdown message string.
      */
     markdown?: string;
-
-    /**
-     * The message identifier for this message.
-     */
-    messageId?: string;
 
     /**
      * A plain text message string.
