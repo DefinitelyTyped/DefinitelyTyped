@@ -127,6 +127,7 @@ declare namespace marked {
 
     class Parser {
         constructor(options?: MarkedOptions);
+        static parse(src: TokensList, options?: MarkedOptions): string;
         parse(src: TokensList): string;
         next(): Token;
         peek(): Token | number;
@@ -135,9 +136,10 @@ declare namespace marked {
     }
 
     class Lexer {
-        rules: Rules;
-        tokens: TokensList;
         constructor(options?: MarkedOptions);
+        static rules: Rules;
+        tokens: TokensList;
+        static lex(src: TokensList, options?: MarkedOptions): TokensList;
         lex(src: string): TokensList;
     }
 
