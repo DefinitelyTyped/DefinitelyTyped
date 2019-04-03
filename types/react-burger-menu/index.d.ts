@@ -27,11 +27,13 @@ export interface Props {
     bodyClassName?: string;
     burgerBarClassName?: string;
     burgerButtonClassName?: string;
+    className?: string;
     crossButtonClassName?: string;
     crossClassName?: string;
     customBurgerIcon?: JSX.Element | false;
     customCrossIcon?: JSX.Element | false;
     customOnKeyDown?(event: React.KeyboardEvent): void;
+    disableAutoFocus?: string;
     disableCloseOnEsc?: boolean;
     disableOverlayClick?: boolean;
     htmlClassName?: string;
