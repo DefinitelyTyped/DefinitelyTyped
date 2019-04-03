@@ -1,25 +1,22 @@
-// Type definitions for oracledb v3.1.2
+// Type definitions for oracledb v1.10.0
 // Project: https://github.com/oracle/node-oracledb
 // Definitions by: Richard Natal <https://github.com/Bigous>
-//                 Christiano Bovo <https://github.com/chrisabovo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
 
-import * as stream from 'stream';
-import * as events from 'events';
+declare module 'oracledb' {
+	import * as stream from "stream";
 
-declare namespace oracledb {
+	export type TRet<T> = T | IPromise<T>;
+	export type TFunc<T, R> = (value: T) => TRet<R>;
 
-	type TRet<T> = T | IPromise<T>;
-	type TFunc<T, R> = (value: T) => TRet<R>;
-
-	interface IPromise<T> {
+	export interface IPromise<T> {
 		catch<R>(onReject: TFunc<any, R>) : IPromise<R>;
 		then<R>(onResolve?: TFunc<T, R>, onReject?: TFunc<any, R>) : IPromise<R>;
 	}
 
-	interface ILob {
+	export interface ILob {
 		chunkSize: number;
 		length: number;
 		pieceSize: number;
@@ -46,8 +43,7 @@ declare namespace oracledb {
 		write?(data: Buffer, callback: (err: any) => void): void;
 	}
 
-	/* tslint:disable-next-line:interface-name */
-	interface Lob extends stream.Duplex {
+	export interface Lob extends stream.Duplex {
 		iLob: ILob;
 		/** This corresponds to the size used by the Oracle LOB layer when accessing or modifying the LOB value. */
 		chunkSize: number;
@@ -80,24 +76,22 @@ declare namespace oracledb {
 		close(): void;
 	}
 
-	interface IConnectionAttributes {
+	export interface IConnectionAttributes {
 		user?: string;
 		password?: string;
 		connectString: string;
 		stmtCacheSize?: number;
 		externalAuth?: boolean;
-		/** If not passed, "default" will be used. */
-		poolAlias?: string;
 	}
 
-	interface IPoolAttributes extends IConnectionAttributes {
+	export interface IPoolAttributes extends IConnectionAttributes {
 		poolMax?: number;
 		poolMin?: number;
 		poolIncrement?: number;
 		poolTimeout?: number;
 	}
 
-	interface IExecuteOptions {
+	export interface IExecuteOptions {
 		/**
 		 * Transaction should auto commit after each statement?
 		 * Overrides Oracledb autoCommit.
@@ -146,7 +140,7 @@ declare namespace oracledb {
 		resultSet?: boolean;
 	}
 
-	interface IExecuteReturn {
+	export interface IExecuteReturn {
 		/** Metadata information - column names is always given. If the Oracledb extendedMetaData or execute() option extendedMetaData are true then additional information is included. */
 		metaData?: Array<IMetaData>;
 		/** This is either an array or an object containing OUT and IN OUT bind values. If bindParams is passed as an array, then outBinds is returned as an array. If bindParams is passed as an object, then outBinds is returned as an object. */
@@ -159,7 +153,7 @@ declare namespace oracledb {
 		rowsAffected?: number;
 	}
 
-	interface IMetaData {
+	export interface IMetaData {
 		/** The column name follows Oracle's standard name-casing rules. It will commonly be uppercase, since most applications create tables using unquoted, case-insensitive names. */
 		name: string;
 		/** one of the Node-oracledb Type Constant values. */
@@ -176,7 +170,7 @@ declare namespace oracledb {
 		nullable?: boolean;
 	}
 
-	interface IResultSet {
+	export interface IResultSet {
 		/**
 		 * Contains an array of objects with metadata about the query or REF CURSOR columns.
 		 * Each column's name is always given. If the Oracledb extendedMetaData or execute() option extendedMetaData are true then additional information is included.
@@ -184,7 +178,7 @@ declare namespace oracledb {
 		metaData?: Array<IMetaData>;
 
 		/**
-         * Closes a ResultSet. Applications should always call this at the end of fetch or when no more rows are needed.
+		 * Closes a ResultSet. Applications should always call this at the end of fetch or when no more rows are needed.
 		 * @param  {(err:any)=>void} callback Callback called on finish or when some error occurs.
 		 * @returns void
 		 * @remarks Applications should always call this at the end of fetch or when no more rows are needed.
@@ -192,25 +186,23 @@ declare namespace oracledb {
 		close(callback: (err: any) => void): void;
 
 		/**
-         * Closes a ResultSet. Applications should always call this at the end of fetch or when no more rows are needed.
+		 * Closes a ResultSet. Applications should always call this at the end of fetch or when no more rows are needed.
 		 * @returns  A void Promise on finish or when some error occurs.
 		 * @remarks Applications should always call this at the end of fetch or when no more rows are needed.
 		 */
 		close(): IPromise<void>;
 
 		/**
-         * This call fetches one row of the ResultSet as an object or an array of column values, depending on the value of outFormat.
-         * At the end of fetching, the ResultSet should be freed by calling close().
-         * Performance of getRow() can be tuned by adjusting the value of oracledb.fetchArraySize or the execute() option fetchArraySize.
+		 * This call fetches one row of the result set as an object or an array of column values, depending on the value of outFormat.
+		 * At the end of fetching, the ResultSet should be freed by calling close().
 		 * @param  {(err:any,row:Array<any>|Object)=>void} callback Callback called when the row is available or when some error occurs.
 		 * @returns void
 		 */
 		getRow(callback: (err: any, row: Array<any> | Object) => void): void;
 
 		/**
-         * This call fetches one row of the ResultSet as an object or an array of column values, depending on the value of outFormat.
-         * At the end of fetching, the ResultSet should be freed by calling close().
-         * Performance of getRow() can be tuned by adjusting the value of oracledb.fetchArraySize or the execute() option fetchArraySize.
+		 * This call fetches one row of the result set as an object or an array of column values, depending on the value of outFormat.
+		 * At the end of fetching, the ResultSet should be freed by calling close().
 		 * @returns Promise when the row is available or when some error occurs.
 		 */
 		getRow(): IPromise<Array<any> | Object>;
@@ -241,8 +233,7 @@ declare namespace oracledb {
 		toQueryStream(): stream.Readable;
 	}
 
-	/** Emits "_after_close" event */
-	interface IConnection extends events.EventEmitter {
+	export interface IConnection {
 		/**
 		 * The action attribute for end-to-end application tracing.
 		 * This is a write-only property. Displaying a Connection object will show a value of null for this attribute. See End-to-end Tracing, Mid-tier Authentication, and Auditing.
@@ -410,11 +401,10 @@ declare namespace oracledb {
 		 * Send a rollback requisition to database.
 		 * @returns	A void Promise on rollback done.
 		 */
-		rollback(): IPromise<void>;
+		rollback(): IPromise<void>
 	}
 
-	/** Emits "_after_close" event */
-	interface IConnectionPool extends events.EventEmitter {
+	export interface IConnectionPool {
 		/**
 		 * The number of currently active connections in the connection pool i.e. the number of connections currently checked-out using getConnection().
 		 */
@@ -423,10 +413,6 @@ declare namespace oracledb {
 		 * The number of currently open connections in the underlying connection pool.
 		 */
 		connectionsOpen: number;
-		/**
-		 * The readonly alias of this pool in the connection pool cache. An alias cannot be changed once the pool has been created.
-		 */
-		poolAlias: string;
 		/**
 		 * The number of connections that are opened whenever a connection request exceeds the number of currently open connections.
 		 */
@@ -502,107 +488,51 @@ declare namespace oracledb {
 		terminate(): IPromise<void>;
 	}
 
-	const DEFAULT: number;
-	/** Metadata return type */
-	const DB_TYPE_VARCHAR: number;
-	/** Metadata return type */
-	const DB_TYPE_NUMBER: number;
-	/** Metadata return type */
-	const DB_TYPE_DATE: number;
-	/** Metadata return type */
-	const DB_TYPE_RAW: number;
-	/** Metadata return type */
-	const DB_TYPE_CHAR: number;
-	/** Metadata return type */
-	const DB_TYPE_BINARY_FLOAT: number;
-	/** Metadata return type */
-	const DB_TYPE_BINARY_DOUBLE: number;
-	/** Metadata return type */
-	const DB_TYPE_ROWID: number;
-	/** Metadata return type */
-	const DB_TYPE_CLOB: number;
-	/** Metadata return type */
-	const DB_TYPE_BLOB: number;
-	/** Metadata return type */
-	const DB_TYPE_TIMESTAMP: number;
-	/** Metadata return type */
-	const DB_TYPE_TIMESTAMP_TZ: number;
-	/** Metadata return type */
-	const DB_TYPE_TIMESTAMP_LTZ: number;
+	export const DEFAULT: number;
 	/** Data type */
-	const STRING: number;
+	export const STRING: number;
 	/** Data type */
-	const NUMBER: number;
+	export const NUMBER: number;
 	/** Data type */
-	const DATE: number;
+	export const DATE: number;
 	/** Data type */
-	const CURSOR: number;
+	export const CURSOR: number;
 	/** Data type */
-	const BUFFER: number;
+	export const BUFFER: number;
 	/** Data type */
-	const CLOB: number;
+	export const CLOB: number;
 	/** Data type */
-	const BLOB: number;
+	export const BLOB: number;
 	/** Bind direction */
-	const BIND_IN: number;
+	export const BIND_IN: number;
 	/** Bind direction */
-	const BIND_INOUT: number;
+	export const BIND_INOUT: number;
 	/** Bind direction */
-	const BIND_OUT: number;
+	export const BIND_OUT: number;
 	/** outFormat */
-	const ARRAY: number;
+	export const ARRAY: number;
 	/** outFormat */
-	const OBJECT: number;
+	export const OBJECT: number;
 
 	/**
 	 * Do not use this method - used internally by node-oracledb.
 	 */
-	function newLob(iLob: ILob): Lob;
+	export function newLob(iLob: ILob): Lob;
 
 	/** Default transaction behaviour of auto commit for each statement. */
-	var autoCommit: boolean;
-
-    /**
+	export var autoCommit: boolean;
+	/**
 	 * The user-chosen Connection class value defines a logical name for connections. Most single purpose applications should set connectionClass when using a connection pool or DRCP.
 	 * When a pooled session has a connection class, Oracle ensures that the session is not shared outside of that connection class.
 	 */
-	var connectionClass: string;
-
-    /**
-     * Sets the name used for Edition-Based Redefinition by connections.
-     * See Edition-Based Redefinition for more information.
-     * @since This property was added in node-oracledb 2.2.
-     */
-    var edition: string;
-
-    /**
-     * Determines whether Oracle Client events mode should be enabled.
-     *
-     * The default value for events is false.
-     *
-     * This property can be overridden in the oracledb.createPool() call and when getting a standalone connection from oracledb.getConnection().
-     *
-     * Events mode is required for Continuous Query Notification, Fast Application Notification (FAN) and Runtime Load Balancing (RLB).
-     *
-     * @since This property was added in node-oracledb 2.2.
-     * @example
-     * ```
-     * var oracledb = require('oracledb');
-     * oracledb.events = true;
-     * ```
-     */
-    var events: boolean;
-
-    /**
+	export var connectionClass: string;
+	/**
 	 * Determines whether additional metadata is available for queries and for REF CURSORs returned from PL/SQL blocks.
 	 * The default value for extendedMetaData is false. With this value, the result.metaData result.resultSet.metaData objects only include column names.
 	 */
-	var extendedMetaData: boolean;
-
-    /** Default authentication/authorization method. When true, the SO trusted user will be used. */
-    var externalAuth: boolean;
-
-
+	export var extendedMetaData: boolean;
+	/** Default authentication/authorization method. When true, the SO trusted user will be used. */
+	export var externalAuth: boolean;
     /**
      * This property sets the size of an internal buffer used for fetching query rows from Oracle Database. Changing it may affect query performance but does not affect how many rows are returned to the application.
      * The property is used during the default direct fetches, during ResultSet getRow() calls, and for queryStream(). It is not used for getRows().
@@ -616,8 +546,7 @@ declare namespace oracledb {
      * oracledb.fetchArraySize = 100;
      * ```
      */
-    var fetchArraySize: number;
-
+    export var fetchArraySize: number;
     /**
      * An array of node-oracledb types. Currently the only valid type is oracledb.BLOB. When a BLOB column is queried with execute() or queryStream(), the column data is returned as a Buffer instead of the default representation.
      * By default in node-oracledb, all columns are returned as native types or as Lob instances, in the case of CLOB and BLOB types.
@@ -629,69 +558,49 @@ declare namespace oracledb {
      * oracledb.fetchAsBuffer = [ oracledb.BLOB ];
      * ```
      */
-    var fetchAsBuffer: Array<number>;
-
+    export var fetchAsBuffer: Array<number>;
 	/**
 	 * An array of node-oracledb types. When any column having the specified type is queried with execute(), the column data is returned as a string instead of the native representation. For column types not specified in fetchAsString, native types will be returned.
 	 * By default all columns are returned as native types.
 	 */
-    var fetchAsString: Array<number>;
-
+	export var fetchAsString: Array<number>;
 	/** Default size in bytes that the driver will fetch from LOBs in advance. */
-	var lobPrefetchSize: number;
+	export var lobPrefetchSize: number;
 	/** Default maximum number of rows to be fetched in statements not using ResultSets */
-	var maxRows: number;
+	export var maxRows: number;
 	/** Version of OCI that is used. */
-	var oracleClientVersion: number;
+	export var oracleClientVersion: number;
 	/** Default format for returning rows. When ARRAY, it will return Array<Array<any>>. When OBJECT, it will return Array<Object>. */
-	var outFormat: number;
-	/** Default number of connections to increment when available connections reach 0 in created pools. poolMax will be respected. */
-	var poolIncrement: number;
+	export var outFormat: number;
+	/** Default number of connections to increment when available connections reach 0 in created pools. poolMax will be respected.*/
+	export var poolIncrement: number;
 	/** Default maximum connections in created pools */
-	var poolMax: number;
+	export var poolMax: number;
 	/** Default minimum connections in created pools */
-	var poolMin: number;
-	/** Default timeout for unused connections in pool to be released. poolMin will be respected. */
-	var poolTimeout: number;
-	/** Default number of rows that the driver will fetch in each query. */
-	var prefetchRows: number;
+	export var poolMin: number;
+	/** Default timeout for unused connections in pool to be released. poolMin will be respected.*/
+	export var poolTimeout: number;
+	/** Default number of rows that the driver will fetch in each query.*/
+	export var prefetchRows: number;
 	/**
-	 * Readonly reference to the native oracledb.
+	 * Node-oracledb supports Promises on all methods. The standard Promise library is used in Node 0.12 and greater. Promise support is not enabled by default in Node 0.10.
 	 */
-	var Oracledb: any;
-	/**
-	 * Readonly reference to the native connection object.
-	 */
-	var Connection: any;
-	/**
-	 * Readonly reference to the native Lob object.
-	 */
-	var Lob: any;
-	/**
-	 * Reference to the native ResultSet object.
-	 */
-	var ResultSet: any;
-	/**
-	 * Node-oracledb supports Promises on all methods. The standard Promise library is used in Node 0.12 and greater.
-	 * Promise support is not enabled by default in Node 0.10.
-	 * You can change the Promisse library to any default ES6 compatible library (like bluebird).
-	 */
-	var Promise: any;
+	export var Promise: any;
 	/**
 	 * If this property is true and the number of connections "checked out" from the pool has reached the number specified by poolMax, then new requests for connections are queued until in-use connections are released.
 	 * If this property is false and a request for a connection is made from a pool where the number of "checked out" connections has reached poolMax, then an ORA-24418 error indicating that further sessions cannot be opened will be returned.
 	 * The default value is true.
 	 */
-	var queueRequests: boolean;
+	export var queueRequests: boolean;
 	/**
 	 * The number of milliseconds after which connection requests waiting in the connection request queue are terminated. If queueTimeout is 0, then queued connection requests are never terminated.
 	 * The default value is 60000.
 	 */
-	var queueTimeout: number;
-	/** Default size of statements cache. Used to speed up creating queries. */
-	var stmtCacheSize: number;
+	export var queueTimeout: number;
+	/** Default size of statements cache. Used to speed up creating queries.*/
+	export var stmtCacheSize: number;
 	/** node-oracledb driver version. */
-	var version: number;
+	export var version: number;
 
 	/**
 	 * Creates a database managed connection pool.
@@ -699,36 +608,14 @@ declare namespace oracledb {
 	 * @param  {(err:any,connection:IConnectionPool)=>void} callback Callback to run when the connection pool gets created or when some error occurs.
 	 * @returns void
 	 */
-	function createPool(poolAttributes: IPoolAttributes, callback: (err: any, connection: IConnectionPool) => void): void;
+	export function createPool(poolAttributes: IPoolAttributes, callback: (err: any, connection: IConnectionPool) => void): void;
 
 	/**
 	 * Creates a database managed connection pool.
 	 * @param  {IPoolAttributes} poolAttributes Parameters to stablish the connection pool.
 	 * @returns Promise {(connection:IConnectionPool)=>any} Promise with the connection pool.
 	 */
-	function createPool(poolAttributes: IPoolAttributes): IPromise< IConnectionPool >;
-
-	/**
-	 * Retrieves a connection pool from cache. If it does not exists, an error will be thrown.
-	 * @param {string} alias The index of the cache for the pool. If none is passed, it will use the default one.
-	 * @returns The connection pool or throws an error if it was not found.
-	 */
-	function getPool(poolAlias?: string): IConnectionPool;
-
-	/**
-	 * Creates a connection with the database - the pool alias will be "default".
-	 * @param  {(err:any,connection:IConnection)=>void} callback Callback to run when the connection gets stablished or when some error occurs.
-	 * @returns void
-	 */
-	function getConnection(callback: (err: any, connection: IConnection) => void): void;
-
-	/**
-	 * Creates a connection with the database.
-	 * @param  {string} poolAlias Poll from which the connection should be retrieved.
-	 * @param  {(err:any,connection:IConnection)=>void} callback Callback to run when the connection gets stablished or when some error occurs.
-	 * @returns void
-	 */
-	function getConnection(poolAlias: string, callback: (err: any, connection: IConnection) => void): void;
+	export function createPool(poolAttributes: IPoolAttributes): IPromise< IConnectionPool >;
 
 	/**
 	 * Creates a connection with the database.
@@ -736,27 +623,12 @@ declare namespace oracledb {
 	 * @param  {(err:any,connection:IConnection)=>void} callback Callback to run when the connection gets stablished or when some error occurs.
 	 * @returns void
 	 */
-	function getConnection(connectionAttributes: IConnectionAttributes, callback: (err: any, connection: IConnection) => void): void;
-
-	/**
-	 * Creates a connection with the database. The pool name will be "default".
-	 * @returns  {(connection:IConnection)=>any} Promise with the connection.
-	 */
-	function getConnection(): IPromise< IConnection >;
-
-	/**
-	 * Creates a connection with the database.
-	 * @param  {string} poolAlias Poll from which the connection should be retrieved.
-	 * @returns  {(connection:IConnection)=>any} Promise with the connection.
-	 */
-	function getConnection(poolAlias: string): IPromise< IConnection >;
+	export function getConnection(connectionAttributes: IConnectionAttributes, callback: (err: any, connection: IConnection) => void): void;
 
 	/**
 	 * Creates a connection with the database.
 	 * @param  {IConnectionAttributes} connectionAttributes Parameters to stablish the connection.
 	 * @returns  {(connection:IConnection)=>any} Promise with the connection.
 	 */
-	function getConnection(connectionAttributes: IConnectionAttributes): IPromise< IConnection >;
+	export function getConnection(connectionAttributes: IConnectionAttributes): IPromise< IConnection >;
 }
-
-export = oracledb;
