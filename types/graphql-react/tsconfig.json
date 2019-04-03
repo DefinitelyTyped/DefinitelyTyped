@@ -16,10 +16,11 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "jsx": "react",
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
-        "graphql-react-tests.ts"
+        "graphql-react-tests.tsx"
     ]
 }
