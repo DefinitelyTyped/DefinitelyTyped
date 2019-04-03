@@ -138,9 +138,9 @@ declare namespace marked {
     class Lexer {
         constructor(options?: MarkedOptions);
         static rules: Rules;
-        tokens: TokensList;
         static lex(src: TokensList, options?: MarkedOptions): TokensList;
         lex(src: string): TokensList;
+        token(src: string, top: boolean): TokensList;
     }
 
     class Slugger {

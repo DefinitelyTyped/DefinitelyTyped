@@ -42,6 +42,7 @@ const lexer = new marked.Lexer(options);
 const tokens2 = lexer.lex(text);
 console.log(tokens2);
 const re: RegExp | marked.Rules = marked.Lexer.rules['code'];
+console.log(lexer.token(text, true));
 
 const renderer = new marked.Renderer();
 const slugger = new marked.Slugger();
