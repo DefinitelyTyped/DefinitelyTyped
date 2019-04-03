@@ -428,7 +428,8 @@ declare namespace browser._manifest {
     /** @deprecated An unexpected property was found in the WebExtension manifest. */
     type UnrecognizedProperty = any;
 
-    type PersistentBackgroundProperty = _PersistentBackgroundProperty;
+    /** @deprecated Event pages are not currently supported. This will run as a persistent background page. */
+    type PersistentBackgroundProperty = boolean;
 
     /** Represents a native manifest file */
     type NativeManifest = {
@@ -699,8 +700,6 @@ declare namespace browser._manifest {
         | "xmpp";
 
     type _MatchPattern = "<all_urls>";
-
-    type _PersistentBackgroundProperty = "undefined" | "undefined";
 
     type _ThemeTypeAdditionalBackgroundsAlignment =
         "bottom"
