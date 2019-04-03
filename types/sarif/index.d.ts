@@ -2122,7 +2122,7 @@ export interface ToolComponent {
     productSuite?: string;
 
     /**
-     * A string specifying the UTC date (and optionally, the time) of the component�s release.
+     * A string specifying the UTC date (and optionally, the time) of the component's release.
      */
     releaseDateUtc?: string;
 
