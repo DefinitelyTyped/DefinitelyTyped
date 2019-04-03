@@ -1,0 +1,223 @@
+// Type definitions for poi 12.5
+// Project: https://github.com/egoist/poi/
+// Definitions by: c4605 <https://github.com/bolasblack>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { ICompiler, Configuration as WebpackConfig } from "webpack";
+import { Configuration as WebpackDevServerConfig } from "webpack-dev-server";
+import { Options as HtmlWebpackPluginOptions } from "html-webpack-plugin";
+import * as WebpackChainConfig from "webpack-chain";
+import CAC from "cac/types/CAC";
+
+export type Mode = "production" | "development" | "test";
+
+export interface Opts {
+    type: string;
+    mode: Mode;
+    [k: string]: any;
+}
+
+/**
+ * https://poi.js.org/config.html
+ */
+export interface Config {
+    entry?: Config.Entry;
+    output?: Config.Output;
+    pages?: Config.Pages;
+    babel?: Config.Babel;
+    css?: Config.Css;
+    assets?: Config.Assets;
+    envs?: Config.Envs;
+    constants?: Config.Constants;
+    chainWebpack?: Config.ChainWebpack;
+    configureWebpack?: Config.ConfigureWebpack;
+    publicFolder?: Config.PublicFolder;
+    devServer?: Config.DevServer;
+    plugins?: Config.Plugins;
+}
+
+export namespace Config {
+    type Entry = WebpackConfig["entry"];
+
+    interface Output {
+        dir?: string;
+        clean?: boolean;
+        format?: "iife" | "cjs" | "umd";
+        moduleName?: string;
+        sourceMap?: boolean;
+        minimize?: boolean;
+        publicUrl?: string;
+        fileNames?: Output.FileNames;
+        target?:
+            | "web"
+            | "electron-renderer"
+            | "electron-main"
+            | "node"
+            | "node-webkit"
+            | "async-node"
+            | "webworker";
+        html?: Output.Html;
+    }
+    namespace Output {
+        interface FileNames {
+            js?: string;
+            css?: string;
+            font?: string;
+            image?: string;
+        }
+
+        interface Html {
+            title?: string;
+            filename?: string;
+            template?: string;
+            inject?: boolean;
+        }
+    }
+
+    interface Pages {
+        [pageName: string]:
+            | string
+            | Partial<HtmlWebpackPluginOptions> & {
+                  entry: string;
+                  chunks?: string[];
+              };
+    }
+
+    interface Babel {
+        jsx?: string;
+        transpileModules?: string | string[];
+    }
+
+    interface Css {
+        extract?: boolean;
+        sourceMap?: boolean;
+        loaderOptions?: Css.LoaderOptions;
+    }
+    namespace Css {
+        interface LoaderOptions {
+            css?: any;
+            sass?: any;
+            postcss?: any;
+            less?: any;
+            stylus?: any;
+        }
+    }
+
+    interface Assets {
+        inlineImageMaxSize?: number;
+    }
+
+    interface Envs {
+        [envName: string]: string;
+    }
+
+    interface Constants {
+        [constantName: string]: string;
+    }
+
+    interface ChainWebpack {
+        (config: WebpackChainConfig, opts: Opts): void;
+    }
+
+    type ConfigureWebpack =
+        | WebpackConfig
+        | ((config: WebpackConfig, opts: Opts) => void | WebpackConfig);
+
+    type PublicFolder = string | boolean;
+
+    interface DevServer {
+        host?: string;
+        port?: string | number;
+        hot?: boolean;
+        hotOnly?: string;
+        hotEntries?: string[];
+        historyApiFallback?: WebpackDevServerConfig["historyApiFallback"];
+        open?: boolean;
+        proxy?: WebpackDevServerConfig["proxy"];
+        https?: WebpackDevServerConfig["https"];
+        before?: WebpackDevServerConfig["before"];
+        after?: WebpackDevServerConfig["after"];
+        headers?: WebpackDevServerConfig["headers"];
+    }
+
+    interface PluginOption {
+        resolve: string;
+        options?: any;
+    }
+    type Plugins = Array<string | PluginOption>;
+}
+
+export interface ConfigLoader {
+    resolve(
+        files?: ReadonlyArray<string>,
+        cwd?: string,
+        stopDir?: string
+    ): string | null;
+    resolve(options?: ConfigLoader.Options): string | null;
+
+    load(files?: ReadonlyArray<string>, cwd?: string, stopDir?: string): any;
+    load(options?: ConfigLoader.Options): any;
+}
+export namespace ConfigLoader {
+    interface Options {
+        files?: string[];
+        cwd?: string;
+        stopDir?: string;
+        packageKey?: string;
+        parseJSON?: (str: string) => any;
+    }
+}
+
+/**
+ * https://poi.js.org/api.html#constructor-argv
+ */
+export class Poi {
+    mode: Mode;
+
+    cli: CAC;
+
+    command: CAC["command"];
+
+    config: Config;
+
+    isProd: boolean;
+
+    configLoader: ConfigLoader;
+
+    constructor(argv?: string[]);
+
+    hasDependency(name: string): boolean;
+
+    hasPlugin(name: string): boolean;
+
+    hook(hookName: string, handler: Poi.HookHandler): void;
+
+    resolveCwd(...args: string[]): string;
+
+    resolveOutDir(...args: string[]): string;
+
+    run(): Promise<void>;
+
+    getCacheConfig(
+        dir: string,
+        keys: { [k: string]: string },
+        files: ReadonlyArray<string>
+    ): {
+        cacheDirectory: string;
+        cacheIdentifier: string;
+    };
+
+    createWebpackChain(opts?: { [k: string]: any }): WebpackChainConfig;
+
+    createWebpackCompiler(config: WebpackConfig): ICompiler;
+
+    localResolve(pkg: string, cwd?: string): string | null;
+
+    localRequire(pkg: string, cwd?: string): any;
+}
+
+export namespace Poi {
+    interface HookHandler {
+        (config: WebpackChainConfig, opts: Opts): void;
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "cac": "^6.4.2"
+    }
+}
