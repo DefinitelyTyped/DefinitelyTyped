@@ -16,6 +16,7 @@
 //                 Thomas Breleur <https://github.com/thomas-b>
 //                 Antoine Boisadam <https://github.com/Antoine38660>
 //                 Dima Smirnov <https://github.com/smff>
+//                 Duy Truong <https://github.com/truongkhanhduy95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
