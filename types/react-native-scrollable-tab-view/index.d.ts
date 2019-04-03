@@ -140,7 +140,7 @@ export interface DefaultTabBarProps {
 }
 
 export type RenderTabProperties =
-    (name: string, pageIndex: number, isTabActive: boolean, onPressHandler: (pageNumber: number) => void, onLayoutHandler: (event: LayoutChangeEvent) => void) => JSX.Element;
+    (name: string, pageIndex: number, isTabActive: boolean, onPressHandler: (pageNumber: number) => void, onLayoutHandler?: (event: LayoutChangeEvent) => void) => JSX.Element;
 
 export class DefaultTabBar extends React.Component<TabBarProps<DefaultTabBarProps>> {
 }
