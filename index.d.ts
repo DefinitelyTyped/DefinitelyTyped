@@ -3,56 +3,53 @@
 // Definitions by: Jørgen Vatle <https://github.com/JorgenVatle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'fast-ratelimit' {
+/**
+ * Constructor options for fast-ratelimit.
+ * {@link https://github.com/valeriansaliou/node-fast-ratelimit#1-create-the-rate-limiter}
+ */
+export interface FastRateLimitOptions {
+    threshold: number;  // available tokens over timespan
+    ttl: number;        // time-to-live value of token bucket (in seconds)
+}
+
+/**
+ * FastRateLimit
+ * @class
+ * @classdesc  Instanciates a new rate-limiter
+ * @param      {object} options
+ */
+export class FastRateLimit {
+    constructor(options: FastRateLimitOptions);
 
     /**
-     * Constructor options for fast-ratelimit.
-     * {@link https://github.com/valeriansaliou/node-fast-ratelimit#1-create-the-rate-limiter}
+     * FastRateLimit.prototype.consumeSync
+     * @public
+     * @param  {string}  namespace
+     * @return {boolean} Whether tokens remain in current timespan or not
      */
-    export interface FastRateLimitOptions {
-        threshold: number;  // available tokens over timespan
-        ttl: number;        // time-to-live value of token bucket (in seconds)
-    }
+    consumeSync(namespace: string): boolean;
 
     /**
-     * FastRateLimit
-     * @class
-     * @classdesc  Instanciates a new rate-limiter
-     * @param      {object} options
+     * FastRateLimit.prototype.hasTokenSync
+     * @public
+     * @param  {string}  namespace
+     * @return {boolean} Whether tokens remain in current timespan or not
      */
-    export class FastRateLimit {
-        constructor(options: FastRateLimitOptions);
+    hasTokenSync(namespace: string): boolean;
 
-        /**
-         * FastRateLimit.prototype.consumeSync
-         * @public
-         * @param  {string}  namespace
-         * @return {boolean} Whether tokens remain in current timespan or not
-         */
-        consumeSync(namespace: string): boolean;
+    /**
+     * FastRateLimit.prototype.consume
+     * @public
+     * @param  {string} namespace
+     * @return {object} Promise object
+     */
+    consume(namespace: string): Promise<void>
 
-        /**
-         * FastRateLimit.prototype.hasTokenSync
-         * @public
-         * @param  {string}  namespace
-         * @return {boolean} Whether tokens remain in current timespan or not
-         */
-        hasTokenSync(namespace: string): boolean;
-
-        /**
-         * FastRateLimit.prototype.consume
-         * @public
-         * @param  {string} namespace
-         * @return {object} Promise object
-         */
-        consume(namespace: string): Promise<void>
-
-        /**
-         * FastRateLimit.prototype.hasToken
-         * @public
-         * @param  {string} namespace
-         * @return {object} Promise object
-         */
-        hasToken(namespace: string): Promise<void>
-    }
+    /**
+     * FastRateLimit.prototype.hasToken
+     * @public
+     * @param  {string} namespace
+     * @return {object} Promise object
+     */
+    hasToken(namespace: string): Promise<void>
 }
