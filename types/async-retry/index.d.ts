@@ -4,6 +4,7 @@
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
 //                 Rafał Sawicki <https://github.com/rafsawicki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { OperationOptions } from 'retry';
 
