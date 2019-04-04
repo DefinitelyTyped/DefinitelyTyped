@@ -138,12 +138,26 @@ export namespace v2 {
             options?: gax.CallOptions
         ): Promise<void>;
 
-        // TODO: add batch style calls
-        // batchUpdateEntityTypes
-        // batchDeleteEntityTypes
-        // batchCreateEntities
-        // batchUpdateEntities
-        // batchDeleteEntities
+        batchUpdateEntityTypes(
+            request: BatchUpdateEntityTypesRequest,
+            options?: gax.CallOptions
+        ): Promise<[gax.Operation]>;
+        batchDeleteEntityTypes(
+            request: BatchDeleteEntityTypesRequest,
+            options?: gax.CallOptions
+        ): Promise<[gax.Operation]>;
+        batchCreateEntities(
+            request: BatchCreateEntitiesRequest,
+            options?: gax.CallOptions
+        ): Promise<[gax.Operation]>;
+        batchUpdateEntities(
+            request: BatchUpdateEntitiesRequest,
+            options?: gax.CallOptions
+        ): Promise<[gax.Operation]>;
+        batchDeleteEntities(
+            request: BatchDeleteEntitiesRequest,
+            options?: gax.CallOptions
+        ): Promise<[gax.Operation]>;
 
         projectAgentPath(project: string): string;
         entityTypePath(project: string, entityType: string): string;
@@ -183,9 +197,14 @@ export namespace v2 {
             options?: gax.CallOptions
         ): Promise<void>;
 
-        // TODO: add batch style calls
-        // batchUpdateIntents(request: BatchUpdateIntentsRequest): void;
-        // batchDeleteIntents(request: BatchDeleteIntentsRequest): void;
+        batchUpdateIntents(
+            request: BatchUpdateIntentsRequest,
+            options?: gax.CallOptions
+        ): Promise<[gax.Operation]>;
+        batchDeleteIntents(
+            request: BatchDeleteIntentsRequest,
+            options?: gax.CallOptions
+        ): Promise<[gax.Operation]>;
 
         projectAgentPath(project: string): string;
         intentPath(project: string, intent: string): string;
@@ -520,6 +539,46 @@ export interface DeleteEntityTypeRequest {
     name: string;
 }
 
+export interface BatchDeleteEntityTypesRequest {
+    parent: string;
+    entityTypeNames: string[];
+}
+
+export interface EntityTypeBatch {
+    entityTypes: EntityType[];
+}
+
+export interface BatchUpdateEntityTypesRequest {
+    parent: string;
+    // Union field entity_type_batch can be only one of the following:
+    entityTypeBatchUri?: string;
+    entityTypeBatchInline?: EntityTypeBatch;
+    // End of list of possible types for union field entity_type_batch.
+    languageCode?: string;
+    /** @link https://github.com/google/protobuf/blob/master/src/google/protobuf/field_mask.proto */
+    updateMask?: any;
+}
+
+export interface BatchCreateEntitiesRequest {
+    parent: string;
+    entities: Entity[];
+    languageCode?: string;
+}
+
+export interface BatchUpdateEntitiesRequest {
+    parent: string;
+    entities: Entity[];
+    languageCode?: string;
+    /** @link https://github.com/google/protobuf/blob/master/src/google/protobuf/field_mask.proto */
+    updateMask?: any; 
+}
+
+export interface BatchDeleteEntitiesRequest {
+    parent: string;
+    entityValues: string[];
+    languageCode?: string;
+}
+
 export interface ListSessionEntityTypesRequest {
     parent: string;
     pageSize?: number;
@@ -573,6 +632,26 @@ export interface UpdateIntentRequest {
 
 export interface DeleteIntentRequest {
     name: string;
+}
+
+export interface IntentBatch {
+    intents: Intent[];
+}
+
+export interface BatchUpdateIntentsRequest {
+    parent: string;
+    // Union field intent_batch can be only one of the following:
+    intentBatchUri?: string;
+    intentBatchInline?: IntentBatch;
+    // End of list of possible types for union field intent_batch.
+    languageCode?: string;
+    updateMask?: any;
+    intentView?: IntentView;
+}
+
+export interface BatchDeleteIntentsRequest {
+    parent: string;
+    intents: Intent[];
 }
 
 export interface DetectIntentRequest {
