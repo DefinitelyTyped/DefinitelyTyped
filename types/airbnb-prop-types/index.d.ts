@@ -5,7 +5,6 @@
 // TypeScript Version: 3.0
 
 import * as PropTypes from 'prop-types';
-import * as React from 'react';
 
 export interface ReactComponentLike {
     setState(...args: any[]): any;
@@ -24,6 +23,12 @@ export interface ReactClassComponentLike {
 export type ReactFunctionComponentLike = (...args: any[]) => PropTypes.ReactNodeLike;
 
 export type ReactTypeLike = string | ReactClassComponentLike | ReactFunctionComponentLike;
+
+export interface ReactRefLike<T> {
+    readonly current: T | null;
+}
+
+export type ReactLegacyRefLike<T> = (instance: T | null) => void | ReactRefLike<T> | null;
 
 export interface Specifier<T = any> {
     max?: number;
@@ -157,7 +162,7 @@ export function range<T extends number>(min?: number, max?: number): PropTypes.R
 
 export function range(min?: number, max?: number): PropTypes.Requireable<number>;
 
-export function ref(): PropTypes.Requireable<React.LegacyRef<HTMLElement>>;
+export function ref(): PropTypes.Requireable<ReactLegacyRefLike<HTMLElement>>;
 
 export function requiredBy<P>(
     requiredByPropName: string,
