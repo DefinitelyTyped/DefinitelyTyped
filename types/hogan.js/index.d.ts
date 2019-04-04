@@ -36,7 +36,10 @@ export interface Leaf extends Token {
 
 export type Tree = Leaf[];
 
-export class HoganTemplate {
+export interface Partials {
+    [symbol: string]: HoganTemplate;
+}
+declare class HoganTemplate {
     /**
      * Renders the template to a string.
      *
@@ -48,53 +51,45 @@ export class HoganTemplate {
     render(context: Context, partials?: Partials, indent?: string): string;
 }
 
-export interface Partials {
-    [symbol: string]: HoganTemplate;
-}
+export { HoganTemplate as Template, HoganTemplate as template };
 
-declare namespace Hogan {
-    export { HoganTemplate as Template, HoganTemplate as template };
-
-    export function compile(
-        text: string,
-        options?: HoganOptions & { asString: false }
-    ): HoganTemplate;
-    export function compile(
-        text: string,
-        options?: HoganOptions & { asString: true }
-    ): string;
-    /**
-     * Compiles templates to HoganTemplate objects, which have a render method.
-     *
-     * @param text - Raw mustache string to compile.
-     * @param options - Options to use when compiling. See https://github.com/twitter/hogan.js#compilation-options.
-     * @returns A HoganTemplate.
-     */
-    export function compile(
-        text: string,
-        options?: HoganOptions
-    ): Template | string;
-    /**
-     * Scans templates returning an array of found tokens.
-     *
-     * @param text - Raw mustache string to scan.
-     * @param delimiters - A string that overrides the default delimiters. Example: "<% %>".
-     * @returns Found tokens.
-     */
-    export function scan(text: string, delimiters?: string): Token[];
-    /**
-     * Structures tokens into a tree.
-     *
-     * @param tokens - An array of scanned tokens.
-     * @param text - Unused pass undefined.
-     * @param options - Options to use when parsing. See https://github.com/twitter/hogan.js#compilation-options.
-     * @returns The tree structure of the given tokens.
-     */
-    export function parse(
-        tokens: ReadonlyArray<Token>,
-        text?: undefined,
-        options?: HoganOptions
-    ): Tree;
-}
-
-export default Hogan;
+export function compile(
+    text: string,
+    options?: HoganOptions & { asString: false }
+): HoganTemplate;
+export function compile(
+    text: string,
+    options?: HoganOptions & { asString: true }
+): string;
+/**
+ * Compiles templates to HoganTemplate objects, which have a render method.
+ *
+ * @param text - Raw mustache string to compile.
+ * @param options - Options to use when compiling. See https://github.com/twitter/hogan.js#compilation-options.
+ * @returns A HoganTemplate.
+ */
+export function compile(
+    text: string,
+    options?: HoganOptions
+): HoganTemplate | string;
+/**
+ * Scans templates returning an array of found tokens.
+ *
+ * @param text - Raw mustache string to scan.
+ * @param delimiters - A string that overrides the default delimiters. Example: "<% %>".
+ * @returns Found tokens.
+ */
+export function scan(text: string, delimiters?: string): Token[];
+/**
+ * Structures tokens into a tree.
+ *
+ * @param tokens - An array of scanned tokens.
+ * @param text - Unused pass undefined.
+ * @param options - Options to use when parsing. See https://github.com/twitter/hogan.js#compilation-options.
+ * @returns The tree structure of the given tokens.
+ */
+export function parse(
+    tokens: ReadonlyArray<Token>,
+    text?: undefined,
+    options?: HoganOptions
+): Tree;

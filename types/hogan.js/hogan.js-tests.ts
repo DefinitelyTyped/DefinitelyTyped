@@ -1,4 +1,4 @@
-import Hogan from "hogan.js";
+import Hogan = require('hogan.js');
 
 // $ExpectType HoganTemplate
 const compiled = Hogan.compile("{{#if}}{{value}}{{/if}}");
