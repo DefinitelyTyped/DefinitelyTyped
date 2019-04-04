@@ -19,6 +19,10 @@ export interface FastRateLimitOptions {
  * @param      {object} options
  */
 export class FastRateLimit {
+    /**
+     * FastRateLimit constructor
+     * @param options
+     */
     constructor(options: FastRateLimitOptions);
 
     /**
