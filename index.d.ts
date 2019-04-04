@@ -12,12 +12,6 @@ export interface FastRateLimitOptions {
     ttl: number;        // time-to-live value of token bucket (in seconds)
 }
 
-/**
- * FastRateLimit
- * @class
- * @classdesc  Instanciates a new rate-limiter
- * @param      {object} options
- */
 export class FastRateLimit {
     /**
      * FastRateLimit constructor
