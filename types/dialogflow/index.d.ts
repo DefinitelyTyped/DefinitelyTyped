@@ -1097,7 +1097,6 @@ export interface Entity {
 export interface WebhookRequest {
     session: string;
     responseId: string;
-
     queryResult: QueryResult;
     originalDetectIntentRequest?: any;
 }
