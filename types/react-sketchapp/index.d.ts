@@ -1,4 +1,4 @@
-// Type definitions for react-sketchapp 0.13
+// Type definitions for react-sketchapp 0.14
 // Project: https://github.com/airbnb/react-sketchapp
 // Definitions by: Rico Kahler <https://github.com/ricokahler>
 //                 DomiR <https://github.com/DomiR>
@@ -7,6 +7,8 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+
+import { CircleProps } from './lib/components/Svg/Circle';
 
 declare global {
     const context: SketchContext;
@@ -243,7 +245,7 @@ export class Text extends React.Component<TextProps, any> {}
 // View
 export interface ViewProps {
     name?: string;
-    children?: any;
+    children?: React.ReactChild[];
     style?: Style | StyleReference;
 }
 /** View primitives */
@@ -256,7 +258,7 @@ export const StyleSheet: {
      * Create an optimized `StyleSheet` reference from a style object.
      */
     create: <T extends { [key: string]: Style | TextStyle }>(
-        t: T
+        t: T,
     ) => { [P in keyof T]: StyleReference };
     /**
      * Flatten an array of style objects into one aggregated object, or look up the definition for a
@@ -267,7 +269,7 @@ export const StyleSheet: {
             | Array<Style | TextStyle | StyleReference>
             | StyleReference
             | undefined
-            | Style
+            | Style,
     ) => Style | TextStyle; // returns the expanded style or expanded style reference which conforms
     // to the `Style | TextStyle` interface
     /**
@@ -286,7 +288,7 @@ export const TextStyles: {
      */
     create: (
         options: { context: SketchContext; clearExistingStyles?: boolean },
-        styles: { [key: string]: TextStyle }
+        styles: { [key: string]: TextStyle },
     ) => any;
     /**
      * Find a stored native Sketch style object for a given JavaScript style object. You probably
@@ -316,7 +318,7 @@ export const TextStyles: {
  */
 export function makeSymbol<P>(
     node: React.ComponentClass<P> | ((props: P) => JSX.Element),
-    name?: string
+    name?: string,
 ): React.ComponentClass<P & { overrides?: { [key: string]: any } }>;
 
 /**
@@ -329,3 +331,37 @@ export const Platform: {
     Version: 1;
     select: (obj: any) => any;
 };
+
+// Svg, similar to https://github.com/react-native-community/react-native-svg
+export interface SvgProps extends ViewProps {
+    className?: string;
+    opacity?: string | number;
+    width?: string | number;
+    height?: string | number;
+    // more detail https://svgwg.org/svg2-draft/coords.html#ViewBoxAttribute
+    viewBox?: string;
+    preserveAspectRatio?: string;
+}
+
+export class Svg extends React.Component<SvgProps> {
+    static Circle: React.ComponentClass<CircleProps>;
+    static ClipPath: JSX.Element;
+    static Defs: JSX.Element;
+    static Ellipse: JSX.Element;
+    static G: JSX.Element;
+    static Image: JSX.Element;
+    static Line: JSX.Element;
+    static LinearGradient: JSX.Element;
+    static Path: JSX.Element;
+    static Pattern: JSX.Element;
+    static Polygon: JSX.Element;
+    static Polyline: JSX.Element;
+    static RadialGradient: JSX.Element;
+    static Rect: JSX.Element;
+    static Stop: JSX.Element;
+    static Symbol: JSX.Element;
+    static Text: JSX.Element;
+    static TextPath: JSX.Element;
+    static TSpan: JSX.Element;
+    static Use: JSX.Element;
+}
