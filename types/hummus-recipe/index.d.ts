@@ -5,6 +5,55 @@
 // TypeScript Version: 2.1
 
 export namespace HummusRecipe {
+    type CommentOptionsFlag =
+        | "invisible"
+        | "hidden"
+        | "print"
+        | "nozoom"
+        | "norotate"
+        | "noview"
+        | "readonly"
+        | "locked"
+        | "togglenoview";
+
+    type AnnotSubtype =
+        | "Text"
+        | "FreeText"
+        | "Line"
+        | "Square"
+        | "Circle"
+        | "Polygon"
+        | "PolyLine"
+        | "Highlight"
+        | "Underline"
+        | "Squiggly"
+        | "StrikeOut"
+        | "Stamp"
+        | "Caret"
+        | "Ink"
+        | "FileAttachment"
+        | "Sound";
+
+    type AnnotOptionsFlag =
+        | "invisible"
+        | "hidden"
+        | "print"
+        | "nozoom"
+        | "norotate"
+        | "noview"
+        | "readonly"
+        | "locked"
+        | "togglenoview";
+
+    type AnnotOptionsIcon =
+        | "Comment"
+        | "Key"
+        | "Note"
+        | "Help"
+        | "NewParagraph"
+        | "Paragraph"
+        | "Insert";
+
     interface RecipeOptions {
         version?: number;
         author?: string;
@@ -18,40 +67,15 @@ export namespace HummusRecipe {
         date?: string;
         open?: boolean;
         richText?: boolean;
-        flag?:
-            | "invisible"
-            | "hidden"
-            | "print"
-            | "nozoom"
-            | "norotate"
-            | "noview"
-            | "readonly"
-            | "locked"
-            | "togglenoview";
+        flag?: CommentOptionsFlag;
     }
 
     interface AnnotOptions {
         title?: string;
         open?: boolean;
         richText?: boolean;
-        flag?:
-            | "invisible"
-            | "hidden"
-            | "print"
-            | "nozoom"
-            | "norotate"
-            | "noview"
-            | "readonly"
-            | "locked"
-            | "togglenoview";
-        icon?:
-            | "Comment"
-            | "Key"
-            | "Note"
-            | "Help"
-            | "NewParagraph"
-            | "Paragraph"
-            | "Insert";
+        flag?: AnnotOptionsFlag;
+        icon?: AnnotOptionsIcon;
         width?: number;
         height?: number;
     }
@@ -181,23 +205,7 @@ export class Recipe {
     annot(
         x: number,
         y: number,
-        subtype:
-            | "Text"
-            | "FreeText"
-            | "Line"
-            | "Square"
-            | "Circle"
-            | "Polygon"
-            | "PolyLine"
-            | "Highlight"
-            | "Underline"
-            | "Squiggly"
-            | "StrikeOut"
-            | "Stamp"
-            | "Caret"
-            | "Ink"
-            | "FileAttachment"
-            | "Sound",
+        subtype: HummusRecipe.AnnotSubtype,
         options?: HummusRecipe.AnnotOptions
     ): Recipe;
 
