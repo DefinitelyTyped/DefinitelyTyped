@@ -49,7 +49,7 @@ declare module "react-textarea-autosize" {
         /**
          * Allows an owner to retrieve the DOM node.
          */
-        inputRef?: ((node: HTMLTextAreaElement) => void) | RefObject<HTMLTextAreaElement>;
+        inputRef?: ((node: HTMLTextAreaElement) => void) | React.RefObject<HTMLTextAreaElement>;
     }
 
     /**
