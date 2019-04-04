@@ -12,8 +12,8 @@ consume.then(() => {});                // User can send message.
 consume.catch(() => {});              // Use cannot send message.
 
 const hasToken = limit.hasToken(someNamespace); // $type: Promise<void>
-consume.then(() => {});                // User has remaining token.
-consume.catch(() => {});              // User does not have remaining token.
+hasToken.then(() => {});               // User has remaining token.
+hasToken.catch(() => {});             // User does not have remaining token.
 
 // Synchronously check if user is allowed to send message.
 const consumeSync = limit.consumeSync(someNamespace);   // $type: boolean
