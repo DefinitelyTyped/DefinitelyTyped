@@ -1,4 +1,4 @@
-import { ComponentClass, KeyboardEvent, ReactElement, ReactType } from 'react';
+import { ComponentClass, KeyboardEvent, ReactElement, ElementType } from 'react';
 import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
 
 interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePickerClass>, AutoFocus {
@@ -20,7 +20,7 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
     /**
      * A customize the rendering of times but providing a custom component.
      */
-    timeComponent?: ReactType | string;
+    timeComponent?: ElementType | string;
     /**
      * The minimum Date that can be selected. Min only limits selection, it doesn't constrain
      * the date values that can be typed or pasted into the widget. If you need this behavior
@@ -173,7 +173,7 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
      * The provided component will be used instead of the default SlideDownTransition for fully customizable animations.
      * The transition component is also injected with a dropUp prop indicating the direction it should open.
      */
-    popupTransition?: ReactType | string;
+    popupTransition?: ElementType | string;
     /**
      * Whether the Dropdown should be above the input field.
      */

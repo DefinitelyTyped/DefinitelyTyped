@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ReactElement, ReactType } from "react";
+import { ReactElement, ElementType } from "react";
 
 // extracted from:
 // - https://github.com/facebook/react/blob/v16.0.0/src/renderers/testing/ReactTestRendererFiberEntry.js
@@ -26,17 +26,17 @@ export interface ReactTestRendererTree extends ReactTestRendererJSON {
 }
 export interface ReactTestInstance {
     instance: any;
-    type: ReactType;
+    type: ElementType;
     props: { [propName: string]: any };
     parent: null | ReactTestInstance;
     children: Array<ReactTestInstance | string>;
 
     find(predicate: (node: ReactTestInstance) => boolean): ReactTestInstance;
-    findByType(type: ReactType): ReactTestInstance;
+    findByType(type: ElementType): ReactTestInstance;
     findByProps(props: { [propName: string]: any }): ReactTestInstance;
 
     findAll(predicate: (node: ReactTestInstance) => boolean, options?: { deep: boolean }): ReactTestInstance[];
-    findAllByType(type: ReactType, options?: { deep: boolean }): ReactTestInstance[];
+    findAllByType(type: ElementType, options?: { deep: boolean }): ReactTestInstance[];
     findAllByProps(props: { [propName: string]: any }, options?: { deep: boolean }): ReactTestInstance[];
 }
 export interface ReactTestRenderer {

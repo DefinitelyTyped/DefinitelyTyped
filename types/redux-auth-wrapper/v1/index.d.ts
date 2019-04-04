@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentClass, StatelessComponent, ReactType } from "react";
+import { ComponentClass, StatelessComponent, ElementType } from "react";
 import { Action } from "redux";
 import { Location } from "history";
 
@@ -18,9 +18,9 @@ export interface AuthWrapperConfig<State, Props, AuthData> {
     allowRedirectBack?: boolean | ((location: Location, redirectPath: string) => boolean);
     authenticatingSelector?(state: State, ownProps?: Props): boolean;
     authSelector(state: State, ownProps?: Props): AuthData;
-    FailureComponent?: ReactType;
+    FailureComponent?: ElementType;
     failureRedirectPath?: string | ((state: State, ownProps?: Props) => string);
-    LoadingComponent?: ReactType;
+    LoadingComponent?: ElementType;
     redirectQueryParamName?: string;
     wrapperDisplayName?: string;
     predicate?(authData: AuthData): boolean;
