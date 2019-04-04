@@ -3129,7 +3129,7 @@ declare namespace PIXI {
             ): this;
             add(options: LoaderOptions, callback?: OnCompleteSignal): this;
             add(
-                resources: (LoaderOptions | string)[],
+                resources: Array<LoaderOptions | string>,
                 callback?: OnCompleteSignal
             ): this;
             add(...params: any[]): this;
@@ -3239,14 +3239,14 @@ declare namespace PIXI {
             JSON,
             TEXT
         }
-        type IMetadata = {
+        interface IMetadata {
             loadElement?:
                 | HTMLImageElement
                 | HTMLAudioElement
                 | HTMLVideoElement;
             skipSource?: boolean;
             mimeType?: string | string[];
-        };
+        }
         class Resource {
             constructor(
                 name: string,
