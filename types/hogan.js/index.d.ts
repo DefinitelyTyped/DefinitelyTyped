@@ -15,7 +15,7 @@ export interface SectionTags {
 
 export interface HoganOptions {
     asString?: boolean;
-    sectionTags?: SectionTags[];
+    sectionTags?: ReadonlyArray<SectionTags>;
     delimiters?: string;
     disableLambda?: boolean;
 }
@@ -91,7 +91,7 @@ declare namespace Hogan {
      * @returns The tree structure of the given tokens.
      */
     export function parse(
-        tokens: Token[],
+        tokens: ReadonlyArray<Token>,
         text?: undefined,
         options?: HoganOptions
     ): Tree;
