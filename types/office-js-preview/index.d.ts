@@ -13664,21 +13664,6 @@ declare namespace Office {
          */
         body: Body;
         /**
-         * Gets an object that provides methods for managing the item's categories.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         * 
-         * @beta
-         */
-        categories: Categories;
-        /**
          * Gets the type of item that an instance represents.
          *
          * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or 
