@@ -7,11 +7,11 @@ const limit = new FastRateLimit({ // $type: FastRateLimit
 
 const someNamespace = 'some-namespace';
 
-const consume = limit.consume(someNamespace);   // $type: Promise<any>
+const consume = limit.consume(someNamespace);   // $type: Promise<void>
 consume.then(() => {});                // User can send message.
 consume.catch(() => {});              // Use cannot send message.
 
-const hasToken = limit.hasToken(someNamespace); // $type: Promise<any>
+const hasToken = limit.hasToken(someNamespace); // $type: Promise<void>
 consume.then(() => {});                // User has remaining token.
 consume.catch(() => {});              // User does not have remaining token.
 
