@@ -1,4 +1,4 @@
-import * as Recipe from "hummus-recipe";
+import Recipe = require("hummus-recipe");
 
 // $ExpectType Recipe
 const pdf = new Recipe("new", "test.pdf", {
