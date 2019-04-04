@@ -152,6 +152,9 @@ AirbnbPropTypes.range(0, 10);
 // $ExpectType Requireable<5>
 AirbnbPropTypes.range<5>(0, 10);
 
+// $ExpectType Requireable<LegacyRef<HTMLElement>>
+AirbnbPropTypes.ref();
+
 // $ExpectType Requireable<string | null>
 AirbnbPropTypes.requiredBy('foo', PropTypes.string);
 // $ExpectType Validator<number>

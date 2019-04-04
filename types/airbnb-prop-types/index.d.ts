@@ -5,6 +5,7 @@
 // TypeScript Version: 3.0
 
 import * as PropTypes from 'prop-types';
+import * as React from 'react';
 
 export interface ReactComponentLike {
     setState(...args: any[]): any;
@@ -155,6 +156,8 @@ export function or<T = any>(
 export function range<T extends number>(min?: number, max?: number): PropTypes.Requireable<T>;
 
 export function range(min?: number, max?: number): PropTypes.Requireable<number>;
+
+export function ref(): PropTypes.Requireable<React.LegacyRef<HTMLElement>>;
 
 export function requiredBy<P>(
     requiredByPropName: string,
