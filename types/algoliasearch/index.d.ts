@@ -1652,7 +1652,7 @@ declare namespace algoliasearch {
     ignorePlurals?: boolean;
     /**
      * List of attributes on which you want to disable typo tolerance
-     * default: ""
+     * default: []
      * https://github.com/algolia/algoliasearch-client-js#disabletypotoleranceonattributes
      */
     disableTypoToleranceOnAttributes?: string[];
