@@ -31,7 +31,6 @@ const settings = {
         TTL: 2419200,
         contentEncoding: supportedContentEncodings.AES_128_GCM,
         headers: {},
-        
     }
 };
 const push = new PushNotifications(settings);
