@@ -236,7 +236,7 @@ export class Recipe {
 
     lineTo(x: number, y: number, options?: LineToOptions): Recipe;
 
-    line(coordinates: number[], options?: LineOptions): Recipe;
+    line(coordinates: number[][], options?: LineOptions): Recipe;
 
     polygon(coordinates: number[][], options?: PolygonOptions): Recipe;
 
