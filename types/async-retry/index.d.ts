@@ -1,8 +1,11 @@
-// Type definitions for async-retry 1.3
+// Type definitions for async-retry 1.4
 // Project: https://github.com/zeit/async-retry#readme
 // Definitions by: Albert Wu <https://github.com/albertywu>
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
+//                 Rafał Sawicki <https://github.com/rafsawicki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { OperationOptions } from 'retry';
 
 declare function AsyncRetry<A>(
 	fn: AsyncRetry.RetryFunction<A>,
@@ -10,12 +13,7 @@ declare function AsyncRetry<A>(
 ): Promise<A>;
 
 declare namespace AsyncRetry {
-	interface Options {
-		retries?: number;
-		factor?: number;
-		minTimeout?: number;
-		maxTimeout?: number;
-		randomize?: boolean;
+	interface Options extends OperationOptions {
 		onRetry?: (e: Error, attempt: number) => any;
 	}
 
