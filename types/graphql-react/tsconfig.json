@@ -15,10 +15,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
-        "toastr-tests.ts"
+        "graphql-react-tests.tsx"
     ]
 }
