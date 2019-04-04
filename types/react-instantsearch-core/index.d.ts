@@ -320,7 +320,7 @@ export type HighlightProps<TDoc = any> = HighlightProvided<TDoc> & HighlightPass
 export function connectHighlight<TDoc = any>(stateless: React.StatelessComponent<HighlightProps<TDoc>>): React.ComponentClass<HighlightPassedThru<TDoc>>;
 export function connectHighlight<TProps extends Partial<HighlightProps<TDoc>>, TDoc>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, HighlightProvided<TDoc>>;
 
-interface HitsProvided<THit> {
+export interface HitsProvided<THit> {
   /** the records that matched the search state */
   hits: Array<Hit<THit>>;
 }
