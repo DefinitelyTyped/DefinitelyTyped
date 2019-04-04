@@ -6,7 +6,7 @@ export type PaginationItemProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
   active?: boolean;
   disabled?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
 } & T;
 
 declare class PaginationItem<T = {[key: string]: any}> extends React.Component<PaginationItemProps<T>> {}

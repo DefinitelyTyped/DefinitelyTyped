@@ -4,7 +4,7 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
   row?: boolean;
   check?: boolean;
   disabled?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   color?: string;
   className?: string;
   cssModule?: CSSModule;

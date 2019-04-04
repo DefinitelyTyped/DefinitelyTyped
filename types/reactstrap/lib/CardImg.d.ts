@@ -2,7 +2,7 @@ import * as React from 'react';
 import { CSSModule } from '../index';
 
 export type CardImgProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   top?: boolean;
   bottom?: boolean;
   className?: string;

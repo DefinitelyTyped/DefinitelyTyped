@@ -11,7 +11,7 @@ interface Props {
   middle?: boolean;
   object?: boolean;
   right?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   top?: boolean;
   href?: string;
   alt?: string;

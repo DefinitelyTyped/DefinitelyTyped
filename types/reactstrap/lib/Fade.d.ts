@@ -5,7 +5,7 @@ export type FadeProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   in?: boolean;
   baseClass?: string;
   baseClassIn?: string;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   className?: string;
   cssModule?: CSSModule;
   transitionAppearTimeout?: number;

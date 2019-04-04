@@ -2,7 +2,7 @@ import * as React from 'react';
 import { CSSModule } from '../index';
 
 export type InputGroupProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   size?: string;
   className?: string;
   cssModule?: CSSModule;

@@ -350,7 +350,7 @@ export interface NativeMethodsMixinStatic {
 
 // see react-jsx.d.ts
 export function createElement<P>(
-    type: React.ReactType,
+    type: React.ElementType,
     props?: P,
     ...children: React.ReactNode[]
 ): React.ReactElement<P>;

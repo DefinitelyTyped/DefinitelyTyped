@@ -24,7 +24,7 @@ export type Props<T = {}> = UncontrolledProps<T> & {
   direction?: Direction;
   group?: boolean;
   size?: string;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   addonType?: boolean | 'prepend' | 'append';
 };
 

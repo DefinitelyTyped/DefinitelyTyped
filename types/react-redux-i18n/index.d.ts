@@ -34,7 +34,7 @@ declare module 'react-redux-i18n' {
     className?: string;
     dangerousHTML?: boolean;
     style?: React.CSSProperties;
-    tag?: React.ReactType;
+    tag?: React.ElementType;
     value: string;
     [prop: string]: any;
   }
@@ -45,7 +45,7 @@ declare module 'react-redux-i18n' {
     dateFormat?: string;
     options?: Object;
     style?: React.CSSProperties;
-    tag?: React.ReactType;
+    tag?: React.ElementType;
     value: string | number | object;
   }
 

@@ -6,7 +6,7 @@ interface Props extends React.HTMLProps<HTMLButtonElement> {
   block?: boolean;
   color?: string;
   disabled?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   getRef?: string | ((instance: HTMLButtonElement) => any);
 
   onClick?: React.MouseEventHandler<any>;

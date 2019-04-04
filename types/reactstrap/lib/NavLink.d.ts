@@ -2,7 +2,7 @@ import * as React from 'react';
 import { CSSModule } from '../index';
 
 export type NavLinkProps<T = {}> = React.HTMLProps<HTMLAnchorElement> & {
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   innerRef?: React.Ref<HTMLAnchorElement>;
   disabled?: boolean;
   active?: boolean;

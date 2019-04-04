@@ -4,7 +4,7 @@ import { CSSModule } from '../index';
 export type TagProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   color?: string;
   pill?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   className?: string;
   cssModule?: CSSModule;
 } & T;

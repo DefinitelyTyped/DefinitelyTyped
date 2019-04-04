@@ -21,7 +21,7 @@ declare namespace Router {
     type ParseQueryString = (queryString: QueryString) => Query;
     type StringifyQuery = (queryObject: Query) => QueryString;
 
-    type Component = React.ReactType;
+    type Component = React.ElementType;
     type RouteComponent = Component;
 
     type EnterHook = (nextState: RouterState, replace: RedirectFunction, callback?: Function) => void;

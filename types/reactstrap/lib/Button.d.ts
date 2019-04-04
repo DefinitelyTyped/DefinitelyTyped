@@ -7,7 +7,7 @@ export type ButtonProps<T = {}> = React.ButtonHTMLAttributes<HTMLButtonElement> 
   block?: boolean;
   color?: string;
   disabled?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   innerRef?: React.Ref<HTMLButtonElement>;
 
   onClick?: React.MouseEventHandler<any>;

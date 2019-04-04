@@ -301,7 +301,7 @@ export interface NavigationStackScreenOptions {
   headerPressColorAndroid?: string;
   headerRight?: React.ReactElement;
   headerStyle?: StyleProp<ViewStyle>;
-  headerBackground?: React.ReactNode | React.ReactType;
+  headerBackground?: React.ReactNode | React.ElementType;
   gesturesEnabled?: boolean;
   gestureResponseDistance?: { vertical?: number; horizontal?: number };
 }
@@ -633,7 +633,7 @@ export function SwitchNavigator(
 ): NavigationContainer;
 
 // DrawerItems
-export const DrawerItems: React.ReactType;
+export const DrawerItems: React.ElementType;
 
 /**
  * Drawer Navigator
@@ -642,7 +642,7 @@ export interface DrawerViewConfig {
   drawerBackgroundColor?: string;
   drawerWidth?: number;
   drawerPosition?: 'left' | 'right';
-  contentComponent?: React.ReactType;
+  contentComponent?: React.ElementType;
   contentOptions?: any;
   style?: StyleProp<ViewStyle>;
 }
@@ -669,7 +669,7 @@ export function DrawerNavigator(
 
 // From views/TabView/TabView.js
 export interface TabViewConfig {
-  tabBarComponent?: React.ReactType;
+  tabBarComponent?: React.ElementType;
   tabBarPosition?: 'top' | 'bottom';
   tabBarOptions?: {
     activeTintColor?: string,

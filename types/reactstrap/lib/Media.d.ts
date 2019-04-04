@@ -12,7 +12,7 @@ export type MediaProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   middle?: boolean;
   object?: boolean;
   right?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   top?: boolean;
   src?: string;
   href?: string;

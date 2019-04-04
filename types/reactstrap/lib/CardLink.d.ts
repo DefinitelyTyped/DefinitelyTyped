@@ -2,7 +2,7 @@ import * as React from 'react';
 import { CSSModule } from '../index';
 
 export type CardLinkProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   innerRef?: React.Ref<HTMLAnchorElement>;
   className?: string;
   cssModule?: CSSModule;

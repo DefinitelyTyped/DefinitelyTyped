@@ -3,7 +3,7 @@ import * as React from 'react';
 declare namespace Form {
     export interface FormProps extends React.HTMLProps<Form> {
         bsClass?: string;
-        componentClass?: React.ReactType;
+        componentClass?: React.ElementType;
         horizontal?: boolean;
         inline?: boolean;
     }

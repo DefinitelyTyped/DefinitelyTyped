@@ -5,7 +5,7 @@ export type CollapseProps<T = {}> = React.HTMLProps<HTMLElement> & {
   isOpen?: boolean;
   classNames?: string;
   cssModule?: CSSModule;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   navbar?: boolean;
   delay?: {
     show: number
@@ -24,7 +24,7 @@ export type UncontrolledProps<T = {}> = React.HTMLProps<HTMLElement> & {
   isOpen?: boolean;
   className?: string;
   cssModule?: CSSModule;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   navbar?: boolean;
   toggle?: () => void;
 } & T;

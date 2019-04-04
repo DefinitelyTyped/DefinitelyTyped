@@ -70,12 +70,12 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      * This component is used to render the selected value of the DropdownList. The default
      * component renders the text of the selected item (specified by textfield)
      */
-    valueComponent?: React.ReactType;
+    valueComponent?: React.ElementType;
     /**
      * This component is used to render each possible item in the DropdownList. The default
      * component renders the text of the selected item (specified by textfield)
      */
-    itemComponent?: React.ReactType | string;
+    itemComponent?: React.ElementType | string;
     /**
      * Determines how to group the DropdownList. Providing a string will group the data array by
      * that property. You can also provide a function which should return the group value.
@@ -85,7 +85,7 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      * This component is used to render each option group, when groupBy is specified. By default
      * the groupBy value will be used.
      */
-    groupComponent?: React.ReactType;
+    groupComponent?: React.ElementType;
     /**
      * Text to display when the value is empty.
      */
@@ -152,7 +152,7 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      * object to localize widget text and increase accessibility.
      */
     messages?: DropdownListMessages;
-    listComponent?: React.ReactType | string;
+    listComponent?: React.ElementType | string;
     /**
      * An object of props that is passed directly to the underlying List component.
      */

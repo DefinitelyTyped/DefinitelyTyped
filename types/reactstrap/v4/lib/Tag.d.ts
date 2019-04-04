@@ -3,7 +3,7 @@ import { CSSModule } from '../index';
 interface Props {
   color?: string;
   pill?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   className?: string;
   cssModule?: CSSModule;
 }

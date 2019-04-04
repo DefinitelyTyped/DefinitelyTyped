@@ -445,7 +445,7 @@ export interface NavigationStackScreenOptions {
   headerRight?: React.ReactElement | null;
   headerStyle?: StyleProp<ViewStyle>;
   headerForceInset?: HeaderForceInset;
-  headerBackground?: React.ReactNode | React.ReactType;
+  headerBackground?: React.ReactNode | React.ElementType;
   gesturesEnabled?: boolean;
   gestureResponseDistance?: { vertical?: number; horizontal?: number };
   gestureDirection?: 'default' | 'inverted';
@@ -970,7 +970,7 @@ export function createDrawerNavigator(
 
 // From views/TabView/TabView.js
 export interface TabViewConfig {
-  tabBarComponent?: React.ReactType;
+  tabBarComponent?: React.ElementType;
   tabBarPosition?: 'top' | 'bottom';
   tabBarOptions?: {
     activeTintColor?: string;

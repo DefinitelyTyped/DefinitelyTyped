@@ -34,7 +34,7 @@ export type InputProps<T = {}> = React.InputHTMLAttributes<HTMLInputElement> & {
   state?: string;
   valid?: boolean;
   invalid?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   innerRef?: React.Ref<HTMLInputElement>;
   plaintext?: boolean;
   addon?: boolean;

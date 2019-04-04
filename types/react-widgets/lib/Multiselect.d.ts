@@ -72,7 +72,7 @@ interface MultiselectProps
      * This component is used to render each selected item. The default component renders the
      * text of the selected item (specified by textfield).
      */
-    tagComponent?: React.ReactType | string;
+    tagComponent?: React.ElementType | string;
     /**
      * An object of props that is passed directly to the underlying input component.
      */
@@ -81,7 +81,7 @@ interface MultiselectProps
      * This component is used to render each possible item in the list. The default component
      * renders the text of the selected item (specified by textfield).
      */
-    itemComponent?: React.ReactType;
+    itemComponent?: React.ElementType;
     /**
      * Determines how to group the Multiselect values. Providing a string will group the data
      * array by that property. You can also provide a 'function' which should return the group
@@ -92,7 +92,7 @@ interface MultiselectProps
      * This component is used to render each option group, when groupBy is specified. By default
      * the groupBy value will be used.
      */
-    groupComponent?: React.ReactType;
+    groupComponent?: React.ElementType;
     /**
      * The same as an input placeholder, only works in browsers that support the placeholder
      * attribute for inputs
@@ -172,7 +172,7 @@ interface MultiselectProps
     /**
      * @default List
      */
-    listComponent?: React.ReactType | string;
+    listComponent?: React.ElementType | string;
     /**
      * An object of props that is passed directly to the underlying List component.
      */
@@ -182,7 +182,7 @@ interface MultiselectProps
      * The provided component will be used instead of the default SlideDownTransition for fully customizable animations.
      * The transition component is also injected with a dropUp prop indicating the direction it should open.
      */
-    popupTransition?: React.ReactType | string;
+    popupTransition?: React.ElementType | string;
 
     /**
      * Adds a css class to the input container element.

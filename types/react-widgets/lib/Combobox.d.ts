@@ -67,12 +67,12 @@ interface ComboBoxProps extends ReactWidgetsCommonDropdownProps<ComboBoxClass>, 
      * This component is used to render each possible item in the Combobox. The default
      * component renders the text of the selected item (specified by textfield)
      */
-    itemComponent?: React.ReactType;
+    itemComponent?: React.ElementType;
     /**
      * An object of props that is passed directly to the underlying input component.
      */
     inputProps?: object;
-    listComponent?: React.ReactType | string;
+    listComponent?: React.ElementType | string;
     /**
      * An object of props that is passed directly to the underlying List component.
      */
@@ -86,7 +86,7 @@ interface ComboBoxProps extends ReactWidgetsCommonDropdownProps<ComboBoxClass>, 
      * This component is used to render each option group, when groupBy is specified. By default
      * the groupBy value will be used.
      */
-    groupComponent?: React.ReactType;
+    groupComponent?: React.ElementType;
     /**
      * The same as an input placeholder, only works in browsers that support the placeholder
      * attribute for inputs
@@ -102,7 +102,7 @@ interface ComboBoxProps extends ReactWidgetsCommonDropdownProps<ComboBoxClass>, 
      * instead of the default SlideDownTransition for fully customizable animations.
      * The transition component is also injected with a dropUp prop indicating the direction it should open.
      */
-    popupTransition?: React.ReactType | string;
+    popupTransition?: React.ElementType | string;
     /**
      * Specify a filtering method used to reduce the items in the dropdown as you type. It can
      * be used in conjunction with the suggest prop or instead of it. There are a few built-in

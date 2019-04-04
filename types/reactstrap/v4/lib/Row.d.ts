@@ -3,7 +3,7 @@ import { CSSModule } from '../index';
 interface Props extends React.HTMLProps< HTMLElement> {
   className?: string;
   cssModule?: CSSModule;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   noGutters?: boolean;
 }
 

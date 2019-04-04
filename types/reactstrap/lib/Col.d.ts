@@ -13,7 +13,7 @@ export type ColumnProps
   };
 
 export type ColProps<T = {}> = React.HTMLProps<HTMLDivElement> & {
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   xs?: ColumnProps;
   sm?: ColumnProps;
   md?: ColumnProps;

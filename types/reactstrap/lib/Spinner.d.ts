@@ -2,7 +2,7 @@ import * as React from 'react';
 import { CSSModule } from '../index';
 
 export type SpinnerProps<T = {}> = React.HTMLProps<HTMLElement> & {
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   type?: string;
   size?: any;
   color?: string;

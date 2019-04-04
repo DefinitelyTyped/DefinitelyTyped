@@ -30,7 +30,7 @@ export interface FormState {
 }
 
 export interface FormProps {
-    component?: React.ReactType<{ formApi: FormApi }>;
+    component?: React.ElementType<{ formApi: FormApi }>;
     render?: (formApi: FormApi) => RenderReturn;
     dontValidateOnMount?: boolean;
     validateOnSubmit?: boolean;

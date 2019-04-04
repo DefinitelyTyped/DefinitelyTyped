@@ -6,7 +6,7 @@ import DropdownMenu = require('./DropdownMenu');
 declare namespace Dropdown {
     export interface DropdownBaseProps {
         bsClass?: string;
-        componentClass?: React.ReactType;
+        componentClass?: React.ElementType;
         disabled?: boolean;
         dropup?: boolean;
         id: string;

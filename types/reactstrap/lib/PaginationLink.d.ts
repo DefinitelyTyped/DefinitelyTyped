@@ -7,7 +7,7 @@ export type PaginationLinkProps<T = {}> = React.HTMLProps<HTMLAnchorElement> & {
   cssModule?: CSSModule;
   next?: boolean;
   previous?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
 } & T;
 
 declare class PaginationLink<T = {[key: string]: any}> extends React.Component<PaginationLinkProps<T>> {}

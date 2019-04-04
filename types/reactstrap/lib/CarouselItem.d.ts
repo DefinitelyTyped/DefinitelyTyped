@@ -11,7 +11,7 @@ export interface Transition {
 }
 
 export type CarouselItemProps<T = {}> = React.HTMLProps<HTMLElement> & Transition & {
-    tag?: React.ReactType;
+    tag?: React.ElementType;
     in?: boolean;
     cssModule?: CSSModule;
     slide?: boolean;

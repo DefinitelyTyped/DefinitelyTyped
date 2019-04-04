@@ -7,7 +7,7 @@ declare namespace FormControl {
     export interface FormControlProps extends React.HTMLProps<FormControl> {
         bsClass?: string;
         bsSize?: Sizes;
-        componentClass?: React.ReactType;
+        componentClass?: React.ElementType;
         id?: string;
         inputRef?: (instance: HTMLInputElement) => void;
         type?: string;

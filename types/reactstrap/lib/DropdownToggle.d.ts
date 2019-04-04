@@ -11,7 +11,7 @@ export type DropdownToggleProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   'data-toggle'?: string;
   'aria-haspopup'?: boolean;
   split?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   nav?: boolean;
   color?: string;
   size?: string;

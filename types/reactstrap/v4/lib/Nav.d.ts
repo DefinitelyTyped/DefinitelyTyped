@@ -7,7 +7,7 @@ interface Props extends React.HTMLProps<HTMLUListElement> {
   pills?: boolean;
   stacked?: boolean;
   navbar?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   className?: string;
   cssModule?: CSSModule;
   vertical?: boolean;

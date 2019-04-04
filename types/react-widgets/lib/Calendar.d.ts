@@ -65,7 +65,7 @@ interface CalendarProps extends ReactWidgetsCommonProps<CalendarClass>, AutoFocu
      * - label: a formatted String of the date to render. To adjust the format of the label
      *          string use the dateFormat prop, listed below.
      */
-    dayComponent?: React.ReactType;
+    dayComponent?: React.ElementType;
     /**
      * The starting and lowest level view the calendar can navigate down to.
      */

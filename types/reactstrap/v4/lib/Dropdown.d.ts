@@ -14,7 +14,7 @@ export interface Props extends UncontrolledProps {
   dropup?: boolean;
   group?: boolean;
   size?: string;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   tether?: boolean | Tether.ITetherOptions;
 }
 

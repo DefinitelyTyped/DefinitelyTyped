@@ -2,7 +2,7 @@ import * as React from 'react';
 import { CSSModule } from '../index';
 
 export type NavbarBrandProps<T = {}> = React.HTMLProps<HTMLAnchorElement> & {
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   className?: string;
   cssModule?: CSSModule;
 } & T;

@@ -12,8 +12,8 @@ export type TableProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   hover?: boolean;
   reflow?: boolean;
   responsive?: boolean;
-  tag?: React.ReactType;
-  responsiveTag?: React.ReactType;
+  tag?: React.ElementType;
+  responsiveTag?: React.ElementType;
 } & T;
 
 declare class Table<T = {[key: string]: any}> extends React.Component<TableProps<T>> {}

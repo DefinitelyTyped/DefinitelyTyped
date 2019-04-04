@@ -6,7 +6,7 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
   cssModule?: CSSModule;
   next?: boolean;
   previous?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
 }
 
 declare var PaginationLink: React.StatelessComponent<Props>;

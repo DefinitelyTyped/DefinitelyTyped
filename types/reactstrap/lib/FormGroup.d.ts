@@ -6,7 +6,7 @@ export type FormGroupProps<T = {}> = React.HTMLProps<HTMLDivElement> & {
   check?: boolean;
   inline?: boolean;
   disabled?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   className?: string;
   cssModule?: CSSModule;
 } & T;

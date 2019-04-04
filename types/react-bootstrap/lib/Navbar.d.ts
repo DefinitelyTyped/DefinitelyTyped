@@ -11,7 +11,7 @@ declare namespace Navbar {
         bsSize?: Sizes;
         bsStyle?: string;
         collapseOnSelect?: boolean;
-        componentClass?: React.ReactType;
+        componentClass?: React.ElementType;
         defaultNavExpanded?: boolean;
         fixedBottom?: boolean;
         fixedTop?: boolean;
@@ -51,7 +51,7 @@ interface NavbarTextProps extends React.HTMLProps<NavbarText> {
 declare class NavbarText extends React.Component<NavbarTextProps> { }
 
 interface NavbarFormProps extends React.HTMLProps<NavbarForm> {
-  componentClass?: React.ReactType;
+  componentClass?: React.ElementType;
   pullRight?: boolean;
   pullLeft?: boolean;
 }

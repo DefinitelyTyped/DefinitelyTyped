@@ -5,7 +5,7 @@ interface Props {
   cssModule?: CSSModule;
   active?: boolean;
   disabled?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
 }
 
 declare var PaginationItem: React.StatelessComponent<Props>;

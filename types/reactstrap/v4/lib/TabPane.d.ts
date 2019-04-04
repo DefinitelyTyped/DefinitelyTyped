@@ -1,7 +1,7 @@
 import { CSSModule } from '../index';
 
 interface Props {
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   className?: string;
   cssModule?: CSSModule;
   tabId?: number | string;

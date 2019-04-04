@@ -10,8 +10,8 @@ interface Props {
   hover?: boolean;
   reflow?: boolean;
   responsive?: boolean;
-  tag?: React.ReactType;
-  responsiveTag?: React.ReactType;
+  tag?: React.ElementType;
+  responsiveTag?: React.ElementType;
 }
 
 declare var Table: React.StatelessComponent<Props>;

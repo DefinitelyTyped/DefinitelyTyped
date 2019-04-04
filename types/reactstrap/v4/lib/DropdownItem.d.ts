@@ -3,7 +3,7 @@ import { CSSModule } from '../index';
 interface Props {
   disabled?: boolean;
   divider?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   header?: boolean;
   onClick?: (event: React.MouseEvent<any>) => void;
   className?: string;

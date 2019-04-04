@@ -4,7 +4,7 @@ interface Props extends React.HTMLProps<HTMLElement> {
   isOpen?: boolean;
   classNames?: string;
   cssModule?: CSSModule;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   navbar?: boolean;
   delay?: {
     show: number

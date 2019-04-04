@@ -2,7 +2,7 @@ import * as React from 'react';
 
 declare namespace Col {
     export interface ColProps extends React.HTMLProps<Col> {
-        componentClass?: React.ReactType;
+        componentClass?: React.ElementType;
         lg?: number;
         lgHidden?: boolean;
         lgOffset?: number;

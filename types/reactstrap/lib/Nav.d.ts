@@ -10,7 +10,7 @@ export type NavProps<T = {}> = React.HTMLProps<HTMLUListElement> & {
   fill?: boolean;
   navbar?: boolean;
   card?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   className?: string;
   cssModule?: CSSModule;
 } & T;

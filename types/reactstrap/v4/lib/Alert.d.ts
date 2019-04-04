@@ -4,7 +4,7 @@ export interface UncontrolledProps {
   className?: string;
   cssModule?: CSSModule;
   color?: string;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   transitionAppearTimeout?: number;
   transitionEnterTimeout?: number;
   transitionLeaveTimeout?: number;

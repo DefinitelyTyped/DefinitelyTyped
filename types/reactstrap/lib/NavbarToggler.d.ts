@@ -2,7 +2,7 @@ import * as React from 'react';
 import { CSSModule } from '../index';
 
 export type NavbarTogglerProps<T = {}> = React.HTMLProps<HTMLAnchorElement> & {
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   type?: string;
   className?: string;
   cssModule?: CSSModule;

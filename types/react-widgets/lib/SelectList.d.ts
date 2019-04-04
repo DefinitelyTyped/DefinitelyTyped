@@ -51,7 +51,7 @@ interface SelectListProps extends ReactWidgetsCommonProps<SelectListClass>, Auto
      * This component is used to render each item in the SelectList. The default component
      * renders the text of the selected item (specified by textfield)
      */
-    itemComponent?: React.ReactType;
+    itemComponent?: React.ElementType;
     /**
      * Determines how to group the SelectList dropdown list. Providing a string will group the
      * data array by that property. You can also provide a 'function' which should return the
@@ -62,7 +62,7 @@ interface SelectListProps extends ReactWidgetsCommonProps<SelectListClass>, Auto
      * This component is used to render each option group, when groupBy is specified. By default
      * the groupBy value will be used.
      */
-    groupComponent?: React.ReactType;
+    groupComponent?: React.ElementType;
     /**
      * The native onKeyDown event, called preventDefault will prevent any custom behavior, included keyboard shortcuts.
      */
@@ -93,7 +93,7 @@ interface SelectListProps extends ReactWidgetsCommonProps<SelectListClass>, Auto
     /**
      * @default List
      */
-    listComponent?: React.ReactType | string;
+    listComponent?: React.ElementType | string;
     /**
      * An object of props that is passed directly to the underlying List component.
      */

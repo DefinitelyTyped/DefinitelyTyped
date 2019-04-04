@@ -4,7 +4,7 @@ import { CSSModule } from '../index';
 export type DropdownItemProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   disabled?: boolean;
   divider?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   header?: boolean;
   onClick?: (event: React.MouseEvent<any>) => void;
   className?: string;

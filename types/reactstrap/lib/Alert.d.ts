@@ -6,7 +6,7 @@ export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   className?: string;
   cssModule?: CSSModule;
   color?: string;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   transition?: FadeProps;
 } & T;
 export type UncontrolledAlertProps<T = {}> = UncontrolledProps<T>;

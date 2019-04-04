@@ -4,7 +4,7 @@ import { CSSModule } from '../index';
 export type RowProps<T = {}> = React.HTMLProps<HTMLElement> & {
   className?: string;
   cssModule?: CSSModule;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   noGutters?: boolean;
 } & T;
 

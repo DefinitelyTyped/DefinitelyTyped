@@ -3,7 +3,7 @@ import * as Popper from 'popper.js';
 import { CSSModule } from '../index';
 
 export type DropdownMenuProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   right?: boolean;
   className?: string;
   cssModule?: CSSModule;

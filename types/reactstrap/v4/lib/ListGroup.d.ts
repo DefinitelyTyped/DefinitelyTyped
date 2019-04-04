@@ -1,7 +1,7 @@
 import { CSSModule } from '../index';
 
 interface Props {
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   flush?: boolean;
   className?: string;
   cssModule?: CSSModule;

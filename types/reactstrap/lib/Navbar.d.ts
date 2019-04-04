@@ -10,7 +10,7 @@ export type NavbarProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   sticky?: string;
   color?: string;
   role?: string;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   className?: string;
   cssModule?: CSSModule;
   toggleable?: boolean | string;

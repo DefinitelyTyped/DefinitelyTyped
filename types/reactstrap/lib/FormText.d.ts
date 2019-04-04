@@ -3,7 +3,7 @@ import { CSSModule } from '../index';
 
 export type FormTextProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   inline?: boolean;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   color?: string;
   className?: string;
   cssModule?: CSSModule;

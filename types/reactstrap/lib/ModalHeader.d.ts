@@ -2,10 +2,10 @@ import * as React from 'react';
 import { CSSModule } from '../index';
 
 export type ModalHeaderProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   className?: string;
   cssModule?: CSSModule;
-  wrapTag?: React.ReactType;
+  wrapTag?: React.ElementType;
   toggle?: () => void;
 } & T;
 

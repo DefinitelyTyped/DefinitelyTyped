@@ -9,7 +9,7 @@ interface Props {
   sticky?: string;
   color?: string;
   role?: string;
-  tag?: React.ReactType;
+  tag?: React.ElementType;
   className?: string;
   cssModule?: CSSModule;
   toggleable?: boolean | string;
