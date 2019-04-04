@@ -570,7 +570,7 @@ export interface BatchUpdateEntitiesRequest {
     entities: Entity[];
     languageCode?: string;
     /** @link https://github.com/google/protobuf/blob/master/src/google/protobuf/field_mask.proto */
-    updateMask?: any; 
+    updateMask?: any;
 }
 
 export interface BatchDeleteEntitiesRequest {
