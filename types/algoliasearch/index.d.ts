@@ -360,6 +360,15 @@ declare namespace algoliasearch {
       cb: (err: Error, res: Task) => void
     ): void;
     /**
+     * Set an index settings
+     * https://github.com/algolia/algoliasearch-client-js#set-settings---setsettings
+     */
+    setSettings(
+      settings: IndexSettings,
+      extra: { forwardToReplicas: boolean },
+      cb: (err: Error, res: Task) => void
+    ): void;
+    /**
      * Clear cache of an index
      * https://github.com/algolia/algoliasearch-client-js#cache
      */
@@ -587,7 +596,7 @@ declare namespace algoliasearch {
      * Set an index settings
      * https://github.com/algolia/algoliasearch-client-js#set-settings---setsettings
      */
-    setSettings(settings: IndexSettings): Promise<Task>;
+    setSettings(settings: IndexSettings, extra?: { forwardToReplicas: boolean }): Promise<Task>;
     /**
      * Search in an index
      * https://github.com/algolia/algoliasearch-client-js#search-in-an-index---search
