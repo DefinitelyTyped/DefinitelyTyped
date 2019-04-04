@@ -21,33 +21,21 @@ export class FastRateLimit {
 
     /**
      * FastRateLimit.prototype.consumeSync
-     * @public
-     * @param  {string}  namespace
-     * @return {boolean} Whether tokens remain in current timespan or not
      */
     consumeSync(namespace: string): boolean;
 
     /**
      * FastRateLimit.prototype.hasTokenSync
-     * @public
-     * @param  {string}  namespace
-     * @return {boolean} Whether tokens remain in current timespan or not
      */
     hasTokenSync(namespace: string): boolean;
 
     /**
      * FastRateLimit.prototype.consume
-     * @public
-     * @param  {string} namespace
-     * @return {object} Promise object
      */
-    consume(namespace: string): Promise<void>
+    consume(namespace: string): Promise<void>;
 
     /**
      * FastRateLimit.prototype.hasToken
-     * @public
-     * @param  {string} namespace
-     * @return {object} Promise object
      */
-    hasToken(namespace: string): Promise<void>
+    hasToken(namespace: string): Promise<void>;
 }
