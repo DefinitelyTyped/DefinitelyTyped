@@ -29,7 +29,7 @@ export interface CommentOptions {
         | "togglenoview";
 }
 
-export interface AnotOptions {
+export interface AnnotOptions {
     title?: string;
     open?: boolean;
     richText?: boolean;
@@ -192,7 +192,7 @@ export class Recipe {
             | "Ink"
             | "FileAttachment"
             | "Sound",
-        options?: AnotOptions
+        options?: AnnotOptions
     ): Recipe;
 
     appendPage(pdfSrc: string, pages: number | number[]): Recipe;
