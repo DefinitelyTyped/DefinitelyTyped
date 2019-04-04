@@ -1,4 +1,5 @@
 import PushNotifications = require('node-pushnotifications');
+import { supportedContentEncodings } from 'web-push';
 
 const settings = {
     gcm: {
@@ -19,6 +20,18 @@ const settings = {
         client_id: "null",
         client_secret: "null",
         notificationMethod: 'sendTileSquareBlock',
+    },
+    web: {
+        vapidDetails: {
+            subject: '< \'mailto\' Address or URL >',
+            publicKey: '< URL Safe Base64 Encoded Public Key >',
+            privateKey: '< URL Safe Base64 Encoded Private Key >',
+        },
+        gcmAPIKey: 'gcmkey',
+        TTL: 2419200,
+        contentEncoding: supportedContentEncodings.AES_128_GCM,
+        headers: {},
+        
     }
 };
 const push = new PushNotifications(settings);

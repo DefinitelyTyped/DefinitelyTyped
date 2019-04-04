@@ -7,6 +7,8 @@
 // TypeScript Version: 2.1
 /// <reference types="node" />
 
+import * as webPush from 'web-push';
+
 export = PushNotifications;
 
 declare class PushNotifications {
@@ -97,6 +99,10 @@ declare namespace PushNotifications {
                 client_secret?: string;
             };
         };
+        /** Web */
+        web?: webPush.RequestOptions;
+        /** Always use FCM? */
+        isAlwaysUseFCM?: boolean;
     }
     interface Data {
         /** REQUIRED */
@@ -178,11 +184,5 @@ declare namespace PushNotifications {
     }
     type PushMethod = (regIds: string[], data: Data, settings: Settings) => void;
     type Callback = (err: any, result: any) => void;
-    type RegistrationId = string | {
-        endpoint: string,
-        keys: {
-            auth: string,
-            p256dh: string
-        }
-    };
+    type RegistrationId = string | webPush.PushSubscription;
 }
