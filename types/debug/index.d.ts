@@ -42,7 +42,7 @@ declare namespace debug {
         enabled: boolean;
         log: (...args: any[]) => any;
         namespace: string;
-        destroy: Function;
+        destroy: () => void;
         extend: (namespace: string, delimiter?: string) => Debugger;
     }
 }
