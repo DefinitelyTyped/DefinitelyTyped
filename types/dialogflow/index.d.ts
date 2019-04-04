@@ -658,13 +658,17 @@ export interface DetectIntentRequest {
     session: string;
     queryInput: QueryInput;
     queryParams?: QueryParams;
-    inputAudio?: any;
+    inputAudio?: string;
+    outputAudioConfig?: OutputAudioConfig;
 }
 
 export interface DetectIntentResponse {
     responseId: string;
     queryResult: QueryResult;
+    alternativeQueryResults: QueryResult[];
     webhookStatus: Status;
+    outputAudio: string;
+    outputAudioConfig: OutputAudioConfig;
 }
 
 export interface QueryResult {
@@ -688,6 +692,7 @@ export interface QueryResult {
         };
     };
     diagnosticInfo: any;
+    knowledgeAnswers: any;
 }
 
 export interface Status {
@@ -1004,7 +1009,43 @@ export interface TextInput {
     languageCode: string;
 }
 
+// TODO export enum AudioEncoding
+
+export interface InputAudioConfig {
+    // required by the documentation https://cloud.google.com/dialogflow-enterprise/docs/reference/rest/v2beta1/QueryInput
+    // but resolved by autodetection
+    audioEncoding?: any;
+    sampleRateHertz?: number;
+    languageCode: string;
+    phraseHints?: string[];
+    model?: string;
+}
+
+// TODO export enum OutputAudioEncoding
+
+export interface OutputAudioConfig {
+    audioEncoding: any;
+    sampleRateHertz?: number;
+    synthesizeSpeechConfig?: SynthesizeSpeechConfig;
+}
+
+export interface SynthesizeSpeechConfig {
+    speakingRate?: number;
+    pitch?: number;
+    volumeGainDb?: number;
+    effectsProfileId?: string[];
+    voice?: VoiceSelectionParams;
+}
+
+// TODO export enum SsmlVoiceGender
+
+export interface VoiceSelectionParams {
+    name?: string;
+    ssmlGender?: any;
+}
+
 export interface QueryInput {
+    audioConfig?: InputAudioConfig;
     text?: TextInput;
     event?: EventInput;
 }
@@ -1016,7 +1057,11 @@ export interface QueryParams {
     resetContexts?: boolean;
     sessionEntityTypes?: SessionEntityType[];
     payload?: any;
+    knowledgeBaseNames?: string[];
+    sentimentAnalysisRequestConfig?: any;
 }
+
+// TODO export interface SentimentAnalysisRequestConfig
 
 export interface LatLong {
     latitude: number;
