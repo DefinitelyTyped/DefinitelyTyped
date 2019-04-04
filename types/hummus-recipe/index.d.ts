@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-export namespace Recipe {
+export namespace HummusRecipe {
     interface RecipeOptions {
         version?: number;
         author?: string;
@@ -165,13 +165,17 @@ export namespace Recipe {
 }
 
 export class Recipe {
-    constructor(src: string, output: string, options?: Recipe.RecipeOptions);
+    constructor(
+        src: string,
+        output: string,
+        options?: HummusRecipe.RecipeOptions
+    );
 
     comment(
         text: string,
         x: number,
         y: number,
-        options?: Recipe.CommentOptions
+        options?: HummusRecipe.CommentOptions
     ): Recipe;
 
     annot(
@@ -194,12 +198,12 @@ export class Recipe {
             | "Ink"
             | "FileAttachment"
             | "Sound",
-        options?: Recipe.AnnotOptions
+        options?: HummusRecipe.AnnotOptions
     ): Recipe;
 
     appendPage(pdfSrc: string, pages: number | number[]): Recipe;
 
-    encrypt(options: Recipe.EncryptOptions): Recipe;
+    encrypt(options: HummusRecipe.EncryptOptions): Recipe;
 
     registerFont(fontName: string, fontSrcPath: string): Recipe;
 
@@ -207,10 +211,10 @@ export class Recipe {
         imgSrc: string,
         x: number,
         y: number,
-        options?: Recipe.ImageOptions
+        options?: HummusRecipe.ImageOptions
     ): Recipe;
 
-    info(options?: Recipe.InfoOptions): Recipe;
+    info(options?: HummusRecipe.InfoOptions): Recipe;
 
     custom(key?: string, value?: string): Recipe;
 
@@ -224,7 +228,7 @@ export class Recipe {
         pdfSrc: string,
         x: number,
         y: number,
-        options?: Recipe.OverlayOptions
+        options?: HummusRecipe.OverlayOptions
     ): Recipe;
 
     createPage(pageWidth: number, pageHeight: number): Recipe;
@@ -241,22 +245,25 @@ export class Recipe {
         text: string,
         x: number,
         y: number,
-        options?: Recipe.TextOptions
+        options?: HummusRecipe.TextOptions
     ): Recipe;
 
     moveTo(x: number, y: number): Recipe;
 
-    lineTo(x: number, y: number, options?: Recipe.LineToOptions): Recipe;
+    lineTo(x: number, y: number, options?: HummusRecipe.LineToOptions): Recipe;
 
-    line(coordinates: number[][], options?: Recipe.LineOptions): Recipe;
+    line(coordinates: number[][], options?: HummusRecipe.LineOptions): Recipe;
 
-    polygon(coordinates: number[][], options?: Recipe.PolygonOptions): Recipe;
+    polygon(
+        coordinates: number[][],
+        options?: HummusRecipe.PolygonOptions
+    ): Recipe;
 
     circle(
         x: number,
         y: number,
         radius: number,
-        options?: Recipe.CircleOptions
+        options?: HummusRecipe.CircleOptions
     ): Recipe;
 
     rectangle(
@@ -264,7 +271,7 @@ export class Recipe {
         y: number,
         width: number,
         height: number,
-        options?: Recipe.RectangleOptions
+        options?: HummusRecipe.RectangleOptions
     ): Recipe;
 
     endPDF(callback?: () => any): Recipe;
