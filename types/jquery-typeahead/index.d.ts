@@ -127,7 +127,7 @@ declare namespace RunningCoder.Typeahead {
          * Set `"asc"` or `"desc"` to have the group name sorted ascending or descending
          * Set an `Array` to specify the group order to appear in the search result
          */
-        groupOrder?: "asc" | "desc" | string[] | ((node?: JQuery, query?: string, result?: any, resultCount?: number, resultCountPerGroup?: number) => any),
+        groupOrder?: "asc" | "desc" | string[] | ((node?: JQuery, query?: string, result?: any, resultCount?: number, resultCountPerGroup?: number) => any[]),
 
         /** Set a maximum results per group if `group: true` configuration is enabled */
         maxItemPerGroup?: number,
@@ -378,7 +378,7 @@ declare namespace RunningCoder.Typeahead {
         limit?: number,
 
         /** Template when the limit is reached */
-        limitTemplate?: string | ((query?: string) => any),
+        limitTemplate?: string | ((query?: string) => string),
 
         /** Unique item identifier to remove an item from the result list when selected (use any of the item key), by default a JSON of the item will be used */
         matchOn?: string | any[],
@@ -387,7 +387,7 @@ declare namespace RunningCoder.Typeahead {
         cancelOnBackspace?: boolean,
 
         /** Href link on the multiselect item */
-        href?: string | ((item?: any) => any),
+        href?: string | ((item?: any) => string),
 
         /** Default items when Typeahead is loade */
         data?: any[] | (() => any[] | any),
