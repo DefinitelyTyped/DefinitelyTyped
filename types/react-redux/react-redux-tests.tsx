@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Store, Dispatch, AnyAction, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject, Reducer } from 'redux';
-import { Connect, connect, Provider, DispatchProp, MapStateToProps, Options, ReactReduxContext, ReactReduxContextValue, Selector } from 'react-redux';
+import { Connect, connect, Provider, DispatchProp, MapStateToProps, Options, ReactReduxContext, ReactReduxContextValue, Selector, MapDispatchToProps } from 'react-redux';
 import objectAssign = require('object-assign');
 
 //
@@ -82,9 +82,7 @@ function MapDispatch() {
 
     class TestComponent extends React.Component<OwnProps & DispatchProps> { }
 
-    const mapDispatchToProps = () => ({
-        onClick: () => { }
-    });
+    const mapDispatchToProps = ({ onClick: () => {} });
 
     const TestNull = connect(
         null,
@@ -92,6 +90,16 @@ function MapDispatch() {
     )(TestComponent);
 
     const verifyNull = <TestNull foo='bar' />;
+
+    // We deliberately cast the right-hand side to any because…
+    const mapDispatchToProps2: MapDispatchToProps<DispatchProps, OwnProps> = {} as any;
+
+    const TestNull2 = connect(
+        null,
+        mapDispatchToProps2,
+    )(TestComponent);
+
+    const verifyNull2 = <TestNull2 foo='bar' />;
 
     const TestUndefined = connect(
         undefined,

@@ -171,7 +171,7 @@ export interface Connect {
 
     <no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
         mapStateToProps: null | undefined,
-        mapDispatchToProps: TDispatchProps,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     ): InferableComponentEnhancerWithProps<
         ResolveThunks<TDispatchProps>,
         TOwnProps
@@ -184,7 +184,7 @@ export interface Connect {
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
-        mapDispatchToProps: TDispatchProps,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     ): InferableComponentEnhancerWithProps<
         TStateProps & ResolveThunks<TDispatchProps>,
         TOwnProps
@@ -231,7 +231,7 @@ export interface Connect {
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
         mapStateToProps: null | undefined,
-        mapDispatchToProps: TDispatchProps,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
         options: Options<{}, TStateProps, TOwnProps>
     ): InferableComponentEnhancerWithProps<
@@ -248,7 +248,7 @@ export interface Connect {
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
-        mapDispatchToProps: TDispatchProps,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
         options: Options<State, TStateProps, TOwnProps>
     ): InferableComponentEnhancerWithProps<
