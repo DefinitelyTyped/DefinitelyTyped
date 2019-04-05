@@ -9,7 +9,7 @@ import { EventEmitter } from "events";
 
 declare namespace Undertaker {
     interface TaskFunctionParams {
-        name?: string;
+        readonly name?: string;
         displayName?: string;
         description?: string;
         flags?: TaskFlags;
