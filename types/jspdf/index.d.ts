@@ -77,7 +77,8 @@ declare module 'jspdf' {
         setLineCap(style:string|number):jsPDF;
         setLineJoin(style:string|number):jsPDF;
         output(type?:string, options?:any):any;
-        save(filename:string, options?: {returnPromise: boolean}): Promise<any>;
+        save(filename:string): void;
+        save(filename:string, options: {returnPromise: boolean}): Promise<any>;
 
         /**
          * jsPDF plugins below:
