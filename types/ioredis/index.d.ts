@@ -10,6 +10,7 @@
 //                 Dmitry Motovilov <https://github.com/funthing>
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 Ting-Wai To <https://github.com/tingwai-to>
+//                 Alex Petty <https://github.com/pettyalex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -29,7 +30,7 @@ interface RedisStatic {
     (port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (options?: IORedis.RedisOptions): IORedis.Redis;
-    Cluster: IORedis.Cluster;
+    Cluster: IORedis.ClusterStatic;
     Command: IORedis.Command;
 }
 
@@ -106,6 +107,7 @@ declare namespace IORedis {
         del(...keys: KeyType[]): Promise<number>;
 
         exists(...keys: KeyType[]): Promise<number>;
+        exists(key: KeyType, callback: (err: Error, res: number) => void): void;
 
         setbit(key: KeyType, offset: number, value: any, callback: (err: Error, res: number) => void): void;
         setbit(key: KeyType, offset: number, value: any): Promise<number>;
@@ -270,7 +272,7 @@ declare namespace IORedis {
         hgetBuffer(key: KeyType, field: string, callback: (err: Error, res: Buffer) => void): void;
         hgetBuffer(key: KeyType, field: string): Promise<Buffer>;
 
-        hmset(key: KeyType, field: string, value: any, ...args: string[]): Promise<0 | 1>;
+        hmset(key: KeyType, ...args: any[]): Promise<0 | 1>;
         hmset(key: KeyType, data: any, callback: (err: Error, res: 0 | 1) => void): void;
         hmset(key: KeyType, data: any): Promise<0 | 1>;
 
@@ -311,9 +313,13 @@ declare namespace IORedis {
         getset(key: KeyType, value: any, callback: (err: Error, res: string | null) => void): void;
         getset(key: KeyType, value: any): Promise<string | null>;
 
-        mset(key: KeyType, value: any, ...args: string[]): any;
+        mset(...args: any[]): any;
+        mset(data: any, callback: (err: Error, res: string) => void): void;
+        mset(data: any): Promise<string>;
 
-        msetnx(key: KeyType, value: any, ...args: string[]): any;
+        msetnx(...args: any[]): any;
+        msetnx(data: any, callback: (err: Error, res: 0 | 1) => void): void;
+        msetnx(data: any): Promise<0 | 1>;
 
         randomkey(callback: (err: Error, res: string) => void): void;
         randomkey(): Promise<string>;
@@ -487,6 +493,8 @@ declare namespace IORedis {
         xack(key: KeyType, group: string, ...ids: string[]): any;
 
         xadd(key: KeyType, id: string, ...args: string[]): any;
+        xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', count: number, ...args: string[]): any;
+        xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', approximate: '~', count: number, ...args: string[]): any;
 
         xclaim(key: KeyType, group: string, consumer: string, minIdleTime: number, ...args: any[]): any;
 
@@ -671,7 +679,7 @@ declare namespace IORedis {
         hget(key: KeyType, field: string, callback?: (err: Error, res: string | string) => void): Pipeline;
         hgetBuffer(key: KeyType, field: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
-        hmset(key: KeyType, field: string, value: any, ...args: string[]): Pipeline;
+        hmset(key: KeyType, ...args: any[]): Pipeline;
         hmset(key: KeyType, data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         hmget(key: KeyType, ...fields: string[]): Pipeline;
@@ -700,9 +708,11 @@ declare namespace IORedis {
 
         getset(key: KeyType, value: any, callback?: (err: Error, res: string) => void): Pipeline;
 
-        mset(key: KeyType, value: any, ...args: string[]): Pipeline;
+        mset(...args: any[]): Pipeline;
+        mset(data: any, callback?: (err: Error, res: string) => void): Pipeline;
 
-        msetnx(key: KeyType, value: any, ...args: string[]): Pipeline;
+        msetnx(...args: any[]): Pipeline;
+        msetnx(data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         randomkey(callback?: (err: Error, res: string) => void): Pipeline;
 
@@ -863,11 +873,26 @@ declare namespace IORedis {
 
     type ClusterNode = string | number | NodeConfiguration;
 
+    type NodeRole = 'master' | 'slave' | 'all';
+
+    type CallbackFunction<T = any> = (err?: NodeJS.ErrnoException | null, result?: T) => void;
+
     interface Cluster extends NodeJS.EventEmitter, Commander {
-        new(nodes: ClusterNode[], options?: ClusterOptions): Redis;
         connect(callback: () => void): Promise<any>;
         disconnect(): void;
-        nodes(role: string): Redis[];
+        nodes(role?: NodeRole): Redis[];
+        quit(callback?: CallbackFunction<'OK'>): Promise<'OK'>;
+        get(key: KeyType, callback: (err: Error, res: string | null) => void): void;
+        get(key: KeyType): Promise<string | null>;
+        set(key: KeyType, value: any, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<string>;
+        set(key: KeyType, value: any, callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, setMode: string | any[], callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, expiryMode: string, time: number | string, callback: (err: Error, res: string) => void): void;
+        set(key: KeyType, value: any, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: string) => void): void;
+    }
+
+    interface ClusterStatic extends NodeJS.EventEmitter, Commander {
+        new (nodes: ClusterNode[], options?: ClusterOptions): Cluster;
     }
 
     interface RedisOptions {
@@ -971,8 +996,13 @@ declare namespace IORedis {
         count?: number;
     }
 
+    type DNSLookupFunction = (hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
+    interface NatMap {
+        [key: string]: {host: string, port: number};
+    }
+
     interface ClusterOptions {
-        clusterRetryStrategy?(times: number): number;
+        clusterRetryStrategy?(times: number, reason?: Error): number | null;
         enableOfflineQueue?: boolean;
         enableReadyCheck?: boolean;
         scaleReads?: string;
@@ -980,7 +1010,12 @@ declare namespace IORedis {
         retryDelayOnFailover?: number;
         retryDelayOnClusterDown?: number;
         retryDelayOnTryAgain?: number;
+        slotsRefreshTimeout?: number;
+        slotsRefreshInterval?: number;
         redisOptions?: RedisOptions;
+        lazyConnect?: boolean;
+        dnsLookup?: DNSLookupFunction;
+        natMap?: NatMap;
     }
 
     interface MultiOptions {

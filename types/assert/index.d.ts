@@ -1,6 +1,7 @@
 // Type definitions for commonjs-assert 1.4
-// Project: https://github.com/browserify/commonjs-assert
+// Project: https://github.com/browserify/commonjs-assert, https://github.com/defunctzombie/commonjs-assert
 // Definitions by: Nico Gallinal <https://github.com/nicoabie>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function assert(value: any, message?: string): void;
@@ -23,10 +24,10 @@ declare namespace assert {
     function notStrictEqual(actual: any, expected: any, message?: string): void;
 
     function throws(block: () => void, message?: string): void;
-    function throws(block: () => void, error: () => void | ((err: any) => boolean) | RegExp, message?: string): void;
+    function throws(block: () => void, error: (() => void) | ((err: any) => boolean) | RegExp, message?: string): void;
 
     function doesNotThrow(block: () => void, message?: string): void;
-    function doesNotThrow(block: () => void, error: () => void | ((err: any) => boolean) | RegExp, message?: string): void;
+    function doesNotThrow(block: () => void, error: (() => void) | ((err: any) => boolean) | RegExp, message?: string): void;
 
     function ifError(value: any): void;
 

@@ -6,11 +6,9 @@ import { Strategy as OAuth2Strategy, VerifyCallback } from "passport-oauth2";
 import { Request } from "express";
 
 const strategyOptions1: StrategyOptions = {
-    authorizationURL: 'http://www.example.com/auth',
     callbackURL: 'http://www.example.com/callback',
     clientID: 'dummy',
     clientSecret: 'secret',
-    tokenURL: 'http://www.example.com/token',
     region: 'us',
     scope: "email",
     scopeSeparator: ' ',

@@ -24,6 +24,11 @@
 //                 Oliver Hookins <https://github.com/ohookins>
 //                 Trevor Leach <https://github.com/trevor-leach>
 //                 James Gregory <https://github.com/jagregory>
+//                 Erik Dalén <https://github.com/dalen>
+//                 Loïk Gaonac'h <https://github.com/loikg>
+//                 Roberto Zen <https://github.com/skyzenr>
+//                 Richard Cornelissen <https://github.com/richardcornelissen>
+//                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -32,6 +37,11 @@ export interface APIGatewayEventRequestContext {
     accountId: string;
     apiId: string;
     authorizer?: AuthResponseContext | null;
+    connectedAt?: number;
+    connectionId?: string;
+    domainName?: string;
+    eventType?: string;
+    extendedRequestId?: string;
     httpMethod: string;
     identity: {
         accessKey: string | null;
@@ -48,12 +58,16 @@ export interface APIGatewayEventRequestContext {
         userAgent: string | null;
         userArn: string | null;
     };
+    messageDirection?: string;
+    messageId?: string | null;
     path: string;
     stage: string;
     requestId: string;
+    requestTime?: string;
     requestTimeEpoch: number;
     resourceId: string;
     resourcePath: string;
+    routeKey?: string;
 }
 
 // API Gateway "event"
@@ -73,17 +87,41 @@ export interface APIGatewayProxyEvent {
 }
 export type APIGatewayEvent = APIGatewayProxyEvent; // Old name
 
+// https://docs.aws.amazon.com/elasticloadbalancing/latest/application/lambda-functions.html
+export interface ALBEventRequestContext {
+    elb: {
+        targetGroupArn: string;
+    };
+}
+export interface ALBEvent {
+    requestContext: ALBEventRequestContext;
+    httpMethod: string;
+    path: string;
+    queryStringParameters?: { [parameter: string]: string }; // URL encoded
+    headers?: { [header: string]: string };
+    multiValueQueryStringParameters?: { [parameter: string]: string[] }; // URL encoded
+    multiValueHeaders?: { [header: string]: string[] };
+    body: string | null;
+    isBase64Encoded: boolean;
+}
+
 // API Gateway CustomAuthorizer "event"
 export interface CustomAuthorizerEvent {
     type: string;
     methodArn: string;
     authorizationToken?: string;
+    resource?: string;
+    path?: string;
+    httpMethod?: string;
     headers?: { [name: string]: string };
     multiValueHeaders?: { [name: string]: string[] };
     pathParameters?: { [name: string]: string } | null;
     queryStringParameters?: { [name: string]: string } | null;
     multiValueQueryStringParameters?: { [name: string]: string[] } | null;
+    stageVariables?: { [name: string]: string };
     requestContext?: APIGatewayEventRequestContext;
+    domainName?: string;
+    apiId?: string;
 }
 
 // Context
@@ -455,6 +493,15 @@ export interface APIGatewayProxyResult {
 }
 export type ProxyResult = APIGatewayProxyResult; // Old name
 
+export interface ALBResult {
+    statusCode: number;
+    statusDescription: string;
+    headers?: { [header: string]: boolean | number | string };
+    multiValueHeaders?: { [header: string]: Array<boolean | number | string> };
+    body: string;
+    isBase64Encoded: boolean;
+}
+
 /**
  * API Gateway CustomAuthorizer AuthResponse.
  * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
@@ -518,10 +565,10 @@ export type StatementResource = MaybeStatementPrincipal & ({ Resource: string | 
 export type StatementPrincipal = MaybeStatementResource & ({ Principal: PrincipalValue } | { NotPrincipal: PrincipalValue });
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
- * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-lambda-authorizer-output.html
  */
 export interface AuthResponseContext {
-    [name: string]: any;
+    [name: string]: boolean | number | string;
 }
 
 /**
@@ -575,6 +622,109 @@ export interface CodePipelineEvent {
         };
     };
 }
+
+/**
+ * CodePipeline CloudWatch Events
+ * https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html
+ *
+ * The above CodePipelineEvent is when a lambda is invoked by a CodePipeline.
+ * These events are when you subsribe to CodePipeline events in CloudWatch.
+ *
+ * Their documentation says that detail.version is a string, but it is actually an integer
+ */
+export type CodePipelineState =
+    | 'STARTED'
+    | 'SUCCEEDED'
+    | 'RESUMED'
+    | 'FAILED'
+    | 'CANCELED'
+    | 'SUPERSEDED';
+
+export type CodePipelineStageState =
+    | 'STARTED'
+    | 'SUCCEEDED'
+    | 'RESUMED'
+    | 'FAILED'
+    | 'CANCELED';
+
+export type CodePipelineActionState =
+    | 'STARTED'
+    | 'SUCCEEDED'
+    | 'FAILED'
+    | 'CANCELED';
+
+export interface CodePipelineCloudWatchPipelineEvent {
+    version: string;
+    id: string;
+    'detail-type': 'CodePipeline Pipeline Execution State Change';
+    source: 'aws.codepipeline';
+    account: string;
+    time: string;
+    region: string;
+    resources: string[];
+    detail: {
+        pipeline: string;
+        version: number;
+        state: CodePipelineState;
+        'execution-id': string;
+    };
+}
+
+export interface CodePipelineCloudWatchStageEvent {
+    version: string;
+    id: string;
+    'detail-type': 'CodePipeline Stage Execution State Change';
+    source: 'aws.codepipeline';
+    account: string;
+    time: string;
+    region: string;
+    resources: string[];
+    detail: {
+        pipeline: string;
+        version: number;
+        'execution-id': string;
+        stage: string;
+        state: CodePipelineStageState;
+    };
+}
+
+export type CodePipelineActionCategory =
+    | 'Approval'
+    | 'Build'
+    | 'Deploy'
+    | 'Invoke'
+    | 'Source'
+    | 'Test';
+
+export interface CodePipelineCloudWatchActionEvent {
+    version: string;
+    id: string;
+    'detail-type': 'CodePipeline Action Execution State Change';
+    source: 'aws.codepipeline';
+    account: string;
+    time: string;
+    region: string;
+    resources: string[];
+    detail: {
+        pipeline: string;
+        version: number;
+        'execution-id': string;
+        stage: string;
+        action: string;
+        state: CodePipelineActionState;
+        type: {
+            owner: 'AWS' | 'Custom' | 'ThirdParty';
+            category: CodePipelineActionCategory;
+            provider: string;
+            version: number;
+        };
+    };
+}
+
+export type CodePipelineCloudWatchEvent =
+    | CodePipelineCloudWatchPipelineEvent
+    | CodePipelineCloudWatchStageEvent
+    | CodePipelineCloudWatchActionEvent;
 
 /**
  * CloudFront events
@@ -757,13 +907,113 @@ export interface SQSRecordAttributes {
     SenderId: string;
     ApproximateFirstReceiveTimestamp: string;
 }
+
+export type SQSMessageAttributeDataType = 'String' | 'Number' | 'Binary' | string;
+
 export interface SQSMessageAttribute {
-    Name: string;
-    Type: string;
-    Value: string;
+    stringValue?: string;
+    binaryValue?: string;
+    stringListValues: never[]; // Not implemented. Reserved for future use.
+    binaryListValues: never[]; // Not implemented. Reserved for future use.
+    dataType: SQSMessageAttributeDataType;
 }
+
 export interface SQSMessageAttributes {
     [name: string]: SQSMessageAttribute;
+}
+
+// Lex
+// https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-lex
+export interface LexEvent {
+    currentIntent: {
+        name: string;
+        slots: { [name: string]: string | null };
+        slotDetails: LexSlotDetails;
+        confirmationStatus: 'None' | 'Confirmed' | 'Denied';
+    };
+    bot: {
+        name: string;
+        alias: string;
+        version: string;
+    };
+    userId: string;
+    inputTranscript: string;
+    invocationSource: 'DialogCodeHook' | 'FulfillmentCodeHook';
+    outputDialogMode: 'Text' | 'Voice';
+    messageVersion: '1.0';
+    sessionAttributes: { [key: string]: string };
+    requestAttributes: { [key: string]: string } | null;
+}
+
+export interface LexSlotResolution {
+    value: string;
+}
+
+export interface LexSlotDetails {
+    [name: string]: {
+        // The following line only works in TypeScript Version: 3.0, The array should have at least 1 and no more than 5 items
+        // resolutions: [LexSlotResolution, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?];
+        resolutions: LexSlotResolution[]
+        originalValue: string;
+    };
+}
+
+export interface LexGenericAttachment {
+    title: string;
+    subTitle: string;
+    imageUrl: string;
+    attachmentLinkUrl: string;
+    buttons: Array<{
+        text: string;
+        value: string;
+    }>;
+}
+
+export interface LexDialogActionBase {
+    type: 'Close' | 'ElicitIntent' | 'ElicitSlot' | 'ConfirmIntent';
+    message?: {
+        contentType: 'PlainText' | 'SSML' | 'CustomPayload';
+        content: string;
+    };
+    responseCard?: {
+        version: number;
+        contentType: 'application/vnd.amazonaws.card.generic';
+        genericAttachments: LexGenericAttachment[];
+    };
+}
+
+export interface LexDialogActionClose extends LexDialogActionBase {
+    type: 'Close';
+    fulfillmentState: 'Fulfilled' | 'Failed';
+}
+
+export interface LexDialogActionElicitIntent extends LexDialogActionBase {
+    type: 'ElicitIntent';
+}
+
+export interface LexDialogActionElicitSlot extends LexDialogActionBase {
+    type: 'ElicitSlot';
+    intentName: string;
+    slots: { [name: string]: string | null };
+    slotToElicit: string;
+}
+
+export interface LexDialogActionConfirmIntent extends LexDialogActionBase {
+    type: 'ConfirmIntent';
+    intentName: string;
+    slots: { [name: string]: string | null };
+}
+
+export interface LexDialogActionDelegate {
+    type: 'Delegate';
+    slots: { [name: string]: string | null };
+}
+
+export type LexDialogAction = LexDialogActionClose | LexDialogActionElicitIntent | LexDialogActionElicitSlot | LexDialogActionConfirmIntent | LexDialogActionDelegate;
+
+export interface LexResult {
+    sessionAttributes?: { [key: string]: string };
+    dialogAction: LexDialogAction;
 }
 
 /**
@@ -828,14 +1078,25 @@ export type ScheduledHandler = Handler<ScheduledEvent, void>;
 
 // TODO: Alexa
 
+export type LexHandler = Handler<LexEvent, LexResult>;
+export type LexCallback = Callback<LexResult>;
+
 export type APIGatewayProxyHandler = Handler<APIGatewayProxyEvent, APIGatewayProxyResult>;
 export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
 export type ProxyHandler = APIGatewayProxyHandler; // Old name
 export type ProxyCallback = APIGatewayProxyCallback; // Old name
 
+export type ALBHandler = Handler<ALBEvent, ALBResult>;
+export type ALBCallback = Callback<ALBResult>;
+
 // TODO: IoT
 
 export type CodePipelineHandler = Handler<CodePipelineEvent, void>;
+
+export type CodePipelineCloudWatchHandler = Handler<CodePipelineCloudWatchEvent, void>;
+export type CodePipelineCloudWatchPipelineHandler = Handler<CodePipelineCloudWatchPipelineEvent, void>;
+export type CodePipelineCloudWatchStageHandler = Handler<CodePipelineCloudWatchStageEvent, void>;
+export type CodePipelineCloudWatchActionHandler = Handler<CodePipelineCloudWatchActionEvent, void>;
 
 export type CloudFrontRequestHandler = Handler<CloudFrontRequestEvent, CloudFrontRequestResult>;
 export type CloudFrontRequestCallback = Callback<CloudFrontRequestResult>;

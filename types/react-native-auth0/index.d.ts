@@ -1,6 +1,7 @@
-// Type definitions for react-native-auth0 1.2
+// Type definitions for react-native-auth0 1.3
 // Project: https://github.com/auth0/react-native-auth0
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
+//                 Mark Nelissen <https://github.com/marknelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -75,7 +76,7 @@ export interface ResetPasswordParams {
     connection: string;
 }
 
-export interface UserInfo {
+export type UserInfo<CustomClaims = {}> = {
     email: string;
     emailVerified: boolean;
     name: string;
@@ -83,7 +84,8 @@ export interface UserInfo {
     picture: string;
     sub: string;
     updatedAt: string;
-}
+} & CustomClaims;
+
 export class Auth {
     authorizationUrl(params: AuthorizationUrlParams): string;
     /* tslint:disable-next-line no-unnecessary-generics */
@@ -91,11 +93,11 @@ export class Auth {
     exchange(params: ExchangeParams): Promise<string>;
     logoutUrl(params: LogoutParams): string;
     passwordRealm(params: PasswordRealmParams): Promise<PasswordRealmResponse>;
-
     refreshToken(params: RefreshTokenParams): Promise<any>;
     resetPassword(params: ResetPasswordParams): Promise<any>;
     revoke(params: RevokeParams): Promise<any>;
-    userInfo(params: UserInfoParams): Promise<UserInfo>;
+    /* tslint:disable-next-line no-unnecessary-generics */
+    userInfo<CustomClaims = {}>(params: UserInfoParams): Promise<UserInfo<CustomClaims>>;
 }
 
 /**

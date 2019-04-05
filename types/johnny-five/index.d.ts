@@ -4,6 +4,7 @@
 //                 Zoltan Ujvary <https://github.com/ujvzolee>
 //                 Simon Colmer <https://github.com/workshop2>
 //                 XtrimSystems <https://github.com/xtrimsystems>
+//                 Marcin Obiedziński <https://github.com/marcinobiedz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node"/>
@@ -111,11 +112,10 @@ export declare class Board {
 
     io: any;
     id: string;
-    repl: any;
+    repl: Repl;
     isReady: boolean;
     pins: Array<Pin>;
     port: string;
-    inject: Repl;
 
     on(event: string, cb: () => void): this;
     on(event: "ready", cb: () => void): this;

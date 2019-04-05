@@ -99,6 +99,7 @@ export class OAuth2Server {
 
   decision(options: DecisionOptions, parse: DecisionParseFunction): MiddlewareFunction;
   decision(parse: DecisionParseFunction): MiddlewareFunction;
+  decision(): MiddlewareFunction;
 
   token(options?: any): MiddlewareFunction;
 

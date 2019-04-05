@@ -153,7 +153,7 @@ export class Repository {
     /**
      * Create a blob from a buffer
      */
-    createBlobFromBuffer(buffer: Buffer): Oid;
+    createBlobFromBuffer(buffer: Buffer): Promise<Oid>;
     treeBuilder(tree: Tree): Promise<Treebuilder>;
     /**
      * Gets the default signature for the default user and now timestamp
@@ -162,7 +162,7 @@ export class Repository {
     /**
      * Lists out the remotes in the given repository.
      */
-    getRemotes(callback?: Function): Promise<Remote[]>;
+    getRemotes(callback?: Function): Promise<string[]>;
     /**
      * Gets a remote from the repo
      */

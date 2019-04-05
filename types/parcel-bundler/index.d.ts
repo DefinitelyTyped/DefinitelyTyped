@@ -1,10 +1,30 @@
-// Type definitions for parcel-bundler 1.10
+// Type definitions for parcel-bundler 1.12
 // Project: https://github.com/parcel-bundler/parcel#readme
 // Definitions by: pinage404 <https://github.com/pinage404>
+//                 Nick Woodward <https://github.com/nick-woodward>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
+
+import * as http from 'http';
+import * as https from 'https';
+import * as express from "express-serve-static-core";
 
 declare namespace ParcelBundler {
+    interface HttpsOptions {
+      /**
+       * Path to custom certificate
+       *
+       * @default "./ssl/c.crt"
+       */
+      cert?: string;
+      /**
+       * Path to custom key
+       *
+       * @default "./ssl/k.key"
+       */
+      key?: string;
+    }
+
     interface ParcelOptions {
         /**
          * The out directory to put the build files in
@@ -72,20 +92,7 @@ declare namespace ParcelBundler {
         https?:
             | true
             | false
-            | {
-                  /**
-                   * Path to custom certificate
-                   *
-                   * @default "./ssl/c.crt"
-                   */
-                  cert?: string;
-                  /**
-                   * Path to custom key
-                   *
-                   * @default "./ssl/k.key"
-                   */
-                  key?: string;
-              };
+            | HttpsOptions;
         /**
          * 3 = log everything, 2 = log warnings & errors, 1 = log errors
          *
@@ -122,6 +129,27 @@ declare namespace ParcelBundler {
          * @default false
          */
         detailedReport?: boolean;
+
+        /**
+         * Expose modules as UMD under this name, disabled by default
+         */
+        global?: string;
+
+        /**
+         * By default, package.json dependencies are not included when using 'node' or 'electron' with the 'target' option.
+         *
+         * Set to true to add them to the bundle.
+         *
+         * @default false
+         */
+        bundleNodeModules?: true | false;
+
+        /**
+         * Enable or disable HMR while watching
+         *
+         * @default false
+         */
+        hmr?: true | false;
     }
 
     type ParcelAsset = any;
@@ -159,6 +187,11 @@ declare namespace ParcelBundler {
          * A Map<Asset, number(line number inside the bundle)> of all the locations of the assets inside the bundle, used to generate accurate source maps
          */
         offsets: Map<ParcelAsset, number>;
+
+        /**
+         * A Set of all child bundles
+         */
+        childBundles: Set<any>;
     }
 }
 
@@ -173,6 +206,17 @@ declare class ParcelBundler {
     addPackager(type: string, packager: string): void;
 
     bundle(): Promise<ParcelBundler.ParcelBundle>;
+
+    middleware(): (req: express.Request, res: express.Response, next: express.NextFunction) => any;
+
+    serve(port?: number, https?: true | false | ParcelBundler.HttpsOptions, host?: string): Promise<http.Server | https.Server>;
+
+    on(name: 'buildEnd', cb: () => void): void;
+    on(name: 'bundled', cb: (bundle: ParcelBundler.ParcelBundle) => void): void;
+    on(name: 'buildStart', cb: (entryPoints: string[]) => void): void;
+    on(name: 'buildError', cb: (error: Error) => void): void;
+
+    off(name: 'buildEnd'| 'bundled'| 'buildStart'| 'buildError', cb: (...any: any[]) => void): void;
 }
 
 export = ParcelBundler;

@@ -136,6 +136,12 @@ webAuth.passwordlessStart({
     send: 'code'
 }, (err, data) => {});
 
+webAuth.passwordlessLogin({
+    connection: 'the_connection',
+    phoneNumber: '123',
+    verificationCode: '456'
+}, (err, data) => {});
+
 webAuth.signupAndAuthorize({
     connection: 'the_connection',
     email: 'me@example.com',
@@ -173,7 +179,7 @@ webAuth.popup.signupAndLogin({ email: "", password: "", connection: "" }, (err, 
     // do something with data
 });
 
-webAuth.login({username: 'bar', password: 'foo'}, (err, data) => {});
+webAuth.login({username: 'bar', password: 'foo', state: '1234'}, (err, data) => {});
 
 webAuth.crossOriginAuthenticationCallback();
 

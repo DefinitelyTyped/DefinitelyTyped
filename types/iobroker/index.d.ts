@@ -1,8 +1,8 @@
 // Type definitions for ioBroker 1.4
-// Project: https://github.com/ioBroker/ioBroker
+// Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.2
 
 // Note: This is not the definition for the package `iobroker`,
 // which is just an installer, not a library.
@@ -296,14 +296,28 @@ declare global {
 
             /** attached history information */
             history?: any;
+
+            /** Custom settings for this state */
+            custom?: Record<string, any>;
         }
         interface ChannelCommon extends ObjectCommon {
             /** description of this channel */
             desc?: string;
+
+            // Only states can have common.custom
+            custom?: undefined;
         }
-        type OtherCommon = ObjectCommon & {
+        interface DeviceCommon extends ObjectCommon {
+            // Only states can have common.custom
+            custom?: undefined;
+             // TODO: any other definition for device?
+        }
+        interface OtherCommon extends ObjectCommon {
             [propName: string]: any;
-        };
+
+            // Only states can have common.custom
+            custom?: undefined;
+        }
 
         interface BaseObject {
             /** The ID of this object */
@@ -311,7 +325,7 @@ declare global {
             native: Record<string, any>;
             enums?: Record<string, string>;
             type: string; // specified in the derived interfaces
-            common: ObjectCommon;
+            common: StateCommon | ChannelCommon | DeviceCommon | OtherCommon;
             acl?: ObjectACL;
         }
 
@@ -335,10 +349,10 @@ declare global {
 
         interface DeviceObject extends BaseObject {
             type: "device";
-            common: ObjectCommon; // TODO: any definition for device?
+            common: DeviceCommon;
         }
         interface PartialDeviceObject extends Partial<Pick<DeviceObject, "_id" | "native" | "enums" | "type" | "acl">> {
-            common?: Partial<ObjectCommon>;
+            common?: Partial<DeviceCommon>;
         }
 
         interface OtherObject extends BaseObject {
@@ -350,11 +364,15 @@ declare global {
         }
 
         type Object = StateObject | ChannelObject | DeviceObject | OtherObject;
+
+        type SettableObjectWorker<T extends ioBroker.Object> =
+            Pick<T, Exclude<keyof T, "_id" | "acl">> & {
+                _id?: T["_id"];
+                acl?: T["acl"];
+            };
+
         // In set[Foreign]Object[NotExists] methods, the ID and acl of the object is optional
-        interface SettableObject extends Pick<ioBroker.Object, Exclude<keyof ioBroker.Object, "_id" | "acl">> {
-            _id?: ioBroker.Object["_id"];
-            acl?: ioBroker.Object["acl"];
-        }
+        type SettableObject = SettableObjectWorker<ioBroker.Object>;
         type PartialObject = PartialStateObject | PartialChannelObject | PartialDeviceObject | PartialOtherObject;
 
         /** Defines access rights for a single file */
@@ -828,10 +846,12 @@ declare global {
             ca: Array<string | Buffer>;
         }
 
+        type MessagePayload = string | Record<string, any>;
+
         /** Callback information for a passed message */
         interface MessageCallbackInfo {
             /** The original message payload */
-            message: string | object;
+            message: MessagePayload;
             /** ID of this callback */
             id: number;
             // ???
@@ -839,14 +859,13 @@ declare global {
             /** Timestamp of this message */
             time: number;
         }
-        type MessageCallback = (result?: any) => void;
 
         /** A message being passed between adapter instances */
         interface Message {
             /** The command to be executed */
             command: string;
             /** The message payload */
-            message: string | object;
+            message: MessagePayload;
             /** The source of this message */
             from: string;
             /** ID of this message */
@@ -881,7 +900,7 @@ declare global {
             q?: boolean;
             addID?: boolean;
             limit?: number;
-            ignoreNull: boolean;
+            ignoreNull?: boolean;
             sessionId?: any;
             aggregate?: "minmax" | "min" | "max" | "average" | "total" | "count" | "none";
         }
@@ -968,6 +987,11 @@ declare global {
              * @param callback - gets called when a free port is found
              */
             getPort(port: number, callback: (port: number) => void): void;
+            /**
+             * Helper function that looks for first free TCP port starting with the given one.
+             * @param port - The port to start with
+             */
+            getPortAsync(port: number): Promise<number>;
 
             /** Stops the adapter. Note: Is not always defined. */
             stop?: () => void;
@@ -978,16 +1002,52 @@ declare global {
             /** Validates username and password */
             checkPassword(user: string, password: string, callback: (result: boolean) => void): void;
             checkPassword(user: string, password: string, options: unknown, callback: (result: boolean) => void): void;
+            /** Validates username and password */
+            checkPasswordAsync(user: string, password: string, options?: unknown): Promise<boolean>;
             /** Sets a new password for the given user */
-            setPassword(user: string, password: string, options?: unknown, callback?: (err?: any) => void): void;
+            setPassword(user: string, password: string, callback?: (err?: any) => void): void;
+            setPassword(user: string, password: string, options: unknown, callback?: (err?: any) => void): void;
+            /** Sets a new password for the given user */
+            setPasswordAsync(user: string, password: string, options?: unknown): Promise<void>;
             /** <INTERNAL> Checks if a user exists and is in the given group. */
             checkGroup(user: string, group: string, callback: (result: boolean) => void): void;
             checkGroup(user: string, group: string, options: unknown, callback: (result: boolean) => void): void;
+            /** <INTERNAL> Checks if a user exists and is in the given group. */
+            checkGroupAsync(user: string, group: string, options?: unknown): Promise<boolean>;
             /** <INTERNAL> Determines the users permissions */
             calculatePermissions(user: string, commandsPermissions: CommandsPermissions, callback: (result: PermissionSet) => void): void;
             calculatePermissions(user: string, commandsPermissions: CommandsPermissions, options: unknown, callback: (result: PermissionSet) => void): void;
+            /** <INTERNAL> Determines the users permissions */
+            calculatePermissionsAsync(user: string, commandsPermissions: CommandsPermissions, options?: unknown): Promise<PermissionSet>;
             /** Returns SSL certificates by name (private key, public cert and chained certificate) for creation of HTTPS servers */
             getCertificates(publicName: string, privateName: string, chainedName: string, callback: (err: string | null, certs?: Certificates, useLetsEncryptCert?: boolean) => void): void;
+            // TODO: getCertificates cannot be represented with promises right now
+
+            /**
+             * Terminates the adapter execution but does not disable the adapter
+             * @param reason (optional) A message to print into the log prior to termination
+             */
+            terminate(reason?: string): never;
+
+            /** Restarts the adapter */
+            restart(): never;
+
+            /**
+             * Disables and stops the adapter instance.
+             * It is recommended that you leave the current method (e.g. by using `return`) after calling this.
+             */
+            disable(): void;
+
+            /**
+             * Updates the adapter config with new values. Only a subset of the configuration has to be provided,
+             * since merging with the existing config is done automatically.
+             *
+             * After updating the configuration, the adapter is automatically restarted. It is recommended that you
+             * leave the current method (e.g. by using `return`) after calling this.
+             *
+             * @param newConfig The new config values to be stored
+             */
+            updateConfig(newConfig: Partial<AdapterConfig>): void;
 
             /**
              * Sends a message to a specific instance or all instances of some specific adapter.
@@ -997,14 +1057,28 @@ declare global {
              * @param command (optional) Command name of the target instance. Default: "send"
              * @param message The message (e.g. params) to send.
              */
-            sendTo(instanceName: string, message: string | object, callback?: MessageCallback | MessageCallbackInfo): void;
-            sendTo(instanceName: string, command: string, message: string | object, callback?: MessageCallback | MessageCallbackInfo): void;
-
+            sendTo(instanceName: string, message: MessagePayload, callback?: MessageCallback | MessageCallbackInfo): void;
+            sendTo(instanceName: string, command: string, message: MessagePayload, callback?: MessageCallback | MessageCallbackInfo): void;
+            /**
+             * Sends a message to a specific instance or all instances of some specific adapter.
+             * @param instanceName The instance to send this message to.
+             * If the ID of an instance is given (e.g. "admin.0"), only this instance will receive the message.
+             * If the name of an adapter is given (e.g. "admin"), all instances of this adapter will receive it.
+             * @param command (optional) Command name of the target instance. Default: "send"
+             * @param message The message (e.g. params) to send.
+             */
+            sendToAsync(instanceName: string, message: MessagePayload): Promise<Message | undefined>;
+            sendToAsync(instanceName: string, command: string, message: MessagePayload): Promise<Message | undefined>;
             /**
              * Sends a message to a specific host or all hosts.
              */
-            sendToHost(hostName: string, message: string | object, callback?: MessageCallback | MessageCallbackInfo): void;
-            sendToHost(hostName: string, command: string, message: string | object, callback?: MessageCallback | MessageCallbackInfo): void;
+            sendToHost(hostName: string, message: MessagePayload, callback?: MessageCallback | MessageCallbackInfo): void;
+            sendToHost(hostName: string, command: string, message: MessagePayload, callback?: MessageCallback | MessageCallbackInfo): void;
+            /**
+             * Sends a message to a specific host or all hosts.
+             */
+            sendToHostAsync(hostName: string, message: MessagePayload): Promise<Message | undefined>;
+            sendToHostAsync(hostName: string, command: string, message: MessagePayload): Promise<Message | undefined>;
 
             /** Convert ID to {device: D, channel: C, state: S} */
             idToDCS(id: string): {
@@ -1019,48 +1093,75 @@ declare global {
             /** Reads an object from the object db */
             getObject(id: string, callback: GetObjectCallback): void;
             getObject(id: string, options: unknown, callback: GetObjectCallback): void;
+            /** Reads an object from the object db */
+            getObjectAsync(id: string, options?: unknown): Promise<CallbackReturnTypeOf<GetObjectCallback>>;
             /** Creates or overwrites an object in the object db */
             setObject(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setObject(id: string, obj: ioBroker.SettableObject, options: unknown, callback?: SetObjectCallback): void;
+            /** Creates or overwrites an object in the object db */
+            setObjectAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /** Creates an object in the object db. Existing objects are not overwritten. */
             setObjectNotExists(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setObjectNotExists(id: string, obj: ioBroker.SettableObject, options: unknown, callback?: SetObjectCallback): void;
+            /** Creates an object in the object db. Existing objects are not overwritten. */
+            setObjectNotExistsAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /** Get all states, channels and devices of this adapter */
             getAdapterObjects(callback: (objects: Record<string, ioBroker.Object>) => void): void;
+            /** Get all states, channels and devices of this adapter */
+            getAdapterObjectsAsync(): Promise<Record<string, ioBroker.Object>>;
             /** Extend an object and create it if it might not exist */
             extendObject(id: string, objPart: PartialObject, callback?: SetObjectCallback): void;
             extendObject(id: string, objPart: PartialObject, options: unknown, callback?: SetObjectCallback): void;
+            /** Extend an object and create it if it might not exist */
+            extendObjectAsync(id: string, objPart: PartialObject, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /**
              * Deletes an object from the object db
              * @param id - The id of the object without namespace
              */
             delObject(id: string, callback?: ErrorCallback): void;
             delObject(id: string, options: unknown, callback?: ErrorCallback): void;
+            /**
+             * Deletes an object from the object db
+             * @param id - The id of the object without namespace
+             */
+            delObjectAsync(id: string, options?: unknown): Promise<void>;
 
             // ==============================
             // foreign objects
 
-            // tslint:disable:unified-signatures
             /** Reads an object (which might not belong to this adapter) from the object db */
             getForeignObject(id: string, callback: GetObjectCallback): void;
             getForeignObject(id: string, options: unknown, callback: GetObjectCallback): void;
+            /** Reads an object (which might not belong to this adapter) from the object db */
+            getForeignObjectAsync(id: string, options?: unknown): Promise<CallbackReturnTypeOf<GetObjectCallback>>;
             /** Get foreign objects by pattern, by specific type and resolve their enums. */
+            // tslint:disable:unified-signatures
             getForeignObjects(pattern: string, callback: GetObjectsCallback): void;
             getForeignObjects(pattern: string, options: unknown, callback: GetObjectsCallback): void;
             getForeignObjects(pattern: string, type: ObjectType, callback: GetObjectsCallback): void;
             getForeignObjects(pattern: string, type: ObjectType, enums: EnumList, callback: GetObjectsCallback): void;
             getForeignObjects(pattern: string, type: ObjectType, options: unknown, callback: GetObjectsCallback): void;
             getForeignObjects(pattern: string, type: ObjectType, enums: EnumList, options: unknown, callback: GetObjectsCallback): void;
+            // tslint:enable:unified-signatures
+            /** Get foreign objects by pattern, by specific type and resolve their enums. */
+            getForeignObjectsAsync(pattern: string, options?: unknown): Promise<CallbackReturnTypeOf<GetObjectsCallback>>;
+            getForeignObjectsAsync(pattern: string, type: ObjectType, options?: unknown): Promise<CallbackReturnTypeOf<GetObjectsCallback>>;
+            getForeignObjectsAsync(pattern: string, type: ObjectType, enums: EnumList, options?: unknown): Promise<CallbackReturnTypeOf<GetObjectsCallback>>;
             /** Creates or overwrites an object (which might not belong to this adapter) in the object db */
             setForeignObject(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setForeignObject(id: string, obj: ioBroker.SettableObject, options: unknown, callback?: SetObjectCallback): void;
+            /** Creates or overwrites an object (which might not belong to this adapter) in the object db */
+            setForeignObjectAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /** Creates an object (which might not belong to this adapter) in the object db. Existing objects are not overwritten. */
             setForeignObjectNotExists(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setForeignObjectNotExists(id: string, obj: ioBroker.SettableObject, options: unknown, callback?: SetObjectCallback): void;
+            /** Creates an object (which might not belong to this adapter) in the object db. Existing objects are not overwritten. */
+            setForeignObjectNotExistsAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /** Extend an object (which might not belong to this adapter) and create it if it might not exist */
             extendForeignObject(id: string, objPart: PartialObject, callback?: SetObjectCallback): void;
             extendForeignObject(id: string, objPart: PartialObject, options: unknown, callback?: SetObjectCallback): void;
-            // tslint:enable:unified-signatures
+            /** Extend an object (which might not belong to this adapter) and create it if it might not exist */
+            extendForeignObjectAsync(id: string, objPart: PartialObject, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /**
              * Finds an object by its ID or name
              * @param type - common.type of the state
@@ -1068,60 +1169,105 @@ declare global {
             findForeignObject(idOrName: string, type: string, callback: FindObjectCallback): void;
             findForeignObject(idOrName: string, type: string, options: unknown, callback: FindObjectCallback): void;
             /**
+             * Finds an object by its ID or name
+             * @param type - common.type of the state
+             */
+            findForeignObjectAsync(idOrName: string, type: string): Promise<{ id: string, name: string }>;
+            /**
              * Deletes an object (which might not belong to this adapter) from the object db
              * @param id - The id of the object including namespace
              */
             delForeignObject(id: string, callback?: ErrorCallback): void;
             delForeignObject(id: string, options: unknown, callback?: ErrorCallback): void;
+            /**
+             * Deletes an object (which might not belong to this adapter) from the object db
+             * @param id - The id of the object including namespace
+             */
+            delForeignObjectAsync(id: string, options?: unknown): Promise<void>;
 
             // ==============================
             // states
 
             // Multiple signatures help understanding what the parameters are about
-            // tslint:disable:unified-signatures
             /** Writes a value into the states DB. */
+            // tslint:disable:unified-signatures
             setState(id: string, state: string | number | boolean | State | Partial<State>, callback?: SetStateCallback): void;
             setState(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, callback?: SetStateCallback): void;
             setState(id: string, state: string | number | boolean | State | Partial<State>, options: unknown, callback?: SetStateCallback): void;
             setState(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown, callback?: SetStateCallback): void;
+            /** Writes a value into the states DB. */
+            setStateAsync(id: string, state: string | number | boolean | State | Partial<State>, ack?: boolean): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
+            setStateAsync(id: string, state: string | number | boolean | State | Partial<State>, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
+            setStateAsync(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             /** Writes a value into the states DB only if it has changed. */
             setStateChanged(id: string, state: string | number | boolean | State | Partial<State>, callback?: SetStateChangedCallback): void;
             setStateChanged(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, callback?: SetStateChangedCallback): void;
             setStateChanged(id: string, state: string | number | boolean | State | Partial<State>, options: unknown, callback?: SetStateChangedCallback): void;
             setStateChanged(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown, callback?: SetStateChangedCallback): void;
+            /** Writes a value into the states DB only if it has changed. */
+            setStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, ack?: boolean): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
+            setStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
+            setStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             /** Writes a value (which might not belong to this adapter) into the states DB. */
             setForeignState(id: string, state: string | number | boolean | State | Partial<State>, callback?: SetStateCallback): void;
             setForeignState(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, callback?: SetStateCallback): void;
             setForeignState(id: string, state: string | number | boolean | State | Partial<State>, options: unknown, callback?: SetStateCallback): void;
             setForeignState(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown, callback?: SetStateCallback): void;
+            /** Writes a value (which might not belong to this adapter) into the states DB. */
+            setForeignStateAsync(id: string, state: string | number | boolean | State | Partial<State>, ack?: boolean): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
+            setForeignStateAsync(id: string, state: string | number | boolean | State | Partial<State>, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
+            setForeignStateAsync(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             /** Writes a value (which might not belong to this adapter) into the states DB only if it has changed. */
             setForeignStateChanged(id: string, state: string | number | boolean | State | Partial<State>, callback?: SetStateChangedCallback): void;
             setForeignStateChanged(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, callback?: SetStateChangedCallback): void;
             setForeignStateChanged(id: string, state: string | number | boolean | State | Partial<State>, options: unknown, callback?: SetStateChangedCallback): void;
             setForeignStateChanged(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown, callback?: SetStateChangedCallback): void;
+            /** Writes a value (which might not belong to this adapter) into the states DB only if it has changed. */
+            setForeignStateChangedAsync(
+                id: string, state: string | number | boolean | State | Partial<State>, ack?: boolean
+            ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
+            setForeignStateChangedAsync(
+                id: string, state: string | number | boolean | State | Partial<State>, options?: unknown
+            ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
+            setForeignStateChangedAsync(
+                id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown
+            ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             // tslint:enable:unified-signatures
 
             /** Read a value from the states DB. */
             getState(id: string, callback: GetStateCallback): void;
             getState(id: string, options: unknown, callback: GetStateCallback): void;
+            /** Read a value from the states DB. */
+            getStateAsync(id: string, options?: unknown): Promise<CallbackReturnTypeOf<GetStateCallback>>;
             /** Read a value (which might not belong to this adapter) from the states DB. */
             getForeignState(id: string, callback: GetStateCallback): void;
             getForeignState(id: string, options: unknown, callback: GetStateCallback): void;
+            /** Read a value (which might not belong to this adapter) from the states DB. */
+            getForeignStateAsync(id: string, options?: unknown): Promise<CallbackReturnTypeOf<GetStateCallback>>;
             /** Read all states of this adapter which match the given pattern */
             getStates(pattern: string, callback: GetStatesCallback): void;
             getStates(pattern: string, options: unknown, callback: GetStatesCallback): void;
+            /** Read all states of this adapter which match the given pattern */
+            getStatesAsync(pattern: string, options?: unknown): Promise<CallbackReturnTypeOf<GetStatesCallback>>;
             /** Read all states (which might not belong to this adapter) which match the given pattern */
             getForeignStates(pattern: string, callback: GetStatesCallback): void;
             getForeignStates(pattern: string, options: unknown, callback: GetStatesCallback): void;
+            /** Read all states (which might not belong to this adapter) which match the given pattern */
+            getForeignStatesAsync(pattern: string, options?: unknown): Promise<CallbackReturnTypeOf<GetStatesCallback>>;
 
             /** Deletes a state from the states DB, but not the associated object. Consider using @link{deleteState} instead */
             delState(id: string, callback?: ErrorCallback): void;
             delState(id: string, options: unknown, callback?: ErrorCallback): void;
+            /** Deletes a state from the states DB, but not the associated object. Consider using @link{deleteState} instead */
+            delStateAsync(id: string, options?: unknown): Promise<void>;
             /** Deletes a state from the states DB, but not the associated object */
             delForeignState(id: string, callback?: ErrorCallback): void;
             delForeignState(id: string, options: unknown, callback?: ErrorCallback): void;
+            /** Deletes a state from the states DB, but not the associated object */
+            delForeignStateAsync(id: string, options?: unknown): Promise<void>;
 
             getHistory(id: string, options: GetHistoryOptions, callback: GetHistoryCallback): void;
+            // TODO: getHistoryAsync
 
             // MISSING:
             // pushFifo and similar https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/adapter.js#L4105
@@ -1139,6 +1285,13 @@ declare global {
             setBinaryState(id: string, binary: Buffer, callback: SetStateCallback): void;
             setBinaryState(id: string, binary: Buffer, options: unknown, callback: SetStateCallback): void;
             /**
+             * Writes a binary state into Redis
+             * @param id The id of the state
+             * @param binary The data to be written
+             * @param options (optional) Some internal options.
+             */
+            setBinaryStateAsync(id: string, binary: Buffer, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
+            /**
              * Reads a binary state from Redis
              * @param id The id of the state
              * @param options (optional) Some internal options.
@@ -1146,6 +1299,12 @@ declare global {
              */
             getBinaryState(id: string, callback: GetBinaryStateCallback): void;
             getBinaryState(id: string, options: unknown, callback: GetBinaryStateCallback): void;
+            /**
+             * Reads a binary state from Redis
+             * @param id The id of the state
+             * @param options (optional) Some internal options.
+             */
+            getBinaryStateAsync(id: string, options?: unknown): Promise<CallbackReturnTypeOf<GetBinaryStateCallback>>;
 
             // ==============================
             // enums
@@ -1154,64 +1313,157 @@ declare global {
             getEnum(callback: GetEnumCallback): void;
             getEnum(name: string, callback: GetEnumCallback): void;
             getEnum(name: string, options: unknown, callback: GetEnumCallback): void;
+            /** Returns the enum tree, filtered by the optional enum name */
+            getEnumAsync(name: string, options?: unknown): Promise<{ result: Record<string, any>, requestEnum: string }>;
+            /** Returns the enum tree, filtered by the optional enum name */
             getEnums(callback: GetEnumsCallback): void;
             getEnums(enumList: EnumList, callback: GetEnumsCallback): void;
             getEnums(enumList: EnumList, options: unknown, callback: GetEnumsCallback): void;
+            /** Returns the enum tree, filtered by the optional enum name */
+            getEnumsAsync(enumList: EnumList, options?: unknown): Promise<NonNullCallbackReturnTypeOf<GetEnumsCallback>>;
 
-            addChannelToEnum(enumName: string, addTo: string, parentDevice: string, channelName: string, options?: unknown, callback?: ErrorCallback): void;
-            deleteChannelFromEnum(enumName: string, parentDevice: string, channelName: string, options?: unknown, callback?: ErrorCallback): void;
+            addChannelToEnum(enumName: string, addTo: string, parentDevice: string, channelName: string, callback?: ErrorCallback): void;
+            addChannelToEnum(enumName: string, addTo: string, parentDevice: string, channelName: string, options: unknown, callback?: ErrorCallback): void;
+            addChannelToEnumAsync(enumName: string, addTo: string, parentDevice: string, channelName: string, options?: unknown): Promise<void>;
 
-            addStateToEnum(enumName: string, addTo: string, parentDevice: string, parentChannel: string, stateName: string, options?: unknown, callback?: ErrorCallback): void;
-            deleteStateFromEnum(enumName: string, parentDevice: string, parentChannel: string, stateName: string, options?: unknown, callback?: ErrorCallback): void;
+            deleteChannelFromEnum(enumName: string, parentDevice: string, channelName: string, callback?: ErrorCallback): void;
+            deleteChannelFromEnum(enumName: string, parentDevice: string, channelName: string, options: unknown, callback?: ErrorCallback): void;
+            deleteChannelFromEnumAsync(enumName: string, parentDevice: string, channelName: string, options?: unknown): Promise<void>;
+
+            addStateToEnum(enumName: string, addTo: string, parentDevice: string, parentChannel: string, stateName: string, callback?: ErrorCallback): void;
+            addStateToEnum(enumName: string, addTo: string, parentDevice: string, parentChannel: string, stateName: string, options: unknown, callback?: ErrorCallback): void;
+            addStateToEnumAsync(enumName: string, addTo: string, parentDevice: string, parentChannel: string, stateName: string, options?: unknown): Promise<void>;
+
+            deleteStateFromEnum(enumName: string, parentDevice: string, parentChannel: string, stateName: string, callback?: ErrorCallback): void;
+            deleteStateFromEnum(enumName: string, parentDevice: string, parentChannel: string, stateName: string, options: unknown, callback?: ErrorCallback): void;
+            deleteStateFromEnumAsync(enumName: string, parentDevice: string, parentChannel: string, stateName: string, options?: unknown): Promise<void>;
 
             // ==============================
             // subscriptions
 
             /** Subscribe to changes of objects in this instance */
-            subscribeObjects(pattern: string, options?: unknown): void;
+            subscribeObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
             /** Subscribe to changes of objects (which might not belong to this adapter) */
-            subscribeForeignObjects(pattern: string, options?: unknown): void;
+            subscribeForeignObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
             /** Unsubscribe from changes of objects in this instance */
-            unsubscribeObjects(pattern: string, options?: unknown): void;
+            unsubscribeObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
             /** Unsubscribe from changes of objects (which might not belong to this adapter) */
-            unsubscribeForeignObjects(pattern: string, options?: unknown): void;
+            unsubscribeForeignObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
 
             /** Subscribe to changes of states in this instance */
-            subscribeStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            subscribeStates(pattern: string, callback?: ErrorCallback): void;
+            subscribeStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Subscribe to changes of states in this instance */
+            subscribeStatesAsync(pattern: string, options?: unknown): Promise<void>;
+
             /** Subscribe to changes of states (which might not belong to this adapter) */
-            subscribeForeignStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            subscribeForeignStates(pattern: string, callback?: ErrorCallback): void;
+            subscribeForeignStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Subscribe to changes of states (which might not belong to this adapter) */
+            subscribeForeignStatesAsync(pattern: string, options?: unknown): Promise<void>;
+
             /**
              * Subscribe from changes of states in this instance
              * @param pattern - Must match the pattern used to subscribe
              */
-            unsubscribeStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            unsubscribeStates(pattern: string, callback?: ErrorCallback): void;
+            unsubscribeStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /**
+             * Subscribe from changes of states in this instance
+             * @param pattern - Must match the pattern used to subscribe
+             */
+            unsubscribeStatesAsync(pattern: string, options?: unknown): Promise<void>;
             /**
              * Subscribe from changes of states (which might not belong to this adapter)
              * @param pattern - Must match the pattern used to subscribe
              */
-            unsubscribeForeignStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            unsubscribeForeignStates(pattern: string, callback?: ErrorCallback): void;
+            unsubscribeForeignStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /**
+             * Subscribe from changes of states (which might not belong to this adapter)
+             * @param pattern - Must match the pattern used to subscribe
+             */
+            unsubscribeForeignStatesAsync(pattern: string, options?: unknown): Promise<void>;
 
             // ==============================
             // devices and channels
 
+            // tslint:disable:unified-signatures
             /** creates an object with type device */
-            createDevice(deviceName: string, common?: any, native?: any, options?: unknown, callback?: SetObjectCallback): void;
+            createDevice(deviceName: string, callback?: SetObjectCallback): void;
+            createDevice(deviceName: string, common: Partial<ioBroker.ObjectCommon>, callback?: SetObjectCallback): void;
+            createDevice(deviceName: string, common: Partial<ioBroker.ObjectCommon>, native: Record<string, any>, callback?: SetObjectCallback): void;
+            createDevice(deviceName: string, common: Partial<ioBroker.ObjectCommon>, native: Record<string, any>, options: unknown, callback?: SetObjectCallback): void;
+            /** creates an object with type device */
+            createDeviceAsync(deviceName: string, common?: Partial<ioBroker.ObjectCommon>): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
+            createDeviceAsync(deviceName: string, common: Partial<ioBroker.ObjectCommon>, native?: Record<string, any>): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
+            createDeviceAsync(deviceName: string, common: Partial<ioBroker.ObjectCommon>, native: Record<string, any>, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /** deletes a device, its channels and states */
-            deleteDevice(deviceName: string, options?: unknown, callback?: ErrorCallback): void;
-            /** gets the devices of this instance */
+            deleteDevice(deviceName: string, callback?: ErrorCallback): void;
+            deleteDevice(deviceName: string, options: unknown, callback?: ErrorCallback): void;
+            /** deletes a device, its channels and states */
+            deleteDeviceAsync(deviceName: string, options?: unknown): Promise<void>;
 
-            /** creates an object with type channel */
-            createChannel(parentDevice: string, channelName: string, roleOrCommon?: string | object, native?: any, options?: unknown, callback?: SetObjectCallback): void;
-            /** deletes a channel and its states */
+            /** Creates an object with type channel. It must be located under a device */
+            createChannel(parentDevice: string, channelName: string, callback?: SetObjectCallback): void;
+            createChannel(parentDevice: string, channelName: string, roleOrCommon: string | Partial<ioBroker.ChannelCommon>, callback?: SetObjectCallback): void;
+            createChannel(parentDevice: string, channelName: string, roleOrCommon: string | Partial<ioBroker.ChannelCommon>, native: Record<string, any>, callback?: SetObjectCallback): void;
+            createChannel(
+                parentDevice: string, channelName: string, roleOrCommon: string | Partial<ioBroker.ChannelCommon>,
+                native: Record<string, any>, options: unknown, callback?: SetObjectCallback
+            ): void;
+            /** Creates an object with type channel. It must be located under a device */
+            createChannelAsync(parentDevice: string, channelName: string, roleOrCommon?: string | Partial<ioBroker.ChannelCommon>): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
+            createChannelAsync(
+                parentDevice: string, channelName: string, roleOrCommon: string | Partial<ioBroker.ChannelCommon>, native?: Record<string, any>
+            ): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
+            createChannelAsync(
+                parentDevice: string, channelName: string, roleOrCommon: string | Partial<ioBroker.ChannelCommon>, native: Record<string, any>,
+                options?: unknown
+            ): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
+            /** Deletes a channel and its states. It must have been created with `createChannel` */
             deleteChannel(channelName: string, options?: unknown, callback?: ErrorCallback): void;
             deleteChannel(parentDevice: string, channelName: string, options?: unknown, callback?: ErrorCallback): void;
+            /** Deletes a channel and its states. It must have been created with `createChannel` */
+            deleteChannelAsync(channelName: string, options?: unknown): Promise<void>;
+            deleteChannelAsync(parentDevice: string, channelName: string, options?: unknown): Promise<void>;
 
-            /** creates a state and the corresponding object */
-            createState(parentDevice: string, parentChannel: string, stateName: string, roleOrCommon?: string | object, native?: any, options?: unknown, callback?: SetObjectCallback): void;
-            /** deletes a state */
+            /**
+             * Creates a state and the corresponding object. It must be located in a channel under a device
+             */
+            createState(parentDevice: string, parentChannel: string, stateName: string, callback?: SetObjectCallback): void;
+            createState(parentDevice: string, parentChannel: string, stateName: string, roleOrCommon: string | Partial<ioBroker.StateCommon>, callback?: SetObjectCallback): void;
+            createState(
+                parentDevice: string, parentChannel: string, stateName: string, roleOrCommon: string | Partial<ioBroker.StateCommon>,
+                native: Record<string, any>, callback?: SetObjectCallback
+            ): void;
+            createState(
+                parentDevice: string, parentChannel: string, stateName: string, roleOrCommon: string | Partial<ioBroker.StateCommon>,
+                native: Record<string, any>, options: unknown, callback?: SetObjectCallback
+            ): void;
+            /**
+             * Creates a state and the corresponding object. It must be located in a channel under a device
+             */
+            createStateAsync(
+                parentDevice: string, parentChannel: string, stateName: string, roleOrCommon?: string | Partial<ioBroker.StateCommon>
+            ): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
+            createStateAsync(
+                parentDevice: string, parentChannel: string, stateName: string, roleOrCommon: string | Partial<ioBroker.StateCommon>,
+                native?: Record<string, any>
+            ): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
+            createStateAsync(
+                parentDevice: string, parentChannel: string, stateName: string, roleOrCommon: string | Partial<ioBroker.StateCommon>,
+                native: Record<string, any>, options?: unknown
+            ): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
+            /** Deletes a state. It must have been created with `createState` */
             deleteState(stateName: string, options?: unknown, callback?: ErrorCallback): void;
             deleteState(parentChannel: string, stateName: string, options?: unknown, callback?: ErrorCallback): void;
             deleteState(parentDevice: string, parentChannel: string, stateName: string, options?: unknown, callback?: ErrorCallback): void;
+            /** Deletes a state. It must have been created with `createState` */
+            deleteStateAsync(stateName: string, options?: unknown): Promise<void>;
+            deleteStateAsync(parentChannel: string, stateName: string, options?: unknown): Promise<void>;
+            deleteStateAsync(parentDevice: string, parentChannel: string, stateName: string, options?: unknown): Promise<void>;
+            // tslint:enable:unified-signatures
 
             /**
              * Returns a list of all devices in this adapter instance
@@ -1220,6 +1472,12 @@ declare global {
              */
             getDevices(callback: GetObjectsCallback3<DeviceObject>): void;
             getDevices(options: unknown, callback: GetObjectsCallback3<DeviceObject>): void;
+            /**
+             * Returns a list of all devices in this adapter instance
+             * @param options (optional) Some internal options.
+             * @param callback Is called when the operation has finished (successfully or not)
+             */
+            getDevicesAsync(options?: unknown): Promise<DeviceObject[]>;
 
             /**
              * Returns a list of all channels in this adapter instance
@@ -1228,8 +1486,8 @@ declare global {
              * @param callback Is called when the operation has finished (successfully or not)
              */
             getChannels(callback: GetObjectsCallback3<ChannelObject>): void;
-            getChannels(parentDevice: string | null, callback: GetObjectsCallback3<ChannelObject>): void;
-            getChannels(parentDevice: string | null, options: unknown, callback: GetObjectsCallback3<ChannelObject>): void;
+            getChannels(parentDevice: string, callback: GetObjectsCallback3<ChannelObject>): void;
+            getChannels(parentDevice: string, options: unknown, callback: GetObjectsCallback3<ChannelObject>): void;
             /**
              * Returns a list of all channels in this adapter instance
              * @param parentDevice (optional) Name of the parent device to filter the channels by
@@ -1237,8 +1495,16 @@ declare global {
              * @param callback Is called when the operation has finished (successfully or not)
              */
             getChannelsOf(callback: GetObjectsCallback3<ChannelObject>): void;
-            getChannelsOf(parentDevice: string | null, callback: GetObjectsCallback3<ChannelObject>): void;
-            getChannelsOf(parentDevice: string | null, options: unknown, callback: GetObjectsCallback3<ChannelObject>): void;
+            getChannelsOf(parentDevice: string, callback: GetObjectsCallback3<ChannelObject>): void;
+            getChannelsOf(parentDevice: string, options: unknown, callback: GetObjectsCallback3<ChannelObject>): void;
+            /**
+             * Returns a list of all channels in this adapter instance
+             * @param parentDevice (optional) Name of the parent device to filter the channels by
+             * @param options (optional) Some internal options.
+             */
+            getChannelsOfAsync(): Promise<ChannelObject[]>;
+            // tslint:disable-next-line:unified-signatures
+            getChannelsOfAsync(parentDevice: string, options?: unknown): Promise<ChannelObject[]>;
 
             /**
              * Returns a list of all states in this adapter instance
@@ -1248,36 +1514,82 @@ declare global {
              * @param callback Is called when the operation has finished (successfully or not)
              */
             getStatesOf(callback: GetObjectsCallback3<StateObject>): void;
-            getStatesOf(parentDevice: string | null, callback: GetObjectsCallback3<StateObject>): void;
-            getStatesOf(parentDevice: string | null, parentChannel: string | null, callback: GetObjectsCallback3<StateObject>): void;
-            getStatesOf(parentDevice: string | null, parentChannel: string | null, options: unknown, callback: GetObjectsCallback3<StateObject>): void;
+            getStatesOf(parentDevice: string, callback: GetObjectsCallback3<StateObject>): void;
+            getStatesOf(parentDevice: string, parentChannel: string, callback: GetObjectsCallback3<StateObject>): void;
+            getStatesOf(parentDevice: string, parentChannel: string, options: unknown, callback: GetObjectsCallback3<StateObject>): void;
+            /**
+             * Returns a list of all states in this adapter instance
+             * @param parentDevice (optional) Name of the parent device to filter the channels by
+             * @param parentChannel (optional) Name of the parent channel to filter the channels by
+             * @param options (optional) Some internal options.
+             */
+            // tslint:disable:unified-signatures
+            getStatesOfAsync(): Promise<StateObject[]>;
+            getStatesOfAsync(parentDevice: string, parentChannel?: string): Promise<StateObject[]>;
+            getStatesOfAsync(parentDevice: string, parentChannel: string, options?: unknown): Promise<StateObject[]>;
+            // tslint:enable:unified-signatures
 
             // ==============================
             // filesystem
 
             /**
              * reads the content of directory from DB for given adapter and path
-             * @param adapter - adapter name. If adapter name is null, default will be the name of the current adapter.
-             * @param path - path to direcory without adapter name. E.g. If you want to read "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
+             * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
+             * @param path - path to directory without adapter name. E.g. If you want to read "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
              */
-            readDir(adapterName: string, path: string, callback: ReadDirCallback): void;
-            readDir(adapterName: string, path: string, options: unknown, callback: ReadDirCallback): void;
-            mkDir(adapterName: string, path: string, callback: ErrorCallback): void;
-            mkDir(adapterName: string, path: string, options: unknown, callback: ErrorCallback): void;
+            readDir(adapterName: string | null, path: string, callback: ReadDirCallback): void;
+            readDir(adapterName: string | null, path: string, options: unknown, callback: ReadDirCallback): void;
+            /**
+             * reads the content of directory from DB for given adapter and path
+             * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
+             * @param path - path to directory without adapter name. E.g. If you want to read "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
+             */
+            readDirAsync(adapterName: string | null, path: string, options?: unknown): Promise<NonNullCallbackReturnTypeOf<ReadDirCallback>>;
 
-            readFile(adapterName: string, path: string, callback: ReadFileCallback): void;
-            readFile(adapterName: string, path: string, options: unknown, callback: ReadFileCallback): void;
-            writeFile(adapterName: string, path: string, data: Buffer | string, callback: ErrorCallback): void;
+            mkDir(adapterName: string | null, path: string, callback: ErrorCallback): void;
+            mkDir(adapterName: string | null, path: string, options: unknown, callback: ErrorCallback): void;
+            mkDirAsync(adapterName: string | null, path: string, options?: unknown): Promise<void>;
+
+            readFile(adapterName: string | null, path: string, callback: ReadFileCallback): void;
+            readFile(adapterName: string | null, path: string, options: unknown, callback: ReadFileCallback): void;
+            readFileAsync(adapterName: string | null, path: string, options?: unknown): Promise<{ file: string | Buffer, mimeType: string }>;
+
+            writeFile(adapterName: string | null, path: string, data: Buffer | string, callback: ErrorCallback): void;
             // options see https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/objects/objectsInMemServer.js#L599
-            writeFile(adapterName: string, path: string, data: Buffer | string, options: unknown, callback: ErrorCallback): void;
+            writeFile(adapterName: string | null, path: string, data: Buffer | string, options: unknown, callback: ErrorCallback): void;
+            writeFileAsync(adapterName: string | null, path: string, data: Buffer | string, options?: unknown): Promise<void>;
 
-            delFile(adapterName: string, path: string, callback: ErrorCallback): void;
-            delFile(adapterName: string, path: string, options: unknown, callback: ErrorCallback): void;
-            unlink(adapterName: string, path: string, callback: ErrorCallback): void;
-            unlink(adapterName: string, path: string, options: unknown, callback: ErrorCallback): void;
+            /**
+             * Deletes a given file
+             * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
+             * @param path - path to directory without adapter name. E.g. If you want to delete "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
+             */
+            delFile(adapterName: string | null, path: string, callback: ErrorCallback): void;
+            delFile(adapterName: string | null, path: string, options: unknown, callback: ErrorCallback): void;
+            /**
+             * Deletes a given file
+             * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
+             * @param path - path to directory without adapter name. E.g. If you want to delete "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
+             */
+            delFileAsync(adapterName: string | null, path: string, options?: unknown): Promise<void>;
 
-            rename(adapterName: string, oldName: string, newName: string, callback: ErrorCallback): void;
-            rename(adapterName: string, oldName: string, newName: string, options: unknown, callback: ErrorCallback): void;
+            /**
+             * Deletes a given file
+             * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
+             * @param path - path to directory without adapter name. E.g. If you want to delete "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
+             */
+            unlink(adapterName: string | null, path: string, callback: ErrorCallback): void;
+            unlink(adapterName: string | null, path: string, options: unknown, callback: ErrorCallback): void;
+            /**
+             * Deletes a given file
+             * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
+             * @param path - path to directory without adapter name. E.g. If you want to delete "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
+             */
+            unlinkAsync(adapterName: string | null, path: string, options?: unknown): Promise<void>;
+
+            rename(adapterName: string | null, oldName: string, newName: string, callback: ErrorCallback): void;
+            rename(adapterName: string | null, oldName: string, newName: string, options: unknown, callback: ErrorCallback): void;
+            renameAsync(adapterName: string | null, oldName: string, newName: string, options?: unknown): Promise<void>;
 
             /**
              * Changes access rights of all files in the adapter directory
@@ -1287,6 +1599,7 @@ declare global {
              * @param callback Is called when the operation has finished (successfully or not)
              */
             chmodFile(adapter: string | null, path: string, options: { mode: number | string } | Record<string, any>, callback: ChownFileCallback): void;
+            chmodFileAsync(adapter: string | null, path: string, options: { mode: number | string } | Record<string, any>): Promise<{ entries: ChownFileResult[], id: string }>;
 
             // ==============================
             // formatting
@@ -1314,16 +1627,18 @@ declare global {
             removeAllListeners(event?: "ready" | "unload" | "stateChange" | "objectChange" | "message"): this;
         } // end interface Adapter
 
-        type ReadyHandler = () => void;
-        type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void;
-        type StateChangeHandler = (id: string, obj: State | null | undefined) => void;
-        type MessageHandler = (obj: Message) => void;
-        type UnloadHandler = (callback: EmptyCallback) => void;
+        type ReadyHandler = () => void | Promise<void>;
+        type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void | Promise<void>;
+        type StateChangeHandler = (id: string, obj: State | null | undefined) => void | Promise<void>;
+        type MessageHandler = (obj: Message) => void | Promise<void>;
+        type UnloadHandler = (callback: EmptyCallback) => void | Promise<void>;
 
         type EmptyCallback = () => void;
         type ErrorCallback = (err?: string) => void;
         // TODO: Redefine callbacks as subclass of GenericCallback
         type GenericCallback<T> = (err: string | null, result?: T) => void;
+
+        type MessageCallback = (response?: Message) => void;
 
         type SetObjectCallback = (err: string | null, obj: { id: string }) => void;
         type GetObjectCallback = (err: string | null, obj: ioBroker.Object | null | undefined) => void;
@@ -1352,8 +1667,13 @@ declare global {
             value: T;
         }
         // This is a version used by GetDevices/GetChannelsOf/GetStatesOf
-        type GetObjectsCallback3<T extends BaseObject> = (err: string | null, result?: Array<GetObjectsItem<T>>) => void;
+        type GetObjectsCallback3<T extends BaseObject> = (err: string | null, result?: T[]) => void;
 
+        type SecondParameterOf<T extends (...args: any[]) => any> = T extends (arg0: any, arg1: infer R, ...args: any[]) => any ? R : never;
+        /** Infers the return type from a callback-style API and strips out null and undefined */
+        type NonNullCallbackReturnTypeOf<T extends (...args: any[]) => any> = Exclude<SecondParameterOf<T>, null | undefined>;
+        /** Infers the return type from a callback-style API and and leaves null and undefined in */
+        type CallbackReturnTypeOf<T extends (...args: any[]) => any> = SecondParameterOf<T>;
         type GetStateCallback = (err: string | null, state: State | null | undefined) => void;
         type GetStatesCallback = (err: string | null, states: Record<string, State>) => void;
         /** Version of the callback used by States.getStates */
@@ -1362,7 +1682,8 @@ declare global {
         type SetStateCallback = (err: string | null, id?: string) => void;
         type SetStateChangedCallback = (err: string | null, id: string, notChanged: boolean) => void;
         type DeleteStateCallback = (err: string | null, id?: string) => void;
-        type GetHistoryCallback = (err: string | null, result: Array<(State & { id?: string })>, step: number, sessionId?: string) => void;
+        type GetHistoryResult = Array<(State & { id?: string })>;
+        type GetHistoryCallback = (err: string | null, result: GetHistoryResult, step: number, sessionId?: string) => void;
 
         /** Contains the return values of readDir */
         interface ReadDirResult {

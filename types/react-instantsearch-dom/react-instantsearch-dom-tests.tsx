@@ -216,6 +216,21 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
   </InstantSearch>;
 };
 
+(() => {
+  function onSearchBoxChange(event: React.SyntheticEvent<HTMLInputElement>) {
+  }
+
+  function onSearchBoxReset(event: React.SyntheticEvent<HTMLFormElement>) {
+  }
+
+  function onSearchBoxSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
+  }
+
+  <SearchBox
+      onChange={onSearchBoxChange} onReset={onSearchBoxReset} onSubmit={onSearchBoxSubmit}
+      submit={<></>} />;
+});
+
 import { createInstantSearch } from 'react-instantsearch-dom/server';
 // import { createServer } from 'http';
 declare function createServer(handler: (req: any, res: any) => any): any;

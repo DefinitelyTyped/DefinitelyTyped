@@ -1,14 +1,17 @@
-// Type definitions for yeoman-generator 3.0
-// Project: https://github.com/yeoman/generator
+// Type definitions for yeoman-generator 3.1
+// Project: https://github.com/yeoman/generator, http://yeoman.io
 // Definitions by: Kentaro Okuno <https://github.com/armorik83>
 //                 Jay Anslow <https://github.com/janslow>
 //                 Ika <https://github.com/ikatyang>
 //                 Joshua Cherry <https://github.com/tasadar2>
+//                 Arthur Corenzan <https://github.com/haggen>
+//                 Richard Lea <https://github.com/chigix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { EventEmitter } from 'events';
 import * as inquirer from 'inquirer';
+import { Observable } from 'rxjs';
 
 type Callback = (err: any) => void;
 
@@ -19,7 +22,7 @@ declare namespace Generator {
          */
         store?: boolean;
     }
-    type Questions = Question | Question[] | Rx.Observable<Question>;
+    type Questions = Question | Question[] | Observable<Question>;
     type Answers = inquirer.Answers;
 
     class Storage {
@@ -71,7 +74,7 @@ declare namespace Generator {
         writeJSON(filepath: string, contents: {}, replacer?: (key: string, value: any) => any, space?: number): void;
         extendJSON(filepath: string, contents: {}, replacer?: (key: string, value: any) => any, space?: number): void;
         delete(filepath: string, options?: {}): void;
-        copy(from: string, to: string, options?: {}): void;
+        copy(from: string, to: string, options?: {}, context?: {}, templateOptions?: {}): void;
         copyTpl(from: string, to: string, context: {}, templateOptions?: {}, copyOptions?: {}): void;
         move(from: string, to: string, options?: {}): void;
         exists(filepath: string): boolean;

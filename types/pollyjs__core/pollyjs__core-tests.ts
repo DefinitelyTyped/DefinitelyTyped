@@ -6,7 +6,74 @@ const polly = new Polly('test recording', {
 	recordFailedRequests: true,
 	adapters: ['xhr', 'fetch'],
 	persister: 'rest',
-	timing: Timing.relative(3)
+	timing: Timing.relative(3),
+	matchRequestsBy: {
+		method: true,
+		headers: true,
+		body: true,
+		order: true,
+
+		url: {
+		  protocol: true,
+		  username: true,
+		  password: true,
+		  hostname: true,
+		  port: true,
+		  pathname: true,
+		  query: true,
+		  hash: false
+		}
+	  }
+});
+
+new Polly('test recording', {
+	mode: 'replay',
+	recordFailedRequests: true,
+	adapters: ['xhr', 'fetch'],
+	persister: 'rest',
+	timing: Timing.relative(3),
+	matchRequestsBy: {
+		method(method) {
+			return method.toLowerCase();
+		},
+		headers: 1 === 1 ? { exclude: ['X-Auth'] } : (headers) => {
+			delete headers['X-Auth'];
+			return headers;
+		},
+		body(body) {
+			const json = JSON.parse(body);
+
+			delete json.email;
+			return JSON.stringify(json);
+		},
+
+		url: {
+			protocol(protocol) {
+				return protocol === 'http' ? 'https:' : protocol;
+			},
+			username(username) {
+				return username === 'johndoe' ? 'username' : username;
+			},
+			password(password) {
+				return password || 'password';
+			},
+			hostname(hostname) {
+				return hostname.replace('.com', '.net');
+			},
+			port(port) {
+				return port > 80 ? 3000 : 433;
+			},
+			pathname(pathname) {
+				return pathname.replace('/api/v1', '/api');
+			},
+			query(query) {
+				return { ...query, token: '' };
+			},
+			hash(hash) {
+				return hash.replace(/token=[0-9]+/, '');
+			}
+		}
+	}
 });
 
 function log(_: string) {
@@ -46,6 +113,16 @@ async function test() {
 			/* Do something else */
 		});
 
+		server
+			.get('/users/:id')
+			.filter(req => req.params.id === '1')
+			.filter(req => req.params.id !== '2')
+			.recordingName('test')
+			.recordingName()
+			.intercept((_req, res) => {
+				res.status(200).json({ email: 'user1@test.com' });
+			});
+
 	/* Intercept all Google Analytic requests and respond with a 200 */
 	server.get('/google-analytics/*path').intercept((req, res, intercept) => {
 		if (req.pathname === 'test') {
@@ -59,6 +136,20 @@ async function test() {
 	server.get('/coverage')
 		.configure({ expiresIn: '5d' })
 		.passthrough();
+
+	server.any().on('error', (req, error) => {
+		req
+			.setHeader('Content-Length', '2344')
+			.setHeaders({
+				'Content-Type': 'application/json',
+				'Content-Length': '42'
+			})
+			.removeHeader('Content-Length')
+			.removeHeaders(['Content-Type', 'Content-Length']);
+
+		req.removeHeaders(['Content-Type', 'Content-Length']);
+		log(req.pathname + JSON.stringify(error));
+	});
 
 	await polly.flush();
 }

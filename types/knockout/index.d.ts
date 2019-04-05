@@ -12,13 +12,30 @@
 // TypeScript Version: 2.3
 
 interface KnockoutSubscribableFunctions<T> {
-    notifySubscribers(valueToWrite?: T, event?: string): void;
+    /**
+     * Notify subscribers of knockout "change" event. This doesn't acctually change the observable value.
+     * @param eventValue A value to be sent with the event.
+     * @param event The knockout event.
+     */
+    notifySubscribers(eventValue?: T, event?: "change"): void;
+    /**
+     * Notify subscribers of a knockout or user defined event.
+     * @param eventValue A value to be sent with the event.
+     * @param event The knockout or user defined event name.
+     */
+    notifySubscribers<U>(eventValue: U, event: string): void;
 }
 
 interface KnockoutComputedFunctions<T> {
 }
 
 interface KnockoutObservableFunctions<T> {
+    /**
+     * Used by knockout to decide if value of observable has changed and should notify subscribers. Returns true if instances are primitives, and false if are objects.
+     * If your observable holds an object, this can be overwritten to return equality based on your needs.
+     * @param a previous value.
+     * @param b next value.
+     */
     equalityComparer(a: T, b: T): boolean;
 }
 
@@ -48,7 +65,7 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutReadonlyObservable
      * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
      * @param start The zero-based location in the array from which to start removing elements.
      * @param deleteCount The number of elements to remove.
-     * @param ...items Elements to insert into the array in place of the deleted elements.
+     * @param items Elements to insert into the array in place of the deleted elements.
      */
     splice(start: number, deleteCount: number, ...items: T[]): T[];
     /**
@@ -57,7 +74,7 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutReadonlyObservable
     pop(): T;
     /**
      * Adds a new item to the end of array.
-     * @param ...items Items  to be added
+     * @param items Items  to be added.
      */
     push(...items: T[]): void;
     /**
@@ -66,7 +83,7 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutReadonlyObservable
     shift(): T;
     /**
      * Inserts a new item at the beginning of the array.
-     * @param ...items Items to be added
+     * @param items Items to be added.
      */
     unshift(...items: T[]): number;
     /**
@@ -85,24 +102,24 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutReadonlyObservable
 
     // Ko specific
     /**
-     * Replaces the first value that equals oldItem with newItem
-     * @param oldItem Item to be replaced
-     * @param newItem Replacing item
+     * Replaces the first value that equals oldItem with newItem.
+     * @param oldItem Item to be replaced.
+     * @param newItem Replacing item.
      */
     replace(oldItem: T, newItem: T): void;
     /**
      * Removes all values that equal item and returns them as an array.
-     * @param item The item to be removed
+     * @param item The item to be removed.
      */
     remove(item: T): T[];
     /**
-     * Removes all values  and returns them as an array.
-     * @param removeFunction A function used to determine true if item should be removed and fasle otherwise
+     * Removes all values and returns them as an array.
+     * @param removeFunction A function used to determine true if item should be removed and fasle otherwise.
      */
     remove(removeFunction: (item: T) => boolean): T[];
     /**
-     * Removes all values that equal any of the supplied items
-     * @param items Items to be removed
+     * Removes all values that equal any of the supplied items.
+     * @param items Items to be removed.
      */
     removeAll(items: T[]): T[];
     /**
@@ -139,39 +156,96 @@ interface KnockoutSubscribableStatic {
 }
 
 interface KnockoutSubscription {
+    /**
+     * Terminates a subscription.
+     */
     dispose(): void;
 }
 
 interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
-    subscribe(callback: (newValue: T) => void, target: any, event: "beforeChange"): KnockoutSubscription;
+    /**
+     * Registers to be notified after the observable's value changes.
+     * @param callback Function that is called whenever the notification happens.
+     * @param target Defines the value of 'this' in the callback function.
+     * @param event The knockout event name.
+     */
     subscribe(callback: (newValue: T) => void, target?: any, event?: "change"): KnockoutSubscription;
-    subscribe<TEvent>(callback: (newValue: TEvent) => void, target: any, event: string): KnockoutSubscription;
-
+    /**
+     * Registers to be notified before the observable's value changes.
+     * @param callback Function that is called whenever the notification happens.
+     * @param target Defines the value of 'this' in the callback function.
+     * @param event The knockout event name.
+     */
+    subscribe(callback: (newValue: T) => void, target: any, event: "beforeChange"): KnockoutSubscription;
+    /**
+     * Registers to be notified when a knockout or user defined event happens.
+     * @param callback Function that is called whenever the notification happens. eventValue can be anything. No relation to underlying observable.
+     * @param target Defines the value of 'this' in the callback function.
+     * @param event The knockout or user defined event name.
+     */
+    subscribe<U>(callback: (eventValue: U) => void, target: any, event: string): KnockoutSubscription;
+    /**
+     * Customizes observables basic functionality.
+     * @param requestedExtenders Name of the extender feature and its value, e.g. { notify: 'always' }, { rateLimit: 50 }
+     */
     extend(requestedExtenders: { [key: string]: any; }): KnockoutSubscribable<T>;
+    /**
+    * Gets total number of subscribers.
+    */
     getSubscriptionsCount(): number;
+    /**
+     * Gets number of subscribers of a particular event.
+     * @param event Event name.
+     */
+    getSubscriptionsCount(event: string): number;
 }
 
 interface KnockoutComputedStatic {
     fn: KnockoutComputedFunctions<any>;
 
+    /**
+     * Creates computed observable.
+     */
     <T>(): KnockoutComputed<T>;
-    <T>(func: () => T, context?: any, options?: any): KnockoutComputed<T>;
-    <T>(def: KnockoutComputedDefine<T>, context?: any): KnockoutComputed<T>;
+    /**
+     * Creates computed observable.
+     * @param evaluatorFunction Function that computes the observable value.
+     * @param context Defines the value of 'this' when evaluating the computed observable.
+     * @param options An object with further properties for the computed observable.
+     */
+    <T>(evaluatorFunction: () => T, context?: any, options?: KnockoutComputedOptions<T>): KnockoutComputed<T>;
+    /**
+     * Creates computed observable.
+     * @param options An object that defines the computed observable options and behavior.
+     * @param context Defines the value of 'this' when evaluating the computed observable.
+     */
+    <T>(options: KnockoutComputedDefine<T>, context?: any): KnockoutComputed<T>;
 }
 
 interface KnockoutReadonlyComputed<T> extends KnockoutReadonlyObservable<T> {
+    /**
+     * Returns whether the computed observable may be updated in the future. A computed observable is inactive if it has no dependencies.
+     */
     isActive(): boolean;
+    /**
+     * Returns the current number of dependencies of the computed observable.
+     */
     getDependenciesCount(): number;
 }
 
 interface KnockoutComputed<T> extends KnockoutReadonlyComputed<T>, KnockoutObservable<T>, KnockoutComputedFunctions<T> {
     fn: KnockoutComputedFunctions<any>;
 
-    // It's possible for a to be undefined, since the equalityComparer is run on the initial
-    // computation with undefined as the first argument. This is user-relevant for deferred computeds.
-    equalityComparer(a: T | undefined, b: T): boolean;
-
+    /**
+     * Manually disposes the computed observable, clearing all subscriptions to dependencies.
+     * This function is useful if you want to stop a computed observable from being updated or want to clean up memory for a
+     * computed observable that has dependencies on observables that won’t be cleaned.
+     */
     dispose(): void;
+    /**
+     * Customizes observables basic functionality.
+     * @param requestedExtenders Name of the extender feature and it's value, e.g. { notify: 'always' }, { rateLimit: 50 }
+     */
     extend(requestedExtenders: { [key: string]: any; }): KnockoutComputed<T>;
 }
 
@@ -190,19 +264,19 @@ interface KnockoutReadonlyObservableArray<T> extends KnockoutReadonlyObservable<
     subscribe(callback: (newValue: KnockoutArrayChange<T>[]) => void, target: any, event: "arrayChange"): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target: any, event: "beforeChange"): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target?: any, event?: "change"): KnockoutSubscription;
-    subscribe<TEvent>(callback: (newValue: TEvent) => void, target: any, event: string): KnockoutSubscription;
+    subscribe<U>(callback: (newValue: U) => void, target: any, event: string): KnockoutSubscription;
 }
 
 /*
-    NOTE: In theory this should extend both Observable<T[]> and ReadonlyObservableArray<T>,
+    NOTE: In theory this should extend both KnockoutObservable<T[]> and KnockoutReadonlyObservableArray<T>,
         but can't since they both provide conflicting typings of .subscribe.
-    So it extends Observable<T[]> and duplicates the subscribe definitions, which should be kept in sync
+    So it extends KnockoutObservable<T[]> and duplicates the subscribe definitions, which should be kept in sync
 */
 interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutObservableArrayFunctions<T> {
     subscribe(callback: (newValue: KnockoutArrayChange<T>[]) => void, target: any, event: "arrayChange"): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target: any, event: "beforeChange"): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target?: any, event?: "change"): KnockoutSubscription;
-    subscribe<TEvent>(callback: (newValue: TEvent) => void, target: any, event: string): KnockoutSubscription;
+    subscribe<U>(callback: (newValue: U) => void, target: any, event: string): KnockoutSubscription;
 
     extend(requestedExtenders: { [key: string]: any; }): KnockoutObservableArray<T>;
 }
@@ -222,6 +296,9 @@ interface KnockoutObservableStatic {
 interface KnockoutReadonlyObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
     (): T;
 
+    /**
+     * Returns the current value of the computed observable without creating a dependency.
+     */
     peek(): T;
     valueHasMutated?: { (): void; };
     valueWillMutate?: { (): void; };
@@ -231,17 +308,50 @@ interface KnockoutObservable<T> extends KnockoutReadonlyObservable<T> {
     (value: T): void;
 
     // Since .extend does arbitrary thing to an observable, it's not safe to do on a readonly observable
+    /**
+     * Customizes observables basic functionality.
+     * @param requestedExtenders Name of the extender feature and it's value, e.g. { notify: 'always' }, { rateLimit: 50 }
+     */
     extend(requestedExtenders: { [key: string]: any; }): KnockoutObservable<T>;
 }
 
-interface KnockoutComputedDefine<T> {
-    read(): T;
+interface KnockoutComputedOptions<T> {
+    /**
+     * Makes the computed observable writable. This is a function that receives values that other code is trying to write to your computed observable.
+     * It’s up to you to supply custom logic to handle the incoming values, typically by writing the values to some underlying observable(s).
+     * @param value Value being written to the computer observable.
+     */
     write?(value: T): void;
+    /**
+     * Disposal of the computed observable will be triggered when the specified DOM node is removed by KO.
+     * This feature is used to dispose computed observables used in bindings when nodes are removed by the template and control-flow bindings.
+     */
     disposeWhenNodeIsRemoved?: Node;
+    /**
+     * This function is executed before each re-evaluation to determine if the computed observable should be disposed.
+     * A true-ish result will trigger disposal of the computed observable.
+     */
     disposeWhen?(): boolean;
+    /**
+     * Defines the value of 'this' whenever KO invokes your 'read' or 'write' callbacks.
+     */
     owner?: any;
+    /**
+     * If true, then the value of the computed observable will not be evaluated until something actually attempts to access its value or manually subscribes to it.
+     * By default, a computed observable has its value determined immediately during creation.
+     */
     deferEvaluation?: boolean;
+    /**
+     * If true, the computed observable will be set up as a purecomputed observable. This option is an alternative to the ko.pureComputed constructor.
+     */
     pure?: boolean;
+}
+
+interface KnockoutComputedDefine<T> extends KnockoutComputedOptions<T> {
+    /**
+     * A function that is used to evaluate the computed observable’s current value.
+     */
+    read(): T;
 }
 
 interface KnockoutBindingContext {
@@ -255,8 +365,19 @@ interface KnockoutBindingContext {
     $component: any;
     $componentTemplateNodes: Node[];
 
-    extend(properties: any): any;
-    createChildContext(dataItemOrAccessor: any, dataItemAlias?: any, extendCallback?: Function): any;
+    /**
+     * Clones the current Binding Context, adding extra properties to it.
+     * @param properties object with properties to be added in the binding context.
+     */
+    extend(properties: { [key: string]: any; } | (() => { [key: string]: any; })): KnockoutBindingContext;
+    /**
+     * This returns a new binding context whose viewmodel is the first parameter and whose $parentContext is the current bindingContext. 
+     * @param dataItemOrAccessor The binding context of the children.
+     * @param dataItemAlias An alias for the data item in descendant contexts.
+     * @param extendCallback Function to be called.
+     * @param options Further options.
+     */
+    createChildContext(dataItemOrAccessor: any, dataItemAlias?: string, extendCallback?: Function, options?: { "exportDependencies": boolean }): any;
 }
 
 interface KnockoutAllBindingsAccessor {
@@ -313,7 +434,7 @@ interface KnockoutBindingHandlers {
 }
 
 interface KnockoutMemoization {
-    memoize(callback: () => string): string;
+    memoize(callback: Function): string;
     unmemoize(memoId: string, callbackParams: any[]): boolean;
     unmemoizeDomNodeAndDescendants(domNode: any, extraCallbackParamsArray: any[]): boolean;
     parseMemoText(memoText: string): string;
@@ -491,7 +612,7 @@ interface KnockoutTemplateSources {
 // nativeTemplateEngine.js
 //////////////////////////////////
 
-interface KnockoutNativeTemplateEngine {
+interface KnockoutNativeTemplateEngine extends KnockoutTemplateEngine {
 
     renderTemplateSource(templateSource: Object, bindingContext?: KnockoutBindingContext, options?: Object): any[];
 }
@@ -500,7 +621,7 @@ interface KnockoutNativeTemplateEngine {
 // templateEngine.js
 //////////////////////////////////
 
-interface KnockoutTemplateEngine extends KnockoutNativeTemplateEngine {
+interface KnockoutTemplateEngine {
 
     createJavaScriptEvaluatorBlock(script: string): string;
 
@@ -547,34 +668,105 @@ interface KnockoutStatic {
     observable: KnockoutObservableStatic;
 
     computed: KnockoutComputedStatic;
+    /**
+     * Creates a pure computed observable.
+     * @param evaluatorFunction Function that computes the observable value.
+     * @param context Defines the value of 'this' when evaluating the computed observable.
+     */
     pureComputed<T>(evaluatorFunction: () => T, context?: any): KnockoutComputed<T>;
+    /**
+     * Creates a pure computed observable.
+     * @param options An object that defines the computed observable options and behavior.
+     * @param context Defines the value of 'this' when evaluating the computed observable.
+     */
     pureComputed<T>(options: KnockoutComputedDefine<T>, context?: any): KnockoutComputed<T>;
 
     observableArray: KnockoutObservableArrayStatic;
 
-    contextFor(node: any): any;
+    /**
+     * Evaluates if instance is a KnockoutSubscribable.
+     * @param instance Instance to be evaluated.
+     */
     isSubscribable(instance: any): instance is KnockoutSubscribable<any>;
-    toJSON(viewModel: any, replacer?: Function, space?: any): string;
-
+    /**
+     * Clones object substituting each observable for it's underlying value. Uses browser JSON.stringify internally to stringify the result.
+     * @param viewModel Object with observables to be converted.
+     * @param replacer A Function or array of names that alters the behavior of the stringification process.
+     * @param space Used to insert white space into the output JSON string for readability purposes.
+     */
+    toJSON(viewModel: any, replacer?: Function | [string | number], space?: string | number): string;
+    /**
+     * Clones object substituting for each observable the current value of that observable.
+     * @param viewModel Object with observables to be converted.
+     */
     toJS(viewModel: any): any;
-
+    /**
+     * Determine if argument is an observable. Returns true for observables, observable arrays, and all computed observables.
+     * @param instance Object to be checked.
+     */
     isObservable(instance: any): instance is KnockoutObservable<any>;
+    /**
+     * Determine if argument is an observable. Returns true for observables, observable arrays, and all computed observables.
+     * @param instance Object to be checked.
+     */
     isObservable<T>(instance: KnockoutObservable<T> | T): instance is KnockoutObservable<T>;
-
+    /**
+     * Determine if argument is a writable observable. Returns true for observables, observable arrays, and writable computed observables.
+     * @param instance Object to be checked.
+     */
     isWriteableObservable(instance: any): instance is KnockoutObservable<any>;
+    /**
+     * Determine if argument is a writable observable. Returns true for observables, observable arrays, and writable computed observables.
+     * @param instance Object to be checked.
+     */
     isWriteableObservable<T>(instance: KnockoutObservable<T> | T): instance is KnockoutObservable<T>;
-
+    /**
+     * Determine if argument is a computed observable.
+     * @param instance Object to be checked.
+     */
     isComputed(instance: any): instance is KnockoutComputed<any>;
+    /**
+     * Determine if argument is a computed observable.
+     * @param instance Object to be checked.
+     */
     isComputed<T>(instance: KnockoutObservable<T> | T): instance is KnockoutComputed<T>;
 
-    dataFor(node: any): any;
+    /**
+     * Returns the data that was available for binding against the element.
+     * @param node Html node that contains the binding context.
+     */
+    dataFor(node: Node): any;
+    /**
+     * Returns the entire binding context that was available to the DOM element.
+     * @param node Html node that contains the binding context.
+     */
+    contextFor(node: Node): any;
+    /**
+     * Removes a node from the DOM.
+     * @param node Node to be removed.
+     */
     removeNode(node: Node): void;
+    /**
+     * Used internally by Knockout to clean up data/computeds that it created related to the element. It does not remove any event handlers added by bindings.
+     * @param node Node to be cleaned.
+     */
     cleanNode(node: Node): Node;
     renderTemplate(template: Function, viewModel: any, options?: any, target?: any, renderMode?: any): any;
     renderTemplate(template: string, viewModel: any, options?: any, target?: any, renderMode?: any): any;
-    unwrap<T>(value: KnockoutObservable<T> | T): T;
-    unwrap<T>(value: KnockoutObservableArray<T> | T[]): T[];
+    /**
+     * Returns the underlying value of the Knockout Observable or in case of plain js object, return the object. Use this to easily accept both observable and plain values.
+     * @param instance observable to be unwraped if it's an Observable.
+     */
+    unwrap<T>(instance: KnockoutObservable<T> | T): T;
+    /**
+     * Gets the array inside the KnockoutObservableArray.
+     * @param instance observable to be unwraped.
+     */
+    unwrap<T>(instance: KnockoutObservableArray<T> | T[]): T[];
 
+    /**
+     * Get information about the current computed property during the execution of a computed observable’s evaluator function.
+     */
     computedContext: KnockoutComputedContext;
 
     //////////////////////////////////
@@ -656,7 +848,13 @@ interface KnockoutStatic {
     renderTemplateForEach(template: Function, arrayOrObservableArray: KnockoutObservable<any>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
     renderTemplateForEach(template: any, arrayOrObservableArray: KnockoutObservable<any>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
 
-    ignoreDependencies<T>(callback: () => T): T;
+    /**
+     * Executes a callback function inside a computed observable, without creating a dependecy between it and the observables inside the function.
+     * @param callback Function to be called.
+     * @param callbackTarget Defines the value of 'this' in the callback function.
+     * @param callbackArgs Arguments for the callback Function.
+     */
+    ignoreDependencies<T>(callback: () => T, callbackTarget?: any, callbackArgs?: any): T;
 
     expressionRewriting: {
         bindingRewriteValidators: any[];
@@ -731,7 +929,14 @@ interface KnockoutBindingProvider {
 }
 
 interface KnockoutComputedContext {
+    /**
+     * Returns the number of dependencies of the computed observable detected so far during the current evaluation.
+     */
     getDependenciesCount(): number;
+    /**
+     * A function that returns true if called during the first ever evaluation of the current computed observable, or false otherwise.
+     * For pure computed observables, isInitial() is always undefined.
+     */
     isInitial: () => boolean;
     isSleeping: boolean;
 }
@@ -785,9 +990,25 @@ declare namespace KnockoutComponentTypes {
     }
 
     interface Loader {
+        /**
+         * Define this if: you want to supply configurations programmatically based on names, e.g., to implement a naming convention.
+         * @see {@link https://knockoutjs.com/documentation/component-loaders.html}
+         */
         getConfig?(componentName: string, callback: (result: ComponentConfig | null) => void): void;
+        /**
+         * Define this if: you want to take control over how component configurations are interpreted, e.g., if you do not want to use the standard 'viewModel/template' pair format.
+         * @see {@link https://knockoutjs.com/documentation/component-loaders.html}
+         */
         loadComponent?(componentName: string, config: ComponentConfig, callback: (result: Definition | null) => void): void;
+        /**
+         * Define this if: you want to use custom logic to supply DOM nodes for a given template configuration (e.g., using an ajax request to fetch a template by URL).
+         * @see {@link https://knockoutjs.com/documentation/component-loaders.html}
+         */
         loadTemplate?(componentName: string, templateConfig: any, callback: (result: Node[] | null) => void): void;
+        /**
+         * Define this if: you want to use custom logic to supply a viewmodel factory for a given viewmodel configuration (e.g., integrating with a third-party module loader or dependency injection system).
+         * @see {@link https://knockoutjs.com/documentation/component-loaders.html}
+         */
         loadViewModel?(componentName: string, viewModelConfig: any, callback: (result: any) => void): void;
         suppressLoaderExceptions?: boolean;
     }
@@ -799,15 +1020,40 @@ declare namespace KnockoutComponentTypes {
 }
 
 interface KnockoutComponents {
-    // overloads for register method:
-    register(componentName: string, config: KnockoutComponentTypes.Config | KnockoutComponentTypes.EmptyConfig): void;
 
+    /**
+     * Registers a component, in the default component loader, to be used by name in the component binding.
+     * @param componentName Component name. Will be used for your custom HTML tag name.
+     * @param config Component configuration.
+     */
+    register(componentName: string, config: KnockoutComponentTypes.Config | KnockoutComponentTypes.EmptyConfig): void;
+    /**
+     * Determine if a component with the specified name is already registered in the default component loader.
+     * @param componentName Component name.
+     */
     isRegistered(componentName: string): boolean;
+    /**
+     * Removes the named component from the default component loader registry. Or if no such component was registered, does nothing.
+     * @param componentName Component name.
+     */
     unregister(componentName: string): void;
+    /**
+     * Searchs each registered component loader by component name, and returns the viewmodel/template declaration via callback parameter.
+     * @param componentName Component name.
+     * @param callback Function to be called with the viewmodel/template declaration parameter.
+     */
     get(componentName: string, callback: (definition: KnockoutComponentTypes.Definition) => void): void;
+    /**
+     * Clears the cache knockout creates to speed up component loading, for a given component.
+     * @param componentName Component name.
+     */
     clearCachedDefinition(componentName: string): void
     defaultLoader: KnockoutComponentTypes.Loader;
     loaders: KnockoutComponentTypes.Loader[];
+    /**
+     * Returns the registered component name for a HTML element. Can be overwriten to to control dynamically which HTML element map to which component name.
+     * @param node html element that corresponds to a custom component.
+     */
     getComponentNameForNode(node: Node): string;
 }
 

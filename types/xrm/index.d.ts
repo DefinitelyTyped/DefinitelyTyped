@@ -4372,8 +4372,7 @@ declare namespace Xrm {
 
         /**
          * Displays an error dialog.
-         * @param confirmStrings The strings to be used in the confirm dialog.
-         * @param confirmOptions The height and width options for alert dialog
+         * @param errorOptions An object to specify the options for error dialog.
          */
         openErrorDialog(errorOptions: Navigation.ErrorDialogOptions): Async.PromiseLike<any>;
 
@@ -4633,7 +4632,7 @@ declare namespace Xrm {
          * Invokes the device camera to capture an image.
          * @returns On success, returns Base64 encoded file
          */
-        captureImage(imageOptions: Device.CaptureImageOptions): Async.PromiseLike<Device.CaptureFileResponse>;
+        captureImage(imageOptions?: Device.CaptureImageOptions): Async.PromiseLike<Device.CaptureFileResponse>;
 
         /**
          * Invokes the device camera to capture video.
@@ -4657,7 +4656,7 @@ declare namespace Xrm {
          * Opens a dialog box to select files from your computer (web client) or mobile device (mobile clients).
          * @returns On success, returns an array of files
          */
-        pickFile(pickFileOptions: Device.PickFileOptions): Async.PromiseLike<Device.CaptureFileResponse[]>;
+        pickFile(pickFileOptions?: Device.PickFileOptions): Async.PromiseLike<Device.CaptureFileResponse[]>;
     }
 
     /**
@@ -4763,7 +4762,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/createrecord External Link: createRecord (Client API reference)}
          */
-        createRecord(entityLogicalName: string, record: any): Async.PromiseLike<string>;
+        createRecord(entityLogicalName: string, record: any): Async.PromiseLike<CreateResponse>;
 
         /**
          * Deletes an entity record.
@@ -4822,6 +4821,14 @@ declare namespace Xrm {
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/updaterecord External Link: updateRecord (Client API reference)}
          */
         updateRecord(entityLogicalName: string, id: string, data: any): Async.PromiseLike<any>;
+    }
+
+    /**
+     * Interface for the WebAPI CreateRecord request response
+     */
+    interface CreateResponse {
+        entityType: string;
+        id: string;
     }
 
     /**
@@ -5172,6 +5179,7 @@ declare namespace XrmEnum {
         Lookup = "lookup",
         Memo = "memo",
         Money = "money",
+        MultiOptionSet = "multioptionset",
         OptionSet = "optionset",
         String = "string"
     }
@@ -5185,6 +5193,7 @@ declare namespace XrmEnum {
         IFrame = "iframe",
         Lookup = "lookup",
         OptionSet = "optionset",
+        MultiSelectOptionSet = "multiselectoptionset",
         SubGrid = "subgrid",
         WebResource = "webresource",
         Notes = "notes",

@@ -23,7 +23,7 @@ export class Pool<T> extends EventEmitter {
     destroy(resource: T): PromiseLike<void>;
     drain(): PromiseLike<void>;
     clear(): PromiseLike<void>;
-    use<U>(cb: (resource: T) => U): PromiseLike<U>;
+    use<U>(cb: (resource: T) => U | PromiseLike<U>): PromiseLike<U>;
     isBorrowedResource(resource: T): boolean;
 }
 
@@ -38,12 +38,13 @@ export interface Options {
     min?: number;
     maxWaitingClients?: number;
     testOnBorrow?: boolean;
+    testOnReturn?: boolean;
     acquireTimeoutMillis?: number;
     fifo?: boolean;
     priorityRange?: number;
     autostart?: boolean;
     evictionRunIntervalMillis?: number;
-    numTestsPerRun?: number;
+    numTestsPerEvictionRun?: number;
     softIdleTimeoutMillis?: number;
     idleTimeoutMillis?: number;
 }

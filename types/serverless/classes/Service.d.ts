@@ -12,9 +12,17 @@ declare class Service {
     provider: {
       compiledCloudFormationTemplate: {
         Resources: any[];
+        Outputs?: {
+          [key: string]: any;
+        };
       };
 
       name: string;
+      stage: string;
+      region: string;
+      runtime?: string;
+      timeout?: number;
+      versionFunctions: boolean;
     };
     constructor(serverless: Serverless, data: {});
 

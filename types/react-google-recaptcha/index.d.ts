@@ -1,6 +1,8 @@
-// Type definitions for React Google Recaptcha 0.9
+// Type definitions for React Google Recaptcha 1.0
 // Project: https://github.com/dozoisch/react-google-recaptcha
 // Definitions by: Koala Human <https://github.com/KoalaHuman>
+//                 Tom Sturge <https://github.com/tomsturge>
+//                 Max Bo <https://github.com/MaxwellBo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -42,11 +44,11 @@ export interface ReCAPTCHAProps {
 	 */
 	sitekey: string;
 	/**
-	 *  The function to be called when the user successfully completes the captcha. It will also be called
-	 *  with null, when captcha expires
+	 *  The function to be called when the user successfully completes the normal or compat captcha.
+	 * 	It will also be called with null, when captcha expires
 	 *  @param token string or null
 	 */
-	onChange: (token: string|null) => void;
+	onChange?: (token: string|null) => void;
 	/**
 	 *  Optional light or dark theme of the widget
 	 *  @default "light"
@@ -66,6 +68,12 @@ export interface ReCAPTCHAProps {
 	 *  Optional callback, called when a challenge expires and has to be redone by the user.
 	 */
 	onExpired?: () => void;
+	/**
+	 *  Optional callback, called when reCAPTCHA encounters an error (usually network connectivity)
+	 *  and cannot continue until connectivity is restored. If you specify a function here, you are
+	 *  responsible for informing the user that they should retry.
+	 */
+	onErrored?: () => void;
 	/**
 	 *  Optional set the stoken parameter, which allows the captcha to be used from different domains,
 	 *  @see reCAPTCHA secure-token

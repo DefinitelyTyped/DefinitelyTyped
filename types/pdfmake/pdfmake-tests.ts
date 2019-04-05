@@ -1316,6 +1316,10 @@ const definitions = [
         images: {
             building: 'data:image/gif;base64,...'
         }
+    },
+    {
+        compress: false,
+        content: ['This document does not use compression']
     }
 ];
 

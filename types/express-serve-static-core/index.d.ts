@@ -44,6 +44,7 @@ export type RequestHandlerParams = RequestHandler | ErrorRequestHandler | Array<
 export interface IRouterMatcher<T> {
     (path: PathParams, ...handlers: RequestHandler[]): T;
     (path: PathParams, ...handlers: RequestHandlerParams[]): T;
+    (path: PathParams, subApplication: Application): T;
 }
 
 export interface IRouterHandler<T> {
@@ -506,8 +507,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.send(new Buffer('wahoo'));
      *     res.send({ some: 'json' });
      *     res.send('<p>some html</p>');
-     *     res.send(404, 'Sorry, cant find that');
-     *     res.send(404);
+     *     res.status(404).send('Sorry, cant find that');
      */
     send: Send;
 
@@ -518,8 +518,8 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      *     res.json(null);
      *     res.json({ user: 'tj' });
-     *     res.json(500, 'oh noes!');
-     *     res.json(404, 'I dont have that');
+     *     res.status(500).json('oh noes!');
+     *     res.status(404).json('I dont have that');
      */
     json: Send;
 
@@ -530,8 +530,8 @@ export interface Response extends http.ServerResponse, Express.Response {
      *
      *     res.jsonp(null);
      *     res.jsonp({ user: 'tj' });
-     *     res.jsonp(500, 'oh noes!');
-     *     res.jsonp(404, 'I dont have that');
+     *     res.status(500).jsonp('oh noes!');
+     *     res.status(404).jsonp('I dont have that');
      */
     jsonp: Send;
 

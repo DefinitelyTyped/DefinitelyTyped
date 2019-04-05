@@ -1,4 +1,4 @@
-// Type definitions for slate 0.43
+// Type definitions for slate 0.44
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -7,7 +7,9 @@
 //                 Kalley Powell <https://github.com/kalley>
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Irwan Fario Subastian <https://github.com/isubasti>
-//                 Sebastian Greaves <https://github.com/sgreav>
+//                 Hanna Greaves <https://github.com/sgreav>
+//                 Jack Allen <https://github.com/jackall3n>
+//                 Benjamin Evenson <https://github.com/benjiro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
@@ -53,39 +55,9 @@ export interface SchemaProperties {
     inlines?: RulesByNodeType;
 }
 
-export class Schema extends Immutable.Record({}) {
-    stack: Stack;
-    rules: Rules[];
-
-    static create(properties: SchemaProperties | Schema): Schema;
-    static fromJSON(object: SchemaProperties): Schema;
-    static fromJS(object: SchemaProperties): Schema;
-    static isSchema(maybeSchema: any): maybeSchema is Schema;
-
-    validateNode(node: Node): Error | void;
-    testNode(node: Node): boolean;
-    assertNode(node: Node): boolean;
-    getNodeRules(node: Node): any[];
-    isVoid(node: Node): boolean;
-    isAtomic(mark: Mark): boolean;
-    normalizeNode(node: Node): () => void;
-    testRules(object: any, rules: object | any[]): boolean;
-    validateRules(
-        object: any,
-        rule: object | any[],
-        rules: any[] | null,
-        options?: object
-    ): Error | void;
-
-    toJSON(): SchemaProperties;
-    toJS(): SchemaProperties;
-}
-
 export interface ValueProperties {
     document?: Document;
     selection?: Selection;
-    history?: History;
-    schema?: Schema;
     data?: Data;
     decorations?: Immutable.List<Decoration> | null;
 }
@@ -93,20 +65,16 @@ export interface ValueProperties {
 export interface ValueJSON {
     document?: DocumentJSON;
     selection?: Selection;
-    history?: History;
-    schema?: Schema;
     data?: Data;
     decorations?: Immutable.List<Decoration> | null;
     object?: "value";
 }
 
-export type Path = Immutable.List<number> | string;
+export type Path = Immutable.List<number> | string | number;
 
 export class Value extends Immutable.Record({}) {
     document: Document;
     selection: Selection;
-    history: History;
-    schema: Schema;
     data: Data;
     object: "value";
     decorations: Immutable.List<Decoration>;
@@ -319,7 +287,7 @@ export class Text extends Immutable.Record({}) {
     addMark(index: number, length: number, mark: Mark): Text;
     addMarks(index: number, lenght: number, marks: Immutable.Set<Mark>): Text;
     getLeaves(decorations?: Range[]): Immutable.List<Leaf>;
-    getActiveMarksBetweenOffset(
+    getActiveMarksBetweenOffsets(
         startOffset: number,
         endOffset: number
     ): Immutable.Set<Mark>;
@@ -333,7 +301,7 @@ export class Text extends Immutable.Record({}) {
     ): Immutable.Set<Mark>;
     getMarks(): Immutable.OrderedSet<Mark>;
     getMarksAsArray(): Mark[];
-    getMarksAtIndex(index: number): Mark;
+    getMarksAtIndex(index: number): Immutable.OrderedSet<Mark>;
     getNode(key: string): Node | null;
     getPath(key: string | Path): Path;
     hasNode(key: string): boolean;
@@ -350,9 +318,6 @@ export class Text extends Immutable.Record({}) {
     ): Text;
     splitText(offset: number): Text[];
     mergeText(text: Text): Text;
-    normalize(schema: Schema): () => void | null;
-    validate(schema: Schema): Error | null;
-    getFirstInvalidNode(schema: Schema): Text | null;
     setLeaves(leaves: Immutable.List<Leaf>): Text;
 }
 
@@ -364,6 +329,7 @@ export interface LeafProperties {
 export interface LeafJSON {
     marks?: MarkJSON[];
     text?: string;
+    object: "leaf";
 }
 
 export class Leaf extends Immutable.Record({}) {
@@ -437,8 +403,6 @@ declare class BaseNode<
     findDescendants(iterator: (node: Node) => boolean): Node | null;
     getActiveMarksAtRange(range: Range): Immutable.Set<Mark>;
     getAncestors(path: Path): Immutable.List<Node> | null;
-    getBlocksAtRange(range: Range): Immutable.List<Block>;
-    getBlocksAtRangeAsArray(range: Range): Block[];
     getBlocks(): Immutable.List<Block>;
     getBlocksAsArray(): Block[];
     getBlocksByType(type: string): Immutable.List<Block>;
@@ -446,13 +410,12 @@ declare class BaseNode<
     getChild(path: Path): Node | null;
     getClosestBlock(path: Path): Block | null;
     getClosestInline(path: Path): Inline | null;
-    getClosestVoid(path: Path, schema: Schema): Node | null;
+    getClosestVoid(key: string | Path): Node | null;
     getClosest(path: Path, iterator: (node: Node) => boolean): Node | null;
     getCommonAncestor(a: Path, b: Path): Node;
-    getDecorations(stack: Stack): Immutable.List<Range>;
+    getDecorations(editor: Editor): Immutable.List<Decoration>;
     getDepth(path: Path, startAt?: number): number;
     getDescendant(path: Path): Node | null;
-    getFirstInvalidNode(schema: Schema): Node | null;
     getFirstText(): Text | null;
     getFragmentAtRange(range: Range): Document;
     getFurthest(path: Path, iterator: (node: Node) => boolean): Node | null;
@@ -469,6 +432,8 @@ declare class BaseNode<
     getInsertMarksAtRange(range: Range): Immutable.Set<Mark>;
     getKeysToPathsTable(): object;
     getLastText(): Text | null;
+    getLeafBlocksAtRange(range: Range): Immutable.List<Block>;
+    getLeafBlocksAtRangeAsArray(range: Range): Block[];
     getMarks(): Immutable.Set<Mark>;
     getMarksAsArray(): Mark[];
     getMarksAtPosition(key: string, offset: number): Immutable.Set<Mark>;
@@ -497,6 +462,8 @@ declare class BaseNode<
     getPreviousNode(path: Path): Node | null;
     getPreviousSibling(path: Path): Node | null;
     getPreviousText(path: Path): Text | null;
+    getRootBlocksAtRange(range: Range): Immutable.List<Block>;
+    getRootInlinesAtRange(range: Range): Immutable.List<Block>;
     getSelectionIndexes(
         range: Range,
         isSelected?: boolean
@@ -514,7 +481,7 @@ declare class BaseNode<
     hasInlineChildren(): boolean;
     hasDescendant(path: Path): boolean;
     hasNode(path: Path): boolean;
-    hasVoidParent(path: Path, schema: Schema): boolean;
+    hasVoidParent(path: Path, editor: Editor): boolean;
     insertNode(path: Path, node: Node): Node;
     insertText(
         path: Path,
@@ -528,7 +495,7 @@ declare class BaseNode<
     mapDescendants(iterator: () => void): Node;
     mergeNode(path: Path): Node;
     moveNode(path: Path, newPath: Path, newIndex?: number): Node;
-    normalize(schema: Schema): () => void | void;
+    normalize(editor: Editor): () => void | void;
     refinedNOde(path: Path, key: string): Node | null;
     refindPath(path: Path, key: string): Immutable.List<string> | null;
     regenerateKey(): Node;
@@ -548,7 +515,7 @@ declare class BaseNode<
         properties: MarkProperties
     ): Node;
     splitNode(path: Path, position: number, properties: NodeProperties): Node;
-    validate(schema: Schema): Error | void;
+    validate(editor: Editor): Error | void;
 }
 
 export interface MarkProperties {
@@ -559,6 +526,7 @@ export interface MarkProperties {
 export interface MarkJSON {
     type: string;
     data?: { [key: string]: any };
+    object: "mark";
 }
 
 export class Mark extends Immutable.Record({}) {
@@ -914,66 +882,13 @@ export interface Operations {
     invert: (operation: Operation) => Operation;
 }
 
-export interface StackProperties {
-    plugins?: any[];
-}
-
-export interface StackJSON {
-    object: "stack";
-    plugins: any[];
-}
-
-export class Stack extends Immutable.Record({}) {
-    object: "stack";
-    plugins: any[];
-
-    static create(attrs: StackProperties): Stack;
-    static isStack(maybeStack: any): maybeStack is Stack;
-
-    static fromJSON(properties: StackJSON): Stack;
-    static fromJS(properties: StackJSON): Stack;
-    toJSON(options: any): object;
-}
-
-export interface HistoryProperties {
-    undos?: Operation[];
-    redos?: Operation[];
-}
-
-export interface HistoryJSON {
-    object: "history";
-    undos: any[];
-    redos: any[];
-}
-
-export interface HistoryOptions {
-    merge?: boolean;
-    skip?: boolean;
-}
-
-export class History extends Immutable.Record({}) {
-    redos: Stack;
-    undos: Stack;
-    object: "history";
-
-    static create(attrs: History | HistoryProperties): History;
-    static createOperationsList(
-        oeprations?: Immutable.List<Operation> | Operation[]
-    ): Immutable.List<Operation>;
-    static fromJSON(object: HistoryJSON): History;
-    static fromJS(object: HistoryJSON): History;
-    static isHistory(maybeHistory: any): maybeHistory is History;
-
-    save(operation: Operation, options?: HistoryOptions): History;
-    toJSON(): HistoryJSON;
-    toJS(): HistoryJSON;
-}
-
 export type ErrorCode =
     | "child_object_invalid"
     | "child_required"
     | "child_type_invalid"
     | "child_unknown"
+    | "child_min_invalid"
+    | "child_max_invalid"
     | "first_child_object_invalid"
     | "first_child_type_invalid"
     | "last_child_object_invalid"
@@ -1047,9 +962,35 @@ export interface PathUtils {
     ): Immutable.List<number>;
 }
 
+export interface Command {
+    type: string;
+    args: any[];
+}
+
+export interface Query {
+    type: string;
+    args: any[];
+}
+
+export type CommandFunc = (editor: Editor, ...args: any[]) => Editor;
+export type QueryFunc = (editor: Editor, ...args: any[]) => any;
+
+export interface Plugin {
+    normalizeNode?: (node: Node, editor: Editor, next: () => void) => ((editor: Editor) => void) | void;
+    onChange?: (editor: Editor, next: () => void) => void;
+    onCommand?: (command: Command, editor: Editor, next: () => void) => void;
+    onConstruct?: (editor: Editor, next: () => void) => void;
+    onQuery?: (query: Query, editor: Editor, next: () => void) => void;
+    validateNode?: (node: Node, editor: Editor, next: () => void) => SlateError | void;
+
+    commands?: {[name: string]: CommandFunc};
+    queries?: {[name: string]: QueryFunc};
+    schema?: SchemaProperties;
+}
+
 export interface EditorProperties {
     onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
-    plugins?: any[];
+    plugins?: Plugin[];
     readOnly?: boolean;
     value?: Value;
 }
@@ -1057,7 +998,7 @@ export interface EditorProperties {
 export class Editor implements Controller {
     object: "editor";
     onChange: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
-    plugins: any[];
+    plugins: Plugin[];
     readOnly: boolean;
     value: Value;
     constructor(attributes: EditorProperties)
@@ -1235,7 +1176,7 @@ export class Editor implements Controller {
     moveToStartOfPreviousText(): Editor;
     moveToStartOfText(): Editor;
     moveToRangeOfDocument(): Editor;
-    moveToRangeOf(node: Node): Editor;
+    moveToRangeOfNode(node: Node): Editor;
     select(properties: Range | RangeProperties): Editor;
     addMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
     deleteAtRange(range: Range): Editor;
@@ -1312,6 +1253,7 @@ export class Editor implements Controller {
     replaceNodeByPath(path: Path, newNode: Node): Editor;
     removeTextByKey(key: string, offset: number, length: number): Editor;
     removeTextByPath(path: Path, offset: number, length: number): Editor;
+    setDecorations(decorations: Immutable.List<Decoration> | Decoration[]): Editor;
     setMarkByKey(
         key: string,
         offset: number,
@@ -2024,7 +1966,7 @@ export interface Controller {
     /**
      * Move the current selection's anchor to the start of the provided node and its focus to the end of it.
      */
-    moveToRangeOf(node: Node): Controller;
+    moveToRangeOfNode(node: Node): Controller;
     /**
      * Merge the current selection with the provided properties
      */

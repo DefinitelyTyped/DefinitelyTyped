@@ -12,3 +12,5 @@ gravatar.url("email@example.com", { s: "200", r: "pg", default: "404" }, false);
 gravatar.url("email@example.com", { d: "404" }, false);
 gravatar.url("email@example.com", { forcedefault: "y" }, false);
 gravatar.url("email@example.com", { f: "y" });
+gravatar.url("email@example.com", { protocol: "https" });
+gravatar.url("email@example.com", { format: "xml" });

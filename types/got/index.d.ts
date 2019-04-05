@@ -1,4 +1,4 @@
-// Type definitions for got 9.2
+// Type definitions for got 9.4
 // Project: https://github.com/sindresorhus/got#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Linus Unnebäck <https://github.com/LinusU>
@@ -36,6 +36,7 @@ declare class HTTPError extends StdError {
     statusCode: number;
     statusMessage: string;
     headers: http.IncomingHttpHeaders;
+    body: Buffer | string | object;
 }
 
 declare class MaxRedirectsError extends StdError {
@@ -102,12 +103,50 @@ declare namespace got {
 
     type GotUrl = string | https.RequestOptions | Url | URL;
 
-    type Hook<T> = (options: T) => any;
-    type Hooks<T> = Record<'beforeRequest', Array<Hook<T>>>;
+    /**
+     * Hooks allow modifications during the request lifecycle. Hook functions may be async and are
+     * run serially.
+     *
+     * @see https://github.com/sindresorhus/got#hooks
+     * @template Options Request options.
+     * @template Body Response body type.
+     */
+    interface Hooks<Options, Body extends Buffer | string | object> {
+        beforeRequest?: Array<BeforeRequestHook<Options>>;
+        beforeRedirect?: Array<BeforeRedirectHook<Options>>;
+        beforeRetry?: Array<BeforeRetryHook<Options>>;
+        afterResponse?: Array<AfterResponseHook<Options, Body>>;
+    }
+
+    /**
+     * @param options Normalized request options.
+     */
+    type BeforeRequestHook<Options> = (options: Options) => any;
+
+    /**
+     * @param options Normalized request options.
+     */
+    type BeforeRedirectHook<Options> = (options: Options) => any;
+
+    /**
+     * @param options Normalized request options.
+     * @param error Request error.
+     * @param retryCount Number of retry.
+     */
+    type BeforeRetryHook<Options> = (options: Options, error: GotError, retryCount: number) => any;
+
+    /**
+     * @param response Response object.
+     * @param retryWithMergedOptions Retries request with the updated options.
+     */
+    type AfterResponseHook<Options, Body extends Buffer | string | object> = (
+        response: Response<Body>,
+        retryWithMergedOptions: (updateOptions: Options) => GotPromise<Body>
+    ) => Response<Body> | Promise<Response<Body>>;
 
     interface GotBodyOptions<E extends string | null> extends GotOptions<E> {
         body?: string | Buffer | nodeStream.Readable;
-        hooks?: Hooks<GotBodyOptions<E>>;
+        hooks?: Hooks<GotBodyOptions<E>, string | Buffer | nodeStream.Readable>;
     }
 
     interface GotJSONOptions extends GotOptions<string | null> {
@@ -115,14 +154,14 @@ declare namespace got {
         body?: object;
         form?: boolean;
         json: true;
-        hooks?: Hooks<GotJSONOptions>;
+        hooks?: Hooks<GotJSONOptions, object>;
     }
 
     interface GotFormOptions<E extends string | null> extends GotOptions<E> {
-        body?: {[key: string]: any};
+        body?: Record<string, any>;
         form: true;
         json?: boolean;
-        hooks?: Hooks<GotFormOptions<E>>;
+        hooks?: Hooks<GotFormOptions<E>, Record<string, any>>;
     }
 
     interface GotOptions<E extends string | null> extends InternalRequestOptions {
@@ -140,9 +179,44 @@ declare namespace got {
         cache?: Cache;
     }
 
+    /**
+     * Contains properties to constrain the duration of each phase of the request lifecycle.
+     *
+     * @see https://github.com/sindresorhus/got#timeout
+     */
     interface TimeoutOptions {
+        /**
+         * Starts when a socket is assigned and ends when the hostname has been resolved. Does not
+         * apply when using a Unix domain socket.
+         */
+        lookup?: number;
+        /**
+         * Starts when `lookup` completes (or when the socket is assigned if lookup does not apply
+         * to the request) and ends when the socket is connected.
+         */
         connect?: number;
+        /**
+         * Starts when `connect` completes and ends when the handshaking process completes (HTTPS
+         * only).
+         */
+        secureConnect?: number;
+        /**
+         * Starts when the socket is connected. See [request.setTimeout](https://nodejs.org/api/http.html#http_request_settimeout_timeout_callback).
+         */
         socket?: number;
+        /**
+         * Starts when the request has been written to the socket and ends when the response headers
+         * are received.
+         */
+        response?: number;
+        /**
+         * Starts when the socket is connected and ends with the request has been written to the
+         * socket.
+         */
+        send?: number;
+        /**
+         * Starts when the request is initiated and ends when the response's end event fires.
+         */
         request?: number;
     }
 
@@ -153,6 +227,10 @@ declare namespace got {
         methods?: Array<'GET' | 'PUT' | 'HEAD' | 'DELETE' | 'OPTIONS' | 'TRACE'>;
         statusCodes?: Array<408 | 413 | 429 | 500 | 502 | 503 | 504>;
         maxRetryAfter?: number;
+        /**
+         * Allowed error codes.
+         */
+        errorCodes?: string[];
     }
 
     interface AgentOptions {

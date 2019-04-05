@@ -1,4 +1,4 @@
-// Type definitions for validator.js v9.4
+// Type definitions for validator.js v10.11.0
 // Project: https://github.com/chriso/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>
@@ -8,6 +8,7 @@
 //                 Bonggyun Lee <https://github.com/deptno>
 //                 Naoto Yokoyama <https://github.com/builtinnya>
 //                 Philipp Katz <https://github.com/qqilihq>
+//                 Jace Warren <https://github.com/keatz55>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ValidatorJS {
@@ -83,7 +84,7 @@ declare namespace ValidatorJS {
     isEmail(str: string, options?: IsEmailOptions): boolean;
 
     // check if the string has a length of zero.
-    isEmpty(str: string): boolean;
+    isEmpty(str: string, options?: IsEmptyOptions): boolean;
 
     // check if the string is a fully qualified domain name (e.g. domain.com).
     isFQDN(str: string, options?: IsFQDNOptions): boolean;
@@ -139,6 +140,9 @@ declare namespace ValidatorJS {
 
     // check if the string is valid JSON (note: uses JSON.parse).
     isJSON(str: string): boolean;
+
+    // check if the string is valid JWT token.
+    isJWT(str: string): boolean;
 
     // check if the string is a valid latitude-longitude coordinate in the format lat,long or lat, long.
     isLatLong(str: string): boolean;
@@ -310,6 +314,11 @@ declare namespace ValidatorJS {
     require_tld?: boolean;
   }
 
+  // options for isEmpty
+  interface IsEmptyOptions {
+    ignore_whitespace?: boolean;
+  }
+
   // options for isFQDN
   interface IsFQDNOptions {
     require_tld?: boolean;
@@ -369,6 +378,7 @@ declare namespace ValidatorJS {
     host_blacklist?: (string | RegExp)[];
     allow_trailing_dot?: boolean;
     allow_protocol_relative_urls?: boolean;
+    disallow_auth?: boolean;
   }
 
   // options for normalizeEmail
@@ -581,6 +591,11 @@ declare module "validator/lib/isInt" {
 declare module "validator/lib/isJSON" {
   const isJSON: typeof validator.isJSON;
   export = isJSON;
+}
+
+declare module "validator/lib/isJWT" {
+  const isJWT: typeof validator.isJWT;
+  export = isJWT;
 }
 
 declare module "validator/lib/isLatLong" {

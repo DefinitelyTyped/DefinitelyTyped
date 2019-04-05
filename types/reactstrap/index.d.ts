@@ -1,4 +1,4 @@
-// Type definitions for reactstrap 6.4
+// Type definitions for reactstrap 7.1
 // Project: https://github.com/reactstrap/reactstrap#readme
 // Definitions by: Ali Hammad Baig <https://github.com/alihammad>
 //                 Marco Falkenberg <https://github.com/mfal>
@@ -7,6 +7,7 @@
 //                 Tim Chen <https://github.com/timc13>
 //                 Pat Gaffney <https://github.com/patrickrgaffney>
 //                 Prabodh Tiwari <https://github.com/prabodht>
+//                 Georg Steinmetz <https://github.com/georg94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -221,6 +222,9 @@ export { ProgressProps } from './lib/Progress';
 import { default as Row_ } from './lib/Row';
 export class Row<T = {}> extends Row_<T> {}
 export { RowProps } from './lib/Row';
+import { default as Spinner_ } from './lib/Spinner';
+export class Spinner<T = {}> extends Spinner_<T> {}
+export { SpinnerProps } from './lib/Spinner';
 import { default as TabContent_ } from './lib/TabContent';
 export class TabContent<T = {}> extends TabContent_<T> {}
 export { TabContentProps } from './lib/TabContent';
@@ -241,17 +245,23 @@ import {
   UncontrolledButtonDropdown as UncontrolledButtonDropdown_,
   UncontrolledDropdown as UncontrolledDropdown_,
   UncontrolledTooltip as UncontrolledTooltip_,
-  UncontrolledCollapse as UncontrolledCollapse_
+  UncontrolledCollapse as UncontrolledCollapse_,
+  UncontrolledCarousel as UncontrolledCarousel_,
+  UncontrolledPopover as UncontrolledPopover_
 } from './lib/Uncontrolled';
 export class UncontrolledAlert<T = {}> extends UncontrolledAlert_<T> {}
 export class UncontrolledButtonDropdown<T = {}> extends UncontrolledButtonDropdown_<T> {}
 export class UncontrolledDropdown<T = {}> extends UncontrolledDropdown_<T> {}
 export class UncontrolledTooltip<T = {}> extends UncontrolledTooltip_<T> {}
 export class UncontrolledCollapse<T = {}> extends UncontrolledCollapse_<T> {}
+export class UncontrolledCarousel<T = {}> extends UncontrolledCarousel_<T> {}
+export class UncontrolledPopover<T = {}> extends UncontrolledPopover_<T> {}
 export {
   UncontrolledButtonDropdownProps,
   UncontrolledAlertProps,
   UncontrolledDropdownProps,
   UncontrolledTooltipProps,
-  UncontrolledCollapseProps
+  UncontrolledCollapseProps,
+  UncontrolledCarouselProps,
+  UncontrolledPopoverProps
 } from './lib/Uncontrolled';

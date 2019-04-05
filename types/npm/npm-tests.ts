@@ -22,4 +22,6 @@ npm.load({}, function (er) {
     npm.on("log", function (message: string) {
         console.log(message);
     });
+    
+    npm.config.set('audit', false);
 })

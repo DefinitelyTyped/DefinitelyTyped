@@ -19,10 +19,10 @@ declare namespace Ansi {
     interface AnsiEscapes {
         cursorTo(x: number, y?: number): string;
         cursorMove(x: number, y?: number): string;
-        cursorUp(count: number): string;
-        cursorDown(count: number): string;
-        cursorForward(count: number): string;
-        cursorBackward(count: number): string;
+        cursorUp(count?: number): string;
+        cursorDown(count?: number): string;
+        cursorForward(count?: number): string;
+        cursorBackward(count?: number): string;
 
         cursorLeft: string;
         cursorSavePosition: string;

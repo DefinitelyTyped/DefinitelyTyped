@@ -50,6 +50,8 @@ declare namespace Mailgun {
         getType(): string;
     }
 
+    type AttachmentData = string | Buffer | NodeJS.ReadWriteStream | Attachment;
+
     interface MailgunExport {
         new (options: ConstructorParams): Mailgun;
         (options: ConstructorParams): Mailgun;
@@ -64,7 +66,8 @@ declare namespace Mailgun {
             subject?: string;
             text?: string;
             html?: string;
-            attachment?: string | Buffer | NodeJS.ReadWriteStream | Attachment;
+            attachment?: AttachmentData | ReadonlyArray<AttachmentData>;
+            inline?: AttachmentData | ReadonlyArray<AttachmentData>;
         }
 
         interface BatchData extends SendData {

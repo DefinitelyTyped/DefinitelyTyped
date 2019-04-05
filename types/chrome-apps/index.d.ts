@@ -13274,7 +13274,7 @@ interface HTMLElement {
     /**
      * ❗ Unprefixed version are not available as of Chrome 68, in Chrome apps ❗
      */
-    requestFullscreen(): void;
+    requestFullscreen(): Promise<void>;
     /**
      * ❗ Unprefixed version are not available as of Chrome 68, in Chrome apps ❗
      */

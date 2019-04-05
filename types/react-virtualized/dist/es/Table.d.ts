@@ -183,11 +183,7 @@ export class Column extends Component<ColumnProps> {
 }
 
 export type RowMouseEventHandlerParams = {
-    rowData: {
-        columnData: object;
-        id: string;
-        index: number;
-    };
+    rowData: any
     index: number;
     event: React.MouseEvent<any>;
 };

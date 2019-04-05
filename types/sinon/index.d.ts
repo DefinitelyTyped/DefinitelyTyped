@@ -1,5 +1,5 @@
-// Type definitions for Sinon 5.0
-// Project: http://sinonjs.org/
+// Type definitions for Sinon 7.0
+// Project: https://sinonjs.org
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Jonathan Little <https://github.com/rationull>
 //                 Lukas Spieß <https://github.com/lumaxis>
@@ -8,22 +8,25 @@
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Greg Jednaszewski <https://github.com/gjednaszewski>
 //                 John Wood <https://github.com/johnjesse>
+//                 Alec Flett <https://github.com/alecf>
+//                 Simon Schick <https://github.com/SimonSchick>
+//                 Roey Berman <https://github.com/bergundy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.8
 
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
 // see more details in https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
-interface Event {} // tslint:disable-line no-empty-interface
-interface Document {} // tslint:disable-line no-empty-interface
+interface Event { } // tslint:disable-line no-empty-interface
+interface Document { } // tslint:disable-line no-empty-interface
 
 declare namespace Sinon {
-    interface SinonSpyCallApi<TArgs extends any[] = any[], TReturnValue = any> {
+    interface SinonSpyCallApi {
         // Properties
         /**
          * Array of received arguments.
          */
-        args: TArgs;
+        args: any[];
 
         // Methods
         /**
@@ -38,11 +41,11 @@ declare namespace Sinon {
          * so a call that received the provided arguments (in the same spots) and possibly others as well will return true.
          * @param args
          */
-        calledWith(...args: TArgs): boolean;
+        calledWith(...args: any[]): boolean;
         /**
          * Returns true if spy was called at least once with the provided arguments and no others.
          */
-        calledWithExactly(...args: TArgs): boolean;
+        calledWithExactly(...args: any[]): boolean;
         /**
          * Returns true if spy/stub was called the new operator.
          * Beware that this is inferred based on the value of the this object and the spy function’s prototype,
@@ -53,31 +56,31 @@ declare namespace Sinon {
          * Returns true if spy was called at exactly once with the provided arguments.
          * @param args
          */
-        calledOnceWith(...args: TArgs): boolean;
-        calledOnceWithExactly(...args: TArgs): boolean;
+        calledOnceWith(...args: any[]): boolean;
+        calledOnceWithExactly(...args: any[]): boolean;
         /**
          * Returns true if spy was called with matching arguments (and possibly others).
          * This behaves the same as spy.calledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        calledWithMatch(...args: TArgs): boolean;
+        calledWithMatch(...args: any[]): boolean;
         /**
          * Returns true if call did not receive provided arguments.
          * @param args
          */
-        notCalledWith(...args: TArgs): boolean;
+        notCalledWith(...args: any[]): boolean;
         /**
          * Returns true if call did not receive matching arguments.
          * This behaves the same as spyCall.notCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        notCalledWithMatch(...args: TArgs): boolean;
+        notCalledWithMatch(...args: any[]): boolean;
         /**
          * Returns true if spy returned the provided value at least once.
          * Uses deep comparison for objects and arrays. Use spy.returned(sinon.match.same(obj)) for strict comparison (see matchers).
          * @param value
          */
-        returned(value: TReturnValue): boolean;
+        returned(value: any): boolean;
         /**
          * Returns true if spy threw an exception at least once.
          */
@@ -118,8 +121,7 @@ declare namespace Sinon {
         yieldToOn(property: string, obj: any, ...args: any[]): void;
     }
 
-    interface SinonSpyCall<TArgs extends any[] = any[], TReturnValue = any>
-        extends SinonSpyCallApi<TArgs, TReturnValue> {
+    interface SinonSpyCall extends SinonSpyCallApi {
         /**
          * The call’s this value.
          */
@@ -131,7 +133,7 @@ declare namespace Sinon {
         /**
          * Return value.
          */
-        returnValue: TReturnValue;
+        returnValue: any;
         /**
          * This property is a convenience for a call’s callback.
          * When the last argument in a call is a Function, then callback will reference that. Otherwise it will be undefined.
@@ -154,11 +156,7 @@ declare namespace Sinon {
         calledAfter(call: SinonSpyCall): boolean;
     }
 
-    interface SinonSpy<TArgs extends any[] = any[], TReturnValue = any>
-        extends Pick<
-                SinonSpyCallApi<TArgs, TReturnValue>,
-                Exclude<keyof SinonSpyCallApi<TArgs, TReturnValue>, 'args'>
-            > {
+    interface SinonSpy extends SinonSpyCallApi {
         // Properties
         /**
          * The number of recorded calls.
@@ -187,19 +185,19 @@ declare namespace Sinon {
         /**
          * The first call
          */
-        firstCall: SinonSpyCall<TArgs, TReturnValue>;
+        firstCall: SinonSpyCall;
         /**
          * The second call
          */
-        secondCall: SinonSpyCall<TArgs, TReturnValue>;
+        secondCall: SinonSpyCall;
         /**
          * The third call
          */
-        thirdCall: SinonSpyCall<TArgs, TReturnValue>;
+        thirdCall: SinonSpyCall;
         /**
          * The last call
          */
-        lastCall: SinonSpyCall<TArgs, TReturnValue>;
+        lastCall: SinonSpyCall;
         /**
          * Array of this objects, spy.thisValues[0] is the this object for the first call.
          */
@@ -207,7 +205,7 @@ declare namespace Sinon {
         /**
          * Array of arguments received, spy.args[0] is an array of arguments received in the first call.
          */
-        args: TArgs[];
+        args: any[][];
         /**
          * Array of exception objects thrown, spy.exceptions[0] is the exception thrown by the first call.
          * If the call did not throw an error, the value at the call’s location in .exceptions will be undefined.
@@ -217,7 +215,7 @@ declare namespace Sinon {
          * Array of return values, spy.returnValues[0] is the return value of the first call.
          * If the call did not explicitly return a value, the value at the call’s location in .returnValues will be undefined.
          */
-        returnValues: TReturnValue[];
+        returnValues: any[];
 
         // Methods
         (...args: any[]): any;
@@ -246,7 +244,7 @@ declare namespace Sinon {
          * This is useful to be more expressive in your assertions, where you can access the spy with the same call.
          * @param args Expected args
          */
-        withArgs(...args: TArgs): SinonSpy<TArgs, TReturnValue>;
+        withArgs(...args: any[]): SinonSpy;
         /**
          * Returns true if the spy was always called with @param obj as this.
          * @param obj
@@ -255,29 +253,29 @@ declare namespace Sinon {
         /**
          * Returns true if spy was always called with the provided arguments (and possibly others).
          */
-        alwaysCalledWith(...args: TArgs): boolean;
+        alwaysCalledWith(...args: any[]): boolean;
         /**
          * Returns true if spy was always called with the exact provided arguments.
          * @param args
          */
-        alwaysCalledWithExactly(...args: TArgs): boolean;
+        alwaysCalledWithExactly(...args: any[]): boolean;
         /**
          * Returns true if spy was always called with matching arguments (and possibly others).
          * This behaves the same as spy.alwaysCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        alwaysCalledWithMatch(...args: TArgs): boolean;
+        alwaysCalledWithMatch(...args: any[]): boolean;
         /**
          * Returns true if the spy/stub was never called with the provided arguments.
          * @param args
          */
-        neverCalledWith(...args: TArgs): boolean;
+        neverCalledWith(...args: any[]): boolean;
         /**
          * Returns true if the spy/stub was never called with matching arguments.
          * This behaves the same as spy.neverCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        neverCalledWithMatch(...args: TArgs): boolean;
+        neverCalledWithMatch(...args: any[]): boolean;
         /**
          * Returns true if spy always threw an exception.
          */
@@ -300,22 +298,22 @@ declare namespace Sinon {
          * If the stub was never called with a function argument, yield throws an error.
          * Returns an Array with all callbacks return values in the order they were called, if no error is thrown.
          */
-        invokeCallback(...args: TArgs): void;
+        invokeCallback(...args: any[]): void;
         /**
          * Set the displayName of the spy or stub.
          * @param name
          */
-        named(name: string): SinonSpy<TArgs, TReturnValue>;
+        named(name: string): SinonSpy;
         /**
          * Returns the nth call.
          * Accessing individual calls helps with more detailed behavior verification when the spy is called more than once.
          * @param n
          */
-        getCall(n: number): SinonSpyCall<TArgs, TReturnValue>;
+        getCall(n: number): SinonSpyCall;
         /**
          * Returns an Array of all calls recorded by the spy.
          */
-        getCalls(): Array<SinonSpyCall<TArgs, TReturnValue>>;
+        getCalls(): SinonSpyCall[];
         /**
          * Resets the state of a spy.
          */
@@ -355,15 +353,10 @@ declare namespace Sinon {
          * The original method can be restored by calling object.method.restore().
          * The returned spy is the function object which replaced the original method. spy === object.method.
          */
-        <T, K extends keyof T>(obj: T, method: K): T[K] extends (
-            ...args: infer TArgs
-        ) => infer TReturnValue
-            ? SinonSpy<TArgs, TReturnValue>
-            : SinonSpy;
+        <T>(obj: T, method: keyof T, types?: string[]): SinonSpy;
     }
 
-    interface SinonStub<TArgs extends any[] = any[], TReturnValue = any>
-        extends SinonSpy<TArgs, TReturnValue> {
+    interface SinonStub extends SinonSpy {
         /**
          * Resets the stub’s behaviour to the default behaviour
          * You can reset behaviour of all stubs using sinon.resetBehavior()
@@ -381,13 +374,13 @@ declare namespace Sinon {
          * Causes the stub to return promises using a specific Promise library instead of the global one when using stub.rejects or stub.resolves.
          * Returns the stub to allow chaining.
          */
-        usingPromise(promiseLibrary: any): SinonStub<TArgs, TReturnValue>;
+        usingPromise(promiseLibrary: any): SinonStub;
 
         /**
          * Makes the stub return the provided @param obj value.
          * @param obj
          */
-        returns(obj: TReturnValue): SinonStub<TArgs, TReturnValue>;
+        returns(obj: any): SinonStub;
         /**
          * Causes the stub to return the argument at the provided @param index.
          * stub.returnsArg(0); causes the stub to return the first argument.
@@ -395,12 +388,12 @@ declare namespace Sinon {
          * starting from sinon@6.1.2, a TypeError will be thrown.
          * @param index
          */
-        returnsArg(index: number): SinonStub<TArgs, TReturnValue>;
+        returnsArg(index: number): SinonStub;
         /**
          * Causes the stub to return its this value.
          * Useful for stubbing jQuery-style fluent APIs.
          */
-        returnsThis(): SinonStub<TArgs, TReturnValue>;
+        returnsThis(): SinonStub;
         /**
          * Causes the stub to return a Promise which resolves to the provided value.
          * When constructing the Promise, sinon uses the Promise.resolve method.
@@ -408,26 +401,26 @@ declare namespace Sinon {
          * The Promise library can be overwritten using the usingPromise method.
          * Since sinon@2.0.0
          */
-        resolves(value?: any): SinonStub<TArgs, TReturnValue>;
+        resolves(value?: any): SinonStub;
         /**
          * Causes the stub to return a Promise which resolves to the argument at the provided index.
          * stub.resolvesArg(0); causes the stub to return a Promise which resolves to the first argument.
          * If the argument at the provided index is not available, a TypeError will be thrown.
          */
-        resolvesArg(index: number): SinonStub<TArgs, TReturnValue>;
+        resolvesArg(index: number): SinonStub;
         /**
          * Causes the stub to return a Promise which resolves to its this value.
          */
-        resolvesThis(): SinonStub<TArgs, TReturnValue>;
+        resolvesThis(): SinonStub;
         /**
          * Causes the stub to throw an exception (Error).
          * @param type
          */
-        throws(type?: string): SinonStub<TArgs, TReturnValue>;
+        throws(type?: string): SinonStub;
         /**
          * Causes the stub to throw the provided exception object.
          */
-        throws(obj: any): SinonStub<TArgs, TReturnValue>;
+        throws(obj: any): SinonStub;
         /**
          * Causes the stub to throw the argument at the provided index.
          * stub.throwsArg(0); causes the stub to throw the first argument as the exception.
@@ -435,9 +428,9 @@ declare namespace Sinon {
          * Since sinon@2.3.0
          * @param index
          */
-        throwsArg(index: number): SinonStub<TArgs, TReturnValue>;
-        throwsException(type?: string): SinonStub<TArgs, TReturnValue>;
-        throwsException(obj: any): SinonStub<TArgs, TReturnValue>;
+        throwsArg(index: number): SinonStub;
+        throwsException(type?: string): SinonStub;
+        throwsException(obj: any): SinonStub;
         /**
          * Causes the stub to return a Promise which rejects with an exception (Error).
          * When constructing the Promise, sinon uses the Promise.reject method.
@@ -445,57 +438,53 @@ declare namespace Sinon {
          * The Promise library can be overwritten using the usingPromise method.
          * Since sinon@2.0.0
          */
-        rejects(): SinonStub<TArgs, TReturnValue>;
+        rejects(): SinonStub;
         /**
          * Causes the stub to return a Promise which rejects with an exception of the provided type.
          * Since sinon@2.0.0
          */
-        rejects(errorType: string): SinonStub<TArgs, TReturnValue>;
+        rejects(errorType: string): SinonStub;
         /**
          * Causes the stub to return a Promise which rejects with the provided exception object.
          * Since sinon@2.0.0
          */
-        rejects(value: any): SinonStub<TArgs, TReturnValue>;
+        rejects(value: any): SinonStub;
         /**
          * Causes the stub to call the argument at the provided index as a callback function.
          * stub.callsArg(0); causes the stub to call the first argument as a callback.
          * If the argument at the provided index is not available or is not a function, a TypeError will be thrown.
          */
-        callsArg(index: number): SinonStub<TArgs, TReturnValue>;
+        callsArg(index: number): SinonStub;
         /**
          * Causes the original method wrapped into the stub to be called when none of the conditional stubs are matched.
          */
-        callThrough(): SinonStub<TArgs, TReturnValue>;
+        callThrough(): SinonStub;
         /**
          * Like stub.callsArg(index); but with an additional parameter to pass the this context.
          * @param index
          * @param context
          */
-        callsArgOn(index: number, context: any): SinonStub<TArgs, TReturnValue>;
+        callsArgOn(index: number, context: any): SinonStub;
         /**
          * Like callsArg, but with arguments to pass to the callback.
          * @param index
          * @param args
          */
-        callsArgWith(index: number, ...args: any[]): SinonStub<TArgs, TReturnValue>;
+        callsArgWith(index: number, ...args: any[]): SinonStub;
         /**
          * Like above but with an additional parameter to pass the this context.
          * @param index
          * @param context
          * @param args
          */
-        callsArgOnWith(
-            index: number,
-            context: any,
-            ...args: any[]
-        ): SinonStub<TArgs, TReturnValue>;
+        callsArgOnWith(index: number, context: any, ...args: any[]): SinonStub;
         /**
          * Same as their corresponding non-Async counterparts, but with callback being deferred at called after all instructions in the current call stack are processed.
          * In Node environment the callback is deferred with process.nextTick.
          * In a browser the callback is deferred with setTimeout(callback, 0).
          * @param index
          */
-        callsArgAsync(index: number): SinonStub<TArgs, TReturnValue>;
+        callsArgAsync(index: number): SinonStub;
         /**
          * Same as their corresponding non-Async counterparts, but with callback being deferred at called after all instructions in the current call stack are processed.
          * In Node environment the callback is deferred with process.nextTick.
@@ -503,99 +492,91 @@ declare namespace Sinon {
          * @param index
          * @param context
          */
-        callsArgOnAsync(index: number, context: any): SinonStub<TArgs, TReturnValue>;
+        callsArgOnAsync(index: number, context: any): SinonStub;
         /**
          * Same as their corresponding non-Async counterparts, but with callback being deferred at called after all instructions in the current call stack are processed.
          * In Node environment the callback is deferred with process.nextTick.
          * In a browser the callback is deferred with setTimeout(callback, 0).
          */
-        callsArgWithAsync(index: number, ...args: any[]): SinonStub<TArgs, TReturnValue>;
+        callsArgWithAsync(index: number, ...args: any[]): SinonStub;
         /**
          * Same as their corresponding non-Async counterparts, but with callback being deferred at called after all instructions in the current call stack are processed.
          * In Node environment the callback is deferred with process.nextTick.
          * In a browser the callback is deferred with setTimeout(callback, 0).
          */
-        callsArgOnWithAsync(
-            index: number,
-            context: any,
-            ...args: any[]
-        ): SinonStub<TArgs, TReturnValue>;
+        callsArgOnWithAsync(index: number, context: any, ...args: any[]): SinonStub;
         /**
          * Makes the stub call the provided @param func when invoked.
          * @param func
          */
-        callsFake(func: (...args: TArgs) => TReturnValue): SinonStub<TArgs, TReturnValue>;
+        callsFake(func: (...args: any[]) => any): SinonStub;
         /**
          * Replaces a new getter for this stub.
          */
-        get(func: () => any): SinonStub<TArgs, TReturnValue>;
+        get(func: () => any): SinonStub;
         /**
          * Defines a new setter for this stub.
          * @param func
          */
-        set(func: (v: any) => void): SinonStub<TArgs, TReturnValue>;
+        set(func: (v: any) => void): SinonStub;
         /**
          * Defines the behavior of the stub on the @param n call. Useful for testing sequential interactions.
          * There are methods onFirstCall, onSecondCall,onThirdCall to make stub definitions read more naturally.
          * onCall can be combined with all of the behavior defining methods in this section. In particular, it can be used together with withArgs.
          * @param n
          */
-        onCall(n: number): SinonStub<TArgs, TReturnValue>;
+        onCall(n: number): SinonStub;
         /**
          * Alias for stub.onCall(0);
          */
-        onFirstCall(): SinonStub<TArgs, TReturnValue>;
+        onFirstCall(): SinonStub;
         /**
          * Alias for stub.onCall(1);
          */
-        onSecondCall(): SinonStub<TArgs, TReturnValue>;
+        onSecondCall(): SinonStub;
         /**
          * Alias for stub.onCall(2);
          */
-        onThirdCall(): SinonStub<TArgs, TReturnValue>;
+        onThirdCall(): SinonStub;
         /**
          * Defines a new value for this stub.
          * @param val
          */
-        value(val: any): SinonStub<TArgs, TReturnValue>;
+        value(val: any): SinonStub;
         /**
          * Set the displayName of the spy or stub.
          * @param name
          */
-        named(name: string): SinonStub<TArgs, TReturnValue>;
+        named(name: string): SinonStub;
         /**
          * Similar to callsArg.
          * Causes the stub to call the first callback it receives with the provided arguments (if any).
          * If a method accepts more than one callback, you need to use callsArg to have the stub invoke other callbacks than the first one.
          */
-        yields(...args: any[]): SinonStub<TArgs, TReturnValue>;
+        yields(...args: any[]): SinonStub;
         /**
          * Like above but with an additional parameter to pass the this context.
          */
-        yieldsOn(context: any, ...args: any[]): SinonStub<TArgs, TReturnValue>;
-        yieldsRight(...args: any[]): SinonStub<TArgs, TReturnValue>;
+        yieldsOn(context: any, ...args: any[]): SinonStub;
+        yieldsRight(...args: any[]): SinonStub;
         /**
          * Causes the spy to invoke a callback passed as a property of an object to the spy.
          * Like yields, yieldsTo grabs the first matching argument, finds the callback and calls it with the (optional) arguments.
          * @param property
          * @param args
          */
-        yieldsTo(property: string, ...args: any[]): SinonStub<TArgs, TReturnValue>;
+        yieldsTo(property: string, ...args: any[]): SinonStub;
         /**
          * Like above but with an additional parameter to pass the this context.
          */
-        yieldsToOn(
-            property: string,
-            context: any,
-            ...args: any[]
-        ): SinonStub<TArgs, TReturnValue>;
+        yieldsToOn(property: string, context: any, ...args: any[]): SinonStub;
         /**
          * Same as their corresponding non-Async counterparts, but with callback being deferred at called after all instructions in the current call stack are processed.
          * In Node environment the callback is deferred with process.nextTick.
          * In a browser the callback is deferred with setTimeout(callback, 0).
          * @param args
          */
-        yieldsAsync(...args: any[]): SinonStub<TArgs, TReturnValue>;
+        yieldsAsync(...args: any[]): SinonStub;
         /**
          * Same as their corresponding non-Async counterparts, but with callback being deferred at called after all instructions in the current call stack are processed.
          * In Node environment the callback is deferred with process.nextTick.
@@ -603,7 +584,7 @@ declare namespace Sinon {
          * @param context
          * @param args
          */
-        yieldsOnAsync(context: any, ...args: any[]): SinonStub<TArgs, TReturnValue>;
+        yieldsOnAsync(context: any, ...args: any[]): SinonStub;
         /**
          * Same as their corresponding non-Async counterparts, but with callback being deferred at called after all instructions in the current call stack are processed.
          * In Node environment the callback is deferred with process.nextTick.
@@ -611,7 +592,7 @@ declare namespace Sinon {
          * @param property
          * @param args
          */
-        yieldsToAsync(property: string, ...args: any[]): SinonStub<TArgs, TReturnValue>;
+        yieldsToAsync(property: string, ...args: any[]): SinonStub;
         /**
          * Same as their corresponding non-Async counterparts, but with callback being deferred at called after all instructions in the current call stack are processed.
          * In Node environment the callback is deferred with process.nextTick.
@@ -620,18 +601,14 @@ declare namespace Sinon {
          * @param context
          * @param args
          */
-        yieldsToOnAsync(
-            property: string,
-            context: any,
-            ...args: any[]
-        ): SinonStub<TArgs, TReturnValue>;
+        yieldsToOnAsync(property: string, context: any, ...args: any[]): SinonStub;
         /**
          * Stubs the method only for the provided arguments.
          * This is useful to be more expressive in your assertions, where you can access the spy with the same call.
          * It is also useful to create a stub that can act differently in response to different arguments.
          * @param args
          */
-        withArgs(...args: TArgs): SinonStub<TArgs, TReturnValue>;
+        withArgs(...args: any[]): SinonStub;
     }
 
     interface SinonStubStatic {
@@ -651,11 +628,7 @@ declare namespace Sinon {
          * An exception is thrown if the property is not already a function.
          * The original function can be restored by calling object.method.restore(); (or stub.restore();).
          */
-        <T, K extends keyof T>(obj: T, method: K): T[K] extends (
-            ...args: infer TArgs
-        ) => infer TReturnValue
-            ? SinonStub<TArgs, TReturnValue>
-            : SinonStub;
+        <T>(obj: T, method: keyof T): SinonStub;
     }
 
     interface SinonExpectation extends SinonStub {
@@ -757,22 +730,11 @@ declare namespace Sinon {
     interface SinonFakeTimers {
         now: number;
 
-        setTimeout(
-            callback: (...args: any[]) => void,
-            timeout: number,
-            ...args: any[]
-        ): SinonTimerId;
+        setTimeout(callback: (...args: any[]) => void, timeout: number, ...args: any[]): SinonTimerId;
         clearTimeout(id: SinonTimerId): void;
-        setInterval(
-            callback: (...args: any[]) => void,
-            timeout: number,
-            ...args: any[]
-        ): SinonTimerId;
+        setInterval(callback: (...args: any[]) => void, timeout: number, ...args: any[]): SinonTimerId;
         clearInterval(id: SinonTimerId): void;
-        setImmediate(
-            callback: (...args: any[]) => void,
-            ...args: any[]
-        ): SinonTimerId;
+        setImmediate(callback: (...args: any[]) => void, ...args: any[]): SinonTimerId;
         clearImmediate(id: SinonTimerId): void;
         requestAnimationFrame(callback: (...args: any[]) => void): number;
         cancelAnimationFrame(id: number): void;
@@ -806,30 +768,9 @@ declare namespace Sinon {
         Date(year: number, month: number): Date;
         Date(year: number, month: number, day: number): Date;
         Date(year: number, month: number, day: number, hour: number): Date;
-        Date(
-            year: number,
-            month: number,
-            day: number,
-            hour: number,
-            minute: number
-        ): Date;
-        Date(
-            year: number,
-            month: number,
-            day: number,
-            hour: number,
-            minute: number,
-            second: number
-        ): Date;
-        Date(
-            year: number,
-            month: number,
-            day: number,
-            hour: number,
-            minute: number,
-            second: number,
-            ms: number
-        ): Date;
+        Date(year: number, month: number, day: number, hour: number, minute: number): Date;
+        Date(year: number, month: number, day: number, hour: number, minute: number, second: number): Date;
+        Date(year: number, month: number, day: number, hour: number, minute: number, second: number, ms: number): Date;
 
         /**
          * Restore the faked methods.
@@ -950,7 +891,7 @@ declare namespace Sinon {
     }
 
     interface SinonFakeXMLHttpRequestStatic {
-        new (): SinonFakeXMLHttpRequest;
+        new(): SinonFakeXMLHttpRequest;
         /**
          * Default false.
          * When set to true, Sinon will check added filters if certain requests should be “unfaked”
@@ -962,15 +903,7 @@ declare namespace Sinon {
          * If the filter returns true, the request will not be faked.
          * @param filter
          */
-        addFilter(
-            filter: (
-                method: string,
-                url: string,
-                async: boolean,
-                username: string,
-                password: string
-            ) => boolean
-        ): void;
+        addFilter(filter: (method: string, url: string, async: boolean, username: string, password: string) => boolean): void;
         /**
          * By assigning a function to the onCreate property of the returned object from useFakeXMLHttpRequest()
          * you can subscribe to newly created FakeXMLHttpRequest objects. See below for the fake xhr object API.
@@ -1036,10 +969,7 @@ declare namespace Sinon {
         /**
          * Responds to all requests to given URL, e.g. /posts/1.
          */
-        respondWith(
-            url: string,
-            fn: (xhr: SinonFakeXMLHttpRequest) => void
-        ): void;
+        respondWith(url: string, fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
         /**
          * Responds to all method requests to the given URL with the given response.
          * method is an HTTP verb.
@@ -1054,11 +984,7 @@ declare namespace Sinon {
          * Responds to all method requests to the given URL with the given response.
          * method is an HTTP verb.
          */
-        respondWith(
-            method: string,
-            url: string,
-            fn: (xhr: SinonFakeXMLHttpRequest) => void
-        ): void;
+        respondWith(method: string, url: string, fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
         /**
          * URL may be a regular expression, e.g. /\\/post\\//\\d+
          * If the response is a Function, it will be passed any capture groups from the regular expression along with the XMLHttpRequest object:
@@ -1073,10 +999,7 @@ declare namespace Sinon {
          * URL may be a regular expression, e.g. /\\/post\\//\\d+
          * If the response is a Function, it will be passed any capture groups from the regular expression along with the XMLHttpRequest object:
          */
-        respondWith(
-            url: RegExp,
-            fn: (xhr: SinonFakeXMLHttpRequest) => void
-        ): void;
+        respondWith(url: RegExp, fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
         /**
          * Responds to all method requests to URLs matching the regular expression.
          */
@@ -1088,11 +1011,7 @@ declare namespace Sinon {
         /**
          * Responds to all method requests to URLs matching the regular expression.
          */
-        respondWith(
-            method: string,
-            url: RegExp,
-            fn: (xhr: SinonFakeXMLHttpRequest) => void
-        ): void;
+        respondWith(method: string, url: RegExp, fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
         /**
          * Causes all queued asynchronous requests to receive a response.
          * If none of the responses added through respondWith match, the default response is [404, {}, ""].
@@ -1221,10 +1140,7 @@ declare namespace Sinon {
          * @param spyOrSpyCall
          * @param args
          */
-        calledWithExactly(
-            spyOrSpyCall: SinonSpy | SinonSpyCall,
-            ...args: any[]
-        ): void;
+        calledWithExactly(spyOrSpyCall: SinonSpy | SinonSpyCall, ...args: any[]): void;
         /**
          * Passes if spy was always called with the provided arguments and no others.
          */
@@ -1234,10 +1150,7 @@ declare namespace Sinon {
          * This behaves the same way as sinon.assert.calledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithMatch(spy.secondCall, arg1, arg2, ...);.
          */
-        calledWithMatch(
-            spyOrSpyCall: SinonSpy | SinonSpyCall,
-            ...args: any[]
-        ): void;
+        calledWithMatch(spyOrSpyCall: SinonSpy | SinonSpyCall, ...args: any[]): void;
         /**
          * Passes if spy was always called with matching arguments.
          * This behaves the same way as sinon.assert.alwaysCalledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
@@ -1448,6 +1361,10 @@ declare namespace Sinon {
          */
         symbol: SinonMatcher;
         /**
+         * Requires the value to be in the specified array.
+         */
+        in(allowed: any[]): SinonMatcher;
+        /**
          * Requires the value to strictly equal ref.
          */
         same(obj: any): SinonMatcher;
@@ -1529,7 +1446,7 @@ declare namespace Sinon {
      * @template TType Object type being stubbed.
      */
     type SinonStubbedInstance<TType> = {
-        [P in keyof TType]: SinonStubbedMember<TType[P]>
+        [P in keyof TType]: SinonStubbedMember<TType[P]>;
     };
 
     /**
@@ -1619,9 +1536,7 @@ declare namespace Sinon {
          * You would have to call either clock.next(), clock.tick(), clock.runAll() or clock.runToLast() (see example below). Please refer to the lolex documentation for more information.
          * @param config
          */
-        useFakeTimers(
-            config?: number | Date | Partial<SinonFakeTimersConfig>
-        ): SinonFakeTimers;
+        useFakeTimers(config?: number | Date | Partial<SinonFakeTimersConfig>): SinonFakeTimers;
         /**
          * Causes Sinon to replace the native XMLHttpRequest object in browsers that support it with a custom implementation which does not send actual requests.
          * In browsers that support ActiveXObject, this constructor is replaced, and fake objects are returned for XMLHTTP progIds.
@@ -1675,8 +1590,7 @@ declare namespace Sinon {
         replace<T, TKey extends keyof T>(
             obj: T,
             prop: TKey,
-            replacement: T[TKey]
-        ): T[TKey];
+            replacement: T[TKey]): T[TKey];
         /**
          * Replaces getter for property on object with replacement argument. Attempts to replace an already replaced getter cause an exception.
          * replacement must be a Function, and can be instances of spies, stubs and fakes.
@@ -1687,8 +1601,7 @@ declare namespace Sinon {
         replaceGetter<T, TKey extends keyof T>(
             obj: T,
             prop: TKey,
-            replacement: () => T[TKey]
-        ): () => T[TKey];
+            replacement: () => T[TKey]): () => T[TKey];
         /**
          * Replaces setter for property on object with replacement argument. Attempts to replace an already replaced setter cause an exception.
          * replacement must be a Function, and can be instances of spies, stubs and fakes.
@@ -1699,19 +1612,20 @@ declare namespace Sinon {
         replaceSetter<T, TKey extends keyof T>(
             obj: T,
             prop: TKey,
-            replacement: (val: T[TKey]) => void
-        ): (val: T[TKey]) => void;
+            replacement: (val: T[TKey]) => void): (val: T[TKey]) => void;
 
         /**
          * Creates a new object with the given functions as the prototype and stubs all implemented functions.
          *
          * @template TType Type being stubbed.
          * @param constructor   Object or class to stub.
+         * @param overrides     An optional map overriding created stubs
          * @returns A stubbed version of the constructor.
          * @remarks The given constructor function is not invoked. See also the stub API.
          */
         createStubInstance<TType>(
-            constructor: StubbableType<TType>
+            constructor: StubbableType<TType>,
+            overrides?: { [K in keyof TType]?: any }
         ): SinonStubbedInstance<TType>;
     }
 

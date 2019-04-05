@@ -9,10 +9,6 @@
 import * as Unist from 'unist';
 
 declare namespace vfileMessage {
-    interface AnyNode extends Unist.Node {
-        [key: string]: unknown;
-    }
-
     /**
      * Create a virtual message.
      */
@@ -25,7 +21,7 @@ declare namespace vfileMessage {
          * @param position Place at which the message occurred in a file (`Node`, `Position`, or `Point`, optional).
          * @param origin Place in code the message originates from (`string`, optional).
          */
-        (reason: string | Error, position?: AnyNode | Unist.Position | Unist.Point, origin?: string): VFileMessage;
+        (reason: string | Error, position?: Unist.Node | Unist.Position | Unist.Point, origin?: string): VFileMessage;
         /**
          * Category of message.
          */

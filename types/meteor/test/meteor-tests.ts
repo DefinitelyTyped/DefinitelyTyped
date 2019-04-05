@@ -213,7 +213,7 @@ Posts.insert({ title: "Hello world", body: "First post" });
  **/
 
 class Animal {
-    constructor(doc: any) {}
+    constructor(public doc: any) {}
 }
 
 interface AnimalDAO {
@@ -246,7 +246,13 @@ Items.insert({ list: groceriesId, name: "Persimmons" });
 /**
  * From Collections, collection.update section
  */
-var Players = new Mongo.Collection('Players');
+
+interface Players {
+  score: number
+  badges: string[]
+}
+
+var Players: Mongo.Collection<Players> = new Mongo.Collection('Players');
 
 Template['adminDashboard'].events({
     'click .givePoints': function () {
@@ -261,6 +267,17 @@ Meteor.methods({
     declareWinners: function () {
         Players.update({ score: { $gt: 10 } },
             { $addToSet: { badges: "Winner" } },
+            { multi: true });
+    }
+});
+
+/**
+ * Also from Collections, collection.update section
+ */
+Meteor.methods({
+    declareWinners: function () {
+        Players.update({ score: { $gt: 10 } },
+            { $addToSet: { badges: {$each: ["Winner", "Super"]} } },
             { multi: true });
     }
 });
@@ -795,3 +812,10 @@ const collectionWithoutConnection = new Mongo.Collection<MonkeyDAO>("monkey", {
 });
 
 }  // End of namespace
+
+// absoluteUrl
+Meteor.absoluteUrl('/sub', {rootUrl: 'http://wonderful.com'});
+Meteor.absoluteUrl.defaultOptions = {
+  rootUrl: 'http://123.com',
+  secure: false
+};

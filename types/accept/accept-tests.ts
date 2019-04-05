@@ -14,6 +14,8 @@ accept.language("en;q=0.7, en-GB;q=0.8", ["en-gb"]); // language === "en-GB"
 const languages = accept.languages("da, en;q=0.7, en-GB;q=0.8"); // languages === ["da", "en-GB", "en"]
 languages.lastIndexOf('');
 
+accept.mediaType("text/plain, application/json;q=0.5, text/html, */*;q=0.1");
+accept.mediaType("text/plain, application/json;q=0.5, text/html, */*;q=0.1", ["application/json", "text/html"]);
 const mediaTypes = accept.mediaTypes("text/plain, application/json;q=0.5, text/html, */*;q=0.1");
 // mediaTypes === ["text/plain", "text/html", "application/json", "*/*"]
 mediaTypes.lastIndexOf('');

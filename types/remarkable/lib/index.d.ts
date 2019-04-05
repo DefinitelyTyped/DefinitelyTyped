@@ -10,11 +10,11 @@ declare class Remarkable {
      */
     static utils: typeof Utils;
 
-    inline: { ruler: Ruler };
+    inline: { ruler: Ruler<Remarkable.InlineParsingRule> };
 
-    block: { ruler: Ruler };
+    block: { ruler: Ruler<Remarkable.BlockParsingRule> };
 
-    core: { ruler: Ruler };
+    core: { ruler: Ruler<Remarkable.CoreParsingRule> };
 
     renderer: Renderer;
 
@@ -105,6 +105,11 @@ declare namespace Remarkable {
         linkify?: boolean;
 
         /**
+         * Set target to open link in
+         */
+        linkTarget?: string;
+
+        /**
          * Enable some language-neutral replacement + quotes beautification.
          */
         typographer?: boolean;
@@ -134,36 +139,116 @@ declare namespace Remarkable {
         options: Options;
     }
 
-    interface ParsingState {
-        src: string;
-        env: Env;
-        options: Options;
-        tokens: [ContentToken];
-        inlineMode: boolean;
+    interface StateBlock {
+      src: string;
+      /** Shortcuts to simplify nested calls */
+      parser: ParserBlock;
+      options: Options;
+      env: Env;
+      tokens: [ContentToken];
+      bMarks: number[];
+      eMarks: number[];
+      tShift: number[];
+      /** required block content indent */
+      blkIndent: number;
+      /** line index in src */
+      line: number;
+      /** lines count */
+      lineMax: number;
+      /** loose/tight mode for lists */
+      tight: boolean;
+      /** If `list`, block parser stops on two newlines */
+      parentType: 'root' | 'list';
+      /** Indent of the current dd block, -1 if there isn't any */
+      ddIndent: number;
+      level: number;
+      result: string;
+      isEmpty: (line: number) => boolean;
+      skipEmptyLines: (from: number) => number;
+      skipSpaces: (pos: number) => number;
+      skipChars: (pos: number, code: number) => number;
+      getLines: (begin: number, end: number, indent: number, keepLastLF: boolean) => string;
+    }
+    interface StateInline {
+      src: string;
+      env: Env;
+      parser: ParserInline;
+      tokens: [ContentToken];
+      pos: number;
+      posMax: number;
+      level: number;
+      pending: string;
+      pendingLevel: number;
+      /** Set true when seek link label */
+      isInLabel: boolean;
+      /**
+       * Increment for each nesting link.
+       * Used to prevent nesting in definitions.
+       */
+      linkLevel: number;
+      /**
+       * Temporary storage for link url.
+       */
+      linkContent: string;
 
-        pos: number;
-        posMax: number;
-        pending: string;
-        level: number;
-
-        inline: ParserInline;
-        block: ParserBlock;
-        renderer: Renderer;
-        typographer: boolean;
-
-        push: (token: ContentToken) => void;
+      /**
+       * Track unpaired `[` for link labels.
+       */
+      labelUnmatchedScopes: number;
+      push: (token: ContentToken) => void;
+      pushPending: () => void;
     }
 
     /**
      * Return `true` if the parsing function has recognized the current position
      * in the input as one if its tokens.
      */
-    type ParsingRule = (
+    type CoreParsingRule = (
+      /**
+       * Representation of the current input stream, and the results of
+       * parsing it so far.
+       */
+      state: StateInline,
+  ) => boolean;
+
+    /**
+     * Return `true` if the parsing function has recognized the current position
+     * in the input as one if its tokens.
+     */
+    type InlineParsingRule = (
         /**
          * Representation of the current input stream, and the results of
          * parsing it so far.
          */
-        state: ParsingState,
+        state: StateInline,
+
+        /**
+         * If `true` we just do the recognition part, and don't bother to push a
+         * token.
+         */
+        silent: boolean
+    ) => boolean;
+
+    /**
+     * Return `true` if the parsing function has recognized the current position
+     * in the input as one if its tokens.
+     */
+    type BlockParsingRule = (
+        /**
+         * Representation of the current input stream, and the results of
+         * parsing it so far.
+         */
+        state: StateBlock,
+
+        /**
+         * The index of the current line.
+         */
+        startLine: number,
+
+        /**
+         * The index of the last available line.
+         */
+        endLine: number,
 
         /**
          * If `true` we just do the recognition part, and don't bother to push a
@@ -383,13 +468,13 @@ declare namespace Remarkable {
 }
 
 declare class ParserBlock {
-    tokenize(state: Remarkable.ParsingState, startLine: number, endLine: number): void;
+    tokenize(state: Remarkable.StateBlock, startLine: number, endLine: number): void;
     parse(str: string, options: Remarkable.Options, env: Remarkable.Env, tokens: [Remarkable.Token]): void;
 }
 
 declare class ParserInline {
-    skipToken(state: Remarkable.ParsingState): void;
-    tokenize(state: Remarkable.ParsingState): void;
+    skipToken(state: Remarkable.StateInline): void;
+    tokenize(state: Remarkable.StateInline): void;
     parse(str: string, options: Remarkable.Options, env: Remarkable.Env, tokens: [Remarkable.Token]): void;
     validateLink(url: string): boolean;
 }

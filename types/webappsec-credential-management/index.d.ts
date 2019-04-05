@@ -1,6 +1,7 @@
-// Type definitions for W3C (WebAppSec) Credential Management API Level 1, 0.3
+// Type definitions for non-npm package W3C (WebAppSec) Credential Management API Level 1, 0.3
 // Project: https://github.com/w3c/webappsec-credential-management
 // Definitions by: Iain McGinniss <https://github.com/iainmcgin>
+//                 Joao Peixoto <https://github.com/Hartimer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -41,7 +42,7 @@ interface CMRequestInit {
     referrer?: string;
     referrerPolicy?: string;
     mode?: string;
-    credentials?: PasswordCredential|string;
+    credentials?: PasswordCredential|FederatedCredential|string;
     cache?: string;
     redirect?: string;
     integrity?: string;
@@ -493,7 +494,7 @@ interface AuthenticatorAttestationResponse extends AuthenticatorResponse {
 interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
     readonly authenticatorData: ArrayBuffer;
     readonly signature: ArrayBuffer;
-    readonly userHandle: ArrayBuffer;
+    readonly userHandle: ArrayBuffer | null;
 }
 
 /**

@@ -41,6 +41,7 @@ import isISRCFunc = require('validator/lib/isISRC');
 import isInFunc = require('validator/lib/isIn');
 import isIntFunc = require('validator/lib/isInt');
 import isJSONFunc = require('validator/lib/isJSON');
+import isJWTFunc = require('validator/lib/isJWT');
 import isLatLongFunc = require('validator/lib/isLatLong');
 import isLengthFunc = require('validator/lib/isLength');
 import isLowercaseFunc = require('validator/lib/isLowercase');
@@ -180,6 +181,9 @@ import whitelistFunc = require('validator/lib/whitelist');
 
   let _isJSON = validator.isJSON;
   _isJSON = isJSONFunc;
+
+  let _isJWT = validator.isJWT;
+  _isJWT = isJWTFunc;
 
   let _isLatLong = validator.isLatLong;
   _isLatLong = isLatLongFunc;
@@ -425,7 +429,9 @@ let any: any;
   result = validator.isEmail('sample');
   result = validator.isEmail('sample', isEmailOptions);
 
+  let isEmptyOptions: ValidatorJS.IsEmptyOptions = {};
   result = validator.isEmpty('sample');
+  result = validator.isEmpty('sample', isEmptyOptions);
 
   let isFQDNOptions: ValidatorJS.IsFQDNOptions = {};
   result = validator.isFQDN('sample');
