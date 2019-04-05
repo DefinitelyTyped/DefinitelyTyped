@@ -71,12 +71,16 @@ declare module "meteor/meteor" {
 
         function call(name: string, ...args: any[]): any;
 
-        function apply(name: string, args: EJSONable[], options?: {
-            wait?: boolean;
-            onResultReceived?: Function;
-            returnStubValue?: boolean;
-            throwStubExceptions?: boolean;
-        }, asyncCallback?: Function): any;
+        function apply<Result extends EJSONable | EJSONable[] | EJSONableProperty | EJSONableProperty[]>(
+            name: string, 
+            args: ReadonlyArray<EJSONable | EJSONableProperty>, 
+            options?: {
+                wait?: boolean;
+                onResultReceived?: (error: global_Error | Meteor.Error | undefined, result?: Result) => void;
+                returnStubValue?: boolean;
+                throwStubExceptions?: boolean;
+            }, 
+            asyncCallback?: (error: global_Error | Meteor.Error | undefined, result?: Result) => void): any;
         /** Method **/
 
         /** Url **/

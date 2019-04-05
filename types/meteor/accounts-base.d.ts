@@ -105,9 +105,9 @@ declare module "meteor/accounts-base" {
 
         function onCreateUser(func: (options: { profile?: {} }, user: Meteor.User) => void): void;
 
-        function findUserByEmail(email: string): Object;
+        function findUserByEmail(email: string): Meteor.User | null | undefined;
 
-        function findUserByUsername(username: string): Object;
+        function findUserByUsername(username: string): Meteor.User | null | undefined;
 
         function sendEnrollmentEmail(userId: string, email?: string): void;
 
