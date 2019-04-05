@@ -153,6 +153,8 @@ declare namespace WebpackDevServer {
         setup?: (app: express.Application, server: WebpackDevServer) => void;
         /** The Unix socket to listen to (instead of a host). */
         socket?: string;
+        /** The path at which to connect to the reloading socket. */
+        sockPath?: string;
         /** It is possible to configure advanced options for serving static files from contentBase. */
         staticOptions?: serveStatic.ServeStaticOptions;
         /**

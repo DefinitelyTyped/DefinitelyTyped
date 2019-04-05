@@ -37,6 +37,20 @@ declare namespace WebAssembly {
     }
 
     /**
+     * WebAssembly.Global
+     */
+    interface GlobalDescriptor {
+        value: 'i32' | 'i64' | 'f32' | 'f64';
+        mutable?: boolean;
+    }
+
+    class Global {
+        value: number;
+        constructor(descriptor: GlobalDescriptor, value?: number);
+        valueOf(): number;
+    }
+
+    /**
      * WebAssembly.Instance
      */
     class Instance {

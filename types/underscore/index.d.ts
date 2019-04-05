@@ -105,6 +105,7 @@ declare module _ {
         * @param key First argument to Underscore object functions.
         **/
         <T>(value: _.Dictionary<T>): Underscore<T>;
+        <T>(value: _.List<T>): Underscore<T>;
         <T>(value: Array<T>): Underscore<T>;
         <T>(value: T): Underscore<T>;
 
