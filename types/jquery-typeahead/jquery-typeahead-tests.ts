@@ -30,7 +30,7 @@ let t1 = $('input').typeahead({
         ]
     },
     callback: {
-        onInit: function (node) {
+        onInit: (node) => {
             console.log('Typeahead Initiated');
         }
     }
@@ -60,53 +60,38 @@ let t2 = $.typeahead({
         }
     },
     callback: {
-        onNavigateAfter: function (node, lis, a, item, query, event) {
+        onNavigateAfter: (node, lis, a, item, query, event) => {
             if (~[38, 40].indexOf(event.keyCode)) {
-                var resultList = node.closest("form").find("ul.typeahead__list"),
-                    activeLi = lis.filter("li.active"),
-                    offsetTop = activeLi[0] && activeLi[0].offsetTop - (resultList.height() / 2) || 0;
+                const resultList = node.closest("form").find("ul.typeahead__list");
+                const activeLi = lis.filter("li.active");
+                const offsetTop = activeLi[0] && activeLi[0].offsetTop - (resultList.height() / 2) || 0;
 
                 resultList.scrollTop(offsetTop);
             }
-
         },
-        onClickAfter: function (node, a, item, event) {
-
-            event.preventDefault();
-
-            var r = confirm("You will be redirected to:\n" + item.href + "\n\nContinue?");
-            if (r == true) {
-                window.open(item.href);
-            }
-
-            $('#result-container').text('');
-
+        onClickAfter: (node, a, item, event) => {
+            console.log("Just log");
         },
-        onResult: function (node, query, result, resultCount) {
+        onResult: (node, query, result, resultCount) => {
             if (query === "") return;
 
-            var text = "";
+            let text = "";
             if (result.length > 0 && result.length < resultCount) {
-                text = "Showing <strong>" + result.length + "</strong> of <strong>" + resultCount + '</strong> elements matching "' + query + '"';
+                text = `Showing <strong>${result.length}</strong> of <strong>${resultCount}</strong> elements matching "${query}"`;
             } else if (result.length > 0) {
-                text = 'Showing <strong>' + result.length + '</strong> elements matching "' + query + '"';
+                text = `Showing <strong>${result.length}</strong> elements matching "${query}"`;
             } else {
-                text = 'No results matching "' + query + '"';
+                text = 'No results matching';
             }
             $('#result-container').html(text);
-
         },
-        onMouseEnter: function (node, a, item, event) {
-
+        onMouseEnter: (node, a, item, event) => {
             if (item.group === "country") {
-                $(a).append('<span class="flag-chart flag-' + item.display.replace(' ', '-').toLowerCase() + '"></span>')
+                $(a).append(`<span class="flag-chart flag-${item.display.replace(' ', '-').toLowerCase()}"></span>`);
             }
-
         },
-        onMouseLeave: function (node, a, item, event) {
-
+        onMouseLeave: (node, a, item, event) => {
             $(a).find('.flag-chart').remove();
-
         }
     }
 });
