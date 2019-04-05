@@ -3,7 +3,6 @@ import Array from '@ember/array';
 import EmberObject from '@ember/object';
 import Controller from '@ember/controller';
 import Transition from '@ember/routing/-private/transition';
-import { assertType } from './lib/assert';
 
 class Post extends EmberObject {}
 
