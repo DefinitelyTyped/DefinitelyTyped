@@ -9576,6 +9576,9 @@ declare namespace Office {
         /**
          * Specifies the category color.
          * 
+         * **Note**: The actual color depends on how the Outlook client renders it.
+         * In this case, the colors noted on each preset are for the Outlook desktop client.
+         * 
          * [Api set: Mailbox Preview]
          * 
          * @remarks
@@ -13664,6 +13667,21 @@ declare namespace Office {
          */
         body: Body;
         /**
+         * Gets an object that provides methods for managing the item's categories.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
+         * </table>
+         * 
+         * @beta
+         */
+        categories: Categories;
+        /**
          * Gets the type of item that an instance represents.
          *
          * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or 
@@ -15046,6 +15064,21 @@ declare namespace Office {
          * </table>
          */
         body: Body;
+        /**
+         * Gets an object that provides methods for managing the item's categories.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
+         * </table>
+         * 
+         * @beta
+         */
+        categories: Categories;
         /**
          * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the 
          * current item.
@@ -17381,8 +17414,8 @@ declare namespace Office {
      */
     interface Categories {
         /**
-         * Adds categories to an item. Each category name must be unique to that mailbox but multiple categories can use the same color.
-         * Each category must also be in the categories master list.
+         * Adds categories to an item. Each category must be in the categories master list on that mailbox and so must have a unique name
+         * but multiple categories can use the same color.
          *
          * @param categories - The categories to be added to the item.
          * @param options - Optional. An object literal that contains one or more of the following properties.
@@ -17396,16 +17429,15 @@ declare namespace Office {
          * <table>
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         *   <tr><td>Errors</td><td>NumberOfCategoriesExceeded - The number of categories exceeded the maximum amount.</td></tr>
-         *   <tr><td></td><td>InvalidCategory - Invalid categories were provided.</td></tr>
+         *   <tr><td>Errors</td><td>InvalidCategory - Invalid categories were provided.</td></tr>
          * </table>
          * 
          * @beta
          */
         addAsync(categories: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds categories to an item. Each category name must be unique to that mailbox but multiple categories can use the same color.
-         * Each category must also be in the categories master list.
+         * Adds categories to an item. Each category must be in the categories master list on that mailbox and so must have a unique name
+         * but multiple categories can use the same color.
          *
          * @param categories - The categories to be added to the item.
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
@@ -17417,8 +17449,7 @@ declare namespace Office {
          * <table>
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         *   <tr><td>Errors</td><td>NumberOfCategoriesExceeded - The number of categories exceeded the maximum amount.</td></tr>
-         *   <tr><td></td><td>InvalidCategory - Invalid categories were provided.</td></tr>
+         *   <tr><td>Errors</td><td>InvalidCategory - Invalid categories were provided.</td></tr>
          * </table>
          * 
          * @beta
