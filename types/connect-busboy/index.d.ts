@@ -18,7 +18,7 @@ declare namespace connectBusboy {
 
 declare global {
     namespace Express {
-        export interface Request {
+        interface Request {
             busboy: busboy.Busboy;
         }
     }
