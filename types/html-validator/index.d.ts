@@ -15,7 +15,7 @@ declare function HtmlValidator(
 ): Promise<HtmlValidator.ValidationResultsAsParsedJSON>;
 
 /**
- * If desired validation format is not json, string will be returned;
+ * If desired validation format is not json, string will be returned
  */
 declare function HtmlValidator(
     options:

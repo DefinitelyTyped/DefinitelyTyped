@@ -18,7 +18,6 @@ validateHtml({
   data: testHtml,
   format: 'json'
 }).then((validationResults: validateHtml.ValidationResultsAsParsedJSON) => {
-
   if (validationResults.messages.length === 0) {
     console.warn(`HTML is valid;`);
     return;
