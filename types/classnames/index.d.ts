@@ -12,7 +12,7 @@
 type ClassValue = string | number | ClassDictionary | ClassArray | undefined | null | boolean;
 
 interface ClassDictionary {
-	[id: string]: boolean | undefined | null;
+	[id: string]: any;
 }
 
 // This is the only way I found to break circular references between ClassArray and ClassValue

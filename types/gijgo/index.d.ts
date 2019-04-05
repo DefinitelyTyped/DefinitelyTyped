@@ -1,4 +1,4 @@
-// Type definitions for Gijgo v1.9.6
+// Type definitions for Gijgo v1.9.12
 // Project: http://gijgo.com
 // Definitions by: Atanas Atanasov <https://github.com/atatanasov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -262,6 +262,8 @@ declare module Types {
         modal?: boolean;
         header?: boolean;
         footer?: boolean;
+        showOnFocus?: boolean;
+        showRightIcon?: boolean;
 
         //Events
         change?: (e: any) => any;
@@ -467,6 +469,7 @@ declare module Types {
         disable(node: any, cascade?: boolean) : Tree;
         enableAll() : Tree;
         disableAll() : Tree;
+        //parents(id: string): Array<string>;
 
         getCheckedNodes() : Array<string>;
         checkAll() : Tree;

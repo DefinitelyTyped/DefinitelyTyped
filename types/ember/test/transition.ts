@@ -1,7 +1,8 @@
 import Ember from 'ember';
+import Transition from '@ember/routing/-private/transition';
 
 Ember.Route.extend({
-    beforeModel(transition: Ember.Transition) {
+    beforeModel(transition: Transition) {
         if (new Date() > new Date('January 1, 1980')) {
             alert('Sorry, you need a time machine to enter this route.');
             transition.abort();
@@ -10,12 +11,12 @@ Ember.Route.extend({
 });
 
 Ember.Controller.extend({
-    previousTransition: <Ember.Transition | null> null,
+    previousTransition: null as Transition | null,
 
     actions: {
         login() {
             // Log the user in, then reattempt previous transition if it exists.
-            let previousTransition = this.get('previousTransition');
+            const previousTransition = this.get('previousTransition');
             if (previousTransition) {
                 this.set('previousTransition', null);
                 previousTransition.retry();

@@ -1,4 +1,4 @@
-// Type definitions for wx-js-sdk 1.2
+// Type definitions for non-npm package wx-js-sdk 1.4
 // Project: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115
 // Definitions by: Bian Zhongjie <https://github.com/agasbzj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -58,9 +58,45 @@ declare namespace wx {
     function error(err: (res: any) => void): void;
 
     /**
+     * 所有通过wx对象调用的接口的基础请求参数
+     * 见：https://mp.weixin.qq.com/wiki?action=doc&id=mp1421141115&t=0.08966560295638093#7
+     */
+    interface WxBaseRequestConfig {
+        /**
+         * 接口调用成功时执行的回调函数
+         */
+        success?(res?: any): void;
+
+        /**
+         * 接口调用失败时执行的回调函数
+         */
+        fail?(error?: any): void;
+
+        /**
+         * 接口调用完成时执行的回调函数，无论成功或失败都会执行
+         */
+        complete?(res?: any): void;
+
+        /**
+         * 用户点击取消时的回调函数，仅部分有用户取消操作的api才会用到
+         */
+        cancel?(): void;
+    }
+
+    /**
+     * 所有Menu中的相关接口的请求参数
+     */
+    interface WxBaseMenuRequestConfig extends WxBaseRequestConfig {
+        /**
+         * 监听Menu中的按钮点击时触发的方法
+         */
+        trigger?: () => void;
+    }
+
+    /**
      * 判断当前客户端版本是否支持指定 JS 接口, checkJsApi 接口是客户端6.0.2新引入的一个预留接口，第一期开放的接口均可不使用 checkJsApi 来检测
      */
-    interface CheckApiConfig {
+    interface CheckApiConfig extends WxBaseRequestConfig {
         /**
          * 需要检测的JS接口列表
          */
@@ -78,7 +114,7 @@ declare namespace wx {
      */
     function checkJsApi(setting: CheckApiConfig): void;
 
-    interface ShareTimelineConfig {
+    interface ShareTimelineConfig extends WxBaseMenuRequestConfig {
         /**
          * 分享标题
          */
@@ -93,25 +129,66 @@ declare namespace wx {
          * 分享图标
          */
         imgUrl?: string;
-
-        /**
-         * 分享成功后的回调
-         */
-        success?(): void;
-
-        /**
-         * 分享失败后的回调
-         */
-        cancel?(): void;
     }
 
     /**
      * 获取“分享到朋友圈”按钮点击状态及自定义分享内容接口
+     * @deprecated
      */
     function onMenuShareTimeline(setting: ShareTimelineConfig): void;
 
     /**
+     * “分享给朋友”及“分享到QQ”按钮的分享内容
+     */
+    interface ShareToUserConfig extends WxBaseMenuRequestConfig {
+        /**
+         * 分享标题
+         */
+        title?: string;
+
+        /**
+         * 分享描述
+         */
+        desc?: string;
+
+        /**
+         * 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+         */
+        link?: string;
+
+        /**
+         * 分享图标
+         */
+        imgUrl?: string;
+
+        success?: () => void;
+    }
+
+    /**
+     * “分享到朋友圈”及“分享到QQ空间”按钮的分享内容
+     */
+    interface ShareToTimelineConfig extends WxBaseMenuRequestConfig {
+        /**
+         * 分享标题
+         */
+        title?: string;
+
+        /**
+         * 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+         */
+        link?: string;
+
+        /**
+         * 分享图标
+         */
+        imageUrl?: string;
+
+        success?: () => void;
+    }
+
+    /**
      * 消息分享对象
+     * @deprecated
      */
     interface SharedAppMessage extends ShareTimelineConfig {
         /**
@@ -132,9 +209,13 @@ declare namespace wx {
 
     /**
      * 获取“分享给朋友”按钮点击状态及自定义分享内容接口
+     * @deprecated
      */
     function onMenuShareAppMessage(setting: SharedAppMessage): void;
 
+    /**
+     * @deprecated
+     */
     interface MenuShareQQ extends ShareTimelineConfig {
         /**
          * 分享描述
@@ -144,6 +225,7 @@ declare namespace wx {
 
     /**
      * “分享到QQ”按钮点击状态及自定义分享内容接口
+     * @deprecated
      */
     function onMenuShareQQ(config: MenuShareQQ): void;
 
@@ -161,8 +243,21 @@ declare namespace wx {
 
     /**
      * 获取“分享到QQ空间”按钮点击状态及自定义分享内容接口
+     * @deprecated
      */
-    function onMenuShareQzone(config: MenuShareWeibo): void;
+    function onMenuShareQZone(config: MenuShareWeibo): void;
+
+    /**
+     * “分享给朋友”及“分享到QQ”
+     * @param config
+     */
+    function updateAppMessageShareData(config: ShareToUserConfig): void;
+
+    /**
+     * “分享到朋友圈”及“分享到QQ空间”
+     * @param config
+     */
+    function updateTimelineShareData(config: ShareToTimelineConfig): void;
 
     interface ChooseImageConfig {
         /**
@@ -194,7 +289,7 @@ declare namespace wx {
     /**
      * 显示照片预览用的配置对象
      */
-    interface PreviewImageConfig {
+    interface PreviewImageConfig extends WxBaseRequestConfig {
         /**
          * 当前显示图片的 http 链接
          */
@@ -210,7 +305,7 @@ declare namespace wx {
      */
     function previewImage(config: PreviewImageConfig): void;
 
-    interface UploadImageConfig {
+    interface UploadImageConfig extends WxBaseRequestConfig {
         /**
          * 要上传的图片的本地 ID，由 chooseImage 接口获得
          */
@@ -232,7 +327,7 @@ declare namespace wx {
      */
     function uploadImage(config: UploadImageConfig): void;
 
-    interface DownLoadImageConfig {
+    interface DownLoadImageConfig extends WxBaseRequestConfig {
         /**
          * serverId: 需要下载的图片的服务器端ID，由 uploadImage 接口获得
          */
@@ -248,7 +343,7 @@ declare namespace wx {
 
     function downloadImage(config: DownLoadImageConfig): void;
 
-    interface GetLocalImgDataConfig {
+    interface GetLocalImgDataConfig extends WxBaseRequestConfig {
         /**
          * 图片的 localID
          */
@@ -300,7 +395,7 @@ declare namespace wx {
      */
     function onVoicePlayEnd(success: (res: { localId: string }) => void): void;
 
-    interface UploadVoiceConfig {
+    interface UploadVoiceConfig extends WxBaseRequestConfig {
          localId: string;
          isShowProgressTips?: number;
          success(res: any): void;
@@ -311,7 +406,7 @@ declare namespace wx {
      */
     function uploadVoice(config: UploadVoiceConfig): void;
 
-    interface downloadVoiceConfig {
+    interface DownloadVoiceConfig extends WxBaseRequestConfig {
         /**
          * 需要下载的音频的服务器端 ID，由 uploadVoice 接口获得
          */
@@ -328,7 +423,7 @@ declare namespace wx {
         success(res: any): void;
      }
 
-    function downloadVoice(config: downloadVoiceConfig): void;
+    function downloadVoice(config: DownloadVoiceConfig): void;
 
     /**
      * 识别音频并返回识别结果接口
@@ -340,7 +435,7 @@ declare namespace wx {
      */
     function getNetworkType(success: (res: { networkType: string }) => void): void;
 
-    interface OpenLocationConfig {
+    interface OpenLocationConfig extends WxBaseRequestConfig {
         latitude?: number;
         longitude?: number;
 
@@ -385,7 +480,7 @@ declare namespace wx {
         accuracy: number;
     }
 
-    interface GetLocationConfig {
+    interface GetLocationConfig extends WxBaseRequestConfig {
         /**
          * 默认为 wgs84 的 gps 坐标，如果要返回直接给 openLocation 用的火星坐标，可传入'gcj02'
          */
@@ -399,7 +494,7 @@ declare namespace wx {
      */
     function getLocation(config: GetLocationConfig): void;
 
-    interface StartSearchBeaconsConfig {
+    interface StartSearchBeaconsConfig extends WxBaseRequestConfig {
         /**
          * 摇周边的业务ticket, 系统自动添加在摇出来的页面链接后面
          */
@@ -416,7 +511,7 @@ declare namespace wx {
      */
     function startSearchBeacons(config: StartSearchBeaconsConfig): void;
 
-    interface StopSearchBeaconsConfig {
+    interface StopSearchBeaconsConfig extends WxBaseRequestConfig {
         complete(res: any): void;
     }
 
@@ -425,7 +520,7 @@ declare namespace wx {
      */
     function stopSearchBeacons(config: StopSearchBeaconsConfig): void;
 
-    interface OnSearchBeaconsConfig {
+    interface OnSearchBeaconsConfig extends WxBaseRequestConfig {
         complete(argv: any): void;
     }
     /**
@@ -439,7 +534,7 @@ declare namespace wx {
      */
     function closeWindow(): void;
 
-    interface MenuItemsConfig {
+    interface MenuItemsConfig extends WxBaseRequestConfig {
         /**
          * 要隐藏/显示的菜单项，只能隐藏“传播类”和“保护类”按钮
          */
@@ -466,7 +561,7 @@ declare namespace wx {
      */
     function showAllNonBaseMenuItem(): void;
 
-    interface ScanQRCodeConfig {
+    interface ScanQRCodeConfig extends WxBaseRequestConfig {
         /**
          * 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
          */
@@ -488,7 +583,7 @@ declare namespace wx {
      */
     function scanQRCode(config: ScanQRCodeConfig): void;
 
-    interface OpenProductSpecificViewConfig {
+    interface OpenProductSpecificViewConfig extends WxBaseRequestConfig {
         /**
          * 商品id
          */
@@ -505,7 +600,7 @@ declare namespace wx {
      */
     function openProductSpecificView(config: OpenProductSpecificViewConfig): void;
 
-    interface ChooseCardConfig {
+    interface ChooseCardConfig extends WxBaseRequestConfig {
         /**
          * 门店Id
          */
@@ -578,7 +673,7 @@ declare namespace wx {
     /**
      * 需要打开的卡券列表
      */
-    interface OpenCardConfig {
+    interface OpenCardConfig extends WxBaseRequestConfig {
         cardList: OpenCardObj[];
     }
 
@@ -587,7 +682,7 @@ declare namespace wx {
      */
     function openCard(config: OpenCardConfig): void;
 
-    interface ChooseWXPayConfig {
+    interface ChooseWXPayConfig extends WxBaseRequestConfig {
         /**
          * 支付签名时间戳，注意微信jssdk中的所有使用 timestamp 字段均为小写。但最新版的支付后台生成签名使用的 timeStamp 字段名需大写其中的S字符
          */
@@ -612,15 +707,10 @@ declare namespace wx {
          * 支付签名
          */
         paySign: string;
-
-        /**
-         * 支付成功后的回调函数
-         */
-        success(res: any): void;
     }
 
     /**
      * 发起一个微信支付请求
      */
     function chooseWXPay(config: ChooseWXPayConfig): void;
-}
+  }

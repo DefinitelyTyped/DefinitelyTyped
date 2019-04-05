@@ -136,7 +136,16 @@ export interface ChannelWrapper extends EventEmitter {
 	 * Setup functions should, ideally, not throw errors, but if they do then the ChannelWrapper will emit an 'error' event.
 	 * @param func
 	 */
-	addSetup(func: SetupFunc): Promise<void>;
+    addSetup(func: SetupFunc): Promise<void>;
+
+    /**
+     * Remove a setup function added with `addSetup`.  If there is currently a
+     * connection, `teardown(channel, [cb])` will be run immediately, and the
+     * returned Promise will not resolve until it completes.
+     * @param func
+     * @param [tearDown]
+     */
+    removeSetup(func: SetupFunc, tearDown?: SetupFunc): Promise<void>;
 
 	/**
 	 * @see amqplib
@@ -146,7 +155,7 @@ export interface ChannelWrapper extends EventEmitter {
 	 * @param options
 	 * @param callback
 	 */
-    publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): boolean;
+    publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): Promise<void>;
 
 	/**
 	 * @see amqplib
@@ -155,7 +164,7 @@ export interface ChannelWrapper extends EventEmitter {
 	 * @param options
 	 * @param callback
 	 */
-    sendToQueue(queue: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): boolean;
+    sendToQueue(queue: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): Promise<void>;
 
 	/**
 	 * @see amqplib

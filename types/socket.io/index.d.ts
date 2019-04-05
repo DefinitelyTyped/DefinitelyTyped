@@ -1,4 +1,4 @@
-// Type definitions for socket.io 1.4.5
+// Type definitions for socket.io 2.1
 // Project: http://socket.io/
 // Definitions by: PROGRE <https://github.com/progre>
 //                 Damian Connolly <https://github.com/divillysausages>
@@ -143,6 +143,17 @@ declare namespace SocketIO {
 		origins( v: string|string[] ): Server;
 
 		/**
+		 * Provides a function taking two arguments origin:String
+		 * and callback(error, success), where success is a boolean
+		 * value indicating whether origin is allowed or not. If
+		 * success is set to false, error must be provided as a string
+		 * value that will be appended to the server response, e.g. “Origin not allowed”.
+		 * @param fn The function that will be called to check the origin
+		 * return This Server
+		 */
+		origins( fn: ( origin: string, callback: ( error: string | null, success: boolean ) => void ) => void ): Server;
+
+		/**
 		 * Attaches socket.io to a server
 		 * @param srv The http.Server that we want to attach to
 		 * @param opts An optional parameters object
@@ -169,7 +180,7 @@ declare namespace SocketIO {
 		listen( port: number, opts?: ServerOptions ): Server;
 
 		/**
-		 * Binds socket.io to an engine.io intsance
+		 * Binds socket.io to an engine.io instance
 		 * @param src The Engine.io (or compatible) server to bind to
 		 * @return This Server
 		 */
@@ -188,7 +199,7 @@ declare namespace SocketIO {
 		 * with a '/'
 		 * @return The Namespace
 		 */
-		of( nsp: string ): Namespace;
+		of( nsp: string | RegExp | Function ): Namespace;
 
 		/**
 		 * Closes the server connection
@@ -616,7 +627,7 @@ declare namespace SocketIO {
 		 * take an optional parameter, err, of a possible error
 		 * @return This Socket
 		 */
-		join( name: string, fn?: ( err?: any ) => void ): Socket;
+		join( name: string|string[], fn?: ( err?: any ) => void ): Socket;
 
 		/**
 		 * Leaves a room
@@ -697,6 +708,23 @@ declare namespace SocketIO {
 	}
 
 	/**
+	 * The interface describing a room
+	 */
+	interface Room {
+		sockets: {[id: string]: boolean };
+		length: number;
+	}
+
+	/**
+	 * The interface describing a dictionary of rooms
+	 * Where room is the name of the room
+	 */
+
+	 interface Rooms {
+		[room: string]: Room;
+	 }
+
+	/**
 	 * The interface used when dealing with rooms etc
 	 */
 	interface Adapter extends NodeJS.EventEmitter {
@@ -708,9 +736,8 @@ declare namespace SocketIO {
 
 		/**
 		 * A dictionary of all the rooms that we have in this namespace
-		 * The rooms are made of a `sockets` key which is the dictionary of sockets per ID
 		 */
-		rooms: {[room: string]: {sockets: {[id: string]: boolean }, length: number }};
+		rooms: Rooms;
 
 		/**
 		 * A dictionary of all the socket ids that we're dealing with, and all

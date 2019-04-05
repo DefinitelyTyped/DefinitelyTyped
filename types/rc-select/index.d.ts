@@ -2,7 +2,7 @@
 // Project: https://github.com/react-component/select
 // Definitions by: Denis Tirilis <https://github.com/DenisTirilis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 
@@ -20,47 +20,61 @@ export {
 
 declare namespace RcSelect {
     interface SelectProps {
-        className?: string;
-        prefixCls?: string;
-        animation?: string;
-        transitionName?: string;
-        choiceTransitionName?: string;
-        dropdownMatchSelectWidth?: boolean;
-        dropdownClassName?: string;
-        dropdownStyle?: { [key: string]: string };
-        dropdownMenuStyle?: { [key: string]: string };
-        notFoundContent?: string;
-        showSearch?: boolean;
         allowClear?: boolean;
-        tags?: boolean;
-        maxTagTextLength?: number;
+        animation?: string;
+        choiceTransitionName?: string;
+        className?: string;
         combobox?: boolean;
-        multiple?: boolean;
+        defaultActiveFirstOption?: boolean;
+        defaultLabel?: string | Array<string>;
+        defaultValue?: string | Array<string>;
         disabled?: boolean;
+        dropdownClassName?: string;
+        dropdownMatchSelectWidth?: boolean;
+        dropdownMenuStyle?: { [key: string]: string };
+        dropdownStyle?: { [key: string]: string };
         filterOption?: boolean;
+        getPopupContainer?: (trigger: Node) => Node;
+        getInputElement?: () => Node;
+        id?: string;
+        labelInValue?: boolean;
+        maxTagCount?: number;
+        maxTagPlaceholder?: React.ReactNode | Function;
+        maxTagTextLength?: number;
+        multiple?: boolean;
+        notFoundContent?: string;
+        onBlur?: () => void;
+        onChange?: (value: string, label: string) => void;
+        onDeselect?: (value: string, option: Option) => void;
+        onFocus?: () => void;
+        onInputKeyDown?: (e: Event) => void;
+        onPopupScroll?: () => void;
+        onSearch?: () => void;
+        onSelect?: (value: string, ontion: Option) => void;
         optionFilterProp?: string;
         optionLabelProp?: string;
-        defaultValue?: string | Array<string>;
+        placeholder?: React.ReactNode;
+        prefixCls?: string;
+        showAction?: string[];
+        showArrow?: boolean;
+        showSearch?: boolean;
+        tags?: boolean;
+        tokenSeparators?: string[];
+        transitionName?: string;
         value?: string | Array<string>;
-        onChange?: (value: string, label: string) => void;
-        onSearch?: Function;
-        onSelect?: (value: string, ontion: Option) => void;
-        onDeselect?: Function;
-        defaultLabel?: string | Array<string>;
-        defaultActiveFirstOption?: boolean;
-        getPopupContainer?: (trigger: Node) => Node;
     }
     export class Select extends React.Component<SelectProps> { }
     interface OptionProps {
         className?: string;
         disabled?: boolean;
         key?: string;
+        title?: string;
         value?: string;
     }
     export class Option extends React.Component<OptionProps> { }
 
     interface OptGroupProps {
-        label?: string | React.ReactElement<any>;
+        label?: string | React.ReactElement;
         key?: string;
         value?: string;
     }

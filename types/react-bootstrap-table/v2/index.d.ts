@@ -2,7 +2,7 @@
 // Project: https://github.com/AllenFang/react-bootstrap-table
 // Definitions by: Frank Laub <https://github.com/flaub>, Aleksander Lode <https://github.com/alelode>, Josué Us <https://github.com/UJosue10>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -291,7 +291,7 @@ export interface Options {
 	/**
 	 * Change the displaying text on table if data is empty.
 	 */
-	noDataText?: string | ReactElement<any>;
+	noDataText?: string | ReactElement;
 	/**
 	 * A delay for trigger search after a keyup (millisecond)
 	 */
@@ -433,7 +433,7 @@ export interface Options {
 	 * `rowKeys` is the row keys which been deleted, you can call next function to apply this deletion.
 	 */
 	handleConfirmDeleteRow?: (next: Function, rowKeys: any[]) => void;
-	paginationShowsTotal?: boolean | ((start: number, to: number, total: number) => string | ReactElement<any>);
+	paginationShowsTotal?: boolean | ((start: number, to: number, total: number) => string | ReactElement);
 	onSearchChange?: Function;
 	onAddRow?: Function;
 	onExportToCSV?: Function;
@@ -557,12 +557,12 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	 * 		getElement(REQUIRED): Accept a callback function and take two arguments: onUpdate and props.
 	 * 		customEditorParameters: Another extra data for custom cell edit component.
 	 */
-	customEditor?: { getElement: (onUpdate: any, props: any) => ReactElement<any>, customEditorParameters?: object };
+	customEditor?: { getElement: (onUpdate: any, props: any) => ReactElement, customEditorParameters?: object };
 	/**
 	 * To customize the column. This callback function should return a String or a React Component.
 	 * In addition, this function taking two argument: cell and row.
 	 */
-	dataFormat?: (cell: any, row: any, formatExtraData?: any) => string | ReactElement<any>;
+	dataFormat?: (cell: any, row: any, formatExtraData?: any) => string | ReactElement;
 	/**
 	 * To to enable search or filter data on formatting. Default is false
 	 */

@@ -7,7 +7,7 @@
 /// <reference types="node" />
 
 import { Transform } from "stream";
-import { SpawnOptions } from 'child_process';
+import { SpawnOptions, StdioOptions } from 'child_process';
 
 export class CacheStream extends Transform {
     destroy(): void;
@@ -79,11 +79,11 @@ export interface hexoSpawnDisableEncodingOptions extends SpawnOptions {
 }
 
 export interface hexoSpawnOverrideStdioOptions extends hexoSpawnOptions {
-    stdio: any[] | string;
+    stdio: StdioOptions;
 }
 
 export interface hexoSpawnDisableEncodingAndOverrideStdioOptions extends hexoSpawnDisableEncodingOptions {
-    stdio: any[] | string;
+    stdio: StdioOptions;
 }
 
 export function spawn(command: string, args: string[], options: hexoSpawnDisableEncodingAndOverrideStdioOptions): Promise<Buffer | undefined>;

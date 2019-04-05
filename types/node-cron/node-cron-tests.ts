@@ -17,7 +17,7 @@ cron.schedule('1-5 * * * *', () => {
 const task = cron.schedule('* * * * *', () => {
     log('immediately started');
     // because of manual call start method
-}, false);
+}, { scheduled: false });
 
 task.start();
 

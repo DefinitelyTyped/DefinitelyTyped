@@ -2,7 +2,7 @@
 // Project: https://github.com/reactjs/react-autocomplete
 // Definitions by: Lee Standen <https://github.com/lstanden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component, ChangeEvent, ReactNode, CSSProperties, HTMLProps } from 'react';
 
@@ -76,7 +76,7 @@ declare namespace Autocomplete {
          * and the width of the dropdown menu.
          */
         renderMenu?: (
-            items: any[],
+            items: ReactNode[],
             value: string,
             styles: CSSProperties,
         ) => ReactNode;

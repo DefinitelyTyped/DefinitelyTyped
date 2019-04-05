@@ -1,5 +1,5 @@
 // Type definitions for C3js 0.6
-// Project: http://c3js.org/
+// Project: http://c3js.org/, https://github.com/c3js/c3
 // Definitions by: Marc Climent <https://github.com/mcliment>
 //                 Gerin Jacob <https://github.com/gerinjacob>
 //                 Bernd Hacker <https://github.com/denyo>
@@ -276,6 +276,12 @@ export interface ChartConfiguration {
          * Set width of gauge chart.
          */
         width?: number;
+        /**
+         * Whether this should be displayed
+         * as a full circle instead of a
+         * half circle.
+         */
+        fullCircle?: boolean;
     };
 
     spline?: {
@@ -800,6 +806,10 @@ export interface ZoomOptions {
      * Enable zooming.
      */
     enabled?: boolean;
+    /**
+     * Set interaction type for zooming
+     */
+    type?: 'scroll' | 'drag';
     /**
      * Enable to rescale after zooming. If true set, y domain will be updated according to the zoomed region.
      */

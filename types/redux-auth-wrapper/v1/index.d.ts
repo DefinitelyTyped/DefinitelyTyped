@@ -2,7 +2,7 @@
 // Project: https://github.com/mjrussell/redux-auth-wrapper
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { ComponentClass, StatelessComponent, ReactType } from "react";
 import { Action } from "redux";

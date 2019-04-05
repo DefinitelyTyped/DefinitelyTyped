@@ -32,7 +32,7 @@ new Stream({
     highWaterMark: 1,
     decodeStrings: true,
     objectMode: true,
-    destroy: (error?: Error) => {
+    destroy: (error: Error | null) => {
         return 'handle error';
     },
     final: (callback: (error?: Error) => void) => {

@@ -6,17 +6,47 @@ const ReactTwitterAuth: React.StatelessComponent = () => {
     function handleFailure(msg: string) {}
 
     return (
-        <TwitterLogin loginUrl="http://server.url/api/v1/auth/twitter"
-                      onSuccess={ handleSucess }
-                      onFailure={ handleFailure }
-                      requestTokenUrl="http://server.url/api/v1/auth/twitter/reverse"
-                      dialogWidth={ 1200 }
-                      dialogHeight={ 800 }
-                      style={{display: "initial"}}
-                      disabled={ false }
-                      text={ "test" }
-                      tag="button"
-                      credentials="same-origin"
-                      showIcon={true}/>
+        <div>
+            <TwitterLogin
+                loginUrl="http://server.url/api/v1/auth/twitter"
+                onSuccess={ handleSucess }
+                onFailure={ handleFailure }
+                requestTokenUrl="http://server.url/api/v1/auth/twitter/reverse"
+            />
+            <TwitterLogin
+                loginUrl="http://server.url/api/v1/auth/twitter"
+                onSuccess={ handleSucess }
+                onFailure={ handleFailure }
+                requestTokenUrl="http://server.url/api/v1/auth/twitter/reverse"
+                dialogWidth={ 1200 }
+                dialogHeight={ 800 }
+                style={{display: "initial"}}
+                disabled={ false }
+                text={ "test" }
+                tag="button"
+                credentials="same-origin"
+                showIcon={true}
+            />
+            <TwitterLogin
+                loginUrl="http://server.url/api/v1/auth/twitter"
+                onSuccess={ handleSucess }
+                onFailure={ handleFailure }
+                requestTokenUrl="http://server.url/api/v1/auth/twitter/reverse"
+                dialogWidth={ 1200 }
+                dialogHeight={ 800 }
+                style={{display: "initial"}}
+                disabled={ false }
+                text={ "test" }
+                tag="button"
+                credentials="same-origin"
+                showIcon={true}
+                customHeaders={{
+                    authorization: 'Bearer sometoken',
+                }}
+                forceLogin={true}
+            >
+                Login with twitter
+            </TwitterLogin>
+        </div>
     );
 };

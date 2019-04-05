@@ -1,1 +1,20 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // All are TODOs
+        "array-type": false,
+        "interface-over-type-literal": false,
+        "jsdoc-format": false,
+        "no-any-union": false,
+        "no-consecutive-blank-lines": false,
+        "no-duplicate-imports": false,
+        "no-empty-interface": false,
+        "no-redundant-undefined": false,
+        "no-unnecessary-generics": false,
+        "semicolon": false,
+        "strict-export-declare-modifiers": false,
+        "unified-signatures": false,
+        "use-default-type-parameter": false,
+        "void-return": false
+    }
+}

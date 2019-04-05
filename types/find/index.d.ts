@@ -45,7 +45,7 @@ export function file(pattern: string | RegExp, root: string, callback: (files: s
  * @param root The root directory
  * @param callback A callback that accepts each file separately
  */
-export function eachFile(root: string, callback: (file: string) => void): FindEachStream;
+export function eachfile(root: string, callback: (file: string) => void): FindEachStream;
 
 /**
  * Find all files that match a glob pattern in a given directory asynchronously.
@@ -53,7 +53,7 @@ export function eachFile(root: string, callback: (file: string) => void): FindEa
  * @param root The root directory
  * @param callback A callback that accepts an array of the found files
  */
-export function eachFile(pattern: string | RegExp, root: string, callback: (file: string) => void): FindEachStream;
+export function eachfile(pattern: string | RegExp, root: string, callback: (file: string) => void): FindEachStream;
 
 /**
  * Find all files in a given directory synchronously.
@@ -105,7 +105,7 @@ export function dirSync(pattern: string | RegExp, root: string): string[];
  * @param root The root directory
  * @param callback A callback that accepts each of the found directories separately
  */
-export function eachDir(root: string, callback: (directory: string) => void): FindEachStream;
+export function eachdir(root: string, callback: (directory: string) => void): FindEachStream;
 
 /**
  * Find all directories that match a glob pattern in a given directory asynchronously.
@@ -113,4 +113,4 @@ export function eachDir(root: string, callback: (directory: string) => void): Fi
  * @param root The root directory
  * @param callback A callback that accepts each of the found directories separately
  */
-export function eachDir(pattern: string | RegExp, root: string, callback: (directory: string) => void): FindEachStream;
+export function eachdir(pattern: string | RegExp, root: string, callback: (directory: string) => void): FindEachStream;

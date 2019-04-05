@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-02-27
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -50,6 +50,35 @@ declare namespace GoogleAppsScript {
     export enum BandingTheme { LIGHT_GREY, CYAN, GREEN, YELLOW, ORANGE, BLUE, TEAL, GREY, BROWN, LIGHT_GREEN, INDIGO, PINK }
 
     /**
+     * Access the existing BigQuery data source specification. To create a new data source
+     * specification, use SpreadsheetApp.newDataSourceSpec().
+     */
+    export interface BigQueryDataSourceSpec {
+      copy(): DataSourceSpecBuilder;
+      getParameters(): DataSourceParameter[];
+      getProjectId(): string;
+      getRawQuery(): string;
+      getType(): DataSourceType;
+    }
+
+    /**
+     * The builder for BigQueryDataSourceSpecBuilder.
+     */
+    export interface BigQueryDataSourceSpecBuilder {
+      build(): DataSourceSpec;
+      copy(): DataSourceSpecBuilder;
+      getParameters(): DataSourceParameter[];
+      getProjectId(): string;
+      getRawQuery(): string;
+      getType(): DataSourceType;
+      removeAllParameters(): BigQueryDataSourceSpecBuilder;
+      removeParameter(parameterName: string): BigQueryDataSourceSpecBuilder;
+      setParameterFromCell(parameterName: string, sourceCell: string): BigQueryDataSourceSpecBuilder;
+      setProjectId(projectId: string): BigQueryDataSourceSpecBuilder;
+      setRawQuery(rawQuery: string): BigQueryDataSourceSpecBuilder;
+    }
+
+    /**
      * Access boolean conditions in ConditionalFormatRules. Each
      * conditional format rule may contain a single boolean condition. The boolean condition itself
      * contains a boolean criteria (with values) and formatting settings. The criteria is evaluated
@@ -99,7 +128,7 @@ declare namespace GoogleAppsScript {
      *     var range = sheet.getRange("A1:B3");
      *     var rule = SpreadsheetApp.newConditionalFormatRule()
      *         .whenNumberBetween(1, 10)
-     *         .setBackgroundColor("#FF0000")
+     *         .setBackground("#FF0000")
      *         .setRanges([range])
      *         .build();
      *     var rules = sheet.getConditionalFormatRules();
@@ -166,6 +195,154 @@ declare namespace GoogleAppsScript {
      * An enumeration of possible special paste types.
      */
     export enum CopyPasteType { PASTE_NORMAL, PASTE_NO_BORDERS, PASTE_FORMAT, PASTE_FORMULA, PASTE_DATA_VALIDATION, PASTE_VALUES, PASTE_CONDITIONAL_FORMATTING, PASTE_COLUMN_WIDTHS }
+
+    /**
+     * An enumeration of data execution error codes.
+     */
+    export enum DataExecutionErrorCode { DATA_EXECUTION_ERROR_CODE_UNSUPPORTED, NONE, TIME_OUT, TOO_MANY_ROWS, TOO_MANY_CELLS, ENGINE, PARAMETER_INVALID, UNSUPPORTED_DATA_TYPE, DUPLICATE_COLUMN_NAMES, INTERRUPTED, OTHER, TOO_MANY_CHARS_PER_CELL }
+
+    /**
+     * An enumeration of data execution states.
+     */
+    export enum DataExecutionState { DATA_EXECUTION_STATE_UNSUPPORTED, RUNNING, SUCCESS, ERROR, NOT_STARTED }
+
+    /**
+     * The data execution status.
+     */
+    export interface DataExecutionStatus {
+      getErrorCode(): DataExecutionErrorCode;
+      getErrorMessage(): string;
+      getExecutionState(): DataExecutionState;
+      getLastRefreshedTime(): Date;
+      isTruncated(): boolean;
+    }
+
+    /**
+     * Access and modify existing data source. To create a data source table with new data source, see
+     * DataSourceTable.
+     */
+    export interface DataSource {
+      getSpec(): DataSourceSpec;
+      updateSpec(spec: DataSourceSpec): DataSource;
+    }
+
+    /**
+     * Access existing data source parameters.
+     */
+    export interface DataSourceParameter {
+      getName(): string;
+      getSourceCell(): string;
+      getType(): DataSourceParameterType;
+    }
+
+    /**
+     * An enumeration of data source parameter types.
+     */
+    export enum DataSourceParameterType { DATA_SOURCE_PARAMETER_TYPE_UNSUPPORTED, CELL }
+
+    /**
+     * Access the general settings of an existing data source spec. To access data source spec for
+     * certain type, use as...() method. To create a new data source spec, use SpreadsheetApp.newDataSourceSpec().
+     *
+     * This example shows how to get information from a BigQuery data source spec.
+     *
+     *     var dataSourceTable =
+     *         SpreadsheetApp.getActive().getSheetByName("Data Sheet 1").getDataSourceTables()[0];
+     *     var spec = dataSourceTable.getDataSource().getSpec();
+     *     if (spec.getType() == SpreadsheetApp.DataSourceType.BIGQUERY) {
+     *       var bqSpec = spec.asBigQuery();
+     *       Logger.log("Project ID: %s\n", bqSpec.getProjectId());
+     *       Logger.log("Raw query string: %s\n", bqSpec.getRawQuery());
+     *     }
+     */
+    export interface DataSourceSpec {
+      asBigQuery(): BigQueryDataSourceSpec;
+      copy(): DataSourceSpecBuilder;
+      getParameters(): DataSourceParameter[];
+      getType(): DataSourceType;
+    }
+
+    /**
+     * The builder for DataSourceSpec. To create a specification for certain type, use as...() method. To create a new builder, use SpreadsheetApp.newDataSourceSpec(). To use the specification, see DataSourceTable.
+     *
+     * This examples show how to build a BigQuery data source specification.
+     *
+     *     var spec = SpreadsheetApp.newDataSourceSpec()
+     *                .asBigQuery()
+     *                .setProjectId('big_query_project')
+     *                .setRawQuery('select @FIELD from table limit @LIMIT')
+     *                .setParameterFromCell('FIELD', 'Sheet1!A1')
+     *                .setParameterFromCell('LIMIT', 'namedRangeCell')
+     *                .build();
+     */
+    export interface DataSourceSpecBuilder {
+      asBigQuery(): BigQueryDataSourceSpecBuilder;
+      build(): DataSourceSpec;
+      copy(): DataSourceSpecBuilder;
+      getParameters(): DataSourceParameter[];
+      getType(): DataSourceType;
+      removeAllParameters(): DataSourceSpecBuilder;
+      removeParameter(parameterName: string): DataSourceSpecBuilder;
+      setParameterFromCell(parameterName: string, sourceCell: string): DataSourceSpecBuilder;
+    }
+
+    /**
+     * Access and modify existing data source table. To create a new data source table on a new sheet,
+     * use Spreadsheet.insertSheetWithDataSourceTable(spec).
+     *
+     * This example shows how to create a new data source table.
+     *
+     *     SpreadsheetApp.enableBigQueryExecution();
+     *     var spreadsheet = SpreadsheetApp.getActive();
+     *     var spec = SpreadsheetApp.newDataSourceSpec()
+     *                .asBigQuery()
+     *                .setProjectId('big_query_project')
+     *                .setRawQuery('select @FIELD from table limit @LIMIT')
+     *                .setParameterFromCell('FIELD', 'Sheet1!A1')
+     *                .setParameterFromCell('LIMIT', 'namedRangeCell')
+     *                .build();
+     *     // Starts data execution asynchronously.
+     *     var dataSheet = spreadsheet.insertSheetWithDataSourceTable(spec);
+     *     var dataSourceTable = dataSheet.getDataSourceTables()[0];
+     *     // waitForCompletion() blocks script execution until data execution completes.
+     *     dataSourceTable.waitForCompletion(60);
+     *     // Check status after execution.
+     *     Logger.log("Data execution state: %s.", dataSourceTable.getStatus().getExecutionState());
+     *
+     * This example shows how to edit a data source.
+     *
+     *     SpreadsheetApp.enableBigQueryExecution();
+     *     var dataSheet = SpreadsheetApp.getActive().getSheetByName("Data Sheet 1");
+     *     var dataSourceTable = dataSheet.getDataSourceTables()[0];
+     *     var dataSource = dataSourceTable.getDataSource();
+     *     var newSpec = dataSource.getSpec()
+     *                   .copy()
+     *                   .asBigQuery()
+     *                   .setRawQuery('select name from table limit 2')
+     *                   .removeAllParameters()
+     *                   .build();
+     *     // Updates data source specification and starts data execution asynchronously.
+     *     dataSource.updateSpec(newSpec);
+     *     // Check status during execution.
+     *     Logger.log("Data execution state: %s.", dataSourceTable.getStatus().getExecutionState());
+     *     // waitForCompletion() blocks script execution until data execution completes.
+     *     dataSourceTable.waitForCompletion(60);
+     *     // Check status after execution.
+     *     Logger.log("Data execution state: %s.", dataSourceTable.getStatus().getExecutionState());
+     */
+    export interface DataSourceTable {
+      forceRefreshData(): DataSourceTable;
+      getDataSource(): DataSource;
+      getRange(): Range;
+      getStatus(): DataExecutionStatus;
+      refreshData(): DataSourceTable;
+      waitForCompletion(timeoutInSeconds: Integer): DataExecutionStatus;
+    }
+
+    /**
+     * An enumeration of data source types.
+     */
+    export enum DataSourceType { DATA_SOURCE_TYPE_UNSUPPORTED, BIGQUERY }
 
     /**
      * Access data validation rules. To create a new rule, use SpreadsheetApp.newDataValidation() and DataValidationBuilder. You can use
@@ -267,6 +444,61 @@ declare namespace GoogleAppsScript {
      *     range.setDataValidations(rules);
      */
     export enum DataValidationCriteria { DATE_AFTER, DATE_BEFORE, DATE_BETWEEN, DATE_EQUAL_TO, DATE_IS_VALID_DATE, DATE_NOT_BETWEEN, DATE_ON_OR_AFTER, DATE_ON_OR_BEFORE, NUMBER_BETWEEN, NUMBER_EQUAL_TO, NUMBER_GREATER_THAN, NUMBER_GREATER_THAN_OR_EQUAL_TO, NUMBER_LESS_THAN, NUMBER_LESS_THAN_OR_EQUAL_TO, NUMBER_NOT_BETWEEN, NUMBER_NOT_EQUAL_TO, TEXT_CONTAINS, TEXT_DOES_NOT_CONTAIN, TEXT_EQUAL_TO, TEXT_IS_VALID_EMAIL, TEXT_IS_VALID_URL, VALUE_IN_LIST, VALUE_IN_RANGE, CUSTOM_FORMULA, CHECKBOX }
+
+    /**
+     * Access and modify developer metadata. To create new developer metadata use Range.addDeveloperMetadata(key), Sheet.addDeveloperMetadata(key), or Spreadsheet.addDeveloperMetadata(key).
+     */
+    export interface DeveloperMetadata {
+      getId(): Integer;
+      getKey(): string;
+      getLocation(): DeveloperMetadataLocation;
+      getValue(): string;
+      getVisibility(): DeveloperMetadataVisibility;
+      moveToColumn(column: Range): DeveloperMetadata;
+      moveToRow(row: Range): DeveloperMetadata;
+      moveToSheet(sheet: Sheet): DeveloperMetadata;
+      moveToSpreadsheet(): DeveloperMetadata;
+      remove(): void;
+      setKey(key: string): DeveloperMetadata;
+      setValue(value: string): DeveloperMetadata;
+      setVisibility(visibility: DeveloperMetadataVisibility): DeveloperMetadata;
+    }
+
+    /**
+     * Search for developer metadata in a spreadsheet. To create new developer metadata finder use
+     * Range.createDeveloperMetadataFinder(), Sheet.createDeveloperMetadataFinder(),
+     * or Spreadsheet.createDeveloperMetadataFinder().
+     */
+    export interface DeveloperMetadataFinder {
+      find(): DeveloperMetadata[];
+      onIntersectingLocations(): DeveloperMetadataFinder;
+      withId(id: Integer): DeveloperMetadataFinder;
+      withKey(key: string): DeveloperMetadataFinder;
+      withLocationType(locationType: DeveloperMetadataLocationType): DeveloperMetadataFinder;
+      withValue(value: string): DeveloperMetadataFinder;
+      withVisibility(visibility: DeveloperMetadataVisibility): DeveloperMetadataFinder;
+    }
+
+    /**
+     * Access developer metadata location information.
+     */
+    export interface DeveloperMetadataLocation {
+      getColumn(): Range;
+      getLocationType(): DeveloperMetadataLocationType;
+      getRow(): Range;
+      getSheet(): Sheet;
+      getSpreadsheet(): Spreadsheet;
+    }
+
+    /**
+     * An enumeration of the types of developer metadata location types.
+     */
+    export enum DeveloperMetadataLocationType { SPREADSHEET, SHEET, ROW, COLUMN }
+
+    /**
+     * An enumeration of the types of developer metadata visibility.
+     */
+    export enum DeveloperMetadataVisibility { DOCUMENT, PROJECT }
 
     /**
      * An enumeration of possible directions along which data can be stored in a spreadsheet.
@@ -897,6 +1129,36 @@ declare namespace GoogleAppsScript {
     }
 
     /**
+     * Represents an image over the grid in a spreadsheet.
+     */
+    export interface OverGridImage {
+      assignScript(functionName: string): OverGridImage;
+      getAltTextDescription(): string;
+      getAltTextTitle(): string;
+      getAnchorCell(): Range;
+      getAnchorCellXOffset(): Integer;
+      getAnchorCellYOffset(): Integer;
+      getHeight(): Integer;
+      getInherentHeight(): Integer;
+      getInherentWidth(): Integer;
+      getScript(): string;
+      getSheet(): Sheet;
+      getUrl(): string;
+      getWidth(): Integer;
+      remove(): void;
+      replace(blob: Base.BlobSource): OverGridImage;
+      replace(url: string): OverGridImage;
+      resetSize(): OverGridImage;
+      setAltTextDescription(description: string): OverGridImage;
+      setAltTextTitle(title: string): OverGridImage;
+      setAnchorCell(cell: Range): OverGridImage;
+      setAnchorCellXOffset(offset: Integer): OverGridImage;
+      setAnchorCellYOffset(offset: Integer): OverGridImage;
+      setHeight(height: Integer): OverGridImage;
+      setWidth(width: Integer): OverGridImage;
+    }
+
+    /**
      *
      * Deprecated. For spreadsheets created in the newer version of Google Sheets, use the more powerful
      *     Protection class instead. Although this class is deprecated, it remains available
@@ -1091,6 +1353,10 @@ declare namespace GoogleAppsScript {
     export interface Range {
       activate(): Range;
       activateAsCurrentCell(): Range;
+      addDeveloperMetadata(key: string): Range;
+      addDeveloperMetadata(key: string, visibility: DeveloperMetadataVisibility): Range;
+      addDeveloperMetadata(key: string, value: string): Range;
+      addDeveloperMetadata(key: string, value: string, visibility: DeveloperMetadataVisibility): Range;
       applyColumnBanding(): Banding;
       applyColumnBanding(bandingTheme: BandingTheme): Banding;
       applyColumnBanding(bandingTheme: BandingTheme, showHeader: boolean, showFooter: boolean): Banding;
@@ -1115,6 +1381,7 @@ declare namespace GoogleAppsScript {
       copyTo(destination: Range, options: Object): void;
       copyValuesToRange(gridId: Integer, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       copyValuesToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
+      createDeveloperMetadataFinder(): DeveloperMetadataFinder;
       createFilter(): Filter;
       createPivotTable(sourceData: Range): PivotTable;
       deleteCells(shiftDimension: Dimension): void;
@@ -1125,11 +1392,13 @@ declare namespace GoogleAppsScript {
       getBandings(): Banding[];
       getCell(row: Integer, column: Integer): Range;
       getColumn(): Integer;
+      getDataSourceTables(): DataSourceTable[];
       getDataSourceUrl(): string;
       getDataTable(): Charts.DataTable;
       getDataTable(firstRowIsHeader: boolean): Charts.DataTable;
       getDataValidation(): DataValidation;
       getDataValidations(): DataValidation[][];
+      getDeveloperMetadata(): DeveloperMetadata[];
       getDisplayValue(): string;
       getDisplayValues(): string[][];
       getFilter(): Filter;
@@ -1163,6 +1432,8 @@ declare namespace GoogleAppsScript {
       getNumRows(): Integer;
       getNumberFormat(): string;
       getNumberFormats(): string[][];
+      getRichTextValue(): RichTextValue;
+      getRichTextValues(): RichTextValue[][];
       getRow(): Integer;
       getRowIndex(): Integer;
       getSheet(): Sheet;
@@ -1170,6 +1441,8 @@ declare namespace GoogleAppsScript {
       getTextDirections(): TextDirection[][];
       getTextRotation(): TextRotation;
       getTextRotations(): TextRotation[][];
+      getTextStyle(): TextStyle;
+      getTextStyles(): TextStyle[][];
       getValue(): Object;
       getValues(): Object[][];
       getVerticalAlignment(): string;
@@ -1178,7 +1451,7 @@ declare namespace GoogleAppsScript {
       getWrap(): boolean;
       getWrapStrategies(): WrapStrategy[][];
       getWrapStrategy(): WrapStrategy;
-      getWraps(): Boolean[][];
+      getWraps(): boolean[][];
       insertCells(shiftDimension: Dimension): Range;
       isBlank(): boolean;
       isEndColumnBounded(): boolean;
@@ -1224,12 +1497,16 @@ declare namespace GoogleAppsScript {
       setNotes(notes: Object[][]): Range;
       setNumberFormat(numberFormat: string): Range;
       setNumberFormats(numberFormats: Object[][]): Range;
+      setRichTextValue(value: RichTextValue): Range;
+      setRichTextValues(values: RichTextValue[][]): Range;
       setShowHyperlink(showHyperlink: boolean): Range;
       setTextDirection(direction: TextDirection): Range;
       setTextDirections(directions: TextDirection[][]): Range;
       setTextRotation(degrees: Integer): Range;
       setTextRotation(rotation: TextRotation): Range;
       setTextRotations(rotations: TextRotation[][]): Range;
+      setTextStyle(style: TextStyle): Range;
+      setTextStyles(styles: TextStyle[][]): Range;
       setValue(value: Object): Range;
       setValues(values: Object[][]): Range;
       setVerticalAlignment(alignment: string): Range;
@@ -1293,6 +1570,34 @@ declare namespace GoogleAppsScript {
     export enum RelativeDate { TODAY, TOMORROW, YESTERDAY, PAST_WEEK, PAST_MONTH, PAST_YEAR }
 
     /**
+     * A stylized text string used to represent cell text. Substrings of the text can have different
+     * text styles.
+     *
+     * A run is the longest unbroken substring having the same text style. For example, the
+     * sentence "This kid has two apples." has four runs: ["This ", "kid ", "has two ",
+     * "apples."].
+     */
+    export interface RichTextValue {
+      copy(): RichTextValueBuilder;
+      getEndIndex(): Integer;
+      getRuns(): RichTextValue[];
+      getStartIndex(): Integer;
+      getText(): string;
+      getTextStyle(): TextStyle;
+      getTextStyle(startOffset: Integer, endOffset: Integer): TextStyle;
+    }
+
+    /**
+     * A builder for Rich Text values.
+     */
+    export interface RichTextValueBuilder {
+      build(): RichTextValue;
+      setText(text: string): RichTextValueBuilder;
+      setTextStyle(startOffset: Integer, endOffset: Integer, textStyle: TextStyle): RichTextValueBuilder;
+      setTextStyle(textStyle: TextStyle): RichTextValueBuilder;
+    }
+
+    /**
      * Access the current active selection in the active sheet. A selection is the set of cells the user
      * has highlighted in the sheet, which can be non-adjacent ranges. One cell in the selection is the
      * current cell, where the user's current focus is. The current cell is highlighted with a
@@ -1328,6 +1633,10 @@ declare namespace GoogleAppsScript {
      */
     export interface Sheet {
       activate(): Sheet;
+      addDeveloperMetadata(key: string): Sheet;
+      addDeveloperMetadata(key: string, visibility: DeveloperMetadataVisibility): Sheet;
+      addDeveloperMetadata(key: string, value: string): Sheet;
+      addDeveloperMetadata(key: string, value: string, visibility: DeveloperMetadataVisibility): Sheet;
       appendRow(rowContents: Object[]): Sheet;
       autoResizeColumn(columnPosition: Integer): Sheet;
       autoResizeColumns(startColumn: Integer, numColumns: Integer): Sheet;
@@ -1341,6 +1650,7 @@ declare namespace GoogleAppsScript {
       collapseAllColumnGroups(): Sheet;
       collapseAllRowGroups(): Sheet;
       copyTo(spreadsheet: Spreadsheet): Sheet;
+      createDeveloperMetadataFinder(): DeveloperMetadataFinder;
       deleteColumn(columnPosition: Integer): Sheet;
       deleteColumns(columnPosition: Integer, howMany: Integer): void;
       deleteRow(rowPosition: Integer): Sheet;
@@ -1361,10 +1671,13 @@ declare namespace GoogleAppsScript {
       getConditionalFormatRules(): ConditionalFormatRule[];
       getCurrentCell(): Range;
       getDataRange(): Range;
+      getDataSourceTables(): DataSourceTable[];
+      getDeveloperMetadata(): DeveloperMetadata[];
       getFilter(): Filter;
       getFormUrl(): string;
       getFrozenColumns(): Integer;
       getFrozenRows(): Integer;
+      getImages(): OverGridImage[];
       getIndex(): Integer;
       getLastColumn(): Integer;
       getLastRow(): Integer;
@@ -1404,17 +1717,20 @@ declare namespace GoogleAppsScript {
       insertColumns(columnIndex: Integer, numColumns: Integer): void;
       insertColumnsAfter(afterPosition: Integer, howMany: Integer): Sheet;
       insertColumnsBefore(beforePosition: Integer, howMany: Integer): Sheet;
-      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer): void;
-      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): void;
-      insertImage(url: string, column: Integer, row: Integer): void;
-      insertImage(url: string, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): void;
+      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer): OverGridImage;
+      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): OverGridImage;
+      insertImage(url: string, column: Integer, row: Integer): OverGridImage;
+      insertImage(url: string, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): OverGridImage;
       insertRowAfter(afterPosition: Integer): Sheet;
       insertRowBefore(beforePosition: Integer): Sheet;
       insertRows(rowIndex: Integer): void;
       insertRows(rowIndex: Integer, numRows: Integer): void;
       insertRowsAfter(afterPosition: Integer, howMany: Integer): Sheet;
       insertRowsBefore(beforePosition: Integer, howMany: Integer): Sheet;
+      isColumnHiddenByUser(columnPosition: Integer): boolean;
       isRightToLeft(): boolean;
+      isRowHiddenByFilter(rowPosition: Integer): boolean;
+      isRowHiddenByUser(rowPosition: Integer): boolean;
       isSheetHidden(): boolean;
       moveColumns(columnSpec: Range, destinationIndex: Integer): void;
       moveRows(rowSpec: Range, destinationIndex: Integer): void;
@@ -1458,6 +1774,10 @@ declare namespace GoogleAppsScript {
      * collaborators.
      */
     export interface Spreadsheet {
+      addDeveloperMetadata(key: string): Spreadsheet;
+      addDeveloperMetadata(key: string, visibility: DeveloperMetadataVisibility): Spreadsheet;
+      addDeveloperMetadata(key: string, value: string): Spreadsheet;
+      addDeveloperMetadata(key: string, value: string, visibility: DeveloperMetadataVisibility): Spreadsheet;
       addEditor(emailAddress: string): Spreadsheet;
       addEditor(user: Base.User): Spreadsheet;
       addEditors(emailAddresses: string[]): Spreadsheet;
@@ -1468,6 +1788,7 @@ declare namespace GoogleAppsScript {
       appendRow(rowContents: Object[]): Sheet;
       autoResizeColumn(columnPosition: Integer): Sheet;
       copy(name: string): Spreadsheet;
+      createDeveloperMetadataFinder(): DeveloperMetadataFinder;
       deleteActiveSheet(): Sheet;
       deleteColumn(columnPosition: Integer): Sheet;
       deleteColumns(columnPosition: Integer, howMany: Integer): void;
@@ -1485,11 +1806,14 @@ declare namespace GoogleAppsScript {
       getColumnWidth(columnPosition: Integer): Integer;
       getCurrentCell(): Range;
       getDataRange(): Range;
+      getDataSourceTables(): DataSourceTable[];
+      getDeveloperMetadata(): DeveloperMetadata[];
       getEditors(): Base.User[];
       getFormUrl(): string;
       getFrozenColumns(): Integer;
       getFrozenRows(): Integer;
       getId(): string;
+      getImages(): OverGridImage[];
       getLastColumn(): Integer;
       getLastRow(): Integer;
       getName(): string;
@@ -1517,10 +1841,10 @@ declare namespace GoogleAppsScript {
       insertColumnBefore(beforePosition: Integer): Sheet;
       insertColumnsAfter(afterPosition: Integer, howMany: Integer): Sheet;
       insertColumnsBefore(beforePosition: Integer, howMany: Integer): Sheet;
-      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer): void;
-      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): void;
-      insertImage(url: string, column: Integer, row: Integer): void;
-      insertImage(url: string, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): void;
+      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer): OverGridImage;
+      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): OverGridImage;
+      insertImage(url: string, column: Integer, row: Integer): OverGridImage;
+      insertImage(url: string, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): OverGridImage;
       insertRowAfter(afterPosition: Integer): Sheet;
       insertRowBefore(beforePosition: Integer): Sheet;
       insertRowsAfter(afterPosition: Integer, howMany: Integer): Sheet;
@@ -1533,6 +1857,10 @@ declare namespace GoogleAppsScript {
       insertSheet(sheetName: string, sheetIndex: Integer): Sheet;
       insertSheet(sheetName: string, sheetIndex: Integer, options: Object): Sheet;
       insertSheet(sheetName: string, options: Object): Sheet;
+      insertSheetWithDataSourceTable(spec: DataSourceSpec): Sheet;
+      isColumnHiddenByUser(columnPosition: Integer): boolean;
+      isRowHiddenByFilter(rowPosition: Integer): boolean;
+      isRowHiddenByUser(rowPosition: Integer): boolean;
       moveActiveSheet(pos: Integer): void;
       removeEditor(emailAddress: string): Spreadsheet;
       removeEditor(user: Base.User): Spreadsheet;
@@ -1581,7 +1909,13 @@ declare namespace GoogleAppsScript {
       BooleanCriteria: typeof BooleanCriteria;
       BorderStyle: typeof BorderStyle;
       CopyPasteType: typeof CopyPasteType;
+      DataExecutionErrorCode: typeof DataExecutionErrorCode;
+      DataExecutionState: typeof DataExecutionState;
+      DataSourceParameterType: typeof DataSourceParameterType;
+      DataSourceType: typeof DataSourceType;
       DataValidationCriteria: typeof DataValidationCriteria;
+      DeveloperMetadataLocationType: typeof DeveloperMetadataLocationType;
+      DeveloperMetadataVisibility: typeof DeveloperMetadataVisibility;
       Dimension: typeof Dimension;
       Direction: typeof Direction;
       GroupControlTogglePosition: typeof GroupControlTogglePosition;
@@ -1595,6 +1929,8 @@ declare namespace GoogleAppsScript {
       WrapStrategy: typeof WrapStrategy;
       create(name: string): Spreadsheet;
       create(name: string, rows: Integer, columns: Integer): Spreadsheet;
+      enableAllDataSourcesExecution(): void;
+      enableBigQueryExecution(): void;
       flush(): void;
       getActive(): Spreadsheet;
       getActiveRange(): Range;
@@ -1605,8 +1941,11 @@ declare namespace GoogleAppsScript {
       getSelection(): Selection;
       getUi(): Base.Ui;
       newConditionalFormatRule(): ConditionalFormatRuleBuilder;
+      newDataSourceSpec(): DataSourceSpecBuilder;
       newDataValidation(): DataValidationBuilder;
       newFilterCriteria(): FilterCriteriaBuilder;
+      newRichTextValue(): RichTextValueBuilder;
+      newTextStyle(): TextStyleBuilder;
       open(file: Drive.File): Spreadsheet;
       openById(id: string): Spreadsheet;
       openByUrl(url: string): Spreadsheet;
@@ -1629,6 +1968,38 @@ declare namespace GoogleAppsScript {
     export interface TextRotation {
       getDegrees(): Integer;
       isVertical(): boolean;
+    }
+
+    /**
+     * The rendered style of text in a cell.
+     *
+     * Text styles can have a corresponding RichTextValue. If the RichTextValue spans multiple text runs that have different values for a given text style read
+     * method, the method returns null. To avoid this, query for text styles using the Rich Text
+     * values returned by the RichTextValue.getRuns() method.
+     */
+    export interface TextStyle {
+      copy(): TextStyleBuilder;
+      getFontFamily(): string;
+      getFontSize(): Integer;
+      getForegroundColor(): string;
+      isBold(): boolean;
+      isItalic(): boolean;
+      isStrikethrough(): boolean;
+      isUnderline(): boolean;
+    }
+
+    /**
+     * A builder for text styles.
+     */
+    export interface TextStyleBuilder {
+      build(): TextStyle;
+      setBold(bold: boolean): TextStyleBuilder;
+      setFontFamily(fontFamily: string): TextStyleBuilder;
+      setFontSize(fontSize: Integer): TextStyleBuilder;
+      setForegroundColor(cssString: string): TextStyleBuilder;
+      setItalic(italic: boolean): TextStyleBuilder;
+      setStrikethrough(strikethrough: boolean): TextStyleBuilder;
+      setUnderline(underline: boolean): TextStyleBuilder;
     }
 
     /**

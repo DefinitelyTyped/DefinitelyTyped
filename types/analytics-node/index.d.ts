@@ -1,5 +1,5 @@
-// Type definitions for Segment's analytics.js for Node.js
-// Project: https://segment.com/docs/libraries/node/
+// Type definitions for analytics-node 3.1
+// Project: https://segment.com/docs/libraries/node/, https://github.com/segmentio/analytics-node
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
 //                 Thomas Thiebaud <https://github.com/thomasthiebaud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,27 +19,29 @@ declare namespace AnalyticsNode {
     _metadata: {
       nodeVersion: string;
       [key: string]: any;
-    },
+    };
     timestamp?: Date;
     messageId?: string;
-    anonymousId: string | number;
-    userId: string | number;
+    anonymousId?: string | number;
+    userId?: string | number;
   }
 
   interface Data {
-    batch: Message[],
+    batch: Message[];
     timestamp: Date;
     sentAt: Date;
   }
 
   interface Integrations {
-    [index: string]: boolean;
+    [integration_name: string]: IntegrationValue;
   }
 
-  export class Analytics {
+  type IntegrationValue = boolean | { [integration_key: string]: any };
+
+  class Analytics {
     constructor(writeKey: string, opts?: {
       flushAt?: number,
-      flushAfter?: number,
+      flushInterval?: number,
       host?: string,
       enable?: boolean
     });
@@ -47,51 +49,55 @@ declare namespace AnalyticsNode {
     /* The identify method lets you tie a user to their actions and record
        traits about them. */
     identify(message: {
-      userId: string | number;
-      traits?: Object;
+      userId?: string | number;
+      anonymousId?: string | number;
+      traits?: any;
       timestamp?: Date;
-      context?: Object;
+      context?: any;
       integrations?: Integrations;
     }, callback?: (err: Error, data: Data) => void): Analytics;
 
     /* The track method lets you record the actions your users perform. */
     track(message: {
-      userId: string | number;
+      userId?: string | number;
+      anonymousId?: string | number;
       event: string;
-      properties?: Object;
+      properties?: any;
       timestamp?: Date;
-      context?: Object;
+      context?: any;
       integrations?: Integrations;
     }, callback?: (err: Error, data: Data) => void): Analytics;
 
     /* The page method lets you record page views on your website, along with
        optional extra information about the page being viewed. */
     page(message: {
-      userId: string | number;
+      userId?: string | number;
+      anonymousId?: string | number;
       category?: string;
       name?: string;
-      properties?: Object;
+      properties?: any;
       timestamp?: Date;
-      context?: Object;
+      context?: any;
       integrations?: Integrations;
     }, callback?: (err: Error, data: Data) => void): Analytics;
 
     /* alias is how you associate one identity with another. */
     alias(message: {
       previousId: string | number;
-      userId: string | number;
+      userId?: string | number;
+      anonymousId?: string | number;
       integrations?: Integrations;
     }, callback?: (err: Error, data: Data) => void): Analytics;
 
     /* Group calls can be used to associate individual users with shared
        accounts or companies. */
     group(message: {
-      userId: string | number;
+      userId?: string | number;
+      anonymousId?: string | number;
       groupId: string | number;
-      traits?: Object;
-      context?: Object;
+      traits?: any;
+      context?: any;
       timestamp?: Date;
-      anonymous_id?: string | number;
       integrations?: Integrations;
     }, callback?: (err: Error, data: Data) => void): Analytics;
 

@@ -2,19 +2,25 @@ import Route from '@ember/routing/route';
 import Object from '@ember/object';
 import Array from '@ember/array';
 import Ember from 'ember'; // currently needed for Transition
+import Transition from '@ember/routing/-private/transition';
 
-interface Post extends Ember.Object {}
+// Ensure that Ember.Transition is private
+Ember.Transition; // $ExpectError
+
+interface Post extends Ember.Object {
+    title: string;
+}
 
 interface Posts extends Array<Post> {}
 
 Route.extend({
-    beforeModel(transition: Ember.Transition) {
+    beforeModel(transition: Transition) {
         this.transitionTo('someOtherRoute');
     },
 });
 
 Route.extend({
-    afterModel(posts: Posts, transition: Ember.Transition) {
+    afterModel(posts: Posts, transition: Transition) {
         if (posts.length === 1) {
             this.transitionTo('post.show', posts.firstObject);
         }

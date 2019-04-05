@@ -2,16 +2,17 @@ import * as stream from "stream";
 import * as ssh2 from "ssh2-streams";
 
 declare const SERVER_KEY: string;
-declare const HOST_KEYS: { 'ssh-rsa': ssh2.HostKey };
+declare const HOST_KEY: { publicKey: ssh2.ParsedKey; privateKey: ssh2.ParsedKey };
 declare const clientBufStream: stream.Transform & { buffer: string; };
 declare const serverBufStream: stream.Transform & { buffer: string; };
 declare const parsedKey: ssh2.ParsedKey;
 declare const prompts: ssh2.Prompt[];
 declare const buffer: Buffer;
 
+const hostKeys = { 'ssh-rsa': HOST_KEY };
 const algos = ['ssh-dss', 'ssh-rsa', 'ecdsa-sha2-nistp521'];
 const client = new ssh2.SSH2Stream({ algorithms: { serverHostKey: algos } });
-const server = new ssh2.SSH2Stream({ server: true, hostKeys: HOST_KEYS });
+const server = new ssh2.SSH2Stream({ server: true, hostKeys: hostKeys });
 
 client
     .pipe(server)
@@ -86,9 +87,7 @@ server.forwardedTcpip(0, 0, 0, { bindAddr: "bindAddr", bindPort: 8080, remoteAdd
 server.x11(0, 0, 0, { originAddr: "originAddr", originPort: 0 });
 server.openssh_forwardedStreamLocal(0, 0, 0, { socketPath: "socketPath" });
 
-const maybeParsedKey = ssh2.utils.parseKey("keyData");
-ssh2.utils.decryptKey(parsedKey, "passphrase");
-const publicKey = ssh2.utils.genPublicKey(parsedKey);
+const maybeParsedKey = ssh2.utils.parseKey("keyData", "passphrase");
 
 
 declare const attrs: ssh2.Attributes;
@@ -101,4 +100,6 @@ sftp.createReadStream("path");
 sftp.createWriteStream("path");
 sftp.data(0, buffer);
 sftp.fastGet("remotePath", "localPath", () => {});
+sftp.fastGet("remotePath", "localPath", { concurrency: 64, chunkSize: 32768, step: () => {} }, () => {});
 sftp.fastPut("localPath", "remotePath", () => {});
+sftp.fastPut("localPath", "remotePath", { concurrency: 64, chunkSize: 32768, step: () => {}, mode: '0755' }, () => {});

@@ -1,7 +1,8 @@
 // Type definitions for @google-cloud/pubsub 0.18
-// Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/pubsub
+// Project: https://github.com/googleapis/nodejs-pubsub
 // Definitions by: Paul Huynh <https://github.com/pheromonez>
 //                 LunaPg <https://github.com/LunaPg>
+//                 Marco Siviero <https://github.com/msiviero>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -115,11 +116,15 @@ declare namespace PubSub {
 
     interface Publisher {
         publish(data: Buffer, callback: Publisher.PublishCallback): void;
-        publish(data: Buffer, attributes: object, callback: Publisher.PublishCallback): void;
-        publish(data: Buffer, attributes?: object): Promise<string>;
+        publish(data: Buffer, attributes: Publisher.Attributes, callback: Publisher.PublishCallback): void;
+        publish(data: Buffer, attributes?: Publisher.Attributes): Promise<string>;
     }
     namespace Publisher {
         type PublishCallback = (error: Error | null, messageId: string) => void;
+
+        interface Attributes {
+            [key: string]: string | Buffer | ArrayBuffer;
+        }
     }
 
     interface Snapshot {

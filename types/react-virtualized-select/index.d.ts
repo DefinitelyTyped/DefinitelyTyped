@@ -2,7 +2,7 @@
 // Project: https://github.com/bvaughn/react-virtualized-select
 // Definitions by: Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import { ReactSelectProps, ReactAsyncSelectProps, ReactCreatableSelectProps, LoadOptionsHandler, OptionValues } from "react-select";

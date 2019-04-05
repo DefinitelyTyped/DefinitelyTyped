@@ -1686,7 +1686,7 @@ declare module "../index" {
             object: TObject | null | undefined,
             path: TKey | [TKey],
             defaultValue: TDefault
-        ): TObject[TKey] | TDefault;
+        ): Exclude<TObject[TKey], undefined> | TDefault;
 
         /**
          * @see _.get
@@ -1763,7 +1763,7 @@ declare module "../index" {
             this: LoDashImplicitWrapper<TObject | null | undefined>,
             path: TKey | [TKey],
             defaultValue: TDefault
-        ): TObject[TKey] | TDefault;
+        ): Exclude<TObject[TKey], undefined> | TDefault;
 
         /**
          * @see _.get
@@ -1839,7 +1839,7 @@ declare module "../index" {
             this: LoDashExplicitWrapper<TObject | null | undefined>,
             path: TKey | [TKey],
             defaultValue: TDefault
-        ): LoDashExplicitWrapper<TObject[TKey] | TDefault>;
+        ): LoDashExplicitWrapper<Exclude<TObject[TKey], undefined> | TDefault>;
 
         /**
          * @see _.get
@@ -3111,10 +3111,18 @@ declare module "../index" {
          * _.pickBy(object, _.isNumber);
          * // => { 'a': 1, 'c': 3 }
          */
-        pickBy<T extends object, S extends T[keyof T]>(
-            object: T | null | undefined,
-            predicate: ObjectIteratorTypeGuard<T, S>
+        pickBy<T, S extends T>(
+            object: Dictionary<T> | null | undefined,
+            predicate: ValueKeyIterateeTypeGuard<T, S>
         ): Dictionary<S>;
+
+        /**
+         * @see _.pickBy
+         */
+        pickBy<T, S extends T>(
+            object: NumericDictionary<T> | null | undefined,
+            predicate: ValueKeyIterateeTypeGuard<T, S>
+        ): NumericDictionary<S>;
 
         /**
          * @see _.pickBy
@@ -3145,10 +3153,18 @@ declare module "../index" {
         /**
          * @see _.pickBy
          */
-        pickBy<T extends object, S extends T[keyof T]>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate: ObjectIteratorTypeGuard<T, S>
+        pickBy<T, S extends T>(
+            this: LoDashImplicitWrapper<Dictionary<T> | null | undefined>,
+            predicate: ValueKeyIterateeTypeGuard<T, S>
         ): LoDashImplicitWrapper<Dictionary<S>>;
+
+        /**
+         * @see _.pickBy
+         */
+        pickBy<T, S extends T>(
+            this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
+            predicate: ValueKeyIterateeTypeGuard<T, S>
+        ): LoDashImplicitWrapper<NumericDictionary<S>>;
 
         /**
          * @see _.pickBy
@@ -3179,10 +3195,18 @@ declare module "../index" {
         /**
          * @see _.pickBy
          */
-        pickBy<T extends object, S extends T[keyof T]>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate: ObjectIteratorTypeGuard<T, S>
+        pickBy<T, S extends T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | null | undefined>,
+            predicate: ValueKeyIterateeTypeGuard<T, S>
         ): LoDashExplicitWrapper<Dictionary<S>>;
+
+        /**
+         * @see _.pickBy
+         */
+        pickBy<T, S extends T>(
+            this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
+            predicate: ValueKeyIterateeTypeGuard<T, S>
+        ): LoDashExplicitWrapper<NumericDictionary<S>>;
 
         /**
          * @see _.pickBy

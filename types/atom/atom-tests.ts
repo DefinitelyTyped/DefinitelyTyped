@@ -557,8 +557,8 @@ function testDesializerManager() {
     }
 
     function isStorableClass(o: object): o is StorableClass {
-        if (typeof o === "object" && (<StorableClass> o).name &&
-            (<StorableClass> o).name === "test") {
+        if (typeof o === "object" && (o as StorableClass).name &&
+            (o as StorableClass).name === "test") {
             return true;
         } else {
             return false;
@@ -1747,6 +1747,14 @@ function testProject() {
 
     // Accessing the git repository
     repositories = project.getRepositories();
+
+    subscription = project.observeRepositories(gitRepo => {
+        const repo: Atom.GitRepository = gitRepo;
+    });
+
+    subscription = project.onDidAddRepository(gitRepo => {
+        const repo: Atom.GitRepository = gitRepo;
+    });
 
     async function getDirectoryRepo() {
         const potentialRepo = await project.repositoryForDirectory(dir);
@@ -3041,6 +3049,25 @@ function testTextEditor() {
     editor.addGutter({ name: "Test", priority: 42 });
     editor.addGutter({ name: "Test", visible: true });
     editor.addGutter({ name: "Test", priority: 42, visible: true });
+    editor.addGutter({ name: "Test", type: 'decorated' });
+    editor.addGutter({ name: "Test", type: 'line-number' });
+    editor.addGutter({ name: "Test", class: 'someClass' });
+    editor.addGutter({ name: "Test", labelFn(lineData) {
+        num = lineData.bufferRow;
+        num = lineData.screenRow;
+        num = lineData.maxDigits;
+        bool = lineData.foldable;
+        bool = lineData.softWrapped;
+        return 'label';
+    }});
+    editor.addGutter({ name: "Test", onMouseDown(lineData) {
+        num = lineData.bufferRow;
+        num = lineData.screenRow;
+    } });
+    editor.addGutter({ name: "Test", onMouseMove(lineData) {
+        num = lineData.bufferRow;
+        num = lineData.screenRow;
+    } });
 
     gutters = editor.getGutters();
 

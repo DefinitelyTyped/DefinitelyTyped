@@ -1,4 +1,4 @@
-import { VanillaTilt } from 'vanilla-tilt';
+import VanillaTilt, { TiltValues } from 'vanilla-tilt';
 
 const element: VanillaTilt = new VanillaTilt(document.createElement('a'), {
     axis: 'y',
@@ -24,7 +24,7 @@ VanillaTilt.init([document.createElement('a')], {
     axis: null
 });
 
-const values: VanillaTilt.TiltValues = element.getValues();
+const values: TiltValues = element.getValues();
 values.percentageX;
 values.percentageY;
 values.tiltX;

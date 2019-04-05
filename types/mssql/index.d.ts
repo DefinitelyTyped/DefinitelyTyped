@@ -7,7 +7,9 @@
 //                 Jørgen Elgaard Larsen <https://github.com/elhaard>
 //                 Peter Keuter <https://github.com/pkeuter>
 //                 David Gasperoni <https://github.com/mcdado>
+//                 Jeff Wooden <https://github.com/woodenconsulting>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -201,6 +203,7 @@ export declare class ConnectionPool extends events.EventEmitter {
     public close(): Promise<void>;
     public close(callback: (err: any) => void): void;
     public request(): Request;
+    public transaction(): Transaction;
 }
 
 export declare class ConnectionError implements Error {
@@ -279,6 +282,8 @@ export declare class Request extends events.EventEmitter {
     public bulk(table: Table): Promise<number>;
     public bulk(table: Table, callback: (err: Error, rowCount: any) => void): void;
     public cancel(): void;
+    public pause(): boolean;
+    public resume(): boolean;
 }
 
 export declare class RequestError implements Error {
@@ -286,6 +291,12 @@ export declare class RequestError implements Error {
     public name: string;
     public message: string;
     public code: string;
+    public number?: number;
+    public state?: number;
+    public class?: number;
+    public lineNumber?: number;
+    public serverName?: string;
+    public procName?: string;
 }
 
 export declare class Transaction extends events.EventEmitter {
@@ -297,6 +308,7 @@ export declare class Transaction extends events.EventEmitter {
     public commit(callback: (err?: any) => void): void;
     public rollback(): Promise<void>;
     public rollback(callback: (err?: any) => void): void;
+    public request(): Request;
 }
 
 export declare class TransactionError implements Error {
@@ -313,6 +325,7 @@ export declare class PreparedStatement extends events.EventEmitter {
     public parameters: IRequestParameters;
     public stream: any;
     public constructor(connection?: ConnectionPool);
+    public constructor(transaction: Transaction);
     public input(name: string, type: (() => ISqlType) | ISqlType): PreparedStatement;
     public output(name: string, type: (() => ISqlType) | ISqlType): PreparedStatement;
     public prepare(statement?: string): Promise<void>;

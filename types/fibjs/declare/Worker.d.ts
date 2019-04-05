@@ -47,7 +47,7 @@ declare class Class_Worker extends Class_EventEmitter {
 	 * 
 	 * 
 	 */
-	constructor(path: string, opts?: Object/** = v8::Object::New(isolate)*/);
+	constructor(path: string, opts?: object/** = v8::Object::New(isolate)*/);
 
 	/**
 	 * 

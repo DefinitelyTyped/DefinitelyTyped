@@ -4,6 +4,7 @@
         // TODOs
         "ban-types": false,
         "dt-header": false,
+        "npm-naming": false,
         "strict-export-declare-modifiers": false
     }
 }

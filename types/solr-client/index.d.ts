@@ -147,7 +147,7 @@ export interface Client {
     softCommit(callback?: (err: Error, data: object) => void): ClientRequest;
     delete(field: string, text: string, options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
     deleteByRange(field: string, start: string | Date, stop: string | Date, options?: object, callback?: (err: Error, data: object) => void): ClientRequest;
-    deleteById(id: string | number, options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
+    deleteByID(id: string | number, options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
     deleteByQuery(query: string, options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
     deleteAll(options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
     optimize(options: object, callback?: (err: Error, data: object) => void): ClientRequest;
@@ -160,6 +160,7 @@ export interface Client {
     post(handler: string, query: Query | object | string, callback?: (err: Error, data: object) => void): ClientRequest;
     escapeSpecialChars(s: string): string;
     query(): Query;
+    atomicUpdate(doc: object, callback?: (err: Error, data: object) => void): ClientRequest;
 }
 
 export as namespace Solr;

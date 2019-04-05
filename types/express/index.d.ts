@@ -31,6 +31,13 @@ declare namespace e {
     var json: typeof bodyParser.json;
 
     /**
+     * These are the exposed prototypes.
+     */
+    var application: Application;
+    var request: Request;
+    var response: Response;
+
+    /**
      * This is a built-in middleware function in Express. It serves static files and is based on serve-static.
      */
     var static: typeof serveStatic;

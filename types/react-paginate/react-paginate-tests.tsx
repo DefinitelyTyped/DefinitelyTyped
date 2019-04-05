@@ -1,5 +1,5 @@
-import * as React from "react";
-import ReactPaginate = require("react-paginate");
+import * as React from 'react';
+import ReactPaginate from 'react-paginate';
 
 class Test extends React.Component {
     render() {
@@ -12,6 +12,7 @@ class Test extends React.Component {
                 nextLabel={'next'}
                 breakLabel={'break-me'}
                 breakClassName={'break-class'}
+                breakLinkClassName={'break-link'}
                 onPageChange={(selectedItem: {selected: number}) => null}
                 initialPage={2}
                 forcePage={3}
@@ -20,6 +21,7 @@ class Test extends React.Component {
                 pageClassName={'page-li'}
                 pageLinkClassName={'page-a'}
                 activeClassName={'active'}
+                activeLinkClassName={'active'}
                 previousClassName={'previous-li'}
                 nextClassName={'next-li'}
                 previousLinkClassName={'previous-a'}

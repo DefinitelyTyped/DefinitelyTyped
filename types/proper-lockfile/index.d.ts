@@ -1,6 +1,7 @@
 // Type definitions for proper-lockfile 3.0
 // Project: https://github.com/moxystudio/node-proper-lockfile
 // Definitions by: Nikita Volodin <https://github.com/qlonik>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface LockOptions {
@@ -10,17 +11,20 @@ export interface LockOptions {
     realpath?: boolean; // default: true
     fs?: any; // default: graceful-fs
     onCompromised?: (err: Error) => any; // default: (err) => throw err
+    lockfilePath?: string; // default: `${file}.lock`
 }
 
 export interface UnlockOptions {
     realpath?: boolean; // default: true
     fs?: any; // default: graceful-fs
+    lockfilePath?: string; // default: `${file}.lock`
 }
 
 export interface CheckOptions {
     stale?: number; // default: 10000
     realpath?: boolean; // default: true
     fs?: any; // default: graceful-fs
+    lockfilePath?: string; // default: `${file}.lock`
 }
 
 export function lock(file: string, options?: LockOptions): Promise<() => Promise<void>>;

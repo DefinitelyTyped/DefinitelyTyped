@@ -41,6 +41,8 @@ declare namespace archiver {
     class ArchiverError extends Error {
         code: string;       // Since archiver format support is modular, we cannot enumerate all possible error codes, as the modules can throw arbitrary ones.
         data: any;
+        path?: any;
+
         constructor(code: string, data: any);
     }
 

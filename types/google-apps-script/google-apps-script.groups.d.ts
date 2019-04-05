@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-12-26
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,13 +16,13 @@ declare namespace GoogleAppsScript {
      *
      *     function listGroupMembers() {
      *       var group = GroupsApp.getGroupByEmail("example@googlegroups.com");
-     *       var s = group.getEmail() + ': ';
+     *       var str = group.getEmail() + ': ';
      *       var users = group.getUsers();
      *       for (var i = 0; i < users.length; i++) {
      *         var user = users[i];
-     *         s = s + user.getEmail() + ", ";
+     *         str = str + user.getEmail() + ", ";
      *       }
-     *       Logger.log(s);
+     *       Logger.log(str);
      *     }
      */
     export interface Group {

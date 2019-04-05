@@ -13,6 +13,7 @@ var pusher: Pusher.Pusher;
 //
 
 Pusher.logToConsole = true;
+Pusher.instances = [];
 
 Pusher.log = (msg) => {
     console.log(msg);
@@ -25,6 +26,8 @@ Pusher.log = (msg) => {
 pusher = new Pusher(APP_KEY, {
     authEndpoint: "http://example.com/pusher/auth"
 });
+
+console.assert(!!Pusher.instances.length, "Pusher.instances not filling with new instances");
 
 pusher = new Pusher(APP_KEY, {
     auth: {

@@ -1,8 +1,9 @@
-// Type definitions for React Router 4.2
+// Type definitions for React Router 4.3
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Huy Nguyen <https://github.com/huy-nguyen>
 //                 Philip Jackson <https://github.com/p-jackson>
+//                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -11,6 +12,7 @@ import * as React from 'react';
 import * as H from 'history';
 
 export {
+    generatePath,
     Prompt,
     MemoryRouter,
     RedirectProps,
@@ -54,7 +56,7 @@ export interface NavLinkProps extends LinkProps {
     activeStyle?: React.CSSProperties;
     exact?: boolean;
     strict?: boolean;
-    isActive?<P>(match: match<P>, location: H.Location): boolean;
+    isActive?<Params extends { [K in keyof Params]?: string }>(match: match<Params>, location: H.Location): boolean;
     location?: H.Location;
 }
 export class NavLink extends React.Component<NavLinkProps, any> {}

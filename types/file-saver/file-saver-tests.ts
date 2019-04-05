@@ -23,6 +23,17 @@ function testWindowSaveAs() {
 }
 
 /**
+ * @summary Test for "saveAs" function with URL as first argument.
+ */
+function testUrlSaveAs() {
+    const url = 'https://example.com/test.txt';
+    const filename = 'hello world.txt';
+    const disableAutoBOM = true;
+
+    window.saveAs(url, filename, disableAutoBOM);
+}
+
+/**
  * @summary Test for "saveAs" function with the 3rd parameter omitted
  */
 function testOptionalOneParamSaveAs() {

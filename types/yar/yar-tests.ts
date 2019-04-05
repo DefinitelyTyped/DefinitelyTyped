@@ -10,6 +10,10 @@ async function boot() {
                 password: 'test',
                 isSecure: true,
             },
+            cache: {
+                cache: 'test',
+                expiresIn: 123141243,
+            }
         },
     });
 
@@ -18,7 +22,10 @@ async function boot() {
         method: 'get',
         handler(request: Request) {
             const example = request.yar.get('example');
-            return example.key;
+            return {
+                id: request.yar.id,
+                key: example.key,
+            };
         },
     });
 }

@@ -28,4 +28,8 @@ declare module 'angular' {
             (options?: PromiseTrackerOptions): PromiseTracker;
         }
     }
+
+    interface IRequestShortcutConfig {
+        tracker?: angular.promisetracker.PromiseTracker | angular.promisetracker.PromiseTracker[];
+    }
 }

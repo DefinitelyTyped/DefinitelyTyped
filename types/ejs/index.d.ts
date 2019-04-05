@@ -1,5 +1,5 @@
 // Type definitions for ejs.js 2.6
-// Project: http://ejs.co/
+// Project: http://ejs.co/, https://github.com/mde/ejs
 // Definitions by: Ben Liddicott <https://github.com/benliddicott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -54,6 +54,8 @@ export type RenderFileCallback<T> = (err: Error, str?: string) => T;
 export function renderFile<T>(path: string, cb: RenderFileCallback<T>): T;
 export function renderFile<T>(path: string, data: Data, cb: RenderFileCallback<T>): T;
 export function renderFile<T>(path: string, data: Data, opts: Options, cb: RenderFileCallback<T>): T;
+// tslint:disable-next-line no-unnecessary-generics
+export function renderFile<T>(path: string, data?: Data, opts?: Options): Promise<T>;
 
 /**
  * Clear intermediate JavaScript cache. Calls {@link Cache#reset}.

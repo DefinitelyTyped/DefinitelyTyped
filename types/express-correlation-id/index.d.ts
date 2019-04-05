@@ -11,4 +11,4 @@ declare const correlator: {
     getId(): string | undefined;
 };
 
-export default correlator;
+export = correlator;

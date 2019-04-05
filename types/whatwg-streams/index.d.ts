@@ -12,9 +12,9 @@ export interface ReadableStreamSource<R = ArrayBufferView> {
     cancel?(reason: any): void | Promise<any>;
 }
 
-export interface ReadableByteStreamSource<R = ArrayBufferView> {
-    start?(controller: ReadableByteStreamController<R>): void | Promise<any>;
-    pull?(controller: ReadableByteStreamController<R>): void | Promise<any>;
+export interface ReadableByteStreamSource {
+    start?(controller: ReadableByteStreamController): void | Promise<any>;
+    pull?(controller: ReadableByteStreamController): void | Promise<any>;
     cancel?(reason: any): void | Promise<any>;
 
     type: "bytes";
@@ -37,9 +37,14 @@ export interface WritableReadablePair<T extends WritableStream<any>, U extends R
     readable: U;
 }
 
+export interface ReadResult<T> {
+    done: boolean;
+    value: T;
+}
+
 declare class ReadableStream<R = ArrayBufferView> {
     constructor(underlyingSource?: ReadableStreamSource<R>, strategy?: QueuingStrategy<R>);
-    constructor(underlyingSource?: ReadableByteStreamSource<R>, strategy?: QueuingStrategy<R>);
+    constructor(underlyingSource?: ReadableByteStreamSource, strategy?: QueuingStrategy<R>);
 
     readonly locked: boolean;
 
@@ -57,7 +62,7 @@ declare class ReadableStreamDefaultReader<R = ArrayBufferView> {
     readonly closed: Promise<void>;
 
     cancel(reason: any): Promise<void>;
-    read(): Promise<IteratorResult<R>>;
+    read(): Promise<ReadResult<R>>;
     releaseLock(): void;
 }
 
@@ -67,7 +72,7 @@ declare class ReadableStreamBYOBReader<R = ArrayBufferView> {
     readonly closed: Promise<void>;
 
     cancel(reason: any): Promise<void>;
-    read<T extends ArrayBufferView>(view: T): Promise<IteratorResult<T>>;
+    read<T extends ArrayBufferView>(view: T): Promise<ReadResult<T>>;
     releaseLock(): void;
 }
 
@@ -79,17 +84,17 @@ declare class ReadableStreamDefaultController<R = ArrayBufferView> {
     error(e: any): void;
 }
 
-declare class ReadableByteStreamController<R = ArrayBufferView> {
-    readonly byobRequest: ReadableStreamBYOBRequest<R>;
+declare class ReadableByteStreamController {
+    readonly byobRequest: ReadableStreamBYOBRequest | undefined;
     readonly desiredSize: number | null;
 
     close(): void;
-    enqueue(chunk: R): void;
+    enqueue(chunk: ArrayBufferView): void;
     error(e: any): void;
 }
 
-declare class ReadableStreamBYOBRequest<R = ArrayBufferView> {
-    readonly view: R;
+declare class ReadableStreamBYOBRequest {
+    readonly view: Uint8Array;
 
     respond(bytesWritten: number): void;
     respondWithNewView(view: ArrayBufferView): void;

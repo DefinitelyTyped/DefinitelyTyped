@@ -7,7 +7,11 @@ declare namespace IntroJs {
     interface Step {
         intro: string;
         element?: string|HTMLElement|Element;
-        position?: string;
+        position?: "top"|"left"|"right"|"bottom"|"bottom-left-aligned"|"bottom-middle-aligned"|"bottom-right-aligned"|"auto";
+        tooltipClass?: string;
+        highlightClass?: string;
+        scrollTo?: "off"|"tooltip"|"element";
+        disableInteraction?: boolean;
     }
 
     interface Hint {

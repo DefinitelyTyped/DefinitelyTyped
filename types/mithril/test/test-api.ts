@@ -116,7 +116,7 @@ const FRAME_BUDGET = 100;
 
 {
 	// define a component
-	const Greeter: m.Comp<{ style: string }, {}> = {
+	const Greeter: m.Comp<{ style: string }> = {
 		view(vnode) {
 			return m("div", vnode.attrs, ["Hello ", vnode.children]);
 		}
@@ -191,7 +191,7 @@ const FRAME_BUDGET = 100;
 ////////////////////////////////////////////////////////////////////////////////
 
 {
-	const Fader: m.Comp<{}, {}> = {
+	const Fader: m.Comp = {
 		onbeforeremove(vnode) {
 			vnode.dom.classList.add("fade-out");
 			return new Promise(resolve => {
@@ -227,7 +227,7 @@ const FRAME_BUDGET = 100;
 		}
 	};
 
-	const Form: m.Comp<{term: string}, {}> = {
+	const Form: m.Comp<{term: string}> = {
 		oninit(vnode) {
 			state.term = vnode.attrs.term || ""; // populated from the `history.state` property if the user presses the back button
 		},
@@ -239,7 +239,7 @@ const FRAME_BUDGET = 100;
 		}
 	};
 
-	const Layout: m.Comp<{}, {}> = {
+	const Layout: m.Comp = {
 		view(vnode) {
 			return m(".layout", vnode.children);
 		}

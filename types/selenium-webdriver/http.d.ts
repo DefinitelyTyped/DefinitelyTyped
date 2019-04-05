@@ -14,15 +14,15 @@ export function headersToString(headers: any): string;
  * @final
  */
 export class Request {
-    /**
-     * @param {string} method The HTTP method to use for the request.
-     * @param {string} path The path on the server to send the request to.
-     * @param {Object=} opt_data This request's non-serialized JSON payload data.
-     */
-    constructor(method: string, path: string, opt_data?: Object);
+  /**
+   * @param {string} method The HTTP method to use for the request.
+   * @param {string} path The path on the server to send the request to.
+   * @param {Object=} opt_data This request's non-serialized JSON payload data.
+   */
+  constructor(method: string, path: string, opt_data?: Object);
 
-    /** @override */
-    toString(): string;
+  /** @override */
+  toString(): string;
 }
 
 /**
@@ -30,16 +30,16 @@ export class Request {
  * @final
  */
 export class Response {
-    /**
-     * @param {number} status The response code.
-     * @param {!Object<string>} headers The response headers. All header names
-     *     will be converted to lowercase strings for consistent lookups.
-     * @param {string} body The response body.
-     */
-    constructor(status: number, headers: Object, body: string);
+  /**
+   * @param {number} status The response code.
+   * @param {!Object<string>} headers The response headers. All header names
+   *     will be converted to lowercase strings for consistent lookups.
+   * @param {string} body The response body.
+   */
+  constructor(status: number, headers: Object, body: string);
 
-    /** @override */
-    toString(): string;
+  /** @override */
+  toString(): string;
 }
 
 export function post(path: string): any;
@@ -51,25 +51,25 @@ export function resource(method: string, path: string): any;
  * A basic HTTP client used to send messages to a remote end.
  */
 export class HttpClient {
-    /**
-     * @param {string} serverUrl URL for the WebDriver server to send commands to.
-     * @param {http.Agent=} opt_agent The agent to use for each request.
-     *     Defaults to `http.globalAgent`.
-     * @param {?string=} opt_proxy The proxy to use for the connection to the
-     *     server. Default is to use no proxy.
-     */
-    constructor(serverUrl: string, opt_agent?: any, opt_proxy?: string);
+  /**
+   * @param {string} serverUrl URL for the WebDriver server to send commands to.
+   * @param {http.Agent=} opt_agent The agent to use for each request.
+   *     Defaults to `http.globalAgent`.
+   * @param {?string=} opt_proxy The proxy to use for the connection to the
+   *     server. Default is to use no proxy.
+   */
+  constructor(serverUrl: string, opt_agent?: any, opt_proxy?: string);
 
-    /**
-     * Sends a request to the server. The client will automatically follow any
-     * redirects returned by the server, fulfilling the returned promise with the
-     * final response.
-     *
-     * @param {!HttpRequest} httpRequest The request to send.
-     * @return {!promise.Promise<HttpResponse>} A promise that will be fulfilled
-     *     with the server's response.
-     */
-    send(httpRequest: Request): webdriver.promise.Promise<Response>;
+  /**
+   * Sends a request to the server. The client will automatically follow any
+   * redirects returned by the server, fulfilling the returned promise with
+   * the final response.
+   *
+   * @param {!HttpRequest} httpRequest The request to send.
+   * @return {!Promise<HttpResponse>} A promise that will be fulfilled
+   *     with the server's response.
+   */
+  send(httpRequest: Request): Promise<Response>;
 }
 
 /**
@@ -81,7 +81,8 @@ export class HttpClient {
  * @param {?string=} opt_data The data to send with the request.
  * @param {?string=} opt_proxy The proxy server to use for the request.
  */
-export function sendRequest(options: Object, onOk: any, onError: any, opt_data?: string, opt_proxy?: string): any;
+export function sendRequest(
+    options: Object, onOk: any, onError: any, opt_data?: string, opt_proxy?: string): any;
 
 /**
  * A command executor that communicates with the server using HTTP + JSON.
@@ -97,30 +98,30 @@ export function sendRequest(options: Object, onOk: any, onError: any, opt_data?:
  * @implements {cmd.Executor}
  */
 export class Executor {
-    /**
-     * @param {!(HttpClient|IThenable<!HttpClient>)} client The client to use for sending
-     *     requests to the server, or a promise-like object that will resolve to
-     *     to the client.
-     */
-    constructor(client: HttpClient | webdriver.promise.IThenable<HttpClient>);
+  /**
+   * @param {!(HttpClient|IThenable<!HttpClient>)} client The client to use for sending
+   *     requests to the server, or a promise-like object that will resolve to
+   *     to the client.
+   */
+  constructor(client: HttpClient|Promise<HttpClient>);
 
-    /**
-     * Defines a new command for use with this executor. When a command is sent,
-     * the {@code path} will be preprocessed using the command's parameters; any
-     * path segments prefixed with ':' will be replaced by the parameter of the
-     * same name. For example, given '/person/:name' and the parameters
-     * '{name: 'Bob'}', the final command path will be '/person/Bob'.
-     *
-     * @param {string} name The command name.
-     * @param {string} method The HTTP method to use when sending this command.
-     * @param {string} path The path to send the command to, relative to
-     *     the WebDriver server's command root and of the form
-     *     '/path/:variable/segment'.
-     */
-    defineCommand(name: string, method: string, path: string): void;
+  /**
+   * Defines a new command for use with this executor. When a command is sent,
+   * the {@code path} will be preprocessed using the command's parameters; any
+   * path segments prefixed with ':' will be replaced by the parameter of the
+   * same name. For example, given '/person/:name' and the parameters
+   * '{name: 'Bob'}', the final command path will be '/person/Bob'.
+   *
+   * @param {string} name The command name.
+   * @param {string} method The HTTP method to use when sending this command.
+   * @param {string} path The path to send the command to, relative to
+   *     the WebDriver server's command root and of the form
+   *     '/path/:variable/segment'.
+   */
+  defineCommand(name: string, method: string, path: string): void;
 
-    /** @override */
-    execute(command: any): any;
+  /** @override */
+  execute(command: any): any;
 }
 
 /**

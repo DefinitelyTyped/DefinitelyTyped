@@ -1,8 +1,8 @@
 // Type definitions for qrcode.react 0.8
-// Project: https://github.com/zpao/qrcode.react
+// Project: https://github.com/zpao/qrcode.react, http://zpao.github.io/qrcode.react
 // Definitions by: Mleko <https://github.com/mleko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 
