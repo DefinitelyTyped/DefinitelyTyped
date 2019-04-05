@@ -1,16 +1,22 @@
-// Type definitions for html-validator
+// Type definitions for html-validator 4.0
 // Project: https://github.com/zrrrzzt/html-validator
 // Definitions by: Takesi Tokugawa <https://github.com/TokugawaTakesi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
+/**
+ * If desired validation format is 'json', really not json, JavaScript object (parsed object will be returned)
+ */
 declare function HtmlValidator(
     options:
         HtmlValidator.OptionsForHtmlFileAsValidationTargetAndObjectAsResults |
         HtmlValidator.OptionsForExternalUrlAsValidationTargetAndObjectAsResults
 ): Promise<HtmlValidator.ValidationResultsAsParsedJSON>;
 
+/**
+ * If desired validation format is not json, string will be returned;
+ */
 declare function HtmlValidator(
     options:
         HtmlValidator.OptionsForHtmlFileAsValidationTargetAndTextAsResults |
@@ -18,17 +24,18 @@ declare function HtmlValidator(
 ): Promise<string>;
 
 declare namespace HtmlValidator {
-
     interface BasicOptions {
         validator?: Object;
-        ignore?: string | Array<string>;
+        ignore?: string | string[];
         isLocal?: boolean;
     }
 
+    // Validation target is html file
     interface OptionsForHtmlFileAsValidationTarget extends BasicOptions {
         data: string;
     }
 
+    // Validation target is url
     interface OptionsForExternalUrlAsValidationTarget extends BasicOptions {
         url: string;
     }
@@ -50,7 +57,7 @@ declare namespace HtmlValidator {
     }
 
     interface ValidationResultsAsParsedJSON {
-      messages: Array<ValidationMessageObject>;
+      messages: ValidationMessageObject[];
     }
 
     interface ValidationMessageObject {
