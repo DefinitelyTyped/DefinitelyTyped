@@ -14,6 +14,7 @@
 //                 Alexandros Dorodoulis <https://github.com/alexdor>
 //                 Manuel Heidrich <https://github.com/mahnuh>
 //                 Conrad Holtzhausen <https://github.com/Conrad777>
+//                 Adrián Caballero <https://github.com/adripanico>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
