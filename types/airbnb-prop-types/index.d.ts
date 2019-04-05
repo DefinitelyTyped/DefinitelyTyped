@@ -28,7 +28,7 @@ export interface ReactRefLike<T> {
     readonly current: T | null;
 }
 
-export type ReactLegacyRefLike<T> = (instance: T | null) => void | ReactRefLike<T>;
+export type ReactLegacyRefLike<T> = ((instance: T | null) => void) | ReactRefLike<T>;
 
 export interface Specifier<T = any> {
     max?: number;
