@@ -66,7 +66,7 @@ declare module 'pdfmake/build/pdfmake' {
         FOLIO = 'FOLIO',
         LEGAL = 'LEGAL',
         LETTER = 'LETTER',
-        TABLOID = 'TABLOID'
+        TABLOID = 'TABLOID',
     }
 
     enum PageOrientation {
@@ -153,7 +153,7 @@ declare module 'pdfmake/build/pdfmake' {
     }
 
     interface Content {
-        style?: 'string';
+        style?: Style;
         margin?: Margins;
         text?: string | string[] | Content[];
         columns?: Content[];
@@ -177,10 +177,15 @@ declare module 'pdfmake/build/pdfmake' {
         footer?: TDocumentHeaderFooterFunction;
         content: string | Content;
         styles?: Style;
-        pageSize?: PageSize;
+        pageSize?: PageSize | TCustomPageSize;
         pageOrientation?: PageOrientation;
         pageMargins?: Margins;
         defaultStyle?: Style;
+    }
+
+    interface TCustomPageSize {
+        width: number,
+        height: number
     }
 
     type CreatedPdfParams = (
