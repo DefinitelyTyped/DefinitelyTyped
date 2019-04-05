@@ -186,7 +186,7 @@ declare module 'jspdf' {
             stroke():void;
             fill():void;
             translate(x:number, y:number):void;
-            measureText(text:string):number;
+            measureText(text:string):{ width: number };
         };
 
         // jsPDF plugin: fromHTML
