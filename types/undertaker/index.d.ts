@@ -19,11 +19,18 @@ declare namespace Undertaker {
         [arg: string]: string;
     }
 
-    interface TaskFunction extends TaskFunctionParams {
+    interface TaskFunctionBase {
         (done: (error?: any) => void): void | Duplex | NodeJS.Process | Promise<never> | any;
     }
 
+    interface TaskFunction extends TaskFunctionBase, TaskFunctionParams {}
+
     type Task = string | TaskFunction;
+
+    interface TaskFunctionWrapped extends TaskFunctionBase {
+        displayName: string;
+        unwrap(): TaskFunction;
+    }
 
     interface TreeOptions {
         /**
@@ -50,10 +57,10 @@ declare class Undertaker extends EventEmitter {
     constructor(registry?: Registry);
 
     /**
-     * Returns the registered function.
+     * Returns the wrapped registered function.
      * @param taskName - Task name.
      */
-    task(taskName: string): Undertaker.TaskFunction;
+    task(taskName: string): Undertaker.TaskFunctionWrapped;
 
     /**
      * Register the task by the taskName.
