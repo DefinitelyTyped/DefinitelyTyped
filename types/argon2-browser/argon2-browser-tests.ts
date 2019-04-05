@@ -24,11 +24,11 @@ const verifyMandatoryOptions: argon2.VerifyOptions = {
   (await argon2.hash({ ...hashMandatoryOptions, type: argon2.ArgonType.Argon2i })).encoded; // $ExpectType string
   (await argon2.hash({ ...hashMandatoryOptions, type: argon2.ArgonType.Argon2id })).encoded; // $ExpectType string
 
-  await argon2.verify(verifyMandatoryOptions);
-  await argon2.verify({...verifyMandatoryOptions, encoded: new Uint8Array([0, 1, 2, 3])});
+  await argon2.verify(verifyMandatoryOptions); // $ExpectType void
+  await argon2.verify({...verifyMandatoryOptions, encoded: new Uint8Array([0, 1, 2, 3])}); // $ExpectType void
 
-  await argon2.verify({ ...verifyMandatoryOptions, distPath: 'path' });
-  await argon2.verify({ ...verifyMandatoryOptions, type: argon2.ArgonType.Argon2d });
-  await argon2.verify({ ...verifyMandatoryOptions, type: argon2.ArgonType.Argon2i });
-  await argon2.verify({ ...verifyMandatoryOptions, type: argon2.ArgonType.Argon2id });
+  await argon2.verify({ ...verifyMandatoryOptions, distPath: 'path' }); // $ExpectType void
+  await argon2.verify({ ...verifyMandatoryOptions, type: argon2.ArgonType.Argon2d }); // $ExpectType void
+  await argon2.verify({ ...verifyMandatoryOptions, type: argon2.ArgonType.Argon2i }); // $ExpectType void
+  await argon2.verify({ ...verifyMandatoryOptions, type: argon2.ArgonType.Argon2id }); // $ExpectType void
 })();
