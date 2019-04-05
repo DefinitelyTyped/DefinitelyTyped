@@ -7,11 +7,11 @@
 /// <reference types="jquery" />
 
 interface JQuery {
-    typeahead<T>(options: RunningCoder.Typeahead.Options): JQuery;
+    typeahead(options: RunningCoder.Typeahead.Options): JQuery
 }
 
 interface JQueryStatic {
-    typeahead<T>(options: RunningCoder.Typeahead.Options): JQuery;
+    typeahead(options: RunningCoder.Typeahead.Options): JQuery
 }
 
 declare namespace RunningCoder.Typeahead {
