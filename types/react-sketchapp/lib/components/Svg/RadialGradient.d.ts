@@ -12,7 +12,7 @@ export interface RadialGradientProps {
     r?: NumberProp;
     gradientUnits?: 'objectBoundingBox' | 'userSpaceOnUse';
     id: string;
-    children?: React.ReactChild[];
+    children?: React.ReactChild[] | React.ReactChild;
 }
 
 export default class RadialGradient extends React.Component<

@@ -243,7 +243,7 @@ export class Text extends React.Component<TextProps, any> {}
 // View
 export interface ViewProps {
     name?: string;
-    children?: React.ReactChild[];
+    children?: React.ReactChild[] | React.ReactChild;
     style?: Style | StyleReference;
 }
 /** View primitives */
