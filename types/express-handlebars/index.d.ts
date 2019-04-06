@@ -26,6 +26,10 @@ interface ExphbsOptions {
     compilerOptions?: any;
 }
 
+interface ExphbsCallback {
+    (err: any, content?: string): void;
+}
+
 interface Exphbs {
     engine: Function;
     extname: string;
@@ -36,7 +40,7 @@ interface Exphbs {
     getTemplate(filePath: string, options?: PartialTemplateOptions): Promise<Function>;
     getTemplates(dirPath: string, options?: PartialTemplateOptions): Promise<Object>;
     render(filePath: string, context: Object, options?: RenderOptions): Promise<string>;
-    renderView(viewPath: string, optionsOrCallback: any, callback?: () => string): void;
+    renderView(viewPath: string, optionsOrCallback: ExphbsCallback | any, callback?: ExphbsCallback): void;
 }
 
 interface ExpressHandlebars {
