@@ -26,7 +26,7 @@ const commonData1 = [
   { amount: 3, yield: 3, error: 0 },
   { amount: 4, yield: 2, error: 0.1 },
   { amount: 5, yield: 1, error: 1.5 }
-]
+];
 
 const commonData2 = [
   { x: 1, y: 1 },
@@ -35,7 +35,7 @@ const commonData2 = [
   { x: 4, y: 3 },
   { x: 5, y: 2 },
   { x: 6, y: 5 }
-]
+];
 
 // VictoryAnimation test
 let test = (
@@ -662,7 +662,7 @@ test = (
   <VictoryChart
     animate={{ duration: 2000, easing: "bounce" }}
   />
-)
+);
 
 // VictoryLegend test
 
