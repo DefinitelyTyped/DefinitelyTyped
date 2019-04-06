@@ -13,6 +13,8 @@ import {
 } from 'react-sketchapp';
 
 import Circle from './lib/components/Svg/Circle';
+import Path from './lib/components/Svg/Path';
+import Rect from './lib/components/Svg/Rect';
 
 // the styles object should be a mapped typed mapping the keys of the object literal to numbers
 const styles = StyleSheet.create({
@@ -75,6 +77,8 @@ const shouldBe1 = Platform.Version;
 
 const svg = () => (
     <Svg viewBox="0 0 24 24">
+        <Rect x="0" y="0" width="24" height="24" fill="black" />
         <Circle cx="12" cy="12" r="6" fill="#ff0000" />
+        <Path d="M10 10 H 14 L 12 14 L 10 10" />
     </Svg>
 );
