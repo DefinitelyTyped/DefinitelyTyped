@@ -462,7 +462,7 @@ interface HandlerContext extends MatchContext {
  * The "handler" callback is called when a service worker's fetch event has been matched by a Route. This callback should return a Promise that resolves with a Response.
  * If a value is returned by the match callback it will be passed in as the context.params argument.
  */
-type HandlerCallback = (context: HandlerContext) => Promise<Response>;
+type HandlerCallback = CacheStrategy|((context: HandlerContext) => Promise<Response>);
 
 /**
  * ===== NavigationRoute =====
