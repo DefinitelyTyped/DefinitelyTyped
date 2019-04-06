@@ -6,10 +6,13 @@ import {
     Text,
     StyleSheet,
     TextStyles,
+    Svg,
     render,
     renderToJSON,
     Platform,
 } from 'react-sketchapp';
+
+import Circle from './lib/components/Svg/Circle';
 
 // the styles object should be a mapped typed mapping the keys of the object literal to numbers
 const styles = StyleSheet.create({
@@ -69,3 +72,9 @@ TextStyles.create(context as any, {
 
 const shouldBeSketch = Platform.OS;
 const shouldBe1 = Platform.Version;
+
+const svg = () => (
+    <Svg viewBox="0 0 24 24">
+        <Circle cx="12" cy="12" r="6" fill="#ff0000" />
+    </Svg>
+);
