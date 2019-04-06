@@ -86,3 +86,9 @@ max.setFullYear(new Date().getFullYear() + 15);
 date = chance.date({min, max});
 date = chance.date({min});
 date = chance.date({max});
+
+const language: string = chance.locale();
+const region: string = chance.locale({region: true});
+
+const languages: string = chance.locales();
+const regions: string = chance.locales({region: true});
