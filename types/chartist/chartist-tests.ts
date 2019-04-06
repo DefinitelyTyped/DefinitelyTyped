@@ -197,6 +197,7 @@ new Chartist.Bar('.ct-chart', {
 }, {
     // Default mobile configuration
     stackBars: true,
+    stackMode: 'accumulate',
     axisX: {
         labelInterpolationFnc: (value: string) => {
             return value.split(/\s+/).map((word: string) => {
@@ -343,6 +344,7 @@ chart2.on('draw', (data: any) => {
             style: 'fill-opacity: 1'
         }, 'ct-area');
 
+        triangle.attr({ style: 'fill-opacity: .5' });
         // With data.element we get the Chartist SVG wrapper and we can replace the original point drawn by Chartist with our newly created triangle
         data.element.replace(triangle);
     }
@@ -483,3 +485,53 @@ new Chartist.Candle('.ct-chart', {
         }
     }
 });
+
+
+// Create a simple bar chart and line chart with two dimensional arrays
+new Chartist.Bar('.ct-chart', {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    series: [
+        [
+            {value: 1},
+            {value: 2},
+            {value: 3},
+            {value: 4},
+            {value: 5},
+            {value: 6},
+            {value: 7}
+        ],
+        [
+            {value: 7},
+            {value: 6},
+            {value: 5},
+            {value: 4},
+            {value: 3},
+            {value: 2},
+            {value: 1}
+        ]
+    ]
+}, {})
+
+new Chartist.Line('.ct-chart', {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    series: [
+        [
+            {value: 1},
+            {value: 2},
+            {value: 3},
+            {value: 4},
+            {value: 5},
+            {value: 6},
+            {value: 7}
+        ],
+        [
+            {value: 7},
+            {value: 6},
+            {value: 5},
+            {value: 4},
+            {value: 3},
+            {value: 2},
+            {value: 1}
+        ]
+    ]
+}, {})

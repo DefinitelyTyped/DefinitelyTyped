@@ -1,5 +1,5 @@
 // Type definitions for pg 7.4
-// Project: https://github.com/brianc/node-postgres
+// Project: http://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <https://github.com/pspeter3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -17,6 +17,8 @@ export interface ConnectionConfig {
     host?: string;
     connectionString?: string;
     keepAlive?: boolean;
+    stream?: stream.Duplex;
+    statement_timeout?: false | number;
 }
 
 export interface Defaults extends ConnectionConfig {
@@ -27,10 +29,10 @@ export interface Defaults extends ConnectionConfig {
     parseInt8?: boolean;
 }
 
-import { TlsOptions } from "tls";
+import { ConnectionOptions } from "tls";
 
 export interface ClientConfig extends ConnectionConfig {
-    ssl?: boolean | TlsOptions;
+    ssl?: boolean | ConnectionOptions;
 }
 
 export interface PoolConfig extends ClientConfig {
@@ -48,6 +50,10 @@ export interface QueryConfig {
     name?: string;
     text: string;
     values?: any[];
+}
+
+export interface Submittable {
+    submit: (connection: Connection) => void;
 }
 
 export interface QueryArrayConfig extends QueryConfig {
@@ -89,6 +95,48 @@ export interface ResultBuilder extends QueryResult {
     addRow(row: any): void;
 }
 
+export interface QueryParse {
+    name: string;
+    text: string;
+    types: string[];
+}
+
+export interface BindConfig {
+    portal?: string;
+    statement?: string;
+    binary?: string;
+    values?: Array<(Buffer | null | undefined | string)>;
+}
+
+export interface ExecuteConfig {
+    portal?: string;
+    rows?: string;
+}
+
+export interface MessageConfig {
+    type: string;
+    name?: string;
+}
+
+export class Connection extends events.EventEmitter {
+    readonly stream: stream.Duplex;
+
+    constructor(config?: ConnectionConfig);
+
+    bind(config: BindConfig | null, more: boolean): void;
+    execute(config: ExecuteConfig | null, more: boolean): void;
+    parse(query: QueryParse, more: boolean): void;
+
+    query(text: string): void;
+
+    describe(msg: MessageConfig, more: boolean): void;
+    close(msg: MessageConfig, more: boolean): void;
+
+    flush(): void;
+    sync(): void;
+    end(): void;
+}
+
 export class Pool extends events.EventEmitter {
     // `new Pool('pg://user@localhost/mydb')` is not allowed.
     // But it passes type check because of issue:
@@ -105,8 +153,8 @@ export class Pool extends events.EventEmitter {
     end(): Promise<void>;
     end(callback: () => void): void;
 
-    query(queryStream: QueryConfig & stream.Readable): stream.Readable;
-    query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
+    query<T extends Submittable>(queryStream: T): T;
+    query(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
     query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
     query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
@@ -123,8 +171,8 @@ export class ClientBase extends events.EventEmitter {
     connect(): Promise<void>;
     connect(callback: (err: Error) => void): void;
 
-    query(queryStream: QueryConfig & stream.Readable): stream.Readable;
-    query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
+    query<T extends Submittable>(queryStream: T): T;
+    query(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
     query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
     query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
@@ -158,7 +206,9 @@ export interface PoolClient extends ClientBase {
     release(err?: Error): void;
 }
 
-export class Query extends events.EventEmitter {
+export class Query extends events.EventEmitter implements Submittable {
+    constructor(queryTextOrConfig?: string | QueryConfig, values?: any[]);
+    submit: (connection: Connection) => void;
     on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "end", listener: (result: ResultBuilder) => void): this;

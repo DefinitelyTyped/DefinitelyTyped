@@ -1,6 +1,16 @@
 import Sequelize = require("sequelize");
 import Q = require('q');
 import Bluebird = require('bluebird');
+import SequelizeAsDefault from 'sequelize';
+import { Sequelize as SequelizeAsIndividualExport } from 'sequelize';
+
+//
+// Import checks
+// ~~~~~~~~~~~~~
+//
+Sequelize.Model.Instance
+SequelizeAsDefault.Model.Instance
+SequelizeAsIndividualExport.Model.Instance
 
 //
 //  Fixtures
@@ -31,14 +41,26 @@ s.transaction().then( ( a ) => t = a );
 // ~~~~~~~~~~
 //
 
-interface GUserAttributes {
-    id? : number;
+interface GUserCreationAttributes {
+    id? : number
     username? : string;
+    email: string;
 }
 
-interface GUserInstance extends Sequelize.Instance<GUserAttributes> {}
-var GUser = s.define<GUserInstance, GUserAttributes>( 'user', { id: Sequelize.INTEGER, username : Sequelize.STRING });
-GUser.create({ id : 1, username : 'one' }).then( ( guser ) => guser.save() );
+interface GUserAttributes {
+    id : number;
+    username? : string;
+    email: string;
+}
+
+interface GUserInstance extends Sequelize.Instance<GUserAttributes>, GUserAttributes {}
+const GUser = s.define<GUserInstance, GUserAttributes, GUserCreationAttributes>('user', {
+    id: Sequelize.INTEGER,
+    username: Sequelize.STRING,
+    email: Sequelize.STRING
+});
+GUser.create({ id : 1, username : 'one', email: 'one@lol.com' }).then((guser) => guser.save());
+GUser.create({ email: 'two@lol.com' }).then((guser) => guser.save())
 
 var schema : Sequelize.DefineAttributes = {
     key : { type : Sequelize.STRING, primaryKey : true },
@@ -215,7 +237,7 @@ barcode.setProduct(product, { save: true }).then(() => { });
 
 barcode.createProduct();
 barcode.createProduct({ id: 1, name: 'Crowbar' });
-barcode.createProduct({ id: 1 }, { save: true, silent: true }).then((product) => { });
+barcode.createProduct({ id: 1 }, { save: true, silent: true }).then((product: ProductInstance) => { });
 
 product.getWarehouse();
 product.getWarehouse({ scope: null }).then(w => w.capacity);
@@ -233,6 +255,13 @@ product.createWarehouse({ id: 1 }, { save: true, silent: true }).then(() => { })
 warehouse.getProducts();
 warehouse.getProducts({ where: {}, scope: false });
 warehouse.getProducts({ where: {}, scope: false }).then((products) => products[0].id);
+
+interface ProductInstanceIncludeBarcode extends ProductInstance {
+    barcode: BarcodeInstance
+}
+warehouse.getProducts({ where: {}, scope: false, include: {model: Barcode, as: 'barcode'} }).then((products) => {
+    (products[0] as ProductInstanceIncludeBarcode).barcode
+});
 
 warehouse.setProducts();
 warehouse.setProducts([product]);
@@ -360,7 +389,7 @@ interface ProductInstance extends Sequelize.Instance<ProductAttributes>, Product
     // belongsTo association mixins:
     getWarehouse: Sequelize.BelongsToGetAssociationMixin<WarehouseInstance>;
     setWarehouse: Sequelize.BelongsToSetAssociationMixin<WarehouseInstance, number>;
-    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes>;
+    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes, WarehouseInstance>;
 };
 
 interface BarcodeAttributes {
@@ -373,7 +402,7 @@ interface BarcodeInstance extends Sequelize.Instance<BarcodeAttributes>, Barcode
     // belongsTo association mixins:
     getProduct: Sequelize.BelongsToGetAssociationMixin<ProductInstance>;
     setProduct: Sequelize.BelongsToSetAssociationMixin<ProductInstance, number>;
-    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes>;
+    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes, ProductInstance>;
 };
 
 interface WarehouseAttributes {
@@ -828,10 +857,13 @@ user.changed( 'name' );
 user.changed();
 
 user.previous( 'name' );
+user.previous();
 
 user.save().then( ( p ) => p );
 user.save( { fields : ['a'] } ).then( ( p ) => p );
 user.save( { transaction : t } );
+user.save( { hooks: false } );
+user.save( { hooks: true } );
 
 user.reload();
 user.reload( { attributes : ['bNumber'] } );
@@ -914,6 +946,9 @@ User.findAll( { include : [{ model : Task, paranoid: false }] } );
 User.findAll( { transaction : t } );
 User.findAll( { where : { data : { name : { last : 's' }, employment : { $ne : 'a' } } }, order : [['id', 'ASC']] } );
 User.findAll( { where : { username : ['boo', 'boo2'] } } );
+User.findAll( { where : { username : Buffer.from("a name") } } );
+User.findAll( { where : { username : [Buffer.from("a name")] } } );
+User.findAll( { where : { username : [true] } } );
 User.findAll( { where : { username : { like : '%2' } } } );
 User.findAll( { where : { theDate : { '..' : ['2013-01-02', '2013-01-11'] } } } );
 User.findAll( { where : { intVal : { '!..' : [8, 10] } } } );
@@ -940,6 +975,8 @@ User.findAll( { where : { user_id : 1 }, attributes : ['a', 'b'], include : [{ m
 User.findAll( { order : s.literal( 'email =' ) } );
 User.findAll( { order : [s.literal( 'email = ' + s.escape( 'test@sequelizejs.com' ) )] } );
 User.findAll( { order : [['id', ';DELETE YOLO INJECTIONS']] } );
+User.findAll( { order : s.random() } );
+User.findAll( { order : [s.random()] } );
 User.findAll( { include : [User], order : [[User, 'id', ';DELETE YOLO INJECTIONS']] } );
 User.findAll( { include : [User], order : [['id', 'ASC NULLS LAST'], [User, 'id', 'DESC NULLS FIRST']] } );
 User.findAll( { include : [{ model : User, where : { title : 'DoDat' }, include : [{ model : User }] }] } );
@@ -967,6 +1004,9 @@ User.findAll( { where: { $and:[ { username: { $not: "user" } }, { theDate: new D
 User.findAll( { where: { $or:[ { username: { $not: "user" } }, { theDate: new Date() } ] } } );
 User.findAll( { where: { emails: { $overlap: ["me@mail.com", "you@mail.com"] } } } );
 
+var options: Sequelize.AnyFindOptions = { where: { $and: Sequelize.where( Sequelize.fn( 'char_length', Sequelize.col('username') ), 4 ) } };
+User.findAll( options );
+
 User.findById( 'a string' );
 User.findById( 42 );
 User.findById( Buffer.from('a buffer') );
@@ -974,6 +1014,10 @@ User.findById( Buffer.from('a buffer') );
 User.findByPrimary( 'a string' );
 User.findByPrimary( 42 );
 User.findByPrimary( Buffer.from('a buffer') );
+
+User.findByPk( 'a string' );
+User.findByPk( 42 );
+User.findByPk( Buffer.from('a buffer') );
 
 User.findOne( { where : { username : 'foo' } } );
 User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } );
@@ -1152,6 +1196,7 @@ queryInterface.addIndex( { schema : 'a', tableName : 'c' }, ['d', 'e'], { loggin
 queryInterface.showIndex( { schema : 'schema', tableName : 'table' }, { logging : function() {} } );
 queryInterface.addIndex( 'Group', ['from'] );
 queryInterface.addIndex( 'Group', ['from'], { indexName: 'group_from' } );
+queryInterface.addIndex("Group", ["from"], { concurrently: true });
 queryInterface.describeTable( '_Users', { logging : function() {} } );
 queryInterface.createTable( 's', { table_id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
@@ -1172,6 +1217,7 @@ queryInterface.createTable( { tableName : 'y', schema : 'a' },
 queryInterface.changeColumn( { tableName : 'a', schema : 'b' }, 'c', { type : Sequelize.FLOAT },
     { logging : () => s } );
 queryInterface.createTable( 'users', { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
+queryInterface.bulkInsert({tableName:'users', schema:'test'}, [{}, {}, {}]);
 queryInterface.createTable( 'level', { id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 queryInterface.addColumn( 'users', 'someEnum', Sequelize.ENUM( 'value1', 'value2', 'value3' ) );
 queryInterface.addColumn( 'users', 'so', { type : Sequelize.ENUM, values : ['value1', 'value2', 'value3'] } );
@@ -1225,7 +1271,7 @@ s.query( '' );
 s.query( '' ).then( function( res ) {} );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { raw : true, replacements : [1, 2] } );
 s.query( '', { raw : true, nest : false } );
-s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );
+s.query( 'select ? as foo, ? as bar', { type : sequelize.QueryTypes.SELECT, replacements : [1, 2] } );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { type : s.QueryTypes.SELECT } );
 s.query( 'select :one as foo, :two as bar', { raw : true, replacements : { one : 1, two : 2 } } );
 s.transaction().then( function( t ) { s.set( { foo : 'bar' }, { transaction : t } ); } );
@@ -1294,7 +1340,7 @@ var testModel = s.define( 'User', {
     theDate : Sequelize.DATE,
     aBool : Sequelize.BOOLEAN
 } );
-var testModel = s.define( 'FrozenUser', {}, { freezeTableName : true } );
+const testFrozenModel = s.define( 'FrozenUser', {}, { freezeTableName : true } );
 s.define( 'UserWithClassAndInstanceMethods', {}, {
     classMethods : { doSmth : function() { return 1; } },
     instanceMethods : { makeItSo : function() { return 2; } }
@@ -1539,7 +1585,11 @@ interface ChairAttributes {
 }
 interface ChairInstance extends Sequelize.Instance<ChairAttributes> {}
 
-const Chair = s.define<ChairInstance, ChairAttributes>('chair', {});
+const Chair = s.define<ChairInstance, ChairAttributes>('chair', {
+    id: Sequelize.NUMBER,
+    color: Sequelize.STRING,
+    legs: Sequelize.NUMBER
+});
 
 Chair.findAll({
     where: {
@@ -1728,7 +1778,7 @@ s.define('DefineOptionsIndexesTest', {
     email: {
         allowNull: false,
         type: Sequelize.STRING(255),
-        set: function (val) {
+        set: function (val: any) {
             if (typeof val === "string") {
                 val = val.toLowerCase();
             } else {

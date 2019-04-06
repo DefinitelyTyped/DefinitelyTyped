@@ -14,6 +14,7 @@ describe("Stripe", () => {
                 fontFamily: 'Roboto, "Helvetica Neue", sans-serif',
                 fontSmoothing: 'antialiased',
                 fontSize: '16px',
+                fontWeight: 'bold',
                 '::placeholder': {
                     color: '#aab7c4'
                 }
@@ -27,6 +28,9 @@ describe("Stripe", () => {
         card.mount(document.createElement('div'));
         card.on('ready', () => {
             console.log('ready');
+        });
+        card.on('change', (resp: stripe.elements.ElementChangeResponse) => {
+            console.log(resp.elementType);
         });
         card.on('change', (resp: stripe.elements.ElementChangeResponse) => {
             console.log(resp.brand);
@@ -180,6 +184,7 @@ describe("Stripe v2 & v3", () => {
                 fontFamily: 'Roboto, "Helvetica Neue", sans-serif',
                 fontSmoothing: 'antialiased',
                 fontSize: '16px',
+                fontWeight: 500,
                 '::placeholder': {
                     color: '#aab7c4'
                 }
@@ -208,5 +213,10 @@ describe("Stripe v2 & v3", () => {
             (error: stripe.Error) => {
                 console.error(error);
             });
+
+        elements.create('iban', {
+            supportedCountries: ['SEPA'],
+            placeholderCountry: 'AT'
+        });
     });
 });

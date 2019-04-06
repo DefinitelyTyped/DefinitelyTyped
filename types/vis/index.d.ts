@@ -1,5 +1,5 @@
 // Type definitions for vis.js 4.21
-// Project: https://github.com/almende/vis
+// Project: https://github.com/almende/vis, http://visjs.org
 // Definitions by: Michaël Bitard <https://github.com/MichaelBitard>
 //                 MacLeod Broad <https://github.com/macleodbroad-wf>
 //                 Adrian Caballero <https://github.com/adripanico>
@@ -9,6 +9,9 @@
 //                 Adam Lewis <https://github.com/supercargo>
 //                 Alex Soh <https://github.com/takato1314>
 //                 Oleksii Kachura <https://github.com/alex-kachura>
+//                 dcop <https://github.com/dcop>
+//                 Avraham Essoudry <https://github.com/avrahamcool>
+//                 Dmitriy Trifonov <https://github.com/divideby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
@@ -242,6 +245,7 @@ export interface TimelineOptions {
   multiselectPerGroup?: boolean;
   onAdd?: TimelineOptionsItemCallbackFunction;
   onAddGroup?: TimelineOptionsGroupCallbackFunction;
+  onInitialDrawComplete?: (() => void);
   onUpdate?: TimelineOptionsItemCallbackFunction;
   onMove?: TimelineOptionsItemCallbackFunction;
   onMoveGroup?: TimelineOptionsGroupCallbackFunction;
@@ -455,7 +459,7 @@ export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
    * @returns When no item is found, null is returned when a single item was requested,
    * and and empty Array is returned in case of multiple id's.
    */
-  get(id: IdType, options?: DataSelectionOptions<T>): T;
+  get(id: IdType, options?: DataSelectionOptions<T>): T|null;
 
   /**
    * Get multiple items from the DataSet.
@@ -490,7 +494,7 @@ export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
    * @param [options] Optional options.
    * @returns The mapped items.
    */
-  map(callback: (item: T, id: IdType) => any, options?: DataSelectionOptions<T>): any[];
+  map<M>(callback: (item: T, id: IdType) => M, options?: DataSelectionOptions<T>): M[];
 
   /**
    * Find the item with maximum value of specified field.
@@ -585,7 +589,7 @@ export interface DataSelectionOptions<T> {
   /**
    * Order the items by a field name or custom sort function.
    */
-  order?: string | any;
+  order?: string | ((a: T, b: T) => number);
 
   /**
    * Determine the type of output of the get function.
@@ -593,7 +597,7 @@ export interface DataSelectionOptions<T> {
    * The default returnType is an Array.
    * The Object type will return a JSON object with the ID's as keys.
    */
-  returnType?: string;
+  returnType?: "Array" | "Object";
 }
 
 export class DataView<T extends DataItem | DataGroup> {
@@ -975,6 +979,7 @@ export interface TimelineGroup {
   content: string | HTMLElement;
   id: IdType;
   style?: string;
+  order?: number;
   subgroupOrder?: TimelineOptionsGroupOrderType;
   title?: string;
   visible?: boolean;
@@ -1685,19 +1690,11 @@ export interface Data {
   edges?: Edge[] | DataSet<Edge>;
 }
 
-export interface Node {
-  group?: string;
+export interface Node extends NodeOptions {
   id?: IdType;
-  label?: string;
-  x?: number;
-  y?: number;
-  fixed?: boolean;
-  image?: string | Image;
-  shape?: string;
-  color?: string | Color;
 }
 
-export interface Edge {
+export interface Edge extends EdgeOptions {
   from?: IdType;
   to?: IdType;
   id?: IdType;
@@ -1789,7 +1786,7 @@ export interface NodeOptions {
 
   brokenImage?: string;
 
-  color?: Color;
+  color?: string | Color;
 
   fixed?: boolean | {
     x?: boolean,
@@ -1823,8 +1820,6 @@ export interface NodeOptions {
     color?: string,
   };
 
-  id?: string;
-
   image?: string | Image;
 
   label?: string;
@@ -1832,6 +1827,13 @@ export interface NodeOptions {
   labelHighlightBold?: boolean;
 
   level?: number;
+
+  margin?: {
+    top?: number;
+    right?: number;
+    bottom?: number;
+    left?: number;
+  };
 
   mass?: number;
 
@@ -1844,11 +1846,11 @@ export interface NodeOptions {
   shape?: string;
 
   shapeProperties?: {
-    borderDashes: boolean | number[], // only for borders
-    borderRadius: number,     // only for box shape
-    interpolation: boolean,  // only for image and circularImage shapes
-    useImageSize: boolean,  // only for image and circularImage shapes
-    useBorderWithImage: boolean  // only for image shape
+    borderDashes?: boolean | number[], // only for borders
+    borderRadius?: number,     // only for box shape
+    interpolation?: boolean,  // only for image and circularImage shapes
+    useImageSize?: boolean,  // only for image and circularImage shapes
+    useBorderWithImage?: boolean  // only for image shape
   };
 
   size?: number;
@@ -1906,13 +1908,9 @@ export interface EdgeOptions {
     mono?: string | FontOptions,
   };
 
-  from?: number | string;
-
   hidden?: boolean;
 
   hoverWidth?: number; // please note, hoverWidth could be also a function. This case is not represented here
-
-  id?: string;
 
   label?: string;
 
@@ -1938,8 +1936,6 @@ export interface EdgeOptions {
   };
 
   title?: string;
-
-  to?: number | string;
 
   value?: number;
 

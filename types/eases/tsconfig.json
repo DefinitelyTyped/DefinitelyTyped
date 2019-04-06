@@ -1,0 +1,54 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "eases-tests.ts",
+        "backInOut.d.ts",
+        "backIn.d.ts",
+        "backOut.d.ts",
+        "bounceInOut.d.ts",
+        "bounceIn.d.ts",
+        "bounceOut.d.ts",
+        "circInOut.d.ts",
+        "circIn.d.ts",
+        "circOut.d.ts",
+        "cubicInOut.d.ts",
+        "cubicIn.d.ts",
+        "cubicOut.d.ts",
+        "elasticInOut.d.ts",
+        "elasticIn.d.ts",
+        "elasticOut.d.ts",
+        "expoInOut.d.ts",
+        "expoIn.d.ts",
+        "expoOut.d.ts",
+        "linear.d.ts",
+        "quadInOut.d.ts",
+        "quadIn.d.ts",
+        "quadOut.d.ts",
+        "quartInOut.d.ts",
+        "quartIn.d.ts",
+        "quartOut.d.ts",
+        "quintInOut.d.ts",
+        "quintIn.d.ts",
+        "quintOut.d.ts",
+        "sineInOut.d.ts",
+        "sineIn.d.ts",
+        "sineOut.d.ts"
+    ]
+}

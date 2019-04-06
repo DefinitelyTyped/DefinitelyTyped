@@ -17,7 +17,7 @@ import {
     InlineFragmentNode,
     FragmentDefinitionNode,
 } from "../language/ast";
-import { MaybePromise } from "../jsutils/MaybePromise";
+import { PromiseOrValue } from "../jsutils/PromiseOrValue";
 
 /**
  * Data that must be available at all points during query execution.
@@ -36,15 +36,19 @@ export interface ExecutionContext {
     errors: GraphQLError[];
 }
 
+export interface ExecutionResultDataDefault {
+    [key: string]: any;
+}
+
 /**
  * The result of GraphQL execution.
  *
  *   - `errors` is included when any errors occurred as a non-empty array.
  *   - `data` is the result of a successful execution of the query.
  */
-export interface ExecutionResult {
+export interface ExecutionResult<TData = ExecutionResultDataDefault> {
     errors?: ReadonlyArray<GraphQLError>;
-    data?: { [key: string]: any };
+    data?: TData;
 }
 
 export type ExecutionArgs = {
@@ -69,8 +73,10 @@ export type ExecutionArgs = {
  *
  * Accepts either an object with named arguments, or individual arguments.
  */
-export function execute(args: ExecutionArgs): MaybePromise<ExecutionResult>;
-export function execute(
+export function execute<TData = ExecutionResultDataDefault>(
+    args: ExecutionArgs
+): PromiseOrValue<ExecutionResult<TData>>;
+export function execute<TData = ExecutionResultDataDefault>(
     schema: GraphQLSchema,
     document: DocumentNode,
     rootValue?: any,
@@ -78,7 +84,7 @@ export function execute(
     variableValues?: Maybe<{ [key: string]: any }>,
     operationName?: Maybe<string>,
     fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
-): MaybePromise<ExecutionResult>;
+): PromiseOrValue<ExecutionResult<TData>>;
 
 /**
  * Given a ResponsePath (found in the `path` entry in the information provided
@@ -89,6 +95,7 @@ export function responsePathAsArray(path: ResponsePath): ReadonlyArray<string | 
 /**
  * Given a ResponsePath and a key, return a new ResponsePath containing the
  * new key.
+
  */
 export function addPath(
     prev: ResponsePath | undefined,
@@ -120,11 +127,6 @@ export function buildExecutionContext(
     operationName: Maybe<string>,
     fieldResolver: Maybe<GraphQLFieldResolver<any, any>>
 ): ReadonlyArray<GraphQLError> | ExecutionContext;
-
-/**
- * Extracts the root type of the operation from the schema.
- */
-export function getOperationRootType(schema: GraphQLSchema, operation: OperationDefinitionNode): GraphQLObjectType;
 
 /**
  * Given a selectionSet, adds all of the fields in that selection to

@@ -2,7 +2,7 @@
 // Project: https://github.com/fkhadra/react-toastify#readme
 // Definitions by: icopp <https://github.com/icopp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { Transition } from 'react-transition-group';
@@ -136,7 +136,7 @@ export interface ToastOptions extends ToastAndToastContainerOptions {
     /**
      * String or React Element, only available when calling update.
      */
-    render?: string | React.ReactElement<any>;
+    render?: string | React.ReactElement;
 }
 
 export interface Toast {

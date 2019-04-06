@@ -1020,7 +1020,7 @@ declare namespace L {
 
         /**
           * Function that will be used for converting GeoJSON coordinates to LatLng points
-          * (if not specified, coords will be assumed to be WGS84 � standard[longitude, latitude]
+          * (if not specified, coords will be assumed to be WGS84 standard[longitude, latitude]
           * values in degrees).
           */
         coordsToLatLng?: (coords: any[]) => LatLng[];

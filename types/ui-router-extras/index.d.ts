@@ -1,5 +1,5 @@
 // Type definitions for ui-router-extras 0.1
-// Project: https://github.com/christopherthielen/ui-router-extras
+// Project: https://github.com/christopherthielen/ui-router-extras, http://christopherthielen.github.io/ui-router-extras
 // Definitions by: Michael Putters <https://github.com/mputters>, Marcel van de Kamp <https://github.com/marcel-k>, Viktor Smirnov <https://github.com/LaserUnicorns>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -131,6 +131,12 @@ declare module 'angular' {
          */
         interface IStickyStateService {
             getInactiveStates(): IStickyState[];
+             /*
+             * If there is an inactive state named inactiveStateName, this method exits that state.
+             * If stateParams is provided, then the state is only exited if the params match the inactive params.
+             * If inactiveStateName === '*', then all inactive states are exited
+             */
+            reset(inactiveStateName: string, stateParams?: { [key: string]: string | string[] }): void;
         }
 
         /**

@@ -1,7 +1,20 @@
-// Type definitions for indent-string 3.0
+// Type definitions for indent-string 3.2
 // Project: https://github.com/sindresorhus/indent-string#readme
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = indent_string;
-declare function indent_string(str: string, count: number, indent?: string): string;
+export = indentString;
+
+declare function indentString(
+    str: string,
+    count?: number,
+    indent?: string | indentString.Options
+): string;
+
+declare namespace indentString {
+    interface Options {
+        indent?: string;
+        includeEmptyLines?: boolean;
+    }
+}

@@ -96,7 +96,7 @@ export interface CallbackType {
     name: string;
     /** An IDL Type describing what the callback returns. */
     idlType: IDLTypeDescription;
-    /** A list of arguments, as in function paramters. */
+    /** A list of arguments, as in function parameters. */
     arguments: Argument[];
     /** A list of extended attributes. */
     extAttrs: ExtendedAttributes[];

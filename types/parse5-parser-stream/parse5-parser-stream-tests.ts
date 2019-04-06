@@ -1,5 +1,5 @@
 import * as parse5 from "parse5";
-import ParserStream from "parse5-parser-stream";
+import * as ParserStream from "parse5-parser-stream";
 import { createReadStream } from "fs";
 
 const defaultAdapter = new Object() as parse5.TreeAdapter;

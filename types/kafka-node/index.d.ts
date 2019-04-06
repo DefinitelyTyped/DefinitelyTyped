@@ -1,6 +1,10 @@
 // Type definitions for kafka-node 2.0
 // Project: https://github.com/SOHU-Co/kafka-node/
-// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu>, Bill <https://github.com/bkim54>, Michael Haan <https://github.com/sfrooster>, Amiram Korach <https://github.com/amiram>
+// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu>
+//                 Bill <https://github.com/bkim54>
+//                 Michael Haan <https://github.com/sfrooster>
+//                 Amiram Korach <https://github.com/amiram>
+//                 Insanehong <https://github.com/insanehong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -9,6 +13,7 @@
 export class Client {
     constructor(connectionString: string, clientId?: string, options?: ZKOptions, noBatchOptions?: AckBatchOptions, sslOptions?: any);
     close(cb?: () => void): void;
+    loadMetadataForTopics(topics: string[], cb: (error: TopicsNotExistError | any, data: any) => any): void;
     topicExists(topics: string[], cb: (error?: TopicsNotExistError | any) => any): void;
     refreshMetadata(topics: string[], cb?: (error?: any) => any): void;
     sendOffsetCommitV2Request(group: string, generationId: number, memberId: string, commits: OffsetCommitRequest[], cb: (error: any, data: any) => any): void;
@@ -20,6 +25,8 @@ export class Client {
 export class KafkaClient extends Client {
     constructor(options?: KafkaClientOptions);
     connect(): void;
+    getListGroups(cb: (error: any, data: any) => any): void;
+    describeGroups(consumerGroups: any, cb: (error: any, data: any) => any): void;
 }
 
 export class Producer {
@@ -58,7 +65,7 @@ export class HighLevelConsumer {
     client: Client;
     on(eventName: "message", cb: (message: Message) => any): void;
     on(eventName: "error" | "offsetOutOfRange", cb: (error: any) => any): void;
-    on(eventName: "rebalancing" | "rebalanced", cb: () => any): void;
+    on(eventName: "rebalancing" | "rebalanced" | "connect", cb: () => any): void;
     addTopics(topics: string[] | Topic[], cb?: (error: any, added: string[] | Topic[]) => any): void;
     removeTopics(topics: string | string[], cb: (error: any, removed: number) => any): void;
     commit(cb: (error: any, data: any) => any): void;
@@ -91,6 +98,12 @@ export class Offset {
 
 export class KeyedMessage {
     constructor(key: string, value: string | Buffer);
+}
+
+export class Admin {
+    constructor(kafkaClient: KafkaClient);
+    listGroups(cb: (error: any, data: any) => any): void;
+    describeGroups(consumerGroups: any, cb: (error: any, data: any) => any): void;
 }
 
 // # Interfaces

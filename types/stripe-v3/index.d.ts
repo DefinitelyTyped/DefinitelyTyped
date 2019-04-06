@@ -6,6 +6,8 @@
 //                 Adam Cmiel <https://github.com/adamcmiel>
 //                 Justin Leider <https://github.com/jleider>
 //                 Kamil Gałuszka <https://github.com/galuszkak>
+//                 Stefan Langeder <https://github.com/slangeder>
+//                 Marlos Borges <https://github.com/marlosin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -308,10 +310,13 @@ declare namespace stripe {
         }
 
         interface ElementChangeResponse {
+            elementType: string;
             brand: string;
             complete: boolean;
             empty: boolean;
             value?: { postalCode: string | number };
+            country?: string;
+            bankName?: string;
             error?: Error;
         }
 
@@ -320,7 +325,7 @@ declare namespace stripe {
             locale?: string;
         }
 
-        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton';
+        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban';
         interface Elements {
             create(type: elementsType, options?: ElementsOptions): Element;
         }
@@ -338,6 +343,7 @@ declare namespace stripe {
             hideIcon?: boolean;
             iconStyle?: 'solid' | 'default';
             placeholder?: string;
+            placeholderCountry?: string;
             style?: {
                 base?: Style;
                 complete?: Style;
@@ -347,6 +353,8 @@ declare namespace stripe {
             };
             value?: string | { [objectKey: string]: string; };
             paymentRequest?: paymentRequest.StripePaymentRequest;
+            supportedCountries?: string[];
+            disabled?: boolean;
         }
 
         interface Style extends StyleOptions {
@@ -375,6 +383,7 @@ declare namespace stripe {
             fontSmoothing?: string;
             fontStyle?: string;
             fontVariant?: string;
+            fontWeight?: string | number;
             iconColor?: string;
             lineHeight?: string;
             letterSpacing?: string;

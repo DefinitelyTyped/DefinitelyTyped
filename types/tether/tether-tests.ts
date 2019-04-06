@@ -9,7 +9,11 @@ new Tether({
     targetAttachment: "top middle",
     targetModifier: "visible",
     offset: "-15px 0",
-    targetOffset: "0 0"
+    targetOffset: "0 0",
+    classes: {
+      'element': false,
+      'target': 'someClassName'
+    }
 });
 
 new Tether({
@@ -50,4 +54,3 @@ new Tether({
         }
     ]
 });
-

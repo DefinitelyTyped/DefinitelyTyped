@@ -1,4 +1,4 @@
-import { GraphQLError } from "../error";
+import { GraphQLError } from "../error/GraphQLError";
 import { ASTNode } from "../language/ast";
 import { GraphQLInputType } from "../type/definition";
 

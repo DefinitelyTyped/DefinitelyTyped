@@ -2,7 +2,7 @@
 // Project: https://github.com/adriantoine/enzyme-to-json#readme
 // Definitions by: Joscha Feth <https://github.com/joscha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.1
 
 import { ReactWrapper, ShallowWrapper } from 'enzyme';
 

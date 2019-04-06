@@ -33,7 +33,7 @@ declare namespace dragula {
         cancel(revert:boolean): void;
         cancel(): void;
         remove(): void;
-        on(events: string, callback: Function): void;
+        on(events: string, callback: Function): Drake;
         destroy(): void;
     }
 

@@ -1,8 +1,9 @@
 // Type definitions for proton-native 1.1
-// Project: https://github.com/kusti8/proton-native
+// Project: https://github.com/kusti8/proton-native, https://proton-native.js.org
 // Definitions by: Nguyen Xuan Khanh <https://github.com/khanhas>
+//                 Lukas Tetzlaff <https://github.com/ltetzlaff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -169,62 +170,7 @@ export interface AreaPathProps extends AreaBaseProps {
 
 export class AreaPath extends React.Component<AreaPathProps> { }
 
-export interface AreaTextProps extends AreaBaseProps {
-    style?: {
-        /**
-         * The background color, specified as a CSS color string.
-         */
-        backgroundColor?: string;
-        /**
-         * The text color, specified as a CSS color string.
-         */
-        color?: string;
-        /**
-         * The font family (only if available on the system).
-         */
-        fontFamily?: string;
-        /**
-         * The font size (in pt).
-         */
-        fontSize?: number;
-        /**
-         * Whether an italic font should be used.
-         */
-        fontStyle?: 'normal' | 'oblique' | 'italic';
-        /**
-         * Whether a bold font should be used (and the amount).
-         */
-        fontWeight?: 'minimum' | 'thin' | 'ultraLight' | 'light' | 'book' | 'normal' | 'medium' | 'semiBold' | 'bold' | 'ultraBold' | 'heavy' | 'ultraHeavy' | 'maximum' | number;
-        /**
-         * Wheter the text should be aligned to the left, center or right.
-         *
-         * **Works only on a top level text component, not it's children!**
-         */
-        textAlign?: 'left' | 'center' | 'right';
-        /**
-         * How wide or narrow the characters should be.
-         */
-        textStretch?: 'ultraCondensed' | 'extraCondensed' | 'condensed' | 'semiCondensed' | 'normal' | 'semiExpanded' | 'expanded' | 'extraExpanded' | 'ultraExpanded';
-        /**
-         * The text underline style.
-         */
-        textUnderline?: 'none' | 'single' | 'double' | 'suggestion';
-        /**
-         * The text underline color.
-         *
-         * A color string | 'spelling' | 'grammar' | 'auxiliary'
-         */
-        textUnderlineColor?: 'spelling' | 'grammar' | 'auxiliary' | string;
-    };
-    /**
-     * The x coordinate of the text's top left corner. (Only in a top level text component.)
-     */
-    x?: number | string;
-    /**
-     * The y coordinate of the text's top left corner. (Only in a top level text component.)
-     */
-    y?: number | string;
-}
+export interface AreaTextProps extends StyledTextProps, AreaBaseProps { }
 
 export class AreaText extends React.Component<AreaTextProps> { }
 
@@ -476,6 +422,13 @@ export interface GridChildrenProps {
      * What row the component resides in.
      */
     row?: number;
+    /**
+     * How many rows/columns the component takes off.
+     */
+    span?: {
+        x: number;
+        y: number;
+  };
 }
 
 export interface GridProps {
@@ -601,25 +554,33 @@ export interface PickerProps extends GridChildrenProps, Label, Stretchy {
     /**
      * When a *non-editable* Picker is changed. The current selection is passed as an argument.
      */
-    onSelect?: (selection: string) => void;
+    onSelect?: (selection: number) => void;
     /**
      * What element is selected if the picker *is not* editable.
      */
-    selected?: boolean;
+    selected?: number;
     /**
      * What text is selected/typed if the picker *is* editable.
      */
-    text?: boolean;
+    text?: string;
     /**
      * Whether the Picker can be seen.
      */
     visible?: boolean;
 }
 
+export interface PickerItemProps {
+    children: string;
+}
+
+export class PickerItem extends React.Component<PickerItemProps> { }
+
 /**
  * A drop down menu where the user can pick different values.
  */
-export class Picker extends React.Component<PickerProps> { }
+export class Picker extends React.Component<PickerProps> {
+    static Item: typeof PickerItem;
+}
 
 export interface ProgressBarProps extends GridChildrenProps, Label, Stretchy {
     /**
@@ -655,7 +616,7 @@ export interface RadioButtonsProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Called when a RadioButton is selected. The number selected is passed as an argument.
      */
-    onSelect?: (selected: boolean) => void;
+    onSelect?: (selected: number) => void;
     /**
      * What RadioButton is selected, zero-indexed. -1 means nothing is selected.
      */
@@ -763,6 +724,65 @@ export interface Stretchy {
      */
     stretchy?: boolean;
 }
+
+export interface StyledTextProps {
+    style?: {
+        /**
+         * The background color, specified as a CSS color string.
+         */
+        backgroundColor?: string;
+        /**
+         * The text color, specified as a CSS color string.
+         */
+        color?: string;
+        /**
+         * The font family (only if available on the system).
+         */
+        fontFamily?: string;
+        /**
+         * The font size (in pt).
+         */
+        fontSize?: number;
+        /**
+         * Whether an italic font should be used.
+         */
+        fontStyle?: 'normal' | 'oblique' | 'italic';
+        /**
+         * Whether a bold font should be used (and the amount).
+         */
+        fontWeight?: 'minimum' | 'thin' | 'ultraLight' | 'light' | 'book' | 'normal' | 'medium' | 'semiBold' | 'bold' | 'ultraBold' | 'heavy' | 'ultraHeavy' | 'maximum' | number;
+        /**
+         * Wheter the text should be aligned to the left, center or right.
+         *
+         * **Works only on a top level text component, not it's children!**
+         */
+        textAlign?: 'left' | 'center' | 'right';
+        /**
+         * How wide or narrow the characters should be.
+         */
+        textStretch?: 'ultraCondensed' | 'extraCondensed' | 'condensed' | 'semiCondensed' | 'normal' | 'semiExpanded' | 'expanded' | 'extraExpanded' | 'ultraExpanded';
+        /**
+         * The text underline style.
+         */
+        textUnderline?: 'none' | 'single' | 'double' | 'suggestion';
+        /**
+         * The text underline color.
+         *
+         * A color string | 'spelling' | 'grammar' | 'auxiliary'
+         */
+        textUnderlineColor?: 'spelling' | 'grammar' | 'auxiliary' | string;
+    };
+    /**
+     * The x coordinate of the text's top left corner. (Only in a top level text component.)
+     */
+    x?: number | string;
+    /**
+     * The y coordinate of the text's top left corner. (Only in a top level text component.)
+     */
+    y?: number | string;
+}
+
+export class StyledText extends React.Component<StyledTextProps> { }
 
 export interface TabProps extends GridChildrenProps {
     /**
@@ -896,17 +916,16 @@ export class Window extends React.Component<WindowProps> { }
 export function render(element: JSX.Element): void;
 
 /**
- * A method to display an alert, or a dialog to save or open a file.
+ * A method to display an alert.
  * @param type What type the dialog is. The current types are:
  * - Message - a simple message
  * - Error - an error message
  * - Open - open a file
  * - Save - save a file
- * @param options Options for the title and description if it is a Message or Error.
- * Required one of title and description (if it is Message or Error)
+ * @param options Options for the title and descript.
  */
 export function Dialog(
-    type: 'Message' | 'Error' | 'Open' | 'Save',
+    type: 'Message' | 'Error',
     options?: {
         title: string,
         description?: string
@@ -915,3 +934,11 @@ export function Dialog(
         description: string
     }
 ): void;
+
+/**
+ * A dialog to save or open a file. Returns chosen file path.
+ * @param type What type the dialog is. The current types are:
+ * - Open - open a file
+ * - Save - save a file
+ */
+export function Dialog(type: 'Open' | 'Save'): string;

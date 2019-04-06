@@ -1,10 +1,10 @@
-// Type definitions for auth0 2.9.1
+// Type definitions for auth0 2.9.3
 // Project: https://github.com/auth0/node-auth0
-// Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
+// Definitions by: Seth Westphal <https://github.com/westy92>
+//                 Ian Howe <https://github.com/ianhowe76>
+//                 Alex Bjørlig <https://github.com/dauledk>          
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as Promise from 'bluebird';
+// TypeScript Version: 2.8
 
 export interface ManagementClientOptions {
   token?: string;
@@ -34,7 +34,7 @@ export interface RetryOptions {
 }
 
 export interface UserMetadata {
-  [propName: string]: string
+  [propName: string]: any
 }
 
 export interface AppMetadata {
@@ -48,7 +48,10 @@ export interface UserData {
   verify_email?: boolean;
   password?: string;
   phone_number?: string;
-  phone_verified?: boolean,
+  phone_verified?: boolean;
+  given_name?: string;
+  family_name?: string;
+  name?: string;
   user_metadata?: UserMetadata;
   app_metadata?: AppMetadata;
 }
@@ -68,13 +71,16 @@ export interface UpdateUserData extends UserData {
 export interface GetUsersData {
   per_page?: number;
   page?: number;
-  include_totals?: boolean;
   sort?: string;
   connection?: string;
   fields?: string;
   include_fields?: boolean;
   q?: string;
   search_engine?: string;
+}
+
+export interface GetUsersDataPaged extends GetUsersData {
+  include_totals: boolean;
 }
 
 export interface Rule {
@@ -261,7 +267,7 @@ export interface CreateClientGrant {
   scope: string[];
 }
 
-export type Strategy = 
+export type Strategy =
   'ad' | 'adfs' | 'amazon' | 'dropbox' | 'bitbucket' | 'aol' | 'auth0-adldap' | 'auth0-oidc' |
   'auth0' | 'baidu' | 'bitly' | 'box' | 'custom' | 'daccount' | 'dwolla' | 'email' |
   'evernote-sandbox' | 'evernote' | 'exact' | 'facebook' | 'fitbit' | 'flickr' | 'github' |
@@ -345,6 +351,17 @@ export interface User {
   family_name?: string;
 }
 
+export interface Page {
+  start: number;
+  limit: number;
+  length: number;
+  total: number;
+}
+
+export interface UserPage extends Page {
+  users: User[];
+}
+
 export interface Identity {
   connection: string;
   user_id: string;
@@ -353,7 +370,7 @@ export interface Identity {
   access_token?: string;
   profileData?: {
     email?: string;
-    email_verified?: boolean;   
+    email_verified?: boolean;
     name?: string;
     phone_number?: string;
     phone_verified?: boolean;
@@ -574,7 +591,19 @@ export interface ImpersonateSettingOptions {
   clientId?: string;
 }
 
-
+export type ClientAppType = 'native' | 'spa' | 'regular_web' | 'non_interactive' | 'rms' | 'box' |
+  'cloudbees' | 'concur' | 'dropbox' | 'mscrm' | 'echosign' | 'egnyte' | 'newrelic' | 'office365' |
+  'salesforce' | 'sentry' | 'sharepoint' | 'slack' | 'springcm' | 'zendesk' | 'zoom';
+export interface GetClientsOptions {
+    fields?: string[];
+    include_fields?: boolean;
+    page?: number;
+    per_page?: number;
+    include_totals?: boolean;
+    is_global?: boolean;
+    is_first_party?: boolean;
+    app_type?: ClientAppType[];
+}
 
 export class AuthenticationClient {
 
@@ -647,8 +676,9 @@ export class ManagementClient {
 
 
   // Clients
-  getClients(): Promise<Client[]>;
-  getClients(cb: (err: Error, clients: Client[]) => void): void;
+  getClients(params?: GetClientsOptions): Promise<Client[]>;
+  getClients(cb: (err: Error, clients: Client[]) => void ): void;
+  getClients(params: GetClientsOptions, cb: (err: Error, clients: Client[]) => void ): void;
 
   getClient(params: ClientParams): Promise<Client>;
   getClient(params: ClientParams, cb: (err: Error, client: Client) => void): void;
@@ -662,7 +692,7 @@ export class ManagementClient {
   deleteClient(params: ClientParams): Promise<void>;
   deleteClient(params: ClientParams, cb: (err: Error) => void): void;
 
-                                              
+
   // Client Grants
   getClientGrants(): Promise<ClientGrant[]>;
   getClientGrants(cb: (err: Error, data: ClientGrant[]) => void): void;
@@ -706,6 +736,8 @@ export class ManagementClient {
 
 
   // Users
+  getUsers(params: GetUsersDataPaged): Promise<UserPage>;
+  getUsers(params: GetUsersDataPaged, cb: (err: Error, userPage: UserPage) => void): void;
   getUsers(params?: GetUsersData): Promise<User[]>;
   getUsers(cb: (err: Error, users: User[]) => void): void;
   getUsers(params?: GetUsersData, cb?: (err: Error, users: User[]) => void): void;

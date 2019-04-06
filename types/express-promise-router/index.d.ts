@@ -1,5 +1,5 @@
 // Type definitions for express-promise-router 2.0
-// Project: https://github.com/express-promise-router/express-promise-router
+// Project: https://github.com/express-promise-router/express-promise-router, https://github.com/alex-whitney/express-promise-router
 // Definitions by: Anjun Wang <https://github.com/wanganjun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3

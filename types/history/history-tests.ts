@@ -1,4 +1,4 @@
-import { createBrowserHistory, createMemoryHistory, createHashHistory, createLocation, Location } from 'history';
+import { createBrowserHistory, createMemoryHistory, createHashHistory, createLocation, Location, History, MemoryHistory } from 'history';
 import * as LocationUtils from 'history/LocationUtils';
 import * as PathUtils from 'history/PathUtils';
 import * as DOMUtils from 'history/DOMUtils';
@@ -7,7 +7,7 @@ import * as ExecutionEnvironment from 'history/ExecutionEnvironment';
 let input = { value: "" };
 
 {
-    let history = createBrowserHistory();
+    let history: History<{some: 'state'}> = createBrowserHistory();
 
     // Listen for changes to the current location. The
     // listener is called once immediately.
@@ -43,7 +43,7 @@ let input = { value: "" };
 }
 
 {
-    let history = createMemoryHistory();
+    let history: MemoryHistory<{the: 'state'}> = createMemoryHistory();
 
     // Pushing a path string.
     history.push('/the/path');

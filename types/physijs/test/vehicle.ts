@@ -186,11 +186,11 @@ initScene = function() {
                 );
             }
 
-            input = <any>{
+            input = {
                 power: null,
                 direction: null,
                 steering: 0
-            };
+            } as any;
             document.addEventListener('keydown', function( ev ) {
                 switch ( ev.keyCode ) {
                     case 37: // left

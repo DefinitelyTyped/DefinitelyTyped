@@ -9,8 +9,8 @@ $("select").not(".skip_these").uniform();  // Method 1
 $('select[class!="skip_these"]').uniform();  // Method 2
 
 $("select").uniform({
-  fileDefaultText: 'Keine Datei ausgewählt',
-  fileButtonText: 'Wählen Sie Datei',
+  fileDefaultText: 'Keine Datei ausgewhlt',
+  fileButtonText: 'Whlen Sie Datei',
 });
 
 $.uniform.defaults.checkedClass = "uniformCheckedClass";

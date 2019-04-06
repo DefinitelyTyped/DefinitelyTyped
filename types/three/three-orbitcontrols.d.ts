@@ -32,6 +32,7 @@ export class OrbitControls {
     mouseButtons: {ORBIT: MOUSE; ZOOM: MOUSE; PAN: MOUSE;};
     enableDamping: boolean;
     dampingFactor: number;
+    screenSpacePanning: boolean;
 
 
     rotateLeft(angle?: number): void;
@@ -61,7 +62,7 @@ export class OrbitControls {
     // EventDispatcher mixins
     addEventListener(type: string, listener: (event: any) => void): void;
 
-    hasEventListener(type: string, listener: (event: any) => void): void;
+    hasEventListener(type: string, listener: (event: any) => void): boolean;
 
     removeEventListener(type: string, listener: (event: any) => void): void;
 

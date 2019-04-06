@@ -1,17 +1,17 @@
-import * as ReactDnd from "react-dnd";
+import { createDragDropManager } from "dnd-core";
 import TouchBackend from "react-dnd-touch-backend";
 
-const component = () => null;
+const context = {};
 
-const dndComponent = ReactDnd.DragDropContext(TouchBackend)(component);
-const dndComponentMouseEvents = ReactDnd.DragDropContext(TouchBackend({enableMouseEvents: true}))(component);
-const dndComponentDelayTouchStart = ReactDnd.DragDropContext(TouchBackend({delayTouchStart: 200}))(component);
-const dndComponentDelayMouseStart = ReactDnd.DragDropContext(TouchBackend({enableMouseEvents: true, delayMouseStart: 100}));
-const dndComponentKeyboardEvents = ReactDnd.DragDropContext(TouchBackend({enableKeyboardEvents: true}));
-const dndComponentOldDelay = ReactDnd.DragDropContext(TouchBackend({delay: 300}));
-const dndComponentAllCurrentEvents = ReactDnd.DragDropContext(TouchBackend(
-    {enableKeyboardEvents: true, enableMouseEvents: true, delayMouseStart: 100, delayTouchStart: 200}));
-const dndComponentWithScrollAngleRanges = ReactDnd.DragDropContext(TouchBackend(
-    { scrollAngleRanges: [{ start: 0, end: 0 }, { start: 0 }, { end: 0 }] }));
-const dndComponentWithTouchSlop = ReactDnd.DragDropContext(TouchBackend({ touchSlop: 0 }));
-const dndComponentWithIgnoreContextMenu = ReactDnd.DragDropContext(TouchBackend({ ignoreContextMenu: true }));
+const dndComponent = createDragDropManager(TouchBackend(), context);
+const dndComponentMouseEvents = createDragDropManager(TouchBackend({enableMouseEvents: true}), context);
+const dndComponentDelayTouchStart = createDragDropManager(TouchBackend({delayTouchStart: 200}), context);
+const dndComponentDelayMouseStart = createDragDropManager(TouchBackend({enableMouseEvents: true, delayMouseStart: 100}), context);
+const dndComponentKeyboardEvents = createDragDropManager(TouchBackend({enableKeyboardEvents: true}), context);
+const dndComponentOldDelay = createDragDropManager(TouchBackend({delay: 300}), context);
+const dndComponentAllCurrentEvents = createDragDropManager(TouchBackend(
+    {enableKeyboardEvents: true, enableMouseEvents: true, delayMouseStart: 100, delayTouchStart: 200}), context);
+const dndComponentWithScrollAngleRanges = createDragDropManager(TouchBackend(
+    { scrollAngleRanges: [{ start: 0, end: 0 }, { start: 0 }, { end: 0 }] }), context);
+const dndComponentWithTouchSlop = createDragDropManager(TouchBackend({ touchSlop: 0 }), context);
+const dndComponentWithIgnoreContextMenu = createDragDropManager(TouchBackend({ ignoreContextMenu: true }), context);

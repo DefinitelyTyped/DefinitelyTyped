@@ -38,7 +38,7 @@ var tester: BlazyInstance = new Blazy({
 /* Functions tests */
 tester.revalidate();
 
-var elements = <NodeList>document.getElementsByTagName('img');
+var elements = document.getElementsByTagName('img');
 tester.load(elements, true);
 
 tester.destroy();

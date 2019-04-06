@@ -2,7 +2,7 @@
 // Project: https://github.com/wix/redux-testkit#readme
 // Definitions by: Andrey Kizimov <https://github.com/Bookler96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as Redux from 'redux';
 import { ThunkAction } from 'redux-thunk';
@@ -20,7 +20,7 @@ export interface ThunkTestkit {
 	execute(...args: any[]): any;
 }
 
-export function Reducer(action: Redux.Reducer<any>): ReducerTestkit & {
+export function Reducer(action: Redux.Reducer): ReducerTestkit & {
 	withState(state: any): ReducerTestkit;
 };
 
@@ -31,7 +31,7 @@ export function Selector(selector: (state: any, action: any) => any): {
 	execute(state: any, ...args: any[]): any;
 };
 
-export function Thunk(thunkFunc: ThunkAction<any, any, any>, extraArg?: any): ThunkTestkit & {
+export function Thunk(thunkFunc: ThunkAction<any, any, any, any>, extraArg?: any): ThunkTestkit & {
 	withState(state: any): ThunkTestkit;
 };
 

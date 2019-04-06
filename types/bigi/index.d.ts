@@ -23,7 +23,7 @@ declare class bigi {
     clamp(): void;
     clearBit(n: number): bigi;
     clone(): bigi;
-    compareTo(a: bigi): bigi;
+    compareTo(a: bigi): number;
     copyTo(r: any): void;
     dAddOffset(n: any, w: any): void;
     dMultiply(n: number): void;

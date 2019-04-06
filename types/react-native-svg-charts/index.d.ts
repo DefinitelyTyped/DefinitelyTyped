@@ -18,10 +18,10 @@ import {
 } from 'react-native-svg';
 
 export type ScaleType<Range, Output> =
-    | ScaleLinear<Range, Output>
-    | ScaleLogarithmic<Range, Output>
-    | ScalePower<Range, Output>
-    | ScaleTime<Range, Output>;
+| ScaleLinear<Range, Output>
+| ScaleLogarithmic<Range, Output>
+| ScalePower<Range, Output>
+| ScaleTime<Range, Output>;
 
 export type ScaleFunction = () => ScaleType<any, any> | ScaleBand<any>;
 export type AccessorFunction<T, U> = (props: { item: T, index: number }) => U;
@@ -128,7 +128,8 @@ export interface StackedBarChartProps<T> extends ChartProps<T> {
     offset?: OffsetFunction;
     order?: OrderFunction;
     strokeColor?: string;
-    renderGradient: (props: { id: string }) => React.Component<LinearGradientProps | RadialGradientProps>;
+    horizontal?: boolean;
+    renderGradient?: (props: { id: string }) => React.Component<LinearGradientProps | RadialGradientProps>;
     spacingInner?: number;
     spacingOuter?: number;
     showGrid?: boolean;
@@ -216,21 +217,15 @@ export interface HorizontalLineProps {
 }
 
 // Point
-
 export interface PointProps {
-    x: (index: number) => number;
-    y: (value: number) => number;
     value?: number;
     radius?: number;
     index?: number;
-    color: string;
+    color?: string;
 }
 
 // Tooltip
-
 export interface TooltipProps {
-    x: (index: number) => number;
-    y: (value: number) => number;
     value?: number;
     index?: number;
     height?: number;
@@ -240,9 +235,9 @@ export interface TooltipProps {
 }
 
 export namespace Decorators {
-    class HorizontalLine extends React.Component<HorizontalLineProps> {}
-    class Point extends React.Component<PointProps> {}
-    class Tooltip extends React.Component<TooltipProps> {}
+    export class HorizontalLine extends React.Component<HorizontalLineProps> {}
+    export class Point extends React.Component<PointProps> {}
+    export class Tooltip extends React.Component<TooltipProps> {}
 }
 
 export type GridDirection = 'VERTICAL' | 'HORIZONTAL' | 'BOTH';

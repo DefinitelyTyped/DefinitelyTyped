@@ -93,7 +93,7 @@ declare namespace Chartist {
     // TODO: come in and tidy this up and make it fit better
     interface IChartistData {
         labels?: Array<string> | Array<number> | Array<Date>;
-        series: Array<IChartistSeriesData> | Array<Array<IChartistData>> | Array<number> | Array<Array<number>>;
+        series: Array<IChartistSeriesData> | Array<Array<IChartistSeriesData>> | Array<Array<IChartistData>> | Array<number> | Array<Array<number>>;
     }
 
     interface IChartistSeriesData {
@@ -283,6 +283,7 @@ declare namespace Chartist {
          * If set to true this property will cause the series bars to be stacked and form a total for each series point. This will also influence the y-axis and the overall bounds of the chart. In stacked mode the seriesBarDistance property will have no effect.
          */
         stackBars?: boolean;
+        stackMode?: 'overlap' | 'accumulate';
 
         horizontalBars?: boolean;
         distributeSeries?: boolean;
@@ -534,7 +535,7 @@ declare namespace Chartist {
         /**
          * Set attributes on the current SVG element of the wrapper you're currently working on.
          */
-        attr(attributes: Object | string, ns: string): Object | string;
+        attr(attributes: Object | string, ns?: string): Object | string;
 
         /**
          * Create a new SVG element whose wrapper object will be selected for further operations. This way you can also create nested groups easily.

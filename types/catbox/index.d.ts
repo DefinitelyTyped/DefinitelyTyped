@@ -4,7 +4,7 @@
 //                 AJP <https://github.com/AJamesPhillips>
 //                 Rodrigo Saboya <https://github.com/saboya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /**
  * Client
@@ -17,25 +17,25 @@
  *    the Riak bucket, or as a key prefix in Redis and Memcached. To share the cache across multiple clients, use the same partition name.
  * @see {@link https://github.com/hapijs/catbox#client}
  */
-export class Client implements ClientApi {
+export class Client<T> implements ClientApi<T> {
     constructor(engine: EnginePrototypeOrObject, options: ClientOptions);
 
     /** start() - creates a connection to the cache server. Must be called before any other method is available. */
     start(): Promise<void>;
     /** stop() - terminates the connection to the cache server. */
-    stop(): void;
+    stop(): Promise<void>;
     /**
      * get(key, callback) - retrieve an item from the cache engine if found where:
      *  * key - a cache key object (see [ICacheKey]).
      */
-    get(key: CacheKey): Promise<null | CachedObject>;
+    get(key: CacheKey): Promise<null | CachedObject<T>>;
     /**
      * set(key, value, ttl, callback) - store an item in the cache for a specified length of time, where:
      *  * key - a cache key object (see [ICacheKey]).
      *  * value - the string or object value to be stored.
      *  * ttl - a time-to-live value in milliseconds after which the item is automatically removed from the cache (or is marked invalid).
      */
-    set(key: CacheKey, value: CacheItem, ttl: number): Promise<void>;
+    set(key: CacheKey, value: T, ttl: number): Promise<void>;
     /**
      * drop(key, callback) - remove an item from cache where:
      *  * key - a cache key object (see [ICacheKey]).
@@ -47,13 +47,13 @@ export class Client implements ClientApi {
     validateSegmentName(segment: string): null | Error;
 }
 
-export type EnginePrototypeOrObject = EnginePrototype | ClientApi;
+export type EnginePrototypeOrObject = EnginePrototype<any> | ClientApi<any>;
 
 /**
  * A prototype CatBox engine function
  */
-export interface EnginePrototype {
-    new(settings: ClientOptions): ClientApi;
+export interface EnginePrototype<T> {
+    new(settings: ClientOptions): ClientApi<T>;
 }
 
 /**
@@ -61,7 +61,7 @@ export interface EnginePrototype {
  * The Client object provides the following methods:
  * @see {@link https://github.com/hapijs/catbox#api}
  */
-export interface ClientApi {
+export interface ClientApi<T> {
     /** start() - creates a connection to the cache server. Must be called before any other method is available. */
     start(): Promise<void>;
     /** stop() - terminates the connection to the cache server. */
@@ -70,14 +70,14 @@ export interface ClientApi {
      * get(key, callback) - retrieve an item from the cache engine if found where:
      *  * key - a cache key object (see [ICacheKey]).
      */
-    get(key: CacheKey): Promise<null | CachedObject>;
+    get(key: CacheKey): Promise<null | CachedObject<T>>;
     /**
      * set(key, value, ttl) - store an item in the cache for a specified length of time, where:
      *  * key - a cache key object (see [ICacheKey]).
      *  * value - the string or object value to be stored.
      *  * ttl - a time-to-live value in milliseconds after which the item is automatically removed from the cache (or is marked invalid).
      */
-    set(key: CacheKey, value: CacheItem, ttl: number): Promise<void>;
+    set(key: CacheKey, value: T, ttl: number): Promise<void>;
     /**
      * drop(key) - remove an item from cache where:
      *  * key - a cache key object (see [ICacheKey]).
@@ -100,104 +100,87 @@ export interface CacheKey {
 }
 
 /** Cached object contains the following: */
-export interface CachedObject {
+export interface CachedObject<T> {
     /** item - the value stored in the cache using set(). */
-    item: any;
+    item: T;
     /** stored - the timestamp when the item was stored in the cache (in milliseconds). */
     stored: number;
     /** ttl - the remaining time-to-live (not the original value used when storing the object). */
     ttl: number;
 }
 
-export type CacheItem = any;
-
 export interface ClientOptions {
+    /**
+     * this will store items under keys that start with this value.
+     */
     partition: string;
 }
 
+export type PolicyOptionVariants<T> = PolicyOptions<T> | DecoratedPolicyOptions<T>;
+
+export type Id = string | { id: string };
+
 /**
- * The Policy object provides a convenient cache interface by setting a global policy which is automatically applied to every storage action.
+ * The Policy object provides a convenient cache interface by setting a
+ * global policy which is automatically applied to every storage action.
  * The object is constructed using new Policy(options, [cache, segment]) where:
  *  * options - an object with the IPolicyOptions structure
  *  * cache - a Client instance (which has already been started).
- *  * segment - required when cache is provided. The segment name used to isolate cached items within the cache partition.
+ *  * segment - required when cache is provided. The segment name used to
+ * isolate cached items within the cache partition.
  * @see {@link https://github.com/hapijs/catbox#policy}
  */
-export class Policy implements PolicyAPI {
-    constructor(options: PolicyOptions, cache: Client, segment: string);
+export class Policy<T, O extends PolicyOptionVariants<T>> {
+    constructor(options: O, cache: Client<T>, segment: string);
     /**
-     * get(id) - retrieve an item from the cache. If the item is not found and the generateFunc method was provided,
-     * a new value is generated, stored in the cache, and returned. Multiple concurrent requests are queued and processed once. The method arguments are:
-     *  * id - the unique item identifier (within the policy segment). Can be a string or an object with the required 'id' key.
+     *  retrieve an item from the cache. If the item is not
+     * found and the generateFunc method was provided,
+     * a new value is generated, stored in the cache, and returned.
+     * Multiple concurrent requests are queued and processed once. The method arguments are:
+     * @param id the unique item identifier (within the policy segment).
+     * Can be a string or an object with the required 'id' key.
      */
-    get(id: string | { id: string }): Promise<PolicyGetPromiseResult | null>;
+    get(id: Id): Promise<O extends DecoratedPolicyOptions<T> ? DecoratedResult<T> : T | null>;
+
     /**
-     * set(id, value, ttl) - store an item in the cache where:
-     *  * id - the unique item identifier (within the policy segment).
-     *  * value - the string or object value to be stored.
-     *  * ttl - a time-to-live override value in milliseconds after which the item is automatically removed from the cache (or is marked invalid).
+     * store an item in the cache where:
+     * @param id - the unique item identifier (within the policy segment).
+     * @param value - the string or object value to be stored.
+     * @param ttl - a time-to-live override value in milliseconds after which the item is automatically
+     * removed from the cache (or is marked invalid).
      *    This should be set to 0 in order to use the caching rules configured when creating the Policy object.
      */
-    set(id: string | { id: string }, value: CacheItem, ttl: number | null): Promise<void>;
+    set(id: Id, value: T, ttl?: number): Promise<void>;
     /**
-     * drop(id) - remove the item from cache where:
-     *  * id - the unique item identifier (within the policy segment).
+     * remove the item from cache where:
+     * @param id the unique item identifier (within the policy segment).
      */
-    drop(id: string | { id: string }): Promise<void>;
-    /** ttl(created) - given a created timestamp in milliseconds, returns the time-to-live left based on the configured rules. */
+    drop(id: Id): Promise<void>;
+    /**
+     * given a created timestamp in milliseconds, returns the time-to-live left
+     * based on the configured rules.
+     */
     ttl(created: number): number;
-    /** rules(options) - changes the policy rules after construction (note that items already stored will not be affected) */
-    rules(options: PolicyOptions): void;
-    /** isReady() - returns true if cache engine determines itself as ready, false if it is not ready or if there is no cache engine set. */
+    /** changes the policy rules after construction (note that items already stored will not be affected) */
+    rules(options: PolicyOptions<T>): void;
+    /**
+     * returns true if cache engine determines itself as ready, false if it is not ready or if
+     * here is no cache engine set.
+     */
     isReady(): boolean;
-    /** stats - an object with cache statistics */
+    /** an object with cache statistics */
     stats(): CacheStatisticsObject;
 }
 
-/**
- * Policy API
- * The Policy object provides the following methods:
- * @see {@link https://github.com/hapijs/catbox#api-1}
- */
-export interface PolicyAPI {
-    /**
-     * get(id) - retrieve an item from the cache. If the item is not found and the generateFunc method was provided,
-     * a new value is generated, stored in the cache, and returned. Multiple concurrent requests are queued and processed once. The method arguments are:
-     *  * id - the unique item identifier (within the policy segment). Can be a string or an object with the required 'id' key.
-     */
-    get(id: string | { id: string }): Promise<PolicyGetPromiseResult | null>;
-    /**
-     * set(id, value, ttl) - store an item in the cache where:
-     *  * id - the unique item identifier (within the policy segment).
-     *  * value - the string or object value to be stored.
-     *  * ttl - a time-to-live override value in milliseconds after which the item is automatically removed from the cache (or is marked invalid).
-     *    This should be set to 0 in order to use the caching rules configured when creating the Policy object.
-     */
-    set(id: string | { id: string }, value: CacheItem, ttl: number | null): Promise<void>;
-    /**
-     * drop(id) - remove the item from cache where:
-     *  * id - the unique item identifier (within the policy segment).
-     */
-    drop(id: string | { id: string }): Promise<void>;
-    /** ttl(created) - given a created timestamp in milliseconds, returns the time-to-live left based on the configured rules. */
-    ttl(created: number): number;
-    /** rules(options) - changes the policy rules after construction (note that items already stored will not be affected) */
-    rules(options: PolicyOptions): void;
-    /** isReady() - returns true if cache engine determines itself as ready, false if it is not ready or if there is no cache engine set. */
-    isReady(): boolean;
-    /** stats - an object with cache statistics */
-    stats(): CacheStatisticsObject;
-}
-
-export interface PolicyGetPromiseResult {
-    value: CacheItem;
-    cached: PolicyGetCachedOptions;
+export interface DecoratedResult<T> {
+    value: T;
+    cached: PolicyGetCachedOptions<T>;
     report: PolicyGetReportLog;
 }
 
-export interface PolicyGetCachedOptions {
+export interface PolicyGetCachedOptions<T> {
     /** item - the cached value. */
-    item: CacheItem;
+    item: T;
     /** stored - the timestamp when the item was stored in the cache. */
     stored: number;
     /** ttl - the cache ttl value for the record. */
@@ -209,13 +192,13 @@ export interface PolicyGetCachedOptions {
 /**
  * @see {@link https://github.com/hapijs/catbox#policy}
  */
-export interface PolicyOptions {
+export interface PolicyOptions<T> {
     /** expiresIn - relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
     expiresIn?: number;
     /** expiresAt - time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Uses local time. Cannot be used together with expiresIn. */
     expiresAt?: string;
     /** generateFunc - a function used to generate a new cache item if one is not found in the cache when calling get(). The method's signature is function(id, next) where: */
-    generateFunc?: GenerateFunc;
+    generateFunc?: GenerateFunc<T>;
     /**
      * staleIn - number of milliseconds to mark an item stored in cache as stale and attempt to regenerate it when generateFunc is provided.
      * Must be less than expiresIn. Alternatively function that returns staleIn value in milliseconds. The function signature is function(stored, ttl) where:
@@ -239,9 +222,16 @@ export interface PolicyOptions {
     generateIgnoreWriteError?: boolean;
     /**
      * pendingGenerateTimeout - number of milliseconds while generateFunc call is in progress for a given id, before a subsequent generateFunc call is allowed.
-     * Defaults to 0, no blocking of concurrent generateFunc calls beyond staleTimeout.
+     * @default 0, no blocking of concurrent generateFunc calls beyond staleTimeout.
      */
     pendingGenerateTimeout?: number;
+}
+
+export interface DecoratedPolicyOptions<T> extends PolicyOptions<T> {
+    /**
+     * @default false
+     */
+    getDecoratedValue: boolean | undefined;
 }
 
 export interface GenerateFuncFlags {
@@ -259,7 +249,7 @@ export interface GenerateFuncFlags {
  *      * ttl - the cache ttl value in milliseconds. Set to 0 to skip storing in the cache. Defaults to the cache global policy.
  * @see {@link https://github.com/hapijs/catbox#policy}
  */
-export type GenerateFunc = (id: string, flags: GenerateFuncFlags) => Promise<CacheItem>;
+export type GenerateFunc<T> = (id: Id, flags: GenerateFuncFlags) => Promise<T>;
 
 /**
  * An object with logging information about the generation operation containing the following keys (as relevant):

@@ -1,9 +1,9 @@
 // Type definitions for @storybook/addon-links 3.3
-// Project: https://github.com/storybooks/storybook
+// Project: https://github.com/storybooks/storybook, https://github.com/storybooks/storybook/tree/master/addons/links
 // Definitions by: Joscha Feth <https://github.com/joscha>,
 //                 Jesse Pinho <https://github.com/jessepinho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 

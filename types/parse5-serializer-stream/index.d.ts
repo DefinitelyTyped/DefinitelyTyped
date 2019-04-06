@@ -30,7 +30,7 @@ import * as parse5 from "parse5";
  * serializer.pipe(file);
  * ```
  */
-export default class SerializerStream extends stream.Readable {
+declare class SerializerStream extends stream.Readable {
     /**
      * Streaming AST node to an HTML serializer. A readable stream.
      *
@@ -39,3 +39,7 @@ export default class SerializerStream extends stream.Readable {
      */
     constructor(node: parse5.Node, options?: parse5.SerializerOptions);
 }
+
+declare namespace SerializerStream {}
+
+export = SerializerStream;

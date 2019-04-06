@@ -1,5 +1,5 @@
 // Type definitions for restify 7.2
-// Project: https://github.com/restify/node-restify
+// Project: https://github.com/restify/node-restify, http://restify.com
 // Definitions by: Bret Little <https://github.com/blittle>
 //                 Steve Hipwell <https://github.com/stevehipwell>
 //                 Leandro Almeida <https://github.com/leanazulyoro>
@@ -8,16 +8,13 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
-
 import http = require('http');
 import https = require('https');
-import http2 = require('http2');
 import Logger = require('bunyan');
 import url = require('url');
 import spdy = require('spdy');
 import stream = require('stream');
-import { Certificate } from 'crypto';
-import { ZlibOptions } from 'zlib';
+import zlib = require('zlib');
 
 export interface ServerOptions {
     ca?: string | Buffer | ReadonlyArray<string | Buffer>;
@@ -62,7 +59,7 @@ export interface ServerOptions {
 
     secureOptions?: number;
 
-    http2?: http2.SecureServerOptions;
+    http2?: any;
 
     dtrace?: boolean;
 
@@ -247,7 +244,7 @@ export interface Server extends http.Server {
     url: string;
 
     /** Node server instance */
-    server: http.Server | https.Server | spdy.Server | http2.Http2SecureServer;
+    server: http.Server | https.Server | spdy.Server;
 
     /** Router instance */
     router: Router;
@@ -854,7 +851,7 @@ export interface RedirectOptions {
     /**
      * redirect location's query string parameters
      */
-    query?: string;
+    query?: string|object;
 
     /**
      * if true, `options.query`
@@ -1233,6 +1230,8 @@ export namespace plugins {
         reviver?: any;
 
         maxFieldsSize?: number;
+
+        maxFileSize?: number;
     }
 
     /**
@@ -1287,6 +1286,7 @@ export namespace plugins {
         multipartHandler?: any;
         mapParams?: boolean;
         mapFiles?: boolean;
+        maxFileSize?: number;
     }
 
     /**
@@ -1343,7 +1343,7 @@ export namespace plugins {
     }
 
     /**
-     * Parses URL query paramters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
+     * Parses URL query parameters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
      */
     function queryParser(options?: QueryParserOptions): RequestHandler;
 
@@ -1373,7 +1373,7 @@ export namespace plugins {
      * gzips the response if client send `accept-encoding: gzip`
      * @param options options to pass to gzlib
      */
-    function gzipResponse(options?: ZlibOptions): RequestHandler;
+    function gzipResponse(options?: zlib.ZlibOptions): RequestHandler;
 
     interface InflightRequestThrottleOptions {
         limit: number;
@@ -1417,22 +1417,32 @@ export namespace plugins {
      */
     function throttle(options?: ThrottleOptions): RequestHandler;
 
-    interface MetricsCallback {
+    type MetricsCallback = (
         /**
          *  An error if the request had an error
          */
-        err: Error;
+        err: Error,
 
-        metrics: MetricsCallbackOptions;
+        /**
+         *  Object that contains the various metrics that are returned
+         */
+        metrics: MetricsCallbackOptions,
 
-        req: Request;
-        res: Response;
+        /**
+         * The request obj
+         */
+        req: Request,
+
+        /**
+         * The response obj
+         */
+        res: Response,
 
         /**
          * The route obj that serviced the request
          */
-        route: Route;
-    }
+        route: Route,
+    ) => void;
 
     type TMetricsCallback = 'close' | 'aborted' | undefined;
 
@@ -1495,13 +1505,13 @@ export namespace plugins {
      * Listens to the server's after event and emits information about that request (5.x compatible only).
      *
      * ```
-     * server.on('after', plugins.metrics( (err, metrics) =>
+     * server.on('after', plugins.metrics({ server }, (err, metrics, req, res, route) =>
      * {
      *    // metrics is an object containing information about the request
      * }));
      * ```
      */
-    function metrics(opts: { server: Server }, callback: (options: MetricsCallback) => any): (...args: any[]) => void;
+    function metrics(opts: { server: Server }, callback: MetricsCallback): (...args: any[]) => void;
 
     /**
      * Parse the client's request for an OAUTH2 access tokensTable

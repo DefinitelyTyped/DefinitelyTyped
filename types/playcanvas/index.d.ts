@@ -2,6 +2,7 @@
 // Project: https://github.com/playcanvas/engine
 // Definitions by: Philippe Vaillancourt <https://github.com/Neoflash1979>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="webvr-api" />
 /// <reference path="./engine/scriptype.d.ts" />

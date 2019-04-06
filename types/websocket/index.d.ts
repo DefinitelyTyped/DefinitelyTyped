@@ -679,8 +679,10 @@ declare class w3cwebsocket {
     url: string;
     readyState: number;
     protocol?: string;
-    extenstions: IExtension[];
+    extensions: IExtension[];
     bufferedAmount: number;
+
+    binaryType: "arraybuffer";
 
     CONNECTING: number;
     OPEN: number;
@@ -692,7 +694,7 @@ declare class w3cwebsocket {
     onclose: () => void;
     onmessage: (message: any) => void;
 
-    constructor(url: string, protocols?: string[], origin?: string, headers?: any[], requestOptions?: object, clientConfig?: IClientConfig);
+    constructor(url: string, protocols?: string | string[], origin?: string, headers?: any[], requestOptions?: object, clientConfig?: IClientConfig);
 
     send(data: Buffer): void;
     send(data: IStringified): void;

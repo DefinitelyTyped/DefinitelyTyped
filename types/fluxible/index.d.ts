@@ -73,7 +73,7 @@ export class Fluxible {
     /**
      * Registers a store to the dispatcher so it can listen for actions
      */
-    registerStore(store: StoreClass| typeof BaseStore): void;
+    registerStore(store: StoreClass | typeof BaseStore): void;
 
     /**
      * Creates a serializable state of the application and a given context for sending to the client
@@ -110,6 +110,24 @@ export class FluxibleContext {
     plug(plugin: any): void;
 
     /**
+     * Returns the context for action controllers
+     * @return Action context information
+     */
+    getActionContext(): ActionContext;
+
+    /**
+     * Returns the context for action controllers
+     * @return Component context information
+     */
+    getComponentContext(): ComponentContext;
+
+    /**
+     * Returns the context for stores
+     * @return Store context information
+     */
+    getStoreContext(): StoreContext;
+
+    /**
      * Returns a serializable context state
      */
     dehydrate(): any;
@@ -122,5 +140,81 @@ export class FluxibleContext {
     /**
      * Getter for store from dispatcher
      */
-    getStore<T extends BaseStore>(store: { new(dispatcher?: DispatcherInterface): T; }): T;
+    getStore<T extends BaseStore>(store: { new(dispatcher: DispatcherInterface): T; }): T;
+}
+
+export class ActionContext {
+    /**
+     * Dispatches a payload to all registered callbacks.
+     * @param action Action name
+     * @param payload
+     */
+    dispatch(action: string, payload?: any): void;
+
+    /**
+     * Proxy function to execute action
+     * @param action function that will be executed
+     * @param payload
+     * @param callback
+     */
+    executeAction(action: (context: ActionContext, params: object, callback?: () => void) => void, payload?: any, callback?: any): void;
+
+    /**
+     * Getter for store from dispatcher
+     */
+    getStore<T extends BaseStore>(store: { new(dispatcher: DispatcherInterface): T; }): T;
+
+    /**
+     * Data service. available only if fetch plugin is added
+     */
+    service?: {
+        /**
+         * GET request to the server
+         * @param resource name of resourse
+         * @param params query string parameters as key-value object
+         * @param callback
+         */
+        read: (resource: string, params: any, callback: (error: Error, data: any) => void) => void;
+        /**
+         * POST request to the server
+         * @param resource name of resourse
+         * @param params query string parameters as key-value object
+         * @param body json request body
+         * @param callback
+         */
+        create: (resource: string, params: any, body: any, callback: (error: Error, data: any) => void) => void;
+        /**
+         *
+         * @param resource name of resourse
+         * @param params query string parameters as key-value object
+         * @param body json request body
+         * @param callback
+         */
+        update: (resource: string, params: any, body: any, callback: (error: Error, data: any) => void) => void;
+        /**
+         *
+         * @param resource name of resourse
+         * @param params query string parameters as key-value object
+         * @param callback
+         */
+        delete: (resource: string, params: any, callback: (error: Error, data: any) => void) => void;
+    };
+}
+
+export class ComponentContext {
+    /**
+     * Proxy function to execute action
+     * @param action function that will be executed
+     * @param payload
+     * @param callback
+     */
+    executeAction(action: (context: ActionContext, params: object, callback?: () => void) => void, payload?: any): void;
+
+    /**
+     * Getter for store from dispatcher
+     */
+    getStore<T extends BaseStore>(store: { new(dispatcher: DispatcherInterface): T; }): T;
+}
+
+export class StoreContext {
 }

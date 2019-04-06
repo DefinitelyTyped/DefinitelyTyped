@@ -56,8 +56,33 @@ interface Osmosis {
      * result data, osmosis finished
      */
     data(callback: (param: any) => any): Osmosis;
-  }
 
-  declare const osmosis: Osmosis;
+    /**
+     * Set configuration options for the **preceeding** command on down the chain.
+     */
+    config(option: string | { [key: string]: any }, value?: any): Osmosis;
 
-  export = osmosis;
+    /**
+     * Set a cookie. Short for `.config({ cookies: ... })`. Note: Setting a cookie to `null` will delete the cookie.
+     */
+    cookie(name: string, value: string | null): Osmosis;
+
+    /**
+     * Set an HTTP header. Short for `.config({ headers: ... })`
+     */
+    header(name: string, value: string): Osmosis;
+
+    /**
+     * Set multiple HTTP headers. Short for `.config({ headers: ... })`.
+     */
+    headers(headers: { [key: string]: string }): Osmosis;
+
+    /**
+     * Call a callback when the Osmosis instance has completely finished.
+     */
+    done(callback: () => any): Osmosis;
+}
+
+declare const osmosis: Osmosis;
+
+export = osmosis;

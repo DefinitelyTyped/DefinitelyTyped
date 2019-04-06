@@ -90,7 +90,7 @@ spawnBox = (function() {
 
     var box_geometry = new THREE.BoxGeometry( 4, 4, 4 ),
         handleCollision = function( collided_with ) {
-            var target = <any>this;
+            var target = this as any;
             target.collisions = 0;
             switch (++target.collisions) {
 

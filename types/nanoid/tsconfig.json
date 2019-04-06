@@ -17,6 +17,10 @@
         "strictFunctionTypes": true
     },
     "files": [
+        "non-secure/index.d.ts",
+        "non-secure/generate.d.ts",
+        "async-browser.d.ts",
+        "async.d.ts",
         "format.d.ts",
         "generate.d.ts",
         "index.d.ts",

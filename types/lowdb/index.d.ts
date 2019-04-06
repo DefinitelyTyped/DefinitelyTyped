@@ -3,7 +3,7 @@
 // Definitions by: typicode <https://github.com/typicode>
 //                 Bazyli Brzóska <https://github.com/niieani>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference path="./_lodash.d.ts" />
 
