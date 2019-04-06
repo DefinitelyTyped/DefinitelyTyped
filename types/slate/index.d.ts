@@ -1014,6 +1014,7 @@ export interface EditorProperties {
 export class Editor implements Controller {
     object: "editor";
     onChange: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
+    operations: Immutable.List<Operation>;
     plugins: Plugin[];
     readOnly: boolean;
     value: Value;
