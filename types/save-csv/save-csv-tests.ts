@@ -1,4 +1,4 @@
-import { saveCsv } from 'save-csv';
+import saveCsv from 'save-csv';
 
 saveCsv([
     {a: 1, b: 2},

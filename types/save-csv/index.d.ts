@@ -14,4 +14,4 @@ export interface SaveCsvProps {
     formatter?: (value: string | JSON) => void;
 }
 
-export function saveCsv(array: ReadonlyArray<any>, options?: SaveCsvProps): void;
+export default function saveCsv(array: ReadonlyArray<any>, options?: SaveCsvProps): void;
