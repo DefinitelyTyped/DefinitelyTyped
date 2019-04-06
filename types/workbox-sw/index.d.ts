@@ -188,7 +188,6 @@ declare class CacheExpiration {
 }
 
 interface CacheExpirationConstructor {
-
 	/**
 	 * To construct a new CacheExpiration instance you must provide at least
 	 * one of the `config` properties.
@@ -284,7 +283,6 @@ declare class CacheOnly extends CacheStrategy {
 }
 
 interface CacheOnlyConstructor {
-
 	/**
 	 * Instantiates a new CacheOnly strategy
 	 * @param {Partial<CacheOnlyOptions>} options
@@ -506,10 +504,9 @@ interface NavigationRouteConstructor {
 	 * [`pathname`]{@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLHyperlinkElementUtils/pathname}
 	 * and [`search`]{@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLHyperlinkElementUtils/search}
 	 * portions of the requested URL.
-
 	 * @param {HandlerCallback} handler
 	 * @param {Partial<NavigationRouteOptions>} options
-	 * @return {NavigationRoute}
+	 * @returns {NavigationRoute}
 	 */
 	new (handler: HandlerCallback, options: Partial<NavigationRouteOptions>): NavigationRoute;
 }
@@ -631,7 +628,6 @@ interface CacheExpirationPluginOptions extends CacheExpirationOptions {
  * that is removed from the Cache.
  */
 declare class ExpirationPlugin {
-
 	/**
 	 * This is a helper method that performs two operations:
 	 *
@@ -685,7 +681,6 @@ interface StorableRequestOptions {
  *  @private
  */
 declare class StorableRequest {
-
 	/**
 	 * Returns a deep clone of the instances `_requestData` object.
 	 * @private
@@ -819,7 +814,6 @@ interface PrecacheControllerConstructor {
  */
 
 interface QueueOptions {
-
 	/**
 	 * A function that gets invoked whenever the 'sync' event fires. The function is invoked with an object
 	 * containing the `queue` property (referencing this instance), and you
@@ -920,7 +914,9 @@ declare class Queue {
 interface QueueConstructor {
 	/**
 	 * Creates an instance of Queue with the given options
-	 * @param {string} name - The unique name for this queue. This name must be unique as it's used to register sync events and store requests in IndexedDB specific to this instance. An error will be thrown if a duplicate name is detected.
+	 * @param {string} name - The unique name for this queue. This name must be unique as it's used to register sync events
+	 *                        and store requests in IndexedDB specific to this instance. An error will be thrown if a duplicate
+	 *                        name is detected.
 	 * @param {Partial<QueueOptions>} options
 	 * @return {Queue}
 	 */
@@ -941,9 +937,7 @@ interface QueueConstructor {
 declare class Route {
 }
 
-
 interface RouteConstructor {
-
 	/**
 	 * Constructor for Route class.
 	 * @param {MatchCallback} match - A callback function that determines whether the route matches a given `fetch` event by returning a non-falsy value.
@@ -969,7 +963,6 @@ interface RouteConstructor {
  */
 declare class RegExpRoute extends Route {
 }
-
 
 interface RegExpRouteConstructor {
 	/**
@@ -1044,7 +1037,6 @@ interface FindMatchingRouteResult {
  * be used to respond to the request.
  */
 declare class Router {
-
 	/**
 	 * A `Map` of HTTP method name ('GET', etc.) to an array of all the corresponding `Route`
 	 * instances that are registered.
@@ -1097,7 +1089,7 @@ declare class Router {
 	 * @param {FindMatchingRouteOptions} options
 	 * @return {Partial<FindMatchingRouteResult>}
 	 */
-	findMatchingRoute (options: FindMatchingRouteOptions): Partial<FindMatchingRouteResult>
+	findMatchingRoute (options: FindMatchingRouteOptions): Partial<FindMatchingRouteResult>;
 
 	/**
 	 * Define a default `handler` that's called when no routes explicitly
@@ -1240,7 +1232,6 @@ interface RouteOptions {
  * If you require finer grained control, you can use the PrecacheController to determine when performed.
  */
 declare class PrecachingNamespace {
-
 	/**
 	 * Add plugins to precaching.
 	 * @param {Plugin[]} newPlugins
@@ -1730,7 +1721,10 @@ declare class NavigationPreloadNamespace {
 
 	/**
 	 * If the browser supports Navigation Preload, then this will enable it.
-	 * @param {string} [headerValue] - Optionally, allows developers to [override](https://developers.google.com/web/updates/2017/02/navigation-preload#changing_the_header) the value of the `Service-Worker-Navigation-Preload` header which will be sent to the server when making the navigation request.
+	 * @param {string} [headerValue] - Optionally, allows developers to
+	 *                                 [override](https://developers.google.com/web/updates/2017/02/navigation-preload#changing_the_header)
+	 *                                 the value of the `Service-Worker-Navigation-Preload` header which will be sent to the server when making
+	 *                                 the navigation request.
 	 */
 	static enable (headerValue?: string): void;
 
@@ -1850,7 +1844,6 @@ declare class BroadcastUpdateNamespace {
  */
 
 declare class RangeRequestsNamespace {
-
 	/**
 	 * Given a `Request` and `Response` objects as input, this will return a
 	 * promise for a new `Response`.
@@ -1869,7 +1862,10 @@ declare class RangeRequestsNamespace {
 	 *
 	 * @param {Request} request - A request, which should contain a Range: header.
 	 * @param {Response} originalResponse - A response.
-	 * @returns {Promise<Response>} Either a `206 Partial Content` response, with the response body set to the slice of content specified by the request's `Range:` header, or a `416 Range Not Satisfiable` response if the conditions of the `Range:` header can't be met.
+	 * @returns {Promise<Response>} Either a `206 Partial Content` response, with the response body
+	 *                              set to the slice of content specified by the request's `Range:` header,
+	 *                              or a `416 Range Not Satisfiable` response if the conditions of the `Range:`
+	 *                              header can't be met.
 	 */
 	static createPartialResponse (request: Request, originalResponse: Response): Promise<Response>;
 
