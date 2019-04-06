@@ -11,7 +11,6 @@ export interface Reference {
 }
 
 export default class Link {
-
   constructor(value?: string);
 
   rel(value: string): Reference[];
@@ -20,5 +19,4 @@ export default class Link {
   has(attribute: string, value: string): boolean;
   parse(header: string, offset?: number): this;
   toString(): string;
-
 }
