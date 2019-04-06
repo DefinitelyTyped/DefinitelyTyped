@@ -9,7 +9,7 @@ export interface Reference {
     rel: string;
     [index: string]: string;
 }
-export class Link {
+export default class Link {
 
   constructor(value?: string);
 
@@ -21,5 +21,3 @@ export class Link {
   toString(): string;
 
 }
-
-export default Link;
