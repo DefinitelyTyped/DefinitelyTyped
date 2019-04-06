@@ -1,10 +1,10 @@
-import * as LinkHeader from 'http-link-header';
+import { default as LinkHeader, Reference } from 'http-link-header';
 
 function isBool(bool: boolean): null {
     return null;
 }
 
-function isReference(ref: LinkHeader.Reference): null {
+function isReference(ref: Reference): null {
     return null;
 }
 
@@ -12,18 +12,18 @@ function isString(str: string): null {
     return null;
 }
 
-const link = LinkHeader.parse(
+const link = new LinkHeader(
     '<example.com>; rel="example"; title="Example Website", ' +
     '<example-01.com>; rel="alternate"; title="Alternate Example Domain"'
 );
 const has = link.has('rel', 'alternate');
 isBool(has);
 const get = link.get('title', 'Example Website');
-isReference(get);
+isReference(get[0]);
 const rel = link.rel('alternate');
-rel['title'] !== 'bar';
-isReference(rel);
+rel[0]['title'] !== 'bar';
+isReference(rel[0]);
 const set = link.set({ rel: 'next', uri: 'http://example.com/next' });
-isReference(set);
+set === link;
 const str = link.toString();
 isString(str);
