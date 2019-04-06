@@ -8,8 +8,6 @@
 
 import * as React from 'react';
 
-import { CircleProps } from './lib/components/Svg/Circle';
-
 declare global {
     const context: SketchContext;
 }
@@ -333,35 +331,4 @@ export const Platform: {
 };
 
 // Svg, similar to https://github.com/react-native-community/react-native-svg
-export interface SvgProps extends ViewProps {
-    className?: string;
-    opacity?: string | number;
-    width?: string | number;
-    height?: string | number;
-    // more detail https://svgwg.org/svg2-draft/coords.html#ViewBoxAttribute
-    viewBox?: string;
-    preserveAspectRatio?: string;
-}
-
-export class Svg extends React.Component<SvgProps> {
-    static Circle: React.ComponentClass<CircleProps>;
-    static ClipPath: JSX.Element;
-    static Defs: JSX.Element;
-    static Ellipse: JSX.Element;
-    static G: JSX.Element;
-    static Image: JSX.Element;
-    static Line: JSX.Element;
-    static LinearGradient: JSX.Element;
-    static Path: JSX.Element;
-    static Pattern: JSX.Element;
-    static Polygon: JSX.Element;
-    static Polyline: JSX.Element;
-    static RadialGradient: JSX.Element;
-    static Rect: JSX.Element;
-    static Stop: JSX.Element;
-    static Symbol: JSX.Element;
-    static Text: JSX.Element;
-    static TextPath: JSX.Element;
-    static TSpan: JSX.Element;
-    static Use: JSX.Element;
-}
+export { default as Svg } from './lib/components/Svg';
