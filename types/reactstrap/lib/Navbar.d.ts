@@ -4,7 +4,6 @@ import { CSSModule } from '../index';
 export type NavbarProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   light?: boolean;
   dark?: boolean;
-  inverse?: boolean;
   full?: boolean;
   fixed?: string;
   sticky?: string;
@@ -13,7 +12,6 @@ export type NavbarProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
-  toggleable?: boolean | string;
   expand?: boolean | string;
 } & T;
 

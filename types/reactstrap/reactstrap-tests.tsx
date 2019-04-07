@@ -570,14 +570,14 @@ const Example27 = (props: any) => {
   return (
     <Row noGutters>
       <Col sm="6">
-        <Card block>
+        <Card body>
           <CardTitle>Special Title Treatment</CardTitle>
           <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
           <Button>Go somewhere</Button>
         </Card>
       </Col>
       <Col sm="6">
-        <Card block>
+        <Card body>
           <CardTitle>Special Title Treatment</CardTitle>
           <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
           <Button>Go somewhere</Button>
@@ -590,17 +590,17 @@ const Example27 = (props: any) => {
 const Example28 = (props: any) => {
   return (
     <div>
-      <Card block>
+      <Card body>
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button>Go somewhere</Button>
       </Card>
-      <Card block className="text-center">
+      <Card body className="text-center">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button>Go somewhere</Button>
       </Card>
-      <Card block className="text-right">
+      <Card body className="text-right">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button>Go somewhere</Button>
@@ -682,32 +682,32 @@ const Example31 = (props: any) => {
 const Example32 = (props: any) => {
   return (
     <div>
-      <Card block inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
+      <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button>Button</Button>
       </Card>
-      <Card block inverse color="primary">
+      <Card body inverse color="primary">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block inverse color="success">
+      <Card body inverse color="success">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block inverse color="info">
+      <Card body inverse color="info">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block inverse color="warning">
+      <Card body inverse color="warning">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block inverse color="danger">
+      <Card body inverse color="danger">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
@@ -719,32 +719,32 @@ const Example32 = (props: any) => {
 const Example33 = (props: any) => {
   return (
     <div>
-      <Card block outline color="secondary">
+      <Card body outline color="secondary">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button>Button</Button>
       </Card>
-      <Card block outline color="primary">
+      <Card body outline color="primary">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block outline color="success">
+      <Card body outline color="success">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block outline color="info">
+      <Card body outline color="info">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block outline color="warning">
+      <Card body outline color="warning">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block outline color="danger">
+      <Card body outline color="danger">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
@@ -850,7 +850,7 @@ const Example36 = (props: any) => {
           <Button>Button</Button>
         </CardBody>
       </Card>
-      <Card block inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
+      <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button>Button</Button>
@@ -869,7 +869,7 @@ const Example36 = (props: any) => {
           <Button>Button</Button>
         </CardBody>
       </Card>
-      <Card block inverse color="primary">
+      <Card body inverse color="primary">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
@@ -3271,14 +3271,14 @@ class Example101 extends React.Component<any, any> {
           <TabPane tabId="2">
             <Row>
               <Col sm="6">
-                <Card block>
+                <Card body>
                   <CardTitle>Special Title Treatment</CardTitle>
                   <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
                   <Button>Go somewhere</Button>
                 </Card>
               </Col>
               <Col sm="6">
-                <Card block>
+                <Card body>
                   <CardTitle>Special Title Treatment</CardTitle>
                   <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
                   <Button>Go somewhere</Button>
@@ -3539,7 +3539,7 @@ class Example108 extends React.Component<any, any> {
   render() {
     return (
       <div>
-        <Navbar color="faded" dark toggleable>
+        <Navbar color="faded" dark expand>
           <NavbarToggler onClick={this.toggle} />
           <NavbarBrand href="/">reactstrap</NavbarBrand>
           <Collapse isOpen={this.state.isOpen} navbar>
