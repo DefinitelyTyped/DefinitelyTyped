@@ -2745,6 +2745,17 @@ class PopoverExampleMulti extends React.Component<any, {popovers: Array<{placeme
   }
 }
 
+class PopoverExampleFlipFade extends React.Component<any, any> {
+  render() {
+    return (
+      <Popover target="dummy" flip fade>
+        <PopoverHeader>Popover Title</PopoverHeader>
+        <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+      </Popover>
+    );
+  }
+}
+
 // ------------------------- Progress
 
 const Example86 = (props: any) => {
@@ -3404,6 +3415,16 @@ class TooltipExampleMulti extends React.Component<any, any> {
           return <TooltipItem key={i} item={tooltip} id={i} />;
         })}
       </div>
+    );
+  }
+}
+
+class TooltipExampleFlipFade {
+  render() {
+    return (
+      <Tooltip target="dummy" flip fade>
+        Tooltip Content!
+      </Tooltip>
     );
   }
 }

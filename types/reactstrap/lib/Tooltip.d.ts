@@ -12,6 +12,8 @@ export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   placement?: Popper.Placement;
   modifiers?: Popper.Modifiers;
   cssModule?: CSSModule;
+  fade?: boolean;
+  flip?: boolean;
 } & T;
 export type UncontrolledTooltipProps<T = {}> = UncontrolledProps<T>;
 
