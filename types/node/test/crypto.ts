@@ -417,6 +417,117 @@ import { promisify } from 'util';
             type: 'pkcs8',
         },
     });
+
+    const pemPem: {
+        publicKey: string;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+
+    const pemDer: {
+        publicKey: string;
+        privateKey: Buffer;
+    } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'der',
+            type: 'pkcs8',
+        },
+    });
+
+    const derPem: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+
+    const derDer: {
+        publicKey: Buffer;
+        privateKey: Buffer;
+    } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'der',
+            type: 'pkcs8',
+        },
+    });
+
+    const pemObject: {
+        publicKey: string;
+        privateKey: crypto.KeyObject;
+    } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs1',
+        }
+    });
+
+    const derObject: {
+        publicKey: Buffer;
+        privateKey: crypto.KeyObject;
+    } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'pkcs1',
+        }
+    });
+
+    const objectPem: {
+        publicKey: crypto.KeyObject;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 123,
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs1',
+        }
+    });
+
+    const objectDer: {
+        publicKey: crypto.KeyObject;
+        privateKey: Buffer;
+    } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 123,
+        privateKeyEncoding: {
+            format: 'der',
+            type: 'pkcs1'
+        }
+    });
+
+    const objectObject: {
+        publicKey: crypto.KeyObject;
+        privateKey: crypto.KeyObject;
+    } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 123
+    });
 }
 
 {
@@ -462,6 +573,86 @@ import { promisify } from 'util';
             type: 'pkcs8',
         },
     }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {});
+
+    crypto.generateKeyPair('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {});
+
+    crypto.generateKeyPair('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'der',
+            type: 'pkcs8',
+        },
+    }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: Buffer) => {});
+
+    crypto.generateKeyPair('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    }, (err: NodeJS.ErrnoException | null, publicKey: Buffer, privateKey: string) => {});
+
+    crypto.generateKeyPair('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'der',
+            type: 'pkcs8',
+        },
+    }, (err: NodeJS.ErrnoException | null, publicKey: Buffer, privateKey: Buffer) => {});
+
+    crypto.generateKeyPair('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs1',
+        },
+    }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: crypto.KeyObject) => {});
+
+    crypto.generateKeyPair('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'pkcs1',
+        },
+    }, (err: NodeJS.ErrnoException | null, publicKey: Buffer, privateKey: crypto.KeyObject) => {});
+
+    crypto.generateKeyPair('rsa', {
+        modulusLength: 123,
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    }, (err: NodeJS.ErrnoException | null, publicKey: crypto.KeyObject, privateKey: string) => {});
+
+    crypto.generateKeyPair('rsa', {
+        modulusLength: 123,
+        privateKeyEncoding: {
+            format: 'der',
+            type: 'pkcs8',
+        },
+    }, (err: NodeJS.ErrnoException | null, publicKey: crypto.KeyObject, privateKey: Buffer) => {});
 }
 
 {
@@ -517,6 +708,117 @@ import { promisify } from 'util';
             passphrase: 'secret',
             type: 'pkcs8',
         },
+    });
+
+    const pemPem: Promise<{
+        publicKey: string;
+        privateKey: string;
+    }> = generateKeyPairPromisified('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+
+    const pemDer: Promise<{
+        publicKey: string;
+        privateKey: Buffer;
+    }> = generateKeyPairPromisified('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'der',
+            type: 'pkcs8',
+        },
+    });
+
+    const derPem: Promise<{
+        publicKey: Buffer;
+        privateKey: string;
+    }> = generateKeyPairPromisified('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+
+    const derDer: Promise<{
+        publicKey: Buffer;
+        privateKey: Buffer;
+    }> = generateKeyPairPromisified('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'der',
+            type: 'pkcs8',
+        },
+    });
+
+    const pemObject: Promise<{
+        publicKey: string;
+        privateKey: crypto.KeyObject;
+    }> = generateKeyPairPromisified('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs1',
+        }
+    });
+
+    const derObject: Promise<{
+        publicKey: Buffer;
+        privateKey: crypto.KeyObject;
+    }> = generateKeyPairPromisified('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'pkcs1',
+        }
+    });
+
+    const objectPem: Promise<{
+        publicKey: crypto.KeyObject;
+        privateKey: string;
+    }> = generateKeyPairPromisified('rsa', {
+        modulusLength: 123,
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs1',
+        }
+    });
+
+    const objectDer: Promise<{
+        publicKey: crypto.KeyObject;
+        privateKey: Buffer;
+    }> = generateKeyPairPromisified('rsa', {
+        modulusLength: 123,
+        privateKeyEncoding: {
+            format: 'der',
+            type: 'pkcs1'
+        }
+    });
+
+    const objectObject: Promise<{
+        publicKey: crypto.KeyObject;
+        privateKey: crypto.KeyObject;
+    }> = generateKeyPairPromisified('rsa', {
+        modulusLength: 123
     });
 }
 
