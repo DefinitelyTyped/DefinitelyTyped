@@ -1981,6 +1981,12 @@
             "asOfVersion": "0.54.0"
         },
         {
+            "libraryName": "rollup-plugin-commonjs",
+            "typingsPackageName": "rollup-plugin-commonjs",
+            "sourceRepoURL": "https://github.com/rollup/rollup-plugin-commonjs",
+            "asOfVersion": "9.3.1"
+        },
+        {
             "libraryName": "route-recognizer",
             "typingsPackageName": "route-recognizer",
             "sourceRepoURL": "https://github.com/tildeio/route-recognizer",
