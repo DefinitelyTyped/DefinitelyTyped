@@ -28,15 +28,15 @@ declare namespace googletag {
         addEventListener(
           eventType: "slotRenderEnded",
             listener: (event: events.SlotRenderEndedEvent) => void
-        ): void;
+        ): Service;
         addEventListener(
           eventType: "impressionViewable",
             listener: (event: events.ImpressionViewableEvent) => void
-        ): void;
+        ): Service;
         addEventListener(
           eventType: string,
             listener: (event: events.Event | events.ImpressionViewableEvent | events.SlotOnloadEvent | events.SlotRenderEndedEvent | events.slotVisibilityChangedEvent) => void
-        ): void;
+        ): Service;
         getSlots(): Slot[];
     }
 
