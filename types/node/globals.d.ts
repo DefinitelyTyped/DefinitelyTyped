@@ -603,8 +603,7 @@ declare namespace NodeJS {
         isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe(destination?: WritableStream): this;
-        unshift(chunk: string): void;
-        unshift(chunk: Buffer): void;
+        unshift(chunk: string | Buffer | Uint8Array): void;
         wrap(oldStream: ReadableStream): this;
         [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
     }
@@ -734,6 +733,71 @@ declare namespace NodeJS {
         (time?: [number, number]): [number, number];
     }
 
+    interface ProcessReport {
+        /**
+         * Directory where the report is written.
+         * working directory of the Node.js process.
+         * @default '' indicating that reports are written to the current
+         */
+        directory: string;
+
+        /**
+         * Filename where the report is written.
+         * The default value is the empty string.
+         * @default '' the output filename will be comprised of a timestamp,
+         * PID, and sequence number.
+         */
+        filename: string;
+
+        /**
+         * Returns a JSON-formatted diagnostic report for the running process.
+         * The report's JavaScript stack trace is taken from err, if present.
+         */
+        getReport(err?: Error): string;
+
+        /**
+         * If true, a diagnostic report is generated on fatal errors,
+         * such as out of memory errors or failed C++ assertions.
+         * @default false
+         */
+        reportOnFatalError: boolean;
+
+        /**
+         * If true, a diagnostic report is generated when the process
+         * receives the signal specified by process.report.signal.
+         * @defaul false
+         */
+        reportOnSignal: boolean;
+
+        /**
+         * If true, a diagnostic report is generated on uncaught exception.
+         * @default false
+         */
+        reportOnUncaughtException: boolean;
+
+        /**
+         * The signal used to trigger the creation of a diagnostic report.
+         * @default 'SIGUSR2'
+         */
+        signal: Signals;
+
+        /**
+         * Writes a diagnostic report to a file. If filename is not provided, the default filename
+         * includes the date, time, PID, and a sequence number.
+         * The report's JavaScript stack trace is taken from err, if present.
+         *
+         * @param fileName Name of the file where the report is written.
+         * This should be a relative path, that will be appended to the directory specified in
+         * `process.report.directory`, or the current working directory of the Node.js process,
+         * if unspecified.
+         * @param error A custom error used for reporting the JavaScript stack.
+         * @return Filename of the generated report.
+         */
+        writeReport(fileName?: string): string;
+        writeReport(error?: Error): string;
+        writeReport(fileName?: string, err?: Error): string;
+    }
+
     interface Process extends EventEmitter {
         /**
          * Can also be a tty.WriteStream, not typed due to limitation.s
@@ -827,7 +891,7 @@ declare namespace NodeJS {
         domain: Domain;
 
         // Worker
-        send?(message: any, sendHandle?: any): void;
+        send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean}, callback?: (error: Error | null) => void): boolean;
         disconnect(): void;
         connected: boolean;
 
@@ -837,6 +901,11 @@ declare namespace NodeJS {
          * environment variable.
          */
         allowedNodeEnvironmentFlags: ReadonlySet<string>;
+
+        /**
+         * Only available with `--experimental-report`
+         */
+        report?: ProcessReport;
 
         /**
          * EventEmitter

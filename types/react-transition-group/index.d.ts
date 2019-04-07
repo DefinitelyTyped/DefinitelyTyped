@@ -1,4 +1,4 @@
-// Type definitions for react-transition-group 2.0
+// Type definitions for react-transition-group 2.8
 // Project: https://github.com/reactjs/react-transition-group
 // Definitions by: Karol Janyst <https://github.com/LKay>
 //                 Epskampie <https://github.com/Epskampie>

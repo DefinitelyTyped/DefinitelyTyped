@@ -143,7 +143,7 @@ interface IDataURLOptions {
 interface IEvent {
 	e: Event;
 	target?: Object;
-	transform?: { corner: string };
+	transform?: { corner: string, original: Object, width: number };
 }
 
 interface IFillOptions {

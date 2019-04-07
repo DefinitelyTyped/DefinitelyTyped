@@ -1,5 +1,5 @@
 import * as React from "react";
-import Form, { UiSchema, ErrorListProps, WidgetProps } from "react-jsonschema-form";
+import Form, { UiSchema, ErrorListProps, WidgetProps, ErrorSchema } from "react-jsonschema-form";
 import { JSONSchema6 } from "json-schema";
 
 // example taken from the react-jsonschema-form playground:
@@ -108,6 +108,31 @@ export class Example extends React.Component<any, IExampleState> {
         );
     }
 }
+
+interface FuncExampleProps {
+    formData: object;
+    onError: (e: ErrorSchema) => void;
+    onChange: (e: any) => void;
+}
+
+export const FuncExample = (props: FuncExampleProps) => {
+    const { formData, onChange, onError } = props;
+    return (
+        <Form
+            schema={schema}
+            uiSchema={uiSchema}
+            showErrorList={false}
+            noValidate={false}
+            noHtml5Validate={false}
+            formData={formData}
+            ErrorList={ErrorListExample}
+            onChange={(formData, errorSchema) => {
+                onChange(formData);
+                onError(errorSchema)
+            }}
+        />
+    );
+};
 
 export const BooleanCustomWidget: React.SFC<WidgetProps> = (props) =>
     <input

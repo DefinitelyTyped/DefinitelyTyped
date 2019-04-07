@@ -169,7 +169,7 @@ When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration
 
 You can remove it by running `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`.
 - `typingsPackageName`: This is the name of the directory to delete.
-- `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version.
+- `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version, and should be a version of `foo` on npm.
 - `sourceRepoURL`: This should point to the repository that contains the typings.
 - `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName", in which case you can omit it.
 
@@ -452,5 +452,3 @@ GitHub doesn't [support](http://stackoverflow.com/questions/5646174/how-to-make-
 This project is licensed under the MIT license.
 
 Copyrights on the definition files are respective of each contributor listed at the beginning of each definition file.
-
-[![Analytics](https://ga-beacon.appspot.com/UA-47495295-4/borisyankov/DefinitelyTyped)](https://github.com/igrigorik/ga-beacon)

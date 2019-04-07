@@ -21,6 +21,8 @@
 //                 Jessica Franco <https://github.com/Jessidhia>
 //                 Paul Sherman <https://github.com/pshrmn>
 //                 Saransh Kataria <https://github.com/saranshkataria>
+//                 Kanitkorn Sujautra <https://github.com/lukyth>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -41,6 +43,15 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
+
+/**
+ * defined in scheduler/tracing
+ */
+interface SchedulerInteraction {
+    id: number;
+    name: string;
+    timestamp: number;
+}
 
 // tslint:disable-next-line:export-just-namespace
 export = React;
@@ -354,6 +365,26 @@ declare namespace React {
      */
     const Suspense: ExoticComponent<SuspenseProps>;
     const version: string;
+
+    /**
+     * {@link https://github.com/bvaughn/rfcs/blob/profiler/text/0000-profiler.md#detailed-design | API}
+     */
+    type ProfilerOnRenderCallback = (
+        id: string,
+        phase: "mount" | "update",
+        actualDuration: number,
+        baseDuration: number,
+        startTime: number,
+        commitTime: number,
+        interactions: Set<SchedulerInteraction>,
+    ) => void;
+    interface ProfilerProps {
+        children?: ReactNode;
+        id: string;
+        onRender: ProfilerOnRenderCallback;
+    }
+
+    const unstable_Profiler: ExoticComponent<ProfilerProps>;
 
     //
     // Component API
@@ -1311,6 +1342,8 @@ declare namespace React {
         onWaitingCapture?: ReactEventHandler<T>;
 
         // MouseEvents
+        onAuxClick?: MouseEventHandler<T>;
+        onAuxClickCapture?: MouseEventHandler<T>;
         onClick?: MouseEventHandler<T>;
         onClickCapture?: MouseEventHandler<T>;
         onContextMenu?: MouseEventHandler<T>;
@@ -1814,7 +1847,7 @@ declare namespace React {
         formNoValidate?: boolean;
         formTarget?: string;
         name?: string;
-        type?: string;
+        type?: 'submit' | 'reset' | 'button';
         value?: string | string[] | number;
     }
 
@@ -2921,6 +2954,7 @@ declare global {
             feDiffuseLighting: React.SVGProps<SVGFEDiffuseLightingElement>;
             feDisplacementMap: React.SVGProps<SVGFEDisplacementMapElement>;
             feDistantLight: React.SVGProps<SVGFEDistantLightElement>;
+            feDropShadow: React.SVGProps<SVGFEDropShadowElement>;
             feFlood: React.SVGProps<SVGFEFloodElement>;
             feFuncA: React.SVGProps<SVGFEFuncAElement>;
             feFuncB: React.SVGProps<SVGFEFuncBElement>;
