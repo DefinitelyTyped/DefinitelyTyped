@@ -2499,7 +2499,7 @@ interface IObjectOptions {
 	/**
 	 * Color of object's fill
 	 */
-	fill?: string;
+	fill?: string | Pattern;
 
 	/**
 	 * Fill rule used to fill an object
