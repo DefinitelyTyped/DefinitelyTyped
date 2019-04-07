@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 //                 Steven Joyce <https://github.com/steven-joyce>
+//                 Joe Flateau <https://github.com/joeflateau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
