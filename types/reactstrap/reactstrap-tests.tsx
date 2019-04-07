@@ -2127,6 +2127,104 @@ class ModalExample74 extends React.Component<any, any> {
   }
 }
 
+class ModalExampleDestructuring extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      modal: false,
+      unmountOnClose: true
+    };
+
+    this.toggle = this.toggle.bind(this);
+    this.changeUnmountOnClose = this.changeUnmountOnClose.bind(this);
+  }
+
+  toggle() {
+    this.setState((prevState: any) => ({
+      modal: !prevState.modal
+    }));
+  }
+
+  changeUnmountOnClose(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    this.setState({ unmountOnClose: JSON.parse(value) });
+  }
+
+  render() {
+    return (
+      <div>
+        <Form inline onSubmit={(e) => e.preventDefault()}>
+          <FormGroup>
+            <Label for="unmountOnClose">UnmountOnClose value</Label>{' '}
+            <Input type="select" name="unmountOnClose" id="unmountOnClose" onChange={this.changeUnmountOnClose}>
+              <option value="true">true</option>
+              <option value="false">false</option>
+            </Input>
+          </FormGroup>
+          {' '}
+          <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+        </Form>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} unmountOnClose={this.state.unmountOnClose} scrollable>
+          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalBody>
+            <Input type="textarea" placeholder="Write something (data should remain in modal if unmountOnClose is set to false)" rows={5} />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
+            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
+      </div>
+    );
+  }
+}
+
+class ModalExampleFocusAfterClose extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      open: false,
+      focusAfterClose: true
+    };
+    this.toggle = this.toggle.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
+  }
+
+  toggle() {
+    this.setState({ open: !this.state.open });
+  }
+
+  handleSelectChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    this.setState({ focusAfterClose: JSON.parse(value) });
+  }
+
+  render() {
+    return (
+      <div>
+        <Form inline onSubmit={(e) => e.preventDefault()}>
+          <FormGroup>
+            <Label for="focusAfterClose">Focus After Close</Label>
+            <Input className="mx-2" type="select" id="focusAfterClose" onChange={this.handleSelectChange}>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </Input>
+          </FormGroup>
+          <Button color="danger" onClick={this.toggle}>Open</Button>
+        </Form>
+        <Modal returnFocusAfterClose={this.state.focusAfterClose} isOpen={this.state.open}>
+          <ModalBody>
+            Observe the "Open" button. It will be focused after close when "returnFocusAfterClose" is true and will not be focused if "returnFocusAfterClose" is false.
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.toggle}>Close</Button>
+          </ModalFooter>
+        </Modal>
+      </div>
+    );
+  }
+}
+
 class Example75 extends React.Component<any, any> {
   state: any;
   constructor(props: any) {
