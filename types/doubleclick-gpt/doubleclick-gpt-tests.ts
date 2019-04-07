@@ -291,6 +291,12 @@ googletag.pubads().addEventListener("impressionViewable", (event) => {
     }
 });
 
+googletag.pubads().addEventListener("slotVisibilityChanged", (event) => {
+    if (event.slot === targetSlot) {
+        console.log(event.inViewPercentage)
+    }
+});
+
 let mapping1 = googletag.sizeMapping().
         addSize([1024, 768], [970, 250]).
         addSize([980, 690], [728, 90]).
