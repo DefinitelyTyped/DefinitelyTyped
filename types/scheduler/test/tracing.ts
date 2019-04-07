@@ -14,7 +14,7 @@ import {
 trace("initial render", Date.now(), () => 123);
 
 const fn = (n: number, s: string) => s.repeat(n);
-let wrapped: WrappedFunction<typeof fn> | undefined;
+let wrapped: WrappedFunction<typeof fn> | typeof fn | undefined;
 trace("arbitrary", 0, () => {
   wrapped = wrap(fn);
 });
@@ -36,7 +36,7 @@ getCurrent();
 getThreadID();
 
 // should expose the current set of interactions to be externally manipulated
-const isAssignable = __interactionsRef.current === getCurrent()!;
+const isAssignable = __interactionsRef!.current === getCurrent()!;
 
 // should expose a subscriber ref to be externally manipulated
-__subscriberRef.current = null;
+__subscriberRef!.current = null;

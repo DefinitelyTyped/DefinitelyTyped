@@ -1,3 +1,41 @@
+// disable automatic export
+export {};
+/**
+ * This type is only interesting if you're only using this module for a specifc build environment.
+ *
+ * With module augmentation you can declare what build of scheduler you are using by
+ * augmenting this interface with e.g. `interface Build { type: 'development'; }`
+ * Depending on the build some exported members have different types.
+ * Possible values are `production`, `profiling` and `development`.
+ * The default behavior for the types is to use a union of all possible types.
+ */
+// tslint:disable-next-line: no-empty-interface
+export interface Build {}
+
+export type EnableSchedulerTracing = Build extends { type: infer BuildType }
+  ? BuildType extends "production" | "profiling"
+    ? false
+    : BuildType extends "development"
+    ? true
+    : undefined
+  : undefined;
+
+type TypeByBuildFlag<
+  Flag extends boolean | undefined,
+  WhenTrue,
+  WhenFalse
+> = Flag extends undefined
+  ? (WhenTrue | WhenFalse)
+  : Flag extends true
+  ? WhenTrue
+  : WhenFalse;
+
+type IfSchedulerTracing<WhenTrue, WhenFalse> = TypeByBuildFlag<
+  EnableSchedulerTracing,
+  WhenTrue,
+  WhenFalse
+>;
+
 export interface Interaction {
   __count: number;
   id: number;
@@ -56,8 +94,8 @@ export interface SubscriberRef {
   current: Subscriber | null;
 }
 
-export const __interactionsRef: InteractionsRef;
-export const __subscriberRef: SubscriberRef;
+export const __interactionsRef: IfSchedulerTracing<InteractionsRef, null>;
+export const __subscriberRef: IfSchedulerTracing<SubscriberRef, null>;
 
 export function unstable_clear<T>(callback: () => T): T;
 
@@ -86,7 +124,7 @@ export type WrappedFunction<T extends (...args: any[]) => any> = T & {
 export function unstable_wrap<T extends (...args: any[]) => any>(
   callback: T,
   threadID?: number
-): WrappedFunction<T>;
+): IfSchedulerTracing<WrappedFunction<T>, T>;
 
 export function unstable_subscribe(subscriber: Subscriber): void;
 
