@@ -4236,6 +4236,7 @@ class Example119 extends React.Component<any, any> {
             <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="Or this one" />
             <CustomInput type="checkbox" id="exampleCustomCheckbox3" label={<span>Or this one</span>} />
             <CustomInput type="checkbox" id="exampleCustomCheckbox4" label="But not this disabled one" disabled />
+            <CustomInput type="checkbox" id="exampleCustomCheckbox5" label="Can't click this label to check!" htmlFor="exampleCustomCheckbox5_X" disabled />
           </div>
         </FormGroup>
         <FormGroup>
@@ -4245,6 +4246,7 @@ class Example119 extends React.Component<any, any> {
             <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="Or this one" />
             <CustomInput type="radio" id="exampleCustomRadio3" name="customRadio" label={<span>Or this one</span>} />
             <CustomInput type="radio" id="exampleCustomRadio4" label="But not this disabled one" disabled />
+            <CustomInput type="radio" id="exampleCustomRadio5" label="Can't click this label to select!" htmlFor="exampleCustomRadio5_X" disabled />
           </div>
         </FormGroup>
         <FormGroup>
