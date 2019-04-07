@@ -26,8 +26,16 @@ declare namespace googletag {
 
     interface Service {
         addEventListener(
+          eventType: "slotRenderEnded",
+            listener: (event: events.SlotRenderEndedEvent) => void
+        ): void;
+        addEventListener(
+          eventType: "impressionViewable",
+            listener: (event: events.ImpressionViewableEvent) => void
+        ): void;
+        addEventListener(
           eventType: string,
-            listener: (event: events.ImpressionViewableEvent | events.SlotOnloadEvent | events.SlotRenderEndedEvent | events.slotVisibilityChangedEvent) => void
+            listener: (event: events.Event | events.ImpressionViewableEvent | events.SlotOnloadEvent | events.SlotRenderEndedEvent | events.slotVisibilityChangedEvent) => void
         ): void;
         getSlots(): Slot[];
     }
@@ -155,32 +163,28 @@ declare namespace googletag {
     }
 
     namespace events {
-        interface ImpressionViewableEvent {
+        interface Event {
             serviceName: string;
             slot: Slot;
         }
-
-        interface SlotOnloadEvent {
-            serviceName: string;
-            slot: Slot;
+        interface ImpressionViewableEvent extends Event {
         }
 
-        interface SlotRenderEndedEvent {
+        interface SlotOnloadEvent extends Event {
+        }
+
+        interface SlotRenderEndedEvent extends Event {
             advertiserId?: number;
             creativeId?: number;
             isEmpty: boolean;
             lineItemId?: number;
-            serviceName: string;
             size: number[] | string;
-            slot: Slot;
             sourceAgnosticCreativeId?: number;
             sourceAgnosticLineItemId?: number;
         }
 
-        interface slotVisibilityChangedEvent {
+        interface slotVisibilityChangedEvent extends Event {
             inViewPercentage: number;
-            serviceName: string;
-            slot: Slot;
         }
     }
 }
