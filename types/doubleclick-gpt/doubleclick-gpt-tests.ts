@@ -293,7 +293,7 @@ googletag.pubads().addEventListener("impressionViewable", (event) => {
 
 googletag.pubads().addEventListener("slotVisibilityChanged", (event) => {
     if (event.slot === targetSlot) {
-        console.log(event.inViewPercentage)
+        console.log(event.inViewPercentage);
     }
 });
 
