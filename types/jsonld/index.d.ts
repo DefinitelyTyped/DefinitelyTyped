@@ -8,7 +8,7 @@ import { Context, JsonLd, Document, Url, JsonLdProcessor, RemoteDocument } from 
 
 // Some typealiases for better readability and some placeholders
 type MimeNQuad = 'application/n-quads';
-type RdfDataSet = any;
+type RdfDataSet = object;  // Placeholder
 type RdfOrString = RdfDataSet|string;
 type Callback<T> = (err: Error, res: T) => void;
 type DocCallback = Callback<JsonLd>;
