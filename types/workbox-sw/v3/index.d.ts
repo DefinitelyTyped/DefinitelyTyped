@@ -619,7 +619,8 @@ declare class Queue {
     readonly name: string;
 
     /**
-     * Stores the passed request into IndexedDB. The database used is workbox-background-sync and the object store name is the same as the name this instance was created with (to guarantee it's unique).
+     * Stores the passed request into IndexedDB. The database used is workbox-background-sync and
+     * the object store name is the same as the name this instance was created with (to guarantee it's unique).
      * @param {Request} request - The request object to store.
      * @returns {Promise<void>}
      */
@@ -714,7 +715,8 @@ declare class Router {
     /**
      * Apply the routing rules to a FetchEvent object to get a Response from an appropriate Route's handler.
      * @param {FetchEvent} event - The event from a service worker's 'fetch' event listener.
-     * @returns {Promise<Response>?} A promise is returned if a registered route can handle the FetchEvent's request. If there is no matching route and there's no defaultHandler, undefined is returned.
+     * @returns {Promise<Response>?} A promise is returned if a registered route can handle the FetchEvent's request.
+     *                               If there is no matching route and there's no defaultHandler, undefined is returned.
      */
     handleRequest (event: FetchEvent): Promise<Response>|undefined;
 
