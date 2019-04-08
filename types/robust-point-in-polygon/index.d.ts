@@ -3,6 +3,8 @@
 // Definitions by: Crash Springfield <https://github.com/crashspringfield>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type Point = [number, number];
+type Point = [number, number];
 
-export function robustPointInPolygon(vs: Point[], point: Point): number;
+function robustPointInPolygon(vs: Point[], point: Point): number;
+
+export = robustPointInPolygon;
