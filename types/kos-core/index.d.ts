@@ -40,7 +40,7 @@ export interface KosModel<T = any> {
         [key: string]: (state: T, { payload }: { payload: T }) => void;
     };
     asyncs: {
-        [key: string]: (dispatch: KosDispatch, getState: GetKosState<T>, action: { payload: T }) => void;
+        [key: string]: (dispatch?: KosDispatch, getState?: GetKosState<T>, action?: { payload: T }) => void;
     };
     setup?: (dispatch: KosDispatch, getState: GetKosState<T>) => void;
     getAsync?: (
