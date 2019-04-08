@@ -39,8 +39,9 @@ interface NextModuleMapOptions<P extends {}, E extends { [key: string]: any }> e
 
 /**
  * Overloaded dynamic function.
- * https://github.com/zeit/next.js/blob/7.0.0/lib/dynamic.js#L55
+ * https://github.com/zeit/next.js/blob/v8.0.4/packages/next-server/lib/dynamic.js#L24
  */
+// tslint:disable:no-unnecessary-generics
 declare function dynamic<
     P extends {},
     E extends { [key: string]: any }
@@ -56,6 +57,7 @@ declare function dynamic<P extends {}>(
     asyncModuleOrOptions: AsyncComponentLoader<P> | AsyncComponent<P> | NextDynamicOptionsBase,
     options?: any
 ): DynamicComponent<P>;
+// tslint:enable:no-unnecessary-generics
 
 export type LoadingComponentProps = LoadableLoadingComponentProps;
 export default dynamic;
