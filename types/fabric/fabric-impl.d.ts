@@ -1075,6 +1075,8 @@ export class StaticCanvas {
 	 */
 	constructor(element: HTMLCanvasElement | string, options?: ICanvasOptions);
 
+	_activeObject?: Object | Group;
+
 	/**
 	 * Calculates canvas element offset relative to the document
 	 * This method is also attached as "resize" event handler of window
@@ -1454,7 +1456,7 @@ export class StaticCanvas {
 	 * @return {Boolean | null} `true` if method is supported (or at least exists),
 	 *                          `null` if canvas element or context can not be initialized
 	 */
-	supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
+	static supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
 
 	/**
 	 * Exports canvas element to a dataurl image. Note that when multiplier is used, cropping is scaled appropriately
@@ -2347,6 +2349,11 @@ export class Line {
 	 * Produces a function that calculates distance from canvas edge to Line origin.
 	 */
 	makeEdgeToOriginGetter(propertyNames: {origin: number, axis1: any, axis2: any, dimension: any}, originValues: {nearest: any, center: any, farthest: any}): Function;
+	/**
+	 * Recalculates line points given width and height
+	 * @private
+	 */
+	calcLinePoints(): {x1: number, x2: number, y1: number, y2: number};
 }
 
 interface IObjectOptions {
@@ -3550,7 +3557,7 @@ export class Object {
 	 * @param {Array} dashArray array representing dashes
 	 * @param {Function} alternative function to call if browser does not support lineDash
 	 */
-	_setLineDash(ctx: CanvasRenderingContext2D, dashArray: number[], alternative: Function): void;
+	_setLineDash(ctx: CanvasRenderingContext2D, dashArray: number[], alternative?: (ctx: CanvasRenderingContext2D) => void): void;
 	/**
 	 * @private
 	 * @param {CanvasRenderingContext2D} ctx Context to render on
@@ -3559,6 +3566,16 @@ export class Object {
 	 * @return {Object} offset.offsetY offset for text rendering
 	 */
 	_applyPatternGradientTransform(ctx: CanvasRenderingContext2D, filler: string | Pattern | Gradient): void;
+	/**
+	 * @private
+	 * @param {CanvasRenderingContext2D} ctx Context to render on
+	 */
+	_render(ctx: CanvasRenderingContext2D): void;
+	/**
+	 * @private
+	 * @param {CanvasRenderingContext2D} ctx Context to render on
+	 */
+	_renderPaintInOrder(ctx: CanvasRenderingContext2D): void;
 }
 
 interface IPathOptions extends IObjectOptions {
