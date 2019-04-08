@@ -176,3 +176,24 @@ jsonld.toRDF(doc, {produceGeneralizedRdf: false})
 .then((res) => {
     log(res);
 });
+
+/*
+ * Test class JsonLdProcessor
+ */
+
+const processor = jsonld.JsonLdProcessor;
+
+processor.compact(doc, context)
+.then((res) => {
+    log(res);
+});
+
+processor.expand(doc)
+.then((res) => {
+    log(res);
+});
+
+processor.flatten(doc)
+.then((res) => {
+    log(res);
+});
