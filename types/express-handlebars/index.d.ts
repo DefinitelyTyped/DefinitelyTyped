@@ -40,7 +40,8 @@ interface Exphbs {
     getTemplate(filePath: string, options?: PartialTemplateOptions): Promise<Function>;
     getTemplates(dirPath: string, options?: PartialTemplateOptions): Promise<Object>;
     render(filePath: string, context: Object, options?: RenderOptions): Promise<string>;
-    renderView(viewPath: string, optionsOrCallback: ExphbsCallback | any, callback?: ExphbsCallback): void;
+    renderView(viewPath: string, callback: ExphbsCallback): void;
+    renderView(viewPath: string, options: any, callback: ExphbsCallback): void;
 }
 
 interface ExpressHandlebars {
