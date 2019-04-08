@@ -2383,6 +2383,12 @@
             "asOfVersion": "5.1.1"
         },
         {
+            "libraryName": "webpack-chain",
+            "typingsPackageName": "webpack-chain",
+            "sourceRepoURL": "https://github.com/neutrinojs/webpack-chain",
+            "asOfVersion": "5.2.0"
+        },
+        {
             "libraryName": "winston",
             "typingsPackageName": "winston",
             "sourceRepoURL": "https://github.com/winstonjs/winston.git",
