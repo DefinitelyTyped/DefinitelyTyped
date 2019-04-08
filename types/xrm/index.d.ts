@@ -5260,12 +5260,12 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Posible file types for Xrm.Device.pickFile options
+     * Constant Enum: Possible file types for Xrm.Device.pickFile options
      * @see {@link Xrm.Device.PickFileTypes}
      */
     const enum DevicePickFileType {
         Audio = "audio",
-        Video = "vidoe",
+        Video = "video",
         Image = "image"
     }
 }
