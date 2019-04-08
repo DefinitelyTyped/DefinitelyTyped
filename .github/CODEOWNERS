@@ -65,7 +65,7 @@
 /types/alexa-sdk/                                   @petebeegle @hoo29 @pascalwhoop @blforce @rk-7 @alexmalcoci
 /types/alexa-voice-service/                         @dolanmiu
 /types/algebra.js/                                  @CaselIT
-/types/algoliasearch/                               @cbaptiste @haroenv @aherve @samouss @keichinger @neryortez @antoinerousseau
+/types/algoliasearch/                               @cbaptiste @haroenv @aherve @samouss @keichinger @neryortez @antoinerousseau @lucapasquale
 /types/algoliasearch-helper/                        @gburgett @haroenv @samouss
 /types/ali-app/                                     @taoqf
 /types/ali-oss/                                     @ptrdu
@@ -858,6 +858,7 @@
 /types/cucumber/                                    @abraaoalves @jan-molak @isoung @BendingBender @ErikSchierboom
 /types/cucumber/v3/                                 @abraaoalves @jan-molak @isoung @BendingBender @ErikSchierboom
 /types/cucumber/v1/                                 @abraaoalves @jan-molak @isoung @BendingBender
+/types/cuint/                                       @ltetzlaff
 /types/currency-formatter/                          @mhegazy @davidmpaz
 /types/custom-error-generator/                      @thmiceli
 /types/custom-functions-runtime/                    @OfficeDev @akrantz @Zlatkovsky @mscharlock
@@ -2253,6 +2254,7 @@
 /types/is-valid-path/                               @Goldsmith42
 /types/is-windows/                                  @mizunashi-mana
 /types/isaac/                                       @mo
+/types/isarray/                                     @claasahl
 /types/isbn-utils/                                  @elhaard
 /types/iscroll/                                     @csrakowski @devlato
 /types/isexe/                                       @BendingBender
@@ -2542,7 +2544,7 @@
 /types/jsonwebtoken/                                @SomaticIT @danielheim @brikou @vpk @rlgod @kettil
 /types/jsonwebtoken-promisified/                    @SomaticIT @danielheim @brikou @aneilbaboo
 /types/jspath/                                      @dex4er
-/types/jspdf/                                       @amberjs @lleios @jemerald
+/types/jspdf/                                       @amberjs @lleios @jemerald @frankbrullo
 /types/jsqrcode/                                    @lordazzi
 /types/jsrender/                                    @zakki
 /types/jsreport-core/                               @taoqf
@@ -3367,7 +3369,7 @@
 /types/mongodb/v2/                                  @CaselIT @alanmarcell @bitjson @dante-101 @mcortesi
 /types/mongodb-memory-server/                       @dmitryrogozhny
 /types/mongodb-uri/                                 @mernxl
-/types/mongoose/                                    @horiuchi @lukasz-zak @Alorel @jendrikw @ethanresnick @vologab @jussikinnula @ondratra @alfirin @idandrd @various89 @Fazendaaa @NormanPerrin @danmana @stablio @emmanuelgautier @frontendmonster @mingchen @penumbra1 @orblazer
+/types/mongoose/                                    @horiuchi @lukasz-zak @Alorel @jendrikw @ethanresnick @vologab @jussikinnula @ondratra @alfirin @idandrd @various89 @Fazendaaa @NormanPerrin @danmana @stablio @emmanuelgautier @frontendmonster @mingchen @penumbra1 @orblazer @HughKu
 /types/mongoose/v4/                                 @simonxca @horiuchi @lukasz-zak @murbanowicz
 /types/mongoose-auto-increment/                     @AyaMorisawa
 /types/mongoose-deep-populate/                      @AyaMorisawa
@@ -3425,6 +3427,7 @@
 /types/murmurhash/                                  @atd-schubert
 /types/murmurhash-js/                               @cvle
 /types/murmurhash3js/                               @dlee-nvisia
+/types/musicmatch/                                  @DadUndead
 /types/musicmetadata/                               @Xstoudi
 /types/mustache/                                    @markashleybell @manuth
 /types/mustache-express/                            @BendingBender
@@ -4971,6 +4974,7 @@
 /types/server-destroy/                              @gyszalai
 /types/serverless/                                  @hassankhan @JonathanWilbur
 /types/servicenow/                                  @bryceg
+/types/servicenow-london/                           @johncaruso @bryceg @grgisme @emyrold @thisnameissoclever @ayeboah
 /types/session-file-store/                          @blendsdk @rokt33r
 /types/set-cookie-parser/                           @nickp10 @ilyaztsv
 /types/set-value/                                   @DanielRosenwasser
@@ -5157,6 +5161,7 @@
 /types/sqlanywhere/                                 @pkeuter
 /types/sqlite3/                                     @nmalaguti @dpyro @BehindTheMath
 /types/sqlstring/                                   @marvinhagemeister
+/types/square-connect/                              @ddimitrioglo
 /types/squirejs/                                    @bradleyayers
 /types/srcset/                                      @BendingBender
 /types/srp/                                         @Patman64
@@ -5546,7 +5551,7 @@
 /types/underscore/                                  @borisyankov @jbaldwin @ccurrens @clottman @confususs
 /types/underscore-ko/                               @MagicMau
 /types/underscore.string/                           @rygine
-/types/undertaker/                                  @tkqubo @GiedriusGrabauskas
+/types/undertaker/                                  @tkqubo @GiedriusGrabauskas @sh0ji
 /types/undertaker-registry/                         @GiedriusGrabauskas
 /types/ungap__url-search-params/                    @nick121212 @nrathi
 /types/uni-app/                                     @dcloudio
@@ -5595,6 +5600,7 @@
 /types/urlsafe-base64/                              @tkrotoff
 /types/usage/                                       @pvomhoff
 /types/usb/                                         @underscorebrody @thegecko
+/types/use-dark-mode/                               @ChaosinaCan
 /types/use-persisted-state/                         @karol-majewski
 /types/use-set-interval/                            @screendriver
 /types/use-set-timeout/                             @screendriver
@@ -5867,11 +5873,13 @@
 /types/yandex-money-sdk/                            @chrootsu
 /types/yar/                                         @SimonSchick
 /types/yargs/                                       @poelstra @mizunashi-mana @pushplay @jeffkenney @JimiC @steffenvv @forivall
+/types/yargs/v12/                                   @poelstra @mizunashi-mana @pushplay @jeffkenney @JimiC @steffenvv @forivall
 /types/yargs/v11/                                   @poelstra @mizunashi-mana @pushplay @jeffkenney @JimiC
 /types/yargs/v10/                                   @poelstra @mizunashi-mana @pushplay @jeffkenney @JimiC
 /types/yargs/v8/                                    @poelstra @mizunashi-mana @pushplay @jeffkenney
 /types/yargs-interactive/                           @szeck87
 /types/yargs-parser/                                @milesj
+/types/yargs-parser/v11/                            @milesj
 /types/yauzl/                                       @ffflorian
 /types/yauzl-promise/                               @dlee-nvisia
 /types/yayson/                                      @Codesleuth
