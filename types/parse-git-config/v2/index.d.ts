@@ -55,7 +55,7 @@ interface _Options {
 
 type ParseCallback = ((err: Error | null, config: Config) => void);
 
-interface IGitmodule {
+interface Gitmodule {
   path: string;
   url: string;
   update?: string;
@@ -65,8 +65,6 @@ interface IGitmodule {
   ignore?: 'all' | 'dirty' | 'untracked' | 'none';
 }
 
-// TODO: Can this be defined more precisely?
 interface Config {
-    [key: string]: any;
-    [key: string]: IGitmodule;
+    [key: string]: Gitmodule;
 }
