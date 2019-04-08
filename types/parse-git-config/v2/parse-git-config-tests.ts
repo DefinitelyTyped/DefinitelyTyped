@@ -101,11 +101,11 @@ function test_sync() {
 
 function test_expandKeys() {
     const config = {
-        'foo "bar"': { doStuff: true },
-        'foo "baz"': { doStuff: true }
+        'foo "bar"': { path: './', url: '//' },
+        'foo "baz"': { path: './', url: '//' }
     };
     const keys = parse.expandKeys(config);
 
-    keys.foo.bar.doStuff === true;
-    keys.foo.baz.doStuff === true;
+    keys.foo.bar.path === './';
+    keys.foo.baz.url === '//';
 }
