@@ -1,0 +1,20 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": [true, "generic"],
+        "no-empty-interface": false,
+        "strict-export-declare-modifiers": false,
+        "object-literal-key-quotes": [true, "as-needed"],
+        "typedef": [
+            true,
+            "call-signature",
+            "arrow-call-signature",
+            "parameter",
+            "arrow-parameter",
+            "property-declaration",
+            "member-variable-declaration",
+            "object-destructuring",
+            "array-destructuring"
+        ]
+    }
+}

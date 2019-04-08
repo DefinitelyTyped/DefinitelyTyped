@@ -418,6 +418,9 @@ export namespace Audio {
 
         /** an enum selecting how your experience’s audio should interact with the audio from other apps on Android: */
         interruptionModeAndroid: InterruptionModeAndroid;
+
+        /** Boolean selecting if your experience’s audio should route to earpiece on Android: */
+        playThroughEarpieceAndroid: boolean;
     }
 
     function setIsEnabledAsync(value: boolean): Promise<void>;
@@ -2616,7 +2619,7 @@ export interface SvgCommonProps {
     strokeWidth?: number | string;
     strokeOpacity?: number | string;
     strokeLinecap?: string;
-    strokeLineJoin?: string;
+    strokeLinejoin?: string;
     strokeDasharray?: any[];
     strokeDashoffset?: any;
     transform?: string | object;

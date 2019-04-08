@@ -15,7 +15,7 @@ export class Type {
 	resolve(data: any): boolean;
 	construct(data: any): any;
 	instanceOf: object | null;
-	predicate: string | null;
+	predicate: ((data: object) => boolean) | null;
 	represent: ((data: object) => any) | { [x: string]: (data: object) => any; } | null;
 	defaultStyle: string | null;
 	styleAliases: { [x: string]: any; };
@@ -82,7 +82,7 @@ export interface TypeConstructorOptions {
 	resolve?: (data: any) => boolean;
 	construct?: (data: any) => any;
 	instanceOf?: object;
-	predicate?: string;
+	predicate?: (data: object) => boolean;
 	represent?: ((data: object) => any) | { [x: string]: (data: object) => any };
 	defaultStyle?: string;
 	styleAliases?: { [x: string]: any; };

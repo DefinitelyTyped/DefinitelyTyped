@@ -45,18 +45,15 @@ export type Parameter = Field & Documentable & {
 
 export interface Command extends Documentable {
     name: string;
-    description?: string;
     handlers?: string[];
     parameters?: Parameter[];
     returns?: Parameter[];
-    experimental?: boolean;
     redirect?: string;
 }
 
 export interface Event extends Documentable {
     name: string;
     parameters?: Parameter[];
-    description?: string;
 }
 
 // It should be safe to load a devtools-protocol/json file and cast it to
@@ -69,7 +66,7 @@ export interface Schema {
     domains: Array<{
         domain: string,
         types?: Type[],
-        commands: Command[],
+        commands?: Command[],
         events?: Event[],
         dependencies?: string[],
     } & Documentable>;

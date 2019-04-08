@@ -47,6 +47,7 @@ declare namespace ReactCrop {
         onImageError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
         className?: string;
         locked?: boolean;
+        renderSelectionAddon?: (state: any) => ReactNode;
     }
 
     function getPixelCrop(image: HTMLImageElement, percentCrop: Crop): Crop;

@@ -1977,14 +1977,22 @@ declare namespace Stripe {
             attempted: boolean;
 
             /**
+             * Controls whether Stripe will perform
+             * [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance)
+             * of the invoice. When `false`, the invoice’s state will not automatically advance
+             * without an explicit action.
+             */
+            auto_advance: boolean;
+
+            /**
              * Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
              */
             billing: "charge_automatically" | "send_invoice";
 
             /**
-             * Indicates the reason why the invoice was created. subscription_cycle indicates an invoice created by a subscription advancing into a new period. subscription_update indicates an invoice created due to creating or updating a subscription. subscription is set for all old invoices to indicate either a change to a subscription or a period advancement. manual is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The upcoming value is reserved for simulated invoices per the upcoming invoice endpoint.
+             * Indicates the reason why the invoice was created. subscription_cycle indicates an invoice created by a subscription advancing into a new period. subscription_create indicates an invoice created due to creating a subscription. subscription_update indicates an invoice created due to creating or updating a subscription. subscription is set for all old invoices to indicate either a change to a subscription or a period advancement. manual is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The upcoming value is reserved for simulated invoices per the upcoming invoice endpoint. subscription_threshold indicates an invoice created due to a billing threshold being reached.
              */
-            billing_reason: "subscription_cycle" | "subscription_update" | "subscription" | "manual" | "upcoming";
+            billing_reason: "subscription_cycle" | "subscription_create" | "subscription_update" | "subscription" | "manual" | "upcoming" | "subscription_threshold";
 
             /**
              * ID of the latest charge generated for this invoice, if any. [Expandable]
@@ -2223,7 +2231,63 @@ declare namespace Stripe {
              */
             application_fee?: number;
 
+            /**
+             * Controls whether Stripe will perform
+             * [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance)
+             * of the invoice. When `false`, the invoice’s state will not automatically advance
+             * without an explicit action.
+             */
+            auto_advance?: boolean;
+
+            /**
+             * Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe
+             * will attempt to pay this invoice using the default source attached to the customer.
+             * When sending an invoice, Stripe will email this invoice to the customer with payment
+             * instructions. Defaults to charge_automatically.
+             */
+            billing?: 'charge_automatically' | 'send_invoice';
+
+            /**
+             * A list of up to 4 custom fields to be displayed on the invoice.
+             */
+            custom_fields?: Array<{
+                /**
+                 * The name of the custom field. This may be up to 30 characters.
+                 */
+                name: string;
+
+                /**
+                 * The value of the custom field. This may be up to 30 characters.
+                 */
+                value: string;
+            }>;
+
+            /**
+             * The number of days from when the invoice is created until it is due. Valid only for
+             * invoices where `billing=send_invoice`.
+             */
+            days_until_due?: number;
+
+            /**
+             * ID of the default payment source for the invoice. It must belong to the customer
+             * associated with the invoice and be in a chargeable state. If not set, defaults to the
+             * subscription’s default source, if any, or to the customer’s default source.
+             */
+            default_source?: string;
+
             description?: string;
+
+            /**
+             * The date on which payment for this invoice is due. Valid only for invoices where
+             * `billing=send_invoice`;
+             */
+            due_date?: Date | number;
+
+            /**
+             * Footer to be displayed on the invoice. This can be unset by updating the value to
+             * `null` and then saving.
+             */
+            footer?: string | null;
 
             /**
              * Extra information about a charge for the customer’s credit card statement.
@@ -2231,8 +2295,10 @@ declare namespace Stripe {
             statement_descriptor?: string;
 
             /**
-             * The ID of the subscription to invoice. If not set, the created invoice will include all pending invoice items for
-             * the customer. If set, the created invoice will exclude pending invoice items that pertain to other subscriptions.
+             * The ID of the subscription to invoice, if any. If not set, the created invoice will
+             * include all pending invoice items for the customer. If set, the created invoice will
+             * exclude pending invoice items that pertain to other subscriptions. The subscription’s
+             * billing cycle and regular subscription events won’t be affected.
              */
             subscription?: string;
 
@@ -2251,11 +2317,59 @@ declare namespace Stripe {
             application_fee?: number;
 
             /**
+             * Controls whether Stripe will perform
+             * [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance)
+             * of the invoice.
+             */
+            auto_advance?: boolean;
+
+            /**
              * Boolean representing whether an invoice is closed or not. To close an invoice, pass true.
              */
             closed?: boolean;
 
+            /**
+             * A list of up to 4 custom fields to be displayed on the invoice.
+             */
+            custom_fields?: Array<{
+                /**
+                 * The name of the custom field. This may be up to 30 characters.
+                 */
+                name: string;
+
+                /**
+                 * The value of the custom field. This may be up to 30 characters.
+                 */
+                value: string;
+            }>;
+
+            /**
+             * The number of days from which the invoice is created until it is due. Only valid for
+             * invoices where billing=send_invoice. This field can only be updated on draft
+             * invoices.
+             */
+            days_until_due?: number;
+
+            /**
+             * ID of the default payment source for the invoice. It must belong to the customer
+             * associated with the invoice and be in a chargeable state. If not set, defaults to the
+             * subscription’s default source, if any, or to the customer’s default source.
+             */
+            default_source?: string;
+
             description?: string;
+
+            /**
+             * The date on which payment for this invoice is due. Only valid for invoices where
+             * `billing=send_invoice`. This field can only be updated on draft invoices.
+             */
+            due_date?: Date | number;
+
+            /**
+             * Footer to be displayed on the invoice. This can be unset by updating the value to
+             * `null` and then saving.
+             */
+            footer?: string | null;
 
             /**
              * Boolean representing whether an invoice is forgiven or not. To forgive an invoice, pass true. Forgiving an invoice
@@ -2270,7 +2384,10 @@ declare namespace Stripe {
             statement_descriptor?: string;
 
             /**
-             * The percent tax rate applied to the invoice, represented as a decimal number.
+             * The percent tax rate applied to the invoice, represented as a non-negative decimal
+             * number (with at most four decimal places) between 0 and 100. To unset a
+             * previously-set value, pass an empty string. This field can be updated only on draft
+             * invoices.
              */
             tax_percent?: number;
         }

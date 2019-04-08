@@ -962,11 +962,11 @@ declare namespace Office {
              * 
              * *Supported hosts, by platform*
              *  <table>
-             *   <tr><th>                             </th><th> Office for Windows desktop                                       </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-             *   <tr><td><strong> Excel      </strong></td><td> Y                                                                </td><td> Y                          </td><td> Y               </td></tr>
-             *   <tr><td><strong> Outlook    </strong></td><td> Y (Mailbox 1.3: without options<br>Mailbox Preview: with options)</td><td>                            </td><td>                 </td></tr>
-             *   <tr><td><strong> PowerPoint </strong></td><td> Y                                                                </td><td> Y                          </td><td> Y               </td></tr>
-             *   <tr><td><strong> Word       </strong></td><td> Y                                                                </td><td> Y                          </td><td> Y               </td></tr>
+             *   <tr><th>                             </th><th> Office for Windows desktop                                                                                  </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+             *   <tr><td><strong> Excel      </strong></td><td> Y                                                                                                           </td><td> Y                          </td><td> Y               </td></tr>
+             *   <tr><td><strong> Outlook    </strong></td><td> Y (Since Mailbox 1.3: without `options` parameter;<br>Mailbox Preview: adds support for `options` parameter)</td><td>                            </td><td>                 </td></tr>
+             *   <tr><td><strong> PowerPoint </strong></td><td> Y                                                                                                           </td><td> Y                          </td><td> Y               </td></tr>
+             *   <tr><td><strong> Word       </strong></td><td> Y                                                                                                           </td><td> Y                          </td><td> Y               </td></tr>
              *  </table>
              * 
              * @param options Optional. An object literal that contains one or more of the following properties.
@@ -52444,6 +52444,10 @@ declare namespace Word {
          *
          * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
          *
+         * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+         * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+         * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+         * 
          * [Api set: WordApi 1.1]
          */
         highlightColor: string;
@@ -57258,6 +57262,10 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
+             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+             * 
              * [Api set: WordApi 1.1]
              */
             highlightColor?: string;
@@ -58392,6 +58400,10 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
+             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+             * 
              * [Api set: WordApi 1.1]
              */
             highlightColor?: string;
@@ -60106,6 +60118,10 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
+             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+             * 
              * [Api set: WordApi 1.1]
              */
             highlightColor?: boolean;

@@ -661,6 +661,12 @@ declare namespace Office {
      */     
     interface Context {
         /**
+         * Provides information and access to the signed-in user.
+         * 
+         * @beta
+         */
+        auth: Auth;
+        /**
         * True, if the current platform allows the add-in to display a UI for selling or upgrading; otherwise returns False.
         * 
         * @remarks
@@ -962,11 +968,11 @@ declare namespace Office {
              * 
              * *Supported hosts, by platform*
              *  <table>
-             *   <tr><th>                             </th><th> Office for Windows desktop                                       </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-             *   <tr><td><strong> Excel      </strong></td><td> Y                                                                </td><td> Y                          </td><td> Y               </td></tr>
-             *   <tr><td><strong> Outlook    </strong></td><td> Y (Mailbox 1.3: without options<br>Mailbox Preview: with options)</td><td>                            </td><td>                 </td></tr>
-             *   <tr><td><strong> PowerPoint </strong></td><td> Y                                                                </td><td> Y                          </td><td> Y               </td></tr>
-             *   <tr><td><strong> Word       </strong></td><td> Y                                                                </td><td> Y                          </td><td> Y               </td></tr>
+             *   <tr><th>                             </th><th> Office for Windows desktop                                                                                  </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+             *   <tr><td><strong> Excel      </strong></td><td> Y                                                                                                           </td><td> Y                          </td><td> Y               </td></tr>
+             *   <tr><td><strong> Outlook    </strong></td><td> Y (Since Mailbox 1.3: without `options` parameter;<br>Mailbox Preview: adds support for `options` parameter)</td><td>                            </td><td>                 </td></tr>
+             *   <tr><td><strong> PowerPoint </strong></td><td> Y                                                                                                           </td><td> Y                          </td><td> Y               </td></tr>
+             *   <tr><td><strong> Word       </strong></td><td> Y                                                                                                           </td><td> Y                          </td><td> Y               </td></tr>
              *  </table>
              * 
              * @param options Optional. An object literal that contains one or more of the following properties.
@@ -1258,6 +1264,84 @@ declare namespace Office {
          * `false` - The dialog will not be shown and the developer must handle pop-ups (by providing a user interface artifact to trigger the navigation).
          */
         promptBeforeOpen?: boolean;
+        /**
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any
+    }
+
+    /**
+     * The Office Auth namespace, Office.context.auth, provides a method that allows the Office host to obtain an access token to the add-in's web application. 
+     * Indirectly, this also enables the add-in to access the signed-in user's Microsoft Graph data without requiring the user to sign in a second time.
+     * 
+     * @beta
+     */
+    interface Auth {
+        /**
+         * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Enables  add-ins to identify users. 
+         * Server side code can use this token to access Microsoft Graph for the add-in's web application by using the 
+         * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
+         * 
+         * Important: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
+         *
+         * @remarks
+         * <table><tr><td>Hosts</td><td>Excel, OneNote, Outlook, PowerPoint, Word</td></tr>
+         *
+         * <tr><td>Requirement sets</td><td>{@link https://docs.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | IdentityAPI}</td></tr></table>
+         *
+         * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign-in with Organizational 
+         * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
+         *
+         * @param options - Optional. Accepts an AuthOptions object to define sign-on behaviors.
+         * @param callback - Optional. Accepts a callback method that can use parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph.
+         *                   If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
+         * 
+         * @beta
+         */
+        getAccessTokenAsync(options?: AuthOptions, callback?: (result: AsyncResult<string>) => void): void;
+        /**
+         * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Enables  add-ins to identify users. 
+         * Server side code can use this token to access Microsoft Graph for the add-in's web application by using the 
+         * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
+         * 
+         * Important: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
+         *
+         * @remarks
+         * <table><tr><td>Hosts</td><td>Excel, OneNote, Outlook, PowerPoint, Word</td></tr>
+         *
+         * <tr><td>Requirement sets</td><td>{@link https://docs.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | IdentityAPI}</td></tr></table>
+         *
+         * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign-in with Organizational 
+         * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
+         *
+         * @param callback - Optional. Accepts a callback method that can use parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph.
+         *                   If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
+         * 
+         * @beta
+         */
+        getAccessTokenAsync(callback?: (result: AsyncResult<string>) => void): void;
+    }
+    /**
+     * Provides options for the user experience when Office obtains an access token to the add-in from AAD v. 2.0 with the getAccessTokenAsync method.
+     */
+    interface AuthOptions {
+        /**
+         * Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has
+         * been revoked.
+         */
+        forceConsent?: boolean,
+        /**
+         * Prompts the user to add their Office account (or to switch to it, if it is already added).
+         */
+        forceAddAccount?: boolean,
+        /**
+         * Causes Office to prompt the user to provide the additional factor when the tenancy being targeted by Microsoft Graph requires multifactor
+         * authentication. The string value identifies the type of additional factor that is required. In most cases, you won't know at development
+         * time whether the user's tenant requires an additional factor or what the string should be. So this option would be used in a "second try"
+         * call of getAccessTokenAsync after Microsoft Graph has sent an error requesting the additional factor and containing the string that should
+         * be used with the authChallenge option.
+         */
+        authChallenge?: string
         /**
          * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
@@ -21885,6 +21969,14 @@ declare namespace Excel {
         readonly hasSpill: boolean;
         /**
          *
+         * Returns the distance in points, for 100% zoom, from top edge of the range to bottom edge of the range. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly height: number;
+        /**
+         *
          * Represents if all cells of the current range are hidden. Read-only.
          *
          * [Api set: ExcelApi 1.2]
@@ -21911,6 +22003,14 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.7]
          */
         readonly isEntireRow: boolean;
+        /**
+         *
+         * Returns the distance in points, for 100% zoom, from left edge of the worksheet to left edge of the range. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly left: number;
         /**
          *
          * Represents the data type state of each cell. Read-only.
@@ -21974,6 +22074,14 @@ declare namespace Excel {
         readonly text: string[][];
         /**
          *
+         * Returns the distance in points, for 100% zoom, from top edge of the worksheet to top edge of the range. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly top: number;
+        /**
+         *
          * Represents the type of data of each cell. Read-only.
          *
          * [Api set: ExcelApi 1.1]
@@ -21987,6 +22095,14 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         values: any[][];
+        /**
+         *
+         * Returns the distance in points, for 100% zoom, from left edge of the range to right edge of the range. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly width: number;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -22523,7 +22639,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        setCellProperties(cellPropertiesData: SettableCellProperties[][] | OfficeExtension.ClientResult<SettableCellProperties[][]>): void;
+        setCellProperties(cellPropertiesData: SettableCellProperties[][]): void;
         /**
          *
          * Updates the range based on a single-dimensional array of column properties, encapsulating things like font, fill, borders, alignment, and so forth.
@@ -22531,7 +22647,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        setColumnProperties(columnPropertiesData: SettableColumnProperties[] | OfficeExtension.ClientResult<SettableColumnProperties[]>): void;
+        setColumnProperties(columnPropertiesData: SettableColumnProperties[]): void;
         /**
          *
          * Set a range to be recalculated when the next recalculation occurs.
@@ -22547,7 +22663,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        setRowProperties(rowPropertiesData: SettableRowProperties[] | OfficeExtension.ClientResult<SettableRowProperties[]>): void;
+        setRowProperties(rowPropertiesData: SettableRowProperties[]): void;
         /**
          *
          * Displays the card for an active cell if it has rich value content.
@@ -31508,7 +31624,7 @@ declare namespace Excel {
         readonly worksheet: Excel.Worksheet;
         /**
          *
-         * True if the PivotTable should use custom lists when sorting.
+         * Specifies whether the PivotTable allows values in the data body to be edited by the user.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -31530,7 +31646,7 @@ declare namespace Excel {
         name: string;
         /**
          *
-         * True if the PivotTable should use custom lists when sorting.
+         * Specifies whether the PivotTable uses custom lists when sorting.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -31602,7 +31718,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * True if formatting will be automatically formatted when it’s refreshed or when fields are moved
+         * Specifies whether formatting will be automatically formatted when it’s refreshed or when fields are moved
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -31610,7 +31726,7 @@ declare namespace Excel {
         autoFormat: boolean;
         /**
          *
-         * True if the field list should be shown or hidden from the UI.
+         * Specifies whether the field list can be shown in the UI.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -31625,7 +31741,7 @@ declare namespace Excel {
         layoutType: Excel.PivotLayoutType | "Compact" | "Tabular" | "Outline";
         /**
          *
-         * True if formatting is preserved when the report is refreshed or recalculated by operations such as pivoting, sorting, or changing page field items.
+         * Specifies whether formatting is preserved when the report is refreshed or recalculated by operations such as pivoting, sorting, or changing page field items.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -31633,14 +31749,14 @@ declare namespace Excel {
         preserveFormatting: boolean;
         /**
          *
-         * True if the PivotTable report shows grand totals for columns.
+         * Specifies whether the PivotTable report shows grand totals for columns.
          *
          * [Api set: ExcelApi 1.8]
          */
         showColumnGrandTotals: boolean;
         /**
          *
-         * True if the PivotTable report shows grand totals for rows.
+         * Specifies whether the PivotTable report shows grand totals for rows.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -31668,7 +31784,7 @@ declare namespace Excel {
         set(properties: Excel.PivotLayout): void;
         /**
          *
-         * Gets the cell in the PivotTable's data body that contains the value for the intersection of the specified dataHierarchy, rowItems, and columnItems.
+         * Gets a unique cell in the PivotTable based on a data hierarchy and the row and column items of their respective hierarchies. The returned cell is the intersection of the given row and column that contains the data from the given hierarchy. This method is the inverse of calling getPivotItems and getDataHierarchy on a particular cell.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -31700,7 +31816,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param cell A single cell within the PivotTable data body to get the data hieararchy for.
+         * @param cell A single cell within the PivotTable data body.
          * @returns The DataPivotHierarchy object used to calculate the value in the specified cell.
          */
         getDataHierarchy(cell: Range | string): Excel.DataPivotHierarchy;
@@ -31718,8 +31834,8 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param axis The axis to get the PivotItems from. Must be either "row" or "column."
-         * @param cell A single cell within the PivotTable's data body to get the PivotItems for.
+         * @param axis The axis from which to get the PivotItems. Must be either "row" or "column."
+         * @param cell A single cell within the PivotTable's data body.
          * @returns A collection of PivotItems that are used to calculate the values in the specified row.
          */
         getPivotItems(axis: Excel.PivotAxis, cell: Range | string): OfficeExtension.ClientResult<Excel.PivotItem[]>;
@@ -31729,8 +31845,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
-         * @param axis The axis to get the PivotItems from. Must be either "row" or "column."
-         * @param cell A single cell within the PivotTable's data body to get the PivotItems for.
+         * @param axis The axis from which to get the PivotItems. Must be either "row" or "column."
+         * @param cell A single cell within the PivotTable's data body.
          * @returns A collection of PivotItems that are used to calculate the values in the specified row.
          */
         getPivotItems(axis: "Unknown" | "Row" | "Column" | "Data" | "Filter", cell: Range | string): OfficeExtension.ClientResult<Excel.PivotItem[]>;
@@ -31750,25 +31866,25 @@ declare namespace Excel {
         getRowLabelRange(): Excel.Range;
         /**
          *
-         * Sets an autosort using the specified cell to automatically select all criteria and context for the sort.
+         * Sets the PivotTable to automatically sort using the specified cell to automatically select all necessary criteria and context. This behaves identically to applying an autosort from the UI.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
          * @param cell A single cell to use get the criteria from for applying the autosort.
-         * @param sortby The direction of the sort.
+         * @param sortBy The direction of the sort.
          */
-        setAutosortOnCell(cell: Range | string, sortby: Excel.SortBy): void;
+        setAutoSortOnCell(cell: Range | string, sortBy: Excel.SortBy): void;
         /**
          *
-         * Sets an autosort using the specified cell to automatically select all criteria and context for the sort.
+         * Sets the PivotTable to automatically sort using the specified cell to automatically select all necessary criteria and context. This behaves identically to applying an autosort from the UI.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
          * @param cell A single cell to use get the criteria from for applying the autosort.
-         * @param sortby The direction of the sort.
+         * @param sortBy The direction of the sort.
          */
-        setAutosortOnCell(cell: Range | string, sortby: "Ascending" | "Descending"): void;
+        setAutoSortOnCell(cell: Range | string, sortBy: "Ascending" | "Descending"): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          *
@@ -32584,9 +32700,9 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param sortby Represents whether the sorting is done in an ascending or descending order.
+         * @param sortBy Represents whether the sorting is done in an ascending or descending order.
          */
-        sortByLabels(sortby: SortBy): void;
+        sortByLabels(sortBy: SortBy): void;
         /**
          *
          * Sorts the PivotField by specified values in a given scope. The scope defines which specific values will be used to sort when
@@ -32595,14 +32711,14 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param sortby Represents whether the sorting is done in an ascending or descending order.
-         * @param valuesHierarchy Specifies the values to be used for sorting.
+         * @param sortBy Represents whether the sorting is done in an ascending or descending order.
+         * @param valuesHierarchy Specifies the values hierarchy on the data axis to be used for sorting.
          * @param pivotItemScope The items that should be used for the scope of the sorting. These will be the
             items that make up the row or column that you want to sort on. If a string is used instead of a PivotItem,
             the string represents the ID of the PivotItem. If there are no items other than data hierarchy on the axis
             you want to sort on, this can be empty.
          */
-        sortByValues(sortby: Excel.SortBy, valuesHierarchy: Excel.DataPivotHierarchy, pivotItemScope?: Array<PivotItem | string>): void;
+        sortByValues(sortBy: Excel.SortBy, valuesHierarchy: Excel.DataPivotHierarchy, pivotItemScope?: Array<PivotItem | string>): void;
         /**
          *
          * Sorts the PivotField by specified values in a given scope. The scope defines which specific values will be used to sort when
@@ -32610,14 +32726,14 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
-         * @param sortby Represents whether the sorting is done in an ascending or descending order.
-         * @param valuesHierarchy Specifies the values to be used for sorting.
+         * @param sortBy Represents whether the sorting is done in an ascending or descending order.
+         * @param valuesHierarchy Specifies the values hierarchy on the data axis to be used for sorting.
          * @param pivotItemScope The items that should be used for the scope of the sorting. These will be the
             items that make up the row or column that you want to sort on. If a string is used instead of a PivotItem,
             the string represents the ID of the PivotItem. If there are no items other than data hierarchy on the axis
             you want to sort on, this can be empty.
          */
-        sortByValues(sortby: "Ascending" | "Descending", valuesHierarchy: Excel.DataPivotHierarchy, pivotItemScope?: Array<PivotItem | string>): void;
+        sortByValues(sortBy: "Ascending" | "Descending", valuesHierarchy: Excel.DataPivotHierarchy, pivotItemScope?: Array<PivotItem | string>): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          *
@@ -48789,7 +48905,7 @@ declare namespace Excel {
         interface PivotTableUpdateData {
             /**
              *
-             * True if the PivotTable should use custom lists when sorting.
+             * Specifies whether the PivotTable allows values in the data body to be edited by the user.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -48804,7 +48920,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * True if the PivotTable should use custom lists when sorting.
+             * Specifies whether the PivotTable uses custom lists when sorting.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -48815,7 +48931,7 @@ declare namespace Excel {
         interface PivotLayoutUpdateData {
             /**
              *
-             * True if formatting will be automatically formatted when it’s refreshed or when fields are moved
+             * Specifies whether formatting will be automatically formatted when it’s refreshed or when fields are moved
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -48823,7 +48939,7 @@ declare namespace Excel {
             autoFormat?: boolean;
             /**
              *
-             * True if the field list should be shown or hidden from the UI.
+             * Specifies whether the field list can be shown in the UI.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -48838,7 +48954,7 @@ declare namespace Excel {
             layoutType?: Excel.PivotLayoutType | "Compact" | "Tabular" | "Outline";
             /**
              *
-             * True if formatting is preserved when the report is refreshed or recalculated by operations such as pivoting, sorting, or changing page field items.
+             * Specifies whether formatting is preserved when the report is refreshed or recalculated by operations such as pivoting, sorting, or changing page field items.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -48846,14 +48962,14 @@ declare namespace Excel {
             preserveFormatting?: boolean;
             /**
              *
-             * True if the PivotTable report shows grand totals for columns.
+             * Specifies whether the PivotTable report shows grand totals for columns.
              *
              * [Api set: ExcelApi 1.8]
              */
             showColumnGrandTotals?: boolean;
             /**
              *
-             * True if the PivotTable report shows grand totals for rows.
+             * Specifies whether the PivotTable report shows grand totals for rows.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -51282,6 +51398,14 @@ declare namespace Excel {
             hasSpill?: boolean;
             /**
              *
+             * Returns the distance in points, for 100% zoom, from top edge of the range to bottom edge of the range. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            height?: number;
+            /**
+             *
              * Represents if all cells of the current range are hidden. Read-only.
              *
              * [Api set: ExcelApi 1.2]
@@ -51308,6 +51432,14 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             isEntireRow?: boolean;
+            /**
+             *
+             * Returns the distance in points, for 100% zoom, from left edge of the worksheet to left edge of the range. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            left?: number;
             /**
              *
              * Represents the data type state of each cell. Read-only.
@@ -51371,6 +51503,14 @@ declare namespace Excel {
             text?: string[][];
             /**
              *
+             * Returns the distance in points, for 100% zoom, from top edge of the worksheet to top edge of the range. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            top?: number;
+            /**
+             *
              * Represents the type of data of each cell. Read-only.
              *
              * [Api set: ExcelApi 1.1]
@@ -51384,6 +51524,14 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             values?: any[][];
+            /**
+             *
+             * Returns the distance in points, for 100% zoom, from left edge of the range to right edge of the range. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            width?: number;
         }
         /** An interface describing the data returned by calling "rangeAreas.toJSON()". */
         interface RangeAreasData {
@@ -54555,7 +54703,7 @@ declare namespace Excel {
             rowHierarchies?: Excel.Interfaces.RowColumnPivotHierarchyData[];
             /**
              *
-             * True if the PivotTable should use custom lists when sorting.
+             * Specifies whether the PivotTable allows values in the data body to be edited by the user.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54577,7 +54725,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * True if the PivotTable should use custom lists when sorting.
+             * Specifies whether the PivotTable uses custom lists when sorting.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54588,7 +54736,7 @@ declare namespace Excel {
         interface PivotLayoutData {
             /**
              *
-             * True if formatting will be automatically formatted when it’s refreshed or when fields are moved
+             * Specifies whether formatting will be automatically formatted when it’s refreshed or when fields are moved
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54596,7 +54744,7 @@ declare namespace Excel {
             autoFormat?: boolean;
             /**
              *
-             * True if the field list should be shown or hidden from the UI.
+             * Specifies whether the field list can be shown in the UI.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54611,7 +54759,7 @@ declare namespace Excel {
             layoutType?: Excel.PivotLayoutType | "Compact" | "Tabular" | "Outline";
             /**
              *
-             * True if formatting is preserved when the report is refreshed or recalculated by operations such as pivoting, sorting, or changing page field items.
+             * Specifies whether formatting is preserved when the report is refreshed or recalculated by operations such as pivoting, sorting, or changing page field items.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54619,14 +54767,14 @@ declare namespace Excel {
             preserveFormatting?: boolean;
             /**
              *
-             * True if the PivotTable report shows grand totals for columns.
+             * Specifies whether the PivotTable report shows grand totals for columns.
              *
              * [Api set: ExcelApi 1.8]
              */
             showColumnGrandTotals?: boolean;
             /**
              *
-             * True if the PivotTable report shows grand totals for rows.
+             * Specifies whether the PivotTable report shows grand totals for rows.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -57551,6 +57699,14 @@ declare namespace Excel {
             hasSpill?: boolean;
             /**
              *
+             * Returns the distance in points, for 100% zoom, from top edge of the range to bottom edge of the range. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            height?: boolean;
+            /**
+             *
              * Represents if all cells of the current range are hidden. Read-only.
              *
              * [Api set: ExcelApi 1.2]
@@ -57577,6 +57733,14 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             isEntireRow?: boolean;
+            /**
+             *
+             * Returns the distance in points, for 100% zoom, from left edge of the worksheet to left edge of the range. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            left?: boolean;
             /**
              *
              * Represents the data type state of each cell. Read-only.
@@ -57640,6 +57804,14 @@ declare namespace Excel {
             text?: boolean;
             /**
              *
+             * Returns the distance in points, for 100% zoom, from top edge of the worksheet to top edge of the range. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            top?: boolean;
+            /**
+             *
              * Represents the type of data of each cell. Read-only.
              *
              * [Api set: ExcelApi 1.1]
@@ -57653,6 +57825,14 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             values?: boolean;
+            /**
+             *
+             * Returns the distance in points, for 100% zoom, from left edge of the range to right edge of the range. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            width?: boolean;
         }
         /**
          *
@@ -62463,7 +62643,7 @@ declare namespace Excel {
             worksheet?: Excel.Interfaces.WorksheetLoadOptions;
             /**
              *
-             * For EACH ITEM in the collection: True if the PivotTable should use custom lists when sorting.
+             * For EACH ITEM in the collection: Specifies whether the PivotTable allows values in the data body to be edited by the user.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -62485,7 +62665,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: True if the PivotTable should use custom lists when sorting.
+             * For EACH ITEM in the collection: Specifies whether the PivotTable uses custom lists when sorting.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -62516,7 +62696,7 @@ declare namespace Excel {
             worksheet?: Excel.Interfaces.WorksheetLoadOptions;
             /**
              *
-             * True if the PivotTable should use custom lists when sorting.
+             * Specifies whether the PivotTable allows values in the data body to be edited by the user.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -62538,7 +62718,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * True if the PivotTable should use custom lists when sorting.
+             * Specifies whether the PivotTable uses custom lists when sorting.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -62555,7 +62735,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * True if formatting will be automatically formatted when it’s refreshed or when fields are moved
+             * Specifies whether formatting will be automatically formatted when it’s refreshed or when fields are moved
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -62563,7 +62743,7 @@ declare namespace Excel {
             autoFormat?: boolean;
             /**
              *
-             * True if the field list should be shown or hidden from the UI.
+             * Specifies whether the field list can be shown in the UI.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -62578,7 +62758,7 @@ declare namespace Excel {
             layoutType?: boolean;
             /**
              *
-             * True if formatting is preserved when the report is refreshed or recalculated by operations such as pivoting, sorting, or changing page field items.
+             * Specifies whether formatting is preserved when the report is refreshed or recalculated by operations such as pivoting, sorting, or changing page field items.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -62586,14 +62766,14 @@ declare namespace Excel {
             preserveFormatting?: boolean;
             /**
              *
-             * True if the PivotTable report shows grand totals for columns.
+             * Specifies whether the PivotTable report shows grand totals for columns.
              *
              * [Api set: ExcelApi 1.8]
              */
             showColumnGrandTotals?: boolean;
             /**
              *
-             * True if the PivotTable report shows grand totals for rows.
+             * Specifies whether the PivotTable report shows grand totals for rows.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -65003,6 +65183,14 @@ declare namespace Excel {
             hasSpill?: boolean;
             /**
              *
+             * For EACH ITEM in the collection: Returns the distance in points, for 100% zoom, from top edge of the range to bottom edge of the range. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            height?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Represents if all cells of the current range are hidden. Read-only.
              *
              * [Api set: ExcelApi 1.2]
@@ -65029,6 +65217,14 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             isEntireRow?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns the distance in points, for 100% zoom, from left edge of the worksheet to left edge of the range. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            left?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the data type state of each cell. Read-only.
@@ -65092,6 +65288,14 @@ declare namespace Excel {
             text?: boolean;
             /**
              *
+             * For EACH ITEM in the collection: Returns the distance in points, for 100% zoom, from top edge of the worksheet to top edge of the range. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            top?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Represents the type of data of each cell. Read-only.
              *
              * [Api set: ExcelApi 1.1]
@@ -65105,6 +65309,14 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             values?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns the distance in points, for 100% zoom, from left edge of the range to right edge of the range. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            width?: boolean;
         }
         /**
          *
@@ -69006,6 +69218,10 @@ declare namespace Word {
          *
          * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
          *
+         * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+         * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+         * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+         * 
          * [Api set: WordApi 1.1]
          */
         highlightColor: string;
@@ -74224,6 +74440,10 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
+             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+             * 
              * [Api set: WordApi 1.1]
              */
             highlightColor?: string;
@@ -75346,6 +75566,10 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
+             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+             * 
              * [Api set: WordApi 1.1]
              */
             highlightColor?: string;
@@ -76906,6 +77130,10 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
+             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+             * 
              * [Api set: WordApi 1.1]
              */
             highlightColor?: boolean;

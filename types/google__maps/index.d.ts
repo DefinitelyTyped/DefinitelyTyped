@@ -1687,7 +1687,7 @@ export interface PlaceSearchResult {
      * contains a feature name of a nearby location. Often this feature refers to a street or neighborhood within the given results.
      * The `vicinity` property is only returned for a Nearby Search.
      */
-    vicinity: number;
+    vicinity?: string;
     /**
      * is a string containing the human-readable address of this place. Often this address is equivalent to the "postal address".
      * The `formatted_address` property is only returned for a Text Search.

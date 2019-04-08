@@ -120,6 +120,10 @@ const Test: React.StatelessComponent = () => {
             >
                 <div>{ "test" }</div>
             </CSSTransition>
+
+            <CSSTransition timeout={ 100 }>
+                <div>{ "test" }</div>
+            </CSSTransition>
         </TransitionGroup>
     );
 };

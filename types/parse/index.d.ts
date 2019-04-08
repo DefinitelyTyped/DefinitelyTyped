@@ -691,7 +691,7 @@ subscription.on('close', () => {});
         static extend(protoProps?: any, classProps?: any): any;
         static hydrate(userJSON: any): Promise<User>;
 
-        signUp(attrs: any, options?: SignUpOptions): Promise<this>;
+        signUp(attrs?: any, options?: SignUpOptions): Promise<this>;
         logIn(options?: SuccessFailureOptions): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;

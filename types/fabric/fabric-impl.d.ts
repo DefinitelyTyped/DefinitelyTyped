@@ -143,7 +143,7 @@ interface IDataURLOptions {
 interface IEvent {
 	e: Event;
 	target?: Object;
-	transform?: { corner: string };
+	transform?: { corner: string, original: Object, width: number };
 }
 
 interface IFillOptions {
@@ -2030,10 +2030,11 @@ export class Group {
 	constructor(objects?: Object[], options?: IGroupOptions, isAlreadyGrouped?: boolean);
 	/**
 	 * Adds an object to a group; Then recalculates group's dimension, position.
+     * @param [Object] object
 	 * @return thisArg
 	 * @chainable
 	 */
-	addWithUpdate(object: Object): Group;
+	addWithUpdate(object?: Object): Group;
 	/**
 	 * Removes an object from a group; Then recalculates group's dimension, position.
 	 * @return thisArg
@@ -2212,10 +2213,10 @@ export class Image {
 	 * Sets image element for this instance to a specified one.
 	 * If filters defined they are applied to new image.
 	 * You might need to call `canvas.renderAll` and `object.setCoords` after replacing, to render new image and update controls area.
-	 * @param [callback] Callback is invoked when all filters have been applied and new image is generated
+	 * @param element image element
 	 * @param [options] Options object
 	 */
-	setElement(element: HTMLImageElement, callback: Function, options: IImageOptions): Image;
+	setElement(element: HTMLImageElement, options?: IImageOptions): Image;
 	/**
 	 * Delete a single texture if in webgl mode
 	 */
@@ -2498,7 +2499,7 @@ interface IObjectOptions {
 	/**
 	 * Color of object's fill
 	 */
-	fill?: string;
+	fill?: string | Pattern;
 
 	/**
 	 * Fill rule used to fill an object

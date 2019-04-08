@@ -50,6 +50,7 @@
         "test/cluster.ts",
         "test/crypto.ts",
         "test/dgram.ts",
+        "test/events.ts",
         "test/global.ts",
         "test/http.ts",
         "test/http2.ts",
@@ -57,6 +58,7 @@
         "test/os.ts",
         "test/path.ts",
         "test/perf_hooks.ts",
+        "test/process.ts",
         "test/querystring.ts",
         "test/readline.ts",
         "test/repl.ts",
@@ -64,6 +66,7 @@
         "test/tls.ts",
         "test/tty.ts",
         "test/util.ts",
+        "test/v8.ts",
         "test/worker_threads.ts",
         "test/zlib.ts"
     ],
