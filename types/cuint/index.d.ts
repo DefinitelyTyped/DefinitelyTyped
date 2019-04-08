@@ -33,7 +33,15 @@ export interface UintConstructor<T extends Uint> {
     new (text: string, radix?: number): T;
 
     prototype: T;
-  }
+}
 
-export const UINT64: UintConstructor<Uint>;
+export interface Uint64Constructor<T extends Uint> extends UintConstructor<T> {
+    // called as a function:
+    (a00: number, a16: number, a32: number, a48: number): T;
+
+    // called as constructor:
+    new (a00: number, a16: number, a32: number, a48: number): T;
+}
+
+export const UINT64: Uint64Constructor<Uint>;
 export const UINT32: UintConstructor<Uint>;
