@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import * as prettifyHtml from 'gulp-html-prettify';
+import prettifyHtml = require('gulp-html-prettify');
 
 gulp.task('prettifyHtml', () => {
     gulp.src('source/*.html')
