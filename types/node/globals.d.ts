@@ -233,12 +233,12 @@ declare var module: NodeModule;
 declare var exports: any;
 
 // Buffer class
-type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
+type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "latin1" | "binary" | "hex";
 interface Buffer extends Uint8Array {
     constructor: typeof Buffer;
-    write(string: string, encoding?: string): number;
-    write(string: string, offset: number, encoding?: string): number;
-    write(string: string, offset: number, length: number, encoding?: string): number;
+    write(string: string, encoding?: BufferEncoding): number;
+    write(string: string, offset: number, encoding?: BufferEncoding): number;
+    write(string: string, offset: number, length: number, encoding?: BufferEncoding): number;
     toString(encoding?: string, start?: number, end?: number): string;
     toJSON(): { type: 'Buffer', data: number[] };
     equals(otherBuffer: Uint8Array): boolean;
@@ -287,10 +287,10 @@ interface Buffer extends Uint8Array {
     writeDoubleLE(value: number, offset: number): number;
     writeDoubleBE(value: number, offset: number): number;
     fill(value: any, offset?: number, end?: number): this;
-    indexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: string): number;
-    lastIndexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: string): number;
+    indexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
+    lastIndexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
     entries(): IterableIterator<[number, number]>;
-    includes(value: string | number | Buffer, byteOffset?: number, encoding?: string): boolean;
+    includes(value: string | number | Buffer, byteOffset?: number, encoding?: BufferEncoding): boolean;
     keys(): IterableIterator<number>;
     values(): IterableIterator<number>;
 }
@@ -308,7 +308,7 @@ declare const Buffer: {
      * @param encoding encoding to use, optional.  Default is 'utf8'
      * @deprecated since v10.0.0 - Use `Buffer.from(string[, encoding])` instead.
      */
-    new(str: string, encoding?: string): Buffer;
+    new(str: string, encoding?: BufferEncoding): Buffer;
     /**
      * Allocates a new buffer of {size} octets.
      *
@@ -367,7 +367,7 @@ declare const Buffer: {
      * If provided, the {encoding} parameter identifies the character encoding.
      * If not provided, {encoding} defaults to 'utf8'.
      */
-    from(str: string, encoding?: string): Buffer;
+    from(str: string, encoding?: BufferEncoding): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param values to create a new Buffer
@@ -385,7 +385,7 @@ declare const Buffer: {
      *
      * @param encoding string to test.
      */
-    isEncoding(encoding: string): boolean | undefined;
+    isEncoding(encoding: string): encoding is BufferEncoding
     /**
      * Gives the actual byte length of a string. encoding defaults to 'utf8'.
      * This is not the same as String.prototype.length since that returns the number of characters in a string.
@@ -393,7 +393,7 @@ declare const Buffer: {
      * @param string string to test.
      * @param encoding encoding used to evaluate (defaults to 'utf8')
      */
-    byteLength(string: string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer, encoding?: string): number;
+    byteLength(string: string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer, encoding?: BufferEncoding): number;
     /**
      * Returns a buffer which is the result of concatenating all the buffers in the list together.
      *
@@ -418,7 +418,7 @@ declare const Buffer: {
      *    If parameter is omitted, buffer will be filled with zeros.
      * @param encoding encoding used for call to buf.fill while initalizing
      */
-    alloc(size: number, fill?: string | Buffer | number, encoding?: string): Buffer;
+    alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): Buffer;
     /**
      * Allocates a new buffer of {size} octets, leaving memory not initialized, so the contents
      * of the newly created Buffer are unknown and may contain sensitive data.
