@@ -1667,6 +1667,10 @@ declare class Hls {
      */
     startLevel: number;
     /**
+     * get: Return the bound videoElement from the hls instance
+     */
+    readonly media?: HTMLVideoElement | null;
+    /**
      *  hls.js config
      */
     config: Hls.Config;

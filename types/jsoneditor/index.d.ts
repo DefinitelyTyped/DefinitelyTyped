@@ -22,7 +22,7 @@ declare module 'jsoneditor' {
     export type JSONEditorMode = 'tree' | 'view' | 'form' | 'code' | 'text';
 
     export interface NodeName {
-        path: string;
+        path: ReadonlyArray<string>;
         type: 'object'|'array';
         size: number;
     }
