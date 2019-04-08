@@ -117,6 +117,12 @@ export interface HeaderProps {
     localizer: DateLocalizer;
 }
 
+export interface ResourceHeaderProps {
+    label: string;
+    index: number;
+    resource: object;
+}
+
 export interface Components<TEvent extends Event = Event> {
     event?: React.ComponentType<EventProps<TEvent>>;
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>>;
@@ -149,7 +155,7 @@ export interface Components<TEvent extends Event = Event> {
      * component used as a header for each column in the TimeGridHeader
      */
     header?: React.ComponentType<HeaderProps>;
-    resourceHeader?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+    resourceHeader?: React.ComponentType<ResourceHeaderProps>;
 }
 
 export interface ToolbarProps {
