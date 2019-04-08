@@ -18,24 +18,24 @@ type DocCallback = Callback<JsonLd>;
  * The interfaces are usefull to avoid code replication.
  */
 
-declare namespace Options {
-    interface DocLoader {
+export namespace Options {
+    export interface DocLoader {
         documentLoader?: (url: Url,
             callback: (err: Error, remoteDoc: RemoteDocument) => void)
                 => Promise<RemoteDocument>;
     }
 
-    interface Common extends DocLoader {
+    export interface Common extends DocLoader {
         base?: string;
         expandContext?: Context;
     }
 
-    interface ExpMap {
+    export interface ExpMap {
         // TODO: Figure out type of info
         expansionMap?: (info: any) => any;
     }
 
-    interface Compact extends Common, ExpMap {
+    export interface Compact extends Common, ExpMap {
         compactArrays?: boolean;
         appropriate?: boolean;
         compactToRelative?: boolean;
@@ -47,20 +47,20 @@ declare namespace Options {
         compactionMap?: (info: any) => void;
     }
 
-    interface Expand extends Common, ExpMap {
+    export interface Expand extends Common, ExpMap {
         keepFreeFloatingNodes?: boolean;
     }
 
-    type Flatten = Common;
+    export type Flatten = Common;
 
-    interface Frame {
+    export interface Frame {
         embed?: '@last'| '@always'|'@never'|'@link';
         explicit?: boolean;
         requireAll?: boolean;
         omitDefault?: boolean;
     }
 
-    interface Normalize extends Common {
+    export interface Normalize extends Common {
         algorithm?: 'URDNA2015' | `URGNA2012`;
         skipExpansion?: boolean;
         expansion?: boolean;
@@ -69,14 +69,14 @@ declare namespace Options {
         useNative?: boolean;
     }
 
-    interface FromRdf {
+    export interface FromRdf {
         format?: MimeNQuad;
         rdfParser?: any;
         useRdfType?: boolean;
         useNativeTypes?: boolean;
     }
 
-    interface ToRdf extends Common {
+    export interface ToRdf extends Common {
         skipExpansion?: boolean;
         format?: MimeNQuad;
         produceGeneralizedRdf?: boolean;
@@ -85,14 +85,14 @@ declare namespace Options {
     // TODO Complete and uncomment if needed (see comments at the end of the file)
     /* NOT USED AT THE MOMENT
     // type Link = Common;
-    interface Issuer {
+    export interface Issuer {
 
         issuer?: IdentifierIssuer;   // a jsonld.IdentifierIssuer to use to label blank nodes.
     }
 
-    type CreateNodeMap = Common&Issuer;
+    export type CreateNodeMap = Common&Issuer;
 
-    interface Merge extends Common, Issuer{
+    export interface Merge extends Common, Issuer{
 
         mergeNodes?: boolean;    //true to merge properties for nodes with the same ID,
         //false to ignore new properties for nodes with the same ID once
@@ -101,11 +101,11 @@ declare namespace Options {
         //(default: true).
     }
 
-    interface Get {
+    export interface Get {
         documentLoader?: DocLoader;  // the document loader to use.
     }
 
-    type ProcessContext = DocLoader;
+    export type ProcessContext = DocLoader;
     */
 }
 
