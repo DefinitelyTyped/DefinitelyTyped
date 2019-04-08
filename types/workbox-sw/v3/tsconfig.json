@@ -1,5 +1,8 @@
 {
     "extends": "../tsconfig.json",
+    "files": [
+        "index.d.ts"
+    ],
     "compilerOptions": {
         "baseUrl": "../../",
         "typeRoots": ["../../"],
