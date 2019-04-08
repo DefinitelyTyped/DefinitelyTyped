@@ -927,7 +927,7 @@ export enum IntentView {
 export interface Intent {
     name: string;
     displayName: string;
-    webhookState: string;
+    webhookState?: string;
     priority?: number;
     isFallback?: boolean;
     mlEnabled?: boolean;
@@ -940,8 +940,8 @@ export interface Intent {
     parameters?: Parameter[];
     messages?: Message[];
     defaultResponsePlatforms?: string[];
-    rootFollowupIntentName: string;
-    parentFollowupIntentName: string;
+    rootFollowupIntentName?: string;
+    parentFollowupIntentName?: string;
     followupIntentInfo?: FollowupIntentInfo[];
 }
 
