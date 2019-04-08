@@ -54,7 +54,7 @@ export namespace Options {
     export type Flatten = Common;
 
     export interface Frame {
-        embed?: '@last'| '@always'|'@never'|'@link';
+        embed?: '@last' | '@always' | '@never' | '@link';
         explicit?: boolean;
         requireAll?: boolean;
         omitDefault?: boolean;
