@@ -95,6 +95,6 @@ declare namespace parse {
     }
 
     interface Config {
-        [key: string]: IGitmodule;
+        [key: string]: Gitmodule;
     }
 }
