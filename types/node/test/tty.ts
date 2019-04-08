@@ -21,5 +21,6 @@ ws.getColorDepth({
 });
 ws.clearScreenDown();
 ws.getWindowSize();
+const hasCOlors: boolean = ws.hasColors();
 
 const isTTY: boolean = tty.isatty(1);

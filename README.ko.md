@@ -334,5 +334,3 @@ NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 이 프로젝트는 MIT license 가 적용되어 있습니다.
 
 각 자료형 정의(Type definition) 파일들의 저작권은 각 기여자들에게 있으며, 기여자들은 해당 자료형 정의(Type definition) 파일들의 맨 위에 나열되어 있습니다.
-
-[![Analytics](https://ga-beacon.appspot.com/UA-47495295-4/borisyankov/DefinitelyTyped)](https://github.com/igrigorik/ga-beacon)

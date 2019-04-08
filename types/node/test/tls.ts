@@ -1,4 +1,5 @@
 import { createSecureContext, SecureContext, ConnectionOptions, connect, getCiphers, DEFAULT_ECDH_CURVE, createServer, TLSSocket } from "tls";
+import * as fs from "fs";
 
 {
     const ctx: SecureContext = createSecureContext({
@@ -15,6 +16,15 @@ import { createSecureContext, SecureContext, ConnectionOptions, connect, getCiph
 
     const ciphers: string[] = getCiphers();
     const curve: string = DEFAULT_ECDH_CURVE;
+}
+
+{
+    const _server = createServer();
+
+    _server.addContext("example", {
+        cert: fs.readFileSync("cert_filepath"),
+        key: fs.readFileSync("key_filepath")
+    });
 }
 
 {

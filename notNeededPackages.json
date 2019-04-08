@@ -571,6 +571,12 @@
             "asOfVersion": "1.5.0"
         },
         {
+            "libraryName": "elastic-apm-node",
+            "typingsPackageName": "elastic-apm-node",
+            "sourceRepoURL": "https://github.com/elastic/apm-agent-nodejs",
+            "asOfVersion": "2.7.0"
+        },
+        {
             "libraryName": "electron",
             "typingsPackageName": "electron",
             "sourceRepoURL": "https://github.com/electron/electron",
@@ -1417,6 +1423,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "opn",
+            "typingsPackageName": "opn",
+            "sourceRepoURL": "https://github.com/sindresorhus/opn",
+            "asOfVersion": "5.5.0"
+        },
+        {
             "libraryName": "ora",
             "typingsPackageName": "ora",
             "sourceRepoURL": "https://github.com/sindresorhus/ora",
@@ -2129,6 +2141,12 @@
             "typingsPackageName": "ss-utils",
             "sourceRepoURL": "https://servicestack.net/",
             "asOfVersion": "0.1.5"
+        },
+        {
+            "libraryName": "@storybook/addon-notes",
+            "typingsPackageName": "storybook__addon-notes",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "striptags",

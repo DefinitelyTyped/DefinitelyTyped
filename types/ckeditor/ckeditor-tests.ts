@@ -620,6 +620,7 @@ function test_filter() {
     allowed = filter.allow('rule', 'name', false);
 
     var apply: boolean = filter.applyTo(CKEDITOR.htmlParser.fragment.fromHtml('string'), true, false, 1);
+    apply = filter.applyTo(new CKEDITOR.htmlParser.element('name', null));
     apply = filter.applyTo(new CKEDITOR.htmlParser.element('name', null), true, false, 1);
 
     var checked: boolean = filter.check(style);
