@@ -319,19 +319,16 @@ declare namespace PIXI {
             fn: (event: interaction.InteractionEvent) => void,
             context?: any
         ): this;
-        //tslint:disable-next-line:ban-types forbidden-types
-        once(event: string | symbol, fn: Function, context?: any): this;
+        once(event: string | symbol, fn: (...args: any[]) => any, context?: any): this;
         on(
             event: interaction.InteractionEventTypes | "added" | "removed",
             fn: (event: interaction.InteractionEvent) => void,
             context?: any
         ): this;
-        //tslint:disable-next-line:ban-types forbidden-types
-        on(event: string | symbol, fn: Function, context?: any): this;
-        //tslint:disable-next-line:ban-types forbidden-types
+        on(event: string | symbol, fn: (...args: any[]) => any, context?: any): this;
         off(
             event: "added" | "removed" | string | symbol,
-            fn?: Function,
+            fn?: (...args: any[]) => any,
             context?: any
         ): this;
     }
@@ -459,15 +456,13 @@ declare namespace PIXI {
             fn: (event: interaction.InteractionEvent) => void,
             context?: any
         ): this;
-        //tslint:disable-next-line:ban-types forbidden-types
-        on(event: string | symbol, fn: Function, context?: any): this;
+        on(event: string | symbol, fn: (...args: any[]) => any, context?: any): this;
         once(
             event: interaction.InteractionEventTypes,
             fn: (event: interaction.InteractionEvent) => void,
             context?: any
         ): this;
-        //tslint:disable-next-line:ban-types forbidden-types
-        once(event: string | symbol, fn: Function, context?: any): this;
+        once(event: string | symbol, fn: (...args: any[]) => any, context?: any): this;
         removeListener(
             event: interaction.InteractionEventTypes,
             fn?: (event: interaction.InteractionEvent) => void,
@@ -1230,7 +1225,6 @@ declare namespace PIXI {
             RendererPlugins {}
     interface WebGLRendererOptions extends RendererOptions {}
     class WebGLRenderer extends SystemRenderer {
-        //tslint:disable-next-line:ban-types forbidden-types
         // plugintarget mixin start
         static __plugins: {
             [pluginName: string]: { new (renderer: WebGLRenderer): any };
@@ -1976,8 +1970,7 @@ declare namespace PIXI {
         resolution: number;
         protected _text: string;
         protected _style: TextStyle;
-        //tslint:disable-next-line:ban-types forbidden-types
-        protected _styleListener: Function;
+        protected _styleListener: (...args: any[]) => any;
         protected _font: string;
         protected localStyleID: number;
 
@@ -2443,8 +2436,7 @@ declare namespace PIXI {
                 context?: any,
                 priority?: number
             ): Ticker;
-            //tslint:disable-next-line:ban-types forbidden-types
-            remove(fn: Function, context?: any, priority?: number): Ticker;
+            remove(fn: (...args: any[]) => any, context?: any, priority?: number): Ticker;
             protected _addListener(listener: TickerListener): Ticker;
             readonly FPS: number;
             minFPS: number;
@@ -3002,22 +2994,20 @@ declare namespace PIXI {
                 eventData: any
             ): void;
             mapPositionToPoint(point: Point, x: number, y: number): void;
-            //tslint:disable-next-line:ban-types forbidden-types
             protected processInteractive(
                 interactionEvent: InteractionEvent,
                 displayObject:
                     | PIXI.Container
                     | PIXI.Sprite
                     | PIXI.extras.TilingSprite,
-                func?: Function,
+                func?: (...args: any[]) => any,
                 hitTest?: boolean,
                 interactive?: boolean
             ): boolean;
-            //tslint:disable-next-line:ban-types forbidden-types
             protected onPointerComplete(
                 originalEvent: PointerEvent,
                 cancelled: boolean,
-                func: Function
+                func: (...args: any[]) => any
             ): void;
             protected getInteractionDataForPointerId(
                 pointerId: number
@@ -3052,17 +3042,14 @@ declare namespace PIXI {
     class MiniSignalBinding {
         detach(): boolean;
     }
-    //tslint:disable-next-line:ban-types forbidden-types
-    class MiniSignal<CbType extends Function> {
+    class MiniSignal<CbType extends (...args: any[]) => any> {
         constructor();
         handlers(exists: true): boolean;
         handlers(exists?: false): MiniSignalBinding[];
         has(node: MiniSignalBinding): boolean;
-        //tslint:disable-next-line:ban-types forbidden-types
-        add(fn: Function, thisArg?: any): any;
+        add(fn: (...args: any[]) => any, thisArg?: any): any;
         add(fn: CbType, thisArg?: any): MiniSignalBinding;
-        //tslint:disable-next-line:ban-types forbidden-types
-        once(fn: Function, thisArg?: any): any;
+        once(fn: (...args: any[]) => any, thisArg?: any): any;
         once(fn: CbType, thisArg?: any): MiniSignalBinding;
         detach(node: MiniSignalBinding): MiniSignal<CbType>;
         detachAll(): MiniSignal<CbType>;
@@ -3092,8 +3079,7 @@ declare namespace PIXI {
         // However, for depreciation reasons, it remains.
         class Loader extends utils.EventEmitter {
             // pixi overrides here
-            //tslint:disable-next-line:ban-types forbidden-types
-            static addPixiMiddleware(fn: Function): void;
+            static addPixiMiddleware(fn: (...args: any[]) => any): void;
 
             // below this line is the original non-pixi loader
 
@@ -3194,7 +3180,6 @@ declare namespace PIXI {
                 fn: (loader: loaders.Loader) => void,
                 context?: any
             ): this;
-            //tslint:disable-next-line:ban-types forbidden-types
             off(
                 event:
                     | "complete"
@@ -3203,7 +3188,7 @@ declare namespace PIXI {
                     | "progress"
                     | "start"
                     | string,
-                fn?: Function,
+                fn?: (...args: any[]) => any,
                 context?: any
             ): this;
         }
@@ -3609,8 +3594,7 @@ declare namespace PIXI {
             protected queue: any[];
             protected addHooks: AddHook[];
             protected uploadHooks: Array<UploadHook<UploadHookSource>>;
-            //tslint:disable-next-line:ban-types forbidden-types
-            protected completes: Function[];
+            protected completes: (...args: any[]) => any[];
             protected ticking: boolean;
             protected delayedTick: () => void;
 
@@ -4078,8 +4062,7 @@ declare namespace PIXI {
              * @param {*} [context=this] The context to invoke the listener with.
              * @returns {EventEmitter} `this`.
              */
-            //tslint:disable-next-line:ban-types forbidden-types
-            on(event: string | symbol, fn: Function, context?: any): this;
+            on(event: string | symbol, fn: (...args: any[]) => any, context?: any): this;
             /**
              * Add a one-time listener for a given event.
              *
@@ -4088,8 +4071,7 @@ declare namespace PIXI {
              * @param {*} [context=this] The context to invoke the listener with.
              * @returns {EventEmitter} `this`.
              */
-            //tslint:disable-next-line:ban-types forbidden-types
-            once(event: string | symbol, fn: Function, context?: any): this;
+            once(event: string | symbol, fn: (...args: any[]) => any, context?: any): this;
             /**
              * Remove the listeners of a given event.
              *
@@ -4099,10 +4081,9 @@ declare namespace PIXI {
              * @param {boolean} once Only remove one-time listeners.
              * @returns {EventEmitter} `this`.
              */
-            //tslint:disable-next-line:ban-types forbidden-types
             removeListener(
                 event: string | symbol,
-                fn?: Function,
+                fn?: (...args: any[]) => any,
                 context?: any,
                 once?: boolean
             ): this;
@@ -4116,20 +4097,18 @@ declare namespace PIXI {
             /**
              * Alias method for `removeListener`
              */
-            //tslint:disable-next-line:ban-types forbidden-types
             off(
                 event: string | symbol,
-                fn?: Function,
+                fn?: (...args: any[]) => any,
                 context?: any,
                 once?: boolean
             ): this;
             /**
              * Alias method for `on`
              */
-            //tslint:disable-next-line:ban-types forbidden-types
             addListener(
                 event: string | symbol,
-                fn: Function,
+                fn: (...args: any[]) => any,
                 context?: any
             ): this;
             /**
