@@ -13,7 +13,7 @@ client.getAccount("abcdef", (error: Error | null, account: coinbase.Account): vo
         address.getTransactions({}, (error: Error | null, transactions: coinbase.Transaction[]): void => undefined);
     });
 
-    account.delete((error: Error): void => undefined);
+    account.delete((error: Error | null): void => undefined);
 
     account.deposit({ amount: "1", commit: false, currency: "USD", payment_method: "abcdef" }, (error: Error | null, deposit: coinbase.Deposit): void => {
         deposit.commit((error: Error | null, deposit: coinbase.Deposit): void => undefined);
