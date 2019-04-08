@@ -133,9 +133,9 @@ export function fromRDF(dataset: RdfOrString, options: Options.FromRdf, callback
 export function fromRDF(dataset: RdfOrString, callback: DocCallback): void;
 export function fromRDF(dataset: RdfOrString, options?: Options.FromRdf): Promise<JsonLd>;
 
-export function toRDF(input: Document, callback: Callback<RdfDataSet>): void;
-export function toRDF(input: Document, options: Options.ToRdf, callback: Callback<RdfDataSet>): void;
-export function toRDF(input: Document, options?: Options.ToRdf): Promise<RdfDataSet>;
+export function toRDF(input: Document, callback: Callback<RdfOrString>): void;
+export function toRDF(input: Document, options: Options.ToRdf, callback: Callback<RdfOrString>): void;
+export function toRDF(input: Document, options?: Options.ToRdf): Promise<RdfOrString>;
 
 export let JsonLdProcessor: JsonLdProcessor;
 
