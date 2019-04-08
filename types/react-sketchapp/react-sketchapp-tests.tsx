@@ -82,3 +82,11 @@ const svg = () => (
         <Path d="M10 10 H 14 L 12 14 L 10 10" />
     </Svg>
 );
+
+const secondSvg = () => (
+    <Svg viewBox="0 0 24 24">
+        <Svg.Rect x="0" y="0" width="24" height="24" fill="black" />
+        <Svg.Circle cx="12" cy="12" r="6" fill="#ff0000" />
+        <Svg.Path d="M10 10 H 14 L 12 14 L 10 10" />
+    </Svg>
+);
