@@ -54,4 +54,4 @@ parse.resolveConfigPath({ include: true }); // $ExpectError
 
 parse.sync().module; // $ExpectType Gitmodule
 parse.sync().module.path; // $ExpectType string
-parse.sync().module.string; // $ExpectType string
+parse.sync().module.url; // $ExpectType string
