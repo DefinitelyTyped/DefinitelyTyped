@@ -9,9 +9,9 @@ import { ImageURISource, StyleProp, ViewStyle } from 'react-native';
 
 export interface StarRatingProps {
     /**
-    * Number between 0 to 1 to determine the opacity of the button.
-    * Default is 0.2
-    */
+     * Number between 0 to 1 to determine the opacity of the button.
+     * Default is 0.2
+     */
     activeOpacity?: number;
     /**
      * Style of the button containing the star.
