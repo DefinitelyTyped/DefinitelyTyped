@@ -24,10 +24,14 @@ const frame = doc;
 const docRDF = jsonld.toRDF(doc);
 
 let count = 0;
-function log(doc: object) {
+function log(doc: object|string) {
     count++;
     // Uncomment if testing with node.js
-    // console.log(count + ": " + JSON.stringify(doc) + "\n");
+    if (typeof doc === 'object') {
+        // console.log(count + ": " + JSON.stringify(doc) + "\n");
+    } else {
+        // console.log(doc);
+    }
 }
 
 /**
