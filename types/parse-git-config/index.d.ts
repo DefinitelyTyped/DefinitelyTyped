@@ -83,7 +83,7 @@ declare namespace parse {
 
     type ParseCallback = ((err: Error | null, config: Config) => void);
 
-    interface IGitmodule {
+    interface Gitmodule {
       path: string;
       url: string;
       update?: string;
