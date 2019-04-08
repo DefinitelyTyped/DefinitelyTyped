@@ -15,8 +15,6 @@ jobs:
   
   - script: |
       git checkout -- . && npm run test
-      echo $(Build.Reason)
-      echo $BUILD_REASON
       if [[ $BUILD_REASON == "Schedule" ]]; then npm run update-codeowners; fi
 
     displayName: 'npm run test'
