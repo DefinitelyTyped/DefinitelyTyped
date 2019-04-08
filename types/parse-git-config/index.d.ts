@@ -83,8 +83,18 @@ declare namespace parse {
 
     type ParseCallback = ((err: Error | null, config: Config) => void);
 
+    interface IGitmodule {
+      path: string;
+      url: string;
+      update?: string;
+      branch?: string;
+      shallow?: boolean;
+      fetchRecurseSubmodules?: boolean;
+      ignore?: 'all' | 'dirty' | 'untracked' | 'none';
+    }
+
     // TODO: Can this be defined more precisely?
     interface Config {
-        [key: string]: any;
+        [key: string]: IGitmodule;
     }
 }
