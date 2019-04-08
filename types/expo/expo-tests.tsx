@@ -167,6 +167,7 @@ Audio.setAudioModeAsync({
     interruptionModeIOS: 2,
     interruptionModeAndroid: 1,
     allowsRecordingIOS: true,
+    playThroughEarpieceAndroid: true,
 });
 Audio.setIsEnabledAsync(true);
 

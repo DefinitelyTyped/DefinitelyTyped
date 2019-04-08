@@ -116,6 +116,7 @@ export interface ReactDatePickerProps {
 	showYearDropdown?: boolean;
 	startDate?: Date | null;
 	startOpen?: boolean;
+	strictParsing?: boolean;
 	tabIndex?: number;
 	timeCaption?: string;
 	timeFormat?: string;
