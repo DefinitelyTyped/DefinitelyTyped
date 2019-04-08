@@ -44,11 +44,15 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
     beforeModel(transition: Transition): any;
 
     /**
-     * Returns the controller for a particular route or name.
-     * The controller instance must already have been created, either through entering the
-     * associated route or using `generateController`.
+     * Returns the controller of the current route, or a parent (or any
+     * ancestor) route in a route hierarchy.
+     *
+     * The controller instance must already have been created, either through
+     * entering the associated route or using `generateController`.
+     *
+     * @param name the name of the route or controller
      */
-    controllerFor<K extends keyof ControllerRegistry>(name: K): ControllerRegistry[K];
+    controllerFor(name: string): Controller;
 
     /**
      * Disconnects a view that has been rendered into an outlet.
