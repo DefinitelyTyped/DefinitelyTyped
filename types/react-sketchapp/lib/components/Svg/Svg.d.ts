@@ -1,26 +1,26 @@
 import React from 'react';
 
 import { ViewProps } from '../../../index';
-import Circle from './Circle';
-import ClipPath from './ClipPath';
-import Defs from './Defs';
-import Ellipse from './Ellipse';
-import G from './G';
-import Image from './Image';
-import Line from './Line';
-import LinearGradient from './LinearGradient';
-import Path from './Path';
-import Pattern from './Pattern';
-import Polygon from './Polygon';
-import Polyline from './Polyline';
-import RadialGradient from './RadialGradient';
-import Rect from './Rect';
-import Stop from './Stop';
-import Symbol from './Symbol';
-import Text from './Text';
-import TextPath from './TextPath';
-import TSpan from './TSpan';
-import Use from './Use';
+import Circle, { CircleProps } from './Circle';
+import ClipPath, { ClipPathProps } from './ClipPath';
+import Defs, { DefsProps } from './Defs';
+import Ellipse, { EllipseProps } from './Ellipse';
+import G, { GProps } from './G';
+import Image, { ImageProps } from './Image';
+import Line, { LineProps } from './Line';
+import LinearGradient, { LinearGradientProps } from './LinearGradient';
+import Path, { PathProps } from './Path';
+import Pattern, { PatternProps } from './Pattern';
+import Polygon, { PolygonProps } from './Polygon';
+import Polyline, { PolylineProps } from './Polyline';
+import RadialGradient, { RadialGradientProps } from './RadialGradient';
+import Rect, { RectProps } from './Rect';
+import Stop, { StopProps } from './Stop';
+import Symbol, { SymbolProps } from './Symbol';
+import Text, { TextProps } from './Text';
+import TextPath, { TextPathProps } from './TextPath';
+import TSpan, { TSpanProps } from './TSpan';
+import Use, { UseProps } from './Use';
 
 export interface SvgProps extends ViewProps {
     className?: string;
@@ -33,24 +33,24 @@ export interface SvgProps extends ViewProps {
 }
 
 export default class Svg extends React.Component<SvgProps> {
-    static Circle: Circle;
-    static ClipPath: ClipPath;
-    static Defs: Defs;
-    static Ellipse: Ellipse;
-    static G: G;
-    static Image: Image;
-    static Line: Line;
-    static LinearGradient: LinearGradient;
-    static Path: Path;
-    static Pattern: Pattern;
-    static Polygon: Polygon;
-    static Polyline: Polyline;
-    static RadialGradient: RadialGradient;
-    static Rect: Rect;
-    static Stop: Stop;
-    static Symbol: Symbol;
-    static Text: Text;
-    static TextPath: TextPath;
-    static TSpan: TSpan;
-    static Use: Use;
+    static Circle: new (props: CircleProps) => Circle;
+    static ClipPath: new (props: ClipPathProps) => ClipPath;
+    static Defs: new (props: DefsProps) => Defs;
+    static Ellipse: new (props: EllipseProps) => Ellipse;
+    static G: new (props: GProps) => G;
+    static Image: new (props: ImageProps) => Image;
+    static Line: new (props: LineProps) => Line;
+    static LinearGradient: new (props: LinearGradientProps) => LinearGradient;
+    static Path: new (props: PathProps) => Path;
+    static Pattern: new (props: PatternProps) => Pattern;
+    static Polygon: new (props: PolygonProps) => Polygon;
+    static Polyline: new (props: PolylineProps) => Polyline;
+    static RadialGradient: new (props: RadialGradientProps) => RadialGradient;
+    static Rect: new (props: RectProps) => Rect;
+    static Stop: new (props: StopProps) => Stop;
+    static Symbol: new (props: SymbolProps) => Symbol;
+    static Text: new (props: TextProps) => Text;
+    static TextPath: new (props: TextPathProps) => TextPath;
+    static TSpan: new (props: TSpanProps) => TSpan;
+    static Use: new (props: UseProps) => Use;
 }
