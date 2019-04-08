@@ -1,0 +1,15 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
+        "paths": {
+            "workbox-sw": [
+                "workbox-sw/v3"
+            ],
+            "workbox-sw/*": [
+                "workbox-sw/v3/*"
+            ]
+        }
+    }
+}
