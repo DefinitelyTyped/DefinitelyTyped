@@ -12,9 +12,9 @@ import {
     Platform,
 } from 'react-sketchapp';
 
-import Circle from './lib/components/Svg/Circle';
-import Path from './lib/components/Svg/Path';
-import Rect from './lib/components/Svg/Rect';
+import Circle from 'react-sketchapp/lib/components/Svg/Circle';
+import Path from 'react-sketchapp/lib/components/Svg/Path';
+import Rect from 'react-sketchapp/lib/components/Svg/Rect';
 
 // the styles object should be a mapped typed mapping the keys of the object literal to numbers
 const styles = StyleSheet.create({
