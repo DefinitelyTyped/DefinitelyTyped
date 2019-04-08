@@ -1,9 +1,19 @@
 {
-    "extends": "../tsconfig.json",
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "workbox-sw-tests.ts"
     ],
     "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2017",
+        "lib": [
+            "es2015",
+            "webworker"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": ["../../"],
         "paths": {
@@ -13,6 +23,9 @@
             "workbox-sw/*": [
                 "workbox-sw/v3/*"
             ]
-        }
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     }
 }
