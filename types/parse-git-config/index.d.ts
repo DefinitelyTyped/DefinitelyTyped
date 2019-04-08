@@ -91,6 +91,7 @@ declare namespace parse {
       shallow?: boolean;
       fetchRecurseSubmodules?: boolean;
       ignore?: 'all' | 'dirty' | 'untracked' | 'none';
+      [key: string]: any;
     }
 
     // TODO: Can this be defined more precisely?
