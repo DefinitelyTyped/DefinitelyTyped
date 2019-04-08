@@ -118,7 +118,7 @@ export interface HeaderProps {
 }
 
 export interface ResourceHeaderProps {
-    label: string;
+    label: React.ReactNode;
     index: number;
     resource: object;
 }
