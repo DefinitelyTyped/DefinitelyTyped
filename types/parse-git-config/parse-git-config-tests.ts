@@ -36,8 +36,8 @@ parse.sync({ cwd: 'foo' }); // $ExpectType Config
 
 function test_expandKeys() {
     const config = {
-        'foo "bar"': { doStuff: true },
-        'foo "baz"': { doStuff: true },
+        'foo "bar"': { path: './', url: '//' },
+        'foo "baz"': { path: './', url: '//' },
     };
     const keys = parse.expandKeys(config);
 
