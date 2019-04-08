@@ -63,6 +63,8 @@ interface Gitmodule {
   shallow?: boolean;
   fetchRecurseSubmodules?: boolean;
   ignore?: 'all' | 'dirty' | 'untracked' | 'none';
+
+  [key: string]: any;
 }
 
 interface Config {
