@@ -1,12 +1,14 @@
 import * as ESTree from "estree";
+import { Server } from "../tern";
 export { };
 
 // #### Context ####
 interface ContextConstructor {
-    new(defs: any[]): Context;
+    new(defs: any[], parent: Server): Context;
 }
 export const Context: ContextConstructor;
 export interface Context {
+    parent?: Server;
     topScope: Scope;
     /** The primitive number type. */
     num: Type;
@@ -15,8 +17,10 @@ export interface Context {
     /** The primitive boolean type. */
     bool: Type;
 }
+/** Returns the current context object. */
 export function cx(): Context;
-export function withContext(context: Context, f: () => void): void;
+/** Calls f with the current context bound to context. Basically, all code that does something with the inference engine should be wrapped in such a call. */
+export function withContext<R>(context: Context, f: () => R): R;
 
 // #### Analysis ####
 /** Parse a piece of code for use by Tern. Will automatically fall back to the error-tolerant parser if the regular parser can’t parse the code. */
@@ -59,6 +63,7 @@ export interface Obj extends Type {
     hasProp(prop: string): AVal | null;
     /** Looks up the given property, or defines it if it did not yet exist (in which case it will be associated with the given AST node). */
     defProp(prop: string, originNode?: ESTree.Node): AVal;
+    getType(): Obj;
 }
 
 interface FnConstructor {
@@ -66,18 +71,27 @@ interface FnConstructor {
 }
 /** Constructor for the type that implements functions. Inherits from `Obj`. The `AVal` types are used to track the input and output types of the function. */
 export const Fn: FnConstructor;
-export type Fn = Obj;
+export interface Fn extends Obj {
+    readonly args?: AVal[];
+    readonly argNames?: string[];
+    self?: Type;
+    readonly retval: AVal;
+    isArrowFn(): boolean;
+    getType(): Fn;
+}
 
 interface ArrConstructor {
     /** Constructor that creates an array type with the given content type. */
-    new(contentType: AVal): Arr;
+    new(contentType?: AVal): Arr;
 }
 export const Arr: ArrConstructor;
-export type Arr = Obj;
+export interface Arr extends Obj {
+    getType(): Arr;
+}
 
 export interface Type extends AVal {
     /** The name of the type, if any. */
-    name: string;
+    name: string | undefined;
     /** The origin file of the type. */
     origin: string;
     /**
@@ -88,10 +102,9 @@ export interface Type extends AVal {
     originNode?: ESTree.Node;
     /** Return a string that describes the type. maxDepth indicates the depth to which inner types should be shown. */
     toString(maxDepth: number): string;
-    /** Get an `AVal` that represents the named property of this type. */
-    getProp(prop: string): AVal;
     /** Call the given function for all properties of the object, including properties that are added in the future. */
     forAllProps(f: (prop: string, val: AVal, local: boolean) => void): void;
+    getType(): Type;
 }
 
 // #### Abstract Values ####
@@ -131,13 +144,23 @@ export interface AVal {
      * Asks the AVal if it contains a function type. Useful when
      * you aren’t interested in other kinds of types.
      */
-    getFunctionType(): Type | undefined;
+    getFunctionType(): Fn | undefined;
+    /** Get an `AVal` that represents the named property of this type. */
+    getProp(prop: string): AVal;
+    /**
+     * Asks the AVal if it contains an Object type. Useful when
+     * you aren’t interested in other kinds of types.
+     */
+    getObjType(): Obj | null;
     /**
      * Abstract values that are used to represent variables
      * or properties will have, when possible, an `originNode`
      * property pointing to an AST node.
      */
     originNode?: ESTree.Node;
+
+    readonly types: Type[];
+    readonly propertyOf?: Obj;
 }
 
 export const ANull: ANull;
@@ -170,7 +193,8 @@ export interface Constraint extends AVal {
 
 // #### Scopes ####
 interface ScopeConstructor {
-    new(parent?: Scope): Scope;
+    new(): Scope;
+    new(parent: Scope, originNode: ESTree.Node): Scope;
 }
 export const Scope: ScopeConstructor;
 export interface Scope extends Obj {
@@ -199,7 +223,7 @@ export function findExpressionAround(ast: ESTree.Program, start: number | undefi
 /** Similar to `findExpressionAround`, except that it use the same AST walker as `findExpressionAt`. */
 export function findClosestExpression(ast: ESTree.Program, start: number | undefined, end: number, scope?: Scope): { node: ESTree.Node, state: Scope } | null;
 /** Determine an expression for the given node and scope (as returned by the functions above). Will return an `AVal` or plain `Type`. */
-export function expressionType(expr: { node: ESTree.Node, state: Scope }): AVal | Type;
+export function expressionType(expr: { node: ESTree.Node, state: Scope | null }): AVal | Type;
 /** Find the scope at a given position in the syntax tree. The `scope` parameter can be used to override the scope used for code that isn’t wrapped in any function. */
 export function scopeAt(ast: ESTree.Program, pos: number, scope?: Scope): Scope;
 /**

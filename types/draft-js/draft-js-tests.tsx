@@ -315,6 +315,7 @@ ReactDOM.render(
 
 const editorState = EditorState.createEmpty();
 const contentState = editorState.getCurrentContent();
+const entityMap = contentState.getEntityMap();
 const rawContentState: RawDraftContentState = convertToRaw(contentState);
 
 rawContentState.blocks.forEach((block: RawDraftContentBlock) => {

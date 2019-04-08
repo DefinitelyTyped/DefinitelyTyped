@@ -1,7 +1,6 @@
-// Type definitions for Mongoose 5.2.13
+// Type definitions for Mongoose 5.3.4
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
-//                 sindrenm <https://github.com/sindrenm>
 //                 lukasz-zak <https://github.com/lukasz-zak>
 //                 Alorel <https://github.com/Alorel>
 //                 jendrikw <https://github.com/jendrikw>
@@ -13,7 +12,14 @@
 //                 Idan Dardikman <https://github.com/idandrd>
 //                 Dominik Heigl <https://github.com/various89>
 //                 Fazendaaa <https://github.com/Fazendaaa>
+//                 Norman Perrin <https://github.com/NormanPerrin>
 //                 Dan Manastireanu <https://github.com/danmana>
+//                 stablio <https://github.com/stablio>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
+//                 Frontend Monster <https://github.com/frontendmonster>
+//                 Ming Chen <https://github.com/mingchen>
+//                 Olga Isakova <https://github.com/penumbra1>
+//                 Orblazer <https://github.com/orblazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -163,16 +169,7 @@ declare module "mongoose" {
 
   export function startSession(options?: mongodb.SessionOptions, cb?: (err: any, session: mongodb.ClientSession) => void): Promise<mongodb.ClientSession>;
 
-  class CastError extends Error {
-    /**
-     * The Mongoose CastError constructor
-     * @param type The name of the type
-     * @param value The value that failed to cast
-     * @param path The path a.b.c in the doc where this cast error occurred
-     * @param reason The original error that was thrown
-     */
-    constructor(type: string, value: any, path: string, reason?: NativeError);
-  }
+  export type CastError = Error.CastError;
 
   /*
    * section connection.js
@@ -278,6 +275,16 @@ declare module "mongoose" {
       collection?: string
     ): U;
 
+    /**
+     * Removes the model named `name` from this connection, if it exists. You can
+     * use this function to clean up any models you created in your tests to
+     * prevent OverwriteModelErrors.
+     *
+     * @param name if string, the name of the model to remove. If regexp, removes all models whose name matches the regexp.
+     * @returns this
+     */
+    deleteModel(name: string | RegExp): Connection;
+
     /** Returns an array of model names created on this connection. */
     modelNames(): string[];
 
@@ -304,6 +311,16 @@ declare module "mongoose" {
     readyState: number;
   }
 
+  /**
+   * Connection optional settings.
+   *
+   * see
+   *   https://mongoosejs.com/docs/api.html#mongoose_Mongoose-connect
+   * and
+   *   http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html
+   * for all available options.
+   *
+   */
   interface ConnectionOptionsBase {
     /** database Name for Mongodb Atlas Connection */
     dbName?: string;
@@ -322,16 +339,18 @@ declare module "mongoose" {
     /** Use ssl connection (needs to have a mongod server with ssl support) (default: true) */
     ssl?: boolean;
     /** Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher) */
-    sslValidate?: object;
+    sslValidate?: boolean;
     /** Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons. */
     poolSize?: number;
     /** Reconnect on error (default: true) */
     autoReconnect?: boolean;
-    /** TCP KeepAlive on the socket with a X ms delay before start (default: 0). */
-    keepAlive?: number;
-    /** TCP Connection timeout setting (default: 0) */
+    /** TCP Connection keep alive enabled (default: true) */
+    keepAlive?: boolean;
+    /** The number of milliseconds to wait before initiating keepAlive on the TCP socket (default 30000) */
+    keepAliveInitialDelay?: number;
+    /** TCP Connection timeout setting (default: 30000) */
     connectTimeoutMS?: number;
-    /** TCP Socket timeout setting (default: 0) */
+    /** TCP Socket timeout setting (default: 360000) */
     socketTimeoutMS?: number;
     /** If the database authentication is dependent on another databaseName. */
     authSource?: string;
@@ -391,6 +410,8 @@ declare module "mongoose" {
     useNewUrlParser?: boolean;
     /** Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify(). */
     useFindAndModify?: boolean;
+    /** If true, this connection will use createIndex() instead of ensureIndex() for automatic index builds via Model.init(). */
+    useCreateIndex?: boolean;
 
     // TODO
     safe?: any;
@@ -409,12 +430,8 @@ declare module "mongoose" {
        * models associated with this connection.
        */
       autoIndex?: boolean;
-
-      /**
-       * If true, this connection will use createIndex() instead of ensureIndex() for automatic index builds via Model.init().
-       */
-      useCreateIndex?: boolean;
     };
+    autoIndex?: boolean;
   }
 
   /** See the node-mongodb-native driver instance for options that it understands. */
@@ -481,19 +498,15 @@ declare module "mongoose" {
   }
 
   /*
-   * section error/validation.js
-   * http://mongoosejs.com/docs/api.html#error-validation-js
-   */
-  class ValidationError extends Error {
-    /** Console.log helper */
-    toString(): string;
-  }
-
-  /*
    * section error.js
    * http://mongoosejs.com/docs/api.html#error-js
    */
   class Error extends global.Error {
+
+    // "MongooseError" for instances of the current class,
+    // an other string for instances of derived classes.
+    name: "MongooseError" | string;
+
     /**
      * MongooseError constructor
      * @param msg Error message
@@ -513,6 +526,159 @@ declare module "mongoose" {
 
     /** For backwards compatibility. Same as mongoose.Error.messages */
     static Messages: any;
+
+  }
+
+  module Error {
+
+    /**
+     * section error/notFound.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.DocumentNotFoundError
+     *
+     * An instance of this error class will be returned when `save()` fails
+     * because the underlying
+     * document was not found. The constructor takes one parameter, the
+     * conditions that mongoose passed to `update()` when trying to update
+     * the document.
+     */
+    export class DocumentNotFoundError extends Error {
+      name: 'DocumentNotFoundError';
+      filter: any;
+      query: any;
+      constructor(filter: any);
+    }
+
+    /**
+     * section error/cast.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.CastError
+     *
+     * An instance of this error class will be returned when mongoose failed to
+     * cast a value.
+     */
+    export class CastError extends Error {
+      name: 'CastError';
+      stringValue: string;
+      kind: string;
+      value: any;
+      path: string;
+      reason?: any;
+      model?: any;
+
+      constructor(type: string, value: any, path: string, reason?: NativeError);
+
+      setModel(model: any): void;
+    }
+
+    /**
+     * section error/validation.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidationError
+
+     * An instance of this error class will be returned when [validation](/docs/validation.html) failed.
+     * The `errors` property contains an object whose keys are the paths that failed and whose values are
+     * instances of CastError or ValidationError.
+     *
+     */
+    export class ValidationError extends Error {
+      name: 'ValidationError';
+
+      errors: {[path: string]: ValidatorError | CastError};
+
+      constructor(instance?: MongooseDocument);
+
+      /** Console.log helper */
+      toString(): string;
+
+      inspect(): object;
+
+      toJSON(): object;
+
+      addError(path: string, error: any): void;
+    }
+
+    /**
+     * section error/validator.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidatorError
+     *
+     * A `ValidationError` has a hash of `errors` that contain individual `ValidatorError` instances
+     */
+    export class ValidatorError extends Error {
+      name: 'ValidatorError';
+      properties: {message: string, type?: string, path?: string, value?: any, reason?: any};
+      kind: string;
+      path: string;
+      value: any;
+      reason: any;
+
+      constructor(properties: {message?: string, type?: string, path?: string, value?: any, reason?: any});
+
+      formatMessage(msg: string | Function, properties: any): string;
+
+      toString(): string;
+    }
+
+    /**
+     * section error/version.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.VersionError
+     *
+     * An instance of this error class will be returned when you call `save()` after
+     * the document in the database was changed in a potentially unsafe way. See
+     * the [`versionKey` option](http://mongoosejs.com/docs/guide.html#versionKey) for more information.
+     */
+    export class VersionError extends Error {
+      name: 'VersionError';
+      version: any;
+      modifiedPaths: Array<any>;
+
+      constructor(doc: MongooseDocument, currentVersion: any, modifiedPaths: any);
+    }
+
+    /**
+     * section error/parallelSave.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ParallelSaveError
+     *
+     * An instance of this error class will be returned when you call `save()` multiple
+     * times on the same document in parallel. See the [FAQ](http://mongoosejs.com/docs/faq.html) for more
+     * information.
+     */
+    export class ParallelSaveError extends Error {
+      name: 'ParallelSaveError';
+      constructor(doc: MongooseDocument);
+    }
+
+    /**
+     * section error/overwriteModel.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.OverwriteModelError
+     *
+     * Thrown when a model with the given name was already registered on the connection.
+     * See [the FAQ about `OverwriteModelError`](http://mongoosejs.com/docs/faq.html#overwrite-model-error).
+     */
+    export class OverwriteModelError extends Error {
+      name: 'OverwriteModelError';
+      constructor(name: string);
+    }
+
+    /**
+     * section error/missingSchema.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.MissingSchemaError
+     *
+     * Thrown when you try to access a model that has not been registered yet
+     */
+    export class MissingSchemaError extends Error {
+      name: 'MissingSchemaError';
+      constructor(name: string);
+    }
+
+    /**
+     * section error/divergentArray.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.DivergentArrayError
+     *
+     * An instance of this error will be returned if you used an array projection
+     * and then modified the array in an unsafe way.
+     */
+    export class DivergentArrayError extends Error {
+      name: 'DivergentArrayError';
+      constructor(paths: Array<any>);
+    }
   }
 
   interface EachAsyncOptions {
@@ -600,7 +766,7 @@ declare module "mongoose" {
    * section schema.js
    * http://mongoosejs.com/docs/api.html#schema-js
    */
-  class Schema extends events.EventEmitter {
+  class Schema<T = any> extends events.EventEmitter {
     /**
      * Schema constructor.
      * When nesting schemas, (children in the example above), always declare
@@ -652,8 +818,10 @@ declare module "mongoose" {
      * Adds an instance method to documents constructed from Models compiled from this schema.
      * If a hash of name/fn pairs is passed as the only argument, each name/fn pair will be added as methods.
      */
-    method(method: string, fn: Function): this;
-    method(methodObj: { [name: string]: Function }): this;
+    method<F extends keyof T>(method: F, fn: T[F]): this;
+    method(methodObj: {
+      [F in keyof T]: T[F]
+    }): this;
 
     /**
      * Gets/sets schema paths.
@@ -684,11 +852,11 @@ declare module "mongoose" {
      * @param fn callback
      */
     post<T extends Document>(method: string, fn: (
-      error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
+      doc: T, next: (err?: NativeError) => void
     ) => void): this;
 
     post<T extends Document>(method: string, fn: (
-      doc: T, next: (err?: NativeError) => void
+      error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
     ) => void): this;
 
     /**
@@ -817,7 +985,9 @@ declare module "mongoose" {
     static reserved: any;
 
     /** Object of currently defined methods on this schema. */
-    methods: any;
+    methods: {
+      [F in keyof T]: T[F]
+    };
     /** Object of currently defined statics on this schema. */
     statics: any;
     /** Object of currently defined query helpers on this schema. */
@@ -893,11 +1063,24 @@ declare module "mongoose" {
     /** defaults to "__v" */
     versionKey?: string | boolean;
     /**
+     * By default, Mongoose will automatically
+     * select() any populated paths.
+     * To opt out, set selectPopulatedPaths to false.
+     */
+    selectPopulatedPaths?: boolean;
+    /**
      * skipVersioning allows excluding paths from
      * versioning (the internal revision will not be
      * incremented even if these paths are updated).
      */
     skipVersioning?: any;
+    /**
+     * Validation errors in a single nested schema are reported
+     * both on the child and on the parent schema.
+     * Set storeSubdocValidationError to false on the child schema
+     * to make Mongoose only report the parent error.
+     */
+    storeSubdocValidationError?: boolean;
     /**
      * If set timestamps, mongoose assigns createdAt
      * and updatedAt fields to your schema, the type
@@ -1168,7 +1351,7 @@ declare module "mongoose" {
      * @param kind optional kind property for the error
      * @returns the current ValidationError, with all currently invalidated paths
      */
-    invalidate(path: string, errorMsg: string | NativeError, value: any, kind?: string): ValidationError | boolean;
+    invalidate(path: string, errorMsg: string | NativeError, value?: any, kind?: string): Error.ValidationError | boolean;
 
     /** Returns true if path was directly set and modified, else false. */
     isDirectModified(path: string): boolean;
@@ -1249,9 +1432,17 @@ declare module "mongoose" {
      */
     unmarkModified(path: string): void;
 
+    /** Sends an replaceOne command with this document _id as the query selector.  */
+    replaceOne(replacement: any, callback?: (err: any, raw: any) => void): Query<any>;
+
     /** Sends an update command with this document _id as the query selector.  */
     update(doc: any, callback?: (err: any, raw: any) => void): Query<any>;
     update(doc: any, options: ModelUpdateOptions,
+      callback?: (err: any, raw: any) => void): Query<any>;
+
+    /** Sends an updateOne command with this document _id as the query selector.  */
+    updateOne(doc: any, callback?: (err: any, raw: any) => void): Query<any>;
+    updateOne(doc: any, options: ModelUpdateOptions,
       callback?: (err: any, raw: any) => void): Query<any>;
 
     /**
@@ -1266,9 +1457,9 @@ declare module "mongoose" {
      * Executes registered validation rules (skipping asynchronous validators) for this document.
      * This method is useful if you need synchronous validation.
      * @param pathsToValidate only validate the given paths
-     * @returns MongooseError if there are errors during validation, or undefined if there is no error.
+     * @returns ValidationError if there are errors during validation, or undefined if there is no error.
      */
-    validateSync(pathsToValidate?: string | string[]): Error;
+    validateSync(pathsToValidate?: string | string[]): Error.ValidationError;
 
     /** Hash containing current validation errors. */
     errors: any;
@@ -1554,6 +1745,9 @@ declare module "mongoose" {
    * If later in the query chain a method returns Query<T>, we will need to know type T.
    * So we save this type as the second type parameter in DocumentQuery. Since people have
    * been using Query<T>, we set it as an alias of DocumentQuery.
+   *
+   * Furthermore, Query<T> is used for function that has an option { rawResult: true }.
+   * for instance findOneAndUpdate.
    */
   class Query<T> extends DocumentQuery<T, any> { }
   class DocumentQuery<T, DocType extends Document, QueryHelpers = {}> extends mquery {
@@ -1696,7 +1890,7 @@ declare module "mongoose" {
     equals<T>(val: T): this;
 
     /** Executes the query */
-    exec(callback?: (err: any, res: T) => void): Promise<T>;
+    exec(callback?: (err: NativeError, res: T) => void): Promise<T>;
     exec(operation: string | Function, callback?: (err: any, res: T) => void): Promise<T>;
 
     /** Specifies an $exists condition */
@@ -1727,10 +1921,16 @@ declare module "mongoose" {
      * Issues a mongodb findAndModify remove command.
      * Finds a matching document, removes it, passing the found document (if any) to the
      * callback. Executes immediately if callback is passed.
+     *
+     * If mongoose option 'useFindAndModify': set to false it uses native findOneAndUpdate() rather than deprecated findAndModify().
+     * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
      */
     findOneAndRemove(callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
     findOneAndRemove(conditions: any,
       callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
+    findOneAndRemove(conditions: any, options: { rawResult: true } & QueryFindOneAndRemoveOptions,
+      callback?: (error: any, doc: mongodb.FindAndModifyWriteOpResultObject<DocType | null>, result: any) => void)
+        : Query<mongodb.FindAndModifyWriteOpResultObject<DocType | null>> & QueryHelpers;
     findOneAndRemove(conditions: any, options: QueryFindOneAndRemoveOptions,
       callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
 
@@ -1738,6 +1938,9 @@ declare module "mongoose" {
      * Issues a mongodb findAndModify update command.
      * Finds a matching document, updates it according to the update arg, passing any options, and returns
      * the found document (if any) to the callback. The query executes immediately if callback is passed.
+     *
+     * If mongoose option 'useFindAndModify': set to false it uses native findOneAndUpdate() rather than deprecated findAndModify().
+     * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
      */
     findOneAndUpdate(callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
     findOneAndUpdate(update: any,
@@ -1745,8 +1948,15 @@ declare module "mongoose" {
     findOneAndUpdate(query: any, update: any,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
     findOneAndUpdate(query: any, update: any,
-      options: { upsert: true, new: true } & QueryFindOneAndUpdateOptions,
-      callback?: (err: any, doc: DocType, res: any) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
+      options: { rawResult: true } & { upsert: true } & { new: true } & QueryFindOneAndUpdateOptions,
+      callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<DocType>, res: any) => void)
+        : Query<mongodb.FindAndModifyWriteOpResultObject<DocType>> & QueryHelpers;
+    findOneAndUpdate(query: any, update: any,
+      options: { upsert: true } & { new: true } & QueryFindOneAndUpdateOptions,
+      callback?: (err: any, doc: DocType, res: any) => void): DocumentQuery<DocType, DocType> & QueryHelpers;
+    findOneAndUpdate(query: any, update: any, options: { rawResult: true } & QueryFindOneAndUpdateOptions,
+      callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<DocType | null>, res: any) => void)
+        : Query<mongodb.FindAndModifyWriteOpResultObject<DocType | null>> & QueryHelpers;
     findOneAndUpdate(query: any, update: any, options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType> & QueryHelpers;
 
@@ -1756,6 +1966,12 @@ declare module "mongoose" {
      *   is an Array. See the examples.
      */
     geometry(object: { type: string, coordinates: any[] }): this;
+
+    /**
+     * Returns the current query options as a JSON object.
+     * @returns current query options
+     */
+    getOptions(): any;
 
     /**
      * Returns the current query conditions as a JSON object.
@@ -1884,6 +2100,30 @@ declare module "mongoose" {
      */
     or(array: any[]): this;
 
+    /**
+     * Make this query throw an error if no documents match the given `filter`.
+     * This is handy for integrating with async/await, because `orFail()` saves you
+     * an extra `if` statement to check if no document was found.
+     *
+     * Example:
+     *
+     *     // Throws if no doc returned
+     *     await Model.findOne({ foo: 'bar' }).orFail();
+     *
+     *     // Throws if no document was updated
+     *     await Model.updateOne({ foo: 'bar' }, { name: 'test' }).orFail();
+     *
+     *     // Throws "No docs found!" error if no docs match `{ foo: 'bar' }`
+     *     await Model.find({ foo: 'bar' }).orFail(new Error('No docs found!'));
+     *
+     *     // Throws "Not found" error if no document was found
+     *     await Model.findOneAndUpdate({ foo: 'bar' }, { name: 'test' }).
+     *       orFail(() => Error('Not found'));
+     *
+     * @param err optional error to throw if no docs match `filter`
+     */
+    orFail(err?: Error | (() => Error)): this;
+
     /** Specifies a $polygon condition */
     polygon(...coordinatePairs: number[][]): this;
     polygon(path: string, ...coordinatePairs: number[][]): this;
@@ -2002,8 +2242,7 @@ declare module "mongoose" {
     }): this;
 
     /** Executes this query and returns a promise */
-    then<TRes>(resolve?: (res: T) => void | TRes | PromiseLike<TRes>,
-      reject?: (err: any) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
+    then: Promise<T>["then"];
 
     /**
      * Converts this query to a customized, reusable query
@@ -2041,12 +2280,21 @@ declare module "mongoose" {
   class mquery { }
 
   interface QueryFindOneAndRemoveOptions {
-    /** if multiple docs are found by the conditions, sets the sort order to choose which doc to update */
+    /**
+      * if multiple docs are found by the conditions, sets the sort order to choose
+      * which doc to update
+      */
     sort?: any;
     /** puts a time limit on the query - requires mongodb >= 2.6.0 */
     maxTimeMS?: number;
-    /** if true, passes the raw result from the MongoDB driver as the third callback parameter */
+    /** sets the document fields to return */
+    select?: any;
+    /** like select, it determines which fields to return */
+    projection?: any;
+    /** if true, returns the raw result from the MongoDB driver */
     rawResult?: boolean;
+    /** overwrites the schema's strict mode option for this update */
+    strict?: boolean|string;
   }
 
   interface QueryFindOneAndUpdateOptions extends QueryFindOneAndRemoveOptions {
@@ -2054,8 +2302,6 @@ declare module "mongoose" {
     new?: boolean;
     /** creates the object if it doesn't exist. defaults to false. */
     upsert?: boolean;
-    /** Field selection. Equivalent to .select(fields).findOneAndUpdate() */
-    fields?: any | string;
     /** if true, runs update validators on this command. Update validators validate the update operation against the model's schema. */
     runValidators?: boolean;
     /**
@@ -2068,6 +2314,13 @@ declare module "mongoose" {
      * functions that update validation runs. Does nothing if runValidators is false.
      */
     context?: string;
+    /**
+     *  by default, mongoose only returns the first error that occurred in casting the query.
+     *  Turn on this option to aggregate all the cast errors.
+     */
+      multipleCastError?: boolean;
+    /** Field selection. Equivalent to .select(fields).findOneAndUpdate() */
+    fields?: any | string;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {
@@ -2171,6 +2424,21 @@ declare module "mongoose" {
 
         /** This schema type's name, to defend against minifiers that mangle function names. */
         static schemaName: string;
+
+        /**
+         * Adds a discriminator type.
+         * @param name discriminator model name
+         * @param schema discriminator model schema
+         */
+        discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
+
+        /**
+         * Adds a discriminator type.
+         * @param name discriminator model name
+         * @param schema discriminator model schema
+         */
+        discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema): M;
+
       }
 
       /*
@@ -2494,8 +2762,7 @@ declare module "mongoose" {
     sort(arg: string | any): this;
 
     /** Provides promise for aggregate. */
-    then<TRes>(resolve?: (val: T) => void | TRes | PromiseLike<TRes>,
-      reject?: (err: any) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
+    then: Promise<T>["then"];
 
     /**
      * Appends new custom $unwind operator(s) to this aggregate pipeline.
@@ -2664,7 +2931,7 @@ declare module "mongoose" {
     findById(id: any | string | number, projection: any, options: any,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
 
-    model(name: string): Model<T>;
+    model<U extends Document>(name: string): Model<U>;
 
     /**
      * Creates a Query and specifies a $where condition.
@@ -2723,6 +2990,12 @@ declare module "mongoose" {
     create(...docsWithCallback: any[]): Promise<T>;
 
     /**
+     * Create the collection for this model. By default, if no indexes are specified, mongoose will not create the
+     * collection for the model until any documents are created. Use this method to create the collection explicitly.
+     */
+    createCollection(options?: mongodb.CollectionCreateOptions, cb?: (err: any) => void): Promise<void>;
+
+    /**
      * Adds a discriminator type.
      * @param name discriminator model name
      * @param schema discriminator model schema
@@ -2733,6 +3006,29 @@ declare module "mongoose" {
     distinct(field: string, callback?: (err: any, res: any[]) => void): Query<any[]> & QueryHelpers;
     distinct(field: string, conditions: any,
       callback?: (err: any, res: any[]) => void): Query<any[]> & QueryHelpers;
+
+    /**
+     * Makes the indexes in MongoDB match the indexes defined in this model's
+     * schema. This function will drop any indexes that are not defined in
+     * the model's schema except the `_id` index, and build any indexes that
+     * are in your schema but not in MongoDB.
+     * @param options options to pass to `ensureIndexes()`
+     * @param callback optional callback
+     * @return Returns `undefined` if callback is specified, returns a promise if no callback.
+     */
+    syncIndexes(options: object, callback?: (err: any) => void): void;
+    syncIndexes(options: object): Promise<void>;
+
+    /**
+     * Lists the indexes currently defined in MongoDB. This may or may not be
+     * the same as the indexes defined in your schema depending on whether you
+     * use the [`autoIndex` option](/docs/guide.html#autoIndex) and if you
+     * build indexes manually.
+     * @param cb optional callback
+     * @return Returns `undefined` if callback is specified, returns a promise if no callback.
+     */
+    listIndexes(callback: (err: any) => void): void;
+    listIndexes(): Promise<void>;
 
     /**
      * Sends ensureIndex commands to mongo for each index declared in the schema.
@@ -2766,17 +3062,21 @@ declare module "mongoose" {
      * findByIdAndRemove(id, ...) is equivalent to findOneAndRemove({ _id: id }, ...).
      * Finds a matching document, removes it, passing the found document (if any) to the callback.
      * Executes immediately if callback is passed, else a Query object is returned.
+     *
+     * If mongoose option 'useFindAndModify': set to false it uses native findOneAndUpdate() rather than deprecated findAndModify().
+     * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
+     *
+     * Note: same signatures as findByIdAndDelete
+     *
      * @param id value of _id to query by
      */
     findByIdAndRemove(): DocumentQuery<T | null, T> & QueryHelpers;
     findByIdAndRemove(id: any | number | string,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
-    findByIdAndRemove(id: any | number | string, options: {
-      /** if multiple docs are found by the conditions, sets the sort order to choose which doc to update */
-      sort?: any;
-      /** sets the document fields to return */
-      select?: any;
-    }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
+    findByIdAndRemove(id: any | number | string, options: QueryFindOneAndRemoveOptions,
+      callback?: (err: any, res: mongodb.FindAndModifyWriteOpResultObject<T | null>) => void)
+        : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
+    findByIdAndRemove(id: any | number | string, options: QueryFindOneAndRemoveOptions, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
 
 
      /**
@@ -2784,31 +3084,44 @@ declare module "mongoose" {
      * findByIdAndDelete(id, ...) is equivalent to findByIdAndDelete({ _id: id }, ...).
      * Finds a matching document, removes it, passing the found document (if any) to the callback.
      * Executes immediately if callback is passed, else a Query object is returned.
+     *
+     * Note: same signatures as findByIdAndRemove
+     *
      * @param id value of _id to query by
      */
-    findByIdAndDelete(): DocumentQuery<T | null, T>;
+    findByIdAndDelete(): DocumentQuery<T | null, T> & QueryHelpers;
     findByIdAndDelete(id: any | number | string,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
-    findByIdAndDelete(id: any | number | string, options: {
-      /** if multiple docs are found by the conditions, sets the sort order to choose which doc to update */
-      sort?: any;
-      /** sets the document fields to return */
-      select?: any;
-    }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
+    findByIdAndDelete(id: any | number | string, options: QueryFindOneAndRemoveOptions,
+      callback?: (err: any, res: mongodb.FindAndModifyWriteOpResultObject<T | null>) => void)
+        : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
+    findByIdAndDelete(id: any | number | string, options: QueryFindOneAndRemoveOptions, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
 
     /**
      * Issues a mongodb findAndModify update command by a document's _id field. findByIdAndUpdate(id, ...)
      * is equivalent to findOneAndUpdate({ _id: id }, ...).
+     *
+     * If mongoose option 'useFindAndModify': set to false it uses native findOneAndUpdate() rather than deprecated findAndModify().
+     * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
+     *
      * @param id value of _id to query by
      */
     findByIdAndUpdate(): DocumentQuery<T | null, T> & QueryHelpers;
     findByIdAndUpdate(id: any | number | string, update: any,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
     findByIdAndUpdate(id: any | number | string, update: any,
-      options: { upsert: true, new: true } & ModelFindByIdAndUpdateOptions,
+      options: { rawResult: true } & { upsert: true } & { new: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, res: T) => void): DocumentQuery<T, T> & QueryHelpers;
     findByIdAndUpdate(id: any | number | string, update: any,
-      options: ModelFindByIdAndUpdateOptions,
+      options: { upsert: true, new: true } & QueryFindOneAndUpdateOptions,
+      callback?: (err: any, res: mongodb.FindAndModifyWriteOpResultObject<T>) => void)
+        : Query<mongodb.FindAndModifyWriteOpResultObject<T>> & QueryHelpers;
+    findByIdAndUpdate(id: any | number | string, update: any,
+      options: { rawResult : true } & QueryFindOneAndUpdateOptions,
+      callback?: (err: any, res: mongodb.FindAndModifyWriteOpResultObject<T | null>) => void)
+        : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
+    findByIdAndUpdate(id: any | number | string, update: any,
+      options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
 
     /**
@@ -2827,62 +3140,62 @@ declare module "mongoose" {
      * Issue a mongodb findAndModify remove command.
      * Finds a matching document, removes it, passing the found document (if any) to the callback.
      * Executes immediately if callback is passed else a Query object is returned.
+     *
+     * If mongoose option 'useFindAndModify': set to false it uses native findOneAndUpdate() rather than deprecated findAndModify().
+     * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
+     *
+     * Note: same signatures as findOneAndDelete
+     *
      */
     findOneAndRemove(): DocumentQuery<T | null, T> & QueryHelpers;
     findOneAndRemove(conditions: any,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
-    findOneAndRemove(conditions: any, options: {
-      /**
-       * if multiple docs are found by the conditions, sets the sort order to choose
-       * which doc to update
-       */
-      sort?: any;
-      /** puts a time limit on the query - requires mongodb >= 2.6.0 */
-      maxTimeMS?: number;
-      /** sets the document fields to return */
-      select?: any;
-    }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
+    findOneAndRemove(conditions: any, options: { rawResult: true } & QueryFindOneAndRemoveOptions,
+      callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<T | null>, res: any) => void)
+        : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
+    findOneAndRemove(conditions: any, options: QueryFindOneAndRemoveOptions, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
 
     /**
      * Issues a mongodb findOneAndDelete command.
      * Finds a matching document, removes it, passing the found document (if any) to the
      * callback. Executes immediately if callback is passed.
+     *
+     * Note: same signatures as findOneAndRemove
+     *
      */
     findOneAndDelete(): DocumentQuery<T | null, T> & QueryHelpers;
     findOneAndDelete(conditions: any,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
-    findOneAndDelete(conditions: any, options: {
-      /**
-       * if multiple docs are found by the conditions, sets the sort order to choose
-       * which doc to update
-       */
-      sort?: any;
-      /** puts a time limit on the query - requires mongodb >= 2.6.0 */
-      maxTimeMS?: number;
-      /** sets the document fields to return */
-      select?: any;
-      /** like select, it determines which fields to return */
-      projection?: any;
-      /** if true, returns the raw result from the MongoDB driver */
-      rawResult?: boolean;
-      /** overwrites the schema's strict mode option for this update */
-      strict?: boolean|string;
-    }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
+    findOneAndDelete(conditions: any, options: { rawResult: true } & QueryFindOneAndRemoveOptions,
+      callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<T | null>, res: any) => void)
+        : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
+    findOneAndDelete(conditions: any, options: QueryFindOneAndRemoveOptions, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
 
     /**
      * Issues a mongodb findAndModify update command.
      * Finds a matching document, updates it according to the update arg, passing any options,
      * and returns the found document (if any) to the callback. The query executes immediately
      * if callback is passed else a Query object is returned.
+     *
++    * If mongoose option 'useFindAndModify': set to false it uses native findOneAndUpdate() rather than the deprecated findAndModify().
++    * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
      */
     findOneAndUpdate(): DocumentQuery<T | null, T> & QueryHelpers;
     findOneAndUpdate(conditions: any, update: any,
       callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T> & QueryHelpers;
     findOneAndUpdate(conditions: any, update: any,
-      options: { upsert: true, new: true } & ModelFindOneAndUpdateOptions,
+      options: { rawResult : true } & { upsert: true, new: true } & QueryFindOneAndUpdateOptions,
+      callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<T>, res: any) => void)
+        : Query<mongodb.FindAndModifyWriteOpResultObject<T>> & QueryHelpers;
+    findOneAndUpdate(conditions: any, update: any,
+      options: { upsert: true, new: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: T, res: any) => void): DocumentQuery<T, T> & QueryHelpers;
     findOneAndUpdate(conditions: any, update: any,
-      options: ModelFindOneAndUpdateOptions,
+      options: { rawResult: true } & QueryFindOneAndUpdateOptions,
+      callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<T | null>, res: any) => void)
+        : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
+    findOneAndUpdate(conditions: any, update: any,
+      options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T> & QueryHelpers;
 
     /**
@@ -2960,9 +3273,9 @@ declare module "mongoose" {
       callback?: (err: any, res: T) => void): Promise<T>;
 
     /** Removes documents from the collection. */
-    remove(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']> & QueryHelpers;
-    deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']> & QueryHelpers;
-    deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']> & QueryHelpers;
+    remove(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
+    deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
+    deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
 
     /**
      * Same as update(), except MongoDB replace the existing document with the given document (no atomic operators like $set).
@@ -2999,7 +3312,7 @@ declare module "mongoose" {
      * Returns another Model instance.
      * @param name model name
      */
-    model(name: string): Model<this>;
+    model<T extends Document>(name: string): Model<T>;
 
     /** Override whether mongoose thinks this doc is deleted or not */
     isDeleted(isDeleted: boolean): void;
@@ -3076,43 +3389,6 @@ declare module "mongoose" {
     session?: ClientSession | null;
   }
 
-  interface ModelFindByIdAndUpdateOptions extends ModelOptions {
-    /** true to return the modified document rather than the original. defaults to false */
-    new?: boolean;
-    /** creates the object if it doesn't exist. defaults to false. */
-    upsert?: boolean;
-    /**
-     * if true, runs update validators on this command. Update validators validate the
-     * update operation against the model's schema.
-     */
-    runValidators?: boolean;
-    /**
-     * if this and upsert are true, mongoose will apply the defaults specified in the model's
-     * schema if a new document is created. This option only works on MongoDB >= 2.4 because
-     * it relies on MongoDB's $setOnInsert operator.
-     */
-    setDefaultsOnInsert?: boolean;
-    /** if multiple docs are found by the conditions, sets the sort order to choose which doc to update */
-    sort?: any;
-    /** sets the document fields to return */
-    select?: any;
-    /** if true, passes the raw result from the MongoDB driver as the third callback parameter */
-    rawResult?: boolean;
-    /** overwrites the schema's strict mode option for this update */
-    strict?: boolean;
-    /** The context option lets you set the value of this in update validators to the underlying query. */
-    context?: string;
-  }
-
-  interface ModelFindOneAndUpdateOptions extends ModelFindByIdAndUpdateOptions {
-    /** Field selection. Equivalent to .select(fields).findOneAndUpdate() */
-    fields?: any | string;
-    /** puts a time limit on the query - requires mongodb >= 2.6.0 */
-    maxTimeMS?: number;
-    /** if true, passes the raw result from the MongoDB driver as the third callback parameter */
-    rawResult?: boolean;
-  }
-
   interface ModelPopulateOptions {
     /** space delimited path(s) to populate */
     path: string;
@@ -3152,6 +3428,11 @@ declare module "mongoose" {
     overwrite?: boolean;
     /** other options */
     [other: string]: any;
+    /**
+     *  by default, mongoose only returns the first error that occurred in casting the query.
+     *  Turn on this option to aggregate all the cast errors.
+     */
+      multipleCastError?: boolean;
   }
 
   interface ModelMapReduceOption<T, Key, Val> {

@@ -72,6 +72,19 @@ imageQueue.add({image: 'http://example.com/image1.tiff'});
 
 //////////////////////////////////////////////////////////////////////////////////
 //
+// Test Redis Cluster connexion
+//
+//////////////////////////////////////////////////////////////////////////////////
+
+const clusterQueue = new Queue('queue on redis cluster', {
+    prefix: 'cluster-test',
+    createClient: (clusterUri: Redis.ClusterNode) => {
+        return new Redis.Cluster([{port: 6379, host: '127.0.0.1'}]);
+    }
+});
+
+//////////////////////////////////////////////////////////////////////////////////
+//
 // Re-using Redis Connections
 //
 //////////////////////////////////////////////////////////////////////////////////
@@ -98,10 +111,16 @@ const pdfQueue = new Queue('pdf transcoding', {
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-pdfQueue.process((job) => {
+pdfQueue.process((job: Queue.Job) => {
     // Processors can also return promises instead of using the done callback
     return Promise.resolve();
 });
+
+async function pfdPromise(job: Queue.Job) {
+    return Promise.resolve();
+}
+
+pdfQueue.process(1, pfdPromise);
 
 videoQueue.add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
 .then((video1Job) => {
@@ -133,9 +152,11 @@ pdfQueue
 .on('failed', (job: Queue.Job) => undefined)
 .on('paused', () => undefined)
 .on('resumed', () => undefined)
-.on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatus) => undefined)
+.on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatusClean) => undefined)
 .on('drained', () => undefined)
 .on('removed', (job: Queue.Job) => undefined);
+
+pdfQueue.setMaxListeners(42);
 
 // test different process methods
 

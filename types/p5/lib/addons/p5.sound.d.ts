@@ -2270,12 +2270,13 @@ declare module "../../index" {
     /**
      *   A p5.Part plays back one or more p5.Phrases.
      *   Instantiate a part with steps and tatums. By
-     *   default, each step represents 1/16th note. See
+     *   default, each step represents a 1/16th note. See
      *   p5.Phrase for more about musical timing.
      *
      *   @param [steps] Steps in the part
-     *   @param [tatums] Divisions of a beat (default is
-     *   1/16, a quarter note)
+     *   @param [tatums] Divisions of a beat, e.g. use 1/4,
+     *   or 0.25 for a quater note (default is 1/16, a
+     *   sixteenth note)
      */
     constructor(
       steps?: number,
@@ -2293,7 +2294,7 @@ declare module "../../index" {
     ): void;
 
     /**
-     *   Returns the Beats Per Minute of this currently
+     *   Returns the tempo, in Beats Per Minute, of this
      *   part.
      */
     getBPM(): number;
@@ -2324,7 +2325,9 @@ declare module "../../index" {
     noLoop(): void;
 
     /**
-     *   Stop the part and cue it to step 0.
+     *   Stop the part and cue it to step 0. Playback will
+     *   resume from the begining of the Part when it is
+     *   played again.
      *   @param [time] seconds from now
      */
     stop(
@@ -2366,9 +2369,8 @@ declare module "../../index" {
     ): void;
 
     /**
-     *   Get a phrase from this part, based on the name it
-     *   was given when it was created. Now you can modify
-     *   its array.
+     *   Find all sequences with the specified name, and
+     *   replace their patterns with the specified array.
      *   @param sequence Array of values to pass into the
      *   callback at each step of the phrase.
      */
@@ -2378,7 +2380,8 @@ declare module "../../index" {
     ): void;
 
     /**
-     *   Fire a callback function at every step.
+     *   Set the function that will be called at every
+     *   step. This will clear the previous function.
      *   @param callback The name of the callback you want
      *   to fire on every beat/tatum.
      */

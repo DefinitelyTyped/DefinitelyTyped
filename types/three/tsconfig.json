@@ -57,6 +57,7 @@
         "test/examples/ctm/ctmloader.ts",
         "test/examples/octree.ts",
         "test/examples/loaders/webgl_loader_obj_mtl.ts",
+        "test/examples/loaders/tdsloader.ts",
         "test/examples/exporters/gltf-exporter.ts",
         "test/webvr/webvr.ts"
     ]

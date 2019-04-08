@@ -1,5 +1,5 @@
 // Type definitions for sonic-boom 0.6
-// Project: https://github.com/mcollina/sonic-boom.git
+// Project: https://github.com/mcollina/sonic-boom
 // Definitions by: Alex Ferrando <https://github.com/alferpal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -31,7 +31,7 @@ declare class SonicBoom extends EventEmitter {
     /**
      * Reopen the file in place, useful for log rotation.
      */
-    reopen(file: string): void;
+    reopen(fileDescriptor?: string | number): void;
 
     /**
      * Flushes the buffered data synchronously. This is a costly operation.

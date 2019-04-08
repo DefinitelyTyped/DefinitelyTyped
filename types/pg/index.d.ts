@@ -1,5 +1,5 @@
 // Type definitions for pg 7.4
-// Project: https://github.com/brianc/node-postgres
+// Project: http://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <https://github.com/pspeter3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -29,10 +29,10 @@ export interface Defaults extends ConnectionConfig {
     parseInt8?: boolean;
 }
 
-import { TlsOptions } from "tls";
+import { ConnectionOptions } from "tls";
 
 export interface ClientConfig extends ConnectionConfig {
-    ssl?: boolean | TlsOptions;
+    ssl?: boolean | ConnectionOptions;
 }
 
 export interface PoolConfig extends ClientConfig {
@@ -206,7 +206,9 @@ export interface PoolClient extends ClientBase {
     release(err?: Error): void;
 }
 
-export class Query extends events.EventEmitter {
+export class Query extends events.EventEmitter implements Submittable {
+    constructor(queryTextOrConfig?: string | QueryConfig, values?: any[]);
+    submit: (connection: Connection) => void;
     on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "end", listener: (result: ResultBuilder) => void): this;

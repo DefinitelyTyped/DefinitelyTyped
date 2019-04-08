@@ -1,4 +1,4 @@
-// Type definitions for Bootstrap 3 Datepicker 4.17
+// Type definitions for non-npm package Bootstrap 3 Datepicker 4.17
 // Project: http://eonasdan.github.io/bootstrap-datetimepicker
 // Definitions by: Katona Péter <https://github.com/katonap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

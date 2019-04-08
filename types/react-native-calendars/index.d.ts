@@ -25,7 +25,7 @@ export interface CalendarDot {
 }
 
 export interface CalendarThemeIdStyle {
-    [themeId: string]: ViewStyle;
+    [themeId: string]: ViewStyle | TextStyle;
 }
 
 export interface CalendarTheme {

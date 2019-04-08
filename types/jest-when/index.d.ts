@@ -2,21 +2,21 @@
 // Project: https://github.com/timkindberg/jest-when#readme
 // Definitions by: Alden Taylor <https://github.com/aldentaylor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="jest" />
 
-export interface PartialMockInstance<T> {
-  mockReturnValue: jest.MockInstance<T>['mockReturnValue'];
+export interface WhenMock<T = any, Y extends any[] = any> extends jest.Mock<T, Y> {
+  calledWith(...matchers: Y): WhenMock<T, Y>;
+  expectCalledWith(...matchers: Y): WhenMock<T, Y>;
+  mockReturnValue(value: T): WhenMock<T, Y>;
+  mockReturnValueOnce(value: T): WhenMock<T, Y>;
+  mockResolvedValue(value: jest.ResolvedValue<T>): WhenMock<T, Y>;
+  mockResolvedValueOnce(value: jest.ResolvedValue<T>): WhenMock<T, Y>;
+  mockRejectedValue(value: jest.RejectedValue<T>): WhenMock<T, Y>;
+  mockRejectedValueOnce(value: jest.RejectedValue<T>): WhenMock<T, Y>;
 }
 
-export interface When {
-  <T>(fn: jest.Mocked<T> | jest.Mock<T>): When;
-  // due to no-unnecessary-generics lint rule, the generics have been replaced with 'any'
-  // calledWith<T>(...matchers: any[]): PartialMockInstance<T>;
-  // expectCalledWith<T>(...matchers: any[]): PartialMockInstance<T>;
-  calledWith(...matchers: any[]): PartialMockInstance<any>;
-  expectCalledWith(...matchers: any[]): PartialMockInstance<any>;
-}
+export type When = <T, Y extends any[]>(fn: jest.Mock<T, Y>) => WhenMock<T, Y>;
 
 export const when: When;

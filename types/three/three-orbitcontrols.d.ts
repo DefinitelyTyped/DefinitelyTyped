@@ -32,6 +32,7 @@ export class OrbitControls {
     mouseButtons: {ORBIT: MOUSE; ZOOM: MOUSE; PAN: MOUSE;};
     enableDamping: boolean;
     dampingFactor: number;
+    screenSpacePanning: boolean;
 
 
     rotateLeft(angle?: number): void;

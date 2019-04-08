@@ -1439,6 +1439,16 @@ interface FindPathOpts {
      * Path to within (range) tiles of target tile. The default is to path to the tile that the target is on (0).
      */
     range?: number;
+
+    /**
+     * Cost for walking on plain positions. The default is 1.
+     */
+    plainCost?: number;
+
+    /**
+     * Cost for walking on swamp positions. The default is 5.
+     */
+    swampCost?: number;
 }
 
 interface MoveToOpts extends FindPathOpts {
@@ -1499,7 +1509,7 @@ interface _Constructor<T> {
 }
 
 interface _ConstructorById<T> extends _Constructor<T> {
-    new (id: string): T;
+    new(id: string): T;
     (id: string): T;
 }
 /*
@@ -1744,6 +1754,11 @@ type STRUCTURE_CONTAINER = "container";
 type STRUCTURE_NUKER = "nuker";
 type STRUCTURE_PORTAL = "portal";
 
+// Terrain mask constants
+type TERRAIN_MASK_WALL = 1;
+type TERRAIN_MASK_SWAMP = 2;
+type TERRAIN_MASK_LAVA = 4;
+
 // Resource Constants
 
 type ResourceConstant =
@@ -1944,87 +1959,66 @@ type EVENT_HEAL_TYPE_RANGED = 2;
 
 type EventDestroyType = "creep" | StructureConstant;
 
-type EventItem =
-    | {
-          type: EVENT_ATTACK;
-          objectId: string;
-          data: {
-              targetId: string;
-              damage: number;
-              attackType: EventAttackType;
-          };
-      }
-    | {
-          type: EVENT_OBJECT_DESTROYED;
-          objectId: string;
-          data: {
-              type: EventDestroyType;
-          };
-      }
-    | {
-          type: EVENT_ATTACK_CONTROLLER;
-          objectId: string;
-      }
-    | {
-          type: EVENT_BUILD;
-          objectId: string;
-          data: {
-              targetId: string;
-              amount: number;
-              energySpent: number;
-          };
-      }
-    | {
-          type: EVENT_HARVEST;
-          objectId: string;
-          data: {
-              targetId: string;
-              amount: number;
-          };
-      }
-    | {
-          type: EVENT_HEAL;
-          objectId: string;
-          data: {
-              targetId: string;
-              amount: number;
-              healType: EventHealType;
-          };
-      }
-    | {
-          type: EVENT_REPAIR;
-          objectId: string;
-          data: {
-              targetId: string;
-              amount: number;
-              energySpent: number;
-          };
-      }
-    | {
-          type: EVENT_RESERVE_CONTROLLER;
-          objectId: string;
-          data: {
-              amount: number;
-          };
-      }
-    | {
-          type: EVENT_UPGRADE_CONTROLLER;
-          objectId: string;
-          data:
-              | {
-                    amount: number;
-                    energySpent: number;
-                }
-              | {
-                    type: EVENT_EXIT;
-                    objectId: string;
-                    data: {
-                        room: string;
-                        x: number;
-                        y: number;
-                    };
-                };
-      };
+interface EventItem<T extends EventConstant = EventConstant> {
+    event: T;
+    objectId: string;
+    data: EventData[T];
+}
+
+interface EventData {
+    [key: number]: null | {
+        targetId?: string;
+        damage?: number;
+        attackType?: EventAttackType;
+        amount?: number;
+        energySpent?: number;
+        type?: EventDestroyType;
+        healType?: EventHealType;
+        room?: string;
+        x?: number;
+        y?: number;
+    };
+    1: { // EVENT_ATTACK
+        targetId: string;
+        damage: number;
+        attackType: EventAttackType;
+    };
+    2: { // EVENT_OBJECT_DESTORYED
+        type: EventDestroyType;
+    };
+    3: null; // EVENT_ATTACK_CONTROLLER
+    4: { // EVENT_BUILD
+        targetId: string;
+        amount: number;
+        energySpent: number;
+    };
+    5: { // EVENT_HARVEST
+        targetId: string;
+        amount: number;
+    };
+    6: { // EVENT_HEAL
+        targetId: string;
+        amount: number;
+        healType: EventHealType;
+    };
+    7: { // EVENT_REPAIR
+        targetId: string;
+        amount: number;
+        energySpent: number;
+    };
+    8: { // EVENT_RESERVE_CONTROLLER
+        amount: number;
+    };
+    9: { // EVENT_UPGRADE_CONTROLLER
+        amount: number;
+        energySpent: number;
+    };
+    10: { // EVENT_EXIT
+        room: string;
+        x: number;
+        y: number;
+    };
+}
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
@@ -2809,7 +2803,15 @@ interface RoomTerrain {
      * @param y Y position in the room.
      * @return number Number of terrain mask like: TERRAIN_MASK_SWAMP | TERRAIN_MASK_WALL
      */
-    get(x: number, y: number): number;
+    get(x: number, y: number): 0 | TERRAIN_MASK_WALL | TERRAIN_MASK_SWAMP;
+}
+
+interface RoomTerrainConstructor extends _Constructor<RoomTerrain> {
+    /**
+     * Get room terrain for the specified room. This method works for any room in the world even if you have no access to it.
+     * @param roomName String name of the room.
+     */
+    new (roomName: string): RoomTerrain;
 }
 declare class RoomVisual {
     /**
@@ -3183,6 +3185,11 @@ interface Room {
      */
     getPositionAt(x: number, y: number): RoomPosition | null;
     /**
+     * Get a Room.Terrain object which provides fast access to static terrain data.
+     * This method works for any room in the world even if you have no access to it.
+     */
+    getTerrain(): RoomTerrain;
+    /**
      * Get the list of objects at the specified room position.
      * @param x The X position.
      * @param y The Y position.
@@ -3282,6 +3289,9 @@ interface Room {
 
 interface RoomConstructor extends _Constructor<Room> {
     new (id: string): Room;
+
+    Terrain: RoomTerrainConstructor;
+
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.
      * @param path A path array retrieved from `Room.findPath`.

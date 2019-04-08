@@ -24,7 +24,9 @@ export interface History {
     navigate: NavigateFn;
 }
 
-export class Router extends React.Component<RouterProps> { }
+export class Router extends React.Component<
+  RouterProps & React.HTMLProps<HTMLDivElement>
+> {}
 
 export interface RouterProps {
     basepath?: string;
@@ -108,7 +110,7 @@ export interface LocationProps {
 export class Location extends React.Component<LocationProps> { }
 
 export interface LocationProviderProps {
-    history: History;
+    history?: History;
     children?: React.ReactNode | LocationProviderRenderFn;
 }
 

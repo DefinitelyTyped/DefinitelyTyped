@@ -1,4 +1,4 @@
-// Type definitions for Cytoscape.js 3.2
+// Type definitions for Cytoscape.js 3.4
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
@@ -463,6 +463,27 @@ declare namespace cytoscape {
          * Ends batching manually (useful for asynchronous cases).
          */
         endBatch(): void;
+
+        /**
+         * Attaches the instance to the specified container for visualisation.
+         * http://js.cytoscape.org/#cy.mount
+         *
+         * If the core instance is headless prior to calling cy.mount(), then
+         * the instance will no longer be headless and the visualisation will
+         * be shown in the specified container. If the core instance is
+         * non-headless prior to calling cy.mount(), then the visualisation
+         * is swapped from the prior container to the specified container.
+         */
+        mount(element: Element): void;
+
+        /**
+         * Remove the instance from its current container.
+         * http://js.cytoscape.org/#cy.unmount
+         *
+         * This function sets the instance to be headless after unmounting from
+         * the current container.
+         */
+        unmount(): void;
 
         /**
          * A convenience function to explicitly destroy the Core.
@@ -1146,6 +1167,7 @@ declare namespace cytoscape {
         extends
         CollectionGraphManipulation, CollectionEvents,
         CollectionData, CollectionPosition,
+        CollectionTraversing,
         CollectionLayout,
         CollectionSelection, CollectionStyle, CollectionAnimation,
         CollectionComparision, CollectionIteration<TIn, TOut>,
@@ -3207,7 +3229,7 @@ declare namespace cytoscape {
          * This finds the shortest path from the starting node to all other nodes in the collection.
          * http://js.cytoscape.org/#eles.bellmanFord
          */
-        bellmanFort(options: SearchBellmanFordOptions): SearchBellmanFordResult;
+        bellmanFord(options: SearchBellmanFordOptions): SearchBellmanFordResult;
         /**
          * Perform Kruskal's algorithm on the elements in the collection,
          * returning the minimum spanning tree, assuming undirected edges.

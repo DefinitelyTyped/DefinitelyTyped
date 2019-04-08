@@ -15,6 +15,8 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Ryan Waskiewicz <https://github.com/rwaskiewicz>
 //                 Kyle Uehlein <https://github.com/kuehlein>
+//                 Grgur Grisogono <https://github.com/grgur>
+//                 Rubens Pinheiro Gonçalves Cavalcante <https://github.com/rubenspgcavalcante>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -24,6 +26,7 @@ import { Tapable, HookMap,
          SyncBailHook, SyncHook, SyncLoopHook, SyncWaterfallHook,
          AsyncParallelBailHook, AsyncParallelHook, AsyncSeriesBailHook, AsyncSeriesHook, AsyncSeriesWaterfallHook } from 'tapable';
 import * as UglifyJS from 'uglify-js';
+import * as anymatch from 'anymatch';
 import { RawSourceMap } from 'source-map';
 
 export = webpack;
@@ -41,6 +44,9 @@ declare function webpack(
 declare function webpack(options: webpack.Configuration[]): webpack.MultiCompiler;
 
 declare namespace webpack {
+    /** Webpack package version. */
+    const version: string | undefined;
+
     interface Configuration {
         /** Enable production optimizations or development hints. */
         mode?: "development" | "production" | "none";
@@ -107,7 +113,7 @@ declare namespace webpack {
         /** Stats options for logging  */
         stats?: Options.Stats;
         /** Performance options */
-        performance?: Options.Performance;
+        performance?: Options.Performance | false;
         /** Limit the number of parallel processed modules. Can be used to fine tune performance or to get more reliable profiling results */
         parallelism?: number;
         /** Optimization options */
@@ -537,12 +543,13 @@ declare namespace webpack {
 
     namespace Options {
         // tslint:disable-next-line:max-line-length
-        type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' |
-            'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' |
-            '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' |
-            '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' |
-            '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' |
-            '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
+        type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map'
+            | 'source-map' | 'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | 'inline-cheap-source-map' | 'inline-cheap-module-source-map' | '@eval'
+            | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' | '@cheap-module-source-map' | '@eval-source-map'
+            | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' | '#cheap-eval-source-map'
+            | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map'
+            | '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map'
+            | '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
 
         interface Performance {
             /** This property allows webpack to control what files are used to calculate performance hints. */
@@ -607,6 +614,8 @@ declare namespace webpack {
             name?: boolean | string | ((...args: any[]) => any);
             /** Assign modules to a cache group (modules from different cache groups are tried to keep in separate chunks) */
             cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | { [key: string]: CacheGroupsOptions | false };
+            /** Override the default name separator (~) when generating names automatically (name: true)  */
+            automaticNameDelimiter?: string;
         }
         interface RuntimeChunkOptions {
             /** The name or name factory for the runtime chunks. */
@@ -985,8 +994,8 @@ declare namespace webpack {
             shouldEmit: SyncBailHook<Compilation>;
             done: AsyncSeriesHook<Stats>;
             additionalPass: AsyncSeriesHook;
-            beforeRun: AsyncSeriesHook<Compilation>;
-            run: AsyncSeriesHook<Compilation>;
+            beforeRun: AsyncSeriesHook<Compiler>;
+            run: AsyncSeriesHook<Compiler>;
             emit: AsyncSeriesHook<Compilation>;
             afterEmit: AsyncSeriesHook<Compilation>;
             thisCompilation: SyncHook<Compilation, { normalModuleFactory: NormalModuleFactory }>;
@@ -1029,7 +1038,7 @@ declare namespace webpack {
              * It is possible to exclude a huge folder like node_modules.
              * It is also possible to use anymatch patterns.
              */
-            ignored?: string | string[] | RegExp;
+            ignored?: anymatch.Matcher;
             /** Turn on polling by passing true, or specifying a poll interval in milliseconds. */
             poll?: boolean | number;
         }
@@ -1126,8 +1135,8 @@ declare namespace webpack {
     abstract class Stats {
         compilation: compilation.Compilation;
         hash?: string;
-        startTime?: Date;
-        endTime?: Date;
+        startTime?: number;
+        endTime?: number;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */
@@ -1226,7 +1235,7 @@ declare namespace webpack {
 
         interface ToStringOptionsObject extends ToJsonOptionsObject {
             /** `webpack --colors` equivalent */
-            colors?: boolean;
+            colors?: boolean | string;
         }
 
         type ToStringOptions = Preset | ToStringOptionsObject;
@@ -1393,7 +1402,6 @@ declare namespace webpack {
         constructor();
     }
 
-    /** @deprecated use webpack.NoEmitOnErrorsPlugin */
     class NormalModuleReplacementPlugin extends Plugin {
         constructor(resourceRegExp: any, newResource: any);
     }
@@ -1448,6 +1456,10 @@ declare namespace webpack {
 
     class WatchIgnorePlugin extends Plugin {
         constructor(paths: Array<string | RegExp>);
+    }
+
+    class SingleEntryPlugin extends Plugin {
+        constructor(context: string, entry: string, name: string);
     }
 
     namespace optimize {

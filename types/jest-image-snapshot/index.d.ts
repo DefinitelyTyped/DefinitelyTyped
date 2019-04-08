@@ -1,8 +1,8 @@
-// Type definitions for jest-image-snapshot 2.4
+// Type definitions for jest-image-snapshot 2.8
 // Project: https://github.com/americanexpress/jest-image-snapshot#readme
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="jest" />
 
@@ -27,9 +27,17 @@ export interface MatchImageSnapshotOptions {
      */
     customSnapshotsDir?: string;
     /**
+     * A custom absolute path of a directory to keep this diff in
+     */
+    customDiffDir?: string;
+    /**
      * A custom name to give this snapshot. If not provided, one is computed automatically.
      */
     customSnapshotIdentifier?: string;
+    /**
+     * Changes diff image layout direction, default is horizontal.
+     */
+    diffDirection?: 'horizontal' | 'vertical';
     /**
      * Removes coloring from the console output, useful if storing the results to a file.
      * Defaults to false.
@@ -47,6 +55,10 @@ export interface MatchImageSnapshotOptions {
      * Defaults to 'pixel'.
      */
     failureThresholdType?: 'pixel' | 'percent';
+    /**
+     * Updates a snapshot even if it passed the threshold against the existing one, defaults to false.
+     */
+    updatePassedSnapshot?: boolean;
 }
 
 /**
@@ -55,7 +67,7 @@ export interface MatchImageSnapshotOptions {
  *   import { toMatchImageSnapshot } from 'jest-image-snapshot';
  *   expect.extend({ toMatchImageSnapshot });
  */
-export function toMatchImageSnapshot(): { message(): string; pass: boolean; };
+export function toMatchImageSnapshot(options?: MatchImageSnapshotOptions): { message(): string; pass: boolean; };
 
 /**
  * Configurable function that can be passed to jest's expect.extend.
@@ -69,7 +81,7 @@ export function configureToMatchImageSnapshot(options: MatchImageSnapshotOptions
 declare global {
     namespace jest {
         interface Matchers<R> {
-            toMatchImageSnapshot(): R;
+            toMatchImageSnapshot(options?: MatchImageSnapshotOptions): R;
         }
     }
 }

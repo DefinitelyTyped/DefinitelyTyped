@@ -11,5 +11,5 @@ export class Treebuilder {
     get(filename: string): TreeEntry;
     insert(filename: string, id: Oid, filemode: number): Promise<TreeEntry>;
     remove(filename: string): number;
-    write(): Oid;
+    write(): Promise<Oid>;
 }

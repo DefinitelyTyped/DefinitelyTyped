@@ -47,24 +47,29 @@ export interface BaseParameter {
 }
 
 export interface BodyParameter extends BaseParameter {
+  in: 'body';
   schema?: Schema;
 }
 
 export interface QueryParameter extends BaseParameter, BaseSchema {
+  in: 'query';
   type: string;
   allowEmptyValue?: boolean;
 }
 
 export interface PathParameter extends BaseParameter, BaseSchema {
+  in: 'path';
   type: string;
   required: boolean;
 }
 
 export interface HeaderParameter extends BaseParameter, BaseSchema {
+  in: 'header';
   type: string;
 }
 
 export interface FormDataParameter extends BaseParameter, BaseSchema {
+  in: 'formData';
   type: string;
   collectionFormat?: string;
   allowEmptyValue?: boolean;
@@ -87,7 +92,7 @@ export interface Path {
   options?: Operation;
   head?: Operation;
   patch?: Operation;
-  parameters?: Parameter[] | Reference[];
+  parameters?: Array<Parameter | Reference>;
 }
 
 // ----------------------------- Operation -----------------------------------
@@ -99,7 +104,7 @@ export interface Operation {
   operationId?: string;
   produces?: string[];
   consumes?: string[];
-  parameters?: Parameter[] | Reference[];
+  parameters?: Array<Parameter | Reference>;
   schemes?: string[];
   deprecated?: boolean;
   security?: Security[];
@@ -127,9 +132,9 @@ export interface BaseSchema {
   default?: string|boolean|number|{};
   multipleOf?: number;
   maximum?: number;
-  exclusiveMaximum?: number;
+  exclusiveMaximum?: boolean;
   minimum?: number;
-  exclusiveMinimum?: number;
+  exclusiveMinimum?: boolean;
   maxLength?: number;
   minLength?: number;
   pattern?: string;

@@ -224,7 +224,7 @@ type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint
 // Animation ////////////////////////////////////////////////////////////////////////////////////////
 
 export class AnimationAction {
-    loop: boolean;
+    loop: AnimationActionLoopStyles;
     time: number;
     timeScale: number;
     weight: number;
@@ -239,6 +239,7 @@ export class AnimationAction {
     stop(): AnimationAction;
     reset(): AnimationAction;
     isRunning(): boolean;
+    isScheduled(): boolean;
     startAt(time: number): AnimationAction;
     setLoop(mode: AnimationActionLoopStyles, repetitions: number): AnimationAction;
     setEffectiveWeight(weight: number): AnimationAction;
@@ -453,7 +454,7 @@ export class Camera extends Object3D {
 
     isCamera: true;
 
-    copy(source: this, recursive?: boolean): this;
+    copy(source: Camera, recursive?: boolean): this;
 
     getWorldDirection(target: Vector3): Vector3;
 
@@ -707,7 +708,7 @@ export class BufferAttribute {
     setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): BufferAttribute;
     clone(): this;
-    copy(source: this): this;
+    copy(source: BufferAttribute): this;
     copyAt(index1: number, attribute: BufferAttribute, index2: number): BufferAttribute;
     copyArray(array: ArrayLike<number>): BufferAttribute;
     copyColorsArray(colors: {r: number, g: number, b: number}[]): BufferAttribute;
@@ -867,6 +868,7 @@ export class BufferGeometry extends EventDispatcher {
     boundingBox: Box3;
     boundingSphere: Sphere;
     drawRange: { start: number, count: number };
+    userData: {[key: string]: any};
 
     getIndex(): BufferAttribute;
     setIndex( index: BufferAttribute|number[] ): void;
@@ -927,7 +929,7 @@ export class BufferGeometry extends EventDispatcher {
 
     toJSON(): any;
     clone(): this;
-    copy(source: this): this;
+    copy(source: BufferGeometry): this;
 
     /**
      * Disposes the object from memory.
@@ -1127,7 +1129,8 @@ export class EventDispatcher {
 
 export interface Event {
     type: string;
-    target: any;
+    target?: any;
+    [attachment: string]: any;
 }
 
 /**
@@ -1195,7 +1198,7 @@ export class Face3 {
     materialIndex: number;
 
     clone(): this;
-    copy(source: this): this;
+    copy(source: Face3): this;
 }
 
 /**
@@ -1426,7 +1429,7 @@ export class Geometry extends EventDispatcher {
      */
     clone(): this;
 
-    copy(source: this): this;
+    copy(source: Geometry): this;
 
     /**
      * Removes The object from memory.
@@ -1474,7 +1477,7 @@ export namespace GeometryUtils {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/InstancedBufferAttribute.js">src/core/InstancedBufferAttribute.js</a>
  */
 export class InstancedBufferAttribute extends BufferAttribute {
-    constructor(data: ArrayLike<number>, itemSize: number, meshPerAttribute?: number);
+    constructor(array: ArrayLike<number>, itemSize: number, normalized?: boolean, meshPerAttribute?: number);
 
     meshPerAttribute: number;
 }
@@ -1509,10 +1512,9 @@ export class InterleavedBuffer {
     setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): InterleavedBuffer;
     clone(): this;
-    copy(source: this): this;
+    copy(source: InterleavedBuffer): this;
     copyAt(index1: number, attribute: InterleavedBufferAttribute, index2: number): InterleavedBuffer;
     set(value: ArrayLike<number>, index: number): InterleavedBuffer;
-    clone(): this;
 }
 
 /**
@@ -1837,6 +1839,8 @@ export class Object3D extends EventDispatcher {
      */
     updateMatrixWorld(force: boolean): void;
 
+    updateWorldMatrix(updateParents: boolean, updateChildren: boolean): void;
+
     toJSON(meta?: { geometries: any, materials: any, textures: any, images: any }): any;
 
     clone(recursive?: boolean): this;
@@ -1846,7 +1850,7 @@ export class Object3D extends EventDispatcher {
      * @param object
      * @param recursive
      */
-    copy(source: this, recursive?: boolean): this;
+    copy(source: Object3D, recursive?: boolean): this;
 }
 
 export interface Intersection {
@@ -2015,7 +2019,7 @@ export class LightShadow {
     map: RenderTarget;
     matrix: Matrix4;
 
-    copy(source: this): this;
+    copy(source: LightShadow): this;
     clone(recursive?: boolean): this;
     toJSON(): any;
 }
@@ -2291,7 +2295,7 @@ export class JSONLoader extends Loader {
  * Handles and keeps track of loaded and pending data.
  */
 export class LoadingManager {
-    constructor(onLoad?: () => void, onProgress?: (url: string, loaded: number, total: number) => void, onError?: () => void);
+    constructor(onLoad?: () => void, onProgress?: (url: string, loaded: number, total: number) => void, onError?: (url: string) => void);
 
     onStart?: (url: string, loaded: number, total: number) => void;
 
@@ -2697,7 +2701,7 @@ export class Material extends EventDispatcher {
      * Copy the parameters from the passed material into this material.
      * @param material
      */
-    copy(material: this): this;
+    copy(material: Material): this;
 
     /**
      * This disposes the material. Textures of a material don't get disposed. These needs to be disposed by {@link Texture}.
@@ -3112,7 +3116,7 @@ export interface ShaderMaterialParameters extends MaterialParameters {
     uniforms?: any;
     vertexShader?: string;
     fragmentShader?: string;
-    lineWidth?: number;
+    linewidth?: number;
     wireframe?: boolean;
     wireframeLinewidth?: number;
     lights?: boolean;
@@ -3165,8 +3169,10 @@ export class SpriteMaterial extends Material {
     color: Color;
     map: Texture | null;
     rotation: number;
+    isSpriteMaterial: true;
 
     setValues(parameters: SpriteMaterialParameters): void;
+    copy(source: SpriteMaterial): this;
 }
 
 export class ShadowMaterial extends ShaderMaterial {
@@ -3185,7 +3191,7 @@ export class Box2 {
     setFromPoints(points: Vector2[]): Box2;
     setFromCenterAndSize(center: Vector2, size: Vector2): Box2;
     clone(): this;
-    copy(box: this): this;
+    copy(box: Box2): this;
     makeEmpty(): Box2;
     isEmpty(): boolean;
     getCenter(target: Vector2): Vector2;
@@ -3219,21 +3225,21 @@ export class Box3 {
     max: Vector3;
     min: Vector3;
 
-    set(min: Vector3, max: Vector3): Box3;
-    setFromArray(array: ArrayLike<number>): Box3;
-    setFromPoints(points: Vector3[]): Box3;
-    setFromCenterAndSize(center: Vector3, size: Vector3): Box3;
-    setFromObject(object: Object3D): Box3;
+    set(min: Vector3, max: Vector3): this;
+    setFromArray(array: ArrayLike<number>): this;
+    setFromPoints(points: Vector3[]): this;
+    setFromCenterAndSize(center: Vector3, size: Vector3): this;
+    setFromObject(object: Object3D): this;
     clone(): this;
-    copy(box: this): this;
-    makeEmpty(): Box3;
+    copy(box: Box3): this;
+    makeEmpty(): this;
     isEmpty(): boolean;
     getCenter(target: Vector3): Vector3;
     getSize(target: Vector3): Vector3;
-    expandByPoint(point: Vector3): Box3;
-    expandByVector(vector: Vector3): Box3;
-    expandByScalar(scalar: number): Box3;
-    expandByObject(object: Object3D): Box3;
+    expandByPoint(point: Vector3): this;
+    expandByVector(vector: Vector3): this;
+    expandByScalar(scalar: number): this;
+    expandByObject(object: Object3D): this;
     containsPoint(point: Vector3): boolean;
     containsBox(box: Box3): boolean;
     getParameter(point: Vector3): Vector3;
@@ -3243,10 +3249,10 @@ export class Box3 {
     clampPoint(point: Vector3, target: Vector3): Vector3;
     distanceToPoint(point: Vector3): number;
     getBoundingSphere(target: Sphere): Sphere;
-    intersect(box: Box3): Box3;
-    union(box: Box3): Box3;
-    applyMatrix4(matrix: Matrix4): Box3;
-    translate(offset: Vector3): Box3;
+    intersect(box: Box3): this;
+    union(box: Box3): this;
+    applyMatrix4(matrix: Matrix4): this;
+    translate(offset: Vector3): this;
     equals(box: Box3): boolean;
     /**
      * @deprecated Use {@link Box3#isEmpty .isEmpty()} instead.
@@ -3277,9 +3283,7 @@ export interface HSL {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Color.js">src/math/Color.js</a>
  */
 export class Color {
-    constructor(color?: Color);
-    constructor(color?: string);
-    constructor(color?: number);
+    constructor(color?: Color|string|number);
     constructor(r: number, g: number, b: number);
 
     /**
@@ -3336,7 +3340,7 @@ export class Color {
      * Copies given color.
      * @param color Color to copy.
      */
-    copy(color: this): this;
+    copy(color: Color): this;
 
     /**
      * Copies given color making conversion from gamma to linear space.
@@ -3391,6 +3395,7 @@ export class Color {
     equals(color: Color): boolean;
     fromArray(rgb: number[], offset?: number): this;
     toArray(array?: number[], offset?: number): number[];
+    toArray(xyz: ArrayLike<number>, offset?: number): ArrayLike<number>;
 }
 
 export namespace ColorKeywords {
@@ -3554,7 +3559,7 @@ export class Euler {
 
     set(x: number, y: number, z: number, order?: string): Euler;
     clone(): this;
-    copy(euler: this): this;
+    copy(euler: Euler): this;
     setFromRotationMatrix(m: Matrix4, order?: string, update?: boolean): Euler;
     setFromQuaternion(q: Quaternion, order?: string, update?: boolean): Euler;
     setFromVector3( v: Vector3, order?: string ): Euler;
@@ -3563,7 +3568,7 @@ export class Euler {
     fromArray(xyzo: any[]): Euler;
     toArray(array?: number[], offset?: number): number[];
     toVector3(optionalResult?: Vector3): Vector3;
-    onChange(callback: Function): void;
+    onChange(callback: Function): this;
 
     static RotationOrders: string[];
     static DefaultOrder: string;
@@ -3582,7 +3587,7 @@ export class Frustum {
 
     set(p0?: number, p1?: number, p2?: number, p3?: number, p4?: number, p5?: number): Frustum;
     clone(): this;
-    copy(frustum: this): this;
+    copy(frustum: Frustum): this;
     setFromMatrix(m: Matrix4): Frustum;
     intersectsObject(object: Object3D): boolean;
     intersectsObject(sprite: Sprite): boolean;
@@ -3599,7 +3604,7 @@ export class Line3 {
 
     set(start?: Vector3, end?: Vector3): Line3;
     clone(): this;
-    copy(line: this): this;
+    copy(line: Line3): this;
     getCenter(target: Vector3): Vector3;
     delta(target: Vector3): Vector3;
     distanceSq(): number;
@@ -3761,7 +3766,7 @@ export class Matrix3 implements Matrix {
     set(n11: number, n12: number, n13: number, n21: number, n22: number, n23: number, n31: number, n32: number, n33: number): Matrix3;
     identity(): Matrix3;
     clone(): this;
-    copy(m: this): this;
+    copy(m: Matrix3): this;
     setFromMatrix4(m: Matrix4): Matrix3;
 
     /**
@@ -3853,7 +3858,7 @@ export class Matrix4 implements Matrix {
      */
     identity(): Matrix4;
     clone(): this;
-    copy(m: this): this;
+    copy(m: Matrix4): this;
     copyPosition(m: Matrix4): Matrix4;
     extractBasis( xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
     makeBasis( xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
@@ -4050,7 +4055,7 @@ export class Plane {
     setFromNormalAndCoplanarPoint(normal: Vector3, point: Vector3): Plane;
     setFromCoplanarPoints(a: Vector3, b: Vector3, c: Vector3): Plane;
     clone(): this;
-    copy(plane: this): this;
+    copy(plane: Plane): this;
     normalize(): Plane;
     negate(): Plane;
     distanceToPoint(point: Vector3): number;
@@ -4080,7 +4085,7 @@ export class Spherical {
 
     set(radius: number, phi: number, theta: number): Spherical;
     clone(): this;
-    copy(other: this): this;
+    copy(other: Spherical): this;
     makeSafe(): void;
     setFromVector3(vec3: Vector3): Spherical;
 }
@@ -4093,7 +4098,7 @@ export class Cylindrical {
     y: number;
 
     clone(): this;
-    copy(other: this): this;
+    copy(other: Cylindrical): this;
     set(radius: number, theta: number, y: number): this;
     setFromVector3(vec3: Vector3): this;
 }
@@ -4134,7 +4139,7 @@ export class Quaternion {
     /**
      * Copies values of q to this quaternion.
      */
-    copy(q: this): this;
+    copy(q: Quaternion): this;
 
     /**
      * Sets this quaternion from rotation specified by Euler angles.
@@ -4217,7 +4222,7 @@ export class Ray {
 
     set(origin: Vector3, direction: Vector3): Ray;
     clone(): this;
-    copy(ray: this): this;
+    copy(ray: Ray): this;
     at(t: number, target: Vector3): Vector3;
     lookAt(v: Vector3): Vector3;
     recast(t: number): Ray;
@@ -4261,7 +4266,7 @@ export class Sphere {
     set(center: Vector3, radius: number): Sphere;
     setFromPoints(points: Vector3[], optionalCenter?: Vector3): Sphere;
     clone(): this;
-    copy(sphere: this): this;
+    copy(sphere: Sphere): this;
     empty(): boolean;
     containsPoint(point: Vector3): boolean;
     distanceToPoint(point: Vector3): number;
@@ -4291,7 +4296,7 @@ export class Triangle {
     set(a: Vector3, b: Vector3, c: Vector3): Triangle;
     setFromPointsAndIndices(points: Vector3[], i0: number, i1: number, i2: number): Triangle;
     clone(): this;
-    copy(triangle: this): this;
+    copy(triangle: Triangle): this;
     getArea(): number;
     getMidpoint(target: Vector3): Vector3;
     getNormal(target: Vector3): Vector3;
@@ -4427,7 +4432,7 @@ export interface Vector {
     /**
      * clone():T;
      */
-    clone(): Vector;
+    clone(): this;
 }
 
 /**
@@ -4477,12 +4482,12 @@ export class Vector2 implements Vector {
     /**
      * Returns a new Vector2 instance with the same `x` and `y` values.
      */
-    clone(): Vector2;
+    clone(): this;
 
     /**
      * Copies value of v to this vector.
      */
-    copy(v: this): this;
+    copy(v: Vector2): this;
 
     /**
      * Adds v to this vector.
@@ -4705,8 +4710,17 @@ export class Vector2 implements Vector {
      * Returns an array [x, y], or copies x and y into the provided array.
      * @param array (optional) array to store the vector to. If this is not provided, a new array will be created.
      * @param offset (optional) optional offset into the array.
+     * @return The created or provided array.
      */
     toArray(array?: number[], offset?: number): number[];
+
+    /**
+     * Copies x and y into the provided array-like.
+     * @param array array-like to store the vector to.
+     * @param offset (optional) optional offset into the array.
+     * @return The provided array-like.
+     */
+    toArray(array: ArrayLike<number>, offset?: number): ArrayLike<number>;
 
     /**
      * Sets this vector's x and y values from the attribute.
@@ -4796,7 +4810,7 @@ export class Vector3 implements Vector {
     /**
      * Clones this vector.
      */
-    clone(): Vector3;
+    clone(): this;
 
     /**
      * Copies value of v to this vector.
@@ -4848,7 +4862,7 @@ export class Vector3 implements Vector {
 
     applyQuaternion(q: Quaternion): this;
 
-    project(camrea: Camera): this;
+    project(camera: Camera): this;
 
     unproject(camera: Camera): this;
 
@@ -4983,7 +4997,23 @@ export class Vector3 implements Vector {
     equals(v: Vector3): boolean;
 
     fromArray(xyz: number[], offset?: number): Vector3;
+
+    /**
+     * Returns an array [x, y, z], or copies x, y and z into the provided array.
+     * @param array (optional) array to store the vector to. If this is not provided, a new array will be created.
+     * @param offset (optional) optional offset into the array.
+     * @return The created or provided array.
+     */
     toArray(xyz?: number[], offset?: number): number[];
+
+    /**
+     * Copies x, y and z into the provided array-like.
+     * @param array array-like to store the vector to.
+     * @param offset (optional) optional offset into the array.
+     * @return The provided array-like.
+     */
+    toArray(xyz: ArrayLike<number>, offset?: number): ArrayLike<number>;
+
     fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): this;
 }
 
@@ -5043,12 +5073,12 @@ export class Vector4 implements Vector {
     /**
      * Clones this vector.
      */
-    clone(): Vector4;
+    clone(): this;
 
     /**
      * Copies value of v to this vector.
      */
-    copy(v: this): this;
+    copy(v: Vector4): this;
 
     /**
      * Adds v to this vector.
@@ -5244,11 +5274,21 @@ export class Line extends Object3D {
     geometry: Geometry | BufferGeometry;
     material: Material | Material[];
 
-    type: "Line";
+    type: "Line" | "LineLoop" | "LineSegments";
     isLine: true;
 
     computeLineDistances(): this;
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
+}
+
+export class LineLoop extends Line {
+    constructor(
+        geometry?: Geometry | BufferGeometry,
+        material?: Material | Material[]
+    );
+
+    type: "LineLoop";
+    isLineLoop: true;
 }
 
 /**
@@ -5266,6 +5306,9 @@ export class LineSegments extends Line {
         material?: Material | Material[],
         mode?: number
     );
+    
+    type: "LineSegments";
+    isLineSegments: true;
 }
 
 export class Mesh extends Object3D {
@@ -5434,16 +5477,14 @@ export interface WebGLRendererParameters {
     preserveDrawingBuffer?: boolean;
 
     /**
-     * default is 0x000000.
+     *  Can be "high-performance", "low-power" or "default"
      */
-    clearColor?: number;
+    powerPreference?: string;
 
     /**
-     * default is 0.
+     * default is true.
      */
-    clearAlpha?: number;
-
-    devicePixelRatio?: number;
+    depth?: boolean;
 
     /**
      * default is false.
@@ -5842,7 +5883,7 @@ export class WebGLRenderTarget extends EventDispatcher {
 
     setSize(width: number, height: number): void;
     clone(): this;
-    copy(source: this): this;
+    copy(source: WebGLRenderTarget): this;
     dispose(): void;
 }
 
@@ -6555,7 +6596,7 @@ export class Texture extends EventDispatcher {
     static DEFAULT_MAPPING: any;
 
     clone(): this;
-    copy(source: this): this;
+    copy(source: Texture): this;
     toJSON(meta: any): any;
     dispose(): void;
     transformUv(uv: Vector): void;
@@ -6688,11 +6729,17 @@ export namespace SceneUtils {
     export function attach(child: Object3D, scene: Scene, parent: Object3D): void;
 }
 
+interface Vec2
+{
+    x: number;
+    y: number;
+}
+
 export namespace ShapeUtils {
-    export function area(contour: number[]): number;
-    export function triangulate(contour: number[], indices: boolean): number[];
-    export function triangulateShape(contour: number[], holes: any[]): number[];
-    export function isClockWise(pts: number[]): boolean;
+    export function area(contour: Vec2[]): number;
+    export function triangulate(contour: Vec2[], indices: boolean): number[];
+    export function triangulateShape(contour: Vec2[], holes: Vec2[]): number[][];
+    export function isClockWise(pts: Vec2[]): boolean;
 }
 
 // Extras / Audio /////////////////////////////////////////////////////////////////////

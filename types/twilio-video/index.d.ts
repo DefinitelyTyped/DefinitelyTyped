@@ -1,6 +1,8 @@
 // Type definitions for twilio-video 2.0
-// Project: https://twilio.com/video
-// Definitions by: MindDoc <https://github.com/minddocdev>, Darío Blanco <https://github.com/darioblanco>
+// Project: https://twilio.com/video, https://twilio.com
+// Definitions by: MindDoc <https://github.com/minddocdev>
+//                 Darío Blanco <https://github.com/darioblanco>
+//                 katashin <https://github.com/ktsn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -404,7 +406,7 @@ export class TrackNameTooLongError extends TwilioError {
     code: 53302;
     message: 'Track name is too long';
 }
-export class TrackPublication {
+export class TrackPublication extends EventEmitter {
     trackName: string;
     trackSid: Track.SID;
 }
@@ -469,6 +471,7 @@ export type AudioTrackPublication = LocalAudioTrackPublication | RemoteAudioTrac
 export interface ConnectOptions {
     abortOnIceServersTimeout?: boolean;
     audio?: boolean | CreateLocalTrackOptions;
+    dominantSpeaker?: boolean;
     iceServers?: RTCIceServer[];
     iceServersTimeout?: number;
     iceTransportPolicy?: RTCIceTransportPolicy;
@@ -476,6 +479,7 @@ export interface ConnectOptions {
     maxAudioBitRate?: number | null;
     maxVideoBitRate?: number | null;
     name?: string | null;
+    networkQuality?: boolean;
     preferredAudioCodecs?: AudioCodec[];
     preferredVideoCodecs?: VideoCodec[] | VideoCodecSettings[];
     logLevel?: LogLevel | LogLevels;

@@ -42,7 +42,7 @@ const Test: React.StatelessComponent = () => {
             component={Container}
             theme="test"
             className="animated-list"
-            childFactory={ (child: React.ReactElement<any>) => child }
+            childFactory={ (child: React.ReactElement) => child }
         >
             <Components.Transition
                 in
@@ -118,6 +118,10 @@ const Test: React.StatelessComponent = () => {
                     exitDone: "fade-done-exit",
                 } }
             >
+                <div>{ "test" }</div>
+            </CSSTransition>
+
+            <CSSTransition timeout={ 100 }>
                 <div>{ "test" }</div>
             </CSSTransition>
         </TransitionGroup>

@@ -148,21 +148,26 @@ $( "div", xml.responseXML );
 $( document.body ).css( "background", "black" );
 ```
      */
-    // Using a unified signature is not possible due to a TypeScript 2.4 bug (DefinitelyTyped#27810)
-    <T extends Element>(element: T): JQuery<T>;
+    // NOTE: `HTMLSelectElement` is both an Element and an Array-Like Object but jQuery treats it as an Element.
+    (element: HTMLSelectElement): JQuery<HTMLSelectElement>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
-     * @param elementArray An array containing a set of DOM elements to wrap in a jQuery object.
+     * @param element_elementArray _&#x40;param_ `element_elementArray`
+     * <br>
+     * * `element` — A DOM element to wrap in a jQuery object. <br>
+     * * `elementArray` — An array containing a set of DOM elements to wrap in a jQuery object.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
+     * @example ​ ````Set the background color of the page to black.
+```javascript
+$( document.body ).css( "background", "black" );
+```
      * @example ​ ````Hide all the input elements within a form.
 ```javascript
 $( myForm.elements ).hide();
 ```
      */
-    // Using a unified signature is not possible due to a TypeScript 2.4 bug (DefinitelyTyped#27810)
-    // tslint:disable-next-line:unified-signatures
-    <T extends Element>(elementArray: T[]): JQuery<T>;
+    <T extends Element>(element_elementArray: T | ArrayLike<T>): JQuery<T>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
      * @param selection An existing jQuery object to clone.

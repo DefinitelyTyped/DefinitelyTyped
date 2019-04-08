@@ -4,9 +4,9 @@ bCss = js_beautify.css_beautify("body{display:none;}");
 let bHtml = js_beautify.html("<div/>");
 bHtml = js_beautify.html_beautify("<div/>");
 
-let optHtml = <HTMLBeautifyOptions> {};
-let optCss = <CSSBeautifyOptions> {};
-let optjs = <JsBeautifyOptions> {};
+let optHtml: HTMLBeautifyOptions = {};
+let optCss: CSSBeautifyOptions = {};
+let optjs: JsBeautifyOptions = {};
 
 var simple: string = js_beautify("console.log('Hello world!');");
 var full: string = js_beautify(

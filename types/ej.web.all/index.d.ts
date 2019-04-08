@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 16.3
+// Type definitions for non-npm package ej.web.all 16.4
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,8 +8,8 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 16.3.0.21
-*  Copyright Syncfusion Inc. 2001 - 2018. All rights reserved.
+*  version : 16.4.0.52
+*  Copyright Syncfusion Inc. 2001 - 2019. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
 *  licensing@syncfusion.com. Any infringement will be prosecuted under
@@ -192,9 +192,9 @@ declare namespace ej {
         from(tableName: any): ej.Query;
         addParams(key: string, value: string): ej.Query;
         expand(tables: any): ej.Query;
-        where(fieldName: string, operator: ej.FilterOperators, value: any, ignoreCase?: boolean): ej.Query;
+        where(fieldName: string, operator: ej.FilterOperators, value: any, ignoreCase?: boolean, ignoreAccent?: boolean): ej.Query;
         where(predicate: ej.Predicate): ej.Query;
-        search(searchKey: any, fieldNames?: any, operator?: string, ignoreCase?: boolean): ej.Query;
+        search(searchKey: any, fieldNames?: any, operator?: string, ignoreCase?: boolean, ignoreAccent?: boolean): ej.Query;
         sortBy(fieldName: string, comparer?: ej.SortOrder, isFromGroup?: boolean): ej.Query;
         sortByDesc(fieldName: string): ej.Query;
         group(fieldName: string): ej.Query;
@@ -433,9 +433,9 @@ declare namespace ej {
     }
     class Predicate {
         constructor();
-        constructor(field: string, operator: ej.FilterOperators, value: any, ignoreCase: boolean);
-        and(field: string, operator: any, value: any, ignoreCase: boolean): ej.Predicate;
-        or(field: string, operator: any, value: any, ignoreCase: boolean): ej.Predicate;
+        constructor(field: string, operator: ej.FilterOperators, value: any, ignoreCase: boolean, ignoreAccent?: boolean);
+        and(field: string, operator: any, value: any, ignoreCase: boolean, ignoreAccent?: boolean): ej.Predicate;
+        or(field: string, operator: any, value: any, ignoreCase: boolean, ignoreAccent?: boolean): ej.Predicate;
         or(predicate: any[]): any;
         validate(record: any): boolean;
         toJSON(): {
@@ -589,6 +589,21 @@ declare namespace ej {
              * @Default {'default'}
              */
             scope?: string;
+
+            /** Used to enable auto scroll while drag and drop the element.
+             * @Default {'false'}
+             */
+            autoScroll?: boolean;
+
+            /** Represents when to start the scrolling inside the scroll container on dragging
+             * @Default {'20'}
+             */
+            scrollSensitivity?: number;
+
+            /** Specifies how much distance of scroll should move on dragging once reached scroll sensitivity area.
+             * @Default {'20'}
+             */
+            scrollSpeed?: number;
 
             /** This event is triggered when dragging element is destroyed.
              */
@@ -6293,6 +6308,11 @@ declare namespace ej {
          */
         getValue(): string;
 
+        /** sets the date value for the DatePicker.
+         * @returns {string}
+         */
+        setValue(): string;
+
         /** Close the DatePicker popup, if it is in opened state.
          * @returns {void}
          */
@@ -10920,7 +10940,7 @@ declare namespace ej {
         show(): void;
 
         /** To show item in the given index.
-         * @param {number} Specifies the index value to show the hided item.
+         * @param {number} Specifies the index value to show the hidden item.
          * @returns {void}
          */
         showItem(index: number): void;
@@ -11069,7 +11089,7 @@ declare namespace ej {
             itemRequestCount?: number;
 
             /** Specifies the maximum number of items to be fetched. Note: This will work only with Virtual scrolling
-             * @Default {null}
+             * @Default {5}
              */
             totalItemsCount?: number;
 
@@ -29321,6 +29341,11 @@ declare namespace ej {
              */
             memberEditorPageSize?: number;
 
+            /** Enables/Disables sorting option in member editor dialog for the members of the respective field.
+             * @Default {false}
+             */
+            enableMemberEditorSorting?: boolean;
+
             /** Enables/disables the display of grand total for rows and columns.
              * @Default {true}
              */
@@ -31522,6 +31547,11 @@ declare namespace ej {
              * @Default {100}
              */
             memberEditorPageSize?: number;
+
+            /** Enables/Disables sorting option in member editor dialog for the members of the respective field.
+             * @Default {false}
+             */
+            enableMemberEditorSorting?: boolean;
 
             /** Sets the summary layout for the pivot grid. Following are the ways in which the summary can be positioned: normal summary (bottom), top summary, no summary, and Microsoft Excel
              * summary.
@@ -37776,6 +37806,11 @@ declare namespace ej {
              */
             reportLoaded?(e: ReportLoadedEventArgs): void;
 
+            /** Fires when user clicks on a failed report item in the rendered report, before displaying error details dialog. If you want to show custom error detail or perform any action before
+             * viewing error detail, you can make use of the showError event.
+             */
+            showError?(e: ShowErrorEventArgs): void;
+
             /** Fires when click the View Report Button.
              */
             viewReportClick?(e: ViewReportClickEventArgs): void;
@@ -37912,6 +37947,25 @@ declare namespace ej {
             /** returns the name of the event.
              */
             type?: string;
+        }
+
+        export interface ShowErrorEventArgs {
+
+            /** true if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** returns the error code.
+             */
+            errorCode?: string;
+
+            /** returns the error message.
+             */
+            message?: string;
+
+            /** returns the detailed error information.
+             */
+            detail?: string;
         }
 
         export interface ViewReportClickEventArgs {
@@ -42902,16 +42956,21 @@ declare namespace ej {
          */
         redo(): void;
 
-        /** This method is used to refresh the content in Spreadsheet.
+        /** This method is used to refresh the Spreadsheet based on the sheet model values.
          * @param {number} Pass the index of the sheet.
          * @returns {void}
          */
         refreshContent(sheetIdx: number): void;
 
-        /** This method is used to refresh the Spreadsheet.
+        /** This method is used to refresh the Spreadsheet element based on the page layout.
          * @returns {void}
          */
         refreshSpreadsheet(): void;
+
+        /** This method destroys and re-creates the entire Spreadsheet control.
+         * @returns {void}
+         */
+        refresh(): void;
 
         /** This method is used to remove custom formulae in Spreadsheet.
          * @param {string} Pass the name of the formula.
@@ -44334,6 +44393,11 @@ declare namespace ej {
             /** Gets or sets an object that indicates to customize the import behavior in the Spreadsheet.
              */
             importSettings?: ImportSettings;
+
+            /** Gets a value that indicates whether importing or not while loading the sheets in Spreadsheet.
+             * @Default {false}
+             */
+            isImport?: boolean;
 
             /** Gets or sets a value that indicates whether to enable or disable readonly support in the Spreadsheet.
              * @Default {false}
@@ -46435,6 +46499,11 @@ declare namespace ej {
          */
         abortPrint(): void;
 
+        /** Aborts the download operation.
+         * @returns {void}
+         */
+        abortDownload(): void;
+
         /** Shows/hides the print icon in the toolbar.
          * @param {boolean} shows/hides print button in the toolbar
          * @returns {void}
@@ -46508,6 +46577,12 @@ declare namespace ej {
          */
         showMagnificationTools(show: boolean): void;
 
+        /** Shows/hides the search tool in the toolbar.
+         * @param {boolean} shows/hides search tool in the toolbar
+         * @returns {void}
+         */
+        showTextSearchTool(show: boolean): void;
+
         /** Scales the page to fit the page in the container in the control.
          * @returns {void}
          */
@@ -46527,6 +46602,11 @@ declare namespace ej {
          * @returns {void}
          */
         zoomOut(): void;
+
+        /** Resize the viewer based on the parent element height.
+         * @returns {void}
+         */
+        updateViewerSize(): void;
 
         /** Scales the page to the specified percentage ranging from 50 to 400. If the given zoomValue is less than 50 or greater than 400; the PDF viewer scales the page to 50 and 400
          * respectively.
@@ -46550,6 +46630,12 @@ declare namespace ej {
          * @returns {void}
          */
         searchPrevious(): void;
+
+        /** Set the JSON data that are formed for rendering the document content in PDF viewer.
+         * @param {any} Set the JSON data that are formed for rendering the document content.
+         * @returns {void}
+         */
+        setJSONData(jsonData: any): void;
 
         /** Searches the target text with its casing.
          * @param {boolean} Specifies whether the text search must be performed with match case or not.
@@ -46643,6 +46729,14 @@ declare namespace ej {
              */
             signatureSettings?: SignatureSettings;
 
+            /** Enables/ disables the text selection context menu.
+             */
+            textSelectionContextMenu?: TextSelectionContextMenu;
+
+            /** Enables/disables the annotation context menu.
+             */
+            annotationContextMenu?: AnnotationContextMenu;
+
             /** Specifies the type of the annotations.
              */
             annotationType?: ej.PdfViewer.AnnotationType|string;
@@ -46666,6 +46760,10 @@ declare namespace ej {
             /** Specifies the viewer interaction mode.
              */
             interactionMode?: ej.PdfViewer.InteractionMode|string;
+
+            /** Gets or sets the buffering mode of the PDF viewer control when allowClientBuffering is set to true.
+             */
+            bufferingMode?: ej.PdfViewer.BufferingMode|string;
 
             /** Specifies the open state of the hyperlink in the PDF document.
              */
@@ -46710,6 +46808,10 @@ declare namespace ej {
             /** Triggers when the AJAX request is failed.
              */
             ajaxRequestFailure?(e: AjaxRequestFailureEventArgs): void;
+
+            /** Triggers when the ajax request is Success.
+             */
+            ajaxRequestSuccess?(e: AjaxRequestSuccessEventArgs): void;
 
             /** Triggers when there is change in the magnification value.
              */
@@ -46766,6 +46868,14 @@ declare namespace ej {
             /** Triggers when the client buffering process ends.
              */
             bufferEnd?(e: BufferEndEventArgs): void;
+
+            /** Triggers when the download is started.
+             */
+            downloadStart?(e: DownloadStartEventArgs): void;
+
+            /** Triggers when the download is completed or aborted.
+             */
+            downloadEnd?(e: DownloadEndEventArgs): void;
 
             /** Triggers when PDF viewer control is destroyed successfully.
              */
@@ -46842,6 +46952,25 @@ declare namespace ej {
             /** Returns the exception details.
              */
             message?: string;
+        }
+
+        export interface AjaxRequestSuccessEventArgs {
+
+            /** true, if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** Returns the PDF viewer model
+             */
+            model?: any;
+
+            /** Returns the name of the event
+             */
+            type?: string;
+
+            /** Returns the response data on ajax success.
+             */
+            responseData?: string;
         }
 
         export interface ZoomChangeEventArgs {
@@ -47194,6 +47323,52 @@ declare namespace ej {
             isBuffering?: boolean;
         }
 
+        export interface DownloadStartEventArgs {
+
+            /** true, if the event should be canceled; otherwise, false
+             */
+            cancel?: boolean;
+
+            /** Returns the PDF viewer model
+             */
+            model?: any;
+
+            /** Returns the name of the event
+             */
+            type?: string;
+
+            /** Returns the name of the file being displayed in the PDF viewer.
+             */
+            fileName?: string;
+
+            /** Returns the status about the download is started.
+             */
+            status?: string;
+        }
+
+        export interface DownloadEndEventArgs {
+
+            /** true, if the event should be canceled; otherwise, false
+             */
+            cancel?: boolean;
+
+            /** Returns the PDF viewer model
+             */
+            model?: any;
+
+            /** Returns the name of the event
+             */
+            type?: string;
+
+            /** Returns the name of the file being displayed in the PDF viewer.
+             */
+            fileName?: string;
+
+            /** Returns the status about the download is completed or aborted.
+             */
+            status?: string;
+        }
+
         export interface DestroyEventArgs {
 
             /** Returns the cancel option value.
@@ -47331,6 +47506,48 @@ declare namespace ej {
             opacity?: number;
         }
 
+        export interface TextSelectionContextMenu {
+
+            /** Enables/ disables the text selection context menu.
+             */
+            isEnable?: boolean;
+
+            /** Enables/disables the copy menu in the text selection context menu.
+             */
+            isCopyEnable?: boolean;
+
+            /** Enables/disables the search menu in the text selection context menu.
+             */
+            isSearchEnable?: boolean;
+
+            /** Enables/disables the highlight annotation menu in the text selection context menu.
+             */
+            isHighlightEnable?: boolean;
+
+            /** Enables/disables the strikeout annotation menu in the text selection context menu.
+             */
+            isStrikeoutEnable?: boolean;
+        }
+
+        export interface AnnotationContextMenu {
+
+            /** Enables/disables the annotation context menu.
+             */
+            isEnable?: boolean;
+
+            /** Enables/disables the popup menu in the annotation context menu.
+             */
+            isPopupEnable?: boolean;
+
+            /** Enables/disables the delete menu in the annotation context menu.
+             */
+            isDeleteEnable?: boolean;
+
+            /** Enables/disables the properties menu in the annotation context menu.
+             */
+            isPropertiesEnable?: boolean;
+        }
+
         enum ToolbarItems {
 
             ///Shows only magnification tools in the toolbar.
@@ -47392,6 +47609,16 @@ declare namespace ej {
 
             ///To set the panning mode to the PDF viewer control.
             Pan
+        }
+
+
+        enum BufferingMode {
+
+            ///Retrieves details to render first two pages in a request and rest of the pages in other request.
+            Default,
+
+            ///Retrieves complete details to render all the pages in a single request.
+            Complete
         }
 
 
@@ -47532,6 +47759,11 @@ declare namespace ej {
              * @Default {true}
              */
             enableAsync?: boolean;
+
+            /** To set either â€˜Postâ€™ or â€˜Getâ€™ for ajax request type which invokes when validate, get suggestion and dictionary action.Possible values are â€˜POSTâ€™ or â€˜GETâ€™
+             * @Default {GET}
+             */
+            ajaxRequestType?: string;
 
             /** Sets the data type for the ajax call used within the SpellCheck control, denoting the type of data that are expected to be retrieved from the server. The applicable values are
              * json and jsonp.
@@ -50374,11 +50606,11 @@ declare namespace ej.datavisualization {
 
             /** returns the pointer element.
              */
-            markerpointerelement?: any;
+            markerPointerElement?: any;
 
             /** returns the value of the pointer.
              */
-            markerpointervalue?: number;
+            markerPointerValue?: number;
 
             /** returns the pointer style
              */

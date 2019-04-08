@@ -70,8 +70,8 @@ export interface VimeoCuePoint {
     id: string;
 }
 
-export interface VimeoCuePointData extends Object {
-    customKey: string;
+export interface VimeoCuePointData {
+    [key: string]: any;
 }
 
 export interface VimeoTextTrack {

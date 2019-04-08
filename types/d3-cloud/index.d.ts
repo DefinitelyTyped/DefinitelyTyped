@@ -1,9 +1,11 @@
-// Type definitions for d3JS cloud layout plugin by Jason Davies v1.2.2
+// Type definitions for d3JS cloud layout plugin by Jason Davies v1.2.5
 // Project: https://github.com/jasondavies/d3-cloud
-// Definitions by: hans windhoff <https://github.com/hansrwindhoff>
+// Definitions by: hans windhoff <https://github.com/hansrwindhoff>, locknono <https://github.com/locknono>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as d3 from 'd3';
+
+export = d3.layout.cloud;
 
 declare module 'd3' {
     namespace layout {
@@ -68,6 +70,24 @@ declare module 'd3' {
             padding(): (datum: T, index: number) => number;
             padding(padding: number): Cloud<T>;
             padding(padding: (datum: T, index: number) => number): Cloud<T>;
+
+             /**
+             * If specified, sets the internal random number generator,used for selecting the initial position of each word,
+             * and the clockwise/counterclockwise direction of the spiral for each word.
+             * 
+             * @param randomFunction should return a number in the range [0, 1).The default is Math.random.
+             */
+            random(): Cloud<T>;
+            random(randomFunction: () => number): Cloud<T>;
+
+            /**
+             * If specified, sets the canvas generator function, which is used internally to draw text.
+             * When using Node.js, you will almost definitely override the default, e.g. using the canvas module.
+             * @param canvasGenerator should return a HTMLCanvasElement.The default is:  ()=>{document.createElement("canvas");}
+             * 
+             */
+            canvas():Cloud<T>;
+            canvas(canvasGenerator: () => HTMLCanvasElement): Cloud<T>;
 
             on(type: "word", listener: (word: T) => void): Cloud<T>;
             on(type: "end", listener: (tags: T[], bounds: { x: number; y: number }[]) => void): Cloud<T>;

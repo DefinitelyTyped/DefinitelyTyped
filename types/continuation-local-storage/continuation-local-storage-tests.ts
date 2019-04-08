@@ -438,10 +438,10 @@ test("simple tracer built on contexts", function (t) {
       this.harvester = harvester;
     }
     runHandler(callback: any) {
-      const wrapped = tracer.bind(function () {
+      const wrapped = tracer.bind(() => {
         callback();
         this.harvester.emit('finished', tracer.get('transaction'));
-      }.bind(this));
+      });
       wrapped();
     }
   }

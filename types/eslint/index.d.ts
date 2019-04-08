@@ -471,7 +471,7 @@ export class CLIEngine {
 
     isPathIgnored(filePath: string): boolean;
 
-    getFormatter(format: string): CLIEngine.Formatter;
+    getFormatter(format?: string): CLIEngine.Formatter;
 
     getRules(): Map<string, Rule.RuleModule>;
 
@@ -540,7 +540,7 @@ export class RuleTester {
         name: string,
         rule: Rule.RuleModule,
         tests: {
-            valid?: RuleTester.ValidTestCase[];
+            valid?: Array<string | RuleTester.ValidTestCase>;
             invalid?: RuleTester.InvalidTestCase[];
         },
     ): void;

@@ -1,5 +1,5 @@
-// Type definitions for Sequelize 4.27.10
-// Project: http://sequelizejs.com
+// Type definitions for Sequelize 4.27.11
+// Project: http://sequelizejs.com, https://github.com/sequelize/sequelize
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
 //                 Ivan Drinchev <https://github.com/drinchev>
@@ -15,6 +15,7 @@
 //                 Nick Schultz <https://github.com/nrschultz>
 //                 Thomas Breleur <https://github.com/thomas-b>
 //                 Antoine Boisadam <https://github.com/Antoine38660>
+//                 Dima Smirnov <https://github.com/smff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -280,6 +281,11 @@ declare namespace sequelize {
          * Apply a scope on the related model, or remove its default scope by passing false.
          */
         scope?: string | boolean;
+
+        /**
+         * Load further nested related models
+         */
+        include?: IncludeOptions;
     }
 
     /**
@@ -1379,6 +1385,10 @@ declare namespace sequelize {
          */
         timestamps?: boolean;
 
+        /**
+         * Belongs-To-Many creates a unique key when primary key is not present on through model. This unique key name can be overridden using uniqueKey option.
+         */
+        uniqueKey?: string;
     }
 
     /**
@@ -2295,8 +2305,8 @@ declare namespace sequelize {
      * interfaces.
      *
      * beforeValidate, afterValidate, beforeBulkCreate, beforeBulkDestroy, beforeBulkUpdate, beforeCreate,
-     * beforeDestroy, beforeUpdate, afterCreate, afterDestroy, afterUpdate, afterBulkCreate, afterBulkDestroy and
-     * afterBulkUpdate.
+     * beforeDestroy, beforeSave, beforeUpdate, afterCreate, afterDestroy, afterSave, afterUpdate, afterBulkCreate,
+     * afterBulkDestroy and afterBulkUpdate.
      */
     interface HooksDefineOptions<TInstance> {
 
@@ -2310,6 +2320,8 @@ declare namespace sequelize {
         afterDelete?: (instance: TInstance, options: Object, fn?: Function) => any;
         beforeUpdate?: (instance: TInstance, options: Object, fn?: Function) => any;
         afterUpdate?: (instance: TInstance, options: Object, fn?: Function) => any;
+        beforeSave?: (instance: TInstance, options: Object, fn?: Function) => any;
+        afterSave?: (instance: TInstance, options: Object, fn?: Function) => any;
         beforeBulkCreate?: (instances: TInstance[], options: Object, fn?: Function) => any;
         afterBulkCreate?: (instances: TInstance[], options: Object, fn?: Function) => any;
         beforeBulkDestroy?: (options: Object, fn?: Function) => any;
@@ -2770,6 +2782,7 @@ declare namespace sequelize {
          * Defaults to false
          */
         silent?: boolean;
+        hooks?: boolean;
 
     }
 
@@ -3183,8 +3196,9 @@ declare namespace sequelize {
      * We did put Object in the end, because there where query might be a JSON Blob. It cripples a bit the
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
+    type Primitives = string | number | boolean | Buffer;
     type WhereOptions<T> = {
-        [P in keyof T]?: string | number | boolean | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | WhereNested | Array<string | number> | null;
+        [P in keyof T]?: Primitives | Array<Primitives> | WhereLogic | (T[P] extends Primitives ? null : WhereOptions<T[P]>) | col | and | or | WhereGeometryOptions | WhereNested | where | null;
     };
 
     /**
@@ -3281,12 +3295,22 @@ declare namespace sequelize {
          * if true, it will also eager load the relations of the child models, recursively.
          */
         nested?: boolean;
+
+        /**
+         * If true, runs a separate query to fetch the associated instances, only supported for hasMany associations
+         */
+        separate?: boolean;
     }
 
     /**
      * Shortcut for types used in FindOptions.attributes
      */
     type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;
+
+    /**
+     * Shortcut for order type in FindOptions.attributes
+     */
+    type FindOptionsOrderArray = Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string } | fn>;
 
     /**
      * Options that are passed to any model creating a SELECT query
@@ -3328,7 +3352,7 @@ declare namespace sequelize {
          * first element is the column / function to order by, the second is the direction. For example:
          * `order: [['name', 'DESC']]`. In this way the column will be escaped, but the direction will not.
          */
-        order?: string | col | literal | Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string }> | Array<string | col | literal | Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string }>>;
+        order?: string | col | literal | FindOptionsOrderArray | fn | Array<string | col | literal | FindOptionsOrderArray | fn>;
 
         /**
          * Limit the results
@@ -3463,7 +3487,7 @@ declare namespace sequelize {
     /**
      * Options for Model.findOrInitialize method
      */
-    interface FindOrInitializeOptions<TAttributes> extends AnyFindOptions {
+    interface FindOrInitializeOptions<TAttributes> extends FindOptions<TAttributes> {
 
         /**
          * Default values to use if building a new instance
@@ -3709,7 +3733,7 @@ declare namespace sequelize {
      * as factory. This class should _not_ be instantiated directly, it is created using `sequelize.define`, and
      * already created models can be loaded using `sequelize.import`
      */
-    interface Model<TInstance, TAttributes> extends Hooks<TInstance>, Associations {
+    interface Model<TInstance, TAttributes, TCreationAttributes = TAttributes> extends Hooks<TInstance>, Associations {
 
         /**
          * The Instance class
@@ -3908,6 +3932,7 @@ declare namespace sequelize {
          */
         findById<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
         findByPrimary<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findByPk<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
@@ -4000,7 +4025,7 @@ declare namespace sequelize {
         /**
          * Builds a new model instance and calls save on it.
          */
-        create(values?: TAttributes, options?: CreateOptions): Promise<TInstance>;
+        create(values?: TCreationAttributes, options?: CreateOptions): Promise<TInstance>;
 
         /**
          * Find a row that matches the query, or build (but don't save) the row if none is found.
@@ -4355,7 +4380,7 @@ declare namespace sequelize {
         /**
          * Inserts multiple records at once
          */
-        bulkInsert(tableName: string, records: Object[], options?: QueryOptions,
+        bulkInsert(tableName: string | { tableName: string, schema: string }, records: Object[], options?: QueryOptions,
             attributes?: string[] | string): Promise<Object>;
 
         /**
@@ -5000,6 +5025,11 @@ declare namespace sequelize {
          * A hash of attributes to limit your index(Filtered Indexes - MSSQL & PostgreSQL only)
          */
         where?: AnyWhereOptions;
+
+        /**
+         * Pass CONCURRENT so other operations run while the index is created - PostgresSQL only. Default is false
+         */
+        concurrently?: boolean;
     }
 
     /**
@@ -5237,13 +5267,13 @@ declare namespace sequelize {
          * `this.constructor.prototype.find.apply(this, arguments)`
          */
         classMethods?: Object;
-        
+
         /**
          * Change the database schema. PG only feature, but also works with other dialects.
          */
         schema?: string;
-        
-        
+
+
         /**
          * Change the database schema delimiter. Defaults to "." on PG but for other dialects can be also changed to "_".
          */
@@ -5264,6 +5294,11 @@ declare namespace sequelize {
         collate?: string;
 
         /**
+         * Specify the ROW_FORMAT for use with the MySQL InnoDB engine.
+         */
+        rowFormat?: string;
+
+        /**
          * Set the initial AUTO_INCREMENT value for the table in MySQL.
          */
         initialAutoIncrement?: string;
@@ -5271,9 +5306,10 @@ declare namespace sequelize {
         /**
          * An object of hook function that are called before and after certain lifecycle events.
          * The possible hooks are: beforeValidate, afterValidate, beforeBulkCreate, beforeBulkDestroy,
-         * beforeBulkUpdate, beforeCreate, beforeDestroy, beforeUpdate, afterCreate, afterDestroy, afterUpdate,
-         * afterBulkCreate, afterBulkDestory and afterBulkUpdate. See Hooks for more information about hook
-         * functions and their signatures. Each property can either be a function, or an array of functions.
+         * beforeBulkUpdate, beforeCreate, beforeDestroy, beforeSave, beforeUpdate, afterCreate, afterDestroy,
+         * afterSave, afterUpdate, afterBulkCreate, afterBulkDestory and afterBulkUpdate.
+         * See Hooks for more information about hook functions and their signatures. Each property can either
+         * be a function, or an array of functions.
          */
         hooks?: HooksDefineOptions<TInstance>;
 
@@ -5912,6 +5948,15 @@ declare namespace sequelize {
         cls: any;
         useCLS(namespace:cls.Namespace): Sequelize;
 
+        /**
+         * Default export for `import Sequelize from 'sequelize';` kind of imports
+         */
+        default: SequelizeStatic;
+
+        /**
+         * Export sequelize static on the instance for `import Sequelize from 'sequelize';` kind of imports
+         */
+        Sequelize: SequelizeStatic;
     }
 
     interface QueryOptionsTransactionRequired { }
@@ -6010,8 +6055,8 @@ declare namespace sequelize {
          * @param options    These options are merged with the default define options provided to the Sequelize
          *                   constructor
          */
-        define<TInstance, TAttributes>(modelName: string, attributes: DefineModelAttributes<TAttributes>,
-            options?: DefineOptions<TInstance>): Model<TInstance, TAttributes>;
+        define<TInstance, TAttributes, TCreationAttributes = TAttributes>(modelName: string, attributes: DefineModelAttributes<TCreationAttributes>,
+            options?: DefineOptions<TInstance>): Model<TInstance, TAttributes, TCreationAttributes>;
 
         /**
          * Fetch a Model which is already defined
@@ -6492,6 +6537,16 @@ declare namespace sequelize {
          * A function that gets executed while running the query to log the sql.
          */
         logging?: Function;
+
+        /**
+         * Specify the parent transaction so that this transaction is nested or a save point within the parent
+         */
+        transaction?: Transaction;
+
+        /**
+         * Sets the constraints to be deferred or immediately checked.
+         */
+        deferrable?: Deferrable[keyof Deferrable];
 
     }
 
