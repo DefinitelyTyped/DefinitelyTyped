@@ -94,7 +94,6 @@ declare namespace parse {
       [key: string]: any;
     }
 
-    // TODO: Can this be defined more precisely?
     interface Config {
         [key: string]: IGitmodule;
     }
