@@ -8,6 +8,7 @@
 //                 janb87 <https://github.com/janb87>
 //                 Daniel Thorne <https://github.com/ldthorne>
 //                 Panagiotis Rikarnto Siavelis <https://github.com/siavelis>
+//                 Lucas Silva Souza <https://github.com/lksilva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
@@ -148,6 +149,7 @@ export interface Components<TEvent extends Event = Event> {
      * component used as a header for each column in the TimeGridHeader
      */
     header?: React.ComponentType<HeaderProps>;
+    resourceHeader?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
 }
 
 export interface ToolbarProps {
