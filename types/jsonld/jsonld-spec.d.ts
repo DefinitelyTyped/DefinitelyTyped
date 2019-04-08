@@ -10,7 +10,7 @@ export type JsonLdArray = [object];
 export type JsonLd = JsonLdObj|JsonLdArray;
 
 type DOMString = string;
-type LoadDocumentCallback = Promise <Url>;
+type LoadDocumentCallback = Promise<Url>;
 
 export type Url = DOMString;
 export type Iri = Url;
