@@ -3271,6 +3271,12 @@ declare namespace Xrm {
          */
         interface Tab extends UiStandardElement, UiFocusable {
             /**
+             * Adds a function to be called when the TabStateChange event occurs.
+             * @param handler The function to be executed on the TabStateChange event.
+             */
+            addTabStateChange(handler: Events.ContextSensitiveHandler): void;
+            
+            /**
              * Gets display state of the tab.
              * @returns The display state, as either "expanded" or "collapsed"
              */
@@ -3287,6 +3293,12 @@ declare namespace Xrm {
              * @returns The parent.
              */
             getParent(): Ui;
+
+            /**
+             * Removes a function to be called when the TabStateChange event occurs.
+             * @param handler The function to be removed from the TabStateChange event.
+             */
+            removeTabStateChange(handler: Events.ContextSensitiveHandler): void;
 
             /**
              * Sets display state of the tab.
