@@ -15,7 +15,7 @@ jobs:
   
   - script: |
       git checkout -- . && npm run test
-      if [[ $BUILD_REASON == "Schedule" ]]; then npm run update-codeowners; fi
+      if [[ $BUILD_REASON == "Schedule" ]]; then git config --global user.email "types@microsoft.com" && git config --global user.name "TypeScript Bot" && npm run update-codeowners; fi
 
     displayName: 'npm run test'
   
