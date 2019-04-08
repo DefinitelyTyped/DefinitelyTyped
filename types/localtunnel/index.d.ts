@@ -1,12 +1,9 @@
-// Type definitions for localtunnel v1.9.1
-// Project: https://github.com/vladhrapov/typings
+// Type definitions for localtunnel 1.0
+// Project: https://github.com/localtunnel/localtunnel
 // Definitions by: Vladyslav Khrapov <https://github.com/vladhrapov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function localtunnel(
-    port: number,
-    callback: localtunnel.TunnelCallback
-): localtunnel.Tunnel;
+export = localtunnel;
 
 declare function localtunnel(
     port: number,
@@ -14,31 +11,34 @@ declare function localtunnel(
     callback: localtunnel.TunnelCallback
 ): localtunnel.Tunnel;
 
+declare function localtunnel(
+    port: number,
+    callback: localtunnel.TunnelCallback
+): localtunnel.Tunnel;
+
 declare namespace localtunnel {
-    export type TunnelCallback = (
+    type TunnelCallback = (
         err: string,
-        tunnel?: localtunnel.Tunnel
+        tunnel?: Tunnel
     ) => void;
 
-    export interface TunnelConfig {
+    interface TunnelConfig {
         host?: string;
         subdomain?: string;
         port?: number;
         local_host?: string;
     }
 
-    export interface Tunnel {
+    interface Tunnel {
         url: string;
         tunnel_cluster: TunnelCluster;
-        open(err: string, tunnel?: localtunnel.Tunnel): void;
+        open(err: string, tunnel?: Tunnel): void;
         close(): void;
     }
 
-    export interface TunnelCluster {
+    interface TunnelCluster {
         domain: string;
     }
 
     const prototype: {};
 }
-
-export = localtunnel;
