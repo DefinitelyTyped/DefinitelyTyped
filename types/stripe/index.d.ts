@@ -1985,12 +1985,24 @@ declare namespace Stripe {
             auto_advance: boolean;
 
             /**
-             * Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
+             * Either `charge_automatically`, or `send_invoice`. When charging automatically,
+             * Stripe will attempt to pay this invoice using the default source attached to the
+             * customer. When sending an invoice, Stripe will email this invoice to the customer
+             * with payment instructions.
              */
             billing: "charge_automatically" | "send_invoice";
 
             /**
-             * Indicates the reason why the invoice was created. subscription_cycle indicates an invoice created by a subscription advancing into a new period. subscription_create indicates an invoice created due to creating a subscription. subscription_update indicates an invoice created due to creating or updating a subscription. subscription is set for all old invoices to indicate either a change to a subscription or a period advancement. manual is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The upcoming value is reserved for simulated invoices per the upcoming invoice endpoint. subscription_threshold indicates an invoice created due to a billing threshold being reached.
+             * Indicates the reason why the invoice was created. `subscription_cycle` indicates an
+             * invoice created by a subscription advancing into a new period.
+             * `subscription_create` indicates an invoice created due to creating a subscription.
+             * `subscription_update` indicates an invoice created due to creating or updating a
+             * subscription. `subscription` is set for all old invoices to indicate either a change
+             * to a subscription or a period advancement. `manual` is set for all invoices
+             * unrelated to a subscription (for example: created via the invoice editor). The
+             * `upcoming` value is reserved for simulated invoices per the upcoming invoice
+             * endpoint. `subscription_threshold` indicates an invoice created due to a billing
+             * threshold being reached.
              */
             billing_reason: "subscription_cycle" | "subscription_create" | "subscription_update" | "subscription" | "manual" | "upcoming" | "subscription_threshold";
 
@@ -2019,13 +2031,15 @@ declare namespace Stripe {
 
             /**
              * An arbitrary string attached to the object. Often useful for displaying to users.
+             * Referenced as ‘memo’ in the Dashboard.
              */
             description: string;
 
             discount: coupons.IDiscount | null;
 
             /**
-             * The date on which payment for this invoice is due. This value will be null for invoices where billing=charge_automatically.
+             * The date on which payment for this invoice is due. This value will be `null` for
+             * invoices where `billing=charge_automatically`.
              */
             due_date: number | null;
 
@@ -2043,19 +2057,22 @@ declare namespace Stripe {
             forgiven: boolean;
 
             /**
-             * The URL for the hosted invoice page, which allows customers to view and pay an invoice. If the invoice has not been frozen yet, this will be null.
+             * The URL for the hosted invoice page, which allows customers to view and pay an
+             * invoice. If the invoice has not been finalized yet, this will be null.
              */
             hosted_invoice_url: string | null;
 
             /**
-             * The link to download the PDF for the invoice. If the invoice has not been frozen yet, this will be null.
+             * The link to download the PDF for the invoice. If the invoice has not been finalized
+             * yet, this will be null.
              */
             invoice_pdf: string | null;
 
             /**
              * The individual line items that make up the invoice.
              *
-             * lines is sorted as follows: invoice items in reverse chronological order, followed by the subscription, if any.
+             * `lines` is sorted as follows: invoice items in reverse chronological order, followed
+             * by the subscription, if any.
              */
             lines: IList<IInvoiceLineItem>;
 
