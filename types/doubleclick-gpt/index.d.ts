@@ -169,6 +169,12 @@ declare namespace googletag {
             slot: Slot;
         }
 
+        // tslint:disable-next-line:no-empty-interface
+        interface ImpressionViewableEvent extends Event {}
+
+        // tslint:disable-next-line:no-empty-interface
+        interface SlotOnloadEvent extends Event {}
+
         interface SlotRenderEndedEvent extends Event {
             advertiserId?: number;
             creativeId?: number;
