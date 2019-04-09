@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gulp-tap-tests.ts"
+        "gulp-postcss-tests.ts"
     ]
 }
