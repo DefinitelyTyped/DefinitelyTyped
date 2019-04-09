@@ -2027,12 +2027,12 @@ declare namespace Stripe {
              */
             currency: string;
 
-            customer: string;
             /**
              * Custom fields displayed on the invoice.
              */
             custom_fields: invoices.ICustomField[];
 
+            customer: string | customers.ICustomer;
 
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
