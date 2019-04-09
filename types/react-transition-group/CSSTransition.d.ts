@@ -5,6 +5,7 @@ declare namespace CSSTransition {
     interface CSSTransitionClassNames {
         appear?: string;
         appearActive?: string;
+        appearDone?: string;
         enter?: string;
         enterActive?: string;
         enterDone?: string;
