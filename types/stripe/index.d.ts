@@ -2189,6 +2189,12 @@ declare namespace Stripe {
             tax_percent: number | null;
 
             /**
+             * If `billing_reason` is set to `subscription_threshold` this returns more information
+             * on which threshold rules triggered the invoice.
+             */
+            threshold_reason: invoices.IThresholdReason;
+
+            /**
              * Total after discount
              */
             total: number;
@@ -2588,6 +2594,27 @@ declare namespace Stripe {
             voided_at: number;
         }
 
+        interface IThresholdReason {
+            /**
+             * The total invoice amount threshold boundary if it triggered the threshold invoice.
+             */
+            amount_gte: number;
+            /**
+             * Indicates which line items triggered a threshold invoice.
+             */
+            item_reasons: invoices.IItemReason[];
+        }
+
+        interface IItemReason {
+            /**
+             * The IDs of the line items that triggered the threshold invoice.
+             */
+            line_item_ids: string[];
+            /**
+             * The quantity threshold boundary that applied to the given line item.
+             */
+            usage_gte: number;
+        }
     }
 
     namespace invoiceItems {
