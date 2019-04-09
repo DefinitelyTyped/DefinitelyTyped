@@ -1957,10 +1957,10 @@ declare namespace Stripe {
             amount_remaining: number;
 
             /**
-             * The fee in cents that will be applied to the invoice and transferred to the application owner's
+             * The fee in pence that will be applied to the invoice and transferred to the application owner’s
              * Stripe account when the invoice is paid.
              */
-            application_fee: number;
+            application_fee_amount: number;
 
             /**
              * Number of payment attempts made for this invoice, from the perspective of the payment retry schedule. Any
