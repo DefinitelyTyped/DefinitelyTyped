@@ -2074,6 +2074,11 @@ declare namespace Stripe {
             forgiven: boolean;
 
             /**
+             * Footer displayed on the invoice.
+             */
+            footer: string;
+
+            /**
              * The URL for the hosted invoice page, which allows customers to view and pay an
              * invoice. If the invoice has not been finalized yet, this will be null.
              */
