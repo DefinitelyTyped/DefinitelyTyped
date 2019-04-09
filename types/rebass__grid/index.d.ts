@@ -4,6 +4,7 @@
 //                 Victor Orlov <https://github.com/vittorio>
 //                 Louis Hache <https://github.com/lhache>
 //                 Adam Lavin <https://github.com/lavoaster>
+//                 Erin Noe-Payne <https://github.com/autoric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 

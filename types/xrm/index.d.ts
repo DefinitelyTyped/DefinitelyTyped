@@ -4372,8 +4372,7 @@ declare namespace Xrm {
 
         /**
          * Displays an error dialog.
-         * @param confirmStrings The strings to be used in the confirm dialog.
-         * @param confirmOptions The height and width options for alert dialog
+         * @param errorOptions An object to specify the options for error dialog.
          */
         openErrorDialog(errorOptions: Navigation.ErrorDialogOptions): Async.PromiseLike<any>;
 
@@ -4763,7 +4762,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/createrecord External Link: createRecord (Client API reference)}
          */
-        createRecord(entityLogicalName: string, record: any): Async.PromiseLike<string>;
+        createRecord(entityLogicalName: string, record: any): Async.PromiseLike<CreateResponse>;
 
         /**
          * Deletes an entity record.
@@ -4822,6 +4821,14 @@ declare namespace Xrm {
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/updaterecord External Link: updateRecord (Client API reference)}
          */
         updateRecord(entityLogicalName: string, id: string, data: any): Async.PromiseLike<any>;
+    }
+
+    /**
+     * Interface for the WebAPI CreateRecord request response
+     */
+    interface CreateResponse {
+        entityType: string;
+        id: string;
     }
 
     /**

@@ -224,7 +224,7 @@ type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint
 // Animation ////////////////////////////////////////////////////////////////////////////////////////
 
 export class AnimationAction {
-    loop: boolean;
+    loop: AnimationActionLoopStyles;
     time: number;
     timeScale: number;
     weight: number;
@@ -239,6 +239,7 @@ export class AnimationAction {
     stop(): AnimationAction;
     reset(): AnimationAction;
     isRunning(): boolean;
+    isScheduled(): boolean;
     startAt(time: number): AnimationAction;
     setLoop(mode: AnimationActionLoopStyles, repetitions: number): AnimationAction;
     setEffectiveWeight(weight: number): AnimationAction;
@@ -1476,7 +1477,7 @@ export namespace GeometryUtils {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/InstancedBufferAttribute.js">src/core/InstancedBufferAttribute.js</a>
  */
 export class InstancedBufferAttribute extends BufferAttribute {
-    constructor(data: ArrayLike<number>, itemSize: number, meshPerAttribute?: number);
+    constructor(array: ArrayLike<number>, itemSize: number, normalized?: boolean, meshPerAttribute?: number);
 
     meshPerAttribute: number;
 }
@@ -3115,7 +3116,7 @@ export interface ShaderMaterialParameters extends MaterialParameters {
     uniforms?: any;
     vertexShader?: string;
     fragmentShader?: string;
-    lineWidth?: number;
+    linewidth?: number;
     wireframe?: boolean;
     wireframeLinewidth?: number;
     lights?: boolean;

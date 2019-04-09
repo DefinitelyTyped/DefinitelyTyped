@@ -1,4 +1,4 @@
-import TaskQueue, { Task, State } from 'task-worklet';
+import TaskQueue = require('task-worklet');
 
 interface Fetcher {
   name: 'fetch';

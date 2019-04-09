@@ -3,7 +3,8 @@
 // Definitions by: Giles Roadnight <https://github.com/Roaders>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function parseMs(ms: number): {
+export = parseMs;
+declare function parseMs(ms: number): {
     days: number;
     hours: number;
     minutes: number;

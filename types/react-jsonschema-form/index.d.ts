@@ -1,4 +1,4 @@
-// Type definitions for react-jsonschema-form 1.0.1
+// Type definitions for react-jsonschema-form 1.3
 // Project: https://github.com/mozilla-services/react-jsonschema-form
 // Definitions by: Dan Fox <https://github.com/iamdanfox>
 //                 Ivan Jiang <https://github.com/iplus26>
@@ -6,12 +6,19 @@
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
 //                 Sylvain Thénault <https://github.com/sthenault>
 //                 Sebastian Busch <https://github.com/sbusch>
+//                 Mehdi Lahlou <https://github.com/medfreeman>
+//                 Saad Tazi <https://github.com/saadtazi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
 
 declare module "react-jsonschema-form" {
     import * as React from "react";
     import { JSONSchema6 } from "json-schema";
+
+    type ErrorSchema = {
+        [k: string]: ErrorSchema
+    };
 
     export interface FormProps<T> {
         schema: JSONSchema6;
@@ -26,7 +33,7 @@ declare module "react-jsonschema-form" {
         showErrorList?: boolean;
         ErrorList?: React.StatelessComponent<ErrorListProps>;
         validate?: (formData: T, errors: FormValidation) => FormValidation;
-        onChange?: (e: IChangeEvent<T>) => any;
+        onChange?: (e: IChangeEvent<T>, es?: ErrorSchema) => any;
         onError?: (e: any) => any;
         onSubmit?: (e: ISubmitEvent<T>) => any;
         liveValidate?: boolean;
@@ -85,21 +92,22 @@ declare module "react-jsonschema-form" {
         onChange: (value: any) => void;
         options: object;
         formContext: any;
-        onBlur: (id: string, value: string) => void;
-        onFocus: (id: string, value: string) => void;
+        onBlur: (id: string, value: boolean | number | string | null) => void;
+        onFocus: (id: string, value: boolean | number | string | null) => void;
+        label: string;
     }
 
     export type Widget =
         | React.StatelessComponent<WidgetProps>
         | React.ComponentClass<WidgetProps>;
 
-    export interface FieldProps extends React.HTMLAttributes<HTMLElement> {
+    export interface FieldProps<T = any> extends React.HTMLAttributes<HTMLElement> {
         schema: JSONSchema6;
         uiSchema: UiSchema;
         idSchema: IdSchema;
-        formData: any;
-        errorSchema: object;
-        onChange: (value: any) => void;
+        formData: T;
+        errorSchema: ErrorSchema;
+        onChange: (e: IChangeEvent<T> | any, es?: ErrorSchema) => any;
         registry: {
             fields: { [name: string]: Field };
             widgets: { [name: string]: Widget };
@@ -239,7 +247,8 @@ declare module "react-jsonschema-form" {
 }
 
 declare module "react-jsonschema-form/lib/utils" {
-    import { JSONSchema6 } from "json-schema";
+    import { JSONSchema6, JSONSchema6Definition } from "json-schema";
+    import { FieldProps } from "react-jsonschema-form";
 
     export interface IRangeSpec {
         min?: number;
@@ -248,4 +257,20 @@ declare module "react-jsonschema-form/lib/utils" {
     }
 
     export function rangeSpec(schema: JSONSchema6): IRangeSpec;
+
+    export function resolveSchema(
+        schema: JSONSchema6Definition,
+        definitions: FieldProps["registry"]["definitions"],
+        formData: object
+      ): JSONSchema6;
+}
+
+declare module "react-jsonschema-form/lib/validate" {
+    import { JSONSchema6Definition } from "json-schema";
+    import { AjvError } from "react-jsonschema-form";
+
+    export default function validateFormData<T>(
+        formData: T,
+        schema: JSONSchema6Definition
+    ): AjvError[];
 }

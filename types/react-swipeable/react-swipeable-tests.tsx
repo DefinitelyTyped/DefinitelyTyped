@@ -39,6 +39,7 @@ class SampleComponent extends React.PureComponent<Swipeable.SwipeableProps> {
         disabled
         innerRef={this.swipeRef}
         onClick={this.handleClick}
+        rotationAngle={0}
       >
         <div>
           This element can be swiped

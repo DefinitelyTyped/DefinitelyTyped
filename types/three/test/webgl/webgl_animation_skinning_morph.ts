@@ -1,228 +1,209 @@
-// https://github.com/mrdoob/three.js/blob/master/examples/webgl_sprites.html
+// https://github.com/mrdoob/three.js/blob/master/examples/webgl_animation_skinning_morph.html
 
 () => {
     // ------- variable definitions that does not exist in the original code. These are for typescript.
+    interface WEBGL {
+        isWebGLAvailable(): boolean;
+
+        isWebGL2Available(): boolean;
+
+        getWebGLErrorMessage(): HTMLDivElement;
+
+        getWebGL2ErrorMessage(): HTMLDivElement;
+
+        getErrorMessage(version: 1 | 2): HTMLDivElement;
+    }
+
+    var WEBGL: WEBGL;
     // -------
 
-    var SCREEN_WIDTH = window.innerWidth;
-    var SCREEN_HEIGHT = window.innerHeight;
-    var FLOOR = -250;
-
-    var container: HTMLElement;
+    if (WEBGL.isWebGLAvailable() === false) {
+        document.body.appendChild(WEBGL.getWebGLErrorMessage());
+    }
+    var container: HTMLElement
     var stats: Stats;
+    var clock: THREE.Clock;
+    var gui: dat.GUI;
+    var mixer: THREE.AnimationMixer;
+    var actions: { [name: string]: THREE.AnimationAction };
+    var activeAction: THREE.AnimationAction;
+    var previousAction: THREE.AnimationAction;
+
     var camera: THREE.PerspectiveCamera;
     var scene: THREE.Scene;
     var renderer: THREE.WebGLRenderer;
-    var mesh: THREE.Mesh;
-    var helper: THREE.SkeletonHelper;
-    var mixer: THREE.AnimationMixer;
+    var model: THREE.Scene;
+    var face: THREE.Mesh;
 
-    var mouseX = 0, mouseY = 0;
+    type Emote = 'Jump' | 'Yes' | 'No' | 'Wave' | 'Punch' | 'ThumbsUp';
 
-    var windowHalfX = window.innerWidth / 2;
-    var windowHalfY = window.innerHeight / 2;
-
-    var clock = new THREE.Clock();
-
-    document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+    var api: { [name in Emote]?: () => void; } & { state: string; } = {state: 'Walking'};
 
     init();
     animate();
 
     function init() {
+        container = document.createElement('div');
+        document.body.appendChild(container);
 
-        container = document.getElementById( 'container' );
-
-        camera = new THREE.PerspectiveCamera( 30, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000 );
-        camera.position.z = 2200;
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.25, 100);
+        camera.position.set(-5, 3, 10);
+        camera.lookAt(new THREE.Vector3(0, 2, 0));
 
         scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xe0e0e0);
+        scene.fog = new THREE.Fog(0xe0e0e0, 20, 100);
 
-        scene.fog = new THREE.Fog( 0xffffff, 2000, 10000 );
+        clock = new THREE.Clock();
 
-        scene.add( camera );
+        // lights
+        var light: THREE.Light = new THREE.HemisphereLight(0xffffff, 0x444444);
+        light.position.set(0, 20, 0);
+        scene.add(light);
 
-        // GROUND
+        light = new THREE.DirectionalLight(0xffffff);
+        light.position.set(0, 20, 10);
+        scene.add(light);
 
-        var geometry = new THREE.PlaneBufferGeometry( 16000, 16000 );
-        var material = new THREE.MeshPhongMaterial( { emissive: 0x888888 } );
+        // ground
+        var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(2000, 2000), new THREE.MeshPhongMaterial({
+            color: 0x999999,
+            depthWrite: false
+        }));
+        mesh.rotation.x = -Math.PI / 2;
+        scene.add(mesh);
 
-        var ground = new THREE.Mesh( geometry, material );
-        ground.position.set( 0, FLOOR, 0 );
-        ground.rotation.x = -Math.PI/2;
-        scene.add( ground );
+        var grid = new THREE.GridHelper(200, 40, 0x000000, 0x000000);
+        (grid.material as THREE.LineBasicMaterial).opacity = 0.2;
+        (grid.material as THREE.LineBasicMaterial).transparent = true;
+        scene.add(grid);
 
-        ground.receiveShadow = true;
+        // model
+        var loader = new THREE.GLTFLoader();
+        loader.load('models/gltf/RobotExpressive/RobotExpressive.glb', function (gltf) {
+            model = gltf.scene;
+            scene.add(model);
 
+            createGUI(model, gltf.animations);
+        }, undefined, function (e) {
+            console.error(e);
+        });
 
-        // LIGHTS
-
-        scene.add( new THREE.HemisphereLight( 0x111111, 0x444444 ) );
-
-        var light = new THREE.DirectionalLight( 0xebf3ff, 1.5 );
-        light.position.set( 0, 140, 500 ).multiplyScalar( 1.1 );
-        scene.add( light );
-
-        light.castShadow = true;
-
-        light.shadowMapWidth = 1024;
-        light.shadowMapHeight = 1024;
-
-        var d = 390;
-
-        light.shadowCameraLeft = -d;
-        light.shadowCameraRight = d;
-        light.shadowCameraTop = d * 1.5;
-        light.shadowCameraBottom = -d;
-
-        light.shadowCameraFar = 3500;
-        //light.shadowCameraVisible = true;
-
-        // RENDERER
-
-        renderer = new THREE.WebGLRenderer( { antialias: true } );
-        renderer.setClearColor( scene.fog.color );
-        renderer.setPixelRatio( window.devicePixelRatio );
-        renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
-        renderer.domElement.style.position = "relative";
-
-        container.appendChild( renderer.domElement );
-
-        renderer.gammaInput = true;
+        renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.gammaOutput = true;
+        renderer.gammaFactor = 2.2;
+        container.appendChild(renderer.domElement);
 
-        renderer.shadowMap.enabled = true;
+        window.addEventListener('resize', onWindowResize, false);
 
-
-        // STATS
-
+        // stats
         stats = new Stats();
-        container.appendChild( stats.dom );
+        container.appendChild(stats.dom);
+    }
 
-        //
+    function createGUI(model: THREE.Scene, animations: THREE.AnimationClip[]) {
+        var states = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing'];
+        var emotes: Emote[] = ['Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp'];
 
-        var loader = new THREE.JSONLoader();
-        loader.load( "models/skinned/knight.js", function ( geometry, materials ) {
+        gui = new dat.GUI();
 
-            createScene( geometry, materials as THREE.MeshPhongMaterial[], 0, FLOOR, -300, 60 )
+        mixer = new THREE.AnimationMixer(model);
 
-        } );
+        actions = {};
 
-        // GUI
+        for (var i = 0; i < animations.length; i++) {
+            var clip = animations[i];
+            var action = mixer.clipAction(clip);
+            actions[clip.name] = action;
 
-        initGUI();
+            if (emotes.indexOf(clip.name as Emote) >= 0 || states.indexOf(clip.name) >= 4) {
+                action.clampWhenFinished = true;
+                action.loop = THREE.LoopOnce;
+            }
+        }
 
-        //
+        // states
+        var statesFolder = gui.addFolder('States');
 
-        window.addEventListener( 'resize', onWindowResize, false );
+        var clipCtrl = statesFolder.add(api, 'state').options(states);
 
+        clipCtrl.onChange(function () {
+            fadeToAction(api.state, 0.5);
+        });
+
+        statesFolder.open();
+
+        // emotes
+        var emoteFolder = gui.addFolder('Emote');
+
+        function createEmoteCallback(name: Emote) {
+            api[name] = function () {
+                fadeToAction(name, 0.2);
+                mixer.addEventListener('finished', restoreState);
+            };
+
+            emoteFolder.add(api, name);
+        }
+
+        function restoreState() {
+            mixer.removeEventListener('finished', restoreState);
+
+            fadeToAction(api.state, 0.2);
+        }
+
+        for (var i = 0; i < emotes.length; i++) {
+            createEmoteCallback(emotes[i]);
+        }
+
+        emoteFolder.open();
+
+        // expressions
+        face = model.getObjectByName('Head_2') as THREE.Mesh;
+
+        var expressions = Object.keys(face.morphTargetDictionary);
+        var expressionFolder = gui.addFolder('Expressions');
+
+        for (var i = 0; i < expressions.length; i++) {
+            expressionFolder.add(face.morphTargetInfluences, i.toString(), 0, 1, 0.01).name(expressions[i]);
+        }
+
+        activeAction = actions['Walking'];
+        activeAction.play();
+
+        expressionFolder.open();
+    }
+
+    function fadeToAction(name: string, duration: number) {
+        previousAction = activeAction;
+        activeAction = actions[name];
+
+        if (previousAction !== activeAction) {
+            previousAction.fadeOut(duration);
+        }
+
+        activeAction
+            .reset()
+            .setEffectiveTimeScale(1)
+            .setEffectiveWeight(1)
+            .fadeIn(duration)
+            .play();
     }
 
     function onWindowResize() {
-
-        windowHalfX = window.innerWidth / 2;
-        windowHalfY = window.innerHeight / 2;
-
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
 
-        renderer.setSize( window.innerWidth, window.innerHeight );
-
-    }
-
-    function createScene( geometry: THREE.Geometry, materials: THREE.MeshPhongMaterial[], x: number, y: number, z: number, s: number ) {
-
-        //ensureLoop( geometry.animation );
-
-        geometry.computeBoundingBox();
-        var bb = geometry.boundingBox;
-
-        var path = "textures/cube/Park2/";
-        var format = '.jpg';
-        var urls = [
-            path + 'posx' + format, path + 'negx' + format,
-            path + 'posy' + format, path + 'negy' + format,
-            path + 'posz' + format, path + 'negz' + format
-        ];
-
-        for ( var i = 0; i < materials.length; i ++ ) {
-
-            var m = materials[ i ];
-            m.skinning = true;
-            m.morphTargets = true;
-
-            m.specular.setHSL( 0, 0, 0.1 );
-
-            m.color.setHSL( 0.6, 0, 0.6 );
-
-            //m.map = map;
-            //m.envMap = envMap;
-            //m.bumpMap = bumpMap;
-            //m.bumpScale = 2;
-
-            //m.combine = THREE.MixOperation;
-            //m.reflectivity = 0.75;
-
-        }
-
-        mesh = new THREE.SkinnedMesh( geometry, new THREE.MeshFaceMaterial( materials ) );
-        mesh.position.set( x, y - bb.min.y * s, z );
-        mesh.scale.set( s, s, s );
-        scene.add( mesh );
-
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-
-        helper = new THREE.SkeletonHelper( mesh );
-        //helper.material.linewidth = 3;
-        helper.visible = false;
-        scene.add( helper );
-
-
-        var clipMorpher = THREE.AnimationClip.CreateFromMorphTargetSequence( 'facialExpressions', (mesh.geometry as THREE.Geometry).morphTargets, 3, true );
-        var clipBones = geometry.animations[0];
-
-        mixer = new THREE.AnimationMixer( mesh );
-    }
-
-    function initGUI() {
-        mesh.visible = true;
-        helper.visible = true;
-    }
-
-    function onDocumentMouseMove( event: MouseEvent ) {
-
-        mouseX = ( event.clientX - windowHalfX );
-        mouseY = ( event.clientY - windowHalfY );
-
+        renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
     //
-
     function animate() {
-
-        requestAnimationFrame( animate );
-
-        render();
+        var dt = clock.getDelta();
+        if (mixer) mixer.update(dt);
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
         stats.update();
-
-    }
-
-    function render() {
-
-        var delta = 0.75 * clock.getDelta();
-
-        camera.position.x += ( mouseX - camera.position.x ) * .05;
-        camera.position.y = THREE.Math.clamp( camera.position.y + ( - mouseY - camera.position.y ) * .05, 0, 1000 );
-
-        camera.lookAt( scene.position );
-
-        if( mixer ) {
-            mixer.update( delta );
-            helper.update();
-        }
-
-        renderer.render( scene, camera );
-
     }
 }

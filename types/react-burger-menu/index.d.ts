@@ -1,6 +1,7 @@
 // Type definitions for react-burger-menu 2.2
 // Project: https://github.com/negomi/react-burger-menu
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
+//                 David Acevedo <https://github.com/dacevedo12>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -30,9 +31,13 @@ export interface Props {
     crossClassName?: string;
     customBurgerIcon?: JSX.Element | false;
     customCrossIcon?: JSX.Element | false;
+    customOnKeyDown?(event: React.KeyboardEvent): void;
+    disableCloseOnEsc?: boolean;
     disableOverlayClick?: boolean;
+    htmlClassName?: string;
     id?: string;
     isOpen?: boolean;
+    itemClassName?: string;
     itemListClassName?: string;
     menuClassName?: string;
     morphShapeClassName?: string;
