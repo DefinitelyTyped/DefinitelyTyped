@@ -26,15 +26,21 @@ export namespace Plaid {
         product: Product[];
         key: string;
         env: Environment;
-        onSuccess(publicKey: string, metadata: OnSuccessMetaData): void;
-        onExit?(error: Error | null, metadata: OnExitMetaData): void;
-        onEvent?(eventName: EventName, metadata: OnEventMetaData): void;
-        onLoad?(): void;
+        onSuccess: OnSuccess;
+        onExit?: OnExit;
+        onEvent?: OnEvent;
+        onLoad?: OnLoad;
         language?: Language;
         user?: User;
         token?: string;
         isWebView?: boolean;
     }
+
+    type OnSuccess = (publicKey: string, metadata: OnSuccessMetaData) => void;
+    type OnExit = (error: Error | null, metadata: OnExitMetaData) => void;
+    type OnEvent = (eventName: EventName, metadata: OnEventMetaData) => void;
+    type OnLoad = () => void;
+
     interface LinkHandler {
         open: () => void;
         institutions: Institution[];
