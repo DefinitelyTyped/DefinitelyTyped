@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-12-26
+// Type definitions for Google Apps Script 2019-04-09
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -37,7 +37,6 @@ declare namespace GoogleAppsScript {
      *     // An action that shows a notification.
      *     var actionResponse = CardService.newActionResponseBuilder()
      *         .setNotification(CardService.newNotification()
-     *             .setType(CardService.NotificationType.INFO)
      *             .setText("Some info to display to user"))
      *         .build();
      *
@@ -255,7 +254,6 @@ declare namespace GoogleAppsScript {
       Icon: typeof Icon;
       ImageStyle: typeof ImageStyle;
       LoadIndicator: typeof LoadIndicator;
-      NotificationType: typeof NotificationType;
       OnClose: typeof OnClose;
       OpenAs: typeof OpenAs;
       SelectionInputType: typeof SelectionInputType;
@@ -438,14 +436,12 @@ declare namespace GoogleAppsScript {
      *     function notificationCallback() {
      *       return CardService.newActionResponseBuilder()
      *           .setNotification(CardService.newNotification()
-     *               .setType(CardService.NotificationType.WARNING)
      *               .setText("Some info to display to user"))
      *           .build();
      *     }
      */
     export interface Notification {
       setText(text: string): Notification;
-      setType(type: NotificationType): Notification;
     }
 
     /**
@@ -590,7 +586,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A TextButton with a text label.
+     * A TextButton with a text label. You can set the background color and disable the button when
+     * needed.
      *
      *     var textButton = CardService.newTextButton()
      *         .setText("Open Link")
