@@ -1,4 +1,4 @@
-// Type definitions for qs 6.5.1
+// Type definitions for qs 6.5
 // Project: https://github.com/ljharb/qs
 // Definitions by: Roman Korneev <https://github.com/RWander>
 //                 Leon Yu <https://github.com/leonyu>
