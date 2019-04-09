@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+      "@types/tz-offset": "0.0.0"
+  }
+}
