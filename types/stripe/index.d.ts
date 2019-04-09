@@ -2030,7 +2030,7 @@ declare namespace Stripe {
             /**
              * Custom fields displayed on the invoice.
              */
-            custom_fields: invoices.ICustomField[];
+            custom_fields: ICustomField[];
 
             customer: string | customers.ICustomer;
 
@@ -2158,7 +2158,7 @@ declare namespace Stripe {
             /**
              * Contains the timestamps when an invoice was finalized, paid, marked uncollectible, or voided
              */
-            status_transitions: invoices.IStatusTransitions;
+            status_transitions: IStatusTransitions;
 
             /**
              * The subscription that this invoice was prepared for, if any.
@@ -2192,7 +2192,7 @@ declare namespace Stripe {
              * If `billing_reason` is set to `subscription_threshold` this returns more information
              * on which threshold rules triggered the invoice.
              */
-            threshold_reason: invoices.IThresholdReason;
+            threshold_reason: IThresholdReason;
 
             /**
              * Total after discount
@@ -2602,7 +2602,7 @@ declare namespace Stripe {
             /**
              * Indicates which line items triggered a threshold invoice.
              */
-            item_reasons: invoices.IItemReason[];
+            item_reasons: IItemReason[];
         }
 
         interface IItemReason {
