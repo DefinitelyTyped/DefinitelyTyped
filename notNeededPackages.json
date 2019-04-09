@@ -1981,6 +1981,12 @@
             "asOfVersion": "0.54.0"
         },
         {
+            "libraryName": "rollup-plugin-node-resolve",
+            "typingsPackageName": "rollup-plugin-node-resolve",
+            "sourceRepoURL": "https://github.com/rollup/rollup-plugin-node-resolve",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "route-recognizer",
             "typingsPackageName": "route-recognizer",
             "sourceRepoURL": "https://github.com/tildeio/route-recognizer",
