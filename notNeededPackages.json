@@ -2047,6 +2047,12 @@
             "asOfVersion": "1.1.3"
         },
         {
+            "libraryName": "sequelize",
+            "typingsPackageName": "sequelize",
+            "sourceRepoURL": "https://github.com/sequelize/sequelize",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "sharp-timer",
             "typingsPackageName": "sharp-timer",
             "sourceRepoURL": "https://github.com/afractal/SharpTimer",
