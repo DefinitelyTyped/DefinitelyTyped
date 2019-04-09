@@ -5,6 +5,7 @@
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Orblazer <https://github.com/orblazer>
+//                 Vlad Frangu <https://github.com/vladfrangu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
