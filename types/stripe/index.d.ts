@@ -2028,6 +2028,11 @@ declare namespace Stripe {
             currency: string;
 
             customer: string;
+            /**
+             * Custom fields displayed on the invoice.
+             */
+            custom_fields: invoices.ICustomField[];
+
 
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -2530,6 +2535,18 @@ declare namespace Stripe {
              */
             end: number;
         }
+
+        interface ICustomField {
+            /**
+             * The name of the custom field.
+             */
+            name: string;
+            /**
+             * The value of the custom field.
+             */
+            value: string;
+        }
+
     }
 
     namespace invoiceItems {
