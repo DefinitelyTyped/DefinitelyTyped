@@ -13,8 +13,10 @@ declare module "koa" {
     }
 }
 
-declare function multy(opts?: busboy.BusboyConfig): Koa.Middleware;
+declare namespace multy {
+    type Options = busboy.BusboyConfig;
+}
 
-declare namespace multy {}
+declare function multy(opts?: multy.Options): Koa.Middleware;
 
 export = multy;
