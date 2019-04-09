@@ -22,6 +22,7 @@ export interface RouteConfig {
     exact?: boolean;
     strict?: boolean;
     routes?: RouteConfig[];
+    [propName: string]: any;
 }
 
 export interface MatchedRoute<Params extends { [K in keyof Params]?: string }> {
