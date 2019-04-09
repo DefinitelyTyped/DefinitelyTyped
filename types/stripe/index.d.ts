@@ -2018,6 +2018,11 @@ declare namespace Stripe {
             closed: boolean;
 
             /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
              * Three-letter ISO currency code, in lowercase. Must be a supported currency.
              */
             currency: string;
