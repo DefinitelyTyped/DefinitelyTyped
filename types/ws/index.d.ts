@@ -34,7 +34,7 @@ declare class WebSocket extends events.EventEmitter {
     CLOSED: number;
 
     onopen: (event: { target: WebSocket }) => void;
-    onerror: (event: {error: any, message: string, type: string, target: WebSocket }) => void;
+    onerror: (error: Error) => void;
     onclose: (event: { wasClean: boolean; code: number; reason: string; target: WebSocket }) => void;
     onmessage: (event: { data: WebSocket.Data; type: string; target: WebSocket }) => void;
 
