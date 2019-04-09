@@ -2040,6 +2040,13 @@ declare namespace Stripe {
             date: number;
 
             /**
+             * ID of the default payment source for the invoice. It must belong to the customer
+             * associated with the invoice and be in a chargeable state. If not set, defaults to
+             * the subscription’s default source, if any, or to the customer’s default source.
+             */
+            default_source: string;
+
+            /**
              * An arbitrary string attached to the object. Often useful for displaying to users.
              * Referenced as ‘memo’ in the Dashboard.
              */
