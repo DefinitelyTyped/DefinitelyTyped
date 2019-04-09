@@ -36,3 +36,57 @@ const postTest = (payload: Object): string => {
   };
   return UrlFetchApp.fetch(url, params).getContentText();
 };
+
+// Advanced Services
+Slides.Presentations.Pages.getThumbnail('presentationId', 'pageId');
+
+// Calendar (Advanced service)
+const createEvent = (): void => {
+  const calendarId = 'primary';
+  const start = new Date();
+  const end = new Date();
+  start.setHours(10);
+  end.setHours(11);
+  let event: GoogleAppsScript.Calendar.Schema.Event = {
+    summary: 'Lunch Meeting',
+    location: 'The Deli',
+    description: 'To discuss our plans for the presentation next week.',
+    start: {
+      dateTime: start.toISOString()
+    },
+    end: {
+      dateTime: end.toISOString()
+    },
+    attendees: [
+      {email: 'alice@example.com'},
+      {email: 'bob@example.com'}
+    ],
+    // Red background. Use Calendar.Colors.get() for the full list.
+    colorId: "11"
+  };
+  event = Calendar.Events.insert(event, calendarId);
+  Logger.log('Event ID: ' + event.id);
+}
+
+// Admin Directory (Advanced service)
+const listAllUsers = () => {
+  let pageToken: string;
+  let page: GoogleAppsScript.AdminDirectory.Schema.Users;
+  do {
+    page = AdminDirectory.Users.list({
+      domain: 'example.com',
+      orderBy: 'givenName',
+      maxResults: 100,
+      pageToken: pageToken
+    });
+    const users: GoogleAppsScript.AdminDirectory.Schema.User[] = page.users;
+    if (users) {
+      for (const user of users) {
+        Logger.log('%s (%s)', user.name.fullName, user.primaryEmail);
+      }
+    } else {
+      Logger.log('No users found.');
+    }
+    pageToken = page.nextPageToken;
+  } while (pageToken);
+}

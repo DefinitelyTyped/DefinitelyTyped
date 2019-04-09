@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 import { assertType } from './lib/assert';
+import { Comment } from './relationships';
 
 declare const store: DS.Store;
 
@@ -23,6 +24,7 @@ let post = store.createRecord('post', {
 });
 
 post.save(); // => POST to '/posts'
+post.save({ adapterOptions: { makeItSo: 'number one ' } });
 post.save().then(saved => {
     assertType<Post>(saved);
 });
@@ -119,7 +121,7 @@ const MyRouteAsync = Ember.Route.extend({
         const store = this.get('store');
         return await store.findRecord('post-comment', 1);
     },
-    async afterModel(): Promise<Ember.Array<PostComment>> {
+    async afterModel(): Promise<Ember.Array<Comment>> {
         const post = await this.get('store').findRecord('post', 1);
         return await post.get('comments');
     }
@@ -132,7 +134,7 @@ class MyRouteAsyncES6 extends Ember.Route {
     async model(): Promise<DS.Model> {
         return await this.store.findRecord('post-comment', 1);
     }
-    async afterModel(): Promise<Ember.Array<PostComment>> {
+    async afterModel(): Promise<Ember.Array<Comment>> {
         const post = await this.store.findRecord('post', 1);
         return await post.get('comments');
     }

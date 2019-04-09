@@ -113,6 +113,16 @@ async function test() {
 			/* Do something else */
 		});
 
+		server
+			.get('/users/:id')
+			.filter(req => req.params.id === '1')
+			.filter(req => req.params.id !== '2')
+			.recordingName('test')
+			.recordingName()
+			.intercept((_req, res) => {
+				res.status(200).json({ email: 'user1@test.com' });
+			});
+
 	/* Intercept all Google Analytic requests and respond with a 200 */
 	server.get('/google-analytics/*path').intercept((req, res, intercept) => {
 		if (req.pathname === 'test') {

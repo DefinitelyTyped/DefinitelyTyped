@@ -1,4 +1,4 @@
-// Type definitions for tern 0.22
+// Type definitions for tern 0.23
 // Project: https://github.com/ternjs/tern
 // Definitions by: Nikolaj Kappler <https://github.com/nkappler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,5 +11,5 @@
 // thus if you want to use undocumented APIs, you should extends these definitions with
 // ambient declaration merging: https://www.typescriptlang.org/docs/handbook/declaration-merging.html
 
-export * from "./lib/tern";
 export * from "./lib/infer";
+export * from "./lib/tern";

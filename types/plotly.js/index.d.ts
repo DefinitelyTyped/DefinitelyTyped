@@ -535,6 +535,11 @@ export interface PlotData {
 	'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
 	'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
 	hoverlabel: Partial<Label>;
+	textinfo: 'label' | 'label+text' | 'label+value' | 'label+percent' | 'label+text+value'
+	| 'label+text+percent' | 'label+value+percent' | 'text' | 'text+value' | 'text+percent'
+	| 'text+value+percent' | 'value' | 'value+percent' | 'percent' | 'none';
+	textposition: "top left" | "top center" | "top right" | "middle left"
+	| "middle center" | "middle right" | "bottom left" | "bottom center" | "bottom right" | "inside";
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
 	legendgroup: string;
@@ -558,6 +563,7 @@ export interface PlotData {
 	values: Datum[];
 	labels: Datum[];
 	hole: number;
+	rotation: number;
 	theta: Datum[];
 	r: Datum[];
 }

@@ -1,4 +1,4 @@
-// Type definitions for Forge Viewer 6.3
+// Type definitions for Forge Viewer 6.4
 // Project: https://forge.autodesk.com/en/docs/viewer/v6/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Alan Smith <https://github.com/alansmithnbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -150,6 +150,13 @@ declare namespace Autodesk {
 
         interface ViewerConfig {
           disableBrowserContextMenu?: boolean;
+          disabledExtensions?: {
+            bimwalk?: boolean;
+            hyperlink?: boolean;
+            measure?: boolean;
+            scalarisSimulation?: boolean;
+            section?: boolean;
+          };
           extensions?: string[];
           useConsolidation?: boolean;
           consolidationMemoryLimit?: number;
@@ -238,10 +245,14 @@ declare namespace Autodesk {
           [key: string]: any;
         }
 
+        const AGGREGATE_FIT_TO_VIEW_EVENT = 'aggregateFitToView';
+        const AGGREGATE_ISOLATION_CHANGED_EVENT = 'aggregateIsolation';
         const AGGREGATE_SELECTION_CHANGED_EVENT = 'aggregateSelection';
         const ANIMATION_READY_EVENT = 'animationReady';
         const CAMERA_CHANGE_EVENT = 'cameraChanged';
+        const CAMERA_TRANSITION_COMPLETED = 'cameraTransitionCompleted';
         const CUTPLANES_CHANGE_EVENT = 'cutplanesChanged';
+        const CANCEL_LEAFLET_SCREENSHOT = 'cancelLeafletScreenshot';
         const ESCAPE_EVENT = 'escape';
         const EXPLODE_CHANGE_EVENT = 'explodeChanged';
         const EXTENSION_LOADED_EVENT = 'extensionLoaded';
@@ -251,12 +262,17 @@ declare namespace Autodesk {
         const FRAGMENTS_LOADED_EVENT = 'fragmentsLoaded';
         const FULLSCREEN_MODE_EVENT = 'fullscreenMode';
         const GEOMETRY_LOADED_EVENT = 'geometryLoaded';
+        const GEOMETRY_DOWNLOAD_COMPLETE_EVENT = 'geometryDownloadComplete';
         const HIDE_EVENT = 'hide';
         const HYPERLINK_EVENT = 'hyperlink';
         const ISOLATE_EVENT = 'isolate';
         const LAYER_VISIBILITY_CHANGED_EVENT = 'layerVisibilityChanged';
+        const LOAD_GEOMETRY_EVENT = 'loadGeometry';
         const LOAD_MISSING_GEOMETRY = 'loadMissingGeometry';
+        const MODEL_ADDED_EVENT = 'modelAdded';
         const MODEL_ROOT_LOADED_EVENT = 'modelRootLoaded';
+        const MODEL_REMOVED_EVENT = 'modelRemoved';
+        const MODEL_LAYERS_LOADED_EVENT = 'modelLayersLoaded';
         const MODEL_UNLOADED_EVENT = 'modelUnloaded';
         const NAVIGATION_MODE_CHANGED_EVENT = 'navigationModeChanged';
         const OBJECT_TREE_CREATED_EVENT = 'objectTreeCreated';
@@ -277,6 +293,7 @@ declare namespace Autodesk {
         const VIEWER_RESIZE_EVENT = 'viewerResize';
         const VIEWER_STATE_RESTORED_EVENT = 'viewerStateRestored';
         const VIEWER_UNINITIALIZED = 'viewerUninitialized';
+        const WEBGL_CONTEXT_LOST_EVENT = 'webGlContextLost';
 
         interface ViewerEventArgs {
           target?: Viewer3D;
@@ -333,6 +350,7 @@ declare namespace Autodesk {
           setTag(tag: string, value: any): void;
           traverse(cb: () => void): boolean;
           urn(searchParent: boolean): string;
+          useAsDefault(): boolean;
         }
 
         let theExtensionManager: ExtensionManager;
@@ -345,6 +363,7 @@ declare namespace Autodesk {
             language?: string;
             accessToken?: string;
             useADP?: boolean;
+            useConsolidation?: boolean;
             [key: string]: any;
         }
 
@@ -438,16 +457,42 @@ declare namespace Autodesk {
         }
 
         class Model {
-            getBoundingBox(): THREE.Box3;
+            fetchTopology(maxSizeMB: number): Promise<object>;
             getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: any) => void, errorCallback?: (err: any) => void): void;
             getData(): any;
             getFragmentList(): any;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
+            geomPolyCount(): number;
+            getDefaultCamera(): THREE.Camera;
+            getDisplayUnit(): string;
+            getDocumentNode(): object;
+            getExternalIdMapping(onSuccessCallback: () => void, onErrorCallback: () => void): any;
+            getFastLoadList(): any;
+            getFragmentMap(): any; // DbidFragmentMap|InstanceTree;
+            getLayersRoot(): object;
+            getMetadata(itemName: string, subitemName?: string, defaultValue?: any): any;
+            getRoot(): object;
+            getRootId(): number;
+            getTopoIndex(fragId: number): number;
+            getTopology(index: number): object;
+            getUnitData(unit: string): object;
             getUnitScale(): number;
-            getUnitString(): number;
-
-            search(text: string, successCallback: (r: number[]) => void, errorCallback?: (err: any) => void, attributeNames?: string[]): void;
+            getUnitString(): string;
+            getUpVector(): any;
+            hasTopology(): boolean;
+            instancePolyCount(): number;
+            is2d(): boolean;
+            is3d(): boolean;
+            isAEC(): boolean;
+            isLoadDone(): boolean;
+            isObjectTreeCreated(): boolean;
+            isObjectTreeLoaded(): boolean;
+            pageToModel(): void;
+            pointInClip(): void;
+            search(text: string, onSuccessCallback: () => void, onErrorCallback: () => void, attributeNames?: string[]): void;
+            setData(data: object): void;
+            setUUID(urn: string): void;
             clearThemingColors(): void;
 
             getInstanceTree(): InstanceTree;
@@ -760,6 +805,13 @@ declare namespace Autodesk {
             getHitPoint(x: number, y: number): THREE.Vector3;
         }
 
+        namespace Extensions {
+          class ViewerPropertyPanel extends UI.PropertyPanel {
+            constructor(viewer: Private.GuiViewer3D);
+            currentNodeIds: object[];
+          }
+        }
+
         namespace Private {
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
 
@@ -850,11 +902,16 @@ declare namespace Autodesk {
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(): void;
                 setLightPreset(index: number, force?: boolean): void;
-                viewportToClient(viewportX: number, viewportY: number): THREE.Vector3;
 
+                viewportToClient(viewportX: number, viewportY: number): THREE.Vector3;
+                modelqueue(): any;
+                matman(): any;
                 getMaterials(): any;
+                getScreenShotProgressive(w: number, h: number, onFinished?: () => void, options?: any): any;
+
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
+                setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
             }
 
             class VisibilityManager {

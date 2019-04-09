@@ -7,7 +7,7 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Calendar {
+  export module CalendarApp {
     /**
      * Represents a calendar that the user owns or is subscribed to.
      */
@@ -308,4 +308,4 @@ declare namespace GoogleAppsScript {
   }
 }
 
-declare var CalendarApp: GoogleAppsScript.Calendar.CalendarApp;
+declare var CalendarApp: GoogleAppsScript.CalendarApp.CalendarApp;

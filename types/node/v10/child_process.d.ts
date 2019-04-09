@@ -258,6 +258,7 @@ declare module "child_process" {
         execArgv?: string[];
         silent?: boolean;
         stdio?: StdioOptions;
+        detached?: boolean;
         windowsVerbatimArguments?: boolean;
         uid?: number;
         gid?: number;
@@ -293,7 +294,7 @@ declare module "child_process" {
         stderr: T;
         status: number;
         signal: string;
-        error: Error;
+        error?: Error;
     }
     function spawnSync(command: string): SpawnSyncReturns<Buffer>;
     function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;

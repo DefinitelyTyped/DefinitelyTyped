@@ -292,6 +292,8 @@ strSchema.isValid("hello"); // => true
 strSchema.required();
 strSchema.required("req");
 strSchema.required(() => "req");
+strSchema.length(5, "message");
+strSchema.length(5, () => "message");
 strSchema.min(5, "message");
 strSchema.min(5, () => "message");
 strSchema.max(5, "message");
@@ -381,7 +383,9 @@ arrSchema.min(5, "min");
 arrSchema.min(5, () => "min");
 arrSchema.compact((value, index, array) => value === array[index]);
 
-yup.array(); // $ExpectType ArraySchema<{}>
+const arr = yup.array();
+const top = (<T>(x?: T): T => x!)();
+const validArr: yup.ArraySchema<typeof top> = arr;
 yup.array(yup.string()); // $ExpectType ArraySchema<string>
 yup.array().of(yup.string()); // $ExpectType ArraySchema<string>
 
@@ -418,7 +422,7 @@ const description: SchemaDescription = {
     type: "type",
     label: "label",
     meta: { key: "value" },
-    tests: ["test1", "test2"],
+    tests: [{ name: "test1", params: {} }, { name: "test2", params: {} }],
     fields: { key: "value" }
 };
 

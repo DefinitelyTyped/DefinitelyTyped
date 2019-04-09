@@ -4,6 +4,7 @@
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Gerardo Pacheco <https://github.com/geriux>
+//                 Kazuyuki Takahashi <https://github.com/kazyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { PureComponent, ReactNode, ComponentType } from 'react'
@@ -11,6 +12,7 @@ import {
   Animated,
   StyleProp,
   ViewStyle,
+  TextStyle,
   EasingFunction
 } from 'react-native'
 
@@ -212,6 +214,8 @@ export type TabBarProps<T extends RouteBase = RouteBase> = SceneRendererProps<
   renderBadge?: (scene: Scene<T>) => ReactNode
   onTabPress?: (scene: Scene<T>) => void
   onTabLongPress?: (scene: Scene<T>) => void
+  activeColor?: string
+  inactiveColor?: string
   pressColor?: string
   pressOpacity?: number
   scrollEnabled?: boolean
@@ -219,7 +223,7 @@ export type TabBarProps<T extends RouteBase = RouteBase> = SceneRendererProps<
   useNativeDriver?: boolean;
   tabStyle?: StyleProp<ViewStyle>
   indicatorStyle?: StyleProp<ViewStyle>
-  labelStyle?: StyleProp<ViewStyle>
+  labelStyle?: StyleProp<TextStyle>
   style?: StyleProp<ViewStyle>
 }
 

@@ -394,7 +394,7 @@ export class Editor extends util.Observable {
 
   addCommand(name: string, callback: (ui: boolean, value: {}) => boolean, scope?: {}): void;
 
-  addContextToolbar(predicate: () => void, items: string): void;
+  addContextToolbar(predicate: ((el: Node) => boolean) | string, items: string): void;
 
   addMenuItem(name: string, settings: {}): void;
 
@@ -414,7 +414,7 @@ export class Editor extends util.Observable {
 
   execCallback(name: string): {};
 
-  execCommand(cmd: string, ui: boolean, value?: any, args?: {}): void;
+  execCommand(cmd: string, ui?: boolean, value?: any, args?: {}): void;
 
   focus(skipFocus: boolean): void;
 
@@ -838,7 +838,7 @@ export namespace dom {
 
     insertAfter<T>(node: Element, referenceNode: Element): Element | T[];
 
-    is(elm: Node, selector: string): void;
+    is(elm: Node, selector: string): boolean;
 
     isBlock(node: Node): boolean;
 
@@ -1072,7 +1072,7 @@ export namespace dom {
 
     setContent(content: string, args?: {}): void;
 
-    setCursorLocation(node?: html.Node, offset?: number): void;
+    setCursorLocation(node?: Node, offset?: number): void;
 
     setNode(elm: Element): Element;
 

@@ -106,6 +106,7 @@ export interface StringSchemaConstructor {
 }
 
 export interface StringSchema extends Schema<string> {
+    length(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
     min(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
     max(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
     matches(
@@ -295,7 +296,7 @@ export interface SchemaDescription {
     type: string;
     label: string;
     meta: object;
-    tests: string[];
+    tests: Array<{ name: string, params: object }>;
     fields: object;
 }
 

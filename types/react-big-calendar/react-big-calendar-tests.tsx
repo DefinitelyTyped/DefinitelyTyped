@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import BigCalendar, { BigCalendarProps, Navigate, View, DateRange, DateLocalizer, ToolbarProps, EventWrapperProps } from "react-big-calendar";
+import BigCalendar, { BigCalendarProps, Navigate, View, DateRange, DateLocalizer, ToolbarProps, EventProps, EventWrapperProps } from "react-big-calendar";
+import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 
 // Don't want to add this as a dependency, because it is only used for tests.
 declare const globalize: any;
@@ -60,6 +61,30 @@ class CalendarResource {
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }
 
+// Drag and Drop Example Test
+{
+    interface Props {
+        localizer: DateLocalizer;
+    }
+    const DragAndDropCalendar = withDragAndDrop(BigCalendar);
+    const DnD = ({ localizer }: Props) => (
+        <DragAndDropCalendar
+            events={getEvents()}
+            views={allViews}
+            step={60}
+            showMultiDayTimes
+            defaultDate={new Date(2015, 3, 1)}
+            localizer={localizer}
+            onEventDrop={console.log}
+            onEventResize={console.log}
+        />
+    );
+
+    const localizer = BigCalendar.momentLocalizer(moment);
+
+    ReactDOM.render(<DnD localizer={localizer} />, document.body);
+}
+
 {
     class MyCalendar extends BigCalendar<CalendarEvent, CalendarResource> {}
 
@@ -68,7 +93,7 @@ class CalendarResource {
     class FullAPIExample extends React.Component<BigCalendarProps<CalendarEvent, CalendarResource>> {
         render() {
             return (
-              <MyCalendar  {...this.props}
+              <MyCalendar {...this.props}
               date={new Date()}
               getNow={() => new Date()}
               view={'day'}
@@ -106,7 +131,24 @@ class CalendarResource {
                   agendaDateFormat: (date: Date, culture?: string, localizer?: object) => "some-format",
                   dayRangeHeaderFormat: (range: DateRange, culture?: string, localizer?: object) => "some-format"
               }}
-              messages={{}}
+              messages={{
+                date: 'Date',
+                time: 'Time',
+                event: 'Event',
+                allDay: 'All Day',
+                week: 'Week',
+                work_week: 'Work Week',
+                day: 'Day',
+                month: 'Month',
+                previous: 'Back',
+                next: 'Next',
+                yesterday: 'Yesterday',
+                tomorrow: 'Tomorrow',
+                today: 'Today',
+                agenda: 'Agenda',
+                noEventsInRange: 'There are no events in this range.',
+                showMore: total => `+${total} more`,
+              }}
               timeslots={24}
               defaultView={'month'}
               className={'my-calendar'}
@@ -192,24 +234,22 @@ const customSlotPropGetter = (date: Date) => {
     else return {};
 };
 
-function Event(event: any) {
+function Event(props: EventProps<CalendarEvent>) {
     return (
         <span>
-            <strong>{event.title}</strong>
-            {event.desc && ':  ' + event.desc}
+            <strong>{props.event.title}</strong>
+            {props.event.desc && ':  ' + props.event.desc}
         </span>
     );
 }
 
-class EventWrapper extends React.Component<EventWrapperProps> {
-    render() {
-        const { continuesEarlier, event, label, accessors = {}, style } = this.props;
-        return (
-            <div style={style}>
-                <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}}</div>
-            </div>
-        );
-    }
+function EventWrapper(props: EventWrapperProps<CalendarEvent>) {
+    const { continuesEarlier, event, label, accessors = {}, style } = props;
+    return (
+        <div style={style}>
+            <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}}</div>
+        </div>
+    );
 }
 
 class Toolbar extends React.Component<ToolbarProps> {

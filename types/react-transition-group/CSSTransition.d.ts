@@ -33,7 +33,7 @@ declare namespace CSSTransition {
      * ```
      */
     interface CSSTransitionProps extends TransitionProps {
-        classNames: string | CSSTransitionClassNames;
+        classNames?: string | CSSTransitionClassNames;
     }
 }
 

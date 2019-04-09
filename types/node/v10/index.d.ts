@@ -1,4 +1,4 @@
-// Type definitions for Node.js 10.12
+// Type definitions for Node.js 10.14
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -33,6 +33,8 @@
 //                 Jeremie Rodriguez <https://github.com/jeremiergz>
 //                 Samuel Ainsworth <https://github.com/samuela>
 //                 Kyle Uehlein <https://github.com/kuehlein>
+//                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
+//                 Thanik Bhongbhibhat <https://github.com/bhongy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.1.
@@ -81,5 +83,9 @@ declare module "util" {
     }
     namespace promisify {
         const custom: symbol;
+    }
+    namespace types {
+        function isBigInt64Array(value: any): boolean;
+        function isBigUint64Array(value: any): boolean;
     }
 }
