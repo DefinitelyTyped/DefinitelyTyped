@@ -3,7 +3,7 @@ import { customers } from 'stripe';
 
 const stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K");
 
-stripe.setApiVersion('2019-03-14');
+stripe.setApiVersion('2017-04-06');
 
 //#region Balance tests
 // ##################################################################################
