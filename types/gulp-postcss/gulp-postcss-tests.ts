@@ -1,7 +1,8 @@
 import * as gulp from 'gulp';
 import * as postcss from 'gulp-postcss';
 import * as autoprefixer from 'autoprefixer';
-import * as Vinyl from 'vinyl'
+import * as Vinyl from 'vinyl';
+import * as sass from 'sass';
 
 gulp.task('postCss1', () => {
     return gulp.src('./src/*.css')
@@ -16,14 +17,12 @@ gulp.task('postCss2', () => {
         .pipe(gulp.dest('./dest'));
 });
 
-/*
 gulp.task('postCss3', () => {
     const plugins = [ autoprefixer({browsers: ['last 1 version']}) ];
     return gulp.src('in.sss')
-        .pipe(postcss(plugins, { parser: sugarss }))
+        .pipe(postcss(plugins, { parser: sass }))
         .pipe(gulp.dest('out'));
 });
-*/
 
 gulp.task('postCss4', () => {
     function callback(file: Vinyl) {
