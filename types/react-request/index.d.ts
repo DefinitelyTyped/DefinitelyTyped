@@ -31,10 +31,12 @@ export interface FetchRequestProps extends RequestInit {
     url: string;
 }
 
+export type ResponseType = 'arrayBuffer' |  'blob' | 'formData' | 'json' | 'text';
+
 export interface FetchProps<T = any> extends FetchRequestProps {
     afterFetch?: (args: FetchResponse<T>) => void;
     transformData?: (data: any) => T;
-    responseType?: string;
+    responseType?: ResponseType;
     children?: (renderProps: RenderProps<T>) => React.ReactNode;
 }
 
