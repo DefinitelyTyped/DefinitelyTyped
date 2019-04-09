@@ -2147,6 +2147,15 @@ new mongoose.Schema({ name: String }, {
   }
 });
 
+/**
+ * https://mongoosejs.com/docs/guide.html#shardKey
+ */
+new mongoose.Schema({name: String}, {
+  shardKey: {
+    tag: 1, name: 1
+  }
+})
+
 /* Query helpers: https://mongoosejs.com/docs/guide.html#query-helpers */
 
 interface Animal2 extends mongoose.Document {

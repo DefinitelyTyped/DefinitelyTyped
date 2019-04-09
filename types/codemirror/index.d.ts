@@ -1222,6 +1222,153 @@ declare namespace CodeMirror {
      */
     function overlayMode<T, S>(base: Mode<T>, overlay: Mode<S>, combine?: boolean): Mode<any>;
 
+    interface CommandActions {
+        /** Select the whole content of the editor. */
+        selectAll(cm: CodeMirror.Editor): void;
+
+        /** When multiple selections are present, this deselects all but the primary selection. */
+        singleSelection(cm: CodeMirror.Editor): void;
+        
+        /** Emacs-style line killing. Deletes the part of the line after the cursor. If that consists only of whitespace, the newline at the end of the line is also deleted. */
+        killLine(cm: CodeMirror.Editor): void;
+
+        /** Deletes the whole line under the cursor, including newline at the end. */
+        deleteLine(cm: CodeMirror.Editor): void;
+
+        /** Delete the part of the line before the cursor. */
+        delLineLeft(cm: CodeMirror.Editor): void;
+
+        /** Delete the part of the line from the left side of the visual line the cursor is on to the cursor. */
+        delWrappedLineLeft(cm: CodeMirror.Editor): void;
+
+        /** Delete the part of the line from the cursor to the right side of the visual line the cursor is on. */
+        delWrappedLineRight(cm: CodeMirror.Editor): void;
+
+        /** Undo the last change. Note that, because browsers still don't make it possible for scripts to react to or customize the context menu, selecting undo (or redo) from the context menu in a CodeMirror instance does not work. */
+        undo(cm: CodeMirror.Editor): void;
+
+        /** Redo the last undone change. */
+        redo(cm: CodeMirror.Editor): void;
+
+        /** Undo the last change to the selection, or if there are no selection-only changes at the top of the history, undo the last change. */
+        undoSelection(cm: CodeMirror.Editor): void;
+
+        /** Redo the last change to the selection, or the last text change if no selection changes remain. */
+        redoSelection(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor to the start of the document. */
+        goDocStart(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor to the end of the document. */
+        goDocEnd(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor to the start of the line. */
+        goLineStart(cm: CodeMirror.Editor): void;
+
+        /** Move to the start of the text on the line, or if we are already there, to the actual start of the line (including whitespace). */
+        goLineStartSmart(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor to the end of the line. */
+        goLineEnd(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor to the right side of the visual line it is on. */
+        goLineRight(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor to the left side of the visual line it is on. If this line is wrapped, that may not be the start of the line. */
+        goLineLeft(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor to the left side of the visual line it is on. If that takes it to the start of the line, behave like goLineStartSmart. */
+        goLineLeftSmart(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor up one line. */
+        goLineUp(cm: CodeMirror.Editor): void;
+
+        /** Move down one line. */
+        goLineDown(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor up one screen, and scroll up by the same distance. */
+        goPageUp(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor down one screen, and scroll down by the same distance. */
+        goPageDown(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor one character left, going to the previous line when hitting the start of line. */
+        goCharLeft(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor one character right, going to the next line when hitting the end of line. */
+        goCharRight(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor one character left, but don't cross line boundaries. */
+        goColumnLeft(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor one character right, don't cross line boundaries. */
+        goColumnRight(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor to the start of the previous word. */
+        goWordLeft(cm: CodeMirror.Editor): void;
+
+        /** Move the cursor to the end of the next word. */
+        goWordRight(cm: CodeMirror.Editor): void;
+
+        /** Move to the left of the group before the cursor. A group is a stretch of word characters, a stretch of punctuation characters, a newline, or a stretch of more than one whitespace character. */
+        goGroupLeft(cm: CodeMirror.Editor): void;
+
+        /** Move to the right of the group after the cursor (see above). */
+        goGroupRight(cm: CodeMirror.Editor): void;
+
+        /** Delete the character before the cursor. */
+        delCharBefore(cm: CodeMirror.Editor): void;
+
+        /** Delete the character after the cursor. */
+        delCharAfter(cm: CodeMirror.Editor): void;
+
+        /** Delete up to the start of the word before the cursor. */
+        delWordBefore(cm: CodeMirror.Editor): void;
+
+        /** Delete up to the end of the word after the cursor. */
+        delWordAfter(cm: CodeMirror.Editor): void;
+
+        /** Delete to the left of the group before the cursor. */
+        delGroupBefore(cm: CodeMirror.Editor): void;
+
+        /** Delete to the start of the group after the cursor. */
+        delGroupAfter(cm: CodeMirror.Editor): void;
+
+        /** Auto-indent the current line or selection. */
+        indentAuto(cm: CodeMirror.Editor): void;
+
+        /** Indent the current line or selection by one indent unit. */
+        indentMore(cm: CodeMirror.Editor): void;
+
+        /** Dedent the current line or selection by one indent unit. */
+        indentLess(cm: CodeMirror.Editor): void;
+
+        /** Insert a tab character at the cursor. */
+        insertTab(cm: CodeMirror.Editor): void;
+
+        /** Insert the amount of spaces that match the width a tab at the cursor position would have. */
+        insertSoftTab(cm: CodeMirror.Editor): void;
+
+        /** If something is selected, indent it by one indent unit. If nothing is selected, insert a tab character. */
+        defaultTabTab(cm: CodeMirror.Editor): void;
+
+        /** Swap the characters before and after the cursor. */
+        transposeChars(cm: CodeMirror.Editor): void;
+
+        /** Insert a newline and auto-indent the new line. */
+        newlineAndIndent(cm: CodeMirror.Editor): void;
+
+        /** Flip the overwrite flag. */
+        toggleOverwrite(cm: CodeMirror.Editor): void;
+    }
+
+    /**
+     * Commands are parameter-less actions that can be performed on an editor.
+     * Their main use is for key bindings.
+     * Commands are defined by adding properties to the CodeMirror.commands object.
+     */
+    var commands: CommandActions;
+
     /**
      * async specifies that the lint process runs asynchronously. hasGutters specifies that lint errors should be displayed in the CodeMirror
      * gutter, note that you must use this in conjunction with [ "CodeMirror-lint-markers" ] as an element in the gutters argument on

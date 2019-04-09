@@ -5,13 +5,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Groupsmigration_v1 {
+  namespace AdminGroupsMigration {
     namespace Collection {
       export interface ArchiveCollection {
         // Inserts a new mail into the archive of the Google group.
-        insert(groupId: string): Groupsmigration_v1.Schema.Groups;
+        insert(groupId: string): AdminGroupsMigration.Schema.Groups;
         // Inserts a new mail into the archive of the Google group.
-        insert(groupId: string, mediaData: any): Groupsmigration_v1.Schema.Groups;
+        insert(groupId: string, mediaData: any): AdminGroupsMigration.Schema.Groups;
       }
     }
     namespace Schema {
@@ -21,9 +21,9 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Groupsmigration_v1 {
-    Archive?: Groupsmigration_v1.Collection.ArchiveCollection;
+  export interface AdminGroupsMigration {
+    Archive?: AdminGroupsMigration.Collection.ArchiveCollection;
   }
 }
 
-declare var Groupsmigration_v1: GoogleAppsScript.Groupsmigration_v1;
+declare var AdminGroupsMigration: GoogleAppsScript.AdminGroupsMigration;

@@ -36,6 +36,10 @@ debug(`wasmDataU8 is ${valid ? "" : "not "}a valid wasm wasmModule`);
 let wasmModule = new WebAssembly.Module(wasmDataU8);
 debug(`wasmModule=${wasmModule}`);
 
+// Global
+let wasmGlobal = new WebAssembly.Global({ value: 'i32', mutable: true }, 0);
+debug(`wasmGlobal=${wasmGlobal}`);
+
 // CustomSections
 let nameSections = WebAssembly.Module.customSections(wasmModule, "name");
 debug(`Module contains ${nameSections.length} name sections`);

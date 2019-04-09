@@ -1,9 +1,10 @@
-// Type definitions for open 6.0
+// Type definitions for open 6.1
 // Project: https://github.com/sindresorhus/open
 // Definitions by: Shinnosuke Watanabe <https://github.com/shinnn>,
 //                 Maxime LUCE <https://github.com/SomaticIT>,
 //                 Tommy Lent <https://github.com/tlent>,
-//                 Florian Keller <https://github.com/ffflorian>
+//                 Florian Keller <https://github.com/ffflorian>,
+//                 Sun Knudsen <https://github.com/sunknudsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -39,6 +40,12 @@ declare namespace Open {
          * Defaults to `false`.
          */
         wait?: boolean;
+
+        /**
+         * Do not bring the app to the foreground (macOS only).
+         * Defaults to `false`.
+         */
+        background?: boolean;
 
         /**
          * Specify the app to open the `target` with, or an array with the app and app arguments.
