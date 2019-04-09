@@ -2151,6 +2151,16 @@ declare namespace Stripe {
             statement_descriptor: string;
 
             /**
+             * The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`.
+             */
+            status: "draft" | "open" | "paid" | "uncollectible" | "void";
+
+            /**
+             * Contains the timestamps when an invoice was finalized, paid, marked uncollectible, or voided
+             */
+            status_transitions: invoices.IStatusTransitions;
+
+            /**
              * The subscription that this invoice was prepared for, if any.
              */
             subscription: string | subscriptions.ISubscription;
@@ -2557,6 +2567,25 @@ declare namespace Stripe {
              * The value of the custom field.
              */
             value: string;
+        }
+
+        interface IStatusTransitions {
+            /**
+             * The time that the invoice draft was finalized.
+             */
+            finalized_at: number;
+            /**
+             * The time that the invoice was marked uncollectible.
+             */
+            marked_uncollectible_at: number;
+            /**
+             * The time that the invoice was paid.
+             */
+            paid_at: number;
+            /**
+             * The time that the invoice was voided.
+             */
+            voided_at: number;
         }
 
     }
