@@ -155,7 +155,7 @@ export interface NoticeType {
 export interface QueryResultType<T> {
     command: 'DELETE' | 'INSERT' | 'SELECT' | 'UPDATE';
     fields: ReadonlyArray<FieldType>;
-    notices: ReadonlyArray<NoticeType>,
+    notices: ReadonlyArray<NoticeType>;
     oid: number | null;
     rowAsArray: boolean;
     rowCount: number;
@@ -363,7 +363,7 @@ export function createTypeParserPreset(): TypeParserType[];
 export interface ClientConfigurationType {
     /** Dictates whether to capture stack trace before executing query. Middlewares access stack trace through query execution context. (Default: true) */
     captureStackTrace?: boolean;
-    
+
     /** Timeout (in milliseconds) after which an error is raised if cannot cannot be established. (Default: 5000) */
     connectionTimeout?: number;
 
@@ -375,7 +375,7 @@ export interface ClientConfigurationType {
 
     /** Add more server connections to pool if below this number. (Default: 1) */
     minimumPoolSize?: number;
-    
+
     /**
      * An array of [Slonik interceptors](https://github.com/gajus/slonik#slonik-interceptors)
      */
@@ -386,6 +386,7 @@ export interface ClientConfigurationType {
     typeParsers?: TypeParserType[];
 }
 
+// tslint:disable-next-line no-empty-interface
 export interface ClientUserConfigurationType extends ClientConfigurationType {}
 
 //
