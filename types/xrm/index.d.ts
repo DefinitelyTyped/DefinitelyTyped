@@ -3275,7 +3275,7 @@ declare namespace Xrm {
              * @param handler The function to be executed on the TabStateChange event.
              */
             addTabStateChange(handler: Events.ContextSensitiveHandler): void;
-            
+
             /**
              * Gets display state of the tab.
              * @returns The display state, as either "expanded" or "collapsed"
