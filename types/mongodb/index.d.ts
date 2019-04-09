@@ -955,9 +955,9 @@ export interface Collection<TSchema = Default> {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#listIndexes */
     listIndexes(options?: { batchSize?: number, readPreference?: ReadPreference | string, session?: ClientSession }): CommandCursor;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#mapReduce */
-    mapReduce(map: CollectionMapFunction | string, reduce: CollectionReduceFunction | string, callback: MongoCallback<any>): void;
-    mapReduce(map: CollectionMapFunction | string, reduce: CollectionReduceFunction | string, options?: MapReduceOptions): Promise<any>;
-    mapReduce(map: CollectionMapFunction | string, reduce: CollectionReduceFunction | string, options: MapReduceOptions, callback: MongoCallback<any>): void;
+    mapReduce<TKey, TValue>(map: CollectionMapFunction | string, reduce: CollectionReduceFunction<TKey, TValue> | string, callback: MongoCallback<any>): void;
+    mapReduce<TKey, TValue>(map: CollectionMapFunction | string, reduce: CollectionReduceFunction<TKey, TValue> | string, options?: MapReduceOptions): Promise<any>;
+    mapReduce<TKey, TValue>(map: CollectionMapFunction | string, reduce: CollectionReduceFunction<TKey, TValue> | string, options: MapReduceOptions, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#options */
     options(options?: { session: ClientSession }): Promise<any>;
     options(callback: MongoCallback<any>): void;
@@ -1665,7 +1665,7 @@ export interface MapReduceOptions {
 
 export type CollectionMapFunction = () => void;
 
-export type CollectionReduceFunction = (key: string, values: any) => any;
+export type CollectionReduceFunction<TKey, TValue> = (key: TKey, values: TValue[]) => TValue;
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~WriteOpResult */
 export interface WriteOpResult {
