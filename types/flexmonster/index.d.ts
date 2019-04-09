@@ -241,6 +241,7 @@ declare namespace Flexmonster {
             showOneMeasureSelection?: boolean;
             position?: string;
             pieDataIndex?: string;
+            axisShortNumberFormat?: boolean;
         };
         grid?: {
             showFilter?: boolean;
