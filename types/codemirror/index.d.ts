@@ -17,11 +17,21 @@ declare function CodeMirror(callback: (host: HTMLElement) => void , options?: Co
 declare namespace CodeMirror {
     export var Doc : CodeMirror.DocConstructor;
     export var Pos: CodeMirror.PositionConstructor;
+    export var StringStream: CodeMirror.StringStreamConstructor;
     export var Pass: {toString(): "CodeMirror.PASS"};
 
     /** Find the column position at a given string index using a given tabsize. */
     function countColumn(line: string, index: number | null, tabSize: number): number;
     function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
+
+    /** Split a string by new line. */
+    function splitLines(text: string): Array<string>;
+
+    /** Check if a char is part of an alphabet. */
+    function isWordChar(ch: string): boolean;
+
+    /** Call startState of the mode if available, otherwise return true */
+    function startState(mode: CodeMirror.Mode<any>, a1?: any, a2?: any): any | boolean;
 
     /** Compare two positions, return 0 if they are the same, a negative number when a is less, and a positive number otherwise. */
     function cmpPos(a: Position, b: Position): number;
@@ -283,7 +293,7 @@ declare namespace CodeMirror {
 
         /** Scrolls the given element into view. pos is a { left , top , right , bottom } object, in editor-local coordinates.
         The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
-        scrollIntoView(pos: { left: number; top: number; right: number; bottom: number; }, margin: number): void;
+        scrollIntoView(pos: { left: number; top: number; right: number; bottom: number; }, margin?: number): void;
 
         /** Scrolls the given element into view. pos is a { line, ch } object, in editor-local coordinates.
         The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
@@ -291,19 +301,19 @@ declare namespace CodeMirror {
 
         /** Scrolls the given element into view. pos is a { from, to } object, in editor-local coordinates.
         The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
-        scrollIntoView(pos: { from: CodeMirror.Position, to: CodeMirror.Position }, margin: number): void;
+        scrollIntoView(pos: { from: CodeMirror.Position, to: CodeMirror.Position }, margin?: number): void;
 
         /** Returns an { left , top , bottom } object containing the coordinates of the cursor position.
         If mode is "local", they will be relative to the top-left corner of the editable document.
         If it is "page" or not given, they are relative to the top-left corner of the page.
         where is a boolean indicating whether you want the start(true) or the end(false) of the selection. */
-        cursorCoords(where: boolean, mode?: CoordsMode): { left: number; top: number; bottom: number; };
+        cursorCoords(where?: boolean, mode?: CoordsMode): { left: number; top: number; bottom: number; };
 
         /** Returns an { left , top , bottom } object containing the coordinates of the cursor position.
         If mode is "local", they will be relative to the top-left corner of the editable document.
         If it is "page" or not given, they are relative to the top-left corner of the page.
         where specifies the precise position at which you want to measure. */
-        cursorCoords(where: CodeMirror.Position, mode?: CoordsMode): { left: number; top: number; bottom: number; };
+        cursorCoords(where?: CodeMirror.Position | null, mode?: CoordsMode): { left: number; top: number; bottom: number; };
 
         /** Returns the position and dimensions of an arbitrary character. pos should be a { line , ch } object.
         If mode is "local", they will be relative to the top-left corner of the editable document.
@@ -374,6 +384,10 @@ declare namespace CodeMirror {
 
         /** Tells you whether the editor's content can be edited by the user. */
         isReadOnly(): boolean;
+
+        /** Switches between overwrite and normal insert mode (when not given an argument),
+        or sets the overwrite mode to a specific state (when given an argument). */
+        toggleOverwrite(value?: boolean): void;
 
         /** Runs the command with the given name on the editor. */
         execCommand(name: string): void;
@@ -464,6 +478,9 @@ declare namespace CodeMirror {
         /** Fires when one of the DOM events fires. */
         on(eventName: DOMEvent, handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
         off(eventName: DOMEvent, handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
+
+        /** Fires when the overwrite flag is flipped. */
+        on(eventName: "overwriteToggle", handler: (instance: CodeMirror.Editor, overwrite: boolean) => void): void;
 
         /** Expose the state object, so that the Editor.state.completionActive property is reachable*/
         state: any;
@@ -677,6 +694,9 @@ declare namespace CodeMirror {
         Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
         addLineWidget(line: any, node: HTMLElement, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
 
+        /** Remove the line widget */
+        removeLineWidget(widget: CodeMirror.LineWidget): void;
+
         /** Gets the mode object for the editor. Note that this is distinct from getOption("mode"), which gives you the mode specification,
         rather than the resolved, instantiated mode object. */
         getMode(): any;
@@ -800,6 +820,8 @@ declare namespace CodeMirror {
         sticky?: string;
     }
 
+    type InputStyle = "textarea" | "contenteditable";
+
     interface EditorConfiguration {
         /** string| The starting value of the editor. Can be a string, or a document object. */
         value?: any;
@@ -875,11 +897,28 @@ declare namespace CodeMirror {
          */
         scrollbarStyle?: string;
 
+        /**
+         * When fixedGutter is on, and there is a horizontal scrollbar, by default the gutter will be visible to the left of this scrollbar.
+         * If this option is set to true, it will be covered by an element with class CodeMirror-gutter-filler.
+         */
+        coverGutterNextToScrollbar?: boolean;
+
+        /**
+         * Selects the way CodeMirror handles input and focus.
+         * The core library defines the "textarea" and "contenteditable" input models.
+         * On mobile browsers, the default is "contenteditable". On desktop browsers, the default is "textarea".
+         * Support for IME and screen readers is better in the "contenteditable" model.
+         */
+        inputStyle?: InputStyle;
+
         /** boolean|string. This disables editing of the editor content by the user. If the special value "nocursor" is given (instead of simply true), focusing of the editor is also disallowed. */
         readOnly?: any;
 
         /**Whether the cursor should be drawn when a selection is active. Defaults to false. */
         showCursorWhenSelecting?: boolean;
+
+        /** When enabled, which is the default, doing copy or cut when there is no selection will copy or cut the whole lines that have cursors on them. */
+        lineWiseCopyCut?: boolean;
 
         /** The maximum number of undo levels that the editor stores. Defaults to 40. */
         undoDepth?: number;
@@ -917,6 +956,12 @@ declare namespace CodeMirror {
 
         /** Half - period in milliseconds used for cursor blinking. The default blink rate is 530ms. */
         cursorBlinkRate?: number;
+
+        /**
+         * How much extra space to always keep above and below the cursor when
+         * approaching the top or bottom of the visible view in a scrollable document. Default is 0.
+         */
+        cursorScrollMargin?: number;
 
         /** Determines the height of the cursor. Default is 1 , meaning it spans the whole height of the line.
         For some fonts (and by some tastes) a smaller height (for example 0.85),
@@ -1018,6 +1063,10 @@ declare namespace CodeMirror {
         /** When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents.
         By default, a marker appears only in its target document. */
         shared?: boolean;
+    }
+
+    interface StringStreamConstructor {
+        new (text: string): StringStream;
     }
 
     interface StringStream {
@@ -1135,6 +1184,8 @@ declare namespace CodeMirror {
      * advances it past a token, and returns a style for that token. More advanced modes can also handle indentation for the language.
      */
     interface Mode<T> {
+        name?: string;
+
         /**
          * This function should read one token from the stream it is given as an argument, optionally update its state,
          * and return a style string, or null for tokens that do not have to be styled. Multiple styles can be returned, separated by spaces.
@@ -1221,6 +1272,26 @@ declare namespace CodeMirror {
      * the combine argument was true and not overridden, or state.overlay.combineTokens was true, in which case the styles are combined.
      */
     function overlayMode<T, S>(base: Mode<T>, overlay: Mode<S>, combine?: boolean): Mode<any>;
+
+    interface ModeMap {
+        [modeName: string]: ModeFactory<any>;
+    }
+
+    /**
+     * Maps mode names to their constructors
+     */
+    var modes: ModeMap;
+
+    function defineMIME(mime: string, modeSpec: any): void;
+
+    interface MimeModeMap {
+        [mimeName: string]: any;
+    }
+
+    /**
+     * Maps MIME types to mode specs.
+     */
+    var mimeModes: MimeModeMap;
 
     interface CommandActions {
         /** Select the whole content of the editor. */
