@@ -15,7 +15,7 @@ import {
     Node,
     Command,
     Query,
-    Decoration
+    Decoration,
 } from "slate";
 
 const data = Data.create({ foo: "bar " });
@@ -356,7 +356,99 @@ editor
 .wrapNodeByKey("a", inline)
 .wrapNodeByPath("a", inline)
 .wrapText("a", "b")
-.wrapTextAtRange(range, "a");
+.wrapTextAtRange(range, "a")
+.applyOperation({
+    type: "insert_text",
+    path: 'a',
+    offset: 0,
+    text: 'text',
+    marks: [Mark.create({type: 'test_mark'})],
+    data: Data.create({})
+})
+.applyOperation({
+    type: "remove_text",
+    path: 'a',
+    offset: 0,
+    text: 'text',
+    data: Data.create({})
+})
+.applyOperation({
+    type: "add_mark",
+    path: 'a',
+    offset: 0,
+    length: 1,
+    mark: Mark.create({type: 'test_mark'}),
+    data: Data.create({})
+})
+.applyOperation({
+    type: "remove_mark",
+    path: 'a',
+    offset: 0,
+    length: 1,
+    mark: Mark.create({type: 'test_mark'}),
+    data: Data.create({})
+})
+.applyOperation({
+    type: "set_mark",
+    path: 'a',
+    offset: 0,
+    length: 1,
+    properties: {type: 'test_mark'},
+    newProperties: {type: 'new_test_mark'},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "insert_node",
+    path: 'a',
+    node: Block.create({type: 'block'}),
+    data: Data.create({})
+})
+.applyOperation({
+    type: "merge_node",
+    path: 'a',
+    position: 0,
+    properties: {type: 'node'},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "move_node",
+    path: 'a',
+    newPath: 'a',
+    data: Data.create({})
+})
+.applyOperation({
+    type: "remove_node",
+    path: 'a',
+    node: Block.create({type: 'block'}),
+    data: Data.create({})
+})
+.applyOperation({
+    type: "set_node",
+    path: 'a',
+    properties: {type: 'node'},
+    newProperties: {type: 'new_node'},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "split_node",
+    path: 'a',
+    position: 0,
+    target: 1,
+    properties: {type: 'block'},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "set_selection",
+    properties: {},
+    newProperties: {},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "set_value",
+    properties: {},
+    newProperties: {},
+    data: Data.create({})
+});
 
 KeyUtils.setGenerator(() => "Test");
 KeyUtils.create();
