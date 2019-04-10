@@ -2434,8 +2434,6 @@ declare namespace Cesium {
         constructor(entity: Entity, scene: Scene);
     }
 
-    
-
     class PolylineGraphics {
         definitionChanged: Event;
         show: Property;
@@ -2444,7 +2442,14 @@ declare namespace Cesium {
         width: number;
         followSurface: Property;
         granularity: Property;
-        constructor(options?: { positions?: Cartesian3[]; followSurface?: Property; width?: number; show?: Property; material?: PolylineDashMaterialProperty | Color | MaterialProperty; granularity?: Property });
+        constructor(options?: { 
+            positions?: Cartesian3[];
+            followSurface?: Property;
+            width?: number;
+            show?: Property;
+            material?: PolylineDashMaterialProperty | Color | MaterialProperty;
+            granularity?: Property 
+        });
         clone(result?: PolylineGraphics): PolylineGraphics;
         merge(source: PolylineGraphics): PolylineGraphics;
     }
