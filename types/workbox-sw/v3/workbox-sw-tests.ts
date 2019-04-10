@@ -1,6 +1,7 @@
 import WorkboxSW = require("workbox-sw");
 
-WorkboxSW.routing.registerRoute("/", new WorkboxSW.strategies.NetworkFirst()); // $ExpectType Route
+// $ExpectError
+WorkboxSW.core.setLogLevel(5); // $ExpectType void
 
 WorkboxSW.routing.registerRoute("/", WorkboxSW.strategies.networkFirst()); // $ExpectType Route
 

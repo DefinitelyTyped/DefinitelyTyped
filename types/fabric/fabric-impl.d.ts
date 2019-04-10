@@ -2839,6 +2839,23 @@ interface IObjectOptions {
 	 * storage for object transform matrix
 	 */
 	ownMatrixCache?: any;
+
+    /**
+     * Indicates the angle that an object will lock to while rotating. Can get from canvas.
+     */
+    snapAngle?: number;
+    /**
+     * Indicates the distance from the snapAngle the rotation will lock to the snapAngle. Can get from canvas.
+     */
+    snapThreshold?: null | number;
+    /**
+     * The group the object is part of
+     */
+    group?: Group;
+    /**
+     * The canvas the object belongs to
+     */
+    canvas?: Canvas;
 }
 export interface Object extends IObservable<Object>, IObjectOptions, IObjectAnimation<Object> { }
 export class Object {
@@ -3820,6 +3837,11 @@ interface TextOptions extends IObjectOptions {
 	 * @type Array
 	 */
 	stateProperties?: string[];
+    /**
+     * List of lines in text object
+     * @type Array<string>
+     */
+	textLines?: string[];
 }
 export interface Text extends TextOptions { }
 export class Text extends Object {
@@ -4088,6 +4110,10 @@ interface ITextOptions extends TextOptions {
 	 * The function must be in fabric.Itext.prototype.myFunction And will receive event as args[0]
 	 */
 	keysMap?: any;
+    /**
+     * Exposes underlying hidden text area
+     */
+    hiddenTextarea?: HTMLTextAreaElement;
 }
 export interface IText extends ITextOptions { }
 export class IText extends Text {
@@ -4502,6 +4528,11 @@ export class Textbox extends IText {
 	 * @return {Boolean}
 	 */
 	isEndOfWrapping(lineIndex: number): boolean;
+    /**
+     * Returns larger of min width and dynamic min width
+     * @return {Number}
+     */
+	getMinWidth(): number;
 	/**
 	 * Returns fabric.Textbox instance from an object representation
 	 * @static
@@ -5295,6 +5326,13 @@ interface IUtilString {
 	 * @param string String to escape
 	 */
 	escapeXml(string: string): string;
+
+    /**
+     * Divide a string in the user perceived single units
+     * @param {String} textstring String to escape
+     * @return {Array} array containing the graphemes
+     */
+    graphemeSplit(string: string): string[];
 }
 
 interface IUtilMisc {
