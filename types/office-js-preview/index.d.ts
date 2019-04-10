@@ -9574,6 +9574,127 @@ declare namespace Office {
             Removed = "removed"
         }
         /**
+         * Specifies the category color.
+         * 
+         * **Note**: The actual color depends on how the Outlook client renders it.
+         * In this case, the colors noted on each preset are for the Outlook desktop client.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
+         * </table>
+         * 
+         * @beta
+         */
+        enum CategoryColor {
+            /**
+             * Default color or no color mapped
+             */
+            None,
+            /**
+             * Red
+             */
+            Preset0,
+            /**
+             * Orange
+             */
+            Preset1,
+            /**
+             * Brown
+             */
+            Preset2,
+            /**
+             * Yellow
+             */
+            Preset3,
+            /**
+             * Green
+             */
+            Preset4,
+            /**
+             * Teal
+             */
+            Preset5,
+            /**
+             * Olive
+             */
+            Preset6,
+            /**
+             * Blue
+             */
+            Preset7,
+            /**
+             * Purple
+             */
+            Preset8,
+            /**
+             * Cranberry
+             */
+            Preset9,
+            /**
+             * Steel
+             */
+            Preset10,
+            /**
+             * DarkSteel
+             */
+            Preset11,
+            /**
+             * Gray
+             */
+            Preset12,
+            /**
+             * DarkGray
+             */
+            Preset13,
+            /**
+             * Black
+             */
+            Preset14,
+            /**
+             * DarkRed
+             */
+            Preset15,
+            /**
+             * DarkOrange
+             */
+            Preset16,
+            /**
+             * DarkBrown
+             */
+            Preset17,
+            /**
+             * DarkYellow
+             */
+            Preset18,
+            /**
+             * DarkGreen
+             */
+            Preset19,
+            /**
+             * DarkTeal
+             */
+            Preset20,
+            /**
+             * DarkOlive
+             */
+            Preset21,
+            /**
+             * DarkBlue
+             */
+            Preset22,
+            /**
+             * DarkPurple
+             */
+            Preset23,
+            /**
+             * DarkCranberry
+             */
+            Preset24
+        }
+        /**
          * Specifies an attachment's type.
          *
          * [Api set: Mailbox 1.0]
@@ -11876,6 +11997,21 @@ declare namespace Office {
          */
         body: Body;
         /**
+         * Gets an object that provides methods for managing the item's categories.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
+         * </table>
+         * 
+         * @beta
+         */
+        categories: Categories;
+        /**
          * Gets or sets the date and time that the appointment is to end.
          *
          * The end property is an {@link Office.Time} object expressed as a Coordinated Universal Time (UTC) date and time value. 
@@ -12747,6 +12883,21 @@ declare namespace Office {
          */
         body: Body;
         /**
+         * Gets an object that provides methods for managing the item's categories.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr>
+         * </table>
+         * 
+         * @beta
+         */
+        categories: Categories;
+        /**
          * Gets the date and time that an item was created.
          *
          * [Api set: Mailbox 1.0]
@@ -13515,6 +13666,21 @@ declare namespace Office {
          * </table>
          */
         body: Body;
+        /**
+         * Gets an object that provides methods for managing the item's categories.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
+         * </table>
+         * 
+         * @beta
+         */
+        categories: Categories;
         /**
          * Gets the type of item that an instance represents.
          *
@@ -14899,6 +15065,21 @@ declare namespace Office {
          */
         body: Body;
         /**
+         * Gets an object that provides methods for managing the item's categories.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
+         * </table>
+         * 
+         * @beta
+         */
+        categories: Categories;
+        /**
          * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the 
          * current item.
          *
@@ -15739,6 +15920,21 @@ declare namespace Office {
          * </table>
          */
         body: Body;
+        /**
+         * Gets an object that provides methods for managing the item's categories.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr>
+         * </table>
+         * 
+         * @beta
+         */
+        categories: Categories;
         /**
          * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the 
          * current item.
@@ -17198,6 +17394,165 @@ declare namespace Office {
          *                 type Office.AsyncResult.
          */
         removeHandlerAsync(eventType: Office.EventType, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+    }
+
+    /**
+     * Represents the categories on an item.
+     * 
+     * In Outlook, a user can group messages and appointments by using a category to color-code them.
+     * The user defines categories in a master list on their mailbox. They can then apply one or more categories to an item.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * <table>
+     *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+     *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
+     * </table>
+     * 
+     * @beta
+     */
+    interface Categories {
+        /**
+         * Adds categories to an item. Each category must be in the categories master list on that mailbox and so must have a unique name
+         * but multiple categories can use the same color.
+         *
+         * @param categories - The categories to be added to the item.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
+         *   <tr><td>Errors</td><td>InvalidCategory - Invalid categories were provided.</td></tr>
+         * </table>
+         * 
+         * @beta
+         */
+        addAsync(categories: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Adds categories to an item. Each category must be in the categories master list on that mailbox and so must have a unique name
+         * but multiple categories can use the same color.
+         *
+         * @param categories - The categories to be added to the item.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If adding categories fails, the asyncResult.error property will contain an error code.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
+         *   <tr><td>Errors</td><td>InvalidCategory - Invalid categories were provided.</td></tr>
+         * </table>
+         * 
+         * @beta
+         */
+        addAsync(categories: string[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Gets an item's categories.
+         *
+         * @param options - An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If adding categories fails, the asyncResult.error property will contain an error code.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
+         * </table>
+         * 
+         * @beta
+         */
+        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
+        /**
+         * Gets an item's categories.
+         *
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
+         * </table>
+         * 
+         * @beta
+         */
+        getAsync(callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
+        /**
+         * Removes categories from an item.
+         *
+         * @param categories - The categories to be removed from the item.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If removing categories fails, the asyncResult.error property will contain an error code.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
+         * </table>
+         * 
+         * @beta
+         */
+        removeAsync(categories: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Removes categories from an item.
+         *
+         * @param categories - The categories to be removed from the item.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If removing categories fails, the asyncResult.error property will contain an error code.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
+         * </table>
+         * 
+         * @beta
+         */
+        removeAsync(categories: string[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+    }
+
+    /**
+     * Represents an item's category details like name and associated color.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * <table>
+     *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+     *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
+     * </table>
+     * 
+     * @beta
+     */
+    interface CategoryDetails {
+        /**
+         * The name of the category. Maximum length is 255 characters.
+         */
+        displayName: string;
+        /**
+         * The color of the category.
+         */
+        color: Office.MailboxEnums.CategoryColor;
     }
 
     /**
