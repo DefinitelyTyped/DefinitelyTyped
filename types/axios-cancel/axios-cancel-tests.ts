@@ -9,7 +9,7 @@ axios.get(
     'https://jsonplaceholder.typicode.com/users', {
         requestId: "test id"
     }
-); // $ExpectType AxiosPromise
+);
 
 axios.cancel("test id"); // $ExpectType void
 
