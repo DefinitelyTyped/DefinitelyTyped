@@ -1,6 +1,7 @@
-// Type definitions for slonik 15.4
+// Type definitions for slonik 16.10.0
 // Project: https://github.com/gajus/slonik#readme
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
+//                 Misha Kaletsky <https://github.com/mmkal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 import * as SlonikSymbol from './symbols';
