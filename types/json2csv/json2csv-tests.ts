@@ -1,4 +1,4 @@
-import { json2csv, parse, Parser, Transform } from 'json2csv';
+import json2csv, { parse, Parser, Transform } from 'json2csv';
 import { Transform as NodeTransform } from 'stream';
 
 let s: string;
