@@ -178,10 +178,14 @@ const textStyle: StyleProp<TextStyle> = {
 const imageStyle: StyleProp<ImageStyle> = {
     resizeMode: "contain",
 };
+const fontVariantStyle: StyleProp<TextStyle> = {
+    fontVariant: ['tabular-nums']
+}
 
 const viewProperty = StyleSheet.flatten(viewStyle).backgroundColor;
 const textProperty = StyleSheet.flatten(textStyle).fontSize;
 const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
+const fontVariantProperty = StyleSheet.flatten(fontVariantStyle).fontVariant;
 
 const s = StyleSheet.create({
     shouldWork: {
