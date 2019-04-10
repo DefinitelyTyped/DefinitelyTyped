@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-export interface SaveCsvProps {
+interface SaveCsvProps {
     filename: string;
     sep?: string;
     eol?: string;
@@ -14,4 +14,5 @@ export interface SaveCsvProps {
     formatter?: (value: string | JSON) => void;
 }
 
-export default function saveCsv(array: ReadonlyArray<any>, options?: SaveCsvProps): void;
+declare function saveCsv(array: ReadonlyArray<any>, options?: SaveCsvProps): void;
+export = saveCsv;
