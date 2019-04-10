@@ -2449,6 +2449,12 @@
             "asOfVersion": "3.12.0"
         },
         {
+            "libraryName": "three",
+            "typingsPackageName": "three",
+            "sourceRepoURL": "https://github.com/mrdoob/three.js",
+            "asOfVersion": "0.103.0"
+        },
+        {
             "libraryName": "time-span",
             "typingsPackageName": "time-span",
             "sourceRepoURL": "https://github.com/sindresorhus/time-span",
