@@ -1,8 +1,9 @@
 // Type definitions for shpjs 3.4
 // Project: https://github.com/calvinmetcalf/shapefile-js#readme
 // Definitions by: Hsiao-Ting Yu <https://github.com/littlebtc>
+//                 Kai Volland <https://github.com/kaivolland>  
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.4.3
 
 /// <reference types="node" />
 /// <reference types="geojson" />
@@ -26,4 +27,4 @@ declare namespace shpjs {
 }
 
 declare var shpjs: shpjs.ShpJS;
-export = shpjs;
+export default shpjs;
