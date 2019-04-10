@@ -2,7 +2,7 @@ import * as React from "react";
 import { storiesOf, addDecorator } from "@storybook/react";
 import { withDocs, withReadme, doc, addReadme, configureReadme, addFooter, addHeader } from "storybook-readme";
 import Marked from "storybook-readme/components/Marked";
-import registerWithPanelTitle from "storybook-readme/registerWithPanelTitle"
+import registerWithPanelTitle from "storybook-readme/registerWithPanelTitle";
 
 // Possibly any .md files or strings
 const DocExample1 = `
