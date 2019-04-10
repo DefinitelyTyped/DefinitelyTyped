@@ -20,7 +20,7 @@ interface WrapperConfig {
 
 interface Action<T = any> {
     type: string;
-    payload?: Partial<T>;
+    payload?: Partial<T> & { [x: string]: any };
 }
 
 export interface KosProps<T = any> {
