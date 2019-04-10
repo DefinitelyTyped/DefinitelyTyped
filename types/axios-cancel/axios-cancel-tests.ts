@@ -1,7 +1,7 @@
 import axios, { AxiosPromise } from "axios"
 import axiosCancel from "axios-cancel";
 
-axiosCancel(axios);
+axiosCancel(axios); // $ExpectType void
 
 axios.get(
     'https://jsonplaceholder.typicode.com/users', {
@@ -9,4 +9,6 @@ axios.get(
     }
 ); // $ExpectType Promise<any>
 
-axios.cancel("test id");
+axios.cancel("test id"); // $ExpectType void
+
+axios.cancelAll(); // $ExpectType void
