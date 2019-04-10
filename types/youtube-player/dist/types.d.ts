@@ -26,7 +26,7 @@ export interface Options {
         loop?: 0 | 1,
         modestbranding?: 1,
         origin?: string,
-        playlist: string,
+        playlist?: string,
         playsinline?: 0 | 1,
         rel?: 0 | 1,
         start?: number,
