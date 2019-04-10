@@ -19,6 +19,7 @@ export {
     t as types,
     template,
     traverse,
+    NodePath,
     Visitor
 };
 
