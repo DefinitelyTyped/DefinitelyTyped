@@ -2,7 +2,7 @@
 // Project: https://github.com/rhysd/rehype-react
 // Definitions by: Adrian Kremer <https://github.com/adriankremer>
 // Definitions: https://github.com/adriankremer/DefinitelyTyped
-/* tslint:disable:no-unnecessary-generics */
+// TypeScript Version: 2.8
 
 import React from "react";
 
