@@ -135,15 +135,18 @@ declare module "crypto" {
 
     export type KeyObjectType = 'secret' | 'public' | 'private';
 
+    interface KeyExportOptions<T extends KeyFormat> {
+        type: 'pkcs1' | 'spki' | 'pkcs8' | 'sec1';
+        format: T;
+        cipher?: string;
+        passphrase?: string | Buffer;
+    }
+
     class KeyObject {
         private constructor();
         asymmetricKeyType?: KeyType;
-        export(options?: {
-            type: 'pkcs1' | 'spki' | 'pkcs8' | 'sec1',
-            format: KeyFormat,
-            cipher?: string,
-            passphrase?: string | Buffer
-        }): string | Buffer;
+        export(options: KeyExportOptions<'pem'>): string | Buffer;
+        export(options?: KeyExportOptions<'der'>): Buffer;
         symmetricSize?: number;
         type: KeyObjectType;
     }
