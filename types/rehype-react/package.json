@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "rehype-react": "^3.1.0"
-    }
-}
