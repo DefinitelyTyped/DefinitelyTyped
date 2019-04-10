@@ -3,7 +3,7 @@
 // Definitions by: Hsiao-Ting Yu <https://github.com/littlebtc>
 //                 Kai Volland <https://github.com/kaivolland>  
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4.3
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="geojson" />
