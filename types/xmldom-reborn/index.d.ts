@@ -17,8 +17,7 @@ interface DOMParser {
 }
 
 interface DOMParserStatic {
-    new(): DOMParser;
-    new(options: Options): DOMParser;
+    new(options?: Options): DOMParser;
 }
 
 interface XMLSerializer {
@@ -54,4 +53,4 @@ export {
     Options,
     ErrorHandlerFunction,
     ErrorHandlerObject
-}
+};

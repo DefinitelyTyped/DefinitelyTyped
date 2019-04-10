@@ -1,39 +1,35 @@
-
 import { DOMParser, XMLSerializer } from 'xmldom-reborn';
 
-var doc = new DOMParser().parseFromString(
-  '<xml xmlns="a" xmlns:c="./lite">\n'+
-  '\t<child>test</child>\n'+
-  '\t<child></child>\n'+
-  '\t<child/>\n'+
-  '</xml>'
-  ,'text/xml');
-doc.documentElement.setAttribute('x','y');
-doc.documentElement.setAttributeNS('./lite','c:x','y2');
-var nsAttr = doc.documentElement.getAttributeNS('./lite','x');
+const doc = new DOMParser().parseFromString(
+  `<xml xmlns="a" xmlns:c="./lite">\n
+  \t<child>test</child>\n
+  \t<child></child>\n'
+  \t<child/>\n
+  </xml>`
+  , 'text/xml');
+doc.documentElement.setAttribute('x', 'y');
+doc.documentElement.setAttributeNS('./lite', 'c:x', 'y2');
+const nsAttr = doc.documentElement.getAttributeNS('./lite', 'x');
 console.info(nsAttr);
 console.info(doc);
 
-function callback(w: any) {
+function callback(w: any) {}
 
-}
-
-//errorHandler is supported
+// errorHandler is supported
 new DOMParser({
   /**
    * locator is always need for error position info
    */
-  locator:{},
+  locator: {},
   /**
    * you can override the errorHandler for xml parser
    * @link http://www.saxproject.org/apidoc/org/xml/sax/ErrorHandler.html
    */
-  errorHandler:{warning:function(w: any){console.warn(w)},error:callback,fatalError:callback}
-  //only callback model
-  //errorHandler:function(level,msg){console.log(level,msg)}
+  errorHandler: { warning: (w: any) => { console.warn(w); }, error: callback, fatalError: callback}
+  // only callback model
+  // errorHandler:function(level,msg){console.log(level,msg)}
 });
 
-
 // XMLSerializer provides serializeToString method
-new XMLSerializer().serializeToString(doc) == "string";
-new XMLSerializer().serializeToString(doc.documentElement) == "string";
+new XMLSerializer().serializeToString(doc) === "string";
+new XMLSerializer().serializeToString(doc.documentElement) === "string";
