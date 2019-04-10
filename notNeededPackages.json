@@ -1339,6 +1339,12 @@
             "asOfVersion": "7.0.0"
         },
         {
+            "libraryName": "typescript",
+            "typingsPackageName": "navigator-permissions",
+            "sourceRepoURL": "https://developer.mozilla.org/en-US/docs/Web/API/Permissions",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "ng-table",
             "typingsPackageName": "ng-table",
             "sourceRepoURL": "https://github.com/esvit/ng-table",
@@ -2347,6 +2353,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "typescript",
+            "typingsPackageName": "w3c-permissions",
+            "sourceRepoURL": "https://www.w3.org/TR/permissions/",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "wait-for-localhost",
             "typingsPackageName": "wait-for-localhost",
             "sourceRepoURL": "https://github.com/sindresorhus/wait-for-localhost",
@@ -2357,6 +2369,12 @@
             "typingsPackageName": "wallpaper",
             "sourceRepoURL": "https://github.com/sindresorhus/wallpaper",
             "asOfVersion": "4.3.0"
+        },
+        {
+            "libraryName": "typescript",
+            "typingsPackageName": "webassembly-js-api",
+            "sourceRepoURL": "https://github.com/winksaville/test-webassembly-js-ts",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "webcola",
