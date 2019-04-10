@@ -1,7 +1,5 @@
 import assert = require("assert");
 import * as fs from "fs";
-import * as events from "events";
-import events2 = require("events");
 import * as url from "url";
 import * as util from "util";
 import * as http from "http";
@@ -10,83 +8,11 @@ import * as vm from "vm";
 import * as console2 from "console";
 import * as string_decoder from "string_decoder";
 import * as timers from "timers";
-import * as v8 from "v8";
 import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 import * as inspector from "inspector";
 import * as trace_events from "trace_events";
 import Module = require("module");
-
-////////////////////////////////////////////////////
-/// Events tests : http://nodejs.org/api/events.html
-////////////////////////////////////////////////////
-
-{
-    const emitter: events.EventEmitter = new events.EventEmitter();
-    const event: string | symbol = '';
-    const listener: (...args: any[]) => void = () => {};
-    const any: any = 1;
-
-    {
-        let result: events.EventEmitter;
-
-        result = emitter.addListener(event, listener);
-        result = emitter.on(event, listener);
-        result = emitter.once(event, listener);
-        result = emitter.prependListener(event, listener);
-        result = emitter.prependOnceListener(event, listener);
-        result = emitter.removeListener(event, listener);
-        result = emitter.off(event, listener);
-        result = emitter.removeAllListeners();
-        result = emitter.removeAllListeners(event);
-        result = emitter.setMaxListeners(42);
-    }
-
-    {
-        let result: number;
-
-        result = events.EventEmitter.defaultMaxListeners;
-        result = events.EventEmitter.listenerCount(emitter, event); // deprecated
-
-        result = emitter.getMaxListeners();
-        result = emitter.listenerCount(event);
-    }
-
-    {
-        let result: Function[];
-
-        result = emitter.listeners(event);
-    }
-
-    {
-        let result: boolean;
-
-        result = emitter.emit(event);
-        result = emitter.emit(event, any);
-        result = emitter.emit(event, any, any);
-        result = emitter.emit(event, any, any, any);
-    }
-
-    {
-        let result: Array<string | symbol>;
-
-        result = emitter.eventNames();
-    }
-
-    {
-        class Networker extends events.EventEmitter {
-            constructor() {
-                super();
-
-                this.emit("mingling");
-            }
-        }
-    }
-
-    {
-        new events2();
-    }
-}
 
 ////////////////////////////////////////////////////
 /// File system tests : http://nodejs.org/api/fs.html
@@ -566,13 +492,19 @@ import Module = require("module");
             foo: string;
         }
 
-        let server = new https.Server({ IncomingMessage: MyIncomingMessage});
+        let server: https.Server;
+
+        server = new https.Server();
+        server = new https.Server(reqListener);
+        server = new https.Server({ IncomingMessage: MyIncomingMessage});
 
         server = new https.Server({
             IncomingMessage: MyIncomingMessage,
             ServerResponse: MyServerResponse
         }, reqListener);
 
+        server = https.createServer();
+        server = https.createServer(reqListener);
         server = https.createServer({ IncomingMessage: MyIncomingMessage });
         server = https.createServer({ ServerResponse: MyServerResponse }, reqListener);
 
@@ -724,57 +656,6 @@ import Module = require("module");
         const isEval: boolean = frame.isEval();
         const isNative: boolean = frame.isNative();
         const isConstr: boolean = frame.isConstructor();
-    }
-}
-
-///////////////////////////////////////////////////////////
-/// Process Tests : https://nodejs.org/api/process.html ///
-///////////////////////////////////////////////////////////
-
-import * as p from "process";
-{
-    {
-        let eventEmitter: events.EventEmitter;
-        eventEmitter = process;                // Test that process implements EventEmitter...
-
-        let _p: NodeJS.Process = process;
-        _p = p;
-    }
-    {
-        assert(process.argv[0] === process.argv0);
-    }
-    {
-        let module: NodeModule | undefined;
-        module = process.mainModule;
-    }
-    {
-        process.on("message", (req: any) => { });
-        process.addListener("beforeExit", (code: number) => { });
-        process.once("disconnect", () => { });
-        process.prependListener("exit", (code: number) => { });
-        process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
-        process.on("uncaughtException", (error: Error) => { });
-        process.addListener("unhandledRejection", (reason: {} | null | undefined, promise: Promise<any>) => { });
-        process.once("warning", (warning: Error) => { });
-        process.prependListener("message", (message: any, sendHandle: any) => { });
-        process.prependOnceListener("SIGBREAK", () => { });
-        process.on("newListener", (event: string | symbol, listener: Function) => { });
-        process.once("removeListener", (event: string | symbol, listener: Function) => { });
-        process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
-
-        const listeners = process.listeners('uncaughtException');
-        const oldHandler = listeners[listeners.length - 1];
-        process.addListener('uncaughtException', oldHandler);
-    }
-    {
-        function myCb(err: Error): void {
-        }
-        process.setUncaughtExceptionCaptureCallback(myCb);
-        process.setUncaughtExceptionCaptureCallback(null);
-        const b: boolean = process.hasUncaughtExceptionCaptureCallback();
-    }
-    {
-        // process.allowedNodeEnvironmentFlags.has('asdf');
     }
 }
 
@@ -1132,19 +1013,6 @@ import * as constants from 'constants';
     num = constants.POINT_CONVERSION_HYBRID;
     str = constants.defaultCoreCipherList;
     str = constants.defaultCipherList;
-}
-
-////////////////////////////////////////////////////
-/// v8 tests : https://nodejs.org/api/v8.html
-////////////////////////////////////////////////////
-
-{
-    const heapStats = v8.getHeapStatistics();
-    const heapSpaceStats = v8.getHeapSpaceStatistics();
-
-    const zapsGarbage: number = heapStats.does_zap_garbage;
-
-    v8.setFlagsFromString('--collect_maps');
 }
 
 ////////////////////////////////////////////////////

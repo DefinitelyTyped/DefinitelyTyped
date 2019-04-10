@@ -20,6 +20,7 @@
 //                 Ming Chen <https://github.com/mingchen>
 //                 Olga Isakova <https://github.com/penumbra1>
 //                 Orblazer <https://github.com/orblazer>
+//                 HughKu <https://github.com/HughKu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1045,7 +1046,7 @@ declare module "mongoose" {
     safe?: boolean | { w?: number | string; wtimeout?: number; j?: boolean };
 
     /** defaults to null */
-    shardKey?: boolean;
+    shardKey?: object;
     /** defaults to true */
     strict?: boolean | 'throw';
     /** no default */
@@ -2988,6 +2989,12 @@ declare module "mongoose" {
     create(docs: any[], options?: SaveOptions, callback?: (err: any, res: T[]) => void): Promise<T[]>;
     create(...docs: any[]): Promise<T>;
     create(...docsWithCallback: any[]): Promise<T>;
+
+    /**
+     * Create the collection for this model. By default, if no indexes are specified, mongoose will not create the
+     * collection for the model until any documents are created. Use this method to create the collection explicitly.
+     */
+    createCollection(options?: mongodb.CollectionCreateOptions, cb?: (err: any) => void): Promise<void>;
 
     /**
      * Adds a discriminator type.

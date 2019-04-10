@@ -16,7 +16,9 @@ import {
     ComponentClass
 } from "react";
 
-export type Direction = "vertical" | "horizontal";
+export type CSSDirection = "ltr" | "rtl";
+export type Direction = "vertical" | "horizontal"; // TODO: deprecate in favour of Layout
+export type Layout = "vertical" | "horizontal";
 export type ScrollDirection = "forward" | "backward";
 export type Align = "auto" | "center" | "end" | "start";
 
@@ -136,14 +138,25 @@ export interface ListProps extends CommonProps {
      */
     width: number | string;
     /**
-     * Primary scroll direction of the list. Acceptable values are:
+     * Determines the direction of text and horizontal scrolling.
      *
-     * - vertical (default) - Up/down scrolling.
-     * - horizontal - Left/right scrolling.
+     * This property also automatically sets the CSS direction style for the list component.
      *
-     * Note that lists may scroll in both directions (depending on CSS) but content will only be windowed in the primary direction.
+     * Specifying "horizontal" or "vertical" for this value is deprecated. Use "layout" prop instead.
+     *
+     * @default "ltr"
      */
-    direction?: Direction;
+    direction?: CSSDirection | Direction;
+    /**
+     * Layout/orientation of the list.
+     *
+     * Acceptable values are:
+     * - "vertical" (default) - Up/down scrolling.
+     * - "horizontal" - Left/right scrolling.
+     *
+     * Note that lists may scroll in both directions (depending on CSS) but content will only be windowed in the layout direction specified.
+     */
+    layout?: Layout;
     /**
      * Scroll offset for initial render.
      *
@@ -214,6 +227,14 @@ export interface GridProps extends CommonProps {
      * Number of columns in the grid. Note that only a few columns will be rendered and displayed at a time.
      */
     columnCount: number;
+    /**
+     * Determines the direction of text and horizontal scrolling.
+     *
+     * This property also automatically sets the CSS direction style for the grid component.
+     *
+     * @default "ltr"
+     */
+    direction?: CSSDirection;
     /**
      * Height of the grid. This affects the number of rows that will be rendered (and displayed) at any given time.
      */

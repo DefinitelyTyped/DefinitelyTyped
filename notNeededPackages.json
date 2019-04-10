@@ -571,6 +571,12 @@
             "asOfVersion": "1.5.0"
         },
         {
+            "libraryName": "elastic-apm-node",
+            "typingsPackageName": "elastic-apm-node",
+            "sourceRepoURL": "https://github.com/elastic/apm-agent-nodejs",
+            "asOfVersion": "2.7.0"
+        },
+        {
             "libraryName": "electron",
             "typingsPackageName": "electron",
             "sourceRepoURL": "https://github.com/electron/electron",
@@ -785,6 +791,12 @@
             "typingsPackageName": "geolib",
             "sourceRepoURL": "https://github.com/manuelbieh/Geolib",
             "asOfVersion": "2.0.23"
+        },
+        {
+            "libraryName": "get-port",
+            "typingsPackageName": "get-port",
+            "sourceRepoURL": "https://github.com/sindresorhus/get-port",
+            "asOfVersion": "4.2.0"
         },
         {
             "libraryName": "get-stream",
@@ -1409,6 +1421,12 @@
             "typingsPackageName": "onsenui",
             "sourceRepoURL": "http://onsen.io",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "opn",
+            "typingsPackageName": "opn",
+            "sourceRepoURL": "https://github.com/sindresorhus/opn",
+            "asOfVersion": "5.5.0"
         },
         {
             "libraryName": "ora",
@@ -2125,6 +2143,12 @@
             "asOfVersion": "0.1.5"
         },
         {
+            "libraryName": "@storybook/addon-notes",
+            "typingsPackageName": "storybook__addon-notes",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "striptags",
             "typingsPackageName": "striptags",
             "sourceRepoURL": "https://github.com/ericnorris/striptags",
@@ -2357,6 +2381,12 @@
             "typingsPackageName": "webix",
             "sourceRepoURL": "http://webix.com",
             "asOfVersion": "5.1.1"
+        },
+        {
+            "libraryName": "webpack-chain",
+            "typingsPackageName": "webpack-chain",
+            "sourceRepoURL": "https://github.com/neutrinojs/webpack-chain",
+            "asOfVersion": "5.2.0"
         },
         {
             "libraryName": "winston",

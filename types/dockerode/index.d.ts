@@ -449,7 +449,7 @@ declare namespace Dockerode {
       Image: string;
       Volumes: { [volume: string]: {} };
       WorkingDir: string;
-      Entrypoint?: any;
+      Entrypoint?: string | string[];
       OnBuild?: any;
       Labels: { [label: string]: string }
     };
@@ -667,7 +667,7 @@ declare namespace Dockerode {
       Image: string;
       Volumes: { [path: string]: {} },
       WorkingDir: string;
-      Entrypoint?: any;
+      Entrypoint?: string | string[];
       OnBuild?: any[];
       Labels: { [label: string]: string }
     };
@@ -691,7 +691,7 @@ declare namespace Dockerode {
       Image: string;
       Volumes: { [path: string]: {} },
       WorkingDir: string;
-      Entrypoint?: any;
+      Entrypoint?: string | string[];
       OnBuild: any[];
       Labels: { [label: string]: string }
     };
@@ -827,7 +827,7 @@ declare namespace Dockerode {
     StdinOnce?: boolean;
     Env?: string[];
     Cmd?: string[];
-    Entrypoint?: string;
+    Entrypoint?: string | string[];
     Image?: string;
     Labels?: { [label: string]: string };
     Volumes?: { [volume: string]: {} };

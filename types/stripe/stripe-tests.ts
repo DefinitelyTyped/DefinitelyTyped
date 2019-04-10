@@ -973,6 +973,7 @@ stripe.invoices.retrieveUpcoming("cus_5rfJKDJkuxzh5Q").then((upcoming) => {
 stripe.invoices.update(
     "in_15fvyXEe31JkLCeQH7QbgZZb",
     {
+        auto_advance: false,
         closed: true
     },
     (err, invoice) => {
@@ -982,6 +983,7 @@ stripe.invoices.update(
 stripe.invoices.update(
     "in_15fvyXEe31JkLCeQH7QbgZZb",
     {
+        auto_advance: false,
         closed: true
     }).then((invoice) => {
         // asynchronously called
