@@ -22,6 +22,7 @@ declare module "https" {
     }
 
     class Server extends tls.Server {
+        constructor(requestListener?: http.RequestListener);
         constructor(options: ServerOptions, requestListener?: http.RequestListener);
 
         setTimeout(callback: () => void): this;
@@ -42,6 +43,7 @@ declare module "https" {
         keepAliveTimeout: number;
     }
 
+    function createServer(requestListener?: http.RequestListener): Server;
     function createServer(options: ServerOptions, requestListener?: http.RequestListener): Server;
     function request(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     function request(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;

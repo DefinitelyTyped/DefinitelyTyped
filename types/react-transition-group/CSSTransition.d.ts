@@ -5,6 +5,7 @@ declare namespace CSSTransition {
     interface CSSTransitionClassNames {
         appear?: string;
         appearActive?: string;
+        appearDone?: string;
         enter?: string;
         enterActive?: string;
         enterDone?: string;
@@ -33,7 +34,7 @@ declare namespace CSSTransition {
      * ```
      */
     interface CSSTransitionProps extends TransitionProps {
-        classNames: string | CSSTransitionClassNames;
+        classNames?: string | CSSTransitionClassNames;
     }
 }
 
