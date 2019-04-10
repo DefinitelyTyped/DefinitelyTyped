@@ -51,32 +51,32 @@ export class ChunkExtractor {
 	/**
 	 * Get scripts as a string of `<script>` tags
 	 */
-	getScriptTags(): string;
+	getScriptTags(attributes?: { [key: string]: string }): string;
 
 	/**
 	 * Get scripts as an array of React `<script>` elements.
 	 */
-	getScriptElements(): Array<ReactElement<{}>>;
+  	getScriptElements(attributes?: { [key: string]: string }): Array<ReactElement<{}>>;
 
 	/**
 	 * Get "prefetch" and "preload" links as a string of `<link>` tags
 	 */
-	getLinkTags(): string;
+  	getLinkTags(attributes?: { [key: string]: string }): string;
 
 	/**
 	 * Get "prefetch" and "preload" links as an array of React `<link>` elements
 	 */
-	getLinkElements(): Array<ReactElement<{}>>;
+  	getLinkElements(attributes?: { [key: string]: string }): Array<ReactElement<{}>>;
 
 	/**
 	 * Get style links as a string of `<link>` tags
 	 */
-	getStyleTags(): string;
+  	getStyleTags(attributes?: { [key: string]: string }): string;
 
 	/**
 	 * Get style links as an array of React `<link>` elements
 	 */
-	getStyleElements(): Array<ReactElement<{}>>;
+  	getStyleElements(attributes?: { [key: string]: string }): Array<ReactElement<{}>>;
 }
 
 export interface ChunkExtractorManagerProps {
