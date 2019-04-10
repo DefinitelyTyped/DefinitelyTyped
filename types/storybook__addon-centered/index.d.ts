@@ -1,4 +1,4 @@
-// Type definitions for @storybook/addon-centered 3.3
+// Type definitions for @storybook/addon-centered 3.3.1
 // Project: https://github.com/storybooks/storybook, https://github.com/storybooks/storybook/tree/master/addons/centered
 // Definitions by: kiyopikko <https://github.com/kiyopikko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
