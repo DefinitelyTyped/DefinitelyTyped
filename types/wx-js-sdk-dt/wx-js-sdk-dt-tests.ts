@@ -146,5 +146,5 @@ wx.updateAppMessageShareData({
 wx.updateTimelineShareData({
     title: '',
     link: '',
-    imageUrl: ''
+    imgUrl: ''
 });
