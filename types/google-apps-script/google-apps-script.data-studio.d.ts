@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-02-27
+// Type definitions for Google Apps Script 2019-04-09
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,12 +10,42 @@ declare namespace GoogleAppsScript {
     /**
      * An enum that defines the aggregation types that can be set for a Field.
      */
-    export enum AggregationType { NO_AGGREGATION, AVG, COUNT, COUNT_DISTINCT, MAX, MIN, SUM }
+    export enum AggregationType { AVG, COUNT, COUNT_DISTINCT, MAX, MIN, SUM, AUTO, NO_AGGREGATION }
 
     /**
      * An enum that defines the authentication types that can be set for a connector.
      */
     export enum AuthType { NONE, OAUTH2, USER_PASS, KEY, USER_TOKEN }
+
+    /**
+     * A configuration object for a native BigQuery connector. Return this object from getData()
+     * for Data Studio to query BigQuery for the connector.
+     *
+     *     var cc = DataStudioApp.createCommunityConnector();
+     *     var types = cc.BigQueryParameterType;
+     *
+     *     var bqConfig = cc.newBigQueryConfig()
+     *       .setBillingProjectId('billingProjectId')
+     *       .setQuery('queryString')
+     *       .setUseStandardSql(true)
+     *       .setAccessToken('accessToken')
+     *       .addQueryParameter('dob', types.STRING, '01011990')
+     *       .build();
+     */
+    export interface BigQueryConfig {
+      addQueryParameter(name: string, type: BigQueryParameterType, value: string): BigQueryConfig;
+      build(): Object;
+      printJson(): string;
+      setAccessToken(accessToken: string): BigQueryConfig;
+      setBillingProjectId(billingProjectId: string): BigQueryConfig;
+      setQuery(query: string): BigQueryConfig;
+      setUseStandardSql(useStandardSql: boolean): BigQueryConfig;
+    }
+
+    /**
+     * An enum that defines the BigQuery parameter types that you can set.
+     */
+    export enum BigQueryParameterType { STRING, INT64, BOOL, FLOAT64 }
 
     /**
      * Contains checkbox information for the config. Its properties determine how the checkbox is
@@ -53,10 +83,12 @@ declare namespace GoogleAppsScript {
     export interface CommunityConnector {
       AggregationType: typeof AggregationType;
       AuthType: typeof AuthType;
+      BigQueryParameterType: typeof BigQueryParameterType;
       FieldType: typeof FieldType;
       getConfig(): Config;
       getFields(): Fields;
       newAuthTypeResponse(): GetAuthTypeResponse;
+      newBigQueryConfig(): BigQueryConfig;
       newDebugError(): DebugError;
       newUserError(): UserError;
     }
@@ -279,7 +311,7 @@ declare namespace GoogleAppsScript {
      *       .setLabel("second option label")
      *       .setValue("option_value_2");
      *
-     *     var info1 = config.newSelectMultiple()
+     *     var info1 = config.newSelectSingle()
      *       .setId("api_endpoint")
      *       .setName("Data Type")
      *       .setHelpText("Select the data type you're interested in.")

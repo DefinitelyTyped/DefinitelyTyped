@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 //                 Steven Joyce <https://github.com/steven-joyce>
+//                 Joe Flateau <https://github.com/joeflateau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -26,9 +27,17 @@ declare namespace googletag {
 
     interface Service {
         addEventListener(
+          eventType: "slotRenderEnded",
+            listener: (event: events.SlotRenderEndedEvent) => void
+        ): Service;
+        addEventListener(
+          eventType: "slotVisibilityChanged",
+            listener: (event: events.SlotVisibilityChangedEvent) => void
+        ): Service;
+        addEventListener(
           eventType: string,
-            listener: (event: events.ImpressionViewableEvent | events.SlotOnloadEvent | events.SlotRenderEndedEvent | events.slotVisibilityChangedEvent) => void
-        ): void;
+            listener: (event: events.Event) => void
+        ): Service;
         getSlots(): Slot[];
     }
 
@@ -155,32 +164,29 @@ declare namespace googletag {
     }
 
     namespace events {
-        interface ImpressionViewableEvent {
+        interface Event {
             serviceName: string;
             slot: Slot;
         }
 
-        interface SlotOnloadEvent {
-            serviceName: string;
-            slot: Slot;
-        }
+        // tslint:disable-next-line:no-empty-interface
+        interface ImpressionViewableEvent extends Event {}
 
-        interface SlotRenderEndedEvent {
+        // tslint:disable-next-line:no-empty-interface
+        interface SlotOnloadEvent extends Event {}
+
+        interface SlotRenderEndedEvent extends Event {
             advertiserId?: number;
             creativeId?: number;
             isEmpty: boolean;
             lineItemId?: number;
-            serviceName: string;
             size: number[] | string;
-            slot: Slot;
             sourceAgnosticCreativeId?: number;
             sourceAgnosticLineItemId?: number;
         }
 
-        interface slotVisibilityChangedEvent {
+        interface SlotVisibilityChangedEvent extends Event {
             inViewPercentage: number;
-            serviceName: string;
-            slot: Slot;
         }
     }
 }

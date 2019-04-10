@@ -57,15 +57,17 @@ declare namespace stripe {
         personal_id_number: string;
     }
 
+    interface OwnerAddress {
+        city?: string;
+        country?: string;
+        line1?: string;
+        line2?: string;
+        postal_code?: string;
+        state?: string;
+    }
+
     interface OwnerInfo {
-        address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-        };
+        address?: OwnerAddress;
         name?: string;
         email?: string;
         phone?: string;
@@ -115,7 +117,7 @@ declare namespace stripe {
         currency: string;
         id: string;
         owner: {
-            address: string | null;
+            address: OwnerAddress | null;
             email: string | null;
             name: string | null;
             phone: string | null;

@@ -110,6 +110,7 @@ const Test: React.StatelessComponent = () => {
                 classNames={ {
                     appear: "fade-appear",
                     appearActive: "fade-active-appear",
+                    appearDone: "fade-done-appear",
                     enter: "fade-enter",
                     enterActive: "fade-active-enter",
                     enterDone: "fade-done-enter",

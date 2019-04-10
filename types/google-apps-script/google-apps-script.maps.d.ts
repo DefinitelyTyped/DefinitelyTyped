@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-04-09
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -226,35 +226,29 @@ declare namespace GoogleAppsScript {
      * The example below shows how you can use this class to create a map of New York City's Theatre
      * District, including nearby train stations, and display it in a simple web app.
      *
-     *     function doGet(event) {
-     *       // Create a map centered on Times Square.
-     *       var map = Maps.newStaticMap()
-     *           .setSize(600, 600)
-     *           .setCenter('Times Square, New York, NY');
+     *     // Create a map centered on Times Square.
+     *     var map = Maps.newStaticMap()
+     *         .setSize(600, 600)
+     *         .setCenter('Times Square, New York, NY');
      *
-     *       // Add markers for the nearbye train stations.
-     *       map.setMarkerStyle(Maps.StaticMap.MarkerSize.MID, Maps.StaticMap.Color.RED, 'T');
-     *       map.addMarker('Grand Central Station, New York, NY');
-     *       map.addMarker('Penn Station, New York, NY');
+     *     // Add markers for the nearbye train stations.
+     *     map.setMarkerStyle(Maps.StaticMap.MarkerSize.MID, Maps.StaticMap.Color.RED, 'T');
+     *     map.addMarker('Grand Central Station, New York, NY');
+     *     map.addMarker('Penn Station, New York, NY');
      *
-     *       // Show the boundaries of the Theatre District.
-     *       var corners = [
-     *         '8th Ave & 53rd St, New York, NY',
-     *         '6th Ave & 53rd St, New York, NY',
-     *         '6th Ave & 40th St, New York, NY',
-     *         '8th Ave & 40th St, New York, NY'
-     *       ];
-     *       map.setPathStyle(4, Maps.StaticMap.Color.BLACK, Maps.StaticMap.Color.BLUE);
-     *       map.beginPath();
-     *       for (var i = 0; i < corners.length; i++) {
-     *         map.addAddress(corners[i]);
-     *       }
-     *
-     *       // Create the user interface and add the map image.
-     *       var app = UiApp.createApplication().setTitle('NYC Theatre District');
-     *       app.add(app.createImage(map.getMapUrl()));
-     *       return app;
+     *     // Show the boundaries of the Theatre District.
+     *     var corners = [
+     *       '8th Ave & 53rd St, New York, NY',
+     *       '6th Ave & 53rd St, New York, NY',
+     *       '6th Ave & 40th St, New York, NY',
+     *       '8th Ave & 40th St, New York, NY'
+     *     ];
+     *     map.setPathStyle(4, Maps.StaticMap.Color.BLACK, Maps.StaticMap.Color.BLUE);
+     *     map.beginPath();
+     *     for (var i = 0; i < corners.length; i++) {
+     *       map.addAddress(corners[i]);
      *     }
+     *     var url = map.getMapUrl();
      *
      * See also
      *

@@ -757,7 +757,9 @@ export interface LayoutChangeEvent {
     };
 }
 
+export type FontVariant = 'small-caps' | 'oldstyle-nums' | 'lining-nums' | 'tabular-nums' | 'proportional-nums';
 export interface TextStyleIOS extends ViewStyle {
+    fontVariant?: FontVariant[];
     letterSpacing?: number;
     textDecorationColor?: string;
     textDecorationStyle?: "solid" | "double" | "dotted" | "dashed";
