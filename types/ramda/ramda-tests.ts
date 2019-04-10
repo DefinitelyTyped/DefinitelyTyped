@@ -819,6 +819,10 @@ R.times(i, 5);
     const d: number[] = R.pipe(
         R.reject<number, 'array'>(isEven),
     )([0, 1]); // => [1]
+
+    const e: any[] = R.pipe(
+        R.filter(R.has('a')),
+    )([{ a: 0, b: 1 }, { a: 0, b: 1 }, { a: 0, b: 1 }]);
 };
 
 () => {
