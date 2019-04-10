@@ -2,9 +2,7 @@
 // Project: https://webassembly.org/
 // Definitions by: Johannes Henninger <https://github.com/jhenninger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-/// <reference types="webassembly-js-api" />
+// TypeScript Version: 3.5
 
 /**
  *  The WebAssembly Web API defines extensions to the JavaScript API made
@@ -12,6 +10,11 @@
  *  API](https://www.w3.org/TR/wasm-web-api-1/) for more information.
  */
 declare namespace WebAssembly {
+    interface ResultObject {
+        module: Module;
+        instance: Instance;
+    }
+
     function compileStreaming(source: Response | Promise<Response>): Promise<Module>;
     function instantiateStreaming(source: Response | Promise<Response>, importObject?: object): Promise<ResultObject>;
 }
