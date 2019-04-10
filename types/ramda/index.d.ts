@@ -601,9 +601,9 @@ declare namespace R {
     }
 
     interface Filter {
-        <T>(fn: (value: T) => boolean): FilterOnceApplied<T>;
         <T, Kind extends 'array'>(fn: (value: T) => boolean): (list: ReadonlyArray<T>) => T[];
         <T, Kind extends 'object'>(fn: (value: T) => boolean): (list: Dictionary<T>) => Dictionary<T>;
+        <T>(fn: (value: T) => boolean): FilterOnceApplied<T>;
         <T>(fn: (value: T) => boolean, list: ReadonlyArray<T>): T[];
         <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
     }
