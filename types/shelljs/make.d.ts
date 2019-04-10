@@ -39,4 +39,5 @@ declare global {
 	const tempdir: typeof shelljs.tempdir;
 	const touch: typeof shelljs.touch;
 	const uniq: typeof shelljs.uniq;
+	const ShellString: typeof shelljs.ShellString;
 }
