@@ -9,9 +9,7 @@ import axios from "axios";
 declare module 'axios' {
     export interface AxiosRequestConfig {
         requestId?: string
-    }
+    };
 }
 
-function axiosCancel(a: typeof axios): void;
-
-export default axiosCancel;
+export =function (a: typeof axios): void;
