@@ -8,13 +8,22 @@ import {AxiosStatic} from "axios";
 
 declare module 'axios' {
     export interface AxiosRequestConfig {
-        requestId?: string;
-    }
+        requestId?: string
+    };
     export interface AxiosStatic {
         cancel: (requestId: string) => void;
+        cancelAll: () => void;
     }
 }
 
-declare function axiosCancel(a: AxiosStatic): void;
+interface AxiosCancelOptions {
+    /**
+     * Enables logging
+     * default: false
+     */
+    debug: boolean
+}
+
+declare function axiosCancel(axiosStatic: AxiosStatic, options?: AxiosCancelOptions): void;
 
 export default axiosCancel;
