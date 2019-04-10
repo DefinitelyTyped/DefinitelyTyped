@@ -5242,6 +5242,9 @@ declare namespace chrome.runtime {
         version: string;
     }
 
+    /** Result of the update check. */
+    export type RequestUpdateCheckStatus = 'throttled' | 'no_update' | 'update_available';
+
     export interface PortDisconnectEvent extends chrome.events.Event<(port: Port) => void> { }
 
     export interface PortMessageEvent extends chrome.events.Event<(message: any, port: Port) => void> { }
@@ -5518,7 +5521,7 @@ declare namespace chrome.runtime {
      * Parameter status: Result of the update check. One of: "throttled", "no_update", or "update_available"
      * Optional parameter details: If an update is available, this contains more information about the available update.
      */
-    export function requestUpdateCheck(callback: (status: string, details?: UpdateCheckDetails) => void): void;
+    export function requestUpdateCheck(callback: (status: RequestUpdateCheckStatus, details?: UpdateCheckDetails) => void): void;
     /**
      * Restart the ChromeOS device when the app runs in kiosk mode. Otherwise, it's no-op.
      * @since Chrome 32.

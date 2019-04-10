@@ -35,6 +35,7 @@
         "test/next-server-dynamic-tests.tsx",
         "test/next-server-router-tests.tsx",
         "test/imports/no-default.tsx",
-        "test/imports/with-default.tsx"
+        "test/imports/with-default.tsx",
+        "test/imports/with-default-second.tsx"
     ]
 }
