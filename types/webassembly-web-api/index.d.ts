@@ -2,7 +2,7 @@
 // Project: https://webassembly.org/
 // Definitions by: Johannes Henninger <https://github.com/jhenninger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 2.2
 
 /**
  *  The WebAssembly Web API defines extensions to the JavaScript API made
@@ -10,6 +10,11 @@
  *  API](https://www.w3.org/TR/wasm-web-api-1/) for more information.
  */
 declare namespace WebAssembly {
+    /// Other WebAssembly declarations, for compatibility with older versions of Typescript
+    // tslint:disable-next-line no-empty-interface
+    interface Module { }
+    // tslint:disable-next-line no-empty-interface
+    interface Instance { }
     interface ResultObject {
         module: Module;
         instance: Instance;
