@@ -2442,13 +2442,13 @@ declare namespace Cesium {
         width: number;
         followSurface: Property;
         granularity: Property;
-        constructor(options?: { 
+        constructor(options?: {
             positions?: Cartesian3[];
             followSurface?: Property;
             width?: number;
             show?: Property;
             material?: PolylineDashMaterialProperty | Color | MaterialProperty;
-            granularity?: Property 
+            granularity?: Property
         });
         clone(result?: PolylineGraphics): PolylineGraphics;
         merge(source: PolylineGraphics): PolylineGraphics;
