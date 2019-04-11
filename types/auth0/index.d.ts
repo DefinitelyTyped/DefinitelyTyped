@@ -867,8 +867,8 @@ export class ManagementClient {
 
 
   // Jobs
-    getJob<T extends Job>(params: ObjectWithId): Promise<T>;
-    getJob<T extends Job>(params: ObjectWithId, cb?: (err: Error, data: T) => void): void;
+    getJob(params: ObjectWithId): Promise<Job>;
+    getJob(params: ObjectWithId, cb?: (err: Error, data: Job) => void): void;
 
     importUsers(data: ImportUsersOptions): Promise<ImportUsersJob>;
     importUsers(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;

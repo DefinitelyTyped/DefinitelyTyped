@@ -238,29 +238,29 @@ management.getClients({fields:['name','client_metadata'], include_fields:true})
 management.getClients({fields:['name','client_metadata'], include_fields:true}, (err:Error, clients:auth0.Client[]) => {});
 
 // Jobs
-management.getJob<auth0.ExportUsersJob>({
+management.getJob({
     id: 'job_id'
-}).then((job) => console.log(job.fields));
+}).then((job) => console.log((<auth0.ExportUsersJob>job).fields));
 
-management.getJob<auth0.ExportUsersJob>({
+management.getJob({
     id: 'job_id'
-}, (err, data) => console.log(data.fields));
+}, (err, data) => console.log((<auth0.ExportUsersJob>data).fields));
 
-management.getJob<auth0.ImportUsersJob>({
+management.getJob({
     id: 'job_id'
-}).then((job) => console.log(job.send_completion_email));
+}).then((job) => console.log((<auth0.ImportUsersJob>job).send_completion_email));
 
-management.getJob<auth0.ImportUsersJob>({
+management.getJob({
     id: 'job_id'
-}, (err, data) => console.log(data.send_completion_email));
+}, (err, data) => console.log((<auth0.ImportUsersJob>data).send_completion_email));
 
-management.getJob<auth0.VerificationEmailJob>({
+management.getJob({
     id: 'job_id'
-}).then((job) => console.log(job.id));
+}).then((job) => console.log((<auth0.VerificationEmailJob>job).id));
 
-management.getJob<auth0.VerificationEmailJob>({
+management.getJob({
     id: 'job_id'
-}, (err, data) => console.log(data.id));
+}, (err, data) => console.log((<auth0.VerificationEmailJob>data).id));
 
 management.importUsers({
     users: "some file data",
