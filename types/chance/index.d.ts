@@ -1,8 +1,9 @@
-// Type definitions for Chance 1.0.16
+// Type definitions for Chance 1.0
 // Project: http://chancejs.com
 // Definitions by: Chris Bowdon <https://github.com/cbowdon>
 //                 Brice BERNARD <https://github.com/brikou>
 //                 Carlos Sanchez <https://github.com/cafesanu>
+//                 Colby M. White <https://github.com/colbywhite>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chance {
@@ -91,6 +92,8 @@ declare namespace Chance {
         depth(opts?: Options): number;
         geohash(opts?: Options): string;
         latitude(opts?: Options): number;
+        locale(opts?: LocaleOptions): string;
+        locales(opts?: LocaleOptions): string;
         longitude(opts?: Options): number;
         phone(opts?: Options): string;
         postal(): string;
@@ -191,6 +194,10 @@ declare namespace Chance {
         day?: number;
         min?: Date;
         max?: Date;
+    }
+
+    interface LocaleOptions {
+        region: boolean;
     }
 
     interface Month {
