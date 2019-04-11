@@ -484,6 +484,9 @@ declare namespace Office {
         * True, if the current platform allows the add-in to display a UI for selling or upgrading; otherwise returns False.
         * 
         * @remarks
+        * **Hosts**: Excel, Word
+        * 
+        * `commerceAllowed` is only supported on Office for iPad.
         * 
         * The iOS App Store doesn't support apps with add-ins that provide links to additional payment systems. However, Office Add-ins running on 
         * the Windows desktop or for Office Online in the browser do allow such links. If you want the UI of your add-in to provide a link to an 
@@ -498,6 +501,25 @@ declare namespace Office {
         * application.
         * 
         * In content add-ins for Access web apps, the `contentLanguage` property gets the add-in culture (e.g., "en-GB").
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
+        * An empty cell indicates that the Office host application doesn't support this enumeration.
+        * 
+        * For more information about Office host application and server requirements, see 
+        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        *  
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+        *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *  </table>
         */
         contentLanguage: string;
         /**
@@ -518,6 +540,24 @@ declare namespace Office {
         * 
         * When using in Outlook, the applicable modes are Compose or Read.
         * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
+        * An empty cell indicates that the Office host application doesn't support this enumeration.
+        * 
+        * For more information about Office host application and server requirements, see 
+        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><td><strong> Access     </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+        *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *  </table>
         */
         displayLanguage: string;
         /**
@@ -582,6 +622,10 @@ declare namespace Office {
         * True if the add-in is running on a touch device, such as an iPad; false otherwise.
         * 
         * @remarks
+        * **Hosts**: Excel, PowerPoint, Word
+        * 
+        * `touchEnabled` is only supported on Office for iPad.
+        * 
         * Use the touchEnabled property to determine when your add-in is running on a touch device and if necessary, adjust the kind of controls, and 
         * size and spacing of elements in your add-in's UI to accommodate touch interactions.
         */
@@ -738,7 +782,7 @@ declare namespace Office {
         *   <tr>
         *     <td>12005</td>
         *     <td>The URL passed to displayDialogAsync uses the HTTP protocol. HTTPS is required. (In some versions of Office, the error message returned with 12005 is the same one returned for 12004.)</td>
-        *   </tr>
+        *   </tr>7
         *   <tr>
         *     <td>12007</td>
         *     <td>A dialog box is already opened from the task pane. A task pane add-in can only have one dialog box open at a time.</td>
@@ -951,33 +995,7 @@ declare namespace Office {
          */
         asyncContext?: any
     }
-
-    /**
-     * Provides options for the user experience when Office obtains an access token to the add-in from AAD v. 2.0 with the getAccessTokenAsync method.
-     */
-    interface AuthOptions {
-        /**
-         * Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has
-         * been revoked.
-         */
-        forceConsent?: boolean,
-        /**
-         * Prompts the user to add their Office account (or to switch to it, if it is already added).
-         */
-        forceAddAccount?: boolean,
-        /**
-         * Causes Office to prompt the user to provide the additional factor when the tenancy being targeted by Microsoft Graph requires multifactor
-         * authentication. The string value identifies the type of additional factor that is required. In most cases, you won't know at development
-         * time whether the user's tenant requires an additional factor or what the string should be. So this option would be used in a "second try"
-         * call of getAccessTokenAsync after Microsoft Graph has sent an error requesting the additional factor and containing the string that should
-         * be used with the authChallenge option.
-         */
-        authChallenge?: string
-        /**
-         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
-         */
-        asyncContext?: any
-    }
+    
     /**
      * Provides an option for preserving context data of any type, unchanged, for use in a callback.
      */
@@ -1314,7 +1332,11 @@ declare namespace Office {
      * Using Office theme colors lets you coordinate the color scheme of your add-in with the current Office theme selected by the user with File \> 
      * Office Account \> Office Theme UI, which is applied across all Office host applications. Using Office theme colors is appropriate for mail and 
      * task pane add-ins.
-     *
+     * 
+     * @remarks
+     * **Hosts**: Excel, Outlook (in preview), PowerPoint, Word
+     * 
+     * `OfficeTheme` is only supported on Office for Windows desktop.
      */
     interface OfficeTheme {
         /**
@@ -1367,9 +1389,28 @@ declare namespace Office {
      * @param expression The object to be retrieved. Example "bindings#BindingName", retrieves a binding promise for a binding named 'BindingName'
      * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
      * 
+     * @remarks
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
+     * An empty cell indicates that the Office host application doesn't support this method.
+     * 
+     * For more information about Office host application and server requirements, see 
+     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
+     *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *  </table>
      */
     function select(expression: string, callback?: (result: AsyncResult<any>) => void): Binding;
+
     // Enumerations
+
     /**
      * Specifies the state of the active view of the document, for example, whether the user can edit the document.
      */
@@ -1751,6 +1792,14 @@ declare namespace Office {
     * and setDataAsync methods from the Binding object that enable to you interact with the data in the binding. They also inherit the id and type 
     * properties for querying those property values. Additionally, the MatrixBinding and TableBinding objects expose additional methods for matrix- 
     * and table-specific features, such as counting the number of rows and columns.
+    *
+    * @remarks
+    * **Hosts**: Access, Excel, Word
+    * 
+    * **Requirement sets**: 
+    * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+    * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+    * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
     */
     interface Binding {
         /**
@@ -2142,9 +2191,6 @@ declare namespace Office {
 
     /**
      * Provides information about the binding that raised the DataChanged event.
-     * 
-     * @remarks
-     * **Hosts**: Access, Excel, Word
      */
     interface BindingDataChangedEventArgs {
         /**
@@ -2160,9 +2206,6 @@ declare namespace Office {
 
     /**
      * Provides information about the binding that raised the SelectionChanged event.
-     * 
-     * @remarks
-     * **Hosts**: Access, Excel, Word
      */
     interface BindingSelectionChangedEventArgs {
         /**
@@ -2459,6 +2502,9 @@ declare namespace Office {
     }
     /**
      * Represents an XML node in a tree in a document.
+     * 
+     * @remarks
+     * **Hosts**: Word
      */
     interface CustomXmlNode {
         /**
@@ -2625,6 +2671,9 @@ declare namespace Office {
     }
     /**
      * Represents a single CustomXMLPart in an {@link Office.CustomXmlParts} collection.
+     * 
+     * @remarks
+     * **Hosts**: Word
      */
     interface CustomXmlPart {
         /**
@@ -2822,6 +2871,9 @@ declare namespace Office {
 
     /**
      * Represents a collection of CustomXmlPart objects.
+     * 
+     * @remarks
+     * **Hosts**: Word
      */
     interface CustomXmlParts {
         /**
@@ -2898,6 +2950,9 @@ declare namespace Office {
     }
     /**
      * Represents a collection of CustomXmlPart objects.
+     * 
+     * @remarks
+     * **Hosts**: Word
      */
     interface CustomXmlPrefixMappings {
         /**
@@ -4161,7 +4216,6 @@ declare namespace Office {
      *
      * @remarks
      * The MatrixBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object.
-     * 
      */
     interface MatrixBinding extends Binding {
         /**
@@ -4177,6 +4231,7 @@ declare namespace Office {
      * Represents custom settings for a task pane or content add-in that are stored in the host document as name/value pairs.
      *
      * @remarks
+     * **Hosts**: Access, Excel, PowerPoint, Word
      * 
      * The settings created by using the methods of the Settings object are saved per add-in and per document. 
      * That is, they are available only to the add-in that created them, and only from the document in which they are saved.
@@ -4197,6 +4252,8 @@ declare namespace Office {
          * spreadsheet (co-authoring). Therefore, effectively the settingsChanged event is supported only in Excel Online in co-authoring scenarios.
          *
          * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
+         * 
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
          * @param eventType Specifies the type of event to add. Required.
@@ -4236,6 +4293,7 @@ declare namespace Office {
          * spreadsheet (co-authoring). Therefore, effectively the settingsChanged event is supported only in Excel Online in co-authoring scenarios.
          *
          * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
@@ -4338,6 +4396,7 @@ declare namespace Office {
          * Removes an event handler for the settingsChanged event.
          *
          * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * If the optional handler parameter is omitted when calling the removeHandlerAsync method, all event handlers for the specified eventType 
          * will be removed.
@@ -4357,6 +4416,7 @@ declare namespace Office {
          * Removes an event handler for the settingsChanged event.
          *
          * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * If the optional handler parameter is omitted when calling the removeHandlerAsync method, all event handlers for the specified eventType 
          * will be removed.
