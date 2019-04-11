@@ -2,7 +2,7 @@
 // Project: https://github.com/bdeloeste/react-click-outside-hook#readme
 // Definitions by: Bryan Deloeste <https://github.com/bdeloeste>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.8
 import { MutableRefObject } from "react";
 
 export function useClickOutside<T>(): [MutableRefObject<T>, boolean];
