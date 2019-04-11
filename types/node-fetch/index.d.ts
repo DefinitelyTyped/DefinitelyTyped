@@ -116,9 +116,17 @@ export class Headers implements Iterable<[string, string]> {
     [Symbol.iterator](): Iterator<[string, string]>;
 }
 
+type BlobPart = ArrayBuffer | ArrayBufferView | Blob | string;
+
+interface BlobOptions {
+    type?: string;
+    endings?: "transparent" | "native";
+}
+
 export class Blob {
-    type: string;
-    size: number;
+    constructor(blobParts?: BlobPart[], options?: BlobOptions);
+    readonly type: string;
+    readonly size: number;
     slice(start?: number, end?: number): Blob;
 }
 
@@ -172,7 +180,14 @@ export interface ResponseInit {
 }
 
 export type HeadersInit = Headers | string[][] | { [key: string]: string };
-export type BodyInit = ArrayBuffer | ArrayBufferView | NodeJS.ReadableStream | string | URLSearchParams;
+// HeaderInit is exported to support backwards compatibility. See PR #34382
+export type HeaderInit = HeadersInit;
+export type BodyInit =
+    ArrayBuffer
+    | ArrayBufferView
+    | NodeJS.ReadableStream
+    | string
+    | URLSearchParams;
 export type RequestInfo = string | Request;
 
 declare function fetch(

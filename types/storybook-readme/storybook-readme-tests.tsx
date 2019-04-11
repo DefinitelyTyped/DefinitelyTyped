@@ -2,6 +2,7 @@ import * as React from "react";
 import { storiesOf, addDecorator } from "@storybook/react";
 import { withDocs, withReadme, doc, addReadme, configureReadme, addFooter, addHeader } from "storybook-readme";
 import Marked from "storybook-readme/components/Marked";
+import registerWithPanelTitle from "storybook-readme/registerWithPanelTitle";
 
 // Possibly any .md files or strings
 const DocExample1 = `
@@ -17,6 +18,7 @@ A very simple component with markdown
 // Here are the examples for a type compatibility. Please look https://github.com/tuchk4/storybook-readme for actual usages
 
 // Tests for v5
+registerWithPanelTitle("Custom Name Here");
 addDecorator(addReadme);
 storiesOf('addParameter Example', module)
   .addParameters({

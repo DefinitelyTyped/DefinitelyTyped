@@ -45,7 +45,7 @@ interface Console {
     /**
      * The `console.groupCollapsed()` function is an alias for {@link console.group()}.
      */
-    groupCollapsed(): void;
+    groupCollapsed(...label: any[]): void;
     /**
      * Decreases indentation of subsequent lines by two spaces.
      */

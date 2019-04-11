@@ -815,6 +815,35 @@ ImageModel.findOne({}, function(err, doc) {
     doc.id;
   }
 });
+/* Using flatten maps example */
+interface Submission extends mongoose.Document {
+  name: string;
+  fields: string[];
+}
+var SubmissionSchema = new mongoose.Schema({
+  name: String,
+  fields: {
+    type: Map,
+    of: String
+  }
+});
+const SubmissionModel = mongoose.model<Submission>('Submission', SubmissionSchema);
+const submission = new SubmissionModel({
+  name: "Submission Name",
+  fields: {
+    extra: "Value",
+    other: "Thing"
+  }
+});
+submission.save()
+.then(result => {
+  console.log(result.toObject({
+    flattenMaps: true
+  }));
+})
+.catch(() => {
+  console.log("Flatten maps error");
+});
 
 /*
  * section types/subdocument.js
