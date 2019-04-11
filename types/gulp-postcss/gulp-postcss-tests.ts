@@ -1,8 +1,8 @@
 import * as gulp from 'gulp';
-import * as postcss from 'gulp-postcss';
-import * as autoprefixer from 'autoprefixer';
 import * as Vinyl from 'vinyl';
-import * as sass from 'sass';
+import postcss = require('gulp-postcss');
+import autoprefixer = require('autoprefixer');
+import sass = require('sass');
 
 gulp.task('postCss1', () => {
     return gulp.src('./src/*.css')
