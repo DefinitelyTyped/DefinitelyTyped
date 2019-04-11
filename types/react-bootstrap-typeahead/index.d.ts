@@ -5,6 +5,7 @@
 //                 Paito Anderson <https://github.com/PaitoAnderson>
 //                 Andreas Richter <https://github.com/arichter83>
 //                 Dale Fenton <https://github.com/dalevfenton>
+//                 Håkon Holhjem <https://github.com/KngHawkon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -126,7 +127,7 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
        but not the list of original options unless handled as such by Typeahead's parent.
        The newly added item will always be returned as an object even if the other options are simply strings,
        so be sure your onChange callback can handle this. */
-    allowNew?: boolean;
+    allowNew?: boolean | ((results: T[], props: AllTypeaheadOwnAndInjectedProps<T>) => boolean);
 
     /* Autofocus the input when the component initially mounts. */
     autoFocus?: boolean;
@@ -172,6 +173,9 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
        Does not work with allowNew. */
     highlightOnlyResult?: boolean;
 
+    /* An html id attribute, required for assistive technologies such as screen readers. */
+    id?: string | number;
+
     /* Whether the filter should ignore accents and other diacritical marks. */
     ignoreDiacritics?: boolean;
 
@@ -198,7 +202,7 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
        so as not to render too many DOM nodes in the case of large data sets. */
     maxResults?: number;
 
-    /* Id applied to the top-level menu element. Required for accessibility. */
+    /* DEPRECATED. Id applied to the top-level menu element. Required for accessibility. */
     menuId?: string;
 
     /* Number of input characters that must be entered before showing results. */
@@ -252,6 +256,10 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
 
     /* Placeholder text for the input. */
     placeholder?: string;
+
+    /* Whether to use fixed positioning for the menu, which is useful when rendering inside a
+    container with overflow: hidden;. Uses absolute positioning by default. */
+    positionFixed?: boolean;
 
     /* Callback for custom menu rendering. */
     renderMenu?: (results: Array<TypeaheadResult<T>>, menuProps: any) => React.ReactNode;

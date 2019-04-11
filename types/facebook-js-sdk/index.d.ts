@@ -150,7 +150,7 @@ declare namespace facebook {
     }
 
     interface LoginOptions {
-        auth_type?: 'rerequest';
+        auth_type?: 'reauthenticate' | 'reauthorize' | 'rerequest';
         scope?: string;
         return_scopes?: boolean;
         enable_profile_selector?: boolean;

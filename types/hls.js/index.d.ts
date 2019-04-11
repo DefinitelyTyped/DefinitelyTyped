@@ -1641,7 +1641,7 @@ declare class Hls {
     /**
      * return array of available quality levels
      */
-    levels: Hls.Level[];
+    readonly levels: Hls.Level[];
     /**
      * get: return current playback quality level
      * set:  trigger an immediate quality level switch to new quality level
@@ -1666,16 +1666,6 @@ declare class Hls {
      *  default valus is hls.firstLevel
      */
     startLevel: number;
-    /**
-     * (default: true)
-     * if set to true, start level playlist and first fragments will be loaded automatically, after triggering of Hls.Events.MANIFEST_PARSED event
-     * if set to false, an explicit API call (hls.startLoad(startPosition=-1)) will be needed to start quality level/fragment loading.
-     */
-    autoStartLoad: boolean;
-    /**
-     * get: Return the bound videoElement from the hls instance
-     */
-    media: HTMLVideoElement;
     /**
      *  hls.js config
      */
@@ -1709,7 +1699,7 @@ declare class Hls {
     /**
      * array of audio tracks exposed in manifest
      */
-    audioTracks: AudioTrack[];
+    readonly audioTracks: AudioTrack[];
     /**
      * get: returns audio track id
      * set: sets audio track id (returned by)
@@ -1718,11 +1708,11 @@ declare class Hls {
     /**
      * position of live sync point (ie edge of live position minus safety delay defined by hls.config.liveSyncDuration)
      */
-    liveSyncPosition: number;
+    readonly liveSyncPosition: number;
     /**
      * get : array of subtitle tracks exposed in manifest
      */
-    subtitleTracks: any[];
+    readonly subtitleTracks: any[];
     /**
      * get/set : subtitle track id (returned by).
      * Returns -1 if no track is visible.
@@ -1735,11 +1725,6 @@ declare class Hls {
      * If set to false, the mode will be set to hidden.
      */
     subtitleDisplay: boolean;
-    /**
-     * (default: NaN)
-     * Return current download bandwidth in bits/s if available
-     */
-    bandwidthEstimate: number;
     /**
      * calling this method will:
      *      bind videoElement and hls instances
@@ -1757,7 +1742,7 @@ declare class Hls {
     /**
      * tell whether auto level selection is enabled or not
      */
-    autoLevelEnabled(enabled: boolean): boolean;
+    readonly autoLevelEnabled: boolean;
     /**
      * loads provided url as media source
      */

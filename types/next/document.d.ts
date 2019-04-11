@@ -111,6 +111,7 @@ export type DocumentComponentType<P = {}, IP = P, C = NextDocumentContext> = Nex
     C
 >;
 
+export class Html extends React.Component<React.HTMLProps<HTMLHtmlElement>> {}
 export class Head extends React.Component<HeadProps> {}
 export class Main extends React.Component {}
 export class NextScript extends React.Component<NextScriptProps> {}

@@ -6,6 +6,7 @@
 //                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
 //                 Steffen Viken Valvåg <https://github.com/steffenvv>
+//                 Emily Marigold Klassen <https://github.com/forivall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -60,7 +61,7 @@ declare namespace yargs {
 
         command<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, description: string, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
-        command(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, any>): Argv<T>;
+        command<U>(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, U>): Argv<U>;
         command<U>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<U>;
@@ -124,6 +125,8 @@ declare namespace yargs {
 
         example(command: string, description: string): Argv<T>;
 
+        exit(code: number, err: Error): void;
+
         exitProcess(enabled: boolean): Argv<T>;
 
         fail(func: (msg: string, err: Error) => any): Argv<T>;
@@ -168,6 +171,8 @@ declare namespace yargs {
 
         parse(): { [key in keyof Arguments<T>]: Arguments<T>[key] };
         parse(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+
+        parsed: DetailedArguments | false;
 
         pkgConf(key: string | ReadonlyArray<string>, cwd?: string): Argv<T>;
 
@@ -261,6 +266,28 @@ declare namespace yargs {
         /** All remaining options */
         [argName: string]: unknown;
     };
+
+    interface DetailedArguments {
+        argv: Arguments;
+        error: Error | null;
+        aliases: {[alias: string]: string[]};
+        newAliases: {[alias: string]: boolean};
+        configuration: Configuration;
+    }
+
+    interface Configuration {
+        'boolean-negation': boolean;
+        'camel-case-expansion': boolean;
+        'combine-arrays': boolean;
+        'dot-notation': boolean;
+        'duplicate-arguments-array': boolean;
+        'flatten-duplicate-arrays': boolean;
+        'negation-prefix': string;
+        'parse-numbers': boolean;
+        'populate--': boolean;
+        'set-placeholder-key': boolean;
+        'short-option-groups': boolean;
+    }
 
     interface RequireDirectoryOptions {
         recurse?: boolean;

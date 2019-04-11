@@ -1648,6 +1648,9 @@ MongoModel.create([{ type: 'jelly bean' }, {
   arg[0].save();
   arg[1].save();
 });
+MongoModel.createCollection().then(() => {});
+MongoModel.createCollection({ capped: true, max: 42 }).then(() => {});
+MongoModel.createCollection({ capped: true, max: 42 }, err => {});
 MongoModel.distinct('url', { clicks: {$gt: 100}}, function (err, result) {
 });
 MongoModel.distinct('url').exec(cb);

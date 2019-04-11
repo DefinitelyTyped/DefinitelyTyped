@@ -20,7 +20,8 @@
 //                 Frank Li <https://github.com/franklixuefei>
 //                 Jessica Franco <https://github.com/Jessidhia>
 //                 Paul Sherman <https://github.com/pshrmn>
-//                 Sunil Pai <https://github.com/threepointone>
+//                 Saransh Kataria <https://github.com/saranshkataria>
+//                 Kanitkorn Sujautra <https://github.com/lukyth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -426,7 +427,7 @@ declare namespace React {
         // always pass children as variadic arguments to `createElement`.
         // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
-        readonly props: Readonly<PropsWithChildren<P>>;
+        readonly props: Readonly<P> & Readonly<{ children?: ReactNode }>;
         state: Readonly<S>;
         /**
          * @deprecated
@@ -1777,6 +1778,7 @@ declare namespace React {
         rel?: string;
         target?: string;
         type?: string;
+        referrerPolicy?: string;
     }
 
     // tslint:disable-next-line:no-empty-interface
@@ -1813,7 +1815,7 @@ declare namespace React {
         formNoValidate?: boolean;
         formTarget?: string;
         name?: string;
-        type?: string;
+        type?: 'submit' | 'reset' | 'button';
         value?: string | string[] | number;
     }
 
@@ -2920,6 +2922,7 @@ declare global {
             feDiffuseLighting: React.SVGProps<SVGFEDiffuseLightingElement>;
             feDisplacementMap: React.SVGProps<SVGFEDisplacementMapElement>;
             feDistantLight: React.SVGProps<SVGFEDistantLightElement>;
+            feDropShadow: React.SVGProps<SVGFEDropShadowElement>;
             feFlood: React.SVGProps<SVGFEFloodElement>;
             feFuncA: React.SVGProps<SVGFEFuncAElement>;
             feFuncB: React.SVGProps<SVGFEFuncBElement>;

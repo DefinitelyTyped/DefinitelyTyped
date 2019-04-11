@@ -21,6 +21,7 @@ import {
     BackAndroid,
     BackHandler,
     Button,
+    CheckBox,
     ColorPropType,
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
@@ -534,6 +535,16 @@ class MaskedViewTest extends React.Component {
     }
 }
 
+const CheckboxTest = () => (
+    <CheckBox
+        testID="testId"
+        disabled={false}
+        onChange={value => { console.log(value); }}
+        onValueChange={value => { console.log(value); }}
+        value={true}
+    />
+);
+
 class InputAccessoryViewTest extends React.Component {
     render() {
         const uniqueID = "foobar";
@@ -648,7 +659,7 @@ class TextInputTest extends React.Component<{}, { username: string }> {
 
                 <TextInput multiline onContentSizeChange={this.handleOnContentSizeChange} />
 
-                <TextInput contextMenuHidden={true} />
+                <TextInput contextMenuHidden={true} textAlignVertical="top"/>
             </View>
         );
     }
@@ -833,6 +844,8 @@ const NativeIDTest = () => (
         <Text nativeID={"nativeID"}>Text</Text>
     </ScrollView>
 );
+
+const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;
 
 const ShareTest = () => {
     Share.share(

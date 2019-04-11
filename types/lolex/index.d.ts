@@ -1,15 +1,16 @@
-// Type definitions for lolex 3
+// Type definitions for lolex 3.1
 // Project: https://github.com/sinonjs/lolex
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Rogier Schouten <https://github.com/rogierschouten>
 //                 Yishai Zehavi <https://github.com/zyishai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /**
  * Names of clock methods that may be faked by install.
  */
-type FakeMethod = "setTimeout" | "clearTimeout" | "setImmediate" | "clearImmediate" | "setInterval" | "clearInterval" | "Date" | "nextTick" | "hrtime";
+type FakeMethod = "setTimeout" | "clearTimeout" | "setImmediate" | "clearImmediate" | "setInterval" | "clearInterval" | "Date" | "nextTick" | "hrtime" | "requestAnimationFrame" | "cancelAnimationFrame" | "requestIdleCallback" | "cancelIdleCallback";
 
 /**
  * Global methods avaliable to every clock and also as standalone methods (inside `timers` global object).
@@ -126,6 +127,22 @@ export interface LolexClock<TTimerId extends TimerId> extends GlobalTimers<TTime
      */
     cancelAnimationFrame: (id: TTimerId) => void;
 
+    /**
+     * Queues the callback to be fired during idle periods to perform background and low priority work on the main event loop.
+     *
+     * @param callback   Callback to be fired.
+     * @param timeout   The maximum number of ticks before the callback must be fired.
+     * @remarks Callbacks which have a timeout option will be fired no later than time in milliseconds.
+     */
+    requestIdleCallback: (callback: () => void, timeout?: number) => TTimerId;
+
+    /**
+     * Clears a timer, as long as it was created using requestIdleCallback.
+     *
+     * @param id   Timer ID or object.
+     */
+    cancelIdleCallback: (id: TTimerId) => void;
+
 	/**
 	 * Get the number of waiting timers.
 	 *
@@ -240,7 +257,7 @@ type InstalledMethods = {
  *
  * @type TClock   type of base clock (e.g BrowserClock).
  */
-type InstalledClock<TClock extends Clock> = TClock & InstalledMethods;
+type InstalledClock<TClock extends Clock = Clock> = TClock & InstalledMethods;
 
 /**
  * Creates a clock.
@@ -252,7 +269,7 @@ type InstalledClock<TClock extends Clock> = TClock & InstalledMethods;
  * @type TClock   Type of clock to create.
  * @remarks The default epoch is 0.
  */
-export declare function createClock<TClock extends Clock>(now?: number | Date, loopLimit?: number): TClock;
+export declare function createClock<TClock extends Clock = Clock>(now?: number | Date, loopLimit?: number): TClock;
 
 export interface LolexInstallOpts {
     /**
@@ -296,12 +313,12 @@ export interface LolexInstallOpts {
  * @param toFake   Names of methods that should be faked.
  * @type TClock   Type of clock to create.
  */
-export declare function install<TClock extends Clock>(opts?: LolexInstallOpts): InstalledClock<TClock>;
+export declare function install<TClock extends Clock = Clock>(opts?: LolexInstallOpts): InstalledClock<TClock>;
 
 export interface LolexWithContext {
     timers: GlobalTimers<TimerId>;
-    createClock: <TClock extends Clock>(now?: number | Date, loopLimit?: number) => TClock;
-    install: <TClock extends Clock>(opts?: LolexInstallOpts) => InstalledClock<TClock>;
+    createClock: <TClock extends Clock = Clock>(now?: number | Date, loopLimit?: number) => TClock;
+    install: <TClock extends Clock = Clock>(opts?: LolexInstallOpts) => InstalledClock<TClock>;
     withGlobal: (global: Object) => LolexWithContext;
 }
 

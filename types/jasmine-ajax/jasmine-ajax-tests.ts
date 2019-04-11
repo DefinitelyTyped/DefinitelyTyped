@@ -462,7 +462,7 @@ describe('FakeRequest', () => {
 
 	it('ticks the jasmine clock on timeout', () => {
 		const clock = { tick: jasmine.createSpy('tick') };
-		spyOn(jasmine, 'clock').and.returnValue(clock);
+		spyOn(jasmine, 'clock').and.returnValue(clock as any);
 
 		const request = new this.FakeRequest();
 		request.open();

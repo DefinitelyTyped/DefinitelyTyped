@@ -882,14 +882,14 @@ function bufferTests() {
             }
 
             static test(): void {
-                const cfn = util.callbackify(this.fn);
-                const cfnE = util.callbackify(this.fnE);
-                const cfnT1 = util.callbackify(this.fnT1);
-                const cfnT1E = util.callbackify(this.fnT1E);
-                const cfnTResult = util.callbackify(this.fnTResult);
-                const cfnTResultE = util.callbackify(this.fnTResultE);
-                const cfnT1TResult = util.callbackify(this.fnT1TResult);
-                const cfnT1TResultE = util.callbackify(this.fnT1TResultE);
+                const cfn = util.callbackify(callbackifyTest.fn);
+                const cfnE = util.callbackify(callbackifyTest.fnE);
+                const cfnT1 = util.callbackify(callbackifyTest.fnT1);
+                const cfnT1E = util.callbackify(callbackifyTest.fnT1E);
+                const cfnTResult = util.callbackify(callbackifyTest.fnTResult);
+                const cfnTResultE = util.callbackify(callbackifyTest.fnTResultE);
+                const cfnT1TResult = util.callbackify(callbackifyTest.fnT1TResult);
+                const cfnT1TResultE = util.callbackify(callbackifyTest.fnT1TResultE);
 
                 cfn((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
                 cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
@@ -952,6 +952,10 @@ function bufferTests() {
         const teEncodeRes: Uint8Array = te.encode("TextEncoder");
 
         // util.types
+        let b: boolean;
+        b = util.types.isBigInt64Array(15);
+        b = util.types.isBigUint64Array(15);
+        b = util.types.isModuleNamespaceObject(15);
 
         // tslint:disable-next-line:no-construct ban-types
         const maybeBoxed: number | Number = new Number(1);
@@ -1826,10 +1830,11 @@ async function asyncStreamPipelineFinished() {
         // close callback parameter is optional
         _server = _server.close();
 
-        // close callback parameter doesn't specify any arguments, so any
-        // function is acceptable
+        // close callback parameter can be either nothing (undefined) or an error
         _server = _server.close(() => { });
-        _server = _server.close((...args: any[]) => { });
+        _server = _server.close((err) => {
+            if (typeof err !== 'undefined') { const _err: Error = err; }
+        });
     }
 
     {
@@ -3502,9 +3507,11 @@ import * as p from "process";
             .ref()
             .unref();
 
-        // close has an optional callback function. No callback parameters are
-        // specified, so any callback function is permissible.
-        server = server.close((...args: any[]) => { });
+        // close callback parameter can be either nothing (undefined) or an error
+        server = server.close(() => { });
+        server = server.close((err) => {
+            if (typeof err !== 'undefined') { const _err: Error = err; }
+        });
 
         // test the types of the address object fields
         const address: net.AddressInfo | string = server.address();
@@ -4445,8 +4452,7 @@ import * as constants from 'constants';
             paddingStrategy: 0,
             peerMaxConcurrentStreams: 0,
             selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-            settings,
-            allowHTTP1: true
+            settings
         };
         // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
         const secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);

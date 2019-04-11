@@ -70,6 +70,10 @@ declare module _ {
         [index: string]: T;
     }
 
+    interface Predicate<T> {
+        (value: T): boolean;
+    }
+
     interface ListIterator<T, TResult> {
         (value: T, index: number, list: List<T>): TResult;
     }
@@ -101,6 +105,7 @@ declare module _ {
         * @param key First argument to Underscore object functions.
         **/
         <T>(value: _.Dictionary<T>): Underscore<T>;
+        <T>(value: _.List<T>): Underscore<T>;
         <T>(value: Array<T>): Underscore<T>;
         <T>(value: T): Underscore<T>;
 
@@ -3787,7 +3792,7 @@ declare module _ {
         * @param attrs Object with key values pair
         * @return Predicate function
         **/
-        matches<T>(attrs: T): _.ListIterator<T, boolean>;
+        matches<T>(attrs: T): _.Predicate<T>;
 
         /**
         * Returns a predicate function that will tell you if a passed in object contains all of the key/value properties present in attrs.
@@ -3795,7 +3800,7 @@ declare module _ {
         * @param attrs Object with key values pair
         * @return Predicate function
         **/
-        matcher<T>(attrs: T): _.ListIterator<T, boolean>;
+        matcher<T>(attrs: T): _.Predicate<T>;
 
         /**
         * Returns a function that will itself return the key property of any passed-in object.

@@ -328,8 +328,30 @@ const test = () => (
         <Box fontSize={{ sm: 2, md: 3, lg: 4 }} />
         // responsive margin
         <Box m={[1, 2, 3]} />
+        <Box ml={[1, 2, 3]} />
+        <Box mr={[1, 2, 3]} />
+        <Box mt={[1, 2, 3]} />
+        <Box mb={[1, 2, 3]} />
+        <Box mx={[1, 2, 3]} />
+        <Box my={[1, 2, 3]} />
+        <Box margin={[1, 2, 3]} />
+        <Box marginLeft={[1, 2, 3]} />
+        <Box marginRight={[1, 2, 3]} />
+        <Box marginTop={[1, 2, 3]} />
+        <Box marginBottom={[1, 2, 3]} />
         // responsive padding
         <Box p={[1, 2, 3]} />
+        <Box pl={[1, 2, 3]} />
+        <Box pr={[1, 2, 3]} />
+        <Box pt={[1, 2, 3]} />
+        <Box pb={[1, 2, 3]} />
+        <Box px={[1, 2, 3]} />
+        <Box py={[1, 2, 3]} />
+        <Box padding={[1, 2, 3]} />
+        <Box paddingLeft={[1, 2, 3]} />
+        <Box paddingRight={[1, 2, 3]} />
+        <Box paddingTop={[1, 2, 3]} />
+        <Box paddingBottom={[1, 2, 3]} />
         <Box p={{ sm: 1, md: 2, lg: 3 }} />
         // examples (margin prop) // sets margin value of `theme.space[2]`
         <Box m={2} />

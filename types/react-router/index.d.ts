@@ -20,6 +20,7 @@
 //                 Duong Tran <https://github.com/t49tran>
 //                 Ben Smith <https://github.com/8enSmith>
 //                 Wesley Tsai <https://github.com/wezleytsai>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -124,8 +125,8 @@ export interface match<Params extends { [K in keyof Params]?: string } = {}> {
   url: string;
 }
 
-// Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+// Omit taken from https://github.com/Microsoft/TypeScript/issues/28339#issuecomment-467220238
+export type Omit<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
 
 export function matchPath<Params extends { [K in keyof Params]?: string }>(pathname: string, props: string | RouteProps, parent?: match<Params> | null): match<Params> | null;
 

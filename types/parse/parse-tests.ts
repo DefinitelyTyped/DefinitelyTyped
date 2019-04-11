@@ -14,6 +14,10 @@ class Game extends Parse.Object {
     }
 }
 
+function test_config() {
+    Parse.Config.save({ foo: 'bar' });
+}
+
 function test_object() {
 
     const game = new Game();
@@ -51,10 +55,18 @@ function test_object() {
     gameScore.increment("score");
     gameScore.addUnique("skills", "flying");
     gameScore.addUnique("skills", "kungfu");
-
+    gameScore.addAll("skills", ["kungfu"]);
+    gameScore.addAllUnique("skills", ["kungfu"]);
+    gameScore.remove('skills', 'flying');
+    gameScore.removeAll('skills', ["kungFu"]);
     game.set("gameScore", gameScore);
 
     const gameCopy = Game.fromJSON(JSON.parse(JSON.stringify(game)), true);
+
+    const object = new Parse.Object('TestObject');
+    object.equals(gameScore);
+    object.fetchWithInclude(['key1', 'key2']);
+
 }
 
 function test_query() {
@@ -87,6 +99,7 @@ function test_query() {
     // Restricts to wins >= 50
     query.greaterThanOrEqualTo("wins", 50);
 
+    query.containedBy('place', ['1', '2']);
     // Finds scores from any of Jonathan, Dario, or Shawn
     query.containedIn("playerName",
         ["Jonathan Walsh", "Dario Wunsch", "Shawn Simon"]);
@@ -109,13 +122,15 @@ function test_query() {
 
     // Find objects where the array in arrayKey contains all of the elements 2, 3, and 4.
     query.containsAll("arrayKey", [2, 3, 4]);
+    query.containsAllStartingWith("arrayKey", [2, 3, 4]);
 
     query.startsWith("name", "Big Daddy's");
     query.equalTo("score", gameScore);
     query.exists("score");
     query.include("score");
     query.include(["score.team"]);
-
+    query.includeAll();
+    query.sortByTextScore();
     // Find objects that match the aggregation pipeline
     query.aggregate({
         group:{
@@ -222,6 +237,15 @@ function test_user() {
     user.signUp(null, { useMasterKey: true });
 }
 
+async function test_user_currentAsync() {
+    const asyncUser = await Parse.User.currentAsync();
+    if (asyncUser) {
+        asyncUser.set('email', 'email@example.com');
+    } else if (asyncUser === null) {
+        Parse.User.logIn('email@example.com', 'my pass');
+    }
+}
+
 function test_user_acl_roles() {
 
     const user = new Parse.User();
@@ -240,6 +264,12 @@ function test_user_acl_roles() {
     }
 
     Parse.User.become("session-token-here").then(function (user) {
+        // The current user is now set to user.
+    }, function (error) {
+        // The token could not be validated.
+    });
+
+    Parse.User.hydrate({}).then(function (user) {
         // The current user is now set to user.
     }, function (error) {
         // The token could not be validated.
@@ -507,4 +537,48 @@ function test_query_subscribe() {
 
     // unsubscribe
     subscription.unsubscribe();
+}
+
+function test_serverURL() {
+    Parse.serverURL = 'http://localhost:1337/parse';
+}
+function test_polygon() {
+    const point = new Parse.GeoPoint(1,2);
+    const polygon1 = new Parse.Polygon([[0,0], [1,0], [1,1], [0,1]]);
+    const polygon2 = new Parse.Polygon([point, point, point]);
+    polygon1.equals(polygon2);
+    polygon1.containsPoint(point);
+
+    const query = new Parse.Query('TestObject');
+    query.polygonContains('key', point);
+    query.withinPolygon('key', [point, point, point]);
+}
+
+async function test_local_datastore() {
+    Parse.enableLocalDatastore();
+    const name = 'test_pin';
+    const obj = new Parse.Object('TestObject');
+    await obj.pin();
+    await obj.unPin();
+    await obj.isPinned();
+    await obj.pinWithName(name);
+    await obj.unPinWithName(name);
+    await obj.fetchFromLocalDatastore();
+
+    await Parse.Object.pinAll([obj]);
+    await Parse.Object.unPinAll([obj]);
+    await Parse.Object.pinAllWithName(name, [obj]);
+    await Parse.Object.unPinAllWithName(name, [obj]);
+    await Parse.Object.unPinAllObjects();
+    await Parse.Object.unPinAllObjectsWithName(name);
+
+    const flag = Parse.isLocalDatastoreEnabled();
+    const LDS = await Parse.dumpLocalDatastore();
+
+    const query = new Parse.Query('TestObject');
+    query.fromPin();
+    query.fromPinWithName(name);
+    query.fromLocalDatastore();
+
+    Parse.setLocalDatastoreController({});
 }

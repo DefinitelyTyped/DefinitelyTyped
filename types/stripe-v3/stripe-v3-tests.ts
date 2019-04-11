@@ -14,6 +14,7 @@ describe("Stripe", () => {
                 fontFamily: 'Roboto, "Helvetica Neue", sans-serif',
                 fontSmoothing: 'antialiased',
                 fontSize: '16px',
+                fontWeight: 'bold',
                 '::placeholder': {
                     color: '#aab7c4'
                 }
@@ -183,6 +184,7 @@ describe("Stripe v2 & v3", () => {
                 fontFamily: 'Roboto, "Helvetica Neue", sans-serif',
                 fontSmoothing: 'antialiased',
                 fontSize: '16px',
+                fontWeight: 500,
                 '::placeholder': {
                     color: '#aab7c4'
                 }

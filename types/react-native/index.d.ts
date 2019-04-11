@@ -17,6 +17,8 @@
 //                 Ryan Nickel <https://github.com/mrnickel>
 //                 Souvik Ghosh <https://github.com/souvik-ghosh>
 //                 Cheng Gibson <https://github.com/nossbigg>
+//                 Saransh Kataria <https://github.com/saranshkataria>
+//                 Francesco Moro <https://github.com/franzmoro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -903,6 +905,14 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * Used to reference react managed views from native code.
      */
     nativeID?: string;
+
+    /**
+     * Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:
+     * - null/undefined (default): inherit from the parent node or the global default (0)
+     * - 0: no max, ignore parent/global default
+     * - >= 1: sets the maxFontSizeMultiplier of this node to this value
+     */
+    maxFontSizeMultiplier?: number | null;
 }
 
 /**
@@ -1134,6 +1144,11 @@ export interface TextInputAndroidProps {
      * The color of the textInput underline.
      */
     underlineColorAndroid?: string;
+
+    /**
+     * Vertically align text when `multiline` is set to true
+     */
+    textAlignVertical?: "auto" | "top" | "bottom" | "center";
 }
 
 export type KeyboardType = "default" | "email-address" | "numeric" | "phone-pad";
@@ -1427,6 +1442,14 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
      * or set/update maxLength to prevent unwanted edits without flicker.
      */
     value?: string;
+
+    /**
+     * Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:
+     * - null/undefined (default): inherit from the parent node or the global default (0)
+     * - 0: no max, ignore parent/global default
+     * - >= 1: sets the maxFontSizeMultiplier of this node to this value
+     */
+    maxFontSizeMultiplier?: number | null;
 }
 
 /**
@@ -7270,6 +7293,36 @@ export interface CameraRollStatic {
     getPhotos(params: GetPhotosParamType): Promise<GetPhotosReturnType>;
 }
 
+// https://facebook.github.io/react-native/docs/checkbox.html
+export interface CheckBoxProps extends ViewProps {
+    /**
+     * If true the user won't be able to toggle the checkbox. Default value is false.
+     */
+    disabled?: boolean;
+
+    /**
+     * Used in case the props change removes the component.
+     */
+    onChange?: (value: boolean) => void;
+
+    /**
+     * Invoked with the new value when the value changes.
+     */
+    onValueChange?: (value: boolean) => void;
+
+    /**
+     * Used to locate this view in end-to-end tests.
+     */
+    testID?: string;
+
+    /**
+     * The value of the checkbox. If true the checkbox will be turned on. Default value is false.
+     */
+    value?: boolean;
+}
+
+export class CheckBox extends React.Component<CheckBoxProps> {}
+
 /** Clipboard gives you an interface for setting and getting content from Clipboard on both iOS and Android */
 export interface ClipboardStatic {
     getString(): Promise<string>;
@@ -9297,9 +9350,11 @@ export const PointPropType: React.Validator<PointPropType>;
 export const ViewPropTypes: React.ValidationMap<ViewProps>;
 
 declare global {
-    type ReactNativeRequireFunction = (name: string) => any;
+    interface NodeRequire {
+        (id: string): any;
+    }
 
-    var require: ReactNativeRequireFunction;
+    var require: NodeRequire;
 
     /**
      * Console polyfill

@@ -52,3 +52,7 @@ typedElectronStore.set({
     enabled: true,
     interval: 10000,
 });
+
+const offDidChange = typedElectronStore.onDidChange("enabled", (n: boolean | undefined, p: boolean | undefined) => {});
+
+offDidChange();

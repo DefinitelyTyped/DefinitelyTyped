@@ -9,6 +9,7 @@
 //                 Irwan Fario Subastian <https://github.com/isubasti>
 //                 Hanna Greaves <https://github.com/sgreav>
 //                 Jack Allen <https://github.com/jackall3n>
+//                 Benjamin Evenson <https://github.com/benjiro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
@@ -961,9 +962,35 @@ export interface PathUtils {
     ): Immutable.List<number>;
 }
 
+export interface Command {
+    type: string;
+    args: any[];
+}
+
+export interface Query {
+    type: string;
+    args: any[];
+}
+
+export type CommandFunc = (editor: Editor, ...args: any[]) => Editor;
+export type QueryFunc = (editor: Editor, ...args: any[]) => any;
+
+export interface Plugin {
+    normalizeNode?: (node: Node, editor: Editor, next: () => void) => ((editor: Editor) => void) | void;
+    onChange?: (editor: Editor, next: () => void) => void;
+    onCommand?: (command: Command, editor: Editor, next: () => void) => void;
+    onConstruct?: (editor: Editor, next: () => void) => void;
+    onQuery?: (query: Query, editor: Editor, next: () => void) => void;
+    validateNode?: (node: Node, editor: Editor, next: () => void) => SlateError | void;
+
+    commands?: {[name: string]: CommandFunc};
+    queries?: {[name: string]: QueryFunc};
+    schema?: SchemaProperties;
+}
+
 export interface EditorProperties {
     onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
-    plugins?: any[];
+    plugins?: Plugin[];
     readOnly?: boolean;
     value?: Value;
 }
@@ -971,7 +998,7 @@ export interface EditorProperties {
 export class Editor implements Controller {
     object: "editor";
     onChange: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
-    plugins: any[];
+    plugins: Plugin[];
     readOnly: boolean;
     value: Value;
     constructor(attributes: EditorProperties)
@@ -1226,6 +1253,7 @@ export class Editor implements Controller {
     replaceNodeByPath(path: Path, newNode: Node): Editor;
     removeTextByKey(key: string, offset: number, length: number): Editor;
     removeTextByPath(path: Path, offset: number, length: number): Editor;
+    setDecorations(decorations: Immutable.List<Decoration> | Decoration[]): Editor;
     setMarkByKey(
         key: string,
         offset: number,

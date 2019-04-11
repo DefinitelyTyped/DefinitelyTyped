@@ -160,6 +160,7 @@ export interface Client {
     post(handler: string, query: Query | object | string, callback?: (err: Error, data: object) => void): ClientRequest;
     escapeSpecialChars(s: string): string;
     query(): Query;
+    atomicUpdate(doc: object, callback?: (err: Error, data: object) => void): ClientRequest;
 }
 
 export as namespace Solr;

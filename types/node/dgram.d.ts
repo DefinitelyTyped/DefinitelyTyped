@@ -39,7 +39,7 @@ declare module "dgram" {
         bind(port?: number, address?: string, callback?: () => void): void;
         bind(port?: number, callback?: () => void): void;
         bind(callback?: () => void): void;
-        bind(options: BindOptions, callback?: Function): void;
+        bind(options: BindOptions, callback?: () => void): void;
         close(callback?: () => void): void;
         address(): AddressInfo | string;
         setBroadcast(flag: boolean): void;

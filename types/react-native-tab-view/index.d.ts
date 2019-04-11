@@ -212,6 +212,8 @@ export type TabBarProps<T extends RouteBase = RouteBase> = SceneRendererProps<
   renderBadge?: (scene: Scene<T>) => ReactNode
   onTabPress?: (scene: Scene<T>) => void
   onTabLongPress?: (scene: Scene<T>) => void
+  activeColor?: string
+  inactiveColor?: string
   pressColor?: string
   pressOpacity?: number
   scrollEnabled?: boolean

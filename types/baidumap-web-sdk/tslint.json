@@ -7,6 +7,7 @@
         "ban-types": false,
         "comment-format": false,
         "dt-header": false,
+        "npm-naming": false,
         "eofline": false,
         "max-line-length": false,
         "member-access": false,

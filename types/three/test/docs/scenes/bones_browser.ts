@@ -42,7 +42,7 @@
         initBones();
     }
     function createGeometry(sizing: any) {
-        var geometry = new THREE.CylinderGeometry(
+        var geometry = new THREE.CylinderBufferGeometry(
             5,                       // radiusTop
             5,                       // radiusBottom
             sizing.height,           // height
@@ -50,14 +50,29 @@
             sizing.segmentCount * 3, // heightSegments
             true                     // openEnded
         );
-        for (var i = 0; i < geometry.vertices.length; i++) {
-            var vertex = geometry.vertices[i];
+
+        var position = geometry.attributes.position as THREE.BufferAttribute;
+
+        var vertex = new THREE.Vector3();
+
+        var skinIndices = [];
+        var skinWeights = [];
+
+        for (var i = 0; i < position.count; i++) {
+            vertex.fromBufferAttribute(position, i);
+
             var y = (vertex.y + sizing.halfHeight);
+
             var skinIndex = Math.floor(y / sizing.segmentHeight);
             var skinWeight = (y % sizing.segmentHeight) / sizing.segmentHeight;
-            geometry.skinIndices.push(new THREE.Vector4(skinIndex, skinIndex + 1, 0, 0));
-            geometry.skinWeights.push(new THREE.Vector4(1 - skinWeight, skinWeight, 0, 0));
+
+            skinIndices.push(skinIndex, skinIndex + 1, 0, 0);
+            skinWeights.push(1 - skinWeight, skinWeight, 0, 0);
         }
+
+        geometry.addAttribute('skinIndex', new THREE.Uint16BufferAttribute(skinIndices, 4));
+        geometry.addAttribute('skinWeight', new THREE.Float32BufferAttribute(skinWeights, 4));
+
         return geometry;
     }
     function createBones(sizing: any) {
@@ -74,7 +89,7 @@
         }
         return bones;
     }
-    function createMesh(geometry: THREE.Geometry, bones: THREE.Bone[]) {
+    function createMesh(geometry: THREE.BufferGeometry, bones: THREE.Bone[]) {
         var material = new THREE.MeshPhongMaterial({
             skinning: true,
             color: 0x156289,

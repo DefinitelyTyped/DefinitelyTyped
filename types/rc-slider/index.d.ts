@@ -6,6 +6,7 @@
 //                 Jacob Froman <https://github.com/j-fro>
 //                 Deanna Veale <https://github.com/Deanna2>
 //                 Nick Maddren <https://github.com/nicholasmaddren>
+//                 Roman Nevolin <https://github.com/nulladdict>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -204,6 +205,11 @@ export interface HandleProps extends CommonApiProps {
      * Styling option offset
      */
     offset: number;
+   /**
+    * Set the tabIndex of the slider handle.
+    * @default 0
+    */
+    tabIndex?: number;
 }
 
 export interface WithTooltipProps {

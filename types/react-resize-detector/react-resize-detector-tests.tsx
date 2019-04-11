@@ -1,7 +1,6 @@
 // Adapted from example provided at https://github.com/maslianok/react-resize-detector
 
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import ReactResizeDetector, { withResizeDetector } from "react-resize-detector";
 
 const CustomComponent = ({ width, height }: any) => (
@@ -24,12 +23,12 @@ class App extends React.PureComponent {
                     handleWidth
                     handleHeight
                     skipOnMount
-                    resizableElementId="someElement"
+                    querySelector="someElement"
                     refreshMode="throttle"
                     refreshRate={10}
                 />
                 <ReactResizeDetector handleWidth handleHeight>
-                    {(width: number, height: number) => (
+                    {({ width, height }: { width: number; height: number }) => (
                         <div>{`${width}x${height}`}</div>
                     )}
                 </ReactResizeDetector>
@@ -50,7 +49,13 @@ class App extends React.PureComponent {
         );
     }
 
-    private handleResize(width: number, height: number) {
+    private readonly handleResize = ({
+        width,
+        height
+    }: {
+        width: number;
+        height: number;
+    }) => {
         console.log(`width = ${width}`);
         console.log(`height = ${height}`);
     }

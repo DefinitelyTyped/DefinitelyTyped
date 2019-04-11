@@ -118,13 +118,15 @@ declare module "crypto" {
     type HexBase64BinaryEncoding = "binary" | "base64" | "hex";
     type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
 
-    interface Hash extends NodeJS.ReadWriteStream {
+    class Hash extends stream.Duplex {
+        private constructor();
         update(data: BinaryLike): Hash;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
-    interface Hmac extends NodeJS.ReadWriteStream {
+    class Hmac extends stream.Duplex {
+        private constructor();
         update(data: BinaryLike): Hmac;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
         digest(): Buffer;
@@ -133,7 +135,8 @@ declare module "crypto" {
 
     export type KeyObjectType = 'secret' | 'public' | 'private';
 
-    interface KeyObject {
+    class KeyObject {
+        private constructor();
         asymmetricKeyType?: KeyType;
         export(options?: {
             type: 'pkcs1' | 'spki' | 'pkcs8' | 'sec1',
@@ -182,13 +185,12 @@ declare module "crypto" {
         algorithm: string, key: CipherKey, iv: BinaryLike | null, options?: stream.TransformOptions
     ): Cipher;
 
-    interface Cipher extends NodeJS.ReadWriteStream {
+    class Cipher extends stream.Duplex {
+        private constructor();
         update(data: BinaryLike): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
-        update(data: Binary, output_encoding: HexBase64BinaryEncoding): string;
-        update(data: Binary, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
-        // second arg ignored
-        update(data: string, input_encoding: Utf8AsciiBinaryEncoding, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: Binary, input_encoding: undefined, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: string, input_encoding: Utf8AsciiBinaryEncoding | undefined, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding?: boolean): this;
@@ -224,12 +226,12 @@ declare module "crypto" {
     ): DecipherGCM;
     function createDecipheriv(algorithm: string, key: BinaryLike, iv: BinaryLike | null, options?: stream.TransformOptions): Decipher;
 
-    interface Decipher extends NodeJS.ReadWriteStream {
+    class Decipher extends stream.Duplex {
+        private constructor();
         update(data: Binary): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: Binary, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
-        // second arg is ignored
-        update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: Binary, input_encoding: undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: string, input_encoding: HexBase64BinaryEncoding | undefined, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding?: boolean): this;
@@ -259,7 +261,7 @@ declare module "crypto" {
     }
 
     function createPrivateKey(key: PrivateKeyInput | string | Buffer): KeyObject;
-    function createPublicKey(key: PublicKeyInput | string | Buffer): KeyObject;
+    function createPublicKey(key: PublicKeyInput | string | Buffer | KeyObject): KeyObject;
     function createSecretKey(key: Buffer): KeyObject;
 
     function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
@@ -271,7 +273,9 @@ declare module "crypto" {
 
     type KeyLike = string | Buffer | KeyObject;
 
-    interface Signer extends NodeJS.WritableStream {
+    class Signer extends stream.Writable {
+        private constructor();
+
         update(data: BinaryLike): Signer;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Signer;
         sign(private_key: SignPrivateKeyInput | KeyLike): Buffer;
@@ -279,11 +283,13 @@ declare module "crypto" {
     }
 
     function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
-    interface Verify extends NodeJS.WritableStream {
+    class Verify extends stream.Writable {
+        private constructor();
+
         update(data: BinaryLike): Verify;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Verify;
         verify(object: Object | KeyLike, signature: Binary): boolean;
-        verify(object: Object | KeyLike, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
+        verify(object: Object | KeyLike, signature: string, signature_format?: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
         // The signature field accepts a TypedArray type, but it is only available starting ES2017
     }
@@ -292,7 +298,8 @@ declare module "crypto" {
     function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding): DiffieHellman;
     function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: number | Binary): DiffieHellman;
     function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: string, generator_encoding: HexBase64Latin1Encoding): DiffieHellman;
-    interface DiffieHellman {
+    class DiffieHellman {
+        private constructor();
         generateKeys(): Buffer;
         generateKeys(encoding: HexBase64Latin1Encoding): string;
         computeSecret(other_public_key: Binary): Buffer;
@@ -371,6 +378,7 @@ declare module "crypto" {
     function getCurves(): string[];
     function getHashes(): string[];
     class ECDH {
+        private constructor();
         static convertKey(
             key: BinaryLike,
             curve: string,

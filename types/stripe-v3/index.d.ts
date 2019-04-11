@@ -7,6 +7,7 @@
 //                 Justin Leider <https://github.com/jleider>
 //                 Kamil Gałuszka <https://github.com/galuszkak>
 //                 Stefan Langeder <https://github.com/slangeder>
+//                 Marlos Borges <https://github.com/marlosin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -382,6 +383,7 @@ declare namespace stripe {
             fontSmoothing?: string;
             fontStyle?: string;
             fontVariant?: string;
+            fontWeight?: string | number;
             iconColor?: string;
             lineHeight?: string;
             letterSpacing?: string;

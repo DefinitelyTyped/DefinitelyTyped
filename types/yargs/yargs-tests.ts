@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
 import yargs = require('yargs');
+import yargsSingleton = require('yargs/yargs');
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -1054,4 +1055,16 @@ function Argv$fallbackToUnknownForUnknownOptions() {
     // $ExpectError
     const x: string = yargs.argv.x;
     return x;
+}
+
+function Argv$exit() {
+    yargs.exit(1, new Error("oh no"));
+}
+
+function Argv$parsed() {
+    const parsedArgs = yargs.parsed;
+}
+
+function makeSingleton() {
+    yargsSingleton(process.argv.slice(2));
 }

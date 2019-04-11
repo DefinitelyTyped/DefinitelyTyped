@@ -1,4 +1,4 @@
-// Type definitions for Cytoscape.js 3.3
+// Type definitions for Cytoscape.js 3.4
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
@@ -3229,7 +3229,7 @@ declare namespace cytoscape {
          * This finds the shortest path from the starting node to all other nodes in the collection.
          * http://js.cytoscape.org/#eles.bellmanFord
          */
-        bellmanFort(options: SearchBellmanFordOptions): SearchBellmanFordResult;
+        bellmanFord(options: SearchBellmanFordOptions): SearchBellmanFordResult;
         /**
          * Perform Kruskal's algorithm on the elements in the collection,
          * returning the minimum spanning tree, assuming undirected edges.

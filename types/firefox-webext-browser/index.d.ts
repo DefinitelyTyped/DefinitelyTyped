@@ -5,15 +5,13 @@
 // TypeScript Version: 2.9
 // Generated using script at github.com/jsmnbom/definitelytyped-firefox-webext-browser
 
-interface WebExtEventBase<TAddListener extends (...args: any[]) => any, TCallback> {
-    addListener: TAddListener;
+interface WebExtEvent<TCallback extends (...args: any[]) => any> {
+    addListener(cb: TCallback): void;
 
     removeListener(cb: TCallback): void;
 
     hasListener(cb: TCallback): boolean;
 }
-
-type WebExtEvent<TCallback extends (...args: any[]) => any> = WebExtEventBase<(callback: TCallback) => void, TCallback>;
 
 interface Window {
     browser: typeof browser;
@@ -2676,7 +2674,7 @@ declare namespace browser.proxy {
         | "manual"
         | "autoConfig";
 
-    type _ProxyOnRequestEvent<T = (details: {
+    interface _ProxyOnRequestEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -2712,7 +2710,13 @@ declare namespace browser.proxy {
         fromCache: boolean;
         /** The HTTP request headers that are going to be sent out with this request. */
         requestHeaders?: webRequest.HttpHeaders;
-    }) => void> = WebExtEventBase<(callback: T, filter: webRequest.RequestFilter, extraInfoSpec?: Array<"requestHeaders">) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filter: webRequest.RequestFilter, extraInfoSpec?: Array<"requestHeaders">): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
 
     /* proxy properties */
     /** Configures proxy settings. This setting's value is an object of type ProxyConfig. */
@@ -2736,10 +2740,10 @@ declare namespace browser.proxy {
     const onRequest: _ProxyOnRequestEvent;
 
     /** Notifies about proxy script errors. */
-    const onError: WebExtEvent<(error: object) => void>;
+    const onError: WebExtEvent<(error: Error) => void>;
 
     /** Please use `proxy.onError`. */
-    const onProxyError: WebExtEvent<(error: object) => void>;
+    const onProxyError: WebExtEvent<(error: Error) => void>;
 }
 
 /**
@@ -2755,8 +2759,8 @@ declare namespace browser.runtime {
     interface Port {
         name: string;
         disconnect: () => void;
-        onDisconnect: events.Event;
-        onMessage: events.Event;
+        onDisconnect: WebExtEvent<() => void>;
+        onMessage: WebExtEvent<() => void>;
         postMessage: (message: object) => void;
         /** This property will **only** be present on ports passed to onConnect/onConnectExternal listeners. */
         sender?: MessageSender;
@@ -3188,7 +3192,7 @@ declare namespace browser.storage {
      * @param changes Object mapping each key that changed to its corresponding `storage.StorageChange` for that item.
      * @param areaName The name of the storage area (`"sync"`, `"local"` or `"managed"`) the changes are for.
      */
-    const onChanged: WebExtEvent<(changes: {[key: string]: StorageChange}, areaName: string) => void>;
+    const onChanged: WebExtEvent<(changes: StorageChange, areaName: string) => void>;
 }
 
 /**
@@ -3609,7 +3613,7 @@ declare namespace browser.webNavigation {
         url: events.UrlFilter[];
     }
 
-    type _WebNavigationOnBeforeNavigateEvent<T = (details: {
+    interface _WebNavigationOnBeforeNavigateEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation is about to occur. */
         tabId: number;
         url: string;
@@ -3627,9 +3631,15 @@ declare namespace browser.webNavigation {
         parentFrameId: number;
         /** The time when the browser was about to start the navigation, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnCommittedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnCommittedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3655,9 +3665,15 @@ declare namespace browser.webNavigation {
         transitionQualifiers?: TransitionQualifier[];
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnDOMContentLoadedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnDOMContentLoadedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3673,9 +3689,15 @@ declare namespace browser.webNavigation {
         frameId: number;
         /** The time when the page's DOM was fully constructed, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnCompletedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnCompletedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3691,9 +3713,15 @@ declare namespace browser.webNavigation {
         frameId: number;
         /** The time when the document finished loading, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnErrorOccurredEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnErrorOccurredEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3714,9 +3742,15 @@ declare namespace browser.webNavigation {
         error?: string;
         /** The time when the error occurred, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnCreatedNavigationTargetEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnCreatedNavigationTargetEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation is triggered. */
         sourceTabId: number;
         /** The ID of the process runs the renderer for the source tab. */
@@ -3731,9 +3765,15 @@ declare namespace browser.webNavigation {
         tabId: number;
         /** The time when the browser was about to create a new view, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnReferenceFragmentUpdatedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnReferenceFragmentUpdatedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3759,9 +3799,15 @@ declare namespace browser.webNavigation {
         transitionQualifiers?: TransitionQualifier[];
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnHistoryStateUpdatedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnHistoryStateUpdatedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3787,7 +3833,13 @@ declare namespace browser.webNavigation {
         transitionQualifiers?: TransitionQualifier[];
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
 
     /* webNavigation functions */
     /**
@@ -4115,7 +4167,7 @@ declare namespace browser.webRequest {
         | "TLSv1.3"
         | "unknown";
 
-    type _WebRequestOnBeforeRequestEvent<T = (details: {
+    interface _WebRequestOnBeforeRequestEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4161,9 +4213,15 @@ declare namespace browser.webRequest {
         type: ResourceType;
         /** The time when this signal is triggered, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnBeforeRequestOptions[]) => void, T>;
+    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeRequestOptions[]): void;
 
-    type _WebRequestOnBeforeSendHeadersEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnBeforeSendHeadersEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4193,9 +4251,15 @@ declare namespace browser.webRequest {
         timeStamp: number;
         /** The HTTP request headers that are going to be sent out with this request. */
         requestHeaders?: HttpHeaders;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnBeforeSendHeadersOptions[]) => void, T>;
+    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeSendHeadersOptions[]): void;
 
-    type _WebRequestOnSendHeadersEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnSendHeadersEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4225,9 +4289,15 @@ declare namespace browser.webRequest {
         timeStamp: number;
         /** The HTTP request headers that have been sent out with this request. */
         requestHeaders?: HttpHeaders;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnSendHeadersOptions[]) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnSendHeadersOptions[]): void;
 
-    type _WebRequestOnHeadersReceivedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnHeadersReceivedEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4264,9 +4334,15 @@ declare namespace browser.webRequest {
         responseHeaders?: HttpHeaders;
         /** Standard HTTP status code returned by the server. */
         statusCode: number;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnHeadersReceivedOptions[]) => void, T>;
+    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnHeadersReceivedOptions[]): void;
 
-    type _WebRequestOnAuthRequiredEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnAuthRequiredEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4314,9 +4390,15 @@ declare namespace browser.webRequest {
         statusLine: string;
         /** Standard HTTP status code returned by the server. */
         statusCode: number;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnAuthRequiredOptions[]) => void, T>;
+    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnAuthRequiredOptions[]): void;
 
-    type _WebRequestOnResponseStartedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnResponseStartedEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4359,9 +4441,15 @@ declare namespace browser.webRequest {
          * that lack a status line) or an empty string if there are no headers.
          */
         statusLine: string;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnResponseStartedOptions[]) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnResponseStartedOptions[]): void;
 
-    type _WebRequestOnBeforeRedirectEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnBeforeRedirectEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4406,9 +4494,15 @@ declare namespace browser.webRequest {
          * that lack a status line) or an empty string if there are no headers.
          */
         statusLine: string;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnBeforeRedirectOptions[]) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeRedirectOptions[]): void;
 
-    type _WebRequestOnCompletedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnCompletedEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4451,9 +4545,15 @@ declare namespace browser.webRequest {
          * that lack a status line) or an empty string if there are no headers.
          */
         statusLine: string;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnCompletedOptions[]) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnCompletedOptions[]): void;
 
-    type _WebRequestOnErrorOccurredEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnErrorOccurredEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4492,7 +4592,13 @@ declare namespace browser.webRequest {
          * must not parse and act based upon its content.
          */
         error: string;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
 
     /* webRequest properties */
     /**
@@ -7118,7 +7224,7 @@ declare namespace browser.tabs {
         | "Window"
         | "Application";
 
-    type _TabsOnUpdatedEvent<T = (tabId: number, changeInfo: {
+    interface _TabsOnUpdatedEvent<TCallback = (tabId: number, changeInfo: {
         /** The tab's new attention state. */
         attention?: boolean;
         /** The tab's new audible state. */
@@ -7152,7 +7258,13 @@ declare namespace browser.tabs {
          * `"tabs"` permission.
          */
         url?: string;
-    }, tab: Tab) => void> = WebExtEventBase<(callback: T, filter?: UpdateFilter) => void, T>;
+    }, tab: Tab) => void> {
+        addListener(cb: TCallback, filter?: UpdateFilter): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
 
     /* tabs properties */
     /** An ID which represents the absence of a browser tab. */

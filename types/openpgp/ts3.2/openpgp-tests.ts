@@ -1,3 +1,5 @@
+import openpgp from "openpgp";
+
 // Open PGP Sample codes
 
 var options: openpgp.KeyOptions = {
@@ -8,7 +10,6 @@ var options: openpgp.KeyOptions = {
     }],
     passphrase: 'super long and hard to guess secret'
 };
-
 openpgp.generateKey(options).then(function (keypair) {
     // success
     var privkey = keypair.privateKeyArmored;
@@ -38,7 +39,7 @@ openpgp.key.readArmored(spubkey)
 var sprivkey = '-----BEGIN PGP PRIVATE KEY BLOCK ... END PGP PRIVATE KEY BLOCK-----';
 var pgpMessageStr = '-----BEGIN PGP MESSAGE ... END PGP MESSAGE-----';
 
-openpgp.message.readArmored(pgpMessageStr).then(function(pgpMessage) {
+openpgp.message.readArmored(pgpMessageStr).then(function (pgpMessage) {
     const options = {
         message: pgpMessage
     };
@@ -49,10 +50,11 @@ openpgp.message.readArmored(pgpMessageStr).then(function(pgpMessage) {
     // failure
 });
 
-const promises: [Promise<openpgp.key.KeyResult>, Promise<openpgp.message.Message>] = [
+const promises: [Promise<{ keys: Array<openpgp.key.Key>, err: Array<Error> | null }>, Promise<openpgp.message.Message>] = [
     openpgp.key.readArmored(sprivkey),
     openpgp.message.readArmored(pgpMessageStr)
 ];
+
 
 Promise.all(promises).then(function (values) {
     const keyObject: openpgp.key.KeyResult = values[0];
@@ -70,7 +72,7 @@ Promise.all(promises).then(function (values) {
     // failure
 });
 
-openpgp.initWorker({ path:'openpgp.worker.js' });
+openpgp.initWorker('openpgp.worker.js');
 
 (async () => {
     let msgOptions: openpgp.EncryptOptions;
@@ -120,7 +122,7 @@ openpgp.initWorker({ path:'openpgp.worker.js' });
 
     const signed = await openpgp.sign(signOptions);
 
-    const signature = signed.signature as openpgp.Signature;
+    const signature = signed.signature as openpgp.signature.Signature;
     const message = signed.message;
 
     const verifyOptions: openpgp.VerifyOptions = {
@@ -138,34 +140,38 @@ openpgp.initWorker({ path:'openpgp.worker.js' });
 
 
 var keyoptions: openpgp.KeyOptions;
-var mpi: openpgp.crypto.Mpi;
-var mpis: Array<openpgp.crypto.Mpi>;
+var mpi: openpgp.type.mpi.MPI;
+var mpis: Array<openpgp.type.mpi.MPI>;
 
-openpgp.armor.armor(openpgp.enums.armor.message, {}, 0, 1);
-openpgp.armor.dearmor("");
+openpgp.encoding.armor.armor(openpgp.enums.armor.message, {}, 0, 1);
+openpgp.encoding.armor.dearmor("");
 
 openpgp.cleartext.readArmored("");
 
-openpgp.crypto.generateSessionKey(openpgp.enums.symmetric.aes128);
-openpgp.crypto.getPrefixRandom(openpgp.enums.symmetric.aes128);
-openpgp.crypto.getPrivateMpiCount(openpgp.enums.symmetric.aes128);
-openpgp.crypto.publicKeyDecrypt(openpgp.enums.publicKey.rsa_encrypt, mpis, mpis, mpi);
-openpgp.crypto.publicKeyEncrypt(openpgp.enums.publicKey.rsa_encrypt, mpis, mpi);
+openpgp.crypto.crypto.generateSessionKey(openpgp.enums.symmetric.aes128);
+openpgp.crypto.crypto.getPrefixRandom(openpgp.enums.symmetric.aes128);
+// openpgp.crypto.crypto.getPrivateMpiCount(openpgp.enums.symmetric.aes128);
+openpgp.crypto.crypto.publicKeyDecrypt(openpgp.enums.publicKey.rsa_encrypt, mpis, mpis, "");
+openpgp.crypto.crypto.publicKeyEncrypt(openpgp.enums.publicKey.rsa_encrypt, mpis, mpi, "");
 
+openpgp.crypto
+// API update with no documentation
 openpgp.crypto.cfb.decrypt("", "", "", true);
-openpgp.crypto.cfb.encrypt("", "", "", "", true);
-openpgp.crypto.cfb.mdc({}, "", "");
+openpgp.crypto.cfb.encrypt("", "", "", true);
+// Function removed from openpgp.crypto.cfb
+// openpgp.crypto.cfb.mdc({}, "", "");
 
-openpgp.crypto.hash.digest(openpgp.enums.hash.md5, "");
+openpgp.crypto.hash.digest(openpgp.enums.hash.md5, new Uint8Array([0, 1]));
 openpgp.crypto.hash.getHashByteLength(openpgp.enums.hash.md5);
 
-openpgp.crypto.random.getRandomBigInteger(0);
+openpgp.crypto.random.getRandomBN(mpi, mpi);
 openpgp.crypto.random.getRandomBytes(0);
-openpgp.crypto.random.getRandomValues(openpgp.util.str2Uint8Array(""));
-openpgp.crypto.random.getSecureRandom(0, 1);
+// function removed from openpgp.crypto.random
+// openpgp.crypto.random.getRandomValues(openpgp.util.str_to_Uint8Array(""));
+// openpgp.crypto.random.getSecureRandom(0, 1);
 
-openpgp.crypto.signature.sign(openpgp.enums.hash.md5, openpgp.enums.publicKey.rsa_encrypt, mpis, mpis, "");
-openpgp.crypto.signature.verify(openpgp.enums.publicKey.rsa_encrypt, openpgp.enums.hash.md5, mpis, mpis, "");
+openpgp.crypto.signature.sign(openpgp.enums.publicKey.rsa_encrypt, openpgp.enums.hash.md5, mpis, new Uint8Array([0, 1]), new Uint8Array([0, 1]));
+openpgp.crypto.signature.verify(openpgp.enums.publicKey.rsa_encrypt, openpgp.enums.hash.md5, mpis, mpis, new Uint8Array([0, 1]), new Uint8Array([0, 1]));
 
 openpgp.key.generate(keyoptions);
 openpgp.key.readArmored("");
@@ -177,18 +183,15 @@ openpgp.message.readArmored("");
 openpgp.packet.fromStructuredClone({});
 openpgp.packet.newPacketFromTag("");
 
-openpgp.util.bin2str([0, 1]);
-openpgp.util.calc_checksum("");
-openpgp.util.decode_utf8("");
+openpgp.util.Uint8Array_to_str(new Uint8Array([1, 0]));
+openpgp.util.decode_utf8(new Uint8Array([1, 0]));
 openpgp.util.encode_utf8("");
-openpgp.util.get_hashAlgorithmString();
 openpgp.util.getWebCrypto();
-openpgp.util.hex2bin("");
-openpgp.util.hexidump("");
-openpgp.util.hexstrdump("");
+openpgp.util.hex_to_Uint8Array("");
+openpgp.util.print_debug_hexarray_dump("");
+openpgp.util.print_debug_hexstr_dump("");
 openpgp.util.print_debug("");
 openpgp.util.print_debug_hexstr_dump("");
-openpgp.util.shiftRight("", 1);
-openpgp.util.str2bin("");
-openpgp.util.str2Uint8Array("");
-openpgp.util.Uint8Array2str(openpgp.util.str2Uint8Array(""));
+openpgp.util.shiftRight(new Uint8Array([1, 0]), 1);
+openpgp.util.str_to_Uint8Array("");
+openpgp.util.Uint8Array_to_str(openpgp.util.str_to_Uint8Array(""));

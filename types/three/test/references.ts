@@ -2,3 +2,4 @@
 
 /// <reference types="stats.js" />
 /// <reference types="tween.js" />
+/// <reference types="dat.gui" />

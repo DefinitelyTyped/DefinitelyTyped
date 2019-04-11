@@ -1,4 +1,4 @@
-import fetch, { Headers, Request, RequestInit, Response } from 'node-fetch';
+import fetch, { Headers, Request, RequestInit, Response, FetchError } from 'node-fetch';
 import { Agent } from "http";
 
 function test_fetchUrlWithOptions() {
@@ -81,4 +81,9 @@ function test_headersRaw() {
 function test_isRedirect() {
     fetch.isRedirect(301);
     fetch.isRedirect(201);
+}
+
+function test_FetchError() {
+    new FetchError('message', 'type', 'systemError');
+    new FetchError('message', 'type');
 }

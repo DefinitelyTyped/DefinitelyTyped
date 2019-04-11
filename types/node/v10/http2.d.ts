@@ -415,7 +415,7 @@ declare module "http2" {
         peerMaxConcurrentStreams?: number;
         selectPadding?: (frameLen: number, maxFrameLen: number) => number;
         settings?: Settings;
-        createConnection?: (option: SessionOptions) => stream.Duplex;
+        createConnection?: (authority: url.URL, option: SessionOptions) => stream.Duplex;
     }
 
     export type ClientSessionOptions = SessionOptions;
@@ -424,9 +424,7 @@ declare module "http2" {
     export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions { }
     export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions { }
 
-    export interface ServerOptions extends ServerSessionOptions {
-        allowHTTP1?: boolean;
-    }
+    export interface ServerOptions extends ServerSessionOptions { }
 
     export interface SecureServerOptions extends SecureServerSessionOptions {
         allowHTTP1?: boolean;

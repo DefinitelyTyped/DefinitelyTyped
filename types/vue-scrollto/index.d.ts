@@ -1,4 +1,4 @@
-// Type definitions for vue-scrollto 2.7
+// Type definitions for vue-scrollto 2.14
 // Project: https://github.com/rigor789/vue-scrollto#readme
 // Definitions by: Kovács Vince <https://github.com/vincekovacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,13 +19,19 @@ declare namespace VueScrollTo {
         easing?: string;
         // The offset that should be applied when scrolling. Default: 0
         offset?: number;
+        // Indicates if scrolling should be performed, even if the scroll target is already in view. Default: true
+        force?: boolean;
         // Indicates if user can cancel the scroll or not. Default: true
         cancelable?: boolean;
-        // A callback function that should be called when scrolling has ended. Default: noop
-        onDone?: (() => void) | false;
+        // A callback function that should be called when scrolling has started. Receives the target element as a
+        // parameter. Default: noop
+        onStart?: ((element: Element) => void) | false;
+        // A callback function that should be called when scrolling has ended. Receives the target element as a
+        // parameter. Default: noop
+        onDone?: ((element: Element) => void) | false;
         // A callback function that should be called when scrolling has been aborted by the user (user scrolled, clicked
-        // etc.). Default: noop
-        onCancel?: (() => void) | false;
+        // etc.). Receives the abort event and the target element as parameters. Default: noop
+        onCancel?: ((event: Event, element: Element) => void) | false;
         // Whether or not we want scrolling on the x axis. Default: true
         x?: boolean;
         // Whether or not we want scrolling on the y axis. Default: true

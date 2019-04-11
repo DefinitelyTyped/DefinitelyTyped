@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 11.10
+// Type definitions for non-npm package Node.js 11.13
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -36,6 +36,7 @@
 //                 Samuel Ainsworth <https://github.com/samuela>
 //                 Kyle Uehlein <https://github.com/kuehlein>
 //                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
+//                 Thanik Bhongbhibhat <https://github.com/bhongy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.2.
@@ -63,6 +64,7 @@ interface WeakMapConstructor { }
 interface SetConstructor { }
 interface WeakSetConstructor { }
 interface Set<T> {}
+interface Map<K, V> {}
 interface ReadonlySet<T> {}
 interface IteratorResult<T> { }
 interface Iterable<T> { }
@@ -89,5 +91,9 @@ declare module "util" {
     }
     namespace promisify {
         const custom: symbol;
+    }
+    namespace types {
+        function isBigInt64Array(value: any): boolean;
+        function isBigUint64Array(value: any): boolean;
     }
 }

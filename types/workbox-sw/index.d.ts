@@ -1421,4 +1421,4 @@ declare class WorkboxNamespace {
 	static skipWaiting (): void;
 }
 
-export default WorkboxNamespace;
+export = WorkboxNamespace;
