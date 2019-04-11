@@ -116,13 +116,29 @@ export interface Connection extends EscapeFunctions {
     statistics(options?: QueryOptions, callback?: (err: MysqlError) => void): void;
     statistics(callback: (err: MysqlError) => void): void;
 
+    /**
+     * Close the connection. Any queued data (eg queries) will be sent first. If
+     * there are any fatal errors, the connection will be immediately closed.
+     * @param callback Handler for any fatal error
+     */
     end(callback?: (err: MysqlError, ...args: any[]) => void): void;
     end(options: any, callback: (err: MysqlError, ...args: any[]) => void): void;
 
+    /**
+     * Close the connection immediately, without waiting for any queued data (eg
+     * queries) to be sent. No further events or callbacks will be triggered.
+     */
     destroy(): void;
 
+    /**
+     * Pause the connection. No more 'result' events will fire until resume() is
+     * called.
+     */
     pause(): void;
 
+    /**
+     * Resume the connection.
+     */
     resume(): void;
 
     on(ev: 'drain' | 'connect', callback: () => void): Connection;
@@ -141,8 +157,17 @@ export interface Connection extends EscapeFunctions {
 export interface PoolConnection extends Connection {
     release(): void;
 
+    /**
+     * Close the connection. Any queued data (eg queries) will be sent first. If
+     * there are any fatal errors, the connection will be immediately closed.
+     * @param callback Handler for any fatal error
+     */
     end(): void;
 
+    /**
+     * Close the connection immediately, without waiting for any queued data (eg
+     * queries) to be sent. No further events or callbacks will be triggered.
+     */
     destroy(): void;
 }
 
@@ -155,6 +180,11 @@ export interface Pool extends EscapeFunctions {
 
     releaseConnection(connection: PoolConnection): void;
 
+    /**
+     * Close the connection. Any queued data (eg queries) will be sent first. If
+     * there are any fatal errors, the connection will be immediately closed.
+     * @param callback Handler for any fatal error
+     */
     end(callback?: (err: MysqlError) => void): void;
 
     query: QueryFunction;
@@ -175,6 +205,11 @@ export interface PoolCluster {
 
     add(id: string, config: PoolConfig): void;
 
+    /**
+     * Close the connection. Any queued data (eg queries) will be sent first. If
+     * there are any fatal errors, the connection will be immediately closed.
+     * @param callback Handler for any fatal error
+     */
     end(callback?: (err: MysqlError) => void): void;
 
     of(pattern: string, selector?: string): Pool;
