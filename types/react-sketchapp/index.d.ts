@@ -1,4 +1,4 @@
-// Type definitions for react-sketchapp 0.13
+// Type definitions for react-sketchapp 0.15
 // Project: https://github.com/airbnb/react-sketchapp
 // Definitions by: Rico Kahler <https://github.com/ricokahler>
 //                 DomiR <https://github.com/DomiR>
@@ -243,7 +243,7 @@ export class Text extends React.Component<TextProps, any> {}
 // View
 export interface ViewProps {
     name?: string;
-    children?: any;
+    children?: React.ReactChild[] | React.ReactChild;
     style?: Style | StyleReference;
 }
 /** View primitives */
@@ -256,7 +256,7 @@ export const StyleSheet: {
      * Create an optimized `StyleSheet` reference from a style object.
      */
     create: <T extends { [key: string]: Style | TextStyle }>(
-        t: T
+        t: T,
     ) => { [P in keyof T]: StyleReference };
     /**
      * Flatten an array of style objects into one aggregated object, or look up the definition for a
@@ -267,7 +267,7 @@ export const StyleSheet: {
             | Array<Style | TextStyle | StyleReference>
             | StyleReference
             | undefined
-            | Style
+            | Style,
     ) => Style | TextStyle; // returns the expanded style or expanded style reference which conforms
     // to the `Style | TextStyle` interface
     /**
@@ -286,7 +286,7 @@ export const TextStyles: {
      */
     create: (
         options: { context: SketchContext; clearExistingStyles?: boolean },
-        styles: { [key: string]: TextStyle }
+        styles: { [key: string]: TextStyle },
     ) => any;
     /**
      * Find a stored native Sketch style object for a given JavaScript style object. You probably
@@ -316,7 +316,7 @@ export const TextStyles: {
  */
 export function makeSymbol<P>(
     node: React.ComponentClass<P> | ((props: P) => JSX.Element),
-    name?: string
+    name?: string,
 ): React.ComponentClass<P & { overrides?: { [key: string]: any } }>;
 
 /**
@@ -329,3 +329,6 @@ export const Platform: {
     Version: 1;
     select: (obj: any) => any;
 };
+
+// Svg, similar to https://github.com/react-native-community/react-native-svg
+export { default as Svg, SvgProps } from './lib/components/Svg';
