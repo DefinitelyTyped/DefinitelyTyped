@@ -31,6 +31,7 @@ declare namespace stripe {
 
     interface StripeOptions {
       stripeAccount?: string;
+      betas?: string[];
     }
 
     interface TokenOptions {

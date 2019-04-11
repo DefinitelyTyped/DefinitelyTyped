@@ -6,6 +6,7 @@ declare function it(desc: string, fn: () => void): void;
 describe("Stripe", () => {
     it("should excercise all Stripe API", () => {
         const stripe = Stripe('public-key');
+        const stripeWithBetaOption = Stripe('public-key', { betas: ['beta-feature'] });
         const elements = stripe.elements();
         const style = {
             base: {
