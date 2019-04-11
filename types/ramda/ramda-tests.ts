@@ -845,7 +845,7 @@ interface XS { a: number; b?: number; c?: string; }
     R.find(R.propEq("c", "someString"))(xs); // => { a: 3, c: "someString" }
 
     R.find<XS>(R.propEq("c1", "bzz"))(xs); // $ExpectError
-    R.find<XS>(R.propEq("c", 1))(xs); // $ExpectError
+    R.find<XS>(R.propEq("c", 10))(xs); // $ExpectError
     R.find(R.propEq({}, "someString"))(xs); // $ExpectError
 };
 
