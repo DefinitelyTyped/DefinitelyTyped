@@ -2,7 +2,7 @@
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: [Saeed Tabrizi] <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4.1
+// TypeScript Version: 3.4.3
 
 // Last Update  : 11-4-2019
 // Compatible with Orientdb >= 2.2.x and orientjs <= 3.0.x features 
