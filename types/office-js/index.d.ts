@@ -477,7 +477,7 @@ declare namespace Office {
      * The current context exists as a property of Office. It is accessed using `Office.context`.
      *
      * @remarks 
-     * **Hosts:** Access, Excel, Outlook, PowerPoint, Project, Word
+     * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
      */     
     interface Context {
         /**
@@ -547,8 +547,8 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}:** Restricted
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}:** Compose or Read
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         mailbox: Office.Mailbox;
         /**
@@ -573,8 +573,8 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}:** Restricted
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}:** Compose or Read
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         roamingSettings: Office.RoamingSettings;
         /**
@@ -618,10 +618,10 @@ declare namespace Office {
          * which button was clicked and to signal the host that it has completed its processing.
          * 
          * @remarks
-         * See [Add-in commands requirement sets](/office/dev/add-ins/reference/requirement-sets/add-in-commands-requirement-sets) for more support information.
+         * See {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/add-in-commands-requirement-sets | Add-in commands requirement sets} for more support information.
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}:** Restricted
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}:** Compose or Read
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         interface Event {
             
@@ -630,7 +630,7 @@ declare namespace Office {
              * 
              * @remarks
              * 
-             * This property is only supported in Outlook in [requirement set](/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets) Mailbox 1.3 and later.
+             * This property is only supported in Outlook in {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | requirement set} Mailbox 1.3 and later.
              */
             source:Source;
             /**
@@ -647,10 +647,8 @@ declare namespace Office {
              *
              * @remarks
              * 
-             * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}:** Restricted
-             * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}:** Compose or Read
-             * 
-             * This property is only supported in Outlook in [requirement set](/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets) Mailbox 1.3 and later. 
+             * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+             * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
              * 
              * Mailbox 1.3 does not have the `options` parameter while Mailbox Preview does have support for `options` parameter)
              * 
@@ -685,8 +683,8 @@ declare namespace Office {
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         *
         * @remarks
-        * **Hosts:** Word, Excel, Outlook, PowerPoint
-        * **Requirement sets:** 
+        * **Hosts**: Word, Excel, Outlook, PowerPoint
+        * **Requirement sets**: 
         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}, 
         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | Mailbox 1.4}
         * 
@@ -786,8 +784,8 @@ declare namespace Office {
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         *
         * @remarks
-        * **Hosts:** >Word, Excel, Outlook, PowerPoint
-        * **Requirement sets:** 
+        * **Hosts**: Excel, Outlook, PowerPoint, Word
+        * **Requirement sets**: 
         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}, 
         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | Mailbox 1.4}
         * 
@@ -886,7 +884,7 @@ declare namespace Office {
          * Delivers a message from the dialog box to its parent/opener page. The page calling this API must be on the same domain as the parent. 
          * 
          * @remarks
-         * **Requirement sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
          * 
          * @param message Accepts a message from the dialog to deliver to the add-in. In addition to a boolean, anything that can serialized to a string including JSON and XML can be sent. 
          */
@@ -895,8 +893,8 @@ declare namespace Office {
          * Closes the UI container where the JavaScript is executing.
          *
          * @remarks
-         * **Hosts:** Excel, Word, PowerPoint, Outlook (Minimum requirement set: Mailbox 1.5)
-         * **Requirement sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
+         * **Hosts**: Excel, Word, PowerPoint, Outlook (Minimum requirement set: Mailbox 1.5)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
          * 
          * The behavior of this method is specified by the following:
          *
@@ -954,6 +952,32 @@ declare namespace Office {
         asyncContext?: any
     }
 
+    /**
+     * Provides options for the user experience when Office obtains an access token to the add-in from AAD v. 2.0 with the getAccessTokenAsync method.
+     */
+    interface AuthOptions {
+        /**
+         * Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has
+         * been revoked.
+         */
+        forceConsent?: boolean,
+        /**
+         * Prompts the user to add their Office account (or to switch to it, if it is already added).
+         */
+        forceAddAccount?: boolean,
+        /**
+         * Causes Office to prompt the user to provide the additional factor when the tenancy being targeted by Microsoft Graph requires multifactor
+         * authentication. The string value identifies the type of additional factor that is required. In most cases, you won't know at development
+         * time whether the user's tenant requires an additional factor or what the string should be. So this option would be used in a "second try"
+         * call of getAccessTokenAsync after Microsoft Graph has sent an error requesting the additional factor and containing the string that should
+         * be used with the authChallenge option.
+         */
+        authChallenge?: string
+        /**
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
+         */
+        asyncContext?: any
+    }
     /**
      * Provides an option for preserving context data of any type, unchanged, for use in a callback.
      */
@@ -1314,7 +1338,7 @@ declare namespace Office {
      * The object that is returned when `UI.displayDialogAsync` is called. It exposes methods for registering event handlers and closing the dialog.
      * 
      * @remarks
-     * **Requirement Set:** [DialogApi](/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets)
+     * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
      */
     interface Dialog {
         /**
@@ -1747,7 +1771,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Requirement Set:** [BindingEvents](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#bindingevents)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#bindingevents | BindingEvents}
          *  
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
@@ -1763,7 +1787,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Requirement Set:** [BindingEvents](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#bindingevents)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#bindingevents | BindingEvents}
          * 
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
@@ -1776,7 +1800,7 @@ declare namespace Office {
          * Returns the data contained within the binding.
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),  
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
@@ -1799,7 +1823,7 @@ declare namespace Office {
          * Returns the data contained within the binding.
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),  
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
@@ -1822,7 +1846,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Requirement Set:** [BindingEvents](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#bindingevents)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#bindingevents | BindingEvents}
          * 
          * @param eventType The event type. For bindings, it can be `Office.EventType.BindingDataChanged` or `Office.EventType.BindingSelectionChanged`.
          * @param options Provides options to determine which event handler or handlers are removed.
@@ -1834,7 +1858,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Requirement Set:** [BindingEvents](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#bindingevents)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#bindingevents | BindingEvents}
          * 
          * @param eventType The event type. For bindings, it can be `Office.EventType.BindingDataChanged` or `Office.EventType.BindingSelectionChanged`.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -1844,7 +1868,7 @@ declare namespace Office {
          * Writes data to the bound section of the document represented by the specified binding object.
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),  
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
@@ -1982,6 +2006,7 @@ declare namespace Office {
          * Writes data to the bound section of the document represented by the specified binding object.
          *
          * @remarks
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),  
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
@@ -2119,7 +2144,7 @@ declare namespace Office {
      * Provides information about the binding that raised the DataChanged event.
      * 
      * @remarks
-     * **Hosts:** Access, Excel, Word
+     * **Hosts**: Access, Excel, Word
      */
     interface BindingDataChangedEventArgs {
         /**
@@ -2137,7 +2162,7 @@ declare namespace Office {
      * Provides information about the binding that raised the SelectionChanged event.
      * 
      * @remarks
-     * **Hosts:** Access, Excel, Word
+     * **Hosts**: Access, Excel, Word
      */
     interface BindingSelectionChangedEventArgs {
         /**
@@ -2202,7 +2227,7 @@ declare namespace Office {
          * Creates a binding against a named object in the document.
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
@@ -2268,7 +2293,7 @@ declare namespace Office {
          * Create a binding by prompting the user to make a selection on the document.
          *
          * @remarks
-         * **Requirement Sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * Adds a binding object of the specified type to the Bindings collection, which will be identified with the supplied id. 
          * The method fails if the specified selection cannot be bound.
@@ -2284,7 +2309,7 @@ declare namespace Office {
          * Create a binding by prompting the user to make a selection on the document.
          *
          * @remarks
-         * **Requirement Sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * Adds a binding object of the specified type to the Bindings collection, which will be identified with the supplied id. 
          * The method fails if the specified selection cannot be bound.
@@ -2299,7 +2324,7 @@ declare namespace Office {
          * Create a binding based on the user's current selection.
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
@@ -2322,7 +2347,7 @@ declare namespace Office {
          * Create a binding based on the user's current selection.
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
@@ -2344,7 +2369,7 @@ declare namespace Office {
          * Gets all bindings that were previously created.
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
@@ -2358,7 +2383,7 @@ declare namespace Office {
          * Gets all bindings that were previously created.
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
@@ -2371,7 +2396,7 @@ declare namespace Office {
          * Retrieves a binding based on its Name
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
@@ -2388,7 +2413,7 @@ declare namespace Office {
          * Retrieves a binding based on its Name
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
@@ -2404,7 +2429,7 @@ declare namespace Office {
          * Removes the binding from the document
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
@@ -2420,7 +2445,7 @@ declare namespace Office {
          * Removes the binding from the document
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
@@ -2452,7 +2477,7 @@ declare namespace Office {
          * Gets the nodes associated with the XPath expression.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath The XPath expression that specifies the nodes to get. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2464,7 +2489,7 @@ declare namespace Office {
          * Gets the nodes associated with the XPath expression.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath The XPath expression that specifies the nodes to get. Required.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2475,7 +2500,7 @@ declare namespace Office {
          * Gets the node value.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2486,7 +2511,7 @@ declare namespace Office {
          * Gets the node value.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is a string that contains the value of the referenced node.
@@ -2496,7 +2521,7 @@ declare namespace Office {
          * Gets the text of an XML node in a custom XML part.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2507,7 +2532,7 @@ declare namespace Office {
          * Gets the text of an XML node in a custom XML part.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is a string that contains the inner text of the referenced nodes.
@@ -2517,7 +2542,7 @@ declare namespace Office {
          * Gets the node's XML.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2528,7 +2553,7 @@ declare namespace Office {
          * Gets the node's XML.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is a string that contains the XML of the referenced node.
@@ -2538,7 +2563,7 @@ declare namespace Office {
          * Sets the node value.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param value The value to be set on the node
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2549,7 +2574,7 @@ declare namespace Office {
          * Sets the node value.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param value The value to be set on the node
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2559,7 +2584,7 @@ declare namespace Office {
          * Asynchronously sets the text of an XML node in a custom XML part.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param text Required. The text value of the XML node.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2570,7 +2595,7 @@ declare namespace Office {
          * Asynchronously sets the text of an XML node in a custom XML part.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param text Required. The text value of the XML node.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2580,7 +2605,7 @@ declare namespace Office {
          * Sets the node XML.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to be set on the node
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2591,7 +2616,7 @@ declare namespace Office {
          * Sets the node XML.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to be set on the node
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2618,7 +2643,7 @@ declare namespace Office {
          * Adds an event handler to the object using the specified event type.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
@@ -2634,7 +2659,7 @@ declare namespace Office {
          * Adds an event handler to the object using the specified event type.
          *
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
@@ -2649,7 +2674,7 @@ declare namespace Office {
          * Deletes the Custom XML Part.
          * 
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2659,7 +2684,7 @@ declare namespace Office {
          * Deletes the Custom XML Part.
          * 
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          */
@@ -2668,7 +2693,7 @@ declare namespace Office {
          * Asynchronously gets any CustomXmlNodes in this custom XML part which match the specified XPath.
          * 
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath An XPath expression that specifies the nodes you want returned. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2680,7 +2705,7 @@ declare namespace Office {
          * Asynchronously gets any CustomXmlNodes in this custom XML part which match the specified XPath.
          * 
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath An XPath expression that specifies the nodes you want returned. Required.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2691,7 +2716,7 @@ declare namespace Office {
          * Asynchronously gets the XML inside this custom XML part.
          * 
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2702,7 +2727,7 @@ declare namespace Office {
          * Asynchronously gets the XML inside this custom XML part.
          * 
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is a string that contains the XML of the referenced CustomXmlPart object.
@@ -2712,7 +2737,7 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          * 
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param eventType Specifies the type of event to remove. For a CustomXmlPart object, the eventType parameter can be specified as 
          *                  `Office.EventType.NodeDeleted`, `Office.EventType.NodeInserted`, and `Office.EventType.NodeReplaced`.
@@ -2725,7 +2750,7 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          * 
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param eventType Specifies the type of event to remove. For a CustomXmlPart object, the eventType parameter can be specified as 
          *                  `Office.EventType.NodeDeleted`, `Office.EventType.NodeInserted`, and `Office.EventType.NodeReplaced`.
@@ -2803,7 +2828,7 @@ declare namespace Office {
          * Asynchronously adds a new custom XML part to a file.
          * 
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to add to the newly created custom XML part.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2815,7 +2840,7 @@ declare namespace Office {
          * Asynchronously adds a new custom XML part to a file.
          * 
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to add to the newly created custom XML part.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2826,7 +2851,7 @@ declare namespace Office {
          * Asynchronously gets the specified custom XML part by its id.
          * 
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param id The GUID of the custom XML part, including opening and closing braces.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2839,7 +2864,7 @@ declare namespace Office {
          * Asynchronously gets the specified custom XML part by its id.
          * 
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param id The GUID of the custom XML part, including opening and closing braces.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2851,7 +2876,7 @@ declare namespace Office {
          * Asynchronously gets the specified custom XML part(s) by its namespace.
          * 
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param ns  The namespace URI.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2863,7 +2888,7 @@ declare namespace Office {
          * Asynchronously gets the specified custom XML part(s) by its namespace.
          * 
          * @remarks
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param ns  The namespace URI.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2880,7 +2905,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          * 
          * If no namespace is assigned to the requested prefix, the method returns an empty string ("").
          *
@@ -2895,7 +2920,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          * 
          * If no namespace is assigned to the requested prefix, the method returns an empty string ("").
          *
@@ -2909,7 +2934,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          * 
          * If the prefix already exists in the namespace manager, this method will overwrite the mapping of that prefix except when the prefix is one 
          * added or used by the data store internally, in which case it will return an error.
@@ -2925,7 +2950,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          * 
          * If the prefix already exists in the namespace manager, this method will overwrite the mapping of that prefix except when the prefix is one 
          * added or used by the data store internally, in which case it will return an error.
@@ -2940,7 +2965,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          * 
          * If no prefix is assigned to the requested namespace, the method returns an empty string (""). If there are multiple prefixes specified in 
          * the namespace manager, the method returns the first prefix that matches the supplied namespace.
@@ -2956,7 +2981,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Requirement Sets:** [CustomXmlParts](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          * 
          * If no prefix is assigned to the requested namespace, the method returns an empty string (""). If there are multiple prefixes specified in 
          * the namespace manager, the method returns the first prefix that matches the supplied namespace.
@@ -2971,7 +2996,7 @@ declare namespace Office {
      * An abstract class that represents the document the add-in is interacting with.
      *
      * @remarks
-     * **Hosts:** Access, Excel, PowerPoint, Project, Word
+     * **Hosts**: Access, Excel, PowerPoint, Project, Word
      */
     interface Document {
         /**
@@ -3002,7 +3027,7 @@ declare namespace Office {
          * Adds an event handler for a Document object event.
          *
          * @remarks
-         * **Requirement Sets:** [DocumentEvents](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
@@ -3017,7 +3042,7 @@ declare namespace Office {
          * Adds an event handler for a Document object event.
          *
          * @remarks
-         * **Requirement Sets:** [DocumentEvents](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
@@ -3031,7 +3056,7 @@ declare namespace Office {
          * Returns the state of the current view of the presentation (edit or read).
          *
          * @remarks
-         * **Requirement Sets:** [ActiveView](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#activeview)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#activeview | ActiveView}
          *
          * Can trigger an event when the view changes.
          *
@@ -3046,7 +3071,7 @@ declare namespace Office {
          * Returns the state of the current view of the presentation (edit or read).
          *
          * @remarks
-         * **Requirement Sets:** [ActiveView](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#activeview)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#activeview | ActiveView}
          *
          * Can trigger an event when the view changes.
          *
@@ -3061,7 +3086,7 @@ declare namespace Office {
          * Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#compressedfile | CompressedFile} (when using `Office.FileType.Compressed`), 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file | File}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
@@ -3092,6 +3117,7 @@ declare namespace Office {
          * Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
          *
          * @remarks
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#compressedfile | CompressedFile} (when using `Office.FileType.Compressed`), 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file | File}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
@@ -3120,7 +3146,7 @@ declare namespace Office {
          * Gets file properties of the current document.
          *
          * @remarks
-         * **Requirement Sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
+         * **Requirement sets**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * You get the file's URL with the url property `asyncResult.value.url`.
          *
@@ -3133,7 +3159,7 @@ declare namespace Office {
          * Gets file properties of the current document.
          *
          * @remarks
-         * **Requirement Sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
+         * **Requirement sets**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * You get the file's URL with the url property `asyncResult.value.url`.
          *
@@ -3145,7 +3171,7 @@ declare namespace Office {
          * Reads the data contained in the current selection in the document.
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`), 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
@@ -3230,7 +3256,7 @@ declare namespace Office {
          * Reads the data contained in the current selection in the document.
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`), 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
@@ -3312,7 +3338,7 @@ declare namespace Office {
          * Goes to the specified object or location in the document.
          *
          * @remarks
-         * **Requirement Sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * PowerPoint doesn't support the goToByIdAsync method in Master Views.
          *
@@ -3338,7 +3364,7 @@ declare namespace Office {
          * Goes to the specified object or location in the document.
          *
          * @remarks
-         * **Requirement Sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * PowerPoint doesn't support the goToByIdAsync method in Master Views.
          *
@@ -3363,7 +3389,7 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          *
          * @remarks
-         * **Requirement Sets:** [DocumentEvents](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * @param eventType The event type. For document can be 'Document.SelectionChanged' or 'Document.ActiveViewChanged'.
          * @param options Provides options to determine which event handler or handlers are removed.
@@ -3374,7 +3400,7 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          *
          * @remarks
-         * **Requirement Sets:** [DocumentEvents](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * @param eventType The event type. For document can be 'Document.SelectionChanged' or 'Document.ActiveViewChanged'.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3384,7 +3410,7 @@ declare namespace Office {
          * Writes the specified data into the current selection.
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion}, (when using `Office.CoercionType.Html`), 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#imagecoercion | ImageCoercion} (when using `Office.CoercionType.Image`), 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
@@ -3562,7 +3588,7 @@ declare namespace Office {
          * Writes the specified data into the current selection.
          *
          * @remarks
-         * **Requirement Sets:** 
+         * **Requirement sets**: 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion}, (when using `Office.CoercionType.Html`), 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#imagecoercion | ImageCoercion} (when using `Office.CoercionType.Image`), 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
@@ -4052,7 +4078,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * **Requirement Sets:** [File](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file | File}
          * 
          * No more than two documents are allowed to be in memory; otherwise the Document.getFileAsync operation will fail. Use the File.closeAsync 
          * method to close the file when you are finished working with it.
@@ -4090,7 +4116,7 @@ declare namespace Office {
          * Returns the specified slice.
          * 
          * @remarks
-         * **Requirement Sets:** [File](/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file | File}
          * 
          * In the callback function passed to the getSliceAsync method, you can use the properties of the AsyncResult object to return the following 
          * information.
@@ -4245,7 +4271,7 @@ declare namespace Office {
          * Retrieves the specified setting.
          *
          * @remarks
-         * **Requirement Sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          *
          * @param settingName The case-sensitive name of the setting to retrieve.
          * @returns An object that has property names mapped to JSON serialized values.
@@ -4255,7 +4281,7 @@ declare namespace Office {
          * Reads all settings persisted in the document and refreshes the content or task pane add-in's copy of those settings held in memory.
          *
          * @remarks
-         * **Requirement Sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * This method is useful in Excel, Word, and PowerPoint coauthoring scenarios when multiple instances of the same add-in are working against 
          * the same document. Because each add-in is working against an in-memory copy of the settings loaded from the document at the time the user 
@@ -4301,7 +4327,7 @@ declare namespace Office {
          * call the Settings.saveAsync method.
          *
          * @remarks
-         * **Requirement Sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * null is a valid value for a setting. Therefore, assigning null to the setting will not remove it from the settings property bag.
          * 
@@ -4349,7 +4375,7 @@ declare namespace Office {
          * Persists the in-memory copy of the settings property bag in the document.
          * 
          * @remarks
-         * **Requirement Sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * Any settings previously saved by an add-in are loaded when it is initialized, so during the lifetime of the session you can just use the 
          * set and get methods to work with the in-memory copy of the settings property bag. When you want to persist the settings so that they are 
@@ -4391,7 +4417,7 @@ declare namespace Office {
          * Persists the in-memory copy of the settings property bag in the document.
          * 
          * @remarks
-         * **Requirement Sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * Any settings previously saved by an add-in are loaded when it is initialized, so during the lifetime of the session you can just use the 
          * set and get methods to work with the in-memory copy of the settings property bag. When you want to persist the settings so that they are 
@@ -4437,7 +4463,7 @@ declare namespace Office {
          * the document.
          *
          * @remarks
-         * **Requirement Sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * The set method creates a new setting of the specified name if it does not already exist, or sets an existing setting of the specified name 
          * in the in-memory copy of the settings property bag. After you call the Settings.saveAsync method, the value is stored in the document as 
@@ -4985,8 +5011,8 @@ declare namespace Office {
          * Updates table formatting options on the bound table.
          *
          * @remarks
-         * **Hosts:** Excel
-         * **Requirement Sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
+         * **Hosts**: Excel
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * In the callback function passed to the goToByIdAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
@@ -5023,8 +5049,8 @@ declare namespace Office {
          * Updates table formatting options on the bound table.
          *
          * @remarks
-         * **Hosts:** Excel
-         * **Requirement Sets:** {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
+         * **Hosts**: Excel
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * In the callback function passed to the goToByIdAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
