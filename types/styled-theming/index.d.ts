@@ -5,13 +5,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
-import { FlattenInterpolation, ThemeProps } from "styled-components";
+import { FlattenInterpolation, ThemeProps, ThemedStyledProps } from "styled-components";
 
 declare function theme(name: string, values: theme.ThemeMap): theme.ThemeSet;
 
 declare namespace theme {
     type ThemeValueFn = (props: object) => string;
-    type ThemeValue = string | ThemeValueFn | FlattenInterpolation<ThemeProps<any>>;
+    type ThemeValue = string | ThemeValueFn | FlattenInterpolation<ThemeProps<any>> | FlattenInterpolation<ThemedStyledProps<any, any>>;
 
     interface ThemeMap {
         [key: string]: ThemeValue;
