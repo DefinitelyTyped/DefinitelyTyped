@@ -13,18 +13,59 @@ import stream = require("stream");
 import tls = require("tls");
 
 export interface EscapeFunctions {
+    /**
+     * Escape an untrusted string to be used as a SQL value. Use this on user
+     * provided data.
+     * @param value Value to escape
+     * @param stringifyObjects If true, don't convert objects into SQL lists
+     * @param timeZone Convert dates from UTC to the given timezone.
+     */
     escape(value: any, stringifyObjects?: boolean, timeZone?: string): string;
 
+    /**
+     * Escape an untrusted string to be used as a SQL identifier (database,
+     * table, or column name). Use this on user provided data.
+     * @param value Value to escape.
+     * @param forbidQualified Don't allow qualified identifiers (eg escape '.')
+     */
     escapeId(value: string, forbidQualified?: boolean): string;
 
+    /**
+     * Safely format a SQL query containing multiple untrusted values.
+     * @param sql Query, with insertion points specified with ? (for values) or
+     * ?? (for identifiers)
+     * @param values Array of objects to insert.
+     * @param stringifyObjects If true, don't convert objects into SQL lists
+     * @param timeZone Convert dates from UTC to the given timezone.
+     */
     format(sql: string, values: any[], stringifyObjects?: boolean, timeZone?: string): string;
 }
 
-// implements EscapeFunctions
+/**
+ * Escape an untrusted string to be used as a SQL value. Use this on user
+ * provided data.
+ * @param value Value to escape
+ * @param stringifyObjects If true, don't convert objects into SQL lists
+ * @param timeZone Convert dates from UTC to the given timezone.
+ */
 export function escape(value: any, stringifyObjects?: boolean, timeZone?: string): string;
 
+/**
+ * Escape an untrusted string to be used as a SQL identifier (database,
+ * table, or column name). Use this on user provided data.
+ * @param value Value to escape.
+ * @param forbidQualified Don't allow qualified identifiers (eg escape '.')
+ */
 export function escapeId(value: string, forbidQualified?: boolean): string;
 
+/**
+ * Safely format a SQL query containing multiple untrusted values.
+ * @param sql Query, with insertion points specified with ? (for values) or
+ * ?? (for identifiers)
+ * @param values Array of objects to insert.
+ * @param stringifyObjects If true, don't convert objects into SQL lists
+ * @param timeZone Convert dates from UTC to the given timezone.
+ */
 export function format(sql: string, values: any[], stringifyObjects?: boolean, timeZone?: string): string;
 
 export function createConnection(connectionUri: string | ConnectionConfig): Connection;
@@ -33,6 +74,12 @@ export function createPool(config: PoolConfig | string): Pool;
 
 export function createPoolCluster(config?: PoolClusterConfig): PoolCluster;
 
+/**
+ * Create a string that will be inserted unescaped with format(), escape().
+ * Note: the value will still be escaped if used as an identifier (??) by
+ * format().
+ * @param sql
+ */
 export function raw(sql: string): () => string;
 
 export interface Connection extends EscapeFunctions {
