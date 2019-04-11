@@ -2,7 +2,7 @@
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
-//                 Alex Bjørlig <https://github.com/dauledk>          
+//                 Alex Bjørlig <https://github.com/dauledk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -509,13 +509,64 @@ export interface StatsParams {
   to: string;
 }
 
-export interface ImportUsersOptions {
-  connection_id: string;
-  users: string;
+export type Job = ImportUsersJob | ExportUsersJob | VerificationEmailJob;
+
+export type JobFormat = 'csv' | 'json';
+
+export type JobStatus = 'pending' | 'completed';
+
+export interface ExportUsersJob {
+    id: string;
+    type: 'users_export';
+    status: JobStatus;
+    created_at?: string;
+    connection_id?: string;
+    fields?: ExportUserField[];
+    location?: string;
+    format?: JobFormat;
 }
 
-export interface UserIdParams {
-  user_id: string;
+export interface ImportUsersJob {
+    id: string;
+    type: 'users_import';
+    status: JobStatus;
+    created_at?: string;
+    connection_id?: string;
+    upsert?: boolean;
+    external_id?: string;
+    send_completion_email?: boolean;
+}
+
+export interface VerificationEmailJob {
+    id: string;
+    type: 'verification_email';
+    status: JobStatus;
+    created_at?: string;
+}
+
+export interface ImportUsersOptions {
+    users: string;
+    connection_id: string;
+    upsert?: boolean;
+    external_id?: string;
+    send_completion_email?: boolean;
+}
+
+export interface ExportUsersOptions {
+    connection_id?: string;
+    format?: JobFormat;
+    limit?: number;
+    fields?: ExportUserField[]
+}
+
+export interface VerificationEmailOptions {
+    user_id: string;
+    client_id?: string;
+}
+
+export interface ExportUserField {
+    name: string;
+    export_as?: string;
 }
 
 export interface PasswordChangeTicketParams {
@@ -816,14 +867,17 @@ export class ManagementClient {
 
 
   // Jobs
-  getJob(params: ObjectWithId): Promise<any>;
-  getJob(params: ObjectWithId, cb?: (err: Error, data: any) => void): void;
+    getJob<T extends Job>(params: ObjectWithId): Promise<T>;
+    getJob<T extends Job>(params: ObjectWithId, cb?: (err: Error, data: T) => void): void;
 
-  importUsers(data: ImportUsersOptions): Promise<any>;
-  importUsers(data: ImportUsersOptions, cb?: (err: Error, data: any) => void): void;
+    importUsers(data: ImportUsersOptions): Promise<ImportUsersJob>;
+    importUsers(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;
 
-  sendEmailVerification(data: UserIdParams): Promise<any>;
-  sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: any) => void): void;
+    exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
+    exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;
+
+    sendEmailVerification(data: VerificationEmailOptions): Promise<VerificationEmailJob>;
+    sendEmailVerification(data: VerificationEmailOptions, cb?: (err: Error, data: VerificationEmailJob) => void): void;
 
   // Tickets
   createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<PasswordChangeTicketResponse>;
