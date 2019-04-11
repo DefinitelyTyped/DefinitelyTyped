@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChunkExtractor } from '@loadable/server';
+import { ChunkExtractor, AttrFn } from '@loadable/server';
 
 // Should be satisfied by `stats` or `statsFile`
 new ChunkExtractor({ stats: {} });
@@ -31,12 +31,28 @@ const attributes = {
     "data-type": "loadable"
 };
 
+// An attribute function for get functions.
+const attrFn: AttrFn = (chunk) => {
+    return {
+        chunk: chunk.chunk,
+        filename: chunk.filename,
+        linkType: chunk.linkType,
+        path: chunk.path,
+        scriptType: chunk.scriptType,
+        type: chunk.type,
+        url: chunk.url
+    };
+};
+
 // getLinkElements
 {
     // Should return an array of React elements
     const elements: Array<React.ReactElement<{}>> = getLinkElements();
     const elementsWithAttrs: Array<React.ReactElement<{}>> = getLinkElements(
         attributes
+    );
+    const elementsWithAttrFn: Array<React.ReactElement<{}>> = getLinkElements(
+        attrFn
     );
 }
 
@@ -45,6 +61,7 @@ const attributes = {
     // Should return a string
     const tags: string = getLinkTags();
     const tagsWithAttrs: string = getLinkTags(attributes);
+    const tagsWithAttrFn: string = getLinkTags(attrFn);
 }
 
 // getScriptElements
@@ -54,6 +71,9 @@ const attributes = {
     const elementsWithAttrs: Array<React.ReactElement<{}>> = getScriptElements(
         attributes
     );
+    const elementsWithAttrFn: Array<React.ReactElement<{}>> = getScriptElements(
+        attrFn
+    );
 }
 
 // getScriptTags
@@ -61,6 +81,7 @@ const attributes = {
     // Should return a string
     const tags: string = getScriptTags();
     const tagsWithAttrs: string = getScriptTags(attributes);
+    const tagsWithAttrFn: string = getScriptTags(attrFn);
 }
 
 // getStyleElements
@@ -70,6 +91,9 @@ const attributes = {
     const elementsWithAttrs: Array<React.ReactElement<{}>> = getStyleElements(
         attributes
     );
+    const elementsWithAttrFn: Array<React.ReactElement<{}>> = getStyleElements(
+        attrFn
+    );
 }
 
 // getStyleTags
@@ -77,6 +101,7 @@ const attributes = {
     // Should return a string
     const tags: string = getStyleTags();
     const tagsWithAttrs: string = getStyleTags(attributes);
+    const tagsWithAttrFn: string = getStyleTags(attrFn);
 }
 
 // requireEntrypoint
