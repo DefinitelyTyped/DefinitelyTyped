@@ -116,7 +116,15 @@ export class Headers implements Iterable<[string, string]> {
     [Symbol.iterator](): Iterator<[string, string]>;
 }
 
+type BlobPart = ArrayBuffer | ArrayBufferView | Blob | string;
+
+interface BlobOptions {
+    type?: string;
+    endings?: "transparent" | "native";
+}
+
 export class Blob {
+    constructor(blobParts?: BlobPart[], options?: BlobOptions);
     type: string;
     size: number;
     slice(start?: number, end?: number): Blob;
