@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import * as stylus from 'gulp-stylus';
+import stylus = require('gulp-stylus');
 
 gulp.task('styles1', () => {
     return gulp.src('./css/one.styl')
