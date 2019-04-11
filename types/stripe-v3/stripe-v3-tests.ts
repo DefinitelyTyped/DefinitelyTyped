@@ -219,5 +219,12 @@ describe("Stripe v2 & v3", () => {
             supportedCountries: ['SEPA'],
             placeholderCountry: 'AT'
         });
+        const idealBank = elements.create('idealBank');
+        idealBank.on('change', (resp: stripe.elements.ElementChangeResponse) => {
+            if (resp.value && typeof resp.value !== 'object') {
+                console.log(resp.value.length);
+                const string: string = resp.value;
+            }
+        });
     });
 });

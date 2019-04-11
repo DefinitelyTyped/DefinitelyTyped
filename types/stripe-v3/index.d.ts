@@ -1,4 +1,4 @@
-// Type definitions for stripe-v3 3.0
+// Type definitions for stripe-v3 3.1
 // Project: https://stripe.com/
 // Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>
 //                 Eric J. Smith <https://github.com/ejsmith>
@@ -317,7 +317,7 @@ declare namespace stripe {
             brand: string;
             complete: boolean;
             empty: boolean;
-            value?: { postalCode: string | number };
+            value?: { postalCode: string | number } | string;
             country?: string;
             bankName?: string;
             error?: Error;
@@ -328,7 +328,7 @@ declare namespace stripe {
             locale?: string;
         }
 
-        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban';
+        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban' | 'idealBank';
         interface Elements {
             create(type: elementsType, options?: ElementsOptions): Element;
         }
