@@ -1,10 +1,10 @@
-// Type definitions for orientjs 3.0.x
+// Type definitions for orientjs 3.0
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: [Saeed Tabrizi] <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // Last Update  : 11-4-2019
-// Compatible with Orientdb >= 2.2.x and orientjs <= 3.0.x features 
+// Compatible with Orientdb >= 2.2.x and orientjs <= 3.0.x features.
 // Developed with love in www.nowcando.com
 
 /// <reference types="node" />
@@ -672,8 +672,8 @@ declare namespace orientjs {
         let(name: string, value: string | Statement<T>): Statement<T>;
         lock(param: any): Statement<T>;
 
-        if(condition: SqlExpression, statements: Statement<T>[]): Statement<T>;
-        if(condition: SqlExpression, ...statements: Statement<T>[]): Statement<T>;
+        if(condition: SqlExpression, statements: Array<Statement<T>>): Statement<T>;
+        if(condition: SqlExpression, ...statements: Array<Statement<T>>): Statement<T>;
         rollback(param?: any): Statement<T>;
         sleep(ms?: number): Statement<T>;
 
@@ -946,13 +946,13 @@ declare namespace orientjs {
          *
          * @return The query instance.
          */
-        if<T>(condition: SqlExpression, statements: Statement<T>[]): Statement<T>;
+        if<T>(condition: SqlExpression, statements: Array<Statement<T>>): Statement<T>;
         /**
          * Create a transactional query with if.
          *
          * @return The query instance.
          */
-        if<T>(condition: SqlExpression, ...statements: Statement<T>[]): Statement<T>;
+        if<T>(condition: SqlExpression, ...statements: Array<Statement<T>>): Statement<T>;
         /**
          * Escape the given input.
          *
