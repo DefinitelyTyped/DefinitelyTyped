@@ -1345,6 +1345,11 @@ declare module "../index" {
         leading?: boolean;
 
         /**
+         * The maximum time func is allowed to be delayed before it's invoked.
+         */
+        maxWait?: number;
+
+        /**
          * If you'd like to disable the execution on the trailing-edge, pass false.
          */
         trailing?: boolean;
