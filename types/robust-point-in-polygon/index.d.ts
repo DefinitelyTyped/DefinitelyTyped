@@ -6,8 +6,4 @@
 type Point = [number, number];
 
 declare function robustPointInPolygon(vs: Point[], point: Point): number;
-
-export {
-  Point,
-  robustPointInPolygon
-};
+export = robustPointInPolygon;
