@@ -1,4 +1,5 @@
 import fetch, {
+    Blob,
     Headers,
     Request,
     RequestInit,
@@ -105,4 +106,11 @@ function test_isRedirect() {
 function test_FetchError() {
     new FetchError("message", "type", "systemError");
     new FetchError("message", "type");
+}
+
+function test_Blob() {
+    new Blob();
+    new Blob(["beep", "boop"]);
+    new Blob(["beep", "boop"], { endings: "native" });
+    new Blob(["beep", "boop"], { type: "text/plain" });
 }
