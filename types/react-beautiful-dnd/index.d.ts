@@ -7,6 +7,7 @@
 //                 Enrico Boccadifuoco <https://github.com/enricoboccadifuoco>
 //                 Taeheon Kim <https://github.com/lonyele>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
+//                 James Lismore <https://github.com/jlismore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -72,7 +73,7 @@ export interface DragStart {
 
 export interface DragUpdate extends DragStart {
     destination?: DraggableLocation | null;
-    // populated when a draggable is dragging over another in combine mode
+    /** populated when a draggable is dragging over another in combine mode */
     combine?: Combine | null;
 }
 
@@ -151,13 +152,15 @@ export interface DraggingStyle {
 }
 
 export interface DraggableProvidedDraggableProps {
-    // inline style
+    /** inline style */
     style?: DraggingStyle | NotDraggingStyle;
     // used for shared global styles
     'data-react-beautiful-dnd-draggable': string;
 }
 
 export interface DraggableProvidedDragHandleProps {
+    onBlur: React.FocusEventHandler<any>;
+    onFocus: React.FocusEventHandler<any>;
     onMouseDown: React.MouseEventHandler<any>;
     onKeyDown: React.KeyboardEventHandler<any>;
     onTouchStart: React.TouchEventHandler<any>;
@@ -174,7 +177,7 @@ export interface DraggableProvided {
     draggableProps: DraggableProvidedDraggableProps;
     dragHandleProps: DraggableProvidedDragHandleProps | null;
 
-    // will be removed after move to react 16
+    /** will be removed after move to react 16 */
     innerRef(element?: HTMLElement | null): any;
     placeholder?: React.ReactElement<HTMLElement> | null;
 }
@@ -184,11 +187,11 @@ export interface DraggableStateSnapshot {
     isDropAnimating: boolean;
     draggingOver?: DroppableId;
     dropAnimation?: DropAnimation;
-    // the id of a draggable that you are combining with
+    /** the id of a draggable that you are combining with */
     combineWith?: DraggableId;
-    // a combine target is being dragged over by
+    /** a combine target is being dragged over by */
     combineTargetFor?: DraggableId;
-    // What type of movement is being done: 'FLUID' or 'SNAP'
+    /** What type of movement is being done: 'FLUID' or 'SNAP' */
     mode?: MovementMode;
 }
 
