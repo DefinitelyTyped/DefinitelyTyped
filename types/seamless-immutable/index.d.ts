@@ -57,7 +57,7 @@ declare namespace SeamlessImmutable {
         getIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M]>(propertyPath: [ K, L, M, N ]): Immutable<T[K][L][M][N]>;
         getIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M]>(propertyPath: [ K, L, M, N ], defaultValue: T[K][L][M][N]): Immutable<T[K][L][M][N]>;
         getIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>(
-            propertyPath: [ K, L, M, N, O ]): Immutable<T[K][L][M][N][O]>
+            propertyPath: [ K, L, M, N, O ]): Immutable<T[K][L][M][N][O]>;
         getIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>(
             propertyPath: [ K, L, M, N, O ], defaultValue: T[K][L][M][N][O]): Immutable<T[K][L][M][N][O]>;
         getIn(propertyPath: string[]): Immutable<any>;
