@@ -143,15 +143,28 @@ export interface Connection extends EscapeFunctions {
 
     on(ev: 'drain' | 'connect', callback: () => void): Connection;
 
+    /**
+     * Set handler to be run when the connection is closed.
+     */
     on(ev: 'end', callback: (err?: MysqlError) => void): Connection;
 
     on(ev: 'fields', callback: (fields: any[]) => void): Connection;
 
-    on(ev: 'error', callback: (err: MysqlError) => void): Connection;
+    /**
+     * Set handler to be run when a a fatal error occurs.
+     */
+    on(ev: 'error', callback: (err: MysqlError) => void): Pool;
 
-    on(ev: 'enqueue', callback: (...args: any[]) => void): Connection;
+    /**
+     * Set handler to be run when a callback has been queued to wait for an
+     * available connection.
+     */
+    on(ev: 'enqueue', callback: (err?: MysqlError) => void): Pool;
 
-    on(ev: string, callback: (...args: any[]) => void): this;
+    /**
+     * Set handler to be run on a certain event.
+     */
+    on(ev: string, callback: (...args: any[]) => void): Pool;
 }
 
 export interface PoolConnection extends Connection {
@@ -189,12 +202,41 @@ export interface Pool extends EscapeFunctions {
 
     query: QueryFunction;
 
-    on(ev: 'connection' | 'acquire' | 'release', callback: (connection: PoolConnection) => void): Pool;
+    /**
+     * Set handler to be run when a new connection is made within the pool.
+     */
+    on(ev: 'connection', callback: (connection: PoolConnection) => void): Pool;
 
+    /**
+     * Set handler to be run when a connection is acquired from the pool. This
+     * is called after all acquiring activity has been performed on the
+     * connection, right before the connection is handed to the callback of the
+     * acquiring code.
+     */
+    on(ev: 'acquire', callback: (connection: PoolConnection) => void): Pool;
+
+    /**
+     * Set handler to be run when a connection is released back to the pool.
+     * This is called after all release activity has been performed on the
+     * connection, so the connection will be listed as free at the time of the
+     * event.
+     */
+    on(ev: 'release', callback: (connection: PoolConnection) => void): Pool;
+
+    /**
+     * Set handler to be run when a a fatal error occurs.
+     */
     on(ev: 'error', callback: (err: MysqlError) => void): Pool;
 
+    /**
+     * Set handler to be run when a callback has been queued to wait for an
+     * available connection.
+     */
     on(ev: 'enqueue', callback: (err?: MysqlError) => void): Pool;
 
+    /**
+     * Set handler to be run on a certain event.
+     */
     on(ev: string, callback: (...args: any[]) => void): Pool;
 }
 
@@ -226,9 +268,15 @@ export interface PoolCluster {
 
     getConnection(pattern: string, selector: string, callback: (err: MysqlError, connection: PoolConnection) => void): void;
 
+    /**
+     * Set handler to be run on a certain event.
+     */
     on(ev: string, callback: (...args: any[]) => void): PoolCluster;
 
-    on(ev: 'remove' | 'offline' | 'remove', callback: (nodeId: string) => void): PoolCluster;
+    /**
+     * Set handler to be run when a node is removed or goes offline.
+     */
+    on(ev: 'remove' | 'offline', callback: (nodeId: string) => void): PoolCluster;
 }
 
 // related to Query
