@@ -174,7 +174,12 @@ export interface ResponseInit {
 export type HeadersInit = Headers | string[][] | { [key: string]: string };
 // HeaderInit is exported to support backwards compatibility. See PR #34382
 export type HeaderInit = HeadersInit;
-export type BodyInit = ArrayBuffer | ArrayBufferView | NodeJS.ReadableStream | string | URLSearchParams;
+export type BodyInit =
+    ArrayBuffer
+    | ArrayBufferView
+    | NodeJS.ReadableStream
+    | string
+    | URLSearchParams;
 export type RequestInfo = string | Request;
 
 declare function fetch(
