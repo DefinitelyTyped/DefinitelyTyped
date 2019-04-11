@@ -1,8 +1,9 @@
-// Type definitions for humps v1.1.0
+// Type definitions for humps v1.2.0
 // Project: https://github.com/domchristie/humps
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
 //				   Will Guedes <https://github.com/willbrazil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare namespace humps {
 
