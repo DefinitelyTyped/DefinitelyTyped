@@ -344,15 +344,15 @@ export interface Query {
     on(ev: 'end', callback: () => void): Query;
 }
 
-export interface GeometryType extends Array<{x: number, y: number} | GeometryType> {
+export interface GeometryType extends Array<{ x: number, y: number } | GeometryType> {
     x: number;
     y: number;
 }
 
 export type TypeCast = boolean | (
     (field: FieldInfo
-        & { type: string, length: number, string(): string, buffer(): Buffer, geometry(): null |  GeometryType},
-    next: () => void) => any);
+        & { type: string, length: number, string(): string, buffer(): Buffer, geometry(): null | GeometryType },
+        next: () => void) => any);
 
 export type queryCallback = (err: MysqlError | null, results?: any, fields?: FieldInfo[]) => void;
 
