@@ -23,7 +23,6 @@ declare namespace AMap {
          */
         off<C = this>(
             eventName: string,
-            // tslint:disable-next-line
             handler: ((this: C, event: any) => void) | 'mv',
             context?: C
         ): this;
@@ -64,9 +63,7 @@ declare namespace AMap {
             // tslint:disable-next-line: no-unnecessary-generics
             instance: I,
             eventName: string,
-            // tslint:disable-next-line: no-unnecessary-generics
             handler: (this: C, event: any) => void,
-            // tslint:disable-next-line: no-unnecessary-generics
             context?: C
         ): EventListener<1>;
         /**
@@ -80,9 +77,7 @@ declare namespace AMap {
             // tslint:disable-next-line: no-unnecessary-generics
             instance: I,
             eventName: string,
-            // tslint:disable-next-line: no-unnecessary-generics
             handler: (this: C, event: any) => void,
-            // tslint:disable-next-line: no-unnecessary-generics
             context?: C
         ): EventListener<1>;
         /**
