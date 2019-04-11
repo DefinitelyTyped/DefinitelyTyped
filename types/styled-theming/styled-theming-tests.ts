@@ -13,12 +13,20 @@ const backgroundColor = theme.variants("mode", "variant", {
     warning: { light: "orange", dark: "darkorange" }
 });
 
-interface cssProps {
-    visible: boolean;
-}
 const cssTheme = theme("mode", {
     dark: css`
         background: gray;
+    `,
+    light: css`
+        background: white;
+    `
+});
+
+interface cssProps {
+    visible: boolean;
+}
+const cssPropsTheme = theme("mode", {
+    dark: css`
         visibility: ${(props: cssProps) => props.visible ? 'visible' : 'hidden'};
     `,
     light: css`
