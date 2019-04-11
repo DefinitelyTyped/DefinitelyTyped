@@ -1,4 +1,4 @@
-import React from 'react';
+import React = require('react');
 
 import { ViewProps } from '../../../index';
 import Circle, { CircleProps } from './Circle';
@@ -16,7 +16,7 @@ import Polyline, { PolylineProps } from './Polyline';
 import RadialGradient, { RadialGradientProps } from './RadialGradient';
 import Rect, { RectProps } from './Rect';
 import Stop, { StopProps } from './Stop';
-import Symbol, { SymbolProps } from './Symbol';
+import SvgSymbol, { SymbolProps } from './Symbol';
 import Text, { TextProps } from './Text';
 import TextPath, { TextPathProps } from './TextPath';
 import TSpan, { TSpanProps } from './TSpan';
@@ -48,7 +48,7 @@ export default class Svg extends React.Component<SvgProps> {
     static RadialGradient: new (props: RadialGradientProps) => RadialGradient;
     static Rect: new (props: RectProps) => Rect;
     static Stop: new (props: StopProps) => Stop;
-    static Symbol: new (props: SymbolProps) => Symbol;
+    static Symbol: new (props: SymbolProps) => SvgSymbol;
     static Text: new (props: TextProps) => Text;
     static TextPath: new (props: TextPathProps) => TextPath;
     static TSpan: new (props: TSpanProps) => TSpan;

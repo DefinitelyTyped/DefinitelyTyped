@@ -1,4 +1,4 @@
-import React from 'react';
+import React = require('react');
 
 export interface DefsProps {
     children: React.ReactChild[] | React.ReactChild;

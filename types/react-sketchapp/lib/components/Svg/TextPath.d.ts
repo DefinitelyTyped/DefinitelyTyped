@@ -1,7 +1,7 @@
-import React from 'react';
+import React = require('react');
 
-import { TextPathProps as DefaultTextPathProps } from './props';
+import { TextPathProps } from './props';
 
-export interface TextPathProps extends DefaultTextPathProps {}
+export { TextPathProps };
 
 export default class TextPath extends React.Component<TextPathProps> {}

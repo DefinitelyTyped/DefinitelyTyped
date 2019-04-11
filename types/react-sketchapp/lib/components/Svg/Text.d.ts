@@ -1,8 +1,8 @@
-import React from 'react';
+import React = require('react');
 
-import { TextProps as DefaultTextProps } from './props';
+import { TextProps } from './props';
 
-export interface TextProps extends DefaultTextProps {}
+export { TextProps };
 
 export default class Text extends React.Component<TextProps> {
     getChildContext(): { isInAParentText: boolean };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React = require('react');
 
 import { PathProps, FontProps } from './props';
 

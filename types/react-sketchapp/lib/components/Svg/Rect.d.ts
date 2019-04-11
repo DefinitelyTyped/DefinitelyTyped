@@ -1,4 +1,4 @@
-import React from 'react';
+import React = require('react');
 
 import { PathProps, NumberProp } from './props';
 

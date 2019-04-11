@@ -1,9 +1,8 @@
-import React from 'react';
+import React = require('react');
 
-import { TextProps } from './props';
+import { TextProps as TSpanProps } from './props';
 
-export interface TSpanProps extends TextProps {}
-
+export { TSpanProps };
 export default class TSpan extends React.Component<TSpanProps> {
     getChildContext(): { isInAParentText: boolean };
 }

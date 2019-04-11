@@ -331,4 +331,4 @@ export const Platform: {
 };
 
 // Svg, similar to https://github.com/react-native-community/react-native-svg
-export { default as Svg } from './lib/components/Svg';
+export { default as Svg, SvgProps } from './lib/components/Svg';
