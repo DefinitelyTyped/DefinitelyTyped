@@ -4,7 +4,7 @@
 //                 DomiR <https://github.com/DomiR>
 //                 Sascha Zarhuber <https://github.com/saschazar21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
