@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-type HookReturnTuple = [((node?: Element | null) => void), boolean];
+export type HookReturnTuple = [((node?: Element | null) => void), boolean];
 
 export function useClickOutside(): HookReturnTuple;
