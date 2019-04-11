@@ -1,6 +1,7 @@
 // Type definitions for humps v1.1.0
 // Project: https://github.com/domchristie/humps
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
+//				   Will Guedes <https://github.com/willbrazil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace humps {
@@ -10,15 +11,15 @@ declare namespace humps {
 	function decamelize(value: string, optionsOrProcessor?: OptionOrProcessor): string;
 	function depascalize(value: string, optionsOrProcessor?: OptionOrProcessor): string;
 
-	function camelizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
-	function pascalizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
-	function decamelizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
-	function depascalizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
+	function camelizeKeys<T = Object>(str: Object, optionsOrProcessor?: OptionOrProcessor): T;
+	function pascalizeKeys<T = Object>(str: Object, optionsOrProcessor?: OptionOrProcessor): T;
+	function decamelizeKeys<T = Object>(str: Object, optionsOrProcessor?: OptionOrProcessor): T;
+	function depascalizeKeys<T = Object>(str: Object, optionsOrProcessor?: OptionOrProcessor): T;
 
-	function camelizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
-	function pascalizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
-	function decamelizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
-	function depascalizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
+	function camelizeKeys<T = Object>(str: Object[], optionsOrProcessor?: OptionOrProcessor): T[];
+	function pascalizeKeys<T = Object>(str: Object[], optionsOrProcessor?: OptionOrProcessor): T[];
+	function decamelizeKeys<T = Object>(str: Object[], optionsOrProcessor?: OptionOrProcessor): T[];
+	function depascalizeKeys<T = Object>(str: Object[], optionsOrProcessor?: OptionOrProcessor): T[];
 
 	interface HumpsOptions {
 		separator?: string;
