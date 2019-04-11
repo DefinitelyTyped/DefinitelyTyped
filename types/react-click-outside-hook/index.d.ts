@@ -3,6 +3,7 @@
 // Definitions by: Bryan Deloeste <https://github.com/bdeloeste>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import { MutableRefObject } from "react";
 
-export function useClickOutside<T>(): [MutableRefObject<T>, boolean];
+type HookReturnTuple = [((node?: Element | null) => void), boolean];
+
+export function useClickOutside(): HookReturnTuple;
