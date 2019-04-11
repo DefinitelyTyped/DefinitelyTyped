@@ -9,7 +9,7 @@ import express = require("express");
 import i18n = require("i18n");
 
 const app = express();
-let req: express.Request;
+declare const req: express.Request;
 
 /**
  * Configuration
@@ -98,7 +98,7 @@ i18n.configure({
  * Usage in global scope
  * https://github.com/mashpie/i18n-node#example-usage-in-global-scope
  */
-let greeting = i18n.__('Hello');
+const greeting = i18n.__('Hello');
 
 /**
  * Usage in Express
@@ -111,7 +111,7 @@ app.configure(() => {
 });
 
 app.get('/de', (_req: Express.Request, res: Express.Response) => {
-    let greeting = res.__('Hello');
+    const greeting = res.__('Hello');
 });
 
 /**
@@ -137,6 +137,16 @@ i18n.__({ phrase: 'Hello {{name}}', locale: 'fr' }, { name: 'Marcus' }); // Salu
  * __n()
  * https://github.com/mashpie/i18n-node#__n
  */
+// short syntax
+// global (this.locale == 'de')
+i18n.__n("%s cat", 1); // 1 Katze
+i18n.__n("%s cat", 3); // 3 Katzen
+
+// scoped via req object (req.locale == 'de')
+req.__n("%s cat", 1); // 1 Katze
+req.__n("%s cat", 3); // 3 Katzen
+
+// long syntax
 // global (this.locale == 'de')
 i18n.__n("%s cat", "%s cats", 1); // 1 Katze
 i18n.__n("%s cat", "%s cats", 3); // 3 Katzen

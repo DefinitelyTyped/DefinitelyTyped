@@ -1,9 +1,5 @@
-
-
-
 import coffeelint = require('gulp-coffeelint');
 import gulp = require('gulp');
-
 
 gulp.task('lint', function () {
     gulp.src('./src/*.coffee')
@@ -52,6 +48,3 @@ gulp.task('lint', function() {
         .pipe(coffeelint())
         .pipe(coffeelint.reporter(myReporter));
 });
-
-
-

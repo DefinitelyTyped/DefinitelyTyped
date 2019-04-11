@@ -1,4 +1,4 @@
-import * as express from "express";
+import express = require("express");
 import * as i18next from "i18next";
 import middleware = require("i18next-express-middleware");
 

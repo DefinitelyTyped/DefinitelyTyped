@@ -1,6 +1,5 @@
-
 import * as redis from 'redis';
-import * as Limiter from 'ratelimiter';
+import Limiter = require('ratelimiter');
 
 declare let id: string;
 declare let db: redis.RedisClient;

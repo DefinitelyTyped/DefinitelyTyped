@@ -25,6 +25,14 @@ declare module 'angular' {
             getCustomInit(): FBInitParams;
         }
 
+        type FBUIParams =
+            | ShareDialogParams
+            | PageTabDialogParams
+            | RequestsDialogParams
+            | SendDialogParams
+            | PayDialogParams
+            | FeedDialogParams;
+
         interface IFacebookService {
             config<T extends string | number | FBInitParams>(property: string): T;
             init(): void;

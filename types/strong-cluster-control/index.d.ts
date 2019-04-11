@@ -53,7 +53,6 @@ declare namespace StrongClusterControl {
 
         /**
          * @description Stop the controller, after stopping workers (if the size is being controlled, see setSize()).
-         * @param callback
          */
         stop(callback?: () => any): this;
 

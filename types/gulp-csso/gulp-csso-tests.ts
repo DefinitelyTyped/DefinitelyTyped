@@ -1,8 +1,5 @@
-
-
-
 import * as gulp from 'gulp';
-import * as csso from 'gulp-csso';
+import csso = require('gulp-csso');
 
 gulp.task('default', () =>
     gulp.src('./main.css')

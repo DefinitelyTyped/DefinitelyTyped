@@ -1,9 +1,12 @@
 import express = require('express');
 import passport = require('passport');
 import SamlStrategy = require('passport-saml');
+import MultiSamlStrategy = require('passport-saml/multiSamlStrategy');
+import fs = require('fs');
 
-let samlStrategy = new SamlStrategy.Strategy(
+const samlStrategy = new SamlStrategy.Strategy(
 	{
+		name: 'samlCustomName',
 		path: '/login/callback',
 		entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
 		issuer: 'passport-saml',
@@ -18,15 +21,42 @@ let samlStrategy = new SamlStrategy.Strategy(
 				// removes the key from the cache, invokes `callback` with the
 				// key removed, null if no key is removed
 			}
-		}
+		},
+		cert: fs.readFileSync('/path/to/cert.crt', 'UTF8')
 	},
 	(profile: {}, done: (err: Error | null, user: {}, info?: {}) => void) => {
-		let user = {};
+		const user = {};
 		done(null, user);
 	}
 );
 
 passport.use(samlStrategy);
-passport.authenticate('saml', {failureRedirect: '/', failureFlash: true});
+passport.authenticate('samlCustomName', {failureRedirect: '/', failureFlash: true});
 
-let metadata = samlStrategy.generateServiceProviderMetadata("decryptionCert");
+const metadata = samlStrategy.generateServiceProviderMetadata("decryptionCert");
+
+const multiSamlStrategy = new MultiSamlStrategy(
+	{
+		name: 'samlCustomName',
+		path: '/login/callback',
+		entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
+		issuer: 'passport-saml',
+        getSamlOptions(req: express.Request, callback: MultiSamlStrategy.SamlOptionsCallback) {
+            callback(null, {
+                name: 'samlCustomName',
+                path: '/login/callback2',
+                entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
+                issuer: 'passport-saml',
+			});
+			callback(new Error("SAML Options Error"));
+        }
+	},
+	(profile: {}, done: (err: Error | null, user?: {}, info?: {}) => void) => {
+		const user = {};
+		done(null, user);
+		done(new Error("Verify Request Error"));
+	}
+);
+
+passport.use(multiSamlStrategy);
+passport.authenticate('samlCustomName', {failureRedirect: '/', failureFlash: true});

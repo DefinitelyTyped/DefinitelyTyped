@@ -8,7 +8,7 @@ function ModuleTest(): void {
     Module.preinitializedWebGLContext = new WebGLRenderingContext();
 
     let package: ArrayBuffer = Module.getPreloadedPackage("package-name", 100);
-    let exports: WebAssembly.Exports = Module.instantiateWasm(
+    let exports: Module.WebAssemblyExports = Module.instantiateWasm(
         [{name: "func-name", kind: "function"}],
         (module: WebAssembly.Module) => {}
     );
@@ -18,6 +18,7 @@ function ModuleTest(): void {
     Module.print = function(text) { alert('stdout: ' + text) };
 
     var int_sqrt = Module.cwrap('int_sqrt', 'number', ['number'])
+    int_sqrt = Module.cwrap('int_sqrt', null, ['number'])
     int_sqrt(12)
     int_sqrt(28)
 
@@ -27,6 +28,7 @@ function ModuleTest(): void {
     var x = Module.getValue(buf, 'i32') + 123;
     Module.HEAPU8.set(myTypedArray, buf);
     Module.ccall('my_function', 'number', ['number'], [buf]);
+    Module.ccall('my_function', null, ['number'], [buf]);
     Module._free(buf);
     Module.destroy({});
 }

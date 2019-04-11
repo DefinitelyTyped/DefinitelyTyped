@@ -1,4 +1,4 @@
-
+import { lory } from 'lory.js';
 
 (function() {
     var elm = document.querySelector('.js-foo');
@@ -19,6 +19,7 @@
         rewindSpeed: 600,
         snapBackSpeed: 200,
         ease: 'ease',
+		initialIndex: 0,
         rewind: true,
         infinite: false,
         classNameFrame: 'js_frame',

@@ -1,8 +1,5 @@
-
-
-
 import * as gulp from 'gulp';
-import * as jeditor from 'gulp-json-editor';
+import jeditor = require('gulp-json-editor');
 
 // Samples taken from https://www.npmjs.com/package/gulp-json-editor
 

@@ -1,13 +1,10 @@
 // Type definitions for pouchdb-mapreduce 6.1
-// Project: https://pouchdb.com/
+// Project: https://pouchdb.com/, https://github.com/pouchdb/pouchdb
 // Definitions by: Simon Paulger <https://github.com/spaulg>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="pouchdb-core" />
-
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
 
 declare namespace PouchDB {
     type BuiltInReducers = '_sum' | '_count' | '_stats';
@@ -95,7 +92,7 @@ declare namespace PouchDB {
          * to take up space on disk. viewCleanup() removes these unnecessary
          * index files.
          */
-        viewCleanup(callback: PouchDB.Core.Callback<Core.BasicResponse>): void;
+        viewCleanup(callback: Core.Callback<Core.BasicResponse>): void;
         /**
          * Cleans up any stale map/reduce indexes.
          *

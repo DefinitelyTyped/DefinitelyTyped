@@ -1,8 +1,8 @@
 // Type definitions for react-svg-pan-zoom 2.5
-// Project: https://github.com/chrvadala/react-svg-pan-zoom#readme
+// Project: https://github.com/chrvadala/react-svg-pan-zoom#readme, https://chrvadala.github.io/react-svg-pan-zoom
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -149,7 +149,7 @@ export interface Point {
 	y: number;
 }
 
-export interface ViewerMouseEvent<T>{
+export interface ViewerMouseEvent<T> {
 	originalEvent: React.MouseEvent<T>;
 	SVGViewer: SVGSVGElement;
 	point: Point;

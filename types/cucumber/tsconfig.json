@@ -6,8 +6,9 @@
             "dom"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"

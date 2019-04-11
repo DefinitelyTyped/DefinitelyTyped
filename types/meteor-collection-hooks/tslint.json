@@ -1,6 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-single-declare-module": false
+        // TODOs
+        "no-single-declare-module": false,
+        "no-unnecessary-qualifier": false
     }
 }

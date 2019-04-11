@@ -1,8 +1,8 @@
 // Typescript adaptation of mithril's test suite.
 // Not intended to be run; only to compile & check types.
 
-import * as m from 'mithril';
-import * as stream from 'mithril/stream';
+import m = require('mithril');
+import stream = require('mithril/stream');
 
 const FRAME_BUDGET = 100;
 
@@ -20,7 +20,7 @@ const FRAME_BUDGET = 100;
 {
 	const vnode = m.fragment({key: 123}, [m("div")]);
 	console.assert((vnode.children as Array<m.Vnode<any, any>>).length === 1);
-	console.assert(vnode.children![0].tag === 'div');
+	console.assert((vnode.children as Array<m.Vnode<any, any>>)[0].tag === 'div');
 }
 
 {
@@ -116,7 +116,7 @@ const FRAME_BUDGET = 100;
 
 {
 	// define a component
-	const Greeter: m.Comp<{ style: string }, {}> = {
+	const Greeter: m.Comp<{ style: string }> = {
 		view(vnode) {
 			return m("div", vnode.attrs, ["Hello ", vnode.children]);
 		}
@@ -191,7 +191,7 @@ const FRAME_BUDGET = 100;
 ////////////////////////////////////////////////////////////////////////////////
 
 {
-	const Fader: m.Comp<{}, {}> = {
+	const Fader: m.Comp = {
 		onbeforeremove(vnode) {
 			vnode.dom.classList.add("fade-out");
 			return new Promise(resolve => {
@@ -227,7 +227,7 @@ const FRAME_BUDGET = 100;
 		}
 	};
 
-	const Form: m.Comp<{term: string}, {}> = {
+	const Form: m.Comp<{term: string}> = {
 		oninit(vnode) {
 			state.term = vnode.attrs.term || ""; // populated from the `history.state` property if the user presses the back button
 		},
@@ -239,7 +239,7 @@ const FRAME_BUDGET = 100;
 		}
 	};
 
-	const Layout: m.Comp<{}, {}> = {
+	const Layout: m.Comp = {
 		view(vnode) {
 			return m(".layout", vnode.children);
 		}
@@ -366,13 +366,13 @@ const FRAME_BUDGET = 100;
 	class User {
 		name: string;
 		constructor(data: any) {
-			this.name = data.firstName + " " + data.lastName;
+			this.name = `${data.firstName} ${data.lastName}`;
 		}
 	}
 	// End rewrite to TypeScript
 
 	// function User(data) {
-	// 	this.name = data.firstName + " " + data.lastName
+	// 	this.name = `${data.firstName} ${data.lastName}`
 	// }
 
 	m.request<User[]>({
@@ -513,7 +513,7 @@ const FRAME_BUDGET = 100;
 
 	const view = () => m(".container", cells.map(i =>
 		m(".slice", {
-			style: {backgroundPosition: (i % 10 * 11) + "% " + (Math.floor(i / 10) * 11) + "%"},
+			style: {backgroundPosition: `${i % 10 * 11}% ${Math.floor(i / 10) * 11}%`},
 			onbeforeremove: exit
 		})));
 
@@ -684,7 +684,7 @@ const FRAME_BUDGET = 100;
 					m("label[for='toggle-all']", {onclick: ui.toggleAll}, "Mark all as complete"),
 					m("ul#todo-list", [
 						state.todosByStatus.map((todo: any) => {
-							return m("li", {class: (todo.completed ? "completed" : "") + " " + (todo === state.editing ? "editing" : "")}, [
+							return m("li", {class: `${todo.completed ? "completed" : ""} ${todo === state.editing ? "editing" : ""}`}, [
 								m(".view", [
 									m("input.toggle[type='checkbox']", { checked: todo.completed, onclick: () => { ui.toggle(todo); } }),
 									m("label", { ondblclick: () => { state.dispatch("edit", [todo]); } }, todo.title),

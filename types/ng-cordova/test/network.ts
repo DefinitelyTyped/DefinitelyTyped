@@ -12,7 +12,7 @@ namespace demo.network {
 
 		static $inject:Array<string> = ["$ionicPlatform", "$cordovaNetwork"];
 
-		constructor($ionicPlatform:ionic.platform.IonicPlatformService, private $cordovaNetwork:ngCordova.INetworkInformationService) {
+		constructor($ionicPlatform:ionic.platform.IonicPlatformService, private readonly $cordovaNetwork:ngCordova.INetworkInformationService) {
 
 			$ionicPlatform.ready(() => {
 				this.refresh();

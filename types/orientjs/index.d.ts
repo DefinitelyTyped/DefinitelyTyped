@@ -5,7 +5,7 @@
 // TypeScript Version: 3.4.1
 
 // Last Update  : 11-4-2019
-// Compatible with Orientdb >= 2.2.x and orientjs <= 3.0.x features .
+// Compatible with Orientdb >= 2.2.x and orientjs <= 3.0.x features 
 // Developed with love in www.nowcando.com
 //
 
@@ -942,6 +942,7 @@ declare namespace orientjs {
          */
         let<T>(params?: any): Statement<T>;
         let<T>(name: string, value: string | Statement<T>): Statement<T>;
+
         /**
          * Create a transactional query with if.
          *

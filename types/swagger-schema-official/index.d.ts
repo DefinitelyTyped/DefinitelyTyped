@@ -1,6 +1,6 @@
 // Type definitions for swagger-schema-official 2.0
 // Project: http://swagger.io/specification/
-// Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>, Nicholas Merritt <https://github.com/nimerritt>
+// Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>, Nicholas Merritt <https://github.com/nimerritt>, Mauri Edo <https://github.com/mauriedo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Info {
@@ -47,26 +47,32 @@ export interface BaseParameter {
 }
 
 export interface BodyParameter extends BaseParameter {
+  in: 'body';
   schema?: Schema;
 }
 
 export interface QueryParameter extends BaseParameter, BaseSchema {
+  in: 'query';
   type: string;
   allowEmptyValue?: boolean;
 }
 
-export interface PathParameter extends BaseParameter {
+export interface PathParameter extends BaseParameter, BaseSchema {
+  in: 'path';
   type: string;
   required: boolean;
 }
 
-export interface HeaderParameter extends BaseParameter {
+export interface HeaderParameter extends BaseParameter, BaseSchema {
+  in: 'header';
   type: string;
 }
 
 export interface FormDataParameter extends BaseParameter, BaseSchema {
+  in: 'formData';
   type: string;
   collectionFormat?: string;
+  allowEmptyValue?: boolean;
 }
 
 export type Parameter =
@@ -86,23 +92,28 @@ export interface Path {
   options?: Operation;
   head?: Operation;
   patch?: Operation;
-  parameters?: [Parameter];
+  parameters?: Array<Parameter | Reference>;
 }
 
 // ----------------------------- Operation -----------------------------------
 export interface Operation {
-  responses: { [responseName: string]: Response };
+  responses: { [responseName: string]: Response | Reference};
   summary?: string;
   description?: string;
   externalDocs?: ExternalDocs;
   operationId?: string;
   produces?: string[];
   consumes?: string[];
-  parameters?: Parameter[];
+  parameters?: Array<Parameter | Reference>;
   schemes?: string[];
   deprecated?: boolean;
   security?: Security[];
   tags?: string[];
+}
+
+// ----------------------------- Reference -----------------------------------
+export interface Reference {
+  $ref: string;
 }
 
 // ----------------------------- Response ------------------------------------
@@ -121,9 +132,9 @@ export interface BaseSchema {
   default?: string|boolean|number|{};
   multipleOf?: number;
   maximum?: number;
-  exclusiveMaximum?: number;
+  exclusiveMaximum?: boolean;
   minimum?: number;
-  exclusiveMinimum?: number;
+  exclusiveMinimum?: boolean;
   maxLength?: number;
   minLength?: number;
   pattern?: string;
@@ -146,15 +157,15 @@ export interface Schema extends BaseSchema {
   readOnly?: boolean;
   xml?: XML;
   externalDocs?: ExternalDocs;
-  example?: {[exampleName: string]: {}};
+  example?: any;
   required?: string[];
 }
 
 export interface XML {
-  type?: string;
+  name?: string;
   namespace?: string;
   prefix?: string;
-  attribute?: string;
+  attribute?: boolean;
   wrapped?: boolean;
 }
 
@@ -164,7 +175,7 @@ export interface BaseSecurity {
   description?: string;
 }
 
-// tslint:disable:no-empty-interface
+// tslint:disable-next-line no-empty-interface
 export interface BasicAuthenticationSecurity extends BaseSecurity {
   // It's the exact same interface as BaseSecurity
 }

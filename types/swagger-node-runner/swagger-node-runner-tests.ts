@@ -1,6 +1,6 @@
 import * as SwaggerNodeRunner from "swagger-node-runner";
-import * as express from "express";
-import * as connect from "connect";
+import express = require("express");
+import connect = require("connect");
 import * as Hapi from "hapi";
 import * as restify from "restify";
 import * as sails from "sails.io.js";
@@ -63,7 +63,10 @@ SwaggerNodeRunner.create(config, (err, runner) => {
   const pluginAttributes = hapiMiddleware.plugin.register.attributes.name + hapiMiddleware.plugin.register.attributes.version;
 
   hapiapp.register(hapiMiddleware.plugin, err => {
-    if (err) { return console.error("Failed to load plugin:", err); }
+    if (err) {
+        console.error("Failed to load plugin:", err);
+        return;
+    }
     // stat app etc..
   });
 });
@@ -81,7 +84,7 @@ SwaggerNodeRunner.create(config, (err, runner) => {
   app.listen(port);
 });
 
-const swaggerSecurityHandlerCb = (err: Error) => {
+const swaggerSecurityHandlerCb = (err?: Error) => {
     // do nothing
 };
 
@@ -95,7 +98,34 @@ const configComplex: SwaggerNodeRunner.Config = {
     swaggerSecurityHandlers: {
         // did not manage to research the typings of first 3 arguments
         someHandlerName: ({}, {}, {}, swaggerSecurityHandlerCb) => {
-            // do nothing
+            swaggerSecurityHandlerCb(new Error('foo'));
+        }
+    },
+    validateResponse: true
+};
+
+const handlerWithoutError: SwaggerNodeRunner.Config = {
+    appRoot: __dirname,
+    swaggerSecurityHandlers: {
+        // did not manage to research the typings of first 3 arguments
+        someHandlerName: ({}, {}, {}, swaggerSecurityHandlerCb) => {
+            swaggerSecurityHandlerCb();
+        }
+    },
+    validateResponse: true
+};
+
+const handlerWithHeaders: SwaggerNodeRunner.Config = {
+    appRoot: __dirname,
+    swaggerSecurityHandlers: {
+        // did not manage to research the typings of first 3 arguments
+        someHandlerName: ({}, {}, {}, swaggerSecurityHandlerCb) => {
+            swaggerSecurityHandlerCb({
+                headers: {
+                    foo: 'bar',
+                    baz: 2,
+                    some: ['a', 'b'],
+            }});
         }
     },
     validateResponse: true

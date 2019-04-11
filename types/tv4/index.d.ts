@@ -12,7 +12,7 @@ declare namespace tv4 {
         description?: string;    // used for humans only, and not used for computation
         id?: string;
         $schema?: string;
-        type?: string;
+        type?: string | string[];
         items?: any;
         properties?: any;
         patternProperties?: any;

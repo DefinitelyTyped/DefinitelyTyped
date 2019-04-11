@@ -69,6 +69,9 @@ declare namespace nodemon {
         execMap?: { [key: string]: string | boolean | number; };
         events?: { [key: string]: string; };
         restartable?: string;
+        args?: string[];
+        nodeArgs?: string[];
+        scriptPosition?: number;
     }
 
     interface EventEmitter extends NodeJS.EventEmitter {

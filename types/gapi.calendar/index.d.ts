@@ -271,6 +271,9 @@ declare namespace gapi.client.calendar {
     static insert(parameters: EventsInsertParameters): HttpRequest<Event>;
     static update(parameters: EventsUpdateParameters): HttpRequest<Event>;
     static get(parameters: EventsGetParameters): HttpRequest<Event>;
+
+    // delete the existing event from calendar
+    static delete(parameters: EventsDeleteParameters): HttpRequest<Event>;
   }
 
   interface EventsGetParameters {
@@ -306,6 +309,15 @@ declare namespace gapi.client.calendar {
     resource: EventInput;
   }
 
+  // calendarId: 'primary' or the calendar from which the event to be deleted
+  // eventId: the event that need to be deleted from calendar (Event.id from the list/insert response)
+  interface EventsDeleteParameters {
+    calendarId: string;
+    eventId: string;
+    
+    sendNotifications?: boolean;
+  }
+
   interface EventInput {
     // Required Properties
     attachments?: {
@@ -334,7 +346,7 @@ declare namespace gapi.client.calendar {
     start: {
       date?: date;
       dateTime?: datetime;
-      timeZone: string;
+      timeZone?: string;
     };
 
     // Optional Properties

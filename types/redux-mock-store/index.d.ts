@@ -1,23 +1,28 @@
-// Type definitions for Redux Mock Store v0.0.7
+// Type definitions for Redux Mock Store 1.0.0
 // Project: https://github.com/arnaudbenard/redux-mock-store
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.3
 
-///<reference types="redux" />
+import * as Redux from 'redux';
 
-declare module 'redux-mock-store' {
-    import * as Redux from 'redux';
-
-    export interface MockStore<T> extends Redux.Store<T> {
-        getActions(): any[];
-        clearActions(): void;
-    }
-
-    export interface MockStoreCreator<T> {
-        (state?: T): MockStore<T>;
-    }
-
-    function createMockStore<T>(middlewares?: Redux.Middleware[]): MockStoreCreator<T>;
-
-    export default createMockStore;
+export interface MockStore<S = any, A extends Redux.Action = Redux.AnyAction> extends Redux.Store<S, A> {
+    getActions(): any[];
+    clearActions(): void;
 }
+
+export type MockStoreEnhanced<S = {}, DispatchExts = {}> = MockStore<S> & {dispatch: DispatchExts};
+
+export type MockStoreCreator<S = {}, DispatchExts = {}> = (state?: S) => MockStoreEnhanced<S, DispatchExts>;
+
+/**
+ * Create Mock Store returns a function that will create a mock store from a state
+ * with the same set of set of middleware applied.
+ *
+ * @param middlewares The list of middleware to be applied.
+ * @template S The type of state to be held by the store.
+ * @template DispatchExts The additional Dispatch signatures for the middlewares applied.
+ */
+declare function createMockStore<S, DispatchExts = {}>(middlewares?: Redux.Middleware[]): MockStoreCreator<S, DispatchExts>;
+
+export default createMockStore;

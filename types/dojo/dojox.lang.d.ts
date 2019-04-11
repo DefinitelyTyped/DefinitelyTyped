@@ -6293,7 +6293,7 @@ declare namespace dojox {
              *
              *
              */
-            interface object {
+            interface objectInstance {
                 /**
                  * builds a function from a snippet, returns a string, which
                  * represents the function.
@@ -12082,7 +12082,7 @@ declare module "dojox/lang/functional/listcomp" {
     export=exp;
 }
 declare module "dojox/lang/functional/object" {
-    var exp: dojox.lang.functional.object
+    var exp: dojox.lang.functional.objectInstance
     export=exp;
 }
 declare module "dojox/lang/functional/zip" {

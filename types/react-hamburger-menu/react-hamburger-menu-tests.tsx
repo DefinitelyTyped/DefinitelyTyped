@@ -1,5 +1,5 @@
 import * as React from "react";
-import HamburgerMenu, {HamburgerMenuProps} from "react-hamburger-menu";
+import HamburgerMenu, { HamburgerMenuProps } from "react-hamburger-menu";
 
 export class ReactHamburgerMenuTest extends React.PureComponent<{}, State> {
     state: State = {isOpen: false};
@@ -19,7 +19,7 @@ export class ReactHamburgerMenuTest extends React.PureComponent<{}, State> {
         return <HamburgerMenu {...props}/>;
     }
 
-    private menuClicked = (): void => this.setState({isOpen: !this.state.isOpen});
+    private readonly menuClicked = (): void => this.setState({isOpen: !this.state.isOpen});
 }
 
 interface State {

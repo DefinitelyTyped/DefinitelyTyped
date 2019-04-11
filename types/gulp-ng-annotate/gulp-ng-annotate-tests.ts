@@ -1,6 +1,3 @@
-
-
-
 import ngAnnotate = require('gulp-ng-annotate');
 import gulp = require('gulp');
 

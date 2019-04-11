@@ -3,6 +3,8 @@
   "rules": {
     "indent": {
       "options": [true, "spaces", 2]
-    }
+    },
+    // TODO
+    "no-mergeable-namespace": false
   }
 }

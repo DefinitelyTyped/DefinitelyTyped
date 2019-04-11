@@ -1,6 +1,6 @@
 // Type definitions for command-line-commands 2.0.0
 // Project: https://github.com/75lb/command-line-commands
-// Definitions by: CzBuCHi <https://github.com/CzBuCHi/>
+// Definitions by: CzBuCHi <https://github.com/CzBuCHi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

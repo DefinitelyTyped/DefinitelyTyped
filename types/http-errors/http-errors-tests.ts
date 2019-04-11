@@ -1,86 +1,121 @@
+import create = require('http-errors');
+import express = require('express');
+import * as util from 'util';
 
-import * as createError from 'http-errors';
-import * as express from 'express';
+const app = express();
 
-var app = express();
-
-declare global {
-    namespace Express {
-        export interface Request {
-            user?: any
-        }
+app.use((req, res, next) => {
+    if (!req) {
+        next(create('Please login to view this page.', 401));
+        return;
     }
-}
-
-app.use(function (req, res, next) {
-    if (!req.user) return next(createError(401, 'Please login to view this page.'));
     next();
 });
 
-/* Examples taken from https://github.com/jshttp/http-errors/blob/1.3.1/test/test.js */
+/* Examples taken from https://github.com/jshttp/http-errors/blob/1.6.2/test/test.js */
 
-// createError(status)
-var err = createError(404);
-console.log(err.name);
-console.log(err.message);
-console.log(err.status);
-console.log(err.statusCode);
-console.log(err.expose);
-console.log(err.headers);
+// create(status)
+let err = create(404);
+err; // $ExpectType HttpError
+err.name; // $ExpectType string
+err.message; // $ExpectType string
+err.status; // $ExpectType number
+err.statusCode; // $ExpectType number
+err.expose; // $ExpectType boolean
+err.headers; // $ExpectType { [key: string]: string; } | undefined
 
-// createError(status, msg)
-var err = createError(404, 'LOL');
+// create(status, msg)
+err = create(404, 'LOL');
 
-// createError(status, props)
-var err = createError(404, {id: 1});
+// create(status, props)
+err = create(404, {id: 1});
 
-// createError(props)
-var err = createError({id: 1});
-console.log((<any> err).id);
+// create(status, props) with status prop
+err = create(404, {
+    id: 1,
+    status: 500
+});
 
-// createError(msg, status)
-var err = createError('LOL', 404);
+// create(status, props) with statusCode prop
+err = create(404, {
+    id: 1,
+    statusCode: 500
+});
 
-// createError(msg)
-var err = createError('LOL');
+// create(props)
+err = create({id: 1});
+// $ExpectType any
+err.id;
 
-// createError(msg, props)
-var err = createError('LOL', {id: 1});
+// create(msg, status)
+err = create('LOL', 404);
 
-// createError(err)
-var err = createError(new Error('LOL'));
+// create(msg)
+err = create('LOL');
 
-// createError(err, props)
-var err = createError(new Error('LOL'), {id: 1});
+// create(msg, props)
+err = create('LOL', {id: 1});
 
-// createError(status, err, props)
-var err = createError(404, new Error('LOL'), {id: 1});
+// create(err)
+err = create(new Error('LOL'));
 
-// createError(status, msg, props)
-var err = createError(404, 'LOL', {id: 1});
+// create(err, props)
+err = create(new Error('LOL'), {id: 1});
 
-// createError(status, msg, { expose: false })
-var err = createError(404, 'LOL', {expose: false})
+// create(status, err, props)
+err = create(404, new Error('LOL'), {id: 1});
 
-// new createError.NotFound()
-var err = new createError.NotFound();
+// create(status, msg, props)
+err = create(404, 'LOL', {id: 1});
 
-// new createError.InternalServerError()
-var err = new createError.InternalServerError();
+// create(status, msg, { expose: false })
+err = create(404, 'LOL', {expose: false});
 
-// new createError['404']()
-var err = new createError['404']();
+err = new create.NotFound();
+err = new create.InternalServerError();
+err = new create[404]();
+err = new create['404']();
 
-//createError['404'](); // TypeScript should fail with "Did you mean to include 'new'?"
-//new createError(); // TypeScript should fail with "Only a void function can be called with the 'new' keyword"
+create['404'](); // $ExpectError
+new create(); // $ExpectError
 
 // Error messages can have custom messages
-var err = new createError.NotFound('This might be a problem');
-var err = new createError['404']('This might be a problem');
+err = new create.NotFound('This might be a problem');
+err = new create[404]('This might be a problem');
 
 // 1.5.0 supports 421 - Misdirected Request
-var err = new createError.MisdirectedRequest();
-var err = new createError.MisdirectedRequest('Where should this go?');
+err = new create.MisdirectedRequest();
+err = new create.MisdirectedRequest('Where should this go?');
 
-let error: createError.HttpError;
-console.log(error instanceof createError.HttpError);
+// $ExpectType HttpError
+new create.HttpError();
+
+// $ExpectType boolean
+new Error() instanceof create.HttpError;
+
+if (err instanceof create.HttpError) {
+    err.statusCode;
+}
+
+// should support err instanceof Error
+create(404) instanceof Error;
+(new create['404']()) instanceof Error;
+(new create['500']()) instanceof Error;
+
+// should support err instanceof exposed constructor
+create(404) instanceof create.NotFound;
+create(500) instanceof create.InternalServerError;
+(new create['404']()) instanceof create.NotFound;
+(new create['500']()) instanceof create.InternalServerError;
+(new create.NotFound()) instanceof create.NotFound;
+(new create.InternalServerError()) instanceof create.InternalServerError;
+
+// should support err instanceof HttpError
+create(404) instanceof create.HttpError;
+(new create['404']()) instanceof create.HttpError;
+(new create['500']()) instanceof create.HttpError;
+
+// should support util.isError()
+util.isError(create(404));
+util.isError(new create['404']());
+util.isError(new create['500']());

@@ -1,6 +1,8 @@
-// Type definitions for nodegit 0.18
-// Project: https://github.com/nodegit/nodegit
-// Definitions by: Dolan Miu <https://github.com/dolanmiu>
+// Type definitions for nodegit 0.24
+// Project: https://github.com/nodegit/nodegit, http://nodegit.org
+// Definitions by: Dolan Miu <https://github.com/dolanmiu>,
+//                 Tobias Nießen <https://github.com/tniessen>,
+//                 Pierre Vigier <https://github.com/pvigier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { AnnotatedCommit } from './annotated-commit';
@@ -22,6 +24,7 @@ export { CloneOptions } from './clone-options';
 export { Clone } from './clone';
 export { Commit } from './commit';
 export { Config } from './config';
+export { ConvenientHunk } from './convenient-hunk';
 export { ConvenientPatch } from './convenient-patch';
 export { CredUserpassPayload } from './cred-user-pass-payload';
 export { CredUsername } from './cred-username';
@@ -33,7 +36,6 @@ export { DiffBinaryFile } from './diff-binary-file';
 export { DiffBinary } from './diff-binary';
 export { DiffDelta } from './diff-delta';
 export { DiffFile } from './diff-file';
-export { DiffHunk } from './diff-hunk';
 export { DiffLine } from './diff-line';
 export { DiffOptions } from './diff-options';
 export { DiffPerfdata } from './diff-perf-data';
@@ -79,7 +81,7 @@ export { Refspec } from './ref-spec';
 export { Reference } from './reference';
 export { RemoteCallbacks } from './remote-callbacks';
 export { Remote } from './remote';
-export { Repository } from './repository';
+export { Repository, RepositoryInitOptions } from './repository';
 export { Reset } from './reset';
 export { Revparse } from './rev-parse';
 export { Revwalk } from './rev-walk';
@@ -87,6 +89,8 @@ export { Revert } from './revert';
 export { Signature } from './signature';
 export { Stash } from './stash';
 export { StatusEntry } from './status-entry';
+export { StatusFileOptions } from './status-file-options';
+export { StatusFile } from './status-file';
 export { StatusList } from './status-list';
 export { StatusOptions } from './status-options';
 export { Status } from './status';

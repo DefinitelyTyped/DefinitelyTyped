@@ -1,1069 +1,1548 @@
-// Type definitions for Mapbox GL JS v0.39.1
+// Type definitions for Mapbox GL JS v0.51.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
+//                 Patrick Reames <https://github.com/patrickr>
+//                 Karl-Aksel Puulmann <https://github.com/macobo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="geojson" />
 
+export = mapboxgl;
+export as namespace mapboxgl;
+
 declare namespace mapboxgl {
-	let accessToken: string;
-	let version: string;
-	export function supported(options?: {failIfMajorPerformanceCaveat?: boolean}): boolean;
-	export function setRTLTextPlugin(pluginURL: string, callback: Function): void;
+    let accessToken: string;
+    let version: string;
 
-	/**
-	 * Map
-	 */
-	export class Map extends Evented {
-		constructor(options?: MapboxOptions);
+    export function supported(options?: { failIfMajorPerformanceCaveat?: boolean }): boolean;
 
-		addControl(control: Control, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
+    export function setRTLTextPlugin(pluginURL: string, callback: (error: Error) => void): void;
 
-		removeControl(control: Control): this;
+    type LngLatLike = LngLat | { lng: number; lat: number; } | { lon: number; lat: number; } | [number, number];
+    type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number];
+    type PointLike = Point | [number, number];
 
-		addClass(klass: string, options?: mapboxgl.StyleOptions): this;
+    type ExpressionName =
+        // Types
+        | 'array' | 'boolean' | 'collator' | 'format' | 'literal' | 'number' | 'object' | 'string'
+        | 'to-boolean' | 'to-color' | 'to-number' | 'to-string' | 'typeof'
+        // Feature data
+        | 'feature-state' | 'geometry-type' | 'id' | 'line-progress' | 'properties'
+        // Lookup
+        | 'at' | 'get' | 'has' | 'length'
+        // Decision
+        | '!=' | '<' | '<=' | '==' | '>' | '>=' | 'all' | 'any' | 'case' | 'match'
+        // Ramps, scales, curves
+        | 'interpolate' | 'interpolate-hcl' | 'interpolate-lab' | 'step'
+        // Variable binding
+        | 'let' | 'var'
+        // String
+        | 'concat' | 'downcase' | 'is-supported-script' | 'resolved-locale' | 'upcase'
+        // Color
+        | 'rgb' | 'rgba'
+        // Math
+        | '-' | '*' | '/' | '%' | '^' | '+' | 'abs' | 'acos' | 'asin' | 'atan' | 'ceil' | 'cos' | 'e'
+        | 'floor' | 'ln' | 'ln2' | 'log10' | 'log2' | 'max' | 'min' | 'pi' | 'round' | 'sin' | 'sqrt' | 'tan'
+        // Zoom, Heatmap
+        | 'zoom' | 'heatmap-density';
 
-		removeClass(klass: string, options?: mapboxgl.StyleOptions): this;
+    type Expression = [ExpressionName, ...any[]]
 
-		setClasses(klasses: string[], options?: mapboxgl.StyleOptions): this;
+    type Anchor = 'center' | 'left' | 'right' | 'top' | 'bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
-		hasClass(klass: string): boolean;
+    /**
+     * Map
+     */
+    export class Map extends Evented {
+        constructor(options?: MapboxOptions);
 
-		getClasses(): string[];
+        addControl(control: Control | IControl, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
 
-		resize(): this;
+        removeControl(control: Control | IControl): this;
 
-		getBounds(): mapboxgl.LngLatBounds;
+        resize(eventData?: EventData): this;
 
-		setMaxBounds(lnglatbounds?: mapboxgl.LngLatBounds | number[][]): this;
+        getBounds(): LngLatBounds;
 
-		setMinZoom(minZoom?: number): this;
+        getMaxBounds(): LngLatBounds | null;
 
-		getMinZoom(): number;
+        setMaxBounds(lnglatbounds?: LngLatBoundsLike): this;
 
-		setMaxZoom(maxZoom?: number): this;
+        setMinZoom(minZoom?: number): this;
 
-		getMaxZoom(): number;
+        getMinZoom(): number;
 
-		project(lnglat: mapboxgl.LngLat | number[]): mapboxgl.Point;
+        setMaxZoom(maxZoom?: number): this;
 
-		unproject(point: mapboxgl.Point | number[]): mapboxgl.LngLat;
+        getMaxZoom(): number;
 
-		queryRenderedFeatures(pointOrBox?: mapboxgl.Point|number[]|mapboxgl.Point[]|number[][], parameters?: {layers?: string[], filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
+        getRenderWorldCopies(): boolean;
 
-		querySourceFeatures(sourceID: string, parameters?: {sourceLayer?: string, filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
+        setRenderWorldCopies(renderWorldCopies?: boolean): this;
 
-		setStyle(style: mapboxgl.Style | string): this;
+        project(lnglat: LngLatLike): mapboxgl.Point;
 
-		getStyle(): mapboxgl.Style;
+        unproject(point: PointLike): mapboxgl.LngLat;
 
-		isStyleLoaded(): boolean;
+        isMoving(): boolean;
 
-		addSource(id: string, source: VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw): this;
+        isZooming(): boolean;
 
-		isSourceLoaded(id: string): boolean;
+        isRotating(): boolean;
 
-		areTilesLoaded(): boolean;
+        queryRenderedFeatures(pointOrBox?: PointLike | [PointLike, PointLike], parameters?: { layers?: string[], filter?: any[] }): MapboxGeoJSONFeature[];
 
-		removeSource(id: string): this;
+        querySourceFeatures(sourceID: string, parameters?: { sourceLayer?: string, filter?: any[] }): MapboxGeoJSONFeature[];
 
-		getSource(id: string): VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource;
+        setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean, localIdeographFontFamily?: string }): this;
 
-		addImage(name: string, image: HTMLImageElement | ArrayBufferView, options?: {width?: number, height?: number, pixelRatio?: number}): this;
+        getStyle(): mapboxgl.Style;
 
-		removeImage(name: string): this;
+        isStyleLoaded(): boolean;
 
-		loadImage(url: string, callback: Function): this;
+        addSource(id: string, source: AnySourceData): this;
 
-		addLayer(layer: mapboxgl.Layer, before?: string): this;
+        isSourceLoaded(id: string): boolean;
 
-		moveLayer(id: string, beforeId?: string): this;
+        areTilesLoaded(): boolean;
 
-		removeLayer(id: string): this;
+        removeSource(id: string): this;
 
-		getLayer(id: string): mapboxgl.Layer;
+        getSource(id: string): AnySourceImpl;
 
-		setFilter(layer: string, filter: any[]): this;
+        addImage(name: string, image: HTMLImageElement | ArrayBufferView | { width: number, height: number, data: Uint8Array | Uint8ClampedArray } | ImageData, options?: { pixelRatio?: number, sdf?: boolean }): this;
 
-		setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
+        hasImage(name: string): boolean;
 
-		getFilter(layer: string): any[];
+        removeImage(name: string): this;
 
-		setPaintProperty(layer: string, name: string, value: any, klass?: string): this;
+        loadImage(url: string, callback: Function): this;
 
-		getPaintProperty(layer: string, name: string, klass?: string): any;
+        listImages(): string[];
 
-		setLayoutProperty(layer: string, name: string, value: any): this;
+        addLayer(layer: mapboxgl.Layer, before?: string): this;
 
-		getLayoutProperty(layer: string, name: string, klass?: string): any;
+        moveLayer(id: string, beforeId?: string): this;
 
-		setLight(options: mapboxgl.Light, lightOptions: any): this;
+        removeLayer(id: string): this;
 
-		getLight(): mapboxgl.Light;
+        getLayer(id: string): mapboxgl.Layer;
 
-		getContainer(): HTMLElement;
+        setFilter(layer: string, filter?: any[]): this;
 
-		getCanvasContainer(): HTMLElement;
+        setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 
-		getCanvas(): HTMLCanvasElement;
+        getFilter(layer: string): any[];
 
-		loaded(): boolean;
+        setPaintProperty(layer: string, name: string, value: any, klass?: string): this;
 
-		remove(): void;
+        getPaintProperty(layer: string, name: string): any;
 
-		onError(): void;
+        setLayoutProperty(layer: string, name: string, value: any): this;
 
-		showTileBoundaries: boolean;
+        getLayoutProperty(layer: string, name: string): any;
 
-		showCollisionBoxes: boolean;
+        setLight(options: mapboxgl.Light, lightOptions?: any): this;
 
-		repaint: boolean;
+        getLight(): mapboxgl.Light;
 
-		getCenter(): mapboxgl.LngLat;
+        setFeatureState(feature: { source: string, sourceLayer?: string, id: string | number } | mapboxgl.MapboxGeoJSONFeature, state: { [key: string]: any }): void;
 
-		setCenter(center: LngLat|number[], eventData?: mapboxgl.EventData): this;
+        getFeatureState(feature: { source: string, sourceLayer?: string, id: string | number } | mapboxgl.MapboxGeoJSONFeature): { [key: string]: any };
 
-		panBy(offset: number[], options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
+        getContainer(): HTMLElement;
 
-		panTo(lnglat: mapboxgl.LngLat, options?: mapboxgl.AnimationOptions, eventdata?: mapboxgl.EventData): this;
+        getCanvasContainer(): HTMLElement;
 
-		getZoom(): number;
+        getCanvas(): HTMLCanvasElement;
 
-		setZoom(zoom: number, eventData?: mapboxgl.EventData): this;
+        loaded(): boolean;
 
-		zoomTo(zoom: number, options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
+        remove(): void;
 
-		zoomIn(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
+        showTileBoundaries: boolean;
 
-		zoomOut(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
+        showCollisionBoxes: boolean;
 
-		getBearing(): number;
+        repaint: boolean;
 
-		setBearing(bearing: number, eventData?: mapboxgl.EventData): this;
+        getCenter(): mapboxgl.LngLat;
 
-		rotateTo(bearing: number, options?: mapboxgl.AnimationOptions, eventData?: EventData): this;
+        setCenter(center: LngLatLike, eventData?: mapboxgl.EventData): this;
 
-		resetNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
+        panBy(offset: PointLike, options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
-		snapToNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
+        panTo(lnglat: LngLatLike, options?: mapboxgl.AnimationOptions, eventdata?: mapboxgl.EventData): this;
 
-		getPitch(): number;
+        getZoom(): number;
 
-		setPitch(pitch: number, eventData?: EventData): this;
+        setZoom(zoom: number, eventData?: mapboxgl.EventData): this;
 
-		fitBounds(bounds: mapboxgl.LngLatBounds | number[][], options?: { linear?: boolean, easing?: Function, padding?: number | mapboxgl.PaddingOptions, offset?: Point|number[],maxZoom?: number }, eventData?: mapboxgl.EventData): this;
+        zoomTo(zoom: number, options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
-		jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): this;
+        zoomIn(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
-		easeTo(options: mapboxgl.CameraOptions | mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
+        zoomOut(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
-		flyTo(options: mapboxgl.FlyToOptions, eventData?: mapboxgl.EventData): this;
+        getBearing(): number;
 
-		isMoving(): boolean;
+        setBearing(bearing: number, eventData?: mapboxgl.EventData): this;
 
-		stop(): this;
+        rotateTo(bearing: number, options?: mapboxgl.AnimationOptions, eventData?: EventData): this;
 
-		scrollZoom: ScrollZoomHandler;
+        resetNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
-		boxZoom: BoxZoomHandler;
+        snapToNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
-		dragRotate: DragRotateHandler;
+        getPitch(): number;
 
-		dragPan: DragPanHandler;
+        setPitch(pitch: number, eventData?: EventData): this;
 
-		keyboard: KeyboardHandler;
+        cameraForBounds(bounds: LngLatBoundsLike, options?: CameraForBoundsOptions): CameraOptions | undefined;
 
-		doubleClickZoom: DoubleClickZoomHandler;
+        fitBounds(bounds: LngLatBoundsLike, options?: mapboxgl.FitBoundsOptions, eventData?: mapboxgl.EventData): this;
 
-		touchZoomRotate: TouchZoomRotateHandler;
-	}
+        fitScreenCoordinates(p0: PointLike, p1: PointLike, bearing: number, options?: AnimationOptions & CameraOptions, eventData?: EventData): this;
 
-	export interface MapboxOptions {
-		/** If true, an attribution control will be added to the map. */
-		attributionControl?: boolean;
+        jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): this;
 
-		bearing?: number;
+        easeTo(options: mapboxgl.CameraOptions & mapboxgl.AnimationOptions & {delayEndEvents?: number}, eventData?: mapboxgl.EventData): this;
 
-		/** Snap to north threshold in degrees. */
-		bearingSnap?: number;
+        flyTo(options: mapboxgl.FlyToOptions, eventData?: mapboxgl.EventData): this;
 
-		/** If true, enable the "box zoom" interaction (see BoxZoomHandler) */
-		boxZoom?: boolean;
+        isEasing(): boolean;
 
-		/** initial map center */
-		center?: mapboxgl.LngLat | number[];
+        stop(): this;
 
-		/** Style class names with which to initialize the map */
-		classes?: string[];
+        on<T extends keyof MapLayerEventType>(type: T, layer: string, listener: (ev: MapLayerEventType[T] & EventData) => void): this;
+        on<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
+        on(type: string, listener: (ev: any) => void): this;
 
-		/** ID of the container element */
-		container?: string | Element;
+        once<T extends keyof MapLayerEventType>(type: T, layer: string, listener: (ev: MapLayerEventType[T] & EventData) => void): this;
+        once<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
+        once(type: string, listener: (ev: any) => void): this;
 
-		/** If true, enable the "drag to pan" interaction (see DragPanHandler). */
-		dragPan?: boolean;
+        off<T extends keyof MapLayerEventType>(type: T, layer: string, listener: (ev: MapLayerEventType[T] & EventData) => void): this;
+        off<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
+        off(type: string, listener: (ev: any) => void): this;
 
-		/** If true, enable the "drag to rotate" interaction (see DragRotateHandler). */
-		dragRotate?: boolean;
+        scrollZoom: ScrollZoomHandler;
 
-		/** If true, enable the "double click to zoom" interaction (see DoubleClickZoomHandler). */
-		doubleClickZoom?: boolean;
+        boxZoom: BoxZoomHandler;
 
-		/** If true, the map will track and update the page URL according to map position */
-		hash?: boolean;
+        dragRotate: DragRotateHandler;
 
-		/** If true, map creation will fail if the implementation determines that the performance of the created WebGL context would be dramatically lower than expected. */
-		failIfMayorPerformanceCaveat?: boolean;
+        dragPan: DragPanHandler;
 
-		/** If false, no mouse, touch, or keyboard listeners are attached to the map, so it will not respond to input */
-		interactive?: boolean;
+        keyboard: KeyboardHandler;
 
-		/** If true, enable keyboard shortcuts (see KeyboardHandler). */
-		keyboard?: boolean;
+        doubleClickZoom: DoubleClickZoomHandler;
 
-		logoPosition?: boolean;
+        touchZoomRotate: TouchZoomRotateHandler;
+    }
 
-		/** If set, the map is constrained to the given bounds. */
-		maxBounds?: mapboxgl.LngLatBounds | number[][];
+    export interface MapboxOptions {
+        /** If true, an attribution control will be added to the map. */
+        attributionControl?: boolean;
 
-		/** Maximum zoom of the map */
-		maxZoom?: number;
+        bearing?: number;
 
-		/** Minimum zoom of the map */
-		minZoom?: number;
+        /** Snap to north threshold in degrees. */
+        bearingSnap?: number;
 
-		/** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
-		preserveDrawingBuffer?: boolean;
+        /** If true, enable the "box zoom" interaction (see BoxZoomHandler) */
+        boxZoom?: boolean;
 
-		pitch?: number;
+        /** initial map center */
+        center?: LngLatLike;
 
-		refreshExpiredTiles?: boolean;
+        /**
+         * The max number of pixels a user can shift the mouse pointer during a click for it to be
+         * considered a valid click (as opposed to a mouse drag).
+         *
+         * @default 3
+         */
+        clickTolerance?: number;
 
-		renderWorldCopies?: boolean;
+        /**
+         * If `true`, Resource Timing API information will be collected for requests made by GeoJSON
+         * and Vector Tile web workers (this information is normally inaccessible from the main
+         * Javascript thread). Information will be returned in a `resourceTiming` property of
+         * relevant `data` events.
+         *
+         * @default false
+         */
+        collectResourceTiming?: boolean;
 
-		/** If true, enable the "scroll to zoom" interaction */
-		scrollZoom?: boolean;
+        /**
+         * If `true`, symbols from multiple sources can collide with each other during collision
+         * detection. If `false`, collision detection is run separately for the symbols in each source.
+         *
+         * @default true
+         */
+        crossSourceCollisions?: boolean;
 
-		/** stylesheet location */
-		style?: mapboxgl.Style | string;
+        /** ID of the container element */
+        container: string | Element;
 
-		/** If  true, the map will automatically resize when the browser window resizes */
-		trackResize?: boolean;
+        /** String or strings to show in an AttributionControl.
+         * Only applicable if options.attributionControl is `true`. */
+        customAttribution?: string | string[];
 
-		/** If true, enable the "pinch to rotate and zoom" interaction (see TouchZoomRotateHandler). */
-		touchZoomRotate?: boolean;
+        /** If true, enable the "drag to pan" interaction (see DragPanHandler). */
+        dragPan?: boolean;
 
-		/** Initial zoom level */
-		zoom?: number;
+        /** If true, enable the "drag to rotate" interaction (see DragRotateHandler). */
+        dragRotate?: boolean;
 
-		/** Maximum tile cache size for each layer. */
-		maxTileCacheSize?: number;
-	}
+        /** If true, enable the "double click to zoom" interaction (see DoubleClickZoomHandler). */
+        doubleClickZoom?: boolean;
 
-	export interface PaddingOptions {
-		top: number;
-		bottom: number;
-		left: number;
-		right: number;
-	}
+        /** If true, the map will track and update the page URL according to map position */
+        hash?: boolean;
 
-	/**
-	 * BoxZoomHandler
-	 */
-	export class BoxZoomHandler {
-		constructor(map: mapboxgl.Map);
+        /**
+         * Controls the duration of the fade-in/fade-out animation for label collisions, in milliseconds.
+         * This setting affects all symbol layers. This setting does not affect the duration of runtime
+         * styling transitions or raster tile cross-fading.
+         *
+         * @default 300
+         */
+        fadeDuration?: number;
 
-		isEnabled(): boolean;
+        /** If true, map creation will fail if the implementation determines that the performance of the created WebGL context would be dramatically lower than expected. */
+        failIfMajorPerformanceCaveat?: boolean;
 
-		isActive(): boolean;
+        /** If false, no mouse, touch, or keyboard listeners are attached to the map, so it will not respond to input */
+        interactive?: boolean;
 
-		enable(): void;
+        /** If true, enable keyboard shortcuts (see KeyboardHandler). */
+        keyboard?: boolean;
 
-		disable(): void;
-	}
+        /**
+         * If specified, defines a CSS font-family for locally overriding generation of glyphs in the
+         * 'CJK Unified Ideographs' and 'Hangul Syllables' ranges. In these ranges, font settings from
+         * the map's style will be ignored, except for font-weight keywords (light/regular/medium/bold).
+         * The purpose of this option is to avoid bandwidth-intensive glyph server requests.
+         *
+         * @default null
+         */
+        localIdeographFontFamily?: string;
 
-	/**
-	 * ScrollZoomHandler
-	 */
-	export class ScrollZoomHandler {
-		constructor(map: mapboxgl.Map);
+        /**
+         * A string representing the position of the Mapbox wordmark on the map.
+         *
+         * @default "bottom-left"
+         */
+        logoPosition?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
-		isEnabled(): boolean;
+        /** If set, the map is constrained to the given bounds. */
+        maxBounds?: LngLatBoundsLike;
 
-		enable(): void;
+        /** Maximum zoom of the map */
+        maxZoom?: number;
 
-		disable(): void;
-	}
+        /** Minimum zoom of the map */
+        minZoom?: number;
 
-	/**
-	 * DragPenHandler
-	 */
-	export class DragPanHandler {
-		constructor(map: mapboxgl.Map);
+        /** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
+        preserveDrawingBuffer?: boolean;
 
-		isEnabled(): boolean;
+        /**
+         * The initial pitch (tilt) of the map, measured in degrees away from the plane of the
+         * screen (0-60).
+         *
+         * @default 0
+         */
+        pitch?: number;
 
-		isActive(): boolean;
+        /**
+         * If `false`, the map's pitch (tilt) control with "drag to rotate" interaction will be disabled.
+         *
+         * @default true
+         */
+        pitchWithRotate?: boolean;
 
-		enable(): void;
+        /**
+         * If `false`, the map won't attempt to re-request tiles once they expire per their HTTP
+         * `cacheControl`/`expires` headers.
+         *
+         * @default true
+         */
+        refreshExpiredTiles?: boolean;
 
-		disable(): void;
-	}
+        /**
+         * If `true`, multiple copies of the world will be rendered, when zoomed out.
+         *
+         * @default true
+         */
+        renderWorldCopies?: boolean;
 
-	/**
-	 * DragRotateHandler
-	 */
-	export class DragRotateHandler {
-		constructor(map: mapboxgl.Map, options?: {bearingSnap?: number, pitchWithRotate?: boolean});
+        /** If true, enable the "scroll to zoom" interaction */
+        scrollZoom?: boolean;
 
-		isEnabled(): boolean;
+        /** stylesheet location */
+        style?: mapboxgl.Style | string;
 
-		isActive(): boolean;
+        /** If  true, the map will automatically resize when the browser window resizes */
+        trackResize?: boolean;
 
-		enable(): void;
+        /**
+         * A callback run before the Map makes a request for an external URL. The callback can be
+         * used to modify the url, set headers, or set the credentials property for cross-origin requests.
+         *
+         * @default null
+         */
+        transformRequest?: TransformRequestFunction;
 
-		disable(): void;
-	}
+        /** If true, enable the "pinch to rotate and zoom" interaction (see TouchZoomRotateHandler). */
+        touchZoomRotate?: boolean;
 
-	/**
-	 * KeyboardHandler
-	 */
-	export class KeyboardHandler {
-		constructor(map: mapboxgl.Map);
+        /** Initial zoom level */
+        zoom?: number;
 
-		isEnabled(): boolean;
+        /**
+         * The maximum number of tiles stored in the tile cache for a given source. If omitted, the
+         * cache will be dynamically sized based on the current viewport.
+         *
+         * @default null
+         */
+        maxTileCacheSize?: number;
+    }
 
-		enable(): void;
+    export type ResourceType =
+        | 'Unknown'
+        | 'Style'
+        | 'Source'
+        | 'Tile'
+        | 'Glyphs'
+        | 'SpriteImage'
+        | 'SpriteJSON'
+        | 'Image';
 
-		disable(): void;
-	}
+    export interface RequestParameters {
+        /**
+         * The URL to be requested.
+         */
+        url: string;
 
-	/**
-	 * DoubleClickZoomHandler
-	 */
-	export class DoubleClickZoomHandler {
-		constructor(map: mapboxgl.Map);
+        /**
+         * Use `'include'` to send cookies with cross-origin requests.
+         */
+        credentials?: 'same-origin' | 'include';
 
-		isEnabled(): boolean;
+        /**
+         * The headers to be sent with the request.
+         */
+        headers?: { [header: string]: any };
 
-		enable(): void;
+        method?: 'GET' | 'POST' | 'PUT';
 
-		disable(): void;
-	}
+        collectResourceTiming?: boolean;
+    }
 
-	/**
-	 * TouchZoomRotateHandler
-	 */
-	export class TouchZoomRotateHandler {
-		constructor(map: mapboxgl.Map);
+    export type TransformRequestFunction = (url: string, resourceType: ResourceType) => RequestParameters;
 
-		isEnabled(): boolean;
+    export interface PaddingOptions {
+        top: number;
+        bottom: number;
+        left: number;
+        right: number;
+    }
 
-		enable(): void;
+    /**
+     * BoxZoomHandler
+     */
+    export class BoxZoomHandler {
+        constructor(map: mapboxgl.Map);
 
-		disable(): void;
+        isEnabled(): boolean;
 
-		disableRotation(): void;
+        isActive(): boolean;
 
-		enableRotation(): void;
-	}
+        enable(): void;
 
-	export interface IControl {
-		onAdd(map: Map): HTMLElement;
-		onRemove(map: Map): any;
-		getDefaultPosition(): string;
-	}
+        disable(): void;
+    }
 
-	/**
-	 * Control
-	 */
-	export class Control extends Evented {
-	}
+    /**
+     * ScrollZoomHandler
+     */
+    export class ScrollZoomHandler {
+        constructor(map: mapboxgl.Map);
 
-	/**
-	 * Navigation
-	 */
-	export class NavigationControl extends Control {
-		constructor();
-	}
+        isEnabled(): boolean;
 
-	export class PositionOptions {
-		enableHighAccuracy?: boolean;
-		timeout?: number;
-		maximumAge?: number;
-	}
+        enable(): void;
 
-	/**
-	 * Geolocate
-	 */
-	export class GeolocateControl extends Control {
-		constructor(options?: {positionOptions?: PositionOptions, watchPosition?: boolean});
-	}
+        disable(): void;
+    }
 
-	/**
-	 * Attribution
-	 */
-	export class AttributionControl extends Control {
-		constructor(options?: {compact?: boolean});
-	}
+    /**
+     * DragPenHandler
+     */
+    export class DragPanHandler {
+        constructor(map: mapboxgl.Map);
 
-	/**
-	 * Scale
-	 */
-	export class ScaleControl extends Control {
-		constructor(options?: {maxWidth?: number, unit?: string})
-	}
+        isEnabled(): boolean;
 
-	/**
-	 * Fullscreen
-	 */
-	export class FullscreenControl extends Control {
-		constructor();
-	}
+        isActive(): boolean;
 
-	/**
-	 * Popup
-	 */
-	export class Popup extends Evented {
-		constructor(options?: mapboxgl.PopupOptions);
+        enable(): void;
 
-		addTo(map: mapboxgl.Map): this;
+        disable(): void;
+    }
 
-		isOpen(): boolean;
+    /**
+     * DragRotateHandler
+     */
+    export class DragRotateHandler {
+        constructor(map: mapboxgl.Map, options?: { bearingSnap?: number, pitchWithRotate?: boolean });
 
-		remove(): this;
+        isEnabled(): boolean;
 
-		getLngLat(): mapboxgl.LngLat;
+        isActive(): boolean;
 
-		setLngLat(lnglat: mapboxgl.LngLat | number[]): this;
+        enable(): void;
 
-		setText(text: string): this;
+        disable(): void;
+    }
 
-		setHTML(html: string): this;
+    /**
+     * KeyboardHandler
+     */
+    export class KeyboardHandler {
+        constructor(map: mapboxgl.Map);
 
-		setDOMContent(htmlNode: Node): this;
-	}
+        isEnabled(): boolean;
 
-	export interface PopupOptions {
-		closeButton?: boolean;
+        enable(): void;
 
-		closeOnClick?: boolean;
+        disable(): void;
+    }
 
-		anchor?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+    /**
+     * DoubleClickZoomHandler
+     */
+    export class DoubleClickZoomHandler {
+        constructor(map: mapboxgl.Map);
 
-		offset?: number | Point | number[] | { [key:string]: Point | number[];};
-	}
+        isEnabled(): boolean;
 
-	export interface Style {
-		bearing?: number;
-		center?: number[];
-		glyphs?: string;
-		layers?: Layer[];
-		metadata?: any;
-		name?: string;
-		pitch?: number;
-		light?: Light;
-		sources?: any;
-		sprite?: string;
-		transition?: Transition;
-		version: number;
-		zoom?: number;
-	}
+        enable(): void;
 
-	export interface Transition {
-		delay?: number;
-		duration?: number;
-	}
+        disable(): void;
+    }
 
-	export interface Light {
-		"anchor"?: "map" | "viewport";
-		"position"?: number[];
-		"color"?: string;
-		"intensity"?: number;
-	}
+    /**
+     * TouchZoomRotateHandler
+     */
+    export class TouchZoomRotateHandler {
+        constructor(map: mapboxgl.Map);
 
-	export interface Source {
-		type: "vector" | "raster" | "geojson" | "image" | "video" | "canvas";
-	}
+        isEnabled(): boolean;
 
-	/**
-	 * GeoJSONSource
-	 */
+        enable(): void;
 
-	export interface GeoJSONSourceRaw extends Source, GeoJSONSourceOptions {
-		type: "geojson";
-	}
+        disable(): void;
 
-	export class GeoJSONSource implements GeoJSONSourceRaw {
-		type: "geojson";
+        disableRotation(): void;
 
-		constructor(options?: mapboxgl.GeoJSONSourceOptions);
+        enableRotation(): void;
+    }
 
-		setData(data: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | String): this;
-	}
+    export interface IControl {
+        onAdd(map: Map): HTMLElement;
 
-	export interface GeoJSONSourceOptions {
-		data?: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | string;
+        onRemove(map: Map): any;
 
-		maxzoom?: number;
+        getDefaultPosition?: () => string;
+    }
 
-		buffer?: number;
+    /**
+     * Control
+     */
+    export class Control extends Evented {
+    }
 
-		tolerance?: number;
+    /**
+     * Navigation
+     */
+    export class NavigationControl extends Control {
+		constructor(options?: {showCompass?: boolean, showZoom?: boolean});
+    }
 
-		cluster?: number | boolean;
+    export class PositionOptions {
+        enableHighAccuracy?: boolean;
+        timeout?: number;
+        maximumAge?: number;
+    }
 
-		clusterRadius?: number;
+    /**
+     * Geolocate
+     */
+    export class GeolocateControl extends Control {
+        constructor(options?: { positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOptions, trackUserLocation?: boolean, showUserLocation?: boolean });
+        trigger(): boolean;
+    }
 
-		clusterMaxZoom?: number;
-	}
+    /**
+     * Attribution
+     */
+    export class AttributionControl extends Control {
+        constructor(options?: { compact?: boolean, customAttribution?: string | string[] });
+    }
 
-	/**
-	 * VideoSource
-	 */
-        export interface VideoSource extends VideoSourceOptions { }
-	export class VideoSource implements Source {
-		type: "video";
+    /**
+     * Scale
+     */
+    export class ScaleControl extends Control {
+        constructor(options?: { maxWidth?: number, unit?: string })
 
-		constructor(options?: mapboxgl.VideoSourceOptions);
+        setUnit(unit: 'imperial' | 'metric' | 'nautical'): void;
+    }
 
-		getVideo(): HTMLVideoElement;
+    /**
+     * Fullscreen
+     */
+    export class FullscreenControl extends Control {
+        constructor();
+    }
 
-		setCoordinates(coordinates: number[][]): this;
-	}
+    /**
+     * Popup
+     */
+    export class Popup extends Evented {
+        constructor(options?: mapboxgl.PopupOptions);
 
-	export interface VideoSourceOptions {
-		urls?: string[];
+        addTo(map: mapboxgl.Map): this;
 
-		coordinates?: number[][];
-	}
+        isOpen(): boolean;
 
-	/**
-	 * ImageSource
-	 */
-        export interface ImageSource extends ImageSourceOptions { }
-	export class ImageSource implements Source {
-		type: "image";
+        remove(): this;
 
-		constructor(options?: mapboxgl.ImageSourceOptions);
+        getLngLat(): mapboxgl.LngLat;
 
-		setCoordinates(coordinates: number[][]): this;
-	}
+        setLngLat(lnglat: LngLatLike): this;
 
-	export interface ImageSourceOptions {
-		url?: string;
+        setText(text: string): this;
 
-		coordinates?: number[][];
-	}
+        setHTML(html: string): this;
 
-	/**
-	 * CanvasSource
-	 */
-	export class CanvasSource implements Source, CanvasSourceOptions {
-		type: "canvas";
+        setDOMContent(htmlNode: Node): this;
+    }
 
-		coordinates: number[][];
+    export interface PopupOptions {
+        closeButton?: boolean;
 
-		canvas: string;
+        closeOnClick?: boolean;
 
-		getCanvas(): HTMLCanvasElement;
+        anchor?: Anchor;
 
-		setCoordinates(coordinates: number[][]): this;
-	}
+        offset?: number | PointLike | { [key: string]: PointLike; };
 
-	export interface CanvasSourceOptions {
-		coordinates: number[][];
+        className?: string;
+    }
 
-		animate?: boolean;
+    export interface Style {
+        bearing?: number;
+        center?: number[];
+        glyphs?: string;
+        layers?: Layer[];
+        metadata?: any;
+        name?: string;
+        pitch?: number;
+        light?: Light;
+        sources?: Sources;
+        sprite?: string;
+        transition?: Transition;
+        version: number;
+        zoom?: number;
+    }
 
-		canvas: string;
-	}
+    export interface Transition {
+        delay?: number;
+        duration?: number;
+    }
 
-	interface VectorSource extends Source {
-		type: "vector";
-		url?: string;
-		tiles?: string[];
-		minzoom?: number;
-		maxzoom?: number;
-	}
+    export interface Light {
+        'anchor'?: 'map' | 'viewport';
+        'position'?: number[];
+        'position-transition'?: Transition;
+        'color'?: string;
+        'color-transition'?: Transition;
+        'intensity'?: number;
+        'intensity-transition'?: Transition;
+    }
 
-	interface RasterSource extends Source {
-		type: "raster";
-		url: string;
-		tiles?: string[];
-		minzoom?: number;
-		maxzoom?: number;
-		tileSize?: number;
-	}
+    export interface Sources {
+        [sourceName: string]: AnySourceData;
+    }
 
-	/**
-	 * LngLat
-	 */
-	export class LngLat {
-		lng: number;
-		lat: number;
+    export type AnySourceData = GeoJSONSourceRaw | VideoSourceRaw | ImageSourceRaw | CanvasSourceRaw | VectorSource | RasterSource | RasterDemSource
 
-		constructor(lng: number, lat: number);
+    export type AnySourceImpl = GeoJSONSource | VideoSource | ImageSource | CanvasSource | VectorSource | RasterSource | RasterDemSource
 
-		/** Return a new LngLat object whose longitude is wrapped to the range (-180, 180). */
-		wrap(): mapboxgl.LngLat;
+    export interface Source {
+        type: 'vector' | 'raster' | 'raster-dem' | 'geojson' | 'image' | 'video' | 'canvas';
+    }
 
-		/** Return a LngLat as an array */
-		toArray(): number[];
+    /**
+     * GeoJSONSource
+     */
 
-		/** Return a LngLat as a string */
-		toString(): string;
+    export interface GeoJSONSourceRaw extends Source, GeoJSONSourceOptions {
+        type: 'geojson';
+    }
 
-		static convert(input: number[]|mapboxgl.LngLat): mapboxgl.LngLat;
-	}
+    export class GeoJSONSource implements GeoJSONSourceRaw {
+        type: 'geojson';
 
-	/**
-	 * LngLatBounds
-	 */
-	export class LngLatBounds {
-		sw: LngLat | number[];
-		ne: LngLat | number[];
-		constructor(sw?: LngLat, ne?: LngLat);
+        constructor(options?: mapboxgl.GeoJSONSourceOptions);
 
-		/** Extend the bounds to include a given LngLat or LngLatBounds. */
-		extend(obj: mapboxgl.LngLat | mapboxgl.LngLatBounds): this;
+        setData(data: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | String): this;
 
-		/** Get the point equidistant from this box's corners */
-		getCenter(): mapboxgl.LngLat;
+        getClusterExpansionZoom(clusterId: number, callback: (error: any, zoom: number) => void): this;
 
-		/** Get southwest corner */
-		getSouthWest(): mapboxgl.LngLat;
+        getClusterChildren(clusterId: number, callback: (error: any, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => void): this;
 
-		/** Get northeast corner */
-		getNorthEast(): mapboxgl.LngLat;
+        getClusterLeaves(cluserId: number, limit: number, offset: number, callback: (error: any, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => void): this;
+    }
 
-		/** Get northwest corner */
-		getNorthWest(): mapboxgl.LngLat;
+    export interface GeoJSONSourceOptions {
+        data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string;
 
-		/** Get southeast corner */
-		getSouthEast(): mapboxgl.LngLat;
+        maxzoom?: number;
 
-		/** Get west edge longitude */
-		getWest(): number;
+        attribution?: string;
 
-		/** Get south edge latitude */
-		getSouth(): number;
+        buffer?: number;
 
-		/** Get east edge longitude */
-		getEast(): number;
+        tolerance?: number;
 
-		/** Get north edge latitude */
-		getNorth(): number;
+        cluster?: number | boolean;
 
-		/** Returns a LngLatBounds as an array */
-		toArray(): number[][];
+        clusterRadius?: number;
 
-		/** Return a LngLatBounds as a string */
-		toString(): string;
+        clusterMaxZoom?: number;
 
-		/** Convert an array to a LngLatBounds object, or return an existing LngLatBounds object unchanged. */
-		static convert(input: mapboxgl.LngLatBounds | number[] | number[][]): mapboxgl.LngLatBounds;
-	}
+        lineMetrics?: boolean;
 
-	/**
-	 * Point
-	 */
-		// Todo: Pull out class to seperate definition for Module "point-geometry"
-	export class Point {
-		x: number;
-		y: number;
+        generateId?: boolean;
+    }
 
-		constructor(x: number, y: number);
+    /**
+     * VideoSource
+     */
+    export interface VideoSourceRaw extends Source, VideoSourceOptions {
+        type: 'video';
+    }
 
-		clone(): Point;
+    export class VideoSource implements VideoSourceRaw {
+        type: 'video';
 
-		add(p: number): Point;
+        constructor(options?: mapboxgl.VideoSourceOptions);
 
-		sub(p: number): Point;
+        getVideo(): HTMLVideoElement;
 
-		mult(k: number): Point;
+        setCoordinates(coordinates: number[][]): this;
+    }
 
-		div(k: number): Point;
+    export interface VideoSourceOptions {
+        urls?: string[];
 
-		rotate(a: number): Point;
+        coordinates?: number[][];
+    }
 
-		matMult(m: number): Point;
+    /**
+     * ImageSource
+     */
+    export interface ImageSourceRaw extends Source, ImageSourceOptions {
+        type: 'image';
+    }
 
-		unit(): Point;
+    export class ImageSource implements ImageSourceRaw {
+        type: 'image';
 
-		perp(): Point;
+        constructor(options?: mapboxgl.ImageSourceOptions);
 
-		round(): Point;
+        setCoordinates(coordinates: number[][]): this;
+    }
 
-		mag(): number;
+    export interface ImageSourceOptions {
+        url?: string;
 
-		equals(p: Point): boolean;
+        coordinates?: number[][];
+    }
 
-		dist(p: Point): number;
+    /**
+     * CanvasSource
+     */
+    export interface CanvasSourceRaw extends Source, CanvasSourceOptions {
+        type: 'canvas';
+    }
 
-		distSqr(p: Point): number;
+    export class CanvasSource implements CanvasSourceRaw {
+        type: 'canvas';
 
-		angle(): number;
+        coordinates: number[][];
 
-		angleTo(p: Point): number;
+        canvas: string | HTMLCanvasElement;
 
-		angleWidth(p: Point): number;
+        play(): void;
 
-		angleWithSep(x: number, y: number): number;
-	
-		static convert(a: Array<number> | Point): Point;
-	}
+        pause(): void;
 
-	export class Marker {
-		constructor(element?: HTMLElement, options?: { offset?: Point | number[] });
+        getCanvas(): HTMLCanvasElement;
 
-		addTo(map: Map): this;
+        setCoordinates(coordinates: number[][]): this;
+    }
 
-		remove(): this;
+    export interface CanvasSourceOptions {
+        coordinates: number[][];
 
-		getLngLat(): LngLat;
+        animate?: boolean;
 
-		setLngLat(lngLat: LngLat | number[]): this;
+        canvas: string | HTMLCanvasElement;
+    }
 
-		setPopup(popup?: Popup): this;
+    interface VectorSource extends Source {
+        type: 'vector';
+        url?: string;
+        tiles?: string[];
+        bounds?: number[];
+        scheme?: 'xyz' | 'tms';
+        minzoom?: number;
+        maxzoom?: number;
+        attribution?: string;
+    }
 
-		getPopup(): Popup;
+    interface RasterSource extends Source {
+        type: 'raster';
+        url?: string;
+        tiles?: string[];
+        bounds?: number[];
+        minzoom?: number;
+        maxzoom?: number;
+        tileSize?: number;
+        scheme?: 'xyz' | 'tms';
+        attribution?: string;
+    }
 
-		togglePopup(): this;
-	}
+    interface RasterDemSource extends Source {
+        type: 'raster-dem';
+        url?: string;
+        tiles?: string[];
+        bounds?: number[];
+        minzoom?: number;
+        maxzoom?: number;
+        tileSize?: number;
+        attribution?: string;
+        encoding?: 'terrarium' | 'mapbox';
+    }
 
-	/**
-	 * Evented
-	 */
-	export class Evented {
-		on(type: string, listener: Function): this;
+    /**
+     * LngLat
+     */
+    export class LngLat {
+        lng: number;
+        lat: number;
 
-		on(type: string, layer: string, listener: Function): this;
+        constructor(lng: number, lat: number);
 
-		off(type?: string | any, listener?: Function): this;
+        /** Return a new LngLat object whose longitude is wrapped to the range (-180, 180). */
+        wrap(): mapboxgl.LngLat;
 
-		off(type?: string | any, layer?: string, listener?: Function): this;
+        /** Return a LngLat as an array */
+        toArray(): number[];
 
-		once(type: string, listener: Function): this;
+        /** Return a LngLat as a string */
+        toString(): string;
 
-		fire(type: string, data?: mapboxgl.EventData | Object): this;
+        toBounds(radius: number): LngLatBounds;
 
-		listens(type: string): boolean;
-	}
+        static convert(input: LngLatLike): mapboxgl.LngLat;
+    }
 
-	/**
-	 * StyleOptions
-	 */
-	export interface StyleOptions {
-		transition?: boolean;
-	}
+    /**
+     * LngLatBounds
+     */
+    export class LngLatBounds {
+        sw: LngLatLike;
+        ne: LngLatLike;
 
-	/**
-	 * EventData
-	 */
-	export class EventData {
-		type: string;
-		target: Map;
-		originalEvent: Event;
-		point: mapboxgl.Point;
-		lngLat: mapboxgl.LngLat;
-	}
+        constructor(boundsLike?: [LngLatLike, LngLatLike] | [number, number, number, number]);
+        constructor(sw: LngLatLike, ne: LngLatLike);
 
-	export class MapMouseEvent {
-		type: string;
-		target: Map;
-		originalEvent: MouseEvent;
-		point: mapboxgl.Point;
-		lngLat: mapboxgl.LngLat;
-	}
+        setNorthEast(ne: LngLatLike): this;
 
-	export class MapTouchEvent {
-		type: string;
-		target: Map;
-		originalEvent: TouchEvent;
-		point: mapboxgl.Point;
-		lngLat: mapboxgl.LngLat;
-		points: Point[];
-		lngLats: LngLat[];
-	}
+        setSouthWest(sw: LngLatLike): this;
 
-	export class MapBoxZoomEvent {
-		originalEvent: MouseEvent;
-		boxZoomBounds: LngLatBounds;
-	}
+        /** Extend the bounds to include a given LngLat or LngLatBounds. */
+        extend(obj: mapboxgl.LngLat | mapboxgl.LngLatBounds): this;
 
-	export class MapDataEvent {
-		type: string;
-		dataType: "source" | "style" | "tile";
-		isSourceLoaded?: boolean;
-		source?: mapboxgl.Source;
-		coord?: any;
-	}
+        /** Get the point equidistant from this box's corners */
+        getCenter(): mapboxgl.LngLat;
 
-	/**
-	 * AnimationOptions
-	 */
-	export interface AnimationOptions {
-		/** Number in milliseconds */
-		duration?: number;
-		easing?: Function;
-		/** point, origin of movement relative to map center */
-		offset?: Point | number[];
-		/** When set to false, no animation happens */
-		animate?: boolean;
-	}
+        /** Get southwest corner */
+        getSouthWest(): mapboxgl.LngLat;
 
-	/**
-	 * CameraOptions
-	 */
-	export interface CameraOptions {
-		/** Map center */
-		center?: mapboxgl.LngLat | number[];
-		/** Map zoom level */
-		zoom?: number;
-		/** Map rotation bearing in degrees counter-clockwise from north */
-		bearing?: number;
-		/** Map angle in degrees at which the camera is looking at the ground */
-		pitch?: number;
-		/** If zooming, the zoom center (defaults to map center) */
-		around?: mapboxgl.LngLat | number[];
-	}
+        /** Get northeast corner */
+        getNorthEast(): mapboxgl.LngLat;
 
-	/**
-	 * FlyToOptions
-	 */
-	export interface FlyToOptions extends AnimationOptions, CameraOptions {
-		curve?: number;
-		minZoom?: number;
-		speed?: number;
-		screenSpeed?: number;
-		easing?: Function;
-	}
+        /** Get northwest corner */
+        getNorthWest(): mapboxgl.LngLat;
 
-	/**
-	 * MapEvent
-	 */
-	export interface MapEvent {
-		resize?: void;
-		webglcontextlost?: {originalEvent: WebGLContextEvent};
-		webglcontextrestored?: {originalEvent: WebGLContextEvent};
-		remove?: void;
-		dataloading?: {data: mapboxgl.MapDataEvent};
-		data?: {data: mapboxgl.MapDataEvent};
-		render?: void;
-		contextmenu?: {data: mapboxgl.MapMouseEvent};
-		dblclick?: {data: mapboxgl.MapMouseEvent};
-		click?: {data: mapboxgl.MapMouseEvent};
-		tiledataloading?: {data: mapboxgl.MapDataEvent};
-		sourcedataloading?: {data: mapboxgl.MapDataEvent};
-		styledataloading?: {data: mapboxgl.MapDataEvent};
-		touchcancel?: {data: mapboxgl.MapTouchEvent};
-		touchmove?: {data: mapboxgl.MapTouchEvent};
-		touchend?: {data: mapboxgl.MapTouchEvent};
-		touchstart?: {data: mapboxgl.MapTouchEvent};
-		mousemove?: {data: mapboxgl.MapMouseEvent};
-		mouseup?: {data: mapboxgl.MapMouseEvent};
-		mousedown?: {data: mapboxgl.MapMouseEvent};
-		moveend?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
-		move?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
-		movestart?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
-		mouseout?:{data: mapboxgl.MapMouseEvent};
-		load?: void;
-		sourcedata?: {data: mapboxgl.MapDataEvent};
-		styledata?: {data: mapboxgl.MapDataEvent};
-		zoomend?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
-		zoom?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
-		zoomstart?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
-		boxzoomcancel?: {data: mapboxgl.MapBoxZoomEvent};
-		boxzoomstart?: {data: mapboxgl.MapBoxZoomEvent};
-		boxzoomend?: {data: mapboxgl.MapBoxZoomEvent};
-		rotate?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
-		rotatestart?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
-		rotateend?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
-		drag?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
-		dragend?: {data: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent};
-		pitch?: {data: mapboxgl.EventData};
-	}
+        /** Get southeast corner */
+        getSouthEast(): mapboxgl.LngLat;
 
-	export interface Layer {
-		id: string;
-		type?: "fill" | "line" | "symbol" | "circle" | "fill-extrusion" | "raster" | "background";
+        /** Get west edge longitude */
+        getWest(): number;
 
-		metadata?: any;
-		ref?: string;
+        /** Get south edge latitude */
+        getSouth(): number;
 
-		source?: string;
+        /** Get east edge longitude */
+        getEast(): number;
 
-		"source-layer"?: string;
+        /** Get north edge latitude */
+        getNorth(): number;
 
-		minzoom?: number;
-		maxzoom?: number;
+        /** Returns a LngLatBounds as an array */
+        toArray(): number[][];
 
-		interactive?: boolean;
+        /** Return a LngLatBounds as a string */
+        toString(): string;
 
-		filter?: any[];
-		layout?: BackgroundLayout | FillLayout | FillExtrusionLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout;
-		paint?: BackgroundPaint | FillPaint | FillExtrusionPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint;
-	}
+        /** Returns a boolean */
+        isEmpty(): boolean
 
-	export interface StyleFunction {
-		stops: any[][];
-		property?: string;
-		base?: number;
-		type?: "identity" | "exponential" | "interval" | "categorical";
-		default?: any;
-		"colorSpace"?: "rgb" | "lab" | "interval";
-	}
+        /** Convert an array to a LngLatBounds object, or return an existing LngLatBounds object unchanged. */
+        static convert(input: LngLatBoundsLike): mapboxgl.LngLatBounds;
+    }
 
-	export interface BackgroundLayout {
-		visibility?: "visible" | "none";
-	}
-	export interface BackgroundPaint {
-		"background-color"?: string;
-		"background-pattern"?: string;
-		"background-opacity"?: number;
-	}
+    /**
+     * Point
+     */
+        // Todo: Pull out class to seperate definition for Module "point-geometry"
+    export class Point {
+        x: number;
+        y: number;
 
-	export interface FillLayout {
-		visibility?: "visible" | "none";
-	}
-	export interface FillPaint {
-		"fill-antialias"?: boolean;
-		"fill-opacity"?: number | StyleFunction;
-		"fill-color"?: string | StyleFunction;
-		"fill-outline-color": string | StyleFunction;
-		"fill-translate"?: number[];
-		"fill-translate-anchor"?: "map" | "viewport";
-		"fill-pattern"?: "string";
-	}
+        constructor(x: number, y: number);
 
-	export interface FillExtrusionLayout {
-		visibility?: "visible" | "none";
-	}
-	export interface FillExtrusionPaint {
-		"fill-extrusion-opacity"?: number;
-		"fill-extrusion-color"?: string | StyleFunction;
-		"fill-extrusion-translate"?: number[];
-		"fill-extrusion-translate-anchor"?: "map" | "viewport";
-		"fill-extrusion-pattern": string;
-		"fill-extrusion-height"?: number | StyleFunction;
-		"fill-extrusion-base"?: number;
-	}
+        clone(): Point;
 
-	export interface LineLayout {
-		visibility?: "visible" | "none";
+        add(p: Point): Point;
 
-		"line-cap"?: "butt" | "round" | "square";
-		"line-join"?: "bevel" | "round" | "miter";
-		"line-miter-limit"?: number;
-		"line-round-limit"?: number;
-	}
-	export interface LinePaint {
-		"line-opacity"?: number | StyleFunction;
-		"line-color"?: string| StyleFunction;
-		"line-translate"?: number[];
-		"line-translate-anchor"?: "map" | "viewport";
-		"line-width"?: number;
-		"line-gap-width"?: number | StyleFunction;
-		"line-offset"?: number | StyleFunction;
-		"line-blur"?: number | StyleFunction;
-		"line-dasharray"?: number[];
-		"line-dasharray-transition"?: Transition;
-		"line-pattern"?: string;
-	}
+        sub(p: Point): Point;
 
-	export interface SymbolLayout {
-		visibility?: "visible" | "none";
+        mult(k: number): Point;
 
-		"symbol-placement"?: "point" | "line";
-		"symbol-spacing"?: number;
-		"symbol-avoid-edges"?: boolean;
-		"icon-allow-overlap"?: boolean;
-		"icon-ignore-placement"?: boolean;
-		"icon-optional"?: boolean;
-		"icon-rotation-alignment"?: "map" | "viewport" | "auto";
-		"icon-size"?: number | StyleFunction;
-		"icon-text-fit"?: "none" | "both" | "width" | "height";
-		"icon-text-fit-padding"?: number[];
-		"icon-image"?: string | StyleFunction;
-		"icon-rotate"?: number | StyleFunction;
-		"icon-padding"?: number;
-		"icon-keep-upright"?: boolean;
-		"icon-offset"?: number[] | StyleFunction;
-		"text-pitch-alignment"?: "map" | "viewport" | "auto";
-		"text-rotation-alignment"?: "map" | "viewport" | "auto";
-		"text-field"?: string | StyleFunction;
-		"text-font"?: string | string[];
-		"text-size"?: number | StyleFunction;
-		"text-max-width"?: number;
-		"text-line-height"?: number;
-		"text-letter-spacing"?: number;
-		"text-justify"?: "left" | "center" | "right";
-		"text-anchor"?: "center" | "left" | "right" | "top" | "bottom" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
-		"text-max-angle"?: number;
-		"text-rotate"?: number | StyleFunction;
-		"text-padding"?: number;
-		"text-keep-upright"?: boolean;
-		"text-transform"?: "none" | "uppercase" | "lowercase" | StyleFunction;
-		"text-offset"?: number[];
-		"text-allow-overlap"?: boolean;
-		"text-ignore-placement"?: boolean;
-		"text-optional"?: boolean;
+        div(k: number): Point;
 
-	}
-	export interface SymbolPaint {
-		"icon-opacity"?: number | StyleFunction;
-		"icon-color"?: string | StyleFunction;
-		"icon-halo-color"?: string | StyleFunction;
-		"icon-halo-width"?: number | StyleFunction;
-		"icon-halo-blur"?: number | StyleFunction;
-		"icon-translate"?: number[];
-		"icon-translate-anchor"?: "map" | "viewport";
-		"text-opacity"?: number | StyleFunction;
-		"text-color"?: string | StyleFunction;
-		"text-halo-color"?: string | StyleFunction;
-		"text-halo-width"?: number | StyleFunction;
-		"text-halo-blur"?: number | StyleFunction;
-		"text-translate"?: number[];
-		"text-translate-anchor"?: "map" | "viewport";
-	}
+        rotate(a: number): Point;
 
-	export interface RasterLayout {
-		visibility?: "visible" | "none";
-	}
+        matMult(m: number): Point;
 
-	export interface RasterPaint {
-		"raster-opacity"?: number;
-		"raster-hue-rotate"?: number;
-		"raster-brightness-min"?: number;
-		"raster-brightness-max"?: number;
-		"raster-saturation"?: number;
-		"raster-contrast"?: number;
-		"raster-fade-duration"?: number;
-	}
+        unit(): Point;
 
-	export interface CircleLayout {
-		visibility?: "visible" | "none";
-	}
+        perp(): Point;
 
-	export interface CirclePaint {
-		"circle-radius"?: number | StyleFunction;
-		"circle-radius-transition"?: Transition;
-		"circle-color"?: string | StyleFunction;
-		"circle-blur"?: number | StyleFunction;
-		"circle-opacity"?: number | StyleFunction;
-		"circle-translate"?: number[];
-		"circle-translate-anchor"?: "map" | "viewport";
-		"circle-pitch-scale"?: "map" | "viewport";
-		"circle-stroke-width"?: number | StyleFunction;
-		"circle-stroke-color"?: string | StyleFunction;
-		"circle-stroke-opacity"?: number | StyleFunction;
-	}
-}
+        round(): Point;
 
-declare module 'mapbox-gl' {
-	export = mapboxgl;
-}
+        mag(): number;
 
-declare module 'mapbox-gl/dist/mapbox-gl' {
-	export = mapboxgl;
+        equals(p: Point): boolean;
+
+        dist(p: Point): number;
+
+        distSqr(p: Point): number;
+
+        angle(): number;
+
+        angleTo(p: Point): number;
+
+        angleWidth(p: Point): number;
+
+        angleWithSep(x: number, y: number): number;
+
+        static convert(a: PointLike): Point;
+    }
+
+    /**
+     * Marker
+     */
+    export class Marker extends Evented {
+        constructor(options?: mapboxgl.MarkerOptions);
+
+        constructor(element?: HTMLElement, options?: mapboxgl.MarkerOptions);
+
+        addTo(map: Map): this;
+
+        remove(): this;
+
+        getLngLat(): LngLat;
+
+        setLngLat(lngLat: LngLatLike): this;
+
+        getElement(): HTMLElement;
+
+        setPopup(popup?: Popup): this;
+
+        getPopup(): Popup;
+
+        togglePopup(): this;
+
+        getOffset(): PointLike;
+
+        setOffset(offset: PointLike): this;
+
+        setDraggable(shouldBeDraggable: boolean): this;
+
+        isDraggable(): boolean;
+    }
+
+    export interface MarkerOptions {
+        element?: HTMLElement;
+
+        offset?: PointLike;
+
+        anchor?: Anchor;
+
+        color?: string
+
+        draggable?: boolean;
+    }
+
+    /**
+     * Evented
+     */
+    export class Evented {
+        on(type: string, listener: Function): this;
+
+        off(type?: string | any, listener?: Function): this;
+
+        once(type: string, listener: Function): this;
+
+        // https://github.com/mapbox/mapbox-gl-js/issues/6522
+        fire(type: string, properties?: { [key: string]: any }): this;
+    }
+
+    /**
+     * StyleOptions
+     */
+    export interface StyleOptions {
+        transition?: boolean;
+    }
+
+    export type MapboxGeoJSONFeature = GeoJSON.Feature<GeoJSON.Geometry> & {
+        layer: Layer;
+        source: string;
+        sourceLayer: string;
+        state: { [key: string]: any };
+    };
+
+    export type EventData = { [key: string]: any };
+
+    export class MapboxEvent<TOrig = undefined> {
+        type: string;
+        target: Map;
+        originalEvent: TOrig;
+    }
+
+    export class MapMouseEvent extends MapboxEvent<MouseEvent> {
+        type: 'mousedown'
+            | 'mouseup'
+            | 'click'
+            | 'dblclick'
+            | 'mousemove'
+            | 'mouseover'
+            | 'mouseenter'
+            | 'mouseleave'
+            | 'mouseout'
+            | 'contextmenu';
+
+        point: Point;
+        lngLat: LngLat;
+
+        preventDefault(): void;
+        defaultPrevented: boolean;
+    }
+
+    export type MapLayerMouseEvent = MapMouseEvent & { features?: MapboxGeoJSONFeature[]; };
+
+    export class MapTouchEvent extends MapboxEvent<TouchEvent> {
+        type: 'touchstart'
+            | 'touchend'
+            | 'touchcancel';
+
+        point: Point;
+        lngLat: LngLat;
+        points: Point[];
+        lngLats: LngLat[];
+
+        preventDefault(): void;
+        defaultPrevented: boolean;
+    }
+
+    export type MapLayerTouchEvent = MapTouchEvent & { features?: MapboxGeoJSONFeature[]; };
+
+    export class MapWheelEvent extends MapboxEvent<WheelEvent> {
+        type: 'wheel';
+
+        preventDefault(): void;
+        defaultPrevented: boolean;
+    }
+
+    export interface MapBoxZoomEvent extends MapboxEvent<MouseEvent> {
+        type: 'boxzoomstart'
+            | 'boxzoomend'
+            | 'boxzoomcancel';
+
+        boxZoomBounds: LngLatBounds;
+    }
+
+    export type MapDataEvent = MapSourceDataEvent | MapStyleDataEvent;
+
+    export interface MapStyleDataEvent extends MapboxEvent {
+        dataType: 'style';
+    }
+
+    export interface MapSourceDataEvent extends MapboxEvent {
+        dataType: 'source';
+        isSourceLoaded: boolean;
+        source: Source;
+        sourceId: string;
+        sourceDataType: 'metadata' | 'content';
+        tile: any;
+        coord: Coordinate;
+    }
+
+    export interface Coordinate {
+        canonical: CanonicalCoordinate;
+        wrap: number;
+        key: number;
+    }
+
+    export interface CanonicalCoordinate {
+        x: number;
+        y: number;
+        z: number;
+        key: number;
+        equals(coord: CanonicalCoordinate): boolean;
+    }
+
+    export interface MapContextEvent extends MapboxEvent<WebGLContextEvent> {
+        type: 'webglcontextlost' | 'webglcontextrestored';
+    }
+
+    export class ErrorEvent extends MapboxEvent {
+        type: 'error';
+        error: Error;
+    }
+
+    /**
+     * AnimationOptions
+     */
+    export interface AnimationOptions {
+        /** Number in milliseconds */
+        duration?: number;
+        /**
+         * A function taking a time in the range 0..1 and returning a number where 0 is the initial
+         * state and 1 is the final state.
+         */
+        easing?: (time: number) => number;
+        /** point, origin of movement relative to map center */
+        offset?: PointLike;
+        /** When set to false, no animation happens */
+        animate?: boolean;
+    }
+
+    /**
+     * CameraOptions
+     */
+    export interface CameraOptions {
+        /** Map center */
+        center?: LngLatLike;
+        /** Map zoom level */
+        zoom?: number;
+        /** Map rotation bearing in degrees counter-clockwise from north */
+        bearing?: number;
+        /** Map angle in degrees at which the camera is looking at the ground */
+        pitch?: number;
+        /** If zooming, the zoom center (defaults to map center) */
+        around?: LngLatLike;
+    }
+
+    export interface CameraForBoundsOptions extends CameraOptions {
+        padding?: number | PaddingOptions;
+        offset?: PointLike;
+        maxZoom?: number;
+    }
+
+    /**
+     * FlyToOptions
+     */
+    export interface FlyToOptions extends AnimationOptions, CameraOptions {
+        curve?: number;
+        minZoom?: number;
+        speed?: number;
+        screenSpeed?: number;
+        maxDuration?: number;
+    }
+
+    export interface FitBoundsOptions extends mapboxgl.FlyToOptions {
+        linear?: boolean;
+        padding?: number | mapboxgl.PaddingOptions;
+        offset?: mapboxgl.PointLike;
+        maxZoom?: number;
+        maxDuration?: number;
+    }
+
+    /**
+     * MapEvent
+     */
+    export type MapEventType = {
+        error: ErrorEvent;
+
+        load: MapboxEvent;
+        remove: MapboxEvent;
+        render: MapboxEvent;
+        resize: MapboxEvent;
+
+        webglcontextlost: MapContextEvent;
+        webglcontextrestored: MapContextEvent;
+
+        dataloading: MapDataEvent;
+        data: MapDataEvent;
+        tiledataloading: MapDataEvent;
+        sourcedataloading: MapSourceDataEvent;
+        styledataloading: MapStyleDataEvent;
+        sourcedata: MapSourceDataEvent;
+        styledata: MapStyleDataEvent;
+
+        boxzoomcancel: MapBoxZoomEvent;
+        boxzoomstart: MapBoxZoomEvent;
+        boxzoomend: MapBoxZoomEvent;
+
+        touchcancel: MapTouchEvent;
+        touchmove: MapTouchEvent;
+        touchend: MapTouchEvent;
+        touchstart: MapTouchEvent;
+
+        click: MapMouseEvent;
+        contextmenu: MapMouseEvent;
+        dblclick: MapMouseEvent;
+        mousemove: MapMouseEvent;
+        mouseup: MapMouseEvent;
+        mousedown: MapMouseEvent;
+        mouseout: MapMouseEvent;
+        mouseover: MapMouseEvent;
+
+        movestart: MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined>;
+        move: MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined>;
+        moveend: MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined>;
+
+        zoomstart: MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined>;
+        zoom: MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined>;
+        zoomend: MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined>;
+
+        rotatestart: MapboxEvent<MouseEvent | TouchEvent | undefined>;
+        rotate: MapboxEvent<MouseEvent | TouchEvent | undefined>;
+        rotateend: MapboxEvent<MouseEvent | TouchEvent | undefined>;
+
+        dragstart: MapboxEvent<MouseEvent | TouchEvent | undefined>;
+        drag: MapboxEvent<MouseEvent | TouchEvent | undefined>;
+        dragend: MapboxEvent<MouseEvent | TouchEvent | undefined>;
+
+        pitchstart: MapboxEvent<MouseEvent | TouchEvent | undefined>;
+        pitch: MapboxEvent<MouseEvent | TouchEvent | undefined>;
+        pitchend: MapboxEvent<MouseEvent | TouchEvent | undefined>;
+
+        wheel: MapWheelEvent;
+    }
+
+    export type MapLayerEventType = {
+        click: MapLayerMouseEvent;
+        dblclick: MapLayerMouseEvent;
+        mousedown: MapLayerMouseEvent;
+        mouseup: MapLayerMouseEvent;
+        mousemove: MapLayerMouseEvent;
+        mouseenter: MapLayerMouseEvent;
+        mouseleave: MapLayerMouseEvent;
+        mouseover: MapLayerMouseEvent;
+        mouseout: MapLayerMouseEvent;
+        contextmenu: MapLayerMouseEvent;
+
+        touchstart: MapLayerTouchEvent;
+        touchend: MapLayerTouchEvent;
+        touchcancel: MapLayerTouchEvent;
+    }
+
+    export interface Layer {
+        id: string;
+        type?: 'fill' | 'line' | 'symbol' | 'circle' | 'fill-extrusion' | 'raster' | 'background' | 'heatmap' | 'hillshade';
+
+        metadata?: any;
+        ref?: string;
+
+        source?: string | AnySourceData;
+
+        'source-layer'?: string;
+
+        minzoom?: number;
+        maxzoom?: number;
+
+        interactive?: boolean;
+
+        filter?: any[];
+        layout?: BackgroundLayout | FillLayout | FillExtrusionLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout | HeatmapLayout | HillshadeLayout;
+        paint?: BackgroundPaint | FillPaint | FillExtrusionPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint | HeatmapPaint | HillshadePaint;
+    }
+
+    export interface StyleFunction {
+        stops?: any[][];
+        property?: string;
+        base?: number;
+        type?: 'identity' | 'exponential' | 'interval' | 'categorical';
+        default?: any;
+        'colorSpace'?: 'rgb' | 'lab' | 'hcl';
+    }
+
+    export interface BackgroundLayout {
+        visibility?: 'visible' | 'none';
+    }
+
+    export interface BackgroundPaint {
+        'background-color'?: string | Expression;
+        'background-color-transition'?: Transition;
+        'background-pattern'?: string;
+        'background-pattern-transition'?: Transition;
+        'background-opacity'?: number | Expression;
+        'background-opacity-transition'?: Transition;
+    }
+
+    export interface FillLayout {
+        visibility?: 'visible' | 'none';
+    }
+
+    export interface FillPaint {
+        'fill-antialias'?: boolean | Expression;
+        'fill-opacity'?: number | StyleFunction | Expression;
+        'fill-opacity-transition'?: Transition;
+        'fill-color'?: string | StyleFunction | Expression;
+        'fill-color-transition'?: Transition;
+        'fill-outline-color'?: string | StyleFunction | Expression;
+        'fill-outline-color-transition'?: Transition;
+        'fill-translate'?: number[];
+        'fill-translate-transition'?: Transition;
+        'fill-translate-anchor'?: 'map' | 'viewport';
+        'fill-pattern'?: string | Expression;
+        'fill-pattern-transition'?: Transition;
+    }
+
+    export interface FillExtrusionLayout {
+        visibility?: 'visible' | 'none';
+    }
+
+    export interface FillExtrusionPaint {
+        'fill-extrusion-opacity'?: number | Expression;
+        'fill-extrusion-opacity-transition'?: Transition;
+        'fill-extrusion-color'?: string | StyleFunction | Expression;
+        'fill-extrusion-color-transition'?: Transition;
+        'fill-extrusion-translate'?: number[] | Expression;
+        'fill-extrusion-translate-transition'?: Transition;
+        'fill-extrusion-translate-anchor'?: 'map' | 'viewport';
+        'fill-extrusion-pattern'?: string | Expression;
+        'fill-extrusion-pattern-transition'?: Transition;
+        'fill-extrusion-height'?: number | StyleFunction | Expression;
+        'fill-extrusion-height-transition'?: Transition;
+        'fill-extrusion-base'?: number | StyleFunction | Expression;
+        'fill-extrusion-base-transition'?: Transition;
+        'fill-extrusion-vertical-gradient'?: boolean;
+    }
+
+    export interface LineLayout {
+        visibility?: 'visible' | 'none';
+
+        'line-cap'?: 'butt' | 'round' | 'square';
+        'line-join'?: 'bevel' | 'round' | 'miter' | Expression;
+        'line-miter-limit'?: number | Expression;
+        'line-round-limit'?: number | Expression;
+    }
+
+    export interface LinePaint {
+        'line-opacity'?: number | StyleFunction | Expression;
+        'line-opacity-transition'?: Transition;
+        'line-color'?: string | StyleFunction | Expression;
+        'line-color-transition'?: Transition;
+        'line-translate'?: number[] | Expression;
+        'line-translate-transition'?: Transition;
+        'line-translate-anchor'?: 'map' | 'viewport';
+        'line-width'?: number | StyleFunction | Expression;
+        'line-width-transition'?: Transition;
+        'line-gap-width'?: number | StyleFunction | Expression;
+        'line-gap-width-transition'?: Transition;
+        'line-offset'?: number | StyleFunction | Expression;
+        'line-offset-transition'?: Transition;
+        'line-blur'?: number | StyleFunction | Expression;
+        'line-blur-transition'?: Transition;
+        'line-dasharray'?: number[];
+        'line-dasharray-transition'?: Transition;
+        'line-pattern'?: string | Expression;
+        'line-pattern-transition'?: Transition;
+        'line-gradient'?: Expression;
+    }
+
+    export interface SymbolLayout {
+        visibility?: 'visible' | 'none';
+
+        'symbol-placement'?: 'point' | 'line' | 'line-center';
+        'symbol-spacing'?: number | Expression;
+        'symbol-avoid-edges'?: boolean;
+        'symbol-z-order'?: 'viewport-y' | 'source';
+        'icon-allow-overlap'?: boolean | StyleFunction | Expression;
+        'icon-ignore-placement'?: boolean;
+        'icon-optional'?: boolean;
+        'icon-rotation-alignment'?: 'map' | 'viewport' | 'auto';
+        'icon-size'?: number | StyleFunction | Expression;
+        'icon-text-fit'?: 'none' | 'both' | 'width' | 'height';
+        'icon-text-fit-padding'?: number[] | Expression;
+        'icon-image'?: string | StyleFunction | Expression;
+        'icon-rotate'?: number | StyleFunction | Expression;
+        'icon-padding'?: number | Expression;
+        'icon-keep-upright'?: boolean;
+        'icon-offset'?: number[] | StyleFunction | Expression;
+        'icon-anchor'?: Anchor | StyleFunction | Expression;
+        'icon-pitch-alignment'?: 'map' | 'viewport' | 'auto';
+        'text-pitch-alignment'?: 'map' | 'viewport' | 'auto';
+        'text-rotation-alignment'?: 'map' | 'viewport' | 'auto';
+        'text-field'?: string | StyleFunction | Expression;
+        'text-font'?: string | string[];
+        'text-size'?: number | StyleFunction | Expression;
+        'text-max-width'?: number | Expression;
+        'text-line-height'?: number | Expression;
+        'text-letter-spacing'?: number | Expression;
+        'text-justify'?: 'left' | 'center' | 'right';
+        'text-anchor'?: Anchor | StyleFunction | Expression;
+        'text-max-angle'?: number | Expression;
+        'text-rotate'?: number | StyleFunction | Expression;
+        'text-padding'?: number | Expression;
+        'text-keep-upright'?: boolean;
+        'text-transform'?: 'none' | 'uppercase' | 'lowercase' | StyleFunction | Expression;
+        'text-offset'?: number[] | Expression;
+        'text-allow-overlap'?: boolean;
+        'text-ignore-placement'?: boolean;
+        'text-optional'?: boolean;
+    }
+
+    export interface SymbolPaint {
+        'icon-opacity'?: number | StyleFunction | Expression;
+        'icon-opacity-transition'?: Transition;
+        'icon-color'?: string | StyleFunction | Expression;
+        'icon-color-transition'?: Transition;
+        'icon-halo-color'?: string | StyleFunction | Expression;
+        'icon-halo-color-transition'?: Transition;
+        'icon-halo-width'?: number | StyleFunction | Expression;
+        'icon-halo-width-transition'?: Transition;
+        'icon-halo-blur'?: number | StyleFunction | Expression;
+        'icon-halo-blur-transition'?: Transition;
+        'icon-translate'?: number[] | Expression;
+        'icon-translate-transition'?: Transition;
+        'icon-translate-anchor'?: 'map' | 'viewport';
+        'text-opacity'?: number | StyleFunction | Expression;
+        'text-opacity-transition'?: Transition;
+        'text-color'?: string | StyleFunction | Expression;
+        'text-color-transition'?: Transition;
+        'text-halo-color'?: string | StyleFunction | Expression;
+        'text-halo-color-transition'?: Transition;
+        'text-halo-width'?: number | StyleFunction | Expression;
+        'text-halo-width-transition'?: Transition;
+        'text-halo-blur'?: number | StyleFunction | Expression;
+        'text-halo-blur-transition'?: Transition;
+        'text-translate'?: number[] | Expression;
+        'text-translate-transition'?: Transition;
+        'text-translate-anchor'?: 'map' | 'viewport';
+    }
+
+    export interface RasterLayout {
+        visibility?: 'visible' | 'none';
+    }
+
+    export interface RasterPaint {
+        'raster-opacity'?: number | Expression;
+        'raster-opacity-transition'?: Transition;
+        'raster-hue-rotate'?: number | Expression;
+        'raster-hue-rotate-transition'?: Transition;
+        'raster-brightness-min'?: number | Expression;
+        'raster-brightness-min-transition'?: Transition;
+        'raster-brightness-max'?: number | Expression;
+        'raster-brightness-max-transition'?: Transition;
+        'raster-saturation'?: number | Expression;
+        'raster-saturation-transition'?: Transition;
+        'raster-contrast'?: number | Expression;
+        'raster-contrast-transition'?: Transition;
+        'raster-fade-duration'?: number | Expression;
+        'raster-resample'?: 'linear' | 'nearest';
+    }
+
+    export interface CircleLayout {
+        visibility?: 'visible' | 'none';
+    }
+
+    export interface CirclePaint {
+        'circle-radius'?: number | StyleFunction | Expression;
+        'circle-radius-transition'?: Transition;
+        'circle-color'?: string | StyleFunction | Expression;
+        'circle-color-transition'?: Transition;
+        'circle-blur'?: number | StyleFunction | Expression;
+        'circle-blur-transition'?: Transition;
+        'circle-opacity'?: number | StyleFunction | Expression;
+        'circle-opacity-transition'?: Transition;
+        'circle-translate'?: number[] | Expression;
+        'circle-translate-transition'?: Transition;
+        'circle-translate-anchor'?: 'map' | 'viewport';
+        'circle-pitch-scale'?: 'map' | 'viewport';
+        'circle-pitch-alignment'?: 'map' | 'viewport';
+        'circle-stroke-width'?: number | StyleFunction | Expression;
+        'circle-stroke-width-transition'?: Transition;
+        'circle-stroke-color'?: string | StyleFunction | Expression;
+        'circle-stroke-color-transition'?: Transition;
+        'circle-stroke-opacity'?: number | StyleFunction | Expression;
+        'circle-stroke-opacity-transition'?: Transition;
+    }
+
+    export interface HeatmapLayout {
+        visibility?: 'visible' | 'none';
+    }
+
+    export interface HeatmapPaint {
+        'heatmap-radius'?: number | StyleFunction | Expression;
+        'heatmap-radius-transition'?: Transition;
+        'heatmap-weight'?: number | StyleFunction | Expression;
+        'heatmap-intensity'?: number | StyleFunction | Expression;
+        'heatmap-intensity-transition'?: Transition;
+        'heatmap-color'?: string | StyleFunction | Expression;
+        'heatmap-opacity'?: number | StyleFunction | Expression;
+        'heatmap-opacity-transition'?: Transition;
+    }
+
+    export interface HillshadeLayout {
+        visibility?: 'visible' | 'none';
+    }
+
+    export interface HillshadePaint {
+        'hillshade-illumination-direction'?: number | Expression;
+        'hillshade-illumination-anchor'?: 'map' | 'viewport';
+        'hillshade-exaggeration'?: number | Expression;
+        'hillshade-exaggeration-transition'?: Transition;
+        'hillshade-shadow-color'?: string | Expression;
+        'hillshade-shadow-color-transition'?: Transition;
+        'hillshade-highlight-color'?: string | Expression;
+        'hillshade-highlight-color-transition'?: Transition;
+        'hillshade-accent-color'?: string | Expression;
+        'hillshade-accent-color-transition'?: Transition;
+    }
 }

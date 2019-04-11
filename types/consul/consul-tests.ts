@@ -1,5 +1,4 @@
-
-import * as Consul from "consul";
+import Consul = require("consul");
 
 let ConsulStatic: Consul.ConsulStatic;
 let AclStatic: Consul.AclStatic = ConsulStatic.Acl;
@@ -512,6 +511,7 @@ consul = new Consul();
 // Consul.Health
 {
 	let health: Consul.Health = consul.health;
+	let name: string;
 
 	health = new HealthStatic(consul);
 	consul = health.consul;

@@ -1,4 +1,4 @@
-// Type definitions for is-promise
+// Type definitions for is-promise 2.1
 // Project: https://github.com/then/is-promise
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

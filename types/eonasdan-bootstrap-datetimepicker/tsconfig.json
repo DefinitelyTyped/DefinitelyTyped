@@ -8,10 +8,10 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
-            "../",
-            "./node_modules"
+            "../"
         ],
         "types": [],
         "noEmit": true,

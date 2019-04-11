@@ -1,13 +1,15 @@
-interface UModel extends QueryString {
+import Url = require("domurl");
+
+interface UModel {
     a: any;
     b: string;
 }
 
-interface U2Model extends QueryString {
+interface U2Model {
     a: any;
 }
 
-interface U3Model extends QueryString {
+interface U3Model {
     foo: string;
 }
 
@@ -38,8 +40,6 @@ else { // if not an array but scalar value here is a way how to convert to array
 
 // The way to remove the parameter:
 delete u.query.a;
-// or:
-delete u.query["a"];
 
 // If you need to remove all query string params:
 console.log(u.clearQuery());

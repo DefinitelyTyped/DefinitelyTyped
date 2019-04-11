@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { CustomPickerProps } from "react-color";
+import { CustomPickerProps } from "../../..";
 
 export interface HueProps extends CustomPickerProps<Hue> {
     direction?: "horizontal" | "vertical";

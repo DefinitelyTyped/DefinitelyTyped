@@ -5,7 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="webassembly-js-api" />
+/** Other WebAssembly declarations, for compatibility with older versions of Typescript */
+declare namespace WebAssembly {
+    interface Module { }
+}
 
 declare namespace Emscripten {
     interface FileSystemType {
@@ -14,6 +17,17 @@ declare namespace Emscripten {
 
 declare namespace Module {
     type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
+
+    type WebAssemblyImports =  Array<{
+        name: string;
+        kind: string;
+    }>;
+
+    type WebAssemblyExports = Array<{
+        module: string;
+        name: string;
+        kind: string;
+    }>;
 
     function print(str: string): void;
     function printErr(str: string): void;
@@ -32,16 +46,16 @@ declare namespace Module {
     function destroy(object: object): void;
     function getPreloadedPackage(remotePackageName: string, remotePackageSize: number): ArrayBuffer;
     function instantiateWasm(
-        imports: WebAssembly.Imports,
+        imports: WebAssemblyImports,
         successCallback: (module: WebAssembly.Module) => void
-    ): WebAssembly.Exports;
+    ): WebAssemblyExports;
     function locateFile(url: string): string;
     function onCustomMessage(event: MessageEvent): void;
 
     var Runtime: any;
 
-    function ccall(ident: string, returnType: string, argTypes: string[], args: any[]): any;
-    function cwrap(ident: string, returnType: string, argTypes: string[]): any;
+    function ccall(ident: string, returnType: string | null, argTypes: string[], args: any[]): any;
+    function cwrap(ident: string, returnType: string | null, argTypes: string[]): any;
 
     function setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
     function getValue(ptr: number, type: string, noSafe?: boolean): number;

@@ -1,5 +1,5 @@
-import * as request from 'supertest-as-promised';
-import * as express from 'express';
+import request = require('supertest-as-promised');
+import express = require('express');
 
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;

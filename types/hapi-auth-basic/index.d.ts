@@ -1,21 +1,27 @@
-// Type definitions for hapi 4.2
+// Type definitions for hapi-bauth-basic 5.0.0
 // Project: https://github.com/hapijs/hapi-auth-basic
 // Definitions by: AJP <https://github.com/AJamesPhillips>
+//                 Rodrigo Saboya <https://github.com/saboya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
-import * as Hapi from 'hapi';
+import { Plugin, Request, ResponseToolkit } from 'hapi';
 
 declare namespace Basic {
-    interface ValidateFuncCallback {
-        (err: Error | null, isValid: boolean, userCredentials?: any): void;
+    interface ValidateCustomResponse {
+        response: any,
     }
 
-    interface ValidateFunc {
-        (request: Hapi.Request, username: string, password: string, callback: ValidateFuncCallback): void;
+    interface ValidateResponse {
+        isValid: boolean,
+        credentials?: any,
+    }
+
+    interface Validate {
+        (request: Request, username: string, password: string, h: ResponseToolkit): Promise<ValidateResponse | ValidateCustomResponse>;
     }
 }
 
-declare var Basic: Hapi.PluginFunction<{}>;
+declare var Basic: Plugin<{}>;
 
 export = Basic;

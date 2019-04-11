@@ -9,11 +9,17 @@
 // So let's create a couple Int64s using the above values ...
 
 // Require, of course
-let Int64 = require('node-int64');
+import Int64 = require('node-int64');
 
 // x's value is what we expect (the decimal value of 0x123456789)
 let x = new Int64(0x123456789);
 //!! 	[Int64 value:4886718345 octets:00 00 00 01 23 45 67 89]
+
+// We can set the value as a number
+let a: Int64 = new Int64(64);
+
+// We can set the value as two numbers representing raw bits
+let b: Int64 = new Int64(73876293, 827235);
 
 // y's value is Infinity because it's outside the range of integer
 // precision.  But that's okay - it's still useful because it's internal
@@ -21,18 +27,21 @@ let x = new Int64(0x123456789);
 let y = new Int64('123456789abcdef0');
 //!! 	[Int64 value:Infinity octets:12 34 56 78 9a bc de f0]
 
+// Get the underlying Buffer object
+let buffer: Buffer = y.buffer;
+
 // Let's do some math.  Int64's behave like Numbers.  (Sorry, Int64 isn't
 // for doing 64-bit integer arithmetic (yet) - it's just for carrying
 // around int64 values
-x + 1;
+x.toNumber() + 1;
 //!! 4886718346
-y + 1;
+y.toNumber() + 1;
 //!! Infinity
 
 // Int64 string operations ...
-'value: ' + x;
+'value: ' + x.toString();
 //!! 'value: 4886718345'
-'value: ' + y;
+'value: ' + y.toString();
 //!! 'value: Infinity'
 x.toString(2);
 //!! '100100011010001010110011110001001'
@@ -41,9 +50,9 @@ y.toString(2);
 
 // Use JS's isFinite() method to see if the Int64 value is in the
 // integer-precise range of JS values
-isFinite(x);
+isFinite(x.toNumber());
 //!! true
-isFinite(y);
+isFinite(y.toNumber());
 //!! false
 
 // Get an octet string representation.  (Yay, y is what we put in!)

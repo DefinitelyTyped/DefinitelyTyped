@@ -2,11 +2,13 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -16,7 +18,15 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "addon.ocr.d.ts",
+        "addon.ocrp.d.ts",
+        "addon.pdf.d.ts",
+        "addon.webcam.d.ts",
+        "dbr.d.ts",
+        "dwt-tests.ts",
+        "dwt.d.ts",
         "index.d.ts",
-        "dwt-tests.ts"
+        "Dynamsoft.d.ts",
+        "mbc.d.ts"
     ]
 }

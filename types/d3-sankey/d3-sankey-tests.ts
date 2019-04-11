@@ -168,7 +168,7 @@ let sGraph: d3Sankey.SankeyGraph<SNodeExtra, SLinkExtra>;
 // Obtain SankeyLayout Generator
 // ---------------------------------------------------------------------------
 
-let slgDefault: d3Sankey.SankeyLayout<d3Sankey.SankeyGraph<{}, {}>, {}, {}> = d3Sankey.sankey();
+const slgDefault: d3Sankey.SankeyLayout<d3Sankey.SankeyGraph<{}, {}>, {}, {}> = d3Sankey.sankey();
 let slgDAG: d3Sankey.SankeyLayout<DAG, SNodeExtra, SLinkExtra> = d3Sankey.sankey<DAG, SNodeExtra, SLinkExtra>();
 let slgDAGCustomId: d3Sankey.SankeyLayout<DAGCustomId, SNodeExtraCustomId, SLinkExtra> = d3Sankey.sankey<DAGCustomId, SNodeExtraCustomId, SLinkExtra>();
 
@@ -299,7 +299,7 @@ slgDAG = slgDAG.nodes(d => d.customNodes);
 
 // Get -----------------------------------------------------------------------
 
-let nodesAccessor: (d: DAG) => SNode[] = slgDAG.nodes();
+const nodesAccessor: (d: DAG) => SNode[] = slgDAG.nodes();
 
 // ---------------------------------------------------------------------------
 // Links
@@ -315,7 +315,7 @@ slgDAG = slgDAG.links(d => d.customLinks);
 
 // Get -----------------------------------------------------------------------
 
-let linksAccessor: (d: DAG) => SLink[] = slgDAG.links();
+const linksAccessor: (d: DAG) => SLink[] = slgDAG.links();
 
 // ---------------------------------------------------------------------------
 // Compute Initial Layout
@@ -344,7 +344,7 @@ pathGen = d3Sankey.sankeyLinkHorizontal<SNodeExtra, SLinkExtra>();
 
 // Render to svg path
 
-let svgPathString: string | null = pathGen(sGraph.links[0]);
+const svgPathString: string | null = pathGen(sGraph.links[0]);
 svgLinkPaths.attr('d', pathGen);
 
 // Render to canvas
@@ -361,7 +361,7 @@ pathGen(sGraph.links[0]);
 // Sankey Node --------------------------------------------------------------
 
 sNodes = sGraph.nodes;
-let sNode = sNodes[0];
+const sNode = sNodes[0];
 
 // User-specified extra properties:
 
@@ -386,7 +386,7 @@ linksArrMaybe = sNode.targetLinks;
 // Sankey Link --------------------------------------------------------------
 
 sLinks = sGraph.links;
-let sLink = sLinks[0];
+const sLink = sLinks[0];
 
 // User-specified extra properties:
 

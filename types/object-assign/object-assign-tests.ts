@@ -1,4 +1,4 @@
-import * as objectAssign from 'object-assign';
+import objectAssign = require('object-assign');
 
 interface Target {
   hellow: string;
@@ -9,7 +9,7 @@ interface Source1 {
 }
 
 interface Result extends Target, Source1 {
-  
+
 }
 
 interface Source2 {
@@ -17,7 +17,7 @@ interface Source2 {
 }
 
 interface Result2 extends Result, Source2 {
-  
+
 }
 
 interface Source3 {
@@ -25,7 +25,7 @@ interface Source3 {
 }
 
 interface Result3 extends Result2, Source3 {
-  
+
 }
 
 interface Source4 {
@@ -33,7 +33,7 @@ interface Source4 {
 }
 
 interface Result4 extends Result3, Source4 {
-  
+
 }
 
 interface Source5 {
@@ -41,7 +41,7 @@ interface Source5 {
 }
 
 interface Result5 extends Result4, Source5 {
-  
+
 }
 
 function assign1(): Result {

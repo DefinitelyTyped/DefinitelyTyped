@@ -17,11 +17,11 @@ declare namespace SemanticUI {
         /**
          * Increments progress by increment value, if not passed a value will use random amount specified in settings
          */
-        (behavior: 'increment', incrementValue: number): JQuery;
+        (behavior: 'increment', incrementValue?: number): JQuery;
         /**
          * Decrements progress by decrement value, if not passed a value will use random amount specified in settings
          */
-        (behavior: 'decrement', decrementValue: number): JQuery;
+        (behavior: 'decrement', decrementValue?: number): JQuery;
         /**
          * Immediately updates progress to value, ignoring progress animation interval delays
          */

@@ -1,5 +1,5 @@
 import { Component, ClassAttributes, CSSProperties } from "react";
-import { Color, ColorChangeHandler } from "react-color";
+import { Color, ColorChangeHandler } from "../../..";
 
 export interface EditableInputStyles {
     input?: CSSProperties;

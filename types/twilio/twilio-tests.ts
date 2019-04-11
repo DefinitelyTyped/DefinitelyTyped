@@ -1,4 +1,4 @@
-import * as twilio from 'twilio';
+import twilio = require('twilio');
 import * as Express from "express";
 
 // Examples taken from https://twilio.github.io/twilio-node/ (v2.1.0)
@@ -240,5 +240,5 @@ twilio.webhook("MYAUTHTOKEN", { validate: false });
 
 
 function getMockExpressRequest(): Express.Request {
-    return <Express.Request>JSON.parse("{}");
+    return JSON.parse("{}") as Express.Request;
 }

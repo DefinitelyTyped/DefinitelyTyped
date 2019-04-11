@@ -1,4 +1,4 @@
-import * as Rsync from 'rsync';
+import Rsync = require('rsync');
 
 // --------------------------
 // simple usage
@@ -114,6 +114,7 @@ rsync.shell('ssh')
     .quiet()
     .dirs()
     .links()
+    .chmod("ug=rwX")
     .dry();
 
 

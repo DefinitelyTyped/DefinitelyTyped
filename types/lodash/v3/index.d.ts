@@ -13727,6 +13727,29 @@ declare module _ {
         mapValues<TResult>(where: Dictionary<TResult>): LoDashImplicitArrayWrapper<boolean>;
     }
 
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+        /**
+         * @see _.mapValues
+         * TValue is the type of the property values of T.
+         * TResult is the type output by the ObjectIterator function
+         */
+        mapValues<TValue, TResult>(callback: ObjectIterator<TValue, TResult>): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
+
+        /**
+         * @see _.mapValues
+         * TResult is the type of the property specified by pluck.
+         * T should be a Dictionary<Dictionary<TResult>>
+         */
+        mapValues<TResult>(pluck: string): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
+
+        /**
+         * @see _.mapValues
+         * TResult is the type of the properties of each object in the values of T
+         * T should be a Dictionary<Dictionary<TResult>>
+         */
+        mapValues<TResult>(where: Dictionary<TResult>): LoDashExplicitObjectWrapper<boolean>;
+    }
+
     //_.merge
     interface MergeCustomizer {
         (value: any, srcValue: any, key?: string, object?: Object, source?: Object): any;

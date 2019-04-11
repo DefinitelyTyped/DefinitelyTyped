@@ -1,9 +1,18 @@
 import * as React from "react";
-import * as ReactModal from 'react-modal';
+import ReactModal = require('react-modal');
+
+// tests for static method
+// string
+ReactModal.setAppElement("#main");
+// HTMLElement
+ReactModal.setAppElement(document.getElementById("#main"));
 
 class ExampleOfUsingReactModal extends React.Component {
+  contentRef: HTMLDivElement;
+  overlayRef: HTMLDivElement;
   render() {
     const onAfterOpenFn = () => { };
+    const onAfterCloseFn = () => { };
     const onRequestCloseFn = () => { };
     const customStyle = {
       overlay: {
@@ -39,15 +48,32 @@ class ExampleOfUsingReactModal extends React.Component {
       base: 'base',
       beforeClose: 'beforeClose'
     };
+    const customAriaVariables = {
+      labelledby: 'labelledby',
+      describedby: 'describedby'
+    };
+    const customDataVariables = {
+      dataOne: 'one',
+      dataTwo: 'two'
+    };
     return (
       <ReactModal
         isOpen={true}
         onAfterOpen={onAfterOpenFn}
+        onAfterClose={onAfterCloseFn}
         onRequestClose={onRequestCloseFn}
+        contentLabel="demo label"
         closeTimeoutMS={1000}
         style={customStyle}
         className={customClasses}
         overlayClassName={customOverlayClasses}
+        bodyOpenClassName={'bodyOpenClassName'}
+        htmlOpenClassName={'htmlOpenClassName'}
+        aria={customAriaVariables}
+        data={customDataVariables}
+        contentRef={instance => this.contentRef = instance}
+        overlayRef={instance => this.overlayRef = instance}
+        testId="modal-content"
         >
         <h1>Modal Content</h1>
         <p>Etc.</p>

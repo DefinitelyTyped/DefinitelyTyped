@@ -21,7 +21,7 @@ export class WallabyConfig implements wallabyjs.IWallabyConfig {
     '**/*.ts': file => file.content + '\n// this is TypeScript'
   };
 
-  public postprocessors: wallabyjs.IWallabyProcessor = <wallabyjs.IWallabyProcessor>{
+  public postprocessor: wallabyjs.IWallabyProcessor = <wallabyjs.IWallabyProcessor>{
     '**/*.js': file => file.content + '\n// this is JavaScript',
     '**/*.ts': file => file.content + '\n// this is TypeScript'
   };
@@ -37,5 +37,5 @@ export class WallabyConfig implements wallabyjs.IWallabyConfig {
     }
   };
 
-  constructor(private wallaby: wallabyjs.IWallaby) { }
+  constructor(private readonly wallaby: wallabyjs.IWallaby) { }
 }

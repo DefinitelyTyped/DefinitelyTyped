@@ -1,4 +1,4 @@
-import * as sheetify from 'sheetify';
+import sheetify = require('sheetify');
 
 function done1(err: Error, css: string, prefix: string) {}
 function done2(err: Error, css: string) {}

@@ -1,6 +1,6 @@
 // Type definitions for Platform 1.3
 // Project: https://github.com/bestiejs/platform.js
-// Definitions by: Jake Hickman <https://github.com/JakeH/>
+// Definitions by: Jake Hickman <https://github.com/JakeH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare interface Platform {
@@ -18,8 +18,8 @@ declare interface Platform {
         version?: string;
         toString(): string;
     };
-    parse?(ua: string): Platform;
-    toString?(): string;
+    parse(ua: string): Platform;
+    toString(): string;
 }
 
 declare var platform: Platform;

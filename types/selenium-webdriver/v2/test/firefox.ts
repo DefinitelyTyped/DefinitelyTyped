@@ -1,4 +1,3 @@
-/* tslint:disable */
 import * as firefox from 'selenium-webdriver/firefox';
 import * as remote from 'selenium-webdriver/remote';
 import * as webdriver from 'selenium-webdriver';
@@ -8,7 +7,7 @@ function TestBinary() {
     binary = new firefox.Binary('exe');
 
     binary.addArguments('A', 'B', 'C');
-    var promise: webdriver.promise.Promise<void> = binary.kill();
+    const promise: webdriver.promise.Promise<void> = binary.kill();
     binary.launch('profile').then((result: any) => {});
 }
 
@@ -17,7 +16,7 @@ function TestFirefoxDriver() {
     driver = new firefox.Driver(webdriver.Capabilities.firefox());
     driver = new firefox.Driver(webdriver.Capabilities.firefox(), new webdriver.promise.ControlFlow());
 
-    var baseDriver: webdriver.WebDriver = driver;
+    const baseDriver: webdriver.WebDriver = driver;
 }
 
 function TestFirefoxOptions() {
@@ -29,7 +28,7 @@ function TestFirefoxOptions() {
     options = options.setProfile('profile');
     options = options.setProfile(new firefox.Profile());
     options = options.setProxy({ proxyType: 'proxy' });
-    var capabilities: webdriver.Capabilities = options.toCapabilities();
+    const capabilities: webdriver.Capabilities = options.toCapabilities();
 }
 
 function TestFirefoxProfile() {
@@ -40,8 +39,8 @@ function TestFirefoxProfile() {
     profile.addExtension('ext');
     bool = profile.assumeUntrustedCertIssuer();
     profile.encode().then((prof: string) => {});
-    var num: number = profile.getPort();
-    var anything: any = profile.getPreference('key');
+    const num: number = profile.getPort();
+    const anything: any = profile.getPreference('key');
     bool = profile.nativeEventsEnabled();
     profile.setAcceptUntrustedCerts(true);
     profile.setAssumeUntrustedCertIssuer(true);

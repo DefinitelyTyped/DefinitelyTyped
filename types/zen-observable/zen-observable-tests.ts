@@ -1,10 +1,10 @@
-import * as Observable from 'zen-observable';
+import Observable = require('zen-observable');
 
-const assert = (val: boolean) => {
-    if (val !== true) {
+function assert(val: boolean) {
+    if (!val) {
         throw new Error('Assertion Failure');
     }
-};
+}
 
 /**
  * Observable
@@ -93,6 +93,14 @@ Observable.of(1, 2, 3)
 Observable.of(1, 2, 3)
     .flatMap(val => Observable.of(val.toString()))
     .subscribe(val => assert(typeof val === 'string'));
+
+/**
+ * observable.concat
+ */
+
+Observable.of(1, 2, 3)
+.concat(Observable.of(4, 5, 6), Observable.of(7, 8, 9))
+.subscribe(val => assert(typeof val === 'number'));
 
 /**
  * ZenObservable

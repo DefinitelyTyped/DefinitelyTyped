@@ -1,5 +1,5 @@
 // Type definitions for csv-stringify 1.4
-// Project: https://github.com/wdavidw/node-csv-stringify
+// Project: https://github.com/wdavidw/node-csv-stringify, https://csv.js.org/stringify
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Arjen van der Ende <https://github.com/arjenvanderende>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,7 +13,7 @@ declare namespace stringify {
          * Order matters, read the transformer documentation for additionnal information,
          * columns are auto discovered when the user write object, see the "header" option on how to print columns names on the first line.
          */
-        columns?: string[];
+        columns?: { [index: string]: string } | string[];
         /**
          * Set the field delimiter, one character only, defaults to a comma.
          */
@@ -85,7 +85,7 @@ declare function stringify(opts?: stringify.StringifyOpts): stringify.Stringifie
 /**
  * Callback version: string in --> callback with string out
  */
-declare function stringify(input: any[][], opts: stringify.StringifyOpts, callback: (error: Error | undefined, output: string) => void): void;
-declare function stringify(input: any[][], callback: (error: Error | undefined, output: string) => void): void;
+declare function stringify(input: any[][] | Array<{}>, opts: stringify.StringifyOpts, callback: (error: Error | undefined, output: string) => void): void;
+declare function stringify(input: any[][] | Array<{}>, callback: (error: Error | undefined, output: string) => void): void;
 
 export = stringify;

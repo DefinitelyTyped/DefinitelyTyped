@@ -1,18 +1,19 @@
-import contentType = require('content-type');
-import express = require('express');
+/// <reference types="node" />
 
-let obj = contentType.parse('image/svg+xml; charset=utf-8');
+import * as contentType from 'content-type';
+import * as http from 'http';
 
-console.log(obj.type);  // => 'image/svg+xml'
-console.log(obj.parameters.charset);  // => 'utf-8'
+const mediaType = contentType.parse('image/svg+xml; charset=utf-8');
+mediaType; // $ExpectType ParsedMediaType
+mediaType.type; // $ExpectType string
+mediaType.parameters; // $ExpectType { [key: string]: string; }
 
-let req: express.Request;
-obj = contentType.parse(req);
+http.createServer((req, res) => {
+    contentType.parse(req);
+    contentType.parse(res);
+});
 
-let res: express.Response;
-obj = contentType.parse(res);
-
-let str: string = contentType.format({type: 'image/svg+xml'});
-
-let media: contentType.MediaType;
-contentType.format(media);
+// $ExpectType string
+contentType.format({type: 'image/svg+xml'});
+contentType.format({type: 'image/svg+xml', parameters: {charset: 'utf-8'}});
+contentType.format(mediaType);

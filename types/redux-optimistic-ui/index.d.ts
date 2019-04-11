@@ -2,6 +2,7 @@
 // Project: https://github.com/mattkrick/redux-optimistic-ui
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="redux" />
 
@@ -66,13 +67,13 @@ declare module "redux-optimistic-ui" {
     /**
      * Start optimistic action
      */
-    export const BEGIN: string;
+    export const BEGIN = '@@optimist/BEGIN';
     /**
      * Finish optimistic action and commit results
      */
-    export const COMMIT: string;
+    export const COMMIT = '@@optimist/COMMIT';
     /**
      * Revert optimistic action
      */
-    export const REVERT: string;
+    export const REVERT = '@@optimist/REVERT';
 }

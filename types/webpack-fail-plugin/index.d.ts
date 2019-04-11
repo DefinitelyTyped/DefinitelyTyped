@@ -2,11 +2,12 @@
 // Project: https://github.com/TiddoLangerak/webpack-fail-plugin
 // Definitions by: Simon Hartcher <https://github.com/deevus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 ///<reference types="webpack" />
 
 declare module "webpack-fail-plugin" {
-    import {Plugin} from "webpack";
+    import { Plugin } from "webpack";
 
     /**
      * Webpack plugin that will make the process return status code 1 when it finishes with errors in single-run mode.

@@ -1,10 +1,13 @@
-let map = L.map('foo');
+import * as L from 'leaflet';
+import 'leaflet.gridlayer.googlemutant';
 
-let roads = L.gridLayer.googleMutant({
+const map = L.map('foo');
+
+const roads = L.gridLayer.googleMutant({
     type: 'roadmap'
 }).addTo(map);
 
-let styled = L.gridLayer.googleMutant({
+const styled = L.gridLayer.googleMutant({
     type: 'satellite',
     styles: [
         { elementType: 'labels', stylers: [ { visibility: 'off' } ] },

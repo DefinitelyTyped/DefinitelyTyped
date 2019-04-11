@@ -1,5 +1,5 @@
 import * as m from 'mithril';
-import {Component, FactoryComponent, Vnode} from 'mithril';
+import { Component, ClosureComponent, FactoryComponent } from 'mithril';
 
 ///////////////////////////////////////////////////////////
 // 0.
@@ -23,7 +23,7 @@ m.mount(document.getElementById('comp0')!, null);
 // 1.
 // Simple example. Vnode type for component methods is inferred.
 //
-function comp1() {
+function comp1(): Component {
 	return {
 		oncreate({dom}) {
 			// vnode.dom type inferred
@@ -31,7 +31,7 @@ function comp1() {
 		view(vnode) {
 			return m('span', "Test");
 		}
-	} as Component<{}, {}>;
+	};
 }
 
 ///////////////////////////////////////////////////////////
@@ -45,6 +45,13 @@ interface Comp2Attrs {
 }
 
 const comp2: FactoryComponent<Comp2Attrs> = vnode => ({ // vnode is inferred
+	view({attrs: {title, description}}) { // Comp2Attrs type is inferred
+		return [m('h2', title), m('p', description)];
+	}
+});
+
+// 2a. Test ClosureComponent type alias
+const comp2a: ClosureComponent<Comp2Attrs> = vnode => ({ // vnode is inferred
 	view({attrs: {title, description}}) { // Comp2Attrs type is inferred
 		return [m('h2', title), m('p', description)];
 	}
@@ -80,6 +87,31 @@ const comp3: FactoryComponent<{pageHead: string}> = () => ({
 	}
 });
 
+// 3.a Test ClosureComponent type alias
+const comp3a: ClosureComponent<{pageHead: string}> = () => ({
+	oncreate({dom}) {
+		// Can do stuff with dom
+	},
+	view({attrs}) {
+		return m('.page',
+			m('h1', attrs.pageHead),
+			m(comp2,
+				{
+					// attrs is type checked - nice!
+					title: "A Title",
+					description: "Some descriptive text.",
+					onremove(vnode) {
+						console.log("comp2 was removed");
+					},
+				}
+			),
+			// Test other hyperscript parameter variations
+			m(comp1, m(comp1)),
+			m('br')
+		);
+	}
+});
+
 ///////////////////////////////////////////////////////////
 // 4.
 // Stateful component using closure method & var
@@ -89,7 +121,7 @@ interface Comp4Attrs {
 	name: string;
 }
 
-function comp4(): Component<Comp4Attrs, {}> {
+function comp4(): Component<Comp4Attrs> {
 	let count = 0;
 
 	function add(num: number) {
@@ -152,7 +184,9 @@ m.route(document.body, '/', {
 	'/comp0': comp0,
 	'/comp1': comp1,
 	'/comp2': comp2,
+	'/comp2a': comp2a,
 	'/comp3': comp3,
+	'/comp3a': comp3a,
 	'/comp4': comp4,
 	'/comp5': comp5
 });
@@ -165,8 +199,8 @@ interface Attrs {
 	name: string;
 }
 
-export default (): Component<Attrs, {}> => {
-	let count = 0;
+export default (): Component<Attrs> => {
+	const count = 0;
 	return {
 		view({attrs}) {
 			return m('span', `name: ${attrs.name}, count: ${count}`);

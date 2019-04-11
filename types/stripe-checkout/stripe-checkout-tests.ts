@@ -1,9 +1,9 @@
 // Test the minimum amount of configuration required.
-var handler = StripeCheckout.configure({
-	key: "my-secret-key",
-	token: function(token: StripeTokenResponse) {
-		console.log(token.id);
-	}
+let handler = StripeCheckout.configure({
+    key: "my-secret-key",
+    token: (token: stripe.Token) => {
+        console.log(token.id);
+    }
 });
 
 handler.open();
@@ -11,11 +11,14 @@ handler.open();
 handler.close();
 
 // Test all configuration options.
-var options: StripeCheckoutOptions = {
-	key: "my-secret-key",
-	token: function(token: StripeTokenResponse) {
-		console.log(token.id);
-	},
+const options: StripeCheckoutOptions = {
+    key: "my-secret-key",
+    token: (token: stripe.Token) => {
+        console.log(token.id);
+    },
+    source: (src: stripe.Source) => {
+        console.log(src.id);
+    },
     image: "http://placehold.it/128x128",
     name: "Definitely Typed",
     description: "A DefinitelyTyped test for Stripe Checkout",
@@ -31,9 +34,9 @@ var options: StripeCheckoutOptions = {
     alipay: "auto",
     alipayReusable: false,
     shippingAddress: false,
-    opened: function() {},
-    closed: function() {}
-}
+    opened: () => {},
+    closed: () => {}
+};
 
 handler = StripeCheckout.configure(options);
 

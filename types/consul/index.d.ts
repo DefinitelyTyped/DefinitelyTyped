@@ -7,7 +7,7 @@
 
 
 
-import {IncomingMessage as HttpIncomingMessage} from "http";
+import { IncomingMessage as HttpIncomingMessage } from "http";
 
 declare namespace Consul {
 
@@ -625,6 +625,7 @@ declare namespace Consul {
             dc?: string;
             tag?: string;
             passing?: boolean;
+            near?: string;
         }
 
         interface StateOptions extends CommonOptions {

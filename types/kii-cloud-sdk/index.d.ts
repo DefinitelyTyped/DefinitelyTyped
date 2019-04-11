@@ -345,7 +345,7 @@ declare namespace KiiCloud {
         ): KiiBucket;
 
         /**
-         * Creates a reference to a　encrypted bucket for this app
+         * Creates a reference to a encrypted bucket for this app
          *
          *     <br><br>The bucket will be created/accessed within this app's scope
          *
@@ -427,7 +427,7 @@ declare namespace KiiCloud {
          *
          *     // example to use Promise
          *     Kii.authenticateAsAppAdmin("your client id", "your client secret").then(
-         *         function(adminContext) {　// fulfill callback function
+         *         function(adminContext) { // fulfill callback function
          *             // adminContext : KiiAppAdminContext instance
          *             // Operate entities with adminContext.
          *
@@ -599,7 +599,7 @@ declare namespace KiiCloud {
          *
          *     // example to use Promise
          *     Kii.authenticateAsThing("vendor thing id", "password of this thing").then(
-         *         function(thingAuthContext) {　// fulfill callback function
+         *         function(thingAuthContext) { // fulfill callback function
          *             // thingAuthContext : KiiThingContext instance
          *             // Operate entities with thingAuthContext.
          *
@@ -652,7 +652,7 @@ declare namespace KiiCloud {
          *
          *     // example to use Promise
          *     Kii.authenticateAsThingWithToken("thing_id", "thing_token").then(
-         *         function(thingContext) {　// fulfill callback function
+         *         function(thingContext) { // fulfill callback function
          *             // thingContext : KiiThingContext instance
          *             // Operate entities with thingContext.
          *
@@ -833,7 +833,6 @@ declare namespace KiiCloud {
         /**
          * Get the action that is being permitted/restricted in this entry
          *
-         * @return
          */
         getAction(): KiiACLAction;
 
@@ -851,7 +850,6 @@ declare namespace KiiCloud {
         /**
          * Get the subject that is being permitted/restricted in this entry
          *
-         * @return
          */
         getSubject<T extends KiiACLSubject>(): T;
 
@@ -869,7 +867,6 @@ declare namespace KiiCloud {
         /**
          * Get whether or not the action is being permitted to the subject
          *
-         * @return
          */
         getGrant(): boolean;
 
@@ -1283,7 +1280,6 @@ declare namespace KiiCloud {
          * @param groupName Name of the KiiGroup
          * @param user id of owner
          * @param members An array of KiiUser objects to add to the group
-         * @param callbacks
          *
          * @return return promise object.
          *       <ul>
@@ -1987,7 +1983,6 @@ declare namespace KiiCloud {
         /**
          * The name of this bucket
          *
-         * @return
          */
         getBucketName(): string;
 
@@ -2614,7 +2609,6 @@ declare namespace KiiCloud {
          * @deprecated Use {@link KiiGroup.getId} instead.
          *   Get the UUID of the given group, assigned by the server
          *
-         * @return
          */
         getUUID(): string;
 
@@ -2628,7 +2622,6 @@ declare namespace KiiCloud {
         /**
          * The name of this group
          *
-         * @return
          */
         getName(): string;
 
@@ -3314,28 +3307,24 @@ declare namespace KiiCloud {
         /**
          * Get the UUID of the given object, assigned by the server
          *
-         * @return
          */
         getUUID(): string;
 
         /**
          * Get Id of the object or null if the object ID hasn't been assigned.
          *
-         * @return
          */
         getID(): string;
 
         /**
          * Get the server's creation date of this object
          *
-         * @return
          */
         getCreated(): number;
 
         /**
          * Get the modified date of the given object, assigned by the server
          *
-         * @return
          */
         getModified(): string;
 
@@ -4429,7 +4418,6 @@ declare namespace KiiCloud {
          * If this method is not called, no collapse_key is applied.
          * For details please refer to GCM document of collapse_key.
          *
-         * @param collapseKey
          *
          * @return builder instance.
          */
@@ -4442,7 +4430,6 @@ declare namespace KiiCloud {
          * If this method is not called, no delay_while_idle is applied.
          * For details please refer to GCM document of delay_while_idle.
          *
-         * @param delayWhileIdle
          *
          * @return builder instance.
          */
@@ -4455,7 +4442,6 @@ declare namespace KiiCloud {
          * If this method is not called, no time_to_live is applied.
          * For details please refer to GCM document of time_to_live.
          *
-         * @param timeToLive
          *
          * @return builder instance.
          */
@@ -4468,7 +4454,6 @@ declare namespace KiiCloud {
          * If this method is not called, no restricted_package_name is applied.
          * For details please refer to GCM document of restricted_package_name.
          *
-         * @param restrictedPackageName
          *
          * @return builder instance.
          */
@@ -4509,7 +4494,6 @@ declare namespace KiiCloud {
          * If this method is not called, no sound is applied.
          * For details please refer to APNS document of sound.
          *
-         * @param sound
          *
          * @return builder instance.
          */
@@ -4522,7 +4506,6 @@ declare namespace KiiCloud {
          * If this method is not called, no badge is applied.
          * For details please refer to APNS document of badge.
          *
-         * @param badge
          *
          * @return builder instance.
          */
@@ -4549,7 +4532,6 @@ declare namespace KiiCloud {
          * If this method is not called, no category is applied.
          * For details please refer to APNS document of category.
          *
-         * @param category
          *
          * @return builder instance.
          */
@@ -4774,7 +4756,6 @@ declare namespace KiiCloud {
         /**
          * Get the limit of the current query
          *
-         * @return
          */
         getLimit(): number;
 
@@ -6821,7 +6802,6 @@ declare namespace KiiCloud {
          * @deprecated Use {@link KiiUser.getId} instead.
          *   Get the UUID of the given user, assigned by the server
          *
-         * @return
          */
         getUUID(): string;
 
@@ -6835,7 +6815,6 @@ declare namespace KiiCloud {
         /**
          * Get the username of the given user
          *
-         * @return
          */
         getUsername(): string;
 
@@ -6850,7 +6829,6 @@ declare namespace KiiCloud {
         /**
          * Get the display name associated with this user
          *
-         * @return
          */
         getDisplayName(): string;
 
@@ -6877,7 +6855,6 @@ declare namespace KiiCloud {
         /**
          * Get the email address associated with this user
          *
-         * @return
          */
         getEmailAddress(): string;
 
@@ -6896,7 +6873,6 @@ declare namespace KiiCloud {
         /**
          * Get the phone number associated with this user
          *
-         * @return
          */
         getPhoneNumber(): string;
 
@@ -6915,7 +6891,6 @@ declare namespace KiiCloud {
         /**
          * Get the country code associated with this user
          *
-         * @return
          */
         getCountry(): string;
 
@@ -6933,7 +6908,6 @@ declare namespace KiiCloud {
         /**
          * Get the locale associated with this user
          *
-         * @return
          */
         getLocale(): string;
 
@@ -6954,7 +6928,6 @@ declare namespace KiiCloud {
         /**
          * Get the server's creation date of this user
          *
-         * @return
          */
         getCreated(): string;
 
@@ -6963,7 +6936,6 @@ declare namespace KiiCloud {
          *
          * @deprecated Get the modified date of the given user, assigned by the server
          *
-         * @return
          */
         getModified(): string;
 
@@ -6997,7 +6969,6 @@ declare namespace KiiCloud {
         /**
          * Get the access token for the user - only available if the user is currently logged in
          *
-         * @return
          */
         getAccessToken(): string;
 
@@ -7072,8 +7043,6 @@ declare namespace KiiCloud {
 
         /**
          * The currently authenticated user
-         *
-         * @return
          *
          * @example
          *         var user = KiiUser.getCurrentUser();
@@ -7538,7 +7507,6 @@ declare namespace KiiCloud {
          * <br><br>This method is exclusive to pseudo user.
          * <br>password is mandatory and needs to provide at least one of login name, email address or phone number.
          *
-         * @param identityData
          * @param password The user's password. Valid pattern is ^[\x20-\x7E]{4,50}$.
          * @param callbacks An object with callback methods defined.
          *   This argument is mandatory and can't be ommited.
@@ -7610,7 +7578,6 @@ declare namespace KiiCloud {
          *
          * <br><br>If you want to update identity data of pseudo user, you must use KiiUser.putIdentity instead.
          *
-         * @param identityData
          * @param callbacks An object with callback methods defined.
          *   This argument is mandatory and can't be ommited.
          * @param userFields Custom Fields to add to the user.
@@ -8715,7 +8682,6 @@ declare namespace KiiCloud {
          * <br><br>Create a KiiUser builder with global phone number.
          *
          * @param phoneNumber global phone number.
-         * @param password
          *
          * @return KiiUser object builder.
          *

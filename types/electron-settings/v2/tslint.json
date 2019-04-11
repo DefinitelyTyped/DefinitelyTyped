@@ -1,6 +1,9 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-empty-interface": false
+        // TODOs
+        "no-boolean-literal-compare": false,
+        "no-empty-interface": false,
+        "no-void-expression": false
     }
 }

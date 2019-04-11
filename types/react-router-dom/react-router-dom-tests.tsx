@@ -2,11 +2,13 @@ import * as React from 'react';
 import {
   NavLink,
   NavLinkProps,
-  match
+  match,
+  Link,
+  RouteComponentProps
 } from 'react-router-dom';
 import * as H from 'history';
 
-const getIsActive = (extraProp: string) => (match: match<any>, location: H.Location) => !!extraProp;
+const getIsActive = (extraProp: string) => (match: match, location: H.Location) => !!extraProp;
 
 interface Props extends NavLinkProps {
   extraProp: string;
@@ -19,3 +21,23 @@ export default function(props: Props) {
     <NavLink {...rest} isActive={isActive}/>
   );
 }
+
+type OtherProps = RouteComponentProps<{
+  id: string;
+}>;
+
+const Component: React.SFC<OtherProps> = props => {
+  if (!props.match) {
+    return null;
+  }
+
+  const { id } = props.match.params;
+  return (
+    <div>{id}</div>
+  );
+};
+
+<Link to="/url" />;
+
+const acceptRef = (node: HTMLAnchorElement | null) => {};
+<Link to="/url" replace={true} innerRef={acceptRef} />;

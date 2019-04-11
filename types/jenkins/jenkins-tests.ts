@@ -1,4 +1,4 @@
-import * as J from 'jenkins';
+import J = require('jenkins');
 
 const jenkins = J({ baseUrl: 'http://user:pass@localhost:8080', crumbIssuer: true });
 
@@ -34,7 +34,25 @@ log.on('end', () => {
   console.log('end');
 });
 
+const log2 = jenkins.build.logStream('example', 1, { type: 'html', delay: 2 * 1000 });
+
+log2.on('data', (text: string) => {
+    process.stdout.write(text);
+});
+
+log2.on('error', (err: Error) => {
+    console.log('error', err);
+});
+
+log2.on('end', () => {
+    console.log('end');
+});
+
 jenkins.build.stop('example', 1, (err) => {
+  if (err) throw err;
+});
+
+jenkins.build.term('example', 1, (err) => {
   if (err) throw err;
 });
 

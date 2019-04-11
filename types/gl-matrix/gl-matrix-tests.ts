@@ -1,5 +1,5 @@
 // common
-import {vec2, mat2, mat3, mat4, vec3, vec4, mat2d, quat} from "gl-matrix";
+import { glMatrix, vec2, mat2, mat3, mat4, vec3, vec4, mat2d, quat } from "gl-matrix";
 
 var outVal: number;
 var outBool: boolean;
@@ -70,15 +70,17 @@ outVec2 = vec2.negate(outVec2, vec2A);
 outVec2 = vec2.inverse(outVec2, vec2A);
 outVec2 = vec2.normalize(outVec2, vec2A);
 outVal = vec2.dot(vec2A, vec2B);
-outVec2 = vec2.cross(outVec2, vec2A, vec2B);
+outVec3 = vec2.cross(outVec3, vec2A, vec2B);
 outVec2 = vec2.lerp(outVec2, vec2A, vec2B, 0.5);
 outVec2 = vec2.random(outVec2);
 outVec2 = vec2.random(outVec2, 5.0);
+outVec2 = vec2.rotate(outVec2, vec2A, vec2B, Math.PI * 0.5);
 outVec2 = vec2.transformMat2(outVec2, vec2A, mat2A);
 outVec2 = vec2.transformMat2d(outVec2, vec2A, mat2dA);
 outVec2 = vec2.transformMat3(outVec2, vec2A, mat3A);
 outVec2 = vec2.transformMat4(outVec2, vec2A, mat4A);
 vecArray = vec2.forEach(vecArray, 0, 0, 0, vec2.normalize);
+outVal = vec2.angle(vec2A, vec2B);
 outStr = vec2.str(vec2A);
 outBool = vec2.exactEquals(vec2A, vec2B);
 outBool = vec2.equals(vec2A, vec2B);
@@ -249,7 +251,7 @@ outMat3 = mat3.adjoint(outMat3, mat3A);
 outVal = mat3.determinant(mat3A);
 outMat3 = mat3.multiply(outMat3, mat3A, mat3B);
 outMat3 = mat3.mul(outMat3, mat3A, mat3B);
-outMat3 = mat3.translate(outMat3, mat3A, vec3A);
+outMat3 = mat3.translate(outMat3, mat3A, vec2A);
 outMat3 = mat3.rotate(outMat3, mat3A, Math.PI/2);
 outMat3 = mat3.scale(outMat3, mat3A, vec2A);
 outMat3 = mat3.fromTranslation(outMat3, vec2A);
@@ -267,6 +269,7 @@ outMat3 = mat3.multiplyScalar (outMat3, mat3A, 2);
 outMat3 = mat3.multiplyScalarAndAdd (outMat3, mat3A, mat3B, 2);
 outBool = mat3.exactEquals(mat3A, mat3B);
 outBool = mat3.equals(mat3A, mat3B);
+outMat3 = mat3.projection(outMat3, 100, 100);
 
 //mat4
 outMat4 = mat4.create();
@@ -294,8 +297,9 @@ outMat4 = mat4.fromXRotation(outMat4, Math.PI);
 outMat4 = mat4.fromYRotation(outMat4, Math.PI);
 outMat4 = mat4.fromZRotation(outMat4, Math.PI);
 outMat4 = mat4.fromRotationTranslation(outMat4, quatA, vec3A);
-outVec3 = mat4.getTranslation(outVec3, mat4A)
-outQuat = mat4.getRotation(outQuat, mat4A)
+outVec3 = mat4.getTranslation(outVec3, mat4A);
+outVec3 = mat4.getScaling(outVec3, mat4A);
+outQuat = mat4.getRotation(outQuat, mat4A);
 outMat4 = mat4.fromRotationTranslationScale(outMat4, quatA, vec3A, vec3B);
 outMat4 = mat4.fromRotationTranslationScaleOrigin(outMat4, quatA, vec3A, vec3B, vec3A);
 outMat4 = mat4.fromQuat(outMat4, quatB);
@@ -304,6 +308,7 @@ outMat4 = mat4.perspective(outMat4, Math.PI, 1, 0, 1);
 outMat4 = mat4.perspectiveFromFieldOfView(outMat4, {upDegrees:Math.PI, downDegrees:-Math.PI, leftDegrees:-Math.PI, rightDegrees:Math.PI}, 1, 0);
 outMat4 = mat4.ortho(outMat4, -1, 1, -1, 1, -1, 1);
 outMat4 = mat4.lookAt(outMat4, vec3A, vec3B, vec3A);
+outMat4 = mat4.targetTo(outMat4, vec3A, vec3B, vec3A);
 outStr = mat4.str(mat4A);
 outVal = mat4.frob(mat4A);
 outMat4 = mat4.add(outMat4, mat4A, mat4B);
@@ -336,6 +341,7 @@ outVal = quat.squaredLength(quatA);
 outVal = quat.sqrLen(quatA);
 outQuat = quat.normalize(outQuat, quatA);
 outVal = quat.dot(quatA, quatB);
+outQuat = quat.fromEuler(outQuat, deg90, deg90, deg90);
 outQuat = quat.lerp(outQuat, quatA, quatB, 0.5);
 outQuat = quat.slerp(outQuat, quatA, quatB, 0.5);
 outQuat = quat.invert(outQuat, quatA);
@@ -349,7 +355,18 @@ outQuat = quat.calculateW(outQuat, quatA);
 outBool = quat.exactEquals(quatA, quatB);
 outBool = quat.equals(quatA, quatB);
 
+// glMatrix
+outVal = glMatrix.RANDOM();
+outVal = glMatrix.EPSILON;
+outBool = glMatrix.ENABLE_SIMD;
+outBool = glMatrix.SIMD_AVAILABLE;
+outBool = glMatrix.USE_SIMD;
+outBool = glMatrix.equals(1, 1);
+outBool = glMatrix.equals(1, -1);
+outVal = glMatrix.toRadian(10);
+
 // common
+import _glMatrix = require('gl-matrix/src/gl-matrix/common');
 import _vec2 = require('gl-matrix/src/gl-matrix/vec2');
 import _vec3 = require('gl-matrix/src/gl-matrix/vec3');
 import _vec4 = require('gl-matrix/src/gl-matrix/vec4');
@@ -419,7 +436,7 @@ outVec2 = _vec2.negate(outVec2, vec2A);
 outVec2 = _vec2.inverse(outVec2, vec2A);
 outVec2 = _vec2.normalize(outVec2, vec2A);
 outVal = _vec2.dot(vec2A, vec2B);
-outVec2 = _vec2.cross(outVec2, vec2A, vec2B);
+outVec3 = _vec2.cross(outVec3, vec2A, vec2B);
 outVec2 = _vec2.lerp(outVec2, vec2A, vec2B, 0.5);
 outVec2 = _vec2.random(outVec2);
 outVec2 = _vec2.random(outVec2, 5.0);
@@ -598,7 +615,7 @@ outMat3 = _mat3.adjoint(outMat3, mat3A);
 outVal = _mat3.determinant(mat3A);
 outMat3 = _mat3.multiply(outMat3, mat3A, mat3B);
 outMat3 = _mat3.mul(outMat3, mat3A, mat3B);
-outMat3 = _mat3.translate(outMat3, mat3A, vec3A);
+outMat3 = _mat3.translate(outMat3, mat3A, vec2A);
 outMat3 = _mat3.rotate(outMat3, mat3A, Math.PI/2);
 outMat3 = _mat3.scale(outMat3, mat3A, vec2A);
 outMat3 = _mat3.fromTranslation(outMat3, vec2A);
@@ -643,8 +660,9 @@ outMat4 = _mat4.fromXRotation(outMat4, Math.PI);
 outMat4 = _mat4.fromYRotation(outMat4, Math.PI);
 outMat4 = _mat4.fromZRotation(outMat4, Math.PI);
 outMat4 = _mat4.fromRotationTranslation(outMat4, quatA, vec3A);
-outVec3 = _mat4.getTranslation(outVec3, mat4A)
-outQuat = _mat4.getRotation(outQuat, mat4A)
+outVec3 = _mat4.getTranslation(outVec3, mat4A);
+outVec3 = _mat4.getScaling(outVec3, mat4A);
+outQuat = _mat4.getRotation(outQuat, mat4A);
 outMat4 = _mat4.fromRotationTranslationScale(outMat4, quatA, vec3A, vec3B);
 outMat4 = _mat4.fromRotationTranslationScaleOrigin(outMat4, quatA, vec3A, vec3B, vec3A);
 outMat4 = _mat4.fromQuat(outMat4, quatB);
@@ -653,6 +671,7 @@ outMat4 = _mat4.perspective(outMat4, Math.PI, 1, 0, 1);
 outMat4 = _mat4.perspectiveFromFieldOfView(outMat4, {upDegrees:Math.PI, downDegrees:-Math.PI, leftDegrees:-Math.PI, rightDegrees:Math.PI}, 1, 0);
 outMat4 = _mat4.ortho(outMat4, -1, 1, -1, 1, -1, 1);
 outMat4 = _mat4.lookAt(outMat4, vec3A, vec3B, vec3A);
+outMat4 = _mat4.targetTo(outMat4, vec3A, vec3B, vec3A);
 outStr = _mat4.str(mat4A);
 outVal = _mat4.frob(mat4A);
 outMat4 = _mat4.add(outMat4, mat4A, mat4B);
@@ -697,3 +716,13 @@ outQuat = _quat.fromMat3(outQuat, mat3A);
 outQuat = _quat.calculateW(outQuat, quatA);
 outBool = _quat.exactEquals(quatA, quatB);
 outBool = _quat.equals(quatA, quatB);
+
+// glMatrix common
+outVal = _glMatrix.RANDOM();
+outVal = _glMatrix.EPSILON;
+outBool = _glMatrix.ENABLE_SIMD;
+outBool = _glMatrix.SIMD_AVAILABLE;
+outBool = _glMatrix.USE_SIMD;
+outBool = _glMatrix.equals(1, 1);
+outBool = _glMatrix.equals(1, -1);
+outVal = _glMatrix.toRadian(10);

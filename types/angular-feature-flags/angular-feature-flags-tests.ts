@@ -1,8 +1,8 @@
-import * as angular from "angular";
+import * as ng from 'angular';
 
-let myApp = angular.module('myApp', ['feature-flags']);
+const myApp = ng.module('myApp', ['feature-flags']);
 
-const flagsData: Array<angular.featureflags.FlagData> = [
+const flagsData: Array<ng.featureflags.FlagData> = [
     {
         key: '1',
         active: true,
@@ -17,15 +17,16 @@ const flagsData: Array<angular.featureflags.FlagData> = [
     }
 ];
 
-myApp.config(function (featureFlagsProvider: angular.featureflags.FeatureFlagsProvider) {
+myApp.config(function(featureFlagsProvider: ng.featureflags.FeatureFlagsProvider) {
     featureFlagsProvider.setInitialFlags(flagsData);
 });
 
-myApp.run(function ($q: angular.IQService, $http: angular.IHttpService, featureFlags: angular.featureflags.FeatureFlagsService) {
-    let deferred = $q.defer();
-    deferred.resolve(flagsData);
-
-    featureFlags.set(deferred.promise);
-
+myApp.run(function(
+    $q: ng.IQService,
+    $http: ng.IHttpService,
+    featureFlags: ng.featureflags.FeatureFlagsService
+) {
+    featureFlags.set($q.resolve(flagsData));
     featureFlags.set($http.get('/data/flags.json'));
+    featureFlags.set($http.get<Array<ng.featureflags.FlagData>>('/data/flags.json'));
 });

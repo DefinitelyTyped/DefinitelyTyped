@@ -1,3 +1,6 @@
+import * as L from 'leaflet';
+import 'leaflet-draw';
+
 const osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 const osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib});
@@ -38,12 +41,13 @@ map.addControl(drawControl);
 map.on(L.Draw.Event.CREATED, (e: L.DrawEvents.Created) => {
     const type = e.layerType;
     const layer = e.layer;
+    const geojson = e.layer.toGeoJSON();
 
     drawnItems.addLayer(layer);
 });
 
-let examplePolygon: L.LatLngLiteral[] = [{lng: 0, lat: 0}, {lng: 10, lat: 0}, {lng: 10, lat: 10}, {lng: 0, lat: 10}, {lng: 0, lat: 0}];
-let examplePolygonArea: number = L.GeometryUtil.geodesicArea(examplePolygon);
+const examplePolygon: L.LatLngLiteral[] = [{lng: 0, lat: 0}, {lng: 10, lat: 0}, {lng: 10, lat: 10}, {lng: 0, lat: 10}, {lng: 0, lat: 0}];
+const examplePolygonArea: number = L.GeometryUtil.geodesicArea(examplePolygon);
 L.GeometryUtil.readableArea(examplePolygonArea, true);
 
 function testBooleanControlOptions() {
@@ -104,7 +108,7 @@ function testExampleControlOptions() {
             circle: false, // Turns off this drawing tool
             rectangle: {
                 shapeOptions: {
-                    clickable: false
+                    // clickable: false // clickabkle is not a polyline option according to leaflet docs
                 }
             },
             marker: {
@@ -115,5 +119,20 @@ function testExampleControlOptions() {
             featureGroup: editableLayers, // REQUIRED!!
             remove: false
         }
+    });
+}
+
+function testMarkerOptionsIcon() {
+    const markerIcon = new L.Draw.Marker(map, {
+        icon: new L.Icon({
+            iconUrl: 'my-icon.png',
+            iconSize: new L.Point(32, 32),
+        }),
+    });
+    const markerDivIcon = new L.Draw.Marker(map, {
+        icon: new L.DivIcon({
+            className: "marker-icon",
+            iconSize: new L.Point(32, 32),
+        }),
     });
 }

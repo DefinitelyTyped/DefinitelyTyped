@@ -7,6 +7,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -17,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "loglevel-tests.ts"
+        "test/loglevel-tests.ts",
+        "test/loglevel-umd-tests.ts"
     ]
 }

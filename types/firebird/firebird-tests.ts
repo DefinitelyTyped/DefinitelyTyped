@@ -32,13 +32,13 @@ if (con.inTransaction === true) {
     console.log('in transaction');
 }
 
-let blob: fb.FBBlob = con.newBlobSync();
+const blob: fb.FBBlob = con.newBlobSync();
 
-let tx: fb.Transaction = con.startNewTransactionSync();
+const tx: fb.Transaction = con.startNewTransactionSync();
 con.startNewTransaction((err: Error | null, tx: fb.Transaction) => {});
 
 /* DataType */
-let column: fb.DataType = <any> {};
+const column: fb.DataType = <any> {};
 if (typeof (column) === "number") {
     column * 10;
 } else if (typeof (column) === "string") {
@@ -46,7 +46,7 @@ if (typeof (column) === "number") {
 } else if (column instanceof Date) {
     column.toISOString();
 } else {
-    let _: fb.FBBlob = column;
+    const _: fb.FBBlob = column;
 }
 
 /* FBResult */
@@ -87,7 +87,7 @@ if (tx.inTransaction === true) {
 }
 
 /* FBStatement */
-let asFBResult: fb.FBResult = stmt;
+const asFBResult: fb.FBResult = stmt;
 stmt.execSync("John");
 stmt.execSync(1, "Mary");
 stmt.execInTransSync(tx, "John");
@@ -102,8 +102,8 @@ blob._openSync();
 
 blob._closeSync();
 
-let buffer: Buffer = <any> {};
-let readBytes: number = blob._readSync(buffer);
+const buffer: Buffer = <any> {};
+const readBytes: number = blob._readSync(buffer);
 blob._read(buffer, (err: Error | null, buffer: Buffer, len: number) => {});
 
 blob._readAll();
@@ -119,4 +119,4 @@ blob._write(buffer, 10);
 blob._write(buffer, 10, (err: Error | null) => {});
 
 /* Stream */
-let strm: NodeJS.ReadWriteStream = new fb.Stream(blob);
+const strm = new fb.Stream(blob);

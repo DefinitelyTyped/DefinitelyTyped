@@ -6,8 +6,9 @@
             "dom"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -19,6 +20,7 @@
     },
     "files": [
         "index.d.ts",
-        "react-big-calendar-tests.tsx"
+        "react-big-calendar-tests.tsx",
+        "lib/addons/dragAndDrop.d.ts"
     ]
 }

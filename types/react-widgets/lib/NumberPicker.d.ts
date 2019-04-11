@@ -1,7 +1,15 @@
 import * as React from 'react';
-import {ReactWidgetsCommonProps} from './CommonProps';
+import { ReactWidgetsCommonProps, AutoFocus } from './CommonProps';
 
-interface NumberPickerProps extends ReactWidgetsCommonProps<NumberPickerClass>{
+interface NumberPickerProps extends ReactWidgetsCommonProps<NumberPickerClass>, AutoFocus {
+    /**
+     * Set the culture of the NumberPicker, passed to the configured localizer.
+     */
+    culture?: string;
+    /**
+     * An object of props that is passed directly to the underlying input component.
+     */
+    inputProps?: object;
     /**
      * The current value of the NumberPicker.
      */
@@ -51,6 +59,27 @@ interface NumberPickerProps extends ReactWidgetsCommonProps<NumberPickerClass>{
      * object to localize widget text and increase accessibility.
      */
     messages?: NumberPickerMessages;
+    /**
+     * The HTML name attribute, passed directly to the input element.
+     */
+    name?: string;
+    /**
+     * The native onKeyDown event, called preventDefault will prevent any custom behavior, included keyboard shortcuts.
+     */
+    onKeyDown?: (event: KeyboardEvent) => void;
+    /**
+     * The native onKeyPress event, called preventDefault will stop any custom behavior.
+     */
+    onKeyPress?: (event: KeyboardEvent) => void;
+    /**
+     * Controls the visibility of the NumberPicker popup. Use defaultOpen to set an initial value for uncontrolled widgets.
+     * @default false
+     */
+    open?: boolean;
+    /**
+     * Text to display in the input when the value is empty.
+     */
+    placeholder?: string;
 }
 
 interface NumberPickerMessages {

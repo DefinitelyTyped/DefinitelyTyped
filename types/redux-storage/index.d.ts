@@ -89,18 +89,6 @@ declare module "redux-storage-decorator-filter" {
     export default function (engine: StorageEngine, whitelist?: FilterList, blacklist?: FilterList): StorageEngine;
 }
 
-declare module "redux-storage-engine-localstorage" {
-    import { StorageEngine } from "redux-storage";
-
-    export interface LocalStorageEngine extends StorageEngine { }
-
-    /**
-     * Create local storage
-     * @param key localstorage key
-     */
-    export default function createEngine(key: string): LocalStorageEngine;
-}
-
 declare module "redux-storage-engine-reactnativeasyncstorage" {
     import { StorageEngine } from "redux-storage";
 

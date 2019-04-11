@@ -1,205 +1,257 @@
 // Type definitions for WebVR API
 // Project: https://w3c.github.io/webvr/
-// Definitions by: six a <https://github.com/lostfictions>
+// Definitions by: efokschaner <https://github.com/efokschaner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class VRDisplay extends EventTarget {
-  isConnected: boolean;
-  isPresenting: boolean;
+// Typescript doesn't allow redefinition of type aliases even if they match,
+// thus the _dt_alias to signal this being an alias for the use of DefinitelyTyped
+type VRDisplayEventReason_dt_alias = "mounted" | "navigation" | "requested" | "unmounted";
 
-  /**
-   * Dictionary of capabilities describing the VRDisplay.
-   */
-  capabilities: VRDisplayCapabilities;
+// Typescript doesn't allow redefinition of type aliases even if they match,
+// thus the _dt_alias to signal this being an alias for the use of DefinitelyTyped
+type VREye_dt_alias = "left" | "right";
 
-  /**
-   * If this VRDisplay supports room-scale experiences, the optional
-   * stage attribute contains details on the room-scale parameters.
-   */
-  stageParameters: VRStageParameters;
+interface VRDisplay extends EventTarget {
+    /**
+     * Dictionary of capabilities describing the VRDisplay.
+     */
+    readonly capabilities: VRDisplayCapabilities;
 
-  /* Return the current VREyeParameters for the given eye. */
-  getEyeParameters(whichEye: VREye): VREyeParameters;
+    /**
+     * z-depth defining the far plane of the eye view frustum
+     * enables mapping of values in the render target depth
+     * attachment to scene coordinates. Initially set to 10000.0.
+     */
+    depthFar: number;
 
-  /**
-   * An identifier for this distinct VRDisplay. Used as an
-   * association point in the Gamepad API.
-   */
-  displayId: number;
+    /**
+     * z-depth defining the near plane of the eye view frustum
+     * enables mapping of values in the render target depth
+     * attachment to scene coordinates. Initially set to 0.01.
+     */
+    depthNear: number;
 
-  /**
-   * A display name, a user-readable name identifying it.
-   */
-  displayName: string;
+    /**
+     * An identifier for this distinct VRDisplay. Used as an
+     * association point in the Gamepad API.
+     */
+    readonly displayId: number;
 
-  /**
-   * Populates the passed VRFrameData with the information required to render
-   * the current frame.
-   */
-  getFrameData(frameData: VRFrameData): boolean;
+    /**
+     * A display name, a user-readable name identifying it.
+     */
+    readonly displayName: string;
+    readonly isConnected: boolean;
+    readonly isPresenting: boolean;
 
-  /**
-   * Return a VRPose containing the future predicted pose of the VRDisplay
-   * when the current frame will be presented. The value returned will not
-   * change until JavaScript has returned control to the browser.
-   *
-   * The VRPose will contain the position, orientation, velocity,
-   * and acceleration of each of these properties.
-   */
-  getPose(): VRPose;
+    /**
+     * If this VRDisplay supports room-scale experiences, the optional
+     * stage attribute contains details on the room-scale parameters.
+     */
+    readonly stageParameters: VRStageParameters | null;
 
-  /**
-   * Return the current instantaneous pose of the VRDisplay, with no
-   * prediction applied.
-   */
-  getImmediatePose(): VRPose;
+    /**
+     * Passing the value returned by `requestAnimationFrame` to
+     * `cancelAnimationFrame` will unregister the callback.
+     */
+    cancelAnimationFrame(handle: number): void;
 
-  /**
-   * Reset the pose for this display, treating its current position and
-   * orientation as the "origin/zero" values. VRPose.position,
-   * VRPose.orientation, and VRStageParameters.sittingToStandingTransform may be
-   * updated when calling resetPose(). This should be called in only
-   * sitting-space experiences.
-   */
-  resetPose(): void;
+    /**
+     * Stops presenting to the VRDisplay.
+     */
+    exitPresent(): Promise<void>;
 
-  /**
-   * z-depth defining the near plane of the eye view frustum
-   * enables mapping of values in the render target depth
-   * attachment to scene coordinates. Initially set to 0.01.
-   */
-  depthNear: number;
+    /* Return the current VREyeParameters for the given eye. */
+    getEyeParameters(whichEye: VREye_dt_alias): VREyeParameters;
 
-  /**
-   * z-depth defining the far plane of the eye view frustum
-   * enables mapping of values in the render target depth
-   * attachment to scene coordinates. Initially set to 10000.0.
-   */
-  depthFar: number;
+    /**
+     * Populates the passed VRFrameData with the information required to render
+     * the current frame.
+     */
+    getFrameData(frameData: VRFrameData): boolean;
 
-  /**
-   * The callback passed to `requestAnimationFrame` will be called
-   * any time a new frame should be rendered. When the VRDisplay is
-   * presenting the callback will be called at the native refresh
-   * rate of the HMD. When not presenting this function acts
-   * identically to how window.requestAnimationFrame acts. Content should
-   * make no assumptions of frame rate or vsync behavior as the HMD runs
-   * asynchronously from other displays and at differing refresh rates.
-   */
-  requestAnimationFrame(callback: FrameRequestCallback): number;
+    /**
+     * Get the layers currently being presented.
+     */
+    getLayers(): VRLayer[];
 
-  /**
-   * Passing the value returned by `requestAnimationFrame` to
-   * `cancelAnimationFrame` will unregister the callback.
-   */
-  cancelAnimationFrame(handle: number): void;
+    /**
+     * @deprecated
+     * Return a VRPose containing the future predicted pose of the VRDisplay
+     * when the current frame will be presented. The value returned will not
+     * change until JavaScript has returned control to the browser.
+     *
+     * The VRPose will contain the position, orientation, velocity,
+     * and acceleration of each of these properties.
+     */
+    getPose(): VRPose;
 
-  /**
-   * Begin presenting to the VRDisplay. Must be called in response to a user gesture.
-   * Repeat calls while already presenting will update the VRLayers being displayed.
-   */
-  requestPresent(layers: Array<VRLayer>): Promise<void>;
+    /**
+     * Return the current instantaneous pose of the VRDisplay, with no
+     * prediction applied.
+     */
+    getImmediatePose(): VRPose;
 
-  /**
-   * Stops presenting to the VRDisplay.
-   */
-  exitPresent(): Promise<void>;
+    /**
+     * The callback passed to `requestAnimationFrame` will be called
+     * any time a new frame should be rendered. When the VRDisplay is
+     * presenting the callback will be called at the native refresh
+     * rate of the HMD. When not presenting this function acts
+     * identically to how window.requestAnimationFrame acts. Content should
+     * make no assumptions of frame rate or vsync behavior as the HMD runs
+     * asynchronously from other displays and at differing refresh rates.
+     */
+    requestAnimationFrame(callback: FrameRequestCallback): number;
 
-  /**
-   * Get the layers currently being presented.
-   */
-  getLayers(): Array<VRLayer>;
+    /**
+     * Begin presenting to the VRDisplay. Must be called in response to a user gesture.
+     * Repeat calls while already presenting will update the VRLayers being displayed.
+     */
+    requestPresent(layers: VRLayer[]): Promise<void>;
 
-  /**
-   * The VRLayer provided to the VRDisplay will be captured and presented
-   * in the HMD. Calling this function has the same effect on the source
-   * canvas as any other operation that uses its source image, and canvases
-   * created without preserveDrawingBuffer set to true will be cleared.
-   */
-  submitFrame(pose?: VRPose): void;
+    /**
+     * Reset the pose for this display, treating its current position and
+     * orientation as the "origin/zero" values. VRPose.position,
+     * VRPose.orientation, and VRStageParameters.sittingToStandingTransform may be
+     * updated when calling resetPose(). This should be called in only
+     * sitting-space experiences.
+     */
+    resetPose(): void;
+
+    /**
+     * The VRLayer provided to the VRDisplay will be captured and presented
+     * in the HMD. Calling this function has the same effect on the source
+     * canvas as any other operation that uses its source image, and canvases
+     * created without preserveDrawingBuffer set to true will be cleared.
+     */
+    submitFrame(pose?: VRPose): void;
 }
 
-type VRSource = HTMLCanvasElement;
-
-
-type VRLayer = {
-  source?: VRSource;
-
-  leftBounds?: Array<number>;
-  rightBounds?: Array<number>;
+declare var VRDisplay: {
+    prototype: VRDisplay;
+    new(): VRDisplay;
 };
 
+interface VRLayer {
+    leftBounds?: number[] | Float32Array | null;
+    rightBounds?: number[] | Float32Array | null;
+    source?: HTMLCanvasElement | null;
+}
+
 interface VRDisplayCapabilities {
-  hasPosition: boolean;
-  hasOrientation: boolean;
-  hasExternalDisplay: boolean;
-  canPresent: boolean;
-  maxLayers: number;
+    readonly canPresent: boolean;
+    readonly hasExternalDisplay: boolean;
+    readonly hasOrientation: boolean;
+    readonly hasPosition: boolean;
+    readonly maxLayers: number;
 }
 
-type VREye = "left" | "right";
-
-interface VRFieldOfView {
-  upDegrees: number;
-  rightDegrees: number;
-  downDegrees: number;
-  leftDegrees: number;
-}
-
-interface VRPose {
-  timestamp: number;
-
-  position: Float32Array;
-  linearVelocity: Float32Array;
-  linearAcceleration: Float32Array;
-
-  orientation: Float32Array;
-  angularVelocity: Float32Array;
-  angularAcceleration: Float32Array;
-}
-
-declare class VRFrameData {
-  timestamp: number; // Should be DOMHighResTimeStamp
-
-  leftProjectionMatrix: Float32Array;
-  leftViewMatrix: Float32Array;
-
-  rightProjectionMatrix: Float32Array;
-  rightViewMatrix: Float32Array;
-
-  pose: VRPose;
-}
+declare var VRDisplayCapabilities: {
+    prototype: VRDisplayCapabilities;
+    new(): VRDisplayCapabilities;
+};
 
 interface VREyeParameters {
-  offset: Float32Array;
-
-  fieldOfView: VRFieldOfView;
-
-  renderWidth: number;
-  renderHeight: number;
+    /** @deprecated */
+    readonly fieldOfView: VRFieldOfView;
+    readonly offset: Float32Array;
+    readonly renderHeight: number;
+    readonly renderWidth: number;
 }
 
-interface VRStageParameters {
-  sittingToStandingTransform: Float32Array;
+declare var VREyeParameters: {
+    prototype: VREyeParameters;
+    new(): VREyeParameters;
+};
 
-  sizeX: number;
-  sizeZ: number;
+interface VRFieldOfView {
+    readonly downDegrees: number;
+    readonly leftDegrees: number;
+    readonly rightDegrees: number;
+    readonly upDegrees: number;
+}
+
+declare var VRFieldOfView: {
+    prototype: VRFieldOfView;
+    new(): VRFieldOfView;
+};
+
+interface VRFrameData {
+    readonly leftProjectionMatrix: Float32Array;
+    readonly leftViewMatrix: Float32Array;
+    readonly pose: VRPose;
+    readonly rightProjectionMatrix: Float32Array;
+    readonly rightViewMatrix: Float32Array;
+    readonly timestamp: number;
+}
+
+declare var VRFrameData: {
+    prototype: VRFrameData;
+    new(): VRFrameData;
+};
+
+interface VRPose {
+    readonly angularAcceleration: Float32Array | null;
+    readonly angularVelocity: Float32Array | null;
+    readonly linearAcceleration: Float32Array | null;
+    readonly linearVelocity: Float32Array | null;
+    readonly orientation: Float32Array | null;
+    readonly position: Float32Array | null;
+    readonly timestamp: number;
+}
+
+declare var VRPose: {
+    prototype: VRPose;
+    new(): VRPose;
+};
+
+interface VRStageParameters {
+    sittingToStandingTransform?: Float32Array;
+    sizeX?: number;
+    sizeY?: number;
 }
 
 interface Navigator {
-  getVRDisplays(): Promise<Array<VRDisplay>>;
-  activeVRDisplays: Array<VRDisplay>;
+    getVRDisplays(): Promise<VRDisplay[]>;
+    readonly activeVRDisplays: ReadonlyArray<VRDisplay>;
 }
 
+interface VRDisplayEventInit extends EventInit {
+    display: VRDisplay;
+    reason?: VRDisplayEventReason_dt_alias;
+}
+
+interface VRDisplayEvent extends Event {
+    readonly display: VRDisplay;
+    readonly reason: VRDisplayEventReason_dt_alias | null;
+}
+
+declare var VRDisplayEvent: {
+    prototype: VRDisplayEvent;
+    new(type: string, eventInitDict: VRDisplayEventInit): VRDisplayEvent;
+};
+
 interface Window {
-  onvrdisplayconnected: (ev: Event) => any;
-  onvrdisplaydisconnected: (ev: Event) => any;
-  onvrdisplaypresentchange: (ev: Event) => any;
-  addEventListener(type: "vrdisplayconnected", listener: (ev: Event) => any, useCapture?: boolean): void;
-  addEventListener(type: "vrdisplaydisconnected", listener: (ev: Event) => any, useCapture?: boolean): void;
-  addEventListener(type: "vrdisplaypresentchange", listener: (ev: Event) => any, useCapture?: boolean): void;
+    onvrdisplayactivate: ((this: Window, ev: Event) => any) | null;
+    onvrdisplayblur: ((this: Window, ev: Event) => any) | null;
+    onvrdisplayconnect: ((this: Window, ev: Event) => any) | null;
+    onvrdisplaydeactivate: ((this: Window, ev: Event) => any) | null;
+    onvrdisplaydisconnect: ((this: Window, ev: Event) => any) | null;
+    onvrdisplayfocus: ((this: Window, ev: Event) => any) | null;
+    onvrdisplaypointerrestricted: ((this: Window, ev: Event) => any) | null;
+    onvrdisplaypointerunrestricted: ((this: Window, ev: Event) => any) | null;
+    onvrdisplaypresentchange: ((this: Window, ev: Event) => any) | null;
+    addEventListener(type: "vrdisplayactivate", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplayblur", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplayconnect", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplaydeactivate", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplaydisconnect", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplayfocus", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplaypointerrestricted", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplaypointerunrestricted", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "vrdisplaypresentchange", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
 }
 
 interface Gamepad {
-  displayId: number;
+    readonly displayId: number;
 }

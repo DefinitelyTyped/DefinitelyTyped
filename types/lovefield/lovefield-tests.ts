@@ -1,4 +1,10 @@
 import lf = require("lovefield");
+export interface IRow {
+    id: number;
+    description: string;
+    deadline: Date;
+    done: boolean;
+}
 function main(): void {
   const schemaBuilder: lf.schema.Builder = lf.schema.create('todo', 1);
 
@@ -20,7 +26,7 @@ function main(): void {
   schemaBuilder.connect(connectOptions).then((db) => {
     todoDb = db;
     itemSchema = db.getSchema().table('Item');
-    let row = itemSchema.createRow({
+    const row = itemSchema.createRow({
       id: 1,
       description: 'Get a cup of coffee',
       deadline: new Date(),
@@ -28,12 +34,11 @@ function main(): void {
     });
     return db.insertOrReplace().into(itemSchema).values([row]).exec();
   }).then(() => {
-    let column = itemSchema['done'];
-    return todoDb.select().from(itemSchema).where(column.eq(false)).exec();
-  }).then((results) => {
+    const column = itemSchema.done;
+    return todoDb.select().from(itemSchema).where(column.eq(false)).exec() as Promise<IRow[]>;
+}).then((results) => {
     results.forEach((row) => {
-      document.body.textContent = (row as any).description + ' before ' +
-          (row as any).deadline;
+      document.body.textContent = `${row.description} before ${row.deadline}`;
     });
 
     return todoDb.delete().from(itemSchema);

@@ -2,6 +2,7 @@
 // Project: http://gulpjs.com
 // Definitions by: Drew Noakes <https://drewnoakes.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="orchestrator" />

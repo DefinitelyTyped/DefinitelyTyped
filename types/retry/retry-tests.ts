@@ -1,17 +1,17 @@
-import retry = require('retry')
+import retry = require('retry');
 
 // Option values
-const att = 4
-const ret = 2
-const fac = 1.5
-const min = 2000
-const max = 4000
-const rnd = false
-const evr = false
-const unr = false
+const att = 4;
+const ret = 2;
+const fac = 1.5;
+const min = 2000;
+const max = 4000;
+const rnd = false;
+const evr = false;
+const unr = false;
 
 // Options themselves
-const operationOptions = {
+const operationOptions: retry.OperationOptions = {
     retries: ret,
     factor: fac,
     minTimeout: min,
@@ -19,55 +19,57 @@ const operationOptions = {
     randomize: rnd,
     forever: evr,
     unref: unr,
-}
+    maxRetryTime: max,
+};
 
-const timeoutOptions = {
-    factor: fac,
-    minTimeout: min,
-    maxTimeout: max,
-    randomize: rnd,
-}
-
-const timeoutsOptions = {
+const timeoutsOptions: retry.TimeoutsOptions = {
     retries: ret,
     factor: fac,
     minTimeout: min,
     maxTimeout: max,
     randomize: rnd,
-}
+};
+
+const createTimeoutOptions: retry.CreateTimeoutOptions = {
+    factor: fac,
+    minTimeout: min,
+    maxTimeout: max,
+    randomize: rnd,
+};
 
 // Class to be wrapped later on
 class Foo {
-    public bar() {
+    bar() {
         //
     }
 
-    public baz() {
+    baz() {
         //
     }
 }
 
-const operation = retry.operation(operationOptions)
+const operation = retry.operation(operationOptions);
 
-operation.attempt((current) => {
-    const err = Math.random() >= 0.5 ? new Error('Happens to the best of us') : undefined
+operation.errors(); // $ExpectType Error[]
+operation.mainError(); // $ExpectType Error | null
+operation.attempt(current => {
+    current; // $ExpectType number
+});
+operation.attempt(current => {}, { timeout: 10 });
+operation.attempt(current => {}, { callback: () => {} });
+operation.retry(); // $ExpectType boolean
+operation.retry(new Error()); // $ExpectType boolean
+operation.stop();
+operation.reset();
+operation.attempts(); // $ExpectType number
 
-    const retry = operation.retry(err)
+retry.createTimeout(att); // $ExpectType number
+retry.createTimeout(att, createTimeoutOptions); // $ExpectType number
 
-    if (retry) {
-        const after = operation.attempts()
-    }
-    else {
-        const errors = operation.errors()
+retry.timeouts(); // $ExpectType number[]
+retry.timeouts(timeoutsOptions); // $ExpectType number[]
 
-        const main = operation.mainError()
-    }
-
-    operation.stop()
-})
-
-const timeout = retry.createTimeout(att, timeoutOptions)
-
-const timeouts = retry.timeouts(timeoutsOptions)
-
-const wrap = retry.wrap(new Foo(), operationOptions, ['bar'])
+retry.wrap(new Foo());
+retry.wrap(new Foo(), ['bar']);
+retry.wrap(new Foo(), operationOptions, ['bar']);
+retry.wrap(new Foo(), operationOptions);

@@ -1,20 +1,23 @@
 import * as riot from 'riot';
 
-// Version
+// version
 console.log(riot.version.charAt(0));
 
-// Settings
+// settings
 riot.settings.brackets = '[% %]';
+riot.settings.skipAnonymousTags = false;
+riot.settings.autoUpdate = false;
+riot.settings.asyncRenderTimeout = 100500;
 
-// errorHandler
-riot.util.tmpl.errorHandler = function (err: riot.TemplateError) {
-    console.error(err.message + ' in ' + err.riotData.tagName);
+// util.tmpl
+riot.util.tmpl.errorHandler = (err: riot.TemplateError) => {
+    console.error(`${err.message} in ${err.riotData.tagName}`);
 };
 
-// vdom
-console.log(riot.vdom[0].opts);
+// util.vdom
+console.log(riot.util.vdom[0].isMounted);
 
-const mockOpts: any = {
+const mockOpts = {
     foo: true,
     bar: 1,
     baz: [1, '2', [3]]
@@ -24,17 +27,21 @@ const tag = riot.mount('test')[0];
 
 // Mounting
 // mount all custom tags with a class name .customer
-var tags: riot.Tag[] = riot.mount('.customer');
+const tags: riot.TagInstance[] = riot.mount('.customer');
 console.log(tags.length);
 // mount <account> tag and pass an object as options
 riot.mount('account', mockOpts);
 // mounts custom tag "my-tag" to div#main with some options
 riot.mount('div#main', 'my-tag', mockOpts);
 // mounts "users" tag to #slide node and some options
-riot.mount(document.getElementById('slide'), 'users', mockOpts);
+riot.mount(document.getElementById('slide') as Element, 'users', mockOpts);
+// unregister the tag
+riot.unregister('test-tag');
 
 // Rendering
 console.log(riot.render('test', mockOpts).substr(0, 10));
+riot.require('./my-tag.jade', { template: 'jade' }).charAt(10);
+riot.renderAsync('my-tag', { message: 'test' }).then(html => html.substr(0, 100));
 
 // Updating
 // update tag instance
@@ -64,19 +71,21 @@ if (nestedTag instanceof riot.Tag) {
 
 // Mixins
 interface OptsMixin extends riot.TagMixin {
-    getOpts(): any;
-    setOpts(opts: any, update: boolean): OptsMixin;
+    getOpts(this: riot.TagInterface & OptsMixin): any;
+
+    setOpts(this: riot.TagInterface & OptsMixin, opts: any, update: boolean): this;
 }
+
 const optsMixin: OptsMixin = {
     init() {
-        this.on('updated', function() { console.log('Updated!') });
+        this.on('updated', (data: any[]) => console.log(data));
     },
 
     getOpts() {
         return this.opts;
     },
 
-    setOpts(opts, update): OptsMixin {
+    setOpts(opts, update) {
         this.opts = opts;
         if (!update) this.update();
         return this;
@@ -90,36 +99,46 @@ riot.mixin('optsMixin', optsMixin);
 tag.mixin('optsMixin');
 // register global mixin and add it to all tag instances
 riot.mixin(optsMixin);
-// using mixin in tag instances
-abstract class TagWithOptsMixin extends riot.Tag implements OptsMixin {
-    getOpts: () => any;
-    setOpts: (opts: any, update: boolean) => this;
-}
-(<TagWithOptsMixin>tag).setOpts(mockOpts, true).getOpts();
 
+// using mixin in tag instances
+interface TagWithOptsMixin extends riot.TagInterface, OptsMixin {
+}
+
+(tag as TagWithOptsMixin).setOpts(mockOpts, true).getOpts();
+
+interface TimerTag extends riot.TagInterface {
+    opts: {
+        start: number;
+    };
+    time: number;
+    timer: number;
+    tick(): void;
+}
 
 // Manual construction
-riot.tag('timer',
+riot.tag<TimerTag>('timer',
     '<p>Seconds Elapsed: { time }</p>',
     'timer { display: block; border: 2px }',
     'class="tic-toc"',
-    function (opts) {
-        var self = this;
-        this.time = opts.start || 0;
+    function() {
+        this.time = this.opts.start || 0;
 
-        this.tick = function () {
-            self.update({ time: ++self.time })
+        this.tick = () => {
+            this.update({ time: ++this.time });
         };
 
-        var timer = setInterval(this.tick, 1000);
+        const timer = setInterval(this.tick, 1000);
 
-        this.on('unmount', function () {
-            clearInterval(timer)
-        });
+        this.on('unmount', () => clearInterval(timer));
     });
 
+// Template-less tag construction
+riot.tag<TimerTag>('timer', false, function() {
+    this.time = 0;
+});
+
 // Observable
-const cb = () => true;
+const cb = () => null;
 // can create new observable object
 riot.observable().on('test', cb);
 // can add observable functionality to existing object
@@ -131,78 +150,22 @@ riot.observable().on('test', cb).one('test', cb).off('test').off('test', cb)
 tag.on('test', cb).one('test', cb).off('test').off('test', cb)
     .trigger('test').trigger('test', 1, 'arg1').unmount();
 
-
 // Custom tag
 class MyTag extends riot.Tag {
-    public msg: string;
-    constructor(el: Node) {
-        super({ tmpl: MyTag.template() }, { root: el });
-        this.msg = 'hello';
-    }
+    msg: string;
+
     bye() {
         this.msg = 'goodbye';
     }
-    static template() {
-        return `<p onclick="{ bye }">{ msg }</p>`;
-    }
 }
 
-new MyTag(document.getElementById('my-div')).bye();
-
-// Router
-// URL change callback
-riot.route(function(collection, id, action) {
-    console.log(collection + id + action);
-});
-// route with filter
-riot.route('/fruit', function(name) {
-    console.log('The list of fruits');
-});
-// query
-riot.route('/search..', function() {
-    var q = riot.route.query();
-    console.log('Search keyword: ' + q['keyword'])
-});
-// new routing context
-var subRoute = riot.route.create();
-subRoute('/fruit/apple', function() { /* */ });
-subRoute.stop();
-// route to URL
-riot.route('customers/267393/edit');
-riot.route('customers/267393/edit', 'Editing customer page');
-riot.route('not-found', 'Not found', true);
-// start
-riot.route.start();
-riot.route.start(true);
-// stop
-riot.route.stop();
-// exec
-riot.route.exec();
-riot.route.exec(cb);
-// base
-riot.route.base('/app');
-// parser
-const firstParser = function first(path: string): string[] {
-    const raw = path.slice(2).split('?');
-    return raw[0].split('/');
-};
-riot.route.parser(firstParser);
-const secondParser = function second(path: string, filter: string): string[] {
-    const re = new RegExp('^' + filter.replace(/\*/g, '([^/?#]+?)').replace(/\.\./, '.*') + '$');
-    const args = path.match(re);
-    if (args) {
-        return args.slice(1);
-    }
-};
-riot.route.parser(firstParser, secondParser);
+new MyTag(document.getElementById('my-div') as Element).bye();
 
 // Compile
 // compiling all tags
-riot.compile(function() {
-    riot.mount('*')
-});
+riot.compile(() => riot.mount('*'));
 // compiling url
-riot.compile('my/tags.tag', function() {
+riot.compile('my/tags.tag', () => {
     // the loaded tags are ready to be used
 });
 // compiling tag definition

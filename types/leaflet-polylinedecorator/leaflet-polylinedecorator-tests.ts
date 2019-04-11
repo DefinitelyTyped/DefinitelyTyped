@@ -1,3 +1,6 @@
+import * as L from 'leaflet';
+import 'leaflet-polylinedecorator';
+
 const osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 const osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib});
@@ -47,6 +50,47 @@ L.polylineDecorator(polyline, {
             symbol: L.Symbol.marker({
                 rotate: false,
                 markerOptions: {}
+            })}
+    ]
+}).addTo(map);
+
+L.polylineDecorator(polyline, {
+    patterns: [
+        {
+            offset: "10%",
+            repeat: 0,
+            symbol: L.Symbol.arrowHead({
+                polygon: true,
+                headAngle: 45,
+                pixelSize: 12,
+                pathOptions: {}
+            })}
+    ]
+}).addTo(map);
+
+L.polylineDecorator(polyline, {
+    patterns: [
+        {
+            endOffset: "20%",
+            repeat: 0,
+            symbol: L.Symbol.arrowHead({
+                polygon: true,
+                headAngle: 45,
+                pixelSize: 12,
+                pathOptions: {}
+            })}
+    ]
+}).addTo(map);
+
+L.polylineDecorator(polyline, {
+    patterns: [
+        {
+            repeat: "5%",
+            symbol: L.Symbol.arrowHead({
+                polygon: true,
+                headAngle: 45,
+                pixelSize: 12,
+                pathOptions: {}
             })}
     ]
 }).addTo(map);

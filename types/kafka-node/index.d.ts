@@ -1,31 +1,42 @@
 // Type definitions for kafka-node 2.0
 // Project: https://github.com/SOHU-Co/kafka-node/
-// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu/>, Bill <https://github.com/bkim54>, Michael Haan <https://github.com/sfrooster>, Amiram Korach <https://github.com/amiram>
+// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu>
+//                 Bill <https://github.com/bkim54>
+//                 Michael Haan <https://github.com/sfrooster>
+//                 Amiram Korach <https://github.com/amiram>
+//                 Insanehong <https://github.com/insanehong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />
 
 // # Classes
 export class Client {
     constructor(connectionString: string, clientId?: string, options?: ZKOptions, noBatchOptions?: AckBatchOptions, sslOptions?: any);
-    close(callback?: () => void): void;
-    topicExists(topics: string[], callback: (err?: TopicsNotExistError | any) => any): void;
+    close(cb?: () => void): void;
+    loadMetadataForTopics(topics: string[], cb: (error: TopicsNotExistError | any, data: any) => any): void;
+    topicExists(topics: string[], cb: (error?: TopicsNotExistError | any) => any): void;
     refreshMetadata(topics: string[], cb?: (error?: any) => any): void;
-    sendOffsetCommitV2Request(group: string, generationId: number, memberId: string, commits: OffsetCommitRequest[], cb: () => void): void;
+    sendOffsetCommitV2Request(group: string, generationId: number, memberId: string, commits: OffsetCommitRequest[], cb: (error: any, data: any) => any): void;
+    // Note: socket_error is currently KafkaClient only, and zkReconnect is currently Client only.
+    on(eventName: "brokersChanged" | "close" | "connect" | "ready" | "reconnect" | "zkReconnect", cb: () => any): this;
+    on(eventName: "error" | "socket_error", cb: (error: any) => any): this;
 }
 
 export class KafkaClient extends Client {
     constructor(options?: KafkaClientOptions);
     connect(): void;
+    getListGroups(cb: (error: any, data: any) => any): void;
+    describeGroups(consumerGroups: any, cb: (error: any, data: any) => any): void;
 }
 
 export class Producer {
-    constructor(client: Client, options?: ProducerOptions, customPartitioner?: any);
+    constructor(client: Client, options?: ProducerOptions, customPartitioner?: CustomPartitioner);
     on(eventName: "ready", cb: () => any): void;
     on(eventName: "error", cb: (error: any) => any): void;
     send(payloads: ProduceRequest[], cb: (error: any, data: any) => any): void;
-    createTopics(topics: string[], async: true, cb: (error?: any, data?: any) => any): void;
-    createTopics(topics: string[], async: false, cb: () => any): void;
-    createTopics(topics: string[], cb: (error?: any, data?: any) => any): void;
-    close(): void;
+    createTopics(topics: string[], async: boolean, cb: (error: any, data: any) => any): void;
+    createTopics(topics: string[], cb: (error: any, data: any) => any): void;
+    close(cb?: () => any): void;
 }
 
 export class HighLevelProducer extends Producer {
@@ -54,14 +65,16 @@ export class HighLevelConsumer {
     client: Client;
     on(eventName: "message", cb: (message: Message) => any): void;
     on(eventName: "error" | "offsetOutOfRange", cb: (error: any) => any): void;
+    on(eventName: "rebalancing" | "rebalanced" | "connect", cb: () => any): void;
     addTopics(topics: string[] | Topic[], cb?: (error: any, added: string[] | Topic[]) => any): void;
     removeTopics(topics: string | string[], cb: (error: any, removed: number) => any): void;
     commit(cb: (error: any, data: any) => any): void;
     commit(force: boolean, cb: (error: any, data: any) => any): void;
+    sendOffsetCommitRequest(commits: OffsetCommitRequest[], cb: (error: any, data: any) => any): void;
     setOffset(topic: string, partition: number, offset: number): void;
     pause(): void;
     resume(): void;
-    close(force: boolean, cb: () => any): void;
+    close(force: boolean, cb: (error: any) => any): void;
     close(cb: () => any): void;
 }
 
@@ -69,11 +82,13 @@ export class ConsumerGroup extends HighLevelConsumer {
     constructor(options: ConsumerGroupOptions, topics: string[] | string);
     generationId: number;
     memberId: string;
+    client: KafkaClient & Client;
 }
 
 export class Offset {
     constructor(client: Client);
-    on(eventName: string, cb: (error?: any) => any): void;
+    on(eventName: "ready" | "connect", cb: () => any): void;
+    on(eventName: "error", cb: (error: any) => any): void;
     fetch(payloads: OffsetRequest[], cb: (error: any, data: any) => any): void;
     commit(groupId: string, payloads: OffsetCommitRequest[], cb: (error: any, data: any) => any): void;
     fetchCommits(groupId: string, payloads: OffsetFetchRequest[], cb: (error: any, data: any) => any): void;
@@ -82,37 +97,43 @@ export class Offset {
 }
 
 export class KeyedMessage {
-    constructor(key: string, message: string);
+    constructor(key: string, value: string | Buffer);
+}
+
+export class Admin {
+    constructor(kafkaClient: KafkaClient);
+    listGroups(cb: (error: any, data: any) => any): void;
+    describeGroups(consumerGroups: any, cb: (error: any, data: any) => any): void;
 }
 
 // # Interfaces
 
 export interface Message {
-  topic: string;
-  value: string;
-  offset?: number;
-  partition?: number;
-  highWaterOffset?: number;
-  key?: number;
-}
+    topic: string;
+    value: string | Buffer;
+    offset?: number;
+    partition?: number;
+    highWaterOffset?: number;
+    key?: string;
+  }
 
 export interface ProducerOptions {
-  requireAcks?: number;
-  ackTimeoutMs?: number;
-  partitionerType?: number;
+    requireAcks?: number;
+    ackTimeoutMs?: number;
+    partitionerType?: number;
 }
 
 export interface KafkaClientOptions {
     kafkaHost?: string;
     connectTimeout?: number;
     requestTimeout?: number;
-    authConnect?: boolean;
-    connectRetryOptions?: ConnectRetryOptions;
+    autoConnect?: boolean;
+    connectRetryOptions?: RetryOptions;
     sslOptions?: any;
     clientId?: string;
 }
 
-export interface ConnectRetryOptions {
+export interface RetryOptions {
     retries?: number;
     factor?: number;
     minTimeout?: number;
@@ -153,17 +174,21 @@ export interface ConsumerOptions {
 
 export interface HighLevelConsumerOptions extends ConsumerOptions {
   id?: string;
+  maxNumSegments?: number;
+  maxTickMessages?: number;
+  rebalanceRetry?: RetryOptions;
 }
 
 export interface CustomPartitionAssignmentProtocol {
     name: string;
     version: number;
     userData: {};
-    assign(topicPattern: any, groupMembers: any, callback: (error: any, result: any) => void): void;
+    assign(topicPattern: any, groupMembers: any, cb: (error: any, result: any) => void): void;
 }
 
 export interface ConsumerGroupOptions {
-    host: string;
+    kafkaHost?: string;
+    host?: string;
     zk?: ZKOptions;
     batch?: AckBatchOptions;
     ssl?: boolean;
@@ -172,13 +197,14 @@ export interface ConsumerGroupOptions {
     sessionTimeout?: number;
     protocol?: Array<"roundrobin" | "range" | CustomPartitionAssignmentProtocol>;
     fromOffset?: "earliest" | "latest" | "none";
+    outOfRangeOffset?: "earliest" | "latest" | "none";
     migrateHLC?: boolean;
     migrateRolling?: boolean;
     autoCommit?: boolean;
     autoCommitIntervalMs?: number;
     fetchMaxWaitMs?: number;
-    paused?: boolean;
     maxNumSegments?: number;
+    maxTickMessages?: number;
     fetchMinBytes?: number;
     fetchMaxBytes?: number;
     retries?: number;
@@ -217,3 +243,5 @@ export interface OffsetFetchRequest {
 export class TopicsNotExistError extends Error {
     topics: string | string[];
 }
+
+export type CustomPartitioner = (partitions: number[], key: any) => number;

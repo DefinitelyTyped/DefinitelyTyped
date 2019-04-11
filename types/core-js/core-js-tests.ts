@@ -59,7 +59,7 @@ let dictOfAny: Dict<any>;
 //          es6.object.to-string, es6.function.name and es6.function.has-instance.
 // #############################################################################################
 
-point = Object.assign(point, point);
+point = Object.assign(point, point); // tslint:disable-line prefer-object-spread
 b = Object.is(point, point);
 Object.setPrototypeOf(point, point);
 s = f.name;
@@ -83,6 +83,8 @@ arrayOfPoint3D = Array.from(arrayOfPoint, point => point3d, a);
 arrayOfPoint3D = Array.from(iterableOfPoint, point => point3d);
 arrayOfPoint3D = Array.from(iterableOfPoint, point => point3d, a);
 arrayOfPoint = Array.of(point, point);
+b = Array.isArray([]);
+b = Array.isArray({});
 
 // #############################################################################################
 // ECMAScript 6: String & RegExp
@@ -113,7 +115,7 @@ b = Number.isSafeInteger(i);
 i = Number.MAX_SAFE_INTEGER;
 i = Number.MIN_SAFE_INTEGER;
 i = Number.parseFloat(s);
-i = Number.parseInt(s);
+i = Number.parseInt(s); // tslint:disable-line radix
 i = Number.parseInt(s, i);
 i = Math.clz32(i);
 i = Math.imul(i, i);
@@ -416,7 +418,7 @@ log.disable();
 // Non-standard
 point = dictOfPoint[s];
 point = dictOfPoint[i];
-point = dictOfPoint[sym];
+// point = dictOfPoint[sym];
 dictOfPoint = new Dict(dictOfPoint);
 dictOfAny = new Dict(point);
 dictOfPoint = Dict(dictOfPoint);
