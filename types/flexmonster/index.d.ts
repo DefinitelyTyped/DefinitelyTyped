@@ -288,6 +288,7 @@ declare namespace Flexmonster {
         showDrillThroughConfigurator?: boolean;
         grouping?: boolean;
         showAllFieldsDrillThrough?: boolean;
+		validateFormulas?: boolean;
     }
 
     interface PrintOptions {
