@@ -1,4 +1,4 @@
-// Type definitions for Seamless-immutable 7.2
+// Type definitions for Seamless-immutable 7.1
 // Project: https://github.com/rtfeldman/seamless-immutable
 // Definitions by: alex3165 <https://github.com/alex3165>
 //                 Stepan Burguchev <https://github.com/xsburg>
