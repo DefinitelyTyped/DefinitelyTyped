@@ -125,8 +125,8 @@ interface BlobOptions {
 
 export class Blob {
     constructor(blobParts?: BlobPart[], options?: BlobOptions);
-    type: string;
-    size: number;
+    readonly type: string;
+    readonly size: number;
     slice(start?: number, end?: number): Blob;
 }
 
