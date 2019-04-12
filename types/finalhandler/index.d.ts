@@ -1,4 +1,4 @@
-// Type definitions for finalhandler v1.1.1
+// Type definitions for finalhandler 1.1
 // Project: https://github.com/pillarjs/finalhandler
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 //                 Mark Veronda <https://github.com/hbomark>
@@ -12,8 +12,8 @@ declare function finalhandler(req: IncomingMessage, res: ServerResponse,
                               options?: finalhandler.Options): (err: any) => void;
 
 declare namespace finalhandler {
-    export interface Options {
-        env?: string,
+    interface Options {
+        env?: string;
         onerror?: (err: any, req: IncomingMessage, res: ServerResponse) => void;
     }
 }

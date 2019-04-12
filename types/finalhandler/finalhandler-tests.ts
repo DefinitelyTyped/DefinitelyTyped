@@ -1,11 +1,11 @@
 import { IncomingMessage, ServerResponse } from "http";
 import finalhandler = require("finalhandler");
 
-let req: IncomingMessage;
-let res: ServerResponse;
-let options: {
-    env: string;
-    onerror: (err: any, req: IncomingMessage, res: ServerResponse) => void;
+const req: IncomingMessage = null;
+const res: ServerResponse = null;
+const options = {
+    env: 'anEnv',
+    onerror: (err: any, req: IncomingMessage, res: ServerResponse): any => { return; }
 };
 
 let result: (err: any) => void;
