@@ -3,6 +3,7 @@ import {
     Document,
     Page,
     View,
+    ViewProps,
     Text,
     StyleSheet,
     TextStyles,
@@ -29,29 +30,39 @@ const styles = StyleSheet.create({
 // style references are numbers
 const styleReference = styles.red;
 
-// An Artboard
-const SketchArtboard = () => (
-    <Artboard name="some artboard name" style={styleReference}>
-        <View name="some view name" style={styleReference}>
-            <Text name="some text name">text must be a string</Text>
-            <View
-                name="some blue block"
-                style={{
+// Create a blue block
+const BlueBlock = (props: ViewProps) => {
+    const { name = "some blue block", style, ...otherProps } = props;
+
+    return (
+        <View
+            name={name}
+            style={{
                 alignItems: 'center',
                 backgroundColor: '#0000ff',
                 height: 128,
                 justifyContent: 'center',
                 width: 64,
-                }}
+            }}
+            {...otherProps}
+        >
+            <Text
+            style={{
+                color: '#fff',
+            }}
             >
-                <Text
-                style={{
-                    color: '#fff',
-                }}
-                >
-                    Blue
-                </Text>
-            </View>
+                Blue
+            </Text>
+        </View>
+    );
+};
+
+// An Artboard
+const SketchArtboard = () => (
+    <Artboard name="some artboard name" style={styleReference}>
+        <View name="some view name" style={styleReference}>
+            <Text name="some text name">text must be a string</Text>
+            <BlueBlock name="some fancy name" />
         </View>
         <View style={styles.red} />
     </Artboard>
