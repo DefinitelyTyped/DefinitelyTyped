@@ -1,15 +1,16 @@
-// Type definitions for @storybook/addon-knobs 4.0
+// Type definitions for @storybook/addon-knobs 5.0
 // Project: https://github.com/storybooks/storybook, https://github.com/storybooks/storybook/tree/master/addons/knobs
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Martynas Kadisa <https://github.com/martynaskadisa>
 //                 A.MacLeay <https://github.com/amacleay>
 //                 Michael Loughry <https://github.com/MLoughry>
 //                 Alan Choi <https://github.com/alanhchoi>
+//                 Adam Zmenak <https://github.com/azmenak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
 import * as React from 'react';
-import { RenderFunction } from '@storybook/react';
+import {RenderFunction} from '@storybook/react';
 
 export interface KnobOption<T> {
     value: T;
@@ -49,9 +50,9 @@ export function color(name: string, value: string, groupId?: string): string;
 
 export function object<T>(name: string, value: T, groupId?: string): T;
 
-export function radios<T>(name: string, options: { [s: string]: T }, value?: T, groupId?: string): T;
+export function radios<T>(name: string, options: {[s: string]: T}, value?: T, groupId?: string): T;
 
-export function select<T>(name: string, options: { [s: string]: T }, value: T, groupId?: string): T;
+export function select<T>(name: string, options: {[s: string]: T}, value: T, groupId?: string): T;
 export function select<
     T extends Exclude<
         React.OptionHTMLAttributes<HTMLOptionElement>['value'],
@@ -65,6 +66,25 @@ export function array<T>(name: string, value: ReadonlyArray<T>, separator?: stri
 
 export function button(name: string, handler: () => any, groupId?: string): void;
 
+export interface OptionsKnobOptions {
+    display?:
+    | "radio"
+    | "inline-radio"
+    | "check"
+    | "inline-check"
+    | "select"
+    | "multi-select";
+}
+
+export function optionsKnob<T>(
+    label: string,
+    values: {
+        [key: string]: any;
+    },
+    defaultValue?: T,
+    options?: OptionsKnobOptions
+): T;
+
 export interface WrapStoryProps {
     context?: object;
     storyFn?: RenderFunction;
@@ -74,4 +94,4 @@ export interface WrapStoryProps {
 }
 
 export function withKnobs(storyFn: RenderFunction, context: StoryContext): React.ReactElement<WrapStoryProps>;
-export function withKnobsOptions(options: { debounce: boolean, timestamps: boolean }): (storyFn: RenderFunction, context: StoryContext) => React.ReactElement<WrapStoryProps>;
+export function withKnobsOptions(options: {debounce: boolean, timestamps: boolean}): (storyFn: RenderFunction, context: StoryContext) => React.ReactElement<WrapStoryProps>;
