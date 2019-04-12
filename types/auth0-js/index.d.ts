@@ -523,6 +523,7 @@ export interface AuthOptions {
     _disableDeprecationWarnings?: boolean;
     _sendTelemetry?: boolean;
     _telemetryInfo?: any;
+    __tryLocalStorageFirst?: boolean;
 }
 
 export interface PasswordlessAuthOptions {
