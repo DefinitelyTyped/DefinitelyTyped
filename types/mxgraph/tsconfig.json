@@ -5,6 +5,8 @@
       "es6",
       "dom"
     ],
+    "baseUrl": "types",
+    "typeRoots": ["types"],
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "types": [],
