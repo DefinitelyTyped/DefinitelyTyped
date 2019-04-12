@@ -4,38 +4,38 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import React from 'react';
+import * as React from 'react';
 
 type Icon = string | React.ElementType;
 type Anchor = 'top' | 'bottom';
 type Position = 'left' | 'right';
 
 interface TabProps{
-  id: string,
-  header: string,
-  icon:Icon,
-  anchor?: Anchor,
-  disabled?: boolean,
-  onClose?: () => void,
-  closeIcon?: Icon,
-  position?: Position,
+  id: string;
+  header: string;
+  icon:Icon;
+  anchor?: Anchor;
+  disabled?: boolean;
+  onClose?: () => void;
+  closeIcon?: Icon;
+  position?: Position;
   active?: boolean
-}
-declare class Tab extends React.Component<TabProps, any>{}
+};
+declare class Tab extends React.Component<TabProps, any>{};
 
-type TabType =  React.Element<Tab> | React.Element<Tab>[]
+type TabType =  React.Element<Tab> | Array<React.Element<Tab>>;
 
 interface SidebarProps {
-  id: string,
-  collapsed: boolean,
-  position: Position,
-  selected: string,
-  closeIcon?: Icon,
-  onClose?:() => void,
-  onOpen?: () => void,
+  id: string;
+  collapsed: boolean;
+  position: Position;
+  selected: string;
+  closeIcon?: Icon;
+  onClose?:() => void;
+  onOpen?: () => void;
   children: TabType
-}
+};
 
-declare class Sidebar extends React.Component<SidebarProps, any>{}
+declare class Sidebar extends React.Component<SidebarProps, any>{};
 
-export {Tab, Sidebar} 
+export {Tab, Sidebar};

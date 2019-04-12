@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Sidebar, Tab} from 'react-leaflet-sidebarv2';
+import { Sidebar, Tab } from 'react-leaflet-sidebarv2';
 
 const MySidebar = (
   <Sidebar 
