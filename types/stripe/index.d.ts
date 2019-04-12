@@ -1959,6 +1959,9 @@ declare namespace Stripe {
             /**
              * The fee in cents that will be applied to the invoice and transferred to the application owner's
              * Stripe account when the invoice is paid.
+             *
+             * @deprecated Stripe API Version 2019-03-14 changed the name of this property
+             * @see application_fee_amount
              */
             application_fee: number;
 
@@ -1966,7 +1969,7 @@ declare namespace Stripe {
              * The fee in pence that will be applied to the invoice and transferred to the application owner’s
              * Stripe account when the invoice is paid.
              *
-             * Changed from `application_fee` on Stripe API Version 2019-03-14
+             * @since Stripe API Version 2019-03-14
              */
             application_fee_amount: number;
 
