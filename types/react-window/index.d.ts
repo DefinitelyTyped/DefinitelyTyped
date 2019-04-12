@@ -1,4 +1,4 @@
-// Type definitions for react-window 1.7
+// Type definitions for react-window 1.8
 // Project: https://github.com/bvaughn/react-window/, http://react-window.now.sh
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Alex Guerra <https://github.com/heyimalex>
@@ -20,7 +20,7 @@ export type CSSDirection = "ltr" | "rtl";
 export type Direction = "vertical" | "horizontal"; // TODO: deprecate in favour of Layout
 export type Layout = "vertical" | "horizontal";
 export type ScrollDirection = "forward" | "backward";
-export type Align = "auto" | "center" | "end" | "start";
+export type Align = "auto" | "smart" | "center" | "end" | "start";
 
 export interface ListChildComponentProps {
     index: number;
@@ -372,6 +372,10 @@ export class FixedSizeList extends Component<FixedSizeListProps> {
      * You can control the alignment of the item though by specifying a second alignment parameter. Acceptable values are:
      *
      * - auto (default) - Scroll as little as possible to ensure the item is visible. (If the item is already visible, it won't scroll at all.)
+     * - smart
+     *   - If the item is already visible, don't scroll at all.
+     *   - If it is less than one viewport away, scroll as little as possible so that it becomes visible.
+     *   - If it is more than one viewport away, scroll so that it is centered within the list.
      * - center - Center align the item within the list.
      * - end - Align the item to the end of the list (the bottom for vertical lists or the right for horizontal lists).
      * - start - Align the item to the beginning of the list (the top for vertical lists or the left for horizontal lists).
@@ -391,6 +395,10 @@ export class VariableSizeList extends Component<VariableSizeListProps> {
      * You can control the alignment of the item though by specifying a second alignment parameter. Acceptable values are:
      *
      * - auto (default) - Scroll as little as possible to ensure the item is visible. (If the item is already visible, it won't scroll at all.)
+     * - smart
+     *   - If the item is already visible, don't scroll at all.
+     *   - If it is less than one viewport away, scroll as little as possible so that it becomes visible.
+     *   - If it is more than one viewport away, scroll so that it is centered within the list.
      * - center - Center align the item within the list.
      * - end - Align the item to the end of the list (the bottom for vertical lists or the right for horizontal lists).
      * - start - Align the item to the beginning of the list (the top for vertical lists or the left for horizontal lists).
@@ -420,6 +428,10 @@ export class FixedSizeGrid extends Component<FixedSizeGridProps> {
      * You can control the alignment of the item though by specifying an `align` property. Acceptable values are:
      *
      * - auto (default) - Scroll as little as possible to ensure the item is visible. (If the item is already visible, it won't scroll at all.)
+     * - smart
+     *   - If the item is already visible, don't scroll at all.
+     *   - If it is less than one viewport away, scroll as little as possible so that it becomes visible.
+     *   - If it is more than one viewport away, scroll so that it is centered within the grid.
      * - center - Center align the item within the grid.
      * - end - Align the item to the bottom, right hand side of the grid.
      * - start - Align the item to the top, left hand of the grid.
@@ -445,6 +457,10 @@ export class VariableSizeGrid extends Component<VariableSizeGridProps> {
      * You can control the alignment of the item though by specifying an `align` property. Acceptable values are:
      *
      * - auto (default) - Scroll as little as possible to ensure the item is visible. (If the item is already visible, it won't scroll at all.)
+     * - smart
+     *   - If the item is already visible, don't scroll at all.
+     *   - If it is less than one viewport away, scroll as little as possible so that it becomes visible.
+     *   - If it is more than one viewport away, scroll so that it is centered within the grid.
      * - center - Center align the item within the grid.
      * - end - Align the item to the bottom, right hand side of the grid.
      * - start - Align the item to the top, left hand of the grid.
