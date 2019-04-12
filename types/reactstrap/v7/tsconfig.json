@@ -10,10 +10,15 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "jsx": "react",
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "reactstrap": [
+                "reactstrap/v7"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
