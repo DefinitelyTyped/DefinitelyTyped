@@ -513,7 +513,7 @@ export type Job = ImportUsersJob | ExportUsersJob | VerificationEmailJob;
 
 export type JobFormat = 'csv' | 'json';
 
-export type JobStatus = 'pending' | 'completed';
+export type JobStatus = 'pending' | 'processing' | 'completed' | 'failed';
 
 export interface ExportUsersJob {
     id: string;
