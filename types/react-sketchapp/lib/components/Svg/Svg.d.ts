@@ -23,7 +23,6 @@ import TSpan, { TSpanProps } from './TSpan';
 import Use, { UseProps } from './Use';
 
 export interface SvgProps extends ViewProps {
-    className?: string;
     opacity?: string | number;
     width?: string | number;
     height?: string | number;

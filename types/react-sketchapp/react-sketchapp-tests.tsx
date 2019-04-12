@@ -19,7 +19,7 @@ import Rect from 'react-sketchapp/lib/components/Svg/Rect';
 // the styles object should be a mapped typed mapping the keys of the object literal to numbers
 const styles = StyleSheet.create({
     red: {
-        backgroundColor: '#FF00000',
+        backgroundColor: '#FF0000',
     },
     flexRow: {
         flexDirection: 'row',
@@ -34,6 +34,24 @@ const SketchArtboard = () => (
     <Artboard name="some artboard name" style={styleReference}>
         <View name="some view name" style={styleReference}>
             <Text name="some text name">text must be a string</Text>
+            <View
+                name="some blue block"
+                style={{
+                alignItems: 'center',
+                backgroundColor: '#0000ff',
+                height: 128,
+                justifyContent: 'center',
+                width: 64,
+                }}
+            >
+                <Text
+                style={{
+                    color: '#fff',
+                }}
+                >
+                    Blue
+                </Text>
+            </View>
         </View>
         <View style={styles.red} />
     </Artboard>

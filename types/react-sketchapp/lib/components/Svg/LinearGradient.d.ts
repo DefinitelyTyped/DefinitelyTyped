@@ -9,7 +9,7 @@ export interface LinearGradientProps {
     y2: NumberProp;
     gradientUnits?: 'objectBoundingBox' | 'userSpaceOnUse';
     id?: string;
-    children?: React.ReactChild[] | React.ReactChild;
+    children?: React.ReactNode[] | React.ReactNode;
 }
 
 export default class LinearGradient extends React.Component<

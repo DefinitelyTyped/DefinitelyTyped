@@ -1,7 +1,7 @@
 import React = require('react');
 
 export interface DefsProps {
-    children: React.ReactChild[] | React.ReactChild;
+    children: React.ReactNode[] | React.ReactNode;
 }
 
 export default class Defs extends React.Component<DefsProps> {}
