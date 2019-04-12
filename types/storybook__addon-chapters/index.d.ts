@@ -1,5 +1,5 @@
-// Type definitions for @storybook/addon-chapters 0.6.3
-// Project: https://github.com/storybooks/storybook, https://github.com/storybooks/storybook/tree/master/addons/chapters
+// Type definitions for @storybook/addon-chapters 0.6
+// Project: https://github.com/storybooks/storybook, https://github.com/sm-react/storybook-chapters
 // Definitions by: Ian Ker-Seymer <https://github.com/ianks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
