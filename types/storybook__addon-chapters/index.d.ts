@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { StoryDecorator } from "@storybook/react";
+import { StoryDecorator, Story } from "@storybook/react";
 
 declare module "@storybook/react" {
     interface Story {

@@ -11,7 +11,7 @@ const MyComponent: React.FC<{ num: number }> = props => (
 );
 
 function render(num: number) {
-    return <MyComponent num={num} />;
+    return () => <MyComponent num={num} />;
 }
 
 storiesOf("React App", module)
