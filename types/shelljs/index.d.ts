@@ -992,7 +992,6 @@ export interface ShellStringFunction {
 	 */
 	new(value: string): ShellString;
 	new(value: string[]): ShellArray;
-	new(...value: string[]): ShellArray;
 
 	/**
 	 * Wraps a string (or array) value. This has all the string (or array) methods,
@@ -1010,7 +1009,6 @@ export interface ShellStringFunction {
 	 */
 	(value: string): ShellString;
 	(value: string[]): ShellArray;
-	(...value: string[]): ShellArray;
 }
 
 export interface ChmodFunction {

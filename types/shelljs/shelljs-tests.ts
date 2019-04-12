@@ -199,8 +199,6 @@ shell
 
 const wrappedStr1 = new shell.ShellString('hello');
 const wrappedArr1 = new shell.ShellString(['hello', 'world']);
-const wrappedArr3 = new shell.ShellString('hello', 'world');
 
 const wrappedStr2 = shell.ShellString('hello');
 const wrappedArr2 = shell.ShellString(['hello', 'world']);
-const wrappedArr4 = shell.ShellString('hello', 'world');
