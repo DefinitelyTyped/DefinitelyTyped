@@ -3,7 +3,7 @@
 // Definitions by: Arjan Jassal <https://github.com/ArjanJ>
 //                 Hieu Ho <https://github.com/hieuhlc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
+// TypeScript Version: 2.9
 
 import { FlattenInterpolation, ThemeProps, ThemedStyledProps } from "styled-components";
 
