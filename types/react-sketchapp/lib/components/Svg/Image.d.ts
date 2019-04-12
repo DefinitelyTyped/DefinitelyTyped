@@ -9,7 +9,7 @@ export interface ImageProps {
     height: NumberProp;
     href: string;
     preserveAspectRatio?: string;
-    children?: React.ReactChild[] | React.ReactChild;
+    children?: React.ReactNode[] | React.ReactNode;
 }
 
 export default class Image extends React.Component<ImageProps> {}

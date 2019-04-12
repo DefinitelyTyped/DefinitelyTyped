@@ -10,7 +10,7 @@ export interface PatternProps {
     patternTransform?: string;
     patternUnits?: 'userSpaceOnUse' | 'objectBoundingBox';
     patternContentUnits?: 'userSpaceOnUse' | 'objectBoundingBox';
-    children?: React.ReactChild[] | React.ReactChild;
+    children?: React.ReactNode[] | React.ReactNode;
 }
 
 export default class Pattern extends React.Component<PatternProps> {}
