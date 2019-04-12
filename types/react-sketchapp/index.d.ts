@@ -187,7 +187,7 @@ export interface TextStyle extends Style {
  * DocumentProps, a Document does not take any props but children
  */
 export interface DocumentProps {
-    children?: React.ReactElement<PageProps, any>[] | React.ReactElement<PageProps, any>;
+    children?: Array<React.ReactElement<PageProps, any>> | React.ReactElement<PageProps, any>;
 }
 
 /**
