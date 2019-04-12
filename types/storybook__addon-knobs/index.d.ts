@@ -10,7 +10,7 @@
 // TypeScript Version: 3.0
 
 import * as React from 'react';
-import {RenderFunction} from '@storybook/react';
+import { RenderFunction } from '@storybook/react';
 
 export interface KnobOption<T> {
     value: T;
@@ -50,9 +50,9 @@ export function color(name: string, value: string, groupId?: string): string;
 
 export function object<T>(name: string, value: T, groupId?: string): T;
 
-export function radios<T>(name: string, options: {[s: string]: T}, value?: T, groupId?: string): T;
+export function radios<T>(name: string, options: { [s: string]: T }, value?: T, groupId?: string): T;
 
-export function select<T>(name: string, options: {[s: string]: T}, value: T, groupId?: string): T;
+export function select<T>(name: string, options: { [s: string]: T }, value: T, groupId?: string): T;
 export function select<
     T extends Exclude<
         React.OptionHTMLAttributes<HTMLOptionElement>['value'],
@@ -94,4 +94,4 @@ export interface WrapStoryProps {
 }
 
 export function withKnobs(storyFn: RenderFunction, context: StoryContext): React.ReactElement<WrapStoryProps>;
-export function withKnobsOptions(options: {debounce: boolean, timestamps: boolean}): (storyFn: RenderFunction, context: StoryContext) => React.ReactElement<WrapStoryProps>;
+export function withKnobsOptions(options: { debounce: boolean, timestamps: boolean }): (storyFn: RenderFunction, context: StoryContext) => React.ReactElement<WrapStoryProps>;
