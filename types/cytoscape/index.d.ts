@@ -3466,8 +3466,12 @@ declare namespace cytoscape {
         /**
          * http://js.cytoscape.org/#style/node-body
          */
-        interface Node extends Partial<Overlay>, PaddingNode {
+        interface Node extends Partial<Overlay>, PaddingNode, Partial<Labels> {
             "label"?: string;
+            /**
+             * The CSS content field
+             */
+            "content"?: string;
             /**
              * The width of the node’s body.
              * This property can take on the special value label
