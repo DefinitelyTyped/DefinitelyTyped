@@ -965,6 +965,51 @@ export type ShellString = string & ShellReturnValue;
 
 export type ShellArray = string[] & ShellReturnValue;
 
+export const ShellString: ShellStringFunction;
+
+export interface ShellStringFunction {
+	/**
+	 * Wraps a string (or array) value. This has all the string (or array) methods,
+	 * but also exposes extra methods: `.to()`, `.toEnd()`, and all the pipe-able
+	 * methods (ex. `.cat()`, `.grep()`, etc.).
+	 *
+	 * This can be easily converted into a string by calling `.toString()`.
+	 *
+	 * This type also exposes the corresponding command's stdout, stderr, and return status
+	 * code via the `.stdout` (string), `.stderr` (string), and `.code` (number) properties
+	 * respectively.
+	 *
+	 * Construct signature allows for:
+	 *
+	 * var foo = new ShellString('hello world');
+	 *
+	 * as per example in shelljs docs:
+	 * https://github.com/shelljs/shelljs#shellstringstr
+	 *
+	 * @param value 	The string value to wrap.
+	 * @return				A string-like object with special methods.
+	 */
+	new(value: string): ShellString;
+	new(value: string[]): ShellArray;
+
+	/**
+	 * Wraps a string (or array) value. This has all the string (or array) methods,
+	 * but also exposes extra methods: `.to()`, `.toEnd()`, and all the pipe-able
+	 * methods (ex. `.cat()`, `.grep()`, etc.).
+	 *
+	 * This can be easily converted into a string by calling `.toString()`.
+	 *
+	 * This type also exposes the corresponding command's stdout, stderr, and return status
+	 * code via the `.stdout` (string), `.stderr` (string), and `.code` (number) properties
+	 * respectively.
+	 *
+	 * @param value 	The string value to wrap.
+	 * @return				A string-like object with special methods.
+	 */
+	(value: string): ShellString;
+	(value: string[]): ShellArray;
+}
+
 export interface ChmodFunction {
 	/**
 	 * Alters the permissions of a file or directory by either specifying the absolute
