@@ -202,7 +202,7 @@ export interface Client extends EventEmitter {
 	 * objects or a filter string as the filter option.
 	 *
 	 * Note that this method is 'special' in that the callback 'res' param will
-	 * have two important events on it, namely 'entry' and 'end' that you can hook
+	 * have two important events on it, namely 'searchEntry' and 'end' that you can hook
 	 * to.  The former will emit a SearchEntry object for each record that comes
 	 * back, and the latter will emit a normal LDAPResult object.
 	 *
