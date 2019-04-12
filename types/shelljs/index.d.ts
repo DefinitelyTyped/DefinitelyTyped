@@ -966,9 +966,8 @@ export type ShellString = string & ShellReturnValue;
 
 export type ShellArray = string[] & ShellReturnValue;
 
-export const ShellString: ShellStringFunction;
 
-export interface ShellStringFunction {
+export interface ShellStringConstructor {
 	/**
 	 * Wraps a string (or array) value. This has all the string (or array) methods,
 	 * but also exposes extra methods: `.to()`, `.toEnd()`, and all the pipe-able
@@ -1010,6 +1009,8 @@ export interface ShellStringFunction {
 	(value: string): ShellString;
 	(value: string[]): ShellArray;
 }
+
+export const ShellString: ShellStringConstructor;
 
 export interface ChmodFunction {
 	/**
