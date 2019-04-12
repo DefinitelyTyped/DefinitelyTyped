@@ -5,11 +5,9 @@
 
 /// <reference types="node"/>
 
-interface GulpStylus {
-    (options?: GulpStylus.Options): NodeJS.ReadWriteStream;
-}
+declare function gulpStylus(options?: gulpStylus.Options): NodeJS.ReadWriteStream;
 
-declare namespace GulpStylus {
+declare namespace gulpStylus {
     interface Options {
         compress?: boolean;
         linenos?: boolean;
@@ -20,5 +18,4 @@ declare namespace GulpStylus {
     }
 }
 
-declare var gulpStylus: GulpStylus;
 export = gulpStylus;
