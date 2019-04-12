@@ -242,6 +242,15 @@ management.getJob({
     id: 'job_id'
 }).then((job) => console.log((<auth0.ExportUsersJob>job).fields));
 
+// job.type can be used as a discriminator for automatic type assertion (no casting needed)
+management.getJob({
+    id: 'job_id'
+}).then((job) => {
+    if (job.type === 'users_export') {
+        console.log(job.fields);
+    }
+});
+
 management.getJob({
     id: 'job_id'
 }, (err, data) => console.log((<auth0.ExportUsersJob>data).fields));
