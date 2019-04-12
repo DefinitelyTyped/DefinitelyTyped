@@ -78,12 +78,12 @@ export var Change: {
 export type SearchReference = any;
 
 export interface SearchCallbackResponse extends EventEmitter {
-    on(event: string | symbol, listener: (...args: any[]) => void): this;
     on(event: "searchEntry", listener: (entry: SearchEntry) => void): this;
     on(event: "searchReference", listener: (referral: SearchReference) => void): this;
     on(event: "page", listener: (res: LDAPResult, cb: (...args: any[]) => void) => void): this;
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "end", listener: (res: LDAPResult | null) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
 export interface SearchCallBack {
