@@ -4,8 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+import { StoryDecorator } from '@storybook/react';
+
 declare module "@storybook/react" {
     interface Story {
-        addChapter: (name: string, cb: (chapter: Story) => Story): Story
+        addChapter: (name: string, cb: (chapter: Story) => Story) => Story;
     }
 }
+
+export const withChapters: StoryDecorator;
