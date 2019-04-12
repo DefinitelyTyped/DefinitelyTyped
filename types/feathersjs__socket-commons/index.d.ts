@@ -29,7 +29,7 @@ declare module '@feathersjs/feathers' {
     interface Application<ServiceTypes> {
         channels: string[];
 
-        channel (name: string[]): Channel;
+        channel(name: string[]): Channel;
         channel(...names: string[]): Channel;
 
         // tslint:disable-next-line void-return
