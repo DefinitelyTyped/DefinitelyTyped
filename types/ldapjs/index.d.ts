@@ -77,7 +77,7 @@ export var Change: {
 
 export type SearchReference = any;
 
-export class SearchCallbackResponse extends EventEmitter {
+export interface SearchCallbackResponse extends EventEmitter {
     on(event: string | symbol, listener: (...args: any[]) => void): this;
     on(event: "searchEntry", listener: (entry: SearchEntry) => void): this;
     on(event: "searchReference", listener: (referral: SearchReference) => void): this;
@@ -293,7 +293,7 @@ export class ApproximateFilter extends Filter {
 	constructor(options: { attribute: string, value: string })
 }
 
-export class AttributeJson {
+export interface AttributeJson {
     type: string;
     vals: string[];
 }
