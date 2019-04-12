@@ -97,8 +97,7 @@ const provision = async () => {
                         return [''];
                     }
                     return new Error('');
-                },
-                BAD_listing: true,
+                }
             },
         },
         options: { files: { relativeTo: __dirname } }
