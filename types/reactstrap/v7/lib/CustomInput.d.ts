@@ -17,7 +17,6 @@ export type CustomInputProps<T = {}> = React.InputHTMLAttributes<HTMLInputElemen
   invalid?: boolean;
   className?: string;
   cssModule?: CSSModule;
-  htmlFor?: string;
 } & T;
 
 declare class CustomInput<T = {[key: string]: any}> extends React.Component<CustomInputProps<T>> {}

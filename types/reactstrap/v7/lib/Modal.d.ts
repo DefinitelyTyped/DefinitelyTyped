@@ -9,7 +9,6 @@ export type ModalProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   toggle?: () => void;
   keyboard?: boolean;
   backdrop?: boolean | 'static';
-  scrollable?: boolean;
   onEnter?: () => void;
   onExit?: () => void;
   onOpened?: () => void;
@@ -28,8 +27,6 @@ export type ModalProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   external?: React.ReactNode;
   labelledBy?: string;
   role?: string;
-  unmountOnClose?: boolean;
-  returnFocusAfterClose?: boolean;
 } & T;
 
 declare class Modal<T> extends React.Component<ModalProps<T>> {}

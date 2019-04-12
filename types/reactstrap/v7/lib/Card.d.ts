@@ -5,6 +5,7 @@ export type CardProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   inverse?: boolean;
   color?: string;
+  block?: boolean;
   body?: boolean;
   outline?: boolean;
   className?: string;
