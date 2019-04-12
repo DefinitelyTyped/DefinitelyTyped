@@ -966,7 +966,6 @@ export type ShellString = string & ShellReturnValue;
 
 export type ShellArray = string[] & ShellReturnValue;
 
-
 export interface ShellStringConstructor {
 	/**
 	 * Wraps a string (or array) value. This has all the string (or array) methods,
