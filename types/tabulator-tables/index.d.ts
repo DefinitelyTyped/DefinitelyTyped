@@ -1703,5 +1703,4 @@ declare class Tabulator {
     extendModule: (name: string, property: string, values: {}) => void;
 }
 
-export = Tabulator
-
+export = Tabulator;
