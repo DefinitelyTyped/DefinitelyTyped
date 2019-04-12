@@ -47,6 +47,15 @@ export namespace Plaid {
         | "pending_automatic_verification"
         | "pending_manual_verification"
         | "manually_verified";
+    type EventName =
+        | "ERROR"
+        | "EXIT"
+        | "HANDOFF"
+        | "OPEN"
+        | "OPEN_MY_PLAID"
+        | "SEARCH_INSTITUTION"
+        | "SELECT_INSTITUTION"
+        | "TRANSITION_VIEW";
     interface User {
         legalName: string;
         emailAddress: string;
@@ -70,16 +79,6 @@ export namespace Plaid {
         error_code: string;
         error_message: string;
         error_type: string;
-    }
-    enum EventName {
-        ERROR = "ERROR",
-        EXIT = "EXIT",
-        HANDOFF = "HANDOFF",
-        OPEN = "OPEN",
-        OPEN_MY_PLAID = "OPEN_MY_PLAID",
-        SEARCH_INSTITUTION = "SEARCH_INSTITUTION",
-        SELECT_INSTITUTION = "SELECT_INSTITUTION",
-        TRANSITION_VIEW = "TRANSITION_VIEW"
     }
     interface OnSuccessMetaData {
         link_session_id: string;
