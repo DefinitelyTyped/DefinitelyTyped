@@ -1,0 +1,19 @@
+{
+  "name": "@types/mxgraph",
+  "version": "1.0.0",
+  "description": "Typescript definitions for mxGraph",
+  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped#readme",
+  "main": "",
+  "contributors": [
+    {
+      "name": "Aleix Casanovas",
+      "url": "https://github.com/aleics"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DefinitelyTyped"
+  },
+  "author": "",
+  "license": "MIT"
+}
