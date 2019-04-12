@@ -650,7 +650,7 @@ function test_Components() {
         ko.components.register("name", { template: "string-template", viewModel: { instance: null } });
 
         // viewModel from createViewModel factory method
-        ko.components.register("name", { template: "string-template", viewModel: { createViewModel: function (params: any, componentInfo: KnockoutComponentTypes.ComponentInfo) { return null; } } });
+        ko.components.register("name", { template: "string-template", viewModel: { createViewModel: function (params?: any, componentInfo?: KnockoutComponentTypes.ComponentInfo) { return null; } } });
 
         // viewModel from an AMD module
         ko.components.register("name", { template: "string-template", viewModel: { require: "module" } });
