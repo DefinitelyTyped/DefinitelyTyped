@@ -69,7 +69,7 @@ declare class StdError extends Error {
     response?: any;
 }
 
-declare const got: got.DefaultGotInstance;
+declare const got: got.GotInstance;
 
 interface InternalRequestOptions extends https.RequestOptions {
     // Redeclare options with `any` type for allow specify types incompatible with http.RequestOptions.
@@ -94,28 +94,25 @@ declare namespace got {
 
     type GotInstance<T = GotFn> = T &
         Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', T> &
-        {
-            stream: GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', GotStreamFn>;
-            extend: GotExtend;
-            RequestError: typeof RequestError;
-            ReadError: typeof ReadError;
-            ParseError: typeof ParseError;
-            HTTPError: typeof HTTPError;
-            MaxRedirectsError: typeof MaxRedirectsError;
-            UnsupportedProtocolError: typeof UnsupportedProtocolError;
-            CancelError: typeof CancelError;
-            TimeoutError: typeof TimeoutError;
-        };
-
-    type DefaultGotInstance = GotInstance;
-    type JSONGotInstance = GotInstance<GotJSONFn>;
+    {
+        stream: GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', GotStreamFn>;
+        extend: GotExtend;
+        RequestError: typeof RequestError;
+        ReadError: typeof ReadError;
+        ParseError: typeof ParseError;
+        HTTPError: typeof HTTPError;
+        MaxRedirectsError: typeof MaxRedirectsError;
+        UnsupportedProtocolError: typeof UnsupportedProtocolError;
+        CancelError: typeof CancelError;
+        TimeoutError: typeof TimeoutError;
+    };
 
     interface GotExtend {
-        (options: GotJSONOptions): JSONGotInstance;
-        (options: GotFormOptions<string>): DefaultGotInstance;
-        (options: GotBodyOptions<string>): DefaultGotInstance;
-        (options: GotFormOptions<null>): DefaultGotInstance;
-        (options: GotBodyOptions<null>): DefaultGotInstance;
+        (options: GotJSONOptions): GotInstance<GotJSONFn>;
+        (options: GotFormOptions<string>): GotInstance;
+        (options: GotBodyOptions<string>): GotInstance;
+        (options: GotFormOptions<null>): GotInstance;
+        (options: GotBodyOptions<null>): GotInstance;
     }
 
     type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;
