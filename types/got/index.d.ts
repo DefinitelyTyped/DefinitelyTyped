@@ -6,7 +6,7 @@
 //                 Stijn Van Nieuwenhuyse <https://github.com/stijnvn>
 //                 Matthew Bull <https://github.com/wingsbob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node"/>
 
@@ -95,12 +95,12 @@ declare namespace got {
 
     interface GotFormFn<T extends string | null> {
         (url: GotUrl): GotPromise<any>;
-        (url: GotUrl, options: GotFormOptions<T>): GotPromise<string>;
+        (url: GotUrl, options: GotFormOptions<T>): GotPromise<T extends null ? Buffer : string>;
     }
 
     interface GotBodyFn<T extends string | null> {
         (url: GotUrl): GotPromise<any>;
-        (url: GotUrl, options: GotBodyOptions<T>): GotPromise<string>;
+        (url: GotUrl, options: GotBodyOptions<T>): GotPromise<T extends null ? Buffer : string>;
     }
 
     type GotInstance<T = GotFn> = T &
