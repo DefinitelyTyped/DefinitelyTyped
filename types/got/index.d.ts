@@ -92,6 +92,16 @@ declare namespace got {
         (url: GotUrl, options: GotJSONOptions): GotPromise<any>;
     }
 
+    interface GotFormFn<T extends string | null> {
+        (url: GotUrl): GotPromise<any>;
+        (url: GotUrl, options: GotFormOptions<T>): GotPromise<string>;
+    }
+
+    interface GotBodyFn<T extends string | null> {
+        (url: GotUrl): GotPromise<any>;
+        (url: GotUrl, options: GotBodyOptions<T>): GotPromise<string>;
+    }
+
     type GotInstance<T = GotFn> = T &
         Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', T> &
     {
@@ -108,11 +118,12 @@ declare namespace got {
     };
 
     interface GotExtend {
+        (options: GotOptions<string | null>): GotInstance;
         (options: GotJSONOptions): GotInstance<GotJSONFn>;
-        (options: GotFormOptions<string>): GotInstance;
-        (options: GotBodyOptions<string>): GotInstance;
-        (options: GotFormOptions<null>): GotInstance;
-        (options: GotBodyOptions<null>): GotInstance;
+        (options: GotFormOptions<string>): GotInstance<GotFormFn<string>>;
+        (options: GotFormOptions<null>): GotInstance<GotFormFn<null>>;
+        (options: GotBodyOptions<string>): GotInstance<GotBodyFn<string>>;
+        (options: GotBodyOptions<null>): GotInstance<GotBodyFn<null>>;
     }
 
     type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;
