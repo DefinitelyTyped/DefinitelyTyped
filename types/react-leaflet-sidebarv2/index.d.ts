@@ -37,6 +37,6 @@ interface SidebarProps {
   children: TabType;
 }
 
-declare class Sidebar extends React.Component<SidebarProps, any>{}
+declare class Sidebar extends React.Component<SidebarProps, any> {}
 
 export { Tab, Sidebar };
