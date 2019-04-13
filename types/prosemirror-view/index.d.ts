@@ -79,6 +79,7 @@ export class Decoration {
     pos: number,
     toDOM: ((view: EditorView, getPos: () => number) => Node) | Node,
     spec?: {
+      [key: string]: any;
       side?: number | null;
       marks?: Mark[] | null;
       stopEvent?: ((event: Event) => boolean) | null;

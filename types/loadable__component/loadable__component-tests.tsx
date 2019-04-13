@@ -36,8 +36,14 @@ function importLibLoader() {
     // Should allow passing JSX element to fallback in options
     loadable(defaultImportComponentLoader, { fallback: <div>loading...</div> });
 
+    // Should allow passing boolean to `ssr` in options
+    loadable(defaultImportComponentLoader, { ssr: true });
+
     // Should allow passing `fallback` prop to loadable component
     <LoadableComponent foo="test" fallback={<div>loading...</div>} />;
+
+    // Should allow preloading
+    LoadableComponent.preload();
 }
 
 // lazy
@@ -52,6 +58,9 @@ function importLibLoader() {
 
     // Should allow passing fallback prop
     <LazyComponent foo="test" fallback={<div>loading...</div>} />;
+
+    // Should allow preloading
+    LazyComponent.preload();
 }
 
 // loadable.lib
@@ -71,6 +80,9 @@ function importLibLoader() {
     // Should allow passing fallback JSX element
     loadable.lib(importLibLoader, { fallback: <div>loading lib...</div> });
 
+    // Should allow passing boolean to `ssr` in options
+    loadable.lib(defaultImportComponentLoader, { ssr: true });
+
     // Should allow passing fallback prop
     <LoadableLibrary fallback={<div>Loading library...</div>}>
         {({ getTestObj }) => getTestObj().foo}
@@ -80,6 +92,9 @@ function importLibLoader() {
     const ref = React.createRef<typeof LoadableLibrary>();
     <LoadableLibrary ref={ref} />;
     ref.current!.getTestObj().foo;
+
+    // Should allow preloading
+    LoadableLibrary.preload();
 }
 
 // lazy.lib
@@ -105,6 +120,9 @@ function importLibLoader() {
     const ref = React.createRef<typeof LazyLibrary>();
     <LazyLibrary ref={ref} />;
     ref.current!.getTestObj().foo;
+
+    // Should allow preloading
+    LazyDefaultLibrary.preload();
 }
 
 // loadableReady

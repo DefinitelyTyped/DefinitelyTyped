@@ -10,6 +10,7 @@ import {
     SpaceProps,
     WidthProps,
     ColorProps,
+    TextColorProps,
     DisplayProps,
     FontSizeProps,
     FontFamilyProps,
@@ -43,6 +44,8 @@ import {
     alignContent,
     justifyContent,
     JustifyContentProps,
+    justifyItems,
+    JustifyItemsProps,
     FlexWrapProps,
     flexWrap,
     flexBasis,
@@ -124,7 +127,8 @@ import {
     VerticalAlignProps,
     verticalAlign,
     px,
-    createMediaQuery
+    createMediaQuery,
+    styles
 } from "styled-system";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
@@ -160,9 +164,7 @@ interface BoxProps
         FlexProps,
         JustifySelfProps,
         AlignSelfProps,
-        BorderProps,
         BordersProps,
-        BorderRadiusProps,
         PositionProps,
         ZIndexProps,
         TopProps,
@@ -199,13 +201,7 @@ const Box: React.ComponentType<BoxProps> = styled`
   ${flex}
   ${justifySelf}
   ${alignSelf}
-  ${border}
   ${borders}
-  ${borderTop}
-  ${borderRight}
-  ${borderBottom}
-  ${borderLeft}
-  ${borderRadius}
   ${position}
   ${zIndex}
   ${top}
@@ -253,7 +249,8 @@ interface FlexComponentProps
         JustifyContentProps,
         FlexWrapProps,
         FlexBasisProps,
-        FlexDirectionProps {}
+        FlexDirectionProps,
+        JustifyItemsProps {}
 const Flex: React.ComponentType<FlexComponentProps> = styled`
     ${alignItems};
     ${alignContent};
@@ -261,6 +258,7 @@ const Flex: React.ComponentType<FlexComponentProps> = styled`
     ${flexWrap};
     ${flexBasis};
     ${flexDirection};
+    ${justifyItems};
 `;
 
 interface GridComponentProps
@@ -289,11 +287,13 @@ const Grid: React.ComponentType<GridComponentProps> = styled`
 
 interface ButtonProps
     extends SpaceProps,
-        ButtonStyleProps {}
+        ButtonStyleProps,
+        TextColorProps {}
 
 const TestButton: React.ComponentType<ButtonProps> = styled`
     ${buttonStyle}
     ${space}
+    ${styles.textColor}
 `;
 
 const test = () => (
@@ -320,8 +320,30 @@ const test = () => (
         <Box fontSize={{ sm: 2, md: 3, lg: 4 }} />
         // responsive margin
         <Box m={[1, 2, 3]} />
+        <Box ml={[1, 2, 3]} />
+        <Box mr={[1, 2, 3]} />
+        <Box mt={[1, 2, 3]} />
+        <Box mb={[1, 2, 3]} />
+        <Box mx={[1, 2, 3]} />
+        <Box my={[1, 2, 3]} />
+        <Box margin={[1, 2, 3]} />
+        <Box marginLeft={[1, 2, 3]} />
+        <Box marginRight={[1, 2, 3]} />
+        <Box marginTop={[1, 2, 3]} />
+        <Box marginBottom={[1, 2, 3]} />
         // responsive padding
         <Box p={[1, 2, 3]} />
+        <Box pl={[1, 2, 3]} />
+        <Box pr={[1, 2, 3]} />
+        <Box pt={[1, 2, 3]} />
+        <Box pb={[1, 2, 3]} />
+        <Box px={[1, 2, 3]} />
+        <Box py={[1, 2, 3]} />
+        <Box padding={[1, 2, 3]} />
+        <Box paddingLeft={[1, 2, 3]} />
+        <Box paddingRight={[1, 2, 3]} />
+        <Box paddingTop={[1, 2, 3]} />
+        <Box paddingBottom={[1, 2, 3]} />
         <Box p={{ sm: 1, md: 2, lg: 3 }} />
         // examples (margin prop) // sets margin value of `theme.space[2]`
         <Box m={2} />
@@ -427,6 +449,10 @@ const test = () => (
         <Flex flexDirection="column" />
         <Flex flexDirection={["column"]} />
         <Flex flexDirection={{ sm: "column" }} />
+        // justifyItems
+        <Flex justifyItems="baseline" />
+        <Flex justifyItems={["baseline", "center"]} />
+        <Flex justifyItems={{ sm: "baseline", md: "center" }} />
         // gridGap
         <Grid gridGap="1px" />
         <Grid gridGap={["1", "2"]} />
@@ -515,6 +541,6 @@ const test = () => (
         // verticalAlign
         <Box verticalAlign="middle" />
 
-        <TestButton variant="primary" m={2} />
+        <TestButton variant="primary" m={2} color="tomato" />
     </div>
 );

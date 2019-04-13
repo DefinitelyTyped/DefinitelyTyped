@@ -98,7 +98,7 @@ export interface ApplyPatchOptions {
     ) => boolean;
 }
 
-export interface ApplyPatchesOptions {
+export interface ApplyPatchesOptions extends ApplyPatchOptions {
     loadFile(index: ParsedDiff, callback: (err: any, data: string) => void): void;
     patched(index: ParsedDiff, content: string, callback: (err: any) => void): void;
     complete(err: any): void;
@@ -142,6 +142,7 @@ export interface Hunk {
     newStart: number;
     newLines: number;
     lines: string[];
+    linedelimiters: string[];
 }
 
 export interface BestPath {

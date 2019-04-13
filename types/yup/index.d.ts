@@ -26,6 +26,7 @@ export function addMethod<T extends Schema<any>>(
 export function ref(path: string, options?: { contextPrefix: string }): Ref;
 export function lazy<T>(fn: (value: T) => Schema<T>): Lazy;
 export function setLocale(customLocale: LocaleObject): void;
+export function isSchema(obj: any): obj is Schema<any>;
 
 export const mixed: MixedSchemaConstructor;
 export const string: StringSchemaConstructor;
@@ -69,7 +70,7 @@ export interface Schema<T> {
     withMutation(fn: (current: this) => void): void;
     default(value: any): this;
     default(): T;
-    nullable(isNullable: boolean): this;
+    nullable(isNullable?: boolean): this;
     required(message?: TestOptionsMessage): this;
     notRequired(): this;
     typeError(message?: TestOptionsMessage): this;
@@ -105,6 +106,7 @@ export interface StringSchemaConstructor {
 }
 
 export interface StringSchema extends Schema<string> {
+    length(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
     min(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
     max(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
     matches(
@@ -227,7 +229,7 @@ export interface TestContext {
     parent: any;
     schema: Schema<any>;
     resolve: (value: any) => any;
-    createError: (params: { path: string; message: string }) => ValidationError;
+    createError: (params?: { path?: string; message?: string }) => ValidationError;
 }
 
 export interface ValidateOptions {
@@ -294,7 +296,7 @@ export interface SchemaDescription {
     type: string;
     label: string;
     meta: object;
-    tests: string[];
+    tests: Array<{ name: string, params: object }>;
     fields: object;
 }
 

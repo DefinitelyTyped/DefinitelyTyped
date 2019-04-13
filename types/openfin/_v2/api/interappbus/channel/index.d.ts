@@ -26,6 +26,7 @@ export declare class Channel extends EmitterBase<ChannelEvents> {
     onChannelDisconnect(listener: (...args: any[]) => void): Promise<void>;
     connect(channelName: string, options?: ConnectOptions): Promise<ChannelClient>;
     create(channelName: string): Promise<ChannelProvider>;
+    protected removeChannelFromMap(mapKey: string): void;
     onmessage: (msg: ChannelMessage) => boolean;
     private processChannelMessage;
     private processChannelConnection;

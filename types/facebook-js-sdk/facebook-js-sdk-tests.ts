@@ -48,6 +48,10 @@ FB.logout(function(response: fb.StatusResponse) {
     console.log(response.authResponse.accessToken);
 });
 
+FB.login({ auth_type: 'reauthenticate' });
+FB.login({ auth_type: 'reauthorize' });
+FB.login({ auth_type: 'rerequest' });
+
 FB.logout();
 
 /**

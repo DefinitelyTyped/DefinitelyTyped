@@ -21,6 +21,7 @@ import {
     BackAndroid,
     BackHandler,
     Button,
+    CheckBox,
     ColorPropType,
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
@@ -85,6 +86,7 @@ import {
     DatePickerAndroid,
     ViewPropTypes,
     requireNativeComponent,
+    Keyboard,
 } from "react-native";
 
 declare module "react-native" {
@@ -176,10 +178,14 @@ const textStyle: StyleProp<TextStyle> = {
 const imageStyle: StyleProp<ImageStyle> = {
     resizeMode: "contain",
 };
+const fontVariantStyle: StyleProp<TextStyle> = {
+    fontVariant: ['tabular-nums']
+}
 
 const viewProperty = StyleSheet.flatten(viewStyle).backgroundColor;
 const textProperty = StyleSheet.flatten(textStyle).fontSize;
 const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
+const fontVariantProperty = StyleSheet.flatten(fontVariantStyle).fontVariant;
 
 const s = StyleSheet.create({
     shouldWork: {
@@ -332,6 +338,14 @@ InteractionManager.runAfterInteractions(() => {
 }).then(() => "done");
 
 export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
+    list: FlatList<any> | null = null;
+
+    componentDidMount(): void {
+        if (this.list) {
+            this.list.flashScrollIndicators();
+        }
+    }
+
     _renderItem = (rowData: any) => {
         return (
             <View>
@@ -345,6 +359,7 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
     render() {
         return (
             <FlatList
+                ref={list => (this.list = list)}
                 data={[1, 2, 3, 4, 5]}
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
@@ -444,6 +459,9 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             nestedScrollEnabled={true}
                             invertStickyHeaders={true}
                             contentOffset={{ x: 0, y: 0 }}
+                            snapToStart={false}
+                            snapToEnd={false}
+                            snapToOffsets={[100, 300, 500]}
                             {...props}
                             style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
                         />
@@ -520,6 +538,16 @@ class MaskedViewTest extends React.Component {
         );
     }
 }
+
+const CheckboxTest = () => (
+    <CheckBox
+        testID="testId"
+        disabled={false}
+        onChange={value => { console.log(value); }}
+        onValueChange={value => { console.log(value); }}
+        value={true}
+    />
+);
 
 class InputAccessoryViewTest extends React.Component {
     render() {
@@ -635,7 +663,7 @@ class TextInputTest extends React.Component<{}, { username: string }> {
 
                 <TextInput multiline onContentSizeChange={this.handleOnContentSizeChange} />
 
-                <TextInput contextMenuHidden={true} />
+                <TextInput contextMenuHidden={true} textAlignVertical="top"/>
             </View>
         );
     }
@@ -821,6 +849,8 @@ const NativeIDTest = () => (
     </ScrollView>
 );
 
+const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;
+
 const ShareTest = () => {
     Share.share(
         { title: "title", message: "message" },
@@ -834,3 +864,8 @@ const ShareTest = () => {
         }
     });
 };
+
+const KeyboardTest = () => {
+    const subscriber = Keyboard.addListener("keyboardDidHide", (event) => {event});
+    subscriber.remove();
+}

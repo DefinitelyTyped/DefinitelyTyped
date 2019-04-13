@@ -148,6 +148,14 @@ export interface ModalProps {
     style?: StyleProp<ViewStyle>;
 
     /**
+     * Enables the hardware acceleration to animate the modal. Please note that enabling this can cause some flashes in a weird way when animating
+     *
+     * Default is true
+     *
+     */
+    useNativeDriver?: boolean;
+
+    /**
      * Event fired when the modal is closed and the animation is complete
      *
      */

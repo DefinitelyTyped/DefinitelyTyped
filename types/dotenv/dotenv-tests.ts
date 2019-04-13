@@ -3,7 +3,7 @@ import dotenv = require("dotenv");
 const env = dotenv.config();
 const dbUrl: string | null = env.error || !env.parsed ? null : env.parsed["BASIC"];
 
-dotenv.load({
+dotenv.config({
   path: ".env-example",
   encoding: "utf8",
   debug: true

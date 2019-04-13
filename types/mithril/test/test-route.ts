@@ -125,4 +125,18 @@ route.set('/test2', undefined, {
 
 const path: string = route.get();
 
-const fn = route.link(h('div', 'test'));
+const fn1: (e?: Event) => any = route.link(h('div', 'test'));
+
+const fn2: (v: Vnode<any, any>) => any = route.link({
+    replace: true,
+	state: {abc: 123},
+	title: "Title"
+});
+
+const ex1 = h('a', {href: '/url', oncreate: route.link});
+
+const ex2 = h('a', {href: '/url', oncreate: route.link({
+    replace: true,
+	state: {abc: 123},
+	title: "Title"
+})});

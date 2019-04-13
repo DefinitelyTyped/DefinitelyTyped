@@ -1,5 +1,5 @@
 // Type definitions for hello.js 1.16
-// Project: http://adodson.com/hello.js/
+// Project: https://adodson.com/hello.js
 // Definitions by: Pavel Zika <https://github.com/PavelPZ>
 //                 Mikko Vuorinen <https://github.com/vuorinem>
 //                 Vincent Biret <https://github.com/baywet>

@@ -6,7 +6,6 @@ import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';
 import * as url from 'url';
-import QuickLRU = require('quick-lru');
 import tough = require('tough-cookie');
 
 let str: string;
@@ -250,10 +249,6 @@ got('todomvc', {
 
 got('todomvc', {
     cache: new Keyv(),
-}).then(res => res.fromCache);
-
-got('todomvc', {
-    cache: new QuickLRU({maxSize: 10}),
 }).then(res => res.fromCache);
 
 got(new url.URL('http://todomvc.com'));

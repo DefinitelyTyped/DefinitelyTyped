@@ -485,3 +485,53 @@ new Chartist.Candle('.ct-chart', {
         }
     }
 });
+
+
+// Create a simple bar chart and line chart with two dimensional arrays
+new Chartist.Bar('.ct-chart', {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    series: [
+        [
+            {value: 1},
+            {value: 2},
+            {value: 3},
+            {value: 4},
+            {value: 5},
+            {value: 6},
+            {value: 7}
+        ],
+        [
+            {value: 7},
+            {value: 6},
+            {value: 5},
+            {value: 4},
+            {value: 3},
+            {value: 2},
+            {value: 1}
+        ]
+    ]
+}, {})
+
+new Chartist.Line('.ct-chart', {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    series: [
+        [
+            {value: 1},
+            {value: 2},
+            {value: 3},
+            {value: 4},
+            {value: 5},
+            {value: 6},
+            {value: 7}
+        ],
+        [
+            {value: 7},
+            {value: 6},
+            {value: 5},
+            {value: 4},
+            {value: 3},
+            {value: 2},
+            {value: 1}
+        ]
+    ]
+}, {})

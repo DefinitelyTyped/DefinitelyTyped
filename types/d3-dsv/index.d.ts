@@ -1,5 +1,5 @@
 // Type definitions for D3JS d3-dsv module 1.0
-// Project: https://github.com/d3/d3-dsv/
+// Project: https://github.com/d3/d3-dsv/, https://d3js.org/d3-dsv
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>

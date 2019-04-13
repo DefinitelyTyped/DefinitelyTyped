@@ -21,6 +21,7 @@ declare namespace RNModalDropdown {
         defaultValue?: string;
         options?: any[];
         animated?: boolean;
+        scrollEnabled?: boolean;
         showsVerticalScrollIndicator?: boolean;
         style?: any;
         textStyle?: any;

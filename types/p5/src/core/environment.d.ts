@@ -30,11 +30,17 @@ declare module "../../index" {
      *   recommended size is 16x16 or 32x32 pixels. The
      *   values for parameters x and y must be less than
      *   the dimensions of the image.
-     *   @param type either ARROW, CROSS, HAND, MOVE, TEXT,
-     *   or WAIT, or path for image
+     *   @param type Built-In: either ARROW, CROSS, HAND,
+     *   MOVE, TEXT and WAIT Native CSS properties: 'grab',
+     *   'progress', 'cell' etc. External: path for
+     *   cursor's images (Allowed File extensions: .cur,
+     *   .gif, .jpg, .jpeg, .png) For more information on
+     *   Native CSS cursors and url visit:
+     *   https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
      *   @param [x] the horizontal active spot of the
-     *   cursor
+     *   cursor (must be less than 32)
      *   @param [y] the vertical active spot of the cursor
+     *   (must be less than 32)
      */
     cursor(
       type:

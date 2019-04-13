@@ -31,7 +31,7 @@ declare namespace Modal {
         onEscapeKeyUp?: (node: HTMLElement) => any;
         onShow?: (node: HTMLElement) => any;
         show?: boolean;
-        transition?: React.ReactElement<any>;
+        transition?: React.ReactElement;
     }
 }
 declare class Modal extends React.Component<Modal.ModalProps> {

@@ -29,6 +29,7 @@ const opts = {
     min: 2,
     maxWaitingClients: 2,
     testOnBorrow: true,
+    testOnReturn: true,
     acquireTimeoutMillis: 100,
     fifo: true,
     priorityRange: 5,

@@ -12,7 +12,10 @@ declare module "../../index" {
      *   @param x x-position
      *   @param y y-position
      *   @param [fontSize] font size to use (optional)
+     *   Default is 12.
      *   @param [options] opentype options (optional)
+     *   opentype fonts contains alignment and baseline
+     *   options. Default is 'LEFT' and 'alphabetic'
      *   @return a rectangle object with properties: x, y,
      *   w, h
      */

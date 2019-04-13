@@ -64,7 +64,7 @@ export interface LightboxProps {
     /**
      * Spinner component.
      */
-    spinner?: () => React.ReactElement<any>;
+    spinner?: () => React.ReactElement;
 
     /**
      *  Color of spinner. Default value: 'white'

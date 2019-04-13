@@ -294,7 +294,7 @@ Sparse matrices examples
 */
 {
 	// create a sparse matrix
-	const a = math.eye(1000, 1000, 'sparse');
+	const a = math.identity(1000, 1000, 'sparse');
 
 	// do operations with a sparse matrix
 	const b = math.multiply(a, a);

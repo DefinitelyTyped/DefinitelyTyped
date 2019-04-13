@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-01-23
+// Type definitions for Google Apps Script 2019-04-09
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -48,6 +48,35 @@ declare namespace GoogleAppsScript {
      * applied to different cells based on the banding settings.
      */
     export enum BandingTheme { LIGHT_GREY, CYAN, GREEN, YELLOW, ORANGE, BLUE, TEAL, GREY, BROWN, LIGHT_GREEN, INDIGO, PINK }
+
+    /**
+     * Access the existing BigQuery data source specification. To create a new data source
+     * specification, use SpreadsheetApp.newDataSourceSpec().
+     */
+    export interface BigQueryDataSourceSpec {
+      copy(): DataSourceSpecBuilder;
+      getParameters(): DataSourceParameter[];
+      getProjectId(): string;
+      getRawQuery(): string;
+      getType(): DataSourceType;
+    }
+
+    /**
+     * The builder for BigQueryDataSourceSpecBuilder.
+     */
+    export interface BigQueryDataSourceSpecBuilder {
+      build(): DataSourceSpec;
+      copy(): DataSourceSpecBuilder;
+      getParameters(): DataSourceParameter[];
+      getProjectId(): string;
+      getRawQuery(): string;
+      getType(): DataSourceType;
+      removeAllParameters(): BigQueryDataSourceSpecBuilder;
+      removeParameter(parameterName: string): BigQueryDataSourceSpecBuilder;
+      setParameterFromCell(parameterName: string, sourceCell: string): BigQueryDataSourceSpecBuilder;
+      setProjectId(projectId: string): BigQueryDataSourceSpecBuilder;
+      setRawQuery(rawQuery: string): BigQueryDataSourceSpecBuilder;
+    }
 
     /**
      * Access boolean conditions in ConditionalFormatRules. Each
@@ -168,6 +197,154 @@ declare namespace GoogleAppsScript {
     export enum CopyPasteType { PASTE_NORMAL, PASTE_NO_BORDERS, PASTE_FORMAT, PASTE_FORMULA, PASTE_DATA_VALIDATION, PASTE_VALUES, PASTE_CONDITIONAL_FORMATTING, PASTE_COLUMN_WIDTHS }
 
     /**
+     * An enumeration of data execution error codes.
+     */
+    export enum DataExecutionErrorCode { DATA_EXECUTION_ERROR_CODE_UNSUPPORTED, NONE, TIME_OUT, TOO_MANY_ROWS, TOO_MANY_CELLS, ENGINE, PARAMETER_INVALID, UNSUPPORTED_DATA_TYPE, DUPLICATE_COLUMN_NAMES, INTERRUPTED, OTHER, TOO_MANY_CHARS_PER_CELL }
+
+    /**
+     * An enumeration of data execution states.
+     */
+    export enum DataExecutionState { DATA_EXECUTION_STATE_UNSUPPORTED, RUNNING, SUCCESS, ERROR, NOT_STARTED }
+
+    /**
+     * The data execution status.
+     */
+    export interface DataExecutionStatus {
+      getErrorCode(): DataExecutionErrorCode;
+      getErrorMessage(): string;
+      getExecutionState(): DataExecutionState;
+      getLastRefreshedTime(): Date;
+      isTruncated(): boolean;
+    }
+
+    /**
+     * Access and modify existing data source. To create a data source table with new data source, see
+     * DataSourceTable.
+     */
+    export interface DataSource {
+      getSpec(): DataSourceSpec;
+      updateSpec(spec: DataSourceSpec): DataSource;
+    }
+
+    /**
+     * Access existing data source parameters.
+     */
+    export interface DataSourceParameter {
+      getName(): string;
+      getSourceCell(): string;
+      getType(): DataSourceParameterType;
+    }
+
+    /**
+     * An enumeration of data source parameter types.
+     */
+    export enum DataSourceParameterType { DATA_SOURCE_PARAMETER_TYPE_UNSUPPORTED, CELL }
+
+    /**
+     * Access the general settings of an existing data source spec. To access data source spec for
+     * certain type, use as...() method. To create a new data source spec, use SpreadsheetApp.newDataSourceSpec().
+     *
+     * This example shows how to get information from a BigQuery data source spec.
+     *
+     *     var dataSourceTable =
+     *         SpreadsheetApp.getActive().getSheetByName("Data Sheet 1").getDataSourceTables()[0];
+     *     var spec = dataSourceTable.getDataSource().getSpec();
+     *     if (spec.getType() == SpreadsheetApp.DataSourceType.BIGQUERY) {
+     *       var bqSpec = spec.asBigQuery();
+     *       Logger.log("Project ID: %s\n", bqSpec.getProjectId());
+     *       Logger.log("Raw query string: %s\n", bqSpec.getRawQuery());
+     *     }
+     */
+    export interface DataSourceSpec {
+      asBigQuery(): BigQueryDataSourceSpec;
+      copy(): DataSourceSpecBuilder;
+      getParameters(): DataSourceParameter[];
+      getType(): DataSourceType;
+    }
+
+    /**
+     * The builder for DataSourceSpec. To create a specification for certain type, use as...() method. To create a new builder, use SpreadsheetApp.newDataSourceSpec(). To use the specification, see DataSourceTable.
+     *
+     * This examples show how to build a BigQuery data source specification.
+     *
+     *     var spec = SpreadsheetApp.newDataSourceSpec()
+     *                .asBigQuery()
+     *                .setProjectId('big_query_project')
+     *                .setRawQuery('select @FIELD from table limit @LIMIT')
+     *                .setParameterFromCell('FIELD', 'Sheet1!A1')
+     *                .setParameterFromCell('LIMIT', 'namedRangeCell')
+     *                .build();
+     */
+    export interface DataSourceSpecBuilder {
+      asBigQuery(): BigQueryDataSourceSpecBuilder;
+      build(): DataSourceSpec;
+      copy(): DataSourceSpecBuilder;
+      getParameters(): DataSourceParameter[];
+      getType(): DataSourceType;
+      removeAllParameters(): DataSourceSpecBuilder;
+      removeParameter(parameterName: string): DataSourceSpecBuilder;
+      setParameterFromCell(parameterName: string, sourceCell: string): DataSourceSpecBuilder;
+    }
+
+    /**
+     * Access and modify existing data source table. To create a new data source table on a new sheet,
+     * use Spreadsheet.insertSheetWithDataSourceTable(spec).
+     *
+     * This example shows how to create a new data source table.
+     *
+     *     SpreadsheetApp.enableBigQueryExecution();
+     *     var spreadsheet = SpreadsheetApp.getActive();
+     *     var spec = SpreadsheetApp.newDataSourceSpec()
+     *                .asBigQuery()
+     *                .setProjectId('big_query_project')
+     *                .setRawQuery('select @FIELD from table limit @LIMIT')
+     *                .setParameterFromCell('FIELD', 'Sheet1!A1')
+     *                .setParameterFromCell('LIMIT', 'namedRangeCell')
+     *                .build();
+     *     // Starts data execution asynchronously.
+     *     var dataSheet = spreadsheet.insertSheetWithDataSourceTable(spec);
+     *     var dataSourceTable = dataSheet.getDataSourceTables()[0];
+     *     // waitForCompletion() blocks script execution until data execution completes.
+     *     dataSourceTable.waitForCompletion(60);
+     *     // Check status after execution.
+     *     Logger.log("Data execution state: %s.", dataSourceTable.getStatus().getExecutionState());
+     *
+     * This example shows how to edit a data source.
+     *
+     *     SpreadsheetApp.enableBigQueryExecution();
+     *     var dataSheet = SpreadsheetApp.getActive().getSheetByName("Data Sheet 1");
+     *     var dataSourceTable = dataSheet.getDataSourceTables()[0];
+     *     var dataSource = dataSourceTable.getDataSource();
+     *     var newSpec = dataSource.getSpec()
+     *                   .copy()
+     *                   .asBigQuery()
+     *                   .setRawQuery('select name from table limit 2')
+     *                   .removeAllParameters()
+     *                   .build();
+     *     // Updates data source specification and starts data execution asynchronously.
+     *     dataSource.updateSpec(newSpec);
+     *     // Check status during execution.
+     *     Logger.log("Data execution state: %s.", dataSourceTable.getStatus().getExecutionState());
+     *     // waitForCompletion() blocks script execution until data execution completes.
+     *     dataSourceTable.waitForCompletion(60);
+     *     // Check status after execution.
+     *     Logger.log("Data execution state: %s.", dataSourceTable.getStatus().getExecutionState());
+     */
+    export interface DataSourceTable {
+      forceRefreshData(): DataSourceTable;
+      getDataSource(): DataSource;
+      getRange(): Range;
+      getStatus(): DataExecutionStatus;
+      refreshData(): DataSourceTable;
+      waitForCompletion(timeoutInSeconds: Integer): DataExecutionStatus;
+    }
+
+    /**
+     * An enumeration of data source types.
+     */
+    export enum DataSourceType { DATA_SOURCE_TYPE_UNSUPPORTED, BIGQUERY }
+
+    /**
      * Access data validation rules. To create a new rule, use SpreadsheetApp.newDataValidation() and DataValidationBuilder. You can use
      * Range.setDataValidation(rule) to set the validation rule for a range.
      *
@@ -206,6 +383,9 @@ declare namespace GoogleAppsScript {
       getCriteriaType(): DataValidationCriteria;
       getCriteriaValues(): Object[];
       getHelpText(): string;
+      requireCheckbox(): DataValidationBuilder;
+      requireCheckbox(checkedValue: Object): DataValidationBuilder;
+      requireCheckbox(checkedValue: Object, uncheckedValue: Object): DataValidationBuilder;
       requireDate(): DataValidationBuilder;
       requireDateAfter(date: Date): DataValidationBuilder;
       requireDateBefore(date: Date): DataValidationBuilder;
@@ -350,6 +530,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -396,6 +577,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -456,6 +638,7 @@ declare namespace GoogleAppsScript {
     export interface EmbeddedChart {
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
+      getChartId(): Integer;
       getContainerInfo(): ContainerInfo;
       getHiddenDimensionStrategy(): Charts.ChartHiddenDimensionStrategy;
       getId(): string;
@@ -496,6 +679,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -525,6 +709,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -569,6 +754,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -614,6 +800,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -659,6 +846,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -705,6 +893,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -742,6 +931,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -787,6 +977,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       enablePaging(enablePaging: boolean): EmbeddedTableChartBuilder;
       enablePaging(pageSize: Integer): EmbeddedTableChartBuilder;
       enablePaging(pageSize: Integer, startPage: Integer): EmbeddedTableChartBuilder;
@@ -1190,6 +1381,7 @@ declare namespace GoogleAppsScript {
       autoFillToNeighbor(series: AutoFillSeries): void;
       breakApart(): Range;
       canEdit(): boolean;
+      check(): Range;
       clear(): Range;
       clear(options: Object): Range;
       clearContent(): Range;
@@ -1207,6 +1399,7 @@ declare namespace GoogleAppsScript {
       createDeveloperMetadataFinder(): DeveloperMetadataFinder;
       createFilter(): Filter;
       createPivotTable(sourceData: Range): PivotTable;
+      createTextFinder(findText: string): TextFinder;
       deleteCells(shiftDimension: Dimension): void;
       expandGroups(): Range;
       getA1Notation(): string;
@@ -1215,6 +1408,9 @@ declare namespace GoogleAppsScript {
       getBandings(): Banding[];
       getCell(row: Integer, column: Integer): Range;
       getColumn(): Integer;
+      getDataRegion(): Range;
+      getDataRegion(dimension: Dimension): Range;
+      getDataSourceTables(): DataSourceTable[];
       getDataSourceUrl(): string;
       getDataTable(): Charts.DataTable;
       getDataTable(firstRowIsHeader: boolean): Charts.DataTable;
@@ -1275,7 +1471,11 @@ declare namespace GoogleAppsScript {
       getWrapStrategy(): WrapStrategy;
       getWraps(): boolean[][];
       insertCells(shiftDimension: Dimension): Range;
+      insertCheckboxes(): Range;
+      insertCheckboxes(checkedValue: Object): Range;
+      insertCheckboxes(checkedValue: Object, uncheckedValue: Object): Range;
       isBlank(): boolean;
+      isChecked(): boolean;
       isEndColumnBounded(): boolean;
       isEndRowBounded(): boolean;
       isPartOfMerge(): boolean;
@@ -1290,6 +1490,7 @@ declare namespace GoogleAppsScript {
       offset(rowOffset: Integer, columnOffset: Integer, numRows: Integer, numColumns: Integer): Range;
       protect(): Protection;
       randomize(): Range;
+      removeCheckboxes(): Range;
       setBackground(color: string): Range;
       setBackgroundRGB(red: Integer, green: Integer, blue: Integer): Range;
       setBackgrounds(color: string[][]): Range;
@@ -1344,6 +1545,7 @@ declare namespace GoogleAppsScript {
       splitTextToColumns(): void;
       splitTextToColumns(delimiter: string): void;
       splitTextToColumns(delimiter: TextToColumnsDelimiter): void;
+      uncheck(): Range;
     }
 
     /**
@@ -1353,6 +1555,7 @@ declare namespace GoogleAppsScript {
     export interface RangeList {
       activate(): RangeList;
       breakApart(): RangeList;
+      check(): RangeList;
       clear(): RangeList;
       clear(options: Object): RangeList;
       clearContent(): RangeList;
@@ -1360,6 +1563,10 @@ declare namespace GoogleAppsScript {
       clearFormat(): RangeList;
       clearNote(): RangeList;
       getRanges(): Range[];
+      insertCheckboxes(): RangeList;
+      insertCheckboxes(checkedValue: Object): RangeList;
+      insertCheckboxes(checkedValue: Object, uncheckedValue: Object): RangeList;
+      removeCheckboxes(): RangeList;
       setBackground(color: string): RangeList;
       setBackgroundRGB(red: Integer, green: Integer, blue: Integer): RangeList;
       setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean): RangeList;
@@ -1383,7 +1590,13 @@ declare namespace GoogleAppsScript {
       setVerticalText(isVertical: boolean): RangeList;
       setWrap(isWrapEnabled: boolean): RangeList;
       setWrapStrategy(strategy: WrapStrategy): RangeList;
+      uncheck(): RangeList;
     }
+
+    /**
+     * An enumeration representing the possible intervals used in spreadsheet recalculation.
+     */
+    export enum RecalculationInterval { ON_CHANGE, MINUTE, HOUR }
 
     /**
      * An enumeration representing the relative date options for calculating a value to be used in
@@ -1473,6 +1686,7 @@ declare namespace GoogleAppsScript {
       collapseAllRowGroups(): Sheet;
       copyTo(spreadsheet: Spreadsheet): Sheet;
       createDeveloperMetadataFinder(): DeveloperMetadataFinder;
+      createTextFinder(findText: string): TextFinder;
       deleteColumn(columnPosition: Integer): Sheet;
       deleteColumns(columnPosition: Integer, howMany: Integer): void;
       deleteRow(rowPosition: Integer): Sheet;
@@ -1493,6 +1707,7 @@ declare namespace GoogleAppsScript {
       getConditionalFormatRules(): ConditionalFormatRule[];
       getCurrentCell(): Range;
       getDataRange(): Range;
+      getDataSourceTables(): DataSourceTable[];
       getDeveloperMetadata(): DeveloperMetadata[];
       getFilter(): Filter;
       getFormUrl(): string;
@@ -1523,6 +1738,7 @@ declare namespace GoogleAppsScript {
       getSheetName(): string;
       getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): Object[][];
       getTabColor(): string;
+      getType(): SheetType;
       hasHiddenGridlines(): boolean;
       hideColumn(column: Range): void;
       hideColumns(columnIndex: Integer): void;
@@ -1591,6 +1807,11 @@ declare namespace GoogleAppsScript {
     }
 
     /**
+     * The different types of sheets that can exist in a spreadsheet.
+     */
+    export enum SheetType { GRID, OBJECT }
+
+    /**
      * Access and modify Google Sheets files. Common operations are adding new sheets and adding
      * collaborators.
      */
@@ -1610,6 +1831,7 @@ declare namespace GoogleAppsScript {
       autoResizeColumn(columnPosition: Integer): Sheet;
       copy(name: string): Spreadsheet;
       createDeveloperMetadataFinder(): DeveloperMetadataFinder;
+      createTextFinder(findText: string): TextFinder;
       deleteActiveSheet(): Sheet;
       deleteColumn(columnPosition: Integer): Sheet;
       deleteColumns(columnPosition: Integer, howMany: Integer): void;
@@ -1627,6 +1849,7 @@ declare namespace GoogleAppsScript {
       getColumnWidth(columnPosition: Integer): Integer;
       getCurrentCell(): Range;
       getDataRange(): Range;
+      getDataSourceTables(): DataSourceTable[];
       getDeveloperMetadata(): DeveloperMetadata[];
       getEditors(): Base.User[];
       getFormUrl(): string;
@@ -1634,8 +1857,10 @@ declare namespace GoogleAppsScript {
       getFrozenRows(): Integer;
       getId(): string;
       getImages(): OverGridImage[];
+      getIterativeCalculationConvergenceThreshold(): Number;
       getLastColumn(): Integer;
       getLastRow(): Integer;
+      getMaxIterativeCalculationCycles(): Integer;
       getName(): string;
       getNamedRanges(): NamedRange[];
       getNumSheets(): Integer;
@@ -1644,6 +1869,7 @@ declare namespace GoogleAppsScript {
       getRange(a1Notation: string): Range;
       getRangeByName(name: string): Range;
       getRangeList(a1Notations: string[]): RangeList;
+      getRecalculationInterval(): RecalculationInterval;
       getRowHeight(rowPosition: Integer): Integer;
       getSelection(): Selection;
       getSheetByName(name: string): Sheet;
@@ -1677,10 +1903,13 @@ declare namespace GoogleAppsScript {
       insertSheet(sheetName: string, sheetIndex: Integer): Sheet;
       insertSheet(sheetName: string, sheetIndex: Integer, options: Object): Sheet;
       insertSheet(sheetName: string, options: Object): Sheet;
+      insertSheetWithDataSourceTable(spec: DataSourceSpec): Sheet;
       isColumnHiddenByUser(columnPosition: Integer): boolean;
+      isIterativeCalculationEnabled(): boolean;
       isRowHiddenByFilter(rowPosition: Integer): boolean;
       isRowHiddenByUser(rowPosition: Integer): boolean;
       moveActiveSheet(pos: Integer): void;
+      moveChartToObjectSheet(chart: EmbeddedChart): Sheet;
       removeEditor(emailAddress: string): Spreadsheet;
       removeEditor(user: Base.User): Spreadsheet;
       removeMenu(name: string): void;
@@ -1699,7 +1928,11 @@ declare namespace GoogleAppsScript {
       setCurrentCell(cell: Range): Range;
       setFrozenColumns(columns: Integer): void;
       setFrozenRows(rows: Integer): void;
+      setIterativeCalculationConvergenceThreshold(minThreshold: Number): Spreadsheet;
+      setIterativeCalculationEnabled(isEnabled: boolean): Spreadsheet;
+      setMaxIterativeCalculationCycles(maxIterations: Integer): Spreadsheet;
       setNamedRange(name: string, range: Range): void;
+      setRecalculationInterval(recalculationInterval: RecalculationInterval): Spreadsheet;
       setRowHeight(rowPosition: Integer, height: Integer): Sheet;
       setSpreadsheetLocale(locale: string): void;
       setSpreadsheetTimeZone(timezone: string): void;
@@ -1728,6 +1961,10 @@ declare namespace GoogleAppsScript {
       BooleanCriteria: typeof BooleanCriteria;
       BorderStyle: typeof BorderStyle;
       CopyPasteType: typeof CopyPasteType;
+      DataExecutionErrorCode: typeof DataExecutionErrorCode;
+      DataExecutionState: typeof DataExecutionState;
+      DataSourceParameterType: typeof DataSourceParameterType;
+      DataSourceType: typeof DataSourceType;
       DataValidationCriteria: typeof DataValidationCriteria;
       DeveloperMetadataLocationType: typeof DeveloperMetadataLocationType;
       DeveloperMetadataVisibility: typeof DeveloperMetadataVisibility;
@@ -1738,12 +1975,16 @@ declare namespace GoogleAppsScript {
       PivotTableSummarizeFunction: typeof PivotTableSummarizeFunction;
       PivotValueDisplayType: typeof PivotValueDisplayType;
       ProtectionType: typeof ProtectionType;
+      RecalculationInterval: typeof RecalculationInterval;
       RelativeDate: typeof RelativeDate;
+      SheetType: typeof SheetType;
       TextDirection: typeof TextDirection;
       TextToColumnsDelimiter: typeof TextToColumnsDelimiter;
       WrapStrategy: typeof WrapStrategy;
       create(name: string): Spreadsheet;
       create(name: string, rows: Integer, columns: Integer): Spreadsheet;
+      enableAllDataSourcesExecution(): void;
+      enableBigQueryExecution(): void;
       flush(): void;
       getActive(): Spreadsheet;
       getActiveRange(): Range;
@@ -1754,6 +1995,7 @@ declare namespace GoogleAppsScript {
       getSelection(): Selection;
       getUi(): Base.Ui;
       newConditionalFormatRule(): ConditionalFormatRuleBuilder;
+      newDataSourceSpec(): DataSourceSpecBuilder;
       newDataValidation(): DataValidationBuilder;
       newFilterCriteria(): FilterCriteriaBuilder;
       newRichTextValue(): RichTextValueBuilder;
@@ -1773,6 +2015,24 @@ declare namespace GoogleAppsScript {
      * An enumerations of text directions.
      */
     export enum TextDirection { LEFT_TO_RIGHT, RIGHT_TO_LEFT }
+
+    /**
+     * Find or replace text within a range, sheet or spreadsheet. Can also specify search options.
+     */
+    export interface TextFinder {
+      findAll(): Range[];
+      findNext(): Range;
+      findPrevious(): Range;
+      getCurrentMatch(): Range;
+      ignoreDiacritics(ignoreDiacritics: boolean): TextFinder;
+      matchCase(matchCase: boolean): TextFinder;
+      matchEntireCell(matchEntireCell: boolean): TextFinder;
+      matchFormulaText(matchFormulaText: boolean): TextFinder;
+      replaceAllWith(replaceText: string): Integer;
+      replaceWith(replaceText: string): Integer;
+      startFrom(startRange: Range): TextFinder;
+      useRegularExpression(useRegEx: boolean): TextFinder;
+    }
 
     /**
      * Access the text rotation settings for a cell.

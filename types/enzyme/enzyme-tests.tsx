@@ -10,7 +10,7 @@ import {
     ShallowRendererProps,
     ComponentClass as EnzymeComponentClass
 } from "enzyme";
-import { Component, ReactElement, HTMLAttributes, ComponentClass, StatelessComponent } from "react";
+import { Component, ReactElement, ReactNode, HTMLAttributes, ComponentClass, StatelessComponent } from "react";
 
 // Help classes/interfaces
 interface MyComponentProps {
@@ -33,6 +33,10 @@ interface AnotherStatelessProps {
 
 interface MyComponentState {
     stateProperty: string;
+}
+
+interface MyRenderPropProps {
+    children: (params: string) => ReactNode;
 }
 
 function toComponentType<T>(Component: ComponentClass<T> | StatelessComponent<T>): ComponentClass<T> | StatelessComponent<T> {
@@ -59,6 +63,8 @@ class AnotherComponent extends Component<AnotherComponentProps> {
     }
 }
 
+class MyRenderPropComponent extends Component<MyRenderPropProps> {}
+
 const MyStatelessComponent = (props: StatelessProps) => <span />;
 
 const AnotherStatelessComponent = (props: AnotherStatelessProps) => <span />;
@@ -82,8 +88,8 @@ function ShallowWrapperTest() {
     let shallowWrapper: ShallowWrapper<MyComponentProps, MyComponentState> =
         shallow<MyComponentProps, MyComponentState>(<MyComponent stringProp="value" numberProp={1} />);
 
-    let reactElement: ReactElement<any>;
-    let reactElements: Array<ReactElement<any>>;
+    let reactElement: ReactElement;
+    let reactElements: ReactElement[];
     let domElement: Element;
     let boolVal: boolean;
     let stringVal: string;
@@ -477,6 +483,11 @@ function ShallowWrapperTest() {
         shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} />, undefined, { lifecycleExperimental: true });
         shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} />, shallowWrapper, { lifecycleExperimental: true });
     }
+
+    function test_renderProp() {
+        let shallowWrapper = new ShallowWrapper<MyRenderPropProps>(<MyRenderPropComponent children={(params) => <div className={params} />} />);
+        shallowWrapper = shallowWrapper.renderProp('children')('test');
+    }
 }
 
 // ReactWrapper
@@ -484,8 +495,8 @@ function ReactWrapperTest() {
     let reactWrapper: ReactWrapper<MyComponentProps, MyComponentState> =
         mount<MyComponentProps, MyComponentState>(<MyComponent stringProp="value" numberProp={1} />);
 
-    let reactElement: ReactElement<any>;
-    let reactElements: Array<ReactElement<any>>;
+    let reactElement: ReactElement;
+    let reactElements: ReactElement[];
     let domElement: Element;
     let boolVal: boolean;
     let stringVal: string;

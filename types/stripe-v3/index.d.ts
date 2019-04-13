@@ -1,4 +1,4 @@
-// Type definitions for stripe-v3 3.0
+// Type definitions for stripe-v3 3.1
 // Project: https://stripe.com/
 // Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>
 //                 Eric J. Smith <https://github.com/ejsmith>
@@ -7,6 +7,7 @@
 //                 Justin Leider <https://github.com/jleider>
 //                 Kamil Gałuszka <https://github.com/galuszkak>
 //                 Stefan Langeder <https://github.com/slangeder>
+//                 Marlos Borges <https://github.com/marlosin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -30,6 +31,7 @@ declare namespace stripe {
 
     interface StripeOptions {
       stripeAccount?: string;
+      betas?: string[];
     }
 
     interface TokenOptions {
@@ -56,15 +58,17 @@ declare namespace stripe {
         personal_id_number: string;
     }
 
+    interface OwnerAddress {
+        city?: string;
+        country?: string;
+        line1?: string;
+        line2?: string;
+        postal_code?: string;
+        state?: string;
+    }
+
     interface OwnerInfo {
-        address?: {
-            city?: string;
-            country?: string;
-            line1?: string;
-            line2?: string;
-            postal_code?: string;
-            state?: string;
-        };
+        address?: OwnerAddress;
         name?: string;
         email?: string;
         phone?: string;
@@ -114,7 +118,7 @@ declare namespace stripe {
         currency: string;
         id: string;
         owner: {
-            address: string | null;
+            address: OwnerAddress | null;
             email: string | null;
             name: string | null;
             phone: string | null;
@@ -313,7 +317,7 @@ declare namespace stripe {
             brand: string;
             complete: boolean;
             empty: boolean;
-            value?: { postalCode: string | number };
+            value?: { postalCode: string | number } | string;
             country?: string;
             bankName?: string;
             error?: Error;
@@ -324,7 +328,7 @@ declare namespace stripe {
             locale?: string;
         }
 
-        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban';
+        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban' | 'idealBank';
         interface Elements {
             create(type: elementsType, options?: ElementsOptions): Element;
         }
@@ -382,6 +386,7 @@ declare namespace stripe {
             fontSmoothing?: string;
             fontStyle?: string;
             fontVariant?: string;
+            fontWeight?: string | number;
             iconColor?: string;
             lineHeight?: string;
             letterSpacing?: string;

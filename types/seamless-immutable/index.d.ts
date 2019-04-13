@@ -80,7 +80,7 @@ declare namespace SeamlessImmutable {
             propertyPath: [ K, L, M, N ], updaterFunction: (value: T[K][L][M][N], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
         updateIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>(
             propertyPath: [ K, L, M, N, O ], updaterFunction: (value: T[K][L][M][N][O], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
-        updateIn<TValue>(propertyPath: string[], updaterFunction: (value: TValue, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
+        updateIn<TValue = any>(propertyPath: string[], updaterFunction: (value: TValue, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
 
         without<K extends keyof T>(property: K): Immutable<T>;
         without<K extends keyof T>(...properties: K[]): Immutable<T>;
@@ -105,7 +105,7 @@ declare namespace SeamlessImmutable {
             map<TTarget>(mapFuction: (item: T) => TTarget): Immutable<TTarget[]>;
             filter(filterFunction: (item: T) => boolean): Immutable<T[]>;
             slice(start?: number, end?: number): Immutable<T[]>;
-            concat(...arr: T[]): Immutable<T[]>;
+            concat(...arr: Array<T|T[]>): Immutable<T[]>;
             reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T): Immutable<T>;
             reduce<TTarget>(callbackfn: (previousValue: TTarget, currentValue: T, currentIndex: number, array: T[]) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
             reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T): Immutable<T>;

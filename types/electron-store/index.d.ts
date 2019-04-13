@@ -8,6 +8,8 @@
 
 /// <reference types="node" />
 
+import EventEmitter = require("events");
+
 type JSONValue = string | number | boolean | JSONObject | JSONArray;
 
 interface JSONObject {
@@ -79,12 +81,12 @@ declare class ElectronStore<T = {}> implements Iterable<[string, JSONValue]> {
      */
     onDidChange<K extends keyof T>(
         key: K,
-        callback: (newValue: T[K], oldValue: T[K]) => void
-    ): void;
+        callback: (newValue: T[K] | undefined, oldValue: T[K] | undefined) => void
+    ): () => EventEmitter;
     onDidChange(
         key: string,
-        callback: (newValue: JSONValue, oldValue: JSONValue) => void
-    ): void;
+        callback: (newValue: JSONValue | undefined, oldValue: JSONValue | undefined) => void
+    ): () => EventEmitter;
 
     /**
      * Get the item count.

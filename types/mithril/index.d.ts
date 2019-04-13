@@ -1,5 +1,5 @@
 // Type definitions for Mithril 1.1
-// Project: https://mithril.js.org/
+// Project: https://mithril.js.org/, https://github.com/mithriljs/mithril.js
 // Definitions by: Mike Linkovich <https://github.com/spacejack>, András Parditka <https://github.com/andraaspar>, Isiah Meadows <https://github.com/isiahmeadows>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -94,8 +94,9 @@ declare namespace Mithril {
 		set(route: string, data?: any, options?: RouteOptions): void;
 		/** Defines a router prefix which is a fragment of the URL that dictates the underlying strategy used by the router. */
 		prefix(urlFragment: string): void;
-		/** This method is meant to be used in conjunction with an <a> Vnode's oncreate hook. */
-		link(vnode: Vnode<any, any>): (e?: Event) => any;
+		/** This method is meant to be used in conjunction with an <a> Vnode's oncreate/onupdate hooks. */
+        link(vnode: Vnode<any, any>): (e?: Event) => any;
+        link(options: RouteOptions): (vnode: Vnode<any, any>) => (e?: Event) => any;
 		/** Returns the named parameter value from the current route. */
 		param(name: string): string;
 		/** Gets all route parameters. */

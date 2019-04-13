@@ -1,4 +1,4 @@
-// Type definitions for styled-system 3.1
+// Type definitions for styled-system 4.1
 // Project: https://github.com/jxnblk/styled-system#readme
 // Definitions by: Marshall Bowers <https://github.com/maxdeviant>
 //                 Ben McCormick <https://github.com/phobon>
@@ -9,6 +9,8 @@
 //                 Adam Lavin <https://github.com/lavoaster>
 //                 Joachim Schuler <https://github.com/jschuler>
 //                 Adam Misiorny <https://github.com/adam187>
+//                 Sara F-P <https://github.com/gretzky>
+//                 Chris LoPresto <https://github.com/chrislopresto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -41,13 +43,15 @@ export interface LowLevelStylefunctionArguments {
     scale?: Array<string | number>;
 }
 
-export function style(args: LowLevelStylefunctionArguments): {[cssProp: string]: string};
+export function style(
+    args: LowLevelStylefunctionArguments
+): { [cssProp: string]: string };
 
 export type TLengthStyledSystem = string | 0 | number;
 export type ResponsiveValue<T> = T | Array<T | null> | { [key: string]: T };
 
 /**
- * Converts shorthand margin and padding props to margin and padding CSS declarations
+ * Converts shorthand or longhand margin and padding props to margin and padding CSS declarations
  *
  * - Numbers from 0-4 (or the length of theme.space) are converted to values on the spacing scale.
  * - Negative values can be used for negative margins.
@@ -55,32 +59,51 @@ export type ResponsiveValue<T> = T | Array<T | null> | { [key: string]: T };
  * - String values are passed as raw CSS values.
  * - Array values are converted into responsive values.
  */
-
 export interface SpaceProps<TLength = TLengthStyledSystem> {
     /** Margin on top, left, bottom and right */
     m?: ResponsiveValue<CSS.MarginProperty<TLength>>;
+    /** Margin on top, left, bottom and right */
+    margin?: ResponsiveValue<CSS.MarginProperty<TLength>>;
     /** Margin for the top */
     mt?: ResponsiveValue<CSS.MarginTopProperty<TLength>>;
+    /** Margin for the top */
+    marginTop?: ResponsiveValue<CSS.MarginTopProperty<TLength>>;
     /** Margin for the right */
     mr?: ResponsiveValue<CSS.MarginRightProperty<TLength>>;
+    /** Margin for the right */
+    marginRight?: ResponsiveValue<CSS.MarginRightProperty<TLength>>;
     /** Margin for the bottom */
     mb?: ResponsiveValue<CSS.MarginBottomProperty<TLength>>;
+    /** Margin for the bottom */
+    marginBottom?: ResponsiveValue<CSS.MarginBottomProperty<TLength>>;
     /** Margin for the left */
     ml?: ResponsiveValue<CSS.MarginLeftProperty<TLength>>;
+    /** Margin for the left */
+    marginLeft?: ResponsiveValue<CSS.MarginLeftProperty<TLength>>;
     /** Margin for the left and right */
     mx?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
     /** Margin for the top and bottom */
     my?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
     /** Padding on top, left, bottom and right */
     p?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
+    /** Padding on top, left, bottom and right */
+    padding?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
     /** Padding for the top */
     pt?: ResponsiveValue<CSS.PaddingTopProperty<TLength>>;
+    /** Padding for the top */
+    paddingTop?: ResponsiveValue<CSS.PaddingTopProperty<TLength>>;
     /** Padding for the right */
     pr?: ResponsiveValue<CSS.PaddingRightProperty<TLength>>;
+    /** Padding for the right */
+    paddingRight?: ResponsiveValue<CSS.PaddingRightProperty<TLength>>;
     /** Padding for the bottom */
     pb?: ResponsiveValue<CSS.PaddingBottomProperty<TLength>>;
+    /** Padding for the bottom */
+    paddingBottom?: ResponsiveValue<CSS.PaddingBottomProperty<TLength>>;
     /** Padding for the left */
     pl?: ResponsiveValue<CSS.PaddingLeftProperty<TLength>>;
+    /** Padding for the left */
+    paddingLeft?: ResponsiveValue<CSS.PaddingLeftProperty<TLength>>;
     /** Padding for the left and right */
     px?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
     /** Padding for the top and bottom */
@@ -100,7 +123,7 @@ export function variant(props: VariantArgs): (...args: any[]) => any;
 export type ObjectOrArray<T> = T[] | { [K: string]: T };
 
 export interface BaseTheme {
-    breakpoints?: number[];
+    breakpoints?: string[] | number[] | object;
     colors?: ObjectOrArray<CSS.ColorProperty>;
     fontSizes?: number[];
     space?: number[];
@@ -357,6 +380,12 @@ export interface SizeProps extends SizeHeightProps, SizeWidthProps {}
 
 export function size(...args: any[]): any;
 
+export interface RatioPaddingProps<TLength = TLengthStyledSystem> {
+    ratio?: ResponsiveValue<number>;
+}
+
+export function ratioPadding(...args: any[]): any;
+
 export interface RatioProps {
     /**
      * The ration is height: 0 & paddingBottom
@@ -417,6 +446,8 @@ export interface JustifyItemsProps {
      */
     justifyItems?: ResponsiveValue<CSS.JustifyItemsProperty>;
 }
+
+export function justifyItems(...args: any[]): any;
 
 export interface JustifyContentProps {
     /**
@@ -730,13 +761,27 @@ export interface BorderLeftProps<TLength = TLengthStyledSystem> {
 
 export function borderLeft(...args: any[]): any;
 
-export interface BordersProps
-    extends BorderTopProps,
-        BorderRightProps,
-        BorderBottomProps,
-        BorderLeftProps {}
+export interface BorderWidthProps<TLength = TLengthStyledSystem> {
+    /**
+     * The border-width shorthand CSS property sets the width of all sides of an element's border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width)
+     */
+    borderWidth?: ResponsiveValue<CSS.BorderWidthProperty<TLength>>;
+}
 
-export function borders(...args: any[]): any;
+export function borderWidth(...args: any[]): any;
+
+export interface BorderStyleProps {
+    /**
+     * The border-style shorthand CSS property sets the style of all sides of an element's border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style)
+     */
+    borderStyle?: ResponsiveValue<CSS.BorderStyleProperty>;
+}
+
+export function borderStyle(...args: any[]): any;
 
 export interface BorderColorProps {
     /**
@@ -760,6 +805,19 @@ export interface BorderRadiusProps<TLength = TLengthStyledSystem> {
 }
 
 export function borderRadius(...args: any[]): any;
+
+export interface BordersProps
+    extends BorderProps,
+        BorderTopProps,
+        BorderRightProps,
+        BorderBottomProps,
+        BorderLeftProps,
+        BorderWidthProps,
+        BorderColorProps,
+        BorderStyleProps,
+        BorderRadiusProps {}
+
+export function borders(...args: any[]): any;
 
 export interface BoxShadowProps {
     /**
@@ -963,3 +1021,80 @@ export interface MixedProps {
 }
 
 export function mixed(...args: any[]): any;
+
+export interface StylesProps {
+    space: typeof space;
+    width: typeof width;
+    fontSize: typeof fontSize;
+    textColor: typeof textColor;
+    bgColor: typeof bgColor;
+    color: typeof color;
+    fontFamily: typeof fontFamily;
+    textAlign: typeof textAlign;
+    lineHeight: typeof lineHeight;
+    fontWeight: typeof fontWeight;
+    fontStyle: typeof fontStyle;
+    letterSpacing: typeof letterSpacing;
+    display: typeof display;
+    maxWidth: typeof maxWidth;
+    minWidth: typeof minWidth;
+    height: typeof height;
+    maxHeight: typeof maxHeight;
+    minHeight: typeof minHeight;
+    sizeWidth: typeof sizeWidth;
+    sizeHeight: typeof sizeHeight;
+    size: typeof size;
+    ratioPadding: typeof ratioPadding;
+    ratio: typeof ratio;
+    verticalAlign: typeof verticalAlign;
+    alignItems: typeof alignItems;
+    alignContent: typeof alignContent;
+    justifyItems: typeof justifyItems;
+    justifyContent: typeof justifyContent;
+    flexWrap: typeof flexWrap;
+    flexBasis: typeof flexBasis;
+    flexDirection: typeof flexDirection;
+    flex: typeof flex;
+    justifySelf: typeof justifySelf;
+    alignSelf: typeof alignSelf;
+    order: typeof order;
+    gridGap: typeof gridGap;
+    gridColumnGap: typeof gridColumnGap;
+    gridRowGap: typeof gridRowGap;
+    gridColumn: typeof gridColumn;
+    gridRow: typeof gridRow;
+    gridAutoFlow: typeof gridAutoFlow;
+    gridAutoColumns: typeof gridAutoColumns;
+    gridAutoRows: typeof gridAutoRows;
+    gridTemplateColumns: typeof gridTemplateColumns;
+    gridTemplateRows: typeof gridTemplateRows;
+    gridTemplateAreas: typeof gridTemplateAreas;
+    gridArea: typeof gridArea;
+    border: typeof border;
+    borderTop: typeof borderTop;
+    borderRight: typeof borderRight;
+    borderBottom: typeof borderBottom;
+    borderLeft: typeof borderLeft;
+    borders: typeof borders;
+    borderColor: typeof borderColor;
+    borderRadius: typeof borderRadius;
+    boxShadow: typeof boxShadow;
+    opacity: typeof opacity;
+    overflow: typeof overflow;
+    background: typeof background;
+    backgroundImage: typeof backgroundImage;
+    backgroundPosition: typeof backgroundPosition;
+    backgroundRepeat: typeof backgroundRepeat;
+    backgroundSize: typeof backgroundSize;
+    position: typeof position;
+    zIndex: typeof zIndex;
+    top: typeof top;
+    right: typeof right;
+    bottom: typeof bottom;
+    left: typeof left;
+    textStyle: typeof textStyle;
+    colorStyle: typeof colorStyle;
+    buttonStyle: typeof buttonStyle;
+}
+
+export const styles: StylesProps;

@@ -298,7 +298,7 @@ import { createInstantSearch } from "react-instantsearch-core";
   const IndexResults = connectStateResults(
     ({ searchState, searchResults, children }) =>
       searchResults && searchResults.nbHits !== 0 ? (
-        children as React.ReactElement<any>
+        children as React.ReactElement
       ) : (
         <div>
           No results has been found for {searchState.query} and index{' '}
@@ -320,7 +320,7 @@ import { createInstantSearch } from "react-instantsearch-core";
         <Index indexName="third" />
       </div>
     ) : (
-      children as React.ReactElement<any>
+      children as React.ReactElement
     );
   });
 };

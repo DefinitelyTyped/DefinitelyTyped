@@ -87,6 +87,17 @@ pubnub.setState({ channels: [] }).then(res => {
   console.log(res.state);
 });
 
+const grantOptions = {
+  channels: ['channel-1'],
+  authKeys: ['auth-key'],
+  read: true,
+  write: false,
+  manage: false
+};
+pubnub.grant(grantOptions).then(status => {
+  console.log(status);
+});
+
 pubnub.history({channel: 'channel-1', count: 2}, (status, res) => {
   console.log(status);
   console.log(res);
@@ -102,4 +113,5 @@ const mySecret = {
   message: 'Hi!',
 };
 pubnub.decrypt(mySecret, undefined, cryptoOptions);
+pubnub.decrypt('mySecretString', undefined, cryptoOptions);
 pubnub.encrypt('egrah5rwgrehwqh5eh3hwfwef', undefined, cryptoOptions);

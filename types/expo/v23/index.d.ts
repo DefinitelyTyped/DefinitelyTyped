@@ -1517,7 +1517,7 @@ export class RadialGradient extends Component<SvgCommonProps> { }
  * Take Snapshot
  */
 export function takeSnapshotAsync(
-    view?: (number | React.ReactElement<any>),
+    view?: (number | React.ReactElement),
     options?: {
         width?: number,
         height?: number,

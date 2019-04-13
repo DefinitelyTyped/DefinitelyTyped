@@ -105,6 +105,11 @@ declare namespace Remarkable {
         linkify?: boolean;
 
         /**
+         * Set target to open link in
+         */
+        linkTarget?: string;
+
+        /**
          * Enable some language-neutral replacement + quotes beautification.
          */
         typographer?: boolean;

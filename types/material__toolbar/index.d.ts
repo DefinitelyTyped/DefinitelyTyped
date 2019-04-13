@@ -1,5 +1,5 @@
 // Type definitions for Material Components Web 0.35
-// Project: https://material.io/components/
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
 // Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
@@ -25,7 +25,7 @@ import { MDCComponent } from 'material__base';
 import MDCToolbarFoundation from './foundation';
 import MDCToolbarAdapter from './adapter';
 
-export {MDCToolbarAdapter, MDCToolbarFoundation};
+export { MDCToolbarAdapter, MDCToolbarFoundation };
 
 export class MDCToolbar extends MDCComponent<MDCToolbarAdapter, MDCToolbarFoundation> {
     static attachTo(root: Element): MDCToolbar;

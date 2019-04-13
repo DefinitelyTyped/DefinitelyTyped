@@ -312,7 +312,7 @@ anySchema = Joi.any();
 
 arrSchema = Joi.array();
 
-arrSchema = arrSchema.assertItem(Joi.any());
+arrSchema = arrSchema.has(Joi.any());
 arrSchema = arrSchema.sparse();
 arrSchema = arrSchema.sparse(bool);
 arrSchema = arrSchema.single();
@@ -705,6 +705,8 @@ objSchema = objSchema.nand(str);
 objSchema = objSchema.nand(str, str);
 objSchema = objSchema.nand(str, str, str);
 objSchema = objSchema.nand(strArr);
+
+objSchema = objSchema.schema();
 
 objSchema = objSchema.or(str);
 objSchema = objSchema.or(str, str);

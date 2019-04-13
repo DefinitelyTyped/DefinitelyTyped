@@ -1,13 +1,22 @@
 // Type definitions for styled-components 4.1
-// Project: https://github.com/styled-components/styled-components
+// Project: https://github.com/styled-components/styled-components, https://styled-components.com
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 //                 Ihor Chulinda <https://github.com/Igmat>
 //                 Adam Lavin <https://github.com/lavoaster>
-//                 Jessica Franco <https://github.com/Kovensky>
+//                 Jessica Franco <https://github.com/Jessidhia>
+//                 Jason Killian <https://github.com/jkillian>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 David Ruisinger <https://github.com/flavordaaave>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-/// <reference types="node" />
+// forward declarations
+declare global {
+    namespace NodeJS {
+        // tslint:disable-next-line:no-empty-interface
+        interface ReadableStream {}
+    }
+}
 
 import * as CSS from "csstype";
 import * as React from "react";
@@ -65,7 +74,15 @@ export type StyledComponentProps<
         A
     > & Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
     T
->;
+> & WithChildrenIfReactComponentClass<C>;
+
+// Because of React typing quirks, when getting props from a React.ComponentClass,
+// we need to manually add a `children` field.
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/31945
+// and https://github.com/DefinitelyTyped/DefinitelyTyped/pull/32843
+type WithChildrenIfReactComponentClass<
+    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
+> = C extends React.ComponentClass<any> ? { children?: React.ReactNode } : {};
 
 type StyledComponentPropsWithAs<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
@@ -197,6 +214,7 @@ export interface ThemedStyledFunctionBase<
     O extends object = {},
     A extends keyof any = never
 > {
+    (first: TemplateStringsArray): StyledComponent<C, T, O, A>;
     (
         first:
             | TemplateStringsArray
@@ -263,24 +281,24 @@ type ThemedStyledComponentFactories<T extends object> = {
     [TTag in keyof JSX.IntrinsicElements]: ThemedStyledFunction<TTag, T>
 };
 
-type StyledComponentInnerComponent<
+export type StyledComponentInnerComponent<
     C extends React.ComponentType<any>
 > = C extends
     | StyledComponent<infer I, any, any, any>
     | StyledComponent<infer I, any, any>
     ? I
     : C;
-type StyledComponentPropsWithRef<
+export type StyledComponentPropsWithRef<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
 > = C extends AnyStyledComponent
     ? React.ComponentPropsWithRef<StyledComponentInnerComponent<C>>
     : React.ComponentPropsWithRef<C>;
-type StyledComponentInnerOtherProps<C extends AnyStyledComponent> = C extends
+export type StyledComponentInnerOtherProps<C extends AnyStyledComponent> = C extends
     | StyledComponent<any, any, infer O, any>
     | StyledComponent<any, any, infer O>
     ? O
     : never;
-type StyledComponentInnerAttrs<
+export type StyledComponentInnerAttrs<
     C extends AnyStyledComponent
 > = C extends StyledComponent<any, any, any, infer A> ? A : never;
 
@@ -446,6 +464,7 @@ export class ServerStyleSheet {
         readableStream: NodeJS.ReadableStream
     ): NodeJS.ReadableStream;
     readonly instance: this;
+    seal(): void;
 }
 
 type StyleSheetManagerProps =

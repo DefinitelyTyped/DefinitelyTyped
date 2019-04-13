@@ -24,7 +24,7 @@ import { Observable, Pool, Stream, Property, Event, Emitter } from 'kefir';
 		});
 	}
 	let stream07: Stream<number, void> = Kefir.fromCallback<number>(callback => setTimeout(() => callback(1), 1000));
-	let stream08: Stream<number, void> = Kefir.fromNodeCallback<number, void>(callback => setTimeout(() => callback(null, 1), 1000));
+	let stream08: Stream<number, Error> = Kefir.fromNodeCallback<number, Error>(callback => setTimeout(() => callback(null, 1), 1000));
 	let stream09: Stream<MouseEvent, void> = Kefir.fromEvents<MouseEvent, void>(document.body, 'click');
 	let stream10: Stream<number, void> = Kefir.stream<number, void>(emitter => {
 		let count = 0;
