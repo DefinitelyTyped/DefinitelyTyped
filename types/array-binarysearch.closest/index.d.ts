@@ -3,7 +3,17 @@
 // Definitions by: Heye Vöcking <https://github.com/hvoecking>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function binarySearch<T>(
+declare function binarySearch(
+  arr: ReadonlyArray<string>,
+  val: string,
+): number;
+
+declare function binarySearch(
+  arr: ReadonlyArray<number>,
+  val: number,
+): number;
+
+declare function binarySearch<T>(
     arr: ReadonlyArray<T>,
     val: T,
     fn?: null | ((itm: T, val: T, m: any, arr: ReadonlyArray<T>) => number),
@@ -11,3 +21,5 @@ export function binarySearch<T>(
     bgn?: number,
     end?: number,
 ): number;
+
+export = binarySearch;
