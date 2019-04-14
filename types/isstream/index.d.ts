@@ -1,19 +1,39 @@
 // Type definitions for isstream 0.1
 // Project: https://github.com/rvagg/isstream
-// Definitions by: Claas Ahlrichs <https://github.com/claasahl>
+// Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="node" />
 
 export = isstream;
 
-declare function isstream(obj: any): boolean;
+declare function isstream(obj: any): any;
 
 declare namespace isstream {
-    function isDuplex(obj: any): boolean;
+    const prototype: {
+    };
 
-    function isReadable(obj: any): boolean;
+    function isDuplex(obj: any): any;
 
-    function isWritable(obj: any): boolean;
+    function isReadable(obj: any): any;
+
+    function isWritable(obj: any): any;
+
+    namespace isDuplex {
+        const prototype: {
+        };
+
+    }
+
+    namespace isReadable {
+        const prototype: {
+        };
+
+    }
+
+    namespace isWritable {
+        const prototype: {
+        };
+
+    }
+
 }
 
