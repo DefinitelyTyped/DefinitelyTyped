@@ -24,7 +24,7 @@ export interface TaskMatchProps<Args extends any[], TaskMatchResult, Result = an
     resolved: (result: Result) => TaskMatchResult;
 }
 
-export interface TaskStatusAware<Result, Args extends any[]> extends TaskFunc<Promise<Result>, Args> {
+export interface TaskStatusAware<Result = any, Args extends any[] = any[]> extends TaskFunc<Promise<Result>, Args> {
     readonly state: TaskState;
     readonly pending: boolean;
     readonly resolved: boolean;
@@ -42,21 +42,15 @@ export interface TaskStatusAware<Result, Args extends any[]> extends TaskFunc<Pr
     reset(): void;
 }
 
-export interface TaskFactory {
-    <R, A extends any[]>(
-        func: TaskFunc<R, A>,
-        options?: TaskOptions<WithoutPromise<R>>,
-    ): TaskStatusAware<WithoutPromise<R>, A>;
-
-    resolved<R, A extends any[]>(
-        func: TaskFunc<R, A>,
-        options?: Omit<TaskOptions<WithoutPromise<R>>, 'state'>,
-    ): TaskStatusAware<WithoutPromise<R>, A>;
-
-    rejected<R, A extends any[]>(
-        func: TaskFunc<R, A>,
-        options?: Omit<TaskOptions<WithoutPromise<R>>, 'state'>,
-    ): TaskStatusAware<WithoutPromise<R>, A>;
+export interface TaskCreator<K extends keyof TaskOptions<any>> extends MethodDecorator, PropertyDecorator {
+    <R, A extends any[]>(func: TaskFunc<R, A>, options?: Pick<TaskOptions<WithoutPromise<R>>, K>): TaskStatusAware<WithoutPromise<R>, A>;
+    (options: Pick<TaskOptions<WithoutPromise<any>>, K>): PropertyDecorator | MethodDecorator;
 }
 
+export interface TaskFactory extends TaskCreator<keyof TaskOptions<any>> {
+    resolved: TaskCreator<Exclude<keyof TaskOptions<any>, 'state'>>;
+    rejected: TaskCreator<Exclude<keyof TaskOptions<any>, 'state'>>;
+}
+
+export type Task<Result = any, Args extends any[] = any[]> = TaskStatusAware<Result, Args>;
 export const task: TaskFactory;
