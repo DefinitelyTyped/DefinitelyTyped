@@ -2,7 +2,7 @@
 // Project: https://github.com/EvanHahn/HumanizeDuration.js
 // Definitions by: Rigoberto Molina <https://github.com/RigoTheDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 export as namespace humanizeDuration;
 
@@ -63,9 +63,9 @@ declare namespace HumanizeDuration {
   }
 
   interface Humanizer {
-    (ms: number, options?: HumanizeDuration.Options): string;
+    (ms: number, options?: Options): string;
     languages: {
-      [key: string]: UnitTranslationOptions;
+      [x: string]: UnitTranslationOptions;
     };
   }
 
