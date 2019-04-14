@@ -16,3 +16,4 @@ declare namespace isstream {
 
     function isWritable(obj: any): boolean;
 }
+
