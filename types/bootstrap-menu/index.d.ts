@@ -48,7 +48,7 @@ export interface BootstrapMenuOptions {
      */
     noActionsMessage?: string;
 
-    /** 
+    /**
      * In some weird cases, another plugin may be installing 'click' listeners
      * in the anchors used for each action of the context menu, and stopping
      * the event bubbling before it reachs this plugin's listener.
