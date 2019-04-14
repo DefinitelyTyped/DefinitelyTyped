@@ -1,5 +1,4 @@
-import { Plugin } from './';
+import { Parser } from './';
 
-declare const plugin: Plugin;
-export as namespace plugin;
-export = plugin;
+declare const parser: { parsers: { [parserName: string]: Parser } };
+export = parser;

@@ -18,7 +18,6 @@
         "parser-angular.d.ts",
         "parser-babylon.d.ts",
         "parser-flow.d.ts",
-        "parser-glimmer.d.ts",
         "parser-graphql.d.ts",
         "parser-html.d.ts",
         "parser-markdown.d.ts",
