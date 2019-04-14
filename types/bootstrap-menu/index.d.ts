@@ -111,4 +111,4 @@ export type BootstrapMenuRowElement = any;
  * @param selector Css selector of the element to attach the Menu to
  * @param options Options to configure the menu
  */
-export function BootstrapMenu(selector: string, options: BootstrapMenuOptions): void;
+export default function BootstrapMenu(selector: string, options: BootstrapMenuOptions): void;

@@ -1,6 +1,6 @@
-import BootstrapMenu = require("bootstrap-menu");
+import BootstrapMenu from "bootstrap-menu";
 
-BootstrapMenu.BootstrapMenu("#main", {
+BootstrapMenu("#main", {
     actions: [
         {
             name: "Main menu action",
