@@ -1,5 +1,5 @@
 import isStream, { isReadable, isWritable, isDuplex } from "isstream";
-import { Stream } from "stream";
+import * as Stream from "stream";
 
 isStream(new Stream()); // true
 
