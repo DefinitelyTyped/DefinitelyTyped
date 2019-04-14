@@ -1,9 +1,11 @@
 /// <reference types="node" />
 
 import yargs = require('yargs');
+import yargsSingleton = require('yargs/yargs');
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { Arguments } from 'yargs';
 
 const stringVal = 'string';
 
@@ -222,17 +224,17 @@ function Argv$choices() {
 function Argv$usage_as_default_command() {
     const argv = yargs
         .usage(
-        "$0 get",
-        'make a get HTTP request',
-        (yargs) => {
-            return yargs.option('u', {
-                alias: 'url',
-                describe: 'the URL to make an HTTP request to'
-            });
-        },
-        (argv) => {
-            console.dir(argv.url);
-        }
+            "$0 get",
+            'make a get HTTP request',
+            (yargs) => {
+                return yargs.option('u', {
+                    alias: 'url',
+                    describe: 'the URL to make an HTTP request to'
+                });
+            },
+            (argv) => {
+                console.dir(argv.url);
+            }
         )
         .argv;
 }
@@ -291,17 +293,17 @@ function Argv$command() {
 
     yargs
         .command(
-        'get',
-        'make a get HTTP request',
-        (yargs) => {
-            return yargs.option('u', {
-                alias: 'url',
-                describe: 'the URL to make an HTTP request to'
-            });
-        },
-        (argv) => {
-            console.dir(argv.url);
-        }
+            'get',
+            'make a get HTTP request',
+            (yargs) => {
+                return yargs.option('u', {
+                    alias: 'url',
+                    describe: 'the URL to make an HTTP request to'
+                });
+            },
+            (argv) => {
+                console.dir(argv.url);
+            }
         )
         .help()
         .argv;
@@ -412,6 +414,18 @@ function Argv$completion_async() {
         .argv;
 }
 
+function Argv$completion_promise() {
+    const argv = yargs
+        .completion('completion', (current: string, argv: any) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(['apple', 'banana']);
+                }, 10);
+            });
+        })
+        .argv;
+}
+
 function Argv$help() {
     const argv = yargs
         .usage("$0 -operand1 number -operand2 number -operation [add|subtract]")
@@ -473,6 +487,18 @@ function Argv$locale() {
         .help('help')
         .wrap(70)
         .locale('pirate')
+        .argv;
+}
+
+function Argv$middleware() {
+    const mwFunc1 = (argv: Arguments) => console.log(`I'm a middleware function`, argv);
+    const mwFunc2 = (argv: Arguments) => console.log(`I'm another middleware function`, argv);
+
+    const argv = yargs
+        .middleware([mwFunc1, mwFunc2])
+        .middleware((argv) => {
+            if (process.env.HOME) argv.home = process.env.HOME;
+        }, true)
         .argv;
 }
 
@@ -650,6 +676,27 @@ function Argv$getCompletion() {
             console.log(completions);
         })
         .argv;
+}
+
+function Argv$parserConfiguration() {
+    const argv1 = yargs.parserConfiguration({
+        'boolean-negation': false,
+        'camel-case-expansion': false,
+        'combine-arrays': false,
+        'dot-notation': false,
+        'duplicate-arguments-array': false,
+        'flatten-duplicate-arrays': false,
+        'halt-at-non-option': true,
+        'negation-prefix': 'non-',
+        'parse-numbers': false,
+        'populate--': false,
+        'set-placeholder-key': false,
+        'short-option-groups': false,
+    }).parse();
+
+    const argv2 = yargs.parserConfiguration({
+        'negation-prefix': 'nope-',
+    }).parse();
 }
 
 function Argv$pkgConf() {
@@ -1039,7 +1086,7 @@ function Argv$fallbackToUnknownForUnknownOptions() {
 
     // $ExpectType unknown
     yargs
-        .option({a: { type: "string" }, b: { type: "boolean" } })
+        .option({ a: { type: "string" }, b: { type: "boolean" } })
         .argv
         .bogus;
 
@@ -1054,4 +1101,16 @@ function Argv$fallbackToUnknownForUnknownOptions() {
     // $ExpectError
     const x: string = yargs.argv.x;
     return x;
+}
+
+function Argv$exit() {
+    yargs.exit(1, new Error("oh no"));
+}
+
+function Argv$parsed() {
+    const parsedArgs = yargs.parsed;
+}
+
+function makeSingleton() {
+    yargsSingleton(process.argv.slice(2));
 }

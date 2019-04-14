@@ -2550,6 +2550,8 @@ declare namespace R {
          * If the given, non-null object has an own property with the specified name, returns the value of that property.
          * Otherwise returns the provided default value.
          */
+        propOr<T, U>(val: T, __: Placeholder, obj: U): <V>(p: string) => V;
+        propOr<U>(__: Placeholder, p: string, obj: U): <T, V>(val: T) => V;
         propOr<T, U, V>(val: T, p: string, obj: U): V;
         propOr<T>(val: T, p: string): <U, V>(obj: U) => V;
         propOr<T>(val: T): <U, V>(p: string, obj: U) => V;

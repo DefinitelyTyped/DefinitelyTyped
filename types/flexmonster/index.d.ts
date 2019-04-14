@@ -130,7 +130,7 @@ declare namespace Flexmonster {
         showCharts(type?: string, multiple?: boolean): void;
         showGrid(): void;
         showGridAndCharts(type?: string, position?: string, multiple?: boolean): void;
-        sortingMethod(hierarchyName: string, compareFunction: (a: string, b: string) => boolean): void;
+        sortingMethod(hierarchyName: string, compareFunction: (a: string, b: string) => number): void;
         sortValues(axisName: string, type: string, tuple: number[], measure: MeasureObject): void;
         toolbar: Toolbar;
         updateData(object: DataSource | object[]): void;
@@ -485,6 +485,8 @@ declare namespace Flexmonster {
         maxSymbols?: number;
         currencySymbol?: string;
         currencySymbolAlign?: string;
+        negativeCurrencyFormat?: string;
+        positiveCurrencyFormat?: string;
         nullValue?: string;
         infinityValue?: string;
         divideByZeroValue?: string;

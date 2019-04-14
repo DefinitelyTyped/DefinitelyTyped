@@ -49,7 +49,7 @@ export function color(name: string, value: string, groupId?: string): string;
 
 export function object<T>(name: string, value: T, groupId?: string): T;
 
-export function radios<T>(name: string, options: { [s: string]: T }, value?: T, groupId?: string): string;
+export function radios<T>(name: string, options: { [s: string]: T }, value?: T, groupId?: string): T;
 
 export function select<T>(name: string, options: { [s: string]: T }, value: T, groupId?: string): T;
 export function select<

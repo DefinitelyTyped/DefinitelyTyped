@@ -1,5 +1,7 @@
 import * as workerThreads from "worker_threads";
 import assert = require("assert");
+import { worker } from "cluster";
+import { createContext } from "vm";
 
 {
     if (workerThreads.isMainThread) {
@@ -36,6 +38,7 @@ import assert = require("assert");
         subChannel.port2.on('message', (value) => {
             console.log('received:', value);
         });
+        worker.moveMessagePortToContext(new workerThreads.MessagePort(), createContext());
     } else {
         workerThreads.parentPort!.once('message', (value) => {
             assert(value.hereIsYourPort instanceof workerThreads.MessagePort);
