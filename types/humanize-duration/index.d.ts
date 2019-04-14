@@ -1,47 +1,47 @@
-// Type definitions for humanize-duration v3.18.0
+// Type definitions for humanize-duration 3.18
 // Project: https://github.com/EvanHahn/HumanizeDuration.js
 // Definitions by: Rigoberto Molina <https://github.com/RigoTheDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export as namespace humanizeDuration;
 
 export = HumanizeDuration;
 
-declare function HumanizeDuration(ms: number): string;
-declare function HumanizeDuration(ms: number, options: HumanizeDuration.Options): string;
+declare function HumanizeDuration(ms: number, options?: HumanizeDuration.Options): string;
 
 declare namespace HumanizeDuration {
-  export type LanguageCode = (
+  type LanguageCode = (
     "ar" | "bg" | "ca" | "zh_CN" | "zh_TW" | "hr" | "cs" | "da" |
     "nl" | "en" | "fa" | "fi" | "fr" | "de" | "el" | "hu" | "is" |
     "id" | "it" | "ja" | "ko" | "lo" | "lt" | "ms" | "no" | "pl" |
     "pt" | "ro" | "ru" | "sk" | "es" | "sv" | "tr" | "th" | "uk" |
     "ur" | "vi"
   );
-  export type Unit = "y" | "mo" | "w" | "d" | "h" | "m" | "s" | "ms";
-  export interface UnitMeasuresOptions {
-    y: number;
-    mo: number;
-    w: number;
-    d: number;
-    h: number;
-    m: number;
-    s: number;
-    ms: number;
+  type Unit = "y" | "mo" | "w" | "d" | "h" | "m" | "s" | "ms";
+  interface UnitMeasuresOptions {
+    y?: number;
+    mo?: number;
+    w?: number;
+    d?: number;
+    h?: number;
+    m?: number;
+    s?: number;
+    ms?: number;
   }
 
-  export interface UnitTranslationOptions {
-    y: () => string;
-    mo: () => string;
-    w: () => string;
-    d: () => string;
-    h: () => string;
-    m: () => string;
-    s: () => string;
-    ms: () => string;
+  interface UnitTranslationOptions {
+    y?: () => string;
+    mo?: () => string;
+    w?: () => string;
+    d?: () => string;
+    h?: () => string;
+    m?: () => string;
+    s?: () => string;
+    ms?: () => string;
   }
 
-  export interface Options {
+  interface Options {
     language?: string;
     fallbacks?: string[];
     delimiter?: string;
@@ -53,23 +53,23 @@ declare namespace HumanizeDuration {
     conjunction?: string;
     serialComma?: boolean;
     maxDecimalPoints?: number;
-    unitMeasures?: Partial<UnitMeasuresOptions>;
+    unitMeasures?: UnitMeasuresOptions;
   }
 
-  export interface HumanizerOptions extends Options {
+  interface HumanizerOptions extends Options {
     languages?: {
-      [key: string]: Partial<UnitTranslationOptions>;
-    }
+      [key: string]: UnitTranslationOptions;
+    };
   }
 
-  export interface Humanizer {
+  interface Humanizer {
     (ms: number, options?: HumanizeDuration.Options): string;
     languages: {
-      [key: string]: Partial<UnitTranslationOptions>;
-    }
+      [key: string]: UnitTranslationOptions;
+    };
   }
 
-  export function humanizer(options?: HumanizerOptions): Humanizer;
+  function humanizer(options?: HumanizerOptions): Humanizer;
 
-  export function getSupportedLanguages(): LanguageCode[];
+  function getSupportedLanguages(): LanguageCode[];
 }
