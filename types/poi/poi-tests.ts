@@ -1,3 +1,3 @@
-import { Poi } from "poi";
+import * as PoiCore from "poi";
 
-const poi = new Poi();
+const poi = new PoiCore();
