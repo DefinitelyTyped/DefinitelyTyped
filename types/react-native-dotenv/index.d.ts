@@ -9,5 +9,4 @@ interface Env {
 }
 
 declare const env: Env;
-
-export { env };
+export = env;
