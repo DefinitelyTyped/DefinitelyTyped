@@ -1,4 +1,4 @@
-// Type definitions for bootstrap-menu v1.0
+// Type definitions for bootstrap-menu 1.0
 // Project: https://github.com/dgoguerra/bootstrap-menu
 // Definitions by: Alexandre Paré <https://github.com/superheri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -48,7 +48,8 @@ export interface BootstrapMenuOptions {
      */
     noActionsMessage?: string;
 
-    /** In some weird cases, another plugin may be installing 'click' listeners
+    /** 
+     * In some weird cases, another plugin may be installing 'click' listeners
      * in the anchors used for each action of the context menu, and stopping
      * the event bubbling before it reachs this plugin's listener.
      *
@@ -62,7 +63,7 @@ export interface BootstrapMenuOptions {
 }
 
 /**
- * Every function attribute is called before rendering the menu each time it is opened. 
+ * Every function attribute is called before rendering the menu each time it is opened.
  * If `fetchElementData` was defined, these functions will receive as first argument its returned value for the currently selected element.
  */
 export interface BootstrapMenuActions {
@@ -110,4 +111,4 @@ export type BootstrapMenuRowElement = any;
  * @param selector Css selector of the element to attach the Menu to
  * @param options Options to configure the menu
  */
-export default function BootstrapMenu(selector: string, options: BootstrapMenuOptions): void;
+export function BootstrapMenu(selector: string, options: BootstrapMenuOptions): void;

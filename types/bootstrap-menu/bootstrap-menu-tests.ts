@@ -1,10 +1,10 @@
 import BootstrapMenu = require("bootstrap-menu");
 
-BootstrapMenu("#main", {
+BootstrapMenu.BootstrapMenu("#main", {
     actions: [
         {
             name: "Main menu action",
-            onClick: (element:any) => {
+            onClick: (element: any) => {
                 console.log(element);
             }
         }
