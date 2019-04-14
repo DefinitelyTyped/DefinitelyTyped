@@ -42,17 +42,50 @@ declare namespace HumanizeDuration {
   }
 
   interface Options {
+    /**
+    * Language for unit display (accepts an ISO 639-1 code from one of the supported languages).
+    */
     language?: string;
+    /**
+    * Fallback languages if the provided language cannot be found (accepts an ISO 639-1 code from one of the supported languages). It works from left to right.
+    */
     fallbacks?: string[];
+    /**
+    * String to display between the previous unit and the next value.
+    */
     delimiter?: string;
+    /**
+    * String to display between each value and unit.
+    */
     spacer?: string;
+    /**
+    * Number representing the maximum number of units to display for the duration.
+    */
     largest?: number;
+    /**
+    * Array of strings to define which units are used to display the duration (if needed).
+    */
     units?: Unit[];
+    /**
+    * Boolean value. Use true to round the smallest unit displayed (can be combined with largest and units).
+    */
     round?: boolean;
+    /**
+    * String to substitute for the decimal point in a decimal fraction.
+    */
     decimal?: string;
+    /**
+    * String to include before the final unit. You can also set serialComma to false to eliminate the final comma.
+    */
     conjunction?: string;
     serialComma?: boolean;
+    /**
+    * Number that defines a maximal decimal points for float values.
+    */
     maxDecimalPoints?: number;
+    /**
+    * Customize the value used to calculate each unit of time.
+    */
     unitMeasures?: UnitMeasuresOptions;
   }
 
@@ -71,5 +104,8 @@ declare namespace HumanizeDuration {
 
   function humanizer(options?: HumanizerOptions): Humanizer;
 
+  /**
+  * This function won't return any new languages you define; it will only return the defaults supported by the library.
+  */
   function getSupportedLanguages(): LanguageCode[];
 }
