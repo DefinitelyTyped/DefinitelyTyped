@@ -17686,7 +17686,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        removeAsync(categories: CategoryDetails[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        removeAsync(categories: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Removes categories from the master list on a mailbox.
          *
@@ -17705,7 +17705,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        removeAsync(categories: CategoryDetails[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        removeAsync(categories: string[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
 
     /**
