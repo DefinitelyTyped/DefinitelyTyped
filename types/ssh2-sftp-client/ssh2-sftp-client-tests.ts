@@ -1,4 +1,5 @@
-import Client = require('ssh2-sftp-client');
+import * as Client from 'ssh2-sftp-client';
+import { Readable } from 'stream';
 import * as fs from 'fs';
 
 const client = new Client();
@@ -16,9 +17,7 @@ client.exists('/remote/path').then(() => null);
 
 client.stat('/remote/path').then(() => null);
 
-client.get('/remote/path').then(stream => stream.read(0));
-// client.get('/remote/path', true, 'utf8').then(stream => stream.read(0));
-// client.get('/remote/path', true, null).then(stream => stream.read(0));
+client.get('/remote/path').then((stream: Readable) => stream.read(0));
 
 client.fastGet('/remote/path', 'local/path').then(() => null);
 
