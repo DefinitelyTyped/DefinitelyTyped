@@ -173,9 +173,9 @@ export interface Nodes {
      * node, this call is used to get access to the running
      * instance.
      * @param id - the id of the node.
-     * @return - the node matching the given id.
+     * @return - the node matching the given id, or null if it does not exist.
      */
-    getNode(id: NodeId): Node;
+    getNode(id: NodeId): Node | null;
     /**
      * Cycle through all node definition objects.
      *
