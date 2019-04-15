@@ -1,4 +1,4 @@
-// Type definitions for react-beautiful-dnd 11.0
+// Type definitions for react-beautiful-dnd 10.1
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
@@ -207,7 +207,7 @@ export interface DraggableProps {
     disableInteractiveElementBlocking?: boolean;
     children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<HTMLElement>;
     type?: TypeId;
-    shouldRespectForcePress?: boolean;
+    shouldRespectForceTouch?: boolean;
 }
 
 export class Draggable extends React.Component<DraggableProps> { }
