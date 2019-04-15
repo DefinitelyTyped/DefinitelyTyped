@@ -921,9 +921,7 @@ export class CatalogInfoResponse {
      * The set of [Error](#type-error)s encountered.
      */
     errors?: Array<Error>;
-    /**
-     *
-     */
+
     limits?: CatalogInfoResponseLimits;
 }
 
