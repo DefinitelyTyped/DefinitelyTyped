@@ -835,6 +835,12 @@
             "asOfVersion": "4.2.0"
         },
         {
+            "libraryName": "get-stdin",
+            "typingsPackageName": "get-stdin",
+            "sourceRepoURL": "https://github.com/sindresorhus/get-stdin",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "get-stream",
             "typingsPackageName": "get-stream",
             "sourceRepoURL": "https://github.com/sindresorhus/get-stream",
