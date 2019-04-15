@@ -15465,7 +15465,7 @@ declare namespace Office {
         /**
          * The color of the category.
          */
-        color: Office.MailboxEnums.CategoryColor;
+        color: MailboxEnums.CategoryColor;
     }
 
     /**
