@@ -2,8 +2,8 @@ import * as React from 'react';
 import { useStep, useForm } from 'react-hooks-helper';
 
 export const ReactHooksHelperTest: React.FunctionComponent = () => {
-    const { index, navigation } = useStep({ steps: 3 })
-    const [formData, setForm] = useForm({ name: '', city: '' })
+    const { index, navigation } = useStep({ steps: 3 });
+    const [formData, setForm] = useForm({ name: '', city: '' });
     return (
         <>
             <div id="step-1">
@@ -18,5 +18,5 @@ export const ReactHooksHelperTest: React.FunctionComponent = () => {
             </div>
             {JSON.stringify(formData)}
         </>
-    )
-}
+    );
+};
