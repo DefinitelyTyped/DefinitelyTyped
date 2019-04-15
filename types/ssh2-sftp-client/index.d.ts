@@ -20,7 +20,7 @@ declare class sftp {
 
     stat(remotePath: string): Promise<sftp.FileStats>;
 
-    get(path: string, dst: string | NodeJS.ReadableStream | undefined, options?: boolean): Promise<string> | Promise<NodeJS.ReadableStream> | Promise<Buffer>;
+    get(path: string, dst?: string | NodeJS.ReadableStream | undefined, options?: boolean): Promise<string | NodeJS.ReadableStream | Buffer>;
 
     fastGet(remoteFilePath: string, localPath: string, options?: ssh2Stream.TransferOptions): Promise<string>;
 
