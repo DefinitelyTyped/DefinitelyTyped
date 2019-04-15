@@ -5,11 +5,11 @@ export const ReactHooksHelperTest: React.FunctionComponent = () => {
     const { index, navigation } = useStep({ steps: 3 })
     const [formData, setForm] = useForm({ name: '', city: '' })
     return (
-        <div>
+        <>
             <div id="step-1">
                 Step: {index}
                 <input name="name" onChange={setForm} />
-                <button type="button" onCLick={navigation.next}>Next</button>
+                <button onCLick={navigation.next}>Next</button>
             </div>
             <div id="step-2">
                 Step: {index}
@@ -17,6 +17,6 @@ export const ReactHooksHelperTest: React.FunctionComponent = () => {
                 <button onCLick={navigation.previous}>Back</button>
             </div>
             {JSON.stringify(formData)}
-        </div>
+        </>
     )
 }
