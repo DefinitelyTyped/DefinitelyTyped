@@ -2760,6 +2760,7 @@ declare namespace React {
     }
 }
 
+type DistributivePick<T, K extends keyof T> = T extends any ? Pick<T, K> : never;
 // naked 'any' type in a conditional type will short circuit and union both the then/else branches
 // so boolean is only resolved for T = any
 type IsExactlyAny<T> = boolean extends (T extends never ? true : false) ? true : false;
@@ -2774,11 +2775,11 @@ type MergePropTypes<P, T> =
         // If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
         string extends keyof P ? P :
             // Prefer declared types which are not exactly any
-            & Pick<P, NotExactlyAnyPropertyKeys<P>>
+            & DistributivePick<P, NotExactlyAnyPropertyKeys<P>>
             // For props which are exactly any, use the type inferred from propTypes if present
-            & Pick<T, Exclude<keyof T, NotExactlyAnyPropertyKeys<P>>>
+            & DistributivePick<T, Exclude<keyof T, NotExactlyAnyPropertyKeys<P>>>
             // Keep leftover props not specified in propTypes
-            & Pick<P, Exclude<keyof P, keyof T>>;
+            & DistributivePick<P, Exclude<keyof P, keyof T>>;
 
 // Any prop that has a default prop becomes optional, but its type is unchanged
 // Undeclared default props are augmented into the resulting allowable attributes
