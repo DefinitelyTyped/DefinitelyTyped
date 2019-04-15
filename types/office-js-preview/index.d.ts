@@ -15312,7 +15312,7 @@ declare namespace Office {
      * Represents the categories on an item.
      * 
      * In Outlook, a user can group messages and appointments by using a category to color-code them.
-     * The user defines {@link MasterCategories | categories in a master list} on their mailbox.
+     * The user defines {@link Office.MasterCategories | categories in a master list} on their mailbox.
      * They can then apply one or more categories to an item.
      *
      * [Api set: Mailbox Preview]
