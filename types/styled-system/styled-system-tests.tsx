@@ -164,9 +164,7 @@ interface BoxProps
         FlexProps,
         JustifySelfProps,
         AlignSelfProps,
-        BorderProps,
         BordersProps,
-        BorderRadiusProps,
         PositionProps,
         ZIndexProps,
         TopProps,
@@ -203,13 +201,7 @@ const Box: React.ComponentType<BoxProps> = styled`
   ${flex}
   ${justifySelf}
   ${alignSelf}
-  ${border}
   ${borders}
-  ${borderTop}
-  ${borderRight}
-  ${borderBottom}
-  ${borderLeft}
-  ${borderRadius}
   ${position}
   ${zIndex}
   ${top}

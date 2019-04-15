@@ -60,6 +60,16 @@ testArrayBounds.getCenter();
 
 // $ExpectType Bounds
 const testBounds = new AMap.Bounds(lnglat, lnglat);
+// $ExpectType Bounds
+new AMap.Bounds();
+// $ExpectError
+new AMap.Bounds([0, 0, 0]);
+// $ExpectType Bounds
+new AMap.Bounds([0, 0, 0, 0]);
+// $ExpectType Bounds
+new AMap.Bounds(lnglatTuple, lnglatTuple);
+// $ExpectType Bounds
+new AMap.Bounds(0, 0, 0, 0);
 
 // $ExpectType boolean
 testBounds.contains(lnglat);
@@ -1968,7 +1978,7 @@ const testCircle = new AMap.Circle<CircleExtraData>({
     cursor: 'pointer',
     radius: 1000,
     strokeColor: '#FF0000',
-    strokeOpcity: 0.8,
+    strokeOpacity: 0.8,
     strokeWeight: 3,
     fillColor: '#00FF00',
     fillOpacity: 0.5,
@@ -2004,7 +2014,7 @@ testCircle.setOptions({
     cursor: 'pointer',
     radius: 1000,
     strokeColor: '#FF0000',
-    strokeOpcity: 0.8,
+    strokeOpacity: 0.8,
     strokeWeight: 3,
     fillColor: '#00FF00',
     fillOpacity: 0.5,

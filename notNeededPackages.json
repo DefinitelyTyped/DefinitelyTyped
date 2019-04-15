@@ -31,6 +31,18 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "all-keys",
+            "typingsPackageName": "all-keys",
+            "sourceRepoURL": "https://github.com/sindresorhus/all-keys",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "all-keys",
+            "typingsPackageName": "all-property-names",
+            "sourceRepoURL": "https://github.com/sindresorhus/all-keys",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "angular-touchspin",
             "typingsPackageName": "angular-touchspin",
             "sourceRepoURL": "https://github.com/nkovacic/angular-touchspin",
@@ -47,6 +59,12 @@
             "typingsPackageName": "angular-ui-router-uib-modal",
             "sourceRepoURL": "https://github.com/nonplus/angular-ui-router-uib-modal",
             "asOfVersion": "0.0.11"
+        },
+        {
+            "libraryName": "ansi-escapes",
+            "typingsPackageName": "ansi-escapes",
+            "sourceRepoURL": "https://github.com/sindresorhus/ansi-escapes",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "antd",
@@ -83,6 +101,24 @@
             "typingsPackageName": "argon2",
             "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
             "asOfVersion": "0.15.0"
+        },
+        {
+            "libraryName": "array-move",
+            "typingsPackageName": "array-move",
+            "sourceRepoURL": "https://github.com/sindresorhus/array-move",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "array-uniq",
+            "typingsPackageName": "array-uniq",
+            "sourceRepoURL": "https://github.com/sindresorhus/array-uniq",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "arrify",
+            "typingsPackageName": "arrify",
+            "sourceRepoURL": "https://github.com/sindresorhus/arrify",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "artyom.js",
@@ -871,6 +907,12 @@
             "asOfVersion": "0.35.0"
         },
         {
+            "libraryName": "hard-rejection",
+            "typingsPackageName": "hard-rejection",
+            "sourceRepoURL": "https://github.com/sindresorhus/hard-rejection",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "has-yarn",
             "typingsPackageName": "has-yarn",
             "sourceRepoURL": "https://github.com/sindresorhus/has-yarn",
@@ -1009,6 +1051,18 @@
             "asOfVersion": "3.19.0"
         },
         {
+            "libraryName": "is-absolute-url",
+            "typingsPackageName": "is-absolute-url",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-absolute-url",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "is-fullwidth-code-point",
+            "typingsPackageName": "is-fullwidth-code-point",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-fullwidth-code-point",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "is-lower-case",
             "typingsPackageName": "is-lower-case",
             "sourceRepoURL": "https://github.com/blakeembrey/is-lower-case",
@@ -1025,6 +1079,12 @@
             "typingsPackageName": "is-plain-object",
             "sourceRepoURL": "https://github.com/jonschlinkert/is-plain-object",
             "asOfVersion": "2.0.4"
+        },
+        {
+            "libraryName": "is-relative-url",
+            "typingsPackageName": "is-relative-url",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-relative-url",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "is-scoped",
@@ -1111,6 +1171,12 @@
             "asOfVersion": "2.5.7"
         },
         {
+            "libraryName": "junk",
+            "typingsPackageName": "junk",
+            "sourceRepoURL": "https://github.com/sindresorhus/junk",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "keycloak-js",
             "typingsPackageName": "keycloak-js",
             "sourceRepoURL": "https://github.com/keycloak/keycloak",
@@ -1189,6 +1255,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "load-json-file",
+            "typingsPackageName": "load-json-file",
+            "sourceRepoURL": "https://github.com/sindresorhus/load-json-file",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "localforage",
             "typingsPackageName": "localforage",
             "sourceRepoURL": "https://github.com/localForage/localForage",
@@ -1223,6 +1295,12 @@
             "typingsPackageName": "log4js",
             "sourceRepoURL": "https://github.com/nomiddlename/log4js-node",
             "asOfVersion": "2.3.5"
+        },
+        {
+            "libraryName": "loud-rejection",
+            "typingsPackageName": "loud-rejection",
+            "sourceRepoURL": "https://github.com/sindresorhus/loud-rejection",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "lower-case",
@@ -1339,6 +1417,12 @@
             "asOfVersion": "7.0.0"
         },
         {
+            "libraryName": "typescript",
+            "typingsPackageName": "navigator-permissions",
+            "sourceRepoURL": "https://developer.mozilla.org/en-US/docs/Web/API/Permissions",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "ng-table",
             "typingsPackageName": "ng-table",
             "sourceRepoURL": "https://github.com/esvit/ng-table",
@@ -1435,6 +1519,18 @@
             "asOfVersion": "3.2.0"
         },
         {
+            "libraryName": "os-name",
+            "typingsPackageName": "os-name",
+            "sourceRepoURL": "https://github.com/sindresorhus/os-name",
+            "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "p-all",
+            "typingsPackageName": "p-all",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-all",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "p-any",
             "typingsPackageName": "p-any",
             "sourceRepoURL": "https://github.com/sindresorhus/p-any",
@@ -1459,6 +1555,18 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "p-defer",
+            "typingsPackageName": "p-defer",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-defer",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-do-whilst",
+            "typingsPackageName": "p-do-whilst",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-do-whilst",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "p-each-series",
             "typingsPackageName": "p-each-series",
             "sourceRepoURL": "https://github.com/sindresorhus/p-each-series",
@@ -1474,6 +1582,24 @@
             "libraryName": "p-every",
             "typingsPackageName": "p-every",
             "sourceRepoURL": "https://github.com/kevva/p-every",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-forever",
+            "typingsPackageName": "p-forever",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-forever",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-is-promise",
+            "typingsPackageName": "p-is-promise",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-is-promise",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "p-lazy",
+            "typingsPackageName": "p-lazy",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-lazy",
             "asOfVersion": "2.0.0"
         },
         {
@@ -1513,6 +1639,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "p-min-delay",
+            "typingsPackageName": "p-min-delay",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-min-delay",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "p-one",
             "typingsPackageName": "p-one",
             "sourceRepoURL": "https://github.com/kevva/p-one",
@@ -1549,6 +1681,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "p-reflect",
+            "typingsPackageName": "p-reflect",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-reflect",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "p-retry",
             "typingsPackageName": "p-retry",
             "sourceRepoURL": "https://github.com/sindresorhus/p-retry",
@@ -1559,6 +1697,12 @@
             "typingsPackageName": "p-series",
             "sourceRepoURL": "https://github.com/sindresorhus/p-series",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-settle",
+            "typingsPackageName": "p-settle",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-settle",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "p-some",
@@ -1579,10 +1723,46 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "p-time",
+            "typingsPackageName": "p-time",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-time",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "p-timeout",
             "typingsPackageName": "p-timeout",
             "sourceRepoURL": "https://github.com/sindresorhus/p-timeout",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "p-times",
+            "typingsPackageName": "p-times",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-times",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-try",
+            "typingsPackageName": "p-try",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-try",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "p-wait-for",
+            "typingsPackageName": "p-wait-for",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-wait-for",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "p-waterfall",
+            "typingsPackageName": "p-waterfall",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-waterfall",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-whilst",
+            "typingsPackageName": "p-whilst",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-whilst",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "package-json",
@@ -2035,6 +2215,12 @@
             "asOfVersion": "4.1.0"
         },
         {
+            "libraryName": "sdbm",
+            "typingsPackageName": "sdbm",
+            "sourceRepoURL": "https://github.com/sindresorhus/sdbm",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "sendgrid",
             "typingsPackageName": "sendgrid",
             "sourceRepoURL": "https://github.com/sendgrid/sendgrid-nodejs",
@@ -2045,6 +2231,12 @@
             "typingsPackageName": "sentence-case",
             "sourceRepoURL": "https://github.com/blakeembrey/sentence-case",
             "asOfVersion": "1.1.3"
+        },
+        {
+            "libraryName": "serialize-error",
+            "typingsPackageName": "serialize-error",
+            "sourceRepoURL": "https://github.com/sindresorhus/serialize-error",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "sharp-timer",
@@ -2077,10 +2269,34 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "djb2a",
+            "typingsPackageName": "sindresorhus__djb2a",
+            "sourceRepoURL": "https://github.com/sindresorhus/djb2a",
+            "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "@sindresorhus/fnv1a",
+            "typingsPackageName": "sindresorhus__fnv1a",
+            "sourceRepoURL": "https://github.com/sindresorhus/fnv1a",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "@sindresorhus/slugify",
             "typingsPackageName": "sindresorhus__slugify",
             "sourceRepoURL": "https://github.com/sindresorhus/slugify",
             "asOfVersion": "0.9.1"
+        },
+        {
+            "libraryName": "@sindresorhus/string-hash",
+            "typingsPackageName": "sindresorhus__string-hash",
+            "sourceRepoURL": "https://github.com/sindresorhus/string-hash",
+            "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "@sindresorhus/to-milliseconds",
+            "typingsPackageName": "sindresorhus__to-milliseconds",
+            "sourceRepoURL": "https://github.com/sindresorhus/to-milliseconds",
+            "asOfVersion": "1.1.0"
         },
         {
             "libraryName": "sip.js",
@@ -2149,10 +2365,34 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "string-length",
+            "typingsPackageName": "string-length",
+            "sourceRepoURL": "https://github.com/sindresorhus/string-length",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "string-width",
+            "typingsPackageName": "string-width",
+            "sourceRepoURL": "https://github.com/sindresorhus/string-width",
+            "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "strip-ansi",
+            "typingsPackageName": "strip-ansi",
+            "sourceRepoURL": "https://github.com/chalk/strip-ansi",
+            "asOfVersion": "5.2.0"
+        },
+        {
             "libraryName": "striptags",
             "typingsPackageName": "striptags",
             "sourceRepoURL": "https://github.com/ericnorris/striptags",
             "asOfVersion": "3.1.1"
+        },
+        {
+            "libraryName": "subsume",
+            "typingsPackageName": "subsume",
+            "sourceRepoURL": "https://github.com/sindresorhus/subsume",
+            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "Sugar",
@@ -2213,6 +2453,12 @@
             "typingsPackageName": "terser",
             "sourceRepoURL": "https://github.com/terser-js/terser",
             "asOfVersion": "3.12.0"
+        },
+        {
+            "libraryName": "three",
+            "typingsPackageName": "three",
+            "sourceRepoURL": "https://github.com/mrdoob/three.js",
+            "asOfVersion": "0.103.0"
         },
         {
             "libraryName": "time-span",
@@ -2305,6 +2551,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "urllib",
+            "typingsPackageName": "urllib",
+            "sourceRepoURL": "https://github.com/node-modules/urllib",
+            "asOfVersion": "2.33.0"
+        },
+        {
             "libraryName": "UUID.js",
             "typingsPackageName": "uuidjs",
             "sourceRepoURL": "https://github.com/LiosK/UUID.js",
@@ -2347,6 +2599,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "typescript",
+            "typingsPackageName": "w3c-permissions",
+            "sourceRepoURL": "https://www.w3.org/TR/permissions/",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "wait-for-localhost",
             "typingsPackageName": "wait-for-localhost",
             "sourceRepoURL": "https://github.com/sindresorhus/wait-for-localhost",
@@ -2357,6 +2615,12 @@
             "typingsPackageName": "wallpaper",
             "sourceRepoURL": "https://github.com/sindresorhus/wallpaper",
             "asOfVersion": "4.3.0"
+        },
+        {
+            "libraryName": "typescript",
+            "typingsPackageName": "webassembly-js-api",
+            "sourceRepoURL": "https://github.com/winksaville/test-webassembly-js-ts",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "webcola",
@@ -2381,6 +2645,12 @@
             "typingsPackageName": "webix",
             "sourceRepoURL": "http://webix.com",
             "asOfVersion": "5.1.1"
+        },
+        {
+            "libraryName": "webpack-chain",
+            "typingsPackageName": "webpack-chain",
+            "sourceRepoURL": "https://github.com/neutrinojs/webpack-chain",
+            "asOfVersion": "5.2.0"
         },
         {
             "libraryName": "winston",
@@ -2453,6 +2723,12 @@
             "typingsPackageName": "yfiles",
             "sourceRepoURL": "none",
             "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "yn",
+            "typingsPackageName": "yn",
+            "sourceRepoURL": "https://github.com/sindresorhus/yn",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "zapier-platform-core",

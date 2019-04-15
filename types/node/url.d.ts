@@ -1,5 +1,5 @@
 declare module "url" {
-    import { ParsedUrlQuery } from 'querystring';
+    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
 
     interface UrlObjectCommon {
         auth?: string;
@@ -17,7 +17,7 @@ declare module "url" {
     // Input to `url.format`
     interface UrlObject extends UrlObjectCommon {
         port?: string | number;
-        query?: string | null | { [key: string]: any };
+        query?: string | null | ParsedUrlQueryInput;
     }
 
     // Output of `url.parse`

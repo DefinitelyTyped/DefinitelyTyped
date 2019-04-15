@@ -2905,7 +2905,7 @@ declare namespace Xrm {
              * Removes the handler from the "pre search" event of the Lookup control.
              * @param handler The handler.
              */
-            removePreSearch(handler: () => void): void;
+            removePreSearch(handler: Events.ContextSensitiveHandler): void;
 
             /**
              * Sets the Lookup's default view.
