@@ -89,7 +89,7 @@ class App extends React.Component<{}, AppState> {
           {(provided, snapshot) => (
             <div ref={provided.innerRef} style={getListStyle(snapshot)} {...provided.droppableProps}>
               {this.state.items.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index} shouldRespectForcePress>
+                <Draggable key={item.id} draggableId={item.id} index={index} shouldRespectForceTouch={false}>
                   {(provided, snapshot) => (
                     <div>
                       <div
