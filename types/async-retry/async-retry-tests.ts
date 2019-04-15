@@ -7,6 +7,7 @@ const o: Options = {
   minTimeout: 3,
   maxTimeout: 4,
   randomize: true,
+  forever: false,
   onRetry: (e: Error) => 42
 };
 

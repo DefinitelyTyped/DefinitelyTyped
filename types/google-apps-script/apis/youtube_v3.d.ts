@@ -5,16 +5,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Youtube_v3 {
+  namespace YouTube {
     namespace Collection {
       export interface ActivitiesCollection {
         // Posts a bulletin for a specific channel. (The user submitting the request must be authorized to act on the channel's behalf.)
         // Note: Even though an activity resource can contain information about actions like a user rating a video or marking a video as a favorite, you need to use other API methods to generate those activity resources. For example, you would use the API's videos.rate() method to rate a video and the playlistItems.insert() method to mark a video as a favorite.
-        insert(resource: Schema.Activity, part: string): Youtube_v3.Schema.Activity;
+        insert(resource: Schema.Activity, part: string): YouTube.Schema.Activity;
         // Returns a list of channel activity events that match the request criteria. For example, you can retrieve events associated with a particular channel, events associated with the user's subscriptions and Google+ friends, or the YouTube home page feed, which is customized for each user.
-        list(part: string): Youtube_v3.Schema.ActivityListResponse;
+        list(part: string): YouTube.Schema.ActivityListResponse;
         // Returns a list of channel activity events that match the request criteria. For example, you can retrieve events associated with a particular channel, events associated with the user's subscriptions and Google+ friends, or the YouTube home page feed, which is customized for each user.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.ActivityListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.ActivityListResponse;
       }
       export interface CaptionsCollection {
         // Downloads a caption track. The caption track is returned in its original format unless the request specifies a value for the tfmt parameter and in its original language unless the request specifies a value for the tlang parameter.
@@ -22,88 +22,88 @@ declare namespace GoogleAppsScript {
         // Downloads a caption track. The caption track is returned in its original format unless the request specifies a value for the tfmt parameter and in its original language unless the request specifies a value for the tlang parameter.
         download(id: string, optionalArgs: object): void;
         // Uploads a caption track.
-        insert(resource: Schema.Caption, part: string): Youtube_v3.Schema.Caption;
+        insert(resource: Schema.Caption, part: string): YouTube.Schema.Caption;
         // Uploads a caption track.
-        insert(resource: Schema.Caption, part: string, mediaData: any): Youtube_v3.Schema.Caption;
+        insert(resource: Schema.Caption, part: string, mediaData: any): YouTube.Schema.Caption;
         // Uploads a caption track.
-        insert(resource: Schema.Caption, part: string, mediaData: any, optionalArgs: object): Youtube_v3.Schema.Caption;
+        insert(resource: Schema.Caption, part: string, mediaData: any, optionalArgs: object): YouTube.Schema.Caption;
         // Returns a list of caption tracks that are associated with a specified video. Note that the API response does not contain the actual captions and that the captions.download method provides the ability to retrieve a caption track.
-        list(part: string, videoId: string): Youtube_v3.Schema.CaptionListResponse;
+        list(part: string, videoId: string): YouTube.Schema.CaptionListResponse;
         // Returns a list of caption tracks that are associated with a specified video. Note that the API response does not contain the actual captions and that the captions.download method provides the ability to retrieve a caption track.
-        list(part: string, videoId: string, optionalArgs: object): Youtube_v3.Schema.CaptionListResponse;
+        list(part: string, videoId: string, optionalArgs: object): YouTube.Schema.CaptionListResponse;
         // Deletes a specified caption track.
         remove(id: string): void;
         // Deletes a specified caption track.
         remove(id: string, optionalArgs: object): void;
         // Updates a caption track. When updating a caption track, you can change the track's draft status, upload a new caption file for the track, or both.
-        update(resource: Schema.Caption, part: string): Youtube_v3.Schema.Caption;
+        update(resource: Schema.Caption, part: string): YouTube.Schema.Caption;
         // Updates a caption track. When updating a caption track, you can change the track's draft status, upload a new caption file for the track, or both.
-        update(resource: Schema.Caption, part: string, mediaData: any): Youtube_v3.Schema.Caption;
+        update(resource: Schema.Caption, part: string, mediaData: any): YouTube.Schema.Caption;
         // Updates a caption track. When updating a caption track, you can change the track's draft status, upload a new caption file for the track, or both.
-        update(resource: Schema.Caption, part: string, mediaData: any, optionalArgs: object): Youtube_v3.Schema.Caption;
+        update(resource: Schema.Caption, part: string, mediaData: any, optionalArgs: object): YouTube.Schema.Caption;
       }
       export interface ChannelBannersCollection {
         // Uploads a channel banner image to YouTube. This method represents the first two steps in a three-step process to update the banner image for a channel:
         // - Call the channelBanners.insert method to upload the binary image data to YouTube. The image must have a 16:9 aspect ratio and be at least 2120x1192 pixels.
         // - Extract the url property's value from the response that the API returns for step 1.
         // - Call the channels.update method to update the channel's branding settings. Set the brandingSettings.image.bannerExternalUrl property's value to the URL obtained in step 2.
-        insert(resource: Schema.ChannelBannerResource): Youtube_v3.Schema.ChannelBannerResource;
+        insert(resource: Schema.ChannelBannerResource): YouTube.Schema.ChannelBannerResource;
         // Uploads a channel banner image to YouTube. This method represents the first two steps in a three-step process to update the banner image for a channel:
         // - Call the channelBanners.insert method to upload the binary image data to YouTube. The image must have a 16:9 aspect ratio and be at least 2120x1192 pixels.
         // - Extract the url property's value from the response that the API returns for step 1.
         // - Call the channels.update method to update the channel's branding settings. Set the brandingSettings.image.bannerExternalUrl property's value to the URL obtained in step 2.
-        insert(resource: Schema.ChannelBannerResource, mediaData: any): Youtube_v3.Schema.ChannelBannerResource;
+        insert(resource: Schema.ChannelBannerResource, mediaData: any): YouTube.Schema.ChannelBannerResource;
         // Uploads a channel banner image to YouTube. This method represents the first two steps in a three-step process to update the banner image for a channel:
         // - Call the channelBanners.insert method to upload the binary image data to YouTube. The image must have a 16:9 aspect ratio and be at least 2120x1192 pixels.
         // - Extract the url property's value from the response that the API returns for step 1.
         // - Call the channels.update method to update the channel's branding settings. Set the brandingSettings.image.bannerExternalUrl property's value to the URL obtained in step 2.
-        insert(resource: Schema.ChannelBannerResource, mediaData: any, optionalArgs: object): Youtube_v3.Schema.ChannelBannerResource;
+        insert(resource: Schema.ChannelBannerResource, mediaData: any, optionalArgs: object): YouTube.Schema.ChannelBannerResource;
       }
       export interface ChannelSectionsCollection {
         // Adds a channelSection for the authenticated user's channel.
-        insert(resource: Schema.ChannelSection, part: string): Youtube_v3.Schema.ChannelSection;
+        insert(resource: Schema.ChannelSection, part: string): YouTube.Schema.ChannelSection;
         // Adds a channelSection for the authenticated user's channel.
-        insert(resource: Schema.ChannelSection, part: string, optionalArgs: object): Youtube_v3.Schema.ChannelSection;
+        insert(resource: Schema.ChannelSection, part: string, optionalArgs: object): YouTube.Schema.ChannelSection;
         // Returns channelSection resources that match the API request criteria.
-        list(part: string): Youtube_v3.Schema.ChannelSectionListResponse;
+        list(part: string): YouTube.Schema.ChannelSectionListResponse;
         // Returns channelSection resources that match the API request criteria.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.ChannelSectionListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.ChannelSectionListResponse;
         // Deletes a channelSection.
         remove(id: string): void;
         // Deletes a channelSection.
         remove(id: string, optionalArgs: object): void;
         // Update a channelSection.
-        update(resource: Schema.ChannelSection, part: string): Youtube_v3.Schema.ChannelSection;
+        update(resource: Schema.ChannelSection, part: string): YouTube.Schema.ChannelSection;
         // Update a channelSection.
-        update(resource: Schema.ChannelSection, part: string, optionalArgs: object): Youtube_v3.Schema.ChannelSection;
+        update(resource: Schema.ChannelSection, part: string, optionalArgs: object): YouTube.Schema.ChannelSection;
       }
       export interface ChannelsCollection {
         // Returns a collection of zero or more channel resources that match the request criteria.
-        list(part: string): Youtube_v3.Schema.ChannelListResponse;
+        list(part: string): YouTube.Schema.ChannelListResponse;
         // Returns a collection of zero or more channel resources that match the request criteria.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.ChannelListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.ChannelListResponse;
         // Updates a channel's metadata. Note that this method currently only supports updates to the channel resource's brandingSettings and invideoPromotion objects and their child properties.
-        update(resource: Schema.Channel, part: string): Youtube_v3.Schema.Channel;
+        update(resource: Schema.Channel, part: string): YouTube.Schema.Channel;
         // Updates a channel's metadata. Note that this method currently only supports updates to the channel resource's brandingSettings and invideoPromotion objects and their child properties.
-        update(resource: Schema.Channel, part: string, optionalArgs: object): Youtube_v3.Schema.Channel;
+        update(resource: Schema.Channel, part: string, optionalArgs: object): YouTube.Schema.Channel;
       }
       export interface CommentThreadsCollection {
         // Creates a new top-level comment. To add a reply to an existing comment, use the comments.insert method instead.
-        insert(resource: Schema.CommentThread, part: string): Youtube_v3.Schema.CommentThread;
+        insert(resource: Schema.CommentThread, part: string): YouTube.Schema.CommentThread;
         // Returns a list of comment threads that match the API request parameters.
-        list(part: string): Youtube_v3.Schema.CommentThreadListResponse;
+        list(part: string): YouTube.Schema.CommentThreadListResponse;
         // Returns a list of comment threads that match the API request parameters.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.CommentThreadListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.CommentThreadListResponse;
         // Modifies the top-level comment in a comment thread.
-        update(resource: Schema.CommentThread, part: string): Youtube_v3.Schema.CommentThread;
+        update(resource: Schema.CommentThread, part: string): YouTube.Schema.CommentThread;
       }
       export interface CommentsCollection {
         // Creates a reply to an existing comment. Note: To create a top-level comment, use the commentThreads.insert method.
-        insert(resource: Schema.Comment, part: string): Youtube_v3.Schema.Comment;
+        insert(resource: Schema.Comment, part: string): YouTube.Schema.Comment;
         // Returns a list of comments that match the API request parameters.
-        list(part: string): Youtube_v3.Schema.CommentListResponse;
+        list(part: string): YouTube.Schema.CommentListResponse;
         // Returns a list of comments that match the API request parameters.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.CommentListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.CommentListResponse;
         // Expresses the caller's opinion that one or more comments should be flagged as spam.
         markAsSpam(id: string): void;
         // Deletes a comment.
@@ -113,199 +113,199 @@ declare namespace GoogleAppsScript {
         // Sets the moderation status of one or more comments. The API request must be authorized by the owner of the channel or video associated with the comments.
         setModerationStatus(id: string, moderationStatus: string, optionalArgs: object): void;
         // Modifies a comment.
-        update(resource: Schema.Comment, part: string): Youtube_v3.Schema.Comment;
+        update(resource: Schema.Comment, part: string): YouTube.Schema.Comment;
       }
       export interface GuideCategoriesCollection {
         // Returns a list of categories that can be associated with YouTube channels.
-        list(part: string): Youtube_v3.Schema.GuideCategoryListResponse;
+        list(part: string): YouTube.Schema.GuideCategoryListResponse;
         // Returns a list of categories that can be associated with YouTube channels.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.GuideCategoryListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.GuideCategoryListResponse;
       }
       export interface I18nLanguagesCollection {
         // Returns a list of application languages that the YouTube website supports.
-        list(part: string): Youtube_v3.Schema.I18nLanguageListResponse;
+        list(part: string): YouTube.Schema.I18nLanguageListResponse;
         // Returns a list of application languages that the YouTube website supports.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.I18nLanguageListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.I18nLanguageListResponse;
       }
       export interface I18nRegionsCollection {
         // Returns a list of content regions that the YouTube website supports.
-        list(part: string): Youtube_v3.Schema.I18nRegionListResponse;
+        list(part: string): YouTube.Schema.I18nRegionListResponse;
         // Returns a list of content regions that the YouTube website supports.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.I18nRegionListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.I18nRegionListResponse;
       }
       export interface LiveBroadcastsCollection {
         // Binds a YouTube broadcast to a stream or removes an existing binding between a broadcast and a stream. A broadcast can only be bound to one video stream, though a video stream may be bound to more than one broadcast.
-        bind(id: string, part: string): Youtube_v3.Schema.LiveBroadcast;
+        bind(id: string, part: string): YouTube.Schema.LiveBroadcast;
         // Binds a YouTube broadcast to a stream or removes an existing binding between a broadcast and a stream. A broadcast can only be bound to one video stream, though a video stream may be bound to more than one broadcast.
-        bind(id: string, part: string, optionalArgs: object): Youtube_v3.Schema.LiveBroadcast;
+        bind(id: string, part: string, optionalArgs: object): YouTube.Schema.LiveBroadcast;
         // Controls the settings for a slate that can be displayed in the broadcast stream.
-        control(id: string, part: string): Youtube_v3.Schema.LiveBroadcast;
+        control(id: string, part: string): YouTube.Schema.LiveBroadcast;
         // Controls the settings for a slate that can be displayed in the broadcast stream.
-        control(id: string, part: string, optionalArgs: object): Youtube_v3.Schema.LiveBroadcast;
+        control(id: string, part: string, optionalArgs: object): YouTube.Schema.LiveBroadcast;
         // Creates a broadcast.
-        insert(resource: Schema.LiveBroadcast, part: string): Youtube_v3.Schema.LiveBroadcast;
+        insert(resource: Schema.LiveBroadcast, part: string): YouTube.Schema.LiveBroadcast;
         // Creates a broadcast.
-        insert(resource: Schema.LiveBroadcast, part: string, optionalArgs: object): Youtube_v3.Schema.LiveBroadcast;
+        insert(resource: Schema.LiveBroadcast, part: string, optionalArgs: object): YouTube.Schema.LiveBroadcast;
         // Returns a list of YouTube broadcasts that match the API request parameters.
-        list(part: string): Youtube_v3.Schema.LiveBroadcastListResponse;
+        list(part: string): YouTube.Schema.LiveBroadcastListResponse;
         // Returns a list of YouTube broadcasts that match the API request parameters.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.LiveBroadcastListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.LiveBroadcastListResponse;
         // Deletes a broadcast.
         remove(id: string): void;
         // Deletes a broadcast.
         remove(id: string, optionalArgs: object): void;
         // Changes the status of a YouTube live broadcast and initiates any processes associated with the new status. For example, when you transition a broadcast's status to testing, YouTube starts to transmit video to that broadcast's monitor stream. Before calling this method, you should confirm that the value of the status.streamStatus property for the stream bound to your broadcast is active.
-        transition(broadcastStatus: string, id: string, part: string): Youtube_v3.Schema.LiveBroadcast;
+        transition(broadcastStatus: string, id: string, part: string): YouTube.Schema.LiveBroadcast;
         // Changes the status of a YouTube live broadcast and initiates any processes associated with the new status. For example, when you transition a broadcast's status to testing, YouTube starts to transmit video to that broadcast's monitor stream. Before calling this method, you should confirm that the value of the status.streamStatus property for the stream bound to your broadcast is active.
-        transition(broadcastStatus: string, id: string, part: string, optionalArgs: object): Youtube_v3.Schema.LiveBroadcast;
+        transition(broadcastStatus: string, id: string, part: string, optionalArgs: object): YouTube.Schema.LiveBroadcast;
         // Updates a broadcast. For example, you could modify the broadcast settings defined in the liveBroadcast resource's contentDetails object.
-        update(resource: Schema.LiveBroadcast, part: string): Youtube_v3.Schema.LiveBroadcast;
+        update(resource: Schema.LiveBroadcast, part: string): YouTube.Schema.LiveBroadcast;
         // Updates a broadcast. For example, you could modify the broadcast settings defined in the liveBroadcast resource's contentDetails object.
-        update(resource: Schema.LiveBroadcast, part: string, optionalArgs: object): Youtube_v3.Schema.LiveBroadcast;
+        update(resource: Schema.LiveBroadcast, part: string, optionalArgs: object): YouTube.Schema.LiveBroadcast;
       }
       export interface LiveChatBansCollection {
         // Adds a new ban to the chat.
-        insert(resource: Schema.LiveChatBan, part: string): Youtube_v3.Schema.LiveChatBan;
+        insert(resource: Schema.LiveChatBan, part: string): YouTube.Schema.LiveChatBan;
         // Removes a chat ban.
         remove(id: string): void;
       }
       export interface LiveChatMessagesCollection {
         // Adds a message to a live chat.
-        insert(resource: Schema.LiveChatMessage, part: string): Youtube_v3.Schema.LiveChatMessage;
+        insert(resource: Schema.LiveChatMessage, part: string): YouTube.Schema.LiveChatMessage;
         // Lists live chat messages for a specific chat.
-        list(liveChatId: string, part: string): Youtube_v3.Schema.LiveChatMessageListResponse;
+        list(liveChatId: string, part: string): YouTube.Schema.LiveChatMessageListResponse;
         // Lists live chat messages for a specific chat.
-        list(liveChatId: string, part: string, optionalArgs: object): Youtube_v3.Schema.LiveChatMessageListResponse;
+        list(liveChatId: string, part: string, optionalArgs: object): YouTube.Schema.LiveChatMessageListResponse;
         // Deletes a chat message.
         remove(id: string): void;
       }
       export interface LiveChatModeratorsCollection {
         // Adds a new moderator for the chat.
-        insert(resource: Schema.LiveChatModerator, part: string): Youtube_v3.Schema.LiveChatModerator;
+        insert(resource: Schema.LiveChatModerator, part: string): YouTube.Schema.LiveChatModerator;
         // Lists moderators for a live chat.
-        list(liveChatId: string, part: string): Youtube_v3.Schema.LiveChatModeratorListResponse;
+        list(liveChatId: string, part: string): YouTube.Schema.LiveChatModeratorListResponse;
         // Lists moderators for a live chat.
-        list(liveChatId: string, part: string, optionalArgs: object): Youtube_v3.Schema.LiveChatModeratorListResponse;
+        list(liveChatId: string, part: string, optionalArgs: object): YouTube.Schema.LiveChatModeratorListResponse;
         // Removes a chat moderator.
         remove(id: string): void;
       }
       export interface LiveStreamsCollection {
         // Creates a video stream. The stream enables you to send your video to YouTube, which can then broadcast the video to your audience.
-        insert(resource: Schema.LiveStream, part: string): Youtube_v3.Schema.LiveStream;
+        insert(resource: Schema.LiveStream, part: string): YouTube.Schema.LiveStream;
         // Creates a video stream. The stream enables you to send your video to YouTube, which can then broadcast the video to your audience.
-        insert(resource: Schema.LiveStream, part: string, optionalArgs: object): Youtube_v3.Schema.LiveStream;
+        insert(resource: Schema.LiveStream, part: string, optionalArgs: object): YouTube.Schema.LiveStream;
         // Returns a list of video streams that match the API request parameters.
-        list(part: string): Youtube_v3.Schema.LiveStreamListResponse;
+        list(part: string): YouTube.Schema.LiveStreamListResponse;
         // Returns a list of video streams that match the API request parameters.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.LiveStreamListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.LiveStreamListResponse;
         // Deletes a video stream.
         remove(id: string): void;
         // Deletes a video stream.
         remove(id: string, optionalArgs: object): void;
         // Updates a video stream. If the properties that you want to change cannot be updated, then you need to create a new stream with the proper settings.
-        update(resource: Schema.LiveStream, part: string): Youtube_v3.Schema.LiveStream;
+        update(resource: Schema.LiveStream, part: string): YouTube.Schema.LiveStream;
         // Updates a video stream. If the properties that you want to change cannot be updated, then you need to create a new stream with the proper settings.
-        update(resource: Schema.LiveStream, part: string, optionalArgs: object): Youtube_v3.Schema.LiveStream;
+        update(resource: Schema.LiveStream, part: string, optionalArgs: object): YouTube.Schema.LiveStream;
       }
       export interface PlaylistItemsCollection {
         // Adds a resource to a playlist.
-        insert(resource: Schema.PlaylistItem, part: string): Youtube_v3.Schema.PlaylistItem;
+        insert(resource: Schema.PlaylistItem, part: string): YouTube.Schema.PlaylistItem;
         // Adds a resource to a playlist.
-        insert(resource: Schema.PlaylistItem, part: string, optionalArgs: object): Youtube_v3.Schema.PlaylistItem;
+        insert(resource: Schema.PlaylistItem, part: string, optionalArgs: object): YouTube.Schema.PlaylistItem;
         // Returns a collection of playlist items that match the API request parameters. You can retrieve all of the playlist items in a specified playlist or retrieve one or more playlist items by their unique IDs.
-        list(part: string): Youtube_v3.Schema.PlaylistItemListResponse;
+        list(part: string): YouTube.Schema.PlaylistItemListResponse;
         // Returns a collection of playlist items that match the API request parameters. You can retrieve all of the playlist items in a specified playlist or retrieve one or more playlist items by their unique IDs.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.PlaylistItemListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.PlaylistItemListResponse;
         // Deletes a playlist item.
         remove(id: string): void;
         // Deletes a playlist item.
         remove(id: string, optionalArgs: object): void;
         // Modifies a playlist item. For example, you could update the item's position in the playlist.
-        update(resource: Schema.PlaylistItem, part: string): Youtube_v3.Schema.PlaylistItem;
+        update(resource: Schema.PlaylistItem, part: string): YouTube.Schema.PlaylistItem;
         // Modifies a playlist item. For example, you could update the item's position in the playlist.
-        update(resource: Schema.PlaylistItem, part: string, optionalArgs: object): Youtube_v3.Schema.PlaylistItem;
+        update(resource: Schema.PlaylistItem, part: string, optionalArgs: object): YouTube.Schema.PlaylistItem;
       }
       export interface PlaylistsCollection {
         // Creates a playlist.
-        insert(resource: Schema.Playlist, part: string): Youtube_v3.Schema.Playlist;
+        insert(resource: Schema.Playlist, part: string): YouTube.Schema.Playlist;
         // Creates a playlist.
-        insert(resource: Schema.Playlist, part: string, optionalArgs: object): Youtube_v3.Schema.Playlist;
+        insert(resource: Schema.Playlist, part: string, optionalArgs: object): YouTube.Schema.Playlist;
         // Returns a collection of playlists that match the API request parameters. For example, you can retrieve all playlists that the authenticated user owns, or you can retrieve one or more playlists by their unique IDs.
-        list(part: string): Youtube_v3.Schema.PlaylistListResponse;
+        list(part: string): YouTube.Schema.PlaylistListResponse;
         // Returns a collection of playlists that match the API request parameters. For example, you can retrieve all playlists that the authenticated user owns, or you can retrieve one or more playlists by their unique IDs.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.PlaylistListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.PlaylistListResponse;
         // Deletes a playlist.
         remove(id: string): void;
         // Deletes a playlist.
         remove(id: string, optionalArgs: object): void;
         // Modifies a playlist. For example, you could change a playlist's title, description, or privacy status.
-        update(resource: Schema.Playlist, part: string): Youtube_v3.Schema.Playlist;
+        update(resource: Schema.Playlist, part: string): YouTube.Schema.Playlist;
         // Modifies a playlist. For example, you could change a playlist's title, description, or privacy status.
-        update(resource: Schema.Playlist, part: string, optionalArgs: object): Youtube_v3.Schema.Playlist;
+        update(resource: Schema.Playlist, part: string, optionalArgs: object): YouTube.Schema.Playlist;
       }
       export interface SearchCollection {
         // Returns a collection of search results that match the query parameters specified in the API request. By default, a search result set identifies matching video, channel, and playlist resources, but you can also configure queries to only retrieve a specific type of resource.
-        list(part: string): Youtube_v3.Schema.SearchListResponse;
+        list(part: string): YouTube.Schema.SearchListResponse;
         // Returns a collection of search results that match the query parameters specified in the API request. By default, a search result set identifies matching video, channel, and playlist resources, but you can also configure queries to only retrieve a specific type of resource.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.SearchListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.SearchListResponse;
       }
       export interface SponsorsCollection {
         // Lists sponsors for a channel.
-        list(part: string): Youtube_v3.Schema.SponsorListResponse;
+        list(part: string): YouTube.Schema.SponsorListResponse;
         // Lists sponsors for a channel.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.SponsorListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.SponsorListResponse;
       }
       export interface SubscriptionsCollection {
         // Adds a subscription for the authenticated user's channel.
-        insert(resource: Schema.Subscription, part: string): Youtube_v3.Schema.Subscription;
+        insert(resource: Schema.Subscription, part: string): YouTube.Schema.Subscription;
         // Returns subscription resources that match the API request criteria.
-        list(part: string): Youtube_v3.Schema.SubscriptionListResponse;
+        list(part: string): YouTube.Schema.SubscriptionListResponse;
         // Returns subscription resources that match the API request criteria.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.SubscriptionListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.SubscriptionListResponse;
         // Deletes a subscription.
         remove(id: string): void;
       }
       export interface SuperChatEventsCollection {
         // Lists Super Chat events for a channel.
-        list(part: string): Youtube_v3.Schema.SuperChatEventListResponse;
+        list(part: string): YouTube.Schema.SuperChatEventListResponse;
         // Lists Super Chat events for a channel.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.SuperChatEventListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.SuperChatEventListResponse;
       }
       export interface ThumbnailsCollection {
         // Uploads a custom video thumbnail to YouTube and sets it for a video.
-        set(videoId: string): Youtube_v3.Schema.ThumbnailSetResponse;
+        set(videoId: string): YouTube.Schema.ThumbnailSetResponse;
         // Uploads a custom video thumbnail to YouTube and sets it for a video.
-        set(videoId: string, mediaData: any): Youtube_v3.Schema.ThumbnailSetResponse;
+        set(videoId: string, mediaData: any): YouTube.Schema.ThumbnailSetResponse;
         // Uploads a custom video thumbnail to YouTube and sets it for a video.
-        set(videoId: string, mediaData: any, optionalArgs: object): Youtube_v3.Schema.ThumbnailSetResponse;
+        set(videoId: string, mediaData: any, optionalArgs: object): YouTube.Schema.ThumbnailSetResponse;
       }
       export interface VideoAbuseReportReasonsCollection {
         // Returns a list of abuse reasons that can be used for reporting abusive videos.
-        list(part: string): Youtube_v3.Schema.VideoAbuseReportReasonListResponse;
+        list(part: string): YouTube.Schema.VideoAbuseReportReasonListResponse;
         // Returns a list of abuse reasons that can be used for reporting abusive videos.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.VideoAbuseReportReasonListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.VideoAbuseReportReasonListResponse;
       }
       export interface VideoCategoriesCollection {
         // Returns a list of categories that can be associated with YouTube videos.
-        list(part: string): Youtube_v3.Schema.VideoCategoryListResponse;
+        list(part: string): YouTube.Schema.VideoCategoryListResponse;
         // Returns a list of categories that can be associated with YouTube videos.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.VideoCategoryListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.VideoCategoryListResponse;
       }
       export interface VideosCollection {
         // Retrieves the ratings that the authorized user gave to a list of specified videos.
-        getRating(id: string): Youtube_v3.Schema.VideoGetRatingResponse;
+        getRating(id: string): YouTube.Schema.VideoGetRatingResponse;
         // Retrieves the ratings that the authorized user gave to a list of specified videos.
-        getRating(id: string, optionalArgs: object): Youtube_v3.Schema.VideoGetRatingResponse;
+        getRating(id: string, optionalArgs: object): YouTube.Schema.VideoGetRatingResponse;
         // Uploads a video to YouTube and optionally sets the video's metadata.
-        insert(resource: Schema.Video, part: string): Youtube_v3.Schema.Video;
+        insert(resource: Schema.Video, part: string): YouTube.Schema.Video;
         // Uploads a video to YouTube and optionally sets the video's metadata.
-        insert(resource: Schema.Video, part: string, mediaData: any): Youtube_v3.Schema.Video;
+        insert(resource: Schema.Video, part: string, mediaData: any): YouTube.Schema.Video;
         // Uploads a video to YouTube and optionally sets the video's metadata.
-        insert(resource: Schema.Video, part: string, mediaData: any, optionalArgs: object): Youtube_v3.Schema.Video;
+        insert(resource: Schema.Video, part: string, mediaData: any, optionalArgs: object): YouTube.Schema.Video;
         // Returns a list of videos that match the API request parameters.
-        list(part: string): Youtube_v3.Schema.VideoListResponse;
+        list(part: string): YouTube.Schema.VideoListResponse;
         // Returns a list of videos that match the API request parameters.
-        list(part: string, optionalArgs: object): Youtube_v3.Schema.VideoListResponse;
+        list(part: string, optionalArgs: object): YouTube.Schema.VideoListResponse;
         // Add a like or dislike rating to a video or remove a rating from a video.
         rate(id: string, rating: string): void;
         // Deletes a YouTube video.
@@ -317,9 +317,9 @@ declare namespace GoogleAppsScript {
         // Report abuse for a video.
         reportAbuse(resource: Schema.VideoAbuseReport, optionalArgs: object): void;
         // Updates a video's metadata.
-        update(resource: Schema.Video, part: string): Youtube_v3.Schema.Video;
+        update(resource: Schema.Video, part: string): YouTube.Schema.Video;
         // Updates a video's metadata.
-        update(resource: Schema.Video, part: string, optionalArgs: object): Youtube_v3.Schema.Video;
+        update(resource: Schema.Video, part: string, optionalArgs: object): YouTube.Schema.Video;
       }
       export interface WatermarksCollection {
         // Uploads a watermark image to YouTube and sets it for a channel.
@@ -340,44 +340,44 @@ declare namespace GoogleAppsScript {
         exception?: string[];
       }
       export interface Activity {
-        contentDetails?: Youtube_v3.Schema.ActivityContentDetails;
+        contentDetails?: YouTube.Schema.ActivityContentDetails;
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.ActivitySnippet;
+        snippet?: YouTube.Schema.ActivitySnippet;
       }
       export interface ActivityContentDetails {
-        bulletin?: Youtube_v3.Schema.ActivityContentDetailsBulletin;
-        channelItem?: Youtube_v3.Schema.ActivityContentDetailsChannelItem;
-        comment?: Youtube_v3.Schema.ActivityContentDetailsComment;
-        favorite?: Youtube_v3.Schema.ActivityContentDetailsFavorite;
-        like?: Youtube_v3.Schema.ActivityContentDetailsLike;
-        playlistItem?: Youtube_v3.Schema.ActivityContentDetailsPlaylistItem;
-        promotedItem?: Youtube_v3.Schema.ActivityContentDetailsPromotedItem;
-        recommendation?: Youtube_v3.Schema.ActivityContentDetailsRecommendation;
-        social?: Youtube_v3.Schema.ActivityContentDetailsSocial;
-        subscription?: Youtube_v3.Schema.ActivityContentDetailsSubscription;
-        upload?: Youtube_v3.Schema.ActivityContentDetailsUpload;
+        bulletin?: YouTube.Schema.ActivityContentDetailsBulletin;
+        channelItem?: YouTube.Schema.ActivityContentDetailsChannelItem;
+        comment?: YouTube.Schema.ActivityContentDetailsComment;
+        favorite?: YouTube.Schema.ActivityContentDetailsFavorite;
+        like?: YouTube.Schema.ActivityContentDetailsLike;
+        playlistItem?: YouTube.Schema.ActivityContentDetailsPlaylistItem;
+        promotedItem?: YouTube.Schema.ActivityContentDetailsPromotedItem;
+        recommendation?: YouTube.Schema.ActivityContentDetailsRecommendation;
+        social?: YouTube.Schema.ActivityContentDetailsSocial;
+        subscription?: YouTube.Schema.ActivityContentDetailsSubscription;
+        upload?: YouTube.Schema.ActivityContentDetailsUpload;
       }
       export interface ActivityContentDetailsBulletin {
-        resourceId?: Youtube_v3.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId;
       }
       export interface ActivityContentDetailsChannelItem {
-        resourceId?: Youtube_v3.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId;
       }
       export interface ActivityContentDetailsComment {
-        resourceId?: Youtube_v3.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId;
       }
       export interface ActivityContentDetailsFavorite {
-        resourceId?: Youtube_v3.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId;
       }
       export interface ActivityContentDetailsLike {
-        resourceId?: Youtube_v3.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId;
       }
       export interface ActivityContentDetailsPlaylistItem {
         playlistId?: string;
         playlistItemId?: string;
-        resourceId?: Youtube_v3.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId;
       }
       export interface ActivityContentDetailsPromotedItem {
         adTag?: string;
@@ -393,18 +393,18 @@ declare namespace GoogleAppsScript {
       }
       export interface ActivityContentDetailsRecommendation {
         reason?: string;
-        resourceId?: Youtube_v3.Schema.ResourceId;
-        seedResourceId?: Youtube_v3.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId;
+        seedResourceId?: YouTube.Schema.ResourceId;
       }
       export interface ActivityContentDetailsSocial {
         author?: string;
         imageUrl?: string;
         referenceUrl?: string;
-        resourceId?: Youtube_v3.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId;
         type?: string;
       }
       export interface ActivityContentDetailsSubscription {
-        resourceId?: Youtube_v3.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId;
       }
       export interface ActivityContentDetailsUpload {
         videoId?: string;
@@ -412,10 +412,10 @@ declare namespace GoogleAppsScript {
       export interface ActivityListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.Activity[];
+        items?: YouTube.Schema.Activity[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         prevPageToken?: string;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
@@ -426,7 +426,7 @@ declare namespace GoogleAppsScript {
         description?: string;
         groupId?: string;
         publishedAt?: string;
-        thumbnails?: Youtube_v3.Schema.ThumbnailDetails;
+        thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
         type?: string;
       }
@@ -434,12 +434,12 @@ declare namespace GoogleAppsScript {
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.CaptionSnippet;
+        snippet?: YouTube.Schema.CaptionSnippet;
       }
       export interface CaptionListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.Caption[];
+        items?: YouTube.Schema.Caption[];
         kind?: string;
         visitorId?: string;
       }
@@ -461,25 +461,25 @@ declare namespace GoogleAppsScript {
       export interface CdnSettings {
         format?: string;
         frameRate?: string;
-        ingestionInfo?: Youtube_v3.Schema.IngestionInfo;
+        ingestionInfo?: YouTube.Schema.IngestionInfo;
         ingestionType?: string;
         resolution?: string;
       }
       export interface Channel {
-        auditDetails?: Youtube_v3.Schema.ChannelAuditDetails;
-        brandingSettings?: Youtube_v3.Schema.ChannelBrandingSettings;
-        contentDetails?: Youtube_v3.Schema.ChannelContentDetails;
-        contentOwnerDetails?: Youtube_v3.Schema.ChannelContentOwnerDetails;
-        conversionPings?: Youtube_v3.Schema.ChannelConversionPings;
+        auditDetails?: YouTube.Schema.ChannelAuditDetails;
+        brandingSettings?: YouTube.Schema.ChannelBrandingSettings;
+        contentDetails?: YouTube.Schema.ChannelContentDetails;
+        contentOwnerDetails?: YouTube.Schema.ChannelContentOwnerDetails;
+        conversionPings?: YouTube.Schema.ChannelConversionPings;
         etag?: string;
         id?: string;
-        invideoPromotion?: Youtube_v3.Schema.InvideoPromotion;
+        invideoPromotion?: YouTube.Schema.InvideoPromotion;
         kind?: string;
         localizations?: object;
-        snippet?: Youtube_v3.Schema.ChannelSnippet;
-        statistics?: Youtube_v3.Schema.ChannelStatistics;
-        status?: Youtube_v3.Schema.ChannelStatus;
-        topicDetails?: Youtube_v3.Schema.ChannelTopicDetails;
+        snippet?: YouTube.Schema.ChannelSnippet;
+        statistics?: YouTube.Schema.ChannelStatistics;
+        status?: YouTube.Schema.ChannelStatus;
+        topicDetails?: YouTube.Schema.ChannelTopicDetails;
       }
       export interface ChannelAuditDetails {
         communityGuidelinesGoodStanding?: boolean;
@@ -492,13 +492,13 @@ declare namespace GoogleAppsScript {
         url?: string;
       }
       export interface ChannelBrandingSettings {
-        channel?: Youtube_v3.Schema.ChannelSettings;
-        hints?: Youtube_v3.Schema.PropertyValue[];
-        image?: Youtube_v3.Schema.ImageSettings;
-        watch?: Youtube_v3.Schema.WatchSettings;
+        channel?: YouTube.Schema.ChannelSettings;
+        hints?: YouTube.Schema.PropertyValue[];
+        image?: YouTube.Schema.ImageSettings;
+        watch?: YouTube.Schema.WatchSettings;
       }
       export interface ChannelContentDetails {
-        relatedPlaylists?: Youtube_v3.Schema.ChannelContentDetailsRelatedPlaylists;
+        relatedPlaylists?: YouTube.Schema.ChannelContentDetailsRelatedPlaylists;
       }
       export interface ChannelContentDetailsRelatedPlaylists {
         favorites?: string;
@@ -516,15 +516,15 @@ declare namespace GoogleAppsScript {
         conversionUrl?: string;
       }
       export interface ChannelConversionPings {
-        pings?: Youtube_v3.Schema.ChannelConversionPing[];
+        pings?: YouTube.Schema.ChannelConversionPing[];
       }
       export interface ChannelListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.Channel[];
+        items?: YouTube.Schema.Channel[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         prevPageToken?: string;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
@@ -540,13 +540,13 @@ declare namespace GoogleAppsScript {
         profileImageUrl?: string;
       }
       export interface ChannelSection {
-        contentDetails?: Youtube_v3.Schema.ChannelSectionContentDetails;
+        contentDetails?: YouTube.Schema.ChannelSectionContentDetails;
         etag?: string;
         id?: string;
         kind?: string;
         localizations?: object;
-        snippet?: Youtube_v3.Schema.ChannelSectionSnippet;
-        targeting?: Youtube_v3.Schema.ChannelSectionTargeting;
+        snippet?: YouTube.Schema.ChannelSectionSnippet;
+        targeting?: YouTube.Schema.ChannelSectionTargeting;
       }
       export interface ChannelSectionContentDetails {
         channels?: string[];
@@ -555,7 +555,7 @@ declare namespace GoogleAppsScript {
       export interface ChannelSectionListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.ChannelSection[];
+        items?: YouTube.Schema.ChannelSection[];
         kind?: string;
         visitorId?: string;
       }
@@ -565,7 +565,7 @@ declare namespace GoogleAppsScript {
       export interface ChannelSectionSnippet {
         channelId?: string;
         defaultLanguage?: string;
-        localized?: Youtube_v3.Schema.ChannelSectionLocalization;
+        localized?: YouTube.Schema.ChannelSectionLocalization;
         position?: number;
         style?: string;
         title?: string;
@@ -597,9 +597,9 @@ declare namespace GoogleAppsScript {
         customUrl?: string;
         defaultLanguage?: string;
         description?: string;
-        localized?: Youtube_v3.Schema.ChannelLocalization;
+        localized?: YouTube.Schema.ChannelLocalization;
         publishedAt?: string;
-        thumbnails?: Youtube_v3.Schema.ThumbnailDetails;
+        thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
       export interface ChannelStatistics {
@@ -622,15 +622,15 @@ declare namespace GoogleAppsScript {
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.CommentSnippet;
+        snippet?: YouTube.Schema.CommentSnippet;
       }
       export interface CommentListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.Comment[];
+        items?: YouTube.Schema.Comment[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
@@ -655,27 +655,27 @@ declare namespace GoogleAppsScript {
         etag?: string;
         id?: string;
         kind?: string;
-        replies?: Youtube_v3.Schema.CommentThreadReplies;
-        snippet?: Youtube_v3.Schema.CommentThreadSnippet;
+        replies?: YouTube.Schema.CommentThreadReplies;
+        snippet?: YouTube.Schema.CommentThreadSnippet;
       }
       export interface CommentThreadListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.CommentThread[];
+        items?: YouTube.Schema.CommentThread[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
       export interface CommentThreadReplies {
-        comments?: Youtube_v3.Schema.Comment[];
+        comments?: YouTube.Schema.Comment[];
       }
       export interface CommentThreadSnippet {
         canReply?: boolean;
         channelId?: string;
         isPublic?: boolean;
-        topLevelComment?: Youtube_v3.Schema.Comment;
+        topLevelComment?: YouTube.Schema.Comment;
         totalReplyCount?: number;
         videoId?: string;
       }
@@ -760,15 +760,15 @@ declare namespace GoogleAppsScript {
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.GuideCategorySnippet;
+        snippet?: YouTube.Schema.GuideCategorySnippet;
       }
       export interface GuideCategoryListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.GuideCategory[];
+        items?: YouTube.Schema.GuideCategory[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         prevPageToken?: string;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
@@ -781,12 +781,12 @@ declare namespace GoogleAppsScript {
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.I18nLanguageSnippet;
+        snippet?: YouTube.Schema.I18nLanguageSnippet;
       }
       export interface I18nLanguageListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.I18nLanguage[];
+        items?: YouTube.Schema.I18nLanguage[];
         kind?: string;
         visitorId?: string;
       }
@@ -798,12 +798,12 @@ declare namespace GoogleAppsScript {
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.I18nRegionSnippet;
+        snippet?: YouTube.Schema.I18nRegionSnippet;
       }
       export interface I18nRegionListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.I18nRegion[];
+        items?: YouTube.Schema.I18nRegion[];
         kind?: string;
         visitorId?: string;
       }
@@ -812,7 +812,7 @@ declare namespace GoogleAppsScript {
         name?: string;
       }
       export interface ImageSettings {
-        backgroundImageUrl?: Youtube_v3.Schema.LocalizedProperty;
+        backgroundImageUrl?: YouTube.Schema.LocalizedProperty;
         bannerExternalUrl?: string;
         bannerImageUrl?: string;
         bannerMobileExtraHdImageUrl?: string;
@@ -828,10 +828,10 @@ declare namespace GoogleAppsScript {
         bannerTvImageUrl?: string;
         bannerTvLowImageUrl?: string;
         bannerTvMediumImageUrl?: string;
-        largeBrandedBannerImageImapScript?: Youtube_v3.Schema.LocalizedProperty;
-        largeBrandedBannerImageUrl?: Youtube_v3.Schema.LocalizedProperty;
-        smallBrandedBannerImageImapScript?: Youtube_v3.Schema.LocalizedProperty;
-        smallBrandedBannerImageUrl?: Youtube_v3.Schema.LocalizedProperty;
+        largeBrandedBannerImageImapScript?: YouTube.Schema.LocalizedProperty;
+        largeBrandedBannerImageUrl?: YouTube.Schema.LocalizedProperty;
+        smallBrandedBannerImageImapScript?: YouTube.Schema.LocalizedProperty;
+        smallBrandedBannerImageUrl?: YouTube.Schema.LocalizedProperty;
         trackingImageUrl?: string;
         watchIconImageUrl?: string;
       }
@@ -843,18 +843,18 @@ declare namespace GoogleAppsScript {
       export interface InvideoBranding {
         imageBytes?: string;
         imageUrl?: string;
-        position?: Youtube_v3.Schema.InvideoPosition;
+        position?: YouTube.Schema.InvideoPosition;
         targetChannelId?: string;
-        timing?: Youtube_v3.Schema.InvideoTiming;
+        timing?: YouTube.Schema.InvideoTiming;
       }
       export interface InvideoPosition {
         cornerPosition?: string;
         type?: string;
       }
       export interface InvideoPromotion {
-        defaultTiming?: Youtube_v3.Schema.InvideoTiming;
-        items?: Youtube_v3.Schema.PromotedItem[];
-        position?: Youtube_v3.Schema.InvideoPosition;
+        defaultTiming?: YouTube.Schema.InvideoTiming;
+        items?: YouTube.Schema.PromotedItem[];
+        position?: YouTube.Schema.InvideoPosition;
         useSmartTiming?: boolean;
       }
       export interface InvideoTiming {
@@ -866,13 +866,13 @@ declare namespace GoogleAppsScript {
         value?: string;
       }
       export interface LiveBroadcast {
-        contentDetails?: Youtube_v3.Schema.LiveBroadcastContentDetails;
+        contentDetails?: YouTube.Schema.LiveBroadcastContentDetails;
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.LiveBroadcastSnippet;
-        statistics?: Youtube_v3.Schema.LiveBroadcastStatistics;
-        status?: Youtube_v3.Schema.LiveBroadcastStatus;
+        snippet?: YouTube.Schema.LiveBroadcastSnippet;
+        statistics?: YouTube.Schema.LiveBroadcastStatistics;
+        status?: YouTube.Schema.LiveBroadcastStatus;
       }
       export interface LiveBroadcastContentDetails {
         boundStreamId?: string;
@@ -886,7 +886,7 @@ declare namespace GoogleAppsScript {
         enableLowLatency?: boolean;
         latencyPreference?: string;
         mesh?: string;
-        monitorStream?: Youtube_v3.Schema.MonitorStreamInfo;
+        monitorStream?: YouTube.Schema.MonitorStreamInfo;
         projection?: string;
         recordFromStart?: boolean;
         startWithSlate?: boolean;
@@ -895,10 +895,10 @@ declare namespace GoogleAppsScript {
       export interface LiveBroadcastListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.LiveBroadcast[];
+        items?: YouTube.Schema.LiveBroadcast[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         prevPageToken?: string;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
@@ -913,7 +913,7 @@ declare namespace GoogleAppsScript {
         publishedAt?: string;
         scheduledEndTime?: string;
         scheduledStartTime?: string;
-        thumbnails?: Youtube_v3.Schema.ThumbnailDetails;
+        thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
       export interface LiveBroadcastStatistics {
@@ -930,11 +930,11 @@ declare namespace GoogleAppsScript {
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.LiveChatBanSnippet;
+        snippet?: YouTube.Schema.LiveChatBanSnippet;
       }
       export interface LiveChatBanSnippet {
         banDurationSeconds?: string;
-        bannedUserDetails?: Youtube_v3.Schema.ChannelProfileDetails;
+        bannedUserDetails?: YouTube.Schema.ChannelProfileDetails;
         liveChatId?: string;
         type?: string;
       }
@@ -945,11 +945,11 @@ declare namespace GoogleAppsScript {
         userComment?: string;
       }
       export interface LiveChatMessage {
-        authorDetails?: Youtube_v3.Schema.LiveChatMessageAuthorDetails;
+        authorDetails?: YouTube.Schema.LiveChatMessageAuthorDetails;
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.LiveChatMessageSnippet;
+        snippet?: YouTube.Schema.LiveChatMessageSnippet;
       }
       export interface LiveChatMessageAuthorDetails {
         channelId?: string;
@@ -967,11 +967,11 @@ declare namespace GoogleAppsScript {
       export interface LiveChatMessageListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.LiveChatMessage[];
+        items?: YouTube.Schema.LiveChatMessage[];
         kind?: string;
         nextPageToken?: string;
         offlineAt?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         pollingIntervalMillis?: number;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
@@ -982,49 +982,49 @@ declare namespace GoogleAppsScript {
       export interface LiveChatMessageSnippet {
         authorChannelId?: string;
         displayMessage?: string;
-        fanFundingEventDetails?: Youtube_v3.Schema.LiveChatFanFundingEventDetails;
+        fanFundingEventDetails?: YouTube.Schema.LiveChatFanFundingEventDetails;
         hasDisplayContent?: boolean;
         liveChatId?: string;
-        messageDeletedDetails?: Youtube_v3.Schema.LiveChatMessageDeletedDetails;
-        messageRetractedDetails?: Youtube_v3.Schema.LiveChatMessageRetractedDetails;
-        pollClosedDetails?: Youtube_v3.Schema.LiveChatPollClosedDetails;
-        pollEditedDetails?: Youtube_v3.Schema.LiveChatPollEditedDetails;
-        pollOpenedDetails?: Youtube_v3.Schema.LiveChatPollOpenedDetails;
-        pollVotedDetails?: Youtube_v3.Schema.LiveChatPollVotedDetails;
+        messageDeletedDetails?: YouTube.Schema.LiveChatMessageDeletedDetails;
+        messageRetractedDetails?: YouTube.Schema.LiveChatMessageRetractedDetails;
+        pollClosedDetails?: YouTube.Schema.LiveChatPollClosedDetails;
+        pollEditedDetails?: YouTube.Schema.LiveChatPollEditedDetails;
+        pollOpenedDetails?: YouTube.Schema.LiveChatPollOpenedDetails;
+        pollVotedDetails?: YouTube.Schema.LiveChatPollVotedDetails;
         publishedAt?: string;
-        superChatDetails?: Youtube_v3.Schema.LiveChatSuperChatDetails;
-        superStickerDetails?: Youtube_v3.Schema.LiveChatSuperStickerDetails;
-        textMessageDetails?: Youtube_v3.Schema.LiveChatTextMessageDetails;
+        superChatDetails?: YouTube.Schema.LiveChatSuperChatDetails;
+        superStickerDetails?: YouTube.Schema.LiveChatSuperStickerDetails;
+        textMessageDetails?: YouTube.Schema.LiveChatTextMessageDetails;
         type?: string;
-        userBannedDetails?: Youtube_v3.Schema.LiveChatUserBannedMessageDetails;
+        userBannedDetails?: YouTube.Schema.LiveChatUserBannedMessageDetails;
       }
       export interface LiveChatModerator {
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.LiveChatModeratorSnippet;
+        snippet?: YouTube.Schema.LiveChatModeratorSnippet;
       }
       export interface LiveChatModeratorListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.LiveChatModerator[];
+        items?: YouTube.Schema.LiveChatModerator[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         prevPageToken?: string;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
       export interface LiveChatModeratorSnippet {
         liveChatId?: string;
-        moderatorDetails?: Youtube_v3.Schema.ChannelProfileDetails;
+        moderatorDetails?: YouTube.Schema.ChannelProfileDetails;
       }
       export interface LiveChatPollClosedDetails {
         pollId?: string;
       }
       export interface LiveChatPollEditedDetails {
         id?: string;
-        items?: Youtube_v3.Schema.LiveChatPollItem[];
+        items?: YouTube.Schema.LiveChatPollItem[];
         prompt?: string;
       }
       export interface LiveChatPollItem {
@@ -1033,7 +1033,7 @@ declare namespace GoogleAppsScript {
       }
       export interface LiveChatPollOpenedDetails {
         id?: string;
-        items?: Youtube_v3.Schema.LiveChatPollItem[];
+        items?: YouTube.Schema.LiveChatPollItem[];
         prompt?: string;
       }
       export interface LiveChatPollVotedDetails {
@@ -1051,7 +1051,7 @@ declare namespace GoogleAppsScript {
         amountDisplayString?: string;
         amountMicros?: string;
         currency?: string;
-        superStickerMetadata?: Youtube_v3.Schema.SuperStickerMetadata;
+        superStickerMetadata?: YouTube.Schema.SuperStickerMetadata;
         tier?: number;
       }
       export interface LiveChatTextMessageDetails {
@@ -1060,16 +1060,16 @@ declare namespace GoogleAppsScript {
       export interface LiveChatUserBannedMessageDetails {
         banDurationSeconds?: string;
         banType?: string;
-        bannedUserDetails?: Youtube_v3.Schema.ChannelProfileDetails;
+        bannedUserDetails?: YouTube.Schema.ChannelProfileDetails;
       }
       export interface LiveStream {
-        cdn?: Youtube_v3.Schema.CdnSettings;
-        contentDetails?: Youtube_v3.Schema.LiveStreamContentDetails;
+        cdn?: YouTube.Schema.CdnSettings;
+        contentDetails?: YouTube.Schema.LiveStreamContentDetails;
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.LiveStreamSnippet;
-        status?: Youtube_v3.Schema.LiveStreamStatus;
+        snippet?: YouTube.Schema.LiveStreamSnippet;
+        status?: YouTube.Schema.LiveStreamStatus;
       }
       export interface LiveStreamConfigurationIssue {
         description?: string;
@@ -1082,17 +1082,17 @@ declare namespace GoogleAppsScript {
         isReusable?: boolean;
       }
       export interface LiveStreamHealthStatus {
-        configurationIssues?: Youtube_v3.Schema.LiveStreamConfigurationIssue[];
+        configurationIssues?: YouTube.Schema.LiveStreamConfigurationIssue[];
         lastUpdateTimeSeconds?: string;
         status?: string;
       }
       export interface LiveStreamListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.LiveStream[];
+        items?: YouTube.Schema.LiveStream[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         prevPageToken?: string;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
@@ -1105,13 +1105,13 @@ declare namespace GoogleAppsScript {
         title?: string;
       }
       export interface LiveStreamStatus {
-        healthStatus?: Youtube_v3.Schema.LiveStreamHealthStatus;
+        healthStatus?: YouTube.Schema.LiveStreamHealthStatus;
         streamStatus?: string;
       }
       export interface LocalizedProperty {
         default?: string;
-        defaultLanguage?: Youtube_v3.Schema.LanguageTag;
-        localized?: Youtube_v3.Schema.LocalizedString[];
+        defaultLanguage?: YouTube.Schema.LanguageTag;
+        localized?: YouTube.Schema.LocalizedString[];
       }
       export interface LocalizedString {
         language?: string;
@@ -1123,7 +1123,7 @@ declare namespace GoogleAppsScript {
         enableMonitorStream?: boolean;
       }
       export interface Nonprofit {
-        nonprofitId?: Youtube_v3.Schema.NonprofitId;
+        nonprofitId?: YouTube.Schema.NonprofitId;
         nonprofitLegalName?: string;
       }
       export interface NonprofitId {
@@ -1134,25 +1134,25 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
       }
       export interface Playlist {
-        contentDetails?: Youtube_v3.Schema.PlaylistContentDetails;
+        contentDetails?: YouTube.Schema.PlaylistContentDetails;
         etag?: string;
         id?: string;
         kind?: string;
         localizations?: object;
-        player?: Youtube_v3.Schema.PlaylistPlayer;
-        snippet?: Youtube_v3.Schema.PlaylistSnippet;
-        status?: Youtube_v3.Schema.PlaylistStatus;
+        player?: YouTube.Schema.PlaylistPlayer;
+        snippet?: YouTube.Schema.PlaylistSnippet;
+        status?: YouTube.Schema.PlaylistStatus;
       }
       export interface PlaylistContentDetails {
         itemCount?: number;
       }
       export interface PlaylistItem {
-        contentDetails?: Youtube_v3.Schema.PlaylistItemContentDetails;
+        contentDetails?: YouTube.Schema.PlaylistItemContentDetails;
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.PlaylistItemSnippet;
-        status?: Youtube_v3.Schema.PlaylistItemStatus;
+        snippet?: YouTube.Schema.PlaylistItemSnippet;
+        status?: YouTube.Schema.PlaylistItemStatus;
       }
       export interface PlaylistItemContentDetails {
         endAt?: string;
@@ -1164,10 +1164,10 @@ declare namespace GoogleAppsScript {
       export interface PlaylistItemListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.PlaylistItem[];
+        items?: YouTube.Schema.PlaylistItem[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         prevPageToken?: string;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
@@ -1179,8 +1179,8 @@ declare namespace GoogleAppsScript {
         playlistId?: string;
         position?: number;
         publishedAt?: string;
-        resourceId?: Youtube_v3.Schema.ResourceId;
-        thumbnails?: Youtube_v3.Schema.ThumbnailDetails;
+        resourceId?: YouTube.Schema.ResourceId;
+        thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
       export interface PlaylistItemStatus {
@@ -1189,10 +1189,10 @@ declare namespace GoogleAppsScript {
       export interface PlaylistListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.Playlist[];
+        items?: YouTube.Schema.Playlist[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         prevPageToken?: string;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
@@ -1209,10 +1209,10 @@ declare namespace GoogleAppsScript {
         channelTitle?: string;
         defaultLanguage?: string;
         description?: string;
-        localized?: Youtube_v3.Schema.PlaylistLocalization;
+        localized?: YouTube.Schema.PlaylistLocalization;
         publishedAt?: string;
         tags?: string[];
-        thumbnails?: Youtube_v3.Schema.ThumbnailDetails;
+        thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
       export interface PlaylistStatus {
@@ -1220,9 +1220,9 @@ declare namespace GoogleAppsScript {
       }
       export interface PromotedItem {
         customMessage?: string;
-        id?: Youtube_v3.Schema.PromotedItemId;
+        id?: YouTube.Schema.PromotedItemId;
         promotedByContentOwner?: boolean;
-        timing?: Youtube_v3.Schema.InvideoTiming;
+        timing?: YouTube.Schema.InvideoTiming;
       }
       export interface PromotedItemId {
         recentlyUploadedBy?: string;
@@ -1243,10 +1243,10 @@ declare namespace GoogleAppsScript {
       export interface SearchListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.SearchResult[];
+        items?: YouTube.Schema.SearchResult[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         prevPageToken?: string;
         regionCode?: string;
         tokenPagination?: any; // Schema.TokenPagination
@@ -1254,9 +1254,9 @@ declare namespace GoogleAppsScript {
       }
       export interface SearchResult {
         etag?: string;
-        id?: Youtube_v3.Schema.ResourceId;
+        id?: YouTube.Schema.ResourceId;
         kind?: string;
-        snippet?: Youtube_v3.Schema.SearchResultSnippet;
+        snippet?: YouTube.Schema.SearchResultSnippet;
       }
       export interface SearchResultSnippet {
         channelId?: string;
@@ -1264,37 +1264,37 @@ declare namespace GoogleAppsScript {
         description?: string;
         liveBroadcastContent?: string;
         publishedAt?: string;
-        thumbnails?: Youtube_v3.Schema.ThumbnailDetails;
+        thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
       export interface Sponsor {
         etag?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.SponsorSnippet;
+        snippet?: YouTube.Schema.SponsorSnippet;
       }
       export interface SponsorListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.Sponsor[];
+        items?: YouTube.Schema.Sponsor[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
       export interface SponsorSnippet {
         channelId?: string;
         cumulativeDurationMonths?: number;
-        sponsorDetails?: Youtube_v3.Schema.ChannelProfileDetails;
+        sponsorDetails?: YouTube.Schema.ChannelProfileDetails;
         sponsorSince?: string;
       }
       export interface Subscription {
-        contentDetails?: Youtube_v3.Schema.SubscriptionContentDetails;
+        contentDetails?: YouTube.Schema.SubscriptionContentDetails;
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.SubscriptionSnippet;
-        subscriberSnippet?: Youtube_v3.Schema.SubscriptionSubscriberSnippet;
+        snippet?: YouTube.Schema.SubscriptionSnippet;
+        subscriberSnippet?: YouTube.Schema.SubscriptionSubscriberSnippet;
       }
       export interface SubscriptionContentDetails {
         activityType?: string;
@@ -1304,10 +1304,10 @@ declare namespace GoogleAppsScript {
       export interface SubscriptionListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.Subscription[];
+        items?: YouTube.Schema.Subscription[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         prevPageToken?: string;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
@@ -1317,29 +1317,29 @@ declare namespace GoogleAppsScript {
         channelTitle?: string;
         description?: string;
         publishedAt?: string;
-        resourceId?: Youtube_v3.Schema.ResourceId;
-        thumbnails?: Youtube_v3.Schema.ThumbnailDetails;
+        resourceId?: YouTube.Schema.ResourceId;
+        thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
       export interface SubscriptionSubscriberSnippet {
         channelId?: string;
         description?: string;
-        thumbnails?: Youtube_v3.Schema.ThumbnailDetails;
+        thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
       export interface SuperChatEvent {
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.SuperChatEventSnippet;
+        snippet?: YouTube.Schema.SuperChatEventSnippet;
       }
       export interface SuperChatEventListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.SuperChatEvent[];
+        items?: YouTube.Schema.SuperChatEvent[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
       }
@@ -1353,9 +1353,9 @@ declare namespace GoogleAppsScript {
         isSuperChatForGood?: boolean;
         isSuperStickerEvent?: boolean;
         messageType?: number;
-        nonprofit?: Youtube_v3.Schema.Nonprofit;
-        superStickerMetadata?: Youtube_v3.Schema.SuperStickerMetadata;
-        supporterDetails?: Youtube_v3.Schema.ChannelProfileDetails;
+        nonprofit?: YouTube.Schema.Nonprofit;
+        superStickerMetadata?: YouTube.Schema.SuperStickerMetadata;
+        supporterDetails?: YouTube.Schema.ChannelProfileDetails;
       }
       export interface SuperStickerMetadata {
         altText?: string;
@@ -1368,38 +1368,38 @@ declare namespace GoogleAppsScript {
         width?: number;
       }
       export interface ThumbnailDetails {
-        default?: Youtube_v3.Schema.Thumbnail;
-        high?: Youtube_v3.Schema.Thumbnail;
-        maxres?: Youtube_v3.Schema.Thumbnail;
-        medium?: Youtube_v3.Schema.Thumbnail;
-        standard?: Youtube_v3.Schema.Thumbnail;
+        default?: YouTube.Schema.Thumbnail;
+        high?: YouTube.Schema.Thumbnail;
+        maxres?: YouTube.Schema.Thumbnail;
+        medium?: YouTube.Schema.Thumbnail;
+        standard?: YouTube.Schema.Thumbnail;
       }
       export interface ThumbnailSetResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.ThumbnailDetails[];
+        items?: YouTube.Schema.ThumbnailDetails[];
         kind?: string;
         visitorId?: string;
       }
       export interface Video {
-        ageGating?: Youtube_v3.Schema.VideoAgeGating;
-        contentDetails?: Youtube_v3.Schema.VideoContentDetails;
+        ageGating?: YouTube.Schema.VideoAgeGating;
+        contentDetails?: YouTube.Schema.VideoContentDetails;
         etag?: string;
-        fileDetails?: Youtube_v3.Schema.VideoFileDetails;
+        fileDetails?: YouTube.Schema.VideoFileDetails;
         id?: string;
         kind?: string;
-        liveStreamingDetails?: Youtube_v3.Schema.VideoLiveStreamingDetails;
+        liveStreamingDetails?: YouTube.Schema.VideoLiveStreamingDetails;
         localizations?: object;
-        monetizationDetails?: Youtube_v3.Schema.VideoMonetizationDetails;
-        player?: Youtube_v3.Schema.VideoPlayer;
-        processingDetails?: Youtube_v3.Schema.VideoProcessingDetails;
-        projectDetails?: Youtube_v3.Schema.VideoProjectDetails;
-        recordingDetails?: Youtube_v3.Schema.VideoRecordingDetails;
-        snippet?: Youtube_v3.Schema.VideoSnippet;
-        statistics?: Youtube_v3.Schema.VideoStatistics;
-        status?: Youtube_v3.Schema.VideoStatus;
-        suggestions?: Youtube_v3.Schema.VideoSuggestions;
-        topicDetails?: Youtube_v3.Schema.VideoTopicDetails;
+        monetizationDetails?: YouTube.Schema.VideoMonetizationDetails;
+        player?: YouTube.Schema.VideoPlayer;
+        processingDetails?: YouTube.Schema.VideoProcessingDetails;
+        projectDetails?: YouTube.Schema.VideoProjectDetails;
+        recordingDetails?: YouTube.Schema.VideoRecordingDetails;
+        snippet?: YouTube.Schema.VideoSnippet;
+        statistics?: YouTube.Schema.VideoStatistics;
+        status?: YouTube.Schema.VideoStatus;
+        suggestions?: YouTube.Schema.VideoSuggestions;
+        topicDetails?: YouTube.Schema.VideoTopicDetails;
       }
       export interface VideoAbuseReport {
         comments?: string;
@@ -1412,18 +1412,18 @@ declare namespace GoogleAppsScript {
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.VideoAbuseReportReasonSnippet;
+        snippet?: YouTube.Schema.VideoAbuseReportReasonSnippet;
       }
       export interface VideoAbuseReportReasonListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.VideoAbuseReportReason[];
+        items?: YouTube.Schema.VideoAbuseReportReason[];
         kind?: string;
         visitorId?: string;
       }
       export interface VideoAbuseReportReasonSnippet {
         label?: string;
-        secondaryReasons?: Youtube_v3.Schema.VideoAbuseReportSecondaryReason[];
+        secondaryReasons?: YouTube.Schema.VideoAbuseReportSecondaryReason[];
       }
       export interface VideoAbuseReportSecondaryReason {
         id?: string;
@@ -1438,15 +1438,15 @@ declare namespace GoogleAppsScript {
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: Youtube_v3.Schema.VideoCategorySnippet;
+        snippet?: YouTube.Schema.VideoCategorySnippet;
       }
       export interface VideoCategoryListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.VideoCategory[];
+        items?: YouTube.Schema.VideoCategory[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         prevPageToken?: string;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
@@ -1458,22 +1458,22 @@ declare namespace GoogleAppsScript {
       }
       export interface VideoContentDetails {
         caption?: string;
-        contentRating?: Youtube_v3.Schema.ContentRating;
-        countryRestriction?: Youtube_v3.Schema.AccessPolicy;
+        contentRating?: YouTube.Schema.ContentRating;
+        countryRestriction?: YouTube.Schema.AccessPolicy;
         definition?: string;
         dimension?: string;
         duration?: string;
         hasCustomThumbnail?: boolean;
         licensedContent?: boolean;
         projection?: string;
-        regionRestriction?: Youtube_v3.Schema.VideoContentDetailsRegionRestriction;
+        regionRestriction?: YouTube.Schema.VideoContentDetailsRegionRestriction;
       }
       export interface VideoContentDetailsRegionRestriction {
         allowed?: string[];
         blocked?: string[];
       }
       export interface VideoFileDetails {
-        audioStreams?: Youtube_v3.Schema.VideoFileDetailsAudioStream[];
+        audioStreams?: YouTube.Schema.VideoFileDetailsAudioStream[];
         bitrateBps?: string;
         container?: string;
         creationTime?: string;
@@ -1481,7 +1481,7 @@ declare namespace GoogleAppsScript {
         fileName?: string;
         fileSize?: string;
         fileType?: string;
-        videoStreams?: Youtube_v3.Schema.VideoFileDetailsVideoStream[];
+        videoStreams?: YouTube.Schema.VideoFileDetailsVideoStream[];
       }
       export interface VideoFileDetailsAudioStream {
         bitrateBps?: string;
@@ -1502,17 +1502,17 @@ declare namespace GoogleAppsScript {
       export interface VideoGetRatingResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.VideoRating[];
+        items?: YouTube.Schema.VideoRating[];
         kind?: string;
         visitorId?: string;
       }
       export interface VideoListResponse {
         etag?: string;
         eventId?: string;
-        items?: Youtube_v3.Schema.Video[];
+        items?: YouTube.Schema.Video[];
         kind?: string;
         nextPageToken?: string;
-        pageInfo?: Youtube_v3.Schema.PageInfo;
+        pageInfo?: YouTube.Schema.PageInfo;
         prevPageToken?: string;
         tokenPagination?: any; // Schema.TokenPagination
         visitorId?: string;
@@ -1530,7 +1530,7 @@ declare namespace GoogleAppsScript {
         title?: string;
       }
       export interface VideoMonetizationDetails {
-        access?: Youtube_v3.Schema.AccessPolicy;
+        access?: YouTube.Schema.AccessPolicy;
       }
       export interface VideoPlayer {
         embedHeight?: string;
@@ -1542,7 +1542,7 @@ declare namespace GoogleAppsScript {
         fileDetailsAvailability?: string;
         processingFailureReason?: string;
         processingIssuesAvailability?: string;
-        processingProgress?: Youtube_v3.Schema.VideoProcessingDetailsProcessingProgress;
+        processingProgress?: YouTube.Schema.VideoProcessingDetailsProcessingProgress;
         processingStatus?: string;
         tagSuggestionsAvailability?: string;
         thumbnailsAvailability?: string;
@@ -1560,7 +1560,7 @@ declare namespace GoogleAppsScript {
         videoId?: string;
       }
       export interface VideoRecordingDetails {
-        location?: Youtube_v3.Schema.GeoPoint;
+        location?: YouTube.Schema.GeoPoint;
         locationDescription?: string;
         recordingDate?: string;
       }
@@ -1572,10 +1572,10 @@ declare namespace GoogleAppsScript {
         defaultLanguage?: string;
         description?: string;
         liveBroadcastContent?: string;
-        localized?: Youtube_v3.Schema.VideoLocalization;
+        localized?: YouTube.Schema.VideoLocalization;
         publishedAt?: string;
         tags?: string[];
-        thumbnails?: Youtube_v3.Schema.ThumbnailDetails;
+        thumbnails?: YouTube.Schema.ThumbnailDetails;
         title?: string;
       }
       export interface VideoStatistics {
@@ -1600,7 +1600,7 @@ declare namespace GoogleAppsScript {
         processingErrors?: string[];
         processingHints?: string[];
         processingWarnings?: string[];
-        tagSuggestions?: Youtube_v3.Schema.VideoSuggestionsTagSuggestion[];
+        tagSuggestions?: YouTube.Schema.VideoSuggestionsTagSuggestion[];
       }
       export interface VideoSuggestionsTagSuggestion {
         categoryRestricts?: string[];
@@ -1618,294 +1618,294 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Youtube_v3 {
-    Activities?: Youtube_v3.Collection.ActivitiesCollection;
-    Captions?: Youtube_v3.Collection.CaptionsCollection;
-    ChannelBanners?: Youtube_v3.Collection.ChannelBannersCollection;
-    ChannelSections?: Youtube_v3.Collection.ChannelSectionsCollection;
-    Channels?: Youtube_v3.Collection.ChannelsCollection;
-    CommentThreads?: Youtube_v3.Collection.CommentThreadsCollection;
-    Comments?: Youtube_v3.Collection.CommentsCollection;
-    GuideCategories?: Youtube_v3.Collection.GuideCategoriesCollection;
-    I18nLanguages?: Youtube_v3.Collection.I18nLanguagesCollection;
-    I18nRegions?: Youtube_v3.Collection.I18nRegionsCollection;
-    LiveBroadcasts?: Youtube_v3.Collection.LiveBroadcastsCollection;
-    LiveChatBans?: Youtube_v3.Collection.LiveChatBansCollection;
-    LiveChatMessages?: Youtube_v3.Collection.LiveChatMessagesCollection;
-    LiveChatModerators?: Youtube_v3.Collection.LiveChatModeratorsCollection;
-    LiveStreams?: Youtube_v3.Collection.LiveStreamsCollection;
-    PlaylistItems?: Youtube_v3.Collection.PlaylistItemsCollection;
-    Playlists?: Youtube_v3.Collection.PlaylistsCollection;
-    Search?: Youtube_v3.Collection.SearchCollection;
-    Sponsors?: Youtube_v3.Collection.SponsorsCollection;
-    Subscriptions?: Youtube_v3.Collection.SubscriptionsCollection;
-    SuperChatEvents?: Youtube_v3.Collection.SuperChatEventsCollection;
-    Thumbnails?: Youtube_v3.Collection.ThumbnailsCollection;
-    VideoAbuseReportReasons?: Youtube_v3.Collection.VideoAbuseReportReasonsCollection;
-    VideoCategories?: Youtube_v3.Collection.VideoCategoriesCollection;
-    Videos?: Youtube_v3.Collection.VideosCollection;
-    Watermarks?: Youtube_v3.Collection.WatermarksCollection;
+  export interface YouTube {
+    Activities?: YouTube.Collection.ActivitiesCollection;
+    Captions?: YouTube.Collection.CaptionsCollection;
+    ChannelBanners?: YouTube.Collection.ChannelBannersCollection;
+    ChannelSections?: YouTube.Collection.ChannelSectionsCollection;
+    Channels?: YouTube.Collection.ChannelsCollection;
+    CommentThreads?: YouTube.Collection.CommentThreadsCollection;
+    Comments?: YouTube.Collection.CommentsCollection;
+    GuideCategories?: YouTube.Collection.GuideCategoriesCollection;
+    I18nLanguages?: YouTube.Collection.I18nLanguagesCollection;
+    I18nRegions?: YouTube.Collection.I18nRegionsCollection;
+    LiveBroadcasts?: YouTube.Collection.LiveBroadcastsCollection;
+    LiveChatBans?: YouTube.Collection.LiveChatBansCollection;
+    LiveChatMessages?: YouTube.Collection.LiveChatMessagesCollection;
+    LiveChatModerators?: YouTube.Collection.LiveChatModeratorsCollection;
+    LiveStreams?: YouTube.Collection.LiveStreamsCollection;
+    PlaylistItems?: YouTube.Collection.PlaylistItemsCollection;
+    Playlists?: YouTube.Collection.PlaylistsCollection;
+    Search?: YouTube.Collection.SearchCollection;
+    Sponsors?: YouTube.Collection.SponsorsCollection;
+    Subscriptions?: YouTube.Collection.SubscriptionsCollection;
+    SuperChatEvents?: YouTube.Collection.SuperChatEventsCollection;
+    Thumbnails?: YouTube.Collection.ThumbnailsCollection;
+    VideoAbuseReportReasons?: YouTube.Collection.VideoAbuseReportReasonsCollection;
+    VideoCategories?: YouTube.Collection.VideoCategoriesCollection;
+    Videos?: YouTube.Collection.VideosCollection;
+    Watermarks?: YouTube.Collection.WatermarksCollection;
     // Create a new instance of AccessPolicy
-    newAccessPolicy(): Youtube_v3.Schema.AccessPolicy;
+    newAccessPolicy(): YouTube.Schema.AccessPolicy;
     // Create a new instance of Activity
-    newActivity(): Youtube_v3.Schema.Activity;
+    newActivity(): YouTube.Schema.Activity;
     // Create a new instance of ActivityContentDetails
-    newActivityContentDetails(): Youtube_v3.Schema.ActivityContentDetails;
+    newActivityContentDetails(): YouTube.Schema.ActivityContentDetails;
     // Create a new instance of ActivityContentDetailsBulletin
-    newActivityContentDetailsBulletin(): Youtube_v3.Schema.ActivityContentDetailsBulletin;
+    newActivityContentDetailsBulletin(): YouTube.Schema.ActivityContentDetailsBulletin;
     // Create a new instance of ActivityContentDetailsChannelItem
-    newActivityContentDetailsChannelItem(): Youtube_v3.Schema.ActivityContentDetailsChannelItem;
+    newActivityContentDetailsChannelItem(): YouTube.Schema.ActivityContentDetailsChannelItem;
     // Create a new instance of ActivityContentDetailsComment
-    newActivityContentDetailsComment(): Youtube_v3.Schema.ActivityContentDetailsComment;
+    newActivityContentDetailsComment(): YouTube.Schema.ActivityContentDetailsComment;
     // Create a new instance of ActivityContentDetailsFavorite
-    newActivityContentDetailsFavorite(): Youtube_v3.Schema.ActivityContentDetailsFavorite;
+    newActivityContentDetailsFavorite(): YouTube.Schema.ActivityContentDetailsFavorite;
     // Create a new instance of ActivityContentDetailsLike
-    newActivityContentDetailsLike(): Youtube_v3.Schema.ActivityContentDetailsLike;
+    newActivityContentDetailsLike(): YouTube.Schema.ActivityContentDetailsLike;
     // Create a new instance of ActivityContentDetailsPlaylistItem
-    newActivityContentDetailsPlaylistItem(): Youtube_v3.Schema.ActivityContentDetailsPlaylistItem;
+    newActivityContentDetailsPlaylistItem(): YouTube.Schema.ActivityContentDetailsPlaylistItem;
     // Create a new instance of ActivityContentDetailsPromotedItem
-    newActivityContentDetailsPromotedItem(): Youtube_v3.Schema.ActivityContentDetailsPromotedItem;
+    newActivityContentDetailsPromotedItem(): YouTube.Schema.ActivityContentDetailsPromotedItem;
     // Create a new instance of ActivityContentDetailsRecommendation
-    newActivityContentDetailsRecommendation(): Youtube_v3.Schema.ActivityContentDetailsRecommendation;
+    newActivityContentDetailsRecommendation(): YouTube.Schema.ActivityContentDetailsRecommendation;
     // Create a new instance of ActivityContentDetailsSocial
-    newActivityContentDetailsSocial(): Youtube_v3.Schema.ActivityContentDetailsSocial;
+    newActivityContentDetailsSocial(): YouTube.Schema.ActivityContentDetailsSocial;
     // Create a new instance of ActivityContentDetailsSubscription
-    newActivityContentDetailsSubscription(): Youtube_v3.Schema.ActivityContentDetailsSubscription;
+    newActivityContentDetailsSubscription(): YouTube.Schema.ActivityContentDetailsSubscription;
     // Create a new instance of ActivityContentDetailsUpload
-    newActivityContentDetailsUpload(): Youtube_v3.Schema.ActivityContentDetailsUpload;
+    newActivityContentDetailsUpload(): YouTube.Schema.ActivityContentDetailsUpload;
     // Create a new instance of ActivitySnippet
-    newActivitySnippet(): Youtube_v3.Schema.ActivitySnippet;
+    newActivitySnippet(): YouTube.Schema.ActivitySnippet;
     // Create a new instance of Caption
-    newCaption(): Youtube_v3.Schema.Caption;
+    newCaption(): YouTube.Schema.Caption;
     // Create a new instance of CaptionSnippet
-    newCaptionSnippet(): Youtube_v3.Schema.CaptionSnippet;
+    newCaptionSnippet(): YouTube.Schema.CaptionSnippet;
     // Create a new instance of CdnSettings
-    newCdnSettings(): Youtube_v3.Schema.CdnSettings;
+    newCdnSettings(): YouTube.Schema.CdnSettings;
     // Create a new instance of Channel
-    newChannel(): Youtube_v3.Schema.Channel;
+    newChannel(): YouTube.Schema.Channel;
     // Create a new instance of ChannelAuditDetails
-    newChannelAuditDetails(): Youtube_v3.Schema.ChannelAuditDetails;
+    newChannelAuditDetails(): YouTube.Schema.ChannelAuditDetails;
     // Create a new instance of ChannelBannerResource
-    newChannelBannerResource(): Youtube_v3.Schema.ChannelBannerResource;
+    newChannelBannerResource(): YouTube.Schema.ChannelBannerResource;
     // Create a new instance of ChannelBrandingSettings
-    newChannelBrandingSettings(): Youtube_v3.Schema.ChannelBrandingSettings;
+    newChannelBrandingSettings(): YouTube.Schema.ChannelBrandingSettings;
     // Create a new instance of ChannelContentDetails
-    newChannelContentDetails(): Youtube_v3.Schema.ChannelContentDetails;
+    newChannelContentDetails(): YouTube.Schema.ChannelContentDetails;
     // Create a new instance of ChannelContentDetailsRelatedPlaylists
-    newChannelContentDetailsRelatedPlaylists(): Youtube_v3.Schema.ChannelContentDetailsRelatedPlaylists;
+    newChannelContentDetailsRelatedPlaylists(): YouTube.Schema.ChannelContentDetailsRelatedPlaylists;
     // Create a new instance of ChannelContentOwnerDetails
-    newChannelContentOwnerDetails(): Youtube_v3.Schema.ChannelContentOwnerDetails;
+    newChannelContentOwnerDetails(): YouTube.Schema.ChannelContentOwnerDetails;
     // Create a new instance of ChannelConversionPing
-    newChannelConversionPing(): Youtube_v3.Schema.ChannelConversionPing;
+    newChannelConversionPing(): YouTube.Schema.ChannelConversionPing;
     // Create a new instance of ChannelConversionPings
-    newChannelConversionPings(): Youtube_v3.Schema.ChannelConversionPings;
+    newChannelConversionPings(): YouTube.Schema.ChannelConversionPings;
     // Create a new instance of ChannelLocalization
-    newChannelLocalization(): Youtube_v3.Schema.ChannelLocalization;
+    newChannelLocalization(): YouTube.Schema.ChannelLocalization;
     // Create a new instance of ChannelProfileDetails
-    newChannelProfileDetails(): Youtube_v3.Schema.ChannelProfileDetails;
+    newChannelProfileDetails(): YouTube.Schema.ChannelProfileDetails;
     // Create a new instance of ChannelSection
-    newChannelSection(): Youtube_v3.Schema.ChannelSection;
+    newChannelSection(): YouTube.Schema.ChannelSection;
     // Create a new instance of ChannelSectionContentDetails
-    newChannelSectionContentDetails(): Youtube_v3.Schema.ChannelSectionContentDetails;
+    newChannelSectionContentDetails(): YouTube.Schema.ChannelSectionContentDetails;
     // Create a new instance of ChannelSectionLocalization
-    newChannelSectionLocalization(): Youtube_v3.Schema.ChannelSectionLocalization;
+    newChannelSectionLocalization(): YouTube.Schema.ChannelSectionLocalization;
     // Create a new instance of ChannelSectionSnippet
-    newChannelSectionSnippet(): Youtube_v3.Schema.ChannelSectionSnippet;
+    newChannelSectionSnippet(): YouTube.Schema.ChannelSectionSnippet;
     // Create a new instance of ChannelSectionTargeting
-    newChannelSectionTargeting(): Youtube_v3.Schema.ChannelSectionTargeting;
+    newChannelSectionTargeting(): YouTube.Schema.ChannelSectionTargeting;
     // Create a new instance of ChannelSettings
-    newChannelSettings(): Youtube_v3.Schema.ChannelSettings;
+    newChannelSettings(): YouTube.Schema.ChannelSettings;
     // Create a new instance of ChannelSnippet
-    newChannelSnippet(): Youtube_v3.Schema.ChannelSnippet;
+    newChannelSnippet(): YouTube.Schema.ChannelSnippet;
     // Create a new instance of ChannelStatistics
-    newChannelStatistics(): Youtube_v3.Schema.ChannelStatistics;
+    newChannelStatistics(): YouTube.Schema.ChannelStatistics;
     // Create a new instance of ChannelStatus
-    newChannelStatus(): Youtube_v3.Schema.ChannelStatus;
+    newChannelStatus(): YouTube.Schema.ChannelStatus;
     // Create a new instance of ChannelTopicDetails
-    newChannelTopicDetails(): Youtube_v3.Schema.ChannelTopicDetails;
+    newChannelTopicDetails(): YouTube.Schema.ChannelTopicDetails;
     // Create a new instance of Comment
-    newComment(): Youtube_v3.Schema.Comment;
+    newComment(): YouTube.Schema.Comment;
     // Create a new instance of CommentSnippet
-    newCommentSnippet(): Youtube_v3.Schema.CommentSnippet;
+    newCommentSnippet(): YouTube.Schema.CommentSnippet;
     // Create a new instance of CommentThread
-    newCommentThread(): Youtube_v3.Schema.CommentThread;
+    newCommentThread(): YouTube.Schema.CommentThread;
     // Create a new instance of CommentThreadReplies
-    newCommentThreadReplies(): Youtube_v3.Schema.CommentThreadReplies;
+    newCommentThreadReplies(): YouTube.Schema.CommentThreadReplies;
     // Create a new instance of CommentThreadSnippet
-    newCommentThreadSnippet(): Youtube_v3.Schema.CommentThreadSnippet;
+    newCommentThreadSnippet(): YouTube.Schema.CommentThreadSnippet;
     // Create a new instance of ContentRating
-    newContentRating(): Youtube_v3.Schema.ContentRating;
+    newContentRating(): YouTube.Schema.ContentRating;
     // Create a new instance of GeoPoint
-    newGeoPoint(): Youtube_v3.Schema.GeoPoint;
+    newGeoPoint(): YouTube.Schema.GeoPoint;
     // Create a new instance of ImageSettings
-    newImageSettings(): Youtube_v3.Schema.ImageSettings;
+    newImageSettings(): YouTube.Schema.ImageSettings;
     // Create a new instance of IngestionInfo
-    newIngestionInfo(): Youtube_v3.Schema.IngestionInfo;
+    newIngestionInfo(): YouTube.Schema.IngestionInfo;
     // Create a new instance of InvideoBranding
-    newInvideoBranding(): Youtube_v3.Schema.InvideoBranding;
+    newInvideoBranding(): YouTube.Schema.InvideoBranding;
     // Create a new instance of InvideoPosition
-    newInvideoPosition(): Youtube_v3.Schema.InvideoPosition;
+    newInvideoPosition(): YouTube.Schema.InvideoPosition;
     // Create a new instance of InvideoPromotion
-    newInvideoPromotion(): Youtube_v3.Schema.InvideoPromotion;
+    newInvideoPromotion(): YouTube.Schema.InvideoPromotion;
     // Create a new instance of InvideoTiming
-    newInvideoTiming(): Youtube_v3.Schema.InvideoTiming;
+    newInvideoTiming(): YouTube.Schema.InvideoTiming;
     // Create a new instance of LanguageTag
-    newLanguageTag(): Youtube_v3.Schema.LanguageTag;
+    newLanguageTag(): YouTube.Schema.LanguageTag;
     // Create a new instance of LiveBroadcast
-    newLiveBroadcast(): Youtube_v3.Schema.LiveBroadcast;
+    newLiveBroadcast(): YouTube.Schema.LiveBroadcast;
     // Create a new instance of LiveBroadcastContentDetails
-    newLiveBroadcastContentDetails(): Youtube_v3.Schema.LiveBroadcastContentDetails;
+    newLiveBroadcastContentDetails(): YouTube.Schema.LiveBroadcastContentDetails;
     // Create a new instance of LiveBroadcastSnippet
-    newLiveBroadcastSnippet(): Youtube_v3.Schema.LiveBroadcastSnippet;
+    newLiveBroadcastSnippet(): YouTube.Schema.LiveBroadcastSnippet;
     // Create a new instance of LiveBroadcastStatistics
-    newLiveBroadcastStatistics(): Youtube_v3.Schema.LiveBroadcastStatistics;
+    newLiveBroadcastStatistics(): YouTube.Schema.LiveBroadcastStatistics;
     // Create a new instance of LiveBroadcastStatus
-    newLiveBroadcastStatus(): Youtube_v3.Schema.LiveBroadcastStatus;
+    newLiveBroadcastStatus(): YouTube.Schema.LiveBroadcastStatus;
     // Create a new instance of LiveChatBan
-    newLiveChatBan(): Youtube_v3.Schema.LiveChatBan;
+    newLiveChatBan(): YouTube.Schema.LiveChatBan;
     // Create a new instance of LiveChatBanSnippet
-    newLiveChatBanSnippet(): Youtube_v3.Schema.LiveChatBanSnippet;
+    newLiveChatBanSnippet(): YouTube.Schema.LiveChatBanSnippet;
     // Create a new instance of LiveChatFanFundingEventDetails
-    newLiveChatFanFundingEventDetails(): Youtube_v3.Schema.LiveChatFanFundingEventDetails;
+    newLiveChatFanFundingEventDetails(): YouTube.Schema.LiveChatFanFundingEventDetails;
     // Create a new instance of LiveChatMessage
-    newLiveChatMessage(): Youtube_v3.Schema.LiveChatMessage;
+    newLiveChatMessage(): YouTube.Schema.LiveChatMessage;
     // Create a new instance of LiveChatMessageAuthorDetails
-    newLiveChatMessageAuthorDetails(): Youtube_v3.Schema.LiveChatMessageAuthorDetails;
+    newLiveChatMessageAuthorDetails(): YouTube.Schema.LiveChatMessageAuthorDetails;
     // Create a new instance of LiveChatMessageDeletedDetails
-    newLiveChatMessageDeletedDetails(): Youtube_v3.Schema.LiveChatMessageDeletedDetails;
+    newLiveChatMessageDeletedDetails(): YouTube.Schema.LiveChatMessageDeletedDetails;
     // Create a new instance of LiveChatMessageRetractedDetails
-    newLiveChatMessageRetractedDetails(): Youtube_v3.Schema.LiveChatMessageRetractedDetails;
+    newLiveChatMessageRetractedDetails(): YouTube.Schema.LiveChatMessageRetractedDetails;
     // Create a new instance of LiveChatMessageSnippet
-    newLiveChatMessageSnippet(): Youtube_v3.Schema.LiveChatMessageSnippet;
+    newLiveChatMessageSnippet(): YouTube.Schema.LiveChatMessageSnippet;
     // Create a new instance of LiveChatModerator
-    newLiveChatModerator(): Youtube_v3.Schema.LiveChatModerator;
+    newLiveChatModerator(): YouTube.Schema.LiveChatModerator;
     // Create a new instance of LiveChatModeratorSnippet
-    newLiveChatModeratorSnippet(): Youtube_v3.Schema.LiveChatModeratorSnippet;
+    newLiveChatModeratorSnippet(): YouTube.Schema.LiveChatModeratorSnippet;
     // Create a new instance of LiveChatPollClosedDetails
-    newLiveChatPollClosedDetails(): Youtube_v3.Schema.LiveChatPollClosedDetails;
+    newLiveChatPollClosedDetails(): YouTube.Schema.LiveChatPollClosedDetails;
     // Create a new instance of LiveChatPollEditedDetails
-    newLiveChatPollEditedDetails(): Youtube_v3.Schema.LiveChatPollEditedDetails;
+    newLiveChatPollEditedDetails(): YouTube.Schema.LiveChatPollEditedDetails;
     // Create a new instance of LiveChatPollItem
-    newLiveChatPollItem(): Youtube_v3.Schema.LiveChatPollItem;
+    newLiveChatPollItem(): YouTube.Schema.LiveChatPollItem;
     // Create a new instance of LiveChatPollOpenedDetails
-    newLiveChatPollOpenedDetails(): Youtube_v3.Schema.LiveChatPollOpenedDetails;
+    newLiveChatPollOpenedDetails(): YouTube.Schema.LiveChatPollOpenedDetails;
     // Create a new instance of LiveChatPollVotedDetails
-    newLiveChatPollVotedDetails(): Youtube_v3.Schema.LiveChatPollVotedDetails;
+    newLiveChatPollVotedDetails(): YouTube.Schema.LiveChatPollVotedDetails;
     // Create a new instance of LiveChatSuperChatDetails
-    newLiveChatSuperChatDetails(): Youtube_v3.Schema.LiveChatSuperChatDetails;
+    newLiveChatSuperChatDetails(): YouTube.Schema.LiveChatSuperChatDetails;
     // Create a new instance of LiveChatSuperStickerDetails
-    newLiveChatSuperStickerDetails(): Youtube_v3.Schema.LiveChatSuperStickerDetails;
+    newLiveChatSuperStickerDetails(): YouTube.Schema.LiveChatSuperStickerDetails;
     // Create a new instance of LiveChatTextMessageDetails
-    newLiveChatTextMessageDetails(): Youtube_v3.Schema.LiveChatTextMessageDetails;
+    newLiveChatTextMessageDetails(): YouTube.Schema.LiveChatTextMessageDetails;
     // Create a new instance of LiveChatUserBannedMessageDetails
-    newLiveChatUserBannedMessageDetails(): Youtube_v3.Schema.LiveChatUserBannedMessageDetails;
+    newLiveChatUserBannedMessageDetails(): YouTube.Schema.LiveChatUserBannedMessageDetails;
     // Create a new instance of LiveStream
-    newLiveStream(): Youtube_v3.Schema.LiveStream;
+    newLiveStream(): YouTube.Schema.LiveStream;
     // Create a new instance of LiveStreamConfigurationIssue
-    newLiveStreamConfigurationIssue(): Youtube_v3.Schema.LiveStreamConfigurationIssue;
+    newLiveStreamConfigurationIssue(): YouTube.Schema.LiveStreamConfigurationIssue;
     // Create a new instance of LiveStreamContentDetails
-    newLiveStreamContentDetails(): Youtube_v3.Schema.LiveStreamContentDetails;
+    newLiveStreamContentDetails(): YouTube.Schema.LiveStreamContentDetails;
     // Create a new instance of LiveStreamHealthStatus
-    newLiveStreamHealthStatus(): Youtube_v3.Schema.LiveStreamHealthStatus;
+    newLiveStreamHealthStatus(): YouTube.Schema.LiveStreamHealthStatus;
     // Create a new instance of LiveStreamSnippet
-    newLiveStreamSnippet(): Youtube_v3.Schema.LiveStreamSnippet;
+    newLiveStreamSnippet(): YouTube.Schema.LiveStreamSnippet;
     // Create a new instance of LiveStreamStatus
-    newLiveStreamStatus(): Youtube_v3.Schema.LiveStreamStatus;
+    newLiveStreamStatus(): YouTube.Schema.LiveStreamStatus;
     // Create a new instance of LocalizedProperty
-    newLocalizedProperty(): Youtube_v3.Schema.LocalizedProperty;
+    newLocalizedProperty(): YouTube.Schema.LocalizedProperty;
     // Create a new instance of LocalizedString
-    newLocalizedString(): Youtube_v3.Schema.LocalizedString;
+    newLocalizedString(): YouTube.Schema.LocalizedString;
     // Create a new instance of MonitorStreamInfo
-    newMonitorStreamInfo(): Youtube_v3.Schema.MonitorStreamInfo;
+    newMonitorStreamInfo(): YouTube.Schema.MonitorStreamInfo;
     // Create a new instance of Playlist
-    newPlaylist(): Youtube_v3.Schema.Playlist;
+    newPlaylist(): YouTube.Schema.Playlist;
     // Create a new instance of PlaylistContentDetails
-    newPlaylistContentDetails(): Youtube_v3.Schema.PlaylistContentDetails;
+    newPlaylistContentDetails(): YouTube.Schema.PlaylistContentDetails;
     // Create a new instance of PlaylistItem
-    newPlaylistItem(): Youtube_v3.Schema.PlaylistItem;
+    newPlaylistItem(): YouTube.Schema.PlaylistItem;
     // Create a new instance of PlaylistItemContentDetails
-    newPlaylistItemContentDetails(): Youtube_v3.Schema.PlaylistItemContentDetails;
+    newPlaylistItemContentDetails(): YouTube.Schema.PlaylistItemContentDetails;
     // Create a new instance of PlaylistItemSnippet
-    newPlaylistItemSnippet(): Youtube_v3.Schema.PlaylistItemSnippet;
+    newPlaylistItemSnippet(): YouTube.Schema.PlaylistItemSnippet;
     // Create a new instance of PlaylistItemStatus
-    newPlaylistItemStatus(): Youtube_v3.Schema.PlaylistItemStatus;
+    newPlaylistItemStatus(): YouTube.Schema.PlaylistItemStatus;
     // Create a new instance of PlaylistLocalization
-    newPlaylistLocalization(): Youtube_v3.Schema.PlaylistLocalization;
+    newPlaylistLocalization(): YouTube.Schema.PlaylistLocalization;
     // Create a new instance of PlaylistPlayer
-    newPlaylistPlayer(): Youtube_v3.Schema.PlaylistPlayer;
+    newPlaylistPlayer(): YouTube.Schema.PlaylistPlayer;
     // Create a new instance of PlaylistSnippet
-    newPlaylistSnippet(): Youtube_v3.Schema.PlaylistSnippet;
+    newPlaylistSnippet(): YouTube.Schema.PlaylistSnippet;
     // Create a new instance of PlaylistStatus
-    newPlaylistStatus(): Youtube_v3.Schema.PlaylistStatus;
+    newPlaylistStatus(): YouTube.Schema.PlaylistStatus;
     // Create a new instance of PromotedItem
-    newPromotedItem(): Youtube_v3.Schema.PromotedItem;
+    newPromotedItem(): YouTube.Schema.PromotedItem;
     // Create a new instance of PromotedItemId
-    newPromotedItemId(): Youtube_v3.Schema.PromotedItemId;
+    newPromotedItemId(): YouTube.Schema.PromotedItemId;
     // Create a new instance of PropertyValue
-    newPropertyValue(): Youtube_v3.Schema.PropertyValue;
+    newPropertyValue(): YouTube.Schema.PropertyValue;
     // Create a new instance of ResourceId
-    newResourceId(): Youtube_v3.Schema.ResourceId;
+    newResourceId(): YouTube.Schema.ResourceId;
     // Create a new instance of Subscription
-    newSubscription(): Youtube_v3.Schema.Subscription;
+    newSubscription(): YouTube.Schema.Subscription;
     // Create a new instance of SubscriptionContentDetails
-    newSubscriptionContentDetails(): Youtube_v3.Schema.SubscriptionContentDetails;
+    newSubscriptionContentDetails(): YouTube.Schema.SubscriptionContentDetails;
     // Create a new instance of SubscriptionSnippet
-    newSubscriptionSnippet(): Youtube_v3.Schema.SubscriptionSnippet;
+    newSubscriptionSnippet(): YouTube.Schema.SubscriptionSnippet;
     // Create a new instance of SubscriptionSubscriberSnippet
-    newSubscriptionSubscriberSnippet(): Youtube_v3.Schema.SubscriptionSubscriberSnippet;
+    newSubscriptionSubscriberSnippet(): YouTube.Schema.SubscriptionSubscriberSnippet;
     // Create a new instance of SuperStickerMetadata
-    newSuperStickerMetadata(): Youtube_v3.Schema.SuperStickerMetadata;
+    newSuperStickerMetadata(): YouTube.Schema.SuperStickerMetadata;
     // Create a new instance of Thumbnail
-    newThumbnail(): Youtube_v3.Schema.Thumbnail;
+    newThumbnail(): YouTube.Schema.Thumbnail;
     // Create a new instance of ThumbnailDetails
-    newThumbnailDetails(): Youtube_v3.Schema.ThumbnailDetails;
+    newThumbnailDetails(): YouTube.Schema.ThumbnailDetails;
     // Create a new instance of Video
-    newVideo(): Youtube_v3.Schema.Video;
+    newVideo(): YouTube.Schema.Video;
     // Create a new instance of VideoAbuseReport
-    newVideoAbuseReport(): Youtube_v3.Schema.VideoAbuseReport;
+    newVideoAbuseReport(): YouTube.Schema.VideoAbuseReport;
     // Create a new instance of VideoAgeGating
-    newVideoAgeGating(): Youtube_v3.Schema.VideoAgeGating;
+    newVideoAgeGating(): YouTube.Schema.VideoAgeGating;
     // Create a new instance of VideoContentDetails
-    newVideoContentDetails(): Youtube_v3.Schema.VideoContentDetails;
+    newVideoContentDetails(): YouTube.Schema.VideoContentDetails;
     // Create a new instance of VideoContentDetailsRegionRestriction
-    newVideoContentDetailsRegionRestriction(): Youtube_v3.Schema.VideoContentDetailsRegionRestriction;
+    newVideoContentDetailsRegionRestriction(): YouTube.Schema.VideoContentDetailsRegionRestriction;
     // Create a new instance of VideoFileDetails
-    newVideoFileDetails(): Youtube_v3.Schema.VideoFileDetails;
+    newVideoFileDetails(): YouTube.Schema.VideoFileDetails;
     // Create a new instance of VideoFileDetailsAudioStream
-    newVideoFileDetailsAudioStream(): Youtube_v3.Schema.VideoFileDetailsAudioStream;
+    newVideoFileDetailsAudioStream(): YouTube.Schema.VideoFileDetailsAudioStream;
     // Create a new instance of VideoFileDetailsVideoStream
-    newVideoFileDetailsVideoStream(): Youtube_v3.Schema.VideoFileDetailsVideoStream;
+    newVideoFileDetailsVideoStream(): YouTube.Schema.VideoFileDetailsVideoStream;
     // Create a new instance of VideoLiveStreamingDetails
-    newVideoLiveStreamingDetails(): Youtube_v3.Schema.VideoLiveStreamingDetails;
+    newVideoLiveStreamingDetails(): YouTube.Schema.VideoLiveStreamingDetails;
     // Create a new instance of VideoLocalization
-    newVideoLocalization(): Youtube_v3.Schema.VideoLocalization;
+    newVideoLocalization(): YouTube.Schema.VideoLocalization;
     // Create a new instance of VideoMonetizationDetails
-    newVideoMonetizationDetails(): Youtube_v3.Schema.VideoMonetizationDetails;
+    newVideoMonetizationDetails(): YouTube.Schema.VideoMonetizationDetails;
     // Create a new instance of VideoPlayer
-    newVideoPlayer(): Youtube_v3.Schema.VideoPlayer;
+    newVideoPlayer(): YouTube.Schema.VideoPlayer;
     // Create a new instance of VideoProcessingDetails
-    newVideoProcessingDetails(): Youtube_v3.Schema.VideoProcessingDetails;
+    newVideoProcessingDetails(): YouTube.Schema.VideoProcessingDetails;
     // Create a new instance of VideoProcessingDetailsProcessingProgress
-    newVideoProcessingDetailsProcessingProgress(): Youtube_v3.Schema.VideoProcessingDetailsProcessingProgress;
+    newVideoProcessingDetailsProcessingProgress(): YouTube.Schema.VideoProcessingDetailsProcessingProgress;
     // Create a new instance of VideoProjectDetails
-    newVideoProjectDetails(): Youtube_v3.Schema.VideoProjectDetails;
+    newVideoProjectDetails(): YouTube.Schema.VideoProjectDetails;
     // Create a new instance of VideoRecordingDetails
-    newVideoRecordingDetails(): Youtube_v3.Schema.VideoRecordingDetails;
+    newVideoRecordingDetails(): YouTube.Schema.VideoRecordingDetails;
     // Create a new instance of VideoSnippet
-    newVideoSnippet(): Youtube_v3.Schema.VideoSnippet;
+    newVideoSnippet(): YouTube.Schema.VideoSnippet;
     // Create a new instance of VideoStatistics
-    newVideoStatistics(): Youtube_v3.Schema.VideoStatistics;
+    newVideoStatistics(): YouTube.Schema.VideoStatistics;
     // Create a new instance of VideoStatus
-    newVideoStatus(): Youtube_v3.Schema.VideoStatus;
+    newVideoStatus(): YouTube.Schema.VideoStatus;
     // Create a new instance of VideoSuggestions
-    newVideoSuggestions(): Youtube_v3.Schema.VideoSuggestions;
+    newVideoSuggestions(): YouTube.Schema.VideoSuggestions;
     // Create a new instance of VideoSuggestionsTagSuggestion
-    newVideoSuggestionsTagSuggestion(): Youtube_v3.Schema.VideoSuggestionsTagSuggestion;
+    newVideoSuggestionsTagSuggestion(): YouTube.Schema.VideoSuggestionsTagSuggestion;
     // Create a new instance of VideoTopicDetails
-    newVideoTopicDetails(): Youtube_v3.Schema.VideoTopicDetails;
+    newVideoTopicDetails(): YouTube.Schema.VideoTopicDetails;
     // Create a new instance of WatchSettings
-    newWatchSettings(): Youtube_v3.Schema.WatchSettings;
+    newWatchSettings(): YouTube.Schema.WatchSettings;
   }
 }
 
-declare var Youtube_v3: GoogleAppsScript.Youtube_v3;
+declare var YouTube: GoogleAppsScript.YouTube;

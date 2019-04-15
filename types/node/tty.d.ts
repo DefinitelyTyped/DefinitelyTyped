@@ -39,6 +39,9 @@ declare module "tty" {
          * @default `process.env`
          */
         getColorDepth(env?: {}): number;
+        hasColors(depth?: number): boolean;
+        hasColors(env?: {}): boolean;
+        hasColors(depth: number, env?: {}): boolean;
         getWindowSize(): [number, number];
         columns: number;
         rows: number;

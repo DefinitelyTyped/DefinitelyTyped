@@ -891,27 +891,166 @@ export interface FollowupIntentInfo {
     parentFollowupIntentName: string;
 }
 
-export interface Message {
-    platform?: string;
-    text?: Text;
-    card?: Card;
-    payload?: any;
+export enum Platform {
+    PLATFORM_UNSPECIFIED,
+    FACEBOOK,
+    SLACK,
+    TELEGRAM,
+    KIK,
+    SKYPE,
+    LINE,
+    VIBER,
+    ACTIONS_ON_GOOGLE
 }
+
+export interface MessageBase {
+    platform?: Platform;
+    message: string;
+}
+
+export interface TextMessage extends MessageBase {
+    text: Text;
+    message: "text";
+}
+
+export interface ImageMessage extends MessageBase {
+    image: Image;
+    message: "image";
+}
+
+export interface QuickRepliesMessage extends MessageBase {
+    quickReplies: QuickReplies;
+    message: "quickReplies";
+}
+
+export interface CardMessage extends MessageBase {
+    card: Card;
+    message: "card";
+}
+
+export interface PayloadMessage extends MessageBase {
+    payload: any;
+    message: "payload";
+}
+
+export interface SimpleResponsesMessage extends MessageBase {
+    simpleResponses: SimpleResponses;
+    message: "simpleResponses";
+}
+
+export interface BasicCardMessage extends MessageBase {
+    basicCard: BasicCard;
+    message: "basicCard";
+}
+
+export interface SuggestionsMessage extends MessageBase {
+    suggestions: Suggestions;
+    message: "suggestions";
+}
+
+export interface LinkOutSuggestionMessage extends MessageBase {
+    linkOutSuggestion: LinkOutSuggestion;
+    message: "linkOutSuggestion";
+}
+
+export interface ListSelectMessage extends MessageBase {
+    listSelect: ListSelect;
+    message: "listSelect";
+}
+
+export interface CarouselSelectMessage extends MessageBase {
+    carouselSelect: CarouselSelect;
+    message: "carouselSelect";
+}
+
+export type Message =
+    | TextMessage
+    | ImageMessage
+    | QuickRepliesMessage
+    | CardMessage
+    | PayloadMessage
+    | SimpleResponsesMessage
+    | BasicCardMessage
+    | SuggestionsMessage
+    | LinkOutSuggestionMessage
+    | ListSelectMessage
+    | CarouselSelectMessage;
 
 export interface Text {
     text: string[];
+}
+
+export interface Image {
+    imageUri?: string;
+    accessibilityText?: string;
+}
+
+export interface QuickReplies {
+    title?: string;
+    quickReplies?: string[];
 }
 
 export interface Card {
     title?: string;
     subtitle?: string;
     imageUri?: string;
-    buttons?: Button[];
+    buttons?: Array<{
+        text?: string;
+        postback?: string;
+    }>;
 }
 
-export interface Button {
-    text?: string;
-    postback?: string;
+export interface SimpleResponses {
+    simpleResponses: SimpleResponse[];
+}
+
+export interface SimpleResponse {
+    textToSpeech?: string;
+    ssml?: string;
+    displayText?: string;
+}
+
+export interface BasicCard {
+    title?: string;
+    subtitle?: string;
+    formattedText?: string;
+    image?: Image;
+    buttons?: Array<{
+        title: string;
+        openUriAction: {
+            uri: string;
+        };
+    }>;
+}
+
+export interface Suggestions {
+    suggestions: Array<{
+        title: string;
+    }>;
+}
+
+export interface LinkOutSuggestion {
+    destinationName: string;
+    uri: string;
+}
+
+export interface ListSelect {
+    title?: string;
+    items: Item[];
+}
+
+export interface CarouselSelect {
+    items: Item[];
+}
+
+export interface Item {
+    info: {
+        key: string;
+        synonyms?: string[];
+    };
+    title: string;
+    description?: string;
+    image?: Image;
 }
 
 export interface EventInput {
@@ -958,7 +1097,6 @@ export interface Entity {
 export interface WebhookRequest {
     session: string;
     responseId: string;
-
     queryResult: QueryResult;
     originalDetectIntentRequest?: any;
 }

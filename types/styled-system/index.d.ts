@@ -1,4 +1,4 @@
-// Type definitions for styled-system 4.0
+// Type definitions for styled-system 4.1
 // Project: https://github.com/jxnblk/styled-system#readme
 // Definitions by: Marshall Bowers <https://github.com/maxdeviant>
 //                 Ben McCormick <https://github.com/phobon>
@@ -761,13 +761,27 @@ export interface BorderLeftProps<TLength = TLengthStyledSystem> {
 
 export function borderLeft(...args: any[]): any;
 
-export interface BordersProps
-    extends BorderTopProps,
-        BorderRightProps,
-        BorderBottomProps,
-        BorderLeftProps {}
+export interface BorderWidthProps<TLength = TLengthStyledSystem> {
+    /**
+     * The border-width shorthand CSS property sets the width of all sides of an element's border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width)
+     */
+    borderWidth?: ResponsiveValue<CSS.BorderWidthProperty<TLength>>;
+}
 
-export function borders(...args: any[]): any;
+export function borderWidth(...args: any[]): any;
+
+export interface BorderStyleProps {
+    /**
+     * The border-style shorthand CSS property sets the style of all sides of an element's border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style)
+     */
+    borderStyle?: ResponsiveValue<CSS.BorderStyleProperty>;
+}
+
+export function borderStyle(...args: any[]): any;
 
 export interface BorderColorProps {
     /**
@@ -791,6 +805,19 @@ export interface BorderRadiusProps<TLength = TLengthStyledSystem> {
 }
 
 export function borderRadius(...args: any[]): any;
+
+export interface BordersProps
+    extends BorderProps,
+        BorderTopProps,
+        BorderRightProps,
+        BorderBottomProps,
+        BorderLeftProps,
+        BorderWidthProps,
+        BorderColorProps,
+        BorderStyleProps,
+        BorderRadiusProps {}
+
+export function borders(...args: any[]): any;
 
 export interface BoxShadowProps {
     /**

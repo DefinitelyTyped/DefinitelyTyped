@@ -10,7 +10,14 @@ declare module "querystring" {
 
     interface ParsedUrlQuery { [key: string]: string | string[]; }
 
-    function stringify(obj?: {}, sep?: string, eq?: string, options?: StringifyOptions): string;
+    interface ParsedUrlQueryInput {
+        [key: string]:
+            // The value type here is a "poor man's `unknown`". When these types support TypeScript
+            // 3.0+, we can replace this with `unknown`.
+            {} | null | undefined;
+    }
+
+    function stringify(obj?: ParsedUrlQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;
     function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
     function escape(str: string): string;
     function unescape(str: string): string;

@@ -35,7 +35,8 @@ stories.add('with all knobs', () => {
   const selectedColor = color('Color', 'black');
   const favoriteNumber = number('Favorite Number', 42);
   const comfortTemp = number('Comfort Temp', 72, { range: true, min: 60, max: 90, step: 1 });
-  const radioStation = radios('Favorite Radio Station', { 1100: "1100", 2200: "2200", 3300: "3300" });
+  const radioStation: string = radios('Favorite Radio Station', { 1100: "1100", 2200: "2200", 3300: "3300" });
+  const luckyNumber: number = radios('Lucky Number', { 3: 3, 7: 7, 23: 23 });
   const textDecoration = select('Decoration', {
     None: 'none',
     Underline: 'underline',
@@ -77,6 +78,7 @@ stories.add('with all knobs', () => {
       <p>My favorite number is {favoriteNumber}.</p>
       <p>My most comfortable room temperature is {comfortTemp} degrees Fahrenheit.</p>
       <p>My favorite radio station is: {radioStation}</p>
+      <p>My lucky number is {luckyNumber}.</p>
     </div>
   );
 });

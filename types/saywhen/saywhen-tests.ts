@@ -13,6 +13,10 @@ const spy: JasmineSpy = jasmine.createSpy('test');
 when(spy); // $ExpectType CallHandler<JasmineSpy>
 when(spy).isCalled; // $ExpectType Proxy<JasmineSpy>
 
-when.captor();	// $ExpectType MatcherProxy<{}>
+const top = (<T>(x?: T): T => x!)();
+type Top = typeof top;
+declare function expectMatcherProxyTop(x: (arg: Top) => boolean): void;
+
+expectMatcherProxyTop(when.captor());
 when.captor(jasmine.any(Number));	// $ExpectType MatcherProxy<Any>
 when.noConflict();	// $ExpectType void

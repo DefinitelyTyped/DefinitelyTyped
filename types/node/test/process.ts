@@ -56,3 +56,11 @@ import { EventEmitter } from "events";
     dest = report.writeReport('asdasd');
     dest = report.writeReport(new Error());
 }
+{
+    if (process.send) {
+        let r: boolean = process.send('aMessage');
+        r = process.send({ msg: "foo"}, {});
+        r = process.send({ msg: "foo"}, {}, { swallowErrors: true });
+        r = process.send({ msg: "foo"}, {}, { swallowErrors: true }, (err: Error | null) => {});
+    }
+}

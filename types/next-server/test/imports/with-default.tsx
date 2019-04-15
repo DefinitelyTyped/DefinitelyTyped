@@ -1,7 +1,7 @@
 import * as React from "react";
 
 interface Props {
-  foo: boolean;
+  foo?: boolean;
 }
 
 export default class MyComponent extends React.Component<Props> {
