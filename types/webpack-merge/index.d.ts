@@ -18,7 +18,7 @@ declare namespace webpackMerge {
         customizeArray?: CustomizeArrayFunction | UniqueFunction;
         customizeObject?: CustomizeObjectFunction;
     }
-    type MultipleConfiguration = {
+    interface MultipleConfiguration {
         [name: string]: Configuration;
     }
     type ConfigurationMergeFunction = (...configs: Configuration[]) => Configuration;
