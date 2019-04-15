@@ -27,8 +27,7 @@ export class AdditionalRecipient {
      */
     amount_money: Money;
     /**
-     * The unique ID for this [AdditionalRecipientReceivable](#type-additionalrecipientreceivable), assigned by the
-     * server.
+     * The unique ID for this [AdditionalRecipientReceivable](#type-additionalrecipientreceivable), assigned by the server.
      */
     receivable_id?: string;
 }
@@ -422,19 +421,18 @@ export namespace Address {
 
 export class BatchChangeInventoryRequest {
     /**
-     * A client-supplied, universally unique identifier (UUID) for the request.  See
-     * [Idempotency](/basics/api101/idempotency) in the [API Development 101](/basics/api101/overview) section for more
-     * information.
+     * A client-supplied, universally unique identifier (UUID) for the request.
+     * See [Idempotency](/basics/api101/idempotency) in the [API Development 101](/basics/api101/overview) section for details.
      */
     idempotency_key?: string;
     /**
-     * The set of physical counts and inventory adjustments to be made. Changes are applied based on the client-supplied
-     * timestamp and may be sent out of order. Max size is 100 changes.
+     * The set of physical counts and inventory adjustments to be made.
+     * Changes are applied based on the client-supplied timestamp and may be sent out of order. Max size is 100 changes.
      */
     changes?: Array<InventoryChange>;
     /**
-     * Indicates whether the current physical count should be ignored if the quantity is unchanged since the last
-     * physical count. Default: `true`.
+     * Indicates whether the current physical count should be ignored if the quantity is unchanged since the last physical count.
+     * Default: `true`.
      */
     ignore_unchanged_counts?: boolean;
 }
@@ -469,8 +467,7 @@ export class BatchDeleteCatalogObjectsResponse {
      */
     deleted_object_ids?: Array<string>;
     /**
-     * The database [timestamp](#workingwithdates) of this deletion in RFC 3339 format, e.g.,
-     * \"2016-09-04T23:59:33.123Z\".
+     * The database [timestamp](#workingwithdates) of this deletion in RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
      */
     deleted_at?: string;
 }
@@ -537,7 +534,7 @@ export class BatchRetrieveInventoryChangesRequest {
     updated_before?: string;
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of
-     * results for the original query.  See [Pagination](/basics/api101/pagination) for more information.
+     * results for the original query. See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -574,8 +571,8 @@ export class BatchRetrieveInventoryChangesResponse {
      */
     changes?: Array<InventoryChange>;
     /**
-     * The pagination cursor to be used in a subsequent request. If unset, this is the final response. See
-     * [Pagination](/basics/api101/pagination) for more information.
+     * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
+     * See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -596,7 +593,7 @@ export class BatchRetrieveInventoryCountsRequest {
     updated_after?: string;
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of
-     * results for the original query.  See [Pagination](/basics/api101/pagination) for more information.
+     * results for the original query. See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -611,8 +608,8 @@ export class BatchRetrieveInventoryCountsResponse {
      */
     counts?: Array<InventoryCount>;
     /**
-     * The pagination cursor to be used in a subsequent request. If unset, this is the final response.  See
-     * [Pagination](/basics/api101/pagination) for more information.
+     * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
+     * See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -644,7 +641,7 @@ export class BatchUpsertCatalogObjectsRequest {
      * A value you specify that uniquely identifies this request among all your requests. A common way to create a valid
      * idempotency key is to use a Universally unique identifier (UUID).  If you're unsure whether a particular request
      * was successful, you can reattempt it with the same idempotency key without worrying about creating duplicate
-     * objects.  See [Idempotency](/basics/api101/idempotency) for more information.
+     * objects. See [Idempotency](/basics/api101/idempotency) for more information.
      */
     idempotency_key: string;
     /**
@@ -675,8 +672,7 @@ export class BatchUpsertCatalogObjectsResponse {
      */
     objects?: Array<CatalogObject>;
     /**
-     * The database [timestamp](#workingwithdates) of this update in RFC 3339 format, e.g.,
-     * \"2016-09-04T23:59:33.123Z\".
+     * The database [timestamp](#workingwithdates) of this update in RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
      */
     updated_at?: string;
     /**
@@ -686,7 +682,7 @@ export class BatchUpsertCatalogObjectsResponse {
 }
 
 /**
- * A defined break template that sets an expectation for possible `Break`  instances on a `Shift`.
+ * A defined break template that sets an expectation for possible `Break` instances on a `Shift`.
  */
 export class BreakType {
     /**
@@ -702,8 +698,7 @@ export class BreakType {
      */
     break_name: string;
     /**
-     * Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of this break. Precision below minutes is
-     * truncated.
+     * Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of this break. Precision below minutes is truncated.
      */
     expected_duration: string;
     /**
@@ -740,8 +735,8 @@ export class CaptureTransactionResponse {
 }
 
 /**
- * Represents the payment details of a card to be used for payments. These details are determined by the `card_nonce`
- * generated by `SqPaymentForm`.
+ * Represents the payment details of a card to be used for payments.
+ * These details are determined by the `card_nonce` generated by `SqPaymentForm`.
  */
 export class Card {
     /**
@@ -792,6 +787,7 @@ export namespace Card {
         SQUAREGIFTCARD = 'SQUARE_GIFT_CARD',
     }
 }
+
 /**
  * Indicates a card's brand, such as `VISA` or `MASTERCARD`.
  */
@@ -897,13 +893,11 @@ export class CatalogInfoResponseLimits {
      */
     update_item_taxes_max_item_ids?: number;
     /**
-     * The maximum number of tax IDs to be enabled that may be included in a single `/v2/catalog/update-item-taxes`
-     * request.
+     * The maximum number of tax IDs to be enabled that may be included in a single `/v2/catalog/update-item-taxes` request.
      */
     update_item_taxes_max_taxes_to_enable?: number;
     /**
-     * The maximum number of tax IDs to be disabled that may be included in a single `/v2/catalog/update-item-taxes`
-     * request.
+     * The maximum number of tax IDs to be disabled that may be included in a single `/v2/catalog/update-item-taxes` request.
      */
     update_item_taxes_max_taxes_to_disable?: number;
     /**
@@ -920,6 +914,17 @@ export class CatalogInfoResponseLimits {
      * `/v2/catalog/update-item-modifier-lists` request.
      */
     update_item_modifier_lists_max_modifier_lists_to_disable?: number;
+}
+
+export class CatalogInfoResponse {
+    /**
+     * The set of [Error](#type-error)s encountered.
+     */
+    errors?: Array<Error>;
+    /**
+     *
+     */
+    limits?: CatalogInfoResponseLimits;
 }
 
 /**
@@ -982,17 +987,17 @@ export class CatalogItem {
      */
     variations?: Array<CatalogObject>;
     /**
-     * The product type of the item. May not be changed once an item has been created.  Only items of product type
-     * `REGULAR` may be created by this API; items with other product types are read-only. See
-     * [CatalogItemProductType](#type-catalogitemproducttype) for all possible values.
+     * The product type of the item. May not be changed once an item has been created.
+     * Only items of product type `REGULAR` may be created by this API; items with other product types are read-only.
+     * See [CatalogItemProductType](#type-catalogitemproducttype) for all possible values.
      */
     product_type?: CatalogItem.ProductTypeEnum;
     /**
      * If `false`, the Square Point of Sale app will present the [CatalogItem](#type-catalogitem)'s details screen
      * immediately, allowing the merchant to choose [CatalogModifier](#type-catalogmodifier)s before adding the item to
-     * the cart.  This is the default behavior.  If `true`, the Square Point of Sale app will immediately add the item
+     * the cart. This is the default behavior. If `true`, the Square Point of Sale app will immediately add the item
      * to the cart with the pre-selected modifiers, and merchants can edit modifiers by drilling down onto the item's
-     * details.  Third-party clients are encouraged to implement similar behaviors.
+     * details. Third-party clients are encouraged to implement similar behaviors.
      */
     skip_modifier_screen?: boolean;
 }
@@ -1006,6 +1011,7 @@ export namespace CatalogItem {
         RESTAURANTITEM = 'RESTAURANT_ITEM',
     }
 }
+
 /**
  * Controls the properties of a [CatalogModifierList](#type-catalogmodifierlist) as it applies to this
  * [CatalogItem](#type-catalogitem).
@@ -1118,6 +1124,7 @@ export namespace CatalogItemVariation {
         LOWQUANTITY = 'LOW_QUANTITY',
     }
 }
+
 /**
  * A modifier in the Catalog object model.
  */
@@ -1165,6 +1172,7 @@ export namespace CatalogModifierList {
         MULTIPLE = 'MULTIPLE',
     }
 }
+
 /**
  * Indicates whether a [CatalogModifierList](#type-catalogmodifierlist) supports multiple selections.
  */
@@ -1200,7 +1208,7 @@ export class CatalogModifierOverride {
 export class CatalogObject {
     /**
      * The type of this object. Each object type has expected properties expressed in a structured format within its
-     * corresponding `*_data` field below.  See [CatalogObjectType](#type-catalogobjecttype) for all possible values.
+     * corresponding `*_data` field below. See [CatalogObjectType](#type-catalogobjecttype) for all possible values.
      */
     type: CatalogObject.TypeEnum;
     /**
@@ -1288,6 +1296,7 @@ export namespace CatalogObject {
         MODIFIER = 'MODIFIER',
     }
 }
+
 /**
  * A batch of [CatalogObject](#type-catalogobject)s.
  */
@@ -1341,9 +1350,8 @@ export class CatalogQuery {
     range_query?: CatalogQueryRange;
     /**
      * A query that returns only objects whose searchable attributes contain all of the given keywords as prefixes. For
-     * example, if a [CatalogItem](#type-catalogitem) contains attributes `{\"name\": \"t-shirt\"}` and
-     * `{\"description\": \"Small, Purple\"}`, it will be matched by the query `{\"keywords\": [\"shirt\", \"sma\",
-     * \"purp\"]}`.
+     * example, if a [CatalogItem](#type-catalogitem) contains attributes `{"name": "t-shirt"}` and
+     * `{"description": "Small, Purple"}`, it will be matched by the query `{"keywords": ["shirt", "sma", "purp"]}`.
      */
     text_query?: CatalogQueryText;
     /**
@@ -1485,6 +1493,7 @@ export namespace CatalogTax {
         INCLUSIVE = 'INCLUSIVE',
     }
 }
+
 /**
  * An Items Connect V1 object ID along with its associated [location](#type-location) ID.
  */
@@ -1506,21 +1515,21 @@ export class ChargeRequest {
     /**
      * A value you specify that uniquely identifies this transaction among transactions you've created.  If you're
      * unsure whether a particular transaction succeeded, you can reattempt it with the same idempotency key without
-     * worrying about double-charging the buyer.  See [Idempotency](/basics/api101/idempotency) for more information.
+     * worrying about double-charging the buyer. See [Idempotency](/basics/api101/idempotency) for more information.
      */
     idempotency_key: string;
     /**
      * The amount of money to charge.  Note that you specify the amount in the __smallest denomination of the applicable
      * currency__. For example, US dollar amounts are specified in cents. See [Working with monetary
-     * amounts](#workingwithmonetaryamounts) for details.  The value of `currency` must match the currency associated
-     * with the business that is charging the card.
+     * amounts](#workingwithmonetaryamounts) for details.
+     * The value of `currency` must match the currency associated with the business that is charging the card.
      */
     amount_money: Money;
     /**
      * A nonce generated from the `SqPaymentForm` that represents the card to charge.  The application that provides a
      * nonce to this endpoint must be the _same application_ that generated the nonce with the `SqPaymentForm`.
-     * Otherwise, the nonce is invalid.  Do not provide a value for this field if you provide a value for
-     * `customer_card_id`.
+     * Otherwise, the nonce is invalid.
+     * Do not provide a value for this field if you provide a value for `customer_card_id`.
      */
     card_nonce?: string;
     /**
@@ -1531,19 +1540,19 @@ export class ChargeRequest {
     /**
      * If `true`, the request will only perform an Auth on the provided card. You can then later perform either a
      * Capture (with the [CaptureTransaction](#endpoint-capturetransaction) endpoint) or a Void (with the
-     * [VoidTransaction](#endpoint-voidtransaction) endpoint).  Default value: `false`
+     * [VoidTransaction](#endpoint-voidtransaction) endpoint). Default value: `false`
      */
     delay_capture?: boolean;
     /**
      * An optional ID you can associate with the transaction for your own purposes (such as to associate the transaction
-     * with an entity ID in your own database).  This value cannot exceed 40 characters.
+     * with an entity ID in your own database). This value cannot exceed 40 characters.
      */
     reference_id?: string;
 
     note?: string;
     /**
-     * The ID of the customer to associate this transaction with. This field is required if you provide a value for
-     * `customer_card_id`, and optional otherwise.
+     * The ID of the customer to associate this transaction with.
+     * This field is required if you provide a value for `customer_card_id`, and optional otherwise.
      */
     customer_id?: string;
     /**
@@ -1562,7 +1571,7 @@ export class ChargeRequest {
      */
     buyer_email_address?: string;
     /**
-     * The ID of the order to associate with this transaction.  If you provide this value, the `amount_money` value of
+     * The ID of the order to associate with this transaction. If you provide this value, the `amount_money` value of
      * your request must __exactly match__ the value of the order's `total_money` field.
      */
     order_id?: string;
@@ -1676,11 +1685,11 @@ export class Checkout {
 export class Country {}
 
 /**
- * A request to create a new `BreakType`
+ * A request to create a new `BreakType`.
  */
 export class CreateBreakTypeRequest {
     /**
-     * Unique string value to insure idempotency of the operation
+     * Unique string value to insure idempotency of the operation.
      */
     idempotency_key?: string;
     /**
@@ -1690,8 +1699,8 @@ export class CreateBreakTypeRequest {
 }
 
 /**
- * The response to the request to create a `BreakType`. Contains the created `BreakType` object. May contain a set of
- * `Error` objects if the request resulted in errors.
+ * The response to the request to create a `BreakType`. Contains the created `BreakType` object.
+ * May contain a set of `Error` objects if the request resulted in errors.
  */
 export class CreateBreakTypeResponse {
     /**
@@ -1705,8 +1714,7 @@ export class CreateBreakTypeResponse {
 }
 
 /**
- * Defines the parameters that can be included in the body of a request to the
- * [CreateCheckout](#endpoint-createcheckout) endpoint.
+ * Defines the parameters that can be included in the body of a request to the [CreateCheckout](#endpoint-createcheckout) endpoint.
  */
 export class CreateCheckoutRequest {
     /**
@@ -1715,7 +1723,7 @@ export class CreateCheckoutRequest {
      * processing the same order more than once. If you're unsure whether a particular checkout was created
      * successfully, you can reattempt it with the same idempotency key and all the same other parameters without
      * worrying about creating duplicates.  We recommend using a random number/string generator native to the language
-     * you are working in to generate strings for your idempotency keys.  See [Idempotency](/basics/api101/idempotency)
+     * you are working in to generate strings for your idempotency keys. See [Idempotency](/basics/api101/idempotency)
      * for more information.
      */
     idempotency_key: string;
@@ -1730,8 +1738,8 @@ export class CreateCheckoutRequest {
     ask_for_shipping_address?: boolean;
     /**
      * The email address to display on the Square Checkout confirmation page and confirmation email that the buyer can
-     * use to contact the merchant.  If this value is not set, the confirmation page and email will display the primary
-     * email address associated with the merchant's Square account.  Default: none; only exists if explicitly set.
+     * use to contact the merchant. If this value is not set, the confirmation page and email will display the primary
+     * email address associated with the merchant's Square account. Default: none; only exists if explicitly set.
      */
     merchant_support_email?: string;
     /**
@@ -1751,8 +1759,8 @@ export class CreateCheckoutRequest {
      * `http://www.example.com/order-complete?checkoutId=xxxxxx&orderId=xxxxxx&referenceId=xxxxxx&transactionId=xxxxxx`
      * If you do not provide a redirect URL, Square Checkout will display an order confirmation page on your behalf;
      * however Square strongly recommends that you provide a redirect URL so you can verify the transaction results and
-     * finalize the order through your existing/normal confirmation workflow.  Default: none; only exists if explicitly
-     * set.
+     * finalize the order through your existing/normal confirmation workflow.
+     * Default: none; only exists if explicitly set.
      */
     redirect_url?: string;
     /**
@@ -1764,7 +1772,7 @@ export class CreateCheckoutRequest {
      */
     additional_recipients?: Array<ChargeRequestAdditionalRecipient>;
     /**
-     * An optional note to associate with the checkout object.  This value cannot exceed 60 characters.
+     * An optional note to associate with the checkout object. This value cannot exceed 60 characters.
      */
     note?: string;
 }
@@ -1791,15 +1799,14 @@ export class CreateCheckoutResponse {
  */
 export class CreateCustomerCardRequest {
     /**
-     * A card nonce representing the credit card to link to the customer.  Card nonces are generated by the
+     * A card nonce representing the credit card to link to the customer. Card nonces are generated by the
      * `SqPaymentForm` that buyers enter their card information into. See [Embedding the payment
-     * form](/payments/sqpaymentform/overview) for more information.  __Note:__ Card nonces generated by digital wallets
-     * (e.g., Apple Pay) cannot be used to create a customer card.
+     * form](/payments/sqpaymentform/overview) for more information.
+     * @note Card nonces generated by digital wallets (e.g., Apple Pay) cannot be used to create a customer card.
      */
     card_nonce: string;
     /**
-     * Address information for the card on file. Only the `postal_code` field is required for payments in the US and
-     * Canada.
+     * Address information for the card on file. Only the `postal_code` field is required for payments in the US and Canada.
      */
     billing_address?: Address;
     /**
@@ -1810,7 +1817,7 @@ export class CreateCustomerCardRequest {
 
 /**
  * Defines the fields that are included in the response body of a request to the
- * [CreateCustomerCard](#endpoint-createcustomercard) endpoint.  One of `errors` or `card` is present in a given
+ * [CreateCustomerCard](#endpoint-createcustomercard) endpoint. One of `errors` or `card` is present in a given
  * response (never both).
  */
 export class CreateCustomerCardResponse {
@@ -1825,13 +1832,11 @@ export class CreateCustomerCardResponse {
 }
 
 /**
- * Defines the body parameters that can be provided in a request to the [CreateCustomer](#endpoint-createcustomer)
- * endpoint.
+ * Defines the body parameters that can be provided in a request to the [CreateCustomer](#endpoint-createcustomer) endpoint.
  */
 export class CreateCustomerRequest {
     /**
-     * The idempotency key for the request. See the [Idempotency](/basics/api101/idempotency) guide for more
-     * information.
+     * The idempotency key for the request. See the [Idempotency](/basics/api101/idempotency) guide for more information.
      */
     idempotency_key?: string;
     /**
@@ -1880,7 +1885,7 @@ export class CreateCustomerRequest {
 
 /**
  * Defines the fields that are included in the response body of a request to the
- * [CreateCustomer](#endpoint-createcustomer) endpoint.  One of `errors` or `customer` is present in a given response
+ * [CreateCustomer](#endpoint-createcustomer) endpoint. One of `errors` or `customer` is present in a given response
  * (never both).
  */
 export class CreateCustomerResponse {
@@ -1933,7 +1938,7 @@ export class CreateOrderRequest {
     /**
      * A value you specify that uniquely identifies this order among orders you've created.  If you're unsure whether a
      * particular order was created successfully, you can reattempt it with the same idempotency key without worrying
-     * about creating duplicate orders.  See [Idempotency](/basics/api101/idempotency) for more information.
+     * about creating duplicate orders. See [Idempotency](/basics/api101/idempotency) for more information.
      */
     idempotency_key?: string;
     /**
@@ -1948,20 +1953,19 @@ export class CreateOrderRequest {
      */
     line_items?: Array<CreateOrderRequestLineItem>;
     /**
-     * @deprecated Please set the taxes on the nested [order](#type-order) field instead.  The taxes to include on
-     * the order.
+     * @deprecated Please set the taxes on the nested [order](#type-order) field instead. The taxes to include on the order.
      */
     taxes?: Array<CreateOrderRequestTax>;
     /**
-     * @deprecated Please set the discounts on the nested [order](#type-order) field instead.  The discounts to
-     * include on the order.
+     * @deprecated Please set the discounts on the nested [order](#type-order) field instead.
+     * The discounts to include on the order.
      */
     discounts?: Array<CreateOrderRequestDiscount>;
 }
 
 /**
  * @deprecated Please use the [OrderLineItemDiscount](#type-orderlineitemdiscount) type in the order field of
- * [CreateOrderRequest](#type-createorderrequest) instead.  Represents a discount that can apply to either a single line
+ * [CreateOrderRequest](#type-createorderrequest) instead. Represents a discount that can apply to either a single line
  * item or an entire order.
  */
 export class CreateOrderRequestDiscount {
@@ -1976,7 +1980,7 @@ export class CreateOrderRequestDiscount {
     name?: string;
     /**
      * Only used for ad hoc discounts. The percentage of the discount, as a string representation of a decimal number.
-     * A value of `7.25` corresponds to a percentage of 7.25%. This value range between 0.0 up to 100.0
+     * A value of `7.25` corresponds to a percentage of 7.25%. This value range between 0.0 up to 100.0.
      */
     percentage?: string;
     /**
@@ -2003,7 +2007,7 @@ export class CreateOrderRequestLineItem {
      */
     quantity: string;
     /**
-     * The base price for a single unit of the line item.  `base_price_money` is required for ad hoc line items and
+     * The base price for a single unit of the line item. `base_price_money` is required for ad hoc line items and
      * variable priced [CatalogItemVariation](#type-catalogitemvariation)s. If both `catalog_object_id` and
      * `base_price_money` are set, `base_price_money` will override the CatalogItemVariation's price.
      */
@@ -2054,7 +2058,7 @@ export class CreateOrderRequestModifier {
      */
     name?: string;
     /**
-     * The base price for the modifier.  `base_price_money` is required for ad hoc modifiers. If both
+     * The base price for the modifier. `base_price_money` is required for ad hoc modifiers. If both
      * `catalog_object_id` and `base_price_money` are set, `base_price_money` will override the predefined
      * [CatalogModifier](#type-catalogmodifier) price.
      */
@@ -2063,12 +2067,12 @@ export class CreateOrderRequestModifier {
 
 /**
  * @deprecated Please use the [OrderLineItemTax](#type-orderlineitemtax) type in the order field of
- * [CreateOrderRequest](#type-createorderrequest) instead.  Represents a tax that can apply to either a single line item
+ * [CreateOrderRequest](#type-createorderrequest) instead. Represents a tax that can apply to either a single line item
  * or an entire order.
  */
 export class CreateOrderRequestTax {
     /**
-     * Only used for catalog taxes. The catalog object ID of an existing [CatalogTax](#type-catalogtax).  Do not provide
+     * Only used for catalog taxes. The catalog object ID of an existing [CatalogTax](#type-catalogtax). Do not provide
      * a value for this field if you provide values in other fields for an ad hoc tax.
      */
     catalog_object_id?: string;
@@ -2078,13 +2082,13 @@ export class CreateOrderRequestTax {
      */
     name?: string;
     /**
-     * Only used for ad hoc taxes. Indicates the calculation method used to apply the line item tax.  Default:
-     * `ADDITIVE`; See [OrderLineItemTaxType](#type-orderlineitemtaxtype) for possible values.
+     * Only used for ad hoc taxes. Indicates the calculation method used to apply the line item tax.
+     * Default: `ADDITIVE`; See [OrderLineItemTaxType](#type-orderlineitemtaxtype) for possible values.
      */
     type?: CreateOrderRequestTax.TypeEnum;
     /**
-     * Only used for ad hoc taxes. The percentage of the tax, as a string representation of a decimal number.  A value
-     * of `7.25` corresponds to a percentage of 7.25%. This value range between 0.0 up to 100.0
+     * Only used for ad hoc taxes. The percentage of the tax, as a string representation of a decimal number.
+     * A value of `7.25` corresponds to a percentage of 7.25%. This value range between 0.0 up to 100.0.
      */
     percentage?: string;
 }
@@ -2099,7 +2103,7 @@ export namespace CreateOrderRequestTax {
 
 /**
  * Defines the fields that are included in the response body of a request to the [CreateOrder](#endpoint-createorder)
- * endpoint.  One of `errors` or `order` is present in a given response (never both).
+ * endpoint. One of `errors` or `order` is present in a given response (never both).
  */
 export class CreateOrderResponse {
     /**
@@ -2119,7 +2123,7 @@ export class CreateRefundRequest {
     /**
      * A value you specify that uniquely identifies this refund among refunds you've created for the tender.  If you're
      * unsure whether a particular refund succeeded, you can reattempt it with the same idempotency key without worrying
-     * about duplicating the refund.  See [Idempotency](/basics/api101/idempotency) for more information.
+     * about duplicating the refund. See [Idempotency](/basics/api101/idempotency) for more information.
      */
     idempotency_key: string;
     /**
@@ -2128,13 +2132,13 @@ export class CreateRefundRequest {
      */
     tender_id: string;
     /**
-     * A description of the reason for the refund.  Default value: `Refund via API`
+     * A description of the reason for the refund. Default value: `Refund via API`
      */
     reason?: string;
     /**
-     * The amount of money to refund.  Note that you specify the amount in the __smallest denomination of the applicable
+     * The amount of money to refund. Note that you specify the amount in the __smallest denomination of the applicable
      * currency__. For example, US dollar amounts are specified in cents. See [Working with monetary
-     * amounts](#workingwithmonetaryamounts) for details.  This amount cannot exceed the amount that was originally
+     * amounts](#workingwithmonetaryamounts) for details. This amount cannot exceed the amount that was originally
      * charged to the tender that corresponds to `tender_id`.
      */
     amount_money: Money;
@@ -2142,7 +2146,7 @@ export class CreateRefundRequest {
 
 /**
  * Defines the fields that are included in the response body of a request to the [CreateRefund](#endpoint-createrefund)
- * endpoint.  One of `errors` or `refund` is present in a given response (never both).
+ * endpoint. One of `errors` or `refund` is present in a given response (never both).
  */
 export class CreateRefundResponse {
     /**
@@ -2156,7 +2160,7 @@ export class CreateRefundResponse {
 }
 
 /**
- * Represents a request to create a `Shift`
+ * Represents a request to create a `Shift`.
  */
 export class CreateShiftRequest {
     /**
@@ -2289,25 +2293,26 @@ export namespace Customer {
         UNMERGERECOVERY = 'UNMERGE_RECOVERY',
     }
 }
+
 /**
  * Indicates the method used to create the customer profile.
  */
 export class CustomerCreationSource {}
 
 /**
- * Creation source filter.  If one or more creation sources are set, customer profiles are included in, or excluded
+ * Creation source filter. If one or more creation sources are set, customer profiles are included in, or excluded
  * from, the result if they match at least one of the filter criteria.
  */
 export class CustomerCreationSourceFilter {
     /**
-     * The list of creation sources used as filtering criteria. See
-     * [CustomerCreationSource](#type-customercreationsource) for possible values.
+     * The list of creation sources used as filtering criteria.
+     * See [CustomerCreationSource](#type-customercreationsource) for possible values.
      */
     values?: Array<CustomerCreationSourceFilter.ValuesEnum>;
     /**
      * Indicates whether a customer profile matching the filter criteria should be included in the result or excluded
-     * from the result. Default: `INCLUDE`. See [CustomerInclusionExclusion](#type-customerinclusionexclusion) for
-     * possible values.
+     * from the result. Default: `INCLUDE`.
+     * See [CustomerInclusionExclusion](#type-customerinclusionexclusion) for possible values.
      */
     rule?: CustomerCreationSourceFilter.RuleEnum;
 }
@@ -2339,6 +2344,7 @@ export namespace CustomerCreationSourceFilter {
         EXCLUDE = 'EXCLUDE',
     }
 }
+
 /**
  * Represents a set of [`CustomerQuery`](#type-customerquery) filters used to limit the set of Customers returned by
  * [`SearchCustomers`](#endpoint-seachcustomers).
@@ -2373,8 +2379,7 @@ export class CustomerGroupInfo {
 }
 
 /**
- * Indicates whether customers should be included in, or excluded from, the result set when they match the filtering
- * criteria.
+ * Indicates whether customers should be included in, or excluded from, the result set when they match the filtering criteria.
  */
 export class CustomerInclusionExclusion {}
 
@@ -2431,6 +2436,7 @@ export namespace CustomerSort {
         ASC = 'ASC',
     }
 }
+
 /**
  * Indicates the sort criteria for a list of Customers.
  */
@@ -2441,13 +2447,13 @@ export class CustomerSortField {}
  */
 export class DateRange {
     /**
-     * String in `YYYY-MM-DD` format, e.g. `2017-10-31` per the ISO 8601 extended format for calendar dates. The
-     * beginning of a date range (inclusive)
+     * String in `YYYY-MM-DD` format, e.g. `2017-10-31` per the ISO 8601 extended format for calendar dates.
+     * The beginning of a date range (inclusive)
      */
     start_date?: string;
     /**
-     * String in `YYYY-MM-DD` format, e.g. `2017-10-31` per the ISO 8601 extended format for calendar dates. The end of
-     * a date range (inclusive)
+     * String in `YYYY-MM-DD` format, e.g. `2017-10-31` per the ISO 8601 extended format for calendar dates.
+     * The end of a date range (inclusive)
      */
     end_date?: string;
 }
@@ -2458,8 +2464,7 @@ export class DateRange {
 export class DeleteBreakTypeRequest {}
 
 /**
- * The response to a request to delete a `BreakType`. May contain a set  of `Error` objects if the request resulted in
- * errors.
+ * The response to a request to delete a `BreakType`. May contain a set  of `Error` objects if the request resulted in errors.
  */
 export class DeleteBreakTypeResponse {
     /**
@@ -2515,13 +2520,12 @@ export class DeleteCustomerResponse {
 }
 
 /**
- * A request to delete a `Shift`
+ * A request to delete a `Shift`.
  */
 export class DeleteShiftRequest {}
 
 /**
- * The response to a request to delete a `Shift`. May contain a set of  `Error` objects if the request resulted in
- * errors.
+ * The response to a request to delete a `Shift`. May contain a set of  `Error` objects if the request resulted in errors.
  */
 export class DeleteShiftResponse {
     /**
@@ -2542,7 +2546,7 @@ export class Device {
 }
 
 /**
- * An employee created in the **Square Dashboard** account of a business.  Used by the Labor API.
+ * An employee created in the **Square Dashboard** account of a business. Used by the Labor API.
  */
 export class Employee {
     /**
@@ -2581,6 +2585,7 @@ export namespace Employee {
         INACTIVE = 'INACTIVE',
     }
 }
+
 /**
  * The status of the Employee being retrieved.
  */
@@ -2626,8 +2631,8 @@ export class ErrorCode {}
 export class GetBreakTypeRequest {}
 
 /**
- * The response to a request to get a `BreakType`. Contains the requested `BreakType` objects. May contain a set of
- * `Error` objects if the request resulted in errors.
+ * The response to a request to get a `BreakType`. Contains the requested `BreakType` objects.
+ * May contain a set of `Error` objects if the request resulted in errors.
  */
 export class GetBreakTypeResponse {
     /**
@@ -2646,8 +2651,8 @@ export class GetBreakTypeResponse {
 export class GetEmployeeWageRequest {}
 
 /**
- * A response to a request to get an `EmployeeWage`. Contains the requested `EmployeeWage` objects. May contain a set of
- * `Error` objects if the request resulted in errors.
+ * A response to a request to get an `EmployeeWage`. Contains the requested `EmployeeWage` objects.
+ * May contain a set of `Error` objects if the request resulted in errors.
  */
 export class GetEmployeeWageResponse {
     /**
@@ -2661,13 +2666,13 @@ export class GetEmployeeWageResponse {
 }
 
 /**
- * A request to get a `Shift` by ID
+ * A request to get a `Shift` by ID.
  */
 export class GetShiftRequest {}
 
 /**
- * A response to request to get a `Shift`. Contains the requested `Shift` object. May contain a set of `Error` objects
- * if the request resulted in errors.
+ * A response to request to get a `Shift`. Contains the requested `Shift` object.
+ * May contain a set of `Error` objects if the request resulted in errors.
  */
 export class GetShiftResponse {
     /**
@@ -2792,6 +2797,7 @@ export namespace InventoryAdjustment {
         UNLINKEDRETURN = 'UNLINKED_RETURN',
     }
 }
+
 /**
  * Indicates whether Square should alert the merchant when the inventory quantity of a
  * [CatalogItemVariation](#type-catalogitemvariation) is low.
@@ -2804,8 +2810,8 @@ export class InventoryAlertType {}
  */
 export class InventoryChange {
     /**
-     * Indicates how the inventory change was applied. See [InventoryChangeType](#type-inventorychangetype) for all
-     * possible values.
+     * Indicates how the inventory change was applied.
+     * See [InventoryChangeType](#type-inventorychangetype) for all possible values.
      */
     type?: InventoryChange.TypeEnum;
     /**
@@ -2829,6 +2835,7 @@ export namespace InventoryChange {
         TRANSFER = 'TRANSFER',
     }
 }
+
 /**
  * Indicates how the inventory change was applied to a tracked quantity of items.
  */
@@ -2885,8 +2892,8 @@ export namespace InventoryCount {
 }
 
 /**
- * Represents a verified (re)count of items in a given state at a specific location. For example, the quantity of items
- * currently on hand at a physical store).
+ * Represents a verified (re)count of items in a given state at a specific location.
+ * For example, the quantity of items currently on hand at a physical store).
  */
 export class InventoryPhysicalCount {
     /**
@@ -2928,9 +2935,8 @@ export class InventoryPhysicalCount {
      */
     employee_id?: string;
     /**
-     * A client-generated timestamp in RFC 3339 format that indicates when the physical count took place. For write
-     * actions, the `occurred_at` timestamp cannot be older than 24 hours or in the future relative to the time of the
-     * request.
+     * A client-generated timestamp in RFC 3339 format that indicates when the physical count took place. For write actions,
+     * the `occurred_at` timestamp cannot be older than 24 hours or in the future relative to the time of the request.
      */
     occurred_at?: string;
     /**
@@ -2955,6 +2961,7 @@ export namespace InventoryPhysicalCount {
         UNLINKEDRETURN = 'UNLINKED_RETURN',
     }
 }
+
 /**
  * Indicates the state of a tracked item quantity in the lifecycle of goods.
  */
@@ -2969,8 +2976,7 @@ export class InventoryTransfer {
      */
     id?: string;
     /**
-     * An optional ID provided by the application to tie the [InventoryTransfer](#type-inventorytransfer) to an external
-     * system.
+     * An optional ID provided by the application to tie the [InventoryTransfer](#type-inventorytransfer) to an external system.
      */
     reference_id?: string;
     /**
@@ -2978,13 +2984,11 @@ export class InventoryTransfer {
      */
     state?: InventoryTransfer.StateEnum;
     /**
-     * The Square ID of the [Location](#type-location) where the related quantity of items were tracked before the
-     * transfer.
+     * The Square ID of the [Location](#type-location) where the related quantity of items were tracked before the transfer.
      */
     from_location_id?: string;
     /**
-     * The Square ID of the [Location](#type-location) where the related quantity of items were tracked after the
-     * transfer.
+     * The Square ID of the [Location](#type-location) where the related quantity of items were tracked after the transfer.
      */
     to_location_id?: string;
     /**
@@ -3035,6 +3039,7 @@ export namespace InventoryTransfer {
         UNLINKEDRETURN = 'UNLINKED_RETURN',
     }
 }
+
 /**
  * Price and inventory alerting overrides for a [CatalogItemVariation](#type-catalogitemvariation) at a specific
  * [location](#type-location).
@@ -3061,8 +3066,8 @@ export class ItemVariationLocationOverrides {
     track_inventory?: boolean;
     /**
      * Indicates whether the [CatalogItemVariation](#type-catalogitemvariation) displays an alert when its inventory
-     * quantity is less than or equal to its `inventory_alert_threshold`. See
-     * [InventoryAlertType](#type-inventoryalerttype) for all possible values.
+     * quantity is less than or equal to its `inventory_alert_threshold`.
+     * See [InventoryAlertType](#type-inventoryalerttype) for all possible values.
      */
     inventory_alert_type?: ItemVariationLocationOverrides.InventoryAlertTypeEnum;
     /**
@@ -3082,29 +3087,30 @@ export namespace ItemVariationLocationOverrides {
         LOWQUANTITY = 'LOW_QUANTITY',
     }
 }
+
 /**
  * Defines the query parameters that can be included in a request to the
  * [ListAdditionalRecipientReceivableRefunds](#endpoint-listadditionalrecipientreceivablerefunds) endpoint.
  */
 export class ListAdditionalRecipientReceivableRefundsRequest {
     /**
-     * The beginning of the requested reporting period, in RFC 3339 format.  See [Date ranges](#dateranges) for details
-     * on date inclusivity/exclusivity.  Default value: The current time minus one year.
+     * The beginning of the requested reporting period, in RFC 3339 format. See [Date ranges](#dateranges) for details
+     * on date inclusivity/exclusivity. Default value: The current time minus one year.
      */
     begin_time?: string;
     /**
-     * The end of the requested reporting period, in RFC 3339 format.  See [Date ranges](#dateranges) for details on
-     * date inclusivity/exclusivity.  Default value: The current time.
+     * The end of the requested reporting period, in RFC 3339 format. See [Date ranges](#dateranges) for details on
+     * date inclusivity/exclusivity. Default value: The current time.
      */
     end_time?: string;
     /**
-     * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).  Default
-     * value: `DESC`
+     * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).
+     * Default value: `DESC`
      */
     sort_order?: ListAdditionalRecipientReceivableRefundsRequest.SortOrderEnum;
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of
-     * results for your original query.  See [Pagination](/basics/api101/pagination) for more information.
+     * results for your original query. See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -3115,10 +3121,11 @@ export namespace ListAdditionalRecipientReceivableRefundsRequest {
         ASC = 'ASC',
     }
 }
+
 /**
  * Defines the fields that are included in the response body of a request to the
- * [ListAdditionalRecipientReceivableRefunds](#endpoint-listadditionalrecipientreceivablerefunds) endpoint.  One of
- * `errors` or `additional_recipient_receivable_refunds` is present in a given response (never both).
+ * [ListAdditionalRecipientReceivableRefunds](#endpoint-listadditionalrecipientreceivablerefunds) endpoint.
+ * One of `errors` or `additional_recipient_receivable_refunds` is present in a given response (never both).
  */
 export class ListAdditionalRecipientReceivableRefundsResponse {
     /**
@@ -3131,8 +3138,7 @@ export class ListAdditionalRecipientReceivableRefundsResponse {
     receivable_refunds?: Array<AdditionalRecipientReceivableRefund>;
     /**
      * A pagination cursor for retrieving the next set of results, if any remain. Provide this value as the `cursor`
-     * parameter in a subsequent request to this endpoint.  See [Pagination](/basics/api101/pagination) for more
-     * information.
+     * parameter in a subsequent request to this endpoint. See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -3143,23 +3149,23 @@ export class ListAdditionalRecipientReceivableRefundsResponse {
  */
 export class ListAdditionalRecipientReceivablesRequest {
     /**
-     * The beginning of the requested reporting period, in RFC 3339 format.  See [Date ranges](#dateranges) for details
-     * on date inclusivity/exclusivity.  Default value: The current time minus one year.
+     * The beginning of the requested reporting period, in RFC 3339 format. See [Date ranges](#dateranges) for details
+     * on date inclusivity/exclusivity. Default value: The current time minus one year.
      */
     begin_time?: string;
     /**
-     * The end of the requested reporting period, in RFC 3339 format.  See [Date ranges](#dateranges) for details on
-     * date inclusivity/exclusivity.  Default value: The current time.
+     * The end of the requested reporting period, in RFC 3339 format. See [Date ranges](#dateranges) for details on
+     * date inclusivity/exclusivity. Default value: The current time.
      */
     end_time?: string;
     /**
-     * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).  Default
-     * value: `DESC`
+     * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).
+     * Default value: `DESC`
      */
     sort_order?: ListAdditionalRecipientReceivablesRequest.SortOrderEnum;
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of
-     * results for your original query.  See [Pagination](/basics/api101/pagination) for more information.
+     * results for your original query. See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -3170,10 +3176,11 @@ export namespace ListAdditionalRecipientReceivablesRequest {
         ASC = 'ASC',
     }
 }
+
 /**
  * Defines the fields that are included in the response body of a request to the
- * [ListAdditionalRecipientReceivables](#endpoint-listadditionalrecipientreceivables) endpoint.  One of `errors` or
- * `additional_recipient_receivables` is present in a given response (never both).
+ * [ListAdditionalRecipientReceivables](#endpoint-listadditionalrecipientreceivables) endpoint.
+ * One of `errors` or `additional_recipient_receivables` is present in a given response (never both).
  */
 export class ListAdditionalRecipientReceivablesResponse {
     /**
@@ -3186,8 +3193,8 @@ export class ListAdditionalRecipientReceivablesResponse {
     receivables?: Array<AdditionalRecipientReceivable>;
     /**
      * A pagination cursor for retrieving the next set of results, if any remain. Provide this value as the `cursor`
-     * parameter in a subsequent request to this endpoint.  See [Pagination](/basics/api101/pagination) for more
-     * information.
+     * parameter in a subsequent request to this endpoint.
+     * See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -3211,8 +3218,8 @@ export class ListBreakTypesRequest {
 }
 
 /**
- * The response to a request for a set of `BreakTypes`. Contains the requested `BreakType` objects. May contain a set of
- * `Error` objects if the request resulted in errors.
+ * The response to a request for a set of `BreakTypes`. Contains the requested `BreakType` objects.
+ * May contain a set of `Error` objects if the request resulted in errors.
  */
 export class ListBreakTypesResponse {
     /**
@@ -3231,15 +3238,14 @@ export class ListBreakTypesResponse {
 
 export class ListCatalogRequest {
     /**
-     * The pagination cursor returned in the previous response. Leave unset for an initial request. See
-     * [Pagination](/basics/api101/pagination) for more information.
+     * The pagination cursor returned in the previous response. Leave unset for an initial request.
+     * See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
     /**
-     * An optional case-insensitive, comma-separated list of object types to retrieve, for example
-     * `ITEM,ITEM_VARIATION,CATEGORY`.  The legal values are taken from the [CatalogObjectType](#type-catalogobjecttype)
-     * enumeration, namely `\"ITEM\"`, `\"ITEM_VARIATION\"`, `\"CATEGORY\"`, `\"DISCOUNT\"`, `\"TAX\"`, `\"MODIFIER\"`,
-     * or `\"MODIFIER_LIST\"`.
+     * An optional case-insensitive, comma-separated list of object types to retrieve, for example `ITEM,ITEM_VARIATION,CATEGORY`.
+     * The legal values are taken from the [CatalogObjectType](#type-catalogobjecttype) enumeration, namely "ITEM",
+     * "ITEM_VARIATION", "CATEGORY", "DISCOUNT", "TAX", "MODIFIER" or "MODIFIER_LIST".
      */
     types?: string;
 }
@@ -3250,8 +3256,8 @@ export class ListCatalogResponse {
      */
     errors?: Array<Error>;
     /**
-     * The pagination cursor to be used in a subsequent request. If unset, this is the final response. See
-     * [Pagination](/basics/api101/pagination) for more information.
+     * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
+     * See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
     /**
@@ -3267,7 +3273,7 @@ export class ListCatalogResponse {
 export class ListCustomersRequest {
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of
-     * results for your original query.  See [Pagination](/basics/api101/pagination) for more information.
+     * results for your original query. See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
     /**
@@ -3292,10 +3298,10 @@ export namespace ListCustomersRequest {
         ASC = 'ASC',
     }
 }
+
 /**
- * Defines the fields that are included in the response body of a request to the
- * [ListCustomers](#endpoint-listcustomers) endpoint.  One of `errors` or `customers` is present in a given response
- * (never both).
+ * Defines the fields that are included in the response body of a request to the [ListCustomers](#endpoint-listcustomers) endpoint.
+ * One of `errors` or `customers` is present in a given response (never both).
  */
 export class ListCustomersResponse {
     /**
@@ -3307,9 +3313,9 @@ export class ListCustomersResponse {
      */
     customers?: Array<Customer>;
     /**
-     * A pagination cursor to retrieve the next set of results for your original query to the endpoint. This value is
-     * present only if the request succeeded and additional results are available.  See
-     * [Pagination](/basics/api101/pagination) for more information.
+     * A pagination cursor to retrieve the next set of results for your original query to the endpoint.
+     * This value is present only if the request succeeded and additional results are available.
+     * See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -3380,9 +3386,8 @@ export namespace ListEmployeesRequest {
     }
 }
 /**
- * Defines the fields that are included in the response body of a request to the
- * [ListEmployees](#endpoint-listemployees) endpoint.  One of `errors` or `employees` is present in a given response
- * (never both).
+ * Defines the fields that are included in the response body of a request to the [ListEmployees](#endpoint-listemployees) endpoint.
+ * One of `errors` or `employees` is present in a given response (never both).
  */
 export class ListEmployeesResponse {
     /**
@@ -3403,7 +3408,7 @@ export class ListLocationsRequest {}
 
 /**
  * Defines the fields that are included in the response body of a request to the
- * [ListLocations](#endpoint-listlocations) endpoint.  One of `errors` or `locations` is present in a given response
+ * [ListLocations](#endpoint-listlocations) endpoint. One of `errors` or `locations` is present in a given response
  * (never both).
  */
 export class ListLocationsResponse {
@@ -3422,23 +3427,23 @@ export class ListLocationsResponse {
  */
 export class ListRefundsRequest {
     /**
-     * The beginning of the requested reporting period, in RFC 3339 format.  See [Date ranges](#dateranges) for details
-     * on date inclusivity/exclusivity.  Default value: The current time minus one year.
+     * The beginning of the requested reporting period, in RFC 3339 format. See [Date ranges](#dateranges) for details
+     * on date inclusivity/exclusivity. Default value: The current time minus one year.
      */
     begin_time?: string;
     /**
-     * The end of the requested reporting period, in RFC 3339 format.  See [Date ranges](#dateranges) for details on
-     * date inclusivity/exclusivity.  Default value: The current time.
+     * The end of the requested reporting period, in RFC 3339 format. See [Date ranges](#dateranges) for details on
+     * date inclusivity/exclusivity. Default value: The current time.
      */
     end_time?: string;
     /**
-     * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).  Default
-     * value: `DESC`
+     * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).
+     * Default value: `DESC`
      */
     sort_order?: ListRefundsRequest.SortOrderEnum;
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of
-     * results for your original query.  See [Pagination](/basics/api101/pagination) for more information.
+     * results for your original query. See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -3449,9 +3454,10 @@ export namespace ListRefundsRequest {
         ASC = 'ASC',
     }
 }
+
 /**
  * Defines the fields that are included in the response body of a request to the [ListRefunds](#endpoint-listrefunds)
- * endpoint.  One of `errors` or `refunds` is present in a given response (never both).
+ * endpoint. One of `errors` or `refunds` is present in a given response (never both).
  */
 export class ListRefundsResponse {
     /**
@@ -3464,8 +3470,8 @@ export class ListRefundsResponse {
     refunds?: Array<Refund>;
     /**
      * A pagination cursor for retrieving the next set of results, if any remain. Provide this value as the `cursor`
-     * parameter in a subsequent request to this endpoint.  See [Pagination](/basics/api101/pagination) for more
-     * information.
+     * parameter in a subsequent request to this endpoint.
+     * See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -3476,23 +3482,23 @@ export class ListRefundsResponse {
  */
 export class ListTransactionsRequest {
     /**
-     * The beginning of the requested reporting period, in RFC 3339 format.  See [Date ranges](#dateranges) for details
-     * on date inclusivity/exclusivity.  Default value: The current time minus one year.
+     * The beginning of the requested reporting period, in RFC 3339 format. See [Date ranges](#dateranges) for details
+     * on date inclusivity/exclusivity. Default value: The current time minus one year.
      */
     begin_time?: string;
     /**
-     * The end of the requested reporting period, in RFC 3339 format.  See [Date ranges](#dateranges) for details on
-     * date inclusivity/exclusivity.  Default value: The current time.
+     * The end of the requested reporting period, in RFC 3339 format. See [Date ranges](#dateranges) for details on
+     * date inclusivity/exclusivity. Default value: The current time.
      */
     end_time?: string;
     /**
-     * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).  Default
-     * value: `DESC`
+     * The order in which results are listed in the response (`ASC` for oldest first, `DESC` for newest first).
+     * Default value: `DESC`
      */
     sort_order?: ListTransactionsRequest.SortOrderEnum;
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of
-     * results for your original query.  See [Pagination](/basics/api101/pagination) for more information.
+     * results for your original query. See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -3505,7 +3511,7 @@ export namespace ListTransactionsRequest {
 }
 /**
  * Defines the fields that are included in the response body of a request to the
- * [ListTransactions](#endpoint-listtransactions) endpoint.  One of `errors` or `transactions` is present in a given
+ * [ListTransactions](#endpoint-listtransactions) endpoint. One of `errors` or `transactions` is present in a given
  * response (never both).
  */
 export class ListTransactionsResponse {
@@ -3519,7 +3525,7 @@ export class ListTransactionsResponse {
     transactions?: Array<Transaction>;
     /**
      * A pagination cursor for retrieving the next set of results, if any remain. Provide this value as the `cursor`
-     * parameter in a subsequent request to this endpoint.  See [Pagination](/basics/api101/pagination) for more
+     * parameter in a subsequent request to this endpoint. See [Pagination](/basics/api101/pagination) for more
      * information.
      */
     cursor?: string;
@@ -3580,7 +3586,7 @@ export class Location {
      */
     timezone?: string;
     /**
-     * Indicates which Square features are enabled for the location.  See [LocationCapability](#type-locationcapability)
+     * Indicates which Square features are enabled for the location. See [LocationCapability](#type-locationcapability)
      * for possible values.
      */
     capabilities?: Array<Location.CapabilitiesEnum>;
@@ -3597,7 +3603,7 @@ export class Location {
      */
     merchant_id?: string;
     /**
-     * The location's country, in ISO 3166-1-alpha-2 format.  See [Country](#type-country) for possible values.
+     * The location's country, in ISO 3166-1-alpha-2 format. See [Country](#type-country) for possible values.
      */
     country?: Location.CountryEnum;
     /**
@@ -3606,7 +3612,7 @@ export class Location {
     language_code?: string;
     /**
      * The currency used for all transactions at this location, specified in __ISO 4217 format__. For example, the
-     * currency for a location processing transactions in the United States is 'USD'.  See [Currency](#type-currency)
+     * currency for a location processing transactions in the United States is 'USD'. See [Currency](#type-currency)
      * for possible values.
      */
     currency?: Location.CurrencyEnum;
@@ -4080,6 +4086,7 @@ export namespace Location {
         MOBILE = 'MOBILE',
     }
 }
+
 /**
  * Indicates payment capabilities that a business's location might or might not have enabled.
  */
@@ -4110,7 +4117,7 @@ export class ModelBreak {
     /**
      * RFC 3339; follows same timezone info as `Shift`. Precision up to the minute is respected; seconds are truncated.
      * The `end_at` minute is not counted when the break length is calculated. For example, a break from `00:00` to
-     * `00:11`  is considered a 10 minute break (midnight to 10 minutes after midnight).
+     * `00:11` is considered a 10 minute break (midnight to 10 minutes after midnight).
      */
     end_at?: string;
     /**
@@ -4254,20 +4261,21 @@ export namespace ModelError {
         GATEWAYTIMEOUT = 'GATEWAY_TIMEOUT',
     }
 }
+
 /**
- * Represents an amount of money.  __Important:__ Unlike version 1 of the Connect API, __all monetary amounts returned
+ * Represents an amount of money. __Important:__ Unlike version 1 of the Connect API, __all monetary amounts returned
  * by v2 endpoints are positive.__ (In v1, monetary amounts are negative if they represent money being paid _by_ a
  * merchant, instead of money being paid _to_ a merchant.)
  */
 export class Money {
     /**
-     * The amount of money, in the smallest denomination of the currency indicated by `currency`. For example, when
-     * `currency` is `USD`, `amount` is in cents.
+     * The amount of money, in the smallest denomination of the currency indicated by `currency`.
+     * For example, when `currency` is `USD`, `amount` is in cents.
      */
     amount?: number;
     /**
-     * The type of currency, in __ISO 4217 format__. For example, the currency code for US dollars is `USD`.  See
-     * [Currency](#type-currency) for possible values.
+     * The type of currency, in __ISO 4217 format__. For example, the currency code for US dollars is `USD`.
+     * See [Currency](#type-currency) for possible values.
      */
     currency?: Money.CurrencyEnum;
 }
@@ -4460,18 +4468,16 @@ export namespace Money {
 
 export class ObtainTokenRequest {
     /**
-     * The Square-issued ID of your application, available from the [application
-     * dashboard](https://connect.squareup.com/apps).
+     * The Square-issued ID of your application, available from the [application dashboard](https://connect.squareup.com/apps).
      */
     client_id?: string;
     /**
-     * The Square-issued application secret for your application,  available from the [application
-     * dashboard](https://connect.squareup.com/apps).
+     * The Square-issued application secret for your application, available from the application dashboard.
      */
     client_secret?: string;
     /**
-     * The authorization code to exchange.  This is required if `grant_type` is set to `authorization_code`, to indicate
-     * that  the application wants to exchange an authorization code for an OAuth access token.
+     * The authorization code to exchange. This is required if `grant_type` is set to `authorization_code`, to indicate
+     * that the application wants to exchange an authorization code for an OAuth access token.
      */
     code?: string;
     /**
@@ -4479,28 +4485,28 @@ export class ObtainTokenRequest {
      */
     redirect_uri?: string;
     /**
-     * Specifies the method to request an OAuth access token.  Valid values are: `authorization_code`, `refresh_token`,
-     * and `migration_token`
+     * Specifies the method to request an OAuth access token.
+     * Valid values are: `authorization_code`, `refresh_token`, and `migration_token`.
      */
     grant_type?: string;
     /**
-     * A valid refresh token for generating a new OAuth access token.  A valid refresh token is required if `grant_type`
-     * is set to `refresh_token` ,   to indicate the application wants a replacement for an expired OAuth access token.
+     * A valid refresh token for generating a new OAuth access token. A valid refresh token is required if `grant_type`
+     * is set to `refresh_token`, to indicate the application wants a replacement for an expired OAuth access token.
      */
     refresh_token?: string;
     /**
      * Legacy OAuth access token obtained using a Connect API version prior  to 2019-03-13. This parameter is required
      * if `grant_type` is set to  `migration_token` to indicate that the application wants to get a replacement   OAuth
-     * access token. The response also returns a refresh token.  For more information, see [Migrate to Using Refresh
-     * Tokens](/authz/oauth/migration).
+     * access token. The response also returns a refresh token.
+     * For more information, see [Migrate to Using Refresh Tokens](/authz/oauth/migration).
      */
     migration_token?: string;
 }
 
 export class ObtainTokenResponse {
     /**
-     * A valid OAuth access token. Provide the access token in a header with every request to Connect API endpoints. See
-     * the [Build with OAuth](/authz/oauth/build-with-the-api) guide for more information.
+     * A valid OAuth access token. Provide the access token in a header with every request to Connect API endpoints.
+     * See the [Build with OAuth](/authz/oauth/build-with-the-api) guide for more information.
      */
     access_token?: string;
     /**
@@ -4516,8 +4522,8 @@ export class ObtainTokenResponse {
      */
     merchant_id?: string;
     /**
-     * __Legacy field__. The ID of a subscription plan the merchant signed up for. Only present if  the merchant signed
-     * up for a subscription during authorization.
+     * __Legacy field__. The ID of a subscription plan the merchant signed up for.
+     * Only present if the merchant signed up for a subscription during authorization.
      */
     subscription_id?: string;
     /**
@@ -4526,13 +4532,13 @@ export class ObtainTokenResponse {
      */
     plan_id?: string;
     /**
-     * Then OpenID token belonging to this this person. Only present if the OPENID scope is included in the authorize
-     * request.
+     * Then OpenID token belonging to this this person.
+     * Only present if the OPENID scope is included in the authorize request.
      */
     id_token?: string;
     /**
-     * A refresh token.  For more information, see [OAuth access token
-     * management](/authz/oauth/how-it-works#oauth-access-token-management).
+     * A refresh token.
+     * For more information, see [OAuth access token management](/authz/oauth/how-it-works#oauth-access-token-management).
      */
     refresh_token?: string;
 }
@@ -4543,14 +4549,14 @@ export class ObtainTokenResponse {
  */
 export class Order {
     /**
-     * The order's unique ID.  This value is only present for Order objects created by the Orders API through the
+     * The order's unique ID. This value is only present for Order objects created by the Orders API through the
      * [CreateOrder](#endpoint-createorder) endpoint.
      */
     id?: string;
     /**
      * The ID of the merchant location this order is associated with.
      */
-    location_id: string;
+    location_id?: string;
     /**
      * A client specified identifier to associate an entity in another system with this order.
      */
@@ -4570,7 +4576,7 @@ export class Order {
      */
     discounts?: Array<OrderLineItemDiscount>;
     /**
-     * Details on order fulfillment.  Orders can only be created with at most one fulfillment. However, orders returned
+     * Details on order fulfillment. Orders can only be created with at most one fulfillment. However, orders returned
      * by the API may contain multiple fulfillments.
      */
     fulfillments?: Array<OrderFulfillment>;
@@ -4635,7 +4641,7 @@ export class OrderFulfillmentPickupDetails {
      */
     expires_at?: string;
     /**
-     * The auto completion duration in RFC3339 duration format, e.g., \"P1W3D\". If set, an open and accepted pickup
+     * The auto completion duration in RFC3339 duration format, e.g., "P1W3D". If set, an open and accepted pickup
      * fulfillment will automatically move to the `COMPLETED` state after this period of time. If not set, this pickup
      * fulfillment will remain accepted until it is canceled or completed.
      */
@@ -4645,13 +4651,13 @@ export class OrderFulfillmentPickupDetails {
      */
     schedule_type?: OrderFulfillmentPickupDetails.ScheduleTypeEnum;
     /**
-     * The pickup [timestamp](#workingwithdates) in RFC3339 timestamp format, e.g., \"2016-09-04T23:59:33.123Z\". For
+     * The pickup [timestamp](#workingwithdates) in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z". For
      * fulfillments with the schedule type `ASAP`, this is automatically set to the current time plus the expected
      * duration to prepare the fulfillment. This represents the start of the pickup window.
      */
     pickup_at?: string;
     /**
-     * The pickup window duration in RFC3339 duration format, e.g., \"P1W3D\". This duration represents the window of
+     * The pickup window duration in RFC3339 duration format, e.g., "P1W3D". This duration represents the window of
      * time for which the order should be picked up after the `pickup_at` time. Can be used as an informational
      * guideline for merchants.
      */
@@ -4835,7 +4841,7 @@ export class OrderLineItemDiscount {
     /**
      * The type of the discount. If it is created by API, it would be either `FIXED_PERCENTAGE` or `FIXED_AMOUNT`.
      * VARIABLE_* is not supported in API because the order is created at the time of sale and either percentage or
-     * amount has to be specified.  See [OrderLineItemDiscountType](#type-orderlineitemdiscounttype) for possible
+     * amount has to be specified. See [OrderLineItemDiscountType](#type-orderlineitemdiscounttype) for possible
      * values.
      */
     type?: OrderLineItemDiscount.TypeEnum;
@@ -4901,7 +4907,7 @@ export class OrderLineItemModifier {
      */
     name?: string;
     /**
-     * The base price for the modifier.  `base_price_money` is required for ad hoc modifiers. If both
+     * The base price for the modifier. `base_price_money` is required for ad hoc modifiers. If both
      * `catalog_object_id` and `base_price_money` are set, `base_price_money` will override the predefined
      * [CatalogModifier](#type-catalogmodifier) price.
      */
@@ -4926,7 +4932,7 @@ export class OrderLineItemTax {
      */
     name?: string;
     /**
-     * Indicates the calculation method used to apply the tax.  See [OrderLineItemTaxType](#type-orderlineitemtaxtype)
+     * Indicates the calculation method used to apply the tax. See [OrderLineItemTaxType](#type-orderlineitemtaxtype)
      * for possible values.
      */
     type?: OrderLineItemTax.TypeEnum;
@@ -5055,7 +5061,7 @@ export class RegisterDomainResponse {
      */
     errors?: Array<Error>;
     /**
-     * Status of the domain registration.  See [RegisterDomainResponseStatus](#type-registerdomainresponsestatus) for
+     * Status of the domain registration. See [RegisterDomainResponseStatus](#type-registerdomainresponsestatus) for
      * possible values.
      */
     status?: RegisterDomainResponse.StatusEnum;
@@ -5144,7 +5150,7 @@ export class RetrieveCustomerRequest {}
 
 /**
  * Defines the fields that are included in the response body of a request to the
- * [RetrieveCustomer](#endpoint-retrievecustomer) endpoint.  One of `errors` or `customer` is present in a given
+ * [RetrieveCustomer](#endpoint-retrievecustomer) endpoint. One of `errors` or `customer` is present in a given
  * response (never both).
  */
 export class RetrieveCustomerResponse {
@@ -5165,7 +5171,7 @@ export class RetrieveEmployeeRequest {}
 
 /**
  * Defines the fields that are included in the response body of a request to the
- * [RetrieveEmployee](#endpoint-retrieveemployee) endpoint.  One of `errors` or `employee` is present in a given
+ * [RetrieveEmployee](#endpoint-retrieveemployee) endpoint. One of `errors` or `employee` is present in a given
  * response (never both).
  */
 export class RetrieveEmployeeResponse {
@@ -5199,7 +5205,7 @@ export class RetrieveInventoryChangesRequest {
     location_ids?: string;
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of
-     * results for the original query.  See [Pagination](/basics/api101/pagination) for more information.
+     * results for the original query. See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -5227,7 +5233,7 @@ export class RetrieveInventoryCountRequest {
     location_ids?: string;
     /**
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve the next set of
-     * results for the original query.  See [Pagination](/basics/api101/pagination) for more information.
+     * results for the original query. See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -5265,7 +5271,7 @@ export class RetrieveTransactionRequest {}
 
 /**
  * Defines the fields that are included in the response body of a request to the
- * [RetrieveTransaction](#endpont-retrievetransaction) endpoint.  One of `errors` or `transaction` is present in a given
+ * [RetrieveTransaction](#endpont-retrievetransaction) endpoint. One of `errors` or `transaction` is present in a given
  * response (never both).
  */
 export class RetrieveTransactionResponse {
@@ -5386,7 +5392,7 @@ export class SearchCatalogObjectsResponse {
 export class SearchCustomersRequest {
     /**
      * Include the pagination cursor in subsequent calls to this endpoint to retrieve the next set of results associated
-     * with the original query.  See [Pagination](/basics/api101/pagination) for more information.
+     * with the original query. See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
     /**
@@ -5404,7 +5410,7 @@ export class SearchCustomersRequest {
 
 /**
  * Defines the fields that are included in the response body of a request to the
- * [SearchCustomers](#endpoint-searchcustomers) endpoint.  One of `errors` or `customers` is present in a given response
+ * [SearchCustomers](#endpoint-searchcustomers) endpoint. One of `errors` or `customers` is present in a given response
  * (never both).
  */
 export class SearchCustomersResponse {
@@ -5419,7 +5425,7 @@ export class SearchCustomersResponse {
     /**
      * A pagination cursor that can be used during subsequent calls to SearchCustomers to retrieve the next set of
      * results associated with the original query. Pagination cursors are only present when a request succeeds and
-     * additional results are available.  See [Pagination](/basics/api101/pagination) for more information.
+     * additional results are available. See [Pagination](/basics/api101/pagination) for more information.
      */
     cursor?: string;
 }
@@ -5526,6 +5532,7 @@ export namespace Shift {
         CLOSED = 'CLOSED',
     }
 }
+
 /**
  * Defines a filter used in a search for `Shift` records. `AND` logic is used by Square's servers to apply each filter
  * property specified.
@@ -5563,6 +5570,7 @@ export namespace ShiftFilter {
         CLOSED = 'CLOSED',
     }
 }
+
 /**
  * Specifies the `status` of `Shift` records to be returned.
  */
@@ -5608,6 +5616,7 @@ export namespace ShiftSort {
         ASC = 'ASC',
     }
 }
+
 /**
  * Enumerates the `Shift` fields to sort on.
  */
@@ -5684,8 +5693,7 @@ export class SourceApplication {
      */
     application_id?: string;
     /**
-     * Read-only display name assigned to the application (e.g. `\"Custom Application\"`, `\"Square POS 4.74 for
-     * Android\"`).
+     * Read-only display name assigned to the application (e.g. "Custom Application", "Square POS 4.74 for Android").
      */
     name?: string;
 }
@@ -5785,6 +5793,7 @@ export namespace Tender {
         OTHER = 'OTHER',
     }
 }
+
 /**
  * Represents additional details of a tender with `type` `CARD` or `SQUARE_GIFT_CARD`
  */
@@ -5819,6 +5828,7 @@ export namespace TenderCardDetails {
         CONTACTLESS = 'CONTACTLESS',
     }
 }
+
 /**
  * Indicates the method used to enter the card's details.
  */
@@ -5865,8 +5875,8 @@ export class TimeRange {
 }
 
 /**
- * Represents a transaction processed with Square, either with the Connect API or with Square Point of Sale.  The
- * `tenders` field of this object lists all methods of payment used to pay in the transaction.
+ * Represents a transaction processed with Square, either with the Connect API or with Square Point of Sale.
+ * The `tenders` field of this object lists all methods of payment used to pay in the transaction.
  */
 export class Transaction {
     /**
@@ -5900,9 +5910,9 @@ export class Transaction {
     product?: Transaction.ProductEnum;
     /**
      * If the transaction was created in the Square Point of Sale app, this value is the ID generated for the
-     * transaction by Square Point of Sale.  This ID has no relationship to the transaction's canonical `id`, which is
+     * transaction by Square Point of Sale. This ID has no relationship to the transaction's canonical `id`, which is
      * generated by Square's backend servers. This value is generated for bookkeeping purposes, in case the transaction
-     * cannot immediately be completed (for example, if the transaction is processed in offline mode).  It is not
+     * cannot immediately be completed (for example, if the transaction is processed in offline mode). It is not
      * currently possible with the Connect API to perform a transaction lookup by this value.
      */
     client_id?: string;
@@ -5959,8 +5969,7 @@ export class UpdateBreakTypeResponse {
 }
 
 /**
- * Defines the body parameters that can be provided in a request to the [UpdateCustomer](#endpoint-updatecustomer)
- * endpoint.
+ * Defines the body parameters that can be provided in a request to the [UpdateCustomer](#endpoint-updatecustomer) endpoint.
  */
 export class UpdateCustomerRequest {
     /**
@@ -6008,9 +6017,8 @@ export class UpdateCustomerRequest {
 }
 
 /**
- * Defines the fields that are included in the response body of a request to the
- * [UpdateCustomer](#endpoint-updatecustomer) endpoint.  One of `errors` or `customer` is present in a given response
- * (never both).
+ * Defines the fields that are included in the response body of a request to the [UpdateCustomer](#endpoint-updatecustomer) endpoint.
+ * One of `errors` or `customer` is present in a given response (never both).
  */
 export class UpdateCustomerResponse {
     /**
@@ -6046,8 +6054,7 @@ export class UpdateItemModifierListsResponse {
      */
     errors?: Array<Error>;
     /**
-     * The database [timestamp](#workingwithdates) of this update in RFC 3339 format, e.g.,
-     * \"2016-09-04T23:59:33.123Z\".
+     * The database [timestamp](#workingwithdates) of this update in RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
      */
     updated_at?: string;
 }
@@ -6136,7 +6143,7 @@ export class UpsertCatalogObjectRequest {
      * A value you specify that uniquely identifies this request among all your requests. A common way to create a valid
      * idempotency key is to use a Universally unique identifier (UUID).  If you're unsure whether a particular request
      * was successful, you can reattempt it with the same idempotency key without worrying about creating duplicate
-     * objects.  See [Idempotency](/basics/api101/idempotency) for more information.
+     * objects. See [Idempotency](/basics/api101/idempotency) for more information.
      */
     idempotency_key: string;
     /**
@@ -6171,8 +6178,8 @@ export class V1AdjustInventoryRequest {
      */
     quantity_delta?: number;
     /**
-     * The reason for the inventory adjustment. See
-     * [V1AdjustInventoryRequestAdjustmentType](#type-v1adjustinventoryrequestadjustmenttype) for possible values
+     * The reason for the inventory adjustment.
+     * See [V1AdjustInventoryRequestAdjustmentType](#type-v1adjustinventoryrequestadjustmenttype) for possible values
      */
     adjustment_type?: V1AdjustInventoryRequest.AdjustmentTypeEnum;
     /**
@@ -6266,8 +6273,8 @@ export class V1CashDrawerEvent {
      */
     event_type?: V1CashDrawerEvent.EventTypeEnum;
     /**
-     * The amount of money that was added to or removed from the cash drawer because of the event. This value can be
-     * positive (for added money) or negative (for removed money).
+     * The amount of money that was added to or removed from the cash drawer because of the event.
+     * This value can be positive (for added money) or negative (for removed money).
      */
     event_money?: V1Money;
     /**
@@ -6405,7 +6412,7 @@ export class V1Category {
 
 export class V1CreateCategoryRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body?: V1Category;
@@ -6413,7 +6420,7 @@ export class V1CreateCategoryRequest {
 
 export class V1CreateDiscountRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body?: V1Discount;
@@ -6428,7 +6435,7 @@ export class V1CreateEmployeeRoleRequest {
 
 export class V1CreateFeeRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body?: V1Fee;
@@ -6436,7 +6443,7 @@ export class V1CreateFeeRequest {
 
 export class V1CreateItemRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body?: V1Item;
@@ -6444,7 +6451,7 @@ export class V1CreateItemRequest {
 
 export class V1CreateModifierListRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body?: V1ModifierList;
@@ -6452,7 +6459,7 @@ export class V1CreateModifierListRequest {
 
 export class V1CreateModifierOptionRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body?: V1ModifierOption;
@@ -6460,7 +6467,7 @@ export class V1CreateModifierOptionRequest {
 
 export class V1CreatePageRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body?: V1Page;
@@ -6505,7 +6512,7 @@ export class V1CreateRefundRequestType {}
 
 export class V1CreateVariationRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body?: V1Variation;
@@ -8115,9 +8122,9 @@ export class V1PaymentItemDetail {
 }
 
 /**
- * Payment include an` itemizations` field that lists the items purchased, along with associated fees, modifiers, and
+ * Payment include an `itemizations` field that lists the items purchased, along with associated fees, modifiers, and
  * discounts. Each itemization has an `itemization_type` field that indicates which of the following the itemization
- * represents:  <ul> <li>An item variation from the merchant's item library</li> <li>A custom monetary amount</li> <li>
+ * represents: <ul> <li>An item variation from the merchant's item library</li> <li>A custom monetary amount</li> <li>
  * An action performed on a Square gift card, such as activating or reloading it. </li> </ul>  *Note**: itemization
  * information included in a `Payment` object reflects details collected **at the time of the payment**. Details such as
  * the name or price of items might have changed since the payment was processed.
@@ -8747,7 +8754,7 @@ export class V1TimecardEventEventType {}
 
 export class V1UpdateCategoryRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body: V1Category;
@@ -8755,7 +8762,7 @@ export class V1UpdateCategoryRequest {
 
 export class V1UpdateDiscountRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body: V1Discount;
@@ -8763,7 +8770,7 @@ export class V1UpdateDiscountRequest {
 
 export class V1UpdateEmployeeRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body: V1Employee;
@@ -8771,7 +8778,7 @@ export class V1UpdateEmployeeRequest {
 
 export class V1UpdateEmployeeRoleRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body: V1EmployeeRole;
@@ -8779,7 +8786,7 @@ export class V1UpdateEmployeeRoleRequest {
 
 export class V1UpdateFeeRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body: V1Fee;
@@ -8787,7 +8794,7 @@ export class V1UpdateFeeRequest {
 
 export class V1UpdateItemRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body: V1Item;
@@ -8819,7 +8826,7 @@ export class V1UpdateModifierListRequestSelectionType {}
 
 export class V1UpdateModifierOptionRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body: V1ModifierOption;
@@ -8864,7 +8871,7 @@ export class V1UpdateOrderRequestAction {}
 
 export class V1UpdatePageCellRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body: V1PageCell;
@@ -8872,7 +8879,7 @@ export class V1UpdatePageCellRequest {
 
 export class V1UpdatePageRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body: V1Page;
@@ -8888,7 +8895,7 @@ export class V1UpdateTimecardRequest {
 
 export class V1UpdateVariationRequest {
     /**
-     * An object containing the fields to POST for the request.  See the corresponding object definition for field
+     * An object containing the fields to POST for the request. See the corresponding object definition for field
      * details.
      */
     body: V1Variation;
@@ -9031,3 +9038,105 @@ export namespace WorkweekConfig {
         SUN = 'SUN',
     }
 }
+
+export class CatalogApi {
+    /**
+     * Deletes a set of [CatalogItem](#type-catalogitem)s based on the provided list of target IDs and returns a set of successfully
+     * deleted IDs in the response. Deletion is a cascading event such that all children of the targeted object are also deleted.
+     * For example, deleting a CatalogItem will also delete all of its [CatalogItemVariation](#type-catalogitemvariation) children.
+     * `BatchDeleteCatalogObjects` succeeds even if only a portion of the targeted IDs can be deleted.
+     * The response will only include IDs that were actually deleted.
+     */
+    batchDeleteCatalogObjects(params: BatchDeleteCatalogObjectsRequest): Promise<BatchDeleteCatalogObjectsResponse>;
+    /**
+     * Returns a set of objects based on the provided ID. Each [CatalogItem](#type-catalogitem) returned in the set includes all of
+     * its child information including: all of its [CatalogItemVariation](#type-catalogitemvariation) objects, references to its
+     * [CatalogModifierList](#type-catalogmodifierlist) objects, and the ids of any [CatalogTax](#type-catalogtax) objects that apply to it.
+     */
+    batchRetrieveCatalogObjects(params: BatchRetrieveCatalogObjectsRequest): Promise<BatchRetrieveCatalogObjectsResponse>;
+    /**
+     * Creates or updates up to 10,000 target objects based on the provided list of objects. The target objects are grouped into
+     * batches and each batch is inserted/updated in an all-or-nothing manner. If an object within a batch is malformed in some way,
+     * or violates a database constraint, the entire batch containing that item will be disregarded. However, other batches in
+     * the same request may still succeed. Each batch may contain up to 1,000 objects, and batches will be processed in order as long
+     * as the total object count for the request (items, variations, modifier lists, discounts, and taxes) is no more than 10,000.
+     */
+    batchUpsertCatalogObjects(params: BatchUpsertCatalogObjectsRequest): Promise<BatchUpsertCatalogObjectsResponse>;
+    /**
+     * Returns information about the Square Catalog API, such as batch size limits for `BatchUpsertCatalogObjects`.
+     */
+    catalogInfo(params: CatalogInfoRequest): Promise<CatalogInfoResponse>;
+    /**
+     * Deletes a single [CatalogObject](#type-catalogobject) based on the provided ID and returns the set of successfully deleted
+     * IDs in the response. Deletion is a cascading event such that all children of the targeted object are also deleted.
+     * For example, deleting a [CatalogItem](#type-catalogitem) will also delete all of its
+     * [CatalogItemVariation](#type-catalogitemvariation) children.
+     */
+    deleteCatalogObject(params: DeleteCatalogObjectRequest): Promise<DeleteCatalogObjectResponse>;
+    /**
+     * Returns a list of [CatalogObject](#type-catalogobject)s that includes all objects of a set of desired types
+     * (for example, all [CatalogItem](#type-catalogitem) and [CatalogTax](#type-catalogtax) objects) in the catalog.
+     * The types parameter is specified as a comma-separated list of valid [CatalogObject](#type-catalogobject)
+     * types: `ITEM`, `ITEM_VARIATION`, `MODIFIER`, `MODIFIER_LIST`, `CATEGORY`, `DISCOUNT`, `TAX`.
+     */
+    listCatalog(params: ListCatalogRequest): Promise<ListCatalogResponse>;
+    /**
+     * Returns a single [CatalogItem](#type-catalogitem) as a [CatalogObject](#type-catalogobject) based on the provided ID.
+     * The returned object includes all of the relevant [CatalogItem](#type-catalogitem) information including:
+     * [CatalogItemVariation](#type-catalogitemvariation) children, references to its [CatalogModifierList](#type-catalogmodifierlist)
+     * objects, and the ids of any [CatalogTax](#type-catalogtax) objects that apply to it.
+     */
+    retrieveCatalogObject(params: RetrieveCatalogObjectRequest): Promise<RetrieveCatalogObjectResponse>;
+    /**
+     * Queries the targeted catalog using a variety of query types: [CatalogQuerySortedAttribute](#type-catalogquerysortedattribute),
+     * [CatalogQueryExact](#type-catalogqueryexact), [CatalogQueryRange](#type-catalogqueryrange),
+     * [CatalogQueryText](#type-catalogquerytext), [CatalogQueryItemsForTax](#type-catalogqueryitemsfortax),
+     * and [CatalogQueryItemsForModifierList](#type-catalogqueryitemsformodifierlist).
+     */
+    searchCatalogObjects(params: SearchCatalogObjectsRequest): Promise<SearchCatalogObjectsResponse>;
+    /**
+     * Updates the [CatalogModifierList](#type-catalogmodifierlist) objects that apply to the targeted
+     * [CatalogItem](#type-catalogitem) without having to perform an upsert on the entire item.
+     */
+    updateItemModifierLists(params: UpdateItemModifierListsRequest): Promise<UpdateItemModifierListsResponse>;
+    /**
+     * Updates the [CatalogTax](#type-catalogtax) objects that apply to the targeted [CatalogItem](#type-catalogitem)
+     * without having to perform an upsert on the entire item.
+     */
+    updateItemTaxes(params: UpdateItemTaxesRequest): Promise<UpdateItemTaxesResponse>;
+    /**
+     * Creates or updates the target [CatalogObject](#type-catalogobject).
+     */
+    upsertCatalogObject(params: UpsertCatalogObjectRequest): Promise<UpsertCatalogObjectResponse>;
+}
+
+export class OrdersApi {
+    /**
+     * Retrieves a set of [Order](#type-order)s by their IDs.
+     * If a given Order ID does not exist, the ID is ignored instead of generating an error.
+     */
+    batchRetrieveOrders(params: BatchRetrieveOrdersRequest): Promise<BatchRetrieveOrdersResponse>;
+    /**
+     * Creates an [Order](#type-order) that can then be referenced as `order_id` in a request to the [Charge](#endpoint-charge)
+     * endpoint. Orders specify products for purchase, along with discounts, taxes, and other settings to apply to the purchase.
+     * To associate a created order with a request to the Charge endpoint, provide the order's `id` in the `order_id` field of
+     * your request. You cannot modify an order after you create it. If you need to modify an order, instead create a new order
+     * with modified details. To learn more about the Orders API, see the [Orders API Overview](/products/orders/overview).
+     */
+    createOrder(params: CreateOrderRequest): Promise<CreateOrderResponse>;
+}
+
+// TBU...
+export class ApplePayApi {}
+export class CheckoutApi {}
+export class CustomersApi {}
+export class EmployeesApi {}
+export class LaborApi {}
+export class MobileAuthorizationApi {}
+export class OAuthApi {}
+export class ReportingApi {}
+export class TransactionsApi {}
+export class V1EmployeesApi {}
+export class V1ItemsApi {}
+export class V1LocationsApi {}
+export class V1TransactionsApi {}
