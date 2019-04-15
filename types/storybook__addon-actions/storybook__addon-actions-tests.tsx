@@ -5,28 +5,21 @@ import { storiesOf } from '@storybook/react';
 import { action, decorateAction, configureActions } from '@storybook/addon-actions';
 
 configureActions({
-    depth: 100
+    depth: 100,
 });
 
-const firstArgAction = decorateAction([
-    args => args.slice(0, 1)
-]);
+const firstArgAction = decorateAction([args => args.slice(0, 1)]);
 
 storiesOf('Button', module)
-    .add('action', () => (
-        <button onClick={ action('my-action') }>
-          Hello World!
-        </button>
-    ))
+    .add('action', () => <button onClick={action('my-action')}>Hello World!</button>)
     .add('decorated action', () => (
-        <button onClick={ firstArgAction('button-click') }>
-          Hello World!
-        </button>
+        <button onClick={firstArgAction('button-click')}>Hello World!</button>
     ));
 
 interface CustomComponentProps {
     id: string;
     setValues(id: string, values: string[]): void;
+    onCallbackReturn(): boolean;
 }
 class CustomComponent extends React.Component<CustomComponentProps> {
     setSomeValues = () => {
@@ -37,7 +30,10 @@ class CustomComponent extends React.Component<CustomComponentProps> {
     }
 }
 
-storiesOf('CustomComponent', module)
-    .add('decorated custom action', () => (
-        <CustomComponent id="test" setValues={firstArgAction('set-values')} />
-    ));
+storiesOf('CustomComponent', module).add('decorated custom action', () => (
+    <CustomComponent
+        id="test"
+        setValues={firstArgAction('set-values')}
+        onCallbackReturn={action('hasReturnValue')}
+    />
+));

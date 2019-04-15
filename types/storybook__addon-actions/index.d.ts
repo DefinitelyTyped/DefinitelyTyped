@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-export type HandlerFunction = (...args: any[]) => undefined;
+export type HandlerFunction = (...args: any[]) => any;
 export type DecoratorFunction = (args: any[]) => any[];
 export interface Options {
     depth?: number;
@@ -12,6 +12,8 @@ export interface Options {
     limit?: number;
 }
 
-export function decorateAction(decorators: DecoratorFunction[]): (name: string, options?: Options) => HandlerFunction;
+export function decorateAction(
+    decorators: DecoratorFunction[],
+): (name: string, options?: Options) => HandlerFunction;
 export function configureActions(options: Options): undefined;
 export function action(name: string): HandlerFunction;
