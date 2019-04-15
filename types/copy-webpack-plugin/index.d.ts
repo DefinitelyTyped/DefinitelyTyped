@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+/// <reference types="node"/>
+
 import { Plugin } from 'webpack'
 import { IOptions } from 'minimatch'
 
@@ -44,7 +46,7 @@ interface CopyPattern {
 	/** Additional globs to ignore for this pattern. (default: `[]`) */
 	ignore?: Array<string | MiniMatchGlob>
 	/** Function that modifies file contents before writing to webpack. (default: `(content, path) => content`) */
-	transform?: (content: string, path: string) => string
+	transform?: (content: Buffer, path: string) => string
 	/** Enable transform caching. You can use `{ cache: { key: 'my-cache-key' } }` to invalidate the cache. (default: `false`) */
 	cache?: boolean | { key: string }
 	/** Overwrites files already in `compilation.assets` (usually added by other plugins; default: `false`) */
