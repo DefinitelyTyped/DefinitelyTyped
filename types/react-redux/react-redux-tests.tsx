@@ -91,7 +91,10 @@ function MapDispatch() {
 
     const verifyNull = <TestNull foo='bar' />;
 
-    // We deliberately cast the right-hand side to any because…
+    // We deliberately cast the right-hand side to `any` because otherwise
+    // TypeScript would maintain the literal value, when we deliberately want to
+    // test the union type here (as per the annotation). See
+    // https://github.com/Microsoft/TypeScript/issues/30310#issuecomment-472218182.
     const mapDispatchToProps2: MapDispatchToProps<DispatchProps, OwnProps> = {} as any;
 
     const TestNull2 = connect(
