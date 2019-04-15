@@ -94,8 +94,13 @@ asyncParser.fromInput(input).toOutput(output).promise()
     .then(csv => console.log(csv))
     .catch(err => console.error(err));
 
-// Test convenience method "parseAsync"
+// Test convenience method "parseAsync" with object input
 parseAsync(data, opts)
+    .then(csv => console.log(csv))
+    .catch(err => console.error(err));
+
+// Test convenience method "parseAsync" with stream input
+parseAsync(input, opts)
     .then(csv => console.log(csv))
     .catch(err => console.error(err));
 
