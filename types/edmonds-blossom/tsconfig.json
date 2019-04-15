@@ -5,6 +5,7 @@
         "typeRoots": [
             "../"
         ],
+        "types": [],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
