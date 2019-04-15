@@ -1,8 +1,16 @@
 {
     "compilerOptions": {
+        "module": "commonjs",
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true
-    }
+    },,
+    "files": [
+        "index.d.ts"
+    ]
 }
