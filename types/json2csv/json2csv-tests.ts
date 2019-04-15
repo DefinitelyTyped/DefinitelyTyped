@@ -90,9 +90,11 @@ asyncParser.input.push(null); // Sending `null` to a stream signal that no more 
 const input = createReadStream('/path/to/input', { encoding: 'utf8' });
 const output = createWriteStream('path/to/output', { encoding: 'utf8' });
 
-asyncParser.fromInput(input).toOutput(output).promise()
+asyncParser.fromInput(input).promise()
     .then(csv => console.log(csv))
     .catch(err => console.error(err));
+
+asyncParser.fromInput(input).toOutput(output);
 
 // Test convenience method "parseAsync" with object input
 parseAsync(data, opts)
