@@ -91,18 +91,32 @@ function MapDispatch() {
 
     const verifyNull = <TestNull foo='bar' />;
 
+    const TestUndefined = connect(
+        undefined,
+        mapDispatchToProps,
+    )(TestComponent);
+
+    const verifyUndefined = <TestUndefined foo='bar' />;
+}
+
+function MapDispatchUnion() {
+    interface OwnProps { foo: string; }
+    interface DispatchProps { onClick: () => void; }
+
+    class TestComponent extends React.Component<OwnProps & DispatchProps> { }
+
     // We deliberately cast the right-hand side to `any` because otherwise
     // TypeScript would maintain the literal value, when we deliberately want to
     // test the union type here (as per the annotation). See
     // https://github.com/Microsoft/TypeScript/issues/30310#issuecomment-472218182.
-    const mapDispatchToProps2: MapDispatchToProps<DispatchProps, OwnProps> = {} as any;
+    const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = {} as any;
 
-    const TestNull2 = connect(
+    const TestNull = connect(
         null,
-        mapDispatchToProps2,
+        mapDispatchToProps,
     )(TestComponent);
 
-    const verifyNull2 = <TestNull2 foo='bar' />;
+    const verifyNull = <TestNull foo='bar' />;
 
     const TestUndefined = connect(
         undefined,
