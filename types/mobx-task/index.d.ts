@@ -37,13 +37,14 @@ export interface TaskStatusAware<Result = any, Args extends any[] = any[]> exten
 
     wrap<R, A extends any[]>(func: (inner: TaskStatusAware<Result, Args>) => (...args: A) => Promise<R>): TaskStatusAware<R, A>;
 
-    setState(props: { state: TaskState, result: Result }): void;
+    setState(props: TaskOptions<Result>): void;
 
     reset(): void;
 }
 
 export interface TaskCreator<K extends keyof TaskOptions<any>> extends MethodDecorator, PropertyDecorator {
     <R, A extends any[]>(func: TaskFunc<R, A>, options?: Pick<TaskOptions<WithoutPromise<R>>, K>): TaskStatusAware<WithoutPromise<R>, A>;
+
     (options: Pick<TaskOptions<WithoutPromise<any>>, K>): PropertyDecorator | MethodDecorator;
 }
 
