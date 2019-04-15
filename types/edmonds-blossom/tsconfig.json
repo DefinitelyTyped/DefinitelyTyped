@@ -1,6 +1,9 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
         "baseUrl": "../",
         "typeRoots": [
             "../"
