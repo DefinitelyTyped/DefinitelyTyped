@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { TransformOptions } from 'stream';
+import { Readable, TransformOptions } from 'stream';
 
 import { json2csv } from './JSON2CSVBase';
 import JSON2CSVParser from './JSON2CSVParser';
@@ -27,7 +27,7 @@ export function parse<T>(
 ): string;
 
 export function parseAsync<T>(
-    data: Readonly<T> | ReadonlyArray<T>,
+    data: Readonly<T> | ReadonlyArray<T> | Readable,
     opts?: json2csv.Options<T>,
     transformOpts?: TransformOptions
 ): Promise<string>;
