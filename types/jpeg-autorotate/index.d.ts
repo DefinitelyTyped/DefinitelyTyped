@@ -30,7 +30,7 @@ export interface RotateDimensions {
 
 export function rotate(
     path_or_buffer: string | Buffer,
-    options?: RotateOptions,
+    options: RotateOptions,
 ): Promise<{
     buffer: Buffer;
     orientation: number;
@@ -40,7 +40,7 @@ export function rotate(
 
 export function rotate(
     path_or_buffer: string | Buffer,
-    options?: RotateOptions,
+    options: RotateOptions,
     module_callback?: (
         error: CustomError | null,
         buffer: Buffer,

@@ -1,7 +1,7 @@
 import * as jo from "jpeg-autorotate";
 
-jo.rotate("img.jpg");
-jo.rotate(new Buffer(""));
+jo.rotate("img.jpg", {});
+jo.rotate(new Buffer(""), {});
 jo.rotate(new Buffer(""), { quality: 50 });
 jo.rotate("img.jpg", { quality: 100 }, (error, buffer, orientation, dimensions, quality) => {
     if (error && error.code === jo.errors.correct_orientation) {
