@@ -19,4 +19,4 @@ export default AppLink;
 
 import maybeOpenURL = AppLink.maybeOpenURL;
 import openInStore = AppLink.openInStore;
-export {maybeOpenURL, openInStore};
+export { maybeOpenURL, openInStore };
