@@ -20,8 +20,8 @@ const parentCSS = {
   'padding-left': '10px',
   'padding-bottom': '10px',
   'padding-right': '10px',
-  'text-valign': 'top',
-  'text-halign': 'center',
+  'text-valign': 'top' as 'top',
+  'text-halign': 'center' as 'center',
   'background-color': '#CCC',
   'font-size': 40,
   'min-zoomed-font-size': 15
