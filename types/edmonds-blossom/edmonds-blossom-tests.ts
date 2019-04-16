@@ -1,4 +1,3 @@
-// TypeScript Version: 2.7
 import blossom from "edmonds-blossom";
 const data = [
       [0, 1, 6],
