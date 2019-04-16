@@ -3180,9 +3180,9 @@ declare namespace sequelize {
         $notLike: string | WherePGStatement;
         $notILike: string | WherePGStatement;
         $between: [number, number] | [Date, Date];
-        "..": [number, number];
+        "..": [number, number] | [string, string];
         $notBetween: [number, number];
-        "!..": [number, number];
+        "!..": [number, number] | [string, string];
         $overlap: [number, number] | [string, string];
         "&&": [number, number];
         $contains: any;
