@@ -1003,7 +1003,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
     type CustomAccessorParams = {} | ((value: any, data: any, type: "data" | "download" | "clipboard", column?: ColumnComponent) => any);
     type ColumnCalc = "avg" | "max" | "min" | "sum" | "concat" | "count" | ((values: any[], data: any[], calcParams: {}) => number);
     type ColumnCalcParams = (values: any, data: any) => any;
-    type Formatter = ((cell: any, formatterParams: any, onRendered: any) => string) | string | "plaintext" | "textarea" | "html" | "money" | "image" | "datetime" | "datetimediff" | "link" | "tickCross" | "color" | "star" | "traffic" | "progress" | "lookup" | "buttonTick" | "buttonCross" | "rownum" | "handle" | ((cell: CellComponent, formatterParams: {}, onRendered: EmptyCallback) => string | HTMLElement);
+    type Formatter = ((cell: any, formatterParams: any, onRendered: EmptyCallback) => string) | string | "plaintext" | "textarea" | "html" | "money" | "image" | "datetime" | "datetimediff" | "link" | "tickCross" | "color" | "star" | "traffic" | "progress" | "lookup" | "buttonTick" | "buttonCross" | "rownum" | "handle" | ((cell: CellComponent, formatterParams: {}, onRendered: EmptyCallback) => string | HTMLElement);
     type FormatterParams = MoneyParams | ImageParams | LinkParams | DateTimeParams | DateTimeDifferenceParams | TickCrossParams | TrafficParams | StarRatingParams | JSONRecord | ((cell: CellComponent) => {});
 
     type Editor = true | "input" | "textarea" | "number" | "range" | "tickCross" | "star" | "select" | "autocomplete" | ((cell: CellComponent, onRendered: EmptyCallback, success: ValueVoidCallback, cancel: ValueVoidCallback, editorParams: {}) => HTMLElement | false);
