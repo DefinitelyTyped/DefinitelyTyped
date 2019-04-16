@@ -110,6 +110,7 @@ export interface ReactDatePickerProps {
 	showDisabledMonthNavigation?: boolean;
 	showMonthDropdown?: boolean;
 	showMonthYearDropdown?: boolean;
+	showMonthYearPicker?: boolean;
 	showTimeSelect?: boolean;
 	showTimeSelectOnly?: boolean;
 	showWeekNumbers?: boolean;
