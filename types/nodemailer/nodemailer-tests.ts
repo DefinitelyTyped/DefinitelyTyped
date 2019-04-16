@@ -758,7 +758,7 @@ function ses_test() {
 
     // create Nodemailer SES transporter
     const transporter = nodemailer.createTransport({
-        SES: new aws.SES({
+        ses: new aws.SES({
             apiVersion: '2010-12-01'
         })
     });
