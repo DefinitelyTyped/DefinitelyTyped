@@ -2,6 +2,7 @@
 // Project: https://github.com/mailjet/mailjet-apiv3-nodejs
 // Definitions by: Nikola Andreev <https://github.com/Nikola-Andreev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare namespace MailJet {
     function connect(apiKey: string, apiSecret: string, options?: ConnectOptions): Email.Client;
