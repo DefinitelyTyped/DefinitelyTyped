@@ -238,4 +238,67 @@ declare module "perf_hooks" {
     }
 
     const performance: Performance;
+
+    interface EventLoopMonitorOptions {
+        /**
+         * The sampling rate in milliseconds.
+         * Must be greater than zero.
+         * @default 10
+         */
+        resolution?: number;
+    }
+
+    interface EventLoopDelayMonitor {
+        /**
+         * Enables the event loop delay sample timer. Returns `true` if the timer was started, `false` if it was already started.
+         */
+        enable(): boolean;
+        /**
+         * Disables the event loop delay sample timer. Returns `true` if the timer was stopped, `false` if it was already stopped.
+         */
+        disable(): boolean;
+
+        /**
+         * Resets the collected histogram data.
+         */
+        reset(): void;
+
+        /**
+         * Returns the value at the given percentile.
+         * @param percentile A percentile value between 1 and 100.
+         */
+        percentile(percentile: number): number;
+
+        /**
+         * A `Map` object detailing the accumulated percentile distribution.
+         */
+        readonly percentiles: Map<number, number>;
+
+        /**
+         * The number of times the event loop delay exceeded the maximum 1 hour eventloop delay threshold.
+         */
+        readonly exceeds: number;
+
+        /**
+         * The minimum recorded event loop delay.
+         */
+        readonly min: number;
+
+        /**
+         * The maximum recorded event loop delay.
+         */
+        readonly max: number;
+
+        /**
+         * The mean of the recorded event loop delays.
+         */
+        readonly mean: number;
+
+        /**
+         * The standard deviation of the recorded event loop delays.
+         */
+        readonly stddev: number;
+    }
+
+    function monitorEventLoopDelay(options?: EventLoopMonitorOptions): EventLoopDelayMonitor;
 }

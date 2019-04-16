@@ -1165,7 +1165,7 @@ declare module "fs" {
         offset: number,
         length: number,
         position: number | null,
-        callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: TBuffer) => void,
+        callback: (err: NodeJS.ErrnoException, bytesRead: number, buffer: TBuffer) => void,
     ): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.

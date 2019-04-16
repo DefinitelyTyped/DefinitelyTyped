@@ -1,5 +1,5 @@
 // Type definitions for isotope 3.0
-// Project: http://isotope.metafizzy.co/
+// Project: https://isotope.metafizzy.co
 // Definitions by: Anže Videnič <https://github.com/avidenic>
 //                 Mălin Brândușe <https://github.com/malinushj>
 //                 SPWizard01 <https://github.com/SPWizard01>
@@ -284,6 +284,10 @@ declare global {
          * Get the Isotope instance from a jQuery object. Isotope instances are useful to access Isotope properties.
          */
         data(methodName: 'isotope'): Isotope;
+        /**
+         * Filters, sorts, and lays out items.
+         */
+        isotope(): JQuery;
         /**
          * Lays out specified items.
          * @param elements Array of Isotope.Items

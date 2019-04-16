@@ -24,7 +24,7 @@ export namespace utils {
     function getTextAlign(value: string, fallback?: TextAlignment): TextAlignment;
 }
 
-export function renderToMjml(email: React.ReactElement<any>): string;
+export function renderToMjml(email: React.ReactElement): string;
 
 export interface Mjml2HtmlOptions {
     fonts?: { [key: string]: string };
@@ -35,7 +35,7 @@ export interface Mjml2HtmlOptions {
     filePath?: string;
 }
 
-export function render(email: React.ReactElement<any>, options?: Mjml2HtmlOptions): { html: string; errors: Error[] };
+export function render(email: React.ReactElement, options?: Mjml2HtmlOptions): { html: string; errors: Error[] };
 
 // Components
 

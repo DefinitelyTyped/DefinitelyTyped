@@ -1,5 +1,5 @@
 // Type definitions for croppie 2.5
-// Project: https://github.com/Foliotek/Croppie
+// Project: https://github.com/Foliotek/Croppie, http://foliotek.github.io/croppie
 // Definitions by: Connor Peet <https://github.com/connor4312>
 //                 dklmuc <https://github.com/dklmuc>
 //                 Sarun Intaralawan <https://github.com/sarunint>

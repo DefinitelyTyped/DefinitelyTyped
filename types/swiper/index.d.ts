@@ -1,5 +1,5 @@
 // Type definitions for Swiper 4.4
-// Project: https://github.com/nolimits4web/Swiper
+// Project: https://github.com/nolimits4web/Swiper, http://www.idangero.us/swiper
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano>
 //                 Luca Trazzi <https://github.com/lucax88x>
 //                 Eugene Matseruk <https://github.com/ematseruk>

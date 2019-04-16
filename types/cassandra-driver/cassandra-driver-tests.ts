@@ -102,3 +102,35 @@ const mapper = new cassandra.mapping.Mapper(
 const videoMapper = mapper.forModel('Video');
 videoMapper.insert({ videoId: 'uuid', addedDate: new Date(), userId: 'uuid', name: 'My video', description: 'My desc' });
 videoMapper.find({ videoId: 'uuid' }).then(results => results.first());
+
+console.log(cassandra.version);
+
+const metadata = new cassandra.metadata.Metadata(cassandra.defaultOptions(), undefined);
+let refreshFinished: Promise<void> = metadata.refreshKeyspaces();
+refreshFinished = metadata.refreshKeyspaces(true);
+metadata.refreshKeyspaces(() => {});
+metadata.refreshKeyspaces(true, () => {});
+
+const start: cassandra.token.Token = new cassandra.token.Token("x");
+const end: cassandra.token.Token = new cassandra.token.Token("z");
+
+const tokenizer: cassandra.token.Tokenizer = {
+  hash: (value: Buffer | number[]) => new cassandra.token.Token("x"),
+  parse: (value: string) => new cassandra.token.Token("x"),
+  minToken: () => new cassandra.token.Token("x"),
+  split: (start: cassandra.token.Token, end: cassandra.token.Token, numberOfSplits: number) => [],
+  splitBase: (start: number, end: number, ringEnd: number, ringLength: number, numberOfSplits: number): number[] => [1],
+  stringify: (token: cassandra.token.Token): string => "asd"
+};
+
+const range: cassandra.token.TokenRange = new cassandra.token.TokenRange(start, end, tokenizer);
+
+class MyLoadBalancingPolicy extends cassandra.policies.loadBalancing.LoadBalancingPolicy {
+  getDistance() {
+    return cassandra.types.distance.ignored;
+  }
+}
+
+const myPolicy: cassandra.policies.loadBalancing.LoadBalancingPolicy = new MyLoadBalancingPolicy();
+let existingPolicy: cassandra.policies.loadBalancing.LoadBalancingPolicy = new cassandra.policies.loadBalancing.DCAwareRoundRobinPolicy();
+existingPolicy = new cassandra.policies.loadBalancing.DCAwareRoundRobinPolicy("dc");

@@ -1,4 +1,4 @@
-import sourcemaps from 'rollup-plugin-sourcemaps';
+import sourcemaps = require('rollup-plugin-sourcemaps');
 import * as fs from 'fs';
 
  // $ExpectType Plugin

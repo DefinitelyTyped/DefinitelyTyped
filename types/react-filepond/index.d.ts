@@ -1,5 +1,5 @@
 // Type definitions for react-filepond 5.0
-// Project: https://github.com/pqina/react-filepond
+// Project: https://github.com/pqina/react-filepond, https://pqina.nl/filepond
 // Definitions by: Zach Posten <https://github.com/zposten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8

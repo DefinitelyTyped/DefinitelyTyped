@@ -45,7 +45,7 @@ interface Console {
     /**
      * The `console.groupCollapsed()` function is an alias for {@link console.group()}.
      */
-    groupCollapsed(): void;
+    groupCollapsed(...label: any[]): void;
     /**
      * Decreases indentation of subsequent lines by two spaces.
      */
@@ -142,34 +142,8 @@ interface ErrorConstructor {
     stackTraceLimit: number;
 }
 
-// compat for TypeScript 1.8 and default es5 target
-// if you use with --target es3 or --target es5 and use below definitions,
-// use the lib.es6.d.ts that is bundled with TypeScript 1.8.
-interface MapConstructor { }
-interface WeakMapConstructor { }
-interface SetConstructor { }
-interface WeakSetConstructor { }
-
-interface Set<T> {}
-interface ReadonlySet<T> {}
-
-// Forward-declare needed types from lib.es2015.d.ts (in case users are using `--lib es5`)
-interface Iterable<T> { }
-interface Iterator<T> {
-    next(value?: any): IteratorResult<T>;
-}
-interface IteratorResult<T> { }
-interface IterableIterator<T> { }
-interface AsyncIterableIterator<T> {}
 interface SymbolConstructor {
     readonly observable: symbol;
-    readonly iterator: symbol;
-    readonly asyncIterator: symbol;
-}
-declare var Symbol: SymbolConstructor;
-interface SharedArrayBuffer {
-    readonly byteLength: number;
-    slice(begin?: number, end?: number): SharedArrayBuffer;
 }
 
 // Node.js ESNEXT support
@@ -207,6 +181,11 @@ declare namespace setImmediate {
 }
 declare function clearImmediate(immediateId: NodeJS.Immediate): void;
 
+/**
+ * @experimental
+ */
+declare function queueMicrotask(callback: () => void): void;
+
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
     /* tslint:disable-next-line:callable-types */
@@ -216,6 +195,9 @@ interface NodeRequireFunction {
 interface NodeRequire extends NodeRequireFunction {
     resolve: RequireResolve;
     cache: any;
+    /**
+     * @deprecated
+     */
     extensions: NodeExtensions;
     main: NodeModule | undefined;
 }
@@ -249,72 +231,66 @@ declare var module: NodeModule;
 
 // Same as module.exports
 declare var exports: any;
-declare const SlowBuffer: {
-    new(str: string, encoding?: string): Buffer;
-    new(size: number): Buffer;
-    new(size: Uint8Array): Buffer;
-    new(array: any[]): Buffer;
-    prototype: Buffer;
-    isBuffer(obj: any): boolean;
-    byteLength(string: string, encoding?: string): number;
-    concat(list: Buffer[], totalLength?: number): Buffer;
-};
 
 // Buffer class
-type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
+type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "latin1" | "binary" | "hex";
 interface Buffer extends Uint8Array {
     constructor: typeof Buffer;
-    write(string: string, offset?: number, length?: number, encoding?: string): number;
+    write(string: string, encoding?: BufferEncoding): number;
+    write(string: string, offset: number, encoding?: BufferEncoding): number;
+    write(string: string, offset: number, length: number, encoding?: BufferEncoding): number;
     toString(encoding?: string, start?: number, end?: number): string;
-    toJSON(): { type: 'Buffer', data: any[] };
+    toJSON(): { type: 'Buffer', data: number[] };
     equals(otherBuffer: Uint8Array): boolean;
     compare(otherBuffer: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
-    writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
-    writeUIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
-    writeIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
-    writeIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
-    readUIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readUIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readUInt8(offset: number, noAssert?: boolean): number;
-    readUInt16LE(offset: number, noAssert?: boolean): number;
-    readUInt16BE(offset: number, noAssert?: boolean): number;
-    readUInt32LE(offset: number, noAssert?: boolean): number;
-    readUInt32BE(offset: number, noAssert?: boolean): number;
-    readInt8(offset: number, noAssert?: boolean): number;
-    readInt16LE(offset: number, noAssert?: boolean): number;
-    readInt16BE(offset: number, noAssert?: boolean): number;
-    readInt32LE(offset: number, noAssert?: boolean): number;
-    readInt32BE(offset: number, noAssert?: boolean): number;
-    readFloatLE(offset: number, noAssert?: boolean): number;
-    readFloatBE(offset: number, noAssert?: boolean): number;
-    readDoubleLE(offset: number, noAssert?: boolean): number;
-    readDoubleBE(offset: number, noAssert?: boolean): number;
+    subarray(begin: number, end?: number): Buffer;
+    writeUIntLE(value: number, offset: number, byteLength: number): number;
+    writeUIntBE(value: number, offset: number, byteLength: number): number;
+    writeIntLE(value: number, offset: number, byteLength: number): number;
+    writeIntBE(value: number, offset: number, byteLength: number): number;
+    readUIntLE(offset: number, byteLength: number): number;
+    readUIntBE(offset: number, byteLength: number): number;
+    readIntLE(offset: number, byteLength: number): number;
+    readIntBE(offset: number, byteLength: number): number;
+    readUInt8(offset: number): number;
+    readUInt16LE(offset: number): number;
+    readUInt16BE(offset: number): number;
+    readUInt32LE(offset: number): number;
+    readUInt32BE(offset: number): number;
+    readInt8(offset: number): number;
+    readInt16LE(offset: number): number;
+    readInt16BE(offset: number): number;
+    readInt32LE(offset: number): number;
+    readInt32BE(offset: number): number;
+    readFloatLE(offset: number): number;
+    readFloatBE(offset: number): number;
+    readDoubleLE(offset: number): number;
+    readDoubleBE(offset: number): number;
+    reverse(): this;
     swap16(): Buffer;
     swap32(): Buffer;
     swap64(): Buffer;
-    writeUInt8(value: number, offset: number, noAssert?: boolean): number;
-    writeUInt16LE(value: number, offset: number, noAssert?: boolean): number;
-    writeUInt16BE(value: number, offset: number, noAssert?: boolean): number;
-    writeUInt32LE(value: number, offset: number, noAssert?: boolean): number;
-    writeUInt32BE(value: number, offset: number, noAssert?: boolean): number;
-    writeInt8(value: number, offset: number, noAssert?: boolean): number;
-    writeInt16LE(value: number, offset: number, noAssert?: boolean): number;
-    writeInt16BE(value: number, offset: number, noAssert?: boolean): number;
-    writeInt32LE(value: number, offset: number, noAssert?: boolean): number;
-    writeInt32BE(value: number, offset: number, noAssert?: boolean): number;
-    writeFloatLE(value: number, offset: number, noAssert?: boolean): number;
-    writeFloatBE(value: number, offset: number, noAssert?: boolean): number;
-    writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
-    writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt8(value: number, offset: number): number;
+    writeUInt16LE(value: number, offset: number): number;
+    writeUInt16BE(value: number, offset: number): number;
+    writeUInt32LE(value: number, offset: number): number;
+    writeUInt32BE(value: number, offset: number): number;
+    writeInt8(value: number, offset: number): number;
+    writeInt16LE(value: number, offset: number): number;
+    writeInt16BE(value: number, offset: number): number;
+    writeInt32LE(value: number, offset: number): number;
+    writeInt32BE(value: number, offset: number): number;
+    writeFloatLE(value: number, offset: number): number;
+    writeFloatBE(value: number, offset: number): number;
+    writeDoubleLE(value: number, offset: number): number;
+    writeDoubleBE(value: number, offset: number): number;
     fill(value: any, offset?: number, end?: number): this;
-    indexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: string): number;
-    lastIndexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: string): number;
+    indexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
+    lastIndexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
     entries(): IterableIterator<[number, number]>;
-    includes(value: string | number | Buffer, byteOffset?: number, encoding?: string): boolean;
+    includes(value: string | number | Buffer, byteOffset?: number, encoding?: BufferEncoding): boolean;
     keys(): IterableIterator<number>;
     values(): IterableIterator<number>;
 }
@@ -332,7 +308,7 @@ declare const Buffer: {
      * @param encoding encoding to use, optional.  Default is 'utf8'
      * @deprecated since v10.0.0 - Use `Buffer.from(string[, encoding])` instead.
      */
-    new(str: string, encoding?: string): Buffer;
+    new(str: string, encoding?: BufferEncoding): Buffer;
     /**
      * Allocates a new buffer of {size} octets.
      *
@@ -384,14 +360,14 @@ declare const Buffer: {
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    from(data: any[]): Buffer;
+    from(data: number[]): Buffer;
     from(data: Uint8Array): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
      * If not provided, {encoding} defaults to 'utf8'.
      */
-    from(str: string, encoding?: string): Buffer;
+    from(str: string, encoding?: BufferEncoding): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param values to create a new Buffer
@@ -409,7 +385,7 @@ declare const Buffer: {
      *
      * @param encoding string to test.
      */
-    isEncoding(encoding: string): boolean | undefined;
+    isEncoding(encoding: string): encoding is BufferEncoding
     /**
      * Gives the actual byte length of a string. encoding defaults to 'utf8'.
      * This is not the same as String.prototype.length since that returns the number of characters in a string.
@@ -417,7 +393,7 @@ declare const Buffer: {
      * @param string string to test.
      * @param encoding encoding used to evaluate (defaults to 'utf8')
      */
-    byteLength(string: string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer, encoding?: string): number;
+    byteLength(string: string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer, encoding?: BufferEncoding): number;
     /**
      * Returns a buffer which is the result of concatenating all the buffers in the list together.
      *
@@ -442,7 +418,7 @@ declare const Buffer: {
      *    If parameter is omitted, buffer will be filled with zeros.
      * @param encoding encoding used for call to buf.fill while initalizing
      */
-    alloc(size: number, fill?: string | Buffer | number, encoding?: string): Buffer;
+    alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): Buffer;
     /**
      * Allocates a new buffer of {size} octets, leaving memory not initialized, so the contents
      * of the newly created Buffer are unknown and may contain sensitive data.
@@ -470,14 +446,36 @@ declare const Buffer: {
 *-----------------------------------------------*/
 declare namespace NodeJS {
     interface InspectOptions {
+        /**
+         * If set to `true`, getters are going to be
+         * inspected as well. If set to `'get'` only getters without setter are going
+         * to be inspected. If set to `'set'` only getters having a corresponding
+         * setter are going to be inspected. This might cause side effects depending on
+         * the getter function.
+         * @default `false`
+         */
+        getters?: 'get' | 'set' | boolean;
         showHidden?: boolean;
+        /**
+         * @default 2
+         */
         depth?: number | null;
         colors?: boolean;
         customInspect?: boolean;
         showProxy?: boolean;
         maxArrayLength?: number | null;
         breakLength?: number;
-        compact?: boolean;
+        /**
+         * Setting this to `false` causes each object key
+         * to be displayed on a new line. It will also add new lines to text that is
+         * longer than `breakLength`. If set to a number, the most `n` inner elements
+         * are united on a single line as long as all properties fit into
+         * `breakLength`. Short array elements are also grouped together. Note that no
+         * text will be reduced below 16 characters, no matter the `breakLength` size.
+         * For more information, see the example below.
+         * @default `true`
+         */
+        compact?: boolean | number;
         sorted?: boolean | ((a: string, b: string) => number);
     }
 
@@ -486,6 +484,7 @@ declare namespace NodeJS {
         stderr?: WritableStream;
         ignoreErrors?: boolean;
         colorMode?: boolean | 'auto';
+        inspectOptions?: InspectOptions;
     }
 
     interface ConsoleConstructor {
@@ -604,20 +603,18 @@ declare namespace NodeJS {
         isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe(destination?: WritableStream): this;
-        unshift(chunk: string): void;
-        unshift(chunk: Buffer): void;
+        unshift(chunk: string | Buffer | Uint8Array): void;
         wrap(oldStream: ReadableStream): this;
         [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
     }
 
     interface WritableStream extends EventEmitter {
         writable: boolean;
-        write(buffer: Buffer | string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        end(cb?: Function): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
+        write(buffer: Buffer | Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
+        write(str: string, encoding?: string, cb?: (err?: Error | null) => void): boolean;
+        end(cb?: () => void): void;
+        end(data: string | Uint8Array | Buffer, cb?: () => void): void;
+        end(str: string, encoding?: string, cb?: () => void): void;
     }
 
     interface ReadWriteStream extends ReadableStream, WritableStream { }
@@ -625,11 +622,11 @@ declare namespace NodeJS {
     interface Events extends EventEmitter { }
 
     interface Domain extends Events {
-        run(fn: Function): void;
-        add(emitter: Events): void;
-        remove(emitter: Events): void;
-        bind(cb: (err: Error, data: any) => any): any;
-        intercept(cb: (data: any) => any): any;
+        run<T>(fn: (...args: any[]) => T, ...args: any[]): T;
+        add(emitter: EventEmitter | Timer): void;
+        remove(emitter: EventEmitter | Timer): void;
+        bind<T extends Function>(cb: T): T;
+        intercept<T extends Function>(cb: T): T;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
@@ -692,7 +689,7 @@ declare namespace NodeJS {
     type ExitListener = (code: number) => void;
     type RejectionHandledListener = (promise: Promise<any>) => void;
     type UncaughtExceptionListener = (error: Error) => void;
-    type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
+    type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
     type SignalsListener = (signal: Signals) => void;
@@ -713,9 +710,9 @@ declare namespace NodeJS {
         readonly writableLength: number;
         columns?: number;
         rows?: number;
-        _write(chunk: any, encoding: string, callback: Function): void;
-        _destroy(err: Error | null, callback: Function): void;
-        _final(callback: Function): void;
+        _write(chunk: any, encoding: string, callback: (err?: null | Error) => void): void;
+        _destroy(err: Error | null, callback: (err?: null | Error) => void): void;
+        _final(callback: (err?: null | Error) => void): void;
         setDefaultEncoding(encoding: string): this;
         cork(): void;
         uncork(): void;
@@ -727,13 +724,88 @@ declare namespace NodeJS {
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
         _read(size: number): void;
-        _destroy(err: Error | null, callback: Function): void;
+        _destroy(err: Error | null, callback: (err?: null | Error) => void): void;
         push(chunk: any, encoding?: string): boolean;
         destroy(error?: Error): void;
     }
 
+    interface HRTime {
+        (time?: [number, number]): [number, number];
+    }
+
+    interface ProcessReport {
+        /**
+         * Directory where the report is written.
+         * working directory of the Node.js process.
+         * @default '' indicating that reports are written to the current
+         */
+        directory: string;
+
+        /**
+         * Filename where the report is written.
+         * The default value is the empty string.
+         * @default '' the output filename will be comprised of a timestamp,
+         * PID, and sequence number.
+         */
+        filename: string;
+
+        /**
+         * Returns a JSON-formatted diagnostic report for the running process.
+         * The report's JavaScript stack trace is taken from err, if present.
+         */
+        getReport(err?: Error): string;
+
+        /**
+         * If true, a diagnostic report is generated on fatal errors,
+         * such as out of memory errors or failed C++ assertions.
+         * @default false
+         */
+        reportOnFatalError: boolean;
+
+        /**
+         * If true, a diagnostic report is generated when the process
+         * receives the signal specified by process.report.signal.
+         * @defaul false
+         */
+        reportOnSignal: boolean;
+
+        /**
+         * If true, a diagnostic report is generated on uncaught exception.
+         * @default false
+         */
+        reportOnUncaughtException: boolean;
+
+        /**
+         * The signal used to trigger the creation of a diagnostic report.
+         * @default 'SIGUSR2'
+         */
+        signal: Signals;
+
+        /**
+         * Writes a diagnostic report to a file. If filename is not provided, the default filename
+         * includes the date, time, PID, and a sequence number.
+         * The report's JavaScript stack trace is taken from err, if present.
+         *
+         * @param fileName Name of the file where the report is written.
+         * This should be a relative path, that will be appended to the directory specified in
+         * `process.report.directory`, or the current working directory of the Node.js process,
+         * if unspecified.
+         * @param error A custom error used for reporting the JavaScript stack.
+         * @return Filename of the generated report.
+         */
+        writeReport(fileName?: string): string;
+        writeReport(error?: Error): string;
+        writeReport(fileName?: string, err?: Error): string;
+    }
+
     interface Process extends EventEmitter {
+        /**
+         * Can also be a tty.WriteStream, not typed due to limitation.s
+         */
         stdout: WriteStream;
+        /**
+         * Can also be a tty.WriteStream, not typed due to limitation.s
+         */
         stderr: WriteStream;
         stdin: ReadStream;
         openStdin(): Socket;
@@ -800,13 +872,26 @@ declare namespace NodeJS {
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
         release: ProcessRelease;
+        features: {
+            inspector: boolean;
+            debug: boolean;
+            uv: boolean;
+            ipv6: boolean;
+            tls_alpn: boolean;
+            tls_sni: boolean;
+            tls_ocsp: boolean;
+            tls: boolean;
+        };
+        /**
+         * Can only be set if not in worker thread.
+         */
         umask(mask?: number): number;
         uptime(): number;
-        hrtime(time?: [number, number]): [number, number];
+        hrtime: HRTime;
         domain: Domain;
 
         // Worker
-        send?(message: any, sendHandle?: any): void;
+        send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean}, callback?: (error: Error | null) => void): boolean;
         disconnect(): void;
         connected: boolean;
 
@@ -816,6 +901,11 @@ declare namespace NodeJS {
          * environment variable.
          */
         allowedNodeEnvironmentFlags: ReadonlySet<string>;
+
+        /**
+         * Only available with `--experimental-report`
+         */
+        report?: ProcessReport;
 
         /**
          * EventEmitter
@@ -983,6 +1073,7 @@ declare namespace NodeJS {
         setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => Immediate;
         setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
         setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
+        queueMicrotask: typeof queueMicrotask;
         undefined: typeof undefined;
         unescape: (str: string) => string;
         gc: () => void;

@@ -24,8 +24,7 @@ declare module "cluster" {
     class Worker extends events.EventEmitter {
         id: number;
         process: child.ChildProcess;
-        suicide: boolean;
-        send(message: any, sendHandle?: any, callback?: (error: Error) => void): boolean;
+        send(message: any, sendHandle?: any, callback?: (error: Error | null) => void): boolean;
         kill(signal?: string): void;
         destroy(signal?: string): void;
         disconnect(): void;
@@ -93,7 +92,7 @@ declare module "cluster" {
 
     interface Cluster extends events.EventEmitter {
         Worker: Worker;
-        disconnect(callback?: Function): void;
+        disconnect(callback?: () => void): void;
         fork(env?: any): Worker;
         isMaster: boolean;
         isWorker: boolean;
@@ -122,7 +121,7 @@ declare module "cluster" {
         addListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
         addListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         addListener(event: "online", listener: (worker: Worker) => void): this;
-        addListener(event: "setup", listener: (settings: any) => void): this;
+        addListener(event: "setup", listener: (settings: ClusterSettings) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "disconnect", worker: Worker): boolean;
@@ -131,7 +130,7 @@ declare module "cluster" {
         emit(event: "listening", worker: Worker, address: Address): boolean;
         emit(event: "message", worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
         emit(event: "online", worker: Worker): boolean;
-        emit(event: "setup", settings: any): boolean;
+        emit(event: "setup", settings: ClusterSettings): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "disconnect", listener: (worker: Worker) => void): this;
@@ -140,7 +139,7 @@ declare module "cluster" {
         on(event: "listening", listener: (worker: Worker, address: Address) => void): this;
         on(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         on(event: "online", listener: (worker: Worker) => void): this;
-        on(event: "setup", listener: (settings: any) => void): this;
+        on(event: "setup", listener: (settings: ClusterSettings) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "disconnect", listener: (worker: Worker) => void): this;
@@ -149,7 +148,7 @@ declare module "cluster" {
         once(event: "listening", listener: (worker: Worker, address: Address) => void): this;
         once(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         once(event: "online", listener: (worker: Worker) => void): this;
-        once(event: "setup", listener: (settings: any) => void): this;
+        once(event: "setup", listener: (settings: ClusterSettings) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "disconnect", listener: (worker: Worker) => void): this;
@@ -158,7 +157,7 @@ declare module "cluster" {
         prependListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
         prependListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         prependListener(event: "online", listener: (worker: Worker) => void): this;
-        prependListener(event: "setup", listener: (settings: any) => void): this;
+        prependListener(event: "setup", listener: (settings: ClusterSettings) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): this;
@@ -168,10 +167,10 @@ declare module "cluster" {
         // the handle is a net.Socket or net.Server object, or undefined.
         prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;
         prependOnceListener(event: "online", listener: (worker: Worker) => void): this;
-        prependOnceListener(event: "setup", listener: (settings: any) => void): this;
+        prependOnceListener(event: "setup", listener: (settings: ClusterSettings) => void): this;
     }
 
-    function disconnect(callback?: Function): void;
+    function disconnect(callback?: () => void): void;
     function fork(env?: any): Worker;
     const isMaster: boolean;
     const isWorker: boolean;
@@ -201,7 +200,7 @@ declare module "cluster" {
      // the handle is a net.Socket or net.Server object, or undefined.
     function addListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
     function addListener(event: "online", listener: (worker: Worker) => void): Cluster;
-    function addListener(event: "setup", listener: (settings: any) => void): Cluster;
+    function addListener(event: "setup", listener: (settings: ClusterSettings) => void): Cluster;
 
     function emit(event: string | symbol, ...args: any[]): boolean;
     function emit(event: "disconnect", worker: Worker): boolean;
@@ -210,7 +209,7 @@ declare module "cluster" {
     function emit(event: "listening", worker: Worker, address: Address): boolean;
     function emit(event: "message", worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
     function emit(event: "online", worker: Worker): boolean;
-    function emit(event: "setup", settings: any): boolean;
+    function emit(event: "setup", settings: ClusterSettings): boolean;
 
     function on(event: string, listener: (...args: any[]) => void): Cluster;
     function on(event: "disconnect", listener: (worker: Worker) => void): Cluster;
@@ -219,7 +218,7 @@ declare module "cluster" {
     function on(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
     function on(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
     function on(event: "online", listener: (worker: Worker) => void): Cluster;
-    function on(event: "setup", listener: (settings: any) => void): Cluster;
+    function on(event: "setup", listener: (settings: ClusterSettings) => void): Cluster;
 
     function once(event: string, listener: (...args: any[]) => void): Cluster;
     function once(event: "disconnect", listener: (worker: Worker) => void): Cluster;
@@ -228,7 +227,7 @@ declare module "cluster" {
     function once(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
     function once(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
     function once(event: "online", listener: (worker: Worker) => void): Cluster;
-    function once(event: "setup", listener: (settings: any) => void): Cluster;
+    function once(event: "setup", listener: (settings: ClusterSettings) => void): Cluster;
 
     function removeListener(event: string, listener: (...args: any[]) => void): Cluster;
     function removeAllListeners(event?: string): Cluster;
@@ -245,7 +244,7 @@ declare module "cluster" {
      // the handle is a net.Socket or net.Server object, or undefined.
     function prependListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
     function prependListener(event: "online", listener: (worker: Worker) => void): Cluster;
-    function prependListener(event: "setup", listener: (settings: any) => void): Cluster;
+    function prependListener(event: "setup", listener: (settings: ClusterSettings) => void): Cluster;
 
     function prependOnceListener(event: string, listener: (...args: any[]) => void): Cluster;
     function prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
@@ -255,7 +254,7 @@ declare module "cluster" {
      // the handle is a net.Socket or net.Server object, or undefined.
     function prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
     function prependOnceListener(event: "online", listener: (worker: Worker) => void): Cluster;
-    function prependOnceListener(event: "setup", listener: (settings: any) => void): Cluster;
+    function prependOnceListener(event: "setup", listener: (settings: ClusterSettings) => void): Cluster;
 
     function eventNames(): string[];
 }

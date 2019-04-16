@@ -1,0 +1,12 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODO
+        "no-redundant-jsdoc-2": false,
+        "no-unnecessary-class": false,
+        "no-empty-interface": false,
+        "array-type": false,
+        "interface-name": false,
+        "space-before-function-paren": false
+    }
+}

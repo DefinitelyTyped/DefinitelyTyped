@@ -1,5 +1,5 @@
 // Type definitions for CKEditor 4.9
-// Project: https://ckeditor.com/ckeditor-4/
+// Project: https://ckeditor.com/ckeditor-4/, http://ckeditor.com
 // Definitions by: Thomas Wittwer <https://github.com/wittwert>
 //                 Stuart Long <https://github.com/stuartlong>
 //                 Viktor Pegy <https://github.com/viktorpegy>
@@ -1436,7 +1436,7 @@ declare namespace CKEDITOR {
         addFeature(feature: feature): boolean;
         addTransformations(transformations: Array<Array<string | filter.transformation>>): void;
         allow(newRules: filter.allowedContentRules, featureName?: string, overrideCustom?: boolean): boolean;
-        applyTo(fragment: htmlParser.fragment | htmlParser.element, toHrml: boolean, transformOnly: boolean, enterMode: number): boolean;
+        applyTo(fragment: htmlParser.fragment | htmlParser.element, toHtml?: boolean, transformOnly?: boolean, enterMode?: number): boolean;
         check(test: filter.contentRule, applyTransformations?: boolean, strictCheck?: boolean): boolean;
         checkFeature(feature: feature): boolean;
         clone(): filter;

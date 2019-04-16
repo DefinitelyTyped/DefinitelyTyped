@@ -10,7 +10,7 @@ import { MotionProps, PlainStyle, Style } from "react-motion";
 interface ReactMotionLoopProps extends Partial<MotionProps> {
     styleFrom: Style;
     styleTo: Style;
-    children?: (interpolatedStyle: PlainStyle) => ReactElement<any>;
+    children?: (interpolatedStyle: PlainStyle) => ReactElement;
 }
 export class ReactMotionLoop extends Component<ReactMotionLoopProps> {}
 

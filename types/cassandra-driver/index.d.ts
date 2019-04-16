@@ -34,43 +34,29 @@ export namespace policies {
   }
 
   namespace loadBalancing {
-    let DCAwareRoundRobinPolicy: DCAwareRoundRobinPolicyStatic;
-    let RoundRobinPolicy: RoundRobinPolicyStatic;
-    let TokenAwarePolicy: TokenAwarePolicyStatic;
-    let WhiteListPolicy: WhiteListPolicyStatic;
-
-    interface LoadBalancingPolicy {
+    class LoadBalancingPolicy {
       init(client: Client, hosts: HostMap, callback: Callback): void;
       getDistance(host: Host): types.distance;
       newQueryPlan(keyspace: string, queryOptions: ExecutionOptions | null, callback: Callback): void;
+      getOptions(): Map<string, any>;
     }
 
-    interface DCAwareRoundRobinPolicyStatic {
-      new (localDc?: string): DCAwareRoundRobinPolicy;
-    }
-
-    interface DCAwareRoundRobinPolicy extends LoadBalancingPolicy {
+    class DCAwareRoundRobinPolicy extends LoadBalancingPolicy {
+      localDc: string;
       localHostsArray: Host[];
-      remoteHostsArray: Host[];
+
+      constructor(localDc?: string);
     }
 
-    interface RoundRobinPolicyStatic {
-      new (): RoundRobinPolicy;
+    class RoundRobinPolicy extends LoadBalancingPolicy {}
+
+    class TokenAwarePolicy extends LoadBalancingPolicy {
+      constructor(childPolicy: LoadBalancingPolicy);
     }
 
-    interface RoundRobinPolicy extends LoadBalancingPolicy { }
-
-    interface TokenAwarePolicyStatic {
-      new (childPolicy: LoadBalancingPolicy): TokenAwarePolicy;
+    class WhiteListPolicy extends LoadBalancingPolicy {
+      constructor(childPolicy: LoadBalancingPolicy, whiteList: string[]);
     }
-
-    interface TokenAwarePolicy extends LoadBalancingPolicy { }
-
-    interface WhiteListPolicyStatic {
-      new (childPolicy: LoadBalancingPolicy, whiteList: string[]): WhiteListPolicy;
-    }
-
-    interface WhiteListPolicy extends LoadBalancingPolicy { }
   }
 
   namespace reconnection {
@@ -101,7 +87,8 @@ export namespace policies {
 
     interface DecisionInfo {
       decision: number;
-      consistency: number;
+      consistency?: number;
+      useCurrentHost?: boolean;
     }
 
     interface RequestInfo {
@@ -129,8 +116,8 @@ export namespace policies {
       onReadTimeout(requestInfo: RequestInfo, consistency: types.consistencies, received: number, blockFor: number, isDataPresent: boolean): DecisionInfo;
       onUnavailable(requestInfo: RequestInfo, consistency: types.consistencies, required: number, alive: number): DecisionInfo;
       onWriteTimeout(requestInfo: RequestInfo, consistency: types.consistencies, received: number, blockFor: number, writeType: string): DecisionInfo;
-      rethrowResult(): { decision: retryDecision };
-      retryResult(): { decision: retryDecision, consistency: types.consistencies, useCurrentHost: boolean };
+      rethrowResult(): DecisionInfo;
+      retryResult(consistency?: types.consistencies, useCurrentHost?: boolean): DecisionInfo;
     }
   }
 
@@ -499,8 +486,6 @@ export namespace types {
 }
 
 export let Client: ClientStatic;
-export let Host: HostStatic;
-export let HostMap: HostMapStatic;
 export let Encoder: EncoderStatic;
 
 export interface ClientOptions {
@@ -611,24 +596,16 @@ export interface Client extends events.EventEmitter {
   stream(query: string, params?: any, options?: QueryOptions, callback?: Callback): NodeJS.ReadableStream;
 }
 
-export interface HostStatic {
-  new (address: string, protocolVersion: number, options: ClientOptions): Host;
-}
-
 export interface Host extends events.EventEmitter {
   address: string;
   cassandraVersion: string;
-  dataCenter: string;
+  datacenter: string;
   rack: string;
   tokens: string[];
 
   canBeConsideredAsUp(): boolean;
   getCassandraVersion(): number[];
   isUp(): boolean;
-}
-
-export interface HostMapStatic {
-  new (): HostMap;
 }
 
 export interface HostMap extends events.EventEmitter {
@@ -742,18 +719,9 @@ export namespace errors {
 }
 
 export namespace metadata {
-  let Aggregate: AggregateStatic;
-  let Index: IndexStatic;
-  let MaterializedView: MaterializedViewStatic;
   let Metadata: MetadataStatic;
-  let SchemaFunction: SchemaFunctionStatic;
-  let TableMetadata: TableMetadataStatic;
 
   type caching = "all" | "keys_only" | "rows_only" | "none";
-
-  interface AggregateStatic {
-    new (): Aggregate;
-  }
 
   interface Aggregate {
     argumentTypes: Array<{ code: number, info: any }>;
@@ -764,10 +732,6 @@ export namespace metadata {
     signature: string[];
     stateFunction: string;
     stateType: string;
-  }
-
-  interface ClientStateStatic {
-    new (): ClientState;
   }
 
   interface ClientState {
@@ -822,13 +786,6 @@ export namespace metadata {
     composites
   }
 
-  interface IndexStatic {
-    new (name: string, target: string, kind: string | IndexType, options: object): Index;
-
-    fromRows(indexRows: types.Row[]): Index[];
-    fromColumnRows(columnRows: types.Row[], columnsByName: { [key: string]: ColumnInfo }): Index[];
-  }
-
   interface Index {
     kind: IndexType;
     name: string;
@@ -840,11 +797,19 @@ export namespace metadata {
     isKeysKind(): boolean;
   }
 
-  interface MaterializedViewStatic {
-    new (name: string): MaterializedView;
+  interface MaterializedView extends DataCollection { }
+
+  interface QueryTrace {
+    requestType: any;
+    coordinator: any;
+    parameters: any;
+    startedAt: any;
+    duration: any;
+    clientAddress: any;
+    events: Array<{ id: any; activity: any; source: any; elapsed: any; thread: any }>;
   }
 
-  interface MaterializedView extends DataCollection { }
+  type MetadataCallback<T> = (err: any, retVal: T) => void;
 
   interface MetadataStatic {
     new (options: ClientOptions, controlConnection: any): Metadata;
@@ -853,21 +818,34 @@ export namespace metadata {
   interface Metadata {
     clearPrepared(): void;
 
-    getAggregate(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: Callback): void;
-    getAggregates(keyspaceName: string, name: string, callback: Callback): void;
-    getFunction(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: Callback): void;
-    getFunctions(keyspaceName: string, name: string, callback: Callback): void;
-    getMaterializedView(keyspaceName: string, name: string, callback: Callback): void;
-    getReplicas(keyspaceName: string, tokenBuffer: Buffer): any[];
-    getTable(keyspaceName: string, name: string, callback: Callback): void;
-    getTrace(traceId: types.Uuid, callback: Callback): void;
-    getUdt(keyspaceName: string, name: string, callback: Callback): void;
-    refreshKeyspace(name: string, callback?: Callback): void;
-    refreshKeyspaces(callback?: Callback): void;
-  }
-
-  interface SchemaFunctionStatic {
-    new (): SchemaFunction;
+    getAggregate(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: MetadataCallback<Aggregate>): void;
+    getAggregate(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>): Promise<Aggregate>;
+    getAggregates(keyspaceName: string, name: string, callback: MetadataCallback<Aggregate[]>): void;
+    getAggregates(keyspaceName: string, name: string): Promise<Aggregate[]>;
+    getFunction(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: MetadataCallback<SchemaFunction>): void;
+    getFunction(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>): Promise<SchemaFunction>;
+    getFunctions(keyspaceName: string, name: string, callback: MetadataCallback<SchemaFunction[]>): void;
+    getFunctions(keyspaceName: string, name: string): Promise<SchemaFunction[]>;
+    getMaterializedView(keyspaceName: string, name: string, callback: MetadataCallback<MaterializedView>): void;
+    getMaterializedView(keyspaceName: string, name: string, callback: Callback): Promise<MaterializedView>;
+    getReplicas(keyspaceName: string, token: Buffer | token.Token | token.TokenRange): any[]; // TODO
+    getTable(keyspaceName: string, name: string, callback: MetadataCallback<TableMetadata>): void;
+    getTable(keyspaceName: string, name: string): Promise<TableMetadata>;
+    getTokenRanges(): Set<token.TokenRange>;
+    getTokenRangesForHost(keyspaceName: string, host: Host): Set<token.TokenRange> | null;
+    getTrace(traceId: types.Uuid, consistency: types.consistencies, callback: MetadataCallback<QueryTrace>): void;
+    getTrace(traceId: types.Uuid, consistency: types.consistencies, callback: Callback): Promise<QueryTrace>;
+    getTrace(traceId: types.Uuid, callback: MetadataCallback<QueryTrace>): void;
+    getTrace(traceId: types.Uuid): Promise<QueryTrace>;
+    getUdt(keyspaceName: string, name: string, callback: MetadataCallback<any>): void; // TODO
+    getUdt(keyspaceName: string, name: string): Promise<any>; // TODO
+    newToken(components: Buffer[] | Buffer | string): token.Token;
+    newTokenRange(start: token.Token, end: token.Token): token.TokenRange;
+    refreshKeyspace(name: string, callback: Callback): void;
+    refreshKeyspace(name: string): Promise<void>;
+    refreshKeyspaces(waitReconnect: boolean, callback: Callback): void;
+    refreshKeyspaces(waitReconnect?: boolean): Promise<void>;
+    refreshKeyspaces(callback: Callback): void;
   }
 
   interface SchemaFunction {
@@ -880,10 +858,6 @@ export namespace metadata {
     name: string;
     returnType: string;
     signature: string[];
-  }
-
-  interface TableMetadataStatic {
-    new (name: string): TableMetadata;
   }
 
   interface TableMetadata extends DataCollection {
@@ -927,6 +901,7 @@ export interface ExecutionOptions {
 }
 
 export let ExecutionOptions: ExecutionOptionsStatic;
+export let ExecutionProfile: ExecutionProfileStatic;
 
 export namespace mapping {
   let Mapper: MapperStatic;
@@ -1136,3 +1111,41 @@ export namespace metrics {
   }
   interface DefaultMetrics extends ClientMetrics {}
 }
+
+export namespace token {
+  interface Tokenizer {
+    hash(value: Buffer | number[]): Token;
+    parse(value: string): Token;
+    minToken(): Token;
+    split(start: Token, end: Token, numberOfSplits: number): TokenRange[];
+    splitBase(start: number, end: number, ringEnd: number, ringLength: number, numberOfSplits: number): number[];
+    stringify(token: Token): string;
+  }
+
+  class Token {
+    constructor(value: any);
+
+    getType(): { code: number, info: any };
+    getValue(): any;
+    compare(other: Token): number;
+    equals(other: Token): boolean;
+  }
+
+  class TokenRange {
+    start: Token;
+    end: Token;
+
+    constructor(start: Token, end: Token, tokenizer: Tokenizer);
+
+    splitEvenly(numberOfSplits: number): TokenRange[];
+    isEmpty(): boolean;
+    isWrappedAround(): boolean;
+    unwrap(): TokenRange[];
+    contains(token: Token): boolean;
+    equals(other: TokenRange): boolean;
+    compare(other: TokenRange): number;
+  }
+}
+
+export function defaultOptions(): ClientOptions;
+export const version: string;

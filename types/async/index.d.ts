@@ -1,5 +1,5 @@
 // Type definitions for Async 2.4
-// Project: https://github.com/caolan/async
+// Project: https://github.com/caolan/async, https://caolan.github.io/async
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Arseniy Maximov <https://github.com/kern0>
 //                 Joe Herman <https://github.com/Penryn>

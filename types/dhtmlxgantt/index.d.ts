@@ -2009,7 +2009,7 @@ interface GanttStatic {
 	 * gets the relative horizontal position of the specified date in the chart area
 	 * @param date a date you want to know the position of
 	*/
-	posFromDate(date: Date): void;
+	posFromDate(date: Date): number;
 
 	/**
 	 * applies the reverted changes to the gantt once again

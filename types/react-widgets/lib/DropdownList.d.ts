@@ -166,6 +166,11 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      * when false the SelectList will render as a list of radio buttons, and checkboxes when true.
      */
     multiple?: boolean;
+
+    /**
+     * Adds a css class to the input container element.
+     */
+    containerClassName?: string;
 }
 
 interface DropdownListMessages {

@@ -33,7 +33,8 @@ export declare class Queue extends events.EventEmitter {
     checkActiveJobTtl(ttlOptions: Object): void;
     watchStuckJobs(ms: number): void;
     setting(name: string, fn: Function): Queue;
-    process(type: string, n?: number | ProcessCallback, fn?: ProcessCallback): void;
+    process(type: string, fn?: ProcessCallback): void;
+    process(type: string, n: number, fn?: ProcessCallback): void;
     shutdown(timeout: number, fn: Function): Queue;
     shutdown(timeout: number, type: string, fn: Function): Queue;
     types(fn: Function): Queue;
@@ -63,7 +64,9 @@ interface Priorities {
 
 export type DoneCallback = (err?: any, result?: any) => void;
 export type JobCallback = (err?: any, job?: Job) => void;
-export type ProcessCallback = (job: Job, cb: DoneCallback) => void;
+export type ProcessCallback =
+    | ((job: Job, cb: DoneCallback) => void)
+    | ((job: Job, ctx: WorkerCtx, cb: DoneCallback) => void);
 
 export declare class Job extends events.EventEmitter {
     public id: number;
@@ -142,6 +145,13 @@ declare class Worker extends events.EventEmitter {
     shutdown(timeout: number, fn: Function): void;
     emitJobEvent(event: Object, job: Job, arg1: any, arg2: any): void;
     resume(): boolean;
+}
+
+interface WorkerCtx {
+    pause(fn?: DoneCallback): void;
+    pause(timeout: number, fn?: DoneCallback): void;
+    resume(): void;
+    shutdown(): void;
 }
 
 interface Redis {

@@ -312,7 +312,7 @@ anySchema = Joi.any();
 
 arrSchema = Joi.array();
 
-arrSchema = arrSchema.assertItem(Joi.any());
+arrSchema = arrSchema.has(Joi.any());
 arrSchema = arrSchema.sparse();
 arrSchema = arrSchema.sparse(bool);
 arrSchema = arrSchema.single();

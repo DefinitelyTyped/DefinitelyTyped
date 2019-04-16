@@ -1,7 +1,8 @@
-// Type definitions for react-map-gl 4.0
+// Type definitions for react-map-gl 4.1
 // Project: https://github.com/uber/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
+//                 Sander Siim <https://github.com/sandersiim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -226,6 +227,7 @@ export interface InteractiveMapProps extends StaticMapProps {
     keyboard?: boolean;
     onHover?: (event: PointerEvent) => void;
     onClick?: (event: PointerEvent) => void;
+    onNativeClick?: (event: PointerEvent) => void;
     onDblClick?: (event: PointerEvent) => void;
     onContextMenu?: (event: PointerEvent) => void;
     onMouseDown?: (event: PointerEvent) => void;
@@ -307,6 +309,25 @@ export interface NavigationControlProps extends BaseControlProps {
 }
 
 export class NavigationControl extends BaseControl<NavigationControlProps> {}
+
+export interface FullscreenControlProps extends BaseControlProps {
+    className?: string;
+    container?: HTMLElement | null;
+}
+
+export class FullscreenControl extends BaseControl<FullscreenControlProps> {}
+
+export interface GeolocateControlProps extends BaseControlProps {
+    className?: string;
+    positionOptions?: MapboxGL.PositionOptions;
+    fitBoundsOptions?: MapboxGL.FitBoundsOptions;
+    trackUserLocation?: boolean;
+    showUserLocation?: boolean;
+    onViewStateChange?: (info: ViewStateChangeInfo) => void;
+    onViewportChange?: (viewState: ViewState) => void;
+}
+
+export class GeolocateControl extends BaseControl<GeolocateControlProps> {}
 
 export interface DraggableControlProps extends BaseControlProps {
     draggable?: boolean;

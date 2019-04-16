@@ -1,4 +1,4 @@
-import builtins from 'rollup-plugin-node-builtins';
+import builtins = require('rollup-plugin-node-builtins');
 
 // No options (default)
 (() => {

@@ -104,12 +104,13 @@ declare module "readline" {
         prependOnceListener(event: "SIGCONT", listener: () => void): this;
         prependOnceListener(event: "SIGINT", listener: () => void): this;
         prependOnceListener(event: "SIGTSTP", listener: () => void): this;
+        [Symbol.asyncIterator](): AsyncIterableIterator<string>;
     }
 
     type ReadLine = Interface; // type forwarded for backwards compatiblity
 
     type Completer = (line: string) => CompleterResult;
-    type AsyncCompleter = (line: string, callback: (err: any, result: CompleterResult) => void) => any;
+    type AsyncCompleter = (line: string, callback: (err?: null | Error, result?: CompleterResult) => void) => any;
 
     type CompleterResult = [string[], string];
 

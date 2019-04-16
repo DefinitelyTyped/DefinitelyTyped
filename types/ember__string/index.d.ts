@@ -1,10 +1,10 @@
-// Type definitions for @ember/string 3.0
+// Type definitions for non-npm package @ember/string 3.0
 // Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Fstring
 // Definitions by: Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { SafeString } from 'handlebars';
+import { SafeString } from "./-private/handlebars";
 
 export function camelize(str: string): string;
 export function capitalize(str: string): string;

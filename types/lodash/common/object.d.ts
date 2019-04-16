@@ -1686,7 +1686,7 @@ declare module "../index" {
             object: TObject | null | undefined,
             path: TKey | [TKey],
             defaultValue: TDefault
-        ): TObject[TKey] | TDefault;
+        ): Exclude<TObject[TKey], undefined> | TDefault;
 
         /**
          * @see _.get
@@ -1763,7 +1763,7 @@ declare module "../index" {
             this: LoDashImplicitWrapper<TObject | null | undefined>,
             path: TKey | [TKey],
             defaultValue: TDefault
-        ): TObject[TKey] | TDefault;
+        ): Exclude<TObject[TKey], undefined> | TDefault;
 
         /**
          * @see _.get
@@ -1839,7 +1839,7 @@ declare module "../index" {
             this: LoDashExplicitWrapper<TObject | null | undefined>,
             path: TKey | [TKey],
             defaultValue: TDefault
-        ): LoDashExplicitWrapper<TObject[TKey] | TDefault>;
+        ): LoDashExplicitWrapper<Exclude<TObject[TKey], undefined> | TDefault>;
 
         /**
          * @see _.get

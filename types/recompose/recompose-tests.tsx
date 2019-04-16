@@ -533,7 +533,7 @@ function testFromRenderProps() {
     }
 
     interface RenderComponentProps {
-        render: (renderProps: RenderProps) => React.ReactElement<any>;
+        render: (renderProps: RenderProps) => React.ReactElement;
     }
 
     class RenderPropComponent extends React.Component<RenderComponentProps> {

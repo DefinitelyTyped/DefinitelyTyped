@@ -1,4 +1,4 @@
-import * as React from "react";
+import React = require("react");
 import EventListener, { withOptions } from "react-event-listener";
 
 <EventListener target={document} onBeforeUnload={ev => { }} />;

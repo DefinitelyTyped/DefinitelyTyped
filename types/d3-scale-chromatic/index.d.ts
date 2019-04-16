@@ -1,5 +1,5 @@
 // Type definitions for D3JS d3-scale-chromatic module 1.3
-// Project: https://github.com/d3/d3-scale-chromatic/
+// Project: https://github.com/d3/d3-scale-chromatic/, https://d3js.org/d3-scale-chromatic
 // Definitions by: Hugues Stefanski <https://github.com/Ledragon>,
 //                 Alex Ford <https://github.com/gustavderdrache>,
 //                 Boris Yankov <https://github.com/borisyankov>,

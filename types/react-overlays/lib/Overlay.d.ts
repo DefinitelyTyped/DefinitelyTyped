@@ -47,7 +47,7 @@ declare namespace Overlay {
          * A render prop that returns an element to overlay and position. See
          * the [react-popper documentation](https://github.com/FezVrasta/react-popper#children) for more info.
          */
-        children(renderProps: OverlayRenderProps): React.ReactElement<any>;
+        children(renderProps: OverlayRenderProps): React.ReactElement;
 
         /**
          * A set of popper options and props passed directly to react-popper's Popper component.

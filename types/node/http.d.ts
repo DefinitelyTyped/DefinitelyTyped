@@ -1,20 +1,20 @@
 declare module "http" {
     import * as events from "events";
-    import * as net from "net";
     import * as stream from "stream";
     import { URL } from "url";
+    import { Socket, Server as NetServer } from "net";
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders {
         'accept'?: string;
-        'access-control-allow-origin'?: string;
-        'access-control-allow-credentials'?: string;
-        'access-control-expose-headers'?: string;
-        'access-control-max-age'?: string;
-        'access-control-allow-methods'?: string;
-        'access-control-allow-headers'?: string;
         'accept-patch'?: string;
         'accept-ranges'?: string;
+        'access-control-allow-credentials'?: string;
+        'access-control-allow-headers'?: string;
+        'access-control-allow-methods'?: string;
+        'access-control-allow-origin'?: string;
+        'access-control-expose-headers'?: string;
+        'access-control-max-age'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
@@ -50,9 +50,9 @@ declare module "http" {
         'retry-after'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
+        'tk'?: string;
         'trailer'?: string;
         'transfer-encoding'?: string;
-        'tk'?: string;
         'upgrade'?: string;
         'user-agent'?: string;
         'vary'?: string;
@@ -85,16 +85,35 @@ declare module "http" {
         timeout?: number;
         setHost?: boolean;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
-        createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: net.Socket) => void) => net.Socket;
+        createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket;
     }
 
-    class Server extends net.Server {
-        constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
+    interface ServerOptions {
+        IncomingMessage?: typeof IncomingMessage;
+        ServerResponse?: typeof ServerResponse;
+    }
+
+    type RequestListener = (req: IncomingMessage, res: ServerResponse) => void;
+
+    class Server extends NetServer {
+        constructor(requestListener?: RequestListener);
+        constructor(options: ServerOptions, requestListener?: RequestListener);
 
         setTimeout(msecs?: number, callback?: () => void): this;
         setTimeout(callback: () => void): this;
-        maxHeadersCount: number;
+        /**
+         * Limits maximum incoming headers count. If set to 0, no limit will be applied.
+         * @default 2000
+         * {@link https://nodejs.org/api/http.html#http_server_maxheaderscount}
+         */
+        maxHeadersCount: number | null;
         timeout: number;
+        /**
+         * Limit the amount of time the parser will wait to receive the complete HTTP headers.
+         * @default 40000
+         * {@link https://nodejs.org/api/http.html#http_server_headerstimeout}
+         */
+        headersTimeout: number;
         keepAliveTimeout: number;
     }
 
@@ -107,7 +126,7 @@ declare module "http" {
         sendDate: boolean;
         finished: boolean;
         headersSent: boolean;
-        connection: net.Socket;
+        connection: Socket;
 
         constructor();
 
@@ -129,37 +148,38 @@ declare module "http" {
 
         constructor(req: IncomingMessage);
 
-        assignSocket(socket: net.Socket): void;
-        detachSocket(socket: net.Socket): void;
+        assignSocket(socket: Socket): void;
+        detachSocket(socket: Socket): void;
         // https://github.com/nodejs/node/blob/master/test/parallel/test-http-write-callbacks.js#L53
         // no args in writeContinue callback
         writeContinue(callback?: () => void): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): void;
-        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): void;
+        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): this;
+        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
     class ClientRequest extends OutgoingMessage {
-        connection: net.Socket;
-        socket: net.Socket;
+        connection: Socket;
+        socket: Socket;
         aborted: number;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
+        readonly path: string;
         abort(): void;
-        onSocket(socket: net.Socket): void;
+        onSocket(socket: Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
     }
 
     class IncomingMessage extends stream.Readable {
-        constructor(socket: net.Socket);
+        constructor(socket: Socket);
 
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
-        connection: net.Socket;
+        connection: Socket;
         headers: IncomingHttpHeaders;
         rawHeaders: string[];
         trailers: { [key: string]: string | undefined };
@@ -181,7 +201,7 @@ declare module "http" {
          * Only valid for response obtained from http.ClientRequest.
          */
         statusMessage?: string;
-        socket: net.Socket;
+        socket: Socket;
         destroy(error?: Error): void;
     }
 
@@ -212,8 +232,12 @@ declare module "http" {
     class Agent {
         maxFreeSockets: number;
         maxSockets: number;
-        sockets: any;
-        requests: any;
+        readonly sockets: {
+            readonly [key: string]: Socket[];
+        };
+        readonly requests: {
+            readonly [key: string]: IncomingMessage[];
+        };
 
         constructor(opts?: AgentOptions);
 
@@ -233,8 +257,8 @@ declare module "http" {
         [errorCode: string]: string | undefined;
     };
 
-    function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
-    function createClient(port?: number, host?: string): any;
+    function createServer(requestListener?: RequestListener): Server;
+    function createServer(options: ServerOptions, requestListener?: RequestListener): Server;
 
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
     // create interface RequestOptions would make the naming more clear to developers
@@ -244,4 +268,10 @@ declare module "http" {
     function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     let globalAgent: Agent;
+
+    /**
+     * Read-only property specifying the maximum allowed size of HTTP headers in bytes.
+     * Defaults to 8KB. Configurable using the [`--max-http-header-size`][] CLI option.
+     */
+    const maxHeaderSize: number;
 }

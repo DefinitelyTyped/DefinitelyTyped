@@ -1,5 +1,5 @@
 // Type definitions for @feathersjs/authentication 2.1
-// Project: http://feathersjs.com/
+// Project: https://feathersjs.com
 // Definitions by:  Abraao Alves <https://github.com/AbraaoAlves>
 //                  Jan Lohage <https://github.com/j2L4e>
 //                  Nick Bolles <https://github.com/NickBolles>

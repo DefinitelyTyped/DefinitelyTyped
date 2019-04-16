@@ -30,6 +30,8 @@ describe('ReactDOM', () => {
         const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
         ReactDOM.findDOMNode(rootElement);
+        ReactDOM.findDOMNode(null);
+        ReactDOM.findDOMNode(undefined);
     });
 
     it('createPortal', () => {
@@ -176,6 +178,25 @@ describe('React dom test utils', () => {
             const component = React.createElement(TestComponent);
             const shallowRenderer = ReactTestUtils.createRenderer();
             shallowRenderer.getRenderOutput();
+        });
+    });
+
+    describe('act', () => {
+        it('accepts a sync callback that is void', () => {
+            ReactTestUtils.act(() => {});
+        });
+        it('rejects an async callback even if void', () => {
+            // $ExpectError
+            ReactTestUtils.act(async () => {});
+        });
+        it('rejects a callback that returns null', () => {
+            // $ExpectError
+            ReactTestUtils.act(() => null);
+        });
+        it('returns a Promise-like that errors out on use', () => {
+            const result = ReactTestUtils.act(() => {});
+            // $ExpectError
+            Promise.resolve(result);
         });
     });
 });

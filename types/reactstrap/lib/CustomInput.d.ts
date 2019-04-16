@@ -10,13 +10,14 @@ export type CustomInputType =
 
 export type CustomInputProps<T = {}> = React.InputHTMLAttributes<HTMLInputElement> & {
   type: CustomInputType;
-  label?: string;
+  label?: React.ReactNode;
   inline?: boolean;
   bsSize?: 'lg' | 'sm';
   valid?: boolean;
   invalid?: boolean;
   className?: string;
   cssModule?: CSSModule;
+  htmlFor?: string;
 } & T;
 
 declare class CustomInput<T = {[key: string]: any}> extends React.Component<CustomInputProps<T>> {}

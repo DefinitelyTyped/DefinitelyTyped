@@ -1,4 +1,4 @@
-// Type definitions for wegame 2.3
+// Type definitions for non-npm package wegame 2.3
 // Project: https://developers.weixin.qq.com/minigame/dev/index.html
 // Definitions by: J.C <https://github.com/jcyuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

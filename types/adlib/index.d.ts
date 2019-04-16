@@ -1,5 +1,5 @@
 // Type definitions for adlib 3.0
-// Project: https://github.com/Esri/adlib
+// Project: https://github.com/Esri/adlib, https://arcgis.github.io/ember-arcgis-adlib-service
 // Definitions by: Esri <https://github.com/Esri>
 //                 Mike Tschudi <https://github.com/MikeTschudi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

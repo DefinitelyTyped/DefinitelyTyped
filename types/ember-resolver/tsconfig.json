@@ -35,6 +35,7 @@
             "@ember/runloop/*": ["ember__runloop/*"],
             "@ember/service": ["ember__service"],
             "@ember/string": ["ember__string"],
+            "@ember/string/*": ["ember__string/*"],
             "@ember/test": ["ember__test"],
             "@ember/test/*": ["ember__test/*"],
             "@ember/utils": ["ember__utils"],

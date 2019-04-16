@@ -8,7 +8,7 @@ pw.on('error', (err: Error) => {
     console.log(err);
 });
 
-const r1: Error = spawn.sync('foo').error;
+const r1: Error | undefined = spawn.sync('foo').error;
 const r2: string[] = spawn.sync('foo').output;
 const r3: Buffer = spawn.sync('foo').stdout;
 const r4: Buffer = spawn.sync('foo').stderr;

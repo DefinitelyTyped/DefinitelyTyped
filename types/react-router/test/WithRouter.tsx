@@ -22,3 +22,31 @@ const WithRouterTestFunction = () => (
     <WithRouterComponentFunction username="John" />
 );
 const WithRouterTestClass = () => <WithRouterComponentClass username="John" />;
+
+// union props
+{
+    interface Book {
+        kind: 'book';
+        author: string;
+    }
+
+    interface Magazine {
+        kind: 'magazine';
+        issue: number;
+    }
+
+    type SomethingToRead = (Book | Magazine) & RouteComponentProps;
+
+    const Readable: React.SFC<SomethingToRead> = props => {
+        if (props.kind === 'magazine') {
+            return <div>magazine #{props.issue}</div>;
+        }
+
+        return <div>magazine #{props.author}</div>;
+    };
+
+    const RoutedReadable = withRouter(Readable);
+
+    <RoutedReadable kind="book" author="Hejlsberg" />;
+    <RoutedReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
+}

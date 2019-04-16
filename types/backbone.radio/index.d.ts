@@ -1,6 +1,7 @@
 // Type definitions for Backbone.Radio v0.8.3
 // Project: https://github.com/marionettejs/backbone.radio
 // Definitions by: Peter Palotas <https://github.com/alphaleonis>
+//                 Julian Gonggrijp <https://github.com/jgonggrijp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -71,18 +72,12 @@ declare module "backbone" {
             stopReplying(commandName?: string, callback?: (...args: any[]) => any, context?: any): Requests;
         }
 
-        class Channel implements Commands, Requests, Backbone.Events {
-            on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
-            on(eventMap: EventsHash): any;
+        class Channel extends Backbone.EventsMixin implements Commands, Requests, Backbone.Events {
+            /**
+             * Faulty overgeneralization of Backbone.Events.on, for historical
+             * reasons.
+             */
             on(eventName: any, callback?: any, context?: any): any;
-            off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
-            trigger(eventName: string, ...args: any[]): any;
-            bind(eventName: string, callback: (...args: any[]) => void, context?: any): any;
-            unbind(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
-            once(events: string, callback: (...args: any[]) => void, context?: any): any;
-            listenTo(object: any, events: string, callback: (...args: any[]) => void): any;
-            listenToOnce(object: any, events: string, callback: (...args: any[]) => void): any;
-            stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
             channelName: string;
             reset(): Channel;
 
