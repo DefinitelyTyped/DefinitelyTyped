@@ -1,7 +1,7 @@
 
 import Wreck = require('wreck');
 
-Wreck.get('https://google.com/', {}, function (err: any, res: any, payload: any) {
+Wreck.get('https://google.com/', {}).then((response) => {
     /* do stuff */
 });
 
@@ -30,9 +30,11 @@ var optionalCallback = function (err: any, res: any) {
     /* handle err if it exists, in which case res will be undefined */
 
     // buffer the response stream
-    Wreck.read(res, null, function (err: any, body: any) {
+    Wreck.read(res, null).then((payload) => {
         /* do stuff */
     });
 };
 
-var req = wreck.request(method, uri, options, optionalCallback);
+var req = wreck.request(method, uri, options).then((response) => {
+    /* do stuff */
+});

@@ -26,11 +26,9 @@
  * Implement this adapter for your framework of choice to delegate updates to
  * the component in your framework of choice. See architecture documentation
  * for more details.
- * https://github.com/material-components/material-components-web/blob/master/docs/architecture.md
- *
- * @record
+ * https://github.com/material-components/material-components-web/blob/master/docs/code/architecture.md
  */
-export class MDCFormFieldAdapter {
+export default interface MDCFormFieldAdapter {
     registerInteractionHandler(type: string, handler: EventListener): void;
 
     deregisterInteractionHandler(type: string, handler: EventListener): void;
@@ -39,5 +37,3 @@ export class MDCFormFieldAdapter {
 
     deactivateInputRipple(): void;
 }
-
-export default MDCFormFieldAdapter;

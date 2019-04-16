@@ -1,6 +1,7 @@
-/// <reference types="activex-iwshruntimelibrary" />
+/// <reference types="windows-script-host" />
+/// <reference types="activex-scripting" />
 
-const collectionToArray = <T>(col: { Item(index: any): T } | SafeArray<T>) => {
+const collectionToArray = <T>(col: { Item(index: any): T }): T[] => {
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();
@@ -12,9 +13,9 @@ const collectionToArray = <T>(col: { Item(index: any): T } | SafeArray<T>) => {
 };
 
 const toSafeArray = <T>(...items: T[]): SafeArray<T> => {
-    const dict = new ActiveXObject('Scripting.Dictionary');
+    const dict: Scripting.Dictionary<number, T> = new ActiveXObject('Scripting.Dictionary');
     items.forEach((x, index) => dict.Add(index, x));
-    return dict.Items() as SafeArray<T>;
+    return dict.Items();
 };
 
 const VB = {
@@ -422,7 +423,7 @@ the job?
     document.GroupBroadcastReceipts = true;
 
     const jobIDs = document.Submit('');
-    collectionToArray(jobIDs).forEach(jobID => WScript.Echo(`The job ID is ${jobID}`));
+    new VBArray(jobIDs).toArray().forEach(jobID => WScript.Echo(`The job ID is ${jobID}`));
 
     while (recipients.Count > 0) {
         recipients.Remove(1);

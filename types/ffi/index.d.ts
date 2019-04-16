@@ -1,6 +1,6 @@
-// Type definitions for node-ffi 0.1
-// Project: https://github.com/rbranson/node-ffi
-// Definitions by: Paul Loyd <https://github.com/loyd>
+// Type definitions for node-ffi 0.2
+// Project: https://github.com/rbranson/node-ffi, http://github.com/node-ffi/node-ffi
+// Definitions by: Paul Loyd <https://github.com/loyd>, Waiting Song <https://github.com/waitingsong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -135,12 +135,13 @@ export const DynamicLibrary: {
  * The function pointer may be used in other C functions that
  * accept C callback functions.
  */
-export const Callback: {
+export interface Callback {
     new (retType: any, argTypes: any[], abi: number, fn: any): Buffer;
     new (retType: any, argTypes: any[], fn: any): Buffer;
     (retType: any, argTypes: any[], abi: number, fn: any): Buffer;
     (retType: any, argTypes: any[], fn: any): Buffer;
-};
+}
+export const Callback: Callback;
 
 export const ffiType: {
     /** Get a `ffi_type *` Buffer appropriate for the given type. */
@@ -160,6 +161,11 @@ export const FFI_FIRST_ABI: number;
 export const FFI_LAST_ABI: number;
 export const FFI_SYSV: number;
 export const FFI_UNIX64: number;
+export const FFI_WIN64: number;
+export const FFI_VFP: number;
+export const FFI_STDCALL: number;
+export const FFI_THISCALL: number;
+export const FFI_FASTCALL: number;
 export const RTLD_LAZY: number;
 export const RTLD_NOW: number;
 export const RTLD_LOCAL: number;

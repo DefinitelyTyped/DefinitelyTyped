@@ -22,12 +22,18 @@ taker.task("task3", () => {
     });
 });
 
-taker.task("task3", ["task1"], () => {
-    return new Promise((resolve, reject) => {
-        // do things depending on "task1"
-        resolve(); // when everything is done
-    });
-});
+const task4: Undertaker.TaskFunction = () => Promise.resolve();
+task4.displayName = "task4";
+task4.description = "The fourth task";
+task4.flags = {
+    "--foo": "bar",
+};
+taker.task(task4);
+const {
+    displayName,
+    description,
+    flags,
+} = taker.task("task4").unwrap();
 
 taker.task("combined", taker.series("task1", "task2"));
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface ReactWidgetsCommonProps<C> extends React.Props<C> {
+export interface ReactWidgetsCommonProps<C> extends React.Props<C> {
     /**
      * Disable the widget, if an Array of values is passed in only those values will be disabled.
      * @default false
@@ -19,6 +19,10 @@ interface ReactWidgetsCommonProps<C> extends React.Props<C> {
      * @default false
      */
     isRtl?: boolean;
+    /**
+     * Used to label and annotate aria- attributes
+     */
+    id?: string;
 }
 
 export interface AutoFocus {
@@ -28,7 +32,7 @@ export interface AutoFocus {
     autoFocus?: boolean;
 }
 
-interface ReactWidgetsCommonDropdownProps<C> extends ReactWidgetsCommonProps<C> {
+export interface ReactWidgetsCommonDropdownProps<C> extends ReactWidgetsCommonProps<C> {
     /**
      * Show "drop up" not "drop down"
      * @default false

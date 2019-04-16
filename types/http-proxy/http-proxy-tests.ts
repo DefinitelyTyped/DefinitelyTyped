@@ -24,3 +24,11 @@ proxy.on("start", (req, res, target) => {
 http.createServer((req, res) => {
   proxy.web(req, res);
 });
+
+const newProxy = HttpProxy.createProxyServer({
+    target: {
+        host: 'localhost',
+        port: '9015'
+    },
+    ws: true
+});

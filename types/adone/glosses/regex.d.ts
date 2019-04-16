@@ -2,9 +2,17 @@ declare namespace adone {
     namespace regex {
         function filename(): RegExp;
 
-        function ip4(): RegExp;
+        namespace I.IP {
+            interface Options {
+                exact?: boolean;
+            }
+        }
 
-        function ip6(): RegExp;
+        function ip(options?: I.IP.Options): RegExp;
+
+        function ip4(options?: I.IP.Options): RegExp;
+
+        function ip6(options?: I.IP.Options): RegExp;
 
         function protocol(): RegExp;
 

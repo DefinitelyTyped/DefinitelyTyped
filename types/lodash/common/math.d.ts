@@ -160,7 +160,7 @@ declare module "../index" {
          *
          * @category Math
          * @param array The array to iterate over.
-         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @param iteratee The iteratee invoked per element.
          * @returns Returns the maximum value.
          * @example
          *
@@ -175,7 +175,7 @@ declare module "../index" {
          */
         maxBy<T>(
             collection: List<T> | null | undefined,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): T | undefined;
     }
 
@@ -185,7 +185,7 @@ declare module "../index" {
          */
         maxBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): T | undefined;
     }
 
@@ -195,7 +195,7 @@ declare module "../index" {
          */
         maxBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): LoDashExplicitWrapper<T | undefined>;
     }
 
@@ -240,7 +240,7 @@ declare module "../index" {
        *
        * @category Math
        * @param array The array to iterate over.
-       * @param [iteratee=_.identity] The iteratee invoked per element.
+       * @param iteratee The iteratee invoked per element.
        * @returns Returns the mean.
        * @example
        *
@@ -249,7 +249,7 @@ declare module "../index" {
        */
         meanBy<T>(
             collection: List<T> | null | undefined,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): number;
     }
 
@@ -259,7 +259,7 @@ declare module "../index" {
          */
         meanBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): number;
     }
 
@@ -269,7 +269,7 @@ declare module "../index" {
          */
         meanBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -313,7 +313,7 @@ declare module "../index" {
          *
          * @category Math
          * @param array The array to iterate over.
-         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @param iteratee The iteratee invoked per element.
          * @returns Returns the minimum value.
          * @example
          *
@@ -328,7 +328,7 @@ declare module "../index" {
          */
         minBy<T>(
             collection: List<T> | null | undefined,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): T | undefined;
     }
 
@@ -338,7 +338,7 @@ declare module "../index" {
          */
         minBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): T | undefined;
     }
 
@@ -348,7 +348,7 @@ declare module "../index" {
          */
         minBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): LoDashExplicitWrapper<T | undefined>;
     }
 
@@ -529,8 +529,4 @@ declare module "../index" {
             iteratee?: ((value: T) => number) | string
         ): LoDashExplicitWrapper<number>;
     }
-
-    /**********
-     * Number *
-     **********/
 }

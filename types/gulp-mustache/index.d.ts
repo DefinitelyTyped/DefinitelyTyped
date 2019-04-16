@@ -11,7 +11,7 @@ declare namespace GulpMustache {
     type View = Hash | string | undefined;
 
     interface Hash {
-        [key: string]: string;
+        [key: string]: any;
     }
 
     interface Options {

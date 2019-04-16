@@ -1,4 +1,4 @@
-// Type definitions for escape-string-regexp
+// Type definitions for escape-string-regexp 1.0
 // Project: https://github.com/sindresorhus/escape-string-regexp
 // Definitions by: kruncher <https://github.com/kruncher>
 //                 faergeek <https://github.com/faergeek>

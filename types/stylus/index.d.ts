@@ -1,5 +1,5 @@
 // Type definitions for stylus 0.48
-// Project: https://github.com/LearnBoost/stylus
+// Project: https://github.com/stylus/stylus
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -1190,7 +1190,7 @@ declare namespace Stylus {
             /**
              * Merges this query list with the `other`.
              */
-            merge(other: MediaQueryList): MediaQueryList;
+            merge(other: QueryList): QueryList;
 
             /**
              * Return a JSON representation of this node.

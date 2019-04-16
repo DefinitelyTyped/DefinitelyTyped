@@ -1,5 +1,10 @@
 {
+    "files": [
+        "index.d.ts",
+        "react-highlight-words-tests.tsx"
+    ],
     "compilerOptions": {
+        "jsx": "react",
         "module": "commonjs",
         "lib": [
             "es6",
@@ -14,12 +19,7 @@
             "../"
         ],
         "types": [],
-        "jsx": "react",
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "react-highlight-words-tests.tsx"
-    ]
+    }
 }

@@ -32,12 +32,21 @@ URI('').setQuery('foo', 'bar');
 URI('').setQuery({ foo: 'bar' });
 URI('').setSearch('foo', 'bar');
 URI('').setSearch({ foo: 'bar' });
+URI('http://example.org/foo/hello.html').addQuery('foo');
+URI('http://example.org/foo/hello.html').addQuery('foo', 'bar');
+URI('http://example.org/foo/hello.html').addQuery({ foo: 'bar' });
+URI('http://example.org/foo/hello.html').addSearch('foo');
+URI('http://example.org/foo/hello.html').addSearch('foo', 'bar');
+URI('http://example.org/foo/hello.html').addSearch({ foo: 'bar' });
 
 var uri: uri.URI = $('a').uri();
 
 URI('http://example.org/foo/hello.html').segment('bar');
 URI('http://example.org/foo/hello.html').segment(0, 'bar');
 URI('http://example.org/foo/hello.html').segment(['foo', 'bar', 'foobar.html']);
+
+URI('http://example.org/foo/hello.html').segment(0);
+URI('http://example.org/foo/hello.html').segment(100);
 
 URI('http://example.org/foo/hello.html').segmentCoded('foo bar');
 URI('http://example.org/foo/hello.html').segmentCoded(0, 'foo bar');
@@ -102,6 +111,9 @@ URI('http://user:pass@example.org:80/foo/bar.html').equals(
         h: undefined
     })
 );
+
+const template = URITemplate('/items/{?page,count}');
+template.parse() === template;
 
 /*
 Tests for hasSearch(), hasQuery()

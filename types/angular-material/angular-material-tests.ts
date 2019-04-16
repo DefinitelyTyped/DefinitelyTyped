@@ -8,7 +8,8 @@ myApp.config((
     $mdAriaProvider: ng.material.IAriaProvider,
     $mdThemingProvider: ng.material.IThemingProvider,
     $mdIconProvider: ng.material.IIconProvider,
-    $mdProgressCircularProvider: ng.material.IProgressCircularProvider) => {
+    $mdProgressCircularProvider: ng.material.IProgressCircularProvider,
+    $mdDialogProvider: ng.material.IDialogProvider) => {
     $mdThemingProvider.alwaysWatchTheme(true);
     const neonRedMap: ng.material.IPalette = $mdThemingProvider.extendPalette('red', {
         500: 'ff0000'
@@ -56,6 +57,23 @@ myApp.config((
 
     // Globally disables all ARIA warnings.
     $mdAriaProvider.disableWarnings();
+
+    // Add custom dialog preset
+    $mdDialogProvider.addPreset('testPreset', {
+        methods: ['entityName'],
+        options: () => {
+            return {
+                template:
+                    '<md-dialog>' +
+                    'This is a custom preset' +
+                    '</md-dialog>',
+                controllerAs: 'dialog',
+                bindToController: true,
+                clickOutsideToClose: true,
+                escapeToClose: true
+            };
+        }
+    });
 });
 
 myApp.controller('BottomSheetController', ($scope: TestScope, $mdBottomSheet: ng.material.IBottomSheetService, $q: ng.IQService) => {
@@ -192,6 +210,11 @@ myApp.controller('DialogController', ($scope: TestScope, $mdDialog: ng.material.
         onComplete: (scope, element) => { },
         onRemoving: (element, removePromise) => { },
     });
+
+    // Show custom dialog preset
+    $mdDialog.show(
+        $mdDialog['testPreset']().entityName('Product #6')
+    );
 });
 
 class IconDirective implements ng.IDirective {
@@ -396,3 +419,14 @@ myApp.controller('StickyController', ($scope: TestScope, $mdSticky: ng.material.
     $mdSticky($scope, stickyElement);
     $mdSticky($scope, stickyElement, cloneStickyElement);
 });
+
+function mdUtil($mdUtil: ng.material.IUtilService) {
+    // $ExpectType void
+    $mdUtil.enableScrolling();
+
+    // $ExpectType () => void
+    $mdUtil.debounce(() => {});
+
+    // $ExpectType () => string
+    $mdUtil.debounce((): string => "");
+}

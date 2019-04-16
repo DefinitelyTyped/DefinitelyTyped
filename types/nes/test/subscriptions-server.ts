@@ -1,11 +1,11 @@
 // from https://github.com/hapijs/nes#subscriptions
 
-import Hapi = require('hapi');
+import { Server } from 'hapi';
 import Nes = require('nes');
 
-var server = new Hapi.Server();
+var server = new Server();
 
-server.register(Nes).then(() =>{;
+server.register(Nes).then(() => {
 
     server.subscription('/item/{id}');
 

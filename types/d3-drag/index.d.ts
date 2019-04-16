@@ -1,7 +1,8 @@
 // Type definitions for D3JS d3-drag module 1.2
-// Project: https://github.com/d3/d3-drag/
+// Project: https://github.com/d3/d3-drag/, https://d3js.org/d3-drag
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Last module patch version validated against: 1.2.1
 
@@ -199,7 +200,7 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
     /**
      * Set the maximum distance that the mouse can move between mousedown and mouseup that will trigger
      * a subsequent click event. If at any point between mousedown and mouseup the mouse is greater than or equal to
-     * distance from its position on mousedown, the click event follwing mouseup will be suppressed.
+     * distance from its position on mousedown, the click event following mouseup will be suppressed.
      *
      * @param distance The distance threshold between mousedown and mouseup measured in client coordinates (event.clientX and event.clientY).
      * The default is zero.

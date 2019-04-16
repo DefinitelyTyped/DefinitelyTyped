@@ -1,8 +1,10 @@
-// Type definitions for copy-webpack-plugin v4.0.0
-// Project: https://github.com/kevlened/copy-webpack-plugin
+// Type definitions for copy-webpack-plugin 4.4
+// Project: https://github.com/webpack-contrib/copy-webpack-plugin
 // Definitions by: flying-sheep <https://github.com/flying-sheep>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
+
+/// <reference types="node"/>
 
 import { Plugin } from 'webpack'
 import { IOptions } from 'minimatch'
@@ -11,9 +13,15 @@ interface MiniMatchGlob extends IOptions {
 	glob: string
 }
 
+interface MiniMatchOptions extends IOptions {
+	cwd?: string
+}
+
 interface CopyPattern {
 	/** File source path or glob */
 	from: string | MiniMatchGlob
+	/** See the `node-glob` options in addition to the ones below. (default: `{ cwd: context }`) */
+	fromArgs?: MiniMatchOptions
 	/**
 	 * Path or webpack file-loader patterns. defaults:
 	 * output root if `from` is file or dir.
@@ -38,7 +46,9 @@ interface CopyPattern {
 	/** Additional globs to ignore for this pattern. (default: `[]`) */
 	ignore?: Array<string | MiniMatchGlob>
 	/** Function that modifies file contents before writing to webpack. (default: `(content, path) => content`) */
-	transform?: (content: string, path: string) => string
+	transform?: (content: Buffer, path: string) => string | Buffer
+	/** Enable transform caching. You can use `{ cache: { key: 'my-cache-key' } }` to invalidate the cache. (default: `false`) */
+	cache?: boolean | { key: string }
 	/** Overwrites files already in `compilation.assets` (usually added by other plugins; default: `false`) */
 	force?: boolean
 }
@@ -53,7 +63,7 @@ interface CopyWebpackPluginConfiguration {
 }
 
 interface CopyWebpackPlugin {
-    new (patterns?: CopyPattern[], options?: CopyWebpackPluginConfiguration): Plugin
+    new (patterns?: (string | CopyPattern)[], options?: CopyWebpackPluginConfiguration): Plugin
 }
 
 declare const copyWebpackPlugin: CopyWebpackPlugin

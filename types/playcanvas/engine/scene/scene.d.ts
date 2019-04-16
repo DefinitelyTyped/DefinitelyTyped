@@ -326,5 +326,7 @@ declare namespace pc {
          * @author Will Eastcott
          */
         update(): void;
+
+        setSkybox(cubemaps: pc.Texture[]): void;
     }
 }

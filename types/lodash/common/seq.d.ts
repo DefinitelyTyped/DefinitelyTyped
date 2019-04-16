@@ -141,13 +141,12 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * This method invokes interceptor and returns value. The interceptor is bound to thisArg and invoked with one
+         * This method invokes interceptor and returns value. The interceptor is invoked with one
          * argument; (value). The purpose of this method is to "tap into" a method chain in order to perform operations
          * on intermediate results within the chain.
          *
          * @param value The value to provide to interceptor.
          * @param interceptor The function to invoke.
-         * @parem thisArg The this binding of interceptor.
          * @return Returns value.
          **/
         tap<T>(
@@ -173,7 +172,6 @@ declare module "../index" {
          *
          * @param value The value to provide to interceptor.
          * @param interceptor The function to invoke.
-         * @param thisArg The this binding of interceptor.
          * @return Returns the result of interceptor.
          */
         thru<T, TResult>(

@@ -1,6 +1,9 @@
-// Type definitions for minio 4.0
+// Type definitions for minio 7.0
 // Project: https://github.com/minio/minio-js#readme
 // Definitions by: Barin Britva <https://github.com/barinbritva>
+//                 Lubomir Kaplan <https://github.com/castorw>
+//                 Panagiotis Kapros <https://github.com/loremaps>
+//                 Ben Watkins <https://github.com/OutdatedVersion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -10,8 +13,7 @@ import { Stream } from 'stream';
 import EventEmitter = NodeJS.EventEmitter;
 
 // Exports only from typings
-export type Region = 'us-east-1'|'us-west-1'|'us-west-2'|'eu-west-1'|'eu-central-1'|'ap-southeast-1'|'ap-northeast-1'|'ap-southeast-2'|'sa-east-1'|'cn-north-1';
-export type PolicyValue = 'none'|'readonly'|'writeonly'|'readwrite';
+export type Region = 'us-east-1'|'us-west-1'|'us-west-2'|'eu-west-1'|'eu-central-1'|'ap-southeast-1'|'ap-northeast-1'|'ap-southeast-2'|'sa-east-1'|'cn-north-1'|string;
 export type NoResultCallback = (error: Error|null) => void;
 export type ResultCallback<T> = (error: Error|null, result: T) => void;
 
@@ -19,9 +21,11 @@ export interface ClientOptions {
     endPoint: string;
     accessKey: string;
     secretKey: string;
-    secure?: boolean;
+    useSSL?: boolean;
     port?: number;
     region?: Region;
+    transport?: any;
+    sessionToken?: string;
 }
 
 export interface BucketItemFromList {
@@ -44,10 +48,9 @@ export interface BucketItem {
 
 export interface BucketItemStat {
     size: number;
-    contentType: string;
     etag: string;
-    // In documentation in this case string. Is it doc error?
-    lastModified: Date|string;
+    lastModified: Date;
+    metaData: ItemBucketMetadata;
 }
 
 export interface IncompleteUploadedBucketItem {
@@ -58,6 +61,7 @@ export interface IncompleteUploadedBucketItem {
 
 export interface BucketStream<T> extends Stream {
     on(event: 'data', listener: (item: T) => void): this;
+    on(event: 'error', listener: (error: Error) => void): this;
 }
 
 export interface PostPolicyResult {
@@ -65,6 +69,10 @@ export interface PostPolicyResult {
     formData: {
         [key: string]: any;
     };
+}
+
+export interface ItemBucketMetadata {
+    [key: string]: any;
 }
 
 // No need to export this. But without it - linter error.
@@ -80,16 +88,14 @@ export class Client {
     constructor(options: ClientOptions);
 
     // Bucket operations
-    makeBucket(bucketName: string, callback: NoResultCallback): void;
     makeBucket(bucketName: string, region: Region, callback: NoResultCallback): void;
-    makeBucket(bucketName: string, region?: Region): Promise<void>;
+    makeBucket(bucketName: string, region: Region): Promise<void>;
 
     listBuckets(callback: ResultCallback<BucketItemFromList[]>): void;
-    listBuckets(): Promise<BucketItemFromList>;
+    listBuckets(): Promise<BucketItemFromList[]>;
 
-    // Doc contains error - no boolean value in result
-    bucketExists(bucketName: string, callback: NoResultCallback): void;
-    bucketExists(bucketName: string): Promise<void>;
+    bucketExists(bucketName: string, callback: ResultCallback<boolean>): void;
+    bucketExists(bucketName: string): Promise<boolean>;
 
     removeBucket(bucketName: string, callback: NoResultCallback): void;
     removeBucket(bucketName: string): Promise<void>;
@@ -113,11 +119,11 @@ export class Client {
 
     putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, callback: ResultCallback<string>): void;
     putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, cotentType: string, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size?: number, cotentType?: string): Promise<string>;
+    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
+    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size?: number, metaData?: ItemBucketMetadata): Promise<string>;
 
-    fPutObject(bucketName: string, objectName: string, filePath: string, contentType: string, callback: ResultCallback<string>): void;
-    fPutObject(bucketName: string, objectName: string, filePath: string, contentType: string): Promise<string>;
+    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
+    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata): Promise<string>;
 
     copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions, callback: ResultCallback<BucketItemCopy>): void;
     copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions): Promise<BucketItemCopy>;
@@ -127,6 +133,9 @@ export class Client {
 
     removeObject(bucketName: string, objectName: string, callback: NoResultCallback): void;
     removeObject(bucketName: string, objectName: string): Promise<void>;
+
+    removeObjects(bucketName: string, objectsList: string[], callback: NoResultCallback): void;
+    removeObjects(bucketName: string, objectsList: string[]): Promise<void>;
 
     removeIncompleteUpload(bucketName: string, objectName: string, callback: NoResultCallback): void;
     removeIncompleteUpload(bucketName: string, objectName: string): Promise<void>;
@@ -161,11 +170,11 @@ export class Client {
     // todo #low Specify events
     listenBucketNotification(bucketName: string, prefix: string, suffix: string, events: string[]): EventEmitter;
 
-    getBucketPolicy(bucketName: string, objectPrefix: string, callback: ResultCallback<PolicyValue>): void;
-    getBucketPolicy(bucketName: string, objectPrefix: string): Promise<PolicyValue>;
+    getBucketPolicy(bucketName: string, callback: ResultCallback<string>): void;
+    getBucketPolicy(bucketName: string): Promise<string>;
 
-    setBucketPolicy(bucketName: string, objectPrefix: string, bucketPolice: PolicyValue, callback: NoResultCallback): void;
-    setBucketPolicy(bucketName: string, objectPrefix: string, bucketPolice: PolicyValue): Promise<void>;
+    setBucketPolicy(bucketName: string, bucketPolicy: string, callback: NoResultCallback): void;
+    setBucketPolicy(bucketName: string, bucketPolicy: string): Promise<void>;
 
     // Other
     newPostPolicy(): PostPolicy;

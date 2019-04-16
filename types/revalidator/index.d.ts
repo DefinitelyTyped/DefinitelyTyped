@@ -88,6 +88,8 @@ declare module Revalidator {
         conform?: (value: any, data?: T) => boolean;
         /**Value is valid only if the dependent value is valid */
         dependencies?: string;
+        /**Property to describe items for type: 'array' */
+        items?: ISchema<T>|JSONSchema<T>
     }
 }
 

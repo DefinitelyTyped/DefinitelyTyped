@@ -11,6 +11,7 @@ new Awesomplete(input, {
 
 const awesomplete = new Awesomplete(input);
 awesomplete.list = ["Ada", "Java", "JavaScript", "LOLCODE", "Node.js", "Ruby on Rails"];
+awesomplete.destroy();
 
 new Awesomplete(input, {
     list: [
@@ -45,7 +46,7 @@ new Awesomplete('input[data-multiple]', {
         return Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0]);
     },
 
-    replace: (text: string) => {
+    replace(text: string) {
         const before = this.input.value.match(/^.+,\s*|/)[0];
         this.input.value = `${before}${text}, `;
     }

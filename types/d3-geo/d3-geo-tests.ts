@@ -89,7 +89,33 @@ const sampleExtendedFeatureCollection: d3Geo.ExtendedFeatureCollection<d3Geo.Ext
         sampleExtendedFeature2
     ]
 };
+const sampleNullableFeature: GeoJSON.Feature<null> = {
+    type: 'Feature',
+    geometry: null,
+    properties: null
+};
 
+const sampleExtendedNullableFeature: d3Geo.ExtendedFeature = {
+    type: 'Feature',
+    geometry: null,
+    properties: null
+};
+
+const sampleNullableFeatureCollection: GeoJSON.FeatureCollection<null> = {
+    type: 'FeatureCollection',
+    features: [
+        sampleNullableFeature,
+        sampleNullableFeature
+    ]
+};
+
+const sampleExtendedNullableFeatureCollection: d3Geo.ExtendedFeatureCollection = {
+    type: 'FeatureCollection',
+    features: [
+        sampleExtendedNullableFeature,
+        sampleExtendedNullableFeature
+    ]
+};
 // ----------------------------------------------------------------------
 // Spherical Math
 // ----------------------------------------------------------------------
@@ -101,10 +127,14 @@ area = d3Geo.geoArea(sampleSphere);
 area = d3Geo.geoArea(sampleGeometryCollection);
 area = d3Geo.geoArea(sampleExtendedGeometryCollection);
 area = d3Geo.geoArea(sampleFeature);
+area = d3Geo.geoArea(sampleNullableFeature);
 area = d3Geo.geoArea(sampleExtendedFeature1);
 area = d3Geo.geoArea(sampleExtendedFeature2);
+area = d3Geo.geoArea(sampleExtendedNullableFeature);
 area = d3Geo.geoArea(sampleFeatureCollection);
+area = d3Geo.geoArea(sampleNullableFeatureCollection);
 area = d3Geo.geoArea(sampleExtendedFeatureCollection);
+area = d3Geo.geoArea(sampleExtendedNullableFeatureCollection);
 
 // geoBounds(...) =========================================================
 
@@ -113,10 +143,14 @@ bounds = d3Geo.geoBounds(sampleSphere);
 bounds = d3Geo.geoBounds(sampleGeometryCollection);
 bounds = d3Geo.geoBounds(sampleExtendedGeometryCollection);
 bounds = d3Geo.geoBounds(sampleFeature);
+bounds = d3Geo.geoBounds(sampleNullableFeature);
 bounds = d3Geo.geoBounds(sampleExtendedFeature1);
 bounds = d3Geo.geoBounds(sampleExtendedFeature2);
+bounds = d3Geo.geoBounds(sampleExtendedNullableFeature);
 bounds = d3Geo.geoBounds(sampleFeatureCollection);
+bounds = d3Geo.geoBounds(sampleNullableFeatureCollection);
 bounds = d3Geo.geoBounds(sampleExtendedFeatureCollection);
+bounds = d3Geo.geoBounds(sampleExtendedNullableFeatureCollection);
 
 // geoCentroid(...) =======================================================
 
@@ -125,10 +159,14 @@ centroid = d3Geo.geoCentroid(sampleSphere);
 centroid = d3Geo.geoCentroid(sampleGeometryCollection);
 centroid = d3Geo.geoCentroid(sampleExtendedGeometryCollection);
 centroid = d3Geo.geoCentroid(sampleFeature);
+centroid = d3Geo.geoCentroid(sampleNullableFeature);
 centroid = d3Geo.geoCentroid(sampleExtendedFeature1);
 centroid = d3Geo.geoCentroid(sampleExtendedFeature2);
+centroid = d3Geo.geoCentroid(sampleExtendedNullableFeature);
 centroid = d3Geo.geoCentroid(sampleFeatureCollection);
+centroid = d3Geo.geoCentroid(sampleNullableFeatureCollection);
 centroid = d3Geo.geoCentroid(sampleExtendedFeatureCollection);
+centroid = d3Geo.geoCentroid(sampleExtendedNullableFeatureCollection);
 
 // geoContains(...) =======================================================
 
@@ -137,10 +175,14 @@ contained = d3Geo.geoContains(sampleSphere, [0, 0]);
 contained = d3Geo.geoContains(sampleGeometryCollection, [0, 0]);
 contained = d3Geo.geoContains(sampleExtendedGeometryCollection, [0, 0]);
 contained = d3Geo.geoContains(sampleFeature, [0, 0]);
+contained = d3Geo.geoContains(sampleNullableFeature, [0, 0]);
 contained = d3Geo.geoContains(sampleExtendedFeature1, [0, 0]);
 contained = d3Geo.geoContains(sampleExtendedFeature2, [0, 0]);
+contained = d3Geo.geoContains(sampleExtendedNullableFeature, [0, 0]);
 contained = d3Geo.geoContains(sampleFeatureCollection, [0, 0]);
+contained = d3Geo.geoContains(sampleNullableFeatureCollection, [0, 0]);
 contained = d3Geo.geoContains(sampleExtendedFeatureCollection, [0, 0]);
+contained = d3Geo.geoContains(sampleExtendedNullableFeatureCollection, [0, 0]);
 
 // geoDistance(...) =======================================================
 
@@ -153,10 +195,14 @@ length = d3Geo.geoLength(sampleSphere);
 length = d3Geo.geoLength(sampleGeometryCollection);
 length = d3Geo.geoLength(sampleExtendedGeometryCollection);
 length = d3Geo.geoLength(sampleFeature);
+length = d3Geo.geoLength(sampleNullableFeature);
 length = d3Geo.geoLength(sampleExtendedFeature1);
 length = d3Geo.geoLength(sampleExtendedFeature2);
+length = d3Geo.geoLength(sampleExtendedNullableFeature);
 length = d3Geo.geoLength(sampleFeatureCollection);
+length = d3Geo.geoLength(sampleNullableFeatureCollection);
 length = d3Geo.geoLength(sampleExtendedFeatureCollection);
+length = d3Geo.geoLength(sampleExtendedNullableFeatureCollection);
 
 // geoInterpolate(...) ====================================================
 
@@ -181,7 +227,7 @@ const inverted: [number, number] = rotation.invert([54, 2]);
 // Create GeoCircleGenerator ============================================
 
 // simple use case
-let circleGeneratorSimple: d3Geo.GeoCircleGenerator<any, any> = d3Geo.geoCircle();
+let circleGeneratorSimple: d3Geo.GeoCircleGenerator = d3Geo.geoCircle();
 
 // complex use as part of object
 class Circulator {
@@ -325,14 +371,16 @@ const gnomonicRaw: d3Geo.GeoRawProjection = d3Geo.geoGnomonicRaw();
 const mercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoMercatorRaw();
 const orthographicRaw: d3Geo.GeoRawProjection = d3Geo.geoOrthographicRaw();
 const stereographicRaw: d3Geo.GeoRawProjection = d3Geo.geoStereographicRaw();
+const equalEarthRaw: d3Geo.GeoRawProjection = d3Geo.geoEqualEarthRaw();
 const transverseMercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoTransverseMercatorRaw();
-const naturalEart1Raw: d3Geo.GeoRawProjection = d3Geo.geoNaturalEarth1Raw();
+const naturalEarth1Raw: d3Geo.GeoRawProjection = d3Geo.geoNaturalEarth1Raw();
 
 // Use Raw Projection =====================================================
 
 const rawProjectionPoint: [number, number] = azimuthalEqualAreaRaw(54, 2);
-const rawProjectionInvertedPoint: [number, number] = azimuthalEqualAreaRaw.invert(180, 6);
-
+if (azimuthalEqualAreaRaw.invert) {
+    const rawProjectionInvertedPoint: [number, number] = azimuthalEqualAreaRaw.invert(180, 6);
+}
 // ----------------------------------------------------------------------
 // Pre-Defined Projections
 // ----------------------------------------------------------------------
@@ -346,13 +394,14 @@ const azimuthalEquidistant: d3Geo.GeoProjection = d3Geo.geoAzimuthalEquidistant(
 let conicConformal: d3Geo.GeoConicProjection = d3Geo.geoConicConformal();
 const conicEqualArea: d3Geo.GeoConicProjection = d3Geo.geoConicEqualArea();
 const conicEquidistant: d3Geo.GeoConicProjection = d3Geo.geoConicEquidistant();
-const cquirectangular: d3Geo.GeoProjection = d3Geo.geoEquirectangular();
+const equirectangular: d3Geo.GeoProjection = d3Geo.geoEquirectangular();
 const gnomonic: d3Geo.GeoProjection = d3Geo.geoGnomonic();
 const mercator: d3Geo.GeoProjection = d3Geo.geoMercator();
 const orthographic: d3Geo.GeoProjection = d3Geo.geoOrthographic();
 const stereographic: d3Geo.GeoProjection = d3Geo.geoStereographic();
+const equalEarth: d3Geo.GeoProjection = d3Geo.geoEqualEarth();
 const transverseMercator: d3Geo.GeoProjection = d3Geo.geoTransverseMercator();
-const natualEarth1: d3Geo.GeoProjection = d3Geo.geoNaturalEarth1();
+const naturalEarth1: d3Geo.GeoProjection = d3Geo.geoNaturalEarth1();
 
 // ----------------------------------------------------------------------
 // Create New Projections
@@ -365,8 +414,10 @@ let constructedProjection: d3Geo.GeoProjection = mutate();
 
 // Use Projection ==========================================================
 
-const projected: [number, number] = constructedProjection([54, 2]);
-const inverted2: [number, number] = constructedProjection.invert([54, 2]);
+const projected: [number, number] | null = constructedProjection([54, 2]);
+if (constructedProjection.invert) {
+    const inverted2: [number, number] | null = constructedProjection.invert([54, 2]);
+}
 
 // TODO ?????
 // let stream: d3Geo.Stream = constructedProjection.stream([54, 2]);
@@ -378,7 +429,7 @@ constructedProjection = constructedProjection.preclip(d3Geo.geoClipCircle(45));
 const postClip: (stream: d3Geo.GeoStream) => d3Geo.GeoStream = constructedProjection.postclip();
 constructedProjection = constructedProjection.postclip(d3Geo.geoClipRectangle(0, 0, 1, 1));
 
-const clipAngle: number = constructedProjection.clipAngle();
+const clipAngle: number | null = constructedProjection.clipAngle();
 constructedProjection = constructedProjection.clipAngle(null);
 constructedProjection = constructedProjection.clipAngle(45);
 
@@ -395,6 +446,9 @@ constructedProjection = constructedProjection.translate([480, 250]);
 const center: [number, number] = constructedProjection.center();
 constructedProjection = constructedProjection.center([0, 0]);
 
+const angle = constructedProjection.angle();
+constructedProjection = constructedProjection.angle(45);
+
 const rotate: [number, number, number] = constructedProjection.rotate();
 constructedProjection = constructedProjection.rotate([0, 0]);
 constructedProjection = constructedProjection.rotate([0, 0, 0]);
@@ -407,40 +461,56 @@ constructedProjection = constructedProjection.fitExtent([[0, 0], [960, 500]], sa
 constructedProjection = constructedProjection.fitExtent([[0, 0], [960, 500]], sampleGeometryCollection);
 constructedProjection = constructedProjection.fitExtent([[0, 0], [960, 500]], sampleExtendedGeometryCollection);
 constructedProjection = constructedProjection.fitExtent([[0, 0], [960, 500]], sampleFeature);
+constructedProjection = constructedProjection.fitExtent([[0, 0], [960, 500]], sampleNullableFeature);
 constructedProjection = constructedProjection.fitExtent([[0, 0], [960, 500]], sampleExtendedFeature1);
 constructedProjection = constructedProjection.fitExtent([[0, 0], [960, 500]], sampleExtendedFeature2);
+constructedProjection = constructedProjection.fitExtent([[0, 0], [960, 500]], sampleExtendedNullableFeature);
 constructedProjection = constructedProjection.fitExtent([[0, 0], [960, 500]], sampleFeatureCollection);
+constructedProjection = constructedProjection.fitExtent([[0, 0], [960, 500]], sampleNullableFeatureCollection);
 constructedProjection = constructedProjection.fitExtent([[0, 0], [960, 500]], sampleExtendedFeatureCollection);
+constructedProjection = constructedProjection.fitExtent([[0, 0], [960, 500]], sampleExtendedNullableFeatureCollection);
 
 constructedProjection = constructedProjection.fitSize([960, 500], samplePolygon);
 constructedProjection = constructedProjection.fitSize([960, 500], sampleSphere);
 constructedProjection = constructedProjection.fitSize([960, 500], sampleGeometryCollection);
 constructedProjection = constructedProjection.fitSize([960, 500], sampleExtendedGeometryCollection);
 constructedProjection = constructedProjection.fitSize([960, 500], sampleFeature);
+constructedProjection = constructedProjection.fitSize([960, 500], sampleNullableFeature);
 constructedProjection = constructedProjection.fitSize([960, 500], sampleExtendedFeature1);
 constructedProjection = constructedProjection.fitSize([960, 500], sampleExtendedFeature2);
+constructedProjection = constructedProjection.fitSize([960, 500], sampleExtendedNullableFeature);
 constructedProjection = constructedProjection.fitSize([960, 500], sampleFeatureCollection);
+constructedProjection = constructedProjection.fitSize([960, 500], sampleNullableFeatureCollection);
 constructedProjection = constructedProjection.fitSize([960, 500], sampleExtendedFeatureCollection);
+constructedProjection = constructedProjection.fitSize([960, 500], sampleExtendedNullableFeatureCollection);
 
 constructedProjection = constructedProjection.fitWidth(960, samplePolygon);
 constructedProjection = constructedProjection.fitWidth(960, sampleSphere);
 constructedProjection = constructedProjection.fitWidth(960, sampleGeometryCollection);
 constructedProjection = constructedProjection.fitWidth(960, sampleExtendedGeometryCollection);
 constructedProjection = constructedProjection.fitWidth(960, sampleFeature);
+constructedProjection = constructedProjection.fitWidth(960, sampleNullableFeature);
 constructedProjection = constructedProjection.fitWidth(960, sampleExtendedFeature1);
 constructedProjection = constructedProjection.fitWidth(960, sampleExtendedFeature2);
+constructedProjection = constructedProjection.fitWidth(960, sampleExtendedNullableFeature);
 constructedProjection = constructedProjection.fitWidth(960, sampleFeatureCollection);
+constructedProjection = constructedProjection.fitWidth(960, sampleNullableFeatureCollection);
 constructedProjection = constructedProjection.fitWidth(960, sampleExtendedFeatureCollection);
+constructedProjection = constructedProjection.fitWidth(960, sampleExtendedNullableFeatureCollection);
 
 constructedProjection = constructedProjection.fitHeight(500, samplePolygon);
 constructedProjection = constructedProjection.fitHeight(500, sampleSphere);
 constructedProjection = constructedProjection.fitHeight(500, sampleGeometryCollection);
 constructedProjection = constructedProjection.fitHeight(500, sampleExtendedGeometryCollection);
 constructedProjection = constructedProjection.fitHeight(500, sampleFeature);
+constructedProjection = constructedProjection.fitHeight(500, sampleNullableFeature);
 constructedProjection = constructedProjection.fitHeight(500, sampleExtendedFeature1);
 constructedProjection = constructedProjection.fitHeight(500, sampleExtendedFeature2);
+constructedProjection = constructedProjection.fitHeight(500, sampleExtendedNullableFeature);
 constructedProjection = constructedProjection.fitHeight(500, sampleFeatureCollection);
+constructedProjection = constructedProjection.fitHeight(500, sampleNullableFeatureCollection);
 constructedProjection = constructedProjection.fitHeight(500, sampleExtendedFeatureCollection);
+constructedProjection = constructedProjection.fitHeight(500, sampleExtendedNullableFeatureCollection);
 
 // ----------------------------------------------------------------------
 // GeoConicProjection interface
@@ -468,7 +538,7 @@ const minimalRenderingContextMockUp: d3Geo.GeoContext = {
 
 // Create geoPath Generator =============================================
 
-let geoPathCanvas: d3Geo.GeoPath<any, d3Geo.GeoPermissibleObjects>;
+let geoPathCanvas: d3Geo.GeoPath;
 geoPathCanvas = d3Geo.geoPath();
 geoPathCanvas = d3Geo.geoPath(null);
 geoPathCanvas = d3Geo.geoPath(null, null);
@@ -484,13 +554,13 @@ geoPathSVG = d3Geo.geoPath<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon
 // projection(...) ------------------------------------------------------
 
 geoPathCanvas = geoPathCanvas.projection(azimuthalEqualArea);
-const geoPathProjectionMinimal: d3Geo.GeoStreamWrapper = geoPathCanvas.projection();
-const geoPathProjectionUnion: d3Geo.GeoProjection | d3Geo.GeoConicProjection | d3Geo.GeoStreamWrapper = geoPathCanvas.projection();
+const geoPathProjectionMinimal: d3Geo.GeoStreamWrapper | null = geoPathCanvas.projection();
+const geoPathProjectionUnion: d3Geo.GeoProjection | d3Geo.GeoConicProjection | d3Geo.GeoStreamWrapper | null = geoPathCanvas.projection();
 const geoPathProjection: d3Geo.GeoProjection = geoPathCanvas.projection<d3Geo.GeoProjection>();
 
 geoPathSVG = geoPathSVG.projection(conicConformal);
 const geoPathConicProjection: d3Geo.GeoConicProjection = geoPathSVG.projection<d3Geo.GeoConicProjection>();
-// geoPathConicProjection = geoPathSVG.projection(); // fails without casting to GeoConicProjection, or alternatively custom typeguard
+// geoPathConicProjection = geoPathSVG.projection(); // fails without casting to GeoConicProjection, or alternatively custom type guard
 // geoPathConicProjection = geoPathSVG.projection<SampleProperties1>(); // fails as SampleProperties does not extend minimal interface
 
 // context(...) ------------------------------------------------------
@@ -498,13 +568,13 @@ const geoPathConicProjection: d3Geo.GeoConicProjection = geoPathSVG.projection<d
 // minimal context interface (mockup)
 geoPathCanvas = geoPathCanvas.context(minimalRenderingContextMockUp);
 
-const geoPathContext: d3Geo.GeoContext = geoPathCanvas.context();
+const geoPathContext: d3Geo.GeoContext | null = geoPathCanvas.context();
 
 // reset
 geoPathCanvas = geoPathCanvas.context(null);
 
 // With canvas 2D rendering context
-let canvasContext: CanvasRenderingContext2D;
+let canvasContext: CanvasRenderingContext2D = {} as any;
 
 geoPathCanvas = geoPathCanvas.context(canvasContext);
 
@@ -537,12 +607,17 @@ geoPathArea = geoPathCanvas.area(sampleSphere);
 geoPathArea = geoPathCanvas.area(sampleGeometryCollection);
 geoPathArea = geoPathCanvas.area(sampleExtendedGeometryCollection);
 geoPathArea = geoPathCanvas.area(sampleFeature);
+geoPathArea = geoPathCanvas.area(sampleNullableFeature);
 geoPathArea = geoPathCanvas.area(sampleExtendedFeature1);
 geoPathArea = geoPathCanvas.area(sampleExtendedFeature2);
+geoPathArea = geoPathCanvas.area(sampleExtendedNullableFeature);
 geoPathArea = geoPathCanvas.area(sampleFeatureCollection);
+geoPathArea = geoPathCanvas.area(sampleNullableFeatureCollection);
 geoPathArea = geoPathCanvas.area(sampleExtendedFeatureCollection);
+geoPathArea = geoPathCanvas.area(sampleExtendedNullableFeatureCollection);
 
 // geoPathArea = geoPathSVG.area(sampleExtendedFeatureCollection); // fails, wrong data object type
+// geoPathArea = geoPathSVG.area(sampleExtendedNullableFeatureCollection); // fails, wrong data object type
 
 // bounds(...) ------------------------------------------------------
 
@@ -551,12 +626,17 @@ geoPathBounds = geoPathCanvas.bounds(sampleSphere);
 geoPathBounds = geoPathCanvas.bounds(sampleGeometryCollection);
 geoPathBounds = geoPathCanvas.bounds(sampleExtendedGeometryCollection);
 geoPathBounds = geoPathCanvas.bounds(sampleFeature);
+geoPathBounds = geoPathCanvas.bounds(sampleNullableFeature);
 geoPathBounds = geoPathCanvas.bounds(sampleExtendedFeature1);
 geoPathBounds = geoPathCanvas.bounds(sampleExtendedFeature2);
+geoPathBounds = geoPathCanvas.bounds(sampleExtendedNullableFeature);
 geoPathBounds = geoPathCanvas.bounds(sampleFeatureCollection);
+geoPathBounds = geoPathCanvas.bounds(sampleNullableFeatureCollection);
 geoPathBounds = geoPathCanvas.bounds(sampleExtendedFeatureCollection);
+geoPathBounds = geoPathCanvas.bounds(sampleExtendedNullableFeatureCollection);
 
 // geoPathBounds = geoPathSVG.bounds(sampleExtendedFeatureCollection); // fails, wrong data object type
+// geoPathBounds = geoPathSVG.bounds(sampleExtendedNullableFeatureCollection); // fails, wrong data object type
 
 // centroid(...) ------------------------------------------------------
 
@@ -565,12 +645,17 @@ geoPathCentroid = geoPathCanvas.centroid(sampleSphere);
 geoPathCentroid = geoPathCanvas.centroid(sampleGeometryCollection);
 geoPathCentroid = geoPathCanvas.centroid(sampleExtendedGeometryCollection);
 geoPathCentroid = geoPathCanvas.centroid(sampleFeature);
+geoPathCentroid = geoPathCanvas.centroid(sampleNullableFeature);
 geoPathCentroid = geoPathCanvas.centroid(sampleExtendedFeature1);
 geoPathCentroid = geoPathCanvas.centroid(sampleExtendedFeature2);
+geoPathCentroid = geoPathCanvas.centroid(sampleExtendedNullableFeature);
 geoPathCentroid = geoPathCanvas.centroid(sampleFeatureCollection);
+geoPathCentroid = geoPathCanvas.centroid(sampleNullableFeatureCollection);
 geoPathCentroid = geoPathCanvas.centroid(sampleExtendedFeatureCollection);
+geoPathCentroid = geoPathCanvas.centroid(sampleExtendedNullableFeatureCollection);
 
 // geoPathCentroid = geoPathSVG.centroid(sampleExtendedFeatureCollection); // fails, wrong data object type
+// geoPathCentroid = geoPathSVG.centroid(sampleExtendedNullableFeatureCollection); // fails, wrong data object type
 
 // measure(...) ------------------------------------------------------
 
@@ -579,10 +664,14 @@ geoPathMeasure = geoPathCanvas.measure(sampleSphere);
 geoPathMeasure = geoPathCanvas.measure(sampleGeometryCollection);
 geoPathMeasure = geoPathCanvas.measure(sampleExtendedGeometryCollection);
 geoPathMeasure = geoPathCanvas.measure(sampleFeature);
+geoPathMeasure = geoPathCanvas.measure(sampleNullableFeature);
 geoPathMeasure = geoPathCanvas.measure(sampleExtendedFeature1);
 geoPathMeasure = geoPathCanvas.measure(sampleExtendedFeature2);
+geoPathMeasure = geoPathCanvas.measure(sampleExtendedNullableFeature);
 geoPathMeasure = geoPathCanvas.measure(sampleFeatureCollection);
+geoPathMeasure = geoPathCanvas.measure(sampleNullableFeatureCollection);
 geoPathMeasure = geoPathCanvas.measure(sampleExtendedFeatureCollection);
+geoPathMeasure = geoPathCanvas.measure(sampleExtendedNullableFeatureCollection);
 
 // render path to context of get path string----------------------------
 
@@ -593,10 +682,14 @@ geoPathCanvas(sampleSphere);
 geoPathCanvas(sampleGeometryCollection);
 geoPathCanvas(sampleExtendedGeometryCollection);
 geoPathCanvas(sampleFeature);
+geoPathCanvas(sampleNullableFeature);
 geoPathCanvas(sampleExtendedFeature1);
 geoPathCanvas(sampleExtendedFeature2);
+geoPathCanvas(sampleExtendedNullableFeature);
 geoPathCanvas(sampleFeatureCollection);
+geoPathCanvas(sampleNullableFeatureCollection);
 geoPathCanvas(sampleExtendedFeatureCollection);
+geoPathCanvas(sampleExtendedNullableFeatureCollection);
 
 // Use path string generator for SVGPathElement
 
@@ -628,11 +721,11 @@ const context: d3Geo.GeoContext = {
 
 const transformFunction: { stream(s: d3Geo.GeoStream): {} } = d3Geo.geoTransform({});
 
-interface CustomTranformProto extends d3Geo.GeoTransformPrototype {
+interface CustomTransformProto extends d3Geo.GeoTransformPrototype {
     a: number;
 }
 
-let customTransformProto: CustomTranformProto;
+let customTransformProto: CustomTransformProto;
 
 customTransformProto = {
     point(x, y) {
@@ -641,11 +734,11 @@ customTransformProto = {
     a: 10
 };
 
-const t: { stream(s: d3Geo.GeoStream): CustomTranformProto & d3Geo.GeoStream } = d3Geo.geoTransform(customTransformProto);
+const t: { stream(s: d3Geo.GeoStream): CustomTransformProto & d3Geo.GeoStream } = d3Geo.geoTransform(customTransformProto);
 
 // geoIdentity() ========================================================
 
-let identityTransform: d3Geo.GeoIdentityTranform;
+let identityTransform: d3Geo.GeoIdentityTransform;
 
 identityTransform = d3Geo.geoIdentity();
 
@@ -664,20 +757,28 @@ identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleSphe
 identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleGeometryCollection);
 identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleExtendedGeometryCollection);
 identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleFeature);
+identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleNullableFeature);
 identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleExtendedFeature1);
 identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleExtendedFeature2);
+identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleExtendedNullableFeature);
 identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleFeatureCollection);
+identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleNullableFeatureCollection);
 identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleExtendedFeatureCollection);
+identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleExtendedNullableFeatureCollection);
 
 identityTransform = identityTransform.fitSize([960, 500], samplePolygon);
 identityTransform = identityTransform.fitSize([960, 500], sampleSphere);
 identityTransform = identityTransform.fitSize([960, 500], sampleGeometryCollection);
 identityTransform = identityTransform.fitSize([960, 500], sampleExtendedGeometryCollection);
 identityTransform = identityTransform.fitSize([960, 500], sampleFeature);
+identityTransform = identityTransform.fitSize([960, 500], sampleNullableFeature);
 identityTransform = identityTransform.fitSize([960, 500], sampleExtendedFeature1);
 identityTransform = identityTransform.fitSize([960, 500], sampleExtendedFeature2);
+identityTransform = identityTransform.fitSize([960, 500], sampleExtendedNullableFeature);
 identityTransform = identityTransform.fitSize([960, 500], sampleFeatureCollection);
+identityTransform = identityTransform.fitSize([960, 500], sampleNullableFeatureCollection);
 identityTransform = identityTransform.fitSize([960, 500], sampleExtendedFeatureCollection);
+identityTransform = identityTransform.fitSize([960, 500], sampleExtendedNullableFeatureCollection);
 
 let reflecting: boolean;
 
@@ -700,7 +801,9 @@ stream.lineStart();
 stream.lineEnd();
 stream.polygonStart();
 stream.polygonEnd();
-stream.sphere();
+if (stream.sphere) {
+    stream.sphere();
+}
 
 // geoStream(...) ========================================================
 
@@ -709,10 +812,14 @@ d3Geo.geoStream(sampleSphere, stream);
 d3Geo.geoStream(sampleGeometryCollection, stream);
 d3Geo.geoStream(sampleExtendedGeometryCollection, stream);
 d3Geo.geoStream(sampleFeature, stream);
+d3Geo.geoStream(sampleNullableFeature, stream);
 d3Geo.geoStream(sampleExtendedFeature1, stream);
 d3Geo.geoStream(sampleExtendedFeature2, stream);
+d3Geo.geoStream(sampleExtendedNullableFeature, stream);
 d3Geo.geoStream(sampleFeatureCollection, stream);
+d3Geo.geoStream(sampleNullableFeatureCollection, stream);
 d3Geo.geoStream(sampleExtendedFeatureCollection, stream);
+d3Geo.geoStream(sampleExtendedNullableFeatureCollection, stream);
 
 // ----------------------------------------------------------------------
 // Clipping Function

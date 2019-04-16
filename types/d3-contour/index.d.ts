@@ -1,13 +1,13 @@
-// Type definitions for d3-contour 1.1
+// Type definitions for d3-contour 1.3
 // Project: https://d3js.org/d3-contour/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Hugues Stefanski <https://github.com/Ledragon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.1.0
+// Last module patch version validated against: 1.3.2
 
 import { MultiPolygon } from 'geojson';
-import { ThresholdArrayGenerator, ThresholdCountGenerator } from 'd3-array';
+import { ThresholdNumberArrayGenerator, ThresholdCountGenerator } from 'd3-array';
 
 /**
  * An extended GeoJSON MultiPolygon representing a contour.
@@ -42,6 +42,17 @@ export interface Contours {
     (values: number[]): ContourMultiPolygon[];
 
     /**
+     * Computes a single contour, returning a GeoJSON MultiPolygon geometry object.
+     * This geometry object represents the area where the input values are greater than or equal to the given threshold value;
+     * the threshold value for the geometry object is exposed as geometry.value.
+     *
+     * @param values  Array of input values. The input values must be an array of length n×m where [n, m] is the contour generator’s size;
+     * furthermore, each values[i + jn] must represent the value at the position ⟨i, j⟩.
+     * @param threshold Threshold value.
+     */
+    contour(values: number[], threshold: number): ContourMultiPolygon;
+
+    /**
      * Return the expected size of the input values grid, which defaults to [1,1].
      */
     size(): [number, number];
@@ -67,7 +78,7 @@ export interface Contours {
     /**
      * Returns the current threshold generator, which by default implements Sturges’ formula.
      */
-    thresholds(): ThresholdCountGenerator | ThresholdArrayGenerator<number>;
+    thresholds(): ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>;
     /**
      * Sets the threshold generator to use the specified count and returns this contour generator.
      * The input values’ extent will be uniformly divided into approximately count bins.
@@ -99,7 +110,7 @@ export interface Contours {
      * @param thresholds A threshold generator function. The threshold generator function is passed the array of input values
      * as its argument and returns either an array of calculated thresholds, or the count of thresholds to use.
      */
-    thresholds(thresholds: ThresholdCountGenerator | ThresholdArrayGenerator<number>): this;
+    thresholds(thresholds: ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>): this;
 }
 
 /**
@@ -109,8 +120,13 @@ export function contours(): Contours;
 
 /**
  * A contour generator for density estimates.
+ *
+ * The generic refers to the data type of an element in the data array
+ * used with the density contour generator. If omitted, the default setting assumes that,
+ * the elements of the data array used with the density contour generator are two-element arrays.
+ * The first element corresponds to the x-dimension, the second to the y-dimension.
  */
-export interface ContourDensity<Datum> {
+export interface ContourDensity<Datum = [number, number]> {
     /**
      * Estimates the density contours for the given array of data, returning an array of GeoJSON MultiPolygon geometry objects.
      * Each geometry object represents the area where the estimated number of points per square pixel is greater than or equal to
@@ -154,6 +170,18 @@ export interface ContourDensity<Datum> {
     y(y: (d: Datum) => number): this;
 
     /**
+     * Returns the current point weight accessor.
+     */
+    weight(): (d: Datum) => number;
+
+    /**
+     * Sets the point weight accessor and returns the density contour estimator.
+     *
+     * @param weight A point weight accessor function.
+     */
+    weight(weight: (d: Datum) => number): this;
+
+    /**
      * Returns the current size, which defaults to [960, 500].
      */
     size(): [number, number];
@@ -180,7 +208,7 @@ export interface ContourDensity<Datum> {
     /**
      * Returns the current threshold generator, which by default generates about twenty nicely-rounded density thresholds.
      */
-    thresholds(): ThresholdCountGenerator | ThresholdArrayGenerator<number>;
+    thresholds(): ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>;
     /**
      * Sets the threshold generator to use the specified count and returns this density contour estimator.
      * Approximately count uniformly-spaced nicely-rounded thresholds will be generated.
@@ -212,7 +240,7 @@ export interface ContourDensity<Datum> {
      * @param thresholds A threshold generator function. The threshold generator function is passed the array of input values
      * as its argument and returns either an array of calculated thresholds, or the count of thresholds to use.
      */
-    thresholds(thresholds: ThresholdCountGenerator | ThresholdArrayGenerator<number>): this;
+    thresholds(thresholds: ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>): this;
 
     /**
      * Returns the current bandwidth, which defaults to 20.4939….
@@ -228,20 +256,14 @@ export interface ContourDensity<Datum> {
 }
 
 /**
- * Construct a new contour generator for density estimates with the default settings.
- *
- * The default settings assume that, the elements of the data array used
- * with the density contour generator are two-element arrays. The first element
- * corresponds to the x-dimension, the second to the y-dimension.
- */
-export function contourDensity(): ContourDensity<[number, number]>;
-/**
  * Construct a new contour generator for density estimates.
  *
  * The generic refers to the data type of an element in the data array
- * used with the density contour generator.
+ * used with the density contour generator. If omitted, the default setting assumes that,
+ * the elements of the data array used with the density contour generator are two-element arrays.
+ * The first element corresponds to the x-dimension, the second to the y-dimension.
  *
  * Important: ensure that the x- and y-accessor functions are configured to
  * match the data type used for the generic Datum.
  */
-export function contourDensity<Datum>(): ContourDensity<Datum>;
+export function contourDensity<Datum = [number, number]>(): ContourDensity<Datum>;

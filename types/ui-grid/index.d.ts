@@ -1,6 +1,8 @@
 // Type definitions for ui-grid
 // Project: http://www.ui-grid.info/
-// Definitions by: Ben Tesser <https://github.com/btesser>, Joe Skeen <https://github.com/joeskeen>
+// Definitions by: Ben Tesser <https://github.com/btesser>
+//                 Joe Skeen <https://github.com/joeskeen>
+//                 Peter Bojanczyk <https://github.com/pbojanczyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -125,6 +127,7 @@ declare namespace uiGrid {
         scrollbars: {
             NEVER: number;
             ALWAYS: number;
+            WHEN_NEEDED: number;
         };
     }
     export type IGridInstance = IGridInstanceOf<any>;
@@ -132,8 +135,10 @@ declare namespace uiGrid {
         /**
          * adds a row header column to the grid
          * @param {IColumnDef} colDef The column definition
+         * @param {number} order Number that indicates where the column should be placed in the grid.
+         * @param {boolean} stopColumnBuild Prevents the buildColumn callback from being triggered. This is useful to improve performance of the grid during initial load.
          */
-        addRowHeaderColumn(colDef: IColumnDefOf<TEntity>): void;
+        addRowHeaderColumn(colDef: IColumnDefOf<TEntity>, order?: number, stopColumnBuild?: boolean): void;
         /**
          * uses the first row of data to assign colDef.type for any types not defined.
          */
@@ -519,6 +524,8 @@ declare namespace uiGrid {
          * which tells us which direction we are scrolling. Set to NONE via debounced method
          */
         scrollDirection?: number;
+        
+        id: number;
     }
     export interface IBuildColumnsOptions {
         orderByColumnDefs?: boolean;
@@ -625,7 +632,7 @@ declare namespace uiGrid {
         enableGridMenu?: boolean;
         /**
          * uiGridConstants.scrollbars.ALWAYS by default. This settings controls the horizontal scrollbar for the grid.
-         * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER
+         * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER, uiGridConstants.scrollbars.WHEN_NEEDED
          * @default 1
          */
         enableHorizontalScrollbar?: boolean | number;
@@ -658,7 +665,7 @@ declare namespace uiGrid {
         enableSorting?: boolean;
         /**
          * uiGridConstants.scrollbars.ALWAYS by default. This settings controls the vertical scrollbar for the grid.
-         * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER
+         * Supported values: uiGridConstants.scrollbars.ALWAYS, uiGridConstants.scrollbars.NEVER, uiGridConstants.scrollbars.WHEN_NEEDED
          * @default 1
          */
         enableVerticalScrollbar?: boolean | number;
@@ -874,14 +881,18 @@ declare namespace uiGrid {
          * to generate one
          */
         rowIdentity?(row: IGridRowOf<TEntity>): any;
+
+        fastWatch?: boolean;
     }
     export interface IGridCoreApi<TEntity> {
         // Methods
         /**
          * adds a row header column to the grid
          * @param {IColumnDef} column Column Definition
+         * @param {number} order Number that indicates where the column should be placed in the grid.
+         * @param {boolean} stopColumnBuild Prevents the buildColumn callback from being triggered. This is useful to improve performance of the grid during initial load.
          */
-        addRowHeaderColumn(column: IColumnDefOf<TEntity>): void;
+        addRowHeaderColumn(column: IColumnDefOf<TEntity>, order?: number, stopColumnBuild?: boolean): void;
         /**
          * add items to the grid menu.  Used by features
          * to add their menu items if they are enabled, can also be used by
@@ -895,7 +906,7 @@ declare namespace uiGrid {
          * which is provided when you want to remove an item.  The id should be unique.
 
          */
-        addToGridMenu(grid: IGridInstanceOf<TEntity>, items: Array<IMenuItem>):  void;
+        addToGridMenu(grid: IGridInstanceOf<TEntity>, items: Array<IMenuItem>): void;
         /**
          * Clears all filters and optionally refreshes the visible rows.
          * @param {boolean} [refreshRows=true] Defaults to true.
@@ -916,10 +927,9 @@ declare namespace uiGrid {
         clearRowInvisible(rowEntity: TEntity): void;
         /**
          * Returns all visible rows
-         * @param {IGridInstance} grid the grid you want to get visible rows from
          * @returns {Array<IGridRow>} an array of gridRow
          */
-        getVisibleRows(grid: IGridInstanceOf<TEntity>): Array<IGridRowOf<TEntity>>;
+        getVisibleRows(): Array<IGridRowOf<TEntity>>;
         /**
          * Trigger a grid resize, normally this would be picked
          * up by a watch on window size, but in some circumstances it is necessary
@@ -1214,21 +1224,21 @@ declare namespace uiGrid {
                  */
                 navigate: (scope: ng.IScope, handler: navigateHandler<TEntity>) => void;
                 /**
-                 * viewportKeyDown is raised when the viewPort receives a keyDown event.
+                 * viewPortKeyDown is raised when the viewPort receives a keyDown event.
                  * Cells never get focus in uiGrid due to the difficulties of setting focus on a cell that is
                  * not visible in the viewport. Use this event whenever you need a keydown event on a cell.
                  * @param {ng.IScope} scope The grid scope
                  * @param {viewportKeyDownHandler} handler Callback
                  */
-                viewportKeyDown: (scope: ng.IScope, handler: viewportKeyDownHandler<TEntity>) => void;
+                viewPortKeyDown: (scope: ng.IScope, handler: viewportKeyDownHandler<TEntity>) => void;
                 /**
-                 * viewportKeyPress is raised when the viewPort receives a keyPress event.
+                 * viewPortKeyPress is raised when the viewPort receives a keyPress event.
                  * Cells never get focus in uiGrid due to the difficulties of setting focus on a cell that is
                  * not visible in the viewport. Use this event whenever you need a keypress event on a cell.
                  * @param {ng.IScope} scope The grid scope
                  * @param {viewportKeyPressHandler} handler Callback
                  */
-                viewportKeyPress: (scope: ng.IScope, handler: viewportKeyPressHandler<TEntity>) => void;
+                viewPortKeyPress: (scope: ng.IScope, handler: viewportKeyPressHandler<TEntity>) => void;
             };
         }
 
@@ -1462,31 +1472,31 @@ declare namespace uiGrid {
             /**
              * raised when cell editing is complete
              * @param {TEntity} rowEntity the options.data element that was edited
-             * @param {IColumnDef} colDef The column that was edited
+             * @param {IColumnDefOf} colDef The column that was edited
              * @param {any} newValue New Value
              * @param {any} oldValue Old Value
              */
-            (rowEntity: TEntity, colDef: IColumnDef<TEntity>, newValue: any, oldValue: any): void;
+            (rowEntity: TEntity, colDef: IColumnDefOf<TEntity>, newValue: any, oldValue: any): void;
         }
 
         /**
          * raised when cell editing starts on a cell
          * @param {TEntity} rowEntity the options.data element that was edited
-         * @param {IColumnDef} colDef The column that was edited
+         * @param {IColumnDefOf} colDef The column that was edited
          * @param {JQueryEventObject} triggerEvent the event that triggered the edit. Useful to prevent losing
          *     keystrokes on some complex editors
          */
         export interface beginCellEditHandler<TEntity> {
-            (rowEntity: TEntity, colDef: IColumnDef<TEntity>, triggerEvent: JQueryEventObject): void;
+            (rowEntity: TEntity, colDef: IColumnDefOf<TEntity>, triggerEvent: JQueryEventObject): void;
         }
 
         /**
          * raised when cell editing is cancelled on a cell
          * @param {TEntity} rowEntity the options.data element that was edited
-         * @param {IColumnDef} colDef The column that was edited
+         * @param {IColumnDefOf} colDef The column that was edited
          */
         export interface cancelCellEditHandler<TEntity> {
-            (rowEntity: TEntity, colDef: IColumnDef<TEntity>): void;
+            (rowEntity: TEntity, colDef: IColumnDefOf<TEntity>): void;
         }
 
         /**
@@ -1680,6 +1690,16 @@ declare namespace uiGrid {
              * @default true
              */
             exporterMenuCsv?: boolean;
+            /**
+             * Add excel export menu items to the ui-grid grid menu, if it's present. Defaults to true.
+             * @default true
+             */
+            exporterMenuExcel?: boolean;
+            /**
+             * An option to determine the starting point for the menu items created by the exporter
+             * @default 200
+             */
+            exporterMenuItemOrder?: number;
             /**
              * The text to show on the exporter menu button link
              * Defaults to 'Export'
@@ -3545,6 +3565,8 @@ declare namespace uiGrid {
     export interface IGridColumnOf<TEntity> {
         /** Column definition */
         colDef: uiGrid.IColumnDefOf<TEntity>;
+        /** Default sort on this column */
+        defaultSort?: ISortInfo;
         /**
          * Column name that will be shown in the header.
          * If displayName is not provided then one is generated using the name.
@@ -3683,6 +3705,8 @@ declare namespace uiGrid {
          * @default false
          */
         cellTooltip?: boolean | string | ICellTooltipGetter<TEntity>;
+        /** Default object of sort information */
+        defaultSort?: ISortInfo;
         /**
          * Column name that will be shown in the header.
          * If displayName is not provided then one is generated using the name.

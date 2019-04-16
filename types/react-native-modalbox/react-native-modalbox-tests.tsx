@@ -16,6 +16,8 @@ interface State {
   sliderValue: number;
 }
 
+const screen = Dimensions.get('window');
+
 class Example extends React.Component<{}, State> {
   modal1: Modal;
   modal2: Modal;
@@ -23,16 +25,12 @@ class Example extends React.Component<{}, State> {
   modal4: Modal;
   modal6: Modal;
 
-  constructor() {
-    super({});
-
-    this.state = {
-      isOpen: false,
-      isDisabled: false,
-      swipeToClose: true,
-      sliderValue: 0.3
-    };
-  }
+  state = {
+    isOpen: false,
+    isDisabled: false,
+    swipeToClose: true,
+    sliderValue: 0.3
+  };
 
   onClose() {
     console.log('Modal just closed');

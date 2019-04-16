@@ -8,7 +8,7 @@ const server = new Server({
 const serverRoute: ServerRoute = {
     path: '/',
     method: 'GET',
-    handler: (request: Request, h: ResponseToolkit) => {
+    handler(request, h) {
         return 'Success!';
     }
 };
@@ -17,3 +17,24 @@ server.route(serverRoute);
 server.start();
 
 server.inject('/').then(res => console.log(res.result));
+
+declare module 'hapi' {
+	interface ApplicationState {
+		injectState?: number;
+	}
+}
+
+server.inject({
+    auth: {
+        strategy: 'test',
+        credentials: {
+            user: {
+                a: 1,
+            },
+        },
+    },
+	url: "test",
+	app: {
+		injectState: 1
+	}
+});

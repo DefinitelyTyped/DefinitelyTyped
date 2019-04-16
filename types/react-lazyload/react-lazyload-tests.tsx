@@ -6,14 +6,16 @@ interface State {
 }
 
 class Normal extends React.Component<{}, State> {
-    constructor() {
-        super({});
+    static createArray = (items= 200) => {
         const arr: string[] = [];
-        for (let i = 0; i < 200; i++) {
+        for (let i = 0; i < items; i++) {
             arr.push(`${i}`);
         }
-        this.state = { arr };
+        return arr;
     }
+    state = {
+        arr: Normal.createArray()
+    };
 
     componentDidMount() {
         forceCheck();
@@ -24,7 +26,7 @@ class Normal extends React.Component<{}, State> {
             <div>
                 {this.state.arr.map((el, index) => {
                     return (
-                        <LazyLoad once={true} key={index} height={200} offset={50}>
+                        <LazyLoad once={true} resize={true} key={index} height={200} offset={50}>
                             <p id={`${index}`}  >
                                 count={index + 1}
                             </p>

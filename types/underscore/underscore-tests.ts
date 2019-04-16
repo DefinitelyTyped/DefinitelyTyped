@@ -147,6 +147,10 @@ namespace TestFind {
 		result = _('abc').chain().detect<string>(iterator).value();
 		result = _('abc').chain().detect<string>(iterator, context).value();
 	}
+
+    {
+        _(list).map(x => x.a);
+    }
 }
 
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
@@ -171,6 +175,10 @@ _.contains([1, 2, 3], 3);
 _.contains([1, 2, 3], 3, 1);
 
 _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
+
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33479
+var foo: any[] = [{'a': 1, 'b': 2}];
+_.pluck(foo, 'a');
 
 var stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
 _.pluck(stooges, 'name');
@@ -216,6 +224,8 @@ interface Family {
 }
 var isUncleMoe = _.matches<Family>({ name: 'moe', relation: 'uncle' });
 _.filter([{ name: 'larry', relation: 'father' }, { name: 'moe', relation: 'uncle' }], isUncleMoe);
+var uncleMoe: Family = { name: 'moe', relation: 'uncle' };
+isUncleMoe(uncleMoe);
 
 
 
@@ -520,13 +530,23 @@ function chain_tests() {
     let numberObjects = [{property: 'odd', value: 1}, {property: 'even', value: 2}, {property: 'even', value: 0}];
     let evenAndOddGroupedNumbers = _.chain(numberObjects)
         .groupBy('property')
-        .mapObject((objects: any) => _.pluck(objects, 'value'))
+        .mapObject((objects) => _.pluck(objects, 'value'))
         .value(); // { odd: [1], even: [0, 2] }
 
   var matrixOfString : string[][] = _.chain({'foo' : '1', 'bar': '1'})
   	.keys()    // return ['foo', 'bar'] : string[]
   	.pairs()   // return [['foo', '0'], ['bar', '1']] : string[][]
   	.value();
+
+    interface IYears {
+        2016: number;
+        2017: number;
+    }
+
+    let yearObject: IYears = {2016: 1, 2017: 2};
+    let valuePerYear: number[] = _.chain(yearObject)
+        .values()
+        .value()
 }
 
 var obj: { [k: string] : number } = {

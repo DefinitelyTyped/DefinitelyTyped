@@ -1,9 +1,20 @@
 import * as heapdump from 'heapdump';
 
-heapdump.writeSnapshot('/tmp/myDump', (err) => {
-  if (err) {
-    console.log('Failed to dump heap: ' + err);
-  } else {
-    console.log('Successfully dumped heap!');
-  }
+let strValue = "";
+let errValue = new Error(strValue);
+let nullValue = null;
+let undefinedValue;
+
+heapdump.writeSnapshot(strValue, (err, filename) => {
+  errValue = err as Error;
+  nullValue = err as null;
+  strValue = filename as string;
+  undefinedValue = filename as undefined;
+});
+
+heapdump.writeSnapshot((err, filename) => {
+  errValue = err as Error;
+  nullValue = err as null;
+  strValue = filename as string;
+  undefinedValue = filename as undefined;
 });

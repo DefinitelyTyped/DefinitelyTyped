@@ -1,9 +1,10 @@
-// Type definitions for koa-session 5.7
+// Type definitions for koa-session 5.10
 // Project: https://github.com/koajs/session
 // Definitions by: Yu Hsin Lu <https://github.com/kerol2r20>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
+//                 Hiroshi Ioka <https://github.com/hirochachacha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /* =================== USAGE ===================
 
@@ -16,6 +17,9 @@
  =============================================== */
 
 import Koa = require("koa");
+import Cookies = require("cookies");
+
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 declare namespace session {
     /**
@@ -108,7 +112,7 @@ declare namespace session {
         hash(sess: any): string;
     }
 
-    interface opts {
+    interface opts extends Omit<Cookies.SetOption, 'maxAge'> {
         /**
          * cookie key (default is koa:sess)
          */
@@ -120,21 +124,6 @@ declare namespace session {
          * Warning: If a session cookie is stolen, this cookie will never expire
          */
         maxAge?: number | "session";
-
-        /**
-         * can overwrite or not (default true)
-         */
-        overwrite: boolean;
-
-        /**
-         * httpOnly or not (default true)
-         */
-        httpOnly: boolean;
-
-        /**
-         * signed or not (default true)
-         */
-        signed: boolean;
 
         /**
          * custom encode method
@@ -157,6 +146,11 @@ declare namespace session {
         rolling?: boolean;
 
         /**
+         * Renew session when session is nearly expired, so we can always keep user logged in. (default is false)
+         */
+        renew?: boolean;
+
+        /**
          * You can store the session content in external stores(redis, mongodb or other DBs)
          */
         store?: stores;
@@ -166,7 +160,7 @@ declare namespace session {
          * ContextStore must be a class which claims three instance methods demonstrated above.
          * new ContextStore(ctx) will be executed on every request.
          */
-        ContextStore?: { new(): stores };
+        ContextStore?: { new(ctx: Koa.Context): stores };
 
         /**
          * If you want to add prefix for all external session id, you can use options.prefix, it will not work if options.genid present.
@@ -208,7 +202,7 @@ declare function session(app: Koa): Koa.Middleware;
 
 declare module "koa" {
     interface Context {
-        session: session.Session | undefined;
+        session: session.Session | null;
         readonly sessionOptions: session.opts | undefined;
     }
 

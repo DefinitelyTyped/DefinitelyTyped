@@ -4,27 +4,27 @@ import Nightmare = require("nightmare");
 
 new Nightmare()
   .goto('http://yahoo.com')
-    .type('input[title="Search"]', 'github nightmare')
-    .click('.searchsubmit')
-    .run((err: any, nightmare: Nightmare) => {
-      if (err) return console.log(err);
-      console.log('Done!');
-    });
+  .type('input[title="Search"]', 'github nightmare')
+  .click('.searchsubmit')
+  .run((err: any, nightmare: Nightmare) => {
+    if (err) return console.log(err);
+    console.log('Done!');
+  });
 
 new Nightmare()
   .goto('http://yahoo.com')
-    .type('input[title="Search"]', 'github nightmare')
-    .click('.searchsubmit')
-    .wait('.url.breadcrumb')
-    .evaluate(() => {
-      return (<HTMLElement>document.querySelector('.url.breadcrumb')).innerText;
-    }, (breadcrumb: string) => {
-      // expect(breadcrumb).to.equal('github.com');
-    })
-    .run((err: any, nightmare: Nightmare) => {});
+  .type('input[title="Search"]', 'github nightmare')
+  .click('.searchsubmit')
+  .wait('.url.breadcrumb')
+  .evaluate(() => {
+    return (document.querySelector('.url.breadcrumb') as HTMLElement).innerText;
+  }, (breadcrumb: string) => {
+    // expect(breadcrumb).to.equal('github.com');
+  })
+  .run((err: any, nightmare: Nightmare) => { });
 
 
-var done = (err: any) => {};
+var done = (err: any) => { };
 
 new Nightmare()
   .goto('http://www.google.com/')
@@ -51,6 +51,16 @@ new Nightmare()
   .exists('a.blahblahblah', function (exists) {
   })
   .run(done);
+
+new Nightmare()
+  .goto('http://www.wikipedia.org/')
+  .exists('a.link-box')
+  .then((exists: boolean) => { })
+
+new Nightmare()
+  .goto('http://www.wikipedia.org/')
+  .visible('a.link-box')
+  .then((isVisible: boolean) => { })
 
 new Nightmare()
   .goto('http://www.wikipedia.org/')
@@ -141,7 +151,7 @@ new Nightmare()
     };
   }, function (coordinates) {
   })
-  .scrollTo(100,50)
+  .scrollTo(100, 50)
   .evaluate(function () {
     return {
       top: document.body.scrollTop,
@@ -155,7 +165,7 @@ new Nightmare()
   .goto('http://validator.w3.org/#validate_by_upload')
   .upload('#uploaded_file', 'test/files/jquery-2.1.1.min.js')
   .evaluate(function () {
-    return (<HTMLInputElement>document.getElementById('uploaded_file')).value;
+    return (document.getElementById('uploaded_file') as HTMLInputElement).value;
   }, function (value) {
   })
   .run(done);
@@ -174,12 +184,12 @@ new Nightmare()
 
 new Nightmare()
   .goto('http://yahoo.com')
-  .screenshot('test/test.png', { x: 10, y: 5, width: 10, height: 10})
+  .screenshot('test/test.png', { x: 10, y: 5, width: 10, height: 10 })
   .run(done);
 
 new Nightmare()
   .goto('http://yahoo.com')
-  .screenshot({ x: 10, y: 5, width: 10, height: 10}, (err, buffer) => {
+  .screenshot({ x: 10, y: 5, width: 10, height: 10 }, (err, buffer) => {
     console.log(Buffer.isBuffer(buffer));
   })
   .run(done);
@@ -190,6 +200,13 @@ new Nightmare()
   .run(done);
 
 new Nightmare()
+  .goto("http://yahoo.com")
+  .pdf((err,data)=>{
+    console.log(Buffer.isBuffer(data))
+  })
+  .run(done)
+
+new Nightmare()
   .goto('http://www.google.com/')
   .wait('input')
   .run(done);
@@ -197,7 +214,7 @@ new Nightmare()
 
 var seconds = function () {
   var gifs = document.querySelectorAll('img');
-  var split = (<HTMLImageElement>gifs[gifs.length-2]).src.split('.gif')[0];
+  var split = (gifs[gifs.length - 2] as HTMLImageElement).src.split('.gif')[0];
   var seconds = split.split('.com/c')[1];
   return parseInt(seconds, 10);
 };
@@ -209,8 +226,8 @@ new Nightmare()
 var seconds = function () {
   var text = document.querySelectorAll('b')[0].textContent;
   var splits = text.split(/\s/);
-  var seconds = splits[splits.length-2].split(':')[2];
-  return parseInt(seconds, 10)%10;
+  var seconds = splits[splits.length - 2].split(':')[2];
+  return parseInt(seconds, 10) % 10;
 };
 new Nightmare()
   .goto('http://www.whattimeisit.com/')
@@ -218,8 +235,8 @@ new Nightmare()
   .run(done);
 
 new Nightmare({
-    timeout: 1000
-  })
+  timeout: 1000
+})
   .on('timeout', function (msg) {
   })
   .goto('http://www.google.com/')
@@ -262,15 +279,15 @@ new Nightmare()
   .run(done);
 
 new Nightmare()
-  .authentication('my','auth')
+  .authentication('my', 'auth')
   .goto('http://httpbin.org/basic-auth/my/auth')
   .evaluate(function () {
     return document.body.innerHTML;
-  }, function (data){
+  }, function (data) {
   })
   .run(done);
 
-var size = { width : 400, height: 1000 };
+var size = { width: 400, height: 1000 };
 new Nightmare()
   .viewport(size.width, size.height)
   .goto('http://www.wikipedia.org/')
@@ -302,7 +319,7 @@ new Nightmare()
   .headers(headers)
   .goto('http://httpbin.org/headers')
   .evaluate(function () {
-    return (<HTMLElement>document.body.children[0]).innerHTML;
+    return (document.body.children[0] as HTMLElement).innerHTML;
   }, function (data: string) {
   })
   .run(done);
@@ -316,8 +333,8 @@ function search(term: string) {
   return function (nightmare: Nightmare) {
     nightmare
       .goto('http://yahoo.com')
-        .type('.input-query', term)
-        .click('.searchsubmit')
+      .type('.input-query', term)
+      .click('.searchsubmit')
       .wait();
   };
 }
@@ -335,7 +352,7 @@ new Nightmare()
   .use(testTitle('test term'))
   .run(done);
 
-new Nightmare({show: true});
+new Nightmare({ show: true });
 
 new Nightmare()
   .goto('http://google.com', { bogus: 'foo' })
@@ -366,4 +383,24 @@ new Nightmare()
   .click('a[href="/segmentio/nightmare/archive/master.zip"]')
   .download('/some/other/path/master.zip');
 
-new Nightmare({show: true, openDevTools: {mode: 'detach'}});
+new Nightmare({ show: true, openDevTools: { mode: 'detach' } });
+
+
+new Nightmare({ waitTimeout: 1000 })
+  .goto("https//google.com")
+  .wait(".really-not-real")
+
+
+new Nightmare({ gotoTimeout: 10000 })
+  .goto("https://45.56.178.93/")
+
+
+new Nightmare({ executionTimeout: 1000 })
+  .goto("https//google.com")
+  .evaluate(() => {
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve()
+      }, 2000)
+    })
+  })

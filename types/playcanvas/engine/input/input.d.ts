@@ -41,19 +41,19 @@ declare namespace pc {
         * @name pc.EVENT_TOUCHSTART
         * @description Name of event fired when a new touch occurs. For example, a finger is placed on the device.
         */
-        const VENT_TOUCHSTART = 'touchstart';
+        const EVENT_TOUCHSTART = 'touchstart';
         /**
         * @enum pc.EVENT
         * @name pc.EVENT_TOUCHEND
         * @description Name of event fired when touch ends. For example, a finger is lifted off the device.
         */
-        const VENT_TOUCHEND = 'touchend';
+        const EVENT_TOUCHEND = 'touchend';
         /**
         * @enum pc.EVENT
         * @name pc.EVENT_TOUCHMOVE
         * @description Name of event fired when a touch moves.
         */
-        const VENT_TOUCHMOVE = 'touchmove';
+        const EVENT_TOUCHMOVE = 'touchmove';
         /**
         * @enum pc.EVENT
         * @name pc.EVENT_TOUCHCANCEL
@@ -62,18 +62,18 @@ declare namespace pc {
         * For example, a modal alert pops up during the interaction; the touch point leaves the document area;
         * or there are more touch points than the device supports, in which case the earliest touch point is canceled.
         */
-        const VENT_TOUCHCANCEL = 'touchcancel';
+        const EVENT_TOUCHCANCEL = 'touchcancel';
 
         /**
          * @enum pc.KEY
          * @name pc.KEY_BACKSPACE
          */
-        const EY_BACKSPACE = 8;
+        const KEY_BACKSPACE = 8;
         /**
          * @enum pc.KEY
          * @name pc.KEY_TAB
          */
-        const EY_TAB = 9;
+        const KEY_TAB = 9;
         /**
          * @enum pc.KEY
          * @name pc.KEY_RETURN

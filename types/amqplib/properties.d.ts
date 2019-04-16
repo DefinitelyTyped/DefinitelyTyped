@@ -141,6 +141,82 @@ export namespace Options {
 
 export interface Message {
     content: Buffer;
-    fields: any;
-    properties: any;
+    fields: MessageFields;
+    properties: MessageProperties;
+}
+
+export interface GetMessage extends Message {
+    fields: GetMessageFields;
+}
+
+export interface ConsumeMessage extends Message {
+    fields: ConsumeMessageFields;
+}
+
+export interface CommonMessageFields {
+    deliveryTag: number;
+    redelivered: boolean;
+    exchange: string;
+    routingKey: string;
+}
+
+export interface MessageFields extends CommonMessageFields {
+    messageCount?: number;
+    consumerTag?: string;
+}
+
+export interface GetMessageFields extends CommonMessageFields {
+    messageCount: number;
+}
+
+export interface ConsumeMessageFields extends CommonMessageFields {
+    deliveryTag: number;
+}
+
+export interface MessageProperties {
+    contentType: any | undefined;
+    contentEncoding: any | undefined;
+    headers: MessagePropertyHeaders;
+    deliveryMode: any | undefined;
+    priority: any | undefined;
+    correlationId: any | undefined;
+    replyTo: any | undefined;
+    expiration: any | undefined;
+    messageId: any | undefined;
+    timestamp: any | undefined;
+    type: any | undefined;
+    userId: any | undefined;
+    appId: any | undefined;
+    clusterId: any | undefined;
+}
+
+export interface MessagePropertyHeaders {
+    "x-first-death-exchange"?: string;
+    "x-first-death-queue"?: string;
+    "x-first-death-reason"?: string;
+    "x-death"?: XDeath[];
+    [key: string]: any;
+}
+
+export interface XDeath {
+    count: number;
+    reason: "rejected" | "expired" | "maxlen";
+    queue: string;
+    time: {
+        "!": "timestamp";
+        value: number;
+    };
+    exchange: string;
+    "original-expiration"?: any;
+    "routing-keys": string[];
+}
+
+export interface ServerProperties {
+    host: string;
+    product: string;
+    version: string;
+    platform: string;
+    copyright?: string;
+    information: string;
+    [key: string]: string | undefined;
 }

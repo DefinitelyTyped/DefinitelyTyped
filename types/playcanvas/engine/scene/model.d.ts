@@ -38,6 +38,8 @@ declare namespace pc {
          */
         destroy(): void;
 
+        getMaterials(): pc.StandardMaterial[];
+
         /**
          * @function
          * @name pc.Model#generateWireframe

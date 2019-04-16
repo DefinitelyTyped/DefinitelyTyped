@@ -22,6 +22,7 @@ interface ExpressFormidableOptions {
     uploadDir?: string;
     keepExtensions?: boolean;
     type?: "multipart" | "urlencoded";
+    maxFileSize?: number;
     maxFieldsSize?: number;
     maxFields?: number;
     hash?: boolean | "sha1" | "md5";

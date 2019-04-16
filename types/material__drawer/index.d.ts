@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.26
-// Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>
+// Type definitions for Material Components Web 0.43
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>, Arthur Groupp <https://github.com/agroupp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -20,8 +20,31 @@
  * limitations under the License.
  */
 
+import MDCComponent from 'material__base/component';
+import { MDCDismissibleDrawerFoundation } from './dismissible/foundation';
+import { MDCModalDrawerFoundation } from './modal/foundation';
+import { MDCDrawerAdapter } from './adapter';
+import { MDCList, MDCListFoundation } from 'material__list/index';
+import { strings } from './constants';
 import * as util from './util';
-export {MDCSlidableDrawerAdapter} from './slidable';
-export {MDCTemporaryDrawer, MDCTemporaryDrawerFoundation} from './temporary';
-export {MDCPersistentDrawer, MDCPersistentDrawerFoundation} from './persistent';
-export {util};
+import createFocusTrap, { FocusTrap } from './focus-trap';
+
+export class MDCDrawer extends MDCComponent<MDCDrawer, MDCDismissibleDrawerFoundation | MDCModalDrawerFoundation> {
+  constructor(...args: any[]);
+  static attachTo(root: Element): MDCDrawer;
+
+  /**
+   * Returns true if drawer is in the open position.
+   */
+  open: boolean;
+
+  initialize(focusTrapFactory: FocusTrap, listFactory: MDCList): void;
+
+  initialSyncWithDOM(): void;
+
+  destroy(): void;
+
+  getDefaultFoundation(): MDCDismissibleDrawerFoundation | MDCModalDrawerFoundation;
+}
+
+export { MDCDismissibleDrawerFoundation, MDCModalDrawerFoundation, util };

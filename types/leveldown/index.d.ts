@@ -1,145 +1,95 @@
-// Type definitions for LevelDown 1.7
-// Project: https://github.com/level/leveldown
-// Definitions by: Thiago de Arruda <https://github.com/tarruda>
+// Type definitions for leveldown 4.0
+// Project: https://github.com/Level/leveldown
+// Definitions by: Meirion Hughes <https://github.com/MeirionHughes>
+//                 Daniel Byrne <https://github.com/danwbyrne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
-export = leveldown;
+import {
+  AbstractLevelDOWN,
+  AbstractIteratorOptions,
+  AbstractIterator,
+  AbstractOpenOptions,
+  AbstractGetOptions,
+  ErrorCallback,
+  ErrorValueCallback,
+  AbstractChainedBatch,
+  AbstractBatch,
+  AbstractOptions
+} from 'abstract-leveldown';
 
-declare var leveldown: leveldown.Constructor;
+export type Bytes = string | Buffer;
+export type ErrorSizeCallback = (err: Error | undefined, size: number) => void;
 
-declare namespace leveldown {
-type Bytes = string | Buffer;
-type ErrCallback = (error: any) => void;
-type ErrNumberCallback = (error: any, value: number) => void;
-type ErrBufferCallback = (error: any, value: Buffer) => void;
-type ErrStringCallback = (error: any, value: string) => void;
-type KeyAsStringCallback = (error: any, key: string, value: Buffer) => void;
-type ValueAsStringCallback = (error: any, key: Buffer, value: string) => void;
-type KeyAndValueAsStringCallback = (error: any, key: string, value: string) => void;
-type KeyAndValueAsBufferCallback = (error: any, key: Buffer, value: Buffer) => void;
+export interface LevelDown extends AbstractLevelDOWN<Bytes, Bytes> {
+  open(cb: ErrorCallback): void;
+  open(options: LevelDownOpenOptions, cb: ErrorCallback): void;
 
-interface PutBatch {
-    type: "put";
-    key: Bytes;
-    value: Bytes;
+  get(key: Bytes, cb: ErrorValueCallback<Bytes>): void;
+  get(key: Bytes, options: LevelDownGetOptions, cb: ErrorValueCallback<Bytes>): void;
+
+  put(key: Bytes, value: Bytes, cb: ErrorCallback): void;
+  put(key: Bytes, value: Bytes, options: LevelDownPutOptions, cb: ErrorCallback): void;
+
+  del(key: Bytes, cb: ErrorCallback): void;
+  del(key: Bytes, options: LevelDownDelOptions, cb: ErrorCallback): void;
+
+  batch(): AbstractChainedBatch<Bytes, Bytes>;
+  batch(array: AbstractBatch[], cb: ErrorCallback): AbstractChainedBatch<Bytes, Bytes>;
+  batch(array: AbstractBatch[], options: LevelDownBatchOptions, cb: ErrorCallback): AbstractChainedBatch<Bytes, Bytes>;
+
+  approximateSize(start: Bytes, end: Bytes, cb: ErrorSizeCallback): void;
+  compactRange(start: Bytes, end: Bytes, cb: ErrorCallback): void;
+  getProperty(property: string): string;
+  destroy(location: string, cb: ErrorCallback): void;
+  repair(location: string, cb: ErrorCallback): void;
+  iterator(options?: LevelDownIteratorOptions): LevelDownIterator;
 }
 
-interface DelBatch {
-    type: "del";
-    key: Bytes;
+interface LevelDownConstructor {
+  new(location: string): LevelDown;
+  (location: string): LevelDown;
 }
 
-type Batch = PutBatch | DelBatch;
-
-interface OpenOptions {
-    createIfMissing?: boolean;
-    errorIfExists?: boolean;
-    compression?: boolean;
-    cacheSize?: number;
+export interface LevelDownOpenOptions extends AbstractOpenOptions {
+  compression?: boolean;
+  cacheSize?: number;
+  writeBufferSize?: number;
+  blockSize?: number;
+  maxOpenFiles?: number;
+  blockRestartInterval?: number;
+  maxFileSize?: number;
 }
 
-interface OpenAdvancedOptions extends OpenOptions {
-    writeBufferSize?: number;
-    blockSize?: number;
-    maxOpenFiles?: number;
-    blockRestartInterval?: number;
-    maxFileSize?: number;
+export interface LevelDownGetOptions extends AbstractGetOptions {
+  fillCache?: boolean;
 }
 
-interface WriteOptions {
-    sync?: boolean;
+export interface LevelDownPutOptions extends AbstractOptions {
+  sync?: boolean;
 }
 
-interface ReadOptions {
-    fillCache?: boolean;
+export interface LevelDownDelOptions extends AbstractOptions {
+  sync?: boolean;
 }
 
-interface BufferReadOptions extends ReadOptions {
-    asBuffer?: true;
+export interface LevelDownBatchOptions extends AbstractOptions {
+  sync?: boolean;
 }
 
-interface StringReadOptions extends ReadOptions {
-    asBuffer: false;
+export interface LevelDownIteratorOptions extends AbstractIteratorOptions<Bytes> {
+  fillCache?: boolean;
 }
 
-interface IteratorOptions {
-    gt?: Bytes;
-    lt?: Bytes;
-    gte?: Bytes;
-    lte?: Bytes;
-    reverse?: boolean;
-    keys?: boolean;
-    values?: boolean;
-    limit?: number;
-    fillCache?: boolean;
+export interface LevelDownIterator extends AbstractIterator<Bytes, Bytes> {
+  seek(key: Bytes): void;
+  binding: any;
+  cache: any;
+  finished: any;
+  fastFuture: any;
 }
 
-interface KeyAsStringIteratorOptions extends IteratorOptions {
-    keyAsBuffer: false;
-    valueAsBuffer?: true;
-}
-
-interface ValueAsStringIteratorOptions extends IteratorOptions {
-    keyAsBuffer?: true;
-    valueAsBuffer: false;
-}
-
-interface KeyAndValueAsStringIteratorOptions extends IteratorOptions {
-    keyAsBuffer: false;
-    valueAsBuffer: false;
-}
-
-interface KeyAndValueAsBufferIteratorOptions extends IteratorOptions {
-    keyAsBuffer?: true;
-    valueAsBuffer?: true;
-}
-
-interface Iterator {
-    seek(key: Bytes): void;
-    end(callback: ErrCallback): void;
-}
-
-interface KeyAsStringIterator extends Iterator {
-    next(callback: KeyAsStringCallback): void;
-}
-
-interface ValueAsStringIterator extends Iterator {
-    next(callback: ValueAsStringCallback): void;
-}
-
-interface KeyAndValueAsStringIterator extends Iterator {
-    next(callback: KeyAndValueAsStringCallback): void;
-}
-
-interface KeyAndValueAsBufferIterator extends Iterator {
-    next(callback: KeyAndValueAsBufferCallback): void;
-}
-
-interface LevelDown {
-    open(callback: ErrCallback): void;
-    open(options: OpenOptions, callback: ErrCallback): void;
-    close(callback?: ErrCallback): void;
-    put(key: Bytes, value: Bytes, callback: ErrCallback): void;
-    put(key: Bytes, value: Bytes, options: WriteOptions, callback: ErrCallback): void;
-    get(key: Bytes, callback: ErrBufferCallback): void;
-    get(key: Bytes, options: BufferReadOptions, callback: ErrBufferCallback): void;
-    get(key: Bytes, options: StringReadOptions, callback: ErrStringCallback): void;
-    del(key: Bytes, callback?: ErrCallback): void;
-    del(key: Bytes, options: WriteOptions, callback?: ErrCallback): void;
-    batch(operations: Batch[], callback?: ErrCallback): void;
-    batch(operations: Batch[], options?: WriteOptions, callback?: ErrCallback): void;
-    approximateSize(start: Bytes, end: Bytes, callback: ErrNumberCallback): void;
-    compactRange(start: Bytes, end: Bytes, callback: ErrCallback): void;
-    getProperty(property: string): string;
-    iterator(options?: KeyAsStringIteratorOptions): KeyAsStringIterator;
-    iterator(options?: ValueAsStringIteratorOptions): ValueAsStringIterator;
-    iterator(options?: KeyAndValueAsStringIteratorOptions): KeyAndValueAsStringIterator;
-    iterator(options?: KeyAndValueAsBufferIteratorOptions): KeyAndValueAsBufferIterator;
-    destroy(location: string, callback: ErrCallback): void;
-    repair(location: string, callback: ErrCallback): void;
-}
-
-type Constructor = (location: string) => LevelDown;
-}
+declare const LevelDOWN: LevelDownConstructor;
+export default LevelDOWN;

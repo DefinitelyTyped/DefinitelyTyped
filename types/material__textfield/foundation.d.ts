@@ -16,29 +16,44 @@
  */
 
 import MDCFoundation from 'material__base/foundation';
-import { MDCTextFieldAdapter, NativeInputType } from './adapter';
-import MDCTextFieldBottomLineFoundation from './bottom-line/foundation';
-import { cssClasses, strings } from './constants';
+import { cssClasses, strings, numbers } from './constants';
+import MDCTextFieldAdapter, { FoundationMapType } from './adapter';
 
 export default class MDCTextFieldFoundation extends MDCFoundation<MDCTextFieldAdapter> {
     static readonly cssClasses: cssClasses;
 
     static readonly strings: strings;
 
+    static readonly numbers: numbers;
+
+    readonly shouldShake: boolean;
+
+    readonly shouldFloat: boolean;
+
     static readonly defaultAdapter: MDCTextFieldAdapter;
 
-    handleTextFieldInteraction(evt: Event): void;
+    constructor(adapter: MDCTextFieldAdapter, foundationMap?: FoundationMapType);
 
+    /**
+     * Handles user interactions with the Text Field.
+     */
+    handleTextFieldInteraction(): void;
+
+    /**
+     * Opens/closes the notched outline.
+     */
+
+    notchOutline(openNotch: boolean): void;
     /**
      * Activates the text field focus state.
      */
-    activateFocus(): void;
 
+    activateFocus(): void;
     /**
-     * Sets the bottom line's transform origin, so that the bottom line activate
+     * Sets the line ripple's transform origin, so that the line ripple activate
      * animation will animate out from the user's click location.
      */
-    setBottomLineTransformOrigin(evt: Event): void;
+    setTransformOrigin(evt: Event): void;
 
     /**
      * Activates the Text Field's focus state in cases when the input value
@@ -46,34 +61,21 @@ export default class MDCTextFieldFoundation extends MDCFoundation<MDCTextFieldAd
      */
     autoCompleteFocus(): void;
 
-    /**
-     * Handles when bottom line animation ends, performing actions that must wait
-     * for animations to finish.
-     */
-    handleBottomLineAnimationEnd(): void;
-
-    /**
-     * Deactives the Text Field's focus state.
-     */
     deactivateFocus(): void;
 
-    /**
-     * True if the Text Field is disabled.
-     */
+    getValue(): string;
+
+    setValue(value: string): void;
+
+    isValid(): boolean;
+
+    setValid(isValid: boolean): void;
+
+    setUseNativeValidation(useNativeValidation: boolean): void;
+
     isDisabled(): boolean;
 
-    /**
-     * Sets the text-field disabled or enabled.
-     */
     setDisabled(disabled: boolean): void;
 
-    /**
-     * Sets the content of the helper text.
-     */
     setHelperTextContent(content: string): void;
-
-    /**
-     * Sets the validity state of the Text Field.
-     */
-    setValid(isValid: boolean): void;
 }

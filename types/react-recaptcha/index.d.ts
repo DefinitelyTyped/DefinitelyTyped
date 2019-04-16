@@ -3,7 +3,7 @@
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 //                 Zach <https://github.com/zzanol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component } from "react";
 
@@ -34,4 +34,5 @@ declare class Recaptcha extends Component<Recaptcha.RecaptchaProps> {
     static propTypes: any;
     static defaultProps: Recaptcha.RecaptchaProps;
     reset(): void;
+    execute(): void;
 }

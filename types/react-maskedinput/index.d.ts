@@ -4,7 +4,7 @@
 //                 Adam Lavin <https://github.com/lavoaster>
 //                 Carlos Bonetti <https://github.com/CarlosBonetti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 

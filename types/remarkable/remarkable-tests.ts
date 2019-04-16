@@ -19,6 +19,7 @@ export class RemarkableTest {
             breaks: false,
             langPrefix: "language-",
             linkify: false,
+            linkTarget: "_blank",
             typographer: false,
             quotes: "“”‘’",
             highlight(/*str, lang*/) { return ""; },

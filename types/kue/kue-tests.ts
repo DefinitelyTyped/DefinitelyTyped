@@ -41,6 +41,12 @@ function create() {
 
   kue.Job.get(job.id, function (err: any, _job: kue.Job) {
     console.log('get job', _job);
+
+    _job.created_at;
+    _job.promote_at;
+    _job.updated_at;
+    _job.failed_at;
+    _job.started_at;
   });
   kue.Job.get(job.id, 'video conversion', function (err: any, _job: kue.Job) {
     console.log('get job', _job);
@@ -72,6 +78,14 @@ var processCb = function(job: kue.Job, done: kue.DoneCallback) {
 
 jobs.process('video conversion', 1, processCb);
 jobs.process('video conversion', processCb);
+
+// Use of WorkerCtx, https://github.com/Automattic/kue#pause-processing
+jobs.process('email', function(job, ctx, done) {
+    ctx.pause(5000, function (err) {
+        console.log('Worker is paused...');
+        setTimeout(function() { ctx.resume(); }, 10000);
+    });
+});
 
 function convertFrame(i: number, fn: Function) {
   setTimeout(() => fn(null, Math.random()), Math.random() * 50);

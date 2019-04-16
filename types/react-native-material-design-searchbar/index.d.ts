@@ -2,11 +2,11 @@
 // Project: https://github.com/ananddayalan/react-native-material-design-searchbar
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import {
-    TextInputProperties,
+    TextInputProps,
     ReturnKeyType,
     ReturnKeyTypeAndroid,
     TextStyle,
@@ -28,7 +28,7 @@ export interface SearchBarProps {
     placeholderColor?: string;
     iconColor?: string;
     textStyle?: TextStyle;
-    inputProps?: TextInputProperties;
+    inputProps?: TextInputProps;
     alwaysShowBackButton?: boolean;
     onSearchChange?(text: string): void;
     onClose?(): void;

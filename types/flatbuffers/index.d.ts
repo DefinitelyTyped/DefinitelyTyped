@@ -1,4 +1,4 @@
-// Type definitions for flatbuffers 1.6
+// Type definitions for flatbuffers 1.9
 // Project: http://google.github.io/flatbuffers/index.html
 // Definitions by: Kamil Rojewski <kamil.rojewski@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@ declare global {
     type Offset = number;
 
     interface Table {
-      bb: ByteBuffer;
+      bb: ByteBuffer|null;
       bb_pos: number;
     }
 
@@ -41,6 +41,12 @@ declare global {
 
     class Builder {
       constructor(initial_size?: number);
+
+      /**
+       * Reset all the state in this FlatBufferBuilder
+       * so it can be reused to construct another buffer.
+       */
+      clear(): void;
 
       /**
        * In order to save space, fields that are set to their default value
@@ -211,6 +217,8 @@ declare global {
 
       static allocate(byte_size: number): ByteBuffer;
 
+      clear(): void;
+
       bytes(): Uint8Array;
 
       position(): number;
@@ -240,6 +248,8 @@ declare global {
       writeUint64(offset: number, value: Long): void;
       writeFloat32(offset: number, value: number): void;
       writeFloat64(offset: number, value: number): void;
+
+      getBufferIdentifier(): string;
 
       /**
        * Look up a field in the vtable, return an offset into the object, or 0 if the

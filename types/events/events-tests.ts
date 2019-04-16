@@ -16,6 +16,12 @@ const listener3 = (arg1: string) => {
 const listener4 = () => {
   console.log('type of number');
 };
+const listener5 = () => {
+  console.log('prepend listener');
+};
+const listener6 = () => {
+  console.log('prepend once listener');
+};
 
 emitter.setMaxListeners(100);
 
@@ -29,12 +35,20 @@ emitter.once('send', listener);
 
 emitter.once(1, listener4);
 
+emitter.prependListener('send', listener5);
+
+emitter.prependOnceListener('send', listener6);
+
 emitter.listeners('send');
 emitter.listenerCount('send');
+emitter.rawListeners('send');
 
 EventEmitter.defaultMaxListeners = 100;
 console.log(`count(static): ${EventEmitter.listenerCount(emitter, 'send')}`);
 console.log(`ncount: ${emitter.listenerCount('send')}`);
+console.log(`maxListeners: ${emitter.getMaxListeners()}`);
+console.log(`eventNames: ${emitter.eventNames().join(', ')}`);
+console.log(`rawListeners count: ${emitter.rawListeners('send').length}`);
 
 setTimeout(() => {
   console.log('\n');
@@ -49,8 +63,20 @@ setTimeout(() => {
 
 setTimeout(() => {
   console.log('\n');
+  emitter.emit('send');
+  emitter.off('send', listener3);
+}, 2000);
+
+setTimeout(() => {
+  console.log('\n');
   emitter.emit('send', 'params1');
   emitter.removeAllListeners('send');
+}, 3000);
+
+setTimeout(() => {
+  console.log('\n');
+  emitter.emit('send', 'params1');
+  emitter.removeAllListeners();
 }, 3000);
 
 setTimeout(() => {

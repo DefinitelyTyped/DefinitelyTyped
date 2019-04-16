@@ -95,6 +95,14 @@ Observable.of(1, 2, 3)
     .subscribe(val => assert(typeof val === 'string'));
 
 /**
+ * observable.concat
+ */
+
+Observable.of(1, 2, 3)
+.concat(Observable.of(4, 5, 6), Observable.of(7, 8, 9))
+.subscribe(val => assert(typeof val === 'number'));
+
+/**
  * ZenObservable
  */
 

@@ -1,5 +1,3 @@
-/// <reference types="mocha" />
-
 import * as fs from 'fs';
 import * as path from 'path';
 import expect = require('expect');
@@ -7,6 +5,11 @@ const miss = require('mississippi');
 const cloneable = require('cloneable-readable');
 
 import File = require('vinyl');
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 /**
  * Custom and private properties needed for tests.
@@ -282,20 +285,20 @@ describe('File', () => {
 	describe('isBuffer()', () => {
 		it('returns true when the contents are a Buffer', done => {
 			const val = new Buffer('test');
-			const file = new File({ contents: val });
+			const file = new File({ contents: val }); // $ExpectType BufferFile
 			expect(file.isBuffer()).toEqual(true);
 			done();
 		});
 
 		it('returns false when the contents are a Stream', done => {
 			const val = from([]);
-			const file = new File({ contents: val });
+			const file = new File({ contents: val }); // $ExpectType StreamFile
 			expect(file.isBuffer()).toEqual(false);
 			done();
 		});
 
 		it('returns false when the contents are null', done => {
-			const file = new File({ contents: null });
+			const file = new File({ contents: null }); // $ExpectType NullFile
 			expect(file.isBuffer()).toEqual(false);
 			done();
 		});

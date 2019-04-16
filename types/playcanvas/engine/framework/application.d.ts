@@ -32,6 +32,8 @@ declare namespace pc {
     class Application {
         constructor(canvas: HTMLCanvasElement, options?: pc.ApplicationOptions)
 
+        static getApplication(id?: string): Application;
+
         // PROPERTIES
 
         /**
@@ -207,23 +209,23 @@ declare namespace pc {
         loadSceneSettings(url: string, callback: (...args: any[]) => {}): void;
 
         /**
-        * @function
-        * @name pc.Application#loadScene
-        * @description Load a scene file.
-        * @param {String} url The URL of the scene file. Usually this will be "scene_id.json"
-        * @param {Function} callback The function to call after loading, passed (err, entity) where err is null if no errors occurred.
-        * @example
-        *
-        * app.loadScene("1000.json", function (err, entity) {
-        *     if (!err) {
-        *       var e = app.root.find("My New Entity");
-        *     } else {
-        *       // error
-        *     }
-        *   }
-        * });
-        */
-       loadScene(url: string, callback: (...args: any[]) => {}): void;
+         * @function
+         * @name pc.Application#loadScene
+         * @description Load a scene file.
+         * @param {String} url The URL of the scene file. Usually this will be "scene_id.json"
+         * @param {Function} callback The function to call after loading, passed (err, entity) where err is null if no errors occurred.
+         * @example
+         *
+         * app.loadScene("1000.json", function (err, entity) {
+         *     if (!err) {
+         *       var e = app.root.find("My New Entity");
+         *     } else {
+         *       // error
+         *     }
+         *   }
+         * });
+         */
+        loadScene(url: string, callback: (...args: any[]) => {}): void;
 
         /**
          * @function
@@ -436,6 +438,27 @@ declare namespace pc {
 
         /**
          * @function
+         * @name pc.Application#renderLine^5
+         * @description Draw a line which blends between two colors with specified line type
+         * @param {pc.Vec3} start The start of the line
+         * @param {pc.Vec3} end The end of the line
+         * @param {pc.Color} color The start color of the line
+         * @param {Object} options
+         * @param {Number} [options.layer] lineType The type of rendering to use: pc.LINEBATCH_WORLD, pc.LINEBATCH_OVERLAY, pc.LINEBATCH_GIZMO. Default is pc.LAYERID_IMMEDIATE
+         * @example
+         * var start = new pc.Vec3(0,0,0);
+         * var end = new pc.Vec3(1,0,0);
+         * var startColor = new pc.Color(1,1,1);
+         * const options = {
+         *    layer: pc.LINEBATCH_OVERLAY,
+         * };
+         *
+         * app.renderLine(start, end, color, options);
+         */
+        renderLine(start: pc.Vec3, end: pc.Vec3, color: pc.Color, options: object): void;
+
+        /**
+         * @function
          * @name pc.Application#renderLines
          * @description Draw an array of lines.
          * @param {pc.Vec3[]} position An array of points to draw lines between
@@ -497,7 +520,7 @@ declare namespace pc {
          * @example
          * obj.fire('test', 'This is the message');
          */
-        fire(name: string, arg1: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): any;
+        fire(name: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): any;
 
         /**
          * @function

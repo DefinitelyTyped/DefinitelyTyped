@@ -1,5 +1,5 @@
-type BrowserTouchEvent = typeof TouchEvent;
-type BrowserTouch = typeof Touch;
+type BrowserTouchEvent = TouchEvent;
+type BrowserTouch = Touch;
 
 declare namespace pc {
 
@@ -18,6 +18,7 @@ declare namespace pc {
         constructor(device: pc.TouchDevice, event: BrowserTouchEvent)
 
         element: Element;
+        event: BrowserTouchEvent;
         touches: pc.Touch[];
         changedTouches: pc.Touch[];
 

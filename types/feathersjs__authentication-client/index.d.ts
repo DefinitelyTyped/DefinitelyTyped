@@ -1,9 +1,12 @@
 // Type definitions for @feathersjs/authentication-client 1.0
-// Project: http://feathersjs.com/
+// Project: https://feathersjs.com
 // Definitions by: Abraao Alves <https://github.com/AbraaoAlves>, Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+// TypeScript Version: 2.3
+import * as self from '@feathersjs/authentication-client';
 
-export default function feathersAuthClient(config?: FeathersAuthClientConfig): () => void;
+declare const feathersAuthClient: ((config?: FeathersAuthClientConfig) => () => void) & typeof self;
+export default feathersAuthClient;
 
 export interface FeathersAuthClientConfig {
     storage?: Storage;
@@ -50,7 +53,7 @@ export interface Passport {
 
     getJWT(): Promise<any>;
 
-    verifyJWT(token: string): Promise<string>;
+    verifyJWT(token: string): Promise<any>;
 
     payloadIsValid(payload: string): boolean;
 

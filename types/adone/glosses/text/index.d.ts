@@ -1,4 +1,3 @@
-/// <reference path="./pretties.d.ts" />
 /// <reference path="./spinners.d.ts" />
 /// <reference path="./table.d.ts" />
 /// <reference path="./unicode.d.ts" />

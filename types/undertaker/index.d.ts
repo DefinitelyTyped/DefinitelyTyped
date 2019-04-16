@@ -1,6 +1,8 @@
-// Type definitions for undertaker 1.1
-// Project: https://github.com/phated/undertaker
-// Definitions by: Qubo <https://github.com/tkqubo>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+// Type definitions for undertaker 1.2
+// Project: https://github.com/gulpjs/undertaker
+// Definitions by: Qubo <https://github.com/tkqubo>
+//                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+//                 Evan Yamanishi <https://github.com/sh0ji>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Registry from "undertaker-registry";
@@ -9,16 +11,28 @@ import { EventEmitter } from "events";
 
 declare namespace Undertaker {
     interface TaskFunctionParams {
-        name?: string;
+        readonly name?: string;
         displayName?: string;
         description?: string;
+        flags?: TaskFlags;
     }
 
-    interface TaskFunction extends TaskFunctionParams {
+    interface TaskFlags {
+        [arg: string]: string;
+    }
+
+    interface TaskFunctionBase {
         (done: (error?: any) => void): void | Duplex | NodeJS.Process | Promise<never> | any;
     }
 
+    interface TaskFunction extends TaskFunctionBase, TaskFunctionParams {}
+
     type Task = string | TaskFunction;
+
+    interface TaskFunctionWrapped extends TaskFunctionBase {
+        displayName: string;
+        unwrap(): TaskFunction;
+    }
 
     interface TreeOptions {
         /**
@@ -45,10 +59,10 @@ declare class Undertaker extends EventEmitter {
     constructor(registry?: Registry);
 
     /**
-     * Returns the registered function.
+     * Returns the wrapped registered function.
      * @param taskName - Task name.
      */
-    task(taskName: string): Undertaker.TaskFunction;
+    task(taskName: string): Undertaker.TaskFunctionWrapped;
 
     /**
      * Register the task by the taskName.
@@ -56,14 +70,6 @@ declare class Undertaker extends EventEmitter {
      * @param fn - Task function.
      */
     task(taskName: string, fn: Undertaker.TaskFunction): void;
-
-    /**
-     * Register the task by the taskName.
-     * @param taskName - Task name.
-     * @param dependencies - Task dependencies.
-     * @param fn - Task function.
-     */
-    task(taskName: string, dependencies: string[], fn: Undertaker.TaskFunction): void;
 
     /**
      * Register the task by the name property of the function.

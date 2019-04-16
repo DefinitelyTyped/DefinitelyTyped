@@ -1,18 +1,12 @@
 // Type definitions for extract-text-webpack-plugin 3.0
-// Project: https://github.com/webpack-contrib/extract-text-webpack-plugin
+// Project: http://github.com/webpack-contrib/extract-text-webpack-plugin
 // Definitions by: flying-sheep <https://github.com/flying-sheep>, kayo <https://github.com/katyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
-import { Plugin, NewLoader, OldLoader } from 'webpack';
+import { Plugin, Loader } from 'webpack';
 
 export = ExtractTextPlugin;
-
-/**
- * extract-text-webpack-plugin has no support for .options instead of .query yet.
- * See https://github.com/webpack/extract-text-webpack-plugin/issues/281
- */
-type Loader = string | OldLoader | NewLoader;
 
 /**
  * Use an `ExtractTextPlugin` instance and a loader returned by `extract` in concert to write files to disk instead of loading them into others.

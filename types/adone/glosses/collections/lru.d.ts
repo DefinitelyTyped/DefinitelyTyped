@@ -6,7 +6,7 @@ declare namespace adone.collection {
              * The maximum size of the cache, checked by applying the length function to all values in the cache.
              * Default is Infinity
              */
-            max?: number;
+            maxSize?: number;
 
             /**
              * Maximum age in ms. Items are not pro-actively pruned out as they age,
@@ -86,11 +86,6 @@ declare namespace adone.collection {
      */
     class LRU<K = any, V = any> {
         /**
-         * Creates an LRU cache of the given size
-         */
-        constructor(max: number);
-
-        /**
          * Creates an LRU cache with the given options
          */
         constructor(options?: I.LRU.ConstructorOptions<K, V>);
@@ -98,7 +93,7 @@ declare namespace adone.collection {
         /**
          * The length of the cache, setter resizes the cache
          */
-        max: number;
+        maxSize: number;
 
         /**
          * stale setting

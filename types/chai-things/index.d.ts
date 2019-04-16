@@ -60,5 +60,6 @@ interface Array<T> {
 
 declare module "chai-things" {
     function chaiThings(chai: any, utils: any): void;
+    namespace chaiThings { }
     export = chaiThings;
 }

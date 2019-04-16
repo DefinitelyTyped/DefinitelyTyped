@@ -6,7 +6,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,7 +17,7 @@
 
 import MDCFoundation from './foundation';
 
-export class MDCComponent<A, F extends MDCFoundation<A>> {
+export default class MDCComponent<A, F extends MDCFoundation<A>> {
     static attachTo(root: Element): MDCComponent<any, MDCFoundation<any>>;
 
     constructor(root: Element, foundation?: F, ...args: any[]);
@@ -45,13 +45,13 @@ export class MDCComponent<A, F extends MDCFoundation<A>> {
      * Wrapper method to add an event listener to the component's root element. This is most useful when
      * listening for custom events.
      */
-    listen(evtType: string, handler: EventListenerOrEventListenerObject): void;
+    listen(evtType: string, handler: EventListener): void;
 
     /**
      * Wrapper method to remove an event listener to the component's root element. This is most useful when
      * unlistening for custom events.
      */
-    unlisten(evtType: string, handler: EventListenerOrEventListenerObject): void;
+    unlisten(evtType: string, handler: EventListener): void;
 
     /**
      * Fires a cross-browser-compatible custom event from the component root of the given type,
@@ -59,5 +59,3 @@ export class MDCComponent<A, F extends MDCFoundation<A>> {
      */
     emit(evtType: string, evtData: any, shouldBubble?: boolean): void;
 }
-
-export default MDCComponent;

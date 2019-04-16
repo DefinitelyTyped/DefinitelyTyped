@@ -1,5 +1,4 @@
 import Boom = require('boom');
-import * as Hapi from 'hapi';
 
 // 4xx and data type
 
@@ -97,6 +96,10 @@ const badDataError2: Boom.BoomError = Boom.badData('message');
 const lockedError = Boom.locked('message', {some: 'data'});
 lockedError.data.some;
 const lockedError2: Boom.BoomError = Boom.locked('message');
+
+const failedDependencyError = Boom.failedDependency('message', {some: 'data'});
+failedDependencyError.data.some;
+const failedDependencyError2: Boom.BoomError = Boom.failedDependency('message');
 
 const preconditionRequiredError = Boom.preconditionRequired('message', {some: 'data'});
 preconditionRequiredError.data.some;

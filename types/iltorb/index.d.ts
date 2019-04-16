@@ -1,6 +1,7 @@
-// Type definitions for iltorb 2.0
+// Type definitions for iltorb 2.3
 // Project: https://github.com/MayhemYDG/iltorb
 // Definitions by: Arturas Molcanovas <https://github.com/Alorel>
+//                 Francis Gulotta <https://github.com/reconbot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -25,8 +26,10 @@ export type IltorbCallback = (err: Error | null | undefined, output: Buffer) => 
 
 export function compress(buffer: Buffer, options: BrotliEncodeParams, callback: IltorbCallback): void;
 export function compress(buffer: Buffer, callback: IltorbCallback): void;
+export function compress(buffer: Buffer, options?: BrotliEncodeParams): Promise<Buffer>;
 
 export function decompress(buffer: Buffer, callback: IltorbCallback): void;
+export function decompress(buffer: Buffer): Promise<Buffer>;
 
 export function compressSync(buffer: Buffer, options?: BrotliEncodeParams): Buffer;
 export function decompressSync(buffer: Buffer): Buffer;

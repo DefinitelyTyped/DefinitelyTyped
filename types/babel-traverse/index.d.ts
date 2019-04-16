@@ -1,16 +1,18 @@
 // Type definitions for babel-traverse 6.25
-// Project: https://github.com/babel/babel/tree/master/packages/babel-traverse
+// Project: https://github.com/babel/babel/tree/master/packages/babel-traverse, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
+//                 Ryan Petrich <https://github.com/rpetrich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as t from 'babel-types';
 export type Node = t.Node;
 
-export default function traverse(parent: Node | Node[], opts?: TraverseOptions, scope?: Scope, state?: any, parentPath?: NodePath): void;
+export default function traverse<S>(parent: Node | Node[], opts: TraverseOptions<S>, scope: Scope, state: S, parentPath?: NodePath): void;
+export default function traverse(parent: Node | Node[], opts: TraverseOptions, scope?: Scope, state?: any, parentPath?: NodePath): void;
 
-export interface TraverseOptions extends Visitor {
+export interface TraverseOptions<S = Node> extends Visitor<S> {
     scope?: Scope;
     noScope?: boolean;
 }
@@ -25,6 +27,7 @@ export class Scope {
     bindings: { [name: string]: Binding; };
 
     /** Traverse node with current scope and path. */
+    traverse<S>(node: Node | Node[], opts: TraverseOptions<S>, state: S): void;
     traverse(node: Node | Node[], opts?: TraverseOptions, state?: any): void;
 
     /** Generate a unique identifier and add it to the current scope. */
@@ -339,10 +342,10 @@ export class NodePath<T = Node> {
     listKey: string;
     inList: boolean;
     parentKey: string;
-    key: string;
+    key: string | number;
     node: T;
     scope: Scope;
-    type: string;
+    type: T extends undefined | null ? string | null : string;
     typeAnnotation: object;
 
     getScope(scope: Scope): Scope;
@@ -353,7 +356,8 @@ export class NodePath<T = Node> {
 
     buildCodeFrameError<TError extends Error>(msg: string, Error?: new (msg: string) => TError): TError;
 
-    traverse(visitor: Visitor, state?: any): void;
+    traverse<T>(visitor: Visitor<T>, state: T): void;
+    traverse(visitor: Visitor): void;
 
     set(key: string, node: Node): void;
 
@@ -372,10 +376,10 @@ export class NodePath<T = Node> {
     find(callback: (path: NodePath) => boolean): NodePath;
 
     /** Get the parent function of the current path. */
-    getFunctionParent(): NodePath;
+    getFunctionParent(): NodePath<t.Function>;
 
     /** Walk up the tree until we hit a parent node path in a list. */
-    getStatementParent(): NodePath;
+    getStatementParent(): NodePath<t.Statement>;
 
     /**
      * Get the deepest common ancestor and then from it, get the earliest relationship path
@@ -537,6 +541,9 @@ export class NodePath<T = Node> {
     /** Get the source code associated with this node. */
     getSource(): string;
 
+    /** Check if the current path will maybe execute before another path */
+    willIMaybeExecuteBefore(path: NodePath): boolean;
+
     // ------------------------- context -------------------------
     call(key: string): boolean;
 
@@ -582,9 +589,15 @@ export class NodePath<T = Node> {
 
     getCompletionRecords(): NodePath[];
 
-    getSibling(key: string): NodePath;
+    getSibling(key: string | number): NodePath;
+    getAllPrevSiblings(): NodePath[];
+    getAllNextSiblings(): NodePath[];
 
-    get(key: string, context?: boolean | TraversalContext): NodePath;
+    get<K extends keyof T>(key: K, context?: boolean | TraversalContext):
+        T[K] extends Array<Node | null | undefined> ? Array<NodePath<T[K][number]>> :
+        T[K] extends Node | null | undefined ? NodePath<T[K]> :
+        never;
+    get(key: string, context?: boolean | TraversalContext): NodePath | NodePath[];
 
     getBindingIdentifiers(duplicates?: boolean): Node[];
 

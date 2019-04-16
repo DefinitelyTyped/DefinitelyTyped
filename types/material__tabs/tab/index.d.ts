@@ -15,13 +15,10 @@
  */
 
 import MDCComponent from 'material__base/component';
-import { MDCRipple } from 'material__ripple';
+import MDCTabFoundation from './foundation';
+import MDCTabAdapter from './adapter';
 
-import { MDCTabAdapter } from './adapter';
-import { cssClasses } from './constants';
-import { MDCTabFoundation } from './foundation';
-
-export {MDCTabAdapter, MDCTabFoundation};
+export { MDCTabAdapter, MDCTabFoundation };
 
 export class MDCTab extends MDCComponent<MDCTabAdapter, MDCTabFoundation> {
     static attachTo(root: Element): MDCTab;
@@ -33,10 +30,6 @@ export class MDCTab extends MDCComponent<MDCTabAdapter, MDCTabFoundation> {
     isActive: boolean;
 
     preventDefaultOnClick: boolean;
-
-    destroy(): void;
-
-    getDefaultFoundation(): MDCTabFoundation;
 
     initialSyncWithDOM(): void;
 

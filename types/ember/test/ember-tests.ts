@@ -92,10 +92,10 @@ App.userController = Ember.Object.create({
     }),
 });
 
-Handlebars.registerHelper(
+Ember.Handlebars.registerHelper(
     'highlight',
     (property: string, options: any) =>
-        new Handlebars.SafeString('<span class="highlight">' + 'some value' + '</span>')
+        new Ember.Handlebars.SafeString('<span class="highlight">' + 'some value' + '</span>')
 );
 
 const coolView = App.CoolView.create();
@@ -130,12 +130,13 @@ const isHappy = (person: typeof Person3.prototype): boolean => {
 };
 people2.every(isHappy);
 people2.any(isHappy);
+people2.isEvery('isHappy');
 people2.isEvery('isHappy', true);
-people2.isAny('isHappy', true);
+people2.isAny('isHappy', 'true');
 people2.isAny('isHappy');
 
 // Examples taken from http://emberjs.com/api/classes/Em.RSVP.Promise.html
-const promise = new Ember.RSVP.Promise<string>((resolve: Function, reject: Function) => {
+const promise = new Ember.RSVP.Promise<string>((resolve: (...args: any[]) => any, reject: (...args: any[]) => any) => {
     // on success
     resolve('ok!');
 
@@ -167,3 +168,6 @@ const component1 = Ember.Component.extend(mix1, mix2, {
     lyft: Ember.inject.service(),
     cars: Ember.computed.readOnly('lyft.cars'),
 });
+
+// make sure htmlSafe returns a SafeString
+Ember.String.htmlSafe("hello"); // $ExpectType SafeString

@@ -3,6 +3,7 @@
 // Definitions by: Christophe Vidal <https://github.com/krizalys>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 //                 Chris Barth <https://github.com/cjbarth>
+//                 James Adarich <https://github.com/jamesadarich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -58,7 +59,7 @@ export class BasicStrategy implements passport.Strategy {
     constructor(options: BasicStrategyOptions<true>, verify: BasicVerifyFunctionWithRequest);
 
     name: string;
-    authenticate: (req: express.Request, options?: object) => void;
+    authenticate(req: express.Request, options?: object): void;
 }
 
 export class DigestStrategy implements passport.Strategy {
@@ -66,5 +67,5 @@ export class DigestStrategy implements passport.Strategy {
     constructor(options: DigestStrategyOptions, secret: DigestSecretFunction, validate?: DigestValidateFunction);
 
     name: string;
-    authenticate: (req: express.Request, options?: object) => void;
+    authenticate(req: express.Request, options?: object): void;
 }

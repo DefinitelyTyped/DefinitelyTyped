@@ -1,20 +1,25 @@
-// Type definitions for howler.js v2.0.5
+// Type definitions for howler.js v2.1.1
 // Project: https://github.com/goldfire/howler.js
-// Definitions by: Pedro Casaubon <https://github.com/xperiments>, Todd Dukart <https://github.com/tdukart>, Alexander Leon <https://github.com/alien35>, Nicholas Higgins <https://github.com/nicholashza> 
+// Definitions by: Pedro Casaubon <https://github.com/xperiments>
+//                 Alexander Leon <https://github.com/alien35>
+//                 Nicholas Higgins <https://github.com/nicholashza>
+//                 Carlos Urango <https://github.com/cjurango>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface HowlerGlobal {
-    mute(muted: boolean): void;
+    mute(muted: boolean): this;
     volume(): number;
     volume(volume: number): this;
     codecs(ext: string): boolean;
-    unload(): void;
+    unload(): this;
     usingWebAudio: boolean;
+    html5PoolSize: number;
     noAudio: boolean;
-    mobileAutoEnable: boolean;
+    autoUnlock: boolean;
     autoSuspend: boolean;
     ctx: AudioContext;
     masterGain: GainNode;
+
     stereo(pan: number): this;
     pos(x: number, y: number, z: number): this | void;
     orientation(x: number, y: number, z: number, xUp: number, yUp: number, zUp: number): this | void;
@@ -51,6 +56,7 @@ interface IHowlProperties {
     onrate?: (soundId: number) => void;
     onseek?: (soundId: number) => void;
     onfade?: (soundId: number) => void;
+    onunlock?: (soundId: number) => void;
 }
 
 interface Howl {
@@ -75,7 +81,9 @@ interface Howl {
     loop(loop?: boolean, id?: number): this;
     playing(id?: number): boolean;
     duration(id?: number): number;
-
+    state(): 'unloaded' | 'loading' | 'loaded';
+    load(): this;
+    unload(): void;
 
     on(event: 'load', callback: () => void, id?: number): this;
     on(event: 'loaderror', callback: (soundId: number, error: any) => void, id?: number): this;
@@ -90,6 +98,7 @@ interface Howl {
     on(event: 'seek', callback: (soundId: number) => void, id?: number): this;
     on(event: 'fade', callback: (soundId: number) => void, id?: number): this;
     on(event: string, callback: Function, id?: number): this;
+    on(event: 'unlock', callback: (soundId: number) => void, id?: number): this;
 
     once(event: 'load', callback: () => void, id?: number): this;
     once(event: 'loaderror', callback: (soundId: number, error: any) => void, id?: number): this;
@@ -104,12 +113,10 @@ interface Howl {
     once(event: 'seek', callback: (soundId: number) => void, id?: number): this;
     once(event: 'fade', callback: (soundId: number) => void, id?: number): this;
     once(event: string, callback: Function, id?: number): this;
+    once(event: 'unlock', callback: (soundId: number) => void, id?: number): this;
 
     off(event: string, callback?: Function, id?: number): this;
 
-    state(): 'unloaded' | 'loading' | 'loaded';
-    load(): void;
-    unload(): void;
     stereo(pan: number, id?: number): this | void;
     pos(x: number, y: number, z: number, id?: number): this | void;
     orientation(x: number, y: number, z: number, xUp: number, yUp: number, zUp: number): this | void;

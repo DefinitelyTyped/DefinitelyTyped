@@ -160,6 +160,9 @@ ROT.RNG.setSeed(123);
 SHOW(ROT.RNG.getUniform());
 SHOW(clone.getUniform());
 
+clone.getWeightedValue({} as any); // $ExpectType string
+clone.getWeightedValue({ a: 1, b: 2 }); // $ExpectType "a" | "b"
+
 // RNG / Picking a weighted value
 const monsters = {
     orc: 3,
@@ -322,6 +325,35 @@ tileSet.onload = () => {
     display.draw(0, 1, "#", "transparent");
     display.draw(1, 1, "#", "white");
     display.draw(2, 1, "#", "transparent", "rgba(250, 250, 0, 0.5)");
+};
+
+// Console display / graphical tiles / Colorized tile stacks
+
+tileSet = document.createElement("img");
+tileSet.src = "tiles.png";
+
+options = {
+    layout: "tile",
+    bg: "transparent",
+    tileWidth: 64,
+    tileHeight: 64,
+    tileSet,
+    tileColorize: true,
+    tileMap: {
+        "@": [0, 0],
+        "#": [0, 64]
+    },
+    width: 1,
+    height: 1
+};
+display = new ROT.Display(options);
+SHOW(display.getContainer());
+
+tileSet.onload = () => {
+    const ch = ["#", "@"];
+    const fg = ["rgba(255, 0, 0, 0.5)", "rgba(0, 0, 255, 0.5)"];
+    const bg = ["transparent", "transparent"];
+    display.draw(0, 0, ch, fg, bg);
 };
 
 // Map creation
