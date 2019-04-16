@@ -7,7 +7,7 @@
 /// <reference types="node" />
 import * as Logger from "bunyan";
 export interface Configuration {
-    apiKey?: string;
+    apiKey?: string
     batchSizeLimit?: number;
     eventSizeLimit?: number;
     level?: string;
