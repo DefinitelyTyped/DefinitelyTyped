@@ -8,7 +8,7 @@ import * as nodemailer from "nodemailer";
 
 declare namespace sesTransport {
 	interface SesOptions {
-		SES: AWS.SES;
+		ses: AWS.SES;
 		component?: string;
 		maxConnections?: number;
 		sendingRate?: number;
