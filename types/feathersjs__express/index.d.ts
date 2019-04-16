@@ -11,7 +11,21 @@ import * as self from '@feathersjs/express';
 
 declare const feathersExpress: (<T>(app: FeathersApplication<T>) => Application<T>) & typeof self;
 export default feathersExpress;
-export type Application<T> = express.Application & FeathersApplication<T>;
+declare type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+// TypeScript methods cannot be overloaded with a different signature. Derive two application types without the use methods.
+declare type ExpressAndFeathersApplicationWithoutUse<T> = Omit<express.Application, 'use'> & Omit<FeathersApplication<T>, 'use'>;
+// Give the "any" type for the feathers options object a more precise name.
+export type FeathersServiceOptions = any;
+
+export interface IFeathersRouterMatcher<T> {
+    (path: PathParams, ...handlers: (RequestHandler | RequestHandlerParams | Partial<ServiceMethods<any> & SetupMethod> | Application)[]): T;
+}
+
+declare type FeathersApplicationRequestHandler<T> = express.IRouterHandler<T> & IFeathersRouterMatcher<T> & ((...handlers: RequestHandlerParams[]) => T);
+
+export interface Application<T = any> extends ExpressAndFeathersApplicationWithoutUse<T> {
+    use: FeathersApplicationRequestHandler<T>;
+}
 
 export function errorHandler(options?: {
     public?: string,
