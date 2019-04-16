@@ -6,6 +6,7 @@
 //                 Sean Kelley <https://github.com/seansfkelley>
 //                 Michal Adamczyk <https://github.com/mradamczyk>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
+//				   Josh McCullough <https://github.com/joshmccullough>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
