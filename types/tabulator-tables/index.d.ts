@@ -1702,3 +1702,5 @@ declare class Tabulator {
     The function takes three arguments, the name of the module, the name of the property you want to extend, and an object containing the elements you want to add in your module. In the example below we extend the format module to add two new default formatters: */
     extendModule: (name: string, property: string, values: {}) => void;
 }
+
+export default Tabulator;
