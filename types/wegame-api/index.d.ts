@@ -1,4 +1,4 @@
-// Type definitions for wegame 2.6.5
+// Type definitions for wegame 2.6
 // Project: https://developers.weixin.qq.com/minigame/dev/index.html
 // Definitions by: J.C <https://github.com/jcyuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -370,8 +370,8 @@ declare class CreatedButton {
     style: wx.types.ButtonStyle;
     show(): void;
     hide(): void;
-    onTap(callback: (res?: any) => void);   // res参数会被具体按钮的API定义覆盖为具体信息
-    offTap(callback: (res?: any) => void);
+    onTap(callback: (res?: any) => void): void;   // res参数会被具体按钮的API定义覆盖为具体信息
+    offTap(callback: (res?: any) => void): void;
     destroy(): void;
 }
 declare class UserInfoButton extends CreatedButton {
@@ -400,19 +400,19 @@ declare class UserInfoButton extends CreatedButton {
     }) => void): void;
 }
 declare class OpenSettingButton extends CreatedButton {
-    onTap(callback: () => void);
-    offTap(callback: () => void);
+    onTap(callback: () => void): void;
+    offTap(callback: () => void): void;
 }
 declare class GameClubButton extends CreatedButton {
     icon: wx.types.GameClubButtonIcon;
     onTap(callback: (res: {
         errMsg: string;
-    }) => void);
+    }) => void): void;
 }
 declare class FeedbackButton extends CreatedButton {
     onTap(callback: (res: {
         errMsg: string;
-    }) => void);
+    }) => void): void;
 }
 
 declare class OpenDataContext {
@@ -1279,7 +1279,6 @@ declare namespace wx {
              * 触点相对于游戏窗口的 Y 轴距离。
              */
             clientY: number;
-
         }
 
         interface TouchData {
