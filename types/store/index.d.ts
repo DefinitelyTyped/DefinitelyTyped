@@ -59,7 +59,7 @@ declare module 'store/src/store-engine' {
 declare module 'store/plugins/all' {
     export = Function;
 }
-declare module 'store/plugins/default' {
+declare module 'store/plugins/defaults' {
     export = Function;
 }
 declare module 'store/plugins/dump' {
