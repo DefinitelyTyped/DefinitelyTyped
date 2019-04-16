@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace MailJet {
-    function connect(apiKey: string, apiSecret: string, options?: MailJet.ConnectOptions): MailJet.EmailClient;
+    function connect(apiKey: string, apiSecret: string, options?: ConnectOptions): Email.Client;
 
-    function connect(apiToken: string, options?: MailJet.ConnectOptions): MailJet.SMSClient;
+    function connect(apiToken: string, options?: ConnectOptions): SMS.Client;
 
     interface ConnectOptions {
         readonly proxyUrl?: string;
@@ -24,238 +24,262 @@ declare namespace MailJet {
         readonly secured?: boolean;
     }
 
-    // *** Email interfaces *** //
-    interface EmailClient {
-        get(action: string): EmailGetResource;
+    // *** Email API interfaces *** //
+    namespace Email {
+        interface Client {
+            get(action: string): GetResource;
 
-        put(action: string): EmailPutResource;
+            put(action: string): PutResource;
 
-        post(action: string, options?: ConfigOptions): EmailPostResource;
+            post(action: string, options?: ConfigOptions): PostResource;
+        }
+
+        // resources
+        interface PostResource {
+            id(value: string): PostResource;
+
+            action(action: string): PostResource;
+
+            request(params: SendParams): Promise<PostResponse>;
+
+            request(params: object, callback?: (error: Error, res: Response) => void): Promise<Response>;
+        }
+
+        interface GetResource {
+            id(value: string): GetResource;
+
+            action(action: string): GetResource;
+
+            request(params?: object, callback?: (error: Error, res: GetResponse) => void): Promise<GetResponse>;
+        }
+
+        interface PutResource {
+            id(value: string): PutResource;
+
+            request(params: object, callback?: (error: Error, res: PutResponse) => void): Promise<PutResponse>;
+        }
+
+        // responses
+        interface Response {
+            readonly body: object;
+        }
+
+        interface GetResponse {
+            readonly body: GetResponseData;
+        }
+
+        interface PostResponse {
+            readonly body: PostResponseData;
+        }
+
+        interface PutResponse {
+            readonly body: PutResponseData;
+        }
+
+        // request params
+        interface SendParams {
+            Messages: SendParamsMessage[];
+            SandboxMode?: boolean;
+        }
+
+        // other types
+        interface SendParamsRecipient {
+            Email: string;
+            Name: string;
+        }
+
+        interface SendParamsMessage {
+            From: {
+                Email: string
+                Name: string
+            };
+            To: SendParamsRecipient[];
+            Cc?: SendParamsRecipient[];
+            Bcc?: SendParamsRecipient[];
+            Variables?: object;
+            TemplateID?: number;
+            TemplateLanguage?: boolean;
+            Subject: string;
+            TextPart?: string;
+            HTMLPart?: string;
+            MonitoringCategory?: string;
+            URLTags?: string;
+            CustomCampaign?: string;
+            DeduplicateCampaign?: boolean;
+            EventPayload?: string;
+            CustomID?: string;
+            Headers?: object;
+            Attachments?: [{
+                "ContentType": string
+                "Filename": string
+                "Base64Content": string
+            }];
+            InlinedAttachments?: [{
+                ContentType: string
+                Filename: string
+                ContentID: string
+                Base64Content: string
+            }];
+        }
+
+        interface PostResponseDataMessage {
+            readonly Status: string;
+            readonly CustomID: string;
+            readonly To: ReadonlyArray<PostResponseDataTo>;
+            readonly Cc: ReadonlyArray<PostResponseDataTo>;
+            readonly Bcc: ReadonlyArray<PostResponseDataTo>;
+        }
+
+        interface PostResponseDataTo {
+            readonly Email: string;
+            readonly MessageUUID: string;
+            readonly MessageID: number;
+            readonly MessageHref: string;
+        }
+
+        interface GetResponseData {
+            readonly Count: number;
+            readonly Data: ReadonlyArray<object>;
+            readonly Total: number;
+        }
+
+        interface PostResponseData {
+            readonly Messages: ReadonlyArray<PostResponseDataMessage>;
+        }
+
+        interface PutResponseData {
+            readonly Count: number;
+            readonly Data: ReadonlyArray<object>;
+            readonly Total: number;
+        }
     }
 
-    // resources
-    interface EmailPostResource {
-        id(value: string): EmailPostResource;
+    // *** SMS API interfaces *** ///
+    namespace SMS {
+        interface Client {
+            get(action: string): GetResource;
 
-        action(action: string): EmailPostResource;
+            post(action: string): PostResource;
+        }
 
-        request(params: EmailSendParams): Promise<EmailPostResponse>;
+        // resources
+        interface GetResource {
+            id(value: string): GetResource;
 
-        request(params: object, callback?: (error: Error, res: EmailResponse) => void): Promise<EmailResponse>;
-    }
+            action(action: string): GetResourceAction;
 
-    interface EmailGetResource {
-        id(value: string): EmailGetResource;
+            request(params?: GetParams): Promise<GetResponse>;
+        }
 
-        action(action: string): EmailGetResource;
+        interface PostResource {
+            action(action: string): PostResource;
 
-        request(params?: object, callback?: (error: Error, res: EmailResponse) => void): Promise<EmailResponse>;
-    }
+            request(params: SendParams): Promise<SendResponse>;
 
-    interface EmailPutResource {
-        id(value: string): EmailPutResource;
+            request(params?: ExportParams): Promise<ExportResponse>;
+        }
 
-        request(params: object, callback?: (error: Error, res: EmailResponse) => void): Promise<EmailResponse>;
-    }
+        interface GetResourceAction {
+            id(value: string): GetResourceActionId;
 
-    // responses
-    interface EmailResponse {
-        readonly body: any;
-    }
+            request(params?: GetParams): Promise<GetResponseAction>;
+        }
 
-    interface EmailPostResponse {
-        readonly body: EmailPostResponseData;
-    }
+        interface GetResourceActionId {
+            request(): Promise<ExportResponse>;
+        }
 
-    // request params
-    interface EmailSendParams {
-        Messages: SendParamsMessage[];
-        SandboxMode?: boolean;
-    }
+        // responses
+        interface GetResponse {
+            readonly body: GetResponseData;
+        }
 
-    // other types
-    interface SendParamsRecipient {
-        Email: string;
-        Name: string;
-    }
+        interface SendResponse {
+            readonly body: PostResponseData;
+            readonly url: string;
+        }
 
-    interface SendParamsMessage {
-        From: {
-            Email: string
-            Name: string
-        };
-        To: SendParamsRecipient[];
-        Cc?: SendParamsRecipient[];
-        Bcc?: SendParamsRecipient[];
-        Variables?: object;
-        TemplateID?: number;
-        TemplateLanguage?: boolean;
-        Subject: string;
-        TextPart?: string;
-        HTMLPart?: string;
-        MonitoringCategory?: string;
-        URLTags?: string;
-        CustomCampaign?: string;
-        DeduplicateCampaign?: boolean;
-        EventPayload?: string;
-        CustomID?: string;
-        Headers?: object;
-        Attachments?: [{
-            "ContentType": string
-            "Filename": string
-            "Base64Content": string
-        }];
-        InlinedAttachments?: [{
-            ContentType: string
-            Filename: string
-            ContentID: string
-            Base64Content: string
-        }];
-    }
+        interface ExportResponse {
+            readonly body: ExportResponseData;
+        }
 
-    interface PostResponseDataMessage {
-        readonly Status: string;
-        readonly CustomID: string;
-        readonly To: ReadonlyArray<PostResponseDataTo>;
-        readonly Cc: ReadonlyArray<PostResponseDataTo>;
-        readonly Bcc: ReadonlyArray<PostResponseDataTo>;
-    }
+        interface GetResponseAction {
+            readonly body: GetResponseActionData;
+        }
 
-    interface PostResponseDataTo {
-        readonly Email: string;
-        readonly MessageUUID: string;
-        readonly MessageID: number;
-        readonly MessageHref: string;
-    }
+        // request params
+        interface GetParams {
+            FromTS?: number;
+            ToTS?: number;
+            To?: string;
+            StatusCode?: number[];
+            Limit?: number;
+            Offset?: number;
+        }
 
-    interface EmailPostResponseData {
-        readonly Messages: ReadonlyArray<PostResponseDataMessage>;
-    }
+        interface SendParams {
+            Text: string;
+            To: string;
+            From: string;
+        }
 
-    // *** SMS interfaces *** ///
-    interface SMSClient {
-        get(action: string): SMSGetResource;
+        interface ExportParams {
+            FromTS: number;
+            ToTS: number;
+        }
 
-        post(action: string): SMSPostResource;
-    }
+        // other types
+        interface GetResponseDataData {
+            readonly From: string;
+            readonly To: string;
+            readonly Status: ResponseStatus;
+            readonly MessageId: string;
+            readonly CreationTS: number;
+            readonly SentTS: number;
+            readonly SMSCount: number;
+            readonly Cost: ResponseCost;
+        }
 
-    // resources
-    interface SMSGetResource {
-        id(value: string): SMSGetResource;
+        interface ResponseStatus {
+            readonly Code: number;
+            readonly Name: string;
+            readonly Description: string;
+        }
 
-        action(action: string): GetResourceAction;
+        interface ResponseCost {
+            readonly Value: number;
+            readonly Currency: string;
+        }
 
-        request(params?: GetParams): Promise<SMSGetResponse>;
-    }
+        interface GetResponseData {
+            readonly Data: ReadonlyArray<GetResponseDataData>;
+        }
 
-    interface SMSPostResource {
-        action(action: string): SMSPostResource;
+        interface PostResponseData {
+            readonly From: string;
+            readonly To: string;
+            readonly Text: string;
+            readonly MessageId: string;
+            readonly SmsCount: number;
+            readonly CreationTS: number;
+            readonly SentTS: number;
+            readonly Cost: ResponseCost;
+            readonly Status: ResponseStatus;
+        }
 
-        request(params: SMSSendParams): Promise<SendResponse>;
+        interface ExportResponseData {
+            readonly ID: number;
+            readonly CreationTS?: number;
+            readonly ExpirationTS?: number;
+            readonly Status: ResponseStatus;
+            readonly URL?: string;
+            readonly FromTs?: number;
+            readonly ToTs?: number;
+        }
 
-        request(params?: ExportParams): Promise<ExportResponse>;
-    }
-
-    interface GetResourceAction {
-        id(value: string): GetResourceActionId;
-
-        request(params?: GetParams): Promise<GetResponseAction>;
-    }
-
-    interface GetResourceActionId {
-        request(): Promise<ExportResponse>;
-    }
-
-    // responses
-    interface SMSGetResponse {
-        readonly body: GetResponseData;
-    }
-
-    interface SendResponse {
-        readonly body: SMSPostResponseData;
-        readonly url: string;
-    }
-
-    interface ExportResponse {
-        readonly body: ExportResponseData;
-    }
-
-    interface GetResponseAction {
-        readonly body: GetResponseActionData;
-    }
-
-    // request params
-    interface GetParams {
-        FromTS?: number;
-        ToTS?: number;
-        To?: string;
-        StatusCode?: number[];
-        Limit?: number;
-        Offset?: number;
-    }
-
-    interface SMSSendParams {
-        Text: string;
-        To: string;
-        From: string;
-    }
-
-    interface ExportParams {
-        FromTS: number;
-        ToTS: number;
-    }
-
-    // other types
-    interface GetResponseDataData {
-        readonly From: string;
-        readonly To: string;
-        readonly Status: ResponseStatus;
-        readonly MessageId: string;
-        readonly CreationTS: number;
-        readonly SentTS: number;
-        readonly SMSCount: number;
-        readonly Cost: ResponseCost;
-    }
-
-    interface ResponseStatus {
-        readonly Code: number;
-        readonly Name: string;
-        readonly Description: string;
-    }
-
-    interface ResponseCost {
-        readonly Value: number;
-        readonly Currency: string;
-    }
-
-    interface GetResponseData {
-        readonly Data: ReadonlyArray<GetResponseDataData>;
-    }
-
-    interface SMSPostResponseData {
-        readonly From: string;
-        readonly To: string;
-        readonly Text: string;
-        readonly MessageId: string;
-        readonly SmsCount: number;
-        readonly CreationTS: number;
-        readonly SentTS: number;
-        readonly Cost: ResponseCost;
-        readonly Status: ResponseStatus;
-    }
-
-    interface ExportResponseData {
-        readonly ID: number;
-        readonly CreationTS?: number;
-        readonly ExpirationTS?: number;
-        readonly Status: ResponseStatus;
-        readonly URL?: string;
-        readonly FromTs?: number;
-        readonly ToTs?: number;
-    }
-
-    interface GetResponseActionData {
-        readonly Count: number;
+        interface GetResponseActionData {
+            readonly Count: number;
+        }
     }
 }
 
