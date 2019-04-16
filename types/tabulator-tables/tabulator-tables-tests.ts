@@ -1,5 +1,6 @@
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
+import Tabulator from 'tabulator-tables';
 
 // constructor
 let table = new Tabulator("#test");
@@ -81,11 +82,11 @@ table
         // handle error updating data
     });
 
-let row1: Tabulator.RowComponent;
-let row2: Tabulator.RowComponent;
+// let row1: Tabulator.RowComponent;
+// let row2: Tabulator.RowComponent;
 
 // column definitions
-let colDef: Tabulator.ColumnDefinition = { title: "title", field: "" };
+const colDef: Tabulator.ColumnDefinition = { title: "title", field: "" };
 colDef.sorter = customSorter;
 
 // prettier-ignore
@@ -230,7 +231,7 @@ colDef.editorParams = cell => {
     return {};
 };
 
-let autoComplete: Tabulator.AutoCompleteParams = {
+const autoComplete: Tabulator.AutoCompleteParams = {
     showListOnEmpty: true, // show all values when the list is empty,
     freetext: true, // allow the user to set the value of the cell to a free text entry
     allowEmpty: true, // allow empty string values
@@ -299,7 +300,7 @@ colDef.validator = {
 colDef.validator = "float";
 colDef.validator = { type: "float", parameters: {} };
 
-let validators: Tabulator.Validator[] = [
+const validators: Tabulator.Validator[] = [
     { type: "integer", parameters: {} },
     {
         type: (cell, value, parameters) => {
@@ -316,14 +317,14 @@ colDef.headerFilterFunc = (headerValue, rowValue, rowData, filterParams) => {
 
 // Cell Component
 
-let cell = <Tabulator.CellComponent>{};
+const cell = <Tabulator.CellComponent>{};
 cell.nav().down();
 
-let data = cell.getData();
+const data = cell.getData();
 table = cell.getTable();
 
 // Row Component
-let row = <Tabulator.RowComponent>{};
+const row = <Tabulator.RowComponent>{};
 row.delete()
     .then(() => {
         // run code after row has been deleted
@@ -333,7 +334,7 @@ row.delete()
     });
 
 // Options
-let options = <Tabulator.Options>{};
+const options = <Tabulator.Options>{};
 options.keybindings = {
     navPrev: "ctrl + 1",
     navNext: false
