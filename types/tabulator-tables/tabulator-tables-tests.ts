@@ -82,9 +82,6 @@ table
         // handle error updating data
     });
 
-// let row1: Tabulator.RowComponent;
-// let row2: Tabulator.RowComponent;
-
 // column definitions
 const colDef: Tabulator.ColumnDefinition = { title: "title", field: "" };
 colDef.sorter = customSorter;
