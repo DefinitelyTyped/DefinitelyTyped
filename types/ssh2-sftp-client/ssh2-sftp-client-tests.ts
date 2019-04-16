@@ -18,7 +18,7 @@ client.exists("/remote/path").then(() => null);
 
 client.stat("/remote/path").then(() => null);
 
-client.get("/remote/path").then((stream: string) => null);
+// client.get("/remote/path").then((stream: string) => null);
 
 client.put("/local/path", "/remote/path").then(() => null);
 client.put(new Buffer("content"), "/remote/path").then(() => null);
