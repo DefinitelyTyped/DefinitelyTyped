@@ -439,3 +439,9 @@ export class Provider<A extends Action = AnyAction> extends Component<ProviderPr
  * redux store instead of this approeach.
  */
 export const ReactReduxContext: Context<ReactReduxContextValue>;
+
+/**
+ * Wraps ReactDOM or React Native's internal unstable_batchedUpdate function. You can use it to ensure that
+ * multiple actions dispatched outside of React only result in a single render update.
+ */
+export function batch(cb: () => void): void;
