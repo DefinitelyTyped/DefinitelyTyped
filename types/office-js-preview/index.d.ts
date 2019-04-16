@@ -16528,7 +16528,7 @@ declare namespace Office {
          * 
          * **Errors**: 
          * 
-         * Invalid date format: The date is not in an acceptable format.
+         * - Invalid date format: The date is not in an acceptable format.
          * 
          * @param year - The year value of the end date.
          * @param month - The month value of the end date. Valid range is 0-11 where 0 represents the 1st month and 11 represents the 12th month.
