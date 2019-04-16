@@ -120,7 +120,7 @@ colDef.formatterParams = {
     huge: true
 };
 // Custom Formatter
-colDef.formatter = (cell: Tabulator.CellComponent, formatterParams: {}, onRendered) => {
+colDef.formatter = (cell: Tabulator.CellComponent, formatterParams: {}, onRendered: EmptyCallback) => {
     onRendered = () => {};
     return "";
 };
