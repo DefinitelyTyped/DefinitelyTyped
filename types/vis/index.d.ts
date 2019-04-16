@@ -193,8 +193,8 @@ export interface TimelineRollingModeOption {
 }
 
 export interface TimelineTooltipOption {
-  followMouse: boolean;
-  overflowMethod: 'cap' | 'flip';
+  followMouse?: boolean;
+  overflowMethod?: 'cap' | 'flip';
 }
 
 export type TimelineOptionsConfigureFunction = (option: string, path: string[]) => boolean;
