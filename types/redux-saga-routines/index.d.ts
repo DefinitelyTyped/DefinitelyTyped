@@ -9,8 +9,6 @@ import {
     Action,
     ActionMeta,
     createAction,
-    ActionFunctions,
-    ActionWithMetaFunctions,
     ActionFunction0,
     ActionFunction1,
     ActionFunction2,
@@ -20,9 +18,11 @@ import {
 } from 'redux-actions';
 import { FormSubmitHandler } from 'redux-form';
 
-export function routinePromiseWatcherSaga(): Generator;
+export function routinePromiseWatcherSaga(): IterableIterator<any>;
 
-export type ActionCreator = ActionFunctions<any> | ActionWithMetaFunctions<any, any>;
+export type ActionCreator<Payload = any, Meta = any> = ActionFunctionAny<
+  Action<Payload> | ActionMeta<Payload, Meta>
+>;
 
 export type Routine<
     TTriggerActionCreator = ActionCreator
