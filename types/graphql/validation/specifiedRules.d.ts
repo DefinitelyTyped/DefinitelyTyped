@@ -1,3 +1,5 @@
+import { ValidationRule, SDLValidationRule } from "./ValidationContext";
+
 // Spec Section: "Executable Definitions"
 import { ExecutableDefinitions } from "./rules/ExecutableDefinitions";
 
@@ -65,10 +67,7 @@ import { UniqueArgumentNames } from "./rules/UniqueArgumentNames";
 import { ValuesOfCorrectType } from "./rules/ValuesOfCorrectType";
 
 // Spec Section: "Argument Optionality"
-import { ProvidedNonNullArguments } from "./rules/ProvidedNonNullArguments";
-
-// Spec Section: "Variables Default Value Is Allowed"
-import { VariablesDefaultValueAllowed } from "./rules/VariablesDefaultValueAllowed";
+import { ProvidedRequiredArguments } from "./rules/ProvidedRequiredArguments";
 
 // Spec Section: "All Variable Usages Are Allowed"
 import { VariablesInAllowedPosition } from "./rules/VariablesInAllowedPosition";
@@ -79,12 +78,15 @@ import { OverlappingFieldsCanBeMerged } from "./rules/OverlappingFieldsCanBeMerg
 // Spec Section: "Input Object Field Uniqueness"
 import { UniqueInputFieldNames } from "./rules/UniqueInputFieldNames";
 
-import ValidationContext from "./ValidationContext";
-
 /**
  * This set includes all validation rules defined by the GraphQL spec.
  *
  * The order of the rules in this list has been adjusted to lead to the
  * most clear output when encountering multiple validation errors.
  */
-export const specifiedRules: Array<(context: ValidationContext) => any>;
+export const specifiedRules: ReadonlyArray<ValidationRule>;
+
+import { LoneSchemaDefinition } from "./rules/LoneSchemaDefinition";
+
+// @internal
+export const specifiedSDLRules: ReadonlyArray<SDLValidationRule>;

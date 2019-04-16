@@ -136,7 +136,7 @@ export interface ToastOptions extends ToastAndToastContainerOptions {
     /**
      * String or React Element, only available when calling update.
      */
-    render?: string | React.ReactElement<any>;
+    render?: string | React.ReactElement;
 }
 
 export interface Toast {

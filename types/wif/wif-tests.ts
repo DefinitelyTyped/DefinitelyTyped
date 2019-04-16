@@ -12,5 +12,5 @@ wif.decode(testString, 0);
 
 // $ExpectType Buffer
 wif.encodeRaw(1, testBuffer, true);
-// $ExpectType Buffer
+// $ExpectType string
 wif.encode(1, testBuffer, true);

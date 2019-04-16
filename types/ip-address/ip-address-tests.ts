@@ -33,7 +33,7 @@ address4.toGroup6();
 // $ExpectType string
 address4.mask();
 // $ExpectType string
-address4.mask(0);
+address4.mask('0');
 // $ExpectType string
 address4.getBitsBase2(0, 1);
 // $ExpectType string
@@ -44,7 +44,7 @@ address4.isValid();
 // $ExpectType boolean
 address4.isCorrect();
 // $ExpectType boolean
-address4.isInSubnet();
+address4.isInSubnet(address4);
 
 // Test Address6 Typings
 const address6 = new ipAddress.Address6('127.0.0.1');
@@ -59,11 +59,7 @@ const address6Mask = address6.subnetMask;
 // $ExpectType Address6
 address6.startAddress();
 // $ExpectType Address6
-address6.startAddressExclusive();
-// $ExpectType Address6
 address6.endAddress();
-// $ExpectType Address6
-address6.endAddressExclusive();
 // $ExpectType Address6
 address6.to6to4();
 
@@ -79,7 +75,7 @@ address6.possibleSubnets();
 address6.possibleSubnets(1);
 // $ExpectType string
 address6.getScope();
-// $ExpectType string
+// $ExpectType IPv6Type
 address6.getType();
 // $ExpectType string
 address6.getBitsBase2(0, 1);
@@ -101,21 +97,16 @@ address6.decimal();
 address6.to4();
 // $ExpectType string
 address6.to4in6();
-
-// $ExpectType TeredoObject
+// $ExpectType TeredoProperties
 address6.inspectTeredo();
-
-// $ExpectType SixToFourResponse
+// $ExpectType SixToFourProperties
 address6.inspect6to4();
 
-// Test v6 Typings
-const v6 = ipAddress.v6;
-
 // $ExpectType string
-v6.helpers.simpleGroup(address6.address);
+ipAddress.simpleGroup(address6.address, 1);
 // $ExpectType string
-v6.helpers.spanAll(address6.address);
+ipAddress.spanAll(address6.address);
 // $ExpectType string
-v6.helpers.spanAllZeroes(address6.address);
+ipAddress.spanAllZeroes(address6.address);
 // $ExpectType string
-v6.helpers.spanLeadingZeroes(address6.address);
+ipAddress.spanLeadingZeroes(address6.address);

@@ -1,6 +1,8 @@
 // Type definitions for blessed 0.1
 // Project: https://github.com/chjj/blessed
-// Definitions by: Bryn Austin Bellomy <https://github.com/brynbellomy>, Steve Kellock <https://github.com/skellock>
+// Definitions by: Bryn Austin Bellomy <https://github.com/brynbellomy>
+//                 Steve Kellock <https://github.com/skellock>
+//                 Max Brauer <https://github.com/mamachanko>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -925,12 +927,12 @@ export namespace Widgets {
         /**
          * Create a log file. See log method.
          */
-        log?(...msg: any[]): void;
+        log?: string;
 
         /**
          * Dump all output and input to desired file. Can be used together with log option if set as a boolean.
          */
-        dump?: string;
+        dump?: string | boolean;
 
         /**
          * Debug mode. Enables usage of the debug method. Also creates a debug console which will display when

@@ -3,6 +3,7 @@
 // Definitions by: Meirion Hughes <https://github.com/MeirionHughes>
 //                 Daniel Byrne <https://github.com/danwbyrne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 export interface AbstractOptions {
   readonly [k: string]: any;
@@ -21,7 +22,7 @@ export interface AbstractGetOptions extends AbstractOptions {
   asBuffer?: boolean;
 }
 
-export interface AbstractLevelDOWN<K, V> extends AbstractOptions {
+export interface AbstractLevelDOWN<K = any, V = any> extends AbstractOptions {
   open(cb: ErrorCallback): void;
   open(options: AbstractOpenOptions, cb: ErrorCallback): void;
 
@@ -38,17 +39,23 @@ export interface AbstractLevelDOWN<K, V> extends AbstractOptions {
 
   batch(): AbstractChainedBatch<K, V>;
   batch(array: ReadonlyArray<AbstractBatch<K, V>>, cb: ErrorCallback): AbstractChainedBatch<K, V>;
-  batch(array: ReadonlyArray<AbstractBatch<K, V>>, options: AbstractOptions, cb: ErrorCallback): AbstractChainedBatch<K, V>;
+  batch(
+    array: ReadonlyArray<AbstractBatch<K, V>>,
+    options: AbstractOptions,
+    cb: ErrorCallback,
+  ): AbstractChainedBatch<K, V>;
 
   iterator(options?: AbstractIteratorOptions<K>): AbstractIterator<K, V>;
 }
 
 export interface AbstractLevelDOWNConstructor {
-  new (location: string): AbstractLevelDOWN<any, any>;
-  (location: string): AbstractLevelDOWN<any, any>;
+  // tslint:disable-next-line no-unnecessary-generics
+  new <K = any, V = any>(location: string): AbstractLevelDOWN<K, V>;
+  // tslint:disable-next-line no-unnecessary-generics
+  <K = any, V = any>(location: string): AbstractLevelDOWN<K, V>;
 }
 
-export interface AbstractIteratorOptions<K> extends AbstractOptions {
+export interface AbstractIteratorOptions<K = any> extends AbstractOptions {
   gt?: K;
   gte?: K;
   lt?: K;
@@ -61,20 +68,20 @@ export interface AbstractIteratorOptions<K> extends AbstractOptions {
   valueAsBuffer?: boolean;
 }
 
-export type AbstractBatch<K, V> = PutBatch<K, V> | DelBatch<K, V>;
+export type AbstractBatch<K = any, V = any> = PutBatch<K, V> | DelBatch<K, V>;
 
-export interface PutBatch<K, V> {
+export interface PutBatch<K = any, V = any> {
   readonly type: 'put';
   readonly key: K;
   readonly value: V;
 }
 
-export interface DelBatch<K, V> {
+export interface DelBatch<K = any, V = any> {
   readonly type: 'del';
   readonly key: K;
 }
 
-export interface AbstractChainedBatch<K, V> extends AbstractChainedBatchConstructor, AbstractOptions {
+export interface AbstractChainedBatch<K = any, V = any> extends AbstractOptions {
   put: (key: K, value: V) => this;
   del: (key: K) => this;
   clear: () => this;
@@ -83,19 +90,23 @@ export interface AbstractChainedBatch<K, V> extends AbstractChainedBatchConstruc
 }
 
 export interface AbstractChainedBatchConstructor {
-  new(db: any): AbstractChainedBatch<any, any>;
-  (db: any): AbstractChainedBatch<any, any>;
+  // tslint:disable-next-line no-unnecessary-generics
+  new <K = any, V = any>(db: any): AbstractChainedBatch<K, V>;
+  // tslint:disable-next-line no-unnecessary-generics
+  <K = any, V = any>(db: any): AbstractChainedBatch<K, V>;
 }
 
-export interface AbstractIterator<K, V> extends AbstractChainedBatchConstructor {
+export interface AbstractIterator<K, V> extends AbstractOptions {
   db: AbstractLevelDOWN<K, V>;
   next(cb: ErrorKeyValueCallback<K, V>): this;
   end(cb: ErrorCallback): void;
 }
 
 export interface AbstractIteratorConstructor {
-  new(db: any): AbstractIterator<any, any>;
-  (db: any): AbstractIterator<any, any>;
+  // tslint:disable-next-line no-unnecessary-generics
+  new <K = any, V = any>(db: any): AbstractIterator<K, V>;
+  // tslint:disable-next-line no-unnecessary-generics
+  <K = any, V = any>(db: any): AbstractIterator<K, V>;
 }
 
 export const AbstractLevelDOWN: AbstractLevelDOWNConstructor;

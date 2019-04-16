@@ -32,6 +32,7 @@ class Data implements IData {
 
 var promise: when.Promise<number>;
 var promise2: when.Promise<Data>;
+var emptyPromise: when.Promise<void>;
 var foreign = new ForeignPromise<number>(1);
 var promiseOrValue = 1 as number | when.Promise<number>;
 var error = new Error("boom!");
@@ -41,6 +42,10 @@ var native: Promise<number>;
 /* * * * * * *
  *   Core    *
  * * * * * * */
+
+/* when() */
+
+emptyPromise = when();
 
 /* when(x) */
 
@@ -201,6 +206,10 @@ when.unfold(function (x) {
 
 promise = when.promise<number>(resolve => resolve(5));
 promise = when.promise<number>((resolve, reject) => reject(error));
+
+/* when.resolve() */
+
+emptyPromise = when.resolve();
 
 /* when.resolve(x) */
 

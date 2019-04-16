@@ -12,16 +12,50 @@ export const libxml_version: string;
 export const libxml_parser_version: string;
 
 // tslint:disable-next-line:strict-export-declare-modifiers
-interface ParseOptions {
-    [optionName: string]: string;
+interface StringMap { [key: string]: string; }
+
+// tslint:disable-next-line:strict-export-declare-modifiers
+interface ParserOptions {
+    recover?: boolean;
+    noent?: boolean;
+    dtdload?: boolean;
+    doctype?: boolean;
+    dtdattr?: any;
+    dtdvalid?: boolean;
+    noerror?: boolean;
+    errors?: boolean;
+    nowarning?: boolean;
+    warnings?: boolean;
+    pedantic?: boolean;
+    noblanks?: boolean;
+    blanks?: boolean;
+    sax1?: boolean;
+    xinclude?: boolean;
+    nonet?: boolean;
+    net?: boolean;
+    nodict?: boolean;
+    dict?: boolean;
+    nsclean?: boolean;
+    implied?: boolean;
+    nocdata?: boolean;
+    cdata?: boolean;
+    noxincnode?: boolean;
+    compact?: boolean;
+    old?: boolean;
+    nobasefix?: boolean;
+    basefix?: boolean;
+    huge?: boolean;
+    oldsax?: boolean;
+    ignore_enc?: boolean;
+    big_lines?: boolean;
 }
 
-export function parseXml(source: string, options?: ParseOptions): Document;
-export function parseXmlString(source: string, options?: ParseOptions): Document;
+export function parseXml(source: string, options?: ParserOptions): Document;
+export function parseXmlString(source: string, options?: ParserOptions): Document;
 
-export function parseHtml(source: string, options?: ParseOptions): Document;
-export function parseHtmlString(source: string, options?: ParseOptions): Document;
-export function parseHtmlFragment(source: string, options?: ParseOptions): Document;
+export function parseHtml(source: string, options?: ParserOptions): Document;
+export function parseHtmlString(source: string, options?: ParserOptions): Document;
+export function parseHtmlFragment(source: string, options?: ParserOptions): Document;
 
 export function memoryUsage(): number;
 export function nodeCount(): number;
@@ -35,18 +69,20 @@ export class Document {
     constructor(version?: number, encoding?: string);
 
     errors: SyntaxError[];
+    validationErrors: ValidationError[];
 
     child(idx: number): Element|null;
     childNodes(): Element[];
     encoding(): string;
     encoding(enc: string): this;
     find(xpath: string): Element[];
-    get(xpath: string): Element|null;
+    get(xpath: string, namespaces?: StringMap): Element|null;
     node(name: string, content?: string): Element;
     root(): Element|null;
     root(newRoot: Node): Node;
     toString(formatted?: boolean): string;
     type(): 'document';
+    validate(xsdDoc: Document): boolean;
     version(): string;
     setDtd(name: string, ext: string, sys: string): void;
     getDtd(): {
@@ -98,7 +134,7 @@ export class Element extends Node {
     text(): string;
     text(newText: string): this;
     attr(name: string): Attribute|null;
-    attr(attrObject: { [key: string]: string; }): this;
+    attr(attrObject: StringMap): this;
     attrs(): Attribute[];
 
     doc(): Document;
@@ -113,9 +149,10 @@ export class Element extends Node {
     prevElement(): Element|null;
     nextElement(): Element|null;
     addNextSibling(siblingNode: Node): Node;
+    addPrevSibling(siblingNode: Node): Node;
 
     find(xpath: string, ns_uri?: string): Node[];
-    find(xpath: string, namespaces: { [key: string]: string; }): Node[];
+    find(xpath: string, namespaces: StringMap): Node[];
     get(xpath: string, ns_uri?: string): Element|null;
 
     defineNamespace(prefixOrHref: string, hrefInCaseOfPrefix?: string): Namespace;
@@ -170,4 +207,16 @@ export interface SyntaxError {
     str2: number|null;
     str3: number|null;
     int1: number|null;
+}
+
+export interface ValidationError extends Error {
+    domain: number|null;
+    code: number|null;
+    level: number|null;
+
+    line: number|null;
+    /**
+     * 1-based column number, 0 if not applicable/available.
+     */
+    column: number;
 }

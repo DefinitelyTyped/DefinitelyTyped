@@ -1,9 +1,10 @@
-// Type definitions for electron-packager 12.0
+// Type definitions for electron-packager 13.0
 // Project: https://github.com/electron-userland/electron-packager
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 Juan Jimenez-Anca <https://github.com/cortopy>
 //                 John Kleinschmidt <https://github.com/jkleinsc>
 //                 Brendan Forster <https://github.com/shiftkey>
+//                 Mark Lee <https://github.com/malept>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -23,20 +24,6 @@ export = electronPackager;
  */
 declare function electronPackager(opts: electronPackager.Options): Promise<string|string[]>;
 
-/**
- * This will:
- * - Find or download the correct release of Electron
- * - Use that version of electron to create a app in <out>/<appname>-<platform>-<arch>
- *
- * You should be able to launch the app on the platform you built for. If not, check your settings and try again.
- *
- * @param opts - Options to configure packaging.
- * @param callback - Callback which is called when packaging is done or an error occured.
- *
- * @deprecated since version 12.0
- */
-declare function electronPackager(opts: electronPackager.Options, callback: electronPackager.finalCallback): void;
-
 declare namespace electronPackager {
     /**
      * Callback which is called when electron-packager is done.
@@ -48,8 +35,7 @@ declare namespace electronPackager {
 
     type ignoreFunction = (path: string) => boolean;
     type onCompleteFn = (buildPath: string, electronVersion: string, platform: string, arch: string, callbackFn: () => void) => void;
-    type arch = "ia32" | "x64" | "armv7l" | "arm64" |"all";
-    type packageManager = "npm" | "cnpm" | "yarn" | false;
+    type arch = "ia32" | "x64" | "armv7l" | "arm64" | "mips64el" | "all";
     type platform = "linux" | "win32" | "darwin" | "mas" | "all";
 
     interface AsarOptions {
@@ -63,6 +49,11 @@ declare namespace electronPackager {
         mirror?: string;
         quiet?: boolean;
         strictSSL?: boolean;
+    }
+
+    interface ElectronNotarizeOptions {
+        appleId: string;
+        appleIdPassword: string;
     }
 
     interface ElectronOsXSignOptions {
@@ -117,6 +108,10 @@ declare namespace electronPackager {
          */
         asar?: boolean | AsarOptions;
         /**
+         * The path to a prebuilt ASAR file.
+         */
+        prebuiltAsar?: string;
+        /**
          * The build version of the application. Defaults to the value of appVersion.
          * Maps to the FileVersion metadata property on Windows, and CFBundleVersion on OS X.
          */
@@ -161,10 +156,6 @@ declare namespace electronPackager {
          */
         overwrite?: boolean;
         /**
-         * The package manager used to prune devDependencies modules from the outputted Electron app
-         */
-        packageManager?: packageManager;
-        /**
          * The target platform(s) to build for. Not required if the all option is set.
          */
         platform?: platform;
@@ -202,6 +193,14 @@ declare namespace electronPackager {
          * The bundle identifier to use in the application helper's plist.
          */
         helperBundleId?: string;
+        /**
+         * Forces support for Mojave (macOS 10.14) dark mode in the packaged app.
+         */
+        darwinDarkModeSupport?: boolean;
+        /**
+         * If present, notarizes OS X target apps when the host platform is OS X and XCode is installed.
+         */
+        osxNotarize?: ElectronNotarizeOptions;
         /**
          * If present, signs OS X target apps when the host platform is OS X and XCode is installed.
          */

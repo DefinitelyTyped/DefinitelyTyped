@@ -64,6 +64,7 @@ declare namespace JQueryUI {
          * The item selected from the menu, if any. Otherwise the property is null
          */
         item?: any;
+        content?: any;
     }
 
     interface AutocompleteEvent {
@@ -1055,6 +1056,7 @@ declare namespace JQueryUI {
         keyCode: KeyCode;
         menu: Menu;
         progressbar: Progressbar;
+        selectmenu: SelectMenu;
         slider: Slider;
         spinner: Spinner;
         tabs: Tabs;
@@ -1856,7 +1858,9 @@ interface JQuery {
     tabs(): JQuery;
     tabs(methodName: 'destroy'): void;
     tabs(methodName: 'disable'): void;
+    tabs(methodName: 'disable', index: number): void;
     tabs(methodName: 'enable'): void;
+    tabs(methodName: 'enable', index: number): void;
     tabs(methodName: 'load', index: number): void;
     tabs(methodName: 'refresh'): void;
     tabs(methodName: 'widget'): JQuery;

@@ -25,6 +25,7 @@ declare namespace requestretry {
 		promiseFactory?(resolver: any): any;
 		retryDelay?: number;
 		retryStrategy?: RetryStrategy;
+        fullResponse?: boolean;
 	}
 }
 

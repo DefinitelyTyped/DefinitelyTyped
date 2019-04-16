@@ -1,6 +1,4 @@
-
-
-import page = require("page");
+import page from 'page';
 
 //***********************************************************************
 // Basic Example

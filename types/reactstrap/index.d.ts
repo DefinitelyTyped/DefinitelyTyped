@@ -1,12 +1,14 @@
-// Type definitions for reactstrap 6.0
+// Type definitions for reactstrap 8.0
 // Project: https://github.com/reactstrap/reactstrap#readme
 // Definitions by: Ali Hammad Baig <https://github.com/alihammad>
 //                 Marco Falkenberg <https://github.com/mfal>
 //                 Danilo Barros <https://github.com/danilobjr>
 //                 FaithForHumans <https://github.com/FaithForHumans>
-//                 Kurt Preston <https://github.com/KurtPreston>
 //                 Tim Chen <https://github.com/timc13>
 //                 Pat Gaffney <https://github.com/patrickrgaffney>
+//                 Prabodh Tiwari <https://github.com/prabodht>
+//                 Georg Steinmetz <https://github.com/georg94>
+//                 Kyle Tsang <https://github.com/kyletsang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -221,6 +223,9 @@ export { ProgressProps } from './lib/Progress';
 import { default as Row_ } from './lib/Row';
 export class Row<T = {}> extends Row_<T> {}
 export { RowProps } from './lib/Row';
+import { default as Spinner_ } from './lib/Spinner';
+export class Spinner<T = {}> extends Spinner_<T> {}
+export { SpinnerProps } from './lib/Spinner';
 import { default as TabContent_ } from './lib/TabContent';
 export class TabContent<T = {}> extends TabContent_<T> {}
 export { TabContentProps } from './lib/TabContent';
@@ -233,6 +238,15 @@ export { TabPaneProps } from './lib/TabPane';
 import { default as Tag_ } from './lib/Tag';
 export class Tag<T = {}> extends Tag_<T> {}
 export { TagProps } from './lib/Tag';
+import { default as Toast_ } from './lib/Toast';
+export class Toast<T = {}> extends Toast_<T> {}
+export { ToastProps } from './lib/Toast';
+import { default as ToastBody_ } from './lib/ToastBody';
+export class ToastBody<T = {}> extends ToastBody_<T> {}
+export { ToastBodyProps } from './lib/ToastBody';
+import { default as ToastHeader_ } from './lib/ToastHeader';
+export class ToastHeader<T = {}> extends ToastHeader_<T> {}
+export { ToastHeaderProps } from './lib/ToastHeader';
 import { default as Tooltip_ } from './lib/Tooltip';
 export class Tooltip<T = {}> extends Tooltip_<T> {}
 export { TooltipProps } from './lib/Tooltip';
@@ -240,15 +254,24 @@ import {
   UncontrolledAlert as UncontrolledAlert_,
   UncontrolledButtonDropdown as UncontrolledButtonDropdown_,
   UncontrolledDropdown as UncontrolledDropdown_,
-  UncontrolledTooltip as UncontrolledTooltip_
+  UncontrolledTooltip as UncontrolledTooltip_,
+  UncontrolledCollapse as UncontrolledCollapse_,
+  UncontrolledCarousel as UncontrolledCarousel_,
+  UncontrolledPopover as UncontrolledPopover_
 } from './lib/Uncontrolled';
 export class UncontrolledAlert<T = {}> extends UncontrolledAlert_<T> {}
 export class UncontrolledButtonDropdown<T = {}> extends UncontrolledButtonDropdown_<T> {}
 export class UncontrolledDropdown<T = {}> extends UncontrolledDropdown_<T> {}
 export class UncontrolledTooltip<T = {}> extends UncontrolledTooltip_<T> {}
+export class UncontrolledCollapse<T = {}> extends UncontrolledCollapse_<T> {}
+export class UncontrolledCarousel<T = {}> extends UncontrolledCarousel_<T> {}
+export class UncontrolledPopover<T = {}> extends UncontrolledPopover_<T> {}
 export {
   UncontrolledButtonDropdownProps,
   UncontrolledAlertProps,
   UncontrolledDropdownProps,
-  UncontrolledTooltipProps
+  UncontrolledTooltipProps,
+  UncontrolledCollapseProps,
+  UncontrolledCarouselProps,
+  UncontrolledPopoverProps
 } from './lib/Uncontrolled';

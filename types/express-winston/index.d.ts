@@ -1,4 +1,4 @@
-// Type definitions for express-winston 2.4
+// Type definitions for express-winston 3.0
 // Project: https://github.com/bithavoc/express-winston#readme
 // Definitions by: Alex Brick <https://github.com/bricka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,10 +8,18 @@ import { ErrorRequestHandler, Handler, Request, Response } from 'express';
 import * as winston from 'winston';
 import * as Transport from 'winston-transport';
 
+export interface FilterRequest extends Request {
+  [other: string]: any;
+}
+
+export interface FilterResponse extends Response {
+  [other: string]: any;
+}
+
 export type DynamicMetaFunction = (req: Request, res: Response, err: Error) => object;
 export type DynamicLevelFunction = (req: Request, res: Response, err: Error) => string;
-export type RequestFilter = (req: Request, propName: string) => boolean;
-export type ResponseFilter = (res: Response, propName: string) => boolean;
+export type RequestFilter = (req: FilterRequest, propName: string) => any;
+export type ResponseFilter = (res: FilterResponse, propName: string) => any;
 export type RouteFilter = (req: Request, res: Response) => boolean;
 
 export interface BaseLoggerOptions {
@@ -44,7 +52,7 @@ export interface LoggerOptionsWithTransports extends BaseLoggerOptions {
 }
 
 export interface LoggerOptionsWithWinstonInstance extends BaseLoggerOptions {
-  winstonInstance: typeof winston;
+  winstonInstance: winston.Logger;
 }
 
 export type LoggerOptions = LoggerOptionsWithTransports | LoggerOptionsWithWinstonInstance;
@@ -66,7 +74,7 @@ export interface ErrorLoggerOptionsWithTransports extends BaseErrorLoggerOptions
 }
 
 export interface ErrorLoggerOptionsWithWinstonInstance extends BaseErrorLoggerOptions {
-  winstonInstance: typeof winston;
+  winstonInstance: winston.Logger;
 }
 
 export type ErrorLoggerOptions = ErrorLoggerOptionsWithTransports | ErrorLoggerOptionsWithWinstonInstance;

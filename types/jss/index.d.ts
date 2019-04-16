@@ -77,7 +77,7 @@ export interface StyleSheet<RuleName extends string = any> {
 export type GenerateClassName<Name extends string = any> = (rule: Rule, sheet?: StyleSheet<Name>) => string;
 
 export interface JSSPlugin {
-	[key: string]: () => Partial<{
+	[key: string]: Partial<{
 		onCreateRule(name: string, style: Style, options: RuleOptions): Rule;
 		onProcessRule(rule: Rule, sheet: StyleSheet): void;
 		onProcessStyle(style: Style, rule: Rule, sheet: StyleSheet): Style;
@@ -104,7 +104,7 @@ export interface RuleOptions {
 	index: number;
 	className: string;
 }
-export declare class SheetsRegistry {
+export class SheetsRegistry {
 	constructor();
 	registry: ReadonlyArray<StyleSheet>;
 	readonly index: number;
@@ -122,7 +122,7 @@ export type CreateStyleSheetOptions<Name extends string = any> = Partial<{
 	generateClassName: GenerateClassName<Name>;
 	classNamePrefix: string;
 }>;
-export declare class JSS {
+export class JSS {
 	constructor(options?: Partial<JSSOptions>);
 	createStyleSheet<Name extends string>(
 		styles: Partial<Styles<Name>>,

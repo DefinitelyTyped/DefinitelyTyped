@@ -144,12 +144,12 @@ const boomifiedError = Boom.boomify(new Error('test'), { statusCode: 400, messag
 
 // isBoom
 
-const isBoomError = new Boom('test')
+const isBoomError = new Boom('test');
 
 Boom.isBoom(isBoomError);
 
-const maybeBoom = <any>new Boom('test');
-if(Boom.isBoom(maybeBoom)) {
+const maybeBoom = <any> new Boom('test');
+if (Boom.isBoom(maybeBoom)) {
     // isBoom is a type guard that allows accessing these properties:
     maybeBoom.output.headers;
 }
@@ -183,7 +183,8 @@ interface CustomPayload extends Boom.Payload {
 /**
  * Test assignment of custom error data:
  */
-const errorWithData = Boom.badImplementation('', { custom1: 'test', customType: 'Custom1', isCustom: true } as CustomData1);
+// tslint:disable-next-line:no-object-literal-type-assertion
+const errorWithData = Boom.badImplementation('', <CustomData1> { custom1: 'test', customType: 'Custom1', isCustom: true });
 const errorWithNoExplicitDataType: Boom = errorWithData; // can assign to error without explicit data type
 const errorWithExplicitType: Boom<CustomData> = errorWithData; // can assign to union data type
 const errorWithConcreteCustomData: Boom<CustomData1> = errorWithData; // can assign to concrete data type

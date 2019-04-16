@@ -519,7 +519,7 @@ export class ReactBootstrapTest extends Component {
                         <Modal.Title>Modal title</Modal.Title>
                       </Modal.Header>
 
-                      <Modal.Body>
+                      <Modal.Body bsClass="custom-class">
                         One fine body...
                       </Modal.Body>
 
@@ -536,7 +536,7 @@ export class ReactBootstrapTest extends Component {
                         <Modal.Header closeButton>
                             <Modal.Title>Modal heading</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>
+                        <Modal.Body bsClass="custom-class">
                             <h4>Text in a modal</h4>
                             <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
 

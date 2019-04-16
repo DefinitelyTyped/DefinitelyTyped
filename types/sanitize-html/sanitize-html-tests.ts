@@ -35,3 +35,9 @@ let options: sanitize.IOptions = {
 let unsafe = '<div><script>alert("hello");</script></div>';
 
 let safe = sanitize(unsafe, options);
+
+options.parser = {
+    decodeEntities: true
+};
+
+safe = sanitize(unsafe, options);

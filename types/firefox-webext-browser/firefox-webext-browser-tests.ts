@@ -5,12 +5,33 @@ browser.nonexistentNS.unknownMethod(); // $ExpectError
 browser.runtime.getManifest(); // $ExpectType WebExtensionManifest
 browser.test; // $ExpectError
 browser.manifest; // $ExpectError
-browser._manifest; // $ExpectType typeof _manifest
-browser._manifest.WebExtensionLangpackManifest; // $ExpectError
-browser._manifest.NativeManifest; // $ExpectError
+browser._manifest; // $ExpectError
 
 // browser.runtime
 const port = browser.runtime.connect();
 port.postMessage(); // $ExpectError
 
 browser.bookmarks.getTree();
+
+browser.proxy.onProxyError.addListener(error => {
+    console.error(`Proxy error: ${error.message}`);
+});
+
+browser.proxy.onRequest.addListener(d => {
+    console.log(d.requestId);
+}, {
+    urls: ['test']
+}, ["requestHeaders"]);
+
+browser.webNavigation.onBeforeNavigate.addListener(d => {
+    console.log(d.url, d.timeStamp);
+}, {
+    url: [
+        {hostContains: 'something'},
+        {hostPrefix: 'somethineelse'}
+    ]
+});
+
+browser.runtime.connect().onDisconnect.addListener(() => {
+    console.log('ok');
+});

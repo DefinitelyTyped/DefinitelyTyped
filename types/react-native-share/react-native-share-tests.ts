@@ -1,12 +1,19 @@
 import Share from 'react-native-share';
 
-// $ExpectType Promise<any>
+// $ExpectType Promise<OpenReturn>
 Share.open({
     url: '',
     message: '',
 });
 
-// $ExpectType Promise<any>
+// $ExpectType Promise<OpenReturn>
+Share.open({
+    title: '',
+    message: '',
+    urls: [],
+});
+
+// $ExpectType Promise<OpenReturn>
 Share.open({
     url: '',
     type: '',
@@ -14,17 +21,17 @@ Share.open({
     title: '',
     subject: '',
     excludedActivityTypes: '',
-    showAppsToview: true,
+    showAppsToView: true,
 });
 
-// $ExpectType Promise<any>
+// $ExpectType Promise<ShareSingleReturn>
 Share.shareSingle({
     url: '',
     message: '',
     social: 'facebook',
 });
 
-// $ExpectType Promise<any>
+// $ExpectType Promise<ShareSingleReturn>
 Share.shareSingle({
     url: '',
     type: '',

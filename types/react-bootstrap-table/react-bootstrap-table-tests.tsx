@@ -1222,7 +1222,7 @@ class HideOnInsertTable extends React.Component {
     };
     return (
       <BootstrapTable data={jobs} insertRow={true} options={options}>
-        <TableHeaderColumn dataField='id' isKey={true} autovalue>Job ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={true} autoValue>Job ID</TableHeaderColumn>
         <TableHeaderColumn dataField='name' hiddenOnInsert>Job Name</TableHeaderColumn>
         <TableHeaderColumn dataField='type' editable={{ type: 'select', options: { values: jobTypes }, readOnly: true }}>Job Type</TableHeaderColumn>
         <TableHeaderColumn dataField='active' editable={{ type: 'checkbox', options: { values: 'Y:N' } }}>Active</TableHeaderColumn>

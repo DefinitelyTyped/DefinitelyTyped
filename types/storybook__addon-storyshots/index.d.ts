@@ -1,8 +1,8 @@
 // Type definitions for @storybook/addon-storyshots 3.4
-// Project: https://github.com/storybooks/storybook/tree/master/addons/storyshots
+// Project: https://github.com/storybooks/storybook/tree/master/addons/storyshots, https://github.com/storybooks/storybook/tree/master/addons/storyshots/storyshots-core
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
 import * as React from 'react';
 import { StoryObject } from '@storybook/react';
@@ -14,13 +14,13 @@ export type Test = (options: {
     renderShallowTree: RenderTree;
     renderTree: RenderTree;
     snapshotFileName: string;
-}) => void | undefined | Promise<void>;
+}) => undefined | void | Promise<void>;
 
 export type RenderTree = (
     story: StoryObject,
     context: StoryContext,
     options?: SnapshotOptions
-) => void | undefined | Promise<void>;
+) => undefined | void | Promise<void>;
 
 export interface SnapshotOptions {
     createNodeMock?: (element: any) => any;
@@ -70,7 +70,7 @@ export interface InitOptions<Rendered = any> {
     storyNameRegex?: RegExp;
     framework?: string;
     test?: Test;
-    renderer?: (node: React.ReactElement<any>) => Rendered;
+    renderer?: (node: React.ReactElement) => Rendered;
     serializer?: (rendered: Rendered) => any;
     integrityOptions?: {};
 }

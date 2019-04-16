@@ -96,13 +96,7 @@ Moon.config.keycodes({
 
 // 'data' needs to be a function when creating components.
 // $ExpectError
-Moon.component('broken1', {
-    el: testHTMLElement,
-    data: {
-        foo: 100,
-        bar: 200,
-    },
-});
+Moon.component('broken1', { el: testHTMLElement, data: { foo: 100, bar: 200 } });
 
 // Misspelled prop
 Moon.component('broken2', {

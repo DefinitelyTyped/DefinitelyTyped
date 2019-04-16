@@ -1,10 +1,9 @@
-import ValidationContext from "../ValidationContext";
+import { ValidationContext } from "../ValidationContext";
 import { ASTVisitor } from "../../language/visitor";
-import { GraphQLType } from "../../type/definition";
 
-export function noSubselectionAllowedMessage(fieldName: string, type: GraphQLType): string;
+export function noSubselectionAllowedMessage(fieldName: string, type: string): string;
 
-export function requiredSubselectionMessage(fieldName: string, type: GraphQLType): string;
+export function requiredSubselectionMessage(fieldName: string, type: string): string;
 
 /**
  * Scalar leafs

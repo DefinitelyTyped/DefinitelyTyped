@@ -1,11 +1,11 @@
-// Type definitions for cesium 1.47
+// Type definitions for cesium 1.54
 // Project: http://cesiumjs.org
 // Definitions by: Aigars Zeiza <https://github.com/Zuzon>
 //                 Harry Nicholls <https://github.com/hnipps>
 //                 Jared Szechy <https://github.com/szechyjs>
 //                 Radek Goláň jr. <https://github.com/golyalpha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 // tslint:disable-next-line:export-just-namespace
 export = Cesium;
@@ -312,7 +312,7 @@ declare namespace Cesium {
         clockRange: ClockRange;
         canAnimate: boolean;
         shouldAnimate: boolean;
-        onTick: Event;
+        onTick: Event<[Clock]>;
         constructor(options: {
             startTime?: JulianDate;
             stopTime?: JulianDate;
@@ -704,11 +704,11 @@ declare namespace Cesium {
         constructor(options?: { tilingScheme?: TilingScheme; ellipsoid?: Ellipsoid });
     }
 
-    class Event {
+    class Event<T extends any[] = any[]> {
         numberOfListeners: number;
-        addEventListener(listener: () => void, scope?: any): Event.RemoveCallback;
-        removeEventListener(listener: () => void, scope?: any): boolean;
-        raiseEvent(...args: any[]): void;
+        addEventListener(listener: (...args: T) => void, scope?: any): Event.RemoveCallback;
+        removeEventListener(listener: (...args: T) => void, scope?: any): boolean;
+        raiseEvent(...args: T): void;
     }
 
     namespace Event {
@@ -795,6 +795,22 @@ declare namespace Cesium {
         second: number;
         millisecond: number;
         isLeapSecond: boolean;
+    }
+
+    class HeadingPitchRoll {
+        heading: number;
+        pitch: number;
+        roll: number;
+        constructor(heading?: number, pitch?: number, roll?: number);
+        static clone(headingPitchRoll: HeadingPitchRoll, result?: HeadingPitchRoll): HeadingPitchRoll;
+        static equals(left: HeadingPitchRoll | null | undefined, right: HeadingPitchRoll | null | undefined): boolean;
+        static equalsEpsilon(left: HeadingPitchRoll | null | undefined, right: HeadingPitchRoll | null | undefined, relativeEpsilon: number, absoluteEpsilon?: number): boolean;
+        static fromDegrees(heading: number, pitch: number, roll: number, result?: HeadingPitchRoll): HeadingPitchRoll;
+        static fromQuaternion(quaternion: Quaternion, result?: HeadingPitchRoll): HeadingPitchRoll;
+        clone(result?: HeadingPitchRoll): HeadingPitchRoll;
+        equals(right: HeadingPitchRoll | null | undefined): boolean;
+        equalsEpsilon(right: HeadingPitchRoll | null | undefined, relativeEpsilon: number, absoluteEpsilon?: number): boolean;
+        toString(): string;
     }
 
     class HeightmapTerrainData {
@@ -959,6 +975,7 @@ declare namespace Cesium {
         static fromArray(array: number[], startingIndex?: number, result?: Matrix3): Matrix3;
         static fromColumnMajorArray(values: number[], result?: Matrix3): Matrix3;
         static fromRowMajorArray(values: number[], result?: Matrix3): Matrix3;
+        static fromHeadingPitchRoll(headingPitchRoll: HeadingPitchRoll, result?: Matrix3): Matrix3;
         static fromQuaternion(quaternion: Quaternion): Matrix3;
         static fromScale(scale: Cartesian3, result?: Matrix3): Matrix3;
         static fromUniformScale(scale: number, result?: Matrix3): Matrix3;
@@ -1236,7 +1253,7 @@ declare namespace Cesium {
         toString(): string;
         static fromAxisAngle(axis: Cartesian3, angle: number, result?: Quaternion): Quaternion;
         static fromRotationMatrix(matrix: Matrix3, result?: Quaternion): Quaternion;
-        static fromHeadingPitchRoll(heading: number, pitch: number, roll: number, result: Quaternion): Quaternion;
+        static fromHeadingPitchRoll(headingPitchRoll: HeadingPitchRoll, result?: Quaternion): Quaternion;
         static pack(value: Quaternion, array: number[], startingIndex?: number): number[];
         static unpack(array: number[], startingIndex?: number, result?: Quaternion): Quaternion;
         static convertPackedArrayForInterpolation(packedArray: number[], startingIndex?: number, lastIndex?: number, result?: number[]): void;
@@ -1376,7 +1393,7 @@ declare namespace Cesium {
 
     class ScreenSpaceEventHandler {
         constructor(element?: HTMLCanvasElement);
-        setInputAction(action: () => void, type: number, modifier?: number): void;
+        setInputAction(action: (click: { position: Cartesian2 }) => void, type: number, modifier?: number): void;
         getInputAction(type: number, modifier?: number): () => void;
         removeInputAction(type: number, modifier?: number): void;
         isDestroyed(): boolean;
@@ -1495,7 +1512,7 @@ declare namespace Cesium {
         retry: boolean;
         error: Error;
         constructor(provider: ImageryProvider | TerrainProvider, message: string, x?: number, y?: number, level?: number, timesRetried?: number, error?: Error);
-        static handleError(previousError: TileProviderError, provider: ImageryProvider | TerrainProvider, event: Event,
+        static handleError(previousError: TileProviderError, provider: ImageryProvider | TerrainProvider, event: Event<[TileProviderError]>,
                             message: string, x: number, y: number, level: number, retryFunction: TileProviderError.RetryFunction,
                             errorDetails?: Error): TileProviderError;
         static handleSuccess(previousError: TileProviderError): void;
@@ -1545,7 +1562,7 @@ declare namespace Cesium {
     }
 
     class TimeIntervalCollection {
-        readonly changedEvent: Event;
+        readonly changedEvent: Event<[TimeIntervalCollection]>;
         readonly start: JulianDate;
         readonly isStartIncluded: boolean;
         readonly stop: JulianDate;
@@ -3117,6 +3134,15 @@ declare namespace Cesium {
         static clone(hpr: HeadingPitchRange, result?: HeadingPitchRange): HeadingPitchRange;
     }
 
+    // tslint:disable-next-line:no-unnecessary-class
+    class Cesium3DTileset {
+      constructor(Cesium3DTilesetItem: {
+        url: string;
+        maximumScreenSpaceError: number;
+        maximumNumberOfLoadedTiles: number;
+      })
+    }
+
     class ImageryLayer {
         alpha: number;
         brightness: number;
@@ -4362,8 +4388,8 @@ declare namespace Cesium {
         allowDataSourcesToSuspendAnimation: boolean;
         trackedEntity: Entity;
         selectedEntity: Entity;
-        readonly trackedEntityChanged: Event;
-        readonly selectedEntityChanged: Event;
+        readonly trackedEntityChanged: Event<[Entity?]>;
+        readonly selectedEntityChanged: Event<[Entity?]>;
         readonly shadowMap: ShadowMap;
         readonly vrButton: VRButton;
         shadows: boolean;
@@ -4880,13 +4906,15 @@ declare namespace Cesium {
         function eastNorthUpToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function northEastDownToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function northUpEastToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
-        function headingPitchRollToFixedFrame(origin: Cartesian3, heading: number, pitch: number, roll: number, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
-        function headingPitchRollQuaternion(origin: Cartesian3, heading: number, pitch: number, roll: number, ellipsoid?: Ellipsoid, result?: Quaternion): Quaternion;
+        function headingPitchRollToFixedFrame(origin: Cartesian3, headingPitchRoll: HeadingPitchRoll, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame, result?: Matrix4): Matrix4;
+        function headingPitchRollQuaternion(origin: Cartesian3, headingPitchRoll: HeadingPitchRoll, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame,
+                                            result?: Quaternion): Quaternion;
         function computeTemeToPseudoFixedMatrix(date: JulianDate, result?: Matrix3): Matrix3;
         function preloadIcrfFixed(timeInterval: TimeInterval): Promise<void>;
         function computeIcrfToFixedMatrix(date: JulianDate, result?: Matrix3): Matrix3;
         function computeFixedToIcrfMatrix(date: JulianDate, result?: Matrix3): Matrix3;
         function pointToWindowCoordinates(modelViewProjectionMatrix: Matrix4, viewportTransformation: Matrix4, point: Cartesian3, result?: Cartesian2): Cartesian2;
+        type LocalFrameToFixedFrame = (origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4) => Matrix4;
     }
 
     namespace TridiagonalSystemSolver {

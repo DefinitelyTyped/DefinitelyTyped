@@ -95,7 +95,7 @@ export class Model<Fields, Additional = {}, VirtualFields = {}> {
   static hasId(id: string): boolean;
   static _findDatabaseRows(lookupObj: object): any; // TODO
   static get(lookupObj: object): ModelWithFields<any, any, any>;
-  static reducer(session: SessionWithModels<ORMCommonState>, action: any): any;
+  static reducer(action: any, modelClass: typeof Model, session: SessionWithModels<ORMCommonState>): any;
 
   readonly ref: Fields & Additional & ORMId;
 

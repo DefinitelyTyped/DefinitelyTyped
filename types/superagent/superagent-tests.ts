@@ -83,6 +83,12 @@ request
     .set({ 'API-Key': 'foobar', Accept: 'application/json' })
     .end(callback);
 
+// Setting cookie header
+request
+    .get('/search')
+    .set('Cookie', ['name1=value1; Domain=.test.com; Path=/', 'name2=value2; Domain=.test.com; Path=/'])
+    .end(callback);
+
 // GET requests
 request
     .get('/search')
@@ -162,6 +168,12 @@ request.get('/user')
 request.get('/user')
     .accept('png');
 
+// Setting max response size
+request
+    .get('/search')
+    .maxResponseSize(1000)
+    .end(callback);
+
 // Query strings
 request
     .post('/')
@@ -196,6 +208,13 @@ request('/search')
         const contentLength = res.header['content-length'];
         const contentType: string = res.type;
         const charset: string = res.charset;
+        const redirects: string[] = res.redirects;
+    });
+
+// Getting response 'Set-Cookie'
+request('/search')
+    .end((res: request.Response) => {
+      const setCookie: string[] = res.get('Set-Cookie');
     });
 
 // Custom parsers
@@ -421,3 +440,16 @@ request
     .get('/echo')
     .use(echoPlugin)
     .end();
+
+async function testDefaultOptions() {
+    // Default options for multiple requests
+    const agentWithDefaultOptions = request
+        .agent()
+        .use(() => null)
+        .auth('digest', 'secret', { type: 'auto' });
+
+    await agentWithDefaultOptions.get('/with-plugin-and-auth');
+    await agentWithDefaultOptions.get('/also-with-plugin-and-auth');
+}
+
+testDefaultOptions();

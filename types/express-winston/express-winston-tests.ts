@@ -18,7 +18,7 @@ app.use(expressWinston.logger({
   meta: true,
   metaField: 'metaField',
   msg: 'msg',
-  requestFilter: (req, prop) => true,
+  requestFilter: (req, prop) => req[prop],
   requestWhitelist: ['foo', 'bar'],
   skip: (req, res) => false,
   statusLevels: ({ error: 'error', success: 'success', warn: 'warn' }),
@@ -34,9 +34,11 @@ app.use(expressWinston.logger({
   ],
 }));
 
+const logger = winston.createLogger();
+
 // Logger with minimum options (winstonInstance)
 app.use(expressWinston.logger({
-  winstonInstance: winston,
+  winstonInstance: logger,
 }));
 
 // Error Logger with all options
@@ -62,13 +64,13 @@ app.use(expressWinston.errorLogger({
 
 // Error Logger with min options (winstonInstance)
 app.use(expressWinston.errorLogger({
-  winstonInstance: winston,
+  winstonInstance: logger,
 }));
 
 expressWinston.bodyBlacklist.push('potato');
 expressWinston.bodyWhitelist.push('apple');
-expressWinston.defaultRequestFilter = (req: express.Request, prop: string) => true;
-expressWinston.defaultResponseFilter = (res: express.Response, prop: string) => true;
+expressWinston.defaultRequestFilter = (req: expressWinston.FilterRequest, prop: string) => req[prop];
+expressWinston.defaultResponseFilter = (res: expressWinston.FilterResponse, prop: string) => res[prop];
 expressWinston.defaultSkip = () => true;
 expressWinston.ignoredRoutes.push('/ignored');
 expressWinston.responseWhitelist.push('body');

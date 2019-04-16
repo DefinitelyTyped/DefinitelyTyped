@@ -26,8 +26,8 @@ export default class LiveThread extends RedditContent<LiveThread> {
   deleteUpdate(options: { id: string; }): Promise<this>;
   editSettings(options: LiveThreadSettings): Promise<this>;
   getContributors(): Promise<RedditUser[]>;
-  getDiscussions(options?: ListingOptions): Listing<Submission>;
-  getRecentUpdates(options?: ListingOptions): Listing<LiveUpdate>;
+  getDiscussions(options?: ListingOptions): Promise<Listing<Submission>>;
+  getRecentUpdates(options?: ListingOptions): Promise<Listing<LiveUpdate>>;
   inviteContributor(options: { name: string; permissions: Permissions[]}): Promise<this>;
   leaveContributor(): Promise<this>;
   removeContributor(options: { name: string; }): Promise<this>;
