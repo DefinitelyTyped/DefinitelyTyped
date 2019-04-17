@@ -1,6 +1,5 @@
 import _ = require("../index");
 declare module "../index" {
-    // after
 
     interface Stat {
         /**
@@ -30,7 +29,6 @@ declare module "../index" {
         after<TFunc extends (...args: any[]) => any>(func: TFunc): Exp<TFunc>;
     }
 
-    // ary
 
     interface Stat {
         /**
@@ -60,7 +58,6 @@ declare module "../index" {
         ary(n?: number): Exp<(...args: any[]) => any>;
     }
 
-    // before
 
     interface Stat {
         /**
@@ -92,7 +89,6 @@ declare module "../index" {
         before<TFunc extends (...args: any[]) => any>(func: TFunc): Exp<TFunc>;
     }
 
-    // bind
 
     interface FunctionBind {
         placeholder: __;
@@ -142,7 +138,6 @@ declare module "../index" {
         ): Exp<(...args: any[]) => any>;
     }
 
-    // bindKey
 
     interface FunctionBindKey {
         placeholder: __;
@@ -193,7 +188,6 @@ declare module "../index" {
         ): Exp<(...args: any[]) => any>;
     }
 
-    // curry
 
     interface Curry {
         /**
@@ -491,7 +485,6 @@ declare module "../index" {
         curry(arity?: number): Exp<(...args: any[]) => any>;
     }
 
-    // curryRight
 
     interface CurryRight {
         /**
@@ -629,7 +622,6 @@ declare module "../index" {
         curryRight(arity?: number): Exp<(...args: any[]) => any>;
     }
 
-    // debounce
 
     interface DebounceSettings {
         /**
@@ -696,7 +688,6 @@ declare module "../index" {
         ): Exp<TValue & Cancelable>;
     }
 
-    // defer
 
     interface Stat {
         /**
@@ -727,7 +718,6 @@ declare module "../index" {
         defer(...args: any[]): Exp<number>;
     }
 
-    // delay
 
     interface Stat {
         /**
@@ -765,7 +755,6 @@ declare module "../index" {
         ): Exp<number>;
     }
 
-    // flip
 
     interface Stat {
         /**
@@ -781,7 +770,7 @@ declare module "../index" {
          * });
          *
          * flipped('a', 'b', 'c', 'd');
-         * // => ['d', 'c', 'b', 'a']
+         *
          */
         flip<T extends (...args: any[]) => any>(func: T): T;
     }
@@ -793,7 +782,6 @@ declare module "../index" {
         flip(): this;
     }
 
-    // memoize
 
     interface MemoizedFunction {
         cache: MapCache;
@@ -830,7 +818,6 @@ declare module "../index" {
         memoize(resolver?: (...args: any[]) => any): Exp<TValue & MemoizedFunction>;
     }
 
-    // negate
 
     interface Stat {
         /**
@@ -866,7 +853,6 @@ declare module "../index" {
         negate(this: Exp<(...args: any[]) => any>): Exp<(...args: any[]) => boolean>;
     }
 
-    // once
 
     interface Stat {
         /**
@@ -886,7 +872,6 @@ declare module "../index" {
         once(): this;
     }
 
-    // overArgs
 
     interface Stat {
         /**
@@ -917,7 +902,6 @@ declare module "../index" {
         overArgs(...transforms: Array<Many<(...args: any[]) => any>>): Exp<(...args: any[]) => any>;
     }
 
-    // partial
 
     interface Stat {
         /**
@@ -955,17 +939,13 @@ declare module "../index" {
     type Function4<T1, T2, T3, T4, R> = (t1: T1, t2: T2, t3: T3, t4: T4) => R;
 
     interface Partial {
-        // arity 0
         <R>(func: Function0<R>): Function0<R>;
-        // arity 1
         <T1, R>(func: Function1<T1, R>): Function1<T1, R>;
         <T1, R>(func: Function1<T1, R>, arg1: T1): Function0<R>;
-        // arity 2
         <T1, T2, R>(func: Function2<T1, T2, R>):                      Function2<T1, T2, R>;
         <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1):            Function1<    T2, R>;
         <T1, T2, R>(func: Function2<T1, T2, R>, plc1: __, arg2: T2):  Function1<T1,     R>;
         <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2):  Function0<        R>;
-        // arity 3
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>):                                Function3<T1, T2, T3, R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1):                      Function2<    T2, T3, R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, arg2: T2):            Function2<T1,     T3, R>;
@@ -974,7 +954,6 @@ declare module "../index" {
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, arg3: T3):  Function1<    T2,     R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, arg2: T2, arg3: T3):  Function1<T1,         R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3):  Function0<            R>;
-        // arity 4
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>):                                          Function4<T1, T2, T3, T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1):                                Function3<    T2, T3, T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2):                      Function3<T1,     T3, T4, R>;
@@ -991,24 +970,19 @@ declare module "../index" {
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Function1<    T2,         R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  Function1<T1,             R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Function0<                R>;
-        // catch-all
         (func: (...args: any[]) => any, ...args: any[]): (...args: any[]) => any;
 
         placeholder: __;
     }
 
     interface ImplicitPartial {
-        // arity 0
         <R>(this: Imp<Function0<R>>): Imp<Function0<R>>;
-        // arity 1
         <T1, R>(this: Imp<Function1<T1, R>>): Imp<Function1<T1, R>>;
         <T1, R>(this: Imp<Function1<T1, R>>, arg1: T1): Imp<Function0<R>>;
-        // arity 2
         <T1, T2, R>(this: Imp<Function2<T1, T2, R>>):                      Imp<Function2<T1, T2, R>>;
         <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1):            Imp<Function1<    T2, R>>;
         <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, plc1: __, arg2: T2):  Imp<Function1<T1,     R>>;
         <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  Imp<Function0<        R>>;
-        // arity 3
         <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>):                                Imp<Function3<T1, T2, T3, R>>;
         <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1):                      Imp<Function2<    T2, T3, R>>;
         <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2):            Imp<Function2<T1,     T3, R>>;
@@ -1017,7 +991,6 @@ declare module "../index" {
         <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  Imp<Function1<    T2,     R>>;
         <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3):  Imp<Function1<T1,         R>>;
         <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  Imp<Function0<            R>>;
-        // arity 4
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>):                                          Imp<Function4<T1, T2, T3, T4, R>>;
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1):                                Imp<Function3<    T2, T3, T4, R>>;
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2):                      Imp<Function3<T1,     T3, T4, R>>;
@@ -1034,22 +1007,17 @@ declare module "../index" {
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Imp<Function1<    T2,         R>>;
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  Imp<Function1<T1,             R>>;
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Imp<Function0<                R>>;
-        // catch-all
         (...args: any[]): Imp<(...args: any[]) => any>;
     }
 
     interface ExplicitPartial {
-        // arity 0
         <R>(this: Exp<Function0<R>>): Exp<Function0<R>>;
-        // arity 1
         <T1, R>(this: Exp<Function1<T1, R>>): Exp<Function1<T1, R>>;
         <T1, R>(this: Exp<Function1<T1, R>>, arg1: T1): Exp<Function0<R>>;
-        // arity 2
         <T1, T2, R>(this: Exp<Function2<T1, T2, R>>):                      Exp<Function2<T1, T2, R>>;
         <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1):            Exp<Function1<    T2, R>>;
         <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, plc1: __, arg2: T2):  Exp<Function1<T1,     R>>;
         <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  Exp<Function0<        R>>;
-        // arity 3
         <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>):                                Exp<Function3<T1, T2, T3, R>>;
         <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1):                      Exp<Function2<    T2, T3, R>>;
         <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2):            Exp<Function2<T1,     T3, R>>;
@@ -1058,7 +1026,6 @@ declare module "../index" {
         <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  Exp<Function1<    T2,     R>>;
         <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3):  Exp<Function1<T1,         R>>;
         <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  Exp<Function0<            R>>;
-        // arity 4
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>):                                          Exp<Function4<T1, T2, T3, T4, R>>;
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1):                                Exp<Function3<    T2, T3, T4, R>>;
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2):                      Exp<Function3<T1,     T3, T4, R>>;
@@ -1075,11 +1042,9 @@ declare module "../index" {
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Exp<Function1<    T2,         R>>;
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  Exp<Function1<T1,             R>>;
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Exp<Function0<                R>>;
-        // catch-all
         (...args: any[]): Exp<(...args: any[]) => any>;
     }
 
-    // partialRight
 
     interface Stat {
         /**
@@ -1107,17 +1072,13 @@ declare module "../index" {
     }
 
     interface PartialRight {
-        // arity 0
         <R>(func: Function0<R>): Function0<R>;
-        // arity 1
         <T1, R>(func: Function1<T1, R>): Function1<T1, R>;
         <T1, R>(func: Function1<T1, R>, arg1: T1): Function0<R>;
-        // arity 2
         <T1, T2, R>(func: Function2<T1, T2, R>):                      Function2<T1, T2, R>;
         <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, plc2: __):  Function1<    T2, R>;
         <T1, T2, R>(func: Function2<T1, T2, R>,           arg2: T2):  Function1<T1,     R>;
         <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2):  Function0<        R>;
-        // arity 3
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>):                                Function3<T1, T2, T3, R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, plc3: __):  Function2<    T2, T3, R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, plc3: __):  Function2<T1,     T3, R>;
@@ -1126,7 +1087,6 @@ declare module "../index" {
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, arg3: T3):  Function1<    T2,     R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, arg3: T3):  Function1<T1,         R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3):  Function0<            R>;
-        // arity 4
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>):                                          Function4<T1, T2, T3, T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, plc4: __):  Function3<    T2, T3, T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: __, plc4: __):  Function3<T1,     T3, T4, R>;

@@ -28,7 +28,7 @@
 export = _;
 export as namespace _;
 
-declare const _: _.LoDashStatic;
+declare const _: _.Stat;
 declare namespace _ {
     // tslint:disable-next-line no-empty-interface (This will be augmented)
     interface Stat {}
