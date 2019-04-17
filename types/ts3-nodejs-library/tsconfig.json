@@ -16,5 +16,18 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["**/*.ts"]
+    "files": [
+        "ts3-nodejs-library-tests.ts",
+        "index.d.ts",
+        "TeamSpeak3.d.ts",
+        "property/Abstract.d.ts",
+        "property/Channel.d.ts",
+        "property/ChannelGroup.d.ts",
+        "property/Client.d.ts",
+        "property/Server.d.ts",
+        "property/ServerGroup.d.ts",
+        "transport/Command.d.ts",
+        "transport/FileTransfer.d.ts",
+        "transport/TS3Query.d.ts",
+    ]
 }
