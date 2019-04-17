@@ -2,7 +2,7 @@ import _ = require("../index");
 declare module "../index" {
     // castArray
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Casts value as an array if it’s not one.
          *
@@ -28,7 +28,7 @@ declare module "../index" {
 
     // clone
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a shallow clone of value.
          *
@@ -59,7 +59,7 @@ declare module "../index" {
 
     // cloneDeep
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.clone except that it recursively clones value.
          *
@@ -87,7 +87,7 @@ declare module "../index" {
 
     type CloneDeepWithCustomizer<TObject> = (value: any, key: number | string | undefined, object: TObject | undefined, stack: any) => any;
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.cloneWith except that it recursively clones value.
          *
@@ -138,7 +138,7 @@ declare module "../index" {
 
     type CloneWithCustomizer<TValue, TResult> = (value: TValue, key: number | string | undefined, object: any, stack: any) => TResult;
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.clone except that it accepts customizer which is invoked to produce the cloned value.
          * If customizer returns undefined cloning is handled by the method instead.
@@ -210,7 +210,7 @@ declare module "../index" {
 
     // conformsTo
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if object conforms to source by invoking the predicate properties of source with the
          * corresponding property values of object.
@@ -240,7 +240,7 @@ declare module "../index" {
 
     // eq
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Performs a [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
          * comparison between two values to determine if they are equivalent.
@@ -295,7 +295,7 @@ declare module "../index" {
 
     // gt
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is greater than other.
          *
@@ -325,7 +325,7 @@ declare module "../index" {
 
     // gte
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is greater than or equal to other.
          *
@@ -355,7 +355,7 @@ declare module "../index" {
 
     // isArguments
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is classified as an arguments object.
          *
@@ -381,7 +381,7 @@ declare module "../index" {
 
     // isArray
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is classified as an Array object.
          * @param value The value to check.
@@ -412,7 +412,7 @@ declare module "../index" {
 
     // isArrayBuffer
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is classified as an ArrayBuffer object.
          *
@@ -438,7 +438,7 @@ declare module "../index" {
 
     // isArrayLike
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if `value` is array-like. A value is considered array-like if it's
          * not a function and has a `value.length` that's an integer greater than or
@@ -490,7 +490,7 @@ declare module "../index" {
 
     // isArrayLikeObject
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.isArrayLike` except that it also checks if `value`
          * is an object.
@@ -543,7 +543,7 @@ declare module "../index" {
 
     // isBoolean
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is classified as a boolean primitive or object.
          *
@@ -569,7 +569,7 @@ declare module "../index" {
 
     // isBuffer
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is a buffer.
          *
@@ -595,7 +595,7 @@ declare module "../index" {
 
     // isDate
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is classified as a Date object.
          * @param value The value to check.
@@ -621,7 +621,7 @@ declare module "../index" {
 
     // isElement
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is a DOM element.
          *
@@ -647,7 +647,7 @@ declare module "../index" {
 
     // isEmpty
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is empty. A value is considered empty unless it’s an arguments object, array, string, or
          * jQuery-like collection with a length greater than 0 or an object with own enumerable properties.
@@ -674,7 +674,7 @@ declare module "../index" {
 
     // isEqual
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Performs a deep comparison between two values to determine if they are
          * equivalent.
@@ -728,7 +728,7 @@ declare module "../index" {
 
     type IsEqualCustomizer = (value: any, other: any, indexOrKey: PropertyName | undefined, parent: any, otherParent: any, stack: any) => boolean|undefined;
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.isEqual` except that it accepts `customizer` which is
          * invoked to compare values. If `customizer` returns `undefined` comparisons are
@@ -787,7 +787,7 @@ declare module "../index" {
 
     // isError
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is an Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError, or URIError
          * object.
@@ -814,7 +814,7 @@ declare module "../index" {
 
     // isFinite
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is a finite primitive number.
          *
@@ -842,7 +842,7 @@ declare module "../index" {
 
     // isFunction
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is a callable function.
          *
@@ -868,7 +868,7 @@ declare module "../index" {
 
     // isInteger
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if `value` is an integer.
          *
@@ -910,7 +910,7 @@ declare module "../index" {
 
     // isLength
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if `value` is a valid array-like length.
          *
@@ -952,7 +952,7 @@ declare module "../index" {
 
     // isMap
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is classified as a Map object.
          *
@@ -980,7 +980,7 @@ declare module "../index" {
 
     type isMatchCustomizer = (value: any, other: any, indexOrKey?: PropertyName) => boolean;
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Performs a deep comparison between `object` and `source` to determine if
          * `object` contains equivalent property values.
@@ -1022,7 +1022,7 @@ declare module "../index" {
 
     type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName, object: object, source: object) => boolean;
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.isMatch` except that it accepts `customizer` which
          * is invoked to compare values. If `customizer` returns `undefined` comparisons
@@ -1071,7 +1071,7 @@ declare module "../index" {
 
     // isNaN
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is NaN.
          *
@@ -1099,7 +1099,7 @@ declare module "../index" {
 
     // isNative
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is a native function.
          * @param value The value to check.
@@ -1125,7 +1125,7 @@ declare module "../index" {
 
     // isNil
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if `value` is `null` or `undefined`.
          *
@@ -1162,7 +1162,7 @@ declare module "../index" {
 
     // isNull
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is null.
          *
@@ -1188,7 +1188,7 @@ declare module "../index" {
 
     // isNumber
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is classified as a Number primitive or object.
          *
@@ -1216,7 +1216,7 @@ declare module "../index" {
 
     // isObject
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is the language type of Object. (e.g. arrays, functions, objects, regexes, new Number(0),
          * and new String(''))
@@ -1243,7 +1243,7 @@ declare module "../index" {
 
     // isObjectLike
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if `value` is object-like. A value is object-like if it's not `null`
          * and has a `typeof` result of "object".
@@ -1284,7 +1284,7 @@ declare module "../index" {
 
     // isPlainObject
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is a plain object, that is, an object created by the Object constructor or one with a
          * [[Prototype]] of null.
@@ -1313,7 +1313,7 @@ declare module "../index" {
 
     // isRegExp
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is classified as a RegExp object.
          * @param value The value to check.
@@ -1339,7 +1339,7 @@ declare module "../index" {
 
     // isSafeInteger
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if `value` is a safe integer. An integer is safe if it's an IEEE-754
          * double precision number which isn't the result of a rounded unsafe integer.
@@ -1382,7 +1382,7 @@ declare module "../index" {
 
     // isSet
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is classified as a Set object.
          *
@@ -1408,7 +1408,7 @@ declare module "../index" {
 
     // isString
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is classified as a String primitive or object.
          *
@@ -1434,7 +1434,7 @@ declare module "../index" {
 
     // isSymbol
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if `value` is classified as a `Symbol` primitive or object.
          *
@@ -1468,7 +1468,7 @@ declare module "../index" {
 
     // isTypedArray
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is classified as a typed array.
          *
@@ -1494,7 +1494,7 @@ declare module "../index" {
 
     // isUndefined
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is undefined.
          *
@@ -1520,7 +1520,7 @@ declare module "../index" {
 
     // isWeakMap
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is classified as a WeakMap object.
          *
@@ -1546,7 +1546,7 @@ declare module "../index" {
 
     // isWeakSet
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is classified as a WeakSet object.
          *
@@ -1572,7 +1572,7 @@ declare module "../index" {
 
     // lt
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is less than other.
          *
@@ -1602,7 +1602,7 @@ declare module "../index" {
 
     // lte
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if value is less than or equal to other.
          *
@@ -1632,7 +1632,7 @@ declare module "../index" {
 
     // toArray
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts value to an array.
          *
@@ -1678,7 +1678,7 @@ declare module "../index" {
 
     // toFinite
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts `value` to a finite number.
          *
@@ -1719,7 +1719,7 @@ declare module "../index" {
 
     // toInteger
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts `value` to an integer.
          *
@@ -1761,7 +1761,7 @@ declare module "../index" {
 
     // toLength
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts `value` to an integer suitable for use as the length of an
          * array-like object.
@@ -1804,7 +1804,7 @@ declare module "../index" {
 
     // toNumber
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts `value` to a number.
          *
@@ -1844,7 +1844,7 @@ declare module "../index" {
 
     // toPlainObject
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts value to a plain object flattening inherited enumerable properties of value to own properties
          * of the plain object.
@@ -1871,7 +1871,7 @@ declare module "../index" {
 
     // toSafeInteger
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts `value` to a safe integer. A safe integer can be compared and
          * represented correctly.
@@ -1912,7 +1912,7 @@ declare module "../index" {
 
     // toString
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts `value` to a string if it's not one. An empty string is returned
          * for `null` and `undefined` values. The sign of `-0` is preserved.

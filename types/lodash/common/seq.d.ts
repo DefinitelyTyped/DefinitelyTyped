@@ -2,7 +2,7 @@ import _ = require("../index");
 declare module "../index" {
     // chain
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a lodash object that wraps value with explicit method chaining enabled.
          *
@@ -28,7 +28,7 @@ declare module "../index" {
 
     // prototype.chain
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a lodash object that wraps value with explicit method chaining enabled.
          *
@@ -139,7 +139,7 @@ declare module "../index" {
 
     // tap
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method invokes interceptor and returns value. The interceptor is invoked with one
          * argument; (value). The purpose of this method is to "tap into" a method chain in order to perform operations
@@ -166,7 +166,7 @@ declare module "../index" {
 
     // thru
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.tap except that it returns the result of interceptor.
          *

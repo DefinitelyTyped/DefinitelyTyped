@@ -2,7 +2,7 @@ import _ = require("../index");
 declare module "../index" {
     // after
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * The opposite of _.before; this method creates a function that invokes func once it’s called n or more times.
          *
@@ -32,7 +32,7 @@ declare module "../index" {
 
     // ary
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that accepts up to n arguments ignoring any additional arguments.
          *
@@ -62,7 +62,7 @@ declare module "../index" {
 
     // before
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that invokes func, with the this binding and arguments of the created function, while
          * it’s called less than n times. Subsequent calls to the created function return the result of the last func
@@ -104,7 +104,7 @@ declare module "../index" {
         ): (...args: any[]) => any;
     }
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that invokes func with the this binding of thisArg and prepends any additional _.bind
          * arguments to those provided to the bound function.
@@ -154,7 +154,7 @@ declare module "../index" {
         ): (...args: any[]) => any;
     }
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that invokes the method at object[key] and prepends any additional _.bindKey arguments
          * to those provided to the bound function.
@@ -259,7 +259,7 @@ declare module "../index" {
         placeholder: __;
     }
 
-    interface LoDashStatic {
+    interface Stat {
         curry: Curry;
     }
 
@@ -551,7 +551,7 @@ declare module "../index" {
         placeholder: __;
     }
 
-    interface LoDashStatic {
+    interface Stat {
         curryRight: CurryRight;
     }
 
@@ -648,7 +648,7 @@ declare module "../index" {
         trailing?: boolean;
     }
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since
          * the last time the debounced function was invoked. The debounced function comes with a cancel method to
@@ -698,7 +698,7 @@ declare module "../index" {
 
     // defer
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Defers invoking the func until the current call stack has cleared. Any additional arguments are provided to
          * func when it’s invoked.
@@ -729,7 +729,7 @@ declare module "../index" {
 
     // delay
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Invokes func after wait milliseconds. Any additional arguments are provided to func when it’s invoked.
          *
@@ -767,7 +767,7 @@ declare module "../index" {
 
     // flip
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that invokes `func` with arguments reversed.
          *
@@ -799,7 +799,7 @@ declare module "../index" {
         cache: MapCache;
     }
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that memoizes the result of func. If resolver is provided it determines the cache key for
          * storing the result based on the arguments provided to the memoized function. By default, the first argument
@@ -832,7 +832,7 @@ declare module "../index" {
 
     // negate
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that negates the result of the predicate func. The func predicate is invoked with
          * the this binding and arguments of the created function.
@@ -868,7 +868,7 @@ declare module "../index" {
 
     // once
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that is restricted to invoking func once. Repeat calls to the function return the value
          * of the first call. The func is invoked with the this binding and arguments of the created function.
@@ -888,7 +888,7 @@ declare module "../index" {
 
     // overArgs
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that runs each argument through a corresponding transform function.
          *
@@ -919,7 +919,7 @@ declare module "../index" {
 
     // partial
 
-    interface LoDashStatic {
+    interface Stat {
         /**
         * Creates a function that, when called, invokes func with any additional partial arguments
         * prepended to those provided to the new function. This method is similar to _.bind except
@@ -946,7 +946,7 @@ declare module "../index" {
     }
 
     /** The placeholder, to be used in curried functions */
-    type __ = LoDashStatic;
+    type __ = Stat;
 
     type Function0<R> = () => R;
     type Function1<T1, R> = (t1: T1) => R;
@@ -1081,7 +1081,7 @@ declare module "../index" {
 
     // partialRight
 
-    interface LoDashStatic {
+    interface Stat {
         /**
         * This method is like _.partial except that partial arguments are appended to those provided
         * to the new function.
@@ -1233,7 +1233,7 @@ declare module "../index" {
 
     // rearg
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that invokes func with arguments arranged according to the specified indexes where the
          * argument value at the first index is provided as the first argument, the argument value at the second index
@@ -1261,7 +1261,7 @@ declare module "../index" {
 
     // rest
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that invokes func with the this binding of the created function and arguments from start
          * and beyond provided as an array.
@@ -1294,7 +1294,7 @@ declare module "../index" {
 
     // spread
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that invokes func with the this binding of the created function and an array of arguments
          * much like Function#apply.
@@ -1350,7 +1350,7 @@ declare module "../index" {
         trailing?: boolean;
     }
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a throttled function that only invokes func at most once per every wait milliseconds. The throttled
          * function comes with a cancel method to cancel delayed invocations and a flush method to immediately invoke
@@ -1396,7 +1396,7 @@ declare module "../index" {
 
     // unary
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that accepts up to one argument, ignoring any
          * additional arguments.
@@ -1428,7 +1428,7 @@ declare module "../index" {
 
     // wrap
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that provides value to the wrapper function as its first argument. Any additional
          * arguments provided to the function are appended to those provided to the wrapper function. The wrapper is

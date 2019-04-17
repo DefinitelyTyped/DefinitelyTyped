@@ -2,7 +2,7 @@ import _ = require("../index");
 declare module "../index" {
     // assign
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Assigns own enumerable properties of source objects to the destination
          * object. Source objects are applied from left to right. Subsequent sources
@@ -174,7 +174,7 @@ declare module "../index" {
 
     // assignIn
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.assign` except that it iterates over own and
          * inherited source properties.
@@ -347,7 +347,7 @@ declare module "../index" {
 
     type AssignCustomizer = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any;
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.assignIn` except that it accepts `customizer` which
          * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -528,7 +528,7 @@ declare module "../index" {
 
     // assignWith
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.assign` except that it accepts `customizer` which
          * is invoked to produce the assigned values. If `customizer` returns `undefined`
@@ -708,7 +708,7 @@ declare module "../index" {
 
     // at
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
          * specified as individual arguments or as arrays of keys.
@@ -769,7 +769,7 @@ declare module "../index" {
 
     // create
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an object that inherits from the given prototype object. If a properties object is provided its own
          * enumerable properties are assigned to the created object.
@@ -800,7 +800,7 @@ declare module "../index" {
 
     // defaults
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Assigns own enumerable properties of source object(s) to the destination object for all destination
          * properties that resolve to undefined. Once a property is set, additional values of the same property are
@@ -955,7 +955,7 @@ declare module "../index" {
 
     // defaultsDeep
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.defaults except that it recursively assigns default properties.
          * @param object The destination object.
@@ -983,7 +983,7 @@ declare module "../index" {
 
     // entries
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * @see _.toPairs
          */
@@ -1021,7 +1021,7 @@ declare module "../index" {
 
     // entriesIn
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * @see _.entriesIn
          */
@@ -1059,7 +1059,7 @@ declare module "../index" {
 
     // extend
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * @see _.extend
          */
@@ -1206,7 +1206,7 @@ declare module "../index" {
 
     // extendWith
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * @see _.extendWith
          */
@@ -1365,7 +1365,7 @@ declare module "../index" {
 
     // findKey
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.find except that it returns the key of the first element predicate returns truthy for
          * instead of the element itself.
@@ -1402,7 +1402,7 @@ declare module "../index" {
 
     // findLastKey
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.findKey except that it iterates over elements of a collection in the opposite order.
          *
@@ -1438,7 +1438,7 @@ declare module "../index" {
 
     // forIn
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Iterates over own and inherited enumerable properties of an object invoking iteratee for each property. The
          * iteratee is invoked with three arguments: (value, key, object). Iteratee functions may
@@ -1474,7 +1474,7 @@ declare module "../index" {
 
     // forInRight
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.forIn except that it iterates over properties of object in the opposite order.
          *
@@ -1508,7 +1508,7 @@ declare module "../index" {
 
     // forOwn
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Iterates over own enumerable properties of an object invoking iteratee for each property. The iteratee is
          * invoked with three arguments: (value, key, object). Iteratee functions may exit
@@ -1544,7 +1544,7 @@ declare module "../index" {
 
     // forOwnRight
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.forOwn except that it iterates over properties of object in the opposite order.
          *
@@ -1578,7 +1578,7 @@ declare module "../index" {
 
     // functions
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of function property names from own enumerable properties
          * of `object`.
@@ -1617,7 +1617,7 @@ declare module "../index" {
 
     // functionsIn
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of function property names from own and inherited
          * enumerable properties of `object`.
@@ -1656,7 +1656,7 @@ declare module "../index" {
 
     // get
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
          * in its place.
@@ -1894,7 +1894,7 @@ declare module "../index" {
 
     // has
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if `path` is a direct property of `object`.
          *
@@ -1941,7 +1941,7 @@ declare module "../index" {
 
     // hasIn
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if `path` is a direct or inherited property of `object`.
          *
@@ -1987,7 +1987,7 @@ declare module "../index" {
 
     // invert
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an object composed of the inverted keys and values of object. If object contains duplicate values,
          * subsequent values overwrite property assignments of previous values unless multiValue is true.
@@ -2017,7 +2017,7 @@ declare module "../index" {
 
     // invertBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.invert except that the inverted object is generated from the results of running each
          * element of object through iteratee. The corresponding inverted value of each inverted key is an array of
@@ -2079,7 +2079,7 @@ declare module "../index" {
 
     // invoke
 
-    interface LoDashStatic {
+    interface Stat {
         /**
         * Invokes the method at path of object.
         * @param object The object to query.
@@ -2112,7 +2112,7 @@ declare module "../index" {
 
     // keys
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of the own enumerable property names of object.
          *
@@ -2140,7 +2140,7 @@ declare module "../index" {
 
     // keysIn
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of the own and inherited enumerable property names of object.
          *
@@ -2168,7 +2168,7 @@ declare module "../index" {
 
     // mapKeys
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
          * by running each own enumerable property of object through iteratee.
@@ -2229,7 +2229,7 @@ declare module "../index" {
 
     // mapValues
 
-    interface LoDashStatic {
+    interface Stat {
         /**
         * Creates an object with the same keys as object and values generated by running each own
         * enumerable property of object through iteratee. The iteratee function is
@@ -2501,7 +2501,7 @@ declare module "../index" {
 
     // merge
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Recursively merges own and inherited enumerable properties of source
          * objects into the destination object, skipping source properties that resolve
@@ -2663,7 +2663,7 @@ declare module "../index" {
 
     type MergeWithCustomizer = { bivariantHack(value: any, srcValue: any, key: string, object: any, source: any): any; }["bivariantHack"];
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.merge` except that it accepts `customizer` which
          * is invoked to produce the merged values of the destination and source
@@ -2841,7 +2841,7 @@ declare module "../index" {
 
     // omit
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * The opposite of `_.pick`; this method creates an object composed of the
          * own and inherited enumerable properties of `object` that are not omitted.
@@ -2934,7 +2934,7 @@ declare module "../index" {
 
     // omitBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * The opposite of `_.pickBy`; this method creates an object composed of the
          * own and inherited enumerable properties of `object` that `predicate`
@@ -3027,7 +3027,7 @@ declare module "../index" {
 
     // pick
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an object composed of the picked `object` properties.
          *
@@ -3095,7 +3095,7 @@ declare module "../index" {
 
     // pickBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an object composed of the `object` properties `predicate` returns
          * truthy for. The predicate is invoked with two arguments: (value, key).
@@ -3235,7 +3235,7 @@ declare module "../index" {
 
     // result
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.get except that if the resolved value is a function it’s invoked with the this binding
          * of its parent object and its result is returned.
@@ -3274,7 +3274,7 @@ declare module "../index" {
 
     // set
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
          * missing index properties while objects are created for all other missing properties. Use _.setWith to
@@ -3341,7 +3341,7 @@ declare module "../index" {
 
     type SetWithCustomizer<T> = (nsValue: any, key: string, nsObject: T) => any;
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
          * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
@@ -3410,7 +3410,7 @@ declare module "../index" {
 
     // toPairs
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of own enumerable key-value pairs for object.
          *
@@ -3451,7 +3451,7 @@ declare module "../index" {
 
     // toPairsIn
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of own and inherited enumerable key-value pairs for object.
          *
@@ -3492,7 +3492,7 @@ declare module "../index" {
 
     // transform
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
          * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
@@ -3654,7 +3654,7 @@ declare module "../index" {
 
     // unset
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Removes the property at path of object.
          *
@@ -3686,7 +3686,7 @@ declare module "../index" {
 
     // update
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.set except that accepts updater to produce the value to set. Use _.updateWith to
          * customize path creation. The updater is invoked with one argument: (value).
@@ -3725,7 +3725,7 @@ declare module "../index" {
 
     // updateWith
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.update` except that it accepts `customizer` which is
          * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
@@ -3808,7 +3808,7 @@ declare module "../index" {
 
     // values
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of the own enumerable property values of object.
          *
@@ -3864,7 +3864,7 @@ declare module "../index" {
 
     // valuesIn
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of the own and inherited enumerable property values of object.
          *

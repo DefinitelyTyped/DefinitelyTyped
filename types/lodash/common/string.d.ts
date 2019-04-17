@@ -2,7 +2,7 @@ import _ = require("../index");
 declare module "../index" {
     // camelCase
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts string to camel case.
          *
@@ -28,7 +28,7 @@ declare module "../index" {
 
     // capitalize
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts the first character of string to upper case and the remaining to lower case.
          *
@@ -54,7 +54,7 @@ declare module "../index" {
 
     // deburr
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Deburrs string by converting latin-1 supplementary letters to basic latin letters and removing combining
          * diacritical marks.
@@ -81,7 +81,7 @@ declare module "../index" {
 
     // endsWith
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if string ends with the given target string.
          *
@@ -119,7 +119,7 @@ declare module "../index" {
 
     // escape
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts the characters "&", "<", ">", '"', "'", and "`" in string to their corresponding HTML entities.
          *
@@ -156,7 +156,7 @@ declare module "../index" {
 
     // escapeRegExp
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Escapes the RegExp special characters "^", "$", "\", ".", "*", "+", "?", "(", ")", "[", "]",
          * "{", "}", and "|" in string.
@@ -183,7 +183,7 @@ declare module "../index" {
 
     // kebabCase
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts string to kebab case.
          *
@@ -209,7 +209,7 @@ declare module "../index" {
 
     // lowerCase
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts `string`, as space separated words, to lower case.
          *
@@ -235,7 +235,7 @@ declare module "../index" {
 
     // lowerFirst
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts the first character of `string` to lower case.
          *
@@ -261,7 +261,7 @@ declare module "../index" {
 
     // pad
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
          * they can’t be evenly divided by length.
@@ -300,7 +300,7 @@ declare module "../index" {
 
     // padEnd
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Pads string on the right side if it’s shorter than length. Padding characters are truncated if they exceed
          * length.
@@ -339,7 +339,7 @@ declare module "../index" {
 
     // padStart
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
          * length.
@@ -378,7 +378,7 @@ declare module "../index" {
 
     // parseInt
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts string to an integer of the specified radix. If radix is undefined or 0, a radix of 10 is used
          * unless value is a hexadecimal, in which case a radix of 16 is used.
@@ -411,7 +411,7 @@ declare module "../index" {
 
     // repeat
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Repeats the given string n times.
          *
@@ -443,7 +443,7 @@ declare module "../index" {
 
     // replace
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Replaces matches for pattern in string with replacement.
          *
@@ -502,7 +502,7 @@ declare module "../index" {
 
     // snakeCase
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts string to snake case.
          *
@@ -528,7 +528,7 @@ declare module "../index" {
 
     // split
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Splits string by separator.
          *
@@ -584,7 +584,7 @@ declare module "../index" {
 
     // startCase
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts string to start case.
          *
@@ -610,7 +610,7 @@ declare module "../index" {
 
     // startsWith
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if string starts with the given target string.
          *
@@ -660,7 +660,7 @@ declare module "../index" {
         source: string;
     }
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a compiled template function that can interpolate data properties in "interpolate" delimiters,
          * HTML-escape interpolated data properties in "escape" delimiters, and execute JavaScript in "evaluate"
@@ -709,7 +709,7 @@ declare module "../index" {
 
     // toLower
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts `string`, as a whole, to lower case.
          *
@@ -735,7 +735,7 @@ declare module "../index" {
 
     // toUpper
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts `string`, as a whole, to upper case.
          *
@@ -761,7 +761,7 @@ declare module "../index" {
 
     // trim
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Removes leading and trailing whitespace or specified characters from string.
          *
@@ -805,7 +805,7 @@ declare module "../index" {
 
     // trimEnd
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Removes trailing whitespace or specified characters from string.
          *
@@ -849,7 +849,7 @@ declare module "../index" {
 
     // trimStart
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Removes leading whitespace or specified characters from string.
          *
@@ -902,7 +902,7 @@ declare module "../index" {
         separator?: string|RegExp;
     }
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Truncates string if it’s longer than the given maximum string length. The last characters of the truncated
          * string are replaced with the omission string which defaults to "…".
@@ -933,7 +933,7 @@ declare module "../index" {
 
     // unescape
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * The inverse of _.escape; this method converts the HTML entities &amp;, &lt;, &gt;, &quot;, &#39;, and &#96;
          * in string to their corresponding characters.
@@ -963,7 +963,7 @@ declare module "../index" {
 
     // upperCase
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts `string`, as space separated words, to upper case.
          *
@@ -989,7 +989,7 @@ declare module "../index" {
 
     // upperFirst
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts the first character of `string` to upper case.
          *
@@ -1015,7 +1015,7 @@ declare module "../index" {
 
     // words
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Splits `string` into an array of its words.
          *

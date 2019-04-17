@@ -4,7 +4,7 @@ type GlobalPartial<T> = Partial<T>;
 declare module "../index" {
     type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | ReadonlyArray<T>;
-    interface LoDashStatic {
+    interface Stat {
         /**
         * Creates a lodash object which wraps value to enable implicit method chain sequences.
         * Methods that operate on and return arrays, collections, and functions can be chained together.

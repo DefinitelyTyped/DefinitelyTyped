@@ -2,7 +2,7 @@ import _ = require("../index");
 declare module "../index" {
     // add
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Adds two numbers.
          *
@@ -32,7 +32,7 @@ declare module "../index" {
 
     // ceil
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Calculates n rounded up to precision.
          *
@@ -62,7 +62,7 @@ declare module "../index" {
 
     // divide
 
-    interface LoDashStatic {
+    interface Stat {
        /**
         * Divide two numbers.
         *
@@ -92,7 +92,7 @@ declare module "../index" {
 
     // floor
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Calculates n rounded down to precision.
          *
@@ -122,7 +122,7 @@ declare module "../index" {
 
     // max
 
-    interface LoDashStatic {
+    interface Stat {
          /**
           * Computes the maximum value of `array`. If `array` is empty or falsey
           * `undefined` is returned.
@@ -152,7 +152,7 @@ declare module "../index" {
 
     // maxBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.max` except that it accepts `iteratee` which is
          * invoked for each element in `array` to generate the criterion by which
@@ -201,7 +201,7 @@ declare module "../index" {
 
     // mean
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Computes the mean of the values in `array`.
          *
@@ -234,7 +234,7 @@ declare module "../index" {
 
     // meanBy
 
-    interface LoDashStatic {
+    interface Stat {
       /**
        * Computes the mean of the provided propties of the objects in the `array`
        *
@@ -275,7 +275,7 @@ declare module "../index" {
 
     // min
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Computes the minimum value of `array`. If `array` is empty or falsey
          * `undefined` is returned.
@@ -305,7 +305,7 @@ declare module "../index" {
 
     // minBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.min` except that it accepts `iteratee` which is
          * invoked for each element in `array` to generate the criterion by which
@@ -354,7 +354,7 @@ declare module "../index" {
 
     // multiply
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Multiply two numbers.
          * @param multiplier The first number in a multiplication.
@@ -383,7 +383,7 @@ declare module "../index" {
 
     // round
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Calculates n rounded to precision.
          *
@@ -413,7 +413,7 @@ declare module "../index" {
 
     // subtract
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Subtract two numbers.
          *
@@ -452,7 +452,7 @@ declare module "../index" {
 
     // sum
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Computes the sum of the values in `array`.
          *
@@ -483,7 +483,7 @@ declare module "../index" {
 
     // sumBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.sum` except that it accepts `iteratee` which is
          * invoked for each element in `array` to generate the value to be summed.

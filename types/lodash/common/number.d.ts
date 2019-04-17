@@ -2,7 +2,7 @@ import _ = require("../index");
 declare module "../index" {
     // clamp
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Clamps `number` within the inclusive `lower` and `upper` bounds.
          *
@@ -58,7 +58,7 @@ declare module "../index" {
 
     // inRange
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks if n is between start and up to but not including, end. If end is not specified it’s set to start
          * with start then set to 0.
@@ -97,7 +97,7 @@ declare module "../index" {
 
     // random
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Produces a random number between min and max (inclusive). If only one argument is provided a number between
          * 0 and the given number is returned. If floating is true, or either min or max are floats, a floating-point

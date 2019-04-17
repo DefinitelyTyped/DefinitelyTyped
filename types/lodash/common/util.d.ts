@@ -2,7 +2,7 @@ import _ = require("../index");
 declare module "../index" {
     // attempt
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Attempts to invoke func, returning either the result or the caught error object. Any additional arguments
          * are provided to func when it’s invoked.
@@ -29,7 +29,7 @@ declare module "../index" {
 
     // bindAll
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Binds methods of an object to the object itself, overwriting the existing method. Method names may be
          * specified as individual arguments or as arrays of method names. If no method names are provided all
@@ -57,7 +57,7 @@ declare module "../index" {
 
     // cond
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that iterates over `pairs` and invokes the corresponding
          * function of the first predicate to return truthy. The predicate-function
@@ -94,7 +94,7 @@ declare module "../index" {
         [P in keyof T]?: (val: T[P]) => boolean;
     };
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that invokes the predicate properties of `source` with the corresponding
          * property values of a given object, returning true if all predicates return truthy, else false.
@@ -118,7 +118,7 @@ declare module "../index" {
 
     // constant
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that returns value.
          *
@@ -144,7 +144,7 @@ declare module "../index" {
 
     // defaultTo
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Checks `value` to determine whether a default value should be returned in
          * its place. The `defaultValue` is returned if `value` is `NaN`, `null`,
@@ -197,7 +197,7 @@ declare module "../index" {
 
     // flow
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that returns the result of invoking the provided functions with the this binding of the
          * created function, where each successive invocation is supplied the return value of the previous.
@@ -368,7 +368,7 @@ declare module "../index" {
 
     // flowRight
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.flow except that it creates a function that invokes the provided functions from right
          * to left.
@@ -524,7 +524,7 @@ declare module "../index" {
 
     // identity
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method returns the first argument provided to it.
          *
@@ -555,7 +555,7 @@ declare module "../index" {
 
     // iteratee
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that invokes `func` with the arguments of the created
          * function. If `func` is a property name the created callback returns the
@@ -621,7 +621,7 @@ declare module "../index" {
 
     // matches
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that performs a deep comparison between a given object and source, returning true if the
          * given object has equivalent property values, else false.
@@ -657,7 +657,7 @@ declare module "../index" {
 
     // matchesProperty
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that compares the property value of path on a given object to value.
          *
@@ -716,7 +716,7 @@ declare module "../index" {
 
     // method
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that invokes the method at path on a given object. Any additional arguments are provided
          * to the invoked method.
@@ -747,7 +747,7 @@ declare module "../index" {
 
     // methodOf
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * The opposite of _.method; this method creates a function that invokes the method at a given path on object.
          * Any additional arguments are provided to the invoked method.
@@ -786,7 +786,7 @@ declare module "../index" {
         chain?: boolean;
     }
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Adds all own enumerable function properties of a source object to the destination object. If object is a
          * function then methods are added to its prototype as well.
@@ -812,7 +812,7 @@ declare module "../index" {
         mixin<TResult>(
             source: Dictionary<(...args: any[]) => any>,
             options?: MixinOptions
-        ): LoDashStatic;
+        ): Stat;
     }
 
     interface Imp<TValue> {
@@ -829,7 +829,7 @@ declare module "../index" {
          */
         mixin(
             options?: MixinOptions
-        ): Imp<LoDashStatic>;
+        ): Imp<Stat>;
     }
 
     interface Exp<TValue> {
@@ -846,12 +846,12 @@ declare module "../index" {
          */
         mixin(
             options?: MixinOptions
-        ): Exp<LoDashStatic>;
+        ): Exp<Stat>;
     }
 
     // noConflict
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Reverts the _ variable to its previous value and returns a reference to the lodash function.
          *
@@ -876,7 +876,7 @@ declare module "../index" {
 
     // noop
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * A no-operation function that returns undefined regardless of the arguments it receives.
          *
@@ -901,7 +901,7 @@ declare module "../index" {
 
     // nthArg
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that returns its nth argument.
          *
@@ -927,7 +927,7 @@ declare module "../index" {
 
     // over
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that invokes iteratees with the arguments provided to the created function and returns
          * their results.
@@ -960,7 +960,7 @@ declare module "../index" {
 
     // overEvery
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that checks if all of the predicates return truthy when invoked with the arguments
          * provided to the created function.
@@ -987,7 +987,7 @@ declare module "../index" {
 
     // overSome
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that checks if any of the predicates return truthy when invoked with the arguments
          * provided to the created function.
@@ -1014,7 +1014,7 @@ declare module "../index" {
 
     // property
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a function that returns the property value at path on a given object.
          *
@@ -1040,7 +1040,7 @@ declare module "../index" {
 
     // propertyOf
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * The opposite of _.property; this method creates a function that returns the property value at a given path
          * on object.
@@ -1067,7 +1067,7 @@ declare module "../index" {
 
     // range
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
          * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
@@ -1123,7 +1123,7 @@ declare module "../index" {
 
     // rangeRight
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.range` except that it populates values in
          * descending order.
@@ -1200,26 +1200,26 @@ declare module "../index" {
 
     // runInContext
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Create a new pristine lodash function using the given context object.
          *
          * @param context The context object.
          * @return Returns a new lodash function.
          */
-        runInContext(context?: object): LoDashStatic;
+        runInContext(context?: object): Stat;
     }
 
     interface Imp<TValue> {
         /**
          * @see _.runInContext
          */
-        runInContext(): LoDashStatic;
+        runInContext(): Stat;
     }
 
     // stubArray
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method returns a new empty array.
          *
@@ -1244,7 +1244,7 @@ declare module "../index" {
 
     // stubFalse
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method returns `false`.
          *
@@ -1269,7 +1269,7 @@ declare module "../index" {
 
     // stubObject
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method returns a new empty object.
          *
@@ -1294,7 +1294,7 @@ declare module "../index" {
 
     // stubString
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method returns an empty string.
          *
@@ -1319,7 +1319,7 @@ declare module "../index" {
 
     // stubTrue
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method returns `true`.
          *
@@ -1344,7 +1344,7 @@ declare module "../index" {
 
     // times
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Invokes the iteratee function n times, returning an array of the results of each invocation. The iteratee
          * is invoked with one argument; (index).
@@ -1394,7 +1394,7 @@ declare module "../index" {
 
     // toPath
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts `value` to a property path array.
          *
@@ -1437,7 +1437,7 @@ declare module "../index" {
 
     // uniqueId
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Generates a unique ID. If prefix is provided the ID is appended to it.
          *

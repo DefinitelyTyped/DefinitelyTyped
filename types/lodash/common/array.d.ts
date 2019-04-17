@@ -2,7 +2,7 @@ import _ = require("../index");
 declare module "../index" {
     // chunk
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of elements split into groups the length of size. If collection can’t be split evenly, the
          * final chunk will be the remaining elements.
@@ -39,7 +39,7 @@ declare module "../index" {
 
     // compact
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array with all falsey values removed. The values false, null, 0, "", undefined, and NaN are
          * falsey.
@@ -66,7 +66,7 @@ declare module "../index" {
 
     // concat
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a new array concatenating `array` with any additional arrays
          * and/or values.
@@ -105,7 +105,7 @@ declare module "../index" {
 
     // difference
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of unique array values not included in the other provided arrays using SameValueZero for
          * equality comparisons.
@@ -142,7 +142,7 @@ declare module "../index" {
 
     // differenceBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.difference except that it accepts iteratee which is invoked for each element of array
          * and values to generate the criterion by which uniqueness is computed. The iteratee is invoked with one
@@ -385,7 +385,7 @@ declare module "../index" {
 
     // differenceWith
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of unique `array` values not included in the other
          * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -517,7 +517,7 @@ declare module "../index" {
 
     // drop
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a slice of array with n elements dropped from the beginning.
          *
@@ -544,7 +544,7 @@ declare module "../index" {
 
     // dropRight
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a slice of array with n elements dropped from the end.
          *
@@ -574,7 +574,7 @@ declare module "../index" {
 
     // dropRightWhile
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a slice of array excluding elements dropped from the end. Elements are dropped until predicate
          * returns falsey. The predicate is invoked with three arguments: (value, index, array).
@@ -611,7 +611,7 @@ declare module "../index" {
 
     // dropWhile
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a slice of array excluding elements dropped from the beginning. Elements are dropped until predicate
          * returns falsey. The predicate is invoked with three arguments: (value, index, array).
@@ -648,7 +648,7 @@ declare module "../index" {
 
     // fill
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Fills elements of array with value from start up to, but not including, end.
          *
@@ -772,7 +772,7 @@ declare module "../index" {
 
     // findIndex
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.find except that it returns the index of the first element predicate returns truthy
          * for instead of the element itself.
@@ -813,7 +813,7 @@ declare module "../index" {
 
     // findLastIndex
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.findIndex except that it iterates over elements of collection from right to left.
          *
@@ -853,7 +853,7 @@ declare module "../index" {
 
     // first
 
-    interface LoDashStatic {
+    interface Stat {
         first: typeof _.head; // tslint:disable-line:no-unnecessary-qualifier
     }
 
@@ -876,7 +876,7 @@ declare module "../index" {
 
     // flatten
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Flattens `array` a single level deep.
          *
@@ -902,7 +902,7 @@ declare module "../index" {
 
     // flattenDeep
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Recursively flattens a nested array.
          *
@@ -928,7 +928,7 @@ declare module "../index" {
 
     // flattenDepth
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Recursively flatten array up to depth times.
          *
@@ -955,7 +955,7 @@ declare module "../index" {
 
     // fromPairs
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * The inverse of `_.toPairs`; this method returns an object composed
          * from key-value `pairs`.
@@ -1014,7 +1014,7 @@ declare module "../index" {
 
     // head
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Gets the first element of array.
          *
@@ -1042,7 +1042,7 @@ declare module "../index" {
 
     // indexOf
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Gets the index at which the first occurrence of `value` is found in `array`
          * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -1094,7 +1094,7 @@ declare module "../index" {
 
     // initial
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Gets all but the last element of array.
          *
@@ -1120,7 +1120,7 @@ declare module "../index" {
 
     // intersection
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of unique values that are included in all of the provided arrays using SameValueZero for
          * equality comparisons.
@@ -1153,7 +1153,7 @@ declare module "../index" {
 
     // intersectionBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.intersection` except that it accepts `iteratee`
          * which is invoked for each element of each `arrays` to generate the criterion
@@ -1287,7 +1287,7 @@ declare module "../index" {
 
     // intersectionWith
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of unique `array` values not included in the other
          * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -1420,7 +1420,7 @@ declare module "../index" {
 
     // join
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Converts all elements in `array` into a string separated by `separator`.
          *
@@ -1450,7 +1450,7 @@ declare module "../index" {
 
     // last
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Gets the last element of array.
          *
@@ -1476,7 +1476,7 @@ declare module "../index" {
 
     // lastIndexOf
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.indexOf except that it iterates over elements of array from right to left.
          *
@@ -1516,7 +1516,7 @@ declare module "../index" {
 
     // nth
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Gets the element at index `n` of `array`. If `n` is negative, the nth element from the end is returned.
          *
@@ -1552,7 +1552,7 @@ declare module "../index" {
 
     // pull
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Removes all provided values from array using SameValueZero for equality comparisons.
          *
@@ -1598,7 +1598,7 @@ declare module "../index" {
 
     // pullAll
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.pull` except that it accepts an array of values to remove.
          *
@@ -1652,7 +1652,7 @@ declare module "../index" {
 
     // pullAllBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.pullAll` except that it accepts `iteratee` which is
          * invoked for each element of `array` and `values` to to generate the criterion
@@ -1729,7 +1729,7 @@ declare module "../index" {
 
     // pullAllWith
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.pullAll` except that it accepts `comparator` which is
          * invoked to compare elements of array to values. The comparator is invoked with
@@ -1806,7 +1806,7 @@ declare module "../index" {
 
     // pullAt
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Removes elements from array corresponding to the given indexes and returns an array of the removed elements.
          * Indexes may be specified as an array of indexes or as individual arguments.
@@ -1840,7 +1840,7 @@ declare module "../index" {
 
     // remove
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Removes all elements from array that predicate returns truthy for and returns an array of the removed
          * elements. The predicate is invoked with three arguments: (value, index, array).
@@ -1879,7 +1879,7 @@ declare module "../index" {
 
     // reverse
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Reverses `array` so that the first element becomes the last, the second
          * element becomes the second to last, and so on.
@@ -1906,7 +1906,7 @@ declare module "../index" {
 
     // slice
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a slice of array from start up to, but not including, end.
          *
@@ -1946,7 +1946,7 @@ declare module "../index" {
 
     // sortedIndex
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Uses a binary search to determine the lowest index at which `value` should
          * be inserted into `array` in order to maintain its sort order.
@@ -1991,7 +1991,7 @@ declare module "../index" {
 
     // sortedIndexBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Uses a binary search to determine the lowest index at which `value` should
          * be inserted into `array` in order to maintain its sort order.
@@ -2035,7 +2035,7 @@ declare module "../index" {
     }
 
     // _.sortedIndexBy
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.sortedIndex` except that it accepts `iteratee`
          * which is invoked for `value` and each element of `array` to compute their
@@ -2088,7 +2088,7 @@ declare module "../index" {
 
     // sortedIndexOf
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.indexOf` except that it performs a binary
          * search on a sorted `array`.
@@ -2130,7 +2130,7 @@ declare module "../index" {
 
     // sortedLastIndex
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.sortedIndex` except that it returns the highest
          * index at which `value` should be inserted into `array` in order to
@@ -2173,7 +2173,7 @@ declare module "../index" {
 
     // sortedLastIndexBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.sortedLastIndex` except that it accepts `iteratee`
          * which is invoked for `value` and each element of `array` to compute their
@@ -2221,7 +2221,7 @@ declare module "../index" {
 
     // sortedLastIndexOf
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.lastIndexOf` except that it performs a binary
          * search on a sorted `array`.
@@ -2263,7 +2263,7 @@ declare module "../index" {
 
     // sortedUniq
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.uniq` except that it's designed and optimized
          * for sorted arrays.
@@ -2297,7 +2297,7 @@ declare module "../index" {
 
     // sortedUniqBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.uniqBy` except that it's designed and optimized
          * for sorted arrays.
@@ -2339,7 +2339,7 @@ declare module "../index" {
 
     // tail
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Gets all but the first element of array.
          *
@@ -2365,7 +2365,7 @@ declare module "../index" {
 
     // take
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a slice of array with n elements taken from the beginning.
          *
@@ -2401,7 +2401,7 @@ declare module "../index" {
 
     // takeRight
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a slice of array with n elements taken from the end.
          *
@@ -2437,7 +2437,7 @@ declare module "../index" {
 
     // takeRightWhile
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a slice of array with elements taken from the end. Elements are taken until predicate returns
          * falsey. The predicate is invoked with three arguments: (value, index, array).
@@ -2474,7 +2474,7 @@ declare module "../index" {
 
     // takeWhile
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a slice of array with elements taken from the beginning. Elements are taken until predicate returns
          * falsey. The predicate is invoked with three arguments: (value, index, array).
@@ -2511,7 +2511,7 @@ declare module "../index" {
 
     // union
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of unique values, in order, from all of the provided arrays using SameValueZero for
          * equality comparisons.
@@ -2544,7 +2544,7 @@ declare module "../index" {
 
     // unionBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.union` except that it accepts `iteratee` which is
          * invoked for each element of each `arrays` to generate the criterion by which
@@ -2708,7 +2708,7 @@ declare module "../index" {
 
     // unionWith
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.union` except that it accepts `comparator` which
          * is invoked to compare elements of `arrays`. The comparator is invoked
@@ -2811,7 +2811,7 @@ declare module "../index" {
 
     // uniq
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates a duplicate-free version of an array, using
          * [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -2847,7 +2847,7 @@ declare module "../index" {
 
     // uniqBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.uniq` except that it accepts `iteratee` which is
          * invoked for each element in `array` to generate the criterion by which
@@ -2894,7 +2894,7 @@ declare module "../index" {
 
     // uniqWith
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.uniq` except that it accepts `comparator` which
          * is invoked to compare elements of `array`. The comparator is invoked with
@@ -2939,7 +2939,7 @@ declare module "../index" {
 
     // unzip
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.zip except that it accepts an array of grouped elements and creates an array
          * regrouping the elements to their pre-zip configuration.
@@ -2966,7 +2966,7 @@ declare module "../index" {
 
     // unzipWith
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.unzip except that it accepts an iteratee to specify how regrouped values should be
          * combined. The iteratee is invoked with four arguments: (accumulator, value, index, group).
@@ -3024,7 +3024,7 @@ declare module "../index" {
 
     // without
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array excluding all provided values using SameValueZero for equality comparisons.
          *
@@ -3060,7 +3060,7 @@ declare module "../index" {
 
     // xor
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of unique values that is the symmetric difference of the provided arrays.
          *
@@ -3092,7 +3092,7 @@ declare module "../index" {
 
     // xorBy
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.xor` except that it accepts `iteratee` which is
          * invoked for each element of each `arrays` to generate the criterion by which
@@ -3196,7 +3196,7 @@ declare module "../index" {
 
     // xorWith
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like `_.xor` except that it accepts `comparator` which is
          * invoked to compare elements of `arrays`. The comparator is invoked with
@@ -3299,7 +3299,7 @@ declare module "../index" {
 
     // zip
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * Creates an array of grouped elements, the first of which contains the first elements of the given arrays,
          * the second of which contains the second elements of the given arrays, and so on.
@@ -3428,7 +3428,7 @@ declare module "../index" {
 
     // zipObject
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.fromPairs except that it accepts two arrays, one of property
          * identifiers and one of corresponding values.
@@ -3486,7 +3486,7 @@ declare module "../index" {
 
     // zipObjectDeep
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.zipObject except that it supports property paths.
          *
@@ -3522,7 +3522,7 @@ declare module "../index" {
 
     // zipWith
 
-    interface LoDashStatic {
+    interface Stat {
         /**
          * This method is like _.zip except that it accepts an iteratee to specify how grouped values should be
          * combined. The iteratee is invoked with four arguments: (accumulator, value, index,
