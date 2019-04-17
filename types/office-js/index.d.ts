@@ -66008,6 +66008,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class Application extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Show or hide the iFrame application borders.
@@ -66077,6 +66079,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Application;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Application object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ApplicationData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ApplicationData;
     }
     /**
@@ -66086,6 +66092,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class Document extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Represents a Visio application instance that contains this document. Read-only.
@@ -66219,6 +66227,10 @@ declare namespace Visio {
          * @eventproperty
          */
         readonly onShapeMouseLeave: OfficeExtension.EventHandlers<Visio.ShapeMouseLeaveEventArgs>;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Document object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.DocumentData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.DocumentData;
     }
     /**
@@ -66228,6 +66240,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class DocumentView extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Disable Hyperlinks.
@@ -66242,6 +66256,13 @@ declare namespace Visio {
          * [Api set:  1.1]
          */
         disablePan: boolean;
+        /**
+         *
+         * Disable PanZoomWindow.
+         *
+         * [Api set:  1.1]
+         */
+        disablePanZoomWindow: boolean;
         /**
          *
          * Disable Zoom.
@@ -66291,6 +66312,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.DocumentView;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.DocumentView object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.DocumentViewData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.DocumentViewData;
     }
     /**
@@ -66300,6 +66325,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class Page extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * All shapes in the Page, including subshapes. Read-only.
@@ -66405,6 +66432,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Page;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Page object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.PageData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.PageData;
     }
     /**
@@ -66414,6 +66445,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class PageView extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Get and set Page's Zoom level. The value can be between 10 and 400 and denotes the percentage of zoom.
@@ -66504,6 +66537,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.PageView;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.PageView object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.PageViewData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.PageViewData;
     }
     /**
@@ -66513,6 +66550,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class PageCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: Visio.Page[];
         /**
@@ -66549,6 +66588,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.PageCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.PageCollection;
         load(option?: string | string[]): Visio.PageCollection;
         load(option?: OfficeExtension.LoadOption): Visio.PageCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.PageCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.PageCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.PageCollectionData;
     }
     /**
@@ -66558,6 +66601,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class ShapeCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: Visio.Shape[];
         /**
@@ -66594,6 +66639,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.ShapeCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.ShapeCollection;
         load(option?: string | string[]): Visio.ShapeCollection;
         load(option?: OfficeExtension.LoadOption): Visio.ShapeCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.ShapeCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.ShapeCollectionData;
     }
     /**
@@ -66603,6 +66652,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class Shape extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Returns the Comments Collection. Read-only.
@@ -66708,6 +66759,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Shape;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Shape object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ShapeData;
     }
     /**
@@ -66717,6 +66772,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class ShapeView extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Represents the highlight around the shape.
@@ -66765,7 +66822,7 @@ declare namespace Visio {
          * @param Width Overlay Width.
          * @param Height Overlay Height.
          */
-        addOverlay(OverlayType: "Text" | "Image", Content: string, OverlayHorizontalAlignment: "Left" | "Center" | "Right", OverlayVerticalAlignment: "Top" | "Middle" | "Bottom", Width: number, Height: number): OfficeExtension.ClientResult<number>;
+        addOverlay(OverlayType: "Text" | "Image" | "Html", Content: string, OverlayHorizontalAlignment: "Left" | "Center" | "Right", OverlayVerticalAlignment: "Top" | "Middle" | "Bottom", Width: number, Height: number): OfficeExtension.ClientResult<number>;
         /**
          *
          * Removes particular overlay or all overlays on the Shape.
@@ -66796,6 +66853,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.ShapeView;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.ShapeView object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeViewData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ShapeViewData;
     }
     /**
@@ -66885,6 +66946,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class ShapeDataItemCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: Visio.ShapeDataItem[];
         /**
@@ -66921,6 +66984,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.ShapeDataItemCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.ShapeDataItemCollection;
         load(option?: string | string[]): Visio.ShapeDataItemCollection;
         load(option?: OfficeExtension.LoadOption): Visio.ShapeDataItemCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.ShapeDataItemCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeDataItemCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.ShapeDataItemCollectionData;
     }
     /**
@@ -66930,6 +66997,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class ShapeDataItem extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * A string that specifies the format of the shape data item. Read-only.
@@ -66979,6 +67048,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.ShapeDataItem;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.ShapeDataItem object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeDataItemData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ShapeDataItemData;
     }
     /**
@@ -66988,6 +67061,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class HyperlinkCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: Visio.Hyperlink[];
         /**
@@ -67024,6 +67099,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.HyperlinkCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.HyperlinkCollection;
         load(option?: string | string[]): Visio.HyperlinkCollection;
         load(option?: OfficeExtension.LoadOption): Visio.HyperlinkCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.HyperlinkCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.HyperlinkCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.HyperlinkCollectionData;
     }
     /**
@@ -67033,6 +67112,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class Hyperlink extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Gets the address of the Hyperlink object. Read-only.
@@ -67082,6 +67163,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Hyperlink;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Hyperlink object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.HyperlinkData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.HyperlinkData;
     }
     /**
@@ -67091,6 +67176,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class CommentCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: Visio.Comment[];
         /**
@@ -67127,6 +67214,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.CommentCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.CommentCollection;
         load(option?: string | string[]): Visio.CommentCollection;
         load(option?: OfficeExtension.LoadOption): Visio.CommentCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.CommentCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.CommentCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.CommentCollectionData;
     }
     /**
@@ -67136,6 +67227,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class Comment extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * A string that specifies the name of the author of the comment.
@@ -67192,6 +67285,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Comment;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Comment object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.CommentData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.CommentData;
     }
     /**
@@ -67201,6 +67298,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class Selection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Gets the Shapes of the Selection. Read-only.
@@ -67228,6 +67327,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Selection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Selection object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.SelectionData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.SelectionData;
     }
     /**
@@ -67301,6 +67404,12 @@ declare namespace Visio {
          *
          */
         image = "Image",
+        /**
+         *
+         * html
+         *
+         */
+        html = "Html",
     }
     /**
      *
@@ -67400,6 +67509,13 @@ declare namespace Visio {
              * [Api set:  1.1]
              */
             disablePan?: boolean;
+            /**
+             *
+             * Disable PanZoomWindow.
+             *
+             * [Api set:  1.1]
+             */
+            disablePanZoomWindow?: boolean;
             /**
              *
              * Disable Zoom.
@@ -67563,6 +67679,13 @@ declare namespace Visio {
              * [Api set:  1.1]
              */
             disablePan?: boolean;
+            /**
+             *
+             * Disable PanZoomWindow.
+             *
+             * [Api set:  1.1]
+             */
+            disablePanZoomWindow?: boolean;
             /**
              *
              * Disable Zoom.
@@ -67914,6 +68037,13 @@ declare namespace Visio {
              * [Api set:  1.1]
              */
             disablePan?: boolean;
+            /**
+             *
+             * Disable PanZoomWindow.
+             *
+             * [Api set:  1.1]
+             */
+            disablePanZoomWindow?: boolean;
             /**
              *
              * Disable Zoom.
@@ -68365,14 +68495,14 @@ declare namespace Visio {
     /**
      * The RequestContext object facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the request context is required to get access to the Visio object model from the add-in.
      */
-    class RequestContext extends OfficeExtension.ClientRequestContext {
+    class RequestContext extends OfficeCore.RequestContext {
         constructor(url?: string | OfficeExtension.EmbeddedSession);
         readonly document: Document;
     }
     /**
-     * Executes a batch script that performs actions on the Visio object model, using a new request context. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-     * @param batch - A function that takes in an Visio.RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the request context is required to get access to the Visio object model from the add-in.
-     */
+ * Executes a batch script that performs actions on the Visio object model, using a new request context. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+ * @param batch - A function that takes in an Visio.RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the request context is required to get access to the Visio object model from the add-in.
+ */
     function run<T>(batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
     /**
      * Executes a batch script that performs actions on the Visio object model, using the request context of a previously-created API object.
@@ -68390,14 +68520,13 @@ declare namespace Visio {
      * Executes a batch script that performs actions on the Visio object model, using the RequestContext of a previously-created object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
      * @param contextObject - A previously-created Visio.RequestContext. This context will get re-used by the batch function (instead of having a new context created). This means that the batch will be able to pick up changes made to existing API objects, if those objects were derived from this same context.
      * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the RequestContext is required to get access to the Visio object model from the add-in.
-     * 
      * @remarks
      * In addition to this signature, the method also has the following signatures:
-     * 
+     *
      * `run<T>(batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;`
-     * 
+     *
      * `run<T>(object: OfficeExtension.ClientObject | OfficeExtension.EmbeddedSession, batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;`
-     * 
+     *
      * `run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;`
      */
     function run<T>(contextObject: OfficeExtension.ClientRequestContext, batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
