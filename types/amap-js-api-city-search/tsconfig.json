@@ -2,26 +2,23 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
+        "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
-        "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "lib/common/utils.d.ts",
-        "lib/index.d.ts",
-        "lib/renderer.d.ts",
-        "lib/ruler.d.ts",
         "index.d.ts",
-        "remarkable-tests.ts"
+        "amap-js-api-city-search-tests.ts"
     ]
 }
