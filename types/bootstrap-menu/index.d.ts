@@ -7,7 +7,7 @@
 /// <reference types="jquery" />
 
 declare namespace BootstrapMenu {
-    export interface BootstrapMenuOptions {
+    interface BootstrapMenuOptions {
         /**
          * Container of the context menu, where it will be created and where event listeners will be installed.
          */
@@ -67,7 +67,7 @@ declare namespace BootstrapMenu {
      * Every function attribute is called before rendering the menu each time it is opened.
      * If `fetchElementData` was defined, these functions will receive as first argument its returned value for the currently selected element.
      */
-    export interface BootstrapMenuActions {
+    interface BootstrapMenuActions {
         /**
          * The name of the action.
          */
@@ -99,13 +99,13 @@ declare namespace BootstrapMenu {
         isEnabled?: (rowElement: BootstrapMenuRowElement) => boolean;
     }
 
-    export type BootstrapMenuSource = "mouse" | "element";
+    type BootstrapMenuSource = "mouse" | "element";
 
-    export type BootstrapMenuPosition = "aboveLeft" | "aboveRight" | "belowLeft" | "belowRight";
+    type BootstrapMenuPosition = "aboveLeft" | "aboveRight" | "belowLeft" | "belowRight";
 
-    export type BootstrapMenuEvent = "click" | "right-click" | "hover";
+    type BootstrapMenuEvent = "click" | "right-click" | "hover";
 
-    export type BootstrapMenuRowElement = any;
+    type BootstrapMenuRowElement = any;
 }
 
 declare class BootstrapMenu {
