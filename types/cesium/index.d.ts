@@ -1439,23 +1439,23 @@ declare namespace Cesium {
         getInputAction(
             type: ScreenSpaceEventType.MOUSE_MOVE,
             modifier?: number
-        ) : () => (event: { startPosition: Cartesian2, endPosition: Cartesian2 }) => void;
+        ): () => (event: { startPosition: Cartesian2, endPosition: Cartesian2 }) => void;
         getInputAction(
             type: ScreenSpaceEventType.WHEEL,
             modifier?: number
-        ) : () => (delta: number) => void;
+        ): () => (delta: number) => void;
         getInputAction(
             type: ScreenSpaceEventType.PINCH_START,
             modifier?: number
-        ) : () => (event: { position1: Cartesian2, position2: Cartesian2 }) => void;
+        ): () => (event: { position1: Cartesian2, position2: Cartesian2 }) => void;
         getInputAction(
             type: ScreenSpaceEventType.PINCH_END,
             modifier?: number
-        ) : () => () => void;
+        ): () => () => void;
         getInputAction(
             type: ScreenSpaceEventType.PINCH_MOVE,
             modifier?: number
-        ) : () => (event: { distance: { startPosition: Cartesian2, endPosition: Cartesian2 }, angleAndHeight: { startPosition: Cartesian2, endPosition: Cartesian2 }}) => void;
+        ): () => (event: { distance: { startPosition: Cartesian2, endPosition: Cartesian2 }, angleAndHeight: { startPosition: Cartesian2, endPosition: Cartesian2 }}) => void;
         removeInputAction(type: number, modifier?: number): void;
         isDestroyed(): boolean;
         destroy(): void;
