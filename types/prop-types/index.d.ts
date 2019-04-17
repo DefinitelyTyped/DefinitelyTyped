@@ -79,8 +79,8 @@ export function exact<P extends ValidationMap<any>>(type: P): Requireable<Requir
  * @param typeSpecs Map of name to a ReactPropType
  * @param values Runtime values that need to be type-checked
  * @param location e.g. "prop", "context", "child context"
- * @param componentName Name of the component for error messages.
- * @param getStack Returns the component stack.
+ * @param componentName Name of the component for error messages
+ * @param getStack Returns the component stack
  */
 export function checkPropTypes(typeSpecs: any, values: any, location: string, componentName: string, getStack?: () => any): void;
 
