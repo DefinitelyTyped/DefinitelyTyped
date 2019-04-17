@@ -1,5 +1,5 @@
 // Specifically test buffer module regression.
-import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, TranscodeEncoding } from "buffer";
 
 const utf8Buffer = new Buffer('test');
 const base64Buffer = new Buffer('', 'base64');
@@ -38,7 +38,8 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
     const arrUint8: Uint8Array = new Uint8Array(2);
     const buf5: Buffer = Buffer.from(arrUint8);
     const buf6: Buffer = Buffer.from(buf1);
-    const buf7: Buffer = Buffer.from(new SharedArrayBuffer(123));
+    const sb: SharedArrayBuffer = {} as any;
+    const buf7: Buffer = Buffer.from(sb);
 }
 
 // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
@@ -200,4 +201,20 @@ b.fill('a').fill('b');
 {
     const buffer = new Buffer('123');
     const octets = new Uint8Array(buffer.buffer);
+}
+
+// Inherited from Uint8Array but return buffer
+{
+    const b = Buffer.from('asd');
+    let res: Buffer = b.reverse();
+    res = b.subarray(1);
+}
+
+// Buffer module, transcode function
+{
+    transcode(Buffer.from('€'), 'utf8', 'ascii'); // $ExpectType Buffer
+
+    const source: TranscodeEncoding = 'utf8';
+    const target: TranscodeEncoding = 'ascii';
+    transcode(Buffer.from('€'), source, target); // $ExpectType Buffer
 }

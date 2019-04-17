@@ -8,13 +8,14 @@
 
 import * as Promise from 'bluebird';
 import * as events from 'events';
-import { Replies, Options, Message, GetMessage, ConsumeMessage } from './properties';
+import { Replies, Options, Message, GetMessage, ConsumeMessage, ServerProperties } from './properties';
 export * from './properties';
 
 export interface Connection extends events.EventEmitter {
     close(): Promise<void>;
     createChannel(): Promise<Channel>;
     createConfirmChannel(): Promise<ConfirmChannel>;
+    serverProperties: ServerProperties;
 }
 
 export interface Channel extends events.EventEmitter {

@@ -346,7 +346,7 @@ declare module 'angular' {
         interface IMenuService {
             close(): void;
             hide(response?: any, options?: any): IPromise<any>;
-            open(event?: MouseEvent): void;
+            open(event?: MouseEvent | JQueryEventObject): void;
         }
 
         interface IColorPalette {
@@ -512,5 +512,16 @@ declare module 'angular' {
         }
 
         type IStickyService = (scope: IScope, element: JQuery, elementClone?: JQuery) => void;
+
+        interface IInteractionService {
+            getLastInteractionType(): string|null;
+            isUserInvoked(checkDelay?: number): boolean;
+        }
+
+        interface IUtilService {
+            // tslint:disable-next-line:ban-types debounce takes in a user provided function
+            debounce<T extends Function>(func: T, wait?: number, scope?: any, invokeApply?: boolean): T;
+            enableScrolling(): void;
+        }
     }
 }

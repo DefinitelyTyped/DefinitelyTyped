@@ -31,6 +31,8 @@
 //                 Fellipe Chagas <https://github.com/chagasaway>
 //                 Deniss Borisovs <https://github.com/denissb>
 //                 Kenneth Skovhus <https://github.com/skovhus>
+//                 Aaron Rosen <https://github.com/azrosen92>
+//                 Haseeb Majid <https://github.com/hmajid2301>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -623,7 +625,7 @@ export interface NavigationEventSubscription {
 }
 
 export interface NavigationEventsProps extends ViewProps {
-  navigation?: NavigationNavigator;
+  navigation?: NavigationScreenProp<NavigationRoute>;
   onWillFocus?: NavigationEventCallback;
   onDidFocus?: NavigationEventCallback;
   onWillBlur?: NavigationEventCallback;
@@ -660,7 +662,7 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
   getParam<T extends keyof P>(param: T): P[T];
   setParams: (newParams: Partial<P>) => boolean;
   addListener: (
-    eventName: 'willBlur' | 'willFocus' | 'didFocus' | 'didBlur',
+    eventName: EventType,
     callback: NavigationEventCallback
   ) => NavigationEventSubscription;
   push: (
@@ -870,10 +872,6 @@ export interface StackNavigatorConfig
 }
 
 // Return createNavigationContainer
-export function StackNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  stackConfig?: StackNavigatorConfig
-): NavigationContainer;
 
 export function createStackNavigator(
   routeConfigMap: NavigationRouteConfigMap,
@@ -889,11 +887,6 @@ export interface SwitchNavigatorConfig {
 
 // Return createNavigationContainer
 export type _SwitchNavigatorConfig = NavigationSwitchRouterConfig;
-
-export function SwitchNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  switchConfig?: SwitchNavigatorConfig
-): NavigationContainer;
 
 export function createSwitchNavigator(
   routeConfigMap: NavigationRouteConfigMap,
@@ -921,6 +914,7 @@ export interface DrawerItemsProps {
   inactiveLabelStyle?: StyleProp<TextStyle>;
   iconContainerStyle?: StyleProp<ViewStyle>;
   drawerPosition: 'left' | 'right';
+  screenProps?: any;
 }
 export interface DrawerScene {
   route: NavigationRoute;
@@ -958,11 +952,6 @@ export interface DrawerNavigatorConfig
   };
   drawerLockMode?: DrawerLockMode;
 }
-
-export function DrawerNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  drawerConfig?: DrawerNavigatorConfig
-): NavigationContainer;
 
 export function createDrawerNavigator(
   routeConfigMap: NavigationRouteConfigMap,
@@ -1018,15 +1007,6 @@ export interface BottomTabNavigatorConfig
 }
 
 // From navigators/TabNavigator.js
-export function TabNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  drawConfig?: TabNavigatorConfig
-): NavigationContainer;
-
-export function createTabNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  drawConfig?: TabNavigatorConfig
-): NavigationContainer;
 
 export function createBottomTabNavigator(
   routeConfigMap: NavigationRouteConfigMap,
@@ -1367,3 +1347,5 @@ export interface SafeAreaViewProps extends ViewProps {
 }
 
 export const SafeAreaView: React.ComponentClass<SafeAreaViewProps>;
+
+export const NavigationContext: React.Context<NavigationScreenProp<NavigationRoute>>;

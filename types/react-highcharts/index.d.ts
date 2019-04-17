@@ -20,6 +20,11 @@ interface ReactHighchartsProps {
      * @param after-render callback.
      */
     callback?(chart: Highcharts.ChartObject): void;
+
+    /**
+     * Chart will not rerender if the config is referentially equal to previous and this property is true
+     */
+    isPureConfig?: boolean;
 }
 
 /**

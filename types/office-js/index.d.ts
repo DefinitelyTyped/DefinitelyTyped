@@ -335,25 +335,6 @@ declare namespace Office {
      * @remarks
      * 
      * Returned by the `status` property of the {@link Office.AsyncResult | AsyncResult} object.
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Access     </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *  </table>
      */
     enum AsyncResultStatus {
         /**
@@ -367,24 +348,6 @@ declare namespace Office {
     }
     /**
      * Specifies whether the add-in was just inserted or was already contained in the document.
-     *
-     * @remarks
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
-     *  </table>
      */
     enum InitializationReason {
         /**
@@ -398,28 +361,6 @@ declare namespace Office {
     }
     /**
      * Specifies the host Office application in which the add-in is running.
-     *
-     * @remarks
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Access     </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> OneNote    </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td> Y               </td><td>                </td></tr>
-     *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *  </table>
      */
     enum HostType {
         /**
@@ -453,28 +394,6 @@ declare namespace Office {
     }
     /**
      * Specifies the OS or other platform on which the Office host application is running.
-     *
-     * @remarks
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Access     </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> OneNote    </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td> Y               </td><td>                </td></tr>
-     *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *  </table>
      */
     enum PlatformType {
         /**
@@ -506,9 +425,6 @@ declare namespace Office {
         /**
         * An object which encapsulates the result of an asynchronous request, including status and error information if the request failed.
         *
-        * @remarks
-        * <table><tr><td>Hosts</td><td>Access, Excel, Outlook, PowerPoint, Project, Word</td></tr></table>
-        *
         * When the function you pass to the `callback` parameter of an "Async" method executes, it receives an AsyncResult object that you can access 
         * from the `callback` function's only parameter.
         */
@@ -517,47 +433,12 @@ declare namespace Office {
         * Gets the user-defined item passed to the optional `asyncContext` parameter of the invoked method in the same state as it was passed in. 
         * This returns the user-defined item (which can be of any JavaScript type: String, Number, Boolean, Object, Array, Null, or Undefined) passed 
         * to the optional `asyncContext` parameter of the invoked method. Returns Undefined, if you didn't pass anything to the asyncContext parameter.
-        *
-        * @remarks
-        * 
-        * **Support details**
-        * 
-        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-        * An empty cell indicates that the Office host application doesn't support this enumeration.
-        * 
-        * For more information about Office host application and server requirements, see 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-        * 
-        * *Supported hosts, by platform*
-        *  <table>
-        *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-        *   <tr><td><strong> Access     </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
-        *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Project    </strong></td><td>                            </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *  </table>
         */
         asyncContext: any;
         /**
         * Gets an object that may provide additional information if an error occurred.
         *
         * @remarks
-        * 
-        * **Support details**
-        * 
-        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-        * An empty cell indicates that the Office host application doesn't support this enumeration.
-        * 
-        * For more information about Office host application and server requirements, see 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-        * 
-        * *Supported hosts, by platform*
-        *  <table>
-        *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-        *   <tr><td><strong>Outlook</strong></td><td> Y (Mailbox Preview)    </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-        *  </table>
         * 
         * *Supported APIs*
         * 
@@ -573,52 +454,10 @@ declare namespace Office {
        diagnostics: any;
        /**
         * Gets an {@link Office.Error} object that provides a description of the error, if any error occurred.
-        *
-        * @remarks
-        * 
-        * **Support details**
-        * 
-        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-        * An empty cell indicates that the Office host application doesn't support this enumeration.
-        * 
-        * For more information about Office host application and server requirements, see 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-        * 
-        * *Supported hosts, by platform*
-        *  <table>
-        *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-        *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
-        *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *  </table>
         */
         error: Office.Error;
         /**
         * Gets the {@link Office.AsyncResultStatus} of the asynchronous operation.
-        *
-        * @remarks
-        * 
-        * **Support details**
-        * 
-        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-        * An empty cell indicates that the Office host application doesn't support this enumeration.
-        * 
-        * For more information about Office host application and server requirements, see 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-        * 
-        * *Supported hosts, by platform*
-        *  <table>
-        *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-        *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
-        *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *  </table>
         */
         status: AsyncResultStatus;
         /**
@@ -630,25 +469,6 @@ declare namespace Office {
         *
         * **Note**: What the value property returns for a particular "Async" method varies depending on the purpose and context of that method. 
         * To determine what is returned by the value property for an "Async" method, refer to the "Callback value" section of the method's topic.
-        * 
-        * **Support details**
-        * 
-        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-        * An empty cell indicates that the Office host application doesn't support this enumeration.
-        * 
-        * For more information about Office host application and server requirements, see 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-        * 
-        * *Supported hosts, by platform*
-        *  <table>
-        *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-        *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
-        *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *  </table>
         */
         value: T;
     }
@@ -657,31 +477,20 @@ declare namespace Office {
      * The current context exists as a property of Office. It is accessed using `Office.context`.
      *
      * @remarks 
-     * <table><tr><td>Hosts</td><td>Access, Excel, Outlook, PowerPoint, Project, Word </td></tr></table>
+     * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
      */     
     interface Context {
         /**
         * True, if the current platform allows the add-in to display a UI for selling or upgrading; otherwise returns False.
         * 
         * @remarks
+        * **Hosts**: Excel, Word
+        * 
+        * `commerceAllowed` is only supported on Office for iPad.
+        * 
         * The iOS App Store doesn't support apps with add-ins that provide links to additional payment systems. However, Office Add-ins running on 
         * the Windows desktop or for Office Online in the browser do allow such links. If you want the UI of your add-in to provide a link to an 
         * external payment system on platforms other than iOS, you can use the commerceAllowed property to control when that link is displayed.
-        * 
-        * **Support details**
-        * 
-        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-        * An empty cell indicates that the Office host application doesn't support this enumeration.
-        * 
-        * For more information about Office host application and server requirements, see 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-        * 
-        * *Supported hosts, by platform*
-        *  <table>
-        *   <tr><th>                        </th><th> Office for iPad </th></tr>
-        *   <tr><td><strong> Excel </strong></td><td> Y               </td></tr>
-        *   <tr><td><strong> Word  </strong></td><td> Y               </td></tr>
-        *  </table>
         */
         commerceAllowed: boolean;
         /**
@@ -700,7 +509,7 @@ declare namespace Office {
         * 
         * For more information about Office host application and server requirements, see 
         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-        * 
+        *  
         * *Supported hosts, by platform*
         *  <table>
         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
@@ -753,26 +562,6 @@ declare namespace Office {
         displayLanguage: string;
         /**
         * Gets an object that represents the document the content or task pane add-in is interacting with.
-        * 
-        * @remarks
-        * 
-        * **Support details**
-        * 
-        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-        * An empty cell indicates that the Office host application doesn't support this enumeration.
-        * 
-        * For more information about Office host application and server requirements, see 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-        * 
-        * *Supported hosts, by platform*
-        *  <table>
-        *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-        *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-        *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-        *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-        *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
-        *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-        *  </table>
         */
         document: Office.Document;
         /**
@@ -797,10 +586,9 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          *
          * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>Restricted</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         mailbox: Office.Mailbox;
         /**
@@ -824,10 +612,9 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          *
          * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>Restricted</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         roamingSettings: Office.RoamingSettings;
         /**
@@ -835,24 +622,12 @@ declare namespace Office {
         * True if the add-in is running on a touch device, such as an iPad; false otherwise.
         * 
         * @remarks
+        * **Hosts**: Excel, PowerPoint, Word
+        * 
+        * `touchEnabled` is only supported on Office for iPad.
+        * 
         * Use the touchEnabled property to determine when your add-in is running on a touch device and if necessary, adjust the kind of controls, and 
         * size and spacing of elements in your add-in's UI to accommodate touch interactions.
-        * 
-        * **Support details**
-        * 
-        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-        * An empty cell indicates that the Office host application doesn't support this enumeration.
-        * 
-        * For more information about Office host application and server requirements, see 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-        * 
-        * *Supported hosts, by platform*
-        *  <table>
-        *   <tr><th>                             </th><th> Office for iPad </th></tr>
-        *   <tr><td><strong> Excel      </strong></td><td> Y               </td></tr>
-        *   <tr><td><strong> PowerPoint </strong></td><td> Y               </td></tr>
-        *   <tr><td><strong> Word       </strong></td><td> Y               </td></tr>
-        *  </table>
         */
         touchEnabled: boolean;
         /**
@@ -865,26 +640,7 @@ declare namespace Office {
      *
      * @remarks
      * The Error object is accessed from the AsyncResult object that is returned in the function passed as the callback argument of an asynchronous 
-     * data operation, such as the setSelectedDataAsync method of the Document object.
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this interface.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *  </table>
+     * data operation, such as the `setSelectedDataAsync` method of the Document object.
      */
     interface Error {
         /**
@@ -906,31 +662,19 @@ declare namespace Office {
          * which button was clicked and to signal the host that it has completed its processing.
          * 
          * @remarks
+         * See {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/add-in-commands-requirement-sets | Add-in commands requirement sets} for more support information.
          * 
-         * <table>
-         *   <tr><td>Add-in type</td><td>Content, task pane, Outlook</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>Restricted</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         interface Event {
             
             /**
              * Information about the control that triggered calling this function.
              * 
-             * **Support details**
+             * @remarks
              * 
-             * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-             * An empty cell indicates that the Office host application doesn't support this property.
-             * 
-             * For more information about Office host application and server requirements, see 
-             * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-             * 
-             * *Supported hosts, by platform*
-             *  <table>
-             *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-             *   <tr><td><strong> Outlook </strong></td><td> Y (Mailbox 1.3)            </td><td>                            </td><td>                 </td></tr>
-             *  </table>
+             * This property is only supported in Outlook in {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | requirement set} Mailbox 1.3 and later.
              */
             source:Source;
             /**
@@ -947,34 +691,17 @@ declare namespace Office {
              *
              * @remarks
              * 
-             * <table>
-             *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>Restricted</td></tr>
-             *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-             * </table>
+             * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+             * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
              * 
-             * **Support details**
-             * 
-             * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-             * An empty cell indicates that the Office host application doesn't support this method.
-             * 
-             * For more information about Office host application and server requirements, see 
-             * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-             * 
-             * *Supported hosts, by platform*
-             *  <table>
-             *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-             *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-             *   <tr><td><strong> Outlook    </strong></td><td> Y (Mailbox 1.3)            </td><td>                            </td><td>                 </td></tr>
-             *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-             *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-             *  </table>
+             * Mailbox 1.3 does not have the `options` parameter while Mailbox Preview does have support for `options` parameter)
              * 
              * @param options Optional. An object literal that contains one or more of the following properties.
              *        allowEvent: A boolean value. When the completed method is used to signal completion of an event handler, 
              *                    this value indicates of the handled event should continue execution or be canceled. 
              *                    For example, an add-in that handles the ItemSend event can set allowEvent = false to cancel sending of the message.
              */
-            completed(options?: any): void;
+            completed(options?: { allowEvent: boolean }): void;
         }
 
         /**
@@ -1000,10 +727,10 @@ declare namespace Office {
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         *
         * @remarks
-        * <table>
-        *   <tr><td>Hosts</td><td>Word, Excel, Outlook, PowerPoint</td></tr>
-        *   <tr><td>Requirement sets</td><td>DialogApi, Mailbox 1.4</td></tr>
-        * </table>
+        * **Hosts**: Word, Excel, Outlook, PowerPoint
+        * **Requirement sets**: 
+        * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}, 
+        * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | Mailbox 1.4}
         * 
         * This method is available in the DialogApi requirement set for Word, Excel, or PowerPoint add-ins, and in the Mailbox requirement set 1.4 
         * for Outlook. For more on how to specify a requirement set in your manifest, see 
@@ -1101,10 +828,10 @@ declare namespace Office {
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         *
         * @remarks
-        * <table>
-        *   <tr><td>Hosts</td><td>Word, Excel, Outlook, PowerPoint</td></tr>
-        *   <tr><td>Requirement sets</td><td>DialogApi, Mailbox 1.4</td></tr>
-        * </table>
+        * **Hosts**: Excel, Outlook, PowerPoint, Word
+        * **Requirement sets**: 
+        * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}, 
+        * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | Mailbox 1.4}
         * 
         * This method is available in the DialogApi requirement set for Word, Excel, or PowerPoint add-ins, and in the Mailbox requirement set 1.4 
         * for Outlook. For more on how to specify a requirement set in your manifest, see 
@@ -1199,6 +926,10 @@ declare namespace Office {
         displayDialogAsync(startAddress: string, callback?: (result: AsyncResult<Dialog>) => void): void;
         /**
          * Delivers a message from the dialog box to its parent/opener page. The page calling this API must be on the same domain as the parent. 
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
+         * 
          * @param message Accepts a message from the dialog to deliver to the add-in. In addition to a boolean, anything that can serialized to a string including JSON and XML can be sent. 
          */
         messageParent(message: boolean | string): void;
@@ -1206,7 +937,8 @@ declare namespace Office {
          * Closes the UI container where the JavaScript is executing.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Excel, Word, PowerPoint, Outlook (Minimum requirement set: Mailbox 1.5)</td></tr></table>
+         * **Hosts**: Excel, Word, PowerPoint, Outlook (Minimum requirement set: Mailbox 1.5)
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
          * 
          * The behavior of this method is specified by the following:
          *
@@ -1263,6 +995,7 @@ declare namespace Office {
          */
         asyncContext?: any
     }
+    
     /**
      * Provides an option for preserving context data of any type, unchanged, for use in a callback.
      */
@@ -1599,25 +1332,11 @@ declare namespace Office {
      * Using Office theme colors lets you coordinate the color scheme of your add-in with the current Office theme selected by the user with File \> 
      * Office Account \> Office Theme UI, which is applied across all Office host applications. Using Office theme colors is appropriate for mail and 
      * task pane add-ins.
-     *
+     * 
      * @remarks
+     * **Hosts**: Excel, Outlook (in preview), PowerPoint, Word
      * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that these properties are supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td></tr>
-     *   <tr><td><strong> Outlook    </strong></td><td> Y (in preview)             </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td></tr>
-     *  </table>
+     * `OfficeTheme` is only supported on Office for Windows desktop.
      */
     interface OfficeTheme {
         /**
@@ -1633,12 +1352,15 @@ declare namespace Office {
          */
         controlBackgroundColor: string;
         /**
-         * Gets the Office theme body control color as a hexadecimal color triplet (e.g. "FFA500").
+         * Gets the Office theme control foreground color as a hexadecimal color triplet (e.g. "FFA500").
          */
         controlForegroundColor: string;
     }
     /**
      * The object that is returned when `UI.displayDialogAsync` is called. It exposes methods for registering event handlers and closing the dialog.
+     * 
+     * @remarks
+     * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
      */
     interface Dialog {
         /**
@@ -1686,24 +1408,11 @@ declare namespace Office {
      *  </table>
      */
     function select(expression: string, callback?: (result: AsyncResult<any>) => void): Binding;
+
     // Enumerations
+
     /**
      * Specifies the state of the active view of the document, for example, whether the user can edit the document.
-     * @remarks
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
      */
     enum ActiveView {
         /**
@@ -1717,23 +1426,6 @@ declare namespace Office {
     }
     /**
      * Specifies the type of the binding object that should be returned.
-     * @remarks
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Access </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
      */
     enum BindingType {
         /**
@@ -1754,28 +1446,10 @@ declare namespace Office {
      * Specifies how to coerce data returned or set by the invoked method.
      *
      * @remarks
+     * 
      * PowerPoint supports only `Office.CoercionType.Text`, `Office.CoercionType.Image`, `Office.CoercionType.SlideRange`, and `Office.CoercionType.XmlSvg`.
      * 
      * Project supports only `Office.CoercionType.Text`.
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Access     </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *  </table>
      */
     enum CoercionType {
         /**
@@ -1832,23 +1506,6 @@ declare namespace Office {
      * @remarks
      *  
      * Returned by the mode property of the {@link Office.Document | Document} object.
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
      */
     enum DocumentMode {
         /**
@@ -1862,23 +1519,6 @@ declare namespace Office {
     }
     /**
      * Specifies the type of the XML node.
-     *
-     * @remarks
-     * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
      */
     enum CustomXMLNodeType {
         /**
@@ -1916,45 +1556,17 @@ declare namespace Office {
      * Add-ins for Project support the `Office.EventType.ResourceSelectionChanged`, `Office.EventType.TaskSelectionChanged`, and 
      * `Office.EventType.ViewSelectionChanged` event types.
      * 
-     * <table><tr><td>BindingDataChanged and BindingSelectionChanged hosts</td><td>Access, Excel, Word</td></tr></table>
-     *
      * @remarks
      * 
-     * **Support details**
+     * **`BindingDataChanged` and `BindingSelectionChanged` hosts**: Access, Excel, Word.
      * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
-     *  </table>
      */
     enum EventType {
         /**
          * A Document.ActiveViewChanged event was raised.
          * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this enumeration.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *  </table>
+         * @remarks 
+         * **Hosts**: PowerPoint
          */
         ActiveViewChanged,
         /**
@@ -1976,46 +1588,16 @@ declare namespace Office {
          * To add an event handler for the BindingDataChanged event of a binding, use the addHandlerAsync method of the Binding object. 
          * The event handler receives an argument of type {@link Office.BindingDataChangedEventArgs}.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this enumeration.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *  </table>
+         * @remarks 
+         * **Hosts**: Access, Excel, Word
          */
         BindingDataChanged,
         /**
          * Occurs when the selection is changed within the binding. To add an event handler for the BindingSelectionChanged event of a binding, use 
          * the addHandlerAsync method of the Binding object. The event handler receives an argument of type {@link Office.BindingSelectionChangedEventArgs}.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this enumeration.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *  </table>
+         * @remarks 
+         * **Hosts**: Access, Excel, Word 
          */
         BindingSelectionChanged,
         /**
@@ -2029,20 +1611,8 @@ declare namespace Office {
         /**
          * Triggers when a document-level selection happens.
          * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this enumeration.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Excel </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Word  </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
-         *  </table>
+         * @remarks 
+         * **Hosts**: Excel, Word
          */
         DocumentSelectionChanged,
         /**
@@ -2051,6 +1621,12 @@ declare namespace Office {
          * [Api set: Mailbox 1.5]
          */
         ItemChanged,
+        /**
+         * Triggers when the appointment location is changed in Outlook.
+         * 
+         * [Api set: Mailbox Preview]
+         */
+        EnhancedLocationsChanged,
         /**
          * Triggers when a customXmlPart node is deleted.
          */
@@ -2090,22 +1666,8 @@ declare namespace Office {
         /**
          * A Settings.settingsChanged event was raised.
          * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *  </table>
+         * @remarks 
+         * **Hosts**: Access, Excel, PowerPoint, Word
          */
         SettingsChanged,
         /**
@@ -2121,23 +1683,7 @@ declare namespace Office {
      * Specifies the format in which to return the document.
      *
      * @remarks
-     * FileType.Text is only supported in Word, FileType.Pdf is only supported in Word for Windows, Word for Mac, Word Online, and PowerPoint.
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
+     * `FileType.Text` is only supported in Word, `FileType.Pdf` is only supported in Word for Windows, Word for Mac, Word Online, and PowerPoint.
      */
     enum FileType {
         /**
@@ -2155,24 +1701,6 @@ declare namespace Office {
     }
     /**
      * Specifies whether filtering from the host application is applied when the data is retrieved.
-     *
-     * @remarks
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
-     *   <tr><td><strong> Word    </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
-     *  </table>
      */
     enum FilterType {
         /**
@@ -2186,24 +1714,6 @@ declare namespace Office {
     }
     /**
      * Specifies the type of place or object to navigate to.
-     *
-     * @remarks
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
-     *  </table>
      */
     enum GoToType {
         /**
@@ -2234,22 +1744,6 @@ declare namespace Office {
     }
     /**
      * Specifies the relative PowerPoint slide.
-     * 
-     * @remarks
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *  </table>
      */
     enum Index {
         /**
@@ -2271,24 +1765,6 @@ declare namespace Office {
     }
     /**
      * Specifies whether to select (highlight) the location to navigate to (when using the {@link Office.Document | Document}.goToByIdAsync method).
-     *
-     * @remarks
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
-     *  </table>
      */
     enum SelectionMode {
         Default,
@@ -2308,22 +1784,6 @@ declare namespace Office {
      * For example, if the valueFormat parameter is specified as "formatted", a number formatted as currency, or a date formatted as mm/dd/yy in the 
      * host application will have its formatting preserved. If the valueFormat parameter is specified as "unformatted", a date will be returned in its 
      * underlying sequential serial number form.
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
-     *   <tr><td><strong> Word    </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
-     *  </table>
      */
     enum ValueFormat {
         /**
@@ -2339,9 +1799,6 @@ declare namespace Office {
     /**
     * Represents a binding to a section of the document.
     *
-    * @remarks
-    * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
-    *
     * The Binding object exposes the functionality possessed by all bindings regardless of type.
     *
     * The Binding object is never called directly. It is the abstract parent class of the objects that represent each type of binding: 
@@ -2349,26 +1806,16 @@ declare namespace Office {
     * and setDataAsync methods from the Binding object that enable to you interact with the data in the binding. They also inherit the id and type 
     * properties for querying those property values. Additionally, the MatrixBinding and TableBinding objects expose additional methods for matrix- 
     * and table-specific features, such as counting the number of rows and columns.
+    *
+    * @remarks
+    * **Hosts**: Access, Excel, Word
     * 
-    * **Support details**
-    * 
-    * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. 
-    * An empty cell indicates that the Office host application doesn't support this interface.
-    * 
-    * For more information about Office host application and server requirements, see 
-    * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-    * 
-    * *Supported hosts, by platform*
-    *  <table>
-    *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-    *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-    *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-    *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-    *  </table>
+    * **Requirement sets**: 
+    * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+    * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+    * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
     */
     interface Binding {
-
-
         /**
         * Get the Document object associated with the binding.
         */
@@ -2386,6 +1833,9 @@ declare namespace Office {
          * `Office.EventType.BindingDataChanged` and `Office.EventType.BindingSelectionChanged`.
          *
          * @remarks
+         * 
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#bindingevents | BindingEvents}
+         *  
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
          * @param eventType The event type. For bindings, it can be `Office.EventType.BindingDataChanged` or `Office.EventType.BindingSelectionChanged`.
@@ -2399,6 +1849,9 @@ declare namespace Office {
          * `Office.EventType.BindingDataChanged` and `Office.EventType.BindingSelectionChanged`.
          *
          * @remarks
+         * 
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#bindingevents | BindingEvents}
+         * 
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
          * @param eventType The event type. For bindings, it can be `Office.EventType.BindingDataChanged` or `Office.EventType.BindingSelectionChanged`.
@@ -2410,7 +1863,15 @@ declare namespace Office {
          * Returns the data contained within the binding.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),  
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          *
          * When called from a MatrixBinding or TableBinding, the getDataAsync method will return a subset of the bound values if the optional startRow, 
          * startColumn, rowCount, and columnCount parameters are specified (and they specify a contiguous and valid range).
@@ -2425,8 +1886,16 @@ declare namespace Office {
          * Returns the data contained within the binding.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
-         *
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),  
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
+         * 
          * When called from a MatrixBinding or TableBinding, the getDataAsync method will return a subset of the bound values if the optional startRow, 
          * startColumn, rowCount, and columnCount parameters are specified (and they specify a contiguous and valid range).
          *
@@ -2439,8 +1908,9 @@ declare namespace Office {
          * Removes the specified handler from the binding for the specified event type.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>BindingEvents</td></tr></table>
-         *
+         * 
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#bindingevents | BindingEvents}
+         * 
          * @param eventType The event type. For bindings, it can be `Office.EventType.BindingDataChanged` or `Office.EventType.BindingSelectionChanged`.
          * @param options Provides options to determine which event handler or handlers are removed.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2450,8 +1920,9 @@ declare namespace Office {
          * Removes the specified handler from the binding for the specified event type.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>BindingEvents</td></tr></table>
-         *
+         * 
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#bindingevents | BindingEvents}
+         * 
          * @param eventType The event type. For bindings, it can be `Office.EventType.BindingDataChanged` or `Office.EventType.BindingSelectionChanged`.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          */
@@ -2460,9 +1931,16 @@ declare namespace Office {
          * Writes data to the bound section of the document represented by the specified binding object.
          *
          * @remarks
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),  
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          *
-         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
-         * 
          * The value passed for data contains the data to be written in the binding. The kind of value passed determines what will be written as 
          * described in the following table.
          * 
@@ -2591,8 +2069,15 @@ declare namespace Office {
          * Writes data to the bound section of the document represented by the specified binding object.
          *
          * @remarks
-         *
-         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),  
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          * 
          * The value passed for data contains the data to be written in the binding. The kind of value passed determines what will be written as 
          * described in the following table.
@@ -2720,9 +2205,6 @@ declare namespace Office {
 
     /**
      * Provides information about the binding that raised the DataChanged event.
-     * 
-     * @remarks
-     * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr></table>
      */
     interface BindingDataChangedEventArgs {
         /**
@@ -2738,9 +2220,6 @@ declare namespace Office {
 
     /**
      * Provides information about the binding that raised the SelectionChanged event.
-     * 
-     * @remarks
-     * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr></table>
      */
     interface BindingSelectionChangedEventArgs {
         /**
@@ -2799,31 +2278,16 @@ declare namespace Office {
     interface Bindings {
         /**
          * Gets an {@link Office.Document} object that represents the document associated with this set of bindings.
-         *
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this property.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          */
         document: Document;
         /**
          * Creates a binding against a named object in the document.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * For Excel, the itemName parameter can refer to a named range or a table.
          *
@@ -2843,21 +2307,6 @@ declare namespace Office {
          *     **Note**: In Word, if there are multiple Rich Text content controls with the same Title property value (name), and you try to bind to one 
          * these content controls with this method (by specifying its name as the itemName parameter), the operation will fail.
          *
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          * @param itemName Name of the bindable object in the document. For Example 'MyExpenses' table in Excel."
          * @param bindingType The {@link Office.BindingType} for the data. The method returns null if the selected object cannot be coerced into the specified type.
          * @param options Provides options for configuring the binding that is created.
@@ -2869,7 +2318,9 @@ declare namespace Office {
          * Creates a binding against a named object in the document.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * For Excel, the itemName parameter can refer to a named range or a table.
          *
@@ -2889,21 +2340,6 @@ declare namespace Office {
          *     **Note**: In Word, if there are multiple Rich Text content controls with the same Title property value (name), and you try to bind to one 
          * these content controls with this method (by specifying its name as the itemName parameter), the operation will fail.
          *
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          * @param itemName Name of the bindable object in the document. For Example 'MyExpenses' table in Excel."
          * @param bindingType The {@link Office.BindingType} for the data. The method returns null if the selected object cannot be coerced into the specified type.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2914,25 +2350,10 @@ declare namespace Office {
          * Create a binding by prompting the user to make a selection on the document.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>Not in a set</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * Adds a binding object of the specified type to the Bindings collection, which will be identified with the supplied id. 
          * The method fails if the specified selection cannot be bound.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param bindingType Specifies the type of the binding object to create. Required. 
          *                    Returns null if the selected object cannot be coerced into the specified type.
@@ -2945,25 +2366,10 @@ declare namespace Office {
          * Create a binding by prompting the user to make a selection on the document.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>Not in a set</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * Adds a binding object of the specified type to the Bindings collection, which will be identified with the supplied id. 
          * The method fails if the specified selection cannot be bound.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param bindingType Specifies the type of the binding object to create. Required. 
          *                    Returns null if the selected object cannot be coerced into the specified type.
@@ -2975,7 +2381,10 @@ declare namespace Office {
          * Create a binding based on the user's current selection.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * Adds the specified type of binding object to the Bindings collection, which will be identified with the supplied id.
          *
@@ -2983,22 +2392,6 @@ declare namespace Office {
          * binding is used, and its type cannot be changed by specifying a different value for the bindingType parameter. 
          * If you need to use an existing id and change the bindingType, call the Bindings.releaseByIdAsync method first to release the binding, and 
          * then call the addFromSelectionAsync method to reestablish the binding with a new type.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param bindingType Specifies the type of the binding object to create. Required. 
          *                    Returns null if the selected object cannot be coerced into the specified type.
@@ -3011,7 +2404,10 @@ declare namespace Office {
          * Create a binding based on the user's current selection.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * Adds the specified type of binding object to the Bindings collection, which will be identified with the supplied id.
          *
@@ -3019,22 +2415,6 @@ declare namespace Office {
          * binding is used, and its type cannot be changed by specifying a different value for the bindingType parameter. 
          * If you need to use an existing id and change the bindingType, call the Bindings.releaseByIdAsync method first to release the binding, and 
          * then call the addFromSelectionAsync method to reestablish the binding with a new type.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param bindingType Specifies the type of the binding object to create. Required. 
          *                    Returns null if the selected object cannot be coerced into the specified type.
@@ -3046,23 +2426,10 @@ declare namespace Office {
          * Gets all bindings that were previously created.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3073,23 +2440,10 @@ declare namespace Office {
          * Gets all bindings that were previously created.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is an array that contains each binding created for the referenced Bindings object.
@@ -3099,25 +2453,12 @@ declare namespace Office {
          * Retrieves a binding based on its Name
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts, MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * Fails if the specified id does not exist.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param id Specifies the unique name of the binding object. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3129,25 +2470,12 @@ declare namespace Office {
          * Retrieves a binding based on its Name
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts, MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * Fails if the specified id does not exist.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param id Specifies the unique name of the binding object. Required.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3158,25 +2486,12 @@ declare namespace Office {
          * Removes the binding from the document
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * Fails if the specified id does not exist.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param id Specifies the unique name to be used to identify the binding object. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3187,25 +2502,12 @@ declare namespace Office {
          * Removes the binding from the document
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * Fails if the specified id does not exist.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param id Specifies the unique name to be used to identify the binding object. Required.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3214,51 +2516,28 @@ declare namespace Office {
     }
     /**
      * Represents an XML node in a tree in a document.
-     *
+     * 
      * @remarks
-     * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this interface.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
+     * **Hosts**: Word
      */
     interface CustomXmlNode {
         /**
          * Gets the base name of the node without the namespace prefix, if one exists.
-         *
-         * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          */
         baseName: string;
         /**
          * Retrieves the string GUID of the CustomXMLPart.
-         *
-         * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          */
         namespaceUri: string;
         /**
          * Gets the type of the CustomXMLNode.
-         *
-         * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          */
         nodeType: string;
         /**
          * Gets the nodes associated with the XPath expression.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath The XPath expression that specifies the nodes to get. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3270,7 +2549,7 @@ declare namespace Office {
          * Gets the nodes associated with the XPath expression.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath The XPath expression that specifies the nodes to get. Required.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3281,7 +2560,7 @@ declare namespace Office {
          * Gets the node value.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3292,7 +2571,7 @@ declare namespace Office {
          * Gets the node value.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is a string that contains the value of the referenced node.
@@ -3302,7 +2581,7 @@ declare namespace Office {
          * Gets the text of an XML node in a custom XML part.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3313,7 +2592,7 @@ declare namespace Office {
          * Gets the text of an XML node in a custom XML part.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is a string that contains the inner text of the referenced nodes.
@@ -3323,7 +2602,7 @@ declare namespace Office {
          * Gets the node's XML.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3334,7 +2613,7 @@ declare namespace Office {
          * Gets the node's XML.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is a string that contains the XML of the referenced node.
@@ -3344,7 +2623,7 @@ declare namespace Office {
          * Sets the node value.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param value The value to be set on the node
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3355,7 +2634,7 @@ declare namespace Office {
          * Sets the node value.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param value The value to be set on the node
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3365,10 +2644,7 @@ declare namespace Office {
          * Asynchronously sets the text of an XML node in a custom XML part.
          *
          * @remarks
-         * <table>
-         *   <tr><td>Hosts</td><td>Word</td></tr>
-         *   <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr>
-         * </table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param text Required. The text value of the XML node.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3379,10 +2655,7 @@ declare namespace Office {
          * Asynchronously sets the text of an XML node in a custom XML part.
          *
          * @remarks
-         * <table>
-         *   <tr><td>Hosts</td><td>Word</td></tr>
-         *   <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr>
-         * </table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param text Required. The text value of the XML node.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3392,7 +2665,7 @@ declare namespace Office {
          * Sets the node XML.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to be set on the node
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3403,7 +2676,7 @@ declare namespace Office {
          * Sets the node XML.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to be set on the node
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3412,23 +2685,9 @@ declare namespace Office {
     }
     /**
      * Represents a single CustomXMLPart in an {@link Office.CustomXmlParts} collection.
-     *
+     * 
      * @remarks
-     * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this interface.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
+     * **Hosts**: Word
      */
     interface CustomXmlPart {
         /**
@@ -3447,6 +2706,7 @@ declare namespace Office {
          * Adds an event handler to the object using the specified event type.
          *
          * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
@@ -3462,6 +2722,7 @@ declare namespace Office {
          * Adds an event handler to the object using the specified event type.
          *
          * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
@@ -3474,6 +2735,9 @@ declare namespace Office {
         addHandlerAsync(eventType: Office.EventType, handler: (result: any) => void, callback?: (result: AsyncResult<void>) => void): void;
         /**
          * Deletes the Custom XML Part.
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3481,12 +2745,18 @@ declare namespace Office {
         deleteAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
         /**
          * Deletes the Custom XML Part.
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          */
         deleteAsync(callback?: (result: AsyncResult<void>) => void): void;
         /**
          * Asynchronously gets any CustomXmlNodes in this custom XML part which match the specified XPath.
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath An XPath expression that specifies the nodes you want returned. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3496,6 +2766,9 @@ declare namespace Office {
         getNodesAsync(xPath: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<CustomXmlNode[]>) => void): void;
         /**
          * Asynchronously gets any CustomXmlNodes in this custom XML part which match the specified XPath.
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath An XPath expression that specifies the nodes you want returned. Required.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3504,6 +2777,9 @@ declare namespace Office {
         getNodesAsync(xPath: string, callback?: (result: AsyncResult<CustomXmlNode[]>) => void): void;
         /**
          * Asynchronously gets the XML inside this custom XML part.
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3512,6 +2788,9 @@ declare namespace Office {
         getXmlAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
         /**
          * Asynchronously gets the XML inside this custom XML part.
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is a string that contains the XML of the referenced CustomXmlPart object.
@@ -3519,6 +2798,9 @@ declare namespace Office {
         getXmlAsync(callback?: (result: AsyncResult<string>) => void): void;
         /**
          * Removes an event handler for the specified event type.
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param eventType Specifies the type of event to remove. For a CustomXmlPart object, the eventType parameter can be specified as 
          *                  `Office.EventType.NodeDeleted`, `Office.EventType.NodeInserted`, and `Office.EventType.NodeReplaced`.
@@ -3529,6 +2811,9 @@ declare namespace Office {
         removeHandlerAsync(eventType: Office.EventType, handler?: (result: any) => void, options?: RemoveHandlerOptions, callback?: (result: AsyncResult<void>) => void): void;
         /**
          * Removes an event handler for the specified event type.
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param eventType Specifies the type of event to remove. For a CustomXmlPart object, the eventType parameter can be specified as 
          *                  `Office.EventType.NodeDeleted`, `Office.EventType.NodeInserted`, and `Office.EventType.NodeReplaced`.
@@ -3540,22 +2825,6 @@ declare namespace Office {
 
     /**
      * Provides information about the deleted node that raised the nodeDeleted event.
-     * 
-     * @remarks
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this interface.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
      */
     interface NodeDeletedEventArgs {
         /**
@@ -3577,22 +2846,6 @@ declare namespace Office {
 
     /**
      * Provides information about the inserted node that raised the nodeInserted event.
-     * 
-     * @remarks
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this interface.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
      */
     interface NodeInsertedEventArgs  {
         /**
@@ -3609,21 +2862,6 @@ declare namespace Office {
     
     /**
      * Provides information about the replaced node that raised the nodeReplaced event.
-     * 
-     * @remarks
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this interface.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
      */
     interface NodeReplacedEventArgs  {
         /**
@@ -3647,27 +2885,16 @@ declare namespace Office {
 
     /**
      * Represents a collection of CustomXmlPart objects.
-     *
+     * 
      * @remarks
-     * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this interface.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td>                            </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
+     * **Hosts**: Word
      */
     interface CustomXmlParts {
         /**
          * Asynchronously adds a new custom XML part to a file.
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to add to the newly created custom XML part.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3677,6 +2904,9 @@ declare namespace Office {
         addAsync(xml: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<CustomXmlPart>) => void): void;
         /**
          * Asynchronously adds a new custom XML part to a file.
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to add to the newly created custom XML part.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3685,6 +2915,9 @@ declare namespace Office {
         addAsync(xml: string, callback?: (result: AsyncResult<CustomXmlPart>) => void): void;
         /**
          * Asynchronously gets the specified custom XML part by its id.
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param id The GUID of the custom XML part, including opening and closing braces.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3695,6 +2928,9 @@ declare namespace Office {
         getByIdAsync(id: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<CustomXmlPart>) => void): void;
         /**
          * Asynchronously gets the specified custom XML part by its id.
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param id The GUID of the custom XML part, including opening and closing braces.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3704,6 +2940,9 @@ declare namespace Office {
         getByIdAsync(id: string, callback?: (result: AsyncResult<CustomXmlPart>) => void): void;
         /**
          * Asynchronously gets the specified custom XML part(s) by its namespace.
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param ns  The namespace URI.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3713,6 +2952,9 @@ declare namespace Office {
         getByNamespaceAsync(ns: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<CustomXmlPart[]>) => void): void;
         /**
          * Asynchronously gets the specified custom XML part(s) by its namespace.
+         * 
+         * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param ns  The namespace URI.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3722,30 +2964,18 @@ declare namespace Office {
     }
     /**
      * Represents a collection of CustomXmlPart objects.
-     *
+     * 
      * @remarks
-     *
-     * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this interface.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
+     * **Hosts**: Word
      */
     interface CustomXmlPrefixMappings {
         /**
          * Asynchronously adds a prefix to namespace mapping to use when querying an item.
          *
          * @remarks
+         * 
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
+         * 
          * If no namespace is assigned to the requested prefix, the method returns an empty string ("").
          *
          * @param prefix Specifies the prefix to add to the prefix mapping list. Required.
@@ -3758,6 +2988,9 @@ declare namespace Office {
          * Asynchronously adds a prefix to namespace mapping to use when querying an item.
          *
          * @remarks
+         * 
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
+         * 
          * If no namespace is assigned to the requested prefix, the method returns an empty string ("").
          *
          * @param prefix Specifies the prefix to add to the prefix mapping list. Required.
@@ -3769,7 +3002,9 @@ declare namespace Office {
          * Asynchronously gets the namespace mapped to the specified prefix.
          *
          * @remarks
-         *
+         * 
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
+         * 
          * If the prefix already exists in the namespace manager, this method will overwrite the mapping of that prefix except when the prefix is one 
          * added or used by the data store internally, in which case it will return an error.
          *
@@ -3783,7 +3018,9 @@ declare namespace Office {
          * Asynchronously gets the namespace mapped to the specified prefix.
          *
          * @remarks
-         *
+         * 
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
+         * 
          * If the prefix already exists in the namespace manager, this method will overwrite the mapping of that prefix except when the prefix is one 
          * added or used by the data store internally, in which case it will return an error.
          *
@@ -3796,7 +3033,9 @@ declare namespace Office {
          * Asynchronously gets the prefix for the specified namespace.
          *
          * @remarks
-         *
+         * 
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
+         * 
          * If no prefix is assigned to the requested namespace, the method returns an empty string (""). If there are multiple prefixes specified in 
          * the namespace manager, the method returns the first prefix that matches the supplied namespace.
          *
@@ -3810,7 +3049,9 @@ declare namespace Office {
          * Asynchronously gets the prefix for the specified namespace.
          *
          * @remarks
-         *
+         * 
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
+         * 
          * If no prefix is assigned to the requested namespace, the method returns an empty string (""). If there are multiple prefixes specified in 
          * the namespace manager, the method returns the first prefix that matches the supplied namespace.
          *
@@ -3824,7 +3065,7 @@ declare namespace Office {
      * An abstract class that represents the document the add-in is interacting with.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Access, Excel, PowerPoint, Project, Word</td></tr></table>
+     * **Hosts**: Access, Excel, PowerPoint, Project, Word
      */
     interface Document {
         /**
@@ -3833,139 +3074,31 @@ declare namespace Office {
          * @remarks
          * You don't instantiate the Document object directly in your script. To call members of the Document object to interact with the current 
          * document or worksheet, use `Office.context.document` in your script.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this property.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          */
         bindings: Bindings;
         /**
          * Gets an object that represents the custom XML parts in the document.
-         *
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this property.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          */
         customXmlParts: CustomXmlParts;
         /**
          * Gets the mode the document is in.
-         *
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this property.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          */
         mode: DocumentMode;
         /**
          * Gets an object that represents the saved custom settings of the content or task pane add-in for the current document.
-         *
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this property.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> OneNote    </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          */
         settings: Settings;
         /**
          * Gets the URL of the document that the host application currently has open. Returns null if the URL is unavailable.
-         *
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this property.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *  </table>
          */
         url: string;
         /**
          * Adds an event handler for a Document object event.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>DocumentEvents</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> OneNote    </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param eventType For a Document object event, the eventType parameter can be specified as `Office.EventType.Document.SelectionChanged` or 
          *                  `Office.EventType.Document.ActiveViewChanged`, or the corresponding text value of this enumeration.
@@ -3978,27 +3111,9 @@ declare namespace Office {
          * Adds an event handler for a Document object event.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>DocumentEvents</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> OneNote    </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param eventType For a Document object event, the eventType parameter can be specified as `Office.EventType.Document.SelectionChanged` or 
          *                  `Office.EventType.Document.ActiveViewChanged`, or the corresponding text value of this enumeration.
@@ -4010,23 +3125,9 @@ declare namespace Office {
          * Returns the state of the current view of the presentation (edit or read).
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>ActiveView</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#activeview | ActiveView}
          *
          * Can trigger an event when the view changes.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -4039,23 +3140,9 @@ declare namespace Office {
          * Returns the state of the current view of the presentation (edit or read).
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>ActiveView</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#activeview | ActiveView}
          *
          * Can trigger an event when the view changes.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the state of the presentation's current view. 
@@ -4068,7 +3155,10 @@ declare namespace Office {
          * Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>File</td></tr></table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#compressedfile | CompressedFile} (when using `Office.FileType.Compressed`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file | File}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
          *
          * For add-ins running in Office host applications other than Office for iOS, the getFileAsync method supports getting files in slices of up 
          * to 4194304 bytes (4 MB). For add-ins running in Office for iOS apps, the getFileAsync method supports getting files in slices of up to 
@@ -4084,22 +3174,6 @@ declare namespace Office {
          * PowerPoint for Windows desktop, Mac, iPad, and PowerPoint Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`
          *
          * Word for Windows desktop, Mac, iPad, and Word Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param fileType The format in which the file will be returned
          * @param options Provides options for setting the size of slices that the document will be divided into.
@@ -4112,8 +3186,11 @@ declare namespace Office {
          * Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>File</td></tr></table>
-         *
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#compressedfile | CompressedFile} (when using `Office.FileType.Compressed`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file | File}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
+         * 
          * For add-ins running in Office host applications other than Office for iOS, the getFileAsync method supports getting files in slices of up 
          * to 4194304 bytes (4 MB). For add-ins running in Office for iOS apps, the getFileAsync method supports getting files in slices of up to 
          * 65536 (64 KB).
@@ -4128,22 +3205,6 @@ declare namespace Office {
          * PowerPoint for Windows desktop, Mac, iPad, and PowerPoint Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`
          *
          * Word for Windows desktop, Mac, iPad, and Word Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param fileType The format in which the file will be returned
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -4154,25 +3215,9 @@ declare namespace Office {
          * Gets file properties of the current document.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>Not in a set</td></tr></table>
+         * **Requirement sets**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * You get the file's URL with the url property `asyncResult.value.url`.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -4183,25 +3228,9 @@ declare namespace Office {
          * Gets file properties of the current document.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>Not in a set</td></tr></table>
+         * **Requirement sets**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * You get the file's URL with the url property `asyncResult.value.url`.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the file's properties (with the URL found at `asyncResult.value.url`).
@@ -4211,7 +3240,13 @@ declare namespace Office {
          * Reads the data contained in the current selection in the document.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>Selection</td></tr></table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#selection | Selection}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          * 
          * In the callback function that is passed to the getSelectedDataAsync method, you can use the properties of the AsyncResult object to return 
          * the following information.
@@ -4275,23 +3310,6 @@ declare namespace Office {
          *     <td>`Office.CoercionType.XmlSvg`</td>
          *   </tr>
          * </table>
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          * 
          * @param coercionType The type of data structure to return. See the remarks section for each host's supported coercion types.
          * 
@@ -4307,7 +3325,13 @@ declare namespace Office {
          * Reads the data contained in the current selection in the document.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>Selection</td></tr></table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#selection | Selection}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          * 
          * In the callback function that is passed to the getSelectedDataAsync method, you can use the properties of the AsyncResult object to return 
          * the following information.
@@ -4372,23 +3396,6 @@ declare namespace Office {
          *   </tr>
          * </table>
          * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
-         * 
          * @param coercionType The type of data structure to return. See the remarks section for each host's supported coercion types.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the data in the current selection. 
@@ -4400,7 +3407,7 @@ declare namespace Office {
          * Goes to the specified object or location in the document.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>not in a set</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * PowerPoint doesn't support the goToByIdAsync method in Master Views.
          *
@@ -4414,22 +3421,6 @@ declare namespace Office {
          *
          * In Word: `Office.SelectionMode.Selected` selects all content in the binding. Office.SelectionMode.None for text bindings, moves the cursor 
          * to the beginning of the text; for matrix bindings and table bindings, selects the first data cell (not first cell in header row for tables).
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param id The identifier of the object or location to go to.
          * @param goToType The type of the location to go to.
@@ -4442,7 +3433,7 @@ declare namespace Office {
          * Goes to the specified object or location in the document.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>not in a set</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * PowerPoint doesn't support the goToByIdAsync method in Master Views.
          *
@@ -4456,22 +3447,6 @@ declare namespace Office {
          *
          * In Word: `Office.SelectionMode.Selected` selects all content in the binding. Office.SelectionMode.None for text bindings, moves the cursor 
          * to the beginning of the text; for matrix bindings and table bindings, selects the first data cell (not first cell in header row for tables).
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param id The identifier of the object or location to go to.
          * @param goToType The type of the location to go to.
@@ -4483,25 +3458,7 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>DocumentEvents</td></tr></table>
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> OneNote    </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * @param eventType The event type. For document can be 'Document.SelectionChanged' or 'Document.ActiveViewChanged'.
          * @param options Provides options to determine which event handler or handlers are removed.
@@ -4512,25 +3469,7 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>DocumentEvents</td></tr></table>
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> OneNote    </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * @param eventType The event type. For document can be 'Document.SelectionChanged' or 'Document.ActiveViewChanged'.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -4540,7 +3479,14 @@ declare namespace Office {
          * Writes the specified data into the current selection.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>Selection</td></tr></table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion}, (when using `Office.CoercionType.Html`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#imagecoercion | ImageCoercion} (when using `Office.CoercionType.Image`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#selection | Selection}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          * 
          * **Application-specific behaviors**
          * 
@@ -4674,22 +3620,6 @@ declare namespace Office {
          *   </tr>
          * </table>
          * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          * 
          * @param data The data to be set. Either a string or  {@link Office.CoercionType} value, 2d array or TableData object.
          * 
@@ -4714,7 +3644,9 @@ declare namespace Office {
          * In Excel, if you specify formulas in the TableData object you pass for the data parameter, you might not get the results you expect due to 
          * the "calculated columns" feature of Excel, which automatically duplicates formulas within a column. To work around this when you want to 
          * write `data` that contains formulas to a selected table, try specifying the data as an array of arrays (instead of a TableData object), and 
-         * specify the coercionType as Microsoft.Office.Matrix or "matrix".
+         * specify the coercionType as Microsoft.Office.Matrix or "matrix". However, this technique will block the "calculated columns" feature only 
+         * when one of the following conditions is met: (1) you are writing to all the cells of the column, or (2) there are already at least two 
+         * different formulas in the column.
          * 
          * @param options Provides options for how to insert data to the selection.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -4725,7 +3657,14 @@ declare namespace Office {
          * Writes the specified data into the current selection.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>Selection</td></tr></table>
+         * **Requirement sets**: 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion}, (when using `Office.CoercionType.Html`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#imagecoercion | ImageCoercion} (when using `Office.CoercionType.Image`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#selection | Selection}, 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          * 
          * **Application-specific behaviors**
          * 
@@ -4858,22 +3797,6 @@ declare namespace Office {
          *   </tr>
          * </table>
          * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          * 
          * @param data The data to be set. Either a string or  {@link Office.CoercionType} value, 2d array or TableData object.
          * 
@@ -4898,7 +3821,9 @@ declare namespace Office {
          * In Excel, if you specify formulas in the TableData object you pass for the data parameter, you might not get the results you expect due to 
          * the "calculated columns" feature of Excel, which automatically duplicates formulas within a column. To work around this when you want to 
          * write `data` that contains formulas to a selected table, try specifying the data as an array of arrays (instead of a TableData object), and 
-         * specify the coercionType as Microsoft.Office.Matrix or "matrix".
+         * specify the coercionType as Microsoft.Office.Matrix or "matrix". However, this technique will block the "calculated columns" feature only 
+         * when one of the following conditions is met: (1) you are writing to all the cells of the column, or (2) there are already at least two 
+         * different formulas in the column.
          * 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The AsyncResult.value property always returns undefined because there is no object or data to retrieve.
@@ -4910,22 +3835,6 @@ declare namespace Office {
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result contains the `fieldValue` property, which represents the value of the specified field.
-         * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getProjectFieldAsync(fieldId: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<any>) => void): void;
         /**
@@ -4934,21 +3843,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result contains the `fieldValue` property, which represents the value of the specified field.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getProjectFieldAsync(fieldId: number, callback?: (result: AsyncResult<any>) => void): void;
         /**
@@ -4959,21 +3853,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the GUID of the resource as a string.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getResourceFieldAsync(resourceId: string, fieldId: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
         /**
@@ -4983,21 +3862,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the GUID of the resource as a string.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getResourceFieldAsync(resourceId: string, fieldId: number, callback?: (result: AsyncResult<string>) => void): void;
         /**
@@ -5006,21 +3870,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the GUID of the resource as a string.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getSelectedResourceAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
         /**
@@ -5028,21 +3877,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the GUID of the resource as a string.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getSelectedResourceAsync(callback?: (result: AsyncResult<string>) => void): void;
         /**
@@ -5051,21 +3885,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the GUID of the resource as a string.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getSelectedTaskAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
         /**
@@ -5073,21 +3892,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the GUID of the resource as a string.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getSelectedTaskAsync(callback?: (result: AsyncResult<string>) => void): void;
         /**
@@ -5098,21 +3902,6 @@ declare namespace Office {
          *                  `viewName` - The name of the view, as a ProjectViewTypes constant.
          *                  `viewType` - The type of view, as the integer value of a ProjectViewTypes constant.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getSelectedViewAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<any>) => void): void;
         /**
@@ -5122,21 +3911,6 @@ declare namespace Office {
          *                  `viewName` - The name of the view, as a ProjectViewTypes constant.
          *                  `viewType` - The type of view, as the integer value of a ProjectViewTypes constant.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getSelectedViewAsync(callback?: (result: AsyncResult<any>) => void): void;
         /**
@@ -5149,21 +3923,6 @@ declare namespace Office {
          *                  `wssTaskId` - The ID of the task in the synchronized SharePoint task list. If the project is not synchronized with a SharePoint task list, the value is 0.
          *                  `resourceNames` - The comma-separated list of the names of resources that are assigned to the task.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getTaskAsync(taskId: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<any>) => void): void;
         /**
@@ -5175,21 +3934,6 @@ declare namespace Office {
          *                  `wssTaskId` - The ID of the task in the synchronized SharePoint task list. If the project is not synchronized with a SharePoint task list, the value is 0.
          *                  `resourceNames` - The comma-separated list of the names of resources that are assigned to the task.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getTaskAsync(taskId: string, callback?: (result: AsyncResult<any>) => void): void;
         /**
@@ -5200,21 +3944,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result contains the `fieldValue` property, which represents the value of the specified field.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getTaskFieldAsync(taskId: string, fieldId: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<any>) => void): void;
         /**
@@ -5224,21 +3953,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result contains the `fieldValue` property, which represents the value of the specified field.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getTaskFieldAsync(taskId: string, fieldId: number, callback?: (result: AsyncResult<any>) => void): void;
         /**
@@ -5249,21 +3963,6 @@ declare namespace Office {
          *                  `listName` - the name of the synchronized SharePoint task list.
          *                  `serverUrl` - the URL of the synchronized SharePoint task list.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getWSSUrlAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<any>) => void): void;
         /**
@@ -5273,21 +3972,6 @@ declare namespace Office {
          *                  `listName` - the name of the synchronized SharePoint task list.
          *                  `serverUrl` - the URL of the synchronized SharePoint task list.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getWSSUrlAsync(callback?: (result: AsyncResult<any>) => void): void;
         /**
@@ -5299,21 +3983,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the highest index number in the current project's resource collection.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getMaxResourceIndexAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<number>) => void): void;
         /**
@@ -5324,21 +3993,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the highest index number in the current project's resource collection.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getMaxResourceIndexAsync(callback?: (result: AsyncResult<number>) => void): void;
         /**
@@ -5350,21 +4004,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the highest index number in the current project's task collection.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getMaxTaskIndexAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<number>) => void): void;
         /**
@@ -5375,21 +4014,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the highest index number in the current project's task collection.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getMaxTaskIndexAsync(callback?: (result: AsyncResult<number>) => void): void;
         /**
@@ -5402,21 +4026,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the GUID of the resource as a string.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getResourceByIndexAsync(resourceIndex: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
         /**
@@ -5428,21 +4037,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the GUID of the resource as a string.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getResourceByIndexAsync(resourceIndex: number, callback?: (result: AsyncResult<string>) => void): void;
         /**
@@ -5455,21 +4049,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the GUID of the task as a string.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getTaskByIndexAsync(taskIndex: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
         /**
@@ -5481,21 +4060,6 @@ declare namespace Office {
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is the GUID of the task as a string.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         getTaskByIndexAsync(taskIndex: number, callback?: (result: AsyncResult<string>) => void): void;
         /**
@@ -5509,21 +4073,6 @@ declare namespace Office {
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         setResourceFieldAsync(resourceId: string, fieldId: number, fieldValue: string | number | boolean | object, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
         /**
@@ -5536,21 +4085,6 @@ declare namespace Office {
          * @param fieldValue Value of the target field.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         setResourceFieldAsync(resourceId: string, fieldId: number, fieldValue: string | number | boolean | object, callback?: (result: AsyncResult<void>) => void): void;
         /**
@@ -5564,21 +4098,6 @@ declare namespace Office {
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         setTaskFieldAsync(taskId: string, fieldId: number, fieldValue: string | number | boolean | object, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
         /**
@@ -5591,21 +4110,6 @@ declare namespace Office {
          * @param fieldValue Value of the target field.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          * 
-         * @remarks
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
-         *  </table>
          */
         setTaskFieldAsync(taskId: string, fieldId: number, fieldValue: string | number | boolean | object, callback?: (result: AsyncResult<void>) => void): void;
     }
@@ -5628,28 +4132,10 @@ declare namespace Office {
      * @remarks
      * Access the File object with the AsyncResult.value property in the callback function passed to the Document.getFileAsync method.
      * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this interface.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
      */
     interface File {
         /**
          * Gets the document file size in bytes.
-         *
-         * @remarks
-         * <table><tr><td>Requirement Sets</td><td>File</td></tr></table>
          */
         size: number;
         /**
@@ -5661,7 +4147,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * <table><tr><td>Requirement Sets</td><td>File</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file | File}
          * 
          * No more than two documents are allowed to be in memory; otherwise the Document.getFileAsync operation will fail. Use the File.closeAsync 
          * method to close the file when you are finished working with it.
@@ -5699,7 +4185,7 @@ declare namespace Office {
          * Returns the specified slice.
          * 
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>File</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file | File}
          * 
          * In the callback function passed to the getSliceAsync method, you can use the properties of the AsyncResult object to return the following 
          * information.
@@ -5743,44 +4229,15 @@ declare namespace Office {
      * Represents a binding in two dimensions of rows and columns.
      *
      * @remarks
-     * <table><tr><td>Requirement Sets</td><td>MatrixBindings</td></tr></table>
-     *
      * The MatrixBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object.
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this interface.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> Word  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
      */
     interface MatrixBinding extends Binding {
         /**
         * Gets the number of columns in the matrix data structure, as an integer value.
-        *
-        * @remarks
-        * <table>
-        *   <tr><td>Hosts</td><td>Access, Excel, PowerPoint, Project, Word</td></tr>
-        *   <tr><td>Requirement Sets</td><td>MatrixBindings</td></tr>
-        * </table>
         */
         columnCount: number;
         /**
         * Gets the number of rows in the matrix data structure, as an integer value.
-        *
-        * @remarks
-        * <table>
-        *   <tr><td>Hosts</td><td>Access, Excel, PowerPoint, Project, Word</td></tr>
-        *   <tr><td>Requirement Sets</td><td>MatrixBindings</td></tr>
-        * </table>
         */
         rowCount: number;
     }
@@ -5788,10 +4245,7 @@ declare namespace Office {
      * Represents custom settings for a task pane or content add-in that are stored in the host document as name/value pairs.
      *
      * @remarks
-     * <table>
-     *   <tr><td>Hosts</td><td>Access, Excel, PowerPoint, Word</td></tr>
-     *   <tr><td>Requirement Sets</td><td>Settings</td></tr>
-     * </table>
+     * **Hosts**: Access, Excel, PowerPoint, Word
      * 
      * The settings created by using the methods of the Settings object are saved per add-in and per document. 
      * That is, they are available only to the add-in that created them, and only from the document in which they are saved.
@@ -5812,8 +4266,7 @@ declare namespace Office {
          * spreadsheet (co-authoring). Therefore, effectively the settingsChanged event is supported only in Excel Online in co-authoring scenarios.
          *
          * @remarks
-         *
-         * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
@@ -5844,21 +4297,6 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *  </table>
          */
         addHandlerAsync(eventType: Office.EventType, handler: any, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
         /**
@@ -5869,8 +4307,7 @@ declare namespace Office {
          * spreadsheet (co-authoring). Therefore, effectively the settingsChanged event is supported only in Excel Online in co-authoring scenarios.
          *
          * @remarks
-         *
-         * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
@@ -5900,45 +4337,13 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *  </table>
          */
         addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;
         /**
          * Retrieves the specified setting.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          *
          * @param settingName The case-sensitive name of the setting to retrieve.
          * @returns An object that has property names mapped to JSON serialized values.
@@ -5948,8 +4353,7 @@ declare namespace Office {
          * Reads all settings persisted in the document and refreshes the content or task pane add-in's copy of those settings held in memory.
          *
          * @remarks
-         * 
-         * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * This method is useful in Excel, Word, and PowerPoint coauthoring scenarios when multiple instances of the same add-in are working against 
          * the same document. Because each add-in is working against an in-memory copy of the settings loaded from the document at the time the user 
@@ -5982,23 +4386,6 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
-         *  </table>
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is an {@link Office.Settings} object with the refreshed values.
@@ -6012,27 +4399,10 @@ declare namespace Office {
          * call the Settings.saveAsync method.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * null is a valid value for a setting. Therefore, assigning null to the setting will not remove it from the settings property bag.
          * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
-         *
          * @param settingName The case-sensitive name of the setting to remove.
          */
         remove(name: string): void;
@@ -6040,8 +4410,7 @@ declare namespace Office {
          * Removes an event handler for the settingsChanged event.
          *
          * @remarks
-         *
-         * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * If the optional handler parameter is omitted when calling the removeHandlerAsync method, all event handlers for the specified eventType 
          * will be removed.
@@ -6051,21 +4420,6 @@ declare namespace Office {
          * 
          * In the callback function passed to the removeHandlerAsync method, you can use the properties of the AsyncResult object to return the 
          * following information.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *  </table>
          *
          * @param eventType Specifies the type of event to remove. Required.
          * @param options Provides options to determine which event handler or handlers are removed.
@@ -6076,8 +4430,7 @@ declare namespace Office {
          * Removes an event handler for the settingsChanged event.
          *
          * @remarks
-         *
-         * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * If the optional handler parameter is omitted when calling the removeHandlerAsync method, all event handlers for the specified eventType 
          * will be removed.
@@ -6087,21 +4440,6 @@ declare namespace Office {
          * 
          * In the callback function passed to the removeHandlerAsync method, you can use the properties of the AsyncResult object to return the 
          * following information.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *  </table>
          *
          * @param eventType Specifies the type of event to remove. Required.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -6111,6 +4449,8 @@ declare namespace Office {
          * Persists the in-memory copy of the settings property bag in the document.
          * 
          * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
+         * 
          * Any settings previously saved by an add-in are loaded when it is initialized, so during the lifetime of the session you can just use the 
          * set and get methods to work with the in-memory copy of the settings property bag. When you want to persist the settings so that they are 
          * available the next time the add-in is used, use the saveAsync method.
@@ -6142,23 +4482,6 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          * 
          * @param options Provides options for saving settings.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -6168,6 +4491,8 @@ declare namespace Office {
          * Persists the in-memory copy of the settings property bag in the document.
          * 
          * @remarks
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
+         * 
          * Any settings previously saved by an add-in are loaded when it is initialized, so during the lifetime of the session you can just use the 
          * set and get methods to work with the in-memory copy of the settings property bag. When you want to persist the settings so that they are 
          * available the next time the add-in is used, use the saveAsync method.
@@ -6199,23 +4524,6 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          * 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          */
@@ -6229,28 +4537,11 @@ declare namespace Office {
          * the document.
          *
          * @remarks
-         * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * The set method creates a new setting of the specified name if it does not already exist, or sets an existing setting of the specified name 
          * in the in-memory copy of the settings property bag. After you call the Settings.saveAsync method, the value is stored in the document as 
          * the serialized JSON representation of its data type. A maximum of 2MB is available for the settings of each add-in.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          * 
          * @param settingName The case-sensitive name of the setting to set or create.
          * @param value Specifies the value to be stored.
@@ -6259,9 +4550,6 @@ declare namespace Office {
     }
     /**
      * Provides information about the settings that raised the settingsChanged event.
-     * 
-     * @remarks
-     * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
      * 
      * To add an event handler for the settingsChanged event, use the addHandlerAsync method of the 
      * {@link Office.Settings} object.
@@ -6277,21 +4565,6 @@ declare namespace Office {
      * is running with any Excel client, but the event will fire only when the add-in is loaded with a spreadsheet 
      * that is opened in Excel Online, and more than one user is editing the spreadsheet (co-authoring). 
      * Therefore, effectively the settingsChanged event is supported only in Excel Online in co-authoring scenarios.
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this interface.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-     *   <tr><td><strong> Word  </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
-     *  </table>
      */
     interface SettingsChangedEventArgs {
         /**
@@ -6304,27 +4577,7 @@ declare namespace Office {
         type: EventType;
     }
     /**
-     * Represents a slice of a document file.
-     *
-     * @remarks
-     * <table><tr><td>Requirement Sets</td><td>File</td></tr></table>
-     * 
-     * The Slice object is accessed with the File.getSliceAsync method.
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this interface.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *  </table>
+     * Represents a slice of a document file. The Slice object is accessed with the `File.getSliceAsync` method.
      */
     interface Slice {
         /**
@@ -6349,7 +4602,6 @@ declare namespace Office {
      * Represents a binding in two dimensions of rows and columns, optionally with headers.
      *
      * @remarks
-     * <table><tr><td>Requirement Sets</td><td>TableBindings</td></tr></table>
      *
      * The TableBinding object inherits the `id` property, `type` property, `getDataAsync` method, and `setDataAsync` method from the 
      * {@link Office.Binding} object.
@@ -6360,46 +4612,10 @@ declare namespace Office {
     interface TableBinding extends Binding {
         /**
         * Gets the number of columns in the TableBinding, as an integer value.
-        *
-        * @remarks
-        * 
-        * **Support details**
-        * 
-        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-        * An empty cell indicates that the Office host application doesn't support this property.
-        * 
-        * For more information about Office host application and server requirements, see 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-        * 
-        * *Supported hosts, by platform*
-        *  <table>
-        *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-        *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-        *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-        *  </table>
         */
         columnCount: number;
         /**
         * True, if the table has headers; otherwise false.
-        *
-        * @remarks
-        * 
-        * **Support details**
-        * 
-        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-        * An empty cell indicates that the Office host application doesn't support this property.
-        * 
-        * For more information about Office host application and server requirements, see 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-        * 
-        * *Supported hosts, by platform*
-        *  <table>
-        *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-        *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-        *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-        *  </table>
         */
         hasHeaders: boolean;
          /**
@@ -6419,22 +4635,6 @@ declare namespace Office {
         * strings.
         *
         * In content add-ins for Access, for performance reasons the rowCount property always returns -1.
-        * 
-        * **Support details**
-        * 
-        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
-        * An empty cell indicates that the Office host application doesn't support this property.
-        * 
-        * For more information about Office host application and server requirements, see 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-        * 
-        * *Supported hosts, by platform*
-        *  <table>
-        *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-        *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-        *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-        *  </table>
         */
         rowCount: number;
         /**
@@ -6458,22 +4658,6 @@ declare namespace Office {
          *
          * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in 
          * a single call to this method.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param tableData An array of arrays ("matrix") or a TableData object that contains one or more columns of data to add to the table. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -6501,22 +4685,6 @@ declare namespace Office {
          *
          * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in 
          * a single call to this method.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param tableData An array of arrays ("matrix") or a TableData object that contains one or more columns of data to add to the table. Required.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -6540,22 +4708,6 @@ declare namespace Office {
          *
          * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in 
          * a single call to this method.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param rows An array of arrays ("matrix") or a TableData object that contains one or more rows of data to add to the table. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -6580,22 +4732,6 @@ declare namespace Office {
          *
          * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in 
          * a single call to this method.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param rows An array of arrays ("matrix") or a TableData object that contains one or more rows of data to add to the table. Required.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -6607,22 +4743,6 @@ declare namespace Office {
          * @remarks
          *
          * In Excel, if the table has no header row, this method will delete the table itself.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -6634,22 +4754,6 @@ declare namespace Office {
          * @remarks
          *
          * In Excel, if the table has no header row, this method will delete the table itself.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
-         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          */
@@ -6659,20 +4763,6 @@ declare namespace Office {
          *
          * @remarks
          * See {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table | Format tables in add-ins for Excel} for more information.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -6683,20 +4773,6 @@ declare namespace Office {
          *
          * @remarks
          * See {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table | Format tables in add-ins for Excel} for more information.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          */
@@ -6901,20 +4977,6 @@ declare namespace Office {
          * 
          * For more details and examples, see 
          * {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table | How to format tables in add-ins for Excel}.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param cellFormat An array that contains one or more JavaScript objects that specify which cells to target and the formatting to apply to them.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -7014,20 +5076,6 @@ declare namespace Office {
          * 
          * For more details and examples, see 
          * {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table | How to format tables in add-ins for Excel}.
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param cellFormat An array that contains one or more JavaScript objects that specify which cells to target and the formatting to apply to them.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -7037,10 +5085,7 @@ declare namespace Office {
          * Updates table formatting options on the bound table.
          *
          * @remarks
-         * <table>
-         *   <tr><td>Hosts</td><td>Excel</td></tr>
-         *   <tr><td>Requirement Sets</td><td>Not in a set</td></tr>
-         * </table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * In the callback function passed to the goToByIdAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
@@ -7066,20 +5111,6 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param tableOptions An object literal containing a list of property name-value pairs that define the table options to apply.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -7091,10 +5122,7 @@ declare namespace Office {
          * Updates table formatting options on the bound table.
          *
          * @remarks
-         * <table>
-         *   <tr><td>Hosts</td><td>Excel</td></tr>
-         *   <tr><td>Requirement Sets</td><td>Not in a set</td></tr>
-         * </table>
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * In the callback function passed to the goToByIdAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
@@ -7120,20 +5148,6 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
-         * 
-         * **Support details**
-         * 
-         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
-         * An empty cell indicates that the Office host application doesn't support this method.
-         * 
-         * For more information about Office host application and server requirements, see 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-         * 
-         * *Supported hosts, by platform*
-         *  <table>
-         *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-         *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-         *  </table>
          *
          * @param tableOptions An object literal containing a list of property name-value pairs that define the table options to apply.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -7143,12 +5157,6 @@ declare namespace Office {
     }
     /**
      * Represents the data in a table or an {@link Office.TableBinding}.
-     *
-     * @remarks
-     * <table>
-     *   <tr><td>Hosts</td><td>Excel, Word</td></tr>
-     *   <tr><td>Requirement Sets</td><td>TableBindings</td></tr>
-     * </table>
      */
     class TableData {
         constructor(rows: any[][], headers: any[]);
@@ -7157,10 +5165,6 @@ declare namespace Office {
          * Gets or sets the headers of the table.
          * 
          * @remarks
-         * <table>
-         *   <tr><td>Hosts</td><td>Excel, Word</td></tr>
-         *   <tr><td>Requirement Sets</td><td>TableBindings</td></tr>
-         * </table>
          *
          * To specify headers, you must specify an array of arrays that corresponds to the structure of the table. For example, to specify headers 
          * for a two-column table you would set the header property to [['header1', 'header2']].
@@ -7178,10 +5182,6 @@ declare namespace Office {
          * Returns an empty array if there are no rows.
          * 
          * @remarks
-         * <table>
-         *   <tr><td>Hosts</td><td>Excel, Word</td></tr>
-         *   <tr><td>Requirement Sets</td><td>TableBindings</td></tr>
-         * </table>
          *
          * To specify rows, you must specify an array of arrays that corresponds to the structure of the table. For example, to specify two rows of 
          * string values in a two-column table you would set the rows property to [['a', 'b'], ['c', 'd']].
@@ -7198,22 +5198,6 @@ declare namespace Office {
     /**
      * Specifies enumerated values for the `cells` property in the cellFormat parameter of 
      * {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table | table formatting methods}.
-     *
-     * @remarks
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
      */
     enum Table {
         /**
@@ -7231,27 +5215,9 @@ declare namespace Office {
     }
     /**
      * Represents a bound text selection in the document.
-     *
-     * @remarks
-     * <table><tr><td>Requirement Sets</td><td>TextBindings</td></tr></table>
-     *
+     * 
      * The TextBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the {@link Office.Binding} 
      * object. It does not implement any additional properties or methods of its own.
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this interface.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> Word  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
-     *  </table>
      */
     interface TextBinding extends Binding { }
     /**
@@ -7260,20 +5226,6 @@ declare namespace Office {
      * @remarks
      * 
      * A ProjectProjectFields constant can be used as a parameter of the {@link Office.Document | Document}.getProjectFieldAsync method.
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
-     *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                            </td></tr>
-     *  </table>
      */
     enum ProjectProjectFields {
         /**
@@ -7336,20 +5288,6 @@ declare namespace Office {
      * For more information about working with fields in Project, see 
      * {@link https://support.office.com/article/Available-fields-reference-615a4563-1cc3-40f4-b66f-1b17e793a460 | Available fields} reference. In 
      * Project Help, search for Available fields.
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
-     *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                            </td></tr>
-     *  </table>
      */
     enum ProjectResourceFields {
         /**
@@ -8163,20 +6101,6 @@ declare namespace Office {
      * For more information about working with fields in Project, see the 
      * {@link https://support.office.com/article/Available-fields-reference-615a4563-1cc3-40f4-b66f-1b17e793a460 | Available fields} reference. 
      * In Project Help, search for Available fields.
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
-     *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                            </td></tr>
-     *  </table>
      */
     enum ProjectTaskFields {
         /**
@@ -9325,20 +7249,6 @@ declare namespace Office {
      * @remarks
      * The {@link Office.Document | Document}.getSelectedViewAsync method returns the ProjectViewTypes constant value and name that corresponds to the 
      * active view.
-     * 
-     * **Support details**
-     * 
-     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. 
-     * An empty cell indicates that the Office host application doesn't support this enumeration.
-     * 
-     * For more information about Office host application and server requirements, see 
-     * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
-     * 
-     * *Supported hosts, by platform*
-     *  <table>
-     *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
-     *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                            </td></tr>
-     *  </table>
      */
     enum ProjectViewTypes {
         /**
@@ -10591,6 +8501,18 @@ declare namespace Office {
         * </table>
         */
        optionalAttendees: string[] | EmailAddressDetails[];
+        /**
+        * Provides access to the resources of an event. Returns an array of strings containing the resources required for the appointment.
+        *
+        * [Api set: Mailbox 1.0]
+        *
+        * @remarks
+        *
+        * <table>
+        *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+        *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
+        * </table>
+        */
        resources: string[];
         /**
          * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
@@ -10733,6 +8655,12 @@ declare namespace Office {
          * Gets the size of the attachment in bytes.
          */
         size: number;
+        /**
+         * Gets the url of the attachment if its type is `MailboxEnums.AttachmentType.Cloud`.
+         * 
+         * [Api set: Mailbox Preview]
+         */
+        url: string;
     }
     /**
      * The body object provides methods for adding and updating the content of the message or appointment. 
@@ -10770,7 +8698,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                  The body is provided in the requested format in the asyncResult.value property.
          */
-        getAsync(coercionType: Office.CoercionType, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        getAsync(coercionType: Office.CoercionType, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Returns the current body in a specified format.
          *
@@ -10792,27 +8720,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  The body is provided in the requested format in the asyncResult.value property.
          */
-        getAsync(coercionType: Office.CoercionType, callback: (result: Office.AsyncResult<string>) => void): void;
-        /**
-         * Returns the current body in a specified format.
-         *
-         * This method returns the entire current body in the format specified by coercionType.
-         *
-         * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. 
-         * The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method previously. 
-         * The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         *
-         * @param coercionType - The format for the returned body.
-         */
-        getAsync(coercionType: Office.CoercionType): void;
+        getAsync(coercionType: Office.CoercionType, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets a value that indicates whether the content is in HTML or text format.
          *
@@ -10829,7 +8737,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  The content type is returned as one of the CoercionType values in the asyncResult.value property.
          */
-        getTypeAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<Office.CoercionType>) => void): void;
+        getTypeAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<Office.CoercionType>) => void): void;
         /**
          * Gets a value that indicates whether the content is in HTML or text format.
          *
@@ -10844,20 +8752,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  The content type is returned as one of the CoercionType values in the asyncResult.value property.
          */
-        getTypeAsync(callback?: (result: Office.AsyncResult<Office.CoercionType>) => void): void;
-        /**
-         * Gets a value that indicates whether the content is in HTML or text format.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         * </table>
-         *
-         */
-        getTypeAsync(): void;
+        getTypeAsync(callback?: (asyncResult: Office.AsyncResult<Office.CoercionType>) => void): void;
         /**
          * Adds the specified content to the beginning of the item body.
          *
@@ -10883,7 +8778,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  Any errors encountered will be provided in the asyncResult.error property.
          */
-        prependAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
+        prependAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds the specified content to the beginning of the item body.
          *
@@ -10906,28 +8801,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  Any errors encountered will be provided in the asyncResult.error property.
          */
-        prependAsync(data: string, callback: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds the specified content to the beginning of the item body.
-         *
-         * The prependAsync method inserts the specified string at the beginning of the item body. 
-         * After insertion, the cursor is returned to its original place, relative to the inserted content.
-         *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
-         * (please see the Examples section for a sample).
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>DataExceedsMaximumSize - The data parameter is longer than 1,000,000 characters.</td></tr>
-         * </table>
-         *
-         * @param data - The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters.
-         */
-        prependAsync(data: string): void;
+        prependAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Replaces the entire body with the specified text.
          *
@@ -10955,7 +8829,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  Any errors encountered will be provided in the asyncResult.error property.
          */
-        setAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
+        setAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Replaces the entire body with the specified text.
          *
@@ -10980,30 +8854,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  Any errors encountered will be provided in the asyncResult.error property.
          */
-        setAsync(data: string, callback: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Replaces the entire body with the specified text.
-         *
-         * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent.
-         *  The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method 
-         * previously. The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
-         *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
-         * (please see the Examples section for a sample).
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>DataExceedsMaximumSize - The data parameter is longer than 1,000,000 characters.</td></tr>
-         *   <tr><td></td><td>InvalidFormatError - The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.</td></tr>
-         * </table>
-         *
-         * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
-         */
-        setAsync(data: string): void;
+        setAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
 
         /**
          * Replaces the selection in the body with the specified text.
@@ -11032,7 +8883,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  Any errors encountered will be provided in the asyncResult.error property.
          */
-        setSelectedDataAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
+        setSelectedDataAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Replaces the selection in the body with the specified text.
          *
@@ -11057,30 +8908,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  Any errors encountered will be provided in the asyncResult.error property.
          */
-        setSelectedDataAsync(data: string, callback: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Replaces the selection in the body with the specified text.
-         *
-         * The setSelectedDataAsync method inserts the specified string at the cursor location in the body of the item, or, if text is selected in 
-         * the editor, it replaces the selected text. If the cursor was never in the body of the item, or if the body of the item lost focus in the 
-         * UI, the string will be inserted at the top of the body content. After insertion, the cursor is placed at the end of the inserted content.
-         *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
-         * (please see the Examples section for a sample).
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>DataExceedsMaximumSize - The data parameter is longer than 1,000,000 characters.</td></tr>
-         *   <tr><td></td><td>InvalidFormatError - The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.</td></tr>
-         * </table>
-         *
-         * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
-         */
-        setSelectedDataAsync(data: string): void;
+        setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * Represents a contact stored on the server. Read mode only.
@@ -11213,52 +9041,7 @@ declare namespace Office {
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
          * </table>
          */
-        saveAsync(callback?: (result: Office.AsyncResult<void>) => void, asyncContext?: any): void;
-        /**
-         * Saves item-specific custom properties to the server.
-         *
-         * You must call the saveAsync method to persist any changes made with the set method or the remove method of the CustomProperties object. 
-         * The saving action is asynchronous.
-         *
-         * It's a good practice to have your callback function check for and handle errors from saveAsync. 
-         * In particular, a read add-in can be activated while the user is in a connected state in a read form, and subsequently the user becomes 
-         * disconnected. 
-         * If the add-in calls saveAsync while in the disconnected state, saveAsync would return an error. 
-         * Your callback method should handle this error accordingly.
-         *
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         */
-        saveAsync(callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Saves item-specific custom properties to the server.
-         *
-         * You must call the saveAsync method to persist any changes made with the set method or the remove method of the CustomProperties object. 
-         * The saving action is asynchronous.
-         *
-         * It's a good practice to have your callback function check for and handle errors from saveAsync. 
-         * In particular, a read add-in can be activated while the user is in a connected state in a read form, and subsequently the user becomes 
-         * disconnected. 
-         * If the add-in calls saveAsync while in the disconnected state, saveAsync would return an error. 
-         * Your callback method should handle this error accordingly.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         */
-        saveAsync(): void;
+        saveAsync(callback?: (asyncResult: Office.AsyncResult<void>) => void, asyncContext?: any): void;
     }
     /**
      * Provides diagnostic information to an Outlook add-in.
@@ -11414,7 +9197,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        addAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResultStatus) => void): void;
+        addAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
         /**
          * Adds to the set of locations associated with the appointment.
          * 
@@ -11433,24 +9216,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        addAsync(locationIdentifiers: LocationIdentifier[], callback?: (result: Office.AsyncResultStatus) => void): void;
-        /**
-         * Adds to the set of locations associated with the appointment.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>InvalidFormatError - The format of the specified data object is not valid.</td></tr>
-         * </table>
-         * 
-         * @param locationIdentifiers The locations to be added to the current list of locations.
-         * 
-         * @beta
-         */
-        addAsync(locationIdentifiers: LocationIdentifier[]): void;
+        addAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
         /**
          * Gets the set of locations associated with the appointment.
          * 
@@ -11469,7 +9235,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        getAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<LocationDetails[]>) => void): void;
+        getAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<LocationDetails[]>) => void): void;
         /**
          * Gets the set of locations associated with the appointment.
          * 
@@ -11486,21 +9252,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        getAsync(callback?: (result: Office.AsyncResult<LocationDetails[]>) => void): void;
-        /**
-         * Gets the set of locations associated with the appointment.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         * 
-         * @beta
-         */
-        getAsync(): void;
+        getAsync(callback?: (asyncResult: Office.AsyncResult<LocationDetails[]>) => void): void;
         /**
          * Removes the set of locations associated with the appointment.
          * 
@@ -11522,7 +9274,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        removeAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResultStatus) => void): void;
+        removeAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
         /**
          * Removes the set of locations associated with the appointment.
          * 
@@ -11542,25 +9294,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        removeAsync(locationIdentifiers: LocationIdentifier[], callback?: (result: Office.AsyncResultStatus) => void): void;
-        /**
-         * Removes the set of locations associated with the appointment.
-         * 
-         * If there are multiple locations with the same name, all matching locations will be removed even if only one was specified in locationIdentifiers.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         * </table>
-         * 
-         * @param locationIdentifiers The locations to be removed from the current list of locations.
-         * 
-         * @beta
-         */
-        removeAsync(locationIdentifiers: LocationIdentifier[]): void;
+        removeAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
     }
     /**
      * Represents a collection of entities found in an email message or appointment. Read mode only.
@@ -11651,12 +9385,13 @@ declare namespace Office {
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
          * </table>
          * 
-         * @param options - An object literal that contains one or more of the following properties.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an Office.AsyncResult object.
-         *                  The `value` property of the result is message's from value, as an EmailAddressDetails object.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter,
+         *                             asyncResult, which is an Office.AsyncResult object.
+         *                  The `value` property of the result is the item's from value, as an EmailAddressDetails object.
          */
-        getAsync(options: Office.AsyncContextOptions, callback: (result: Office.AsyncResult<EmailAddressDetails>) => void): void;
+        getAsync(options: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
         /**
          * Gets the from value of a message.
          * 
@@ -11673,27 +9408,11 @@ declare namespace Office {
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
          * </table>
          * 
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an Office.AsyncResult object.
-         *                  The `value` property of the result is message's from value, as an EmailAddressDetails object.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter,
+         *                             asyncResult, which is an Office.AsyncResult object.
+         *                  The `value` property of the result is the item's from value, as an EmailAddressDetails object.
          */
-        getAsync(callback?: (result: Office.AsyncResult<EmailAddressDetails>) => void): void;
-        /**
-         * Gets the from value of a message.
-         * 
-         * The getAsync method starts an asynchronous call to the Exchange server to get the from value of a message.
-         * 
-         * The from value of the item is provided as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
-         * 
-         * [Api set: Mailbox 1.7]
-         * 
-         * @remarks
-         * 
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         * </table>
-         */
-        getAsync(): void;
+        getAsync(callback?: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
     }
 
     /**
@@ -11733,7 +9452,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        getAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<InternetHeaders>) => void): void;
+        getAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
         /**
          * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
          * If the add-in requests an x-header that is not available, that x-header will not be returned in the results. 
@@ -11752,24 +9471,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        getAsync(names: string[], callback?: (result: Office.AsyncResult<InternetHeaders>) => void): void;
-        /**
-         * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
-         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results. 
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         * 
-         * @param names - The names of the internet headers to be returned.
-         * 
-         * @beta
-         */
-        getAsync(names: string[]): void;
+        getAsync(names: string[], callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
         /**
          * Given an array of internet header names, this method removes the specified headers from the internet header collection.
          *
@@ -11789,7 +9491,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        removeAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<InternetHeaders>) => void): void;
+        removeAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
         /**
          * Given an array of internet header names, this method removes the specified headers from the internet header collection.
          *
@@ -11807,23 +9509,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        removeAsync(names: string[], callback?: (result: Office.AsyncResult<InternetHeaders>) => void): void;
-        /**
-         * Given an array of internet header names, this method removes the specified headers from the internet header collection.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         * </table>
-         * 
-         * @param names - The names of the internet headers to be removed.
-         * 
-         * @beta
-         */
-        removeAsync(names: string[]): void;
+        removeAsync(names: string[], callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
         /**
          * Sets the specified internet headers to the specified values.
          * 
@@ -11847,7 +9533,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        setAsync(headers: Object, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
+        setAsync(headers: Object, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Sets the specified internet headers to the specified values.
          * 
@@ -11869,27 +9555,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        setAsync(headers: Object, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Sets the specified internet headers to the specified values.
-         * 
-         * The setAsync method creates a new header if the specified header does not already exist; otherwise, the existing value is replaced with 
-         * the new value.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         * </table>
-         *
-         * @param headers - The names and corresponding values of the headers to be set. Should be a dictionary object with keys being the names of the 
-         *                internet headers and values being the values of the internet headers.
-         * 
-         * @beta
-         */
-        setAsync(headers: Object): void;
+        setAsync(headers: Object, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
 
     /**
@@ -11974,10 +9640,10 @@ declare namespace Office {
          * 
          * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an asyncResult object.
-         *                  The `value` property of the result is message's organizer value, as an EmailAddressDetails object.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         *                  The `value` property of the result is the appointment's organizer value, as an EmailAddressDetails object.
          */
-        getAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<EmailAddressDetails>) => void): void;
+        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
         /**
          * Gets the organizer value of an appointment as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
          * 
@@ -11989,22 +9655,10 @@ declare namespace Office {
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
          * </table>
          * 
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an asyncResult object.
-         *                  The `value` property of the result is message's organizer value, as an EmailAddressDetails object.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         *                  The `value` property of the result is the appointment's organizer value, as an EmailAddressDetails object.
          */
-        getAsync(callback?: (result: Office.AsyncResult<EmailAddressDetails>) => void): void;
-        /**
-         * Gets the organizer value of an appointment as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
-         * 
-         * [Api set: Mailbox 1.7]
-         * 
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         * </table>
-         */
-        getAsync(): void;
+        getAsync(callback?: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
     }
 
     /**
@@ -12263,11 +9917,11 @@ declare namespace Office {
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          *        isInline: If true, indicates that the attachment will be shown inline in the message body, and should not be displayed in the attachment list.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                 On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                 If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          */
-        addFileAttachmentAsync(uri: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentAsync(uri: string, attachmentName: string, options?: Office.AsyncContextOptions & { isInline: boolean }, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -12288,33 +9942,11 @@ declare namespace Office {
          *
          * @param uri - The URI that provides the location of the file to attach to the message or appointment. The maximum length is 2048 characters.
          * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         */
-        addFileAttachmentAsync(uri: string, attachmentName: string): void;
-        /**
-         * Adds a file to a message or appointment as an attachment.
-         *
-         * The addFileAttachmentAsync method uploads the file at the specified URI and attaches it to the item in the compose form.
-         *
-         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
-         *   <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr>
-         *   <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
-         *   <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
-         * </table>
-         *
-         * @param uri - The URI that provides the location of the file to attach to the message or appointment. The maximum length is 2048 characters.
-         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                 On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                 If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          */
-        addFileAttachmentAsync(uri: string, attachmentName: string, callback: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentAsync(uri: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -12338,13 +9970,13 @@ declare namespace Office {
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                  On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                  If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          * 
          * @beta
          */
-        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions &  { isInline: boolean }, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -12365,42 +9997,19 @@ declare namespace Office {
          * 
          * @param base64File - The base64 encoded content of an image or file to be added to an email or event.
          * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                  On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                  If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          * 
          * @beta
          */
-        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (result: Office.AsyncResult<string>) => void): void;
-        /**
-         * Adds a file to a message or appointment as an attachment.
-         *
-         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
-         *
-         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
-         *   <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr>
-         *   <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
-         *   <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
-         * </table>
-         * 
-         * @param base64File - The base64 encoded content of an image or file to be added to an email or event.
-         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         * 
-         * @beta
-         */
-        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string): void;
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -12419,12 +10028,13 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, options?: any, callback?: (result: Office.AsyncResult<void>) => void): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -12441,27 +10051,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds an event handler for a supported event.
-         * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
-         * 
-         * [Api set: Mailbox 1.7]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
-         * </table>
-         * 
-         * @param eventType - The event that should invoke the handler.
-         * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal. 
-         *                The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
-         */
-        addHandlerAsync(eventType: Office.EventType, handler: any): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds an Exchange item, such as a message, as an attachment to the message or appointment.
          *
@@ -12486,13 +10076,13 @@ declare namespace Office {
          * 
          * @param itemId - The Exchange identifier of the item to attach. The maximum length is 100 characters.
          * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         * @param options - An object literal that contains one or more of the following properties.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                 On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                 If adding the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          */
-        addItemAttachmentAsync(itemId: any, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addItemAttachmentAsync(itemId: any, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds an Exchange item, such as a message, as an attachment to the message or appointment.
          *
@@ -12517,37 +10107,11 @@ declare namespace Office {
          *
          * @param itemId - The Exchange identifier of the item to attach. The maximum length is 100 characters.
          * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         */
-        addItemAttachmentAsync(itemId: any, attachmentName: string): void;
-        /**
-         * Adds an Exchange item, such as a message, as an attachment to the message or appointment.
-         *
-         * The addItemAttachmentAsync method attaches the item with the specified Exchange identifier to the item in the compose form. 
-         * If you specify a callback method, the method is called with one parameter, asyncResult, which contains either the attachment identifier or 
-         * a code that indicates any error that occurred while attaching the item. 
-         * You can use the options parameter to pass state information to the callback method, if needed.
-         *
-         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
-         *
-         * If your Office add-in is running in Outlook Web App, the addItemAttachmentAsync method can attach items to items other than the item that 
-         * you are editing; however, this is not supported and is not recommended.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
-         *   <tr><td>Errors</td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
-         * </table>
-         *
-         * @param itemId - The Exchange identifier of the item to attach. The maximum length is 100 characters.
-         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                 On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                 If adding the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          */
-        addItemAttachmentAsync(itemId: any, attachmentName: string, callback: (result: Office.AsyncResult<string>) => void): void;
+        addItemAttachmentAsync(itemId: any, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Closes the current item that is being composed
          *
@@ -12589,7 +10153,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
         /**
          * Gets the item's attachments as an array.
          * 
@@ -12608,22 +10172,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        getAttachmentsAsync(callback?: (result: Office.AsyncResult<AttachmentDetails[]>) => void): void;
-        /**
-         * Gets the item's attachments as an array.
-         * 
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
-         * </table>
-         * 
-         * @beta
-         */
-        getAttachmentsAsync(): void;
+        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
@@ -12648,7 +10197,7 @@ declare namespace Office {
          *
          * @beta
          */
-        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
@@ -12671,26 +10220,7 @@ declare namespace Office {
          *
          * @beta
          */
-        getInitializationContextAsync(callback?: (result: Office.AsyncResult<string>) => void): void;
-        /**
-         * Gets initialization data passed when the add-in is activated by an actionable message.
-         *
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
-         * 
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
-         * </table>
-         * 
-         * More information on {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | actionable messages}.
-         *
-         * @beta
-         */
-        getInitializationContextAsync(): void;
+        getInitializationContextAsync(callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
@@ -12718,7 +10248,7 @@ declare namespace Office {
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          */
-        getSelectedDataAsync(coercionType: Office.CoercionType, options: Office.AsyncContextOptions, callback: (result: Office.AsyncResult<any>) => void): void;
+        getSelectedDataAsync(coercionType: Office.CoercionType, options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<any>) => void): void;
          /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
@@ -12745,7 +10275,7 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        getSelectedDataAsync(coercionType: Office.CoercionType, callback: (result: Office.AsyncResult<string>) => void): void;
+        getSelectedDataAsync(coercionType: Office.CoercionType, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Asynchronously loads custom properties for this add-in on the selected item.
          *
@@ -12771,31 +10301,7 @@ declare namespace Office {
          * @param userContext - Optional. Developers can provide any object they wish to access in the callback function. 
          *                    This object can be accessed by the asyncResult.asyncContext property in the callback function.
          */
-        loadCustomPropertiesAsync(callback: (result: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
-        /**
-         * Asynchronously loads custom properties for this add-in on the selected item.
-         *
-         * Custom properties are stored as key/value pairs on a per-app, per-item basis. 
-         * This method returns a CustomProperties object in the callback, which provides methods to access the custom properties specific to the 
-         * current item and the current add-in. Custom properties are not encrypted on the item, so this should not be used as secure storage.
-         *
-         * The custom properties are provided as a CustomProperties object in the asyncResult.value property. 
-         * This object can be used to get, set, and remove custom properties from the item and save changes to the custom property set back to 
-         * the server.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
-         * </table>
-         *
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         */
-        loadCustomPropertiesAsync(callback: (result: Office.AsyncResult<CustomProperties>) => void): void;
+        loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
         /**
          * Removes an attachment from a message or appointment.
          *
@@ -12821,29 +10327,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                 If removing the attachment fails, the asyncResult.error property will contain an error code with the reason for the failure.
          */
-        removeAttachmentAsync(attachmentId: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Removes an attachment from a message or appointment.
-         *
-         * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
-         * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
-         * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
-         * continue in a separate window.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         *
-         * @param attachmentId - The identifier of the attachment to remove.
-         */
-        removeAttachmentAsync(attachmentId: string): void;
+        removeAttachmentAsync(attachmentId: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Removes an attachment from a message or appointment.
          *
@@ -12869,12 +10353,13 @@ declare namespace Office {
          *                 type Office.AsyncResult. 
          *                 If removing the attachment fails, the asyncResult.error property will contain an error code with the reason for the failure.
          */
-        removeAttachmentAsync(attachmentId: string, callback: (result: Office.AsyncResult<void>) => void): void;
+        removeAttachmentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
        /**
         * Removes the event handlers for a supported event type.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+        * `Office.EventType.RecurrenceChanged`.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -12891,12 +10376,13 @@ declare namespace Office {
         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
         *                asyncResult, which is an Office.AsyncResult object.
         */
-       removeHandlerAsync(eventType: Office.EventType, options?: any, callback?: (result: Office.AsyncResult<void>) => void): void;
+       removeHandlerAsync(eventType: Office.EventType, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
        /**
         * Removes the event handlers for a supported event type.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+        * `Office.EventType.RecurrenceChanged`.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -12911,25 +10397,7 @@ declare namespace Office {
         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
         *                asyncResult, which is an Office.AsyncResult object.
         */
-       removeHandlerAsync(eventType: Office.EventType, callback?: (result: Office.AsyncResult<void>) => void): void;
-       /**
-        * Removes the event handlers for a supported event type.
-        * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
-        * 
-        * [Api set: Mailbox 1.7]
-        *
-        * @remarks
-        *
-        * <table>
-        *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-        *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
-        * </table>
-        * 
-        * @param eventType - The event that should revoke the handler.
-        */
-       removeHandlerAsync(eventType: Office.EventType): void;
+       removeHandlerAsync(eventType: Office.EventType, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Asynchronously saves an item.
          *
@@ -12961,44 +10429,11 @@ declare namespace Office {
          *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
          * </table>
          * 
-         * @param options - Optional. An object literal that contains one or more of the following properties.
+         * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          */
-        saveAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
-        /**
-         * Asynchronously saves an item.
-         *
-         * When invoked, this method saves the current message as a draft and returns the item id via the callback method. 
-         * In Outlook Web App or Outlook in online mode, the item is saved to the server. 
-         * In Outlook in cached mode, the item is saved to the local cache.
-         *
-         * Since appointments have no draft state, if saveAsync is called on an appointment in compose mode, the item will be saved as a normal 
-         * appointment on the user's calendar. For new appointments that have not been saved before, no invitation will be sent. 
-         * Saving an existing appointment will send an update to added or removed attendees.
-         *
-         * **Note**: If your add-in calls saveAsync on an item in compose mode in order to get an itemId to use with EWS or the REST API, be aware that 
-         * when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
-         * Until the item is synced, using the itemId will return an error.
-         *
-         * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
-         *
-         * - Mac Outlook does not support saveAsync on a meeting in compose mode. Calling saveAsync on a meeting in Mac Outlook will return an error.
-         *
-         * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         *
-         */
-        saveAsync(): void;
+        saveAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Asynchronously saves an item.
          *
@@ -13029,9 +10464,9 @@ declare namespace Office {
          *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
          * </table>
          *
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          */
-        saveAsync(callback: (result: Office.AsyncResult<string>) => void): void;
+        saveAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Asynchronously inserts data into the body or subject of a message.
          *
@@ -13063,28 +10498,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        setSelectedDataAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Asynchronously inserts data into the body or subject of a message.
-         *
-         * The setSelectedDataAsync method inserts the specified string at the cursor location in the subject or body of the item, or, if text is 
-         * selected in the editor, it replaces the selected text. If the cursor is not in the body or subject field, an error is returned. 
-         * After insertion, the cursor is placed at the end of the inserted content.
-         *
-         * [Api set: Mailbox 1.2]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         *
-         * @param data - The data to be inserted. Data is not to exceed 1,000,000 characters. 
-         *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
-         */
-        setSelectedDataAsync(data: string): void;
+        setSelectedDataAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Asynchronously inserts data into the body or subject of a message.
          *
@@ -13107,7 +10521,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        setSelectedDataAsync(data: string, callback: (result: Office.AsyncResult<void>) => void): void;
+        setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
 
     /**
@@ -13459,7 +10873,8 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13478,12 +10893,13 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, options?: any, callback?: (result: Office.AsyncResult<void>) => void): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13500,27 +10916,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds an event handler for a supported event.
-         * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
-         * 
-         * [Api set: Mailbox 1.7]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr>
-         * </table>
-         * 
-         * @param eventType - The event that should invoke the handler.
-         * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal. 
-         *                The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
-         */
-        addHandlerAsync(eventType: Office.EventType, handler: any): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Displays a reply form that includes the sender and all recipients of the selected message or the organizer and all attendees of the 
          * selected appointment.
@@ -13548,33 +10944,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        displayReplyAllForm(formData: string | ReplyFormData, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Displays a reply form that includes the sender and all recipients of the selected message or the organizer and all attendees of the 
-         * selected appointment.
-         *
-         * In Outlook Web App, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
-         *
-         * If any of the string parameters exceed their limits, displayReplyAllForm throws an exception.
-         *
-         * When attachments are specified in the formData.attachments parameter, Outlook and Outlook Web App attempt to download all attachments and 
-         * attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI. 
-         * If this isn't possible, then no error message is thrown.
-         *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr>
-         * </table>
-         *
-         * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-         *                   OR an {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
-         */
-        displayReplyAllForm(formData: string | ReplyFormData): void;
+        displayReplyAllForm(formData: string | ReplyFormData, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
          *
@@ -13602,33 +10972,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        displayReplyForm(formData: string | ReplyFormData, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
-         *
-         * In Outlook Web App, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
-         *
-         * If any of the string parameters exceed their limits, displayReplyForm throws an exception.
-         *
-         * When attachments are specified in the formData.attachments parameter, Outlook and Outlook Web App attempt to download all attachments and 
-         * attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI. 
-         * If this isn't possible, then no error message is thrown.
-         *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr>
-         * </table>
-         *
-         * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-         *                   OR an {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
-         */
-        displayReplyForm(formData: string | ReplyFormData): void;
+        displayReplyForm(formData: string | ReplyFormData, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
@@ -13654,7 +10998,7 @@ declare namespace Office {
          *
          * @beta
          */
-        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
@@ -13677,24 +11021,7 @@ declare namespace Office {
          *
          * @beta
          */
-        getInitializationContextAsync(callback?: (result: Office.AsyncResult<string>) => void): void;
-        /**
-         * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
-         * 
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
-         * 
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr>
-         * </table>
-         * 
-         * @beta
-         */
-        getInitializationContextAsync(): void;
+        getInitializationContextAsync(callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets the entities found in the selected item's body.
          *
@@ -13930,37 +11257,14 @@ declare namespace Office {
         * @param userContext - Optional. Developers can provide any object they wish to access in the callback function. 
         *                    This object can be accessed by the asyncResult.asyncContext property in the callback function.
         */
-       loadCustomPropertiesAsync(callback: (result: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
-       /**
-        * Asynchronously loads custom properties for this add-in on the selected item.
-        *
-        * Custom properties are stored as key/value pairs on a per-app, per-item basis. 
-        * This method returns a CustomProperties object in the callback, which provides methods to access the custom properties specific to the 
-        * current item and the current add-in. Custom properties are not encrypted on the item, so this should not be used as secure storage.
-        *
-        * The custom properties are provided as a CustomProperties object in the asyncResult.value property. 
-        * This object can be used to get, set, and remove custom properties from the item and save changes to the custom property set back to 
-        * the server.
-        *
-        * [Api set: Mailbox 1.0]
-        *
-        * @remarks
-        *
-        * <table>
-        *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-        *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr>
-        * </table>
-        *
-        * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-        *                 type Office.AsyncResult.
-        */
-       loadCustomPropertiesAsync(callback: (result: Office.AsyncResult<CustomProperties>) => void): void;
+       loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
 
        /**
         * Removes the event handlers for a supported event type.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+        * `Office.EventType.RecurrenceChanged`.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -13977,12 +11281,13 @@ declare namespace Office {
         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
         *                asyncResult, which is an Office.AsyncResult object.
         */
-       removeHandlerAsync(eventType: Office.EventType, options?: any, callback?: (result: Office.AsyncResult<void>) => void): void;
+       removeHandlerAsync(eventType: Office.EventType, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
        /**
         * Removes the event handlers for a supported event type.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+        * `Office.EventType.RecurrenceChanged`.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -13997,25 +11302,7 @@ declare namespace Office {
         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
         *                asyncResult, which is an Office.AsyncResult object.
         */
-       removeHandlerAsync(eventType: Office.EventType, callback?: (result: Office.AsyncResult<void>) => void): void; 
-       /**
-        * Removes the event handlers for a supported event type.
-        * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
-        * 
-        * [Api set: Mailbox 1.7]
-        *
-        * @remarks
-        *
-        * <table>
-        *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-        *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr>
-        * </table>
-        * 
-        * @param eventType - The event that should revoke the handler.
-        */
-       removeHandlerAsync(eventType: Office.EventType): void; 
+       removeHandlerAsync(eventType: Office.EventType, callback?: (asyncResult: Office.AsyncResult<void>) => void): void; 
     }
 
     /**
@@ -14103,7 +11390,8 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14122,13 +11410,14 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, options?: any, callback?: (result: Office.AsyncResult<void>) => void): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
 
         /**
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14145,28 +11434,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: Office.AsyncResult<void>) => void): void;
-
-        /**
-         * Adds an event handler for a supported event.
-         * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
-         * 
-         * [Api set: Mailbox 1.7]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         * 
-         * @param eventType - The event that should invoke the handler.
-         * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal. 
-         *                The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
-         */
-        addHandlerAsync(eventType: Office.EventType, handler: any): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
 
         /**
          * Gets an attachment from a message or appointment and returns it as an **AttachmentContent** object.
@@ -14196,32 +11464,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        getAttachmentContentAsync(attachmentId: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<AttachmentContent>) => void): void;
-
-        /**
-         * Gets an attachment from a message or appointment and returns it as an **AttachmentContent** object.
-         * 
-         * The `getAttachmentContentAsync` method gets the attachment with the specified identifier from the item. As a best practice, you should use 
-         * the identifier to retrieve an attachment in the same session that the attachmentIds were retrieved with the `getAttachmentsAsync` or 
-         * `item.attachments` call. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
-         * continue in a separate window.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * 
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         * 
-         * @param attachmentId - The identifier of the attachment you want to get. 
-         * 
-         * @beta
-         */
-        getAttachmentContentAsync(attachmentId: string): void;
+        getAttachmentContentAsync(attachmentId: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentContent>) => void): void;
 
         /**
          * Gets an attachment from a message or appointment and returns it as an **AttachmentContent** object.
@@ -14249,7 +11492,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        getAttachmentContentAsync(attachmentId: string, callback?: (result: Office.AsyncResult<AttachmentContent>) => void): void;
+        getAttachmentContentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<AttachmentContent>) => void): void;
 		
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
@@ -14276,7 +11519,7 @@ declare namespace Office {
          *
          * @beta
          */
-        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
 		
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
@@ -14301,26 +11544,7 @@ declare namespace Office {
          *
          * @beta
          */
-        getInitializationContextAsync(callback?: (result: Office.AsyncResult<string>) => void): void;
-		
-        /**
-         * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
-         * 
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
-         * for Office 365.
-         * 
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         * 
-         * @beta
-         */
-        getInitializationContextAsync(): void;
+        getInitializationContextAsync(callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
 
        /**
         * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
@@ -14341,7 +11565,7 @@ declare namespace Office {
         * 
         * @beta
         */
-        getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (result: Office.AsyncResult<SharedProperties>) => void): void;
+        getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
 
        /**
         * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
@@ -14360,7 +11584,7 @@ declare namespace Office {
         * 
         * @beta
         */
-       getSharedPropertiesAsync(callback: (result: Office.AsyncResult<SharedProperties>) => void): void;
+       getSharedPropertiesAsync(callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
 
        /**
         * Asynchronously loads custom properties for this add-in on the selected item.
@@ -14387,38 +11611,15 @@ declare namespace Office {
         * @param userContext - Optional. Developers can provide any object they wish to access in the callback function. 
         *                    This object can be accessed by the asyncResult.asyncContext property in the callback function.
         */
-       loadCustomPropertiesAsync(callback: (result: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
+       loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
 
-       /**
-        * Asynchronously loads custom properties for this add-in on the selected item.
-        *
-        * Custom properties are stored as key/value pairs on a per-app, per-item basis. 
-        * This method returns a CustomProperties object in the callback, which provides methods to access the custom properties specific to the 
-        * current item and the current add-in. Custom properties are not encrypted on the item, so this should not be used as secure storage.
-        *
-        * The custom properties are provided as a CustomProperties object in the asyncResult.value property. 
-        * This object can be used to get, set, and remove custom properties from the item and save changes to the custom property set back to 
-        * the server.
-        *
-        * [Api set: Mailbox 1.0]
-        *
-        * @remarks
-        *
-        * <table>
-        *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-        *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-        * </table>
-        *
-        * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-        *                 type Office.AsyncResult.
-        */
-       loadCustomPropertiesAsync(callback: (result: Office.AsyncResult<CustomProperties>) => void): void;
 
        /**
         * Removes the event handlers for a supported event type.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+        * `Office.EventType.RecurrenceChanged`.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -14435,13 +11636,14 @@ declare namespace Office {
         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
         *                asyncResult, which is an Office.AsyncResult object.
         */
-       removeHandlerAsync(eventType: Office.EventType, options?: any, callback?: (result: Office.AsyncResult<void>) => void): void;
+       removeHandlerAsync(eventType: Office.EventType, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
 
        /**
         * Removes the event handlers for a supported event type.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+        * `Office.EventType.RecurrenceChanged`.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -14456,26 +11658,7 @@ declare namespace Office {
         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
         *                asyncResult, which is an Office.AsyncResult object.
         */
-       removeHandlerAsync(eventType: Office.EventType, callback?: (result: Office.AsyncResult<void>) => void): void;
-
-       /**
-        * Removes the event handlers for a supported event type.
-        * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
-        * 
-        * [Api set: Mailbox 1.7]
-        *
-        * @remarks
-        *
-        * <table>
-        *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-        *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-        * </table>
-        * 
-        * @param eventType - The event that should revoke the handler.
-        */
-       removeHandlerAsync(eventType: Office.EventType): void;
+       removeHandlerAsync(eventType: Office.EventType, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * The compose mode of {@link Office.Item | Office.context.mailbox.item}.
@@ -14502,6 +11685,7 @@ declare namespace Office {
          * </table>
          */
         subject: Subject;
+
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -14526,12 +11710,12 @@ declare namespace Office {
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          *        isInline: If true, indicates that the attachment will be shown inline in the message body, and should not be displayed in the 
          *        attachment list.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                 If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of 
          *                 the error.
          */
-        addFileAttachmentAsync(uri: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentAsync(uri: string, attachmentName: string, options?: Office.AsyncContextOptions & { isInline: boolean }, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -14552,34 +11736,12 @@ declare namespace Office {
          *
          * @param uri - The URI that provides the location of the file to attach to the message or appointment. The maximum length is 2048 characters.
          * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         */
-        addFileAttachmentAsync(uri: string, attachmentName: string): void;
-        /**
-         * Adds a file to a message or appointment as an attachment.
-         *
-         * The addFileAttachmentAsync method uploads the file at the specified URI and attaches it to the item in the compose form.
-         *
-         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr>
-         *   <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
-         *   <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
-         * </table>
-         *
-         * @param uri - The URI that provides the location of the file to attach to the message or appointment. The maximum length is 2048 characters.
-         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                 If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of 
          *                 the error.
          */
-        addFileAttachmentAsync(uri: string, attachmentName: string, callback: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentAsync(uri: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
 
         /**
          * Adds a file to a message or appointment as an attachment.
@@ -14604,13 +11766,13 @@ declare namespace Office {
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                  On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                  If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          * 
          * @beta
          */
-        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions & { isInline: boolean }, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -14631,37 +11793,13 @@ declare namespace Office {
          * 
          * @param base64File - The base64 encoded content of an image or file to be added to an email or event.
          * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                  On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                  If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          * 
          * @beta
          */
-        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (result: Office.AsyncResult<string>) => void): void;
-        /**
-         * Adds a file to a message or appointment as an attachment.
-         *
-         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
-         *
-         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr>
-         *   <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
-         *   <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
-         * </table>
-         * 
-         * @param base64File - The base64 encoded content of an image or file to be added to an email or event.
-         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         * 
-         * @beta
-         */
-        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string): void;
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
 
         /**
          * Adds an Exchange item, such as a message, as an attachment to the message or appointment.
@@ -14687,14 +11825,14 @@ declare namespace Office {
          * 
          * @param itemId - The Exchange identifier of the item to attach. The maximum length is 100 characters.
          * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         * @param options - An object literal that contains one or more of the following properties.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                 If adding the attachment fails, the asyncResult object will contain an Error object that provides a description of 
          *                 the error.
          */
-        addItemAttachmentAsync(itemId: any, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addItemAttachmentAsync(itemId: any, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds an Exchange item, such as a message, as an attachment to the message or appointment.
          *
@@ -14719,38 +11857,12 @@ declare namespace Office {
          *
          * @param itemId - The Exchange identifier of the item to attach. The maximum length is 100 characters.
          * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         */
-        addItemAttachmentAsync(itemId: any, attachmentName: string): void;
-        /**
-         * Adds an Exchange item, such as a message, as an attachment to the message or appointment.
-         *
-         * The addItemAttachmentAsync method attaches the item with the specified Exchange identifier to the item in the compose form. 
-         * If you specify a callback method, the method is called with one parameter, asyncResult, which contains either the attachment identifier or 
-         * a code that indicates any error that occurred while attaching the item. You can use the options parameter to pass state information to the 
-         * callback method, if needed.
-         *
-         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
-         *
-         * If your Office add-in is running in Outlook Web App, the addItemAttachmentAsync method can attach items to items other than the item that 
-         * you are editing; however, this is not supported and is not recommended.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
-         * </table>
-         *
-         * @param itemId - The Exchange identifier of the item to attach. The maximum length is 100 characters.
-         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                 If adding the attachment fails, the asyncResult object will contain an Error object that provides a description of 
          *                 the error.
          */
-        addItemAttachmentAsync(itemId: any, attachmentName: string, callback: (result: Office.AsyncResult<string>) => void): void;
+        addItemAttachmentAsync(itemId: any, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
 
         /**
          * Closes the current item that is being composed
@@ -14793,7 +11905,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
         /**
          * Gets the item's attachments as an array.
          * 
@@ -14812,22 +11924,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        getAttachmentsAsync(callback?: (result: Office.AsyncResult<AttachmentDetails[]>) => void): void;
-        /**
-         * Gets the item's attachments as an array.
-         * 
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         * </table>
-         * 
-         * @beta
-         */
-        getAttachmentsAsync(): void;
+        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
@@ -14854,7 +11951,7 @@ declare namespace Office {
          *
          * @beta
          */
-        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
@@ -14879,26 +11976,7 @@ declare namespace Office {
          *
          * @beta
          */
-        getInitializationContextAsync(callback?: (result: Office.AsyncResult<string>) => void): void;
-        /**
-         * Gets initialization data passed when the add-in is activated by an actionable message.
-         *
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
-         * 
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         * </table>
-         *
-         * More information on {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | actionable messages}.
-         *
-         * @beta
-         */
-        getInitializationContextAsync(): void;
+        getInitializationContextAsync(callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
@@ -14927,7 +12005,7 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        getSelectedDataAsync(coercionType: Office.CoercionType, options: Office.AsyncContextOptions, callback: (result: Office.AsyncResult<any>) => void): void;
+        getSelectedDataAsync(coercionType: Office.CoercionType, options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<any>) => void): void;
         /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
@@ -14954,7 +12032,7 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        getSelectedDataAsync(coercionType: Office.CoercionType, callback: (result: Office.AsyncResult<any>) => void): void;
+        getSelectedDataAsync(coercionType: Office.CoercionType, callback: (asyncResult: Office.AsyncResult<any>) => void): void;
         /**
          * Removes an attachment from a message or appointment.
          *
@@ -14981,53 +12059,7 @@ declare namespace Office {
          *                 type Office.AsyncResult. 
          *                 If removing the attachment fails, the asyncResult.error property will contain an error code with the reason for the failure.
          */
-        removeAttachmentAsync(attachmentId: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Removes an attachment from a message or appointment.
-         *
-         * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
-         * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
-         * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
-         * continue in a separate window.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         *
-         * @param attachmentId - The identifier of the attachment to remove.
-         */
-        removeAttachmentAsync(attachmentId: string): void;
-        /**
-         * Removes an attachment from a message or appointment.
-         *
-         * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
-         * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
-         * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
-         * continue in a separate window.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         *
-         * @param attachmentId - The identifier of the attachment to remove.
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         */
-        removeAttachmentAsync(attachmentId: string, options: Office.AsyncContextOptions): void;
+        removeAttachmentAsync(attachmentId: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Removes an attachment from a message or appointment.
          *
@@ -15052,7 +12084,7 @@ declare namespace Office {
          *                 type Office.AsyncResult. 
          *                 If removing the attachment fails, the asyncResult.error property will contain an error code with the reason for the failure.
          */
-        removeAttachmentAsync(attachmentId: string, callback: (result: Office.AsyncResult<void>) => void): void;
+        removeAttachmentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
 
         /**
          * Asynchronously saves an item.
@@ -15085,13 +12117,13 @@ declare namespace Office {
          *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
          * </table>
          * 
-         * @param options - Optional. An object literal that contains one or more of the following properties.
+         * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. 
          *                 If removing the attachment fails, the asyncResult.error property will contain an error code with the reason for the failure.
          */
-        saveAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
+        saveAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Asynchronously saves an item.
          *
@@ -15123,44 +12155,11 @@ declare namespace Office {
          *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
          * </table>
          *
-         */
-        saveAsync(): void;
-        /**
-         * Asynchronously saves an item.
-         *
-         * When invoked, this method saves the current message as a draft and returns the item id via the callback method. 
-         * In Outlook Web App or Outlook in online mode, the item is saved to the server. 
-         * In Outlook in cached mode, the item is saved to the local cache.
-         *
-         * Since appointments have no draft state, if saveAsync is called on an appointment in compose mode, the item will be saved as a normal 
-         * appointment on the user's calendar. For new appointments that have not been saved before, no invitation will be sent. 
-         * Saving an existing appointment will send an update to added or removed attendees.
-         *
-         * **Note**: If your add-in calls saveAsync on an item in compose mode in order to get an itemId to use with EWS or the REST API, be aware that 
-         * when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
-         * Until the item is synced, using the itemId will return an error.
-         *
-         * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
-         *
-         * - Mac Outlook does not support saveAsync on a meeting in compose mode. Calling saveAsync on a meeting in Mac Outlook will return an error.
-         *
-         * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         *
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. 
          *                 If removing the attachment fails, the asyncResult.error property will contain an error code with the reason for the failure.
          */
-        saveAsync(callback: (result: Office.AsyncResult<void>) => void): void;
+        saveAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Asynchronously inserts data into the body or subject of a message.
          *
@@ -15192,28 +12191,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. 
          */
-        setSelectedDataAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Asynchronously inserts data into the body or subject of a message.
-         *
-         * The setSelectedDataAsync method inserts the specified string at the cursor location in the subject or body of the item, or, if text is 
-         * selected in the editor, it replaces the selected text. If the cursor is not in the body or subject field, an error is returned. 
-         * After insertion, the cursor is placed at the end of the inserted content.
-         *
-         * [Api set: Mailbox 1.2]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         *
-         * @param data - The data to be inserted. Data is not to exceed 1,000,000 characters. 
-         *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
-         */
-        setSelectedDataAsync(data: string): void;
+        setSelectedDataAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Asynchronously inserts data into the body or subject of a message.
          *
@@ -15236,7 +12214,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. 
          */
-        setSelectedDataAsync(data: string, callback: (result: Office.AsyncResult<void>) => void): void;
+        setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * The read mode of {@link Office.Item | Office.context.mailbox.item}.
@@ -15383,33 +12361,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        displayReplyAllForm(formData: string | ReplyFormData, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Displays a reply form that includes the sender and all recipients of the selected message or the organizer and all attendees of the 
-         * selected appointment.
-         *
-         * In Outlook Web App, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
-         *
-         * If any of the string parameters exceed their limits, displayReplyAllForm throws an exception.
-         *
-         * When attachments are specified in the formData.attachments parameter, Outlook and Outlook Web App attempt to download all attachments and 
-         * attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI. 
-         * If this isn't possible, then no error message is thrown.
-         *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Read</td></tr>
-         * </table>
-         *
-         * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-         *                   OR an {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
-         */
-        displayReplyAllForm(formData: string | ReplyFormData): void;
+        displayReplyAllForm(formData: string | ReplyFormData, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
          *
@@ -15437,33 +12389,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        displayReplyForm(formData: string | ReplyFormData, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
-         *
-         * In Outlook Web App, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
-         *
-         * If any of the string parameters exceed their limits, displayReplyForm throws an exception.
-         *
-         * When attachments are specified in the formData.attachments parameter, Outlook and Outlook Web App attempt to download all attachments and 
-         * attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI. 
-         * If this isn't possible, then no error message is thrown.
-         *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Read</td></tr>
-         * </table>
-         *
-         * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-         *                   OR an {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
-         */
-        displayReplyForm(formData: string | ReplyFormData): void;
+        displayReplyForm(formData: string | ReplyFormData, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
@@ -15489,7 +12415,7 @@ declare namespace Office {
          *
          * @beta
          */
-        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
@@ -15513,25 +12439,7 @@ declare namespace Office {
          *
          * @beta
          */
-        getInitializationContextAsync(callback?: (result: Office.AsyncResult<string>) => void): void;
-        /**
-         * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
-         * 
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
-         * for Office 365.
-         * 
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Read</td></tr>
-         * </table>
-         * 
-         * @beta
-         */
-        getInitializationContextAsync(): void;
+        getInitializationContextAsync(callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets the entities found in the selected item's body.
          *
@@ -15989,12 +12897,12 @@ declare namespace Office {
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          *        isInline: If true, indicates that the attachment will be shown inline in the message body, and should not be displayed in the 
          *        attachment list.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                 If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of 
          *                 the error.
          */
-        addFileAttachmentAsync(uri: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentAsync(uri: string, attachmentName: string, options?: Office.AsyncContextOptions & { isInline: boolean }, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -16015,34 +12923,12 @@ declare namespace Office {
          *
          * @param uri - The URI that provides the location of the file to attach to the message or appointment. The maximum length is 2048 characters.
          * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         */
-        addFileAttachmentAsync(uri: string, attachmentName: string): void;
-        /**
-         * Adds a file to a message or appointment as an attachment.
-         *
-         * The addFileAttachmentAsync method uploads the file at the specified URI and attaches it to the item in the compose form.
-         *
-         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         *   <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr>
-         *   <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
-         *   <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
-         * </table>
-         *
-         * @param uri - The URI that provides the location of the file to attach to the message or appointment. The maximum length is 2048 characters.
-         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                 If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of 
          *                 the error.
          */
-        addFileAttachmentAsync(uri: string, attachmentName: string, callback: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentAsync(uri: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -16066,13 +12952,13 @@ declare namespace Office {
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                  On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                  If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          * 
          * @beta
          */
-        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions & { isInline: boolean }, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -16093,18 +12979,19 @@ declare namespace Office {
          * 
          * @param base64File - The base64 encoded content of an image or file to be added to an email or event.
          * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          *                  On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                  If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          * 
          * @beta
          */
-        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -16123,12 +13010,13 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, options?: any, callback?: (result: Office.AsyncResult<void>) => void): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -16145,27 +13033,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds an event handler for a supported event.
-         * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
-         * 
-         * [Api set: Mailbox 1.7]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         * </table>
-         * 
-         * @param eventType - The event that should invoke the handler.
-         * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal. 
-         *                The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
-         */
-        addHandlerAsync(eventType: Office.EventType, handler: any): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds an Exchange item, such as a message, as an attachment to the message or appointment.
          *
@@ -16190,14 +13058,14 @@ declare namespace Office {
          * 
          * @param itemId - The Exchange identifier of the item to attach. The maximum length is 100 characters.
          * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         * @param options - An object literal that contains one or more of the following properties.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                 If adding the attachment fails, the asyncResult object will contain an Error object that provides a description of 
          *                 the error.
          */
-        addItemAttachmentAsync(itemId: any, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addItemAttachmentAsync(itemId: any, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Adds an Exchange item, such as a message, as an attachment to the message or appointment.
          *
@@ -16222,38 +13090,12 @@ declare namespace Office {
          *
          * @param itemId - The Exchange identifier of the item to attach. The maximum length is 100 characters.
          * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         */
-        addItemAttachmentAsync(itemId: any, attachmentName: string): void;
-        /**
-         * Adds an Exchange item, such as a message, as an attachment to the message or appointment.
-         *
-         * The addItemAttachmentAsync method attaches the item with the specified Exchange identifier to the item in the compose form. 
-         * If you specify a callback method, the method is called with one parameter, asyncResult, which contains either the attachment identifier or 
-         * a code that indicates any error that occurred while attaching the item. 
-         * You can use the options parameter to pass state information to the callback method, if needed.
-         *
-         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
-         *
-         * If your Office add-in is running in Outlook Web App, the addItemAttachmentAsync method can attach items to items other than the item that 
-         * you are editing; however, this is not supported and is not recommended.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         *   <tr><td>Errors</td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
-         * </table>
-         *
-         * @param itemId - The Exchange identifier of the item to attach. The maximum length is 100 characters.
-         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                 If adding the attachment fails, the asyncResult object will contain an Error object that provides a description of 
          *                 the error.
          */
-        addItemAttachmentAsync(itemId: any, attachmentName: string, callback: (result: Office.AsyncResult<string>) => void): void;
+        addItemAttachmentAsync(itemId: any, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Closes the current item that is being composed
          *
@@ -16295,7 +13137,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
         /**
          * Gets the item's attachments as an array.
          * 
@@ -16314,22 +13156,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        getAttachmentsAsync(callback?: (result: Office.AsyncResult<AttachmentDetails[]>) => void): void;
-        /**
-         * Gets the item's attachments as an array.
-         * 
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         * </table>
-         * 
-         * @beta
-         */
-        getAttachmentsAsync(): void;
+        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
@@ -16357,7 +13184,7 @@ declare namespace Office {
          *
          * @beta
          */
-        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
@@ -16383,27 +13210,7 @@ declare namespace Office {
          *
          * @beta
          */
-        getInitializationContextAsync(callback?: (result: Office.AsyncResult<string>) => void): void;
-        /**
-         * Gets initialization data passed when the add-in is activated by an actionable message.
-         *
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
-         * for Office 365.
-         * 
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         * </table>
-         *
-         * More information on {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | actionable messages}.
-         *
-         * @beta
-         */
-        getInitializationContextAsync(): void;
+        getInitializationContextAsync(callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
@@ -16432,7 +13239,7 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        getSelectedDataAsync(coercionType: Office.CoercionType, options: Office.AsyncContextOptions, callback: (result: Office.AsyncResult<any>) => void): void;
+        getSelectedDataAsync(coercionType: Office.CoercionType, options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<any>) => void): void;
         /**
          * Asynchronously returns selected data from the subject or body of a message.
          *
@@ -16459,7 +13266,7 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        getSelectedDataAsync(coercionType: Office.CoercionType, callback: (result: Office.AsyncResult<any>) => void): void;
+        getSelectedDataAsync(coercionType: Office.CoercionType, callback: (asyncResult: Office.AsyncResult<any>) => void): void;
         /**
          * Asynchronously loads custom properties for this add-in on the selected item.
          *
@@ -16485,271 +13292,175 @@ declare namespace Office {
          * @param userContext - Optional. Developers can provide any object they wish to access in the callback function. 
          *                    This object can be accessed by the asyncResult.asyncContext property in the callback function.
          */
-        loadCustomPropertiesAsync(callback: (result: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
+        loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
         /**
-         * Asynchronously loads custom properties for this add-in on the selected item.
+         * Removes an attachment from a message or appointment.
          *
-         * Custom properties are stored as key/value pairs on a per-app, per-item basis. 
-         * This method returns a CustomProperties object in the callback, which provides methods to access the custom properties specific to the 
-         * current item and the current add-in. Custom properties are not encrypted on the item, so this should not be used as secure storage.
+         * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
+         * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
+         * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
-         * The custom properties are provided as a CustomProperties object in the asyncResult.value property. 
-         * This object can be used to get, set, and remove custom properties from the item and save changes to the custom property set back to 
-         * the server.
+         * [Api set: Mailbox 1.1]
          *
-         * [Api set: Mailbox 1.0]
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
+         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
+         * </table>
+         * 
+         * @param attachmentId - The identifier of the attachment to remove.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. 
+         *                 If removing the attachment fails, the asyncResult.error property will contain an error code with the reason for the failure.
+         */
+        removeAttachmentAsync(attachmentId: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Removes an attachment from a message or appointment.
+         *
+         * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
+         * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
+         * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
+         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
+         * </table>
+         *
+         * @param attachmentId - The identifier of the attachment to remove.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. 
+         *                 If removing the attachment fails, the asyncResult.error property will contain an error code with the reason for the failure.
+         */
+        removeAttachmentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Removes the event handlers for a supported event type.
+         * 
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * 
+         * [Api set: Mailbox 1.7]
          *
          * @remarks
          *
          * <table>
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
+         * </table>
+         * 
+         * @param eventType - The event that should revoke the handler.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         */
+        removeHandlerAsync(eventType: Office.EventType, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Removes the event handlers for a supported event type.
+         * 
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * 
+         * [Api set: Mailbox 1.7]
+         *
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
+         * </table>
+         * 
+         * @param eventType - The event that should revoke the handler.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         */
+        removeHandlerAsync(eventType: Office.EventType, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Asynchronously saves an item.
+         *
+         * When invoked, this method saves the current message as a draft and returns the item id via the callback method. 
+         * In Outlook Web App or Outlook in online mode, the item is saved to the server. 
+         * In Outlook in cached mode, the item is saved to the local cache.
+         *
+         * Since appointments have no draft state, if saveAsync is called on an appointment in compose mode, the item will be saved as a normal 
+         * appointment on the user's calendar. For new appointments that have not been saved before, no invitation will be sent. 
+         * Saving an existing appointment will send an update to added or removed attendees.
+         *
+         * **Note**: If your add-in calls saveAsync on an item in compose mode in order to get an itemId to use with EWS or the REST API, be aware that 
+         * when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
+         * Until the item is synced, using the itemId will return an error.
+         *
+         * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
+         *
+         * - Mac Outlook does not support saveAsync on a meeting in compose mode. Calling saveAsync on a meeting in Mac Outlook will return an error.
+         *
+         * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
+         *
+         * [Api set: Mailbox 1.3]
+         *
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
+         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
+         * </table>
+         * 
+         * @param options - An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. 
+         */
+        saveAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
+        /**
+         * Asynchronously saves an item.
+         *
+         * When invoked, this method saves the current message as a draft and returns the item id via the callback method. 
+         * In Outlook Web App or Outlook in online mode, the item is saved to the server. 
+         * In Outlook in cached mode, the item is saved to the local cache.
+         *
+         * Since appointments have no draft state, if saveAsync is called on an appointment in compose mode, the item will be saved as a normal 
+         * appointment on the user's calendar. For new appointments that have not been saved before, no invitation will be sent. 
+         * Saving an existing appointment will send an update to added or removed attendees.
+         *
+         * **Note**: If your add-in calls saveAsync on an item in compose mode in order to get an itemId to use with EWS or the REST API, be aware that 
+         * when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
+         * Until the item is synced, using the itemId will return an error.
+         *
+         * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
+         *
+         * - Mac Outlook does not support saveAsync on a meeting in compose mode. Calling saveAsync on a meeting in Mac Outlook will return an error.
+         *
+         * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
+         *
+         * [Api set: Mailbox 1.3]
+         *
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
+         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
          * </table>
          *
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         */
-        loadCustomPropertiesAsync(callback: (result: Office.AsyncResult<CustomProperties>) => void): void;
-        /**
-         * Removes an attachment from a message or appointment.
-         *
-         * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
-         * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
-         * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
-         * continue in a separate window.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         * 
-         * @param attachmentId - The identifier of the attachment to remove.
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. 
-         *                 If removing the attachment fails, the asyncResult.error property will contain an error code with the reason for the failure.
-         */
-        removeAttachmentAsync(attachmentId: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Removes an attachment from a message or appointment.
-         *
-         * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
-         * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
-         * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
-         * continue in a separate window.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         *
-         * @param attachmentId - The identifier of the attachment to remove.
-         */
-        removeAttachmentAsync(attachmentId: string): void;
-        /**
-         * Removes an attachment from a message or appointment.
-         *
-         * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
-         * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
-         * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
-         * continue in a separate window.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         *
-         * @param attachmentId - The identifier of the attachment to remove.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. 
-         *                 If removing the attachment fails, the asyncResult.error property will contain an error code with the reason for the failure.
-         */
-        removeAttachmentAsync(attachmentId: string, callback: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Removes the event handlers for a supported event type.
-         * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
-         * 
-         * [Api set: Mailbox 1.7]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         * </table>
-         * 
-         * @param eventType - The event that should revoke the handler.
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object.
-         */
-        removeHandlerAsync(eventType: Office.EventType, options?: any, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Removes the event handlers for a supported event type.
-         * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
-         * 
-         * [Api set: Mailbox 1.7]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         * </table>
-         * 
-         * @param eventType - The event that should revoke the handler.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object.
-         */
-        removeHandlerAsync(eventType: Office.EventType, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Removes the event handlers for a supported event type.
-         * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
-         * 
-         * [Api set: Mailbox 1.7]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         * </table>
-         * 
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object.
-         */
-        removeHandlerAsync(eventType: Office.EventType): void;
-        /**
-         * Asynchronously saves an item.
-         *
-         * When invoked, this method saves the current message as a draft and returns the item id via the callback method. 
-         * In Outlook Web App or Outlook in online mode, the item is saved to the server. 
-         * In Outlook in cached mode, the item is saved to the local cache.
-         *
-         * Since appointments have no draft state, if saveAsync is called on an appointment in compose mode, the item will be saved as a normal 
-         * appointment on the user's calendar. For new appointments that have not been saved before, no invitation will be sent. 
-         * Saving an existing appointment will send an update to added or removed attendees.
-         *
-         * **Note**: If your add-in calls saveAsync on an item in compose mode in order to get an itemId to use with EWS or the REST API, be aware that 
-         * when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
-         * Until the item is synced, using the itemId will return an error.
-         *
-         * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
-         *
-         * - Mac Outlook does not support saveAsync on a meeting in compose mode. Calling saveAsync on a meeting in Mac Outlook will return an error.
-         *
-         * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         * 
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. 
          */
-        saveAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Asynchronously saves an item.
-         *
-         * When invoked, this method saves the current message as a draft and returns the item id via the callback method. 
-         * In Outlook Web App or Outlook in online mode, the item is saved to the server. 
-         * In Outlook in cached mode, the item is saved to the local cache.
-         *
-         * Since appointments have no draft state, if saveAsync is called on an appointment in compose mode, the item will be saved as a normal 
-         * appointment on the user's calendar. For new appointments that have not been saved before, no invitation will be sent. 
-         * Saving an existing appointment will send an update to added or removed attendees.
-         *
-         * **Note**: If your add-in calls saveAsync on an item in compose mode in order to get an itemId to use with EWS or the REST API, be aware that 
-         * when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
-         * Until the item is synced, using the itemId will return an error.
-         *
-         * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
-         *
-         * - Mac Outlook does not support saveAsync on a meeting in compose mode. Calling saveAsync on a meeting in Mac Outlook will return an error.
-         *
-         * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         *
-         */
-        saveAsync(): void;
-        /**
-         * Asynchronously saves an item.
-         *
-         * When invoked, this method saves the current message as a draft and returns the item id via the callback method. 
-         * In Outlook Web App or Outlook in online mode, the item is saved to the server. 
-         * In Outlook in cached mode, the item is saved to the local cache.
-         *
-         * Since appointments have no draft state, if saveAsync is called on an appointment in compose mode, the item will be saved as a normal 
-         * appointment on the user's calendar. For new appointments that have not been saved before, no invitation will be sent. 
-         * Saving an existing appointment will send an update to added or removed attendees.
-         *
-         * **Note**: If your add-in calls saveAsync on an item in compose mode in order to get an itemId to use with EWS or the REST API, be aware that 
-         * when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
-         * Until the item is synced, using the itemId will return an error.
-         *
-         * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
-         *
-         * - Mac Outlook does not support saveAsync on a meeting in compose mode. Calling saveAsync on a meeting in Mac Outlook will return an error.
-         *
-         * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         *
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. 
-         */
-        saveAsync(callback: (result: Office.AsyncResult<void>) => void): void;
+        saveAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Asynchronously inserts data into the body or subject of a message.
          *
@@ -16780,28 +13491,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        setSelectedDataAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Asynchronously inserts data into the body or subject of a message.
-         *
-         * The setSelectedDataAsync method inserts the specified string at the cursor location in the subject or body of the item, or, if text is 
-         * selected in the editor, it replaces the selected text. If the cursor is not in the body or subject field, an error is returned. 
-         * After insertion, the cursor is placed at the end of the inserted content.
-         *
-         * [Api set: Mailbox 1.2]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
-         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
-         * </table>
-         *
-         * @param data - The data to be inserted. Data is not to exceed 1,000,000 characters. 
-         *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
-         */
-        setSelectedDataAsync(data: string): void;
+        setSelectedDataAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Asynchronously inserts data into the body or subject of a message.
          *
@@ -16824,7 +13514,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        setSelectedDataAsync(data: string, callback: (result: Office.AsyncResult<void>) => void): void;
+        setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * The message read mode of {@link Office.Item | Office.context.mailbox.item}.
@@ -17190,7 +13880,8 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -17209,12 +13900,13 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, options?: any, callback?: (result: Office.AsyncResult<void>) => void): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -17231,27 +13923,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds an event handler for a supported event.
-         * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
-         * 
-         * [Api set: Mailbox 1.7]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr>
-         * </table>
-         * 
-         * @param eventType - The event that should invoke the handler.
-         * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal. 
-         *                The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
-         */
-        addHandlerAsync(eventType: Office.EventType, handler: any): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Displays a reply form that includes the sender and all recipients of the selected message or the organizer and all attendees of the 
          * selected appointment.
@@ -17279,33 +13951,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        displayReplyAllForm(formData: string | ReplyFormData, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Displays a reply form that includes the sender and all recipients of the selected message or the organizer and all attendees of the 
-         * selected appointment.
-         *
-         * In Outlook Web App, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
-         *
-         * If any of the string parameters exceed their limits, displayReplyAllForm throws an exception.
-         *
-         * When attachments are specified in the formData.attachments parameter, Outlook and Outlook Web App attempt to download all attachments and 
-         * attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI. 
-         * If this isn't possible, then no error message is thrown.
-         *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr>
-         * </table>
-         *
-         * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-         *                   OR an {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
-         */
-        displayReplyAllForm(formData: string | ReplyFormData): void;
+        displayReplyAllForm(formData: string | ReplyFormData, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
          *
@@ -17333,33 +13979,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        displayReplyForm(formData: string | ReplyFormData, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
-         *
-         * In Outlook Web App, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
-         *
-         * If any of the string parameters exceed their limits, displayReplyForm throws an exception.
-         *
-         * When attachments are specified in the formData.attachments parameter, Outlook and Outlook Web App attempt to download all attachments and 
-         * attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI. 
-         * If this isn't possible, then no error message is thrown.
-         *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr>
-         * </table>
-         *
-         * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
-         *                   OR an {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
-         */
-        displayReplyForm(formData: string | ReplyFormData): void;
+        displayReplyForm(formData: string | ReplyFormData, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets initialization data passed when the add-in is 
          * {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
@@ -17386,7 +14006,7 @@ declare namespace Office {
          *
          * @beta
          */
-        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets initialization data passed when the add-in is 
          * {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
@@ -17411,26 +14031,7 @@ declare namespace Office {
          *
          * @beta
          */
-        getInitializationContextAsync(callback?: (result: Office.AsyncResult<string>) => void): void;
-        /**
-         * Gets initialization data passed when the add-in is 
-         * {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
-         * 
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the 
-         * web for Office 365.
-         * 
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr>
-         * </table>
-         * 
-         * @beta
-         */
-        getInitializationContextAsync(): void;
+        getInitializationContextAsync(callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets the entities found in the selected item's body.
          *
@@ -17668,36 +14269,13 @@ declare namespace Office {
          * @param userContext - Optional. Developers can provide any object they wish to access in the callback function. 
          *                    This object can be accessed by the asyncResult.asyncContext property in the callback function.
          */
-        loadCustomPropertiesAsync(callback: (result: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
-        /**
-         * Asynchronously loads custom properties for this add-in on the selected item.
-         *
-         * Custom properties are stored as key/value pairs on a per-app, per-item basis. 
-         * This method returns a CustomProperties object in the callback, which provides methods to access the custom properties specific to the 
-         * current item and the current add-in. Custom properties are not encrypted on the item, so this should not be used as secure storage.
-         *
-         * The custom properties are provided as a CustomProperties object in the asyncResult.value property. 
-         * This object can be used to get, set, and remove custom properties from the item and save changes to the custom property set back to 
-         * the server.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr>
-         * </table>
-         *
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         */
-        loadCustomPropertiesAsync(callback: (result: Office.AsyncResult<CustomProperties>) => void): void;
+        loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
         /**
          * Removes the event handlers for a supported event type.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -17714,12 +14292,13 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        removeHandlerAsync(eventType: Office.EventType, options?: any, callback?: (result: Office.AsyncResult<void>) => void): void;
+        removeHandlerAsync(eventType: Office.EventType, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Removes the event handlers for a supported event type.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -17734,25 +14313,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        removeHandlerAsync(eventType: Office.EventType, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Removes the event handlers for a supported event type.
-         * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
-         * 
-         * [Api set: Mailbox 1.7]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr>
-         * </table>
-         * 
-         * @param eventType - The event that should revoke the handler.
-         */
-        removeHandlerAsync(eventType: Office.EventType): void;
+        removeHandlerAsync(eventType: Office.EventType, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
 
     /**
@@ -17819,9 +14380,9 @@ declare namespace Office {
          * The getAsync method starts an asynchronous call to the Exchange server to get the location of an appointment. 
          * The location of the appointment is provided as a string in the asyncResult.value property.
          *
-         * @param options - Optional. An object literal that contains one or more of the following properties.
+         * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          *
          * [Api set: Mailbox 1.1]
@@ -17832,14 +14393,14 @@ declare namespace Office {
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
          * </table>
          */
-        getAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets the location of an appointment.
          *
          * The getAsync method starts an asynchronous call to the Exchange server to get the location of an appointment. 
          * The location of the appointment is provided as a string in the asyncResult.value property.
          *
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          *
          * [Api set: Mailbox 1.1]
@@ -17850,22 +14411,7 @@ declare namespace Office {
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
          * </table>
          */
-        getAsync(callback: (result: Office.AsyncResult<string>) => void): void;
-        /**
-         * Gets the location of an appointment.
-         *
-         * The getAsync method starts an asynchronous call to the Exchange server to get the location of an appointment. 
-         * The location of the appointment is provided as a string in the asyncResult.value property.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         * </table>
-         */
-        getAsync(): void;
+        getAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Sets the location of an appointment.
          *
@@ -17887,25 +14433,7 @@ declare namespace Office {
          *   <tr><td>Errors</td><td>DataExceedsMaximumSize - The location parameter is longer than 255 characters.</td></tr>
          * </table>
          */
-        setAsync(location: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Sets the location of an appointment.
-         *
-         * The setAsync method starts an asynchronous call to the Exchange server to set the location of an appointment. 
-         * Setting the location of an appointment overwrites the current location.
-         *
-         * @param location - The location of the appointment. The string is limited to 255 characters.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>DataExceedsMaximumSize - The location parameter is longer than 255 characters.</td></tr>
-         * </table>
-         */
-        setAsync(location: string): void;
+        setAsync(location: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Sets the location of an appointment.
          *
@@ -17925,7 +14453,7 @@ declare namespace Office {
          *   <tr><td>Errors</td><td>DataExceedsMaximumSize - The location parameter is longer than 255 characters.</td></tr>
          * </table>
          */
-        setAsync(location: string, callback: (result: Office.AsyncResult<void>) => void): void;
+        setAsync(location: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * Provides access to the Outlook Add-in object model for Microsoft Outlook and Microsoft Outlook on the web.
@@ -18033,7 +14561,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          *
-         * Currently, the only supported event type is `Office.EventType.ItemChanged`. In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
+         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -18051,11 +14580,12 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: (type: Office.EventType) => void, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
+        addHandlerAsync(eventType: Office.EventType, handler: (type: Office.EventType) => void, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds an event handler for a supported event.
          *
-         * Currently, the only supported event type is `Office.EventType.ItemChanged`. In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
+         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -18072,26 +14602,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: (type: Office.EventType) => void, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds an event handler for a supported event.
-         *
-         * Currently, the only supported event type is `Office.EventType.ItemChanged`. In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
-         *
-         * [Api set: Mailbox 1.5]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         *
-         * @param eventType - The event that should invoke the handler.
-         * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal. 
-         *                The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
-         */
-        addHandlerAsync(eventType: Office.EventType, handler: (type: Office.EventType) => void): void;
+        addHandlerAsync(eventType: Office.EventType, handler: (type: Office.EventType) => void, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Converts an item ID formatted for REST into EWS format.
          *
@@ -18353,36 +14864,7 @@ declare namespace Office {
          *                 type Office.AsyncResult. The token is provided as a string in the `asyncResult.value` property.
          *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          */
-        getCallbackTokenAsync(options: Office.AsyncContextOptions & { isRest?: boolean }, callback: (result: Office.AsyncResult<string>) => void): void;
-        /**
-         * Gets a string that contains a token used to get an attachment or item from an Exchange Server.
-         *
-         * The getCallbackTokenAsync method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
-         * The lifetime of the callback token is 5 minutes.
-         *
-         * You can pass the token and an attachment identifier or item identifier to a third-party system. 
-         * The third-party system uses the token as a bearer authorization token to call the Exchange Web Services (EWS) GetAttachment or 
-         * GetItem operation to return an attachment or item. For example, you can create a remote service to get attachments from the selected item.
-         *
-         * Your app must have the ReadItem permission specified in its manifest to call the getCallbackTokenAsync method in read mode.
-         *
-         * In compose mode you must call the saveAsync method to get an item identifier to pass to the getCallbackTokenAsync method. 
-         * Your app must have ReadWriteItem permissions to call the saveAsync method.
-         *
-         * [Api set: Mailbox 1.5]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         *
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
-         *                 The token is provided as a string in the `asyncResult.value` property.
-         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
-         */
-        getCallbackTokenAsync(callback: (result: Office.AsyncResult<string>) => void): void;
+        getCallbackTokenAsync(options: Office.AsyncContextOptions & { isRest?: boolean }, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets a string that contains a token used to get an attachment or item from an Exchange Server.
          *
@@ -18412,7 +14894,7 @@ declare namespace Office {
          *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          * @param userContext - Optional. Any state data that is passed to the asynchronous method.
          */
-        getCallbackTokenAsync(callback: (result: Office.AsyncResult<string>) => void, userContext?: any): void;
+        getCallbackTokenAsync(callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
         /**
          * Gets a token identifying the user and the Office Add-in.
          *
@@ -18436,30 +14918,7 @@ declare namespace Office {
          *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          * @param userContext - Optional. Any state data that is passed to the asynchronous method.|
          */
-        getUserIdentityTokenAsync(callback: (result: Office.AsyncResult<string>) => void, userContext?: any): void;
-        /**
-         * Gets a token identifying the user and the Office Add-in.
-         *
-         * The token is provided as a string in the asyncResult.value property.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         *
-         * The getUserIdentityTokenAsync method returns a token that you can use to identify and 
-         * {@link https://docs.microsoft.com/outlook/add-ins/authentication | authenticate the add-in and user with a third-party system}.
-         *
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         *                 The token is provided as a string in the `asyncResult.value` property.
-         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
-         */
-        getUserIdentityTokenAsync(callback: (result: Office.AsyncResult<string>) => void): void;
+        getUserIdentityTokenAsync(callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
         /**
          * Makes an asynchronous request to an Exchange Web Services (EWS) service on the Exchange server that hosts the user's mailbox.
          *
@@ -18513,64 +14972,12 @@ declare namespace Office {
          *                 If the result exceeds 1 MB in size, an error message is returned instead.
          * @param userContext - Optional. Any state data that is passed to the asynchronous method.
          */
-        makeEwsRequestAsync(data: any, callback: (result: Office.AsyncResult<string>) => void, userContext?: any): void;
-        /**
-         * Makes an asynchronous request to an Exchange Web Services (EWS) service on the Exchange server that hosts the user's mailbox.
-         *
-         * In these cases, add-ins should use REST APIs to access the user's mailbox instead.
-         *
-         * The makeEwsRequestAsync method sends an EWS request on behalf of the add-in to Exchange.
-         *
-         * You cannot request Folder Associated Items with the makeEwsRequestAsync method.
-         *
-         * The XML request must specify UTF-8 encoding. \<?xml version="1.0" encoding="utf-8"?\>
-         *
-         * Your add-in must have the ReadWriteMailbox permission to use the makeEwsRequestAsync method. 
-         * For information about using the ReadWriteMailbox permission and the EWS operations that you can call with the makeEwsRequestAsync method, 
-         * see {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Specify permissions for mail add-in access to the user's mailbox}.
-         *
-         * The XML result of the EWS call is provided as a string in the asyncResult.value property. 
-         * If the result exceeds 1 MB in size, an error message is returned instead.
-         *
-         * **Note**: This method is not supported in the following scenarios:
-         * 
-         * - In Outlook for iOS or Outlook for Android.
-         * 
-         * - When the add-in is loaded in a Gmail mailbox.
-         *
-         * **Note**: The server administrator must set OAuthAuthentication to true on the Client Access Server EWS directory to enable the 
-         * makeEwsRequestAsync method to make EWS requests.
-         *
-         * *Version differences*
-         *
-         * When you use the makeEwsRequestAsync method in mail apps running in Outlook versions earlier than version 15.0.4535.1004, you should set 
-         * the encoding value to ISO-8859-1.
-         *
-         * `<?xml version="1.0" encoding="iso-8859-1"?>`
-         *
-         * You do not need to set the encoding value when your mail app is running in Outlook on the web. 
-         * You can determine whether your mail app is running in Outlook or Outlook on the web by using the mailbox.diagnostics.hostName property. 
-         * You can determine what version of Outlook is running by using the mailbox.diagnostics.hostVersion property.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteMailbox</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         *
-         * @param data - The EWS request.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
-         *                 The `value` property of the result is the XML of the EWS request provided as a string. 
-         *                 If the result exceeds 1 MB in size, an error message is returned instead.
-         */
-        makeEwsRequestAsync(data: any, callback: (result: Office.AsyncResult<string>) => void): void;
+        makeEwsRequestAsync(data: any, callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
         /**
          * Removes the event handlers for a supported event type.
          *
-         * Currently, the only supported event type is `Office.EventType.ItemChanged`. In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
+         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -18586,11 +14993,12 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        removeHandlerAsync(eventType: Office.EventType, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
+        removeHandlerAsync(eventType: Office.EventType, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Removes the event handlers for a supported event type.
          *
-         * Currently, the only supported event type is `Office.EventType.ItemChanged`. In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
+         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -18605,24 +15013,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        removeHandlerAsync(eventType: Office.EventType, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Removes the event handlers for a supported event type.
-         *
-         * Currently, the only supported event type is `Office.EventType.ItemChanged`. In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
-         *
-         * [Api set: Mailbox 1.5]
-         *
-         * @remarks
-         *
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         *
-         * @param eventType - The event that should revoke the handler.
-         */
-        removeHandlerAsync(eventType: Office.EventType): void;
+        removeHandlerAsync(eventType: Office.EventType, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
 
     /**
@@ -18744,26 +15135,7 @@ declare namespace Office {
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
          * </table>
          */
-        addAsync(key: string, JSONmessage: NotificationMessageDetails, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds a notification to an item.
-         *
-         * There are a maximum of 5 notifications per message. Setting more will return a NumberOfNotificationMessagesExceeded error.
-         *
-         * @param key - A developer-specified key used to reference this notification message. Developers can use it to modify this message later. 
-         *             It can't be longer than 32 characters.
-         * @param JSONmessage - A JSON object that contains the notification message to be added to the item. 
-         *                    It contains a NotificationMessageDetails object.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         */
-        addAsync(key: string, JSONmessage: NotificationMessageDetails): void;
+        addAsync(key: string, JSONmessage: NotificationMessageDetails, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds a notification to an item.
          *
@@ -18784,7 +15156,7 @@ declare namespace Office {
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
          * </table>
          */
-        addAsync(key: string, JSONmessage: NotificationMessageDetails, callback: (result: Office.AsyncResult<void>) => void): void;
+        addAsync(key: string, JSONmessage: NotificationMessageDetails, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Returns all keys and messages for an item.
          *
@@ -18801,7 +15173,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                 The `value` property of the result is an array of NotificationMessageDetails objects.
          */
-        getAllAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<NotificationMessageDetails[]>) => void): void;
+        getAllAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<NotificationMessageDetails[]>) => void): void;
         /**
          * Returns all keys and messages for an item.
          *
@@ -18816,19 +15188,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                 The `value` property of the result is an array of NotificationMessageDetails objects.
          */
-        getAllAsync(callback: (result: Office.AsyncResult<NotificationMessageDetails[]>) => void): void;
-        /**
-         * Returns all keys and messages for an item.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         */
-        getAllAsync(): void;
+        getAllAsync(callback?: (asyncResult: Office.AsyncResult<NotificationMessageDetails[]>) => void): void;
         /**
          * Removes a notification message for an item.
          *
@@ -18841,24 +15201,12 @@ declare namespace Office {
          * </table>
          * 
          * @param key - The key for the notification message to remove.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        removeAsync(key: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Removes a notification message for an item.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         *
-         * @param key - The key for the notification message to remove.
-         */
-        removeAsync(key: string): void;
+        removeAsync(key: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Removes a notification message for an item.
          *
@@ -18874,7 +15222,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        removeAsync(key: string, callback: (result: Office.AsyncResult<void>) => void): void;
+        removeAsync(key: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Replaces a notification message that has a given key with another message.
          *
@@ -18896,25 +15244,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        replaceAsync(key: string, JSONmessage: NotificationMessageDetails, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Replaces a notification message that has a given key with another message.
-         *
-         * If a notification message with the specified key doesn't exist, replaceAsync will add the notification.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         *
-         * @param key - The key for the notification message to replace. It can't be longer than 32 characters.
-         * @param JSONmessage - A JSON object that contains the new notification message to replace the existing message. 
-         *                    It contains a NotificationMessageDetails object.
-         */
-        replaceAsync(key: string, JSONmessage: NotificationMessageDetails): void;
+        replaceAsync(key: string, JSONmessage: NotificationMessageDetails, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Replaces a notification message that has a given key with another message.
          *
@@ -18934,7 +15264,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        replaceAsync(key: string, JSONmessage: NotificationMessageDetails, callback: (result: Office.AsyncResult<void>) => void): void;
+        replaceAsync(key: string, JSONmessage: NotificationMessageDetails, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * Represents a phone number identified in an item. Read mode only.
@@ -19000,30 +15330,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If adding the recipients fails, the asyncResult.error property will contain an error code.
          */
-        addAsync(recipients: (string | EmailUser | EmailAddressDetails)[], options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds a recipient list to the existing recipients for an appointment or message.
-         *
-         * The recipients parameter can be an array of one of the following:
-         *
-         * - Strings containing SMTP email addresses
-         *
-         * - EmailUser objects
-         *
-         * - EmailAddressDetails objects
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>NumberOfRecipientsExceeded - The number of recipients exceeded 100 entries.</td></tr>
-         * </table>
-         *
-         * @param recipients - The recipients to add to the recipients list.
-         */
-        addAsync(recipients: (string | EmailUser | EmailAddressDetails)[]): void;
+        addAsync(recipients: (string | EmailUser | EmailAddressDetails)[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds a recipient list to the existing recipients for an appointment or message.
          *
@@ -19048,7 +15355,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If adding the recipients fails, the asyncResult.error property will contain an error code.
          */
-        addAsync(recipients: (string | EmailUser | EmailAddressDetails)[], callback: (result: Office.AsyncResult<void>) => void): void;
+        addAsync(recipients: (string | EmailUser | EmailAddressDetails)[], callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets a recipient list for an appointment or message.
          *
@@ -19068,7 +15375,7 @@ declare namespace Office {
          *                 type Office.AsyncResult.
          *                 The `value` property of the result is an array of EmailAddressDetails objects.
          */
-        getAsync(options: Office.AsyncContextOptions, callback: (result: Office.AsyncResult<EmailAddressDetails[]>) => void): void;
+        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<EmailAddressDetails[]>) => void): void;
         /**
          * Gets a recipient list for an appointment or message.
          *
@@ -19086,7 +15393,7 @@ declare namespace Office {
          *                 type Office.AsyncResult.
          *                 The `value` property of the result is an array of EmailAddressDetails objects.
          */
-        getAsync(callback: (result: Office.AsyncResult<EmailAddressDetails[]>) => void): void;
+        getAsync(callback: (asyncResult: Office.AsyncResult<EmailAddressDetails[]>) => void): void;
         /**
          * Sets a recipient list for an appointment or message.
          *
@@ -19110,14 +15417,14 @@ declare namespace Office {
          * </table>
          * 
          * @param recipients - The recipients to add to the recipients list.
-         * @param options - Optional. An object literal that contains one or more of the following properties.
+         * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          *                 If setting the recipients fails the asyncResult.error property will contain a code that indicates any error that occurred 
          *                 while adding the data.
          */
-        setAsync(recipients: (string | EmailUser | EmailAddressDetails)[], options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
+        setAsync(recipients: (string | EmailUser | EmailAddressDetails)[], options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Sets a recipient list for an appointment or message.
          *
@@ -19141,38 +15448,12 @@ declare namespace Office {
          * </table>
          *
          * @param recipients - The recipients to add to the recipients list.
-         */
-        setAsync(recipients: (string | EmailUser | EmailAddressDetails)[]): void;
-        /**
-         * Sets a recipient list for an appointment or message.
-         *
-         * The setAsync method overwrites the current recipient list.
-         *
-         * The recipients parameter can be an array of one of the following:
-         *
-         * - Strings containing SMTP email addresses
-         *
-         * - {@link Office.EmailUser} objects
-         *
-         * - {@link Office.EmailAddressDetails} objects
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>NumberOfRecipientsExceeded - The number of recipients exceeded 100 entries.</td></tr>
-         * </table>
-         *
-         * @param recipients - The recipients to add to the recipients list.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. 
          *                 If setting the recipients fails the asyncResult.error property will contain a code that indicates any error that occurred 
          *                 while adding the data.
          */
-        setAsync(recipients: (string | EmailUser | EmailAddressDetails)[], callback: (result: Office.AsyncResult<void>) => void): void;
-
+        setAsync(recipients: (string | EmailUser | EmailAddressDetails)[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
 
     /**
@@ -19307,7 +15588,7 @@ declare namespace Office {
          *                asyncResult, which is an Office.AsyncResult object.
          *                 The `value` property of the result is a Recurrence object.
          */
-        getAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<Recurrence>) => void): void;
+        getAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<Recurrence>) => void): void;
 
         /**
          * Returns the current recurrence object of an appointment series.
@@ -19327,23 +15608,7 @@ declare namespace Office {
          *                asyncResult, which is an Office.AsyncResult object.
          *                 The `value` property of the result is a Recurrence object.
          */
-        getAsync(callback?: (result: Office.AsyncResult<Recurrence>) => void): void;
-
-        /**
-         * Returns the current recurrence object of an appointment series.
-         * 
-         * This method returns the entire recurrence object for the appointment series.
-         * 
-         * [Api set: Mailbox 1.7]
-         * 
-         * @remarks
-         * 
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         */
-        getAsync(): void;
+        getAsync(callback?: (asyncResult: Office.AsyncResult<Recurrence>) => void): void;
 
         /**
          * Sets the recurrence pattern of an appointment series.
@@ -19366,7 +15631,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        setAsync(recurrencePattern: Recurrence, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
+        setAsync(recurrencePattern: Recurrence, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
 
         /**
          * Sets the recurrence pattern of an appointment series.
@@ -19387,28 +15652,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        setAsync(recurrencePattern: Recurrence, callback?: (result: Office.AsyncResult<void>) => void): void;
-
-        /**
-         * Sets the recurrence pattern of an appointment series.
-         * 
-         * **Note**: setAsync should only be available for series items and not instance items.
-         * 
-         * [Api set: Mailbox 1.7]
-         * 
-         * @remarks
-         * 
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>InvalidEndTime - The appointment end time is before its start time.</td></tr>
-         * </table>
-         * 
-         * @param recurrencePattern - A recurrence object.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object.
-         */
-        setAsync(recurrencePattern: Recurrence): void;
+        setAsync(recurrencePattern: Recurrence, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
 
     /**
@@ -19522,7 +15766,7 @@ declare namespace Office {
          * When the reply display call completes, the function passed in the callback parameter is called with a single parameter, 
          * asyncResult, which is an Office.AsyncResult object.
          */
-        callback?: (result: Office.AsyncResult<any>) => void;
+        callback?: (asyncResult: Office.AsyncResult<any>) => void;
     }
     /**
      * The settings created by using the methods of the RoamingSettings object are saved per add-in and per user. 
@@ -19597,23 +15841,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        saveAsync(callback?: (result: Office.AsyncResult<void>) => void): void;
-        /**
-         * Saves the settings.
-         *
-         * Any settings previously saved by an add-in are loaded when it is initialized, so during the lifetime of the session you can just use 
-         * the set and get methods to work with the in-memory copy of the settings property bag. 
-         * When you want to persist the settings so that they are available the next time the add-in is used, use the saveAsync method.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>Restricted</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
-         * </table>
-         */
-        saveAsync(): void;
+        saveAsync(callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Sets or creates the specified setting.
          *
@@ -19895,7 +16123,7 @@ declare namespace Office {
          *                 type Office.AsyncResult.
          *                 The `value` property of the result is the subject of the item.
          */
-        getAsync(options: Office.AsyncContextOptions, callback: (result: Office.AsyncResult<string>) => void): void;
+        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Gets the subject of an appointment or message.
          * 
@@ -19912,7 +16140,7 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  The `value` property of the result is the subject of the item.
          */
-        getAsync(callback: (result: Office.AsyncResult<string>) => void): void;
+        getAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
          * Sets the subject of an appointment or message.
          *
@@ -19929,12 +16157,12 @@ declare namespace Office {
          * </table>
          * 
          * @param subject - The subject of the appointment or message. The string is limited to 255 characters.
-         * @param options - An object literal that contains one or more of the following properties.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If setting the subject fails, the asyncResult.error property will contain an error code.
          */
-        setAsync(subject: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
+        setAsync(subject: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Sets the subject of an appointment or message.
          *
@@ -19951,28 +16179,10 @@ declare namespace Office {
          * </table>
          *
          * @param subject - The subject of the appointment or message. The string is limited to 255 characters.
-         */
-        setAsync(data: string): void;
-        /**
-         * Sets the subject of an appointment or message.
-         *
-         * The setAsync method starts an asynchronous call to the Exchange server to set the subject of an appointment or message. 
-         * Setting the subject overwrites the current subject, but leaves any prefixes, such as "Fwd:" or "Re:" in place.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>DataExceedsMaximumSize - The subject parameter is longer than 255 characters.</td></tr>
-         * </table>
-         *
-         * @param subject - The subject of the appointment or message. The string is limited to 255 characters.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. If setting the subject fails, the asyncResult.error property will contain an error code.
          */
-        setAsync(data: string, callback: (result: Office.AsyncResult<void>) => void): void;
+        setAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
 
     }
     /**
@@ -20030,7 +16240,7 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  The `value` property of the result is a Date object.
          */
-        getAsync(options: Office.AsyncContextOptions, callback: (result: Office.AsyncResult<Date>) => void): void;
+        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<Date>) => void): void;
         /**
          * Gets the start or end time of an appointment.
          *
@@ -20048,7 +16258,7 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  The `value` property of the result is a Date object.
          */
-        getAsync(callback: (result: Office.AsyncResult<Date>) => void): void;
+        getAsync(callback: (asyncResult: Office.AsyncResult<Date>) => void): void;
         /**
          * Sets the start or end time of an appointment.
          *
@@ -20067,13 +16277,13 @@ declare namespace Office {
          * </table>
          * 
          * @param dateTime - A date-time object in Coordinated Universal Time (UTC).
-         * @param options - An object literal that contains one or more of the following properties.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. 
          *                 If setting the date and time fails, the asyncResult.error property will contain an error code.
          */
-        setAsync(dateTime: Date, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<void>) => void): void;
+        setAsync(dateTime: Date, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Sets the start or end time of an appointment.
          *
@@ -20092,31 +16302,11 @@ declare namespace Office {
          * </table>
          *
          * @param dateTime - A date-time object in Coordinated Universal Time (UTC).
-         */
-        setAsync(dateTime: Date): void;
-        /**
-         * Sets the start or end time of an appointment.
-         *
-         * If the setAsync method is called on the start property, the end property will be adjusted to maintain the duration of the appointment as 
-         * previously set. If the setAsync method is called on the end property, the duration of the appointment will be extended to the new end time.
-         *
-         * The time must be in UTC; you can get the correct UTC time by using the convertToUtcClientTime method.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * <table>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         *   <tr><td>Errors</td><td>InvalidEndTime - The appointment end time is before the appointment start time.</td></tr>
-         * </table>
-         *
-         * @param dateTime - A date-time object in Coordinated Universal Time (UTC).
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. 
          *                 If setting the date and time fails, the asyncResult.error property will contain an error code.
          */
-        setAsync(dateTime: Date, callback: (result: Office.AsyncResult<void>) => void): void;
+        setAsync(dateTime: Date, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
 
     }
     /**
@@ -33805,15 +29995,19 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the styles. WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
-     *
+     * Represents a collection of all the styles. 
+     * WARNING: There's currently a known issue with the StyleCollection.items array when loading items from the collection. 
+     * Until this issue is resolved, do not use the StyleCollection.items property, the StyleCollection.load() method, 
+     * or the StyleCollection.toJSON() method.
      * [Api set: ExcelApi 1.7]
      */
     class StyleCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext; 
-        /** 
-         * WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
+        /**
+         * WARNING: There's currently a known issue with the `StyleCollection.items` array when loading items from the collection. 
+         * Until this issue is resolved, do not use the `StyleCollection.items` property, the `StyleCollection.load()` method, 
+         * or the `StyleCollection.toJSON()` method.
          */
         readonly items: Excel.Style[];
         /**
@@ -33835,13 +30029,17 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.Style;
         /**
-         * WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
+         * WARNING: There's currently a known issue with the `StyleCollection.items` array when loading items from the collection. 
+         * Until this issue is resolved, do not use the `StyleCollection.items` property, the `StyleCollection.load()` method, 
+         * or the `StyleCollection.toJSON()` method.
          */
         load(option?: Excel.Interfaces.StyleCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.StyleCollection;
         load(option?: string | string[]): Excel.StyleCollection;
         load(option?: OfficeExtension.LoadOption): Excel.StyleCollection;
         /**
-         * WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
+         * WARNING: There's currently a known issue with the `StyleCollection.items` array when loading items from the collection. 
+         * Until this issue is resolved, do not use the `StyleCollection.items` property, the `StyleCollection.load()` method, 
+         * or the `StyleCollection.toJSON()` method.
          */
         toJSON(): Excel.Interfaces.StyleCollectionData;
     }
@@ -54146,6 +50344,10 @@ declare namespace Word {
          *
          * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
          *
+         * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+         * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+         * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+         * 
          * [Api set: WordApi 1.1]
          */
         highlightColor: string;
@@ -58960,6 +55162,10 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
+             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+             * 
              * [Api set: WordApi 1.1]
              */
             highlightColor?: string;
@@ -60094,6 +56300,10 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
+             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+             * 
              * [Api set: WordApi 1.1]
              */
             highlightColor?: string;
@@ -61808,6 +58018,10 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
+             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
+             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+             * 
              * [Api set: WordApi 1.1]
              */
             highlightColor?: boolean;

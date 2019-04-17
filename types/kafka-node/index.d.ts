@@ -1,6 +1,10 @@
 // Type definitions for kafka-node 2.0
 // Project: https://github.com/SOHU-Co/kafka-node/
-// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu>, Bill <https://github.com/bkim54>, Michael Haan <https://github.com/sfrooster>, Amiram Korach <https://github.com/amiram>
+// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu>
+//                 Bill <https://github.com/bkim54>
+//                 Michael Haan <https://github.com/sfrooster>
+//                 Amiram Korach <https://github.com/amiram>
+//                 Insanehong <https://github.com/insanehong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -61,7 +65,7 @@ export class HighLevelConsumer {
     client: Client;
     on(eventName: "message", cb: (message: Message) => any): void;
     on(eventName: "error" | "offsetOutOfRange", cb: (error: any) => any): void;
-    on(eventName: "rebalancing" | "rebalanced", cb: () => any): void;
+    on(eventName: "rebalancing" | "rebalanced" | "connect", cb: () => any): void;
     addTopics(topics: string[] | Topic[], cb?: (error: any, added: string[] | Topic[]) => any): void;
     removeTopics(topics: string | string[], cb: (error: any, removed: number) => any): void;
     commit(cb: (error: any, data: any) => any): void;

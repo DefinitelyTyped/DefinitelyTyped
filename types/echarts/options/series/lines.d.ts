@@ -13253,8 +13253,6 @@ declare namespace echarts {
                  */
                 name?: string;
 
-                children: [DataObject];
-
                 /**
                  * An array includes two ore more than two coordinates.
                  * Each coordinate could be `[x, y]` in

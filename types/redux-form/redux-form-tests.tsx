@@ -422,7 +422,11 @@ class FormNameTest extends React.Component {
     render() {
         return (
             <FormName>
-                {({ form }) => <span>Form Name is: {form}</span>}
+                {({ form, sectionPrefix }) => (
+                    <span>
+                        Form name is {form} and section prefix is {sectionPrefix}
+                    </span>
+                )}
             </FormName>
         );
     }

@@ -53,6 +53,12 @@ traverse(ast, {
     }
 });
 
+// Node type checks
+t.isIdentifier(t.identifier("id"));
+t.isIdentifier(exp);
+t.isIdentifier(null);
+t.isIdentifier(undefined);
+
 // TypeScript Types
 // TODO: Test all variants of these functions' signatures
 

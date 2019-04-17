@@ -815,6 +815,35 @@ ImageModel.findOne({}, function(err, doc) {
     doc.id;
   }
 });
+/* Using flatten maps example */
+interface Submission extends mongoose.Document {
+  name: string;
+  fields: string[];
+}
+var SubmissionSchema = new mongoose.Schema({
+  name: String,
+  fields: {
+    type: Map,
+    of: String
+  }
+});
+const SubmissionModel = mongoose.model<Submission>('Submission', SubmissionSchema);
+const submission = new SubmissionModel({
+  name: "Submission Name",
+  fields: {
+    extra: "Value",
+    other: "Thing"
+  }
+});
+submission.save()
+.then(result => {
+  console.log(result.toObject({
+    flattenMaps: true
+  }));
+})
+.catch(() => {
+  console.log("Flatten maps error");
+});
 
 /*
  * section types/subdocument.js
@@ -1021,7 +1050,7 @@ query.findOne(function (err, res) {
 query.findOneAndRemove({name: 'aa'}, {
   rawResult: true
 }, function (err, doc) {
-  doc.execPopulate();
+    doc.lastErrorObject
 }).findOneAndRemove();
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, {
 
@@ -1648,6 +1677,9 @@ MongoModel.create([{ type: 'jelly bean' }, {
   arg[0].save();
   arg[1].save();
 });
+MongoModel.createCollection().then(() => {});
+MongoModel.createCollection({ capped: true, max: 42 }).then(() => {});
+MongoModel.createCollection({ capped: true, max: 42 }, err => {});
 MongoModel.distinct('url', { clicks: {$gt: 100}}, function (err, result) {
 });
 MongoModel.distinct('url').exec(cb);
@@ -1911,6 +1943,14 @@ LocModel.findOneAndUpdate().exec().then(function (arg) {
     arg.openingTimes;
   }
 });
+LocModel.findOneAndUpdate(
+    // find a document with that filter
+    {name: "aa"},
+    // document to insert when nothing was found
+    { $set: {name: "bb"} },
+    // options
+    {upsert: true, new: true, runValidators: true,
+        rawResult: true, multipleCastError: true });
 LocModel.geoSearch({}, {
   near: [1, 2],
   maxDistance: 22
@@ -2106,6 +2146,15 @@ new mongoose.Schema({ name: String }, {
     wtimeout: 1000
   }
 });
+
+/**
+ * https://mongoosejs.com/docs/guide.html#shardKey
+ */
+new mongoose.Schema({name: String}, {
+  shardKey: {
+    tag: 1, name: 1
+  }
+})
 
 /* Query helpers: https://mongoosejs.com/docs/guide.html#query-helpers */
 

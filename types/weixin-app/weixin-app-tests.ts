@@ -16,7 +16,7 @@ const parentBehavior = Behavior({
 		}
 	},
 	data: {
-		myParentBehaviorData: "",
+		myParentBehaviorData: ""
 	},
 	methods: {
 		myParentBehaviorMethod(input: number) {
@@ -26,31 +26,40 @@ const parentBehavior = Behavior({
 });
 
 function createBehaviorWithUnionTypes(n: number) {
-	const properties = n % 2 < 1 ? {
-		unionPropA: {
-			type: String,
-		},
-	} : {
-		unionPropB: {
-			type: Number,
-		},
-	};
+	const properties =
+		n % 2 < 1
+			? {
+					unionPropA: {
+						type: String
+					}
+			  }
+			: {
+					unionPropB: {
+						type: Number
+					}
+			  };
 
-	const data = n % 4 < 2 ? {
-		unionDataA: 'a',
-	} : {
-		unionDataB: 1,
-	};
+	const data =
+		n % 4 < 2
+			? {
+					unionDataA: "a"
+			  }
+			: {
+					unionDataB: 1
+			  };
 
-	const methods = n % 8 < 4 ? {
-		unionMethodA(a: number) {
-			return n + 1;
-		},
-	} : {
-		unionMethodB(a: string) {
-			return {value: a};
-		},
-	};
+	const methods =
+		n % 8 < 4
+			? {
+					unionMethodA(a: number) {
+						return n + 1;
+					}
+			  }
+			: {
+					unionMethodB(a: string) {
+						return { value: a };
+					}
+			  };
 
 	return Behavior({
 		properties,
@@ -63,7 +72,7 @@ const behavior = Behavior({
 	behaviors: [
 		createBehaviorWithUnionTypes(1),
 		parentBehavior,
-		"wx://form-field",
+		"wx://form-field"
 	],
 	properties: {
 		myBehaviorProperty: {
@@ -168,7 +177,7 @@ Component({
 				console.log(this.unionMethodA(5));
 			}
 			if (this.unionMethodB) {
-				console.log(this.unionMethodB('test').value);
+				console.log(this.unionMethodB("test").value);
 			}
 			console.log(this.data.unionDataA);
 			console.log(this.data.unionDataB);
@@ -566,5 +575,28 @@ App({
 		manager.onUpdateFailed(({ errMsg }) => {
 			console.warn("update failed", errMsg);
 		});
+	}
+});
+
+Component({
+	observers: {
+		"name, age": function nameAgeObserver(name: string, age: number) {
+			this.setData({
+				nameStr: `Dear ${name}`,
+				ageStr: `${age}`
+			});
+		}
+	},
+	properties: {
+		name: {
+			type: String
+		},
+		age: {
+			type: Number
+		}
+	},
+	data: {
+		nameStr: "",
+		ageStr: ""
 	}
 });

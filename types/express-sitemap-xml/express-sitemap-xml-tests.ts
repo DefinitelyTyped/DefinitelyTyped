@@ -1,8 +1,8 @@
 import * as express from 'express';
 
-import expressSitemapXml, { LeafObject } from 'express-sitemap-xml';
+import expressSitemapXml = require('express-sitemap-xml');
 
-const page2Leaf: LeafObject = {
+const page2Leaf: expressSitemapXml.LeafObject = {
     changeFreq: 'weekly',
     lastMod: new Date(),
     url: '/page2'

@@ -1,4 +1,4 @@
-// Type definitions for bookshelfjs v0.9.4
+// Type definitions for bookshelfjs v0.13.0
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>, Vesa Poikajärvi <https://github.com/vesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -317,6 +317,7 @@ declare namespace Bookshelf {
 	interface SyncOptions {
 		transacting?: Knex.Transaction;
 		debug?: boolean;
+		withSchema?: string;
 	}
 
 	interface CollectionOptions<T> {

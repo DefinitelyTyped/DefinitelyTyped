@@ -7,6 +7,8 @@ export type PaginationLinkProps<T = {}> = React.HTMLProps<HTMLAnchorElement> & {
   cssModule?: CSSModule;
   next?: boolean;
   previous?: boolean;
+  first?: boolean;
+  last?: boolean;
   tag?: React.ReactType;
 } & T;
 

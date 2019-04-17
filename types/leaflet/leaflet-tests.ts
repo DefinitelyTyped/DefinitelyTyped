@@ -506,7 +506,10 @@ export class MyNewControl extends L.Control {
 L.marker([1, 2], {
 	icon: L.icon({
 		iconUrl: 'my-icon.png'
-	})
+	}),
+	autoPan: true,
+	autoPanPadding: [10, 20],
+	autoPanSpeed: 5,
 }).bindPopup('<p>Hi</p>');
 
 L.marker([1, 2], {

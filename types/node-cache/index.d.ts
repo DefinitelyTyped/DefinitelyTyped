@@ -283,3 +283,4 @@ declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCac
 }
 
 export = NodeCache;
+export as namespace NodeCache;

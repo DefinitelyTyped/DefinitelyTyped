@@ -28,7 +28,8 @@ import * as net from 'net';
     server = http.createServer({ ServerResponse: MyServerResponse }, reqListener);
 
     // test public props
-    const maxHeadersCount: number = server.maxHeadersCount;
+    const maxHeadersCount: number | null = server.maxHeadersCount;
+    const headersTimeout: number = server.headersTimeout;
     const timeout: number = server.timeout;
     const listening: boolean = server.listening;
     const keepAliveTimeout: number = server.keepAliveTimeout;
@@ -65,7 +66,7 @@ import * as net from 'net';
     res.addTrailers({ 'x-foo': 'bar' });
 
     // writeHead
-    res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n');
+    res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n').end();
     res.writeHead(200, { 'Transfer-Encoding': 'chunked' });
     res.writeHead(200);
 
@@ -112,6 +113,9 @@ import * as net from 'net';
 
     // event
     req.on('data', () => { });
+
+    // path
+    const path: string = req.path;
 }
 
 {

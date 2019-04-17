@@ -4,6 +4,7 @@ import {
     Catalog,
     Catalogs,
     MessageOptions,
+    MessageDescriptor,
     LanguageData,
     I18n,
     date,
@@ -15,6 +16,13 @@ const age = 12;
 const templateResult: string = i18n.t`${age} years old`;
 const templateIdResult: string = i18n.t('templateId')`${age} years old`;
 const translateResult: string = i18n._('age', { age }, { defaults: '{age} years old' });
+
+const descriptorBasicResult = i18n._({ id: 'basicDescriptor' });
+const descriptorResult = i18n._({
+    id: 'ageDescriptor',
+    defaults: '{age} years old',
+    values: { age }
+});
 
 const count = 42;
 

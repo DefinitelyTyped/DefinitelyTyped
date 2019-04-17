@@ -26,8 +26,7 @@ server.route({
     handler: {
         test: {
             test: 123,
-        },
-        asd: 1,
+        }
     }
 });
 

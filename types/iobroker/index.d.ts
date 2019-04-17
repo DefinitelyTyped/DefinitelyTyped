@@ -900,7 +900,7 @@ declare global {
             q?: boolean;
             addID?: boolean;
             limit?: number;
-            ignoreNull: boolean;
+            ignoreNull?: boolean;
             sessionId?: any;
             aggregate?: "minmax" | "min" | "max" | "average" | "total" | "count" | "none";
         }
@@ -1627,11 +1627,11 @@ declare global {
             removeAllListeners(event?: "ready" | "unload" | "stateChange" | "objectChange" | "message"): this;
         } // end interface Adapter
 
-        type ReadyHandler = () => void;
-        type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void;
-        type StateChangeHandler = (id: string, obj: State | null | undefined) => void;
-        type MessageHandler = (obj: Message) => void;
-        type UnloadHandler = (callback: EmptyCallback) => void;
+        type ReadyHandler = () => void | Promise<void>;
+        type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void | Promise<void>;
+        type StateChangeHandler = (id: string, obj: State | null | undefined) => void | Promise<void>;
+        type MessageHandler = (obj: Message) => void | Promise<void>;
+        type UnloadHandler = (callback: EmptyCallback) => void | Promise<void>;
 
         type EmptyCallback = () => void;
         type ErrorCallback = (err?: string) => void;
@@ -1682,7 +1682,8 @@ declare global {
         type SetStateCallback = (err: string | null, id?: string) => void;
         type SetStateChangedCallback = (err: string | null, id: string, notChanged: boolean) => void;
         type DeleteStateCallback = (err: string | null, id?: string) => void;
-        type GetHistoryCallback = (err: string | null, result: Array<(State & { id?: string })>, step: number, sessionId?: string) => void;
+        type GetHistoryResult = Array<(State & { id?: string })>;
+        type GetHistoryCallback = (err: string | null, result: GetHistoryResult, step: number, sessionId?: string) => void;
 
         /** Contains the return values of readDir */
         interface ReadDirResult {

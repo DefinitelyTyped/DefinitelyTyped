@@ -261,6 +261,16 @@ declare module "repl" {
         clearBufferedCommand(): void;
 
         /**
+         * Initializes a history log file for the REPL instance. When executing the
+         * Node.js binary and using the command line REPL, a history file is initialized
+         * by default. However, this is not the case when creating a REPL
+         * programmatically. Use this method to initialize a history log file when working
+         * with REPL instances programmatically.
+         * @param path The path to the history file
+         */
+        setupHistory(path: string, cb: (err: Error | null, repl: this) => void): void;
+
+        /**
          * events.EventEmitter
          * 1. close - inherited from `readline.Interface`
          * 2. line - inherited from `readline.Interface`

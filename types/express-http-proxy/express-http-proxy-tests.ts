@@ -26,3 +26,5 @@ proxy('www.google.com', {
         return headers;
     }
 });
+
+proxy((req) => 'com.google.www'.split('.').reverse().join('.'));

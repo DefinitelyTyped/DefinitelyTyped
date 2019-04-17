@@ -1441,6 +1441,12 @@ export interface MediaInformation {
      * The media tracks.
      */
     tracks?: Track[];
+
+    /**
+     * VMAP ad request configuration. Used if breaks and breakClips are not
+     * provided.
+     */
+    vmapAdsRequest?: VastAdsRequest;
 }
 
 /**
