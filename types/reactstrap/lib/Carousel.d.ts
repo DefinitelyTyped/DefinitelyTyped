@@ -13,7 +13,7 @@ export interface CarouselProps extends React.HTMLProps<HTMLElement> {
   mouseEnter?: () => void;
   mouseExit?: () => void;
   slide?: boolean;
-  cssModule?: CSSModule
+  cssModule?: CSSModule;
 }
 
 export interface UncontrolledCarouselProps extends React.HTMLProps<HTMLElement> {
