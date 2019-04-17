@@ -1,274 +1,80 @@
 import _ = require("../index");
 declare module "../index" {
-
     interface Stat {
-        /**
-         * The opposite of _.before; this method creates a function that invokes func once it’s called n or more times.
-         *
-         * @param n The number of calls before func is invoked.
-         * @param func The function to restrict.
-         * @return Returns the new restricted function.
-         */
-        after<TFunc extends (...args: any[]) => any>(
-            n: number,
-            func: TFunc
-        ): TFunc;
+        after<TFunc extends (...args: any[]) => any>(n: number, func: TFunc): TFunc;
     }
-
     interface Imp<TValue> {
-        /**
-        * @see _.after
-        **/
         after<TFunc extends (...args: any[]) => any>(func: TFunc): Imp<TFunc>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.after
-         **/
         after<TFunc extends (...args: any[]) => any>(func: TFunc): Exp<TFunc>;
     }
-
-
     interface Stat {
-        /**
-         * Creates a function that accepts up to n arguments ignoring any additional arguments.
-         *
-         * @param func The function to cap arguments for.
-         * @param n The arity cap.
-         * @returns Returns the new function.
-         */
-        ary(
-            func: (...args: any[]) => any,
-            n?: number
-        ): (...args: any[]) => any;
+        ary(func: (...args: any[]) => any, n?: number): (...args: any[]) => any;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.ary
-         */
         ary(n?: number): Imp<(...args: any[]) => any>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.ary
-         */
         ary(n?: number): Exp<(...args: any[]) => any>;
     }
-
-
     interface Stat {
-        /**
-         * Creates a function that invokes func, with the this binding and arguments of the created function, while
-         * it’s called less than n times. Subsequent calls to the created function return the result of the last func
-         * invocation.
-         *
-         * @param n The number of calls at which func is no longer invoked.
-         * @param func The function to restrict.
-         * @return Returns the new restricted function.
-         */
-        before<TFunc extends (...args: any[]) => any>(
-            n: number,
-            func: TFunc
-        ): TFunc;
+        before<TFunc extends (...args: any[]) => any>(n: number, func: TFunc): TFunc;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.before
-         **/
         before<TFunc extends (...args: any[]) => any>(func: TFunc): Imp<TFunc>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.before
-         **/
         before<TFunc extends (...args: any[]) => any>(func: TFunc): Exp<TFunc>;
     }
-
-
     interface FunctionBind {
         placeholder: __;
-
-        (
-            func: (...args: any[]) => any,
-            thisArg: any,
-            ...partials: any[]
-        ): (...args: any[]) => any;
+        (func: (...args: any[]) => any, thisArg: any, ...partials: any[]): (...args: any[]) => any;
     }
-
     interface Stat {
-        /**
-         * Creates a function that invokes func with the this binding of thisArg and prepends any additional _.bind
-         * arguments to those provided to the bound function.
-         *
-         * The _.bind.placeholder value, which defaults to _ in monolithic builds, may be used as a placeholder for
-         * partially applied arguments.
-         *
-         * Note: Unlike native Function#bind this method does not set the "length" property of bound functions.
-         *
-         * @param func The function to bind.
-         * @param thisArg The this binding of func.
-         * @param partials The arguments to be partially applied.
-         * @return Returns the new bound function.
-         */
         bind: FunctionBind;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.bind
-         */
-        bind(
-            thisArg: any,
-            ...partials: any[]
-        ): Imp<(...args: any[]) => any>;
+        bind(thisArg: any, ...partials: any[]): Imp<(...args: any[]) => any>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.bind
-         */
-        bind(
-            thisArg: any,
-            ...partials: any[]
-        ): Exp<(...args: any[]) => any>;
+        bind(thisArg: any, ...partials: any[]): Exp<(...args: any[]) => any>;
     }
-
-
     interface FunctionBindKey {
         placeholder: __;
-
-        (
-            object: object,
-            key: string,
-            ...partials: any[]
-        ): (...args: any[]) => any;
+        (object: object, key: string, ...partials: any[]): (...args: any[]) => any;
     }
-
     interface Stat {
-        /**
-         * Creates a function that invokes the method at object[key] and prepends any additional _.bindKey arguments
-         * to those provided to the bound function.
-         *
-         * This method differs from _.bind by allowing bound functions to reference methods that may be redefined
-         * or don’t yet exist. See Peter Michaux’s article for more details.
-         *
-         * The _.bindKey.placeholder value, which defaults to _ in monolithic builds, may be used as a placeholder
-         * for partially applied arguments.
-         *
-         * @param object The object the method belongs to.
-         * @param key The key of the method.
-         * @param partials The arguments to be partially applied.
-         * @return Returns the new bound function.
-         */
         bindKey: FunctionBindKey;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.bindKey
-         */
-        bindKey(
-            key: string,
-            ...partials: any[]
-        ): Imp<(...args: any[]) => any>;
+        bindKey(key: string, ...partials: any[]): Imp<(...args: any[]) => any>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.bindKey
-         */
-        bindKey(
-            key: string,
-            ...partials: any[]
-        ): Exp<(...args: any[]) => any>;
+        bindKey(key: string, ...partials: any[]): Exp<(...args: any[]) => any>;
     }
-
-
     interface Curry {
-        /**
-         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
-         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
-         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, R>(func: (t1: T1) => R, arity?: number):
-            CurriedFunction1<T1, R>;
-        /**
-         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
-         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
-         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, R>(func: (t1: T1, t2: T2) => R, arity?: number):
-            CurriedFunction2<T1, T2, R>;
-        /**
-         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
-         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
-         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R, arity?: number):
-            CurriedFunction3<T1, T2, T3, R>;
-        /**
-         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
-         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
-         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number):
-            CurriedFunction4<T1, T2, T3, T4, R>;
-        /**
-         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
-         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
-         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number):
-            CurriedFunction5<T1, T2, T3, T4, T5, R>;
-        /**
-         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
-         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
-         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
+        <T1, R>(func: (t1: T1) => R, arity?: number): CurriedFunction1<T1, R>;
+        <T1, T2, R>(func: (t1: T1, t2: T2) => R, arity?: number): CurriedFunction2<T1, T2, R>;
+        <T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R, arity?: number): CurriedFunction3<T1, T2, T3, R>;
+        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number): CurriedFunction4<T1, T2, T3, T4, R>;
+        <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number): CurriedFunction5<T1, T2, T3, T4, T5, R>;
         (func: (...args: any[]) => any, arity?: number): (...args: any[]) => any;
-
         placeholder: __;
     }
-
     interface Stat {
         curry: Curry;
     }
-
     interface CurriedFunction1<T1, R> {
         (): CurriedFunction1<T1, R>;
         (t1: T1): R;
     }
-
     interface CurriedFunction2<T1, T2, R> {
         (): CurriedFunction2<T1, T2, R>;
         (t1: T1): CurriedFunction1<T2, R>;
         (t1: __, t2: T2): CurriedFunction1<T1, R>;
         (t1: T1, t2: T2): R;
     }
-
     interface CurriedFunction3<T1, T2, T3, R> {
         (): CurriedFunction3<T1, T2, T3, R>;
         (t1: T1): CurriedFunction2<T2, T3, R>;
@@ -279,7 +85,6 @@ declare module "../index" {
         (t1: __, t2: T2, t3: T3): CurriedFunction1<T1, R>;
         (t1: T1, t2: T2, t3: T3): R;
     }
-
     interface CurriedFunction4<T1, T2, T3, T4, R> {
         (): CurriedFunction4<T1, T2, T3, T4, R>;
         (t1: T1): CurriedFunction3<T2, T3, T4, R>;
@@ -298,7 +103,6 @@ declare module "../index" {
         (t1: __, t2: T2, t3: T3, t4: T4): CurriedFunction1<T1, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4): R;
     }
-
     interface CurriedFunction5<T1, T2, T3, T4, T5, R> {
         (): CurriedFunction5<T1, T2, T3, T4, T5, R>;
         (t1: T1): CurriedFunction4<T2, T3, T4, T5, R>;
@@ -333,19 +137,16 @@ declare module "../index" {
         (t1: __, t2: T2, t3: T3, t4: T4, t5: T5): CurriedFunction1<T1, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
-
     interface RightCurriedFunction1<T1, R> {
         (): RightCurriedFunction1<T1, R>;
         (t1: T1): R;
     }
-
     interface RightCurriedFunction2<T1, T2, R> {
         (): RightCurriedFunction2<T1, T2, R>;
         (t2: T2): RightCurriedFunction1<T1, R>;
         (t1: T1, t2: __): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2): R;
     }
-
     interface RightCurriedFunction3<T1, T2, T3, R> {
         (): RightCurriedFunction3<T1, T2, T3, R>;
         (t3: T3): RightCurriedFunction2<T1, T2, R>;
@@ -356,7 +157,6 @@ declare module "../index" {
         (t1: T1, t2: __, t3: T3): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2, t3: T3): R;
     }
-
     interface RightCurriedFunction4<T1, T2, T3, T4, R> {
         (): RightCurriedFunction4<T1, T2, T3, T4, R>;
         (t4: T4): RightCurriedFunction3<T1, T2, T3, R>;
@@ -375,7 +175,6 @@ declare module "../index" {
         (t1: T1, t2: __, t3: T3, t4: T4): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4): R;
     }
-
     interface RightCurriedFunction5<T1, T2, T3, T4, T5, R> {
         (): RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
         (t5: T5): RightCurriedFunction4<T1, T2, T3, T4, R>;
@@ -410,1040 +209,428 @@ declare module "../index" {
         (t1: T1, t2: __, t3: T3, t4: T4, t5: T5): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
-
     interface Imp<TValue> {
-        /**
-        * @see _.curry
-        **/
-        curry<T1, R>(this: Imp<(t1: T1) => R>, arity?: number):
-            Imp<CurriedFunction1<T1, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, R>(this: Imp<(t1: T1, t2: T2) => R>, arity?: number):
-            Imp<CurriedFunction2<T1, T2, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, T3, R>(this: Imp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number):
-            Imp<CurriedFunction3<T1, T2, T3, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, T3, T4, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number):
-            Imp<CurriedFunction4<T1, T2, T3, T4, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, T3, T4, T5, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number):
-            Imp<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
-
-        /**
-        * @see _.curry
-        **/
+        curry<T1, R>(this: Imp<(t1: T1) => R>, arity?: number): Imp<CurriedFunction1<T1, R>>;
+        curry<T1, T2, R>(this: Imp<(t1: T1, t2: T2) => R>, arity?: number): Imp<CurriedFunction2<T1, T2, R>>;
+        curry<T1, T2, T3, R>(this: Imp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number): Imp<CurriedFunction3<T1, T2, T3, R>>;
+        curry<T1, T2, T3, T4, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number): Imp<CurriedFunction4<T1, T2, T3, T4, R>>;
+        curry<T1, T2, T3, T4, T5, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number): Imp<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
         curry(arity?: number): Imp<(...args: any[]) => any>;
     }
-
     interface Exp<TValue> {
-        /**
-        * @see _.curry
-        **/
-        curry<T1, R>(this: Exp<(t1: T1) => R>):
-            Exp<CurriedFunction1<T1, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, R>(this: Exp<(t1: T1, t2: T2) => R>):
-            Exp<CurriedFunction2<T1, T2, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, T3, R>(this: Exp<(t1: T1, t2: T2, t3: T3) => R>):
-            Exp<CurriedFunction3<T1, T2, T3, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, T3, T4, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>):
-            Exp<CurriedFunction4<T1, T2, T3, T4, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, T3, T4, T5, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>):
-            Exp<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
-
-        /**
-        * @see _.curry
-        **/
+        curry<T1, R>(this: Exp<(t1: T1) => R>): Exp<CurriedFunction1<T1, R>>;
+        curry<T1, T2, R>(this: Exp<(t1: T1, t2: T2) => R>): Exp<CurriedFunction2<T1, T2, R>>;
+        curry<T1, T2, T3, R>(this: Exp<(t1: T1, t2: T2, t3: T3) => R>): Exp<CurriedFunction3<T1, T2, T3, R>>;
+        curry<T1, T2, T3, T4, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>): Exp<CurriedFunction4<T1, T2, T3, T4, R>>;
+        curry<T1, T2, T3, T4, T5, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>): Exp<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
         curry(arity?: number): Exp<(...args: any[]) => any>;
     }
-
-
     interface CurryRight {
-        /**
-         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
-         * instead of _.partial.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, R>(func: (t1: T1) => R, arity?: number):
-            RightCurriedFunction1<T1, R>;
-        /**
-         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
-         * instead of _.partial.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, R>(func: (t1: T1, t2: T2) => R, arity?: number):
-            RightCurriedFunction2<T1, T2, R>;
-        /**
-         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
-         * instead of _.partial.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R, arity?: number):
-            RightCurriedFunction3<T1, T2, T3, R>;
-        /**
-         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
-         * instead of _.partial.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number):
-            RightCurriedFunction4<T1, T2, T3, T4, R>;
-        /**
-         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
-         * instead of _.partial.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number):
-            RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
-        /**
-         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
-         * instead of _.partial.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
+        <T1, R>(func: (t1: T1) => R, arity?: number): RightCurriedFunction1<T1, R>;
+        <T1, T2, R>(func: (t1: T1, t2: T2) => R, arity?: number): RightCurriedFunction2<T1, T2, R>;
+        <T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R, arity?: number): RightCurriedFunction3<T1, T2, T3, R>;
+        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number): RightCurriedFunction4<T1, T2, T3, T4, R>;
+        <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number): RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
         (func: (...args: any[]) => any, arity?: number): (...args: any[]) => any;
-
         placeholder: __;
     }
-
     interface Stat {
         curryRight: CurryRight;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, R>(this: Imp<(t1: T1) => R>, arity?: number):
-            Imp<RightCurriedFunction1<T1, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, R>(this: Imp<(t1: T1, t2: T2) => R>, arity?: number):
-            Imp<RightCurriedFunction2<T1, T2, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, T3, R>(this: Imp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number):
-            Imp<RightCurriedFunction3<T1, T2, T3, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, T3, T4, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number):
-            Imp<RightCurriedFunction4<T1, T2, T3, T4, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, T3, T4, T5, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number):
-            Imp<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
+        curryRight<T1, R>(this: Imp<(t1: T1) => R>, arity?: number): Imp<RightCurriedFunction1<T1, R>>;
+        curryRight<T1, T2, R>(this: Imp<(t1: T1, t2: T2) => R>, arity?: number): Imp<RightCurriedFunction2<T1, T2, R>>;
+        curryRight<T1, T2, T3, R>(this: Imp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number): Imp<RightCurriedFunction3<T1, T2, T3, R>>;
+        curryRight<T1, T2, T3, T4, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number): Imp<RightCurriedFunction4<T1, T2, T3, T4, R>>;
+        curryRight<T1, T2, T3, T4, T5, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number): Imp<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
         curryRight(arity?: number): Imp<(...args: any[]) => any>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, R>(this: Exp<(t1: T1) => R>, arity?: number):
-            Exp<RightCurriedFunction1<T1, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, R>(this: Exp<(t1: T1, t2: T2) => R>, arity?: number):
-            Exp<RightCurriedFunction2<T1, T2, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, T3, R>(this: Exp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number):
-            Exp<RightCurriedFunction3<T1, T2, T3, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, T3, T4, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number):
-            Exp<RightCurriedFunction4<T1, T2, T3, T4, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, T3, T4, T5, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number):
-            Exp<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
+        curryRight<T1, R>(this: Exp<(t1: T1) => R>, arity?: number): Exp<RightCurriedFunction1<T1, R>>;
+        curryRight<T1, T2, R>(this: Exp<(t1: T1, t2: T2) => R>, arity?: number): Exp<RightCurriedFunction2<T1, T2, R>>;
+        curryRight<T1, T2, T3, R>(this: Exp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number): Exp<RightCurriedFunction3<T1, T2, T3, R>>;
+        curryRight<T1, T2, T3, T4, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number): Exp<RightCurriedFunction4<T1, T2, T3, T4, R>>;
+        curryRight<T1, T2, T3, T4, T5, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number): Exp<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
         curryRight(arity?: number): Exp<(...args: any[]) => any>;
     }
-
-
     interface DebounceSettings {
-        /**
-         * Specify invoking on the leading edge of the timeout.
-         */
         leading?: boolean;
-
-        /**
-         * The maximum time func is allowed to be delayed before it’s invoked.
-         */
         maxWait?: number;
-
-        /**
-         * Specify invoking on the trailing edge of the timeout.
-         */
         trailing?: boolean;
     }
-
     interface Stat {
-        /**
-         * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since
-         * the last time the debounced function was invoked. The debounced function comes with a cancel method to
-         * cancel delayed invocations and a flush method to immediately invoke them. Provide an options object to
-         * indicate that func should be invoked on the leading and/or trailing edge of the wait timeout. Subsequent
-         * calls to the debounced function return the result of the last func invocation.
-         *
-         * Note: If leading and trailing options are true, func is invoked on the trailing edge of the timeout only
-         * if the the debounced function is invoked more than once during the wait timeout.
-         *
-         * See David Corbacho’s article for details over the differences between _.debounce and _.throttle.
-         *
-         * @param func The function to debounce.
-         * @param wait The number of milliseconds to delay.
-         * @param options The options object.
-         * @param options.leading Specify invoking on the leading edge of the timeout.
-         * @param options.maxWait The maximum time func is allowed to be delayed before it’s invoked.
-         * @param options.trailing Specify invoking on the trailing edge of the timeout.
-         * @return Returns the new debounced function.
-         */
-        debounce<T extends (...args: any[]) => any>(
-            func: T,
-            wait?: number,
-            options?: DebounceSettings
-        ): T & Cancelable;
+        debounce<T extends (...args: any[]) => any>(func: T, wait?: number, options?: DebounceSettings): T & Cancelable;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.debounce
-         */
-        debounce(
-            wait?: number,
-            options?: DebounceSettings
-        ): Imp<TValue & Cancelable>;
+        debounce(wait?: number, options?: DebounceSettings): Imp<TValue & Cancelable>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.debounce
-         */
-        debounce(
-            wait?: number,
-            options?: DebounceSettings
-        ): Exp<TValue & Cancelable>;
+        debounce(wait?: number, options?: DebounceSettings): Exp<TValue & Cancelable>;
     }
-
-
     interface Stat {
-        /**
-         * Defers invoking the func until the current call stack has cleared. Any additional arguments are provided to
-         * func when it’s invoked.
-         *
-         * @param func The function to defer.
-         * @param args The arguments to invoke the function with.
-         * @return Returns the timer id.
-         */
-        defer(
-            func: (...args: any[]) => any,
-            ...args: any[]
-        ): number;
+        defer(func: (...args: any[]) => any, ...args: any[]): number;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.defer
-         */
         defer(...args: any[]): Imp<number>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.defer
-         */
         defer(...args: any[]): Exp<number>;
     }
-
-
     interface Stat {
-        /**
-         * Invokes func after wait milliseconds. Any additional arguments are provided to func when it’s invoked.
-         *
-         * @param func The function to delay.
-         * @param wait The number of milliseconds to delay invocation.
-         * @param args The arguments to invoke the function with.
-         * @return Returns the timer id.
-         */
-        delay(
-            func: (...args: any[]) => any,
-            wait: number,
-            ...args: any[]
-        ): number;
+        delay(func: (...args: any[]) => any, wait: number, ...args: any[]): number;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.delay
-         */
-        delay(
-            wait: number,
-            ...args: any[]
-        ): Imp<number>;
+        delay(wait: number, ...args: any[]): Imp<number>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.delay
-         */
-        delay(
-            wait: number,
-            ...args: any[]
-        ): Exp<number>;
+        delay(wait: number, ...args: any[]): Exp<number>;
     }
-
-
     interface Stat {
-        /**
-         * Creates a function that invokes `func` with arguments reversed.
-         *
-         * @category Function
-         * @param func The function to flip arguments for.
-         * @returns Returns the new function.
-         * @example
-         *
-         * var flipped = _.flip(function() {
-         *   return _.toArray(arguments);
-         * });
-         *
-         * flipped('a', 'b', 'c', 'd');
-         *
-         */
         flip<T extends (...args: any[]) => any>(func: T): T;
     }
-
     interface LoDashWrapper<TValue> {
-        /**
-         * @see _.flip
-         */
         flip(): this;
     }
-
-
     interface MemoizedFunction {
         cache: MapCache;
     }
-
     interface Stat {
-        /**
-         * Creates a function that memoizes the result of func. If resolver is provided it determines the cache key for
-         * storing the result based on the arguments provided to the memoized function. By default, the first argument
-         * provided to the memoized function is coerced to a string and used as the cache key. The func is invoked with
-         * the this binding of the memoized function.
-         *
-         * @param func The function to have its output memoized.
-         * @param resolver The function to resolve the cache key.
-         * @return Returns the new memoizing function.
-         */
         memoize: {
             <T extends (...args: any[]) => any>(func: T, resolver?: (...args: any[]) => any): T & MemoizedFunction;
             Cache: MapCacheConstructor;
         };
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.memoize
-         */
         memoize(resolver?: (...args: any[]) => any): Imp<TValue & MemoizedFunction>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.memoize
-         */
         memoize(resolver?: (...args: any[]) => any): Exp<TValue & MemoizedFunction>;
     }
-
-
     interface Stat {
-        /**
-         * Creates a function that negates the result of the predicate func. The func predicate is invoked with
-         * the this binding and arguments of the created function.
-         *
-         * @param predicate The predicate to negate.
-         * @return Returns the new function.
-         */
         negate(predicate: () => boolean): () => boolean;
         negate<A1>(predicate: (a1: A1) => boolean): (a1: A1) => boolean;
         negate<A1, A2>(predicate: (a1: A1, a2: A2) => boolean): (a1: A1, a2: A2) => boolean;
         negate(predicate: (...args: any[]) => any): (...args: any[]) => boolean;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.negate
-         */
         negate(this: Imp<() => boolean>): Imp<() => boolean>;
         negate<A1>(this: Imp<(a1: A1) => boolean>): Imp<(a1: A1) => boolean>;
         negate<A1, A2>(this: Imp<(a1: A1, a2: A2) => boolean>): Imp<(a1: A1, a2: A2) => boolean>;
         negate(this: Imp<(...args: any[]) => any>): Imp<(...args: any[]) => boolean>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.negate
-         */
         negate(this: Exp<() => boolean>): Exp<() => boolean>;
         negate<A1>(this: Exp<(a1: A1) => boolean>): Exp<(a1: A1) => boolean>;
         negate<A1, A2>(this: Exp<(a1: A1, a2: A2) => boolean>): Exp<(a1: A1, a2: A2) => boolean>;
         negate(this: Exp<(...args: any[]) => any>): Exp<(...args: any[]) => boolean>;
     }
-
-
     interface Stat {
-        /**
-         * Creates a function that is restricted to invoking func once. Repeat calls to the function return the value
-         * of the first call. The func is invoked with the this binding and arguments of the created function.
-         *
-         * @param func The function to restrict.
-         * @return Returns the new restricted function.
-         */
         once<T extends (...args: any[]) => any>(func: T): T;
     }
-
     interface LoDashWrapper<TValue> {
-        /**
-         * @see _.once
-         */
         once(): this;
     }
-
-
     interface Stat {
-        /**
-         * Creates a function that runs each argument through a corresponding transform function.
-         *
-         * @param func The function to wrap.
-         * @param transforms The functions to transform arguments, specified as individual functions or arrays
-         * of functions.
-         * @return Returns the new function.
-         */
-        overArgs(
-            func: (...args: any[]) => any,
-            ...transforms: Array<Many<(...args: any[]) => any>>
-        ): (...args: any[]) => any;
+        overArgs(func: (...args: any[]) => any, ...transforms: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.overArgs
-         */
         overArgs(...transforms: Array<Many<(...args: any[]) => any>>): Imp<(...args: any[]) => any>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.overArgs
-         */
         overArgs(...transforms: Array<Many<(...args: any[]) => any>>): Exp<(...args: any[]) => any>;
     }
-
-
     interface Stat {
-        /**
-        * Creates a function that, when called, invokes func with any additional partial arguments
-        * prepended to those provided to the new function. This method is similar to _.bind except
-        * it does not alter the this binding.
-        * @param func The function to partially apply arguments to.
-        * @param args Arguments to be partially applied.
-        * @return The new partially applied function.
-        **/
         partial: Partial;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.partial
-         */
         partial: ImplicitPartial;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.partial
-         */
         partial: ExplicitPartial;
     }
-
-    /** The placeholder, to be used in curried functions */
     type __ = Stat;
-
     type Function0<R> = () => R;
     type Function1<T1, R> = (t1: T1) => R;
     type Function2<T1, T2, R> = (t1: T1, t2: T2) => R;
     type Function3<T1, T2, T3, R> = (t1: T1, t2: T2, t3: T3) => R;
     type Function4<T1, T2, T3, T4, R> = (t1: T1, t2: T2, t3: T3, t4: T4) => R;
-
     interface Partial {
         <R>(func: Function0<R>): Function0<R>;
         <T1, R>(func: Function1<T1, R>): Function1<T1, R>;
         <T1, R>(func: Function1<T1, R>, arg1: T1): Function0<R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>):                      Function2<T1, T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1):            Function1<    T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, plc1: __, arg2: T2):  Function1<T1,     R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2):  Function0<        R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>):                                Function3<T1, T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1):                      Function2<    T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, arg2: T2):            Function2<T1,     T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2):            Function1<        T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, plc2: __, arg3: T3):  Function2<T1, T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, arg3: T3):  Function1<    T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, arg2: T2, arg3: T3):  Function1<T1,         R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3):  Function0<            R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>):                                          Function4<T1, T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1):                                Function3<    T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2):                      Function3<T1,     T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2):                      Function2<        T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3):            Function3<T1, T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3):            Function2<    T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3):            Function2<T1,         T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3):            Function1<            T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, plc3: __, arg4: T4):  Function3<T1, T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4):  Function2<    T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, plc3: __, arg4: T4):  Function2<T1,     T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  Function1<        T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3, arg4: T4):  Function2<T1, T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Function1<    T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  Function1<T1,             R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Function0<                R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>): Function2<T1, T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1): Function1<T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, plc1: __, arg2: T2): Function1<T1, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2): Function0<R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>): Function3<T1, T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1): Function2<T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, arg2: T2): Function2<T1, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2): Function1<T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, plc2: __, arg3: T3): Function2<T1, T2, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, arg3: T3): Function1<T2, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, arg2: T2, arg3: T3): Function1<T1, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): Function0<R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>): Function4<T1, T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1): Function3<T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2): Function3<T1, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2): Function2<T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3): Function3<T1, T2, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3): Function2<T2, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3): Function2<T1, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3): Function1<T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, plc3: __, arg4: T4): Function3<T1, T2, T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4): Function2<T2, T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, plc3: __, arg4: T4): Function2<T1, T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, arg4: T4): Function1<T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3, arg4: T4): Function2<T1, T2, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Function1<T2, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3, arg4: T4): Function1<T1, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): Function0<R>;
         (func: (...args: any[]) => any, ...args: any[]): (...args: any[]) => any;
-
         placeholder: __;
     }
-
     interface ImplicitPartial {
         <R>(this: Imp<Function0<R>>): Imp<Function0<R>>;
         <T1, R>(this: Imp<Function1<T1, R>>): Imp<Function1<T1, R>>;
         <T1, R>(this: Imp<Function1<T1, R>>, arg1: T1): Imp<Function0<R>>;
-        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>):                      Imp<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1):            Imp<Function1<    T2, R>>;
-        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, plc1: __, arg2: T2):  Imp<Function1<T1,     R>>;
-        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  Imp<Function0<        R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>):                                Imp<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1):                      Imp<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2):            Imp<Function2<T1,     T3, R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2):            Imp<Function1<        T3, R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, plc1: __, plc2: __, arg3: T3):  Imp<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  Imp<Function1<    T2,     R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3):  Imp<Function1<T1,         R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  Imp<Function0<            R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>):                                          Imp<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1):                                Imp<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2):                      Imp<Function3<T1,     T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2):                      Imp<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3):            Imp<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3):            Imp<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3):            Imp<Function2<T1,         T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3):            Imp<Function1<            T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, plc3: __, arg4: T4):  Imp<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  Imp<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, plc3: __, arg4: T4):  Imp<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  Imp<Function1<        T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3, arg4: T4):  Imp<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Imp<Function1<    T2,         R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  Imp<Function1<T1,             R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Imp<Function0<                R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>): Imp<Function2<T1, T2, R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1): Imp<Function1<T2, R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, plc1: __, arg2: T2): Imp<Function1<T1, R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1, arg2: T2): Imp<Function0<R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>): Imp<Function3<T1, T2, T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1): Imp<Function2<T2, T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2): Imp<Function2<T1, T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2): Imp<Function1<T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, plc1: __, plc2: __, arg3: T3): Imp<Function2<T1, T2, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3): Imp<Function1<T2, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3): Imp<Function1<T1, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3): Imp<Function0<R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>): Imp<Function4<T1, T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1): Imp<Function3<T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2): Imp<Function3<T1, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2): Imp<Function2<T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3): Imp<Function3<T1, T2, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3): Imp<Function2<T2, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3): Imp<Function2<T1, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3): Imp<Function1<T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, plc3: __, arg4: T4): Imp<Function3<T1, T2, T3, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4): Imp<Function2<T2, T3, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, plc3: __, arg4: T4): Imp<Function2<T1, T3, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4): Imp<Function1<T3, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3, arg4: T4): Imp<Function2<T1, T2, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Imp<Function1<T2, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4): Imp<Function1<T1, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): Imp<Function0<R>>;
         (...args: any[]): Imp<(...args: any[]) => any>;
     }
-
     interface ExplicitPartial {
         <R>(this: Exp<Function0<R>>): Exp<Function0<R>>;
         <T1, R>(this: Exp<Function1<T1, R>>): Exp<Function1<T1, R>>;
         <T1, R>(this: Exp<Function1<T1, R>>, arg1: T1): Exp<Function0<R>>;
-        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>):                      Exp<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1):            Exp<Function1<    T2, R>>;
-        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, plc1: __, arg2: T2):  Exp<Function1<T1,     R>>;
-        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  Exp<Function0<        R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>):                                Exp<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1):                      Exp<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2):            Exp<Function2<T1,     T3, R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2):            Exp<Function1<        T3, R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, plc1: __, plc2: __, arg3: T3):  Exp<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  Exp<Function1<    T2,     R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3):  Exp<Function1<T1,         R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  Exp<Function0<            R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>):                                          Exp<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1):                                Exp<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2):                      Exp<Function3<T1,     T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2):                      Exp<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3):            Exp<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3):            Exp<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3):            Exp<Function2<T1,         T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3):            Exp<Function1<            T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, plc3: __, arg4: T4):  Exp<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  Exp<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, plc3: __, arg4: T4):  Exp<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  Exp<Function1<        T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3, arg4: T4):  Exp<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Exp<Function1<    T2,         R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  Exp<Function1<T1,             R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Exp<Function0<                R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>): Exp<Function2<T1, T2, R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1): Exp<Function1<T2, R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, plc1: __, arg2: T2): Exp<Function1<T1, R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1, arg2: T2): Exp<Function0<R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>): Exp<Function3<T1, T2, T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1): Exp<Function2<T2, T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2): Exp<Function2<T1, T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2): Exp<Function1<T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, plc1: __, plc2: __, arg3: T3): Exp<Function2<T1, T2, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3): Exp<Function1<T2, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3): Exp<Function1<T1, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3): Exp<Function0<R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>): Exp<Function4<T1, T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1): Exp<Function3<T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2): Exp<Function3<T1, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2): Exp<Function2<T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3): Exp<Function3<T1, T2, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3): Exp<Function2<T2, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3): Exp<Function2<T1, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3): Exp<Function1<T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, plc3: __, arg4: T4): Exp<Function3<T1, T2, T3, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4): Exp<Function2<T2, T3, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, plc3: __, arg4: T4): Exp<Function2<T1, T3, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4): Exp<Function1<T3, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3, arg4: T4): Exp<Function2<T1, T2, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Exp<Function1<T2, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4): Exp<Function1<T1, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): Exp<Function0<R>>;
         (...args: any[]): Exp<(...args: any[]) => any>;
     }
-
-
     interface Stat {
-        /**
-        * This method is like _.partial except that partial arguments are appended to those provided
-        * to the new function.
-        * @param func The function to partially apply arguments to.
-        * @param args Arguments to be partially applied.
-        * @return The new partially applied function.
-        **/
         partialRight: PartialRight;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.partialRight
-         */
         partialRight: ImplicitPartialRight;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.partialRight
-         */
         partialRight: ExplicitPartialRight;
     }
-
     interface PartialRight {
         <R>(func: Function0<R>): Function0<R>;
         <T1, R>(func: Function1<T1, R>): Function1<T1, R>;
         <T1, R>(func: Function1<T1, R>, arg1: T1): Function0<R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>):                      Function2<T1, T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, plc2: __):  Function1<    T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>,           arg2: T2):  Function1<T1,     R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2):  Function0<        R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>):                                Function3<T1, T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, plc3: __):  Function2<    T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, plc3: __):  Function2<T1,     T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, plc3: __):  Function1<        T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,                     arg3: T3):  Function2<T1, T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, arg3: T3):  Function1<    T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, arg3: T3):  Function1<T1,         R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3):  Function0<            R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>):                                          Function4<T1, T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, plc4: __):  Function3<    T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: __, plc4: __):  Function3<T1,     T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, plc4: __):  Function2<        T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                     arg3: T3, plc4: __):  Function3<T1, T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, plc4: __):  Function2<    T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, arg3: T3, plc4: __):  Function2<T1,         T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, plc4: __):  Function1<            T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                               arg4: T4):  Function3<T1, T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4):  Function2<    T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: __, arg4: T4):  Function2<T1,     T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  Function1<        T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                     arg3: T3, arg4: T4):  Function2<T1, T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Function1<    T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, arg3: T3, arg4: T4):  Function1<T1,             R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Function0<                R>;
-        // catch-all
+        <T1, T2, R>(func: Function2<T1, T2, R>): Function2<T1, T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, plc2: __): Function1<T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg2: T2): Function1<T1, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2): Function0<R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>): Function3<T1, T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, plc3: __): Function2<T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg2: T2, plc3: __): Function2<T1, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, plc3: __): Function1<T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg3: T3): Function2<T1, T2, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, arg3: T3): Function1<T2, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg2: T2, arg3: T3): Function1<T1, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): Function0<R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>): Function4<T1, T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, plc4: __): Function3<T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg2: T2, plc3: __, plc4: __): Function3<T1, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, plc4: __): Function2<T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg3: T3, plc4: __): Function3<T1, T2, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, plc4: __): Function2<T2, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg2: T2, arg3: T3, plc4: __): Function2<T1, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, plc4: __): Function1<T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg4: T4): Function3<T1, T2, T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4): Function2<T2, T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg2: T2, plc3: __, arg4: T4): Function2<T1, T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, arg4: T4): Function1<T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg3: T3, arg4: T4): Function2<T1, T2, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Function1<T2, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg2: T2, arg3: T3, arg4: T4): Function1<T1, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): Function0<R>;
         (func: (...args: any[]) => any, ...args: any[]): (...args: any[]) => any;
-
         placeholder: __;
     }
-
     interface ImplicitPartialRight {
-        // arity 0
         <R>(this: Imp<Function0<R>>): Imp<Function0<R>>;
-        // arity 1
         <T1, R>(this: Imp<Function1<T1, R>>): Imp<Function1<T1, R>>;
         <T1, R>(this: Imp<Function1<T1, R>>, arg1: T1): Imp<Function0<R>>;
-        // arity 2
-        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>):                      Imp<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1, plc2: __):  Imp<Function1<    T2, R>>;
-        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>,           arg2: T2):  Imp<Function1<T1,     R>>;
-        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  Imp<Function0<        R>>;
-        // arity 3
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>):                                Imp<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, plc3: __):  Imp<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>,           arg2: T2, plc3: __):  Imp<Function2<T1,     T3, R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, plc3: __):  Imp<Function1<        T3, R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>,                     arg3: T3):  Imp<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  Imp<Function1<    T2,     R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>,           arg2: T2, arg3: T3):  Imp<Function1<T1,         R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  Imp<Function0<            R>>;
-        // arity 4
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>):                                          Imp<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, plc4: __):  Imp<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, plc4: __):  Imp<Function3<T1,     T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, plc4: __):  Imp<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, plc4: __):  Imp<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, plc4: __):  Imp<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, plc4: __):  Imp<Function2<T1,         T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, plc4: __):  Imp<Function1<            T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>,                               arg4: T4):  Imp<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  Imp<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, arg4: T4):  Imp<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  Imp<Function1<        T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, arg4: T4):  Imp<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Imp<Function1<    T2,         R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, arg4: T4):  Imp<Function1<T1,             R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Imp<Function0<                R>>;
-        // catch-all
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>): Imp<Function2<T1, T2, R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1, plc2: __): Imp<Function1<T2, R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg2: T2): Imp<Function1<T1, R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1, arg2: T2): Imp<Function0<R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>): Imp<Function3<T1, T2, T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, plc3: __): Imp<Function2<T2, T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg2: T2, plc3: __): Imp<Function2<T1, T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, plc3: __): Imp<Function1<T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg3: T3): Imp<Function2<T1, T2, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3): Imp<Function1<T2, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg2: T2, arg3: T3): Imp<Function1<T1, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3): Imp<Function0<R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>): Imp<Function4<T1, T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, plc4: __): Imp<Function3<T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg2: T2, plc3: __, plc4: __): Imp<Function3<T1, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, plc4: __): Imp<Function2<T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg3: T3, plc4: __): Imp<Function3<T1, T2, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, plc4: __): Imp<Function2<T2, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg2: T2, arg3: T3, plc4: __): Imp<Function2<T1, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, plc4: __): Imp<Function1<T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg4: T4): Imp<Function3<T1, T2, T3, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4): Imp<Function2<T2, T3, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg2: T2, plc3: __, arg4: T4): Imp<Function2<T1, T3, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4): Imp<Function1<T3, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg3: T3, arg4: T4): Imp<Function2<T1, T2, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Imp<Function1<T2, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg2: T2, arg3: T3, arg4: T4): Imp<Function1<T1, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): Imp<Function0<R>>;
         (...args: any[]): Imp<(...args: any[]) => any>;
     }
-
     interface ExplicitPartialRight {
-        // arity 0
         <R>(this: Exp<Function0<R>>): Exp<Function0<R>>;
-        // arity 1
         <T1, R>(this: Exp<Function1<T1, R>>): Exp<Function1<T1, R>>;
         <T1, R>(this: Exp<Function1<T1, R>>, arg1: T1): Exp<Function0<R>>;
-        // arity 2
-        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>):                      Exp<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1, plc2: __):  Exp<Function1<    T2, R>>;
-        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>,           arg2: T2):  Exp<Function1<T1,     R>>;
-        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  Exp<Function0<        R>>;
-        // arity 3
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>):                                Exp<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, plc3: __):  Exp<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>,           arg2: T2, plc3: __):  Exp<Function2<T1,     T3, R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, plc3: __):  Exp<Function1<        T3, R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>,                     arg3: T3):  Exp<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  Exp<Function1<    T2,     R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>,           arg2: T2, arg3: T3):  Exp<Function1<T1,         R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  Exp<Function0<            R>>;
-        // arity 4
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>):                                          Exp<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, plc4: __):  Exp<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, plc4: __):  Exp<Function3<T1,     T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, plc4: __):  Exp<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, plc4: __):  Exp<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, plc4: __):  Exp<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, plc4: __):  Exp<Function2<T1,         T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, plc4: __):  Exp<Function1<            T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>,                               arg4: T4):  Exp<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  Exp<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, arg4: T4):  Exp<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  Exp<Function1<        T3,     R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, arg4: T4):  Exp<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Exp<Function1<    T2,         R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, arg4: T4):  Exp<Function1<T1,             R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Exp<Function0<                R>>;
-        // catch-all
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>): Exp<Function2<T1, T2, R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1, plc2: __): Exp<Function1<T2, R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg2: T2): Exp<Function1<T1, R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1, arg2: T2): Exp<Function0<R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>): Exp<Function3<T1, T2, T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, plc3: __): Exp<Function2<T2, T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg2: T2, plc3: __): Exp<Function2<T1, T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, plc3: __): Exp<Function1<T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg3: T3): Exp<Function2<T1, T2, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3): Exp<Function1<T2, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg2: T2, arg3: T3): Exp<Function1<T1, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3): Exp<Function0<R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>): Exp<Function4<T1, T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, plc4: __): Exp<Function3<T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg2: T2, plc3: __, plc4: __): Exp<Function3<T1, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, plc4: __): Exp<Function2<T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg3: T3, plc4: __): Exp<Function3<T1, T2, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, plc4: __): Exp<Function2<T2, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg2: T2, arg3: T3, plc4: __): Exp<Function2<T1, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, plc4: __): Exp<Function1<T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg4: T4): Exp<Function3<T1, T2, T3, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4): Exp<Function2<T2, T3, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg2: T2, plc3: __, arg4: T4): Exp<Function2<T1, T3, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4): Exp<Function1<T3, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg3: T3, arg4: T4): Exp<Function2<T1, T2, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Exp<Function1<T2, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg2: T2, arg3: T3, arg4: T4): Exp<Function1<T1, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): Exp<Function0<R>>;
         (...args: any[]): Exp<(...args: any[]) => any>;
     }
-
-    // rearg
-
     interface Stat {
-        /**
-         * Creates a function that invokes func with arguments arranged according to the specified indexes where the
-         * argument value at the first index is provided as the first argument, the argument value at the second index
-         * is provided as the second argument, and so on.
-         * @param func The function to rearrange arguments for.
-         * @param indexes The arranged argument indexes, specified as individual indexes or arrays of indexes.
-         * @return Returns the new function.
-         */
         rearg(func: (...args: any[]) => any, ...indexes: Array<Many<number>>): (...args: any[]) => any;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.rearg
-         */
         rearg(...indexes: Array<Many<number>>): Imp<(...args: any[]) => any>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.rearg
-         */
         rearg(...indexes: Array<Many<number>>): Exp<(...args: any[]) => any>;
     }
-
-    // rest
-
     interface Stat {
-        /**
-         * Creates a function that invokes func with the this binding of the created function and arguments from start
-         * and beyond provided as an array.
-         *
-         * Note: This method is based on the rest parameter.
-         *
-         * @param func The function to apply a rest parameter to.
-         * @param start The start position of the rest parameter.
-         * @return Returns the new function.
-         */
-        rest(
-            func: (...args: any[]) => any,
-            start?: number
-        ): (...args: any[]) => any;
+        rest(func: (...args: any[]) => any, start?: number): (...args: any[]) => any;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.rest
-         */
         rest(start?: number): Imp<(...args: any[]) => any>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.rest
-         */
         rest(start?: number): Exp<(...args: any[]) => any>;
     }
-
-    // spread
-
     interface Stat {
-        /**
-         * Creates a function that invokes func with the this binding of the created function and an array of arguments
-         * much like Function#apply.
-         *
-         * Note: This method is based on the spread operator.
-         *
-         * @param func The function to spread arguments over.
-         * @return Returns the new function.
-         */
         spread<TResult>(func: (...args: any[]) => TResult): (...args: any[]) => TResult;
-
-        /**
-         * @see _.spread
-         */
         spread<TResult>(func: (...args: any[]) => TResult, start: number): (...args: any[]) => TResult;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.spread
-         */
         spread<TResult>(this: Imp<(...args: any[]) => TResult>): Imp<(...args: any[]) => TResult>;
-
-        /**
-         * @see _.spread
-         */
         spread<TResult>(this: Imp<(...args: any[]) => TResult>, start: number): Imp<(...args: any[]) => TResult>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.spread
-         */
         spread<TResult>(this: Exp<(...args: any[]) => TResult>): Exp<(...args: any[]) => TResult>;
-
-        /**
-         * @see _.spread
-         */
         spread<TResult>(this: Exp<(...args: any[]) => TResult>, start: number): Exp<(...args: any[]) => TResult>;
     }
-
-    // throttle
-
     interface ThrottleSettings {
-        /**
-         * If you'd like to disable the leading-edge call, pass this as false.
-         */
         leading?: boolean;
-
-        /**
-         * If you'd like to disable the execution on the trailing-edge, pass false.
-         */
         trailing?: boolean;
     }
-
     interface Stat {
-        /**
-         * Creates a throttled function that only invokes func at most once per every wait milliseconds. The throttled
-         * function comes with a cancel method to cancel delayed invocations and a flush method to immediately invoke
-         * them. Provide an options object to indicate that func should be invoked on the leading and/or trailing edge
-         * of the wait timeout. Subsequent calls to the throttled function return the result of the last func call.
-         *
-         * Note: If leading and trailing options are true, func is invoked on the trailing edge of the timeout only if
-         * the the throttled function is invoked more than once during the wait timeout.
-         *
-         * @param func The function to throttle.
-         * @param wait The number of milliseconds to throttle invocations to.
-         * @param options The options object.
-         * @param options.leading Specify invoking on the leading edge of the timeout.
-         * @param options.trailing Specify invoking on the trailing edge of the timeout.
-         * @return Returns the new throttled function.
-         */
-        throttle<T extends (...args: any[]) => any>(
-            func: T,
-            wait?: number,
-            options?: ThrottleSettings
-        ): T & Cancelable;
+        throttle<T extends (...args: any[]) => any>(func: T, wait?: number, options?: ThrottleSettings): T & Cancelable;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.throttle
-         */
-        throttle(
-            wait?: number,
-            options?: ThrottleSettings
-        ): Imp<TValue & Cancelable>;
+        throttle(wait?: number, options?: ThrottleSettings): Imp<TValue & Cancelable>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.throttle
-         */
-        throttle(
-            wait?: number,
-            options?: ThrottleSettings
-        ): Exp<TValue & Cancelable>;
+        throttle(wait?: number, options?: ThrottleSettings): Exp<TValue & Cancelable>;
     }
-
-    // unary
-
     interface Stat {
-        /**
-         * Creates a function that accepts up to one argument, ignoring any
-         * additional arguments.
-         *
-         * @category Function
-         * @param func The function to cap arguments for.
-         * @returns Returns the new function.
-         * @example
-         *
-         * _.map(['6', '8', '10'], _.unary(parseInt));
-         * // => [6, 8, 10]
-         */
         unary<T, TResult>(func: (arg1: T, ...args: any[]) => TResult): (arg1: T) => TResult;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.unary
-         */
         unary<T, TResult>(this: Imp<(arg1: T, ...args: any[]) => TResult>): Imp<(arg1: T) => TResult>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.unary
-         */
         unary<T, TResult>(this: Exp<(arg1: T, ...args: any[]) => TResult>): Exp<(arg1: T) => TResult>;
     }
-
-    // wrap
-
     interface Stat {
-        /**
-         * Creates a function that provides value to the wrapper function as its first argument. Any additional
-         * arguments provided to the function are appended to those provided to the wrapper function. The wrapper is
-         * invoked with the this binding of the created function.
-         *
-         * @param value The value to wrap.
-         * @param wrapper The wrapper function.
-         * @return Returns the new function.
-         */
-        wrap<T, TArgs, TResult>(
-            value: T,
-            wrapper: (value: T, ...args: TArgs[]) => TResult
-        ): (...args: TArgs[]) => TResult;
-
-        /**
-         * @see _.wrap
-         */
-        wrap<T, TResult>(
-            value: T,
-            wrapper: (value: T, ...args: any[]) => TResult
-        ): (...args: any[]) => TResult;
+        wrap<T, TArgs, TResult>(value: T, wrapper: (value: T, ...args: TArgs[]) => TResult): (...args: TArgs[]) => TResult;
+        wrap<T, TResult>(value: T, wrapper: (value: T, ...args: any[]) => TResult): (...args: any[]) => TResult;
     }
-
     interface Imp<TValue> {
-        /**
-         * @see _.wrap
-         */
-        wrap<TArgs, TResult>(
-            wrapper: (value: TValue, ...args: TArgs[]) => TResult
-        ): Imp<(...args: TArgs[]) => TResult>;
-
-        /**
-         * @see _.wrap
-         */
-        wrap<TResult>(
-            wrapper: (value: TValue, ...args: any[]) => TResult
-        ): Imp<(...args: any[]) => TResult>;
+        wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): Imp<(...args: TArgs[]) => TResult>;
+        wrap<TResult>(wrapper: (value: TValue, ...args: any[]) => TResult): Imp<(...args: any[]) => TResult>;
     }
-
     interface Exp<TValue> {
-        /**
-         * @see _.wrap
-         */
-        /**
-         * @see _.wrap
-         */
-        wrap<TArgs, TResult>(
-            wrapper: (value: TValue, ...args: TArgs[]) => TResult
-        ): Exp<(...args: TArgs[]) => TResult>;
-
-        /**
-         * @see _.wrap
-         */
-        wrap<TResult>(
-            wrapper: (value: TValue, ...args: any[]) => TResult
-        ): Exp<(...args: any[]) => TResult>;
+        wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): Exp<(...args: TArgs[]) => TResult>;
+        wrap<TResult>(wrapper: (value: TValue, ...args: any[]) => TResult): Exp<(...args: any[]) => TResult>;
     }
 }
