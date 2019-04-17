@@ -156,4 +156,4 @@ declare namespace passport {
 }
 
 declare const passport: passport.PassportStatic;
-export = passport;
+export default passport;
