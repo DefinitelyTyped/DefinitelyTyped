@@ -1,6 +1,6 @@
-import BootstrapMenu from "bootstrap-menu";
+import BootstrapMenu = require("bootstrap-menu");
 
-BootstrapMenu("#main", {
+const menu = new BootstrapMenu("#main", {
     actions: [
         {
             name: "Main menu action",
