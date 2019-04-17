@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+export as namespace ReactHooksHelper;
+
 export interface NavigationProps {
     next: () => void;
     previous?: () => void;
