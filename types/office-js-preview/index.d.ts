@@ -15445,7 +15445,7 @@ declare namespace Office {
     }
 
     /**
-     * Represents an item's category details like name and associated color.
+     * Represents a category's details like name and associated color.
      *
      * [Api set: Mailbox Preview]
      *
