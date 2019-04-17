@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type PaginationProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   className?: string;
   listClassName?: string;
   cssModule?: CSSModule;
@@ -9,7 +10,7 @@ export type PaginationProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   listTag?: React.ReactType;
   'aria-label'?: string;
-} & T;
+}
 
-declare class Pagination<T = {[key: string]: any}> extends React.Component<PaginationProps<T>> {}
+declare class Pagination<T = {[key: string]: any}> extends React.Component<PaginationProps> {}
 export default Pagination;
