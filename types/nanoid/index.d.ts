@@ -4,6 +4,4 @@
 //                 Daniel Zhang <https://github.com/fadezhanger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function nanoid(size?: number): string;
-
-export = nanoid;
+export default function nanoid(size?: number): string;
