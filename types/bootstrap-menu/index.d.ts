@@ -114,6 +114,16 @@ declare class BootstrapMenu {
      * @param options Options to configure the menu
      */
     constructor(selector: string, options: BootstrapMenu.BootstrapMenuOptions);
+
+    /**
+     * Close the menu and remove every event listeners
+     */
+    destroy: () => void;
+
+    /**
+     * Close the context menu
+     */
+    close: () => void;
 }
 
 export = BootstrapMenu;
