@@ -17356,101 +17356,492 @@ declare namespace OfficeCore {
 ////////////////////////////////////////////////////////////////
 
 declare namespace Excel {
-    /** Represents which cell properties to load, when used as part of a "range.getCellProperties" method. */
+    /**
+     *
+     * Represents which cell properties to load, when used as part of a "range.getCellProperties" method.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface CellPropertiesLoadOptions {
+        /**
+        *
+        * Specifies whether to load on the `address` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         address?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `addressLocal` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         addressLocal?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `format` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         format?: Excel.CellPropertiesFormatLoadOptions;
+        /**
+        *
+        * Specifies whether to load on the `hidden` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         hidden?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `hyperlink` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         hyperlink?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `style` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         style?: boolean;
     }
-    /** Represents which row properties to load, when used as part of a "range.getRowProperties" method. */
+    /**
+     *
+     * Represents which row properties to load, when used as part of a "range.getRowProperties" method.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface RowPropertiesLoadOptions extends CellPropertiesLoadOptions {
+        /**
+        *
+        * Specifies whether to load on the `rowHidden` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         rowHidden?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `rowIndex` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         rowIndex?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `format` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         format?: Excel.CellPropertiesFormatLoadOptions & {
             rowHeight?: boolean;
         };
     }
-    /** Represents which column properties to load, when used as part of a "range.getColumnProperties" method. */
+    /**
+     *
+     * Represents which column properties to load, when used as part of a "range.getColumnProperties" method.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface ColumnPropertiesLoadOptions extends CellPropertiesLoadOptions {
+        /**
+        *
+        * Specifies whether to load on the `columnIndex` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         columnIndex?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `columnHidden` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         columnHidden?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `format` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         format?: Excel.CellPropertiesFormatLoadOptions & {
             columnWidth?: boolean;
         };
     }
-    /** Represents which properties to load on the format object. */
+    /**
+     *
+     * Represents which properties to load on the format object.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface CellPropertiesFormatLoadOptions {
+        /**
+        *
+        * Specifies whether to load on the `autoIndent` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         autoIndent?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `borders` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         borders?: Excel.CellPropertiesBorderLoadOptions;
+        /**
+        *
+        * Specifies whether to load on the `fill` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         fill?: Excel.CellPropertiesFillLoadOptions;
+        /**
+        *
+        * Specifies whether to load on the `font` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         font?: Excel.CellPropertiesFontLoadOptions;
+        /**
+        *
+        * Specifies whether to load on the `horizontalAlignment` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         horizontalAlignment?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `indentLevel` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         indentLevel?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `protection` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         protection?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `readingOrder` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         readingOrder?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `shrinkToFit` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         shrinkToFit?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `textOrientation` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         textOrientation?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `useStandardHeight` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         useStandardHeight?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `useStandardWidth` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         useStandardWidth?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `verticalAlignment` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         verticalAlignment?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `wrapText` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         wrapText?: boolean;
     }
-    /** Represents the input parameter of setCellProperties. */
+    /**
+     *
+     * Represents the input parameter of setCellProperties.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface SettableCellProperties {
+        /**
+        *
+        * Represents the `format` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         format?: Excel.CellPropertiesFormat;
+        /**
+        *
+        * Represents the `hyperlink` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         hyperlink?: Excel.RangeHyperlink;
+        /**
+        *
+        * Represents the `style` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         style?: string;
     }
-    /** Represents the returned properties of getCellProperties. */
+    /**
+     *
+     * Represents the returned properties of getCellProperties.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface CellProperties extends SettableCellProperties {
+        /**
+        *
+        * Represents the `address` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         address?: string;
+        /**
+        *
+        * Represents the `addressLocal` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         addressLocal?: string;
+        /**
+        *
+        * Represents the `hidden` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         hidden?: boolean;
     }
-    /** Represents the input parameter of setRowProperties. */
+    /**
+     *
+     * Represents the input parameter of setRowProperties.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface SettableRowProperties extends SettableCellProperties {
+        /**
+        *
+        * Represents the `rowHidden` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         rowHidden?: boolean;
+        /**
+        *
+        * Represents the `format` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         format?: Excel.CellPropertiesFormat & {
             rowHeight?: number;
         };
     }
-    /** Represents the returned properties of getRowProperties. */
+    /**
+     *
+     * Represents the returned properties of getRowProperties.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface RowProperties extends SettableRowProperties {
+        /**
+        *
+        * Represents the `rowIndex` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         rowIndex?: number;
+        /**
+        *
+        * Represents the `address` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         address?: string;
+        /**
+        *
+        * Represents the `addressLocal` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         addressLocal?: string;
     }
-    /** Represents the input parameter of setColumnProperties. */
+    /**
+     *
+     * Represents the input parameter of setColumnProperties.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface SettableColumnProperties extends SettableCellProperties {
+        /**
+        *
+        * Represents the `columnHidden` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         columnHidden?: boolean;
+        /**
+        *
+        * Represents the `format` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         format?: Excel.CellPropertiesFormat & {
             columnWidth?: number;
         };
     }
-    /** Represents the returned properties of getColumnProperties. */
+    /**
+     *
+     * Represents the returned properties of getColumnProperties.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface ColumnProperties extends SettableColumnProperties {
+        /**
+        *
+        * Represents the `columnIndex` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         columnIndex?: number;
+        /**
+        *
+        * Represents the `address` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         address?: string;
+        /**
+        *
+        * Represents the `addressLocal` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         addressLocal?: string;
     }
-    /** Represents the returned format properties of getCellProperties or format input parameter of setCellProperties. */
+    /**
+     *
+     * Represents the returned format properties of getCellProperties or format input parameter of setCellProperties.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface CellPropertiesFormat {
+        /**
+            *
+            * Represents the `autoIndent` property.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            */
         autoIndent?: boolean;
+        /**
+        *
+        * Represents the `borders` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         borders?: Excel.CellBorderCollection;
+        /**
+        *
+        * Represents the `fill` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         fill?: Excel.CellPropertiesFill;
+        /**
+        *
+        * Represents the `font` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         font?: Excel.CellPropertiesFont;
+        /**
+        *
+        * Represents the `horizontalAlignment` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         horizontalAlignment?: Excel.HorizontalAlignment | "General" | "Left" | "Center" | "Right" | "Fill" | "Justify" | "CenterAcrossSelection" | "Distributed";
+        /**
+        *
+        * Represents the `indentLevel` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         indentLevel?: number;
+        /**
+        *
+        * Represents the `protection` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         protection?: Excel.CellPropertiesProtection;
+        /**
+        *
+        * Represents the `readingOrder` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         readingOrder?: Excel.ReadingOrder | "Context" | "LeftToRight" | "RightToLeft";
+        /**
+        *
+        * Represents the `shrinkToFit` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         shrinkToFit?: boolean;
+        /**
+        *
+        * Represents the `textOrientation` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         textOrientation?: number;
+        /**
+        *
+        * Represents the `useStandardHeight` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         useStandardHeight?: boolean;
+        /**
+        *
+        * Represents the `useStandardWidth` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         useStandardWidth?: boolean;
+        /**
+        *
+        * Represents the `verticalAlignment` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         verticalAlignment?: Excel.VerticalAlignment | "Top" | "Center" | "Bottom" | "Justify" | "Distributed";
+        /**
+        *
+        * Represents the `wrapText` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         wrapText?: boolean;
     }
     /**
@@ -18131,6 +18522,88 @@ declare namespace Excel {
          * Gets the id of the worksheet that is deactivated.
          *
          * [Api set: ExcelApi 1.7]
+         */
+        worksheetId: string;
+    }
+    /**
+     *
+     * Provides information about the worksheet that raised the RowSorted event.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface WorksheetRowSortedEventArgs {
+        /**
+         *
+         * Gets the range address that represents the sorted areas of a specific worksheet.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        address: string;
+        /**
+         *
+         * Gets the source of the event. See Excel.EventSource for details.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        source: Excel.EventSource | "Local" | "Remote";
+        /**
+         *
+         * Gets the type of the event. See Excel.EventType for details.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        type: "WorksheetRowSorted";
+        /**
+         *
+         * Gets the id of the worksheet in which the sorting happened.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        worksheetId: string;
+    }
+    /**
+     *
+     * Provides information about the worksheet that raised the ColumnSorted event.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface WorksheetColumnSortedEventArgs {
+        /**
+         *
+         * Gets the range address that represents the sorted areas of a specific worksheet.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        address: string;
+        /**
+         *
+         * Gets the source of the event. See Excel.EventSource for details.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        source: Excel.EventSource | "Local" | "Remote";
+        /**
+         *
+         * Gets the type of the event. See Excel.EventType for details.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        type: "WorksheetColumnSorted";
+        /**
+         *
+         * Gets the id of the worksheet in which the sorting happened.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
          */
         worksheetId: string;
     }
@@ -19730,6 +20203,16 @@ declare namespace Excel {
         readonly onChanged: OfficeExtension.EventHandlers<Excel.WorksheetChangedEventArgs>;
         /**
          *
+         * Occurs when sorting on columns.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @eventproperty
+         * @beta
+         */
+        readonly onColumnSorted: OfficeExtension.EventHandlers<Excel.WorksheetColumnSortedEventArgs>;
+        /**
+         *
          * Occurs when the worksheet is deactivated.
          *
          * [Api set: ExcelApi 1.7]
@@ -19757,6 +20240,16 @@ declare namespace Excel {
          * @beta
          */
         readonly onFormatChanged: OfficeExtension.EventHandlers<Excel.WorksheetFormatChangedEventArgs>;
+        /**
+         *
+         * Occurs when sorting on rows.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @eventproperty
+         * @beta
+         */
+        readonly onRowSorted: OfficeExtension.EventHandlers<Excel.WorksheetRowSortedEventArgs>;
         /**
          *
          * Occurs when the selection changes on a specific worksheet.
@@ -19928,6 +20421,16 @@ declare namespace Excel {
         readonly onChanged: OfficeExtension.EventHandlers<Excel.WorksheetChangedEventArgs>;
         /**
          *
+         * Occurs when sorting on columns.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @eventproperty
+         * @beta
+         */
+        readonly onColumnSorted: OfficeExtension.EventHandlers<Excel.WorksheetColumnSortedEventArgs>;
+        /**
+         *
          * Occurs when any worksheet in the workbook is deactivated.
          *
          * [Api set: ExcelApi 1.7]
@@ -19964,6 +20467,16 @@ declare namespace Excel {
          * @beta
          */
         readonly onFormatChanged: OfficeExtension.EventHandlers<Excel.WorksheetFormatChangedEventArgs>;
+        /**
+         *
+         * Occurs when sorting on rows.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @eventproperty
+         * @beta
+         */
+        readonly onRowSorted: OfficeExtension.EventHandlers<Excel.WorksheetRowSortedEventArgs>;
         /**
          *
          * Occurs when the selection changes on any worksheet.
@@ -20673,6 +21186,9 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
+         *
+         * @param cellPropertiesLoadOptions An object that represents which cell properties to load.
+         * @returns A 2D array where each item represents the requested properties of the corresponding cell.
          */
         getCellProperties(cellPropertiesLoadOptions: CellPropertiesLoadOptions): OfficeExtension.ClientResult<CellProperties[][]>;
         /**
@@ -20690,6 +21206,9 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
+         *
+         * @param columnPropertiesLoadOptions An object that represents which column properties to load.
+         * @returns An array where each item represents the requested properties of the corresponding column.
          */
         getColumnProperties(columnPropertiesLoadOptions: ColumnPropertiesLoadOptions): OfficeExtension.ClientResult<ColumnProperties[]>;
         /**
@@ -20805,6 +21324,9 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
+         *
+         * @param rowPropertiesLoadOptions An object that represents which row properties to load.
+         * @returns An array where each item represents the requested properties of the corresponding row.
          */
         getRowProperties(rowPropertiesLoadOptions: RowPropertiesLoadOptions): OfficeExtension.ClientResult<RowProperties[]>;
         /**
@@ -21012,6 +21534,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
+         *
+         * @param cellPropertiesData A 2D array that represents which properties to set in each cell.
          */
         setCellProperties(cellPropertiesData: SettableCellProperties[][]): void;
         /**
@@ -21020,6 +21544,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
+         *
+         * @param columnPropertiesData An array that represents which properties to set in each column.
          */
         setColumnProperties(columnPropertiesData: SettableColumnProperties[]): void;
         /**
@@ -21036,6 +21562,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
+         *
+         * @param rowPropertiesData An array that represents which properties to set in each row.
          */
         setRowProperties(rowPropertiesData: SettableRowProperties[]): void;
         /**
@@ -21586,122 +22114,458 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents which properties to load on the format.fill object.
+     * Specifies which properties to load on the `format.fill` object.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellPropertiesFillLoadOptions {
+        /**
+         *
+         * Specifies whether to load on the `color` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         color?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `pattern` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         pattern?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `patternColor` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         patternColor?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `patternTintAndShade` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         patternTintAndShade?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `tintAndShade` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         tintAndShade?: boolean;
     }
     /**
      *
-     * Represents which properties to load on the format.font object.
+     * Specifies which properties to load on the `format.font` object.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellPropertiesFontLoadOptions {
+        /**
+         *
+         * Specifies whether to load on the `bold` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         bold?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `color` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         color?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `italic` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         italic?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `name` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         name?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `size` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         size?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `strikethrough` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         strikethrough?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `subscript` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         subscript?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `superscript` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         superscript?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `tintAndShade` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         tintAndShade?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `underline` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         underline?: boolean;
     }
     /**
      *
-     * Represents which properties to load on the format.borders object.
+     * Specifies which properties to load on the `format.borders` object.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellPropertiesBorderLoadOptions {
+        /**
+         *
+         * Specifies whether to load on the `color` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         color?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `style` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         style?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `tintAndShade` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         tintAndShade?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `weight` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         weight?: boolean;
     }
     /**
      *
-     * Represents the returned format.protection properties of getCell/Row/ColumnProperties or format.protection input parameter of setCell/Row/ColumnProperties.
+     * Represents the `format.protection` properties of `getCellProperties`, `getRowProperties`, and `getColumnProperties` or the `format.protection` input parameter of `setCellProperties`, `setRowProperties`, and `setColumnProperties`.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellPropertiesProtection {
+        /**
+         *
+         * Represents the `format.protection.formulaHidden` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         formulaHidden?: boolean;
+        /**
+         *
+         * Represents the `format.protection.locked` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         locked?: boolean;
     }
     /**
      *
-     * Represents the returned format.fill properties of getCell/Row/ColumnProperties or format.fill input parameter of setCell/Row/ColumnProperties.
+     * Represents the `format.fill` properties of `getCellProperties`, `getRowProperties`, and `getColumnProperties` or the `format.fill` input parameter of `setCellProperties`, `setRowProperties`, and `setColumnProperties`.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellPropertiesFill {
+        /**
+         *
+         * Represents the `format.fill.color` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         color?: string;
+        /**
+         *
+         * Represents the `format.fill.pattern` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         pattern?: Excel.FillPattern | "None" | "Solid" | "Gray50" | "Gray75" | "Gray25" | "Horizontal" | "Vertical" | "Down" | "Up" | "Checker" | "SemiGray75" | "LightHorizontal" | "LightVertical" | "LightDown" | "LightUp" | "Grid" | "CrissCross" | "Gray16" | "Gray8" | "LinearGradient" | "RectangularGradient";
+        /**
+         *
+         * Represents the `format.fill.patternColor` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         patternColor?: string;
+        /**
+         *
+         * Represents the `format.fill.patternTintAndShade` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         patternTintAndShade?: number;
+        /**
+         *
+         * Represents the `format.fill.tintAndShade` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         tintAndShade?: number;
     }
     /**
      *
-     * Represents the returned format.font properties of getCell/Row/ColumnProperties or format.font input parameter of setCell/Row/ColumnProperties.
+     * Represents the `format.font` properties of `getCellProperties`, `getRowProperties`, and `getColumnProperties` or the `format.font` input parameter of `setCellProperties`, `setRowProperties`, and `setColumnProperties`.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellPropertiesFont {
+        /**
+         *
+         * Represents the `format.font.bold` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         bold?: boolean;
+        /**
+         *
+         * Represents the `format.font.color` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         color?: string;
+        /**
+         *
+         * Represents the `format.font.italic` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         italic?: boolean;
+        /**
+         *
+         * Represents the `format.font.name` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         name?: string;
+        /**
+         *
+         * Represents the `format.font.size` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         size?: number;
+        /**
+         *
+         * Represents the `format.font.strikethrough` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         strikethrough?: boolean;
+        /**
+         *
+         * Represents the `format.font.subscript` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         subscript?: boolean;
+        /**
+         *
+         * Represents the `format.font.superscript` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         superscript?: boolean;
+        /**
+         *
+         * Represents the `format.font.tintAndShade` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         tintAndShade?: number;
+        /**
+         *
+         * Represents the `format.font.underline` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         underline?: Excel.RangeUnderlineStyle | "None" | "Single" | "Double" | "SingleAccountant" | "DoubleAccountant";
     }
     /**
      *
-     * Represents the returned format.borders properties of getCell/Row/ColumnProperties or format.borders input parameter of setCell/Row/ColumnProperties.
+     * Represents the `format.borders` properties of `getCellProperties`, `getRowProperties`, and `getColumnProperties` or the `format.borders` input parameter of `setCellProperties`, `setRowProperties`, and `setColumnProperties`.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellBorderCollection {
+        /**
+         *
+         * Represents the `format.borders.bottom` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         bottom?: Excel.CellBorder;
+        /**
+         *
+         * Represents the `format.borders.diagonalDown` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         diagonalDown?: Excel.CellBorder;
+        /**
+         *
+         * Represents the `format.borders.diagonalUp` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         diagonalUp?: Excel.CellBorder;
+        /**
+         *
+         * Represents the `format.borders.horizontal` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         horizontal?: Excel.CellBorder;
+        /**
+         *
+         * Represents the `format.borders.left` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         left?: Excel.CellBorder;
+        /**
+         *
+         * Represents the `format.borders.right` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         right?: Excel.CellBorder;
+        /**
+         *
+         * Represents the `format.borders.top` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         top?: Excel.CellBorder;
+        /**
+         *
+         * Represents the `format.borders.vertical` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         vertical?: Excel.CellBorder;
     }
     /**
      *
-     * Represents the returned single border properties of getCell/Row/ColumnProperties or border property input parameter of setCell/Row/ColumnProperties.
+     * Represents the properties of a single border returned by `getCellProperties`, `getRowProperties`, and `getColumnProperties` or the border property input parameter of `setCellProperties`, `setRowProperties`, and `setColumnProperties`.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellBorder {
+        /**
+         *
+         * Represents the `color` property of a single border.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         color?: string;
+        /**
+         *
+         * Represents the `style` property of a single border.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         style?: Excel.BorderLineStyle | "None" | "Continuous" | "Dash" | "DashDot" | "DashDotDot" | "Dot" | "Double" | "SlantDashDot";
+        /**
+         *
+         * Represents the `tintAndShade` property of a single border.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         tintAndShade?: number;
+        /**
+         *
+         * Represents the `weight` property of a single border.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         weight?: Excel.BorderWeight | "Hairline" | "Thin" | "Medium" | "Thick";
     }
     /**
@@ -29495,6 +30359,7 @@ declare namespace Excel {
     /**
      *
      * Represents the AutoFilter object.
+            AutoFilter turns the values in Excel column into specific filters based on the cell contents.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -29504,7 +30369,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Array that holds all filter criterias in an autofiltered range. Read-Only.
+         * An array that holds all the filter criteria in the autofiltered range. Read-Only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -29528,19 +30393,19 @@ declare namespace Excel {
         readonly isDataFiltered: boolean;
         /**
          *
-         * Applies AutoFilter on a range and filters the column if column index and filter criteria are specified.
+         * Applies the AutoFilter to a range. This filters the column if column index and filter criteria are specified.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param range The range where the AutoFilter will apply on.
-         * @param columnIndex The column index which the AutoFilter will apply on, start from 0.
+         * @param range The range over which the AutoFilter will apply on.
+         * @param columnIndex The zero-based column index to which the AutoFilter is applied.
          * @param criteria The filter criteria.
          */
         apply(range: Range | string, columnIndex?: number, criteria?: Excel.FilterCriteria): void;
         /**
          *
-         * Clears the criteria if AutoFilter has filters
+         * Clears the filter criteria of the AutoFilter.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -29556,8 +30421,8 @@ declare namespace Excel {
         getRange(): Excel.Range;
         /**
          *
-         * If there is Range object associated with the AutoFilter, this method returns it.
-            Otherwise, this method returns a null object.
+         * Returns the Range object that represents the range to which the AutoFilter applies.
+            If there is no Range object associated with the AutoFilter, this method returns a null object.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -39587,7 +40452,19 @@ declare namespace Excel {
          * RibbonCommandExecuted represents the type of event registered on ribbon, and occurs when user click on ribbon
          *
          */
-        ribbonCommandExecuted = "RibbonCommandExecuted"
+        ribbonCommandExecuted = "RibbonCommandExecuted",
+        /**
+         *
+         * WorksheetRowSorted represents the type of event registered on worksheet, and occurs when there is a sorting on rows happened.
+         *
+         */
+        worksheetRowSorted = "WorksheetRowSorted",
+        /**
+         *
+         * WorksheetColumnSorted represents the type of event registered on worksheet, and occurs when there is a sorting on columns happened.
+         *
+         */
+        worksheetColumnSorted = "WorksheetColumnSorted"
     }
     /**
      * [Api set: ExcelApi 1.7]
@@ -52986,7 +53863,7 @@ declare namespace Excel {
         interface AutoFilterData {
             /**
              *
-             * Array that holds all filter criterias in an autofiltered range. Read-Only.
+             * An array that holds all the filter criteria in the autofiltered range. Read-Only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -60891,6 +61768,7 @@ declare namespace Excel {
         /**
          *
          * Represents the AutoFilter object.
+            AutoFilter turns the values in Excel column into specific filters based on the cell contents.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -60899,7 +61777,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * Array that holds all filter criterias in an autofiltered range. Read-Only.
+             * An array that holds all the filter criteria in the autofiltered range. Read-Only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
