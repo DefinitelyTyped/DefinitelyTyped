@@ -9,17 +9,17 @@ declare module "../index" {
          * @param value The value to wrap.
          * @return Returns the new lodash wrapper instance.
          */
-        chain<T>(value: T): LoDashExplicitWrapper<T>;
+        chain<T>(value: T): Exp<T>;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.chain
          */
-        chain(): LoDashExplicitWrapper<TValue>;
+        chain(): Exp<TValue>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.chain
          */
@@ -35,17 +35,17 @@ declare module "../index" {
          * @param value The value to wrap.
          * @return Returns the new lodash wrapper instance.
          */
-        chain<T>(value: T): LoDashExplicitWrapper<T>;
+        chain<T>(value: T): Exp<T>;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.chain
          */
-        chain(): LoDashExplicitWrapper<TValue>;
+        chain(): Exp<TValue>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.chain
          */
@@ -65,20 +65,20 @@ declare module "../index" {
 
     // prototype.plant
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * Creates a clone of the chained sequence planting value as the wrapped value.
          * @param value The value to plant as the wrapped value.
          * @return Returns the new lodash wrapper instance.
          */
-        plant<T>(value: T): LoDashImplicitWrapper<T>;
+        plant<T>(value: T): Imp<T>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.plant
          */
-        plant<T>(value: T): LoDashExplicitWrapper<T>;
+        plant<T>(value: T): Exp<T>;
     }
 
     // prototype.reverse
@@ -180,17 +180,17 @@ declare module "../index" {
         ): TResult;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.thru
          */
-        thru<TResult>(interceptor: (value: TValue) => TResult): LoDashImplicitWrapper<TResult>;
+        thru<TResult>(interceptor: (value: TValue) => TResult): Imp<TResult>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.thru
          */
-        thru<TResult>(interceptor: (value: TValue) => TResult): LoDashExplicitWrapper<TResult>;
+        thru<TResult>(interceptor: (value: TValue) => TResult): Exp<TResult>;
     }
 }

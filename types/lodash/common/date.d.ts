@@ -11,17 +11,17 @@ declare module "../index" {
         now(): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.now
          */
         now(): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.now
          */
-        now(): LoDashExplicitWrapper<number>;
+        now(): Exp<number>;
     }
 }

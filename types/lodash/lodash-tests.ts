@@ -5624,7 +5624,7 @@ fp.now(); // $ExpectType number
     _(obj1).pick(["b", 1], 0, "a"); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
     _(obj1).pick(readonlyArray); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
     _(obj2).pick("a", "b"); // $ExpectType LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>
-    let result2: _.LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>;
+    let result2: _.Imp<Pick<AbcObject, "a" | "b">>;
     result2 = _(obj2).pick(literalsArray);
     result2 = _(obj2).pick(roLiteralsArray);
 
@@ -5633,7 +5633,7 @@ fp.now(); // $ExpectType number
     _.chain(obj1).pick(["b", 1], 0, "a"); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
     _.chain(obj1).pick(readonlyArray); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
     _.chain(obj2).pick("a", "b"); // $ExpectType LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
-    let result3: _.LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>;
+    let result3: _.Exp<Pick<AbcObject, "a" | "b">>;
     result3 = _.chain(obj2).pick(literalsArray);
     result3 = _.chain(obj2).pick(roLiteralsArray);
 
@@ -6563,7 +6563,7 @@ fp.now(); // $ExpectType number
     result = _(func).attempt<AbcObject>();
     result = _(func).attempt<AbcObject>("foo", "bar", "baz");
 
-    let explicitResult: _.LoDashExplicitWrapper<Error | AbcObject>;
+    let explicitResult: _.Exp<Error | AbcObject>;
     explicitResult = _.chain(func).attempt<AbcObject>();
     explicitResult = _.chain(func).attempt<AbcObject>("foo", "bar", "baz");
 
@@ -6623,10 +6623,10 @@ fp.now(); // $ExpectType number
     _(undefined).defaultTo({ a: "" }); // $ExpectType { a: string; }
 
     _.chain(42).defaultTo(42); // $ExpectType LoDashExplicitWrapper<number>
-    const z1: _.LoDashExplicitWrapper<number> = _.chain(undefined).defaultTo(42);
-    const z2: _.LoDashExplicitWrapper<number> = _.chain(null).defaultTo(42);
+    const z1: _.Exp<number> = _.chain(undefined).defaultTo(42);
+    const z2: _.Exp<number> = _.chain(null).defaultTo(42);
     _.chain(NaN).defaultTo(42); // $ExpectType LoDashExplicitWrapper<number>
-    const z3: _.LoDashExplicitWrapper<string> =  _.chain(undefined).defaultTo("default");
+    const z3: _.Exp<string> =  _.chain(undefined).defaultTo("default");
     _.chain(undefined).defaultTo([true]); // $ExpectType LoDashExplicitWrapper<boolean[]>
     _.chain(undefined).defaultTo({ a: "" }); // $ExpectType LoDashExplicitWrapper<{ a: string; }>
 
@@ -6731,10 +6731,10 @@ fp.now(); // $ExpectType number
 {
     _.methodOf(abcObject) as (path: _.Many<_.PropertyName>) => any;
     _.methodOf(abcObject, anything, anything, anything) as (path: _.Many<_.PropertyName>) => any;
-    _(abcObject).methodOf() as _.LoDashImplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
-    _(abcObject).methodOf(anything, anything, anything) as _.LoDashImplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
-    _.chain(abcObject).methodOf() as _.LoDashExplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
-    _.chain(abcObject).methodOf(anything, anything, anything) as _.LoDashExplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
+    _(abcObject).methodOf() as _.Imp<(path: _.Many<_.PropertyName>) => any>;
+    _(abcObject).methodOf(anything, anything, anything) as _.Imp<(path: _.Many<_.PropertyName>) => any>;
+    _.chain(abcObject).methodOf() as _.Exp<(path: _.Many<_.PropertyName>) => any>;
+    _.chain(abcObject).methodOf(anything, anything, anything) as _.Exp<(path: _.Many<_.PropertyName>) => any>;
     fp.methodOf(abcObject) as (path: _.Many<_.PropertyName>) => any;
 }
 
@@ -6868,8 +6868,8 @@ fp.now(); // $ExpectType number
 // _.propertyOf
 {
     _.propertyOf({}) as (path: _.Many<_.PropertyName>) => any;
-    _({}).propertyOf() as _.LoDashImplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
-    _.chain({}).propertyOf() as _.LoDashExplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
+    _({}).propertyOf() as _.Imp<(path: _.Many<_.PropertyName>) => any>;
+    _.chain({}).propertyOf() as _.Exp<(path: _.Many<_.PropertyName>) => any>;
 
     fp.propertyOf(Symbol.iterator)([]); // $ExpectType any
     fp.propertyOf([Symbol.iterator], []); // $ExpectType any

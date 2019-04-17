@@ -17,24 +17,24 @@ declare module "../index" {
         ): T[][];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.chunk
          */
         chunk<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             size?: number,
-        ): LoDashImplicitWrapper<T[][]>;
+        ): Imp<T[][]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.chunk
          */
         chunk<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             size?: number,
-        ): LoDashExplicitWrapper<T[][]>;
+        ): Exp<T[][]>;
     }
 
     // compact
@@ -50,18 +50,18 @@ declare module "../index" {
         compact<T>(array: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.compact
          */
-        compact<T>(this: LoDashImplicitWrapper<List<T | null | undefined | false | "" | 0> | null | undefined>): LoDashImplicitWrapper<T[]>;
+        compact<T>(this: Imp<List<T | null | undefined | false | "" | 0> | null | undefined>): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.compact
          */
-        compact<T>(this: LoDashExplicitWrapper<List<T | null | undefined | false | "" | 0> | null | undefined>): LoDashExplicitWrapper<T[]>;
+        compact<T>(this: Exp<List<T | null | undefined | false | "" | 0> | null | undefined>): Exp<T[]>;
     }
 
     // concat
@@ -89,18 +89,18 @@ declare module "../index" {
          concat<T>(array: Many<T>, ...values: Array<Many<T>>): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.compact
          */
-        concat<T>(this: LoDashImplicitWrapper<Many<T>>, ...values: Array<Many<T>>): LoDashImplicitWrapper<T[]>;
+        concat<T>(this: Imp<Many<T>>, ...values: Array<Many<T>>): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.compact
          */
-        concat<T>(this: LoDashExplicitWrapper<Many<T>>, ...values: Array<Many<T>>): LoDashExplicitWrapper<T[]>;
+        concat<T>(this: Exp<Many<T>>, ...values: Array<Many<T>>): Exp<T[]>;
     }
 
     // difference
@@ -120,24 +120,24 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.difference
          */
         difference<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             ...values: Array<List<T>>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.difference
          */
         difference<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             ...values: Array<List<T>>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // differenceBy
@@ -227,160 +227,160 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.differenceBy
          */
         differenceBy<T1, T2>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values: List<T2>,
             iteratee: ValueIteratee<T1 | T2>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T1, T2, T3>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             iteratee: ValueIteratee<T1 | T2 | T3>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T1, T2, T3, T4>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             values3: List<T4>,
             iteratee: ValueIteratee<T1 | T2 | T3 | T4>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T1, T2, T3, T4, T5>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             values3: List<T4>,
             values4: List<T5>,
             iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T1, T2, T3, T4, T5, T6>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             values3: List<T4>,
             values4: List<T5>,
             values5: List<T6>,
             iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T1, T2, T3, T4, T5, T6, T7>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             values3: List<T4>,
             values4: List<T5>,
             values5: List<T6>,
             ...values: Array<List<T7> | ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6 | T7>>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             ...values: Array<List<T>>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.differenceBy
          */
         differenceBy<T1, T2>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values: List<T2>,
             iteratee: ValueIteratee<T1 | T2>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T1, T2, T3>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             iteratee: ValueIteratee<T1 | T2 | T3>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T1, T2, T3, T4>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             values3: List<T4>,
             iteratee: ValueIteratee<T1 | T2 | T3 | T4>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T1, T2, T3, T4, T5>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             values3: List<T4>,
             values4: List<T5>,
             iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T1, T2, T3, T4, T5, T6>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             values3: List<T4>,
             values4: List<T5>,
             values5: List<T6>,
             iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T1, T2, T3, T4, T5, T6, T7>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             values3: List<T4>,
             values4: List<T5>,
             values5: List<T6>,
             ...values: Array<List<T7> | ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6 | T7>>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             ...values: Array<List<T>>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // differenceWith
@@ -437,82 +437,82 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.differenceWith
          */
         differenceWith<T1, T2>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values: List<T2>,
             comparator: Comparator2<T1, T2>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.differenceWith
          */
         differenceWith<T1, T2, T3>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             comparator: Comparator2<T1, T2 | T3>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.differenceWith
          */
         differenceWith<T1, T2, T3, T4>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.differenceWith
          */
         differenceWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             ...values: Array<List<T>>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.differenceWith
          */
         differenceWith<T1, T2>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values: List<T2>,
             comparator: Comparator2<T1, T2>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.differenceWith
          */
         differenceWith<T1, T2, T3>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             comparator: Comparator2<T1, T2 | T3>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.differenceWith
          */
         differenceWith<T1, T2, T3, T4>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.differenceWith
          */
         differenceWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             ...values: Array<List<T>>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // drop
@@ -528,18 +528,18 @@ declare module "../index" {
         drop<T>(array: List<T> | null | undefined, n?: number): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.drop
          */
-        drop<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, n?: number): LoDashImplicitWrapper<T[]>;
+        drop<T>(this: Imp<List<T> | null | undefined>, n?: number): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.drop
          */
-        drop<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, n?: number): LoDashExplicitWrapper<T[]>;
+        drop<T>(this: Exp<List<T> | null | undefined>, n?: number): Exp<T[]>;
     }
 
     // dropRight
@@ -558,18 +558,18 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.dropRight
          */
-        dropRight<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, n?: number): LoDashImplicitWrapper<T[]>;
+        dropRight<T>(this: Imp<List<T> | null | undefined>, n?: number): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.dropRight
          */
-        dropRight<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, n?: number): LoDashExplicitWrapper<T[]>;
+        dropRight<T>(this: Exp<List<T> | null | undefined>, n?: number): Exp<T[]>;
     }
 
     // dropRightWhile
@@ -589,24 +589,24 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.dropRightWhile
          */
         dropRightWhile<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             predicate?: ListIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.dropRightWhile
          */
         dropRightWhile<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             predicate?: ListIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // dropWhile
@@ -626,24 +626,24 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.dropWhile
          */
         dropWhile<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             predicate?: ListIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.dropWhile
          */
         dropWhile<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             predicate?: ListIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // fill
@@ -694,80 +694,80 @@ declare module "../index" {
         ): List<T | U>;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.fill
          */
         fill<T>(
-            this: LoDashImplicitWrapper<any[] | null | undefined>,
+            this: Imp<any[] | null | undefined>,
             value: T
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
 
         /**
          * @see _.fill
          */
         fill<T>(
-            this: LoDashImplicitWrapper<List<any> | null | undefined>,
+            this: Imp<List<any> | null | undefined>,
             value: T
-        ): LoDashImplicitWrapper<List<T>>;
+        ): Imp<List<T>>;
 
         /**
          * @see _.fill
          */
         fill<T, U>(
-            this: LoDashImplicitWrapper<U[] | null | undefined>,
+            this: Imp<U[] | null | undefined>,
             value: T,
             start?: number,
             end?: number
-        ): LoDashImplicitWrapper<Array<T | U>>;
+        ): Imp<Array<T | U>>;
 
         /**
          * @see _.fill
          */
         fill<T, U>(
-            this: LoDashImplicitWrapper<List<U> | null | undefined>,
+            this: Imp<List<U> | null | undefined>,
             value: T,
             start?: number,
             end?: number
-        ): LoDashImplicitWrapper<List<T | U>>;
+        ): Imp<List<T | U>>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.fill
          */
         fill<T>(
-            this: LoDashExplicitWrapper<any[] | null | undefined>,
+            this: Exp<any[] | null | undefined>,
             value: T
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
 
         /**
          * @see _.fill
          */
         fill<T>(
-            this: LoDashExplicitWrapper<List<any> | null | undefined>,
+            this: Exp<List<any> | null | undefined>,
             value: T
-        ): LoDashExplicitWrapper<List<T>>;
+        ): Exp<List<T>>;
 
         /**
          * @see _.fill
          */
         fill<T, U>(
-            this: LoDashExplicitWrapper<U[] | null | undefined>,
+            this: Exp<U[] | null | undefined>,
             value: T,
             start?: number,
             end?: number
-        ): LoDashExplicitWrapper<Array<T | U>>;
+        ): Exp<Array<T | U>>;
 
         /**
          * @see _.fill
          */
         fill<T, U>(
-            this: LoDashExplicitWrapper<List<U> | null | undefined>,
+            this: Exp<List<U> | null | undefined>,
             value: T,
             start?: number,
             end?: number
-        ): LoDashExplicitWrapper<List<T | U>>;
+        ): Exp<List<T | U>>;
     }
 
     // findIndex
@@ -789,26 +789,26 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.findIndex
          */
         findIndex<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.findIndex
          */
         findIndex<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // findLastIndex
@@ -829,26 +829,26 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.findLastIndex
          */
         findLastIndex<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.findLastIndex
          */
         findLastIndex<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             predicate?: ListIterateeCustom<T, boolean>,
             fromIndex?: number
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // first
@@ -857,18 +857,18 @@ declare module "../index" {
         first: typeof _.head; // tslint:disable-line:no-unnecessary-qualifier
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.head
          */
-        first<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): T | undefined;
+        first<T>(this: Imp<List<T> | null | undefined>): T | undefined;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.head
          */
-        first<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T | undefined>;
+        first<T>(this: Exp<List<T> | null | undefined>): Exp<T | undefined>;
     }
 
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
@@ -886,18 +886,18 @@ declare module "../index" {
         flatten<T>(array: List<Many<T>> | null | undefined): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.flatten
          */
-        flatten<T>(this: LoDashImplicitWrapper<List<Many<T>> | null | undefined>): LoDashImplicitWrapper<T[]>;
+        flatten<T>(this: Imp<List<Many<T>> | null | undefined>): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.flatten
          */
-        flatten<T>(this: LoDashExplicitWrapper<List<Many<T>> | null | undefined>): LoDashExplicitWrapper<T[]>;
+        flatten<T>(this: Exp<List<Many<T>> | null | undefined>): Exp<T[]>;
     }
 
     // flattenDeep
@@ -912,18 +912,18 @@ declare module "../index" {
         flattenDeep<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.flattenDeep
          */
-        flattenDeep<T>(this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
+        flattenDeep<T>(this: Imp<ListOfRecursiveArraysOrValues<T> | null | undefined>): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.flattenDeep
          */
-        flattenDeep<T>(this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
+        flattenDeep<T>(this: Exp<ListOfRecursiveArraysOrValues<T> | null | undefined>): Exp<T[]>;
     }
 
     // flattenDepth
@@ -939,18 +939,18 @@ declare module "../index" {
         flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, depth?: number): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.flattenDeep
          */
-        flattenDepth<T>(this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashImplicitWrapper<T[]>;
+        flattenDepth<T>(this: Imp<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.flattenDeep
          */
-        flattenDepth<T>(this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashExplicitWrapper<T[]>;
+        flattenDepth<T>(this: Exp<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): Exp<T[]>;
     }
 
     // fromPairs
@@ -980,36 +980,36 @@ declare module "../index" {
         ): Dictionary<any>;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.fromPairs
          */
         fromPairs<T>(
-          this: LoDashImplicitWrapper<List<[PropertyName, T]> | null | undefined>
-        ): LoDashImplicitWrapper<Dictionary<T>>;
+          this: Imp<List<[PropertyName, T]> | null | undefined>
+        ): Imp<Dictionary<T>>;
 
         /**
          @see _.fromPairs
          */
         fromPairs(
-            this: LoDashImplicitWrapper<List<any[]> | null | undefined>
-        ): LoDashImplicitWrapper<Dictionary<any>>;
+            this: Imp<List<any[]> | null | undefined>
+        ): Imp<Dictionary<any>>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.fromPairs
          */
         fromPairs<T>(
-          this: LoDashExplicitWrapper<List<[PropertyName, T]> | null | undefined>
-        ): LoDashExplicitWrapper<Dictionary<T>>;
+          this: Exp<List<[PropertyName, T]> | null | undefined>
+        ): Exp<Dictionary<T>>;
 
         /**
          @see _.fromPairs
          */
         fromPairs(
-            this: LoDashExplicitWrapper<List<any[]> | null | undefined>
-        ): LoDashExplicitWrapper<Dictionary<any>>;
+            this: Exp<List<any[]> | null | undefined>
+        ): Exp<Dictionary<any>>;
     }
 
     // head
@@ -1026,18 +1026,18 @@ declare module "../index" {
         head<T>(array: List<T> | null | undefined): T | undefined;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.head
          */
-        head<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): T | undefined;
+        head<T>(this: Imp<List<T> | null | undefined>): T | undefined;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.head
          */
-        head<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T | undefined>;
+        head<T>(this: Exp<List<T> | null | undefined>): Exp<T | undefined>;
     }
 
     // indexOf
@@ -1070,26 +1070,26 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.indexOf
          */
         indexOf<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             value: T,
             fromIndex?: number
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.indexOf
          */
         indexOf<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             value: T,
             fromIndex?: number
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // initial
@@ -1104,18 +1104,18 @@ declare module "../index" {
         initial<T>(array: List<T> | null | undefined): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.initial
          */
-        initial<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
+        initial<T>(this: Imp<List<T> | null | undefined>): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.initial
          */
-        initial<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
+        initial<T>(this: Exp<List<T> | null | undefined>): Exp<T[]>;
     }
 
     // intersection
@@ -1131,24 +1131,24 @@ declare module "../index" {
         intersection<T>(...arrays: Array<List<T>>): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.intersection
          */
         intersection<T>(
-            this: LoDashImplicitWrapper<List<T>>,
+            this: Imp<List<T>>,
             ...arrays: Array<List<T>>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.intersection
          */
         intersection<T>(
-            this: LoDashExplicitWrapper<List<T>>,
+            this: Exp<List<T>>,
             ...arrays: Array<List<T>>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // intersectionBy
@@ -1207,82 +1207,82 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.intersectionBy
          */
         intersectionBy<T1, T2>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values: List<T2>,
             iteratee: ValueIteratee<T1 | T2>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.intersectionBy
          */
         intersectionBy<T1, T2, T3>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             iteratee: ValueIteratee<T1 | T2 | T3>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.intersectionBy
          */
         intersectionBy<T1, T2, T3, T4>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             ...values: Array<List<T4> | ValueIteratee<T1 | T2 | T3 | T4>>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.intersectionBy
          */
         intersectionBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             ...values: Array<List<T>>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.intersectionBy
          */
         intersectionBy<T1, T2>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values: List<T2>,
             iteratee: ValueIteratee<T1 | T2>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.intersectionBy
          */
         intersectionBy<T1, T2, T3>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             iteratee: ValueIteratee<T1 | T2 | T3>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.intersectionBy
          */
         intersectionBy<T1, T2, T3, T4>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             ...values: Array<List<T4> | ValueIteratee<T1 | T2 | T3 | T4>>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.intersectionBy
          */
         intersectionBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             ...values: Array<List<T>>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // intersectionWith
@@ -1340,82 +1340,82 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.intersectionWith
          */
         intersectionWith<T1, T2>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values: List<T2>,
             comparator: Comparator2<T1, T2>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.intersectionWith
          */
         intersectionWith<T1, T2, T3>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             comparator: Comparator2<T1, T2 | T3>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.intersectionWith
          */
         intersectionWith<T1, T2, T3, T4>(
-            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            this: Imp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>
-        ): LoDashImplicitWrapper<T1[]>;
+        ): Imp<T1[]>;
 
         /**
          * @see _.intersectionWith
          */
         intersectionWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             ...values: Array<List<T>>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.intersectionWith
          */
         intersectionWith<T1, T2>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values: List<T2>,
             comparator: Comparator2<T1, T2>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.intersectionWith
          */
         intersectionWith<T1, T2, T3>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             comparator: Comparator2<T1, T2 | T3>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.intersectionWith
          */
         intersectionWith<T1, T2, T3, T4>(
-            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            this: Exp<List<T1> | null | undefined>,
             values1: List<T2>,
             values2: List<T3>,
             ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>
-        ): LoDashExplicitWrapper<T1[]>;
+        ): Exp<T1[]>;
 
         /**
          * @see _.intersectionWith
          */
         intersectionWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             ...values: Array<List<T>>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // join
@@ -1434,18 +1434,18 @@ declare module "../index" {
         ): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.join
          */
         join(separator?: string): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.join
          */
-        join(separator?: string): LoDashExplicitWrapper<string>;
+        join(separator?: string): Exp<string>;
     }
 
     // last
@@ -1460,18 +1460,18 @@ declare module "../index" {
         last<T>(array: List<T> | null | undefined): T | undefined;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.last
          */
-        last<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): T | undefined;
+        last<T>(this: Imp<List<T> | null | undefined>): T | undefined;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.last
          */
-        last<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T | undefined>;
+        last<T>(this: Exp<List<T> | null | undefined>): Exp<T | undefined>;
     }
 
     // lastIndexOf
@@ -1492,26 +1492,26 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.indexOf
          */
         lastIndexOf<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             value: T,
             fromIndex?: true|number
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.indexOf
          */
         lastIndexOf<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             value: T,
             fromIndex?: true|number
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // nth
@@ -1530,24 +1530,24 @@ declare module "../index" {
         ): T | undefined;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.nth
          */
         nth<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             n?: number
         ): T | undefined;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.nth
          */
         nth<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             n?: number
-        ): LoDashExplicitWrapper<T | undefined>;
+        ): Exp<T | undefined>;
     }
 
     // pull
@@ -1576,22 +1576,22 @@ declare module "../index" {
         ): List<T>;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.pull
          */
         pull<T>(
-            this: LoDashImplicitWrapper<List<T>>,
+            this: Imp<List<T>>,
             ...values: T[]
         ): this;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.pull
          */
         pull<T>(
-            this: LoDashExplicitWrapper<List<T>>,
+            this: Exp<List<T>>,
             ...values: T[]
         ): this;
     }
@@ -1630,22 +1630,22 @@ declare module "../index" {
         ): List<T>;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.pullAll
          */
         pullAll<T>(
-            this: LoDashImplicitWrapper<List<T>>,
+            this: Imp<List<T>>,
             values?: List<T>
         ): this;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.pullAll
          */
         pullAll<T>(
-            this: LoDashExplicitWrapper<List<T>>,
+            this: Exp<List<T>>,
             values?: List<T>
         ): this;
     }
@@ -1857,24 +1857,24 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.remove
          */
         remove<T>(
-            this: LoDashImplicitWrapper<List<T>>,
+            this: Imp<List<T>>,
             predicate?: ListIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.remove
          */
         remove<T>(
-            this: LoDashExplicitWrapper<List<T>>,
+            this: Exp<List<T>>,
             predicate?: ListIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // reverse
@@ -1922,26 +1922,26 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.slice
          */
         slice<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             start?: number,
             end?: number
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.slice
          */
         slice<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             start?: number,
             end?: number
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // sortedIndex
@@ -1969,24 +1969,24 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.sortedIndex
          */
         sortedIndex<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             value: T
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.sortedIndex
          */
         sortedIndex<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             value: T
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // sortedIndexBy
@@ -2014,24 +2014,24 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.sortedIndex
          */
         sortedIndex<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             value: T
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.sortedIndex
          */
         sortedIndex<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             value: T
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // _.sortedIndexBy
@@ -2064,26 +2064,26 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.sortedIndexBy
          */
         sortedIndexBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             value: T,
             iteratee?: ValueIteratee<T>
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.sortedIndexBy
          */
         sortedIndexBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             value: T,
             iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // sortedIndexOf
@@ -2108,24 +2108,24 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.sortedIndexOf
          */
         sortedIndexOf<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             value: T
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.sortedIndexOf
          */
         sortedIndexOf<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             value: T
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // sortedLastIndex
@@ -2151,24 +2151,24 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.sortedLastIndex
          */
         sortedLastIndex<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             value: T
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.sortedLastIndex
          */
         sortedLastIndex<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             value: T
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // sortedLastIndexBy
@@ -2197,26 +2197,26 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.sortedLastIndexBy
          */
         sortedLastIndexBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             value: T,
             iteratee: ValueIteratee<T>
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.sortedLastIndexBy
          */
         sortedLastIndexBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             value: T,
             iteratee: ValueIteratee<T>
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // sortedLastIndexOf
@@ -2241,24 +2241,24 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.sortedLastIndexOf
          */
         sortedLastIndexOf<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             value: T
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.sortedLastIndexOf
          */
         sortedLastIndexOf<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             value: T
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // sortedUniq
@@ -2281,18 +2281,18 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.sortedUniq
          */
-        sortedUniq<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
+        sortedUniq<T>(this: Imp<List<T> | null | undefined>): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.sortedUniq
          */
-        sortedUniq<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
+        sortedUniq<T>(this: Exp<List<T> | null | undefined>): Exp<T[]>;
     }
 
     // sortedUniqBy
@@ -2317,24 +2317,24 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.sortedUniqBy
          */
         sortedUniqBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             iteratee: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.sortedUniqBy
          */
         sortedUniqBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             iteratee: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // tail
@@ -2349,18 +2349,18 @@ declare module "../index" {
         tail<T>(array: List<T> | null | undefined): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.tail
          */
-        tail<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
+        tail<T>(this: Imp<List<T> | null | undefined>): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.tail
          */
-        tail<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
+        tail<T>(this: Exp<List<T> | null | undefined>): Exp<T[]>;
     }
 
     // take
@@ -2379,24 +2379,24 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.take
          */
         take<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             n?: number
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.take
          */
         take<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             n?: number
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // takeRight
@@ -2415,24 +2415,24 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.takeRight
          */
         takeRight<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             n?: number
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.takeRight
          */
         takeRight<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             n?: number
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // takeRightWhile
@@ -2452,24 +2452,24 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.takeRightWhile
          */
         takeRightWhile<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             predicate?: ListIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.takeRightWhile
          */
         takeRightWhile<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             predicate?: ListIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // takeWhile
@@ -2489,24 +2489,24 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.takeWhile
          */
         takeWhile<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             predicate?: ListIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.takeWhile
          */
         takeWhile<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             predicate?: ListIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // union
@@ -2522,24 +2522,24 @@ declare module "../index" {
         union<T>(...arrays: Array<List<T> | null | undefined>): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.union
          */
         union<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             ...arrays: Array<List<T> | null | undefined>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.union
          */
         union<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             ...arrays: Array<List<T> | null | undefined>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // unionBy
@@ -2602,108 +2602,108 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.unionBy
          */
         unionBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
 
         /**
          * @see _.unionBy
          */
         unionBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
 
         /**
          * @see _.unionBy
          */
         unionBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
 
         /**
          * @see _.unionBy
          */
         unionBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             arrays4: List<T> | null | undefined,
             iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
 
         /**
          * @see _.unionBy
          */
         unionBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             arrays4: List<T> | null | undefined,
             arrays5: List<T> | null | undefined,
             ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.unionBy
          */
         unionBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
 
         /**
          * @see _.unionBy
          */
         unionBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
 
         /**
          * @see _.unionBy
          */
         unionBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
 
         /**
          * @see _.unionBy
          */
         unionBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             arrays4: List<T> | null | undefined,
             iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
 
         /**
          * @see _.unionBy
          */
         unionBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             arrays4: List<T> | null | undefined,
             arrays5: List<T> | null | undefined,
             ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // unionWith
@@ -2751,62 +2751,62 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.unionWith
          */
         unionWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             comparator?: Comparator<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
 
         /**
          * @see _.unionWith
          */
         unionWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             comparator?: Comparator<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
 
         /**
          * @see _.unionWith
          */
         unionWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             ...comparator: Array<Comparator<T> | List<T> | null | undefined>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.unionWith
          */
         unionWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             comparator?: Comparator<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
 
         /**
          * @see _.unionWith
          */
         unionWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             comparator?: Comparator<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
 
         /**
          * @see _.unionWith
          */
         unionWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             ...comparator: Array<Comparator<T> | List<T> | null | undefined>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // uniq
@@ -2831,18 +2831,18 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.uniq
          */
-        uniq<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
+        uniq<T>(this: Imp<List<T> | null | undefined>): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.uniq
          */
-        uniq<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
+        uniq<T>(this: Exp<List<T> | null | undefined>): Exp<T[]>;
     }
 
     // uniqBy
@@ -2872,24 +2872,24 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.uniqBy
          */
         uniqBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             iteratee: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.uniqBy
          */
         uniqBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             iteratee: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // uniqWith
@@ -2917,24 +2917,24 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.uniqWith
          */
         uniqWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             comparator?: Comparator<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.uniqWith
          */
         uniqWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             comparator?: Comparator<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // unzip
@@ -2950,18 +2950,18 @@ declare module "../index" {
         unzip<T>(array: T[][] | List<List<T>> | null | undefined): T[][];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.unzip
          */
-        unzip<T>(this: LoDashImplicitWrapper<T[][] | List<List<T>> | null | undefined>): LoDashImplicitWrapper<T[][]>;
+        unzip<T>(this: Imp<T[][] | List<List<T>> | null | undefined>): Imp<T[][]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.unzip
          */
-        unzip<T>(this: LoDashExplicitWrapper<T[][] | List<List<T>> | null | undefined>): LoDashExplicitWrapper<T[][]>;
+        unzip<T>(this: Exp<T[][] | List<List<T>> | null | undefined>): Exp<T[][]>;
     }
 
     // unzipWith
@@ -2988,38 +2988,38 @@ declare module "../index" {
         ): T[][];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.unzipWith
          */
         unzipWith<T, TResult>(
-            this: LoDashImplicitWrapper<List<List<T>> | null | undefined>,
+            this: Imp<List<List<T>> | null | undefined>,
             iteratee: (...values: T[]) => TResult
-        ): LoDashImplicitWrapper<TResult[]>;
+        ): Imp<TResult[]>;
 
         /**
          * @see _.unzipWith
          */
         unzipWith<T>(
-            this: LoDashImplicitWrapper<List<List<T>> | null | undefined>
-        ): LoDashImplicitWrapper<T[][]>;
+            this: Imp<List<List<T>> | null | undefined>
+        ): Imp<T[][]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.unzipWith
          */
         unzipWith<T, TResult>(
-            this: LoDashExplicitWrapper<List<List<T>> | null | undefined>,
+            this: Exp<List<List<T>> | null | undefined>,
             iteratee: (...values: T[]) => TResult
-        ): LoDashExplicitWrapper<TResult[]>;
+        ): Exp<TResult[]>;
 
         /**
          * @see _.unzipWith
          */
         unzipWith<T>(
-            this: LoDashExplicitWrapper<List<List<T>> | null | undefined>
-        ): LoDashExplicitWrapper<T[][]>;
+            this: Exp<List<List<T>> | null | undefined>
+        ): Exp<T[][]>;
     }
 
     // without
@@ -3038,24 +3038,24 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.without
          */
         without<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             ...values: T[]
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.without
          */
         without<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             ...values: T[]
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // xor
@@ -3070,24 +3070,24 @@ declare module "../index" {
         xor<T>(...arrays: Array<List<T> | null | undefined>): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.xor
          */
         xor<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             ...arrays: Array<List<T> | null | undefined>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.xor
          */
         xor<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             ...arrays: Array<List<T> | null | undefined>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // xorBy
@@ -3136,62 +3136,62 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.xor
          */
         xorBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
 
         /**
          * @see _.xorBy
          */
         xorBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
 
         /**
          * @see _.xorBy
          */
         xorBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.xorBy
          */
         xorBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
 
         /**
          * @see _.xorBy
          */
         xorBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
 
         /**
          * @see _.xorBy
          */
         xorBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // xorWith
@@ -3239,62 +3239,62 @@ declare module "../index" {
         ): T[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.xorWith
          */
         xorWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             comparator?: Comparator<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
 
         /**
          * @see _.xorWith
          */
         xorWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             comparator?: Comparator<T>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
 
         /**
          * @see _.xorWith
          */
         xorWith<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             ...comparator: Array<Comparator<T> | List<T> | null | undefined>
-        ): LoDashImplicitWrapper<T[]>;
+        ): Imp<T[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.xorWith
          */
         xorWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             comparator?: Comparator<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
 
         /**
          * @see _.xorWith
          */
         xorWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             comparator?: Comparator<T>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
 
         /**
          * @see _.xorWith
          */
         xorWith<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             arrays2: List<T> | null | undefined,
             arrays3: List<T> | null | undefined,
             ...comparator: Array<Comparator<T> | List<T> | null | undefined>
-        ): LoDashExplicitWrapper<T[]>;
+        ): Exp<T[]>;
     }
 
     // zip
@@ -3330,100 +3330,100 @@ declare module "../index" {
         zip<T>(...arrays: Array<List<T> | null | undefined>): Array<Array<T | undefined>>;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.zip
          */
         zip<T1, T2>(
-            this: LoDashImplicitWrapper<List<T1>>,
+            this: Imp<List<T1>>,
             arrays2: List<T2>,
-        ): LoDashImplicitWrapper<Array<[T1 | undefined, T2 | undefined]>>;
+        ): Imp<Array<[T1 | undefined, T2 | undefined]>>;
 
         /**
          * @see _.zip
          */
         zip<T1, T2, T3>(
-            this: LoDashImplicitWrapper<List<T1>>,
+            this: Imp<List<T1>>,
             arrays2: List<T2>,
             arrays3: List<T3>,
-        ): LoDashImplicitWrapper<Array<[T1 | undefined, T2 | undefined, T3 | undefined]>>;
+        ): Imp<Array<[T1 | undefined, T2 | undefined, T3 | undefined]>>;
 
         /**
          * @see _.zip
          */
         zip<T1, T2, T3, T4>(
-            this: LoDashImplicitWrapper<List<T1>>,
+            this: Imp<List<T1>>,
             arrays2: List<T2>,
             arrays3: List<T3>,
             arrays4: List<T4>,
-        ): LoDashImplicitWrapper<Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined]>>;
+        ): Imp<Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined]>>;
 
         /**
          * @see _.zip
          */
         zip<T1, T2, T3, T4, T5>(
-            this: LoDashImplicitWrapper<List<T1>>,
+            this: Imp<List<T1>>,
             arrays2: List<T2>,
             arrays3: List<T3>,
             arrays4: List<T4>,
             arrays5: List<T5>,
-        ): LoDashImplicitWrapper<Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>>;
+        ): Imp<Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>>;
 
         /**
          * @see _.zip
          */
         zip<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             ...arrays: Array<List<T> | null | undefined>
-        ): LoDashImplicitWrapper<Array<Array<T | undefined>>>;
+        ): Imp<Array<Array<T | undefined>>>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.zip
          */
         zip<T1, T2>(
-            this: LoDashExplicitWrapper<List<T1>>,
+            this: Exp<List<T1>>,
             arrays2: List<T2>,
-        ): LoDashExplicitWrapper<Array<[T1 | undefined, T2 | undefined]>>;
+        ): Exp<Array<[T1 | undefined, T2 | undefined]>>;
 
         /**
          * @see _.zip
          */
         zip<T1, T2, T3>(
-            this: LoDashExplicitWrapper<List<T1>>,
+            this: Exp<List<T1>>,
             arrays2: List<T2>,
             arrays3: List<T3>,
-        ): LoDashExplicitWrapper<Array<[T1 | undefined, T2 | undefined, T3 | undefined]>>;
+        ): Exp<Array<[T1 | undefined, T2 | undefined, T3 | undefined]>>;
 
         /**
          * @see _.zip
          */
         zip<T1, T2, T3, T4>(
-            this: LoDashExplicitWrapper<List<T1>>,
+            this: Exp<List<T1>>,
             arrays2: List<T2>,
             arrays3: List<T3>,
             arrays4: List<T4>,
-        ): LoDashExplicitWrapper<Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined]>>;
+        ): Exp<Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined]>>;
 
         /**
          * @see _.zip
          */
         zip<T1, T2, T3, T4, T5>(
-            this: LoDashExplicitWrapper<List<T1>>,
+            this: Exp<List<T1>>,
             arrays2: List<T2>,
             arrays3: List<T3>,
             arrays4: List<T4>,
             arrays5: List<T5>,
-        ): LoDashExplicitWrapper<Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>>;
+        ): Exp<Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>>;
 
         /**
          * @see _.zip
          */
         zip<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             ...arrays: Array<List<T> | null | undefined>
-        ): LoDashExplicitWrapper<Array<Array<T | undefined>>>;
+        ): Exp<Array<Array<T | undefined>>>;
     }
 
     // zipObject
@@ -3450,38 +3450,38 @@ declare module "../index" {
         ): Dictionary<undefined>;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.zipObject
          */
         zipObject<T>(
-            this: LoDashImplicitWrapper<List<PropertyName>>,
+            this: Imp<List<PropertyName>>,
             values: List<T>
-        ): LoDashImplicitWrapper<Dictionary<T>>;
+        ): Imp<Dictionary<T>>;
 
         /**
          * @see _.zipObject
          */
         zipObject(
-            this: LoDashImplicitWrapper<List<PropertyName>>
-        ): LoDashImplicitWrapper<Dictionary<undefined>>;
+            this: Imp<List<PropertyName>>
+        ): Imp<Dictionary<undefined>>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.zipObject
          */
         zipObject<T>(
-            this: LoDashExplicitWrapper<List<PropertyName>>,
+            this: Exp<List<PropertyName>>,
             values: List<T>
-        ): LoDashExplicitWrapper<Dictionary<T>>;
+        ): Exp<Dictionary<T>>;
 
         /**
          * @see _.zipObject
          */
         zipObject(
-            this: LoDashExplicitWrapper<List<PropertyName>>
-        ): LoDashExplicitWrapper<Dictionary<undefined>>;
+            this: Exp<List<PropertyName>>
+        ): Exp<Dictionary<undefined>>;
     }
 
     // zipObjectDeep
@@ -3500,24 +3500,24 @@ declare module "../index" {
         ): object;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.zipObjectDeep
          */
         zipObjectDeep(
-            this: LoDashImplicitWrapper<List<PropertyPath>>,
+            this: Imp<List<PropertyPath>>,
             values?: List<any>
-        ): LoDashImplicitWrapper<object>;
+        ): Imp<object>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.zipObjectDeep
          */
         zipObjectDeep(
-            this: LoDashExplicitWrapper<List<PropertyPath>>,
+            this: Exp<List<PropertyPath>>,
             values?: List<any>
-        ): LoDashExplicitWrapper<object>;
+        ): Exp<object>;
     }
 
     // zipWith
@@ -3586,123 +3586,123 @@ declare module "../index" {
         ): TResult[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.zipWith
          */
         zipWith<T, TResult>(
-            this: LoDashImplicitWrapper<List<T>>,
+            this: Imp<List<T>>,
             iteratee: (value1: T) => TResult
-        ): LoDashImplicitWrapper<TResult[]>;
+        ): Imp<TResult[]>;
 
         /**
          * @see _.zipWith
          */
         zipWith<T1, T2, TResult>(
-            this: LoDashImplicitWrapper<List<T1>>,
+            this: Imp<List<T1>>,
             arrays2: List<T2>,
             iteratee: (value1: T1, value2: T2) => TResult
-        ): LoDashImplicitWrapper<TResult[]>;
+        ): Imp<TResult[]>;
 
         /**
          * @see _.zipWith
          */
         zipWith<T1, T2, T3, TResult>(
-            this: LoDashImplicitWrapper<List<T1>>,
+            this: Imp<List<T1>>,
             arrays2: List<T2>,
             arrays3: List<T3>,
             iteratee: (value1: T1, value2: T2, value3: T3) => TResult
-        ): LoDashImplicitWrapper<TResult[]>;
+        ): Imp<TResult[]>;
 
         /**
          * @see _.zipWith
          */
         zipWith<T1, T2, T3, T4, TResult>(
-            this: LoDashImplicitWrapper<List<T1>>,
+            this: Imp<List<T1>>,
             arrays2: List<T2>,
             arrays3: List<T3>,
             arrays4: List<T4>,
             iteratee: (value1: T1, value2: T2, value3: T3, value4: T4) => TResult
-        ): LoDashImplicitWrapper<TResult[]>;
+        ): Imp<TResult[]>;
 
         /**
          * @see _.zipWith
          */
         zipWith<T1, T2, T3, T4, T5, TResult>(
-            this: LoDashImplicitWrapper<List<T1>>,
+            this: Imp<List<T1>>,
             arrays2: List<T2>,
             arrays3: List<T3>,
             arrays4: List<T4>,
             arrays5: List<T5>,
             iteratee: (value1: T1, value2: T2, value3: T3, value4: T4, value5: T5) => TResult
-        ): LoDashImplicitWrapper<TResult[]>;
+        ): Imp<TResult[]>;
 
         /**
          * @see _.zipWith
          */
         zipWith<T, TResult>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             ...iteratee: Array<((...group: T[]) => TResult) | List<T> | null | undefined>
-        ): LoDashImplicitWrapper<TResult[]>;
+        ): Imp<TResult[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.zipWith
          */
         zipWith<T, TResult>(
-            this: LoDashExplicitWrapper<List<T>>,
+            this: Exp<List<T>>,
             iteratee: (value1: T) => TResult
-        ): LoDashExplicitWrapper<TResult[]>;
+        ): Exp<TResult[]>;
 
         /**
          * @see _.zipWith
          */
         zipWith<T1, T2, TResult>(
-            this: LoDashExplicitWrapper<List<T1>>,
+            this: Exp<List<T1>>,
             arrays2: List<T2>,
             iteratee: (value1: T1, value2: T2) => TResult
-        ): LoDashExplicitWrapper<TResult[]>;
+        ): Exp<TResult[]>;
 
         /**
          * @see _.zipWith
          */
         zipWith<T1, T2, T3, TResult>(
-            this: LoDashExplicitWrapper<List<T1>>,
+            this: Exp<List<T1>>,
             arrays2: List<T2>,
             arrays3: List<T3>,
             iteratee: (value1: T1, value2: T2, value3: T3) => TResult
-        ): LoDashExplicitWrapper<TResult[]>;
+        ): Exp<TResult[]>;
 
         /**
          * @see _.zipWith
          */
         zipWith<T1, T2, T3, T4, TResult>(
-            this: LoDashExplicitWrapper<List<T1>>,
+            this: Exp<List<T1>>,
             arrays2: List<T2>,
             arrays3: List<T3>,
             arrays4: List<T4>,
             iteratee: (value1: T1, value2: T2, value3: T3, value4: T4) => TResult
-        ): LoDashExplicitWrapper<TResult[]>;
+        ): Exp<TResult[]>;
 
         /**
          * @see _.zipWith
          */
         zipWith<T1, T2, T3, T4, T5, TResult>(
-            this: LoDashExplicitWrapper<List<T1>>,
+            this: Exp<List<T1>>,
             arrays2: List<T2>,
             arrays3: List<T3>,
             arrays4: List<T4>,
             arrays5: List<T5>,
             iteratee: (value1: T1, value2: T2, value3: T3, value4: T4, value5: T5) => TResult
-        ): LoDashExplicitWrapper<TResult[]>;
+        ): Exp<TResult[]>;
 
         /**
          * @see _.zipWith
          */
         zipWith<T, TResult>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             ...iteratee: Array<((...group: T[]) => TResult) | List<T> | null | undefined>
-        ): LoDashExplicitWrapper<TResult[]>;
+        ): Exp<TResult[]>;
     }
 }

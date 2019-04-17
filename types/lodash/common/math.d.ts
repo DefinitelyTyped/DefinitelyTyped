@@ -16,18 +16,18 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.add
          */
         add(addend: number): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.add
          */
-        add(addend: number): LoDashExplicitWrapper<number>;
+        add(addend: number): Exp<number>;
     }
 
     // ceil
@@ -46,18 +46,18 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.ceil
          */
         ceil(precision?: number): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.ceil
          */
-        ceil(precision?: number): LoDashExplicitWrapper<number>;
+        ceil(precision?: number): Exp<number>;
     }
 
     // divide
@@ -76,18 +76,18 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.divide
          */
         divide(divisor: number): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.divide
          */
-        divide(divisor: number): LoDashExplicitWrapper<number>;
+        divide(divisor: number): Exp<number>;
     }
 
     // floor
@@ -106,18 +106,18 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.floor
          */
         floor(precision?: number): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.floor
          */
-        floor(precision?: number): LoDashExplicitWrapper<number>;
+        floor(precision?: number): Exp<number>;
     }
 
     // max
@@ -136,18 +136,18 @@ declare module "../index" {
         ): T | undefined;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.max
          */
-        max<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): T | undefined;
+        max<T>(this: Imp<List<T> | null | undefined>): T | undefined;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.max
          */
-        max<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T | undefined>;
+        max<T>(this: Exp<List<T> | null | undefined>): Exp<T | undefined>;
     }
 
     // maxBy
@@ -179,24 +179,24 @@ declare module "../index" {
         ): T | undefined;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.maxBy
          */
         maxBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             iteratee?: ValueIteratee<T>
         ): T | undefined;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.maxBy
          */
         maxBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T | undefined>;
+        ): Exp<T | undefined>;
     }
 
     // mean
@@ -218,18 +218,18 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.mean
          */
         mean(): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.mean
          */
-        mean(): LoDashExplicitWrapper<number>;
+        mean(): Exp<number>;
     }
 
     // meanBy
@@ -253,24 +253,24 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.meanBy
          */
         meanBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             iteratee?: ValueIteratee<T>
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.meanBy
          */
         meanBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // min
@@ -289,18 +289,18 @@ declare module "../index" {
         ): T | undefined;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.min
          */
-        min<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): T | undefined;
+        min<T>(this: Imp<List<T> | null | undefined>): T | undefined;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.min
          */
-        min<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T | undefined>;
+        min<T>(this: Exp<List<T> | null | undefined>): Exp<T | undefined>;
     }
 
     // minBy
@@ -332,24 +332,24 @@ declare module "../index" {
         ): T | undefined;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.minBy
          */
         minBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             iteratee?: ValueIteratee<T>
         ): T | undefined;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.minBy
          */
         minBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T | undefined>;
+        ): Exp<T | undefined>;
     }
 
     // multiply
@@ -367,18 +367,18 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.multiply
          */
         multiply(multiplicand: number): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.multiply
          */
-        multiply(multiplicand: number): LoDashExplicitWrapper<number>;
+        multiply(multiplicand: number): Exp<number>;
     }
 
     // round
@@ -397,18 +397,18 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.round
          */
         round(precision?: number): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.round
          */
-        round(precision?: number): LoDashExplicitWrapper<number>;
+        round(precision?: number): Exp<number>;
     }
 
     // subtract
@@ -432,7 +432,7 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.subtract
          */
@@ -441,13 +441,13 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.subtract
          */
         subtract(
             subtrahend: number
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // sum
@@ -467,18 +467,18 @@ declare module "../index" {
         sum(collection: List<any> | null | undefined): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.sum
          */
         sum(): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.sum
          */
-        sum(): LoDashExplicitWrapper<number>;
+        sum(): Exp<number>;
     }
 
     // sumBy
@@ -510,23 +510,23 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.sumBy
          */
         sumBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            this: Imp<List<T> | null | undefined>,
             iteratee?: ((value: T) => number) | string
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.sumBy
          */
         sumBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            this: Exp<List<T> | null | undefined>,
             iteratee?: ((value: T) => number) | string
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 }

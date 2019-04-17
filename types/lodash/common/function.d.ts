@@ -16,18 +16,18 @@ declare module "../index" {
         ): TFunc;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
         * @see _.after
         **/
-        after<TFunc extends (...args: any[]) => any>(func: TFunc): LoDashImplicitWrapper<TFunc>;
+        after<TFunc extends (...args: any[]) => any>(func: TFunc): Imp<TFunc>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.after
          **/
-        after<TFunc extends (...args: any[]) => any>(func: TFunc): LoDashExplicitWrapper<TFunc>;
+        after<TFunc extends (...args: any[]) => any>(func: TFunc): Exp<TFunc>;
     }
 
     // ary
@@ -46,18 +46,18 @@ declare module "../index" {
         ): (...args: any[]) => any;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.ary
          */
-        ary(n?: number): LoDashImplicitWrapper<(...args: any[]) => any>;
+        ary(n?: number): Imp<(...args: any[]) => any>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.ary
          */
-        ary(n?: number): LoDashExplicitWrapper<(...args: any[]) => any>;
+        ary(n?: number): Exp<(...args: any[]) => any>;
     }
 
     // before
@@ -78,18 +78,18 @@ declare module "../index" {
         ): TFunc;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.before
          **/
-        before<TFunc extends (...args: any[]) => any>(func: TFunc): LoDashImplicitWrapper<TFunc>;
+        before<TFunc extends (...args: any[]) => any>(func: TFunc): Imp<TFunc>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.before
          **/
-        before<TFunc extends (...args: any[]) => any>(func: TFunc): LoDashExplicitWrapper<TFunc>;
+        before<TFunc extends (...args: any[]) => any>(func: TFunc): Exp<TFunc>;
     }
 
     // bind
@@ -122,24 +122,24 @@ declare module "../index" {
         bind: FunctionBind;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.bind
          */
         bind(
             thisArg: any,
             ...partials: any[]
-        ): LoDashImplicitWrapper<(...args: any[]) => any>;
+        ): Imp<(...args: any[]) => any>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.bind
          */
         bind(
             thisArg: any,
             ...partials: any[]
-        ): LoDashExplicitWrapper<(...args: any[]) => any>;
+        ): Exp<(...args: any[]) => any>;
     }
 
     // bindKey
@@ -173,24 +173,24 @@ declare module "../index" {
         bindKey: FunctionBindKey;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.bindKey
          */
         bindKey(
             key: string,
             ...partials: any[]
-        ): LoDashImplicitWrapper<(...args: any[]) => any>;
+        ): Imp<(...args: any[]) => any>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.bindKey
          */
         bindKey(
             key: string,
             ...partials: any[]
-        ): LoDashExplicitWrapper<(...args: any[]) => any>;
+        ): Exp<(...args: any[]) => any>;
     }
 
     // curry
@@ -417,78 +417,78 @@ declare module "../index" {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
         * @see _.curry
         **/
-        curry<T1, R>(this: LoDashImplicitWrapper<(t1: T1) => R>, arity?: number):
-            LoDashImplicitWrapper<CurriedFunction1<T1, R>>;
+        curry<T1, R>(this: Imp<(t1: T1) => R>, arity?: number):
+            Imp<CurriedFunction1<T1, R>>;
 
         /**
         * @see _.curry
         **/
-        curry<T1, T2, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2) => R>, arity?: number):
-            LoDashImplicitWrapper<CurriedFunction2<T1, T2, R>>;
+        curry<T1, T2, R>(this: Imp<(t1: T1, t2: T2) => R>, arity?: number):
+            Imp<CurriedFunction2<T1, T2, R>>;
 
         /**
         * @see _.curry
         **/
-        curry<T1, T2, T3, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2, t3: T3) => R>, arity?: number):
-            LoDashImplicitWrapper<CurriedFunction3<T1, T2, T3, R>>;
+        curry<T1, T2, T3, R>(this: Imp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number):
+            Imp<CurriedFunction3<T1, T2, T3, R>>;
 
         /**
         * @see _.curry
         **/
-        curry<T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number):
-            LoDashImplicitWrapper<CurriedFunction4<T1, T2, T3, T4, R>>;
+        curry<T1, T2, T3, T4, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number):
+            Imp<CurriedFunction4<T1, T2, T3, T4, R>>;
 
         /**
         * @see _.curry
         **/
-        curry<T1, T2, T3, T4, T5, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number):
-            LoDashImplicitWrapper<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
+        curry<T1, T2, T3, T4, T5, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number):
+            Imp<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
 
         /**
         * @see _.curry
         **/
-        curry(arity?: number): LoDashImplicitWrapper<(...args: any[]) => any>;
+        curry(arity?: number): Imp<(...args: any[]) => any>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
         * @see _.curry
         **/
-        curry<T1, R>(this: LoDashExplicitWrapper<(t1: T1) => R>):
-            LoDashExplicitWrapper<CurriedFunction1<T1, R>>;
+        curry<T1, R>(this: Exp<(t1: T1) => R>):
+            Exp<CurriedFunction1<T1, R>>;
 
         /**
         * @see _.curry
         **/
-        curry<T1, T2, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2) => R>):
-            LoDashExplicitWrapper<CurriedFunction2<T1, T2, R>>;
+        curry<T1, T2, R>(this: Exp<(t1: T1, t2: T2) => R>):
+            Exp<CurriedFunction2<T1, T2, R>>;
 
         /**
         * @see _.curry
         **/
-        curry<T1, T2, T3, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2, t3: T3) => R>):
-            LoDashExplicitWrapper<CurriedFunction3<T1, T2, T3, R>>;
+        curry<T1, T2, T3, R>(this: Exp<(t1: T1, t2: T2, t3: T3) => R>):
+            Exp<CurriedFunction3<T1, T2, T3, R>>;
 
         /**
         * @see _.curry
         **/
-        curry<T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4) => R>):
-            LoDashExplicitWrapper<CurriedFunction4<T1, T2, T3, T4, R>>;
+        curry<T1, T2, T3, T4, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>):
+            Exp<CurriedFunction4<T1, T2, T3, T4, R>>;
 
         /**
         * @see _.curry
         **/
-        curry<T1, T2, T3, T4, T5, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>):
-            LoDashExplicitWrapper<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
+        curry<T1, T2, T3, T4, T5, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>):
+            Exp<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
 
         /**
         * @see _.curry
         **/
-        curry(arity?: number): LoDashExplicitWrapper<(...args: any[]) => any>;
+        curry(arity?: number): Exp<(...args: any[]) => any>;
     }
 
     // curryRight
@@ -555,78 +555,78 @@ declare module "../index" {
         curryRight: CurryRight;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.curryRight
          **/
-        curryRight<T1, R>(this: LoDashImplicitWrapper<(t1: T1) => R>, arity?: number):
-            LoDashImplicitWrapper<RightCurriedFunction1<T1, R>>;
+        curryRight<T1, R>(this: Imp<(t1: T1) => R>, arity?: number):
+            Imp<RightCurriedFunction1<T1, R>>;
 
         /**
          * @see _.curryRight
          **/
-        curryRight<T1, T2, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2) => R>, arity?: number):
-            LoDashImplicitWrapper<RightCurriedFunction2<T1, T2, R>>;
+        curryRight<T1, T2, R>(this: Imp<(t1: T1, t2: T2) => R>, arity?: number):
+            Imp<RightCurriedFunction2<T1, T2, R>>;
 
         /**
          * @see _.curryRight
          **/
-        curryRight<T1, T2, T3, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2, t3: T3) => R>, arity?: number):
-            LoDashImplicitWrapper<RightCurriedFunction3<T1, T2, T3, R>>;
+        curryRight<T1, T2, T3, R>(this: Imp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number):
+            Imp<RightCurriedFunction3<T1, T2, T3, R>>;
 
         /**
          * @see _.curryRight
          **/
-        curryRight<T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number):
-            LoDashImplicitWrapper<RightCurriedFunction4<T1, T2, T3, T4, R>>;
+        curryRight<T1, T2, T3, T4, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number):
+            Imp<RightCurriedFunction4<T1, T2, T3, T4, R>>;
 
         /**
          * @see _.curryRight
          **/
-        curryRight<T1, T2, T3, T4, T5, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number):
-            LoDashImplicitWrapper<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
+        curryRight<T1, T2, T3, T4, T5, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number):
+            Imp<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
 
         /**
          * @see _.curryRight
          **/
-        curryRight(arity?: number): LoDashImplicitWrapper<(...args: any[]) => any>;
+        curryRight(arity?: number): Imp<(...args: any[]) => any>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.curryRight
          **/
-        curryRight<T1, R>(this: LoDashExplicitWrapper<(t1: T1) => R>, arity?: number):
-            LoDashExplicitWrapper<RightCurriedFunction1<T1, R>>;
+        curryRight<T1, R>(this: Exp<(t1: T1) => R>, arity?: number):
+            Exp<RightCurriedFunction1<T1, R>>;
 
         /**
          * @see _.curryRight
          **/
-        curryRight<T1, T2, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2) => R>, arity?: number):
-            LoDashExplicitWrapper<RightCurriedFunction2<T1, T2, R>>;
+        curryRight<T1, T2, R>(this: Exp<(t1: T1, t2: T2) => R>, arity?: number):
+            Exp<RightCurriedFunction2<T1, T2, R>>;
 
         /**
          * @see _.curryRight
          **/
-        curryRight<T1, T2, T3, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2, t3: T3) => R>, arity?: number):
-            LoDashExplicitWrapper<RightCurriedFunction3<T1, T2, T3, R>>;
+        curryRight<T1, T2, T3, R>(this: Exp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number):
+            Exp<RightCurriedFunction3<T1, T2, T3, R>>;
 
         /**
          * @see _.curryRight
          **/
-        curryRight<T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number):
-            LoDashExplicitWrapper<RightCurriedFunction4<T1, T2, T3, T4, R>>;
+        curryRight<T1, T2, T3, T4, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number):
+            Exp<RightCurriedFunction4<T1, T2, T3, T4, R>>;
 
         /**
          * @see _.curryRight
          **/
-        curryRight<T1, T2, T3, T4, T5, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number):
-            LoDashExplicitWrapper<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
+        curryRight<T1, T2, T3, T4, T5, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number):
+            Exp<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
 
         /**
          * @see _.curryRight
          **/
-        curryRight(arity?: number): LoDashExplicitWrapper<(...args: any[]) => any>;
+        curryRight(arity?: number): Exp<(...args: any[]) => any>;
     }
 
     // debounce
@@ -676,24 +676,24 @@ declare module "../index" {
         ): T & Cancelable;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.debounce
          */
         debounce(
             wait?: number,
             options?: DebounceSettings
-        ): LoDashImplicitWrapper<TValue & Cancelable>;
+        ): Imp<TValue & Cancelable>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.debounce
          */
         debounce(
             wait?: number,
             options?: DebounceSettings
-        ): LoDashExplicitWrapper<TValue & Cancelable>;
+        ): Exp<TValue & Cancelable>;
     }
 
     // defer
@@ -713,18 +713,18 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.defer
          */
-        defer(...args: any[]): LoDashImplicitWrapper<number>;
+        defer(...args: any[]): Imp<number>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.defer
          */
-        defer(...args: any[]): LoDashExplicitWrapper<number>;
+        defer(...args: any[]): Exp<number>;
     }
 
     // delay
@@ -745,24 +745,24 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.delay
          */
         delay(
             wait: number,
             ...args: any[]
-        ): LoDashImplicitWrapper<number>;
+        ): Imp<number>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.delay
          */
         delay(
             wait: number,
             ...args: any[]
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // flip
@@ -816,18 +816,18 @@ declare module "../index" {
         };
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.memoize
          */
-        memoize(resolver?: (...args: any[]) => any): LoDashImplicitWrapper<TValue & MemoizedFunction>;
+        memoize(resolver?: (...args: any[]) => any): Imp<TValue & MemoizedFunction>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.memoize
          */
-        memoize(resolver?: (...args: any[]) => any): LoDashExplicitWrapper<TValue & MemoizedFunction>;
+        memoize(resolver?: (...args: any[]) => any): Exp<TValue & MemoizedFunction>;
     }
 
     // negate
@@ -846,24 +846,24 @@ declare module "../index" {
         negate(predicate: (...args: any[]) => any): (...args: any[]) => boolean;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.negate
          */
-        negate(this: LoDashImplicitWrapper<() => boolean>): LoDashImplicitWrapper<() => boolean>;
-        negate<A1>(this: LoDashImplicitWrapper<(a1: A1) => boolean>): LoDashImplicitWrapper<(a1: A1) => boolean>;
-        negate<A1, A2>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => boolean>): LoDashImplicitWrapper<(a1: A1, a2: A2) => boolean>;
-        negate(this: LoDashImplicitWrapper<(...args: any[]) => any>): LoDashImplicitWrapper<(...args: any[]) => boolean>;
+        negate(this: Imp<() => boolean>): Imp<() => boolean>;
+        negate<A1>(this: Imp<(a1: A1) => boolean>): Imp<(a1: A1) => boolean>;
+        negate<A1, A2>(this: Imp<(a1: A1, a2: A2) => boolean>): Imp<(a1: A1, a2: A2) => boolean>;
+        negate(this: Imp<(...args: any[]) => any>): Imp<(...args: any[]) => boolean>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.negate
          */
-        negate(this: LoDashExplicitWrapper<() => boolean>): LoDashExplicitWrapper<() => boolean>;
-        negate<A1>(this: LoDashExplicitWrapper<(a1: A1) => boolean>): LoDashExplicitWrapper<(a1: A1) => boolean>;
-        negate<A1, A2>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => boolean>): LoDashExplicitWrapper<(a1: A1, a2: A2) => boolean>;
-        negate(this: LoDashExplicitWrapper<(...args: any[]) => any>): LoDashExplicitWrapper<(...args: any[]) => boolean>;
+        negate(this: Exp<() => boolean>): Exp<() => boolean>;
+        negate<A1>(this: Exp<(a1: A1) => boolean>): Exp<(a1: A1) => boolean>;
+        negate<A1, A2>(this: Exp<(a1: A1, a2: A2) => boolean>): Exp<(a1: A1, a2: A2) => boolean>;
+        negate(this: Exp<(...args: any[]) => any>): Exp<(...args: any[]) => boolean>;
     }
 
     // once
@@ -903,18 +903,18 @@ declare module "../index" {
         ): (...args: any[]) => any;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.overArgs
          */
-        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => any>;
+        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): Imp<(...args: any[]) => any>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.overArgs
          */
-        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => any>;
+        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): Exp<(...args: any[]) => any>;
     }
 
     // partial
@@ -931,14 +931,14 @@ declare module "../index" {
         partial: Partial;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.partial
          */
         partial: ImplicitPartial;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.partial
          */
@@ -999,84 +999,84 @@ declare module "../index" {
 
     interface ImplicitPartial {
         // arity 0
-        <R>(this: LoDashImplicitWrapper<Function0<R>>): LoDashImplicitWrapper<Function0<R>>;
+        <R>(this: Imp<Function0<R>>): Imp<Function0<R>>;
         // arity 1
-        <T1, R>(this: LoDashImplicitWrapper<Function1<T1, R>>): LoDashImplicitWrapper<Function1<T1, R>>;
-        <T1, R>(this: LoDashImplicitWrapper<Function1<T1, R>>, arg1: T1): LoDashImplicitWrapper<Function0<R>>;
+        <T1, R>(this: Imp<Function1<T1, R>>): Imp<Function1<T1, R>>;
+        <T1, R>(this: Imp<Function1<T1, R>>, arg1: T1): Imp<Function0<R>>;
         // arity 2
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>):                      LoDashImplicitWrapper<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, arg1: T1):            LoDashImplicitWrapper<Function1<    T2, R>>;
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, plc1: __, arg2: T2):  LoDashImplicitWrapper<Function1<T1,     R>>;
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  LoDashImplicitWrapper<Function0<        R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>):                      Imp<Function2<T1, T2, R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1):            Imp<Function1<    T2, R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, plc1: __, arg2: T2):  Imp<Function1<T1,     R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  Imp<Function0<        R>>;
         // arity 3
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>):                                LoDashImplicitWrapper<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1):                      LoDashImplicitWrapper<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2):            LoDashImplicitWrapper<Function2<T1,     T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2):            LoDashImplicitWrapper<Function1<        T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, plc2: __, arg3: T3):  LoDashImplicitWrapper<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  LoDashImplicitWrapper<Function1<    T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3):  LoDashImplicitWrapper<Function1<T1,         R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  LoDashImplicitWrapper<Function0<            R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>):                                Imp<Function3<T1, T2, T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1):                      Imp<Function2<    T2, T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2):            Imp<Function2<T1,     T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2):            Imp<Function1<        T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, plc1: __, plc2: __, arg3: T3):  Imp<Function2<T1, T2,     R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  Imp<Function1<    T2,     R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3):  Imp<Function1<T1,         R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  Imp<Function0<            R>>;
         // arity 4
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>):                                          LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1):                                LoDashImplicitWrapper<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2):                      LoDashImplicitWrapper<Function3<T1,     T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2):                      LoDashImplicitWrapper<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3):            LoDashImplicitWrapper<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3):            LoDashImplicitWrapper<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3):            LoDashImplicitWrapper<Function2<T1,         T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3):            LoDashImplicitWrapper<Function1<            T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function1<        T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<    T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<T1,             R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function0<                R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>):                                          Imp<Function4<T1, T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1):                                Imp<Function3<    T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2):                      Imp<Function3<T1,     T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2):                      Imp<Function2<        T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3):            Imp<Function3<T1, T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3):            Imp<Function2<    T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3):            Imp<Function2<T1,         T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3):            Imp<Function1<            T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, plc3: __, arg4: T4):  Imp<Function3<T1, T2, T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  Imp<Function2<    T2, T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, plc3: __, arg4: T4):  Imp<Function2<T1,     T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  Imp<Function1<        T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3, arg4: T4):  Imp<Function2<T1, T2,         R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Imp<Function1<    T2,         R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  Imp<Function1<T1,             R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Imp<Function0<                R>>;
         // catch-all
-        (...args: any[]): LoDashImplicitWrapper<(...args: any[]) => any>;
+        (...args: any[]): Imp<(...args: any[]) => any>;
     }
 
     interface ExplicitPartial {
         // arity 0
-        <R>(this: LoDashExplicitWrapper<Function0<R>>): LoDashExplicitWrapper<Function0<R>>;
+        <R>(this: Exp<Function0<R>>): Exp<Function0<R>>;
         // arity 1
-        <T1, R>(this: LoDashExplicitWrapper<Function1<T1, R>>): LoDashExplicitWrapper<Function1<T1, R>>;
-        <T1, R>(this: LoDashExplicitWrapper<Function1<T1, R>>, arg1: T1): LoDashExplicitWrapper<Function0<R>>;
+        <T1, R>(this: Exp<Function1<T1, R>>): Exp<Function1<T1, R>>;
+        <T1, R>(this: Exp<Function1<T1, R>>, arg1: T1): Exp<Function0<R>>;
         // arity 2
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>):                      LoDashExplicitWrapper<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, arg1: T1):            LoDashExplicitWrapper<Function1<    T2, R>>;
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, plc1: __, arg2: T2):  LoDashExplicitWrapper<Function1<T1,     R>>;
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  LoDashExplicitWrapper<Function0<        R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>):                      Exp<Function2<T1, T2, R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1):            Exp<Function1<    T2, R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, plc1: __, arg2: T2):  Exp<Function1<T1,     R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  Exp<Function0<        R>>;
         // arity 3
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>):                                LoDashExplicitWrapper<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1):                      LoDashExplicitWrapper<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2):            LoDashExplicitWrapper<Function2<T1,     T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2):            LoDashExplicitWrapper<Function1<        T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, plc2: __, arg3: T3):  LoDashExplicitWrapper<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  LoDashExplicitWrapper<Function1<    T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3):  LoDashExplicitWrapper<Function1<T1,         R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  LoDashExplicitWrapper<Function0<            R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>):                                Exp<Function3<T1, T2, T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1):                      Exp<Function2<    T2, T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2):            Exp<Function2<T1,     T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2):            Exp<Function1<        T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, plc1: __, plc2: __, arg3: T3):  Exp<Function2<T1, T2,     R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  Exp<Function1<    T2,     R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3):  Exp<Function1<T1,         R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  Exp<Function0<            R>>;
         // arity 4
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>):                                          LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1):                                LoDashExplicitWrapper<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2):                      LoDashExplicitWrapper<Function3<T1,     T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2):                      LoDashExplicitWrapper<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3):            LoDashExplicitWrapper<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3):            LoDashExplicitWrapper<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3):            LoDashExplicitWrapper<Function2<T1,         T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3):            LoDashExplicitWrapper<Function1<            T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function1<        T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<    T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<T1,             R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function0<                R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>):                                          Exp<Function4<T1, T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1):                                Exp<Function3<    T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2):                      Exp<Function3<T1,     T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2):                      Exp<Function2<        T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3):            Exp<Function3<T1, T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3):            Exp<Function2<    T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3):            Exp<Function2<T1,         T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3):            Exp<Function1<            T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, plc3: __, arg4: T4):  Exp<Function3<T1, T2, T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  Exp<Function2<    T2, T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, plc3: __, arg4: T4):  Exp<Function2<T1,     T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  Exp<Function1<        T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3, arg4: T4):  Exp<Function2<T1, T2,         R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Exp<Function1<    T2,         R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  Exp<Function1<T1,             R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Exp<Function0<                R>>;
         // catch-all
-        (...args: any[]): LoDashExplicitWrapper<(...args: any[]) => any>;
+        (...args: any[]): Exp<(...args: any[]) => any>;
     }
 
     // partialRight
@@ -1092,14 +1092,14 @@ declare module "../index" {
         partialRight: PartialRight;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.partialRight
          */
         partialRight: ImplicitPartialRight;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.partialRight
          */
@@ -1151,84 +1151,84 @@ declare module "../index" {
 
     interface ImplicitPartialRight {
         // arity 0
-        <R>(this: LoDashImplicitWrapper<Function0<R>>): LoDashImplicitWrapper<Function0<R>>;
+        <R>(this: Imp<Function0<R>>): Imp<Function0<R>>;
         // arity 1
-        <T1, R>(this: LoDashImplicitWrapper<Function1<T1, R>>): LoDashImplicitWrapper<Function1<T1, R>>;
-        <T1, R>(this: LoDashImplicitWrapper<Function1<T1, R>>, arg1: T1): LoDashImplicitWrapper<Function0<R>>;
+        <T1, R>(this: Imp<Function1<T1, R>>): Imp<Function1<T1, R>>;
+        <T1, R>(this: Imp<Function1<T1, R>>, arg1: T1): Imp<Function0<R>>;
         // arity 2
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>):                      LoDashImplicitWrapper<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, arg1: T1, plc2: __):  LoDashImplicitWrapper<Function1<    T2, R>>;
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>,           arg2: T2):  LoDashImplicitWrapper<Function1<T1,     R>>;
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  LoDashImplicitWrapper<Function0<        R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>):                      Imp<Function2<T1, T2, R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1, plc2: __):  Imp<Function1<    T2, R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>,           arg2: T2):  Imp<Function1<T1,     R>>;
+        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  Imp<Function0<        R>>;
         // arity 3
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>):                                LoDashImplicitWrapper<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, plc3: __):  LoDashImplicitWrapper<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>,           arg2: T2, plc3: __):  LoDashImplicitWrapper<Function2<T1,     T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, plc3: __):  LoDashImplicitWrapper<Function1<        T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>,                     arg3: T3):  LoDashImplicitWrapper<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  LoDashImplicitWrapper<Function1<    T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>,           arg2: T2, arg3: T3):  LoDashImplicitWrapper<Function1<T1,         R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  LoDashImplicitWrapper<Function0<            R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>):                                Imp<Function3<T1, T2, T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, plc3: __):  Imp<Function2<    T2, T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>,           arg2: T2, plc3: __):  Imp<Function2<T1,     T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, plc3: __):  Imp<Function1<        T3, R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>,                     arg3: T3):  Imp<Function2<T1, T2,     R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  Imp<Function1<    T2,     R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>,           arg2: T2, arg3: T3):  Imp<Function1<T1,         R>>;
+        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  Imp<Function0<            R>>;
         // arity 4
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>):                                          LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, plc4: __):  LoDashImplicitWrapper<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, plc4: __):  LoDashImplicitWrapper<Function3<T1,     T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, plc4: __):  LoDashImplicitWrapper<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, plc4: __):  LoDashImplicitWrapper<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, plc4: __):  LoDashImplicitWrapper<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, plc4: __):  LoDashImplicitWrapper<Function2<T1,         T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, plc4: __):  LoDashImplicitWrapper<Function1<            T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,                               arg4: T4):  LoDashImplicitWrapper<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function1<        T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<    T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<T1,             R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function0<                R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>):                                          Imp<Function4<T1, T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, plc4: __):  Imp<Function3<    T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, plc4: __):  Imp<Function3<T1,     T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, plc4: __):  Imp<Function2<        T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, plc4: __):  Imp<Function3<T1, T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, plc4: __):  Imp<Function2<    T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, plc4: __):  Imp<Function2<T1,         T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, plc4: __):  Imp<Function1<            T4, R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>,                               arg4: T4):  Imp<Function3<T1, T2, T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  Imp<Function2<    T2, T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, arg4: T4):  Imp<Function2<T1,     T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  Imp<Function1<        T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, arg4: T4):  Imp<Function2<T1, T2,         R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Imp<Function1<    T2,         R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, arg4: T4):  Imp<Function1<T1,             R>>;
+        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Imp<Function0<                R>>;
         // catch-all
-        (...args: any[]): LoDashImplicitWrapper<(...args: any[]) => any>;
+        (...args: any[]): Imp<(...args: any[]) => any>;
     }
 
     interface ExplicitPartialRight {
         // arity 0
-        <R>(this: LoDashExplicitWrapper<Function0<R>>): LoDashExplicitWrapper<Function0<R>>;
+        <R>(this: Exp<Function0<R>>): Exp<Function0<R>>;
         // arity 1
-        <T1, R>(this: LoDashExplicitWrapper<Function1<T1, R>>): LoDashExplicitWrapper<Function1<T1, R>>;
-        <T1, R>(this: LoDashExplicitWrapper<Function1<T1, R>>, arg1: T1): LoDashExplicitWrapper<Function0<R>>;
+        <T1, R>(this: Exp<Function1<T1, R>>): Exp<Function1<T1, R>>;
+        <T1, R>(this: Exp<Function1<T1, R>>, arg1: T1): Exp<Function0<R>>;
         // arity 2
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>):                      LoDashExplicitWrapper<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, arg1: T1, plc2: __):  LoDashExplicitWrapper<Function1<    T2, R>>;
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>,           arg2: T2):  LoDashExplicitWrapper<Function1<T1,     R>>;
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  LoDashExplicitWrapper<Function0<        R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>):                      Exp<Function2<T1, T2, R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1, plc2: __):  Exp<Function1<    T2, R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>,           arg2: T2):  Exp<Function1<T1,     R>>;
+        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  Exp<Function0<        R>>;
         // arity 3
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>):                                LoDashExplicitWrapper<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, plc3: __):  LoDashExplicitWrapper<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>,           arg2: T2, plc3: __):  LoDashExplicitWrapper<Function2<T1,     T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, plc3: __):  LoDashExplicitWrapper<Function1<        T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>,                     arg3: T3):  LoDashExplicitWrapper<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  LoDashExplicitWrapper<Function1<    T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>,           arg2: T2, arg3: T3):  LoDashExplicitWrapper<Function1<T1,         R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  LoDashExplicitWrapper<Function0<            R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>):                                Exp<Function3<T1, T2, T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, plc3: __):  Exp<Function2<    T2, T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>,           arg2: T2, plc3: __):  Exp<Function2<T1,     T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, plc3: __):  Exp<Function1<        T3, R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>,                     arg3: T3):  Exp<Function2<T1, T2,     R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  Exp<Function1<    T2,     R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>,           arg2: T2, arg3: T3):  Exp<Function1<T1,         R>>;
+        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  Exp<Function0<            R>>;
         // arity 4
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>):                                          LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, plc4: __):  LoDashExplicitWrapper<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, plc4: __):  LoDashExplicitWrapper<Function3<T1,     T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, plc4: __):  LoDashExplicitWrapper<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, plc4: __):  LoDashExplicitWrapper<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, plc4: __):  LoDashExplicitWrapper<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, plc4: __):  LoDashExplicitWrapper<Function2<T1,         T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, plc4: __):  LoDashExplicitWrapper<Function1<            T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,                               arg4: T4):  LoDashExplicitWrapper<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function1<        T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<    T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<T1,             R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function0<                R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>):                                          Exp<Function4<T1, T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, plc4: __):  Exp<Function3<    T2, T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, plc4: __):  Exp<Function3<T1,     T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, plc4: __):  Exp<Function2<        T3, T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, plc4: __):  Exp<Function3<T1, T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, plc4: __):  Exp<Function2<    T2,     T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, plc4: __):  Exp<Function2<T1,         T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, plc4: __):  Exp<Function1<            T4, R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>,                               arg4: T4):  Exp<Function3<T1, T2, T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  Exp<Function2<    T2, T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, arg4: T4):  Exp<Function2<T1,     T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  Exp<Function1<        T3,     R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, arg4: T4):  Exp<Function2<T1, T2,         R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Exp<Function1<    T2,         R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, arg4: T4):  Exp<Function1<T1,             R>>;
+        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Exp<Function0<                R>>;
         // catch-all
-        (...args: any[]): LoDashExplicitWrapper<(...args: any[]) => any>;
+        (...args: any[]): Exp<(...args: any[]) => any>;
     }
 
     // rearg
@@ -1245,18 +1245,18 @@ declare module "../index" {
         rearg(func: (...args: any[]) => any, ...indexes: Array<Many<number>>): (...args: any[]) => any;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.rearg
          */
-        rearg(...indexes: Array<Many<number>>): LoDashImplicitWrapper<(...args: any[]) => any>;
+        rearg(...indexes: Array<Many<number>>): Imp<(...args: any[]) => any>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.rearg
          */
-        rearg(...indexes: Array<Many<number>>): LoDashExplicitWrapper<(...args: any[]) => any>;
+        rearg(...indexes: Array<Many<number>>): Exp<(...args: any[]) => any>;
     }
 
     // rest
@@ -1278,18 +1278,18 @@ declare module "../index" {
         ): (...args: any[]) => any;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.rest
          */
-        rest(start?: number): LoDashImplicitWrapper<(...args: any[]) => any>;
+        rest(start?: number): Imp<(...args: any[]) => any>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.rest
          */
-        rest(start?: number): LoDashExplicitWrapper<(...args: any[]) => any>;
+        rest(start?: number): Exp<(...args: any[]) => any>;
     }
 
     // spread
@@ -1312,28 +1312,28 @@ declare module "../index" {
         spread<TResult>(func: (...args: any[]) => TResult, start: number): (...args: any[]) => TResult;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.spread
          */
-        spread<TResult>(this: LoDashImplicitWrapper<(...args: any[]) => TResult>): LoDashImplicitWrapper<(...args: any[]) => TResult>;
+        spread<TResult>(this: Imp<(...args: any[]) => TResult>): Imp<(...args: any[]) => TResult>;
 
         /**
          * @see _.spread
          */
-        spread<TResult>(this: LoDashImplicitWrapper<(...args: any[]) => TResult>, start: number): LoDashImplicitWrapper<(...args: any[]) => TResult>;
+        spread<TResult>(this: Imp<(...args: any[]) => TResult>, start: number): Imp<(...args: any[]) => TResult>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.spread
          */
-        spread<TResult>(this: LoDashExplicitWrapper<(...args: any[]) => TResult>): LoDashExplicitWrapper<(...args: any[]) => TResult>;
+        spread<TResult>(this: Exp<(...args: any[]) => TResult>): Exp<(...args: any[]) => TResult>;
 
         /**
          * @see _.spread
          */
-        spread<TResult>(this: LoDashExplicitWrapper<(...args: any[]) => TResult>, start: number): LoDashExplicitWrapper<(...args: any[]) => TResult>;
+        spread<TResult>(this: Exp<(...args: any[]) => TResult>, start: number): Exp<(...args: any[]) => TResult>;
     }
 
     // throttle
@@ -1374,24 +1374,24 @@ declare module "../index" {
         ): T & Cancelable;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.throttle
          */
         throttle(
             wait?: number,
             options?: ThrottleSettings
-        ): LoDashImplicitWrapper<TValue & Cancelable>;
+        ): Imp<TValue & Cancelable>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.throttle
          */
         throttle(
             wait?: number,
             options?: ThrottleSettings
-        ): LoDashExplicitWrapper<TValue & Cancelable>;
+        ): Exp<TValue & Cancelable>;
     }
 
     // unary
@@ -1412,18 +1412,18 @@ declare module "../index" {
         unary<T, TResult>(func: (arg1: T, ...args: any[]) => TResult): (arg1: T) => TResult;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.unary
          */
-        unary<T, TResult>(this: LoDashImplicitWrapper<(arg1: T, ...args: any[]) => TResult>): LoDashImplicitWrapper<(arg1: T) => TResult>;
+        unary<T, TResult>(this: Imp<(arg1: T, ...args: any[]) => TResult>): Imp<(arg1: T) => TResult>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.unary
          */
-        unary<T, TResult>(this: LoDashExplicitWrapper<(arg1: T, ...args: any[]) => TResult>): LoDashExplicitWrapper<(arg1: T) => TResult>;
+        unary<T, TResult>(this: Exp<(arg1: T, ...args: any[]) => TResult>): Exp<(arg1: T) => TResult>;
     }
 
     // wrap
@@ -1452,23 +1452,23 @@ declare module "../index" {
         ): (...args: any[]) => TResult;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.wrap
          */
         wrap<TArgs, TResult>(
             wrapper: (value: TValue, ...args: TArgs[]) => TResult
-        ): LoDashImplicitWrapper<(...args: TArgs[]) => TResult>;
+        ): Imp<(...args: TArgs[]) => TResult>;
 
         /**
          * @see _.wrap
          */
         wrap<TResult>(
             wrapper: (value: TValue, ...args: any[]) => TResult
-        ): LoDashImplicitWrapper<(...args: any[]) => TResult>;
+        ): Imp<(...args: any[]) => TResult>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.wrap
          */
@@ -1477,13 +1477,13 @@ declare module "../index" {
          */
         wrap<TArgs, TResult>(
             wrapper: (value: TValue, ...args: TArgs[]) => TResult
-        ): LoDashExplicitWrapper<(...args: TArgs[]) => TResult>;
+        ): Exp<(...args: TArgs[]) => TResult>;
 
         /**
          * @see _.wrap
          */
         wrap<TResult>(
             wrapper: (value: TValue, ...args: any[]) => TResult
-        ): LoDashExplicitWrapper<(...args: any[]) => TResult>;
+        ): Exp<(...args: any[]) => TResult>;
     }
 }

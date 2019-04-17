@@ -73,7 +73,7 @@ declare module "../index" {
         * toString, toUpper, trim, trimEnd, trimStart, truncate, unescape, uniqueId, upperCase,
         * upperFirst, value, and words.
         **/
-        <T>(value: T): LoDashImplicitWrapper<T>;
+        <T>(value: T): Imp<T>;
 
         /**
         * The semantic version number.
@@ -160,22 +160,22 @@ declare module "../index" {
         new (): MapCache;
     }
 
-    interface LoDashImplicitWrapper<TValue> extends LoDashWrapper<TValue> {
-        pop<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): T | undefined;
-        push<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, ...items: T[]): this;
-        shift<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): T | undefined;
-        sort<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, compareFn?: (a: T, b: T) => number): this;
-        splice<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, start: number, deleteCount?: number, ...items: T[]): this;
-        unshift<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, ...items: T[]): this;
+    interface Imp<TValue> extends LoDashWrapper<TValue> {
+        pop<T>(this: Imp<List<T> | null | undefined>): T | undefined;
+        push<T>(this: Imp<List<T> | null | undefined>, ...items: T[]): this;
+        shift<T>(this: Imp<List<T> | null | undefined>): T | undefined;
+        sort<T>(this: Imp<List<T> | null | undefined>, compareFn?: (a: T, b: T) => number): this;
+        splice<T>(this: Imp<List<T> | null | undefined>, start: number, deleteCount?: number, ...items: T[]): this;
+        unshift<T>(this: Imp<List<T> | null | undefined>, ...items: T[]): this;
     }
 
-    interface LoDashExplicitWrapper<TValue> extends LoDashWrapper<TValue> {
-        pop<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T | undefined>;
-        push<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, ...items: T[]): this;
-        shift<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T | undefined>;
-        sort<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, compareFn?: (a: T, b: T) => number): this;
-        splice<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, start: number, deleteCount?: number, ...items: T[]): this;
-        unshift<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, ...items: T[]): this;
+    interface Exp<TValue> extends LoDashWrapper<TValue> {
+        pop<T>(this: Exp<List<T> | null | undefined>): Exp<T | undefined>;
+        push<T>(this: Exp<List<T> | null | undefined>, ...items: T[]): this;
+        shift<T>(this: Exp<List<T> | null | undefined>): Exp<T | undefined>;
+        sort<T>(this: Exp<List<T> | null | undefined>, compareFn?: (a: T, b: T) => number): this;
+        splice<T>(this: Exp<List<T> | null | undefined>, start: number, deleteCount?: number, ...items: T[]): this;
+        unshift<T>(this: Exp<List<T> | null | undefined>, ...items: T[]): this;
     }
 
     type NotVoid = {} | null | undefined;
@@ -247,18 +247,18 @@ declare module "../index" {
     };
 
     // For backwards compatibility
-    type LoDashImplicitArrayWrapper<T> = LoDashImplicitWrapper<T[]>;
-    type LoDashImplicitNillableArrayWrapper<T> = LoDashImplicitWrapper<T[] | null | undefined>;
-    type LoDashImplicitObjectWrapper<T> = LoDashImplicitWrapper<T>;
-    type LoDashImplicitNillableObjectWrapper<T> = LoDashImplicitWrapper<T | null | undefined>;
-    type LoDashImplicitNumberArrayWrapper = LoDashImplicitWrapper<number[]>;
-    type LoDashImplicitStringWrapper = LoDashImplicitWrapper<string>;
-    type LoDashExplicitArrayWrapper<T> = LoDashExplicitWrapper<T[]>;
-    type LoDashExplicitNillableArrayWrapper<T> = LoDashExplicitWrapper<T[] | null | undefined>;
-    type LoDashExplicitObjectWrapper<T> = LoDashExplicitWrapper<T>;
-    type LoDashExplicitNillableObjectWrapper<T> = LoDashExplicitWrapper<T | null | undefined>;
-    type LoDashExplicitNumberArrayWrapper = LoDashExplicitWrapper<number[]>;
-    type LoDashExplicitStringWrapper = LoDashExplicitWrapper<string>;
+    type LoDashImplicitArrayWrapper<T> = Imp<T[]>;
+    type LoDashImplicitNillableArrayWrapper<T> = Imp<T[] | null | undefined>;
+    type LoDashImplicitObjectWrapper<T> = Imp<T>;
+    type LoDashImplicitNillableObjectWrapper<T> = Imp<T | null | undefined>;
+    type LoDashImplicitNumberArrayWrapper = Imp<number[]>;
+    type LoDashImplicitStringWrapper = Imp<string>;
+    type LoDashExplicitArrayWrapper<T> = Exp<T[]>;
+    type LoDashExplicitNillableArrayWrapper<T> = Exp<T[] | null | undefined>;
+    type LoDashExplicitObjectWrapper<T> = Exp<T>;
+    type LoDashExplicitNillableObjectWrapper<T> = Exp<T | null | undefined>;
+    type LoDashExplicitNumberArrayWrapper = Exp<number[]>;
+    type LoDashExplicitStringWrapper = Exp<string>;
 
     type DictionaryIterator<T, TResult> = ObjectIterator<Dictionary<T>, TResult>;
     type DictionaryIteratee<T> = ObjectIteratee<Dictionary<T>>;

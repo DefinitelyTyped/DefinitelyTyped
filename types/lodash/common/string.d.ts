@@ -12,18 +12,18 @@ declare module "../index" {
         camelCase(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.camelCase
          */
         camelCase(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.camelCase
          */
-        camelCase(): LoDashExplicitWrapper<string>;
+        camelCase(): Exp<string>;
     }
 
     // capitalize
@@ -38,18 +38,18 @@ declare module "../index" {
         capitalize(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.capitalize
          */
         capitalize(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.capitalize
          */
-        capitalize(): LoDashExplicitWrapper<string>;
+        capitalize(): Exp<string>;
     }
 
     // deburr
@@ -65,18 +65,18 @@ declare module "../index" {
         deburr(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.deburr
          */
         deburr(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.deburr
          */
-        deburr(): LoDashExplicitWrapper<string>;
+        deburr(): Exp<string>;
     }
 
     // endsWith
@@ -97,7 +97,7 @@ declare module "../index" {
         ): boolean;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.endsWith
          */
@@ -107,14 +107,14 @@ declare module "../index" {
         ): boolean;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.endsWith
          */
         endsWith(
             target?: string,
             position?: number
-        ): LoDashExplicitWrapper<boolean>;
+        ): Exp<boolean>;
     }
 
     // escape
@@ -140,18 +140,18 @@ declare module "../index" {
         escape(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.escape
          */
         escape(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.escape
          */
-        escape(): LoDashExplicitWrapper<string>;
+        escape(): Exp<string>;
     }
 
     // escapeRegExp
@@ -167,18 +167,18 @@ declare module "../index" {
         escapeRegExp(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.escapeRegExp
          */
         escapeRegExp(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.escapeRegExp
          */
-        escapeRegExp(): LoDashExplicitWrapper<string>;
+        escapeRegExp(): Exp<string>;
     }
 
     // kebabCase
@@ -193,18 +193,18 @@ declare module "../index" {
         kebabCase(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.kebabCase
          */
         kebabCase(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.kebabCase
          */
-        kebabCase(): LoDashExplicitWrapper<string>;
+        kebabCase(): Exp<string>;
     }
 
     // lowerCase
@@ -219,18 +219,18 @@ declare module "../index" {
         lowerCase(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.lowerCase
          */
         lowerCase(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.lowerCase
          */
-        lowerCase(): LoDashExplicitWrapper<string>;
+        lowerCase(): Exp<string>;
     }
 
     // lowerFirst
@@ -245,18 +245,18 @@ declare module "../index" {
         lowerFirst(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.lowerFirst
          */
         lowerFirst(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.lowerFirst
          */
-        lowerFirst(): LoDashExplicitWrapper<string>;
+        lowerFirst(): Exp<string>;
     }
 
     // pad
@@ -278,7 +278,7 @@ declare module "../index" {
         ): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.pad
          */
@@ -288,14 +288,14 @@ declare module "../index" {
         ): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.pad
          */
         pad(
             length?: number,
             chars?: string
-        ): LoDashExplicitWrapper<string>;
+        ): Exp<string>;
     }
 
     // padEnd
@@ -317,7 +317,7 @@ declare module "../index" {
         ): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.padEnd
          */
@@ -327,14 +327,14 @@ declare module "../index" {
         ): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.padEnd
          */
         padEnd(
             length?: number,
             chars?: string
-        ): LoDashExplicitWrapper<string>;
+        ): Exp<string>;
     }
 
     // padStart
@@ -356,7 +356,7 @@ declare module "../index" {
         ): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.padStart
          */
@@ -366,14 +366,14 @@ declare module "../index" {
         ): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.padStart
          */
         padStart(
             length?: number,
             chars?: string
-        ): LoDashExplicitWrapper<string>;
+        ): Exp<string>;
     }
 
     // parseInt
@@ -395,18 +395,18 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.parseInt
          */
         parseInt(radix?: number): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.parseInt
          */
-        parseInt(radix?: number): LoDashExplicitWrapper<number>;
+        parseInt(radix?: number): Exp<number>;
     }
 
     // repeat
@@ -425,18 +425,18 @@ declare module "../index" {
         ): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.repeat
          */
         repeat(n?: number): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.repeat
          */
-        repeat(n?: number): LoDashExplicitWrapper<string>;
+        repeat(n?: number): Exp<string>;
     }
 
     type ReplaceFunction = (match: string, ...args: any[]) => string;
@@ -466,7 +466,7 @@ declare module "../index" {
         ): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.replace
          */
@@ -483,21 +483,21 @@ declare module "../index" {
         ): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.replace
          */
         replace(
             pattern: RegExp | string,
             replacement: ReplaceFunction | string
-        ): LoDashExplicitWrapper<string>;
+        ): Exp<string>;
 
         /**
          * @see _.replace
          */
         replace(
             replacement: ReplaceFunction | string
-        ): LoDashExplicitWrapper<string>;
+        ): Exp<string>;
     }
 
     // snakeCase
@@ -512,18 +512,18 @@ declare module "../index" {
         snakeCase(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.snakeCase
          */
         snakeCase(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.snakeCase
          */
-        snakeCase(): LoDashExplicitWrapper<string>;
+        snakeCase(): Exp<string>;
     }
 
     // split
@@ -562,24 +562,24 @@ declare module "../index" {
         ): string[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.split
          */
         split(
             separator?: RegExp|string,
             limit?: number
-        ): LoDashImplicitWrapper<string[]>;
+        ): Imp<string[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.split
          */
         split(
             separator?: RegExp|string,
             limit?: number
-        ): LoDashExplicitWrapper<string[]>;
+        ): Exp<string[]>;
     }
 
     // startCase
@@ -594,18 +594,18 @@ declare module "../index" {
         startCase(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.startCase
          */
         startCase(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.startCase
          */
-        startCase(): LoDashExplicitWrapper<string>;
+        startCase(): Exp<string>;
     }
 
     // startsWith
@@ -626,7 +626,7 @@ declare module "../index" {
         ): boolean;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.startsWith
          */
@@ -636,14 +636,14 @@ declare module "../index" {
         ): boolean;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.startsWith
          */
         startsWith(
             target?: string,
             position?: number
-        ): LoDashExplicitWrapper<boolean>;
+        ): Exp<boolean>;
     }
 
     // template
@@ -693,18 +693,18 @@ declare module "../index" {
         ): TemplateExecutor;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.template
          */
         template(options?: TemplateOptions): TemplateExecutor;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.template
          */
-        template(options?: TemplateOptions): LoDashExplicitWrapper<TemplateExecutor>;
+        template(options?: TemplateOptions): Exp<TemplateExecutor>;
     }
 
     // toLower
@@ -719,18 +719,18 @@ declare module "../index" {
         toLower(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.toLower
          */
         toLower(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.toLower
          */
-        toLower(): LoDashExplicitWrapper<string>;
+        toLower(): Exp<string>;
     }
 
     // toUpper
@@ -745,18 +745,18 @@ declare module "../index" {
         toUpper(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.toUpper
          */
         toUpper(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.toUpper
          */
-        toUpper(): LoDashExplicitWrapper<string>;
+        toUpper(): Exp<string>;
     }
 
     // trim
@@ -789,18 +789,18 @@ declare module "../index" {
         ): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.trim
          */
         trim(chars?: string): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.trim
          */
-        trim(chars?: string): LoDashExplicitWrapper<string>;
+        trim(chars?: string): Exp<string>;
     }
 
     // trimEnd
@@ -833,18 +833,18 @@ declare module "../index" {
         ): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.trimEnd
          */
         trimEnd(chars?: string): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.trimEnd
          */
-        trimEnd(chars?: string): LoDashExplicitWrapper<string>;
+        trimEnd(chars?: string): Exp<string>;
     }
 
     // trimStart
@@ -877,18 +877,18 @@ declare module "../index" {
         ): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.trimStart
          */
         trimStart(chars?: string): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.trimStart
          */
-        trimStart(chars?: string): LoDashExplicitWrapper<string>;
+        trimStart(chars?: string): Exp<string>;
     }
 
     // truncate
@@ -917,18 +917,18 @@ declare module "../index" {
         ): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.truncate
          */
         truncate(options?: TruncateOptions): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.truncate
          */
-        truncate(options?: TruncateOptions): LoDashExplicitWrapper<string>;
+        truncate(options?: TruncateOptions): Exp<string>;
     }
 
     // unescape
@@ -947,18 +947,18 @@ declare module "../index" {
         unescape(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.unescape
          */
         unescape(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.unescape
          */
-        unescape(): LoDashExplicitWrapper<string>;
+        unescape(): Exp<string>;
     }
 
     // upperCase
@@ -973,18 +973,18 @@ declare module "../index" {
         upperCase(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.upperCase
          */
         upperCase(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.upperCase
          */
-        upperCase(): LoDashExplicitWrapper<string>;
+        upperCase(): Exp<string>;
     }
 
     // upperFirst
@@ -999,18 +999,18 @@ declare module "../index" {
         upperFirst(string?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.upperFirst
          */
         upperFirst(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.upperFirst
          */
-        upperFirst(): LoDashExplicitWrapper<string>;
+        upperFirst(): Exp<string>;
     }
 
     // words
@@ -1043,17 +1043,17 @@ declare module "../index" {
         ): string[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.words
          */
         words(pattern?: string|RegExp): string[];
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.words
          */
-        words(pattern?: string|RegExp): LoDashExplicitWrapper<string[]>;
+        words(pattern?: string|RegExp): Exp<string[]>;
     }
 }

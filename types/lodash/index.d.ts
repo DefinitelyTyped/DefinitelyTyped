@@ -1,4 +1,4 @@
-// Type definitions for Lo-Dash 4.14
+// Type definitions for Lodash 4.14
 // Project: https://lodash.com
 // Definitions by: Brian Zengel <https://github.com/bczengel>,
 //                 Ilya Mochalov <https://github.com/chrootsu>,

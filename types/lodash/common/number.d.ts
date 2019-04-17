@@ -30,7 +30,7 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.clamp
          */
@@ -43,17 +43,17 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.clamp
          */
         clamp(
             lower: number,
             upper: number
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
         clamp(
             upper: number
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 
     // inRange
@@ -75,7 +75,7 @@ declare module "../index" {
         ): boolean;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.inRange
          */
@@ -85,14 +85,14 @@ declare module "../index" {
         ): boolean;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.inRange
          */
         inRange(
             start: number,
             end?: number
-        ): LoDashExplicitWrapper<boolean>;
+        ): Exp<boolean>;
     }
 
     // random
@@ -146,7 +146,7 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.random
          */
@@ -161,11 +161,11 @@ declare module "../index" {
         ): number;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.random
          */
-        random(floating?: boolean): LoDashExplicitWrapper<number>;
+        random(floating?: boolean): Exp<number>;
 
         /**
          * @see _.random
@@ -173,6 +173,6 @@ declare module "../index" {
         random(
             max: number,
             floating?: boolean
-        ): LoDashExplicitWrapper<number>;
+        ): Exp<number>;
     }
 }

@@ -13,18 +13,18 @@ declare module "../index" {
         attempt<TResult>(func: (...args: any[]) => TResult, ...args: any[]): TResult|Error;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.attempt
          */
         attempt<TResult>(...args: any[]): TResult|Error;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.attempt
          */
-        attempt<TResult>(...args: any[]): LoDashExplicitWrapper<TResult|Error>;
+        attempt<TResult>(...args: any[]): Exp<TResult|Error>;
     }
 
     // bindAll
@@ -102,18 +102,18 @@ declare module "../index" {
         conforms<T>(source: ConformsPredicateObject<T>): (value: T) => boolean;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.conforms
          */
-        conforms<T>(this: LoDashImplicitWrapper<ConformsPredicateObject<T>>): LoDashImplicitWrapper<(value: T) => boolean>;
+        conforms<T>(this: Imp<ConformsPredicateObject<T>>): Imp<(value: T) => boolean>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.conforms
          */
-        conforms<T>(this: LoDashExplicitWrapper<ConformsPredicateObject<T>>): LoDashExplicitWrapper<(value: T) => boolean>;
+        conforms<T>(this: Exp<ConformsPredicateObject<T>>): Exp<(value: T) => boolean>;
     }
 
     // constant
@@ -128,18 +128,18 @@ declare module "../index" {
         constant<T>(value: T): () => T;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.constant
          */
-        constant(): LoDashImplicitWrapper<() => TValue>;
+        constant(): Imp<() => TValue>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.constant
          */
-        constant(): LoDashExplicitWrapper<() => TValue>;
+        constant(): Exp<() => TValue>;
     }
 
     // defaultTo
@@ -165,34 +165,34 @@ declare module "../index" {
         ): T | TDefault;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.defaultTo
          */
-        defaultTo<T>(this: LoDashImplicitWrapper<T | null | undefined>, defaultValue: T): T;
+        defaultTo<T>(this: Imp<T | null | undefined>, defaultValue: T): T;
 
         /**
          * @see _.defaultTo
          */
         defaultTo<T, TDefault>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
+            this: Imp<T | null | undefined>,
             defaultValue: TDefault
         ): T | TDefault;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.defaultTo
          */
-        defaultTo<T>(this: LoDashExplicitWrapper<T | null | undefined>, defaultValue: T): LoDashExplicitWrapper<T>;
+        defaultTo<T>(this: Exp<T | null | undefined>, defaultValue: T): Exp<T>;
 
         /**
          * @see _.defaultTo
          */
         defaultTo<T, TDefault>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
+            this: Exp<T | null | undefined>,
             defaultValue: TDefault
-        ): LoDashExplicitWrapper<T | TDefault>;
+        ): Exp<T | TDefault>;
     }
 
     // flow
@@ -256,114 +256,114 @@ declare module "../index" {
         flow(funcs: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.flow
          */
         // 0-argument first function
-        flow<R1, R2>(this: LoDashImplicitWrapper<() => R1>, f2: (a: R1) => R2): LoDashImplicitWrapper<() => R2>;
-        flow<R1, R2, R3>(this: LoDashImplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashImplicitWrapper<() => R3>;
-        flow<R1, R2, R3, R4>(this: LoDashImplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): LoDashImplicitWrapper<() => R4>;
-        flow<R1, R2, R3, R4, R5>(this: LoDashImplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashImplicitWrapper<() => R5>;
-        flow<R1, R2, R3, R4, R5, R6>(this: LoDashImplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashImplicitWrapper<() => R6>;
-        flow<R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashImplicitWrapper<() => R7>;
-        flow<R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashImplicitWrapper<() => any>;
+        flow<R1, R2>(this: Imp<() => R1>, f2: (a: R1) => R2): Imp<() => R2>;
+        flow<R1, R2, R3>(this: Imp<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): Imp<() => R3>;
+        flow<R1, R2, R3, R4>(this: Imp<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): Imp<() => R4>;
+        flow<R1, R2, R3, R4, R5>(this: Imp<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): Imp<() => R5>;
+        flow<R1, R2, R3, R4, R5, R6>(this: Imp<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): Imp<() => R6>;
+        flow<R1, R2, R3, R4, R5, R6, R7>(this: Imp<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): Imp<() => R7>;
+        flow<R1, R2, R3, R4, R5, R6, R7>(this: Imp<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): Imp<() => any>;
         // 1-argument first function
-        flow<A1, R1, R2>(this: LoDashImplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2): LoDashImplicitWrapper<(a1: A1) => R2>;
-        flow<A1, R1, R2, R3>(this: LoDashImplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashImplicitWrapper<(a1: A1) => R3>;
-        flow<A1, R1, R2, R3, R4>(this: LoDashImplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): LoDashImplicitWrapper<(a1: A1) => R4>;
-        flow<A1, R1, R2, R3, R4, R5>(this: LoDashImplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashImplicitWrapper<(a1: A1) => R5>;
-        flow<A1, R1, R2, R3, R4, R5, R6>(this: LoDashImplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashImplicitWrapper<(a1: A1) => R6>;
-        flow<A1, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashImplicitWrapper<(a1: A1) => R7>;
-        flow<A1, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashImplicitWrapper<(a1: A1) => any>;
+        flow<A1, R1, R2>(this: Imp<(a1: A1) => R1>, f2: (a: R1) => R2): Imp<(a1: A1) => R2>;
+        flow<A1, R1, R2, R3>(this: Imp<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): Imp<(a1: A1) => R3>;
+        flow<A1, R1, R2, R3, R4>(this: Imp<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): Imp<(a1: A1) => R4>;
+        flow<A1, R1, R2, R3, R4, R5>(this: Imp<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): Imp<(a1: A1) => R5>;
+        flow<A1, R1, R2, R3, R4, R5, R6>(this: Imp<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): Imp<(a1: A1) => R6>;
+        flow<A1, R1, R2, R3, R4, R5, R6, R7>(this: Imp<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): Imp<(a1: A1) => R7>;
+        flow<A1, R1, R2, R3, R4, R5, R6, R7>(this: Imp<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): Imp<(a1: A1) => any>;
         // 2-argument first function
-        flow<A1, A2, R1, R2>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2): LoDashImplicitWrapper<(a1: A1, a2: A2) => R2>;
-        flow<A1, A2, R1, R2, R3>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashImplicitWrapper<(a1: A1, a2: A2) => R3>;
-        flow<A1, A2, R1, R2, R3, R4>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): LoDashImplicitWrapper<(a1: A1, a2: A2) => R4>;
-        flow<A1, A2, R1, R2, R3, R4, R5>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashImplicitWrapper<(a1: A1, a2: A2) => R5>;
-        flow<A1, A2, R1, R2, R3, R4, R5, R6>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashImplicitWrapper<(a1: A1, a2: A2) => R6>;
-        flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashImplicitWrapper<(a1: A1, a2: A2) => R7>;
-        flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashImplicitWrapper<(a1: A1, a2: A2) => any>;
+        flow<A1, A2, R1, R2>(this: Imp<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2): Imp<(a1: A1, a2: A2) => R2>;
+        flow<A1, A2, R1, R2, R3>(this: Imp<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): Imp<(a1: A1, a2: A2) => R3>;
+        flow<A1, A2, R1, R2, R3, R4>(this: Imp<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): Imp<(a1: A1, a2: A2) => R4>;
+        flow<A1, A2, R1, R2, R3, R4, R5>(this: Imp<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): Imp<(a1: A1, a2: A2) => R5>;
+        flow<A1, A2, R1, R2, R3, R4, R5, R6>(this: Imp<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): Imp<(a1: A1, a2: A2) => R6>;
+        flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(this: Imp<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): Imp<(a1: A1, a2: A2) => R7>;
+        flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(this: Imp<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): Imp<(a1: A1, a2: A2) => any>;
         // 3-argument first function
-        flow<A1, A2, A3, R1, R2>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R2>;
-        flow<A1, A2, A3, R1, R2, R3>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R3>;
-        flow<A1, A2, A3, R1, R2, R3, R4>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R4>;
-        flow<A1, A2, A3, R1, R2, R3, R4, R5>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R5>;
-        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R6>;
-        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R7>;
-        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => any>;
+        flow<A1, A2, A3, R1, R2>(this: Imp<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2): Imp<(a1: A1, a2: A2, a3: A3) => R2>;
+        flow<A1, A2, A3, R1, R2, R3>(this: Imp<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): Imp<(a1: A1, a2: A2, a3: A3) => R3>;
+        flow<A1, A2, A3, R1, R2, R3, R4>(this: Imp<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): Imp<(a1: A1, a2: A2, a3: A3) => R4>;
+        flow<A1, A2, A3, R1, R2, R3, R4, R5>(this: Imp<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): Imp<(a1: A1, a2: A2, a3: A3) => R5>;
+        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6>(this: Imp<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): Imp<(a1: A1, a2: A2, a3: A3) => R6>;
+        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(this: Imp<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): Imp<(a1: A1, a2: A2, a3: A3) => R7>;
+        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(this: Imp<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): Imp<(a1: A1, a2: A2, a3: A3) => any>;
         // 4-argument first function
-        flow<A1, A2, A3, A4, R1, R2>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R2>;
-        flow<A1, A2, A3, A4, R1, R2, R3>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R3>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R4>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R5>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R6>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R7>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => any>;
+        flow<A1, A2, A3, A4, R1, R2>(this: Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2): Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R2>;
+        flow<A1, A2, A3, A4, R1, R2, R3>(this: Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R3>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4>(this: Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R4>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(this: Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R5>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(this: Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R6>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R7>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => any>;
         // any-argument first function
-        flow<A1, A2, A3, A4, R1, R2>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R2>;
-        flow<A1, A2, A3, A4, R1, R2, R3>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R3>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R4>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R5>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R6>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R7>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => any>;
-        flow(this: LoDashImplicitWrapper<(...args: any[]) => any>, funcs: Array<Many<(a: any) => any>>): LoDashImplicitWrapper<(...args: any[]) => any>;
+        flow<A1, A2, A3, A4, R1, R2>(this: Imp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2): Imp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R2>;
+        flow<A1, A2, A3, A4, R1, R2, R3>(this: Imp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): Imp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R3>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4>(this: Imp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): Imp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R4>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(this: Imp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): Imp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R5>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(this: Imp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): Imp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R6>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: Imp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): Imp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R7>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: Imp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): Imp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => any>;
+        flow(this: Imp<(...args: any[]) => any>, funcs: Array<Many<(a: any) => any>>): Imp<(...args: any[]) => any>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.flow
          */
         // 0-argument first function
-        flow<R1, R2>(this: LoDashExplicitWrapper<() => R1>, f2: (a: R1) => R2): LoDashExplicitWrapper<() => R2>;
-        flow<R1, R2, R3>(this: LoDashExplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashExplicitWrapper<() => R3>;
-        flow<R1, R2, R3, R4>(this: LoDashExplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): LoDashExplicitWrapper<() => R4>;
-        flow<R1, R2, R3, R4, R5>(this: LoDashExplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashExplicitWrapper<() => R5>;
-        flow<R1, R2, R3, R4, R5, R6>(this: LoDashExplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashExplicitWrapper<() => R6>;
-        flow<R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashExplicitWrapper<() => R7>;
-        flow<R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashExplicitWrapper<() => any>;
+        flow<R1, R2>(this: Exp<() => R1>, f2: (a: R1) => R2): Exp<() => R2>;
+        flow<R1, R2, R3>(this: Exp<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): Exp<() => R3>;
+        flow<R1, R2, R3, R4>(this: Exp<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): Exp<() => R4>;
+        flow<R1, R2, R3, R4, R5>(this: Exp<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): Exp<() => R5>;
+        flow<R1, R2, R3, R4, R5, R6>(this: Exp<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): Exp<() => R6>;
+        flow<R1, R2, R3, R4, R5, R6, R7>(this: Exp<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): Exp<() => R7>;
+        flow<R1, R2, R3, R4, R5, R6, R7>(this: Exp<() => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): Exp<() => any>;
         // 1-argument first function
-        flow<A1, R1, R2>(this: LoDashExplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2): LoDashExplicitWrapper<(a1: A1) => R2>;
-        flow<A1, R1, R2, R3>(this: LoDashExplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashExplicitWrapper<(a1: A1) => R3>;
-        flow<A1, R1, R2, R3, R4>(this: LoDashExplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): LoDashExplicitWrapper<(a1: A1) => R4>;
-        flow<A1, R1, R2, R3, R4, R5>(this: LoDashExplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashExplicitWrapper<(a1: A1) => R5>;
-        flow<A1, R1, R2, R3, R4, R5, R6>(this: LoDashExplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashExplicitWrapper<(a1: A1) => R6>;
-        flow<A1, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashExplicitWrapper<(a1: A1) => R7>;
-        flow<A1, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashExplicitWrapper<(a1: A1) => any>;
+        flow<A1, R1, R2>(this: Exp<(a1: A1) => R1>, f2: (a: R1) => R2): Exp<(a1: A1) => R2>;
+        flow<A1, R1, R2, R3>(this: Exp<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): Exp<(a1: A1) => R3>;
+        flow<A1, R1, R2, R3, R4>(this: Exp<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): Exp<(a1: A1) => R4>;
+        flow<A1, R1, R2, R3, R4, R5>(this: Exp<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): Exp<(a1: A1) => R5>;
+        flow<A1, R1, R2, R3, R4, R5, R6>(this: Exp<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): Exp<(a1: A1) => R6>;
+        flow<A1, R1, R2, R3, R4, R5, R6, R7>(this: Exp<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): Exp<(a1: A1) => R7>;
+        flow<A1, R1, R2, R3, R4, R5, R6, R7>(this: Exp<(a1: A1) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): Exp<(a1: A1) => any>;
         // 2-argument first function
-        flow<A1, A2, R1, R2>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2): LoDashExplicitWrapper<(a1: A1, a2: A2) => R2>;
-        flow<A1, A2, R1, R2, R3>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashExplicitWrapper<(a1: A1, a2: A2) => R3>;
-        flow<A1, A2, R1, R2, R3, R4>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): LoDashExplicitWrapper<(a1: A1, a2: A2) => R4>;
-        flow<A1, A2, R1, R2, R3, R4, R5>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashExplicitWrapper<(a1: A1, a2: A2) => R5>;
-        flow<A1, A2, R1, R2, R3, R4, R5, R6>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashExplicitWrapper<(a1: A1, a2: A2) => R6>;
-        flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashExplicitWrapper<(a1: A1, a2: A2) => R7>;
-        flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashExplicitWrapper<(a1: A1, a2: A2) => any>;
+        flow<A1, A2, R1, R2>(this: Exp<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2): Exp<(a1: A1, a2: A2) => R2>;
+        flow<A1, A2, R1, R2, R3>(this: Exp<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): Exp<(a1: A1, a2: A2) => R3>;
+        flow<A1, A2, R1, R2, R3, R4>(this: Exp<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): Exp<(a1: A1, a2: A2) => R4>;
+        flow<A1, A2, R1, R2, R3, R4, R5>(this: Exp<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): Exp<(a1: A1, a2: A2) => R5>;
+        flow<A1, A2, R1, R2, R3, R4, R5, R6>(this: Exp<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): Exp<(a1: A1, a2: A2) => R6>;
+        flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(this: Exp<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): Exp<(a1: A1, a2: A2) => R7>;
+        flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(this: Exp<(a1: A1, a2: A2) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): Exp<(a1: A1, a2: A2) => any>;
         // 3-argument first function
-        flow<A1, A2, A3, R1, R2>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R2>;
-        flow<A1, A2, A3, R1, R2, R3>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R3>;
-        flow<A1, A2, A3, R1, R2, R3, R4>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R4>;
-        flow<A1, A2, A3, R1, R2, R3, R4, R5>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R5>;
-        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R6>;
-        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R7>;
-        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => any>;
+        flow<A1, A2, A3, R1, R2>(this: Exp<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2): Exp<(a1: A1, a2: A2, a3: A3) => R2>;
+        flow<A1, A2, A3, R1, R2, R3>(this: Exp<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): Exp<(a1: A1, a2: A2, a3: A3) => R3>;
+        flow<A1, A2, A3, R1, R2, R3, R4>(this: Exp<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): Exp<(a1: A1, a2: A2, a3: A3) => R4>;
+        flow<A1, A2, A3, R1, R2, R3, R4, R5>(this: Exp<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): Exp<(a1: A1, a2: A2, a3: A3) => R5>;
+        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6>(this: Exp<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): Exp<(a1: A1, a2: A2, a3: A3) => R6>;
+        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(this: Exp<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): Exp<(a1: A1, a2: A2, a3: A3) => R7>;
+        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(this: Exp<(a1: A1, a2: A2, a3: A3) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): Exp<(a1: A1, a2: A2, a3: A3) => any>;
         // 4-argument first function
-        flow<A1, A2, A3, A4, R1, R2>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R2>;
-        flow<A1, A2, A3, A4, R1, R2, R3>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R3>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R4>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R5>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R6>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R7>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => any>;
+        flow<A1, A2, A3, A4, R1, R2>(this: Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2): Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R2>;
+        flow<A1, A2, A3, A4, R1, R2, R3>(this: Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R3>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4>(this: Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R4>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(this: Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R5>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(this: Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R6>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R7>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => any>;
         // any-argument first function
-        flow<A1, A2, A3, A4, R1, R2>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R2>;
-        flow<A1, A2, A3, A4, R1, R2, R3>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R3>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R4>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R5>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R6>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R7>;
-        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => any>;
-        flow(this: LoDashExplicitWrapper<(...args: any[]) => any>, funcs: Array<Many<(a: any) => any>>): LoDashExplicitWrapper<(...args: any[]) => any>;
+        flow<A1, A2, A3, A4, R1, R2>(this: Exp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2): Exp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R2>;
+        flow<A1, A2, A3, A4, R1, R2, R3>(this: Exp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3): Exp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R3>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4>(this: Exp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): Exp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R4>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(this: Exp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): Exp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R5>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(this: Exp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): Exp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R6>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: Exp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): Exp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R7>;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(this: Exp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => R1>, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...funcs: Array<Many<(a: any) => any>>): Exp<(a1: A1, a2: A2, a3: A3, a4: A4, ...args: any[]) => any>;
+        flow(this: Exp<(...args: any[]) => any>, funcs: Array<Many<(a: any) => any>>): Exp<(...args: any[]) => any>;
     }
 
     // flowRight
@@ -422,104 +422,104 @@ declare module "../index" {
         flowRight(funcs: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.flowRight
          */
         // 0-argument first function
-        flowRight<R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f1: () => R1): LoDashImplicitWrapper<() => R2>;
-        flowRight<R3, R2, R1>(this: LoDashImplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: () => R1): LoDashImplicitWrapper<() => R3>;
-        flowRight<R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashImplicitWrapper<() => R4>;
-        flowRight<R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashImplicitWrapper<() => R5>;
-        flowRight<R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashImplicitWrapper<() => R6>;
-        flowRight<R7, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashImplicitWrapper<() => R7>;
+        flowRight<R2, R1>(this: Imp<(a: R1) => R2>, f1: () => R1): Imp<() => R2>;
+        flowRight<R3, R2, R1>(this: Imp<(a: R2) => R3>, f2: (a: R1) => R2, f1: () => R1): Imp<() => R3>;
+        flowRight<R4, R3, R2, R1>(this: Imp<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): Imp<() => R4>;
+        flowRight<R5, R4, R3, R2, R1>(this: Imp<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): Imp<() => R5>;
+        flowRight<R6, R5, R4, R3, R2, R1>(this: Imp<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): Imp<() => R6>;
+        flowRight<R7, R6, R5, R4, R3, R2, R1>(this: Imp<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): Imp<() => R7>;
         // 1-argument first function
-        flowRight<A1, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f1: (a1: A1) => R1): LoDashImplicitWrapper<(a1: A1) => R2>;
-        flowRight<A1, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashImplicitWrapper<(a1: A1) => R3>;
-        flowRight<A1, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashImplicitWrapper<(a1: A1) => R4>;
-        flowRight<A1, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashImplicitWrapper<(a1: A1) => R5>;
-        flowRight<A1, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashImplicitWrapper<(a1: A1) => R6>;
-        flowRight<A1, R7, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashImplicitWrapper<(a1: A1) => R7>;
+        flowRight<A1, R2, R1>(this: Imp<(a: R1) => R2>, f1: (a1: A1) => R1): Imp<(a1: A1) => R2>;
+        flowRight<A1, R3, R2, R1>(this: Imp<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1) => R1): Imp<(a1: A1) => R3>;
+        flowRight<A1, R4, R3, R2, R1>(this: Imp<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): Imp<(a1: A1) => R4>;
+        flowRight<A1, R5, R4, R3, R2, R1>(this: Imp<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): Imp<(a1: A1) => R5>;
+        flowRight<A1, R6, R5, R4, R3, R2, R1>(this: Imp<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): Imp<(a1: A1) => R6>;
+        flowRight<A1, R7, R6, R5, R4, R3, R2, R1>(this: Imp<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): Imp<(a1: A1) => R7>;
         // 2-argument first function
-        flowRight<A1, A2, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f1: (a1: A1, a2: A2) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2) => R2>;
-        flowRight<A1, A2, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2) => R3>;
-        flowRight<A1, A2, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2) => R4>;
-        flowRight<A1, A2, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2) => R5>;
-        flowRight<A1, A2, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2) => R6>;
-        flowRight<A1, A2, R7, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2) => R7>;
+        flowRight<A1, A2, R2, R1>(this: Imp<(a: R1) => R2>, f1: (a1: A1, a2: A2) => R1): Imp<(a1: A1, a2: A2) => R2>;
+        flowRight<A1, A2, R3, R2, R1>(this: Imp<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): Imp<(a1: A1, a2: A2) => R3>;
+        flowRight<A1, A2, R4, R3, R2, R1>(this: Imp<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): Imp<(a1: A1, a2: A2) => R4>;
+        flowRight<A1, A2, R5, R4, R3, R2, R1>(this: Imp<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): Imp<(a1: A1, a2: A2) => R5>;
+        flowRight<A1, A2, R6, R5, R4, R3, R2, R1>(this: Imp<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): Imp<(a1: A1, a2: A2) => R6>;
+        flowRight<A1, A2, R7, R6, R5, R4, R3, R2, R1>(this: Imp<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): Imp<(a1: A1, a2: A2) => R7>;
         // 3-argument first function
-        flowRight<A1, A2, A3, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R2>;
-        flowRight<A1, A2, A3, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R3>;
-        flowRight<A1, A2, A3, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R4>;
-        flowRight<A1, A2, A3, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R5>;
-        flowRight<A1, A2, A3, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R6>;
-        flowRight<A1, A2, A3, R7, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3) => R7>;
+        flowRight<A1, A2, A3, R2, R1>(this: Imp<(a: R1) => R2>, f1: (a1: A1, a2: A2, a3: A3) => R1): Imp<(a1: A1, a2: A2, a3: A3) => R2>;
+        flowRight<A1, A2, A3, R3, R2, R1>(this: Imp<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): Imp<(a1: A1, a2: A2, a3: A3) => R3>;
+        flowRight<A1, A2, A3, R4, R3, R2, R1>(this: Imp<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): Imp<(a1: A1, a2: A2, a3: A3) => R4>;
+        flowRight<A1, A2, A3, R5, R4, R3, R2, R1>(this: Imp<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): Imp<(a1: A1, a2: A2, a3: A3) => R5>;
+        flowRight<A1, A2, A3, R6, R5, R4, R3, R2, R1>(this: Imp<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): Imp<(a1: A1, a2: A2, a3: A3) => R6>;
+        flowRight<A1, A2, A3, R7, R6, R5, R4, R3, R2, R1>(this: Imp<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): Imp<(a1: A1, a2: A2, a3: A3) => R7>;
         // 4-argument first function
-        flowRight<A1, A2, A3, A4, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R2>;
-        flowRight<A1, A2, A3, A4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R3>;
-        flowRight<A1, A2, A3, A4, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R4>;
-        flowRight<A1, A2, A3, A4, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R5>;
-        flowRight<A1, A2, A3, A4, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R6>;
-        flowRight<A1, A2, A3, A4, R7, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashImplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R7>;
+        flowRight<A1, A2, A3, A4, R2, R1>(this: Imp<(a: R1) => R2>, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R2>;
+        flowRight<A1, A2, A3, A4, R3, R2, R1>(this: Imp<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R3>;
+        flowRight<A1, A2, A3, A4, R4, R3, R2, R1>(this: Imp<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R4>;
+        flowRight<A1, A2, A3, A4, R5, R4, R3, R2, R1>(this: Imp<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R5>;
+        flowRight<A1, A2, A3, A4, R6, R5, R4, R3, R2, R1>(this: Imp<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R6>;
+        flowRight<A1, A2, A3, A4, R7, R6, R5, R4, R3, R2, R1>(this: Imp<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): Imp<(a1: A1, a2: A2, a3: A3, a4: A4) => R7>;
         // any-argument first function
-        flowRight<R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f1: (...args: any[]) => R1): LoDashImplicitWrapper<(...args: any[]) => R2>;
-        flowRight<R3, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashImplicitWrapper<(...args: any[]) => R3>;
-        flowRight<R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashImplicitWrapper<(...args: any[]) => R4>;
-        flowRight<R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashImplicitWrapper<(...args: any[]) => R5>;
-        flowRight<R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashImplicitWrapper<(...args: any[]) => R6>;
-        flowRight<R7, R6, R5, R4, R3, R2, R1>(this: LoDashImplicitWrapper<(a: R1) => R2>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashImplicitWrapper<(...args: any[]) => R7>;
-        flowRight(this: LoDashImplicitWrapper<(a: any) => any>, f6: (a: any) => any, f5: (a: any) => any, f4: (a: any) => any, f3: (a: any) => any, f2: (a: any) => any, f1: () => any, ...funcs: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => any>;
-        flowRight(this: LoDashImplicitWrapper<(a: any) => any>, funcs: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => any>;
+        flowRight<R2, R1>(this: Imp<(a: R1) => R2>, f1: (...args: any[]) => R1): Imp<(...args: any[]) => R2>;
+        flowRight<R3, R2, R1>(this: Imp<(a: R1) => R2>, f2: (a: R1) => R2, f1: (...args: any[]) => R1): Imp<(...args: any[]) => R3>;
+        flowRight<R4, R3, R2, R1>(this: Imp<(a: R1) => R2>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): Imp<(...args: any[]) => R4>;
+        flowRight<R5, R4, R3, R2, R1>(this: Imp<(a: R1) => R2>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): Imp<(...args: any[]) => R5>;
+        flowRight<R6, R5, R4, R3, R2, R1>(this: Imp<(a: R1) => R2>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): Imp<(...args: any[]) => R6>;
+        flowRight<R7, R6, R5, R4, R3, R2, R1>(this: Imp<(a: R1) => R2>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): Imp<(...args: any[]) => R7>;
+        flowRight(this: Imp<(a: any) => any>, f6: (a: any) => any, f5: (a: any) => any, f4: (a: any) => any, f3: (a: any) => any, f2: (a: any) => any, f1: () => any, ...funcs: Array<Many<(...args: any[]) => any>>): Imp<(...args: any[]) => any>;
+        flowRight(this: Imp<(a: any) => any>, funcs: Array<Many<(...args: any[]) => any>>): Imp<(...args: any[]) => any>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.flowRight
          */
         // 0-argument first function
-        flowRight<R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f1: () => R1): LoDashExplicitWrapper<() => R2>;
-        flowRight<R3, R2, R1>(this: LoDashExplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: () => R1): LoDashExplicitWrapper<() => R3>;
-        flowRight<R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashExplicitWrapper<() => R4>;
-        flowRight<R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashExplicitWrapper<() => R5>;
-        flowRight<R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashExplicitWrapper<() => R6>;
-        flowRight<R7, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): LoDashExplicitWrapper<() => R7>;
+        flowRight<R2, R1>(this: Exp<(a: R1) => R2>, f1: () => R1): Exp<() => R2>;
+        flowRight<R3, R2, R1>(this: Exp<(a: R2) => R3>, f2: (a: R1) => R2, f1: () => R1): Exp<() => R3>;
+        flowRight<R4, R3, R2, R1>(this: Exp<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): Exp<() => R4>;
+        flowRight<R5, R4, R3, R2, R1>(this: Exp<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): Exp<() => R5>;
+        flowRight<R6, R5, R4, R3, R2, R1>(this: Exp<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): Exp<() => R6>;
+        flowRight<R7, R6, R5, R4, R3, R2, R1>(this: Exp<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): Exp<() => R7>;
         // 1-argument first function
-        flowRight<A1, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f1: (a1: A1) => R1): LoDashExplicitWrapper<(a1: A1) => R2>;
-        flowRight<A1, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashExplicitWrapper<(a1: A1) => R3>;
-        flowRight<A1, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashExplicitWrapper<(a1: A1) => R4>;
-        flowRight<A1, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashExplicitWrapper<(a1: A1) => R5>;
-        flowRight<A1, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashExplicitWrapper<(a1: A1) => R6>;
-        flowRight<A1, R7, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): LoDashExplicitWrapper<(a1: A1) => R7>;
+        flowRight<A1, R2, R1>(this: Exp<(a: R1) => R2>, f1: (a1: A1) => R1): Exp<(a1: A1) => R2>;
+        flowRight<A1, R3, R2, R1>(this: Exp<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1) => R1): Exp<(a1: A1) => R3>;
+        flowRight<A1, R4, R3, R2, R1>(this: Exp<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): Exp<(a1: A1) => R4>;
+        flowRight<A1, R5, R4, R3, R2, R1>(this: Exp<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): Exp<(a1: A1) => R5>;
+        flowRight<A1, R6, R5, R4, R3, R2, R1>(this: Exp<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): Exp<(a1: A1) => R6>;
+        flowRight<A1, R7, R6, R5, R4, R3, R2, R1>(this: Exp<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1) => R1): Exp<(a1: A1) => R7>;
         // 2-argument first function
-        flowRight<A1, A2, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f1: (a1: A1, a2: A2) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2) => R2>;
-        flowRight<A1, A2, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2) => R3>;
-        flowRight<A1, A2, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2) => R4>;
-        flowRight<A1, A2, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2) => R5>;
-        flowRight<A1, A2, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2) => R6>;
-        flowRight<A1, A2, R7, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2) => R7>;
+        flowRight<A1, A2, R2, R1>(this: Exp<(a: R1) => R2>, f1: (a1: A1, a2: A2) => R1): Exp<(a1: A1, a2: A2) => R2>;
+        flowRight<A1, A2, R3, R2, R1>(this: Exp<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): Exp<(a1: A1, a2: A2) => R3>;
+        flowRight<A1, A2, R4, R3, R2, R1>(this: Exp<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): Exp<(a1: A1, a2: A2) => R4>;
+        flowRight<A1, A2, R5, R4, R3, R2, R1>(this: Exp<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): Exp<(a1: A1, a2: A2) => R5>;
+        flowRight<A1, A2, R6, R5, R4, R3, R2, R1>(this: Exp<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): Exp<(a1: A1, a2: A2) => R6>;
+        flowRight<A1, A2, R7, R6, R5, R4, R3, R2, R1>(this: Exp<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2) => R1): Exp<(a1: A1, a2: A2) => R7>;
         // 3-argument first function
-        flowRight<A1, A2, A3, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R2>;
-        flowRight<A1, A2, A3, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R3>;
-        flowRight<A1, A2, A3, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R4>;
-        flowRight<A1, A2, A3, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R5>;
-        flowRight<A1, A2, A3, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R6>;
-        flowRight<A1, A2, A3, R7, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3) => R7>;
+        flowRight<A1, A2, A3, R2, R1>(this: Exp<(a: R1) => R2>, f1: (a1: A1, a2: A2, a3: A3) => R1): Exp<(a1: A1, a2: A2, a3: A3) => R2>;
+        flowRight<A1, A2, A3, R3, R2, R1>(this: Exp<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): Exp<(a1: A1, a2: A2, a3: A3) => R3>;
+        flowRight<A1, A2, A3, R4, R3, R2, R1>(this: Exp<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): Exp<(a1: A1, a2: A2, a3: A3) => R4>;
+        flowRight<A1, A2, A3, R5, R4, R3, R2, R1>(this: Exp<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): Exp<(a1: A1, a2: A2, a3: A3) => R5>;
+        flowRight<A1, A2, A3, R6, R5, R4, R3, R2, R1>(this: Exp<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): Exp<(a1: A1, a2: A2, a3: A3) => R6>;
+        flowRight<A1, A2, A3, R7, R6, R5, R4, R3, R2, R1>(this: Exp<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3) => R1): Exp<(a1: A1, a2: A2, a3: A3) => R7>;
         // 4-argument first function
-        flowRight<A1, A2, A3, A4, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R2>;
-        flowRight<A1, A2, A3, A4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R3>;
-        flowRight<A1, A2, A3, A4, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R4>;
-        flowRight<A1, A2, A3, A4, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R5>;
-        flowRight<A1, A2, A3, A4, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R6>;
-        flowRight<A1, A2, A3, A4, R7, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): LoDashExplicitWrapper<(a1: A1, a2: A2, a3: A3, a4: A4) => R7>;
+        flowRight<A1, A2, A3, A4, R2, R1>(this: Exp<(a: R1) => R2>, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R2>;
+        flowRight<A1, A2, A3, A4, R3, R2, R1>(this: Exp<(a: R2) => R3>, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R3>;
+        flowRight<A1, A2, A3, A4, R4, R3, R2, R1>(this: Exp<(a: R3) => R4>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R4>;
+        flowRight<A1, A2, A3, A4, R5, R4, R3, R2, R1>(this: Exp<(a: R4) => R5>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R5>;
+        flowRight<A1, A2, A3, A4, R6, R5, R4, R3, R2, R1>(this: Exp<(a: R5) => R6>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R6>;
+        flowRight<A1, A2, A3, A4, R7, R6, R5, R4, R3, R2, R1>(this: Exp<(a: R6) => R7>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1): Exp<(a1: A1, a2: A2, a3: A3, a4: A4) => R7>;
         // any-argument first function
-        flowRight<R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f1: (...args: any[]) => R1): LoDashExplicitWrapper<(...args: any[]) => R2>;
-        flowRight<R3, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashExplicitWrapper<(...args: any[]) => R3>;
-        flowRight<R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashExplicitWrapper<(...args: any[]) => R4>;
-        flowRight<R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashExplicitWrapper<(...args: any[]) => R5>;
-        flowRight<R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashExplicitWrapper<(...args: any[]) => R6>;
-        flowRight<R7, R6, R5, R4, R3, R2, R1>(this: LoDashExplicitWrapper<(a: R1) => R2>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): LoDashExplicitWrapper<(...args: any[]) => R7>;
-        flowRight(this: LoDashExplicitWrapper<(a: any) => any>, f6: (a: any) => any, f5: (a: any) => any, f4: (a: any) => any, f3: (a: any) => any, f2: (a: any) => any, f1: () => any, ...funcs: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => any>;
-        flowRight(this: LoDashExplicitWrapper<(a: any) => any>, funcs: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => any>;
+        flowRight<R2, R1>(this: Exp<(a: R1) => R2>, f1: (...args: any[]) => R1): Exp<(...args: any[]) => R2>;
+        flowRight<R3, R2, R1>(this: Exp<(a: R1) => R2>, f2: (a: R1) => R2, f1: (...args: any[]) => R1): Exp<(...args: any[]) => R3>;
+        flowRight<R4, R3, R2, R1>(this: Exp<(a: R1) => R2>, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): Exp<(...args: any[]) => R4>;
+        flowRight<R5, R4, R3, R2, R1>(this: Exp<(a: R1) => R2>, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): Exp<(...args: any[]) => R5>;
+        flowRight<R6, R5, R4, R3, R2, R1>(this: Exp<(a: R1) => R2>, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): Exp<(...args: any[]) => R6>;
+        flowRight<R7, R6, R5, R4, R3, R2, R1>(this: Exp<(a: R1) => R2>, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: any[]) => R1): Exp<(...args: any[]) => R7>;
+        flowRight(this: Exp<(a: any) => any>, f6: (a: any) => any, f5: (a: any) => any, f4: (a: any) => any, f3: (a: any) => any, f2: (a: any) => any, f1: () => any, ...funcs: Array<Many<(...args: any[]) => any>>): Exp<(...args: any[]) => any>;
+        flowRight(this: Exp<(a: any) => any>, funcs: Array<Many<(...args: any[]) => any>>): Exp<(...args: any[]) => any>;
     }
 
     // identity
@@ -539,14 +539,14 @@ declare module "../index" {
         identity(): undefined;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.identity
          */
         identity(): TValue;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.identity
          */
@@ -601,22 +601,22 @@ declare module "../index" {
         iteratee(): typeof _.identity; // tslint:disable-line:no-unnecessary-qualifier
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.iteratee
          */
         iteratee<TFunction extends (...args: any[]) => any>(
-            this: LoDashImplicitWrapper<TFunction | string | object>
-        ): LoDashImplicitWrapper<TFunction>;
+            this: Imp<TFunction | string | object>
+        ): Imp<TFunction>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.iteratee
          */
         iteratee<TFunction extends (...args: any[]) => any>(
-            this: LoDashExplicitWrapper<TFunction | string | object>
-        ): LoDashExplicitWrapper<TFunction>;
+            this: Exp<TFunction | string | object>
+        ): Exp<TFunction>;
     }
 
     // matches
@@ -641,18 +641,18 @@ declare module "../index" {
         matches<T, V>(source: T): (value: V) => boolean;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.matches
          */
-        matches<V>(): LoDashImplicitWrapper<(value: V) => boolean>;
+        matches<V>(): Imp<(value: V) => boolean>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.matches
          */
-        matches<V>(): LoDashExplicitWrapper<(value: V) => boolean>;
+        matches<V>(): Exp<(value: V) => boolean>;
     }
 
     // matchesProperty
@@ -682,36 +682,36 @@ declare module "../index" {
         ): (value: V) => boolean;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.matchesProperty
          */
         matchesProperty<SrcValue>(
             srcValue: SrcValue
-        ): LoDashImplicitWrapper<(value: any) => boolean>;
+        ): Imp<(value: any) => boolean>;
 
         /**
          * @see _.matchesProperty
          */
         matchesProperty<SrcValue, Value>(
             srcValue: SrcValue
-        ): LoDashImplicitWrapper<(value: Value) => boolean>;
+        ): Imp<(value: Value) => boolean>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.matchesProperty
          */
         matchesProperty<SrcValue>(
             srcValue: SrcValue
-        ): LoDashExplicitWrapper<(value: any) => boolean>;
+        ): Exp<(value: any) => boolean>;
 
         /**
          * @see _.matchesProperty
          */
         matchesProperty<SrcValue, Value>(
             srcValue: SrcValue
-        ): LoDashExplicitWrapper<(value: Value) => boolean>;
+        ): Exp<(value: Value) => boolean>;
     }
 
     // method
@@ -731,18 +731,18 @@ declare module "../index" {
         ): (object: any) => any;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.method
          */
-        method(...args: any[]): LoDashImplicitWrapper<(object: any) => any>;
+        method(...args: any[]): Imp<(object: any) => any>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.method
          */
-        method(...args: any[]): LoDashExplicitWrapper<(object: any) => any>;
+        method(...args: any[]): Exp<(object: any) => any>;
     }
 
     // methodOf
@@ -762,22 +762,22 @@ declare module "../index" {
         ): (path: PropertyPath) => any;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.methodOf
          */
         methodOf(
             ...args: any[]
-        ): LoDashImplicitWrapper<(path: PropertyPath) => any>;
+        ): Imp<(path: PropertyPath) => any>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.methodOf
          */
         methodOf(
             ...args: any[]
-        ): LoDashExplicitWrapper<(path: PropertyPath) => any>;
+        ): Exp<(path: PropertyPath) => any>;
     }
 
     // mixin
@@ -815,7 +815,7 @@ declare module "../index" {
         ): LoDashStatic;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.mixin
          */
@@ -829,10 +829,10 @@ declare module "../index" {
          */
         mixin(
             options?: MixinOptions
-        ): LoDashImplicitWrapper<LoDashStatic>;
+        ): Imp<LoDashStatic>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.mixin
          */
@@ -846,7 +846,7 @@ declare module "../index" {
          */
         mixin(
             options?: MixinOptions
-        ): LoDashExplicitWrapper<LoDashStatic>;
+        ): Exp<LoDashStatic>;
     }
 
     // noConflict
@@ -860,18 +860,18 @@ declare module "../index" {
         noConflict(): typeof _;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.noConflict
          */
         noConflict(): typeof _;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.noConflict
          */
-        noConflict(): LoDashExplicitWrapper<typeof _>;
+        noConflict(): Exp<typeof _>;
     }
 
     // noop
@@ -885,18 +885,18 @@ declare module "../index" {
         noop(...args: any[]): void;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.noop
          */
         noop(...args: any[]): void;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.noop
          */
-        noop(...args: any[]): LoDashExplicitWrapper<undefined>;
+        noop(...args: any[]): Exp<undefined>;
     }
 
     // nthArg
@@ -911,18 +911,18 @@ declare module "../index" {
         nthArg(n?: number): (...args: any[]) => any;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.nthArg
          */
-        nthArg(): LoDashImplicitWrapper<(...args: any[]) => any>;
+        nthArg(): Imp<(...args: any[]) => any>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.nthArg
          */
-        nthArg(): LoDashExplicitWrapper<(...args: any[]) => any>;
+        nthArg(): Exp<(...args: any[]) => any>;
     }
 
     // over
@@ -938,24 +938,24 @@ declare module "../index" {
         over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): (...args: any[]) => TResult[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.over
          */
         over<TResult>(
-            this: LoDashImplicitWrapper<Many<(...args: any[]) => TResult>>,
+            this: Imp<Many<(...args: any[]) => TResult>>,
             ...iteratees: Array<Many<(...args: any[]) => TResult>>
-        ): LoDashImplicitWrapper<(...args: any[]) => TResult[]>;
+        ): Imp<(...args: any[]) => TResult[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.over
          */
         over<TResult>(
-            this: LoDashExplicitWrapper<Many<(...args: any[]) => TResult>>,
+            this: Exp<Many<(...args: any[]) => TResult>>,
             ...iteratees: Array<Many<(...args: any[]) => TResult>>
-        ): LoDashExplicitWrapper<(...args: any[]) => TResult[]>;
+        ): Exp<(...args: any[]) => TResult[]>;
     }
 
     // overEvery
@@ -971,18 +971,18 @@ declare module "../index" {
         overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.overEvery
          */
-        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): LoDashImplicitWrapper<(...args: T[]) => boolean>;
+        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): Imp<(...args: T[]) => boolean>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.overEvery
          */
-        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): LoDashExplicitWrapper<(...args: T[]) => boolean>;
+        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): Exp<(...args: T[]) => boolean>;
     }
 
     // overSome
@@ -998,18 +998,18 @@ declare module "../index" {
         overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.overSome
          */
-        overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): LoDashImplicitWrapper<(...args: T[]) => boolean>;
+        overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): Imp<(...args: T[]) => boolean>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.overSome
          */
-        overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): LoDashExplicitWrapper<(...args: T[]) => boolean>;
+        overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): Exp<(...args: T[]) => boolean>;
     }
 
     // property
@@ -1024,18 +1024,18 @@ declare module "../index" {
         property<TObj, TResult>(path: PropertyPath): (obj: TObj) => TResult;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.property
          */
-        property<TObj, TResult>(): LoDashImplicitWrapper<(obj: TObj) => TResult>;
+        property<TObj, TResult>(): Imp<(obj: TObj) => TResult>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.property
          */
-        property<TObj, TResult>(): LoDashExplicitWrapper<(obj: TObj) => TResult>;
+        property<TObj, TResult>(): Exp<(obj: TObj) => TResult>;
     }
 
     // propertyOf
@@ -1051,18 +1051,18 @@ declare module "../index" {
         propertyOf<T extends {}>(object: T): (path: PropertyPath) => any;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.propertyOf
          */
-        propertyOf(): LoDashImplicitWrapper<(path: PropertyPath) => any>;
+        propertyOf(): Imp<(path: PropertyPath) => any>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.propertyOf
          */
-        propertyOf(): LoDashExplicitWrapper<(path: PropertyPath) => any>;
+        propertyOf(): Exp<(path: PropertyPath) => any>;
     }
 
     // range
@@ -1101,24 +1101,24 @@ declare module "../index" {
         ): number[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.range
          */
         range(
             end?: number,
             step?: number
-        ): LoDashImplicitWrapper<number[]>;
+        ): Imp<number[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.range
          */
         range(
             end?: number,
             step?: number
-        ): LoDashExplicitWrapper<number[]>;
+        ): Exp<number[]>;
     }
 
     // rangeRight
@@ -1178,24 +1178,24 @@ declare module "../index" {
         ): number[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.rangeRight
          */
         rangeRight(
             end?: number,
             step?: number
-        ): LoDashImplicitWrapper<number[]>;
+        ): Imp<number[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.rangeRight
          */
         rangeRight(
             end?: number,
             step?: number
-        ): LoDashExplicitWrapper<number[]>;
+        ): Exp<number[]>;
     }
 
     // runInContext
@@ -1210,7 +1210,7 @@ declare module "../index" {
         runInContext(context?: object): LoDashStatic;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.runInContext
          */
@@ -1228,18 +1228,18 @@ declare module "../index" {
         stubArray(): any[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.stubArray
          */
         stubArray(): any[];
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.stubArray
          */
-        stubArray(): LoDashExplicitWrapper<any[]>;
+        stubArray(): Exp<any[]>;
     }
 
     // stubFalse
@@ -1253,18 +1253,18 @@ declare module "../index" {
         stubFalse(): false;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.stubFalse
          */
         stubFalse(): false;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.stubFalse
          */
-        stubFalse(): LoDashExplicitWrapper<false>;
+        stubFalse(): Exp<false>;
     }
 
     // stubObject
@@ -1278,18 +1278,18 @@ declare module "../index" {
         stubObject(): any;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.stubObject
          */
         stubObject(): any;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.stubObject
          */
-        stubObject(): LoDashExplicitWrapper<any>;
+        stubObject(): Exp<any>;
     }
 
     // stubString
@@ -1303,18 +1303,18 @@ declare module "../index" {
         stubString(): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.stubString
          */
         stubString(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.stubString
          */
-        stubString(): LoDashExplicitWrapper<string>;
+        stubString(): Exp<string>;
     }
 
     // stubTrue
@@ -1328,18 +1328,18 @@ declare module "../index" {
         stubTrue(): true;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.stubTrue
          */
         stubTrue(): true;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.stubTrue
          */
-        stubTrue(): LoDashExplicitWrapper<true>;
+        stubTrue(): Exp<true>;
     }
 
     // times
@@ -1364,7 +1364,7 @@ declare module "../index" {
         times(n: number): number[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.times
          */
@@ -1378,18 +1378,18 @@ declare module "../index" {
         times(): number[];
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.times
          */
         times<TResult>(
             iteratee: (num: number) => TResult
-        ): LoDashExplicitWrapper<TResult[]>;
+        ): Exp<TResult[]>;
 
         /**
          * @see _.times
          */
-        times(): LoDashExplicitWrapper<number[]>;
+        times(): Exp<number[]>;
     }
 
     // toPath
@@ -1421,18 +1421,18 @@ declare module "../index" {
         toPath(value: any): string[];
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.toPath
          */
-        toPath(): LoDashImplicitWrapper<string[]>;
+        toPath(): Imp<string[]>;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.toPath
          */
-        toPath(): LoDashExplicitWrapper<string[]>;
+        toPath(): Exp<string[]>;
     }
 
     // uniqueId
@@ -1447,17 +1447,17 @@ declare module "../index" {
         uniqueId(prefix?: string): string;
     }
 
-    interface LoDashImplicitWrapper<TValue> {
+    interface Imp<TValue> {
         /**
          * @see _.uniqueId
          */
         uniqueId(): string;
     }
 
-    interface LoDashExplicitWrapper<TValue> {
+    interface Exp<TValue> {
         /**
          * @see _.uniqueId
          */
-        uniqueId(): LoDashExplicitWrapper<string>;
+        uniqueId(): Exp<string>;
     }
 }
