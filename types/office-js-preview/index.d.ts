@@ -84892,6 +84892,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Application;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Application object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ApplicationData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ApplicationData;
     }
     /**
@@ -85036,6 +85040,10 @@ declare namespace Visio {
          * @eventproperty
          */
         readonly onShapeMouseLeave: OfficeExtension.EventHandlers<Visio.ShapeMouseLeaveEventArgs>;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Document object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.DocumentData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.DocumentData;
     }
     /**
@@ -85117,6 +85125,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.DocumentView;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.DocumentView object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.DocumentViewData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.DocumentViewData;
     }
     /**
@@ -85233,6 +85245,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Page;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Page object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.PageData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.PageData;
     }
     /**
@@ -85334,6 +85350,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.PageView;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.PageView object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.PageViewData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.PageViewData;
     }
     /**
@@ -85381,6 +85401,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.PageCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.PageCollection;
         load(option?: string | string[]): Visio.PageCollection;
         load(option?: OfficeExtension.LoadOption): Visio.PageCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.PageCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.PageCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.PageCollectionData;
     }
     /**
@@ -85428,6 +85452,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.ShapeCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.ShapeCollection;
         load(option?: string | string[]): Visio.ShapeCollection;
         load(option?: OfficeExtension.LoadOption): Visio.ShapeCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.ShapeCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.ShapeCollectionData;
     }
     /**
@@ -85544,6 +85572,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Shape;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Shape object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ShapeData;
     }
     /**
@@ -85634,6 +85666,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.ShapeView;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.ShapeView object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeViewData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ShapeViewData;
     }
     /**
@@ -85761,6 +85797,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.ShapeDataItemCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.ShapeDataItemCollection;
         load(option?: string | string[]): Visio.ShapeDataItemCollection;
         load(option?: OfficeExtension.LoadOption): Visio.ShapeDataItemCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.ShapeDataItemCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeDataItemCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.ShapeDataItemCollectionData;
     }
     /**
@@ -85821,6 +85861,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.ShapeDataItem;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.ShapeDataItem object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeDataItemData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ShapeDataItemData;
     }
     /**
@@ -85868,6 +85912,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.HyperlinkCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.HyperlinkCollection;
         load(option?: string | string[]): Visio.HyperlinkCollection;
         load(option?: OfficeExtension.LoadOption): Visio.HyperlinkCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.HyperlinkCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.HyperlinkCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.HyperlinkCollectionData;
     }
     /**
@@ -85928,6 +85976,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Hyperlink;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Hyperlink object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.HyperlinkData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.HyperlinkData;
     }
     /**
@@ -85975,6 +86027,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.CommentCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.CommentCollection;
         load(option?: string | string[]): Visio.CommentCollection;
         load(option?: OfficeExtension.LoadOption): Visio.CommentCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.CommentCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.CommentCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.CommentCollectionData;
     }
     /**
@@ -86042,6 +86098,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Comment;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Comment object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.CommentData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.CommentData;
     }
     /**
@@ -86080,6 +86140,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Selection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Selection object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.SelectionData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.SelectionData;
     }
     /**
@@ -87244,7 +87308,7 @@ declare namespace Visio {
     /**
      * The RequestContext object facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the request context is required to get access to the Visio object model from the add-in.
      */
-    class RequestContext extends OfficeExtension.ClientRequestContext {
+    class RequestContext extends OfficeCore.RequestContext {
         constructor(url?: string | OfficeExtension.EmbeddedSession);
         readonly document: Document;
     }
