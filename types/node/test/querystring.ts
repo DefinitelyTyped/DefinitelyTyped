@@ -1,6 +1,6 @@
 import * as querystring from 'querystring';
 
-interface SampleObject { a: string; }
+interface SampleObject { [key: string]: string; }
 
 {
     const obj: SampleObject = { a: "" };
@@ -39,4 +39,10 @@ interface SampleObject { a: string; }
 
     result = querystring.escape(str);
     result = querystring.unescape(str);
+}
+
+{
+    const queryInput: string | null | querystring.ParsedUrlQueryInput = {};
+    // $ExpectError
+    const query: string | null | querystring.ParsedUrlQuery = queryInput;
 }

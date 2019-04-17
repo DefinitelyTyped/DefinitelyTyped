@@ -1,4 +1,4 @@
-import openpgp from "openpgp";
+import openpgp, { encrypt } from "openpgp";
 
 // Open PGP Sample codes
 
@@ -72,7 +72,9 @@ Promise.all(promises).then(function (values) {
     // failure
 });
 
-openpgp.initWorker('openpgp.worker.js');
+openpgp.initWorker({
+    path: 'openpgp.worker.js'
+});
 
 (async () => {
     let msgOptions: openpgp.EncryptOptions;
@@ -84,7 +86,16 @@ openpgp.initWorker('openpgp.worker.js');
     };
 
     let cipher = await openpgp.encrypt(msgOptions);
+
     let encrypted = cipher.message.packets.write(); // get raw encrypted packets as Uint8Array
+
+    let armored = await openpgp.encrypt({
+        message: openpgp.message.fromBinary(new Uint8Array([0x01, 0x01, 0x01])),
+        armor: true,
+        privateKeys: []
+    });
+    let data: string = armored.data;
+    // let msg: openpgp.message.Message = armored.message; // without member 'message'
 
     let plain = await openpgp.decrypt({
         message: await openpgp.message.read(encrypted),
@@ -121,6 +132,30 @@ openpgp.initWorker('openpgp.worker.js');
     };
 
     const signed = await openpgp.sign(signOptions);
+
+    // Test function reload
+    openpgp.sign({
+        message: null,
+        privateKeys: [],
+        detached: true
+    }).then(s => s.signature/* as string*/);
+    openpgp.sign({
+        message: null,
+        privateKeys: [],
+        detached: false,
+    }).then(s => s.data/* as string*/);
+    openpgp.sign({
+        message: null,
+        privateKeys: [],
+        armor: false,
+        detached: true
+    }).then(s => s.signature/* as openpgp.signature.Signature*/);
+    openpgp.sign({
+        message: null,
+        privateKeys: [],
+        armor: false,
+        detached: false,
+    }).then(s => s.message/* as openpgp.message.Message*/);
 
     const signature = signed.signature as openpgp.signature.Signature;
     const message = signed.message;

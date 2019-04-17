@@ -207,6 +207,11 @@ browser.on('error', function onError(err) {
 
 browser.stop();
 
+index.setSettings({ hitsPerPage: 10 }, () => {})
+index.setSettings({ hitsPerPage: 10 }, { forwardToReplicas: true }, () => {})
+index.setSettings({ hitsPerPage: 10 }).then(() => {})
+index.setSettings({ hitsPerPage: 10 }, { forwardToReplicas: true }).then(() => {})
+
 index.browse("", {
   advancedSyntax: false,
   attributesToRetrieve: ['dogs']

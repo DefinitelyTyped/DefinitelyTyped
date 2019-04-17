@@ -214,6 +214,7 @@ export interface ThemedStyledFunctionBase<
     O extends object = {},
     A extends keyof any = never
 > {
+    (first: TemplateStringsArray): StyledComponent<C, T, O, A>;
     (
         first:
             | TemplateStringsArray

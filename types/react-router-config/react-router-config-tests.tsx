@@ -46,7 +46,8 @@ const routes: RouteConfig[] = [
                 routes: [{
                     path: "/child/:id/grand-child",
                     component: GrandChild
-                }]
+                }],
+                loadData: () => Promise.resolve({})
             }
         ]
     }

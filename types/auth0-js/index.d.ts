@@ -1,9 +1,10 @@
-// Type definitions for Auth0.js 8.11
+// Type definitions for Auth0.js 9.10
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
 //                 Peter Blazejewicz <https://github.com/peterblazejewicz>
 //                 Bartosz Kotrys <https://github.com/bkotrys>
+//                 Mark Nelissen <https://github.com/marknelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -522,6 +523,7 @@ export interface AuthOptions {
     _disableDeprecationWarnings?: boolean;
     _sendTelemetry?: boolean;
     _telemetryInfo?: any;
+    __tryLocalStorageFirst?: boolean;
 }
 
 export interface PasswordlessAuthOptions {
@@ -569,7 +571,9 @@ export type SpecErrorCodes =
 
 export interface Auth0Error {
     error: LibErrorCodes | SpecErrorCodes | string;
-    errorDescription: string;
+    errorDescription?: string;
+    // Auth0 is not consistent in the naming of the error description field
+    error_description?: string;
     // Need to include non-intuitive error fields that Auth0 uses
     code?: string;
     description?: string;

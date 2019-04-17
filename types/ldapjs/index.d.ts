@@ -1,6 +1,6 @@
 // Type definitions for ldapjs 1.0
 // Project: http://ldapjs.org
-// Definitions by: Charles Villemure <https://github.com/cvillemure>, Peter Kooijmans <https://github.com/peterkooijmans>
+// Definitions by: Charles Villemure <https://github.com/cvillemure>, Peter Kooijmans <https://github.com/peterkooijmans>, Pablo Moleri <https://github.com/pmoleri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -75,8 +75,19 @@ export var Change: {
 	new(change: Change): Change;
 }
 
+export type SearchReference = any;
+
+export interface SearchCallbackResponse extends EventEmitter {
+    on(event: "searchEntry", listener: (entry: SearchEntry) => void): this;
+    on(event: "searchReference", listener: (referral: SearchReference) => void): this;
+    on(event: "page", listener: (res: LDAPResult, cb: (...args: any[]) => void) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "end", listener: (res: LDAPResult | null) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
+}
+
 export interface SearchCallBack {
-	(error: Error, result: EventEmitter): void;
+    (error: Error | null, result: SearchCallbackResponse): void;
 }
 
 export type Control = any;
@@ -191,7 +202,7 @@ export interface Client extends EventEmitter {
 	 * objects or a filter string as the filter option.
 	 *
 	 * Note that this method is 'special' in that the callback 'res' param will
-	 * have two important events on it, namely 'entry' and 'end' that you can hook
+	 * have two important events on it, namely 'searchEntry' and 'end' that you can hook
 	 * to.  The former will emit a SearchEntry object for each record that comes
 	 * back, and the latter will emit a normal LDAPResult object.
 	 *
@@ -280,4 +291,95 @@ export class NotFilter extends Filter {
 
 export class ApproximateFilter extends Filter {
 	constructor(options: { attribute: string, value: string })
+}
+
+export interface AttributeJson {
+    type: string;
+    vals: string[];
+}
+
+export class Attribute {
+    private type: string;
+    readonly buffers: Buffer[];
+
+    /**
+     *  Array of string values, binaries are represented in base64.
+     *  get: When reading it always returns an array of strings.
+     *  set: When assigning it accepts either an array or a single value.
+     *       `Buffer`s are assigned directly, any other value is converted to string and loaded into a `Buffer`.
+     */
+    vals: string | string[];
+
+    readonly json: AttributeJson;
+
+    /** Stringified json property */
+    toString(): string;
+
+    static isAttribute(object: any): object is Attribute;
+    static compare(a: Attribute, b: Attribute): number;
+}
+
+interface LDAPMessageJsonObject {
+    messageID: number;
+    protocolOp: string | undefined;
+    controls: Control[];
+    [k: string]: any;
+}
+
+export abstract class LDAPMessage {
+    messageID: number;
+    protocolOp: string | undefined;
+    controls: Control[];
+    log: any;
+    readonly id: number;
+    readonly dn: string;
+    readonly type: string;
+
+    /** A plain object with main properties */
+    readonly json: LDAPMessageJsonObject;
+
+    /** Stringified json property */
+    toString(): string;
+    parse(ber: Buffer): boolean;
+    toBer(): Buffer;
+}
+
+export class LDAPResult extends LDAPMessage {
+    readonly type: "LDAPResult";
+    /** Result status 0 = success */
+    status: number;
+    matchedDN: string;
+    errorMessage: string;
+    referrals: string[];
+    connection: any;
+}
+
+export interface SearchEntryObject {
+    dn: string;
+    controls: Control[];
+    [p: string]: string | string[];
+}
+
+export interface SearchEntryRaw {
+    dn: string;
+    controls: Control[];
+    [p: string]: string | Buffer | Buffer[];
+}
+
+export class SearchEntry extends LDAPMessage {
+    readonly type: "SearchEntry";
+    objectName: string | null;
+    attributes: Attribute[];
+
+    readonly json: LDAPMessageJsonObject & { objectName: string, attributes: AttributeJson[]};
+
+    /**
+     * Retrieve an object with `dn`, `controls` and every `Atttribute` as a property with their value(s)
+     */
+    readonly object: SearchEntryObject;
+
+    /**
+     * Retrieve an object with `dn`, `controls` and every `Atttribute` as a property, using raw `Buffer`(s) as attribute values.
+     */
+    readonly raw: SearchEntryRaw;
 }
