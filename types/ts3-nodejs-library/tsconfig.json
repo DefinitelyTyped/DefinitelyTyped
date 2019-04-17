@@ -28,6 +28,6 @@
         "property/ServerGroup.d.ts",
         "transport/Command.d.ts",
         "transport/FileTransfer.d.ts",
-        "transport/TS3Query.d.ts",
+        "transport/TS3Query.d.ts"
     ]
 }
