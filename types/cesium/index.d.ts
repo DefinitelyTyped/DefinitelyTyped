@@ -3027,6 +3027,7 @@ declare namespace Cesium {
         ellipsoid: Ellipsoid;
         imageryLayers: ImageryLayerCollection;
         baseColor: Color;
+        cartographicLimitRectangle: Rectangle;
         constructor(ellipsoid?: Ellipsoid);
         pick(ray: Ray, scene: Scene, result?: Cartesian3): Cartesian3;
         getHeight(cartographic: Cartographic): number;
