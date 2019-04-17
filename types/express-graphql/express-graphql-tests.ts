@@ -9,7 +9,7 @@ const schema = buildSchema(`type Query { hello: String }`);
 const graphqlOption: graphqlHTTP.OptionsData = {
     graphiql: true,
     schema,
-    formatError: (error: Error) => ({
+    customFormatErrorFn: (error: Error) => ({
         message: error.message,
     }),
     validationRules: [() => false, () => true],

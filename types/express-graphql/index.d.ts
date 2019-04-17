@@ -1,4 +1,4 @@
-// Type definitions for express-graphql 0.6
+// Type definitions for express-graphql 0.8
 // Project: https://github.com/graphql/express-graphql
 // Definitions by: Isman Usoh <https://github.com/isman-usoh>
 //                 Nitin Tutlani <https://github.com/nitintutlani>
@@ -6,11 +6,18 @@
 //                 Ehsan Ziya <https://github.com/zya>
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Firede <https://github.com/firede>
+//                 Christian Boehlke <https://github.com/ChristianBoehlke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
 import { Request, Response } from "express";
-import { DocumentNode, GraphQLSchema, GraphQLError } from "graphql";
+import {
+    DocumentNode,
+    GraphQLSchema,
+    GraphQLError,
+    ExecutionArgs,
+    ExecutionResult,
+} from "graphql";
 export = graphqlHTTP;
 
 declare namespace graphqlHTTP {
@@ -47,9 +54,34 @@ declare namespace graphqlHTTP {
         pretty?: boolean | null;
 
         /**
+         * An optional function which will be used to validate instead of default `validate`
+         * from `graphql-js`.
+         */
+        customValidateFn?: (
+            schema: GraphQLSchema,
+            documentAST: DocumentNode,
+            rules?: ReadonlyArray<any>,
+        ) => ReadonlyArray<GraphQLError> | null;
+
+        /**
+         * An optional function which will be used to execute instead of default `execute`
+         * from `graphql-js`.
+         */
+        customExecuteFn?:
+            | ((args: ExecutionArgs) => Promise<ExecutionResult>)
+            | null;
+
+        /**
          * An optional function which will be used to format any errors produced by
          * fulfilling a GraphQL operation. If no function is provided, GraphQL's
          * default spec-compliant `formatError` function will be used.
+         */
+        customFormatErrorFn?: ((error: GraphQLError) => any) | null;
+
+        /**
+         * @deprecated
+         * `formatError` is deprecated and replaced by `customFormatErrorFn`.
+         * It will be removed in version 1.0.0.
          */
         formatError?: ((error: GraphQLError) => any) | null;
 
