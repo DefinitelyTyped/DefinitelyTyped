@@ -78283,6 +78283,87 @@ declare namespace Word {
 declare namespace OneNote {
     /**
      *
+     * Provides information about the binding that raised the DataChanged event
+     *
+     * [Api set: OneNoteApi 1.1]
+     */
+    interface NotebookChangedEventArgs {
+        /**
+         *
+         * Notebook id before change
+         *
+         * [Api set: OneNoteApi 1.3]
+         */
+        oldId: string;
+        /**
+         *
+         * Gets the type of the event. See EventType for details.
+         *
+         * [Api set: OneNoteApi 1.3]
+         */
+        type: "NotebookChanged";
+    }
+    /**
+     *
+     * Provides information about the binding that raised the StickyNotesContextMenuExecuted event
+     *
+     * [Api set: OneNoteApi 1.5]
+     */
+    interface StickyNotesContextMenuExecutedEventArgs {
+        /**
+         *
+         * Gets the type of the event. See EventType for details.
+         *
+         * [Api set: OneNoteApi 1.5]
+         */
+        type: "StickyNotesContextMenuExecuted";
+    }
+    /**
+     *
+     * Provides information about the binding that raised the section selection changed event
+     *
+     * [Api set: OneNoteApi 1.5]
+     */
+    interface SectionSelectionChangedEventArgs {
+        /**
+         *
+         * Active Section id before change
+         *
+         * [Api set: OneNoteApi 1.5]
+         */
+        oldId: string;
+        /**
+         *
+         * Gets the type of the event. See EventType for details.
+         *
+         * [Api set: OneNoteApi 1.5]
+         */
+        type: "SectionSelectionChanged";
+    }
+    /**
+     *
+     * Provides information about the binding that raised the Page selection changed event
+     *
+     * [Api set: OneNoteApi 1.1]
+     */
+    interface PageSelectionChangedEventArgs {
+        /**
+         *
+         * Active Page id before change
+         *
+         * [Api set: OneNoteApi 1.3]
+         */
+        oldId: string;
+        /**
+         *
+         * Gets the type of the event. See EventType for details.
+         *
+         * [Api set: OneNoteApi 1.3]
+         */
+        type: "PageSelectionChanged";
+    }
+    /**
+     *
      * Represents the top-level object that contains all globally addressable OneNote objects such as notebooks, the active notebook, and the active section.
      *
      * [Api set: OneNoteApi 1.1]
@@ -78409,6 +78490,42 @@ declare namespace OneNote {
             select?: string;
             expand?: string;
         }): OneNote.Application;
+        /**
+         *
+         * Occurs when the notebook is changed.
+         *
+         * [Api set: OneNoteApi 1.3]
+         *
+         * @eventproperty
+         */
+        readonly onNotebookChanged: OfficeExtension.EventHandlers<OneNote.NotebookChangedEventArgs>;
+        /**
+         *
+         * Occurs when the Page Selection change is made.
+         *
+         * [Api set: OneNoteApi 1.5]
+         *
+         * @eventproperty
+         */
+        readonly onPageSelectionChanged: OfficeExtension.EventHandlers<OneNote.PageSelectionChangedEventArgs>;
+        /**
+         *
+         * Occurs when the Section Selection change is made.
+         *
+         * [Api set: OneNoteApi 1.5]
+         *
+         * @eventproperty
+         */
+        readonly onSectionSelectionChanged: OfficeExtension.EventHandlers<OneNote.SectionSelectionChangedEventArgs>;
+        /**
+         *
+         * Occurs when the host sends a command to the add-ins.
+         *
+         * [Api set: OneNoteApi 1.5]
+         *
+         * @eventproperty
+         */
+        readonly onStickyNotesContextMenuExecutedEvent: OfficeExtension.EventHandlers<OneNote.StickyNotesContextMenuExecutedEventArgs>;
         /**
         * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
         * Whereas the original OneNote.Application object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `OneNote.Interfaces.ApplicationData`) that contains shallow copies of any loaded child properties from the original object.
@@ -81863,6 +81980,15 @@ declare namespace OneNote {
         ucgreek = "UCGreek",
         lim = "Lim",
         custom = "Custom",
+    }
+    /**
+     * [Api set: OneNoteApi 1.3]
+     */
+    enum EventType {
+        notebookChanged = "NotebookChanged",
+        stickyNotesContextMenuExecuted = "StickyNotesContextMenuExecuted",
+        sectionSelectionChanged = "SectionSelectionChanged",
+        pageSelectionChanged = "PageSelectionChanged",
     }
     enum ErrorCodes {
         generalException = "GeneralException",
