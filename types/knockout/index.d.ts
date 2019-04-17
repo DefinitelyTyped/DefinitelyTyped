@@ -977,7 +977,7 @@ declare namespace KnockoutComponentTypes {
     }
 
     interface ViewModelFactoryFunction {
-        createViewModel: (params?: any, componentInfo?: ComponentInfo) => any;
+        createViewModel: (params: any, componentInfo: ComponentInfo) => any;
     }
 
     interface ComponentInfo {
