@@ -213,6 +213,7 @@ export interface Pool extends EscapeFunctions {
      * connection, right before the connection is handed to the callback of the
      * acquiring code.
      */
+    // tslint:disable-next-line:unified-signatures
     on(ev: 'acquire', callback: (connection: PoolConnection) => void): Pool;
 
     /**
@@ -221,6 +222,7 @@ export interface Pool extends EscapeFunctions {
      * connection, so the connection will be listed as free at the time of the
      * event.
      */
+    // tslint:disable-next-line:unified-signatures
     on(ev: 'release', callback: (connection: PoolConnection) => void): Pool;
 
     /**
