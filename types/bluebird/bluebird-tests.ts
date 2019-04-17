@@ -149,6 +149,11 @@ let BlueBird: typeof Bluebird;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+let nativeFooProm: Promise<Foo>;
+let nativeBarProm: Promise<Bar>;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 let version: string = Bluebird.version;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -160,6 +165,9 @@ let nodeCallbackFuncErrorOnly = (callback: (err: any) => void) => {};
 
 fooThen = fooProm;
 barThen = barProm;
+
+nativeFooProm = fooProm;
+nativeBarProm = barProm;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
