@@ -90,11 +90,13 @@ declare namespace got {
 
     interface GotJSONFn {
         (url: GotUrl): GotPromise<any>;
+        (url: GotUrl, options: GotOptions<string | null>): GotPromise<any>;
         (url: GotUrl, options: GotJSONOptions): GotPromise<any>;
     }
 
     interface GotFormFn<T extends string | null> {
         (url: GotUrl): GotPromise<T extends null ? Buffer : string>;
+        (url: GotUrl, options: GotOptions<T>): GotPromise<T extends null ? Buffer : string>;
         (url: GotUrl, options: GotFormOptions<T>): GotPromise<T extends null ? Buffer : string>;
     }
 
