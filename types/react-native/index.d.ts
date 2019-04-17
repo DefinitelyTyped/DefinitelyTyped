@@ -5170,6 +5170,20 @@ export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackP
     hitSlop?: Insets;
 
     /**
+     * When `accessible` is true (which is the default) this may be called when
+     * the OS-specific concept of "blur" occurs, meaning the element lost focus.
+     * Some platforms may not have the concept of blur.
+     */
+    onBlur?: (e: NativeSyntheticEvent<any>) => void;
+
+    /**
+     * When `accessible` is true (which is the default) this may be called when
+     * the OS-specific concept of "focus" occurs. Some platforms may not have
+     * the concept of focus.
+     */
+    onFocus?: (e: NativeSyntheticEvent<any>) => void;
+
+    /**
      * Invoked on mount and layout changes with
      * {nativeEvent: {layout: {x, y, width, height}}}
      */
@@ -5906,6 +5920,7 @@ export interface PixelRatioStatic {
 export type PlatformOSType = "ios" | "android" | "macos" | "windows" | "web";
 
 interface PlatformStatic {
+    isTV: boolean;
     OS: PlatformOSType;
     Version: number | string;
 
