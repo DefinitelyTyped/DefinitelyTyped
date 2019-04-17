@@ -1121,6 +1121,7 @@ export interface IndicesCloseParams extends GenericParams {
 }
 
 export interface IndicesCreateParams extends GenericParams {
+    includeTypeName?: boolean;
     waitForActiveShards?: string;
     timeout?: TimeSpan;
     masterTimeout?: TimeSpan;
@@ -1199,6 +1200,7 @@ export interface IndicesForcemergeParams extends GenericParams {
 }
 
 export interface IndicesGetParams extends GenericParams {
+    includeTypeName?: boolean;
     local?: boolean;
     ignoreUnavailable?: boolean;
     allowNoIndices?: boolean;
@@ -1220,6 +1222,7 @@ export interface IndicesGetAliasParams extends GenericParams {
 }
 
 export interface IndicesGetFieldMappingParams extends GenericParams {
+    includeTypeName?: boolean;
     includeDefaults?: boolean;
     ignoreUnavailable?: boolean;
     allowNoIndices?: boolean;
@@ -1231,6 +1234,7 @@ export interface IndicesGetFieldMappingParams extends GenericParams {
 }
 
 export interface IndicesGetMappingParams extends GenericParams {
+    includeTypeName?: boolean;
     ignoreUnavailable?: boolean;
     allowNoIndices?: boolean;
     expandWildcards?: ExpandWildcards;
@@ -1252,6 +1256,7 @@ export interface IndicesGetSettingsParams extends GenericParams {
 }
 
 export interface IndicesGetTemplateParams extends GenericParams {
+    includeTypeName?: boolean;
     flatSettings?: boolean;
     masterTimeout?: TimeSpan;
     local?: boolean;
@@ -1283,6 +1288,7 @@ export interface IndicesPutAliasParams extends GenericParams {
 }
 
 export interface IndicesPutMappingParams extends GenericParams {
+    includeTypeName?: boolean;
     timeout?: TimeSpan;
     masterTimeout?: TimeSpan;
     ignoreUnavailable?: boolean;
@@ -1306,6 +1312,7 @@ export interface IndicesPutSettingsParams extends GenericParams {
 }
 
 export interface IndicesPutTemplateParams extends GenericParams {
+    includeTypeName?: boolean;
     order?: number;
     create?: boolean;
     timeout?: TimeSpan;
@@ -1332,6 +1339,7 @@ export interface IndicesRefreshParams extends GenericParams {
 }
 
 export interface IndicesRolloverParams extends GenericParams {
+    includeTypeName?: boolean;
     timeout?: TimeSpan;
     masterTimeout?: TimeSpan;
     waitForActiveShards?: number | string;
