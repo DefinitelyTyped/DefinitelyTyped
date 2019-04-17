@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export as namespace MailJet;
-
 export function connect(apiKey: string, apiSecret: string, options?: ConnectOptions): Email.Client;
 
 export function connect(apiToken: string, options?: ConnectOptions): SMS.Client;
