@@ -4518,6 +4518,8 @@ declare namespace Cesium {
 
     function sampleTerrain(terrainProvider: TerrainProvider, level: number, positions: Cartographic[]): Promise<Cartographic[]>;
 
+    function sampleTerrainMostDetailed(terrainProvider: TerrainProvider, positions: Cartographic[]): Promise<Cartographic[]>;
+
     function subdivideArray(array: any[], numberOfArrays: number): undefined;
 
     function throttleRequestByServer(url: string, requestFunction: throttleRequestByServer.RequestFunction): Promise<any>;
