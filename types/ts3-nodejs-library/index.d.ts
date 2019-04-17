@@ -3,7 +3,7 @@
 // Definitions by: Pascal Sthamer <https://github.com/P4sca1>
 //                 David Kartnaller <https://github.com/Multivit4min>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version 3.0
+// TypeScript Version: 3.0
 
 import TeamSpeak3 = require('./TeamSpeak3');
 export = TeamSpeak3;
