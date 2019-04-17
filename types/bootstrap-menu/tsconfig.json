@@ -15,14 +15,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react",
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "server/index.d.ts",
-        "universal/index.d.ts",
         "index.d.ts",
-        "graphql-react-tests.tsx"
+        "bootstrap-menu-tests.ts"
     ]
 }

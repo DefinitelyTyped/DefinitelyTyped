@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -15,14 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react",
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "server/index.d.ts",
-        "universal/index.d.ts",
         "index.d.ts",
-        "graphql-react-tests.tsx"
+        "node-mailjet-tests.ts"
     ]
 }

@@ -2050,7 +2050,7 @@ declare namespace wx {
 		 */
 		animation?: {
 			// 动画变化时间，默认0，单位：毫秒
-			duratio?: number;
+			duration?: number;
 			/**
 			 * 动画变化方式，默认 linear
 			 * 值	说明
