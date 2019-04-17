@@ -122,7 +122,7 @@ declare namespace Tabulator {
         /**  Setting this option to true will cause Tabulator to create a list of page size options, that are multiples of the current page size. In the example below, the list will have the values of 5, 10, 15 and 20.
 
     When using the page size selector like this, if you use the setPageSize function to set the page size to a value not in the list, the list will be regenerated using the new page size as the starting valuer	*/
-        paginationSizeSelector?: true | false | number[];
+        paginationSizeSelector?: true | number[];
         /**  By default the pagination controls are added to the footer of the table. If you wish the controls to be created in another element pass a DOM node or a CSS selector for that element to the paginationElement option.*/
         paginationElement?: HTMLElement | "string";
         /** Lookup list to link expected data feilds from the server to their function	* default* {
@@ -764,7 +764,7 @@ declare namespace Tabulator {
     interface ColumnDefinition extends ColumnLayout, CellCallbacks {
         // Layout
         /** sets the text alignment for this column */
-        align?: "left" | "center" | "right" | string; // Align?
+        align?: ColumnDefinitionAlign; // Align?
         /** sets the minimum width of this column, this should be set in pixels (this takes priority over the global option of columnMinWidth) */
         minWidth?: number;
 
@@ -1003,7 +1003,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
     type CustomAccessorParams = {} | ((value: any, data: any, type: "data" | "download" | "clipboard", column?: ColumnComponent) => any);
     type ColumnCalc = "avg" | "max" | "min" | "sum" | "concat" | "count" | ((values: any[], data: any[], calcParams: {}) => number);
     type ColumnCalcParams = (values: any, data: any) => any;
-    type Formatter = ((cell: CellComponent, formatterParams: {}, onRendered: EmptyCallback) => string) | string | "plaintext" | "textarea" | "html" | "money" | "image" | "datetime" | "datetimediff" | "link" | "tickCross" | "color" | "star" | "traffic" | "progress" | "lookup" | "buttonTick" | "buttonCross" | "rownum" | "handle" | ((cell: CellComponent, formatterParams: {}, onRendered: EmptyCallback) => string | HTMLElement);
+    type Formatter = "plaintext" | "textarea" | "html" | "money" | "image" | "datetime" | "datetimediff" | "link" | "tickCross" | "color" | "star" | "traffic" | "progress" | "lookup" | "buttonTick" | "buttonCross" | "rownum" | "handle" | ((cell: CellComponent, formatterParams: {}, onRendered: EmptyCallback) => string | HTMLElement);
     type FormatterParams = MoneyParams | ImageParams | LinkParams | DateTimeParams | DateTimeDifferenceParams | TickCrossParams | TrafficParams | StarRatingParams | JSONRecord | ((cell: CellComponent) => {});
 
     type Editor = true | "input" | "textarea" | "number" | "range" | "tickCross" | "star" | "select" | "autocomplete" | ((cell: CellComponent, onRendered: EmptyCallback, success: ValueVoidCallback, cancel: ValueVoidCallback, editorParams: {}) => HTMLElement | false);
@@ -1012,6 +1012,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
 
     type ScrollToRowPostition = "top" | "center" | "bottom" | "nearest";
     type ScrollToColumnPosition = "left" | "center" | "middle" | "right";
+    type ColumnDefinitionAlign = "left" | "center" | "right";
 
     interface MoneyParams {
         // Money
@@ -1376,7 +1377,7 @@ declare class Tabulator {
     browserSlow: boolean;
     modules: any;
     options: Tabulator.Options;
-    element: any;
+    element: HTMLElement;
 
     /** You have a choice of four file types to choose from:
       csv - Comma separated value file
