@@ -14770,7 +14770,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          *
@@ -16526,10 +16526,6 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
-         * 
-         * - Invalid date format: The date is not in an acceptable format.
-         * 
          * @param year - The year value of the end date.
          * @param month - The month value of the end date. Valid range is 0-11 where 0 represents the 1st month and 11 represents the 12th month.
          * @param day - The day value of the end date.
@@ -16546,10 +16542,6 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
-         * 
-         * - Invalid date format: The date is not in an acceptable format.
-         * 
          * @param date - End date of the recurring appointment series represented in the {@link https://www.iso.org/iso-8601-date-and-time-format.html | ISO 8601} date format: "YYYY-MM-DD".
          */
         setEndDate(date: string): void;
@@ -16563,10 +16555,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * **Errors**: 
-         * 
-         * - Invalid date format: The date is not in an acceptable format.
          * 
          * @param year - The year value of the start date.
          * @param month - The month value of the start date. Valid range is 0-11 where 0 represents the 1st month and 11 represents the 12th month.
@@ -16585,10 +16573,6 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**:
-         * 
-         * - Invalid date format: The date is not in an acceptable format.
-         * 
          * @param date - Start date of the recurring appointment series represented in the {@link https://www.iso.org/iso-8601-date-and-time-format.html | ISO 8601} date format: "YYYY-MM-DD".
          */
         setStartDate(date:string): void;
@@ -16604,10 +16588,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * **Errors**: 
-         * 
-         * - Invalid time format:  The time is not in an acceptable format.
          * 
          * @param hours - The hour value of the start time. Valid range: 0-24.
          * @param minutes - The minute value of the start time. Valid range: 0-59.
@@ -16625,10 +16605,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * **Errors**: 
-         * 
-         * - Invalid time format: The time is not in an acceptable format.
          * 
          * @param time - Start time of all instances represented by standard datetime string format: "THH:mm:ss:mmm".
          */
