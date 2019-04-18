@@ -246,7 +246,7 @@ export interface CheerioStatic extends CheerioSelector {
     html(element: CheerioElement, options?: CheerioOptionsInterface): string;
 }
 
-interface CheerioElement {
+export interface CheerioElement {
     // Document References
     // Node Console
     tagName: string;
