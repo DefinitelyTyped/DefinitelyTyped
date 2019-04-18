@@ -5,59 +5,59 @@
 // TypeScript Version: 3.4
 
 export interface CurriedFunction2<T1, T2, R> {
-  (t1: T1): (t2: T2) => R;
-  (t1: T1, t2: T2): R;
+	(t1: T1): (t2: T2) => R;
+	(t1: T1, t2: T2): R;
 }
 
 export interface CurriedFunction3<T1, T2, T3, R> {
-  (t1: T1): CurriedFunction2<T2, T3, R>; // t1 => t2 => t3 => r | t1 => t2 t3 =>
-  (t1: T1, t2: T2): (t3: T3) => R;
-  (t1: T1, t2: T2, t3: T3): R;
+	(t1: T1): CurriedFunction2<T2, T3, R>; // t1 => t2 => t3 => r | t1 => t2 t3 =>
+	(t1: T1, t2: T2): (t3: T3) => R;
+	(t1: T1, t2: T2, t3: T3): R;
 }
 
 export interface CurriedFunction4<T1, T2, T3, T4, R> {
-  (t1: T1): CurriedFunction3<T2, T3, T4, R>;
-  (t1: T1, t2: T2): CurriedFunction2<T3, T4, R>;
-  (t1: T1, t2: T2, t3: T3): (t4: T4) => R;
-  (t1: T1, t2: T2, t3: T3, t4: T4): R;
+	(t1: T1): CurriedFunction3<T2, T3, T4, R>;
+	(t1: T1, t2: T2): CurriedFunction2<T3, T4, R>;
+	(t1: T1, t2: T2, t3: T3): (t4: T4) => R;
+	(t1: T1, t2: T2, t3: T3, t4: T4): R;
 }
 
 export interface CurriedFunction5<T1, T2, T3, T4, T5, R> {
-  (t1: T1): CurriedFunction4<T2, T3, T4, T5, R>;
-  (t1: T1, t2: T2): CurriedFunction3<T3, T4, T5, R>;
-  (t1: T1, t2: T2, t3: T3): CurriedFunction2<T4, T5, R>;
-  (t1: T1, t2: T2, t3: T3, t4: T4): (t5: T5) => R;
-  (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
+	(t1: T1): CurriedFunction4<T2, T3, T4, T5, R>;
+	(t1: T1, t2: T2): CurriedFunction3<T3, T4, T5, R>;
+	(t1: T1, t2: T2, t3: T3): CurriedFunction2<T4, T5, R>;
+	(t1: T1, t2: T2, t3: T3, t4: T4): (t5: T5) => R;
+	(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
 }
 
 export interface CurriedFunction6<T1, T2, T3, T4, T5, T6, R> {
-  (t1: T1): CurriedFunction5<T2, T3, T4, T5, T6, R>;
-  (t1: T1, t2: T2): CurriedFunction4<T3, T4, T5, T6, R>;
-  (t1: T1, t2: T2, t3: T3): CurriedFunction3<T4, T5, T6, R>;
-  (t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction2<T5, T6, R>;
-  (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): (t6: T6) => R;
-  (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
+	(t1: T1): CurriedFunction5<T2, T3, T4, T5, T6, R>;
+	(t1: T1, t2: T2): CurriedFunction4<T3, T4, T5, T6, R>;
+	(t1: T1, t2: T2, t3: T3): CurriedFunction3<T4, T5, T6, R>;
+	(t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction2<T5, T6, R>;
+	(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): (t6: T6) => R;
+	(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
 }
 
 export interface CurriedFunction7<T1, T2, T3, T4, T5, T6, T7, R> {
-  (t1: T1): CurriedFunction6<T2, T3, T4, T5, T6, T7, R>;
-  (t1: T1, t2: T2): CurriedFunction5<T3, T4, T5, T6, T7, R>;
-  (t1: T1, t2: T2, t3: T3): CurriedFunction4<T4, T5, T6, T7, R>;
-  (t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction3<T5, T6, T7, R>;
-  (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): CurriedFunction2<T6, T7, R>;
-  (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): (t7: T7) => R;
-  (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7): R;
+	(t1: T1): CurriedFunction6<T2, T3, T4, T5, T6, T7, R>;
+	(t1: T1, t2: T2): CurriedFunction5<T3, T4, T5, T6, T7, R>;
+	(t1: T1, t2: T2, t3: T3): CurriedFunction4<T4, T5, T6, T7, R>;
+	(t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction3<T5, T6, T7, R>;
+	(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): CurriedFunction2<T6, T7, R>;
+	(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): (t7: T7) => R;
+	(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7): R;
 }
 
 export interface CurriedFunction8<T1, T2, T3, T4, T5, T6, T7, T8, R> {
-  (t1: T1): CurriedFunction7<T2, T3, T4, T5, T6, T7, T8, R>;
-  (t1: T1, t2: T2): CurriedFunction6<T3, T4, T5, T6, T7, T8, R>;
-  (t1: T1, t2: T2, t3: T3): CurriedFunction5<T4, T5, T6, T7, T8, R>;
-  (t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction4<T5, T6, T7, T8, R>;
-  (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): CurriedFunction3<T6, T7, T8, R>;
-  (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): CurriedFunction2<T7, T8, R>;
-  (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7): (t8: T8) => R;
-  (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7, t8: T8): R;
+	(t1: T1): CurriedFunction7<T2, T3, T4, T5, T6, T7, T8, R>;
+	(t1: T1, t2: T2): CurriedFunction6<T3, T4, T5, T6, T7, T8, R>;
+	(t1: T1, t2: T2, t3: T3): CurriedFunction5<T4, T5, T6, T7, T8, R>;
+	(t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction4<T5, T6, T7, T8, R>;
+	(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): CurriedFunction3<T6, T7, T8, R>;
+	(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): CurriedFunction2<T7, T8, R>;
+	(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7): (t8: T8) => R;
+	(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7, t8: T8): R;
 }
 
 /**
@@ -217,21 +217,21 @@ export function map<T, Y>(f: (elem: T) => (Y | Promise<Y>)): (iter: Iter<T | Pro
 export function map<T, Y>(f: (elem: T) => (Y | Promise<Y>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<Y>;
 
 export type Extract2dArray<T> =
-  ExtractPromise<T> extends Iter<infer X> ?
-  X extends Iter<infer Y> ?
-  ExtractPromise<Y> :
-  ExtractPromise<X> :
-  ExtractPromise<ExtractIter<ExtractPromise<T>>>;
+	ExtractPromise<T> extends Iter<infer X> ?
+	X extends Iter<infer Y> ?
+	ExtractPromise<Y> :
+	ExtractPromise<X> :
+	ExtractPromise<ExtractIter<ExtractPromise<T>>>;
 
 export type Extract2dArrayOrElem<T> =
-  ExtractPromise<T> extends Iter<infer X> ?
-  X extends Iter<infer Y> ?
-  ExtractPromise<Y> : // | Iter<ExtractPromise<Y>>
-  // ExtractPromise<Y> extends Iter<infer Z> ? ExtractPromise<Y> | Iter<ExtractPromise<Y>> : ExtractPromise<Y> :
-  ExtractPromise<X> :
-  [] extends ExtractPromise<T> ?
-  ExtractPromise<ExtractIter<ExtractPromise<ExtractIter<ExtractPromise<T>>>>> : //  | Iter<ExtractPromise<ExtractIter<ExtractPromise<ExtractIter<ExtractPromise<T>>>>>>
-  ExtractPromise<ExtractIter<ExtractPromise<T>>>;
+	ExtractPromise<T> extends Iter<infer X> ?
+	X extends Iter<infer Y> ?
+	ExtractPromise<Y> : // | Iter<ExtractPromise<Y>>
+	// ExtractPromise<Y> extends Iter<infer Z> ? ExtractPromise<Y> | Iter<ExtractPromise<Y>> : ExtractPromise<Y> :
+	ExtractPromise<X> :
+	[] extends ExtractPromise<T> ?
+	ExtractPromise<ExtractIter<ExtractPromise<ExtractIter<ExtractPromise<T>>>>> : //  | Iter<ExtractPromise<ExtractIter<ExtractPromise<ExtractIter<ExtractPromise<T>>>>>>
+	ExtractPromise<ExtractIter<ExtractPromise<T>>>;
 
 /* type test = Extract2dArray<Promise<string[]> | Promise<string> | string[]>
 type test2 = Extract2dArray<AsyncIterableIterator<AsyncIterableIterator<string>>>
@@ -473,6 +473,9 @@ export function iterate<T>(f: (value: T) => (T | Promise<T>), value: T | Promise
 
 /**
  * https://github.com/rudty/nodekell#run
+ *
+ * @param iter
+ * @param ...f
  */
 export function run<T, R0>(iter: Iter<T>, f0: (t: Iter<T>) => R0): R0;
 export function run<T, R0, R1>(iter: Iter<T>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1): R1;
@@ -787,9 +790,6 @@ export function buffer<T>(supply: number | Promise<number>, iter: Iter<T | Promi
 /**
  * https://github.com/rudty/nodekell#groupby
  *
- * **FIX ME**
- * - ~~overload bug in groupBy type test (case 2)~~
- *
  * **TODO**
  * - remove ExtractPromise
  *
@@ -823,12 +823,11 @@ export type InnerJoinMap<T1, T2> = Map<T1 extends Map<infer K1, infer V1> ? T2 e
 // type InnerJoinMapTest1 = InnerJoinMap<Map<"string" | "number" | "object", (string | number | null)[]>, Map<"string" | "number", (string | number)[]>>;
 // type InnerJoinMapTest2 = InnerJoinMap<Map<"string" | "number", (string | number)[]>, Map<"string" | "number" | "object", (string | number | null)[]>>;
 
+// type IsCustomIter<T> = T extends object ? T extends Iter<any> ? T : unknown : unknown;
+// type NonUnknowable<T, Y> = unknown extends T ? Y : T;
+
 /**
  * https://github.com/rudty/nodekell#innerjoin
- *
- * **TODO**
- * - 이너조인 맵버전 좀 다시 생각해봐야겠다. 이너조인 오브젝트랑 똑같은 건지 잘 모르겠네. 자고 일어나서 생각해봐야지.
- * - 이터러블(number[] or string) 테스트 작성
  *
  * @param f
  * @param iter1
@@ -843,6 +842,12 @@ export function innerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, 
 export function innerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1>): (iter2: Iter<T2>) => AsyncIterableIterator<InnerJoinMap<T1, T2>>;
 
 export function innerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1>, iter2: Iter<T2>): AsyncIterableIterator<InnerJoinMap<T1, T2>>;
+
+// export function innerJoin<T1 extends object, T2 extends object>(f: (elem1: NonUnknowable<IsCustomIter<T1>, T1>, elem2: NonUnknowable<IsCustomIter<T2>, T2>) => (boolean | Promise<boolean>), iter1: Iter<NonUnknowable<IsCustomIter<T1 | Promise<T1>>, T1 | Promise<T1>>>, iter2: Iter<NonUnknowable<IsCustomIter<T2 | Promise<T2>>, T2 | Promise<T2>>>): AsyncIterableIterator<unknown extends IsCustomIter<T1> ? InnerJoinObject<T1, T2> : InnerJoinObject<T1, T2>>;
+
+// export function innerJoin<T1 extends object, T2 extends object>(f: (elem1: NonUnknowable<IsCustomIter<T1>, T1>, elem2: NonUnknowable<IsCustomIter<T2>, T2>) => (boolean | Promise<boolean>), iter1: Iter<NonUnknowable<IsCustomIter<T1 | Promise<T1>>, T1 | Promise<T1>>>, iter2: Iter<NonUnknowable<IsCustomIter<T2 | Promise<T2>>, T2 | Promise<T2>>>): AsyncIterableIterator<unknown extends IsCustomIter<T1> ? InnerJoinObject<T1, T2> : T1 | T2>;
+
+// export function innerJoin<T1 extends object, T2 extends object>(f: (elem1: NonUnknowable<IsCustomIter<T1>, T1>, elem2: NonUnknowable<IsCustomIter<T2>, T2>) => (boolean | Promise<boolean>), iter1: Iter<NonUnknowable<IsCustomIter<T1 | Promise<T1>>, T1 | Promise<T1>>>, iter2: Iter<NonUnknowable<IsCustomIter<T2 | Promise<T2>>, T2 | Promise<T2>>>): AsyncIterableIterator<unknown extends IsCustomIter<T1> ? InnerJoinObject<T1, T2> : T1 | T2>;
 
 // export function innerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>) => (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<InnerJoinObject<T1, T2>>;
 
