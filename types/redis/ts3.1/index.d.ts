@@ -423,8 +423,8 @@ export interface Commands<R> {
     /**
      * Get the value of a key.
      */
-    get(key: string, cb?: Callback<string>): R;
-    GET(key: string, cb?: Callback<string>): R;
+    get(key: string, cb?: Callback<string | Buffer>): R;
+    GET(key: string, cb?: Callback<string | Buffer>): R;
 
     /**
      * Returns the bit value at offset in the string value stored at key.
