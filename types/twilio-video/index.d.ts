@@ -109,7 +109,7 @@ export class LocalParticipant extends Participant {
     ): Promise<LocalTrackPublication[]>;
     setParameters(encodingParameters?: EncodingParameters | null): LocalParticipant;
     unpublishTrack(track: LocalTrack): LocalTrackPublication;
-    unpublishTracks(tracks: LocalTrack): LocalTrackPublication[];
+    unpublishTracks(tracks: LocalTrack[]): LocalTrackPublication[];
 }
 export class LocalTrackPublication extends TrackPublication {
     isTrackEnabled: boolean;
