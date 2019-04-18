@@ -613,16 +613,10 @@ declare module "../index" {
     }
     interface Imp<TValue> {
         zip<T1, T2>( this: Imp<List<T1>>, arrays2: List<T2>, ): Imp<Array<[T1 | undefined, T2 | undefined]>>;
-        zip<T1, T2, T3>( this: Imp<List<T1>>, arrays2: List<T2>, arrays3: List<T3>, ): Imp<Array<[T1 | undefined, T2 | undefined, T3 | undefined]>>;
-        zip<T1, T2, T3, T4>( this: Imp<List<T1>>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>, ): Imp<Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined]>>;
-        zip<T1, T2, T3, T4, T5>( this: Imp<List<T1>>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>, arrays5: List<T5>, ): Imp<Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>>;
         zip<T>( this: Imp<List<T> | null | undefined>, ...arrays: Array<List<T> | null | undefined> ): Imp<Array<Array<T | undefined>>>;
     }
     interface Exp<TValue> {
         zip<T1, T2>( this: Exp<List<T1>>, arrays2: List<T2>, ): Exp<Array<[T1 | undefined, T2 | undefined]>>;
-        zip<T1, T2, T3>( this: Exp<List<T1>>, arrays2: List<T2>, arrays3: List<T3>, ): Exp<Array<[T1 | undefined, T2 | undefined, T3 | undefined]>>;
-        zip<T1, T2, T3, T4>( this: Exp<List<T1>>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>, ): Exp<Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined]>>;
-        zip<T1, T2, T3, T4, T5>( this: Exp<List<T1>>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>, arrays5: List<T5>, ): Exp<Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>>;
         zip<T>( this: Exp<List<T> | null | undefined>, ...arrays: Array<List<T> | null | undefined> ): Exp<Array<Array<T | undefined>>>;
     }
     interface Stat {
@@ -655,19 +649,13 @@ declare module "../index" {
         zipWith<T, TResult>( ...iteratee: Array<((...group: T[]) => TResult) | List<T> | null | undefined> ): TResult[];
     }
     interface Imp<TValue> {
-        zipWith<T, TResult>( this: Imp<List<T>>, iteratee: (value1: T) => TResult ): Imp<TResult[]>;
         zipWith<T1, T2, TResult>( this: Imp<List<T1>>, arrays2: List<T2>, iteratee: (value1: T1, value2: T2) => TResult ): Imp<TResult[]>;
         zipWith<T1, T2, T3, TResult>( this: Imp<List<T1>>, arrays2: List<T2>, arrays3: List<T3>, iteratee: (value1: T1, value2: T2, value3: T3) => TResult ): Imp<TResult[]>;
-        zipWith<T1, T2, T3, T4, TResult>( this: Imp<List<T1>>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>, iteratee: (value1: T1, value2: T2, value3: T3, value4: T4) => TResult ): Imp<TResult[]>;
-        zipWith<T1, T2, T3, T4, T5, TResult>( this: Imp<List<T1>>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>, arrays5: List<T5>, iteratee: (value1: T1, value2: T2, value3: T3, value4: T4, value5: T5) => TResult ): Imp<TResult[]>;
         zipWith<T, TResult>( this: Imp<List<T> | null | undefined>, ...iteratee: Array<((...group: T[]) => TResult) | List<T> | null | undefined> ): Imp<TResult[]>;
     }
     interface Exp<TValue> {
-        zipWith<T, TResult>( this: Exp<List<T>>, iteratee: (value1: T) => TResult ): Exp<TResult[]>;
         zipWith<T1, T2, TResult>( this: Exp<List<T1>>, arrays2: List<T2>, iteratee: (value1: T1, value2: T2) => TResult ): Exp<TResult[]>;
         zipWith<T1, T2, T3, TResult>( this: Exp<List<T1>>, arrays2: List<T2>, arrays3: List<T3>, iteratee: (value1: T1, value2: T2, value3: T3) => TResult ): Exp<TResult[]>;
-        zipWith<T1, T2, T3, T4, TResult>( this: Exp<List<T1>>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>, iteratee: (value1: T1, value2: T2, value3: T3, value4: T4) => TResult ): Exp<TResult[]>;
-        zipWith<T1, T2, T3, T4, T5, TResult>( this: Exp<List<T1>>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>, arrays5: List<T5>, iteratee: (value1: T1, value2: T2, value3: T3, value4: T4, value5: T5) => TResult ): Exp<TResult[]>;
         zipWith<T, TResult>( this: Exp<List<T> | null | undefined>, ...iteratee: Array<((...group: T[]) => TResult) | List<T> | null | undefined> ): Exp<TResult[]>;
     }
 }
