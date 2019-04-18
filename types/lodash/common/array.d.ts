@@ -227,15 +227,11 @@ declare module "../index" {
     }
     interface Imp<TValue> {
         intersectionBy<T1, T2>( this: Imp<List<T1> | null | undefined>, values: List<T2>, iteratee: ValueIteratee<T1 | T2> ): Imp<T1[]>;
-        intersectionBy<T1, T2, T3>( this: Imp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, iteratee: ValueIteratee<T1 | T2 | T3> ): Imp<T1[]>;
-        intersectionBy<T1, T2, T3, T4>( this: Imp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | ValueIteratee<T1 | T2 | T3 | T4>> ): Imp<T1[]>;
-        intersectionBy<T>( this: Imp<List<T> | null | undefined>, ...values: Array<List<T>> ): Imp<T[]>;
+        intersectionBy<T>(this: Imp<List<T> | null | undefined>, ...values: Array<List<unknown> | ValueIteratee<T>> ): Imp<T[]>;
     }
     interface Exp<TValue> {
         intersectionBy<T1, T2>( this: Exp<List<T1> | null | undefined>, values: List<T2>, iteratee: ValueIteratee<T1 | T2> ): Exp<T1[]>;
-        intersectionBy<T1, T2, T3>( this: Exp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, iteratee: ValueIteratee<T1 | T2 | T3> ): Exp<T1[]>;
-        intersectionBy<T1, T2, T3, T4>( this: Exp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | ValueIteratee<T1 | T2 | T3 | T4>> ): Exp<T1[]>;
-        intersectionBy<T>( this: Exp<List<T> | null | undefined>, ...values: Array<List<T>> ): Exp<T[]>;
+        intersectionBy<T>(this: Exp<List<T> | null | undefined>, ...values: Array<List<unknown> | ValueIteratee<T>> ): Exp<T[]>;
     }
     interface Stat {
         intersectionWith<T1, T2>( array: List<T1> | null | undefined, values: List<T2>, comparator: Comparator2<T1, T2> ): T1[];
@@ -245,15 +241,11 @@ declare module "../index" {
     }
     interface Imp<TValue> {
         intersectionWith<T1, T2>( this: Imp<List<T1> | null | undefined>, values: List<T2>, comparator: Comparator2<T1, T2> ): Imp<T1[]>;
-        intersectionWith<T1, T2, T3>( this: Imp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, comparator: Comparator2<T1, T2 | T3> ): Imp<T1[]>;
-        intersectionWith<T1, T2, T3, T4>( this: Imp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>> ): Imp<T1[]>;
-        intersectionWith<T>( this: Imp<List<T> | null | undefined>, ...values: Array<List<T>> ): Imp<T[]>;
+        intersectionWith<T>(this: Imp<List<T> | null | undefined>, ...values: Array<List<unknown> | Comparator2<T,  never>> ): Imp<T[]>;
     }
     interface Exp<TValue> {
         intersectionWith<T1, T2>( this: Exp<List<T1> | null | undefined>, values: List<T2>, comparator: Comparator2<T1, T2> ): Exp<T1[]>;
-        intersectionWith<T1, T2, T3>( this: Exp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, comparator: Comparator2<T1, T2 | T3> ): Exp<T1[]>;
-        intersectionWith<T1, T2, T3, T4>( this: Exp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>> ): Exp<T1[]>;
-        intersectionWith<T>( this: Exp<List<T> | null | undefined>, ...values: Array<List<T>> ): Exp<T[]>;
+        intersectionWith<T>(this: Exp<List<T> | null | undefined>, ...values: Array<List<unknown> | Comparator2<T,  never>> ): Exp<T[]>;
     }
     interface Stat {
         join( array: List<any> | null | undefined, separator?: string ): string;
@@ -502,18 +494,12 @@ declare module "../index" {
         unionBy<T>( arrays1: List<T> | null | undefined, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, arrays4: List<T> | null | undefined, arrays5: List<T> | null | undefined, ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined> ): T[];
     }
     interface Imp<TValue> {
-        unionBy<T>( this: Imp<List<T> | null | undefined>, iteratee?: ValueIteratee<T> ): Imp<T[]>;
         unionBy<T>( this: Imp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, iteratee?: ValueIteratee<T> ): Imp<T[]>;
-        unionBy<T>( this: Imp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, iteratee?: ValueIteratee<T> ): Imp<T[]>;
-        unionBy<T>( this: Imp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, arrays4: List<T> | null | undefined, iteratee?: ValueIteratee<T> ): Imp<T[]>;
-        unionBy<T>( this: Imp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, arrays4: List<T> | null | undefined, arrays5: List<T> | null | undefined, ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined> ): Imp<T[]>;
+        unionBy<T>( this: Imp<List<T> | null | undefined>, ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined> ): Imp<T[]>;
     }
     interface Exp<TValue> {
-        unionBy<T>( this: Exp<List<T> | null | undefined>, iteratee?: ValueIteratee<T> ): Exp<T[]>;
         unionBy<T>( this: Exp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, iteratee?: ValueIteratee<T> ): Exp<T[]>;
-        unionBy<T>( this: Exp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, iteratee?: ValueIteratee<T> ): Exp<T[]>;
-        unionBy<T>( this: Exp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, arrays4: List<T> | null | undefined, iteratee?: ValueIteratee<T> ): Exp<T[]>;
-        unionBy<T>( this: Exp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, arrays4: List<T> | null | undefined, arrays5: List<T> | null | undefined, ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined> ): Exp<T[]>;
+        unionBy<T>( this: Exp<List<T> | null | undefined>, ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined> ): Exp<T[]>;
     }
     interface Stat {
         unionWith<T>( arrays: List<T> | null | undefined, comparator?: Comparator<T> ): T[];
@@ -521,14 +507,12 @@ declare module "../index" {
         unionWith<T>( arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...comparator: Array<Comparator<T> | List<T> | null | undefined> ): T[];
     }
     interface Imp<TValue> {
-        unionWith<T>( this: Imp<List<T> | null | undefined>, comparator?: Comparator<T> ): Imp<T[]>;
         unionWith<T>( this: Imp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, comparator?: Comparator<T> ): Imp<T[]>;
-        unionWith<T>( this: Imp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...comparator: Array<Comparator<T> | List<T> | null | undefined> ): Imp<T[]>;
+        unionWith<T>( this: Imp<List<T> | null | undefined>, ...comparator: Array<Comparator<T> | List<T> | null | undefined> ): Imp<T[]>;
     }
     interface Exp<TValue> {
-        unionWith<T>( this: Exp<List<T> | null | undefined>, comparator?: Comparator<T> ): Exp<T[]>;
         unionWith<T>( this: Exp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, comparator?: Comparator<T> ): Exp<T[]>;
-        unionWith<T>( this: Exp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...comparator: Array<Comparator<T> | List<T> | null | undefined> ): Exp<T[]>;
+        unionWith<T>( this: Exp<List<T> | null | undefined>, ...comparator: Array<Comparator<T> | List<T> | null | undefined> ): Exp<T[]>;
     }
     interface Stat {
         uniq<T>( array: List<T> | null | undefined ): T[];
