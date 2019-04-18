@@ -89,68 +89,44 @@ describe('util functions', () => {
 });
 
 describe('curry', () => {
-	it('curry test 1', () => {
+	it('curry2 test', () => {
 		const curry2 = F.curry((a: 1, b: 2) => '3');
-		const r0_0 = curry2(1)(2); // $ExpectType string
-		const r0_1 = curry2(1, 2); // $ExpectType string
+		// 1
+		curry2(1)(2); // $ExpectType string
+		// 2
+		curry2(1, 2); // $ExpectType string
 	});
 
-	it('curry test 2', () => {
+	it('curry3 test', () => {
 		const curry3 = F.curry((a: 1, b: 2, c: 3) => '4');
-		const r1_0 = curry3(1)(2)(3); // $ExpectType string
-		const r1_1 = curry3(1, 2)(3); // $ExpectType string
-		const r1_2 = curry3(1, 2, 3); // $ExpectType string
-		const r1_3 = curry3(1, 2, 3); // $ExpectType string
+		// 1
+		curry3(1)(2)(3); // $ExpectType string
+		// 2
+		curry3(1)(2, 3); // $ExpectType string
+		// 3
+		curry3(1, 2)(3); // $ExpectType string
+		// 4
+		curry3(1, 2, 3); // $ExpectType string
 	});
 
-	it('curry test 3', () => {
+	it('curry4 test', () => {
 		const curry4 = F.curry((a: 1, b: 2, c: 3, d: 4) => '5');
-		const r2_0 = curry4(1)(2)(3)(4); // $ExpectType string
-		const r2_1 = curry4(1, 2)(3)(4); // $ExpectType string
-		const r2_2 = curry4(1, 2, 3)(4); // $ExpectType string
-		const r2_3 = curry4(1, 2, 3, 4); // $ExpectType string
-	});
-
-	it('curry test 4', () => {
-		const curry5 = F.curry((a: 1, b: 2, c: 3, d: 4, e: 5) => '6');
-		const r3_0 = curry5(1)(2)(3)(4)(5); // $ExpectType string
-		const r3_1 = curry5(1, 2)(3)(4)(5); // $ExpectType string
-		const r3_2 = curry5(1, 2, 3)(4)(5); // $ExpectType string
-		const r3_3 = curry5(1, 2, 3, 4)(5); // $ExpectType string
-		const r3_4 = curry5(1, 2, 3, 4, 5); // $ExpectType string
-	});
-
-	it('curry test 5', () => {
-		const curry6 = F.curry((a: 1, b: 2, c: 3, d: 4, e: 5, f: 6) => '7');
-		const r4_0 = curry6(1)(2)(3)(4)(5)(6); // $ExpectType string
-		const r4_1 = curry6(1, 2)(3)(4)(5)(6); // $ExpectType string
-		const r4_2 = curry6(1, 2, 3)(4)(5)(6); // $ExpectType string
-		const r4_3 = curry6(1, 2, 3, 4)(5)(6); // $ExpectType string
-		const r4_4 = curry6(1, 2, 3, 4, 5)(6); // $ExpectType string
-		const r4_5 = curry6(1, 2, 3, 4, 5, 6); // $ExpectType string
-	});
-
-	it('curry test 6', () => {
-		const curry7 = F.curry((a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7) => '8');
-		const r5_0 = curry7(1)(2)(3)(4)(5)(6)(7); // $ExpectType string
-		const r5_1 = curry7(1, 2)(3)(4)(5)(6)(7); // $ExpectType string
-		const r5_2 = curry7(1, 2, 3)(4)(5)(6)(7); // $ExpectType string
-		const r5_3 = curry7(1, 2, 3, 4)(5)(6)(7); // $ExpectType string
-		const r5_4 = curry7(1, 2, 3, 4, 5)(6)(7); // $ExpectType string
-		const r5_5 = curry7(1, 2, 3, 4, 5, 6)(7); // $ExpectType string
-		const r5_6 = curry7(1, 2, 3, 4, 5, 6, 7); // $ExpectType string
-	});
-
-	it('curry test 7', () => {
-		const curry8 = F.curry((a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8) => '9');
-		const r6_0 = curry8(1)(2)(3)(4)(5)(6)(7)(8); // $ExpectType string
-		const r6_1 = curry8(1, 2)(3)(4)(5)(6)(7)(8); // $ExpectType string
-		const r6_2 = curry8(1, 2, 3)(4)(5)(6)(7)(8); // $ExpectType string
-		const r6_3 = curry8(1, 2, 3, 4)(5)(6)(7)(8); // $ExpectType string
-		const r6_4 = curry8(1, 2, 3, 4, 5)(6)(7)(8); // $ExpectType string
-		const r6_5 = curry8(1, 2, 3, 4, 5, 6)(7)(8); // $ExpectType string
-		const r6_6 = curry8(1, 2, 3, 4, 5, 6, 7)(8); // $ExpectType string
-		const r6_7 = curry8(1, 2, 3, 4, 5, 6, 7, 8); // $ExpectType string
+		// 1
+		curry4(1)(2)(3)(4); // $ExpectType string
+		// 2
+		curry4(1)(2)(3, 4); // $ExpectType string
+		// 3
+		curry4(1)(2, 3)(4); // $ExpectType string
+		// 4
+		curry4(1)(2, 3, 4); // $ExpectType string
+		// 5
+		curry4(1, 2)(3)(4); // $ExpectType string
+		// 6
+		curry4(1, 2)(3, 4); // $ExpectType string
+		// 7
+		curry4(1, 2, 3)(4); // $ExpectType string
+		// 8
+		curry4(1, 2, 3, 4); // $ExpectType string
 	});
 });
 
