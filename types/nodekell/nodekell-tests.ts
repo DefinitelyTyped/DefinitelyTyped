@@ -30,6 +30,8 @@ const rrr1 = abc(1)('', null);
 const rrr2 = abc(1, '')(null);
 const rrr3 = abc(1, '', null); */
 
+declare const process: any;
+
 ///
 /// curry
 ///
@@ -1099,8 +1101,6 @@ const run = (async () => {
       const r2 = F.rightInnerJoin<{ id: number; name: string; }, { id: number; length: number; }>(async (a, b) => a.id === b.id, a)(b);
       const r3 = F.rightInnerJoin(async (a, b) => a.id === b.id, a, b);
 
-      const result = await F.collect(r3);
-
       const rr0 = await F.collect(r0);
       rr0[0].id; // $ExpectType number
       rr0[0].length; // $ExpectType number
@@ -1516,12 +1516,18 @@ const run = (async () => {
   })();
 
   const interval = (async () => {
-    F.interval(1000, async () => {
+    let intervalCount = 0;
+    const r0 = F.interval(1000, async () => {
       await F.run(F.range(5), F.then(async _ => {
         /// work
+        intervalCount++;
+        if (intervalCount >= 8) {
+          process.exit(0);
+        }
         return;
       }));
     });
+    r0.run; // $ExpectType boolean
   })();
 
   const rangeInterval = (async () => {
