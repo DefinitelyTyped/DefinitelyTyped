@@ -154,6 +154,9 @@ describe('curry', () => {
 	});
 });
 
+///
+/// prelude.js
+///
 describe('run', () => {
 	it('', async () => {
 		const a = [1, 2, 3, Promise.resolve(4), 5, 6];
@@ -171,9 +174,6 @@ describe('run', () => {
 	});
 });
 
-///
-/// prelude.js
-///
 describe('head', () => {
 	it('from Normal Value', async () => {
 		const a = [10, 9, 8, 7];

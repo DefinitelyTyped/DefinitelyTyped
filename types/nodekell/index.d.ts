@@ -86,6 +86,7 @@ export function curry<T1, T2, T3, T4, T5, T6, T7, T8, R>(f: (t1: T1, t2: T2, t3:
  *
  * **Note**
  * - originally allow Promise wrapped functions. but that is complicated. so don't support Promise wrapped functions.
+ * - run implement with foldl
  *
  * @param iter
  * @param ...f
