@@ -42,7 +42,7 @@ declare module "../index" {
         splice<T>(this: Exp<List<T> | null | undefined>, start: number, deleteCount?: number, ...items: T[]): this;
         unshift<T>(this: Exp<List<T> | null | undefined>, ...items: T[]): this;
     }
-    type NotVoid = {} | null | undefined;
+    type NotVoid = unknown;
     type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialDeep<T>;
     type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
@@ -83,8 +83,8 @@ declare module "../index" {
     }
     // Crazy typedef needed get _.omit to work properly with Dictionary and NumericDictionary
     type AnyKindOfDictionary =
-        | Dictionary<{} | null | undefined>
-        | NumericDictionary<{} | null | undefined>;
+        | Dictionary<unknown>
+        | NumericDictionary<unknown>;
     interface Cancelable {
         cancel(): void;
         flush(): void;
