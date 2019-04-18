@@ -310,8 +310,7 @@ declare module "../index" {
         pullAllBy<T1, T2>( array: List<T1>, values: List<T2>, iteratee: ValueIteratee<T1 | T2> ): List<T1>;
     }
     interface LoDashWrapper<TValue> {
-        pullAllBy<T>( this: LoDashWrapper<List<T>>, values?: List<T>, iteratee?: ValueIteratee<T> ): this;
-        pullAllBy<T1, T2>( this: LoDashWrapper<List<T1>>, values: List<T2>, iteratee: ValueIteratee<T1 | T2> ): this;
+        pullAllBy<T1, T2>( this: LoDashWrapper<List<T1>>, values?: List<T2>, iteratee?: ValueIteratee<T1 | T2> ): this;
     }
     interface Stat {
         pullAllWith<T>( array: T[], values?: List<T>, comparator?: Comparator<T> ): T[];
@@ -320,8 +319,7 @@ declare module "../index" {
         pullAllWith<T1, T2>( array: List<T1>, values: List<T2>, comparator: Comparator2<T1, T2> ): List<T1>;
     }
     interface LoDashWrapper<TValue> {
-        pullAllWith<T>( this: LoDashWrapper<List<T>>, values?: List<T>, comparator?: Comparator<T> ): this;
-        pullAllWith<T1, T2>( this: LoDashWrapper<List<T1>>, values: List<T2>, comparator: Comparator2<T1, T2> ): this;
+        pullAllWith<T1, T2>( this: LoDashWrapper<List<T1>>, values?: List<T2>, comparator?: Comparator2<T1, T2> ): this;
     }
     interface Stat {
         pullAt<T>( array: T[], ...indexes: Array<Many<number>> ): T[];
@@ -586,14 +584,12 @@ declare module "../index" {
         xorBy<T>( arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined> ): T[];
     }
     interface Imp<TValue> {
-        xorBy<T>( this: Imp<List<T> | null | undefined>, iteratee?: ValueIteratee<T> ): Imp<T[]>;
         xorBy<T>( this: Imp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, iteratee?: ValueIteratee<T> ): Imp<T[]>;
-        xorBy<T>( this: Imp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined> ): Imp<T[]>;
+        xorBy<T>( this: Imp<List<T> | null | undefined>, ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined> ): Imp<T[]>;
     }
     interface Exp<TValue> {
-        xorBy<T>( this: Exp<List<T> | null | undefined>, iteratee?: ValueIteratee<T> ): Exp<T[]>;
         xorBy<T>( this: Exp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, iteratee?: ValueIteratee<T> ): Exp<T[]>;
-        xorBy<T>( this: Exp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined> ): Exp<T[]>;
+        xorBy<T>( this: Exp<List<T> | null | undefined>, ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined> ): Exp<T[]>;
     }
     interface Stat {
         xorWith<T>( arrays: List<T> | null | undefined, comparator?: Comparator<T> ): T[];
@@ -601,14 +597,12 @@ declare module "../index" {
         xorWith<T>( arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...comparator: Array<Comparator<T> | List<T> | null | undefined> ): T[];
     }
     interface Imp<TValue> {
-        xorWith<T>( this: Imp<List<T> | null | undefined>, comparator?: Comparator<T> ): Imp<T[]>;
         xorWith<T>( this: Imp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, comparator?: Comparator<T> ): Imp<T[]>;
-        xorWith<T>( this: Imp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...comparator: Array<Comparator<T> | List<T> | null | undefined> ): Imp<T[]>;
+        xorWith<T>( this: Imp<List<T> | null | undefined>, ...comparator: Array<Comparator<T> | List<T> | null | undefined> ): Imp<T[]>;
     }
     interface Exp<TValue> {
-        xorWith<T>( this: Exp<List<T> | null | undefined>, comparator?: Comparator<T> ): Exp<T[]>;
         xorWith<T>( this: Exp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, comparator?: Comparator<T> ): Exp<T[]>;
-        xorWith<T>( this: Exp<List<T> | null | undefined>, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...comparator: Array<Comparator<T> | List<T> | null | undefined> ): Exp<T[]>;
+        xorWith<T>( this: Exp<List<T> | null | undefined>, ...comparator: Array<Comparator<T> | List<T> | null | undefined> ): Exp<T[]>;
     }
     interface Stat {
         zip<T1, T2>(arrays1: List<T1>, arrays2: List<T2>): Array<[T1 | undefined, T2 | undefined]>;
