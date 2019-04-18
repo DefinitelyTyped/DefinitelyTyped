@@ -545,10 +545,6 @@ export function timeout<T>(duration: number | Promise<number>, job: () => Promis
 export function timeout<T>(duration: () => (number | Promise<number>), job: Promise<T>): Promise<T>;
 export function timeout<T>(duration: () => (number | Promise<number>), job: () => Promise<T>): Promise<T>;
 
-export type IntervalReturn = {
-  run: boolean;
-};
-
 /**
  * https://github.com/rudty/nodekell#interval
  *
@@ -556,7 +552,7 @@ export type IntervalReturn = {
  * @param timerHandler
  * @param params
  */
-export function interval(timeout: number, timerHandler: () => any, ...params: any[]): IntervalReturn;
+export function interval(timeout: number, timerHandler: () => any, ...params: any[]): { run: boolean; };
 
 /**
  * https://github.com/rudty/nodekell#rangeinterval
