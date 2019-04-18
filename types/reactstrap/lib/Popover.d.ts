@@ -2,7 +2,8 @@ import * as React from 'react';
 import * as Popper from 'popper.js';
 import { CSSModule } from '../index';
 
-export type PopoverProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export interface PopoverProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   isOpen?: boolean;
   toggle?: () => void;
   target: string | HTMLElement;
@@ -19,11 +20,11 @@ export type PopoverProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
   fade?: boolean;
   flip?: boolean;
-} & T;
+}
 
-export type UncontrolledPopoverProps<T = {}> = PopoverProps<T> & {
+export interface UncontrolledPopoverProps extends PopoverProps {
     defaultOpen?: boolean;
-};
+}
 
-declare class Popover<T> extends React.Component<PopoverProps<T>> {}
+declare class Popover<T> extends React.Component<PopoverProps> {}
 export default Popover;

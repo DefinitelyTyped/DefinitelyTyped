@@ -98,7 +98,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 
 * `cd types/my-package-to-edit`
 * Make changes. Remember to edit tests.
-  If you make breaking changes, do not forget to [update a major version](#i-want-to-update-a-package-to-a-new-major-version).
+  If you make breaking changes, do not forget to [update a major version](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
 * You may also want to add yourself to "Definitions by" section of the package header.
   - This will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
   - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
