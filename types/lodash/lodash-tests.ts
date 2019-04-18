@@ -115,17 +115,17 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     _(list).differenceBy(listParam, valueIterator); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     _(list).differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, valueIterator); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     // $ExpectType LoDashImplicitWrapper<AbcObject[]>
-    _(list).differenceBy<AbcObject, AbcObject, AbcObject, AbcObject, AbcObject, AbcObject, AbcObject>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, valueIterator);
+    _(list).differenceBy<AbcObject>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, valueIterator);
 
     _(list).differenceBy(listParam, "a"); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     _(list).differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, "a"); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     // $ExpectType LoDashImplicitWrapper<AbcObject[]>
-    _(list).differenceBy<AbcObject, AbcObject, AbcObject, AbcObject, AbcObject, AbcObject, AbcObject>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, "a");
+    _(list).differenceBy<AbcObject>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, "a");
 
     _(list).differenceBy(listParam, {a: 1}); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     _(list).differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, {a: 1}); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     // $ExpectType LoDashImplicitWrapper<AbcObject[]>
-    _(list).differenceBy<AbcObject, AbcObject, AbcObject, AbcObject, AbcObject, AbcObject, AbcObject>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
+    _(list).differenceBy<AbcObject>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
 
     _.chain(list).differenceBy(arrayParam); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(list).differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
@@ -133,17 +133,17 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     _.chain(list).differenceBy(arrayParam, valueIterator); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(list).differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, valueIterator); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     // $ExpectType LoDashExplicitWrapper<AbcObject[]>
-    _.chain(list).differenceBy<AbcObject, AbcObject, AbcObject, AbcObject, AbcObject, AbcObject, AbcObject>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, valueIterator);
+    _.chain(list).differenceBy<AbcObject>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, valueIterator);
 
     _.chain(list).differenceBy(arrayParam, "a"); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(list).differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, "a"); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     // $ExpectType LoDashExplicitWrapper<AbcObject[]>
-    _.chain(list).differenceBy<AbcObject, AbcObject, AbcObject, AbcObject, AbcObject, AbcObject, AbcObject>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, "a");
+    _.chain(list).differenceBy<AbcObject>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, "a");
 
     _.chain(list).differenceBy(arrayParam, {a: 1}); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(list).differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1}); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     // $ExpectType LoDashExplicitWrapper<AbcObject[]>
-    _.chain(list).differenceBy<AbcObject, AbcObject, AbcObject, AbcObject, AbcObject, AbcObject, AbcObject>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
+    _.chain(list).differenceBy<AbcObject>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
 
     fp.differenceBy(valueIterator, list, arrayParam); // $ExpectType AbcObject[]
     fp.differenceBy<AbcObject, AbcObject>(valueIterator)(list)(listParam); // $ExpectType AbcObject[]

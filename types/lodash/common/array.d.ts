@@ -46,22 +46,12 @@ declare module "../index" {
         differenceBy<T>( array: List<T> | null | undefined, ...values: Array<List<T>> ): T[];
     }
     interface Imp<TValue> {
-        differenceBy<T1, T2>( this: Imp<List<T1> | null | undefined>, values: List<T2>, iteratee: ValueIteratee<T1 | T2> ): Imp<T1[]>;
-        differenceBy<T1, T2, T3>( this: Imp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, iteratee: ValueIteratee<T1 | T2 | T3> ): Imp<T1[]>;
-        differenceBy<T1, T2, T3, T4>( this: Imp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, values3: List<T4>, iteratee: ValueIteratee<T1 | T2 | T3 | T4> ): Imp<T1[]>;
-        differenceBy<T1, T2, T3, T4, T5>( this: Imp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, values3: List<T4>, values4: List<T5>, iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5> ): Imp<T1[]>;
-        differenceBy<T1, T2, T3, T4, T5, T6>( this: Imp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, values3: List<T4>, values4: List<T5>, values5: List<T6>, iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6> ): Imp<T1[]>;
-        differenceBy<T1, T2, T3, T4, T5, T6, T7>( this: Imp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, values3: List<T4>, values4: List<T5>, values5: List<T6>, ...values: Array<List<T7> | ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6 | T7>> ): Imp<T1[]>;
-        differenceBy<T>( this: Imp<List<T> | null | undefined>, ...values: Array<List<T>> ): Imp<T[]>;
+        differenceBy<T1, T2>( this: Imp<List<T1> | null | undefined>, values1: T2, iteratee?: ValueIteratee<T1 | T2> ): Imp<T1[]>;
+        differenceBy<T>( this: Imp<List<T> | null | undefined>, ...values: Array<List<unknown> | ValueIteratee<T>> ): Imp<T[]>;
     }
     interface Exp<TValue> {
-        differenceBy<T1, T2>( this: Exp<List<T1> | null | undefined>, values: List<T2>, iteratee: ValueIteratee<T1 | T2> ): Exp<T1[]>;
-        differenceBy<T1, T2, T3>( this: Exp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, iteratee: ValueIteratee<T1 | T2 | T3> ): Exp<T1[]>;
-        differenceBy<T1, T2, T3, T4>( this: Exp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, values3: List<T4>, iteratee: ValueIteratee<T1 | T2 | T3 | T4> ): Exp<T1[]>;
-        differenceBy<T1, T2, T3, T4, T5>( this: Exp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, values3: List<T4>, values4: List<T5>, iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5> ): Exp<T1[]>;
-        differenceBy<T1, T2, T3, T4, T5, T6>( this: Exp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, values3: List<T4>, values4: List<T5>, values5: List<T6>, iteratee: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6> ): Exp<T1[]>;
-        differenceBy<T1, T2, T3, T4, T5, T6, T7>( this: Exp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, values3: List<T4>, values4: List<T5>, values5: List<T6>, ...values: Array<List<T7> | ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6 | T7>> ): Exp<T1[]>;
-        differenceBy<T>( this: Exp<List<T> | null | undefined>, ...values: Array<List<T>> ): Exp<T[]>;
+        differenceBy<T1, T2>( this: Exp<List<T1> | null | undefined>, values1: T2, iteratee?: ValueIteratee<T1 | T2> ): Exp<T1[]>;
+        differenceBy<T>(this: Exp<List<T> | null | undefined>, ...values: Array<List<unknown> | ValueIteratee<T>> ): Exp<T[]>;
     }
     interface Stat {
         differenceWith<T1, T2>( array: List<T1> | null | undefined, values: List<T2>, comparator: Comparator2<T1, T2> ): T1[];
@@ -71,15 +61,11 @@ declare module "../index" {
     }
     interface Imp<TValue> {
         differenceWith<T1, T2>( this: Imp<List<T1> | null | undefined>, values: List<T2>, comparator: Comparator2<T1, T2> ): Imp<T1[]>;
-        differenceWith<T1, T2, T3>( this: Imp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, comparator: Comparator2<T1, T2 | T3> ): Imp<T1[]>;
-        differenceWith<T1, T2, T3, T4>( this: Imp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>> ): Imp<T1[]>;
-        differenceWith<T>( this: Imp<List<T> | null | undefined>, ...values: Array<List<T>> ): Imp<T[]>;
+        differenceWith<T1, T2, T3, T4>( this: Imp<List<T1> | null | undefined>, ...values: Array<List<unknown> | Comparator2<T1, never>> ): Imp<T1[]>;
     }
     interface Exp<TValue> {
         differenceWith<T1, T2>( this: Exp<List<T1> | null | undefined>, values: List<T2>, comparator: Comparator2<T1, T2> ): Exp<T1[]>;
-        differenceWith<T1, T2, T3>( this: Exp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, comparator: Comparator2<T1, T2 | T3> ): Exp<T1[]>;
-        differenceWith<T1, T2, T3, T4>( this: Exp<List<T1> | null | undefined>, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>> ): Exp<T1[]>;
-        differenceWith<T>( this: Exp<List<T> | null | undefined>, ...values: Array<List<T>> ): Exp<T[]>;
+        differenceWith<T1, T2, T3, T4>( this: Exp<List<T1> | null | undefined>, ...values: Array<List<unknown> | Comparator2<T1, never>> ): Exp<T1[]>;
     }
     interface Stat {
         drop<T>(array: List<T> | null | undefined, n?: number): T[];
