@@ -496,7 +496,11 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readlink(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException | null, linkString: string) => void): void;
+    function readlink(
+        path: PathLike,
+        options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null,
+        callback: (err: NodeJS.ErrnoException | null, linkString: string) => void
+    ): void;
 
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
@@ -568,7 +572,11 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function realpath(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void): void;
+    function realpath(
+        path: PathLike,
+        options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null,
+        callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void
+    ): void;
 
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -613,7 +621,11 @@ declare module "fs" {
          */
         function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
 
-        function native(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void): void;
+        function native(
+            path: PathLike,
+            options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null,
+            callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void
+        ): void;
         function native(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException | null, resolvedPath: Buffer) => void): void;
         function native(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void): void;
         function native(path: PathLike, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void): void;
@@ -1068,7 +1080,12 @@ declare module "fs" {
      * @param fd A file descriptor.
      * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
      */
-    function write<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, offset: number | undefined | null, callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void): void;
+    function write<TBuffer extends BinaryData>(
+        fd: number,
+        buffer: TBuffer,
+        offset: number | undefined | null,
+        callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void
+    ): void;
 
     /**
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
