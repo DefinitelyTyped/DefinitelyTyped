@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-///<reference types="react"/>
+/// <reference types="react"/>
 
 export as namespace ReactHooksHelper;
 
@@ -32,21 +32,19 @@ export interface UseStepResponse {
 
 export function useStep(params: UseStepParams): UseStepResponse;
 
-interface FormTarget {
+export interface FormTarget {
     target: {
         name: string, // object property name or Dot separated when hierarchical
         value: any,
         type?: string,
         checked?: boolean,
-    }
+    };
 }
 
-export function useStep(params: UseStepParams): UseStepResponse
+export type InputChange = (event: React.SyntheticEvent<HTMLInputElement> | React.ChangeEvent<HTMLInputElement>) => void;
 
-type InputChange = (event: React.SyntheticEvent<HTMLInputElement> | React.ChangeEvent<HTMLInputElement>) => void
+export type ChangeForm = (value: FormTarget) => any;
 
-type ChangeForm = (value: FormTarget) => any
+export type SetForm = ChangeForm & InputChange;
 
-export type SetForm = ChangeForm & InputChange
-
-export function useForm<T>(defaultFormConfig: T): [T, SetForm]
+export function useForm<T>(defaultFormConfig: T): [T, SetForm];
