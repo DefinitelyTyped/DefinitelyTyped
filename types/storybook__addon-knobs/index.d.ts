@@ -79,7 +79,7 @@ export interface OptionsKnobOptions {
 export function optionsKnob<T>(
     label: string,
     values: {
-        [key: string]: any;
+        [key: string]: T;
     },
     defaultValue?: T,
     options?: OptionsKnobOptions
