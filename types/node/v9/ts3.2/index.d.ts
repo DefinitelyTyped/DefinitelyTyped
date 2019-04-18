@@ -13,4 +13,11 @@
 /// <reference path="../base.d.ts" />
 
 // TypeScript 3.2-specific augmentations:
-/// <reference path="util.d.ts" />
+declare module "util" {
+    namespace inspect {
+        const custom: unique symbol;
+    }
+    namespace promisify {
+        const custom: unique symbol;
+    }
+}
