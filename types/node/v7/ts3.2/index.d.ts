@@ -16,4 +16,3 @@
 /// <reference path="../base.d.ts" />
 
 // TypeScript 3.2-specific augmentations:
-/// <reference path="util.d.ts" />
