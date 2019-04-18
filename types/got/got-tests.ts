@@ -269,6 +269,8 @@ got.extend({ method: 'POST' }).extend({ headers: {} }).stream('/example');
 // $ExpectType Promise<any>
 got.extend({ json: true })('/example').then(({ body }) => body);
 // $ExpectType Promise<any>
+got.extend({ json: true })('/example', { query: {} }).then(({ body }) => body);
+// $ExpectType Promise<any>
 got.extend({ baseUrl: 'https://localhost' }).extend({ json: true })('/example').then(({ body }) => body);
 // $ExpectType Promise<string>
 got.extend({})('/example').then(({ body }) => body);
@@ -276,9 +278,13 @@ got.extend({})('/example').then(({ body }) => body);
 // $ExpectType Promise<Buffer>
 got.extend({ form: true, encoding: null })('/example').then(({ body }) => body);
 // $ExpectType Promise<Buffer>
+got.extend({ form: true, encoding: null })('/example', { query: {} }).then(({ body }) => body);
+// $ExpectType Promise<Buffer>
 got.extend({ form: true, encoding: null, body: {} })('/example').then(({ body }) => body);
 // $ExpectType Promise<string>
 got.extend({ form: true, encoding: 'utf8' })('/example').then(({ body }) => body);
+// $ExpectType Promise<string>
+got.extend({ form: true, encoding: 'utf8' })('/example', { query: {} }).then(({ body }) => body);
 // $ExpectType Promise<string>
 got.extend({ form: true, encoding: 'utf8', body: {} })('/example').then(({ body }) => body);
 // Body options:
@@ -286,10 +292,14 @@ got.extend({ form: true, encoding: 'utf8', body: {} })('/example').then(({ body 
 got.extend({ encoding: null })('/example').then(({ body }) => body);
 // $ExpectType Promise<Buffer>
 got.extend({ encoding: null, body: '{}' })('/example').then(({ body }) => body);
+// $ExpectType Promise<Buffer>
+got.extend({ encoding: null, body: '{}' })('/example', { query: {} }).then(({ body }) => body);
 // $ExpectType Promise<string>
 got.extend({ encoding: 'utf8' })('/example').then(({ body }) => body);
 // $ExpectType Promise<string>
 got.extend({ encoding: 'utf8', body: '{}' })('/example').then(({ body }) => body);
+// $ExpectType Promise<string>
+got.extend({ encoding: 'utf8', body: '{}' })('/example', { query: {} }).then(({ body }) => body);
 
 // Test retry options.
 got('http://todomvc.com', { retry: 2 });
