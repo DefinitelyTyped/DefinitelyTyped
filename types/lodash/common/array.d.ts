@@ -110,16 +110,10 @@ declare module "../index" {
         fill<T, U>( array: List<U> | null | undefined, value: T, start?: number, end?: number ): List<T | U>;
     }
     interface Imp<TValue> {
-        fill<T>( this: Imp<any[] | null | undefined>, value: T ): Imp<T[]>;
-        fill<T>( this: Imp<List<any> | null | undefined>, value: T ): Imp<List<T>>;
-        fill<T, U>( this: Imp<U[] | null | undefined>, value: T, start?: number, end?: number ): Imp<Array<T | U>>;
-        fill<T, U>( this: Imp<List<U> | null | undefined>, value: T, start?: number, end?: number ): Imp<List<T | U>>;
+        fill<T, U, L extends List<T | U>>( this: Imp<List<U> | null | undefined>, value: T, start?: number, end?: number ): Imp<L>;
     }
     interface Exp<TValue> {
-        fill<T>( this: Exp<any[] | null | undefined>, value: T ): Exp<T[]>;
-        fill<T>( this: Exp<List<any> | null | undefined>, value: T ): Exp<List<T>>;
-        fill<T, U>( this: Exp<U[] | null | undefined>, value: T, start?: number, end?: number ): Exp<Array<T | U>>;
-        fill<T, U>( this: Exp<List<U> | null | undefined>, value: T, start?: number, end?: number ): Exp<List<T | U>>;
+        fill<T, U, L extends List<T | U>>( this: Exp<List<U> | null | undefined>, value: T, start?: number, end?: number ): Exp<L>;
     }
     interface Stat {
         findIndex<T>( array: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): number;
