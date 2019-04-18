@@ -690,6 +690,7 @@ subscription.on('close', () => {});
         static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
         static extend(protoProps?: any, classProps?: any): any;
         static hydrate(userJSON: any): Promise<User>;
+        static enableUnsafeCurrentUser(): void;
 
         signUp(attrs?: any, options?: SignUpOptions): Promise<this>;
         logIn(options?: SuccessFailureOptions): Promise<this>;
