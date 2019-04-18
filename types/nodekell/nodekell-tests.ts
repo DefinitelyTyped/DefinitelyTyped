@@ -33,19 +33,25 @@ const rrr3 = abc(1, '', null); */
 declare const process: any;
 declare const console: any;
 
-const log = (...a: any[]) => {
+const cerror = (...a: any[]) => {
+	if (console) {
+		console.error(...a);
+	}
+};
+
+const clog = (...a: any[]) => {
 	if (console) {
 		console.log(...a);
 	}
 };
 
 const describe = (str: string, f: () => any) => {
-	log(str);
+	clog(str);
 	f();
 };
 
 const it = (str: string, f: () => any) => {
-	log(`\t${str}`);
+	clog('\t', str);
 	f();
 };
 
@@ -1651,15 +1657,21 @@ describe('timeout', () => {
 			})();
 		};
 
-		const ar0 = await F.timeout<string>(50)(testTimeoutFuncA(42)); // $ExpectType string
-		const ar1 = await F.timeout<string>(testDurationFunction(50))(testTimeoutFuncA(43)); // $ExpectType string
-		const ar2 = await F.timeout(50, testTimeoutFuncA(48)); // $ExpectType string
-		const ar3 = await F.timeout(testDurationFunction(50), testTimeoutFuncA(46)); // $ExpectType string
+		try {
+			const ar0 = await F.timeout<string>(50)(testTimeoutFuncA(42)); // $ExpectType string
+			const ar1 = await F.timeout<string>(testDurationFunction(50))(testTimeoutFuncA(43)); // $ExpectType string
+			const ar2 = await F.timeout(50, testTimeoutFuncA(48)); // $ExpectType string
+			const ar3 = await F.timeout(testDurationFunction(50), testTimeoutFuncA(46)); // $ExpectType string
 
-		const br0 = await F.timeout<AsyncIterableIterator<number>>(38)(testTimeoutFuncB(27)); // $ExpectType AsyncIterableIterator<number>
-		const br1 = await F.timeout<AsyncIterableIterator<number>>(testDurationFunction(49))(testTimeoutFuncB(84)); // $ExpectType AsyncIterableIterator<number>
-		const br2 = await F.timeout(53, testTimeoutFuncB(23)); // $ExpectType AsyncIterableIterator<number>
-		const br3 = await F.timeout(testDurationFunction(59), testTimeoutFuncB(51)); // $ExpectType AsyncIterableIterator<number>
+			const br0 = await F.timeout<AsyncIterableIterator<number>>(38)(testTimeoutFuncB(27)); // $ExpectType AsyncIterableIterator<number>
+			const br1 = await F.timeout<AsyncIterableIterator<number>>(testDurationFunction(49))(testTimeoutFuncB(84)); // $ExpectType AsyncIterableIterator<number>
+			const br2 = await F.timeout(53, testTimeoutFuncB(23)); // $ExpectType AsyncIterableIterator<number>
+			const br3 = await F.timeout(testDurationFunction(59), testTimeoutFuncB(51)); // $ExpectType AsyncIterableIterator<number>
+		} catch (e) {
+			if (e.message !== 'timeout error') {
+				cerror(e);
+			}
+		}
 	});
 
 	it('from Promise Duration', async () => {
@@ -1679,15 +1691,21 @@ describe('timeout', () => {
 			})();
 		};
 
-		const ar0 = await F.timeout<string>(50)(testTimeoutFuncA(42)); // $ExpectType string
-		const ar1 = await F.timeout<string>(testDurationFunction(50))(testTimeoutFuncA(43)); // $ExpectType string
-		const ar2 = await F.timeout(50, testTimeoutFuncA(48)); // $ExpectType string
-		const ar3 = await F.timeout(testDurationFunction(50), testTimeoutFuncA(46)); // $ExpectType string
+		try {
+			const ar0 = await F.timeout<string>(50)(testTimeoutFuncA(42)); // $ExpectType string
+			const ar1 = await F.timeout<string>(testDurationFunction(50))(testTimeoutFuncA(43)); // $ExpectType string
+			const ar2 = await F.timeout(50, testTimeoutFuncA(48)); // $ExpectType string
+			const ar3 = await F.timeout(testDurationFunction(50), testTimeoutFuncA(46)); // $ExpectType string
 
-		const br0 = await F.timeout<AsyncIterableIterator<number>>(38)(testTimeoutFuncB(27)); // $ExpectType AsyncIterableIterator<number>
-		const br1 = await F.timeout<AsyncIterableIterator<number>>(testDurationFunction(49))(testTimeoutFuncB(84)); // $ExpectType AsyncIterableIterator<number>
-		const br2 = await F.timeout(53, testTimeoutFuncB(23)); // $ExpectType AsyncIterableIterator<number>
-		const br3 = await F.timeout(testDurationFunction(59), testTimeoutFuncB(51)); // $ExpectType AsyncIterableIterator<number>
+			const br0 = await F.timeout<AsyncIterableIterator<number>>(38)(testTimeoutFuncB(27)); // $ExpectType AsyncIterableIterator<number>
+			const br1 = await F.timeout<AsyncIterableIterator<number>>(testDurationFunction(49))(testTimeoutFuncB(84)); // $ExpectType AsyncIterableIterator<number>
+			const br2 = await F.timeout(53, testTimeoutFuncB(23)); // $ExpectType AsyncIterableIterator<number>
+			const br3 = await F.timeout(testDurationFunction(59), testTimeoutFuncB(51)); // $ExpectType AsyncIterableIterator<number>
+		} catch (e) {
+			if (e.message !== 'timeout error') {
+				cerror(e);
+			}
+		}
 	});
 });
 
