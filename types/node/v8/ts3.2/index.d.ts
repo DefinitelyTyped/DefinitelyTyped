@@ -6,10 +6,7 @@
 //          - ~/ts3.2/index.d.ts  - Definitions specific to TypeScript 3.2
 
 // Reference required types from the default lib:
-/// <reference lib="es2015.collection" />
-/// <reference lib="es2015.iterable" />
-/// <reference lib="es2015.symbol" />
-/// <reference lib="es2015.symbol.wellknown" />
+/// <reference lib="es2017" />
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 // tslint:disable-next-line:no-bad-reference
