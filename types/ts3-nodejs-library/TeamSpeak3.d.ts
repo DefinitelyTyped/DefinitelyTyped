@@ -8,6 +8,8 @@ import TeamSpeakChannelGroup = require('./property/ChannelGroup');
 // For the buffer type.
 import * as stream from 'steam';
 
+// We need this namespace, becaue we can't just export the interface directly,
+// as it would conflict with export = TeamSpeak3.
 declare namespace TeamSpeak3 {
     interface ConnectionParams {
         /** The Protocol to use. Defaults to raw. */

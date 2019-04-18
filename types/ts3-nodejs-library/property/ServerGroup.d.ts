@@ -1,10 +1,15 @@
 import Abstract = require('./Abstract');
 import TeamSpeak3 = require('../TeamSpeak3');
 
+/**
+ * the response of the servergrouplist command for a single servergroup
+ */
+interface ServerGroupListResponse {
+    sgid: number;
+}
+
 declare class TeamSpeakServerGroup extends Abstract {
-    constructor(parent: TeamSpeak3, s: {
-        sgid: number
-    })
+    constructor(parent: TeamSpeak3, list: ServerGroupListResponse)
 
     /**
      * Returns the Server Group ID

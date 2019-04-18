@@ -1,10 +1,14 @@
 import Abstract = require('./Abstract');
 import TeamSpeak3 = require('../TeamSpeak3');
+/**
+ * the response of the channelgrouplist command for a single channelgroup
+ */
+interface ChannelGroupListResponse {
+    cgid: number;
+}
 
 declare class TeamSpeakChannelGroup extends Abstract {
-    constructor(parent: TeamSpeak3, c: {
-        cgid: number
-    })
+    constructor(parent: TeamSpeak3, list: ChannelGroupListResponse)
 
     /**
      * Deletes the channel group. If force is set to 1, the channel group will be deleted even if there are clients within.

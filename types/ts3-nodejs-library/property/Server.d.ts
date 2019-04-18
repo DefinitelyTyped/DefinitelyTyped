@@ -1,10 +1,15 @@
 import Abstract = require('./Abstract');
 import TeamSpeak3 = require('../TeamSpeak3');
 
+/**
+ * the response of the serverlist command for a single virtual server
+ */
+interface ServerListResponse {
+    virtualserver_id: number;
+}
+
 declare class TeamSpeakServer extends Abstract {
-    constructor(parent: TeamSpeak3, s: {
-        virtualserver_id: number
-    })
+    constructor(parent: TeamSpeak3, list: ServerListResponse)
 
     /**
      * Selects the Virtual Server

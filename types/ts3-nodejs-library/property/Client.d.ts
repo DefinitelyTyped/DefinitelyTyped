@@ -1,13 +1,18 @@
 import Abstract = require('./Abstract');
 import TeamSpeak3 = require('../TeamSpeak3');
 
+/**
+ * the response of the clientlist command for a single client
+ */
+interface ClientListResponse {
+    clid: number;
+    client_database_id: number;
+    client_type: number;
+    client_unique_identifier: string;
+}
+
 declare class TeamSpeakClient extends Abstract {
-    constructor(parent: TeamSpeak3, c: {
-        clid: number
-        client_database_id: number
-        client_type: number
-        client_unique_identifier: string
-    })
+    constructor(parent: TeamSpeak3, list: ClientListResponse)
 
     /**
      * Returns the Database ID of the Client

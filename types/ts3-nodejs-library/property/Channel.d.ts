@@ -1,10 +1,15 @@
 import Abstract = require('./Abstract');
 import TeamSpeak3 = require('../TeamSpeak3');
 
+/**
+ * the response of the channellist command for a single channel
+ */
+interface ChannelListResponse {
+    id: number;
+}
+
 declare class TeamSpeakChannel extends Abstract {
-    constructor(parent: TeamSpeak3, c: {
-        cid: number
-    })
+    constructor(parent: TeamSpeak3, list: ChannelListResponse)
 
     /**
      * Returns the ID of the Channel
