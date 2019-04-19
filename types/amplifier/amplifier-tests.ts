@@ -183,7 +183,7 @@ const appEnvelopeDecoder: amplifier.Decoder = (data, status, xhr, success, error
 };
 
 // a new decoder can be added to the amplifyDecoders interface
-declare module "amplify" {
+declare module "amplifier" {
     interface Decoders {
         appEnvelope: Decoder;
     }
