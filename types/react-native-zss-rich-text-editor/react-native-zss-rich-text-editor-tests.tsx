@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RichTextEditor, RichTextEditorReference } from "react-native-zss-rich-text-editor";
+import { RichTextEditor } from "react-native-zss-rich-text-editor";
 
 interface Props {
     value: string;
@@ -7,7 +7,7 @@ interface Props {
 
 export class WyswygComponent extends React.Component<Props> {
   props: Props;
-  private editorInst: RichTextEditorReference;
+  private editorInst: RichTextEditor;
 
   render() {
     const {value} = this.props;
@@ -18,7 +18,7 @@ export class WyswygComponent extends React.Component<Props> {
     />;
   }
 
-  private saveEditorReference = (ref) => {
+  private readonly saveEditorReference = (ref: RichTextEditor) => {
     this.editorInst = ref;
   }
 }

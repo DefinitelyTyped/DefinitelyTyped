@@ -1,10 +1,5 @@
 {
     "private": true,
     "dependencies": {
-        "react":"*",
-        "react-native":"*",
-        "react-native-zss-rich-text-editor":"1.x",
-        "@types/react":"*",
-        "@types/react-native":"*"
     }
 }

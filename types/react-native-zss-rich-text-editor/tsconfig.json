@@ -18,6 +18,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "react-native-zss-rich-text-editor-tests.tsx"
     ]
 }

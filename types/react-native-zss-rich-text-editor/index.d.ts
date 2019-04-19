@@ -99,9 +99,61 @@ export enum ACTIONS {
     setPlatform = 'SET_PLATFORM'
 }
 
-// RichTextEditor also has methods that can be used on its ref to set styling at the current selection
-// or cursor position:
-export interface RichTextEditorReference {
+// RichTextEditor takes the following optional props
+export interface RichTextEditorProps {
+    // HTML that will be rendered in the title section as soon as the component loads.
+    initialTitleHTML: string;
+
+    // HTML that will be rendered in the content section on load.
+    initialContentHTML: string;
+
+    // Text that will be used as a placeholder when no text is present in the title section.
+    titlePlaceholder: string;
+
+    // Text that will be used as a placeholder when no text is present in the content section.
+    contentPlaceholder: string;
+
+    // Any custom CSS styles that you want to inject to the editor.
+    customCSS: RichTextStyles;
+
+    // A function that will be called when the editor has been initialized.
+    editorInitializedCallback: FunctionWithZeroArgs;
+
+    // Hide title
+    hiddenTitle: boolean;
+
+    enableOnChange: boolean;
+
+    footerHeight: number;
+
+    contentInset: ContentInset;
+}
+
+export interface RichTextToolbarOptionalProps {
+    // An array of actions to be provided by this toolbar.
+    actions: ACTIONS[];
+
+    // Functions called when the addLink or addImage actions are tapped.
+    onPressAddLink: FunctionWithZeroArgs;
+    onPressAddImage: FunctionWithZeroArgs;
+
+    selectedButtonStyle: ElementStyles;
+    unselectedButtonStyle: ElementStyles;
+    iconTint: string;
+    selectedIconTint: string;
+    renderAction: () => ReactNode;
+    iconMap: IconsMap;
+}
+
+export interface RichTextToolbarProps extends Partial<RichTextToolbarOptionalProps> {
+    // Must provide a function that returns a ref to a RichTextEditor component.
+    getEditor: () => RichTextEditor;
+}
+
+/* tslint:disable:max-classes-per-file */
+export class RichTextEditor extends Component<Partial<RichTextEditorProps>> {
+    // RichTextEditor also has methods that can be used on its ref to set styling at the current selection
+    // or cursor position:
     setBold: FunctionWithZeroArgs;
     setItalic: FunctionWithZeroArgs;
     setUnderline: FunctionWithZeroArgs;
@@ -165,60 +217,6 @@ export interface RichTextEditorReference {
     // allowing a toolbar to respond to changes.
     registerToolbar: (actions: ACTIONS[]) => void;
 }
-
-// RichTextEditor takes the following optional props
-export interface RichTextEditorProps {
-    // HTML that will be rendered in the title section as soon as the component loads.
-    initialTitleHTML: string;
-
-    // HTML that will be rendered in the content section on load.
-    initialContentHTML: string;
-
-    // Text that will be used as a placeholder when no text is present in the title section.
-    titlePlaceholder: string;
-
-    // Text that will be used as a placeholder when no text is present in the content section.
-    contentPlaceholder: string;
-
-    // Any custom CSS styles that you want to inject to the editor.
-    customCSS: RichTextStyles;
-
-    // A function that will be called when the editor has been initialized.
-    editorInitializedCallback: FunctionWithZeroArgs;
-
-    // Hide title
-    hiddenTitle: boolean;
-
-    enableOnChange: boolean;
-
-    footerHeight: number;
-
-    contentInset: ContentInset;
-}
-
-export interface RichTextToolbarOptionalProps {
-    // An array of actions to be provided by this toolbar.
-    actions: ACTIONS[];
-
-    // Functions called when the addLink or addImage actions are tapped.
-    onPressAddLink: FunctionWithZeroArgs;
-    onPressAddImage: FunctionWithZeroArgs;
-
-    selectedButtonStyle: ElementStyles;
-    unselectedButtonStyle: ElementStyles;
-    iconTint: string;
-    selectedIconTint: string;
-    renderAction: () => ReactNode;
-    iconMap: IconsMap;
-}
-
-export interface RichTextToolbarProps extends Partial<RichTextToolbarOptionalProps> {
-    // Must provide a function that returns a ref to a RichTextEditor component.
-    getEditor: () => RichTextEditorReference;
-}
-
-/* tslint:disable:max-classes-per-file */
-export class RichTextEditor extends Component<Partial<RichTextEditorProps>> { }
 
 // This is a Component that provides a toolbar for easily controlling an editor.
 // It is designed to be used together with a RichTextEditor component.
