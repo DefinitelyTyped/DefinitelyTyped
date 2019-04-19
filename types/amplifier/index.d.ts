@@ -42,7 +42,7 @@ declare namespace amplifier {
         * data: A set of key/value pairs of data to be sent to the resource.
         * callback: A function to invoke if the resource is retrieved successfully.
         */
-        (resourceId: string, hash?: any, callback?: () => any)): void;
+        (resourceId: string, hash?: any, callback?: (...args: any[]) => any): void;
 
         /***
         * Request a resource.
@@ -87,7 +87,7 @@ declare namespace amplifier {
         * callback: Function to invoke when the message is published.
         * [priority]: Priority relative to other subscriptions for the same message. Lower values have higher priority. Default is 10.
         */
-        (topic: string, callback: () => any, priority?: number): void;
+        (topic: string, callback: (...args: any[]) => any, priority?: number): void;
         /***
         * Subscribe to a message.
         * topic: Name of the message to subscribe to.
@@ -95,7 +95,7 @@ declare namespace amplifier {
         * callback: Function to invoke when the message is published.
         * [priority]: Priority relative to other subscriptions for the same message. Lower values have higher priority. Default is 10.
         */
-        (topic: string, context: any, callback: () => any, priority?: number): void;
+        (topic: string, context: any, callback: (...args: any[]) => any, priority?: number): void;
     }
     interface StorageTypeStore {
         /***
@@ -148,7 +148,7 @@ declare namespace amplifier {
         * topic: The topic being unsubscribed from.
         * callback: The callback that was originally subscribed.
         */
-        unsubscribe(topic: string, callback: () => any): void;
+        unsubscribe(topic: string, callback: (...args: any[]) => any): void;
 
         /***
         * Publish a message.
