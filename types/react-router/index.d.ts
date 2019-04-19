@@ -21,6 +21,7 @@
 //                 Ben Smith <https://github.com/8enSmith>
 //                 Wesley Tsai <https://github.com/wezleytsai>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//								 Nima Arefi <https://github.com/nimaa77>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -64,7 +65,7 @@ export interface RedirectProps {
 export class Redirect extends React.Component<RedirectProps, any> { }
 
 export interface StaticContext {
-  statusCode?: number;
+  status?: number;
 }
 
 export interface RouteComponentProps<Params extends { [K in keyof Params]?: string } = {}, C extends StaticContext = StaticContext, S = H.LocationState> {
