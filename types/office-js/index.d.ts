@@ -48694,6 +48694,10 @@ declare namespace Word {
          * Create a new instance of Word.Application object
          */
         static newObject(context: OfficeExtension.ClientRequestContext): Word.Application;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Application object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ApplicationData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): {
             [key: string]: string;
         };
@@ -49108,6 +49112,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Body;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Body object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.BodyData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.BodyData;
     }
     /**
@@ -49621,6 +49629,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ContentControl;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.ContentControl object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ContentControlData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.ContentControlData;
     }
     /**
@@ -49728,6 +49740,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ContentControlCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.ContentControlCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ContentControlCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.ContentControlCollectionData;
     }
     /**
@@ -49810,6 +49826,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.CustomProperty;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.CustomProperty object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.CustomPropertyData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.CustomPropertyData;
     }
     /**
@@ -49891,6 +49911,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.CustomPropertyCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.CustomPropertyCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.CustomPropertyCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.CustomPropertyCollectionData;
     }
     /**
@@ -49994,6 +50018,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Document;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Document object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.DocumentData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.DocumentData;
     }
     /**
@@ -50097,6 +50125,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.DocumentCreated;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.DocumentCreated object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.DocumentCreatedData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.DocumentCreatedData;
     }
     /**
@@ -50277,6 +50309,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.DocumentProperties;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.DocumentProperties object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.DocumentPropertiesData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.DocumentPropertiesData;
     }
     /**
@@ -50412,6 +50448,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Font;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Font object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.FontData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.FontData;
     }
     /**
@@ -50768,6 +50808,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.InlinePicture;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.InlinePicture object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.InlinePictureData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.InlinePictureData;
     }
     /**
@@ -50821,6 +50865,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.InlinePictureCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.InlinePictureCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.InlinePictureCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.InlinePictureCollectionData;
     }
     /**
@@ -50963,7 +51011,7 @@ declare namespace Word {
          * @param listNumbering Required. The ordinal format.
          * @param formatString Optional. The numbering string format defined as an array of strings and/or integers. Each integer is a level of number type that is higher than or equal to this level. For example, an array of ["(", level - 1, ".", level, ")"] can define the format of "(2.c)", where 2 is the parent's item number and c is this level's item number.
          */
-        setLevelNumbering(level: number, listNumbering: Word.ListNumbering, formatString?: any[]): void;
+        setLevelNumbering(level: number, listNumbering: Word.ListNumbering, formatString?: Array<string | number>): void;
         /**
          *
          * Sets the numbering format at the specified level in the list.
@@ -50974,7 +51022,7 @@ declare namespace Word {
          * @param listNumbering Required. The ordinal format.
          * @param formatString Optional. The numbering string format defined as an array of strings and/or integers. Each integer is a level of number type that is higher than or equal to this level. For example, an array of ["(", level - 1, ".", level, ")"] can define the format of "(2.c)", where 2 is the parent's item number and c is this level's item number.
          */
-        setLevelNumbering(level: number, listNumbering: "None" | "Arabic" | "UpperRoman" | "LowerRoman" | "UpperLetter" | "LowerLetter", formatString?: any[]): void;
+        setLevelNumbering(level: number, listNumbering: "None" | "Arabic" | "UpperRoman" | "LowerRoman" | "UpperLetter" | "LowerLetter", formatString?: Array<string | number>): void;
         /**
          *
          * Sets the starting number at the specified level in the list. Default value is 1.
@@ -51014,6 +51062,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.List;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.List object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ListData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.ListData;
     }
     /**
@@ -51094,6 +51146,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ListCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.ListCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ListCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.ListCollectionData;
     }
     /**
@@ -51196,6 +51252,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ListItem;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.ListItem object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ListItemData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.ListItemData;
     }
     /**
@@ -51786,6 +51846,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Paragraph;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Paragraph object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ParagraphData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.ParagraphData;
     }
     /**
@@ -51853,6 +51917,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ParagraphCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.ParagraphCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ParagraphCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.ParagraphCollectionData;
     }
     /**
@@ -52380,6 +52448,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Range;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Range object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.RangeData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.RangeData;
     }
     /**
@@ -52433,6 +52505,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.RangeCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.RangeCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.RangeCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.RangeCollectionData;
     }
     /**
@@ -52533,6 +52609,10 @@ declare namespace Word {
          * Create a new instance of Word.SearchOptions object
          */
         static newObject(context: OfficeExtension.ClientRequestContext): Word.SearchOptions;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.SearchOptions object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SearchOptionsData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.SearchOptionsData;
     }
     /**
@@ -52644,6 +52724,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Section;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Section object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SectionData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.SectionData;
     }
     /**
@@ -52697,6 +52781,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.SectionCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.SectionCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SectionCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.SectionCollectionData;
     }
     /**
@@ -53255,6 +53343,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Table;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.Table object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.TableData;
     }
     /**
@@ -53308,6 +53400,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.TableCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.TableCollectionData;
     }
     /**
@@ -53581,6 +53677,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableRow;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.TableRow object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableRowData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.TableRowData;
     }
     /**
@@ -53634,6 +53734,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableRowCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.TableRowCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableRowCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.TableRowCollectionData;
     }
     /**
@@ -53893,6 +53997,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableCell;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.TableCell object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableCellData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.TableCellData;
     }
     /**
@@ -53946,6 +54054,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableCellCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Word.TableCellCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableCellCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Word.Interfaces.TableCellCollectionData;
     }
     /**
@@ -54021,6 +54133,10 @@ declare namespace Word {
          * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableBorder;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Word.TableBorder object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableBorderData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Word.Interfaces.TableBorderData;
     }
     /**
@@ -54054,6 +54170,24 @@ declare namespace Word {
          *
          */
         contentControlAdded = "ContentControlAdded",
+        /**
+         *
+         * AnnotationAdded represents the event an annotation has been added to the document.
+         *
+         */
+        annotationAdded = "AnnotationAdded",
+        /**
+         *
+         * AnnotationAdded represents the event an annotation has been updated in the document.
+         *
+         */
+        annotationChanged = "AnnotationChanged",
+        /**
+         *
+         * AnnotationAdded represents the event an annotation has been deleted from the document.
+         *
+         */
+        annotationDeleted = "AnnotationDeleted",
     }
     /**
      *
@@ -55737,48 +55871,6 @@ declare namespace Word {
             paragraphs?: Word.Interfaces.ParagraphData[];
             /**
             *
-            * Gets the parent body of the body. For example, a table cell body's parent body could be a header. Throws if there isn't a parent body. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentBody?: Word.Interfaces.BodyData;
-            /**
-            *
-            * Gets the parent body of the body. For example, a table cell body's parent body could be a header. Returns a null object if there isn't a parent body. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentBodyOrNullObject?: Word.Interfaces.BodyData;
-            /**
-            *
-            * Gets the content control that contains the body. Throws if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            parentContentControl?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the content control that contains the body. Returns a null object if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentContentControlOrNullObject?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the parent section of the body. Throws if there isn't a parent section. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentSection?: Word.Interfaces.SectionData;
-            /**
-            *
-            * Gets the parent section of the body. Returns a null object if there isn't a parent section. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentSectionOrNullObject?: Word.Interfaces.SectionData;
-            /**
-            *
             * Gets the collection of table objects in the body. Read-only.
             *
             * [Api set: WordApi 1.3]
@@ -55850,55 +55942,6 @@ declare namespace Word {
             * [Api set: WordApi 1.1]
             */
             paragraphs?: Word.Interfaces.ParagraphData[];
-            /**
-            *
-            * Gets the parent body of the content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentBody?: Word.Interfaces.BodyData;
-            /**
-            *
-            * Gets the content control that contains the content control. Throws if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            parentContentControl?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the content control that contains the content control. Returns a null object if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentContentControlOrNullObject?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the table that contains the content control. Throws if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTable?: Word.Interfaces.TableData;
-            /**
-            *
-            * Gets the table cell that contains the content control. Throws if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCell?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table cell that contains the content control. Returns a null object if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCellOrNullObject?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table that contains the content control. Returns a null object if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableOrNullObject?: Word.Interfaces.TableData;
             /**
             *
             * Gets the collection of table objects in the content control. Read-only.
@@ -56329,55 +56372,6 @@ declare namespace Word {
         /** An interface describing the data returned by calling "inlinePicture.toJSON()". */
         interface InlinePictureData {
             /**
-            *
-            * Gets the parent paragraph that contains the inline image. Read-only.
-            *
-            * [Api set: WordApi 1.2]
-            */
-            paragraph?: Word.Interfaces.ParagraphData;
-            /**
-            *
-            * Gets the content control that contains the inline image. Throws if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            parentContentControl?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the content control that contains the inline image. Returns a null object if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentContentControlOrNullObject?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the table that contains the inline image. Throws if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTable?: Word.Interfaces.TableData;
-            /**
-            *
-            * Gets the table cell that contains the inline image. Throws if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCell?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table cell that contains the inline image. Returns a null object if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCellOrNullObject?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table that contains the inline image. Returns a null object if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableOrNullObject?: Word.Interfaces.TableData;
-            /**
              *
              * Gets or sets a string that represents the alternative text associated with the inline image.
              *
@@ -56487,13 +56481,6 @@ declare namespace Word {
         interface ParagraphData {
             /**
             *
-            * Gets the collection of content control objects in the paragraph. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            contentControls?: Word.Interfaces.ContentControlData[];
-            /**
-            *
             * Gets the text format of the paragraph. Use this to get and set font name, size, color, and other properties. Read-only.
             *
             * [Api set: WordApi 1.1]
@@ -56508,13 +56495,6 @@ declare namespace Word {
             inlinePictures?: Word.Interfaces.InlinePictureData[];
             /**
             *
-            * Gets the List to which this paragraph belongs. Throws if the paragraph is not in a list. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            list?: Word.Interfaces.ListData;
-            /**
-            *
             * Gets the ListItem for the paragraph. Throws if the paragraph is not part of a list. Read-only.
             *
             * [Api set: WordApi 1.3]
@@ -56527,62 +56507,6 @@ declare namespace Word {
             * [Api set: WordApi 1.3]
             */
             listItemOrNullObject?: Word.Interfaces.ListItemData;
-            /**
-            *
-            * Gets the List to which this paragraph belongs. Returns a null object if the paragraph is not in a list. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            listOrNullObject?: Word.Interfaces.ListData;
-            /**
-            *
-            * Gets the parent body of the paragraph. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentBody?: Word.Interfaces.BodyData;
-            /**
-            *
-            * Gets the content control that contains the paragraph. Throws if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            parentContentControl?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the content control that contains the paragraph. Returns a null object if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentContentControlOrNullObject?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the table that contains the paragraph. Throws if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTable?: Word.Interfaces.TableData;
-            /**
-            *
-            * Gets the table cell that contains the paragraph. Throws if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCell?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table cell that contains the paragraph. Returns a null object if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCellOrNullObject?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table that contains the paragraph. Returns a null object if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableOrNullObject?: Word.Interfaces.TableData;
             /**
              *
              * Gets or sets the alignment for a paragraph. The value can be 'left', 'centered', 'right', or 'justified'.
@@ -56704,13 +56628,6 @@ declare namespace Word {
         interface RangeData {
             /**
             *
-            * Gets the collection of content control objects in the range. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            contentControls?: Word.Interfaces.ContentControlData[];
-            /**
-            *
             * Gets the text format of the range. Use this to get and set font name, size, color, and other properties. Read-only.
             *
             * [Api set: WordApi 1.1]
@@ -56723,76 +56640,6 @@ declare namespace Word {
             * [Api set: WordApi 1.2]
             */
             inlinePictures?: Word.Interfaces.InlinePictureData[];
-            /**
-            *
-            * Gets the collection of list objects in the range. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            lists?: Word.Interfaces.ListData[];
-            /**
-            *
-            * Gets the collection of paragraph objects in the range. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            paragraphs?: Word.Interfaces.ParagraphData[];
-            /**
-            *
-            * Gets the parent body of the range. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentBody?: Word.Interfaces.BodyData;
-            /**
-            *
-            * Gets the content control that contains the range. Throws if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.1]
-            */
-            parentContentControl?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the content control that contains the range. Returns a null object if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentContentControlOrNullObject?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the table that contains the range. Throws if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTable?: Word.Interfaces.TableData;
-            /**
-            *
-            * Gets the table cell that contains the range. Throws if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCell?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table cell that contains the range. Returns a null object if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCellOrNullObject?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table that contains the range. Returns a null object if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableOrNullObject?: Word.Interfaces.TableData;
-            /**
-            *
-            * Gets the collection of table objects in the range. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            tables?: Word.Interfaces.TableData[];
             /**
              *
              * Gets the first hyperlink in the range, or sets a hyperlink on the range. All hyperlinks in the range are deleted when you set a new hyperlink on the range. Use a '#' to separate the address part from the optional location part.
@@ -56908,55 +56755,6 @@ declare namespace Word {
             * [Api set: WordApi 1.3]
             */
             font?: Word.Interfaces.FontData;
-            /**
-            *
-            * Gets the parent body of the table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentBody?: Word.Interfaces.BodyData;
-            /**
-            *
-            * Gets the content control that contains the table. Throws if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentContentControl?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the content control that contains the table. Returns a null object if there isn't a parent content control. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentContentControlOrNullObject?: Word.Interfaces.ContentControlData;
-            /**
-            *
-            * Gets the table that contains this table. Throws if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTable?: Word.Interfaces.TableData;
-            /**
-            *
-            * Gets the table cell that contains this table. Throws if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCell?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table cell that contains this table. Returns a null object if it is not contained in a table cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableCellOrNullObject?: Word.Interfaces.TableCellData;
-            /**
-            *
-            * Gets the table that contains this table. Returns a null object if it is not contained in a table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTableOrNullObject?: Word.Interfaces.TableData;
             /**
             *
             * Gets all of the table rows. Read-only.
@@ -57112,13 +56910,6 @@ declare namespace Word {
             */
             font?: Word.Interfaces.FontData;
             /**
-            *
-            * Gets parent table. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTable?: Word.Interfaces.TableData;
-            /**
              *
              * Gets the number of cells in the row. Read-only.
              *
@@ -57188,20 +56979,6 @@ declare namespace Word {
             * [Api set: WordApi 1.3]
             */
             body?: Word.Interfaces.BodyData;
-            /**
-            *
-            * Gets the parent row of the cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentRow?: Word.Interfaces.TableRowData;
-            /**
-            *
-            * Gets the parent table of the cell. Read-only.
-            *
-            * [Api set: WordApi 1.3]
-            */
-            parentTable?: Word.Interfaces.TableData;
             /**
              *
              * Gets the index of the cell in its row. Read-only.
@@ -66231,6 +66008,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class Application extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Show or hide the iFrame application borders.
@@ -66300,6 +66079,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Application;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Application object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ApplicationData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ApplicationData;
     }
     /**
@@ -66309,6 +66092,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class Document extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Represents a Visio application instance that contains this document. Read-only.
@@ -66442,6 +66227,10 @@ declare namespace Visio {
          * @eventproperty
          */
         readonly onShapeMouseLeave: OfficeExtension.EventHandlers<Visio.ShapeMouseLeaveEventArgs>;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Document object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.DocumentData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.DocumentData;
     }
     /**
@@ -66451,6 +66240,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class DocumentView extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Disable Hyperlinks.
@@ -66465,6 +66256,13 @@ declare namespace Visio {
          * [Api set:  1.1]
          */
         disablePan: boolean;
+        /**
+         *
+         * Disable PanZoomWindow.
+         *
+         * [Api set:  1.1]
+         */
+        disablePanZoomWindow: boolean;
         /**
          *
          * Disable Zoom.
@@ -66514,6 +66312,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.DocumentView;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.DocumentView object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.DocumentViewData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.DocumentViewData;
     }
     /**
@@ -66523,6 +66325,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class Page extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * All shapes in the Page, including subshapes. Read-only.
@@ -66628,6 +66432,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Page;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Page object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.PageData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.PageData;
     }
     /**
@@ -66637,6 +66445,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class PageView extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Get and set Page's Zoom level. The value can be between 10 and 400 and denotes the percentage of zoom.
@@ -66727,6 +66537,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.PageView;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.PageView object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.PageViewData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.PageViewData;
     }
     /**
@@ -66736,6 +66550,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class PageCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: Visio.Page[];
         /**
@@ -66772,6 +66588,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.PageCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.PageCollection;
         load(option?: string | string[]): Visio.PageCollection;
         load(option?: OfficeExtension.LoadOption): Visio.PageCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.PageCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.PageCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.PageCollectionData;
     }
     /**
@@ -66781,6 +66601,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class ShapeCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: Visio.Shape[];
         /**
@@ -66817,6 +66639,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.ShapeCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.ShapeCollection;
         load(option?: string | string[]): Visio.ShapeCollection;
         load(option?: OfficeExtension.LoadOption): Visio.ShapeCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.ShapeCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.ShapeCollectionData;
     }
     /**
@@ -66826,6 +66652,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class Shape extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Returns the Comments Collection. Read-only.
@@ -66931,6 +66759,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Shape;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Shape object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ShapeData;
     }
     /**
@@ -66940,6 +66772,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class ShapeView extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Represents the highlight around the shape.
@@ -66988,7 +66822,7 @@ declare namespace Visio {
          * @param Width Overlay Width.
          * @param Height Overlay Height.
          */
-        addOverlay(OverlayType: "Text" | "Image", Content: string, OverlayHorizontalAlignment: "Left" | "Center" | "Right", OverlayVerticalAlignment: "Top" | "Middle" | "Bottom", Width: number, Height: number): OfficeExtension.ClientResult<number>;
+        addOverlay(OverlayType: "Text" | "Image" | "Html", Content: string, OverlayHorizontalAlignment: "Left" | "Center" | "Right", OverlayVerticalAlignment: "Top" | "Middle" | "Bottom", Width: number, Height: number): OfficeExtension.ClientResult<number>;
         /**
          *
          * Removes particular overlay or all overlays on the Shape.
@@ -67019,6 +66853,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.ShapeView;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.ShapeView object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeViewData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ShapeViewData;
     }
     /**
@@ -67108,6 +66946,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class ShapeDataItemCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: Visio.ShapeDataItem[];
         /**
@@ -67144,6 +66984,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.ShapeDataItemCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.ShapeDataItemCollection;
         load(option?: string | string[]): Visio.ShapeDataItemCollection;
         load(option?: OfficeExtension.LoadOption): Visio.ShapeDataItemCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.ShapeDataItemCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeDataItemCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.ShapeDataItemCollectionData;
     }
     /**
@@ -67153,6 +66997,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class ShapeDataItem extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * A string that specifies the format of the shape data item. Read-only.
@@ -67202,6 +67048,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.ShapeDataItem;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.ShapeDataItem object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeDataItemData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ShapeDataItemData;
     }
     /**
@@ -67211,6 +67061,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class HyperlinkCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: Visio.Hyperlink[];
         /**
@@ -67247,6 +67099,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.HyperlinkCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.HyperlinkCollection;
         load(option?: string | string[]): Visio.HyperlinkCollection;
         load(option?: OfficeExtension.LoadOption): Visio.HyperlinkCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.HyperlinkCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.HyperlinkCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.HyperlinkCollectionData;
     }
     /**
@@ -67256,6 +67112,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class Hyperlink extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Gets the address of the Hyperlink object. Read-only.
@@ -67305,6 +67163,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Hyperlink;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Hyperlink object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.HyperlinkData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.HyperlinkData;
     }
     /**
@@ -67314,6 +67176,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class CommentCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: Visio.Comment[];
         /**
@@ -67350,6 +67214,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.CommentCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.CommentCollection;
         load(option?: string | string[]): Visio.CommentCollection;
         load(option?: OfficeExtension.LoadOption): Visio.CommentCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.CommentCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.CommentCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.CommentCollectionData;
     }
     /**
@@ -67359,6 +67227,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class Comment extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * A string that specifies the name of the author of the comment.
@@ -67415,6 +67285,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Comment;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Comment object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.CommentData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.CommentData;
     }
     /**
@@ -67424,6 +67298,8 @@ declare namespace Visio {
      * [Api set:  1.1]
      */
     class Selection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext; 
         /**
          *
          * Gets the Shapes of the Selection. Read-only.
@@ -67451,6 +67327,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Selection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Selection object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.SelectionData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.SelectionData;
     }
     /**
@@ -67524,6 +67404,12 @@ declare namespace Visio {
          *
          */
         image = "Image",
+        /**
+         *
+         * html
+         *
+         */
+        html = "Html",
     }
     /**
      *
@@ -67623,6 +67509,13 @@ declare namespace Visio {
              * [Api set:  1.1]
              */
             disablePan?: boolean;
+            /**
+             *
+             * Disable PanZoomWindow.
+             *
+             * [Api set:  1.1]
+             */
+            disablePanZoomWindow?: boolean;
             /**
              *
              * Disable Zoom.
@@ -67786,6 +67679,13 @@ declare namespace Visio {
              * [Api set:  1.1]
              */
             disablePan?: boolean;
+            /**
+             *
+             * Disable PanZoomWindow.
+             *
+             * [Api set:  1.1]
+             */
+            disablePanZoomWindow?: boolean;
             /**
              *
              * Disable Zoom.
@@ -68137,6 +68037,13 @@ declare namespace Visio {
              * [Api set:  1.1]
              */
             disablePan?: boolean;
+            /**
+             *
+             * Disable PanZoomWindow.
+             *
+             * [Api set:  1.1]
+             */
+            disablePanZoomWindow?: boolean;
             /**
              *
              * Disable Zoom.
@@ -68588,14 +68495,14 @@ declare namespace Visio {
     /**
      * The RequestContext object facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the request context is required to get access to the Visio object model from the add-in.
      */
-    class RequestContext extends OfficeExtension.ClientRequestContext {
+    class RequestContext extends OfficeCore.RequestContext {
         constructor(url?: string | OfficeExtension.EmbeddedSession);
         readonly document: Document;
     }
     /**
-     * Executes a batch script that performs actions on the Visio object model, using a new request context. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-     * @param batch - A function that takes in an Visio.RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the request context is required to get access to the Visio object model from the add-in.
-     */
+ * Executes a batch script that performs actions on the Visio object model, using a new request context. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+ * @param batch - A function that takes in an Visio.RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the request context is required to get access to the Visio object model from the add-in.
+ */
     function run<T>(batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
     /**
      * Executes a batch script that performs actions on the Visio object model, using the request context of a previously-created API object.
@@ -68613,14 +68520,13 @@ declare namespace Visio {
      * Executes a batch script that performs actions on the Visio object model, using the RequestContext of a previously-created object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
      * @param contextObject - A previously-created Visio.RequestContext. This context will get re-used by the batch function (instead of having a new context created). This means that the batch will be able to pick up changes made to existing API objects, if those objects were derived from this same context.
      * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the RequestContext is required to get access to the Visio object model from the add-in.
-     * 
      * @remarks
      * In addition to this signature, the method also has the following signatures:
-     * 
+     *
      * `run<T>(batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;`
-     * 
+     *
      * `run<T>(object: OfficeExtension.ClientObject | OfficeExtension.EmbeddedSession, batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;`
-     * 
+     *
      * `run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;`
      */
     function run<T>(contextObject: OfficeExtension.ClientRequestContext, batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
