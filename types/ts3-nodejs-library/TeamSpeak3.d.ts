@@ -1,10 +1,11 @@
+/// <reference types="node" />
+
 import { EventEmitter } from 'events';
 import TeamSpeakChannel = require('./property/Channel');
 import TeamSpeakClient = require('./property/Client');
 import TeamSpeakServer = require('./property/Server');
 import TeamSpeakServerGroup = require('./property/ServerGroup');
 import TeamSpeakChannelGroup = require('./property/ChannelGroup');
-import { ClientMovedResponse, ServerGroupClientListResponse } from 'ts3-nodejs-library';
 
 // We need this namespace, becaue we can't just export the interface directly,
 // as it would conflict with export = TeamSpeak3.
@@ -76,7 +77,7 @@ declare namespace TeamSpeak3 {
       cid: number;
       client_database_id: number;
       client_nickname: string;
-      client_type: ClientType
+      client_type: ClientType;
       client_away: number;
       client_away_message: string | undefined;
       client_flag_talking: number;
@@ -117,13 +118,12 @@ declare namespace TeamSpeak3 {
     }
 }
 
-
 interface TeamSpeak3 {
   // Type-safe events.
   on(event: 'textmessage', listener: (data: TeamSpeak3.MessageData) => void): this;
   on(event: 'clientconnect', listener: (data: { client: TeamSpeakClient }) => void): this;
-  on(event: 'clientmoved', listener: (data: ClientMovedResponse) => void): this;
-  on(event: string, listener: Function): this
+  on(event: 'clientmoved', listener: (data: TeamSpeak3.ClientMovedResponse) => void): this;
+  on(event: string, listener: () => any): this;
 }
 
 declare class TeamSpeak3 extends EventEmitter {
@@ -311,7 +311,7 @@ declare class TeamSpeak3 extends EventEmitter {
      * Displays the IDs of all clients currently residing in the server group.
      * @param - the ServerGroup id
      */
-    serverGroupClientList(sgid: number): Promise<ServerGroupClientListResponse[] | ServerGroupClientListResponse>;
+    serverGroupClientList(sgid: number): Promise<TeamSpeak3.ServerGroupClientListResponse[] | TeamSpeak3.ServerGroupClientListResponse> | null;
 
     /**
      * Adds the client to the server group specified with sgid.
