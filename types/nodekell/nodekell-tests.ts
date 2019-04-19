@@ -2133,6 +2133,34 @@ describe('pmap', () => {
         const r0 = F.pmap<number, number>(e => e ** e)(a); // $ExpectType AsyncIterableIterator<number>
         const r1 = F.pmap(e => e ** e, a); // $ExpectType AsyncIterableIterator<number>
     });
+
+    it('from Custom Iterable', () => {
+        const a = {
+            // tslint:disable-next-line: object-literal-shorthand
+            [Symbol.iterator]: function *() {
+                yield 1;
+                yield 2;
+                yield 3;
+            },
+        };
+
+        const b = {
+            // tslint:disable-next-line: object-literal-shorthand
+            [Symbol.asyncIterator]: async function *() {
+                yield 1;
+                yield 2;
+                yield 3;
+            }
+        };
+
+        F.parallel_set_fetch_count(6);
+
+        const ar0 = F.pmap<number, number>(e => e ** e)(a); // $ExpectType AsyncIterableIterator<number>
+        const ar1 = F.pmap(e => e ** e, a); // $ExpectType AsyncIterableIterator<number>
+
+        const br0 = F.pmap<number, number>(e => e ** e)(a); // $ExpectType AsyncIterableIterator<number>
+        const br1 = F.pmap(e => e ** e, a); // $ExpectType AsyncIterableIterator<number>
+    });
 });
 
 describe('pfilter', () => {
@@ -2161,5 +2189,33 @@ describe('pfilter', () => {
 
         const r0 = F.pfilter<number>(e => e % 2 === 0)(a); // $ExpectType AsyncIterableIterator<number>
         const r1 = F.pfilter(e => e % 2 === 0, a); // $ExpectType AsyncIterableIterator<number>
+    });
+
+    it('from Custom Iterable', () => {
+        const a = {
+            // tslint:disable-next-line: object-literal-shorthand
+            [Symbol.iterator]: function *() {
+                yield 1;
+                yield 2;
+                yield 3;
+            },
+        };
+
+        const b = {
+            // tslint:disable-next-line: object-literal-shorthand
+            [Symbol.asyncIterator]: async function *() {
+                yield 1;
+                yield 2;
+                yield 3;
+            }
+        };
+
+        F.parallel_set_fetch_count(6);
+
+        const ar0 = F.pfilter<number>(e => e > 2)(a); // $ExpectType AsyncIterableIterator<number>
+        const ar1 = F.pfilter(e => e > 2, a); // $ExpectType AsyncIterableIterator<1 | 2 | 3>
+
+        const br0 = F.pfilter<number>(e => e > 2)(a); // $ExpectType AsyncIterableIterator<number>
+        const br1 = F.pfilter(e => e > 2, a); // $ExpectType AsyncIterableIterator<1 | 2 | 3>
     });
 });
