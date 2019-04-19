@@ -293,7 +293,7 @@ export function map<T, R>(f: (elem: T) => (R | Promise<R>), iter: Iter<T | Promi
  * ```ts
  * // allow
  * fmap(e0 => fmap(e1 => fmap(e2 => fmap(e3 => fmap(e4 => e4, e3), e2), e1), e0), [1,2,3,4]);
- * 
+ *
  * // not allow
  * fmap(e => e, 1);
  * ```
@@ -319,7 +319,7 @@ export function fmap<T, R>(f: (elem: T) => (R | Promise<R>), iter: T): AsyncIter
  * // not allow
  * flatMap(e => e, 1);
  * ```
- * 
+ *
  * as fmap
  *
  * @param f

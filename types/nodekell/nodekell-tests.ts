@@ -293,7 +293,6 @@ describe('flat', () => {
 		const r0 = F.flat(a); // $ExpectType AsyncIterableIterator<number | number[]>
 		const r1 = F.flat(r0); // $ExpectType AsyncIterableIterator<number>
         const r2 = F.flat(r1); // $ExpectType AsyncIterableIterator<number>
-
 	});
 
 	it('from Promise Value', () => {
