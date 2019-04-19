@@ -64,7 +64,7 @@ const it = (str: string, f: () => any) => {
 
 // tslint:disable-next-line: no-unnecessary-generics
 const ifNilThrow = <T>(e: Error) => (v: T): T => {
-    console.log(v);
+    // console.log(v);
     if (F.notNil(v)) {
         return v;
     }
