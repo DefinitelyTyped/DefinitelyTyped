@@ -30,7 +30,6 @@ const rrr1 = abc(1)('', null);
 const rrr2 = abc(1, '')(null);
 const rrr3 = abc(1, '', null); */
 
-declare const process: any;
 declare const console: any;
 
 const cerror = (...a: any[]) => {
@@ -46,13 +45,21 @@ const clog = (...a: any[]) => {
 };
 
 const describe = (str: string, f: () => any) => {
-	clog(str);
-	f();
+    try {
+        clog(str);
+        f();
+    } catch (e) {
+        cerror(e);
+    }
 };
 
 const it = (str: string, f: () => any) => {
-	clog('\t', str);
-	f();
+	try {
+        f();
+        clog('\t', str);
+    } catch (e) {
+        cerror(e);
+    }
 };
 
 //
@@ -60,8 +67,8 @@ const it = (str: string, f: () => any) => {
 //
 describe('util functions', () => {
 	it('seq', () => {
-		const range0 = F.range(10, 0, -1); // $ExpectType IterableIterator<number>
-		const range1 = F.range(6974); // $ExpectType IterableIterator<number>
+		const range0 = F.range(0, 5, 1); // $ExpectType IterableIterator<number>
+		const range1 = F.range(5); // $ExpectType IterableIterator<number>
 
 		const seq0 = F.seq(['1', '2', '3', '4']); // $ExpectType AsyncIterableIterator<string>
 		const seq1 = F.seq(range1); // $ExpectType AsyncIterableIterator<number>
@@ -141,7 +148,7 @@ describe('curry', () => {
 		curry4(1, 2, 3)(4); // $ExpectType string
 		// 8
 		curry4(1, 2, 3, 4); // $ExpectType string
-	});
+    });
 });
 
 ///
@@ -151,16 +158,23 @@ describe('run', () => {
 	it('', async () => {
 		const a = [1, 2, 3, Promise.resolve(4), 5, 6];
 		const b = [1, 2, Promise.resolve(3), [4, Promise.resolve(5)]];
-		const c = F.range(Infinity);
-		const d = F.range(50000, 0, -1);
+		const c = [1, 2, 3, 4, 5];
+		const d = [5, 4, 3, 2, 1];
 		const e = ['hello', ['w', Promise.resolve('o'), 'rld']];
 
-		const run1 = await F.run(a, F.map(F.inc));
-		const run2 = await F.run(b, F.flat, F.map(e => e - e));
-		const run3 = await F.run(c, F.map(F.inc), F.take(100), F.foldl1((acc, e) => acc + e));
+		const run1 = await F.run(a, F.map(F.inc)).then(F.ioe);
+		const run2 = await F.run(b, F.flat, F.map(e => e - e)).then(F.ioe);
+		const run3 = await F.run(c, F.map(F.inc), F.take(100), F.foldl1((acc, e) => acc + e)).then(F.ioe);
 		const run4 = await F.run(c, F.map(e => e ** e), F.take(10), F.map(e => e % 2), F.average);
-		const run5 = await F.run(d, F.map(e => e ** 2), F.filter(e => e > 40000), F.drop(10000), F.take(200), F.foldr1(F.sub));
-		const run6 = await F.run(e, F.flat, F.flat, F.scanl1((a, b) => a + b), F.foldl1(F.add), F.then(async e => F.flat(await e)), F.then((async (e) => F.distinct(await e))));
+		const run5 = await F.run(F.range(50000), F.reverse, F.map(e => e * 2), F.filter(e => e % 2 === 0), F.take(200), F.foldr1(F.sub)).then(F.ioe);
+        const run6 = await F.run(e, F.flat, F.flat, F.filter(e => (e === 'l') || (e === 'h')), F.foldl1(F.add)).then(F.ioe);
+        const run7 = await F.run(F.range(Infinity), F.map(F.inc), F.map(e => e * 0.5), F.take(200), F.max).then(F.ioe);
+        const run8 = await F.run(F.range(Infinity), F.map(F.inc), F.map(e => e * 0.5), F.take(200), F.min).then(F.ioe);
+        const run9 = await F.run(F.range(Infinity), F.map(F.inc), F.map(e => e * 0.5), F.take(200), F.sum).then(F.ioe);
+        const run10 = await F.run(F.range(Infinity), F.map(F.inc), F.map(e => e * 0.5), F.take(200), F.average).then(F.ioe);
+        const run11 = await F.run(e, F.flat, F.flat, F.max).then(F.ioe);
+        const run12 = await F.run(e, F.flat, F.flat, F.min).then(F.ioe);
+        const run13 = await F.run(e, F.flat, F.flat, F.sum).then(F.ioe);
 	});
 });
 
@@ -168,19 +182,19 @@ describe('head', () => {
 	it('from Normal Value', async () => {
 		const a = [10, 9, 8, 7];
 
-		const r0 = await F.head(a); // $ExpectType number
+		const r0 = await F.head(a).then(F.ioe); // $ExpectType number
 	});
 
 	it('from Promise Value', async () => {
-		const a = F.seq([10, Promise.resolve(9), 8, 7]);
+		const a = [10, Promise.resolve(9), 8, 7];
 
-		const r0 = await F.head(a); // $ExpectType number
+		const r0 = await F.head(a).then(F.ioe); // $ExpectType number
     });
 
     it('from String', async () => {
         const a = 'hello world';
 
-        const r0 = await F.head(a); // $ExpectType string
+        const r0 = await F.head(a).then(F.ioe); // $ExpectType string
     });
 });
 
@@ -192,7 +206,7 @@ describe('tail', () => {
 	});
 
 	it('from Promise Value', () => {
-		const a = F.seq([10, 9, Promise.resolve(8), 7]);
+		const a = [10, 9, Promise.resolve(8), 7];
 
 		const r0 = F.tail(a); // $ExpectType AsyncIterableIterator<number>
     });
@@ -208,22 +222,22 @@ describe('drop', () => {
 	it('from Normal Value', () => {
 		const a = [1, 2, 3, 4, 5];
 
-		const r0 = F.drop<number>(Infinity)(a); // $ExpectType AsyncIterableIterator<number>
-		const r1 = F.drop(Infinity, a); // $ExpectType AsyncIterableIterator<number>
+		const r0 = F.drop<number>(5)(a); // $ExpectType AsyncIterableIterator<number>
+		const r1 = F.drop(5, a); // $ExpectType AsyncIterableIterator<number>
 	});
 
 	it('from Promise Value', () => {
-		const a = F.seq([1, 2, 3, Promise.resolve(4), 5]);
+		const a = [1, 2, 3, Promise.resolve(4), 5];
 
-		const r0 = F.drop<number>(Infinity)(a); // $ExpectType AsyncIterableIterator<number>
-		const r1 = F.drop(Infinity, a); // $ExpectType AsyncIterableIterator<number>
+		const r0 = F.drop<number>(5)(a); // $ExpectType AsyncIterableIterator<number>
+		const r1 = F.drop(5, a); // $ExpectType AsyncIterableIterator<number>
     });
 
     it('from String', () => {
         const a = 'hello world';
 
-        const r0 = F.drop<string>(Infinity)(a); // $ExpectType AsyncIterableIterator<string>
-        const r1 = F.drop(Infinity, a); // $ExpectType AsyncIterableIterator<string>
+        const r0 = F.drop<string>(5)(a); // $ExpectType AsyncIterableIterator<string>
+        const r1 = F.drop(5, a); // $ExpectType AsyncIterableIterator<string>
     });
 });
 
@@ -236,7 +250,7 @@ describe('dropWhile', () => {
 	});
 
 	it('from Promise Value', () => {
-		const a = F.seq([1, 2, Promise.resolve(3), 4]);
+		const a = [1, 2, Promise.resolve(3), 4];
 
 		const r0 = F.dropWhile<number>(async e => e % 2 === 0)(a); // $ExpectType AsyncIterableIterator<number>
 		const r1 = F.dropWhile(async e => e % 2 === 0, a); // $ExpectType AsyncIterableIterator<number>
@@ -259,7 +273,7 @@ describe('filter', () => {
 	});
 
 	it('from Promise Value', () => {
-		const a = F.seq([Promise.resolve(1), 2, 3, 4, 5]);
+		const a = [Promise.resolve(1), 2, 3, 4, 5];
 
 		const r0 = F.filter<number>(async e => e % 2 === 0)(a); // $ExpectType AsyncIterableIterator<number>
 		const r1 = F.filter(async e => (e % 2 === 0), a); // $ExpectType AsyncIterableIterator<number>
@@ -282,7 +296,7 @@ describe('map', () => {
     });
 
 	it('from Promise Value', () => {
-		const a = F.seq([1, 2, Promise.resolve(3), 4]);
+		const a = [1, 2, Promise.resolve(3), 4];
 
 		const r0 = F.map<number, number>(async x => x + x)(a);  // $ExpectType AsyncIterableIterator<number>
 		const r1 = F.map(async x => x + x, a);  // $ExpectType AsyncIterableIterator<number>
@@ -307,7 +321,7 @@ describe('fmap', () => {
 	it('from Promise Value', () => {
 		type typeA = string | string[][] | Promise<string>[][];
 
-		const a = F.seq(['h', 'e', 'l', [['l']], [[Promise.resolve('o')]]]);
+		const a = ['h', 'e', 'l', [['l']], [[Promise.resolve('o')]]];
 
 		const r0 = F.fmap<typeA, string>(async e => F.fmap(async e1 => e1, e))(a); // $ExpectType AsyncIterableIterator<string>
 		const r1 = F.fmap(async e => F.fmap(async e1 => F.fmap(async e2 => e2, e1), e), a); // $ExpectType AsyncIterableIterator<string>
@@ -332,7 +346,7 @@ describe('flatMap', () => {
 	it('from Promise Value', () => {
 		type typeA = string | string[][] | Promise<string>[][];
 
-		const a = F.seq(['h', 'e', 'l', [['l']], [[Promise.resolve('o')]]]);
+		const a = ['h', 'e', 'l', [['l']], [[Promise.resolve('o')]]];
 
 		const r0 = F.flatMap<typeA, string>(async e => F.flatMap(async e1 => e1, e))(a); // $ExpectType AsyncIterableIterator<string>
         const r1 = F.flatMap(async e => F.flatMap(async e1 => F.flatMap(async e2 => e2, e1), e), a); // $ExpectType AsyncIterableIterator<string>
@@ -356,7 +370,7 @@ describe('flat', () => {
 	});
 
 	it('from Promise Value', () => {
-		const a = F.seq(['he', 'l', [['l']], [[Promise.resolve('o')]]]);
+		const a = ['he', 'l', [['l']], [[Promise.resolve('o')]]];
 
 		const r0 = F.flat(a); // $ExpectType AsyncIterableIterator<string | string[] | Promise<string>[]>
 		const r1 = F.flat(r0); // $ExpectType AsyncIterableIterator<string>
@@ -375,22 +389,22 @@ describe('take', () => {
 	it('from Normal Value', () => {
 		const a = [1, 2, 3, 4];
 
-        const r0 = F.take<number>(Infinity)(a); // $ExpectType AsyncIterableIterator<number>
-		const r1 = F.take(Infinity, a); // $ExpectType AsyncIterableIterator<number>
+        const r0 = F.take<number>(5)(a); // $ExpectType AsyncIterableIterator<number>
+		const r1 = F.take(5, a); // $ExpectType AsyncIterableIterator<number>
 	});
 
 	it('from Promise Value', () => {
-		const a = F.seq([Promise.resolve(1), 2, 3, 4]);
+		const a = [Promise.resolve(1), 2, 3, 4];
 
-        const r0 = F.take<number>(Infinity)(a); // $ExpectType AsyncIterableIterator<number>
-		const r1 = F.take(Infinity, a); // $ExpectType AsyncIterableIterator<number>
+        const r0 = F.take<number>(5)(a); // $ExpectType AsyncIterableIterator<number>
+		const r1 = F.take(5, a); // $ExpectType AsyncIterableIterator<number>
     });
 
     it('from String', () => {
         const a = 'hello world';
 
-        const r0 = F.take<string>(Infinity)(a); // $ExpectType AsyncIterableIterator<string>
-        const r1 = F.take(Infinity, a); // $ExpectType AsyncIterableIterator<string>
+        const r0 = F.take<string>(5)(a); // $ExpectType AsyncIterableIterator<string>
+        const r1 = F.take(5, a); // $ExpectType AsyncIterableIterator<string>
     });
 });
 
@@ -403,7 +417,7 @@ describe('takeWhile', () => {
 	});
 
 	it('from Promise Value', () => {
-		const a = F.seq([1, Promise.resolve(2), 3, 4, 5]);
+		const a = [1, Promise.resolve(2), 3, 4, 5];
 
 		const r0 = F.takeWhile<number>(e => e > 3)(a); // $ExpectType AsyncIterableIterator<number>
 		const r1 = F.takeWhile((e) => e > 3, a); // $ExpectType AsyncIterableIterator<number>
@@ -421,19 +435,19 @@ describe('foldl', () => {
 	it('from Normal Value', async () => {
 		const a = [1, 2, 3, 4, 5];
 
-		const r0 = await F.foldl<number>((acc, e) => acc + e)(0)(a); // $ExpectType number
-		const r1 = await F.foldl<number>((acc, e) => acc + e)(0, a); // $ExpectType number
-		const r2 = await F.foldl((acc, e) => acc + e, 0)(a); // $ExpectType number
-		const r3 = await F.foldl((acc, e) => acc + e, 0, a); // $ExpectType number
+		const r0 = await F.foldl<number>((acc, e) => acc + e)(0)(a).then(F.ioe); // $ExpectType number
+		const r1 = await F.foldl<number>((acc, e) => acc + e)(0, a).then(F.ioe); // $ExpectType number
+		const r2 = await F.foldl((acc, e) => acc + e, 0)(a).then(F.ioe); // $ExpectType number
+		const r3 = await F.foldl((acc, e) => acc + e, 0, a).then(F.ioe); // $ExpectType number
 	});
 
 	it('from Promise Value', async () => {
-		const a = F.seq([1, 2, Promise.resolve(3), 4, 5]);
+		const a = [1, 2, Promise.resolve(3), 4, 5];
 
-		const r0 = await F.foldl<number>(async (acc, e) => acc + e)(Promise.resolve(0))(a); // $ExpectType number
-		const r1 = await F.foldl<number>(async (acc, e) => acc + e)(Promise.resolve(0), a); // $ExpectType number
-		const r2 = await F.foldl<number>(async (acc, e) => acc + e, Promise.resolve(0))(a); // $ExpectType number
-		const r3 = await F.foldl(async (acc, e) => acc + e, Promise.resolve(0), a); // $ExpectType number
+		const r0 = await F.foldl<number>(async (acc, e) => acc + e)(Promise.resolve(0))(a).then(F.ioe); // $ExpectType number
+		const r1 = await F.foldl<number>(async (acc, e) => acc + e)(Promise.resolve(0), a).then(F.ioe); // $ExpectType number
+		const r2 = await F.foldl<number>(async (acc, e) => acc + e, Promise.resolve(0))(a).then(F.ioe); // $ExpectType number
+		const r3 = await F.foldl(async (acc, e) => acc + e, Promise.resolve(0), a).then(F.ioe); // $ExpectType number
 
 		// const rrrr = await F.foldl<number>((acc, e) => acc + e)(Promise.resolve(0))(a);
     });
@@ -441,10 +455,10 @@ describe('foldl', () => {
     it('from String', async () => {
         const a = 'hello world';
 
-        const r0 = await F.foldl<string>((acc, e) => acc + e)('')(a); // $ExpectType string
-        const r1 = await F.foldl<string>((acc, e) => acc + e)('', a); // $ExpectType string
-        const r2 = await F.foldl<string>((acc, e) => acc + e, '')(a); // $ExpectType string
-        const r3 = await F.foldl((acc, e) => acc + e, '', a); // $ExpectType string
+        const r0 = await F.foldl<string>((acc, e) => acc + e)('')(a).then(F.ioe); // $ExpectType string
+        const r1 = await F.foldl<string>((acc, e) => acc + e)('', a).then(F.ioe); // $ExpectType string
+        const r2 = await F.foldl<string>((acc, e) => acc + e, '')(a).then(F.ioe); // $ExpectType string
+        const r3 = await F.foldl((acc, e) => acc + e, '', a).then(F.ioe); // $ExpectType string
     });
 });
 
@@ -452,22 +466,22 @@ describe('foldl1', () => {
 	it('from Normal Value', async () => {
 		const a = [1, 2, 3, 4, 5];
 
-		const r0 = await F.foldl1<number>((acc, e) => acc + e)(a); // $ExpectType number
-		const r1 = await F.foldl1((acc, e) => acc + e, a); // $ExpectType number
+		const r0 = await F.foldl1<number>((acc, e) => acc + e)(a).then(F.ioe); // $ExpectType number
+		const r1 = await F.foldl1((acc, e) => acc + e, a).then(F.ioe); // $ExpectType number
 	});
 
 	it('from Promise Value', async () => {
 		const a = [1, 2, Promise.resolve(3), 4, 5];
 
-		const r0 = await F.foldl1<number>(async (acc, e) => acc + e)(a); // $ExpectType number
-		const r1 = await F.foldl1(async (acc, e) => acc + e, a); // $ExpectType number
+		const r0 = await F.foldl1<number>(async (acc, e) => acc + e)(a).then(F.ioe); // $ExpectType number
+		const r1 = await F.foldl1(async (acc, e) => acc + e, a).then(F.ioe); // $ExpectType number
     });
 
     it('from String', async () => {
         const a = 'hello world';
 
-        const r0 = await F.foldl1<string>((acc, e) => acc + e)(a); // $ExpectType string
-        const r1 = await F.foldl1((acc, e) => acc + e, a); // $ExpectType string
+        const r0 = await F.foldl1<string>((acc, e) => acc + e)(a).then(F.ioe); // $ExpectType string
+        const r1 = await F.foldl1((acc, e) => acc + e, a).then(F.ioe); // $ExpectType string
     });
 });
 
@@ -475,22 +489,22 @@ describe('reduce', () => {
 	it('from Normal Value', async () => {
 		const a = [1, 2, 3, 4, 5];
 
-		const r0 = await F.reduce<number>((acc, e) => acc + e)(a); // $ExpectType number
-		const r1 = await F.reduce((acc, e) => acc + e, a); // $ExpectType number
+		const r0 = await F.reduce<number>((acc, e) => acc + e)(a).then(F.ioe); // $ExpectType number
+		const r1 = await F.reduce((acc, e) => acc + e, a).then(F.ioe); // $ExpectType number
 	});
 
 	it('from Promise Value', async () => {
 		const a = [1, 2, Promise.resolve(3), 4, 5];
 
-		const r0 = await F.reduce<number>(async (acc, e) => acc + e)(a); // $ExpectType number
-		const r1 = await F.reduce(async (acc, e) => acc + e, a); // $ExpectType number
+		const r0 = await F.reduce<number>(async (acc, e) => acc + e)(a).then(F.ioe); // $ExpectType number
+		const r1 = await F.reduce(async (acc, e) => acc + e, a).then(F.ioe); // $ExpectType number
     });
 
     it('from String', async () => {
         const a = 'hello world';
 
-        const r0 = await F.reduce<string>((acc, e) => acc + e)(a); // $ExpectType string
-        const r1 = await F.reduce((acc, e) => acc + e, a); // $ExpectType string
+        const r0 = await F.reduce<string>((acc, e) => acc + e)(a).then(F.ioe); // $ExpectType string
+        const r1 = await F.reduce((acc, e) => acc + e, a).then(F.ioe); // $ExpectType string
     });
 });
 
@@ -505,7 +519,7 @@ describe('scanl', () => {
 	});
 
 	it('from Promise Value', () => {
-		const a = F.seq([1, 2, Promise.resolve(3), 4, 5]);
+		const a = [1, 2, Promise.resolve(3), 4, 5];
 
 		const r0 = F.scanl<number>(async (b, c) => b + c)(Promise.resolve(0))(a); // $ExpectType AsyncIterableIterator<number>
 		const r1 = F.scanl<number>(async (b, c) => b + c)(Promise.resolve(0), a); // $ExpectType AsyncIterableIterator<number>
@@ -532,7 +546,7 @@ describe('scanl1', () => {
 	});
 
 	it('from Promise Value', () => {
-		const a = F.seq([1, 2, Promise.resolve(3), 4, 5]);
+		const a = [1, 2, Promise.resolve(3), 4, 5];
 
 		const r0 = F.scanl1<number>(async (b, c) => b + c)(a); // $ExpectType AsyncIterableIterator<number>
 		const r1 = F.scanl1(async (b, c) => b + c, a); // $ExpectType AsyncIterableIterator<number>
@@ -554,7 +568,7 @@ describe('reverse', () => {
 	});
 
 	it('from Promise Value', () => {
-		const a = F.seq([1, 2, Promise.resolve(3), 4, 5]);
+		const a = [1, 2, Promise.resolve(3), 4, 5];
 
 		const r0 = F.reverse(a); // $ExpectType AsyncIterableIterator<number>
     });
@@ -570,28 +584,28 @@ describe('foldr', () => {
 	it('from Normal Value', async () => {
 		const a = [1, 2, 3, 4, 5];
 
-		const r0 = await F.foldr<number>((acc, e) => acc + e)(0)(a); // $ExpectType number
-		const r1 = await F.foldr<number>((acc, e) => acc + e)(0, a); // $ExpectType number
-		const r2 = await F.foldr<number>((acc, e) => acc + e, 0)(a); // $ExpectType number
-		const r3 = await F.foldr((acc, e) => acc + e, 0, a); // $ExpectType number
+		const r0 = await F.foldr<number>((acc, e) => acc + e)(0)(a).then(F.ioe); // $ExpectType number
+		const r1 = await F.foldr<number>((acc, e) => acc + e)(0, a).then(F.ioe); // $ExpectType number
+		const r2 = await F.foldr<number>((acc, e) => acc + e, 0)(a).then(F.ioe); // $ExpectType number
+		const r3 = await F.foldr((acc, e) => acc + e, 0, a).then(F.ioe); // $ExpectType number
 	});
 
 	it('from Promise Value', async () => {
-		const a = F.seq([1, 2, Promise.resolve(3), 4, 5]);
+		const a = [1, 2, Promise.resolve(3), 4, 5];
 
-		const r0 = await F.foldr<number>(async (acc, e) => acc + e)(Promise.resolve(0))(a); // $ExpectType number
-		const r1 = await F.foldr<number>(async (acc, e) => acc + e)(Promise.resolve(0), a); // $ExpectType number
-		const r2 = await F.foldr<number>(async (acc, e) => acc + e, Promise.resolve(0))(a); // $ExpectType number
-		const r3 = await F.foldr(async (acc, e) => acc + e, Promise.resolve(0), a); // $ExpectType number
+		const r0 = await F.foldr<number>(async (acc, e) => acc + e)(Promise.resolve(0))(a).then(F.ioe); // $ExpectType number
+		const r1 = await F.foldr<number>(async (acc, e) => acc + e)(Promise.resolve(0), a).then(F.ioe); // $ExpectType number
+		const r2 = await F.foldr<number>(async (acc, e) => acc + e, Promise.resolve(0))(a).then(F.ioe); // $ExpectType number
+		const r3 = await F.foldr(async (acc, e) => acc + e, Promise.resolve(0), a).then(F.ioe); // $ExpectType number
     });
 
     it('from String', async () => {
         const a = 'hello world';
 
-        const r0 = await F.foldr<string>((acc, e) => acc + e)('')(a); // $ExpectType string
-        const r1 = await F.foldr<string>((acc, e) => acc + e)('', a); // $ExpectType string
-        const r2 = await F.foldr<string>((acc, e) => acc + e, '')(a); // $ExpectType string
-        const r3 = await F.foldr((acc, e) => acc + e, '', a); // $ExpectType string
+        const r0 = await F.foldr<string>((acc, e) => acc + e)('')(a).then(F.ioe); // $ExpectType string
+        const r1 = await F.foldr<string>((acc, e) => acc + e)('', a).then(F.ioe); // $ExpectType string
+        const r2 = await F.foldr<string>((acc, e) => acc + e, '')(a).then(F.ioe); // $ExpectType string
+        const r3 = await F.foldr((acc, e) => acc + e, '', a).then(F.ioe); // $ExpectType string
     });
 });
 
@@ -599,22 +613,22 @@ describe('foldr1', () => {
 	it('from Normal Value', async () => {
 		const a = [1, 2, 3, 4, 5];
 
-		const r0 = await F.foldr1<number>((acc, e) => acc + e)(a); // $ExpectType number
-		const r1 = await F.foldr1((acc, e) => acc + e, a); // $ExpectType number
+		const r0 = await F.foldr1<number>((acc, e) => acc + e)(a).then(F.ioe); // $ExpectType number
+		const r1 = await F.foldr1((acc, e) => acc + e, a).then(F.ioe); // $ExpectType number
 	});
 
 	it('from Promise Value', async () => {
 		const a = [1, 2, Promise.resolve(3), 4, 5];
 
-		const r0 = await F.foldr1<number>(async (acc, e) => acc + e)(a); // $ExpectType number
-		const r1 = await F.foldr1(async (acc, e) => acc + e, a); // $ExpectType number
+		const r0 = await F.foldr1<number>(async (acc, e) => acc + e)(a).then(F.ioe); // $ExpectType number
+		const r1 = await F.foldr1(async (acc, e) => acc + e, a).then(F.ioe); // $ExpectType number
     });
 
     it('from String', async () => {
         const a = 'hello world';
 
-        const r0 = await F.foldr1<string>((acc, e) => acc + e)(a); // $ExpectType string
-        const r1 = await F.foldr1((acc, e) => acc + e, a); // $ExpectType string
+        const r0 = await F.foldr1<string>((acc, e) => acc + e)(a).then(F.ioe); // $ExpectType string
+        const r1 = await F.foldr1((acc, e) => acc + e, a).then(F.ioe); // $ExpectType string
     });
 });
 
@@ -741,19 +755,19 @@ describe('collect', () => {
 	it('from Normal Value', async () => {
 		const a = [1, 2, 3, 4, 5];
 
-		const r0 = await F.collect(a); // $ExpectType number[]
+		const r0 = await F.collect(a).then(F.ioe); // $ExpectType number[]
 	});
 
 	it('from Promise Value', async () => {
-		const a = F.seq([Promise.resolve(1), 2, 3, 4, 5]);
+		const a = [Promise.resolve(1), 2, 3, 4, 5];
 
-		const r0 = await F.collect(a); // $ExpectType number[]
+		const r0 = await F.collect(a).then(F.ioe); // $ExpectType number[]
     });
 
     it('from String', async () => {
         const a = 'hello world';
 
-        const r0 = await F.collect(a); // $ExpectType string[]
+        const r0 = await F.collect(a).then(F.ioe); // $ExpectType string[]
     });
 });
 
@@ -761,14 +775,14 @@ describe('collectMap', () => {
 	it('from Normal Value', async () => {
 		const a = [['a', 0], ['b', 1], ['c', 2]];
 
-		const r0 = await F.collectMap(a as [string, number][]); // $ExpectType Map<string, number>
+		const r0 = await F.collectMap(a as [string, number][]).then(F.ioe); // $ExpectType Map<string, number>
 	});
 
 	it('from Promise Value', async () => {
-		const a = F.seq([Promise.resolve(['a', 0]), ['b', 1], ['c', 2]]);
+		const a = [Promise.resolve(['a', 0]), ['b', 1], ['c', 2]];
 
 		// const r0 = await F.collectMap(a as (Promise<[string, number]> | [string, number])[])
-		const r0 = await F.collectMap(a as AsyncIterableIterator<([string, number] | Promise<[string, number]>)>); // $ExpectType Map<string, number>
+		const r0 = await F.collectMap(a as ([string, number] | Promise<[string, number]>)[]).then(F.ioe); // $ExpectType Map<string, number>
     });
 });
 
@@ -776,19 +790,19 @@ describe('collectSet', () => {
 	it('from Normal Value', async () => {
 		const a = [1, 2, 3, 4, 5];
 
-		const r0 = await F.collectSet(a); // $ExpectType Set<number>
+		const r0 = await F.collectSet(a).then(F.ioe); // $ExpectType Set<number>
 	});
 
 	it('from Promise Value', async () => {
 		const a = [1, 2, Promise.resolve(3), 4, 5];
 
-		const r0 = await F.collectSet(a); // $ExpectType Set<number>
+		const r0 = await F.collectSet(a).then(F.ioe); // $ExpectType Set<number>
     });
 
     it('from String', async () => {
         const a = 'hello world';
 
-        const r0 = await F.collectSet(a); // $ExpectType Set<string>
+        const r0 = await F.collectSet(a).then(F.ioe); // $ExpectType Set<string>
     });
 });
 
@@ -797,24 +811,24 @@ describe('forEach', () => {
         const a = [0, 1, 2, 3, 4, 5];
         const b = ['a', 'b', 'c', 'd', 'e', 'f'];
 
-        const r0 = await F.forEach<number, string>(e => b[e])(a); // $ExpectType string[]
-        const r1 = await F.forEach(e => b[e], a); // $ExpectType string[]
+        const r0 = await F.forEach<number, string>(e => b[e])(a).then(F.ioe); // $ExpectType string[]
+        const r1 = await F.forEach(e => b[e], a).then(F.ioe); // $ExpectType string[]
     });
 
     it('from Promise Value', async () => {
         const a = [0, 1, Promise.resolve(2), 3, Promise.resolve(4), 5];
         const b = ['a', 'b', 'c', 'd', 'e', 'f'];
 
-        const r0 = await F.forEach<number, string>(e => b[e])(a); // $ExpectType string[]
-        const r1 = await F.forEach(e => b[e], a); // $ExpectType string[]
+        const r0 = await F.forEach<number, string>(e => b[e])(a).then(F.ioe); // $ExpectType string[]
+        const r1 = await F.forEach(e => b[e], a).then(F.ioe); // $ExpectType string[]
     });
 
     it('from String', async () => {
         const a = 'fcbaadefbab';
         const b: { [k: string]: number; } = { a: 0, b: 1, c: 2, d: 3, e: 4, f: 5 };
 
-        const r0 = await F.forEach<string, number>(e => b[e])(a); // $ExpectType number[]
-        const r1 = await F.forEach(e => b[e], a); // $ExpectType number[]
+        const r0 = await F.forEach<string, number>(e => b[e])(a).then(F.ioe); // $ExpectType number[]
+        const r1 = await F.forEach(e => b[e], a).then(F.ioe); // $ExpectType number[]
     });
 });
 
@@ -865,22 +879,22 @@ describe('some', () => {
     it('from Normal Value', async () => {
         const a = [0, 1, 2, 3, 4];
 
-        const r0 = await F.some<number>(e => e < 4)(a); // $ExpectType boolean
-        const r1 = await F.some(e => e > 4, a); // $ExpectType boolean
+        const r0 = await F.some<number>(e => e < 4)(a).then(F.ioe); // $ExpectType boolean
+        const r1 = await F.some(e => e > 4, a).then(F.ioe); // $ExpectType boolean
     });
 
     it('from Promise Value', async () => {
         const a = [0, Promise.resolve(1), 2, 3, Promise.resolve(4)];
 
-        const r0 = await F.some<number>(e => e < 4)(a); // $ExpectType boolean
-        const r1 = await F.some(e => e > 4, a); // $ExpectType boolean
+        const r0 = await F.some<number>(e => e < 4)(a).then(F.ioe); // $ExpectType boolean
+        const r1 = await F.some(e => e > 4, a).then(F.ioe); // $ExpectType boolean
     });
 
     it('from String', async () => {
         const a = 'aaaaaba';
 
-        const r0 = await F.some<string>(e => e.includes('b'))(a); // $ExpectType boolean
-        const r1 = await F.some(e => !e.includes('b'), a); // $ExpectType boolean
+        const r0 = await F.some<string>(e => e.includes('b'))(a).then(F.ioe); // $ExpectType boolean
+        const r1 = await F.some(e => !e.includes('b'), a).then(F.ioe); // $ExpectType boolean
     });
 });
 
@@ -888,22 +902,22 @@ describe('every', () => {
     it('from Normal Value', async () => {
         const a = [0, 1, 2, 3, 4];
 
-        const r0 = await F.every<number>(e => e < 4)(a); // $ExpectType boolean
-        const r1 = await F.every(e => e > 4, a); // $ExpectType boolean
+        const r0 = await F.every<number>(e => e < 4)(a).then(F.ioe); // $ExpectType boolean
+        const r1 = await F.every(e => e > 4, a).then(F.ioe); // $ExpectType boolean
     });
 
     it('from Promise Value', async () => {
         const a = [0, Promise.resolve(1), 2, 3, Promise.resolve(4)];
 
-        const r0 = await F.every<number>(e => e < 4)(a); // $ExpectType boolean
-        const r1 = await F.every(e => e > 4, a); // $ExpectType boolean
+        const r0 = await F.every<number>(e => e < 4)(a).then(F.ioe); // $ExpectType boolean
+        const r1 = await F.every(e => e > 4, a).then(F.ioe); // $ExpectType boolean
     });
 
     it('from String', async () => {
         const a = 'aaaaaaa';
 
-        const r0 = await F.every<string>(e => e.includes('b'))(a); // $ExpectType boolean
-        const r1 = await F.every(e => e.includes('a'), a); // $ExpectType boolean
+        const r0 = await F.every<string>(e => e.includes('b'))(a).then(F.ioe); // $ExpectType boolean
+        const r1 = await F.every(e => e.includes('a'), a).then(F.ioe); // $ExpectType boolean
     });
 });
 
@@ -911,8 +925,8 @@ describe('maxBy', () => {
 	it('from Normal Value', async () => {
 		const a = [{ id: 1 }, { id: 5 }, { id: 2 }, { id: 4 }, { id: 3 }];
 
-		const r0 = await F.maxBy<{ id: number; }>(e => e.id)(a); // $ExpectType { id: number; }
-		const r1 = await F.maxBy(e => e.id, a); // $ExpectType { id: number; }
+		const r0 = await F.maxBy<{ id: number; }>(e => e.id)(a).then(F.ioe); // $ExpectType { id: number; }
+		const r1 = await F.maxBy(e => e.id, a).then(F.ioe); // $ExpectType { id: number; }
 
 		r0.id; // $ExpectType number
 		r1.id; // $ExpectType number
@@ -921,8 +935,8 @@ describe('maxBy', () => {
 	it('from Promise Value', async () => {
 		const a = [Promise.resolve({ id: 1 }), { id: 5 }, { id: 2 }, { id: 4 }, { id: 3 }];
 
-		const r0 = await F.maxBy<{ id: number; }>(e => e.id)(a); // $ExpectType { id: number; }
-		const r1 = await F.maxBy(async e => e.id, a); // $ExpectType { id: number; }
+		const r0 = await F.maxBy<{ id: number; }>(e => e.id)(a).then(F.ioe); // $ExpectType { id: number; }
+		const r1 = await F.maxBy(async e => e.id, a).then(F.ioe); // $ExpectType { id: number; }
 
 		r0.id; // $ExpectType number
 		r1.id; // $ExpectType number
@@ -931,8 +945,8 @@ describe('maxBy', () => {
     it('from String', async () => {
         const a = 'hello world';
 
-        const r0 = await F.maxBy<string>(e => e)(a); // $ExpectType string
-        const r1 = await F.maxBy(e => e, a); // $ExpectType string
+        const r0 = await F.maxBy<string>(e => e)(a).then(F.ioe); // $ExpectType string
+        const r1 = await F.maxBy(e => e, a).then(F.ioe); // $ExpectType string
     });
 });
 
@@ -940,8 +954,8 @@ describe('minBy', () => {
 	it('from Normal Value', async () => {
 		const a = [{ id: 1 }, { id: 5 }, { id: 2 }, { id: 4 }, { id: 3 }];
 
-		const r0 = await F.minBy<{ id: number; }>(e => e.id)(a); // $ExpectType { id: number; }
-		const r1 = await F.minBy(e => e.id, a); // $ExpectType { id: number; }
+		const r0 = await F.minBy<{ id: number; }>(e => e.id)(a).then(F.ioe); // $ExpectType { id: number; }
+		const r1 = await F.minBy(e => e.id, a).then(F.ioe); // $ExpectType { id: number; }
 
 		r0.id; // $ExpectType number
 		r1.id; // $ExpectType number
@@ -950,8 +964,8 @@ describe('minBy', () => {
 	it('from Promise Value', async () => {
 		const a = [Promise.resolve({ id: 1 }), { id: 5 }, { id: 2 }, { id: 4 }, { id: 3 }];
 
-		const r0 = await F.minBy<{ id: number; }>(e => e.id)(a); // $ExpectType { id: number; }
-		const r1 = await F.minBy(async e => e.id, a); // $ExpectType { id: number; }
+		const r0 = await F.minBy<{ id: number; }>(e => e.id)(a).then(F.ioe); // $ExpectType { id: number; }
+		const r1 = await F.minBy(async e => e.id, a).then(F.ioe); // $ExpectType { id: number; }
 
 		r0.id; // $ExpectType number
 		r1.id; // $ExpectType number
@@ -962,13 +976,13 @@ describe('count', () => {
 	it('from Normal Value', async () => {
 		const a = [1, 2, 3, 4, 5, 6, 7, 8];
 
-		const r0 = await F.count(a); // $ExpectType number
+		const r0 = await F.count(a).then(F.ioe); // $ExpectType number
     });
 
     it('from String', async () => {
         const a = 'hello world';
 
-        const r0 = await F.count(a); // $ExpectType number
+        const r0 = await F.count(a).then(F.ioe); // $ExpectType number
     });
 });
 
@@ -976,19 +990,19 @@ describe('sum', () => {
 	it('from Normal Number', async () => {
 		const a = [1, 2, 3, 4, 5];
 
-		const r0 = await F.sum(a); // $ExpectType number
+		const r0 = await F.sum(a).then(F.ioe); // $ExpectType number
 	});
 
 	it('from Promise Number', async () => {
 		const a = [Promise.resolve(1), 2, 3, 4, 5];
 
-		const r0 = await F.sum(a); // $ExpectType number
+		const r0 = await F.sum(a).then(F.ioe); // $ExpectType number
 	});
 
 	it('from String', async () => {
 		const a = 'helloworld';
 
-		const r0 = await F.sum(a); // $ExpectType string
+		const r0 = await F.sum(a).then(F.ioe); // $ExpectType string
 	});
 });
 
@@ -996,19 +1010,19 @@ describe('max', () => {
 	it('from Normal Number', async () => {
 		const a = [1, 5, 2, 4, 3];
 
-		const r0 = await F.max(a); // $ExpectType number
+		const r0 = await F.max(a).then(F.ioe); // $ExpectType number
 	});
 
 	it('from Promise Number', async () => {
 		const a = ['he', Promise.resolve('ll'), 'o'];
 
-		const r0 = await F.max(a); // $ExpectType string
+		const r0 = await F.max(a).then(F.ioe); // $ExpectType string
 	});
 
 	it('from String', async () => {
 		const a = 'helloworld';
 
-		const r0 = await F.max(a); // $ExpectType string
+		const r0 = await F.max(a).then(F.ioe); // $ExpectType string
 	});
 });
 
@@ -1016,19 +1030,19 @@ describe('min', () => {
 	it('from Normal Number', async () => {
 		const a = [1, 5, 2, 4, 3];
 
-		const r0 = await F.min(a); // $ExpectType number
+		const r0 = await F.min(a).then(F.ioe); // $ExpectType number
 	});
 
 	it('from Promise Number', async () => {
 		const a = [1, Promise.resolve(5), 4, 3, 2];
 
-		const r0 = await F.min(a); // $ExpectType number
+		const r0 = await F.min(a).then(F.ioe); // $ExpectType number
 	});
 
 	it('from String', async () => {
 		const a = 'helloworld';
 
-		const r0 = await F.min(a); // $ExpectType string
+		const r0 = await F.min(a).then(F.ioe); // $ExpectType string
 	});
 });
 
@@ -1036,13 +1050,13 @@ describe('average', () => {
 	it('from Normal Number', async () => {
 		const a = [1, 2, 3, 4, 5];
 
-		const r0 = await F.average(a); // $ExpectType number
+		const r0 = await F.average(a).then(F.ioe); // $ExpectType number
 	});
 
 	it('from Promise Number', async () => {
 		const a = [Promise.resolve(1), 2, 3, 4, 5];
 
-		const r0 = await F.average(a); // $ExpectType number
+		const r0 = await F.average(a).then(F.ioe); // $ExpectType number
 	});
 });
 
@@ -1132,7 +1146,7 @@ describe('then', () => {
 	it('from Normal Value', () => {
 		const generatorFunction = function *(iter: Iterable<number>) {
 			for (const e of iter) {
-			yield e;
+			    yield e;
 			}
 		};
 
@@ -1160,20 +1174,20 @@ describe('then', () => {
 			}
 		};
 
-		const a = F.seq([1, 2, Promise.resolve(3), 4, 5]);
+		const a = [1, 2, Promise.resolve(3), 4, 5];
 
-		const ar0 = F.then(generatorFunction)(a); // $ExpectType AsyncIterableIterator<number>
-		const ar1 = F.then(generatorFunction, a); // $ExpectType AsyncIterableIterator<number>
+		const ar0 = F.then(generatorFunction)(F.seq(a)); // $ExpectType AsyncIterableIterator<number>
+		const ar1 = F.then(generatorFunction, F.seq(a)); // $ExpectType AsyncIterableIterator<number>
 
-		const br0 = await F.then<AsyncIterableIterator<number | Promise<number>>, Promise<AsyncIterableIterator<number | Promise<number>>>>(async iter => iter)(a); // $ExpectType AsyncIterableIterator<number | Promise<number>>
-		const br1 = await F.then(async iter => iter, a); // $ExpectType AsyncIterableIterator<number | Promise<number>>
+		const br0 = await F.then<AsyncIterableIterator<number | Promise<number>>, Promise<AsyncIterableIterator<number | Promise<number>>>>(async iter => iter)(F.seq(a)).then(F.ioe); // $ExpectType AsyncIterableIterator<number | Promise<number>>
+		const br1 = await F.then(async iter => iter, F.seq(a)).then(F.ioe); // $ExpectType AsyncIterableIterator<number | Promise<number>>
 	});
 
 	it('from Promise Value With Return Void', async () => {
 		const a = [1, 2, Promise.resolve(3), 4, 5];
 
-		const r0 = await F.then<(number | Promise<number>)[], Promise<void>>(async () => F.fnothing())(a); // $ExpectType void
-		const r1 = await F.then(async () => F.fnothing(), a); // $ExpectType void
+		const r0 = await F.then<(number | Promise<number>)[], Promise<void>>(async () => F.fnothing())(a).then(F.ioe); // $ExpectType void
+		const r1 = await F.then(async () => F.fnothing(), a).then(F.ioe); // $ExpectType void
 	});
 });
 
@@ -1207,22 +1221,22 @@ describe('groupBy', () => {
 	it('from Object Array', async () => {
 		const a = [{ type: 'human', name: 'syrflover' }, { type: 'kinggod', name: 'gyungdal' }, { type: 'human', name: 'cenox' }];
 
-		const r0 = await F.groupBy<string, { type: string; name: string; }>(e => e.type)(a); // $ExpectType Map<string, { type: string; name: string; }[]>
-		const r1 = await F.groupBy(e => e.type, a); // $ExpectType Map<string, { type: string; name: string; }[]>
+		const r0 = await F.groupBy<string, { type: string; name: string; }>(e => e.type)(a).then(F.ioe); // $ExpectType Map<string, { type: string; name: string; }[]>
+		const r1 = await F.groupBy(e => e.type, a).then(F.ioe); // $ExpectType Map<string, { type: string; name: string; }[]>
 	});
 
 	it('from Array', async () => {
 		const a = ['h', 1, 'e', 2, 'l', 3, 'l', 4, 'o', 5];
 
-		const r0 = await F.groupBy<'string' | 'number', string | number>(e => typeof e === 'string' ? 'string' : 'number')(a); // $ExpectType Map<"string" | "number", (string | number)[]>
-		const r1 = await F.groupBy(e => typeof e === 'string' ? 'string' : 'number', a); // $ExpectType Map<"string" | "number", (string | number)[]>
+		const r0 = await F.groupBy<'string' | 'number', string | number>(e => typeof e === 'string' ? 'string' : 'number')(a).then(F.ioe); // $ExpectType Map<"string" | "number", (string | number)[]>
+		const r1 = await F.groupBy(e => typeof e === 'string' ? 'string' : 'number', a).then(F.ioe); // $ExpectType Map<"string" | "number", (string | number)[]>
 	});
 
 	it('from Promise Object Array', async () => {
 		const a = [Promise.resolve({ type: 'human', name: 'syrflover' }), { type: 'kinggod', name: 'gyungdal' }, { type: 'human', name: 'cenox' }];
 
-		const r0 = await F.groupBy<string, { type: string; name: string; }>(async e => e.type)(a); // $ExpectType Map<string, { type: string; name: string; }[]>
-		const r1 = await F.groupBy(async e => e.type, a); // $ExpectType Map<string, ({ type: string; name: string; } | { type: string; name: string; })[]>
+		const r0 = await F.groupBy<string, { type: string; name: string; }>(async e => e.type)(a).then(F.ioe); // $ExpectType Map<string, { type: string; name: string; }[]>
+		const r1 = await F.groupBy(async e => e.type, a).then(F.ioe); // $ExpectType Map<string, ({ type: string; name: string; } | { type: string; name: string; })[]>
 		// Map<string, { type: string; name: string; }>
 	});
 
@@ -1231,15 +1245,15 @@ describe('groupBy', () => {
 		// const b = [1,2,3,Promise.resolve(4),5];
 		// const c = [Promise.resolve('h'), 'ello']
 
-		const r0 = await F.groupBy<'string' | 'number', string | number>(e => typeof e === 'string' ? 'string' : 'number')(a); // $ExpectType Map<"string" | "number", (string | number)[]>
-		const r1 = await F.groupBy(async e => typeof e === 'string' ? 'string' : 'number', a); // $ExpectType Map<"string" | "number", (string | number)[]>
+		const r0 = await F.groupBy<'string' | 'number', string | number>(e => typeof e === 'string' ? 'string' : 'number')(a).then(F.ioe); // $ExpectType Map<"string" | "number", (string | number)[]>
+		const r1 = await F.groupBy(async e => typeof e === 'string' ? 'string' : 'number', a).then(F.ioe); // $ExpectType Map<"string" | "number", (string | number)[]>
     });
 
     it('from String', async () => {
         const a = 'hello world';
 
-        const r0 = await F.groupBy<string, string>(e => e)(a); // $ExpectType Map<string, string[]>
-        const r1 = await F.groupBy(e => e, a); // $ExpectType Map<string, string[]>
+        const r0 = await F.groupBy<string, string>(e => e)(a).then(F.ioe); // $ExpectType Map<string, string[]>
+        const r1 = await F.groupBy(e => e, a).then(F.ioe); // $ExpectType Map<string, string[]>
     });
 });
 
@@ -1298,16 +1312,16 @@ describe('innerJoin', () => {
 		const r2 = F.innerJoin<Map<string, string | number>, Map<string, number>>((a, b) => true, a)(b);
 		const r3 = F.innerJoin((a, b) => true, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 		rr0[0]; // $ExpectType Map<string, string | number>
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 		rr1[0]; // $ExpectType Map<string, string | number>
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 		rr2[0]; // $ExpectType Map<string, string | number>
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 		rr3[0]; // $ExpectType Map<string, string | number>
 	});
 
@@ -1320,22 +1334,22 @@ describe('innerJoin', () => {
 		const r2 = F.innerJoin<{ id: number; name: string; }, { id: number; length: number; }>((a, b) => a.id === b.id, a)(b);
 		const r3 = F.innerJoin((a, b) => a.id === b.id, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 		rr0[0].id; // $ExpectType number
 		rr0[0].length; // $ExpectType number
 		rr0[0].name; // $ExpectType string
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 		rr1[0].id; // $ExpectType number
 		rr1[0].length; // $ExpectType number
 		rr1[0].name; // $ExpectType string
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 		rr2[0].id; // $ExpectType number
 		rr2[0].length; // $ExpectType number
 		rr2[0].name; // $ExpectType string
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 		rr3[0].id; // $ExpectType number
 		rr3[0].length; // $ExpectType number
 		rr3[0].name; // $ExpectType string
@@ -1350,22 +1364,22 @@ describe('innerJoin', () => {
 		const r2 = F.innerJoin<{ id: number; name: string; }, { id: number; length: number; }>(async (a, b) => a.id === b.id, a)(b);
 		const r3 = F.innerJoin(async (a, b) => a.id === b.id, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 		rr0[0].id; // $ExpectType number
 		rr0[0].length; // $ExpectType number
 		rr0[0].name; // $ExpectType string
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 		rr1[0].id; // $ExpectType number
 		rr1[0].length; // $ExpectType number
 		rr1[0].name; // $ExpectType string
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 		rr2[0].id; // $ExpectType number
 		rr2[0].length; // $ExpectType number
 		rr2[0].name; // $ExpectType string
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 		rr3[0].id; // $ExpectType number
 		rr3[0].length; // $ExpectType number
 		rr3[0].name; // $ExpectType string
@@ -1438,16 +1452,16 @@ describe('leftInnerJoin', () => {
 		const r2 = F.leftInnerJoin<Map<string, string | number>, Map<string, number>>((a, b) => true, a)(b);
 		const r3 = F.leftInnerJoin((a, b) => true, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 		rr0[0]; // $ExpectType Map<string, string | number>
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 		rr1[0]; // $ExpectType Map<string, string | number>
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 		rr2[0]; // $ExpectType Map<string, string | number>
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 		rr3[0]; // $ExpectType Map<string, string | number>
 	});
 
@@ -1460,22 +1474,22 @@ describe('leftInnerJoin', () => {
 		const r2 = F.leftInnerJoin<{ id: number; name: string; }, { id: number; length: number; }>((a, b) => a.id === b.id, a)(b);
 		const r3 = F.leftInnerJoin((a, b) => a.id === b.id, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 		rr0[0].id; // $ExpectType number
 		rr0[0].length; // $ExpectType number
 		rr0[0].name; // $ExpectType string
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 		rr1[0].id; // $ExpectType number
 		rr1[0].length; // $ExpectType number
 		rr1[0].name; // $ExpectType string
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 		rr2[0].id; // $ExpectType number
 		rr2[0].length; // $ExpectType number
 		rr2[0].name; // $ExpectType string
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 		rr3[0].id; // $ExpectType number
 		rr3[0].length; // $ExpectType number
 		rr3[0].name; // $ExpectType string
@@ -1490,22 +1504,22 @@ describe('leftInnerJoin', () => {
 		const r2 = F.leftInnerJoin<{ id: number; name: string; }, { id: number; length: number; }>(async (a, b) => a.id === b.id, a)(b);
 		const r3 = F.leftInnerJoin(async (a, b) => a.id === b.id, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 		rr0[0].id; // $ExpectType number
 		rr0[0].length; // $ExpectType number
 		rr0[0].name; // $ExpectType string
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 		rr1[0].id; // $ExpectType number
 		rr1[0].length; // $ExpectType number
 		rr1[0].name; // $ExpectType string
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 		rr2[0].id; // $ExpectType number
 		rr2[0].length; // $ExpectType number
 		rr2[0].name; // $ExpectType string
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 		rr3[0].id; // $ExpectType number
 		rr3[0].length; // $ExpectType number
 		rr3[0].name; // $ExpectType string
@@ -1530,16 +1544,16 @@ describe('rightInnerJoin', () => {
 		const r2 = F.rightInnerJoin<Map<string, string | number>, Map<string, number>>((a, b) => true, a)(b);
 		const r3 = F.rightInnerJoin((a, b) => true, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 		rr0[0]; // $ExpectType Map<string, string | number>
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 		rr1[0]; // $ExpectType Map<string, string | number>
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 		rr2[0]; // $ExpectType Map<string, string | number>
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 		rr3[0]; // $ExpectType Map<string, string | number>
 	});
 
@@ -1552,22 +1566,22 @@ describe('rightInnerJoin', () => {
 		const r2 = F.rightInnerJoin<{ id: number; name: string; }, { id: number; length: number; }>((a, b) => a.id === b.id, a)(b);
 		const r3 = F.rightInnerJoin((a, b) => a.id === b.id, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 		rr0[0].id; // $ExpectType number
 		rr0[0].length; // $ExpectType number
 		rr0[0].name; // $ExpectType string
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 		rr1[0].id; // $ExpectType number
 		rr1[0].length; // $ExpectType number
 		rr1[0].name; // $ExpectType string
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 		rr2[0].id; // $ExpectType number
 		rr2[0].length; // $ExpectType number
 		rr2[0].name; // $ExpectType string
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 		rr3[0].id; // $ExpectType number
 		rr3[0].length; // $ExpectType number
 		rr3[0].name; // $ExpectType string
@@ -1582,22 +1596,22 @@ describe('rightInnerJoin', () => {
 		const r2 = F.rightInnerJoin<{ id: number; name: string; }, { id: number; length: number; }>(async (a, b) => a.id === b.id, a)(b);
 		const r3 = F.rightInnerJoin(async (a, b) => a.id === b.id, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 		rr0[0].id; // $ExpectType number
 		rr0[0].length; // $ExpectType number
 		rr0[0].name; // $ExpectType string
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 		rr1[0].id; // $ExpectType number
 		rr1[0].length; // $ExpectType number
 		rr1[0].name; // $ExpectType string
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 		rr2[0].id; // $ExpectType number
 		rr2[0].length; // $ExpectType number
 		rr2[0].name; // $ExpectType string
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 		rr3[0].id; // $ExpectType number
 		rr3[0].length; // $ExpectType number
 		rr3[0].name; // $ExpectType string
@@ -1622,16 +1636,16 @@ describe('outerJoin', () => {
 		const r2 = F.outerJoin<Map<string, string | number>, Map<string, number>>((a, b) => true, a)(b);
 		const r3 = F.outerJoin((a, b) => true, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 		rr0[0]; // $ExpectType Map<string, string | number>
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 		rr1[0]; // $ExpectType Map<string, string | number>
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 		rr2[0]; // $ExpectType Map<string, string | number>
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 		rr3[0]; // $ExpectType Map<string, string | number>
 	});
 
@@ -1644,25 +1658,25 @@ describe('outerJoin', () => {
 		const r2 = F.outerJoin<{ id: number; name: string; }, { id: number; length: number; }>((a, b) => a.id === b.id, a)(b);
 		const r3 = F.outerJoin((a, b) => a.id === b.id, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 
 		rr0[0].id; // $ExpectType number
 		rr0[0].length; // $ExpectType number | undefined
 		rr0[0].name; // $ExpectType string
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 
 		rr1[0].id; // $ExpectType number
 		rr1[0].length; // $ExpectType number | undefined
 		rr1[0].name; // $ExpectType string
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 
 		rr2[0].id; // $ExpectType number
 		rr2[0].length; // $ExpectType number | undefined
 		rr2[0].name; // $ExpectType string
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 
 		rr3[0].id; // $ExpectType number
 		rr3[0].length; // $ExpectType number | undefined
@@ -1678,25 +1692,25 @@ describe('outerJoin', () => {
 		const r2 = F.outerJoin<{ id: number; name: string; }, { id: number; length: number; }>(async (a, b) => a.id === b.id, a)(b);
 		const r3 = F.outerJoin(async (a, b) => a.id === b.id, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 
 		rr0[0].id; // $ExpectType number
 		rr0[0].length; // $ExpectType number | undefined
 		rr0[0].name; // $ExpectType string
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 
 		rr1[0].id; // $ExpectType number
 		rr1[0].length; // $ExpectType number | undefined
 		rr1[0].name; // $ExpectType string
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 
 		rr2[0].id; // $ExpectType number
 		rr2[0].length; // $ExpectType number | undefined
 		rr2[0].name; // $ExpectType string
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 
 		rr3[0].id; // $ExpectType number
 		rr3[0].length; // $ExpectType number | undefined
@@ -1722,16 +1736,16 @@ describe('leftOuterJoin', () => {
 		const r2 = F.leftOuterJoin<Map<string, string | number>, Map<string, number>>((a, b) => true, a)(b);
 		const r3 = F.leftOuterJoin((a, b) => true, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 		rr0[0]; // $ExpectType Map<string, string | number>
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 		rr1[0]; // $ExpectType Map<string, string | number>
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 		rr2[0]; // $ExpectType Map<string, string | number>
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 		rr3[0]; // $ExpectType Map<string, string | number>
 	});
 
@@ -1744,25 +1758,25 @@ describe('leftOuterJoin', () => {
 		const r2 = F.leftOuterJoin<{ id: number; name: string; }, { id: number; length: number; }>((a, b) => a.id === b.id, a)(b);
 		const r3 = F.leftOuterJoin((a, b) => a.id === b.id, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 
 		rr0[0].id; // $ExpectType number
 		rr0[0].length; // $ExpectType number | undefined
 		rr0[0].name; // $ExpectType string
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 
 		rr1[0].id; // $ExpectType number
 		rr1[0].length; // $ExpectType number | undefined
 		rr1[0].name; // $ExpectType string
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 
 		rr2[0].id; // $ExpectType number
 		rr2[0].length; // $ExpectType number | undefined
 		rr2[0].name; // $ExpectType string
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 
 		rr3[0].id; // $ExpectType number
 		rr3[0].length; // $ExpectType number | undefined
@@ -1778,25 +1792,25 @@ describe('leftOuterJoin', () => {
 		const r2 = F.leftOuterJoin<{ id: number; name: string; }, { id: number; length: number; }>(async (a, b) => a.id === b.id, a)(b);
 		const r3 = F.leftOuterJoin(async (a, b) => a.id === b.id, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 
 		rr0[0].id; // $ExpectType number
 		rr0[0].length; // $ExpectType number | undefined
 		rr0[0].name; // $ExpectType string
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 
 		rr1[0].id; // $ExpectType number
 		rr1[0].length; // $ExpectType number | undefined
 		rr1[0].name; // $ExpectType string
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 
 		rr2[0].id; // $ExpectType number
 		rr2[0].length; // $ExpectType number | undefined
 		rr2[0].name; // $ExpectType string
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 
 		rr3[0].id; // $ExpectType number
 		rr3[0].length; // $ExpectType number | undefined
@@ -1822,16 +1836,16 @@ describe('rightOuterJoin', () => {
 		const r2 = F.rightOuterJoin<Map<string, string | number>, Map<string, number>>((a, b) => true, a)(b);
 		const r3 = F.rightOuterJoin((a, b) => true, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 		rr0[0]; // $ExpectType Map<string, string | number>
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 		rr1[0]; // $ExpectType Map<string, string | number>
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 		rr2[0]; // $ExpectType Map<string, string | number>
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 		rr3[0]; // $ExpectType Map<string, string | number>
 	});
 
@@ -1844,25 +1858,25 @@ describe('rightOuterJoin', () => {
 		const r2 = F.rightOuterJoin<{ id: number; name: string; }, { id: number; length: number; }>((a, b) => a.id === b.id, a)(b);
 		const r3 = F.rightOuterJoin((a, b) => a.id === b.id, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 
 		rr0[0].id; // $ExpectType number
 		rr0[0].length; // $ExpectType number
 		rr0[0].name; // $ExpectType string | undefined
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 
 		rr1[0].id; // $ExpectType number
 		rr1[0].length; // $ExpectType number
 		rr1[0].name; // $ExpectType string | undefined
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 
 		rr2[0].id; // $ExpectType number
 		rr2[0].length; // $ExpectType number
 		rr2[0].name; // $ExpectType string | undefined
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 
 		rr3[0].id; // $ExpectType number
 		rr3[0].length; // $ExpectType number
@@ -1878,25 +1892,25 @@ describe('rightOuterJoin', () => {
 		const r2 = F.rightOuterJoin<{ id: number; name: string; }, { id: number; length: number; }>(async (a, b) => a.id === b.id, a)(b);
 		const r3 = F.rightOuterJoin(async (a, b) => a.id === b.id, a, b);
 
-		const rr0 = await F.collect(r0);
+		const rr0 = await F.collect(r0).then(F.ioe);
 
 		rr0[0].id; // $ExpectType number
 		rr0[0].length; // $ExpectType number
 		rr0[0].name; // $ExpectType string | undefined
 
-		const rr1 = await F.collect(r1);
+		const rr1 = await F.collect(r1).then(F.ioe);
 
 		rr1[0].id; // $ExpectType number
 		rr1[0].length; // $ExpectType number
 		rr1[0].name; // $ExpectType string | undefined
 
-		const rr2 = await F.collect(r2);
+		const rr2 = await F.collect(r2).then(F.ioe);
 
 		rr2[0].id; // $ExpectType number
 		rr2[0].length; // $ExpectType number
 		rr2[0].name; // $ExpectType string | undefined
 
-		const rr3 = await F.collect(r3);
+		const rr3 = await F.collect(r3).then(F.ioe);
 
 		rr3[0].id; // $ExpectType number
 		rr3[0].length; // $ExpectType number
@@ -1958,15 +1972,15 @@ describe('timeout', () => {
 		};
 
 		try {
-			const ar0 = await F.timeout<string>(50)(testTimeoutFuncA(42)); // $ExpectType string
-			const ar1 = await F.timeout<string>(testDurationFunction(50))(testTimeoutFuncA(43)); // $ExpectType string
-			const ar2 = await F.timeout(50, testTimeoutFuncA(48)); // $ExpectType string
-			const ar3 = await F.timeout(testDurationFunction(50), testTimeoutFuncA(46)); // $ExpectType string
+			const ar0 = await F.timeout<string>(50)(testTimeoutFuncA(42)).then(F.ioe); // $ExpectType string
+			const ar1 = await F.timeout<string>(testDurationFunction(50))(testTimeoutFuncA(43)).then(F.ioe); // $ExpectType string
+			const ar2 = await F.timeout(50, testTimeoutFuncA(48)).then(F.ioe); // $ExpectType string
+			const ar3 = await F.timeout(testDurationFunction(50), testTimeoutFuncA(46)).then(F.ioe); // $ExpectType string
 
-			const br0 = await F.timeout<AsyncIterableIterator<number>>(38)(testTimeoutFuncB(27)); // $ExpectType AsyncIterableIterator<number>
-			const br1 = await F.timeout<AsyncIterableIterator<number>>(testDurationFunction(49))(testTimeoutFuncB(84)); // $ExpectType AsyncIterableIterator<number>
-			const br2 = await F.timeout(53, testTimeoutFuncB(23)); // $ExpectType AsyncIterableIterator<number>
-			const br3 = await F.timeout(testDurationFunction(59), testTimeoutFuncB(51)); // $ExpectType AsyncIterableIterator<number>
+			const br0 = await F.timeout<AsyncIterableIterator<number>>(38)(testTimeoutFuncB(27)).then(F.ioe); // $ExpectType AsyncIterableIterator<number>
+			const br1 = await F.timeout<AsyncIterableIterator<number>>(testDurationFunction(49))(testTimeoutFuncB(84)).then(F.ioe); // $ExpectType AsyncIterableIterator<number>
+			const br2 = await F.timeout(53, testTimeoutFuncB(23)).then(F.ioe); // $ExpectType AsyncIterableIterator<number>
+			const br3 = await F.timeout(testDurationFunction(59), testTimeoutFuncB(51)).then(F.ioe); // $ExpectType AsyncIterableIterator<number>
 		} catch (e) {
 			if (e.message !== 'timeout error') {
 				cerror(e);
@@ -1992,15 +2006,15 @@ describe('timeout', () => {
 		};
 
 		try {
-			const ar0 = await F.timeout<string>(50)(testTimeoutFuncA(42)); // $ExpectType string
-			const ar1 = await F.timeout<string>(testDurationFunction(50))(testTimeoutFuncA(43)); // $ExpectType string
-			const ar2 = await F.timeout(50, testTimeoutFuncA(48)); // $ExpectType string
-			const ar3 = await F.timeout(testDurationFunction(50), testTimeoutFuncA(46)); // $ExpectType string
+			const ar0 = await F.timeout<string>(50)(testTimeoutFuncA(42)).then(F.ioe); // $ExpectType string
+			const ar1 = await F.timeout<string>(testDurationFunction(50))(testTimeoutFuncA(43)).then(F.ioe); // $ExpectType string
+			const ar2 = await F.timeout(50, testTimeoutFuncA(48)).then(F.ioe); // $ExpectType string
+			const ar3 = await F.timeout(testDurationFunction(50), testTimeoutFuncA(46)).then(F.ioe); // $ExpectType string
 
-			const br0 = await F.timeout<AsyncIterableIterator<number>>(38)(testTimeoutFuncB(27)); // $ExpectType AsyncIterableIterator<number>
-			const br1 = await F.timeout<AsyncIterableIterator<number>>(testDurationFunction(49))(testTimeoutFuncB(84)); // $ExpectType AsyncIterableIterator<number>
-			const br2 = await F.timeout(53, testTimeoutFuncB(23)); // $ExpectType AsyncIterableIterator<number>
-			const br3 = await F.timeout(testDurationFunction(59), testTimeoutFuncB(51)); // $ExpectType AsyncIterableIterator<number>
+			const br0 = await F.timeout<AsyncIterableIterator<number>>(38)(testTimeoutFuncB(27)).then(F.ioe); // $ExpectType AsyncIterableIterator<number>
+			const br1 = await F.timeout<AsyncIterableIterator<number>>(testDurationFunction(49))(testTimeoutFuncB(84)).then(F.ioe); // $ExpectType AsyncIterableIterator<number>
+			const br2 = await F.timeout(53, testTimeoutFuncB(23)).then(F.ioe); // $ExpectType AsyncIterableIterator<number>
+			const br3 = await F.timeout(testDurationFunction(59), testTimeoutFuncB(51)).then(F.ioe); // $ExpectType AsyncIterableIterator<number>
 		} catch (e) {
 			if (e.message !== 'timeout error') {
 				cerror(e);
@@ -2013,36 +2027,34 @@ describe('interval', () => {
 	it('', () => {
 		let intervalCount = 0;
 
-		const r0 = F.interval(1000, async () => {
+		const r0 = F.interval(50, async () => { // $ExpectType { run: boolean; }
 			await F.run(F.range(5), F.then(async _ => {
 				/// work
 				intervalCount++;
-				if (process && intervalCount >= 8) {
-					process.exit(0);
+				if (intervalCount >= 5) {
+					r0.run = false;
 				}
-				return;
 			}));
 		});
-		r0.run; // $ExpectType boolean
 	});
 });
 
 describe('rangeInterval', () => {
 	it('', () => {
-		F.rangeInterval(1000, 500); // $ExpectType AsyncIterableIterator<number>
-		F.rangeInterval(Promise.resolve(1000), 500); // $ExpectType AsyncIterableIterator<number>
-		F.rangeInterval(() => 1000, 500); // $ExpectType AsyncIterableIterator<number>
-		F.rangeInterval(async () => 1000, 500); // $ExpectType AsyncIterableIterator<number>
+		F.rangeInterval(50, 5); // $ExpectType AsyncIterableIterator<number>
+		F.rangeInterval(Promise.resolve(50), 5); // $ExpectType AsyncIterableIterator<number>
+		F.rangeInterval(() => 50, 5); // $ExpectType AsyncIterableIterator<number>
+		F.rangeInterval(async () => 50, 5); // $ExpectType AsyncIterableIterator<number>
 
-		F.rangeInterval(1000, 500, 800); // $ExpectType AsyncIterableIterator<number>
-		F.rangeInterval(Promise.resolve(1000), 500, 800); // $ExpectType AsyncIterableIterator<number>
-		F.rangeInterval(() => 1000, 500, 800); // $ExpectType AsyncIterableIterator<number>
-		F.rangeInterval(async () => 1000, 500, 800); // $ExpectType AsyncIterableIterator<number>
+		F.rangeInterval(50, 0, 5); // $ExpectType AsyncIterableIterator<number>
+		F.rangeInterval(Promise.resolve(50), 0, 5); // $ExpectType AsyncIterableIterator<number>
+		F.rangeInterval(() => 50, 0, 5); // $ExpectType AsyncIterableIterator<number>
+		F.rangeInterval(async () => 50, 0, 5); // $ExpectType AsyncIterableIterator<number>
 
-		F.rangeInterval(1000, 500, 0, -1); // $ExpectType AsyncIterableIterator<number>
-		F.rangeInterval(Promise.resolve(1000), 500, 0, -1); // $ExpectType AsyncIterableIterator<number>
-		F.rangeInterval(() => 1000, 500, 0, -1); // $ExpectType AsyncIterableIterator<number>
-		F.rangeInterval(async () => 1000, 500, 0, -1); // $ExpectType AsyncIterableIterator<number>
+		F.rangeInterval(50, 0, 5, 1); // $ExpectType AsyncIterableIterator<number>
+		F.rangeInterval(Promise.resolve(50), 0, 5, 1); // $ExpectType AsyncIterableIterator<number>
+		F.rangeInterval(() => 50, 0, 5, 1); // $ExpectType AsyncIterableIterator<number>
+		F.rangeInterval(async () => 50, 0, 5, 1); // $ExpectType AsyncIterableIterator<number>
 	});
 });
 
@@ -2063,9 +2075,9 @@ describe('repeat', () => {
 
 describe('range', () => {
 	it('', () => {
-		const r0 = F.range(500); // $ExpectType IterableIterator<number>
-		const r1 = F.range(500, 800); // $ExpectType IterableIterator<number>
-		const r2 = F.range(10, 0, -1); // $ExpectType IterableIterator<number>
+		const r0 = F.range(5); // $ExpectType IterableIterator<number>
+		const r1 = F.range(0, 5); // $ExpectType IterableIterator<number>
+		const r2 = F.range(0, 5, 1); // $ExpectType IterableIterator<number>
 	});
 });
 
@@ -2102,7 +2114,7 @@ describe('iterate', () => {
 //
 describe('parallel_set_fetch_count', () => {
     it('', () => {
-        F.parallel_set_fetch_count(10000);
+        F.parallel_set_fetch_count(200);
     });
 });
 
@@ -2138,18 +2150,14 @@ describe('pmap', () => {
         const a = {
             // tslint:disable-next-line: object-literal-shorthand
             [Symbol.iterator]: function *() {
-                yield 1;
-                yield 2;
-                yield 3;
+                yield* F.range(50);
             },
         };
 
         const b = {
             // tslint:disable-next-line: object-literal-shorthand
             [Symbol.asyncIterator]: async function *() {
-                yield 1;
-                yield 2;
-                yield 3;
+                yield* F.range(50);
             }
         };
 
@@ -2158,8 +2166,8 @@ describe('pmap', () => {
         const ar0 = F.pmap<number, number>(e => e ** e)(a); // $ExpectType AsyncIterableIterator<number>
         const ar1 = F.pmap(e => e ** e, a); // $ExpectType AsyncIterableIterator<number>
 
-        const br0 = F.pmap<number, number>(e => e ** e)(a); // $ExpectType AsyncIterableIterator<number>
-        const br1 = F.pmap(e => e ** e, a); // $ExpectType AsyncIterableIterator<number>
+        const br0 = F.pmap<number, number>(e => e ** e)(b); // $ExpectType AsyncIterableIterator<number>
+        const br1 = F.pmap(e => e ** e, b); // $ExpectType AsyncIterableIterator<number>
     });
 });
 
@@ -2195,27 +2203,23 @@ describe('pfilter', () => {
         const a = {
             // tslint:disable-next-line: object-literal-shorthand
             [Symbol.iterator]: function *() {
-                yield 1;
-                yield 2;
-                yield 3;
+                yield* F.range(50);
             },
         };
 
         const b = {
             // tslint:disable-next-line: object-literal-shorthand
             [Symbol.asyncIterator]: async function *() {
-                yield 1;
-                yield 2;
-                yield 3;
+                yield* F.range(50);
             }
         };
 
         F.parallel_set_fetch_count(6);
 
         const ar0 = F.pfilter<number>(e => e > 2)(a); // $ExpectType AsyncIterableIterator<number>
-        const ar1 = F.pfilter(e => e > 2, a); // $ExpectType AsyncIterableIterator<1 | 2 | 3>
+        const ar1 = F.pfilter(e => e > 2, a); // $ExpectType AsyncIterableIterator<number>
 
-        const br0 = F.pfilter<number>(e => e > 2)(a); // $ExpectType AsyncIterableIterator<number>
-        const br1 = F.pfilter(e => e > 2, a); // $ExpectType AsyncIterableIterator<1 | 2 | 3>
+        const br0 = F.pfilter<number>(e => e > 2)(b); // $ExpectType AsyncIterableIterator<number>
+        const br1 = F.pfilter(e => e > 2, b); // $ExpectType AsyncIterableIterator<number>
     });
 });
