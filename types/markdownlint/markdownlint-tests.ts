@@ -1,4 +1,4 @@
-import * as markdownlint from 'markdownlint';
+import markdownlint = require('markdownlint');
 
 const config: markdownlint.MarkdownlintConfig = {
     default: true,
@@ -17,7 +17,7 @@ const options: markdownlint.MarkdownlintOptions = {
 };
 
 // $ExpectType MarkdownlintResults
-const results = markdownlint.sync(options);
+markdownlint.sync(options);
 
 markdownlint(options, (err, results) => {
     // $ExpectType Error | null
@@ -26,13 +26,55 @@ markdownlint(options, (err, results) => {
     // $ExpectType MarkdownlintResults
     results;
 
-    const resultString: string = results.toString();
-    // $ExpectError
-    results.toString() as markdownlint.MarkdownlintResult[];
+    // $ExpectType string
+    results.toString();
 
     const fileErrors: markdownlint.MarkdownlintResult[] = results[
         'file.md'
     ] as markdownlint.MarkdownlintResult[];
     const firstFileError: markdownlint.MarkdownlintResult = fileErrors[0];
     const firstFileErrorRule: string = firstFileError.ruleName;
+});
+
+markdownlint.sync({
+    config: {
+        "default": false,
+        "heading-style": {
+            "style": "atx"
+        },
+        "ul-style": {
+            "style": "asterisk"
+        },
+        "list-indent": true,
+        "ul-start-left": true,
+        "ul-indent": {
+            "indent": 4
+        },
+        "no-trailing-spaces": true,
+        "no-hard-tabs": true,
+        "no-reversed-links": true,
+        "no-multiple-blanks": true,
+        "no-missing-space-atx": true,
+        "no-multiple-space-atx": true,
+        "blanks-around-headings": true,
+        "heading-start-left": true,
+        "no-trailing-punctuation": {
+            "punctuation": ".,;:!"
+        },
+        "no-multiple-space-blockquote": true,
+        "no-blanks-blockquote": true,
+        "ol-prefix": {
+            "style": "ordered"
+        },
+        "list-marker-space": true,
+        "blanks-around-fences": true,
+        "blanks-around-lists": true,
+        "no-bare-urls": true,
+        "hr-style": {
+            "style": "---"
+        },
+        "no-space-in-emphasis": true,
+        "no-space-in-links": true,
+        "fenced-code-language": true
+    }
 });
