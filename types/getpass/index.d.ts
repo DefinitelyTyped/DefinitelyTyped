@@ -1,13 +1,15 @@
 // Type definitions for getpass 0.1
 // Project: https://github.com/arekinath/node-getpass#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function getPass(opts: any, cb: any): void;
-
-export namespace getPass {
-    const prototype: {
-    };
-
+export interface Options {
+    prompt?: string;
 }
 
+export interface Callback {
+    (error: Error | null, password: string): void;
+}
+
+export function getPass(cb: Callback): void;
+export function getPass(options: Options, cb: Callback): void;
