@@ -1294,6 +1294,43 @@ describe('concat', () => {
 	});
 });
 
+describe('union', () => {
+	it('from Array', () => {
+		const a = [1, 2, 3];
+		const b = [3, 2, 1];
+
+		const r0 = F.union<number, number>(a)(b); // $ExpectType AsyncIterableIterator<number>
+		const r1 = F.union(a, b); // $ExpectType AsyncIterableIterator<number>
+	});
+
+	it('from Array And String', () => {
+		const a = [1, 2, 3];
+		const b = 'helloworld';
+
+		const ar0 = F.union<number, string>(a)(b); // $ExpectType AsyncIterableIterator<string | number>
+		const ar1 = F.union(a, b); // $ExpectType AsyncIterableIterator<string | number>
+
+		const br0 = F.union<string, number>(b)(a); // $ExpectType AsyncIterableIterator<string | number>
+		const br1 = F.union(b, a); // $ExpectType AsyncIterableIterator<string | number>
+	});
+
+	it('from Promise Value', () => {
+		const a = [Promise.resolve(1), 2, 3];
+		const b = [3, Promise.resolve(2), 1];
+
+		const r0 = F.union<number, number>(a)(b); // $ExpectType AsyncIterableIterator<number>
+		const r1 = F.union(a, b); // $ExpectType AsyncIterableIterator<number>
+    });
+
+    it('from String', () => {
+		const a = 'hello';
+		const b = 'world';
+
+		const r0 = F.union<string, string>(a)(b); // $ExpectType AsyncIterableIterator<string>
+		const r1 = F.union(a, b); // $ExpectType AsyncIterableIterator<string>
+	});
+});
+
 describe('innerJoin', () => {
 	it('from Map Array', async () => {
 		const a = [
