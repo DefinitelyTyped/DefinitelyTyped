@@ -1,6 +1,7 @@
-// Type definitions for slonik 15.4
+// Type definitions for slonik 16.10
 // Project: https://github.com/gajus/slonik#readme
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
+//                 Misha Kaletsky <https://github.com/mmkal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 import * as SlonikSymbol from './symbols';
@@ -79,18 +80,18 @@ export interface FieldType {
 }
 
 export type DatabaseTransactionConnectionType = CommonQueryMethodsType & {
-    transaction: (handler: TransactionFunctionType) => Promise<unknown>;
+    transaction: <T>(handler: TransactionFunctionType<T>) => Promise<T>;
 };
 
 export type DatabasePoolConnectionType = CommonQueryMethodsType & {
-    transaction: (handler: TransactionFunctionType) => Promise<unknown>;
+    transaction: <T>(handler: TransactionFunctionType<T>) => Promise<T>;
 };
 
-export type ConnectionRoutineType = (connection: DatabasePoolConnectionType) => Promise<unknown>;
+export type ConnectionRoutineType<T> = (connection: DatabasePoolConnectionType) => Promise<T>;
 
 export type DatabasePoolType = CommonQueryMethodsType & {
-    connect: (connectionRoutine: ConnectionRoutineType) => Promise<unknown>;
-    transaction: (handler: TransactionFunctionType) => Promise<unknown>;
+    connect: <T>(connectionRoutine: ConnectionRoutineType<T>) => Promise<T>;
+    transaction: <T>(handler: TransactionFunctionType<T>) => Promise<T>;
 };
 
 export type DatabaseConfigurationType =
@@ -152,15 +153,15 @@ export interface NoticeType {
     where: string;
 }
 
-export type QueryResultType<T> = Readonly<{
+export interface QueryResultType<T> {
     command: 'DELETE' | 'INSERT' | 'SELECT' | 'UPDATE';
     fields: ReadonlyArray<FieldType>;
-    notices: ReadonlyArray<NoticeType>,
+    notices: ReadonlyArray<NoticeType>;
     oid: number | null;
     rowAsArray: boolean;
     rowCount: number;
     rows: ReadonlyArray<T>;
-}>;
+}
 
 export type QueryResultRowColumnType = string | number;
 export type QueryResultRowType<ColumnName extends string = string> = {
@@ -170,7 +171,7 @@ export type QueryResultRowType<ColumnName extends string = string> = {
 // TODO: Infer column names via generic
 export type QueryAnyFirstFunctionType       = QueryMethodType<QueryResultRowColumnType[]>;
 export type QueryAnyFunctionType            = QueryMethodType<QueryResultRowType[]>;
-export type QueryFunctionType               = QueryMethodType<QueryResultRowType>;
+export type QueryFunctionType               = QueryMethodType<QueryResultType<QueryResultRowType>>;
 export type QueryManyFirstFunctionType      = QueryMethodType<QueryResultRowColumnType[]>;
 export type QueryManyFunctionType           = QueryMethodType<QueryResultRowType[]>;
 export type QueryMaybeOneFirstFunctionType  = QueryMethodType<QueryResultRowColumnType>;
@@ -280,9 +281,9 @@ export function createPool(
 //
 // TRANSACTION
 // ----------------------------------------------------------------------
-export type TransactionFunctionType = (
+export type TransactionFunctionType<T> = (
     connection: DatabaseTransactionConnectionType
-) => Promise<unknown>;
+) => Promise<T>;
 
 //
 // INTERCEPTOR
@@ -361,7 +362,21 @@ export function createTypeParserPreset(): TypeParserType[];
 // CLIENT
 // ----------------------------------------------------------------------
 export interface ClientConfigurationType {
+    /** Dictates whether to capture stack trace before executing query. Middlewares access stack trace through query execution context. (Default: true) */
     captureStackTrace?: boolean;
+
+    /** Timeout (in milliseconds) after which an error is raised if cannot cannot be established. (Default: 5000) */
+    connectionTimeout?: number;
+
+    /** Timeout (in milliseconds) after which idle clients are closed. (Default: 5000) */
+    idleTimeout?: number;
+
+    /** Do not allow more than this many connections. (Default: 10) */
+    maximumPoolSize?: number;
+
+    /** Add more server connections to pool if below this number. (Default: 1) */
+    minimumPoolSize?: number;
+
     /**
      * An array of [Slonik interceptors](https://github.com/gajus/slonik#slonik-interceptors)
      */
@@ -372,16 +387,8 @@ export interface ClientConfigurationType {
     typeParsers?: TypeParserType[];
 }
 
-export interface ClientUserConfigurationType<T = unknown> {
-    /**
-     * An array of [Slonik interceptors](https://github.com/gajus/slonik#slonik-interceptors)
-     */
-    interceptors?: InterceptorType[];
-    /**
-     * An array of [Slonik type parsers](https://github.com/gajus/slonik#slonik-type-parsers)
-     */
-    typeParsers?: TypeParserType[];
-}
+// tslint:disable-next-line no-empty-interface
+export interface ClientUserConfigurationType extends ClientConfigurationType {}
 
 //
 // ERRORS

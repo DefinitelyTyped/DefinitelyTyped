@@ -1,4 +1,4 @@
-import { ComponentType } from 'react';
+import { ComponentType, ReactNode } from 'react';
 import { colors, spacing } from '../theme';
 import { CommonProps } from '../types';
 
@@ -8,7 +8,7 @@ interface State {
 }
 interface ValueProps<OptionType> {
   /** The children to be rendered. */
-  children: string;
+  children: ReactNode;
   /* The data of the selected option rendered in the Single Value componentn */
   data: OptionType;
   /** Props passed to the wrapping element for the group. */

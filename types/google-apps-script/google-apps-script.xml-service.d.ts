@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-04-09
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -291,7 +291,7 @@ declare namespace GoogleAppsScript {
      *       var root = document.getRootElement();
      *       var atom = XmlService.getNamespace('http://www.w3.org/2005/Atom');
      *
-     *       var entries = document.getRootElement().getChildren('entry', atom);
+     *       var entries = root.getChildren('entry', atom);
      *       for (var i = 0; i < entries.length; i++) {
      *         var title = entries[i].getChild('title', atom).getText();
      *         var categoryElements = entries[i].getChildren('category', atom);

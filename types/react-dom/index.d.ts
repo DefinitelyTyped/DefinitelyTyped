@@ -91,11 +91,4 @@ export interface Renderer {
         container: Element | null,
         callback?: () => void
     ): Component<any, ComponentState> | Element | void;
-
-    (
-        parentComponent: Component<any> | Array<Component<any>>,
-        element: SFCElement<any>,
-        container: Element,
-        callback?: () => void
-    ): void;
 }
