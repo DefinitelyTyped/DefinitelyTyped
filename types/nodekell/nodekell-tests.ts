@@ -1047,12 +1047,12 @@ describe('average', () => {
 });
 
 describe('splitBy', () => {
-	it('from Normal Value', () => {
+	it('from Number', () => {
 		// const a = [1,2,3,4,5];
-		const a = [1, 2, 3, 4];
+		const a = 1;
 
-		const r0 = F.splitBy<number[], number | number[]>(e => [e, 0])(a); // $ExpectType AsyncIterableIterator<number | number[]>
-		const r1 = F.splitBy(e => [0, e], a); // $ExpectType AsyncIterableIterator<number | number[]>
+		const r0 = F.splitBy<number, number>(e => [e, 0])(a); // $ExpectType AsyncIterableIterator<number>
+		const r1 = F.splitBy(e => [0, e], a); // $ExpectType AsyncIterableIterator<number>
 	});
 
 	it('from String', () => {
@@ -1062,17 +1062,19 @@ describe('splitBy', () => {
 		const r1 = F.splitBy(e => e.split(' '), a); // $ExpectType AsyncIterableIterator<string>
 	});
 
-	it('to PromiseFunc', () => {
+	it('from Number to Promise Function', () => {
 		const a = 1;
 
 		const ar0 = F.splitBy<number, number>(async e => [e, 0])(a); // $ExpectType AsyncIterableIterator<number>
 		const ar1 = F.splitBy(async e => [0, e], a); // $ExpectType AsyncIterableIterator<number>
+    });
 
-		const b = 'hello world';
+    it('from String to Promise Function', () => {
+        const a = 'hello world';
 
-		const br0 = F.splitBy<string, string>(async e => e.split(' '))(b); // $ExpectType AsyncIterableIterator<string>
-		const br1 = F.splitBy(async e => e.split(' '), b); // $ExpectType AsyncIterableIterator<string>
-	});
+		const ar0 = F.splitBy<string, string>(async e => e.split(' '))(a); // $ExpectType AsyncIterableIterator<string>
+		const ar1 = F.splitBy(async e => e.split(' '), a); // $ExpectType AsyncIterableIterator<string>
+    });
 });
 
 describe('errorThen', () => {
