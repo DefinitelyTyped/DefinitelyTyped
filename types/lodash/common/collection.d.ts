@@ -16,19 +16,13 @@ declare module "../index" {
         each: typeof _.forEach;
     }
     interface LoDashWrapper<TValue> {
-        each<T>( this: LoDashWrapper<T[] | null | undefined>, iteratee?: ArrayIterator<T, any> ): this;
-        each( this: LoDashWrapper<string | null | undefined>, iteratee?: StringIterator<any> ): this;
-        each<T>( this: LoDashWrapper<List<T> | null | undefined>, iteratee?: ListIterator<T, any> ): this;
-        each<T extends object>( this: LoDashWrapper<T | null | undefined>, iteratee?: ObjectIterator<T, any> ): this;
+        each: LoDashWrapper<TValue>['forEach'];
     }
     interface Stat {
         eachRight: typeof _.forEachRight;
     }
     interface LoDashWrapper<TValue> {
-        eachRight<T>( this: LoDashWrapper<T[] | null | undefined>, iteratee?: ArrayIterator<T, any> ): this;
-        eachRight( this: LoDashWrapper<string | null | undefined>, iteratee?: StringIterator<any> ): this;
-        eachRight<T>( this: LoDashWrapper<List<T> | null | undefined>, iteratee?: ListIterator<T, any> ): this;
-        eachRight<T extends object>( this: LoDashWrapper<T | null | undefined>, iteratee?: ObjectIterator<T, any> ): this;
+        eachRight: LoDashWrapper<TValue>['forEachRight'];
     }
     interface Stat {
         every<T>( collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean> ): boolean;
