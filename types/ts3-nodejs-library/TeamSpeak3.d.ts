@@ -4,6 +4,7 @@ import TeamSpeakClient = require('./property/Client');
 import TeamSpeakServer = require('./property/Server');
 import TeamSpeakServerGroup = require('./property/ServerGroup');
 import TeamSpeakChannelGroup = require('./property/ChannelGroup');
+import { ClientMovedResponse, ServerGroupClientListResponse } from 'ts3-nodejs-library';
 
 // We need this namespace, becaue we can't just export the interface directly,
 // as it would conflict with export = TeamSpeak3.
@@ -33,14 +34,86 @@ declare namespace TeamSpeak3 {
       VIRTUAL_SERVER = 3
     }
 
+    enum ClientType {
+      CLIENT = 0,
+      QUERY = 1
+    }
+
     interface MessageData {
       invoker: TeamSpeakClient;
       msg: string;
-      targetmode: TargetMode
+      targetmode: TargetMode;
     }
 
     interface WhoAmIResponse {
-      
+      virtualserver_status: string;
+      virtualserver_id: number;
+      virtualserver_unique_identifier: string;
+      virtualserver_port: number;
+      client_id: number;
+      client_channel_id: number;
+      client_nickname: string;
+      client_database_id: number;
+      cient_login_name: string;
+      client_unique_identifier: string;
+      client_origin_server_id: number;
+    }
+
+    interface ClientMovedResponse {
+      client: TeamSpeakClient;
+      channel: TeamSpeakChannel;
+      reasonid: number;
+    }
+
+    interface ServerGroupClientListResponse {
+      cldbid: number;
+      client_nickname: string;
+      client_unique_identifier: string;
+    }
+
+    interface DisconnectedClient {
+      clid: number;
+      cid: number;
+      client_database_id: number;
+      client_nickname: string;
+      client_type: ClientType
+      client_away: number;
+      client_away_message: string | undefined;
+      client_flag_talking: number;
+      client_input_muted: number;
+      client_output_muted: number;
+      client_input_hardware: number;
+      client_output_hardware: number;
+      client_talk_power: number;
+      client_is_talker: number;
+      client_is_priority_speaker: number;
+      client_is_recording: number;
+      client_is_channel_commander: number;
+      client_unique_identifier: string;
+      client_servergroups: number[];
+      client_channel_group_id: number;
+      client_channel_group_inherited_channel_id: number;
+      client_version: string;
+      client_platform: string;
+      client_idle_time: number;
+      client_created: number;
+      client_lastconnected: number;
+      client_icon_id: number;
+      client_country: string | undefined;
+      connection_client_ip: string;
+    }
+
+    interface DisconnectEvent {
+      cfid: number;
+      ctid: number;
+      reasonid: number;
+      reasonmsg: string;
+      clid: number;
+    }
+
+    interface ClientDisconnectResponse {
+      client: DisconnectedClient;
+      event: DisconnectEvent;
     }
 }
 
@@ -48,6 +121,9 @@ declare namespace TeamSpeak3 {
 interface TeamSpeak3 {
   // Type-safe events.
   on(event: 'textmessage', listener: (data: TeamSpeak3.MessageData) => void): this;
+  on(event: 'clientconnect', listener: (data: { client: TeamSpeakClient }) => void): this;
+  on(event: 'clientmoved', listener: (data: ClientMovedResponse) => void): this;
+  on(event: string, listener: Function): this
 }
 
 declare class TeamSpeak3 extends EventEmitter {
@@ -235,7 +311,7 @@ declare class TeamSpeak3 extends EventEmitter {
      * Displays the IDs of all clients currently residing in the server group.
      * @param - the ServerGroup id
      */
-    serverGroupClientList(sgid: number): Promise<any>;
+    serverGroupClientList(sgid: number): Promise<ServerGroupClientListResponse[] | ServerGroupClientListResponse>;
 
     /**
      * Adds the client to the server group specified with sgid.
@@ -865,7 +941,7 @@ declare class TeamSpeak3 extends EventEmitter {
      * Lists all Clients with a given Filter
      * @param - Filter Object
      */
-    clientList(filter: any): Promise<TeamSpeakClient[]>;
+    clientList(filter?: any): Promise<TeamSpeakClient[]>;
 
     /**
      * Displays a list of files and directories stored in the specified channels file repository.
