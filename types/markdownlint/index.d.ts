@@ -2,6 +2,7 @@
 // Project: https://github.com/DavidAnson/markdownlint
 // Definitions by: ark120202 <https://github.com/ark120202>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare function markdownlint(
     options: markdownlint.MarkdownlintOptions,
@@ -102,7 +103,7 @@ declare namespace markdownlint {
             indent?: number;
         };
 
-        "trailing-spaces"?: boolean | {
+        "no-trailing-spaces"?: boolean | {
             br_spaces?: number;
             list_item_empty_lines?: boolean
         };
