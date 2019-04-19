@@ -12,13 +12,13 @@ amplifier.subscribe("nodataexample", () => {
 
 amplifier.publish("nodataexample");
 
-amplifier.subscribe("dataexample", data => {
+amplifier.subscribe("dataexample", (data: any) => {
     alert(data.foo); // bar
 });
 
 amplifier.publish("dataexample", { foo: "bar" });
 
-amplifier.subscribe("dataexample2", (param1, param2) => {
+amplifier.subscribe("dataexample2", (param1: any, param2: any) => {
     alert(param1 + param2); // barbaz
 });
 
@@ -28,19 +28,19 @@ amplifier.publish("dataexample2", "bar", "baz");
 
 // Subscribe and publish with context and data
 
-amplifier.subscribe("datacontextexample", $("p:first"), data => {
-    this.text(data.exampleText); // first p element would have "foo bar baz" as text
+amplifier.subscribe("datacontextexample", $("p:first"), (data: any) => {
+    alert(data.exampleText); // first p element would have "foo bar baz" as text
 });
 
 amplifier.publish("datacontextexample", { exampleText: "foo bar baz" });
 
 // Subscribe to a topic with high priority
 
-amplifier.subscribe("priorityexample", data => {
+amplifier.subscribe("priorityexample", (data: any) => {
     alert(data.foo);
 });
 
-amplifier.subscribe("priorityexample", data => {
+amplifier.subscribe("priorityexample", (data: any) => {
     if (data.foo === "oops") {
         return false;
     }
@@ -80,7 +80,7 @@ amplifier.request.define("ajaxExample1", "ajax", {
 });
 
 // later in code
-amplifier.request("ajaxExample1", data => {
+amplifier.request("ajaxExample1", (data: any) => {
     data.foo; // bar
 });
 
@@ -94,12 +94,12 @@ amplifier.request.define("ajaxExample2", "ajax", {
 });
 
 // later in code
-amplifier.request("ajaxExample2", data => {
+amplifier.request("ajaxExample2", (data: any) => {
     data.foo; // bar
 });
 
 // a second call will result in pulling from the cache
-amplifier.request("ajaxExample2", data => {
+amplifier.request("ajaxExample2", (data: any) => {
     data.baz; // qux
 });
 
@@ -116,11 +116,11 @@ amplifier.request("ajaxRESTFulExample",
         type: "foo",
         id: "bar"
     },
-    data => {
+    (data: any) => {
         // /myRESTFulApi/foo/bar was the URL used
         data.foo; // bar
     }
-    );
+);
 
 // POST data with Ajax
 
@@ -135,10 +135,10 @@ amplifier.request("ajaxPostExample",
         type: "foo",
         id: "bar"
     },
-    data => {
+    (data: any) => {
         data.foo; // bar
     }
-    );
+);
 // Using data maps
 
 //  When searching Twitter, the key for the search phrase is q.If we want a more descriptive name, such as term, we can use a data map:
@@ -158,7 +158,7 @@ amplifier.request("twitter-search", { term: "amplifyjs" });
 amplifier.request.define("twitter-mentions", "ajax", {
     url: "http://search.twitter.com/search.json",
     dataType: "jsonp",
-    dataMap: data => ({ q: "@" + data.user }),
+    dataMap: (data: any) => ({ q: "@" + data.user }),
 });
 
 amplifier.request("twitter-mentions", { user: "amplifyjs" });
@@ -167,7 +167,7 @@ amplifier.request("twitter-mentions", { user: "amplifyjs" });
 
 // Example:
 
-const appEnvelopeDecoder: amplifier.Decoder = (data, status, xhr, success, error) => {
+const appEnvelopeDecoder: amplifier.Decoder = (data: any, status: any, xhr: any, success: any, error: any) => {
     switch (data.status) {
         case "success":
             success(data.data);
@@ -205,7 +205,7 @@ amplifier.request({
     success(data) {
         data.foo; // bar
     },
-    error(message, level) {
+    error(message: any, level: any) {
         alert("always handle errors with alerts.");
     }
 });
@@ -217,7 +217,7 @@ amplifier.request({
 amplifier.request.define("decoderSingleExample", "ajax", {
     url: "/myAjaxUrl",
     type: "POST",
-    decoder(data, status, xhr, success, error) {
+    decoder(data: any, status: any, xhr: any, success: any, error: any) {
         switch (data.status) {
             case "success":
                 success(data.data);
@@ -235,10 +235,10 @@ amplifier.request.define("decoderSingleExample", "ajax", {
 
 amplifier.request({
     resourceId: "decoderSingleExample",
-    success: data => {
+    success: (data: any) => {
         data.foo; // bar
     },
-    error: (message, level) => {
+    error: (message: any, level: any) => {
         alert("always handle errors with alerts.");
     }
 });
@@ -253,8 +253,8 @@ amplifier.request.define("statusExample1", "ajax", {
 
 amplifier.request({
     resourceId: "statusExample1",
-    success: (data, status) => {
+    success: (data: any, status: any) => {
     },
-    error: (data, status) => {
+    error: (data: any, status: any) => {
     }
 });
