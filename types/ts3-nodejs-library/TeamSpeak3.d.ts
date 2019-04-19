@@ -5,9 +5,6 @@ import TeamSpeakServer = require('./property/Server');
 import TeamSpeakServerGroup = require('./property/ServerGroup');
 import TeamSpeakChannelGroup = require('./property/ChannelGroup');
 
-// For the buffer type.
-import * as stream from 'steam';
-
 // We need this namespace, becaue we can't just export the interface directly,
 // as it would conflict with export = TeamSpeak3.
 declare namespace TeamSpeak3 {
@@ -29,6 +26,28 @@ declare namespace TeamSpeak3 {
         /** Maximum wait time for the connection to get established. Defaults to 20000. */
         readyTimeout?: number;
     }
+
+    enum TargetMode {
+      CLIENT = 1,
+      CHANNEL = 2,
+      VIRTUAL_SERVER = 3
+    }
+
+    interface MessageData {
+      invoker: TeamSpeakClient;
+      msg: string;
+      targetmode: TargetMode
+    }
+
+    interface WhoAmIResponse {
+      
+    }
+}
+
+
+interface TeamSpeak3 {
+  // Type-safe events.
+  on(event: 'textmessage', listener: (data: TeamSpeak3.MessageData) => void): this;
 }
 
 declare class TeamSpeak3 extends EventEmitter {
@@ -143,7 +162,7 @@ declare class TeamSpeak3 extends EventEmitter {
     /**
      * Displays information about your current ServerQuery connection including your loginname, etc.
      */
-    whoami(): Promise<any>;
+    whoami(): Promise<TeamSpeak3.WhoAmIResponse>;
 
     /**
      * Displays detailed configuration information about the selected virtual server
