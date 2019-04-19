@@ -595,7 +595,7 @@ const allSecureStoreKeychainAccessibleValues: number[] = [
         </Svg.Defs>
         <Svg.G transform="translate(0, 0)" y={20}>
             <Svg.Text fill="blue" transform={{ translateX: 0, translateY: 0 }}>
-                <Svg.TextPath href="#path" startOffset="-10%">
+                <Svg.TextPath href="#path" startOffset="-10%" midLine="smooth">
                     We go up and down,
                     <Svg.TSpan fill="red" dy="5,5,5">then up again</Svg.TSpan>
                 </Svg.TextPath>
@@ -609,7 +609,7 @@ const allSecureStoreKeychainAccessibleValues: number[] = [
         </Svg.G>
         <Svg.Use href="#shape" transform="translate(0, 0)" x="20" y="0" />
         <Svg.Use href="#shape" transform={{ translateX: 0, translateY: 0 }} x="20" y="0" width="20" height="20"/>
-        <Svg.Symbol id="symbol" viewBox="0 0 150 110" width="100" height="50">
+        <Svg.Symbol id="symbol" viewBox="0 0 150 110">
             <Svg.Circle cx="50" cy="50" r="40" strokeWidth="8" stroke="red" fill="red"/>
             <Svg.Circle cx="90" cy="60" r="40" strokeWidth="8" stroke="green" fill="white"/>
         </Svg.Symbol>

@@ -2065,13 +2065,13 @@ declare module "dns" {
         family: number;
     }
 
-    export function lookup(hostname: string, family: number, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
-    export function lookup(hostname: string, options: LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
-    export function lookup(hostname: string, options: LookupAllOptions, callback: (err: NodeJS.ErrnoException, addresses: LookupAddress[]) => void): void;
-    export function lookup(hostname: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, address: string | LookupAddress[], family: number) => void): void;
-    export function lookup(hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+    export function lookup(hostname: string, family: number, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void): void;
+    export function lookup(hostname: string, options: LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void): void;
+    export function lookup(hostname: string, options: LookupAllOptions, callback: (err: NodeJS.ErrnoException | null, addresses: LookupAddress[]) => void): void;
+    export function lookup(hostname: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException | null, address: string | LookupAddress[], family: number) => void): void;
+    export function lookup(hostname: string, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void): void;
 
-    export function lookupService(address: string, port: number, callback: (err: NodeJS.ErrnoException, hostname: string, service: string) => void): void;
+    export function lookupService(address: string, port: number, callback: (err: NodeJS.ErrnoException | null, hostname: string, service: string) => void): void;
 
     export interface MxRecord {
         priority: number;
@@ -2104,31 +2104,31 @@ declare module "dns" {
         name: string;
     }
 
-    export function resolve(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    export function resolve(hostname: string, rrtype: "A", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    export function resolve(hostname: string, rrtype: "AAAA", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    export function resolve(hostname: string, rrtype: "CNAME", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    export function resolve(hostname: string, rrtype: "MX", callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
-    export function resolve(hostname: string, rrtype: "NAPTR", callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
-    export function resolve(hostname: string, rrtype: "NS", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    export function resolve(hostname: string, rrtype: "PTR", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    export function resolve(hostname: string, rrtype: "SOA", callback: (err: NodeJS.ErrnoException, addresses: SoaRecord) => void): void;
-    export function resolve(hostname: string, rrtype: "SRV", callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
-    export function resolve(hostname: string, rrtype: "TXT", callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
-    export function resolve(hostname: string, rrtype: string, callback: (err: NodeJS.ErrnoException, addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][]) => void): void;
+    export function resolve(hostname: string, callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "A", callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "AAAA", callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "CNAME", callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "MX", callback: (err: NodeJS.ErrnoException | null, addresses: MxRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "NAPTR", callback: (err: NodeJS.ErrnoException | null, addresses: NaptrRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "NS", callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "PTR", callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "SOA", callback: (err: NodeJS.ErrnoException | null, addresses: SoaRecord) => void): void;
+    export function resolve(hostname: string, rrtype: "SRV", callback: (err: NodeJS.ErrnoException | null, addresses: SrvRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "TXT", callback: (err: NodeJS.ErrnoException | null, addresses: string[][]) => void): void;
+    export function resolve(hostname: string, rrtype: string, callback: (err: NodeJS.ErrnoException | null, addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][]) => void): void;
 
-    export function resolve4(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    export function resolve6(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    export function resolveCname(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    export function resolveMx(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
-    export function resolveNaptr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
-    export function resolveNs(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    export function resolvePtr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    export function resolveSoa(hostname: string, callback: (err: NodeJS.ErrnoException, address: SoaRecord) => void): void;
-    export function resolveSrv(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
-    export function resolveTxt(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
+    export function resolve4(hostname: string, callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
+    export function resolve6(hostname: string, callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
+    export function resolveCname(hostname: string, callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
+    export function resolveMx(hostname: string, callback: (err: NodeJS.ErrnoException | null, addresses: MxRecord[]) => void): void;
+    export function resolveNaptr(hostname: string, callback: (err: NodeJS.ErrnoException | null, addresses: NaptrRecord[]) => void): void;
+    export function resolveNs(hostname: string, callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
+    export function resolvePtr(hostname: string, callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
+    export function resolveSoa(hostname: string, callback: (err: NodeJS.ErrnoException | null, address: SoaRecord) => void): void;
+    export function resolveSrv(hostname: string, callback: (err: NodeJS.ErrnoException | null, addresses: SrvRecord[]) => void): void;
+    export function resolveTxt(hostname: string, callback: (err: NodeJS.ErrnoException | null, addresses: string[][]) => void): void;
 
-    export function reverse(ip: string, callback: (err: NodeJS.ErrnoException, hostnames: string[]) => void): void;
+    export function reverse(ip: string, callback: (err: NodeJS.ErrnoException | null, hostnames: string[]) => void): void;
     export function setServers(servers: string[]): void;
 
     //Error codes
@@ -2572,56 +2572,56 @@ declare module "fs" {
      * Asynchronous rename.
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
-    export function rename(oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function rename(oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     /**
      * Synchronous rename
      */
     export function renameSync(oldPath: string, newPath: string): void;
-    export function truncate(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function truncate(path: string | Buffer, len: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function truncate(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
+    export function truncate(path: string | Buffer, len: number, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     export function truncateSync(path: string | Buffer, len?: number): void;
-    export function ftruncate(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function ftruncate(fd: number, len: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function ftruncate(fd: number, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
+    export function ftruncate(fd: number, len: number, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     export function ftruncateSync(fd: number, len?: number): void;
-    export function chown(path: string | Buffer, uid: number, gid: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function chown(path: string | Buffer, uid: number, gid: number, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     export function chownSync(path: string | Buffer, uid: number, gid: number): void;
-    export function fchown(fd: number, uid: number, gid: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function fchown(fd: number, uid: number, gid: number, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     export function fchownSync(fd: number, uid: number, gid: number): void;
-    export function lchown(path: string | Buffer, uid: number, gid: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function lchown(path: string | Buffer, uid: number, gid: number, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     export function lchownSync(path: string | Buffer, uid: number, gid: number): void;
-    export function chmod(path: string | Buffer, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function chmod(path: string | Buffer, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function chmod(path: string | Buffer, mode: number, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
+    export function chmod(path: string | Buffer, mode: string, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     export function chmodSync(path: string | Buffer, mode: number): void;
     export function chmodSync(path: string | Buffer, mode: string): void;
-    export function fchmod(fd: number, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function fchmod(fd: number, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function fchmod(fd: number, mode: number, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
+    export function fchmod(fd: number, mode: string, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     export function fchmodSync(fd: number, mode: number): void;
     export function fchmodSync(fd: number, mode: string): void;
-    export function lchmod(path: string | Buffer, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function lchmod(path: string | Buffer, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function lchmod(path: string | Buffer, mode: number, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
+    export function lchmod(path: string | Buffer, mode: string, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     export function lchmodSync(path: string | Buffer, mode: number): void;
     export function lchmodSync(path: string | Buffer, mode: string): void;
-    export function stat(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
-    export function lstat(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
-    export function fstat(fd: number, callback?: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
+    export function stat(path: string | Buffer, callback?: (err: NodeJS.ErrnoException | null, stats: Stats) => any): void;
+    export function lstat(path: string | Buffer, callback?: (err: NodeJS.ErrnoException | null, stats: Stats) => any): void;
+    export function fstat(fd: number, callback?: (err: NodeJS.ErrnoException | null, stats: Stats) => any): void;
     export function statSync(path: string | Buffer): Stats;
     export function lstatSync(path: string | Buffer): Stats;
     export function fstatSync(fd: number): Stats;
-    export function link(srcpath: string | Buffer, dstpath: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function link(srcpath: string | Buffer, dstpath: string | Buffer, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     export function linkSync(srcpath: string | Buffer, dstpath: string | Buffer): void;
-    export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: string, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     export function symlinkSync(srcpath: string | Buffer, dstpath: string | Buffer, type?: string): void;
-    export function readlink(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, linkString: string) => any): void;
+    export function readlink(path: string | Buffer, callback?: (err: NodeJS.ErrnoException | null, linkString: string) => any): void;
     export function readlinkSync(path: string | Buffer): string;
-    export function realpath(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
-    export function realpath(path: string | Buffer, cache: { [path: string]: string }, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
+    export function realpath(path: string | Buffer, callback?: (err: NodeJS.ErrnoException | null, resolvedPath: string) => any): void;
+    export function realpath(path: string | Buffer, cache: { [path: string]: string }, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => any): void;
     export function realpathSync(path: string | Buffer, cache?: { [path: string]: string }): string;
     /**
      * Asynchronous unlink - deletes the file specified in {path}
      *
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
-    export function unlink(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function unlink(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     /**
      * Synchronous unlink - deletes the file specified in {path}
      */
@@ -2631,7 +2631,7 @@ declare module "fs" {
      *
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
-    export function rmdir(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function rmdir(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     /**
      * Synchronous rmdir - removes the directory specified in {path}
      */
@@ -2641,19 +2641,19 @@ declare module "fs" {
      *
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
-    export function mkdir(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function mkdir(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     /**
      * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
-    export function mkdir(path: string | Buffer, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function mkdir(path: string | Buffer, mode: number, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     /**
      * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
-    export function mkdir(path: string | Buffer, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function mkdir(path: string | Buffer, mode: string, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     /**
      * Synchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
@@ -2671,7 +2671,7 @@ declare module "fs" {
      *
      * @param callback The created folder path is passed as a string to the callback's second parameter.
      */
-    export function mkdtemp(prefix: string, callback?: (err: NodeJS.ErrnoException, folder: string) => void): void;
+    export function mkdtemp(prefix: string, callback?: (err: NodeJS.ErrnoException | null, folder: string) => void): void;
     /**
      * Synchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      *
@@ -2683,26 +2683,26 @@ declare module "fs" {
      * @param path A path to a file.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdir(path: string | Buffer, options: { encoding: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+    export function readdir(path: string | Buffer, options: { encoding: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException | null, files: string[]) => void): void;
        /**
      * Asynchronous readdir(3) - read a directory.
      * @param path A path to a file.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdir(path: string | Buffer, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, files: Buffer[]) => void): void;
+    export function readdir(path: string | Buffer, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException | null, files: Buffer[]) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
      * @param path A path to a file.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdir(path: string | Buffer, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[] | Buffer[]) => void): void;
+    export function readdir(path: string | Buffer, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException | null, files: string[] | Buffer[]) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
      * @param path A path to a file.
      */
-    export function readdir(path: string | Buffer, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+    export function readdir(path: string | Buffer, callback: (err: NodeJS.ErrnoException | null, files: string[]) => void): void;
         /**
      * Synchronous readdir(3) - read a directory.
      * @param path A path to a file.
@@ -2723,60 +2723,60 @@ declare module "fs" {
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function readdirSync(path: string | Buffer, options?: { encoding?: string | null } | string | null): string[] | Buffer[];
-    export function close(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function close(fd: number, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     export function closeSync(fd: number): void;
-    export function open(path: string | Buffer, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
-    export function open(path: string | Buffer, flags: string | number, mode: number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
+    export function open(path: string | Buffer, flags: string | number, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
+    export function open(path: string | Buffer, flags: string | number, mode: number, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
     export function openSync(path: string | Buffer, flags: string | number, mode?: number): number;
-    export function utimes(path: string | Buffer, atime: number, mtime: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function utimes(path: string | Buffer, atime: Date, mtime: Date, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function utimes(path: string | Buffer, atime: number, mtime: number, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
+    export function utimes(path: string | Buffer, atime: Date, mtime: Date, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     export function utimesSync(path: string | Buffer, atime: number, mtime: number): void;
     export function utimesSync(path: string | Buffer, atime: Date, mtime: Date): void;
-    export function futimes(fd: number, atime: number, mtime: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function futimes(fd: number, atime: Date, mtime: Date, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function futimes(fd: number, atime: number, mtime: number, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
+    export function futimes(fd: number, atime: Date, mtime: Date, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     export function futimesSync(fd: number, atime: number, mtime: number): void;
     export function futimesSync(fd: number, atime: Date, mtime: Date): void;
-    export function fsync(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function fsync(fd: number, callback?: (err?: NodeJS.ErrnoException | null) => void): void;
     export function fsyncSync(fd: number): void;
-    export function write(fd: number, buffer: Buffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
-    export function write(fd: number, buffer: Buffer, offset: number, length: number, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
-    export function write(fd: number, data: any, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-    export function write(fd: number, data: any, offset: number, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-    export function write(fd: number, data: any, offset: number, encoding: string, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
+    export function write(fd: number, buffer: Buffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException | null, written: number, buffer: Buffer) => void): void;
+    export function write(fd: number, buffer: Buffer, offset: number, length: number, callback?: (err: NodeJS.ErrnoException | null, written: number, buffer: Buffer) => void): void;
+    export function write(fd: number, data: any, callback?: (err: NodeJS.ErrnoException | null, written: number, str: string) => void): void;
+    export function write(fd: number, data: any, offset: number, callback?: (err: NodeJS.ErrnoException | null, written: number, str: string) => void): void;
+    export function write(fd: number, data: any, offset: number, encoding: string, callback?: (err: NodeJS.ErrnoException | null, written: number, str: string) => void): void;
     export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number | null): number;
     export function writeSync(fd: number, data: any, position?: number | null, enconding?: string): number;
-    export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
+    export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: Buffer) => void): void;
     export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number | null): number;
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
-    export function readFile(filename: string, encoding: null, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
-    export function readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-    export function readFile(filename: string, encoding: string | null, callback: (err: NodeJS.ErrnoException, data: string | Buffer) => void): void;
+    export function readFile(filename: string, encoding: null, callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void): void;
+    export function readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException | null, data: string) => void): void;
+    export function readFile(filename: string, encoding: string | null, callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void): void;
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
-    export function readFile(filename: string, options: { encoding: null; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
-    export function readFile(filename: string, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-    export function readFile(filename: string, options: { encoding: string | null; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string | Buffer) => void): void;
+    export function readFile(filename: string, options: { encoding: null; flag?: string; }, callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void): void;
+    export function readFile(filename: string, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException | null, data: string) => void): void;
+    export function readFile(filename: string, options: { encoding: string | null; flag?: string; }, callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void): void;
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
-    export function readFile(filename: string, options: { flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+    export function readFile(filename: string, options: { flag?: string; }, callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void): void;
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
-    export function readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+    export function readFile(filename: string, callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void): void;
     /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      */
@@ -2797,17 +2797,17 @@ declare module "fs" {
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
      */
     export function readFileSync(filename: string, options?: { flag?: string; }): Buffer;
-    export function writeFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
-    export function writeFile(filename: string, data: any, encoding: string, callback: (err: NodeJS.ErrnoException) => void): void;
-    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
-    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException | null) => void): void;
+    export function writeFile(filename: string, data: any, encoding: string, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException | null) => void): void;
+    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException | null) => void): void;
     export function writeFileSync(filename: string, data: any, encoding: string): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
-    export function appendFile(filename: string, data: any, encoding: string, callback: (err: NodeJS.ErrnoException) => void): void;
-    export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
-    export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
-    export function appendFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function appendFile(filename: string, data: any, encoding: string, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException | null) => void): void;
+    export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException | null) => void): void;
+    export function appendFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException | null) => void): void;
     export function appendFileSync(filename: string, data: any, encoding: string): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
@@ -2948,8 +2948,8 @@ declare module "fs" {
     }
 
     /** Tests a user's permissions for the file specified by path. */
-    export function access(path: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
-    export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function access(path: string | Buffer, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException | null) => void): void;
     /** Synchronous version of fs.access. This throws if any accessibility checks fail, and does nothing otherwise. */
     export function accessSync(path: string | Buffer, mode?: number): void;
     export function createReadStream(path: string | Buffer, options?: {
