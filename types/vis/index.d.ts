@@ -25,6 +25,7 @@ export type MomentConstructor = MomentConstructor1 | MomentConstructor2;
 export type IdType = string | number;
 export type SubgroupType = IdType;
 export type DateType = Date | number | string;
+export type DirectionType = 'from' | 'to';
 export type HeightWidthType = IdType;
 export type TimelineItemType = 'box' | 'point' | 'range' | 'background';
 export type TimelineAlignType = 'auto' | 'center' | 'left' | 'right';
@@ -1339,7 +1340,7 @@ export class Network {
    *
    * @param nodeOrEdgeId a node or edge id
    */
-  getConnectedNodes(nodeOrEdgeId: IdType): IdType[] | Array<{ fromId: IdType, toId: IdType }>;
+  getConnectedNodes(nodeOrEdgeId: IdType, direction?: DirectionType): IdType[] | Array<{ fromId: IdType, toId: IdType }>;
 
   /**
    * Returns an array of edgeIds of the edges connected to this node.

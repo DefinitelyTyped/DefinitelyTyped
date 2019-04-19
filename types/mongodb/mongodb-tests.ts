@@ -33,7 +33,8 @@ const options: mongodb.MongoClientOptions = {
     promoteBuffers: false,
     useNewUrlParser: false,
     authMechanism: 'SCRAM-SHA-1',
-    forceServerObjectId: false
+    forceServerObjectId: false,
+    promiseLibrary: Promise,
 };
 
 mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError, client: mongodb.MongoClient) => {
