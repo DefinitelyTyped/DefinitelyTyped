@@ -859,6 +859,12 @@
             "asOfVersion": "3.3.0"
         },
         {
+            "libraryName": "escape-string-regexp",
+            "typingsPackageName": "escape-string-regexp",
+            "sourceRepoURL": "https://github.com/sindresorhus/escape-string-regexp",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "eventemitter2",
             "typingsPackageName": "eventemitter2",
             "sourceRepoURL": "https://github.com/asyncly/EventEmitter2",

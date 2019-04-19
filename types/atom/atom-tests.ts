@@ -17,6 +17,7 @@ declare const mouseEvent: MouseEvent;
 
 declare let buffer: Atom.TextBuffer;
 declare const color: Atom.Color;
+declare let maybeCursor: Atom.Cursor | undefined;
 declare let cursor: Atom.Cursor;
 declare let cursors: Atom.Cursor[];
 declare let decoration: Atom.Decoration;
@@ -2789,7 +2790,7 @@ function testTextEditor() {
     editor.moveToBeginningOfPreviousParagraph();
     editor.selectLargerSyntaxNode();
     editor.selectSmallerSyntaxNode();
-    cursor = editor.getLastCursor();
+    maybeCursor = editor.getLastCursor();
 
     str = editor.getWordUnderCursor();
     str = editor.getWordUnderCursor({});
