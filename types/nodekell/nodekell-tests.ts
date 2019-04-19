@@ -868,6 +868,42 @@ describe('rangeOf', () => {
     });
 });
 
+describe('firstOrGet', () => {
+    it('from Normal Value And Supply Normal Value', async () => {
+        const t = [1, 2, 3, 4, 5];
+        const y = 'y' as string;
+
+        const r0 = await F.firstOrGet<number, string>(y)(t); // $ExpectType string | number
+        const r1 = await F.firstOrGet(y, t); // $ExpectType string | number
+    });
+
+    it('from Normal Value And Supply Normal Function', async () => {
+        const t = [1, 2, 3, 4, 5];
+        const y1 = () => () => 'y';
+        const y2 = () => async () => 'y';
+
+        const r0 = await F.firstOrGet<number, string>(y1())(t); // $ExpectType string | number
+        const r1 = await F.firstOrGet(y2(), t); // $ExpectType string | number
+    });
+
+    it('from Promise Value And Supply Promise Value', async () => {
+        const t = [Promise.resolve(1), 2, 3, 4, 5];
+        const y = Promise.resolve('y');
+
+        const r0 = await F.firstOrGet<number, string>(y)(t); // $ExpectType string | number
+        const r1 = await F.firstOrGet(y, t); // $ExpectType string | number
+    });
+
+    it('from Promise Value And Supply Promise Wrapped Function', async () => {
+        const t = [Promise.resolve(1), 2, 3, 4, 5];
+        const y1 = () => () => 'y';
+        const y2 = () => async () => 'y';
+
+        const r0 = await F.firstOrGet<number, string>(Promise.resolve(y1()))(t); // $ExpectType string | number
+        const r1 = await F.firstOrGet(Promise.resolve(y2()), t); // $ExpectType string | number
+    });
+});
+
 describe('emptyThen', () => {
 	it('from Normal Value', async () => {
 		const testSupplyFunc = (i: string[]) => () => i;
