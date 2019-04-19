@@ -241,6 +241,7 @@ declare namespace Flexmonster {
             showOneMeasureSelection?: boolean;
             position?: string;
             pieDataIndex?: string;
+            axisShortNumberFormat?: boolean;
         };
         grid?: {
             showFilter?: boolean;
@@ -287,6 +288,9 @@ declare namespace Flexmonster {
         showDrillThroughConfigurator?: boolean;
         grouping?: boolean;
         showAllFieldsDrillThrough?: boolean;
+        validateFormulas?: boolean;
+        showFieldListSearch?: boolean;
+        strictDataTypes?: boolean;
     }
 
     interface PrintOptions {

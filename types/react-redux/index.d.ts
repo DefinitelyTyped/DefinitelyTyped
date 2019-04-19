@@ -171,7 +171,7 @@ export interface Connect {
 
     <no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
         mapStateToProps: null | undefined,
-        mapDispatchToProps: TDispatchProps,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     ): InferableComponentEnhancerWithProps<
         ResolveThunks<TDispatchProps>,
         TOwnProps
@@ -184,7 +184,7 @@ export interface Connect {
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
-        mapDispatchToProps: TDispatchProps,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     ): InferableComponentEnhancerWithProps<
         TStateProps & ResolveThunks<TDispatchProps>,
         TOwnProps
@@ -231,7 +231,7 @@ export interface Connect {
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
         mapStateToProps: null | undefined,
-        mapDispatchToProps: TDispatchProps,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
         options: Options<{}, TStateProps, TOwnProps>
     ): InferableComponentEnhancerWithProps<
@@ -248,7 +248,7 @@ export interface Connect {
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
-        mapDispatchToProps: TDispatchProps,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
         options: Options<State, TStateProps, TOwnProps>
     ): InferableComponentEnhancerWithProps<
@@ -439,3 +439,9 @@ export class Provider<A extends Action = AnyAction> extends Component<ProviderPr
  * redux store instead of this approeach.
  */
 export const ReactReduxContext: Context<ReactReduxContextValue>;
+
+/**
+ * Wraps ReactDOM or React Native's internal unstable_batchedUpdate function. You can use it to ensure that
+ * multiple actions dispatched outside of React only result in a single render update.
+ */
+export function batch(cb: () => void): void;

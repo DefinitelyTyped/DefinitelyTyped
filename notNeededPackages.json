@@ -73,6 +73,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "anybar",
+            "typingsPackageName": "anybar",
+            "sourceRepoURL": "https://github.com/sindresorhus/anybar",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "anydb-sql",
             "typingsPackageName": "anydb-sql",
             "sourceRepoURL": "https://github.com/doxout/anydb-sql",
@@ -151,6 +157,12 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "auto-bind",
+            "typingsPackageName": "auto-bind",
+            "sourceRepoURL": "https://github.com/sindresorhus/auto-bind",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "autobind-decorator",
             "typingsPackageName": "autobind-decorator",
             "sourceRepoURL": "https://github.com/andreypopp/autobind-decorator",
@@ -205,6 +217,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "beeper",
+            "typingsPackageName": "beeper",
+            "sourceRepoURL": "https://github.com/sindresorhus/beeper",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "BigInteger.js",
             "typingsPackageName": "big-integer",
             "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
@@ -215,6 +233,12 @@
             "typingsPackageName": "bignumber.js",
             "sourceRepoURL": "https://github.com/MikeMcl/bignumber.js/",
             "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "bin-version",
+            "typingsPackageName": "bin-version",
+            "sourceRepoURL": "https://github.com/sindresorhus/bin-version",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "bingmaps",
@@ -253,9 +277,21 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "builtin-modules",
+            "typingsPackageName": "builtin-modules",
+            "sourceRepoURL": "https://github.com/sindresorhus/builtin-modules",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "CacheFactory",
             "typingsPackageName": "cachefactory",
             "sourceRepoURL": "https://github.com/jmdobry/CacheFactory",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "callsites",
+            "typingsPackageName": "callsites",
+            "sourceRepoURL": "https://github.com/sindresorhus/callsites",
             "asOfVersion": "3.0.0"
         },
         {
@@ -269,6 +305,12 @@
             "typingsPackageName": "camelcase",
             "sourceRepoURL": "https://github.com/sindresorhus/camelcase",
             "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "camelcase-keys",
+            "typingsPackageName": "camelcase-keys",
+            "sourceRepoURL": "https://github.com/sindresorhus/camelcase-keys",
+            "asOfVersion": "5.1.0"
         },
         {
             "libraryName": "catalog",
@@ -313,9 +355,39 @@
             "asOfVersion": "0.2.2"
         },
         {
+            "libraryName": "clean-stack",
+            "typingsPackageName": "clean-stack",
+            "sourceRepoURL": "https://github.com/sindresorhus/clean-stack",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "clean-webpack-plugin",
             "typingsPackageName": "clean-webpack-plugin",
             "sourceRepoURL": "https://github.com/johnagan/clean-webpack-plugin",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "clear-module",
+            "typingsPackageName": "clear-require",
+            "sourceRepoURL": "https://github.com/sindresorhus/clear-module",
+            "asOfVersion": "3.2.0"
+        },
+        {
+            "libraryName": "cli-boxes",
+            "typingsPackageName": "cli-boxes",
+            "sourceRepoURL": "https://github.com/sindresorhus/cli-boxes",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "cli-cursor",
+            "typingsPackageName": "cli-cursor",
+            "sourceRepoURL": "https://github.com/sindresorhus/cli-cursor",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "clipboardy",
+            "typingsPackageName": "clipboardy",
+            "sourceRepoURL": "https://github.com/sindresorhus/clipboardy",
             "asOfVersion": "2.0.0"
         },
         {
@@ -329,6 +401,12 @@
             "typingsPackageName": "commander",
             "sourceRepoURL": "https://github.com/tj/commander.js",
             "asOfVersion": "2.12.2"
+        },
+        {
+            "libraryName": "condense-whitespace",
+            "typingsPackageName": "condense-whitespace",
+            "sourceRepoURL": "https://github.com/sindresorhus/condense-whitespace",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "conf",
@@ -347,6 +425,12 @@
             "typingsPackageName": "constant-case",
             "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "convert-hrtime",
+            "typingsPackageName": "convert-hrtime",
+            "sourceRepoURL": "https://github.com/sindresorhus/convert-hrtime",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "copy-text-to-clipboard",
@@ -481,10 +565,40 @@
             "asOfVersion": "7.1.1"
         },
         {
+            "libraryName": "create-html-element",
+            "typingsPackageName": "create-html-element",
+            "sourceRepoURL": "https://github.com/sindresorhus/create-html-element",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "crypto-hash",
+            "typingsPackageName": "crypto-hash",
+            "sourceRepoURL": "https://github.com/sindresorhus/crypto-hash",
+            "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "crypto-random-string",
+            "typingsPackageName": "crypto-random-string",
+            "sourceRepoURL": "https://github.com/sindresorhus/crypto-random-string",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "cycled",
+            "typingsPackageName": "cycled",
+            "sourceRepoURL": "https://github.com/sindresorhus/cycled",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "cypress",
             "typingsPackageName": "cypress",
             "sourceRepoURL": "https://cypress.io",
             "asOfVersion": "1.1.3"
+        },
+        {
+            "libraryName": "dargs",
+            "typingsPackageName": "dargs",
+            "sourceRepoURL": "https://github.com/sindresorhus/dargs",
+            "asOfVersion": "6.1.0"
         },
         {
             "libraryName": "date-fns",
@@ -497,6 +611,12 @@
             "typingsPackageName": "dd-trace",
             "sourceRepoURL": "https://github.com/DataDog/dd-trace-js",
             "asOfVersion": "0.9.0"
+        },
+        {
+            "libraryName": "debounce-fn",
+            "typingsPackageName": "debounce-fn",
+            "sourceRepoURL": "https://github.com/sindresorhus/debounce-fn",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "decamelize",
@@ -523,6 +643,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "define-lazy-prop",
+            "typingsPackageName": "define-lazy-prop",
+            "sourceRepoURL": "https://github.com/sindresorhus/define-lazy-prop",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "del",
             "typingsPackageName": "del",
             "sourceRepoURL": "https://github.com/sindresorhus/del",
@@ -541,10 +667,22 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "detect-newline",
+            "typingsPackageName": "detect-newline",
+            "sourceRepoURL": "https://github.com/sindresorhus/detect-newline",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "DevExtreme",
             "typingsPackageName": "devextreme",
             "sourceRepoURL": "http://js.devexpress.com/",
             "asOfVersion": "16.2.1"
+        },
+        {
+            "libraryName": "devtools-detect",
+            "typingsPackageName": "devtools-detect",
+            "sourceRepoURL": "https://github.com/sindresorhus/devtools-detect",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "Dexie.js",
@@ -569,6 +707,12 @@
             "typingsPackageName": "dot-case",
             "sourceRepoURL": "https://github.com/blakeembrey/dot-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "dot-prop",
+            "typingsPackageName": "dot-prop",
+            "sourceRepoURL": "https://github.com/sindresorhus/dot-prop",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "dva",
@@ -625,6 +769,48 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "electron-store",
+            "typingsPackageName": "electron-config",
+            "sourceRepoURL": "https://github.com/sindresorhus/electron-store",
+            "asOfVersion": "3.2.0"
+        },
+        {
+            "libraryName": "electron-debug",
+            "typingsPackageName": "electron-debug",
+            "sourceRepoURL": "https://github.com/sindresorhus/electron-debug",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "electron-is-dev",
+            "typingsPackageName": "electron-is-dev",
+            "sourceRepoURL": "https://github.com/sindresorhus/electron-is-dev",
+            "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "electron-store",
+            "typingsPackageName": "electron-store",
+            "sourceRepoURL": "https://github.com/sindresorhus/electron-store",
+            "asOfVersion": "3.2.0"
+        },
+        {
+            "libraryName": "electron-unhandled",
+            "typingsPackageName": "electron-unhandled",
+            "sourceRepoURL": "https://github.com/sindresorhus/electron-unhandled",
+            "asOfVersion": "2.2.0"
+        },
+        {
+            "libraryName": "electron-util",
+            "typingsPackageName": "electron-util",
+            "sourceRepoURL": "https://github.com/sindresorhus/electron-util",
+            "asOfVersion": "0.11.0"
+        },
+        {
+            "libraryName": "elegant-spinner",
+            "typingsPackageName": "elegant-spinner",
+            "sourceRepoURL": "https://github.com/sindresorhus/elegant-spinner",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "element-ready",
             "typingsPackageName": "element-ready",
             "sourceRepoURL": "https://github.com/sindresorhus/element-ready",
@@ -641,6 +827,12 @@
             "typingsPackageName": "email-validator",
             "sourceRepoURL": "https://github.com/Sembiance/email-validator",
             "asOfVersion": "1.0.6"
+        },
+        {
+            "libraryName": "empty-trash",
+            "typingsPackageName": "empty-trash",
+            "sourceRepoURL": "https://github.com/sindresorhus/empty-trash",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "env-paths",
@@ -665,6 +857,12 @@
             "typingsPackageName": "es6-promise",
             "sourceRepoURL": "https://github.com/jakearchibald/ES6-Promise",
             "asOfVersion": "3.3.0"
+        },
+        {
+            "libraryName": "escape-string-regexp",
+            "typingsPackageName": "escape-string-regexp",
+            "sourceRepoURL": "https://github.com/sindresorhus/escape-string-regexp",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "eventemitter2",
@@ -751,6 +949,12 @@
             "asOfVersion": "10.9.1"
         },
         {
+            "libraryName": "file-url",
+            "typingsPackageName": "file-url",
+            "sourceRepoURL": "https://github.com/sindresorhus/file-url",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "filenamify",
             "typingsPackageName": "filenamify",
             "sourceRepoURL": "https://github.com/sindresorhus/filenamify",
@@ -763,6 +967,18 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "filter-console",
+            "typingsPackageName": "filter-console",
+            "sourceRepoURL": "https://github.com/sindresorhus/filter-console",
+            "asOfVersion": "0.1.1"
+        },
+        {
+            "libraryName": "find-versions",
+            "typingsPackageName": "find-versions",
+            "sourceRepoURL": "https://github.com/sindresorhus/find-versions",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "FineUploader",
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
@@ -773,6 +989,12 @@
             "typingsPackageName": "firebase",
             "sourceRepoURL": "https://www.firebase.com/docs/javascript/firebase",
             "asOfVersion": "3.2.1"
+        },
+        {
+            "libraryName": "first-run",
+            "typingsPackageName": "first-run",
+            "sourceRepoURL": "https://github.com/sindresorhus/first-run",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "fkill",
@@ -829,10 +1051,22 @@
             "asOfVersion": "2.0.23"
         },
         {
+            "libraryName": "get-emails",
+            "typingsPackageName": "get-emails",
+            "sourceRepoURL": "https://github.com/sindresorhus/get-emails",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "get-port",
             "typingsPackageName": "get-port",
             "sourceRepoURL": "https://github.com/sindresorhus/get-port",
             "asOfVersion": "4.2.0"
+        },
+        {
+            "libraryName": "get-stdin",
+            "typingsPackageName": "get-stdin",
+            "sourceRepoURL": "https://github.com/sindresorhus/get-stdin",
+            "asOfVersion": "7.0.0"
         },
         {
             "libraryName": "get-stream",
@@ -841,10 +1075,28 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "get-urls",
+            "typingsPackageName": "get-urls",
+            "sourceRepoURL": "https://github.com/sindresorhus/get-urls",
+            "asOfVersion": "9.1.0"
+        },
+        {
+            "libraryName": "git-remote-origin-url",
+            "typingsPackageName": "git-remote-origin-url",
+            "sourceRepoURL": "https://github.com/sindresorhus/git-remote-origin-url",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "github",
             "typingsPackageName": "github",
             "sourceRepoURL": "https://github.com/mikedeboer/node-github",
             "asOfVersion": "7.1.0"
+        },
+        {
+            "libraryName": "github-username",
+            "typingsPackageName": "github-username",
+            "sourceRepoURL": "https://github.com/sindresorhus/github-username",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "gitlab",
@@ -871,6 +1123,12 @@
             "asOfVersion": "2.0.31"
         },
         {
+            "libraryName": "gravatar-url",
+            "typingsPackageName": "gravatar-url",
+            "sourceRepoURL": "https://github.com/sindresorhus/gravatar-url",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "griddle-react",
             "typingsPackageName": "griddle-react",
             "sourceRepoURL": "https://github.com/griddlegriddle/griddle",
@@ -895,6 +1153,12 @@
             "asOfVersion": "2.13.0"
         },
         {
+            "libraryName": "gzip-size",
+            "typingsPackageName": "gzip-size",
+            "sourceRepoURL": "https://github.com/sindresorhus/gzip-size",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "handlebars",
             "typingsPackageName": "handlebars",
             "sourceRepoURL": "https://github.com/wycats/handlebars.js",
@@ -913,6 +1177,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "has-emoji",
+            "typingsPackageName": "has-emoji",
+            "sourceRepoURL": "https://github.com/sindresorhus/has-emoji",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "has-yarn",
             "typingsPackageName": "has-yarn",
             "sourceRepoURL": "https://github.com/sindresorhus/has-yarn",
@@ -923,6 +1193,12 @@
             "typingsPackageName": "hasha",
             "sourceRepoURL": "https://github.com/sindresorhus/hasha",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "hex-rgb",
+            "typingsPackageName": "hex-rgb",
+            "sourceRepoURL": "https://github.com/sindresorhus/hex-rgb",
+            "asOfVersion": "4.1.0"
         },
         {
             "libraryName": "hibp",
@@ -989,6 +1265,12 @@
             "typingsPackageName": "immutable",
             "sourceRepoURL": "https://github.com/facebook/immutable-js",
             "asOfVersion": "3.8.7"
+        },
+        {
+            "libraryName": "in-range",
+            "typingsPackageName": "in-range",
+            "sourceRepoURL": "https://github.com/sindresorhus/in-range",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "interactjs",
@@ -1271,6 +1553,12 @@
             "typingsPackageName": "localforage-cordovasqlitedriver",
             "sourceRepoURL": "https://github.com/thgreasi/localForage-cordovaSQLiteDriver",
             "asOfVersion": "1.5.0"
+        },
+        {
+            "libraryName": "locate-path",
+            "typingsPackageName": "locate-path",
+            "sourceRepoURL": "https://github.com/sindresorhus/locate-path",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "lodash-decorators",
@@ -1861,6 +2149,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "pkg-up",
+            "typingsPackageName": "pkg-up",
+            "sourceRepoURL": "https://github.com/sindresorhus/pkg-up",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "pkg-versions",
             "typingsPackageName": "pkg-versions",
             "sourceRepoURL": "https://github.com/sindresorhus/pkg-versions",
@@ -1871,6 +2165,12 @@
             "typingsPackageName": "plottable",
             "sourceRepoURL": "http://plottablejs.org/",
             "asOfVersion": "3.7.0"
+        },
+        {
+            "libraryName": "plur",
+            "typingsPackageName": "plur",
+            "sourceRepoURL": "https://github.com/sindresorhus/plur",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "png-async",
@@ -1937,6 +2237,36 @@
             "typingsPackageName": "quick-lru",
             "sourceRepoURL": "https://github.com/sindresorhus/quick-lru",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "random-float",
+            "typingsPackageName": "random-float",
+            "sourceRepoURL": "https://github.com/sindresorhus/random-float",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "random-int",
+            "typingsPackageName": "random-int",
+            "sourceRepoURL": "https://github.com/sindresorhus/random-int",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "random-item",
+            "typingsPackageName": "random-item",
+            "sourceRepoURL": "https://github.com/sindresorhus/random-item",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "random-obj-key",
+            "typingsPackageName": "random-obj-key",
+            "sourceRepoURL": "https://github.com/sindresorhus/random-obj-key",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "random-obj-prop",
+            "typingsPackageName": "random-obj-prop",
+            "sourceRepoURL": "https://github.com/sindresorhus/random-obj-prop",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "Raven JS",
@@ -2125,12 +2455,6 @@
             "asOfVersion": "0.10.5"
         },
         {
-            "libraryName": "redux-saga-routines",
-            "typingsPackageName": "redux-saga-routines",
-            "sourceRepoURL": "https://github.com/afitiskin/redux-saga-routines#readme",
-            "asOfVersion": "2.1.0"
-        },
-        {
             "libraryName": "Redux Thunk",
             "typingsPackageName": "redux-thunk",
             "sourceRepoURL": "https://github.com/gaearon/redux-thunk",
@@ -2149,6 +2473,18 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "resolve-from",
+            "typingsPackageName": "resolve-from",
+            "sourceRepoURL": "https://github.com/sindresorhus/resolve-from",
+            "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "resolve-global",
+            "typingsPackageName": "resolve-global",
+            "sourceRepoURL": "https://github.com/sindresorhus/resolve-global",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "rest-io",
             "typingsPackageName": "rest-io",
             "sourceRepoURL": "https://github.com/EnoF/rest-io",
@@ -2159,6 +2495,12 @@
             "typingsPackageName": "rollup",
             "sourceRepoURL": "https://github.com/rollup/rollup",
             "asOfVersion": "0.54.0"
+        },
+        {
+            "libraryName": "rollup-plugin-node-resolve",
+            "typingsPackageName": "rollup-plugin-node-resolve",
+            "sourceRepoURL": "https://github.com/rollup/rollup-plugin-node-resolve",
+            "asOfVersion": "4.1.0"
         },
         {
             "libraryName": "route-recognizer",
@@ -2527,6 +2869,18 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "unique-random",
+            "typingsPackageName": "unique-random",
+            "sourceRepoURL": "https://github.com/sindresorhus/unique-random",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "unique-random-array",
+            "typingsPackageName": "unique-random-array",
+            "sourceRepoURL": "https://github.com/sindresorhus/unique-random-array",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "Universal Router",
             "typingsPackageName": "universal-router",
             "sourceRepoURL": "https://github.com/kriasoft/universal-router",
@@ -2677,6 +3031,12 @@
             "asOfVersion": "0.1.25"
         },
         {
+            "libraryName": "write-json-file",
+            "typingsPackageName": "write-json-file",
+            "sourceRepoURL": "https://github.com/sindresorhus/write-json-file",
+            "asOfVersion": "3.2.0"
+        },
+        {
             "libraryName": "x2js",
             "typingsPackageName": "x2js",
             "sourceRepoURL": "https://code.google.com/p/x2js/",
@@ -2705,6 +3065,12 @@
             "typingsPackageName": "xml-js",
             "sourceRepoURL": "https://github.com/nashwaan/xml-js",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "xmlbuilder",
+            "typingsPackageName": "xmlbuilder",
+            "sourceRepoURL": "https://github.com/oozcitak/xmlbuilder-js",
+            "asOfVersion": "11.0.1"
         },
         {
             "libraryName": "@xmpp/jid",

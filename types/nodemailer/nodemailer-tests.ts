@@ -628,8 +628,8 @@ function oauth2_2lo_test() {
         auth: {
             type: 'OAuth2',
             user: 'user@example.com',
-            serviceClient: '113600000000000000000',
-            privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...',
+            clientId: '113600000000000000000',
+            clientSecret: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...',
             accessToken: 'ya29.Xx_XX0xxxxx-xX0X0XxXXxXxXXXxX0x',
             expires: 1484314697598
         }
