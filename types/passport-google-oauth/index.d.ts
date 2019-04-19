@@ -76,7 +76,7 @@ declare class OAuth2Strategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: (error: any, user?: any) => void
+            done: VerifyFunction
         ) => void
     );
     constructor(
@@ -86,7 +86,7 @@ declare class OAuth2Strategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: (error: any, user?: any) => void
+            done: VerifyFunction
         ) => void
     );
 
