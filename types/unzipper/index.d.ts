@@ -81,7 +81,7 @@ export interface CentralDirectory {
     commentLength: number;
     files: File[];
 }
-    
+
 export interface File {
     signature: number;
     versionMadeBy: number;
@@ -105,7 +105,7 @@ export interface File {
     stream: (password?: string) => Entry;
     buffer: (password?: string) => Promise<Buffer>;
 }
-    
+
 export class ParseOptions {
     verbose?: boolean;
     path?: string;
