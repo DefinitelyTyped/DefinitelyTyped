@@ -4,6 +4,7 @@
 //                 Brice BERNARD <https://github.com/brikou>
 //                 Carlos Sanchez <https://github.com/cafesanu>
 //                 Colby M. White <https://github.com/colbywhite>
+//                 Hakier <https://github.com/hakier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chance {
@@ -28,16 +29,16 @@ declare namespace Chance {
         bool(opts?: Options): boolean;
         character(opts?: Options): string;
         floating(opts?: Options): number;
-        integer(opts?: Options): number;
+        integer(opts?: {min: number, max: number}): number;
         letter(opts?: Options): string;
         natural(opts?: Options): number;
         string(opts?: Options): string;
 
         // Text
         paragraph(opts?: Options): string;
-        sentence(opts?: Options): string;
+        sentence(opts?: {words: number}): string;
         syllable(opts?: Options): string;
-        word(opts?: Options): string;
+        word(opts?: {syllables?: number, length?: number}): string;
 
         // Person
         age(opts?: Options): number;
@@ -70,7 +71,7 @@ declare namespace Chance {
         color(opts?: Options): string;
         company(): string;
         domain(opts?: Options): string;
-        email(opts?: Options): string;
+        email(opts?: {domain: string}): string;
         fbid(): string;
         google_analytics(): string;
         hashtag(): string;
@@ -80,7 +81,7 @@ declare namespace Chance {
         profession(opts?: Options): string;
         tld(): string;
         twitter(): string;
-        url(opts?: Options): string;
+        url(opts?: {domain?: string, path?: string, extensions?: string[]}): string;
 
         // Location
         address(opts?: Options): string;
