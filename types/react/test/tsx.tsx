@@ -86,6 +86,8 @@ const FunctionComponentWithoutProps: React.FunctionComponent = (props) => {
 // React.createContext
 const ContextWithRenderProps = React.createContext('defaultValue');
 
+const ContextWithoutDefaultValue = React.createContext();
+
 // Fragments
 <div>
     <React.Fragment>
