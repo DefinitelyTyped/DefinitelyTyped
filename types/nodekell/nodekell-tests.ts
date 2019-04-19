@@ -147,8 +147,8 @@ describe('run', () => {
 		const d = F.range(50000, 0, -1);
 		const e = ['hello', ['w', Promise.resolve('o'), 'rld']];
 
-		const run1 = F.run(a, F.map(F.inc));
-		const run2 = F.run(b, F.flat, F.map(e => e - e));
+		const run1 = await F.run(a, F.map(F.inc));
+		const run2 = await F.run(b, F.flat, F.map(e => e - e));
 		const run3 = await F.run(c, F.map(F.inc), F.take(100), F.foldl1((acc, e) => acc + e));
 		const run4 = await F.run(c, F.map(e => e ** e), F.take(10), F.map(e => e % 2), F.average);
 		const run5 = await F.run(d, F.map(e => e ** 2), F.filter(e => e > 40000), F.drop(10000), F.take(200), F.foldr1(F.sub));
@@ -253,7 +253,7 @@ describe('fmap', () => {
 		const a = [[0, 1], 1, 2, 3, 4];
 
 		const r0 = F.fmap<number | number[], number>(e => e)(a); // $ExpectType AsyncIterableIterator<number>
-		const r1 = F.fmap(e => e, a); // $ExpectType AsyncIterableIterator<number>
+        const r1 = F.fmap(e => e, a); // $ExpectType AsyncIterableIterator<number>
 	});
 
 	it('from Promise Value', () => {
@@ -292,7 +292,8 @@ describe('flat', () => {
 
 		const r0 = F.flat(a); // $ExpectType AsyncIterableIterator<number | number[]>
 		const r1 = F.flat(r0); // $ExpectType AsyncIterableIterator<number>
-		const r2 = F.flat(r1); // $ExpectType AsyncIterableIterator<number>
+        const r2 = F.flat(r1); // $ExpectType AsyncIterableIterator<number>
+
 	});
 
 	it('from Promise Value', () => {

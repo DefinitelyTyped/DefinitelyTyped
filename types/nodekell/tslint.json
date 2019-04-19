@@ -5,6 +5,7 @@
         "array-type": false,
         "max-line-length": false,
         "unified-signatures": false,
-        "interface-over-type-literal": false
+        "interface-over-type-literal": false,
+        "await-promise": true
     }
 }
