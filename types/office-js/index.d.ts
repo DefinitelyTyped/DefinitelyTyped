@@ -1380,9 +1380,7 @@ declare namespace Office {
          */
         sendMessage(name: string): void;
     }
-}
 
-declare namespace Office {
     /**
      * Returns a promise of an object described in the expression. Callback is invoked only if method fails.
      * 
@@ -16399,9 +16397,7 @@ declare namespace OfficeExtension {
          */
         isNullObject: boolean;
     }
-}
 
-declare namespace OfficeExtension {
     /**
      * Specifies which properties of an object should be loaded. This load happens when the sync() method is executed.
      * This synchronizes the states between Office objects and corresponding JavaScript proxy objects.
@@ -16545,17 +16541,13 @@ declare namespace OfficeExtension {
         constructor(url: string, options?: EmbeddedOptions);
         public init(): Promise<any>;
     }
-}
 
-declare namespace OfficeExtension {
     /** Contains the result for methods that return primitive types. The object's value property is retrieved from the document after `context.sync()` is invoked. */
     class ClientResult<T> {
         /** The value of the result that is retrieved from the document after `context.sync()` is invoked. */
         value: T;
     }
-}
 
-declare namespace OfficeExtension {
     /** Configuration */
     var config: {
         /**
@@ -16626,9 +16618,7 @@ declare namespace OfficeExtension {
         /** Inner error, if applicable. */
         innerError: Error;
     }
-}
 
-declare namespace OfficeExtension {
     class ErrorCodes {
         public static accessDenied: string;
         public static generalException: string;
@@ -16643,9 +16633,7 @@ declare namespace OfficeExtension {
         public static apiNotFound: string;
         public static connectionFailure: string;
     }
-}
 
-declare namespace OfficeExtension {
     /**
      * A Promise object that represents a deferred interaction with the host Office application. 
      * The publicly-consumable {@link Office.OfficeExtension.Promise} is available starting in ExcelApi 1.2 and WordApi 1.2. 
@@ -16655,9 +16643,7 @@ declare namespace OfficeExtension {
      */
     const Promise: Office.IPromiseConstructor;
     type IPromise<T> = Promise<T>;
-}
 
-declare namespace OfficeExtension {
     /** Collection of tracked objects, contained within a request context. See "context.trackedObjects" for more information. */
     class TrackedObjects {
         /** 
@@ -16695,9 +16681,7 @@ declare namespace OfficeExtension {
          */
         remove(objects: ClientObject[]): void;
     }
-}
 
-declare namespace OfficeExtension {
     class EventHandlers<T> {
         constructor(context: ClientRequestContext, parentObject: ClientObject, name: string, eventInfo: EventInfo<T>);
         add(handler: (args: T) => Promise<any>): EventHandlerResult<T>;
@@ -16716,8 +16700,7 @@ declare namespace OfficeExtension {
         unregisterFunc: (callback: (args: any) => void) => Promise<any>;
         eventArgsTransformFunc: (args: any) => Promise<T>;
     }
-}
-declare namespace OfficeExtension {
+
     /**
     * Request URL and headers
     */
