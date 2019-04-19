@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-01-06
+// Type definitions for Google Apps Script 2019-04-09
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1195,6 +1195,7 @@ declare namespace GoogleAppsScript {
       SelectionType: typeof SelectionType;
       ShapeType: typeof ShapeType;
       SheetsChartEmbedType: typeof SheetsChartEmbedType;
+      SlideLinkingMode: typeof SlideLinkingMode;
       SlidePosition: typeof SlidePosition;
       SpacingMode: typeof SpacingMode;
       TextBaselineOffset: typeof TextBaselineOffset;

@@ -16,6 +16,7 @@
 //                 Thomas Breleur <https://github.com/thomas-b>
 //                 Antoine Boisadam <https://github.com/Antoine38660>
 //                 Dima Smirnov <https://github.com/smff>
+//                 Duy Truong <https://github.com/truongkhanhduy95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -3179,9 +3180,9 @@ declare namespace sequelize {
         $notLike: string | WherePGStatement;
         $notILike: string | WherePGStatement;
         $between: [number, number] | [Date, Date];
-        "..": [number, number];
+        "..": [number, number] | [string, string];
         $notBetween: [number, number];
-        "!..": [number, number];
+        "!..": [number, number] | [string, string];
         $overlap: [number, number] | [string, string];
         "&&": [number, number];
         $contains: any;
@@ -4345,9 +4346,9 @@ declare namespace sequelize {
         nameIndexes(indexes: string[], rawTablename: string): Promise<void>;
 
         /**
-         * Returns all foreign key constraints of a table
+         * Returns all foreign key constraints of each table in list
          */
-        getForeignKeysForTables(tableNames: string, options?: QueryInterfaceOptions): Promise<Object>;
+        getForeignKeysForTables(tableNames: string[], options?: QueryInterfaceOptions): Promise<Object>;
 
         /**
          * Removes an index of a table

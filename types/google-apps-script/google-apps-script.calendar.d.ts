@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-04-09
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module CalendarApp {
+  export module Calendar {
     /**
      * Represents a calendar that the user owns or is subscribed to.
      */
@@ -308,4 +308,4 @@ declare namespace GoogleAppsScript {
   }
 }
 
-declare var CalendarApp: GoogleAppsScript.CalendarApp.CalendarApp;
+declare var CalendarApp: GoogleAppsScript.Calendar.CalendarApp;
