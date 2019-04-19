@@ -38,15 +38,15 @@ const cerror = (...a: any[]) => {
 	}
 };
 
-const clog = (...a: any[]) => {
+/* const clog = (...a: any[]) => {
 	if (console) {
 		console.log(...a);
 	}
-};
+}; */
 
 const describe = (str: string, f: () => any) => {
     try {
-        clog(str);
+        // clog(str);
         f();
     } catch (e) {
         cerror(e);
@@ -56,7 +56,7 @@ const describe = (str: string, f: () => any) => {
 const it = (str: string, f: () => any) => {
 	try {
         f();
-        clog('\t', str);
+        // clog('\t', str);
     } catch (e) {
         cerror(e);
     }
