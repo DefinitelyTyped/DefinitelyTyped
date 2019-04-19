@@ -31,7 +31,10 @@ export namespace Plaid {
         isWebView?: boolean;
     }
 
-    type OnSuccess = (publicKey: string, metadata: OnSuccessMetaData) => void;
+    type OnSuccess = (
+        public_token: string,
+        metadata: OnSuccessMetaData
+    ) => void;
     type OnExit = (error: Error | null, metadata: OnExitMetaData) => void;
     type OnEvent = (eventName: EventName, metadata: OnEventMetaData) => void;
     type OnLoad = () => void;
