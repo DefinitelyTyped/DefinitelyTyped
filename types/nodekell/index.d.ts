@@ -301,10 +301,10 @@ export function map<T, R>(f: (elem: T) => (R | Promise<R>), iter: Iter<T | Promi
  * @param f
  * @param iter
  */
-export function fmap<T, R>(f: (elem: Extract2dArrayOrElem<Iter<T>>) => (R | Promise<R>)): (iter: Iter<T>) => AsyncIterableIterator<Extract2dArrayOrElem<R>>;
+export function fmap<T, R>(f: (elem: Extract2dArrayOrElem<Iter<T>>) => (R | Promise<R> | Iter<R> | Promise<Iter<R>>)): (iter: Iter<T>) => AsyncIterableIterator<Extract2dArrayOrElem<Iter<R>>>;
 export function fmap<T, R>(f: (elem: T) => (R | Promise<R>)): (iter: T) => AsyncIterableIterator<Extract2dArrayOrElem<R>>;
 
-export function fmap<T, R>(f: (elem: Extract2dArrayOrElem<Iter<T>>) => (R | Promise<R>), iter: Iter<T>): AsyncIterableIterator<Extract2dArrayOrElem<R>>;
+export function fmap<T, R>(f: (elem: Extract2dArrayOrElem<Iter<T>>) => (R | Promise<R> | Iter<R> | Promise<Iter<R>>), iter: Iter<T>): AsyncIterableIterator<Extract2dArrayOrElem<Iter<R>>>;
 export function fmap<T, R>(f: (elem: T) => (R | Promise<R>), iter: T): AsyncIterableIterator<Extract2dArrayOrElem<R>>;
 
 /**
@@ -325,10 +325,10 @@ export function fmap<T, R>(f: (elem: T) => (R | Promise<R>), iter: T): AsyncIter
  * @param f
  * @param iter
  */
-export function flatMap<T, R>(f: (elem: Extract2dArrayOrElem<Iter<T>>) => (R | Promise<R>)): (iter: Iter<T>) => AsyncIterableIterator<Extract2dArrayOrElem<R>>;
+export function flatMap<T, R>(f: (elem: Extract2dArrayOrElem<Iter<T>>) => (R | Promise<R> | Iter<R> | Promise<Iter<R>>)): (iter: Iter<T>) => AsyncIterableIterator<Extract2dArrayOrElem<Iter<R>>>;
 export function flatMap<T, R>(f: (elem: T) => (R | Promise<R>)): (iter: T) => AsyncIterableIterator<Extract2dArrayOrElem<R>>;
 
-export function flatMap<T, R>(f: (elem: Extract2dArrayOrElem<Iter<T>>) => (R | Promise<R>), iter: Iter<T>): AsyncIterableIterator<Extract2dArrayOrElem<R>>;
+export function flatMap<T, R>(f: (elem: Extract2dArrayOrElem<Iter<T>>) => (R | Promise<R> | Iter<R> | Promise<Iter<R>>), iter: Iter<T>): AsyncIterableIterator<Extract2dArrayOrElem<Iter<R>>>;
 export function flatMap<T, R>(f: (elem: T) => (R | Promise<R>), iter: T): AsyncIterableIterator<Extract2dArrayOrElem<R>>;
 
 /**
@@ -522,7 +522,10 @@ export function emptyThen<T, Y>(supply: () => Promise<Iter<Y | Promise<Y>>>, ite
 export function emptyThen<T, Y>(supply: () => Iter<Y | Promise<Y>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
 
 /**
- * https://github.com/rudty/nodekell#collect
+ * https://github.com/rudty/nodekell#
+ *
+ * make array
+ * iterator to array
  *
  * @param iter
  */
@@ -548,9 +551,9 @@ export function collectSet<T>(iter: Iter<T | Promise<T>>): Promise<Set<T>>;
  * @param f
  * @param iter
  */
-export function forEach<T, Y>(f: (elem: T) => (Y | Promise<Y>)): (iter: Iter<T | Promise<T>>) => Promise<Y[]>;
+export function forEach<T, R>(f: (elem: T) => (R | Promise<R>)): (iter: Iter<T | Promise<T>>) => Promise<R[]>;
 
-export function forEach<T, Y>(f: (elem: T) => (Y | Promise<Y>), iter: Iter<T | Promise<T>>): Promise<Y[]>;
+export function forEach<T, R>(f: (elem: T) => (R | Promise<R>), iter: Iter<T | Promise<T>>): Promise<R[]>;
 
 /**
  * https://github.com/rudty/nodekell#distinctby
@@ -558,9 +561,13 @@ export function forEach<T, Y>(f: (elem: T) => (Y | Promise<Y>), iter: Iter<T | P
  * @param f
  * @param iter
  */
-export function distinctBy<T, Y extends T[keyof T]>(f: (elem: T) => (Y | Promise<Y>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
+// export function distinctBy<T, Y>(f: (elem: T) => (Y | Promise<Y>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
 
-export function distinctBy<T, Y extends T[keyof T]>(f: (elem: T) => (Y | Promise<Y>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+// export function distinctBy<T, Y>(f: (elem: T) => (Y | Promise<Y>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+
+export function distinctBy<T>(f: (elem: T) => any): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
+
+export function distinctBy<T>(f: (elem: T) => any, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
 
 /**
  * https://github.com/rudty/nodekell#distinct
@@ -599,9 +606,9 @@ export function every<T>(f: (elem: T) => (boolean | Promise<boolean>), iter: Ite
 
 export function maxBy<T extends object, Y extends T[keyof T]>(f: (elem: T) => (Y | Promise<Y>), iter: Iter<T | Promise<T>>): Promise<T>; */
 
-export function maxBy<T, Y>(f: (elem: T) => (Y | Promise<Y>)): (iter: Iter<T | Promise<T>>) => Promise<T>;
+export function maxBy<T>(f: (elem: T) => any): (iter: Iter<T | Promise<T>>) => Promise<T>;
 
-export function maxBy<T, Y>(f: (elem: T) => (Y | Promise<Y>), iter: Iter<T | Promise<T>>): Promise<T>;
+export function maxBy<T>(f: (elem: T) => any, iter: Iter<T | Promise<T>>): Promise<T>;
 
 /**
  * https://github.com/rudty/nodekell#minby
@@ -613,9 +620,9 @@ export function maxBy<T, Y>(f: (elem: T) => (Y | Promise<Y>), iter: Iter<T | Pro
 
 export function minBy<T extends object, Y extends T[keyof T]>(f: (elem: T) => (Y | Promise<Y>), iter: Iter<T | Promise<T>>): Promise<T>; */
 
-export function minBy<T, Y>(f: (elem: T) => (Y | Promise<Y>)): (iter: Iter<T | Promise<T>>) => Promise<T>;
+export function minBy<T>(f: (elem: T) => any): (iter: Iter<T | Promise<T>>) => Promise<T>;
 
-export function minBy<T, Y>(f: (elem: T) => (Y | Promise<Y>), iter: Iter<T | Promise<T>>): Promise<T>;
+export function minBy<T>(f: (elem: T) => any, iter: Iter<T | Promise<T>>): Promise<T>;
 
 /**
  * https://github.com/rudty/nodekell#count
@@ -630,7 +637,7 @@ export function count<T>(iter: Iter<T | Promise<T>>): Promise<number>;
  *
  * @param iter
  */
-export function sum(iter: string): Promise<string>;
+// export function sum(iter: string): Promise<string>;
 export function sum(iter: Iter<string | Promise<string>>): Promise<string>;
 export function sum(iter: Iter<number | Promise<number>>): Promise<number>;
 
@@ -639,7 +646,7 @@ export function sum(iter: Iter<number | Promise<number>>): Promise<number>;
  *
  * @param iter
  */
-export function max(iter: string): Promise<string>;
+// export function max(iter: string): Promise<string>;
 export function max(iter: Iter<number | Promise<number>>): Promise<number>;
 export function max(iter: Iter<string | Promise<string>>): Promise<string>;
 
@@ -648,7 +655,7 @@ export function max(iter: Iter<string | Promise<string>>): Promise<string>;
  *
  * @param iter
  */
-export function min(iter: string): Promise<string>;
+// export function min(iter: string): Promise<string>;
 export function min(iter: Iter<number | Promise<number>>): Promise<number>;
 export function min(iter: Iter<string | Promise<string>>): Promise<string>;
 
@@ -1118,6 +1125,6 @@ export function pmap<T, R>(f: (elem: T) => (R | Promise<R>), iter: Iter<T | Prom
  * @param f
  * @param iter
  */
-export function pfilter<T>(f: (elem: T) => (boolean | Promise<boolean>)): (iter: Iter<T>) => AsyncIterableIterator<T>;
+export function pfilter<T>(f: (elem: T) => (boolean | Promise<boolean>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
 
-export function pfilter<T>(f: (elem: T) => (boolean | Promise<boolean>), iter: Iter<T>): AsyncIterableIterator<T>;
+export function pfilter<T>(f: (elem: T) => (boolean | Promise<boolean>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
