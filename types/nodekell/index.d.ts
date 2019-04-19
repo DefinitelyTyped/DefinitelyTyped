@@ -430,7 +430,7 @@ export function scanl1<T>(f: (a: T, b: T) => (T | Promise<T>), iter: Iter<T | Pr
  *
  * @param iter
  */
-export function reverse<T>(iter: Iter<T>): AsyncIterableIterator<ExtractPromise<T>>;
+export function reverse<T>(iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
 
 /**
  * https://github.com/rudty/nodekell#foldr
@@ -638,8 +638,8 @@ export function count<T>(iter: Iter<T | Promise<T>>): Promise<number>;
  * @param iter
  */
 // export function sum(iter: string): Promise<string>;
-export function sum(iter: Iter<string | Promise<string>>): Promise<string>;
-export function sum(iter: Iter<number | Promise<number>>): Promise<number>;
+export function sum<T extends number | string>(iter: Iter<T | Promise<T>>): Promise<T extends string ? string : number>;
+// export function sum(iter: Iter<number | Promise<number>>): Promise<number>;
 
 /**
  * https://github.com/rudty/nodekell#max
@@ -647,8 +647,8 @@ export function sum(iter: Iter<number | Promise<number>>): Promise<number>;
  * @param iter
  */
 // export function max(iter: string): Promise<string>;
-export function max(iter: Iter<number | Promise<number>>): Promise<number>;
-export function max(iter: Iter<string | Promise<string>>): Promise<string>;
+export function max<T extends number | string>(iter: Iter<T | Promise<T>>): Promise<T extends string ? string : number>;
+// export function max(iter: Iter<string | Promise<string>>): Promise<string>;
 
 /**
  * https://github.com/rudty/nodekell#min
@@ -656,8 +656,8 @@ export function max(iter: Iter<string | Promise<string>>): Promise<string>;
  * @param iter
  */
 // export function min(iter: string): Promise<string>;
-export function min(iter: Iter<number | Promise<number>>): Promise<number>;
-export function min(iter: Iter<string | Promise<string>>): Promise<string>;
+export function min<T extends number | string>(iter: Iter<T | Promise<T>>): Promise<T extends string ? string : number>;
+// export function min(iter: Iter<string | Promise<string>>): Promise<string>;
 
 /**
  * https://github.com/rudty/nodekell#average
@@ -1046,7 +1046,7 @@ export function timeout<T>(duration: () => (number | Promise<number>), job: () =
  * @param timerHandler
  * @param params
  */
-export function interval(timeout: number, timerHandler: () => any, ...params: any[]): { run: boolean; };
+export function interval(timeout: number, timerHandler: (...args: any[]) => any, ...args: any[]): { run: boolean; };
 
 /**
  * https://github.com/rudty/nodekell#rangeinterval
