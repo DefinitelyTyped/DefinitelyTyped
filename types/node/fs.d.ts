@@ -1211,6 +1211,13 @@ declare module "fs" {
      * Asynchronously reads the entire contents of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     */
+    function readFile(path: PathLike | number, callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void): void;
+
+    /**
+     * Asynchronously reads the entire contents of a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
@@ -1239,13 +1246,6 @@ declare module "fs" {
         options: { encoding?: string | null; flag?: string; } | string | undefined | null,
         callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void,
     ): void;
-
-    /**
-     * Asynchronously reads the entire contents of a file.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
-     */
-    function readFile(path: PathLike | number, callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace readFile {
