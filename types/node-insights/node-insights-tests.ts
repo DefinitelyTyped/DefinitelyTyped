@@ -1,4 +1,4 @@
-import Insights from 'node-insights';
+import Insights = require('node-insights');
 
 const INSERT_KEY = 'test-insert-key';
 const QUERY_KEY = 'test-query-key';

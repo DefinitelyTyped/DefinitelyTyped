@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export interface Config {
+interface Config {
     insertKey: string;
     queryKey: string;
     accountId: string;
@@ -15,9 +15,9 @@ export interface Config {
     gzip?: boolean;
 }
 
-export type CallbackFunc = (err: Error | null | undefined, responseBody: string) => void;
+type CallbackFunc = (err: Error | null | undefined, responseBody: string) => void;
 
-export default class Insights {
+declare class Insights {
     static collectorHost: string;
     static collectorBaseURL: string;
     static queryBaseURL: string;
@@ -83,3 +83,5 @@ export default class Insights {
      */
     send(done?: CallbackFunc): void;
 }
+
+export = Insights;
