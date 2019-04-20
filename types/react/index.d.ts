@@ -737,7 +737,7 @@ declare namespace React {
         defaultProps?: Partial<P>;
     }
 
-    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
+    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P> | FunctionComponentElement<P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
     /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =
