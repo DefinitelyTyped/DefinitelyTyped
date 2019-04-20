@@ -116,6 +116,11 @@ declare namespace TeamSpeak3 {
       client: DisconnectedClient;
       event: DisconnectEvent;
     }
+
+    interface DebugInformation {
+      type: string;
+      data: string;
+    }
 }
 
 interface TeamSpeak3 {
@@ -123,7 +128,10 @@ interface TeamSpeak3 {
   on(event: 'textmessage', listener: (data: TeamSpeak3.MessageData) => void): this;
   on(event: 'clientconnect', listener: (data: { client: TeamSpeakClient }) => void): this;
   on(event: 'clientmoved', listener: (data: TeamSpeak3.ClientMovedResponse) => void): this;
-  on(event: 'close' | 'error', listener: (err: Error) => void): this;
+  on(event: 'clientdisconnect', listener: (data: TeamSpeak3.ClientDisconnectResponse) => void): this;
+  on(event: 'close' | 'error' | 'flooding', listener: (err: Error) => void): this;
+  on(event: 'ready', listener: () => void): this;
+  on(event: 'debug', listener: (debug: TeamSpeak3.DebugInformation) => void): this;
   on(event: string, listener: () => any): this;
 }
 
