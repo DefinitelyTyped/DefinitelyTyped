@@ -102,14 +102,15 @@ declare namespace SeamlessImmutable {
 
         /** Custom implementation of the array functions, which return Immutable. */
         interface Overrides<T> {
-            map<TTarget>(mapFuction: (item: T) => TTarget): Immutable<TTarget[]>;
-            filter(filterFunction: (item: T) => boolean): Immutable<T[]>;
-            slice(start?: number, end?: number): Immutable<T[]>;
-            concat(...arr: Array<T|T[]>): Immutable<T[]>;
-            reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T): Immutable<T>;
-            reduce<TTarget>(callbackfn: (previousValue: TTarget, currentValue: T, currentIndex: number, array: T[]) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
-            reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T): Immutable<T>;
-            reduceRight<TTarget>(callbackfn: (previousValue: TTarget, currentValue: T, currentIndex: number, array: T[]) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
+                forEach(callbackfn: (value: Immutable<T>, index: number, array: Immutable<T[]>) => void, thisArg?: any): void;
+                map<TTarget>(mapFuction: (item: Immutable<T>) => TTarget): Immutable<TTarget[]>;
+                filter(filterFunction: (item: Immutable<T>) => boolean): Immutable<T[]>;
+                slice(start?: number, end?: number): Immutable<T[]>;
+                concat(...arr: Array<T | T[]>): Immutable<T[]>;
+                reduce(callbackfn: (previousValue: Immutable<T>, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => T): Immutable<T>;
+                reduce<TTarget>(callbackfn: (previousValue: TTarget, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
+                reduceRight(callbackfn: (previousValue: Immutable<T>, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => T): Immutable<T>;
+                reduceRight<TTarget>(callbackfn: (previousValue: TTarget, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
         }
 
         /** These methods are banned by seamless-immutable. */
