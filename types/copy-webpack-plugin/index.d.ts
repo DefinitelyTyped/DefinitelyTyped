@@ -1,4 +1,4 @@
-// Type definitions for copy-webpack-plugin v5.0
+// Type definitions for copy-webpack-plugin 5.0
 // Project: https://github.com/webpack-contrib/copy-webpack-plugin
 // Definitions by: 	flying-sheep <https://github.com/flying-sheep>
 // 					avin-kavish  <https://github.com/avin-kavish>
