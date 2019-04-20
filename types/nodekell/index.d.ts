@@ -209,7 +209,7 @@ export function notNil(a: any): boolean;
  * - originally allow Promise wrapped functions. but that is complicated. so don't support Promise wrapped functions type.
  * - run implement with foldl
  *
- * @param iter
+ * @param t
  * @param ...f
  */
 export function run<T>(t: T | Promise<T>): Promise<T>;
@@ -243,6 +243,8 @@ export function head<T>(iter: Iter<T | Promise<T>>): Promise<T>;
 
 /**
  * https://github.com/rudty/nodekell#tail
+ *
+ * @param iter
  */
 export function tail<T>(iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
 
@@ -649,7 +651,7 @@ export function count<T>(iter: Iter<T | Promise<T>>): Promise<number>;
  * https://github.com/rudty/nodekell#sum
  *
  * **Note**
- * - do not use anything other than can summed value
+ * - don't use anything other than can summed value
  *
  * @param iter
  */
@@ -661,7 +663,7 @@ export function sum<T>(iter: Iter<T | Promise<T>>): Promise<T>;
  * https://github.com/rudty/nodekell#max
  *
  * **Note**
- * - do not use anything other than can ordered value
+ * - don't use anything other than can ordered value
  *
  * @param iter
  */
@@ -673,7 +675,7 @@ export function max<T>(iter: Iter<T | Promise<T>>): Promise<T>;
  * https://github.com/rudty/nodekell#min
  *
  * **Note**
- * - do not use anything other than can ordered value
+ * - don't use anything other than can ordered value
  *
  * @param iter
  */
@@ -823,11 +825,11 @@ export function innerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, e
 
 // export function innerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
 
-export function innerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T1 | T2>>;
+// export function innerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T1 | T2>>;
 
-export function innerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
+// export function innerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
 
-export function innerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T1 | T2>;
+// export function innerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T1 | T2>;
 
 /**
  * https://github.com/rudty/nodekell#leftinnerjoin
@@ -862,11 +864,11 @@ export function leftInnerJoin<T1 extends object, T2 extends object>(f: (elem1: T
 
 // export function leftInnerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
 
-export function leftInnerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T1 | T2>>;
+// export function leftInnerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T1 | T2>>;
 
-export function leftInnerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
+// export function leftInnerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
 
-export function leftInnerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T1 | T2>;
+// export function leftInnerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T1 | T2>;
 
 /**
  * https://github.com/rudty/nodekell#rightinnerjoin
@@ -895,11 +897,11 @@ export function rightInnerJoin<T1 extends object, T2 extends object>(f: (elem2: 
 
 // export function rightInnerJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T2 | T1>;
 
-export function rightInnerJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T2 | T1>>;
+// export function rightInnerJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T2 | T1>>;
 
-export function rightInnerJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T2 | T1>;
+// export function rightInnerJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T2 | T1>;
 
-export function rightInnerJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T2 | T1>;
+// export function rightInnerJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T2 | T1>;
 
 /*
   outerJoinMap K2와 V2에 대해 옵셔널(optional)을 적용하고 싶은데 방법 없나
@@ -946,11 +948,11 @@ export function outerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, e
 
 // export function outerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
 
-export function outerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T1 | T2>>;
+// export function outerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T1 | T2>>;
 
-export function outerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
+// export function outerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
 
-export function outerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T1 | T2>;
+// export function outerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T1 | T2>;
 
 /**
  * https://github.com/rudty/nodekell#leftouterjoin
@@ -981,11 +983,11 @@ export function leftOuterJoin<T1 extends object, T2 extends object>(f: (elem1: T
 
 // export function leftOuterJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
 
-export function leftOuterJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T1 | T2>>;
+// export function leftOuterJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T1 | T2>>;
 
-export function leftOuterJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
+// export function leftOuterJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
 
-export function leftOuterJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T1 | T2>;
+// export function leftOuterJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T1 | T2>;
 
 /**
  * https://github.com/rudty/nodekell#rightouterjoin
@@ -1014,11 +1016,11 @@ export function rightOuterJoin<T1 extends object, T2 extends object>(f: (elem2: 
 
 // export function rightOuterJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T2 | T1>;
 
-export function rightOuterJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T2 | T1>>;
+// export function rightOuterJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T2 | T1>>;
 
-export function rightOuterJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T2 | T1>;
+// export function rightOuterJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T2 | T1>;
 
-export function rightOuterJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T2 | T1>;
+// export function rightOuterJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T2 | T1>;
 
 //
 // timer.js
@@ -1037,11 +1039,11 @@ export function sleep(t: number): Promise<void>;
  * @param duration
  * @param iter
  */
-export function withTimeout<T>(duration: number | Promise<number>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
 export function withTimeout<T>(duration: () => (number | Promise<number>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
+export function withTimeout<T>(duration: number | Promise<number>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
 
-export function withTimeout<T>(duration: number | Promise<number>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
 export function withTimeout<T>(duration: () => (number | Promise<number>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function withTimeout<T>(duration: number | Promise<number>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
 
 /**
  * https://github.com/rudty/nodekell#timeout
