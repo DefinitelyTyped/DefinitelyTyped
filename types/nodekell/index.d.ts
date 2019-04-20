@@ -526,15 +526,13 @@ export function firstOrGet<T, Y>(supply: Y | Promise<Y>, iter: Iter<T | Promise<
  * @param supply
  * @param iter
  */
-export function emptyThen<T, Y>(supply: Promise<Iter<Y | Promise<Y>>>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
-export function emptyThen<T, Y>(supply: Iter<Y | Promise<Y>>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
-export function emptyThen<T, Y>(supply: () => Promise<Iter<Y | Promise<Y>>>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
-export function emptyThen<T, Y>(supply: () => Iter<Y | Promise<Y>>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
+export function emptyThen<T, Y>(supply: () => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
+export function emptyThen<T, Y>(supply: Promise<() => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>)>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
+export function emptyThen<T, Y>(supply: Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
 
-export function emptyThen<T, Y>(supply: Promise<Iter<Y | Promise<Y>>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
-export function emptyThen<T, Y>(supply: Iter<Y | Promise<Y>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
-export function emptyThen<T, Y>(supply: () => Promise<Iter<Y | Promise<Y>>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
-export function emptyThen<T, Y>(supply: () => Iter<Y | Promise<Y>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
+export function emptyThen<T, Y>(supply: () => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
+export function emptyThen<T, Y>(supply: Promise<() => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>)>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
+export function emptyThen<T, Y>(supply: Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
 
 /**
  * https://github.com/rudty/nodekell#
@@ -707,23 +705,13 @@ export function splitBy<T, R>(f: (elem: T) => (Iter<R> | Promise<Iter<R>>), any:
  * @param supply
  * @param iter
  */
-export function errorThen<T, Y>(supply: Promise<(error: any) => Iter<Y | Promise<Y>>>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
-export function errorThen<T, Y>(supply: Promise<(error: any) => Promise<Iter<Y | Promise<Y>>>>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
+export function errorThen<T, Y>(supply: Promise<(error: any) => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>)>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
+export function errorThen<T, Y>(supply: (error: any) => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
+export function errorThen<T, Y>(supply: Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
 
-export function errorThen<T, Y>(supply: (error: any) => Iter<Y | Promise<Y>>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
-export function errorThen<T, Y>(supply: (error: any) => Promise<Iter<Y | Promise<Y>>>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
-
-export function errorThen<T, Y>(supply: Iter<Y | Promise<Y>>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
-export function errorThen<T, Y>(supply: Promise<Iter<Y | Promise<Y>>>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
-
-export function errorThen<T, Y>(supply: Promise<(error: any) => Promise<Iter<Y | Promise<Y>>>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
-export function errorThen<T, Y>(supply: Promise<(error: any) => Iter<Y | Promise<Y>>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
-
-export function errorThen<T, Y>(supply: (error: any) => Promise<Iter<Y | Promise<Y>>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
-export function errorThen<T, Y>(supply: (error: any) => Iter<Y | Promise<Y>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
-
-export function errorThen<T, Y>(supply: Promise<Iter<Y | Promise<Y>>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
-export function errorThen<T, Y>(supply: Iter<Y | Promise<Y>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
+export function errorThen<T, Y>(supply: Promise<(error: any) => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>)>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
+export function errorThen<T, Y>(supply: (error: any) => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
+export function errorThen<T, Y>(supply: Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
 
 /**
  * https://github.com/rudty/nodekell#then
