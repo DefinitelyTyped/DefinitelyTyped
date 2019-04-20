@@ -51,6 +51,15 @@ interface CopyPattern {
 	cache?: boolean | { key: string }
 	/** Overwrites files already in `compilation.assets` (usually added by other plugins; default: `false`) */
 	force?: boolean
+	/** 
+	 * Pattern for extracting elements to be used in `to` templates. 
+	 * 
+	 * Defines a `RegExp` to match some parts of the file path. These capture groups can be reused in the name property using [N] 
+	 * placeholder. Note that [0] will be replaced by the entire path of the file, whereas [1] will contain the first capturing 
+	 * parenthesis of your {RegExp} and so on...
+	 * 
+	 * */
+	test?: RegExp
 }
 
 interface CopyWebpackPluginConfiguration {

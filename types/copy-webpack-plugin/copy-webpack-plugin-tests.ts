@@ -66,6 +66,17 @@ const c: Configuration = {
 				fromArgs: { dot: false },
 				to: 'to/directory'
 			},
+
+			// Copy all files in the images directory with the '-copy' suffix
+			// Test captures the filename and directory path excluding the suffix in 
+			// capture group [1]. To recreates the exact directory structure and file names
+			// without '-copy' suffix.
+			{
+				from: 'assets/images/**/*-copy.*',
+				to: 'img/[1].[ext]',
+				test: /.*images[/\\](.+)-copy\..*$/i,
+				toType: 'template',
+			},
 		], {
 			ignore: [
 				// Doesn't copy any files with a txt extension
