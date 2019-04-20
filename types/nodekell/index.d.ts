@@ -127,7 +127,7 @@ export function curry<T1, T2, T3, T4, T5, T6, T7, T8, R>(f: (t1: T1, t2: T2, t3:
  *
  * Symbol.asyncIterator or Symbol.iterator
  */
-export function seq<T>(iter: Iter<T>): AsyncIterableIterator<T>;
+export function seq<T>(iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
 
 /**
  * internal function
@@ -206,32 +206,33 @@ export function notNil(a: any): boolean;
  * https://github.com/rudty/nodekell#run
  *
  * **Note**
- * - originally allow Promise wrapped functions. but that is complicated. so don't support Promise wrapped functions.
+ * - originally allow Promise wrapped functions. but that is complicated. so don't support Promise wrapped functions type.
  * - run implement with foldl
  *
  * @param iter
  * @param ...f
  */
-export function run<T, R0>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0): R0 extends Promise<any> ? R0 : Promise<R0>;
-export function run<T, R0, R1>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1): R1 extends Promise<any> ? R1 : Promise<R1>;
-export function run<T, R0, R1, R2>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2): R2 extends Promise<any> ? R2 : Promise<R2>;
-export function run<T, R0, R1, R2, R3>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3): R3 extends Promise<any> ? R3 : Promise<R3>;
-export function run<T, R0, R1, R2, R3, R4>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4): R4 extends Promise<any> ? R4 : Promise<R4>;
-export function run<T, R0, R1, R2, R3, R4, R5>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5): R5 extends Promise<any> ? R5 : Promise<R5>;
-export function run<T, R0, R1, R2, R3, R4, R5, R6>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5, f6: (r5: R5) => R6): R6 extends Promise<any> ? R6 : Promise<R6>;
-export function run<T, R0, R1, R2, R3, R4, R5, R6, R7>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5, f6: (r5: R5) => R6, f7: (r6: R6) => R7): R7 extends Promise<any> ? R7 : Promise<R7>;
-export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5, f6: (r5: R5) => R6, f7: (r6: R6) => R7, f8: (r7: R7) => R8): R8 extends Promise<any> ? R8 : Promise<R8>;
-export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5, f6: (r5: R5) => R6, f7: (r6: R6) => R7, f8: (r7: R7) => R8, f9: (r8: R8) => R9): R9 extends Promise<any> ? R9 : Promise<R9>;
-export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5, f6: (r5: R5) => R6, f7: (r6: R6) => R7, f8: (r7: R7) => R8, f9: (r8: R8) => R9, f10: (r9: R9) => R10): R10 extends Promise<any> ? R10 : Promise<R10>;
-export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5, f6: (r5: R5) => R6, f7: (r6: R6) => R7, f8: (r7: R7) => R8, f9: (r8: R8) => R9, f10: (r9: R9) => R10, f11: (r10: R10) => R11): R11 extends Promise<any> ? R11 : Promise<R11>;
-export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5, f6: (r5: R5) => R6, f7: (r6: R6) => R7, f8: (r7: R7) => R8, f9: (r8: R8) => R9, f10: (r9: R9) => R10, f11: (r10: R10) => R11, f12: (r11: R11) => R12): R12 extends Promise<any> ? R12 : Promise<R12>;
-export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5, f6: (r5: R5) => R6, f7: (r6: R6) => R7, f8: (r7: R7) => R8, f9: (r8: R8) => R9, f10: (r9: R9) => R10, f11: (r10: R10) => R11, f12: (r11: R11) => R12, f13: (r12: R12) => R13): R13 extends Promise<any> ? R13 : Promise<R13>;
-export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5, f6: (r5: R5) => R6, f7: (r6: R6) => R7, f8: (r7: R7) => R8, f9: (r8: R8) => R9, f10: (r9: R9) => R10, f11: (r10: R10) => R11, f12: (r11: R11) => R12, f13: (r12: R12) => R13, f14: (r13: R13) => R14): R14 extends Promise<any> ? R14 : Promise<R14>;
-export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5, f6: (r5: R5) => R6, f7: (r6: R6) => R7, f8: (r7: R7) => R8, f9: (r8: R8) => R9, f10: (r9: R9) => R10, f11: (r10: R10) => R11, f12: (r11: R11) => R12, f13: (r12: R12) => R13, f14: (r13: R13) => R14, f15: (r14: R14) => R15): R15 extends Promise<any> ? R15 : Promise<R15>;
-export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5, f6: (r5: R5) => R6, f7: (r6: R6) => R7, f8: (r7: R7) => R8, f9: (r8: R8) => R9, f10: (r9: R9) => R10, f11: (r10: R10) => R11, f12: (r11: R11) => R12, f13: (r12: R12) => R13, f14: (r13: R13) => R14, f15: (r14: R14) => R15, f16: (r15: R15) => R16): R16 extends Promise<any> ? R16 : Promise<R16>;
-export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5, f6: (r5: R5) => R6, f7: (r6: R6) => R7, f8: (r7: R7) => R8, f9: (r8: R8) => R9, f10: (r9: R9) => R10, f11: (r10: R10) => R11, f12: (r11: R11) => R12, f13: (r12: R12) => R13, f14: (r13: R13) => R14, f15: (r14: R14) => R15, f16: (r15: R15) => R16, f17: (r16: R16) => R17): R17 extends Promise<any> ? R17 : Promise<R17>;
-export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5, f6: (r5: R5) => R6, f7: (r6: R6) => R7, f8: (r7: R7) => R8, f9: (r8: R8) => R9, f10: (r9: R9) => R10, f11: (r10: R10) => R11, f12: (r11: R11) => R12, f13: (r12: R12) => R13, f14: (r13: R13) => R14, f15: (r14: R14) => R15, f16: (r15: R15) => R16, f17: (r16: R16) => R17, f18: (r17: R17) => R18): R18 extends Promise<any> ? R18 : Promise<R18>;
-export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19>(iter: Iter<T> | Promise<Iter<T>>, f0: (t: Iter<T>) => R0, f1: (r0: R0) => R1, f2: (r1: R1) => R2, f3: (r2: R2) => R3, f4: (r3: R3) => R4, f5: (r4: R4) => R5, f6: (r5: R5) => R6, f7: (r6: R6) => R7, f8: (r7: R7) => R8, f9: (r8: R8) => R9, f10: (r9: R9) => R10, f11: (r10: R10) => R11, f12: (r11: R11) => R12, f13: (r12: R12) => R13, f14: (r13: R13) => R14, f15: (r14: R14) => R15, f16: (r15: R15) => R16, f17: (r16: R16) => R17, f18: (r17: R17) => R18, f19: (r18: R18) => R19): R19 extends Promise<any> ? R19 : Promise<R19>;
+export function run<T>(iter: T | Promise<T>): Promise<T>;
+export function run<T, R0>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>): R0 extends Promise<any> ? R0 : Promise<R0>;
+export function run<T, R0, R1>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>): R1 extends Promise<any> ? R1 : Promise<R1>;
+export function run<T, R0, R1, R2>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>): R2 extends Promise<any> ? R2 : Promise<R2>;
+export function run<T, R0, R1, R2, R3>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>): R3 extends Promise<any> ? R3 : Promise<R3>;
+export function run<T, R0, R1, R2, R3, R4>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>): R4 extends Promise<any> ? R4 : Promise<R4>;
+export function run<T, R0, R1, R2, R3, R4, R5>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>): R5 extends Promise<any> ? R5 : Promise<R5>;
+export function run<T, R0, R1, R2, R3, R4, R5, R6>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>, f6: (r5: R5) => R6 | Promise<R6>): R6 extends Promise<any> ? R6 : Promise<R6>;
+export function run<T, R0, R1, R2, R3, R4, R5, R6, R7>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>, f6: (r5: R5) => R6 | Promise<R6>, f7: (r6: R6) => R7 | Promise<R7>): R7 extends Promise<any> ? R7 : Promise<R7>;
+export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>, f6: (r5: R5) => R6 | Promise<R6>, f7: (r6: R6) => R7 | Promise<R7>, f8: (r7: R7) => R8 | Promise<R8>): R8 extends Promise<any> ? R8 : Promise<R8>;
+export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>, f6: (r5: R5) => R6 | Promise<R6>, f7: (r6: R6) => R7 | Promise<R7>, f8: (r7: R7) => R8 | Promise<R8>, f9: (r8: R8) => R9 | Promise<R9>): R9 extends Promise<any> ? R9 : Promise<R9>;
+export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>, f6: (r5: R5) => R6 | Promise<R6>, f7: (r6: R6) => R7 | Promise<R7>, f8: (r7: R7) => R8 | Promise<R8>, f9: (r8: R8) => R9 | Promise<R9>, f10: (r9: R9) => R10 | Promise<R10>): R10 extends Promise<any> ? R10 : Promise<R10>;
+export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>, f6: (r5: R5) => R6 | Promise<R6>, f7: (r6: R6) => R7 | Promise<R7>, f8: (r7: R7) => R8 | Promise<R8>, f9: (r8: R8) => R9 | Promise<R9>, f10: (r9: R9) => R10 | Promise<R10>, f11: (r10: R10) => R11 | Promise<R11>): R11 extends Promise<any> ? R11 : Promise<R11>;
+export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>, f6: (r5: R5) => R6 | Promise<R6>, f7: (r6: R6) => R7 | Promise<R7>, f8: (r7: R7) => R8 | Promise<R8>, f9: (r8: R8) => R9 | Promise<R9>, f10: (r9: R9) => R10 | Promise<R10>, f11: (r10: R10) => R11 | Promise<R11>, f12: (r11: R11) => R12 | Promise<R12>): R12 extends Promise<any> ? R12 : Promise<R12>;
+export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>, f6: (r5: R5) => R6 | Promise<R6>, f7: (r6: R6) => R7 | Promise<R7>, f8: (r7: R7) => R8 | Promise<R8>, f9: (r8: R8) => R9 | Promise<R9>, f10: (r9: R9) => R10 | Promise<R10>, f11: (r10: R10) => R11 | Promise<R11>, f12: (r11: R11) => R12 | Promise<R12>, f13: (r12: R12) => R13 | Promise<R13>): R13 extends Promise<any> ? R13 : Promise<R13>;
+export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>, f6: (r5: R5) => R6 | Promise<R6>, f7: (r6: R6) => R7 | Promise<R7>, f8: (r7: R7) => R8 | Promise<R8>, f9: (r8: R8) => R9 | Promise<R9>, f10: (r9: R9) => R10 | Promise<R10>, f11: (r10: R10) => R11 | Promise<R11>, f12: (r11: R11) => R12 | Promise<R12>, f13: (r12: R12) => R13 | Promise<R13>, f14: (r13: R13) => R14 | Promise<R14>): R14 extends Promise<any> ? R14 : Promise<R14>;
+export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>, f6: (r5: R5) => R6 | Promise<R6>, f7: (r6: R6) => R7 | Promise<R7>, f8: (r7: R7) => R8 | Promise<R8>, f9: (r8: R8) => R9 | Promise<R9>, f10: (r9: R9) => R10 | Promise<R10>, f11: (r10: R10) => R11 | Promise<R11>, f12: (r11: R11) => R12 | Promise<R12>, f13: (r12: R12) => R13 | Promise<R13>, f14: (r13: R13) => R14 | Promise<R14>, f15: (r14: R14) => R15 | Promise<R15>): R15 extends Promise<any> ? R15 : Promise<R15>;
+export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>, f6: (r5: R5) => R6 | Promise<R6>, f7: (r6: R6) => R7 | Promise<R7>, f8: (r7: R7) => R8 | Promise<R8>, f9: (r8: R8) => R9 | Promise<R9>, f10: (r9: R9) => R10 | Promise<R10>, f11: (r10: R10) => R11 | Promise<R11>, f12: (r11: R11) => R12 | Promise<R12>, f13: (r12: R12) => R13 | Promise<R13>, f14: (r13: R13) => R14 | Promise<R14>, f15: (r14: R14) => R15 | Promise<R15>, f16: (r15: R15) => R16 | Promise<R16>): R16 extends Promise<any> ? R16 : Promise<R16>;
+export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>, f6: (r5: R5) => R6 | Promise<R6>, f7: (r6: R6) => R7 | Promise<R7>, f8: (r7: R7) => R8 | Promise<R8>, f9: (r8: R8) => R9 | Promise<R9>, f10: (r9: R9) => R10 | Promise<R10>, f11: (r10: R10) => R11 | Promise<R11>, f12: (r11: R11) => R12 | Promise<R12>, f13: (r12: R12) => R13 | Promise<R13>, f14: (r13: R13) => R14 | Promise<R14>, f15: (r14: R14) => R15 | Promise<R15>, f16: (r15: R15) => R16 | Promise<R16>, f17: (r16: R16) => R17 | Promise<R17>): R17 extends Promise<any> ? R17 : Promise<R17>;
+export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>, f6: (r5: R5) => R6 | Promise<R6>, f7: (r6: R6) => R7 | Promise<R7>, f8: (r7: R7) => R8 | Promise<R8>, f9: (r8: R8) => R9 | Promise<R9>, f10: (r9: R9) => R10 | Promise<R10>, f11: (r10: R10) => R11 | Promise<R11>, f12: (r11: R11) => R12 | Promise<R12>, f13: (r12: R12) => R13 | Promise<R13>, f14: (r13: R13) => R14 | Promise<R14>, f15: (r14: R14) => R15 | Promise<R15>, f16: (r15: R15) => R16 | Promise<R16>, f17: (r16: R16) => R17 | Promise<R17>, f18: (r17: R17) => R18 | Promise<R18>): R18 extends Promise<any> ? R18 : Promise<R18>;
+export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19>(iter: T | Promise<T>, f0: (t: T) => R0 | Promise<R0>, f1: (r0: R0) => R1 | Promise<R1>, f2: (r1: R1) => R2 | Promise<R2>, f3: (r2: R2) => R3 | Promise<R3>, f4: (r3: R3) => R4 | Promise<R4>, f5: (r4: R4) => R5 | Promise<R5>, f6: (r5: R5) => R6 | Promise<R6>, f7: (r6: R6) => R7 | Promise<R7>, f8: (r7: R7) => R8 | Promise<R8>, f9: (r8: R8) => R9 | Promise<R9>, f10: (r9: R9) => R10 | Promise<R10>, f11: (r10: R10) => R11 | Promise<R11>, f12: (r11: R11) => R12 | Promise<R12>, f13: (r12: R12) => R13 | Promise<R13>, f14: (r13: R13) => R14 | Promise<R14>, f15: (r14: R14) => R15 | Promise<R15>, f16: (r15: R15) => R16 | Promise<R16>, f17: (r16: R16) => R17 | Promise<R17>, f18: (r17: R17) => R18 | Promise<R18>, f19: (r18: R18) => R19 | Promise<R19>): R19 extends Promise<any> ? R19 : Promise<R19>;
 
 /**
  * https://github.com/rudty/nodekell#head
@@ -649,28 +650,37 @@ export function count<T>(iter: Iter<T | Promise<T>>): Promise<number>;
 /**
  * https://github.com/rudty/nodekell#sum
  *
+ * **Note**
+ * - do not use anything other than can summed value
+ *
  * @param iter
  */
 // export function sum(iter: string): Promise<string>;
-export function sum<T extends number | string>(iter: Iter<T | Promise<T>>): Promise<T extends string ? string : number>;
+export function sum<T>(iter: Iter<T | Promise<T>>): Promise<T>;
 // export function sum(iter: Iter<number | Promise<number>>): Promise<number>;
 
 /**
  * https://github.com/rudty/nodekell#max
  *
+ * **Note**
+ * - do not use anything other than can ordered value
+ *
  * @param iter
  */
 // export function max(iter: string): Promise<string>;
-export function max<T extends number | string>(iter: Iter<T | Promise<T>>): Promise<T extends string ? string : number>;
+export function max<T>(iter: Iter<T | Promise<T>>): Promise<T>;
 // export function max(iter: Iter<string | Promise<string>>): Promise<string>;
 
 /**
  * https://github.com/rudty/nodekell#min
  *
+ * **Note**
+ * - do not use anything other than can ordered value
+ *
  * @param iter
  */
 // export function min(iter: string): Promise<string>;
-export function min<T extends number | string>(iter: Iter<T | Promise<T>>): Promise<T extends string ? string : number>;
+export function min<T>(iter: Iter<T | Promise<T>>): Promise<T>;
 // export function min(iter: Iter<string | Promise<string>>): Promise<string>;
 
 /**
@@ -1152,3 +1162,11 @@ export function pmap<T, R>(f: (elem: T) => (R | Promise<R>), iter: Iter<T | Prom
 export function pfilter<T>(f: (elem: T) => (boolean | Promise<boolean>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
 
 export function pfilter<T>(f: (elem: T) => (boolean | Promise<boolean>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+
+/**
+ * https://github.com/rudty/nodekell#pcalls
+ *
+ * @param f
+ */
+export function pcalls<R>(f: Iter<() => (R | Promise<R>)>): AsyncIterableIterator<R>;
+export function pcalls<R>(...f: (() => R | Promise<R>)[]): AsyncIterableIterator<R>;

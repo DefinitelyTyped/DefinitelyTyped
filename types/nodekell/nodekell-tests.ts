@@ -84,7 +84,8 @@ describe('util functions', () => {
 		const seq0 = F.seq(['1', '2', '3', '4']); // $ExpectType AsyncIterableIterator<string>
 		const seq1 = F.seq(range1); // $ExpectType AsyncIterableIterator<number>
 		const seq2 = F.seq(seq1); // $ExpectType AsyncIterableIterator<number>
-		const seq3 = F.seq('hello'); // $ExpectType AsyncIterableIterator<string>
+        const seq3 = F.seq('hello'); // $ExpectType AsyncIterableIterator<string>
+        const seq4 = F.seq([Promise.resolve(1), 2, 3, 4]); // $ExpectType AsyncIterableIterator<number>
 	});
 
 	it('ioe', () => {
@@ -166,7 +167,7 @@ describe('curry', () => {
 /// prelude.js
 ///
 describe('run', () => {
-	it('', async () => {
+	it('iter', async () => {
 		const a = [1, 2, 3, Promise.resolve(4), 5, 6];
 		const b = [1, 2, Promise.resolve(3), [4, Promise.resolve(5)]];
 		const c = [1, 2, 3, 4, 5];
@@ -176,17 +177,22 @@ describe('run', () => {
 		const run1 = await F.run(a, F.map(F.inc)).then(ifNilThrow(new Error()));
 		const run2 = await F.run(b, F.flat, F.map(e => e - e)).then(ifNilThrow(new Error()));
 		const run3 = await F.run(c, F.map(F.inc), F.take(100), F.foldl1((acc, e) => acc + e)).then(ifNilThrow(new Error()));
-		const run4 = await F.run(c, F.map(e => e ** e), F.take(10), F.map(e => e % 2), F.average);
+		const run4 = await F.run(c, F.map(e => e ** e), F.take(10), F.map(e => e % 2), F.average).then(ifNilThrow(new Error()));
 		const run5 = await F.run(F.range(50000), F.reverse, F.map(e => e * 2), F.filter(e => e % 2 === 0), F.take(200), F.foldr1(F.sub)).then(ifNilThrow(new Error()));
         const run6 = await F.run(e, F.flat, F.flat, F.filter(e => (e === 'l') || (e === 'h')), F.foldl1(F.add)).then(ifNilThrow(new Error()));
         const run7 = await F.run(F.range(Infinity), F.map(F.inc), F.map(e => e * 0.5), F.take(200), F.max).then(ifNilThrow(new Error()));
         const run8 = await F.run(F.range(Infinity), F.map(F.inc), F.map(e => e * 0.5), F.take(200), F.min).then(ifNilThrow(new Error()));
-        const run9 = await F.run(F.range(Infinity), F.map(F.inc), F.map(e => e * 0.5), F.take(200), F.sum).then(ifNilThrow(new Error()));
+        const run9 = await F.run(F.range(Infinity), F.map(F.inc), F.map(e => e * 0.5), F.take(200), F.sum, (e) => F.add(e, e)).then(ifNilThrow(new Error()));
         const run10 = await F.run(F.range(Infinity), F.map(F.inc), F.map(e => e * 0.5), F.take(200), F.average).then(ifNilThrow(new Error()));
         const run11 = await F.run(e, F.flat, F.flat, F.max).then(ifNilThrow(new Error()));
         const run12 = await F.run(e, F.flat, F.flat, F.min).then(ifNilThrow(new Error()));
         const run13 = await F.run(e, F.flat, F.flat, F.sum).then(ifNilThrow(new Error()));
-	});
+    });
+
+    it('normal', async () => {
+        const run1 = await F.run(1, e => e + 1).then(ifNilThrow(new Error()));
+        const run2 = await F.run({a: 1, b: 2, c: 3}, e => ({ a: e.a, ...e }), e => ({ b: e.b, ...e })).then(ifNilThrow(new Error()));
+    });
 });
 
 describe('head', () => {
@@ -1433,8 +1439,8 @@ describe('then', () => {
 		const ar0 = F.then(generatorFunction)(F.seq(a)); // $ExpectType AsyncIterableIterator<number>
 		const ar1 = F.then(generatorFunction, F.seq(a)); // $ExpectType AsyncIterableIterator<number>
 
-		const br0 = await F.then<AsyncIterableIterator<number | Promise<number>>, Promise<AsyncIterableIterator<number | Promise<number>>>>(async iter => iter)(F.seq(a)).then(ifNilThrow(new Error())); // $ExpectType AsyncIterableIterator<number | Promise<number>>
-		const br1 = await F.then(async iter => iter, F.seq(a)).then(ifNilThrow(new Error())); // $ExpectType AsyncIterableIterator<number | Promise<number>>
+		const br0 = await F.then<AsyncIterableIterator<number>, Promise<AsyncIterableIterator<number>>>(async iter => iter)(F.seq(a)).then(ifNilThrow(new Error())); // $ExpectType AsyncIterableIterator<number>
+		const br1 = await F.then(async iter => iter, F.seq(a)).then(ifNilThrow(new Error())); // $ExpectType AsyncIterableIterator<number>
 	});
 
 	it('from Promise Value With Return Void', async () => {
@@ -2591,5 +2597,43 @@ describe('pfilter', () => {
 
         await F.collect(br0);
         await F.collect(br1);
+    });
+});
+
+describe('pcalls', () => {
+    it('from Generator Function', async () => {
+        function* gfn0() {
+            yield () => 1;
+            yield () => 2;
+            yield async () => 3;
+            yield async () => (async () => 4)();
+        }
+
+        const r0 = F.pcalls(gfn0()); // $ExpectType AsyncIterableIterator<number>
+
+        await F.collect(r0).then(ifNilThrow(new Error()));
+    });
+
+    it('from Async Generator Function', async () => {
+        async function* gfn0() {
+            yield () => 1;
+            yield () => 2;
+            yield async () => 3;
+            yield async () => (async () => 4)();
+        }
+        const r0 = F.pcalls(gfn0()); // $ExpectType AsyncIterableIterator<number>
+
+        await F.collect(r0).then(ifNilThrow(new Error()));
+    });
+
+    it('from Normal Functions / Async Functions', async () => {
+        const fn0 = () => 1;
+        const fn1 = () => 2;
+        const fn2 = async () => 3;
+        const fn3 = async () => (async () => 4)();
+
+        const r0 = F.pcalls(fn0, fn1, fn2, fn3); // $ExpectType AsyncIterableIterator<number>
+
+        await F.collect(r0).then(ifNilThrow(new Error()));
     });
 });
