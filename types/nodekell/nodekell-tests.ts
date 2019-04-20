@@ -45,21 +45,11 @@ const cerror = (...a: any[]) => {
 }; */
 
 const describe = (str: string, f: () => any) => {
-    try {
-        // clog(str);
-        f();
-    } catch (e) {
-        cerror(e);
-    }
+    f();
 };
 
 const it = (str: string, f: () => any) => {
-	try {
-        f();
-        // clog('\t', str);
-    } catch (e) {
-        cerror(e);
-    }
+	f();
 };
 
 // tslint:disable-next-line: no-unnecessary-generics
@@ -1443,7 +1433,7 @@ describe('then', () => {
 		const br1 = await F.then(async iter => iter, F.seq(a)).then(ifNilThrow(new Error())); // $ExpectType AsyncIterableIterator<number>
 	});
 
-	it('from Promise Value With Return Void', async () => {
+	it('from Promise Value With Return Promise Void', async () => {
 		const a = [1, 2, Promise.resolve(3), 4, 5];
 
 		const r0 = await F.then<(number | Promise<number>)[], Promise<void>>(async () => F.fnothing())(a); // $ExpectType void
