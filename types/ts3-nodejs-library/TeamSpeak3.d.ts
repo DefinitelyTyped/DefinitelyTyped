@@ -123,6 +123,7 @@ interface TeamSpeak3 {
   on(event: 'textmessage', listener: (data: TeamSpeak3.MessageData) => void): this;
   on(event: 'clientconnect', listener: (data: { client: TeamSpeakClient }) => void): this;
   on(event: 'clientmoved', listener: (data: TeamSpeak3.ClientMovedResponse) => void): this;
+  on(event: 'close' | 'error', listener: (err: Error) => void): this;
   on(event: string, listener: () => any): this;
 }
 
