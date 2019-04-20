@@ -23,6 +23,7 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 dooboolab <https://github.com/dooboolab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
