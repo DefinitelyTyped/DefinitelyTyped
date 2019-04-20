@@ -3,6 +3,7 @@
 // Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// TypeScript Version: 2.7
 /// <reference types="node" />
 
 export = kind_of;
@@ -18,12 +19,9 @@ declare function kind_of(thing: Date): 'date';
 declare function kind_of(thing: any[]): 'array';
 declare function kind_of(thing: RegExp): 'regexp';
 declare function kind_of(thing: Error): 'error';
-declare function kind_of(thing: IterableIterator<string>): 'stringiterator' | 'arrayiterator';
-declare function kind_of(thing: IterableIterator<[any, any]>): 'mapiterator' | 'arrayiterator';
-declare function kind_of(thing: IterableIterator<any>): 'setiterator' | 'arrayiterator';
-declare function kind_of(thing: Function): 'function' | 'generatorfunction';
-declare function kind_of(thing: Generator): 'generator';
-declare function kind_of(thing: Symbol): 'symbol';
+declare function kind_of(thing: Iterator<any>): 'generator' | 'stringiterator' | 'arrayiterator' | 'mapiterator' | 'setiterator';
+declare function kind_of(thing: (...args: any[]) => any): 'function' | 'generatorfunction';
+declare function kind_of(thing: symbol): 'symbol';
 declare function kind_of(thing: Promise<any>): 'promise';
 declare function kind_of(thing: Map<any, any>): 'map';
 declare function kind_of(thing: WeakMap<any, any>): 'weakmap';
@@ -38,6 +36,5 @@ declare function kind_of(thing: Int32Array): 'int32array';
 declare function kind_of(thing: Uint32Array): 'uint32array';
 declare function kind_of(thing: Float32Array): 'float32array';
 declare function kind_of(thing: Float64Array): 'float64array';
-declare function kind_of(thing: object): 'object';
-declare function kind_of(thing: any): 'object';
+declare function kind_of(thing: any): 'object' | string;
 declare function kind_of(thing: any): string;

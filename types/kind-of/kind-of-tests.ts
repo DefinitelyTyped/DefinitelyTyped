@@ -5,7 +5,7 @@ function sampleFunction() {
     // => 'arguments'
 }
 
-function * sampleGeneratorFunction(): Iterator<boolean> {
+function * sampleGeneratorFunction() {
     yield true;
   }
 
@@ -45,12 +45,12 @@ kindOf(new Map()); // => 'map'
 kindOf(new WeakMap()); // => 'weakmap'
 kindOf(new Set()); // => 'set'
 kindOf(new WeakSet()); // => 'weakset'
-kindOf(new Int8Array()); // => 'int8array'
-kindOf(new Uint8Array()); // => 'uint8array'
-kindOf(new Uint8ClampedArray()); // => 'uint8clampedarray'
-kindOf(new Int16Array()); // => 'int16array'
-kindOf(new Uint16Array()); // => 'uint16array'
-kindOf(new Int32Array()); // => 'int32array'
-kindOf(new Uint32Array()); // => 'uint32array'
-kindOf(new Float32Array()); // => 'float32array'
-kindOf(new Float64Array()); // => 'float64array'
+kindOf(Int8Array.of(0)); // => 'int8array'
+kindOf(Uint8Array.of(0)); // => 'uint8array'
+kindOf(Uint8ClampedArray.of(0)); // => 'uint8clampedarray'
+kindOf(Int16Array.of(0)); // => 'int16array'
+kindOf(Uint16Array.of(0)); // => 'uint16array'
+kindOf(Int32Array.of(0)); // => 'int32array'
+kindOf(Uint32Array.of(0)); // => 'uint32array'
+kindOf(Float32Array.of(0)); // => 'float32array'
+kindOf(Float64Array.of(0)); // => 'float64array'
