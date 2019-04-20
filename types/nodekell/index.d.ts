@@ -192,8 +192,8 @@ export function second<T extends any[]>(a: T): T[1];
 
 /**
  * ```ts
- * notNil(null) === false;
- * notNil(0) === true;
+ * notNil(undefined) === false;
+ * notNil(false) === true;
  * ```
  */
 export function notNil(a: any): boolean;
