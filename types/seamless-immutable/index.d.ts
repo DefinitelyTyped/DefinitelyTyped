@@ -32,8 +32,8 @@ declare namespace SeamlessImmutable {
         prototype?: any;
     }
 
-    interface AsMutableOptions {
-        deep: boolean;
+    interface AsMutableOptions<TDepthBoolean extends boolean = boolean> {
+        deep: TDepthBoolean;
     }
 
     interface ImmutableObjectMixin<T> {
@@ -63,7 +63,9 @@ declare namespace SeamlessImmutable {
         getIn(propertyPath: string[]): Immutable<any>;
         getIn<TValue>(propertyPath: string[], defaultValue: TValue): Immutable<TValue>;
 
-        asMutable(opts?: AsMutableOptions): T;
+        asMutable(opts?: AsMutableOptions<true>): T;
+        asMutable(opts?: AsMutableOptions<false>): { [K in keyof T]: Immutable<T[K]> };
+        asMutable(opts?: AsMutableOptions<boolean>): T | { [K in keyof T]: Immutable<T[K]> };
 
         merge(part: DeepPartial<T>, config?: MergeConfig): Immutable<T>;
 
@@ -95,7 +97,10 @@ declare namespace SeamlessImmutable {
     namespace ImmutableArray {
         /** New methods added by seamless-immutable. */
         interface Additions<T> {
-            asMutable(opts?: AsMutableOptions): T[];
+            asMutable(opts?: AsMutableOptions<true>): T[];
+            asMutable(opts?: AsMutableOptions<false>): Immutable<T>[];
+            asMutable(opts?: AsMutableOptions<boolean>): T | Immutable<T>[];
+
             asObject<U extends object = {}, K extends keyof U = keyof U>(toKeyValue: (item: T) => [K, U[K]]): Immutable<U>;
             flatMap<TTarget>(mapFunction: (item: T) => TTarget): Immutable<TTarget extends any[] ? TTarget : TTarget[]>;
         }
@@ -106,7 +111,7 @@ declare namespace SeamlessImmutable {
             map<TTarget>(mapFuction: (item: Immutable<T>) => TTarget): Immutable<TTarget[]>;
             filter(filterFunction: (item: Immutable<T>) => boolean): Immutable<T[]>;
             slice(start?: number, end?: number): Immutable<T[]>;
-            concat(...arr: Array<T|T[]>): Immutable<T[]>;
+            concat(...arr: Array<T | T[] | Immutable<T[]>>): Immutable<T[]>;
             reduce(callbackfn: (previousValue: Immutable<T>, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => T): Immutable<T>;
             reduce<TTarget>(callbackfn: (previousValue: TTarget, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
             reduceRight(callbackfn: (previousValue: Immutable<T>, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => T): Immutable<T>;
@@ -161,7 +166,7 @@ declare namespace SeamlessImmutable {
 
     function from<T>(obj: T, options?: Options): Immutable<T>;
 
-    function isImmutable(target: any): boolean;
+    function isImmutable<T>(target: T | Immutable<T>): target is Immutable<T>;
     function ImmutableError(message: string): Error;
 
     function replace<T, S>(obj: Immutable<T>, valueObj: S, options?: ReplaceConfig): Immutable<S>;
