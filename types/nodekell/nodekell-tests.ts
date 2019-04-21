@@ -21,29 +21,6 @@ const flipped = flip(zip);  // <T, U>(b: U, a: T) => [T, U]
 const t1 = flipped(10, "hello");  // [string, number]
 const t2 = flipped(true, 0);  // [number, boolean] */
 
-/* const abc = F.curry((b: number, c: string, d: null) => {
-  return [b, c, d];
-});
-
-const rrr0 = abc(1)('')(null);
-const rrr1 = abc(1)('', null);
-const rrr2 = abc(1, '')(null);
-const rrr3 = abc(1, '', null); */
-
-declare const console: any;
-
-const cerror = (...a: any[]) => {
-	if (console) {
-		console.error(...a);
-	}
-};
-
-/* const clog = (...a: any[]) => {
-	if (console) {
-		console.log(...a);
-	}
-}; */
-
 const describe = (str: string, f: () => any) => {
     f();
 };
@@ -2713,9 +2690,7 @@ describe('timeout', () => {
 			const br2 = await F.timeout(53, testTimeoutFuncB(23)).then(F.ioe); // $ExpectType AsyncIterableIterator<number>
 			const br3 = await F.timeout(testDurationFunction(59), testTimeoutFuncB(51)).then(F.ioe); // $ExpectType AsyncIterableIterator<number>
 		} catch (e) {
-			if (e.message !== 'timeout error') {
-				cerror(e);
-			}
+			if (e.message === 'timeout error') {}
 		}
 	});
 
@@ -2747,9 +2722,7 @@ describe('timeout', () => {
 			const br2 = await F.timeout(53, testTimeoutFuncB(23)).then(F.ioe); // $ExpectType AsyncIterableIterator<number>
 			const br3 = await F.timeout(testDurationFunction(59), testTimeoutFuncB(51)).then(F.ioe); // $ExpectType AsyncIterableIterator<number>
 		} catch (e) {
-			if (e.message !== 'timeout error') {
-				cerror(e);
-			}
+			if (e.message !== 'timeout error') {}
 		}
     });
 });
