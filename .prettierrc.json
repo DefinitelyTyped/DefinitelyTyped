@@ -1,0 +1,5 @@
+{
+	"$schema": "http://json.schemastore.org/prettierrc",
+	"trailingComma": "all",
+	"useTabs": true
+}
