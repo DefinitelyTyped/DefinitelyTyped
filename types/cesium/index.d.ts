@@ -1392,70 +1392,29 @@ declare namespace Cesium {
         constructor(message?: string);
     }
 
+    interface ScreenSpaceEventMap {
+        [ScreenSpaceEventType.LEFT_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_DOUBLE_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MOUSE_MOVE]: { startPosition: Cartesian2, endPosition: Cartesian2 };
+        [ScreenSpaceEventType.WHEEL]: number;
+        [ScreenSpaceEventType.PINCH_START]: { position1: Cartesian2, position2: Cartesian2 };
+        [ScreenSpaceEventType.PINCH_MOVE]: { distance: { startPosition: Cartesian2, endPosition: Cartesian2 }, angleAndHeight: { startPosition: Cartesian2, endPosition: Cartesian2 }};
+    }
+
     class ScreenSpaceEventHandler {
         constructor(element?: HTMLCanvasElement);
-        setInputAction(
-            action: (event: { position: Cartesian2 }) => void,
-            type: ScreenSpaceEventType.LEFT_DOWN | ScreenSpaceEventType.LEFT_UP
-                | ScreenSpaceEventType.LEFT_CLICK | ScreenSpaceEventType.LEFT_DOUBLE_CLICK
-                | ScreenSpaceEventType.RIGHT_DOWN | ScreenSpaceEventType.RIGHT_UP
-                | ScreenSpaceEventType.RIGHT_CLICK | ScreenSpaceEventType.MIDDLE_DOWN
-                | ScreenSpaceEventType.MIDDLE_UP | ScreenSpaceEventType.MIDDLE_CLICK,
-            modifier?: number
-        ): void;
-        setInputAction(
-            action: (event: { startPosition: Cartesian2, endPosition: Cartesian2 }) => void,
-            type: ScreenSpaceEventType.MOUSE_MOVE,
-            modifier?: number
-        ): void;
-        setInputAction(
-            action: (delta: number) => void,
-            type: ScreenSpaceEventType.WHEEL,
-            modifier?: number
-        ): void;
-        setInputAction(
-            action: (event: { position1: Cartesian2, position2: Cartesian2 }) => void,
-            type: ScreenSpaceEventType.PINCH_START,
-            modifier?: number
-        ): void;
-        setInputAction(
-            action: () => void,
-            type: ScreenSpaceEventType.PINCH_END,
-            modifier?: number
-        ): void;
-        setInputAction(
-            action: (event: { distance: { startPosition: Cartesian2, endPosition: Cartesian2 }, angleAndHeight: { startPosition: Cartesian2, endPosition: Cartesian2 }}) => void,
-            type: ScreenSpaceEventType.PINCH_MOVE,
-            modifier?: number
-        ): void;
-        getInputAction(
-            type: ScreenSpaceEventType.LEFT_DOWN | ScreenSpaceEventType.LEFT_UP
-                | ScreenSpaceEventType.LEFT_CLICK | ScreenSpaceEventType.LEFT_DOUBLE_CLICK
-                | ScreenSpaceEventType.RIGHT_DOWN | ScreenSpaceEventType.RIGHT_UP
-                | ScreenSpaceEventType.RIGHT_CLICK | ScreenSpaceEventType.MIDDLE_DOWN
-                | ScreenSpaceEventType.MIDDLE_UP | ScreenSpaceEventType.MIDDLE_CLICK,
-            modifier?: number
-        ): () => (event: { position: Cartesian2 }) => void;
-        getInputAction(
-            type: ScreenSpaceEventType.MOUSE_MOVE,
-            modifier?: number
-        ): () => (event: { startPosition: Cartesian2, endPosition: Cartesian2 }) => void;
-        getInputAction(
-            type: ScreenSpaceEventType.WHEEL,
-            modifier?: number
-        ): () => (delta: number) => void;
-        getInputAction(
-            type: ScreenSpaceEventType.PINCH_START,
-            modifier?: number
-        ): () => (event: { position1: Cartesian2, position2: Cartesian2 }) => void;
-        getInputAction(
-            type: ScreenSpaceEventType.PINCH_END,
-            modifier?: number
-        ): () => () => void;
-        getInputAction(
-            type: ScreenSpaceEventType.PINCH_MOVE,
-            modifier?: number
-        ): () => (event: { distance: { startPosition: Cartesian2, endPosition: Cartesian2 }, angleAndHeight: { startPosition: Cartesian2, endPosition: Cartesian2 }}) => void;
+        setInputAction<K extends keyof ScreenSpaceEventMap>(action: (event: ScreenSpaceEventMap[K]) => void, type: K, modifier?: number): void;
+        setInputAction(action: () => void, type: number, modifier?: number): void;
+        getInputAction<K extends keyof ScreenSpaceEventMap>(type: K, modifier?: number): (event: ScreenSpaceEventMap[K]) => void;
+        getInputAction(type: number, modifier?: number): () => void;
         removeInputAction(type: number, modifier?: number): void;
         isDestroyed(): boolean;
         destroy(): void;
