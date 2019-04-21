@@ -1172,11 +1172,14 @@ export type ReturnKeyTypeAndroid = "none" | "previous";
 export type ReturnKeyTypeIOS = "default" | "google" | "join" | "route" | "yahoo" | "emergency-call";
 export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS;
 
+export interface TargetedEvent {
+    target: number;
+}
+
 /**
  * @see TextInputProps.onFocus
  */
-export interface TextInputFocusEventData {
-    target: number;
+export interface TextInputFocusEventData extends TargetedEvent {
     text: string;
     eventCount: number;
 }
@@ -1191,12 +1194,11 @@ export interface TextInputScrollEventData {
 /**
  * @see TextInputProps.onSelectionChange
  */
-export interface TextInputSelectionChangeEventData {
+export interface TextInputSelectionChangeEventData extends TargetedEvent {
     selection: {
         start: number;
         end: number;
     };
-    target: number;
 }
 
 /**
@@ -1209,9 +1211,8 @@ export interface TextInputKeyPressEventData {
 /**
  * @see TextInputProps.onChange
  */
-export interface TextInputChangeEventData {
+export interface TextInputChangeEventData extends TargetedEvent {
     eventCount: number;
-    target: number;
     text: string;
 }
 
@@ -2368,8 +2369,7 @@ Possible values for mixedContentMode are:
     allowFileAccess?: boolean;
 }
 
-export interface WebViewIOSLoadRequestEvent {
-    target: number;
+export interface WebViewIOSLoadRequestEvent extends TargetedEvent {
     canGoBack: boolean;
     lockIdentifier: number;
     loading: boolean;
@@ -2649,10 +2649,9 @@ export class WebView extends React.Component<WebViewProps> {
  * @see https://facebook.github.io/react-native/docs/segmentedcontrolios.html
  * @see SegmentedControlIOS.ios.js
  */
-export interface NativeSegmentedControlIOSChangeEvent {
+export interface NativeSegmentedControlIOSChangeEvent extends TargetedEvent {
     value: string;
     selectedSegmentIndex: number;
-    target: number;
 }
 
 export interface SegmentedControlIOSProps extends ViewProps {
@@ -5174,14 +5173,14 @@ export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackP
      * the OS-specific concept of "blur" occurs, meaning the element lost focus.
      * Some platforms may not have the concept of blur.
      */
-    onBlur?: (e: NativeSyntheticEvent<any>) => void;
+    onBlur?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
 
     /**
      * When `accessible` is true (which is the default) this may be called when
      * the OS-specific concept of "focus" occurs. Some platforms may not have
      * the concept of focus.
      */
-    onFocus?: (e: NativeSyntheticEvent<any>) => void;
+    onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
 
     /**
      * Invoked on mount and layout changes with
