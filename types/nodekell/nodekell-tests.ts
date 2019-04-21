@@ -511,7 +511,7 @@ describe('flat', () => {
 	it('from Promise Value', async () => {
 		const a = ['he', 'l', [['l']], [[Promise.resolve('o')]]];
 
-		const r0 = F.flat(a); // $ExpectType AsyncIterableIterator<string | Promise<string>[] | string[]>
+		const r0 = F.flat(a); // $ExpectType AsyncIterableIterator<string | string[] | Promise<string>[]>
 		const r1 = F.flat(r0); // $ExpectType AsyncIterableIterator<string>
         const r2 = F.flat(r1); // $ExpectType AsyncIterableIterator<string>
 
