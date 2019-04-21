@@ -356,16 +356,6 @@ const Profiler = React.unstable_Profiler;
   <div />
 </Profiler>;
 
-type ImgProps = React.ComponentProps<'img'>;
-// $ExpectType "async" | "auto" | "sync" | undefined
-type ImgPropsDecoding = ImgProps['decoding'];
-type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
-// $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
-type ImgPropsWithRefRef = ImgPropsWithRef['ref'];
-type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
-// $ExpectType false
-type ImgPropsHasRef = 'ref' extends keyof ImgPropsWithoutRef ? true : false;
-
 const HasClassName: React.ReactType<{ className?: string }> = 'a';
 const HasFoo: React.ReactType<{ foo: boolean }> = 'a'; // $ExpectError
 const HasFoo2: React.ReactType<{ foo: boolean }> = (props: { foo: boolean }) => null;

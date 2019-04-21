@@ -765,7 +765,7 @@ declare namespace React {
      */
     type ComponentProps<T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>> =
         T extends JSXElementConstructor<infer P>
-            ? P
+            ? ReactManagedAttributes<T, P>
             : T extends keyof JSX.IntrinsicElements
                 ? JSX.IntrinsicElements[T]
                 : {};
