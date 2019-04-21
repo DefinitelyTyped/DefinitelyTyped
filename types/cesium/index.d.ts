@@ -1412,9 +1412,9 @@ declare namespace Cesium {
     class ScreenSpaceEventHandler {
         constructor(element?: HTMLCanvasElement);
         setInputAction<K extends keyof ScreenSpaceEventMap>(action: (event: ScreenSpaceEventMap[K]) => void, type: K, modifier?: number): void;
-        setInputAction(action: () => void, type: number, modifier?: number): void;
+        setInputAction(action: () => void, type: ScreenSpaceEventType, modifier?: number): void;
         getInputAction<K extends keyof ScreenSpaceEventMap>(type: K, modifier?: number): (event: ScreenSpaceEventMap[K]) => void;
-        getInputAction(type: number, modifier?: number): () => void;
+        getInputAction(type: ScreenSpaceEventType, modifier?: number): () => void;
         removeInputAction(type: number, modifier?: number): void;
         isDestroyed(): boolean;
         destroy(): void;
