@@ -1,6 +1,7 @@
 // Type definitions for ssri 6.0
 // Project: https://github.com/zkat/ssri
 // Definitions by: Jeow Li Huan <https://github.com/huan086>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Utf8AsciiLatin1Encoding, Hash as CryptoHash } from "crypto";
@@ -58,13 +59,16 @@ export class Integrity {
 
 export function parse(
     sri: string | IntegrityLike | HashLike,
-    opts?: { strict?: boolean }
+    opts?: { single?: false, strict?: boolean }
 ): IntegrityMap;
-
 export function parse(
     sri: string | IntegrityLike | HashLike,
     opts?: { single: true, strict?: boolean }
 ): Hash;
+export function parse(
+    sri: string | IntegrityLike | HashLike,
+    opts?: { single?: boolean, strict?: boolean }
+): IntegrityMap | Hash;
 
 export function stringify(
     obj: string | IntegrityLike | HashLike,
@@ -74,20 +78,28 @@ export function stringify(
 export function fromHex(
     hexDigest: string,
     algorithm: string,
-    opts?: { strict?: boolean, options?: ReadonlyArray<string> }
+    opts?: { single?: false, strict?: boolean, options?: ReadonlyArray<string> }
 ): IntegrityMap;
-
 export function fromHex(
     hexDigest: string,
     algorithm: string,
     opts?: { single: true, strict?: boolean, options?: ReadonlyArray<string> }
 ): Hash;
+export function fromHex(
+    hexDigest: string,
+    algorithm: string,
+    opts?: { single?: boolean, strict?: boolean, options?: ReadonlyArray<string> }
+): IntegrityMap | Hash;
 
 export function fromData(
     data: string | Buffer | NodeJS.TypedArray | DataView,
     opts?: { strict?: boolean, options?: ReadonlyArray<string>, algorithms?: ReadonlyArray<string> }
 ): IntegrityMap;
 
+export function fromStream(
+    stream: Readable,
+    opts?: { strict?: boolean, options?: ReadonlyArray<string>, algorithms?: ReadonlyArray<string> }
+): Promise<IntegrityMap>;
 export function fromStream(
     stream: Readable,
     opts?: { strict?: boolean, options?: ReadonlyArray<string>, algorithms?: ReadonlyArray<string>, Promise?: PromiseConstructorLike }
@@ -99,6 +111,16 @@ export function checkData(
     opts?: { strict?: boolean, error?: boolean, size?: number, pickAlgorithm?: (algo1: string, algo2: string) => string }
 ): Hash | false;
 
+export function checkStream(
+    stream: Readable,
+    sri: string | IntegrityLike | HashLike,
+    opts?: {
+        strict?: boolean,
+        options?: ReadonlyArray<string>,
+        size?: number,
+        pickAlgorithm?: (algo1: string, algo2: string) => string,
+    }
+): Promise<Hash>;
 export function checkStream(
     stream: Readable,
     sri: string | IntegrityLike | HashLike,
