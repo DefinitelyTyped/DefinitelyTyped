@@ -7087,7 +7087,7 @@ interface AlertOptions {
  * ```
  */
 export interface AlertStatic {
-    alert: (title: string, message?: string, buttons?: AlertButton[], options?: AlertOptions, type?: string) => void;
+    alert: (title: string, message?: string, buttons?: AlertButton[], options?: AlertOptions) => void;
 }
 
 /**
