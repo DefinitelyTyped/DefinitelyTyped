@@ -10,7 +10,11 @@ import tapeSync = require("tape");
 export = tape;
 
 declare function tape(name: string | tape.TestOptions, cb: tape.TestCase): void;
-declare function tape(name: string, opts: tape.TestOptions, cb: tape.TestCase): void;
+declare function tape(
+	name: string,
+	opts: tape.TestOptions,
+	cb: tape.TestCase,
+): void;
 declare function tape(cb: tape.TestCase): void;
 
 declare namespace tape {

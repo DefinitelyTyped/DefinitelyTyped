@@ -31,7 +31,7 @@ export type HighlightCallback = (element: Element) => void;
  */
 export function highlightAll(
 	async?: boolean,
-	callback?: HighlightCallback
+	callback?: HighlightCallback,
 ): void;
 
 /**
@@ -49,7 +49,7 @@ export function highlightAll(
 export function highlightAllUnder(
 	container: ParentNode,
 	async?: boolean,
-	callback?: HighlightCallback
+	callback?: HighlightCallback,
 ): void;
 
 /**
@@ -78,7 +78,7 @@ export function highlightAllUnder(
 export function highlightElement(
 	element: Element,
 	async?: boolean,
-	callback?: HighlightCallback
+	callback?: HighlightCallback,
 ): void;
 
 /**
@@ -103,7 +103,7 @@ export function highlightElement(
 export function highlight(
 	text: string,
 	grammar: Grammar,
-	language: string
+	language: string,
 ): string;
 
 /**
@@ -120,10 +120,7 @@ export function highlight(
  * Usually a language definition like `Prism.languages.markup`.
  * @returns An array of strings, tokens and other arrays.
  */
-export function tokenize(
-	text: string,
-	grammar: Grammar
-): Array<string | Token>;
+export function tokenize(text: string, grammar: Grammar): Array<string | Token>;
 
 export interface Environment extends Record<string, any> {
 	selector?: string;
@@ -281,7 +278,7 @@ export interface LanguageMapProtocol {
 		inside: string,
 		before: string,
 		insert: Grammar,
-		root: LanguageMap
+		root: LanguageMap,
 	): Grammar;
 }
 
@@ -344,7 +341,7 @@ export namespace hooks {
 	 */
 	function add<K extends keyof HookEnvironmentMap>(
 		name: K,
-		callback: (env: HookEnvironmentMap[K]) => void
+		callback: (env: HookEnvironmentMap[K]) => void,
 	): void;
 	function add(name: string, callback: HookCallback): void;
 
@@ -358,7 +355,7 @@ export namespace hooks {
 	 */
 	function run<K extends keyof HookEnvironmentMap>(
 		name: K,
-		env: HookEnvironmentMap[K]
+		env: HookEnvironmentMap[K],
 	): void;
 	function run(name: string, env: Environment): void;
 }
@@ -380,7 +377,7 @@ export class Token {
 		content: TokenStream,
 		alias?: string | string[],
 		matchedStr?: string,
-		greedy?: boolean
+		greedy?: boolean,
 	);
 
 	/**
@@ -432,6 +429,6 @@ export class Token {
 	static stringify(
 		token: TokenStream,
 		language: string,
-		parent?: Array<string | Token>
+		parent?: Array<string | Token>,
 	): string;
 }

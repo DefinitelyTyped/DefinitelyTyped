@@ -296,7 +296,7 @@ export interface SedFunction {
 		options: string,
 		searchRegex: string | RegExp,
 		replacement: string,
-		files: string[]
+		files: string[],
 	): ShellString;
 	(
 		options: string,
@@ -317,7 +317,7 @@ export interface SedFunction {
 	(
 		searchRegex: string | RegExp,
 		replacement: string,
-		files: string[]
+		files: string[],
 	): ShellString;
 	(
 		searchRegex: string | RegExp,
@@ -355,7 +355,7 @@ export interface GrepFunction {
 	(
 		options: string,
 		regex_filter: string | RegExp,
-		files: string[]
+		files: string[],
 	): ShellString;
 	(
 		options: string,
@@ -770,7 +770,7 @@ export interface ExecFunction {
 	 */
 	(
 		command: string,
-		options: ExecOptions & { async: true }
+		options: ExecOptions & { async: true },
 	): child.ChildProcess;
 
 	/**
@@ -793,7 +793,7 @@ export interface ExecFunction {
 	(
 		command: string,
 		options: ExecOptions,
-		callback: ExecCallback
+		callback: ExecCallback,
 	): child.ChildProcess;
 
 	/**
@@ -819,12 +819,10 @@ export const exec: ExecFunction;
 export type ExecCallback = (
 	/** The process exit code. */
 	code: number,
-
 	/** The process standard output. */
 	stdout: string,
-
 	/** The process standard error output. */
-	stderr: string
+	stderr: string,
 ) => any;
 
 export interface ExecOptions extends child.ExecOptions {
@@ -988,8 +986,8 @@ export interface ShellStringConstructor {
 	 * @param value 	The string value to wrap.
 	 * @return				A string-like object with special methods.
 	 */
-	new(value: string): ShellString;
-	new(value: string[]): ShellArray;
+	new (value: string): ShellString;
+	new (value: string[]): ShellArray;
 
 	/**
 	 * Wraps a string (or array) value. This has all the string (or array) methods,
@@ -1096,7 +1094,7 @@ export interface TouchOptionsArray {
 export interface TouchFunction {
 	(
 		options: TouchOptionsLiteral | TouchOptionsArray,
-		files: string[]
+		files: string[],
 	): ShellString;
 	(
 		options: TouchOptionsLiteral | TouchOptionsArray,
