@@ -1,4 +1,4 @@
-// Type definitions for nodekell 1.1
+// Type definitions for nodekell 1.2
 // Project: https://github.com/rudty/nodekell
 // Definitions by: Lee Tae Woo <https://github.com/syrflover>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,44 +6,55 @@
 
 export type Iter<T> = Iterable<T> | AsyncIterable<T>; // | IterableIterator<T> | AsyncIterableIterator<T> | T[];
 
-export type ExtractIter<T> = T extends Iter<infer X> ? X : T;
+// export type ExtractIter<T> = T extends Iter<infer PT> ? PT : T;
 
-export type ExtractPromise<T> = T extends Promise<infer X> ? X : T;
+export type IterOnly<T> = T extends Iter<any> ? T : T[];
+
+export type ExtractPromise<T> = T extends Promise<infer PT> ? PT : T;
+export type EP<T> = ExtractPromise<T>;
 
 export type ExtractMap<T> = T extends Map<infer K, infer V> ? [K, V] : unknown;
 
-export type Extract2dArray<T> =
-	ExtractPromise<T> extends Iter<infer X> ?
-	X extends Iter<infer Y> ?
-	ExtractPromise<Y> :
-	ExtractPromise<X> :
-	ExtractPromise<ExtractIter<ExtractPromise<T>>>;
+export type Flat<T> = T extends Iter<infer E0> ? E0 : T;
 
-export type Extract2dArrayOrElem<T> =
-	ExtractPromise<T> extends Iter<infer X> ?
-	X extends Iter<infer Y> ?
-	ExtractPromise<Y> : // | Iter<ExtractPromise<Y>>
-	// ExtractPromise<Y> extends Iter<infer Z> ? ExtractPromise<Y> | Iter<ExtractPromise<Y>> : ExtractPromise<Y> :
-	ExtractPromise<X> :
-	[] extends ExtractPromise<T> ?
-	ExtractPromise<ExtractIter<ExtractPromise<ExtractIter<ExtractPromise<T>>>>> : //  | Iter<ExtractPromise<ExtractIter<ExtractPromise<ExtractIter<ExtractPromise<T>>>>>>
-	ExtractPromise<ExtractIter<ExtractPromise<T>>>;
+export type PFlat<T> = EP<Flat<EP<T>>>; // Promise Flat
 
-/* type test = Extract2dArray<Promise<string[]> | Promise<string> | string[]>
-type test2 = Extract2dArray<AsyncIterableIterator<AsyncIterableIterator<string>>>
-type test3 = Extract2dArrayOrElem<AsyncIterableIterator<(number | (number | Promise<number>)[])>>
-type test4 = Extract2dArrayOrElem<AsyncIterableIterator<AsyncIterableIterator<string>>>
-type test5 = Extract2dArrayOrElem<string | string[]>;
-type test6 = Extract2dArrayOrElem<AsyncIterableIterator<AsyncIterableIterator<string>>>
-type test7 = Extract2dArray<Extract2dArray<AsyncIterableIterator<string | Promise<string>[][]>>>;
-type test8 = Extract2dArrayOrElem<AsyncIterableIterator<string | Promise<string>[][]>>
-type test9 = Extract2dArrayOrElem<Extract2dArrayOrElem<AsyncIterableIterator<string | Promise<string>[][]>>>;
-type test10 = Extract2dArrayOrElem<AsyncIterableIterator<string | Promise<string>[][]>>;
-type test11 = Extract2dArrayOrElem<test10>;
-type test12 = Extract2dArrayOrElem<(number | (number | number[])[])[]>;
-type test13 = Extract2dArrayOrElem<AsyncIterableIterator<string | string[][] | Promise<string>[][]>>;
-type test14 = Extract2dArrayOrElem<test13>; */
-// type test15 = Extract2dArrayOrElem<test14>;
+export type DFlat<T> = // Deep Flat
+    T extends Iter<infer E0> ?
+    E0 extends Iter<infer E1> ?
+    E1 extends Iter<infer E2> ?
+    E2 extends Iter<infer E3> ?
+    E3 extends Iter<infer E4> ?
+    E4 extends Iter<infer E5> ?
+    E5 extends Iter<infer E6> ?
+    E6 extends Iter<infer E7> ?
+    E7 extends Iter<infer E8> ?
+    E8 extends Iter<infer E9> ?
+    E9 extends Iter<infer E10> ?
+    E10 extends Iter<infer E11> ?
+    E11 : // 12
+    E10 :
+    E9 :
+    E8 :
+    E7 :
+    E6 :
+    E5 :
+    E4 :
+    E3 :
+    E2 :
+    E1 :
+    E0 :
+    T;
+
+export type PDFlat<T> = // Promise Deep Flat
+    EP<DFlat<
+    EP<DFlat<
+    EP<DFlat<
+    EP<DFlat<
+    EP<DFlat<
+    EP<DFlat<
+    EP<DFlat< // 7
+    EP<T>>>>>>>>>>>>>>>;
 
 export interface CurriedFunction2<T1, T2, R> {
 	(t1: T1): (t2: T2) => R;
@@ -243,6 +254,7 @@ export function run<T, R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R1
  * @param iter
  */
 export function head<T>(iter: Iter<T | Promise<T>>): Promise<T>;
+export function head<T>(iter: Iter<T>): Promise<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#tail
@@ -250,6 +262,7 @@ export function head<T>(iter: Iter<T | Promise<T>>): Promise<T>;
  * @param iter
  */
 export function tail<T>(iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function tail<T>(iter: Iter<T>): AsyncIterableIterator<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#drop
@@ -258,8 +271,10 @@ export function tail<T>(iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
  * @param iter
  */
 export function drop<T>(count: number): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
+export function drop<T>(count: number): (iter: Iter<T>) => AsyncIterableIterator<EP<T>>;
 
 export function drop<T>(count: number, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function drop<T>(count: number, iter: Iter<T>): AsyncIterableIterator<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#dropwhile
@@ -268,8 +283,10 @@ export function drop<T>(count: number, iter: Iter<T | Promise<T>>): AsyncIterabl
  * @param iter
  */
 export function dropWhile<T>(f: (elem: T) => (boolean | Promise<boolean>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
+export function dropWhile<T>(f: (elem: EP<T>) => (boolean | Promise<boolean>)): (iter: Iter<T>) => AsyncIterableIterator<EP<T>>;
 
 export function dropWhile<T>(f: (elem: T) => (boolean | Promise<boolean>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function dropWhile<T>(f: (elem: EP<T>) => (boolean | Promise<boolean>), iter: Iter<T>): AsyncIterableIterator<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#filter
@@ -278,8 +295,10 @@ export function dropWhile<T>(f: (elem: T) => (boolean | Promise<boolean>), iter:
  * @param iter
  */
 export function filter<T>(f: (elem: T) => (boolean | Promise<boolean>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
+export function filter<T>(f: (elem: EP<T>) => (boolean | Promise<boolean>)): (iter: Iter<T>) => AsyncIterableIterator<EP<T>>;
 
 export function filter<T>(f: (elem: T) => (boolean | Promise<boolean>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function filter<T>(f: (elem: EP<T>) => (boolean | Promise<boolean>), iter: Iter<T>): AsyncIterableIterator<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#map
@@ -288,61 +307,55 @@ export function filter<T>(f: (elem: T) => (boolean | Promise<boolean>), iter: It
  * @param iter
  */
 export function map<T, R>(f: (elem: T) => (R | Promise<R>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<R>;
+export function map<T, R>(f: (elem: EP<T>) => (R | Promise<R>)): (iter: Iter<T>) => AsyncIterableIterator<R>;
 
 export function map<T, R>(f: (elem: T) => (R | Promise<R>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<R>;
+export function map<T, R>(f: (elem: EP<T>) => (R | Promise<R>), iter: Iter<T>): AsyncIterableIterator<R>;
 
 /**
  * https://github.com/rudty/nodekell#fmap
  *
- * **Note**
- * - don't use non-iter, but allow use non-iter in function of fmap.
- * ```ts
- * // allow
- * fmap(e0 => fmap(e1 => fmap(e2 => fmap(e3 => fmap(e4 => e4, e3), e2), e1), e0), [1,2,3,4]);
- *
- * // not allow
- * fmap(e => e, 1);
- * ```
- *
  * @param f
  * @param iter
  */
-export function fmap<T, R>(f: (elem: Extract2dArrayOrElem<Iter<T>>) => (R | Promise<R> | Iter<R> | Promise<Iter<R>>)): (iter: Iter<T>) => AsyncIterableIterator<Extract2dArrayOrElem<Iter<R>>>;
-export function fmap<T, R>(f: (elem: T) => (R | Promise<R>)): (iter: T) => AsyncIterableIterator<Extract2dArrayOrElem<R>>;
+export function fmap<T, R>(f: (elem: IterOnly<PFlat<T>>) => (Iter<R> | Promise<Iter<R>>)): (iter: T) => AsyncIterableIterator<PFlat<Iter<R>>>;
+export function fmap<T, R>(f: (elem: IterOnly<PFlat<T>>) => R): (iter: T) => AsyncIterableIterator<PFlat<EP<R>>>;
 
-export function fmap<T, R>(f: (elem: Extract2dArrayOrElem<Iter<T>>) => (R | Promise<R> | Iter<R> | Promise<Iter<R>>), iter: Iter<T>): AsyncIterableIterator<Extract2dArrayOrElem<Iter<R>>>;
-export function fmap<T, R>(f: (elem: T) => (R | Promise<R>), iter: T): AsyncIterableIterator<Extract2dArrayOrElem<R>>;
+export function fmap<T, R>(f: (elem: IterOnly<PFlat<T>>) => (Iter<R> | Promise<Iter<R>>), iter: T): AsyncIterableIterator<PFlat<Iter<R>>>;
+export function fmap<T, R>(f: (elem: IterOnly<PFlat<T>>) => R, iter: T): AsyncIterableIterator<PFlat<EP<R>>>;
+// export function fmap<T, R>(f: (elem: T) => (R | Promise<R> | Iter<R> | Promise<Iter<R>>), iter: Iter<T>): AsyncIterableIterator<Extract2dArrayOrElem<Iter<R>>>;
+// export function fmap<T, R>(f: (elem: T) => (R | Promise<R>), iter: T): AsyncIterableIterator<Extract2dArrayOrElem<R>>;
 
 /**
  * https://github.com/rudty/nodekell#flatMap
- *
- * **Note**
- * - don't use non-iter, but allow use non-iter in function of flatMap.
- * ```ts
- * // allow
- * flatMap(e0 => flatMap(e1 => flatMap(e2 => flatMap(e3 => flatMap(e4 => e4, e3), e2), e1), e0), [1,2,3,4])
- *
- * // not allow
- * flatMap(e => e, 1);
- * ```
  *
  * as fmap
  *
  * @param f
  * @param iter
  */
-export function flatMap<T, R>(f: (elem: Extract2dArrayOrElem<Iter<T>>) => (R | Promise<R> | Iter<R> | Promise<Iter<R>>)): (iter: Iter<T>) => AsyncIterableIterator<Extract2dArrayOrElem<Iter<R>>>;
-export function flatMap<T, R>(f: (elem: T) => (R | Promise<R>)): (iter: T) => AsyncIterableIterator<Extract2dArrayOrElem<R>>;
+export function flatMap<T, R>(f: (elem: IterOnly<PFlat<T>>) => (Iter<R> | Promise<Iter<R>>)): (iter: T) => AsyncIterableIterator<PFlat<Iter<R>>>;
+export function flatMap<T, R>(f: (elem: IterOnly<PFlat<T>>) => R): (iter: T) => AsyncIterableIterator<PFlat<EP<R>>>;
 
-export function flatMap<T, R>(f: (elem: Extract2dArrayOrElem<Iter<T>>) => (R | Promise<R> | Iter<R> | Promise<Iter<R>>), iter: Iter<T>): AsyncIterableIterator<Extract2dArrayOrElem<Iter<R>>>;
-export function flatMap<T, R>(f: (elem: T) => (R | Promise<R>), iter: T): AsyncIterableIterator<Extract2dArrayOrElem<R>>;
+export function flatMap<T, R>(f: (elem: IterOnly<PFlat<T>>) => (Iter<R> | Promise<Iter<R>>), iter: T): AsyncIterableIterator<PFlat<Iter<R>>>;
+export function flatMap<T, R>(f: (elem: IterOnly<PFlat<T>>) => R, iter: T): AsyncIterableIterator<PFlat<EP<R>>>;
 
 /**
  * https://github.com/rudty/nodekell#flat
  *
  * @param iter
  */
-export function flat<T>(iter: Iter<T>): AsyncIterableIterator<Extract2dArray<Iter<T>>>;
+export function flat<T>(iter: Iter<T>): AsyncIterableIterator<PFlat<T>>;
+
+/**
+ * https://github.com/rudty/nodekell#dflat
+ *
+ * **Note**
+ * - please use iter of depth 12 or less
+ *
+ * @param t
+ */
+export function dflat<T>(...t: T[]): AsyncIterableIterator<PDFlat<T[]>>;
 
 /**
  * https://github.com/rudty/nodekell#take
@@ -351,8 +364,10 @@ export function flat<T>(iter: Iter<T>): AsyncIterableIterator<Extract2dArray<Ite
  * @param iter
  */
 export function take<T>(count: number): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
+export function take<T>(count: number): (iter: Iter<T>) => AsyncIterableIterator<EP<T>>;
 
 export function take<T>(count: number, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function take<T>(count: number, iter: Iter<T>): AsyncIterableIterator<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#takewhile
@@ -361,8 +376,10 @@ export function take<T>(count: number, iter: Iter<T | Promise<T>>): AsyncIterabl
  * @param iter
  */
 export function takeWhile<T>(f: (elem: T) => (boolean | Promise<boolean>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
+export function takeWhile<T>(f: (elem: EP<T>) => (boolean | Promise<boolean>)): (iter: Iter<T>) => AsyncIterableIterator<EP<T>>;
 
 export function takeWhile<T>(f: (elem: T) => (boolean | Promise<boolean>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function takeWhile<T>(f: (elem: EP<T>) => (boolean | Promise<boolean>), iter: Iter<T>): AsyncIterableIterator<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#foldl
@@ -377,10 +394,13 @@ export function takeWhile<T>(f: (elem: T) => (boolean | Promise<boolean>), iter:
 // export function foldl<T>(f: (acc: T, elem: T) => (T | Promise<T>)): (init: T | Promise<T>, iter: Iter<T | Promise<T>>) => Promise<T>;
 
 export function foldl<T>(f: (acc: T, elem: T) => (T | Promise<T>)): CurriedFunction2<T | Promise<T>, Iter<T | Promise<T>>, Promise<T>>;
+export function foldl<T>(f: (acc: EP<T>, elem: EP<T>) => (EP<T> | Promise<EP<T>>)): CurriedFunction2<T, Iter<T>, Promise<EP<T>>>;
 
 export function foldl<T>(f: (acc: T, elem: T) => (T | Promise<T>), init: T | Promise<T>): (iter: Iter<T | Promise<T>>) => Promise<T>;
+export function foldl<T>(f: (acc: EP<T>, elem: EP<T>) => (EP<T> | Promise<EP<T>>), init: T): (iter: Iter<T>) => Promise<EP<T>>;
 
 export function foldl<T>(f: (acc: T, elem: T) => (T | Promise<T>), init: T | Promise<T>, iter: Iter<T | Promise<T>>): Promise<T>;
+export function foldl<T>(f: (acc: EP<T>, elem: EP<T>) => (EP<T> | Promise<EP<T>>), init: T, iter: Iter<T>): Promise<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#foldl1
@@ -389,8 +409,10 @@ export function foldl<T>(f: (acc: T, elem: T) => (T | Promise<T>), init: T | Pro
  * @param iter
  */
 export function foldl1<T>(f: (acc: T, elem: T) => (T | Promise<T>)): (iter: Iter<T | Promise<T>>) => Promise<T>;
+export function foldl1<T>(f: (acc: EP<T>, elem: EP<T>) => (EP<T> | Promise<EP<T>>)): (iter: Iter<T>) => Promise<EP<T>>;
 
 export function foldl1<T>(f: (acc: T, elem: T) => (T | Promise<T>), iter: Iter<T | Promise<T>>): Promise<T>;
+export function foldl1<T>(f: (acc: EP<T>, elem: EP<T>) => (EP<T> | Promise<EP<T>>), iter: Iter<T>): Promise<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#reduce
@@ -401,8 +423,10 @@ export function foldl1<T>(f: (acc: T, elem: T) => (T | Promise<T>), iter: Iter<T
  * @param iter
  */
 export function reduce<T>(f: (acc: T, elem: T) => (T | Promise<T>)): (iter: Iter<T | Promise<T>>) => Promise<T>;
+export function reduce<T>(f: (acc: EP<T>, elem: EP<T>) => (EP<T> | Promise<EP<T>>)): (iter: Iter<T>) => Promise<EP<T>>;
 
 export function reduce<T>(f: (acc: T, elem: T) => (T | Promise<T>), iter: Iter<T | Promise<T>>): Promise<T>;
+export function reduce<T>(f: (acc: EP<T>, elem: EP<T>) => (EP<T> | Promise<EP<T>>), iter: Iter<T>): Promise<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#scanl
@@ -416,10 +440,13 @@ export function reduce<T>(f: (acc: T, elem: T) => (T | Promise<T>), iter: Iter<T
 // export function scanl<T>(f: (a: T, b: T) => (T | Promise<T>)): (init: T | Promise<T>, iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
 
 export function scanl<T>(f: (a: T, b: T) => (T | Promise<T>)): CurriedFunction2<T | Promise<T>, Iter<T | Promise<T>>, AsyncIterableIterator<T>>;
+export function scanl<T>(f: (a: EP<T>, b: EP<T>) => (EP<T> | Promise<EP<T>>)): CurriedFunction2<T, Iter<T>, AsyncIterableIterator<EP<T>>>;
 
 export function scanl<T>(f: (a: T, b: T) => (T | Promise<T>), init: T | Promise<T>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
+export function scanl<T>(f: (a: EP<T>, b: EP<T>) => (EP<T> | Promise<EP<T>>), init: T): (iter: Iter<T>) => AsyncIterableIterator<EP<T>>;
 
 export function scanl<T>(f: (a: T, b: T) => (T | Promise<T>), init: T | Promise<T>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function scanl<T>(f: (a: EP<T>, b: EP<T>) => (EP<T> | Promise<EP<T>>), init: T, iter: Iter<T>): AsyncIterableIterator<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#scanl1
@@ -428,8 +455,10 @@ export function scanl<T>(f: (a: T, b: T) => (T | Promise<T>), init: T | Promise<
  * @param iter
  */
 export function scanl1<T>(f: (a: T, b: T) => (T | Promise<T>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
+export function scanl1<T>(f: (a: EP<T>, b: EP<T>) => (EP<T> | Promise<EP<T>>)): (iter: Iter<T>) => AsyncIterableIterator<EP<T>>;
 
 export function scanl1<T>(f: (a: T, b: T) => (T | Promise<T>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function scanl1<T>(f: (a: EP<T>, b: EP<T>) => (EP<T> | Promise<EP<T>>), iter: Iter<T>): AsyncIterableIterator<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#reverse
@@ -437,6 +466,7 @@ export function scanl1<T>(f: (a: T, b: T) => (T | Promise<T>), iter: Iter<T | Pr
  * @param iter
  */
 export function reverse<T>(iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function reverse<T>(iter: Iter<T>): AsyncIterableIterator<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#foldr
@@ -450,10 +480,13 @@ export function reverse<T>(iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>
 // export function foldr<T>(f: (acc: T, elem: T) => (T | Promise<T>)): (init: T | Promise<T>, iter: Iter<T | Promise<T>>) => Promise<T>;
 
 export function foldr<T>(f: (acc: T, elem: T) => (T | Promise<T>)): CurriedFunction2<T | Promise<T>, Iter<T | Promise<T>>, Promise<T>>;
+export function foldr<T>(f: (acc: EP<T>, elem: EP<T>) => (EP<T> | Promise<EP<T>>)): CurriedFunction2<T, Iter<T>, Promise<EP<T>>>;
 
 export function foldr<T>(f: (acc: T, elem: T) => (T | Promise<T>), init: T | Promise<T>): (iter: Iter<T | Promise<T>>) => Promise<T>;
+export function foldr<T>(f: (acc: EP<T>, elem: EP<T>) => (EP<T> | Promise<EP<T>>), init: T): (iter: Iter<T>) => Promise<EP<T>>;
 
 export function foldr<T>(f: (acc: T, elem: T) => (T | Promise<T>), init: T | Promise<T>, iter: Iter<T | Promise<T>>): Promise<T>;
+export function foldr<T>(f: (acc: EP<T>, elem: EP<T>) => (EP<T> | Promise<EP<T>>), init: T, iter: Iter<T>): Promise<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#foldr1
@@ -462,8 +495,10 @@ export function foldr<T>(f: (acc: T, elem: T) => (T | Promise<T>), init: T | Pro
  * @param iter
  */
 export function foldr1<T>(f: (acc: T, elem: T) => (T | Promise<T>)): (iter: Iter<T | Promise<T>>) => Promise<T>;
+export function foldr1<T>(f: (acc: EP<T>, elem: EP<T>) => (EP<T> | Promise<EP<T>>)): (iter: Iter<T>) => Promise<EP<T>>;
 
 export function foldr1<T>(f: (acc: T, elem: T) => (T | Promise<T>), iter: Iter<T | Promise<T>>): Promise<T>;
+export function foldr1<T>(f: (acc: EP<T>, elem: EP<T>) => (EP<T> | Promise<EP<T>>), iter: Iter<T>): Promise<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#zip
@@ -472,8 +507,10 @@ export function foldr1<T>(f: (acc: T, elem: T) => (T | Promise<T>), iter: Iter<T
  * @param iter2
  */
 export function zip<T, Y>(iter1: Iter<T | Promise<T>>): (iter2: Iter<Y | Promise<Y>>) => AsyncIterableIterator<[T, Y]>;
+export function zip<T, Y>(iter1: Iter<T>): (iter2: Iter<Y>) => AsyncIterableIterator<[EP<T>, EP<Y>]>;
 
-export function zip<T, Y>(iter1: Iter<T | Promise<T>>, iter2: Iter<Y | Promise<Y>>): AsyncIterableIterator<[T, Y]>;
+export function zip<T, Y>(iter1: Iter<T | Promise<T>>, iter2: Iter<Y | Promise<Y>>): AsyncIterableIterator<[EP<T>, EP<Y>]>;
+export function zip<T, Y>(iter1: Iter<T>, iter2: Iter<Y>): AsyncIterableIterator<[EP<T>, EP<Y>]>;
 
 /**
  * https://github.com/rudty/nodekell#zipwith
@@ -491,14 +528,14 @@ export function zip<T, Y>(iter1: Iter<T | Promise<T>>, iter2: Iter<Y | Promise<Y
 // export function zipWith<T, Y, R1, R2>(f: (a: T, b: Y) => [R1, R2]): (a: Iter<T | Promise<T>>, b: Iter<Y | Promise<Y>>) => AsyncIterableIterator<[R1, R2]>;
 // export function zipWith<T, Y, R1, R2>(f: (a: T, b: Y) => (Promise<[R1, R2]> | Promise<(R1 | R2)[]>)): (a: Iter<T | Promise<T>>, b: Iter<Y | Promise<Y>>) => AsyncIterableIterator<[R1, R2]>;
 
-export function zipWith<T, Y, R1, R2>(f: (a: T, b: Y) => [R1, R2]): CurriedFunction2<Iter<T | Promise<T>>, Iter<Y | Promise<Y>>, AsyncIterableIterator<[R1, R2]>>;
-export function zipWith<T, Y, R1, R2>(f: (a: T, b: Y) => (Promise<[R1, R2]> | Promise<(R1 | R2)[]>)): CurriedFunction2<Iter<T | Promise<T>>, Iter<Y | Promise<Y>>, AsyncIterableIterator<[R1, R2]>>;
+export function zipWith<T, Y, R1, R2>(f: (a: T, b: Y) => ([R1, R2] | Promise<[R1, R2]> | Promise<(R1 | R2)[]>)): CurriedFunction2<Iter<T | Promise<T>>, Iter<Y | Promise<Y>>, AsyncIterableIterator<[R1, R2]>>;
+export function zipWith<T, Y, R1, R2>(f: (a: EP<T>, b: EP<Y>) => ([R1, R2] | Promise<[R1, R2]> | Promise<(R1 | R2)[]>)): CurriedFunction2<Iter<T>, Iter<Y>, AsyncIterableIterator<[R1, R2]>>;
 
-export function zipWith<T, Y, R1, R2>(f: (a: T, b: Y) => [R1, R2], iter1: Iter<T | Promise<T>>): (iter2: Iter<Y | Promise<Y>>) => AsyncIterableIterator<[R1, R2]>;
-export function zipWith<T, Y, R1, R2>(f: (a: T, b: Y) => (Promise<[R1, R2]> | Promise<(R1 | R2)[]>), iter1: Iter<T | Promise<T>>): (iter2: Iter<Y | Promise<Y>>) => AsyncIterableIterator<[R1, R2]>;
+export function zipWith<T, Y, R1, R2>(f: (a: T, b: Y) => ([R1, R2] | Promise<[R1, R2]> | Promise<(R1 | R2)[]>), iter1: Iter<T | Promise<T>>): (iter2: Iter<Y | Promise<Y>>) => AsyncIterableIterator<[R1, R2]>;
+export function zipWith<T, Y, R1, R2>(f: (a: EP<T>, b: EP<Y>) => ([R1, R2] | Promise<[R1, R2]> | Promise<(R1 | R2)[]>), iter1: Iter<T>): (iter2: Iter<Y>) => AsyncIterableIterator<[R1, R2]>;
 
-export function zipWith<T, Y, R1, R2>(f: (a: T, b: Y) => [R1, R2], iter1: Iter<T | Promise<T>>, iter2: Iter<Y | Promise<Y>>): AsyncIterableIterator<[R1, R2]>;
-export function zipWith<T, Y, R1, R2>(f: (a: T, b: Y) => (Promise<[R1, R2]> | Promise<(R1 | R2)[]>), iter1: Iter<T | Promise<T>>, iter2: Iter<Y | Promise<Y>>): AsyncIterableIterator<[R1, R2]>;
+export function zipWith<T, Y, R1, R2>(f: (a: T, b: Y) => ([R1, R2] | Promise<[R1, R2]> | Promise<(R1 | R2)[]>), iter1: Iter<T | Promise<T>>, iter2: Iter<Y | Promise<Y>>): AsyncIterableIterator<[R1, R2]>;
+export function zipWith<T, Y, R1, R2>(f: (a: EP<T>, b: EP<Y>) => ([R1, R2] | Promise<[R1, R2]> | Promise<(R1 | R2)[]>), iter1: Iter<T>, iter2: Iter<Y>): AsyncIterableIterator<[R1, R2]>;
 
 //
 // stream.js
@@ -507,9 +544,10 @@ export function zipWith<T, Y, R1, R2>(f: (a: T, b: Y) => (Promise<[R1, R2]> | Pr
 /**
  * https://github.com/rudty/nodekell#rangeof
  *
+ * @deprecated use `flat` or `dflat` instead
  * @param a
  */
-export function rangeOf<T>(...a: T[]): AsyncIterableIterator<Extract2dArrayOrElem<T[]>>;
+export function rangeOf<T>(...a: T[]): AsyncIterableIterator<PFlat<T>>;
 
 /**
  * No Document
@@ -518,12 +556,22 @@ export function rangeOf<T>(...a: T[]): AsyncIterableIterator<Extract2dArrayOrEle
  * @param iter
  */
 export function firstOrGet<T, Y>(supply: () => (Y | Promise<Y>)): (iter: Iter<T | Promise<T>>) => Promise<T | Y>;
+export function firstOrGet<T, Y>(supply: () => Y): (iter: Iter<T>) => Promise<EP<T> | EP<Y>>;
+
 export function firstOrGet<T, Y>(supply: Promise<() => (Y | Promise<Y>)>): (iter: Iter<T | Promise<T>>) => Promise<T | Y>;
+export function firstOrGet<T, Y>(supply: Promise<() => Y>): (iter: Iter<T>) => Promise<EP<T> | EP<Y>>;
+
 export function firstOrGet<T, Y>(supply: Y | Promise<Y>): (iter: Iter<T | Promise<T>>) => Promise<T | Y>;
+export function firstOrGet<T, Y>(supply: Y): (iter: Iter<T>) => Promise<EP<T> | EP<Y>>;
 
 export function firstOrGet<T, Y>(supply: () => (Y | Promise<Y>), iter: Iter<T | Promise<T>>): Promise<T | Y>;
+export function firstOrGet<T, Y>(supply: () => Y, iter: Iter<T>): Promise<EP<T> | EP<Y>>;
+
 export function firstOrGet<T, Y>(supply: Promise<() => (Y | Promise<Y>)>, iter: Iter<T | Promise<T>>): Promise<T | Y>;
+export function firstOrGet<T, Y>(supply: Promise<() => Y>, iter: Iter<T>): Promise<EP<T> | EP<Y>>;
+
 export function firstOrGet<T, Y>(supply: Y | Promise<Y>, iter: Iter<T | Promise<T>>): Promise<T | Y>;
+export function firstOrGet<T, Y>(supply: Y, iter: Iter<T>): Promise<EP<T> | EP<Y>>;
 
 /**
  * https://github.com/rudty/nodekell#emptythen
@@ -532,12 +580,22 @@ export function firstOrGet<T, Y>(supply: Y | Promise<Y>, iter: Iter<T | Promise<
  * @param iter
  */
 export function emptyThen<T, Y>(supply: () => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
+export function emptyThen<T, Y>(supply: () => (Iter<Y> | Promise<Iter<Y>>)): (iter: Iter<T>) => AsyncIterableIterator<EP<T> | EP<Y>>;
+
 export function emptyThen<T, Y>(supply: Promise<() => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>)>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
+export function emptyThen<T, Y>(supply: Promise<() => (Iter<Y> | Promise<Iter<Y>>)>): (iter: Iter<T>) => AsyncIterableIterator<EP<T> | EP<Y>>;
+
 export function emptyThen<T, Y>(supply: Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
+export function emptyThen<T, Y>(supply: Iter<Y> | Promise<Iter<Y>>): (iter: Iter<T>) => AsyncIterableIterator<EP<T> | EP<Y>>;
 
 export function emptyThen<T, Y>(supply: () => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
+export function emptyThen<T, Y>(supply: () => (Iter<Y> | Promise<Iter<Y>>), iter: Iter<T>): AsyncIterableIterator<EP<T> | EP<Y>>;
+
 export function emptyThen<T, Y>(supply: Promise<() => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>)>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
+export function emptyThen<T, Y>(supply: Promise<() => (Iter<Y> | Promise<Iter<Y>>)>, iter: Iter<T>): AsyncIterableIterator<EP<T> | EP<Y>>;
+
 export function emptyThen<T, Y>(supply: Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
+export function emptyThen<T, Y>(supply: Iter<Y> | Promise<Iter<Y>>, iter: Iter<T>): AsyncIterableIterator<EP<T> | EP<Y>>;
 
 /**
  * https://github.com/rudty/nodekell#
@@ -548,13 +606,23 @@ export function emptyThen<T, Y>(supply: Iter<Y | Promise<Y>> | Promise<Iter<Y | 
  * @param iter
  */
 export function collect<T>(iter: Iter<T | Promise<T>>): Promise<T[]>;
+export function collect<T>(iter: Iter<T>): Promise<EP<T>[]>;
 
 /**
  * https://github.com/rudty/nodekell#collectmap
  *
+ * **Note**
+ * - if want you high quality type, use type assertion or generic
+ * ```ts
+ * const a = [['a', 0], ['b', 1]] as [string, number][];
+ * const r = await collectMap(a); // Map<string, number>
+ * ```
+ *
  * @param iter
  */
-export function collectMap<K, V>(iter: Iter<[K, V] | Promise<[K, V]>>): Promise<Map<K, V>>;
+export function collectMap<T extends any[]>(iter: Iter<T | Promise<T>>): Promise<Map<T[0], T[1]>>;
+// export function collectMap<K, V>(iter: Iter<[K, V] | Promise<[K, V]>>): Promise<Map<K, V>>;
+// export function collectMap<K, V>(iter: Iter<[K, V]>): Promise<Map<K, V>>;
 
 /**
  * https://github.com/rudty/nodekell#collectset
@@ -562,6 +630,7 @@ export function collectMap<K, V>(iter: Iter<[K, V] | Promise<[K, V]>>): Promise<
  * @param iter
  */
 export function collectSet<T>(iter: Iter<T | Promise<T>>): Promise<Set<T>>;
+export function collectSet<T>(iter: Iter<T>): Promise<Set<EP<T>>>;
 
 /**
  * https://github.com/rudty/nodekell#foreach
@@ -570,8 +639,10 @@ export function collectSet<T>(iter: Iter<T | Promise<T>>): Promise<Set<T>>;
  * @param iter
  */
 export function forEach<T, R>(f: (elem: T) => (R | Promise<R>)): (iter: Iter<T | Promise<T>>) => Promise<R[]>;
+export function forEach<T, R>(f: (elem: EP<T>) => (R | Promise<R>)): (iter: Iter<T>) => Promise<R[]>;
 
 export function forEach<T, R>(f: (elem: T) => (R | Promise<R>), iter: Iter<T | Promise<T>>): Promise<R[]>;
+export function forEach<T, R>(f: (elem: EP<T>) => (R | Promise<R>), iter: Iter<T>): Promise<R[]>;
 
 /**
  * https://github.com/rudty/nodekell#distinctby
@@ -584,8 +655,10 @@ export function forEach<T, R>(f: (elem: T) => (R | Promise<R>), iter: Iter<T | P
 // export function distinctBy<T, Y>(f: (elem: T) => (Y | Promise<Y>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
 
 export function distinctBy<T>(f: (elem: T) => any): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
+export function distinctBy<T>(f: (elem: EP<T>) => any): (iter: Iter<T>) => AsyncIterableIterator<EP<T>>;
 
 export function distinctBy<T>(f: (elem: T) => any, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function distinctBy<T>(f: (elem: EP<T>) => any, iter: Iter<T>): AsyncIterableIterator<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#distinct
@@ -593,6 +666,7 @@ export function distinctBy<T>(f: (elem: T) => any, iter: Iter<T | Promise<T>>): 
  * @param iter
  */
 export function distinct<T>(iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function distinct<T>(iter: Iter<T>): AsyncIterableIterator<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#some
@@ -601,8 +675,10 @@ export function distinct<T>(iter: Iter<T | Promise<T>>): AsyncIterableIterator<T
  * @param iter
  */
 export function some<T>(f: (elem: T) => (boolean | Promise<boolean>)): (iter: Iter<T | Promise<T>>) => Promise<boolean>;
+export function some<T>(f: (elem: EP<T>) => (boolean | Promise<boolean>)): (iter: Iter<T>) => Promise<boolean>;
 
 export function some<T>(f: (elem: T) => (boolean | Promise<boolean>), iter: Iter<T | Promise<T>>): Promise<boolean>;
+export function some<T>(f: (elem: EP<T>) => (boolean | Promise<boolean>), iter: Iter<T>): Promise<boolean>;
 
 /**
  * https://github.com/rudty/nodekell#every
@@ -611,8 +687,10 @@ export function some<T>(f: (elem: T) => (boolean | Promise<boolean>), iter: Iter
  * @param iter
  */
 export function every<T>(f: (elem: T) => (boolean | Promise<boolean>)): (iter: Iter<T | Promise<T>>) => Promise<boolean>;
+export function every<T>(f: (elem: EP<T>) => (boolean | Promise<boolean>)): (iter: Iter<T>) => Promise<boolean>;
 
 export function every<T>(f: (elem: T) => (boolean | Promise<boolean>), iter: Iter<T | Promise<T>>): Promise<boolean>;
+export function every<T>(f: (elem: EP<T>) => (boolean | Promise<boolean>), iter: Iter<T>): Promise<boolean>;
 
 /**
  * https://github.com/rudty/nodekell#maxby
@@ -647,7 +725,7 @@ export function minBy<T>(f: (elem: T) => any, iter: Iter<T | Promise<T>>): Promi
  *
  * @param iter
  */
-export function count<T>(iter: Iter<T | Promise<T>>): Promise<number>;
+export function count(iter: Iter<any>): Promise<number>;
 // export function count<T>(iter: Iter<T>): Promise<number>;
 
 /**
@@ -711,12 +789,22 @@ export function splitBy<T, R>(f: (elem: T) => (Iter<R> | Promise<Iter<R>>), any:
  * @param iter
  */
 export function errorThen<T, Y>(supply: (error: any) => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
+export function errorThen<T, Y>(supply: (error: any) => (Iter<Y> | Promise<Iter<Y>>)): (iter: Iter<T>) => AsyncIterableIterator<EP<T> | EP<Y>>;
+
 export function errorThen<T, Y>(supply: Promise<(error: any) => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>)>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
+export function errorThen<T, Y>(supply: Promise<(error: any) => (Iter<Y> | Promise<Iter<Y>>)>): (iter: Iter<T>) => AsyncIterableIterator<EP<T> | EP<Y>>;
+
 export function errorThen<T, Y>(supply: Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T | Y>;
+export function errorThen<T, Y>(supply: Iter<Y> | Promise<Iter<Y>>): (iter: Iter<T>) => AsyncIterableIterator<EP<T> | EP<Y>>;
 
 export function errorThen<T, Y>(supply: (error: any) => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
+export function errorThen<T, Y>(supply: (error: any) => (Iter<Y> | Promise<Iter<Y>>), iter: Iter<T>): AsyncIterableIterator<EP<T> | EP<Y>>;
+
 export function errorThen<T, Y>(supply: Promise<(error: any) => (Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>)>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
+export function errorThen<T, Y>(supply: Promise<(error: any) => (Iter<Y> | Promise<Iter<Y>>)>, iter: Iter<T>): AsyncIterableIterator<EP<T> | EP<Y>>;
+
 export function errorThen<T, Y>(supply: Iter<Y | Promise<Y>> | Promise<Iter<Y | Promise<Y>>>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T | Y>;
+export function errorThen<T, Y>(supply: Iter<Y> | Promise<Iter<Y>>, iter: Iter<T>): AsyncIterableIterator<EP<T> | EP<Y>>;
 
 /**
  * https://github.com/rudty/nodekell#then
@@ -735,8 +823,10 @@ export function then<T, R>(f: (t: T) => R, t: T): R;
  * @param iter
  */
 export function buffer<T>(supply: number | Promise<number>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<[T]>;
+export function buffer<T>(supply: number | Promise<number>): (iter: Iter<T>) => AsyncIterableIterator<[EP<T>]>;
 
 export function buffer<T>(supply: number | Promise<number>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<[T]>;
+export function buffer<T>(supply: number | Promise<number>, iter: Iter<T>): AsyncIterableIterator<[EP<T>]>;
 
 //
 // tsql.js
@@ -746,7 +836,7 @@ export function buffer<T>(supply: number | Promise<number>, iter: Iter<T | Promi
  * https://github.com/rudty/nodekell#groupby
  *
  * **TODO**
- * - remove ExtractPromise
+ * - remove EP
  *
  * @param f
  * @param iter
@@ -755,9 +845,11 @@ export function buffer<T>(supply: number | Promise<number>, iter: Iter<T | Promi
 
 export function groupBy<V extends object, K extends V[keyof V]>(f: (elem: V) => (K | Promise<K>), iter: Iter<V | Promise<V>>): Promise<Map<K, V>>; */
 
-export function groupBy<K, V>(f: (elem: ExtractPromise<V>) => (K | Promise<K>)): (iter: Iter<V> | Iter<V | Promise<V>>) => Promise<Map<K, ExtractPromise<V>[]>>;
+export function groupBy<K, V>(f: (elem: V) => (K | Promise<K>)): (iter: Iter<V | Promise<V>>) => Promise<Map<K, V[]>>;
+export function groupBy<K, V>(f: (elem: EP<V>) => (K | Promise<K>)): (iter: Iter<V>) => Promise<Map<K, EP<V>[]>>;
 
-export function groupBy<K, V>(f: (elem: ExtractPromise<V>) => (K | Promise<K>), iter: Iter<V> | Iter<V | Promise<V>>): Promise<Map<K, ExtractPromise<V>[]>>;
+export function groupBy<K, V>(f: (elem: V) => (K | Promise<K>), iter: Iter<V | Promise<V>>): Promise<Map<K, V[]>>;
+export function groupBy<K, V>(f: (elem: EP<V>) => (K | Promise<K>), iter: Iter<V>): Promise<Map<K, EP<V>[]>>;
 
 /**
  * https://github.com/rudty/nodekell#concat
@@ -766,8 +858,10 @@ export function groupBy<K, V>(f: (elem: ExtractPromise<V>) => (K | Promise<K>), 
  * @param iter2
  */
 export function concat<T, Y>(iter1: Iter<T | Promise<T>>): (iter2: Iter<Y | Promise<Y>>) => AsyncIterableIterator<T | Y>;
+export function concat<T, Y>(iter1: Iter<T>): (iter2: Iter<Y>) => AsyncIterableIterator<EP<T> | EP<Y>>;
 
 export function concat<T, Y>(iter1: Iter<T | Promise<T>>, iter2: Iter<Y | Promise<Y>>): AsyncIterableIterator<T | Y>;
+export function concat<T, Y>(iter1: Iter<T>, iter2: Iter<Y>): AsyncIterableIterator<EP<T> | EP<Y>>;
 
 /**
  * https://github.com/rudty/nodekell#union
@@ -776,11 +870,14 @@ export function concat<T, Y>(iter1: Iter<T | Promise<T>>, iter2: Iter<Y | Promis
  * @param iter2
  */
 export function union<T, Y>(iter1: Iter<T | Promise<T>>): (iter2: Iter<Y | Promise<Y>>) => AsyncIterableIterator<T | Y>;
+export function union<T, Y>(iter1: Iter<T>): (iter2: Iter<Y>) => AsyncIterableIterator<EP<T> | EP<Y>>;
 
 export function union<T, Y>(iter1: Iter<T | Promise<T>>, iter2: Iter<Y | Promise<Y>>): AsyncIterableIterator<T | Y>;
+export function union<T, Y>(iter1: Iter<T>, iter2: Iter<Y>): AsyncIterableIterator<EP<T> | EP<Y>>;
 
 export type InnerJoinObject<T1 extends object, T2 extends object> = { [P in keyof T1 | keyof T2]: P extends keyof T1 ? T1[P] : P extends keyof T2 ? T2[P] : unknown };
 export type InnerJoinMap<T1, T2> = Map<T1 extends Map<infer K1, infer V1> ? T2 extends Map<infer K2, infer V2> ? K1 | K2 : unknown : unknown, T1 extends Map<infer K1, infer V1> ? T2 extends Map<infer K2, infer V2> ? V1 | V2 : unknown : unknown>;
+export type InnerJoinCustomIterable<T1 extends { set: (...arg: any[]) => any; } & Iter<any>, T2 extends { set: (...arg: any[]) => any; } & Iter<any>> = AsyncIterableIterator<T1 | T2>;
 
 // type InnerJoinObjectTest1 = InnerJoinObject<{ id: number; name: string; }, { id: number; length: number; }>;
 // type InnerJoinObjectTest2 = InnerJoinObject<{ id: number; length: number; }, { id: number; name: string; }>;
@@ -798,41 +895,17 @@ export type InnerJoinMap<T1, T2> = Map<T1 extends Map<infer K1, infer V1> ? T2 e
  * @param iter1
  * @param iter2
  */
-// export function innerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1>) => (iter2: Iter<T2>) => AsyncIterableIterator<InnerJoinMap<T1, T2>>;
+export function innerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1 | Promise<T1>, elem2: T2 | Promise<T2>) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<InnerJoinMap<T1, T2>>>;
 
-// export function innerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1>, iter2: Iter<T2>) => AsyncIterableIterator<InnerJoinMap<T1, T2>>;
+export function innerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1 | Promise<T1>, elem2: T2 | Promise<T2>) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<InnerJoinMap<T1, T2>>;
 
-export function innerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1>, Iter<T2>, AsyncIterableIterator<InnerJoinMap<T1, T2>>>;
-
-export function innerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1>): (iter2: Iter<T2>) => AsyncIterableIterator<InnerJoinMap<T1, T2>>;
-
-export function innerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1>, iter2: Iter<T2>): AsyncIterableIterator<InnerJoinMap<T1, T2>>;
-
-// export function innerJoin<T1 extends object, T2 extends object>(f: (elem1: NonUnknowable<IsCustomIter<T1>, T1>, elem2: NonUnknowable<IsCustomIter<T2>, T2>) => (boolean | Promise<boolean>), iter1: Iter<NonUnknowable<IsCustomIter<T1 | Promise<T1>>, T1 | Promise<T1>>>, iter2: Iter<NonUnknowable<IsCustomIter<T2 | Promise<T2>>, T2 | Promise<T2>>>): AsyncIterableIterator<unknown extends IsCustomIter<T1> ? InnerJoinObject<T1, T2> : InnerJoinObject<T1, T2>>;
-
-// export function innerJoin<T1 extends object, T2 extends object>(f: (elem1: NonUnknowable<IsCustomIter<T1>, T1>, elem2: NonUnknowable<IsCustomIter<T2>, T2>) => (boolean | Promise<boolean>), iter1: Iter<NonUnknowable<IsCustomIter<T1 | Promise<T1>>, T1 | Promise<T1>>>, iter2: Iter<NonUnknowable<IsCustomIter<T2 | Promise<T2>>, T2 | Promise<T2>>>): AsyncIterableIterator<unknown extends IsCustomIter<T1> ? InnerJoinObject<T1, T2> : T1 | T2>;
-
-// export function innerJoin<T1 extends object, T2 extends object>(f: (elem1: NonUnknowable<IsCustomIter<T1>, T1>, elem2: NonUnknowable<IsCustomIter<T2>, T2>) => (boolean | Promise<boolean>), iter1: Iter<NonUnknowable<IsCustomIter<T1 | Promise<T1>>, T1 | Promise<T1>>>, iter2: Iter<NonUnknowable<IsCustomIter<T2 | Promise<T2>>, T2 | Promise<T2>>>): AsyncIterableIterator<unknown extends IsCustomIter<T1> ? InnerJoinObject<T1, T2> : T1 | T2>;
-
-// export function innerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>) => (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<InnerJoinObject<T1, T2>>;
-
-// export function innerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<InnerJoinObject<T1, T2>>;
+export function innerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1 | Promise<T1>, elem2: T2 | Promise<T2>) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<InnerJoinMap<T1, T2>>;
 
 export function innerJoin<T1 extends object, T2 extends object>(f: (elem1: T2, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<InnerJoinObject<T1, T2>>>;
 
 export function innerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<InnerJoinObject<T1, T2>>;
 
 export function innerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<InnerJoinObject<T1, T2>>;
-
-// export function innerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>) => (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
-
-// export function innerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
-
-// export function innerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T1 | T2>>;
-
-// export function innerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
-
-// export function innerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T1 | T2>;
 
 /**
  * https://github.com/rudty/nodekell#leftinnerjoin
@@ -843,35 +916,17 @@ export function innerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, e
  * @param iter1
  * @param iter2
  */
-// export function leftInnerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1>) => (iter2: Iter<T2>) => AsyncIterableIterator<InnerJoinMap<T1, T2>>;
+export function leftInnerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1 | Promise<T1>, elem2: T2 | Promise<T2>) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<InnerJoinMap<T1, T2>>>;
 
-// export function leftInnerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1>, iter2: Iter<T2>) => AsyncIterableIterator<InnerJoinMap<T1, T2>>;
+export function leftInnerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1 | Promise<T1>, elem2: T2 | Promise<T2>) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<InnerJoinMap<T1, T2>>;
 
-export function leftInnerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1>, Iter<T2>, AsyncIterableIterator<InnerJoinMap<T1, T2>>>;
-
-export function leftInnerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1>): (iter2: Iter<T2>) => AsyncIterableIterator<InnerJoinMap<T1, T2>>;
-
-export function leftInnerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1>, iter2: Iter<T2>): AsyncIterableIterator<InnerJoinMap<T1, T2>>;
-
-// export function leftInnerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>) => (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<InnerJoinObject<T1, T2>>;
-
-// export function leftInnerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<InnerJoinObject<T1, T2>>;
+export function leftInnerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1 | Promise<T1>, elem2: T2 | Promise<T2>) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<InnerJoinMap<T1, T2>>;
 
 export function leftInnerJoin<T1 extends object, T2 extends object>(f: (elem1: T2, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<InnerJoinObject<T1, T2>>>;
 
 export function leftInnerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<InnerJoinObject<T1, T2>>;
 
 export function leftInnerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<InnerJoinObject<T1, T2>>;
-
-// export function leftInnerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>) => (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
-
-// export function leftInnerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
-
-// export function leftInnerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T1 | T2>>;
-
-// export function leftInnerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
-
-// export function leftInnerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T1 | T2>;
 
 /**
  * https://github.com/rudty/nodekell#rightinnerjoin
@@ -880,31 +935,17 @@ export function leftInnerJoin<T1 extends object, T2 extends object>(f: (elem1: T
  * @param iter1
  * @param iter2
  */
-export function rightInnerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<InnerJoinMap<T2, T1>>>;
+export function rightInnerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem2: T2 | Promise<T2>, elem1: T1 | Promise<T1>) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<InnerJoinMap<T2, T1>>>;
 
-export function rightInnerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<InnerJoinMap<T2, T1>>;
+export function rightInnerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem2: T2 | Promise<T2>, elem1: T1 | Promise<T1>) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<InnerJoinMap<T2, T1>>;
 
-export function rightInnerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<InnerJoinMap<T2, T1>>;
-
-// export function rightInnerJoin<T1 extends object, T2 extends object>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>) => (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<InnerJoinObject<T2, T1>>;
-
-// export function rightInnerJoin<T1 extends object, T2 extends object>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<InnerJoinObject<T2, T1>>;
+export function rightInnerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem2: T2 | Promise<T2>, elem1: T1 | Promise<T1>) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<InnerJoinMap<T2, T1>>;
 
 export function rightInnerJoin<T1 extends object, T2 extends object>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<InnerJoinObject<T2, T1>>>;
 
 export function rightInnerJoin<T1 extends object, T2 extends object>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<InnerJoinObject<T2, T1>>;
 
 export function rightInnerJoin<T1 extends object, T2 extends object>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<InnerJoinObject<T2, T1>>;
-
-// export function rightInnerJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>) => (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T2 | T1>;
-
-// export function rightInnerJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T2 | T1>;
-
-// export function rightInnerJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T2 | T1>>;
-
-// export function rightInnerJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T2 | T1>;
-
-// export function rightInnerJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T2 | T1>;
 
 /*
   outerJoinMap K2와 V2에 대해 옵셔널(optional)을 적용하고 싶은데 방법 없나
@@ -937,25 +978,11 @@ export function outerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, 
 
 export function outerJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<OuterJoinMap<T1, T2>>;
 
-// export function outerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>) => (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<OuterJoinObject<T1, T2>>;
-
-// export function outerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<OuterJoinObject<T1, T2>>;
-
 export function outerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<OuterJoinObject<T1, T2>>>;
 
 export function outerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<OuterJoinObject<T1, T2>>;
 
 export function outerJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<OuterJoinObject<T1, T2>>;
-
-// export function outerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>) => (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
-
-// export function outerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
-
-// export function outerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T1 | T2>>;
-
-// export function outerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
-
-// export function outerJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T1 | T2>;
 
 /**
  * https://github.com/rudty/nodekell#leftouterjoin
@@ -972,25 +999,11 @@ export function leftOuterJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1
 
 export function leftOuterJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<OuterJoinMap<T1, T2>>;
 
-// export function leftOuterJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>) => (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<OuterJoinObject<T1, T2>>;
-
-// export function leftOuterJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<OuterJoinObject<T1, T2>>;
-
 export function leftOuterJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<OuterJoinObject<T1, T2>>>;
 
 export function leftOuterJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<OuterJoinObject<T1, T2>>;
 
 export function leftOuterJoin<T1 extends object, T2 extends object>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<OuterJoinObject<T1, T2>>;
-
-// export function leftOuterJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>) => (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
-
-// export function leftOuterJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
-
-// export function leftOuterJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T1 | T2>>;
-
-// export function leftOuterJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T1 | T2>;
-
-// export function leftOuterJoin<T1, T2>(f: (elem1: T1, elem2: T2) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T1 | T2>;
 
 /**
  * https://github.com/rudty/nodekell#rightouterjoin
@@ -1005,25 +1018,11 @@ export function rightOuterJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[
 
 export function rightOuterJoin<T1 extends Map<ExtractMap<T1>[0], ExtractMap<T1>[1]>, T2 extends Map<ExtractMap<T2>[0], ExtractMap<T2>[1]>>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<OuterJoinMap<T2, T1>>;
 
-// export function rightOuterJoin<T1 extends object, T2 extends object>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>) => (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<OuterJoinObject<T2, T1>>;
-
-// export function rightOuterJoin<T1 extends object, T2 extends object>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<OuterJoinObject<T2, T1>>;
-
 export function rightOuterJoin<T1 extends object, T2 extends object>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<OuterJoinObject<T2, T1>>>;
 
 export function rightOuterJoin<T1 extends object, T2 extends object>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<OuterJoinObject<T2, T1>>;
 
 export function rightOuterJoin<T1 extends object, T2 extends object>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<OuterJoinObject<T2, T1>>;
-
-// export function rightOuterJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>)): (iter1: Iter<T1 | Promise<T1>>) => (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T2 | T1>;
-
-// export function rightOuterJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T2 | T1>;
-
-// export function rightOuterJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>)): CurriedFunction2<Iter<T1 | Promise<T1>>, Iter<T2 | Promise<T2>>, AsyncIterableIterator<T2 | T1>>;
-
-// export function rightOuterJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>): (iter2: Iter<T2 | Promise<T2>>) => AsyncIterableIterator<T2 | T1>;
-
-// export function rightOuterJoin<T1, T2>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<T2 | T1>;
 
 //
 // timer.js
@@ -1043,10 +1042,16 @@ export function sleep(t: number): Promise<void>;
  * @param iter
  */
 export function withTimeout<T>(duration: () => (number | Promise<number>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
+export function withTimeout<T>(duration: () => (number | Promise<number>)): (iter: Iter<T>) => AsyncIterableIterator<EP<T>>;
+
 export function withTimeout<T>(duration: number | Promise<number>): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
+export function withTimeout<T>(duration: number | Promise<number>): (iter: Iter<T>) => AsyncIterableIterator<EP<T>>;
 
 export function withTimeout<T>(duration: () => (number | Promise<number>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function withTimeout<T>(duration: () => (number | Promise<number>), iter: Iter<T>): AsyncIterableIterator<EP<T>>;
+
 export function withTimeout<T>(duration: number | Promise<number>, iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function withTimeout<T>(duration: number | Promise<number>, iter: Iter<T>): AsyncIterableIterator<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#timeout
@@ -1101,8 +1106,13 @@ export function rangeInterval(duration: () => (number | Promise<number>), begin:
  *
  * @param supply
  */
+export function repeat<T>(supply: Promise<() => (T | Promise<T>)>): AsyncIterableIterator<T>;
 export function repeat<T>(supply: () => (T | Promise<T>)): AsyncIterableIterator<T>;
 export function repeat<T>(supply: T | Promise<T>): AsyncIterableIterator<T>;
+
+export function repeat<T>(length: number | Promise<number>, supply: Promise<() => (T | Promise<T>)>): AsyncIterableIterator<T>;
+export function repeat<T>(length: number | Promise<number>, supply: () => (T | Promise<T>)): AsyncIterableIterator<T>;
+export function repeat<T>(length: number | Promise<number>, supply: T | Promise<T>): AsyncIterableIterator<T>;
 
 /**
  * https://github.com/rudty/nodekell#range
@@ -1143,8 +1153,10 @@ export function parallel_set_fetch_count(count: number): void;
  * @param iter
  */
 export function pmap<T, R>(f: (elem: T) => (R | Promise<R>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<R>;
+export function pmap<T, R>(f: (elem: EP<T>) => (R | Promise<R>)): (iter: Iter<T>) => AsyncIterableIterator<R>;
 
 export function pmap<T, R>(f: (elem: T) => (R | Promise<R>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<R>;
+export function pmap<T, R>(f: (elem: EP<T>) => (R | Promise<R>), iter: Iter<T>): AsyncIterableIterator<R>;
 
 /**
  * https://github.com/rudty/nodekell#pfilter
@@ -1153,13 +1165,38 @@ export function pmap<T, R>(f: (elem: T) => (R | Promise<R>), iter: Iter<T | Prom
  * @param iter
  */
 export function pfilter<T>(f: (elem: T) => (boolean | Promise<boolean>)): (iter: Iter<T | Promise<T>>) => AsyncIterableIterator<T>;
+export function pfilter<T>(f: (elem: EP<T>) => (boolean | Promise<boolean>)): (iter: Iter<T>) => AsyncIterableIterator<EP<T>>;
 
 export function pfilter<T>(f: (elem: T) => (boolean | Promise<boolean>), iter: Iter<T | Promise<T>>): AsyncIterableIterator<T>;
+export function pfilter<T>(f: (elem: EP<T>) => (boolean | Promise<boolean>), iter: Iter<T>): AsyncIterableIterator<EP<T>>;
 
 /**
  * https://github.com/rudty/nodekell#pcalls
  *
+ * **Note**
+ * - if use union type, please use generic. but iter supports auto completion union.
+ * ```ts
+ * const fn0 = () => 1;
+ * const fn1 = () => 'a';
+ * const fn2 = async () => 3;
+ * const fn3 = async () => (async () => 'b')();
+ * const r = F.pcalls<number | string>(fn0, fn1, fn2, fn3);
+ * ```
+ *
  * @param f
  */
 export function pcalls<R>(f: Iter<() => (R | Promise<R>)>): AsyncIterableIterator<R>;
+export function pcalls<T extends () => any>(f: Iter<T>): AsyncIterableIterator<EP<ReturnType<T>>>;
+
 export function pcalls<R>(...f: (() => R | Promise<R>)[]): AsyncIterableIterator<R>;
+// export function pcalls<T extends () => any>(...f: T[]): AsyncIterableIterator<EP<ReturnType<T>>>
+
+/**
+ * https://github.com/rudty/nodekell#pfmap
+ *
+ * @param f
+ * @param iter
+ */
+export function pfmap<T, R>(f: (elem: PFlat<T>) => (R | Promise<R>)): (iter: T) => AsyncIterableIterator<PFlat<R>>;
+
+export function pfmap<T, R>(f: (elem: PFlat<T>) => (R | Promise<R>), iter: T): AsyncIterableIterator<PFlat<R>>;
