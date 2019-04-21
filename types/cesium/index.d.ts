@@ -2853,7 +2853,8 @@ declare namespace Cesium {
             pitchAdjustHeight?: number;
             flyOverLongitude?: number;
             flyOverLongitudeWeight?: number;
-            easingFunction?: EasingFunction
+            easingFunction?: EasingFunction,
+            convert?: boolean,
         }): void;
         flyToBoundingSphere(boundingSphere: BoundingSphere, options?: {
             duration?: number;
@@ -2894,7 +2895,8 @@ declare namespace Cesium {
         setView(options: {
             destination?: Cartesian3 | Rectangle;
             orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
-            endTransform?: Matrix4
+            endTransform?: Matrix4,
+            convert?: boolean,
         }): void;
         switchToOrthographicFrustum(): void;
         switchToPerspectiveFrustum(): void;
