@@ -32,17 +32,15 @@ NPM 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입�
 패키지에 포함된 자료형(Typing)은 주로 `package.json` 파일의 `"types"` 나 `"typings"` 필드(Field)를 통해 제공되지만,
 `/// <reference path="" />` 같은 주석을 사용하여 패키지 안의 ".d.ts" 파일들을 직접 가져와야 할 수도 있습니다.
 
-
 ### 그 외의 방법들
 
 타입스크립트(TypeScript) 1.0 버전에서 사용할 수 있는 방법은 다음과 같습니다.
 
-* [Typings](https://github.com/typings/typings) 을 사용하기
-* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped) 을 사용하기~~ (다른 방법을 사용해주세요. NuGet 은 더 이상 DT 자료형(Typing)을 제공하지 않습니다.)
-* 이 저장소의 `master` 브랜치를 직접 내려받기
+- [Typings](https://github.com/typings/typings) 을 사용하기
+- ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped) 을 사용하기~~ (다른 방법을 사용해주세요. NuGet 은 더 이상 DT 자료형(Typing)을 제공하지 않습니다.)
+- 이 저장소의 `master` 브랜치를 직접 내려받기
 
 위 방법을 사용할 경우 수동으로 [참조(Reference)](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html)를 추가해주어야 할 수 있습니다.
-
 
 ## 어떻게 이곳에 기여할 수 있나요?
 
@@ -56,7 +54,6 @@ NPM 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입�
 
 이미 존재하는 패키지의 자료형 선언(Type declaration)에 새로운 기능을 추가하려면 [모듈 증강(module augmentation)](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)를 사용할 수 있습니다.
 물론 `node_modules/@types/foo/index.d.ts` 를 직접 수정하실 수도 있으며, 이 파일을 복사한 다음 아래의 과정을 따라하실 수도 있습니다.
-
 
 #### 새 자료형 패키지를 임시로 추가하기
 
@@ -74,20 +71,18 @@ NPM 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입�
 실제 코드를 통한 확인이 끝나면, [풀 리퀘스트(Pull request)](#풀-리퀘스트pull-request-만들기)를 만들어주세요.
 [이미 존재하는 패키지를 수정](#이미-존재하는-패키지를-수정하기)하거나 [새 패키지를 만들기](#새-패키지-만들기)위한 과정들을 따라하시면 됩니다.
 
-
 ### 풀 리퀘스트(Pull request) 만들기
 
 여러분의 자료형 선언이 잘 작동하는지 확인하셨다면, DefinitelyTyped 에 공유해주세요.
 
 우선, 이 저장소를 [포크(fork)](https://guides.github.com/activities/forking/)해 주시고, [node](https://nodejs.org/) 를 설치하신 뒤, `npm install` 명령을 실행해주세요.
 
-
 #### 이미 존재하는 패키지를 수정하기
 
-* `cd types/my-package-to-edit` 명령을 실행합니다.
-* 자료형(Typing) 파일들을 수정합니다. 테스트를 추가하는 것도 잊지마세요!
+- `cd types/my-package-to-edit` 명령을 실행합니다.
+- 자료형(Typing) 파일들을 수정합니다. 테스트를 추가하는 것도 잊지마세요!
   만약 브레이킹 체인지(Breaking change)를 만드셨다면, [메이저 버전(major version)](#패키지를-새-메이저-버전major-version에-맞게-갱신하고-싶어요)을 꼭 올려주세요.
-* 패키지 머릿주석의 "Definitions by" 부분에 여러분의 이름을 추가하실 수도 있습니다.
+- 패키지 머릿주석의 "Definitions by" 부분에 여러분의 이름을 추가하실 수도 있습니다.
   - 이름을 추가하시면 다른 사람들이 그 패키지에 대한 풀 리퀘스트(Pull request)나 이슈(Issue)를 만들 때 여러분에게 알람이 갑니다.
   - `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>` 와 같이 여러분의 이름을 줄의 맨 마지막에 추가할 수 있습니다.
   - 사람이 너무 많을 경우엔, 다음과 같이 여러 줄로 쓰실 수도 있습니다.
@@ -97,11 +92,10 @@ NPM 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입�
   //                 Steve <https://github.com/steve>
   //                 John <https://github.com/john>
   ```
-* `tslint.json` 파일이 있는 경우에는, `npm run lint package-name` 명령을 실행시키고 결과를 확인해주세요. 그렇지 않은 경우에는, 해당 패키지가 있는 디렉토리 안에서 `tsc` 명령을 실행시키고 결과를 확인해주세요.
+- `tslint.json` 파일이 있는 경우에는, `npm run lint package-name` 명령을 실행시키고 결과를 확인해주세요. 그렇지 않은 경우에는, 해당 패키지가 있는 디렉토리 안에서 `tsc` 명령을 실행시키고 결과를 확인해주세요.
 
 이미 존재하는 패키지에 대한 풀 리퀘스트(Pull request)를 만들었을 경우에는, `dt-bot` 이 이전 저자들을 자동으로 호출하는지 확인해주세요.
 그렇지 않은 경우에는, 여러분이 직접 풀 리퀘스트(Pull request)와 관계있는 사람들을 호출할 수도 있습니다.
-
 
 #### 새 패키지를 만들기
 
@@ -113,12 +107,12 @@ NPM 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지�
 
 새 자료형 패키지는 다음과 같은 구조로 구성되어있어야만 합니다.
 
-| 파일 이름 | 용도 |
-| --- | --- |
-| index.d.ts | 패키지를 위한 자료형(Typing)을 포함하는 파일입니다. |
-| foo-tests.ts | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
-| tsconfig.json | `tsc` 명령을 돌릴 수 있게 해주는 파일입니다. |
-| tslint.json | 린터(Linter)를 사용할 수 있게 해주는 파일입니다. |
+| 파일 이름     | 용도                                                                                                                         |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| index.d.ts    | 패키지를 위한 자료형(Typing)을 포함하는 파일입니다.                                                                          |
+| foo-tests.ts  | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
+| tsconfig.json | `tsc` 명령을 돌릴 수 있게 해주는 파일입니다.                                                                                 |
+| tslint.json   | 린터(Linter)를 사용할 수 있게 해주는 파일입니다.                                                                             |
 
 이 파일들은, npm ≥ 5.2.0 에서는 `npx dts-gen --dt --name my-package-name --template module` 명령으로,
 그 이하 경우에는 `npm install -g dts-gen` 와 `dts-gen --dt --name my-package-name --template module` 명령으로 만들 수 있습니다.
@@ -131,42 +125,40 @@ DefinitelyTyped 의 관리자들이 주기적으로 새로운 풀 리퀘스트(P
 
 [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) 패키지는 좋은 예시 중 하나입니다.
 
-
 #### 많이 저지르는 실수들
 
-* 우선, [안내서(Handbook)](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)에 나와있는 내용들을 따라주세요.
-* 코드에서는 모든 곳에서 탭(Tab)을 사용하거나, 항상 4 개의 띄어쓰기를 사용해주세요.
-* `function sum(nums: number[]): number`의 경우, 만약 함수가 인자를 변경하지 않는다면 `ReadonlyArray` 를 사용해주세요.
-* `interface Foo { new(): Foo; }`의 경우,
-    이런 선언은 이 형(Type)을 가진 객체(Object)에 `new` 를 사용할 수 있도록 만듭니다. 많은 경우 여러분은 `declare class Foo { constructor(); }` 를 사용하려는 것일 겁니다.
-* `const Class: { new(): IClass; }`의 경우,
-    `new` 를 사용할 수 있는 상수를 만드는 대신, `class Class { constructor(); }` 와 같이 클래스 선언(Class declaration)을 사용하는 게 더 좋습니다.
-* `getMeAT<T>(): T`의 경우,
-    만일 자료형 매개변수(Type parameter)가 함수의 매개변수에 등장하지 않는다면, 그런 제너릭(Generic) 함수를 사용할 필요가 없습니다.
-    그 제너릭(Generic) 함수는 단순히 자료형 단언(Type assertion)을 위장시킨 것뿐입니다. 이 경우 `getMeAT() as number` 와 같이 진짜 자료형 단언(Type assertion) 을 사용하는 게 더 좋습니다.
-    다음은 괜찮은 제너릭(Generic)의 예시입니다. `function id<T>(value: T): T;`.
-    다음은 문제가 있는 제너릭(Generic)의 예시입니다. `function parseJson<T>(json: string): T;`.
-    예외적으로, `new Map<string, number>()` 와 같은 경우는 괜찮습니다.
-* `Function` 이나 `Object` 와 같은 형(Type)을 사용하는 것은 대부분의 경우 문제를 일으킵니다. 99% 의 경우 더 구체적인 형(Type)을 사용하는게 가능합니다. [함수(Function)](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) 를 위해서는 `(x: number) => number` 와 같은, 객체를 위해서는 `{ x: number, y: number }` 와 같은 형(Type)들을 사용할 수 있습니다. 형(Type)에 대한 정보가 전혀 없을 경우에는, `Object` 형(Type)이 아니라 [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) 형(Type)을 사용해야 합니다. 만일 어떤 형(Type)이 객체라는 사실만 알고 있는 경우, `Object` 나 `{ [key: string]: any }` 가 아니라 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type) 를 사용해주세요.
-* `var foo: string | any`의 경우,
-    `any` 가 합 자료형(Union type)의 안에서 사용될 경우, 결과 형(Type)은 언제나 `any` 가 됩니다. 따라서 형(Type)의 `string` 부분이 유용해 보인다 하더라도, 사실은 자료형 검사(Type checking)의 측면에서 `any` 와 다른 것이 없습니다.
-    대신, `any`, `string`, 나 `string | object` 중 하나를 필요에 맞게 골라서 사용해주세요.
-
+- 우선, [안내서(Handbook)](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)에 나와있는 내용들을 따라주세요.
+- 코드에서는 모든 곳에서 탭(Tab)을 사용하거나, 항상 4 개의 띄어쓰기를 사용해주세요.
+- `function sum(nums: number[]): number`의 경우, 만약 함수가 인자를 변경하지 않는다면 `ReadonlyArray` 를 사용해주세요.
+- `interface Foo { new(): Foo; }`의 경우,
+  이런 선언은 이 형(Type)을 가진 객체(Object)에 `new` 를 사용할 수 있도록 만듭니다. 많은 경우 여러분은 `declare class Foo { constructor(); }` 를 사용하려는 것일 겁니다.
+- `const Class: { new(): IClass; }`의 경우,
+  `new` 를 사용할 수 있는 상수를 만드는 대신, `class Class { constructor(); }` 와 같이 클래스 선언(Class declaration)을 사용하는 게 더 좋습니다.
+- `getMeAT<T>(): T`의 경우,
+  만일 자료형 매개변수(Type parameter)가 함수의 매개변수에 등장하지 않는다면, 그런 제너릭(Generic) 함수를 사용할 필요가 없습니다.
+  그 제너릭(Generic) 함수는 단순히 자료형 단언(Type assertion)을 위장시킨 것뿐입니다. 이 경우 `getMeAT() as number` 와 같이 진짜 자료형 단언(Type assertion) 을 사용하는 게 더 좋습니다.
+  다음은 괜찮은 제너릭(Generic)의 예시입니다. `function id<T>(value: T): T;`.
+  다음은 문제가 있는 제너릭(Generic)의 예시입니다. `function parseJson<T>(json: string): T;`.
+  예외적으로, `new Map<string, number>()` 와 같은 경우는 괜찮습니다.
+- `Function` 이나 `Object` 와 같은 형(Type)을 사용하는 것은 대부분의 경우 문제를 일으킵니다. 99% 의 경우 더 구체적인 형(Type)을 사용하는게 가능합니다. [함수(Function)](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) 를 위해서는 `(x: number) => number` 와 같은, 객체를 위해서는 `{ x: number, y: number }` 와 같은 형(Type)들을 사용할 수 있습니다. 형(Type)에 대한 정보가 전혀 없을 경우에는, `Object` 형(Type)이 아니라 [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) 형(Type)을 사용해야 합니다. 만일 어떤 형(Type)이 객체라는 사실만 알고 있는 경우, `Object` 나 `{ [key: string]: any }` 가 아니라 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type) 를 사용해주세요.
+- `var foo: string | any`의 경우,
+  `any` 가 합 자료형(Union type)의 안에서 사용될 경우, 결과 형(Type)은 언제나 `any` 가 됩니다. 따라서 형(Type)의 `string` 부분이 유용해 보인다 하더라도, 사실은 자료형 검사(Type checking)의 측면에서 `any` 와 다른 것이 없습니다.
+  대신, `any`, `string`, 나 `string | object` 중 하나를 필요에 맞게 골라서 사용해주세요.
 
 #### 패키지 삭제하기
 
 패키지가 스스로의 형(Type)을 [포함](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)하게 되면, DefinitelyTyped 에 있는 자료형(Typing) 패키지를 삭제하는 것이 좋습니다.
 
 `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]` 명령어를 사용하여 자료형(Typing) 패키지를 삭제할 수 있습니다.
+
 - `typingsPackageName` 는 삭제할 디렉토리의 이름입니다.
-- `asOfVersion`  는 새 스텁(Stub) 용 `@types/foo` 를 퍼블리시(Publish)할 버전입니다. 이 버전은 현재 NPM 에 올라간 버전보다 더 높은 버전이어야 합니다.
+- `asOfVersion` 는 새 스텁(Stub) 용 `@types/foo` 를 퍼블리시(Publish)할 버전입니다. 이 버전은 현재 NPM 에 올라간 버전보다 더 높은 버전이어야 합니다.
 - `sourceRepoURL` 는 자료형(Typing)을 포함하게 된 저장소의 주소입니다.
 - `libraryName` 는 패키지의 이름을 읽기 쉽게 쓴 것입니다. 즉, "angular2" 대신에 "Angular 2" 와 같이 쓰는 것이 좋습니다. (생략했을 경우에는 "typingsPackageName" 와 같은 것으로 취급됩니다.)
 
 DefinitelyTyped 의 다른 패키지들이 삭제된 자료형(Typing) 패키지를 사용하고 있을 경우, 형(Type)을 포함하기 시작한 원래 패키지를 사용하도록 수정해야합니다. 삭제된 자료형(Typing) 패키지를 사용하는 각 DefinitelyTyped 패키지들의 `package.json` 파일에 `"dependencies": { "foo": "x.y.z" }` 를 추가해주시면 됩니다.
 
 DefinitelyTyped 에 한 번도 올라온 적 없는 패키지가 형(Type)을 포함하게 되었다면, `notNeededPackages.json` 파일에 추가할 필요도 없습니다.
-
 
 #### 린트(Lint)하기
 
@@ -175,11 +167,11 @@ DefinitelyTyped 에 한 번도 올라온 적 없는 패키지가 형(Type)을 �
 
 ```js
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // 이 패키지는 Function 형을 사용하고 있으며, 고치는 게 쉽지 않다.
-        "ban-types": false
-    }
+	"extends": "dtslint/dt.json",
+	"rules": {
+		// 이 패키지는 Function 형을 사용하고 있으며, 고치는 게 쉽지 않다.
+		"ban-types": false
+	}
 }
 ```
 
@@ -199,7 +191,6 @@ f("one");
 
 이런 테스트들은 `npm run lint package-name` 명령으로 실행해볼 수 있습니다. 이 때, `package-name` 은 테스트하고 싶은 패키지의 이름입니다.
 테스트 스크립트는 [dtslint](https://github.com/Microsoft/dtslint) 를 사용하고 있습니다.
-
 
 ## 자주 하는 질문들
 
@@ -268,17 +259,14 @@ NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 
 ```json
 {
-    "compilerOptions": {
-        "baseUrl": "../../",
-        "typeRoots": ["../../"],
-        "paths": {
-            "history": [ "history/v2" ]
-        },
-    },
-    "files": [
-        "index.d.ts",
-        "history-tests.ts"
-    ]
+	"compilerOptions": {
+		"baseUrl": "../../",
+		"typeRoots": ["../../"],
+		"paths": {
+			"history": ["history/v2"]
+		}
+	},
+	"files": ["index.d.ts", "history-tests.ts"]
 }
 ```
 
@@ -306,12 +294,11 @@ NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 
 ```json
 {
-    "paths":{
-      "@foo/bar": ["foo__bar"]
-    }
+	"paths": {
+		"@foo/bar": ["foo__bar"]
+	}
 }
 ```
-
 
 #### 깃헙(GitHub)이 보여주는 파일 히스토리(History)가 불완전해요.
 

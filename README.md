@@ -1,19 +1,19 @@
 # DefinitelyTyped
 
-> The repository for *high quality* TypeScript type definitions.
+> The repository for _high quality_ TypeScript type definitions.
 
 Also see the [definitelytyped.org](http://definitelytyped.org) website, although information in this README is more up-to-date.
 
-*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), and [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)!*
+_You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), and [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)!_
 
 ## Current status
 
 This section tracks the health of the repository and publishing process.
 It may be helpful for contributors experiencing any issues with their PRs and packages.
 
-* All packages are [type-checking/linting](https://github.com/Microsoft/dtslint) cleanly: [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
-* All packages are being [published to npm](https://github.com/Microsoft/types-publisher) in under an hour: [![Publish Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
-* [typescript-bot](https://github.com/typescript-bot) has been active on DefinitelyTyped [![Activity Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14)
+- All packages are [type-checking/linting](https://github.com/Microsoft/dtslint) cleanly: [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
+- All packages are being [published to npm](https://github.com/Microsoft/types-publisher) in under an hour: [![Publish Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
+- [typescript-bot](https://github.com/typescript-bot) has been active on DefinitelyTyped [![Activity Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14)
 
 If anything here seems wrong, or any of the above are failing, please raise an issue in [the DefinitelyTyped Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
 
@@ -44,17 +44,15 @@ If you still can't find it, check if it [bundles](http://www.typescriptlang.org/
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
-
 ### Other methods
 
 These can be used by TypeScript 1.0.
 
-* [Typings](https://github.com/typings/typings)
-* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
-* Manually download from the `master` branch of this repository
+- [Typings](https://github.com/typings/typings)
+- ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (use preferred alternatives, nuget DT type publishing has been turned off)
+- Manually download from the `master` branch of this repository
 
 You may need to add manual [references](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
-
 
 ## How can I contribute?
 
@@ -69,7 +67,6 @@ Before you share your improvement with the world, use it yourself.
 To add new features you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation).
 You can also directly edit the types in `node_modules/@types/foo/index.d.ts`, or copy them from there and follow the steps below.
 
-
 #### Test a new package
 
 Add to your `tsconfig.json`:
@@ -82,11 +79,10 @@ Add to your `tsconfig.json`:
 (You can also use `src/types`.)
 Create `types/foo/index.d.ts` containing declarations for the module "foo".
 You should now be able import from `"foo"` in your code and it will route to the new type definition.
-Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
+Then build _and_ run the code to make sure your type definition actually corresponds to what happens at runtime.
 Once you've tested your definitions with real code, make a [PR](#make-a-pull-request)
 then follow the instructions to [edit an existing package](#edit-an-existing-package) or
 [create a new package](#create-a-new-package).
-
 
 ### Make a pull request
 
@@ -94,13 +90,12 @@ Once you've tested your package, you can share it on Definitely Typed.
 
 First, [fork](https://guides.github.com/activities/forking/) this repository, install [node](https://nodejs.org/), and run `npm install`.
 
-
 #### Edit an existing package
 
-* `cd types/my-package-to-edit`
-* Make changes. Remember to edit tests.
+- `cd types/my-package-to-edit`
+- Make changes. Remember to edit tests.
   If you make breaking changes, do not forget to [update a major version](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
-* You may also want to add yourself to "Definitions by" section of the package header.
+- You may also want to add yourself to "Definitions by" section of the package header.
   - This will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
   - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
   - Or if there are more people, it can be multiline
@@ -110,11 +105,10 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
   //                 Steve <https://github.com/steve>
   //                 John <https://github.com/john>
   ```
-* If there is a `tslint.json`, run `npm run lint package-name`. Otherwise, run `tsc` in the package directory.
+- If there is a `tslint.json`, run `npm run lint package-name`. Otherwise, run `tsc` in the package directory.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
 If it doesn't, you can do so yourself in the comment associated with the PR.
-
 
 #### Create a new package
 
@@ -126,12 +120,12 @@ If the package you are adding typings for is not on NPM, make sure the name you 
 
 Your package should have this structure:
 
-| File | Purpose |
-| --- | --- |
-| index.d.ts | This contains the typings for the package. |
-| foo-tests.ts | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
-| tsconfig.json | This allows you to run `tsc` within the package. |
-| tslint.json | Enables linting. |
+| File          | Purpose                                                                                              |
+| ------------- | ---------------------------------------------------------------------------------------------------- |
+| index.d.ts    | This contains the typings for the package.                                                           |
+| foo-tests.ts  | This contains sample code which tests the typings. This code does _not_ run, but it is type-checked. |
+| tsconfig.json | This allows you to run `tsc` within the package.                                                     |
+| tslint.json   | Enables linting.                                                                                     |
 
 Generate these by running `npx dts-gen --dt --name my-package-name --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name my-package-name --template module` otherwise.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -142,33 +136,32 @@ Definitely Typed members routinely monitor for new PRs, though keep in mind that
 
 For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
 
-
 #### Common mistakes
 
-* First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Either use all tabs, or always use 4 spaces.
-* `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
-* `interface Foo { new(): Foo; }`:
-    This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
-* `const Class: { new(): IClass; }`:
-    Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
-* `getMeAT<T>(): T`:
-    If a type parameter does not appear in the types of any parameters, you don't really have a generic function, you just have a disguised type assertion.
-    Prefer to use a real type assertion, e.g. `getMeAT() as number`.
-    Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
-    Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
-    Exception: `new Map<string, number>()` is OK.
-* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
-* `var foo: string | any`:
-    When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
-    Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
-
+- First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
+- Formatting: Either use all tabs, or always use 4 spaces.
+- `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
+- `interface Foo { new(): Foo; }`:
+  This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
+- `const Class: { new(): IClass; }`:
+  Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
+- `getMeAT<T>(): T`:
+  If a type parameter does not appear in the types of any parameters, you don't really have a generic function, you just have a disguised type assertion.
+  Prefer to use a real type assertion, e.g. `getMeAT() as number`.
+  Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
+  Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
+  Exception: `new Map<string, number>()` is OK.
+- Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
+- `var foo: string | any`:
+  When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
+  Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
 #### Removing a package
 
 When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from Definitely Typed to avoid confusion.
 
 You can remove it by running `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`.
+
 - `typingsPackageName`: This is the name of the directory to delete.
 - `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version, and should be a version of `foo` on npm.
 - `sourceRepoURL`: This should point to the repository that contains the typings.
@@ -181,10 +174,10 @@ For example:
 
 ```json
 {
-  "private": true,
-  "dependencies": {
-    "foo": "^2.6.0"
-  }
+	"private": true,
+	"dependencies": {
+		"foo": "^2.6.0"
+	}
 }
 ```
 
@@ -195,9 +188,10 @@ If a package was never on Definitely Typed, it does not need to be added to `not
 #### Lint
 
 All new packages must be linted. To lint a package, add a `tslint.json` to that package containing
+
 ```js
 {
-    "extends": "dtslint/dt.json"
+	"extends": "dtslint/dt.json"
 }
 ```
 
@@ -205,11 +199,11 @@ This should be the only content in a finished project's `tslint.json` file. If a
 
 ```js
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // This package uses the Function type, and it will take effort to fix.
-        "ban-types": false
-    }
+	"extends": "dtslint/dt.json",
+	"rules": {
+		// This package uses the Function type, and it will take effort to fix.
+		"ban-types": false
+	}
 }
 ```
 
@@ -229,7 +223,6 @@ For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests
 
 Test by running `npm run lint package-name` where `package-name` is the name of your package.
 This script uses [dtslint](https://github.com/Microsoft/dtslint).
-
 
 ## FAQ
 
@@ -282,6 +275,7 @@ This is a commonly cited [Stack Overflow answer](https://stackoverflow.com/quest
 
 It is more appropriate to import the module using the `import foo = require("foo");` syntax.
 Nevertheless, if you want to use a default import like `import foo from "foo";` you have two options:
+
 - you can use the [`--allowSyntheticDefaultImports` compiler option](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs) if your module runtime supports an interop scheme for non-ECMAScript modules, i.e. if default imports work in your environment (e.g. Webpack, SystemJS, esm).
 - you can use the [`--esModuleInterop` compiler option](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop) if you want TypeScript to take care of non-ECMAScript interop (since Typescript 2.7).
 
@@ -301,7 +295,7 @@ Then you will have to add a comment to the last line of your definition header (
 #### I want to use features from TypeScript 3.1 or above.
 
 You can use the same `// TypeScript Version: 3.1` comment as above.
-However, if your project needs to maintain types that are compatible with 3.1 and above *at the same time as* types that are compatible with 3.0 or below, you will need to use the `typesVersions` feature, which is available in TypeScript 3.1 and above.
+However, if your project needs to maintain types that are compatible with 3.1 and above _at the same time as_ types that are compatible with 3.0 or below, you will need to use the `typesVersions` feature, which is available in TypeScript 3.1 and above.
 You can find a detailed explanation of this feature in the [official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
 
 Here's a short explanation to get you started:
@@ -310,25 +304,26 @@ Here's a short explanation to get you started:
 
 ```json
 {
-    "private": true,
-    "types": "index",
-    "typesVersions": {
-        ">=3.1.0-0": { "*": ["ts3.1/*"] }
-    }
+	"private": true,
+	"types": "index",
+	"typesVersions": {
+		">=3.1.0-0": { "*": ["ts3.1/*"] }
+	}
 }
 ```
 
 2. Create the sub-directory mentioned in the `typesVersions` field inside your types directory (`ts3.1/` in this example)
-and add the types and tests specific for the new TypeScript version. You don't need the typical definition header
-in any of the files from the `ts3.1/` directory.
+   and add the types and tests specific for the new TypeScript version. You don't need the typical definition header
+   in any of the files from the `ts3.1/` directory.
 
 3. Set the `baseUrl` and `typeRoots` options in `ts3.1/tsconfig.json` to the correct paths, they should look something like this:
+
 ```json
 {
-    "compilerOptions": {
-        "baseUrl": "../../",
-        "typeRoots": ["../../"]
-    }
+	"compilerOptions": {
+		"baseUrl": "../../",
+		"typeRoots": ["../../"]
+	}
 }
 ```
 
@@ -366,11 +361,11 @@ Sometimes type declaration package versions and library package versions can get
 Below are a few common reasons why, in order of how much they inconvenience users of a library.
 Only the last case is typically problematic.
 
-* As noted above, the patch version of the type declaration package is unrelated to the library patch version.
+- As noted above, the patch version of the type declaration package is unrelated to the library patch version.
   This allows Definitely Typed to safely update type declarations for the same major/minor version of a library.
-* If updating a package for new functionality, don't forget to update the version number to line up with that version of the library.
+- If updating a package for new functionality, don't forget to update the version number to line up with that version of the library.
   If users make sure versions correspond between JavaScript packages and their respective `@types` packages, then `npm update` should typically just work.
-* It's common for type declaration package updates to lag behind library updates because it's often library users, not maintainers, who update Definitely Typed when new library features are released.
+- It's common for type declaration package updates to lag behind library updates because it's often library users, not maintainers, who update Definitely Typed when new library features are released.
   So there may be a lag of days, weeks, or even months before a helpful community member sends a PR to update the type declaration package for a new library release.
   If you're impacted by this, you can be the change you want to see in the world and you can be that helpful community member!
 
@@ -398,17 +393,14 @@ At the time of writing, the [history v2 `tsconfig.json`](https://github.com/Defi
 
 ```json
 {
-    "compilerOptions": {
-        "baseUrl": "../../",
-        "typeRoots": ["../../"],
-        "paths": {
-            "history": [ "history/v2" ]
-        },
-    },
-    "files": [
-        "index.d.ts",
-        "history-tests.ts"
-    ]
+	"compilerOptions": {
+		"baseUrl": "../../",
+		"typeRoots": ["../../"],
+		"paths": {
+			"history": ["history/v2"]
+		}
+	},
+	"files": ["index.d.ts", "history-tests.ts"]
 }
 ```
 
@@ -422,9 +414,9 @@ Also, `/// <reference types=".." />` will not work with path mapping, so depende
 
 #### How do I write definitions for packages that can be used globally and as a module?
 
-The TypeScript handbook contains excellent [general information about writing definitions](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), and also [this example definition file](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) which shows how to create a definition using ES6-style module syntax, while also specifying objects made available to the global scope.  This technique is demonstrated practically in the [definition for big.js](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), which is a library that can be loaded globally via script tag on a web page, or imported via require or ES6-style imports.
+The TypeScript handbook contains excellent [general information about writing definitions](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), and also [this example definition file](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) which shows how to create a definition using ES6-style module syntax, while also specifying objects made available to the global scope. This technique is demonstrated practically in the [definition for big.js](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), which is a library that can be loaded globally via script tag on a web page, or imported via require or ES6-style imports.
 
-To test how your definition can be used both when referenced globally or as an imported module, create a `test` folder, and place two test files in there.  Name one `YourLibraryName-global.test.ts` and the other `YourLibraryName-module.test.ts`.  The *global* test file should exercise the definition according to how it would be used in a script loaded on a web page where the library is available on the global scope - in this scenario you should not specify an import statement.  The *module* test file should exercise the definition according to how it would be used when imported (including the `import` statement(s)).  If you specify a `files` property in your `tsconfig.json` file, be sure to include both test files.  A [practical example of this](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) is also available on the big.js definition.
+To test how your definition can be used both when referenced globally or as an imported module, create a `test` folder, and place two test files in there. Name one `YourLibraryName-global.test.ts` and the other `YourLibraryName-module.test.ts`. The _global_ test file should exercise the definition according to how it would be used in a script loaded on a web page where the library is available on the global scope - in this scenario you should not specify an import statement. The _module_ test file should exercise the definition according to how it would be used when imported (including the `import` statement(s)). If you specify a `files` property in your `tsconfig.json` file, be sure to include both test files. A [practical example of this](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) is also available on the big.js definition.
 
 Please note that it is not required to fully exercise the definition in each test file - it is sufficient to test only the globally-accessible elements on the global test file and fully exercise the definition in the module test file, or vice versa.
 
@@ -437,12 +429,11 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 
 ```json
 {
-    "paths":{
-      "@foo/bar": ["foo__bar"]
-    }
+	"paths": {
+		"@foo/bar": ["foo__bar"]
+	}
 }
 ```
-
 
 #### The file history in GitHub looks incomplete.
 
