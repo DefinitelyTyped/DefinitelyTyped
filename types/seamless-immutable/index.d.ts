@@ -111,7 +111,7 @@ declare namespace SeamlessImmutable {
             map<TTarget>(mapFuction: (item: Immutable<T>) => TTarget): Immutable<TTarget[]>;
             filter(filterFunction: (item: Immutable<T>) => boolean): Immutable<T[]>;
             slice(start?: number, end?: number): Immutable<T[]>;
-            concat(...arr: Array<T | T[] | Immutable<T[]>>): Immutable<T[]>;
+            concat(...arr: Array<T | T[] | Immutable<T>[] | Immutable<T[]>>): Immutable<T[]>;
             reduce(callbackfn: (previousValue: Immutable<T>, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => T): Immutable<T>;
             reduce<TTarget>(callbackfn: (previousValue: TTarget, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
             reduceRight(callbackfn: (previousValue: Immutable<T>, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => T): Immutable<T>;
