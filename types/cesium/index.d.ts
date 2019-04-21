@@ -2844,7 +2844,7 @@ declare namespace Cesium {
         flyHome(duration: number): void;
         flyTo(options: {
             destination: Cartesian3 | Rectangle;
-            orientation?: any;
+            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
             duration?: number;
             complete?: Camera.FlightCompleteCallback;
             cancel?: Camera.FlightCancelledCallback;
@@ -2891,7 +2891,11 @@ declare namespace Cesium {
         rotateLeft(angle?: number): void;
         rotateRight(angle?: number): void;
         rotateUp(angle?: number): void;
-        setView(options: {destination?: Cartesian3 | Rectangle; orientation?: any; endTransform?: Matrix4}): void;
+        setView(options: {
+            destination?: Cartesian3 | Rectangle;
+            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
+            endTransform?: Matrix4
+        }): void;
         switchToOrthographicFrustum(): void;
         switchToPerspectiveFrustum(): void;
         twistLeft(amount?: number): void;
