@@ -2731,7 +2731,7 @@ describe('interval', () => {
 	it('', () => {
 		let intervalCount = 0;
 
-		const r0 = F.interval(50, async () => { // $ExpectType { run: boolean; }
+		const r0 = F.interval(50, async (a: number, b: string, c: number) => { // $ExpectType { run: boolean; }
 			await F.run(F.range(5), F.then(async _ => {
 				/// work
 				intervalCount++;
@@ -2739,7 +2739,7 @@ describe('interval', () => {
 					r0.run = false;
 				}
 			}));
-		});
+		}, 1, 'hello', 2);
 	});
 });
 
@@ -3075,7 +3075,7 @@ describe('pfmap', () => {
     it('from Promise Value', async () => {
         const a = [Promise.resolve([1]), [Promise.resolve(2)], [3], [4], [5]];
 
-        const r0 = F.pfmap<typeof a, number[] | Promise<number>[]>(e => e)(a); // $ExpectType AsyncIterableIterator<number>
+        const r0 = F.pfmap<typeof a, F.PFlat<typeof a>>(e => e)(a); // $ExpectType AsyncIterableIterator<number>
         const r1 = F.pfmap(e => e, a); // $ExpectType AsyncIterableIterator<number>
 
         await F.collect(r0).then(ifNilThrow(new Error()));
@@ -3095,7 +3095,7 @@ describe('pfmap', () => {
     it('from Normal / Promise Union', async () => {
         const a = [[1], [Promise.resolve('a')], [2], [Promise.resolve(3)], Promise.resolve([4]), Promise.resolve(['b'])];
 
-        const r0 = F.pfmap<typeof a, number[] | string[] | Promise<string>[] | Promise<number>[]>(e => e)(a); // $ExpectType AsyncIterableIterator<string | number>
+        const r0 = F.pfmap<typeof a, F.PFlat<typeof a>>(e => e)(a); // $ExpectType AsyncIterableIterator<string | number>
         const r1 = F.pfmap(e => e, a); // $ExpectType AsyncIterableIterator<string | number>
 
         await F.collect(r0).then(ifNilThrow(new Error()));

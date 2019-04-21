@@ -6,8 +6,6 @@
 
 export type Iter<T> = Iterable<T> | AsyncIterable<T>; // | IterableIterator<T> | AsyncIterableIterator<T> | T[];
 
-// export type ExtractIter<T> = T extends Iter<infer PT> ? PT : T;
-
 export type IterOnly<T> = T extends Iter<any> ? T : T[];
 
 export type ExtractPromise<T> = T extends Promise<infer PT> ? PT : T;
@@ -15,10 +13,19 @@ export type EP<T> = ExtractPromise<T>;
 
 export type ExtractMap<T> = T extends Map<infer K, infer V> ? [K, V] : unknown;
 
+/**
+ * Non-Promise Iter Flat
+ */
 export type Flat<T> = T extends Iter<infer E0> ? E0 : T;
 
+/**
+ * Promise Iter Flat
+ */
 export type PFlat<T> = EP<Flat<EP<T>>>; // Promise Flat
 
+/**
+ * Non-Promise Iter Deep Flat
+ */
 export type DFlat<T> = // Deep Flat
     T extends Iter<infer E0> ?
     E0 extends Iter<infer E1> ?
@@ -46,6 +53,9 @@ export type DFlat<T> = // Deep Flat
     E0 :
     T;
 
+/**
+ * Promise Iter Deep Flat
+ */
 export type PDFlat<T> = // Promise Deep Flat
     EP<DFlat<
     EP<DFlat<
@@ -877,16 +887,13 @@ export function union<T, Y>(iter1: Iter<T>, iter2: Iter<Y>): AsyncIterableIterat
 
 export type InnerJoinObject<T1 extends object, T2 extends object> = { [P in keyof T1 | keyof T2]: P extends keyof T1 ? T1[P] : P extends keyof T2 ? T2[P] : unknown };
 export type InnerJoinMap<T1, T2> = Map<T1 extends Map<infer K1, infer V1> ? T2 extends Map<infer K2, infer V2> ? K1 | K2 : unknown : unknown, T1 extends Map<infer K1, infer V1> ? T2 extends Map<infer K2, infer V2> ? V1 | V2 : unknown : unknown>;
-export type InnerJoinCustomIterable<T1 extends { set: (...arg: any[]) => any; } & Iter<any>, T2 extends { set: (...arg: any[]) => any; } & Iter<any>> = AsyncIterableIterator<T1 | T2>;
+// export type InnerJoinCustomIterable<T1 extends { set: (...arg: any[]) => any; } & Iter<any>, T2 extends { set: (...arg: any[]) => any; } & Iter<any>> = AsyncIterableIterator<T1 | T2>;
 
 // type InnerJoinObjectTest1 = InnerJoinObject<{ id: number; name: string; }, { id: number; length: number; }>;
 // type InnerJoinObjectTest2 = InnerJoinObject<{ id: number; length: number; }, { id: number; name: string; }>;
 
 // type InnerJoinMapTest1 = InnerJoinMap<Map<"string" | "number" | "object", (string | number | null)[]>, Map<"string" | "number", (string | number)[]>>;
 // type InnerJoinMapTest2 = InnerJoinMap<Map<"string" | "number", (string | number)[]>, Map<"string" | "number" | "object", (string | number | null)[]>>;
-
-// type IsCustomIter<T> = T extends object ? T extends Iter<any> ? T : unknown : unknown;
-// type NonUnknowable<T, Y> = unknown extends T ? Y : T;
 
 /**
  * https://github.com/rudty/nodekell#innerjoin
@@ -947,10 +954,10 @@ export function rightInnerJoin<T1 extends object, T2 extends object>(f: (elem2: 
 
 export function rightInnerJoin<T1 extends object, T2 extends object>(f: (elem2: T2, elem1: T1) => (boolean | Promise<boolean>), iter1: Iter<T1 | Promise<T1>>, iter2: Iter<T2 | Promise<T2>>): AsyncIterableIterator<InnerJoinObject<T2, T1>>;
 
-/*
-  outerJoinMap K2와 V2에 대해 옵셔널(optional)을 적용하고 싶은데 방법 없나
-*/
 export type OuterJoinObject<T1 extends object, T2 extends object> = { [P in keyof T1 | keyof T2]: P extends keyof T1 ? T1[P] : P extends keyof T2 ? T2[P] | undefined : unknown };
+/**
+ * K2, V2 is optional, but I can't implementation that type.
+ */
 export type OuterJoinMap<T1, T2> = Map<T1 extends Map<infer K1, infer V1> ? T2 extends Map<infer K2, infer V2> ? K1 | K2 : unknown : unknown, T1 extends Map<infer K1, infer V1> ? T2 extends Map<infer K2, infer V2> ? V1 | V2 : unknown : unknown>;
 
 // type OuterJoinObjectTest = OuterJoinObject<{ id: number; value: number; }, { id: number; name: string; }>;
@@ -1078,7 +1085,7 @@ export function timeout<T>(duration: () => (number | Promise<number>), job: () =
  * @param timerHandler
  * @param params
  */
-export function interval(timeout: number, timerHandler: (...args: any[]) => any, ...args: any[]): { run: boolean; };
+export function interval<A extends any[]>(timeout: number, timerHandler: (...args: A) => any, ...args: A): { run: boolean; };
 
 /**
  * https://github.com/rudty/nodekell#rangeinterval
@@ -1197,6 +1204,6 @@ export function pcalls<R>(...f: (() => R | Promise<R>)[]): AsyncIterableIterator
  * @param f
  * @param iter
  */
-export function pfmap<T, R>(f: (elem: PFlat<T>) => (R | Promise<R>)): (iter: T) => AsyncIterableIterator<PFlat<R>>;
+export function pfmap<T extends Iter<any>, R>(f: (elem: PFlat<T>) => (R | Promise<R>)): (iter: T) => AsyncIterableIterator<PFlat<R>>;
 
-export function pfmap<T, R>(f: (elem: PFlat<T>) => (R | Promise<R>), iter: T): AsyncIterableIterator<PFlat<R>>;
+export function pfmap<T extends Iter<any>, R>(f: (elem: PFlat<T>) => (R | Promise<R>), iter: T): AsyncIterableIterator<PFlat<R>>;
