@@ -98,15 +98,15 @@ declare module "../index" {
         assignWith(...otherArgs: any[]): Exp<any>;
     }
     interface Stat {
-        at<T>(object: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined, ...props: PropertyPath[]): T[];
+        at<T>(object:  Dictionary<T> | NumericDictionary<T> | null | undefined, ...props: PropertyPath[]): T[];
         at<T extends object>(object: T | null | undefined, ...props: Array<Many<keyof T>>): Array<T[keyof T]>;
     }
     interface Imp<TValue> {
-        at<T>(this: Imp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>, ...props: PropertyPath[]): Imp<T[]>;
+        at<T>(this: Imp< Dictionary<T> | NumericDictionary<T> | null | undefined>, ...props: PropertyPath[]): Imp<T[]>;
         at<T extends object>(this: Imp<T | null | undefined>, ...props: Array<Many<keyof T>>): Imp<Array<T[keyof T]>>;
     }
     interface Exp<TValue> {
-        at<T>(this: Exp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>, ...props: PropertyPath[]): Exp<T[]>;
+        at<T>(this: Exp< Dictionary<T> | NumericDictionary<T> | null | undefined>, ...props: PropertyPath[]): Exp<T[]>;
         at<T extends object>(this: Exp<T | null | undefined>, ...props: Array<Many<keyof T>>): Exp<Array<T[keyof T]>>;
     }
     interface Stat {
@@ -348,15 +348,15 @@ declare module "../index" {
         invert(): Exp<Dictionary<string>>;
     }
     interface Stat {
-        invertBy<T>(object: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined, interatee?: ValueIteratee<T>): Dictionary<string[]>;
+        invertBy<T>(object:  Dictionary<T> | NumericDictionary<T> | null | undefined, interatee?: ValueIteratee<T>): Dictionary<string[]>;
         invertBy<T extends object>(object: T | null | undefined, interatee?: ValueIteratee<T[keyof T]>): Dictionary<string[]>;
     }
     interface Imp<TValue> {
-        invertBy<T>(this: Imp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>, interatee?: ValueIteratee<T>): Imp<Dictionary<string[]>>;
+        invertBy<T>(this: Imp< Dictionary<T> | NumericDictionary<T> | null | undefined>, interatee?: ValueIteratee<T>): Imp<Dictionary<string[]>>;
         invertBy<T extends object>(this: Imp<T | null | undefined>, interatee?: ValueIteratee<T[keyof T]>): Imp<Dictionary<string[]>>;
     }
     interface Exp<TValue> {
-        invertBy<T>(this: Exp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>, interatee?: ValueIteratee<T>): Exp<Dictionary<string[]>>;
+        invertBy<T>(this: Exp< Dictionary<T> | NumericDictionary<T> | null | undefined>, interatee?: ValueIteratee<T>): Exp<Dictionary<string[]>>;
         invertBy<T extends object>(this: Exp<T | null | undefined>, interatee?: ValueIteratee<T[keyof T]>): Exp<Dictionary<string[]>>;
     }
     interface Stat {

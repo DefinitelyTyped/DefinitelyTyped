@@ -499,16 +499,16 @@ declare module "../index" {
     }
 
     interface Stat {
-        toArray<T>(value: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined): T[];
+        toArray<T>(value:  Dictionary<T> | NumericDictionary<T> | null | undefined): T[];
         toArray<T>(value: T): Array<T[keyof T]>;
         toArray(): any[];
     }
     interface Imp<TValue> {
-        toArray<T>(this: Imp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>): Imp<T[]>;
+        toArray<T>(this: Imp< Dictionary<T> | NumericDictionary<T> | null | undefined>): Imp<T[]>;
         toArray<T extends object>(this: Imp<T>): Imp<Array<T[keyof T]>>;
     }
     interface Exp<TValue> {
-        toArray<T>(this: Exp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>): Exp<T[]>;
+        toArray<T>(this: Exp< Dictionary<T> | NumericDictionary<T> | null | undefined>): Exp<T[]>;
         toArray<T extends object>(this: Imp<T>): Exp<Array<T[keyof T]>>;
     }
 

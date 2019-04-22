@@ -94,7 +94,7 @@ declare module "../index" {
         findLast<T extends object>( this: Exp<T | null | undefined>, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T[keyof T]|undefined>;
     }
     interface Stat {
-        flatMap<T>( collection: List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined ): T[];
+        flatMap<T>( collection: Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined ): T[];
         flatMap( collection: object | null | undefined ): any[];
         flatMap<T, TResult>( collection: List<T> | null | undefined, iteratee: ListIterator<T, Many<TResult>> ): TResult[];
         flatMap<T extends object, TResult>( collection: T | null | undefined, iteratee: ObjectIterator<T, Many<TResult>> ): TResult[];
@@ -102,7 +102,7 @@ declare module "../index" {
         flatMap( collection: object | null | undefined, iteratee: object ): boolean[];
     }
     interface Imp<TValue> {
-        flatMap<T>(this: Imp<List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): Imp<T[]>;
+        flatMap<T>(this: Imp<Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): Imp<T[]>;
         flatMap(): Imp<any[]>;
         flatMap<T, TResult>( this: Imp<List<T> | null | undefined>, iteratee: ListIterator<T, Many<TResult>> ): Imp<TResult[]>;
         flatMap<T extends object, TResult>( this: Imp<T | null | undefined>, iteratee: ObjectIterator<T, Many<TResult>> ): Imp<TResult[]>;
@@ -110,7 +110,7 @@ declare module "../index" {
         flatMap( iteratee: object ): Imp<boolean[]>;
     }
     interface Exp<TValue> {
-        flatMap<T>(this: Exp<List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): Exp<T[]>;
+        flatMap<T>(this: Exp<Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): Exp<T[]>;
         flatMap(): Exp<any[]>;
         flatMap<T, TResult>( this: Exp<List<T> | null | undefined>, iteratee: ListIterator<T, Many<TResult>> ): Exp<TResult[]>;
         flatMap<T extends object, TResult>( this: Exp<T | null | undefined>, iteratee: ObjectIterator<T, Many<TResult>> ): Exp<TResult[]>;
@@ -118,42 +118,42 @@ declare module "../index" {
         flatMap( iteratee: object ): Exp<boolean[]>;
     }
     interface Stat {
-        flatMapDeep<T>( collection: List<ListOfRecursiveArraysOrValues<T> | T> | Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined ): T[];
+        flatMapDeep<T>( collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined ): T[];
         flatMapDeep<T, TResult>( collection: List<T> | null | undefined, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> ): TResult[];
         flatMapDeep<T extends object, TResult>( collection: T | null | undefined, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> ): TResult[];
         flatMapDeep( collection: object | null | undefined, iteratee: string ): any[];
         flatMapDeep( collection: object | null | undefined, iteratee: object ): boolean[];
     }
     interface Imp<TValue> {
-        flatMapDeep<T>( this: Imp<List<ListOfRecursiveArraysOrValues<T> | T> | Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined> ): Imp<T[]>;
+        flatMapDeep<T>( this: Imp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined> ): Imp<T[]>;
         flatMapDeep<T, TResult>( this: Imp<List<T> | null | undefined>, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> ): Imp<TResult[]>;
         flatMapDeep<T extends object, TResult>( this: Imp<T | null | undefined>, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> ): Imp<TResult[]>;
         flatMapDeep( this: Imp<object | null | undefined>, iteratee: string ): Imp<any[]>;
         flatMapDeep( this: Imp<object | null | undefined>, iteratee: object ): Imp<boolean[]>;
     }
     interface Exp<TValue> {
-        flatMapDeep<T>( this: Exp<List<ListOfRecursiveArraysOrValues<T> | T> | Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined> ): Exp<T[]>;
+        flatMapDeep<T>( this: Exp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined> ): Exp<T[]>;
         flatMapDeep<T, TResult>( this: Exp<List<T> | null | undefined>, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> ): Exp<TResult[]>;
         flatMapDeep<T extends object, TResult>( this: Exp<T | null | undefined>, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> ): Exp<TResult[]>;
         flatMapDeep( this: Exp<object | null | undefined>, iteratee: string ): Exp<any[]>;
         flatMapDeep( this: Exp<object | null | undefined>, iteratee: object ): Exp<boolean[]>;
     }
     interface Stat {
-        flatMapDepth<T>( collection: List<ListOfRecursiveArraysOrValues<T> | T> | Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined ): T[];
+        flatMapDepth<T>( collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined ): T[];
         flatMapDepth<T, TResult>( collection: List<T> | null | undefined, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number ): TResult[];
         flatMapDepth<T extends object, TResult>( collection: T | null | undefined, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number ): TResult[];
         flatMapDepth( collection: object | null | undefined, iteratee: string, depth?: number ): any[];
         flatMapDepth( collection: object | null | undefined, iteratee: object, depth?: number ): boolean[];
     }
     interface Imp<TValue> {
-        flatMapDepth<T>( this: Imp<List<ListOfRecursiveArraysOrValues<T> | T> | Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined> ): Imp<T[]>;
+        flatMapDepth<T>( this: Imp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined> ): Imp<T[]>;
         flatMapDepth<T, TResult>( this: Imp<List<T> | null | undefined>, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number ): Imp<TResult[]>;
         flatMapDepth<T extends object, TResult>( this: Imp<T | null | undefined>, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number ): Imp<TResult[]>;
         flatMapDepth( this: Imp<object | null | undefined>, iteratee: string, depth?: number ): Imp<any[]>;
         flatMapDepth( this: Imp<object | null | undefined>, iteratee: object, depth?: number ): Imp<boolean[]>;
     }
     interface Exp<TValue> {
-        flatMapDepth<T>( this: Exp<List<ListOfRecursiveArraysOrValues<T> | T> | Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined> ): Exp<T[]>;
+        flatMapDepth<T>( this: Exp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined> ): Exp<T[]>;
         flatMapDepth<T, TResult>( this: Exp<List<T> | null | undefined>, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number ): Exp<TResult[]>;
         flatMapDepth<T extends object, TResult>( this: Exp<T | null | undefined>, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number ): Exp<TResult[]>;
         flatMapDepth( this: Exp<object | null | undefined>, iteratee: string, depth?: number ): Exp<any[]>;
@@ -204,13 +204,13 @@ declare module "../index" {
         groupBy<T extends object>( this: Exp<T | null | undefined>, iteratee?: ValueIteratee<T[keyof T]> ): Exp<Dictionary<Array<T[keyof T]>>>;
     }
     interface Stat {
-        includes<T>( collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined, target: T, fromIndex?: number ): boolean;
+        includes<T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: T, fromIndex?: number ): boolean;
     }
     interface Imp<TValue> {
-        includes<T>( this: Imp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>, target: T, fromIndex?: number ): boolean;
+        includes<T>( this: Imp<Dictionary<T> | NumericDictionary<T> | null | undefined>, target: T, fromIndex?: number ): boolean;
     }
     interface Exp<TValue> {
-        includes<T>( this: Exp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>, target: T, fromIndex?: number ): Exp<boolean>;
+        includes<T>( this: Exp<Dictionary<T> | NumericDictionary<T> | null | undefined>, target: T, fromIndex?: number ): Exp<boolean>;
     }
     interface Stat {
         invokeMap( collection: object | null | undefined, methodName: string, ...args: any[]): any[];
@@ -239,29 +239,29 @@ declare module "../index" {
     interface Stat {
         map<T, TResult>( collection: T[] | null | undefined, iteratee: ArrayIterator<T, TResult> ): TResult[];
         map<T, TResult>( collection: List<T> | null | undefined, iteratee: ListIterator<T, TResult> ): TResult[];
-        map<T>(collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined): T[];
+        map<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined): T[];
         map<T extends object, TResult>( collection: T | null | undefined, iteratee: ObjectIterator<T, TResult> ): TResult[];
-        map<T, K extends keyof T>( collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: K ): Array<T[K]>;
-        map<T>( collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee?: string ): any[];
-        map<T>( collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee?: object ): boolean[];
+        map<T, K extends keyof T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: K ): Array<T[K]>;
+        map<T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee?: string ): any[];
+        map<T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee?: object ): boolean[];
     }
     interface Imp<TValue> {
         map<T, TResult>(this: Imp<T[] | null | undefined>, iteratee: ArrayIterator<T, TResult>): Imp<TResult[]>;
         map<T, TResult>(this: Imp<List<T> | null | undefined>, iteratee: ListIterator<T, TResult>): Imp<TResult[]>;
-        map<T>(this: Imp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>): Imp<T[]>;
+        map<T>(this: Imp<Dictionary<T> | NumericDictionary<T> | null | undefined>): Imp<T[]>;
         map<T extends object, TResult>(this: Imp<T | null | undefined>, iteratee: ObjectIterator<T, TResult>): Imp<TResult[]>;
-        map<T, K extends keyof T>(this: Imp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>, iteratee: K): Imp<Array<T[K]>>;
-        map<T>(this: Imp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>, iteratee?: string): Imp<any[]>;
-        map<T>(this: Imp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>, iteratee?: object): Imp<boolean[]>;
+        map<T, K extends keyof T>(this: Imp<Dictionary<T> | NumericDictionary<T> | null | undefined>, iteratee: K): Imp<Array<T[K]>>;
+        map<T>(this: Imp<Dictionary<T> | NumericDictionary<T> | null | undefined>, iteratee?: string): Imp<any[]>;
+        map<T>(this: Imp<Dictionary<T> | NumericDictionary<T> | null | undefined>, iteratee?: object): Imp<boolean[]>;
     }
     interface Exp<TValue> {
         map<T, TResult>( this: Exp<T[] | null | undefined>, iteratee: ArrayIterator<T, TResult> ): Exp<TResult[]>;
         map<T, TResult>( this: Exp<List<T> | null | undefined>, iteratee: ListIterator<T, TResult> ): Exp<TResult[]>;
-        map<T>(this: Exp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>): Exp<T[]>;
+        map<T>(this: Exp<Dictionary<T> | NumericDictionary<T> | null | undefined>): Exp<T[]>;
         map<T extends object, TResult>( this: Exp<T | null | undefined>, iteratee: ObjectIterator<T, TResult> ): Exp<TResult[]>;
-        map<T, K extends keyof T>( this: Exp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>, iteratee: K ): Exp<Array<T[K]>>;
-        map<T>( this: Exp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>, iteratee?: string ): Exp<any[]>;
-        map<T>( this: Exp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>, iteratee?: object ): Exp<boolean[]>;
+        map<T, K extends keyof T>( this: Exp< Dictionary<T> | NumericDictionary<T> | null | undefined>, iteratee: K ): Exp<Array<T[K]>>;
+        map<T>( this: Exp< Dictionary<T> | NumericDictionary<T> | null | undefined>, iteratee?: string ): Exp<any[]>;
+        map<T>( this: Exp< Dictionary<T> | NumericDictionary<T> | null | undefined>, iteratee?: object ): Exp<boolean[]>;
     }
     interface Stat {
         orderBy<T>( collection: List<T> | null | undefined, iteratees?: Many<ListIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc"> ): T[];
@@ -357,27 +357,27 @@ declare module "../index" {
         reject<T extends object>( this: Exp<T | null | undefined>, predicate?: ObjectIterateeCustom<T, boolean> ): Exp<Array<T[keyof T]>>;
     }
     interface Stat {
-        sample<T>( collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined ): T | undefined;
+        sample<T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined ): T | undefined;
         sample<T extends object>( collection: T | null | undefined ): T[keyof T] | undefined;
     }
     interface Imp<TValue> {
-        sample<T>( this: Imp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined> ): T | undefined;
+        sample<T>( this: Imp<Dictionary<T> | NumericDictionary<T> | null | undefined> ): T | undefined;
         sample<T extends object>( this: Imp<T | null | undefined> ): T[keyof T] | undefined;
     }
     interface Exp<TValue> {
-        sample<T>( this: Exp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined> ): Exp<T | undefined>;
+        sample<T>( this: Exp<Dictionary<T> | NumericDictionary<T> | null | undefined> ): Exp<T | undefined>;
         sample<T extends object>( this: Exp<T | null | undefined> ): Exp<T[keyof T] | undefined>;
     }
     interface Stat {
-        sampleSize<T>( collection: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined, n?: number ): T[];
+        sampleSize<T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined, n?: number ): T[];
         sampleSize<T extends object>( collection: T | null | undefined, n?: number ): Array<T[keyof T]>;
     }
     interface Imp<TValue> {
-        sampleSize<T>( this: Imp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>, n?: number ): Imp<T[]>;
+        sampleSize<T>( this: Imp<Dictionary<T> | NumericDictionary<T> | null | undefined>, n?: number ): Imp<T[]>;
         sampleSize<T extends object>( this: Imp<T | null | undefined>, n?: number ): Imp<Array<T[keyof T]>>;
     }
     interface Exp<TValue> {
-        sampleSize<T>(this: Exp<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>, n?: number): Exp<T[]>;
+        sampleSize<T>(this: Exp<Dictionary<T> | NumericDictionary<T> | null | undefined>, n?: number): Exp<T[]>;
         sampleSize<T extends object>(this: Exp<T | null | undefined>, n?: number): Exp<Array<T[keyof T]>>;
     }
     interface Stat {
