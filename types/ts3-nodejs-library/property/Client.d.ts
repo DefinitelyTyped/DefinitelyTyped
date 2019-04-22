@@ -11,8 +11,24 @@ interface ClientListResponse {
     client_unique_identifier: string;
 }
 
+declare enum ClientType {
+  CLIENT = 0,
+  QUERY = 1
+}
+
 declare class TeamSpeakClient extends Abstract {
     constructor(parent: TeamSpeak3, list: ClientListResponse)
+
+    /** Returns the Client Type: 0 = CLIENT, 1 = QUERY */
+    type: ClientType;
+    /** Client Nickname */
+    nickname: string;
+    /** Array of client Servergroups */
+    servergroups: number[];
+    /** The ChannelID of the client */
+    cid: number;
+    /**  The UID of the client */
+    client_unique_identifier: string;
 
     /**
      * Returns the Database ID of the Client

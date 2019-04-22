@@ -1939,7 +1939,7 @@ export class TextEditor {
     moveToBeginningOfPreviousParagraph(): void;
 
     /** Returns the most recently added Cursor. */
-    getLastCursor(): Cursor | undefined;
+    getLastCursor(): Cursor;
 
     /** Returns the word surrounding the most recently added cursor. */
     getWordUnderCursor(options?: {

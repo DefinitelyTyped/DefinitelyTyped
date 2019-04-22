@@ -9,6 +9,7 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
+        "jsx": "react",
         "typeRoots": [
             "../"
         ],
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "cookies-tests.ts"
+        "react-native-zss-rich-text-editor-tests.tsx"
     ]
 }
