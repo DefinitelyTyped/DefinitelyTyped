@@ -519,25 +519,34 @@ describe('dflat', () => {
         const a = [1, [2, [3, [4, [5, [6, [7, [8, [9, [10, [11, [12, [13]]]]]]]]]]]]];
 
         const r0 = F.dflat(a); // $ExpectType AsyncIterableIterator<number>
+
+        await F.collect(r0).then(ifNilThrow(new Error()));
     });
 
     it('from Promise Value', async () => {
         const a = [1, [2, [Promise.resolve(3), [4, [5, [6, [Promise.resolve(7), [8, [9, [Promise.resolve(10), [11, [12, [13]]]]]]]]]]]]];
 
         const r0 = F.dflat(a); // $ExpectType AsyncIterableIterator<number>
+
+        await F.collect(r0).then(ifNilThrow(new Error()));
     });
 
     it('from Normal / Promise Union', async () => {
         const a = [1, [2, [Promise.resolve([null, [null, Promise.resolve([null])]]), [4, [null, [6, [Promise.resolve([7]), [8, [9, [Promise.resolve(10), [11, [12, [13]]]]]]]]]]]]];
 
         const r0 = F.dflat(a); // $ExpectType AsyncIterableIterator<number | null>
+
+        await F.collect(r0).then(ifNilThrow(new Error()));
     });
 
     it('from String', async () => {
         const a = ['a', ['bb', ['ccc', ['dddd', ['eeeee', ['ffffff', ['ggggggg', ['hhhhhhhh', ['iiiiiiiii', ['jjjjjjjjjj', ['kkkkkkkkkkk']]]]]]]]]]];
 
-        const r0 = F.dflat(a);
-        const r1 = F.dflat('a');
+        const r0 = F.dflat(a); // $ExpectType AsyncIterableIterator<string>
+        const r1 = F.dflat('a'); // $ExpectType AsyncIterableIterator<string>
+
+        await F.collect(r0).then(ifNilThrow(new Error()));
+        await F.collect(r1).then(ifNilThrow(new Error()));
     });
 
     it('from Multiple Parameters', async () => {
@@ -556,6 +565,18 @@ describe('dflat', () => {
         const r8 = F.dflat(a, b, c, a, b, c, a, b, c, a); // $ExpectType AsyncIterableIterator<string | number>
         const r9 = F.dflat(b, b, b, b, b, b, b, b, b, b, b); // $ExpectType AsyncIterableIterator<number>
         const r10 = F.dflat(a, b, c, a, b, c, a, b, c, a, b, c); // $ExpectType AsyncIterableIterator<any>
+
+        await F.collect(r0).then(ifNilThrow(new Error()));
+        await F.collect(r1).then(ifNilThrow(new Error()));
+        await F.collect(r2).then(ifNilThrow(new Error()));
+        await F.collect(r3).then(ifNilThrow(new Error()));
+        await F.collect(r4).then(ifNilThrow(new Error()));
+        await F.collect(r5).then(ifNilThrow(new Error()));
+        await F.collect(r6).then(ifNilThrow(new Error()));
+        await F.collect(r7).then(ifNilThrow(new Error()));
+        await F.collect(r8).then(ifNilThrow(new Error()));
+        await F.collect(r9).then(ifNilThrow(new Error()));
+        await F.collect(r10).then(ifNilThrow(new Error()));
     });
 });
 
