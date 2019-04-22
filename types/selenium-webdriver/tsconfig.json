@@ -24,14 +24,11 @@
         "firefox.d.ts",
         "http.d.ts",
         "ie.d.ts",
-        "opera.d.ts",
         "remote.d.ts",
         "safari.d.ts",
-        "testing.d.ts",
         "test/index.ts",
         "test/chrome.ts",
         "test/firefox.ts",
-        "test/remote.ts",
-        "test/testing.ts"
+        "test/remote.ts"
     ]
 }

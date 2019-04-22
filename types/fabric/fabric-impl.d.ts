@@ -143,7 +143,7 @@ interface IDataURLOptions {
 interface IEvent {
 	e: Event;
 	target?: Object;
-	transform?: { corner: string };
+	transform?: { corner: string, original: Object, width: number };
 }
 
 interface IFillOptions {
@@ -1075,6 +1075,8 @@ export class StaticCanvas {
 	 */
 	constructor(element: HTMLCanvasElement | string, options?: ICanvasOptions);
 
+	_activeObject?: Object | Group;
+
 	/**
 	 * Calculates canvas element offset relative to the document
 	 * This method is also attached as "resize" event handler of window
@@ -1454,7 +1456,7 @@ export class StaticCanvas {
 	 * @return {Boolean | null} `true` if method is supported (or at least exists),
 	 *                          `null` if canvas element or context can not be initialized
 	 */
-	supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
+	static supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
 
 	/**
 	 * Exports canvas element to a dataurl image. Note that when multiplier is used, cropping is scaled appropriately
@@ -2030,10 +2032,11 @@ export class Group {
 	constructor(objects?: Object[], options?: IGroupOptions, isAlreadyGrouped?: boolean);
 	/**
 	 * Adds an object to a group; Then recalculates group's dimension, position.
+     * @param [Object] object
 	 * @return thisArg
 	 * @chainable
 	 */
-	addWithUpdate(object: Object): Group;
+	addWithUpdate(object?: Object): Group;
 	/**
 	 * Removes an object from a group; Then recalculates group's dimension, position.
 	 * @return thisArg
@@ -2346,6 +2349,11 @@ export class Line {
 	 * Produces a function that calculates distance from canvas edge to Line origin.
 	 */
 	makeEdgeToOriginGetter(propertyNames: {origin: number, axis1: any, axis2: any, dimension: any}, originValues: {nearest: any, center: any, farthest: any}): Function;
+	/**
+	 * Recalculates line points given width and height
+	 * @private
+	 */
+	calcLinePoints(): {x1: number, x2: number, y1: number, y2: number};
 }
 
 interface IObjectOptions {
@@ -2498,7 +2506,7 @@ interface IObjectOptions {
 	/**
 	 * Color of object's fill
 	 */
-	fill?: string;
+	fill?: string | Pattern;
 
 	/**
 	 * Fill rule used to fill an object
@@ -2831,6 +2839,23 @@ interface IObjectOptions {
 	 * storage for object transform matrix
 	 */
 	ownMatrixCache?: any;
+
+    /**
+     * Indicates the angle that an object will lock to while rotating. Can get from canvas.
+     */
+    snapAngle?: number;
+    /**
+     * Indicates the distance from the snapAngle the rotation will lock to the snapAngle. Can get from canvas.
+     */
+    snapThreshold?: null | number;
+    /**
+     * The group the object is part of
+     */
+    group?: Group;
+    /**
+     * The canvas the object belongs to
+     */
+    canvas?: Canvas;
 }
 export interface Object extends IObservable<Object>, IObjectOptions, IObjectAnimation<Object> { }
 export class Object {
@@ -3549,7 +3574,7 @@ export class Object {
 	 * @param {Array} dashArray array representing dashes
 	 * @param {Function} alternative function to call if browser does not support lineDash
 	 */
-	_setLineDash(ctx: CanvasRenderingContext2D, dashArray: number[], alternative: Function): void;
+	_setLineDash(ctx: CanvasRenderingContext2D, dashArray: number[], alternative?: (ctx: CanvasRenderingContext2D) => void): void;
 	/**
 	 * @private
 	 * @param {CanvasRenderingContext2D} ctx Context to render on
@@ -3558,6 +3583,16 @@ export class Object {
 	 * @return {Object} offset.offsetY offset for text rendering
 	 */
 	_applyPatternGradientTransform(ctx: CanvasRenderingContext2D, filler: string | Pattern | Gradient): void;
+	/**
+	 * @private
+	 * @param {CanvasRenderingContext2D} ctx Context to render on
+	 */
+	_render(ctx: CanvasRenderingContext2D): void;
+	/**
+	 * @private
+	 * @param {CanvasRenderingContext2D} ctx Context to render on
+	 */
+	_renderPaintInOrder(ctx: CanvasRenderingContext2D): void;
 }
 
 interface IPathOptions extends IObjectOptions {
@@ -3802,6 +3837,11 @@ interface TextOptions extends IObjectOptions {
 	 * @type Array
 	 */
 	stateProperties?: string[];
+    /**
+     * List of lines in text object
+     * @type Array<string>
+     */
+	textLines?: string[];
 }
 export interface Text extends TextOptions { }
 export class Text extends Object {
@@ -4070,6 +4110,10 @@ interface ITextOptions extends TextOptions {
 	 * The function must be in fabric.Itext.prototype.myFunction And will receive event as args[0]
 	 */
 	keysMap?: any;
+    /**
+     * Exposes underlying hidden text area
+     */
+    hiddenTextarea?: HTMLTextAreaElement;
 }
 export interface IText extends ITextOptions { }
 export class IText extends Text {
@@ -4484,6 +4528,11 @@ export class Textbox extends IText {
 	 * @return {Boolean}
 	 */
 	isEndOfWrapping(lineIndex: number): boolean;
+    /**
+     * Returns larger of min width and dynamic min width
+     * @return {Number}
+     */
+	getMinWidth(): number;
 	/**
 	 * Returns fabric.Textbox instance from an object representation
 	 * @static
@@ -5277,6 +5326,13 @@ interface IUtilString {
 	 * @param string String to escape
 	 */
 	escapeXml(string: string): string;
+
+    /**
+     * Divide a string in the user perceived single units
+     * @param {String} textstring String to escape
+     * @return {Array} array containing the graphemes
+     */
+    graphemeSplit(string: string): string[];
 }
 
 interface IUtilMisc {

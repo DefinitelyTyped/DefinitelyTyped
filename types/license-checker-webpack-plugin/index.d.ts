@@ -7,7 +7,7 @@
 import { Plugin } from 'webpack';
 
 declare class LicenseCheckerWebpackPlugin extends Plugin {
-    constructor(options: LicenseCheckerWebpackPlugin.Options);
+    constructor(options?: Partial<LicenseCheckerWebpackPlugin.Options>);
 }
 
 declare namespace LicenseCheckerWebpackPlugin {
@@ -23,14 +23,14 @@ declare namespace LicenseCheckerWebpackPlugin {
         /**
          * Regular expression that matches the file paths of dependencies to check.
          */
-        filter?: RegExp;
+        filter: RegExp;
 
         /**
          * SPDX expression with allowed licenses.
          *
          * Default: `"(Apache-2.0 OR BSD-2-Clause OR BSD-3-Clause OR MIT)"`
          */
-        allow?: string;
+        allow: string;
 
         /**
          * Array of dependencies to ignore, in the format `["<dependency name>@<version range>"]`.
@@ -38,7 +38,7 @@ declare namespace LicenseCheckerWebpackPlugin {
          *
          * Default: `[]`
          */
-        ignore?: string[];
+        ignore: string[];
 
         /**
          * Object of dependencies to override, in the format `{"<dependency name>@<version range>": { ... }}`.
@@ -46,27 +46,27 @@ declare namespace LicenseCheckerWebpackPlugin {
          *
          * Default: `{}`
          */
-        override?: Record<string, Partial<Dependency>>;
+        override: Record<string, Partial<Dependency>>;
 
         /**
          * Whether to emit errors instead of warnings.
          *
          * Default: `false`
          */
-        emitError?: boolean;
+        emitError: boolean;
 
         /**
          * Path to a `.ejs` template, or function that will generate the contents
          * of the third-party notices file.
          */
-        outputWriter?: string | ((dependencies: Dependency[]) => string);
+        outputWriter: string | ((dependencies: Dependency[]) => string);
 
         /**
          * Name of the third-party notices file with all licensing information.
          *
          * Default: `"ThirdPartyNotices.txt"`
          */
-        outputFilename?: string;
+        outputFilename: string;
     }
 }
 

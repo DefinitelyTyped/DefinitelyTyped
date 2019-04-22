@@ -36,7 +36,11 @@ storiesOf('Storybook__vue', module)
     .add('story as a component', () => ({
         components: {},
         template: '<div></div>'
-    }));
+    }))
+    .add('story has a option', () => ({
+        components: {},
+        template: '<div></div>'
+    }), { notes: 'I have notes' });
 
 (storiesOf('Custom_Story', module) as CustomStory)
     .addCentered('custom story', () => ({

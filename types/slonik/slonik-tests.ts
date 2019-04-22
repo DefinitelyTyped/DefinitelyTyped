@@ -32,10 +32,13 @@ const VALUE = 'foo';
 // ----------------------------------------------------------------------
 const pool = createPool('postgres://localhost');
 
+// $ExpectType Promise<{ connectResult: string; }>
 pool.connect(async (connection) => {
     const result = await connection.query(sql`SELECT 1`);
-    // $ExpectType QueryResultRowType<string>
+    // $ExpectType QueryResultType<QueryResultRowType<string>>
     result;
+    // $ExpectType QueryResultRowType<string>
+    result.rows[0];
 
     connection.query(sql`
         SELECT 1
@@ -53,11 +56,18 @@ pool.connect(async (connection) => {
     await connection.one(sql`SELECT foo`);
     await connection.oneFirst(sql`SELECT foo`);
 
+    // Disallow raw strings
+    // $ExpectError
+    await connection.query(`SELECT foo`);
+
+    // $ExpectType { transactionResult: string; }
     await connection.transaction(async (transactionConnection) => {
       await transactionConnection.query(sql`INSERT INTO foo (bar) VALUES ('baz')`);
       await transactionConnection.query(sql`INSERT INTO qux (quux) VALUES ('corge')`);
+      return { transactionResult: 'foo' };
     });
 
+    // $ExpectType QueryResultType<QueryResultRowType<string>>
     await connection.transaction(async (t1) => {
       await t1.query(sql`INSERT INTO foo (bar) VALUES ('baz')`);
 
@@ -66,6 +76,7 @@ pool.connect(async (connection) => {
       });
     });
 
+    // $ExpectType void
     await connection.transaction(async (t1) => {
       await t1.query(sql`INSERT INTO foo (bar) VALUES ('baz')`);
 
@@ -77,6 +88,7 @@ pool.connect(async (connection) => {
         });
       } catch (error) { /* empty */ }
     });
+    return { connectResult: 'foo' };
   });
 pool.query(sql`SELECT * FROM table WHERE name = '${VALUE}'`);
 

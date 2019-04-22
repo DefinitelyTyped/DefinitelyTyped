@@ -277,7 +277,7 @@ api.Wallets.create({
 });
 
 const wallet = new api.models.Wallet({
-  Currency: "GB",
+  Currency: "GBP",
   Description: "A description",
   Owners: ["user-id"]
 });

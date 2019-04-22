@@ -25,6 +25,7 @@ export type MomentConstructor = MomentConstructor1 | MomentConstructor2;
 export type IdType = string | number;
 export type SubgroupType = IdType;
 export type DateType = Date | number | string;
+export type DirectionType = 'from' | 'to';
 export type HeightWidthType = IdType;
 export type TimelineItemType = 'box' | 'point' | 'range' | 'background';
 export type TimelineAlignType = 'auto' | 'center' | 'left' | 'right';
@@ -193,8 +194,8 @@ export interface TimelineRollingModeOption {
 }
 
 export interface TimelineTooltipOption {
-  followMouse: boolean;
-  overflowMethod: 'cap' | 'flip';
+  followMouse?: boolean;
+  overflowMethod?: 'cap' | 'flip';
 }
 
 export type TimelineOptionsConfigureFunction = (option: string, path: string[]) => boolean;
@@ -1339,7 +1340,7 @@ export class Network {
    *
    * @param nodeOrEdgeId a node or edge id
    */
-  getConnectedNodes(nodeOrEdgeId: IdType): IdType[] | Array<{ fromId: IdType, toId: IdType }>;
+  getConnectedNodes(nodeOrEdgeId: IdType, direction?: DirectionType): IdType[] | Array<{ fromId: IdType, toId: IdType }>;
 
   /**
    * Returns an array of edgeIds of the edges connected to this node.
@@ -1828,6 +1829,13 @@ export interface NodeOptions {
 
   level?: number;
 
+  margin?: {
+    top?: number;
+    right?: number;
+    bottom?: number;
+    left?: number;
+  };
+
   mass?: number;
 
   physics?: boolean;
@@ -1839,11 +1847,11 @@ export interface NodeOptions {
   shape?: string;
 
   shapeProperties?: {
-    borderDashes: boolean | number[], // only for borders
-    borderRadius: number,     // only for box shape
-    interpolation: boolean,  // only for image and circularImage shapes
-    useImageSize: boolean,  // only for image and circularImage shapes
-    useBorderWithImage: boolean  // only for image shape
+    borderDashes?: boolean | number[], // only for borders
+    borderRadius?: number,     // only for box shape
+    interpolation?: boolean,  // only for image and circularImage shapes
+    useImageSize?: boolean,  // only for image and circularImage shapes
+    useBorderWithImage?: boolean  // only for image shape
   };
 
   size?: number;

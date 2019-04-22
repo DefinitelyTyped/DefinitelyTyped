@@ -24,7 +24,7 @@ declare module "cluster" {
     class Worker extends events.EventEmitter {
         id: number;
         process: child.ChildProcess;
-        send(message: any, sendHandle?: any, callback?: (error: Error) => void): boolean;
+        send(message: any, sendHandle?: any, callback?: (error: Error | null) => void): boolean;
         kill(signal?: string): void;
         destroy(signal?: string): void;
         disconnect(): void;

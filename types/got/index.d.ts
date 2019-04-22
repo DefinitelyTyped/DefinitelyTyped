@@ -4,8 +4,9 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Konstantin Ikonnikov <https://github.com/ikokostya>
 //                 Stijn Van Nieuwenhuyse <https://github.com/stijnvn>
+//                 Matthew Bull <https://github.com/wingsbob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node"/>
 
@@ -69,19 +70,7 @@ declare class StdError extends Error {
     response?: any;
 }
 
-declare const got: got.GotFn &
-    Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotFn> &
-    {
-        stream: got.GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotStreamFn>;
-        RequestError: typeof RequestError;
-        ReadError: typeof ReadError;
-        ParseError: typeof ParseError;
-        HTTPError: typeof HTTPError;
-        MaxRedirectsError: typeof MaxRedirectsError;
-        UnsupportedProtocolError: typeof UnsupportedProtocolError;
-        CancelError: typeof CancelError;
-        TimeoutError: typeof TimeoutError;
-    };
+declare const got: got.GotInstance;
 
 interface InternalRequestOptions extends https.RequestOptions {
     // Redeclare options with `any` type for allow specify types incompatible with http.RequestOptions.
@@ -97,6 +86,44 @@ declare namespace got {
         (url: GotUrl, options: GotFormOptions<null>): GotPromise<Buffer>;
         (url: GotUrl, options: GotBodyOptions<string>): GotPromise<string>;
         (url: GotUrl, options: GotBodyOptions<null>): GotPromise<Buffer>;
+    }
+
+    interface GotJSONFn {
+        (url: GotUrl): GotPromise<any>;
+        (url: GotUrl, options: Partial<GotJSONOptions>): GotPromise<any>;
+    }
+
+    interface GotFormFn<T extends string | null> {
+        (url: GotUrl): GotPromise<T extends null ? Buffer : string>;
+        (url: GotUrl, options: Partial<GotFormOptions<T>>): GotPromise<T extends null ? Buffer : string>;
+    }
+
+    interface GotBodyFn<T extends string | null> {
+        (url: GotUrl): GotPromise<T extends null ? Buffer : string>;
+        (url: GotUrl, options: GotBodyOptions<T>): GotPromise<T extends null ? Buffer : string>;
+    }
+
+    type GotInstance<T = GotFn> = T &
+        Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', T> &
+    {
+        stream: GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', GotStreamFn>;
+        extend: GotExtend;
+        RequestError: typeof RequestError;
+        ReadError: typeof ReadError;
+        ParseError: typeof ParseError;
+        HTTPError: typeof HTTPError;
+        MaxRedirectsError: typeof MaxRedirectsError;
+        UnsupportedProtocolError: typeof UnsupportedProtocolError;
+        CancelError: typeof CancelError;
+        TimeoutError: typeof TimeoutError;
+    };
+
+    interface GotExtend {
+        (options: GotJSONOptions): GotInstance<GotJSONFn>;
+        (options: GotFormOptions<string>): GotInstance<GotFormFn<string>>;
+        (options: GotFormOptions<null>): GotInstance<GotFormFn<null>>;
+        (options: GotBodyOptions<string>): GotInstance<GotBodyFn<string>>;
+        (options: GotBodyOptions<null>): GotInstance<GotBodyFn<null>>;
     }
 
     type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;

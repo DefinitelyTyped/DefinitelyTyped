@@ -383,7 +383,9 @@ arrSchema.min(5, "min");
 arrSchema.min(5, () => "min");
 arrSchema.compact((value, index, array) => value === array[index]);
 
-yup.array(); // $ExpectType ArraySchema<{}>
+const arr = yup.array();
+const top = (<T>(x?: T): T => x!)();
+const validArr: yup.ArraySchema<typeof top> = arr;
 yup.array(yup.string()); // $ExpectType ArraySchema<string>
 yup.array().of(yup.string()); // $ExpectType ArraySchema<string>
 

@@ -5,54 +5,54 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace YoutubeAnalytics_v2 {
+  namespace YouTubeAnalytics {
     namespace Collection {
       export interface GroupItemsCollection {
         // Creates a group item.
-        insert(resource: Schema.GroupItem): YoutubeAnalytics_v2.Schema.GroupItem;
+        insert(resource: Schema.GroupItem): YouTubeAnalytics.Schema.GroupItem;
         // Creates a group item.
-        insert(resource: Schema.GroupItem, optionalArgs: object): YoutubeAnalytics_v2.Schema.GroupItem;
+        insert(resource: Schema.GroupItem, optionalArgs: object): YouTubeAnalytics.Schema.GroupItem;
         // Returns a collection of group items that match the API request parameters.
-        list(): YoutubeAnalytics_v2.Schema.ListGroupItemsResponse;
+        list(): YouTubeAnalytics.Schema.ListGroupItemsResponse;
         // Returns a collection of group items that match the API request parameters.
-        list(optionalArgs: object): YoutubeAnalytics_v2.Schema.ListGroupItemsResponse;
+        list(optionalArgs: object): YouTubeAnalytics.Schema.ListGroupItemsResponse;
         // Removes an item from a group.
-        remove(): YoutubeAnalytics_v2.Schema.EmptyResponse;
+        remove(): YouTubeAnalytics.Schema.EmptyResponse;
         // Removes an item from a group.
-        remove(optionalArgs: object): YoutubeAnalytics_v2.Schema.EmptyResponse;
+        remove(optionalArgs: object): YouTubeAnalytics.Schema.EmptyResponse;
       }
       export interface GroupsCollection {
         // Creates a group.
-        insert(resource: Schema.Group): YoutubeAnalytics_v2.Schema.Group;
+        insert(resource: Schema.Group): YouTubeAnalytics.Schema.Group;
         // Creates a group.
-        insert(resource: Schema.Group, optionalArgs: object): YoutubeAnalytics_v2.Schema.Group;
+        insert(resource: Schema.Group, optionalArgs: object): YouTubeAnalytics.Schema.Group;
         // Returns a collection of groups that match the API request parameters. For
         // example, you can retrieve all groups that the authenticated user owns,
         // or you can retrieve one or more groups by their unique IDs.
-        list(): YoutubeAnalytics_v2.Schema.ListGroupsResponse;
+        list(): YouTubeAnalytics.Schema.ListGroupsResponse;
         // Returns a collection of groups that match the API request parameters. For
         // example, you can retrieve all groups that the authenticated user owns,
         // or you can retrieve one or more groups by their unique IDs.
-        list(optionalArgs: object): YoutubeAnalytics_v2.Schema.ListGroupsResponse;
+        list(optionalArgs: object): YouTubeAnalytics.Schema.ListGroupsResponse;
         // Deletes a group.
-        remove(): YoutubeAnalytics_v2.Schema.EmptyResponse;
+        remove(): YouTubeAnalytics.Schema.EmptyResponse;
         // Deletes a group.
-        remove(optionalArgs: object): YoutubeAnalytics_v2.Schema.EmptyResponse;
+        remove(optionalArgs: object): YouTubeAnalytics.Schema.EmptyResponse;
         // Modifies a group. For example, you could change a group's title.
-        update(resource: Schema.Group): YoutubeAnalytics_v2.Schema.Group;
+        update(resource: Schema.Group): YouTubeAnalytics.Schema.Group;
         // Modifies a group. For example, you could change a group's title.
-        update(resource: Schema.Group, optionalArgs: object): YoutubeAnalytics_v2.Schema.Group;
+        update(resource: Schema.Group, optionalArgs: object): YouTubeAnalytics.Schema.Group;
       }
       export interface ReportsCollection {
         // Retrieve your YouTube Analytics reports.
-        query(): YoutubeAnalytics_v2.Schema.QueryResponse;
+        query(): YouTubeAnalytics.Schema.QueryResponse;
         // Retrieve your YouTube Analytics reports.
-        query(optionalArgs: object): YoutubeAnalytics_v2.Schema.QueryResponse;
+        query(optionalArgs: object): YouTubeAnalytics.Schema.QueryResponse;
       }
     }
     namespace Schema {
       export interface EmptyResponse {
-        errors?: YoutubeAnalytics_v2.Schema.Errors;
+        errors?: YouTubeAnalytics.Schema.Errors;
       }
       export interface ErrorProto {
         argument?: string[];
@@ -65,28 +65,28 @@ declare namespace GoogleAppsScript {
       }
       export interface Errors {
         code?: string;
-        error?: YoutubeAnalytics_v2.Schema.ErrorProto[];
+        error?: YouTubeAnalytics.Schema.ErrorProto[];
         requestId?: string;
       }
       export interface Group {
-        contentDetails?: YoutubeAnalytics_v2.Schema.GroupContentDetails;
-        errors?: YoutubeAnalytics_v2.Schema.Errors;
+        contentDetails?: YouTubeAnalytics.Schema.GroupContentDetails;
+        errors?: YouTubeAnalytics.Schema.Errors;
         etag?: string;
         id?: string;
         kind?: string;
-        snippet?: YoutubeAnalytics_v2.Schema.GroupSnippet;
+        snippet?: YouTubeAnalytics.Schema.GroupSnippet;
       }
       export interface GroupContentDetails {
         itemCount?: string;
         itemType?: string;
       }
       export interface GroupItem {
-        errors?: YoutubeAnalytics_v2.Schema.Errors;
+        errors?: YouTubeAnalytics.Schema.Errors;
         etag?: string;
         groupId?: string;
         id?: string;
         kind?: string;
-        resource?: YoutubeAnalytics_v2.Schema.GroupItemResource;
+        resource?: YouTubeAnalytics.Schema.GroupItemResource;
       }
       export interface GroupItemResource {
         id?: string;
@@ -97,21 +97,21 @@ declare namespace GoogleAppsScript {
         title?: string;
       }
       export interface ListGroupItemsResponse {
-        errors?: YoutubeAnalytics_v2.Schema.Errors;
+        errors?: YouTubeAnalytics.Schema.Errors;
         etag?: string;
-        items?: YoutubeAnalytics_v2.Schema.GroupItem[];
+        items?: YouTubeAnalytics.Schema.GroupItem[];
         kind?: string;
       }
       export interface ListGroupsResponse {
-        errors?: YoutubeAnalytics_v2.Schema.Errors;
+        errors?: YouTubeAnalytics.Schema.Errors;
         etag?: string;
-        items?: YoutubeAnalytics_v2.Schema.Group[];
+        items?: YouTubeAnalytics.Schema.Group[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface QueryResponse {
-        columnHeaders?: YoutubeAnalytics_v2.Schema.ResultTableColumnHeader[];
-        errors?: YoutubeAnalytics_v2.Schema.Errors;
+        columnHeaders?: YouTubeAnalytics.Schema.ResultTableColumnHeader[];
+        errors?: YouTubeAnalytics.Schema.Errors;
         kind?: string;
         rows?: Object[][];
       }
@@ -122,25 +122,25 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface YoutubeAnalytics_v2 {
-    GroupItems?: YoutubeAnalytics_v2.Collection.GroupItemsCollection;
-    Groups?: YoutubeAnalytics_v2.Collection.GroupsCollection;
-    Reports?: YoutubeAnalytics_v2.Collection.ReportsCollection;
+  export interface YouTubeAnalytics {
+    GroupItems?: YouTubeAnalytics.Collection.GroupItemsCollection;
+    Groups?: YouTubeAnalytics.Collection.GroupsCollection;
+    Reports?: YouTubeAnalytics.Collection.ReportsCollection;
     // Create a new instance of ErrorProto
-    newErrorProto(): YoutubeAnalytics_v2.Schema.ErrorProto;
+    newErrorProto(): YouTubeAnalytics.Schema.ErrorProto;
     // Create a new instance of Errors
-    newErrors(): YoutubeAnalytics_v2.Schema.Errors;
+    newErrors(): YouTubeAnalytics.Schema.Errors;
     // Create a new instance of Group
-    newGroup(): YoutubeAnalytics_v2.Schema.Group;
+    newGroup(): YouTubeAnalytics.Schema.Group;
     // Create a new instance of GroupContentDetails
-    newGroupContentDetails(): YoutubeAnalytics_v2.Schema.GroupContentDetails;
+    newGroupContentDetails(): YouTubeAnalytics.Schema.GroupContentDetails;
     // Create a new instance of GroupItem
-    newGroupItem(): YoutubeAnalytics_v2.Schema.GroupItem;
+    newGroupItem(): YouTubeAnalytics.Schema.GroupItem;
     // Create a new instance of GroupItemResource
-    newGroupItemResource(): YoutubeAnalytics_v2.Schema.GroupItemResource;
+    newGroupItemResource(): YouTubeAnalytics.Schema.GroupItemResource;
     // Create a new instance of GroupSnippet
-    newGroupSnippet(): YoutubeAnalytics_v2.Schema.GroupSnippet;
+    newGroupSnippet(): YouTubeAnalytics.Schema.GroupSnippet;
   }
 }
 
-declare var YoutubeAnalytics_v2: GoogleAppsScript.YoutubeAnalytics_v2;
+declare var YouTubeAnalytics: GoogleAppsScript.YouTubeAnalytics;

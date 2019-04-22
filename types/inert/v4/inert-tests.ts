@@ -121,8 +121,7 @@ server.route({
                     return [''];
                 }
                 return new Error('');
-            },
-            BAD_listing: true,  // TODO change typings to make this error
+            }
         },
     },
     config: { files: { relativeTo: __dirname } }

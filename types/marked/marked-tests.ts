@@ -41,7 +41,8 @@ console.log(marked.parser(tokens));
 const lexer = new marked.Lexer(options);
 const tokens2 = lexer.lex(text);
 console.log(tokens2);
-const re: RegExp | marked.Rules = lexer.rules['code'];
+const re: RegExp | marked.Rules = marked.Lexer.rules['code'];
+console.log(lexer.token(text, true));
 
 const renderer = new marked.Renderer();
 const slugger = new marked.Slugger();
@@ -56,3 +57,10 @@ const parseTestText = "- list1\n  - list1.1\n\n listend";
 const parseTestTokens: marked.TokensList = marked.lexer(parseTestText, options);
 const parser = new marked.Parser();
 console.log(parser.parse(parseTestTokens));
+console.log(marked.Parser.parse(parseTestTokens));
+
+const links = ['http', 'image'];
+const inlineLexer = new marked.InlineLexer(links);
+console.log(inlineLexer.output("http://"));
+console.log(marked.InlineLexer.output("http://", links));
+console.log(marked.InlineLexer.rules);

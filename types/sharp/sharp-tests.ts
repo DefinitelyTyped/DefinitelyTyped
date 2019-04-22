@@ -233,3 +233,15 @@ const vipsVersion: string = sharp.versions.vips;
 if (sharp.versions.cairo) {
     const cairoVersion: string = sharp.versions.cairo;
 }
+
+sharp('input.gif')
+    .linear(1)
+    .linear(1, 0)
+    .linear(null, 0)
+
+    .recomb([
+        [0.3588, 0.7044, 0.1368],
+        [0.2990, 0.5870, 0.1140],
+        [0.2392, 0.4696, 0.0912],
+    ])
+;

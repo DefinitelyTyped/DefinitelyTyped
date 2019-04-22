@@ -19,6 +19,7 @@ interface Options {
 /**
  * Change log parser for node.
  */
-declare function parseChangelog(options: Partial<Options>|string, callback?: (result: object, error: string|null) => void): Promise<object>;
+declare function parseChangelog(options: Partial<Options>|string,
+    callback?: (error: string|null, result: object) => void): Promise<object>;
 
 export = parseChangelog;

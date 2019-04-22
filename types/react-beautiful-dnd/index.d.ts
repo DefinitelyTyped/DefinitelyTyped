@@ -1,4 +1,4 @@
-// Type definitions for react-beautiful-dnd 10.1
+// Type definitions for react-beautiful-dnd 11.0
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
@@ -71,9 +71,9 @@ export interface DragStart {
 }
 
 export interface DragUpdate extends DragStart {
-    destination?: DraggableLocation | null;
+    destination?: DraggableLocation;
     // populated when a draggable is dragging over another in combine mode
-    combine?: Combine | null;
+    combine?: Combine;
 }
 
 // details of the item that is being combined with
@@ -207,7 +207,7 @@ export interface DraggableProps {
     disableInteractiveElementBlocking?: boolean;
     children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<HTMLElement>;
     type?: TypeId;
-    shouldRespectForceTouch?: boolean;
+    shouldRespectForcePress?: boolean;
 }
 
 export class Draggable extends React.Component<DraggableProps> { }

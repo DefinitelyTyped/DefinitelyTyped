@@ -5,23 +5,23 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Fusiontables_v2 {
+  namespace FusionTables {
     namespace Collection {
       export interface ColumnCollection {
         // Retrieves a specific column by its ID.
-        get(tableId: string, columnId: string): Fusiontables_v2.Schema.Column;
+        get(tableId: string, columnId: string): FusionTables.Schema.Column;
         // Adds a new column to the table.
-        insert(resource: Schema.Column, tableId: string): Fusiontables_v2.Schema.Column;
+        insert(resource: Schema.Column, tableId: string): FusionTables.Schema.Column;
         // Retrieves a list of columns.
-        list(tableId: string): Fusiontables_v2.Schema.ColumnList;
+        list(tableId: string): FusionTables.Schema.ColumnList;
         // Retrieves a list of columns.
-        list(tableId: string, optionalArgs: object): Fusiontables_v2.Schema.ColumnList;
+        list(tableId: string, optionalArgs: object): FusionTables.Schema.ColumnList;
         // Updates the name or type of an existing column. This method supports patch semantics.
-        patch(resource: Schema.Column, tableId: string, columnId: string): Fusiontables_v2.Schema.Column;
+        patch(resource: Schema.Column, tableId: string, columnId: string): FusionTables.Schema.Column;
         // Deletes the specified column.
         remove(tableId: string, columnId: string): void;
         // Updates the name or type of an existing column.
-        update(resource: Schema.Column, tableId: string, columnId: string): Fusiontables_v2.Schema.Column;
+        update(resource: Schema.Column, tableId: string, columnId: string): FusionTables.Schema.Column;
       }
       export interface QueryCollection {
         // Executes a Fusion Tables SQL statement, which can be any of
@@ -32,7 +32,7 @@ declare namespace GoogleAppsScript {
         // - SHOW
         // - DESCRIBE
         // - CREATE statement.
-        sql(sql: string): Fusiontables_v2.Schema.Sqlresponse;
+        sql(sql: string): FusionTables.Schema.Sqlresponse;
         // Executes a Fusion Tables SQL statement, which can be any of
         // - SELECT
         // - INSERT
@@ -41,103 +41,103 @@ declare namespace GoogleAppsScript {
         // - SHOW
         // - DESCRIBE
         // - CREATE statement.
-        sql(sql: string, optionalArgs: object): Fusiontables_v2.Schema.Sqlresponse;
+        sql(sql: string, optionalArgs: object): FusionTables.Schema.Sqlresponse;
         // Executes a SQL statement which can be any of
         // - SELECT
         // - SHOW
         // - DESCRIBE
-        sqlGet(sql: string): Fusiontables_v2.Schema.Sqlresponse;
+        sqlGet(sql: string): FusionTables.Schema.Sqlresponse;
         // Executes a SQL statement which can be any of
         // - SELECT
         // - SHOW
         // - DESCRIBE
-        sqlGet(sql: string, optionalArgs: object): Fusiontables_v2.Schema.Sqlresponse;
+        sqlGet(sql: string, optionalArgs: object): FusionTables.Schema.Sqlresponse;
       }
       export interface StyleCollection {
         // Gets a specific style.
-        get(tableId: string, styleId: number): Fusiontables_v2.Schema.StyleSetting;
+        get(tableId: string, styleId: number): FusionTables.Schema.StyleSetting;
         // Adds a new style for the table.
-        insert(resource: Schema.StyleSetting, tableId: string): Fusiontables_v2.Schema.StyleSetting;
+        insert(resource: Schema.StyleSetting, tableId: string): FusionTables.Schema.StyleSetting;
         // Retrieves a list of styles.
-        list(tableId: string): Fusiontables_v2.Schema.StyleSettingList;
+        list(tableId: string): FusionTables.Schema.StyleSettingList;
         // Retrieves a list of styles.
-        list(tableId: string, optionalArgs: object): Fusiontables_v2.Schema.StyleSettingList;
+        list(tableId: string, optionalArgs: object): FusionTables.Schema.StyleSettingList;
         // Updates an existing style. This method supports patch semantics.
-        patch(resource: Schema.StyleSetting, tableId: string, styleId: number): Fusiontables_v2.Schema.StyleSetting;
+        patch(resource: Schema.StyleSetting, tableId: string, styleId: number): FusionTables.Schema.StyleSetting;
         // Deletes a style.
         remove(tableId: string, styleId: number): void;
         // Updates an existing style.
-        update(resource: Schema.StyleSetting, tableId: string, styleId: number): Fusiontables_v2.Schema.StyleSetting;
+        update(resource: Schema.StyleSetting, tableId: string, styleId: number): FusionTables.Schema.StyleSetting;
       }
       export interface TableCollection {
         // Copies a table.
-        copy(tableId: string): Fusiontables_v2.Schema.Table;
+        copy(tableId: string): FusionTables.Schema.Table;
         // Copies a table.
-        copy(tableId: string, optionalArgs: object): Fusiontables_v2.Schema.Table;
+        copy(tableId: string, optionalArgs: object): FusionTables.Schema.Table;
         // Retrieves a specific table by its ID.
-        get(tableId: string): Fusiontables_v2.Schema.Table;
+        get(tableId: string): FusionTables.Schema.Table;
         // Imports more rows into a table.
-        importRows(tableId: string): Fusiontables_v2.Schema.Import;
+        importRows(tableId: string): FusionTables.Schema.Import;
         // Imports more rows into a table.
-        importRows(tableId: string, mediaData: any): Fusiontables_v2.Schema.Import;
+        importRows(tableId: string, mediaData: any): FusionTables.Schema.Import;
         // Imports more rows into a table.
-        importRows(tableId: string, mediaData: any, optionalArgs: object): Fusiontables_v2.Schema.Import;
+        importRows(tableId: string, mediaData: any, optionalArgs: object): FusionTables.Schema.Import;
         // Imports a new table.
-        importTable(name: string): Fusiontables_v2.Schema.Table;
+        importTable(name: string): FusionTables.Schema.Table;
         // Imports a new table.
-        importTable(name: string, mediaData: any): Fusiontables_v2.Schema.Table;
+        importTable(name: string, mediaData: any): FusionTables.Schema.Table;
         // Imports a new table.
-        importTable(name: string, mediaData: any, optionalArgs: object): Fusiontables_v2.Schema.Table;
+        importTable(name: string, mediaData: any, optionalArgs: object): FusionTables.Schema.Table;
         // Creates a new table.
-        insert(resource: Schema.Table): Fusiontables_v2.Schema.Table;
+        insert(resource: Schema.Table): FusionTables.Schema.Table;
         // Retrieves a list of tables a user owns.
-        list(): Fusiontables_v2.Schema.TableList;
+        list(): FusionTables.Schema.TableList;
         // Retrieves a list of tables a user owns.
-        list(optionalArgs: object): Fusiontables_v2.Schema.TableList;
+        list(optionalArgs: object): FusionTables.Schema.TableList;
         // Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated. This method supports patch semantics.
-        patch(resource: Schema.Table, tableId: string): Fusiontables_v2.Schema.Table;
+        patch(resource: Schema.Table, tableId: string): FusionTables.Schema.Table;
         // Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated. This method supports patch semantics.
-        patch(resource: Schema.Table, tableId: string, optionalArgs: object): Fusiontables_v2.Schema.Table;
+        patch(resource: Schema.Table, tableId: string, optionalArgs: object): FusionTables.Schema.Table;
         // Replaces rows of the table with the rows of the spreadsheet that is first imported from. Current rows remain visible until all replacement rows are ready.
-        refetchSheet(tableId: string): Fusiontables_v2.Schema.Task;
+        refetchSheet(tableId: string): FusionTables.Schema.Task;
         // Deletes a table.
         remove(tableId: string): void;
         // Replaces rows of an existing table. Current rows remain visible until all replacement rows are ready.
-        replaceRows(tableId: string): Fusiontables_v2.Schema.Task;
+        replaceRows(tableId: string): FusionTables.Schema.Task;
         // Replaces rows of an existing table. Current rows remain visible until all replacement rows are ready.
-        replaceRows(tableId: string, mediaData: any): Fusiontables_v2.Schema.Task;
+        replaceRows(tableId: string, mediaData: any): FusionTables.Schema.Task;
         // Replaces rows of an existing table. Current rows remain visible until all replacement rows are ready.
-        replaceRows(tableId: string, mediaData: any, optionalArgs: object): Fusiontables_v2.Schema.Task;
+        replaceRows(tableId: string, mediaData: any, optionalArgs: object): FusionTables.Schema.Task;
         // Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated.
-        update(resource: Schema.Table, tableId: string): Fusiontables_v2.Schema.Table;
+        update(resource: Schema.Table, tableId: string): FusionTables.Schema.Table;
         // Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated.
-        update(resource: Schema.Table, tableId: string, optionalArgs: object): Fusiontables_v2.Schema.Table;
+        update(resource: Schema.Table, tableId: string, optionalArgs: object): FusionTables.Schema.Table;
       }
       export interface TaskCollection {
         // Retrieves a specific task by its ID.
-        get(tableId: string, taskId: string): Fusiontables_v2.Schema.Task;
+        get(tableId: string, taskId: string): FusionTables.Schema.Task;
         // Retrieves a list of tasks.
-        list(tableId: string): Fusiontables_v2.Schema.TaskList;
+        list(tableId: string): FusionTables.Schema.TaskList;
         // Retrieves a list of tasks.
-        list(tableId: string, optionalArgs: object): Fusiontables_v2.Schema.TaskList;
+        list(tableId: string, optionalArgs: object): FusionTables.Schema.TaskList;
         // Deletes a specific task by its ID, unless that task has already started running.
         remove(tableId: string, taskId: string): void;
       }
       export interface TemplateCollection {
         // Retrieves a specific template by its id
-        get(tableId: string, templateId: number): Fusiontables_v2.Schema.Template;
+        get(tableId: string, templateId: number): FusionTables.Schema.Template;
         // Creates a new template for the table.
-        insert(resource: Schema.Template, tableId: string): Fusiontables_v2.Schema.Template;
+        insert(resource: Schema.Template, tableId: string): FusionTables.Schema.Template;
         // Retrieves a list of templates.
-        list(tableId: string): Fusiontables_v2.Schema.TemplateList;
+        list(tableId: string): FusionTables.Schema.TemplateList;
         // Retrieves a list of templates.
-        list(tableId: string, optionalArgs: object): Fusiontables_v2.Schema.TemplateList;
+        list(tableId: string, optionalArgs: object): FusionTables.Schema.TemplateList;
         // Updates an existing template. This method supports patch semantics.
-        patch(resource: Schema.Template, tableId: string, templateId: number): Fusiontables_v2.Schema.Template;
+        patch(resource: Schema.Template, tableId: string, templateId: number): FusionTables.Schema.Template;
         // Deletes a template
         remove(tableId: string, templateId: number): void;
         // Updates an existing template
-        update(resource: Schema.Template, tableId: string, templateId: number): Fusiontables_v2.Schema.Template;
+        update(resource: Schema.Template, tableId: string, templateId: number): FusionTables.Schema.Template;
       }
     }
     namespace Schema {
@@ -150,7 +150,7 @@ declare namespace GoogleAppsScript {
         weight?: number;
       }
       export interface Column {
-        baseColumn?: Fusiontables_v2.Schema.ColumnBaseColumn;
+        baseColumn?: FusionTables.Schema.ColumnBaseColumn;
         columnId?: number;
         columnJsonSchema?: string;
         columnPropertiesJson?: string;
@@ -168,7 +168,7 @@ declare namespace GoogleAppsScript {
         tableIndex?: number;
       }
       export interface ColumnList {
-        items?: Fusiontables_v2.Schema.Column[];
+        items?: FusionTables.Schema.Column[];
         kind?: string;
         nextPageToken?: string;
         totalItems?: number;
@@ -188,10 +188,10 @@ declare namespace GoogleAppsScript {
       }
       export interface LineStyle {
         strokeColor?: string;
-        strokeColorStyler?: Fusiontables_v2.Schema.StyleFunction;
+        strokeColorStyler?: FusionTables.Schema.StyleFunction;
         strokeOpacity?: Number;
         strokeWeight?: number;
-        strokeWeightStyler?: Fusiontables_v2.Schema.StyleFunction;
+        strokeWeightStyler?: FusionTables.Schema.StyleFunction;
       }
       export interface Point {
         coordinates?: Number[];
@@ -199,7 +199,7 @@ declare namespace GoogleAppsScript {
       }
       export interface PointStyle {
         iconName?: string;
-        iconStyler?: Fusiontables_v2.Schema.StyleFunction;
+        iconStyler?: FusionTables.Schema.StyleFunction;
       }
       export interface Polygon {
         coordinates?: Number[][][];
@@ -207,13 +207,13 @@ declare namespace GoogleAppsScript {
       }
       export interface PolygonStyle {
         fillColor?: string;
-        fillColorStyler?: Fusiontables_v2.Schema.StyleFunction;
+        fillColorStyler?: FusionTables.Schema.StyleFunction;
         fillOpacity?: Number;
         strokeColor?: string;
-        strokeColorStyler?: Fusiontables_v2.Schema.StyleFunction;
+        strokeColorStyler?: FusionTables.Schema.StyleFunction;
         strokeOpacity?: Number;
         strokeWeight?: number;
-        strokeWeightStyler?: Fusiontables_v2.Schema.StyleFunction;
+        strokeWeightStyler?: FusionTables.Schema.StyleFunction;
       }
       export interface Sqlresponse {
         columns?: string[];
@@ -221,13 +221,13 @@ declare namespace GoogleAppsScript {
         rows?: Object[][];
       }
       export interface StyleFunction {
-        buckets?: Fusiontables_v2.Schema.Bucket[];
+        buckets?: FusionTables.Schema.Bucket[];
         columnName?: string;
-        gradient?: Fusiontables_v2.Schema.StyleFunctionGradient;
+        gradient?: FusionTables.Schema.StyleFunctionGradient;
         kind?: string;
       }
       export interface StyleFunctionGradient {
-        colors?: Fusiontables_v2.Schema.StyleFunctionGradientColors[];
+        colors?: FusionTables.Schema.StyleFunctionGradientColors[];
         max?: Number;
         min?: Number;
       }
@@ -237,15 +237,15 @@ declare namespace GoogleAppsScript {
       }
       export interface StyleSetting {
         kind?: string;
-        markerOptions?: Fusiontables_v2.Schema.PointStyle;
+        markerOptions?: FusionTables.Schema.PointStyle;
         name?: string;
-        polygonOptions?: Fusiontables_v2.Schema.PolygonStyle;
-        polylineOptions?: Fusiontables_v2.Schema.LineStyle;
+        polygonOptions?: FusionTables.Schema.PolygonStyle;
+        polylineOptions?: FusionTables.Schema.LineStyle;
         styleId?: number;
         tableId?: string;
       }
       export interface StyleSettingList {
-        items?: Fusiontables_v2.Schema.StyleSetting[];
+        items?: FusionTables.Schema.StyleSetting[];
         kind?: string;
         nextPageToken?: string;
         totalItems?: number;
@@ -255,7 +255,7 @@ declare namespace GoogleAppsScript {
         attributionLink?: string;
         baseTableIds?: string[];
         columnPropertiesJsonSchema?: string;
-        columns?: Fusiontables_v2.Schema.Column[];
+        columns?: FusionTables.Schema.Column[];
         description?: string;
         isExportable?: boolean;
         kind?: string;
@@ -266,7 +266,7 @@ declare namespace GoogleAppsScript {
         tablePropertiesJsonSchema?: string;
       }
       export interface TableList {
-        items?: Fusiontables_v2.Schema.Table[];
+        items?: FusionTables.Schema.Table[];
         kind?: string;
         nextPageToken?: string;
       }
@@ -278,7 +278,7 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface TaskList {
-        items?: Fusiontables_v2.Schema.Task[];
+        items?: FusionTables.Schema.Task[];
         kind?: string;
         nextPageToken?: string;
         totalItems?: number;
@@ -292,45 +292,45 @@ declare namespace GoogleAppsScript {
         templateId?: number;
       }
       export interface TemplateList {
-        items?: Fusiontables_v2.Schema.Template[];
+        items?: FusionTables.Schema.Template[];
         kind?: string;
         nextPageToken?: string;
         totalItems?: number;
       }
     }
   }
-  export interface Fusiontables_v2 {
-    Column?: Fusiontables_v2.Collection.ColumnCollection;
-    Query?: Fusiontables_v2.Collection.QueryCollection;
-    Style?: Fusiontables_v2.Collection.StyleCollection;
-    Table?: Fusiontables_v2.Collection.TableCollection;
-    Task?: Fusiontables_v2.Collection.TaskCollection;
-    Template?: Fusiontables_v2.Collection.TemplateCollection;
+  export interface FusionTables {
+    Column?: FusionTables.Collection.ColumnCollection;
+    Query?: FusionTables.Collection.QueryCollection;
+    Style?: FusionTables.Collection.StyleCollection;
+    Table?: FusionTables.Collection.TableCollection;
+    Task?: FusionTables.Collection.TaskCollection;
+    Template?: FusionTables.Collection.TemplateCollection;
     // Create a new instance of Bucket
-    newBucket(): Fusiontables_v2.Schema.Bucket;
+    newBucket(): FusionTables.Schema.Bucket;
     // Create a new instance of Column
-    newColumn(): Fusiontables_v2.Schema.Column;
+    newColumn(): FusionTables.Schema.Column;
     // Create a new instance of ColumnBaseColumn
-    newColumnBaseColumn(): Fusiontables_v2.Schema.ColumnBaseColumn;
+    newColumnBaseColumn(): FusionTables.Schema.ColumnBaseColumn;
     // Create a new instance of LineStyle
-    newLineStyle(): Fusiontables_v2.Schema.LineStyle;
+    newLineStyle(): FusionTables.Schema.LineStyle;
     // Create a new instance of PointStyle
-    newPointStyle(): Fusiontables_v2.Schema.PointStyle;
+    newPointStyle(): FusionTables.Schema.PointStyle;
     // Create a new instance of PolygonStyle
-    newPolygonStyle(): Fusiontables_v2.Schema.PolygonStyle;
+    newPolygonStyle(): FusionTables.Schema.PolygonStyle;
     // Create a new instance of StyleFunction
-    newStyleFunction(): Fusiontables_v2.Schema.StyleFunction;
+    newStyleFunction(): FusionTables.Schema.StyleFunction;
     // Create a new instance of StyleFunctionGradient
-    newStyleFunctionGradient(): Fusiontables_v2.Schema.StyleFunctionGradient;
+    newStyleFunctionGradient(): FusionTables.Schema.StyleFunctionGradient;
     // Create a new instance of StyleFunctionGradientColors
-    newStyleFunctionGradientColors(): Fusiontables_v2.Schema.StyleFunctionGradientColors;
+    newStyleFunctionGradientColors(): FusionTables.Schema.StyleFunctionGradientColors;
     // Create a new instance of StyleSetting
-    newStyleSetting(): Fusiontables_v2.Schema.StyleSetting;
+    newStyleSetting(): FusionTables.Schema.StyleSetting;
     // Create a new instance of Table
-    newTable(): Fusiontables_v2.Schema.Table;
+    newTable(): FusionTables.Schema.Table;
     // Create a new instance of Template
-    newTemplate(): Fusiontables_v2.Schema.Template;
+    newTemplate(): FusionTables.Schema.Template;
   }
 }
 
-declare var Fusiontables_v2: GoogleAppsScript.Fusiontables_v2;
+declare var FusionTables: GoogleAppsScript.FusionTables;

@@ -95,16 +95,13 @@ import { URL } from 'url';
         exclusive: true,
         parent: 0,
         weight: 0,
-        getTrailers: (trailers: OutgoingHttpHeaders) => {}
+        waitForTrailers: true
     };
     (http2Session as ClientHttp2Session).request();
     (http2Session as ClientHttp2Session).request(headers);
     (http2Session as ClientHttp2Session).request(headers, options);
 
     const stream: Http2Stream = {} as any;
-    http2Session.rstStream(stream);
-    http2Session.rstStream(stream, 0);
-
     http2Session.setTimeout(100, () => {});
     http2Session.close(() => {});
 
@@ -121,13 +118,6 @@ import { URL } from 'url';
         deflateDynamicTableSize: 0,
         inflateDynamicTableSize: 0
     };
-
-    http2Session.priority(stream, {
-        exclusive: true,
-        parent: 0,
-        weight: 0,
-        silent: true
-    });
 
     http2Session.settings(settings);
 
@@ -150,6 +140,7 @@ import { URL } from 'url';
     http2Stream.on('wantTrailers', () => {});
 
     const aborted: boolean = http2Stream.aborted;
+    const bufferSize: number = http2Stream.bufferSize;
     const closed: boolean = http2Stream.closed;
     const destroyed: boolean = http2Stream.destroyed;
     const pending: boolean = http2Stream.pending;
@@ -164,13 +155,15 @@ import { URL } from 'url';
     const sesh: Http2Session = http2Stream.session;
 
     http2Stream.setTimeout(100, () => {});
+    const trailers: OutgoingHttpHeaders = {};
+    http2Stream.sendTrailers(trailers);
 
     let state: StreamState = http2Stream.state;
     state = {
         localWindowSize: 0,
         state: 0,
-        streamLocalClose: 0,
-        streamRemoteClose: 0,
+        localClose: 0,
+        remoteClose: 0,
         sumDependencyWeight: 0,
         weight: 0
     };
@@ -207,7 +200,7 @@ import { URL } from 'url';
 
     const options2: ServerStreamFileResponseOptions = {
         statCheck: (stats: Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => {},
-        getTrailers: (trailers: OutgoingHttpHeaders) => {},
+        waitForTrailers: true,
         offset: 0,
         length: 0
     };
@@ -218,7 +211,7 @@ import { URL } from 'url';
     const options3: ServerStreamFileResponseOptionsWithError = {
         onError: (err: NodeJS.ErrnoException) => {},
         statCheck: (stats: Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => {},
-        getTrailers: (trailers: OutgoingHttpHeaders) => {},
+        waitForTrailers: true,
         offset: 0,
         length: 0
     };
@@ -236,10 +229,12 @@ import { URL } from 'url';
     const s2: Server = http2SecureServer;
     [http2Server, http2SecureServer].forEach((server) => {
         server.on('sessionError', (err: Error) => {});
+        server.on('session', (session: ServerHttp2Session) => {});
         server.on('checkContinue', (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => {});
         server.on('stream', (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => {});
         server.on('request', (request: Http2ServerRequest, response: Http2ServerResponse) => {});
         server.on('timeout', () => {});
+        server.setTimeout().setTimeout(5).setTimeout(5, () => {});
     });
 
     http2SecureServer.on('unknownProtocol', (socket: TLSSocket) => {});
@@ -251,7 +246,6 @@ import { URL } from 'url';
     };
     const serverOptions: ServerOptions = {
         maxDeflateDynamicTableSize: 0,
-        maxReservedRemoteStreams: 0,
         maxSendHeaderBlockLength: 0,
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
@@ -265,12 +259,15 @@ import { URL } from 'url';
         // Http2ServerRequest
 
         const readable: Readable = request;
+        const aborted: boolean = request.aborted;
+        const authority: string = request.authority;
         let incomingHeaders: IncomingHttpHeaders = request.headers;
         incomingHeaders = request.trailers;
         const httpVersion: string = request.httpVersion;
         let method: string = request.method;
         let rawHeaders: string[] = request.rawHeaders;
         rawHeaders = request.rawTrailers;
+        const scheme: string = request.scheme;
         let socket: Socket | TLSSocket = request.socket;
         let stream: ServerHttp2Stream = request.stream;
         const url: string = request.url;
@@ -368,6 +365,7 @@ import { URL } from 'url';
     serverHttp2Session.altsvc('', { origin: '' });
     serverHttp2Session.altsvc('', { origin: 0 });
     serverHttp2Session.altsvc('', { origin: new URL('') });
+    serverHttp2Session.origin('https://example.com', new URL(''), { origin: 'https://foo.com' });
 
     let clientHttp2Session: ClientHttp2Session;
 
@@ -380,7 +378,7 @@ import { URL } from 'url';
     clientHttp2Session.on('altsvc', (alt: string, origin: string, number: number) => {});
 
     settings = getDefaultSettings();
-    settings = getPackedSettings(settings);
+    const packet: Buffer = getPackedSettings(settings);
     settings = getUnpackedSettings(Buffer.from([]));
     settings = getUnpackedSettings(Uint8Array.from([]));
 }
