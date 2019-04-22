@@ -132,9 +132,9 @@ export interface ParserOptions extends RequiredOptions {
 }
 
 export interface Plugin {
-    languages: SupportLanguage[];
-    parsers: { [parserName: string]: Parser };
-    printers: { [astFormat: string]: Printer };
+    languages?: SupportLanguage[];
+    parsers?: { [parserName: string]: Parser };
+    printers?: { [astFormat: string]: Printer };
     options?: SupportOption[];
     defaultOptions?: Partial<RequiredOptions>;
 }

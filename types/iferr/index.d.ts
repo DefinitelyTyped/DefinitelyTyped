@@ -3,7 +3,7 @@
 // Definitions by: segayuu <https://github.com/segayuu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type nodeCallback<T> = (err: Error | undefined, ...a: T[]) => any;
+type nodeCallback<T> = (err: Error | null, ...a: T[]) => any;
 
 // Delegates to `succ` on sucecss or to `fail` on error
 // ex: Thing.load(123, iferr(cb, thing => ...))
