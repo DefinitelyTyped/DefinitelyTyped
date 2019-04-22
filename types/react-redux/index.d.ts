@@ -1,4 +1,4 @@
-// Type definitions for react-redux 7.0
+// Type definitions for react-redux 7.1
 // Project: https://github.com/reduxjs/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
 //                 Kenzie Togami <https://github.com/kenzierocks>,
@@ -12,6 +12,7 @@
 //                 Anatoli Papirovski <https://github.com/apapirovski>
 //                 Boris Sergeyev <https://github.com/surgeboris>
 //                 Søren Bruus Frank <https://github.com/soerenbf>
+//                 Jonathan Ziller <https://github.com/mrwolfz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -38,6 +39,7 @@ import {
 import {
     Action,
     ActionCreator,
+    ActionCreatorsMapObject,
     AnyAction,
     Dispatch,
     Store
@@ -445,3 +447,240 @@ export const ReactReduxContext: Context<ReactReduxContextValue>;
  * multiple actions dispatched outside of React only result in a single render update.
  */
 export function batch(cb: () => void): void;
+
+// tslint:disable:no-unnecessary-generics
+
+/**
+ * A hook to bind action creators to the redux store's `dispatch` function
+ * similar to how redux's `bindActionCreators` works.
+ *
+ * Supports passing a single action creator, an array/tuple of action
+ * creators, or an object of action creators.
+ *
+ * Any arguments passed to the created callbacks are passed through to
+ * your functions.
+ *
+ * This hook takes a dependencies array as an optional second argument,
+ * which when passed ensures referential stability of the created callbacks.
+ *
+ * @param actions the action creators to bind
+ * @param deps (optional) dependencies array to control referential stability
+ *
+ * @returns callback(s) bound to store's `dispatch` function
+ *
+ * @example
+ *
+ * import React from 'react'
+ * import { useActions } from 'react-redux'
+ *
+ * const increaseCounter = ({ amount }) => ({
+ *   type: 'increase-counter',
+ *   amount,
+ * })
+ *
+ * export const CounterComponent = ({ value }) => {
+ *   // supports passing an object of action creators
+ *   const { increaseCounterByOne, increaseCounterByTwo } = useActions({
+ *     increaseCounterByOne: () => increaseCounter(1),
+ *     increaseCounterByTwo: () => increaseCounter(2),
+ *   }, [])
+ *
+ *   // supports passing an array/tuple of action creators
+ *   const [increaseCounterByThree, increaseCounterByFour] = useActions([
+ *     () => increaseCounter(3),
+ *     () => increaseCounter(4),
+ *   ], [])
+ *
+ *   // supports passing a single action creator
+ *   const increaseCounterBy5 = useActions(() => increaseCounter(5), [])
+ *
+ *   // passes through any arguments to the callback
+ *   const increaseCounterByX = useActions(x => increaseCounter(x), [])
+ *
+ *   return (
+ *     <div>
+ *       <span>{value}</span>
+ *       <button onClick={increaseCounterByOne}>Increase counter by 1</button>
+ *     </div>
+ *   )
+ * }
+ */
+export function useActions<
+    T extends [ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>],
+    A = AnyAction
+    >(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<
+    T extends [ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>],
+    A = AnyAction
+    >(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<
+    T extends [ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>],
+    A = AnyAction
+    >(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<
+    T extends [ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>],
+    A = AnyAction
+    >(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<T extends [ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>], A = AnyAction>(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<T extends [ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>], A = AnyAction>(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<T extends [ActionCreator<A>, ActionCreator<A>, ActionCreator<A>], A = AnyAction>(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<T extends [ActionCreator<A>, ActionCreator<A>], A = AnyAction>(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<T extends [ActionCreator<A>], A = AnyAction>(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<T extends ReadonlyArray<ActionCreator<A>>, A = AnyAction>(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<T extends ActionCreatorsMapObject<A>, A = AnyAction>(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<T extends ActionCreator<A>, A = ReturnType<T>>(actions: T, deps?: ReadonlyArray<any>): T;
+
+/**
+ * A hook to access the redux `dispatch` function. Note that in most cases where you
+ * might want to use this hook it is recommended to use `useActions` instead to bind
+ * action creators to the `dispatch` function.
+ *
+ * @returns redux store's `dispatch` function
+ *
+ * @example
+ *
+ * import React, { useCallback } from 'react'
+ * import { useReduxDispatch } from 'react-redux'
+ *
+ * export const CounterComponent = ({ value }) => {
+ *   const dispatch = useDispatch()
+ *   const increaseCounter = useCallback(() => dispatch({ type: 'increase-counter' }), [])
+ *   return (
+ *     <div>
+ *       <span>{value}</span>
+ *       <button onClick={increaseCounter}>Increase counter</button>
+ *     </div>
+ *   )
+ * }
+ */
+export function useDispatch<A extends Action = AnyAction>(): Dispatch<A>;
+
+/**
+ * A hook to access the redux store's state and to bind action creators to
+ * the store's dispatch function. In essence, this hook is a combination of
+ * `useSelector` and `useActions`.
+ *
+ * Note that this hook does currently not allow to pass a dependencies array,
+ * so the passed selector and any created callbacks are not memoized. If you
+ * require memoization, please use `useActions` and `useSelector`.
+ *
+ * @param selector the selector function
+ * @param actions the action creators to bind
+ *
+ * @returns a tuple of the selected state and the bound action creators
+ *
+ * @example
+ *
+ * import React from 'react'
+ * import { useRedux } from 'react-redux'
+ * import { RootState } from './store'
+ *
+ * export const CounterComponent = () => {
+ *   const [counter, { inc1, inc }] = useRedux((state: RootState) => state.counter, {
+ *     inc1: () => ({ type: 'inc1' }),
+ *     inc: amount => ({ type: 'inc', amount }),
+ *   })
+ *
+ *   return (
+ *     <>
+ *       <div>
+ *         {counter}
+ *       </div>
+ *       <button onClick={inc1}>Increment by 1</button>
+ *       <button onClick={() => inc(5)}>Increment by 5</button>
+ *     </>
+ *   )
+ * }
+ */
+export function useRedux<
+    TState,
+    TSelected,
+    TActions extends [ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>],
+    A = AnyAction
+    >(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+export function useRedux<
+    TState,
+    TSelected,
+    TActions extends [ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>],
+    A = AnyAction
+    >(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+export function useRedux<
+    TState,
+    TSelected,
+    TActions extends [ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>],
+    A = AnyAction
+    >(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+export function useRedux<
+    TState,
+    TSelected,
+    TActions extends [ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>],
+    A = AnyAction
+    >(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+export function useRedux<
+    TState,
+    TSelected,
+    TActions extends [ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>],
+    A = AnyAction
+    >(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+export function useRedux<
+    TState,
+    TSelected,
+    TActions extends [ActionCreator<A>, ActionCreator<A>, ActionCreator<A>, ActionCreator<A>],
+    A = AnyAction
+    >(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+export function useRedux<
+    TState,
+    TSelected,
+    TActions extends [ActionCreator<A>, ActionCreator<A>, ActionCreator<A>],
+    A = AnyAction>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+export function useRedux<TState, TSelected, TActions extends [ActionCreator<A>, ActionCreator<A>], A = AnyAction>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+export function useRedux<TState, TSelected, TActions extends [ActionCreator<A>], A = AnyAction>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+export function useRedux<TState, TSelected, TActions extends ReadonlyArray<ActionCreator<A>>, A = AnyAction>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+export function useRedux<TState, TSelected, TActions extends ActionCreatorsMapObject<A>, A = AnyAction>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+export function useRedux<TState, TSelected, TActions extends ActionCreator<A>, A = ReturnType<TActions>>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+
+/**
+ * A hook to access the redux store's state. This hook takes a selector function
+ * as an argument. The selector is called with the store state.
+ *
+ * This hook takes a dependencies array as an optional second argument, which
+ * when passed ensures referential stability of the selector (this is primarily
+ * useful if you provide a selector that memoizes values).
+ *
+ * @param selector the selector function
+ * @param deps (optional) dependencies array to control referential stability
+ * of the selector
+ *
+ * @returns the selected state
+ *
+ * @example
+ *
+ * import React from 'react'
+ * import { useSelector } from 'react-redux'
+ * import { RootState } from './store'
+ *
+ * export const CounterComponent = () => {
+ *   const counter = useSelector((state: RootState) => state.counter, [])
+ *   return <div>{counter}</div>
+ * }
+ */
+export function useSelector<TState, TSelected>(selector: (state: TState) => TSelected, deps?: ReadonlyArray<any>): TSelected;
+
+/**
+ * A hook to access the redux store.
+ *
+ * @returns {any} the redux store
+ *
+ * @example
+ *
+ * import React from 'react'
+ * import { useStore } from 'react-redux'
+ *
+ * export const ExampleComponent = () => {
+ *   const store = useStore()
+ *   return <div>{store.getState()}</div>
+ * }
+ */
+export function useStore<S = any, A extends Action = AnyAction>(): Store<S, A>;
+
+// tslint:enable:no-unnecessary-generics
