@@ -11,6 +11,25 @@ treeify.asTree(
     true
 );
 
+// Ignore the `hideFunctions` argument
+treeify.asTree(
+    {
+        apples: 'gala', //      ├─ apples: gala
+        oranges: 'mandarin' //  └─ oranges: mandarin
+    },
+    true,
+);
+
+// Test printing arrays
+treeify.asTree(
+    [{
+        apples: 'gala', //      ├─ apples: gala
+        oranges: 'mandarin' //  └─ oranges: mandarin
+    }],
+    true,
+    true
+);
+
 treeify.asLines(
     {
         apples: 'gala', //                       ├─ apples: gala
