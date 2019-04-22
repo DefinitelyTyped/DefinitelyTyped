@@ -11,8 +11,8 @@ import { EventEmitter } from 'events';
 declare namespace Hubot {
     class Brain extends EventEmitter {
         constructor(robot: Robot);
-        set<T = any>(key: string, value: T): this;
-        get<T = any>(key: string): T;
+        set(key: string, value: any): this;
+        get(key: string): any;
         remove(key: string): this;
         save(): void;
         close(): void;
