@@ -153,18 +153,18 @@ export interface Connection extends EscapeFunctions {
     /**
      * Set handler to be run when a a fatal error occurs.
      */
-    on(ev: 'error', callback: (err: MysqlError) => void): Pool;
+    on(ev: 'error', callback: (err: MysqlError) => void): Connection;
 
     /**
      * Set handler to be run when a callback has been queued to wait for an
      * available connection.
      */
-    on(ev: 'enqueue', callback: (err?: MysqlError) => void): Pool;
+    on(ev: 'enqueue', callback: (err?: MysqlError) => void): Connection;
 
     /**
      * Set handler to be run on a certain event.
      */
-    on(ev: string, callback: (...args: any[]) => void): Pool;
+    on(ev: string, callback: (...args: any[]) => void): Connection;
 }
 
 export interface PoolConnection extends Connection {
