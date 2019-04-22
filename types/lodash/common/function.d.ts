@@ -307,22 +307,13 @@ declare module "../index" {
         memoize(resolver?: (...args: any[]) => any): Exp<TValue & MemoizedFunction>;
     }
     interface Stat {
-        negate(predicate: () => boolean): () => boolean;
-        negate<A1>(predicate: (a1: A1) => boolean): (a1: A1) => boolean;
-        negate<A1, A2>(predicate: (a1: A1, a2: A2) => boolean): (a1: A1, a2: A2) => boolean;
-        negate(predicate: (...args: any[]) => any): (...args: any[]) => boolean;
+        negate<T extends any[]>(predicate: (...args: T) => any): (...args: T) => boolean;
     }
     interface Imp<TValue> {
-        negate(this: Imp<() => boolean>): Imp<() => boolean>;
-        negate<A1>(this: Imp<(a1: A1) => boolean>): Imp<(a1: A1) => boolean>;
-        negate<A1, A2>(this: Imp<(a1: A1, a2: A2) => boolean>): Imp<(a1: A1, a2: A2) => boolean>;
-        negate(this: Imp<(...args: any[]) => any>): Imp<(...args: any[]) => boolean>;
+        negate<T extends any[]>(this: Imp<(...args: T) => any>): Imp<(...args: T) => boolean>;
     }
     interface Exp<TValue> {
-        negate(this: Exp<() => boolean>): Exp<() => boolean>;
-        negate<A1>(this: Exp<(a1: A1) => boolean>): Exp<(a1: A1) => boolean>;
-        negate<A1, A2>(this: Exp<(a1: A1, a2: A2) => boolean>): Exp<(a1: A1, a2: A2) => boolean>;
-        negate(this: Exp<(...args: any[]) => any>): Exp<(...args: any[]) => boolean>;
+        negate<T extends any[]>(this: Exp<(...args: T) => any>): Exp<(...args: T) => boolean>;
     }
     interface Stat {
         once<T extends (...args: any[]) => any>(func: T): T;
@@ -355,25 +346,12 @@ declare module "../index" {
     type Function3<T1, T2, T3, R> = (t1: T1, t2: T2, t3: T3) => R;
     type Function4<T1, T2, T3, T4, R> = (t1: T1, t2: T2, t3: T3, t4: T4) => R;
     interface Partial {
-        <R>(func: Function0<R>): Function0<R>;
-        <T1, R>(func: Function1<T1, R>): Function1<T1, R>;
-        <T1, R>(func: Function1<T1, R>, arg1: T1): Function0<R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>): Function2<T1, T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1): Function1<T2, R>;
         <T1, T2, R>(func: Function2<T1, T2, R>, plc1: __, arg2: T2): Function1<T1, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2): Function0<R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>): Function3<T1, T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1): Function2<T2, T3, R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, arg2: T2): Function2<T1, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2): Function1<T3, R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, plc2: __, arg3: T3): Function2<T1, T2, R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, arg3: T3): Function1<T2, R>;
         <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, arg2: T2, arg3: T3): Function1<T1, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): Function0<R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>): Function4<T1, T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1): Function3<T2, T3, T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2): Function3<T1, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2): Function2<T3, T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3): Function3<T1, T2, T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3): Function2<T2, T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3): Function2<T1, T4, R>;
@@ -385,34 +363,23 @@ declare module "../index" {
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3, arg4: T4): Function2<T1, T2, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Function1<T2, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3, arg4: T4): Function1<T1, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): Function0<R>;
-        (func: (...args: any[]) => any, ...args: any[]): (...args: any[]) => any;
+        <TS extends any[], R>(func: (...ts: TS) => R): (...ts: TS) => R;
+        <TS extends any[], T1, R>(func: (t1: T1, ...ts: TS) => R, arg1: T1): (...ts: TS) => R;
+        <TS extends any[], T1, T2, R>(func: (t1: T1, t2: T2, ...ts: TS) => R, t1: T1, t2: T2): (...ts: TS) => R;
+        <TS extends any[], T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3, ...ts: TS) => R, t1: T1, t2: T2, t3: T3): (...ts: TS) => R;
+        <TS extends any[], T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, ...ts: TS) => R, t1: T1, t2: T2, t3: T3, t4: T4): (...ts: TS) => R;
         placeholder: __;
     }
     interface ImplicitPartial {
-        <R>(this: Imp<Function0<R>>): Imp<Function0<R>>;
-        <T1, R>(this: Imp<Function1<T1, R>>): Imp<Function1<T1, R>>;
-        <T1, R>(this: Imp<Function1<T1, R>>, arg1: T1): Imp<Function0<R>>;
-        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>): Imp<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1): Imp<Function1<T2, R>>;
         <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, plc1: __, arg2: T2): Imp<Function1<T1, R>>;
-        <T1, T2, R>(this: Imp<Function2<T1, T2, R>>, arg1: T1, arg2: T2): Imp<Function0<R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>): Imp<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1): Imp<Function2<T2, T3, R>>;
         <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2): Imp<Function2<T1, T3, R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2): Imp<Function1<T3, R>>;
         <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, plc1: __, plc2: __, arg3: T3): Imp<Function2<T1, T2, R>>;
         <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3): Imp<Function1<T2, R>>;
         <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3): Imp<Function1<T1, R>>;
-        <T1, T2, T3, R>(this: Imp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3): Imp<Function0<R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>): Imp<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1): Imp<Function3<T2, T3, T4, R>>;
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2): Imp<Function3<T1, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2): Imp<Function2<T3, T4, R>>;
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3): Imp<Function3<T1, T2, T4, R>>;
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3): Imp<Function2<T2, T4, R>>;
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3): Imp<Function2<T1, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3): Imp<Function1<T4, R>>;
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, plc3: __, arg4: T4): Imp<Function3<T1, T2, T3, R>>;
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4): Imp<Function2<T2, T3, R>>;
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, plc3: __, arg4: T4): Imp<Function2<T1, T3, R>>;
@@ -420,33 +387,24 @@ declare module "../index" {
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3, arg4: T4): Imp<Function2<T1, T2, R>>;
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Imp<Function1<T2, R>>;
         <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4): Imp<Function1<T1, R>>;
-        <T1, T2, T3, T4, R>(this: Imp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): Imp<Function0<R>>;
-        (...args: any[]): Imp<(...args: any[]) => any>;
+        <TS extends any[], R>(this: Imp<(...ts: TS) => R>): Imp<(...ts: TS) => R>;
+        <TS extends any[], T1, R>(this: Imp<(t1: T1, ...ts: TS) => R>, arg1: T1): Imp<(...ts: TS) => R>;
+        <TS extends any[], T1, T2, R>(this: Imp<(t1: T1, t2: T2, ...ts: TS) => R>, t1: T1, t2: T2): Imp<(...ts: TS) => R>;
+        <TS extends any[], T1, T2, T3, R>(this: Imp<(t1: T1, t2: T2, t3: T3, ...ts: TS) => R>, t1: T1, t2: T2, t3: T3): Imp<(...ts: TS) => R>;
+        <TS extends any[], T1, T2, T3, T4, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4, ...ts: TS) => R>, t1: T1, t2: T2, t3: T3, t4: T4): Imp<(...ts: TS) => R>;
     }
     interface ExplicitPartial {
-        <R>(this: Exp<Function0<R>>): Exp<Function0<R>>;
-        <T1, R>(this: Exp<Function1<T1, R>>): Exp<Function1<T1, R>>;
-        <T1, R>(this: Exp<Function1<T1, R>>, arg1: T1): Exp<Function0<R>>;
-        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>): Exp<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1): Exp<Function1<T2, R>>;
         <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, plc1: __, arg2: T2): Exp<Function1<T1, R>>;
-        <T1, T2, R>(this: Exp<Function2<T1, T2, R>>, arg1: T1, arg2: T2): Exp<Function0<R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>): Exp<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1): Exp<Function2<T2, T3, R>>;
         <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2): Exp<Function2<T1, T3, R>>;
         <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2): Exp<Function1<T3, R>>;
         <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, plc1: __, plc2: __, arg3: T3): Exp<Function2<T1, T2, R>>;
         <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3): Exp<Function1<T2, R>>;
         <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3): Exp<Function1<T1, R>>;
-        <T1, T2, T3, R>(this: Exp<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3): Exp<Function0<R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>): Exp<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1): Exp<Function3<T2, T3, T4, R>>;
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2): Exp<Function3<T1, T3, T4, R>>;
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2): Exp<Function2<T3, T4, R>>;
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3): Exp<Function3<T1, T2, T4, R>>;
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3): Exp<Function2<T2, T4, R>>;
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3): Exp<Function2<T1, T4, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3): Exp<Function1<T4, R>>;
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, plc3: __, arg4: T4): Exp<Function3<T1, T2, T3, R>>;
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4): Exp<Function2<T2, T3, R>>;
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, plc3: __, arg4: T4): Exp<Function2<T1, T3, R>>;
@@ -454,8 +412,11 @@ declare module "../index" {
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3, arg4: T4): Exp<Function2<T1, T2, R>>;
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Exp<Function1<T2, R>>;
         <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4): Exp<Function1<T1, R>>;
-        <T1, T2, T3, T4, R>(this: Exp<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): Exp<Function0<R>>;
-        (...args: any[]): Exp<(...args: any[]) => any>;
+        <TS extends any[], R>(this: Exp<(...ts: TS) => R>): Exp<(...ts: TS) => R>;
+        <TS extends any[], T1, R>(this: Exp<(t1: T1, ...ts: TS) => R>, arg1: T1): Exp<(...ts: TS) => R>;
+        <TS extends any[], T1, T2, R>(this: Exp<(t1: T1, t2: T2, ...ts: TS) => R>, t1: T1, t2: T2): Exp<(...ts: TS) => R>;
+        <TS extends any[], T1, T2, T3, R>(this: Exp<(t1: T1, t2: T2, t3: T3, ...ts: TS) => R>, t1: T1, t2: T2, t3: T3): Exp<(...ts: TS) => R>;
+        <TS extends any[], T1, T2, T3, T4, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4, ...ts: TS) => R>, t1: T1, t2: T2, t3: T3, t4: T4): Exp<(...ts: TS) => R>;
     }
     interface Stat {
         partialRight: PartialRight;
@@ -588,16 +549,13 @@ declare module "../index" {
         rest(start?: number): Exp<(...args: any[]) => any>;
     }
     interface Stat {
-        spread<TResult>(func: (...args: any[]) => TResult): (...args: any[]) => TResult;
-        spread<TResult>(func: (...args: any[]) => TResult, start: number): (...args: any[]) => TResult;
+        spread<TResult>(func: (...args: any[]) => TResult, start?: number): (...args: any[]) => TResult;
     }
     interface Imp<TValue> {
-        spread<TResult>(this: Imp<(...args: any[]) => TResult>): Imp<(...args: any[]) => TResult>;
-        spread<TResult>(this: Imp<(...args: any[]) => TResult>, start: number): Imp<(...args: any[]) => TResult>;
+        spread<TResult>(this: Imp<(...args: any[]) => TResult>, start?: number): Imp<(...args: any[]) => TResult>;
     }
     interface Exp<TValue> {
-        spread<TResult>(this: Exp<(...args: any[]) => TResult>): Exp<(...args: any[]) => TResult>;
-        spread<TResult>(this: Exp<(...args: any[]) => TResult>, start: number): Exp<(...args: any[]) => TResult>;
+        spread<TResult>(this: Exp<(...args: any[]) => TResult>, start?: number): Exp<(...args: any[]) => TResult>;
     }
     interface ThrottleSettings {
         leading?: boolean;
@@ -623,14 +581,11 @@ declare module "../index" {
     }
     interface Stat {
         wrap<T, TArgs, TResult>(value: T, wrapper: (value: T, ...args: TArgs[]) => TResult): (...args: TArgs[]) => TResult;
-        wrap<T, TResult>(value: T, wrapper: (value: T, ...args: any[]) => TResult): (...args: any[]) => TResult;
     }
     interface Imp<TValue> {
         wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): Imp<(...args: TArgs[]) => TResult>;
-        wrap<TResult>(wrapper: (value: TValue, ...args: any[]) => TResult): Imp<(...args: any[]) => TResult>;
     }
     interface Exp<TValue> {
         wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): Exp<(...args: TArgs[]) => TResult>;
-        wrap<TResult>(wrapper: (value: TValue, ...args: any[]) => TResult): Exp<(...args: any[]) => TResult>;
     }
 }
