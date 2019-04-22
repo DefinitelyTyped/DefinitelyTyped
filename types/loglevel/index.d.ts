@@ -1,13 +1,12 @@
 // Type definitions for loglevel 1.5
 // Project: https://github.com/pimterry/loglevel
 // Definitions by: Stefan Profanter <https://github.com/Pro>
-//                 Florian Wagner <https://github.com/flqw>
 //                 Gabor Szmetanko <https://github.com/szmeti>
 //                 Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-declare var log: log.Logger;
+declare var log: log.DefaultLogger;
 export as namespace log;
 export = log;
 
@@ -29,9 +28,45 @@ declare namespace log {
      */
     type LogLevelNumbers = LogLevel[keyof LogLevel];
 
+    /**
+     * Possible log level descriptors, may be string, lower or upper case, or number.
+     */
+    type LogLevelDesc = LogLevelNumbers
+        | 'trace'
+        | 'debug'
+        | 'info'
+        | 'warn'
+        | 'error'
+        | 'silent'
+        | keyof LogLevel;
+
     type LoggingMethod = (...message: any[]) => void;
 
     type MethodFactory = (methodName: string, level: LogLevelNumbers, loggerName: string) => LoggingMethod;
+
+    interface DefaultLogger extends Logger {
+        /**
+         * If you're using another JavaScript library that exposes a 'log' global, you can run into conflicts with loglevel.
+         * Similarly to jQuery, you can solve this by putting loglevel into no-conflict mode immediately after it is loaded
+         * onto the page. This resets to 'log' global to its value before loglevel was loaded (typically undefined), and
+         * returns the loglevel object, which you can then bind to another name yourself.
+         */
+        noConflict(): any;
+
+        /**
+         * This gets you a new logger object that works exactly like the root log object, but can have its level and
+         * logging methods set independently. All loggers must have a name (which is a non-empty string). Calling
+         * getLogger() multiple times with the same name will return an identical logger object.
+         * In large applications, it can be incredibly useful to turn logging on and off for particular modules as you are
+         * working with them. Using the getLogger() method lets you create a separate logger for each part of your
+         * application with its own logging level. Likewise, for small, independent modules, using a named logger instead
+         * of the default root logger allows developers using your module to selectively turn on deep, trace-level logging
+         * when trying to debug problems, while logging only errors or silencing logging altogether under normal
+         * circumstances.
+         * @param name The name of the produced logger
+         */
+        getLogger(name: string): Logger;
+    }
 
     interface Logger {
         /**
@@ -92,26 +127,7 @@ declare namespace log {
          *     back to cookies if not. If neither is available in the current environment (i.e. in Node), or if you pass
          *     false as the optional 'persist' second argument, persistence will be skipped.
          */
-        setLevel(
-            level:
-                LogLevelNumbers
-                | 'trace'
-                | 'debug'
-                | 'info'
-                | 'warn'
-                | 'error'
-                | 'silent'
-                | keyof LogLevel,
-            persist?: boolean
-        ): void;
-
-        /**
-         * If you're using another JavaScript library that exposes a 'log' global, you can run into conflicts with loglevel.
-         * Similarly to jQuery, you can solve this by putting loglevel into no-conflict mode immediately after it is loaded
-         * onto the page. This resets to 'log' global to its value before loglevel was loaded (typically undefined), and
-         * returns the loglevel object, which you can then bind to another name yourself.
-         */
-        noConflict(): any;
+        setLevel(level: LogLevelDesc, persist?: boolean): void;
 
         /**
          * Returns the current logging level, as a value from LogLevel.
@@ -133,23 +149,9 @@ declare namespace log {
          * The level argument takes is the same values that you might pass to setLevel(). Levels set using
          * setDefaultLevel() never persist to subsequent page loads.
          *
-         * @param level as the value from the enum
+         * @param level as a string, like 'error' (case-insensitive) or as a number from 0 to 5 (or as log.levels. values)
          */
-        setDefaultLevel(level: LogLevel): void;
-
-        /**
-         * This gets you a new logger object that works exactly like the root log object, but can have its level and
-         * logging methods set independently. All loggers must have a name (which is a non-empty string). Calling
-         * getLogger() multiple times with the same name will return an identical logger object.
-         * In large applications, it can be incredibly useful to turn logging on and off for particular modules as you are
-         * working with them. Using the getLogger() method lets you create a separate logger for each part of your
-         * application with its own logging level. Likewise, for small, independent modules, using a named logger instead
-         * of the default root logger allows developers using your module to selectively turn on deep, trace-level logging
-         * when trying to debug problems, while logging only errors or silencing logging altogether under normal
-         * circumstances.
-         * @param name The name of the produced logger
-         */
-        getLogger(name: string): Logger;
+        setDefaultLevel(level: LogLevelDesc): void;
 
         /**
          * This enables all log messages, and is equivalent to log.setLevel("trace").

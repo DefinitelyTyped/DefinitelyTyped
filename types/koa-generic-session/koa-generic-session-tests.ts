@@ -1,4 +1,4 @@
-import * as Koa from "koa";
+import Koa = require("koa");
 import { MemoryStore, Session } from "koa-generic-session";
 import session = require("koa-generic-session");
 

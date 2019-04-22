@@ -1,4 +1,4 @@
-import * as o from 'odata';
+import o = require('odata');
 import * as Q from "q";
 
 interface Product {
@@ -20,6 +20,8 @@ interface Category {
 o('http://services.odata.org/V4/OData/OData.svc/Products')
     .get<Product>(function(data) {
         console.log(data); //returns an array of Product data
+    }, function(status) {
+        console.error(status); // error with status
     });
 
 
@@ -70,7 +72,8 @@ o('http://services.odata.org/V4/OData/OData.svc/Products(2)')
     .get<Product>()
     .then(function(oHandler) {
         console.log(oHandler.data);
-    }).fail(function(ex) {
+    })
+    .fail(function(ex) {
         console.log(ex);
     });
 
@@ -114,10 +117,12 @@ o('http://services.odata.org/V4/OData/OData.svc/Products')
     .get<Product>()
     .then(function(oHandler) {
         oHandler.data.Name="NewName";
-        return(o.save<Product>());
-    }).then(function(oHandler) {
+        return(oHandler.save<Product>());
+    })
+    .then(function(oHandler) {
         console.log(oHandler.data.Name); //NewName
-    }).fail(function(ex) {
+    })
+    .fail(function(ex) {
         console.log("error");
     });
 
@@ -132,7 +137,12 @@ o('Products').get<Product>(function(data) {
     //same result like the first example on this page
 });
 
-
+const oEequest = o('http://services.odata.org/V4/OData/OData.svc/Products')
+    .find(2);
+const queryString = oEequest.query();
+if (queryString !== 'http://services.odata.org/V4/OData/OData.svc/Products(2)') {
+    throw new Error('assert error');
+}
 
 //basic config
 o().config({

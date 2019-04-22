@@ -4,6 +4,7 @@
 //                 jKey Lu <https://github.com/jkeylu>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 import { IncomingMessage, ServerResponse } from 'http';
@@ -21,7 +22,7 @@ interface Cookies {
      * Cookie header in the request. If such a cookie exists,
      * its value is returned. Otherwise, nothing is returned.
      */
-    get(name: string, opts?: Cookies.GetOption): string;
+    get(name: string, opts?: Cookies.GetOption): string | undefined;
 
     /**
      * This sets the given cookie in the response and returns

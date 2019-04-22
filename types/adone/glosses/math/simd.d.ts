@@ -53,41 +53,27 @@ declare namespace adone.math {
 
                 /**
                  * Returns a new instance with the lane values swizzled.
-                 * @param a
-                 * @param l1
-                 * @param l2
-                 * @param l3
-                 * @param l4
                  */
                 swizzle(a: Float32x4, l1: number, l2: number, l3: number, l4: number): Float32x4;
 
                 /**
                  * Returns a new instance with the lane values shuffled.
-                 * @param a
-                 * @param b
-                 * @param l1
-                 * @param l2
-                 * @param l3
-                 * @param l4
                  */
                 shuffle(a: Float32x4, b: Float32x4, l1: number, l2: number, l3: number, l4: number): Float32x4;
 
                 /**
                  * Returns a new instance if the parameter is a valid SIMD data type and the same as Float32x4. Throws a TypeError otherwise.
-                 * @param a
                  */
                 check(a: Float32x4): Float32x4;
 
                 /**
                  * Creates a new SIMD.Float32x4 data type with all lanes set to a given value.
-                 * @param n
                  */
                 splat(n: number): Float32x4;
 
                 /**
                  * Returns a new instance with the given lane value replaced.
                  * @param simd An instance of a corresponding SIMD type.
-                 * @param lane
                  * @param value A new value to be used for the lane.
                  * @return A new SIMD data type with the given lane value replaced.
                  */
@@ -121,16 +107,8 @@ declare namespace adone.math {
 
                 div(a: Float32x4, b: Float32x4): Float32x4;
 
-                /**
-                 *
-                 * @param a
-                 */
                 neg(a: Float32x4): Float32x4;
 
-                /**
-                 *
-                 * @param a
-                 */
                 abs(a: Float32x4): Float32x4;
 
                 min(a: Float32x4, b: Float32x4): Float32x4;
@@ -143,16 +121,8 @@ declare namespace adone.math {
 
                 reciprocalApproximation(a: Float32x4, b: Float32x4): Float32x4;
 
-                /**
-                 *
-                 * @param a
-                 */
                 reciprocalSqrtApproximation(a: Float32x4): Float32x4;
 
-                /**
-                 *
-                 * @param a
-                 */
                 sqrt(a: Float32x4): Float32x4;
 
                 /**
@@ -310,41 +280,27 @@ declare namespace adone.math {
 
                 /**
                  * Returns a new instance with the lane values swizzled.
-                 * @param a
-                 * @param l1
-                 * @param l2
-                 * @param l3
-                 * @param l4
                  */
                 swizzle(a: Int32x4, l1: number, l2: number, l3: number, l4: number): Int32x4;
 
                 /**
                  * Returns a new instance with the lane values shuffled.
-                 * @param a
-                 * @param b
-                 * @param l1
-                 * @param l2
-                 * @param l3
-                 * @param l4
                  */
                 shuffle(a: Int32x4, b: Int32x4, l1: number, l2: number, l3: number, l4: number): Int32x4;
 
                 /**
                  * Returns a new instance if the parameter is a valid SIMD data type and the same as Int32x4. Throws a TypeError otherwise.
-                 * @param a
                  */
                 check(a: Int32x4): Int32x4;
 
                 /**
                  * Creates a new SIMD.Int32x4 data type with all lanes set to a given value.
-                 * @param n
                  */
                 splat(n: number): Int32x4;
 
                 /**
                  * Returns a new instance with the given lane value replaced.
                  * @param simd An instance of a corresponding SIMD type.
-                 * @param lane
                  * @param value A new value to be used for the lane.
                  * @return A new SIMD data type with the given lane value replaced.
                  */
@@ -384,10 +340,6 @@ declare namespace adone.math {
 
                 mul(a: Int32x4, b: Int32x4): Int32x4;
 
-                /**
-                 *
-                 * @param a
-                 */
                 neg(a: Int32x4): Int32x4;
 
                 /**
@@ -565,49 +517,27 @@ declare namespace adone.math {
 
                 /**
                  * Returns a new instance with the lane values swizzled.
-                 * @param a
-                 * @param l1
-                 * @param l2
-                 * @param l3
-                 * @param l4
-                 * @param l5
-                 * @param l6
-                 * @param l7
-                 * @param l8
                  */
                 swizzle(a: Int16x8, l1: number, l2: number, l3: number, l4: number, l5: number, l6: number, l7: number, l8: number): Int16x8;
 
                 /**
                  * Returns a new instance with the lane values shuffled.
-                 * @param a
-                 * @param b
-                 * @param l1
-                 * @param l2
-                 * @param l3
-                 * @param l4
-                 * @param l5
-                 * @param l6
-                 * @param l7
-                 * @param l8
                  */
                 shuffle(a: Int16x8, b: Int16x8, l1: number, l2: number, l3: number, l4: number, l5: number, l6: number, l7: number, l8: number): Int16x8;
 
                 /**
                  * Returns a new instance if the parameter is a valid SIMD data type and the same as Int16x8. Throws a TypeError otherwise.
-                 * @param a
                  */
                 check(a: Int16x8): Int16x8;
 
                 /**
                  * Creates a new SIMD.Int16x8 data type with all lanes set to a given value.
-                 * @param n
                  */
                 splat(n: number): Int16x8;
 
                 /**
                  * Returns a new instance with the given lane value replaced.
                  * @param simd An instance of a corresponding SIMD type.
-                 * @param lane
                  * @param value A new value to be used for the lane.
                  * @return A new SIMD data type with the given lane value replaced.
                  */
@@ -647,10 +577,6 @@ declare namespace adone.math {
 
                 mul(a: Int16x8, b: Int16x8): Int16x8;
 
-                /**
-                 *
-                 * @param a
-                 */
                 neg(a: Int16x8): Int16x8;
 
                 /**
@@ -803,23 +729,6 @@ declare namespace adone.math {
 
                 /**
                  * Returns a new instance with the lane values swizzled.
-                 * @param a
-                 * @param l1
-                 * @param l2
-                 * @param l3
-                 * @param l4
-                 * @param l5
-                 * @param l6
-                 * @param l7
-                 * @param l8
-                 * @param l9
-                 * @param l10
-                 * @param l11
-                 * @param l12
-                 * @param l13
-                 * @param l14
-                 * @param l15
-                 * @param l16
                  */
                 swizzle(
                     a: Int8x16,
@@ -843,24 +752,6 @@ declare namespace adone.math {
 
                 /**
                  * Returns a new instance with the lane values shuffled.
-                 * @param a
-                 * @param b
-                 * @param l1
-                 * @param l2
-                 * @param l3
-                 * @param l4
-                 * @param l5
-                 * @param l6
-                 * @param l7
-                 * @param l8
-                 * @param l9
-                 * @param l10
-                 * @param l11
-                 * @param l12
-                 * @param l13
-                 * @param l14
-                 * @param l15
-                 * @param l16
                  */
                 shuffle(
                     a: Int8x16,
@@ -885,20 +776,17 @@ declare namespace adone.math {
 
                 /**
                  * Returns a new instance if the parameter is a valid SIMD data type and the same as Int8x16. Throws a TypeError otherwise.
-                 * @param a
                  */
                 check(a: Int8x16): Int8x16;
 
                 /**
                  * Creates a new SIMD.Int8x16 data type with all lanes set to a given value.
-                 * @param n
                  */
                 splat(n: number): Int8x16;
 
                 /**
                  * Returns a new instance with the given lane value replaced.
                  * @param simd An instance of a corresponding SIMD type.
-                 * @param lane
                  * @param value A new value to be used for the lane.
                  * @return A new SIMD data type with the given lane value replaced.
                  */
@@ -938,10 +826,6 @@ declare namespace adone.math {
 
                 mul(a: Int8x16, b: Int8x16): Int8x16;
 
-                /**
-                 *
-                 * @param a
-                 */
                 neg(a: Int8x16): Int8x16;
 
                 /**
@@ -1065,41 +949,27 @@ declare namespace adone.math {
 
                 /**
                  * Returns a new instance with the lane values swizzled.
-                 * @param a
-                 * @param l1
-                 * @param l2
-                 * @param l3
-                 * @param l4
                  */
                 swizzle(a: Uint32x4, l1: number, l2: number, l3: number, l4: number): Uint32x4;
 
                 /**
                  * Returns a new instance with the lane values shuffled.
-                 * @param a
-                 * @param b
-                 * @param l1
-                 * @param l2
-                 * @param l3
-                 * @param l4
                  */
                 shuffle(a: Uint32x4, b: Uint32x4, l1: number, l2: number, l3: number, l4: number): Uint32x4;
 
                 /**
                  * Returns a new instance if the parameter is a valid SIMD data type and the same as Uint32x4. Throws a TypeError otherwise.
-                 * @param a
                  */
                 check(a: Uint32x4): Uint32x4;
 
                 /**
                  * Creates a new SIMD.Uint32x4 data type with all lanes set to a given value.
-                 * @param n
                  */
                 splat(n: number): Uint32x4;
 
                 /**
                  * Returns a new instance with the given lane value replaced.
                  * @param simd An instance of a corresponding SIMD type.
-                 * @param lane
                  * @param value A new value to be used for the lane.
                  * @return A new SIMD data type with the given lane value replaced.
                  */
@@ -1314,49 +1184,27 @@ declare namespace adone.math {
 
                 /**
                  * Returns a new instance with the lane values swizzled.
-                 * @param a
-                 * @param l1
-                 * @param l2
-                 * @param l3
-                 * @param l4
-                 * @param l5
-                 * @param l6
-                 * @param l7
-                 * @param l8
                  */
                 swizzle(a: Uint16x8, l1: number, l2: number, l3: number, l4: number, l5: number, l6: number, l7: number, l8: number): Uint16x8;
 
                 /**
                  * Returns a new instance with the lane values shuffled.
-                 * @param a
-                 * @param b
-                 * @param l1
-                 * @param l2
-                 * @param l3
-                 * @param l4
-                 * @param l5
-                 * @param l6
-                 * @param l7
-                 * @param l8
                  */
                 shuffle(a: Uint16x8, b: Uint16x8, l1: number, l2: number, l3: number, l4: number, l5: number, l6: number, l7: number, l8: number): Uint16x8;
 
                 /**
                  * Returns a new instance if the parameter is a valid SIMD data type and the same as Uint16x8. Throws a TypeError otherwise.
-                 * @param a
                  */
                 check(a: Uint16x8): Uint16x8;
 
                 /**
                  * Creates a new SIMD.Uint16x8 data type with all lanes set to a given value.
-                 * @param n
                  */
                 splat(n: number): Uint16x8;
 
                 /**
                  * Returns a new instance with the given lane value replaced.
                  * @param simd An instance of a corresponding SIMD type.
-                 * @param lane
                  * @param value A new value to be used for the lane.
                  * @return A new SIMD data type with the given lane value replaced.
                  */
@@ -1546,23 +1394,6 @@ declare namespace adone.math {
 
                 /**
                  * Returns a new instance with the lane values swizzled.
-                 * @param a
-                 * @param l1
-                 * @param l2
-                 * @param l3
-                 * @param l4
-                 * @param l5
-                 * @param l6
-                 * @param l7
-                 * @param l8
-                 * @param l9
-                 * @param l10
-                 * @param l11
-                 * @param l12
-                 * @param l13
-                 * @param l14
-                 * @param l15
-                 * @param l16
                  */
                 swizzle(
                     a: Uint8x16,
@@ -1586,24 +1417,6 @@ declare namespace adone.math {
 
                 /**
                  * Returns a new instance with the lane values shuffled.
-                 * @param a
-                 * @param b
-                 * @param l1
-                 * @param l2
-                 * @param l3
-                 * @param l4
-                 * @param l5
-                 * @param l6
-                 * @param l7
-                 * @param l8
-                 * @param l9
-                 * @param l10
-                 * @param l11
-                 * @param l12
-                 * @param l13
-                 * @param l14
-                 * @param l15
-                 * @param l16
                  */
                 shuffle(
                     a: Uint8x16,
@@ -1628,20 +1441,17 @@ declare namespace adone.math {
 
                 /**
                  * Returns a new instance if the parameter is a valid SIMD data type and the same as Uint8x16. Throws a TypeError otherwise.
-                 * @param a
                  */
                 check(a: Uint8x16): Uint8x16;
 
                 /**
                  * Creates a new SIMD.Uint8x16 data type with all lanes set to a given value.
-                 * @param n
                  */
                 splat(n: number): Uint8x16;
 
                 /**
                  * Returns a new instance with the given lane value replaced.
                  * @param simd An instance of a corresponding SIMD type.
-                 * @param lane
                  * @param value A new value to be used for the lane.
                  * @return A new SIMD data type with the given lane value replaced.
                  */
@@ -1802,20 +1612,17 @@ declare namespace adone.math {
 
                 /**
                  * Returns a new instance if the parameter is a valid SIMD data type and the same as Bool32x4. Throws a TypeError otherwise.
-                 * @param a
                  */
                 check(a: Bool32x4): Bool32x4;
 
                 /**
                  * Creates a new SIMD.Bool32x4 data type with all lanes set to a given value.
-                 * @param n
                  */
                 splat(n: boolean): Bool32x4;
 
                 /**
                  * Returns a new instance with the given lane value replaced.
                  * @param simd An instance of a corresponding SIMD type.
-                 * @param lane
                  * @param value A new value to be used for the lane.
                  * @return A new SIMD data type with the given lane value replaced.
                  */
@@ -1823,13 +1630,11 @@ declare namespace adone.math {
 
                 /**
                  * If all lane values are `true`, return `true`.
-                 * @param a
                  */
                 allTrue(a: Bool32x4): boolean;
 
                 /**
                  * If any lane values are `true`, return `true`.
-                 * @param a
                  */
                 anyTrue(a: Bool32x4): boolean;
 
@@ -1888,20 +1693,17 @@ declare namespace adone.math {
 
                 /**
                  * Returns a new instance if the parameter is a valid SIMD data type and the same as Bool16x8. Throws a TypeError otherwise.
-                 * @param a
                  */
                 check(a: Bool16x8): Bool16x8;
 
                 /**
                  * Creates a new SIMD.Bool16x8 data type with all lanes set to a given value.
-                 * @param n
                  */
                 splat(n: boolean): Bool16x8;
 
                 /**
                  * Returns a new instance with the given lane value replaced.
                  * @param simd An instance of a corresponding SIMD type.
-                 * @param lane
                  * @param value A new value to be used for the lane.
                  * @return A new SIMD data type with the given lane value replaced.
                  */
@@ -1909,13 +1711,11 @@ declare namespace adone.math {
 
                 /**
                  * If all lane values are `true`, return `true`.
-                 * @param a
                  */
                 allTrue(a: Bool16x8): boolean;
 
                 /**
                  * If any lane values are `true`, return `true`.
-                 * @param a
                  */
                 anyTrue(a: Bool16x8): boolean;
 
@@ -1998,20 +1798,17 @@ declare namespace adone.math {
 
                 /**
                  * Returns a new instance if the parameter is a valid SIMD data type and the same as Bool8x16. Throws a TypeError otherwise.
-                 * @param a
                  */
                 check(a: Bool8x16): Bool8x16;
 
                 /**
                  * Creates a new SIMD.Bool8x16 data type with all lanes set to a given value.
-                 * @param n
                  */
                 splat(n: boolean): Bool8x16;
 
                 /**
                  * Returns a new instance with the given lane value replaced.
                  * @param simd An instance of a corresponding SIMD type.
-                 * @param lane
                  * @param value A new value to be used for the lane.
                  * @return A new SIMD data type with the given lane value replaced.
                  */
@@ -2019,13 +1816,11 @@ declare namespace adone.math {
 
                 /**
                  * If all lane values are `true`, return `true`.
-                 * @param a
                  */
                 allTrue(a: Bool8x16): boolean;
 
                 /**
                  * If any lane values are `true`, return `true`.
-                 * @param a
                  */
                 anyTrue(a: Bool8x16): boolean;
 

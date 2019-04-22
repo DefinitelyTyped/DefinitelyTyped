@@ -25,8 +25,8 @@ const yellow: number = color.yellow();
 const black: number = color.black();
 const luminosity: number = color.luminosity();
 const contrast: number = color.contrast(colorOther);
-const dark: boolean = color.dark();
-const light: boolean = color.light();
+const isDark: boolean = color.isDark();
+const isLight: boolean = color.isLight();
 const level: string = color.level(colorOther);
 
 const x: number = color.x();

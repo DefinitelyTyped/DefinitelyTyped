@@ -1,4 +1,7 @@
 /// <reference types="node" />
+/// <reference types="lodash" />
+/// <reference types="benchmark" />
+/// <reference types="async" />
 
 declare namespace adone {
     const _null: symbol;
@@ -7,16 +10,15 @@ declare namespace adone {
     export function identity<T>(x: T): T;
     export function truly(): true;
     export function falsely(): false;
-    export const ok: "OK";
-    export const bad: "BAD";
-    export const exts: [".js", ".tjs", ".ajs"];
+    export const ok: "ok";
+    export const bad: "bad";
     export function log(...args: any[]): void;
-    export function fatal(...args: any[]): void;
-    export function error(...args: any[]): void;
-    export function warn(...args: any[]): void;
-    export function info(...args: any[]): void;
-    export function debug(...args: any[]): void;
-    export function trace(...args: any[]): void;
+    export function logFatal(...args: any[]): void;
+    export function logError(...args: any[]): void;
+    export function logWarn(...args: any[]): void;
+    export function logInfo(...args: any[]): void;
+    export function logDebug(...args: any[]): void;
+    export function logTrace(...args: any[]): void;
     export function o(...props: any[]): object;
     export const Date: typeof global.Date;
     export const hrtime: typeof global.process.hrtime;
@@ -76,39 +78,15 @@ declare namespace adone {
             set(Class: object, tag: string): void;
             has(obj: object, tag: string): boolean;
             define(tag: string, predicate?: string): void;
-            SUBSYSTEM: symbol;
-            APPLICATION: symbol;
-            TRANSFORM: symbol;
-            CORE_STREAM: symbol;
-            LOGGER: symbol;
-            LONG: symbol;
-            BIGNUMBER: symbol;
-            EXBUFFER: symbol;
-            EXDATE: symbol;
-            CONFIGURATION: symbol;
-            GENESIS_NETRON: symbol;
-            GENESIS_PEER: symbol;
-            NETRON: symbol;
-            NETRON_PEER: symbol;
-            NETRON_ADAPTER: symbol;
-            NETRON_DEFINITION: symbol;
-            NETRON_DEFINITIONS: symbol;
-            NETRON_REFERENCE: symbol;
-            NETRON_INTERFACE: symbol;
-            NETRON_STUB: symbol;
-            NETRON_REMOTESTUB: symbol;
-            NETRON_STREAM: symbol;
-            FAST_STREAM: symbol;
-            FAST_FS_STREAM: symbol;
-            FAST_FS_MAP_STREAM: symbol;
         }
     }
     export const tag: I.Tag;
-    export function bind(libName: string): object;
     export function getAssetAbsolutePath(relPath: string): string;
     export function loadAsset(relPath: string): string | Buffer;
     export function require(path: string): object;
     export const package: object;
+
+    export function sprintf(format: string, ...args: any[]): string;
 
     namespace I {
         interface Runtime {
@@ -120,14 +98,19 @@ declare namespace adone {
 
     export const runtime: I.Runtime;
 
-    export const homePath: string;
-    export const rootPath: string;
-    export const etcPath: string;
-    export const config: object;
-    export const emptyBuffer: Buffer;
+    export const ROOT_PATH: string;
+    export const ETC_PATH: string;
+    export const configuration: object;
+    export const EMPTY_BUFFER: Buffer;
 
     export const assert: assertion.I.AssertFunction;
     export const expect: assertion.I.ExpectFunction;
 
     export const std: typeof nodestd;
+
+    export const lodash: _.LoDashStatic;
+
+    export const benchmark: typeof tbenchmark;
+
+    export const async: typeof tasync;
 }

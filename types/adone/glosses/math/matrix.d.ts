@@ -149,18 +149,18 @@ declare namespace adone.math {
             /**
              * Math.ceil the components of a vec2
              *
-             * @param {vec2} out the receiving vector
-             * @param {vec2} a vector to ceil
-             * @returns {vec2} out
+             * @param out the receiving vector
+             * @param a vector to ceil
+             * @returns out
              */
             function ceil(out: I.vec2, a: I.vec2 | number[]): I.vec2;
 
             /**
              * Math.floor the components of a vec2
              *
-             * @param {vec2} out the receiving vector
-             * @param {vec2} a vector to floor
-             * @returns {vec2} out
+             * @param out the receiving vector
+             * @param a vector to floor
+             * @returns out
              */
             function floor(out: I.vec2, a: I.vec2 | number[]): I.vec2;
 
@@ -187,9 +187,9 @@ declare namespace adone.math {
             /**
              * Math.round the components of a vec2
              *
-             * @param {vec2} out the receiving vector
-             * @param {vec2} a vector to round
-             * @returns {vec2} out
+             * @param out the receiving vector
+             * @param a vector to round
+             * @returns out
              */
             function round(out: I.vec2, a: I.vec2 | number[]): I.vec2;
 
@@ -438,18 +438,18 @@ declare namespace adone.math {
             /**
              * Returns whether or not the vectors exactly have the same elements in the same position (when compared with ===)
              *
-             * @param {vec2} a The first vector.
-             * @param {vec2} b The second vector.
-             * @returns {boolean} True if the vectors are equal, false otherwise.
+             * @param a The first vector.
+             * @param b The second vector.
+             * @returns True if the vectors are equal, false otherwise.
              */
             function exactEquals(a: I.vec2 | number[], b: I.vec2 | number[]): boolean;
 
             /**
              * Returns whether or not the vectors have approximately the same elements in the same position.
              *
-             * @param {vec2} a The first vector.
-             * @param {vec2} b The second vector.
-             * @returns {boolean} True if the vectors are equal, false otherwise.
+             * @param a The first vector.
+             * @param b The second vector.
+             * @returns True if the vectors are equal, false otherwise.
              */
             function equals(a: I.vec2 | number[], b: I.vec2 | number[]): boolean;
         }
@@ -580,18 +580,18 @@ declare namespace adone.math {
             /**
              * Math.ceil the components of a vec3
              *
-             * @param {vec3} out the receiving vector
-             * @param {vec3} a vector to ceil
-             * @returns {vec3} out
+             * @param out the receiving vector
+             * @param a vector to ceil
+             * @returns out
              */
             function ceil(out: I.vec3, a: I.vec3 | number[]): I.vec3;
 
             /**
              * Math.floor the components of a vec3
              *
-             * @param {vec3} out the receiving vector
-             * @param {vec3} a vector to floor
-             * @returns {vec3} out
+             * @param out the receiving vector
+             * @param a vector to floor
+             * @returns out
              */
             function floor(out: I.vec3, a: I.vec3 | number[]): I.vec3;
 
@@ -618,9 +618,9 @@ declare namespace adone.math {
             /**
              * Math.round the components of a vec3
              *
-             * @param {vec3} out the receiving vector
-             * @param {vec3} a vector to round
-             * @returns {vec3} out
+             * @param out the receiving vector
+             * @param a vector to round
+             * @returns out
              */
             function round(out: I.vec3, a: I.vec3 | number[]): I.vec3;
 
@@ -773,26 +773,26 @@ declare namespace adone.math {
             /**
              * Performs a hermite interpolation with two control points
              *
-             * @param {vec3} out the receiving vector
-             * @param {vec3} a the first operand
-             * @param {vec3} b the second operand
-             * @param {vec3} c the third operand
-             * @param {vec3} d the fourth operand
-             * @param {number} t interpolation amount between the two inputs
-             * @returns {vec3} out
+             * @param out the receiving vector
+             * @param a the first operand
+             * @param b the second operand
+             * @param c the third operand
+             * @param d the fourth operand
+             * @param t interpolation amount between the two inputs
+             * @returns out
              */
             function hermite(out: I.vec3, a: I.vec3 | number[], b: I.vec3 | number[], c: I.vec3 | number[], d: I.vec3 | number[], t: number): I.vec3;
 
             /**
              * Performs a bezier interpolation with two control points
              *
-             * @param {vec3} out the receiving vector
-             * @param {vec3} a the first operand
-             * @param {vec3} b the second operand
-             * @param {vec3} c the third operand
-             * @param {vec3} d the fourth operand
-             * @param {number} t interpolation amount between the two inputs
-             * @returns {vec3} out
+             * @param out the receiving vector
+             * @param a the first operand
+             * @param b the second operand
+             * @param c the third operand
+             * @param d the fourth operand
+             * @param t interpolation amount between the two inputs
+             * @returns out
              */
             function bezier(out: I.vec3, a: I.vec3 | number[], b: I.vec3 | number[], c: I.vec3 | number[], d: I.vec3 | number[], t: number): I.vec3;
 
@@ -884,7 +884,6 @@ declare namespace adone.math {
              * @param fn Function to call for each vector in the array
              * @param arg additional argument to pass to fn
              * @returns a
-             * @function
              */
             function forEach(a: Float32Array, stride: number, offset: number, count: number,
                                   fn: (a: I.vec3 | number[], b: I.vec3 | number[], arg: any) => void, arg: any): Float32Array;
@@ -898,7 +897,6 @@ declare namespace adone.math {
              * @param count Number of vec3s to iterate over. If 0 iterates over entire array
              * @param fn Function to call for each vector in the array
              * @returns a
-             * @function
              */
             function forEach(a: Float32Array, stride: number, offset: number, count: number,
                                   fn: (a: I.vec3 | number[], b: I.vec3 | number[]) => void): Float32Array;
@@ -922,18 +920,18 @@ declare namespace adone.math {
             /**
              * Returns whether or not the vectors have exactly the same elements in the same position (when compared with ===)
              *
-             * @param {vec3} a The first vector.
-             * @param {vec3} b The second vector.
-             * @returns {boolean} True if the vectors are equal, false otherwise.
+             * @param a The first vector.
+             * @param b The second vector.
+             * @returns True if the vectors are equal, false otherwise.
              */
             function exactEquals(a: I.vec3 | number[], b: I.vec3 | number[]): boolean;
 
             /**
              * Returns whether or not the vectors have approximately the same elements in the same position.
              *
-             * @param {vec3} a The first vector.
-             * @param {vec3} b The second vector.
-             * @returns {boolean} True if the vectors are equal, false otherwise.
+             * @param a The first vector.
+             * @param b The second vector.
+             * @returns True if the vectors are equal, false otherwise.
              */
             function equals(a: I.vec3 | number[], b: I.vec3 | number[]): boolean;
         }
@@ -1066,18 +1064,18 @@ declare namespace adone.math {
             /**
              * Math.ceil the components of a vec4
              *
-             * @param {vec4} out the receiving vector
-             * @param {vec4} a vector to ceil
-             * @returns {vec4} out
+             * @param out the receiving vector
+             * @param a vector to ceil
+             * @returns out
              */
             function ceil(out: I.vec4, a: I.vec4 | number[]): I.vec4;
 
             /**
              * Math.floor the components of a vec4
              *
-             * @param {vec4} out the receiving vector
-             * @param {vec4} a vector to floor
-             * @returns {vec4} out
+             * @param out the receiving vector
+             * @param a vector to floor
+             * @returns out
              */
             function floor(out: I.vec4, a: I.vec4 | number[]): I.vec4;
 
@@ -1104,9 +1102,9 @@ declare namespace adone.math {
             /**
              * Math.round the components of a vec4
              *
-             * @param {vec4} out the receiving vector
-             * @param {vec4} a vector to round
-             * @returns {vec4} out
+             * @param out the receiving vector
+             * @param a vector to round
+             * @returns out
              */
             function round(out: I.vec4, a: I.vec4 | number[]): I.vec4;
 
@@ -1294,7 +1292,6 @@ declare namespace adone.math {
              * @param fn Function to call for each vector in the array
              * @param arg additional argument to pass to fn
              * @returns a
-             * @function
              */
             function forEach(a: Float32Array, stride: number, offset: number, count: number,
                                   fn: (a: I.vec4 | number[], b: I.vec4 | number[], arg: any) => void, arg: any): Float32Array;
@@ -1308,7 +1305,6 @@ declare namespace adone.math {
              * @param count Number of vec4s to iterate over. If 0 iterates over entire array
              * @param fn Function to call for each vector in the array
              * @returns a
-             * @function
              */
             function forEach(a: Float32Array, stride: number, offset: number, count: number,
                                   fn: (a: I.vec4 | number[], b: I.vec4 | number[]) => void): Float32Array;
@@ -1324,18 +1320,18 @@ declare namespace adone.math {
             /**
              * Returns whether or not the vectors have exactly the same elements in the same position (when compared with ===)
              *
-             * @param {vec4} a The first vector.
-             * @param {vec4} b The second vector.
-             * @returns {boolean} True if the vectors are equal, false otherwise.
+             * @param a The first vector.
+             * @param b The second vector.
+             * @returns True if the vectors are equal, false otherwise.
              */
             function exactEquals(a: I.vec4 | number[], b: I.vec4 | number[]): boolean;
 
             /**
              * Returns whether or not the vectors have approximately the same elements in the same position.
              *
-             * @param {vec4} a The first vector.
-             * @param {vec4} b The second vector.
-             * @returns {boolean} True if the vectors are equal, false otherwise.
+             * @param a The first vector.
+             * @param b The second vector.
+             * @returns True if the vectors are equal, false otherwise.
              */
             function equals(a: I.vec4 | number[], b: I.vec4 | number[]): boolean;
         }
@@ -1383,23 +1379,23 @@ declare namespace adone.math {
             /**
              * Create a new mat2 with the given values
              *
-             * @param {number} m00 Component in column 0, row 0 position (index 0)
-             * @param {number} m01 Component in column 0, row 1 position (index 1)
-             * @param {number} m10 Component in column 1, row 0 position (index 2)
-             * @param {number} m11 Component in column 1, row 1 position (index 3)
-             * @returns {mat2} out A new 2x2 matrix
+             * @param m00 Component in column 0, row 0 position (index 0)
+             * @param m01 Component in column 0, row 1 position (index 1)
+             * @param m10 Component in column 1, row 0 position (index 2)
+             * @param m11 Component in column 1, row 1 position (index 3)
+             * @returns out A new 2x2 matrix
              */
             function fromValues(m00: number, m01: number, m10: number, m11: number): I.mat2;
 
             /**
              * Set the components of a mat2 to the given values
              *
-             * @param {mat2} out the receiving matrix
-             * @param {number} m00 Component in column 0, row 0 position (index 0)
-             * @param {number} m01 Component in column 0, row 1 position (index 1)
-             * @param {number} m10 Component in column 1, row 0 position (index 2)
-             * @param {number} m11 Component in column 1, row 1 position (index 3)
-             * @returns {mat2} out
+             * @param out the receiving matrix
+             * @param m00 Component in column 0, row 0 position (index 0)
+             * @param m01 Component in column 0, row 1 position (index 1)
+             * @param m10 Component in column 1, row 0 position (index 2)
+             * @param m11 Component in column 1, row 1 position (index 3)
+             * @returns out
              */
             function set(out: I.mat2, m00: number, m01: number, m10: number, m11: number): I.mat2;
 
@@ -1485,9 +1481,9 @@ declare namespace adone.math {
              *     mat2.identity(dest);
              *     mat2.rotate(dest, dest, rad);
              *
-             * @param {mat2} out mat2 receiving operation result
-             * @param {number} rad the angle to rotate the matrix by
-             * @returns {mat2} out
+             * @param out mat2 receiving operation result
+             * @param rad the angle to rotate the matrix by
+             * @returns out
              */
             function fromRotation(out: I.mat2, rad: number): I.mat2;
 
@@ -1498,9 +1494,9 @@ declare namespace adone.math {
              *     mat2.identity(dest);
              *     mat2.scale(dest, dest, vec);
              *
-             * @param {mat2} out mat2 receiving operation result
-             * @param {vec2} v Scaling vector
-             * @returns {mat2} out
+             * @param out mat2 receiving operation result
+             * @param v Scaling vector
+             * @returns out
              */
             function fromScaling(out: I.mat2, v: I.vec2 | number[]): I.mat2;
 
@@ -1532,69 +1528,69 @@ declare namespace adone.math {
             /**
              * Adds two mat2's
              *
-             * @param {mat2} out the receiving matrix
-             * @param {mat2} a the first operand
-             * @param {mat2} b the second operand
-             * @returns {mat2} out
+             * @param out the receiving matrix
+             * @param a the first operand
+             * @param b the second operand
+             * @returns out
              */
             function add(out: I.mat2, a: I.mat2, b: I.mat2): I.mat2;
 
             /**
              * Subtracts matrix b from matrix a
              *
-             * @param {mat2} out the receiving matrix
-             * @param {mat2} a the first operand
-             * @param {mat2} b the second operand
-             * @returns {mat2} out
+             * @param out the receiving matrix
+             * @param a the first operand
+             * @param b the second operand
+             * @returns out
              */
             function subtract(out: I.mat2, a: I.mat2, b: I.mat2): I.mat2;
 
             /**
              * Subtracts matrix b from matrix a
              *
-             * @param {mat2} out the receiving matrix
-             * @param {mat2} a the first operand
-             * @param {mat2} b the second operand
-             * @returns {mat2} out
+             * @param out the receiving matrix
+             * @param a the first operand
+             * @param b the second operand
+             * @returns out
              */
             function sub(out: I.mat2, a: I.mat2, b: I.mat2): I.mat2;
 
             /**
              * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
              *
-             * @param {mat2} a The first matrix.
-             * @param {mat2} b The second matrix.
-             * @returns {boolean} True if the matrices are equal, false otherwise.
+             * @param a The first matrix.
+             * @param b The second matrix.
+             * @returns True if the matrices are equal, false otherwise.
              */
             function exactEquals(a: I.mat2, b: I.mat2): boolean;
 
             /**
              * Returns whether or not the matrices have approximately the same elements in the same position.
              *
-             * @param {mat2} a The first matrix.
-             * @param {mat2} b The second matrix.
-             * @returns {boolean} True if the matrices are equal, false otherwise.
+             * @param a The first matrix.
+             * @param b The second matrix.
+             * @returns True if the matrices are equal, false otherwise.
              */
             function equals(a: I.mat2, b: I.mat2): boolean;
 
             /**
              * Multiply each element of the matrix by a scalar.
              *
-             * @param {mat2} out the receiving matrix
-             * @param {mat2} a the matrix to scale
-             * @param {number} b amount to scale the matrix's elements by
-             * @returns {mat2} out
+             * @param out the receiving matrix
+             * @param a the matrix to scale
+             * @param b amount to scale the matrix's elements by
+             * @returns out
              */
             function multiplyScalar(out: I.mat2, a: I.mat2, b: number): I.mat2;
 
             /**
              * Adds two mat2's after multiplying each element of the second operand by a scalar value.
              *
-             * @param {mat2} out the receiving vector
-             * @param {mat2} a the first operand
-             * @param {mat2} b the second operand
-             * @param {number} scale the amount to scale b's elements by before adding
-             * @returns {mat2} out
+             * @param out the receiving vector
+             * @param a the first operand
+             * @param b the second operand
+             * @param scale the amount to scale b's elements by before adding
+             * @returns out
              */
             function multiplyScalarAndAdd(out: I.mat2, a: I.mat2, b: I.mat2, scale: number): I.mat2;
         }
@@ -1642,27 +1638,27 @@ declare namespace adone.math {
             /**
              * Create a new mat2d with the given values
              *
-             * @param {number} a Component A (index 0)
-             * @param {number} b Component B (index 1)
-             * @param {number} c Component C (index 2)
-             * @param {number} d Component D (index 3)
-             * @param {number} tx Component TX (index 4)
-             * @param {number} ty Component TY (index 5)
-             * @returns {mat2d} A new mat2d
+             * @param a Component A (index 0)
+             * @param b Component B (index 1)
+             * @param c Component C (index 2)
+             * @param d Component D (index 3)
+             * @param tx Component TX (index 4)
+             * @param ty Component TY (index 5)
+             * @returns A new mat2d
              */
             function fromValues(a: number, b: number, c: number, d: number, tx: number, ty: number): I.mat2d;
 
             /**
              * Set the components of a mat2d to the given values
              *
-             * @param {mat2d} out the receiving matrix
-             * @param {number} a Component A (index 0)
-             * @param {number} b Component B (index 1)
-             * @param {number} c Component C (index 2)
-             * @param {number} d Component D (index 3)
-             * @param {number} tx Component TX (index 4)
-             * @param {number} ty Component TY (index 5)
-             * @returns {mat2d} out
+             * @param out the receiving matrix
+             * @param a Component A (index 0)
+             * @param b Component B (index 1)
+             * @param c Component C (index 2)
+             * @param d Component D (index 3)
+             * @param tx Component TX (index 4)
+             * @param ty Component TY (index 5)
+             * @returns out
              */
             function set(out: I.mat2d, a: number, b: number, c: number, d: number, tx: number, ty: number): I.mat2d;
 
@@ -1740,9 +1736,9 @@ declare namespace adone.math {
              *     mat2d.identity(dest);
              *     mat2d.rotate(dest, dest, rad);
              *
-             * @param {mat2d} out mat2d receiving operation result
-             * @param {number} rad the angle to rotate the matrix by
-             * @returns {mat2d} out
+             * @param out mat2d receiving operation result
+             * @param rad the angle to rotate the matrix by
+             * @returns out
              */
             function fromRotation(out: I.mat2d, rad: number): I.mat2d;
 
@@ -1753,9 +1749,9 @@ declare namespace adone.math {
              *     mat2d.identity(dest);
              *     mat2d.scale(dest, dest, vec);
              *
-             * @param {mat2d} out mat2d receiving operation result
-             * @param {vec2} v Scaling vector
-             * @returns {mat2d} out
+             * @param out mat2d receiving operation result
+             * @param v Scaling vector
+             * @returns out
              */
             function fromScaling(out: I.mat2d, v: I.vec2 | number[]): I.mat2d;
 
@@ -1766,9 +1762,9 @@ declare namespace adone.math {
              *     mat2d.identity(dest);
              *     mat2d.translate(dest, dest, vec);
              *
-             * @param {mat2d} out mat2d receiving operation result
-             * @param {vec2} v Translation vector
-             * @returns {mat2d} out
+             * @param out mat2d receiving operation result
+             * @param v Translation vector
+             * @returns out
              */
             function fromTranslation(out: I.mat2d, v: I.vec2 | number[]): I.mat2d;
 
@@ -1791,69 +1787,69 @@ declare namespace adone.math {
             /**
              * Adds two mat2d's
              *
-             * @param {mat2d} out the receiving matrix
-             * @param {mat2d} a the first operand
-             * @param {mat2d} b the second operand
-             * @returns {mat2d} out
+             * @param out the receiving matrix
+             * @param a the first operand
+             * @param b the second operand
+             * @returns out
              */
             function add(out: I.mat2d, a: I.mat2d, b: I.mat2d): I.mat2d;
 
             /**
              * Subtracts matrix b from matrix a
              *
-             * @param {mat2d} out the receiving matrix
-             * @param {mat2d} a the first operand
-             * @param {mat2d} b the second operand
-             * @returns {mat2d} out
+             * @param out the receiving matrix
+             * @param a the first operand
+             * @param b the second operand
+             * @returns out
              */
             function subtract(out: I.mat2d, a: I.mat2d, b: I.mat2d): I.mat2d;
 
             /**
              * Subtracts matrix b from matrix a
              *
-             * @param {mat2d} out the receiving matrix
-             * @param {mat2d} a the first operand
-             * @param {mat2d} b the second operand
-             * @returns {mat2d} out
+             * @param out the receiving matrix
+             * @param a the first operand
+             * @param b the second operand
+             * @returns out
              */
             function sub(out: I.mat2d, a: I.mat2d, b: I.mat2d): I.mat2d;
 
             /**
              * Multiply each element of the matrix by a scalar.
              *
-             * @param {mat2d} out the receiving matrix
-             * @param {mat2d} a the matrix to scale
-             * @param {number} b amount to scale the matrix's elements by
-             * @returns {mat2d} out
+             * @param out the receiving matrix
+             * @param a the matrix to scale
+             * @param b amount to scale the matrix's elements by
+             * @returns out
              */
             function multiplyScalar(out: I.mat2d, a: I.mat2d, b: number): I.mat2d;
 
             /**
              * Adds two mat2d's after multiplying each element of the second operand by a scalar value.
              *
-             * @param {mat2d} out the receiving vector
-             * @param {mat2d} a the first operand
-             * @param {mat2d} b the second operand
-             * @param {number} scale the amount to scale b's elements by before adding
-             * @returns {mat2d} out
+             * @param out the receiving vector
+             * @param a the first operand
+             * @param b the second operand
+             * @param scale the amount to scale b's elements by before adding
+             * @returns out
              */
             function multiplyScalarAndAdd(out: I.mat2d, a: I.mat2d, b: I.mat2d, scale: number): I.mat2d;
 
             /**
              * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
              *
-             * @param {mat2d} a The first matrix.
-             * @param {mat2d} b The second matrix.
-             * @returns {boolean} True if the matrices are equal, false otherwise.
+             * @param a The first matrix.
+             * @param b The second matrix.
+             * @returns True if the matrices are equal, false otherwise.
              */
             function exactEquals(a: I.mat2d, b: I.mat2d): boolean;
 
             /**
              * Returns whether or not the matrices have approximately the same elements in the same position.
              *
-             * @param {mat2d} a The first matrix.
-             * @param {mat2d} b The second matrix.
-             * @returns {boolean} True if the matrices are equal, false otherwise.
+             * @param a The first matrix.
+             * @param b The second matrix.
+             * @returns True if the matrices are equal, false otherwise.
              */
             function equals(a: I.mat2d, b: I.mat2d): boolean;
         }
@@ -1876,9 +1872,9 @@ declare namespace adone.math {
             /**
              * Copies the upper-left 3x3 values into the given mat3.
              *
-             * @param {mat3} out the receiving 3x3 matrix
-             * @param {mat4} a   the source 4x4 matrix
-             * @returns {mat3} out
+             * @param out the receiving 3x3 matrix
+             * @param a   the source 4x4 matrix
+             * @returns out
              */
             function fromMat4(out: I.mat3, a: I.mat4): I.mat3;
 
@@ -1902,33 +1898,33 @@ declare namespace adone.math {
             /**
              * Create a new mat3 with the given values
              *
-             * @param {number} m00 Component in column 0, row 0 position (index 0)
-             * @param {number} m01 Component in column 0, row 1 position (index 1)
-             * @param {number} m02 Component in column 0, row 2 position (index 2)
-             * @param {number} m10 Component in column 1, row 0 position (index 3)
-             * @param {number} m11 Component in column 1, row 1 position (index 4)
-             * @param {number} m12 Component in column 1, row 2 position (index 5)
-             * @param {number} m20 Component in column 2, row 0 position (index 6)
-             * @param {number} m21 Component in column 2, row 1 position (index 7)
-             * @param {number} m22 Component in column 2, row 2 position (index 8)
-             * @returns {mat3} A new mat3
+             * @param m00 Component in column 0, row 0 position (index 0)
+             * @param m01 Component in column 0, row 1 position (index 1)
+             * @param m02 Component in column 0, row 2 position (index 2)
+             * @param m10 Component in column 1, row 0 position (index 3)
+             * @param m11 Component in column 1, row 1 position (index 4)
+             * @param m12 Component in column 1, row 2 position (index 5)
+             * @param m20 Component in column 2, row 0 position (index 6)
+             * @param m21 Component in column 2, row 1 position (index 7)
+             * @param m22 Component in column 2, row 2 position (index 8)
+             * @returns A new mat3
              */
             function fromValues(m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number): I.mat3;
 
             /**
              * Set the components of a mat3 to the given values
              *
-             * @param {mat3} out the receiving matrix
-             * @param {number} m00 Component in column 0, row 0 position (index 0)
-             * @param {number} m01 Component in column 0, row 1 position (index 1)
-             * @param {number} m02 Component in column 0, row 2 position (index 2)
-             * @param {number} m10 Component in column 1, row 0 position (index 3)
-             * @param {number} m11 Component in column 1, row 1 position (index 4)
-             * @param {number} m12 Component in column 1, row 2 position (index 5)
-             * @param {number} m20 Component in column 2, row 0 position (index 6)
-             * @param {number} m21 Component in column 2, row 1 position (index 7)
-             * @param {number} m22 Component in column 2, row 2 position (index 8)
-             * @returns {mat3} out
+             * @param out the receiving matrix
+             * @param m00 Component in column 0, row 0 position (index 0)
+             * @param m01 Component in column 0, row 1 position (index 1)
+             * @param m02 Component in column 0, row 2 position (index 2)
+             * @param m10 Component in column 1, row 0 position (index 3)
+             * @param m11 Component in column 1, row 1 position (index 4)
+             * @param m12 Component in column 1, row 2 position (index 5)
+             * @param m20 Component in column 2, row 0 position (index 6)
+             * @param m21 Component in column 2, row 1 position (index 7)
+             * @param m22 Component in column 2, row 2 position (index 8)
+             * @returns out
              */
             function set(out: I.mat3, m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number): I.mat3;
 
@@ -2032,9 +2028,9 @@ declare namespace adone.math {
              *     mat3.identity(dest);
              *     mat3.translate(dest, dest, vec);
              *
-             * @param {mat3} out mat3 receiving operation result
-             * @param {vec2} v Translation vector
-             * @returns {mat3} out
+             * @param out mat3 receiving operation result
+             * @param v Translation vector
+             * @returns out
              */
             function fromTranslation(out: I.mat3, v: I.vec2 | number[]): I.mat3;
 
@@ -2045,9 +2041,9 @@ declare namespace adone.math {
              *     mat3.identity(dest);
              *     mat3.rotate(dest, dest, rad);
              *
-             * @param {mat3} out mat3 receiving operation result
-             * @param {number} rad the angle to rotate the matrix by
-             * @returns {mat3} out
+             * @param out mat3 receiving operation result
+             * @param rad the angle to rotate the matrix by
+             * @returns out
              */
             function fromRotation(out: I.mat3, rad: number): I.mat3;
 
@@ -2058,9 +2054,9 @@ declare namespace adone.math {
              *     mat3.identity(dest);
              *     mat3.scale(dest, dest, vec);
              *
-             * @param {mat3} out mat3 receiving operation result
-             * @param {vec2} v Scaling vector
-             * @returns {mat3} out
+             * @param out mat3 receiving operation result
+             * @param v Scaling vector
+             * @returns out
              */
             function fromScaling(out: I.mat3, v: I.vec2 | number[]): I.mat3;
 
@@ -2068,7 +2064,7 @@ declare namespace adone.math {
              * Copies the values from a mat2d into a mat3
              *
              * @param out the receiving matrix
-             * @param {mat2d} a the matrix to copy
+             * @param a the matrix to copy
              * @returns out
              */
             function fromMat2d(out: I.mat3, a: I.mat2d): I.mat3;
@@ -2112,69 +2108,69 @@ declare namespace adone.math {
             /**
              * Adds two mat3's
              *
-             * @param {mat3} out the receiving matrix
-             * @param {mat3} a the first operand
-             * @param {mat3} b the second operand
-             * @returns {mat3} out
+             * @param out the receiving matrix
+             * @param a the first operand
+             * @param b the second operand
+             * @returns out
              */
             function add(out: I.mat3, a: I.mat3, b: I.mat3): I.mat3;
 
             /**
              * Subtracts matrix b from matrix a
              *
-             * @param {mat3} out the receiving matrix
-             * @param {mat3} a the first operand
-             * @param {mat3} b the second operand
-             * @returns {mat3} out
+             * @param out the receiving matrix
+             * @param a the first operand
+             * @param b the second operand
+             * @returns out
              */
             function subtract(out: I.mat3, a: I.mat3, b: I.mat3): I.mat3;
 
             /**
              * Subtracts matrix b from matrix a
              *
-             * @param {mat3} out the receiving matrix
-             * @param {mat3} a the first operand
-             * @param {mat3} b the second operand
-             * @returns {mat3} out
+             * @param out the receiving matrix
+             * @param a the first operand
+             * @param b the second operand
+             * @returns out
              */
             function sub(out: I.mat3, a: I.mat3, b: I.mat3): I.mat3;
 
             /**
              * Multiply each element of the matrix by a scalar.
              *
-             * @param {mat3} out the receiving matrix
-             * @param {mat3} a the matrix to scale
-             * @param {number} b amount to scale the matrix's elements by
-             * @returns {mat3} out
+             * @param out the receiving matrix
+             * @param a the matrix to scale
+             * @param b amount to scale the matrix's elements by
+             * @returns out
              */
             function multiplyScalar(out: I.mat3, a: I.mat3, b: number): I.mat3;
 
             /**
              * Adds two mat3's after multiplying each element of the second operand by a scalar value.
              *
-             * @param {mat3} out the receiving vector
-             * @param {mat3} a the first operand
-             * @param {mat3} b the second operand
-             * @param {number} scale the amount to scale b's elements by before adding
-             * @returns {mat3} out
+             * @param out the receiving vector
+             * @param a the first operand
+             * @param b the second operand
+             * @param scale the amount to scale b's elements by before adding
+             * @returns out
              */
             function multiplyScalarAndAdd(out: I.mat3, a: I.mat3, b: I.mat3, scale: number): I.mat3;
 
             /**
              * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
              *
-             * @param {mat3} a The first matrix.
-             * @param {mat3} b The second matrix.
-             * @returns {boolean} True if the matrices are equal, false otherwise.
+             * @param a The first matrix.
+             * @param b The second matrix.
+             * @returns True if the matrices are equal, false otherwise.
              */
             function exactEquals(a: I.mat3, b: I.mat3): boolean;
 
             /**
              * Returns whether or not the matrices have approximately the same elements in the same position.
              *
-             * @param {mat3} a The first matrix.
-             * @param {mat3} b The second matrix.
-             * @returns {boolean} True if the matrices are equal, false otherwise.
+             * @param a The first matrix.
+             * @param b The second matrix.
+             * @returns True if the matrices are equal, false otherwise.
              */
             function equals(a: I.mat3, b: I.mat3): boolean;
         }
@@ -2214,23 +2210,23 @@ declare namespace adone.math {
             /**
              * Create a new mat4 with the given values
              *
-             * @param {number} m00 Component in column 0, row 0 position (index 0)
-             * @param {number} m01 Component in column 0, row 1 position (index 1)
-             * @param {number} m02 Component in column 0, row 2 position (index 2)
-             * @param {number} m03 Component in column 0, row 3 position (index 3)
-             * @param {number} m10 Component in column 1, row 0 position (index 4)
-             * @param {number} m11 Component in column 1, row 1 position (index 5)
-             * @param {number} m12 Component in column 1, row 2 position (index 6)
-             * @param {number} m13 Component in column 1, row 3 position (index 7)
-             * @param {number} m20 Component in column 2, row 0 position (index 8)
-             * @param {number} m21 Component in column 2, row 1 position (index 9)
-             * @param {number} m22 Component in column 2, row 2 position (index 10)
-             * @param {number} m23 Component in column 2, row 3 position (index 11)
-             * @param {number} m30 Component in column 3, row 0 position (index 12)
-             * @param {number} m31 Component in column 3, row 1 position (index 13)
-             * @param {number} m32 Component in column 3, row 2 position (index 14)
-             * @param {number} m33 Component in column 3, row 3 position (index 15)
-             * @returns {mat4} A new mat4
+             * @param m00 Component in column 0, row 0 position (index 0)
+             * @param m01 Component in column 0, row 1 position (index 1)
+             * @param m02 Component in column 0, row 2 position (index 2)
+             * @param m03 Component in column 0, row 3 position (index 3)
+             * @param m10 Component in column 1, row 0 position (index 4)
+             * @param m11 Component in column 1, row 1 position (index 5)
+             * @param m12 Component in column 1, row 2 position (index 6)
+             * @param m13 Component in column 1, row 3 position (index 7)
+             * @param m20 Component in column 2, row 0 position (index 8)
+             * @param m21 Component in column 2, row 1 position (index 9)
+             * @param m22 Component in column 2, row 2 position (index 10)
+             * @param m23 Component in column 2, row 3 position (index 11)
+             * @param m30 Component in column 3, row 0 position (index 12)
+             * @param m31 Component in column 3, row 1 position (index 13)
+             * @param m32 Component in column 3, row 2 position (index 14)
+             * @param m33 Component in column 3, row 3 position (index 15)
+             * @returns A new mat4
              */
             function fromValues(
                 m00: number,
@@ -2254,24 +2250,24 @@ declare namespace adone.math {
             /**
              * Set the components of a mat4 to the given values
              *
-             * @param {mat4} out the receiving matrix
-             * @param {number} m00 Component in column 0, row 0 position (index 0)
-             * @param {number} m01 Component in column 0, row 1 position (index 1)
-             * @param {number} m02 Component in column 0, row 2 position (index 2)
-             * @param {number} m03 Component in column 0, row 3 position (index 3)
-             * @param {number} m10 Component in column 1, row 0 position (index 4)
-             * @param {number} m11 Component in column 1, row 1 position (index 5)
-             * @param {number} m12 Component in column 1, row 2 position (index 6)
-             * @param {number} m13 Component in column 1, row 3 position (index 7)
-             * @param {number} m20 Component in column 2, row 0 position (index 8)
-             * @param {number} m21 Component in column 2, row 1 position (index 9)
-             * @param {number} m22 Component in column 2, row 2 position (index 10)
-             * @param {number} m23 Component in column 2, row 3 position (index 11)
-             * @param {number} m30 Component in column 3, row 0 position (index 12)
-             * @param {number} m31 Component in column 3, row 1 position (index 13)
-             * @param {number} m32 Component in column 3, row 2 position (index 14)
-             * @param {number} m33 Component in column 3, row 3 position (index 15)
-             * @returns {mat4} out
+             * @param out the receiving matrix
+             * @param m00 Component in column 0, row 0 position (index 0)
+             * @param m01 Component in column 0, row 1 position (index 1)
+             * @param m02 Component in column 0, row 2 position (index 2)
+             * @param m03 Component in column 0, row 3 position (index 3)
+             * @param m10 Component in column 1, row 0 position (index 4)
+             * @param m11 Component in column 1, row 1 position (index 5)
+             * @param m12 Component in column 1, row 2 position (index 6)
+             * @param m13 Component in column 1, row 3 position (index 7)
+             * @param m20 Component in column 2, row 0 position (index 8)
+             * @param m21 Component in column 2, row 1 position (index 9)
+             * @param m22 Component in column 2, row 2 position (index 10)
+             * @param m23 Component in column 2, row 3 position (index 11)
+             * @param m30 Component in column 3, row 0 position (index 12)
+             * @param m31 Component in column 3, row 1 position (index 13)
+             * @param m32 Component in column 3, row 2 position (index 14)
+             * @param m33 Component in column 3, row 3 position (index 15)
+             * @returns out
              */
             function set(
                 out: I.mat4,
@@ -2424,9 +2420,9 @@ declare namespace adone.math {
              *     mat4.identity(dest);
              *     mat4.translate(dest, dest, vec);
              *
-             * @param {mat4} out mat4 receiving operation result
-             * @param {vec3} v Translation vector
-             * @returns {mat4} out
+             * @param out mat4 receiving operation result
+             * @param v Translation vector
+             * @returns out
              */
             function fromTranslation(out: I.mat4, v: I.vec3 | number[]): I.mat4;
 
@@ -2437,9 +2433,9 @@ declare namespace adone.math {
              *     mat4.identity(dest);
              *     mat4.scale(dest, dest, vec);
              *
-             * @param {mat4} out mat4 receiving operation result
-             * @param {vec3} v Scaling vector
-             * @returns {mat4} out
+             * @param out mat4 receiving operation result
+             * @param v Scaling vector
+             * @returns out
              */
             function fromScaling(out: I.mat4, v: I.vec3 | number[]): I.mat4;
 
@@ -2450,10 +2446,10 @@ declare namespace adone.math {
              *     mat4.identity(dest);
              *     mat4.rotate(dest, dest, rad, axis);
              *
-             * @param {mat4} out mat4 receiving operation result
-             * @param {number} rad the angle to rotate the matrix by
-             * @param {vec3} axis the axis to rotate around
-             * @returns {mat4} out
+             * @param out mat4 receiving operation result
+             * @param rad the angle to rotate the matrix by
+             * @param axis the axis to rotate around
+             * @returns out
              */
             function fromRotation(out: I.mat4, rad: number, axis: I.vec3 | number[]): I.mat4;
 
@@ -2464,9 +2460,9 @@ declare namespace adone.math {
              *     mat4.identity(dest);
              *     mat4.rotateX(dest, dest, rad);
              *
-             * @param {mat4} out mat4 receiving operation result
-             * @param {number} rad the angle to rotate the matrix by
-             * @returns {mat4} out
+             * @param out mat4 receiving operation result
+             * @param rad the angle to rotate the matrix by
+             * @returns out
              */
             function fromXRotation(out: I.mat4, rad: number): I.mat4;
 
@@ -2477,9 +2473,9 @@ declare namespace adone.math {
              *     mat4.identity(dest);
              *     mat4.rotateY(dest, dest, rad);
              *
-             * @param {mat4} out mat4 receiving operation result
-             * @param {number} rad the angle to rotate the matrix by
-             * @returns {mat4} out
+             * @param out mat4 receiving operation result
+             * @param rad the angle to rotate the matrix by
+             * @returns out
              */
             function fromYRotation(out: I.mat4, rad: number): I.mat4;
 
@@ -2490,9 +2486,9 @@ declare namespace adone.math {
              *     mat4.identity(dest);
              *     mat4.rotateZ(dest, dest, rad);
              *
-             * @param {mat4} out mat4 receiving operation result
-             * @param {number} rad the angle to rotate the matrix by
-             * @returns {mat4} out
+             * @param out mat4 receiving operation result
+             * @param rad the angle to rotate the matrix by
+             * @returns out
              */
             function fromZRotation(out: I.mat4, rad: number): I.mat4;
 
@@ -2518,9 +2514,9 @@ declare namespace adone.math {
              *  matrix. If a matrix is built with fromRotationTranslation,
              *  the returned vector will be the same as the translation vector
              *  originally supplied.
-             * @param  {vec3} out Vector to receive translation component
-             * @param  {mat4} mat Matrix to be decomposed (input)
-             * @return {vec3} out
+             * @param  out Vector to receive translation component
+             * @param  mat Matrix to be decomposed (input)
+             * @return out
              */
             function getTranslation(out: I.vec3, mat: I.mat4): I.vec3;
 
@@ -2529,9 +2525,9 @@ declare namespace adone.math {
              * If a matrix is built with fromRotationTranslationScale with a
              * normalized Quaternion parameter, the returned vector will be
              * the same as the scaling vector originally supplied.
-             * @param {vec3} out Vector to receive scaling factor component
-             * @param {mat4} mat Matrix to be decomposed (input)
-             * @return {vec3} out
+             * @param out Vector to receive scaling factor component
+             * @param mat Matrix to be decomposed (input)
+             * @return out
              */
             function getScaling(out: I.vec3, mat: I.mat4): I.vec3;
 
@@ -2540,9 +2536,9 @@ declare namespace adone.math {
              *  of a transformation matrix. If a matrix is built with
              *  fromRotationTranslation, the returned quaternion will be the
              *  same as the quaternion originally supplied.
-             * @param {quat} out Quaternion to receive the rotation component
-             * @param {mat4} mat Matrix to be decomposed (input)
-             * @return {quat} out
+             * @param out Quaternion to receive the rotation component
+             * @param mat Matrix to be decomposed (input)
+             * @return out
              */
             function getRotation(out: I.quat, mat: I.mat4): I.quat;
 
@@ -2578,22 +2574,22 @@ declare namespace adone.math {
              *     mat4.scale(dest, scale)
              *     mat4.translate(dest, negativeOrigin);
              *
-             * @param {mat4} out mat4 receiving operation result
-             * @param {quat} q Rotation quaternion
-             * @param {vec3} v Translation vector
-             * @param {vec3} s Scaling vector
-             * @param {vec3} o The origin vector around which to scale and rotate
-             * @returns {mat4} out
+             * @param out mat4 receiving operation result
+             * @param q Rotation quaternion
+             * @param v Translation vector
+             * @param s Scaling vector
+             * @param o The origin vector around which to scale and rotate
+             * @returns out
              */
             function fromRotationTranslationScaleOrigin(out: I.mat4, q: I.quat, v: I.vec3 | number[], s: I.vec3 | number[], o: I.vec3 | number[]): I.mat4;
 
             /**
              * Calculates a 4x4 matrix from the given quaternion
              *
-             * @param {mat4} out mat4 receiving operation result
-             * @param {quat} q Quaternion to create matrix from
+             * @param out mat4 receiving operation result
+             * @param q Quaternion to create matrix from
              *
-             * @returns {mat4} out
+             * @returns out
              */
             function fromQuat(out: I.mat4, q: I.quat): I.mat4;
 
@@ -2630,11 +2626,11 @@ declare namespace adone.math {
              * This is primarily useful for generating projection matrices to be used
              * with the still experimental WebVR API.
              *
-             * @param {mat4} out mat4 frustum matrix will be written into
-             * @param {Object} fov Object containing the following values: upDegrees, downDegrees, leftDegrees, rightDegrees
-             * @param {number} near Near bound of the frustum
-             * @param {number} far Far bound of the frustum
-             * @returns {mat4} out
+             * @param out mat4 frustum matrix will be written into
+             * @param fov Object containing the following values: upDegrees, downDegrees, leftDegrees, rightDegrees
+             * @param near Near bound of the frustum
+             * @param far Far bound of the frustum
+             * @returns out
              */
             function perspectiveFromFieldOfView(
                 out: I.mat4,
@@ -2692,69 +2688,69 @@ declare namespace adone.math {
             /**
              * Adds two mat4's
              *
-             * @param {mat4} out the receiving matrix
-             * @param {mat4} a the first operand
-             * @param {mat4} b the second operand
-             * @returns {mat4} out
+             * @param out the receiving matrix
+             * @param a the first operand
+             * @param b the second operand
+             * @returns out
              */
             function add(out: I.mat4, a: I.mat4, b: I.mat4): I.mat4;
 
             /**
              * Subtracts matrix b from matrix a
              *
-             * @param {mat4} out the receiving matrix
-             * @param {mat4} a the first operand
-             * @param {mat4} b the second operand
-             * @returns {mat4} out
+             * @param out the receiving matrix
+             * @param a the first operand
+             * @param b the second operand
+             * @returns out
              */
             function subtract(out: I.mat4, a: I.mat4, b: I.mat4): I.mat4;
 
             /**
              * Subtracts matrix b from matrix a
              *
-             * @param {mat4} out the receiving matrix
-             * @param {mat4} a the first operand
-             * @param {mat4} b the second operand
-             * @returns {mat4} out
+             * @param out the receiving matrix
+             * @param a the first operand
+             * @param b the second operand
+             * @returns out
              */
             function sub(out: I.mat4, a: I.mat4, b: I.mat4): I.mat4;
 
             /**
              * Multiply each element of the matrix by a scalar.
              *
-             * @param {mat4} out the receiving matrix
-             * @param {mat4} a the matrix to scale
-             * @param {number} b amount to scale the matrix's elements by
-             * @returns {mat4} out
+             * @param out the receiving matrix
+             * @param a the matrix to scale
+             * @param b amount to scale the matrix's elements by
+             * @returns out
              */
             function multiplyScalar(out: I.mat4, a: I.mat4, b: number): I.mat4;
 
             /**
              * Adds two mat4's after multiplying each element of the second operand by a scalar value.
              *
-             * @param {mat4} out the receiving vector
-             * @param {mat4} a the first operand
-             * @param {mat4} b the second operand
-             * @param {number} scale the amount to scale b's elements by before adding
-             * @returns {mat4} out
+             * @param out the receiving vector
+             * @param a the first operand
+             * @param b the second operand
+             * @param scale the amount to scale b's elements by before adding
+             * @returns out
              */
             function multiplyScalarAndAdd(out: I.mat4, a: I.mat4, b: I.mat4, scale: number): I.mat4;
 
             /**
              * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
              *
-             * @param {mat4} a The first matrix.
-             * @param {mat4} b The second matrix.
-             * @returns {boolean} True if the matrices are equal, false otherwise.
+             * @param a The first matrix.
+             * @param b The second matrix.
+             * @returns True if the matrices are equal, false otherwise.
              */
             function exactEquals(a: I.mat4, b: I.mat4): boolean;
 
             /**
              * Returns whether or not the matrices have approximately the same elements in the same position.
              *
-             * @param {mat4} a The first matrix.
-             * @param {mat4} b The second matrix.
-             * @returns {boolean} True if the matrices are equal, false otherwise.
+             * @param a The first matrix.
+             * @param b The second matrix.
+             * @returns True if the matrices are equal, false otherwise.
              */
             function equals(a: I.mat4, b: I.mat4): boolean;
         }
@@ -2779,7 +2775,6 @@ declare namespace adone.math {
              *
              * @param a quaternion to clone
              * @returns a new quaternion
-             * @function
              */
             function clone(a: I.quat): I.quat;
 
@@ -2791,7 +2786,6 @@ declare namespace adone.math {
              * @param z Z component
              * @param w W component
              * @returns a new quaternion
-             * @function
              */
             function fromValues(x: number, y: number, z: number, w: number): I.quat;
 
@@ -2801,7 +2795,6 @@ declare namespace adone.math {
              * @param out the receiving quaternion
              * @param a the source quaternion
              * @returns out
-             * @function
              */
             function copy(out: I.quat, a: I.quat): I.quat;
 
@@ -2814,7 +2807,6 @@ declare namespace adone.math {
              * @param z Z component
              * @param w W component
              * @returns out
-             * @function
              */
             function set(out: I.quat, x: number, y: number, z: number, w: number): I.quat;
 
@@ -2832,10 +2824,10 @@ declare namespace adone.math {
              *
              * Both vectors are assumed to be unit length.
              *
-             * @param {quat} out the receiving quaternion.
-             * @param {vec3} a the initial vector
-             * @param {vec3} b the destination vector
-             * @returns {quat} out
+             * @param out the receiving quaternion.
+             * @param a the initial vector
+             * @param b the destination vector
+             * @returns out
              */
             function rotationTo(out: I.quat, a: I.vec3 | number[], b: I.vec3 | number[]): I.quat;
 
@@ -2857,10 +2849,10 @@ declare namespace adone.math {
              * axes. Each axis is a vec3 and is expected to be unit length and
              * perpendicular to all other specified axes.
              *
-             * @param {vec3} view  the vector representing the viewing direction
-             * @param {vec3} right the vector representing the local "right" direction
-             * @param {vec3} up    the vector representing the local "up" direction
-             * @returns {quat} out
+             * @param view  the vector representing the viewing direction
+             * @param right the vector representing the local "right" direction
+             * @param up    the vector representing the local "up" direction
+             * @returns out
              */
             function setAxes(out: I.quat, view: I.vec3 | number[], right: I.vec3 | number[], up: I.vec3 | number[]): I.quat;
 
@@ -2897,9 +2889,9 @@ declare namespace adone.math {
              * Example: The quaternion formed by axis [0, 0, 1] and
              *  angle -90 is the same as the quaternion formed by
              *  [0, 0, 1] and 270. This method favors the latter.
-             * @param  {vec3} out_axis  Vector receiving the axis of rotation
-             * @param  {quat} q     Quaternion to be decomposed
-             * @return {number}     Angle, in radians, of the rotation
+             * @param  out_axis  Vector receiving the axis of rotation
+             * @param  q     Quaternion to be decomposed
+             * @return     Angle, in radians, of the rotation
              */
             function getAxisAngle(out_axis: I.vec3 | number[], q: I.quat): number;
 
@@ -2910,7 +2902,6 @@ declare namespace adone.math {
              * @param a the first operand
              * @param b the second operand
              * @returns out
-             * @function
              */
             function add(out: I.quat, a: I.quat, b: I.quat): I.quat;
 
@@ -2941,7 +2932,6 @@ declare namespace adone.math {
              * @param a the vector to scale
              * @param b amount to scale the vector by
              * @returns out
-             * @function
              */
             function scale(out: I.quat, a: I.quat, b: number): I.quat;
 
@@ -2950,7 +2940,6 @@ declare namespace adone.math {
              *
              * @param a vector to calculate length of
              * @returns length of a
-             * @function
              */
             function length(a: I.quat): number;
 
@@ -2959,7 +2948,6 @@ declare namespace adone.math {
              *
              * @param a vector to calculate length of
              * @returns length of a
-             * @function
              */
             function len(a: I.quat): number;
 
@@ -2968,7 +2956,6 @@ declare namespace adone.math {
              *
              * @param a vector to calculate squared length of
              * @returns squared length of a
-             * @function
              */
             function squaredLength(a: I.quat): number;
 
@@ -2977,7 +2964,6 @@ declare namespace adone.math {
              *
              * @param a vector to calculate squared length of
              * @returns squared length of a
-             * @function
              */
             function sqrLen(a: I.quat): number;
 
@@ -2987,7 +2973,6 @@ declare namespace adone.math {
              * @param out the receiving quaternion
              * @param a quaternion to normalize
              * @returns out
-             * @function
              */
             function normalize(out: I.quat, a: I.quat): I.quat;
 
@@ -2997,7 +2982,6 @@ declare namespace adone.math {
              * @param a the first operand
              * @param b the second operand
              * @returns dot product of a and b
-             * @function
              */
             function dot(a: I.quat, b: I.quat): number;
 
@@ -3009,7 +2993,6 @@ declare namespace adone.math {
              * @param b the second operand
              * @param t interpolation amount between the two inputs
              * @returns out
-             * @function
              */
             function lerp(out: I.quat, a: I.quat, b: I.quat, t: number): I.quat;
 
@@ -3027,13 +3010,13 @@ declare namespace adone.math {
             /**
              * Performs a spherical linear interpolation with two control points
              *
-             * @param {quat} out the receiving quaternion
-             * @param {quat} a the first operand
-             * @param {quat} b the second operand
-             * @param {quat} c the third operand
-             * @param {quat} d the fourth operand
-             * @param {number} t interpolation amount
-             * @returns {quat} out
+             * @param out the receiving quaternion
+             * @param a the first operand
+             * @param b the second operand
+             * @param c the third operand
+             * @param d the fourth operand
+             * @param t interpolation amount
+             * @returns out
              */
             function sqlerp(out: I.quat, a: I.quat, b: I.quat, c: I.quat, d: I.quat, t: number): I.quat;
 
@@ -3103,7 +3086,6 @@ declare namespace adone.math {
              * @param out the receiving quaternion
              * @param m rotation matrix
              * @returns out
-             * @function
              */
             function fromMat3(out: I.quat, m: I.mat3): I.quat;
 
@@ -3121,18 +3103,18 @@ declare namespace adone.math {
             /**
              * Returns whether or not the quaternions have exactly the same elements in the same position (when compared with ===)
              *
-             * @param {quat} a The first vector.
-             * @param {quat} b The second vector.
-             * @returns {boolean} True if the quaternions are equal, false otherwise.
+             * @param a The first vector.
+             * @param b The second vector.
+             * @returns True if the quaternions are equal, false otherwise.
              */
             function exactEquals(a: I.quat, b: I.quat): boolean;
 
             /**
              * Returns whether or not the quaternions have approximately the same elements in the same position.
              *
-             * @param {quat} a The first vector.
-             * @param {quat} b The second vector.
-             * @returns {boolean} True if the quaternions are equal, false otherwise.
+             * @param a The first vector.
+             * @param b The second vector.
+             * @returns True if the quaternions are equal, false otherwise.
              */
             function equals(a: I.quat, b: I.quat): boolean;
         }

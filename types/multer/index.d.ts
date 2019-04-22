@@ -6,7 +6,7 @@
 //                 Michael Ledin <https://github.com/mxl>
 //                 HyunSeob Lee <https://github.com/hyunseob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 import * as express from 'express';
 
@@ -23,7 +23,8 @@ declare namespace multer {
         dest?: string;
         /** The storage engine to use for uploaded files. */
         storage?: StorageEngine;
-        /** An object specifying the size limits of the following optional properties. This object is passed to busboy
+        /**
+         * An object specifying the size limits of the following optional properties. This object is passed to busboy
          * directly, and the details of properties can be found on https://github.com/mscdex/busboy#busboy-methods
          */
         limits?: {
@@ -70,6 +71,8 @@ declare namespace multer {
         fields(fields: Field[]): express.RequestHandler;
         /** Accepts all files that comes over the wire. An array of files will be stored in req.files. */
         any(): express.RequestHandler;
+        /** Accept only text fields. If any file upload is made, error with code “LIMIT_UNEXPECTED_FILE” will be issued. This is the same as doing upload.fields([]). */
+        none(): express.RequestHandler;
     }
 }
 

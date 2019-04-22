@@ -1,4 +1,4 @@
-import * as SparkPost from "sparkpost";
+import SparkPost = require("sparkpost");
 
 const key = "YOURAPIKEY";
 const client = new SparkPost(key);

@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "react-dom-tests.ts",
+        "react-dom-tests.tsx",
         "server/index.d.ts",
         "node-stream/index.d.ts",
         "test-utils/index.d.ts"
@@ -14,13 +14,15 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
     }
 }

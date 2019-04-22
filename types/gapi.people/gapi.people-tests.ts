@@ -64,6 +64,7 @@
     var request = gapi.client.people.people.connections.list({
         'resourceName': 'people/me',
         'pageSize': 10,
+        'personFields': 'names'
       });
 
       request.execute(function(resp) {

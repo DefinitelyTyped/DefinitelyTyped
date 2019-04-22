@@ -1,19 +1,13 @@
 import * as GeoJSON from 'geojson';
-import * as Knex from 'knex';
-import * as KPG from 'knex-postgis';
+import Knex = require('knex');
+import KPG = require('knex-postgis');
 
 const knex: Knex = Knex({ dialect: 'pg' });
 const st: KPG.KnexPostgis = KPG(knex);
 
 const point: GeoJSON.Point = {
   type: 'Point',
-  coordinates: [23.773206, 61.506005],
-  crs: {
-    type: 'name',
-    properties: {
-      name: 'EPSG:4326'
-    }
-  }
+  coordinates: [23.773206, 61.506005]
 };
 
 const wktPoint = 'POINT(23.773206 61.506005)';

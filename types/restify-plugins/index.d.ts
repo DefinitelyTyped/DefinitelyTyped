@@ -2,6 +2,7 @@
 // Project: https://github.com/restify/plugins
 // Definitions by: Костя Третяк <https://github.com/KostyaTretyak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import { RequestHandler, Server, Request, Response, Route } from 'restify';
 import Logger = require('bunyan');
@@ -14,9 +15,6 @@ export namespace pre {
    */
   function context(): RequestHandler;
 
-  /**
-   *
-   */
   function dedupeSlashes(): RequestHandler;
 
   /**
@@ -73,9 +71,6 @@ export interface AuditLoggerOptions {
    */
   printLog?: boolean;
 
-  /**
-   *
-   */
   body?: boolean;
 }
 
@@ -165,14 +160,8 @@ export interface BodyParserOptions {
    */
   rejectUnknown?: boolean;
 
-  /**
-   *
-   */
   reviver?: any;
 
-  /**
-   *
-   */
   maxFieldsSize?: number;
 }
 
@@ -276,7 +265,7 @@ export interface QueryParserOptions {
 }
 
 /**
- * Parses URL query paramters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
+ * Parses URL query parameter into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
  */
 export function queryParser(options?: QueryParserOptions): RequestHandler;
 
@@ -309,7 +298,7 @@ export function dateParser(delta?: number): RequestHandler;
 export function gzipResponse(options?: any): RequestHandler;
 
 export interface ServeStatic {
-  appendRequestPath?: boolean | undefined;
+  appendRequestPath?: boolean;
   directory?: string;
   maxAge?: number;
   match?: any;
@@ -342,9 +331,6 @@ export interface MetricsCallback {
    */
   err: Error;
 
-  /**
-   *
-   */
   metrics: MetricsCallbackOptions;
 
   req: Request;

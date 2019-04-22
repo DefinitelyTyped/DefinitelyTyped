@@ -8,3 +8,15 @@ class Test extends React.Component {
         );
     }
 }
+
+class TestControlled extends React.Component<{}, {checked: boolean}> {
+    state = {
+        checked: false
+    };
+
+    render() {
+        return (
+            <Toggle name="toggle" checked={this.state.checked} onChange={(e) => this.setState({ checked: e.target.checked })} />
+        );
+    }
+}

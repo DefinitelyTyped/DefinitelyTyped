@@ -83,12 +83,20 @@ interface FeedDialogParams {
 	ref?: any;
 }
 
-declare type FBUIParams = ShareDialogParams
-                        | PageTabDialogParams
-                        | RequestsDialogParams
-                        | SendDialogParams
-                        | PayDialogParams
-                        | FeedDialogParams;
+interface LiveDialogParams {
+	redirect_uri?: string;
+	method: string;
+	display: string;
+	phase: string;
+	broadcast_data?: LiveDialogResponse;
+}
+
+interface LiveDialogResponse {
+	id: string;
+	stream_url: string;
+	secure_stream_url: string;
+	status: string;
+}
 
 interface FBLoginOptions{
     auth_type?: string;
@@ -201,8 +209,14 @@ interface FBSDK{
     api(path: string, params: any, callback: (response: any) => void): void;
     api(path: string, method: ApiMethod, params: any, callback: (response: any) => void): void;
 
-    /* This method is used to trigger different forms of Facebook created UI dialogs. */
-    ui(params : FBUIParams, handler : (fbResponseObject : Object) => any) : void;
+    /* These methods are used to trigger different forms of Facebook-created UI dialogs. */
+    ui(params : ShareDialogParams, handler : (fbResponseObject : Object) => any) : void;
+    ui(params : PageTabDialogParams, handler : (fbResponseObject : Object) => any) : void;
+    ui(params : RequestsDialogParams, handler : (fbResponseObject : Object) => any) : void;
+    ui(params : SendDialogParams, handler : (fbResponseObject : Object) => any) : void;
+    ui(params : PayDialogParams, handler : (fbResponseObject : Object) => any) : void;
+    ui(params : FeedDialogParams, handler : (fbResponseObject : Object) => any) : void;
+    ui(params : LiveDialogParams, handler : (fbResponseObject : LiveDialogResponse) => any) : void;
 
     /* Allows you to determine if a user is logged in to Facebook and has authenticated your app */
     getLoginStatus(handler : (fbResponseObject : FB.LoginStatusResponse) => any, force?: Boolean) : void;

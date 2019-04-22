@@ -2,13 +2,14 @@
 // Project: https://github.com/leaflet-extras/leaflet-providers#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as L from 'leaflet';
 
 declare module 'leaflet' {
   namespace TileLayer {
     class Provider extends TileLayer {
-      constructor(provider: string, options?: TileLayerOptions)
+      constructor(provider: string, options?: TileLayerOptions & { [name: string]: string; })
     }
 
     namespace Provider {
@@ -27,6 +28,6 @@ declare module 'leaflet' {
   }
 
   namespace tileLayer {
-    function provider(provider: string, options?: TileLayerOptions): TileLayer.Provider;
+    function provider(provider: string, options?: TileLayerOptions & { [name: string]: string; }): TileLayer.Provider;
   }
 }

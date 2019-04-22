@@ -1,4 +1,4 @@
-import * as autosni from "auto-sni";
+import autosni = require("auto-sni");
 const a = autosni({
 	agreeTos: true,
 	email: '',

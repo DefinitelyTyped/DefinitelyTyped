@@ -1,5 +1,5 @@
-import * as format from "string-template";
-import * as compile from "string-template/compile";
+import format = require("string-template");
+import compile = require("string-template/compile");
 
 // Format tests
 {

@@ -1,5 +1,5 @@
-import * as create from 'http-errors';
-import * as express from 'express';
+import create = require('http-errors');
+import express = require('express');
 import * as util from 'util';
 
 const app = express();

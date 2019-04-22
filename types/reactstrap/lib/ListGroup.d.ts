@@ -1,11 +1,13 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-interface Props {
+export interface ListGroupProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   tag?: React.ReactType;
   flush?: boolean;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var ListGroup: React.StatelessComponent<Props>;
+declare class ListGroup<T = {[key: string]: any}> extends React.Component<ListGroupProps> {}
 export default ListGroup;

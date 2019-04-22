@@ -13,7 +13,7 @@ console.log('cson.createJSONString => %s', data);
 data = cson.createCSONString({hello: 'world'});
 console.log('cson.createCSONString => %s', data);
 
-var obj: Object = cson.parse(data);
+var obj = cson.parse(data);
 console.log('cson.parse => %s', JSON.stringify(obj));
 
 obj = cson.parseCSONString(data);

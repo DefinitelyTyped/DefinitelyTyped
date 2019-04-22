@@ -112,5 +112,5 @@ export class Fields extends Component<any> implements GenericFields<any, any> {
 }
 
 interface WrappedFieldsProps<S> {
-    [name: string]: WrappedFieldsProps<S> & WrappedFieldProps<S>
+    [name: string]: WrappedFieldsProps<S> & WrappedFieldProps<S>;
 }

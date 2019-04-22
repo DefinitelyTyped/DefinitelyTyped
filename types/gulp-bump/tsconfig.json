@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "jsx": "react",
+        "types": [],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+        "gulp-bump-tests.ts"
+    ]
+}

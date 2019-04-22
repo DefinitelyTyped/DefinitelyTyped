@@ -1,6 +1,5 @@
-import * as ua from 'universal-analytics';
-
-import * as express from 'express';
+import ua = require('universal-analytics');
+import express = require('express');
 
 const app = express();
 let visitor = ua('UA-XXXX-XX');

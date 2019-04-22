@@ -68,6 +68,8 @@ declare namespace MDNS {
         host:string;
         interfaceIndex: number;
         name?:string;
+        rawTxtRecord?:Buffer;
+        txtRecord?:any;
         networkInterface:string;
         port:number;
         replyDomain:string;
@@ -116,6 +118,7 @@ declare namespace MDNS {
     var Browser:BrowserStatic;
     var ServiceType:ServiceType;
     var rst:DefaultResolverSequenceTasks;
+    var dns_sd:any;
 
     // static functions
 

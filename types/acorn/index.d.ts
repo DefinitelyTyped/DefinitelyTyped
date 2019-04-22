@@ -1,9 +1,7 @@
-// Type definitions for Acorn v4.0.3
-// Project: https://github.com/marijnh/acorn
+// Type definitions for Acorn 4.0
+// Project: https://github.com/acornjs/acorn
 // Definitions by: RReverser <https://github.com/RReverser>, e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="estree" />
 
 export as namespace acorn;
 export = acorn;
@@ -181,7 +179,7 @@ declare namespace acorn {
         _typeof: TokenType;
         _void: TokenType;
         _delete: TokenType;
-    }
+    };
 
     class TokContext {
         constructor(token: string, isExpr: boolean, preserveSpace: boolean, override: (p: Parser) => void);
@@ -230,32 +228,27 @@ declare namespace acorn {
 
     const version: string;
 
-    interface IParse {
-        (input: string, options?: Options): ESTree.Program;
-    }
+    // TODO: rename type.
+    type IParse = (input: string, options?: Options) => ESTree.Program;
 
     const parse: IParse;
 
     function parseExpressionAt(input: string, pos?: number, options?: Options): ESTree.Expression;
 
     interface ITokenizer {
-      getToken() : Token,
-      [Symbol.iterator](): Iterator<Token>
+      getToken(): Token;
+      [Symbol.iterator](): Iterator<Token>;
     }
-  
+
     function tokenizer(input: string, options: Options): ITokenizer;
 
     let parse_dammit: IParse | undefined;
     let LooseParser: ILooseParserClass | undefined;
     let pluginsLoose: PluginsObject | undefined;
 
-    interface ILooseParserClass {
-        new (input: string, options?: Options): ILooseParser
-    }
+    type ILooseParserClass = new (input: string, options?: Options) => ILooseParser;
 
-    interface ILooseParser {
-
-    }
+    interface ILooseParser {}
 
     function addLooseExports(parse: IParse, parser: ILooseParserClass, plugins: PluginsObject): void;
 }

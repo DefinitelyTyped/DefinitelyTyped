@@ -36,7 +36,7 @@ declare module 'angular' {
              * see https://docs.angularjs.org/api/ngSanitize/filter/linky
              */
             interface ILinky {
-                (text: string, target: string, attributes?: { [attribute: string]: string } | ((url: string) => { [attribute: string]: string })): string;
+                (text: string, target?: string, attributes?: { [attribute: string]: string } | ((url: string) => { [attribute: string]: string })): string;
             }
         }
 

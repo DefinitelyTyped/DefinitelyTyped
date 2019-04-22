@@ -1,10 +1,10 @@
-import { PureComponent, Validator, Requireable } from 'react'
-import { Index, IndexRange } from '../../index';
+import { PureComponent, Validator, Requireable } from "react";
+import { Index, IndexRange } from "../../index";
 
 export type InfiniteLoaderChildProps = {
-    onRowsRendered: (params: { startIndex: number, stopIndex: number }) => void,
-    registerChild: (registeredChild: any) => void
-}
+    onRowsRendered: (params: { startIndex: number; stopIndex: number }) => void;
+    registerChild: (registeredChild: any) => void;
+};
 
 export type InfiniteLoaderProps = {
     /**
@@ -15,7 +15,7 @@ export type InfiniteLoaderProps = {
      * The specified :onRowsRendered function should be passed through to the child's :onRowsRendered property.
      * The :registerChild callback should be set as the virtualized component's :ref.
      */
-    children?: (props: InfiniteLoaderChildProps) => React.ReactNode;
+    children: (props: InfiniteLoaderChildProps) => React.ReactNode;
     /**
      * Function responsible for tracking the loaded state of each row.
      * It should implement the following signature: ({ index: number }): boolean
@@ -61,23 +61,21 @@ export type InfiniteLoaderProps = {
  */
 export class InfiniteLoader extends PureComponent<InfiniteLoaderProps> {
     static propTypes: {
-        children: Validator<(props: InfiniteLoaderChildProps) => React.ReactNode>,
-        isRowLoaded: Validator<(params: Index) => boolean>,
-        loadMoreRows: Validator<(params: IndexRange) => Promise<any>>,
-        minimumBatchSize: Validator<number>,
-        rowCount: Validator<number>,
-        threshold: Validator<number>
+        children: Validator<
+            (props: InfiniteLoaderChildProps) => React.ReactNode
+        >;
+        isRowLoaded: Validator<(params: Index) => boolean>;
+        loadMoreRows: Validator<(params: IndexRange) => Promise<any>>;
+        minimumBatchSize: Validator<number>;
+        rowCount: Validator<number>;
+        threshold: Validator<number>;
     };
 
     static defaultProps: {
-        minimumBatchSize: 10,
-        rowCount: 0,
-        threshold: 15
+        minimumBatchSize: 10;
+        rowCount: 0;
+        threshold: 15;
     };
 
-    constructor(props: InfiniteLoaderProps, context: any);
-
-    resetLoadMoreRowsCache(): void;
-
-    render(): JSX.Element;
+    resetLoadMoreRowsCache(autoReload?: boolean): void;
 }

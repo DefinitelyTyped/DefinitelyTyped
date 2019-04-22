@@ -1186,7 +1186,7 @@ declare class Bloodhound<T> {
      * @param async Async callback.
      * @returns The data that matches query.
      */
-    public search(query: string, sync: (datums: T[]) => void, async: (datums: T[]) => void): T[];
+    public search(query: string, sync: (datums: T[]) => void, async?: (datums: T[]) => void): T[];
 
     /**
      * Returns all items from the internal search index.

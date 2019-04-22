@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Sizes } from 'react-bootstrap';
-import * as InputGroupAddon from './InputGroupAddon';
-import * as InputGroupButton from './InputGroupButton';
+import InputGroupAddon = require('./InputGroupAddon');
+import InputGroupButton = require('./InputGroupButton');
 
 declare namespace InputGroup {
     export interface InputGroupProps extends React.HTMLProps<InputGroup> {

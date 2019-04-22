@@ -7,8 +7,15 @@
  */
 
 import * as d3Scale from 'd3-scale';
-import { interpolateCubehelix } from 'd3-interpolate';
+import { interpolateCubehelix, interpolateRound } from 'd3-interpolate';
 import { timeHour } from 'd3-time';
+import {
+    schemePuRd,
+    interpolateCool,
+    interpolateInferno,
+    interpolateRainbow,
+    interpolateSpectral,
+} from 'd3-scale-chromatic';
 
 // -------------------------------------------------------------------------------
 // Preparatory Steps
@@ -62,6 +69,7 @@ let numExtent: [number, number];
 let numOrUndefinedExtent: [number | undefined, number | undefined];
 
 let outputNumberMaybe: number | undefined;
+
 // -------------------------------------------------------------------------------
 // Linear Scale Factory
 // -------------------------------------------------------------------------------
@@ -351,7 +359,8 @@ logScaleNumString = logScaleNumString.interpolate((a, b) => {
 
 // chainable
 logScaleNumber = logScaleNumber.nice();
-// logScaleNumber = logScaleNumber.nice(5); // fails, logarithmic scale does not support count parameter.
+// $ExpectError
+logScaleNumber = logScaleNumber.nice(5); // fails, logarithmic scale does not support count parameter.
 
 // ticks(...) -----------------------------------------------------------------
 
@@ -508,7 +517,8 @@ localTimeScaleNumber = localTimeScaleNumber.nice(5);
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour);
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour, 5);
 
-// localTimeScaleNumber = localTimeScaleNumber.nice(timeHour.every(5)); // fails, requires CountableTimeInterval
+// $ExpectError
+localTimeScaleNumber = localTimeScaleNumber.nice(timeHour.every(5)); // fails, requires CountableTimeInterval
 
 // ticks(...) -----------------------------------------------------------------
 
@@ -549,8 +559,8 @@ const copiedTimeScale: d3Scale.ScaleTime<number, string> = localTimeScaleNumStri
 
 let sequentialScaleColorString: d3Scale.ScaleSequential<string>;
 
-sequentialScaleColorString = d3Scale.scaleSequential<string>(d3Scale.interpolateRainbow);
-sequentialScaleColorString = d3Scale.scaleSequential(d3Scale.interpolateCool); // inferred Output type string
+sequentialScaleColorString = d3Scale.scaleSequential<string>(interpolateRainbow);
+sequentialScaleColorString = d3Scale.scaleSequential(interpolateCool); // inferred Output type string
 
 // ScaleSequential Interface ========================================================
 
@@ -567,7 +577,7 @@ clampFlag = sequentialScaleColorString.clamp();
 
 // interpolate(...) -----------------------------------------------------------------
 
-sequentialScaleColorString = sequentialScaleColorString.interpolator(d3Scale.interpolateInferno);
+sequentialScaleColorString = sequentialScaleColorString.interpolator(interpolateInferno);
 
 let sequentialInterpolator: (t: number) => string;
 sequentialInterpolator = sequentialScaleColorString.interpolator();
@@ -581,26 +591,72 @@ outputString = sequentialScaleColorString(10);
 const copiedSequentialScale: d3Scale.ScaleSequential<string> = sequentialScaleColorString.copy();
 
 // -------------------------------------------------------------------------------
-// Color Interpolators for Sequential Scale Factory
+// Diverging Scale Factory
 // -------------------------------------------------------------------------------
 
-let colorInterpolator: ((t: number) => string);
+// scaleQuantize() -----------------------------------------------------------------
 
-colorInterpolator = d3Scale.interpolateViridis;
+const interpolateDouble = (t: number) => t * 2;
+let divergingScaleNumber: d3Scale.ScaleDiverging<number>;
+let divergingScaleString: d3Scale.ScaleDiverging<string>;
 
-colorInterpolator = d3Scale.interpolateMagma;
+// $ExpectError
+d3Scale.scaleDiverging(); // fails, Expected 1 arguments, but got 0.
 
-colorInterpolator = d3Scale.interpolateInferno;
+divergingScaleNumber = d3Scale.scaleDiverging<number>(interpolateRound(0, 1));
+divergingScaleNumber = d3Scale.scaleDiverging<number>(interpolateDouble);
+divergingScaleString = d3Scale.scaleDiverging<string>(interpolateSpectral);
 
-colorInterpolator = d3Scale.interpolatePlasma;
+// ScaleDiverging Interface =======================================================
 
-colorInterpolator = d3Scale.interpolateRainbow;
+// (...) value mapping from domain to output -----------------------------------
 
-colorInterpolator = d3Scale.interpolateWarm;
+outputNumber = divergingScaleNumber(1);
+outputString = divergingScaleString(1);
 
-colorInterpolator = d3Scale.interpolateCool;
+// domain(...) -----------------------------------------------------------------
 
-colorInterpolator = d3Scale.interpolateCubehelixDefault;
+let domainDivergingScale: [number, number, number];
+
+divergingScaleNumber = divergingScaleNumber.domain([0, 0.5, 1]);
+divergingScaleNumber = divergingScaleNumber.domain([new NumCoercible(0), 0.5, new NumCoercible(1)]);
+domainDivergingScale = divergingScaleNumber.domain();
+
+// $ExpectError
+divergingScaleNumber.domain([0, 1]);
+// $ExpectError
+divergingScaleNumber.domain([new NumCoercible(0), new NumCoercible(0.5)]);
+
+divergingScaleString = divergingScaleString.domain([0, 0.5, 1]);
+divergingScaleString = divergingScaleString.domain([new NumCoercible(0), 0.5, new NumCoercible(1)]);
+domainDivergingScale = divergingScaleString.domain();
+
+// $ExpectError
+divergingScaleString.domain([0, 1]);
+// $ExpectError
+divergingScaleString.domain([new NumCoercible(0), new NumCoercible(0.5)]);
+
+// clamp(...) -----------------------------------------------------------------
+
+clampFlag = divergingScaleNumber.clamp();
+clampFlag = divergingScaleString.clamp();
+
+divergingScaleNumber = divergingScaleNumber.clamp(true);
+divergingScaleString = divergingScaleString.clamp(true);
+
+// interpolator(...) -----------------------------------------------------------------
+
+const inum: (t: number) => number = divergingScaleNumber.interpolator();
+const istr: (t: number) => string = divergingScaleString.interpolator();
+
+divergingScaleNumber = divergingScaleNumber.interpolator((t) => t + 2);
+divergingScaleNumber = divergingScaleNumber.interpolator(interpolateRound(2, 3));
+divergingScaleString = divergingScaleString.interpolator(sequentialInterpolator);
+
+// copy(...) -----------------------------------------------------------------
+
+const copiedDivergingScaleNumber: d3Scale.ScaleDiverging<number> = divergingScaleNumber.copy();
+const copiedDivergingScaleString: d3Scale.ScaleDiverging<string> = divergingScaleString.copy();
 
 // -------------------------------------------------------------------------------
 // Quantize Scale Factory
@@ -764,7 +820,9 @@ let ordinalScaleStringString: d3Scale.ScaleOrdinal<string, string>;
 let ordinalScaleStringNumber: d3Scale.ScaleOrdinal<string, number>;
 
 ordinalScaleStringString = d3Scale.scaleOrdinal<string>();
+ordinalScaleStringString = d3Scale.scaleOrdinal<string>(schemePuRd[3]);
 ordinalScaleStringNumber = d3Scale.scaleOrdinal<string, number>();
+ordinalScaleStringString = d3Scale.scaleOrdinal<string, string>(schemePuRd[3]);
 
 // ScaleOrdinal Interface ========================================================
 
@@ -778,6 +836,7 @@ ordinalScaleStringNumber = ordinalScaleStringNumber.domain(['negative', 'neutral
 // range(...) -----------------------------------------------------------------
 
 ordinalScaleStringString = ordinalScaleStringString.range(['crimson', 'midnightblue', 'seagreen']);
+ordinalScaleStringString = ordinalScaleStringString.range(schemePuRd[3]);
 rangeStrings = ordinalScaleStringString.range();
 
 ordinalScaleStringNumber = ordinalScaleStringNumber.range([-1, 0, 1]);
@@ -950,17 +1009,3 @@ outputNumberMaybe = pointScaleCoercible(new StringCoercible('negative'));
 // copy(...) -----------------------------------------------------------------
 
 const copiedPointScale: d3Scale.ScalePoint<StringCoercible> = pointScaleCoercible.copy();
-
-// -------------------------------------------------------------------------------
-// Categorical Color Schemas for Ordinal Scales
-// -------------------------------------------------------------------------------
-
-let colorStrings: string[];
-
-colorStrings = d3Scale.schemeCategory10;
-
-colorStrings = d3Scale.schemeCategory20;
-
-colorStrings = d3Scale.schemeCategory20b;
-
-colorStrings = d3Scale.schemeCategory20c;

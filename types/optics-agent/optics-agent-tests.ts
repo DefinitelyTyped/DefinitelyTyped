@@ -9,9 +9,9 @@ import OpticsAgent, {
   Agent,
 } from 'optics-agent';
 import { GraphQLSchema } from 'graphql';
-import * as express from 'express';
+import express = require('express');
 import * as hapi from 'hapi';
-import * as KoaServer from 'koa';
+import KoaServer = require('koa');
 
 const configOptions: Options = {
   apiKey: "",

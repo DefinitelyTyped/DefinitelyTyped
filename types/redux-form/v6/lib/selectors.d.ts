@@ -86,7 +86,7 @@ export const getFormSubmitErrors: ErrorSelector;
  *
  * If you are using ImmutableJS, it will return a List.
  */
-export const getFormNames: <State>(state: State) => string[];
+export function getFormNames<State>(state: State): string[];
 
 /**
  * Returns true if the form is dirty, i.e. the values have been altered

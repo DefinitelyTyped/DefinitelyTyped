@@ -1259,8 +1259,8 @@ function demos() {
             const textures = [this.texture];
             const D8 = PIXI.GroupD8;
             for (let rotate = 1; rotate < 16; rotate++) {
-                const h = D8.isSwapWidthHeight(rotate) ? this.texture.frame.width : this.texture.frame.height;
-                const w = D8.isSwapWidthHeight(rotate) ? this.texture.frame.height : this.texture.frame.width;
+                const h = D8.isVertical(rotate) ? this.texture.frame.width : this.texture.frame.height;
+                const w = D8.isVertical(rotate) ? this.texture.frame.height : this.texture.frame.width;
 
                 const frame = this.texture.frame;
                 const crop = new PIXI.Rectangle(this.texture.frame.x, this.texture.frame.y, w, h);
@@ -1508,7 +1508,7 @@ function filters() {
 
                 maggot.scale.set(1 + Math.random() * 0.3);
                 //tslint:disable-next-line:whitespace
-                maggot.original = (<PIXI.Point>maggot.scale).clone();
+                maggot.original = (maggot.scale as PIXI.Point).clone();
                 this.maggots.push(maggot);
             }
 

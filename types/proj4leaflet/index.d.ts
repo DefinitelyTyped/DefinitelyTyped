@@ -2,6 +2,7 @@
 // Project: https://github.com/kartena/Proj4Leaflet#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as geojson from 'geojson';
 import * as L from 'leaflet';
@@ -41,7 +42,7 @@ declare module 'leaflet' {
 
     class GeoJSON extends L.GeoJSON {}
 
-    const geoJson: (geojson?: geojson.GeoJsonObject, options?: GeoJSONOptions) => GeoJSON;
+    const geoJson: (geojson?: Proj4GeoJSONFeature, options?: GeoJSONOptions) => GeoJSON;
 
     class ImageOverlay extends L.ImageOverlay {}
 
@@ -56,3 +57,6 @@ declare module 'leaflet' {
     }
   }
 }
+export type Proj4GeoJSONFeature = geojson.Feature<geojson.GeometryObject> & {
+  crs?: { type: string; properties: { name: string } }
+};

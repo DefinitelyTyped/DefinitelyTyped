@@ -49,90 +49,11 @@ export namespace Merge {
 }
 
 export class Merge {
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {AnnotatedCommit} theirHead
-     * @param {MergeOptions} [mergeOpts]
-     * @param {CheckoutOptions} [checkoutOpts]
-     * @returns {*}
-     *
-     * @memberof Merge
-     */
     static merge(repo: Repository, theirHead: AnnotatedCommit, mergeOpts?: MergeOptions, checkoutOpts?: CheckoutOptions): any;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {Oid} one
-     * @param {Oid} two
-     * @returns {Promise<Oid>}
-     *
-     * @memberof Merge
-     */
     static base(repo: Repository, one: Oid, two: Oid): Promise<Oid>;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {Oid} one
-     * @param {Oid} two
-     * @returns {Promise<Oidarray>}
-     *
-     * @memberof Merge
-     */
     static bases(repo: Repository, one: Oid, two: Oid): Promise<Oidarray>;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {Commit} ourCommit
-     * @param {Commit} theirCommit
-     * @param {MergeOptions} [options]
-     * @returns {*}
-     *
-     * @memberof Merge
-     */
     static commits(repo: Repository, ourCommit: Commit, theirCommit: Commit, options?: MergeOptions): any;
-    /**
-     *
-     *
-     * @static
-     * @param {MergeFileInput} opts
-     * @param {number} version
-     * @returns {number}
-     *
-     * @memberof Merge
-     */
     static fileInitInput(opts: MergeFileInput, version: number): number;
-    /**
-     *
-     *
-     * @static
-     * @param {MergeOptions} opts
-     * @param {number} version
-     * @returns {number}
-     *
-     * @memberof Merge
-     */
     static initOptions(opts: MergeOptions, version: number): number;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {Tree} ancestorTree
-     * @param {Tree} ourTree
-     * @param {Tree} theirTree
-     * @param {MergeOptions} opts
-     * @returns {Promise<Index>}
-     *
-     * @memberof Merge
-     */
-    static trees(repo: Repository, ancestorTree: Tree, ourTree: Tree, theirTree: Tree, opts: MergeOptions): Promise<Index>;
+    static trees(repo: Repository, ancestorTree: Tree, ourTree: Tree, theirTree: Tree, opts?: MergeOptions): Promise<Index>;
 }

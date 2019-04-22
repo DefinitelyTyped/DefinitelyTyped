@@ -10,8 +10,11 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "types": [],
-        "typeRoots": ["../"]
+        "typeRoots": [
+            "../"
+        ]
     },
     "files": [
         "index.d.ts",

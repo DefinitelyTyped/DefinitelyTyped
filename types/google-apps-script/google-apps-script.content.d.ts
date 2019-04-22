@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2018-07-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,11 +10,11 @@ declare namespace GoogleAppsScript {
     /**
      * Service for returning text content from a script.
      *
-     *  You can serve up text in various forms. For example, publish this script as a web app.
+     * You can serve up text in various forms. For example, publish this script as a web app.
      *
-     *      function doGet() {
-     *        return ContentService.createTextOutput("Hello World");
-     *      }
+     *     function doGet() {
+     *       return ContentService.createTextOutput("Hello World");
+     *     }
      */
     export interface ContentService {
       MimeType: typeof MimeType;
@@ -30,15 +30,15 @@ declare namespace GoogleAppsScript {
     /**
      * A TextOutput object that can be served from a script.
      *
-     *  Due to security considerations, scripts cannot directly return text content to a browser.
-     *  Instead, the browser is redirected to googleusercontent.com, which will display it without any
-     *  further sanitization or manipulation.
+     * Due to security considerations, scripts cannot directly return text content to a browser.
+     * Instead, the browser is redirected to googleusercontent.com, which will display it without any
+     * further sanitization or manipulation.
      *
-     *  You can return text content like this:
+     * You can return text content like this:
      *
-     *      function doGet() {
-     *        return ContentService.createTextOutput("hello world!");
-     *      }
+     *     function doGet() {
+     *       return ContentService.createTextOutput("hello world!");
+     *     }
      *
      * ContentService
      */

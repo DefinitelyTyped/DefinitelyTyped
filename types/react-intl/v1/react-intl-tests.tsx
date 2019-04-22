@@ -33,7 +33,7 @@ namespace I18nDirect {
 
 class I18nDirect extends React.Component<I18nDirect.Props> {
 
-    private _currentLocale: string
+    private readonly _currentLocale: string
     private _messages: {[key: string]: string}
 
     constructor( props: I18nDirect.Props ) {
@@ -69,7 +69,7 @@ class I18nDirect extends React.Component<I18nDirect.Props> {
     }
 
 
-    private compileMessages = (props: I18nDirect.Props): void => {
+    private readonly compileMessages = (props: I18nDirect.Props): void => {
 
         let locale: string = ( props.locales && props.locales[ 0 ] ) || 'en-US'
 
@@ -104,7 +104,7 @@ namespace I18nMixin {
 @reactMixin.decorate( IntlMixin )
 class I18nMixin extends React.Component<I18nMixin.Props> implements IntlComponent {
 
-    private _currentLocale: string
+    private readonly _currentLocale: string
 
     constructor( props: I18nMixin.Props ) {
         super( props )

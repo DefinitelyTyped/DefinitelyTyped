@@ -1,12 +1,14 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-interface Props extends React.HTMLProps<HTMLFormElement> {
+export interface FormProps extends React.HTMLProps<HTMLFormElement> {
+  [key: string]: any;
   inline?: boolean;
   tag?: React.ReactType;
-  getRef?: string | ((instance: HTMLButtonElement) => any);
+  innerRef?: React.Ref<HTMLFormElement>;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare var Form: React.StatelessComponent<Props>;
+declare class Form<T> extends React.Component<FormProps> {}
 export default Form;

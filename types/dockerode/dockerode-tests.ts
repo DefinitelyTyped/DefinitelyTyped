@@ -1,4 +1,4 @@
-import * as Docker from 'dockerode';
+import Docker = require('dockerode');
 import * as fs from 'fs';
 
 // Code samples from Dockerode 'Getting started'

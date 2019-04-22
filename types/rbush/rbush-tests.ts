@@ -1,4 +1,4 @@
-import * as rbush from 'rbush';
+import rbush = require('rbush');
 
 interface IndexedRect extends rbush.BBox {
   index: number;

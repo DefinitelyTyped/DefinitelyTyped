@@ -3,6 +3,7 @@
     "rules": {
         // TODOs
         "no-any-union": false,
+        "no-unnecessary-class": false,
         "no-unnecessary-generics": false
     }
 }

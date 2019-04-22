@@ -20,7 +20,7 @@ declare namespace SimplePeer {
         answerConstraints?: {}; // custom answer constraints (used by createAnswer method)
         reconnectTimer?: boolean | number; // wait __ milliseconds after ICE 'disconnect' for reconnect attempt before emitting 'close'
         sdpTransform?<T extends any>(sdp: T): T; // function to transform the generated SDP signaling data (for advanced users)
-        stream?: boolean; // if video/voice is desired, pass stream returned from getUserMedia
+        stream?: MediaStream; // if video/voice is desired, pass stream returned from getUserMedia
         trickle?: boolean; // set to false to disable trickle ICE and get a single 'signal' event (slower)
         wrtc?: {}; // RTCPeerConnection/RTCSessionDescription/RTCIceCandidate
         objectMode?: boolean; // set to true to create the stream in Object Mode. In this mode, incoming string data is not automatically converted to Buffer objects.
@@ -61,6 +61,9 @@ declare namespace SimplePeer {
         // methods which are not documented
         readonly bufferSize: number;
         address(): { port: string, family: string, address: string, };
+
+        // used for debug logging
+        _debug(message?: any, ...optionalParams: any[]): void;
     }
 }
 

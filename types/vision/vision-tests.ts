@@ -1,55 +1,43 @@
-import * as Hapi from 'hapi';
-import Vision from 'vision';
-const server = new Hapi.Server();
-server.connection({ port: 80 });
+import {
+    Server,
+    Request,
+    ResponseToolkit,
+} from 'hapi';
 
-// https://github.com/hapijs/vision/blob/master/API.md#serverrendertemplate-context-options-callback
+import * as Vision from 'vision';
+import * as Handlebars from 'handlebars';
 
-server.register(Vision, (err) => {
+const server = new Server({
+    port: 80,
+});
 
-    if (err) {
-        throw err;
-    }
+const provision = async () => {
+    await server.register({
+        plugin: Vision,
+        options: {
+            engines: { hbs: Handlebars },
+            path: __dirname + '/templates',
+        }
+    });
 
     server.views({
-        engines: { html: require('handlebars') },
-        path: __dirname + '/templates'
+        engines: { hbs: Handlebars },
+        path: __dirname + '/templates',
     });
 
     const context = {
         title: 'Views Example',
-        message: 'Hello, World'
+        message: 'Hello, World',
     };
 
-    server.render('hello', context, {}, (err, rendered, config) => {
-
-        console.log(rendered);
-    });
-
-    // https://github.com/hapijs/vision/blob/master/API.md#requestrendertemplate-context-options-callback
-
-    server.views({
-        engines: { html: require('handlebars') },
-        path: __dirname + '/templates'
-    });
+    console.log(await server.render('hello', context));
 
     server.route({
         method: 'GET',
         path: '/view',
-        handler: function (request, reply) {
-
-            request.render('test', { message: 'hello' }, {}, (err, rendered, config) => {
-
-                return reply(rendered);
-            });
-        }
-    });
-
-    // https://github.com/hapijs/vision/blob/master/API.md#the-view-handler
-
-    server.views({
-        engines: { html: require('handlebars') },
-        path: __dirname + '/templates'
+        handler: async (request: Request, h: ResponseToolkit) => {
+            return request.render('test', { message: 'hello' });
+        },
     });
 
     server.route({
@@ -60,49 +48,21 @@ server.register(Vision, (err) => {
                 template: 'hello',
                 context: {
                     title: 'Views Example',
-                    message: 'Hello, World'
-                }
-            }
-        }
+                    message: 'Hello, World',
+                },
+            },
+        },
     });
 
-    // https://github.com/hapijs/vision/blob/master/API.md#replyviewtemplate-context-options
-
-    server.views({
-        engines: { html: require('handlebars') },
-        path: __dirname + '/templates'
-    });
-
-    const handler: Hapi.RouteHandler = function (request, reply) {
-
+    const handler = (request: Request, h: ResponseToolkit) => {
         const context = {
             title: 'Views Example',
-            message: 'Hello, World'
+            message: 'Hello, World',
         };
-
-        return reply.view('hello', context);
+        return h.view('hello', context);
     };
 
-    server.route({ method: 'GET', path: '/', handler: handler });
-
-});
-
-// Extending CompileOptions or RuntimeOptions interfaces
-
-server.register(Vision, (err) => {
-
-    if (err) {
-        throw err;
-    }
-
-    server.views({
-        engines: { html: require('handlebars') },
-        path: __dirname + '/templates'
-    });
-
-    var opts: Hapi.CompileOptions = {
-        noEscape: true
-    };
+    server.route({ method: 'GET', path: '/', handler });
 
     server.route({
         method: 'GET',
@@ -111,15 +71,11 @@ server.register(Vision, (err) => {
             view: {
                 template: 'temp1',
                 options: {
-                    compileOptions: opts
-                }
-            }
-        }
+                    compileOptions: {
+                        noEscape: true,
+                    },
+                },
+            },
+        },
     });
-});
-
-declare module 'hapi' {
-    interface CompileOptions {
-        noEscape: boolean;
-    }
-}
+};

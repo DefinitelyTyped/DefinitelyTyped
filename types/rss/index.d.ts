@@ -90,7 +90,7 @@ declare namespace NodeRSS {
         /**
          * Path to binary file (or URL).
          */
-        file: string;
+        file?: string;
         /**
          * Size of the file.
          */

@@ -1,8 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODO
+        // TODOs
         "ban-types": false,
-        "dt-header": false
+        "dt-header": false,
+        "npm-naming": false,
+        "no-unnecessary-class": false
     }
 }

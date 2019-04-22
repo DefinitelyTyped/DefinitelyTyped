@@ -1,4 +1,5 @@
 import * as sql from 'mssql';
+import * as msnodesqlv8 from 'mssql/msnodesqlv8';
 
 interface Entity {
     value: number;
@@ -188,6 +189,16 @@ function test_request_constructor() {
     var request4 = new sql.Request();
 }
 
+function test_prepared_statement_constructor() {
+    // Request can be constructed with a connection, preparedStatment, transaction or no arguments
+    var connection: sql.ConnectionPool = new sql.ConnectionPool(config);
+    var preparedStatment = new sql.PreparedStatement(connection);
+    var transaction = new sql.Transaction(connection);
+
+    var preparedSatement1 = new sql.PreparedStatement(connection);
+    var preparedSatement2 = new sql.PreparedStatement(transaction);
+}
+
 function test_classes_extend_eventemitter() {
     var connection: sql.ConnectionPool = new sql.ConnectionPool(config);
     var transaction = new sql.Transaction();
@@ -202,4 +213,11 @@ function test_classes_extend_eventemitter() {
     request.on('error', () => { });
 
     preparedStatment.on('error', () => { })
+}
+
+async function test_msnodesqlv8() {
+    const connection = new msnodesqlv8.ConnectionPool({ server: "localhost", database: "master", options: { trustedConnection: true } });
+    await connection.connect();
+    const result = await connection.query`SELECT * FROM sys.databases`;
+    await connection.close();
 }

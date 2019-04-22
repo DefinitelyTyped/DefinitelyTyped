@@ -31,13 +31,12 @@ declare namespace t {
     class Tock {
         /**
          * Create a Tock instance
-         * @param opts
          */
         constructor(opts?: TockOptions)
 
         /**
          * Start the timer
-         * @param [time] {Number} Optional. Can be either a countdown value or a starting value.
+         * @param time Can be either a countdown value or a starting value.
          * If a countdown timer then set time to count down from.
          * If a starting value then set time to the desired start time to count up from.
          */
@@ -65,14 +64,11 @@ declare namespace t {
 
         /**
          * Convert number of milliseconds to a MM:SS time string. Won't handle times greater than 1 hour
-         * @param ms
          */
         msToTime: (ms: number) => string;
 
         /**
          * Convert number of milliseconds to timecode string
-         * @param ms
-         * @param showMs
          */
         msToTimecode: (ms: number, showMs?: boolean) => string;
 
@@ -80,7 +76,6 @@ declare namespace t {
          * Convert a time string to a number of milliseconds. Should be a duration as a string of form MM:SS, MM:SS:ms, MM:SS.ms, HH:MM:SS
          * Alternatively a time in the future can be provided using the form yyyy-mm-dd HH:MM:SS.ms. The difference between this time and present will be returned.
          * If the input cannot be recognized as one of the above then 0 is returned
-         * @param ms
          */
         timeToMS: (time: string) => number;
     }

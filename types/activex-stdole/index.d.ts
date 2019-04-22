@@ -1,17 +1,25 @@
-// Type definitions for OLE Automation - stdole 2.0
+// Type definitions for non-npm package OLE Automation - stdole 2.0
 // Project: https://msdn.microsoft.com/en-us/library/hh272953.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
+
+/// <reference types="activex-interop" />
 
 declare namespace stdole {
+    type IFontDisp = StdFont;
+
     type IPictureDisp = StdPicture;
 
     type OLE_COLOR = number;
 
     type OLE_XPOS_CONTAINER = number;
 
+    type OLE_XPOS_PIXELS = number;
+
     type OLE_YPOS_CONTAINER = number;
+
+    type OLE_YPOS_PIXELS = number;
 
     const enum LoadPictureConstants {
         Color = 4,
@@ -79,14 +87,9 @@ declare namespace stdole {
 
 interface ActiveXObject {
     on(obj: stdole.StdFont, event: 'FontChanged', argNames: ['PropertyName'], handler: (this: stdole.StdFont, parameter: {readonly PropertyName: string}) => void): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {
     StdFont: stdole.StdFont;
     StdPicture: stdole.StdPicture;
-}
-
-interface SafeArray<T = any> {
-    _brand: SafeArray<T>;
 }

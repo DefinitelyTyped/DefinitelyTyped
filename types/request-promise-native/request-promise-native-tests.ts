@@ -1,6 +1,7 @@
-import * as rpn from 'request-promise-native';
+import rpn = require('request-promise-native');
 import * as errors from 'request-promise-native/errors';
 import * as path from 'path';
+import constants = require('constants');
 
 rpn('http://www.google.com')
   .then(console.dir)
@@ -25,9 +26,15 @@ rpn('http://google.com').then(() => { });
 rpn('http://google.com').then(console.dir);
 rpn('http://google.com').catch(console.error);
 rpn('http://google.com').then(console.dir, console.error);
+rpn('http://google.com').promise().then(console.dir);
 
 rpn({ uri: 'http://google.com', resolveWithFullResponse: true }).then((response) => { });
 rpn({ uri: 'http://google.com', simple: false }).catch((reason) => { });
+
+const rp: rpn.RequestPromise = rpn('http://google.com', {transform2xxOnly: true, json: true});
+
+const promiseLike: PromiseLike<any> = rpn('http://google.com');
+const promise: Promise<any> = rpn('http://google.com').promise();
 
 // Defaults tests
 (() => {
@@ -282,7 +289,7 @@ rpn.post({ url, oauth }, (e, r, body) => {
     consumer_key: CONSUMER_KEY,
     consumer_secret: CONSUMER_SECRET,
     token: auth_data.oauth_token,
-    token_secret: req_data.oauth_token_secret,
+    token_secret: req_data.oauth_token_secret as string,
     verifier: auth_data.oauth_verifier,
   };
   url = 'https://api.twitter.com/oauth/access_token';
@@ -330,7 +337,7 @@ options = {
     // Or use `pfx` property replacing `cert` and `key` when using private key, certificate and CA certs in PFX or PKCS12 format:
     // pfx: fs.readFileSync(pfxFilePath),
     passphrase: 'password',
-    securityOptions: 'SSL_OP_NO_SSLv3'
+    secureOptions: constants.SSL_OP_NO_SSLv3
   }
 };
 

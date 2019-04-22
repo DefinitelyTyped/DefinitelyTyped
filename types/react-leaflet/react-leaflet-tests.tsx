@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as PropTypes from 'prop-types';
 import * as L from 'leaflet';
-import { Component, PropTypes } from 'react';
+import { Component } from 'react';
 import {
     Children,
     Circle,
@@ -15,8 +16,10 @@ import {
     MapProps,
     Marker,
     MarkerProps,
+    Path,
     Pane,
     Polygon,
+    PolygonProps,
     Polyline,
     Popup,
     PopupProps,
@@ -24,7 +27,10 @@ import {
     TileLayer,
     Tooltip,
     WMSTileLayer,
-    ZoomControl
+    ZoomControl,
+    LeafletProvider,
+    withLeaflet,
+    Viewport
 } from 'react-leaflet';
 const { BaseLayer, Overlay } = LayersControl;
 
@@ -206,7 +212,7 @@ export class CustomComponent extends Component<undefined, CustomComponentState> 
     }
 }
 
-// SOURCE ???
+// Similar to custom-icons.js
 export class MarkerWithDivIconExample extends Component<undefined, undefined> {
     render() {
         return (
@@ -627,6 +633,44 @@ export class VectorLayersExample extends Component<undefined, undefined> {
     }
 }
 
+// viewport.js
+const DEFAULT_VIEWPORT: Viewport = {
+    center: [51.505, -0.09],
+    zoom: 13,
+};
+
+interface ViewportExampleState {
+    viewport: Viewport;
+}
+
+class ViewportExample extends Component<undefined, ViewportExampleState> {
+    state = {
+        viewport: DEFAULT_VIEWPORT,
+    };
+
+    onClickReset = () => {
+        this.setState({ viewport: DEFAULT_VIEWPORT });
+    }
+
+    onViewportChanged = (viewport: Viewport) => {
+        this.setState({ viewport });
+    }
+
+    render() {
+        return (
+            <Map
+                onClick={this.onClickReset}
+                onViewportChanged={this.onViewportChanged}
+                viewport={this.state.viewport}>
+                <TileLayer
+                    attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+            </Map>
+        );
+    }
+}
+
 // wms-tile-layer.js
 interface WMSTileLayerExampleState {
     lat: number;
@@ -728,6 +772,8 @@ class LegendControl extends MapControl<MapControlProps & { className?: string }>
     }
 }
 
+const legendControlComponent = withLeaflet<MapControlProps>(LegendControl);
+
 const LegendControlExample = () => (
     <Map className="map" center={mapControlCenter} zoom={13} style={{ height: "300px" }}>
         <TileLayer
@@ -744,3 +790,26 @@ const LegendControlExample = () => (
         </LegendControl>
     </Map>
 );
+
+class CustomPolygon extends Path<PolygonProps, L.Polygon> {
+    createLeafletElement(props: PolygonProps) {
+        const el = new L.Polygon(props.positions, this.getOptions(props));
+        this.contextValue = { ...props.leaflet, popupContainer: el };
+        return el;
+    }
+
+    updateLeafletElement(fromProps: PolygonProps, toProps: PolygonProps) {
+        if (toProps.positions !== fromProps.positions) {
+            this.leafletElement.setLatLngs(toProps.positions);
+        }
+        this.setStyleIfChanged(fromProps, toProps);
+    }
+
+    render() {
+        const { children } = this.props;
+        return children == null || this.contextValue == null ? null : (
+            <LeafletProvider value={this.contextValue}>{children}</LeafletProvider>
+        );
+    }
+}
+const leafletComponent = withLeaflet<PolygonProps>(CustomPolygon);

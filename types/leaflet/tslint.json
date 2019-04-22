@@ -2,6 +2,7 @@
     "extends": "dtslint/dt.json",
     "rules": {
         // TODOs
+        "no-unnecessary-class": false,
         "no-object-literal-type-assertion": false,
         "no-single-declare-module": false
     }

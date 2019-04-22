@@ -1,10 +1,10 @@
 import * as React from 'react';
-import * as MediaBody from './MediaBody';
-import * as MediaHeading from './MediaHeading';
-import * as MediaLeft from './MediaLeft';
-import * as MediaList from './MediaList';
-import * as MediaListItem from './MediaListItem';
-import * as MediaRight from './MediaRight';
+import MediaBody = require('./MediaBody');
+import MediaHeading = require('./MediaHeading');
+import MediaLeft = require('./MediaLeft');
+import MediaList = require('./MediaList');
+import MediaListItem = require('./MediaListItem');
+import MediaRight = require('./MediaRight');
 
 declare namespace Media {
     export interface MediaProps extends React.HTMLProps<Media> {

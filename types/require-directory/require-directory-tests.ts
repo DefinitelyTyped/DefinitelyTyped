@@ -1,4 +1,4 @@
-import * as requireDirectory from "require-directory";
+import requireDirectory = require("require-directory");
 import { defaults } from "require-directory";
 import { CheckPathFn, RequireDirectoryOptions, RequireDirectoryResult } from "require-directory";
 

@@ -1,6 +1,8 @@
 // Type definitions for hubot 2.19
-// Project: https://github.com/github/hubot
+// Project: https://github.com/hubotio/hubot
 // Definitions by: Dirk Gadsden <https://github.com/dirk>
+//                 Kees C. Bakker <https://github.com/KeesCBakker>
+//                 Emil Marklund <https://github.com/eeemil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -41,11 +43,11 @@ declare namespace Hubot {
         finish(): void;
     }
 
-    class Response {
+    class Response<R> {
         match: RegExpMatchArray;
         message: Message;
 
-        constructor(robot: Robot, message: Message, match: RegExpMatchArray);
+        constructor(robot: R, message: Message, match: RegExpMatchArray);
         send(...strings: string[]): void;
         emote(...strings: string[]): void;
         reply(...strings: string[]): void;
@@ -55,16 +57,23 @@ declare namespace Hubot {
         random<T>(items: T[]): T;
     }
 
-    type ListenerCallback = (response: Response) => void;
+    type ListenerCallback<R> = (response: Response<R>) => void;
 
-    class Robot {
+    class Robot<A> {
+        alias: string;
         brain: Brain;
+        name: string;
+        readonly adapter: A;
 
         constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string);
-        hear(regex: RegExp, callback: ListenerCallback): void;
-        hear(regex: RegExp, options: any, callback: ListenerCallback): void;
-        respond(regex: RegExp, callback: ListenerCallback): void;
-        respond(regex: RegExp, options: any, callback: ListenerCallback): void;
+        catchAll(callback: ListenerCallback<this>): void;
+        catchAll(options: any, callback: ListenerCallback<this>): void;
+        hear(regex: RegExp, callback: ListenerCallback<this>): void;
+        hear(regex: RegExp, options: any, callback: ListenerCallback<this>): void;
+        helpCommands(): string[];
+        loadFile(directory: string, fileName: string): void;
+        respond(regex: RegExp, callback: ListenerCallback<this>): void;
+        respond(regex: RegExp, options: any, callback: ListenerCallback<this>): void;
         enter(callback: ListenerCallback): void;
         enter(options: any, callback: ListenerCallback): void;
         topic(callback: ListenerCallback): void;

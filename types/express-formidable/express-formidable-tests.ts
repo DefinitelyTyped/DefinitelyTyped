@@ -3,7 +3,12 @@ import expform = require("express-formidable");
 
 const app = express();
 
-app.use("/form1", expform());
+app.use("/form1", expform(), (req, res, next) => {
+    console.log(req.fields);
+    console.log(req.files);
+    next();
+});
+
 app.use("/form2", expform({
     encoding: "utf-8",
     uploadDir: "./uploads",

@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import * as uglify from 'gulp-uglify';
+import uglify = require('gulp-uglify');
 import pump = require('pump');
 import uglifyjs = require('uglify-js');
 import composer = require('gulp-uglify/composer');

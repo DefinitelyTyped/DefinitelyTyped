@@ -1,10 +1,13 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-interface Props {
+export interface FormFeedbackProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   tag?: string;
   className?: string;
   cssModule?: CSSModule;
+  valid?: boolean;
 }
 
-declare var FormFeedback: React.StatelessComponent<Props>;
+declare class FormFeedback<T = {[key: string]: any}> extends React.Component<FormFeedbackProps> {}
 export default FormFeedback;

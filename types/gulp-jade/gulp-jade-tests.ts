@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import * as jade from 'gulp-jade';
+import jade = require('gulp-jade');
 
 gulp.task('jade', () => {
   gulp.src('src/**/*.jade')

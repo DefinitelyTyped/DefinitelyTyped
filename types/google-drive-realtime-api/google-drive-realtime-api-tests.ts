@@ -94,7 +94,7 @@ namespace GRealtime {
 	export class MyRealtimeDoc  {
 		protected rtmodel: CollabModel;
 		protected rtdoc: CollabDoc;
-		private myRTLoader = new GRealtime.MyRTLoader();
+		private readonly myRTLoader = new GRealtime.MyRTLoader();
 
 		newFile(title: string,
 		        initializeModel: (x:CollabModel) => void,

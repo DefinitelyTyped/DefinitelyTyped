@@ -1,6 +1,7 @@
 // Type definitions for json-editor
 // Project: https://github.com/jdorn/json-editor
 // Definitions by: York Yao <https://github.com/plantain-00/>
+//                 Felipe Provenzano <https://github.com/felipeprov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type JSONEditorOptions<TValue> = {
@@ -75,7 +76,7 @@ type JSONEditorOptions<TValue> = {
     /**
      * The CSS theme to use.
      */
-    theme?: "barebones" | "html" | "bootstrap2" | "bootstrap3" | "foundation3" | "foundation4" | "foundation5" | "foundation6" | "jqueryui";
+    theme?: "barebones" | "html" | "bootstrap2" | "bootstrap3" | "bootstrap4" | "foundation3" | "foundation4" | "foundation5" | "foundation6" | "jqueryui";
     /**
      * If true, only required properties will be included by default.
      */

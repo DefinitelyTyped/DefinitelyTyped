@@ -1,8 +1,8 @@
-// Type definitions for swagger-node-runner 0.5
-// Project: https://www.npmjs.com/package/swagger-node-runner
+// Type definitions for swagger-node-runner 0.6
+// Project: https://github.com/theganyo/swagger-node-runner
 // Definitions by: Michael Mrowetz <https://github.com/micmro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 /* =================== USAGE ===================
 
@@ -36,6 +36,7 @@ import { Spec } from "swagger-schema-official";
 import { EventEmitter } from "events";
 import * as Hapi from "hapi";
 import * as Restify from "restify";
+import { OutgoingHttpHeaders } from "http";
 
 /**
  * Config object for SwaggerNodeRunner
@@ -116,16 +117,19 @@ export interface ConfigInternal {
 export type SwaggerToolsMiddleware = (req: any, res: any, next: any) => any;
 
 /**
- * @param  {any} request
- * @param  {any} securityDefinition
- * @param  {any} scopes
- * @param  {(err:Error)=>void} callback - Error is returned if request is unauthorized.
- * The Error may include "message", "state", and "code" fields to be conveyed to the client in the response body and a
+ * @param  callback - Error is returned if request is unauthorized.
+ * The Error may include "message", and "code" fields to be conveyed to the client in the response body and a
  * "headers" field containing an object representing headers to be set on the response to the client.
  * In addition, if the Error has a statusCode field, the response statusCode will be set to match -
  * otherwise, the statusCode will be set to 403.
  */
-export type SwaggerToolsSecurityHandler = (request: any, securityDefinition: any, scopes: any, callback: (err: Error) => void) => void;
+export interface SwaggerToolsSecurityHandlerCallbackError {
+    code?: string;
+    headers?: OutgoingHttpHeaders;
+    message?: string;
+    statusCode?: number;
+}
+export type SwaggerToolsSecurityHandler = (request: any, securityDefinition: any, scopes: any, callback: (err?: Error | SwaggerToolsSecurityHandlerCallbackError, result?: any) => void) => void;
 
 /**
  *  The keys match SecurityDefinition names and the associated values are functions that accept the following parameters:
@@ -158,15 +162,15 @@ export interface Runner extends EventEmitter {
         /**
          * Middleware for providing Swagger information to downstream middleware and request handlers.
          *
-         * @param {any} rlOrSO - The Resource Listing (Swagger 1.2) or Swagger Object (Swagger 2.0)
-         * @param {any[]} apiDeclarations - The array of API Declarations (Swagger 1.2)
+         * @param rlOrSO - The Resource Listing (Swagger 1.2) or Swagger Object (Swagger 2.0)
+         * @param apiDeclarations - The array of API Declarations (Swagger 1.2)
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-metadata.js|Git Source}
          */
         swaggerMetadata(rlOrSO: any, apiDeclarations: any[]): SwaggerToolsMiddleware
         /**
          *  Middleware for using Swagger information to route requests to handlers.
-         * @param [{any}] options - The configuration options
+         * @param [] options - The configuration options
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/docs/Middleware.md#swaggerrouteroptions|Docs}
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-router.js|Github Source}
@@ -174,7 +178,7 @@ export interface Runner extends EventEmitter {
         swaggerRouter(options?: any): SwaggerToolsMiddleware
         /**
          * Middleware for using Swagger security information to authenticate requests.
-         * @param [{any}] options - The configuration options
+         * @param [] options - The configuration options
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-security.js|Github Source}
          */
@@ -182,16 +186,16 @@ export interface Runner extends EventEmitter {
         /**
          * Middleware for serving the Swagger documents and Swagger UI.
          *
-         * @param {any} rlOrSO - The Resource Listing (Swagger 1.2) or Swagger Object (Swagger 2.0)
-         * @param {any[]} apiDeclarations - The array of API Declarations (Swagger 1.2)
-         * @param [{any}] options - The configuration options
+         * @param rlOrSO - The Resource Listing (Swagger 1.2) or Swagger Object (Swagger 2.0)
+         * @param apiDeclarations - The array of API Declarations (Swagger 1.2)
+         * @param [] options - The configuration options
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-ui.js|Github Source}
          */
         swaggerUi(rlOrSO: any, apiDeclarations: any[], options?: any): SwaggerToolsMiddleware
         /**
          * Middleware for using Swagger information to validate API requests/responses.type
-         * @param [{any}] options - The configuration options
+         * @param [] options - The configuration options
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-validator.js|Github Source}
          */
@@ -227,7 +231,8 @@ export interface ConnectMiddleware extends Middleware {
     /** Register this Middleware with `app`  */
     register(app: Express.Application): void;
 }
-/** Express specific Middleware
+/**
+ * Express specific Middleware
  *
  * _Alias for `ConnectMiddleware`_
  */
@@ -255,9 +260,9 @@ export interface HapiMiddleware extends Middleware {
             /**
              * Registers Plugin with `onRequest` and traces `request-error` callbacks
              *             *
-             * @param  {Hapi.Server} server - Hapi server
-             * @param  {any} options - options for plugin (not used in the moment)
-             * @param  {()=>void} next - callback called when register is done
+             * @param  server - Hapi server
+             * @param  options - options for plugin (not used in the moment)
+             * @param  next - callback called when register is done
              */
             (server: Hapi.Server, options: any, next: () => void): void;
             /** Object attached to `register` function to provide hapi with some additional information about the plugin */
@@ -286,7 +291,7 @@ export interface RestifyMiddleware extends Middleware {
  *   3. read from swagger node in `default.yaml` in config directory
  *   4. defaults
  *
- * @param {Config} config - Configuration for `Runner`
- * @param {Function} runner - This Callback is called when the `Runner` has been instantiated
+ * @param config - Configuration for `Runner`
+ * @param runner - This Callback is called when the `Runner` has been instantiated
  */
 export function create(config: Config, cb: (err: Error | undefined, runner: Runner) => void): void;

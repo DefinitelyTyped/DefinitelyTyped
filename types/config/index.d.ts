@@ -3,6 +3,7 @@
 // Definitions by: Roman Korneev <https://github.com/RWander>
 //                 Forrest Bice <https://github.com/forrestbice>
 //                 James Donald <https://github.com/jndonald3>
+//                 Alberto Vasquez <https://github.com/albertovasquez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -39,6 +40,9 @@ declare namespace c {
 
         // Return the sources for the configurations
         getConfigSources(): IConfigSource[];
+        
+        // Returns a new deep copy of the current config object, or any part of the config if provided.
+        toObject(config?: any): any;
 
         /**
          * This allows module developers to attach their configurations onto

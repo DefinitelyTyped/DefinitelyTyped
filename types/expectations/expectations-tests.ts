@@ -1,8 +1,11 @@
-/// <reference types="mocha" />
-
 // transplant from https://github.com/spmason/expectations/blob/695c25bd35bb1751533a8082a5aa378e3e1b381f/test/expect.tests.js
 
-var root = this;
+var root = window;
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 describe('expect', ()=> {
     describe('toEqual', ()=> {
@@ -448,7 +451,7 @@ describe('expect', ()=> {
 
     describe('extensibility', ()=> {
         it('allows you to add your own assertions', ()=> {
-            expect.addAssertion('toBeFoo', ()=> {
+            expect.addAssertion('toBeFoo', function () {
                 if (this.value === 'foo') {
                     return this.pass();
                 }

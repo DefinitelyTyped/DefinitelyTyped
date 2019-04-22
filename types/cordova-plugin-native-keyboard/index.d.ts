@@ -6,7 +6,6 @@ interface NativeKeyboard {
     /**
      * Show the messenger, the bare minimum which has to be passed to the function is
      * the onSubmit callback
-     * @param options
      */
     showMessenger(
         options: NativeKeyboardShowOptions
@@ -16,10 +15,6 @@ interface NativeKeyboard {
      * It's likely your app only has 1 one page where you want to show the messenger,
      * so you want to hide it when the user navigates away. You can choose to do this
      * either animated (a quick slide down animation) or not.
-     *
-     * @param options
-     * @param onSuccess
-     * @param onError
      */
     hideMessenger(
         options?: NativeKeyboardHideOptions,
@@ -29,9 +24,6 @@ interface NativeKeyboard {
 
     /**
      * Show a previously hidden keyboard
-     *
-     * @param onSuccess
-     * @param onError
      */
     showMessengerKeyboard(
         onSuccess?: () => void,
@@ -40,9 +32,6 @@ interface NativeKeyboard {
 
     /**
      * Hide the keyboard, but not the messenger bar
-     *
-     * @param onSuccess
-     * @param onError
      */
     hideMessengerKeyboard(
         onSuccess?: () => void,
@@ -53,10 +42,6 @@ interface NativeKeyboard {
      * Manipulate the messenger while it's open. For instance if you want to
      * update the text programmatically based on what the user typed (by responding to
      * onTextChanged events).
-     *
-     * @param options
-     * @param onSuccess
-     * @param onError
      */
     updateMessenger(
         options: NativeKeyboardUpdateOptions,
@@ -92,7 +77,6 @@ interface NativeKeyboardHideOptions {
 interface NativeKeyboardShowOptions {
     /**
      * Callback function, which is being called as soon as the user submits
-     * @param text
      */
     onSubmit(text: string): void;
 
@@ -119,8 +103,6 @@ interface NativeKeyboardShowOptions {
     /**
      * Callback function which is being executed as soon as the entered text changes. Will
      * return the new text
-     *
-     * @param text
      */
     onTextChanged?(text: string): void;
 

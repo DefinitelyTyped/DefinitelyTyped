@@ -7,12 +7,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "dotenv": [ "dotenv/v2" ]
+            "dotenv": [
+                "dotenv/v2"
+            ]
         },
         "types": [],
         "noEmit": true,

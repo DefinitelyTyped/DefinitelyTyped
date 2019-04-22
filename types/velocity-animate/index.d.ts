@@ -6,6 +6,12 @@
 
 /// <reference types="jquery" />
 
+declare const Velocity: jquery.velocity.VelocityStatic;
+
+declare module "velocity-animate" {
+  export = Velocity;
+}
+
 interface JQuery {
 	velocity(name: string, options: jquery.velocity.RegisteredEffectOptions): JQuery;
 	velocity(options: {properties: jquery.velocity.Properties; options: jquery.velocity.Options}): JQuery;
@@ -81,8 +87,8 @@ declare namespace jquery.velocity {
 	interface VelocityStatic {
 		Sequences: any;
 		mock: any;
-		animate(options: {elements: NodeListOf<HTMLElement>; properties: Properties; options: Options}): any;
-		animate(elements: HTMLElement|NodeListOf<HTMLElement>, properties: Properties, options: Options): any;
+		animate(options: {elements: HTMLCollection | NodeListOf<HTMLElement>; properties: Properties; options: Options}): any;
+		animate(elements: HTMLElement | HTMLCollection | NodeListOf<HTMLElement>, properties: Properties, options: Options): any;
 		RegisterEffect(name: string, options: RegisterEffectOptions): VelocityStatic;
 		RunSequence(sequence: SequenceCall[]): VelocityStatic;
 

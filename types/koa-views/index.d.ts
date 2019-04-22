@@ -2,6 +2,7 @@
 // Project: https://github.com/queckezz/koa-views
 // Definitions by: Alex Friedman <https://github.com/brooklyndev>
 // Definitions: https://github.com/brooklyndev/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 

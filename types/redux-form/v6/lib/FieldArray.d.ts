@@ -20,7 +20,7 @@ interface BaseFieldArrayProps {
      *
      * Required but made optional so interface can be used on decorated components.
      */
-    component?: ComponentConstructor<any>,
+    component?: ComponentConstructor<any>;
 
     /**
      * Allows you to to provide a field-level validation rule. The function will be given the
@@ -52,7 +52,6 @@ interface BaseFieldArrayProps {
  * Declare FieldArray as this interface to specify the generics.
  */
 export interface GenericFieldArray<T, FieldCustomProps> extends Component<BaseFieldArrayProps & FieldCustomProps> {
-
     /**
      * The name prop that you passed in.
      */
@@ -75,7 +74,6 @@ export interface GenericFieldArray<T, FieldCustomProps> extends Component<BaseFi
  * The FieldArray Instance API.
  */
 export class FieldArray extends Component<any> implements GenericFieldArray<any, any> {
-
     /**
      * The name prop that you passed in.
      */
@@ -103,6 +101,10 @@ interface WrappedFieldArrayProps<T> {
 }
 
 interface FieldsProps<T> {
+    /**
+     * true if field is field array
+     */
+    _isFieldArray: boolean
     /**
      * A method to iterate over each value of the array.
      */
@@ -135,6 +137,15 @@ interface FieldsProps<T> {
     map(callback: (name: string, index: number, fields: FieldsProps<T>) => any): any;
 
     /**
+     * A method to move value in array on on different index in the field array
+     */
+    move(from: number, to: number): void;
+
+    /**
+     * Name of field array
+     */
+    name: string;
+    /**
      * Removes an item from the end of the array. Returns the item removed.
      */
     pop(): T;
@@ -145,15 +156,31 @@ interface FieldsProps<T> {
     push(value: T): void;
 
     /**
+     * TODO: Need to figure out what does this do, its taken
+     * directly form redux-form repo and flow types
+     */
+    reduce(callback: Function): any
+
+    /**
      * Removes an item from the array at an arbitrary index.
      */
     remove(index: number): void;
+
+    /**
+     * It will remove all fields in field array
+     */
+    removeAll(): void
 
     /**
      * Removes an item from beginning of the array. Returns the item removed.
      */
     shift(): T;
 
+    /**
+     * TODO: Need to figure out what does this do, its taken
+     * directly form redux-form repo and flow types
+     */
+    some(callback: Function): void
     /**
      * Swaps two items in the array at the given indexes.
      */
@@ -197,6 +224,15 @@ interface FieldArrayMetaProps {
      */
     pristine: boolean;
 
+    /**
+     * true if field array is being submitted
+     */
+    submitting: boolean;
+
+    /**
+     * true if some field value in the field array fails validation on submit
+    */
+    submitFailed: boolean;
     /**
      * true if any of the fields have been touched.
      */

@@ -1,6 +1,8 @@
 // Type definitions for TinyMCE 4.5
-// Project: https://github.com/tinymce/tinymce
-// Definitions by: Martin Duparc <https://github.com/martinduparc>, Poul Poulsen <https://github.com/ipoul>
+// Project: https://github.com/tinymce/tinymce, https://github.com/tinymce/tinymce-dist
+// Definitions by: Martin Duparc <https://github.com/martinduparc>
+//                 Poul Poulsen <https://github.com/ipoul>
+//                 Nico Hartto <https://github.com/nicohartto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -53,7 +55,31 @@ export function walk(o: {}, f: () => void, n?: string, s?: string): void;
 export function init(settings: Settings): void;
 
 export interface Settings {
-  table_toolbar?: boolean;
+  table_toolbar?: string;
+
+  table_appearance_options?: boolean;
+
+  table_clone_elements?: string;
+
+  table_grid?: boolean;
+
+  table_tab_navigation?: boolean;
+
+  table_default_attributes?: object | string;
+
+  table_default_styles?: object | string;
+
+  table_class_list?: object[];
+
+  table_cell_class_list?: object[];
+
+  table_row_class_list?: object[];
+
+  table_advtab?: boolean;
+
+  table_cell_advtab?: boolean;
+
+  table_row_advtab?: boolean;
 
   auto_focus?: string;
 
@@ -298,13 +324,13 @@ export interface Settings {
 
 export namespace settings {
   interface Menu {
-    file: MenuItem;
-    edit: MenuItem;
-    insert: MenuItem;
-    view: MenuItem;
-    format: MenuItem;
-    table: MenuItem;
-    tools: MenuItem;
+    file?: MenuItem;
+    edit?: MenuItem;
+    insert?: MenuItem;
+    view?: MenuItem;
+    format?: MenuItem;
+    table?: MenuItem;
+    tools?: MenuItem;
   }
 
   interface MenuItem {
@@ -368,7 +394,7 @@ export class Editor extends util.Observable {
 
   addCommand(name: string, callback: (ui: boolean, value: {}) => boolean, scope?: {}): void;
 
-  addContextToolbar(predicate: () => void, items: string): void;
+  addContextToolbar(predicate: ((el: Node) => boolean) | string, items: string): void;
 
   addMenuItem(name: string, settings: {}): void;
 
@@ -388,7 +414,7 @@ export class Editor extends util.Observable {
 
   execCallback(name: string): {};
 
-  execCommand(cmd: string, ui: boolean, value?: any, args?: {}): void;
+  execCommand(cmd: string, ui?: boolean, value?: any, args?: {}): void;
 
   focus(skipFocus: boolean): void;
 
@@ -812,7 +838,7 @@ export namespace dom {
 
     insertAfter<T>(node: Element, referenceNode: Element): Element | T[];
 
-    is(elm: Node, selector: string): void;
+    is(elm: Node, selector: string): boolean;
 
     isBlock(node: Node): boolean;
 
@@ -826,7 +852,7 @@ export namespace dom {
 
     parseStyle(cssText: string): {};
 
-    remove<T>(node: string, keepChildren?: boolean): Element | T[];
+    remove<T>(node: string | Element, keepChildren?: boolean): Element | T[];
 
     removeAllAttribs(e: Element): void;
 
@@ -1046,7 +1072,7 @@ export namespace dom {
 
     setContent(content: string, args?: {}): void;
 
-    setCursorLocation(node?: html.Node, offset?: number): void;
+    setCursorLocation(node?: Node, offset?: number): void;
 
     setNode(elm: Element): Element;
 

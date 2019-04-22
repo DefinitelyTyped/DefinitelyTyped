@@ -1,6 +1,6 @@
 function test_events() {
 
-    var object = new Backbone.Events();
+    var object = Backbone.Events;
     object.on("alert", (eventName: string) => alert("Triggered " + eventName));
 
     object.trigger("alert", "an event");
@@ -13,6 +13,50 @@ function test_events() {
     object.off(null, onChange);
     object.off(null, null, context);
     object.off();
+}
+
+class PubSub implements Backbone.Events {
+    on: Backbone.Events_On<PubSub>;
+    off: Backbone.Events_Off<PubSub>;
+    trigger: Backbone.Events_Trigger<PubSub>;
+    bind: Backbone.Events_On<PubSub>;
+    unbind: Backbone.Events_Off<PubSub>;
+
+    once: Backbone.Events_On<PubSub>;
+    listenTo: Backbone.Events_Listen<PubSub>;
+    listenToOnce: Backbone.Events_Listen<PubSub>;
+    stopListening: Backbone.Events_Stop<PubSub>;
+}
+
+Object.assign(PubSub.prototype, Backbone.Events);
+
+function test_events_shorthands() {
+    let channel1 = new PubSub();
+    let channel2 = new PubSub();
+    let onChange = () => alert('whatever');
+
+    channel1.on("alert", (eventName: string) => alert("Triggered " + eventName));
+    channel1.trigger("alert", "an event");
+
+    channel1.once('invalid', () => { }, this);
+    channel1.once('invalid', () => { });
+    channel1.once({invalid: () => { }, success: () => { }}, this);
+    channel1.once({invalid: () => { }, success: () => { }});
+
+    channel1.off("change", onChange);
+    channel1.off("change");
+    channel1.off(null, onChange);
+    channel1.off(null, null, this);
+    channel1.off();
+
+    channel2.listenTo(channel1, 'invalid', () => { });
+    channel2.listenTo(channel1, {invalid: () => { }, success: () => { }});
+    channel2.listenToOnce(channel1, 'invalid', () => { });
+    channel2.listenToOnce(channel1, {invalid: () => { }, success: () => { }});
+
+    channel2.stopListening(channel1, 'invalid', () => { });
+    channel2.stopListening(channel1, 'invalid');
+    channel2.stopListening(channel1);
 }
 
 class SettingDefaults extends Backbone.Model {
@@ -115,6 +159,8 @@ class Employee extends Backbone.Model {
         super(options);
         this.reports = new EmployeeCollection();
         this.reports.url = '../api/employees/' + this.id + '/reports';
+        // Test that collection url property can be set as a function returning a string.
+        this.reports.url = () => { return ""; };
     }
 
     more() {
@@ -157,6 +203,9 @@ function test_collection() {
     var book1: Book = new Book({ title: "Title 1", author: "Mike" });
     books.add(book1);
 
+    // Test adding sort option to add.
+    books.add(new Book(), { sort: true });
+
     // Objects can be added to collection by casting to model type.
     // Compiler will check if object properties are valid for the cast.
     // This gives better type checking than declaring an `any` overload.
@@ -178,6 +227,8 @@ function test_collection() {
 
     var alphabetical = books.sortBy((book: Book): number => null);
 
+    var copy = books.clone();
+
     let one: Book;
     let models: Book[];
     let bool: boolean;
@@ -186,6 +237,7 @@ function test_collection() {
     let modelsDict: _.Dictionary<Book[]>;
     let num: number;
 
+    models = books.slice();
     models = books.slice(1);
     models = books.slice(1, 3);
 
@@ -264,18 +316,22 @@ namespace v1Changes {
             var model = new Employee;
             model.once('invalid', () => { }, this);
             model.once('invalid', () => { });
+            model.once({invalid: () => { }, success: () => { }}, this);
+            model.once({invalid: () => { }, success: () => { }});
         }
 
         function test_listenTo() {
             var model = new Employee;
             var view = new Backbone.View<Employee>();
             view.listenTo(model, 'invalid', () => { });
+            view.listenTo(model, {invalid: () => { }, success: () => { }});
         }
 
         function test_listenToOnce() {
             var model = new Employee;
             var view = new Backbone.View<Employee>();
             view.listenToOnce(model, 'invalid', () => { });
+            view.listenToOnce(model, {invalid: () => { }, success: () => { }});
         }
 
         function test_stopListening() {
@@ -390,7 +446,10 @@ namespace v1Changes {
     namespace Collection {
         function test_fetch() {
             var collection = new EmployeeCollection;
-            collection.fetch({ reset: true });
+            collection.fetch({
+                reset: true,
+                remove: false
+            });
         }
 
         function test_create() {
@@ -401,6 +460,12 @@ namespace v1Changes {
                 validate: false
             });
         }
+
+        function test_set() {
+            var collection = new EmployeeCollection();
+            var model = new Employee();
+            collection.set([model], { add: false, remove: true, merge: false });
+        }
     }
 
     namespace Router {
@@ -410,5 +475,11 @@ namespace v1Changes {
             router.navigate('/employees', { trigger: true });
             router.navigate('/employees', true);
         }
+    }
+
+    namespace Sync {
+        // Test for Backbone.sync override.
+        Backbone.sync('create', new Employee());
+        Backbone.sync('read', new EmployeeCollection());
     }
 }

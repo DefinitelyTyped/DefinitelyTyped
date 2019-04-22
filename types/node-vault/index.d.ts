@@ -2,6 +2,7 @@
 // Project: https://github.com/kr1sp1n/node-vault
 // Definitions by: Jianrong Yu <https://github.com/YuJianrong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as mustache from "mustache";
 import * as request from "request";
@@ -110,7 +111,7 @@ declare namespace NodeVault {
         debug?(...args: any[]): any;
         tv4?(...args: any[]): any;
         commands?: Array<{ method: string, path: string, scheme: any }>;
-        mustache?: MustacheStatic;
+        mustache?: typeof mustache;
         "request-promise"?: any;
         Promise?: PromiseConstructor;
 
@@ -121,7 +122,5 @@ declare namespace NodeVault {
     }
 }
 
-type GetClient = (options?: NodeVault.VaultOptions) => NodeVault.client;
-
-declare const getClient: GetClient;
-export = getClient;
+declare function NodeVault(options?: NodeVault.VaultOptions): NodeVault.client;
+export = NodeVault;

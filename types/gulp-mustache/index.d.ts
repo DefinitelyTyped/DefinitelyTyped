@@ -11,12 +11,12 @@ declare namespace GulpMustache {
     type View = Hash | string | undefined;
 
     interface Hash {
-        [key: string]: string;
+        [key: string]: any;
     }
 
     interface Options {
         extension?: string;
-        tags?: ReadonlyArray<string> | undefined;
+        tags?: ReadonlyArray<string>;
     }
 }
 

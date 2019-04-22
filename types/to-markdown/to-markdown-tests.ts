@@ -1,4 +1,4 @@
-import * as toMarkdown from 'to-markdown';
+import toMarkdown = require('to-markdown');
 
 // toMarkdown()
 toMarkdown(`

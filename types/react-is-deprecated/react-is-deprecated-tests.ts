@@ -1,4 +1,4 @@
-import { PropTypes } from 'react';
+import * as PropTypes from 'prop-types';
 import { deprecate, addIsDeprecated } from 'react-is-deprecated';
 
 // test: one-off deprecation

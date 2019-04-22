@@ -1,8 +1,8 @@
-// Type definitions for Microsoft Visual Basic for Applications Extensibility 5.3 - VBIDE 14.0
+// Type definitions for non-npm package Microsoft Visual Basic for Applications Extensibility 5.3 - VBIDE 14.0
 // Project: https://msdn.microsoft.com/en-us/vba/language-reference-vba/articles/collections-visual-basic-add-in-model
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="activex-office" />
 
@@ -99,14 +99,13 @@ declare namespace VBIDE {
         readonly VBE: VBE;
     }
 
-    class Addins {
-        private 'VBIDE.Addins_typekey': Addins;
-        private constructor();
+    interface Addins {
         readonly Count: number;
         Item(index: any): AddIn;
         readonly Parent: any;
         Update(): void;
         readonly VBE: VBE;
+        (index: any): AddIn;
     }
 
     class Application {
@@ -125,13 +124,13 @@ declare namespace VBIDE {
         readonly CountOfLines: number;
         CreateEventProc(EventName: string, ObjectName: string): number;
 
-        /** @param number [Count=1] */
+        /** @param Count [Count=1] */
         DeleteLines(StartLine: number, Count?: number): void;
 
         /**
-         * @param boolean [WholeWord=false]
-         * @param boolean [MatchCase=false]
-         * @param boolean [PatternSearch=false]
+         * @param WholeWord [WholeWord=false]
+         * @param MatchCase [MatchCase=false]
+         * @param PatternSearch [PatternSearch=false]
          */
         Find(Target: string, StartLine: number, StartColumn: number, EndLine: number, EndColumn: number, WholeWord?: boolean, MatchCase?: boolean, PatternSearch?: boolean): boolean;
         InsertLines(Line: number, String: string): void;
@@ -161,14 +160,13 @@ declare namespace VBIDE {
         readonly Window: Window;
     }
 
-    class CodePanes {
-        private 'VBIDE.CodePanes_typekey': CodePanes;
-        private constructor();
+    interface CodePanes {
         readonly Count: number;
         Current: CodePane;
         Item(index: any): CodePane;
         readonly Parent: VBE;
         readonly VBE: VBE;
+        (index: any): CodePane;
     }
 
     class CommandBarEvents {
@@ -185,9 +183,7 @@ declare namespace VBIDE {
         readonly Parent: Components;
     }
 
-    class Components {
-        private 'VBIDE.Components_typekey': Components;
-        private constructor();
+    interface Components {
         Add(ComponentType: vbext_ComponentType): Component;
         readonly Application: Application;
         readonly Count: number;
@@ -196,6 +192,7 @@ declare namespace VBIDE {
         readonly Parent: VBProject;
         Remove(Component: Component): void;
         readonly VBE: VBE;
+        (index: any): Component;
     }
 
     class Events {
@@ -205,15 +202,14 @@ declare namespace VBIDE {
         ReferencesEvents(VBProject: VBProject): ReferencesEvents;
     }
 
-    class LinkedWindows {
-        private 'VBIDE.LinkedWindows_typekey': LinkedWindows;
-        private constructor();
+    interface LinkedWindows {
         Add(Window: Window): void;
         readonly Count: number;
         Item(index: any): Window;
         readonly Parent: Window;
         Remove(Window: Window): void;
         readonly VBE: VBE;
+        (index: any): Window;
     }
 
     class ProjectTemplate {
@@ -223,14 +219,13 @@ declare namespace VBIDE {
         readonly Parent: Application;
     }
 
-    class Properties {
-        private 'VBIDE.Properties_typekey': Properties;
-        private constructor();
+    interface Properties {
         readonly Application: Application;
         readonly Count: number;
         Item(index: any): Property;
         readonly Parent: any;
         readonly VBE: VBE;
+        (index: any): Property;
     }
 
     class Property {
@@ -263,9 +258,7 @@ declare namespace VBIDE {
         readonly VBE: VBE;
     }
 
-    class References {
-        private 'VBIDE.References_typekey': References;
-        private constructor();
+    interface References {
         AddFromFile(FileName: string): Reference;
         AddFromGuid(Guid: string, Major: number, Minor: number): Reference;
         readonly Count: number;
@@ -273,6 +266,7 @@ declare namespace VBIDE {
         readonly Parent: VBProject;
         Remove(Reference: Reference): void;
         readonly VBE: VBE;
+        (index: any): Reference;
     }
 
     class ReferencesEvents {
@@ -298,13 +292,11 @@ declare namespace VBIDE {
         readonly VBE: VBE;
     }
 
-    class VBComponents {
-        private 'VBIDE.VBComponents_typekey': VBComponents;
-        private constructor();
+    interface VBComponents {
         Add(ComponentType: vbext_ComponentType): VBComponent;
         AddCustom(ProgId: string): VBComponent;
 
-        /** @param number [index=0] */
+        /** @param index [index=0] */
         AddMTDesigner(index?: number): VBComponent;
         readonly Count: number;
         Import(FileName: string): VBComponent;
@@ -312,6 +304,7 @@ declare namespace VBIDE {
         readonly Parent: VBProject;
         Remove(VBComponent: VBComponent): void;
         readonly VBE: VBE;
+        (index: any): VBComponent;
     }
 
     class VBE {
@@ -354,9 +347,7 @@ declare namespace VBIDE {
         readonly VBE: VBE;
     }
 
-    class VBProjects {
-        private 'VBIDE.VBProjects_typekey': VBProjects;
-        private constructor();
+    interface VBProjects {
         Add(Type: vbext_ProjectType): VBProject;
         readonly Count: number;
         Item(index: any): VBProject;
@@ -364,6 +355,7 @@ declare namespace VBIDE {
         readonly Parent: VBE;
         Remove(lpc: VBProject): void;
         readonly VBE: VBE;
+        (index: any): VBProject;
     }
 
     class Window {
@@ -386,38 +378,18 @@ declare namespace VBIDE {
         WindowState: vbext_WindowState;
     }
 
-    class Windows {
-        private 'VBIDE.Windows_typekey': Windows;
-        private constructor();
+    interface Windows {
         readonly Count: number;
         CreateToolWindow(AddInInst: AddIn, ProgId: string, Caption: string, GuidPosition: string, DocObj: any): Window;
         Item(index: any): Window;
         readonly Parent: Application;
         readonly VBE: VBE;
+        (index: any): Window;
     }
 }
 
 interface ActiveXObject {
-    on(
-        obj: VBIDE.CommandBarEvents, event: 'Click', argNames: ['CommandBarControl', 'handled', 'CancelDefault'], handler: (
-            this: VBIDE.CommandBarEvents, parameter: {readonly CommandBarControl: any, readonly handled: boolean, readonly CancelDefault: boolean}) => void): void;
+    on(obj: VBIDE.CommandBarEvents, event: 'Click', argNames: ['CommandBarControl', 'handled', 'CancelDefault'], handler: (this: VBIDE.CommandBarEvents, parameter: {readonly CommandBarControl: any, readonly handled: boolean, readonly CancelDefault: boolean}) => void): void;
     on(obj: VBIDE.References, event: 'ItemAdded' | 'ItemRemoved', argNames: ['Reference'], handler: (this: VBIDE.References, parameter: {readonly Reference: VBIDE.Reference}) => void): void;
-    on(
-        obj: VBIDE.ReferencesEvents, event: 'ItemAdded' | 'ItemRemoved', argNames: ['Reference'], handler: (
-            this: VBIDE.ReferencesEvents, parameter: {readonly Reference: VBIDE.Reference}) => void): void;
-}
-
-interface EnumeratorConstructor {
-    new(col: VBIDE.Addins): Enumerator<VBIDE.AddIn>;
-    new(col: VBIDE.CodePanes): Enumerator<VBIDE.CodePane>;
-    new(col: VBIDE.Components): Enumerator<VBIDE.Component>;
-    new(col: VBIDE.LinkedWindows | VBIDE.Windows): Enumerator<VBIDE.Window>;
-    new(col: VBIDE.Properties): Enumerator<VBIDE.Property>;
-    new(col: VBIDE.References): Enumerator<VBIDE.Reference>;
-    new(col: VBIDE.VBComponents): Enumerator<VBIDE.VBComponent>;
-    new(col: VBIDE.VBProjects): Enumerator<VBIDE.VBProject>;
-}
-
-interface SafeArray<T = any> {
-    _brand: SafeArray<T>;
+    on(obj: VBIDE.ReferencesEvents, event: 'ItemAdded' | 'ItemRemoved', argNames: ['Reference'], handler: (this: VBIDE.ReferencesEvents, parameter: {readonly Reference: VBIDE.Reference}) => void): void;
 }
