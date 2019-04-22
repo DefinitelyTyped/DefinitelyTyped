@@ -1448,6 +1448,9 @@ declare namespace Cesium {
     }
 
     class Spherical {
+        clock: number;
+        cone: number;
+        magnitude: number;
         constructor(clock?: number, cone?: number, magnitude?: number);
         equals(other: Spherical): boolean;
         clone(result?: Spherical): Spherical;
