@@ -149,7 +149,7 @@ declare module "../index" {
     interface Stat {
         flatten<T>(array: List<Many<T>> | null | undefined): T[];
     }
-    interface ImpL<TValue> {
+    interface ImpL<T> {
         flatten(): ImpL<T>;
     }
     interface ExpL<T> {
