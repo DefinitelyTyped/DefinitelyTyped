@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Store, Dispatch, AnyAction, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject, Reducer } from 'redux';
-import { Connect, connect, Provider, DispatchProp, MapStateToProps, Options, ReactReduxContext, ReactReduxContextValue, Selector } from 'react-redux';
+import { Connect, connect, Provider, DispatchProp, MapStateToProps, Options, ReactReduxContext, ReactReduxContextValue, Selector, MapDispatchToProps } from 'react-redux';
 import objectAssign = require('object-assign');
 
 //
@@ -82,9 +82,34 @@ function MapDispatch() {
 
     class TestComponent extends React.Component<OwnProps & DispatchProps> { }
 
-    const mapDispatchToProps = () => ({
-        onClick: () => { }
-    });
+    const mapDispatchToProps = ({ onClick: () => {} });
+
+    const TestNull = connect(
+        null,
+        mapDispatchToProps,
+    )(TestComponent);
+
+    const verifyNull = <TestNull foo='bar' />;
+
+    const TestUndefined = connect(
+        undefined,
+        mapDispatchToProps,
+    )(TestComponent);
+
+    const verifyUndefined = <TestUndefined foo='bar' />;
+}
+
+function MapDispatchUnion() {
+    interface OwnProps { foo: string; }
+    interface DispatchProps { onClick: () => void; }
+
+    class TestComponent extends React.Component<OwnProps & DispatchProps> { }
+
+    // We deliberately cast the right-hand side to `any` because otherwise
+    // TypeScript would maintain the literal value, when we deliberately want to
+    // test the union type here (as per the annotation). See
+    // https://github.com/Microsoft/TypeScript/issues/30310#issuecomment-472218182.
+    const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = {} as any;
 
     const TestNull = connect(
         null,
