@@ -164,4 +164,3 @@ declare namespace GlobWatcher {
 }
 
 export = GlobWatcher;
-export as namespace GlobWatcher;

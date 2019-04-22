@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-import * as globWatcher from 'glob-watcher';
-import * as Undertaker from 'undertaker';
+import * as fs from "fs";
+import * as Undertaker from "undertaker";
+import globWatcher = require("glob-watcher");
 
 function test() {
     const path = "";
