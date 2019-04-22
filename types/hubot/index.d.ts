@@ -11,8 +11,8 @@
 import { EventEmitter } from 'events';
 
 declare namespace Hubot {
-    class Brain extends EventEmitter {
-        constructor(robot: Robot);
+    class Brain<A> extends EventEmitter {
+        constructor(robot: Robot<A>);
         set(key: string, value: any): this;
         get(key: string): any;
         remove(key: string): this;
@@ -61,7 +61,7 @@ declare namespace Hubot {
 
     class Robot<A> {
         alias: string;
-        brain: Brain;
+        brain: Brain<A>;
         name: string;
         readonly adapter: A;
 
@@ -74,10 +74,10 @@ declare namespace Hubot {
         loadFile(directory: string, fileName: string): void;
         respond(regex: RegExp, callback: ListenerCallback<this>): void;
         respond(regex: RegExp, options: any, callback: ListenerCallback<this>): void;
-        enter(callback: ListenerCallback): void;
-        enter(options: any, callback: ListenerCallback): void;
-        topic(callback: ListenerCallback): void;
-        topic(options: any, callback: ListenerCallback): void;
+        enter(callback: ListenerCallback<this>): void;
+        enter(options: any, callback: ListenerCallback<this>): void;
+        topic(callback: ListenerCallback<this>): void;
+        topic(options: any, callback: ListenerCallback<this>): void;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
     }
