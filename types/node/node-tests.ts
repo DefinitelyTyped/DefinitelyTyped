@@ -82,7 +82,7 @@ import Module = require("module");
     }
 
     {
-        fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException, bytesRead: number, buffer: DataView) => {});
+        fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => {});
     }
 
     {
@@ -118,7 +118,7 @@ import Module = require("module");
         fs.readdirSync('path', { encoding: enc });
         fs.readdirSync('path', { });
 
-        fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException, files: fs.Dirent[]) => {});
+        fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException | null, files: fs.Dirent[]) => {});
     }
     {
         fs.mkdtemp('/tmp/foo-', (err, folder) => {
@@ -755,22 +755,22 @@ import Module = require("module");
 
 {
     dns.lookup("nodejs.org", (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", 4, (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", 6, (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", {}, (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
@@ -782,17 +782,17 @@ import Module = require("module");
             all: false
         },
         (err, address, family) => {
-            const _err: NodeJS.ErrnoException = err;
+            const _err: NodeJS.ErrnoException | null = err;
             const _address: string = address;
             const _family: number = family;
         }
     );
     dns.lookup("nodejs.org", { all: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: dns.LookupAddress[] = addresses;
     });
     dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: dns.LookupAddress[] = addresses;
     });
 
@@ -800,13 +800,13 @@ import Module = require("module");
         return Math.random() > 0.5 ? true : false;
     }
     dns.lookup("nodejs.org", { all: trueOrFalse() }, (err, addresses, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
     });
 
     dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _hostname: string = hostname;
         const _service: string = service;
     });

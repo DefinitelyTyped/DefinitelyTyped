@@ -886,6 +886,13 @@ declare namespace Stripe {
             receipt_number: string | null;
 
             /**
+             * This is the URL to view the receipt for this charge. The receipt is kept up-to-date to the
+             * latest state of the charge, including any refunds. If the charge is for an Invoice, the
+             * receipt will be stylized as an Invoice receipt.
+             */
+            receipt_url: string;
+
+            /**
              * Whether or not the charge has been fully refunded. If the charge is only partially refunded,
              * this attribute will still be false.
              */
@@ -1501,6 +1508,11 @@ declare namespace Stripe {
              */
             email?: string;
 
+            /**
+             * The prefix for the customer used to generate unique invoice numbers.
+             */
+            invoice_prefix?: string;
+
             shipping?: IShippingInformation;
 
             /**
@@ -2112,6 +2124,11 @@ declare namespace Stripe {
             statement_descriptor: string;
 
             /**
+             * The status of the invoice, one of draft, open, paid, uncollectible, or void.
+             */
+            status: string;
+
+            /**
              * The subscription that this invoice was prepared for, if any.
              */
             subscription: string | subscriptions.ISubscription;
@@ -2214,6 +2231,11 @@ declare namespace Stripe {
              * type is already subscription, as it'd be redundant with id.
              */
             subscription: string;
+
+            /**
+             * The subscription item that generated this invoice item. Left empty if the line item is not an explicit result of a subscription.
+             */
+            subscription_item: string;
 
             /**
              * A string identifying the type of the source of this line item, either an invoiceitem or a subscription
@@ -2411,6 +2433,11 @@ declare namespace Stripe {
              * or it can be a dictionary with the following options:
              */
             created?: IDateFilter;
+
+            /**
+             * @deprecated Use created property instead as of api version 2019-03-14.
+             */
+            date?: IDateFilter;
 
             /**
              * The identifier of the customer whose invoices to return. If none is provided, all invoices will be returned.
