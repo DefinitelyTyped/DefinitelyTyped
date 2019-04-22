@@ -1,6 +1,7 @@
-/**
- * Seems like this is meant: https://github.com/amcharts/export
- */
+// Type definitions for AmCharts Export v1.4.76
+// Project: https://github.com/amcharts/export
+// Definitions by: Mark Grothe <https://github.com/grothem>
+
 export default class ExportSettings {
     enabled: boolean;
     libs: object;
