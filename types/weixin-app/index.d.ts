@@ -869,13 +869,16 @@ declare namespace wx {
 		zipFilePath: string; // 源文件路径，只可以是 zip 压缩文件
 		targetPath: string; // 目标目录路径
 	}
+	interface FsSaveFileOptions extends SaveFileOptions {
+		filePath: string;
+	}
 	type WriteFileOptions = AppendFileOptions;
 	interface FileSystemManager {
 		access(options: AccessOptions): void;
 		accessSync(path: string): void;
 		appendFile(options: AppendFileOptions): void;
 		appendFileSync(filePath: string, data: string | ArrayBuffer, encoding?: string): void;
-		saveFile(options: SaveFileOptions): void;
+		saveFile(options: FsSaveFileOptions): void;
 		saveFileSync(tempFilePath: string, filePath?: string): SavedFileData;
 		getSavedFileList(options: GetSavedFileListOptions): void;
 		removeSavedFile(options: fsRemoveSavedFileOptions): void;
