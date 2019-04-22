@@ -65,7 +65,7 @@ declare namespace SeamlessImmutable {
 
         asMutable(opts?: AsMutableOptions<true>): T;
         asMutable(opts?: AsMutableOptions<false>): { [K in keyof T]: Immutable<T[K]> };
-        asMutable(opts?: AsMutableOptions<boolean>): T | { [K in keyof T]: Immutable<T[K]> };
+        asMutable(opts?: AsMutableOptions): T | { [K in keyof T]: Immutable<T[K]> };
 
         merge(part: DeepPartial<T>, config?: MergeConfig): Immutable<T>;
 
@@ -99,7 +99,7 @@ declare namespace SeamlessImmutable {
         interface Additions<T> {
             asMutable(opts?: AsMutableOptions<true>): T[];
             asMutable(opts?: AsMutableOptions<false>): Array<Immutable<T>>;
-            asMutable(opts?: AsMutableOptions<boolean>): T | Array<Immutable<T>>;
+            asMutable(opts?: AsMutableOptions): T | Array<Immutable<T>>;
 
             asObject<U extends object = {}, K extends keyof U = keyof U>(toKeyValue: (item: T) => [K, U[K]]): Immutable<U>;
             flatMap<TTarget>(mapFunction: (item: T) => TTarget): Immutable<TTarget extends any[] ? TTarget : TTarget[]>;
