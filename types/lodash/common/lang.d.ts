@@ -133,8 +133,6 @@ declare module "../index" {
     }
 
     interface Stat {
-        isArrayLike<T>(value: T & string & number): boolean; // should only match if T = any
-        isArrayLike(value: ((...args: any[]) => any) | null | undefined): value is never;
         isArrayLike(value: any): value is { length: number };
     }
     interface Imp<TValue> {
@@ -145,8 +143,7 @@ declare module "../index" {
     }
 
     interface Stat {
-        isArrayLikeObject(value: ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is never;
-        isArrayLikeObject<T extends object>(value: T | ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is T & { length: number };
+        isArrayLikeObject(value: any): value is object & { length: number };
     }
     interface Imp<TValue> {
         isArrayLikeObject(): boolean;
