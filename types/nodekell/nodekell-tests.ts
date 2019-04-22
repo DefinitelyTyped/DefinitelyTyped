@@ -516,21 +516,46 @@ describe('flat', () => {
 
 describe('dflat', () => {
     it('from Normal Value', async () => {
-        const a = [1, [2, [3, [4, [5, [6, [7, [8, [9, [10, [11, [12]]]]]]]]]]]];
+        const a = [1, [2, [3, [4, [5, [6, [7, [8, [9, [10, [11, [12, [13]]]]]]]]]]]]];
 
         const r0 = F.dflat(a); // $ExpectType AsyncIterableIterator<number>
     });
 
     it('from Promise Value', async () => {
-        const a = [1, [2, [Promise.resolve(3), [4, [5, [6, [Promise.resolve(7), [8, [9, [Promise.resolve(10), [11, [12]]]]]]]]]]]];
+        const a = [1, [2, [Promise.resolve(3), [4, [5, [6, [Promise.resolve(7), [8, [9, [Promise.resolve(10), [11, [12, [13]]]]]]]]]]]]];
 
         const r0 = F.dflat(a); // $ExpectType AsyncIterableIterator<number>
     });
 
     it('from Normal / Promise Union', async () => {
-        const a = [1, [2, [Promise.resolve([null, [null, Promise.resolve([null])]]), [4, [null, [6, [Promise.resolve([7]), [8, [9, [Promise.resolve(10)]]]]]]]]]];
+        const a = [1, [2, [Promise.resolve([null, [null, Promise.resolve([null])]]), [4, [null, [6, [Promise.resolve([7]), [8, [9, [Promise.resolve(10), [11, [12, [13]]]]]]]]]]]]];
 
         const r0 = F.dflat(a); // $ExpectType AsyncIterableIterator<number | null>
+    });
+
+    it('from String', async () => {
+        const a = ['a', ['bb', ['ccc', ['dddd', ['eeeee', ['ffffff', ['ggggggg', ['hhhhhhhh', ['iiiiiiiii', ['jjjjjjjjjj', ['kkkkkkkkkkk']]]]]]]]]]];
+
+        const r0 = F.dflat(a);
+        const r1 = F.dflat('a');
+    });
+
+    it('from Multiple Parameters', async () => {
+        const a = [1, [2, [Promise.resolve(['a', ['bb', Promise.resolve(['ccc'])]]), [4, ['dddd', [6, [Promise.resolve([7]), [8, [9, [Promise.resolve(10), [11, [12, [13]]]]]]]]]]]]];
+        const b = [1, [2, [Promise.resolve(3), [4, [5, [6, [Promise.resolve(7), [8, [9, [Promise.resolve(10), [11, [12, [13]]]]]]]]]]]]];
+        const c = [1, [2, [3, [4, [5, [6, [7, [8, [9, [10, [11, [12, [13]]]]]]]]]]]]];
+
+        const r0 = F.dflat(a, b); // $ExpectType AsyncIterableIterator<string | number>
+        const r1 = F.dflat(a, b, c); // $ExpectType AsyncIterableIterator<string | number>
+        const r2 = F.dflat(a, b, c, a); // $ExpectType AsyncIterableIterator<string | number>
+        const r3 = F.dflat(a, b, c, a, b); // $ExpectType AsyncIterableIterator<string | number>
+        const r4 = F.dflat(a, b, c, a, b, c); // $ExpectType AsyncIterableIterator<string | number>
+        const r5 = F.dflat(a, b, c, a, b, c, a); // $ExpectType AsyncIterableIterator<string | number>
+        const r6 = F.dflat(a, b, c, a, b, c, a, b); // $ExpectType AsyncIterableIterator<string | number>
+        const r7 = F.dflat(a, b, c, a, b, c, a, b, c); // $ExpectType AsyncIterableIterator<string | number>
+        const r8 = F.dflat(a, b, c, a, b, c, a, b, c, a); // $ExpectType AsyncIterableIterator<string | number>
+        const r9 = F.dflat(b, b, b, b, b, b, b, b, b, b, b); // $ExpectType AsyncIterableIterator<number>
+        const r10 = F.dflat(a, b, c, a, b, c, a, b, c, a, b, c); // $ExpectType AsyncIterableIterator<any>
     });
 });
 

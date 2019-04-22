@@ -361,11 +361,23 @@ export function flat<T>(iter: Iter<T>): AsyncIterableIterator<PFlat<T>>;
  * https://github.com/rudty/nodekell#dflat
  *
  * **Note**
- * - please use iter of depth 12 or less
+ * - don't use too deep iter
+ * - please use arguments length 10 or less (if over 10, forces first argment type or any type)
  *
  * @param t
  */
-export function dflat<T>(...t: T[]): AsyncIterableIterator<PDFlat<T[]>>;
+export function dflat<T1>(a: T1): AsyncIterableIterator<PDFlat<T1>>;
+export function dflat<T1, T2>(a: T1, b: T2): AsyncIterableIterator<PDFlat<T1 | T2>>;
+export function dflat<T1, T2, T3>(a: T1, b: T2, c: T3): AsyncIterableIterator<PDFlat<T1 | T2 | T3>>;
+export function dflat<T1, T2, T3, T4>(a: T1, b: T2, c: T3, d: T4): AsyncIterableIterator<PDFlat<T1 | T2 | T3 | T4>>;
+export function dflat<T1, T2, T3, T4, T5>(a: T1, b: T2, c: T3, d: T4, e: T5): AsyncIterableIterator<PDFlat<T1 | T2 | T3 | T4 | T5>>;
+export function dflat<T1, T2, T3, T4, T5, T6>(a: T1, b: T2, c: T3, d: T4, e: T5, f: T6): AsyncIterableIterator<PDFlat<T1 | T2 | T3 | T4 | T5 | T6>>;
+export function dflat<T1, T2, T3, T4, T5, T6, T7>(a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7): AsyncIterableIterator<PDFlat<T1 | T2 | T3 | T4 | T5 | T6 | T7>>;
+export function dflat<T1, T2, T3, T4, T5, T6, T7, T8>(a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7, h: T8): AsyncIterableIterator<PDFlat<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8>>;
+export function dflat<T1, T2, T3, T4, T5, T6, T7, T8, T9>(a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7, h: T8, i: T9): AsyncIterableIterator<PDFlat<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9>>;
+export function dflat<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7, h: T8, i: T9, j: T10): AsyncIterableIterator<PDFlat<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10>>;
+export function dflat<T>(...a: T[]): AsyncIterableIterator<PDFlat<T>>;
+export function dflat(...a: any[]): AsyncIterableIterator<any>;
 
 /**
  * https://github.com/rudty/nodekell#take
