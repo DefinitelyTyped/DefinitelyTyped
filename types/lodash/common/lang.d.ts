@@ -13,54 +13,113 @@ declare module "../index" {
     interface Stat {
         clone<T>(value: T): T;
     }
-    interface Imp<TValue> {
-        clone(): TValue;
+
+    interface ImpF<T extends (...args: any[]) => any> extends Imp<T> {
+        clone(): T;
+        cloneDeep(): T;
+        cloneDeepWith(customizer: CloneDeepWithCustomizer<T>): any;
+        cloneDeepWith(): T;
+        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<T, TResult>): TResult;
+        cloneWith<TResult>(customizer: CloneWithCustomizer<T, TResult | undefined>): TResult | T;
+        cloneWith(): T;
     }
-    interface Exp<TValue> {
-        clone(): this;
+    interface ImpS extends Imp<string> {
+        clone(): string;
+        cloneDeep(): string;
+        cloneDeepWith(customizer: CloneDeepWithCustomizer<string>): any;
+        cloneDeepWith(): string;
+        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<string, TResult>): TResult;
+        cloneWith<TResult>(customizer: CloneWithCustomizer<string, TResult | undefined>): TResult | string;
+        cloneWith(): string;
+    }
+    interface ImpO extends Imp<object> {
+        clone(): object;
+        cloneDeep(): object;
+        cloneDeepWith(customizer: CloneDeepWithCustomizer<object>): any;
+        cloneDeepWith(): object;
+        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<object, TResult>): TResult;
+        cloneWith<TResult>(customizer: CloneWithCustomizer<object, TResult | undefined>): TResult | object;
+        cloneWith(): object;
+    }
+    interface ImpL<T> extends Imp<T> {
+        clone(): List<T>;
+        cloneDeep(): List<T>;
+        cloneDeepWith(customizer: CloneDeepWithCustomizer<List<T>>): any;
+        cloneDeepWith(): List<T>;
+        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<List<T>, TResult>): TResult;
+        cloneWith<TResult>(customizer: CloneWithCustomizer<List<T>, TResult | undefined>): TResult | List<T>;
+        cloneWith(): List<T>;
+    }
+    interface ImpU extends Imp<unknown> {
+        clone(): unknown;
+        cloneDeep(): unknown;
+        cloneDeepWith(customizer: CloneDeepWithCustomizer<unknown>): any;
+        cloneDeepWith(): unknown;
+        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<unknown, TResult>): TResult;
+        cloneWith<TResult>(customizer: CloneWithCustomizer<unknown, TResult | undefined>): TResult | unknown;
+        cloneWith(): unknown;
+    }
+
+    interface ExpF<T extends (...args: any[]) => any> extends Exp<T> {
+        clone(): Exp<T>;
+        cloneDeep(): Exp<T>;
+        cloneDeepWith(customizer: CloneDeepWithCustomizer<T>): Exp<any>;
+        cloneDeepWith(): Exp<T>;
+        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<T, TResult>): Exp<TResult>;
+        cloneWith<TResult>(customizer: CloneWithCustomizer<T, TResult | undefined>): Exp<TResult | T>;
+        cloneWith(): Exp<T>;
+    }
+    interface ExpS extends Exp<string> {
+        clone(): Exp<string>;
+        cloneDeep(): Exp<string>;
+        cloneDeepWith(customizer: CloneDeepWithCustomizer<string>): Exp<any>;
+        cloneDeepWith(): Exp<string>;
+        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<string, TResult>): Exp<TResult>;
+        cloneWith<TResult>(customizer: CloneWithCustomizer<string, TResult | undefined>): Exp<TResult | string>;
+        cloneWith(): Exp<string>;
+    }
+    interface ExpO extends Exp<object> {
+        clone(): Exp<object>;
+        cloneDeep(): Exp<object>;
+        cloneDeepWith(customizer: CloneDeepWithCustomizer<object>): Exp<any>;
+        cloneDeepWith(): Exp<object>;
+        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<object, TResult>): Exp<TResult>;
+        cloneWith<TResult>(customizer: CloneWithCustomizer<object, TResult | undefined>): Exp<TResult | object>;
+        cloneWith(): Exp<object>;
+    }
+    interface ExpL<T> extends Exp<T> {
+        clone(): Exp<List<T>>;
+        cloneDeep(): Exp<List<T>>;
+        cloneDeepWith(customizer: CloneDeepWithCustomizer<List<T>>): Exp<any>;
+        cloneDeepWith(): Exp<List<T>>;
+        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<List<T>, TResult>): Exp<TResult>;
+        cloneWith<TResult>(customizer: CloneWithCustomizer<List<T>, TResult | undefined>): Exp<TResult | List<T>>;
+        cloneWith(): Exp<List<T>>;
+    }
+    interface ExpU extends Exp<unknown> {
+        clone(): Exp<unknown>;
+        cloneDeep(): Exp<unknown>;
+        cloneDeepWith(customizer: CloneDeepWithCustomizer<unknown>): Exp<any>;
+        cloneDeepWith(): Exp<unknown>;
+        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<unknown, TResult>): Exp<TResult>;
+        cloneWith<TResult>(customizer: CloneWithCustomizer<unknown, TResult | undefined>): Exp<TResult | unknown>;
+        cloneWith(): Exp<unknown>;
     }
 
     interface Stat {
         cloneDeep<T>(value: T): T;
     }
-    interface Imp<TValue> {
-        cloneDeep(): TValue;
-    }
-    interface Exp<TValue> {
-        cloneDeep(): this;
-    }
-
     type CloneDeepWithCustomizer<TObject> = (value: any, key: number | string | undefined, object: TObject | undefined, stack: any) => any;
     interface Stat {
         cloneDeepWith<T>(value: T, customizer: CloneDeepWithCustomizer<T>): any;
         cloneDeepWith<T>(value: T): T;
     }
-    interface Imp<TValue> {
-        cloneDeepWith(customizer: CloneDeepWithCustomizer<TValue>): any;
-        cloneDeepWith(): TValue;
-    }
-    interface Exp<TValue> {
-        cloneDeepWith(customizer: CloneDeepWithCustomizer<TValue>): Exp<any>;
-        cloneDeepWith(): this;
-    }
-
     type CloneWithCustomizer<TValue, TResult> = (value: TValue, key: number | string | undefined, object: any, stack: any) => TResult;
     interface Stat {
         cloneWith<T, TResult extends object | string | number | boolean | null>(value: T, customizer: CloneWithCustomizer<T, TResult>): TResult;
         cloneWith<T, TResult>(value: T, customizer: CloneWithCustomizer<T, TResult | undefined>): TResult | T;
         cloneWith<T>(value: T): T;
     }
-    interface Imp<TValue> {
-        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<TValue, TResult>): TResult;
-        cloneWith<TResult>(customizer: CloneWithCustomizer<TValue, TResult | undefined>): TResult | TValue;
-        cloneWith(): TValue;
-    }
-    interface Exp<TValue> {
-        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<TValue, TResult>): Exp<TResult>;
-        cloneWith<TResult>(customizer: CloneWithCustomizer<TValue, TResult | undefined>): Exp<TResult | TValue>;
-        cloneWith(): this;
-    }
-
     interface Stat {
         conformsTo<T>(object: T, source: ConformsPredicateObject<T>): boolean;
     }

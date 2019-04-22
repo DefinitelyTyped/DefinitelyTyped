@@ -2,20 +2,26 @@ import _ = require("../index");
 declare module "../index" {
     // chain
     interface Stat {
-        chain<T>(value: T): Exp<T>;
+        chain(value: string): ExpS;
+        chain<T>(value: List<T> | null | undefined): ExpL<T>;
+        chain<T extends (...args:any[]) => any>(value: T): ExpF<T>;
+        chain(value: object): ExpO;
+        chain(value: any): ExpU;
     }
-    interface Imp<TValue> {
-        chain(): Exp<TValue>;
+    interface ImpL<T> {
+        chain(): ExpL<T>;
     }
-    interface Exp<TValue> {
-        chain(): this;
+    interface ImpS {
+        chain(): ExpS;
     }
-    // prototype.chain
-    interface Stat {
-        chain<T>(value: T): Exp<T>;
+    interface ImpS {
+        chain(): ExpO;
     }
-    interface Imp<TValue> {
-        chain(): Exp<TValue>;
+    interface ImpU {
+        chain(): _.ExpU;
+    }
+    interface ImpF<T extends (...args:any[]) => any> {
+        chain(): ExpF<T>;
     }
     interface Exp<TValue> {
         chain(): this;
@@ -62,10 +68,10 @@ declare module "../index" {
     interface Stat {
         thru<T, TResult>(value: T, interceptor: (value: T) => TResult): TResult;
     }
-    interface Imp<TValue> {
-        thru<TResult>(interceptor: (value: TValue) => TResult): Imp<TResult>;
-    }
-    interface Exp<TValue> {
-        thru<TResult>(interceptor: (value: TValue) => TResult): Exp<TResult>;
-    }
+    // interface Imp<TValue> {
+    //     thru<TResult>(interceptor: (value: TValue) => TResult): Imp<TResult>;
+    // }
+    // interface Exp<TValue> {
+    //     thru<TResult>(interceptor: (value: TValue) => TResult): Exp<TResult>;
+    // }
 }

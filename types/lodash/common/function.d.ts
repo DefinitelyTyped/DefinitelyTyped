@@ -261,11 +261,11 @@ declare module "../index" {
     interface Stat {
         debounce<T extends (...args: any[]) => any>(func: T, wait?: number, options?: DebounceSettings): T & Cancelable;
     }
-    interface Imp<TValue> {
-        debounce(wait?: number, options?: DebounceSettings): Imp<TValue & Cancelable>;
+    interface ImpF<T extends (...args: any[]) => any> {
+        debounce(wait?: number, options?: DebounceSettings): ImpF<T & Cancelable>;
     }
-    interface Exp<TValue> {
-        debounce(wait?: number, options?: DebounceSettings): Exp<TValue & Cancelable>;
+    interface ExpF<T extends (...args: any[]) => any> {
+        debounce(wait?: number, options?: DebounceSettings): Exp<T & Cancelable>;
     }
     interface Stat {
         defer(func: (...args: any[]) => any, ...args: any[]): number;
@@ -300,11 +300,11 @@ declare module "../index" {
             Cache: MapCacheConstructor;
         };
     }
-    interface Imp<TValue> {
-        memoize(resolver?: (...args: any[]) => any): Imp<TValue & MemoizedFunction>;
+    interface ImpF<T extends (...args: any[]) => any> {
+        memoize(resolver?: (...args: any[]) => any): Imp<T & MemoizedFunction>;
     }
-    interface Exp<TValue> {
-        memoize(resolver?: (...args: any[]) => any): Exp<TValue & MemoizedFunction>;
+    interface ExpF<T extends (...args: any[]) => any> {
+        memoize(resolver?: (...args: any[]) => any): Exp<T & MemoizedFunction>;
     }
     interface Stat {
         negate<T extends any[]>(predicate: (...args: T) => any): (...args: T) => boolean;
@@ -564,11 +564,11 @@ declare module "../index" {
     interface Stat {
         throttle<T extends (...args: any[]) => any>(func: T, wait?: number, options?: ThrottleSettings): T & Cancelable;
     }
-    interface Imp<TValue> {
-        throttle(wait?: number, options?: ThrottleSettings): Imp<TValue & Cancelable>;
+    interface ImpF<T extends (...args: any[]) => any> {
+        throttle(wait?: number, options?: ThrottleSettings): Imp<T & Cancelable>;
     }
-    interface Exp<TValue> {
-        throttle(wait?: number, options?: ThrottleSettings): Exp<TValue & Cancelable>;
+    interface ExpF<T extends (...args: any[]) => any> {
+        throttle(wait?: number, options?: ThrottleSettings): Exp<T & Cancelable>;
     }
     interface Stat {
         unary<T, TResult>(func: (arg1: T, ...args: any[]) => TResult): (arg1: T) => TResult;
@@ -582,10 +582,10 @@ declare module "../index" {
     interface Stat {
         wrap<T, TArgs, TResult>(value: T, wrapper: (value: T, ...args: TArgs[]) => TResult): (...args: TArgs[]) => TResult;
     }
-    interface Imp<TValue> {
-        wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): Imp<(...args: TArgs[]) => TResult>;
-    }
-    interface Exp<TValue> {
-        wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): Exp<(...args: TArgs[]) => TResult>;
-    }
+    // interface Imp<TValue> {
+    //     wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): ImpF<(...args: TArgs[]) => TResult>;
+    // }
+    // interface Exp<TValue> {
+    //     wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): ExpF<(...args: TArgs[]) => TResult>;
+    // }
 }

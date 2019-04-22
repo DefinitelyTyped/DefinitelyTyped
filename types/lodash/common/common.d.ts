@@ -5,7 +5,11 @@ declare module "../index" {
     type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | ReadonlyArray<T>;
     interface Stat {
-        <T>(value: T): Imp<T>;
+        (value: string): ImpS;
+        <T>(value: List<T> | null | undefined): ImpL<T>;
+        <T extends (...args: any[]) => any>(value: T): ImpF<T>;
+        (value: object): ImpO;
+        (value: any): ImpU;
         VERSION: string;
         templateSettings: TemplateSettings;
     }
@@ -26,21 +30,41 @@ declare module "../index" {
     interface MapCacheConstructor {
         new (): MapCache;
     }
-    interface Imp<TValue> extends LoDashWrapper<TValue> {
-        pop<T>(this: Imp<List<T> | null | undefined>): T | undefined;
-        push<T>(this: Imp<List<T> | null | undefined>, ...items: T[]): this;
-        shift<T>(this: Imp<List<T> | null | undefined>): T | undefined;
-        sort<T>(this: Imp<List<T> | null | undefined>, compareFn?: (a: T, b: T) => number): this;
-        splice<T>(this: Imp<List<T> | null | undefined>, start: number, deleteCount?: number, ...items: T[]): this;
-        unshift<T>(this: Imp<List<T> | null | undefined>, ...items: T[]): this;
+    interface ImpL<T> {
+        pop<T>(): T | undefined;
+        push<T>(...items: T[]): this;
+        shift<T>(): T | undefined;
+        sort<T>(compareFn?: (a: T, b: T) => number): this;
+        splice<T>(start: number, deleteCount?: number, ...items: T[]): this;
+        unshift<T>(...items: T[]): this;
     }
-    interface Exp<TValue> extends LoDashWrapper<TValue> {
-        pop<T>(this: Exp<List<T> | null | undefined>): Exp<T | undefined>;
-        push<T>(this: Exp<List<T> | null | undefined>, ...items: T[]): this;
-        shift<T>(this: Exp<List<T> | null | undefined>): Exp<T | undefined>;
-        sort<T>(this: Exp<List<T> | null | undefined>, compareFn?: (a: T, b: T) => number): this;
-        splice<T>(this: Exp<List<T> | null | undefined>, start: number, deleteCount?: number, ...items: T[]): this;
-        unshift<T>(this: Exp<List<T> | null | undefined>, ...items: T[]): this;
+    interface ExpL<T> {
+        pop<T>(): Exp<T | undefined>;
+        push<T>( ...items: T[]): this;
+        shift<T>(): Exp<T | undefined>;
+        sort<T>( compareFn?: (a: T, b: T) => number): this;
+        splice<T>( start: number, deleteCount?: number, ...items: T[]): this;
+        unshift<T>( ...items: T[]): this;
+    }
+    interface ImpF<T extends (...args: any[]) => any> extends Imp<T> {
+    }
+    interface ImpS extends Imp<string> {
+    }
+    interface ImpO extends Imp<object> {
+    }
+    interface ImpL<T> extends Imp<T> {
+    }
+    interface ImpU extends Imp<unknown> {
+    }
+    interface ExpF<T extends (...args: any[]) => any> extends Exp<T> {
+    }
+    interface ExpS extends Exp<string> {
+    }
+    interface ExpO extends Exp<object> {
+    }
+    interface ExpL<T> extends Exp<T> {
+    }
+    interface ExpU extends Exp<unknown> {
     }
     type NotVoid = unknown;
     type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialDeep<T>;

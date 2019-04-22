@@ -115,17 +115,17 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     _(list).differenceBy(listParam, valueIterator); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     _(list).differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, valueIterator); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     // $ExpectType LoDashImplicitWrapper<AbcObject[]>
-    _(list).differenceBy<AbcObject>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, valueIterator);
+    _(list).differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, valueIterator);
 
     _(list).differenceBy(listParam, "a"); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     _(list).differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, "a"); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     // $ExpectType LoDashImplicitWrapper<AbcObject[]>
-    _(list).differenceBy<AbcObject>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, "a");
+    _(list).differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, "a");
 
     _(list).differenceBy(listParam, {a: 1}); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     _(list).differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, {a: 1}); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     // $ExpectType LoDashImplicitWrapper<AbcObject[]>
-    _(list).differenceBy<AbcObject>(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
+    _(list).differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
 
     _.chain(list).differenceBy(arrayParam); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(list).differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
@@ -141,7 +141,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     _.chain(list).differenceBy<AbcObject>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, "a");
 
     _.chain(list).differenceBy(arrayParam, {a: 1}); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
-    _.chain(list).differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1}); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+    _.chain(list).differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, 'a'); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(list).differenceBy<AbcObject>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
 
@@ -402,13 +402,13 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     _(list).findIndex(); // $ExpectType number
     _(list).findIndex(listIterator); // $ExpectType number
     _(list).findIndex(""); // $ExpectType number
-    _(list).findIndex<{a: number}>({a: 42}); // $ExpectType number
+    _(list).findIndex({a: 42}); // $ExpectType number
     _(list).findIndex(listIterator, 1); // $ExpectType number
 
     _.chain(list).findIndex(); // $ExpectType LoDashExplicitWrapper<number>
     _.chain(list).findIndex(listIterator); // $ExpectType LoDashExplicitWrapper<number>
     _.chain(list).findIndex(""); // $ExpectType LoDashExplicitWrapper<number>
-    _.chain(list).findIndex<{a: number}>({a: 42}); // $ExpectType LoDashExplicitWrapper<number>
+    _.chain(list).findIndex({a: 42}); // $ExpectType LoDashExplicitWrapper<number>
     _.chain(list).findIndex(listIterator, 1); // $ExpectType LoDashExplicitWrapper<number>
 
     fp.findIndex(valueIterator, list); // $ExpectType number
@@ -430,13 +430,13 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     _(list).findLastIndex(); // $ExpectType number
     _(list).findLastIndex(listIterator); // $ExpectType number
     _(list).findLastIndex(""); // $ExpectType number
-    _(list).findLastIndex<{a: number}>({a: 42}); // $ExpectType number
+    _(list).findLastIndex({a: 42}); // $ExpectType number
     _(list).findLastIndex(listIterator, 1); // $ExpectType number
 
     _.chain(list).findLastIndex(); // $ExpectType LoDashExplicitWrapper<number>
     _.chain(list).findLastIndex(listIterator); // $ExpectType LoDashExplicitWrapper<number>
     _.chain(list).findLastIndex(""); // $ExpectType LoDashExplicitWrapper<number>
-    _.chain(list).findLastIndex<{a: number}>({a: 42}); // $ExpectType LoDashExplicitWrapper<number>
+    _.chain(list).findLastIndex({a: 42}); // $ExpectType LoDashExplicitWrapper<number>
     _.chain(list).findLastIndex(listIterator, 1); // $ExpectType LoDashExplicitWrapper<number>
 
     fp.findLastIndex(valueIterator, list); // $ExpectType number

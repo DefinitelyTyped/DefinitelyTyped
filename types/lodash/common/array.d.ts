@@ -3,20 +3,22 @@ declare module "../index" {
     interface Stat {
         chunk<T>( array: List<T> | null | undefined, size?: number ): T[][];
     }
-    interface Imp<TValue> {
-        chunk<T>( this: Imp<List<T> | null | undefined>, size?: number, ): Imp<T[][]>;
+    interface ImpL<T> {
+        chunk(  size?: number, ): ImpL<T[]>;
     }
-    interface Exp<TValue> {
-        chunk<T>( this: Exp<List<T> | null | undefined>, size?: number, ): Exp<T[][]>;
+    interface ExpL<T> {
+        chunk( size?: number, ): ExpL<T[]>;
     }
     interface Stat {
         compact<T>(array: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
     }
-    interface Imp<TValue> {
-        compact<T>(this: Imp<List<T | null | undefined | false | "" | 0> | null | undefined>): Imp<T[]>;
+
+    type Truthy<T> = T extends null | undefined | false | "" | 0 ? never : T;
+    interface ImpL<T> {
+        compact(): ImpL<Truthy<T>>;
     }
-    interface Exp<TValue> {
-        compact<T>(this: Exp<List<T | null | undefined | false | "" | 0> | null | undefined>): Exp<T[]>;
+    interface ExpL<T> {
+        compact(): ExpL<Truthy<T>>;
     }
     interface Stat {
          concat<T>(array: Many<T>, ...values: Array<Many<T>>): T[];
@@ -30,11 +32,11 @@ declare module "../index" {
     interface Stat {
         difference<T>( array: List<T> | null | undefined, ...values: Array<List<T>> ): T[];
     }
-    interface Imp<TValue> {
-        difference<T>( this: Imp<List<T> | null | undefined>, ...values: Array<List<T>> ): Imp<T[]>;
+    interface ImpL<T> {
+        difference(...values: Array<List<T>> ): ImpL<T>;
     }
-    interface Exp<TValue> {
-        difference<T>( this: Exp<List<T> | null | undefined>, ...values: Array<List<T>> ): Exp<T[]>;
+    interface ExpL<T> {
+        difference(...values: Array<List<T>> ): ExpL<T>;
     }
     interface Stat {
         differenceBy<T1, T2>( array: List<T1> | null | undefined, values: List<T2>, iteratee: ValueIteratee<T1 | T2> ): T1[];
@@ -45,13 +47,13 @@ declare module "../index" {
         differenceBy<T1, T2, T3, T4, T5, T6, T7>( array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, values3: List<T4>, values4: List<T5>, values5: List<T6>, ...values: Array<List<T7> | ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6 | T7>> ): T1[];
         differenceBy<T>( array: List<T> | null | undefined, ...values: Array<List<T>> ): T[];
     }
-    interface Imp<TValue> {
-        differenceBy<T1, T2>( this: Imp<List<T1> | null | undefined>, values1: T2, iteratee?: ValueIteratee<T1 | T2> ): Imp<T1[]>;
-        differenceBy<T>( this: Imp<List<T> | null | undefined>, ...values: Array<List<unknown> | ValueIteratee<T>> ): Imp<T[]>;
+    interface ImpL<T> {
+        differenceBy<T2>( values1: T2, iteratee?: ValueIteratee<T | T2> ): ImpL<T>;
+        differenceBy(  ...values: Array<List<unknown> | ValueIteratee<T>> ): ImpL<T>;
     }
-    interface Exp<TValue> {
-        differenceBy<T1, T2>( this: Exp<List<T1> | null | undefined>, values1: T2, iteratee?: ValueIteratee<T1 | T2> ): Exp<T1[]>;
-        differenceBy<T>(this: Exp<List<T> | null | undefined>, ...values: Array<List<unknown> | ValueIteratee<T>> ): Exp<T[]>;
+    interface ExpL<T> {
+        differenceBy<T2>( values1: T2, iteratee?: ValueIteratee<T | T2> ): ExpL<T>;
+        differenceBy<T>(...values: Array<List<unknown> | ValueIteratee<T>> ): ExpL<T>;
     }
     interface Stat {
         differenceWith<T1, T2>( array: List<T1> | null | undefined, values: List<T2>, comparator: Comparator2<T1, T2> ): T1[];
@@ -59,49 +61,49 @@ declare module "../index" {
         differenceWith<T1, T2, T3, T4>( array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>> ): T1[];
         differenceWith<T>( array: List<T> | null | undefined, ...values: Array<List<T>> ): T[];
     }
-    interface Imp<TValue> {
-        differenceWith<T1, T2>( this: Imp<List<T1> | null | undefined>, values: List<T2>, comparator: Comparator2<T1, T2> ): Imp<T1[]>;
-        differenceWith<T1, T2, T3, T4>( this: Imp<List<T1> | null | undefined>, ...values: Array<List<unknown> | Comparator2<T1, never>> ): Imp<T1[]>;
+    interface ImpL<T> {
+        differenceWith<T2>( values: List<T2>, comparator: Comparator2<T, T2> ): ImpL<T>;
+        differenceWith<T2, T3, T4>( ...values: Array<List<unknown> | Comparator2<T, never>> ): ImpL<T>;
     }
-    interface Exp<TValue> {
-        differenceWith<T1, T2>( this: Exp<List<T1> | null | undefined>, values: List<T2>, comparator: Comparator2<T1, T2> ): Exp<T1[]>;
-        differenceWith<T1, T2, T3, T4>( this: Exp<List<T1> | null | undefined>, ...values: Array<List<unknown> | Comparator2<T1, never>> ): Exp<T1[]>;
+    interface ExpL<T> {
+        differenceWith< T2>( values: List<T2>, comparator: Comparator2<T, T2> ): ExpL<T>;
+        differenceWith< T2, T3, T4>( ...values: Array<List<unknown> | Comparator2<T, never>> ): ExpL<T>;
     }
     interface Stat {
         drop<T>(array: List<T> | null | undefined, n?: number): T[];
     }
-    interface Imp<TValue> {
-        drop<T>(this: Imp<List<T> | null | undefined>, n?: number): Imp<T[]>;
+    interface ImpL<T> {
+        drop(n?: number): ImpL<T>;
     }
-    interface Exp<TValue> {
-        drop<T>(this: Exp<List<T> | null | undefined>, n?: number): Exp<T[]>;
+    interface ExpL<T> {
+        drop(n?: number): ExpL<T>;
     }
     interface Stat {
         dropRight<T>( array: List<T> | null | undefined, n?: number ): T[];
     }
-    interface Imp<TValue> {
-        dropRight<T>(this: Imp<List<T> | null | undefined>, n?: number): Imp<T[]>;
+    interface ImpL<T> {
+        dropRight( n?: number): ImpL<T>;
     }
-    interface Exp<TValue> {
-        dropRight<T>(this: Exp<List<T> | null | undefined>, n?: number): Exp<T[]>;
+    interface ExpL<T> {
+        dropRight( n?: number): ExpL<T>;
     }
     interface Stat {
         dropRightWhile<T>( array: List<T> | null | undefined, predicate?: ListIteratee<T> ): T[];
     }
-    interface Imp<TValue> {
-        dropRightWhile<T>( this: Imp<List<T> | null | undefined>, predicate?: ListIteratee<T> ): Imp<T[]>;
+    interface ImpL<T> {
+        dropRightWhile( predicate?: ListIteratee<T> ): ImpL<T>;
     }
-    interface Exp<TValue> {
-        dropRightWhile<T>( this: Exp<List<T> | null | undefined>, predicate?: ListIteratee<T> ): Exp<T[]>;
+    interface ExpL<T> {
+        dropRightWhile( predicate?: ListIteratee<T> ): ExpL<T>;
     }
     interface Stat {
         dropWhile<T>( array: List<T> | null | undefined, predicate?: ListIteratee<T> ): T[];
     }
-    interface Imp<TValue> {
-        dropWhile<T>( this: Imp<List<T> | null | undefined>, predicate?: ListIteratee<T> ): Imp<T[]>;
+    interface ImpL<T> {
+        dropWhile( predicate?: ListIteratee<T> ): ImpL<T>;
     }
-    interface Exp<TValue> {
-        dropWhile<T>( this: Exp<List<T> | null | undefined>, predicate?: ListIteratee<T> ): Exp<T[]>;
+    interface ExpL<T> {
+        dropWhile( predicate?: ListIteratee<T> ): ExpL<T>;
     }
     interface Stat {
         fill<T>( array: any[] | null | undefined, value: T ): T[];
@@ -109,58 +111,58 @@ declare module "../index" {
         fill<T, U>( array: U[] | null | undefined, value: T, start?: number, end?: number ): Array<T | U>;
         fill<T, U>( array: List<U> | null | undefined, value: T, start?: number, end?: number ): List<T | U>;
     }
-    interface Imp<TValue> {
-        fill<T, U, L extends List<T | U>>( this: Imp<List<U> | null | undefined>, value: T, start?: number, end?: number ): Imp<L>;
+    interface ImpL<T> {
+        fill<U>( value: U, start?: number, end?: number ): Imp<List<T | U>>;
     }
-    interface Exp<TValue> {
-        fill<T, U, L extends List<T | U>>( this: Exp<List<U> | null | undefined>, value: T, start?: number, end?: number ): Exp<L>;
+    interface ExpL<T> {
+        fill<U>( value: U, start?: number, end?: number ): Exp<List<T | U>>;
     }
     interface Stat {
         findIndex<T>( array: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): number;
     }
-    interface Imp<TValue> {
-        findIndex<T>( this: Imp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): number;
+    interface ImpL<T> {
+        findIndex( predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): number;
     }
-    interface Exp<TValue> {
-        findIndex<T>( this: Exp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): Exp<number>;
+    interface ExpL<T> {
+        findIndex( predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): Exp<number>;
     }
     interface Stat {
         findLastIndex<T>( array: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): number;
     }
-    interface Imp<TValue> {
-        findLastIndex<T>( this: Imp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): number;
+    interface ImpL<T> {
+        findLastIndex( predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): number;
     }
-    interface Exp<TValue> {
-        findLastIndex<T>( this: Exp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): Exp<number>;
+    interface ExpL<T> {
+        findLastIndex( predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): Exp<number>;
     }
     interface Stat {
         first: typeof _.head;
     }
-    interface Imp<TValue> {
-        first<T>(this: Imp<List<T> | null | undefined>): T | undefined;
+    interface ImpL<T> {
+        first(): T | undefined;
     }
-    interface Exp<TValue> {
-        first<T>(this: Exp<List<T> | null | undefined>): Exp<T | undefined>;
+    interface ExpL<T> {
+        first(): Exp<T | undefined>;
     }
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
     interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
     interface Stat {
         flatten<T>(array: List<Many<T>> | null | undefined): T[];
     }
-    interface Imp<TValue> {
-        flatten<T>(this: Imp<List<Many<T>> | null | undefined>): Imp<T[]>;
+    interface ImpL<TValue> {
+        flatten(): ImpL<T>;
     }
-    interface Exp<TValue> {
-        flatten<T>(this: Exp<List<Many<T>> | null | undefined>): Exp<T[]>;
+    interface ExpL<T> {
+        flatten(): ExpL<T>;
     }
     interface Stat {
         flattenDeep<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined): T[];
     }
-    interface Imp<TValue> {
-        flattenDeep<T>(this: Imp<ListOfRecursiveArraysOrValues<T> | null | undefined>): Imp<T[]>;
+    interface ImpL<T> {
+        flattenDeep(): ImpL<T[]>;
     }
-    interface Exp<TValue> {
-        flattenDeep<T>(this: Exp<ListOfRecursiveArraysOrValues<T> | null | undefined>): Exp<T[]>;
+    interface ExpL<T> {
+        flattenDeep(): ExpL<T[]>;
     }
     interface Stat {
         flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, depth?: number): T[];
@@ -186,11 +188,17 @@ declare module "../index" {
     interface Stat {
         head<T>(array: List<T> | null | undefined): T | undefined;
     }
-    interface Imp<TValue> {
-        head<T>(this: Imp<List<T> | null | undefined>): T | undefined;
+    interface ImpS {
+        head(): string | undefined;
     }
-    interface Exp<TValue> {
-        head<T>(this: Exp<List<T> | null | undefined>): Exp<T | undefined>;
+    interface ExpS {
+        head(): string | undefined;
+    }
+    interface ImpL<T> {
+        head(): T | undefined;
+    }
+    interface ExpL<T> {
+        head(): Exp<T | undefined>;
     }
     interface Stat {
         indexOf<T>( array: List<T> | null | undefined, value: T, fromIndex?: number ): number;

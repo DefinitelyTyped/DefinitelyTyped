@@ -37,12 +37,12 @@ declare module "../index" {
     interface Stat {
         constant<T>(value: T): () => T;
     }
-    interface Imp<TValue> {
-        constant(): Imp<() => TValue>;
-    }
-    interface Exp<TValue> {
-        constant(): Exp<() => TValue>;
-    }
+    // interface Imp<TValue> {
+    //     constant(): Imp<() => TValue>;
+    // }
+    // interface Exp<TValue> {
+    //     constant(): Exp<() => TValue>;
+    // }
 
     interface Stat {
         defaultTo<T>(value: T | null | undefined, defaultValue: T): T;
