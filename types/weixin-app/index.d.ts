@@ -820,7 +820,7 @@ declare namespace wx {
 		data: string | ArrayBuffer; // 要追加的文本或二进制数据
 		encoding?: string; // 指定写入文件的字符编码,默认为utf8
 	}
-	interface fsRemoveSavedFileOptions extends BaseOptions {
+	interface FsRemoveSavedFileOptions extends BaseOptions {
 		filePath: string;
 	}
 	interface CopyFileOptions extends BaseOptions {
@@ -881,7 +881,7 @@ declare namespace wx {
 		saveFile(options: FsSaveFileOptions): void;
 		saveFileSync(tempFilePath: string, filePath?: string): SavedFileData;
 		getSavedFileList(options: GetSavedFileListOptions): void;
-		removeSavedFile(options: fsRemoveSavedFileOptions): void;
+		removeSavedFile(options: FsRemoveSavedFileOptions): void;
 		copyFile(options: CopyFileOptions): void;
 		copyFileSync(srcPath: string, destPath: string): void;
 		getFileInfo(options: FsGetFileInfoOptions): void;
