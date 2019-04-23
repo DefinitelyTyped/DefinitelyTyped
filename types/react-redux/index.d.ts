@@ -473,7 +473,7 @@ export function batch(cb: () => void): void;
  * import React from 'react'
  * import { useActions } from 'react-redux'
  *
- * const increaseCounter = ({ amount }) => ({
+ * const increaseCounter = amount => ({
  *   type: 'increase-counter',
  *   amount,
  * })
