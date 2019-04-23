@@ -19,14 +19,44 @@ declare module "../index" {
     interface Stat {
         each: typeof _.forEach;
     }
-    interface LoDashWrapper<TValue> {
-        each: LoDashWrapper<TValue>['forEach'];
+    interface ImpS {
+        each: ImpS['forEach'];
+    }
+    interface ImpL<T> {
+        each: ImpL<T>['forEach'];
+    }
+    interface ImpO<T> {
+        each: ImpO<T>['forEach'];
+    }
+    interface ExpS {
+        each: ExpS['forEach'];
+    }
+    interface ExpL<T> {
+        each: ExpL<T>['forEach'];
+    }
+    interface ExpO<T> {
+        each: ExpO<T>['forEach'];
     }
     interface Stat {
         eachRight: typeof _.forEachRight;
     }
-    interface LoDashWrapper<TValue> {
-        eachRight: LoDashWrapper<TValue>['forEachRight'];
+    interface ImpS {
+        eachRight: ImpS['forEachRight'];
+    }
+    interface ImpL<T> {
+        eachRight: ImpL<T>['forEachRight'];
+    }
+    interface ImpO<T> {
+        eachRight: ImpO<T>['forEachRight'];
+    }
+    interface ExpS {
+        eachRight: ExpS['forEachRight'];
+    }
+    interface ExpL<T> {
+        eachRight: ExpL<T>['forEachRight'];
+    }
+    interface ExpO<T> {
+        eachRight: ExpO<T>['forEachRight'];
     }
     interface Stat {
         every<T>( collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean> ): boolean;
@@ -293,11 +323,29 @@ declare module "../index" {
         forEach<T, TList extends List<T> | null | undefined>( collection: TList & (List<T> | null | undefined), iteratee?: ListIterator<T, any> ): TList;
         forEach<T extends object>( collection: T | null | undefined, iteratee?: ObjectIterator<T, any> ): T | null | undefined;
     }
-    interface LoDashWrapper<TValue> {
-        forEach<T>( this: LoDashWrapper<T[] | null | undefined>, iteratee?: ArrayIterator<T, any> ): this;
-        forEach( this: LoDashWrapper<string | null | undefined>, iteratee?: StringIterator<any> ): this;
-        forEach<T>( this: LoDashWrapper<List<T> | null | undefined>, iteratee?: ListIterator<T, any> ): this;
-        forEach<T extends object>( this: LoDashWrapper<T | null | undefined>, iteratee?: ObjectIterator<T, any> ): this;
+    interface ImpS {
+        forEach( iteratee?: StringIterator<any> ): ImpS;
+    }
+    interface ImpO<T> {
+        forEach( iteratee?: ObjectIterator<T, any> ): ImpO<T>;
+    }
+    interface ImpL<T> {
+        forEach( iteratee?: ListIterator<T, any> ): ImpL<T>;
+    }
+    interface ImpU {
+        forEach( iteratee?: ObjectIterator<unknown, any> ): ImpU;
+    }
+    interface ExpS {
+        forEach( iteratee?: StringIterator<any> ): ExpS;
+    }
+    interface ExpO<T> {
+        forEach( iteratee?: ObjectIterator<T, any> ): ExpO<T>;
+    }
+    interface ExpL<T> {
+        forEach( iteratee?: ListIterator<T, any> ): ExpL<T>;
+    }
+    interface ExpU {
+        forEach( iteratee?: ObjectIterator<unknown, any> ): ExpU;
     }
     interface Stat {
         forEachRight<T>( collection: T[], iteratee?: ArrayIterator<T, any> ): T[];
@@ -309,23 +357,57 @@ declare module "../index" {
         forEachRight<T, TList extends List<T> | null | undefined>( collection: TList & (List<T> | null | undefined), iteratee?: ListIterator<T, any> ): TList;
         forEachRight<T extends object>( collection: T | null | undefined, iteratee?: ObjectIterator<T, any> ): T | null | undefined;
     }
-    interface LoDashWrapper<TValue> {
-        forEachRight<T>( this: LoDashWrapper<T[] | null | undefined>, iteratee?: ArrayIterator<T, any> ): this;
-        forEachRight( this: LoDashWrapper<string | null | undefined>, iteratee?: StringIterator<any> ): this;
-        forEachRight<T>( this: LoDashWrapper<List<T> | null | undefined>, iteratee?: ListIterator<T, any> ): this;
-        forEachRight<T extends object>( this: LoDashWrapper<T | null | undefined>, iteratee?: ObjectIterator<T, any> ): this;
+    interface ImpS {
+        forEachRight( iteratee?: StringIterator<any> ): ImpS;
+    }
+    interface ImpO<T> {
+        forEachRight( iteratee?: ObjectIterator<T, any> ): ImpO<T>;
+    }
+    interface ImpL<T> {
+        forEachRight( iteratee?: ListIterator<T, any> ): ImpL<T>;
+    }
+    interface ImpU {
+        forEachRight( iteratee?: ObjectIterator<unknown, any> ): ImpU;
+    }
+    interface ExpS {
+        forEachRight( iteratee?: StringIterator<any> ): ExpS;
+    }
+    interface ExpO<T> {
+        forEachRight( iteratee?: ObjectIterator<T, any> ): ExpO<T>;
+    }
+    interface ExpL<T> {
+        forEachRight( iteratee?: ListIterator<T, any> ): ExpL<T>;
+    }
+    interface ExpU {
+        forEachRight( iteratee?: ObjectIterator<unknown, any> ): ExpU;
     }
     interface Stat {
         groupBy<T>( collection: List<T> | null | undefined, iteratee?: ValueIteratee<T> ): Dictionary<T[]>;
         groupBy<T extends object>( collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]> ): Dictionary<Array<T[keyof T]>>;
     }
-    interface Imp<TValue> {
-        groupBy<T>( this: Imp<List<T> | null | undefined>, iteratee?: ValueIteratee<T> ): Imp<Dictionary<T[]>>;
-        groupBy<T extends object>( this: Imp<T | null | undefined>, iteratee?: ValueIteratee<T[keyof T]> ): Imp<Dictionary<Array<T[keyof T]>>>;
+    interface ImpS {
+        groupBy( iteratee?: ValueIteratee<string> ): Imp<Dictionary<string[]>>;
     }
-    interface Exp<TValue> {
-        groupBy<T>( this: Exp<List<T> | null | undefined>, iteratee?: ValueIteratee<T> ): Exp<Dictionary<T[]>>;
-        groupBy<T extends object>( this: Exp<T | null | undefined>, iteratee?: ValueIteratee<T[keyof T]> ): Exp<Dictionary<Array<T[keyof T]>>>;
+    interface ImpL<T> {
+        groupBy( iteratee?: ValueIteratee<T> ): Imp<Dictionary<T[]>>;
+    }
+    interface ImpO<T> {
+        groupBy( iteratee?: ValueIteratee<T[keyof T]> ): Imp<Dictionary<Array<T[keyof T]>>>;
+    }
+    interface ImpU {
+        groupBy( iteratee?: ValueIteratee<unknown> ): Imp<Dictionary<Array<unknown>>>;
+    }
+    interface ExpS {
+        groupBy( iteratee?: ValueIteratee<string> ): Exp<Dictionary<string[]>>;
+    }
+    interface ExpL<T> {
+        groupBy( iteratee?: ValueIteratee<T> ): Exp<Dictionary<T[]>>;
+    }
+    interface ExpO<T> {
+        groupBy( iteratee?: ValueIteratee<T[keyof T]> ): Exp<Dictionary<Array<T[keyof T]>>>;
+    }
+    interface ExpU {
+        groupBy( iteratee?: ValueIteratee<unknown> ): Exp<Dictionary<Array<unknown>>>;
     }
     interface Stat {
         includes<T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: T, fromIndex?: number ): boolean;
