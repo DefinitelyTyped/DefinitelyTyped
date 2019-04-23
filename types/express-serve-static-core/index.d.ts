@@ -605,12 +605,16 @@ export interface Response extends http.ServerResponse, Express.Response {
      * when the data transfer is complete, or when an error has
      * ocurred. Be sure to check `res.headerSent` if you plan to respond.
      *
+     * The optional options argument passes through to the underlying
+     * res.sendFile() call, and takes the exact same parameters.
+     *
      * This method uses `res.sendfile()`.
      */
     download(path: string): void;
     download(path: string, filename: string): void;
     download(path: string, fn: Errback): void;
     download(path: string, filename: string, fn: Errback): void;
+    download(path: string, filename: string, options: any, fn: Errback): void;
 
     /**
      * Set _Content-Type_ response header with `type` through `mime.lookup()`
