@@ -473,12 +473,12 @@ export function batch(cb: () => void): void;
  * import React from 'react'
  * import { useActions } from 'react-redux'
  *
- * const increaseCounter = amount => ({
+ * const increaseCounter = (amount: number) => ({
  *   type: 'increase-counter',
  *   amount,
  * })
  *
- * export const CounterComponent = ({ value }) => {
+ * export const CounterComponent = ({ value }: { value: number }) => {
  *   // supports passing an object of action creators
  *   const { increaseCounterByOne, increaseCounterByTwo } = useActions({
  *     increaseCounterByOne: () => increaseCounter(1),
@@ -574,7 +574,7 @@ export function useDispatch<A extends Action = AnyAction>(): Dispatch<A>;
  * export const CounterComponent = () => {
  *   const [counter, { inc1, inc }] = useRedux((state: RootState) => state.counter, {
  *     inc1: () => ({ type: 'inc1' }),
- *     inc: amount => ({ type: 'inc', amount }),
+ *     inc: (amount: number) => ({ type: 'inc', amount }),
  *   })
  *
  *   return (
