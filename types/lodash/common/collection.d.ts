@@ -32,13 +32,23 @@ declare module "../index" {
         every<T>( collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean> ): boolean;
         every<T extends object>( collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean> ): boolean;
     }
-    interface Imp<TValue> {
-        every<T>( this: Imp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean> ): boolean;
-        every<T extends object>( this: Imp<T | null | undefined>, predicate?: ObjectIterateeCustom<T, boolean> ): boolean;
+    interface ImpU {
+        every(predicate?: DictionaryIteratee<unknown> ): boolean;
     }
-    interface Exp<TValue> {
-        every<T>( this: Exp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean> ): Exp<boolean>;
-        every<T extends object>( this: Exp<T | null | undefined>, predicate?: ObjectIterateeCustom<T, boolean> ): Exp<boolean>;
+    interface ImpL<T> {
+        every( predicate?: ListIterateeCustom<T, boolean> ): boolean;
+    }
+    interface ImpO<T> {
+        every( predicate?: ObjectIterateeCustom<T, boolean> ): boolean;
+    }
+    interface ExpU {
+        every(predicate?: DictionaryIteratee<unknown> ): boolean;
+    }
+    interface ExpL<T> {
+        every( predicate?: ListIterateeCustom<T, boolean> ): Exp<boolean>;
+    }
+    interface ExpO<T> {
+        every( predicate?: ObjectIterateeCustom<T, boolean> ): Exp<boolean>;
     }
     interface Stat {
         filter( collection: string | null | undefined, predicate?: StringIterator<boolean> ): string[];
@@ -47,19 +57,33 @@ declare module "../index" {
         filter<T extends object, S extends T[keyof T]>( collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S> ): S[];
         filter<T extends object>( collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean> ): Array<T[keyof T]>;
     }
-    interface Imp<TValue> {
-        filter( this: Imp<string | null | undefined>, predicate?: StringIterator<boolean> ): Imp<string[]>;
-        filter<T, S extends T>( this: Imp<List<T> | null | undefined>, predicate: ListIteratorTypeGuard<T, S> ): Imp<S[]>;
-        filter<T>( this: Imp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean> ): Imp<T[]>;
-        filter<T extends object, S extends T[keyof T]>( this: Imp<T | null | undefined>, predicate: ObjectIteratorTypeGuard<T, S> ): Imp<S[]>;
-        filter<T extends object>( this: Imp<T | null | undefined>, predicate?: ObjectIterateeCustom<T, boolean> ): Imp<Array<T[keyof T]>>;
+    interface ImpS {
+        filter(predicate?: StringIterator<boolean> ): ImpL<string>;
     }
-    interface Exp<TValue> {
-        filter( this: Exp<string | null | undefined>, predicate?: StringIterator<boolean> ): Exp<string[]>;
-        filter<T, S extends T>( this: Exp<List<T> | null | undefined>, predicate: ListIteratorTypeGuard<T, S> ): Exp<S[]>;
-        filter<T>( this: Exp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean> ): Exp<T[]>;
-        filter<T extends object, S extends T[keyof T]>( this: Exp<T | null | undefined>, predicate: ObjectIteratorTypeGuard<T, S> ): Exp<S[]>;
-        filter<T extends object>( this: Exp<T | null | undefined>, predicate?: ObjectIterateeCustom<T, boolean> ): Exp<Array<T[keyof T]>>;
+    interface ImpL<T> {
+        filter<T, S extends T>( predicate: ListIteratorTypeGuard<T, S> ): ImpL<S>;
+        filter<T>( predicate?: ListIterateeCustom<T, boolean> ): ImpL<T>;
+    }
+    interface ImpO<T> {
+        filter<S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S> ): ImpL<S>;
+        filter( predicate?: ObjectIterateeCustom<T, boolean> ): ImpL<T[keyof T]>;
+    }
+    interface ImpU {
+        filter(predicate?: DictionaryIteratee<unknown> ): ImpU;
+    }
+    interface ExpS {
+        filter(predicate?: StringIterator<boolean> ): ExpL<string>;
+    }
+    interface ExpL<T> {
+        filter<T, S extends T>( predicate: ListIteratorTypeGuard<T, S> ): ExpL<S>;
+        filter<T>( predicate?: ListIterateeCustom<T, boolean> ): ExpL<T>;
+    }
+    interface ExpO<T> {
+        filter<S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S> ): ExpL<S>;
+        filter( predicate?: ObjectIterateeCustom<T, boolean> ): ExpL<T[keyof T]>;
+    }
+    interface ExpU {
+        filter(predicate?: DictionaryIteratee<unknown> ): ExpU;
     }
     interface Stat {
         find<T, S extends T>( collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
@@ -67,17 +91,27 @@ declare module "../index" {
         find<T extends object, S extends T[keyof T]>( collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
         find<T extends object>( collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): T[keyof T]|undefined;
     }
-    interface Imp<TValue> {
-        find<T, S extends T>( this: Imp<List<T> | null | undefined>, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
-        find<T>( this: Imp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): T|undefined;
-        find<T extends object, S extends T[keyof T]>( this: Imp<T | null | undefined>, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
-        find<T extends object>( this: Imp<T | null | undefined>, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): T[keyof T]|undefined;
+    interface ImpL<T> {
+        find<S extends T>( predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
+        find( predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): T|undefined;
     }
-    interface Exp<TValue> {
-        find<T, S extends T>( this: Exp<List<T> | null | undefined>, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): Exp<S|undefined>;
-        find<T>( this: Exp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T|undefined>;
-        find<T extends object, S extends T[keyof T]>( this: Exp<T | null | undefined>, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): Exp<S|undefined>;
-        find<T extends object>( this: Exp<T | null | undefined>, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T[keyof T]|undefined>;
+    interface ImpO<T> {
+        find< S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
+        find( predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): T[keyof T]|undefined;
+    }
+    interface ImpU {
+        find(predicate?: DictionaryIteratee<unknown>, fromIndex?: number ): unknown;
+    }
+    interface ExpL<T> {
+        find< S extends T>( predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): Exp<S|undefined>;
+        find( predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T|undefined>;
+    }
+    interface ExpO<T> {
+        find< S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): Exp<S|undefined>;
+        find( predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T[keyof T]|undefined>;
+    }
+    interface ExpU {
+        find(predicate?: DictionaryIteratee<unknown>, fromIndex?: number ): ExpU;
     }
     interface Stat {
         findLast<T, S extends T>( collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
@@ -85,17 +119,27 @@ declare module "../index" {
         findLast<T extends object, S extends T[keyof T]>( collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
         findLast<T extends object>( collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): T[keyof T]|undefined;
     }
-    interface Imp<TValue> {
-        findLast<T, S extends T>( this: Imp<List<T> | null | undefined>, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): S | undefined;
-        findLast<T>( this: Imp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): T | undefined;
-        findLast<T extends object, S extends T[keyof T]>( this: Imp<T | null | undefined>, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
-        findLast<T extends object>( this: Imp<T | null | undefined>, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): T[keyof T]|undefined;
+    interface ImpL<T> {
+        findLast<S extends T>( predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
+        findLast( predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): T|undefined;
     }
-    interface Exp<TValue> {
-        findLast<T, S extends T>( this: Exp<List<T> | null | undefined>, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): Exp<S | undefined>;
-        findLast<T>( this: Exp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T | undefined>;
-        findLast<T extends object, S extends T[keyof T]>( this: Exp<T | null | undefined>, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): Exp<S|undefined>;
-        findLast<T extends object>( this: Exp<T | null | undefined>, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T[keyof T]|undefined>;
+    interface ImpO<T> {
+        findLast< S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
+        findLast( predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): T[keyof T]|undefined;
+    }
+    interface ImpU {
+        findLast(predicate?: DictionaryIteratee<unknown>, fromIndex?: number ): unknown;
+    }
+    interface ExpL<T> {
+        findLast< S extends T>( predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): Exp<S|undefined>;
+        findLast( predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T|undefined>;
+    }
+    interface ExpO<T> {
+        findLast< S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): Exp<S|undefined>;
+        findLast( predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T[keyof T]|undefined>;
+    }
+    interface ExpU {
+        findLast(predicate?: DictionaryIteratee<unknown>, fromIndex?: number ): ExpU;
     }
     interface Stat {
         flatMap<T>( collection: Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined ): T[];
