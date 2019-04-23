@@ -159,6 +159,7 @@ export interface Connection extends EscapeFunctions {
      * Set handler to be run when a callback has been queued to wait for an
      * available connection.
      */
+    // tslint:disable-next-line:unified-signatures
     on(ev: 'enqueue', callback: (err?: MysqlError) => void): Connection;
 
     /**
