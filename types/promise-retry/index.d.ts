@@ -25,5 +25,5 @@ type RetryableFn<ResolutionType> = ((retry: (error: any) => never, attempt: numb
 declare function promiseRetry<ResolutionType>(retryableFn: RetryableFn<ResolutionType>, options?: OperationOptions): Promise<ResolutionType>;
 declare function promiseRetry<ResolutionType>(options: OperationOptions, retryableFn: RetryableFn<ResolutionType>): Promise<ResolutionType>;
 // Exporting a namespace too
-namespace promiseRetry {}
+declare namespace promiseRetry {}
 export = promiseRetry;
