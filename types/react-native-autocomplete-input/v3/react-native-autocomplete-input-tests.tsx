@@ -25,7 +25,7 @@ class AutocompleteExample extends React.Component<{}, {query: string}> {
             data={data}
             defaultValue={query}
             onChangeText={text => this.setState({ query: text })}
-            renderItem={({ item }) => (
+            renderItem={(item: Item) => (
                 <TouchableOpacity onPress={() => this.setState({ query: item.query })}>
                     <Text>{item.value}</Text>
                 </TouchableOpacity>
