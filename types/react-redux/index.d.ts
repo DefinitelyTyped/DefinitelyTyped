@@ -505,17 +505,25 @@ export function batch(cb: () => void): void;
  *   )
  * }
  */
-export function useActions<T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): T;
-export function useActions<T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): T;
-export function useActions<T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): T;
-export function useActions<T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<
+    T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
+>(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<
+    T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
+>(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<
+    T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
+>(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<
+    T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
+>(actions: T, deps?: ReadonlyArray<any>): T;
 export function useActions<T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): T;
 export function useActions<T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): T;
 export function useActions<T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): T;
 export function useActions<T extends [ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): T;
 export function useActions<T extends [ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): T;
 export function useActions<T extends ReadonlyArray<ActionCreator<any>>>(actions: T, deps?: ReadonlyArray<any>): T;
-export function useActions<T extends ActionCreatorsMapObject<any>>(actions: T, deps?: ReadonlyArray<any>): T;
+export function useActions<T extends ActionCreatorsMapObject>(actions: T, deps?: ReadonlyArray<any>): T;
 export function useActions<T extends ActionCreator<any>>(actions: T, deps?: ReadonlyArray<any>): T;
 
 /**
@@ -583,41 +591,43 @@ export function useDispatch<A extends Action = AnyAction>(): Dispatch<A>;
 export function useRedux<
     TState,
     TSelected,
-    TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
-    >(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+    TActions
+    extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
 export function useRedux<
     TState,
     TSelected,
     TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
-    >(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
 export function useRedux<
     TState,
     TSelected,
     TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
-    >(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
 export function useRedux<
     TState,
     TSelected,
     TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
-    >(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
 export function useRedux<
     TState,
     TSelected,
     TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
-    >(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
 export function useRedux<
     TState,
     TSelected,
     TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
-    >(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
 export function useRedux<
     TState,
     TSelected,
-    TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+    TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
 export function useRedux<TState, TSelected, TActions extends [ActionCreator<any>, ActionCreator<any>]>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
 export function useRedux<TState, TSelected, TActions extends [ActionCreator<any>]>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
 export function useRedux<TState, TSelected, TActions extends ReadonlyArray<ActionCreator<any>>>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
-export function useRedux<TState, TSelected, TActions extends ActionCreatorsMapObject<any>>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+export function useRedux<TState, TSelected, TActions extends ActionCreatorsMapObject>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
 export function useRedux<TState, TSelected, TActions extends ActionCreator<any>, A = ReturnType<TActions>>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
 
 /**
