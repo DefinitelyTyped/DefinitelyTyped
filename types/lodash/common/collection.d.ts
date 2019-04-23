@@ -4,13 +4,17 @@ declare module "../index" {
         countBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): Dictionary<number>;
         countBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]>): Dictionary<number>;
     }
+    interface ImpO<T> {
+        countBy(iteratee?: ValueIteratee<T[keyof T]>): Imp<Dictionary<number>>;
+    }
     interface Imp<TValue> {
-        countBy<T>(this: Imp<List<T> | null | undefined>, iteratee?: ValueIteratee<T>): Imp<Dictionary<number>>;
-        countBy<T extends object>(this: Imp<T | null | undefined>, iteratee?: ValueIteratee<T[keyof T]>): Imp<Dictionary<number>>;
+        countBy(iteratee?: ValueIteratee<TValue>): Imp<Dictionary<number>>;
+    }
+    interface ExpO<T> {
+        countBy( iteratee?: ValueIteratee<T[keyof T]> ): Exp<Dictionary<number>>;
     }
     interface Exp<TValue> {
-        countBy<T>(this: Exp<List<T> | null | undefined>, iteratee?: ValueIteratee<T>): Exp<Dictionary<number>>;
-        countBy<T extends object>( this: Exp<T | null | undefined>, iteratee?: ValueIteratee<T[keyof T]> ): Exp<Dictionary<number>>;
+        countBy(iteratee?: ValueIteratee<TValue>): Exp<Dictionary<number>>;
     }
     interface Stat {
         each: typeof _.forEach;

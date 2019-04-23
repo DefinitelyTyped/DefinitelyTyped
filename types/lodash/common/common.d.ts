@@ -8,7 +8,7 @@ declare module "../index" {
         (value: string): ImpS;
         <T>(value: List<T> | null | undefined): ImpL<T>;
         <T extends (...args: any[]) => any>(value: T): ImpF<T>;
-        (value: object): ImpO;
+        <T extends object>(value: T): ImpO<T>;
         (value: any): ImpU;
         VERSION: string;
         templateSettings: TemplateSettings;
@@ -30,7 +30,7 @@ declare module "../index" {
     interface MapCacheConstructor {
         new (): MapCache;
     }
-    interface ImpL<T> {
+    interface ImpL<T> extends Imp<List<T>> {
         pop<T>(): T | undefined;
         push<T>(...items: T[]): this;
         shift<T>(): T | undefined;
@@ -50,9 +50,9 @@ declare module "../index" {
     }
     interface ImpS extends Imp<string> {
     }
-    interface ImpO extends Imp<object> {
+    interface ImpO<T> extends Imp<object> {
     }
-    interface ImpL<T> extends Imp<T> {
+    interface ImpL<T> extends Imp<List<T>> {
     }
     interface ImpU extends Imp<unknown> {
     }
@@ -60,9 +60,9 @@ declare module "../index" {
     }
     interface ExpS extends Exp<string> {
     }
-    interface ExpO extends Exp<object> {
+    interface ExpO<T> extends Exp<object> {
     }
-    interface ExpL<T> extends Exp<T> {
+    interface ExpL<T> extends Exp<List<T>> {
     }
     interface ExpU extends Exp<unknown> {
     }

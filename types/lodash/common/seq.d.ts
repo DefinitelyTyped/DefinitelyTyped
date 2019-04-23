@@ -5,7 +5,7 @@ declare module "../index" {
         chain(value: string): ExpS;
         chain<T>(value: List<T> | null | undefined): ExpL<T>;
         chain<T extends (...args:any[]) => any>(value: T): ExpF<T>;
-        chain(value: object): ExpO;
+        chain<T extends object>(value: T): ExpO<T>;
         chain(value: any): ExpU;
     }
     interface ImpL<T> {
@@ -14,8 +14,8 @@ declare module "../index" {
     interface ImpS {
         chain(): ExpS;
     }
-    interface ImpS {
-        chain(): ExpO;
+    interface ImpO<T> {
+        chain(): ExpO<T>;
     }
     interface ImpU {
         chain(): _.ExpU;

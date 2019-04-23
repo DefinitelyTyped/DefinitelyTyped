@@ -676,10 +676,10 @@ declare module "../index" {
         zipObjectDeep( paths?: List<PropertyPath>, values?: List<any> ): object;
     }
     interface ImpL<T> {
-        zipObjectDeep( values?: List<any> ): ImpO;
+        zipObjectDeep( values?: List<any> ): ImpO<object>;
     }
     interface ExpL<T> {
-        zipObjectDeep(values?: List<any> ): ExpO;
+        zipObjectDeep(values?: List<any> ): ExpO<object>;
     }
     interface Stat {
         zipWith<T, TResult>( arrays: List<T>, iteratee: (value1: T) => TResult ): TResult[];

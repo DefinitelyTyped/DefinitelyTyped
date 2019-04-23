@@ -101,13 +101,17 @@ declare module "../index" {
         at<T>(object:  Dictionary<T> | NumericDictionary<T> | null | undefined, ...props: PropertyPath[]): T[];
         at<T extends object>(object: T | null | undefined, ...props: Array<Many<keyof T>>): Array<T[keyof T]>;
     }
+    interface ImpO<T> {
+        at(...props: Array<Many<keyof T>>): Imp<Array<T[keyof T]>>;
+    }
     interface Imp<TValue> {
-        at<T>(this: Imp< Dictionary<T> | NumericDictionary<T> | null | undefined>, ...props: PropertyPath[]): Imp<T[]>;
-        at<T extends object>(this: Imp<T | null | undefined>, ...props: Array<Many<keyof T>>): Imp<Array<T[keyof T]>>;
+        at(...props: PropertyPath[]): Imp<unknown[]>;
+    }
+    interface ExpO<T> {
+        at(...props: Array<Many<keyof T>>): Exp<Array<T[keyof T]>>;
     }
     interface Exp<TValue> {
-        at<T>(this: Exp< Dictionary<T> | NumericDictionary<T> | null | undefined>, ...props: PropertyPath[]): Exp<T[]>;
-        at<T extends object>(this: Exp<T | null | undefined>, ...props: Array<Many<keyof T>>): Exp<Array<T[keyof T]>>;
+        at(...props: PropertyPath[]): Exp<unknown[]>;
     }
     interface Stat {
         create<T extends object, U extends object>(prototype: T, properties?: U): T & U;
