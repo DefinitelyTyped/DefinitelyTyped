@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-declare module 'react-native-dotenv';
+declare const _a: any;
+export = _a;
