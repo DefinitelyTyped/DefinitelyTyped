@@ -22,6 +22,14 @@ FB.getLoginStatus(function(response: fb.StatusResponse) {
 const authResponse: fb.AuthResponse = FB.getAuthResponse();
 console.log(authResponse.accessToken);
 
+FB.login();
+
+FB.login(function(response: fb.StatusResponse) {
+    console.log(response);
+    console.log(response.status);
+    console.log(response.authResponse.accessToken);
+});
+
 FB.login(function(response: fb.StatusResponse) {
     console.log(response);
     console.log(response.status);
@@ -39,6 +47,10 @@ FB.logout(function(response: fb.StatusResponse) {
     console.log(response.status);
     console.log(response.authResponse.accessToken);
 });
+
+FB.login({ auth_type: 'reauthenticate' });
+FB.login({ auth_type: 'reauthorize' });
+FB.login({ auth_type: 'rerequest' });
 
 FB.logout();
 

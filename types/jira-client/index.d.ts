@@ -1,5 +1,5 @@
 // Type definitions for jira-client 6.4
-// Project: https://github.com/jira-node/node-jira-client
+// Project: http://github.com/jira-node/node-jira-client
 // Definitions by: Anatoliy Ostapenko <https://github.com/KOPTE3>
 //                 Orta Therox <https://github.com/orta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -89,7 +89,7 @@ declare class JiraApi {
 
     createCustomField(field: JiraApi.FieldObject): Promise<JiraApi.JsonResponse>;
 
-    listFields(): Promise<JiraApi.JsonResponse>;
+    listFields(): Promise<JiraApi.FieldObject[]>;
 
     createFieldOption(fieldKey: string, option: JiraApi.FieldOptionObject): Promise<JiraApi.JsonResponse>;
 

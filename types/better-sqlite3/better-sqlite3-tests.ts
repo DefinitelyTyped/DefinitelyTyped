@@ -11,7 +11,7 @@ const registrationOptions: Sqlite.RegistrationOptions = {
 };
 
 let db: Sqlite.Database = Sqlite('.');
-db = new Sqlite('.', { memory: true });
+db = new Sqlite('.', { memory: true, verbose: () => {} });
 db.exec('CREATE TABLE test (id INTEGER PRIMARY KEY NOT NULL, name TEXT NOT NULL);');
 db.exec('INSERT INTO test(name) VALUES("name");');
 db.pragma('data_version', { simple: true });
@@ -69,3 +69,12 @@ trans.default('name');
 trans.deferred('name');
 trans.immediate('name');
 trans.exclusive('name');
+
+const transTyped = db.transaction((param: number) => stmt.all(param));
+transTyped(1);
+trans.default(1);
+trans.deferred(1);
+trans.immediate(1);
+trans.exclusive(1);
+// $ExpectError
+transTyped('name');

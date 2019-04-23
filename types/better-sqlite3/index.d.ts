@@ -4,9 +4,17 @@
 //                 Mathew Rumsey <https://github.com/matrumz>
 //                 Santiago Aguilar <https://github.com/sant123>
 //                 Alessandro Vergani <https://github.com/loghorn>
+//                 Andrew Kaiser <https://github.com/andykais>
+//                 Mark Stewart <https://github.com/mrkstwrt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 import Integer = require("integer");
+
+type VariableArgFunction = (...params: any[]) => any;
+type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => any
+  ? A
+  : never;
 
 declare namespace BetterSqlite3 {
     interface Statement {
@@ -34,12 +42,12 @@ declare namespace BetterSqlite3 {
         type: string | null;
     }
 
-    interface Transaction {
-        (...params: any[]): any;
-        default(...params: any[]): any;
-        deferred(...params: any[]): any;
-        immediate(...params: any[]): any;
-        exclusive(...params: any[]): any;
+    interface Transaction<F extends VariableArgFunction> {
+        (...params: ArgumentTypes<F>): any;
+        default(...params: ArgumentTypes<F>): any;
+        deferred(...params: ArgumentTypes<F>): any;
+        immediate(...params: ArgumentTypes<F>): any;
+        exclusive(...params: ArgumentTypes<F>): any;
     }
 
     interface Database {
@@ -50,7 +58,7 @@ declare namespace BetterSqlite3 {
         inTransaction: boolean;
 
         prepare(source: string): Statement;
-        transaction(fn: (...params: any[]) => any): Transaction;
+        transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
         exec(source: string): this;
         pragma(source: string, options?: Database.PragmaOptions): any;
         checkpoint(databaseName?: string): this;
@@ -90,6 +98,7 @@ declare namespace Database {
         readonly?: boolean;
         fileMustExist?: boolean;
         timeout?: number;
+        verbose?: (message?: any, ...additionalArgs: any[]) => void;
     }
 
     interface PragmaOptions {
@@ -113,7 +122,7 @@ declare namespace Database {
     type SqliteError = typeof SqliteError;
     type Statement = BetterSqlite3.Statement;
     type ColumnDefinition = BetterSqlite3.ColumnDefinition;
-    type Transaction = BetterSqlite3.Transaction;
+    type Transaction = BetterSqlite3.Transaction<VariableArgFunction>;
     type Database = BetterSqlite3.Database;
 }
 

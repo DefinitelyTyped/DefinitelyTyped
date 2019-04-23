@@ -73,7 +73,7 @@ declare namespace nock {
         filteringRequestBody(regex: RegExp, replace: string): this;
         filteringRequestBody(fn: (body: string) => string): this;
 
-        log(out: () => void): this;
+        log(out: (message: any, ...optionalParams: any[]) => void): this;
         persist(flag?: boolean): this;
         shouldPersist(): boolean;
         replyContentLength(): this;

@@ -6,55 +6,129 @@ import Submission from './Submission';
 import Subreddit from './Subreddit';
 
 export default class RedditUser extends RedditContent<RedditUser> {
+  /** Number of Reddit coins, only returned for your own user */
+  coins?: number;
   comment_karma: number;
-  features?: Features; // this seems to only be returned for your own user
-  gold_creddits: number;
-  gold_expiration: number | null;
-  has_mail: boolean;
+  /** Only returned for your own user */
+  features?: Features;
+  /** Only returned for your own user */
+  force_password_reset?: boolean;
+  /** Only returned for your own user */
+  gold_creddits?: number;
+  /** Only returned for your own user */
+  gold_expiration?: number | null;
+  /** Only returned for your own user */
+  has_android_subscription?: boolean;
+  /** Only returned for your own user */
+  has_external_account?: boolean;
+  /** Only returned for your own user */
+  has_ios_subscription?: boolean;
+  /** Only returned for your own user */
+  has_mail?: boolean;
   has_mod_mail: boolean;
+  /** Only returned for your own user */
+  has_paypal_subscription?: boolean;
+  /** Only returned for your own user */
+  has_stripe_subscription?: boolean;
   has_subscribed: boolean;
-  has_verified_email: boolean;
+  /** Only returned for your own user */
+  has_subscribed_to_premium?: boolean;
+  has_verified_mail: boolean;
+  /** Only returned for your own user */
+  has_visited_new_profile?: boolean;
   hide_from_robots: boolean;
-  in_beta: boolean;
-  inbox_count: number;
+  /** Image URL of the user's avatar */
+  icon_img: string;
+  /** Only returned for your own user */
+  in_beta?: boolean;
+  /** Only returned for your own user */
+  in_chat?: boolean;
+  /** Only returned for your own user */
+  in_redesign_beta?: boolean;
+  /** Only returned for your own user */
+  inbox_count?: number;
   is_employee: boolean;
-  is_friend: boolean;
+  /** Only returned for other users, not yourself */
+  is_friend?: boolean;
   is_gold: boolean;
   is_mod: boolean;
-  is_sponsor: boolean;
-  is_suspended: boolean;
+  /** Only returned for your own user */
+  is_sponsor?: boolean;
+  /** Only returned for your own user */
+  is_suspended?: boolean;
   link_karma: number;
-  modhash: string | null;
-  new_modmail_exists: boolean;
-  over_18: boolean;
-  pref_no_profanity: boolean;
+  modhash?: string | null;
+  /** Only returned for your own user */
+  new_modmail_exists?: boolean | null;
+  /** Only returned for your own user */
+  num_friends?: number;
+  /** Only returned for your own user */
+  oauth_client_id?: string;
+  /** Only returned for your own user */
+  over_18?: boolean;
+  /** Only returned for your own user */
+  pref_autoplay?: boolean;
+  /** Only returned for your own user */
+  pref_clickgadget?: number;
+  /** Only returned for your own user */
+  pref_geopopular?: string;
+  /** Only returned for your own user */
+  pref_nightmode?: boolean;
+  /** Only returned for your own user */
+  pref_no_profanity?: boolean;
   pref_show_snoovatar: boolean;
-  pref_top_karma_subreddits: any; // ?
+  /** Only returned for your own user */
+  pref_show_trending?: boolean;
+  /** Only returned for your own user */
+  pref_show_twitter?: boolean;
+  /** Only returned for your own user */
+  pref_top_karma_subreddits?: boolean;
+  /** Only returned for your own user */
+  pref_video_autoplay?: boolean;
+  /** Only returned for your own user */
+  seen_layout_switch?: boolean;
+  /** Only returned for your own user */
+  seen_premium_adblock_modal?: boolean;
+  /** Only returned for your own user */
+  seen_redesign_modal?: boolean;
+  /** Only returned for your own user */
+  seen_subreddit_chat_ftux?: boolean;
   subreddit: Subreddit | null;
-  suspension_expiration_utc: number | null;
+  /** Only returned for your own user */
+  suspension_expiration_utc?: number | null;
   verified: boolean;
 
   assignFlair(options: any): Promise<this>;
   friend(options: any): Promise<this>;
-  getComments(options?: any): Listing<Comment>;
-  getDownvotedContent(options?: any): Listing<Comment | Submission>;
+  getComments(options?: any): Promise<Listing<Comment>>;
+  getDownvotedContent(options?: any): Promise<Listing<Comment | Submission>>;
   getFriendInformation(): Promise<any>;
-  getGildedContent(options?: any): Listing<Comment | Submission>;
-  getHiddenContent(options?: any): Listing<Comment | Submission>;
+  getGildedContent(options?: any): Promise<Listing<Comment | Submission>>;
+  getHiddenContent(options?: any): Promise<Listing<Comment | Submission>>;
   getMultireddit(name: string): MultiReddit;
   getMultireddits(): Promise<MultiReddit[]>;
-  getOverview(options?: any): Listing<Comment | Submission>;
-  getSavedContent(options?: any): Listing<Comment | Submission>;
-  getSubmissions(options?: any): Listing<Submission>;
+  getOverview(options?: any): Promise<Listing<Comment | Submission>>;
+  getSavedContent(options?: any): Promise<Listing<Comment | Submission>>;
+  getSubmissions(options?: any): Promise<Listing<Submission>>;
   getTrophies(): Promise<any>;
-  getUpvotedContent(options?: any): Listing<Comment | Submission>;
+  getUpvotedContent(options?: any): Promise<Listing<Comment | Submission>>;
   giveGold(months: string): Promise<any>;
   unfriend(): Promise<any>;
 }
 
 interface Features {
+  chat: boolean;
+  chat_group_rollout: boolean;
+  chat_rollout: boolean;
+  chat_subreddit: boolean;
   do_not_track: boolean;
+  email_verification: ExperimentFeature;
+  mweb_sharing_clipboard: ExperimentFeature;
+  mweb_xpromo_revamp_v2: ExperimentFeature;
   show_amp_link: boolean;
+  show_nps_survey: boolean;
+  spez_modal: boolean;
+  top_content_email_digest_v2: ExperimentFeature;
   live_happening_now: boolean;
   adserver_reporting: boolean;
   geopopular: boolean;

@@ -42,6 +42,16 @@ declare global {
              */
             cleanup(): Promise<void>;
         }
+
+        // Detox exports all methods from detox global and all of the global constants.
+        interface DetoxExport extends Detox {
+            device: Device;
+            element: Element;
+            waitFor: WaitFor;
+            expect: Expect<Expect<any>>;
+            by: Matchers;
+        }
+
         interface Device {
             /**
              * Launch the app
@@ -434,4 +444,6 @@ declare global {
     }
 }
 
-export { by, detox, device, element, expect, waitFor };
+declare const detoxExport: Detox.DetoxExport;
+
+export = detoxExport;

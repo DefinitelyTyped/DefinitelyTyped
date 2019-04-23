@@ -1,6 +1,7 @@
 // Type definitions for serverless 1.18
 // Project: https://github.com/serverless/serverless#readme
 // Definitions by: Hassan Khan <https://github.com/hassankhan>
+//                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require("./classes/Service");
@@ -12,6 +13,9 @@ import AwsProvider = require("./plugins/aws/provider/awsProvider");
 
 declare namespace Serverless {
     interface Options {
+        function?: string;
+        watch?: boolean;
+        extraServicePath?: string;
         stage: string | null;
         region: string | null;
         noDeploy?: boolean;
@@ -23,10 +27,23 @@ declare namespace Serverless {
 
     interface FunctionDefinition {
         name: string;
+        package: Package;
+        runtime?: string;
+        handler: string;
+        timeout?: number;
+        memorySize?: number;
+        environment?: { [ name: string ]: string };
     }
 
     interface Event {
         eventName: string;
+    }
+
+    interface Package {
+        include: string[];
+        exclude: string[];
+        artifact?: string;
+        individually?: boolean;
     }
 }
 

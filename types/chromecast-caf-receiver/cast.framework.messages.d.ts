@@ -1372,12 +1372,12 @@ export interface MediaInformation {
      * is playing or ones that receiver will play shortly after; instead of sending
      * whole list of clips. This is to avoid overflow of MediaStatus message.
      */
-    breakClips: BreakClip[];
+    breakClips?: BreakClip[];
 
     /**
      * List of breaks.
      */
-    breaks: Break[];
+    breaks?: Break[];
 
     /**
      * Typically the url of the media.
@@ -1414,12 +1414,18 @@ export interface MediaInformation {
     /**
      * The format of the HLS media segment.
      */
-    hlsSegmentFormat: HlsSegmentFormat;
+    hlsSegmentFormat?: HlsSegmentFormat;
 
     /**
      * The media metadata.
      */
-    metadata: MediaMetadata;
+    metadata?:
+    | MediaMetadata
+    | GenericMediaMetadata
+    | MovieMediaMetadata
+    | MusicTrackMediaMetadata
+    | PhotoMediaMetadata
+    | TvShowMediaMetadata;
 
     /**
      * The stream type.
@@ -1429,12 +1435,18 @@ export interface MediaInformation {
     /**
      * The style of text track.
      */
-    textTrackStyle: TextTrackStyle;
+    textTrackStyle?: TextTrackStyle;
 
     /**
      * The media tracks.
      */
-    tracks: Track[];
+    tracks?: Track[];
+
+    /**
+     * VMAP ad request configuration. Used if breaks and breakClips are not
+     * provided.
+     */
+    vmapAdsRequest?: VastAdsRequest;
 }
 
 /**

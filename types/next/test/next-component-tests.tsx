@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NextStatelessComponent, NextContext, NextComponentType } from "next";
+import { NextStatelessComponent, NextContext, NextComponentType, NextFunctionComponent } from "next";
 import { DefaultQuery } from "next/router";
 
 interface NextComponentProps {
@@ -29,11 +29,20 @@ class ClassNextWithTypedQuery extends React.Component {
     }
 }
 
-const StatelessNext: NextStatelessComponent<NextComponentProps> = ({ example }) => (
+const LegacyStatelessNext: NextStatelessComponent<NextComponentProps> = ({ example }) => (
     <div>I'm a stateless component! {example}</div>
 );
 
-StatelessNext.getInitialProps = async ({ query }: NextContext) => {
+LegacyStatelessNext.getInitialProps = async ({ query }: NextContext) => {
+    const { example } = query;
+    return { example: example as string };
+};
+
+const FunctionNext: NextFunctionComponent<NextComponentProps> = ({ example }) => (
+    <div>I'm a functional component! {example}</div>
+);
+
+FunctionNext.getInitialProps = async ({ query }: NextContext) => {
     const { example } = query;
     return { example: example as string };
 };

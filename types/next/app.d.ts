@@ -53,6 +53,6 @@ export type AppComponentType<P = {}, IP = P, C = NextAppContext> = NextComponent
 >;
 
 export class Container extends React.Component {}
-export default class App<P = {}> extends React.Component<P & DefaultAppIProps & AppProps> {
+export default class App<P = {}, S = {}> extends React.Component<P & DefaultAppIProps & AppProps, S> {
     static getInitialProps(context: NextAppContext): Promise<DefaultAppIProps>;
 }

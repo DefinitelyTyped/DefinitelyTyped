@@ -1,7 +1,8 @@
 // Type definitions for hubot 2.19
-// Project: https://github.com/github/hubot
+// Project: https://github.com/hubotio/hubot
 // Definitions by: Dirk Gadsden <https://github.com/dirk>
 //                 Kees C. Bakker <https://github.com/KeesCBakker>
+//                 Emil Marklund <https://github.com/eeemil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Hubot {
@@ -40,6 +41,8 @@ declare namespace Hubot {
         readonly adapter: A;
 
         constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string);
+        catchAll(callback: ListenerCallback<this>): void;
+        catchAll(options: any, callback: ListenerCallback<this>): void;
         hear(regex: RegExp, callback: ListenerCallback<this>): void;
         hear(regex: RegExp, options: any, callback: ListenerCallback<this>): void;
         helpCommands(): string[];

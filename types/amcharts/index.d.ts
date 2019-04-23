@@ -1,5 +1,5 @@
 // Type definitions for amCharts 3.21
-// Project: http://www.amcharts.com/
+// Project: https://amcharts.com
 // Definitions by: ldrick <https://github.com/ldrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2

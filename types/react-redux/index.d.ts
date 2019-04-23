@@ -1,4 +1,4 @@
-// Type definitions for react-redux 6.0
+// Type definitions for react-redux 7.0
 // Project: https://github.com/reduxjs/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
 //                 Kenzie Togami <https://github.com/kenzierocks>,
@@ -6,12 +6,12 @@
 //                 Frank Tan <https://github.com/tansongyang>
 //                 Nicholas Boll <https://github.com/nicholasboll>
 //                 Dibyo Majumdar <https://github.com/mdibyo>
-//                 Prashant Deva <https://github.com/pdeva>
 //                 Thomas Charlat <https://github.com/kallikrein>
 //                 Valentin Descamps <https://github.com/val1984>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 //                 Anatoli Papirovski <https://github.com/apapirovski>
 //                 Boris Sergeyev <https://github.com/surgeboris>
+//                 Søren Bruus Frank <https://github.com/soerenbf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -31,7 +31,8 @@ import {
     Component,
     ComponentClass,
     ComponentType,
-    StatelessComponent
+    StatelessComponent,
+    Context
 } from 'react';
 
 import {
@@ -41,6 +42,8 @@ import {
     Dispatch,
     Store
 } from 'redux';
+
+import hoistNonReactStatics = require('hoist-non-react-statics');
 
 // Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
@@ -84,7 +87,7 @@ export type Matching<InjectedProps, DecorationTargetProps> = {
  */
 export type Shared<
     InjectedProps,
-    DecorationTargetProps extends Shared<InjectedProps, DecorationTargetProps>
+    DecorationTargetProps
     > = {
         [P in Extract<keyof InjectedProps, keyof DecorationTargetProps>]?: InjectedProps[P] extends DecorationTargetProps[P] ? DecorationTargetProps[P] : never;
     };
@@ -94,7 +97,10 @@ export type GetProps<C> = C extends ComponentType<infer P> ? P : never;
 
 // Applies LibraryManagedAttributes (proper handling of defaultProps
 // and propTypes), as well as defines WrappedComponent.
-export type ConnectedComponentClass<C, P> = ComponentClass<JSX.LibraryManagedAttributes<C, P>> & {
+export type ConnectedComponentClass<
+    C extends ComponentType<any>,
+    P
+> = ComponentClass<JSX.LibraryManagedAttributes<C, P>> & hoistNonReactStatics.NonReactStatics<C> & {
     WrappedComponent: C;
 };
 
@@ -165,7 +171,7 @@ export interface Connect {
 
     <no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
         mapStateToProps: null | undefined,
-        mapDispatchToProps: TDispatchProps,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     ): InferableComponentEnhancerWithProps<
         ResolveThunks<TDispatchProps>,
         TOwnProps
@@ -178,7 +184,7 @@ export interface Connect {
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
-        mapDispatchToProps: TDispatchProps,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     ): InferableComponentEnhancerWithProps<
         TStateProps & ResolveThunks<TDispatchProps>,
         TOwnProps
@@ -225,7 +231,7 @@ export interface Connect {
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
         mapStateToProps: null | undefined,
-        mapDispatchToProps: TDispatchProps,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
         options: Options<{}, TStateProps, TOwnProps>
     ): InferableComponentEnhancerWithProps<
@@ -242,7 +248,7 @@ export interface Connect {
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
-        mapDispatchToProps: TDispatchProps,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
         options: Options<State, TStateProps, TOwnProps>
     ): InferableComponentEnhancerWithProps<
@@ -314,6 +320,13 @@ export interface Options<State = {}, TStateProps = {}, TOwnProps = {}, TMergedPr
      * @default shallowEqual
      */
     areMergedPropsEqual?: (nextMergedProps: TMergedProps, prevMergedProps: TMergedProps) => boolean;
+
+    /**
+     * If true, use React's forwardRef to expose a ref of the wrapped component
+     *
+     * @default false
+     */
+    forwardRef?: boolean;
 }
 
 /**
@@ -343,7 +356,9 @@ export function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = {}>(
 export type SelectorFactory<S, TProps, TOwnProps, TFactoryOptions> =
     (dispatch: Dispatch<Action>, factoryOptions: TFactoryOptions) => Selector<S, TProps, TOwnProps>;
 
-export type Selector<S, TProps, TOwnProps> = (state: S, ownProps: TOwnProps) => TProps;
+export type Selector<S, TProps, TOwnProps = null> = TOwnProps extends null | undefined
+    ? (state: S) => TProps
+    : (state: S, ownProps: TOwnProps) => TProps;
 
 export interface ConnectOptions {
     /**
@@ -383,11 +398,22 @@ export interface ConnectOptions {
      */
     storeKey?: string;
     /**
-     * If true, stores a ref to the wrapped component instance and makes it available via getWrappedInstance() method.
+     * @deprecated Use forwardRef
      *
      * @default false
      */
     withRef?: boolean;
+    /**
+     * The react context to get the store from.
+     *
+     * @default ReactReduxContext
+     */
+    context?: Context<ReactReduxContextValue>;
+}
+
+export interface ReactReduxContextValue<SS = any, A extends Action = AnyAction> {
+    store: Store<SS, A>;
+    storeState: SS;
 }
 
 export interface ProviderProps<A extends Action = AnyAction> {
@@ -395,6 +421,12 @@ export interface ProviderProps<A extends Action = AnyAction> {
      * The single Redux store in your application.
      */
     store: Store<any, A>;
+    /**
+     * Optional context to be used internally in react-redux. Use React.createContext() to create a context to be used.
+     * If this is used, generate own connect HOC by using connectAdvanced, supplying the same context provided to the
+     * Provider. Initial value doesn't matter, as it is overwritten with the internal state of Provider.
+     */
+    context?: Context<ReactReduxContextValue>;
 }
 
 /**
@@ -403,10 +435,13 @@ export interface ProviderProps<A extends Action = AnyAction> {
 export class Provider<A extends Action = AnyAction> extends Component<ProviderProps<A>> { }
 
 /**
- * Creates a new <Provider> which will set the Redux Store on the passed key of the context. You probably only need this
- * if you are in the inadvisable position of having multiple stores. You will also need to pass the same storeKey to the
- * options argument of connect.
- *
- * @param storeKey The key of the context on which to set the store.
+ * Exposes the internal context used in react-redux. It is generally advised to use the connect HOC to connect to the
+ * redux store instead of this approeach.
  */
-export function createProvider(storeKey: string): typeof Provider;
+export const ReactReduxContext: Context<ReactReduxContextValue>;
+
+/**
+ * Wraps ReactDOM or React Native's internal unstable_batchedUpdate function. You can use it to ensure that
+ * multiple actions dispatched outside of React only result in a single render update.
+ */
+export function batch(cb: () => void): void;

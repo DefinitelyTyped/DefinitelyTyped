@@ -1,6 +1,6 @@
 // Type definitions for helmet
 // Project: https://github.com/helmetjs/helmet
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Evan Hahn <https://github.com/EvanHahn>, Elliot Blackburn <https://github.com/bluehatbrit>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Evan Hahn <https://github.com/EvanHahn>, Elliot Blackburn <https://github.com/bluehatbrit>, Daniel Müller <https://github.com/chdanielmueller>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -134,7 +134,11 @@ declare namespace helmet {
     export interface IHelmetHpkpConfiguration {
         maxAge: number;
         sha256s: string[];
+        /**
+         * @deprecated Use includeSubDomains instead. (Uppercase "D")
+         */
         includeSubdomains?: boolean;
+        includeSubDomains?: boolean;
         reportUri?: string;
         reportOnly?: boolean;
         setIf?: IHelmetSetIfFunction;
@@ -142,7 +146,11 @@ declare namespace helmet {
 
     export interface IHelmetHstsConfiguration {
         maxAge?: number;
+        /**
+         * @deprecated Use includeSubDomains instead. (Uppercase "D")
+         */
         includeSubdomains?: boolean;
+        includeSubDomains?: boolean;
         preload?: boolean;
         setIf?: IHelmetSetIfFunction;
         force?: boolean;

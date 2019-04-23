@@ -1,8 +1,11 @@
 // Type definitions for linkifyjs 2.1
 // Project: https://github.com/SoapBox/linkifyjs#readme
 // Definitions by: Sean Zhu <https://github.com/szhu>
+//                 Ovidiu Bute <https://github.com/ovidiubute>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
+
+import * as React from "react";
 
 export type PossiblyFuncOfHrefAndType<T> =
     | T
@@ -26,9 +29,9 @@ export interface LinkifyOptions {
      * Also accepts a function that takes the unformatted href, the link type
      * (e.g., 'url', 'email', etc.) and returns the object.
      */
-    attributes?: PossiblyFuncOfHrefAndType<{
-        [attrName: string]: string;
-    }> | null;
+    attributes?: PossiblyFuncOfHrefAndType<
+        React.AnchorHTMLAttributes<HTMLAnchorElement>
+    > | null;
 
     /**
      * className

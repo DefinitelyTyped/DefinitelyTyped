@@ -1,5 +1,5 @@
-// Type definitions for next 7.0
-// Project: https://github.com/zeit/next.js/packages/next
+// Type definitions for next 8.0
+// Project: https://github.com/zeit/next.js/packages/next, https://nextjs.org
 // Definitions by: Drew Hays <https://github.com/dru89>
 //                 Brice BERNARD <https://github.com/brikou>
 //                 James Hegedus <https://github.com/jthegedus>
@@ -14,8 +14,8 @@
 
 import * as http from "http";
 import * as url from "url";
-import { Server as NextServer, ServerOptions as NextServerOptions, RenderOptions } from 'next-server';
-import { NextConfig as NextServerConfig } from 'next-server/next-config';
+import { Server as NextServer, ServerOptions as NextServerOptions, RenderOptions } from "next-server";
+import { NextConfig as NextServerConfig } from "next-server/next-config";
 import { Response as NodeResponse } from "node-fetch";
 import { SingletonRouter, DefaultQuery, UrlLike } from "./router";
 
@@ -87,14 +87,31 @@ declare namespace next {
         | NextStatelessComponent<P, IP, C>;
 
     /**
-     * Next.js counterpart of React.SFC/React.StatelessComponent.
+     * @deprecated as of recent React versions, function components can no
+     * longer be considered 'stateless'. Please use `NextFunctionComponent` instead.
+     *
+     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+     */
+    type NextSFC<P = {}, IP = P, C = NextContext> = NextFunctionComponent<P, IP, C>;
+
+    /**
+     * @deprecated as of recent React versions, function components can no
+     * longer be considered 'stateless'. Please use `NextFunctionComponent` instead.
+     *
+     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+     */
+    type NextStatelessComponent<P = {}, IP = P, C = NextContext> = NextFunctionComponent<P, IP, C>;
+
+    type NextFC<P = {}, IP = P, C = NextContext> = NextFunctionComponent<P, IP, C>;
+
+    /**
+     * Next.js counterpart of React.FC/React.FunctionComponent.
      *
      * @template P Component props.
      * @template IP Initial props returned from getInitialProps.
      * @template C Context passed to getInitialProps.
      */
-    type NextSFC<P = {}, IP = P, C = NextContext> = NextStatelessComponent<P, IP, C>;
-    type NextStatelessComponent<P = {}, IP = P, C = NextContext> = React.StatelessComponent<P> &
+    type NextFunctionComponent<P = {}, IP = P, C = NextContext> = React.FunctionComponent<P> &
         NextStaticLifecycle<IP, C>;
 
     /**
@@ -114,8 +131,16 @@ declare namespace next {
      * @template C Context passed to getInitialProps.
      */
     interface NextStaticLifecycle<IP, C> {
-        getInitialProps?: (ctx: C) => Promise<IP> | IP;
+        getInitialProps?: GetInitialProps<IP, C>;
     }
+
+    /**
+     * Next.js getInitialProps type.
+     *
+     * @template IP Initial props returned from getInitialProps and passed to the component.
+     * @template C Context passed to getInitialProps.
+     */
+    type GetInitialProps<IP, C> = (ctx: C) => Promise<IP> | IP;
 }
 
 declare function next(options?: next.ServerOptions & { dev: true }): next.DevServer;

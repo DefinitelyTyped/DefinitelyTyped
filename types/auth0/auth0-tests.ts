@@ -147,10 +147,20 @@ management
 management
   .updateUser({id: "user_id"}, {"email": "hi@me.co"}, (err: Error, users: auth0.User) => {});
 
-
 // Update user metadata
 management
   .updateUserMetadata({id: "user_id"}, {"key": "value"});
+
+// Update user metadata with JSON object
+management
+    .updateUserMetadata({id: "user_id"}, {
+      key: "value",
+      numKey: 123,
+      objKey: {
+        foo: "bar",
+        another: "value"
+      }
+    });
 
 // Update user metadata using callback
 management

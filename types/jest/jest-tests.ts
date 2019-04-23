@@ -83,6 +83,12 @@ it.skip("name", () => {}, 9001);
 it.skip("name", async () => {}, 9001);
 it.skip("name", (callback: jest.DoneCallback) => {}, 9001);
 
+it.todo("name", () => {});
+it.todo("name", async () => {});
+it.todo("name", () => {}, 9001);
+it.todo("name", async () => {}, 9001);
+it.todo("name", (callback: jest.DoneCallback) => {}, 9001);
+
 it.concurrent("name", () => {});
 it.concurrent("name", async () => {});
 it.concurrent("name", () => {}, 9001);
@@ -106,6 +112,12 @@ fit.skip("name", async () => {});
 fit.skip("name", () => {}, 9001);
 fit.skip("name", async () => {}, 9001);
 fit.skip("name", (callback: jest.DoneCallback) => {}, 9001);
+
+fit.todo("name", () => {});
+fit.todo("name", async () => {});
+fit.todo("name", () => {}, 9001);
+fit.todo("name", async () => {}, 9001);
+fit.todo("name", (callback: jest.DoneCallback) => {}, 9001);
 
 fit.concurrent("name", () => {});
 fit.concurrent("name", async () => {});
@@ -131,6 +143,12 @@ xit.skip("name", () => {}, 9001);
 xit.skip("name", async () => {}, 9001);
 xit.skip("name", (callback: jest.DoneCallback) => {}, 9001);
 
+xit.todo("name", () => {});
+xit.todo("name", async () => {});
+xit.todo("name", () => {}, 9001);
+xit.todo("name", async () => {}, 9001);
+xit.todo("name", (callback: jest.DoneCallback) => {}, 9001);
+
 xit.concurrent("name", () => {});
 xit.concurrent("name", async () => {});
 xit.concurrent("name", () => {}, 9001);
@@ -155,6 +173,12 @@ test.skip("name", () => {}, 9001);
 test.skip("name", async () => {}, 9001);
 test.skip("name", (callback: jest.DoneCallback) => {}, 9001);
 
+test.todo("name", () => {});
+test.todo("name", async () => {});
+test.todo("name", () => {}, 9001);
+test.todo("name", async () => {}, 9001);
+test.todo("name", (callback: jest.DoneCallback) => {}, 9001);
+
 test.concurrent("name", () => {});
 test.concurrent("name", async () => {});
 test.concurrent("name", () => {}, 9001);
@@ -178,6 +202,12 @@ xtest.skip("name", async () => {});
 xtest.skip("name", () => {}, 9001);
 xtest.skip("name", async () => {}, 9001);
 xtest.skip("name", (callback: jest.DoneCallback) => {}, 9001);
+
+xtest.todo("name", () => {});
+xtest.todo("name", async () => {});
+xtest.todo("name", () => {}, 9001);
+xtest.todo("name", async () => {}, 9001);
+xtest.todo("name", (callback: jest.DoneCallback) => {}, 9001);
 
 xtest.concurrent("name", () => {});
 xtest.concurrent("name", async () => {});
@@ -237,6 +267,8 @@ jest
     .mock("moduleName", jest.fn(), { virtual: true })
     .resetModuleRegistry()
     .resetModules()
+    .isolateModules(() => {})
+    .retryTimes(3)
     .runAllImmediates()
     .runAllTicks()
     .runAllTimers()
@@ -251,14 +283,56 @@ jest
     .useFakeTimers()
     .useRealTimers();
 
+// https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+jest.requireActual("./thisReturnsTheActualModule");
+
+// https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
+jest.requireMock("./thisAlwaysReturnsTheMock");
+
 /* Mocks and spies */
 
-const mock1: jest.Mock = jest.fn();
-const mock2: jest.Mock<undefined> = jest.fn<undefined>(() => undefined);
-const mock3: jest.Mock<string> = jest.fn(() => "abc");
-const mock4: jest.Mock<"abc"> = jest.fn((): "abc" => "abc");
-const mock5: jest.Mock<string> = jest.fn((...args: string[]) => args.join(""));
-const mock6: jest.Mock = jest.fn((arg: {}) => arg);
+// $ExpectType Mock<any, any>
+const mock1: jest.Mock<number> = jest.fn();
+// $ExpectType Mock<undefined, []>
+const mock2 = jest.fn(() => undefined);
+// $ExpectType Mock<string, []>
+const mock3 = jest.fn(() => "abc");
+// $ExpectType Mock<"abc", []>
+const mock4 = jest.fn((): "abc" => "abc");
+// $ExpectType Mock<string, string[]>
+const mock5 = jest.fn((...args: string[]) => args.join(""));
+// $ExpectType Mock<{}, [{}]>
+const mock6 = jest.fn((arg: {}) => arg);
+// $ExpectType Mock<number, [number]>
+const mock7 = jest.fn((arg: number) => arg);
+// $ExpectType Mock<number, [number]>
+const mock8: jest.Mock = jest.fn((arg: number) => arg);
+// $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]>
+const mock9 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) => Promise.resolve(_makeItStop));
+// $ExpectType Mock<never, []>
+const mock10 = jest.fn(() => { throw new Error(); });
+// $ExpectType Mock<unknown, [unknown]>
+const mock11 = jest.fn((arg: unknown) => arg);
+interface TestApi {
+    test(x: number): string;
+}
+// $ExpectType Mock<string, [number]>
+const mock12 = jest.fn<ReturnType<TestApi["test"]>, jest.ArgsType<TestApi["test"]>>();
+
+// $ExpectType number
+mock1('test');
+
+// $ExpectError
+mock7('abc');
+// $ExpectError
+mock7.mockImplementation((arg: string) => 1);
+
+// compiles because mock8 is declared as jest.Mock<{}, any>
+mock8('abc');
+mock8.mockImplementation((arg: string) => 1);
+
+// mockImplementation not required to declare all arguments
+mock9.mockImplementation((a: number) => Promise.resolve(a === 0));
 
 const genMockModule1: {} = jest.genMockFromModule("moduleName");
 const genMockModule2: { a: "b" } = jest.genMockFromModule<{ a: "b" }>("moduleName");
@@ -272,35 +346,65 @@ if (jest.isMockFunction(maybeMock)) {
 }
 
 const mockName: string = jest.fn().getMockName();
-const mockContextVoid: jest.MockContext<void> = jest.fn<void>().mock;
-const mockContextString: jest.MockContext<string> = jest.fn(() => "").mock;
+const mockContextVoid = jest.fn().mock;
+const mockContextString = jest.fn(() => "").mock;
 
 jest.fn().mockClear();
-
 jest.fn().mockReset();
-
 jest.fn().mockRestore();
+jest.fn().mockImplementation((test: number) => test);
+jest.fn().mockResolvedValue(1);
 
+interface SpyInterface {
+    prop?: number;
+    method?: (arg1: boolean) => void;
+}
 const spiedTarget = {
     returnsVoid(): void { },
+    setValue(value: string): void {
+        this.value = value;
+    },
     returnsString(): string {
         return "";
     }
 };
+class SpiedTargetClass {
+    private _value = 3;
+    private _value2 = '';
+    get value() {
+        return this._value;
+    }
+    set value(value) {
+        this._value = value;
+    }
+    get value2() {
+        return this._value2;
+    }
+    set value2(value2) {
+        this._value2 = value2;
+    }
+}
+
+const spiedTarget2 = new SpiedTargetClass();
+
+// $ExpectError
+jest.spyOn(spiedTarget, "setValue", "get");
+// $ExpectError
+jest.spyOn(spiedTarget2, "value");
 
 const spy1 = jest.spyOn(spiedTarget, "returnsVoid");
-const spy2 = jest.spyOn(spiedTarget, "returnsVoid", "get");
-const spy3 = jest.spyOn(spiedTarget, "returnsString", "set");
+const spy3 = jest.spyOn(spiedTarget, "returnsString");
 const spy1Name: string = spy1.getMockName();
 
-const spy2Calls: any[][] = spy2.mock.calls;
+const spy1Calls: Array<[]> = spy1.mock.calls;
 
-spy2.mockClear();
-spy2.mockReset();
+spy1.mockClear();
+spy1.mockReset();
 
-const spy3Mock: jest.Mock<() => string> = spy3
+const spy3Mock = spy3
     .mockImplementation(() => "")
     .mockImplementation()
+    // $ExpectError
     .mockImplementation((arg: {}) => arg)
     .mockImplementation((...args: string[]) => args.join(""))
     .mockImplementationOnce(() => "")
@@ -314,9 +418,96 @@ const spy3Mock: jest.Mock<() => string> = spy3
     .mockRejectedValueOnce("value");
 
 let spy4: jest.SpyInstance;
-
+// $ExpectType SpyInstance<string, []>
 spy4 = jest.spyOn(spiedTarget, "returnsString");
+// compiles because spy4 is declared as jest.SpyInstance<any, any>
+spy4.mockImplementation(() => 1);
 spy4.mockRestore();
+
+// $ExpectType SpyInstance<number, []>
+const spy5 = jest.spyOn(spiedTarget2, "value", "get");
+// $ExpectError
+spy5.mockReturnValue('5');
+
+// $ExpectType SpyInstance<void, [number]>
+jest.spyOn(spiedTarget2, "value", "set");
+
+let spyInterfaceImpl: SpyInterface = {};
+// $ExpectError
+jest.spyOn(spyInterfaceImpl, "method", "get");
+// $ExpectError
+jest.spyOn(spyInterfaceImpl, "prop");
+// $ExpectType SpyInstance<number, []>
+jest.spyOn(spyInterfaceImpl, "prop", "get");
+// $ExpectType SpyInstance<void, [boolean]>
+jest.spyOn(spyInterfaceImpl, "method");
+
+interface Type1 { a: number; }
+interface Type2 { b: number; }
+class TestMocked {
+    field: string;
+    test1(x: Type1): Promise<Type1> {
+        return Promise.resolve(x);
+    }
+    test2(x: Promise<Type1>): Promise<Type1> {
+        return x;
+    }
+    test3(x: Promise<Type1>): Promise<Type2> {
+        return x.then(() => ({ b: 1 }));
+    }
+    test4(x: Type1): Type1 {
+        return x;
+    }
+}
+
+const mocked: jest.Mocked<TestMocked> = new TestMocked() as any;
+mocked.test1.mockImplementation(() => Promise.resolve({ a: 1 }));
+mocked.test1.mockReturnValue(Promise.resolve({ a: 1 }));
+// $ExpectType Mock<Promise<Type1>, [Type1]>
+mocked.test1.mockResolvedValue({ a: 1 });
+mocked.test1.mockResolvedValueOnce({ a: 1 });
+// $ExpectType Mock<Promise<Type1>, [Type1]>
+mocked.test1.mockResolvedValue(Promise.resolve({ a: 1 }));
+mocked.test1.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
+// $ExpectType Mock<Promise<Type1>, [Promise<Type1>]>
+mocked.test2.mockResolvedValue({ a: 1 });
+mocked.test2.mockResolvedValueOnce({ a: 1 });
+// $ExpectType Mock<Promise<Type1>, [Promise<Type1>]>
+mocked.test2.mockResolvedValue(Promise.resolve({ a: 1 }));
+mocked.test2.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
+// $ExpectType Mock<Promise<Type2>, [Promise<Type1>]>
+mocked.test3.mockResolvedValue({ b: 1 });
+mocked.test3.mockResolvedValueOnce({ b: 1 });
+// $ExpectType Mock<Promise<Type2>, [Promise<Type1>]>
+mocked.test3.mockResolvedValue(Promise.resolve({ b: 1 }));
+mocked.test3.mockResolvedValueOnce(Promise.resolve({ b: 1 }));
+mocked.test3.mockRejectedValue(new Error());
+mocked.test3.mockRejectedValueOnce(new Error());
+// $ExpectError
+mocked.test4.mockResolvedValue({ a: 1 });
+// $ExpectError
+mocked.test4.mockResolvedValueOnce({ a: 1 });
+// $ExpectError
+mocked.test4.mockResolvedValue(Promise.resolve({ a: 1 }));
+// $ExpectError
+mocked.test4.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
+// $ExpectError
+mocked.test4.mockRejectedValue(new Error());
+// $ExpectError
+mocked.test4.mockRejectedValueOnce(new Error());
+
+const mockResult = jest.fn(() => 1).mock.results[0];
+switch (mockResult.type) {
+    case 'return':
+        mockResult.value; // $ExpectType number
+        break;
+    case 'incomplete':
+        mockResult.value; // $ExpectType undefined
+        break;
+    case 'throw':
+        mockResult.value; // $ExpectType any
+        break;
+}
 
 /* Snapshot serialization */
 
@@ -464,6 +655,8 @@ expect.extend({
 
         const expectedColor = this.utils.EXPECTED_COLOR("blue");
         const receivedColor = this.utils.EXPECTED_COLOR("red");
+
+        const diff: string = this.utils.diff({}, {});
 
         this.utils.ensureActualIsNumber({});
         this.utils.ensureActualIsNumber({}, "matcher");
@@ -1178,6 +1371,14 @@ test.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
     }
 );
 
+test.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+    ".add(%i, %i)",
+    (a, b, expected) => {
+        expect(a + b).toBe(expected);
+    },
+    5000
+);
+
 test.each`
     a    | b    | expected
     ${1} | ${1} | ${2}
@@ -1186,6 +1387,15 @@ test.each`
 `("returns $expected when $a is added $b", ({ a, b, expected }: Case) => {
     expect(a + b).toBe(expected);
 });
+
+test.each`
+    a    | b    | expected
+    ${1} | ${1} | ${2}
+    ${1} | ${2} | ${3}
+    ${2} | ${1} | ${3}
+`("returns $expected when $a is added $b", ({ a, b, expected }: Case) => {
+    expect(a + b).toBe(expected);
+}, 5000);
 
 test.only.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
     ".add(%i, %i)",

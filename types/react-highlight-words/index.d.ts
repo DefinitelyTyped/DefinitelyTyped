@@ -1,4 +1,4 @@
-// Type definitions for react-highlight-words 0.12
+// Type definitions for react-highlight-words 0.16
 // Project: https://github.com/bvaughn/react-highlight-words#readme
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 //                 Diogo Corrêa <https://github.com/diogodca>
@@ -25,7 +25,7 @@ interface HighlighterProps {
     /** The class name to be applied to an active match. Use along with activeIndex */
     activeClassName?: string;
     /** Specify the match index that should be actively highlighted. Use along with activeClassName */
-    activeIndex?: string;
+    activeIndex?: number;
     /** The inline style to be applied to an active match. Use along with activeIndex */
     activeStyle?: React.CSSProperties;
     /** Escape characters in searchWords which are meaningful in regular expressions */
@@ -48,7 +48,7 @@ interface HighlighterProps {
      * Type of tag to wrap around highlighted matches; defaults to mark but can also be a React element
      * (class or functional)
      */
-    highlightTag?: string;
+    highlightTag?: string | React.ComponentType<any>;
     /**
      * Process each search word and text to highlight before comparing (eg remove accents); signature
      * (text: string): string

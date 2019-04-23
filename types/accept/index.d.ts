@@ -10,6 +10,7 @@ export function encoding(encodingHeader?: string, preferences?: string[]): strin
 export function encodings(encodingHeader?: string): string[];
 export function language(languageHeader?: string, preferences?: string[]): string;
 export function languages(languageHeader?: string): string[];
+export function mediaType(mediaTypeHeader?: string, preferences?: string[]): string;
 export function mediaTypes(mediaTypeHeader?: string): string[];
 export function parseAll(
     headers: Record<string, string | string[] | undefined>

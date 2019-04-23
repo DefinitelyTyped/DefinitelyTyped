@@ -14,6 +14,7 @@ declare class PluginManager {
     loadServicePlugins(servicePlugins: {}): void;
     loadCommand(pluginName: string, details: {}, key: string): {};
     loadCommands(pluginInstance: Plugin): void;
+    spawn(commandsArray: string | string[], options?: any): Promise<void>;
 
     cliOptions: {};
     cliCommands: {};

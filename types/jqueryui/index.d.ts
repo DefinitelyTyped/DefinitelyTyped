@@ -1056,6 +1056,7 @@ declare namespace JQueryUI {
         keyCode: KeyCode;
         menu: Menu;
         progressbar: Progressbar;
+        selectmenu: SelectMenu;
         slider: Slider;
         spinner: Spinner;
         tabs: Tabs;

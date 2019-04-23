@@ -9,6 +9,7 @@ type LocaleChangeHandler = (newLocale: string, oldLocale: string) => void;
 
 interface Counterpart {
     (key: string|string[], options?: object): string;
+    translate(key: string|string[], options?: object): string;
 
     setSeparator(value: string): string;
     onTranslationNotFound(callback: NotFoundHandler): void;

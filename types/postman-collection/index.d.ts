@@ -9,7 +9,7 @@ export interface PropertyBaseDefinition {
     description?: string | DescriptionDefinition;
 }
 
-export class PropertyBase<TDefinition> implements PropertyBaseDefinition {
+export class PropertyBase<TDefinition extends {}> implements PropertyBaseDefinition {
     description?: string | DescriptionDefinition;
 
     constructor(definition?: PropertyBaseDefinition | {info: PropertyBaseDefinition} | string);
@@ -42,7 +42,7 @@ export interface PropertyDefinition extends PropertyBaseDefinition {
     disabled?: boolean;
 }
 
-export class Property<TDefinition> extends PropertyBase<TDefinition> implements PropertyDefinition {
+export class Property<TDefinition extends {}> extends PropertyBase<TDefinition> implements PropertyDefinition {
     disabled: boolean;
     id: string;
     name: string;
@@ -154,7 +154,7 @@ export interface ItemGroupDefinition extends PropertyDefinition {
 
 export class ItemGroup<TItem> extends Property<ItemGroupDefinition> {
     auth?: RequestAuth;
-    items: PropertyList<TItem>;
+    items: PropertyList<TItem | ItemGroup<TItem>>;
     events: EventList;
 
     constructor(definition?: ItemGroupDefinition);

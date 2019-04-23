@@ -1,6 +1,9 @@
 // Type definitions for url-parse 1.4
 // Project: https://github.com/unshiftio/url-parse
-// Definitions by: Pavlo Chernenko <https://github.com/ChernenkoPaul>, Hari Sivaramakrishnan <https://github.com/harisiva>, Dmitry Dushkin <https://github.com/DimitryDushkin>
+// Definitions by: Pavlo Chernenko <https://github.com/ChernenkoPaul>
+//                 Hari Sivaramakrishnan <https://github.com/harisiva>
+//                 Dmitry Dushkin <https://github.com/DimitryDushkin>
+//                 David Golightly <https://github.com/davidgoli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -20,6 +23,8 @@ declare namespace URLParse {
         | 'username';
 
     type QueryParser = (query: string) => object;
+
+    type StringifyQuery = (query: object) => string;
 }
 
 interface URLParse {
@@ -37,11 +42,13 @@ interface URLParse {
     readonly slashes: boolean;
     readonly username: string;
     set(part: URLParse.URLPart, value: string | object | number | undefined, fn?: boolean | URLParse.QueryParser): URLParse;
-    toString(): string;
+    toString(stringify?: URLParse.StringifyQuery): string;
 }
 
 declare const URLParse: {
+    new(address: string, parser?: boolean | URLParse.QueryParser): URLParse;
     new(address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
+    (address: string, parser?: boolean | URLParse.QueryParser): URLParse;
     (address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
 
     extractProtocol(url: string): {
@@ -52,7 +59,7 @@ declare const URLParse: {
     location(url: string): object;
     qs: {
         parse: URLParse.QueryParser;
-        stringify(query: object): string;
+        stringify: URLParse.StringifyQuery;
     };
 };
 

@@ -1,4 +1,4 @@
-// Type definitions for react-reconciler 0.16
+// Type definitions for react-reconciler 0.18
 // Project: https://reactjs.org/
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,7 @@ declare function ReactReconciler<Type, Props, Container, Instance, TextInstance,
 ): ReactReconciler.Reconciler<Instance, TextInstance, Container, PublicInstance>;
 
 declare namespace ReactReconciler {
-    // react-ronciler/ReactFiber
+    // react-reconciler/ReactFiber
 
     // A Fiber is work on a Component that needs to be done or was done. There can
     // be more than one per component.
@@ -201,7 +201,7 @@ declare namespace ReactReconciler {
         ): TextInstance;
 
         scheduleDeferredCallback(
-            callback: (deadline: Deadline) => void,
+            callback: () => any,
             options?: { timeout: number },
         ): any;
         cancelDeferredCallback(callbackID: any): void;
@@ -434,6 +434,11 @@ declare namespace ReactReconciler {
         // be retried.
         latestPingedTime: ExpirationTime;
 
+        pingCache:
+          | WeakMap<Thenable, Set<ExpirationTime>>
+          | Map<Thenable, Set<ExpirationTime>>
+          | null;
+
         // If an error is thrown, and there are no more updates in the queue, we try
         // rendering from the root one more time, synchronously, before handling
         // the error.
@@ -476,9 +481,8 @@ declare namespace ReactReconciler {
 
     // react-reconciler/ReactFiberScheduler
 
-    interface Deadline {
-        timeRemaining(): number;
-        didTimeout: boolean;
+    interface Thenable {
+        then(resolve: () => any, reject?: () => any): any;
     }
 
     // react-reconciler/ReactTypeOfMode
@@ -555,6 +559,7 @@ declare namespace ReactReconciler {
 
         _currentValue: T;
         _currentValue2: T;
+        _threadCount: number;
 
         // DEV only
         _currentRenderer?: object | null;
