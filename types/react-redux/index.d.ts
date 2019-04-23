@@ -669,7 +669,7 @@ export function useSelector<TState, TSelected>(selector: (state: TState) => TSel
 /**
  * A hook to access the redux store.
  *
- * @returns {any} the redux store
+ * @returns the redux store
  *
  * @example
  *
