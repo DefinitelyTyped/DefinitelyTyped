@@ -1,7 +1,7 @@
 // Type definitions for treeify 1.1
 // Project: https://github.com/notatestuser/treeify
 // Definitions by: Mike North <https://github.com/mike-north>
-// Definitions by: Xiao Liang <https://github.com/yxliang01>
+//                 Xiao Liang <https://github.com/yxliang01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
