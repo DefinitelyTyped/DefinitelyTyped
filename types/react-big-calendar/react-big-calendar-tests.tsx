@@ -19,6 +19,7 @@ class CalendarEvent {
     end: Date;
     desc: string;
     resourceId?: string;
+    tooltip?: string;
 
     constructor(_title: string, _start: Date, _end: Date, _allDay?: boolean, _desc?: string, _resourceId?: string) {
         this.title = _title;
@@ -120,6 +121,7 @@ class CalendarResource {
               rtl={true}
               eventPropGetter={(event, start, end, isSelected) => ({ className: 'some-class' })}
               titleAccessor={'title'}
+              tooltipAccessor={'tooltip'}
               allDayAccessor={(event: CalendarEvent) => !!event.allDay}
               startAccessor={'start'}
               endAccessor={(event: CalendarEvent) => event.end || event.start}
