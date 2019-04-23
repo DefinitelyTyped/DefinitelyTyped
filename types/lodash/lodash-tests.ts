@@ -495,13 +495,13 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     _.flattenDeep<number>([1, [2, [3, [4, 5]]]]); // $ExpectType number[]
     _.flattenDeep<number>({0: 1, 1: [2, [3, [4, 5]]], length: 2}); // $ExpectType number[]
 
-    _([1, 2, 3]).flattenDeep<number>(); // $ExpectType LoDashImplicitWrapper<number[]>
-    _([1, [2, [3, [4, 5]]]]).flattenDeep<number>(); // $ExpectType LoDashImplicitWrapper<number[]>
-    _({0: 1, 1: [2, [3, [4, 5]]], length: 2}).flattenDeep<number>(); // $ExpectType LoDashImplicitWrapper<number[]>
+    _([1, 2, 3]).flattenDeep(); // $ExpectType LoDashImplicitWrapper<number[]>
+    _([1, [2, [3, [4, 5]]]]).flattenDeep(); // $ExpectType LoDashImplicitWrapper<number[]>
+    _({0: 1, 1: [2, [3, [4, 5]]], length: 2}).flattenDeep(); // $ExpectType LoDashImplicitWrapper<number[]>
 
-    _.chain([1, 2, 3]).flattenDeep<number>(); // $ExpectType LoDashExplicitWrapper<number[]>
-    _.chain([1, [2, [3, [4, 5]]]]).flattenDeep<number>(); // $ExpectType LoDashExplicitWrapper<number[]>
-    _.chain({0: 1, 1: [2, [3, [4, 5]]], length: 2}).flattenDeep<number>(); // $ExpectType LoDashExplicitWrapper<number[]>
+    _.chain([1, 2, 3]).flattenDeep(); // $ExpectType LoDashExplicitWrapper<number[]>
+    _.chain([1, [2, [3, [4, 5]]]]).flattenDeep(); // $ExpectType LoDashExplicitWrapper<number[]>
+    _.chain({0: 1, 1: [2, [3, [4, 5]]], length: 2}).flattenDeep(); // $ExpectType LoDashExplicitWrapper<number[]>
 
     fp.flattenDeep<number>([1, 2, 3]); // $ExpectType number[]
     fp.flattenDeep<number>([1, [2, [3, [4, 5]]]]); // $ExpectType number[]
