@@ -4,7 +4,7 @@
 //                 Ankith Konda <https://github.com/ankithkonda>
 //                 Herman "Von" Waters IV <https://github.com/hwatersiv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4.4
+// TypeScript Version: 3.4
 
 import * as React from 'react';
 
