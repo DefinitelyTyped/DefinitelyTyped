@@ -17,4 +17,3 @@ brain; // $ExpectType Brain<{}>
 brain.userForName('someone'); // $ExpectType User
 brain.get('test'); // $ExpectType any
 brain.set('test', 'test'); // $ExpectType Brain<{}>
-brain.userForName('someone'); // $ExpectType User
