@@ -1,7 +1,6 @@
-// Type definitions for react-native-autocomplete-input 4.0
+// Type definitions for react-native-autocomplete-input 3.5
 // Project: https://github.com/l-urence/react-native-autocomplete-input#readme
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-//                 Kanitkorn Sujautra <https://github.com/lukyth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -29,7 +28,7 @@ export interface AutocompleteProps<T> extends TextInputProperties {
 
     /**
      * array
-     * An array with suggestion items to be rendered in renderItem({ item, index }). Any array with length > 0 will open the suggestion list and any array with length < 1 will hide the list.
+     * An array with suggestion items to be rendered in renderItem(item). Any array with length > 0 will open the suggestion list and any array with length < 1 will hide the list.
      */
     data: T[];
 
@@ -67,7 +66,7 @@ export interface AutocompleteProps<T> extends TextInputProperties {
      * function
      * renderItem will be called to render the data objects which will be displayed in the result view below the text input.
      */
-    renderItem(itemWithIndex: { item: T; index: number }): ReactNode;
+    renderItem(item: T): ReactNode;
 
     /**
      * function
