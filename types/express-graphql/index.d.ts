@@ -57,11 +57,13 @@ declare namespace graphqlHTTP {
          * An optional function which will be used to validate instead of default `validate`
          * from `graphql-js`.
          */
-        customValidateFn?: (
-            schema: GraphQLSchema,
-            documentAST: DocumentNode,
-            rules?: ReadonlyArray<any>,
-        ) => ReadonlyArray<GraphQLError> | null;
+        customValidateFn?:
+            | ((
+                  schema: GraphQLSchema,
+                  documentAST: DocumentNode,
+                  rules: ReadonlyArray<any>,
+              ) => ReadonlyArray<GraphQLError>)
+            | null;
 
         /**
          * An optional function which will be used to execute instead of default `execute`
