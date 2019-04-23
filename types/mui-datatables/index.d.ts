@@ -9,7 +9,7 @@ import * as React from 'react';
 
 interface MUIDataTableData {
     index: number;
-    data: Array<object|number[]|string[]>;
+    data: Array<object | number[] | string[]>;
 }
 
 interface MUIDataTableStateRows {
@@ -97,6 +97,7 @@ export interface MUIDataTableTextLabels {
 
 export interface MUIDataTableColumnOptions {
     display?: 'true' | 'false' | 'excluded';
+    empty?: boolean;
     filter?: boolean;
     filterList?: string[];
     filterOptions?: string[];
@@ -106,7 +107,7 @@ export interface MUIDataTableColumnOptions {
     print?: boolean;
     download?: boolean;
     hint?: string;
-    customHeadRender?: (columnMeta: MUIDataTableCustomHeadRenderer, updateDirection: (params: any) => any) => string;
+    customHeadRender?: (columnMeta: MUIDataTableCustomHeadRenderer, updateDirection: (params: any) => any) => string | React.ReactNode;
     customBodyRender?: (value: any, tableMeta: MUIDataTableMeta, updateValue: (s: any, c: any, p: any) => any) => string | React.ReactNode;
     setCellProps?: (cellValue: string, rowIndex: number, columnIndex: number) => object;
 }
@@ -176,7 +177,7 @@ export interface MuiDatatablesTableState {
 export interface MUIDataTableProps {
     title: string;
     columns: MUIDataTableColumnDef[];
-    data: Array<object|number[]|string[]>;
+    data: Array<object | number[] | string[]>;
     options?: MUIDataTableOptions;
 }
 
@@ -193,7 +194,7 @@ export interface MUIDataTablePopover {
 }
 
 export interface MUIDataTableBody {
-    data: Array<object|number[]|string[]>;
+    data: Array<object | number[] | string[]>;
     count: number;
     columns: MUIDataTableColumnDef[];
     options: object;
