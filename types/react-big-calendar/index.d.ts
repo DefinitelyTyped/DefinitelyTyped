@@ -279,6 +279,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     components?: Components<TEvent>;
     messages?: Messages;
     titleAccessor?: keyof TEvent | ((event: TEvent) => string);
+    tooltipAccessor?: keyof TEvent | ((event: TEvent) => string);
     allDayAccessor?: keyof TEvent | ((event: TEvent) => boolean);
     startAccessor?: keyof TEvent | ((event: TEvent) => Date);
     endAccessor?: keyof TEvent | ((event: TEvent) => Date);

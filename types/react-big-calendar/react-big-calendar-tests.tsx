@@ -15,6 +15,7 @@ declare const allViews: View[];
 class CalendarEvent {
     title: string;
     allDay: boolean;
+    tooltip: string;
     start: Date;
     end: Date;
     desc: string;
@@ -120,6 +121,7 @@ class CalendarResource {
               rtl={true}
               eventPropGetter={(event, start, end, isSelected) => ({ className: 'some-class' })}
               titleAccessor={'title'}
+              tooltipAccessor={'tooltip'}
               allDayAccessor={(event: CalendarEvent) => !!event.allDay}
               startAccessor={'start'}
               endAccessor={(event: CalendarEvent) => event.end || event.start}
