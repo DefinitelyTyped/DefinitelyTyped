@@ -29,6 +29,15 @@ db._query(aql`
     RETURN u
 `);
 
+db._query(
+    aql`
+        FOR u IN ${users}
+        LIMIT 0, 10
+        RETURN u
+    `,
+    { fullCount: true }
+);
+
 interface Banana {
     color: string;
     shape: {
@@ -89,6 +98,18 @@ router.use(
         transport: cookieTransport({ secret: "banana", algorithm: "sha256" })
     })
 );
+
+router.use((req, res, next) => {
+    if (!req.auth || !req.auth.basic) {
+        res.throw(401);
+    } else if (
+        req.auth.basic.username !== "admin" ||
+        req.auth.basic.password !== "hunter2"
+    ) {
+        res.throw(403);
+    }
+    next();
+});
 
 console.log(
     query`

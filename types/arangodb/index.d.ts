@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ArangoDB 3.4
+// Type definitions for non-npm package ArangoDB 3.5
 // Project: https://github.com/arangodb/arangodb
 // Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -951,8 +951,9 @@ declare namespace ArangoDB {
 
         // AQL
         _createStatement(query: Query | string): Statement;
+        _query(query: Query, options?: QueryOptions): Cursor;
         _query(
-            query: Query | string,
+            query: string,
             bindVars?: object,
             options?: QueryOptions
         ): Cursor;
@@ -1025,7 +1026,7 @@ declare namespace Foxx {
         register: (endpoint: Endpoint) => SimpleMiddleware;
     }
     type Middleware = SimpleMiddleware | DelegateMiddleware;
-    type Handler = ((req: Request, res: Response) => void);
+    type Handler = (req: Request, res: Response) => void;
     type NextFunction = () => void;
 
     interface ValidationResult<T> {
@@ -1163,6 +1164,10 @@ declare namespace Foxx {
     interface Request {
         arangoUser: string | null;
         arangoVersion: number;
+        auth: null | {
+            bearer?: string;
+            basic?: { username?: string; password?: string };
+        };
         baseUrl: string;
         body: any;
         context: Context;
@@ -1456,7 +1461,11 @@ declare module "@arangodb/foxx/queues" {
         mount: string;
     }
 
-    type JobCallback = (result: any, jobData: any, job: ArangoDB.Document<Job>) => void;
+    type JobCallback = (
+        result: any,
+        jobData: any,
+        job: ArangoDB.Document<Job>
+    ) => void;
 
     interface Job {
         status: string;
@@ -1504,7 +1513,16 @@ declare module "@arangodb/foxx/queues" {
     function deleteQueue(name: string): boolean;
     function get(name: string): Queue;
 
-    export { createQueue as create, deleteQueue as delete, get, JobOptions, Job, Queue, QueueItem, Script, };
+    export {
+        createQueue as create,
+        deleteQueue as delete,
+        get,
+        JobOptions,
+        Job,
+        Queue,
+        QueueItem,
+        Script
+    };
 }
 
 declare module "@arangodb/foxx/graphql" {
