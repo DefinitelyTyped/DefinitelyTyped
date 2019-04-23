@@ -41,7 +41,7 @@ declare module "../index" {
         cloneWith<TResult>(customizer: CloneWithCustomizer<object, TResult | undefined>): TResult | object;
         cloneWith(): object;
     }
-    interface ImpL<T> extends Imp<List<T>> {
+    interface ImpL<T> {
         clone(): List<T>;
         cloneDeep(): List<T>;
         cloneDeepWith(customizer: CloneDeepWithCustomizer<List<T>>): any;
@@ -87,7 +87,7 @@ declare module "../index" {
         cloneWith<TResult>(customizer: CloneWithCustomizer<object, TResult | undefined>): Exp<TResult | object>;
         cloneWith(): Exp<object>;
     }
-    interface ExpL<T> extends Exp<List<T>> {
+    interface ExpL<T> {
         clone(): Exp<List<T>>;
         cloneDeep(): Exp<List<T>>;
         cloneDeepWith(customizer: CloneDeepWithCustomizer<List<T>>): Exp<any>;

@@ -30,7 +30,7 @@ declare module "../index" {
     interface MapCacheConstructor {
         new (): MapCache;
     }
-    interface ImpL<T> extends Imp<List<T>> {
+    interface ImpL<T> {
         pop<T>(): T | undefined;
         push<T>(...items: T[]): this;
         shift<T>(): T | undefined;
@@ -52,7 +52,7 @@ declare module "../index" {
     }
     interface ImpO<T> extends Imp<object> {
     }
-    interface ImpL<T> extends Imp<List<T>> {
+    interface ImpL<T> extends Imp<T> {
     }
     interface ImpU extends Imp<unknown> {
     }
@@ -62,7 +62,7 @@ declare module "../index" {
     }
     interface ExpO<T> extends Exp<object> {
     }
-    interface ExpL<T> extends Exp<List<T>> {
+    interface ExpL<T> extends Exp<T> {
     }
     interface ExpU extends Exp<unknown> {
     }
