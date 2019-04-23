@@ -22,7 +22,7 @@ console.log(coll2 === coll);
 const users = coll as ArangoDB.Collection<User>;
 const admin = users.firstExample({ username: "admin" })!;
 users.update(admin, { password: md5("hunter2") });
-console.logLines("user", admin._key, admin.username);
+console.logLines("user", users.documentId(admin._key), admin.username);
 
 db._query(aql`
     FOR u IN ${users}

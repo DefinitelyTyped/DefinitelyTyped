@@ -625,6 +625,7 @@ declare namespace ArangoDB {
             withData?: boolean
         ): CollectionChecksum;
         count(): number;
+        documentId(documentKey: string): string;
         drop(options?: { isSystem?: boolean }): void;
         figures(): CollectionFigures;
         load(): void;
