@@ -4,9 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-interface Env {
-    [name: string]: string;
-}
-
-declare const env: Env;
-export = env;
+declare module 'react-native-dotenv';
