@@ -18,6 +18,7 @@
 //                 Sebastian Sebald <https://github.com/sebald>
 //                 Andy <https://github.com/andys8>
 //                 Antoine Brault <https://github.com/antoinebrault>
+//                 Gregor Stamać <https://github.com/gstamac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
