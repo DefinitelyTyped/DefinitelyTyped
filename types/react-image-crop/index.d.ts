@@ -21,7 +21,7 @@ declare namespace ReactCrop {
 
     interface ReactCropProps {
         src: string;
-        crop: Crop;
+        crop?: Crop;
         imageAlt?: string;
         minWidth?: number;
         minHeight?: number;
@@ -60,7 +60,7 @@ declare class ReactCrop extends Component<ReactCrop.ReactCropProps> {
         width: number,
         height: number,
     };
-    resolveCropAndTriggerChange: (crop: ReactCrop.Crop, image: HTMLImageElement) => ReactCrop.Crop;
+    resolveCrop: (crop: ReactCrop.Crop, image: HTMLImageElement) => ReactCrop.Crop;
     dragCrop: () => ReactCrop.Crop;
     resizeCrop: () => ReactCrop.Crop;
     straightenYPath: (clientX: number) => number;
