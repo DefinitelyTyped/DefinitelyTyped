@@ -41,7 +41,7 @@ export interface MapboxProps extends Partial<ViewState> {
     mapOptions?: object;
     mapStyle?: string | object;
     visible?: boolean;
-    onLoad?: () => void;
+    onLoad?: (event: MapLoadEvent) => void;
     onError?: (e: MapError) => void;
     reuseMap?: boolean;
     width: number | string;
@@ -97,8 +97,8 @@ export interface MapControllerOptions {
 }
 
 export interface ViewportProps {
-    width: number;
-    height: number;
+    width: number | string;
+    height: number | string;
     latitude: number;
     longitude: number;
     zoom: number;
@@ -143,6 +143,11 @@ export class MapState {
 export interface Center {
     x: number;
     y: number;
+}
+
+export interface MapLoadEvent {
+    type: string;
+    target: MapboxGL.Map;
 }
 
 export interface MapControlEvent {
