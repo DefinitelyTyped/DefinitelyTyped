@@ -2012,7 +2012,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     _.flatMapDeep(objNumericDictionary, { a: 42 }); // $ExpectType boolean[]
 
     _("abc").flatMapDeep(stringIterator); // $ExpectType LoDashImplicitWrapper<string[]>
-    _(numList).flatMapDeep<number>(); // $ExpectType LoDashImplicitWrapper<number[]>
+    _(numList).flatMapDeep(); // $ExpectType LoDashImplicitWrapper<number[]>
     _(numList).flatMapDeep(listIterator); // $ExpectType LoDashImplicitWrapper<number[]>
     _(objList).flatMapDeep("a"); // $ExpectType LoDashImplicitWrapper<any[]>
     _(objList).flatMapDeep(["a", 42]); // $ExpectType LoDashImplicitWrapper<boolean[]>
@@ -2023,7 +2023,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     _(objNumericDictionary).flatMapDeep("a"); // $ExpectType LoDashImplicitWrapper<any[]>
 
     _.chain("abc").flatMapDeep(stringIterator); // $ExpectType LoDashExplicitWrapper<string[]>
-    _.chain(numList).flatMapDeep<number>(); // $ExpectType LoDashExplicitWrapper<number[]>
+    _.chain(numList).flatMapDeep(); // $ExpectType LoDashExplicitWrapper<number[]>
     _.chain(numList).flatMapDeep(listIterator); // $ExpectType LoDashExplicitWrapper<number[]>
     _.chain(objList).flatMapDeep("a"); // $ExpectType LoDashExplicitWrapper<any[]>
     _.chain(objList).flatMapDeep(["a", 42]); // $ExpectType LoDashExplicitWrapper<boolean[]>

@@ -149,21 +149,45 @@ declare module "../index" {
         flatMap( collection: object | null | undefined, iteratee: string ): any[];
         flatMap( collection: object | null | undefined, iteratee: object ): boolean[];
     }
-    interface Imp<TValue> {
-        flatMap<T>(this: Imp<Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): Imp<T[]>;
-        flatMap(): Imp<any[]>;
-        flatMap<T, TResult>( this: Imp<List<T> | null | undefined>, iteratee: ListIterator<T, Many<TResult>> ): Imp<TResult[]>;
-        flatMap<T extends object, TResult>( this: Imp<T | null | undefined>, iteratee: ObjectIterator<T, Many<TResult>> ): Imp<TResult[]>;
-        flatMap( iteratee: string ): Imp<any[]>;
-        flatMap( iteratee: object ): Imp<boolean[]>;
+    interface ImpU {
+        flatMap<T>(this: Imp<Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): ImpL<T>;
+        flatMap( iteratee: object ): ImpL<boolean>;
+        flatMap( iteratee: string ): ImpL<any>;
+        flatMap(): ImpL<any>;
     }
-    interface Exp<TValue> {
-        flatMap<T>(this: Exp<Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): Exp<T[]>;
-        flatMap(): Exp<any[]>;
-        flatMap<T, TResult>( this: Exp<List<T> | null | undefined>, iteratee: ListIterator<T, Many<TResult>> ): Exp<TResult[]>;
-        flatMap<T extends object, TResult>( this: Exp<T | null | undefined>, iteratee: ObjectIterator<T, Many<TResult>> ): Exp<TResult[]>;
-        flatMap( iteratee: string ): Exp<any[]>;
-        flatMap( iteratee: object ): Exp<boolean[]>;
+    interface ImpS {
+        flatMap<TResult>(iteratee: StringIterator<Many<TResult>>): ImpL<TResult>;
+        flatMap(): ImpL<string>;
+    }
+    interface ImpL<T> {
+        flatMap<TResult>(iteratee: ListIterator<T, Many<TResult>> | PropertyName): ImpL<TResult>;
+        flatMap(iteratee: [PropertyName, any] | object): ImpL<boolean>;
+        flatMap(): ImpL<T>;
+    }
+    interface ImpO<T> {
+        flatMap<TResult>(iteratee: ObjectIterator<T, Many<TResult>> | PropertyName): ImpL<TResult>;
+        flatMap(iteratee: [PropertyName, any] | object): ImpL<boolean>;
+        flatMap(): ImpL<T[keyof T]>;
+    }
+    interface ExpU {
+        flatMap<T>(this: Exp<Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): ExpL<T>;
+        flatMap( iteratee: object ): ExpL<boolean>;
+        flatMap( iteratee: string ): ExpL<any>;
+        flatMap(): ExpL<any>;
+    }
+    interface ExpS {
+        flatMap<TResult>(iteratee: StringIterator<Many<TResult>>): ExpL<TResult>;
+        flatMap(): ExpL<string>;
+    }
+    interface ExpL<T> {
+        flatMap<TResult>(iteratee: ListIterator<T, Many<TResult>> | PropertyName): ExpL<TResult>;
+        flatMap(iteratee: [PropertyName, any] | object): ExpL<boolean>;
+        flatMap(): ExpL<T>;
+    }
+    interface ExpO<T> {
+        flatMap<TResult>(iteratee: ObjectIterator<T, Many<TResult>> | PropertyName): ExpL<TResult>;
+        flatMap(iteratee: [PropertyName, any] | object): ExpL<boolean>;
+        flatMap(): ExpL<T[keyof T]>;
     }
     interface Stat {
         flatMapDeep<T>( collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined ): T[];
@@ -172,19 +196,45 @@ declare module "../index" {
         flatMapDeep( collection: object | null | undefined, iteratee: string ): any[];
         flatMapDeep( collection: object | null | undefined, iteratee: object ): boolean[];
     }
-    interface Imp<TValue> {
-        flatMapDeep<T>( this: Imp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined> ): Imp<T[]>;
-        flatMapDeep<T, TResult>( this: Imp<List<T> | null | undefined>, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> ): Imp<TResult[]>;
-        flatMapDeep<T extends object, TResult>( this: Imp<T | null | undefined>, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> ): Imp<TResult[]>;
-        flatMapDeep( this: Imp<object | null | undefined>, iteratee: string ): Imp<any[]>;
-        flatMapDeep( this: Imp<object | null | undefined>, iteratee: object ): Imp<boolean[]>;
+    interface ImpU {
+        flatMapDeep<T>(this: Imp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>): ImpL<T>;
+        flatMapDeep( iteratee: object ): ImpL<boolean>;
+        flatMapDeep( iteratee: string ): ImpL<any>;
+        flatMapDeep(): ImpL<any>;
     }
-    interface Exp<TValue> {
-        flatMapDeep<T>( this: Exp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined> ): Exp<T[]>;
-        flatMapDeep<T, TResult>( this: Exp<List<T> | null | undefined>, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> ): Exp<TResult[]>;
-        flatMapDeep<T extends object, TResult>( this: Exp<T | null | undefined>, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> ): Exp<TResult[]>;
-        flatMapDeep( this: Exp<object | null | undefined>, iteratee: string ): Exp<any[]>;
-        flatMapDeep( this: Exp<object | null | undefined>, iteratee: object ): Exp<boolean[]>;
+    interface ImpS {
+        flatMapDeep<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>): ImpL<TResult>;
+        flatMapDeep(): ImpL<string>;
+    }
+    interface ImpL<T> {
+        flatMapDeep<TResult>(iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName): ImpL<TResult>;
+        flatMapDeep(iteratee: [PropertyName, any] | object): ImpL<boolean>;
+        flatMapDeep(): ImpL<T>;
+    }
+    interface ImpO<T> {
+        flatMapDeep<TResult>(iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName): ImpL<TResult>;
+        flatMapDeep(iteratee: [PropertyName, any] | object): ImpL<boolean>;
+        flatMapDeep(): ImpL<T[keyof T]>;
+    }
+    interface ExpU {
+        flatMapDeep<T>(this: Exp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>): ExpL<T>;
+        flatMapDeep( iteratee: object ): ExpL<boolean>;
+        flatMapDeep( iteratee: string ): ExpL<any>;
+        flatMapDeep(): ExpL<any>;
+    }
+    interface ExpS {
+        flatMapDeep<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>): ExpL<TResult>;
+        flatMapDeep(): ExpL<string>;
+    }
+    interface ExpL<T> {
+        flatMapDeep<TResult>(iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName): ExpL<TResult>;
+        flatMapDeep(iteratee: [PropertyName, any] | object): ExpL<boolean>;
+        flatMapDeep(): ExpL<T>;
+    }
+    interface ExpO<T> {
+        flatMapDeep<TResult>(iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName): ExpL<TResult>;
+        flatMapDeep(iteratee: [PropertyName, any] | object): ExpL<boolean>;
+        flatMapDeep(): ExpL<T[keyof T]>;
     }
     interface Stat {
         flatMapDepth<T>( collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined ): T[];
@@ -193,19 +243,45 @@ declare module "../index" {
         flatMapDepth( collection: object | null | undefined, iteratee: string, depth?: number ): any[];
         flatMapDepth( collection: object | null | undefined, iteratee: object, depth?: number ): boolean[];
     }
-    interface Imp<TValue> {
-        flatMapDepth<T>( this: Imp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined> ): Imp<T[]>;
-        flatMapDepth<T, TResult>( this: Imp<List<T> | null | undefined>, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number ): Imp<TResult[]>;
-        flatMapDepth<T extends object, TResult>( this: Imp<T | null | undefined>, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number ): Imp<TResult[]>;
-        flatMapDepth( this: Imp<object | null | undefined>, iteratee: string, depth?: number ): Imp<any[]>;
-        flatMapDepth( this: Imp<object | null | undefined>, iteratee: object, depth?: number ): Imp<boolean[]>;
+    interface ImpU {
+        flatMapDepth<T>(this: Imp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>, depth?: number): ImpL<T>;
+        flatMapDepth( iteratee: object , depth?: number): ImpL<boolean>;
+        flatMapDepth( iteratee: string , depth?: number): ImpL<any>;
+        flatMapDepth( depth?: number): ImpL<any>;
     }
-    interface Exp<TValue> {
-        flatMapDepth<T>( this: Exp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined> ): Exp<T[]>;
-        flatMapDepth<T, TResult>( this: Exp<List<T> | null | undefined>, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number ): Exp<TResult[]>;
-        flatMapDepth<T extends object, TResult>( this: Exp<T | null | undefined>, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number ): Exp<TResult[]>;
-        flatMapDepth( this: Exp<object | null | undefined>, iteratee: string, depth?: number ): Exp<any[]>;
-        flatMapDepth( this: Exp<object | null | undefined>, iteratee: object, depth?: number ): Exp<boolean[]>;
+    interface ImpS {
+        flatMapDepth<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): ImpL<TResult>;
+        flatMapDepth(depth?: number): ImpL<string>;
+    }
+    interface ImpL<T> {
+        flatMapDepth<TResult>(iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName, depth?: number): ImpL<TResult>;
+        flatMapDepth(iteratee: [PropertyName, any] | object, depth?: number): ImpL<boolean>;
+        flatMapDepth(depth?: number): ImpL<T>;
+    }
+    interface ImpO<T> {
+        flatMapDepth<TResult>(iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName, depth?: number): ImpL<TResult>;
+        flatMapDepth(iteratee: [PropertyName, any] | object, depth?: number): ImpL<boolean>;
+        flatMapDepth(depth?: number): ImpL<T[keyof T]>;
+    }
+    interface ExpU {
+        flatMapDepth<T>(this: Exp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>, depth?: number): ExpL<T>;
+        flatMapDepth( iteratee: object , depth?: number): ExpL<boolean>;
+        flatMapDepth( iteratee: string , depth?: number): ExpL<any>;
+        flatMapDepth(depth?: number): ExpL<any>;
+    }
+    interface ExpS {
+        flatMapDepth<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): ExpL<TResult>;
+        flatMapDepth(depth?: number): ExpL<string>;
+    }
+    interface ExpL<T> {
+        flatMapDepth<TResult>(iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName, depth?: number): ExpL<TResult>;
+        flatMapDepth(iteratee: [PropertyName, any] | object, depth?: number): ExpL<boolean>;
+        flatMapDepth(depth?: number): ExpL<T>;
+    }
+    interface ExpO<T> {
+        flatMapDepth<TResult>(iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> | PropertyName, depth?: number): ExpL<TResult>;
+        flatMapDepth(iteratee: [PropertyName, any] | object, depth?: number): ExpL<boolean>;
+        flatMapDepth(depth?: number): ExpL<T[keyof T]>;
     }
     interface Stat {
         forEach<T>( collection: T[], iteratee?: ArrayIterator<T, any> ): T[];
