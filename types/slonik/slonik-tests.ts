@@ -102,6 +102,13 @@ createPool('postgres://localhost', {
         await connection.query(sql`SET auto_explain.log_min_duration=0`);
         await connection.query(sql`SET auto_explain.log_timing=true`);
         await connection.query(sql`SET client_min_messages=log`);
+      },
+      transformRow: (ctx, query, row, fields) => {
+        ctx.queryId; // $ExpectType string
+        query.sql; // $ExpectType string
+        fields[0].dataTypeID; // $ExpectType number
+        row.foo; // $ExpectType QueryResultRowColumnType
+        return row;
       }
     }
   ]
