@@ -514,6 +514,7 @@ declare namespace ArangoDB {
 
     interface Index<T extends object = any> {
         id: string;
+        name: string;
         type: IndexType;
         fields: Array<keyof T | string>;
         sparse: boolean;
@@ -656,6 +657,7 @@ declare namespace ArangoDB {
         ): Array<Document<T>>;
         exists(name: string): boolean;
         firstExample(example: Partial<Document<T>>): Document<T> | null;
+        getResponsibleShard(document: DocumentLike): string;
         insert(data: DocumentData<T>, options?: InsertOptions): InsertResult<T>;
         insert(
             array: ReadonlyArray<DocumentData<T>>,
