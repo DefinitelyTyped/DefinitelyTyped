@@ -15,11 +15,11 @@ declare const allViews: View[];
 class CalendarEvent {
     title: string;
     allDay: boolean;
-    tooltip: string;
     start: Date;
     end: Date;
     desc: string;
     resourceId?: string;
+    tooltip?: string;
 
     constructor(_title: string, _start: Date, _end: Date, _allDay?: boolean, _desc?: string, _resourceId?: string) {
         this.title = _title;
