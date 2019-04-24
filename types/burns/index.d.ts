@@ -25,7 +25,7 @@ type EventHandler = Handlers | Record<string, Handlers>;
 /**
  * Burns configuration settings
  */
-export interface Config {
+interface Config {
     defaultHandler?: HandlerFn;
     broadcaster?: string | null;
     pusher?: Record<string, any>;
@@ -42,4 +42,4 @@ declare class Burns {
     dispatch(eventName: string, eventData?: Record<string, any>, exclude?: { exclude?: any }): this;
 }
 
-export default _Burns;
+export = _Burns;
