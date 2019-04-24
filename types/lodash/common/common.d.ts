@@ -6,9 +6,9 @@ declare module "../index" {
     type Many<T> = T | ReadonlyArray<T>;
     interface Stat {
         (value: string): ImpS;
-        <T>(value: List<T> | null | undefined): ImpL<T>;
-        <T extends (...args: any[]) => any>(value: T): ImpF<T>;
-        <T extends object>(value: T): ImpO<T>;
+        <TrapAny extends { __trapAny: any }, T = any>(value: TrapAny | List<T> | null | undefined): ImpL<T>;
+        <T extends (...args:any[]) => any>(value: T | null | undefined): ImpF<T>;
+        <T extends object>(value: T | null | undefined): ImpO<T>;
         (value: any): ImpU;
         VERSION: string;
         templateSettings: TemplateSettings;

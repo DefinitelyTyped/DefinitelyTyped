@@ -1569,12 +1569,12 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     _.at(abcObject, "a", ["b", "c"]); // $ExpectType (string | number | boolean)[]
 
     _(list).at(0, "1", [2], ["3"], [4, "5"]); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
-    _(numericDictionary).at(0, "1", [2], ["3"], [4, "5"]); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+    _(numericDictionary).at(0, 1, [2], [3], [4, 5]); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     _(dictionary).at("a", ["b", "c"]); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     _(abcObject).at("a", ["b", "c"]); // $ExpectType LoDashImplicitWrapper<(string | number | boolean)[]>
 
     _.chain(list).at(0, "1", [2], ["3"], [4, "5"]); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
-    _.chain(numericDictionary).at(0, "1", [2], ["3"], [4, "5"]); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+    _.chain(numericDictionary).at(0, 1, [2], [3], [4, 5]); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(dictionary).at("a", ["b", "c"]); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(abcObject).at("a", ["b", "c"]); // $ExpectType LoDashExplicitWrapper<(string | number | boolean)[]>
 

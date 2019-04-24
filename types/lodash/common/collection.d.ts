@@ -515,29 +515,39 @@ declare module "../index" {
         orderBy<T extends object>( collection: T | null | undefined, iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc"> ): Array<T[keyof T]>;
         orderBy<T extends object>( collection: T | null | undefined, iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): Array<T[keyof T]>;
     }
-    interface Imp<TValue> {
-        orderBy<T>( this: Imp<List<T> | null | undefined>, iteratees?: Many<ListIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc"> ): ImpL<T>;
-        orderBy<T>( this: Imp<List<T> | null | undefined>, iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): ImpL<T>;
-        orderBy<T extends object>( this: Imp<T | null | undefined>, iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc"> ): Imp<Array<T[keyof T]>>;
-        orderBy<T extends object>( this: Imp<T | null | undefined>, iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): Imp<Array<T[keyof T]>>;
+    interface ImpL<T> {
+        orderBy( iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): ImpL<T>;
     }
-    interface Exp<TValue> {
-        orderBy<T>( this: Exp<List<T> | null | undefined>, iteratees?: Many<ListIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc"> ): Exp<T[]>;
-        orderBy<T>( this: Exp<List<T> | null | undefined>, iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): Exp<T[]>;
-        orderBy<T extends object>( this: Exp<T | null | undefined>, iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc"> ): Exp<Array<T[keyof T]>>;
-        orderBy<T extends object>( this: Exp<T | null | undefined>, iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): Exp<Array<T[keyof T]>>;
+    interface ImpO<T> {
+        orderBy( iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): Imp<Array<T[keyof T]>>;
+    }
+    interface ExpL<T> {
+        orderBy( iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): ExpL<T>;
+    }
+    interface ExpO<T> {
+        orderBy( iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): Exp<Array<T[keyof T]>>;
     }
     interface Stat {
         partition<T>( collection: List<T> | null | undefined, callback: ValueIteratee<T> ): [T[], T[]];
         partition<T extends object>( collection: T | null | undefined, callback: ValueIteratee<T[keyof T]> ): [Array<T[keyof T]>, Array<T[keyof T]>];
     }
-    interface Imp<TValue> {
-        partition<T>( this: Imp<List<T> | null | undefined>, callback: ValueIteratee<T> ): Imp<[T[], T[]]>;
-        partition<T>( this: Imp<T | null | undefined>, callback: ValueIteratee<T[keyof T]> ): Imp<[Array<T[keyof T]>, Array<T[keyof T]>]>;
+    interface ImpS {
+        partition(callback: StringIterator<NotVoid> ): Imp<[string, string]>;
     }
-    interface Exp<TValue> {
-        partition<T>( this: Exp<List<T> | null | undefined>, callback: ValueIteratee<T> ): Exp<[T[], T[]]>;
-        partition<T>( this: Exp<T | null | undefined>, callback: ValueIteratee<T[keyof T]> ): Exp<[Array<T[keyof T]>, Array<T[keyof T]>]>;
+    interface ImpL<T> {
+        partition( callback: ValueIteratee<T> ): Imp<[T[], T[]]>;
+    }
+    interface ImpO<T> {
+        partition( callback: ValueIteratee<T[keyof T]> ): Imp<[Array<T[keyof T]>, Array<T[keyof T]>]>;
+    }
+    interface ExpS {
+        partition(callback: StringIterator<NotVoid> ): Exp<[string, string]>;
+    }
+    interface ExpL<T> {
+        partition( callback: ValueIteratee<T> ): Exp<[T[], T[]]>;
+    }
+    interface ExpO<T> {
+        partition( callback: ValueIteratee<T[keyof T]> ): Exp<[Array<T[keyof T]>, Array<T[keyof T]>]>;
     }
     interface Stat {
         reduce<T, TResult>( collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult ): TResult;
