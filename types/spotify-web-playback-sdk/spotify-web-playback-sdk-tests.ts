@@ -45,6 +45,10 @@ player.getVolume().then((volume: number) => {
     console.log(`The volume of the player is ${volume_percentage}%`);
 });
 
+player.setName("New player name").then(() => {
+    console.log("Player name updated!");
+});
+
 player.setVolume(0.5).then(() => {
     console.log("Volume updated!");
 });

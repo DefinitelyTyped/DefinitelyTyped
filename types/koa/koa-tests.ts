@@ -1,19 +1,18 @@
 import Koa = require("koa");
 
-declare module 'koa' {
-    export interface BaseContext {
-        db(): void;
-    }
-    export interface Context {
-        user: {};
-    }
+interface DbBaseContext {
+    db(): void;
 }
 
-const app = new Koa();
+interface UserContext {
+    user: {};
+}
+
+const app = new Koa<{}, DbBaseContext>();
 
 app.context.db = () => {};
 
-app.use(async ctx => {
+app.use<{}, UserContext>(async ctx => {
     console.log(ctx.db);
     ctx.user = {};
 });

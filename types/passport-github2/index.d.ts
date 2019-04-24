@@ -1,5 +1,5 @@
 // Type definitions for passport-github2 1.2
-// Project: https://github.com/jaredhanson/passport-github
+// Project: https://github.com/cfsghost/passport-github
 // Definitions by: Yasunori Ohoka <https://github.com/yasupeke>
 //                 Maarten Mulders <https://github.com/mthmulders>
 //                 Christoph Werner <https://github.com/codepunkt>
@@ -29,6 +29,7 @@ export interface StrategyOption extends passport.AuthenticateOptions {
     scopeSeparator?: string;
     customHeaders?: OutgoingHttpHeaders;
     userProfileURL?: string;
+    userEmailURL?: string;
 }
 
 export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
@@ -50,6 +51,7 @@ export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequir
     scopeSeparator?: string;
     customHeaders?: OutgoingHttpHeaders;
     userProfileURL?: string;
+    userEmailURL?: string;
 }
 
 export interface StrategyOptions extends _StrategyOptionsBase {

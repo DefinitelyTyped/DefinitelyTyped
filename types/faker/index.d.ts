@@ -117,7 +117,7 @@ declare namespace Faker {
 		image: {
 			image(): string;
 			avatar(): string;
-			imageUrl(width?: number, height?: number, category?: string): string;
+			imageUrl(width?: number, height?: number, category?: string, randomize?: boolean, https?: boolean): string;
 			abstract(width?: number, height?: number): string;
 			animals(width?: number, height?: number): string;
 			business(width?: number, height?: number): string;

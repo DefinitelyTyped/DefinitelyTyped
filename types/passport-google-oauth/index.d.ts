@@ -33,7 +33,7 @@ interface VerifyFunction {
     (error: any, user?: any, msg?: VerifyOptions): void;
 }
 
-declare class OAuthStrategy extends passport.Strategy {
+declare class OAuthStrategy implements passport.Strategy {
     constructor(
         options: IOAuthStrategyOption,
         verify: (

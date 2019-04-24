@@ -1,4 +1,4 @@
-// Type definitions for Google Google Compute Engine Instance Groups API v1beta2 1.0
+// Type definitions for non-npm package Google Google Compute Engine Instance Groups API v1beta2 1.0
 // Project: https://developers.google.com/compute/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

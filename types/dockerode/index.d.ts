@@ -151,8 +151,8 @@ declare namespace Dockerode {
     modem: any;
     name: string;
 
-    inspect(callback: Callback<any>): void;
-    inspect(): Promise<any>;
+    inspect(callback: Callback<VolumeInspectInfo>): void;
+    inspect(): Promise<VolumeInspectInfo>;
 
     remove(options: {}, callback: Callback<any>): void;
     remove(callback: Callback<any>): void;
@@ -174,6 +174,10 @@ declare namespace Dockerode {
 
     update(options: {}, callback: Callback<any>): void;
     update(options: {}): Promise<any>;
+
+    logs(options: ContainerLogsOptions, callback: Callback<NodeJS.ReadableStream>): void;
+    logs(callback: Callback<NodeJS.ReadableStream>): void;
+    logs(options?: ContainerLogsOptions): Promise<NodeJS.ReadableStream>;
   }
 
   class Task {
@@ -367,6 +371,22 @@ declare namespace Dockerode {
     Ingress: boolean;
   }
 
+  interface VolumeInspectInfo {
+    Name: string;
+    Driver: string;
+    Mountpoint: string;
+    Status?: { [key: string]: string };
+    Labels: { [key: string]: string };
+    Scope: 'local' | 'global';
+    // Field is always present, but sometimes is null
+    Options: { [key: string]: string } | null;
+    // Field is sometimes present, and sometimes null
+    UsageData?: {
+      Size: number;
+      RefCount: number;
+    } | null;
+  }
+
   interface ContainerInspectInfo {
     Id: string;
     Created: string;
@@ -429,7 +449,7 @@ declare namespace Dockerode {
       Image: string;
       Volumes: { [volume: string]: {} };
       WorkingDir: string;
-      Entrypoint?: any;
+      Entrypoint?: string | string[];
       OnBuild?: any;
       Labels: { [label: string]: string }
     };
@@ -647,7 +667,7 @@ declare namespace Dockerode {
       Image: string;
       Volumes: { [path: string]: {} },
       WorkingDir: string;
-      Entrypoint?: any;
+      Entrypoint?: string | string[];
       OnBuild?: any[];
       Labels: { [label: string]: string }
     };
@@ -671,7 +691,7 @@ declare namespace Dockerode {
       Image: string;
       Volumes: { [path: string]: {} },
       WorkingDir: string;
-      Entrypoint?: any;
+      Entrypoint?: string | string[];
       OnBuild: any[];
       Labels: { [label: string]: string }
     };
@@ -807,7 +827,7 @@ declare namespace Dockerode {
     StdinOnce?: boolean;
     Env?: string[];
     Cmd?: string[];
-    Entrypoint?: string;
+    Entrypoint?: string | string[];
     Image?: string;
     Labels?: { [label: string]: string };
     Volumes?: { [volume: string]: {} };
@@ -1140,9 +1160,18 @@ declare class Dockerode {
   listPlugins(callback: Callback<Dockerode.PluginInfo[]>): void;
   listPlugins(options?: {}): Promise<Dockerode.PluginInfo[]>;
 
-  listVolumes(options: {}, callback: Callback<any[]>): void;
-  listVolumes(callback: Callback<any[]>): void;
-  listVolumes(options?: {}): Promise<any[]>;
+  listVolumes(options: {}, callback: Callback<{
+    Volumes: Dockerode.VolumeInspectInfo[];
+    Warnings: string[];
+  }>): void;
+  listVolumes(callback: Callback<{
+    Volumes: Dockerode.VolumeInspectInfo[];
+    Warnings: string[];
+  }>): void;
+  listVolumes(options?: {}): Promise<{
+    Volumes: Dockerode.VolumeInspectInfo[];
+    Warnings: string[];
+  }>;
 
   listNetworks(options: {}, callback: Callback<any[]>): void;
   listNetworks(callback: Callback<any[]>): void;

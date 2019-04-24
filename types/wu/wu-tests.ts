@@ -355,6 +355,18 @@ describe("wu.tee", () => {
     assert.equal(i2.next().value, 24);
   });
 });
+describe("wu.toArray", () => {
+  it("should return array from the iterable", () => {
+    assert.eqArray(
+      wu.count(0).take(3).toArray(),
+      [0, 1, 2],
+    );
+    assert.eqArray(
+      wu([0, 1, 2]).toArray(),
+      [0, 1, 2]
+    );
+  });
+});
 describe("wu.unique", () => {
   it("should yield only the unique items from the iterable", () => {
     assert.eqArray([1, 2, 3],

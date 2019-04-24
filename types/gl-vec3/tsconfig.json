@@ -1,0 +1,55 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "lib": [
+        "es6"
+      ],
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "baseUrl": "../",
+      "typeRoots": [
+        "../"
+      ],
+      "types": [
+
+      ],
+      "noEmit": true,
+      "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+      "index.d.ts",
+      "angle.d.ts",
+      "add.d.ts",
+      "clone.d.ts",
+      "copy.d.ts",
+      "create.d.ts",
+      "dist.d.ts",
+      "div.d.ts",
+      "dot.d.ts",
+      "equals.d.ts",
+      "exactEquals.d.ts",
+      "forEach.d.ts",
+      "fromValues.d.ts",
+      "inverse.d.ts",
+      "len.d.ts",
+      "lerp.d.ts",
+      "max.d.ts",
+      "min.d.ts",
+      "mul.d.ts",
+      "negate.d.ts",
+      "normalize.d.ts",
+      "random.d.ts",
+      "scale.d.ts",
+      "scaleAndAdd.d.ts",
+      "set.d.ts",
+      "sqrDist.d.ts",
+      "sqrLen.d.ts",
+      "sub.d.ts",
+      "transformMat3.d.ts",
+      "transformMat4.d.ts",
+      "transformQuat.d.ts",
+      "gl-vec3-tests.ts"
+    ]
+}

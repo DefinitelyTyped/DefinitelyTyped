@@ -96,7 +96,7 @@ declare module "meteor/mongo" {
             { $each?: T[P], $position?: number, $slice?: number, $sort?: 1 | -1 | Dictionary<number> }
         }
         type ArraysOrEach<T> = {
-            [P in keyof T]?: OnlyArrays<T[P]> | { $each: T[P] }
+            [P in keyof T]?: OnlyElementsOfArrays<T[P]> | { $each: T[P] }
         }
         type CurrentDateModifier = { $type: "timestamp" | "date" } | true
         type Modifier<T> = T | {

@@ -8,6 +8,7 @@ declare namespace Tooltip {
         arrowOffsetTop?: number | string;
         bsSize?: Sizes;
         bsStyle?: string;
+        bsClass?: string;
         placement?: string;
         positionLeft?: number;
         positionTop?: number;

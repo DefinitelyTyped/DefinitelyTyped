@@ -1,5 +1,5 @@
 // Type definitions for bluebird 3.5
-// Project: https://github.com/petkaantonov/bluebird
+// Project: https://github.com/kaatt/bluebird-global
 // Definitions by: d-ph <https://github.com/d-ph>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -113,12 +113,15 @@
 import Bluebird = require("bluebird");
 
 declare global {
+    type IterateFunction<T, R> = (item: T, index: number, arrayLength: number) => (R | PromiseLike<R>);
     /*
      * Patch all instance method
      */
     interface Promise<T> {
-        all: Bluebird<T>["all"];
-        any: Bluebird<T>["any"];
+        all(this: Promise<Iterable<{}>>): Bluebird<T>;
+        all(): Bluebird<never>;
+        any<Q>(this: Promise<T & Iterable<Q>>): Bluebird<Q>;
+        any(): Bluebird<never>;
         asCallback: Bluebird<T>["asCallback"];
         bind: Bluebird<T>["bind"];
         call: Bluebird<T>["call"];
@@ -128,9 +131,9 @@ declare global {
         delay: Bluebird<T>["delay"];
         disposer: Bluebird<T>["disposer"];
         done: Bluebird<T>["done"];
-        each: Bluebird<T>["each"];
+        each<Q>(this: Promise<T & Iterable<Q>>, iterator: IterateFunction<Q, any>): Bluebird<T>;
         error: Bluebird<T>["error"];
-        filter: Bluebird<T>["filter"];
+        filter<Q>(this: Promise<T & Iterable<Q>>, filterer: IterateFunction<Q, boolean>, options?: Bluebird.ConcurrencyOption): Bluebird<T>;
         // finally: Bluebird<T>["finally"]; // Provided by lib.es2018.promise.d.ts
         get: Bluebird<T>["get"];
         isCancelled: Bluebird<T>["isCancelled"];
@@ -139,17 +142,18 @@ declare global {
         isRejected: Bluebird<T>["isRejected"];
         isResolved: Bluebird<T>["isResolved"];
         lastly: Bluebird<T>["lastly"];
-        map: Bluebird<T>["map"];
-        mapSeries: Bluebird<T>["mapSeries"];
+        map<U, Q>(this: Promise<T & Iterable<Q>>, mapper: IterateFunction<Q, U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
+        mapSeries<U, Q>(this: Promise<T & Iterable<Q>>, iterator: IterateFunction<Q, U>): Bluebird<U[]>;
         nodeify: Bluebird<T>["nodeify"];
         props: Bluebird<T>["props"];
-        race: Bluebird<T>["race"];
+        race<Q>(this: Promise<T & Iterable<Q>>): Bluebird<Q>;
+        race(): Bluebird<never>;
         reason: Bluebird<T>["reason"];
-        reduce: Bluebird<T>["reduce"];
+        reduce<U, Q>(this: Promise<T & Iterable<Q>>, reducer: (memo: U, item: Q, index: number, arrayLength: number) => (U | PromiseLike<U>), initialValue?: U): Bluebird<U>;
         reflect: Bluebird<T>["reflect"];
         return: Bluebird<T>["return"];
-        some: Bluebird<T>["some"];
-        spread: Bluebird<T>["spread"];
+        some(this: Promise<Iterable<{}>>, count: number): Bluebird<T>;
+        spread<U, Q>(this: Bluebird<T & Iterable<Q>>, fulfilledHandler: (...values: Q[]) => (U | PromiseLike<U>)): Bluebird<U>;
         suppressUnhandledRejections: Bluebird<T>["suppressUnhandledRejections"];
         tap: Bluebird<T>["tap"];
         tapCatch: Bluebird<T>["tapCatch"];

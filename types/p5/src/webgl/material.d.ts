@@ -64,6 +64,23 @@ declare module "../../index" {
     ): p5;
 
     /**
+     *   Sets the coordinate space for texture mapping. The
+     *   default mode is IMAGE which refers to the actual
+     *   coordinates of the image. NORMAL refers to a
+     *   normalized space of values ranging from 0 to 1.
+     *   This function only works in WEBGL mode. With
+     *   IMAGE, if an image is 100 x 200 pixels, mapping
+     *   the image onto the entire size of a quad would
+     *   require the points (0,0) (100, 0) (100,200)
+     *   (0,200). The same mapping in NORMAL is (0,0) (1,0)
+     *   (1,1) (0,1).
+     *   @param mode either IMAGE or NORMAL
+     */
+    textureMode(
+      mode: TEXTURE_MODE
+    ): void;
+
+    /**
      *   Ambient material for geometry with a given color.
      *   You can view all possible materials in this
      *   example.

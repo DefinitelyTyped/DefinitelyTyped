@@ -1,4 +1,4 @@
-import { assertInputType, isInputType, isOutputType } from 'graphql';
+import { assertInputType, isInputType, isOutputType } from "graphql";
 
 ///////////////////////////
 // graphql               //

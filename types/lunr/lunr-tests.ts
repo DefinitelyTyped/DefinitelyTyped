@@ -25,6 +25,16 @@ function basic_test() {
     });
 
     index.search("foo");
+
+    index.query(q => {
+        q.term(
+            lunr.tokenizer('search terms'),
+            {
+                wildcard: lunr.Query.wildcard.TRAILING,
+                presence: lunr.Query.presence.REQUIRED
+            }
+        );
+    });
 }
 
 function pipeline_test() {

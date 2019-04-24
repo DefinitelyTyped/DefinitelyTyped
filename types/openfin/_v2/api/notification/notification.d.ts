@@ -22,6 +22,7 @@ export interface NotificationCallback {
  * are controlled by the runtime.
  * @class
  * @alias Notification
+ * @hideconstructor
  */
 export declare class _Notification extends EmitterBase<NotificationEvents> {
     private listenerList;
@@ -56,6 +57,9 @@ export declare class _Notification extends EmitterBase<NotificationEvents> {
      */
     close(): Promise<void>;
 }
+/**
+ * @lends Notification
+ */
 export default class _NotificationModule extends Base {
     private nextNoteId;
     private genNoteId;
@@ -66,5 +70,12 @@ export default class _NotificationModule extends Base {
         click: string;
         message: string;
     };
+    /**
+     * Creates a new Notification.
+     * @param { object } options
+     * @return {_Notification}
+     * @tutorial Notification.create
+     * @static
+     */
     create(options: any): _Notification;
 }

@@ -1,5 +1,5 @@
 // Type definitions for elasticsearch 5.0
-// Project: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/index.html
+// Project: http://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/index.html
 // Definitions by: Casper Skydt <https://github.com/CasperSkydt>
 //                 Blake Smith <https://github.com/bfsmith>
 //                 Dave Dunkin <https://github.com/ddunkin>
@@ -452,6 +452,7 @@ export interface MGetParams extends GenericParams {
     preference?: string;
     realtime?: boolean;
     refresh?: boolean;
+    routing?: string;
     _source?: NameList;
     _sourceExclude?: NameList;
     _sourceInclude?: NameList;

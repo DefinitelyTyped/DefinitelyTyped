@@ -172,6 +172,7 @@ declare module 'pdfmake/build/pdfmake' {
 
     interface TDocumentDefinitions {
         info?: TDocumentInformation;
+        compress?: boolean;
         header?: TDocumentHeaderFooterFunction;
         footer?: TDocumentHeaderFooterFunction;
         content: string | Content;

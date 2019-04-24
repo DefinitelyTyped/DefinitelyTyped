@@ -8,6 +8,8 @@ declare namespace pusher {
     interface PusherStatic {
         logToConsole: boolean;
         log: (msg: string) => void;
+        instances: Pusher[];
+        isReady: boolean;
         new (apiKey: string, config?: Config): Pusher;
     }
 

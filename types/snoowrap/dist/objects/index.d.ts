@@ -1,5 +1,5 @@
 export { default as Comment } from './Comment';
-export { default as Listing, ListingOptions } from './Listing';
+export { default as Listing, ListingOptions, SortedListingOptions } from './Listing';
 export { default as LiveThread, LiveThreadSettings } from './LiveThread';
 export { default as MultiReddit, MultiRedditProperties } from './MultiReddit';
 export { default as PrivateMessage } from './PrivateMessage';

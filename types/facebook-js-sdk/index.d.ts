@@ -1,4 +1,4 @@
-// Type definitions for the Facebook Javascript SDK 3.1
+// Type definitions for the Facebook Javascript SDK 3.2
 // Project: https://developers.facebook.com/docs/javascript
 // Definitions by:  Amrit Kahlon    <https://github.com/amritk>
 //                  Mahmoud Zohdi   <https://github.com/mahmoudzohdi>
@@ -50,7 +50,7 @@ declare namespace facebook {
          * @param callback function to handle the response.
          * @param options optional ILoginOption to add params such as scope.
          */
-        login(callback: (response: StatusResponse) => void, options: LoginOptions): void;
+        login(callback: (response: StatusResponse) => void, options?: LoginOptions): void;
 
         /**
          * Use this function to log the user in
@@ -61,12 +61,12 @@ declare namespace facebook {
          *
          * @param options optional ILoginOption to add params such as scope.
          */
-        login(options: LoginOptions): void;
+        login(options?: LoginOptions): void;
 
         /**
          * The method FB.logout() logs the user out of your site and, in some cases, Facebook.
          *
-         * @param callback function to handle the response
+         * @param callback optional function to handle the response
          */
         logout(callback?: (response: StatusResponse) => void): void;
 
@@ -150,7 +150,7 @@ declare namespace facebook {
     }
 
     interface LoginOptions {
-        auth_type?: 'rerequest';
+        auth_type?: 'reauthenticate' | 'reauthorize' | 'rerequest';
         scope?: string;
         return_scopes?: boolean;
         enable_profile_selector?: boolean;

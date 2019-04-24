@@ -42,7 +42,7 @@ const App = () => (
 const IndexResults = connectStateResults(
   ({ searchState, searchResults, children }) =>
     searchResults && searchResults.nbHits !== 0 ? (
-      children as React.ReactElement<any>
+      children as React.ReactElement
     ) : (
       <div>
         No results has been found for {searchState.query} and index{' '}
@@ -64,6 +64,6 @@ const AllResults = connectStateResults(({ allSearchResults, children }) => {
       <Index indexName="third" />
     </div>
   ) : (
-    children as React.ReactElement<any>
+    children as React.ReactElement
   );
 });

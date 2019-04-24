@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-01-23
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +11,8 @@ declare namespace GoogleAppsScript {
     /**
      * A Sites Attachment such as a file attached to a page.
      *
-     * Note that an Attachment is a Blob and can be used anywhere Blob input is expected. A rebuilt
+     * Note that an Attachment is a Blob and can be used anywhere Blob input is expected.
+     * A rebuilt
      * version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
      * modify Sites made with this version, but script can still access
      * classic Sites.
@@ -44,7 +45,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A typesafe enum for sites attachment type. A rebuilt
+     * A typesafe enum for sites attachment type.
+     * A rebuilt
      * version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
      * modify Sites made with this version, but script can still access
      * classic Sites.
@@ -52,7 +54,8 @@ declare namespace GoogleAppsScript {
     export enum AttachmentType { WEB, HOSTED }
 
     /**
-     * A Sites Column - a column from a Sites List page. A rebuilt
+     * A Sites Column - a column from a Sites List page.
+     * A rebuilt
      * version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
      * modify Sites made with this version, but script can still access
      * classic Sites.
@@ -65,7 +68,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A Comment attached to any Sites page. A rebuilt
+     * A Comment attached to any Sites page.
+     * A rebuilt
      * version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
      * modify Sites made with this version, but script can still access
      * classic Sites.
@@ -83,7 +87,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A Sites ListItem - a list element from a Sites List page. A rebuilt
+     * A Sites ListItem - a list element from a Sites List page.
+     * A rebuilt
      * version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
      * modify Sites made with this version, but script can still access
      * classic Sites.
@@ -101,7 +106,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A Page on a Google Site. A rebuilt
+     * A Page on a Google Site.
+     * A rebuilt
      * version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
      * modify Sites made with this version, but script can still access
      * classic Sites.
@@ -162,7 +168,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A typesafe enum for sites page type. A rebuilt
+     * A typesafe enum for sites page type.
+     * A rebuilt
      * version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
      * modify Sites made with this version, but script can still access
      * classic Sites.
@@ -170,7 +177,8 @@ declare namespace GoogleAppsScript {
     export enum PageType { WEB_PAGE, LIST_PAGE, ANNOUNCEMENT, ANNOUNCEMENTS_PAGE, FILE_CABINET_PAGE }
 
     /**
-     * An object representing a Google Site. A rebuilt
+     * An object representing a Google Site.
+     * A rebuilt
      * version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
      * modify Sites made with this version, but script can still access
      * classic Sites.
@@ -238,7 +246,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * Create and access Google Sites. A rebuilt
+     * Create and access Google Sites.
+     * A rebuilt
      * version of Sites was launched on November 22, 2016. Apps Script cannot currently access or
      * modify Sites made with this version, but script can still access
      * classic Sites.

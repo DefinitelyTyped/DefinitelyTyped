@@ -1,6 +1,6 @@
-import Client = require('raygun');
+import raygun = require('raygun');
 
-const client = new Client(); // $ExpectType Client
+const client = new raygun.Client(); // $ExpectType Client
 client.init({apiKey: '1'}); // $ExpectType Client
 
 client.init(); // $ExpectError

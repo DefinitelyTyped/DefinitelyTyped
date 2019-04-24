@@ -1,6 +1,7 @@
-// Type definitions for prettier 1.15
-// Project: https://github.com/prettier/prettier
+// Type definitions for prettier 1.16
+// Project: https://github.com/prettier/prettier, https://prettier.io
 // Definitions by: Ika <https://github.com/ikatyang>
+//                 Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -21,7 +22,9 @@ export interface FastPath<T = any> {
 
 export type BuiltInParser = (text: string, options?: any) => AST;
 export type BuiltInParserName =
-    | 'babylon'
+    | 'babylon' // deprecated
+    | 'babel'
+    | 'babel-flow'
     | 'flow'
     | 'typescript'
     | 'postcss' // deprecated
@@ -129,9 +132,9 @@ export interface ParserOptions extends RequiredOptions {
 }
 
 export interface Plugin {
-    languages: SupportLanguage[];
-    parsers: { [parserName: string]: Parser };
-    printers: { [astFormat: string]: Printer };
+    languages?: SupportLanguage[];
+    parsers?: { [parserName: string]: Parser };
+    printers?: { [astFormat: string]: Printer };
     options?: SupportOption[];
     defaultOptions?: Partial<RequiredOptions>;
 }

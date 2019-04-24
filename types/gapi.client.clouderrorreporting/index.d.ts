@@ -1,4 +1,4 @@
-// Type definitions for Google Stackdriver Error Reporting API v1beta1 1.0
+// Type definitions for non-npm package Google Stackdriver Error Reporting API v1beta1 1.0
 // Project: https://cloud.google.com/error-reporting/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

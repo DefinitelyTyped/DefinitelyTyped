@@ -6,6 +6,8 @@ import randomBrowser = require('nanoid/random-browser');
 import url = require('nanoid/url');
 import nanoidAsync = require('nanoid/async');
 import nanoidAsyncBrowser = require('nanoid/async-browser');
+import nanoidNonSecure = require('nanoid/non-secure');
+import generateNonSecure = require('nanoid/non-secure/generate');
 
 const _random = (size: number) => [1, 2, 3, 4];
 
@@ -22,5 +24,9 @@ nanoidAsync(null, (error, id) => {
 });
 nanoidAsyncBrowser().then((id) => console.log(id));
 nanoidAsyncBrowser(10).then((id) => console.log(id));
+nanoidNonSecure();
+nanoidNonSecure(10);
+generateNonSecure('0123456789абвгдеё', 5);
+generateNonSecure('0123456789абвгдеё');
 
 console.log(url);
