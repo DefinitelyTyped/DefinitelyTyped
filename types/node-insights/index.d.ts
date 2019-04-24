@@ -36,7 +36,7 @@ declare class Insights {
      * Add insights data to the queue.
      * It is sent when the queue reaches a max size or a period of time has elapsed
      */
-    add(data: Record<string, string | number | boolean>, eventType?: string): void;
+    add(data: Record<string, any>, eventType?: string): void;
 
     /**
      * Build a nrql query string
