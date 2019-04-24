@@ -28,10 +28,11 @@ declare namespace requestPromise {
         resolveWithFullResponse?: boolean;
     }
 
+    type RequestPromiseAPI = request.RequestAPI<RequestPromise, RequestPromiseOptions, request.RequiredUriUrl>;
     type OptionsWithUri = request.UriOptions & RequestPromiseOptions;
     type OptionsWithUrl = request.UrlOptions & RequestPromiseOptions;
     type Options = OptionsWithUri | OptionsWithUrl;
 }
 
-declare var requestPromise: request.RequestAPI<requestPromise.RequestPromise, requestPromise.RequestPromiseOptions, request.RequiredUriUrl>;
+declare const requestPromise: requestPromise.RequestPromiseAPI;
 export = requestPromise;

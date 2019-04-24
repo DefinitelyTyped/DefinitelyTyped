@@ -11,6 +11,9 @@ interface ChannelListResponse {
 declare class TeamSpeakChannel extends Abstract {
     constructor(parent: TeamSpeak3, list: ChannelListResponse)
 
+    /** Returns the Name of the channel */
+    name: string;
+
     /**
      * Returns the ID of the Channel
      * @returns the Channels ID
