@@ -13,7 +13,10 @@ declare module "../index" {
     interface Stat {
         bindAll<T>(object: T, ...methodNames: Array<Many<string>>): T;
     }
-    interface LoDashWrapper<TValue> {
+    interface Imp<TValue> {
+        bindAll(...methodNames: Array<Many<string>>): this;
+    }
+    interface Exp<TValue> {
         bindAll(...methodNames: Array<Many<string>>): this;
     }
 

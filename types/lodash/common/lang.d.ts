@@ -14,7 +14,7 @@ declare module "../index" {
         clone<T>(value: T): T;
     }
 
-    interface ImpF<T extends (...args: any[]) => any> extends Imp<T> {
+    interface ImpF<T> extends Imp<T> {
         clone(): T;
         cloneDeep(): T;
         cloneDeepWith(customizer: CloneDeepWithCustomizer<T>): any;
@@ -60,7 +60,7 @@ declare module "../index" {
         cloneWith(): unknown;
     }
 
-    interface ExpF<T extends (...args: any[]) => any> extends Exp<T> {
+    interface ExpF<T> extends Exp<T> {
         clone(): Exp<T>;
         cloneDeep(): Exp<T>;
         cloneDeepWith(customizer: CloneDeepWithCustomizer<T>): Exp<any>;

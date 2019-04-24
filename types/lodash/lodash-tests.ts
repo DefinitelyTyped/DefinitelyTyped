@@ -3705,7 +3705,7 @@ fp.now(); // $ExpectType number
 
 // _.conforms
 {
-    _.conforms({ foo: (v: string) => false })({ foo: "foo" }); // $ExpectType boolean
+    _.conforms({ })({ foo: "foo" }); // $ExpectType boolean
     fp.conforms({ foo: (v: string) => false })({ foo: "foo" }); // $ExpectType boolean
 }
 
