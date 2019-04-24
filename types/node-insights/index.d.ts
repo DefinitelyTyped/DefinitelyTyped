@@ -22,7 +22,7 @@ declare class Insights {
     static collectorBaseURL: string;
     static queryBaseURL: string;
 
-    data: Array<Record<string, string | number | boolean>>;
+    data: Array<Record<string, any>>;
     enabled: boolean;
     queryKey: string;
     insertKey: string;
