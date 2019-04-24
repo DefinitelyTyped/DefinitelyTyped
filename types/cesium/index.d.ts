@@ -2392,7 +2392,7 @@ declare namespace Cesium {
         outlineWidth: Property;
         perPositionHeight: Property;
         constructor(options?: {
-            hierarchy?: Property | Cartesian3[];
+            hierarchy?: Property;
             height?: number;
             extrudedHeight?: Property;
             show?: Property;
@@ -2437,7 +2437,7 @@ declare namespace Cesium {
     class PolylineGraphics {
         definitionChanged: Event;
         show: Property;
-        material: PolylineDashMaterialProperty | Color | MaterialProperty;
+        material: MaterialProperty;
         positions: Property;
         width: number;
         followSurface: Property;
@@ -2447,7 +2447,7 @@ declare namespace Cesium {
             followSurface?: Property;
             width?: number;
             show?: Property;
-            material?: PolylineDashMaterialProperty | Color | MaterialProperty;
+            material?: MaterialProperty;
             granularity?: Property
         });
         clone(result?: PolylineGraphics): PolylineGraphics;
