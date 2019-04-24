@@ -3,7 +3,7 @@
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 snerks <https://github.com/snerks>
 //                 Krzysztof Cebula <https://github.com/Havret>
-//                 Vitaliy Polyanskiy <https://github.com/allreadyExisted>
+//                 Vitaliy Polyanskiy <https://github.com/alreadyExisted>
 //                 James Lismore <https://github.com/jlismore>
 //                 Stack Builders <https://github.com/stackbuilders>
 //                 Esteban Ibarra <https://github.com/ibarrae>

@@ -6,6 +6,7 @@ declare function it(desc: string, fn: () => void): void;
 describe("Stripe", () => {
     it("should excercise all Stripe API", () => {
         const stripe = Stripe('public-key');
+        const stripeWithBetaOption = Stripe('public-key', { betas: ['beta-feature'] });
         const elements = stripe.elements();
         const style = {
             base: {
@@ -217,6 +218,13 @@ describe("Stripe v2 & v3", () => {
         elements.create('iban', {
             supportedCountries: ['SEPA'],
             placeholderCountry: 'AT'
+        });
+        const idealBank = elements.create('idealBank');
+        idealBank.on('change', (resp: stripe.elements.ElementChangeResponse) => {
+            if (resp.value && typeof resp.value !== 'object') {
+                console.log(resp.value.length);
+                const string: string = resp.value;
+            }
         });
     });
 });

@@ -159,10 +159,10 @@ function simplified_stream_ctor_test() {
 }
 
 function streamPipelineFinished() {
-    const cancel = finished(process.stdin, (err?: Error) => {});
+    const cancel = finished(process.stdin, (err?: Error | null) => {});
     cancel();
 
-    pipeline(process.stdin, process.stdout, (err?: Error) => {});
+    pipeline(process.stdin, process.stdout, (err?: Error | null) => {});
 }
 
 async function asyncStreamPipelineFinished() {

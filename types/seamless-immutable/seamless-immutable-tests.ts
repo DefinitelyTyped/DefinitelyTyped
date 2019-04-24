@@ -120,8 +120,19 @@ interface ExtendedUser extends User {
 
     // concat. Call the mutable array's 'concat' with the same args to ensure compatability. Make sure the output array is immutable.
     array.asMutable().concat({ firstName: 'Happy', lastName: 'Cat' });
-    const concat: Immutable.Immutable<User[]> = array.concat({ firstName: 'Happy', lastName: 'Cat' });
+    const concat: Immutable.Immutable<User[]> = array
+        .concat({ firstName: 'Happy', lastName: 'Cat' }, { firstName: 'Silly', lastName: 'Cat' })
+        .concat([{firstName: 'saucy', lastName: 'Cat'}], {firstName: 'Fussy', lastName: 'Cat'})
+        .concat([
+            {firstName: 'Fancy', lastName: 'Cat'},
+            {firstName: 'Sassy', lastName: 'Cat'}],
+            [{firstName: 'Bossy', lastName: 'Cat'}
+        ]);
     concat.asMutable();
+
+    Immutable.from([1, 2, 3])
+        .concat(Immutable.from([4, 5, 6])
+        .concat([7, 8, 9]));
 
     // reduce. Call the mutable array's 'reduce' with the same function to ensure compatability. Make sure the output array is immutable.
     array.asMutable().reduce((previous, current) => ({ ...previous, lastName: current.lastName }));

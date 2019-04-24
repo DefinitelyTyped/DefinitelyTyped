@@ -45,9 +45,9 @@ export namespace Log {
  */
 export interface Address {
     /**
-     * A base address rendered as a hexadecimal string.
+     * A base address rendered as an integer value.
      */
-    baseAddress?: string;
+    baseAddress?: number;
 
     /**
      * A human-readable fully qualified name that is associated with the address.
@@ -60,7 +60,7 @@ export interface Address {
     index?: number;
 
     /**
-     * An open-ended string that identifies the address kind. 'section' and 'segment' are well-known values.
+     * An open-ended string that identifies the address kind. 'section', 'segment' and 'module' are well-known values.
      */
     kind?: string;
 
@@ -70,9 +70,9 @@ export interface Address {
     name?: string;
 
     /**
-     * an offset from the base address, if present, rendered as a hexadecimal string.
+     * an offset from the base address, if present, rendered as an integer value.
      */
-    offset?: string;
+    offset?: number;
 
     /**
      * An index into run.addresses to retrieve a parent address. The parent can provide a base address (from which the
@@ -300,21 +300,21 @@ export interface CodeFlow {
 }
 
 /**
- * Information about how a specific tool report was reconfigured at runtime.
+ * Information about how a specific rule or notification was reconfigured at runtime.
  */
 export interface ConfigurationOverride {
     /**
-     * Specifies how the report was configured during the scan.
+     * Specifies how the rule or notification was configured during the scan.
      */
     configuration: ReportingConfiguration;
 
     /**
-     * A reference used to locate the descriptor relevant to this configuration override.
+     * A reference used to locate the descriptor whose configuration was overridden.
      */
     descriptor: ReportingDescriptorReference;
 
     /**
-     * Key/value pairs that provide additional information about the reporting configuration.
+     * Key/value pairs that provide additional information about the configuration override.
      */
     properties?: PropertyBag;
 }
@@ -714,7 +714,12 @@ export interface GraphTraversal {
     edgeTraversals?: EdgeTraversal[];
 
     /**
-     * Values of relevant expressions at the start of the graph traversal.
+     * Values of relevant expressions at the start of the graph traversal that remain constant for the graph traversal.
+     */
+    immutableState?: { [key: string]: string };
+
+    /**
+     * Values of relevant expressions at the start of the graph traversal that may change during graph traversal.
      */
     initialState?: { [key: string]: string };
 
@@ -1260,7 +1265,7 @@ export interface Replacement {
 }
 
 /**
- * Information about a tool report that can be configured at runtime.
+ * Information about a rule or notification that can be configured at runtime.
  */
 export interface ReportingConfiguration {
     /**
@@ -1363,22 +1368,15 @@ export interface ReportingDescriptor {
     name?: string;
 
     /**
-     * An array of references used to locate an optional set of taxonomy reporting descriptors that may be applied to a
-     * result.
+     * An array of objects that describe relationships between this reporting descriptor and others.
      */
-    optionalTaxa?: ReportingDescriptorReference[];
+    relationships?: ReportingDescriptorRelationship[];
 
     /**
      * A concise description of the report. Should be a single sentence that is understandable when visible space is
      * limited to a single line of text.
      */
     shortDescription?: MultiformatMessageString;
-
-    /**
-     * An array of references used to locate a set of taxonomy reporting descriptors that are always applicable to a
-     * result.
-     */
-    taxa?: ReportingDescriptorReference[];
 
     /**
      * Key/value pairs that provide additional information about the report.
@@ -1410,6 +1408,27 @@ export interface ReportingDescriptorReference {
      * A reference used to locate the toolComponent associated with the descriptor.
      */
     toolComponent?: ToolComponentReference;
+
+    /**
+     * Key/value pairs that provide additional information about the reporting descriptor reference.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * Information about the relation of one reporting descriptor to another.
+ */
+export interface ReportingDescriptorRelationship {
+    /**
+     * A set of distinct strings that categorize the relationshship. Well-known kinds include canPrecede, canFollow,
+     * willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.
+     */
+    kinds: string[];
+
+    /**
+     * A reference to the related reporting descriptor.
+     */
+    target: ReportingDescriptorReference;
 
     /**
      * Key/value pairs that provide additional information about the reporting descriptor reference.
@@ -1537,7 +1556,7 @@ export interface Result {
     ruleId?: string;
 
     /**
-     * The index within the run resources array of the rule object associated with this result.
+     * The index within the tool component rules array of the rule object associated with this result.
      */
     ruleIndex?: number;
 
@@ -1898,13 +1917,23 @@ export namespace Suppression {
 }
 
 /**
- * A set of threadFlowsLocations which together describe the progress of a program through a thread of execution.
+ * TBD
  */
 export interface ThreadFlow {
     /**
      * An string that uniquely identifies the threadFlow within the codeFlow in which it occurs.
      */
     id?: string;
+
+    /**
+     * Values of relevant expressions at the start of the thread flow that remain constant.
+     */
+    immutableState?: { [key: string]: string };
+
+    /**
+     * Values of relevant expressions at the start of the thread flow that may change during thread flow execution.
+     */
+    initialState?: { [key: string]: string };
 
     /**
      * A temporally ordered array of 'threadFlowLocation' objects, each of which describes a location visited by the

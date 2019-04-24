@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Props as SelectProps } from './Select';
 
 export type OptionsType<OptionType> = OptionType[];
 
@@ -48,7 +49,7 @@ export interface CommonProps<OptionType> {
   isMulti: boolean;
   options: OptionsType<OptionType>;
   selectOption: (option: OptionType) => void;
-  selectProps: any;
+  selectProps: SelectProps<OptionType>;
   setValue: (value: ValueType<OptionType>, action: ActionTypes) => void;
 }
 

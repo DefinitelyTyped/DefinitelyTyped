@@ -19,6 +19,7 @@
 //                 Cheng Gibson <https://github.com/nossbigg>
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Francesco Moro <https://github.com/franzmoro>
+//                 Wojciech Tyczynski <https://github.com/tykus160>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -757,7 +758,9 @@ export interface LayoutChangeEvent {
     };
 }
 
+export type FontVariant = 'small-caps' | 'oldstyle-nums' | 'lining-nums' | 'tabular-nums' | 'proportional-nums';
 export interface TextStyleIOS extends ViewStyle {
+    fontVariant?: FontVariant[];
     letterSpacing?: number;
     textDecorationColor?: string;
     textDecorationStyle?: "solid" | "double" | "dotted" | "dashed";
@@ -1105,6 +1108,43 @@ export interface TextInputIOSProps {
  */
 export interface TextInputAndroidProps {
     /**
+     * Determines which content to suggest on auto complete, e.g.`username`.
+     * To disable auto complete, use `off`.
+     *
+     * *Android Only*
+     *
+     * The following values work on Android only:
+     *
+     * - `username`
+     * - `password`
+     * - `email`
+     * - `name`
+     * - `tel`
+     * - `street-address`
+     * - `postal-code`
+     * - `cc-number`
+     * - `cc-csc`
+     * - `cc-exp`
+     * - `cc-exp-month`
+     * - `cc-exp-year`
+     * - `off`
+     */
+    autoCompleteType?:
+        | "cc-csc"
+        | "cc-exp"
+        | "cc-exp-month"
+        | "cc-exp-year"
+        | "cc-number"
+        | "email"
+        | "name"
+        | "password"
+        | "postal-code"
+        | "street-address"
+        | "tel"
+        | "username"
+        | "off";
+
+    /**
      * When false, if there is a small amount of space available around a text input (e.g. landscape orientation on a phone),
      *   the OS may choose to have the user edit the text inside of a full screen text input mode.
      * When true, this feature is disabled and users will always edit the text directly inside of the text input.
@@ -1169,11 +1209,14 @@ export type ReturnKeyTypeAndroid = "none" | "previous";
 export type ReturnKeyTypeIOS = "default" | "google" | "join" | "route" | "yahoo" | "emergency-call";
 export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS;
 
+export interface TargetedEvent {
+    target: number;
+}
+
 /**
  * @see TextInputProps.onFocus
  */
-export interface TextInputFocusEventData {
-    target: number;
+export interface TextInputFocusEventData extends TargetedEvent {
     text: string;
     eventCount: number;
 }
@@ -1188,12 +1231,11 @@ export interface TextInputScrollEventData {
 /**
  * @see TextInputProps.onSelectionChange
  */
-export interface TextInputSelectionChangeEventData {
+export interface TextInputSelectionChangeEventData extends TargetedEvent {
     selection: {
         start: number;
         end: number;
     };
-    target: number;
 }
 
 /**
@@ -1206,9 +1248,8 @@ export interface TextInputKeyPressEventData {
 /**
  * @see TextInputProps.onChange
  */
-export interface TextInputChangeEventData {
+export interface TextInputChangeEventData extends TargetedEvent {
     eventCount: number;
-    target: number;
     text: string;
 }
 
@@ -1802,7 +1843,101 @@ export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     elevation?: number;
 }
 
-export interface ViewPropsIOS {
+export type TVParallaxProperties = {
+    /**
+     * If true, parallax effects are enabled.  Defaults to true.
+     */
+    enabled?: boolean,
+
+    /**
+     * Defaults to 2.0.
+     */
+    shiftDistanceX?: number,
+
+    /**
+     * Defaults to 2.0.
+     */
+    shiftDistanceY?: number,
+
+    /**
+     * Defaults to 0.05.
+     */
+    tiltAngle?: number,
+
+    /**
+     * Defaults to 1.0
+     */
+    magnification?: number,
+
+    /**
+     * Defaults to 1.0
+     */
+    pressMagnification?: number,
+
+    /**
+     * Defaults to 0.3
+     */
+    pressDuration?: number,
+
+    /**
+     * Defaults to 0.3
+     */
+    pressDelay?: number,
+}
+
+export interface TVViewPropsIOS {
+    /**
+     * *(Apple TV only)* When set to true, this view will be focusable
+     * and navigable using the Apple TV remote.
+     *
+     * @platform ios
+     */
+    isTVSelectable?: boolean,
+
+    /**
+     * *(Apple TV only)* May be set to true to force the Apple TV focus engine to move focus to this view.
+     *
+     * @platform ios
+     */
+    hasTVPreferredFocus?: boolean,
+
+    /**
+     * *(Apple TV only)* Object with properties to control Apple TV parallax effects.
+     *
+     * @platform ios
+     */
+    tvParallaxProperties?: TVParallaxProperties,
+
+    /**
+     * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.
+     *
+     * @platform ios
+     */
+    tvParallaxShiftDistanceX?: number,
+
+    /**
+     * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.
+     *
+     * @platform ios
+     */
+    tvParallaxShiftDistanceY?: number,
+
+    /**
+     * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 0.05.
+     *
+     * @platform ios
+     */
+    tvParallaxTiltAngle?: number,
+
+    /**
+     * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 1.0.
+     *
+     * @platform ios
+     */
+    tvParallaxMagnification?: number,
+}
+
+export interface ViewPropsIOS extends TVViewPropsIOS {
     /**
      * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
      * @platform ios
@@ -2271,8 +2406,7 @@ Possible values for mixedContentMode are:
     allowFileAccess?: boolean;
 }
 
-export interface WebViewIOSLoadRequestEvent {
-    target: number;
+export interface WebViewIOSLoadRequestEvent extends TargetedEvent {
     canGoBack: boolean;
     lockIdentifier: number;
     loading: boolean;
@@ -2552,10 +2686,9 @@ export class WebView extends React.Component<WebViewProps> {
  * @see https://facebook.github.io/react-native/docs/segmentedcontrolios.html
  * @see SegmentedControlIOS.ios.js
  */
-export interface NativeSegmentedControlIOSChangeEvent {
+export interface NativeSegmentedControlIOSChangeEvent extends TargetedEvent {
     value: string;
     selectedSegmentIndex: number;
-    target: number;
 }
 
 export interface SegmentedControlIOSProps extends ViewProps {
@@ -5014,10 +5147,35 @@ interface TouchableMixin {
     touchableGetHitSlop(): Insets;
 }
 
+export interface TouchableWithoutFeedbackPropsIOS {
+    /**
+     * *(Apple TV only)* TV preferred focus (see documentation for the View component).
+     *
+     * @platform ios
+     */
+    hasTVPreferredFocus?: boolean;
+
+    /**
+     * *(Apple TV only)* Object with properties to control Apple TV parallax effects.
+     *
+     * enabled: If true, parallax effects are enabled.  Defaults to true.
+     * shiftDistanceX: Defaults to 2.0.
+     * shiftDistanceY: Defaults to 2.0.
+     * tiltAngle: Defaults to 0.05.
+     * magnification: Defaults to 1.0.
+     * pressMagnification: Defaults to 1.0.
+     * pressDuration: Defaults to 0.3.
+     * pressDelay: Defaults to 0.0.
+     *
+     * @platform ios
+     */
+    tvParallaxProperties?: TVParallaxProperties;
+}
+
 /**
  * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html#props
  */
-export interface TouchableWithoutFeedbackProps extends AccessibilityProps {
+export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackPropsIOS, AccessibilityProps {
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
      */
@@ -5046,6 +5204,20 @@ export interface TouchableWithoutFeedbackProps extends AccessibilityProps {
      * two overlapping views.
      */
     hitSlop?: Insets;
+
+    /**
+     * When `accessible` is true (which is the default) this may be called when
+     * the OS-specific concept of "blur" occurs, meaning the element lost focus.
+     * Some platforms may not have the concept of blur.
+     */
+    onBlur?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
+
+    /**
+     * When `accessible` is true (which is the default) this may be called when
+     * the OS-specific concept of "focus" occurs. Some platforms may not have
+     * the concept of focus.
+     */
+    onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
 
     /**
      * Invoked on mount and layout changes with
@@ -5784,6 +5956,7 @@ export interface PixelRatioStatic {
 export type PlatformOSType = "ios" | "android" | "macos" | "windows" | "web";
 
 interface PlatformStatic {
+    isTV: boolean;
     OS: PlatformOSType;
     Version: number | string;
 
@@ -6705,6 +6878,7 @@ export interface ActionSheetIOSOptions {
     cancelButtonIndex?: number;
     destructiveButtonIndex?: number;
     message?: string;
+    anchor?: number;
     tintColor?: string;
 }
 
@@ -6928,7 +7102,7 @@ interface AlertOptions {
  * ```
  */
 export interface AlertStatic {
-    alert: (title: string, message?: string, buttons?: AlertButton[], options?: AlertOptions, type?: string) => void;
+    alert: (title: string, message?: string, buttons?: AlertButton[], options?: AlertOptions) => void;
 }
 
 /**
@@ -8456,7 +8630,7 @@ export interface VibrationIOSStatic {
  * V(fixed) --wait(1s)--> V(fixed) --wait(2s)--> V(fixed) --wait(3s)--> V(fixed)
  */
 export interface VibrationStatic {
-    vibrate(pattern: number | number[], repeat: boolean): void;
+    vibrate(pattern: number | number[], repeat?: boolean): void;
 
     /**
      * Stop vibration

@@ -9,6 +9,7 @@ import Document, {
     PageProps
 } from "next/document";
 import * as React from "react";
+import { DefaultQuery } from "next-server/router";
 
 interface WithUrlProps {
     url: string;
@@ -132,3 +133,28 @@ const explicitTypesRenderResponseOne = renderPage<PageProps, {}>(App => props =>
 const explicitTypesRenderResponseTwo = renderPage<PageInitialProps, ProcessedInitialProps>(
     App => ({ foo, bar }) => <App fooLength={foo.length} bar={!!bar} />
 );
+
+class MyDocumentWithCustomContext extends Document<{ example: string }> {
+    static async getInitialProps(
+        ctx: NextDocumentContext<DefaultQuery, { customField: "custom value" }>
+    ) {
+        const initialProps = await Document.getInitialProps(ctx);
+        const example = ctx.req ? ctx.req.customField : undefined;
+        return { ...initialProps, example };
+    }
+
+    render() {
+        return (
+            <Html>
+                <Head>
+                    <style>{`body { margin: 0 } /* custom! */`}</style>
+                </Head>
+                <body className="custom_class">
+                    <h1>{this.props.example}</h1>
+                    <Main />
+                    <NextScript />
+                </body>
+            </Html>
+        );
+    }
+}
