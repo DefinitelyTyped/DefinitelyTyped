@@ -1,5 +1,5 @@
 // Type definitions for @babel/traverse 7.0
-// Project: https://github.com/babel/babel/tree/master/packages/babel-traverse
+// Project: https://github.com/babel/babel/tree/master/packages/babel-traverse, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Ryan Petrich <https://github.com/rpetrich>
@@ -145,6 +145,8 @@ export class Binding {
 
 export type Visitor<S = {}> = VisitNodeObject<S, Node> & {
     [Type in Node["type"]]?: VisitNode<S, Extract<Node, { type: Type; }>>;
+} & {
+    [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>
 };
 
 export type VisitNode<S, P> = VisitNodeFunction<S, P> | VisitNodeObject<S, P>;

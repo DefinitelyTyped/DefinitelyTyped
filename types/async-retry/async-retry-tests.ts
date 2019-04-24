@@ -7,6 +7,7 @@ const o: Options = {
   minTimeout: 3,
   maxTimeout: 4,
   randomize: true,
+  forever: false,
   onRetry: (e: Error) => 42
 };
 
@@ -18,4 +19,8 @@ const hello: Promise<string> = retry(
 const answer: Promise<number> = retry(
   bail => Promise.resolve(42),
   { retries: 3 }
+);
+
+const noOptions: Promise<number> = retry(
+  bail => Promise.resolve(42),
 );

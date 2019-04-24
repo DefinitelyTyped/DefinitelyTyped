@@ -27,7 +27,7 @@ export interface Options {
     interval?: number;
     ignoreUnreadableDir?: boolean;
     ignoreNotPermitted?: boolean;
-    ignoreDirectoryPattern?: boolean;
+    ignoreDirectoryPattern?: RegExp;
 }
 
 export function watchTree(root: string, callback: (f: FileOrFiles, curr: fs.Stats, prev: fs.Stats) => void): void;

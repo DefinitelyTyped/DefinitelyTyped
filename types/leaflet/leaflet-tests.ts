@@ -1,13 +1,13 @@
 import * as L from 'leaflet';
 
-const latLngLiteral: L.LatLngLiteral = {lat: 12, lng: 13};
+const latLngLiteral: L.LatLngLiteral = { lat: 12, lng: 13 };
 const latLngTuple: L.LatLngTuple = [12, 13];
 
 let latLng: L.LatLng;
 latLng = L.latLng(12, 13);
 latLng = L.latLng(12, 13, 0);
 latLng = L.latLng(latLngLiteral);
-latLng = L.latLng({lat: 12, lng: 13, alt: 0});
+latLng = L.latLng({ lat: 12, lng: 13, alt: 0 });
 latLng = L.latLng(latLngTuple);
 latLng = L.latLng([12, 13, 0]);
 
@@ -34,14 +34,14 @@ let point: L.Point;
 point = L.point(12, 13);
 point = L.point(12, 13, true);
 point = L.point(pointTuple);
-point = L.point({x: 12, y: 13});
+point = L.point({ x: 12, y: 13 });
 
 point = new L.Point(12, 13);
 point = new L.Point(12, 13, true);
 
 let distance: number;
-point.distanceTo(point);
-point.distanceTo(pointTuple);
+distance = point.distanceTo(point);
+distance = point.distanceTo(pointTuple);
 
 const transformation = new L.Transformation(1, 2, 3, 4);
 point = transformation.transform(point);
@@ -163,6 +163,16 @@ map = new L.Map(htmlElement, mapOptions);
 let doesItHaveLayer: boolean;
 doesItHaveLayer = map.hasLayer(L.tileLayer(''));
 
+map.off('moveend');
+map.off('moveend', () => {});
+map.off('moveend', () => {}, {});
+
+map.removeEventListener('moveend');
+map.removeEventListener('moveend', () => {});
+map.removeEventListener('moveend', () => {}, {});
+
+map.panInside(latLng, { padding: [50, 50], paddingBottomRight: point, paddingTopLeft: [100, 100] });
+
 // map.getRenderer
 
 let html: HTMLElement;
@@ -208,25 +218,25 @@ mapPixelBounds = map.getPixelWorldBounds(12);
 
 let tileLayerOptions: L.TileLayerOptions = {};
 tileLayerOptions = {
-    minZoom: 0,
-    maxZoom: 18,
-    maxNativeZoom: 2,
-    errorTileUrl: '',
-    zoomOffset: 0,
-    tms: true,
-    zoomReverse: true,
-    detectRetina: true,
-    crossOrigin: false,
-    opacity: 1,
-    updateWhenIdle: true,
-    updateWhenZooming: true,
-    updateInterval: 500,
-    attribution: '',
-    zIndex: 1,
-    noWrap: true,
-    pane: '',
-    className: '',
-    keepBuffer: 1,
+	minZoom: 0,
+	maxZoom: 18,
+	maxNativeZoom: 2,
+	errorTileUrl: '',
+	zoomOffset: 0,
+	tms: true,
+	zoomReverse: true,
+	detectRetina: true,
+	crossOrigin: false,
+	opacity: 1,
+	updateWhenIdle: true,
+	updateWhenZooming: true,
+	updateInterval: 500,
+	attribution: '',
+	zIndex: 1,
+	noWrap: true,
+	pane: '',
+	className: '',
+	keepBuffer: 1,
 };
 
 tileLayerOptions.subdomains = 'a';
@@ -249,37 +259,67 @@ tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayer
 // imageOverlay
 let imageOverlayOptions: L.ImageOverlayOptions;
 imageOverlayOptions = {
-    opacity: 100,
-    alt: 'alt',
-    interactive: true,
-    attribution: 'attribution',
-    crossOrigin: true,
-    className: 'className',
-    bubblingMouseEvents: false,
-    pane: 'pane'
+	opacity: 100,
+	alt: 'alt',
+	interactive: true,
+	attribution: 'attribution',
+	errorOverlayUrl: 'http://www.test.com/error.png',
+	zIndex: 1,
+	crossOrigin: true,
+	className: 'className',
+	bubblingMouseEvents: false,
+	pane: 'pane'
 };
 
-const imageOverlayBounds = latLngBounds;
+let imageOverlayBounds = latLngBounds;
 let imageOverlay: L.ImageOverlay;
 imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png', imageOverlayBounds);
 imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png', imageOverlayBounds, imageOverlayOptions);
 imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png', imageOverlayBounds, {
-    opacity: 100,
-    alt: 'alt',
-    className: 'className',
+	opacity: 100,
+	alt: 'alt',
+	className: 'className',
+});
+imageOverlay.setOpacity(100);
+imageOverlay.bringToFront();
+imageOverlay.bringToBack();
+imageOverlay.setUrl('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png');
+imageOverlay.setBounds(imageOverlayBounds);
+imageOverlay.setZIndex(1);
+imageOverlayBounds = imageOverlay.getBounds();
+html = imageOverlay.getElement();
+
+// videoOverlay
+let videoOverlayOptions: L.VideoOverlayOptions;
+videoOverlayOptions = {
+	interactive: true,
+	opacity: 100,
+	autoplay: true,
+	loop: false
+};
+
+const videoOverlayBounds = latLngBounds;
+const videoOverlayUrls = ['https://www.mapbox.com/bites/00188/patricia_nasa.webm'];
+const videoElement = document.createElement('video');
+
+let videoOverlay: L.VideoOverlay;
+videoOverlay = L.videoOverlay('https://www.mapbox.com/bites/00188/patricia_nasa.webm', videoOverlayBounds);
+videoOverlay = L.videoOverlay(videoOverlayUrls, videoOverlayBounds, videoOverlayOptions);
+videoOverlay = L.videoOverlay(videoElement, videoOverlayBounds, {
+	autoplay: true
 });
 
-const eventHandler = () => {};
+const eventHandler = () => { };
 const domEvent: Event = {} as Event;
 L.DomEvent
 	.on(htmlElement, 'click', eventHandler)
 	.addListener(htmlElement, 'click', eventHandler)
 	.off(htmlElement, 'click', eventHandler)
 	.removeListener(htmlElement, 'click', eventHandler)
-	.on(htmlElement, {click: eventHandler})
-	.addListener(htmlElement, {click: eventHandler})
-	.off(htmlElement, {click: eventHandler}, eventHandler)
-	.removeListener(htmlElement, {click: eventHandler}, eventHandler)
+	.on(htmlElement, { click: eventHandler })
+	.addListener(htmlElement, { click: eventHandler })
+	.off(htmlElement, { click: eventHandler }, eventHandler)
+	.removeListener(htmlElement, { click: eventHandler }, eventHandler)
 	.stopPropagation(domEvent)
 	.disableScrollPropagation(htmlElement)
 	.disableClickPropagation(htmlElement)
@@ -362,6 +402,7 @@ map = map
 	.panTo(latLngTuple, panOptions)
 	.panBy(point)
 	.panBy(pointTuple)
+	.panBy(pointTuple, { animate: false, duration: 1, easeLinearity: 1, noMoveStart: true })
 	.setMaxBounds(latLngBounds)
 	.setMaxBounds(latLngBoundsLiteral)
 	.setMinZoom(5)
@@ -405,13 +446,13 @@ let threeCoords: [number, number, number] = [1, 2, 3];
 latLng = L.GeoJSON.coordsToLatLng(threeCoords);
 threeCoords = L.GeoJSON.latLngToCoords(latLng) as [number, number, number];
 
-let nestedTwoCoords = [ [12, 13], [13, 14], [14, 15] ];
+let nestedTwoCoords = [[12, 13], [13, 14], [14, 15]];
 const nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
 nestedTwoCoords = L.GeoJSON.latLngsToCoords(nestedLatLngs, 1);
 
 const geojson = new L.GeoJSON();
 const style: L.PathOptions = {
-    className: "string",
+	className: "string",
 };
 const styler: L.StyleFunction<MyProperties> = () => style;
 geojson.setStyle(style);
@@ -431,7 +472,7 @@ class MyLayer extends L.Layer {
 
 class MyIcon extends L.Icon {
 	constructor() {
-		super({iconUrl: 'icon.png'});
+		super({ iconUrl: 'icon.png' });
 	}
 }
 
@@ -441,9 +482,9 @@ class MyDivIcon extends L.DivIcon {
 	}
 }
 
-const divIcon = L.divIcon({html: ''});
+const divIcon = L.divIcon({ html: '' });
 let defaultIcon = new L.Icon.Default();
-defaultIcon = new L.Icon.Default({imagePath: 'apath'});
+defaultIcon = new L.Icon.Default({ imagePath: 'apath' });
 
 const myControlClass = L.Control.extend({});
 const myControl = new myControlClass();
@@ -466,7 +507,10 @@ export class MyNewControl extends L.Control {
 L.marker([1, 2], {
 	icon: L.icon({
 		iconUrl: 'my-icon.png'
-	})
+	}),
+	autoPan: true,
+	autoPanPadding: [10, 20],
+	autoPanSpeed: 5,
 }).bindPopup('<p>Hi</p>');
 
 L.marker([1, 2], {
@@ -501,11 +545,11 @@ const complexPolygonLatLngs2: L.LatLng[][] = polygon.getLatLngs() as L.LatLng[][
 // multi polygon
 const multiPolygonLatLngs: L.LatLngExpression[][][] = [
 	[ // first polygon
-	  [[37, -109.05], [41, -109.03], [41, -102.05], [37, -102.04]], // outer ring
-	  [[37.29, -108.58], [40.71, -108.58], [40.71, -102.50], [37.29, -102.50]] // hole
+		[[37, -109.05], [41, -109.03], [41, -102.05], [37, -102.04]], // outer ring
+		[[37.29, -108.58], [40.71, -108.58], [40.71, -102.50], [37.29, -102.50]] // hole
 	],
 	[ // second polygon
-	  [[41, -111.03], [45, -111.04], [45, -104.05], [41, -104.05]]
+		[[41, -111.03], [45, -111.04], [45, -104.05], [41, -104.05]]
 	]
 ];
 polygon = L.polygon(multiPolygonLatLngs);
@@ -524,8 +568,8 @@ const simplePolylineLatLngs2: L.LatLng[] = polyline.getLatLngs() as L.LatLng[];
 
 // multi polyline
 const multiPolylineLatLngs: L.LatLngExpression[][] = [
-    [[45.51, -122.68], [37.77, -122.43], [34.04, -118.2]],
-    [[40.78, -73.91], [41.83, -87.62], [32.76, -96.72]]
+	[[45.51, -122.68], [37.77, -122.43], [34.04, -118.2]],
+	[[40.78, -73.91], [41.83, -87.62], [32.76, -96.72]]
 ];
 polyline = L.polyline(multiPolylineLatLngs);
 polyline = new L.Polyline(multiPolylineLatLngs);
@@ -559,7 +603,7 @@ const extended3: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 = L.Util.
 const extended4: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 & typeof obj5 = L.Util.extend(obj1, obj2, obj3, obj4, obj5);
 
 L.Util.create({});
-L.Util.create(null, {foo: {writable: true, value: 'bar'}});
+L.Util.create(null, { foo: { writable: true, value: 'bar' } });
 
 L.Util.bind(() => {}, {});
 L.Util.stamp({});

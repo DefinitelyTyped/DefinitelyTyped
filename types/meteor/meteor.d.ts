@@ -26,7 +26,7 @@ declare module "meteor/meteor" {
             _id?: string;
             username?: string;
             emails?: UserEmail[];
-            createdAt?: number;
+            createdAt?: Date;
             profile?: any;
             services?: any;
         }
@@ -50,7 +50,15 @@ declare module "meteor/meteor" {
         /** Error **/
 
         /** Method **/
-        function methods(methods: Object): void;
+        interface MethodThisType {
+            isSimulation: boolean;
+            userId: string | null;
+            connection: Connection | null;
+            setUserId(userId: string): void;
+            unblock(): void;
+        }
+
+        function methods(methods: {[key: string]: (this: MethodThisType, ...args: any[]) => any}): void;
 
         function call(name: string, ...args: any[]): any;
 
@@ -63,11 +71,16 @@ declare module "meteor/meteor" {
         /** Method **/
 
         /** Url **/
-        function absoluteUrl(path?: string, options?: {
-            secure?: boolean;
-            replaceLocalhost?: boolean;
-            rootUrl?: string;
-        }): string;
+        var absoluteUrl: {
+          (path?: string, options?: absoluteUrlOptions): string;
+          defaultOptions: absoluteUrlOptions;
+        }
+
+        interface absoluteUrlOptions {
+          secure?: boolean;
+          replaceLocalhost?: boolean;
+          rootUrl?: string;
+        }
         /** Url **/
 
         /** Timeout **/
@@ -196,7 +209,7 @@ declare module "meteor/meteor" {
         function onConnection(callback: Function): void;
         /** Connection **/
 
-        function publish(name: string, func: Function): void;
+        function publish(name: string, func: (this: Subscription, ...args: any[]) => void): void;
 
         function _debug(...args: any[]): void;
     }

@@ -1,4 +1,4 @@
-// Type definitions for Google AdSense Management API v1.4 1.4
+// Type definitions for non-npm package Google AdSense Management API v1.4 1.4
 // Project: https://developers.google.com/adsense/management/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

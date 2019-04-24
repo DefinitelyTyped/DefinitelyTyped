@@ -95,13 +95,13 @@ function hpkpTest() {
     app.use(helmet.hpkp({
         maxAge: 7776000000,
         sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-        includeSubdomains: false
+        includeSubDomains: false
     }));
 
     app.use(helmet.hpkp({
         maxAge: 7776000000,
         sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-        includeSubdomains: true
+        includeSubDomains: true
     }));
 
     app.use(helmet.hpkp({
@@ -137,7 +137,7 @@ function hstsTest() {
 
     app.use(helmet.hsts({
       maxAge: 7776000000,
-      includeSubdomains: true
+      includeSubDomains: true
     }));
 
     app.use(helmet.hsts({

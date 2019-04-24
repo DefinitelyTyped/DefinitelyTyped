@@ -1,5 +1,5 @@
 // Type definitions for react-native-video 3.1
-// Project: https://github.com/react-native-community/react-native-video
+// Project: https://github.com/react-native-community/react-native-video, https://github.com/brentvatne/react-native-video
 // Definitions by: HuHuanming <https://github.com/huhuanming>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -57,7 +57,8 @@ export interface VideoProperties extends ViewProps {
   /* Wrapper component */
   // Opaque type returned by require('./video.mp4')
   source: { uri?: string } | number;
-  resizeMode?: string;
+  resizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
+  posterResizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
   poster?: string;
   repeat?: boolean;
   paused?: boolean;
@@ -92,7 +93,7 @@ export interface VideoProperties extends ViewProps {
   onReadyForDisplay?(): void;
   onPlaybackStalled?(): void;
   onPlaybackResume?(): void;
-  onPlaybackRateChange?(): void;
+  onPlaybackRateChange?(data: { playbackRate: number }): void;
   onAudioFocusChanged?(): void;
   onAudioBecomingNoisy?(): void;
   selectedTextTrack?: {

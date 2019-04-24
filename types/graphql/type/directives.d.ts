@@ -20,6 +20,10 @@ export class GraphQLDirective {
     astNode: Maybe<DirectiveDefinitionNode>;
 
     constructor(config: GraphQLDirectiveConfig);
+
+    toConfig(): GraphQLDirectiveConfig & {
+        args: GraphQLFieldConfigArgumentMap;
+    };
 }
 
 export interface GraphQLDirectiveConfig {

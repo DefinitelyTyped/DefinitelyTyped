@@ -26,7 +26,7 @@ declare function fetchBundle(bundleId: number, callback: (error?: Error | null) 
 //
 
 declare interface GlobalFetch {
-  fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 }
 
 declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
@@ -34,85 +34,100 @@ declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response
 interface Blob {}
 
 declare class FormData {
-  append(name: string, value: any): void;
+    append(name: string, value: any): void;
 }
 
 declare interface Body {
-  readonly bodyUsed: boolean;
-  arrayBuffer(): Promise<ArrayBuffer>;
-  blob(): Promise<Blob>;
-  json(): Promise<any>;
-  text(): Promise<string>;
-  formData(): Promise<FormData>;
+    readonly bodyUsed: boolean;
+    arrayBuffer(): Promise<ArrayBuffer>;
+    blob(): Promise<Blob>;
+    json(): Promise<any>;
+    text(): Promise<string>;
+    formData(): Promise<FormData>;
 }
 
 declare interface Headers {
-  append(name: string, value: string): void;
-  delete(name: string): void;
-  forEach(callback: Function, thisArg?: any): void;
-  get(name: string): string | null;
-  has(name: string): boolean;
-  set(name: string, value: string): void;
+    append(name: string, value: string): void;
+    delete(name: string): void;
+    forEach(callback: Function, thisArg?: any): void;
+    get(name: string): string | null;
+    has(name: string): boolean;
+    set(name: string, value: string): void;
 }
 
 declare var Headers: {
-  prototype: Headers;
-  new(init?: HeadersInit_): Headers;
+    prototype: Headers;
+    new (init?: HeadersInit_): Headers;
 };
 
-type BodyInit_ = Blob | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | FormData | string | null;
+type BodyInit_ =
+    | Blob
+    | Int8Array
+    | Int16Array
+    | Int32Array
+    | Uint8Array
+    | Uint16Array
+    | Uint32Array
+    | Uint8ClampedArray
+    | Float32Array
+    | Float64Array
+    | DataView
+    | ArrayBuffer
+    | FormData
+    | string
+    | null;
 
 declare interface RequestInit {
-  body?: BodyInit_;
-  credentials?: RequestCredentials_;
-  headers?: HeadersInit_;
-  integrity?: string;
-  keepalive?: boolean;
-  method?: string;
-  mode?: RequestMode_;
-  referrer?: string;
-  window?: any;
+    body?: BodyInit_;
+    credentials?: RequestCredentials_;
+    headers?: HeadersInit_;
+    integrity?: string;
+    keepalive?: boolean;
+    method?: string;
+    mode?: RequestMode_;
+    referrer?: string;
+    window?: any;
 }
 
 declare interface Request extends Object, Body {
-  readonly credentials: RequestCredentials_;
-  readonly headers: Headers;
-  readonly method: string;
-  readonly mode: RequestMode_;
-  readonly referrer: string;
-  readonly url: string;
-  clone(): Request;
+    readonly credentials: RequestCredentials_;
+    readonly headers: Headers;
+    readonly method: string;
+    readonly mode: RequestMode_;
+    readonly referrer: string;
+    readonly url: string;
+    clone(): Request;
 }
 
 declare var Request: {
-  prototype: Request;
-  new(input: Request | string, init?: RequestInit): Request;
+    prototype: Request;
+    new (input: Request | string, init?: RequestInit): Request;
 };
 
 declare type RequestInfo = Request | string;
 
 declare interface ResponseInit {
-  headers?: HeadersInit_;
-  status?: number;
-  statusText?: string;
+    headers?: HeadersInit_;
+    status?: number;
+    statusText?: string;
 }
 
 declare interface Response extends Object, Body {
-  readonly headers: Headers;
-  readonly ok: boolean;
-  readonly status: number;
-  readonly statusText: string;
-  readonly type: ResponseType_;
-  readonly url: string;
-  readonly redirected: boolean;
-  clone(): Response;
+    readonly headers: Headers;
+    readonly ok: boolean;
+    readonly status: number;
+    readonly statusText: string;
+    readonly type: ResponseType_;
+    readonly url: string;
+    readonly redirected: boolean;
+    clone(): Response;
 }
 
 declare var Response: {
-  prototype: Response;
-  new(body?: BodyInit_, init?: ResponseInit): Response;
-  error: () => Response;
-  redirect: (url: string, status?: number) => Response;
+    prototype: Response;
+    new (body?: BodyInit_, init?: ResponseInit): Response;
+    error: () => Response;
+    redirect: (url: string, status?: number) => Response;
 };
 
 type HeadersInit_ = Headers | string[][] | { [key: string]: string };
@@ -125,86 +140,104 @@ type ResponseType_ = "basic" | "cors" | "default" | "error" | "opaque" | "opaque
 //
 
 interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
-  "readystatechange": Event;
+    readystatechange: Event;
 }
 
 interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
-//  msCaching: string;
-  onreadystatechange: ((this: XMLHttpRequest, ev: Event) => any) | null;
-  readonly readyState: number;
-  readonly response: any;
-  readonly responseText: string;
-  responseType: XMLHttpRequestResponseType;
-  readonly responseURL: string;
-  readonly responseXML: Document | null;
-  readonly status: number;
-  readonly statusText: string;
-  timeout: number;
-  readonly upload: XMLHttpRequestUpload;
-  withCredentials: boolean;
-  abort(): void;
-  getAllResponseHeaders(): string;
-  getResponseHeader(header: string): string | null;
-//  msCachingEnabled(): boolean;
-  open(method: string, url: string, async?: boolean, user?: string | null, password?: string | null): void;
-  overrideMimeType(mime: string): void;
-  send(data?: any): void;
-  setRequestHeader(header: string, value: string): void;
-  readonly DONE: number;
-  readonly HEADERS_RECEIVED: number;
-  readonly LOADING: number;
-  readonly OPENED: number;
-  readonly UNSENT: number;
-  addEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any): void;
-//  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
-  removeEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any): void;
-//  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+    //  msCaching: string;
+    onreadystatechange: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    readonly readyState: number;
+    readonly response: any;
+    readonly responseText: string;
+    responseType: XMLHttpRequestResponseType;
+    readonly responseURL: string;
+    readonly responseXML: Document | null;
+    readonly status: number;
+    readonly statusText: string;
+    timeout: number;
+    readonly upload: XMLHttpRequestUpload;
+    withCredentials: boolean;
+    abort(): void;
+    getAllResponseHeaders(): string;
+    getResponseHeader(header: string): string | null;
+    //  msCachingEnabled(): boolean;
+    open(method: string, url: string, async?: boolean, user?: string | null, password?: string | null): void;
+    overrideMimeType(mime: string): void;
+    send(data?: any): void;
+    setRequestHeader(header: string, value: string): void;
+    readonly DONE: number;
+    readonly HEADERS_RECEIVED: number;
+    readonly LOADING: number;
+    readonly OPENED: number;
+    readonly UNSENT: number;
+    addEventListener<K extends keyof XMLHttpRequestEventMap>(
+        type: K,
+        listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any
+    ): void;
+    //  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+    removeEventListener<K extends keyof XMLHttpRequestEventMap>(
+        type: K,
+        listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any
+    ): void;
+    //  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
 
 declare var XMLHttpRequest: {
-  prototype: XMLHttpRequest;
-  new(): XMLHttpRequest;
-  readonly DONE: number;
-  readonly HEADERS_RECEIVED: number;
-  readonly LOADING: number;
-  readonly OPENED: number;
-  readonly UNSENT: number;
+    prototype: XMLHttpRequest;
+    new (): XMLHttpRequest;
+    readonly DONE: number;
+    readonly HEADERS_RECEIVED: number;
+    readonly LOADING: number;
+    readonly OPENED: number;
+    readonly UNSENT: number;
 };
 
 interface XMLHttpRequestEventTargetEventMap {
-  "abort": Event;
-  "error": Event;
-  "load": Event;
-  "loadend": Event;
-  "loadstart": Event;
-  "progress": Event;
-  "timeout": Event;
+    abort: Event;
+    error: Event;
+    load: Event;
+    loadend: Event;
+    loadstart: Event;
+    progress: Event;
+    timeout: Event;
 }
 
 interface XMLHttpRequestEventTarget {
-  onabort: ((this: XMLHttpRequest, ev: Event) => any) | null;
-  onerror: ((this: XMLHttpRequest, ev: Event) => any) | null;
-  onload: ((this: XMLHttpRequest, ev: Event) => any) | null;
-  onloadend: ((this: XMLHttpRequest, ev: Event) => any) | null;
-  onloadstart: ((this: XMLHttpRequest, ev: Event) => any) | null;
-  onprogress: ((this: XMLHttpRequest, ev: Event) => any) | null;
-  ontimeout: ((this: XMLHttpRequest, ev: Event) => any) | null;
-  addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any): void;
-//  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
-  removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any): void;
-//  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+    onabort: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    onerror: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    onload: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    onloadend: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    onloadstart: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    onprogress: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    ontimeout: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
+        type: K,
+        listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+    ): void;
+    //  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+    removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
+        type: K,
+        listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+    ): void;
+    //  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
 
 interface XMLHttpRequestUpload extends EventTarget, XMLHttpRequestEventTarget {
-  addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any): void;
-//  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
-  removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any): void;
-//  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+    addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
+        type: K,
+        listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+    ): void;
+    //  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+    removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
+        type: K,
+        listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+    ): void;
+    //  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
 
 declare var XMLHttpRequestUpload: {
-  prototype: XMLHttpRequestUpload;
-  new(): XMLHttpRequestUpload;
+    prototype: XMLHttpRequestUpload;
+    new (): XMLHttpRequestUpload;
 };
 
 type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";

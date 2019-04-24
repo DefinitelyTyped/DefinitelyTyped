@@ -153,6 +153,7 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
     for (const filePath of filePaths) {
         const definitions = await parseFile(filePath, commonTypes);
         for (const definition of definitions) {
+            definition.overloads = definition.overloads.filter(o => !o.params.some(p => p.includes('StringIterator')));
             if (definition.overloads.every(o => o.params.length <= 1 && (o.returnType === "typeof _" || o.returnType === "LoDashStatic"))) {
                 // Our convert technique doesn't work well on "typeof _" functions (or at least runInContext)
                 // Plus, if there are 0-1 parameters, there's nothing to curry anyways.

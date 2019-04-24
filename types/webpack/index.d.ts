@@ -15,6 +15,8 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Ryan Waskiewicz <https://github.com/rwaskiewicz>
 //                 Kyle Uehlein <https://github.com/kuehlein>
+//                 Grgur Grisogono <https://github.com/grgur>
+//                 Rubens Pinheiro Gonçalves Cavalcante <https://github.com/rubenspgcavalcante>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -42,6 +44,9 @@ declare function webpack(
 declare function webpack(options: webpack.Configuration[]): webpack.MultiCompiler;
 
 declare namespace webpack {
+    /** Webpack package version. */
+    const version: string | undefined;
+
     interface Configuration {
         /** Enable production optimizations or development hints. */
         mode?: "development" | "production" | "none";
@@ -609,6 +614,8 @@ declare namespace webpack {
             name?: boolean | string | ((...args: any[]) => any);
             /** Assign modules to a cache group (modules from different cache groups are tried to keep in separate chunks) */
             cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | { [key: string]: CacheGroupsOptions | false };
+            /** Override the default name separator (~) when generating names automatically (name: true)  */
+            automaticNameDelimiter?: string;
         }
         interface RuntimeChunkOptions {
             /** The name or name factory for the runtime chunks. */
@@ -987,8 +994,8 @@ declare namespace webpack {
             shouldEmit: SyncBailHook<Compilation>;
             done: AsyncSeriesHook<Stats>;
             additionalPass: AsyncSeriesHook;
-            beforeRun: AsyncSeriesHook<Compilation>;
-            run: AsyncSeriesHook<Compilation>;
+            beforeRun: AsyncSeriesHook<Compiler>;
+            run: AsyncSeriesHook<Compiler>;
             emit: AsyncSeriesHook<Compilation>;
             afterEmit: AsyncSeriesHook<Compilation>;
             thisCompilation: SyncHook<Compilation, { normalModuleFactory: NormalModuleFactory }>;
@@ -1128,8 +1135,8 @@ declare namespace webpack {
     abstract class Stats {
         compilation: compilation.Compilation;
         hash?: string;
-        startTime?: Date;
-        endTime?: Date;
+        startTime?: number;
+        endTime?: number;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */
@@ -1228,7 +1235,7 @@ declare namespace webpack {
 
         interface ToStringOptionsObject extends ToJsonOptionsObject {
             /** `webpack --colors` equivalent */
-            colors?: boolean;
+            colors?: boolean | string;
         }
 
         type ToStringOptions = Preset | ToStringOptionsObject;
@@ -1449,6 +1456,10 @@ declare namespace webpack {
 
     class WatchIgnorePlugin extends Plugin {
         constructor(paths: Array<string | RegExp>);
+    }
+
+    class SingleEntryPlugin extends Plugin {
+        constructor(context: string, entry: string, name: string);
     }
 
     namespace optimize {

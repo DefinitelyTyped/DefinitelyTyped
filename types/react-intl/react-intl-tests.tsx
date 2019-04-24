@@ -159,6 +159,13 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
             <FormattedMessage
                 id="test"
                 description="Test"
+                defaultMessage="Hi {blank} and {empty}!"
+                values={{ blank: null, empty: undefined }}
+                tagName={({ children }) => <div>{children}</div>} />
+
+            <FormattedMessage
+                id="test"
+                description="Test"
             >
                 {(text) => <div className="messageDiv">{text}</div>}
             </FormattedMessage>

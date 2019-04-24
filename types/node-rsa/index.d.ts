@@ -1,7 +1,8 @@
-// Type definitions for node-rsa 0.4
+// Type definitions for node-rsa 1.0
 // Project: https://github.com/rzcoder/node-rsa
 // Definitions by: Ali Taheri <https://github.com/alitaheri>
 //                 Christian Moniz <https://github.com/xm>
+//                 Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -27,12 +28,12 @@ declare class NodeRSA {
      * @param bits Key size in bits. 2048 by default.
      * @param exponent public exponent. 65537 by default.
      */
-    generateKeyPair(bits?: number, exponent?: number): void;
+    generateKeyPair(bits?: number, exponent?: number): NodeRSA;
 
     /**
      * Import key from PEM string, PEM/DER Buffer or components.
      */
-    importKey(key: NodeRSA.Key, format?: NodeRSA.Format): void;
+    importKey(key: NodeRSA.Key, format?: NodeRSA.Format): NodeRSA;
 
     /**
      * Export key to PEM string, PEM/DER Buffer or components.
@@ -120,8 +121,7 @@ declare namespace NodeRSA {
     type HashingAlgorithm =
         | 'ripemd160'
         | 'md4' | 'md5'
-        | 'sha' | 'sha1'
-        | 'sha224' | 'sha256' | 'sha384' | 'sha512';
+        | 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
 
     type SigningScheme = 'pkcs1' | 'pss';
 

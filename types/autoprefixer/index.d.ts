@@ -1,4 +1,4 @@
-// Type definitions for autoprefixer 9.1
+// Type definitions for autoprefixer 9.4
 // Project: https://github.com/postcss/autoprefixer
 // Definitions by:  Armando Meziat <https://github.com/odnamrataizem>, murt <https://github.com/murt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +15,7 @@ declare namespace autoprefixer {
         remove?: boolean;
         supports?: boolean;
         flexbox?: boolean | 'no-2009';
-        grid?: boolean;
+        grid?: boolean | 'autoplace' | 'no-autoplace';
         stats?: any;
         ignoreUnknownVersions?: boolean;
     }

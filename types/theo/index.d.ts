@@ -1,10 +1,11 @@
-// Type definitions for theo 8.0
+// Type definitions for Theo 8.1
 // Project: https://github.com/salesforce-ux/theo
 // Definitions by: Pete Petrash <https://github.com/petekp>
+//                 Niko Laitinen <https://github.com/laitine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
-import { Iterable, Collection, Map, List, OrderedMap } from "immutable";
+import { Collection, Map, List, OrderedMap } from "immutable";
 
 export type StyleProperty =
     | "name"
@@ -27,7 +28,12 @@ export type Format =
     | "list.scss"
     | "module.js"
     | "common.js"
-    | "html";
+    | "html"
+    | "json"
+    | "raw.json"
+    | "ios.json"
+    | "android.xml"
+    | "aura.tokens";
 
 export type Transform = "raw" | "ios" | "android" | "web";
 
@@ -40,22 +46,6 @@ export type ValueTransform =
     | "relative/pixel"
     | "relative/pixelValue";
 
-export function convert(options: ConvertOptions): Promise<string>;
-export function convertSync(options: ConvertOptions): string;
-export function registerFormat(
-    name: Format,
-    format: FormatResultFn | string
-): void;
-export function registerTransform(
-    name: Transform,
-    valueTransforms: ValueTransform[]
-): void;
-export function registerValueTransform(
-    name: ValueTransform,
-    predicate: (prop: Prop) => boolean,
-    transform: (prop: Prop) => string | number
-): void;
-
 export type Prop = Map<StyleProperty, string | number>;
 export type Props = List<Prop>;
 export type Aliases = OrderedMap<string, Map<string, string | number>>;
@@ -64,6 +54,8 @@ export type FormatResultFn = (result: ImmutableStyleMap) => string;
 
 export interface StyleMap {
     aliases: Aliases;
+    global?: Props;
+    imports?: string[];
     props: Props;
     meta: Meta;
     options: object;
@@ -77,10 +69,12 @@ export interface ImmutableStyleMap extends Map<string, any> {
 export interface ConvertOptions {
     transform: TransformOptions;
     format: FormatOptions;
+    resolveAliases?: boolean;
+    resolveMetaAliases?: boolean;
 }
 
-export interface TransformOptions {
-    type?: Transform;
+export interface TransformOptions<T extends string = never> {
+    type?: Transform | T;
     file: string;
     data?: string;
 }
@@ -92,3 +86,19 @@ export interface FormatOptions {
         transformPropName?: (name: string) => string
     ) => void;
 }
+
+export function convert(options: ConvertOptions): Promise<string>;
+export function convertSync(options: ConvertOptions): string;
+export function registerFormat<T extends string = never>(
+    name: Format | T,
+    format: FormatResultFn | string
+): void;
+export function registerTransform<
+    T extends string = never,
+    V extends string = never
+>(name: Transform | T, valueTransforms: ValueTransform[] | V[]): void;
+export function registerValueTransform<T extends string = never>(
+    name: ValueTransform | T,
+    predicate: (prop: Prop) => boolean,
+    transform: (prop: Prop) => string | number
+): void;

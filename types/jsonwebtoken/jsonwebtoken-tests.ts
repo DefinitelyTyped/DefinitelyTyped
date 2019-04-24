@@ -101,6 +101,12 @@ cert = fs.readFileSync("public.pem"); // get public key
 jwt.verify(token, cert, { audience: "urn:foo" }, (err, decoded) => {
     // if audience mismatch, err == invalid audience
 });
+jwt.verify(token, cert, { audience: /urn:f[o]{2}/ }, (err, decoded) => {
+    // if audience mismatch, err == invalid audience
+});
+jwt.verify(token, cert, { audience: [/urn:f[o]{2}/, "urn:bar"] }, (err, decoded) => {
+    // if audience mismatch, err == invalid audience
+});
 
 // verify issuer
 cert = fs.readFileSync("public.pem"); // get public key

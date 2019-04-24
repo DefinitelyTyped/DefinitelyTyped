@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-declare namespace raygun {
+export namespace raygun {
     interface KeyValueObject {
         [key: string]: string | number | boolean | KeyValueObject;
     }
@@ -143,4 +143,4 @@ declare class Client {
     ): void;
 }
 
-export = Client;
+export { Client };

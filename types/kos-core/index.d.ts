@@ -20,7 +20,7 @@ interface WrapperConfig {
 
 interface Action<T = any> {
     type: string;
-    payload?: Partial<T>;
+    payload?: Partial<T> & { [x: string]: any };
 }
 
 export interface KosProps<T = any> {
@@ -40,7 +40,7 @@ export interface KosModel<T = any> {
         [key: string]: (state: T, { payload }: { payload: T }) => void;
     };
     asyncs: {
-        [key: string]: (dispatch: KosDispatch, getState: GetKosState<T>, action: Action) => void;
+        [key: string]: (dispatch?: KosDispatch, getState?: GetKosState<T>, action?: { payload: T }) => void;
     };
     setup?: (dispatch: KosDispatch, getState: GetKosState<T>) => void;
     getAsync?: (

@@ -194,7 +194,7 @@ declare namespace Sortable {
         /**
          * if you have custom scrollbar scrollFn may be used for autoscrolling
          */
-        scrollFn?: ((this: Sortable, offsetX: number, offsetY: number, event: MouseEvent) => void)
+        scrollFn?: ((this: Sortable, offsetX: number, offsetY: number, event: MouseEvent) => void);
         /**
          * px, how near the mouse must be to an edge to start scrolling.
          */

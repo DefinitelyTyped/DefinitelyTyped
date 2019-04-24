@@ -113,15 +113,13 @@ export interface WindowEventMapping<Topic = string, Type = string> extends BaseE
     'closed': WindowEvent<Topic, Type>;
     'closing': WindowEvent<Topic, Type>;
     'crashed': CrashedEvent & WindowEvent<Topic, Type>;
-    'disabled-frame-bounds-changed': WindowBoundsChange<Topic, Type>;
-    'disabled-frame-bounds-changing': WindowBoundsChange<Topic, Type>;
+    'disabled-movement-bounds-changed': WindowBoundsChange<Topic, Type>;
+    'disabled-movement-bounds-changing': WindowBoundsChange<Topic, Type>;
     'embedded': WindowEvent<Topic, Type>;
     'end-user-bounds-changing': WindowBeginBoundsChangingEvent<Topic, Type>;
     'external-process-exited': WindowExternalProcessExitedEvent<Topic, Type>;
     'external-process-started': WindowExternalProcessStartedEvent<Topic, Type>;
     'focused': WindowEvent<Topic, Type>;
-    'frame-disabled': WindowEvent<Topic, Type>;
-    'frame-enabled': WindowEvent<Topic, Type>;
     'group-changed': WindowGroupChanged<Topic, Type>;
     'hidden': WindowHiddenEvent<Topic, Type>;
     'initialized': WindowEvent<Topic, Type>;
@@ -136,6 +134,8 @@ export interface WindowEventMapping<Topic = string, Type = string> extends BaseE
     'restored': WindowEvent<Topic, Type>;
     'show-requested': WindowEvent<Topic, Type>;
     'shown': WindowEvent<Topic, Type>;
+    'user-movement-disabled': WindowEvent<Topic, Type>;
+    'user-movement-enabled': WindowEvent<Topic, Type>;
 }
 export interface PropagatedWindowEventMapping<Topic = string, Type = string> extends BaseEventMap {
     'window-begin-user-bounds-changing': WindowBeginBoundsChangingEvent<Topic, Type>;
@@ -145,15 +145,13 @@ export interface PropagatedWindowEventMapping<Topic = string, Type = string> ext
     'window-closed': WindowEvent<Topic, Type>;
     'window-closing': WindowEvent<Topic, Type>;
     'window-crashed': CrashedEvent & WindowEvent<Topic, Type>;
-    'window-disabled-frame-bounds-changed': WindowBoundsChange<Topic, Type>;
-    'window-disabled-frame-bounds-changing': WindowBoundsChange<Topic, Type>;
+    'window-disabled-movement-bounds-changed': WindowBoundsChange<Topic, Type>;
+    'window-disabled-movement-bounds-changing': WindowBoundsChange<Topic, Type>;
     'window-embedded': WindowEvent<Topic, Type>;
     'window-end-user-bounds-changing': WindowBeginBoundsChangingEvent<Topic, Type>;
     'window-external-process-exited': WindowExternalProcessExitedEvent<Topic, Type>;
     'window-external-process-started': WindowExternalProcessStartedEvent<Topic, Type>;
     'window-focused': WindowEvent<Topic, Type>;
-    'window-frame-disabled': WindowEvent<Topic, Type>;
-    'window-frame-enabled': WindowEvent<Topic, Type>;
     'window-group-changed': WindowGroupChanged<Topic, Type>;
     'window-hidden': WindowHiddenEvent<Topic, Type>;
     'window-initialized': WindowEvent<Topic, Type>;
@@ -167,6 +165,8 @@ export interface PropagatedWindowEventMapping<Topic = string, Type = string> ext
     'window-reloaded': WindowReloadedEvent<Topic, Type>;
     'window-restored': WindowEvent<Topic, Type>;
     'window-shown': WindowEvent<Topic, Type>;
+    'window-user-movement-disabled': WindowEvent<Topic, Type>;
+    'window-user-movement-enabled': WindowEvent<Topic, Type>;
 }
 export declare type WindowEvents = {
     [Type in keyof WindowEventMapping]: WindowEventMapping<'window', Type>[Type];

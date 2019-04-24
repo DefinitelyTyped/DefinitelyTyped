@@ -17,7 +17,7 @@ import {
     InlineFragmentNode,
     FragmentDefinitionNode,
 } from "../language/ast";
-import { MaybePromise } from "../jsutils/MaybePromise";
+import { PromiseOrValue } from "../jsutils/PromiseOrValue";
 
 /**
  * Data that must be available at all points during query execution.
@@ -37,7 +37,7 @@ export interface ExecutionContext {
 }
 
 export interface ExecutionResultDataDefault {
-    [key: string]: any
+    [key: string]: any;
 }
 
 /**
@@ -73,7 +73,9 @@ export type ExecutionArgs = {
  *
  * Accepts either an object with named arguments, or individual arguments.
  */
-export function execute<TData = ExecutionResultDataDefault>(args: ExecutionArgs): MaybePromise<ExecutionResult<TData>>;
+export function execute<TData = ExecutionResultDataDefault>(
+    args: ExecutionArgs
+): PromiseOrValue<ExecutionResult<TData>>;
 export function execute<TData = ExecutionResultDataDefault>(
     schema: GraphQLSchema,
     document: DocumentNode,
@@ -82,7 +84,7 @@ export function execute<TData = ExecutionResultDataDefault>(
     variableValues?: Maybe<{ [key: string]: any }>,
     operationName?: Maybe<string>,
     fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
-): MaybePromise<ExecutionResult<TData>>;
+): PromiseOrValue<ExecutionResult<TData>>;
 
 /**
  * Given a ResponsePath (found in the `path` entry in the information provided

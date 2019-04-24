@@ -79,6 +79,7 @@ declare namespace ReactTooltip {
     }
 
     interface Props {
+        children?: React.ReactNode;
         id?: string;
         place?: Place;
         type?: Type;
@@ -106,6 +107,7 @@ declare namespace ReactTooltip {
         class?: string;
         watchWindow?: boolean;
         sanitizeHtmlOptions?: SanitizeHtmlOptions;
+        clickable?: boolean;
     }
 }
 

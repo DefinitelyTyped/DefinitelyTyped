@@ -3,18 +3,21 @@
 // Definitions by: Sinziana Nicolae <https://github.com/sinziananicolae>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface ClampOptions {
-    clamp?: number|string;
-    useNativeClamp?: boolean;
-    splitOnChars?: string[];
-    animate?: boolean;
-    truncationChar?: string;
-    truncationHTML?: string | null;
+declare namespace clamp {
+    interface ClampOptions {
+        clamp?: number|string;
+        useNativeClamp?: boolean;
+        splitOnChars?: string[];
+        animate?: boolean;
+        truncationChar?: string;
+        truncationHTML?: string | null;
+    }
+
+    interface ClampResponse {
+        original: string;
+        clamped: string;
+    }
 }
 
-export interface ClampResponse {
-    original: string;
-    clamped: string;
-}
-
-export default function clamp(element: HTMLElement, options?: ClampOptions): ClampResponse;
+export = clamp;
+declare function clamp(element: HTMLElement, options?: clamp.ClampOptions): clamp.ClampResponse;

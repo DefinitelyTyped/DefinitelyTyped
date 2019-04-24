@@ -4,7 +4,7 @@ import * as Crypto from "crypto";
 
 const preResponse: Lifecycle.Method = (request, h) => {
     // In onPreResponse, the response object will be defined.
-    const response = <ResponseObject> request.response!;
+    const response = <ResponseObject> request.response;
 
     const hash = Crypto.createHash('sha1');
     response.events.on('peek', (chunk, encoding) => {

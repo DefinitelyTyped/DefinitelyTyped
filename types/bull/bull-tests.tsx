@@ -72,6 +72,19 @@ imageQueue.add({image: 'http://example.com/image1.tiff'});
 
 //////////////////////////////////////////////////////////////////////////////////
 //
+// Test Redis Cluster connexion
+//
+//////////////////////////////////////////////////////////////////////////////////
+
+const clusterQueue = new Queue('queue on redis cluster', {
+    prefix: 'cluster-test',
+    createClient: (clusterUri: Redis.ClusterNode) => {
+        return new Redis.Cluster([{port: 6379, host: '127.0.0.1'}]);
+    }
+});
+
+//////////////////////////////////////////////////////////////////////////////////
+//
 // Re-using Redis Connections
 //
 //////////////////////////////////////////////////////////////////////////////////
@@ -142,6 +155,8 @@ pdfQueue
 .on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatusClean) => undefined)
 .on('drained', () => undefined)
 .on('removed', (job: Queue.Job) => undefined);
+
+pdfQueue.setMaxListeners(42);
 
 // test different process methods
 

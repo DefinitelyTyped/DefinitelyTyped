@@ -1,4 +1,4 @@
-// Type definitions for Atom 1.31
+// Type definitions for non-npm package Atom 1.36
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.31.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.36.0/exports/atom.js
 
 /// <reference types="node" />
 
@@ -2318,6 +2318,12 @@ export class TextEditor {
     scopeDescriptorForBufferPosition(bufferPosition: PointCompatible): ScopeDescriptor;
 
     /**
+     *  Get the syntactic tree {ScopeDescriptor} for the given position in buffer
+     *  coordinates or the syntactic {ScopeDescriptor} for TextMate language mode
+     */
+    syntaxTreeScopeDescriptorForBufferPosition(bufferPosition: PointCompatible): ScopeDescriptor;
+
+    /**
      *  Get the range in buffer coordinates of all tokens surrounding the cursor
      *  that match the given scope selector.
      */
@@ -3211,6 +3217,9 @@ export interface Cursor {
 
     /** Retrieves the scope descriptor for the cursor's current position. */
     getScopeDescriptor(): ScopeDescriptor;
+
+    /** Retrieves the syntax tree scope descriptor for the cursor's current position. */
+    getSyntaxTreeScopeDescriptor(): ScopeDescriptor;
 
     /**
      *  Returns true if this cursor has no non-whitespace characters before its
@@ -5001,6 +5010,46 @@ export class Task {
     cancel(): boolean;
 }
 
+export interface TextBufferFileBackend {
+    /** A {Function} that returns the {String} path to the file. */
+    getPath(): string;
+
+    /**
+     *  A {Function} that returns a `Readable` stream
+     *  that can be used to load the file's content.
+     */
+    createReadStream(): ReadStream;
+
+    /**
+     *  A {Function} that returns a `Writable` stream
+     *  that can be used to save content to the file.
+     */
+    createWriteStream(): WriteStream;
+
+    /** A {Function} that returns a {Boolean}, true if the file exists, false otherwise. */
+    existsSync(): boolean;
+
+    /**
+     *  A {Function} that invokes its callback argument
+     *  when the file changes. The method should return a {Disposable} that
+     *  can be used to prevent further calls to the callback.
+     */
+    onDidChange?(callback: () => void): Disposable;
+
+    /**
+     *  A {Function} that invokes its callback argument
+     *  when the file is deleted. The method should return a {Disposable} that
+     *  can be used to prevent further calls to the callback.
+     */
+    onDidDelete?(callback: () => void): Disposable;
+    /**
+     *  A {Function} that invokes its callback argument
+     *  when the file is renamed. The method should return a {Disposable} that
+     *  can be used to prevent further calls to the callback.
+     */
+    onDidRename?(callback: () => void): Disposable;
+}
+
 /**
  *  A mutable text container with undo/redo support and the ability to
  *  annotate logical regions in the text.
@@ -5016,7 +5065,9 @@ export class TextBuffer {
     readonly destroyed: boolean;
 
     /** Create a new buffer backed by the given file path. */
-    static load(filePath: string, params?: BufferLoadOptions): Promise<TextBuffer>;
+    static load(
+        filePath: string | TextBufferFileBackend,
+        params?: BufferLoadOptions): Promise<TextBuffer>;
 
     /**
      *  Create a new buffer backed by the given file path. For better performance,
@@ -5155,6 +5206,9 @@ export class TextBuffer {
 
     /** Set the path for the buffer's associated file. */
     setPath(filePath: string): void;
+
+    /** Experimental: Set a custom {TextBufferFileBackend} object as the buffer's backing store. */
+    setFile(fileBackend: TextBufferFileBackend): void;
 
     /** Sets the character set encoding for this buffer. */
     setEncoding(encoding: string): void;
@@ -5914,7 +5968,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.31.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.36.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under
@@ -6339,12 +6393,12 @@ export interface CopyMarkerOptions {
 
 export interface DecorationLayerOptions extends SharedDecorationOptions {
     /** One of several supported decoration types. */
-    type?: "line"|"line-number"|"highlight"|"block";
+    type?: "line"|"line-number"|"text"|"highlight"|"block"|"cursor";
 }
 
 export interface DecorationOptions extends SharedDecorationOptions {
     /** One of several supported decoration types. */
-    type?: "line"|"line-number"|"highlight"|"overlay"|"gutter"|"block";
+    type?: "line"|"line-number"|"text"|"highlight"|"overlay"|"gutter"|"block"|"cursor";
 
     /** The name of the gutter we're decorating, if type is "gutter". */
     gutterName?: string;
@@ -6539,6 +6593,12 @@ export interface SharedDecorationOptions {
     class?: string;
 
     /**
+     *  An Object containing CSS style properties to apply to the relevant DOM
+     *  node. Currently this only works with a type of cursor or text.
+     */
+    style?: object;
+
+    /**
      *  An HTMLElement or a model Object with a corresponding view registered. Only
      *  applicable to the gutter, overlay and block types.
      */
@@ -6563,12 +6623,26 @@ export interface SharedDecorationOptions {
     onlyNonEmpty?: boolean;
 
     /**
+     *  If false, the decoration will be applied to the last row of a non-empty
+     *  range, even if it ends at column 0. Defaults to true. Only applicable
+     *  to the gutter, line, and line-number decoration types.
+     */
+    omitEmptyLastRow?: boolean;
+
+    /**
      *  Only applicable to decorations of type overlay and block. Controls where the
      *  view is positioned relative to the TextEditorMarker. Values can be
      *  'head' (the default) or 'tail' for overlay decorations, and 'before' (the default)
      *  or 'after' for block decorations.
      */
     position?: "head"|"tail"|"before"|"after";
+
+    /**
+     *  Only applicable to decorations of type block. Controls where the view is
+     *  positioned relative to other block decorations at the same screen row.
+     *  If unspecified, block decorations render oldest to newest.
+     */
+    order?: number;
 
     /**
      *  Only applicable to decorations of type overlay. Determines whether the decoration
