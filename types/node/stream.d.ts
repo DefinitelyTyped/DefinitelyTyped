@@ -121,7 +121,7 @@ declare module "stream" {
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, encoding: string, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(chunk: any): void;
+            end(chunk?: any): void;
             end(chunk: any, cb?: () => void): void;
             end(chunk: any, encoding: string, cb?: () => void): void;
             cork(): void;
