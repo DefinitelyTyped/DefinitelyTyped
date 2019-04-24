@@ -559,7 +559,7 @@ export interface ExportUsersOptions {
     fields?: ExportUserField[]
 }
 
-export interface VerificationEmailOptions {
+export interface UserIdParams {
     user_id: string;
     client_id?: string;
 }
@@ -876,8 +876,8 @@ export class ManagementClient {
     exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
     exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;
 
-    sendEmailVerification(data: VerificationEmailOptions): Promise<VerificationEmailJob>;
-    sendEmailVerification(data: VerificationEmailOptions, cb?: (err: Error, data: VerificationEmailJob) => void): void;
+    sendEmailVerification(data: UserIdParams): Promise<VerificationEmailJob>;
+    sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: VerificationEmailJob) => void): void;
 
   // Tickets
   createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<PasswordChangeTicketResponse>;
