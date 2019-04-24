@@ -7,7 +7,7 @@
 import * as Electron from 'electron';
 
 interface ClipboardExtended extends Electron.Clipboard {
-    off: (event: string) => void;
+    off: (event: string, listener?: () => void) => void;
     startWatching: () => void;
     stopWatching: () => void;
 }
