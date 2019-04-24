@@ -22,6 +22,7 @@ declare class Insights {
     static collectorBaseURL: string;
     static queryBaseURL: string;
 
+    data: Array<Record<string, string | number | boolean>>;
     enabled: boolean;
     queryKey: string;
     insertKey: string;
@@ -35,7 +36,7 @@ declare class Insights {
      * Add insights data to the queue.
      * It is sent when the queue reaches a max size or a period of time has elapsed
      */
-    add(data: object, eventType?: string): void;
+    add(data: Record<string, string | number | boolean>, eventType?: string): void;
 
     /**
      * Build a nrql query string
