@@ -58,6 +58,8 @@ export function snapshotWithOptions(options: SnapshotOptions): Test;
 
 export const renderOnly: Test;
 
+export function renderWithOptions(options?: SnapshotOptions): Test;
+
 export function getSnapshotFileName(context: StoryContext): string;
 
 // tslint:disable-next-line no-unnecessary-generics
