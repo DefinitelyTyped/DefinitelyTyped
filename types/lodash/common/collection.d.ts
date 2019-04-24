@@ -557,21 +557,21 @@ declare module "../index" {
         reduce<T>( collection: List<T> | null | undefined, callback: MemoListIterator<T, T, List<T>> ): T | undefined;
         reduce<T extends object>( collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): T[keyof T] | undefined;
     }
-    interface Imp<TValue> {
-        reduce<T, TResult>( this: Imp<T[] | null | undefined>, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult ): TResult;
-        reduce<T, TResult>( this: Imp<List<T> | null | undefined>, callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult ): TResult;
-        reduce<T extends object, TResult>( this: Imp<T | null | undefined>, callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult ): TResult;
-        reduce<T>( this: Imp<T[] | null | undefined>, callback: MemoListIterator<T, T, T[]> ): T | undefined;
-        reduce<T>( this: Imp<List<T> | null | undefined>, callback: MemoListIterator<T, T, List<T>> ): T | undefined;
-        reduce<T extends object>( this: Imp<T | null | undefined>, callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): T[keyof T] | undefined;
+    interface ImpL<T> {
+        reduce<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult ): TResult;
+        reduce( callback: MemoListIterator<T, T, List<T>> ): T | undefined;
     }
-    interface Exp<TValue> {
-        reduce<T, TResult>( this: Exp<T[] | null | undefined>, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult ): Exp<TResult>;
-        reduce<T, TResult>( this: Exp<List<T> | null | undefined>, callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult ): Exp<TResult>;
-        reduce<T extends object, TResult>( this: Exp<T | null | undefined>, callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult ): Exp<TResult>;
-        reduce<T>( this: Exp<T[] | null | undefined>, callback: MemoListIterator<T, T, T[]> ): Exp<T | undefined>;
-        reduce<T>( this: Exp<List<T> | null | undefined>, callback: MemoListIterator<T, T, List<T>> ): Exp<T | undefined>;
-        reduce<T extends object>( this: Exp<T | null | undefined>, callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): Exp<T[keyof T] | undefined>;
+    interface ImpO<T> {
+        reduce<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult ): TResult;
+        reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): T[keyof T] | undefined;
+    }
+    interface ExpL<T> {
+        reduce<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult ): TResult;
+        reduce( callback: MemoListIterator<T, T, List<T>> ): T | undefined;
+    }
+    interface ExpO<T> {
+        reduce<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult ): TResult;
+        reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): T[keyof T] | undefined;
     }
     interface Stat {
         reduceRight<T, TResult>( collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult ): TResult;
@@ -581,72 +581,110 @@ declare module "../index" {
         reduceRight<T>( collection: List<T> | null | undefined, callback: MemoListIterator<T, T, List<T>> ): T | undefined;
         reduceRight<T extends object>( collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): T[keyof T] | undefined;
     }
-    interface Imp<TValue> {
-        reduceRight<T, TResult>( this: Imp<T[] | null | undefined>, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult ): TResult;
-        reduceRight<T, TResult>( this: Imp<List<T> | null | undefined>, callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult ): TResult;
-        reduceRight<T extends object, TResult>( this: Imp<T | null | undefined>, callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult ): TResult;
-        reduceRight<T>( this: Imp<T[] | null | undefined>, callback: MemoListIterator<T, T, T[]> ): T | undefined;
-        reduceRight<T>( this: Imp<List<T> | null | undefined>, callback: MemoListIterator<T, T, List<T>> ): T | undefined;
-        reduceRight<T extends object>( this: Imp<T | null | undefined>, callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): T[keyof T] | undefined;
+    interface ImpL<T> {
+        reduceRight<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult ): TResult;
+        reduceRight( callback: MemoListIterator<T, T, List<T>> ): T | undefined;
     }
-    interface Exp<TValue> {
-        reduceRight<T, TResult>( this: Exp<T[] | null | undefined>, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult ): Exp<TResult>;
-        reduceRight<T, TResult>( this: Exp<List<T> | null | undefined>, callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult ): Exp<TResult>;
-        reduceRight<T extends object, TResult>( this: Exp<T | null | undefined>, callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult ): Exp<TResult>;
-        reduceRight<T>( this: Exp<T[] | null | undefined>, callback: MemoListIterator<T, T, T[]> ): Exp<T | undefined>;
-        reduceRight<T>( this: Exp<List<T> | null | undefined>, callback: MemoListIterator<T, T, List<T>> ): Exp<T | undefined>;
-        reduceRight<T extends object>( this: Exp<T | null | undefined>, callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): Exp<T[keyof T] | undefined>;
+    interface ImpO<T> {
+        reduceRight<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult ): TResult;
+        reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): T[keyof T] | undefined;
+    }
+    interface ExpL<T> {
+        reduceRight<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult ): TResult;
+        reduceRight( callback: MemoListIterator<T, T, List<T>> ): T | undefined;
+    }
+    interface ExpO<T> {
+        reduceRight<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult ): TResult;
+        reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): T[keyof T] | undefined;
     }
     interface Stat {
         reject( collection: string | null | undefined, predicate?: StringIterator<boolean> ): string[];
         reject<T>( collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean> ): T[];
         reject<T extends object>( collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean> ): Array<T[keyof T]>;
     }
-    interface Imp<TValue> {
-        reject( this: Imp<string | null | undefined>, predicate?: StringIterator<boolean> ): Imp<string[]>;
-        reject<T>( this: Imp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean> ): Imp<T[]>;
-        reject<T extends object>( this: Imp<T | null | undefined>, predicate?: ObjectIterateeCustom<T, boolean> ): Imp<Array<T[keyof T]>>;
+    interface ImpS {
+        reject( predicate?: StringIterator<boolean> ): ImpL<string>;
     }
-    interface Exp<TValue> {
-        reject( this: Exp<string | null | undefined>, predicate?: StringIterator<boolean> ): Exp<string[]>;
-        reject<T>( this: Exp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean> ): Exp<T[]>;
-        reject<T extends object>( this: Exp<T | null | undefined>, predicate?: ObjectIterateeCustom<T, boolean> ): Exp<Array<T[keyof T]>>;
+    interface ImpL<T> {
+        reject( predicate?: ListIterateeCustom<T, boolean> ): ImpL<T>;
+    }
+    interface ImpO<T> {
+        reject( predicate?: ObjectIterateeCustom<T, boolean> ): ImpL<T[keyof T]>;
+    }
+    interface ExpS {
+        reject( predicate?: StringIterator<boolean> ): ExpL<string>;
+    }
+    interface ExpL<T> {
+        reject( predicate?: ListIterateeCustom<T, boolean> ): ExpL<T>;
+    }
+    interface ExpO<T> {
+        reject( predicate?: ObjectIterateeCustom<T, boolean> ): ExpL<T[keyof T]>;
     }
     interface Stat {
         sample<T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined ): T | undefined;
         sample<T extends object>( collection: T | null | undefined ): T[keyof T] | undefined;
     }
-    interface Imp<TValue> {
-        sample<T>( this: Imp<Dictionary<T> | NumericDictionary<T> | null | undefined> ): T | undefined;
-        sample<T extends object>( this: Imp<T | null | undefined> ): T[keyof T] | undefined;
+    interface ImpS {
+        sample(): string | undefined;
     }
-    interface Exp<TValue> {
-        sample<T>( this: Exp<Dictionary<T> | NumericDictionary<T> | null | undefined> ): Exp<T | undefined>;
-        sample<T extends object>( this: Exp<T | null | undefined> ): Exp<T[keyof T] | undefined>;
+    interface ImpL<T> {
+        sample(): T | undefined;
+    }
+    interface ImpO<T> {
+        sample(): T[keyof T] | undefined;
+    }
+    interface ExpS {
+        sample(): string | undefined;
+    }
+    interface ExpL<T> {
+        sample(): T | undefined;
+    }
+    interface ExpO<T> {
+        sample(): T[keyof T] | undefined;
     }
     interface Stat {
         sampleSize<T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined, n?: number ): T[];
         sampleSize<T extends object>( collection: T | null | undefined, n?: number ): Array<T[keyof T]>;
     }
-    interface Imp<TValue> {
-        sampleSize<T>( this: Imp<Dictionary<T> | NumericDictionary<T> | null | undefined>, n?: number ): Imp<T[]>;
-        sampleSize<T extends object>( this: Imp<T | null | undefined>, n?: number ): Imp<Array<T[keyof T]>>;
+    interface ImpS {
+        sampleSize(n?: number): string | undefined;
     }
-    interface Exp<TValue> {
-        sampleSize<T>(this: Exp<Dictionary<T> | NumericDictionary<T> | null | undefined>, n?: number): Exp<T[]>;
-        sampleSize<T extends object>(this: Exp<T | null | undefined>, n?: number): Exp<Array<T[keyof T]>>;
+    interface ImpL<T> {
+        sampleSize(n?: number): T | undefined;
+    }
+    interface ImpO<T> {
+        sampleSize(n?: number): T[keyof T] | undefined;
+    }
+    interface ExpS {
+        sampleSize(n?: number): string | undefined;
+    }
+    interface ExpL<T> {
+        sampleSize(n?: number): T | undefined;
+    }
+    interface ExpO<T> {
+        sampleSize(n?: number): T[keyof T] | undefined;
     }
     interface Stat {
         shuffle<T>(collection: List<T> | null | undefined): T[];
         shuffle<T extends object>(collection: T | null | undefined): Array<T[keyof T]>;
     }
-    interface Imp<TValue> {
-        shuffle<T>(this: Imp<List<T> | null | undefined>): Imp<T[]>;
-        shuffle<T extends object>(this: Imp<T | null | undefined>): Imp<Array<T[keyof T]>>;
+    interface ImpS {
+        shuffle(): ImpL<string>;
     }
-    interface Exp<TValue> {
-        shuffle<T>(this: Exp<List<T> | null | undefined>): Exp<T[]>;
-        shuffle<T extends object>(this: Exp<T | null | undefined>): Exp<Array<T[keyof T]>>;
+    interface ImpL<T> {
+        shuffle(): ImpL<T>;
+    }
+    interface ImpO<T> {
+        shuffle(): ImpL<T[keyof T]>;
+    }
+    interface ExpS {
+        shuffle(): ImpL<string>;
+    }
+    interface ExpL<T> {
+        shuffle(): ExpL<T>;
+    }
+    interface ExpO<T> {
+        shuffle(): ExpL<T[keyof T]>;
     }
     interface Stat {
         size(collection: object | string | null | undefined): number;
@@ -661,24 +699,32 @@ declare module "../index" {
         some<T>( collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean> ): boolean;
         some<T extends object>( collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean> ): boolean;
     }
-    interface Imp<TValue> {
-        some<T>( this: Imp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean> ): boolean;
-        some<T extends object>( this: Imp<T | null | undefined>, predicate?: ObjectIterateeCustom<T, boolean> ): boolean;
+    interface ImpL<T> {
+        some(predicate?: ListIterateeCustom<T, boolean> ): boolean;
     }
-    interface Exp<TValue> {
-        some<T>( this: Exp<List<T> | null | undefined>, predicate?: ListIterateeCustom<T, boolean> ): Exp<boolean>;
-        some<T extends object>( this: Exp<T | null | undefined>, predicate?: ObjectIterateeCustom<T, boolean> ): Exp<boolean>;
+    interface ImpO<T> {
+        some(predicate?: ObjectIterateeCustom<T, boolean> ): boolean;
+    }
+    interface ExpL<T> {
+        some(predicate?: ListIterateeCustom<T, boolean> ): boolean;
+    }
+    interface ExpO<T> {
+        some(predicate?: ObjectIterateeCustom<T, boolean> ): boolean;
     }
     interface Stat {
         sortBy<T>( collection: List<T> | null | undefined, ...iteratees: Array<Many<ListIteratee<T>>> ): T[];
         sortBy<T extends object>( collection: T | null | undefined, ...iteratees: Array<Many<ObjectIteratee<T>>> ): Array<T[keyof T]>;
     }
-    interface Imp<TValue> {
-        sortBy<T>( this: Imp<List<T> | null | undefined>, ...iteratees: Array<Many<ListIteratee<T>>> ): Imp<T[]>;
-        sortBy<T extends object>( this: Imp<T | null | undefined>, ...iteratees: Array<Many<ObjectIteratee<T>>> ): Imp<Array<T[keyof T]>>;
+    interface ImpL<T> {
+        sortBy( ...iteratees: Array<Many<ListIteratee<T>>> ): ImpL<T>;
     }
-    interface Exp<TValue> {
-        sortBy<T>(this: Exp<List<T> | null | undefined>, ...iteratees: Array<Many<ListIteratee<T>>>): Exp<T[]>;
-        sortBy<T extends object>(this: Exp<T | null | undefined>, ...iteratees: Array<Many<ObjectIteratee<T>>>): Exp<Array<T[keyof T]>>;
+    interface ImpO<T> {
+        sortBy( ...iteratees: Array<Many<ObjectIteratee<T>>> ): ImpL<T[keyof T]>;
+    }
+    interface ExpL<T> {
+        sortBy( ...iteratees: Array<Many<ListIteratee<T>>> ): ExpL<T>;
+    }
+    interface ExpO<T> {
+        sortBy( ...iteratees: Array<Many<ObjectIteratee<T>>> ): ImpL<T[keyof T]>;
     }
 }
