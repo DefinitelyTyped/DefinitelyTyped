@@ -70,7 +70,7 @@ export interface InitOptions<Rendered = any> {
     storyNameRegex?: RegExp;
     framework?: string;
     test?: Test;
-    renderer?: (node: React.ReactElement) => Rendered;
+    renderer?: (node: JSX.Element) => Rendered;
     serializer?: (rendered: Rendered) => any;
     integrityOptions?: {};
 }
