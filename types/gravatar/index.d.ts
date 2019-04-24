@@ -12,9 +12,11 @@ declare module 'gravatar' {
 
   type Rating = 'g' | 'pg' | 'r' | 'x'
 
+  type Size = string | number
+
   interface Options {
-    size?: number,
-    s?: number,
+    size?: Size,
+    s?: Size,
     default?: Default,
     d?: Default,
     rating?: Rating,
