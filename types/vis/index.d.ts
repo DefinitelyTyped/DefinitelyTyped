@@ -12,7 +12,7 @@
 //                 dcop <https://github.com/dcop>
 //                 Avraham Essoudry <https://github.com/avrahamcool>
 //                 Dmitriy Trifonov <https://github.com/divideby>
-//                 Sam Welek <http://github.com/tiberiushunter>
+//                 Sam Welek <https://github.com/tiberiushunter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
