@@ -8,7 +8,6 @@
         "callable-types": false,
         "comment-format": false,
         "dt-header": false,
-        "npm-naming": false,
         "export-just-namespace": false,
         "interface-name": false,
         "jsdoc-format": false,
