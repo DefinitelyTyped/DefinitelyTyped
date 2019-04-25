@@ -786,12 +786,12 @@ subscription.on('close', () => {});
         }
 
         interface AfterSaveRequest extends TriggerRequest {
-            context: any;
+            context: object;
         }
         interface AfterDeleteRequest extends TriggerRequest { }
         interface BeforeDeleteRequest extends TriggerRequest { }
         interface BeforeSaveRequest extends TriggerRequest {
-            context: any;
+            context: object;
         }
 
         // Read preference describes how MongoDB driver route read operations to the members of a replica set.
