@@ -8,7 +8,7 @@
 /// <reference types="node" />
 
 import * as stream from "stream";
-import {Observable} from "rxjs";
+import { Observable } from "rxjs";
 
 declare namespace Listr {
     interface ListrRenderer {
