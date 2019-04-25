@@ -14,7 +14,7 @@
 //                 Søren Bruus Frank <https://github.com/soerenbf>
 //                 Jonathan Ziller <https://github.com/mrwolfz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.1
 
 // Known Issue:
 // There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
@@ -39,7 +39,6 @@ import {
 import {
     Action,
     ActionCreator,
-    ActionCreatorsMapObject,
     AnyAction,
     Dispatch,
     Store
@@ -138,6 +137,10 @@ export type ResolveThunks<TDispatchProps> =
             [C in keyof TDispatchProps]: HandleThunkActionCreator<TDispatchProps[C]>
         }
         : TDispatchProps;
+
+export type ResolveArrayThunks<TDispatchProps> = {
+    [C in keyof TDispatchProps]: HandleThunkActionCreator<TDispatchProps[C]>
+};
 
 /**
  * Connects a React component to a Redux store.
@@ -507,24 +510,26 @@ export function batch(cb: () => void): void;
  */
 export function useActions<
     T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(actions: T, deps?: ReadonlyArray<any>): T;
+>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
 export function useActions<
     T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(actions: T, deps?: ReadonlyArray<any>): T;
+>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
 export function useActions<
     T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(actions: T, deps?: ReadonlyArray<any>): T;
+>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
 export function useActions<
     T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(actions: T, deps?: ReadonlyArray<any>): T;
-export function useActions<T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): T;
-export function useActions<T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): T;
-export function useActions<T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): T;
-export function useActions<T extends [ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): T;
-export function useActions<T extends [ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): T;
-export function useActions<T extends ReadonlyArray<ActionCreator<any>>>(actions: T, deps?: ReadonlyArray<any>): T;
-export function useActions<T extends ActionCreatorsMapObject>(actions: T, deps?: ReadonlyArray<any>): T;
-export function useActions<T extends ActionCreator<any>>(actions: T, deps?: ReadonlyArray<any>): T;
+>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
+export function useActions<
+    T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
+>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
+export function useActions<T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
+export function useActions<T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
+export function useActions<T extends [ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
+export function useActions<T extends [ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
+export function useActions<T extends ReadonlyArray<ActionCreator<any>>>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
+export function useActions<T extends { [key: string]: ActionCreator<any> }>(actions: T, deps?: ReadonlyArray<any>): ResolveThunks<T>;
+export function useActions<T extends ActionCreator<any>>(actions: T, deps?: ReadonlyArray<any>): HandleThunkActionCreator<T>;
 
 /**
  * A hook to access the redux `dispatch` function. Note that in most cases where you
@@ -549,7 +554,7 @@ export function useActions<T extends ActionCreator<any>>(actions: T, deps?: Read
  *   )
  * }
  */
-export function useDispatch<A extends Action = AnyAction>(): Dispatch<A>;
+export function useDispatch<A extends Action = any>(): Dispatch<A>;
 
 /**
  * A hook to access the redux store's state and to bind action creators to
@@ -593,42 +598,51 @@ export function useRedux<
     TSelected,
     TActions
     extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
 export function useRedux<
     TState,
     TSelected,
     TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
 export function useRedux<
     TState,
     TSelected,
     TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
 export function useRedux<
     TState,
     TSelected,
     TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
 export function useRedux<
     TState,
     TSelected,
     TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
 export function useRedux<
     TState,
     TSelected,
     TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
 export function useRedux<
     TState,
     TSelected,
     TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
-export function useRedux<TState, TSelected, TActions extends [ActionCreator<any>, ActionCreator<any>]>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
-export function useRedux<TState, TSelected, TActions extends [ActionCreator<any>]>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
-export function useRedux<TState, TSelected, TActions extends ReadonlyArray<ActionCreator<any>>>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
-export function useRedux<TState, TSelected, TActions extends ActionCreatorsMapObject>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
-export function useRedux<TState, TSelected, TActions extends ActionCreator<any>, A = ReturnType<TActions>>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, TActions];
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
+export function useRedux<
+    TState,
+    TSelected,
+    TActions extends [ActionCreator<any>, ActionCreator<any>]
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
+export function useRedux<TState, TSelected, TActions extends [ActionCreator<any>]>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
+export function useRedux<TState, TSelected, TActions extends ReadonlyArray<ActionCreator<any>>>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
+export function useRedux<TState, TSelected, TActions extends { [key: string]: ActionCreator<any> }>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveThunks<TActions>];
+export function useRedux<
+    TState,
+    TSelected,
+    TActions extends ActionCreator<any>,
+    A = ReturnType<TActions>
+>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, HandleThunkActionCreator<TActions>];
 
 /**
  * A hook to access the redux store's state. This hook takes a selector function

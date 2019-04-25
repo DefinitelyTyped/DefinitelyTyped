@@ -1,7 +1,32 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Store, Dispatch, AnyAction, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject, Reducer } from 'redux';
-import { Connect, connect, Provider, DispatchProp, MapStateToProps, Options, ReactReduxContext, ReactReduxContextValue, Selector, MapDispatchToProps } from 'react-redux';
+import {
+    Store,
+    Dispatch,
+    AnyAction,
+    ActionCreator,
+    createStore,
+    bindActionCreators,
+    ActionCreatorsMapObject,
+    Reducer,
+} from 'redux';
+import {
+    Connect,
+    connect,
+    Provider,
+    DispatchProp,
+    MapStateToProps,
+    Options,
+    ReactReduxContext,
+    ReactReduxContextValue,
+    Selector,
+    MapDispatchToProps,
+    useActions,
+    useDispatch,
+    useRedux,
+    useSelector,
+    useStore,
+} from 'react-redux';
 import objectAssign = require('object-assign');
 
 //
@@ -1273,4 +1298,240 @@ function TestSelector() {
     notSimpleSelect(state, ownProps);
     simpleSelect(state, ownProps); // $ExpectError
     notSimpleSelect(state); // $ExpectError
+}
+
+function testUseActions() {
+    const actionCreator1 = (selected: boolean) => ({
+        type: "ACTION_CREATOR_1",
+        payload: selected,
+    });
+    const actionCreator2 = ({ items }: { items: string[] }) => ({
+        type: "ACTION_CREATOR_2",
+        payload: {
+            items
+        }
+    });
+    const thunkActionCreator = () => {
+        return (dispatch: Dispatch) => {
+            return dispatch({
+                type: "THUNK_ACTION_CREATOR",
+                payload: [],
+            });
+        };
+    };
+    function testUseActionsSingle() {
+        const boundAction1 = useActions(actionCreator1);
+        boundAction1(); // $ExpectError
+        boundAction1(true);
+
+        useActions(actionCreator1, [actionCreator1]);
+    }
+    function testUseActionsThunk() {
+        const boundThunk = useActions(thunkActionCreator);
+        const result = boundThunk();
+        result.payload[0];
+        result.payload.data; // $ExpectError
+
+        useActions(thunkActionCreator, [thunkActionCreator]);
+    }
+    function testUseActionsArray() {
+        const [
+            boundAction1,
+            boundAction2,
+            boundThunk,
+        ] = useActions([actionCreator1, actionCreator2, thunkActionCreator]);
+        boundAction1(); // $ExpectError
+        boundAction2(true); // $ExpectError
+        boundAction1(true);
+        boundAction2({ items: ["a"] });
+        const result = boundThunk();
+        result.payload[0];
+        result.payload.data; // $ExpectError
+
+        useActions([actionCreator1, actionCreator2, thunkActionCreator], [actionCreator1]);
+    }
+    function testUseActionsArrayExtraneous() {
+        const [
+            boundAction1,
+            nonexistentAction, // $ExpectError
+        ] = useActions([actionCreator1], []);
+    }
+
+    function testUseActionsObject() {
+        const {
+            actionCreator1: boundAction1,
+            actionCreator2: boundAction2,
+            thunkActionCreator: boundThunk,
+        } = useActions({ actionCreator1, actionCreator2, thunkActionCreator });
+        boundAction1(); // $ExpectError
+        boundAction2(true); // $ExpectError
+        boundAction1(true);
+        boundAction2({ items: ["a"] });
+        const result = boundThunk();
+        result.payload[0];
+        result.payload.data; // $ExpectError
+        // deps
+        useActions({ actionCreator1, actionCreator2, thunkActionCreator }, [actionCreator1]);
+    }
+
+    function testUseActionsObjectExtraneous() {
+        const {
+            actionCreator1: boundAction1,
+            nonexistentAction, // $ExpectError
+        } = useActions({ actionCreator1 });
+        useActions({ actionCreator1 }, [actionCreator1]);
+    }
+}
+
+function testUseDispatch() {
+    const actionCreator1 = (selected: boolean) => ({
+        type: "ACTION_CREATOR_1",
+        payload: selected,
+    });
+    const thunkActionCreator = () => {
+        return (dispatch: Dispatch) => {
+            return dispatch({
+                type: "THUNK_ACTION_CREATOR",
+                payload: [],
+            });
+        };
+    };
+
+    const dispatch = useDispatch();
+    dispatch(actionCreator1(true));
+    dispatch(thunkActionCreator());
+    dispatch(true);
+}
+
+function testUseSelector() {
+    interface State {
+        counter: number;
+        active: string;
+    }
+
+    const selector = (state: State) => {
+        return {
+            counter: state.counter,
+            active: state.active,
+        };
+    };
+    const { counter, active } = useSelector(selector);
+    counter === 1;
+    counter === "321"; // $ExpectError
+    active === "hi";
+    active === {}; // $ExpectError
+
+    const { extraneous } = useSelector(selector); // $ExpectError
+    useSelector(selector, [counter]);
+}
+
+function testUseRedux() {
+    interface State {
+        counter: number;
+    }
+    const actionCreator1 = (selected: boolean) => ({
+        type: "ACTION_CREATOR_1",
+        payload: selected,
+    });
+    const actionCreator2 = ({ items }: { items: string[] }) => ({
+        type: "ACTION_CREATOR_2",
+        payload: {
+            items
+        }
+    });
+    const thunkActionCreator = () => {
+        return (dispatch: Dispatch) => {
+            return dispatch({
+                type: "THUNK_ACTION_CREATOR",
+                payload: [],
+            });
+        };
+    };
+    const selector = (state: State) => {
+        return {
+            counter: state.counter,
+        };
+    };
+    function testUseReduxSingle() {
+        const [selected, boundAction1] = useRedux(selector, actionCreator1);
+        selected.counter === 1;
+        selected.counter === "321"; // $ExpectError
+        boundAction1(); // $ExpectError
+        boundAction1(true);
+    }
+    function testUseReduxThunk() {
+        const [selected, boundThunk] = useRedux(selector, thunkActionCreator);
+        const result = boundThunk();
+        result.payload[0];
+        result.payload.data; // $ExpectError
+    }
+    function testUseReduxArray() {
+        const [
+            selected,
+            [
+                boundAction1,
+                boundAction2,
+                boundThunk,
+            ]
+        ] = useRedux(selector, [actionCreator1, actionCreator2, thunkActionCreator]);
+        boundAction1(); // $ExpectError
+        boundAction2(true); // $ExpectError
+        boundAction1(true);
+        boundAction2({ items: ["a"] });
+        const result = boundThunk();
+        result.payload[0];
+        result.payload.data; // $ExpectError
+    }
+    function testUseReduxArrayExtraneous() {
+        const [
+            selected,
+            boundAction1,
+            nonexistentAction, // $ExpectError
+        ] = useRedux(selector, [actionCreator1]);
+    }
+
+    function testUseReduxObject() {
+        const [
+            selected,
+            {
+                actionCreator1: boundAction1,
+                actionCreator2: boundAction2,
+                thunkActionCreator: boundThunk,
+            },
+        ] = useRedux(selector, { actionCreator1, actionCreator2, thunkActionCreator });
+        boundAction1(); // $ExpectError
+        boundAction2(true); // $ExpectError
+        boundAction1(true);
+        boundAction2({ items: ["a"] });
+        const result = boundThunk();
+        result.payload[0];
+        result.payload.data; // $ExpectError
+    }
+
+    function testUseReduxObjectExtraneous() {
+        const [
+            state,
+            { actionCreator1: boundAction1 },
+            nonexistentThing, // $ExpectError
+        ] = useRedux(selector, { actionCreator1 });
+    }
+}
+
+function testUseStore() {
+    interface TypedState {
+        counter: number;
+        active: boolean;
+    }
+    interface TypedAction {
+        type: "SET_STATE";
+    }
+
+    const untypedStore = useStore();
+    const state = untypedStore.getState();
+    state.things.stuff.anything; // any by default
+
+    const typedStore = useStore<TypedState, TypedAction>();
+    const typedState = typedStore.getState();
+    typedState.counter;
+    typedState.things.stuff; // $ExpectError
 }
