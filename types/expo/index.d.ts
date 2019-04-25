@@ -2240,6 +2240,8 @@ export namespace Location {
 
     interface LocationTaskOptions {
         accuracy?: number;
+        timeInterval: number;
+        distanceInterval: number;
         showsBackgroundLocationIndicator?: boolean;
     }
 
