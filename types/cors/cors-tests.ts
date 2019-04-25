@@ -39,8 +39,12 @@ app.use(cors({
 }));
 app.use(cors({
     origin: (requestOrigin, cb) => {
-        const allow = !requestOrigin || requestOrigin.indexOf('.edu') !== -1;
-        cb(null, allow);
+        try {
+            const allow = !requestOrigin || requestOrigin.indexOf('.edu') !== -1;
+            cb(null, allow);
+        } catch (err) {
+            cb(err);
+        }
     }
 }));
 app.use(cors((req, cb) => {
