@@ -8,22 +8,22 @@ declare module "../index" {
         assign<TObject>(object: TObject): TObject;
         assign(object: any, ...otherArgs: any[]): any;
     }
-    // interface Imp<TValue> {
-    //     assign<TSource>(source: TSource): Imp<TValue & TSource>;
-    //     assign<TSource1, TSource2>(source1: TSource1, source2: TSource2): Imp<TValue & TSource1 & TSource2>;
-    //     assign<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Imp<TValue & TSource1 & TSource2 & TSource3>;
-    //     assign<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Imp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-    //     assign(): Imp<TValue>;
-    //     assign(...otherArgs: any[]): Imp<any>;
-    // }
-    // interface Exp<TValue> {
-    //     assign<TSource>(source: TSource): Exp<TValue & TSource>;
-    //     assign<TSource1, TSource2>(source1: TSource1, source2: TSource2): Exp<TValue & TSource1 & TSource2>;
-    //     assign<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Exp<TValue & TSource1 & TSource2 & TSource3>;
-    //     assign<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Exp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-    //     assign(): Exp<TValue>;
-    //     assign(...otherArgs: any[]): Exp<any>;
-    // }
+    interface Imp<TValue> {
+        assign<TSource>(source: TSource): Imp<TValue & TSource>;
+        assign<TSource1, TSource2>(source1: TSource1, source2: TSource2): Imp<TValue & TSource1 & TSource2>;
+        assign<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Imp<TValue & TSource1 & TSource2 & TSource3>;
+        assign<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Imp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
+        assign(): Imp<TValue>;
+        assign(...otherArgs: any[]): Imp<any>;
+    }
+    interface Exp<TValue> {
+        assign<TSource>(source: TSource): Exp<TValue & TSource>;
+        assign<TSource1, TSource2>(source1: TSource1, source2: TSource2): Exp<TValue & TSource1 & TSource2>;
+        assign<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Exp<TValue & TSource1 & TSource2 & TSource3>;
+        assign<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Exp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
+        assign(): Exp<TValue>;
+        assign(...otherArgs: any[]): Exp<any>;
+    }
     interface Stat {
         assignIn<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
         assignIn<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TObject & TSource1 & TSource2;
@@ -32,22 +32,22 @@ declare module "../index" {
         assignIn<TObject>(object: TObject): TObject;
         assignIn<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-    // interface Imp<TValue> {
-    //     assignIn<TSource>(source: TSource): Imp<TValue & TSource>;
-    //     assignIn<TSource1, TSource2>(source1: TSource1, source2: TSource2): Imp<TValue & TSource1 & TSource2>;
-    //     assignIn<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Imp<TValue & TSource1 & TSource2 & TSource3>;
-    //     assignIn<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Imp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-    //     assignIn(): Imp<TValue>;
-    //     assignIn<TResult>(...otherArgs: any[]): Imp<TResult>;
-    // }
-    // interface Exp<TValue> {
-    //     assignIn<TSource>(source: TSource): Exp<TValue & TSource>;
-    //     assignIn<TSource1, TSource2>(source1: TSource1, source2: TSource2): Exp<TValue & TSource1 & TSource2>;
-    //     assignIn<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Exp<TValue & TSource1 & TSource2 & TSource3>;
-    //     assignIn<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Exp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-    //     assignIn(): Exp<TValue>;
-    //     assignIn(...otherArgs: any[]): Exp<any>;
-    // }
+    interface Imp<TValue> {
+        assignIn<TSource>(source: TSource): Imp<TValue & TSource>;
+        assignIn<TSource1, TSource2>(source1: TSource1, source2: TSource2): Imp<TValue & TSource1 & TSource2>;
+        assignIn<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Imp<TValue & TSource1 & TSource2 & TSource3>;
+        assignIn<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Imp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignIn(): Imp<TValue>;
+        assignIn<TResult>(...otherArgs: any[]): Imp<TResult>;
+    }
+    interface Exp<TValue> {
+        assignIn<TSource>(source: TSource): Exp<TValue & TSource>;
+        assignIn<TSource1, TSource2>(source1: TSource1, source2: TSource2): Exp<TValue & TSource1 & TSource2>;
+        assignIn<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Exp<TValue & TSource1 & TSource2 & TSource3>;
+        assignIn<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Exp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignIn(): Exp<TValue>;
+        assignIn(...otherArgs: any[]): Exp<any>;
+    }
     type AssignCustomizer = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any;
     interface Stat {
         assignInWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
@@ -57,22 +57,22 @@ declare module "../index" {
         assignInWith<TObject>(object: TObject): TObject;
         assignInWith<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-    // interface Imp<TValue> {
-    //     assignInWith<TSource>(source: TSource, customizer: AssignCustomizer): Imp<TValue & TSource>;
-    //     assignInWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2>;
-    //     assignInWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2 & TSource3>;
-    //     assignInWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-    //     assignInWith(): Imp<TValue>;
-    //     assignInWith<TResult>(...otherArgs: any[]): Imp<TResult>;
-    // }
-    // interface Exp<TValue> {
-    //     assignInWith<TSource>(source: TSource, customizer: AssignCustomizer): Exp<TValue & TSource>;
-    //     assignInWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2>;
-    //     assignInWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2 & TSource3>;
-    //     assignInWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-    //     assignInWith(): Exp<TValue>;
-    //     assignInWith(...otherArgs: any[]): Exp<any>;
-    // }
+    interface Imp<TValue> {
+        assignInWith<TSource>(source: TSource, customizer: AssignCustomizer): Imp<TValue & TSource>;
+        assignInWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2>;
+        assignInWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2 & TSource3>;
+        assignInWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignInWith(): Imp<TValue>;
+        assignInWith<TResult>(...otherArgs: any[]): Imp<TResult>;
+    }
+    interface Exp<TValue> {
+        assignInWith<TSource>(source: TSource, customizer: AssignCustomizer): Exp<TValue & TSource>;
+        assignInWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2>;
+        assignInWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2 & TSource3>;
+        assignInWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignInWith(): Exp<TValue>;
+        assignInWith(...otherArgs: any[]): Exp<any>;
+    }
     interface Stat {
         assignWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
         assignWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
@@ -81,37 +81,37 @@ declare module "../index" {
         assignWith<TObject>(object: TObject): TObject;
         assignWith<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-    // interface Imp<TValue> {
-    //     assignWith<TSource>(source: TSource, customizer: AssignCustomizer): Imp<TValue & TSource>;
-    //     assignWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2>;
-    //     assignWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2 & TSource3>;
-    //     assignWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-    //     assignWith(): Imp<TValue>;
-    //     assignWith<TResult>(...otherArgs: any[]): Imp<TResult>;
-    // }
-    // interface Exp<TValue> {
-    //     assignWith<TSource>(source: TSource, customizer: AssignCustomizer): Exp<TValue & TSource>;
-    //     assignWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2>;
-    //     assignWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2 & TSource3>;
-    //     assignWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-    //     assignWith(): Exp<TValue>;
-    //     assignWith(...otherArgs: any[]): Exp<any>;
-    // }
+    interface Imp<TValue> {
+        assignWith<TSource>(source: TSource, customizer: AssignCustomizer): Imp<TValue & TSource>;
+        assignWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2>;
+        assignWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2 & TSource3>;
+        assignWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignWith(): Imp<TValue>;
+        assignWith<TResult>(...otherArgs: any[]): Imp<TResult>;
+    }
+    interface Exp<TValue> {
+        assignWith<TSource>(source: TSource, customizer: AssignCustomizer): Exp<TValue & TSource>;
+        assignWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2>;
+        assignWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2 & TSource3>;
+        assignWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignWith(): Exp<TValue>;
+        assignWith(...otherArgs: any[]): Exp<any>;
+    }
     interface Stat {
         at<T>(object:  Dictionary<T> | NumericDictionary<T> | null | undefined, ...props: PropertyPath[]): T[];
         at<T extends object>(object: T | null | undefined, ...props: Array<Many<keyof T>>): Array<T[keyof T]>;
     }
     interface ImpO<T> {
-        at(...props: Array<Many<keyof T>>): Imp<Array<T[keyof T]>>;
+        at(...props: Array<Many<keyof T>>): ImpL<T[keyof T]>;
     }
-    interface Imp<TValue> {
-        at(...props: PropertyPath[]): Imp<unknown[]>;
+    interface ImpL<T> {
+        at(...props: PropertyPath[]): ImpL<T>;
     }
     interface ExpO<T> {
-        at(...props: Array<Many<keyof T>>): Exp<Array<T[keyof T]>>;
+        at(...props: Array<Many<keyof T>>): ExpL<T[keyof T]>;
     }
-    interface Exp<TValue> {
-        at(...props: PropertyPath[]): Exp<unknown[]>;
+    interface ExpL<T> {
+        at(...props: PropertyPath[]): ExpL<T>;
     }
     interface Stat {
         create<T extends object, U extends object>(prototype: T, properties?: U): T & U;
@@ -130,22 +130,22 @@ declare module "../index" {
         defaults<TObject>(object: TObject): TObject;
         defaults(object: any, ...sources: any[]): any;
     }
-    // interface Imp<TValue> {
-    //     defaults<TSource>(source: TSource): Imp<TSource & TValue>;
-    //     defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): Imp<TSource2 & TSource1 & TValue>;
-    //     defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Imp<TSource3 & TSource2 & TSource1 & TValue>;
-    //     defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Imp<TSource4 & TSource3 & TSource2 & TSource1 & TValue>;
-    //     defaults(): Imp<TValue>;
-    //     defaults(...sources: any[]): Imp<any>;
-    // }
-    // interface Exp<TValue> {
-    //     defaults<TSource>(source: TSource): Exp<TSource & TValue>;
-    //     defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): Exp<TSource2 & TSource1 & TValue>;
-    //     defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Exp<TSource3 & TSource2 & TSource1 & TValue>;
-    //     defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Exp<TSource4 & TSource3 & TSource2 & TSource1 & TValue>;
-    //     defaults(): Exp<TValue>;
-    //     defaults(...sources: any[]): Exp<any>;
-    // }
+    interface Imp<TValue> {
+        defaults<TSource>(source: TSource): Imp<TSource & TValue>;
+        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): Imp<TSource2 & TSource1 & TValue>;
+        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Imp<TSource3 & TSource2 & TSource1 & TValue>;
+        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Imp<TSource4 & TSource3 & TSource2 & TSource1 & TValue>;
+        defaults(): Imp<TValue>;
+        defaults(...sources: any[]): Imp<any>;
+    }
+    interface Exp<TValue> {
+        defaults<TSource>(source: TSource): Exp<TSource & TValue>;
+        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): Exp<TSource2 & TSource1 & TValue>;
+        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Exp<TSource3 & TSource2 & TSource1 & TValue>;
+        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Exp<TSource4 & TSource3 & TSource2 & TSource1 & TValue>;
+        defaults(): Exp<TValue>;
+        defaults(...sources: any[]): Exp<any>;
+    }
     interface Stat {
         defaultsDeep(object: any, ...sources: any[]): any;
     }
@@ -187,22 +187,22 @@ declare module "../index" {
         extend<TObject>(object: TObject): TObject;
         extend<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-    // interface Imp<TValue> {
-    //     extend<TSource>(source: TSource): Imp<TValue & TSource>;
-    //     extend<TSource1, TSource2>(source1: TSource1, source2: TSource2): Imp<TValue & TSource1 & TSource2>;
-    //     extend<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Imp<TValue & TSource1 & TSource2 & TSource3>;
-    //     extend<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Imp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-    //     extend(): Imp<TValue>;
-    //     extend(...otherArgs: any[]): Imp<any>;
-    // }
-    // interface Exp<TValue> {
-    //     extend<TSource>(source: TSource): Exp<TValue & TSource>;
-    //     extend<TSource1, TSource2>(source1: TSource1, source2: TSource2): Exp<TValue & TSource1 & TSource2>;
-    //     extend<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Exp<TValue & TSource1 & TSource2 & TSource3>;
-    //     extend<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Exp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-    //     extend(): Exp<TValue>;
-    //     extend(...otherArgs: any[]): Exp<any>;
-    // }
+    interface Imp<TValue> {
+        extend<TSource>(source: TSource): Imp<TValue & TSource>;
+        extend<TSource1, TSource2>(source1: TSource1, source2: TSource2): Imp<TValue & TSource1 & TSource2>;
+        extend<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Imp<TValue & TSource1 & TSource2 & TSource3>;
+        extend<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Imp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
+        extend(): Imp<TValue>;
+        extend(...otherArgs: any[]): Imp<any>;
+    }
+    interface Exp<TValue> {
+        extend<TSource>(source: TSource): Exp<TValue & TSource>;
+        extend<TSource1, TSource2>(source1: TSource1, source2: TSource2): Exp<TValue & TSource1 & TSource2>;
+        extend<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Exp<TValue & TSource1 & TSource2 & TSource3>;
+        extend<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Exp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
+        extend(): Exp<TValue>;
+        extend(...otherArgs: any[]): Exp<any>;
+    }
     interface Stat {
         extendWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
         extendWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
@@ -211,39 +211,39 @@ declare module "../index" {
         extendWith<TObject>(object: TObject): TObject;
         extendWith<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-    // interface Imp<TValue> {
-    //     extendWith<TSource>(source: TSource, customizer: AssignCustomizer): Imp<TValue & TSource>;
-    //     extendWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2>;
-    //     extendWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2 & TSource3>;
-    //     extendWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-    //     extendWith(): Imp<TValue>;
-    //     extendWith(...otherArgs: any[]): Imp<any>;
-    // }
-    // interface Exp<TValue> {
-    //     extendWith<TSource>(source: TSource, customizer: AssignCustomizer): Exp<TValue & TSource>;
-    //     extendWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2>;
-    //     extendWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2 & TSource3>;
-    //     extendWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-    //     extendWith(): Exp<TValue>;
-    //     extendWith(...otherArgs: any[]): Exp<any>;
-    // }
+    interface Imp<TValue> {
+        extendWith<TSource>(source: TSource, customizer: AssignCustomizer): Imp<TValue & TSource>;
+        extendWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2>;
+        extendWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2 & TSource3>;
+        extendWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Imp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
+        extendWith(): Imp<TValue>;
+        extendWith(...otherArgs: any[]): Imp<any>;
+    }
+    interface Exp<TValue> {
+        extendWith<TSource>(source: TSource, customizer: AssignCustomizer): Exp<TValue & TSource>;
+        extendWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2>;
+        extendWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2 & TSource3>;
+        extendWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Exp<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
+        extendWith(): Exp<TValue>;
+        extendWith(...otherArgs: any[]): Exp<any>;
+    }
     interface Stat {
         findKey<T>(object: T | null | undefined, predicate?: ObjectIteratee<T>): string | undefined;
     }
     interface Imp<TValue> {
-        findKey<T>(this: Imp<T | null | undefined>, predicate?: ObjectIteratee<T>): string | undefined;
+        findKey( predicate?: ObjectIteratee<TValue>): string | undefined;
     }
     interface Exp<TValue> {
-        findKey<T>(this: Exp<T | null | undefined>, predicate?: ObjectIteratee<T>): Exp<string | undefined>;
+        findKey( predicate?: ObjectIteratee<TValue>): Exp<string | undefined>;
     }
     interface Stat {
         findLastKey<T>(object: T | null | undefined, predicate?: ObjectIteratee<T>): string | undefined;
     }
     interface Imp<TValue> {
-        findLastKey<T>(this: Imp<T | null | undefined>, predicate?: ObjectIteratee<T>): string | undefined;
+        findLastKey( predicate?: ObjectIteratee<TValue>): string | undefined;
     }
     interface Exp<TValue> {
-        findLastKey<T>(this: Exp<T | null | undefined>, predicate?: ObjectIteratee<T>): Exp<string | undefined>;
+        findLastKey( predicate?: ObjectIteratee<TValue>): Exp<string | undefined>;
     }
     interface Stat {
         forIn<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
