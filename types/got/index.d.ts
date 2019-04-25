@@ -5,6 +5,7 @@
 //                 Konstantin Ikonnikov <https://github.com/ikokostya>
 //                 Stijn Van Nieuwenhuyse <https://github.com/stijnvn>
 //                 Matthew Bull <https://github.com/wingsbob>
+//                 Ryan Wilson-Perkin <https://github.com/ryanwilsonperkin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
