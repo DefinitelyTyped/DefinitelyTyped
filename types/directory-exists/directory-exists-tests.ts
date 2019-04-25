@@ -1,3 +1,3 @@
 import directoryExists = require("directory-exists");
 
-directoryExists('/').then((exists: boolean) => { console.log(exists); });
+directoryExists('/').then((exists: boolean) => { console.log(exists); });  // log
