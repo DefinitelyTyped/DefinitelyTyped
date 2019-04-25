@@ -20,6 +20,7 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Jonas Keisel <https://github.com/0xJoKe>
 //                 Andrew Delianides <https://github.com/delianides>
+//                 Joshua Feltimo <https://github.com/opticalgenesis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -3367,7 +3368,12 @@ declare namespace Stripe {
             /**
              * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
              */
-            payment_method_types: string[];
+            payment_method_types?: string[];
+
+            /**
+             * The ID of the payment method to attach to this PaymentIntent
+             */
+            payment_method?: string;
 
             /**
              * The amount of the application fee in cents (if any) that will be applied to the payment and transferred to the application owner’s Stripe account. To use an application fee, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key.
@@ -3383,6 +3389,11 @@ declare namespace Stripe {
              * Attempt to confirm this PaymentIntent immediately. If the payment method attached is a card, a return_url must be provided in case additional authentication is required.
              */
             confirm?: boolean;
+
+            /**
+             * If automatic, payment can be confirmed using a publishable key alone. Else, all requests must go to the server using secret key
+             */
+            confirmation_method?: 'automatic' | 'manual';
 
             /**
              * ID of the customer this PaymentIntent is for if one exists.
