@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "rxjs": "^6.5.1"
+  }
+}
