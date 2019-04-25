@@ -43,21 +43,21 @@ declare module "../index" {
     interface Stat {
         max<T>(collection: List<T> | null | undefined): T | undefined;
     }
-    interface Imp<TValue> {
-        max<T>(this: Imp<List<T> | null | undefined>): T | undefined;
+    interface ImpL<T> {
+        max(): T | undefined;
     }
-    interface Exp<TValue> {
-        max<T>(this: Exp<List<T> | null | undefined>): Exp<T | undefined>;
+    interface ExpL<T> {
+        max(): Exp<T | undefined>;
     }
 
     interface Stat {
         maxBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T | undefined;
     }
-    interface Imp<TValue> {
-        maxBy<T>(this: Imp<List<T> | null | undefined>, iteratee?: ValueIteratee<T>): T | undefined;
+    interface ImpL<T> {
+        maxBy( iteratee?: ValueIteratee<T>): T | undefined;
     }
-    interface Exp<TValue> {
-        maxBy<T>(this: Exp<List<T> | null | undefined>, iteratee?: ValueIteratee<T>): Exp<T | undefined>;
+    interface ExpL<T> {
+        maxBy( iteratee?: ValueIteratee<T>): Exp<T | undefined>;
     }
 
     interface Stat {
@@ -73,31 +73,31 @@ declare module "../index" {
     interface Stat {
         meanBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): number;
     }
-    interface Imp<TValue> {
-        meanBy<T>(this: Imp<List<T> | null | undefined>, iteratee?: ValueIteratee<T>): number;
+    interface ImpL<T> {
+        meanBy( iteratee?: ValueIteratee<T>): number;
     }
-    interface Exp<TValue> {
-        meanBy<T>(this: Exp<List<T> | null | undefined>, iteratee?: ValueIteratee<T>): Exp<number>;
+    interface ExpL<T> {
+        meanBy( iteratee?: ValueIteratee<T>): Exp<number>;
     }
 
     interface Stat {
         min<T>(collection: List<T> | null | undefined): T | undefined;
     }
-    interface Imp<TValue> {
-        min<T>(this: Imp<List<T> | null | undefined>): T | undefined;
+    interface ImpL<T> {
+        min(): T | undefined;
     }
-    interface Exp<TValue> {
-        min<T>(this: Exp<List<T> | null | undefined>): Exp<T | undefined>;
+    interface ExpL<T> {
+        min(): Exp<T | undefined>;
     }
 
     interface Stat {
         minBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T | undefined;
     }
-    interface Imp<TValue> {
-        minBy<T>(this: Imp<List<T> | null | undefined>, iteratee?: ValueIteratee<T>): T | undefined;
+    interface ImpL<T> {
+        minBy( iteratee?: ValueIteratee<T>): T | undefined;
     }
-    interface Exp<TValue> {
-        minBy<T>(this: Exp<List<T> | null | undefined>, iteratee?: ValueIteratee<T>): Exp<T | undefined>;
+    interface ExpL<T> {
+        minBy( iteratee?: ValueIteratee<T>): Exp<T | undefined>;
     }
 
     interface Stat {
@@ -143,10 +143,10 @@ declare module "../index" {
     interface Stat {
         sumBy<T>(collection: List<T> | null | undefined, iteratee?: ((value: T) => number) | string): number;
     }
-    interface Imp<TValue> {
-        sumBy<T>(this: Imp<List<T> | null | undefined>, iteratee?: ((value: T) => number) | string): number;
+    interface ImpL<T> {
+        sumBy( iteratee?: ((value: T) => number) | string): number;
     }
-    interface Exp<TValue> {
-        sumBy<T>(this: Exp<List<T> | null | undefined>, iteratee?: ((value: T) => number) | string): Exp<number>;
+    interface ExpL<T> {
+        sumBy( iteratee?: ((value: T) => number) | string): Exp<number>;
     }
 }
