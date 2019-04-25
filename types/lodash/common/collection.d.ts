@@ -62,7 +62,7 @@ declare module "../index" {
         every<T>( collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean> ): boolean;
         every<T extends object>( collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean> ): boolean;
     }
-    interface ImpU {
+    interface ImpU<T> {
         every(predicate?: DictionaryIteratee<unknown> ): boolean;
     }
     interface ImpL<T> {
@@ -71,7 +71,7 @@ declare module "../index" {
     interface ImpO<T> {
         every( predicate?: ObjectIterateeCustom<T, boolean> ): boolean;
     }
-    interface ExpU {
+    interface ExpU<T> {
         every(predicate?: DictionaryIteratee<unknown> ): boolean;
     }
     interface ExpL<T> {
@@ -98,8 +98,8 @@ declare module "../index" {
         filter<S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S> ): ImpL<S>;
         filter( predicate?: ObjectIterateeCustom<T, boolean> ): ImpL<T[keyof T]>;
     }
-    interface ImpU {
-        filter(predicate?: DictionaryIteratee<unknown> ): ImpU;
+    interface ImpU<T> {
+        filter(predicate?: DictionaryIteratee<unknown> ): ImpU<T>;
     }
     interface ExpS {
         filter(predicate?: StringIterator<boolean> ): ExpL<string>;
@@ -112,8 +112,8 @@ declare module "../index" {
         filter<S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S> ): ExpL<S>;
         filter( predicate?: ObjectIterateeCustom<T, boolean> ): ExpL<T[keyof T]>;
     }
-    interface ExpU {
-        filter(predicate?: DictionaryIteratee<unknown> ): ExpU;
+    interface ExpU<T> {
+        filter(predicate?: DictionaryIteratee<unknown> ): ExpU<T>;
     }
     interface Stat {
         find<T, S extends T>( collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
@@ -129,7 +129,7 @@ declare module "../index" {
         find< S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
         find( predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): T[keyof T]|undefined;
     }
-    interface ImpU {
+    interface ImpU<T> {
         find(predicate?: DictionaryIteratee<unknown>, fromIndex?: number ): unknown;
     }
     interface ExpL<T> {
@@ -140,8 +140,8 @@ declare module "../index" {
         find< S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): Exp<S|undefined>;
         find( predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T[keyof T]|undefined>;
     }
-    interface ExpU {
-        find(predicate?: DictionaryIteratee<unknown>, fromIndex?: number ): ExpU;
+    interface ExpU<T> {
+        find(predicate?: DictionaryIteratee<unknown>, fromIndex?: number ): ExpU<T>;
     }
     interface Stat {
         findLast<T, S extends T>( collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
@@ -157,7 +157,7 @@ declare module "../index" {
         findLast< S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
         findLast( predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): T[keyof T]|undefined;
     }
-    interface ImpU {
+    interface ImpU<T> {
         findLast(predicate?: DictionaryIteratee<unknown>, fromIndex?: number ): unknown;
     }
     interface ExpL<T> {
@@ -168,8 +168,8 @@ declare module "../index" {
         findLast< S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): Exp<S|undefined>;
         findLast( predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T[keyof T]|undefined>;
     }
-    interface ExpU {
-        findLast(predicate?: DictionaryIteratee<unknown>, fromIndex?: number ): ExpU;
+    interface ExpU<T> {
+        findLast(predicate?: DictionaryIteratee<unknown>, fromIndex?: number ): ExpU<T>;
     }
     interface Stat {
         flatMap<T>( collection: Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined ): T[];
@@ -179,7 +179,7 @@ declare module "../index" {
         flatMap( collection: object | null | undefined, iteratee: string ): any[];
         flatMap( collection: object | null | undefined, iteratee: object ): boolean[];
     }
-    interface ImpU {
+    interface ImpU<T> {
         flatMap<T>(this: Imp<Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): ImpL<T>;
         flatMap( iteratee: object ): ImpL<boolean>;
         flatMap( iteratee: string ): ImpL<any>;
@@ -199,7 +199,7 @@ declare module "../index" {
         flatMap(iteratee: [PropertyName, any] | object): ImpL<boolean>;
         flatMap(): ImpL<T[keyof T]>;
     }
-    interface ExpU {
+    interface ExpU<T> {
         flatMap<T>(this: Exp<Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): ExpL<T>;
         flatMap( iteratee: object ): ExpL<boolean>;
         flatMap( iteratee: string ): ExpL<any>;
@@ -226,7 +226,7 @@ declare module "../index" {
         flatMapDeep( collection: object | null | undefined, iteratee: string ): any[];
         flatMapDeep( collection: object | null | undefined, iteratee: object ): boolean[];
     }
-    interface ImpU {
+    interface ImpU<T> {
         flatMapDeep<T>(this: Imp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>): ImpL<T>;
         flatMapDeep( iteratee: object ): ImpL<boolean>;
         flatMapDeep( iteratee: string ): ImpL<any>;
@@ -246,7 +246,7 @@ declare module "../index" {
         flatMapDeep(iteratee: [PropertyName, any] | object): ImpL<boolean>;
         flatMapDeep(): ImpL<T[keyof T]>;
     }
-    interface ExpU {
+    interface ExpU<T> {
         flatMapDeep<T>(this: Exp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>): ExpL<T>;
         flatMapDeep( iteratee: object ): ExpL<boolean>;
         flatMapDeep( iteratee: string ): ExpL<any>;
@@ -273,7 +273,7 @@ declare module "../index" {
         flatMapDepth( collection: object | null | undefined, iteratee: string, depth?: number ): any[];
         flatMapDepth( collection: object | null | undefined, iteratee: object, depth?: number ): boolean[];
     }
-    interface ImpU {
+    interface ImpU<T> {
         flatMapDepth<T>(this: Imp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>, depth?: number): ImpL<T>;
         flatMapDepth( iteratee: object , depth?: number): ImpL<boolean>;
         flatMapDepth( iteratee: string , depth?: number): ImpL<any>;
@@ -293,7 +293,7 @@ declare module "../index" {
         flatMapDepth(iteratee: [PropertyName, any] | object, depth?: number): ImpL<boolean>;
         flatMapDepth(depth?: number): ImpL<T[keyof T]>;
     }
-    interface ExpU {
+    interface ExpU<T> {
         flatMapDepth<T>(this: Exp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>, depth?: number): ExpL<T>;
         flatMapDepth( iteratee: object , depth?: number): ExpL<boolean>;
         flatMapDepth( iteratee: string , depth?: number): ExpL<any>;
@@ -332,8 +332,8 @@ declare module "../index" {
     interface ImpL<T> {
         forEach( iteratee?: ListIterator<T, any> ): ImpL<T>;
     }
-    interface ImpU {
-        forEach( iteratee?: ObjectIterator<unknown, any> ): ImpU;
+    interface ImpU<T> {
+        forEach( iteratee?: ObjectIterator<unknown, any> ): ImpU<T>;
     }
     interface ExpS {
         forEach( iteratee?: StringIterator<any> ): ExpS;
@@ -344,8 +344,8 @@ declare module "../index" {
     interface ExpL<T> {
         forEach( iteratee?: ListIterator<T, any> ): ExpL<T>;
     }
-    interface ExpU {
-        forEach( iteratee?: ObjectIterator<unknown, any> ): ExpU;
+    interface ExpU<T> {
+        forEach( iteratee?: ObjectIterator<unknown, any> ): ExpU<T>;
     }
     interface Stat {
         forEachRight<T>( collection: T[], iteratee?: ArrayIterator<T, any> ): T[];
@@ -366,8 +366,8 @@ declare module "../index" {
     interface ImpL<T> {
         forEachRight( iteratee?: ListIterator<T, any> ): ImpL<T>;
     }
-    interface ImpU {
-        forEachRight( iteratee?: ObjectIterator<unknown, any> ): ImpU;
+    interface ImpU<T> {
+        forEachRight( iteratee?: ObjectIterator<unknown, any> ): ImpU<T>;
     }
     interface ExpS {
         forEachRight( iteratee?: StringIterator<any> ): ExpS;
@@ -378,8 +378,8 @@ declare module "../index" {
     interface ExpL<T> {
         forEachRight( iteratee?: ListIterator<T, any> ): ExpL<T>;
     }
-    interface ExpU {
-        forEachRight( iteratee?: ObjectIterator<unknown, any> ): ExpU;
+    interface ExpU<T> {
+        forEachRight( iteratee?: ObjectIterator<unknown, any> ): ExpU<T>;
     }
     interface Stat {
         groupBy<T>( collection: List<T> | null | undefined, iteratee?: ValueIteratee<T> ): Dictionary<T[]>;
@@ -394,7 +394,7 @@ declare module "../index" {
     interface ImpO<T> {
         groupBy( iteratee?: ValueIteratee<T[keyof T]> ): Imp<Dictionary<Array<T[keyof T]>>>;
     }
-    interface ImpU {
+    interface ImpU<T> {
         groupBy( iteratee?: ValueIteratee<unknown> ): Imp<Dictionary<unknown[]>>;
     }
     interface ExpS {
@@ -406,7 +406,7 @@ declare module "../index" {
     interface ExpO<T> {
         groupBy( iteratee?: ValueIteratee<T[keyof T]> ): Exp<Dictionary<Array<T[keyof T]>>>;
     }
-    interface ExpU {
+    interface ExpU<T> {
         groupBy( iteratee?: ValueIteratee<unknown> ): Exp<Dictionary<unknown[]>>;
     }
     interface Stat {
@@ -443,7 +443,7 @@ declare module "../index" {
     interface ImpO<T> {
         keyBy( iteratee?: ValueIterateeCustom<T[keyof T], PropertyName> ): Imp<Dictionary<T[keyof T]>>;
     }
-    interface ImpU {
+    interface ImpU<T> {
         keyBy( iteratee?: ValueIterateeCustom<unknown, PropertyName> ): Imp<Dictionary<unknown>>;
     }
     interface ExpS {
@@ -455,7 +455,7 @@ declare module "../index" {
     interface ExpO<T> {
         keyBy( iteratee?: ValueIterateeCustom<T[keyof T], PropertyName> ): Exp<Dictionary<T[keyof T]>>;
     }
-    interface ExpU {
+    interface ExpU<T> {
         keyBy( iteratee?: ValueIterateeCustom<unknown, PropertyName> ): Exp<Dictionary<unknown>>;
     }
     interface Stat {
@@ -483,7 +483,7 @@ declare module "../index" {
         map(iteratee: [PropertyName, any] | object): ImpL<boolean>;
         map(): ImpL<T[keyof T]>;
     }
-    interface ImpU {
+    interface ImpU<T> {
         map( iteratee: ObjectIterator<unknown, PropertyName> ): ImpL<unknown>;
         map( iteratee?: string): ImpL<any>;
         map( iteratee?: object): ImpL<boolean>;
@@ -503,7 +503,7 @@ declare module "../index" {
         map(iteratee: [PropertyName, any] | object): ExpL<boolean>;
         map(): ExpL<T[keyof T]>;
     }
-    interface ExpU {
+    interface ExpU<T> {
         map( iteratee: ObjectIterator<unknown, PropertyName> ): ExpL<unknown>;
         map( iteratee?: string): ExpL<any>;
         map( iteratee?: object): ExpL<boolean>;

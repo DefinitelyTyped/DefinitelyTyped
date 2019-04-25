@@ -7,9 +7,9 @@ declare module "../index" {
     interface Stat {
         (value: string): ImpS;
         <TrapAny extends { __trapAny: any }, T = any>(value: TrapAny | List<T> | null | undefined): ImpL<T>;
-        <T extends (...args:any[]) => any>(value: T | null | undefined): ImpF<T>;
+        <T extends (...args:any[]) => any>(value: T): ImpF<T>;
         <T extends object>(value: T | null | undefined): ImpO<T>;
-        (value: any): ImpU;
+        <T>(value: T): ImpU<T>;
         VERSION: string;
         templateSettings: TemplateSettings;
     }
@@ -54,7 +54,7 @@ declare module "../index" {
     }
     interface ImpL<T> extends Imp<T> {
     }
-    interface ImpU extends Imp<unknown> {
+    interface ImpU<T> extends Imp<T> {
     }
     interface ExpF<T> extends Exp<T> {
     }
@@ -64,7 +64,7 @@ declare module "../index" {
     }
     interface ExpL<T> extends Exp<T> {
     }
-    interface ExpU extends Exp<unknown> {
+    interface ExpU<T> extends Exp<T> {
     }
     type NotVoid = unknown;
     type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialDeep<T>;
