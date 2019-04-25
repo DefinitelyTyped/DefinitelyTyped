@@ -810,6 +810,18 @@ declare namespace Dockerode {
     BindOptions ?: {
       Propagation: MountPropagation;
     };
+    VolumeOptions ?: {
+      NoCopy: boolean;
+      Labels: {};
+      DriverConfig: {
+          Name: string;
+          Options: {};
+      };
+    };
+    TmpfsOptions ?: {
+      SizeBytes: number;
+      Mode: number;
+    };
   }
 
   type MountConfig = MountSettings[];
