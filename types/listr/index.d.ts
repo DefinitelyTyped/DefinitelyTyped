@@ -1,4 +1,4 @@
-// Type definitions for listr 0.13
+// Type definitions for listr 0.14
 // Project: https://github.com/samverschueren/listr#readme
 // Definitions by: Dusan Radovanovic <https://github.com/durad>
 // Definitions by: Vladislav Polyakov <https://github.com/polRk>
