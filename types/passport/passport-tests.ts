@@ -1,4 +1,5 @@
 import * as passport from 'passport';
+import AuthenticationError from 'passport/lib/errors/authenticationerror';
 import express = require('express');
 import 'express-session';
 
@@ -167,3 +168,14 @@ app.use((req: express.Request, res: express.Response, next: (err?: any) => void)
     }
     next();
 });
+
+function isAuthenticationError(value: any): value is AuthenticationError {
+    return value instanceof AuthenticationError ||
+        ('name' in value && value.name === 'AuthenticationError');
+}
+
+function expressAuthenticationErrorHandler(err: any, req: express.Request, res: express.Response, next: express.NextFunction): void {
+    if (isAuthenticationError(err)) {
+        console.error(`[${err.name}] ${err.status} ${err.message}`);
+    }
+}

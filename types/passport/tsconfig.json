@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "lib/errors/authenticationerror.d.ts",
         "passport-tests.ts"
     ]
 }
