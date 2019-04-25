@@ -21,6 +21,7 @@ export interface DateTimePickerProps {
     onDayCreate?: flatpickr.Options.Hook;
     value?: string | Date | number | ReadonlyArray<string | Date | number>;
     className?: string;
+    [inputProp: string]: any;
 }
 
 export default class DatePicker extends Component<DateTimePickerProps> {}
