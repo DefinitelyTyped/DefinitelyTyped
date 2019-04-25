@@ -812,10 +812,10 @@ declare namespace Dockerode {
     };
     VolumeOptions ?: {
       NoCopy: boolean;
-      Labels: {};
+      Labels: { [label: string]: string };
       DriverConfig: {
           Name: string;
-          Options: {};
+          Options: { [option: string]: string};
       };
     };
     TmpfsOptions ?: {
