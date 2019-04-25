@@ -1,4 +1,4 @@
-// Type definitions for react-lazyload ver 2.3
+// Type definitions for react-lazyload ver 2.5
 // Project: https://github.com/jasonslyvia/react-lazyload
 // Definitions by: m0a <https://github.com/m0a>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,6 +18,7 @@ export interface LazyLoadProps {
     debounce?: number | boolean;
     placeholder?: ReactNode;
     unmountIfInvisible?: boolean;
+    scrollContainer?: string | Element;
 }
 
 export default class LazyLoad extends Component<LazyLoadProps> {
