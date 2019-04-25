@@ -8,8 +8,8 @@ export as namespace directoryExists;
 export = directoryExists;
 
 declare function directoryExists(directory: string): Promise<boolean>;
-declare function directoryExists(directory: string, callback: (exists: boolean)=>{}): void;
+declare function directoryExists(directory: string, callback: (exists: boolean) => {}): void;
 
 declare namespace directoryExists {
-    export function sync(directory: string): boolean;
+    function sync(directory: string): boolean;
 }
