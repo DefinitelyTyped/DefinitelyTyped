@@ -75,10 +75,10 @@ declare module "../index" {
         conformsTo<T>(object: T, source: ConformsPredicateObject<T>): boolean;
     }
     interface Imp<TValue> {
-        conformsTo<T>(this: Imp<T>, source: ConformsPredicateObject<T>): boolean;
+        conformsTo(source: ConformsPredicateObject<TValue>): boolean;
     }
     interface Exp<TValue> {
-        conformsTo<T>(this: Exp<T>, source: ConformsPredicateObject<T>): Exp<boolean>;
+        conformsTo(source: ConformsPredicateObject<TValue>): Exp<boolean>;
     }
     type CondPair<T, R> = [(val: T) => boolean, (val: T) => R];
     interface Stat {
@@ -510,13 +510,23 @@ declare module "../index" {
         toArray<T>(value: T): Array<T[keyof T]>;
         toArray(): any[];
     }
-    interface Imp<TValue> {
-        toArray<T>(this: Imp< Dictionary<T> | NumericDictionary<T> | null | undefined>): Imp<T[]>;
-        toArray<T extends object>(this: Imp<T>): Imp<Array<T[keyof T]>>;
+    interface ImpS {
+        toArray(): ImpL<string>;
     }
-    interface Exp<TValue> {
-        toArray<T>(this: Exp< Dictionary<T> | NumericDictionary<T> | null | undefined>): Exp<T[]>;
-        toArray<T extends object>(this: Imp<T>): Exp<Array<T[keyof T]>>;
+    interface ImpL<T> {
+        toArray(): ImpL<T>;
+    }
+    interface ImpO<T> {
+        toArray(): ImpL<T[keyof T]>
+    }
+    interface ExpS {
+        toArray(): ExpL<string>;
+    }
+    interface ExpL<T> {
+        toArray(): ExpL<T>;
+    }
+    interface ExpO<T> {
+        toArray(): ExpL<T[keyof T]>
     }
 
     interface Stat {
