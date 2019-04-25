@@ -110,7 +110,7 @@ declare namespace markdownlint {
 
         "no-hard-tabs"?: boolean | {
             code_blocks?: boolean;
-        }
+        };
 
         "no-reversed-links"?: boolean;
 
@@ -152,7 +152,7 @@ declare namespace markdownlint {
         "blanks-around-headings"?: boolean | {
             lines_above?: number;
             lines_below?: number;
-        }
+        };
 
         "blanks-around_headers"?: MarkdownlintConfig["blanks-around-headings"];
 
@@ -174,7 +174,7 @@ declare namespace markdownlint {
              * @default "^\s*title:"
              */
             front_matter_title?: string;
-        },
+        };
         "single-h1"?: MarkdownlintConfig["single-title"];
 
         "no-trailing-punctuation"?: boolean | {
@@ -182,7 +182,7 @@ declare namespace markdownlint {
              * @default ".,;:!?"
              */
             punctuation?: string;
-        }
+        };
 
         "no-multiple-space-blockquote"?: boolean;
 
@@ -205,7 +205,7 @@ declare namespace markdownlint {
 
         "no-inline-html"?: boolean | {
             allowed_elements?: string[];
-        }
+        };
 
         "no-bare-urls"?: boolean;
 
