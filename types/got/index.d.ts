@@ -252,7 +252,7 @@ declare namespace got {
 
     interface RetryOptions {
         retries?: number | RetryFunction;
-        methods?: Array<'GET' | 'POST' | 'PUT' | 'POST' | 'HEAD' | 'DELETE' | 'OPTIONS' | 'TRACE'>;
+        methods?: Array<'GET' | 'POST' | 'PUT' | 'HEAD' | 'DELETE' | 'OPTIONS' | 'TRACE'>;
         statusCodes?: Array<408 | 413 | 429 | 500 | 502 | 503 | 504>;
         maxRetryAfter?: number;
         /**
