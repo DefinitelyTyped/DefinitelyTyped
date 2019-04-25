@@ -1417,8 +1417,8 @@
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "jquery-notifier",
-            "typingsPackageName": "typescript",
+            "libraryName": "typescript",
+            "typingsPackageName": "jquery-notifier",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
             "asOfVersion": "1.1.0"
         },
