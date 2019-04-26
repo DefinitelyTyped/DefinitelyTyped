@@ -14,7 +14,7 @@
 //                 Søren Bruus Frank <https://github.com/soerenbf>
 //                 Jonathan Ziller <https://github.com/mrwolfz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.0
 
 // Known Issue:
 // There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
@@ -133,9 +133,30 @@ export type ResolveThunks<TDispatchProps> =
         }
         : TDispatchProps;
 
-export type ResolveArrayThunks<TDispatchProps> = {
-    [C in keyof TDispatchProps]: HandleThunkActionCreator<TDispatchProps[C]>
-};
+// the conditional type is to support TypeScript 3.0, which does not support mapping over tuples and arrays;
+// once the typings are updated to at least TypeScript 3.1, a simple mapped type can replace this mess
+export type ResolveArrayThunks<TDispatchProps extends ReadonlyArray<any>> =
+    TDispatchProps extends [infer A1, infer A2, infer A3, infer A4, infer A5, infer A6, infer A7, infer A8, infer A9]
+    ? [HandleThunkActionCreator<A1>, HandleThunkActionCreator<A2>, HandleThunkActionCreator<A3>, HandleThunkActionCreator<A4>,
+        HandleThunkActionCreator<A5>, HandleThunkActionCreator<A6>, HandleThunkActionCreator<A7>, HandleThunkActionCreator<A8>, HandleThunkActionCreator<A9>]
+    : TDispatchProps extends [infer A1, infer A2, infer A3, infer A4, infer A5, infer A6, infer A7, infer A8]
+    ? [HandleThunkActionCreator<A1>, HandleThunkActionCreator<A2>, HandleThunkActionCreator<A3>, HandleThunkActionCreator<A4>,
+        HandleThunkActionCreator<A5>, HandleThunkActionCreator<A6>, HandleThunkActionCreator<A7>, HandleThunkActionCreator<A8>]
+    : TDispatchProps extends [infer A1, infer A2, infer A3, infer A4, infer A5, infer A6, infer A7]
+    ? [HandleThunkActionCreator<A1>, HandleThunkActionCreator<A2>, HandleThunkActionCreator<A3>, HandleThunkActionCreator<A4>,
+        HandleThunkActionCreator<A5>, HandleThunkActionCreator<A6>, HandleThunkActionCreator<A7>]
+    : TDispatchProps extends [infer A1, infer A2, infer A3, infer A4, infer A5, infer A6]
+    ? [HandleThunkActionCreator<A1>, HandleThunkActionCreator<A2>, HandleThunkActionCreator<A3>, HandleThunkActionCreator<A4>, HandleThunkActionCreator<A5>, HandleThunkActionCreator<A6>]
+    : TDispatchProps extends [infer A1, infer A2, infer A3, infer A4, infer A5]
+    ? [HandleThunkActionCreator<A1>, HandleThunkActionCreator<A2>, HandleThunkActionCreator<A3>, HandleThunkActionCreator<A4>, HandleThunkActionCreator<A5>]
+    : TDispatchProps extends [infer A1, infer A2, infer A3, infer A4] ? [HandleThunkActionCreator<A1>, HandleThunkActionCreator<A2>, HandleThunkActionCreator<A3>, HandleThunkActionCreator<A4>]
+    : TDispatchProps extends [infer A1, infer A2, infer A3] ? [HandleThunkActionCreator<A1>, HandleThunkActionCreator<A2>, HandleThunkActionCreator<A3>]
+    : TDispatchProps extends [infer A1, infer A2] ? [HandleThunkActionCreator<A1>, HandleThunkActionCreator<A2>]
+    : TDispatchProps extends [infer A1] ? [HandleThunkActionCreator<A1>]
+    : TDispatchProps extends Array<infer A> ? Array<HandleThunkActionCreator<A>>
+    : TDispatchProps extends ReadonlyArray<infer A> ? ReadonlyArray<HandleThunkActionCreator<A>>
+    : never
+    ;
 
 /**
  * Connects a React component to a Redux store.
