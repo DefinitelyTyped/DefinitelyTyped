@@ -210,20 +210,22 @@ declare module "../index" {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
     interface Imp<TValue> {
-        curry<T1, R>(this: Imp<(t1: T1) => R>, arity?: number): Imp<CurriedFunction1<T1, R>>;
-        curry<T1, T2, R>(this: Imp<(t1: T1, t2: T2) => R>, arity?: number): Imp<CurriedFunction2<T1, T2, R>>;
-        curry<T1, T2, T3, R>(this: Imp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number): Imp<CurriedFunction3<T1, T2, T3, R>>;
-        curry<T1, T2, T3, T4, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number): Imp<CurriedFunction4<T1, T2, T3, T4, R>>;
-        curry<T1, T2, T3, T4, T5, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number): Imp<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
-        curry(arity?: number): Imp<(...args: any[]) => any>;
+        curry: any;
+        // curry<T1, R>(this: Imp<(t1: T1) => R>, arity?: number): Imp<CurriedFunction1<T1, R>>;
+        // curry<T1, T2, R>(this: Imp<(t1: T1, t2: T2) => R>, arity?: number): Imp<CurriedFunction2<T1, T2, R>>;
+        // curry<T1, T2, T3, R>(this: Imp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number): Imp<CurriedFunction3<T1, T2, T3, R>>;
+        // curry<T1, T2, T3, T4, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number): Imp<CurriedFunction4<T1, T2, T3, T4, R>>;
+        // curry<T1, T2, T3, T4, T5, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number): Imp<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
+        // curry(arity?: number): Imp<(...args: any[]) => any>;
     }
     interface Exp<TValue> {
-        curry<T1, R>(this: Exp<(t1: T1) => R>): Exp<CurriedFunction1<T1, R>>;
-        curry<T1, T2, R>(this: Exp<(t1: T1, t2: T2) => R>): Exp<CurriedFunction2<T1, T2, R>>;
-        curry<T1, T2, T3, R>(this: Exp<(t1: T1, t2: T2, t3: T3) => R>): Exp<CurriedFunction3<T1, T2, T3, R>>;
-        curry<T1, T2, T3, T4, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>): Exp<CurriedFunction4<T1, T2, T3, T4, R>>;
-        curry<T1, T2, T3, T4, T5, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>): Exp<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
-        curry(arity?: number): Exp<(...args: any[]) => any>;
+        curry: any;
+        // curry<T1, R>(this: Exp<(t1: T1) => R>): Exp<CurriedFunction1<T1, R>>;
+        // curry<T1, T2, R>(this: Exp<(t1: T1, t2: T2) => R>): Exp<CurriedFunction2<T1, T2, R>>;
+        // curry<T1, T2, T3, R>(this: Exp<(t1: T1, t2: T2, t3: T3) => R>): Exp<CurriedFunction3<T1, T2, T3, R>>;
+        // curry<T1, T2, T3, T4, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>): Exp<CurriedFunction4<T1, T2, T3, T4, R>>;
+        // curry<T1, T2, T3, T4, T5, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>): Exp<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
+        // curry(arity?: number): Exp<(...args: any[]) => any>;
     }
     interface CurryRight {
         <T1, R>(func: (t1: T1) => R, arity?: number): RightCurriedFunction1<T1, R>;
@@ -238,20 +240,22 @@ declare module "../index" {
         curryRight: CurryRight;
     }
     interface Imp<TValue> {
-        curryRight<T1, R>(this: Imp<(t1: T1) => R>, arity?: number): Imp<RightCurriedFunction1<T1, R>>;
-        curryRight<T1, T2, R>(this: Imp<(t1: T1, t2: T2) => R>, arity?: number): Imp<RightCurriedFunction2<T1, T2, R>>;
-        curryRight<T1, T2, T3, R>(this: Imp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number): Imp<RightCurriedFunction3<T1, T2, T3, R>>;
-        curryRight<T1, T2, T3, T4, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number): Imp<RightCurriedFunction4<T1, T2, T3, T4, R>>;
-        curryRight<T1, T2, T3, T4, T5, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number): Imp<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
-        curryRight(arity?: number): Imp<(...args: any[]) => any>;
+        curryRight: any;
+        // curryRight<T1, R>(this: Imp<(t1: T1) => R>, arity?: number): Imp<RightCurriedFunction1<T1, R>>;
+        // curryRight<T1, T2, R>(this: Imp<(t1: T1, t2: T2) => R>, arity?: number): Imp<RightCurriedFunction2<T1, T2, R>>;
+        // curryRight<T1, T2, T3, R>(this: Imp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number): Imp<RightCurriedFunction3<T1, T2, T3, R>>;
+        // curryRight<T1, T2, T3, T4, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number): Imp<RightCurriedFunction4<T1, T2, T3, T4, R>>;
+        // curryRight<T1, T2, T3, T4, T5, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number): Imp<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
+        // curryRight(arity?: number): Imp<(...args: any[]) => any>;
     }
     interface Exp<TValue> {
-        curryRight<T1, R>(this: Exp<(t1: T1) => R>, arity?: number): Exp<RightCurriedFunction1<T1, R>>;
-        curryRight<T1, T2, R>(this: Exp<(t1: T1, t2: T2) => R>, arity?: number): Exp<RightCurriedFunction2<T1, T2, R>>;
-        curryRight<T1, T2, T3, R>(this: Exp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number): Exp<RightCurriedFunction3<T1, T2, T3, R>>;
-        curryRight<T1, T2, T3, T4, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number): Exp<RightCurriedFunction4<T1, T2, T3, T4, R>>;
-        curryRight<T1, T2, T3, T4, T5, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number): Exp<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
-        curryRight(arity?: number): Exp<(...args: any[]) => any>;
+        curryRight: any;
+        // curryRight<T1, R>(this: Exp<(t1: T1) => R>, arity?: number): Exp<RightCurriedFunction1<T1, R>>;
+        // curryRight<T1, T2, R>(this: Exp<(t1: T1, t2: T2) => R>, arity?: number): Exp<RightCurriedFunction2<T1, T2, R>>;
+        // curryRight<T1, T2, T3, R>(this: Exp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number): Exp<RightCurriedFunction3<T1, T2, T3, R>>;
+        // curryRight<T1, T2, T3, T4, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number): Exp<RightCurriedFunction4<T1, T2, T3, T4, R>>;
+        // curryRight<T1, T2, T3, T4, T5, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number): Exp<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
+        // curryRight(arity?: number): Exp<(...args: any[]) => any>;
     }
     interface DebounceSettings {
         leading?: boolean;
@@ -428,10 +432,10 @@ declare module "../index" {
         partialRight: PartialRight;
     }
     interface Imp<TValue> {
-        partialRight: ImplicitPartialRight;
+        partialRight: any; //ImplicitPartialRight;
     }
     interface Exp<TValue> {
-        partialRight: ExplicitPartialRight;
+        partialRight: any; //ExplicitPartialRight;
     }
     interface PartialRight {
         <R>(func: Function0<R>): Function0<R>;
