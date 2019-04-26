@@ -23,11 +23,6 @@
 // a separate line instead of as a decorator. Discussed in this github issue:
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20796
 
-// NOTE about the wrong react-redux version in the header comment:
-// The actual react-redux version is not 6.0.0, but we had to increase the major version
-// to update this type definitions for redux@4.x from redux@3.x.
-// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/25321
-
 import {
     Component,
     ComponentClass,
