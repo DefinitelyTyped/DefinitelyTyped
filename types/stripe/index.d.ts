@@ -20,6 +20,7 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Jonas Keisel <https://github.com/0xJoKe>
 //                 Andrew Delianides <https://github.com/delianides>
+//                 Gokul Chandrasekaran <https://github.com/gokulchandra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -93,8 +94,10 @@ declare class Stripe {
     setApiVersion(version?: string): void;
     setApiKey(key?: string): void;
     setTimeout(timeout?: number): void;
+    setMaxNetworkRetries(maxNetworkRetries: number): void;
     setHttpAgent(agent: string): void;
     getConstant(c: string): any;
+    getMaxNetworkRetries(): number;
     getClientUserAgent(response: (userAgent: string) => void): void;
 }
 export = Stripe;
