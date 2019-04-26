@@ -758,12 +758,12 @@ declare namespace jest {
         toMatch(expected: string | RegExp): R;
         /**
          * Used to check that a JavaScript object matches a subset of the properties of an object
-         * 
+         *
          * Optionally, you can provide an object to use as Generic type for the expected value.
          * This ensures that the matching object matches the structure of the provided object-like type.
-         * 
+         *
          * @example
-         * 
+         *
          * type House = {
          *   bath: boolean;
          *   bedrooms: number;
@@ -773,7 +773,7 @@ declare namespace jest {
          *     wallColor: string;
          *   }
          * };
-         * 
+         *
          * expect(desiredHouse).toMatchObject<House>(...standardHouse, kitchen: {area: 20}) // wherein standardHouse is some base object of type House
          */
         toMatchObject<O extends {}>(expected: O | any[]): R;
