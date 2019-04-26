@@ -7,12 +7,12 @@
 import { NextFunction } from 'connect';
 import { Response, RequestHandler, ErrorRequestHandler, Request } from 'express-serve-static-core';
 
-declare function asyncWrap<ReqType extends Request, ResType extends Response>(
-  handler: (req: ReqType, res: ResType, next: NextFunction) => Promise<void>
+declare function asyncWrap(
+  handler: (req: Request, res: Response, next: NextFunction) => Promise<void>
 ): RequestHandler;
 
-declare function asyncWrap<ReqType extends Request, ResType extends Response>(
-  handler: (err: any, req: ReqType, res: ResType, next: NextFunction) => Promise<void>,
+declare function asyncWrap(
+  handler: (err: any, req: Request, res: Response, next: NextFunction) => Promise<void>,
 ): ErrorRequestHandler;
 
 export = asyncWrap;
