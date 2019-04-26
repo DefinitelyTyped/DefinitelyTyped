@@ -7,13 +7,16 @@
 /// <reference types="node" />
 import { Plugin } from 'rollup';
 
-export type ReadFileCallback = (err: NodeJS.ErrnoException, data: string) => void;
-export type ReadFileFunction = (file: string | Buffer | number, encoding: string, callback: ReadFileCallback) => void;
+declare namespace sourcemaps {
+    type ReadFileCallback = (err: NodeJS.ErrnoException | null, data: string) => void;
+    type ReadFileFunction = (file: string | Buffer | number, encoding: string, callback: ReadFileCallback) => void;
 
-export interface Options {
-    include?: Array<string | RegExp> | string | RegExp | null;
-    exclude?: Array<string | RegExp> | string | RegExp | null;
-    readFile?: ReadFileFunction;
+    interface Options {
+        include?: Array<string | RegExp> | string | RegExp | null;
+        exclude?: Array<string | RegExp> | string | RegExp | null;
+        readFile?: ReadFileFunction;
+    }
 }
 
-export default function sourcemaps(options?: Options): Plugin;
+export = sourcemaps;
+declare function sourcemaps(options?: sourcemaps.Options): Plugin;

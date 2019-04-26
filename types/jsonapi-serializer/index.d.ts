@@ -29,7 +29,7 @@ export interface SerializerOptions {
     pluralizeType?: boolean;
     typeForAttribute?: TypeForAttribute;
     meta?: object;
-    transform?: (() => void);
+    transform?: Transform;
 }
 
 export interface KeyForAttribute {

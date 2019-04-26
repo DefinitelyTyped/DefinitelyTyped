@@ -4,6 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
+declare global {
+    interface Window {
+        ResizeObserver: typeof ResizeObserver;
+    }
+}
+
 export class ResizeObserver {
     constructor(callback: ResizeObserverCallback);
     disconnect(): void;
@@ -11,7 +17,7 @@ export class ResizeObserver {
     unobserve(target: Element): void;
 }
 
-export type ResizeObserverCallback = (entries: ResizeObserverEntry[]) => void;
+export type ResizeObserverCallback = (entries: ReadonlyArray<ResizeObserverEntry>) => void;
 
 export interface ResizeObserverEntry {
     readonly target: Element;

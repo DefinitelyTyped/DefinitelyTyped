@@ -26,7 +26,7 @@ import MDCRippleAdapter from './adapter';
 import MDCRippleFoundation from './foundation';
 import * as util from './util';
 
-export {MDCRippleAdapter, MDCRippleFoundation, util};
+export { MDCRippleAdapter, MDCRippleFoundation, util };
 
 export class MDCRipple extends MDCComponent<MDCRippleAdapter, MDCRippleFoundation> {
     static attachTo(root: Element, options?: { isUnbounded?: boolean; }): MDCRipple;

@@ -20,10 +20,10 @@ export interface Options {
   header?: boolean;
   inline?: boolean;
   source?: boolean;
-  propTables?: React.ComponentType[] | false;
-  propTablesExclude?: React.ComponentType[];
+  propTables?: Array<React.ComponentType<any>> | false;
+  propTablesExclude?: Array<React.ComponentType<any>>;
   styles?: object;
-  components?: { [key: string]: React.ComponentType };
+  components?: { [key: string]: React.ComponentType<any> };
   marksyConf?: object;
   maxPropsIntoLine?: number;
   maxPropObjectKeys?: number;

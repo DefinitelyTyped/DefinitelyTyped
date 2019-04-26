@@ -147,6 +147,10 @@ namespace TestFind {
 		result = _('abc').chain().detect<string>(iterator).value();
 		result = _('abc').chain().detect<string>(iterator, context).value();
 	}
+
+    {
+        _(list).map(x => x.a);
+    }
 }
 
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);

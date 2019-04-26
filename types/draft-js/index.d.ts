@@ -10,6 +10,7 @@
 //                 Ulf Schwekendiek <https://github.com/sulf>
 //                 Pablo Varela <https://github.com/pablopunk>
 //                 Claudio Procida <https://github.com/claudiopro>
+//                 Kevin Hawkinson <https://github.com/khawkinson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -211,6 +212,8 @@ declare namespace Draft {
                 static isOptionKeyCommand(e: SyntheticKeyboardEvent): boolean;
 
                 static hasCommandModifier(e: SyntheticKeyboardEvent): boolean;
+
+                static isSoftNewlineEvent(e: SyntheticKeyboardEvent): boolean;
             }
 
             /**

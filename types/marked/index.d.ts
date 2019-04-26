@@ -77,6 +77,17 @@ declare namespace marked {
      */
     function setOptions(options: MarkedOptions): typeof marked;
 
+    class InlineLexer {
+        constructor(links: string[], options?: MarkedOptions);
+        static rules: Rules;
+        static output(src: string, links: string[], options?: MarkedOptions): string;
+        output(src: string): string;
+        static escapes(text: string): string;
+        outputLink(cap: string[], link: string): string;
+        smartypants(text: string): string;
+        mangle(text: string): string;
+    }
+
     class Renderer {
         constructor(options?: MarkedOptions);
         code(code: string, language: string, isEscaped: boolean): string;
@@ -114,11 +125,22 @@ declare namespace marked {
         br(): string;
     }
 
-    class Lexer {
-        rules: Rules;
-        tokens: TokensList;
+    class Parser {
         constructor(options?: MarkedOptions);
+        static parse(src: TokensList, options?: MarkedOptions): string;
+        parse(src: TokensList): string;
+        next(): Token;
+        peek(): Token | number;
+        parseText(): string;
+        tok(): string;
+    }
+
+    class Lexer {
+        constructor(options?: MarkedOptions);
+        static rules: Rules;
+        static lex(src: TokensList, options?: MarkedOptions): TokensList;
         lex(src: string): TokensList;
+        token(src: string, top: boolean): TokensList;
     }
 
     class Slugger {

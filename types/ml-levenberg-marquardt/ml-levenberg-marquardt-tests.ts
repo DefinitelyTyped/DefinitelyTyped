@@ -1,4 +1,4 @@
-import LM from 'ml-levenberg-marquardt';
+import LM = require('ml-levenberg-marquardt');
 
 function sinFunction([a, b]: number[]) {
   return (t: number) => a * Math.sin(b * t);

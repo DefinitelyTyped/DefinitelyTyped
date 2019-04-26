@@ -107,6 +107,7 @@ declare namespace ReactTooltip {
         class?: string;
         watchWindow?: boolean;
         sanitizeHtmlOptions?: SanitizeHtmlOptions;
+        clickable?: boolean;
     }
 }
 

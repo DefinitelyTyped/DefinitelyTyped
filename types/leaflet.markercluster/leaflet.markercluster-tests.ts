@@ -26,7 +26,8 @@ markerClusterGroupOptions = {
         return icon;
     },
     chunkedLoading: false,
-    chunkDelay: 100
+    chunkDelay: 100,
+    chunkInterval: 200,
 };
 
 markerClusterGroupOptions.iconCreateFunction = (cluster: L.MarkerCluster) => {

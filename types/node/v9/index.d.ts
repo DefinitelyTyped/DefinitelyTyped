@@ -2669,6 +2669,7 @@ declare module "child_process" {
         execArgv?: string[];
         silent?: boolean;
         stdio?: any[];
+        detached?: boolean;
         uid?: number;
         gid?: number;
         windowsVerbatimArguments?: boolean;
@@ -7134,9 +7135,7 @@ declare module "http2" {
     export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions { }
     export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions { }
 
-    export interface ServerOptions extends ServerSessionOptions {
-        allowHTTP1?: boolean;
-    }
+    export interface ServerOptions extends ServerSessionOptions { }
 
     export interface SecureServerOptions extends SecureServerSessionOptions {
         allowHTTP1?: boolean;

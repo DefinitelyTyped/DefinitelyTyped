@@ -27,6 +27,7 @@ interface dwtEnv {
     DynamicContainers: string[];
     DynamicDWTMap: {};
     GetWebTwain(cid: string): WebTwain;
+    IfInstallDWTModuleWithZIP: boolean;
     IfUpdateService: boolean;
     IfUseActiveXForIE10Plus: boolean;
     JSVersion: string;

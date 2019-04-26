@@ -8,10 +8,14 @@ declare let num: number;
 declare let error: Error;
 declare let bool: boolean;
 declare let boolOrUndefined: boolean | undefined;
+declare let boolOrNumOrStr: boolean | number | string;
 declare let numOrUndefined: number | undefined;
 declare let apiGwEvtReqCtx: AWSLambda.APIGatewayEventRequestContext;
 declare let apiGwEvtReqCtxOpt: AWSLambda.APIGatewayEventRequestContext | null | undefined;
 declare let apiGwEvt: AWSLambda.APIGatewayEvent;
+declare let albEvtReqCtx: AWSLambda.ALBEventRequestContext;
+declare let albEvt: AWSLambda.ALBEvent;
+declare let albRes: AWSLambda.ALBResult;
 declare let customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
 declare let clientCtx: AWSLambda.ClientContext;
 declare let clientCtxOrUndefined: AWSLambda.ClientContext | undefined;
@@ -124,6 +128,27 @@ str = apiGwEvt.multiValueQueryStringParameters!["example"][0];
 str = apiGwEvt.stageVariables!["example"];
 apiGwEvtReqCtx = apiGwEvt.requestContext;
 str = apiGwEvt.resource;
+
+/* Application Load Balancer Event Request Context */
+str = albEvtReqCtx.elb.targetGroupArn;
+
+/* Application Load Balancer Event */
+str = albEvt.httpMethod;
+str = albEvt.path;
+str = albEvt.queryStringParameters!["example"];
+str = albEvt.headers!["example"];
+str = albEvt.multiValueQueryStringParameters!["example"][0];
+str = albEvt.multiValueHeaders!["example"][0];
+strOrNull = albEvt.body;
+bool = albEvt.isBase64Encoded;
+
+/* Application Load Balancer Result */
+num = albRes.statusCode;
+str = albRes.statusDescription;
+boolOrNumOrStr = albRes.headers!["example"];
+boolOrNumOrStr = albRes.multiValueHeaders!["example"][0];
+str = albRes.body;
+bool = albRes.isBase64Encoded;
 
 /* API Gateway CustomAuthorizer Event */
 str = customAuthorizerEvt.type;
@@ -879,6 +904,33 @@ const inferredHandler: AWSLambda.S3Handler = (event, context, cb) => {
 // Test using default Callback type still works.
 const defaultCallbackHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
 
+const albSyncHandler: AWSLambda.ALBHandler = (
+    event: AWSLambda.ALBEvent,
+    context: AWSLambda.Context,
+    cb: AWSLambda.ALBCallback,
+) => {
+    cb(null, {
+        statusCode: 200,
+        statusDescription: '200 OK',
+        headers: { },
+        body: '',
+        isBase64Encoded: false,
+    });
+};
+const albAsyncHandler: AWSLambda.ALBHandler = async (
+    event: AWSLambda.ALBEvent,
+    context: AWSLambda.Context,
+    cb: AWSLambda.ALBCallback,
+) => {
+    return {
+        statusCode: 200,
+        statusDescription: '200 OK',
+        headers: { },
+        body: '',
+        isBase64Encoded: false,
+    };
+};
+
 // Specific types
 let s3Handler: AWSLambda.S3Handler = (event: AWSLambda.S3Event, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
 // Test old name
@@ -1003,7 +1055,15 @@ const SQSEvent: AWSLambda.SQSEvent = {
                 SenderId: "594035263019",
                 ApproximateFirstReceiveTimestamp: "1529104986230"
             },
-            messageAttributes: {},
+            messageAttributes: {
+                testAttr: {
+                    stringValue: "100",
+                    binaryValue: "base64Str",
+                    stringListValues: [],
+                    binaryListValues: [],
+                    dataType: "Number"
+                }
+            },
             md5OfBody: "9bb58f26192e4ba00f01e2e7b136bbd8",
             eventSource: "aws:sqs",
             eventSourceARN: "arn:aws:sqs:us-west-2:594035263019:NOTFIFOQUEUE",
@@ -1039,6 +1099,10 @@ const SQSMessageNode8AsyncHandler: AWSLambda.SQSHandler = async (
     event;
     str = event.Records[0].messageId;
     anyObj = event.Records[0].body;
+    strOrUndefined = event.Records[0].messageAttributes.testAttr.stringValue;
+    strOrUndefined = event.Records[0].messageAttributes.testAttr.binaryValue;
+    str = event.Records[0].messageAttributes.testAttr.dataType;
+
     // $ExpectType Context
     context;
     str = context.functionName;

@@ -24,6 +24,8 @@ import {
     Rectangle,
     TileLayer,
     Tooltip,
+    Viewport,
+    VideoOverlay,
     WMSTileLayer,
     ZoomControl
 } from 'react-leaflet';
@@ -623,6 +625,75 @@ export class VectorLayersExample extends Component<undefined, undefined> {
                 <Polygon color='purple' positions={polygon} />
                 <Polygon color='purple' positions={multiPolygon} />
                 <Rectangle bounds={rectangle} color='black' />
+            </Map>
+        );
+    }
+}
+
+// viewport.js
+const DEFAULT_VIEWPORT: Viewport = {
+    center: [51.505, -0.09],
+    zoom: 13,
+};
+
+interface ViewportExampleState {
+    viewport: Viewport;
+}
+
+export class ViewportExample extends Component<undefined, ViewportExampleState> {
+    state = {
+        viewport: DEFAULT_VIEWPORT,
+    };
+
+    onClickReset = () => {
+        this.setState({ viewport: DEFAULT_VIEWPORT });
+    }
+
+    onViewportChanged = (viewport: Viewport) => {
+        this.setState({ viewport });
+    }
+
+    render() {
+        return (
+            <Map
+                onClick={this.onClickReset}
+                onViewportChanged={this.onViewportChanged}
+                viewport={this.state.viewport}>
+                <TileLayer
+                    attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+            </Map>
+        );
+    }
+}
+
+// video-overlay.js
+interface VideoOverlayExampleState {
+    play: boolean;
+}
+
+export class VideoOverlayExample extends Component<undefined, VideoOverlayExampleState> {
+    state = {
+        play: true,
+    };
+
+    onTogglePlay = () => {
+        this.setState({ play: !this.state.play });
+    }
+
+    render() {
+        return (
+            <Map center={[25, -100]} onClick={this.onTogglePlay} zoom={4}>
+                <TileLayer
+                    attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <VideoOverlay
+                    bounds={[[32, -130], [13, -100]]}
+                    play={this.state.play}
+                    url="https://www.mapbox.com/bites/00188/patricia_nasa.webm"
+                />
             </Map>
         );
     }

@@ -5,6 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-declare function btoa(str: string): string;
+/// <reference types="node" />
+
+declare function btoa(str: string | Buffer): string;
 
 export = btoa;

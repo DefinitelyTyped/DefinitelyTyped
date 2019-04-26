@@ -855,6 +855,7 @@ const event: Stripe.events.IEvent = stripe.webhooks.constructEvent(
 // ##################################################################################
 
 stripe.coupons.create({
+    name: '25% Off',
     percent_off: 25,
     duration: 'repeating',
     duration_in_months: 3,
@@ -863,6 +864,7 @@ stripe.coupons.create({
     // asynchronously called
     });
 stripe.coupons.create({
+    name: '25% Off',
     percent_off: 25,
     duration: 'repeating',
     duration_in_months: 3,
@@ -971,6 +973,7 @@ stripe.invoices.retrieveUpcoming("cus_5rfJKDJkuxzh5Q").then((upcoming) => {
 stripe.invoices.update(
     "in_15fvyXEe31JkLCeQH7QbgZZb",
     {
+        auto_advance: false,
         closed: true
     },
     (err, invoice) => {
@@ -980,6 +983,7 @@ stripe.invoices.update(
 stripe.invoices.update(
     "in_15fvyXEe31JkLCeQH7QbgZZb",
     {
+        auto_advance: false,
         closed: true
     }).then((invoice) => {
         // asynchronously called
@@ -1057,6 +1061,8 @@ stripe.paymentIntents.confirm("pi_Aabcxyz01aDfoo", {}).then((intent) => {});
 stripe.paymentIntents.capture("pi_Aabcxyz01aDfoo", {}, (err, intent) => {});
 stripe.paymentIntents.capture("pi_Aabcxyz01aDfoo", {}).then((intent) => {});
 
+stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", (err, intent) => {});
+stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo").then((intent) => {});
 stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", {}, (err, intent) => {});
 stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", {}).then((intent) => {});
 stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", { cancellation_reason: 'duplicate' }, (err, intent) => {});
@@ -1377,8 +1383,8 @@ stripe.ephemeralKeys.create({ customer: "cus_5rfJKDJkuxzh5Q" }, { stripe_version
 stripe.usageRecords.create('sub_8QwCiwZ9tmMSpt', { action: 'set', quantity: 10000, timestamp: 1537006853 }).then((usageRecord: Stripe.usageRecords.IUsageRecord) => {});
 stripe.usageRecords.create('sub_8QwCiwZ9tmMSpt', { action: 'set', quantity: 10000, timestamp: 1537006853 }, (err, usageRecord: Stripe.usageRecords.IUsageRecord) => {});
 
-stripe.usageRecordSummaries.list({ subscription_item: 'si_C9gimdd2l9qvCU', limit: 10 }).then((usageRecordSummaries: Stripe.usageRecordSummaries.IUsageRecordSummaries) => {});
-stripe.usageRecordSummaries.list({ subscription_item: 'si_C9gimdd2l9qvCU', limit: 10 }, (err, usageRecordSummaries: Stripe.usageRecordSummaries.IUsageRecordSummaries) => {});
+stripe.usageRecordSummaries.list('si_C9gimdd2l9qvCU', { limit: 10 }).then((usageRecordSummaries: Stripe.usageRecordSummaries.IUsageRecordSummaries) => {});
+stripe.usageRecordSummaries.list('si_C9gimdd2l9qvCU', { limit: 10 }, (err, usageRecordSummaries: Stripe.usageRecordSummaries.IUsageRecordSummaries) => {});
 
 //#region Errors
 // ##################################################################################

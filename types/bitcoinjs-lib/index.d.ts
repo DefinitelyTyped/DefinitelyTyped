@@ -191,6 +191,7 @@ export class TransactionBuilder {
 export const networks: {
     bitcoin: Network;
     testnet: Network;
+    regtest: Network;
 };
 
 export const opcodes: {

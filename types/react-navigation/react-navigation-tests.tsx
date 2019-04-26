@@ -36,7 +36,7 @@ import {
     createSwitchNavigator,
     SwitchNavigatorConfig,
     TabBarTop,
-    createTabNavigator,
+    createMaterialTopTabNavigator,
     TabNavigatorConfig,
     Transitioner,
     HeaderBackButton,
@@ -245,7 +245,7 @@ const tabNavigatorConfigWithNavigationOptions: TabNavigatorConfig = {
     },
 };
 
-const BasicTabNavigator = createTabNavigator(
+const BasicTabNavigator = createMaterialTopTabNavigator(
     routeConfigMap,
     tabNavigatorConfig,
 );

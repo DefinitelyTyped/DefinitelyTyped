@@ -882,14 +882,14 @@ function bufferTests() {
             }
 
             static test(): void {
-                const cfn = util.callbackify(this.fn);
-                const cfnE = util.callbackify(this.fnE);
-                const cfnT1 = util.callbackify(this.fnT1);
-                const cfnT1E = util.callbackify(this.fnT1E);
-                const cfnTResult = util.callbackify(this.fnTResult);
-                const cfnTResultE = util.callbackify(this.fnTResultE);
-                const cfnT1TResult = util.callbackify(this.fnT1TResult);
-                const cfnT1TResultE = util.callbackify(this.fnT1TResultE);
+                const cfn = util.callbackify(callbackifyTest.fn);
+                const cfnE = util.callbackify(callbackifyTest.fnE);
+                const cfnT1 = util.callbackify(callbackifyTest.fnT1);
+                const cfnT1E = util.callbackify(callbackifyTest.fnT1E);
+                const cfnTResult = util.callbackify(callbackifyTest.fnTResult);
+                const cfnTResultE = util.callbackify(callbackifyTest.fnTResultE);
+                const cfnT1TResult = util.callbackify(callbackifyTest.fnT1TResult);
+                const cfnT1TResultE = util.callbackify(callbackifyTest.fnT1TResultE);
 
                 cfn((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
                 cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
@@ -952,6 +952,10 @@ function bufferTests() {
         const teEncodeRes: Uint8Array = te.encode("TextEncoder");
 
         // util.types
+        let b: boolean;
+        b = util.types.isBigInt64Array(15);
+        b = util.types.isBigUint64Array(15);
+        b = util.types.isModuleNamespaceObject(15);
 
         // tslint:disable-next-line:no-construct ban-types
         const maybeBoxed: number | Number = new Number(1);
@@ -4448,8 +4452,7 @@ import * as constants from 'constants';
             paddingStrategy: 0,
             peerMaxConcurrentStreams: 0,
             selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-            settings,
-            allowHTTP1: true
+            settings
         };
         // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
         const secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);

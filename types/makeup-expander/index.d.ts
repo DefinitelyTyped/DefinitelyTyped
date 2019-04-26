@@ -1,4 +1,4 @@
-// Type definitions for makeup-expander 0.4
+// Type definitions for makeup-expander 0.6
 // Project: https://github.com/makeup-js/makeup-expander
 // Definitions by: Timur Manyanov <https://github.com/darkwebdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,6 +16,8 @@ declare namespace Expander {
         expandOnHover?: boolean;
         focusManagement?: string | null;
         hostSelector?: string;
+        expandedClass?: string;
+        simulateSpacebarClick?: boolean;
     }
 }
 

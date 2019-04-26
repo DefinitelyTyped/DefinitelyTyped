@@ -16,6 +16,9 @@
 //                 Bartosz Dotryw <https://github.com/burtek>
 //                 Jason Killian <https://github.com/jkillian>
 //                 Satyajit Sahoo <https://github.com/satya164>
+//                 Vinit Sood <https://github.com/vinitsood>
+//                 Mattias Sämskar <https://github.com/mattiassamskar>
+//                 Julian Hundeloh <https://github.com/jaulz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -200,6 +203,9 @@ export interface AppLoadingProps {
 
     /** If `startAsync` throws an error, it is caught and passed into the function provided to `onError`. */
     onError?: (error: Error) => void;
+
+    /**  Whether to hide the native splash screen as soon as you unmount the AppLoading component. */
+    autoHideSplash?: boolean;
 }
 
 /**
@@ -412,6 +418,9 @@ export namespace Audio {
 
         /** an enum selecting how your experience’s audio should interact with the audio from other apps on Android: */
         interruptionModeAndroid: InterruptionModeAndroid;
+
+        /** Boolean selecting if your experience’s audio should route to earpiece on Android: */
+        playThroughEarpieceAndroid: boolean;
     }
 
     function setIsEnabledAsync(value: boolean): Promise<void>;
@@ -2463,7 +2472,11 @@ export namespace ScreenOrientation {
 
     const Orientation: Orientations;
 
+    /** Deprecated in favour of ScreenOrientation.allowAsync. */
     function allow(orientation: keyof Orientations): void;
+
+    /** Allow a screen orientation. You can call this function multiple times with multiple orientations to allow multiple orientations. */
+    function allowAsync(orientation: keyof Orientations): void;
 }
 
 /**
@@ -2538,6 +2551,14 @@ export namespace Speech {
 }
 
 /**
+ * SplashScreen
+ */
+export namespace SplashScreen {
+    function hide(): void;
+    function preventAutoHide(): void;
+}
+
+/**
  * SQLite
  */
 export namespace SQLite {
@@ -2589,146 +2610,30 @@ export namespace SQLite {
 /**
  * Svg
  */
-export interface SvgCommonProps {
-    fill?: string;
-    fillOpacity?: number | string;
-    fillRule?: 'nonzero' | 'evenodd';
-    opacity?: number | string;
-    stroke?: string;
-    strokeWidth?: number | string;
-    strokeOpacity?: number | string;
-    strokeLinecap?: string;
-    strokeLineJoin?: string;
-    strokeDasharray?: any[];
-    strokeDashoffset?: any;
-    transform?: string | object;
-    x?: number | string;
-    y?: number | string;
-    rotate?: number | string;
-    rotation?: number | string;
-    scale?: number | string;
-    origin?: number | string;
-    originX?: number | string;
-    originY?: number | string;
-    id?: string;
-    disabled?: boolean;
-    onPress?: () => any;
-    onPressIn?: () => any;
-    onPressOut?: () => any;
-    onLongPress?: () => any;
-    delayPressIn?: number;
-    delayPressOut?: number;
-    delayLongPress?: number;
-}
+import * as RNSvg from 'react-native-svg';
 
-export interface SvgRectProps extends SvgCommonProps {
-    width: number | string;
-    height: number | string;
-    rx?: number | string;
-    ry?: number | string;
-}
-
-export interface SvgCircleProps extends SvgCommonProps {
-    cx: number | string;
-    cy: number | string;
-    r: number | string;
-}
-
-export interface SvgEllipseProps extends SvgCommonProps {
-    cx: number | string;
-    cy: number | string;
-    rx: number | string;
-    ry: number | string;
-}
-
-export interface SvgLineProps extends SvgCommonProps {
-    x1: number | string;
-    y1: number | string;
-    x2: number | string;
-    y2: number | string;
-}
-
-export interface SvgPolyProps extends SvgCommonProps {
-    points: string;
-}
-
-export interface SvgPathProps extends SvgCommonProps {
-    d: string;
-}
-
-export interface SvgTextProps extends SvgCommonProps {
-    textAnchor?: string;
-    fontSize?: number | string;
-    fontWeight?: string;
-}
-
-export interface SvgTSpanProps extends SvgTextProps {
-    dx?: string;
-    dy?: string;
-}
-
-export interface SvgTextPathProps extends SvgCommonProps {
-    href?: string;
-    startOffset?: string;
-}
-
-export interface SvgUseProps extends SvgCommonProps {
-    href: string;
-    x: number | string;
-    y: number | string;
-    width?: number | string;
-    height?: number | string;
-}
-
-export interface SvgSymbolProps extends SvgCommonProps {
-    viewBox: string;
-    preserveAspectRatio?: string;
-    width: number | string;
-    height: number | string;
-}
-
-export interface SvgLinearGradientProps extends SvgCommonProps {
-    x1: number | string;
-    x2: number | string;
-    y1: number | string;
-    y2: number | string;
-}
-
-export interface SvgRadialGradientProps extends SvgCommonProps {
-    cx: number | string;
-    cy: number | string;
-    rx: number | string;
-    ry: number | string;
-    fx: number | string;
-    fy: number | string;
-    gradientUnits?: string;
-}
-
-export interface SvgStopProps extends SvgCommonProps {
-    offset?: string;
-    stopColor?: string;
-    stopOpacity?: string;
-}
-
-export class Svg extends Component<{ width: number, height: number, viewBox?: string, preserveAspectRatio?: string }> {
-    static Circle: ComponentClass<SvgCircleProps>;
-    static ClipPath: ComponentClass<SvgCommonProps>;
-    static Defs: ComponentClass;
-    static Ellipse: ComponentClass<SvgEllipseProps>;
-    static G: ComponentClass<SvgCommonProps>;
-    static Line: ComponentClass<SvgLineProps>;
-    static LinearGradient: ComponentClass<SvgLinearGradientProps>;
-    static Path: ComponentClass<SvgPathProps>;
-    static Polygon: ComponentClass<SvgPolyProps>;
-    static Polyline: ComponentClass<SvgPolyProps>;
-    static RadialGradient: ComponentClass<SvgRadialGradientProps>;
-    static Rect: ComponentClass<SvgRectProps>;
-    static Stop: ComponentClass<SvgStopProps>;
-    static Symbol: ComponentClass<SvgSymbolProps>;
-    static Text: ComponentClass<SvgTextProps>;
-    static TextPath: ComponentClass<SvgTextPathProps>;
-    static TSpan: ComponentClass<SvgTSpanProps>;
-    static Use: ComponentClass<SvgUseProps>;
+export class Svg extends RNSvg.Svg {
+    static Circle: typeof RNSvg.Circle;
+    static ClipPath: typeof RNSvg.ClipPath;
+    static Defs: typeof RNSvg.Defs;
+    static Ellipse: typeof RNSvg.Ellipse;
+    static G: typeof RNSvg.G;
+    static Image: typeof RNSvg.Image;
+    static Line: typeof RNSvg.Line;
+    static LinearGradient: typeof RNSvg.LinearGradient;
+    static Mask: typeof RNSvg.Mask;
+    static Path: typeof RNSvg.Path;
+    static Pattern: typeof RNSvg.Pattern;
+    static Polygon: typeof RNSvg.Polygon;
+    static Polyline: typeof RNSvg.Polyline;
+    static RadialGradient: typeof RNSvg.RadialGradient;
+    static Rect: typeof RNSvg.Rect;
+    static Stop: typeof RNSvg.Stop;
+    static Symbol: typeof RNSvg.Symbol;
+    static Text: typeof RNSvg.Text;
+    static TextPath: typeof RNSvg.TextPath;
+    static TSpan: typeof RNSvg.TSpan;
+    static Use: typeof RNSvg.Use;
 }
 // #endregion
 
@@ -2848,9 +2753,20 @@ export class Video extends Component<VideoProps, VideoState> {
  * Web Browser
  */
 export namespace WebBrowser {
-    function openBrowserAsync(url: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
-    function openAuthSessionAsync(url: string, redirectUrl?: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
-    function dismissBrowser(): Promise<{ type: 'dismissed' }>;
+    interface BrowserResult {
+        type: 'cancel' | 'dismiss';
+    }
+
+    interface RedirectResult {
+        type: 'success';
+        url: string;
+    }
+
+    type AuthSessionResult = RedirectResult | BrowserResult;
+
+    function openBrowserAsync(url: string): Promise<BrowserResult>;
+    function openAuthSessionAsync(url: string, redirectUrl?: string): Promise<RedirectResult | BrowserResult>;
+    function dismissBrowser(): void;
 }
 
 // #region Calendar

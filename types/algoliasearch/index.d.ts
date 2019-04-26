@@ -1,4 +1,4 @@
-// Type definitions for algoliasearch-client-js 3.30.0
+// Type definitions for algoliasearch-client-js 3.30.1
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
@@ -7,6 +7,7 @@
 //                 Kai Eichinger <https://github.com/keichinger>
 //                 Nery Ortez <https://github.com/neryortez>
 //                 Antoine Rousseau <https://github.com/antoinerousseau>
+//                 Luca Pasquale <https://github.com/lucapasquale>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -360,6 +361,15 @@ declare namespace algoliasearch {
       cb: (err: Error, res: Task) => void
     ): void;
     /**
+     * Set an index settings
+     * https://github.com/algolia/algoliasearch-client-js#set-settings---setsettings
+     */
+    setSettings(
+      settings: IndexSettings,
+      extra: { forwardToReplicas: boolean },
+      cb: (err: Error, res: Task) => void
+    ): void;
+    /**
      * Clear cache of an index
      * https://github.com/algolia/algoliasearch-client-js#cache
      */
@@ -587,7 +597,7 @@ declare namespace algoliasearch {
      * Set an index settings
      * https://github.com/algolia/algoliasearch-client-js#set-settings---setsettings
      */
-    setSettings(settings: IndexSettings): Promise<Task>;
+    setSettings(settings: IndexSettings, extra?: { forwardToReplicas: boolean }): Promise<Task>;
     /**
      * Search in an index
      * https://github.com/algolia/algoliasearch-client-js#search-in-an-index---search
@@ -1426,6 +1436,12 @@ declare namespace algoliasearch {
      * https://www.algolia.com/doc/api-reference/api-parameters/analytics/
      */
     analytics?: boolean;
+    /**
+     * If set to true, enables the Click Analytics feature
+     * default false
+     * https://www.algolia.com/doc/api-reference/api-parameters/clickAnalytics/
+     */
+    clickAnalytics?: boolean;
     /**
      * If set, tag your query with the specified identifiers
      * default: []

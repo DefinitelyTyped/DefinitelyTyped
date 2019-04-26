@@ -8,7 +8,13 @@ let localAudioTrack: Video.LocalAudioTrack | null = null;
 
 async function initRoom() {
   // Connect to Twilio without creating audio and video track
-  room = await Video.connect('$TOKEN', { name: 'room-name', video: false, audio: false });
+  room = await Video.connect('$TOKEN', {
+    name: 'room-name',
+    video: false,
+    audio: false,
+    dominantSpeaker: true,
+    networkQuality: true
+  });
   // Create local video track from default input
   localVideoTrack = await Video.createLocalVideoTrack({ name: 'camera' });
   // Create local audio track from default input

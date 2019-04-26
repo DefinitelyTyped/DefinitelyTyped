@@ -1,3 +1,8 @@
+$.extend($.fn.select2.defaults, {
+  width: 'copy',
+  minimumInputLength: 12
+});
+
 $("#e9").select2();
 $("#e2").select2({
     placeholder: "Select a State",

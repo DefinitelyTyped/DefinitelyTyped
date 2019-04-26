@@ -1984,7 +1984,7 @@ declare namespace _ {
     type LodashIsNil = (value: any) => value is null | undefined;
     type LodashIsNull = (value: any) => value is null;
     type LodashIsNumber = (value: any) => value is number;
-    type LodashIsObject = (value: any) => boolean;
+    type LodashIsObject = (value: any) => value is object;
     type LodashIsObjectLike = (value: any) => boolean;
     type LodashIsPlainObject = (value: any) => boolean;
     type LodashIsRegExp = (value: any) => value is RegExp;

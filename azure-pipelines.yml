@@ -1,0 +1,24 @@
+# Learn more at: https://aka.ms/yaml
+jobs:
+- job: npmRunTest
+  pool:
+    vmImage: 'Ubuntu 16.04'
+    demands: npm
+
+  timeoutInMinutes: 360
+
+  steps:
+  - task: Npm@1
+    displayName: 'npm install'
+    inputs:
+      verbose: false
+  
+  - script: |
+      if [[ $BUILD_REASON == "Schedule" ]]; then git config --global user.email "types@microsoft.com" && git config --global user.name "TypeScript Bot" && npm run update-codeowners; fi
+      git checkout -- . && npm run test
+
+    displayName: 'npm run test'
+  
+trigger:
+- master
+  

@@ -16,7 +16,7 @@ declare module 'pdfmake/build/vfs_fonts' {
 declare module 'pdfmake/build/pdfmake' {
     let vfs: TFontFamily;
     let fonts: { [name: string]: TFontFamilyTypes };
-    function createPdf(documentDefinitions: TDocumentDefinitions): TCreatedPdf;
+    function createPdf(documentDefinitions: TDocumentDefinitions, tableLayouts?: any, fonts?: any, vfs?: any): TCreatedPdf;
 
     enum PageSize {
         A0_x_4 = '4A0',
@@ -183,16 +183,46 @@ declare module 'pdfmake/build/pdfmake' {
         defaultStyle?: Style;
     }
 
-    type CreatedPdfParams = (
+    interface Pagesize {
+        height: number;
+        width: number;
+        orientation: PageOrientation;
+    }
+
+    interface Page {
+        items: any[];
+        pageSize: Pagesize;
+    }
+
+    interface BufferOptions {
+        autoPrint?: boolean;
+    }
+
+    type CreatedPdfDownloadParams = (
         defaultFileName?: string,
-        cb?: string,
-        options?: string
+        cb?: () => void,
+        options?: BufferOptions,
+    ) => void;
+
+    type CreatedPdfOpenPrintParams = (
+        options?: BufferOptions,
+        win?: Window | null,
+    ) => void;
+
+    type CreatedPdfBufferParams = (
+        cb: (result: any, pages: Page[]) => void,
+        options?: BufferOptions,
     ) => void;
 
     interface TCreatedPdf {
-        download: CreatedPdfParams;
-        open: CreatedPdfParams;
-        print: CreatedPdfParams;
+        download: CreatedPdfDownloadParams;
+        getBlob: CreatedPdfBufferParams;
+        getBase64: CreatedPdfBufferParams;
+        getBuffer: CreatedPdfBufferParams;
+        getDataUrl: CreatedPdfBufferParams;
+        getStream: CreatedPdfBufferParams; // minimal version 0.1.41
+        open: CreatedPdfOpenPrintParams;
+        print: CreatedPdfOpenPrintParams;
     }
 
     interface pdfMakeStatic {

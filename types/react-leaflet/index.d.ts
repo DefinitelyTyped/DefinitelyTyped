@@ -146,6 +146,8 @@ export interface MapProps extends MapEvents, Leaflet.MapOptions, Leaflet.LocateO
     useFlyTo?: boolean;
     viewport?: Viewport;
     whenReady?: () => void;
+    onViewportChange?: (viewport: Viewport) => void;
+    onViewportChanged?: (viewport: Viewport) => void;
 }
 
 export class Map<P extends MapProps = MapProps, E extends Leaflet.Map = Leaflet.Map> extends MapEvented<P, E> {
@@ -155,8 +157,8 @@ export class Map<P extends MapProps = MapProps, E extends Leaflet.Map = Leaflet.
     viewport: Viewport;
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
-    onViewportChange: (viewport: Viewport | null) => void;
-    onViewportChanged: (viewport: Viewport | null) => void;
+    onViewportChange: () => void;
+    onViewportChanged: () => void;
     bindContainer(container: HTMLDivElement | null | undefined): void;
     shouldUpdateCenter(next: Leaflet.LatLngExpression, prev: Leaflet.LatLngExpression): boolean;
     shouldUpdateBounds(next: Leaflet.LatLngBoundsExpression, prev: Leaflet.LatLngBoundsExpression): boolean;
@@ -272,6 +274,19 @@ export interface ImageOverlayProps extends MapLayerProps, Leaflet.ImageOverlayOp
     zIndex?: number;
 }
 export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E extends Leaflet.ImageOverlay = Leaflet.ImageOverlay> extends MapLayer<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+}
+
+export interface VideoOverlayProps extends Leaflet.VideoOverlayOptions, MapComponentProps {
+    attribution?: string;
+    bounds: Leaflet.LatLngBoundsExpression;
+    opacity?: number;
+    play?: boolean;
+    url: string | string[] | HTMLVideoElement;
+    zIndex?: number;
+}
+export class VideoOverlay<P extends VideoOverlayProps = VideoOverlayProps, E extends Leaflet.VideoOverlay = Leaflet.VideoOverlay> extends MapLayer<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }

@@ -138,12 +138,26 @@ export namespace v2 {
             options?: gax.CallOptions
         ): Promise<void>;
 
-        // TODO: add batch style calls
-        // batchUpdateEntityTypes
-        // batchDeleteEntityTypes
-        // batchCreateEntities
-        // batchUpdateEntities
-        // batchDeleteEntities
+        batchUpdateEntityTypes(
+            request: BatchUpdateEntityTypesRequest,
+            options?: gax.CallOptions
+        ): Promise<[gax.Operation]>;
+        batchDeleteEntityTypes(
+            request: BatchDeleteEntityTypesRequest,
+            options?: gax.CallOptions
+        ): Promise<[gax.Operation]>;
+        batchCreateEntities(
+            request: BatchCreateEntitiesRequest,
+            options?: gax.CallOptions
+        ): Promise<[gax.Operation]>;
+        batchUpdateEntities(
+            request: BatchUpdateEntitiesRequest,
+            options?: gax.CallOptions
+        ): Promise<[gax.Operation]>;
+        batchDeleteEntities(
+            request: BatchDeleteEntitiesRequest,
+            options?: gax.CallOptions
+        ): Promise<[gax.Operation]>;
 
         projectAgentPath(project: string): string;
         entityTypePath(project: string, entityType: string): string;
@@ -183,9 +197,14 @@ export namespace v2 {
             options?: gax.CallOptions
         ): Promise<void>;
 
-        // TODO: add batch style calls
-        // batchUpdateIntents(request: BatchUpdateIntentsRequest): void;
-        // batchDeleteIntents(request: BatchDeleteIntentsRequest): void;
+        batchUpdateIntents(
+            request: BatchUpdateIntentsRequest,
+            options?: gax.CallOptions
+        ): Promise<[gax.Operation]>;
+        batchDeleteIntents(
+            request: BatchDeleteIntentsRequest,
+            options?: gax.CallOptions
+        ): Promise<[gax.Operation]>;
 
         projectAgentPath(project: string): string;
         intentPath(project: string, intent: string): string;
@@ -520,6 +539,46 @@ export interface DeleteEntityTypeRequest {
     name: string;
 }
 
+export interface BatchDeleteEntityTypesRequest {
+    parent: string;
+    entityTypeNames: string[];
+}
+
+export interface EntityTypeBatch {
+    entityTypes: EntityType[];
+}
+
+export interface BatchUpdateEntityTypesRequest {
+    parent: string;
+    // Union field entity_type_batch can be only one of the following:
+    entityTypeBatchUri?: string;
+    entityTypeBatchInline?: EntityTypeBatch;
+    // End of list of possible types for union field entity_type_batch.
+    languageCode?: string;
+    /** @link https://github.com/google/protobuf/blob/master/src/google/protobuf/field_mask.proto */
+    updateMask?: any;
+}
+
+export interface BatchCreateEntitiesRequest {
+    parent: string;
+    entities: Entity[];
+    languageCode?: string;
+}
+
+export interface BatchUpdateEntitiesRequest {
+    parent: string;
+    entities: Entity[];
+    languageCode?: string;
+    /** @link https://github.com/google/protobuf/blob/master/src/google/protobuf/field_mask.proto */
+    updateMask?: any;
+}
+
+export interface BatchDeleteEntitiesRequest {
+    parent: string;
+    entityValues: string[];
+    languageCode?: string;
+}
+
 export interface ListSessionEntityTypesRequest {
     parent: string;
     pageSize?: number;
@@ -575,17 +634,41 @@ export interface DeleteIntentRequest {
     name: string;
 }
 
+export interface IntentBatch {
+    intents: Intent[];
+}
+
+export interface BatchUpdateIntentsRequest {
+    parent: string;
+    // Union field intent_batch can be only one of the following:
+    intentBatchUri?: string;
+    intentBatchInline?: IntentBatch;
+    // End of list of possible types for union field intent_batch.
+    languageCode?: string;
+    updateMask?: any;
+    intentView?: IntentView;
+}
+
+export interface BatchDeleteIntentsRequest {
+    parent: string;
+    intents: Intent[];
+}
+
 export interface DetectIntentRequest {
     session: string;
     queryInput: QueryInput;
     queryParams?: QueryParams;
-    inputAudio?: any;
+    inputAudio?: string;
+    outputAudioConfig?: OutputAudioConfig;
 }
 
 export interface DetectIntentResponse {
     responseId: string;
     queryResult: QueryResult;
+    alternativeQueryResults: QueryResult[];
     webhookStatus: Status;
+    outputAudio: string;
+    outputAudioConfig: OutputAudioConfig;
 }
 
 export interface QueryResult {
@@ -609,6 +692,7 @@ export interface QueryResult {
         };
     };
     diagnosticInfo: any;
+    knowledgeAnswers: any;
 }
 
 export interface Status {
@@ -843,7 +927,7 @@ export enum IntentView {
 export interface Intent {
     name: string;
     displayName: string;
-    webhookState: string;
+    webhookState?: string;
     priority?: number;
     isFallback?: boolean;
     mlEnabled?: boolean;
@@ -856,8 +940,8 @@ export interface Intent {
     parameters?: Parameter[];
     messages?: Message[];
     defaultResponsePlatforms?: string[];
-    rootFollowupIntentName: string;
-    parentFollowupIntentName: string;
+    rootFollowupIntentName?: string;
+    parentFollowupIntentName?: string;
     followupIntentInfo?: FollowupIntentInfo[];
 }
 
@@ -891,27 +975,166 @@ export interface FollowupIntentInfo {
     parentFollowupIntentName: string;
 }
 
-export interface Message {
-    platform?: string;
-    text?: Text;
-    card?: Card;
-    payload?: any;
+export enum Platform {
+    PLATFORM_UNSPECIFIED,
+    FACEBOOK,
+    SLACK,
+    TELEGRAM,
+    KIK,
+    SKYPE,
+    LINE,
+    VIBER,
+    ACTIONS_ON_GOOGLE
 }
+
+export interface MessageBase {
+    platform?: Platform;
+    message: string;
+}
+
+export interface TextMessage extends MessageBase {
+    text: Text;
+    message: "text";
+}
+
+export interface ImageMessage extends MessageBase {
+    image: Image;
+    message: "image";
+}
+
+export interface QuickRepliesMessage extends MessageBase {
+    quickReplies: QuickReplies;
+    message: "quickReplies";
+}
+
+export interface CardMessage extends MessageBase {
+    card: Card;
+    message: "card";
+}
+
+export interface PayloadMessage extends MessageBase {
+    payload: any;
+    message: "payload";
+}
+
+export interface SimpleResponsesMessage extends MessageBase {
+    simpleResponses: SimpleResponses;
+    message: "simpleResponses";
+}
+
+export interface BasicCardMessage extends MessageBase {
+    basicCard: BasicCard;
+    message: "basicCard";
+}
+
+export interface SuggestionsMessage extends MessageBase {
+    suggestions: Suggestions;
+    message: "suggestions";
+}
+
+export interface LinkOutSuggestionMessage extends MessageBase {
+    linkOutSuggestion: LinkOutSuggestion;
+    message: "linkOutSuggestion";
+}
+
+export interface ListSelectMessage extends MessageBase {
+    listSelect: ListSelect;
+    message: "listSelect";
+}
+
+export interface CarouselSelectMessage extends MessageBase {
+    carouselSelect: CarouselSelect;
+    message: "carouselSelect";
+}
+
+export type Message =
+    | TextMessage
+    | ImageMessage
+    | QuickRepliesMessage
+    | CardMessage
+    | PayloadMessage
+    | SimpleResponsesMessage
+    | BasicCardMessage
+    | SuggestionsMessage
+    | LinkOutSuggestionMessage
+    | ListSelectMessage
+    | CarouselSelectMessage;
 
 export interface Text {
     text: string[];
+}
+
+export interface Image {
+    imageUri?: string;
+    accessibilityText?: string;
+}
+
+export interface QuickReplies {
+    title?: string;
+    quickReplies?: string[];
 }
 
 export interface Card {
     title?: string;
     subtitle?: string;
     imageUri?: string;
-    buttons?: Button[];
+    buttons?: Array<{
+        text?: string;
+        postback?: string;
+    }>;
 }
 
-export interface Button {
-    text?: string;
-    postback?: string;
+export interface SimpleResponses {
+    simpleResponses: SimpleResponse[];
+}
+
+export interface SimpleResponse {
+    textToSpeech?: string;
+    ssml?: string;
+    displayText?: string;
+}
+
+export interface BasicCard {
+    title?: string;
+    subtitle?: string;
+    formattedText?: string;
+    image?: Image;
+    buttons?: Array<{
+        title: string;
+        openUriAction: {
+            uri: string;
+        };
+    }>;
+}
+
+export interface Suggestions {
+    suggestions: Array<{
+        title: string;
+    }>;
+}
+
+export interface LinkOutSuggestion {
+    destinationName: string;
+    uri: string;
+}
+
+export interface ListSelect {
+    title?: string;
+    items: Item[];
+}
+
+export interface CarouselSelect {
+    items: Item[];
+}
+
+export interface Item {
+    info: {
+        key: string;
+        synonyms?: string[];
+    };
+    title: string;
+    description?: string;
+    image?: Image;
 }
 
 export interface EventInput {
@@ -925,7 +1148,43 @@ export interface TextInput {
     languageCode: string;
 }
 
+// TODO export enum AudioEncoding
+
+export interface InputAudioConfig {
+    // required by the documentation https://cloud.google.com/dialogflow-enterprise/docs/reference/rest/v2beta1/QueryInput
+    // but resolved by autodetection
+    audioEncoding?: any;
+    sampleRateHertz?: number;
+    languageCode: string;
+    phraseHints?: string[];
+    model?: string;
+}
+
+// TODO export enum OutputAudioEncoding
+
+export interface OutputAudioConfig {
+    audioEncoding: any;
+    sampleRateHertz?: number;
+    synthesizeSpeechConfig?: SynthesizeSpeechConfig;
+}
+
+export interface SynthesizeSpeechConfig {
+    speakingRate?: number;
+    pitch?: number;
+    volumeGainDb?: number;
+    effectsProfileId?: string[];
+    voice?: VoiceSelectionParams;
+}
+
+// TODO export enum SsmlVoiceGender
+
+export interface VoiceSelectionParams {
+    name?: string;
+    ssmlGender?: any;
+}
+
 export interface QueryInput {
+    audioConfig?: InputAudioConfig;
     text?: TextInput;
     event?: EventInput;
 }
@@ -937,7 +1196,11 @@ export interface QueryParams {
     resetContexts?: boolean;
     sessionEntityTypes?: SessionEntityType[];
     payload?: any;
+    knowledgeBaseNames?: string[];
+    sentimentAnalysisRequestConfig?: any;
 }
+
+// TODO export interface SentimentAnalysisRequestConfig
 
 export interface LatLong {
     latitude: number;
@@ -958,7 +1221,6 @@ export interface Entity {
 export interface WebhookRequest {
     session: string;
     responseId: string;
-
     queryResult: QueryResult;
     originalDetectIntentRequest?: any;
 }

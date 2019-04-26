@@ -15,6 +15,7 @@ interface InnerProps {
   id: string;
   key: string;
   onClick: MouseEventHandler<HTMLDivElement>;
+  onMouseMove: MouseEventHandler<HTMLDivElement>;
   onMouseOver: MouseEventHandler<HTMLDivElement>;
   tabIndex: number;
 }

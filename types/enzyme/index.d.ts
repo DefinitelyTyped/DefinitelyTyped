@@ -88,7 +88,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns whether or not the current node has a className prop including the passed in class name.
      */
-    hasClass(className: string): boolean;
+    hasClass(className: string | RegExp): boolean;
 
     /**
      * Returns whether or not the current node matches a provided selector.

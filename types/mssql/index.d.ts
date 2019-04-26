@@ -7,6 +7,7 @@
 //                 Jørgen Elgaard Larsen <https://github.com/elhaard>
 //                 Peter Keuter <https://github.com/pkeuter>
 //                 David Gasperoni <https://github.com/mcdado>
+//                 Jeff Wooden <https://github.com/woodenconsulting>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -281,6 +282,8 @@ export declare class Request extends events.EventEmitter {
     public bulk(table: Table): Promise<number>;
     public bulk(table: Table, callback: (err: Error, rowCount: any) => void): void;
     public cancel(): void;
+    public pause(): boolean;
+    public resume(): boolean;
 }
 
 export declare class RequestError implements Error {

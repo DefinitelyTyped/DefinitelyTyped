@@ -38,22 +38,18 @@ declare module "net" {
         constructor(options?: SocketConstructorOpts);
 
         // Extended base methods
-        write(buffer: Buffer): boolean;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, fd?: string): boolean;
-        write(data: any, encoding?: string, callback?: Function): void;
+        write(buffer: Buffer | Uint8Array | string, cb?: (err?: Error) => void): boolean;
+        write(str: Buffer | Uint8Array | string, encoding?: string, cb?: (err?: Error) => void): boolean;
 
-        connect(options: SocketConnectOpts, connectionListener?: Function): this;
-        connect(port: number, host: string, connectionListener?: Function): this;
-        connect(port: number, connectionListener?: Function): this;
-        connect(path: string, connectionListener?: Function): this;
+        connect(options: SocketConnectOpts, connectionListener?: () => void): this;
+        connect(port: number, host: string, connectionListener?: () => void): this;
+        connect(port: number, connectionListener?: () => void): this;
+        connect(path: string, connectionListener?: () => void): this;
 
         setEncoding(encoding?: string): this;
         pause(): this;
         resume(): this;
-        setTimeout(timeout: number, callback?: Function): this;
+        setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): this;
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
         address(): AddressInfo | string;
@@ -72,11 +68,9 @@ declare module "net" {
         readonly remotePort?: number;
 
         // Extended base methods
-        end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
-        end(data?: any, encoding?: string): void;
+        end(cb?: () => void): void;
+        end(buffer: Buffer | Uint8Array | string, cb?: () => void): void;
+        end(str: Buffer | Uint8Array | string, encoding?: string, cb?: () => void): void;
 
         /**
          * events.EventEmitter
@@ -169,15 +163,15 @@ declare module "net" {
         constructor(connectionListener?: (socket: Socket) => void);
         constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
 
-        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): this;
-        listen(port?: number, hostname?: string, listeningListener?: Function): this;
-        listen(port?: number, backlog?: number, listeningListener?: Function): this;
-        listen(port?: number, listeningListener?: Function): this;
-        listen(path: string, backlog?: number, listeningListener?: Function): this;
-        listen(path: string, listeningListener?: Function): this;
-        listen(options: ListenOptions, listeningListener?: Function): this;
-        listen(handle: any, backlog?: number, listeningListener?: Function): this;
-        listen(handle: any, listeningListener?: Function): this;
+        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): this;
+        listen(port?: number, hostname?: string, listeningListener?: () => void): this;
+        listen(port?: number, backlog?: number, listeningListener?: () => void): this;
+        listen(port?: number, listeningListener?: () => void): this;
+        listen(path: string, backlog?: number, listeningListener?: () => void): this;
+        listen(path: string, listeningListener?: () => void): this;
+        listen(options: ListenOptions, listeningListener?: () => void): this;
+        listen(handle: any, backlog?: number, listeningListener?: () => void): this;
+        listen(handle: any, listeningListener?: () => void): this;
         close(callback?: (err?: Error) => void): this;
         address(): AddressInfo | string | null;
         getConnections(cb: (error: Error | null, count: number) => void): void;
@@ -243,12 +237,12 @@ declare module "net" {
 
     function createServer(connectionListener?: (socket: Socket) => void): Server;
     function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
-    function connect(options: NetConnectOpts, connectionListener?: Function): Socket;
-    function connect(port: number, host?: string, connectionListener?: Function): Socket;
-    function connect(path: string, connectionListener?: Function): Socket;
-    function createConnection(options: NetConnectOpts, connectionListener?: Function): Socket;
-    function createConnection(port: number, host?: string, connectionListener?: Function): Socket;
-    function createConnection(path: string, connectionListener?: Function): Socket;
+    function connect(options: NetConnectOpts, connectionListener?: () => void): Socket;
+    function connect(port: number, host?: string, connectionListener?: () => void): Socket;
+    function connect(path: string, connectionListener?: () => void): Socket;
+    function createConnection(options: NetConnectOpts, connectionListener?: () => void): Socket;
+    function createConnection(port: number, host?: string, connectionListener?: () => void): Socket;
+    function createConnection(path: string, connectionListener?: () => void): Socket;
     function isIP(input: string): number;
     function isIPv4(input: string): boolean;
     function isIPv6(input: string): boolean;
