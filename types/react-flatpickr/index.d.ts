@@ -9,7 +9,7 @@
 import { Component } from "react";
 import flatpickr from "flatpickr";
 
-export interface DateTimePickerProps {
+export interface DateTimePickerProps extends HTMLInputElement {
     defaultValue?: string;
     options?: flatpickr.Options.Options;
     onChange?: flatpickr.Options.Hook;
@@ -22,7 +22,6 @@ export interface DateTimePickerProps {
     onDayCreate?: flatpickr.Options.Hook;
     value?: string | Date | number | ReadonlyArray<string | Date | number>;
     className?: string;
-    [inputProp: string]: any;
 }
 
 export default class DatePicker extends Component<DateTimePickerProps> {}
