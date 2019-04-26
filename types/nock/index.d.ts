@@ -1,5 +1,5 @@
-// Type definitions for nock v9.3.3
-// Project: https://github.com/node-nock/nock
+// Type definitions for nock 10.0
+// Project: https://github.com/nock/nock
 // Definitions by: bonnici <https://github.com/bonnici>
 //                 Horiuchi_H <https://github.com/horiuchi>
 //                 afharo <https://github.com/afharo>
@@ -86,7 +86,7 @@ declare namespace nock {
     }
 
     export interface Interceptor {
-        query(params: boolean | { (querObject: any): boolean; } | any): this;
+        query(params: boolean | { (queryObject: any): boolean; } | any): this;
 
         reply(responseCode: number, body?: string | any, headers?: HttpHeaders): Scope;
         reply(responseCode: number, callback: (uri: string, body: string, cb?: ReplyCallback) => ReplyCallbackResult, headers?: HttpHeaders): Scope;
@@ -94,6 +94,7 @@ declare namespace nock {
         replyWithError(errorMessage: string | any): Scope;
         replyWithFile(responseCode: number, fileName: string, headers?: HttpHeaders): Scope;
 
+        matchHeader(name: string, value: string | RegExp | { (value: string): boolean; }): this;
         basicAuth(options: { user: string; pass?: string; }): this;
 
         times(newCounter: number): this;
