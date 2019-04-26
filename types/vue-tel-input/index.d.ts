@@ -28,14 +28,14 @@ export interface VueTelInputProps {
     name: string;
     wrapperClasses: string;
     inputClasses: string;
-    dropdownOptions: () => void;
-    inputOptions: () => void;
+    dropdownOptions: VueTelInputDowndownOption;
+    inputOptions: VueTelInputInputOption;
     maxLen: number;
 }
 
 export interface VueTelInputData {
     phone: string;
-    activeCountry: VueTelInputCountry;
+    activeCountry: VueTelInputCountryOption;
     open: boolean;
     selectedIndex: any;
     typeToFindInput: string;
@@ -52,7 +52,7 @@ export interface VueTelInputMethods {
     getCountries: (list: any[]) => any[];
     findCountry: (iso: string) => any[];
     getItemClass: (index: number, iso2: string) => any;
-    choose: (country: VueTelInputCountry) => void;
+    choose: (country: any) => void;
     onInput: ()  => void;
     onBlur: () => void;
     toggleDropdown: () => void;
@@ -77,11 +77,19 @@ export interface VueTelInputDirective {
 export interface VueTelInputResponse {
     number: string;
     isValid: boolean;
-    country: VueTelInputCountry;
+    country: VueTelInputCountryOption;
 }
 
-export interface VueTelInputCountry {
+export interface VueTelInputCountryOption {
     iso2: string;
+}
+
+export interface VueTelInputDowndownOption {
+    disabledDialCode: boolean;
+}
+
+export interface VueTelInputInputOption {
+    showDialCode: boolean;
 }
 
 export interface VueTelInputConstructor extends VueConstructor {
