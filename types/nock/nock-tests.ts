@@ -624,7 +624,7 @@ nock.enableNetConnect('amazon.com');
 nock.enableNetConnect(/(amazon|github).com/);
 
 nock.disableNetConnect();
-nock.enableNetConnect('127.0.0.1'); //Allow localhost connections so we can test local routes and mock servers.
+nock.enableNetConnect('127.0.0.1'); // Allow localhost connections so we can test local routes and mock servers.
 
 nock.cleanAll();
 nock.enableNetConnect();
@@ -717,7 +717,7 @@ nockBack.setMode('record');
 
 /// Usage
 nockBack.setMode('record');
-nockBack.fixtures = './nockFixtures'; //this only needs to be set once in your test helper
+nockBack.fixtures = './nockFixtures'; // this only needs to be set once in your test helper
 
 var before = (def: nock.NockDefinition) => {
   def.options = def.options || {};
@@ -738,7 +738,7 @@ nockBack('zomboFixture.json', { before, after }, (nockDone: () => void) => {
     nockDone();
     // usage of the created fixture
     nockBack('zomboFixture.json', (nockDone: () => void) => {
-      nockDone(); //never gets here
+      nockDone(); // never gets here
     });
   });
 });
