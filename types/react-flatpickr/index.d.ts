@@ -9,7 +9,7 @@
 import { Component } from "react";
 import flatpickr from "flatpickr";
 
-export interface DateTimePickerProps extends HTMLInputElement {
+export interface DateTimePickerProps extends Partial<HTMLInputElement> {
     defaultValue?: string;
     options?: flatpickr.Options.Options;
     onChange?: flatpickr.Options.Hook;
