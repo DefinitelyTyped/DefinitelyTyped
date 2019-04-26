@@ -1,6 +1,6 @@
 import * as React from "react";
 
-type AlertType = "warning" | "error" | "success" | "information";
+export type AlertType = "warning" | "error" | "success" | "information";
 
 export type AlertProps = {
     buttonProps?: { [x: string]: any };

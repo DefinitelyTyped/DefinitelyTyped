@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export type CalendarBaseProps = {
+export interface CalendarBaseProps {
     /* Blocks dates that are in between the blocked dates. */
     blockedDates?: Date[];
     /* Disables dates of a calendar that come after the specified date. */
@@ -17,7 +17,7 @@ export type CalendarBaseProps = {
     disableWeekday?: string[];
     /* Set to **true** to disables dates that match a weekend. */
     disableWeekends?: boolean;
-};
+}
 
 export type CalendarProps = CalendarBaseProps & {
     localizedText?: {

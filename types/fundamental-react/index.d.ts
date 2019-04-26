@@ -1,5 +1,5 @@
-// Type definitions for fundamental-react 0.5.1
-// Project: https://github.com/SAP/fundamental-react
+// Type definitions for fundamental-react 0.5
+// Project: https://sap.github.io/fundamental-react
 // Definitions by: Frank Feinbube <https://github.com/Feinbube>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8

@@ -23,9 +23,9 @@ export type ButtonProps = {
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 } & { [x: string]: any };
 
-export type ButtonGroupProps = {
+export interface ButtonGroupProps {
     [x: string]: any;
-};
+}
 
 export const ButtonGroup: React.FunctionComponent<ButtonGroupProps>;
 export const Button: React.FunctionComponent<ButtonProps>;

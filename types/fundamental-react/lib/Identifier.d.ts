@@ -14,7 +14,15 @@ export type IdentifierProps = {
     /* Localized text for label. */
     label?: string;
     modifier?: IdentifierModifiers;
-    /* Size of the image. These sizes are available: **xxs** (extra extra small) - 20px, **xs** (extra small) - 28px, **s** (small) - 32px, **m** (medium) - 48px, **l** (large) - 64px, **xl** (extra lagre) - 88px, and **xxl** (extra extra large). Default matches the base font size (14px). */
+    /* Size of the image. These sizes are available:
+      **xxs** (extra extra small) - 20px,
+      **xs** (extra small) - 28px,
+      **s** (small) - 32px,
+      **m** (medium) - 48px,
+      **l** (large) - 64px,
+      **xl** (extra lagre) - 88px,
+      and **xxl** (extra extra large).
+    Default matches the base font size (14px). */
     size: IdentifierSizes;
 } & { [x: string]: any };
 

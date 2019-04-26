@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export type TimeBaseProps = {
+export interface TimeBaseProps {
     /* Set to **true** to use the 12-hour clock (hours ranging from 01 to 12) and to display a meridiem control. */
     format12Hours?: boolean;
     /* Enables the input for hours. */
@@ -11,9 +11,12 @@ export type TimeBaseProps = {
     showSecond?: boolean;
     /* Set to **true** to show up/down buttons for each input. */
     spinners?: boolean;
-    /* The time component values. Contains four properties: **hour** (with values from 01 to 12 when `format12Hours` is true or 00 to 23 when `format12Hours` is false), **minute** (with values from 00 to 59), **second** (with values from 00 to 59), **meridiem** (with values 0 for AM or 1 for PM). */
+    /* The time component values. Contains four properties:
+     **hour** (with values from 01 to 12 when `format12Hours` is true or 00 to 23 when `format12Hours` is false),
+     **minute** (with values from 00 to 59), **second** (with values from 00 to 59),
+     **meridiem** (with values 0 for AM or 1 for PM). */
     time?: { hour: string; minute: string; second: string; meridiem: 0 | 1 };
-};
+}
 
 export type TimeProps = TimeBaseProps & {
     disabled?: boolean;

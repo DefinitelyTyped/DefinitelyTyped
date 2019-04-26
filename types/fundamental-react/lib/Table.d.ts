@@ -2,9 +2,9 @@ import * as React from "react";
 
 export type TableProps = {
     /* Array of localized text strings for the column headers. */
-    headers: (string | React.ReactNode)[];
+    headers: Array<string | React.ReactNode>;
     /* Array of objects that contain one property: `rowData` (an array of strings containing data for each column in the row). */
-    tableData?: Array<{ rowData: (string | React.ReactNode)[] }>;
+    tableData?: Array<{ rowData: Array<string | React.ReactNode> }>;
     className?: string;
     /* Additional props to be spread to the `<tbody>` element. */
     tableBodyProps?: { [x: string]: any };
