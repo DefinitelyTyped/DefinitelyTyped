@@ -2,6 +2,7 @@
 // Project: https://github.com/Greenfields/express-async-wrap#readme
 // Definitions by: Remy Oudemans <https://github.com/remyoudemans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 import { NextFunction } from 'connect';
 import { Response, RequestHandler, ErrorRequestHandler, Request } from 'express-serve-static-core';
