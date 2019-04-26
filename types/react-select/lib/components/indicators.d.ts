@@ -2,6 +2,7 @@ import { ComponentType, ReactElement as ElementType } from 'react';
 
 import { colors, spacing } from '../theme';
 import { CommonProps } from '../types';
+import { DefaultSelectComponentsProps } from '../Select';
 
 // ==============================
 // Dropdown & Clear Icons
@@ -14,7 +15,7 @@ export function DownChevron(props: any): any; // TODO svg type
 // Dropdown & Clear Buttons
 // ==============================
 
-export type IndicatorProps<OptionType> = CommonProps<OptionType> & {
+export type IndicatorProps<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> = CommonProps<OptionType, SelectComponentsProps> & {
   /** The children to be rendered inside the indicator. */
   children: ElementType,
   /** Props that will be passed on to the children. */
@@ -52,14 +53,14 @@ export function loadingIndicatorCSS(state: {
   size: number,
 }): React.CSSProperties;
 
-export type LoadingIconProps<OptionType> = {
+export type LoadingIconProps<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> = {
   /** Props that will be passed on to the children. */
   innerProps: any,
   /** The focused state of the select. */
   isFocused: boolean,
   /** Whether the text is right to left */
   isRtl: boolean,
-} & CommonProps<OptionType> & {
+} & CommonProps<OptionType, SelectComponentsProps> & {
   /** Set size of the container. */
   size: number,
 };

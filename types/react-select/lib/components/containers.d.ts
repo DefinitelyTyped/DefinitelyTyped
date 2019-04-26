@@ -1,6 +1,7 @@
 import { Component, ReactNode, ComponentType } from 'react';
 import { spacing } from '../theme';
 import { CommonProps, KeyboardEventHandler } from '../types';
+import { DefaultSelectComponentsProps } from '../Select';
 
 // ==============================
 // Root Container
@@ -13,7 +14,7 @@ export interface ContainerState {
   isRtl: boolean;
 }
 
-export type ContainerProps<OptionType> = CommonProps<OptionType> &
+export type ContainerProps<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> = CommonProps<OptionType, SelectComponentsProps> &
   ContainerState & {
     /** The children to be rendered. */
     children: ReactNode,
@@ -27,7 +28,7 @@ export const SelectContainer: ComponentType<ContainerProps<any>>;
 // Value Container
 // ==============================
 
-export type ValueContainerProps<OptionType> = CommonProps<OptionType> & {
+export type ValueContainerProps<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> = CommonProps<OptionType, SelectComponentsProps> & {
   /** Set when the value container should hold multiple values */
   isMulti: boolean,
   /** Whether the value container currently holds a value. */
@@ -47,7 +48,7 @@ export interface IndicatorsState {
   isRtl: boolean;
 }
 
-export type IndicatorContainerProps<OptionType> = CommonProps<OptionType> &
+export type IndicatorContainerProps<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> = CommonProps<OptionType, SelectComponentsProps> &
   IndicatorsState & {
     /** The children to be rendered. */
     children: ReactNode,

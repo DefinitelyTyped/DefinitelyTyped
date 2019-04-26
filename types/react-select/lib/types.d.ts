@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Props as SelectProps } from './Select';
+import { Props as SelectProps, DefaultSelectComponentsProps } from './Select';
 
 export type OptionsType<OptionType> = OptionType[];
 
@@ -34,7 +34,7 @@ export interface PropsWithStyles {
 export type ClassNameList = string[];
 export type ClassNamesState = { [key: string]: boolean } | undefined;
 
-export interface CommonProps<OptionType> {
+export interface CommonProps<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> {
   clearValue: () => void;
   className?: string;
   cx: (a: string | null, b: ClassNamesState | undefined, c: string | undefined) => string | void;
@@ -49,7 +49,7 @@ export interface CommonProps<OptionType> {
   isMulti: boolean;
   options: OptionsType<OptionType>;
   selectOption: (option: OptionType) => void;
-  selectProps: SelectProps<OptionType>;
+  selectProps: SelectProps<OptionType, SelectComponentsProps>;
   setValue: (value: ValueType<OptionType>, action: ActionTypes) => void;
 }
 

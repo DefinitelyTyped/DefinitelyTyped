@@ -2,6 +2,7 @@ import { ComponentType, ReactNode, MouseEventHandler } from 'react';
 
 import { colors, spacing } from '../theme';
 import { CommonProps, PropsWithStyles, InnerRef } from '../types';
+import { DefaultSelectComponentsProps } from '../Select';
 
 interface State {
   /** Whether the option is disabled. */
@@ -19,8 +20,8 @@ interface InnerProps {
   onMouseOver: MouseEventHandler<HTMLDivElement>;
   tabIndex: number;
 }
-export type OptionProps<OptionType> = PropsWithStyles &
-  CommonProps<OptionType> &
+export type OptionProps<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> = PropsWithStyles &
+  CommonProps<OptionType, SelectComponentsProps> &
   State & {
     /** The children to be rendered. */
     children: ReactNode,

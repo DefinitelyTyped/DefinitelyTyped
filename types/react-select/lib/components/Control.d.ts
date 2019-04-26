@@ -2,6 +2,7 @@ import { ComponentType, ReactNode, Ref as ElementRef } from 'react';
 
 import { borderRadius, colors, spacing } from '../theme';
 import { CommonProps, PropsWithStyles } from '../types';
+import { DefaultSelectComponentsProps } from '../Select';
 
 interface State {
   /** Whether the select is disabled. */
@@ -10,7 +11,7 @@ interface State {
   isFocused: boolean;
 }
 
-export type ControlProps<OptionType> = CommonProps<OptionType> &
+export type ControlProps<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> = CommonProps<OptionType, SelectComponentsProps> &
   PropsWithStyles &
   State & {
     /** Children to render. */

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Select, { Props as SelectProps } from './Select';
+import Select, { Props as SelectProps, DefaultSelectComponentsProps } from './Select';
 import { handleInputChange } from './utils';
 import manageState from './stateManager';
 import { OptionsType, InputActionMeta } from './types';
@@ -18,9 +18,10 @@ export interface AsyncProps<OptionType> {
   cacheOptions?: any;
 }
 
-export type Props<OptionType> = SelectProps<OptionType> & AsyncProps<OptionType>;
+export type Props<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> =
+    SelectProps<OptionType, SelectComponentsProps> & AsyncProps<OptionType>;
 
-export const defaultProps: Props<any>;
+export const defaultProps: Props<any, any>;
 
 export interface State<OptionType> {
   defaultOptions?: OptionsType<OptionType>;
@@ -31,8 +32,8 @@ export interface State<OptionType> {
   passEmptyOptions: boolean;
 }
 
-export class Async<OptionType> extends React.Component<Props<OptionType>, State<OptionType>> {
-  static defaultProps: Props<any>;
+export class Async<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> extends React.Component<Props<OptionType, SelectComponentsProps>, State<OptionType>> {
+  static defaultProps: Props<any, any>;
   select: React.Ref<any>;
   lastRequest: {};
   mounted: boolean;
@@ -44,6 +45,6 @@ export class Async<OptionType> extends React.Component<Props<OptionType>, State<
   handleInputChange: (newValue: string, actionMeta: InputActionMeta) => string;
 }
 
-export function makeAsyncSelect(SelectComponent: React.ComponentType<any>): Async<any>;
+export function makeAsyncSelect(SelectComponent: React.ComponentType<any>): Async<any, any>;
 
 export default Async;

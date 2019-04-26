@@ -169,7 +169,7 @@ class DatePicker extends React.Component<any> {
         components={{ Group, Option }}
         filterOption={null}
         isMulti={false}
-        isOptionSelected={(o, v) => v.some(i => i.date.isSame(o.date, 'day'))}
+        isOptionSelected={(o: any, v: any) => v.some((i: any) => i.date.isSame(o.date, 'day'))}
         maxMenuHeight={380}
         onChange={this.props.onChange}
         onInputChange={this.handleInputChange}

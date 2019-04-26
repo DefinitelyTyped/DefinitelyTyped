@@ -1,6 +1,7 @@
 import { ComponentType, ReactNode } from 'react';
 import { colors, spacing } from '../theme';
 import { CommonProps } from '../types';
+import { DefaultSelectComponentsProps } from '../Select';
 
 interface State {
   /** Whether this is disabled */
@@ -14,7 +15,7 @@ interface ValueProps<OptionType> {
   /** Props passed to the wrapping element for the group. */
   innerProps: any;
 }
-export type SingleValueProps<OptionType> = CommonProps<OptionType> & ValueProps<OptionType> & State;
+export type SingleValueProps<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> = CommonProps<OptionType, SelectComponentsProps> & ValueProps<OptionType> & State;
 
 export function css(props: SingleValueProps<any>): React.CSSProperties;
 

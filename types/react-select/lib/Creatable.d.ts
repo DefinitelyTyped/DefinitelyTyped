@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Select, { Props as SelectProps } from './Select';
+import Select, { Props as SelectProps, DefaultSelectComponentsProps } from './Select';
 import { OptionsType, ValueType, ActionMeta } from './types';
 import { cleanValue } from './utils';
 import manageState from './stateManager';
@@ -26,17 +26,18 @@ export interface CreatableProps<OptionType> {
   createOptionPosition?: 'first' | 'last';
 }
 
-export type Props<OptionType> = SelectProps<OptionType> & CreatableProps<OptionType>;
+export type Props<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> =
+    SelectProps<OptionType, SelectComponentsProps> & CreatableProps<OptionType>;
 
-export const defaultProps: Props<any>;
+export const defaultProps: Props<any, any>;
 
 export interface State<OptionType> {
   newOption: OptionType | undefined;
   options: OptionsType<OptionType>;
 }
 
-export class Creatable<OptionType> extends React.Component<Props<OptionType>, State<OptionType>> {
-  static defaultProps: Props<any>;
+export class Creatable<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> extends React.Component<Props<OptionType, SelectComponentsProps>, State<OptionType>> {
+  static defaultProps: Props<any, any>;
   select: React.Ref<any>;
 
   onChange: (newValue: ValueType<OptionType>, actionMeta: ActionMeta) => void;
@@ -44,6 +45,6 @@ export class Creatable<OptionType> extends React.Component<Props<OptionType>, St
   blur(): void;
 }
 
-export function makeCreatableSelect(SelectComponent: React.ComponentType<any>): Creatable<any>;
+export function makeCreatableSelect(SelectComponent: React.ComponentType<any>): Creatable<any, any>;
 
 export default Creatable;

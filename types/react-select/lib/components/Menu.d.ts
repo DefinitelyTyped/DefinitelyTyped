@@ -22,6 +22,7 @@ import {
   MenuPosition,
   CommonProps,
 } from '../types';
+import { DefaultSelectComponentsProps } from '../Select';
 
 // ==============================
 // Menu
@@ -45,7 +46,7 @@ export function getMenuPlacement(args: PlacementArgs): MenuState;
 // Menu Component
 // ------------------------------
 
-export type MenuProps<OptionType> = CommonProps<OptionType> & {
+export type MenuProps<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> = CommonProps<OptionType, SelectComponentsProps> & {
   /** The children to be rendered. */
   children: ReactElement,
   /** Callback to update the portal after possible flip. */
@@ -93,7 +94,7 @@ export interface MenuListProps {
   /** Inner ref to DOM Node */
   innerRef: InnerRef;
 }
-export type MenuListComponentProps<OptionType> = CommonProps<OptionType> &
+export type MenuListComponentProps<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> = CommonProps<OptionType, SelectComponentsProps> &
   MenuListProps &
   MenuListState;
 export function menuListCSS(state: MenuState): React.CSSProperties;
@@ -106,7 +107,7 @@ export const MenuList: ComponentType<MenuListComponentProps<any>>;
 export function noOptionsMessageCSS(): React.CSSProperties;
 export function loadingMessageCSS(): React.CSSProperties;
 
-export type NoticeProps<OptionType> = CommonProps<OptionType> & {
+export type NoticeProps<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> = CommonProps<OptionType, SelectComponentsProps> & {
   /** The children to be rendered. */
   children: ReactNode,
   /** Props to be passed on to the wrapper. */
@@ -127,7 +128,7 @@ export const LoadingMessage: ComponentType<NoticeProps<any>>;
 // Menu Portal
 // ==============================
 
-export type MenuPortalProps<OptionType> = CommonProps<OptionType> & {
+export type MenuPortalProps<OptionType, SelectComponentsProps = DefaultSelectComponentsProps> = CommonProps<OptionType, SelectComponentsProps> & {
   appendTo: HTMLElement,
   children: ReactNode, // ideally Menu<MenuProps>
   controlElement: HTMLElement,
