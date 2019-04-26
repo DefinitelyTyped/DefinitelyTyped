@@ -20,6 +20,7 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Jonas Keisel <https://github.com/0xJoKe>
 //                 Andrew Delianides <https://github.com/delianides>
+//                 Joshua Feltimo <https://github.com/opticalgenesis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -3478,6 +3479,11 @@ declare namespace Stripe {
             currency: string;
 
             /**
+             * The ID Of the payment method to attach to the PaymentIntent
+             */
+            payment_method?: string;
+
+            /**
              * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
              */
             payment_method_types: string[];
@@ -3496,6 +3502,11 @@ declare namespace Stripe {
              * Attempt to confirm this PaymentIntent immediately. If the payment method attached is a card, a return_url must be provided in case additional authentication is required.
              */
             confirm?: boolean;
+
+            /**
+             * If automatic, the PaymentIntent can be confirmed client side with publishable key. If manual, confirmation must be done server side
+             */
+            confirmation_method?: 'automatic' | 'manual';
 
             /**
              * ID of the customer this PaymentIntent is for if one exists.
