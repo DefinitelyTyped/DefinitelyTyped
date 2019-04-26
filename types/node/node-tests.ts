@@ -482,7 +482,12 @@ import Module = require("module");
     https.globalAgent.options.ca = [];
 
     {
-        function reqListener(req: http.IncomingMessage, res: http.ServerResponse): void {}
+        function reqListener(req: http.IncomingMessage, res: http.ServerResponse): void {
+            res.end();
+            res.end('foo');
+            res.end('foo', () => undefined);
+            res.end('foo', 'utf8', () => undefined);
+        }
 
         class MyIncomingMessage extends http.IncomingMessage {
             foo: number;
