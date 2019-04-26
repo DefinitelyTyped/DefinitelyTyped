@@ -11,8 +11,21 @@ export const ENTERED = 'entered';
 export const EXITING = 'exiting';
 
 export interface TransitionActions {
+    /**
+     * Normally a component is not transitioned if it is shown when the
+     * `<Transition>` component mounts. If you want to transition on the first
+     * mount set  appear to true, and the component will transition in as soon
+     * as the `<Transition>` mounts. Note: there are no specific "appear" states.
+     * appear only adds an additional enter transition.
+     */
     appear?: boolean;
+    /**
+     * Enable or disable enter transitions.
+     */
     enter?: boolean;
+    /**
+     * Enable or disable exit transitions.
+     */
     exit?: boolean;
 }
 
@@ -24,18 +37,94 @@ export type TransitionStatus =
     typeof UNMOUNTED;
 export type TransitionChildren = React.ReactNode | ((status: TransitionStatus) => React.ReactNode);
 export interface TransitionProps extends TransitionActions {
+    /**
+     * Show the component; triggers the enter or exit states
+     */
     in?: boolean;
+    /**
+     * By default the child component is mounted immediately along with the
+     * parent Transition component. If you want to "lazy mount" the component on
+     * the first `in={true}` you can set `mountOnEnter`. After the first enter
+     * transition the component will stay mounted, even on "exited", unless you
+     * also specify `unmountOnExit`.
+     */
     mountOnEnter?: boolean;
+    /**
+     * By default the child component stays mounted after it reaches the
+     * 'exited' state. Set `unmountOnExit` if you'd prefer to unmount the
+     * component after it finishes exiting.
+     */
     unmountOnExit?: boolean;
+    /**
+     * The duration of the transition, in milliseconds. Required unless addEndListener is provided.
+     *
+     * You may specify a single timeout for all transitions:
+     * ```js
+     *   timeout={500}
+     * ```
+     * or individually:
+     * ```js
+     * timeout={{
+     *  appear: 500,
+     *  enter: 300,
+     *  exit: 500,
+     * }}
+     * ```
+     * - appear defaults to the value of `enter`
+     * - enter defaults to `0`
+     * - exit defaults to `0`
+     */
     timeout: number | { enter?: number, exit?: number };
+    /**
+     * Add a custom transition end trigger. Called with the transitioning DOM
+     * node and a done callback. Allows for more fine grained transition end
+     * logic. Note: Timeouts are still used as a fallback if provided.
+     */
     addEndListener?: EndHandler;
+    /**
+     * Callback fired before the "entering" status is applied. An extra
+     * parameter `isAppearing` is supplied to indicate if the enter stage is
+     * occurring on the initial mount
+     */
     onEnter?: EnterHandler;
+    /**
+     * Callback fired after the "entering" status is applied. An extra parameter
+     * isAppearing is supplied to indicate if the enter stage is occurring on
+     * the initial mount
+     */
     onEntering?: EnterHandler;
+    /**
+     * Callback fired after the "entered" status is applied. An extra parameter
+     * isAppearing is supplied to indicate if the enter stage is occurring on
+     * the initial mount
+     */
     onEntered?: EnterHandler;
+    /**
+     * Callback fired before the "exiting" status is applied.
+     */
     onExit?: ExitHandler;
+    /**
+     * Callback fired after the "exiting" status is applied.
+     */
     onExiting?: ExitHandler;
+    /**
+     * Callback fired after the "exited" status is applied.
+     */
     onExited?: ExitHandler;
-    [prop: string]: any;
+    [ prop: string ]: any;
+    /**
+     * A function child can be used instead of a React element. This function is
+     * called with the current transition status ('entering', 'entered',
+     * 'exiting',  'exited', 'unmounted'), which can be used to apply context
+     * specific props to a component.
+     * ```js
+     *    <Transition in={this.state.in} timeout={150}>
+     *        {state => (
+     *            <MyComponent className={`fade fade-${state}`} />
+     *        )}
+     *    </Transition>
+     * ```
+     */
     children?: TransitionChildren;
 }
 
@@ -50,7 +139,7 @@ export interface TransitionProps extends TransitionActions {
  * It's up to you to give meaning and effect to those states. For example we can
  * add styles to a component when it enters or exits:
  *
- * ```jsx
+ * ```js
  * import Transition from 'react-transition-group/Transition';
  *
  * const duration = 300;
