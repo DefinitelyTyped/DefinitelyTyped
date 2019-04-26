@@ -4,14 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import Crawler from './crawler';
-import * as queue from './queue';
-import * as cache from './cache';
+export as namespace simplecrawler;
 
-export default Crawler;
-export { queue, cache };
+import Crawler = require('./crawler');
 
-/**
- * @deprecated
- */
-export function crawl(): never;
+export = Crawler;

@@ -1,4 +1,4 @@
-import Crawler from "simplecrawler";
+import Crawler = require('simplecrawler');
 
 const crawler = new Crawler('https://github.com/');
 crawler.initialURL; // $ExpectType string
