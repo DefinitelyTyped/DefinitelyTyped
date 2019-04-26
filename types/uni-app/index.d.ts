@@ -209,7 +209,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=setstoragesync](http://uniapp.dcloud.io/api/storage/storage?id=setstoragesync)
      */
-    setStorageSync(key: string): string | any;
+    setStorageSync(key: string): any;
     /**
      * 从本地缓存中异步获取指定 key 对应的内容
      *
@@ -221,7 +221,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=getstoragesync](http://uniapp.dcloud.io/api/storage/storage?id=getstoragesync)
      */
-    getStorageSync(key: string): string | any;
+    getStorageSync(key: string): any;
     /**
      * 异步获取当前storage的相关信息
      *
@@ -245,7 +245,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=removestoragesync](http://uniapp.dcloud.io/api/storage/storage?id=removestoragesync)
      */
-    removeStorageSync(key: string): string | any;
+    removeStorageSync(key: string): any;
     /**
      * 清理本地数据缓存
      *
@@ -2503,7 +2503,7 @@ interface MapContext {
     /**
      * 获取原生地图对象
      */
-    $getAppMap(): PlusMapsMap;
+    $getAppMap(): object;
 }
 
 interface MapContextGetCenterLocationOptions {
