@@ -24,6 +24,11 @@ import {
   TypeParserType,
   UniqueIntegrityConstraintViolationError
 } from 'slonik';
+import { ArrayTokenSymbol, TupleListTokenSymbol } from 'slonik/symbols';
+
+// make sure symbols are unique
+// $ExpectError
+const badSymbolAssignment: typeof ArrayTokenSymbol = TupleListTokenSymbol;
 
 const VALUE = 'foo';
 

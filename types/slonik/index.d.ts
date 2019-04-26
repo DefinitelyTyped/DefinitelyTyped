@@ -33,6 +33,16 @@ export interface IdentifierTokenType {
     type: typeof SlonikSymbol.IdentifierTokenSymbol;
 }
 
+export type IdentifierListMemberType = string[] | {
+    alias: string
+    identifier: string[]
+}
+
+export interface IdentifierListTokenType {
+    identifiers: IdentifierListMemberType[]
+    type: typeof SlonikSymbol.IdentifierListTokenSymbol
+}
+
 export interface SqlSqlTokenType {
     sql: string;
     type: typeof SlonikSymbol.SqlTokenSymbol;
@@ -48,6 +58,12 @@ export interface RawSqlTokenType {
 export interface ValueListSqlTokenType {
     values: PrimitiveValueExpressionType[];
     type: typeof SlonikSymbol.ValueListTokenSymbol;
+}
+
+export interface ArraySqlTokenType {
+    memberType: string;
+    type: typeof SlonikSymbol.ArrayTokenSymbol;
+    values: PrimitiveValueExpressionType[];
 }
 
 export interface TupleSqlTokenType {
