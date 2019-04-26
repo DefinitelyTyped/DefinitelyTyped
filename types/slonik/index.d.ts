@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import {Readable} from 'stream';
+import { Readable } from 'stream';
 import * as SlonikSymbol from './symbols';
 
 //
@@ -34,11 +34,11 @@ export interface IdentifierTokenType {
 export type IdentifierListMemberType = string[] | {
     alias: string
     identifier: string[]
-}
+};
 
 export interface IdentifierListTokenType {
-    identifiers: IdentifierListMemberType[]
-    type: typeof SlonikSymbol.IdentifierListTokenSymbol
+    identifiers: IdentifierListMemberType[];
+    type: typeof SlonikSymbol.IdentifierListTokenSymbol;
 }
 
 export interface SqlSqlTokenType {
@@ -80,23 +80,23 @@ export interface UnnestSqlTokenType {
     type: typeof SlonikSymbol.UnnestTokenSymbol;
 }
 
-export type ComparisonPredicateTokenType = {
-    leftOperand: ValueExpressionType,
-    operator: ComparisonOperatorType,
-    rightOperand: ValueExpressionType,
-    type: typeof SlonikSymbol.ComparisonPredicateTokenSymbol
-};
+export interface ComparisonPredicateTokenType {
+    leftOperand: ValueExpressionType;
+    operator: ComparisonOperatorType;
+    rightOperand: ValueExpressionType;
+    type: typeof SlonikSymbol.ComparisonPredicateTokenSymbol;
+}
 
-export type BooleanExpressionTokenType = {
-    members: ValueExpressionType[],
-    operator: LogicalBooleanOperatorType,
-    type: typeof SlonikSymbol.ComparisonPredicateTokenSymbol
-};
+export interface BooleanExpressionTokenType {
+    members: ValueExpressionType[];
+    operator: LogicalBooleanOperatorType;
+    type: typeof SlonikSymbol.ComparisonPredicateTokenSymbol;
+}
 
-export type AssignmentListTokenType = {
-    namedAssignment: NamedAssignmentType,
-    type: typeof SlonikSymbol.ComparisonPredicateTokenSymbol
-};
+export interface AssignmentListTokenType {
+    namedAssignment: NamedAssignmentType;
+    type: typeof SlonikSymbol.ComparisonPredicateTokenSymbol;
+}
 
 export type PrimitiveValueExpressionType = string | number | boolean | null;
 
@@ -118,7 +118,7 @@ export type ValueExpressionType =
     SqlTokenType |
     PrimitiveValueExpressionType;
 
-export type NamedAssignmentType = Record<string, ValueExpressionType>
+export type NamedAssignmentType = Record<string, ValueExpressionType>;
 
 //
 // DATABASE
@@ -301,46 +301,45 @@ export interface SqlTaggedTemplateType {
     array: (
         values: PrimitiveValueExpressionType[],
         memberType: string
-    ) => ArraySqlTokenType,
+    ) => ArraySqlTokenType;
     assignmentList: (
         namedAssignmentValueBindings: NamedAssignmentType
-    ) => AssignmentListTokenType,
+    ) => AssignmentListTokenType;
     booleanExpression: (
         members: ValueExpressionType[],
         operator: LogicalBooleanOperatorType
-    ) => BooleanExpressionTokenType,
+    ) => BooleanExpressionTokenType;
     comparisonPredicate: (
         leftOperand: ValueExpressionType,
         operator: ComparisonOperatorType,
         rightOperand: ValueExpressionType
-    ) => ComparisonPredicateTokenType,
+    ) => ComparisonPredicateTokenType;
     identifier: (
         names: string[]
-    ) => IdentifierTokenType,
+    ) => IdentifierTokenType;
     identifierList: (
         identifiers: IdentifierListMemberType[]
-    ) => IdentifierListTokenType,
+    ) => IdentifierListTokenType;
     raw: (
         rawSql: string,
         values?: PrimitiveValueExpressionType[]
-    ) => RawSqlTokenType,
+    ) => RawSqlTokenType;
     tuple: (
         values: ValueExpressionType[]
-    ) => TupleSqlTokenType,
+    ) => TupleSqlTokenType;
     tupleList: (
         tuples: ValueExpressionType[][]
-    ) => TupleListSqlTokenType,
+    ) => TupleListSqlTokenType;
     unnest: (
-
         // Value might be PrimitiveValueExpressionType[],
         // or it can be infinitely nested array, e.g.
         // https://github.com/gajus/slonik/issues/44
         tuples: any[][],
         columnTypes: string[]
-    ) => UnnestSqlTokenType,
+    ) => UnnestSqlTokenType;
     valueList: (
         values: ValueExpressionType[]
-    ) => ValueListSqlTokenType
+    ) => ValueListSqlTokenType;
 }
 
 export interface SqlFragmentType {
