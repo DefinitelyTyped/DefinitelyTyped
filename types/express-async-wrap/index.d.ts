@@ -15,4 +15,4 @@ declare function asyncWrap(
   handler: (err: any, req: Request, res: Response, next: NextFunction) => Promise<void>,
 ): ErrorRequestHandler;
 
-export = asyncWrap;
+export default asyncWrap;
