@@ -16,6 +16,7 @@ export interface Validation extends Vue {
     readonly $error: boolean
     readonly $pending: boolean
     readonly $params: { [attr: string]: any }
+    $model: any
 
     // const validationMethods
     $touch(): never

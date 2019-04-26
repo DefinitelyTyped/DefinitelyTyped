@@ -1,6 +1,9 @@
-// Type definitions for URI.js 1.15.1
+// Type definitions for URI.js 1.19.1
 // Project: https://github.com/medialize/URI.js
-// Definitions by: RodneyJT <https://github.com/RodneyJT>, Brian Surowiec <https://github.com/xt0rted>, Pete Johanson <https://github.com/petejohanson>
+// Definitions by: RodneyJT <https://github.com/RodneyJT>
+//                 Brian Surowiec <https://github.com/xt0rted>
+//                 Pete Johanson <https://github.com/petejohanson>
+//                 Zhibin Liu <https://github.com/ljqx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -51,7 +54,24 @@ declare namespace uri {
         href(): string;
         href(url: string): void;
 
-        is(qry: string): boolean;
+        is(qry:
+            'relative' |
+            'absolute' |
+            'urn' |
+            'url' |
+            'domain' |
+            'name' |
+            'sld' |
+            'idn' |
+            'punycode' |
+            'ip' |
+            'ip4' |
+            'ipv4' |
+            'inet4' |
+            'ip6' |
+            'ipv6' |
+            'inet6'
+        ): boolean;
         iso8859(): URI;
 
         normalize(): URI;
@@ -147,6 +167,11 @@ declare namespace uri {
         path?: string;
         query?: string;
         fragment?: string;
+        urn?: boolean;
+    }
+
+    interface Parts extends URIOptions {
+        preventInvalidHostname: boolean;
     }
 
     interface URIStatic {
@@ -159,16 +184,7 @@ declare namespace uri {
         addQuery(data: Object, prop: string, value: string): Object;
         addQuery(data: Object, qryObj: Object): Object;
 
-        build(parts: {
-            protocol: string;
-            username: string;
-            password: string;
-            hostname: string;
-            port: string;
-            path: string;
-            query: string;
-            fragment: string;
-        }): string;
+        build(parts: URIOptions): string;
         buildAuthority(parts: {
             username?: string;
             password?: string;
@@ -200,16 +216,7 @@ declare namespace uri {
 
         joinPaths(...paths: (string | URI)[]): URI;
 
-        parse(url: string): {
-            protocol: string;
-            username: string;
-            password: string;
-            hostname: string;
-            port: string;
-            path: string;
-            query: string;
-            fragment: string;
-        };
+        parse(url: string): Parts;
         parseAuthority(url: string, parts: {
             username?: string;
             password?: string;

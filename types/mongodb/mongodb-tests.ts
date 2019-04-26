@@ -33,7 +33,8 @@ const options: mongodb.MongoClientOptions = {
     promoteBuffers: false,
     useNewUrlParser: false,
     authMechanism: 'SCRAM-SHA-1',
-    forceServerObjectId: false
+    forceServerObjectId: false,
+    promiseLibrary: Promise,
 };
 
 mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError, client: mongodb.MongoClient) => {
@@ -315,5 +316,31 @@ mongodb.connect(connectionString).then((client) => {
     client.startSession();
     client.withSession(session =>
         runTransactionWithRetry(updateEmployeeInfo, client, session)
+    );
+});
+
+// https://docs.mongodb.com/manual/core/map-reduce/
+
+// Declare emit function to be called inside map function
+declare function emit(key: any, value: any): void;
+
+interface ITestMapReduceSchema {
+    cust_id: string;
+    amount: number;
+    status: string;
+}
+
+function testCollectionMapFunction(this: ITestMapReduceSchema) {
+    emit(this.cust_id, this.amount);
+}
+
+function testCollectionReduceFunction(_key: string, values: number[]): number {
+    return values.reduce((a, v) => a + v, 0);
+}
+
+mongodb.connect(connectionString).then((client) => {
+    client.db("test").collection<ITestMapReduceSchema>('test-mapReduce-collection').mapReduce(
+        testCollectionMapFunction,
+        testCollectionReduceFunction
     );
 });

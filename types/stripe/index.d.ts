@@ -886,6 +886,13 @@ declare namespace Stripe {
             receipt_number: string | null;
 
             /**
+             * This is the URL to view the receipt for this charge. The receipt is kept up-to-date to the
+             * latest state of the charge, including any refunds. If the charge is for an Invoice, the
+             * receipt will be stylized as an Invoice receipt.
+             */
+            receipt_url: string;
+
+            /**
              * Whether or not the charge has been fully refunded. If the charge is only partially refunded,
              * this attribute will still be false.
              */
@@ -1501,6 +1508,11 @@ declare namespace Stripe {
              */
             email?: string;
 
+            /**
+             * The prefix for the customer used to generate unique invoice numbers.
+             */
+            invoice_prefix?: string;
+
             shipping?: IShippingInformation;
 
             /**
@@ -1959,8 +1971,19 @@ declare namespace Stripe {
             /**
              * The fee in cents that will be applied to the invoice and transferred to the application owner's
              * Stripe account when the invoice is paid.
+             *
+             * @deprecated Stripe API Version 2019-03-14 changed the name of this property
+             * @see application_fee_amount
              */
             application_fee: number;
+
+            /**
+             * The fee in pence that will be applied to the invoice and transferred to the application owner’s
+             * Stripe account when the invoice is paid.
+             *
+             * @since Stripe API Version 2019-03-14
+             */
+            application_fee_amount: number;
 
             /**
              * Number of payment attempts made for this invoice, from the perspective of the payment retry schedule. Any
@@ -1985,12 +2008,24 @@ declare namespace Stripe {
             auto_advance: boolean;
 
             /**
-             * Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
+             * Either `charge_automatically`, or `send_invoice`. When charging automatically,
+             * Stripe will attempt to pay this invoice using the default source attached to the
+             * customer. When sending an invoice, Stripe will email this invoice to the customer
+             * with payment instructions.
              */
             billing: "charge_automatically" | "send_invoice";
 
             /**
-             * Indicates the reason why the invoice was created. subscription_cycle indicates an invoice created by a subscription advancing into a new period. subscription_create indicates an invoice created due to creating a subscription. subscription_update indicates an invoice created due to creating or updating a subscription. subscription is set for all old invoices to indicate either a change to a subscription or a period advancement. manual is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The upcoming value is reserved for simulated invoices per the upcoming invoice endpoint. subscription_threshold indicates an invoice created due to a billing threshold being reached.
+             * Indicates the reason why the invoice was created. `subscription_cycle` indicates an
+             * invoice created by a subscription advancing into a new period.
+             * `subscription_create` indicates an invoice created due to creating a subscription.
+             * `subscription_update` indicates an invoice created due to creating or updating a
+             * subscription. `subscription` is set for all old invoices to indicate either a change
+             * to a subscription or a period advancement. `manual` is set for all invoices
+             * unrelated to a subscription (for example: created via the invoice editor). The
+             * `upcoming` value is reserved for simulated invoices per the upcoming invoice
+             * endpoint. `subscription_threshold` indicates an invoice created due to a billing
+             * threshold being reached.
              */
             billing_reason: "subscription_cycle" | "subscription_create" | "subscription_update" | "subscription" | "manual" | "upcoming" | "subscription_threshold";
 
@@ -2006,11 +2041,21 @@ declare namespace Stripe {
             closed: boolean;
 
             /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
              * Three-letter ISO currency code, in lowercase. Must be a supported currency.
              */
             currency: string;
 
-            customer: string;
+            /**
+             * Custom fields displayed on the invoice.
+             */
+            custom_fields: ICustomField[];
+
+            customer: string | customers.ICustomer;
 
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -2018,14 +2063,23 @@ declare namespace Stripe {
             date: number;
 
             /**
+             * ID of the default payment source for the invoice. It must belong to the customer
+             * associated with the invoice and be in a chargeable state. If not set, defaults to
+             * the subscription’s default source, if any, or to the customer’s default source.
+             */
+            default_source: string;
+
+            /**
              * An arbitrary string attached to the object. Often useful for displaying to users.
+             * Referenced as ‘memo’ in the Dashboard.
              */
             description: string;
 
             discount: coupons.IDiscount | null;
 
             /**
-             * The date on which payment for this invoice is due. This value will be null for invoices where billing=charge_automatically.
+             * The date on which payment for this invoice is due. This value will be `null` for
+             * invoices where `billing=charge_automatically`.
              */
             due_date: number | null;
 
@@ -2043,19 +2097,27 @@ declare namespace Stripe {
             forgiven: boolean;
 
             /**
-             * The URL for the hosted invoice page, which allows customers to view and pay an invoice. If the invoice has not been frozen yet, this will be null.
+             * Footer displayed on the invoice.
+             */
+            footer: string;
+
+            /**
+             * The URL for the hosted invoice page, which allows customers to view and pay an
+             * invoice. If the invoice has not been finalized yet, this will be null.
              */
             hosted_invoice_url: string | null;
 
             /**
-             * The link to download the PDF for the invoice. If the invoice has not been frozen yet, this will be null.
+             * The link to download the PDF for the invoice. If the invoice has not been finalized
+             * yet, this will be null.
              */
             invoice_pdf: string | null;
 
             /**
              * The individual line items that make up the invoice.
              *
-             * lines is sorted as follows: invoice items in reverse chronological order, followed by the subscription, if any.
+             * `lines` is sorted as follows: invoice items in reverse chronological order, followed
+             * by the subscription, if any.
              */
             lines: IList<IInvoiceLineItem>;
 
@@ -2112,6 +2174,16 @@ declare namespace Stripe {
             statement_descriptor: string;
 
             /**
+             * The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`.
+             */
+            status: "draft" | "open" | "paid" | "uncollectible" | "void";
+
+            /**
+             * Contains the timestamps when an invoice was finalized, paid, marked uncollectible, or voided
+             */
+            status_transitions: IStatusTransitions;
+
+            /**
              * The subscription that this invoice was prepared for, if any.
              */
             subscription: string | subscriptions.ISubscription;
@@ -2138,6 +2210,12 @@ declare namespace Stripe {
              * before the invoice is paid. This field defaults to null.
              */
             tax_percent: number | null;
+
+            /**
+             * If `billing_reason` is set to `subscription_threshold` this returns more information
+             * on which threshold rules triggered the invoice.
+             */
+            threshold_reason: IThresholdReason;
 
             /**
              * Total after discount
@@ -2214,6 +2292,11 @@ declare namespace Stripe {
              * type is already subscription, as it'd be redundant with id.
              */
             subscription: string;
+
+            /**
+             * The subscription item that generated this invoice item. Left empty if the line item is not an explicit result of a subscription.
+             */
+            subscription_item: string;
 
             /**
              * A string identifying the type of the source of this line item, either an invoiceitem or a subscription
@@ -2413,6 +2496,11 @@ declare namespace Stripe {
             created?: IDateFilter;
 
             /**
+             * @deprecated Use created property instead as of api version 2019-03-14.
+             */
+            date?: IDateFilter;
+
+            /**
              * The identifier of the customer whose invoices to return. If none is provided, all invoices will be returned.
              */
             customer?: string;
@@ -2507,6 +2595,58 @@ declare namespace Stripe {
              * The period end date
              */
             end: number;
+        }
+
+        interface ICustomField {
+            /**
+             * The name of the custom field.
+             */
+            name: string;
+            /**
+             * The value of the custom field.
+             */
+            value: string;
+        }
+
+        interface IStatusTransitions {
+            /**
+             * The time that the invoice draft was finalized.
+             */
+            finalized_at: number;
+            /**
+             * The time that the invoice was marked uncollectible.
+             */
+            marked_uncollectible_at: number;
+            /**
+             * The time that the invoice was paid.
+             */
+            paid_at: number;
+            /**
+             * The time that the invoice was voided.
+             */
+            voided_at: number;
+        }
+
+        interface IThresholdReason {
+            /**
+             * The total invoice amount threshold boundary if it triggered the threshold invoice.
+             */
+            amount_gte: number;
+            /**
+             * Indicates which line items triggered a threshold invoice.
+             */
+            item_reasons: IItemReason[];
+        }
+
+        interface IItemReason {
+            /**
+             * The IDs of the line items that triggered the threshold invoice.
+             */
+            line_item_ids: string[];
+            /**
+             * The quantity threshold boundary that applied to the given line item.
+             */
+            usage_gte: number;
         }
     }
 
@@ -5161,7 +5301,7 @@ declare namespace Stripe {
     }
 
     namespace subscriptions {
-        type SubscriptionStatus = "trialing" | "active" | "past_due" | "canceled" | "unpaid";
+        type SubscriptionStatus = "incomplete" | "incomplete_expired" | "trialing" | "active" | "past_due" | "canceled" | "unpaid";
         type SubscriptionBilling = "charge_automatically" | "send_invoice";
         /**
          * Subscriptions allow you to charge a customer's card on a recurring basis. A subscription ties a customer to
@@ -5243,13 +5383,29 @@ declare namespace Stripe {
             start: number;
 
             /**
-             * Possible values are "trialing", "active", "past_due", "canceled", or "unpaid". A subscription still in its trial period is trialing
-             * and moves to active when the trial period is over. When payment to renew the subscription fails, the subscription becomes
-             * past_due. After Stripe has exhausted all payment retry attempts, the subscription ends up with a status of either canceled
-             * or unpaid depending on your retry settings. Note that when a subscription has a status of unpaid, no subsequent invoices
-             * will be attempted (invoices will be created, but then immediately automatically closed. Additionally, updating customer
-             * card details will not lead to Stripe retrying the latest invoice.). After receiving updated card details from a customer,
-             * you may choose to reopen and pay their closed invoices.
+             * Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`,
+             * `past_due`, `canceled`, or `unpaid`.
+             *
+             * For `billing=charge_automatically` a subscription moves into `incomplete` if the
+             * initial payment attempt fails. A subscription in this state can only have metadata
+             * and default_source updated. Once the first invoice is paid, the subscription moves
+             * into an `active` state. If the first invoice is not paid within 23 hours, the
+             * subscription transitions to `incomplete_expired`. This is a terminal state, the open
+             * invoice will be voided and no further invoices will be generated.
+             *
+             * A subscription that is currently in a trial period is `trialing` and moves to
+             * `active` when the trial period is over.
+             *
+             * If subscription `billing=charge_automatically` it becomes `past_due` when payment to
+             * renew it fails and `canceled` or `unpaid` (depending on your subscriptions settings)
+             * when Stripe has exhausted all payment retry attempts.
+             *
+             * If subscription `billing=send_invoice` it becomes `past_due` when its invoice is not
+             * paid by the due date, and `canceled` or `unpaid` if it is still not paid by an
+             * additional deadline after that. Note that when a subscription has a status of
+             * `unpaid`, no subsequent invoices will be attempted (invoices will be created, but
+             * then immediately automatically closed). After receiving updated payment information
+             * from a customer, you may choose to reopen and pay their closed invoices.
              */
             status: SubscriptionStatus;
 

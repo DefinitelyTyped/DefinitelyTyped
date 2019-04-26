@@ -41,7 +41,7 @@ declare namespace umzug {
          * See https://github.com/sequelize/umzug/tree/master/test/fixtures
          * for examples.
          */
-        customResolver?(path: string): { up: () => Promise<any>, down?: () => Promise<any> };
+        customResolver?(path: string): { up: () => PromiseLike<any>, down?: () => PromiseLike<any> };
 
     }
 

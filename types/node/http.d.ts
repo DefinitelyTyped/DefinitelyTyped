@@ -7,6 +7,7 @@ declare module "http" {
     // incoming headers will never contain number
     interface IncomingHttpHeaders {
         'accept'?: string;
+        'accept-language'?: string;
         'accept-patch'?: string;
         'accept-ranges'?: string;
         'access-control-allow-credentials'?: string;
@@ -179,6 +180,7 @@ declare module "http" {
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
+        complete: boolean;
         connection: Socket;
         headers: IncomingHttpHeaders;
         rawHeaders: string[];
