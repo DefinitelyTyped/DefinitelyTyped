@@ -418,11 +418,17 @@ declare module "../index" {
     interface Stat {
         includes<T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: T, fromIndex?: number ): boolean;
     }
-    interface Imp<TValue> {
-        includes( target: TValue, fromIndex?: number ): boolean;
+    interface ImpO<T> {
+        includes(target: T[keyof T], fromIndex?: number): boolean;
     }
-    interface Exp<TValue> {
-        includes( target: TValue, fromIndex?: number ): Exp<boolean>;
+    interface ImpL<T> {
+        includes( target: T, fromIndex?: number ): boolean;
+    }
+    interface ExpO<T> {
+        includes(target: T[keyof T], fromIndex?: number): boolean;
+    }
+    interface ExpL<T> {
+        includes( target: T, fromIndex?: number ): boolean;
     }
     interface Stat {
         invokeMap( collection: object | null | undefined, methodName: string, ...args: any[]): any[];
