@@ -830,6 +830,7 @@ describe("", () => {
         expect({ abc: "def" }).toMatchObject({ abc: "def" });
         expect({}).toMatchObject([{}, {}]);
         expect({ abc: "def" }).toMatchObject([{ abc: "def" }, { invalid: "property" }]);
+        expect({abc: "def"}).toMatchObject<{abc: string}>({abc: "def"});
 
         expect({}).toMatchSnapshot();
         expect({}).toMatchSnapshot("snapshotName");
