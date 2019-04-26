@@ -1,4 +1,4 @@
-// Type definitions for stripe 6.25
+// Type definitions for stripe 6.31
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -3486,7 +3486,7 @@ declare namespace Stripe {
             /**
              * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
              */
-            payment_method_types: string[];
+            payment_method_types?: string[];
 
             /**
              * The amount of the application fee in cents (if any) that will be applied to the payment and transferred to the application owner’s Stripe account. To use an application fee, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key.
