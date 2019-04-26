@@ -1,0 +1,18 @@
+import * as React from "react";
+
+export type InlineHelpPlacement =
+    | "bottom-right"
+    | "bottom-left"
+    | "right"
+    | "left"
+    | "bottom-center";
+
+export type InlineHelpProps = {
+    /* Location to display the inline help pop-up relative to the image. */
+    placement: InlineHelpPlacement;
+    /* Localized text to display in the inline help pop-up. */
+    text: string;
+    className?: string;
+} & { [x: string]: any };
+
+export const InlineHelp: React.FunctionComponent<InlineHelpProps>;
