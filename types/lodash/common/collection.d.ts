@@ -7,14 +7,20 @@ declare module "../index" {
     interface ImpO<T> {
         countBy(iteratee?: ValueIteratee<T[keyof T]>): Imp<Dictionary<number>>;
     }
-    interface Imp<TValue> {
-        countBy(iteratee?: ValueIteratee<TValue>): Imp<Dictionary<number>>;
+    interface ImpS {
+        countBy(iteratee?: ValueIteratee<string>): Imp<Dictionary<number>>;
+    }
+    interface ImpL<T> {
+        countBy(iteratee?: ValueIteratee<T>): Imp<Dictionary<number>>;
     }
     interface ExpO<T> {
-        countBy( iteratee?: ValueIteratee<T[keyof T]> ): Exp<Dictionary<number>>;
+        countBy(iteratee?: ValueIteratee<T[keyof T]>): Exp<Dictionary<number>>;
     }
-    interface Exp<TValue> {
-        countBy(iteratee?: ValueIteratee<TValue>): Exp<Dictionary<number>>;
+    interface ExpS {
+        countBy(iteratee?: ValueIteratee<string>): Exp<Dictionary<number>>;
+    }
+    interface ExpL<T> {
+        countBy(iteratee?: ValueIteratee<T>): Exp<Dictionary<number>>;
     }
     interface Stat {
         each: typeof _.forEach;

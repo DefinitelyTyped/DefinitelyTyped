@@ -50,7 +50,7 @@ declare module "../index" {
     }
     interface ImpS extends Imp<string> {
     }
-    interface ImpO<T> extends Imp<object> {
+    interface ImpO<T> extends Imp<T> {
     }
     interface ImpL<T> extends Imp<T> {
     }
@@ -60,7 +60,7 @@ declare module "../index" {
     }
     interface ExpS extends Exp<string> {
     }
-    interface ExpO<T> extends Exp<object> {
+    interface ExpO<T> extends Exp<T> {
     }
     interface ExpL<T> extends Exp<T> {
     }
