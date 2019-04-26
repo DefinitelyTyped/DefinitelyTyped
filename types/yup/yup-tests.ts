@@ -159,6 +159,17 @@ mixed.oneOf(["hello", "world"], "message");
 mixed.oneOf(["hello", "world"], () => "message");
 mixed.notOneOf(["hello", "world"], "message");
 mixed.notOneOf(["hello", "world"], () => "message");
+mixed.notType("message");
+mixed.notType(() => "message");
+mixed.notType((_ref) => {
+    const isCast: boolean = _ref.originalValue != null && _ref.originalValue !== _ref.value;
+    const finalPartOfTheMessage = isCast
+        ? ` (cast from the value '${_ref.originalValue}').`
+        : '.';
+
+    return `${_ref.path} must be a '${_ref.type}'` +
+        ` but the final value was: '${_ref.value}'${finalPartOfTheMessage}`;
+});
 mixed.when("isBig", {
     is: value => true,
     then: yup.number().min(5),

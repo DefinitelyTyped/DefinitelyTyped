@@ -50,6 +50,10 @@ export type TestOptionsMessage =
     | string
     | ((params: object & Partial<TestMessageParams>) => string);
 
+export type NotTypeOptionsMessage =
+    | ((_ref: NotTypeRef) => string)
+    | string;
+
 export interface Schema<T> {
     clone(): this;
     label(label: string): this;
@@ -76,6 +80,7 @@ export interface Schema<T> {
     typeError(message?: TestOptionsMessage): this;
     oneOf(arrayOfValues: any[], message?: TestOptionsMessage): this;
     notOneOf(arrayOfValues: any[], message?: TestOptionsMessage): this;
+    notType(message: NotTypeOptionsMessage): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
     test(
         name: string,
@@ -230,6 +235,13 @@ export interface TestContext {
     schema: Schema<any>;
     resolve: (value: any) => any;
     createError: (params?: { path?: string; message?: string }) => ValidationError;
+}
+
+export interface NotTypeRef {
+    path: string;
+    type: string;
+    value: string | null;
+    originalValue: string | null;
 }
 
 export interface ValidateOptions {
