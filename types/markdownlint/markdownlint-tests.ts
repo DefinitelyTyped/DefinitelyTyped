@@ -36,6 +36,7 @@ markdownlint(options, (err, results) => {
     const firstFileErrorRule: string = firstFileError.ruleName;
 });
 
+// tslint:disable: object-literal-key-quotes
 markdownlint.sync({
     config: {
         "default": false,
@@ -78,3 +79,4 @@ markdownlint.sync({
         "fenced-code-language": true
     }
 });
+// tslint:enable: object-literal-key-quotes
