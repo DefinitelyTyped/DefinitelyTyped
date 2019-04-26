@@ -740,7 +740,7 @@ export interface ResponseObject extends Podium {
 
     /**
      * Sets the HTTP status code where:
-     * $param statusCode - the HTTP status code (e.g. 200).
+     * @param statusCode - the HTTP status code (e.g. 200).
      * @return Return value: the current response object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsecodestatuscode)
      */
