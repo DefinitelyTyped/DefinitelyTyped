@@ -524,42 +524,48 @@ declare module "../index" {
         omit<T extends object, K extends keyof T>(object: T | null | undefined, ...paths: Array<Many<K>>): Omit<T, K>;
         omit<T extends object>(object: T | null | undefined, ...paths: Array<Many<PropertyName>>): PartialObject<T>;
     }
-    interface Imp<TValue> {
-        omit<T extends AnyKindOfDictionary>(this: Imp<T | null | undefined>, ...paths: Array<Many<PropertyName>>): Imp<T>;
-        omit<T extends object, K extends keyof T>(this: Imp<T | null | undefined>, ...paths: Array<Many<K>>): Imp<Omit<T, K>>;
-        omit<T extends object>(this: Imp<T | null | undefined>, ...paths: Array<Many<PropertyName>>): Imp<PartialObject<T>>;
+    interface ImpL<T> {
+        omit( ...paths: Array<Many<PropertyName>>): ImpL<T>;
     }
-    interface Exp<TValue> {
-        omit<T extends AnyKindOfDictionary>(this: Exp<T | null | undefined>, ...paths: Array<Many<PropertyName>>): Exp<T>;
-        omit<T extends object, K extends keyof T>(this: Exp<T | null | undefined>, ...paths: Array<Many<K>>): Exp<Omit<T, K>>;
-        omit<T extends object>(this: Exp<T | null | undefined>, ...paths: Array<Many<PropertyName>>): Exp<PartialObject<T>>;
+    interface ImpO<T> {
+        omit<K extends keyof T>(...paths: Array<Many<K>>): Imp<Omit<T, K>>;
+        omit(...paths: Array<Many<PropertyName>>): Imp<PartialObject<T>>;
+    }
+    interface ExpL<T> {
+        omit( ...paths: Array<Many<PropertyName>>): ExpL<T>;
+    }
+    interface ExpO<T> {
+        omit<K extends keyof T>(...paths: Array<Many<K>>): Exp<Omit<T, K>>;
+        omit(...paths: Array<Many<PropertyName>>): Exp<PartialObject<T>>;
     }
     interface Stat {
         omitBy<T>(object: Dictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): Dictionary<T>;
         omitBy<T>(object: NumericDictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): NumericDictionary<T>;
         omitBy<T extends object>(object: T | null | undefined, predicate: ValueKeyIteratee<T[keyof T]>): PartialObject<T>;
     }
-    interface Imp<TValue> {
-        omitBy<T>(this: Imp<Dictionary<T> | null | undefined>, predicate?: ValueKeyIteratee<T>): Imp<Dictionary<T>>;
-        omitBy<T>(this: Imp<NumericDictionary<T> | null | undefined>, predicate?: ValueKeyIteratee<T>): Imp<NumericDictionary<T>>;
-        omitBy<T extends object>(this: Imp<T | null | undefined>, predicate: ValueKeyIteratee<T[keyof T]>): Imp<PartialObject<T>>;
+    interface ImpL<T> {
+        omitBy(this: Imp<Dictionary<T> | null | undefined>, predicate?: ValueKeyIteratee<T>): Imp<Dictionary<T>>;
     }
-    interface Exp<TValue> {
-        omitBy<T>(this: Exp<Dictionary<T> | null | undefined>, predicate?: ValueKeyIteratee<T>): Exp<Dictionary<T>>;
-        omitBy<T>(this: Exp<NumericDictionary<T> | null | undefined>, predicate?: ValueKeyIteratee<T>): Exp<NumericDictionary<T>>;
-        omitBy<T extends object>(this: Exp<T | null | undefined>, predicate: ValueKeyIteratee<T[keyof T]>): Exp<PartialObject<T>>;
+    interface ImpO<T> {
+        omitBy(predicate: ValueKeyIteratee<T[keyof T]>): ImpO<PartialObject<T>>;
+    }
+    interface ExpL<T> {
+        omitBy(this: Exp<Dictionary<T> | null | undefined>, predicate?: ValueKeyIteratee<T>): Exp<Dictionary<T>>;
+    }
+    interface ExpO<T> {
+        omitBy(predicate: ValueKeyIteratee<T[keyof T]>): ExpO<PartialObject<T>>;
     }
     interface Stat {
         pick<T extends object, U extends keyof T>(object: T, ...props: Array<Many<U>>): Pick<T, U>;
         pick<T>(object: T | null | undefined, ...props: PropertyPath[]): PartialDeep<T>;
     }
-    interface Imp<TValue> {
-        pick<T extends object, U extends keyof T>(this: Imp<T>, ...props: Array<Many<U>>): Imp<Pick<T, U>>;
-        pick<T extends object>(this: Imp<T | null | undefined>, ...props: PropertyPath[]): Imp<PartialObject<T>>;
+    interface ImpO<T> {
+        pick<U extends keyof T>(...props: Array<Many<U>>): ImpO<Pick<T, U>>;
+        pick( ...props: PropertyPath[]): ImpO<PartialObject<T>>;
     }
-    interface Exp<TValue> {
-        pick<T extends object, U extends keyof T>(this: Exp<T>, ...props: Array<Many<U>>): Exp<Pick<T, U>>;
-        pick<T extends object>(this: Exp<T | null | undefined>, ...props: PropertyPath[]): Exp<PartialObject<T>>;
+    interface ExpO<T> {
+        pick<U extends keyof T>(...props: Array<Many<U>>): ExpO<Pick<T, U>>;
+        pick( ...props: PropertyPath[]): ExpO<PartialObject<T>>;
     }
     interface Stat {
         pickBy<T, S extends T>(object: Dictionary<T> | null | undefined, predicate: ValueKeyIterateeTypeGuard<T, S>): Dictionary<S>;
@@ -568,19 +574,19 @@ declare module "../index" {
         pickBy<T>(object: NumericDictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): NumericDictionary<T>;
         pickBy<T extends object>(object: T | null | undefined, predicate?: ValueKeyIteratee<T[keyof T]>): PartialObject<T>;
     }
-    interface Imp<TValue> {
-        pickBy<T, S extends T>(this: Imp<Dictionary<T> | null | undefined>, predicate: ValueKeyIterateeTypeGuard<T, S>): Imp<Dictionary<S>>;
-        pickBy<T, S extends T>(this: Imp<NumericDictionary<T> | null | undefined>, predicate: ValueKeyIterateeTypeGuard<T, S>): Imp<NumericDictionary<S>>;
-        pickBy<T>(this: Imp<Dictionary<T> | null | undefined>, predicate?: ValueKeyIteratee<T>): Imp<Dictionary<T>>;
-        pickBy<T>(this: Imp<NumericDictionary<T> | null | undefined>, predicate?: ValueKeyIteratee<T>): Imp<NumericDictionary<T>>;
-        pickBy<T extends object>(this: Imp<T | null | undefined>, predicate?: ValueKeyIteratee<T[keyof T]>): Imp<PartialObject<T>>;
+    interface ImpL<T> {
+        pickBy<S extends T>(predicate: ValueKeyIterateeTypeGuard<T, S>): Imp<Dictionary<S>>;
+        pickBy(predicate?: ValueKeyIteratee<T>): Imp<Dictionary<T>>;
     }
-    interface Exp<TValue> {
-        pickBy<T, S extends T>(this: Exp<Dictionary<T> | null | undefined>, predicate: ValueKeyIterateeTypeGuard<T, S>): Exp<Dictionary<S>>;
-        pickBy<T, S extends T>(this: Exp<NumericDictionary<T> | null | undefined>, predicate: ValueKeyIterateeTypeGuard<T, S>): Exp<NumericDictionary<S>>;
-        pickBy<T>(this: Exp<Dictionary<T> | null | undefined>, predicate?: ValueKeyIteratee<T>): Exp<Dictionary<T>>;
-        pickBy<T>(this: Exp<NumericDictionary<T> | null | undefined>, predicate?: ValueKeyIteratee<T>): Exp<NumericDictionary<T>>;
-        pickBy<T extends object>(this: Exp<T | null | undefined>, predicate?: ValueKeyIteratee<T[keyof T]>): Exp<PartialObject<T>>;
+    interface ImpO<T> {
+        pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): ImpO<PartialObject<T>>;
+    }
+    interface ExpL<T> {
+        pickBy<S extends T>(predicate: ValueKeyIterateeTypeGuard<T, S>): Exp<Dictionary<S>>;
+        pickBy(predicate?: ValueKeyIteratee<T>): Exp<Dictionary<T>>;
+    }
+    interface ExpO<T> {
+        pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): ExpO<PartialObject<T>>;
     }
     interface Stat {
         result<TResult>(object: any, path: PropertyPath, defaultValue?: TResult | ((...args: any[]) => TResult)): TResult;
