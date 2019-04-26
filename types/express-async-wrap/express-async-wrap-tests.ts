@@ -1,6 +1,5 @@
 import asyncWrap = require('express-async-wrap');
 import express = require('express');
-// import * as express from 'express';
 
 const app = express();
 
