@@ -38,7 +38,7 @@ declare namespace nock {
 
     export var back: NockBack;
 
-    type HttpHeaders = { [key: string]: string | string[] | { (req: any, res: any, body: string): any; }; };
+    interface HttpHeaders { [key: string]: string | string[] | { (req: any, res: any, body: string): any; }; }
     type InterceptFunction = (
         uri: string | RegExp | { (uri: string): boolean; },
         requestBody?: string | RegExp | { (body: any): boolean; } | any,
