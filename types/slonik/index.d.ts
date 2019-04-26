@@ -41,7 +41,7 @@ export interface IdentifierListTokenType {
     type: typeof SlonikSymbol.IdentifierListTokenSymbol;
 }
 
-export type SqlSqlTokenType<T> = TaggedTemplateLiteralInvocationType<T>
+export type SqlSqlTokenType<T> = TaggedTemplateLiteralInvocationType<T>;
 
 export interface RawSqlTokenType {
     sql: string;
