@@ -9,7 +9,7 @@
 import { Component } from "react";
 import flatpickr from "flatpickr";
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export interface DateTimePickerProps extends Omit<Partial<HTMLInputElement>, 'value'> {
     defaultValue?: string;
