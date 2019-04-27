@@ -15,4 +15,4 @@ declare const Breadcrumb: React.FunctionComponent<BreadcrumbProps> & {
     Item: React.FunctionComponent<BreadcrumbItemProps>;
 };
 
-export default Breadcrumb
+export default Breadcrumb;

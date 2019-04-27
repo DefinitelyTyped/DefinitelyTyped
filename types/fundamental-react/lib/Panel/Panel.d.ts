@@ -44,4 +44,4 @@ declare const Panel: React.FunctionComponent<PanelProps> & {
     Header: React.FunctionComponent<PanelHeaderProps>;
 };
 
-export default Panel
+export default Panel;
