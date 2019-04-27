@@ -296,7 +296,7 @@ scope = nock('http://www.google.com')
    .post('/echo', '*')
    .reply((uri, requestBody, cb) => {
      setTimeout(() => {
-       cb(null, [201, 'THIS IS THE REPLY BODY'])
+       cb(null, [201, 'THIS IS THE REPLY BODY']);
      }, 1e3);
    });
 
@@ -438,13 +438,13 @@ nock('http://zombo.com').get('/').optionally().reply(200, 'Ok');
 nock('http://my.server.com')
   .get('/')
   .delayBody(2000) // 2 seconds
-  .reply(200, '<html></html>')
+  .reply(200, '<html></html>');
 
 // Delay the response
 nock('http://my.server.com')
   .get('/')
   .delay(2000) // 2 seconds delay will be applied to the response header.
-  .reply(200, '<html></html>')
+  .reply(200, '<html></html>');
 
 nock('http://my.server.com')
   .get('/')
@@ -452,14 +452,14 @@ nock('http://my.server.com')
     head: 2000, // header will be delayed for 2 seconds, i.e. the whole response will be delayed for 2 seconds.
     body: 3000  // body will be delayed for another 3 seconds after header is sent out.
   })
-  .reply(200, '<html></html>')
+  .reply(200, '<html></html>');
 
 // Delay the connection
 nock('http://my.server.com')
   .get('/')
   .socketDelay(2000) // 2 seconds
   .delayConnection(1000)
-  .reply(200, '<html></html>')
+  .reply(200, '<html></html>');
 
 // Chaining
 scope = nock('http://myapp.iriscouch.com')
@@ -523,14 +523,14 @@ scope = nock('http://api.myservice.com')
                 .get('/')
                 .reply(200, {
                   data: 'hello world'
-                })
+                });
 
 scope = nock('http://api.myservice.com')
                 .matchHeader('User-Agent', /Mozilla\/.*/)
                 .get('/')
                 .reply(200, {
                   data: 'hello world'
-                })
+                });
 
 scope = nock('http://api.myservice.com')
                 .matchHeader('content-length', (val) => {
@@ -539,7 +539,7 @@ scope = nock('http://api.myservice.com')
                 .get('/')
                 .reply(200, {
                   data: 'hello world'
-                })
+                });
 
 // Request Headers Matching on the Interceptor Level
 scope = nock('http://api.myservice.com')
@@ -547,14 +547,14 @@ scope = nock('http://api.myservice.com')
                 .matchHeader('accept', 'application/json')
                 .reply(200, {
                   data: 'hello world'
-                })
+                });
 
 scope = nock('http://api.myservice.com')
                 .get('/')
                 .matchHeader('User-Agent', /Mozilla\/.*/)
                 .reply(200, {
                   data: 'hello world'
-                })
+                });
 
 scope = nock('http://api.myservice.com')
                 .get('/')
@@ -563,7 +563,7 @@ scope = nock('http://api.myservice.com')
                 })
                 .reply(200, {
                   data: 'hello world'
-                })
+                });
 
 // Allow unmocked requests on a mocked hostname
 options = {allowUnmocked: true};
