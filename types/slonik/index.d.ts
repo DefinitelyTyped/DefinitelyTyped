@@ -293,7 +293,7 @@ export interface TaggedTemplateLiteralInvocationType<Result = QueryResultRowType
 export const sql: SqlTaggedTemplateType;
 
 export interface SqlTaggedTemplateType {
-    // tslint:disable-next-line no-unnecesary-generics (the sql<Foo>`select foo` is cleaner in this case than casting with 'as')
+    // tslint:disable-next-line no-unnecessary-generics (the sql<Foo>`select foo` is cleaner in this case than casting with 'as')
     <T = QueryResultRowType>(template: TemplateStringsArray, ...vals: ValueExpressionType[]): SqlSqlTokenType<T>;
     array: (
         values: PrimitiveValueExpressionType[],
