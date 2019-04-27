@@ -255,28 +255,10 @@ declare namespace Stripe {
                 url?: string;
             };
 
-            business_logo?: string;
-
-            /**
-             * The publicly sharable name for this account
-             */
-            business_name?: string;
-
             /**
              * The business type. Can be individual or company.
              */
             business_type?: "individual" | "company";
-
-            /**
-             * A CSS hex color value representing the primary branding color for this
-             * account
-             */
-            business_primary_color?: string;
-
-            /**
-             * The URL that best shows the service or product provided for this account
-             */
-            business_url?: string;
 
             /**
              * Information about the company or business.
@@ -744,33 +726,6 @@ declare namespace Stripe {
             };
 
             /**
-             * A boolean for whether or not Stripe should try to reclaim negative
-             * balances from the account holder’s bank account. See our managed
-             * account bank transfer guide for more information
-             */
-            debit_negative_balances?: boolean;
-
-            /**
-             * Account-level settings to automatically decline certain types of charges
-             * regardless of the bank’s decision.
-             */
-            decline_charge_on?: {
-                /**
-                 * Whether or not Stripe should automatically decline charges with an
-                 * incorrect zip/postal code. This setting only applies if a card includes a
-                 * zip code and the bank specifically marks it as failed.
-                 */
-                avs_failure?: boolean;
-
-                /**
-                 * Whether or not Stripe should automatically decline charges with an
-                 * incorrect CVC. This setting only applies if a card includes a CVC and the
-                 * bank specifically marks it as failed.
-                 */
-                cvc_failure?: boolean;
-            };
-
-            /**
              * Three-letter ISO currency code representing the default currency for the
              * account. This must be a currency that Stripe supports in the account’s
              * country.
@@ -799,36 +754,6 @@ declare namespace Stripe {
             metadata?: IMetadata;
 
             /**
-             * Internal-only description of the product being sold or service being
-             * provided by this account. It’s used by Stripe for risk and underwriting
-             * purposes.
-             */
-            product_description?: string;
-
-            /**
-             * The text that will appear on credit card statements by default if a charge is
-             * being made directly on the account.
-             */
-            statement_descriptor?: string;
-
-            /**
-             * A publicly shareable email address that can be reached for support for this
-             * account
-             */
-            support_email?: string;
-
-            /**
-             * A publicly shareable phone number that can be reached for support for
-             * this account
-             */
-            support_phone?: string;
-
-            /**
-             * A publicly shareable URL that can be reached for support for this account
-             */
-            support_url?: string;
-
-            /**
              * Details on who accepted the Stripe terms of service, and when they
              * accepted it. See our updating managed accounts guide for more
              * information
@@ -851,45 +776,6 @@ declare namespace Stripe {
                  */
                 user_agent?: string;
             };
-
-            /**
-             * Details on when funds from charges are available,
-             * and when they are paid out to an external account.
-             * See our Setting Bank and Debit Card Payouts documentation for details.
-             */
-            payout_schedule?: {
-                /**
-                 * The number of days charges for the account will be held before being
-                 * paid out. May also be the string “minimum” for the lowest available
-                 * value (based on country). Default is “minimum”. Does not apply when
-                 * interval is “manual”.
-                 */
-                delay_days?: number | string;
-
-                /**
-                 * How frequently funds will be paid out. One of "manual" (for only
-                 * triggered via API call), "daily", "weekly", or "monthly". Default is "daily".
-                 */
-                interval?: "manual" | "daily" | "weekly" | "monthly";
-
-                /**
-                 * The day of the month funds will be paid out. Required and available
-                 * only if interval is "monthly".
-                 */
-                monthly_anchor?: number;
-
-                /**
-                 * The day of the week funds will be paid out, of the style ‘monday’,
-                 * ‘tuesday’, etc. Required and available only if interval is weekly.
-                 */
-                weekly_anchor?: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
-            };
-
-            /**
-             * The text that appears on the bank account statement for payouts.
-             * If not set, this defaults to the platform’s bank descriptor as set in the Dashboard.
-             */
-            payout_statement_descriptor?: string;
 
             /**
              * Options for customizing how the account functions within Stripe.
