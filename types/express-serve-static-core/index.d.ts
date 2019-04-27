@@ -613,6 +613,7 @@ export interface Response extends http.ServerResponse, Express.Response {
     download(path: string): void;
     download(path: string, filename: string): void;
     download(path: string, fn: Errback): void;
+    download(path: string, filename: string, options: any): void;
     download(path: string, filename: string, fn: Errback): void;
     download(path: string, filename: string, options: any, fn: Errback): void;
 
