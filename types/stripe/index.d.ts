@@ -688,7 +688,7 @@ declare namespace Stripe {
                  * All keys can be unset by posting an empty value to metadata.
                  */
                 metadata?: {
-                    [key:string]: string;
+                    [key: string]: string;
                 };
 
                 /**
