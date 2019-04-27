@@ -19,7 +19,7 @@ declare enum ClientType {
 declare class TeamSpeakClient extends Abstract {
     constructor(parent: TeamSpeak3, list: ClientListResponse);
 
-    cid: number
+    cid: number;
     cfid: number;
     ctid: number;
     reasonid: number;

@@ -121,10 +121,34 @@ declare namespace TeamSpeak3 {
         type: string;
         data: string;
     }
+
+    interface ComplainListEntry {
+        tcldbid: string;
+        tname: string;
+        fcldbid: string;
+        fname: string;
+        message: string;
+        timestamp: string;
+    }
+
+    interface BanListEntry {
+        banid: string;
+        ip?: string;
+        name?: string;
+        uid?: string;
+        mytsid?: string;
+        lastnickname?: string;
+        created: string;
+        duration: string;
+        invokername: string;
+        invokercldbid: string;
+        invokeruid: string;
+        reason: string;
+        enforcements: string;
+    }
 }
 
 interface TeamSpeak3 {
-    // Type-safe events.
     on(
         event: 'textmessage',
         listener: (data: TeamSpeak3.MessageData) => void
@@ -182,7 +206,7 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - deletes the querylogin of this client
      * @returns Promise object which returns the Information about the Query executed
      */
-    queryLoginDel(cldbid: number): Promise<any>;
+    queryLoginDel(cldbid: number): Promise<void>;
 
     /**
      * List existing query client logins.
@@ -222,7 +246,7 @@ declare class TeamSpeak3 extends EventEmitter {
     /**
      * Deselects the active virtual server and logs out from the server instance.
      */
-    logout(): Promise<any>;
+    logout(): Promise<void>;
 
     /**
      * Displays the servers version information including platform and build number.
@@ -945,14 +969,14 @@ declare class TeamSpeak3 extends EventEmitter {
      * If dbid is specified, only complaints about the targeted client will be shown.
      * @param - Filter only for certain Client with the given Database ID
      */
-    complainList(cldbid?: number): Promise<any>;
+    complainList(cldbid?: number): Promise<TeamSpeak3.ComplainListEntry[]>;
 
     /**
      * Submits a complaint about the client with database ID dbid to the server.
      * @param - Filter only for certain Client with the given Database ID
      * @param - The Message which should be added
      */
-    complainAdd(cldbid: number, message?: string): Promise<any>;
+    complainAdd(cldbid: number, message?: string): Promise<void>;
 
     /**
      * Deletes the complaint about the client with ID tdbid submitted by the client with ID fdbid from the server.
@@ -960,12 +984,12 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - The Target Client Database ID
      * @param - The Client Database ID which filed the Report
      */
-    complainDel(tcldbid: number, fcldbid?: number): Promise<any>;
+    complainDel(tcldbid: number, fcldbid?: number): Promise<void>;
 
     /**
      * Displays a list of active bans on the selected virtual server.
      */
-    banList(): Promise<any>;
+    banList(): Promise<TeamSpeak3.BanListEntry[]>;
 
     /**
      * Adds a new ban rule on the selected virtual server.
@@ -982,13 +1006,13 @@ declare class TeamSpeak3 extends EventEmitter {
         uid?: string,
         time?: number,
         banreason?: string
-    ): Promise<any>;
+    ): Promise<{ banid: string }>;
 
     /**
      * Removes one or all bans from the server
      * @param- The BanID to remove, if not provided it will remove all bans
      */
-    banDel(banid?: number): Promise<any>;
+    banDel(banid?: number): Promise<void>;
 
     /**
      * Displays a specified number of entries from the servers log.
