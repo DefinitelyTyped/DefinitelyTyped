@@ -1494,20 +1494,19 @@ declare namespace Stripe {
             amount: number;
 
             /**
-             * 3-letter ISO code for currency.
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
              */
             currency: string;
 
             /**
-             * A fee in pence that will be applied to the charge and transferred to the
-             * application owner's Stripe account. To use an application fee, the request
-             * must be made on behalf of another account, using the Stripe-Account
-             * header, an OAuth key, or the destination parameter. For more
-             * information, see the application fees documentation.
+             * A fee in cents that will be applied to the charge and transferred to the
+             * application owner’s Stripe account. The request must be made with an
+             * OAuth key or the Stripe-Account header in order to take an application fee.
+             * For more information, see the application fees documentation.
              *
              * Connect only.
              */
-            application_fee?: number;
+            application_fee_amount?: number;
 
             /**
              * Whether or not to immediately capture the charge. When false, the charge
@@ -1524,29 +1523,6 @@ declare namespace Stripe {
              * will include the description of the charge(s) that they are describing.
              */
             description?: string;
-
-            /**
-             * An account to make the charge on behalf of. If specified, the charge will be
-             * attributed to the destination account for tax reporting, and the funds from
-             * the charge will be transferred to the destination account. The ID of the
-             * resulting transfer will be returned in the transfer field of the response. See
-             * the documentation for details.
-             *
-             * Connect only.
-             */
-            destination?: string | {
-                /**
-                 * ID of the Stripe account this fee will be transferred to.
-                 */
-                account: string;
-
-                /**
-                 * A positive integer in the smallest currency unit (e.g 100 cents to charge
-                 * $1.00, or 1 to charge ¥1, a 0-decimal currency) reflecting the amount of the
-                 * charge to be transferred to the destination[account].
-                 */
-                amount?: number;
-            };
 
             /**
              * A string that identifies this transaction as part of a group.
@@ -1610,6 +1586,23 @@ declare namespace Stripe {
              * incorrectly or not at all.
              */
             statement_descriptor?: string;
+
+            /**
+             * An optional dictionary including the account to automatically transfer
+             * to as part of a destination charge. See the Connect documentation for details.
+             */
+            transfer_data?: {
+                /**
+                 * ID of an existing, connected Stripe account.
+                 */
+                destination: string;
+
+                /**
+                 * The amount transferred to the destination account, if specified.
+                 * By default, the entire charge amount is transferred to the destination account.
+                 */
+                amount: number;
+            };
         }
 
         interface IChargeCaptureOptions extends IDataOptions {
