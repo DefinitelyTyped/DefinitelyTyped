@@ -585,7 +585,7 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - the client database id
      * @returns the Client Database Info
      */
-    clientDBInfo(cldbid: number): Promise<any>;
+    clientDBInfo(cldbid: number): Promise<TeamSpeak3.DisconnectedClient | undefined>;
 
     /**
      * Kicks the Client from the Server
