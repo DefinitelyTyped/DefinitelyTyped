@@ -14,7 +14,7 @@ export const copyableSymbols: string;
 
 export interface RandomPasswordOptions {
     length?: number;
-    characters?: string[];
+    characters?: string | string[];
 }
 
 export function randomPassword(options?: RandomPasswordOptions): string;
