@@ -6,12 +6,8 @@
 
 /// <reference types="jest"/>
 
-export {};
-
-declare global {
-	namespace jest {
-        interface Expect {
-			<T = any>(actual: T, message: string): Matchers<T>;
-		}
+declare namespace jest {
+    interface Expect {
+        <T = any>(actual: T, message: string): Matchers<T>;
     }
 }
