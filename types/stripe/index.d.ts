@@ -741,12 +741,6 @@ declare namespace Stripe {
             email?: string;
 
             /**
-             * Information about the holder of this account, i.e. the user receiving funds
-             * from this account
-             */
-            legal_entity?: {}; // TODO: Implement this type definition.
-
-            /**
              * A set of key/value pairs that you can attach to an account object. It can be
              * useful for storing additional information about the account in a structured
              * format. This can be unset by updating the value to null and then saving.
