@@ -1595,7 +1595,7 @@ declare namespace Stripe {
                  * The amount transferred to the destination account, if specified.
                  * By default, the entire charge amount is transferred to the destination account.
                  */
-                amount: number;
+                amount?: number;
             };
         }
 
