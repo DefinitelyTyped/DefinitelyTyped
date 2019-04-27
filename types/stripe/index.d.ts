@@ -893,6 +893,12 @@ declare namespace Stripe {
                          */
                         weekly_anchor?: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
                     };
+
+                    /**
+                     * The text that appears on the bank account statement for payouts.
+                     * If not set, this defaults to the platform’s bank descriptor as set in the Dashboard.
+                     */
+                    statement_descriptor?: string;
                 };
             };
         }

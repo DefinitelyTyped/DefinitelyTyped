@@ -660,7 +660,9 @@ stripe.accounts.retrieve(
 
 stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     {
-        support_phone: "555-867-5309"
+        business_profile: {
+            support_phone: "555-867-5309"
+        }
     },
     (err, account) => {
         // asynchronously called
@@ -668,7 +670,9 @@ stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
 );
 stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     {
-        support_phone: "555-867-5309"
+        business_profile: {
+            support_phone: "555-867-5309"
+        }
     }).then(
     (account) => {
         // asynchronously called
@@ -677,7 +681,11 @@ stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
 
 stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     {
-        payout_statement_descriptor: "From Stripe"
+        settings: {
+            payouts: {
+                statement_descriptor: "From Stripe"
+            }
+        }
     }).then(
     (account) => {
         // asynchronously called
@@ -686,11 +694,15 @@ stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
 
 stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     {
-        payout_schedule: {
-            delay_days: 5,
-            interval: "monthly",
-            monthly_anchor: 4,
-            weekly_anchor: "monday"
+        settings: {
+            payouts: {
+                schedule: {
+                    delay_days: 5,
+                    interval: "monthly",
+                    monthly_anchor: 4,
+                    weekly_anchor: "monday"
+                }
+            }
         }
     }).then(
     (account) => {
