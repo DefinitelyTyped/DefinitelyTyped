@@ -47,7 +47,6 @@ declare namespace nock {
     export type ReplyCallback = (err: any, result: ReplyCallbackResult) => void;
     type ReplyCallbackResult = string | [number, string | any] | [number, string | any, HttpHeaders] | any;
 
-
     export interface Scope extends NodeJS.EventEmitter {
         get: InterceptFunction;
         post: InterceptFunction;
@@ -64,7 +63,6 @@ declare namespace nock {
             requestBody?: string | RegExp | { (body: any): boolean; } | any,
             options?: Options
         ) => Interceptor;
-
 
         defaultReplyHeaders(headers: HttpHeaders): this;
         matchHeader(name: string, value: string | RegExp | { (value: string): boolean; }): this;

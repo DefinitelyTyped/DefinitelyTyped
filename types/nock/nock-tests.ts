@@ -134,7 +134,6 @@ nock.recorder.clear();
 strings = nock.recorder.play() as string[];
 defs = nock.recorder.play() as nock.NockDefinition[];
 
-
 // Usage
 var couchdb = nock('http://myapp.iriscouch.com')
                 .get('/users/1')
@@ -629,7 +628,6 @@ nock.enableNetConnect('127.0.0.1'); // Allow localhost connections so we can tes
 nock.cleanAll();
 nock.enableNetConnect();
 
-
 // Recording
 nock.recorder.rec();
 
@@ -685,7 +683,6 @@ nock.recorder.rec({
   use_separator: false
 });
 
-
 // .removeInterceptor()
 nock.removeInterceptor({
   hostname : 'localhost',
@@ -702,11 +699,9 @@ var interceptor = nock('http://example.org')
   .get('somePath');
 nock.removeInterceptor(interceptor);
 
-
 // Events
 /// Global no match event
 nock.emitter.on('no match', (req: any) => { });
-
 
 // Nock Back
 /// Setup
