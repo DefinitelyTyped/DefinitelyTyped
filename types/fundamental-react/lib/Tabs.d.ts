@@ -19,7 +19,7 @@ export type TabProps = {
     /* _INTERNAL USE ONLY._ */
     onClick?: (
         event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-        index?: number
+        index: number
     ) => void;
 } & { [x: string]: any };
 
