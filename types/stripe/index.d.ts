@@ -204,6 +204,57 @@ declare namespace Stripe {
         }
 
         interface IAccountShared {
+            /**
+             * An account token, used to securely provide details to the account.
+             */
+            account_token?: string;
+
+            /**
+             * Non-essential business information about the account
+             */
+            business_profile?: {
+                /**
+                 * The merchant category code for the account.
+                 * MCCs are used to classify businesses based on the goods or services they provide.
+                 * This can be unset by updating the value to null and then saving.
+                 */
+                mcc?: string;
+
+                /**
+                 * The customer-facing business name.
+                 * This can be unset by updating the value to null and then saving.
+                 */
+                name?: string;
+
+                /**
+                 * Internal-only description of the product sold by, or service provided by, the business.
+                 * Used by Stripe for risk and underwriting purposes.
+                 * This can be unset by updating the value to null and then saving.
+                 */
+                product_description?: string;
+
+                /**
+                 * A publicly available email address for sending support issues to.
+                 */
+                support_email?: string;
+
+                /**
+                 * A publicly available phone number to call with support issues.
+                 */
+                support_phone?: string;
+
+                /**
+                 * A publicly available website for handling support issues.
+                 */
+                support_url?: string;
+
+                /**
+                 * The business’s publicly available website.
+                 * This can be unset by updating the value to null and then saving.
+                 */
+                url?: string;
+            };
+
             business_logo?: string;
 
             /**
