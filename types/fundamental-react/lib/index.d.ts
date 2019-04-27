@@ -1,55 +1,46 @@
-export { ActionBar } from "./ActionBar";
-export { Alert } from "./Alert";
-export { Badge } from "./Badge";
-export { Label } from "./Badge";
-export { Status } from "./Badge";
-export { Counter } from "./Badge";
-export { Breadcrumb } from "./Breadcrumb";
-export { Button } from "./Button";
-export { ButtonGroup } from "./Button";
-export { Calendar } from "./Calendar";
-export { ComboboxInput } from "./ComboboxInput";
-export { DatePicker } from "./DatePicker";
-export { Dropdown } from "./Dropdown";
-export { FormSet } from "./Forms";
-export { FormItem } from "./Forms";
-export { FormLabel } from "./Forms";
-export { FormInput } from "./Forms";
-export { FormRadioGroup } from "./Forms";
-export { FormRadioItem } from "./Forms";
-export { FormTextarea } from "./Forms";
-export { FormMessage } from "./Forms";
-export { FormSelect } from "./Forms";
-export { FormFieldset } from "./Forms";
-export { FormLegend } from "./Forms/";
-export { Icon } from "./Icon";
-export { Identifier } from "./Identifier";
-export { Image } from "./Image";
-export { InlineHelp } from "./InlineHelp";
-export { InputGroup } from "./InputGroup";
-export { FormGroup } from "./InputGroup";
-export { ListGroup } from "./ListGroup";
+export { ActionBar } from "./ActionBar/index";
+export { Alert } from "./Alert/index";
+export { Badge, Counter, Label, Status } from "./Badge/index";
+export { Breadcrumb } from "./Breadcrumb/index";
+export { Button, ButtonGroup } from "./Button/index";
+export { Calendar } from "./Calendar/index";
+export { ComboboxInput } from "./ComboboxInput/index";
+export { DatePicker } from "./DatePicker/index";
+export { Dropdown } from "./Dropdown/index";
+export { FormLegend } from "./Forms//index";
 export {
-    LocalizationEditor
-} from "./LocalizationEditor";
-export { Menu } from "./Menu";
-export { Modal } from "./Modal";
-export { MultiInput } from "./MultiInput";
-export { Pagination } from "./Pagination";
-export { Panel } from "./Panel";
-export { PanelGrid } from "./Panel";
-export { Popover } from "./Popover";
-export { ProductTile } from "./Tile";
-export { SearchInput } from "./SearchInput";
-export { SideNav } from "./SideNavigation";
-export { Tab } from "./Tabs";
-export { TabGroup } from "./Tabs";
-export { Table } from "./Table";
-export { Token } from "./Token";
-export { Tile } from "./Tile";
-export { TileGrid } from "./Tile";
-export { Toggle } from "./Toggle";
-export { TreeView } from "./TreeView";
-export { Time } from "./Time";
-export { TimePicker } from "./TimePicker";
-export { Shellbar } from "./Shellbar";
+    FormFieldset,
+    FormInput,
+    FormItem,
+    FormLabel,
+    FormMessage,
+    FormRadioGroup,
+    FormRadioItem,
+    FormSelect,
+    FormSet,
+    FormTextarea
+} from "./Forms/index";
+export { Icon } from "./Icon/index";
+export { Identifier } from "./Identifier/index";
+export { Image } from "./Image/index";
+export { InlineHelp } from "./InlineHelp/index";
+export { FormGroup, InputGroup } from "./InputGroup/index";
+export { ListGroup } from "./ListGroup/index";
+export { LocalizationEditor } from "./LocalizationEditor/index";
+export { Menu } from "./Menu/index";
+export { Modal } from "./Modal/index";
+export { MultiInput } from "./MultiInput/index";
+export { Pagination } from "./Pagination/index";
+export { Panel, PanelGrid } from "./Panel/index";
+export { Popover } from "./Popover/index";
+export { SearchInput } from "./SearchInput/index";
+export { Shellbar } from "./Shellbar/index";
+export { SideNav } from "./SideNavigation/index";
+export { Table } from "./Table/index";
+export { Tab, TabGroup } from "./Tabs/index";
+export { ProductTile, Tile, TileGrid } from "./Tile/index";
+export { Time } from "./Time/index";
+export { TimePicker } from "./TimePicker/index";
+export { Toggle } from "./Toggle/index";
+export { Token } from "./Token/index";
+export { TreeView } from "./TreeView/index";
