@@ -1,6 +1,5 @@
 import {
     ActionBar,
-    Alert,
     Badge,
     Breadcrumb,
     Button,
@@ -12,16 +11,12 @@ import {
     Dropdown,
     FormFieldset,
     FormGroup,
-    FormInput,
-    FormItem,
-    FormLabel,
     FormLegend,
     FormMessage,
     FormRadioGroup,
     FormRadioItem,
     FormSelect,
     FormSet,
-    FormTextarea,
     Icon,
     Identifier,
     Image,
@@ -53,6 +48,11 @@ import {
     Token,
     TreeView
 } from "fundamental-react";
+import { FormItem } from "fundamental-react/lib";
+import { Alert } from "fundamental-react/lib/Alert/Alert";
+import { FormLabel } from "fundamental-react/lib/Forms";
+import FormInput from "fundamental-react/lib/Forms/FormInput";
+import FormTextarea from "fundamental-react/lib/Forms/FormTextarea";
 import * as React from "react";
 
 const actionBars = (

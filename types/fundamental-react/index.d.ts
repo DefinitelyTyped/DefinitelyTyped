@@ -1,52 +1,62 @@
 // Type definitions for fundamental-react 0.5
 // Project: https://sap.github.io/fundamental-react
 // Definitions by: Frank Feinbube <https://github.com/Feinbube>
+//                 Milan Proell <https://github.com/milanpro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-export { ActionBar } from "./lib/ActionBar";
-export { Alert } from "./lib/Alert";
-export { Badge, Counter, Label, Status } from "./lib/Badge";
-export { Breadcrumb } from "./lib/Breadcrumb";
-export { Button, ButtonGroup } from "./lib/Button";
-export { Calendar } from "./lib/Calendar";
-export { ComboboxInput } from "./lib/ComboboxInput";
-export { DatePicker } from "./lib/DatePicker";
-export { Dropdown } from "./lib/Dropdown";
+export { default as ActionBar } from "./lib/ActionBar/ActionBar";
+export { default as Alert } from "./lib/Alert/Alert";
+export { default as Badge } from "./lib/Badge/Badge";
+export { default as Label } from "./lib/Badge/Label";
+export { default as Status } from "./lib/Badge/Status";
+export { default as Counter } from "./lib/Badge/Counter";
+export { default as Breadcrumb } from "./lib/Breadcrumb/Breadcrumb";
+export { default as Button } from "./lib/Button/Button";
+export { default as ButtonGroup } from "./lib/Button/ButtonGroup";
+export { default as Calendar } from "./lib/Calendar/Calendar";
+export { default as ComboboxInput } from "./lib/ComboboxInput/ComboboxInput";
+export { default as DatePicker } from "./lib/DatePicker/DatePicker";
+export { default as Dropdown } from "./lib/Dropdown/Dropdown";
+export { default as FormSet } from "./lib/Forms/FormSet";
+export { default as FormItem } from "./lib/Forms/FormItem";
+export { default as FormLabel } from "./lib/Forms/FormLabel";
+export { default as FormInput } from "./lib/Forms/FormInput";
+export { default as FormRadioGroup } from "./lib/Forms/FormRadioGroup";
+export { default as FormRadioItem } from "./lib/Forms/FormRadioItem";
+export { default as FormTextarea } from "./lib/Forms/FormTextarea";
+export { default as FormMessage } from "./lib/Forms/FormMessage";
+export { default as FormSelect } from "./lib/Forms/FormSelect";
+export { default as FormFieldset } from "./lib/Forms/FormFieldset";
+export { default as FormLegend } from "./lib/Forms/FormLegend";
+export { default as Icon } from "./lib/Icon/Icon";
+export { default as Identifier } from "./lib/Identifier/Identifier";
+export { default as Image } from "./lib/Image/Image";
+export { default as InlineHelp } from "./lib/InlineHelp/InlineHelp";
+export { default as InputGroup } from "./lib/InputGroup/InputGroup";
+export { default as FormGroup } from "./lib/InputGroup/FormGroup";
+export { default as ListGroup } from "./lib/ListGroup/ListGroup";
 export {
-    FormFieldset,
-    FormInput,
-    FormItem,
-    FormLabel,
-    FormLegend,
-    FormMessage,
-    FormRadioGroup,
-    FormRadioItem,
-    FormSelect,
-    FormSet,
-    FormTextarea
-} from "./lib/Forms";
-export { Icon } from "./lib/Icon";
-export { Identifier } from "./lib/Identifier";
-export { Image } from "./lib/Image";
-export { InlineHelp } from "./lib/InlineHelp";
-export { FormGroup, InputGroup } from "./lib/InputGroup";
-export { ListGroup } from "./lib/ListGroup";
-export { LocalizationEditor } from "./lib/LocalizationEditor";
-export { Menu } from "./lib/Menu";
-export { Modal } from "./lib/Modal";
-export { MultiInput } from "./lib/MultiInput";
-export { Pagination } from "./lib/Pagination";
-export { Panel, PanelGrid } from "./lib/Panel";
-export { Popover } from "./lib/Popover";
-export { SearchInput } from "./lib/SearchInput";
-export { Shellbar } from "./lib/Shellbar";
-export { SideNav } from "./lib/SideNavigation";
-export { Table } from "./lib/Table";
-export { Tab, TabGroup } from "./lib/Tabs";
-export { ProductTile, Tile, TileGrid } from "./lib/Tile";
-export { Time } from "./lib/Time";
-export { TimePicker } from "./lib/TimePicker";
-export { Toggle } from "./lib/Toggle";
-export { Token } from "./lib/Token";
-export { TreeView } from "./lib/TreeView";
+    default as LocalizationEditor
+} from "./lib/LocalizationEditor/LocalizationEditor";
+export { default as Menu } from "./lib/Menu/Menu";
+export { default as Modal } from "./lib/Modal/Modal";
+export { default as MultiInput } from "./lib/MultiInput/MultiInput";
+export { default as Pagination } from "./lib/Pagination/Pagination";
+export { default as Panel } from "./lib/Panel/Panel";
+export { default as PanelGrid } from "./lib/Panel/PanelGrid";
+export { default as Popover } from "./lib/Popover/Popover";
+export { default as ProductTile } from "./lib/Tile/ProductTile";
+export { default as SearchInput } from "./lib/SearchInput/SearchInput";
+export { default as SideNav } from "./lib/SideNavigation/SideNav";
+export { default as Tab } from "./lib/Tabs/Tab";
+export { default as TabGroup } from "./lib/Tabs/TabGroup";
+export { default as Table } from "./lib/Table/Table";
+export { default as Token } from "./lib/Token/Token";
+export { default as Tile } from "./lib/Tile/Tile";
+export { default as TileGrid } from "./lib/Tile/TileGrid";
+export { default as Toggle } from "./lib/Toggle/Toggle";
+export { default as TreeView } from "./lib/TreeView/TreeView";
+export { default as Time } from "./lib/Time/Time";
+export { default as TimePicker } from "./lib/TimePicker/TimePicker";
+export { default as Shellbar } from "./lib/Shellbar/Shellbar";
