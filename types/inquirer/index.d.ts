@@ -77,7 +77,7 @@ declare namespace inquirer {
          * Possible values:
          * <ul>
          *      <li>input</li>
-	     *      <li>number</li>
+         *      <li>number</li>
          *      <li>confirm</li>
          *      <li>list</li>
          *      <li>rawlist</li>
@@ -285,6 +285,7 @@ declare namespace inquirer {
             name?: string;
             value?: any;
             type?: string;
+            short?: string;
             extra?: any;
             key?: string;
             checked?: boolean;

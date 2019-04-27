@@ -311,7 +311,7 @@ var scope = nock('http://www.google.com')
 /// Access original request and headers
 var scope = nock('http://www.google.com')
    .get('/cat-poems')
-   .reply(function (uri, requestBody) {
+   .reply(function(uri, requestBody) {
      console.log('path:', this.req.path);
      console.log('headers:', this.req.headers);
      // ...
@@ -519,7 +519,7 @@ var scope = nock('http://api.myservice.com')
                 .post('/', 'ABC')
                 .reply(201, 'OK');
 
-// Request Headers Matching
+// Request Headers Matching on the Scope Level
 var scope = nock('http://api.myservice.com')
                 .matchHeader('accept', 'application/json')
                 .get('/')
@@ -539,6 +539,30 @@ var scope = nock('http://api.myservice.com')
                   return Number(val) >= 1000;
                 })
                 .get('/')
+                .reply(200, {
+                  data: 'hello world'
+                })
+
+// Request Headers Matching on the Interceptor Level
+var scope = nock('http://api.myservice.com')
+                .get('/')
+                .matchHeader('accept', 'application/json')
+                .reply(200, {
+                  data: 'hello world'
+                })
+
+var scope = nock('http://api.myservice.com')
+                .get('/')
+                .matchHeader('User-Agent', /Mozilla\/.*/)
+                .reply(200, {
+                  data: 'hello world'
+                })
+
+var scope = nock('http://api.myservice.com')
+                .get('/')
+                .matchHeader('content-length', (val) => {
+                  return Number(val) >= 1000;
+                })
                 .reply(200, {
                   data: 'hello world'
                 })
