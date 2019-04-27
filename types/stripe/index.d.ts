@@ -839,6 +839,125 @@ declare namespace Stripe {
              * If not set, this defaults to the platform’s bank descriptor as set in the Dashboard.
              */
             payout_statement_descriptor?: string;
+
+            /**
+             * Options for customizing how the account functions within Stripe.
+             */
+            settings?: {
+                /**
+                 * Settings used to apply the account’s branding to email
+                 * receipts, invoices, Checkout, and other products.
+                 */
+                branding?: {
+                    /**
+                     * (ID of a file upload) An icon for the account.
+                     * Must be square and at least 128px x 128px.
+                     */
+                    icon?: string;
+
+                    /**
+                     * (ID of a file upload) A logo for the account that will be
+                     * used in Checkout instead of the icon and without the account’s
+                     * name next to it if provided. Must be at least 128px x 128px.
+                     * This can be unset by updating the value to null and then saving.
+                     */
+                    logo?: string;
+
+                    /**
+                     * A CSS hex color value representing the primary branding color for this account.
+                     */
+                    primary_color?: string;
+                };
+
+                /**
+                 * Settings specific to card charging on the account.
+                 */
+                card_payments?: {
+                    /**
+                     * Automatically declines certain charge types regardless of
+                     * whether the card issuer accepted or declined the charge.
+                     */
+                    decline_on?: {
+                        /**
+                         * Whether Stripe automatically declines charges with an incorrect
+                         * ZIP or postal code. This setting only applies when a ZIP or postal
+                         * code is provided and they fail bank verification.
+                         */
+                        avs_failure?: string;
+
+                        /**
+                         * Whether Stripe automatically declines charges with an incorrect CVC.
+                         * This setting only applies when a CVC is provided and it fails bank verification.
+                         */
+                        cvc_failure?: string;
+                    };
+
+                    /**
+                     * The default text that appears on credit card statements when a
+                     * charge is made. This field prefixes any dynamic statement_descriptor
+                     * specified on the charge. statement_descriptor_prefix is useful for
+                     * maximizing descriptor space for the dynamic portion.
+                     */
+                    statement_descriptor_prefix?: string;
+                };
+
+                /**
+                 * Settings that apply across payment methods for charging on the account.
+                 */
+                payments?: {
+                    /**
+                     * The default text that appears on credit card statements when a
+                     * charge is made. This field prefixes any dynamic statement_descriptor
+                     * specified on the charge.
+                     */
+                    statement_descriptor?: string;
+                };
+
+                /**
+                 * Settings specific to the account’s payouts.
+                 */
+                payouts?: {
+                    /**
+                     * A Boolean indicating whether Stripe should try to reclaim negative
+                     * balances from an attached bank account.
+                     * For details, see Understanding Connect Account Balances.
+                     */
+                    debit_negative_balances?: boolean;
+
+                    /**
+                     * Details on when funds from charges are available, and when they
+                     * are paid out to an external account. For details, see our Setting Bank
+                     * and Debit Card Payouts documentation.
+                     */
+                    schedule?: {
+                        /**
+                         * The number of days charge funds are held before being paid out.
+                         * May also be set to minimum, representing the lowest available value
+                         * for the account country. Default is minimum.
+                         * The delay_days parameter does not apply when the interval is manual.
+                         */
+                        delay_days?: number;
+
+                        /**
+                         * How frequently available funds are paid out.
+                         * One of: daily, manual, weekly, or monthly. Default is daily.
+                         */
+                        interval?: "daily" | "manual" | "weekly" | "monthly" | "daily";
+
+                        /**
+                         * The day of the month when available funds are paid out.
+                         * Required and applicable only if interval is monthly.
+                         */
+                        monthly_anchor?: number;
+
+                        /**
+                         * The day of the week when available funds are paid out, specified
+                         * as monday, tuesday, etc. (required and applicable only if interval is weekly.)
+                         */
+                        weekly_anchor?: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
+                    };
+                };
+            };
         }
 
         interface IAccountUpdateOptions extends IDataOptions, IAccountShared {
