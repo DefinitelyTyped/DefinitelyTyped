@@ -78,6 +78,17 @@ stripe.charges.create({
     charge.refunds.list().then((refund) => {
     });
 });
+stripe.charges.create({
+    amount: 400,
+    currency: "gbp",
+    source: "tok_17wV94BoqMA9o2xkhlAd3ALf", // obtained with Stripe.js
+    description: "Charge for test@example.com",
+    transfer_data: {
+        destination: "acct_17wV8KBoqMA9o2xk"
+    }
+}, (err, charge) => {
+    // asynchronously called
+});
 
 stripe.charges.retrieve("ch_15fvyXEe31JkLCeQOo0SwFk9", (err, charge) => {
     // asynchronously called
@@ -640,6 +651,23 @@ stripe.accounts.create({
 );
 stripe.accounts.create({
     type: "custom"
+}).then((customer) => {
+    // asynchronously called
+    }
+);
+stripe.accounts.create({
+    type: "custom",
+    business_type: "individual",
+    individual: {
+        first_name: "John",
+        last_name: "Smith",
+        email: "test@example.com",
+        dob: {
+            day: 1,
+            month: 1,
+            year: 1970
+        },
+    }
 }).then((customer) => {
     // asynchronously called
     }
