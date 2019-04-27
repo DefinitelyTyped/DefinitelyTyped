@@ -49,7 +49,7 @@ import {
     TreeView
 } from "fundamental-react";
 import { FormItem } from "fundamental-react/lib";
-import { Alert } from "fundamental-react/lib/Alert/Alert";
+import Alert from "fundamental-react/lib/Alert/Alert";
 import { FormLabel } from "fundamental-react/lib/Forms";
 import FormInput from "fundamental-react/lib/Forms/FormInput";
 import FormTextarea from "fundamental-react/lib/Forms/FormTextarea";
