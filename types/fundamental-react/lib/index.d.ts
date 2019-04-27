@@ -7,12 +7,12 @@ export { Calendar } from "./Calendar/index";
 export { ComboboxInput } from "./ComboboxInput/index";
 export { DatePicker } from "./DatePicker/index";
 export { Dropdown } from "./Dropdown/index";
-export { FormLegend } from "./Forms//index";
 export {
     FormFieldset,
     FormInput,
     FormItem,
     FormLabel,
+    FormLegend,
     FormMessage,
     FormRadioGroup,
     FormRadioItem,
