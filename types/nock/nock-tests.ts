@@ -288,7 +288,7 @@ scope = nock('http://www.google.com')
      return [
        201,
        'THIS IS THE REPLY BODY',
-       {'header': 'value'} // optional headers
+       {header: 'value'} // optional headers
      ];
    });
 
@@ -323,14 +323,14 @@ nock('http://www.google.com')
 
 nock('http://www.google.com')
   .get('/cat-poems')
-  .replyWithError({'message': 'something awful happened', 'code': 'AWFUL_ERROR'});
+  .replyWithError({message: 'something awful happened', code: 'AWFUL_ERROR'});
 
 // Specifying headers
 
 /// Specifying Request Headers
 scope = nock('http://www.example.com', {
       reqheaders: {
-        'authorization': 'Basic Auth'
+        authorization: 'Basic Auth'
       }
     })
     .get('/')
