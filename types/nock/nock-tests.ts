@@ -7,24 +7,22 @@ let inst: nock.Interceptor;
 let str: string;
 let strings: string[];
 let bool: boolean;
-let data: string;
-let num: number;
-let obj: {};
 let defs: nock.NockDefinition[];
-let value: any;
-let regex: RegExp;
 let options: nock.Options;
-let headers: { [key: string]: string; };
+
+const num = 42;
+const obj: {[k: string]: any} = {};
+const regex = /test/;
 
 inst = scope.head(str);
 
 inst = scope.get(str);
-inst = scope.get(str, data);
-inst = scope.get(str, data, options);
+inst = scope.get(str, str);
+inst = scope.get(str, str, options);
 
 inst = scope.options(str);
-inst = scope.options(str, data);
-inst = scope.options(str, data, options);
+inst = scope.options(str, str);
+inst = scope.options(str, str, options);
 
 inst = scope.patch(str);
 inst = scope.patch(str, str);
@@ -33,26 +31,26 @@ inst = scope.patch(str, obj, options);
 inst = scope.patch(str, regex);
 
 inst = scope.post(str);
-inst = scope.post(str, data);
-inst = scope.post(str, data, options);
+inst = scope.post(str, str);
+inst = scope.post(str, str, options);
 inst = scope.post(str, obj);
 inst = scope.post(str, regex);
 
 inst = scope.put(str);
-inst = scope.put(str, data);
-inst = scope.put(str, data, options);
+inst = scope.put(str, str);
+inst = scope.put(str, str, options);
 inst = scope.put(str, obj);
 inst = scope.put(str, regex);
 
 inst = scope.delete(str);
-inst = scope.delete(str, data);
-inst = scope.delete(str, data, options);
+inst = scope.delete(str, str);
+inst = scope.delete(str, str, options);
 inst = scope.delete(str, obj);
 inst = scope.delete(str, regex);
 
 inst = scope.merge(str);
-inst = scope.merge(str, data);
-inst = scope.merge(str, data, options);
+inst = scope.merge(str, str);
+inst = scope.merge(str, str, options);
 inst = scope.merge(str, obj);
 inst = scope.merge(str, regex);
 
@@ -63,21 +61,21 @@ inst = scope.intercept(str, str);
 inst = scope.intercept(str, str, str);
 inst = scope.intercept(str, str, obj);
 inst = scope.intercept(str, str, regex);
-inst = scope.intercept(str, str, str, value);
-inst = scope.intercept(str, str, obj, value);
-inst = scope.intercept(str, str, regex, value);
+inst = scope.intercept(str, str, str, obj);
+inst = scope.intercept(str, str, obj, obj);
+inst = scope.intercept(str, str, regex, obj);
 
 scope = inst.reply(num);
 scope = inst.reply(num, str);
 
-scope = inst.reply(num, str, headers);
-scope = inst.reply(num, obj, headers);
+scope = inst.reply(num, str, obj);
+scope = inst.reply(num, obj, obj);
 scope = inst.reply(num, (uri: string, body: string) => {
   return str;
 });
 scope = inst.reply(num, (uri: string, body: string) => {
   return str;
-}, headers);
+}, obj);
 scope = inst.replyWithFile(num, str);
 
 inst = inst.times(4);
@@ -87,7 +85,7 @@ inst = inst.thrice();
 
 inst = inst.optionally();
 
-scope = scope.defaultReplyHeaders(value);
+scope = scope.defaultReplyHeaders({'X-Foo': 'bar'});
 
 scope = scope.matchHeader(str, str);
 scope = scope.matchHeader(str, regex);
@@ -135,7 +133,7 @@ strings = nock.recorder.play() as string[];
 defs = nock.recorder.play() as nock.NockDefinition[];
 
 // Usage
-let couchdb = nock('http://myapp.iriscouch.com')
+const couchdb = nock('http://myapp.iriscouch.com')
                 .get('/users/1')
                 .reply(200, {
                   _id: '123ABC',
@@ -285,6 +283,7 @@ scope = nock('http://www.google.com')
    .filteringRequestBody(/.*/, '*')
    .post('/echo', '*')
    .reply((uri, requestBody) => {
+     str = uri;
      return [
        201,
        'THIS IS THE REPLY BODY',
@@ -635,17 +634,16 @@ nock.recorder.rec({
   dont_print: true
 });
 // ... some HTTP calls
-let nockCalls = nock.recorder.play();
+const nockCalls = nock.recorder.play();
 
 /// output_objects option
 nock.recorder.rec({
   output_objects: true
 });
 // ... some HTTP calls
-let nockCallObjects = nock.recorder.play();
+const nockCallObjects = nock.recorder.play();
 
-let pathToJson: string;
-let nocks = nock.load(pathToJson);
+let nocks = nock.load(str);
 nocks.forEach((nock) => {
   nock = nock.filteringRequestBody((body: string) => {
     return body;
@@ -653,7 +651,7 @@ nocks.forEach((nock) => {
 });
 
 //  Pre-process the nock definitions as scope filtering has to be defined before the nocks are defined (due to its very hacky nature).
-let nockDefs = nock.loadDefs(pathToJson);
+const nockDefs = nock.loadDefs(str);
 nockDefs.forEach((def) => {
   //  Do something with the definition object e.g. scope filtering.
   def.options = def.options || {};
@@ -672,7 +670,7 @@ nock.recorder.rec({
 });
 
 /// logging option
-let nullAppender = (content: string) => { };
+const nullAppender = (content: string) => { };
 nock.recorder.rec({
   logging: nullAppender
 });
@@ -694,7 +692,7 @@ nock.removeInterceptor({
   proto : 'https'
 });
 
-let interceptor = nock('http://example.org')
+const interceptor = nock('http://example.org')
   .get('somePath');
 nock.removeInterceptor(interceptor);
 
@@ -713,13 +711,13 @@ nockBack.setMode('record');
 nockBack.setMode('record');
 nockBack.fixtures = './nockFixtures'; // this only needs to be set once in your test helper
 
-let before = (def: nock.NockDefinition) => {
+const before = (def: nock.NockDefinition) => {
   def.options = def.options || {};
   def.options.filteringScope = (scope: string) => {
     return /^https:\/\/api[0-9]*.dropbox.com/.test(scope);
   };
 };
-let after = (scope: nock.Scope) => {
+const after = (scope: nock.Scope) => {
   scope = scope.filteringRequestBody((body: string): string => {
     return body;
   });
