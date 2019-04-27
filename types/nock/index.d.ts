@@ -31,12 +31,12 @@ declare namespace nock {
     export function loadDefs(path: string): NockDefinition[];
     export function define(defs: NockDefinition[]): Scope[];
 
-    export var emitter: NodeJS.EventEmitter;
+    export let emitter: NodeJS.EventEmitter;
 
-    export var recorder: Recorder;
+    export let recorder: Recorder;
     export function restore(): void;
 
-    export var back: NockBack;
+    export let back: NockBack;
 
     interface HttpHeaders { [key: string]: string | string[] | { (req: any, res: any, body: string): any; }; }
     type InterceptFunction = (

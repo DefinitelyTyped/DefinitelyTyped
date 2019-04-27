@@ -2,19 +2,19 @@ import nock = require('nock');
 import * as fs from 'fs';
 import { URL } from 'url';
 
-var scope: nock.Scope;
-var inst: nock.Interceptor;
-var str: string;
-var strings: string[];
-var bool: boolean;
-var data: string;
-var num: number;
-var obj: {};
-var defs: nock.NockDefinition[];
-var value: any;
-var regex: RegExp;
-var options: nock.Options;
-var headers: { [key: string]: string; };
+let scope: nock.Scope;
+let inst: nock.Interceptor;
+let str: string;
+let strings: string[];
+let bool: boolean;
+let data: string;
+let num: number;
+let obj: {};
+let defs: nock.NockDefinition[];
+let value: any;
+let regex: RegExp;
+let options: nock.Options;
+let headers: { [key: string]: string; };
 
 inst = scope.head(str);
 
@@ -135,7 +135,7 @@ strings = nock.recorder.play() as string[];
 defs = nock.recorder.play() as nock.NockDefinition[];
 
 // Usage
-var couchdb = nock('http://myapp.iriscouch.com')
+let couchdb = nock('http://myapp.iriscouch.com')
                 .get('/users/1')
                 .reply(200, {
                   _id: '123ABC',
@@ -573,7 +573,7 @@ scope = nock('http://my.existing.service.com', options)
   .reply(200, 'OK!');
 
 // Expectations
-var google = nock('http://google.com')
+let google = nock('http://google.com')
                 .get('/')
                 .reply(200, 'Hello from Google!');
 setTimeout(() => {
@@ -635,17 +635,17 @@ nock.recorder.rec({
   dont_print: true
 });
 // ... some HTTP calls
-var nockCalls = nock.recorder.play();
+let nockCalls = nock.recorder.play();
 
 /// output_objects option
 nock.recorder.rec({
   output_objects: true
 });
 // ... some HTTP calls
-var nockCallObjects = nock.recorder.play();
+let nockCallObjects = nock.recorder.play();
 
-var pathToJson: string;
-var nocks = nock.load(pathToJson);
+let pathToJson: string;
+let nocks = nock.load(pathToJson);
 nocks.forEach((nock) => {
   nock = nock.filteringRequestBody((body: string) => {
     return body;
@@ -653,7 +653,7 @@ nocks.forEach((nock) => {
 });
 
 //  Pre-process the nock definitions as scope filtering has to be defined before the nocks are defined (due to its very hacky nature).
-var nockDefs = nock.loadDefs(pathToJson);
+let nockDefs = nock.loadDefs(pathToJson);
 nockDefs.forEach((def) => {
   //  Do something with the definition object e.g. scope filtering.
   def.options = def.options || {};
@@ -672,7 +672,7 @@ nock.recorder.rec({
 });
 
 /// logging option
-var nullAppender = (content: string) => { };
+let nullAppender = (content: string) => { };
 nock.recorder.rec({
   logging: nullAppender
 });
@@ -694,7 +694,7 @@ nock.removeInterceptor({
   proto : 'https'
 });
 
-var interceptor = nock('http://example.org')
+let interceptor = nock('http://example.org')
   .get('somePath');
 nock.removeInterceptor(interceptor);
 
@@ -713,13 +713,13 @@ nockBack.setMode('record');
 nockBack.setMode('record');
 nockBack.fixtures = './nockFixtures'; // this only needs to be set once in your test helper
 
-var before = (def: nock.NockDefinition) => {
+let before = (def: nock.NockDefinition) => {
   def.options = def.options || {};
   def.options.filteringScope = (scope: string) => {
     return /^https:\/\/api[0-9]*.dropbox.com/.test(scope);
   };
 };
-var after = (scope: nock.Scope) => {
+let after = (scope: nock.Scope) => {
   scope = scope.filteringRequestBody((body: string): string => {
     return body;
   });
