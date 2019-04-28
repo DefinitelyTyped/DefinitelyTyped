@@ -20,6 +20,7 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Jonas Keisel <https://github.com/0xJoKe>
 //                 Andrew Delianides <https://github.com/delianides>
+//                 Jamie Davies <https://github.com/viralpickaxe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1364,6 +1365,8 @@ declare namespace Stripe {
              */
             account_balance?: number;
 
+            address: IAddress | null;
+
             created: number;
 
             /**
@@ -1394,6 +1397,8 @@ declare namespace Stripe {
 
             metadata: IMetadata;
 
+            name: string | null;
+
             /**
              * Shipping information associated with the customer.
              */
@@ -1421,6 +1426,8 @@ declare namespace Stripe {
              */
             account_balance?: number;
 
+            address?: IAddress;
+
             /**
              * If you provide a coupon code, the customer will have a discount applied on all recurring charges. Charges you create through the
              * API will not have the discount.
@@ -1438,6 +1445,11 @@ declare namespace Stripe {
              * This can be unset by updating the value to null and then saving.
              */
             email?: string;
+
+            /**
+             * The customer’s full name or business name.
+             */
+            name?: string;
 
             /**
              * The identifier of the plan to subscribe the customer to. If provided, the returned customer object will have a list of subscriptions
@@ -1485,6 +1497,8 @@ declare namespace Stripe {
              */
             account_balance?: number;
 
+            address?: IAddress;
+
             /**
              * If you provide a coupon code, the customer will have a discount applied on all recurring charges. Charges you create through the
              * API will not have the discount.
@@ -1507,6 +1521,11 @@ declare namespace Stripe {
              * This can be unset by updating the value to null and then saving.
              */
             email?: string;
+
+            /**
+             * The customer’s full name or business name.
+             */
+            name?: string;
 
             /**
              * The prefix for the customer used to generate unique invoice numbers.
@@ -8313,41 +8332,43 @@ declare namespace Stripe {
         [x: string]: string;
     }
 
+    interface IAddress {
+        /**
+         * Address line 1 (Street address/PO Box/Company name)
+         */
+        line1: string;
+
+        /**
+         * Address line 2 (Apartment/Suite/Unit/Building)
+         */
+        line2?: string;
+
+        /**
+         * City/Suburb/Town/Village
+         */
+        city?: string;
+
+        /**
+         * State/Province/County
+         */
+        state?: string;
+
+        /**
+         * Zip/Postal Code
+         */
+        postal_code?: string;
+
+        /**
+         * 2-letter country code
+         */
+        country?: string;
+    }
+
     interface IShippingInformation {
         /**
          * Shipping address.
          */
-        address: {
-            /**
-             * Address line 1 (Street address/PO Box/Company name)
-             */
-            line1: string;
-
-            /**
-             * Address line 2 (Apartment/Suite/Unit/Building)
-             */
-            line2?: string;
-
-            /**
-             * City/Suburb/Town/Village
-             */
-            city?: string;
-
-            /**
-             * State/Province/County
-             */
-            state?: string;
-
-            /**
-             * Zip/Postal Code
-             */
-            postal_code?: string;
-
-            /**
-             * 2-letter country code
-             */
-            country?: string;
-        };
+        address: IAddress;
 
         /**
          * Recipient name.
