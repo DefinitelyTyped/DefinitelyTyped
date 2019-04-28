@@ -557,7 +557,7 @@ export function useActions<T extends ActionCreator<any>>(actions: T, deps?: Read
  * @example
  *
  * import React, { useCallback } from 'react'
- * import { useReduxDispatch } from 'react-redux'
+ * import { useDispatch } from 'react-redux'
  *
  * export const CounterComponent = ({ value }) => {
  *   const dispatch = useDispatch()
@@ -571,94 +571,6 @@ export function useActions<T extends ActionCreator<any>>(actions: T, deps?: Read
  * }
  */
 export function useDispatch<A extends Action = any>(): Dispatch<A>;
-
-/**
- * A hook to access the redux store's state and to bind action creators to
- * the store's dispatch function. In essence, this hook is a combination of
- * `useSelector` and `useActions`.
- *
- * Note that this hook does currently not allow to pass a dependencies array,
- * so the passed selector and any created callbacks are not memoized. If you
- * require memoization, please use `useActions` and `useSelector`.
- *
- * @param selector the selector function
- * @param actions the action creators to bind
- *
- * @returns a tuple of the selected state and the bound action creators
- *
- * @example
- *
- * import React from 'react'
- * import { useRedux } from 'react-redux'
- * import { RootState } from './store'
- *
- * export const CounterComponent = () => {
- *   const [counter, { inc1, inc }] = useRedux((state: RootState) => state.counter, {
- *     inc1: () => ({ type: 'inc1' }),
- *     inc: (amount: number) => ({ type: 'inc', amount }),
- *   })
- *
- *   return (
- *     <>
- *       <div>
- *         {counter}
- *       </div>
- *       <button onClick={inc1}>Increment by 1</button>
- *       <button onClick={() => inc(5)}>Increment by 5</button>
- *     </>
- *   )
- * }
- */
-export function useRedux<
-    TState,
-    TSelected,
-    TActions
-    extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
-export function useRedux<
-    TState,
-    TSelected,
-    TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
-export function useRedux<
-    TState,
-    TSelected,
-    TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
-export function useRedux<
-    TState,
-    TSelected,
-    TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
-export function useRedux<
-    TState,
-    TSelected,
-    TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
-export function useRedux<
-    TState,
-    TSelected,
-    TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
-export function useRedux<
-    TState,
-    TSelected,
-    TActions extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
-export function useRedux<
-    TState,
-    TSelected,
-    TActions extends [ActionCreator<any>, ActionCreator<any>]
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
-export function useRedux<TState, TSelected, TActions extends [ActionCreator<any>]>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
-export function useRedux<TState, TSelected, TActions extends ReadonlyArray<ActionCreator<any>>>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveArrayThunks<TActions>];
-export function useRedux<TState, TSelected, TActions extends { [key: string]: ActionCreator<any> }>(selector: (state: TState) => TSelected, actions: TActions): [TSelected, ResolveThunks<TActions>];
-export function useRedux<
-    TState,
-    TSelected,
-    TActions extends ActionCreator<any>,
-    A = ReturnType<TActions>
->(selector: (state: TState) => TSelected, actions: TActions): [TSelected, HandleThunkActionCreator<TActions>];
 
 /**
  * A hook to access the redux store's state. This hook takes a selector function

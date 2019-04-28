@@ -23,7 +23,6 @@ import {
     MapDispatchToProps,
     useActions,
     useDispatch,
-    useRedux,
     useSelector,
     useStore,
 } from 'react-redux';
@@ -1423,98 +1422,6 @@ function testUseSelector() {
 
     const { extraneous } = useSelector(selector); // $ExpectError
     useSelector(selector, [counter]);
-}
-
-function testUseRedux() {
-    interface State {
-        counter: number;
-    }
-    const actionCreator1 = (selected: boolean) => ({
-        type: "ACTION_CREATOR_1",
-        payload: selected,
-    });
-    const actionCreator2 = ({ items }: { items: string[] }) => ({
-        type: "ACTION_CREATOR_2",
-        payload: {
-            items
-        }
-    });
-    const thunkActionCreator = () => {
-        return (dispatch: Dispatch) => {
-            return dispatch({
-                type: "THUNK_ACTION_CREATOR",
-                payload: [],
-            });
-        };
-    };
-    const selector = (state: State) => {
-        return {
-            counter: state.counter,
-        };
-    };
-    function testUseReduxSingle() {
-        const [selected, boundAction1] = useRedux(selector, actionCreator1);
-        selected.counter === 1;
-        selected.counter === "321"; // $ExpectError
-        boundAction1(); // $ExpectError
-        boundAction1(true);
-    }
-    function testUseReduxThunk() {
-        const [selected, boundThunk] = useRedux(selector, thunkActionCreator);
-        const result = boundThunk();
-        result.payload[0];
-        result.payload.data; // $ExpectError
-    }
-    function testUseReduxArray() {
-        const [
-            selected,
-            [
-                boundAction1,
-                boundAction2,
-                boundThunk,
-            ]
-        ] = useRedux(selector, [actionCreator1, actionCreator2, thunkActionCreator]);
-        boundAction1(); // $ExpectError
-        boundAction2(true); // $ExpectError
-        boundAction1(true);
-        boundAction2({ items: ["a"] });
-        const result = boundThunk();
-        result.payload[0];
-        result.payload.data; // $ExpectError
-    }
-    function testUseReduxArrayExtraneous() {
-        const [
-            selected,
-            boundAction1,
-            nonexistentAction, // $ExpectError
-        ] = useRedux(selector, [actionCreator1]);
-    }
-
-    function testUseReduxObject() {
-        const [
-            selected,
-            {
-                actionCreator1: boundAction1,
-                actionCreator2: boundAction2,
-                thunkActionCreator: boundThunk,
-            },
-        ] = useRedux(selector, { actionCreator1, actionCreator2, thunkActionCreator });
-        boundAction1(); // $ExpectError
-        boundAction2(true); // $ExpectError
-        boundAction1(true);
-        boundAction2({ items: ["a"] });
-        const result = boundThunk();
-        result.payload[0];
-        result.payload.data; // $ExpectError
-    }
-
-    function testUseReduxObjectExtraneous() {
-        const [
-            state,
-            { actionCreator1: boundAction1 },
-            nonexistentThing, // $ExpectError
-        ] = useRedux(selector, { actionCreator1 });
-    }
 }
 
 function testUseStore() {
