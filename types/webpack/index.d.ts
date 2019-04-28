@@ -950,10 +950,6 @@ declare namespace webpack {
                 webassembly: ModuleTemplate;
             };
 
-            isChild(): boolean;
-            context: string;
-            outputPath: string;
-
             entries: any[];
             _preparedEntrypoints: any[];
             entrypoints: Map<any, any>;
@@ -1086,6 +1082,9 @@ declare namespace webpack {
         _pluginCompat: SyncBailHook<compilation.Compilation>;
 
         name: string;
+        isChild(): boolean;
+        context: string;
+        outputPath: string;
         options: Configuration;
         inputFileSystem: InputFileSystem;
         outputFileSystem: OutputFileSystem;
