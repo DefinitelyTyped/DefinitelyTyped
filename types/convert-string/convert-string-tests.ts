@@ -1,7 +1,7 @@
-import convert, { UTF8 } from "convert-string";
+import { convertString } from "convert-string";
 
-const utf8Bytes = UTF8.stringToBytes("Test ♥");
-const utf8Message = UTF8.bytesToString(utf8Bytes);
+const utf8Bytes = convertString.UTF8.stringToBytes("Test ♥");
+const utf8Message = convertString.UTF8.bytesToString(utf8Bytes);
 
-const bytes = convert.stringToBytes("Hello");
-const message = convert.bytesToString(bytes);
+const bytes = convertString.stringToBytes("Hello");
+const message = convertString.bytesToString(bytes);

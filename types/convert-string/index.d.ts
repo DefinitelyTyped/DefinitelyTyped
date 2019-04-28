@@ -3,14 +3,12 @@
 // Definitions by: Haseeb Majid <https://github.com/hmajid2301>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace convertString {
+export namespace convertString {
     function stringToBytes(str: string): number[];
     function bytesToString(bytes: number[]): string;
-}
 
-export namespace UTF8 {
-    function stringToBytes(str: string): number[];
-    function bytesToString(bytes: number[]): string;
+    export namespace UTF8 {
+        function stringToBytes(str: string): number[];
+        function bytesToString(bytes: number[]): string;
+    }
 }
-
-export default convertString;
