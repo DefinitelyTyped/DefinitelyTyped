@@ -96,7 +96,7 @@ export function withRouter<T extends {}, Q = DefaultQuery>(
   Component: React.ComponentType<T & WithRouterProps<Q>>
 ): React.ComponentType<Omit<T, keyof WithRouterProps<Q>>>;
 
-export function useRouter(): RouterProps
+export function useRouter(): RouterProps;
 
 declare const Router: SingletonRouter;
 export default Router;
