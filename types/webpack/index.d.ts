@@ -950,6 +950,10 @@ declare namespace webpack {
                 webassembly: ModuleTemplate;
             };
 
+            isChild(): boolean;
+            context: string;
+            outputPath: string;
+
             entries: any[];
             _preparedEntrypoints: any[];
             entrypoints: Map<any, any>;
