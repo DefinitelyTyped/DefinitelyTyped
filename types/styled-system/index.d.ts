@@ -17,20 +17,15 @@
 import * as CSS from "csstype";
 
 export const defaultBreakpoints: string[];
+
+export function cloneFunc(fn: (...args: any[]) => any): (...args: any[]) => any;
+export function get(obj: any, ...paths: Array<string | number>): any;
+export function themeGet(keys: string, fallback?: string): any;
+
 export function is(n: any): boolean;
+export function isObject(n: any): boolean;
 export function num(n: any): boolean;
 export function px(n: any): string;
-
-export function get(obj: any, ...paths: Array<string | number>): any;
-
-export function themeGet(keys: string, fallback?: string): any;
-export function cloneFunc(fn: (...args: any[]) => any): (...args: any[]) => any;
-
-export function merge(a: any, b: any): any;
-
-export function compose(
-    ...funcs: Array<(...args: any[]) => any>
-): (...args: any[]) => any;
 
 export function createMediaQuery(n: number | string): string;
 
@@ -46,6 +41,20 @@ export interface LowLevelStylefunctionArguments {
 export function style(
     args: LowLevelStylefunctionArguments
 ): { [cssProp: string]: string };
+
+export function compose(
+    ...funcs: Array<(...args: any[]) => any>
+): (...args: any[]) => any;
+
+export function mapProps(mapper: (...args: any[]) => any): (func: any[]) => (...props: any[]) => any;
+
+export interface VariantArgs {
+    key?: string;
+    // Defaults to "variant"
+    prop?: string;
+}
+
+export function variant(props: VariantArgs): (...args: any[]) => any;
 
 export type TLengthStyledSystem = string | 0 | number;
 export type ResponsiveValue<T> = T | Array<T | null> | { [key: string]: T };
@@ -112,13 +121,29 @@ export interface SpaceProps<TLength = TLengthStyledSystem> {
 
 export function space(...args: any[]): any;
 
-export interface VariantArgs {
-    key?: string;
-    // Defaults to "variant"
-    prop?: string;
-}
+export interface MarginProps extends Pick<SpaceProps, 'm' | 'margin' | 'mt' | 'marginTop' | 'mb' | 'marginBottom' | 'ml' | 'marginLeft' | 'mr' | 'marginRight'> {}
+export interface MarginTopProps extends Pick<SpaceProps, 'mt' | 'marginTop'> {}
+export interface MarginBottomProps extends Pick<SpaceProps, 'mb' | 'marginBottom'> {}
+export interface MarginLeftProps extends Pick<SpaceProps, 'ml' | 'marginLeft'> {}
+export interface MarginRightProps extends Pick<SpaceProps, 'mr' | 'marginRight'> {}
 
-export function variant(props: VariantArgs): (...args: any[]) => any;
+export function margin(...args: any[]): any;
+export function marginTop(...args: any[]): any;
+export function marginBottom(...args: any[]): any;
+export function marginLeft(...args: any[]): any;
+export function marginRight(...args: any[]): any;
+
+export interface PaddingProps extends Pick<SpaceProps, 'p' | 'padding' | 'pt' | 'paddingTop' | 'pb' | 'paddingBottom' | 'pl' | 'paddingLeft' | 'pr' | 'paddingRight'> {}
+export interface PaddingTopProps extends Pick<SpaceProps, 'pt' | 'paddingTop'> {}
+export interface PaddingBottomProps extends Pick<SpaceProps, 'pb' | 'paddingBottom'> {}
+export interface PaddingLeftProps extends Pick<SpaceProps, 'pl' | 'paddingLeft'> {}
+export interface PaddingRightProps extends Pick<SpaceProps, 'pr' | 'paddingRight'> {}
+
+export function padding(...args: any[]): any;
+export function paddingTop(...args: any[]): any;
+export function paddingBottom(...args: any[]): any;
+export function paddingLeft(...args: any[]): any;
+export function paddingRight(...args: any[]): any;
 
 export type ObjectOrArray<T> = T[] | { [K: string]: T };
 
@@ -149,25 +174,6 @@ export interface Theme extends BaseTheme {
 }
 
 /**
- * Font Size
- */
-
-export interface FontSizeProps<TLength = TLengthStyledSystem> {
-    /**
-     * The fontSize utility parses a component's `fontSize` prop and converts it into a CSS font-size declaration.
-     *
-     * - Numbers from 0-8 (or `theme.fontSizes.length`) are converted to values on the [font size scale](#default-theme).
-     * - Numbers greater than `theme.fontSizes.length` are converted to raw pixel values.
-     * - String values are passed as raw CSS values.
-     * - And array values are converted into responsive values.
-     *
-     */
-    fontSize?: ResponsiveValue<CSS.FontSizeProperty<TLength>>;
-}
-
-export function fontSize(...args: any[]): any;
-
-/**
  * Color
  */
 
@@ -186,7 +192,7 @@ export interface TextColorProps {
 
 export function textColor(...args: any[]): any;
 
-export interface BgColorProps<TLength = TLengthStyledSystem> {
+export interface BackgroundColorProps<TLength = TLengthStyledSystem> {
     /**
      * The color utility parses a component's `color` and `bg` props and converts them into CSS declarations.
      * By default the raw value of the prop is returned.
@@ -197,32 +203,53 @@ export interface BgColorProps<TLength = TLengthStyledSystem> {
      * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/background-color)
      */
     bg?: ResponsiveValue<CSS.BackgroundProperty<TLength>>;
+    backgroundColor?: ResponsiveValue<CSS.BackgroundProperty<TLength>>;
 }
 
-export function bgColor(...args: any[]): any;
+export function backgroundColor(...args: any[]): any;
 
-export interface ColorProps extends TextColorProps, BgColorProps {}
+export interface ColorProps extends TextColorProps, BackgroundColorProps {}
 
 export function color(...args: any[]): any;
 
 /**
  * Typography
  */
+
+export function getPx(n: any, scale: any): string;
+
+export interface FontSizeProps<TLength = TLengthStyledSystem> {
+    /**
+     * The fontSize utility parses a component's `fontSize` prop and converts it into a CSS font-size declaration.
+     *
+     * - Numbers from 0-8 (or `theme.fontSizes.length`) are converted to values on the [font size scale](#default-theme).
+     * - Numbers greater than `theme.fontSizes.length` are converted to raw pixel values.
+     * - String values are passed as raw CSS values.
+     * - And array values are converted into responsive values.
+     *
+     */
+    fontSize?: ResponsiveValue<CSS.FontSizeProperty<TLength>>;
+}
+
+export function fontSize(...args: any[]): any;
+
 export interface FontFamilyProps {
     fontFamily?: ResponsiveValue<CSS.FontFamilyProperty>;
 }
 export function fontFamily(...args: any[]): any;
 
-export interface TextAlignProps {
+export interface FontWeightProps {
     /**
-     * The text-align CSS property specifies the horizontal alignment of an inline or table-cell box.
+     * The font-weight CSS property specifies the weight (or boldness) of the font.
      *
-     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align)
+     * The font weights available to you will depend on the font-family you are using. Some fonts are only available in normal and bold.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight)
      */
-    textAlign?: ResponsiveValue<CSS.TextAlignProperty>;
+    fontWeight?: ResponsiveValue<CSS.FontWeightProperty>;
 }
 
-export function textAlign(...args: any[]): any;
+export function fontWeight(...args: any[]): any;
 
 export interface LineHeightProps<TLength = TLengthStyledSystem> {
     /**
@@ -237,18 +264,16 @@ export interface LineHeightProps<TLength = TLengthStyledSystem> {
 }
 export function lineHeight(...args: any[]): any;
 
-export interface FontWeightProps {
+export interface TextAlignProps {
     /**
-     * The font-weight CSS property specifies the weight (or boldness) of the font.
+     * The text-align CSS property specifies the horizontal alignment of an inline or table-cell box.
      *
-     * The font weights available to you will depend on the font-family you are using. Some fonts are only available in normal and bold.
-     *
-     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight)
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align)
      */
-    fontWeight?: ResponsiveValue<CSS.FontWeightProperty>;
+    textAlign?: ResponsiveValue<CSS.TextAlignProperty>;
 }
 
-export function fontWeight(...args: any[]): any;
+export function textAlign(...args: any[]): any;
 
 export interface FontStyleProps {
     /**
@@ -288,6 +313,20 @@ export interface DisplayProps {
 
 export function display(...args: any[]): any;
 
+export interface WidthProps<TLength = TLengthStyledSystem> {
+    /**
+     *   The width utility parses a component's `width` prop and converts it into a CSS width declaration.
+     *
+     *   - Numbers from 0-1 are converted to percentage widths.
+     *   - Numbers greater than 1 are converted to pixel values.
+     *   - String values are passed as raw CSS values.
+     *   - And arrays are converted to responsive width styles.
+     */
+    width?: ResponsiveValue<CSS.WidthProperty<TLength>>;
+}
+
+export function width(...args: any[]): any;
+
 export interface MaxWidthProps<TLength = TLengthStyledSystem> {
     /**
      * The max-width CSS property sets the maximum width of an element.
@@ -312,19 +351,17 @@ export interface MinWidthProps<TLength = TLengthStyledSystem> {
 
 export function minWidth(...args: any[]): any;
 
-export interface WidthProps<TLength = TLengthStyledSystem> {
+export interface HeightProps<TLength = TLengthStyledSystem> {
     /**
-     *   The width utility parses a component's `width` prop and converts it into a CSS width declaration.
+     * The height CSS property specifies the height of an element. By default, the property defines the height of the
+     * content area. If box-sizing is set to border-box, however, it instead determines the height of the border area.
      *
-     *   - Numbers from 0-1 are converted to percentage widths.
-     *   - Numbers greater than 1 are converted to pixel values.
-     *   - String values are passed as raw CSS values.
-     *   - And arrays are converted to responsive width styles.
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/height)
      */
-    width?: ResponsiveValue<CSS.WidthProperty<TLength>>;
+    height?: ResponsiveValue<CSS.HeightProperty<TLength>>;
 }
 
-export function width(...args: any[]): any;
+export function height(...args: any[]): any;
 
 export interface MaxHeightProps<TLength = TLengthStyledSystem> {
     /**
@@ -350,50 +387,11 @@ export interface MinHeightProps<TLength = TLengthStyledSystem> {
 
 export function minHeight(...args: any[]): any;
 
-export interface HeightProps<TLength = TLengthStyledSystem> {
-    /**
-     * The height CSS property specifies the height of an element. By default, the property defines the height of the
-     * content area. If box-sizing is set to border-box, however, it instead determines the height of the border area.
-     *
-     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/height)
-     */
-    height?: ResponsiveValue<CSS.HeightProperty<TLength>>;
-}
-
-export function height(...args: any[]): any;
-
-// TODO: Document, I couldn't find any info on these two properties...
-
-export interface SizeWidthProps<TLength = TLengthStyledSystem> {
-    size?: ResponsiveValue<CSS.WidthProperty<TLength>>;
-}
-
-export function sizeWidth(...args: any[]): any;
-
-export interface SizeHeightProps<TLength = TLengthStyledSystem> {
+export interface SizeProps<TLength = TLengthStyledSystem> {
     size?: ResponsiveValue<CSS.HeightProperty<TLength>>;
 }
 
-export function sizeHeight(...args: any[]): any;
-
-export interface SizeProps extends SizeHeightProps, SizeWidthProps {}
-
 export function size(...args: any[]): any;
-
-export interface RatioPaddingProps<TLength = TLengthStyledSystem> {
-    ratio?: ResponsiveValue<number>;
-}
-
-export function ratioPadding(...args: any[]): any;
-
-export interface RatioProps {
-    /**
-     * The ration is height: 0 & paddingBottom
-     */
-    ratio?: ResponsiveValue<number>;
-}
-
-export function ratio(...args: any[]): any;
 
 export interface VerticalAlignProps<TLength = TLengthStyledSystem> {
     /**
@@ -409,7 +407,6 @@ export function verticalAlign(...args: any[]): any;
 /**
  * Flexbox
  */
-
 export interface AlignItemsProps {
     /**
      * The CSS align-items property sets the align-self value on all direct children as a group. The align-self
@@ -713,6 +710,39 @@ export interface BorderProps<TLength = TLengthStyledSystem> {
 
 export function border(...args: any[]): any;
 
+export interface BorderWidthProps<TLength = TLengthStyledSystem> {
+    /**
+     * The border-width shorthand CSS property sets the width of all sides of an element's border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width)
+     */
+    borderWidth?: ResponsiveValue<CSS.BorderWidthProperty<TLength>>;
+}
+
+export function borderWidth(...args: any[]): any;
+
+export interface BorderStyleProps {
+    /**
+     * The border-style shorthand CSS property sets the style of all sides of an element's border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style)
+     */
+    borderStyle?: ResponsiveValue<CSS.BorderStyleProperty>;
+}
+
+export function borderStyle(...args: any[]): any;
+
+export interface BorderColorProps {
+    /**
+     * The border-color shorthand CSS property sets the color of all sides of an element's border.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color)
+     */
+    borderColor?: ResponsiveValue<CSS.BorderColorProperty>;
+}
+
+export function borderColor(...args: any[]): any;
+
 export interface BorderTopProps<TLength = TLengthStyledSystem> {
     /**
      * The border-top CSS property is a shorthand that sets the values of border-top-width, border-top-style,
@@ -760,39 +790,6 @@ export interface BorderLeftProps<TLength = TLengthStyledSystem> {
 }
 
 export function borderLeft(...args: any[]): any;
-
-export interface BorderWidthProps<TLength = TLengthStyledSystem> {
-    /**
-     * The border-width shorthand CSS property sets the width of all sides of an element's border.
-     *
-     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width)
-     */
-    borderWidth?: ResponsiveValue<CSS.BorderWidthProperty<TLength>>;
-}
-
-export function borderWidth(...args: any[]): any;
-
-export interface BorderStyleProps {
-    /**
-     * The border-style shorthand CSS property sets the style of all sides of an element's border.
-     *
-     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style)
-     */
-    borderStyle?: ResponsiveValue<CSS.BorderStyleProperty>;
-}
-
-export function borderStyle(...args: any[]): any;
-
-export interface BorderColorProps {
-    /**
-     * The border-color shorthand CSS property sets the color of all sides of an element's border.
-     *
-     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color)
-     */
-    borderColor?: ResponsiveValue<CSS.BorderColorProperty>;
-}
-
-export function borderColor(...args: any[]): any;
 
 export interface BorderRadiusProps<TLength = TLengthStyledSystem> {
     /**
@@ -996,6 +993,12 @@ export interface LeftProps<TLength = TLengthStyledSystem> {
 
 export function left(...args: any[]): any;
 
+export interface ButtonStyleProps {
+    variant?: ResponsiveValue<string>;
+}
+
+export function buttonStyle(...args: any[]): any;
+
 export interface TextStyleProps {
     textStyle?: ResponsiveValue<string>;
 }
@@ -1008,26 +1011,22 @@ export interface ColorStyleProps {
 
 export function colorStyle(...args: any[]): any;
 
-export interface ButtonStyleProps {
-    variant?: ResponsiveValue<string>;
-}
-
-export function buttonStyle(...args: any[]): any;
-
-export interface MixedProps {
-    key?: any;
-    // Defaults to "variant"
-    prop?: string;
-}
-
-export function mixed(...args: any[]): any;
-
 export interface StylesProps {
     space: typeof space;
+    margin: typeof margin;
+    marginTop: typeof marginTop;
+    marginBottom: typeof marginBottom;
+    marginLeft: typeof marginLeft;
+    marginRight: typeof marginRight;
+    padding: typeof padding;
+    paddingTop: typeof paddingTop;
+    paddingBottom: typeof paddingBottom;
+    paddingLeft: typeof paddingLeft;
+    paddingRight: typeof paddingRight;
     width: typeof width;
     fontSize: typeof fontSize;
     textColor: typeof textColor;
-    bgColor: typeof bgColor;
+    backgroundColor: typeof backgroundColor;
     color: typeof color;
     fontFamily: typeof fontFamily;
     textAlign: typeof textAlign;
@@ -1041,11 +1040,7 @@ export interface StylesProps {
     height: typeof height;
     maxHeight: typeof maxHeight;
     minHeight: typeof minHeight;
-    sizeWidth: typeof sizeWidth;
-    sizeHeight: typeof sizeHeight;
     size: typeof size;
-    ratioPadding: typeof ratioPadding;
-    ratio: typeof ratio;
     verticalAlign: typeof verticalAlign;
     alignItems: typeof alignItems;
     alignContent: typeof alignContent;

@@ -36,8 +36,6 @@ import {
     MinHeightProps,
     size,
     SizeProps,
-    RatioProps,
-    ratio,
     alignItems,
     AlignItemsProps,
     AlignContentProps,
@@ -106,8 +104,8 @@ import {
     gridAutoColumns,
     gridTemplateColumns,
     gridTemplateRows,
-    bgColor,
-    BgColorProps,
+    backgroundColor,
+    BackgroundColorProps,
     border,
     borderBottom,
     borderLeft,
@@ -118,17 +116,15 @@ import {
     colorStyle,
     buttonStyle,
     variant,
-    mixed,
     ColorStyleProps,
     TextStyleProps,
     VariantArgs,
     ButtonStyleProps,
-    MixedProps,
     VerticalAlignProps,
     verticalAlign,
     px,
     createMediaQuery,
-    styles
+    styles,
 } from "styled-system";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
@@ -152,14 +148,13 @@ interface BoxProps
         ColorProps,
         DisplayProps,
         BackgroundProps,
-        BgColorProps,
+        BackgroundColorProps,
         MaxWidthProps,
         MinWidthProps,
         HeightProps,
         MaxHeightProps,
         MinHeightProps,
         SizeProps,
-        RatioProps,
         BorderColorProps,
         FlexProps,
         JustifySelfProps,
@@ -178,7 +173,6 @@ interface BoxProps
         BackgroundSizeProps,
         ColorStyleProps,
         TextStyleProps,
-        MixedProps,
         VerticalAlignProps {
             boxStyle?: string;
         }
@@ -196,7 +190,6 @@ const Box: React.ComponentType<BoxProps> = styled`
   ${maxHeight}
   ${minHeight}
   ${size}
-  ${ratio}
   ${borderColor}
   ${flex}
   ${justifySelf}
@@ -215,11 +208,10 @@ const Box: React.ComponentType<BoxProps> = styled`
   ${backgroundSize}
   ${alignContent}
   ${alignItems}
-  ${bgColor}
+  ${backgroundColor}
   ${backgroundImage}
   ${textStyle}
   ${colorStyle}
-  ${mixed}
   ${verticalAlign}
 `;
 
@@ -425,8 +417,6 @@ const test = () => (
         <Box size={32} />
         <Box size={[32, 48]} />
         <Box size={{ sm: 32, md: 48 }} />
-        // ratio (height: 0 & paddingBottom)
-        <Box ratio={3 / 4} />
         // alignItems (responsive)
         <Flex alignItems="center" />
         <Flex alignItems={["center"]} />

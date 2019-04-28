@@ -22,6 +22,7 @@
 //                 Florian Richter <https://github.com/floric>
 //                 Erik Christensen <https://github.com/erikc5000>
 //                 Nick Zahn <https://github.com/Manc>
+//                 Jarom Loveridge <https://github.com/jloveridge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -187,7 +188,7 @@ export interface SessionOptions {
 export interface TransactionOptions {
     readConcern?: ReadConcern;
     writeConcern?: WriteConcern;
-    readPreference?: any;
+    readPreference?: ReadPreference | string;
 }
 
 export interface MongoClientCommonOption {
@@ -235,7 +236,8 @@ export interface MongoClientOptions extends
     ReplSetOptions,
     SocketOptions,
     SSLOptions,
-    HighAvailabilityOptions {
+    HighAvailabilityOptions,
+    WriteConcern {
 
     /**
      * The logging level (error/warn/info/debug)
@@ -251,7 +253,7 @@ export interface MongoClientOptions extends
      * Validate MongoClient passed in options for correctness.
      * Default: false
      */
-    validateOptions?: object;
+    validateOptions?: object | boolean;
 
     /**
      * The name of the application that created this MongoClient instance.
@@ -278,6 +280,12 @@ export interface MongoClientOptions extends
     useNewUrlParser?: boolean;
 
     /**
+     * number of retries for a tailable cursor
+     * Default: 5
+     */
+    numberOfRetries?: number;
+
+    /**
      * Mechanism for authentication: DEFAULT, GSSAPI, PLAIN, MONGODB-X509, 'MONGODB-CR', SCRAM-SHA-1 or SCRAM-SHA-256
      */
     authMechanism?: 'DEFAULT' | 'GSSAPI' | 'PLAIN' | 'MONGODB-X509' | 'MONGODB-CR' | 'SCRAM-SHA-1' | 'SCRAM-SHA-256' | string;
@@ -293,7 +301,7 @@ export interface SSLOptions {
      */
     ecdhCurve?: string;
     /**
-     * Default:5; Number of connections for each server instance
+     * Default:5; Number of connections for each server instance; set to 5 as default for legacy reasons.
      */
     poolSize?: number;
     /**
@@ -315,11 +323,11 @@ export interface SSLOptions {
     /**
      * Array of valid certificates either as Buffers or Strings
      */
-    sslCA?: Array<Buffer | string>;
+    sslCA?: ReadonlyArray<Buffer | string>;
     /**
      * SSL Certificate revocation list binary buffer
      */
-    sslCRL?: Array<Buffer | string>;
+    sslCRL?: ReadonlyArray<Buffer | string>;
     /**
      * SSL Certificate binary buffer
      */
@@ -351,6 +359,11 @@ export interface HighAvailabilityOptions {
      * Default: false;
      */
     domainsEnabled?: boolean;
+
+    /** The ReadPreference mode as listed here: http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html */
+    readPreference?: ReadPreference | string;
+    /** An object representing read preference tags, see: http://mongodb.github.io/node-mongodb-native/3.1/api/ReadPreference.html */
+    readPreferenceTags?: string[];
 }
 
 // See http://mongodb.github.io/node-mongodb-native/3.1/api/ReadPreference.html
@@ -422,11 +435,11 @@ export interface DbCreateOptions extends CommonOptions {
     /**
      * ES6 compatible promise constructor
      */
-    promiseLibrary?: object;
+    promiseLibrary?: PromiseConstructor;
     /**
      * https://docs.mongodb.com/manual/reference/read-concern/#read-concern
      */
-    readConcern?: ReadConcern;
+    readConcern?: ReadConcern | string;
     /**
      * Sets a cap on how many operations the driver will buffer up before giving up on getting a
      * working connection, default is -1 which is unlimited.
@@ -472,10 +485,15 @@ export interface SocketOptions {
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Server.html */
 export interface ServerOptions extends SSLOptions {
     /**
-     * Default: 30;
+     * If you're connected to a single server or mongos proxy (as opposed to a replica set),
+     * the MongoDB driver will try to reconnect every reconnectInterval milliseconds for reconnectTries
+     * times, and give up afterward. When the driver gives up, the mongoose connection emits a
+     * reconnectFailed event.
+     * Default: 30
      */
     reconnectTries?: number;
     /**
+     * Will wait # milliseconds between retries
      * Default: 1000;
      */
     reconnectInterval?: number;
@@ -483,6 +501,12 @@ export interface ServerOptions extends SSLOptions {
      * Default: true;
      */
     monitoring?: boolean;
+
+    /**
+     * Enable command monitoring for this client
+     * Default: false
+     */
+    monitorCommands?: boolean;
 
     /**
      * Socket Options
@@ -497,6 +521,12 @@ export interface ServerOptions extends SSLOptions {
      * Default: false;
      */
     domainsEnabled?: boolean;
+
+    /**
+     * Specify a file sync write concern
+     * Default: false
+     */
+    fsync?: boolean;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Mongos.html */
@@ -542,7 +572,7 @@ export class Db extends EventEmitter {
     options: any;
     native_parser: boolean;
     slaveOk: boolean;
-    writeConcern: any;
+    writeConcern: WriteConcern;
 
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#addUser */
     addUser(username: string, password: string, callback: MongoCallback<any>): void;
@@ -799,7 +829,7 @@ export interface Collection<TSchema = Default> {
     /**
      * The current write concern values.
      */
-    writeConcern: any;
+    writeConcern: WriteConcern;
     /**
      * The current read concern values.
      */
@@ -1378,7 +1408,7 @@ export interface MongoCountPreferences {
     /**
      * The number of documents to skip for the count.
      */
-    skip?: boolean;
+    skip?: number;
     /**
      * An index name hint for the query.
      */
@@ -1905,8 +1935,8 @@ export class GridFSBucket {
 export interface GridFSBucketOptions {
     bucketName?: string;
     chunkSizeBytes?: number;
-    writeConcern?: object;
-    ReadPreference?: object;
+    writeConcern?: WriteConcern;
+    readPreference?: ReadPreference | string;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#~errorCallback */
@@ -1953,7 +1983,7 @@ export class GridFSBucketWriteStream extends Writable {
 }
 
 /** https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucketWriteStream.html */
-export interface GridFSBucketWriteStreamOptions {
+export interface GridFSBucketWriteStreamOptions extends WriteConcern {
     /**
      * Custom file id for the GridFS file.
      */
@@ -1962,18 +1992,6 @@ export interface GridFSBucketWriteStreamOptions {
      * The chunk size to use, in bytes
      */
     chunkSizeBytes?: number;
-    /**
-     * The write concern
-     */
-    w?: number;
-    /**
-     * The write concern timeout
-     */
-    wtimeout?: number;
-    /**
-     * The journal write concern
-     */
-    j?: number;
     /**
      * Default false; If true, disables adding an md5 field to file data
      */

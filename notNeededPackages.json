@@ -859,6 +859,12 @@
             "asOfVersion": "3.3.0"
         },
         {
+            "libraryName": "escape-string-regexp",
+            "typingsPackageName": "escape-string-regexp",
+            "sourceRepoURL": "https://github.com/sindresorhus/escape-string-regexp",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "eventemitter2",
             "typingsPackageName": "eventemitter2",
             "sourceRepoURL": "https://github.com/asyncly/EventEmitter2",
@@ -1409,6 +1415,12 @@
             "typingsPackageName": "jpush-react-native",
             "sourceRepoURL": "https://github.com/jpush/jpush-react-native",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "typescript",
+            "typingsPackageName": "jquery-notifier",
+            "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
+            "asOfVersion": "1.3.0"
         },
         {
             "libraryName": "jquery.ajaxfile",
@@ -2489,6 +2501,12 @@
             "typingsPackageName": "rollup",
             "sourceRepoURL": "https://github.com/rollup/rollup",
             "asOfVersion": "0.54.0"
+        },
+        {
+            "libraryName": "rollup-plugin-commonjs",
+            "typingsPackageName": "rollup-plugin-commonjs",
+            "sourceRepoURL": "https://github.com/rollup/rollup-plugin-commonjs",
+            "asOfVersion": "9.3.1"
         },
         {
             "libraryName": "rollup-plugin-node-resolve",

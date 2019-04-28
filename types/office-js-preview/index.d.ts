@@ -581,20 +581,21 @@ declare namespace Office {
         /**
          * Provides access to the Outlook Add-in object model for Microsoft Outlook and Microsoft Outlook on the web.
          *
-         * Namespaces:
-         *
-         * - diagnostics: Provides diagnostic information to an Outlook add-in.
-         *
-         * - item: Provides methods and properties for accessing a message or appointment in an Outlook add-in.
-         *
-         * - userProfile: Provides information about the user in an Outlook add-in.
-         *
          * [Api set: Mailbox 1.0]
          *
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * 
+         * **Namespaces**:
+         *
+         * - `diagnostics`: Provides diagnostic information to an Outlook add-in.
+         *
+         * - `item`: Provides methods and properties for accessing a message or appointment in an Outlook add-in.
+         *
+         * - `userProfile`: Provides information about the user in an Outlook add-in.
          */
         mailbox: Office.Mailbox;
         /**
@@ -734,9 +735,12 @@ declare namespace Office {
         *
         * @remarks
         * **Hosts**: Word, Excel, Outlook, PowerPoint
+        * 
         * **Requirement sets**: 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}, 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | Mailbox 1.4}
+        * 
+        * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
+        * 
+        * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | Mailbox 1.4}
         * 
         * This method is available in the DialogApi requirement set for Word, Excel, or PowerPoint add-ins, and in the Mailbox requirement set 1.4 
         * for Outlook. For more on how to specify a requirement set in your manifest, see 
@@ -834,10 +838,14 @@ declare namespace Office {
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         *
         * @remarks
+        * 
         * **Hosts**: Excel, Outlook, PowerPoint, Word
+        * 
         * **Requirement sets**: 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}, 
-        * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | Mailbox 1.4}
+        * 
+        * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
+        * 
+        * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | Mailbox 1.4}
         * 
         * This method is available in the DialogApi requirement set for Word, Excel, or PowerPoint add-ins, and in the Mailbox requirement set 1.4 
         * for Outlook. For more on how to specify a requirement set in your manifest, see 
@@ -934,6 +942,7 @@ declare namespace Office {
          * Delivers a message from the dialog box to its parent/opener page. The page calling this API must be on the same domain as the parent. 
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
          * 
          * @param message Accepts a message from the dialog to deliver to the add-in. In addition to a boolean, anything that can serialized to a string including JSON and XML can be sent. 
@@ -943,7 +952,9 @@ declare namespace Office {
          * Closes the UI container where the JavaScript is executing.
          *
          * @remarks
+         * 
          * **Hosts**: Excel, Word, PowerPoint, Outlook (Minimum requirement set: Mailbox 1.5)
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
          * 
          * The behavior of this method is specified by the following:
@@ -1017,7 +1028,9 @@ declare namespace Office {
          * Important: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
          *
          * @remarks
+         * 
          * **Hosts**: Excel, OneNote, Outlook, PowerPoint, Word
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/en-us/office/dev/add-ins/reference/requirement-sets/identity-api-requirement-sets | IdentityAPI}
          *
          * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign-in with Organizational 
@@ -1038,7 +1051,9 @@ declare namespace Office {
          * Important: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
          *
          * @remarks
+         * 
          * **Hosts**: Excel, OneNote, Outlook, PowerPoint, Word
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/en-us/office/dev/add-ins/reference/requirement-sets/identity-api-requirement-sets | IdentityAPI}
          *
          * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign-in with Organizational 
@@ -1441,6 +1456,7 @@ declare namespace Office {
      * The object that is returned when `UI.displayDialogAsync` is called. It exposes methods for registering event handlers and closing the dialog.
      * 
      * @remarks
+     * 
      * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
      */
     interface Dialog {
@@ -1461,9 +1477,7 @@ declare namespace Office {
          */
         sendMessage(name: string): void;
     }
-}
 
-declare namespace Office {
     /**
      * Returns a promise of an object described in the expression. Callback is invoked only if method fails.
      * 
@@ -1892,9 +1906,12 @@ declare namespace Office {
     * **Hosts**: Access, Excel, Word
     * 
     * **Requirement sets**: 
-    * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
-    * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
-    * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
+    * 
+    * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
+    * 
+    * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}
+    * 
+    * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
     */
     interface Binding {
         /**
@@ -1944,15 +1961,24 @@ declare namespace Office {
          * Returns the data contained within the binding.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),  
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          *
          * When called from a MatrixBinding or TableBinding, the getDataAsync method will return a subset of the bound values if the optional startRow, 
          * startColumn, rowCount, and columnCount parameters are specified (and they specify a contiguous and valid range).
@@ -1967,15 +1993,24 @@ declare namespace Office {
          * Returns the data contained within the binding.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),  
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          * 
          * When called from a MatrixBinding or TableBinding, the getDataAsync method will return a subset of the bound values if the optional startRow, 
          * startColumn, rowCount, and columnCount parameters are specified (and they specify a contiguous and valid range).
@@ -2012,15 +2047,24 @@ declare namespace Office {
          * Writes data to the bound section of the document represented by the specified binding object.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),  
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          *
          * The value passed for data contains the data to be written in the binding. The kind of value passed determines what will be written as 
          * described in the following table.
@@ -2039,7 +2083,7 @@ declare namespace Office {
          *     <td>Tabular data without headers will be written. For example, to write data to three rows in two columns, you can pass an array like this: `[["R1C1", "R1C2"], ["R2C1", "R2C2"], ["R3C1", "R3C2"]]`. To write a single column of three rows, pass an array like this: `[["R1C1"], ["R2C1"], ["R3C1"]]`.</td>
          *   </tr>
          *    <tr>
-         *     <td>An {@link Office.TableData} object</td>
+         *     <td>A `TableData` object</td>
          *     <td>A table with headers will be written.</td>
          *   </tr>
          * </table>
@@ -2057,7 +2101,7 @@ declare namespace Office {
          *     <td>The specified text is written.</td>
          *   </tr>
          *   <tr>
-         *     <td>An array of arrays ("matrix") or an {@link Office.TableData} object</td>
+         *     <td>An array of arrays ("matrix") or a `TableData` object</td>
          *     <td>A Word table is written.</td>
          *   </tr>
          *   <tr>
@@ -2086,7 +2130,7 @@ declare namespace Office {
          *     <td>The set of rows and columns are written.You can also specify an array of arrays that contain valid formulas to add them to the bound cells. For example, setting  data to `[["=SUM(A1:A5)","=AVERAGE(A1:A5)"]]` will add those two formulas to a binding that contains two cells. Just as when setting a formula on a single bound cell, you can't read the added formulas (or any pre-existing formulas) from the binding with the `Binding.getDataAsync` method - it returns only the data displayed in the bound cells.</td>
          *   </tr>
          *   <tr>
-         *     <td>An {@link Office.TableData} object, and the shape of the table matches the bound table.</td>
+         *     <td>A `TableData` object, and the shape of the table matches the bound table.</td>
          *     <td>The specified set of rows and/or headers are written, if no other data in surrounding cells will be overwritten. **Note**: If you specify formulas in the TableData object you pass for the *data* parameter, you might not get the results you expect due to the "calculated columns" feature of Excel, which automatically duplicates formulas within a column. To work around this when you want to write *data* that contains formulas to a bound table, try specifying the data as an array of arrays (instead of a TableData object), and specify the *coercionType* as Microsoft.Office.Matrix or "matrix".</td>
          *   </tr>
          * </table>
@@ -2150,15 +2194,24 @@ declare namespace Office {
          * Writes data to the bound section of the document represented by the specified binding object.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),  
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          * 
          * The value passed for data contains the data to be written in the binding. The kind of value passed determines what will be written as 
          * described in the following table.
@@ -2177,7 +2230,7 @@ declare namespace Office {
          *     <td>Tabular data without headers will be written. For example, to write data to three rows in two columns, you can pass an array like this: `[["R1C1", "R1C2"], ["R2C1", "R2C2"], ["R3C1", "R3C2"]]`. To write a single column of three rows, pass an array like this: `[["R1C1"], ["R2C1"], ["R3C1"]]`.</td>
          *   </tr>
          *    <tr>
-         *     <td>An {@link Office.TableData} object</td>
+         *     <td>A `TableData` object</td>
          *     <td>A table with headers will be written.</td>
          *   </tr>
          * </table>
@@ -2195,7 +2248,7 @@ declare namespace Office {
          *     <td>The specified text is written.</td>
          *   </tr>
          *   <tr>
-         *     <td>An array of arrays ("matrix") or an {@link Office.TableData} object</td>
+         *     <td>An array of arrays ("matrix") or a `TableData` object</td>
          *     <td>A Word table is written.</td>
          *   </tr>
          *   <tr>
@@ -2224,7 +2277,7 @@ declare namespace Office {
          *     <td>The set of rows and columns are written.You can also specify an array of arrays that contain valid formulas to add them to the bound cells. For example, setting  data to `[["=SUM(A1:A5)","=AVERAGE(A1:A5)"]]` will add those two formulas to a binding that contains two cells. Just as when setting a formula on a single bound cell, you can't read the added formulas (or any pre-existing formulas) from the binding with the `Binding.getDataAsync` method - it returns only the data displayed in the bound cells.</td>
          *   </tr>
          *   <tr>
-         *     <td>An {@link Office.TableData} object, and the shape of the table matches the bound table.</td>
+         *     <td>An `TableData` object, and the shape of the table matches the bound table.</td>
          *     <td>The specified set of rows and/or headers are written, if no other data in surrounding cells will be overwritten. **Note**: If you specify formulas in the TableData object you pass for the *data* parameter, you might not get the results you expect due to the "calculated columns" feature of Excel, which automatically duplicates formulas within a column. To work around this when you want to write *data* that contains formulas to a bound table, try specifying the data as an array of arrays (instead of a TableData object), and specify the *coercionType* as Microsoft.Office.Matrix or "matrix".</td>
          *   </tr>
          * </table>
@@ -2273,7 +2326,7 @@ declare namespace Office {
          *
          *        array of arrays: Excel and Word only
          *
-         *        {@link Office.TableData}: Access, Excel, and Word only
+         *        `TableData`: Access, Excel, and Word only
          *
          *        HTML: Word and Word Online only
          *
@@ -2365,10 +2418,14 @@ declare namespace Office {
          * Creates a binding against a named object in the document.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * For Excel, the itemName parameter can refer to a named range or a table.
          *
@@ -2431,6 +2488,7 @@ declare namespace Office {
          * Create a binding by prompting the user to make a selection on the document.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * Adds a binding object of the specified type to the Bindings collection, which will be identified with the supplied id. 
@@ -2462,10 +2520,14 @@ declare namespace Office {
          * Create a binding based on the user's current selection.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * Adds the specified type of binding object to the Bindings collection, which will be identified with the supplied id.
          *
@@ -2485,10 +2547,14 @@ declare namespace Office {
          * Create a binding based on the user's current selection.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * Adds the specified type of binding object to the Bindings collection, which will be identified with the supplied id.
          *
@@ -2507,10 +2573,14 @@ declare namespace Office {
          * Gets all bindings that were previously created.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2521,10 +2591,14 @@ declare namespace Office {
          * Gets all bindings that were previously created.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          *                  The `value` property of the result is an array that contains each binding created for the referenced Bindings object.
@@ -2534,10 +2608,14 @@ declare namespace Office {
          * Retrieves a binding based on its Name
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * Fails if the specified id does not exist.
          *
@@ -2551,10 +2629,14 @@ declare namespace Office {
          * Retrieves a binding based on its Name
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * Fails if the specified id does not exist.
          *
@@ -2567,10 +2649,14 @@ declare namespace Office {
          * Removes the binding from the document
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * Fails if the specified id does not exist.
          *
@@ -2583,10 +2669,14 @@ declare namespace Office {
          * Removes the binding from the document
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
          *
          * Fails if the specified id does not exist.
          *
@@ -3236,10 +3326,14 @@ declare namespace Office {
          * Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#compressedfile | CompressedFile} (when using `Office.FileType.Compressed`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file | File}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#compressedfile | CompressedFile} (when using `Office.FileType.Compressed`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file | File}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
          *
          * For add-ins running in Office host applications other than Office for iOS, the getFileAsync method supports getting files in slices of up 
          * to 4194304 bytes (4 MB). For add-ins running in Office for iOS apps, the getFileAsync method supports getting files in slices of up to 
@@ -3267,10 +3361,14 @@ declare namespace Office {
          * Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#compressedfile | CompressedFile} (when using `Office.FileType.Compressed`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file | File}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#compressedfile | CompressedFile} (when using `Office.FileType.Compressed`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file | File}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
          * 
          * For add-ins running in Office host applications other than Office for iOS, the getFileAsync method supports getting files in slices of up 
          * to 4194304 bytes (4 MB). For add-ins running in Office for iOS apps, the getFileAsync method supports getting files in slices of up to 
@@ -3321,13 +3419,20 @@ declare namespace Office {
          * Reads the data contained in the current selection in the document.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#selection | Selection}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#selection | Selection}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          * 
          * In the callback function that is passed to the getSelectedDataAsync method, you can use the properties of the AsyncResult object to return 
          * the following information.
@@ -3406,13 +3511,20 @@ declare namespace Office {
          * Reads the data contained in the current selection in the document.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#selection | Selection}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#selection | Selection}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          * 
          * In the callback function that is passed to the getSelectedDataAsync method, you can use the properties of the AsyncResult object to return 
          * the following information.
@@ -3560,14 +3672,22 @@ declare namespace Office {
          * Writes the specified data into the current selection.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion}, (when using `Office.CoercionType.Html`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#imagecoercion | ImageCoercion} (when using `Office.CoercionType.Image`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#selection | Selection}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion}, (when using `Office.CoercionType.Html`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#imagecoercion | ImageCoercion} (when using `Office.CoercionType.Image`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#selection | Selection}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          * 
          * **Application-specific behaviors**
          * 
@@ -3738,14 +3858,22 @@ declare namespace Office {
          * Writes the specified data into the current selection.
          *
          * @remarks
+         * 
          * **Requirement sets**: 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion}, (when using `Office.CoercionType.Html`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#imagecoercion | ImageCoercion} (when using `Office.CoercionType.Image`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#selection | Selection}, 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`), 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion}, (when using `Office.CoercionType.Html`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#imagecoercion | ImageCoercion} (when using `Office.CoercionType.Image`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#selection | Selection}
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
          * 
          * **Application-specific behaviors**
          * 
@@ -10753,6 +10881,7 @@ declare namespace Office {
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
          *
          * **Note**: Certain types of files are blocked by Outlook due to potential security issues and are therefore not returned. For more information, see 
@@ -15387,7 +15516,7 @@ declare namespace Office {
     }
 
     /**
-     * Represents an item's category details like name and associated color.
+     * Represents a category's details like name and associated color.
      *
      * [Api set: Mailbox Preview]
      *
@@ -16988,9 +17117,7 @@ declare namespace OfficeExtension {
          */
         isNullObject: boolean;
     }
-}
 
-declare namespace OfficeExtension {
     /**
      * Specifies which properties of an object should be loaded. This load happens when the sync() method is executed.
      * This synchronizes the states between Office objects and corresponding JavaScript proxy objects.
@@ -17134,17 +17261,13 @@ declare namespace OfficeExtension {
         constructor(url: string, options?: EmbeddedOptions);
         public init(): Promise<any>;
     }
-}
 
-declare namespace OfficeExtension {
     /** Contains the result for methods that return primitive types. The object's value property is retrieved from the document after `context.sync()` is invoked. */
     class ClientResult<T> {
         /** The value of the result that is retrieved from the document after `context.sync()` is invoked. */
         value: T;
     }
-}
 
-declare namespace OfficeExtension {
     /** Configuration */
     var config: {
         /**
@@ -17215,9 +17338,7 @@ declare namespace OfficeExtension {
         /** Inner error, if applicable. */
         innerError: Error;
     }
-}
 
-declare namespace OfficeExtension {
     class ErrorCodes {
         public static accessDenied: string;
         public static generalException: string;
@@ -17232,9 +17353,7 @@ declare namespace OfficeExtension {
         public static apiNotFound: string;
         public static connectionFailure: string;
     }
-}
 
-declare namespace OfficeExtension {
     /**
      * A Promise object that represents a deferred interaction with the host Office application. 
      * The publicly-consumable {@link Office.OfficeExtension.Promise} is available starting in ExcelApi 1.2 and WordApi 1.2. 
@@ -17244,9 +17363,7 @@ declare namespace OfficeExtension {
      */
     const Promise: Office.IPromiseConstructor;
     type IPromise<T> = Promise<T>;
-}
 
-declare namespace OfficeExtension {
     /** Collection of tracked objects, contained within a request context. See "context.trackedObjects" for more information. */
     class TrackedObjects {
         /** 
@@ -17284,9 +17401,7 @@ declare namespace OfficeExtension {
          */
         remove(objects: ClientObject[]): void;
     }
-}
 
-declare namespace OfficeExtension {
     class EventHandlers<T> {
         constructor(context: ClientRequestContext, parentObject: ClientObject, name: string, eventInfo: EventInfo<T>);
         add(handler: (args: T) => Promise<any>): EventHandlerResult<T>;
@@ -17305,8 +17420,7 @@ declare namespace OfficeExtension {
         unregisterFunc: (callback: (args: any) => void) => Promise<any>;
         eventArgsTransformFunc: (args: any) => Promise<T>;
     }
-}
-declare namespace OfficeExtension {
+
     /**
     * Request URL and headers
     */
@@ -17356,101 +17470,492 @@ declare namespace OfficeCore {
 ////////////////////////////////////////////////////////////////
 
 declare namespace Excel {
-    /** Represents which cell properties to load, when used as part of a "range.getCellProperties" method. */
+    /**
+     *
+     * Represents which cell properties to load, when used as part of a "range.getCellProperties" method.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface CellPropertiesLoadOptions {
+        /**
+        *
+        * Specifies whether to load on the `address` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         address?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `addressLocal` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         addressLocal?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `format` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         format?: Excel.CellPropertiesFormatLoadOptions;
+        /**
+        *
+        * Specifies whether to load on the `hidden` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         hidden?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `hyperlink` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         hyperlink?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `style` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         style?: boolean;
     }
-    /** Represents which row properties to load, when used as part of a "range.getRowProperties" method. */
+    /**
+     *
+     * Represents which row properties to load, when used as part of a "range.getRowProperties" method.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface RowPropertiesLoadOptions extends CellPropertiesLoadOptions {
+        /**
+        *
+        * Specifies whether to load on the `rowHidden` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         rowHidden?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `rowIndex` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         rowIndex?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `format` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         format?: Excel.CellPropertiesFormatLoadOptions & {
             rowHeight?: boolean;
         };
     }
-    /** Represents which column properties to load, when used as part of a "range.getColumnProperties" method. */
+    /**
+     *
+     * Represents which column properties to load, when used as part of a "range.getColumnProperties" method.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface ColumnPropertiesLoadOptions extends CellPropertiesLoadOptions {
+        /**
+        *
+        * Specifies whether to load on the `columnIndex` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         columnIndex?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `columnHidden` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         columnHidden?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `format` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         format?: Excel.CellPropertiesFormatLoadOptions & {
             columnWidth?: boolean;
         };
     }
-    /** Represents which properties to load on the format object. */
+    /**
+     *
+     * Represents which properties to load on the format object.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface CellPropertiesFormatLoadOptions {
+        /**
+        *
+        * Specifies whether to load on the `autoIndent` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         autoIndent?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `borders` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         borders?: Excel.CellPropertiesBorderLoadOptions;
+        /**
+        *
+        * Specifies whether to load on the `fill` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         fill?: Excel.CellPropertiesFillLoadOptions;
+        /**
+        *
+        * Specifies whether to load on the `font` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         font?: Excel.CellPropertiesFontLoadOptions;
+        /**
+        *
+        * Specifies whether to load on the `horizontalAlignment` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         horizontalAlignment?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `indentLevel` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         indentLevel?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `protection` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         protection?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `readingOrder` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         readingOrder?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `shrinkToFit` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         shrinkToFit?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `textOrientation` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         textOrientation?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `useStandardHeight` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         useStandardHeight?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `useStandardWidth` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         useStandardWidth?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `verticalAlignment` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         verticalAlignment?: boolean;
+        /**
+        *
+        * Specifies whether to load on the `wrapText` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         wrapText?: boolean;
     }
-    /** Represents the input parameter of setCellProperties. */
+    /**
+     *
+     * Represents the input parameter of setCellProperties.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface SettableCellProperties {
+        /**
+        *
+        * Represents the `format` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         format?: Excel.CellPropertiesFormat;
+        /**
+        *
+        * Represents the `hyperlink` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         hyperlink?: Excel.RangeHyperlink;
+        /**
+        *
+        * Represents the `style` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         style?: string;
     }
-    /** Represents the returned properties of getCellProperties. */
+    /**
+     *
+     * Represents the returned properties of getCellProperties.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface CellProperties extends SettableCellProperties {
+        /**
+        *
+        * Represents the `address` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         address?: string;
+        /**
+        *
+        * Represents the `addressLocal` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         addressLocal?: string;
+        /**
+        *
+        * Represents the `hidden` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         hidden?: boolean;
     }
-    /** Represents the input parameter of setRowProperties. */
+    /**
+     *
+     * Represents the input parameter of setRowProperties.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface SettableRowProperties extends SettableCellProperties {
+        /**
+        *
+        * Represents the `rowHidden` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         rowHidden?: boolean;
+        /**
+        *
+        * Represents the `format` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         format?: Excel.CellPropertiesFormat & {
             rowHeight?: number;
         };
     }
-    /** Represents the returned properties of getRowProperties. */
+    /**
+     *
+     * Represents the returned properties of getRowProperties.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface RowProperties extends SettableRowProperties {
+        /**
+        *
+        * Represents the `rowIndex` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         rowIndex?: number;
+        /**
+        *
+        * Represents the `address` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         address?: string;
+        /**
+        *
+        * Represents the `addressLocal` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         addressLocal?: string;
     }
-    /** Represents the input parameter of setColumnProperties. */
+    /**
+     *
+     * Represents the input parameter of setColumnProperties.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface SettableColumnProperties extends SettableCellProperties {
+        /**
+        *
+        * Represents the `columnHidden` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         columnHidden?: boolean;
+        /**
+        *
+        * Represents the `format` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         format?: Excel.CellPropertiesFormat & {
             columnWidth?: number;
         };
     }
-    /** Represents the returned properties of getColumnProperties. */
+    /**
+     *
+     * Represents the returned properties of getColumnProperties.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface ColumnProperties extends SettableColumnProperties {
+        /**
+        *
+        * Represents the `columnIndex` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         columnIndex?: number;
+        /**
+        *
+        * Represents the `address` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         address?: string;
+        /**
+        *
+        * Represents the `addressLocal` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         addressLocal?: string;
     }
-    /** Represents the returned format properties of getCellProperties or format input parameter of setCellProperties. */
+    /**
+     *
+     * Represents the returned format properties of getCellProperties or format input parameter of setCellProperties.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     */
     interface CellPropertiesFormat {
+        /**
+            *
+            * Represents the `autoIndent` property.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            */
         autoIndent?: boolean;
+        /**
+        *
+        * Represents the `borders` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         borders?: Excel.CellBorderCollection;
+        /**
+        *
+        * Represents the `fill` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         fill?: Excel.CellPropertiesFill;
+        /**
+        *
+        * Represents the `font` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         font?: Excel.CellPropertiesFont;
+        /**
+        *
+        * Represents the `horizontalAlignment` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         horizontalAlignment?: Excel.HorizontalAlignment | "General" | "Left" | "Center" | "Right" | "Fill" | "Justify" | "CenterAcrossSelection" | "Distributed";
+        /**
+        *
+        * Represents the `indentLevel` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         indentLevel?: number;
+        /**
+        *
+        * Represents the `protection` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         protection?: Excel.CellPropertiesProtection;
+        /**
+        *
+        * Represents the `readingOrder` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         readingOrder?: Excel.ReadingOrder | "Context" | "LeftToRight" | "RightToLeft";
+        /**
+        *
+        * Represents the `shrinkToFit` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         shrinkToFit?: boolean;
+        /**
+        *
+        * Represents the `textOrientation` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         textOrientation?: number;
+        /**
+        *
+        * Represents the `useStandardHeight` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         useStandardHeight?: boolean;
+        /**
+        *
+        * Represents the `useStandardWidth` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         useStandardWidth?: boolean;
+        /**
+        *
+        * Represents the `verticalAlignment` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         verticalAlignment?: Excel.VerticalAlignment | "Top" | "Center" | "Bottom" | "Justify" | "Distributed";
+        /**
+        *
+        * Represents the `wrapText` property.
+        *
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
         wrapText?: boolean;
     }
     /**
@@ -18131,6 +18636,88 @@ declare namespace Excel {
          * Gets the id of the worksheet that is deactivated.
          *
          * [Api set: ExcelApi 1.7]
+         */
+        worksheetId: string;
+    }
+    /**
+     *
+     * Provides information about the worksheet that raised the RowSorted event.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface WorksheetRowSortedEventArgs {
+        /**
+         *
+         * Gets the range address that represents the sorted areas of a specific worksheet.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        address: string;
+        /**
+         *
+         * Gets the source of the event. See Excel.EventSource for details.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        source: Excel.EventSource | "Local" | "Remote";
+        /**
+         *
+         * Gets the type of the event. See Excel.EventType for details.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        type: "WorksheetRowSorted";
+        /**
+         *
+         * Gets the id of the worksheet in which the sorting happened.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        worksheetId: string;
+    }
+    /**
+     *
+     * Provides information about the worksheet that raised the ColumnSorted event.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface WorksheetColumnSortedEventArgs {
+        /**
+         *
+         * Gets the range address that represents the sorted areas of a specific worksheet.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        address: string;
+        /**
+         *
+         * Gets the source of the event. See Excel.EventSource for details.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        source: Excel.EventSource | "Local" | "Remote";
+        /**
+         *
+         * Gets the type of the event. See Excel.EventType for details.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        type: "WorksheetColumnSorted";
+        /**
+         *
+         * Gets the id of the worksheet in which the sorting happened.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
          */
         worksheetId: string;
     }
@@ -19730,6 +20317,16 @@ declare namespace Excel {
         readonly onChanged: OfficeExtension.EventHandlers<Excel.WorksheetChangedEventArgs>;
         /**
          *
+         * Occurs when sorting on columns.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @eventproperty
+         * @beta
+         */
+        readonly onColumnSorted: OfficeExtension.EventHandlers<Excel.WorksheetColumnSortedEventArgs>;
+        /**
+         *
          * Occurs when the worksheet is deactivated.
          *
          * [Api set: ExcelApi 1.7]
@@ -19757,6 +20354,16 @@ declare namespace Excel {
          * @beta
          */
         readonly onFormatChanged: OfficeExtension.EventHandlers<Excel.WorksheetFormatChangedEventArgs>;
+        /**
+         *
+         * Occurs when sorting on rows.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @eventproperty
+         * @beta
+         */
+        readonly onRowSorted: OfficeExtension.EventHandlers<Excel.WorksheetRowSortedEventArgs>;
         /**
          *
          * Occurs when the selection changes on a specific worksheet.
@@ -19928,6 +20535,16 @@ declare namespace Excel {
         readonly onChanged: OfficeExtension.EventHandlers<Excel.WorksheetChangedEventArgs>;
         /**
          *
+         * Occurs when sorting on columns.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @eventproperty
+         * @beta
+         */
+        readonly onColumnSorted: OfficeExtension.EventHandlers<Excel.WorksheetColumnSortedEventArgs>;
+        /**
+         *
          * Occurs when any worksheet in the workbook is deactivated.
          *
          * [Api set: ExcelApi 1.7]
@@ -19964,6 +20581,16 @@ declare namespace Excel {
          * @beta
          */
         readonly onFormatChanged: OfficeExtension.EventHandlers<Excel.WorksheetFormatChangedEventArgs>;
+        /**
+         *
+         * Occurs when sorting on rows.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @eventproperty
+         * @beta
+         */
+        readonly onRowSorted: OfficeExtension.EventHandlers<Excel.WorksheetRowSortedEventArgs>;
         /**
          *
          * Occurs when the selection changes on any worksheet.
@@ -20673,6 +21300,9 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
+         *
+         * @param cellPropertiesLoadOptions An object that represents which cell properties to load.
+         * @returns A 2D array where each item represents the requested properties of the corresponding cell.
          */
         getCellProperties(cellPropertiesLoadOptions: CellPropertiesLoadOptions): OfficeExtension.ClientResult<CellProperties[][]>;
         /**
@@ -20690,6 +21320,9 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
+         *
+         * @param columnPropertiesLoadOptions An object that represents which column properties to load.
+         * @returns An array where each item represents the requested properties of the corresponding column.
          */
         getColumnProperties(columnPropertiesLoadOptions: ColumnPropertiesLoadOptions): OfficeExtension.ClientResult<ColumnProperties[]>;
         /**
@@ -20805,6 +21438,9 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
+         *
+         * @param rowPropertiesLoadOptions An object that represents which row properties to load.
+         * @returns An array where each item represents the requested properties of the corresponding row.
          */
         getRowProperties(rowPropertiesLoadOptions: RowPropertiesLoadOptions): OfficeExtension.ClientResult<RowProperties[]>;
         /**
@@ -21012,6 +21648,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
+         *
+         * @param cellPropertiesData A 2D array that represents which properties to set in each cell.
          */
         setCellProperties(cellPropertiesData: SettableCellProperties[][]): void;
         /**
@@ -21020,6 +21658,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
+         *
+         * @param columnPropertiesData An array that represents which properties to set in each column.
          */
         setColumnProperties(columnPropertiesData: SettableColumnProperties[]): void;
         /**
@@ -21036,6 +21676,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
+         *
+         * @param rowPropertiesData An array that represents which properties to set in each row.
          */
         setRowProperties(rowPropertiesData: SettableRowProperties[]): void;
         /**
@@ -21586,122 +22228,458 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents which properties to load on the format.fill object.
+     * Specifies which properties to load on the `format.fill` object.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellPropertiesFillLoadOptions {
+        /**
+         *
+         * Specifies whether to load on the `color` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         color?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `pattern` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         pattern?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `patternColor` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         patternColor?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `patternTintAndShade` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         patternTintAndShade?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `tintAndShade` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         tintAndShade?: boolean;
     }
     /**
      *
-     * Represents which properties to load on the format.font object.
+     * Specifies which properties to load on the `format.font` object.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellPropertiesFontLoadOptions {
+        /**
+         *
+         * Specifies whether to load on the `bold` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         bold?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `color` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         color?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `italic` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         italic?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `name` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         name?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `size` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         size?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `strikethrough` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         strikethrough?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `subscript` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         subscript?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `superscript` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         superscript?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `tintAndShade` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         tintAndShade?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `underline` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         underline?: boolean;
     }
     /**
      *
-     * Represents which properties to load on the format.borders object.
+     * Specifies which properties to load on the `format.borders` object.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellPropertiesBorderLoadOptions {
+        /**
+         *
+         * Specifies whether to load on the `color` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         color?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `style` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         style?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `tintAndShade` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         tintAndShade?: boolean;
+        /**
+         *
+         * Specifies whether to load on the `weight` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         weight?: boolean;
     }
     /**
      *
-     * Represents the returned format.protection properties of getCell/Row/ColumnProperties or format.protection input parameter of setCell/Row/ColumnProperties.
+     * Represents the `format.protection` properties of `getCellProperties`, `getRowProperties`, and `getColumnProperties` or the `format.protection` input parameter of `setCellProperties`, `setRowProperties`, and `setColumnProperties`.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellPropertiesProtection {
+        /**
+         *
+         * Represents the `format.protection.formulaHidden` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         formulaHidden?: boolean;
+        /**
+         *
+         * Represents the `format.protection.locked` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         locked?: boolean;
     }
     /**
      *
-     * Represents the returned format.fill properties of getCell/Row/ColumnProperties or format.fill input parameter of setCell/Row/ColumnProperties.
+     * Represents the `format.fill` properties of `getCellProperties`, `getRowProperties`, and `getColumnProperties` or the `format.fill` input parameter of `setCellProperties`, `setRowProperties`, and `setColumnProperties`.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellPropertiesFill {
+        /**
+         *
+         * Represents the `format.fill.color` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         color?: string;
+        /**
+         *
+         * Represents the `format.fill.pattern` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         pattern?: Excel.FillPattern | "None" | "Solid" | "Gray50" | "Gray75" | "Gray25" | "Horizontal" | "Vertical" | "Down" | "Up" | "Checker" | "SemiGray75" | "LightHorizontal" | "LightVertical" | "LightDown" | "LightUp" | "Grid" | "CrissCross" | "Gray16" | "Gray8" | "LinearGradient" | "RectangularGradient";
+        /**
+         *
+         * Represents the `format.fill.patternColor` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         patternColor?: string;
+        /**
+         *
+         * Represents the `format.fill.patternTintAndShade` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         patternTintAndShade?: number;
+        /**
+         *
+         * Represents the `format.fill.tintAndShade` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         tintAndShade?: number;
     }
     /**
      *
-     * Represents the returned format.font properties of getCell/Row/ColumnProperties or format.font input parameter of setCell/Row/ColumnProperties.
+     * Represents the `format.font` properties of `getCellProperties`, `getRowProperties`, and `getColumnProperties` or the `format.font` input parameter of `setCellProperties`, `setRowProperties`, and `setColumnProperties`.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellPropertiesFont {
+        /**
+         *
+         * Represents the `format.font.bold` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         bold?: boolean;
+        /**
+         *
+         * Represents the `format.font.color` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         color?: string;
+        /**
+         *
+         * Represents the `format.font.italic` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         italic?: boolean;
+        /**
+         *
+         * Represents the `format.font.name` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         name?: string;
+        /**
+         *
+         * Represents the `format.font.size` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         size?: number;
+        /**
+         *
+         * Represents the `format.font.strikethrough` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         strikethrough?: boolean;
+        /**
+         *
+         * Represents the `format.font.subscript` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         subscript?: boolean;
+        /**
+         *
+         * Represents the `format.font.superscript` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         superscript?: boolean;
+        /**
+         *
+         * Represents the `format.font.tintAndShade` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         tintAndShade?: number;
+        /**
+         *
+         * Represents the `format.font.underline` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         underline?: Excel.RangeUnderlineStyle | "None" | "Single" | "Double" | "SingleAccountant" | "DoubleAccountant";
     }
     /**
      *
-     * Represents the returned format.borders properties of getCell/Row/ColumnProperties or format.borders input parameter of setCell/Row/ColumnProperties.
+     * Represents the `format.borders` properties of `getCellProperties`, `getRowProperties`, and `getColumnProperties` or the `format.borders` input parameter of `setCellProperties`, `setRowProperties`, and `setColumnProperties`.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellBorderCollection {
+        /**
+         *
+         * Represents the `format.borders.bottom` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         bottom?: Excel.CellBorder;
+        /**
+         *
+         * Represents the `format.borders.diagonalDown` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         diagonalDown?: Excel.CellBorder;
+        /**
+         *
+         * Represents the `format.borders.diagonalUp` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         diagonalUp?: Excel.CellBorder;
+        /**
+         *
+         * Represents the `format.borders.horizontal` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         horizontal?: Excel.CellBorder;
+        /**
+         *
+         * Represents the `format.borders.left` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         left?: Excel.CellBorder;
+        /**
+         *
+         * Represents the `format.borders.right` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         right?: Excel.CellBorder;
+        /**
+         *
+         * Represents the `format.borders.top` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         top?: Excel.CellBorder;
+        /**
+         *
+         * Represents the `format.borders.vertical` property.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         vertical?: Excel.CellBorder;
     }
     /**
      *
-     * Represents the returned single border properties of getCell/Row/ColumnProperties or border property input parameter of setCell/Row/ColumnProperties.
+     * Represents the properties of a single border returned by `getCellProperties`, `getRowProperties`, and `getColumnProperties` or the border property input parameter of `setCellProperties`, `setRowProperties`, and `setColumnProperties`.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
      */
     interface CellBorder {
+        /**
+         *
+         * Represents the `color` property of a single border.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         color?: string;
+        /**
+         *
+         * Represents the `style` property of a single border.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         style?: Excel.BorderLineStyle | "None" | "Continuous" | "Dash" | "DashDot" | "DashDotDot" | "Dot" | "Double" | "SlantDashDot";
+        /**
+         *
+         * Represents the `tintAndShade` property of a single border.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         tintAndShade?: number;
+        /**
+         *
+         * Represents the `weight` property of a single border.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         weight?: Excel.BorderWeight | "Hairline" | "Thin" | "Medium" | "Thick";
     }
     /**
@@ -29495,6 +30473,7 @@ declare namespace Excel {
     /**
      *
      * Represents the AutoFilter object.
+            AutoFilter turns the values in Excel column into specific filters based on the cell contents.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -29504,7 +30483,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Array that holds all filter criterias in an autofiltered range. Read-Only.
+         * An array that holds all the filter criteria in the autofiltered range. Read-Only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -29528,19 +30507,19 @@ declare namespace Excel {
         readonly isDataFiltered: boolean;
         /**
          *
-         * Applies AutoFilter on a range and filters the column if column index and filter criteria are specified.
+         * Applies the AutoFilter to a range. This filters the column if column index and filter criteria are specified.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param range The range where the AutoFilter will apply on.
-         * @param columnIndex The column index which the AutoFilter will apply on, start from 0.
+         * @param range The range over which the AutoFilter will apply on.
+         * @param columnIndex The zero-based column index to which the AutoFilter is applied.
          * @param criteria The filter criteria.
          */
         apply(range: Range | string, columnIndex?: number, criteria?: Excel.FilterCriteria): void;
         /**
          *
-         * Clears the criteria if AutoFilter has filters
+         * Clears the filter criteria of the AutoFilter.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -29556,8 +30535,8 @@ declare namespace Excel {
         getRange(): Excel.Range;
         /**
          *
-         * If there is Range object associated with the AutoFilter, this method returns it.
-            Otherwise, this method returns a null object.
+         * Returns the Range object that represents the range to which the AutoFilter applies.
+            If there is no Range object associated with the AutoFilter, this method returns a null object.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -39587,7 +40566,19 @@ declare namespace Excel {
          * RibbonCommandExecuted represents the type of event registered on ribbon, and occurs when user click on ribbon
          *
          */
-        ribbonCommandExecuted = "RibbonCommandExecuted"
+        ribbonCommandExecuted = "RibbonCommandExecuted",
+        /**
+         *
+         * WorksheetRowSorted represents the type of event registered on worksheet, and occurs when there is a sorting on rows happened.
+         *
+         */
+        worksheetRowSorted = "WorksheetRowSorted",
+        /**
+         *
+         * WorksheetColumnSorted represents the type of event registered on worksheet, and occurs when there is a sorting on columns happened.
+         *
+         */
+        worksheetColumnSorted = "WorksheetColumnSorted"
     }
     /**
      * [Api set: ExcelApi 1.7]
@@ -52986,7 +53977,7 @@ declare namespace Excel {
         interface AutoFilterData {
             /**
              *
-             * Array that holds all filter criterias in an autofiltered range. Read-Only.
+             * An array that holds all the filter criteria in the autofiltered range. Read-Only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -60891,6 +61882,7 @@ declare namespace Excel {
         /**
          *
          * Represents the AutoFilter object.
+            AutoFilter turns the values in Excel column into specific filters based on the cell contents.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -60899,7 +61891,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * Array that holds all filter criterias in an autofiltered range. Read-Only.
+             * An array that holds all the filter criteria in the autofiltered range. Read-Only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -68293,7 +69285,7 @@ declare namespace Word {
          * @param listNumbering Required. The ordinal format.
          * @param formatString Optional. The numbering string format defined as an array of strings and/or integers. Each integer is a level of number type that is higher than or equal to this level. For example, an array of ["(", level - 1, ".", level, ")"] can define the format of "(2.c)", where 2 is the parent's item number and c is this level's item number.
          */
-        setLevelNumbering(level: number, listNumbering: Word.ListNumbering, formatString?: any[]): void;
+        setLevelNumbering(level: number, listNumbering: Word.ListNumbering, formatString?: Array<string | number>): void;
         /**
          *
          * Sets the numbering format at the specified level in the list.
@@ -68304,7 +69296,7 @@ declare namespace Word {
          * @param listNumbering Required. The ordinal format.
          * @param formatString Optional. The numbering string format defined as an array of strings and/or integers. Each integer is a level of number type that is higher than or equal to this level. For example, an array of ["(", level - 1, ".", level, ")"] can define the format of "(2.c)", where 2 is the parent's item number and c is this level's item number.
          */
-        setLevelNumbering(level: number, listNumbering: "None" | "Arabic" | "UpperRoman" | "LowerRoman" | "UpperLetter" | "LowerLetter", formatString?: any[]): void;
+        setLevelNumbering(level: number, listNumbering: "None" | "Arabic" | "UpperRoman" | "LowerRoman" | "UpperLetter" | "LowerLetter", formatString?: Array<string | number>): void;
         /**
          *
          * Sets the picture at the specified level in the list.
@@ -71702,6 +72694,24 @@ declare namespace Word {
          *
          */
         contentControlAdded = "ContentControlAdded",
+        /**
+         *
+         * AnnotationAdded represents the event an annotation has been added to the document.
+         *
+         */
+        annotationAdded = "AnnotationAdded",
+        /**
+         *
+         * AnnotationAdded represents the event an annotation has been updated in the document.
+         *
+         */
+        annotationChanged = "AnnotationChanged",
+        /**
+         *
+         * AnnotationAdded represents the event an annotation has been deleted from the document.
+         *
+         */
+        annotationDeleted = "AnnotationDeleted",
     }
     /**
      *
@@ -71726,7 +72736,7 @@ declare namespace Word {
          * [Api set: WordApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted";
     }
     /**
      *
@@ -77405,6 +78415,87 @@ declare namespace Word {
 declare namespace OneNote {
     /**
      *
+     * Provides information about the binding that raised the DataChanged event
+     *
+     * [Api set: OneNoteApi 1.1]
+     */
+    interface NotebookChangedEventArgs {
+        /**
+         *
+         * Notebook id before change
+         *
+         * [Api set: OneNoteApi 1.3]
+         */
+        oldId: string;
+        /**
+         *
+         * Gets the type of the event. See EventType for details.
+         *
+         * [Api set: OneNoteApi 1.3]
+         */
+        type: "NotebookChanged";
+    }
+    /**
+     *
+     * Provides information about the binding that raised the StickyNotesContextMenuExecuted event
+     *
+     * [Api set: OneNoteApi 1.5]
+     */
+    interface StickyNotesContextMenuExecutedEventArgs {
+        /**
+         *
+         * Gets the type of the event. See EventType for details.
+         *
+         * [Api set: OneNoteApi 1.5]
+         */
+        type: "StickyNotesContextMenuExecuted";
+    }
+    /**
+     *
+     * Provides information about the binding that raised the section selection changed event
+     *
+     * [Api set: OneNoteApi 1.5]
+     */
+    interface SectionSelectionChangedEventArgs {
+        /**
+         *
+         * Active Section id before change
+         *
+         * [Api set: OneNoteApi 1.5]
+         */
+        oldId: string;
+        /**
+         *
+         * Gets the type of the event. See EventType for details.
+         *
+         * [Api set: OneNoteApi 1.5]
+         */
+        type: "SectionSelectionChanged";
+    }
+    /**
+     *
+     * Provides information about the binding that raised the Page selection changed event
+     *
+     * [Api set: OneNoteApi 1.1]
+     */
+    interface PageSelectionChangedEventArgs {
+        /**
+         *
+         * Active Page id before change
+         *
+         * [Api set: OneNoteApi 1.3]
+         */
+        oldId: string;
+        /**
+         *
+         * Gets the type of the event. See EventType for details.
+         *
+         * [Api set: OneNoteApi 1.3]
+         */
+        type: "PageSelectionChanged";
+    }
+    /**
+     *
      * Represents the top-level object that contains all globally addressable OneNote objects such as notebooks, the active notebook, and the active section.
      *
      * [Api set: OneNoteApi 1.1]
@@ -77531,6 +78622,42 @@ declare namespace OneNote {
             select?: string;
             expand?: string;
         }): OneNote.Application;
+        /**
+         *
+         * Occurs when the notebook is changed.
+         *
+         * [Api set: OneNoteApi 1.3]
+         *
+         * @eventproperty
+         */
+        readonly onNotebookChanged: OfficeExtension.EventHandlers<OneNote.NotebookChangedEventArgs>;
+        /**
+         *
+         * Occurs when the Page Selection change is made.
+         *
+         * [Api set: OneNoteApi 1.5]
+         *
+         * @eventproperty
+         */
+        readonly onPageSelectionChanged: OfficeExtension.EventHandlers<OneNote.PageSelectionChangedEventArgs>;
+        /**
+         *
+         * Occurs when the Section Selection change is made.
+         *
+         * [Api set: OneNoteApi 1.5]
+         *
+         * @eventproperty
+         */
+        readonly onSectionSelectionChanged: OfficeExtension.EventHandlers<OneNote.SectionSelectionChangedEventArgs>;
+        /**
+         *
+         * Occurs when the host sends a command to the add-ins.
+         *
+         * [Api set: OneNoteApi 1.5]
+         *
+         * @eventproperty
+         */
+        readonly onStickyNotesContextMenuExecutedEvent: OfficeExtension.EventHandlers<OneNote.StickyNotesContextMenuExecutedEventArgs>;
         /**
         * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
         * Whereas the original OneNote.Application object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `OneNote.Interfaces.ApplicationData`) that contains shallow copies of any loaded child properties from the original object.
@@ -80986,6 +82113,15 @@ declare namespace OneNote {
         lim = "Lim",
         custom = "Custom",
     }
+    /**
+     * [Api set: OneNoteApi 1.3]
+     */
+    enum EventType {
+        notebookChanged = "NotebookChanged",
+        stickyNotesContextMenuExecuted = "StickyNotesContextMenuExecuted",
+        sectionSelectionChanged = "SectionSelectionChanged",
+        pageSelectionChanged = "PageSelectionChanged",
+    }
     enum ErrorCodes {
         generalException = "GeneralException",
         operationAborted = "OperationAborted",
@@ -83888,6 +85024,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Application;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Application object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ApplicationData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ApplicationData;
     }
     /**
@@ -84032,6 +85172,10 @@ declare namespace Visio {
          * @eventproperty
          */
         readonly onShapeMouseLeave: OfficeExtension.EventHandlers<Visio.ShapeMouseLeaveEventArgs>;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Document object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.DocumentData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.DocumentData;
     }
     /**
@@ -84113,6 +85257,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.DocumentView;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.DocumentView object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.DocumentViewData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.DocumentViewData;
     }
     /**
@@ -84229,6 +85377,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Page;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Page object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.PageData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.PageData;
     }
     /**
@@ -84330,6 +85482,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.PageView;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.PageView object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.PageViewData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.PageViewData;
     }
     /**
@@ -84377,6 +85533,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.PageCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.PageCollection;
         load(option?: string | string[]): Visio.PageCollection;
         load(option?: OfficeExtension.LoadOption): Visio.PageCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.PageCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.PageCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.PageCollectionData;
     }
     /**
@@ -84424,6 +85584,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.ShapeCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.ShapeCollection;
         load(option?: string | string[]): Visio.ShapeCollection;
         load(option?: OfficeExtension.LoadOption): Visio.ShapeCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.ShapeCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.ShapeCollectionData;
     }
     /**
@@ -84540,6 +85704,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Shape;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Shape object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ShapeData;
     }
     /**
@@ -84630,6 +85798,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.ShapeView;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.ShapeView object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeViewData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ShapeViewData;
     }
     /**
@@ -84757,6 +85929,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.ShapeDataItemCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.ShapeDataItemCollection;
         load(option?: string | string[]): Visio.ShapeDataItemCollection;
         load(option?: OfficeExtension.LoadOption): Visio.ShapeDataItemCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.ShapeDataItemCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeDataItemCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.ShapeDataItemCollectionData;
     }
     /**
@@ -84817,6 +85993,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.ShapeDataItem;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.ShapeDataItem object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.ShapeDataItemData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.ShapeDataItemData;
     }
     /**
@@ -84864,6 +86044,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.HyperlinkCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.HyperlinkCollection;
         load(option?: string | string[]): Visio.HyperlinkCollection;
         load(option?: OfficeExtension.LoadOption): Visio.HyperlinkCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.HyperlinkCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.HyperlinkCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.HyperlinkCollectionData;
     }
     /**
@@ -84924,6 +86108,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Hyperlink;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Hyperlink object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.HyperlinkData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.HyperlinkData;
     }
     /**
@@ -84971,6 +86159,10 @@ declare namespace Visio {
         load(option?: Visio.Interfaces.CommentCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.CommentCollection;
         load(option?: string | string[]): Visio.CommentCollection;
         load(option?: OfficeExtension.LoadOption): Visio.CommentCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Visio.CommentCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.CommentCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
         toJSON(): Visio.Interfaces.CommentCollectionData;
     }
     /**
@@ -85038,6 +86230,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Comment;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Comment object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.CommentData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.CommentData;
     }
     /**
@@ -85076,6 +86272,10 @@ declare namespace Visio {
             select?: string;
             expand?: string;
         }): Visio.Selection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Visio.Selection object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Visio.Interfaces.SelectionData`) that contains shallow copies of any loaded child properties from the original object.
+        */
         toJSON(): Visio.Interfaces.SelectionData;
     }
     /**
@@ -86240,7 +87440,7 @@ declare namespace Visio {
     /**
      * The RequestContext object facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the request context is required to get access to the Visio object model from the add-in.
      */
-    class RequestContext extends OfficeExtension.ClientRequestContext {
+    class RequestContext extends OfficeCore.RequestContext {
         constructor(url?: string | OfficeExtension.EmbeddedSession);
         readonly document: Document;
     }
