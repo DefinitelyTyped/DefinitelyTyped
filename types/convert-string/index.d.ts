@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace convertString {
-    export function stringToBytes(str: string): number[];
-    export function bytesToString(bytes: number[]): string;
+    function stringToBytes(str: string): number[];
+    function bytesToString(bytes: number[]): string;
 }
 
 export namespace UTF8 {
-    export function stringToBytes(str: string): number[];
-    export function bytesToString(bytes: number[]): string;
+    function stringToBytes(str: string): number[];
+    function bytesToString(bytes: number[]): string;
 }
 
 export default convertString;
