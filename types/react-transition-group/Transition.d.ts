@@ -19,10 +19,12 @@ export interface TransitionActions {
      * appear only adds an additional enter transition.
      */
     appear?: boolean;
+
     /**
      * Enable or disable enter transitions.
      */
     enter?: boolean;
+
     /**
      * Enable or disable exit transitions.
      */
@@ -41,6 +43,7 @@ export interface TransitionProps extends TransitionActions {
      * Show the component; triggers the enter or exit states
      */
     in?: boolean;
+
     /**
      * By default the child component is mounted immediately along with the
      * parent Transition component. If you want to "lazy mount" the component on
@@ -49,12 +52,14 @@ export interface TransitionProps extends TransitionActions {
      * also specify `unmountOnExit`.
      */
     mountOnEnter?: boolean;
+
     /**
      * By default the child component stays mounted after it reaches the
      * 'exited' state. Set `unmountOnExit` if you'd prefer to unmount the
      * component after it finishes exiting.
      */
     unmountOnExit?: boolean;
+
     /**
      * The duration of the transition, in milliseconds. Required unless addEndListener is provided.
      *
@@ -75,43 +80,50 @@ export interface TransitionProps extends TransitionActions {
      * - exit defaults to `0`
      */
     timeout: number | { enter?: number, exit?: number };
+
     /**
      * Add a custom transition end trigger. Called with the transitioning DOM
      * node and a done callback. Allows for more fine grained transition end
      * logic. Note: Timeouts are still used as a fallback if provided.
      */
     addEndListener?: EndHandler;
+
     /**
      * Callback fired before the "entering" status is applied. An extra
      * parameter `isAppearing` is supplied to indicate if the enter stage is
      * occurring on the initial mount
      */
     onEnter?: EnterHandler;
+
     /**
      * Callback fired after the "entering" status is applied. An extra parameter
      * isAppearing is supplied to indicate if the enter stage is occurring on
      * the initial mount
      */
     onEntering?: EnterHandler;
+
     /**
      * Callback fired after the "entered" status is applied. An extra parameter
      * isAppearing is supplied to indicate if the enter stage is occurring on
      * the initial mount
      */
     onEntered?: EnterHandler;
+
     /**
      * Callback fired before the "exiting" status is applied.
      */
     onExit?: ExitHandler;
+
     /**
      * Callback fired after the "exiting" status is applied.
      */
     onExiting?: ExitHandler;
+
     /**
      * Callback fired after the "exited" status is applied.
      */
     onExited?: ExitHandler;
-    [ prop: string ]: any;
+    
     /**
      * A function child can be used instead of a React element. This function is
      * called with the current transition status ('entering', 'entered',
@@ -126,6 +138,7 @@ export interface TransitionProps extends TransitionActions {
      * ```
      */
     children?: TransitionChildren;
+    [ prop: string ]: any;
 }
 
 /**

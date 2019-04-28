@@ -26,12 +26,15 @@ declare namespace CSSTransition {
          *
          * ```js
          * classNames={{
-         *  appear: 'my-appear',
-         *  appearActive: 'my-active-appear',
-         *  enter: 'my-enter',
-         *  enterActive: 'my-active-enter',
-         *  exit: 'my-exit',
-         *  exitActive: 'my-active-exit',
+         *   appear: 'my-appear',
+         *   appearActive: 'my-appear-active',
+         *   appearDone: 'my-appear-done',
+         *   enter: 'my-enter',
+         *   enterActive: 'my-enter-active',
+         *   enterDone: 'my-enter-done',
+         *   exit: 'my-exit',
+         *   exitActive: 'my-exit-active',
+         *   exitDone: 'my-exit-done'
          * }}
          * ```
          */
