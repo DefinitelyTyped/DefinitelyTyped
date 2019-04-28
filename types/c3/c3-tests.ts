@@ -2277,7 +2277,7 @@ function legend_custom() {
         .append('span')
         .attr('data-id', (id) => id)
         .html((id) => id)
-        .each((id) => {
+        .each(function(id) {
             // this is most likely the wrong context now
             // tslint:disable-next-line
             d3.select(this).style('background-color', chart.color(id));
