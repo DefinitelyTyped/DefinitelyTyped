@@ -1438,6 +1438,16 @@ declare namespace Stripe {
              * This can be unset by updating the value to null and then saving.
              */
             email?: string;
+            
+            /**
+             * The customer's full name or business name.
+             */
+            name?: string;
+            
+            /**
+             * The customer’s phone number.
+             */
+            phone?: string;
 
             /**
              * The identifier of the plan to subscribe the customer to. If provided, the returned customer object will have a list of subscriptions
