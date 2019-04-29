@@ -530,7 +530,7 @@ export interface PlotData {
 	'x' | 'x+text' | 'x+name' |
 	'x+y' | 'x+y+text' | 'x+y+name' |
 	'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
-	'y+x' | 'y+x+text' | 'y+x+name' |
+	'y+name'| 'y+x' | 'y+x+text' | 'y+x+name' |
 	'y+z' | 'y+z+text' | 'y+z+name' |
 	'y+x+z' | 'y+x+z+text' | 'y+x+z+name' |
 	'z+x' | 'z+x+text' | 'z+x+name' |
