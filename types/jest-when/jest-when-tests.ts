@@ -89,4 +89,22 @@ describe('mock-when test', () => {
     }
     expect(testPassed).toBeTruthy();
   });
+
+  it('Accepts a spied method:', () => {
+    class TheClass {
+      theMethod(theArgument: number) {
+        return "real";
+      }
+    }
+
+    const theInstance = new TheClass();
+
+    const theSpiedMethod = jest.spyOn(theInstance, 'theMethod');
+    when(theSpiedMethod)
+      .calledWith(1)
+      .mockReturnValue('mock');
+    const returnValue = theInstance.theMethod(1);
+    expect(returnValue).toBe('mock');
+    expect(theSpiedMethod).toHaveReturnedWith('mock');
+  });
 });

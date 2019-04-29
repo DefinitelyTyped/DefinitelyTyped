@@ -17,6 +17,6 @@ export interface WhenMock<T = any, Y extends any[] = any> extends jest.Mock<T, Y
   mockRejectedValueOnce(value: jest.RejectedValue<T>): WhenMock<T, Y>;
 }
 
-export type When = <T, Y extends any[]>(fn: jest.Mock<T, Y>) => WhenMock<T, Y>;
+export type When = <T, Y extends any[]>(fn: jest.MockInstance<T, Y>) => WhenMock<T, Y>;
 
 export const when: When;
