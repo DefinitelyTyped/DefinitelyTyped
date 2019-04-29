@@ -11,6 +11,6 @@ imagemin(['*.png'], {
             dithering: 0,
             posterize: 1,
             verbose: true
-        }),
+        })
     ]
 });
