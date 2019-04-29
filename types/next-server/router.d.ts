@@ -96,6 +96,7 @@ export function withRouter<T extends {}, Q = DefaultQuery>(
   Component: React.ComponentType<T & WithRouterProps<Q>>
 ): React.ComponentType<Omit<T, keyof WithRouterProps<Q>>>;
 
+// tslint:disable-next-line no-unnecessary-generics
 export function useRouter<Q = DefaultQuery>(): RouterProps<Q>;
 
 declare const Router: SingletonRouter;
