@@ -16,7 +16,7 @@ interface ProxyOptions {
      * format supported by `bytes`, for example `1000`, `'500kb'` or `'3mb'`.
      * See https://github.com/stream-utils/raw-body/blob/master/index.d.ts
      */
-    limit?: number | string | null;
+    limit?: number | string;
     proxyReqPathResolver?: (req: Request) => string;
     proxyReqOptDecorator?: (proxyReqOpts: RequestOptions, srcReq: Request) => RequestOptions;
     userResHeaderDecorator?: (headers: IncomingHttpHeaders, userReq: Request, userRes: Response, proxyReq: Request, proxyRes: Response) => OutgoingHttpHeaders;
