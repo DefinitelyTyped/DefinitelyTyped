@@ -123,7 +123,7 @@ export interface TransitionProps extends TransitionActions {
      * Callback fired after the "exited" status is applied.
      */
     onExited?: ExitHandler;
-    
+
     /**
      * A function child can be used instead of a React element. This function is
      * called with the current transition status ('entering', 'entered',
