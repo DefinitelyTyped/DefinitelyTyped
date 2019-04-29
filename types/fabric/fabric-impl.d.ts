@@ -5,9 +5,10 @@ export as namespace fabric;
 
 export const isLikelyNode: boolean;
 export const isTouchSupported: boolean;
+export const version: string;
 
 /////////////////////////////////////////////////////////////
-// farbic Functions
+// fabric Functions
 /////////////////////////////////////////////////////////////
 
 export function createCanvasForNode(width: number, height: number): Canvas;
@@ -143,11 +144,12 @@ interface IDataURLOptions {
 interface IEvent {
 	e: Event;
 	target?: Object;
+    subTargets?: Object[],
 	button?: number;
 	isClick?: boolean;
 	pointer?: Point;
 	absolutePointer?: Point;
-	transform?: { corner: string, original: Object, width: number };
+    transform?: { corner: string, original: Object, originX: string, originY: string, width: number };
 }
 
 interface IFillOptions {
@@ -1067,7 +1069,6 @@ interface IStaticCanvasOptions {
 	 * @type Boolean
 	 */
 	svgViewportTransformation?: boolean;
-
 }
 export interface StaticCanvas extends IObservable<StaticCanvas>, IStaticCanvasOptions, ICollection<StaticCanvas>, ICanvasAnimation<StaticCanvas> { }
 export class StaticCanvas {
@@ -1757,7 +1758,6 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	 * @default
 	 */
 	fireMiddleClick?: boolean;
-
 }
 export interface Canvas extends StaticCanvas { }
 export interface Canvas extends ICanvasOptions { }
@@ -2126,6 +2126,13 @@ export class Group {
 	 * @return {String} svg representation of an instance
 	 */
 	toClipPathSVG(reviver?: Function): string;
+    /**
+     * Adds an object to a group; Then recalculates group's dimension, position.
+     * @param {Object} object
+     * @return {fabric.Group} thisArg
+     * @chainable
+     */
+    addWithUpdate(object: Object): Group;
 	/**
 	 * Returns {@link fabric.Group} instance from an object representation
 	 * @param object Object to create a group from
@@ -3560,6 +3567,20 @@ export class Object {
      * @return {Object} .y height dimension
      */
 	_getNonTransformedDimensions(): {x: number, y: number};
+    /**
+     * Returns the top, left coordinates
+     * @private
+     * @return {fabric.Point}
+     */
+    _getLeftTopCoords(): Point;
+    /*
+     * Calculate object bounding box dimensions from its properties scale, skew.
+     * @private
+     * @return {Object} .x width dimension
+     * @return {Object} .y height dimension
+     */
+    _getTransformedDimensions(skewX?: number, skewY?: number): { x: number, y: number };
+
 	/**
 	 *
 	 * @param ctx
@@ -3597,6 +3618,16 @@ export class Object {
 	 * @param {CanvasRenderingContext2D} ctx Context to render on
 	 */
 	_renderPaintInOrder(ctx: CanvasRenderingContext2D): void;
+    /**
+     * Creates fabric Object instance
+     * @param {string} Class name
+     * @param {fabric.Object} Original object
+     * @param {Function} Callback when complete
+     * @param {Object} Extra parameters for fabric.Object
+     * @private
+     * @return {fabric.Object}
+     */
+    static _fromObject(className: string, object: Object, callback?: Function, extraParam?: any): Object;
 }
 
 interface IPathOptions extends IObjectOptions {
@@ -3684,6 +3715,16 @@ export class Polyline extends Object {
 
     pathOffset: Point;
 
+    /**
+     * Calculate the polygon min and max point from points array,
+     * returning an object with left, top, width, height to measure the polygon size
+     * @private
+     * @return {Object} object.left X coordinate of the polygon leftmost point
+     * @return {Object} object.top Y coordinate of the polygon topmost point
+     * @return {Object} object.width distance between X coordinates of the polygon leftmost and rightmost point
+     * @return {Object} object.height distance between Y coordinates of the polygon topmost and bottommost point
+     */
+    _calcDimensions(): { left: number, top: number, width: number, height: number };
 	/**
 	 * List of attribute names to account for when parsing SVG element (used by `fabric.Polygon.fromElement`)
 	 */
@@ -3841,14 +3882,44 @@ interface TextOptions extends IObjectOptions {
 	 * @type Array
 	 */
 	stateProperties?: string[];
+}
+export interface Text extends TextOptions { }
+export class Text extends Object {
     /**
      * List of lines in text object
      * @type Array<string>
      */
-	textLines?: string[];
-}
-export interface Text extends TextOptions { }
-export class Text extends Object {
+    textLines: string[];
+    /**
+     * List of grapheme lines in text object
+     * @private
+     * @type Array<string>
+     */
+    _textLines: string[][];
+    /**
+     * Use this regular expression to filter for whitespaces that is not a new line.
+     * Mostly used when text is 'justify' aligned.
+     * @private
+     * @type RegExp
+     */
+    _reSpacesAndTabs: RegExp;
+    /**
+     * List of line heights
+     * @private
+     * @type Array<Number>
+     */
+    __lineHeights: number[];
+    /**
+     * Text Line proportion to font Size (in pixels)
+     * @private
+     * @type Number
+     */
+    _fontSizeMult: number;
+    /**
+     * @private
+     * @type Number
+     */
+    _fontSizeFraction:number;
 	/**
 	 * Constructor
 	 * @param text Text string
@@ -4029,7 +4100,24 @@ export class Text extends Object {
 	 * @param {Number} lineIndex index text line
 	 * @return {Number} Line left offset
 	 */
-	_getLineLeftOffset(lineIndex: number): number
+    _getLineLeftOffset(lineIndex: number): number;
+    /**
+     * apply all the character style to canvas for rendering
+     * @private
+     * @param {String} _char
+     * @param {CanvasRenderingContext2D} ctx Context to render on
+     * @param {Number} lineIndex
+     * @param {Number} charIndex
+     * @param {Object} [decl]
+     */
+    _applyCharStyles(method: string, ctx: CanvasRenderingContext2D, lineIndex: number, charIndex: number, styleDeclaration: any): void;
+    /**
+     * get the reference, not a clone, of the style object for a given character
+     * @param {Number} lineIndex
+     * @param {Number} charIndex
+     * @return {Object} style object
+     */
+    _getStyleDeclaration(lineIndex: number, charIndex: number): any;
 }
 interface ITextOptions extends TextOptions {
 	/**
@@ -4047,6 +4135,11 @@ interface ITextOptions extends TextOptions {
 	 * @type String
 	 */
 	selectionColor?: string;
+    /**
+     * Indicates whether text is selected
+     * @type Boolean
+     */
+    selected?: boolean;
 	/**
 	 * Indicates whether text is in editing mode
 	 * @type Boolean
@@ -4474,6 +4567,10 @@ export class IText extends Text {
 	 * @param {CanvasRenderingContext2D} ctx Context to render on
 	 */
 	_render(ctx: CanvasRenderingContext2D): void;
+    /**
+     * @private
+     */
+    _updateTextarea(): void;
 }
 interface ITextboxOptions extends ITextOptions {
 	/**
@@ -4537,6 +4634,22 @@ export class Textbox extends IText {
      * @return {Number}
      */
 	getMinWidth(): number;
+    /**
+     * Use this regular expression to split strings in breakable lines
+     * @private
+     * @type RegExp
+     */
+    _wordJoiners: RegExp;
+    /**
+     * Helper function to measure a string of text, given its lineIndex and charIndex offset
+     * it gets called when charBounds are not available yet.
+     * @private
+     * @param {Array} text characters
+     * @param {number} lineIndex
+     * @param {number} charOffset
+     * @returns {number}
+     */
+    _measureWord(word: string[], lineIndex: number, charOffset: number): number;
 	/**
 	 * Returns fabric.Textbox instance from an object representation
 	 * @static
@@ -5586,7 +5699,6 @@ export interface WebglFilterBackend extends FilterBackend, WebglFilterBackendOpt
 	copyGLTo2D(gl: WebGLRenderingContext, pipelineState: any): void;
 
 	captureGPUInfo(): GPUInfo;
-
 }
 
 export class WebglFilterBackend {
