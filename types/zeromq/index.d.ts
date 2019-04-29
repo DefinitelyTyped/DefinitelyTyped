@@ -288,7 +288,7 @@ export let options: SocketOptions;
  * Creates a ZeroMQ socket of the specified type.
  * @return The created socket in an unconnected state.
  */
-export function socket(type: string|number, options?: any): Socket;
+export function socket(type: keyof SocketTypes | number, options?: any): Socket;
 
 /**
  * Creates a ZeroMQ socket of the specified type.
