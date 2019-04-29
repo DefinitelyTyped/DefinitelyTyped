@@ -5164,7 +5164,7 @@ fp.now(); // $ExpectType number
     _.get([], [Symbol.iterator]);
 
     _.get("abc", 1); // $ExpectType string
-    _.get("abc", ["0"], "_");
+    _.get("abc", [0], "_");
     _.get([42], 0, -1); // $ExpectType number
     _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
     _.get({ a: { b: true } }, ["a"]); // $ExpectType { b: boolean; }
@@ -5174,7 +5174,7 @@ fp.now(); // $ExpectType number
     _.get({ a: undefined }, "a", defaultValue); // $ExpectType boolean
 
     _("abc").get(1); // $ExpectType string
-    _("abc").get(["0"], "_");
+    _("abc").get([0], "_");
     _([42]).get(0, -1); // $ExpectType number
     _({ a: { b: true } }).get("a"); // $ExpectType { b: boolean; }
     _({ a: { b: true } }).get(["a"]); // $ExpectType { b: boolean; }
@@ -5184,7 +5184,7 @@ fp.now(); // $ExpectType number
     _({ a: undefined }).get("a", defaultValue); // $ExpectType boolean
 
     _.chain("abc").get(1); // $ExpectType LoDashExplicitWrapper<string>
-    _.chain("abc").get(["0"], "_");
+    _.chain("abc").get([0], "_");
     _.chain([42]).get(0, -1); // ExpectType LoDashExplicitWrapper<number>
     _.chain({ a: { b: true } }).get("a"); // $ExpectType LoDashExplicitWrapper<{ b: boolean; }>
     _.chain({ a: { b: true } }).get(["a"]); // $ExpectType LoDashExplicitWrapper<{ b: boolean; }>

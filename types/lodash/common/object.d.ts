@@ -322,27 +322,31 @@ declare module "../index" {
         get(object: null | undefined, path: PropertyPath): undefined;
         get(object: any, path: PropertyPath, defaultValue?: any): any;
     }
-    interface Imp<TValue> {
-        get<TKey extends keyof TValue>(path: TKey | [TKey]): TValue[TKey];
-        get<TObject extends object, TKey extends keyof TObject>(this: Imp<TObject | null | undefined>, path: TKey | [TKey], ): TObject[TKey] | undefined;
-        get<TObject extends object, TKey extends keyof TObject, TDefault>(this: Imp<TObject | null | undefined>, path: TKey | [TKey], defaultValue: TDefault): Exclude<TObject[TKey], undefined> | TDefault;
-        get<T>(this: Imp<NumericDictionary<T>>, path: number): T;
-        get<T>(this: Imp<NumericDictionary<T> | null | undefined>, path: number): T | undefined;
-        get<T, TDefault>(this: Imp<NumericDictionary<T> | null | undefined>, path: number, defaultValue: TDefault): T | TDefault;
-        get<TDefault>(this: Imp<null | undefined>, path: PropertyPath, defaultValue: TDefault): TDefault;
-        get(this: Imp<null | undefined>, path: PropertyPath): undefined;
-        get<TResult>(path: PropertyPath, defaultValue?: any): any;
+    interface ImpS {
+        get(path: number | number[]): string;
+        get(path: number | number[], defaultValue: string): string;
     }
-    interface Exp<TValue> {
-        get<TKey extends keyof TValue>(path: TKey | [TKey]): Exp<TValue[TKey]>;
-        get<TObject extends object, TKey extends keyof TObject>(this: Exp<TObject | null | undefined>, path: TKey | [TKey], ): Exp<TObject[TKey] | undefined>;
-        get<TObject extends object, TKey extends keyof TObject, TDefault>(this: Exp<TObject | null | undefined>, path: TKey | [TKey], defaultValue: TDefault): Exp<Exclude<TObject[TKey], undefined> | TDefault>;
-        get<T>(this: Exp<NumericDictionary<T>>, path: number): Exp<T>;
-        get<T>(this: Exp<NumericDictionary<T> | null | undefined>, path: number): Exp<T | undefined>;
-        get<T, TDefault>(this: Exp<NumericDictionary<T> | null | undefined>, path: number, defaultValue: TDefault): Exp<T | undefined>;
-        get<TDefault>(this: Exp<null | undefined>, path: PropertyPath, defaultValue: TDefault): Exp<TDefault>;
-        get(this: Exp<null | undefined>, path: PropertyPath): Exp<undefined>;
-        get(path: PropertyPath, defaultValue?: any): Exp<any>;
+    interface ImpO<T> {
+        get<TKey extends keyof T>(path: TKey | [TKey]): T[TKey] | undefined;
+        get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): Exclude<T[TKey], undefined> | TDefault;
+        get(path: PropertyPath, defaultValue?: any): any;
+    }
+    interface ImpL<T> {
+        get(path: number): T;
+        get<TDefault>(path: number, defaultValue: TDefault): T | TDefault;
+    }
+    interface ExpS {
+        get(path: number | number[]): string;
+        get(path: number | number[], defaultValue: string): string;
+    }
+    interface ExpO<T> {
+        get<TKey extends keyof T>(path: TKey | [TKey]): T[TKey] | undefined;
+        get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): Exclude<T[TKey], undefined> | TDefault;
+        get(path: PropertyPath, defaultValue?: any): any;
+    }
+    interface ExpL<T> {
+        get(path: number): T;
+        get<TDefault>(path: number, defaultValue: TDefault): T | TDefault;
     }
     interface Stat {
         has<T>(object: T, path: PropertyPath): boolean;
