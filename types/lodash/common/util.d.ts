@@ -40,24 +40,24 @@ declare module "../index" {
     interface Stat {
         constant<T>(value: T): () => T;
     }
-    // interface Imp<TValue> {
-    //     constant(): Imp<() => TValue>;
-    // }
-    // interface Exp<TValue> {
-    //     constant(): Exp<() => TValue>;
-    // }
+    interface Imp<TValue> {
+        constant(): Imp<() => TValue>;
+    }
+    interface Exp<TValue> {
+        constant(): Exp<() => TValue>;
+    }
 
     interface Stat {
         defaultTo<T>(value: T | null | undefined, defaultValue: T): T;
         defaultTo<T, TDefault>(value: T | null | undefined, defaultValue: TDefault): T | TDefault;
     }
     interface Imp<TValue> {
-        defaultTo<T>(this: Imp<T | null | undefined>, defaultValue: T): T;
-        defaultTo<T, TDefault>(this: Imp<T | null | undefined>, defaultValue: TDefault): T | TDefault;
+        defaultTo(defaultValue: TValue): TValue;
+        defaultTo<TDefault>( defaultValue: TDefault): TValue | TDefault;
     }
     interface Exp<TValue> {
-        defaultTo<T>(this: Exp<T | null | undefined>, defaultValue: T): Exp<T>;
-        defaultTo<T, TDefault>(this: Exp<T | null | undefined>, defaultValue: TDefault): Exp<T | TDefault>;
+        defaultTo( defaultValue: TValue): Exp<TValue>;
+        defaultTo<TDefault>( defaultValue: TDefault): Exp<TValue | TDefault>;
     }
 
     interface Stat {
@@ -338,11 +338,29 @@ declare module "../index" {
         iteratee<TFunction extends (...args: any[]) => any>(func: TFunction): TFunction;
         iteratee(func: string | object): (...args: any[]) => any;
     }
-    interface Imp<TValue> {
-        iteratee<TFunction extends (...args: any[]) => any>(this: Imp<TFunction | string | object>): Imp<TFunction>;
+    interface ImpF<T> {
+        iteratee(): ImpF<T>;
     }
-    interface Exp<TValue> {
-        iteratee<TFunction extends (...args: any[]) => any>(this: Exp<TFunction | string | object>): Exp<TFunction>;
+    interface ImpL<T> {
+        iteratee(): ImpF<(o: object) => boolean>;
+    }
+    interface ImpO<T> {
+        iteratee(): ImpF<(o: T) => boolean>;
+    }
+    interface ImpS {
+        iteratee(): ImpF<(o: object) => boolean>;
+    }
+    interface ExpF<T> {
+        iteratee(): ExpF<T>;
+    }
+    interface ExpL<T> {
+        iteratee(): ExpF<(o: object) => boolean>;
+    }
+    interface ExpO<T> {
+        iteratee(): ExpF<(o: T) => boolean>;
+    }
+    interface ExpS {
+        iteratee(): ExpF<(o: object) => boolean>;
     }
 
     interface Stat {

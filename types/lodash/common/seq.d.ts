@@ -27,7 +27,10 @@ declare module "../index" {
         chain(): this;
     }
     // prototype.commit
-    interface LoDashWrapper<TValue> {
+    interface Imp<TValue> {
+        commit(): this;
+    }
+    interface Exp<TValue> {
         commit(): this;
     }
     // prototype.plant
@@ -38,11 +41,17 @@ declare module "../index" {
         plant<T>(value: T): Exp<T>;
     }
     // prototype.reverse
-    interface LoDashWrapper<TValue> {
+    interface Imp<TValue> {
+        reverse(): this;
+    }
+    interface Exp<TValue> {
         reverse(): this;
     }
     // prototype.toJSON
-    interface LoDashWrapper<TValue> {
+    interface Imp<TValue> {
+        toJSON(): TValue;
+    }
+    interface Exp<TValue> {
         toJSON(): TValue;
     }
     // prototype.toString
@@ -64,17 +73,20 @@ declare module "../index" {
     interface Stat {
         tap<T>(value: T, interceptor: (value: T) => void): T;
     }
-    interface LoDashWrapper<TValue> {
+    interface Imp<TValue> {
+        tap(interceptor: (value: TValue) => void): this;
+    }
+    interface Exp<TValue> {
         tap(interceptor: (value: TValue) => void): this;
     }
     // thru
     interface Stat {
         thru<T, TResult>(value: T, interceptor: (value: T) => TResult): TResult;
     }
-    // interface Imp<TValue> {
-    //     thru<TResult>(interceptor: (value: TValue) => TResult): Imp<TResult>;
-    // }
-    // interface Exp<TValue> {
-    //     thru<TResult>(interceptor: (value: TValue) => TResult): Exp<TResult>;
-    // }
+    interface Imp<TValue> {
+        thru<TResult>(interceptor: (value: TValue) => TResult): Imp<TResult>;
+    }
+    interface Exp<TValue> {
+        thru<TResult>(interceptor: (value: TValue) => TResult): Exp<TResult>;
+    }
 }

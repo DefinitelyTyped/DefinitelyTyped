@@ -5801,8 +5801,8 @@ fp.now(); // $ExpectType number
         const accumulator: AbcObject[] = [];
 
         _.transform(array); // $ExpectType any[]
-        _.transform<number, AbcObject>(array, iterator); // $ExpectType AbcObject[]
-        _.transform<number, AbcObject>(array, iterator, accumulator); // $ExpectType AbcObject[]
+        _.transform<number, AbcObject[]>(array, iterator); // $ExpectType AbcObject[]
+        _.transform<number, AbcObject[]>(array, iterator, accumulator); // $ExpectType AbcObject[]
         _(array).transform(); // $ExpectType LoDashImplicitWrapper<any[]>
         _(array).transform(iterator); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
         _(array).transform(iterator, accumulator); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
@@ -5813,7 +5813,7 @@ fp.now(); // $ExpectType number
         const iterator = (acc: _.Dictionary<AbcObject>, curr: number, index?: number, arr?: number[]) => {};
         const accumulator: _.Dictionary<AbcObject> = {};
 
-        _.transform<number, AbcObject>(array, iterator, accumulator); // $ExpectType Dictionary<AbcObject>
+        _.transform<number, _.Dictionary<AbcObject>>(array, iterator, accumulator); // $ExpectType Dictionary<AbcObject>
         _(array).transform(iterator, accumulator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
         _.chain(array).transform(iterator, accumulator); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     }
@@ -5823,20 +5823,20 @@ fp.now(); // $ExpectType number
         const accumulator: _.Dictionary<AbcObject> = {};
 
         _.transform(dictionary); // $ExpectType Dictionary<any>
-        _.transform<number, AbcObject>(dictionary, iterator); // $ExpectType Dictionary<AbcObject>
-        _.transform<number, AbcObject>(dictionary, iterator, accumulator); // $ExpectType Dictionary<AbcObject>
+        _.transform(dictionary, iterator); // $ExpectType Dictionary<AbcObject>
+        _.transform<number, _.Dictionary<AbcObject>>(dictionary, iterator, accumulator); // $ExpectType Dictionary<AbcObject>
         _(dictionary).transform(); // $ExpectType LoDashImplicitWrapper<Dictionary<any>>
-        _(dictionary).transform<number, AbcObject>(iterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
-        _(dictionary).transform<number, AbcObject>(iterator, accumulator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
+        _(dictionary).transform(iterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
+        _(dictionary).transform(iterator, accumulator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     }
 
     {
-        const iterator = (acc: AbcObject[], curr: number, key?: string, dict?: _.Dictionary<number>) => {};
+        const iterator = (acc: AbcObject[], curr: number, index?: string, dict?: _.Dictionary<number>) => {};
         const accumulator: AbcObject[] = [];
 
-        _.transform<number, AbcObject>(dictionary, iterator, accumulator); // $ExpectType AbcObject[]
-        _(dictionary).transform<number, AbcObject>(iterator, accumulator); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
-        _.chain(dictionary).transform<number, AbcObject>(iterator, accumulator); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+        _.transform<number, AbcObject[]>(dictionary, iterator, accumulator); // $ExpectType AbcObject[]
+        _(dictionary).transform(iterator, accumulator); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+        _.chain(dictionary).transform(iterator, accumulator); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     }
 
     {
@@ -5926,11 +5926,11 @@ fp.now(); // $ExpectType number
     _.values(list); // $ExpectType AbcObject[]
     _.values(abcObject); // $ExpectType (string | number | boolean)[]
 
-    _(true).values(); // $ExpectType LoDashImplicitWrapper<any[]>
+    // _(true).values(); // $ExpectError
     _("hi").values(); // $ExpectType LoDashImplicitWrapper<string[]>
     _(dict).values(); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
 
-    _.chain(true).values(); // $ExpectType LoDashExplicitWrapper<any[]>
+    // _.chain(true).values(); // $ExpectError
     _.chain("hi").values(); // $ExpectType LoDashExplicitWrapper<string[]>
     _.chain(dict).values(); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
 

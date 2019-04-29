@@ -23,11 +23,23 @@ declare module "../index" {
     interface Stat {
          concat<T>(array: Many<T>, ...values: Array<Many<T>>): T[];
     }
-    interface Imp<TValue> {
-        concat<T>(this: Imp<Many<T>>, ...values: Array<Many<T>>): ImpL<T>;
+    interface ImpU<T> {
+        concat(...values: Array<Many<T>>): ImpL<T>;
     }
-    interface Exp<TValue> {
-        concat<T>(this: Exp<Many<T>>, ...values: Array<Many<T>>): ExpL<T>;
+    interface ImpL<T> {
+        concat(...values: Array<Many<T>>): ImpL<T>;
+    }
+    interface ImpO<T> {
+        concat(...values: Array<Many<T>>): ImpL<T>;
+    }
+    interface ExpU<T> {
+        concat(...values: Array<Many<T>>): ExpL<T>;
+    }
+    interface ExpL<T> {
+        concat(...values: Array<Many<T>>): ExpL<T>;
+    }
+    interface ExpO<T> {
+        concat(...values: Array<Many<T>>): ExpL<T>;
     }
     interface Stat {
         difference<T>( array: List<T> | null | undefined, ...values: Array<List<T>> ): T[];
