@@ -614,14 +614,14 @@ declare module "../index" {
         setWith<T extends object>(object: T, path: PropertyPath, value: any, customizer?: SetWithCustomizer<T>): T;
         setWith<T extends object, TResult>(object: T, path: PropertyPath, value: any, customizer?: SetWithCustomizer<T>): TResult;
     }
-    // interface Imp<TValue> {
-    //     setWith(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): this;
-    //     setWith<TResult>(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): Imp<TResult>;
-    // }
-    // interface Exp<TValue> {
-    //     setWith(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): this;
-    //     setWith<TResult>(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): Exp<TResult>;
-    // }
+    interface Imp<TValue> {
+        setWith(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): this;
+        setWith<TResult>(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): Imp<TResult>;
+    }
+    interface Exp<TValue> {
+        setWith(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): this;
+        setWith<TResult>(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): Exp<TResult>;
+    }
     interface Stat {
         toPairs<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         toPairs(object?: object): Array<[string, any]>;
@@ -647,27 +647,31 @@ declare module "../index" {
         toPairsIn(): Exp<Array<[string, any]>>;
     }
     interface Stat {
-        transform<T, TResult>(object: T[], iteratee: MemoVoidArrayIterator<T, TResult[]>, accumulator?: TResult[]): TResult[];
-        transform<T, TResult>(object: T[], iteratee: MemoVoidArrayIterator<T, Dictionary<TResult>>, accumulator: Dictionary<TResult>): Dictionary<TResult>;
-        transform<T, TResult>(object: Dictionary<T>, iteratee: MemoVoidDictionaryIterator<T, Dictionary<TResult>>, accumulator?: Dictionary<TResult>): Dictionary<TResult>;
-        transform<T, TResult>(object: Dictionary<T>, iteratee: MemoVoidDictionaryIterator<T, TResult[]>, accumulator: TResult[]): TResult[];
+        transform<T, TResult>(object: T[], iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
+        transform<T, TResult>(object: Dictionary<T>, iteratee: MemoVoidDictionaryIterator<T, TResult>, accumulator?: TResult): TResult;
         transform(object: any[], ): any[];
         transform(object: object, ): Dictionary<any>;
     }
+    interface ImpL<T> {
+        transform<TResult>( iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
+        transform(): ImpL<any>;
+    }
+    interface ImpO<T> {
+        transform<TResult>( iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): Imp<TResult>;
+        transform(): ImpO<any>;
+    }
     interface Imp<TValue> {
-        transform<T, TResult>(this: Imp<T[]>, iteratee: MemoVoidArrayIterator<T, TResult[]>, accumulator?: TResult[]): Imp<TResult[]>;
-        transform<T, TResult>(this: Imp<T[]>, iteratee: MemoVoidArrayIterator<T, Dictionary<TResult>>, accumulator: Dictionary<TResult>): Imp<Dictionary<TResult>>;
-        transform<T, TResult>(this: Imp<Dictionary<T>>, iteratee: MemoVoidDictionaryIterator<T, Dictionary<TResult>>, accumulator?: Dictionary<TResult>): Imp<Dictionary<TResult>>;
-        transform<T, TResult>(this: Imp<Dictionary<T>>, iteratee: MemoVoidDictionaryIterator<T, TResult[]>, accumulator: TResult[]): Imp<TResult[]>;
-        transform(this: Imp<any[]>, ): Imp<any[]>;
         transform(): Imp<Dictionary<any>>;
     }
+    interface ExpL<T> {
+        transform<TResult>( iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
+        transform(): ExpL<any>;
+    }
+    interface ExpO<T> {
+        transform<TResult>( iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): Exp<TResult>;
+        transform(): ExpO<any>;
+    }
     interface Exp<TValue> {
-        transform<T, TResult>(this: Exp<T[]>, iteratee: MemoVoidArrayIterator<T, TResult[]>, accumulator?: TResult[]): Exp<TResult[]>;
-        transform<T, TResult>(this: Exp<T[]>, iteratee: MemoVoidArrayIterator<T, Dictionary<TResult>>, accumulator?: Dictionary<TResult>): Exp<Dictionary<TResult>>;
-        transform<T, TResult>(this: Exp<Dictionary<T>>, iteratee: MemoVoidDictionaryIterator<T, Dictionary<TResult>>, accumulator?: Dictionary<TResult>): Exp<Dictionary<TResult>>;
-        transform<T, TResult>(this: Exp<Dictionary<T>>, iteratee: MemoVoidDictionaryIterator<T, TResult[]>, accumulator?: TResult[]): Exp<TResult[]>;
-        transform(this: Exp<any[]>, ): Exp<any[]>;
         transform(): Exp<Dictionary<any>>;
     }
     interface Stat {
@@ -692,39 +696,45 @@ declare module "../index" {
         updateWith<T extends object>(object: T, path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): T;
         updateWith<T extends object, TResult>(object: T, path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): TResult;
     }
-    // interface Imp<TValue> {
-    //     updateWith(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<TValue>): this;
-    //     updateWith<TResult>(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<TValue>): Imp<TResult>;
-    // }
-    // interface Exp<TValue> {
-    //     updateWith(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<TValue>): this;
-    //     updateWith<TResult>(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<TValue>): Exp<TResult>;
-    // }
+    interface Imp<TValue> {
+        updateWith(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<TValue>): this;
+        updateWith<TResult>(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<TValue>): Imp<TResult>;
+    }
+    interface Exp<TValue> {
+        updateWith(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<TValue>): this;
+        updateWith<TResult>(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<TValue>): Exp<TResult>;
+    }
     interface Stat {
         values<T>(object: Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined): T[];
         values<T extends object>(object: T | null | undefined): Array<T[keyof T]>;
         values(object: any): any[];
     }
-    interface Imp<TValue> {
-        values<T>(this: Imp<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>): Imp<T[]>;
-        values<T extends object>(this: Imp<T | null | undefined>): Imp<Array<T[keyof T]>>;
-        values(): Imp<any[]>;
+    interface ImpS {
+        values(): ImpL<string>;
     }
-    interface Exp<TValue> {
-        values<T>(this: Exp<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>): Exp<T[]>;
-        values<T extends object>(this: Exp<T | null | undefined>): Exp<Array<T[keyof T]>>;
-        values(): Exp<any[]>;
+    interface ImpO<T> {
+        values(): ImpL<T[keyof T]>;
+    }
+    interface ExpO<T> {
+        values(): ExpL<T[keyof T]>;
+    }
+    interface ExpS {
+        values(): ExpL<string>;
     }
     interface Stat {
         valuesIn<T>(object: Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined): T[];
         valuesIn<T extends object>(object: T | null | undefined): Array<T[keyof T]>;
     }
-    interface Imp<TValue> {
-        valuesIn<T>(this: Imp<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>): Imp<T[]>;
-        valuesIn<T extends object>(this: Imp<T | null | undefined>): Imp<Array<T[keyof T]>>;
+    interface ImpS {
+        valuesIn(): ImpL<string>;
     }
-    interface Exp<TValue> {
-        valuesIn<T>(this: Exp<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>): Exp<T[]>;
-        valuesIn<T extends object>(this: Exp<T | null | undefined>): Exp<Array<T[keyof T]>>;
+    interface ImpO<T> {
+        valuesIn(): ImpL<T[keyof T]>;
+    }
+    interface ExpS {
+        valuesIn(): ExpL<string>;
+    }
+    interface ExpO<T> {
+        valuesIn(): ExpL<T[keyof T]>;
     }
 }

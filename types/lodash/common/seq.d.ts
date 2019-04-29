@@ -50,7 +50,10 @@ declare module "../index" {
         toString(): string;
     }
     // prototype.value
-    interface LoDashWrapper<TValue> {
+    interface Imp<TValue> {
+        value(): TValue;
+    }
+    interface Exp<TValue> {
         value(): TValue;
     }
     // prototype.valueOf
