@@ -1045,6 +1045,13 @@ export interface Collection<TSchema = Default> {
     watch(pipeline?: object[], options?: ChangeStreamOptions & { startAtClusterTime?: Timestamp, session?: ClientSession }): ChangeStream;
 }
 
+interface TextQuery {
+  $search: string;
+  $language?: string;
+  $caseSensitive?: boolean;
+  $diacraticSensitive?: boolean;
+}
+
 export type Condition<T, P extends keyof T> = {
     $eq?: T[P];
     $gt?: T[P];
@@ -1056,18 +1063,14 @@ export type Condition<T, P extends keyof T> = {
     $nin?: Array<T[P]>;
     $and?: Array<FilterQuery<T[P]> | T[P]>;
     $or?: Array<FilterQuery<T[P]> | T[P]>;
+    $nor?: Array<FilterQuery<T[P]> | T[P]>;
     $not?: Array<FilterQuery<T[P]> | T[P]> | T[P];
     $expr?: any;
     $jsonSchema?: any;
     $mod?: [number, number];
     $regex?: RegExp;
     $options?: string;
-    $text?: {
-        $search: string;
-        $language?: string;
-        $caseSensitive?: boolean;
-        $diacraticSensitive?: boolean;
-    };
+    $text?: TextQuery;
     $where?: object;
     $geoIntersects?: object;
     $geoWithin?: object;
@@ -1102,9 +1105,17 @@ export type UpdateQuery<T> = {
     $bit?: { [P in keyof T]?: any } | { [key: string]: any };
 };
 
-export type FilterQuery<T> = {
+export type FilterQuery<T> = ({
     [P in keyof T]?: T[P] | Condition<T, P>;
-} | { [key: string]: any };
+} & {
+  $and?: Array<FilterQuery<T>>;
+  $or?: Array<FilterQuery<T>>;
+  $nor?: Array<FilterQuery<T>>;
+  $where?: object;
+  $expr?: any;
+  $jsonSchema?: any;
+  $text?: TextQuery;
+}) | { [key: string]: any };
 
 /** http://docs.mongodb.org/manual/reference/command/collStats/ */
 export interface CollStats {
