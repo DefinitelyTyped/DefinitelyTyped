@@ -1,4 +1,4 @@
-// Type definitions for react-native-mixpanel 1.1.1
+// Type definitions for react-native-mixpanel 1.1
 // Project: https://github.com/davodesign84/react-native-mixpanel#readme
 // Definitions by: Andrew Makarov <https://github.com/r3nya>
 //                 Jake Bloom     <https://github.com/jakebloom>
