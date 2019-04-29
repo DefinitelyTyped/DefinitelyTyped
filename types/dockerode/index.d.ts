@@ -584,60 +584,67 @@ declare namespace Dockerode {
   }
 
   interface HostConfig {
-    AutoRemove: boolean;
-    Binds: string[];
-    ContainerIDFile: string;
-    LogConfig: {
+    AutoRemove?: boolean;
+    Binds?: string[];
+    ContainerIDFile?: string;
+    LogConfig?: {
       Type: string;
       Config: any;
     };
-    NetworkMode: string;
+    NetworkMode?: string;
     PortBindings?: any;
-    RestartPolicy: {
-      Name: string;
-      MaximumRetryCount: number;
-    };
-    VolumeDriver: string;
+    RestartPolicy?: RestartPolicy;
+    VolumeDriver?: string;
     VolumesFrom?: any;
+    Mounts?: MountConfig;
     CapAdd?: any;
     CapDrop?: any;
-    Dns: any[];
-    DnsOptions: any[];
-    DnsSearch: any[];
+    Dns?: any[];
+    DnsOptions?: any[];
+    DnsSearch?: any[];
     ExtraHosts?: any;
-    IpcMode: string;
+    GroupAdd?: string[];
+    IpcMode?: string;
+    Cgroup?: string;
     Links?: any;
-    OomScoreAdj: number;
-    PidMode: string;
-    Privileged: boolean;
-    PublishAllPorts: boolean;
-    ReadonlyRootfs: boolean;
+    OomScoreAdj?: number;
+    PidMode?: string;
+    Privileged?: boolean;
+    PublishAllPorts?: boolean;
+    ReadonlyRootfs?: boolean;
     SecurityOpt?: any;
-    UTSMode: string;
-    ShmSize: number;
-    ConsoleSize: number[];
-    Isolation: string;
-    CpuShares: number;
-    CgroupParent: string;
-    BlkioWeight: number;
+    StorageOpt?: { [option: string]: string };
+    Tmpfs?: { [dir: string]: string };
+    UTSMode?: string;
+    UsernsMode?: string;
+    ShmSize?: number;
+    Sysctls?: { [index: string]: string };
+    Runtime?: string;
+    ConsoleSize?: number[];
+    Isolation?: string;
+    MaskedPaths?: string[];
+    ReadonlyPaths?: string[];
+    CpuShares?: number;
+    CgroupParent?: string;
+    BlkioWeight?: number;
     BlkioWeightDevice?: any;
     BlkioDeviceReadBps?: any;
     BlkioDeviceWriteBps?: any;
     BlkioDeviceReadIOps?: any;
     BlkioDeviceWriteIOps?: any;
-    CpuPeriod: number;
-    CpuQuota: number;
-    CpusetCpus: string;
-    CpusetMems: string;
+    CpuPeriod?: number;
+    CpuQuota?: number;
+    CpusetCpus?: string;
+    CpusetMems?: string;
     Devices?: any;
-    DiskQuota: number;
-    KernelMemory: number;
-    Memory: number;
-    MemoryReservation: number;
-    MemorySwap: number;
-    MemorySwappiness: number;
-    OomKillDisable: boolean;
-    PidsLimit: number;
+    DiskQuota?: number;
+    KernelMemory?: number;
+    Memory?: number;
+    MemoryReservation?: number;
+    MemorySwap?: number;
+    MemorySwappiness?: number;
+    OomKillDisable?: boolean;
+    PidsLimit?: number;
     Ulimits?: any;
   }
 
@@ -810,6 +817,18 @@ declare namespace Dockerode {
     BindOptions ?: {
       Propagation: MountPropagation;
     };
+    VolumeOptions ?: {
+      NoCopy: boolean;
+      Labels: { [label: string]: string };
+      DriverConfig: {
+          Name: string;
+          Options: { [option: string]: string};
+      };
+    };
+    TmpfsOptions ?: {
+      SizeBytes: number;
+      Mode: number;
+    };
   }
 
   type MountConfig = MountSettings[];
@@ -836,55 +855,7 @@ declare namespace Dockerode {
     MacAddress?: boolean;
     ExposedPorts?: { [port: string]: {} };
     StopSignal?: string;
-    HostConfig?: {
-      AutoRemove?: boolean;
-      Binds?: string[];
-      Links?: string[];
-      Memory?: number;
-      MemorySwap?: number;
-      MemoryReservation?: number;
-      KernelMemory?: number;
-      CpuPercent?: number;
-      CpuShares?: number;
-      CpuPeriod?: number;
-      CpuQuota?: number;
-      CpusetMems?: string;
-      MaximumIOps?: number;
-      MaxmimumIOBps?: number;
-      BlkioWeightDevice?: Array<{}>;
-      BlkioDeviceReadBps?: Array<{}>;
-      BlkioDeviceReadIOps?: Array<{}>;
-      BlkioDeviceWriteBps?: Array<{}>;
-      BlkioDeviceWriteIOps?: Array<{}>;
-      MemorySwappiness?: number;
-      OomKillDisable?: boolean;
-      OomScoreAdj?: number;
-      PidMode?: string;
-      PidsLimit?: number;
-      PortBindings?: PortMap;
-      PublishAllPorts?: boolean;
-      Privileged?: boolean;
-      ReadonlyRootfs?: boolean;
-      Dns?: string[];
-      DnsOptions?: string[];
-      DnsSearch?: string[];
-      ExtraHosts?: any;
-      VolumesFrom?: string[];
-      Mounts?: MountConfig;
-      CapAdd?: string[];
-      CapDrop?: string[];
-      GroupAdd?: string[];
-      RestartPolicy?: RestartPolicy;
-      NetworkMode?: string;
-      Devices?: DeviceMapping[];
-      Sysctls?: { [index: string]: string };
-      Ulimits?: Array<{}>;
-      LogConfig?: LogConfig;
-      SecurityOpt?: { [index: string]: any };
-      CgroupParent?: string;
-      VolumeDriver?: string;
-      ShmSize?: number;
-    };
+    HostConfig?: HostConfig;
     NetworkingConfig?: {
       EndpointsConfig?: EndpointsConfig;
     };

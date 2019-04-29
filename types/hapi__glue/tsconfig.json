@@ -1,0 +1,55 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "lib": [
+        "es6"
+    ],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "baseUrl": "../",
+    "typeRoots": [
+        "../"
+    ],
+    "paths": {
+        "@hapi/hapi": [
+            "hapi__hapi"
+        ],
+        "@hapi/boom": [
+            "hapi__boom"
+        ],
+        "@hapi/shot": [
+            "hapi__shot"
+        ],
+        "@hapi/mimos": [
+            "hapi__mimos"
+        ],
+        "@hapi/iron": [
+            "hapi__iron"
+        ],
+        "@hapi/joi": [
+            "hapi__joi"
+        ],
+        "@hapi/podium": [
+            "hapi__podium"
+        ],
+        "@hapi/catbox": [
+            "hapi__catbox"
+        ],
+        "@hapi/glue": [
+            "hapi__glue"
+        ]
+    },
+    "types": [],
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true
+  },
+  "files": [
+    "index.d.ts",
+    "hapi__glue-tests.ts"
+  ]
+}

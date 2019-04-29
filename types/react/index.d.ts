@@ -1447,65 +1447,8 @@ declare namespace React {
          */
     }
 
-    interface HTMLAttributes<T> extends DOMAttributes<T> {
-        // React-specific Attributes
-        defaultChecked?: boolean;
-        defaultValue?: string | string[];
-        suppressContentEditableWarning?: boolean;
-        suppressHydrationWarning?: boolean;
-
-        // Standard HTML Attributes
-        accessKey?: string;
-        className?: string;
-        contentEditable?: boolean;
-        contextMenu?: string;
-        dir?: string;
-        draggable?: boolean;
-        hidden?: boolean;
-        id?: string;
-        lang?: string;
-        placeholder?: string;
-        slot?: string;
-        spellCheck?: boolean;
-        style?: CSSProperties;
-        tabIndex?: number;
-        title?: string;
-
-        // Unknown
-        inputMode?: string;
-        is?: string;
-        radioGroup?: string; // <command>, <menuitem>
-
-        // WAI-ARIA
-        role?: string;
-
-        // RDFa Attributes
-        about?: string;
-        datatype?: string;
-        inlist?: any;
-        prefix?: string;
-        property?: string;
-        resource?: string;
-        typeof?: string;
-        vocab?: string;
-
-        // Non-standard Attributes
-        autoCapitalize?: string;
-        autoCorrect?: string;
-        autoSave?: string;
-        color?: string;
-        itemProp?: string;
-        itemScope?: boolean;
-        itemType?: string;
-        itemID?: string;
-        itemRef?: string;
-        results?: number;
-        security?: string;
-        unselectable?: 'on' | 'off';
-    }
-
     // All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
-    interface HTMLAttributes<T> extends DOMAttributes<T> {
+    interface AriaAttributes {
         /** Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. */
         'aria-activedescendant'?: string;
         /** Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. */
@@ -1690,6 +1633,63 @@ declare namespace React {
         'aria-valuenow'?: number;
         /** Defines the human readable text alternative of aria-valuenow for a range widget. */
         'aria-valuetext'?: string;
+    }
+
+    interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+        // React-specific Attributes
+        defaultChecked?: boolean;
+        defaultValue?: string | string[];
+        suppressContentEditableWarning?: boolean;
+        suppressHydrationWarning?: boolean;
+
+        // Standard HTML Attributes
+        accessKey?: string;
+        className?: string;
+        contentEditable?: boolean;
+        contextMenu?: string;
+        dir?: string;
+        draggable?: boolean;
+        hidden?: boolean;
+        id?: string;
+        lang?: string;
+        placeholder?: string;
+        slot?: string;
+        spellCheck?: boolean;
+        style?: CSSProperties;
+        tabIndex?: number;
+        title?: string;
+
+        // Unknown
+        inputMode?: string;
+        is?: string;
+        radioGroup?: string; // <command>, <menuitem>
+
+        // WAI-ARIA
+        role?: string;
+
+        // RDFa Attributes
+        about?: string;
+        datatype?: string;
+        inlist?: any;
+        prefix?: string;
+        property?: string;
+        resource?: string;
+        typeof?: string;
+        vocab?: string;
+
+        // Non-standard Attributes
+        autoCapitalize?: string;
+        autoCorrect?: string;
+        autoSave?: string;
+        color?: string;
+        itemProp?: string;
+        itemScope?: boolean;
+        itemType?: string;
+        itemID?: string;
+        itemRef?: string;
+        results?: number;
+        security?: string;
+        unselectable?: 'on' | 'off';
     }
 
     interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2205,7 +2205,7 @@ declare namespace React {
     //   - "number | string"
     //   - "string"
     //   - union of string literals
-    interface SVGAttributes<T> extends DOMAttributes<T> {
+    interface SVGAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // Attributes which also defined in HTMLAttributes
         // See comment in SVGDOMPropertyConfig.js
         className?: string;

@@ -130,6 +130,10 @@ interface ExtendedUser extends User {
         ]);
     concat.asMutable();
 
+    Immutable.from([1, 2, 3])
+        .concat(Immutable.from([4, 5, 6])
+        .concat([7, 8, 9]));
+
     // reduce. Call the mutable array's 'reduce' with the same function to ensure compatability. Make sure the output array is immutable.
     array.asMutable().reduce((previous, current) => ({ ...previous, lastName: current.lastName }));
     const reduce1: Immutable.Immutable<User> = array.reduce((previous, current) => ({ ...previous, lastName: current.lastName }));
