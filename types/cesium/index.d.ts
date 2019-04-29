@@ -2437,16 +2437,24 @@ declare namespace Cesium {
         constructor(color?: Property);
     }
 
-    class PolylineGeometryUpdater extends GeometryUpdater {
-        readonly depthFailMaterialProperty: MaterialProperty;
-        readonly distanceDisplayConditionProperty: Property;
-        constructor(entity: Entity, scene: Scene);
-    }
-
     class PolylineGlowMaterialProperty extends MaterialProperty {
         color: Color;
         glowPower: Property;
         constructor(options?: { color?: Property; glowPower?: Property });
+    }
+
+    class PolylineDashMaterialProperty extends MaterialProperty {
+        color: Color;
+        gapColor: Color;
+        dashLength: Property;
+        dashPattern: Property;
+        constructor(options?: {color?: Color; gapColor?: Color; dashLength?: Property; dashPattern?: Property});
+    }
+
+    class PolylineGeometryUpdater extends GeometryUpdater {
+        readonly depthFailMaterialProperty: MaterialProperty;
+        readonly distanceDisplayConditionProperty: Property;
+        constructor(entity: Entity, scene: Scene);
     }
 
     class PolylineGraphics {
@@ -2457,7 +2465,14 @@ declare namespace Cesium {
         width: number;
         followSurface: Property;
         granularity: Property;
-        constructor(options?: { positions?: Cartesian3[]; followSurface?: Property; width?: number; show?: Property; material?: MaterialProperty; granularity?: Property });
+        constructor(options?: {
+            positions?: Cartesian3[];
+            followSurface?: Property;
+            width?: number;
+            show?: Property;
+            material?: MaterialProperty;
+            granularity?: Property
+        });
         clone(result?: PolylineGraphics): PolylineGraphics;
         merge(source: PolylineGraphics): PolylineGraphics;
     }
