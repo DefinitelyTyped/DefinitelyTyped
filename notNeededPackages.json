@@ -835,6 +835,18 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "ensure-error",
+            "typingsPackageName": "ensure-error",
+            "sourceRepoURL": "https://github.com/sindresorhus/ensure-error",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "env-editor",
+            "typingsPackageName": "env-editor",
+            "sourceRepoURL": "https://github.com/sindresorhus/env-editor",
+            "asOfVersion": "0.4.0"
+        },
+        {
             "libraryName": "env-paths",
             "typingsPackageName": "env-paths",
             "sourceRepoURL": "https://github.com/sindresorhus/env-paths",
@@ -859,6 +871,12 @@
             "asOfVersion": "3.3.0"
         },
         {
+            "libraryName": "escape-goat",
+            "typingsPackageName": "escape-goat",
+            "sourceRepoURL": "https://github.com/sindresorhus/escape-goat",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "escape-string-regexp",
             "typingsPackageName": "escape-string-regexp",
             "sourceRepoURL": "https://github.com/sindresorhus/escape-string-regexp",
@@ -877,6 +895,18 @@
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "execall",
+            "typingsPackageName": "execall",
+            "sourceRepoURL": "https://github.com/sindresorhus/execall",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "exit-hook",
+            "typingsPackageName": "exit-hook",
+            "sourceRepoURL": "https://github.com/sindresorhus/exit-hook",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "expr-eval",
             "typingsPackageName": "expr-eval",
             "sourceRepoURL": "https://github.com/silentmatt/expr-eval",
@@ -893,6 +923,12 @@
             "typingsPackageName": "extended-listbox",
             "sourceRepoURL": "https://github.com/code-chris/extended-listbox",
             "asOfVersion": "4.0.1"
+        },
+        {
+            "libraryName": "extract-stack",
+            "typingsPackageName": "extract-stack",
+            "sourceRepoURL": "https://github.com/sindresorhus/extract-stack",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "fast-diff",
@@ -941,6 +977,12 @@
             "typingsPackageName": "fecha",
             "sourceRepoURL": "https://github.com/taylorhakes/fecha",
             "asOfVersion": "2.3.1"
+        },
+        {
+            "libraryName": "figures",
+            "typingsPackageName": "figures",
+            "sourceRepoURL": "https://github.com/sindresorhus/figures",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "file-type",
@@ -1061,6 +1103,12 @@
             "typingsPackageName": "get-port",
             "sourceRepoURL": "https://github.com/sindresorhus/get-port",
             "asOfVersion": "4.2.0"
+        },
+        {
+            "libraryName": "get-range",
+            "typingsPackageName": "get-range",
+            "sourceRepoURL": "https://github.com/sindresorhus/get-range",
+            "asOfVersion": "2.0.1"
         },
         {
             "libraryName": "get-stdin",
@@ -1213,6 +1261,12 @@
             "asOfVersion": "1.0.19"
         },
         {
+            "libraryName": "html-tags",
+            "typingsPackageName": "html-tags",
+            "sourceRepoURL": "https://github.com/sindresorhus/html-tags",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "http-status-codes",
             "typingsPackageName": "http-status-codes",
             "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
@@ -1223,6 +1277,12 @@
             "typingsPackageName": "humanize-string",
             "sourceRepoURL": "https://github.com/sindresorhus/humanize-string",
             "asOfVersion": "2.0.1"
+        },
+        {
+            "libraryName": "humanize-url",
+            "typingsPackageName": "humanize-url",
+            "sourceRepoURL": "https://github.com/sindresorhus/humanize-url",
+            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "i18next-browser-languagedetector",
@@ -1271,6 +1331,12 @@
             "typingsPackageName": "in-range",
             "sourceRepoURL": "https://github.com/sindresorhus/in-range",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "indent-string",
+            "typingsPackageName": "indent-string",
+            "sourceRepoURL": "https://github.com/sindresorhus/indent-string",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "interactjs",
@@ -1333,9 +1399,57 @@
             "asOfVersion": "3.19.0"
         },
         {
+            "libraryName": "ip-regex",
+            "typingsPackageName": "ip-regex",
+            "sourceRepoURL": "https://github.com/sindresorhus/ip-regex",
+            "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "ipify",
+            "typingsPackageName": "ipify",
+            "sourceRepoURL": "https://github.com/sindresorhus/ipify",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "is-absolute-url",
             "typingsPackageName": "is-absolute-url",
             "sourceRepoURL": "https://github.com/sindresorhus/is-absolute-url",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "is-archive",
+            "typingsPackageName": "is-archive",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-archive",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "is-array-sorted",
+            "typingsPackageName": "is-array-sorted",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-array-sorted",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "is-binary-path",
+            "typingsPackageName": "is-binary-path",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-binary-path",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "is-compressed",
+            "typingsPackageName": "is-compressed",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-compressed",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "is-docker",
+            "typingsPackageName": "is-docker",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-docker",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "is-elevated",
+            "typingsPackageName": "is-elevated",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-elevated",
             "asOfVersion": "3.0.0"
         },
         {
@@ -1345,10 +1459,28 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "is-image",
+            "typingsPackageName": "is-image",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-image",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "is-ip",
+            "typingsPackageName": "is-ip",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-ip",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "is-lower-case",
             "typingsPackageName": "is-lower-case",
             "sourceRepoURL": "https://github.com/blakeembrey/is-lower-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "is-obj",
+            "typingsPackageName": "is-obj",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-obj",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "is-online",
@@ -1357,10 +1489,46 @@
             "asOfVersion": "8.1.0"
         },
         {
+            "libraryName": "is-path-cwd",
+            "typingsPackageName": "is-path-cwd",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-path-cwd",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "is-path-in-cwd",
+            "typingsPackageName": "is-path-in-cwd",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-path-in-cwd",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "is-plain-obj",
+            "typingsPackageName": "is-plain-obj",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-plain-obj",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "is-plain-object",
             "typingsPackageName": "is-plain-object",
             "sourceRepoURL": "https://github.com/jonschlinkert/is-plain-object",
             "asOfVersion": "2.0.4"
+        },
+        {
+            "libraryName": "is-png",
+            "typingsPackageName": "is-png",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-png",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "is-reachable",
+            "typingsPackageName": "is-reachable",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-reachable",
+            "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "is-regexp",
+            "typingsPackageName": "is-regexp",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-regexp",
+            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "is-relative-url",
@@ -1369,9 +1537,27 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "is-root",
+            "typingsPackageName": "is-root",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-root",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "is-root-path",
+            "typingsPackageName": "is-root-path",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-root-path",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "is-scoped",
             "typingsPackageName": "is-scoped",
             "sourceRepoURL": "https://github.com/sindresorhus/is-scoped",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "is-stream",
+            "typingsPackageName": "is-stream",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-stream",
             "asOfVersion": "2.0.0"
         },
         {
@@ -1381,10 +1567,28 @@
             "asOfVersion": "4.0.1"
         },
         {
+            "libraryName": "is-text-path",
+            "typingsPackageName": "is-text-path",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-text-path",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "is-upper-case",
             "typingsPackageName": "is-upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/is-upper-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "is-url-superb",
+            "typingsPackageName": "is-url-superb",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-url-superb",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "issue-regex",
+            "typingsPackageName": "issue-regex",
+            "sourceRepoURL": "https://github.com/sindresorhus/issue-regex",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "jasmine-expect",
@@ -1441,6 +1645,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "js-types",
+            "typingsPackageName": "js-types",
+            "sourceRepoURL": "https://github.com/sindresorhus/js-types",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "JSNLog",
             "typingsPackageName": "jsnlog",
             "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
@@ -1489,6 +1699,12 @@
             "asOfVersion": "0.7.1"
         },
         {
+            "libraryName": "known",
+            "typingsPackageName": "known",
+            "sourceRepoURL": "https://github.com/sindresorhus/known",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "koa-jwt",
             "typingsPackageName": "koa-jwt",
             "sourceRepoURL": "https://github.com/koajs/jwt",
@@ -1501,16 +1717,34 @@
             "asOfVersion": "1.0.1"
         },
         {
+            "libraryName": "latest-semver",
+            "typingsPackageName": "latest-semver",
+            "sourceRepoURL": "https://github.com/sindresorhus/latest-semver",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "latest-version",
             "typingsPackageName": "latest-version",
             "sourceRepoURL": "https://github.com/sindresorhus/latest-version",
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "lazy-value",
+            "typingsPackageName": "lazy-value",
+            "sourceRepoURL": "https://github.com/sindresorhus/lazy-value",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "ldclient-js",
             "typingsPackageName": "ldclient-js",
             "sourceRepoURL": "https://github.com/launchdarkly/js-client",
             "asOfVersion": "1.1.11"
+        },
+        {
+            "libraryName": "leap-year",
+            "typingsPackageName": "leap-year",
+            "sourceRepoURL": "https://github.com/sindresorhus/leap-year",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "left-pad",
@@ -1523,6 +1757,18 @@
             "typingsPackageName": "leven",
             "sourceRepoURL": "https://github.com/sindresorhus/leven",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "linkify-issues",
+            "typingsPackageName": "linkify-issues",
+            "sourceRepoURL": "https://github.com/sindresorhus/linkify-issues",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "linkify-urls",
+            "typingsPackageName": "linkify-urls",
+            "sourceRepoURL": "https://github.com/sindresorhus/linkify-urls",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "Linq.JS",
@@ -1567,10 +1813,22 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "lock-system",
+            "typingsPackageName": "lock-system",
+            "sourceRepoURL": "https://github.com/sindresorhus/lock-system",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "lodash-decorators",
             "typingsPackageName": "lodash-decorators",
             "sourceRepoURL": "https://github.com/steelsojka/lodash-decorators",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "log-symbols",
+            "typingsPackageName": "log-symbols",
+            "sourceRepoURL": "https://github.com/sindresorhus/log-symbols",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "log-update",
@@ -2491,6 +2749,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "resolve-pkg",
+            "typingsPackageName": "resolve-pkg",
+            "sourceRepoURL": "https://github.com/sindresorhus/resolve-pkg",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "rest-io",
             "typingsPackageName": "rest-io",
             "sourceRepoURL": "https://github.com/EnoF/rest-io",
@@ -2737,6 +3001,12 @@
             "asOfVersion": "5.2.0"
         },
         {
+            "libraryName": "strip-indent",
+            "typingsPackageName": "strip-indent",
+            "sourceRepoURL": "https://github.com/sindresorhus/strip-indent",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "striptags",
             "typingsPackageName": "striptags",
             "sourceRepoURL": "https://github.com/ericnorris/striptags",
@@ -2747,6 +3017,12 @@
             "typingsPackageName": "subsume",
             "sourceRepoURL": "https://github.com/sindresorhus/subsume",
             "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "sudo-block",
+            "typingsPackageName": "sudo-block",
+            "sourceRepoURL": "https://github.com/sindresorhus/sudo-block",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "Sugar",
@@ -2803,6 +3079,12 @@
             "asOfVersion": "2.6.0"
         },
         {
+            "libraryName": "tempy",
+            "typingsPackageName": "tempy",
+            "sourceRepoURL": "https://github.com/sindresorhus/tempy",
+            "asOfVersion": "0.3.0"
+        },
+        {
             "libraryName": "terser",
             "typingsPackageName": "terser",
             "sourceRepoURL": "https://github.com/terser-js/terser",
@@ -2831,6 +3113,12 @@
             "typingsPackageName": "title-case",
             "sourceRepoURL": "https://github.com/blakeembrey/title-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "to-semver",
+            "typingsPackageName": "to-semver",
+            "sourceRepoURL": "https://github.com/sindresorhus/to-semver",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "trash",
@@ -2915,6 +3203,12 @@
             "typingsPackageName": "upper-case-first",
             "sourceRepoURL": "https://github.com/blakeembrey/upper-case-first",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "url-regex",
+            "typingsPackageName": "url-regex",
+            "sourceRepoURL": "https://github.com/kevva/url-regex",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "urllib",
