@@ -18,6 +18,10 @@ declare function imagemin(plugins?: ReadonlyArray<Plugin>, options?: imagemin.Op
 
 declare namespace imagemin {
     interface Options {
+        interlaced?: boolean;
+        progressive?: boolean;
+        optimizationLevel?: number;
+        svgoPlugins?: any[];
         verbose?: boolean;
     }
 
