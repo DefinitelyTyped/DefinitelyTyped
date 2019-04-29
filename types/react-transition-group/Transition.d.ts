@@ -129,7 +129,7 @@ export interface TransitionProps extends TransitionActions {
      * called with the current transition status ('entering', 'entered',
      * 'exiting',  'exited', 'unmounted'), which can be used to apply context
      * specific props to a component.
-     * ```js
+     * ```jsx
      *    <Transition in={this.state.in} timeout={150}>
      *        {state => (
      *            <MyComponent className={`fade fade-${state}`} />
@@ -152,7 +152,7 @@ export interface TransitionProps extends TransitionActions {
  * It's up to you to give meaning and effect to those states. For example we can
  * add styles to a component when it enters or exits:
  *
- * ```js
+ * ```jsx
  * import Transition from 'react-transition-group/Transition';
  *
  * const duration = 300;
