@@ -239,19 +239,19 @@ declare module "../index" {
         findKey<T>(object: T | null | undefined, predicate?: ObjectIteratee<T>): string | undefined;
     }
     interface Imp<TValue> {
-        findKey( predicate?: ObjectIteratee<TValue>): string | undefined;
+        findKey(predicate?: ObjectIteratee<TValue>): string | undefined;
     }
     interface Exp<TValue> {
-        findKey( predicate?: ObjectIteratee<TValue>): Exp<string | undefined>;
+        findKey(predicate?: ObjectIteratee<TValue>): Exp<string | undefined>;
     }
     interface Stat {
         findLastKey<T>(object: T | null | undefined, predicate?: ObjectIteratee<T>): string | undefined;
     }
     interface Imp<TValue> {
-        findLastKey( predicate?: ObjectIteratee<TValue>): string | undefined;
+        findLastKey(predicate?: ObjectIteratee<TValue>): string | undefined;
     }
     interface Exp<TValue> {
-        findLastKey( predicate?: ObjectIteratee<TValue>): Exp<string | undefined>;
+        findLastKey(predicate?: ObjectIteratee<TValue>): Exp<string | undefined>;
     }
     interface Stat {
         forIn<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
@@ -459,9 +459,9 @@ declare module "../index" {
         mapValues(): Imp<NumericDictionary<string>>;
     }
     interface ImpL<T> {
-        mapValues<TResult>( callback: DictionaryIterator<T, TResult>): Imp<Dictionary<TResult>>;
+        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): Imp<Dictionary<TResult>>;
         mapValues<TKey extends keyof T>(iteratee: TKey): Imp<Dictionary<T[TKey]>>;
-        mapValues( iteratee: object): Imp<Dictionary<boolean>>;
+        mapValues(iteratee: object): Imp<Dictionary<boolean>>;
         mapValues(iteratee: string): Imp<Dictionary<any>>;
         mapValues(): Imp<Dictionary<T>>;
     }
@@ -476,9 +476,9 @@ declare module "../index" {
         mapValues(): Exp<NumericDictionary<string>>;
     }
     interface ExpL<T> {
-        mapValues<TResult>( callback: DictionaryIterator<T, TResult>): Exp<Dictionary<TResult>>;
+        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): Exp<Dictionary<TResult>>;
         mapValues<TKey extends keyof T>(iteratee: TKey): Exp<Dictionary<T[TKey]>>;
-        mapValues( iteratee: object): Exp<Dictionary<boolean>>;
+        mapValues(iteratee: object): Exp<Dictionary<boolean>>;
         mapValues(iteratee: string): Exp<Dictionary<any>>;
         mapValues(): Exp<Dictionary<T>>;
     }
@@ -537,14 +537,14 @@ declare module "../index" {
         omit<T extends object>(object: T | null | undefined, ...paths: Array<Many<PropertyName>>): PartialObject<T>;
     }
     interface ImpL<T> {
-        omit( ...paths: Array<Many<PropertyName>>): ImpL<T>;
+        omit(...paths: Array<Many<PropertyName>>): ImpL<T>;
     }
     interface ImpO<T> {
         omit<K extends keyof T>(...paths: Array<Many<K>>): Imp<Omit<T, K>>;
         omit(...paths: Array<Many<PropertyName>>): Imp<PartialObject<T>>;
     }
     interface ExpL<T> {
-        omit( ...paths: Array<Many<PropertyName>>): ExpL<T>;
+        omit(...paths: Array<Many<PropertyName>>): ExpL<T>;
     }
     interface ExpO<T> {
         omit<K extends keyof T>(...paths: Array<Many<K>>): Exp<Omit<T, K>>;
@@ -573,11 +573,11 @@ declare module "../index" {
     }
     interface ImpO<T> {
         pick<U extends keyof T>(...props: Array<Many<U>>): ImpO<Pick<T, U>>;
-        pick( ...props: PropertyPath[]): ImpO<PartialObject<T>>;
+        pick(...props: PropertyPath[]): ImpO<PartialObject<T>>;
     }
     interface ExpO<T> {
         pick<U extends keyof T>(...props: Array<Many<U>>): ExpO<Pick<T, U>>;
-        pick( ...props: PropertyPath[]): ExpO<PartialObject<T>>;
+        pick(...props: PropertyPath[]): ExpO<PartialObject<T>>;
     }
     interface Stat {
         pickBy<T, S extends T>(object: Dictionary<T> | null | undefined, predicate: ValueKeyIterateeTypeGuard<T, S>): Dictionary<S>;
@@ -661,26 +661,26 @@ declare module "../index" {
     interface Stat {
         transform<T, TResult>(object: T[], iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
         transform<T, TResult>(object: Dictionary<T>, iteratee: MemoVoidDictionaryIterator<T, TResult>, accumulator?: TResult): TResult;
-        transform(object: any[], ): any[];
-        transform(object: object, ): Dictionary<any>;
+        transform(object: any[]): any[];
+        transform(object: object): Dictionary<any>;
     }
     interface ImpL<T> {
-        transform<TResult>( iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
+        transform<TResult>(iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
         transform(): ImpL<any>;
     }
     interface ImpO<T> {
-        transform<TResult>( iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): Imp<TResult>;
+        transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): Imp<TResult>;
         transform(): ImpO<any>;
     }
     interface Imp<TValue> {
         transform(): Imp<Dictionary<any>>;
     }
     interface ExpL<T> {
-        transform<TResult>( iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
+        transform<TResult>(iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
         transform(): ExpL<any>;
     }
     interface ExpO<T> {
-        transform<TResult>( iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): Exp<TResult>;
+        transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): Exp<TResult>;
         transform(): ExpO<any>;
     }
     interface Exp<TValue> {

@@ -53,11 +53,11 @@ declare module "../index" {
     }
     interface Imp<TValue> {
         defaultTo(defaultValue: TValue): TValue;
-        defaultTo<TDefault>( defaultValue: TDefault): TValue | TDefault;
+        defaultTo<TDefault>(defaultValue: TDefault): TValue | TDefault;
     }
     interface Exp<TValue> {
-        defaultTo( defaultValue: TValue): Exp<TValue>;
-        defaultTo<TDefault>( defaultValue: TDefault): Exp<TValue | TDefault>;
+        defaultTo(defaultValue: TValue): Exp<TValue>;
+        defaultTo<TDefault>(defaultValue: TDefault): Exp<TValue | TDefault>;
     }
 
     interface Stat {
@@ -338,7 +338,7 @@ declare module "../index" {
         iteratee<TFunction extends (...args: any[]) => any>(func: TFunction): TFunction;
         iteratee(func: string | object): (...args: any[]) => any;
     }
-    interface ImpF<T extends (...args: any) => any> {
+    interface ImpF<T extends (...args: any[]) => any> {
         iteratee(): ImpF<T>;
     }
     interface ImpL<T> {
@@ -350,7 +350,7 @@ declare module "../index" {
     interface ImpS {
         iteratee(): ImpF<(o: object) => boolean>;
     }
-    interface ExpF<T extends (...args: any) => any> {
+    interface ExpF<T extends (...args: any[]) => any> {
         iteratee(): ExpF<T>;
     }
     interface ExpL<T> {

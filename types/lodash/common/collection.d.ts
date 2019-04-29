@@ -23,7 +23,7 @@ declare module "../index" {
         countBy(iteratee?: ValueIteratee<T>): Exp<Dictionary<number>>;
     }
     interface Stat {
-        each: typeof _.forEach;
+        each: Stat['forEach'];
     }
     interface ImpS {
         each: ImpS['forEach'];
@@ -44,7 +44,7 @@ declare module "../index" {
         each: ExpO<T>['forEach'];
     }
     interface Stat {
-        eachRight: typeof _.forEachRight;
+        eachRight: Stat["forEachRight"];
     }
     interface ImpS {
         eachRight: ImpS['forEachRight'];
@@ -65,130 +65,130 @@ declare module "../index" {
         eachRight: ExpO<T>['forEachRight'];
     }
     interface Stat {
-        every<T>( collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean> ): boolean;
-        every<T extends object>( collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean> ): boolean;
+        every<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): boolean;
+        every<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>): boolean;
     }
     interface ImpU<T> {
-        every(predicate?: DictionaryIteratee<unknown> ): boolean;
+        every(predicate?: DictionaryIteratee<unknown>): boolean;
     }
     interface ImpL<T> {
-        every( predicate?: ListIterateeCustom<T, boolean> ): boolean;
+        every(predicate?: ListIterateeCustom<T, boolean>): boolean;
     }
     interface ImpO<T> {
-        every( predicate?: ObjectIterateeCustom<T, boolean> ): boolean;
+        every(predicate?: ObjectIterateeCustom<T, boolean>): boolean;
     }
     interface ExpU<T> {
-        every(predicate?: DictionaryIteratee<unknown> ): boolean;
+        every(predicate?: DictionaryIteratee<unknown>): boolean;
     }
     interface ExpL<T> {
-        every( predicate?: ListIterateeCustom<T, boolean> ): Exp<boolean>;
+        every(predicate?: ListIterateeCustom<T, boolean>): Exp<boolean>;
     }
     interface ExpO<T> {
-        every( predicate?: ObjectIterateeCustom<T, boolean> ): Exp<boolean>;
+        every(predicate?: ObjectIterateeCustom<T, boolean>): Exp<boolean>;
     }
     interface Stat {
-        filter( collection: string | null | undefined, predicate?: StringIterator<boolean> ): string[];
-        filter<T, S extends T>( collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S> ): S[];
-        filter<T>( collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean> ): T[];
-        filter<T extends object, S extends T[keyof T]>( collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S> ): S[];
-        filter<T extends object>( collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean> ): Array<T[keyof T]>;
+        filter(collection: string | null | undefined, predicate?: StringIterator<boolean>): string[];
+        filter<T, S extends T>(collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>): S[];
+        filter<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): T[];
+        filter<T extends object, S extends T[keyof T]>(collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>): S[];
+        filter<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>): Array<T[keyof T]>;
     }
     interface ImpS {
-        filter(predicate?: StringIterator<boolean> ): ImpL<string>;
+        filter(predicate?: StringIterator<boolean>): ImpL<string>;
     }
     interface ImpL<T> {
-        filter<T, S extends T>( predicate: ListIteratorTypeGuard<T, S> ): ImpL<S>;
-        filter<T>( predicate?: ListIterateeCustom<T, boolean> ): ImpL<T>;
+        filter<T, S extends T>(predicate: ListIteratorTypeGuard<T, S>): ImpL<S>;
+        filter<T>(predicate?: ListIterateeCustom<T, boolean>): ImpL<T>;
     }
     interface ImpO<T> {
-        filter<S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S> ): ImpL<S>;
-        filter( predicate?: ObjectIterateeCustom<T, boolean> ): ImpL<T[keyof T]>;
+        filter<S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>): ImpL<S>;
+        filter(predicate?: ObjectIterateeCustom<T, boolean>): ImpL<T[keyof T]>;
     }
     interface ImpU<T> {
-        filter(predicate?: DictionaryIteratee<unknown> ): ImpU<T>;
+        filter(predicate?: DictionaryIteratee<unknown>): ImpU<T>;
     }
     interface ExpS {
-        filter(predicate?: StringIterator<boolean> ): ExpL<string>;
+        filter(predicate?: StringIterator<boolean>): ExpL<string>;
     }
     interface ExpL<T> {
-        filter<T, S extends T>( predicate: ListIteratorTypeGuard<T, S> ): ExpL<S>;
-        filter<T>( predicate?: ListIterateeCustom<T, boolean> ): ExpL<T>;
+        filter<T, S extends T>(predicate: ListIteratorTypeGuard<T, S>): ExpL<S>;
+        filter<T>(predicate?: ListIterateeCustom<T, boolean>): ExpL<T>;
     }
     interface ExpO<T> {
-        filter<S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S> ): ExpL<S>;
-        filter( predicate?: ObjectIterateeCustom<T, boolean> ): ExpL<T[keyof T]>;
+        filter<S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>): ExpL<S>;
+        filter(predicate?: ObjectIterateeCustom<T, boolean>): ExpL<T[keyof T]>;
     }
     interface ExpU<T> {
-        filter(predicate?: DictionaryIteratee<unknown> ): ExpU<T>;
+        filter(predicate?: DictionaryIteratee<unknown>): ExpU<T>;
     }
     interface Stat {
-        find<T, S extends T>( collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
-        find<T>( collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): T|undefined;
-        find<T extends object, S extends T[keyof T]>( collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
-        find<T extends object>( collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): T[keyof T]|undefined;
+        find<T, S extends T>(collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        find<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T|undefined;
+        find<T extends object, S extends T[keyof T]>(collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        find<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): T[keyof T]|undefined;
     }
     interface ImpL<T> {
-        find<S extends T>( predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
-        find( predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): T|undefined;
+        find<S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        find(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T|undefined;
     }
     interface ImpO<T> {
-        find< S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
-        find( predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): T[keyof T]|undefined;
+        find< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        find(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): T[keyof T]|undefined;
     }
     interface ImpU<T> {
-        find(predicate?: DictionaryIteratee<unknown>, fromIndex?: number ): unknown;
+        find(predicate?: DictionaryIteratee<unknown>, fromIndex?: number): unknown;
     }
     interface ExpL<T> {
-        find< S extends T>( predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): Exp<S|undefined>;
-        find( predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T|undefined>;
+        find< S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): Exp<S|undefined>;
+        find(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): Exp<T|undefined>;
     }
     interface ExpO<T> {
-        find< S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): Exp<S|undefined>;
-        find( predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T[keyof T]|undefined>;
+        find< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): Exp<S|undefined>;
+        find(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): Exp<T[keyof T]|undefined>;
     }
     interface ExpU<T> {
-        find(predicate?: DictionaryIteratee<unknown>, fromIndex?: number ): ExpU<T>;
+        find(predicate?: DictionaryIteratee<unknown>, fromIndex?: number): ExpU<T>;
     }
     interface Stat {
-        findLast<T, S extends T>( collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
-        findLast<T>( collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): T|undefined;
-        findLast<T extends object, S extends T[keyof T]>( collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
-        findLast<T extends object>( collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): T[keyof T]|undefined;
+        findLast<T, S extends T>(collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        findLast<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T|undefined;
+        findLast<T extends object, S extends T[keyof T]>(collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        findLast<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): T[keyof T]|undefined;
     }
     interface ImpL<T> {
-        findLast<S extends T>( predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
-        findLast( predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): T|undefined;
+        findLast<S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        findLast(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T|undefined;
     }
     interface ImpO<T> {
-        findLast< S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): S|undefined;
-        findLast( predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): T[keyof T]|undefined;
+        findLast< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
+        findLast(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): T[keyof T]|undefined;
     }
     interface ImpU<T> {
-        findLast(predicate?: DictionaryIteratee<unknown>, fromIndex?: number ): unknown;
+        findLast(predicate?: DictionaryIteratee<unknown>, fromIndex?: number): unknown;
     }
     interface ExpL<T> {
-        findLast< S extends T>( predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number ): Exp<S|undefined>;
-        findLast( predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T|undefined>;
+        findLast< S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): Exp<S|undefined>;
+        findLast(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): Exp<T|undefined>;
     }
     interface ExpO<T> {
-        findLast< S extends T[keyof T]>( predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number ): Exp<S|undefined>;
-        findLast( predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number ): Exp<T[keyof T]|undefined>;
+        findLast< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): Exp<S|undefined>;
+        findLast(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): Exp<T[keyof T]|undefined>;
     }
     interface ExpU<T> {
-        findLast(predicate?: DictionaryIteratee<unknown>, fromIndex?: number ): ExpU<T>;
+        findLast(predicate?: DictionaryIteratee<unknown>, fromIndex?: number): ExpU<T>;
     }
     interface Stat {
-        flatMap<T>( collection: Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined ): T[];
-        flatMap( collection: object | null | undefined ): any[];
-        flatMap<T, TResult>( collection: List<T> | null | undefined, iteratee: ListIterator<T, Many<TResult>> ): TResult[];
-        flatMap<T extends object, TResult>( collection: T | null | undefined, iteratee: ObjectIterator<T, Many<TResult>> ): TResult[];
-        flatMap( collection: object | null | undefined, iteratee: string ): any[];
-        flatMap( collection: object | null | undefined, iteratee: object ): boolean[];
+        flatMap<T>(collection: Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined): T[];
+        flatMap(collection: object | null | undefined): any[];
+        flatMap<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, Many<TResult>>): TResult[];
+        flatMap<T extends object, TResult>(collection: T | null | undefined, iteratee: ObjectIterator<T, Many<TResult>>): TResult[];
+        flatMap(collection: object | null | undefined, iteratee: string): any[];
+        flatMap(collection: object | null | undefined, iteratee: object): boolean[];
     }
     interface ImpU<T> {
         flatMap(): T extends List<infer U> ? ImpL<U> : ImpL<T>;
-        flatMap( iteratee: object ): ImpL<boolean>;
-        flatMap( iteratee: string ): ImpL<any>;
+        flatMap(iteratee: object): ImpL<boolean>;
+        flatMap(iteratee: string): ImpL<any>;
         flatMap(): ImpL<any>;
     }
     interface ImpS {
@@ -207,8 +207,8 @@ declare module "../index" {
     }
     interface ExpU<T> {
         flatMap(): T extends List<infer U> ? ExpL<U> : ExpL<T>;
-        flatMap( iteratee: object ): ExpL<boolean>;
-        flatMap( iteratee: string ): ExpL<any>;
+        flatMap(iteratee: object): ExpL<boolean>;
+        flatMap(iteratee: string): ExpL<any>;
         flatMap(): ExpL<any>;
     }
     interface ExpS {
@@ -226,16 +226,16 @@ declare module "../index" {
         flatMap(): ExpL<T[keyof T]>;
     }
     interface Stat {
-        flatMapDeep<T>( collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined ): T[];
-        flatMapDeep<T, TResult>( collection: List<T> | null | undefined, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> ): TResult[];
-        flatMapDeep<T extends object, TResult>( collection: T | null | undefined, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult> ): TResult[];
-        flatMapDeep( collection: object | null | undefined, iteratee: string ): any[];
-        flatMapDeep( collection: object | null | undefined, iteratee: object ): boolean[];
+        flatMapDeep<T>(collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined): T[];
+        flatMapDeep<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>): TResult[];
+        flatMapDeep<T extends object, TResult>(collection: T | null | undefined, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>): TResult[];
+        flatMapDeep(collection: object | null | undefined, iteratee: string): any[];
+        flatMapDeep(collection: object | null | undefined, iteratee: object): boolean[];
     }
     interface ImpU<T> {
         flatMapDeep(): T extends List<infer U> ? ImpL<U> : ImpL<T>;
-        flatMapDeep( iteratee: object ): ImpL<boolean>;
-        flatMapDeep( iteratee: string ): ImpL<any>;
+        flatMapDeep(iteratee: object): ImpL<boolean>;
+        flatMapDeep(iteratee: string): ImpL<any>;
         flatMapDeep(): ImpL<any>;
     }
     interface ImpS {
@@ -254,8 +254,8 @@ declare module "../index" {
     }
     interface ExpU<T> {
         flatMapDeep(): T extends List<infer U> ? ExpL<U> : ExpL<T>;
-        flatMapDeep( iteratee: object ): ExpL<boolean>;
-        flatMapDeep( iteratee: string ): ExpL<any>;
+        flatMapDeep(iteratee: object): ExpL<boolean>;
+        flatMapDeep(iteratee: string): ExpL<any>;
         flatMapDeep(): ExpL<any>;
     }
     interface ExpS {
@@ -273,17 +273,17 @@ declare module "../index" {
         flatMapDeep(): ExpL<T[keyof T]>;
     }
     interface Stat {
-        flatMapDepth<T>( collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined ): T[];
-        flatMapDepth<T, TResult>( collection: List<T> | null | undefined, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number ): TResult[];
-        flatMapDepth<T extends object, TResult>( collection: T | null | undefined, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number ): TResult[];
-        flatMapDepth( collection: object | null | undefined, iteratee: string, depth?: number ): any[];
-        flatMapDepth( collection: object | null | undefined, iteratee: object, depth?: number ): boolean[];
+        flatMapDepth<T>(collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined): T[];
+        flatMapDepth<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): TResult[];
+        flatMapDepth<T extends object, TResult>(collection: T | null | undefined, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): TResult[];
+        flatMapDepth(collection: object | null | undefined, iteratee: string, depth?: number): any[];
+        flatMapDepth(collection: object | null | undefined, iteratee: object, depth?: number): boolean[];
     }
     interface ImpU<T> {
         flatMapDepth(depth?: number): T extends List<infer U> ? ImpL<U> : ImpL<T>;
-        flatMapDepth( iteratee: object , depth?: number): ImpL<boolean>;
-        flatMapDepth( iteratee: string , depth?: number): ImpL<any>;
-        flatMapDepth( depth?: number): ImpL<any>;
+        flatMapDepth(iteratee: object , depth?: number): ImpL<boolean>;
+        flatMapDepth(iteratee: string , depth?: number): ImpL<any>;
+        flatMapDepth(depth?: number): ImpL<any>;
     }
     interface ImpS {
         flatMapDepth<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): ImpL<TResult>;
@@ -301,8 +301,8 @@ declare module "../index" {
     }
     interface ExpU<T> {
         flatMapDepth(depth?: number): T extends List<infer U> ? ExpL<U> : ExpL<T>;
-        flatMapDepth( iteratee: object , depth?: number): ExpL<boolean>;
-        flatMapDepth( iteratee: string , depth?: number): ExpL<any>;
+        flatMapDepth(iteratee: object , depth?: number): ExpL<boolean>;
+        flatMapDepth(iteratee: string , depth?: number): ExpL<any>;
         flatMapDepth(depth?: number): ExpL<any>;
     }
     interface ExpS {
@@ -320,164 +320,164 @@ declare module "../index" {
         flatMapDepth(depth?: number): ExpL<T[keyof T]>;
     }
     interface Stat {
-        forEach<T>( collection: T[], iteratee?: ArrayIterator<T, any> ): T[];
-        forEach( collection: string, iteratee?: StringIterator<any> ): string;
-        forEach<T>( collection: List<T>, iteratee?: ListIterator<T, any> ): List<T>;
-        forEach<T extends object>( collection: T, iteratee?: ObjectIterator<T, any> ): T;
-        forEach<T, TArray extends T[] | null | undefined>( collection: TArray & (T[] | null | undefined), iteratee?: ArrayIterator<T, any> ): TArray;
-        forEach<TString extends string | null | undefined>( collection: TString, iteratee?: StringIterator<any> ): TString;
-        forEach<T, TList extends List<T> | null | undefined>( collection: TList & (List<T> | null | undefined), iteratee?: ListIterator<T, any> ): TList;
-        forEach<T extends object>( collection: T | null | undefined, iteratee?: ObjectIterator<T, any> ): T | null | undefined;
+        forEach<T>(collection: T[], iteratee?: ArrayIterator<T, any>): T[];
+        forEach(collection: string, iteratee?: StringIterator<any>): string;
+        forEach<T>(collection: List<T>, iteratee?: ListIterator<T, any>): List<T>;
+        forEach<T extends object>(collection: T, iteratee?: ObjectIterator<T, any>): T;
+        forEach<T, TArray extends T[] | null | undefined>(collection: TArray & (T[] | null | undefined), iteratee?: ArrayIterator<T, any>): TArray;
+        forEach<TString extends string | null | undefined>(collection: TString, iteratee?: StringIterator<any>): TString;
+        forEach<T, TList extends List<T> | null | undefined>(collection: TList & (List<T> | null | undefined), iteratee?: ListIterator<T, any>): TList;
+        forEach<T extends object>(collection: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
     interface ImpS {
-        forEach( iteratee?: StringIterator<any> ): ImpS;
+        forEach(iteratee?: StringIterator<any>): ImpS;
     }
     interface ImpO<T> {
-        forEach( iteratee?: ObjectIterator<T, any> ): ImpO<T>;
+        forEach(iteratee?: ObjectIterator<T, any>): ImpO<T>;
     }
     interface ImpL<T> {
-        forEach( iteratee?: ListIterator<T, any> ): ImpL<T>;
+        forEach(iteratee?: ListIterator<T, any>): ImpL<T>;
     }
     interface ImpU<T> {
-        forEach( iteratee?: ObjectIterator<unknown, any> ): ImpU<T>;
+        forEach(iteratee?: ObjectIterator<unknown, any>): ImpU<T>;
     }
     interface ExpS {
-        forEach( iteratee?: StringIterator<any> ): ExpS;
+        forEach(iteratee?: StringIterator<any>): ExpS;
     }
     interface ExpO<T> {
-        forEach( iteratee?: ObjectIterator<T, any> ): ExpO<T>;
+        forEach(iteratee?: ObjectIterator<T, any>): ExpO<T>;
     }
     interface ExpL<T> {
-        forEach( iteratee?: ListIterator<T, any> ): ExpL<T>;
+        forEach(iteratee?: ListIterator<T, any>): ExpL<T>;
     }
     interface ExpU<T> {
-        forEach( iteratee?: ObjectIterator<unknown, any> ): ExpU<T>;
+        forEach(iteratee?: ObjectIterator<unknown, any>): ExpU<T>;
     }
     interface Stat {
-        forEachRight<T>( collection: T[], iteratee?: ArrayIterator<T, any> ): T[];
-        forEachRight( collection: string, iteratee?: StringIterator<any> ): string;
-        forEachRight<T>( collection: List<T>, iteratee?: ListIterator<T, any> ): List<T>;
-        forEachRight<T extends object>( collection: T, iteratee?: ObjectIterator<T, any> ): T;
-        forEachRight<T, TArray extends T[] | null | undefined>( collection: TArray & (T[] | null | undefined), iteratee?: ArrayIterator<T, any> ): TArray;
-        forEachRight<TString extends string | null | undefined>( collection: TString, iteratee?: StringIterator<any> ): TString;
-        forEachRight<T, TList extends List<T> | null | undefined>( collection: TList & (List<T> | null | undefined), iteratee?: ListIterator<T, any> ): TList;
-        forEachRight<T extends object>( collection: T | null | undefined, iteratee?: ObjectIterator<T, any> ): T | null | undefined;
+        forEachRight<T>(collection: T[], iteratee?: ArrayIterator<T, any>): T[];
+        forEachRight(collection: string, iteratee?: StringIterator<any>): string;
+        forEachRight<T>(collection: List<T>, iteratee?: ListIterator<T, any>): List<T>;
+        forEachRight<T extends object>(collection: T, iteratee?: ObjectIterator<T, any>): T;
+        forEachRight<T, TArray extends T[] | null | undefined>(collection: TArray & (T[] | null | undefined), iteratee?: ArrayIterator<T, any>): TArray;
+        forEachRight<TString extends string | null | undefined>(collection: TString, iteratee?: StringIterator<any>): TString;
+        forEachRight<T, TList extends List<T> | null | undefined>(collection: TList & (List<T> | null | undefined), iteratee?: ListIterator<T, any>): TList;
+        forEachRight<T extends object>(collection: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
     interface ImpS {
-        forEachRight( iteratee?: StringIterator<any> ): ImpS;
+        forEachRight(iteratee?: StringIterator<any>): ImpS;
     }
     interface ImpO<T> {
-        forEachRight( iteratee?: ObjectIterator<T, any> ): ImpO<T>;
+        forEachRight(iteratee?: ObjectIterator<T, any>): ImpO<T>;
     }
     interface ImpL<T> {
-        forEachRight( iteratee?: ListIterator<T, any> ): ImpL<T>;
+        forEachRight(iteratee?: ListIterator<T, any>): ImpL<T>;
     }
     interface ImpU<T> {
-        forEachRight( iteratee?: ObjectIterator<unknown, any> ): ImpU<T>;
+        forEachRight(iteratee?: ObjectIterator<unknown, any>): ImpU<T>;
     }
     interface ExpS {
-        forEachRight( iteratee?: StringIterator<any> ): ExpS;
+        forEachRight(iteratee?: StringIterator<any>): ExpS;
     }
     interface ExpO<T> {
-        forEachRight( iteratee?: ObjectIterator<T, any> ): ExpO<T>;
+        forEachRight(iteratee?: ObjectIterator<T, any>): ExpO<T>;
     }
     interface ExpL<T> {
-        forEachRight( iteratee?: ListIterator<T, any> ): ExpL<T>;
+        forEachRight(iteratee?: ListIterator<T, any>): ExpL<T>;
     }
     interface ExpU<T> {
-        forEachRight( iteratee?: ObjectIterator<unknown, any> ): ExpU<T>;
+        forEachRight(iteratee?: ObjectIterator<unknown, any>): ExpU<T>;
     }
     interface Stat {
-        groupBy<T>( collection: List<T> | null | undefined, iteratee?: ValueIteratee<T> ): Dictionary<T[]>;
-        groupBy<T extends object>( collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]> ): Dictionary<Array<T[keyof T]>>;
+        groupBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): Dictionary<T[]>;
+        groupBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]>): Dictionary<Array<T[keyof T]>>;
     }
     interface ImpS {
-        groupBy( iteratee?: ValueIteratee<string> ): Imp<Dictionary<string[]>>;
+        groupBy(iteratee?: ValueIteratee<string>): Imp<Dictionary<string[]>>;
     }
     interface ImpL<T> {
-        groupBy( iteratee?: ValueIteratee<T> ): Imp<Dictionary<T[]>>;
+        groupBy(iteratee?: ValueIteratee<T>): Imp<Dictionary<T[]>>;
     }
     interface ImpO<T> {
-        groupBy( iteratee?: ValueIteratee<T[keyof T]> ): Imp<Dictionary<Array<T[keyof T]>>>;
+        groupBy(iteratee?: ValueIteratee<T[keyof T]>): Imp<Dictionary<Array<T[keyof T]>>>;
     }
     interface ImpU<T> {
-        groupBy( iteratee?: ValueIteratee<unknown> ): Imp<Dictionary<unknown[]>>;
+        groupBy(iteratee?: ValueIteratee<unknown>): Imp<Dictionary<unknown[]>>;
     }
     interface ExpS {
-        groupBy( iteratee?: ValueIteratee<string> ): Exp<Dictionary<string[]>>;
+        groupBy(iteratee?: ValueIteratee<string>): Exp<Dictionary<string[]>>;
     }
     interface ExpL<T> {
-        groupBy( iteratee?: ValueIteratee<T> ): Exp<Dictionary<T[]>>;
+        groupBy(iteratee?: ValueIteratee<T>): Exp<Dictionary<T[]>>;
     }
     interface ExpO<T> {
-        groupBy( iteratee?: ValueIteratee<T[keyof T]> ): Exp<Dictionary<Array<T[keyof T]>>>;
+        groupBy(iteratee?: ValueIteratee<T[keyof T]>): Exp<Dictionary<Array<T[keyof T]>>>;
     }
     interface ExpU<T> {
-        groupBy( iteratee?: ValueIteratee<unknown> ): Exp<Dictionary<unknown[]>>;
+        groupBy(iteratee?: ValueIteratee<unknown>): Exp<Dictionary<unknown[]>>;
     }
     interface Stat {
-        includes<T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: T, fromIndex?: number ): boolean;
+        includes<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: T, fromIndex?: number): boolean;
     }
     interface ImpO<T> {
         includes(target: T[keyof T], fromIndex?: number): boolean;
     }
     interface ImpL<T> {
-        includes( target: T, fromIndex?: number ): boolean;
+        includes(target: T, fromIndex?: number): boolean;
     }
     interface ExpO<T> {
         includes(target: T[keyof T], fromIndex?: number): boolean;
     }
     interface ExpL<T> {
-        includes( target: T, fromIndex?: number ): boolean;
+        includes(target: T, fromIndex?: number): boolean;
     }
     interface Stat {
-        invokeMap( collection: object | null | undefined, methodName: string, ...args: any[]): any[];
-        invokeMap<TResult>( collection: object | null | undefined, method: (...args: any[]) => TResult, ...args: any[]): TResult[];
+        invokeMap(collection: object | null | undefined, methodName: string, ...args: any[]): any[];
+        invokeMap<TResult>(collection: object | null | undefined, method: (...args: any[]) => TResult, ...args: any[]): TResult[];
     }
     interface Imp<TValue> {
-        invokeMap( methodName: string, ...args: any[]): ImpL<any>;
-        invokeMap<TResult>( method: (...args: any[]) => TResult, ...args: any[]): ImpL<TResult>;
+        invokeMap(methodName: string, ...args: any[]): ImpL<any>;
+        invokeMap<TResult>(method: (...args: any[]) => TResult, ...args: any[]): ImpL<TResult>;
     }
     interface Exp<TValue> {
-        invokeMap( methodName: string, ...args: any[]): ExpL<any>;
-        invokeMap<TResult>( method: (...args: any[]) => TResult, ...args: any[]): ExpL<TResult>;
+        invokeMap(methodName: string, ...args: any[]): ExpL<any>;
+        invokeMap<TResult>(method: (...args: any[]) => TResult, ...args: any[]): ExpL<TResult>;
     }
     interface Stat {
-        keyBy<T>( collection: List<T> | null | undefined, iteratee?: ValueIterateeCustom<T, PropertyName> ): Dictionary<T>;
-        keyBy<T extends object>( collection: T | null | undefined, iteratee?: ValueIterateeCustom<T[keyof T], PropertyName> ): Dictionary<T[keyof T]>;
+        keyBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIterateeCustom<T, PropertyName>): Dictionary<T>;
+        keyBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>): Dictionary<T[keyof T]>;
     }
     interface ImpS {
-        keyBy( iteratee?: ValueIterateeCustom<string, PropertyName> ): Imp<Dictionary<string>>;
+        keyBy(iteratee?: ValueIterateeCustom<string, PropertyName>): Imp<Dictionary<string>>;
     }
     interface ImpL<T> {
-        keyBy( iteratee?: ValueIterateeCustom<T, PropertyName> ): Imp<Dictionary<T>>;
+        keyBy(iteratee?: ValueIterateeCustom<T, PropertyName>): Imp<Dictionary<T>>;
     }
     interface ImpO<T> {
-        keyBy( iteratee?: ValueIterateeCustom<T[keyof T], PropertyName> ): Imp<Dictionary<T[keyof T]>>;
+        keyBy(iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>): Imp<Dictionary<T[keyof T]>>;
     }
     interface ImpU<T> {
-        keyBy( iteratee?: ValueIterateeCustom<unknown, PropertyName> ): Imp<Dictionary<unknown>>;
+        keyBy(iteratee?: ValueIterateeCustom<unknown, PropertyName>): Imp<Dictionary<unknown>>;
     }
     interface ExpS {
-        keyBy( iteratee?: ValueIterateeCustom<string, PropertyName> ): Exp<Dictionary<string>>;
+        keyBy(iteratee?: ValueIterateeCustom<string, PropertyName>): Exp<Dictionary<string>>;
     }
     interface ExpL<T> {
-        keyBy( iteratee?: ValueIterateeCustom<T, PropertyName> ): Exp<Dictionary<T>>;
+        keyBy(iteratee?: ValueIterateeCustom<T, PropertyName>): Exp<Dictionary<T>>;
     }
     interface ExpO<T> {
-        keyBy( iteratee?: ValueIterateeCustom<T[keyof T], PropertyName> ): Exp<Dictionary<T[keyof T]>>;
+        keyBy(iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>): Exp<Dictionary<T[keyof T]>>;
     }
     interface ExpU<T> {
-        keyBy( iteratee?: ValueIterateeCustom<unknown, PropertyName> ): Exp<Dictionary<unknown>>;
+        keyBy(iteratee?: ValueIterateeCustom<unknown, PropertyName>): Exp<Dictionary<unknown>>;
     }
     interface Stat {
-        map<T, TResult>( collection: T[] | null | undefined, iteratee: ArrayIterator<T, TResult> ): TResult[];
-        map<T, TResult>( collection: List<T> | null | undefined, iteratee: ListIterator<T, TResult> ): TResult[];
+        map<T, TResult>(collection: T[] | null | undefined, iteratee: ArrayIterator<T, TResult>): TResult[];
+        map<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, TResult>): TResult[];
         map<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined): T[];
-        map<T extends object, TResult>( collection: T | null | undefined, iteratee: ObjectIterator<T, TResult> ): TResult[];
-        map<T, K extends keyof T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: K ): Array<T[K]>;
-        map<T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee?: string ): any[];
-        map<T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee?: object ): boolean[];
+        map<T extends object, TResult>(collection: T | null | undefined, iteratee: ObjectIterator<T, TResult>): TResult[];
+        map<T, K extends keyof T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: K): Array<T[K]>;
+        map<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee?: string): any[];
+        map<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee?: object): boolean[];
     }
 
     // TODO: Remember to replace Imp<*[]> with ImpL<*>
@@ -496,9 +496,9 @@ declare module "../index" {
         map(): ImpL<T[keyof T]>;
     }
     interface ImpU<T> {
-        map( iteratee: ObjectIterator<unknown, PropertyName> ): ImpL<unknown>;
-        map( iteratee?: string): ImpL<any>;
-        map( iteratee?: object): ImpL<boolean>;
+        map(iteratee: ObjectIterator<unknown, PropertyName>): ImpL<unknown>;
+        map(iteratee?: string): ImpL<any>;
+        map(iteratee?: object): ImpL<boolean>;
         map(): ImpL<unknown>;
     }
     interface ExpS {
@@ -516,125 +516,125 @@ declare module "../index" {
         map(): ExpL<T[keyof T]>;
     }
     interface ExpU<T> {
-        map( iteratee: ObjectIterator<unknown, PropertyName> ): ExpL<unknown>;
-        map( iteratee?: string): ExpL<any>;
-        map( iteratee?: object): ExpL<boolean>;
+        map(iteratee: ObjectIterator<unknown, PropertyName>): ExpL<unknown>;
+        map(iteratee?: string): ExpL<any>;
+        map(iteratee?: object): ExpL<boolean>;
         map(): ExpL<unknown>;
     }
     interface Stat {
-        orderBy<T>( collection: List<T> | null | undefined, iteratees?: Many<ListIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc"> ): T[];
-        orderBy<T>( collection: List<T> | null | undefined, iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): T[];
-        orderBy<T extends object>( collection: T | null | undefined, iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc"> ): Array<T[keyof T]>;
-        orderBy<T extends object>( collection: T | null | undefined, iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): Array<T[keyof T]>;
+        orderBy<T>(collection: List<T> | null | undefined, iteratees?: Many<ListIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): T[];
+        orderBy<T>(collection: List<T> | null | undefined, iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): T[];
+        orderBy<T extends object>(collection: T | null | undefined, iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): Array<T[keyof T]>;
+        orderBy<T extends object>(collection: T | null | undefined, iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): Array<T[keyof T]>;
     }
     interface ImpL<T> {
-        orderBy( iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): ImpL<T>;
+        orderBy(iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): ImpL<T>;
     }
     interface ImpO<T> {
-        orderBy( iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): Imp<Array<T[keyof T]>>;
+        orderBy(iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): Imp<Array<T[keyof T]>>;
     }
     interface ExpL<T> {
-        orderBy( iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): ExpL<T>;
+        orderBy(iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): ExpL<T>;
     }
     interface ExpO<T> {
-        orderBy( iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc"> ): Exp<Array<T[keyof T]>>;
+        orderBy(iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): Exp<Array<T[keyof T]>>;
     }
     interface Stat {
-        partition<T>( collection: List<T> | null | undefined, callback: ValueIteratee<T> ): [T[], T[]];
-        partition<T extends object>( collection: T | null | undefined, callback: ValueIteratee<T[keyof T]> ): [Array<T[keyof T]>, Array<T[keyof T]>];
+        partition<T>(collection: List<T> | null | undefined, callback: ValueIteratee<T>): [T[], T[]];
+        partition<T extends object>(collection: T | null | undefined, callback: ValueIteratee<T[keyof T]>): [Array<T[keyof T]>, Array<T[keyof T]>];
     }
     interface ImpS {
-        partition(callback: StringIterator<NotVoid> ): Imp<[string, string]>;
+        partition(callback: StringIterator<NotVoid>): Imp<[string, string]>;
     }
     interface ImpL<T> {
-        partition( callback: ValueIteratee<T> ): Imp<[T[], T[]]>;
+        partition(callback: ValueIteratee<T>): Imp<[T[], T[]]>;
     }
     interface ImpO<T> {
-        partition( callback: ValueIteratee<T[keyof T]> ): Imp<[Array<T[keyof T]>, Array<T[keyof T]>]>;
+        partition(callback: ValueIteratee<T[keyof T]>): Imp<[Array<T[keyof T]>, Array<T[keyof T]>]>;
     }
     interface ExpS {
-        partition(callback: StringIterator<NotVoid> ): Exp<[string, string]>;
+        partition(callback: StringIterator<NotVoid>): Exp<[string, string]>;
     }
     interface ExpL<T> {
-        partition( callback: ValueIteratee<T> ): Exp<[T[], T[]]>;
+        partition(callback: ValueIteratee<T>): Exp<[T[], T[]]>;
     }
     interface ExpO<T> {
-        partition( callback: ValueIteratee<T[keyof T]> ): Exp<[Array<T[keyof T]>, Array<T[keyof T]>]>;
+        partition(callback: ValueIteratee<T[keyof T]>): Exp<[Array<T[keyof T]>, Array<T[keyof T]>]>;
     }
     interface Stat {
-        reduce<T, TResult>( collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult ): TResult;
-        reduce<T, TResult>( collection: List<T> | null | undefined, callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult ): TResult;
-        reduce<T extends object, TResult>( collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult ): TResult;
-        reduce<T>( collection: T[] | null | undefined, callback: MemoListIterator<T, T, T[]> ): T | undefined;
-        reduce<T>( collection: List<T> | null | undefined, callback: MemoListIterator<T, T, List<T>> ): T | undefined;
-        reduce<T extends object>( collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): T[keyof T] | undefined;
+        reduce<T, TResult>(collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult): TResult;
+        reduce<T, TResult>(collection: List<T> | null | undefined, callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
+        reduce<T extends object, TResult>(collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
+        reduce<T>(collection: T[] | null | undefined, callback: MemoListIterator<T, T, T[]>): T | undefined;
+        reduce<T>(collection: List<T> | null | undefined, callback: MemoListIterator<T, T, List<T>>): T | undefined;
+        reduce<T extends object>(collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
     }
     interface ImpL<T> {
-        reduce<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult ): TResult;
-        reduce( callback: MemoListIterator<T, T, List<T>> ): T | undefined;
+        reduce<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
+        reduce(callback: MemoListIterator<T, T, List<T>>): T | undefined;
     }
     interface ImpO<T> {
-        reduce<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult ): TResult;
-        reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): T[keyof T] | undefined;
+        reduce<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
+        reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
     }
     interface ExpL<T> {
-        reduce<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult ): TResult;
-        reduce( callback: MemoListIterator<T, T, List<T>> ): T | undefined;
+        reduce<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
+        reduce(callback: MemoListIterator<T, T, List<T>>): T | undefined;
     }
     interface ExpO<T> {
-        reduce<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult ): TResult;
-        reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): T[keyof T] | undefined;
+        reduce<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
+        reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
     }
     interface Stat {
-        reduceRight<T, TResult>( collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult ): TResult;
-        reduceRight<T, TResult>( collection: List<T> | null | undefined, callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult ): TResult;
-        reduceRight<T extends object, TResult>( collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult ): TResult;
-        reduceRight<T>( collection: T[] | null | undefined, callback: MemoListIterator<T, T, T[]> ): T | undefined;
-        reduceRight<T>( collection: List<T> | null | undefined, callback: MemoListIterator<T, T, List<T>> ): T | undefined;
-        reduceRight<T extends object>( collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): T[keyof T] | undefined;
+        reduceRight<T, TResult>(collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult): TResult;
+        reduceRight<T, TResult>(collection: List<T> | null | undefined, callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
+        reduceRight<T extends object, TResult>(collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
+        reduceRight<T>(collection: T[] | null | undefined, callback: MemoListIterator<T, T, T[]>): T | undefined;
+        reduceRight<T>(collection: List<T> | null | undefined, callback: MemoListIterator<T, T, List<T>>): T | undefined;
+        reduceRight<T extends object>(collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
     }
     interface ImpL<T> {
-        reduceRight<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult ): TResult;
-        reduceRight( callback: MemoListIterator<T, T, List<T>> ): T | undefined;
+        reduceRight<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
+        reduceRight(callback: MemoListIterator<T, T, List<T>>): T | undefined;
     }
     interface ImpO<T> {
-        reduceRight<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult ): TResult;
-        reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): T[keyof T] | undefined;
+        reduceRight<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
+        reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
     }
     interface ExpL<T> {
-        reduceRight<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult ): TResult;
-        reduceRight( callback: MemoListIterator<T, T, List<T>> ): T | undefined;
+        reduceRight<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
+        reduceRight(callback: MemoListIterator<T, T, List<T>>): T | undefined;
     }
     interface ExpO<T> {
-        reduceRight<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult ): TResult;
-        reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T> ): T[keyof T] | undefined;
+        reduceRight<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
+        reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
     }
     interface Stat {
-        reject( collection: string | null | undefined, predicate?: StringIterator<boolean> ): string[];
-        reject<T>( collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean> ): T[];
-        reject<T extends object>( collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean> ): Array<T[keyof T]>;
+        reject(collection: string | null | undefined, predicate?: StringIterator<boolean>): string[];
+        reject<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): T[];
+        reject<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>): Array<T[keyof T]>;
     }
     interface ImpS {
-        reject( predicate?: StringIterator<boolean> ): ImpL<string>;
+        reject(predicate?: StringIterator<boolean>): ImpL<string>;
     }
     interface ImpL<T> {
-        reject( predicate?: ListIterateeCustom<T, boolean> ): ImpL<T>;
+        reject(predicate?: ListIterateeCustom<T, boolean>): ImpL<T>;
     }
     interface ImpO<T> {
-        reject( predicate?: ObjectIterateeCustom<T, boolean> ): ImpL<T[keyof T]>;
+        reject(predicate?: ObjectIterateeCustom<T, boolean>): ImpL<T[keyof T]>;
     }
     interface ExpS {
-        reject( predicate?: StringIterator<boolean> ): ExpL<string>;
+        reject(predicate?: StringIterator<boolean>): ExpL<string>;
     }
     interface ExpL<T> {
-        reject( predicate?: ListIterateeCustom<T, boolean> ): ExpL<T>;
+        reject(predicate?: ListIterateeCustom<T, boolean>): ExpL<T>;
     }
     interface ExpO<T> {
-        reject( predicate?: ObjectIterateeCustom<T, boolean> ): ExpL<T[keyof T]>;
+        reject(predicate?: ObjectIterateeCustom<T, boolean>): ExpL<T[keyof T]>;
     }
     interface Stat {
-        sample<T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined ): T | undefined;
-        sample<T extends object>( collection: T | null | undefined ): T[keyof T] | undefined;
+        sample<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined): T | undefined;
+        sample<T extends object>(collection: T | null | undefined): T[keyof T] | undefined;
     }
     interface ImpS {
         sample(): string | undefined;
@@ -655,8 +655,8 @@ declare module "../index" {
         sample(): T[keyof T] | undefined;
     }
     interface Stat {
-        sampleSize<T>( collection: Dictionary<T> | NumericDictionary<T> | null | undefined, n?: number ): T[];
-        sampleSize<T extends object>( collection: T | null | undefined, n?: number ): Array<T[keyof T]>;
+        sampleSize<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, n?: number): T[];
+        sampleSize<T extends object>(collection: T | null | undefined, n?: number): Array<T[keyof T]>;
     }
     interface ImpS {
         sampleSize(n?: number): string | undefined;
@@ -708,35 +708,35 @@ declare module "../index" {
         size(): Exp<number>;
     }
     interface Stat {
-        some<T>( collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean> ): boolean;
-        some<T extends object>( collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean> ): boolean;
+        some<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): boolean;
+        some<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>): boolean;
     }
     interface ImpL<T> {
-        some(predicate?: ListIterateeCustom<T, boolean> ): boolean;
+        some(predicate?: ListIterateeCustom<T, boolean>): boolean;
     }
     interface ImpO<T> {
-        some(predicate?: ObjectIterateeCustom<T, boolean> ): boolean;
+        some(predicate?: ObjectIterateeCustom<T, boolean>): boolean;
     }
     interface ExpL<T> {
-        some(predicate?: ListIterateeCustom<T, boolean> ): boolean;
+        some(predicate?: ListIterateeCustom<T, boolean>): boolean;
     }
     interface ExpO<T> {
-        some(predicate?: ObjectIterateeCustom<T, boolean> ): boolean;
+        some(predicate?: ObjectIterateeCustom<T, boolean>): boolean;
     }
     interface Stat {
-        sortBy<T>( collection: List<T> | null | undefined, ...iteratees: Array<Many<ListIteratee<T>>> ): T[];
-        sortBy<T extends object>( collection: T | null | undefined, ...iteratees: Array<Many<ObjectIteratee<T>>> ): Array<T[keyof T]>;
+        sortBy<T>(collection: List<T> | null | undefined, ...iteratees: Array<Many<ListIteratee<T>>>): T[];
+        sortBy<T extends object>(collection: T | null | undefined, ...iteratees: Array<Many<ObjectIteratee<T>>>): Array<T[keyof T]>;
     }
     interface ImpL<T> {
-        sortBy( ...iteratees: Array<Many<ListIteratee<T>>> ): ImpL<T>;
+        sortBy(...iteratees: Array<Many<ListIteratee<T>>>): ImpL<T>;
     }
     interface ImpO<T> {
-        sortBy( ...iteratees: Array<Many<ObjectIteratee<T>>> ): ImpL<T[keyof T]>;
+        sortBy(...iteratees: Array<Many<ObjectIteratee<T>>>): ImpL<T[keyof T]>;
     }
     interface ExpL<T> {
-        sortBy( ...iteratees: Array<Many<ListIteratee<T>>> ): ExpL<T>;
+        sortBy(...iteratees: Array<Many<ListIteratee<T>>>): ExpL<T>;
     }
     interface ExpO<T> {
-        sortBy( ...iteratees: Array<Many<ObjectIteratee<T>>> ): ImpL<T[keyof T]>;
+        sortBy(...iteratees: Array<Many<ObjectIteratee<T>>>): ImpL<T[keyof T]>;
     }
 }

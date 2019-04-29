@@ -8,7 +8,7 @@ declare module "../index" {
     interface Stat {
         (value: string): ImpS;
         <TrapAny extends { __trapAny: any }>(value: TrapAny): ImpL<any>;
-        <T extends (...args:any[]) => any>(value: T): ImpF<T>;
+        <T extends (...args: any[]) => any>(value: T): ImpF<T>;
         <T = any>(value: List<T> | null | undefined): ImpL<T>;
         <T extends object>(value: T | null | undefined): ImpO<T>;
         <T>(value: T): ImpU<T>;
@@ -42,13 +42,13 @@ declare module "../index" {
     }
     interface ExpL<T> {
         pop<T>(): Exp<T | undefined>;
-        push<T>( ...items: T[]): this;
+        push<T>(...items: T[]): this;
         shift<T>(): Exp<T | undefined>;
-        sort<T>( compareFn?: (a: T, b: T) => number): this;
-        splice<T>( start: number, deleteCount?: number, ...items: T[]): this;
-        unshift<T>( ...items: T[]): this;
+        sort<T>(compareFn?: (a: T, b: T) => number): this;
+        splice<T>(start: number, deleteCount?: number, ...items: T[]): this;
+        unshift<T>(...items: T[]): this;
     }
-    interface ImpF<T extends (...args: any) => any> extends Imp<T> {
+    interface ImpF<T extends (...args: any[]) => any> extends Imp<T> {
     }
     interface ImpS extends Imp<string> {
     }
@@ -58,7 +58,7 @@ declare module "../index" {
     }
     interface ImpU<T> extends Imp<T> {
     }
-    interface ExpF<T extends (...args: any) => any> extends Exp<T> {
+    interface ExpF<T extends (...args: any[]) => any> extends Exp<T> {
     }
     interface ExpS extends Exp<string> {
     }

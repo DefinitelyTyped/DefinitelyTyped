@@ -21,7 +21,7 @@ declare module "../index" {
     interface ImpU<T> {
         chain(): ExpU<T>;
     }
-    interface ImpF<T extends (...args: any) => any> {
+    interface ImpF<T extends (...args: any[]) => any> {
         chain(): ExpF<T>;
     }
     interface Exp<TValue> {

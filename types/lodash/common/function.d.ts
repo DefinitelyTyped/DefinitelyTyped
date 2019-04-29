@@ -265,10 +265,10 @@ declare module "../index" {
     interface Stat {
         debounce<T extends (...args: any[]) => any>(func: T, wait?: number, options?: DebounceSettings): T & Cancelable;
     }
-    interface ImpF<T extends (...args: any) => any> {
+    interface ImpF<T extends (...args: any[]) => any> {
         debounce(wait?: number, options?: DebounceSettings): ImpF<T & Cancelable>;
     }
-    interface ExpF<T extends (...args: any) => any> {
+    interface ExpF<T extends (...args: any[]) => any> {
         debounce(wait?: number, options?: DebounceSettings): Exp<T & Cancelable>;
     }
     interface Stat {
@@ -292,10 +292,10 @@ declare module "../index" {
     interface Stat {
         flip<T extends (...args: any[]) => any>(func: T): T;
     }
-    interface ImpF<T extends (...args: any) => any> {
+    interface ImpF<T extends (...args: any[]) => any> {
         flip(): this;
     }
-    interface ExpF<T extends (...args: any) => any> {
+    interface ExpF<T extends (...args: any[]) => any> {
         flip(): this;
     }
     interface MemoizedFunction {
@@ -307,28 +307,28 @@ declare module "../index" {
             Cache: MapCacheConstructor;
         };
     }
-    interface ImpF<T extends (...args: any) => any> {
+    interface ImpF<T extends (...args: any[]) => any> {
         memoize(resolver?: (...args: any[]) => any): Imp<T & MemoizedFunction>;
     }
-    interface ExpF<T extends (...args: any) => any> {
+    interface ExpF<T extends (...args: any[]) => any> {
         memoize(resolver?: (...args: any[]) => any): Exp<T & MemoizedFunction>;
     }
     interface Stat {
         negate<T extends any[]>(predicate: (...args: T) => any): (...args: T) => boolean;
     }
-    interface ImpF<T extends (...args: any) => any> {
+    interface ImpF<T extends (...args: any[]) => any> {
         negate(): Imp<(...args: Parameters<T>) => boolean>;
     }
-    interface ExpF<T extends (...args: any) => any> {
+    interface ExpF<T extends (...args: any[]) => any> {
         negate(): Exp<(...args: Parameters<T>) => boolean>;
     }
     interface Stat {
         once<T extends (...args: any[]) => any>(func: T): T;
     }
-    interface ImpF<T extends (...args: any) => any> {
+    interface ImpF<T extends (...args: any[]) => any> {
         once(): ImpF<T>;
     }
-    interface ExpF<T extends (...args: any) => any> {
+    interface ExpF<T extends (...args: any[]) => any> {
         once(): ExpF<T>;
     }
     interface Stat {
@@ -552,10 +552,10 @@ declare module "../index" {
     interface Stat {
         rest(func: (...args: any[]) => any, start?: number): (...args: any[]) => any;
     }
-    interface ImpF<T extends (...args: any) => any> {
+    interface ImpF<T extends (...args: any[]) => any> {
         rest(start?: number): ImpF<(...args: any[]) => any>;
     }
-    interface ExpF<T extends (...args: any) => any> {
+    interface ExpF<T extends (...args: any[]) => any> {
         rest(start?: number): ExpF<(...args: any[]) => any>;
     }
     interface Stat {
@@ -574,10 +574,10 @@ declare module "../index" {
     interface Stat {
         throttle<T extends (...args: any[]) => any>(func: T, wait?: number, options?: ThrottleSettings): T & Cancelable;
     }
-    interface ImpF<T extends (...args: any) => any> {
+    interface ImpF<T extends (...args: any[]) => any> {
         throttle(wait?: number, options?: ThrottleSettings): Imp<T & Cancelable>;
     }
-    interface ExpF<T extends (...args: any) => any> {
+    interface ExpF<T extends (...args: any[]) => any> {
         throttle(wait?: number, options?: ThrottleSettings): Exp<T & Cancelable>;
     }
     interface Stat {
