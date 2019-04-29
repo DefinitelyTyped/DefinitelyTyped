@@ -1046,8 +1046,8 @@ export class Editor implements Controller {
     insertText(text: string): Editor;
     setBlocks(properties: BlockProperties | string): Editor;
     setInlines(properties: InlineProperties | string): Editor;
-    splitBlock(depth: number): Editor;
-    splitInline(depth: number): Editor;
+    splitBlock(depth?: number): Editor;
+    splitInline(depth?: number): Editor;
     removeMark(mark: Mark | MarkProperties | string): Editor;
     replaceMark(
         mark: Mark | MarkProperties | string,
@@ -1211,8 +1211,8 @@ export class Editor implements Controller {
     insertTextAtRange(range: Range, text: string): Editor;
     setBlocksAtRange(range: Range, properties: BlockProperties | string): Editor;
     setInlinesAtRange(range: Range, properties: InlineProperties | string): Editor;
-    splitBlockAtRange(range: Range, depth: number): Editor;
-    splitInlineAtRange(range: Range, depth: number): Editor;
+    splitBlockAtRange(range: Range, depth?: number): Editor;
+    splitInlineAtRange(range: Range, depth?: number): Editor;
     removeMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
     toggleMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
     unwrapBlockAtRange(range: Range, properties: BlockProperties | string): Editor;
