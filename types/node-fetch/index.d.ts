@@ -138,8 +138,10 @@ export class Body {
     bodyUsed: boolean;
     buffer(): Promise<Buffer>;
     json(): Promise<any>;
+    size: number;
     text(): Promise<string>;
     textConverted(): Promise<string>;
+    timeout: number;
 }
 
 export class FetchError extends Error {
@@ -157,10 +159,8 @@ export class Response extends Body {
     clone(): Response;
     headers: Headers;
     ok: boolean;
-    size: number;
     status: number;
     statusText: string;
-    timeout: number;
     type: ResponseType;
     url: string;
 }
@@ -175,8 +175,11 @@ export type ResponseType =
 
 export interface ResponseInit {
     headers?: HeadersInit;
-    status: number;
+    size?: number;
+    status?: number;
     statusText?: string;
+    timeout?: number;
+    url: string;
 }
 
 export type HeadersInit = Headers | string[][] | { [key: string]: string };

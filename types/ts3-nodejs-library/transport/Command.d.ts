@@ -1,5 +1,5 @@
 declare class Command {
-    constructor()
+    constructor();
 
     /**
      * Initializes the Respone with default values

@@ -30,7 +30,10 @@ export type Enhancer<E extends PageProps = AnyPageProps, P extends any = E> = (
  *
  * @template Q Query object schema.
  */
-export interface NextDocumentContext<Q extends DefaultQuery = DefaultQuery> extends NextContext<Q> {
+export interface NextDocumentContext<
+    Q extends DefaultQuery = DefaultQuery,
+    CustomReq = {}
+> extends NextContext<Q, CustomReq> {
     /** A callback that executes the actual React rendering logic (synchronously) */
     renderPage<
         E extends PageProps = AnyPageProps,
