@@ -143,6 +143,10 @@ interface IDataURLOptions {
 interface IEvent {
 	e: Event;
 	target?: Object;
+	button?: number;
+	isClick?: boolean;
+	pointer?: Point;
+	absolutePointer?: Point;
 	transform?: { corner: string, original: Object, width: number };
 }
 
