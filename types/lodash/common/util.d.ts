@@ -338,7 +338,7 @@ declare module "../index" {
         iteratee<TFunction extends (...args: any[]) => any>(func: TFunction): TFunction;
         iteratee(func: string | object): (...args: any[]) => any;
     }
-    interface ImpF<T> {
+    interface ImpF<T extends (...args: any) => any> {
         iteratee(): ImpF<T>;
     }
     interface ImpL<T> {
@@ -350,7 +350,7 @@ declare module "../index" {
     interface ImpS {
         iteratee(): ImpF<(o: object) => boolean>;
     }
-    interface ExpF<T> {
+    interface ExpF<T extends (...args: any) => any> {
         iteratee(): ExpF<T>;
     }
     interface ExpL<T> {
@@ -456,31 +456,50 @@ declare module "../index" {
     interface Stat {
         over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): (...args: any[]) => TResult[];
     }
-    interface Imp<TValue> {
-        over<TResult>(this: Imp<Many<(...args: any[]) => TResult>>, ...iteratees: Array<Many<(...args: any[]) => TResult>>): Imp<(...args: any[]) => TResult[]>;
+    interface ImpL<T> {
+        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): ImpF<(...args: any[]) => TResult[]>;
     }
-    interface Exp<TValue> {
-        over<TResult>(this: Exp<Many<(...args: any[]) => TResult>>, ...iteratees: Array<Many<(...args: any[]) => TResult>>): Exp<(...args: any[]) => TResult[]>;
+    interface ImpF<T> {
+        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): ImpF<(...args: any[]) => (ReturnType<T> | TResult)[]>;
+    }
+    interface ExpL<T> {
+        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): ExpF<(...args: any[]) => TResult[]>;
+    }
+    interface ExpF<T> {
+        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): ExpF<(...args: any[]) => (ReturnType<T> | TResult)[]>;
     }
 
     interface Stat {
         overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
-    interface Imp<TValue> {
-        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): Imp<(...args: T[]) => boolean>;
+    interface ImpL<T> {
+        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: TArgs[]) => boolean[]>;
     }
-    interface Exp<TValue> {
-        overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): Exp<(...args: T[]) => boolean>;
+    interface ImpF<T> {
+        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: Parameters<T> | TArgs[]) => boolean[]>;
     }
+    interface ExpL<T> {
+        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args:  TArgs[]) => boolean[]>;
+    }
+    interface ExpF<T> {
+        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args: Parameters<T> | TArgs[]) => boolean[]>;
+    }
+
 
     interface Stat {
         overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
-    interface Imp<TValue> {
-        overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): Imp<(...args: T[]) => boolean>;
+    interface ImpL<T> {
+        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: TArgs[]) => boolean[]>;
     }
-    interface Exp<TValue> {
-        overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): Exp<(...args: T[]) => boolean>;
+    interface ImpF<T> {
+        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: Parameters<T> | TArgs[]) => boolean[]>;
+    }
+    interface ExpL<T> {
+        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args: TArgs[]) => boolean[]>;
+    }
+    interface ExpF<T> {
+        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args: Parameters<T> | TArgs[]) => boolean[]>;
     }
 
     interface Stat {

@@ -46,7 +46,7 @@ declare module "../index" {
         splice<T>( start: number, deleteCount?: number, ...items: T[]): this;
         unshift<T>( ...items: T[]): this;
     }
-    interface ImpF<T> extends Imp<T> {
+    interface ImpF<T extends (...args: any) => any> extends Imp<T> {
     }
     interface ImpS extends Imp<string> {
     }
@@ -56,7 +56,7 @@ declare module "../index" {
     }
     interface ImpU<T> extends Imp<T> {
     }
-    interface ExpF<T> extends Exp<T> {
+    interface ExpF<T extends (...args: any) => any> extends Exp<T> {
     }
     interface ExpS extends Exp<string> {
     }

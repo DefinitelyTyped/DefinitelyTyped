@@ -159,24 +159,32 @@ declare module "../index" {
         entries<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         entries(object?: object): Array<[string, any]>;
     }
+    interface ImpO<T> {
+        entries(): Imp<Array<[string, keyof T]>>;
+    }
     interface Imp<TValue> {
-        entries<T>(this: Imp<Dictionary<T> | NumericDictionary<T>>): Imp<Array<[string, T]>>;
         entries(): Imp<Array<[string, any]>>;
     }
+    interface ExpO<T> {
+        entries(): Exp<Array<[string, keyof T]>>;
+    }
     interface Exp<TValue> {
-        entries<T>(this: Exp<Dictionary<T> | NumericDictionary<T>>): Exp<Array<[string, T]>>;
         entries(): Exp<Array<[string, any]>>;
     }
     interface Stat {
         entriesIn<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         entriesIn(object?: object): Array<[string, any]>;
     }
+    interface ImpO<T> {
+        entriesIn(): Imp<Array<[string, keyof T]>>;
+    }
     interface Imp<TValue> {
-        entriesIn<T>(this: Imp<Dictionary<T> | NumericDictionary<T>>): Imp<Array<[string, T]>>;
         entriesIn(): Imp<Array<[string, any]>>;
     }
+    interface ExpO<T> {
+        entriesIn(): Exp<Array<[string, keyof T]>>;
+    }
     interface Exp<TValue> {
-        entriesIn<T>(this: Exp<Dictionary<T> | NumericDictionary<T>>): Exp<Array<[string, T]>>;
         entriesIn(): Exp<Array<[string, any]>>;
     }
     interface Stat {

@@ -191,11 +191,11 @@ declare module "../index" {
     interface Stat {
         flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, depth?: number): T[];
     }
-    interface Imp<TValue> {
-        flattenDepth<T>(this: Imp<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): ImpL<T>;
+    interface ImpL<T> {
+        flattenDepth(depth?: number): ImpL<T>;
     }
-    interface Exp<TValue> {
-        flattenDepth<T>(this: Exp<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): ExpL<T>;
+    interface ExpL<T> {
+        flattenDepth(depth?: number): ExpL<T>;
     }
     interface Stat {
         fromPairs<T>( pairs: List<[PropertyName, T]> | null | undefined ): Dictionary<T>;
@@ -596,22 +596,22 @@ declare module "../index" {
         unzip<T>(array: T[][] | List<List<T>> | null | undefined): T[][];
     }
     interface ImpL<T> {
-        unzip<T1>(this: ImpL<List<T1>>): ImpL<T1[]>;
+        unzip(): T extends List<infer U> ? ImpL<U[]> : unknown;
     }
     interface ExpL<T> {
-        unzip<T1>(this: ExpL<List<T1>>): ExpL<T1[]>;
+        unzip(): T extends List<infer U> ? ExpL<U[]> : unknown;
     }
     interface Stat {
         unzipWith<T, TResult>( array: List<List<T>> | null | undefined, iteratee: (...values: T[]) => TResult ): TResult[];
         unzipWith<T>( array: List<List<T>> | null | undefined ): T[][];
     }
     interface ImpL<T> {
-        unzipWith<T1, TResult>( this: Imp<List<T1>>, iteratee: (...values: T1[]) => TResult ): Imp<TResult[]>;
-        unzipWith<T1>( this: Imp<List<T1>> ): ImpL<T1[]>;
+        unzipWith<TResult>(iteratee: (...values: (T extends List<infer U> ? U : unknown)[]) => TResult ): Imp<TResult[]>;
+        unzipWith(): T extends List<infer U> ? ImpL<U[]> : unknown;
     }
     interface ExpL<T> {
-        unzipWith<T1, TResult>( this: ExpL<List<T1>>, iteratee: (...values: T1[]) => TResult ): Exp<TResult[]>;
-        unzipWith<T1>( this: Exp<List<T1>> ): ExpL<T1[]>;
+        unzipWith<TResult>(iteratee: (...values: (T extends List<infer U> ? U : unknown)[]) => TResult ): Exp<TResult[]>;
+        unzipWith(): T extends List<infer U> ? ExpL<U[]> : unknown;
     }
     interface Stat {
         without<T>( array: List<T> | null | undefined, ...values: T[] ): T[];

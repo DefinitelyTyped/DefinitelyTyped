@@ -186,7 +186,7 @@ declare module "../index" {
         flatMap( collection: object | null | undefined, iteratee: object ): boolean[];
     }
     interface ImpU<T> {
-        flatMap<T>(this: Imp<Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): ImpL<T>;
+        flatMap(): T extends List<infer U> ? ImpL<U> : ImpL<T>;
         flatMap( iteratee: object ): ImpL<boolean>;
         flatMap( iteratee: string ): ImpL<any>;
         flatMap(): ImpL<any>;
@@ -206,7 +206,7 @@ declare module "../index" {
         flatMap(): ImpL<T[keyof T]>;
     }
     interface ExpU<T> {
-        flatMap<T>(this: Exp<Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): ExpL<T>;
+        flatMap(): T extends List<infer U> ? ExpL<U> : ExpL<T>;
         flatMap( iteratee: object ): ExpL<boolean>;
         flatMap( iteratee: string ): ExpL<any>;
         flatMap(): ExpL<any>;
@@ -233,7 +233,7 @@ declare module "../index" {
         flatMapDeep( collection: object | null | undefined, iteratee: object ): boolean[];
     }
     interface ImpU<T> {
-        flatMapDeep<T>(this: Imp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>): ImpL<T>;
+        flatMapDeep(): T extends List<infer U> ? ImpL<U> : ImpL<T>;
         flatMapDeep( iteratee: object ): ImpL<boolean>;
         flatMapDeep( iteratee: string ): ImpL<any>;
         flatMapDeep(): ImpL<any>;
@@ -253,7 +253,7 @@ declare module "../index" {
         flatMapDeep(): ImpL<T[keyof T]>;
     }
     interface ExpU<T> {
-        flatMapDeep<T>(this: Exp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>): ExpL<T>;
+        flatMapDeep(): T extends List<infer U> ? ExpL<U> : ExpL<T>;
         flatMapDeep( iteratee: object ): ExpL<boolean>;
         flatMapDeep( iteratee: string ): ExpL<any>;
         flatMapDeep(): ExpL<any>;
@@ -280,7 +280,7 @@ declare module "../index" {
         flatMapDepth( collection: object | null | undefined, iteratee: object, depth?: number ): boolean[];
     }
     interface ImpU<T> {
-        flatMapDepth<T>(this: Imp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>, depth?: number): ImpL<T>;
+        flatMapDepth(depth?: number): T extends List<infer U> ? ImpL<U> : ImpL<T>;
         flatMapDepth( iteratee: object , depth?: number): ImpL<boolean>;
         flatMapDepth( iteratee: string , depth?: number): ImpL<any>;
         flatMapDepth( depth?: number): ImpL<any>;
@@ -300,7 +300,7 @@ declare module "../index" {
         flatMapDepth(depth?: number): ImpL<T[keyof T]>;
     }
     interface ExpU<T> {
-        flatMapDepth<T>(this: Exp<Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined>, depth?: number): ExpL<T>;
+        flatMapDepth(depth?: number): T extends List<infer U> ? ExpL<U> : ExpL<T>;
         flatMapDepth( iteratee: object , depth?: number): ExpL<boolean>;
         flatMapDepth( iteratee: string , depth?: number): ExpL<any>;
         flatMapDepth(depth?: number): ExpL<any>;
