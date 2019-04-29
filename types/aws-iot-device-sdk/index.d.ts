@@ -88,14 +88,14 @@ export interface DeviceOptions extends mqtt.IClientOptions {
   minimumConnectionTimeMs?: number;
 
   /**
-   * the connection type, either "mqtts" (default) or "wss" (WebSocket/TLS).
+   * the connection type, either 'mqtts' (default), 'wss' (WebSocket/TLS), or 'wss-custom-auth' (WebSocket/TLS with custom authentication).
    * Note that when set to "wss", values must be provided for the
    * Access Key ID and Secret Key in either the following options or in
    * environment variables as specified in WebSocket Configuration[1].
    *
    * 1. https://github.com/aws/aws-iot-device-sdk-js#websockets
    */
-  protocol?: "mqtts" | "wss";
+  protocol?: "mqtts" | "wss" | "wss-custom-auth";
   /**
    * if protocol is set to "wss", you can use this parameter to pass
    * additional options to the underlying WebSocket object;
@@ -113,6 +113,18 @@ export interface DeviceOptions extends mqtt.IClientOptions {
    * Overrides the environment variable AWS_SECRET_ACCESS_KEY if set.
    */
   secretKey?: string;
+  
+  /**
+  * used to specify your custom authorization headers when protocol is set to 'wss-custom-auth'. 
+  * The fields 'X-Amz-CustomAuthorizer-Name', 'X-Amz-CustomAuthorizer-Signature', 
+  * and the field for your token name are required.
+  */
+  customAuthHeaders?: {
+    'X-Amz-CustomAuthorizer-Name': string,
+    'X-Amz-CustomAuthorizer-Signature': string,
+    'token': string
+  };
+    
   /**
    * (required when authenticating via Cognito, optional otherwise) used
    * to specify the Session Token when protocol is set to "wss". Overrides
