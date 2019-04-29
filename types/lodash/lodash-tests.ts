@@ -2206,7 +2206,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
         collection; // $ExpectType string
     });
 
-    // $ExpectType Imp<string | null | undefined>
+    // $ExpectType ImpS
     _(nilStr).forEach((value, index, collection) => {
         value; // $ExpectType string
         index; // $ExpectType number
@@ -2217,52 +2217,52 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(array).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
-        collection; // $ExpectType AbcObject[]
+        collection; // $ExpectType ArrayLike<AbcObject>
     });
 
-    // $ExpectType Imp<AbcObject[] | null | undefined>
+    // $ExpectType ImpL<AbcObject>
     _(nilArray).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
-        collection; // $ExpectType AbcObject[]
+        collection; // $ExpectType ArrayLike<AbcObject>
     });
 
-    // $ExpectType Imp<ArrayLike<AbcObject>>
+    // $ExpectType ImpL<AbcObject>
     _(list).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
         collection; // $ExpectType ArrayLike<AbcObject>
     });
 
-    // $ExpectType Imp<ArrayLike<AbcObject> | null | undefined>
+    // $ExpectType ImpL<AbcObject>
     _(nilList).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
         collection; // $ExpectType ArrayLike<AbcObject>
     });
 
-    // $ExpectType Imp<Dictionary<AbcObject>>
+    // $ExpectType ImpO<Dictionary<AbcObject>>
     _(dictionary).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType string
         collection; // $ExpectType Dictionary<AbcObject>
     });
 
-    // $ExpectType Imp<Dictionary<AbcObject> | null | undefined>
+    // $ExpectType ImpO<Dictionary<AbcObject>>
     _(nilDictionary).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType string
         collection; // $ExpectType Dictionary<AbcObject>
     });
 
-    // $ExpectType Imp<NumericDictionary<AbcObject>>
+    // $ExpectType ImpO<NumericDictionary<AbcObject>>
     _(numericDictionary).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType string
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
 
-    // $ExpectType Imp<NumericDictionary<AbcObject> | null | undefined>
+    // $ExpectType ImpO<NumericDictionary<AbcObject>>
     _(nilNumericDictionary).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType string
@@ -2276,7 +2276,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
         collection; // $ExpectType string
     });
 
-    // $ExpectType Exp<string | null | undefined>
+    // $ExpectType ExpS
     _.chain(nilStr).forEach((value, index, collection) => {
         value; // $ExpectType string
         index; // $ExpectType number
@@ -2287,52 +2287,52 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _.chain(array).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
-        collection; // $ExpectType AbcObject[]
+        collection; // $ExpectType ArrayLike<AbcObject>
     });
 
-    // $ExpectType Exp<AbcObject[] | null | undefined>
+    // $ExpectType ExpL<AbcObject>
     _.chain(nilArray).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
-        collection; // $ExpectType AbcObject[]
+        collection; // $ExpectType ArrayLike<AbcObject>
     });
 
-    // $ExpectType Exp<ArrayLike<AbcObject>>
+    // $ExpectType ExpL<AbcObject>
     _.chain(list).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
         collection; // $ExpectType ArrayLike<AbcObject>
     });
 
-    // $ExpectType Exp<ArrayLike<AbcObject> | null | undefined>
+    // $ExpectType ExpL<AbcObject>
     _.chain(nilList).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
         collection; // $ExpectType ArrayLike<AbcObject>
     });
 
-    // $ExpectType Exp<Dictionary<AbcObject>>
+    // $ExpectType ExpO<Dictionary<AbcObject>>
     _.chain(dictionary).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType string
         collection; // $ExpectType Dictionary<AbcObject>
     });
 
-    // $ExpectType Exp<Dictionary<AbcObject> | null | undefined>
+    // $ExpectType ExpO<Dictionary<AbcObject>>
     _.chain(nilDictionary).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType string
         collection; // $ExpectType Dictionary<AbcObject>
     });
 
-    // $ExpectType Exp<NumericDictionary<AbcObject>>
+    // $ExpectType ExpO<NumericDictionary<AbcObject>>
     _.chain(numericDictionary).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType string
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
 
-    // $ExpectType Exp<NumericDictionary<AbcObject> | null | undefined>
+    // $ExpectType ExpO<NumericDictionary<AbcObject>>
     _.chain(nilNumericDictionary).forEach((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType string
@@ -2364,9 +2364,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(array).forEachRight((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
-        collection; // $ExpectType AbcObject[]
+        collection; // $ExpectType ArrayLike<AbcObject>
     });
-    // $ExpectType Imp<ArrayLike<AbcObject> | null | undefined>
+    // $ExpectType ImpL<AbcObject>
     _(nilList).forEachRight((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
@@ -2376,9 +2376,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _.chain(array).forEachRight((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
-        collection; // $ExpectType AbcObject[]
+        collection; // $ExpectType ArrayLike<AbcObject>
     });
-    // $ExpectType Exp<ArrayLike<AbcObject> | null | undefined>
+    // $ExpectType ExpL<AbcObject>
     _.chain(nilList).forEachRight((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
@@ -2403,9 +2403,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(array).each((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
-        collection; // $ExpectType AbcObject[]
+        collection; // $ExpectType ArrayLike<AbcObject>
     });
-    // $ExpectType Imp<ArrayLike<AbcObject> | null | undefined>
+    // $ExpectType ImpL<AbcObject>
     _(nilList).each((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
@@ -2415,9 +2415,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _.chain(array).each((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
-        collection; // $ExpectType AbcObject[]
+        collection; // $ExpectType ArrayLike<AbcObject>
     });
-    // $ExpectType Exp<ArrayLike<AbcObject> | null | undefined>
+    // $ExpectType ExpL<AbcObject>
     _.chain(nilList).each((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
@@ -2442,9 +2442,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(array).eachRight((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
-        collection; // $ExpectType AbcObject[]
+        collection; // $ExpectType ArrayLike<AbcObject>
     });
-    // $ExpectType Imp<ArrayLike<AbcObject> | null | undefined>
+    // $ExpectType ImpL<AbcObject>
     _(nilList).eachRight((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
@@ -2454,9 +2454,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _.chain(array).eachRight((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
-        collection; // $ExpectType AbcObject[]
+        collection; // $ExpectType ArrayLike<AbcObject>
     });
-    // $ExpectType Exp<ArrayLike<AbcObject> | null | undefined>
+    // $ExpectType ExpL<AbcObject>
     _.chain(nilList).eachRight((value, index, collection) => {
         value; // $ExpectType AbcObject
         index; // $ExpectType number
@@ -2479,27 +2479,27 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _.groupBy(dictionary, ""); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(dictionary, { a: 42 }); // $ExpectType Dictionary<AbcObject[]>
 
-    _("").groupBy(); // $ExpectType ImpL<Dictionary<string>>
-    _("").groupBy(stringIterator); // $ExpectType ImpL<Dictionary<string>>
-    _(list).groupBy(); // $ExpectType ImpL<Dictionary<AbcObject>>
-    _(list).groupBy(valueIterator); // $ExpectType ImpL<Dictionary<AbcObject>>
-    _(list).groupBy(""); // $ExpectType ImpL<Dictionary<AbcObject>>
-    _(list).groupBy({ a: 42 }); // $ExpectType ImpL<Dictionary<AbcObject>>
-    _(dictionary).groupBy(); // $ExpectType ImpL<Dictionary<AbcObject>>
-    _(dictionary).groupBy(valueIterator); // $ExpectType ImpL<Dictionary<AbcObject>>
-    _(dictionary).groupBy(""); // $ExpectType ImpL<Dictionary<AbcObject>>
-    _(dictionary).groupBy({ a: 42 }); // $ExpectType ImpL<Dictionary<AbcObject>>
+    _("").groupBy(); // $ExpectType Imp<Dictionary<string>>
+    _("").groupBy(stringIterator); // $ExpectType Imp<Dictionary<string>>
+    _(list).groupBy(); // $ExpectType Imp<Dictionary<AbcObject>>
+    _(list).groupBy(valueIterator); // $ExpectType Imp<Dictionary<AbcObject>>
+    _(list).groupBy(""); // $ExpectType Imp<Dictionary<AbcObject>>
+    _(list).groupBy({ a: 42 }); // $ExpectType Imp<Dictionary<AbcObject>>
+    _(dictionary).groupBy(); // $ExpectType Imp<Dictionary<AbcObject[]>>
+    _(dictionary).groupBy(valueIterator); // $ExpectType Imp<Dictionary<AbcObject[]>>
+    _(dictionary).groupBy(""); // $ExpectType Imp<Dictionary<AbcObject[]>>
+    _(dictionary).groupBy({ a: 42 }); // $ExpectType Imp<Dictionary<AbcObject[]>>
 
-    _.chain("").groupBy(); // $ExpectType ExpL<Dictionary<string>>
-    _.chain("").groupBy(stringIterator); // $ExpectType ExpL<Dictionary<string>>
-    _.chain(list).groupBy(); // $ExpectType ExpL<Dictionary<AbcObject>>
-    _.chain(list).groupBy(valueIterator); // $ExpectType ExpL<Dictionary<AbcObject>>
-    _.chain(list).groupBy(""); // $ExpectType ExpL<Dictionary<AbcObject>>
-    _.chain(list).groupBy({ a: 42 }); // $ExpectType ExpL<Dictionary<AbcObject>>
-    _.chain(dictionary).groupBy(); // $ExpectType ExpL<Dictionary<AbcObject>>
-    _.chain(dictionary).groupBy(valueIterator); // $ExpectType ExpL<Dictionary<AbcObject>>
-    _.chain(dictionary).groupBy(""); // $ExpectType ExpL<Dictionary<AbcObject>>
-    _.chain(dictionary).groupBy({ a: 42 }); // $ExpectType ExpL<Dictionary<AbcObject>>
+    _.chain("").groupBy(); // $ExpectType Exp<Dictionary<string>>
+    _.chain("").groupBy(stringIterator); // $ExpectType Exp<Dictionary<string>>
+    _.chain(list).groupBy(); // $ExpectType Exp<Dictionary<AbcObject>>
+    _.chain(list).groupBy(valueIterator); // $ExpectType Exp<Dictionary<AbcObject>>
+    _.chain(list).groupBy(""); // $ExpectType Exp<Dictionary<AbcObject>>
+    _.chain(list).groupBy({ a: 42 }); // $ExpectType Exp<Dictionary<AbcObject>>
+    _.chain(dictionary).groupBy(); // $ExpectType Exp<Dictionary<AbcObject[]>>
+    _.chain(dictionary).groupBy(valueIterator); // $ExpectType Exp<Dictionary<AbcObject[]>>
+    _.chain(dictionary).groupBy(""); // $ExpectType Exp<Dictionary<AbcObject[]>>
+    _.chain(dictionary).groupBy({ a: 42 }); // $ExpectType Exp<Dictionary<AbcObject[]>>
 
     fp.groupBy(valueIterator, list); // $ExpectType Dictionary<AbcObject[]>
     fp.groupBy(valueIterator)(list); // $ExpectType Dictionary<AbcObject[]>
@@ -2741,6 +2741,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
         return 0;
     });
     _(list).map("a"); // $ExpectType ImpL<number>
+    var d = _.chain(dictionary)
+    var a = d.map('a')
     _(dictionary).map("a"); // $ExpectType ImpL<number>
     _(numericDictionary).map("a"); // $ExpectType ImpL<number>
     _(list).map("d.0.b"); // $ExpectType ImpL<any>
@@ -6623,8 +6625,8 @@ fp.now(); // $ExpectType number
     _(undefined).defaultTo({ a: "" }); // $ExpectType { a: string; }
 
     _.chain(42).defaultTo(42); // $ExpectType Exp<number>
-    const z1: _.Exp<number> = _.chain(undefined).defaultTo(42);
-    const z2: _.Exp<number> = _.chain(null).defaultTo(42);
+    const z1: _.Exp<number | string> = _.chain(undefined).defaultTo(42);
+    const z2: _.Exp<number | string> = _.chain(null).defaultTo(42);
     _.chain(NaN).defaultTo(42); // $ExpectType Exp<number>
     const z3: _.Exp<string> =  _.chain(undefined).defaultTo("default");
     _.chain(undefined).defaultTo([true]); // $ExpectType ExpL<boolean>

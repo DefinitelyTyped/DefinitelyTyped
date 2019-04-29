@@ -392,28 +392,28 @@ declare module "../index" {
         groupBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]>): Dictionary<Array<T[keyof T]>>;
     }
     interface ImpS {
-        groupBy(iteratee?: ValueIteratee<string>): Imp<Dictionary<string[]>>;
+        groupBy(iteratee?: ValueIteratee<string>): Imp<Dictionary<string>>;
     }
     interface ImpL<T> {
-        groupBy(iteratee?: ValueIteratee<T>): Imp<Dictionary<T[]>>;
+        groupBy(iteratee?: ValueIteratee<T>): Imp<Dictionary<T>>;
     }
     interface ImpO<T> {
         groupBy(iteratee?: ValueIteratee<T[keyof T]>): Imp<Dictionary<Array<T[keyof T]>>>;
     }
     interface ImpU<T> {
-        groupBy(iteratee?: ValueIteratee<unknown>): Imp<Dictionary<unknown[]>>;
+        groupBy(iteratee?: ValueIteratee<unknown>): Imp<Dictionary<unknown>>;
     }
     interface ExpS {
-        groupBy(iteratee?: ValueIteratee<string>): Exp<Dictionary<string[]>>;
+        groupBy(iteratee?: ValueIteratee<string>): Exp<Dictionary<string>>;
     }
     interface ExpL<T> {
-        groupBy(iteratee?: ValueIteratee<T>): Exp<Dictionary<T[]>>;
+        groupBy(iteratee?: ValueIteratee<T>): Exp<Dictionary<T>>;
     }
     interface ExpO<T> {
         groupBy(iteratee?: ValueIteratee<T[keyof T]>): Exp<Dictionary<Array<T[keyof T]>>>;
     }
     interface ExpU<T> {
-        groupBy(iteratee?: ValueIteratee<unknown>): Exp<Dictionary<unknown[]>>;
+        groupBy(iteratee?: ValueIteratee<unknown>): Exp<Dictionary<unknown>>;
     }
     interface Stat {
         includes<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: T, fromIndex?: number): boolean;
@@ -425,10 +425,10 @@ declare module "../index" {
         includes(target: T, fromIndex?: number): boolean;
     }
     interface ExpO<T> {
-        includes(target: T[keyof T], fromIndex?: number): boolean;
+        includes(target: T[keyof T], fromIndex?: number): Exp<boolean>;
     }
     interface ExpL<T> {
-        includes(target: T, fromIndex?: number): boolean;
+        includes(target: T, fromIndex?: number): Exp<boolean>;
     }
     interface Stat {
         invokeMap(collection: object | null | undefined, methodName: string, ...args: any[]): any[];
@@ -480,17 +480,18 @@ declare module "../index" {
         map<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee?: object): boolean[];
     }
 
-    // TODO: Remember to replace Imp<*[]> with ImpL<*>
     interface ImpS {
         map<TResult>(iteratee: StringIterator<TResult>): ImpL<TResult>;
         map(): ImpL<string>;
     }
     interface ImpL<T> {
+        map<K extends keyof T>(key: K): ImpL<T[K]>;
         map<TResult>(iteratee: ListIterator<T, TResult> | PropertyName): ImpL<TResult>;
         map(iteratee: [PropertyName, any] | object): ImpL<boolean>;
         map(): ImpL<T>;
     }
     interface ImpO<T> {
+        map<K extends keyof T[keyof T]>(key: K): ImpL<T[keyof T][K]>;
         map<TResult>(iteratee: ObjectIterator<T, TResult> | PropertyName): ImpL<TResult>;
         map(iteratee: [PropertyName, any] | object): ImpL<boolean>;
         map(): ImpL<T[keyof T]>;
@@ -506,11 +507,13 @@ declare module "../index" {
         map(): ExpL<string>;
     }
     interface ExpL<T> {
+        map<K extends keyof T>(key: K): ExpL<T[K]>;
         map<TResult>(iteratee: ListIterator<T, TResult> | PropertyName): ExpL<TResult>;
         map(iteratee: [PropertyName, any] | object): ExpL<boolean>;
         map(): ExpL<T>;
     }
     interface ExpO<T> {
+        map<K extends keyof T[keyof T]>(key: K): ExpL<T[keyof T][K]>;
         map<TResult>(iteratee: ObjectIterator<T, TResult> | PropertyName): ExpL<TResult>;
         map(iteratee: [PropertyName, any] | object): ExpL<boolean>;
         map(): ExpL<T[keyof T]>;

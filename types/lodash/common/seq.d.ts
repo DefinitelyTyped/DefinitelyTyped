@@ -2,7 +2,7 @@ import _ = require("../index");
 declare module "../index" {
     // chain
     interface Stat {
-        chain(value: string): ExpS;
+        chain(value: string | null | undefined): ExpS;
         chain<TrapAny extends { __lodashAnyHack: any }>(value: TrapAny): ExpL<any>;
         chain<T extends (...args: any[]) => any>(value: T): ExpF<T>;
         chain<T = any>(value: List<T> | null | undefined): ExpL<T>;

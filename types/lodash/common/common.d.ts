@@ -6,7 +6,7 @@ declare module "../index" {
     type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | ReadonlyArray<T>;
     interface Stat {
-        (value: string): ImpS;
+        (value: string | null | undefined): ImpS;
         <TrapAny extends { __trapAny: any }>(value: TrapAny): ImpL<any>;
         <T extends (...args: any) => any>(value: T): ImpF<T>;
         <T = any>(value: List<T> | null | undefined): ImpL<T>;
