@@ -272,7 +272,7 @@ declare namespace oracledb {
      *
      * @since 1.13
      */
-    let fetchAsBuffer: Array<number>;
+    let fetchAsBuffer: number[];
     /**
      * An array of node-oracledb types. The valid types are oracledb.DATE, oracledb.NUMBER, oracledb.BUFFER, and oracledb.CLOB.
      * When any column having one of the specified types is queried with execute() or queryStream(), the column data is returned as a string instead of the default representation.
@@ -289,7 +289,7 @@ declare namespace oracledb {
      *
      * For non-CLOB types, the conversion to string is handled by Oracle client libraries and is often referred to as defining the fetch type.
      */
-    let fetchAsString: Array<number>;
+    let fetchAsString: number[];
     /**
      * This attribute is temporarily disabled. Setting it has no effect.
      *
@@ -652,6 +652,7 @@ declare namespace oracledb {
          * @param options Only affects pooled connections.
          *
          * @since 1.9
+         * @alias release()
          */
         close(options: CloseConnectionOptions): Promise<void>;
         close(): Promise<void>;
@@ -701,12 +702,12 @@ declare namespace oracledb {
          */
         execute(
             sql: string,
-            bindParams: BindParametersObject | Array<any>,
+            bindParams: BindParametersObject | any[],
             options: ExecuteOptions
         ): Promise<ExecuteResult>;
         execute(
             sql: string,
-            bindParams: BindParametersObject | Array<any>,
+            bindParams: BindParametersObject | any[],
             options: ExecuteOptions,
             callback: (error: DBError, result: ExecuteResult) => void
         ): void;
@@ -722,11 +723,11 @@ declare namespace oracledb {
          */
         execute(
             sql: string,
-            bindParams: BindParametersObject | Array<any>
+            bindParams: BindParametersObject | any[]
         ): Promise<ExecuteResult>;
         execute(
             sql: string,
-            bindParams: BindParametersObject | Array<any>,
+            bindParams: BindParametersObject | any[],
             callback: (error: DBError, result: ExecuteResult) => void
         ): void;
 
@@ -785,43 +786,39 @@ declare namespace oracledb {
          */
         executeMany(
             sql: string,
-            binds: Array<
+            binds: (
                 | {
                       [parameter: string]: any;
                   }
-                | Array<any>
-            >,
+                | any[])[],
             options: ExecuteManyOptions
         ): Promise<ExecuteManyResult>;
         executeMany(
             sql: string,
-            binds: Array<
+            binds: (
                 | {
                       [parameter: string]: any;
                   }
-                | Array<any>
-            >,
+                | any[])[],
             options: ExecuteManyOptions,
             callback: (error: DBError, result: ExecuteManyResult) => void
         ): void;
 
         executeMany(
             sql: string,
-            binds: Array<
+            binds: (
                 | {
                       [parameter: string]: any;
                   }
-                | Array<any>
-            >
+                | any[])[]
         ): Promise<ExecuteManyResult>;
         executeMany(
             sql: string,
-            binds: Array<
+            binds: (
                 | {
                       [parameter: string]: any;
                   }
-                | Array<any>
-            >,
+                | any[])[],
             callback: (error: DBError, result: ExecuteManyResult) => void
         ): void;
 
@@ -872,7 +869,259 @@ declare namespace oracledb {
          * @since 3.0
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sodaoverview
          */
-        getSodaDatabase(): SodaDatabaseWIP;
+        getSodaDatabase(): SodaDatabase;
+
+        /**
+         * Parses a SQL statement and returns information about it. This is most useful for finding column
+         * names of queries, and for finding the names of bind variables used.
+         *
+         * This method performs a round-trip to the database, so unnecessary calls should be avoided.
+         *
+         * The information is provided by lower level APIs that have some limitations. Some uncommon
+         * statements will return the statement type as oracledb.STMT_TYPE_UNKNOWN.
+         * DDL statements are not parsed, so syntax errors in them will not be reported.
+         * The direction and types of bind variables cannot be determined.
+         *
+         * @param sql SQL statement to parse.
+         *
+         * @since 2.2
+         */
+        getStatementInfo(sql: string): Promise<StatementInfo>;
+        getStatementInfo(
+            sql: string,
+            callback: (error: DBError, info: StatementInfo) => void
+        ): void;
+
+        /**
+         * This method checks that a connection is currently usable and the network to the database is valid.
+         * This call can be useful for system health checks. A ping only confirms that a single connection
+         * is usable at the time of the ping.
+         *
+         * Pinging does not replace error checking during statement execution, since network or database
+         * failure may occur in the interval between ping() and execute() calls.
+         *
+         * Pinging requires a round-trip to the database so unnecessary ping calls should be avoided.
+         *
+         * If ping() returns an error, the application should close the connection.
+         *
+         * @since 2.2
+         */
+        ping(): Promise<void>;
+        ping(callback: (error: DBError) => void): void;
+
+        /**
+         * This function provides query streaming support. The parameters are the same as execute() except
+         * a callback is not used. Instead this function returns a stream used to fetch data.
+         *
+         * Each row is returned as a data event. Query metadata is available via a metadata event.
+         * The end event indicates the end of the query results.
+         *
+         * The connection must remain open until the stream is completely read.
+         *
+         * For tuning, adjust the value of oracledb.fetchArraySize or the option fetchArraySize (see execute()).
+         *
+         * @param sql The SQL statement that is executed. The statement may contain bind parameters.
+         * @param bindParams This function parameter is needed if there are bind parameters in the SQL statement.
+         * @param options This is an optional parameter to execute() that may be used to control statement execution.
+         *
+         * @since 1.8
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#streamingresults
+         */
+        queryStream(
+            sql: string,
+            bindParams: BindParametersObject | any[],
+            options: ExecuteOptions
+        ): Readable;
+        queryStream(
+            sql: string,
+            bindParams: BindParametersObject | any[]
+        ): Readable;
+        queryStream(sql: string): Readable;
+
+        /**
+         * Releases a connection.
+         *
+         * Calling release() as soon as a connection is no longer required is strongly encouraged for system efficiency.
+         * Calling release() for pooled connections is required to prevent the pool running out of connections.
+         *
+         * When a connection is released, any ongoing transaction on the connection is rolled back.
+         *
+         * If an error occurs on a pooled connection and that error is known to make the connection
+         * unusable, then release() will drop that connection from the connection pool so a future
+         * pooled getConnection() call that grows the pool will create a new, valid connection.
+         *
+         * @param options Only affects pooled connections.
+         *
+         * @since 1.9
+         * @alias close()
+         */
+        release(options: CloseConnectionOptions): Promise<void>;
+        release(): Promise<void>;
+        release(
+            options: CloseConnectionOptions,
+            callback: (error: DBError) => void
+        ): void;
+        release(callback: (error: DBError) => void): void;
+
+        /**
+         * Rolls back the current transaction in progress on the connection.
+         */
+        rollback(): Promise<void>;
+        rollback(callback: (error: DBError) => void): void;
+
+        /**
+         * Register a JavaScript callback method to be invoked when data is changed in the database by any committed
+         * transaction.
+         *
+         * For notification to work, the connection must be created with events mode true.
+         *
+         * The database must be able to connect to the node-oracledb machine for notifications to be received.
+         * Typically this means that the machine running node-oracledb needs a fixed IP address. If there is
+         * any problem sending a notification, then the callback method will not be invoked.
+         *
+         * The connection.subscribe() method may be called multiple times with the same name. In this case,
+         * the second and subsequent invocations ignore all options properties other than sql and binds. Instead,
+         * the new SQL statement is registered to the same subscription, and the same JavaScript notification
+         * callback is used. For performance reasons this can be preferable to creating a new subscription for each query.
+         *
+         * @param name
+         *
+         * For Continuous Query Notification this is an arbitrary name given to the subscription.
+         * For Advanced Queue notifications this must be the queue name.
+         *
+         * @param options Options that control the subscription.
+         */
+        subscribe(name: string, options: SubscribeOptions): Promise<void>;
+        subscribe(
+            name: string,
+            options: SubscribeOptions,
+            callback: (error: DBError) => void
+        ): void;
+
+        /**
+         * Unregister a Continuous Query Notification (CQN) subscription previously created with connection.subscribe().
+         * No further notifications will be sent. The notification callback does not receive a notification of the
+         * deregistration event.
+         *
+         * A subscription can be unregistered using a different connection to the initial subscription, as long as
+         * the credentials are the same.
+         *
+         * If the subscription timeout was reached and the subscription was automatically unregistered, you will get
+         * an error if you call connection.unsubscribe().
+         *
+         * @param name Name of the subscription used in connection.subscribe().
+         */
+        unsubscribe(name: string): Promise<void>;
+        unsubscribe(name: string, callback: (error: DBError) => void): void;
+    }
+
+    /**
+     * Used with connection.subscribe() to control a subscription.
+     */
+    interface SubscribeOptions {
+        /** An array (bind by position) or object (bind by name) containing the bind values to use in the sql property. */
+        binds?: BindParametersObject | any[];
+        /** The notification callback that will be called whenever notifications are sent by the database. */
+        callback?: (message: SubscriptionMessage) => void;
+        /**
+         * An integer mask which currently, if set, can only contain the value SUBSCR_GROUPING_CLASS_TIME.
+         * If this value is set then notifications are grouped by time into a single notification.
+         */
+        groupingClass?: number;
+        /**
+         * Either SUBSCR_GROUPING_TYPE_SUMMARY (the default) indicating notifications should be
+         * grouped in a summary, or SUBSCR_GROUPING_TYPE_LAST indicating the last notification in the
+         * group should be sent.
+         */
+        groupingType?: number;
+        /**
+         * If groupingClass contains SUBSCR_GROUPING_CLASS_TIME then groupingValue can be used to
+         * set the number of seconds over which notifications will be grouped together, invoking callback once.
+         * If groupingClass is not set, then groupingValue is ignored.
+         */
+        groupingValue?: number;
+        /**
+         * A string containing an IPv4 or IPv6 address on which the subscription should listen to receive notifications.
+         * If not specified, then the Oracle Client library will select an IP address.
+         */
+        ipAddress?: string;
+        /** One of the Subscribe Namespace Constants. */
+        namespace?: number;
+        /**
+         * An integer mask containing one or more of the operation type CQN_OPCODE_* constants to
+         * indicate what types of database change should generation notifications.
+         */
+        operations?: number;
+        /**
+         * The port number on which the subscription should listen to receive notifications.
+         * If not specified, then the Oracle Client library will select a port number.
+         */
+        port?: number;
+        /** An integer mask containing one or more of the quality of service SUBSCR_QOS_* constants. */
+        qos?: number;
+        /** The SQL query string to use for notifications. */
+        sql?: string;
+        /**
+         * The number of seconds the subscription should remain active. Once this length of time has been reached,
+         * the subscription is automatically unregistered and a deregistration notification is sent.
+         */
+        timeout?: number;
+    }
+
+    /**
+     * Information about a subscription's notification.
+     */
+    interface SubscriptionMessage {
+        /** Name of the database which sent the notification. */
+        dbName?: string;
+        /** Array of objects specifying the queries which were affected by the Query Change notification. */
+        queries?: Array<{
+            /** Array of objects specifying the queries which were affected by the Query Change notification. */
+            tables: SubscriptionTables;
+        }>;
+        /** Indicates whether the subscription is registerd with the database. */
+        registered?: boolean;
+        /** Array of objects specifying the tables which were affected by the notification. */
+        tables?: Array<SubscriptionTables>;
+        /** Buffer containing the identifier of the transaction which spawned the notification. */
+        txId?: Buffer;
+        /** Type of notification sent. One of the Subscribe Event Type Constants. */
+        type?: number;
+    }
+
+    /**
+     * An object specifying which tables were affected by a subscription's notification.
+     */
+    interface SubscriptionTables {
+        /** Name of the table which was modified in some way. */
+        name: string;
+        /**
+         * One of the CQN_OPCODE_* constants.
+         */
+        operation: number;
+        /**
+         * array of objects specifying the rows which were changed. This will only be defined if the qos
+         * quality of service used when creating the subscription indicated the desire for ROWIDs and no
+         * summary grouping took place.
+         */
+        rows?: Array<{
+            /** One of the CQN_OPCODE_* constants. */
+            operation: number;
+            /** ROWID of the row that was affected. */
+            rowid: string;
+        }>;
+    }
+
+    /**
+     * Result of connection.getStatementInfo().
+     */
+    interface StatementInfo {
+        /** Array of strings corresponding to the unique names of the bind variables used in the SQL statement. */
+        bindNames?: Array<string>;
+        /** Extended metadata properties. */
+        metaData?: Metadata;
+        /** One of the SQL Statement Type Constants. */
+        statementType?: number;
     }
 
     /**
@@ -1119,7 +1368,7 @@ declare namespace oracledb {
             | {
                   [parameter: string]: BindDefinition;
               }
-            | Array<BindDefinition>;
+            | BindDefinition[];
         /**
          * When true, this optional property enables output of the number of rows affected by each input data record.
          * It can only be set true for INSERT, UPDATE, DELETE or MERGE statements.
@@ -1561,7 +1810,7 @@ declare namespace oracledb {
          * Each column’s name is always given. If the oracledb.extendedMetaData or execute() option extendedMetaData
          * are true then additional information is included.
          */
-        metaData: Array<Metadata>;
+        metaData: Metadata[];
         /**
          * This contains the output values of OUT and IN OUT binds. If bindParams is passed as an array,
          * then outBinds is returned as an array. If bindParams is passed as an object,
@@ -1571,7 +1820,7 @@ declare namespace oracledb {
             | {
                   [parameter: string]: any;
               }
-            | Array<any>;
+            | any[];
         /**
          * For SELECT statements when the resultSet option is true, use the resultSet object to fetch rows.
          *
@@ -1592,12 +1841,11 @@ declare namespace oracledb {
          * The number of rows returned is limited by oracledb.maxRows or the maxRows option in an execute() call.
          * If maxRows is 0, then the number of rows is limited by Node.js memory constraints.
          */
-        rows: Array<
-            | Array<any>
+        rows: (
+            | any[]
             | {
                   [column: string]: any;
-              }
-        >;
+              })[];
         /**
          * For DML statements (including SELECT FOR UPDATE) this contains the number of rows affected,
          * for example the number of rows inserted. For non-DML statements such as queries and PL/SQL statements,
@@ -1620,26 +1868,25 @@ declare namespace oracledb {
          * data errors to report. Some classes of execution error will always return via the executeMany()
          * callback error object, not in batchErrors.
          */
-        batchErrors: Array<DBError>;
+        batchErrors: DBError[];
         /**
          * An array of integers identifying the number of rows affected by each record of the binds parameter.
          *
          * It is present only if dmlRowCounts was true in the executeMany() options parameter and a DML statement
          * was executed.
          */
-        dmlRowCounts: Array<number>;
+        dmlRowCounts: number[];
         /**
          * Contains the value of any returned IN OUT or OUT binds. It is an array of arrays, or an array of objects,
          * depending on the binds parameters structure. The length of the array will correspond to the length of
          * the array passed as the binds parameter. It will be present only if there is at least one OUT bind
          * variable identified.
          */
-        outBinds: Array<
+        outBinds: (
             | {
                   [parameter: string]: any;
               }
-            | Array<any>
-        >;
+            | any[])[];
         /**
          * An integer identifying the total number of database rows affected by the processing of all records
          * of the binds parameter. It is only present if a DML statement was executed.
@@ -1667,7 +1914,7 @@ declare namespace oracledb {
          * Each column’s name is always given. If the oracledb.extendedMetaData or execute() option
          * extendedMetaData are true then additional information is included.
          */
-        readonly metaData: Array<Metadata>;
+        readonly metaData: Metadata[];
 
         /**
          * Closes a ResultSet. Applications should always call this at the end of fetch or when no more rows are needed.
@@ -1689,7 +1936,7 @@ declare namespace oracledb {
             | {
                   [column: string]: any;
               }
-            | Array<any>
+            | any[]
         >;
         getRow(
             callback: (
@@ -1698,7 +1945,7 @@ declare namespace oracledb {
                     | {
                           [column: string]: any;
                       }
-                    | Array<any>
+                    | any[]
             ) => void
         ): void;
 
@@ -1772,17 +2019,100 @@ declare namespace oracledb {
          */
         createCollection(
             collectionName: string,
-            options?: SodaOptions
+            options?: SodaCollectionOptions
         ): Promise<SodaCollection>;
         createCollection(
             collectionName: string,
-            options: SodaOptions,
+            options: SodaCollectionOptions,
             callback: (error: DBError, collection: SodaCollection) => void
         ): void;
         createCollection(
             collectionName: string,
             callback: (error: DBError, collection: SodaCollection) => void
         ): void;
+
+        /**
+         * A synchronous method that constructs a proto SodaDocument object usable for SODA insert and replace methods.
+         * SodaDocument attributes like createdOn will not be defined, and neither will attributes valid in options but not specified.
+         * The document will not be stored in the database until an insert or replace method is called.
+         *
+         * You only need to call createDocument() if your collection requires client-assigned keys or has non-JSON content,
+         * otherwise you can pass your JSON content directly to the SODA insert and replace methods.
+         *
+         * @param content The document content.
+         * @param options Optional properties for the document to be created.
+         */
+        createDocument(
+            content: string | Buffer | Record<string, any>,
+            options?: SodaDocumentOptions
+        ): SodaDocument;
+
+        /**
+         * Gets an array of collection names in alphabetical order.
+         *
+         * If oracledb.autoCommit is true, and getCollectionNames() succeeds, then any open transaction on the connection is committed.
+         *
+         * @param options If options is undefined, then all collection names will be returned.
+         *
+         * @since 3.0
+         */
+        getCollectionNames(options?: SodaCollectionNamesOptions): string[];
+        getCollectionNames(
+            options: SodaCollectionNamesOptions,
+            callback: (error: DBError, names: string[]) => void
+        ): void;
+        getCollectionNames(
+            callback: (error: DBError, names: string[]) => void
+        ): void;
+
+        /**
+         * Opens an existing SodaCollection of the given name. The collection can then be used to access documents.
+         *
+         * If the requested collection does not exist, it is not an error. Instead, the returned collection value
+         * will be undefined.
+         *
+         * If oracledb.autoCommit is true, and openCollection() succeeds, then any open transaction on the
+         * connection is committed.
+         *
+         * @param collectionName Name of the collection to open.
+         *
+         * @since 3.0
+         */
+        openCollection(collectionName: string): Promise<SodaCollection>;
+        openCollection(
+            collectionName: string,
+            callback: (error: DBError, collection: SodaCollection) => void
+        ): void;
+    }
+
+    /**
+     * Options which may be used when getting SODA collection names.
+     */
+    interface SodaCollectionNamesOptions {
+        /** Limits the number of names returned. If limit is 0 or undefined, then all collection names are returned. */
+        limit?: number;
+        /**
+         * Returns names that start with the given string, and all subsequent names, in alphabetic order.
+         * For example, if collections with names “cat”, “dog”, and “zebra” exist, then using startsWith of “d” will return
+         * “dog” and “zebra”. If startsWith is an empty string or undefined, all collection names are returned, subject to the value of limit.
+         */
+        startsWith?: string;
+    }
+
+    /**
+     * Used when creating a new SODA document.
+     */
+    interface SodaDocumentOptions {
+        /**
+         * Must be supplied if the document in intended to be inserted into a collection with client-assigned keys. It should be undefined, otherwise.
+         */
+        key?: string;
+        /**
+         * If the document has non-JSON content, then mediaType should be set to the desired media type. Using a MIME type is recommended.
+         *
+         * @default application/json
+         */
+        mediaType?: string;
     }
 
     /**
@@ -1940,9 +2270,11 @@ declare namespace oracledb {
          *
          * @since 3.0
          */
-        insertOne(newDocumentContent: NewSodaDocument): Promise<void>;
+        insertOne(newDocumentContent: { [key: string]: any }): Promise<void>;
         insertOne(
-            newDocumentContent: NewSodaDocument,
+            newDocumentContent: {
+                [key: string]: any;
+            },
             callback: (error: DBError) => void
         ): Promise<void>;
 
@@ -1990,13 +2322,96 @@ declare namespace oracledb {
          *
          * @since 3.0
          */
+        insertOneAndGet(newDocumentContent: {
+            [key: string]: any;
+        }): Promise<SodaDocument>;
         insertOneAndGet(
-            newDocumentContent: NewSodaDocument
-        ): Promise<SodaDocument>;
-        insertOneAndGet(
-            newDocumentContent: NewSodaDocument,
+            newDocumentContent: {
+                [key: string]: any;
+            },
             callback: (error: DBError, document: SodaDocument) => void
         ): Promise<void>;
+    }
+
+    /**
+     * Note SODA support in node-oracledb is in Preview status and should not be used in production.
+     * It will be supported with a future version of Oracle Client libraries.
+     *
+     * SodaDocuments represents the document for SODA read and write operations.
+     */
+    interface SodaDocument {
+        /** Creation time of the document as a string in the UTC time zone using an ISO8601 format. */
+        readonly createdOn: string;
+        /** Unique key value for this document. */
+        readonly key: string;
+        /** Last modified time of the document as a string in the UTC time zone using an ISO8601 format. */
+        readonly lastModified: string;
+        /**
+         * An arbitrary string value designating the content media type. The recommendation when creating documents is to use a MIME type for the media type.
+         * By default, collections store only JSON document content and this property will be ‘application/json’. This property will be null if the media type
+         * is unknown, which will only be in the rare case when a collection was created to store mixed or non-JSON content on top of a pre-existing database table,
+         * and that table has NULLs in its mediaType column.
+         */
+        readonly mediaType: string;
+        /** Version of the document. */
+        readonly version: string;
+
+        /**
+         * A synchronous method that returns the document content as an object.
+         *
+         * An exception will occur if the document content is not JSON and cannot be converted to an object.
+         *
+         * @since 3.0
+         */
+        getContent(): Record<string, any>;
+        /**
+         * A synchronous method that returns the document content as a Buffer.
+         *
+         * If the documents were originally created with sodaDatabase.createDocument(), then documents are returned as they were created.
+         *
+         * For documents fetched from the database where the collection storage is BLOB (which is the default), and whose mediaType is ‘application/json’,
+         * then the buffer returned is identical to that which was stored. If the storage is not BLOB, it is UTF-8 encoded.
+         *
+         * @since 3.0
+         */
+        getContentAsBuffer(): Buffer;
+        /**
+         * A synchronous method that returns JSON document content as a String.
+         *
+         * An exception will occur if the document content cannot be converted to a string.
+         *
+         * If the document encoding is not known, UTF8 will be used.
+         *
+         * @since 3.0
+         */
+        getContentAsString(): string;
+    }
+
+    /**
+     * Used to walk through a set of SODA documents returned from a find() getCursor() method.
+     */
+    interface SodaDocumentCursor {
+        /**
+         * This method closes a SodaDocumentCursor. It must be called when the cursor is no longer required.
+         *
+         * It releases resources in node-oracledb and Oracle Database.
+         *
+         * @since 3.0
+         */
+        close(): Promise<void>;
+        close(callback: (error: DBError) => void): void;
+
+        /**
+         * This method returns the next SodaDocument in the cursor returned by a find() terminal method read operation.
+         *
+         * If there are no more documents, the returned document parameter will be undefined.
+         *
+         * @since 3.0
+         */
+        getNext(): Promise<SodaDocument>;
+        getNext(
+            callback: (error: DBError, document: SodaDocument) => void
+        ): void;
     }
 
     /**
@@ -2020,7 +2435,7 @@ declare namespace oracledb {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sodaqbesearches
          * @since 3.0
          */
-        filter(filterSpec: TODO): SodaOperation;
+        filter(filterSpec: { [filter: string]: any }): SodaOperation;
         /**
          * Sets the key value to be used to match a document for the operation. Any previous calls made to this
          * method or keys() will be ignored.
@@ -2044,7 +2459,7 @@ declare namespace oracledb {
          *
          * @since 3.0
          */
-        keys(values: Array<string>): SodaOperation;
+        keys(values: string[]): SodaOperation;
         /**
          * Sets the maximum number of documents that a terminal method will apply to. The value of n must be
          * greater than 0. The limit is applied to documents that match the other SodaOperation criteria.
@@ -2131,9 +2546,9 @@ declare namespace oracledb {
          *
          * @since 3.0
          */
-        getDocuments(): Promise<Array<SodaDocument>>;
+        getDocuments(): Promise<SodaDocument[]>;
         getDocuments(
-            callback: (error: DBError, documents: Array<SodaDocument>) => void
+            callback: (error: DBError, documents: SodaDocument[]) => void
         ): void;
         /**
          * Obtains one document matching the SodaOperation query criteria. If the criteria match more
@@ -2213,11 +2628,13 @@ declare namespace oracledb {
          *
          * @since 3.0
          */
+        replaceOne(newDocumentContent: {
+            [key: string]: any;
+        }): Promise<SodaReplaceOneResult>;
         replaceOne(
-            newDocumentContent: NewSodaDocument
-        ): Promise<SodaReplaceOneResult>;
-        replaceOne(
-            newDocumentContent: NewSodaDocument,
+            newDocumentContent: {
+                [key: string]: any;
+            },
             callback: (error: DBError, result: SodaReplaceOneResult) => void
         ): void;
         /**
@@ -2251,11 +2668,13 @@ declare namespace oracledb {
          *
          * @since 3.0
          */
+        replaceOneAndGet(newDocumentContent: {
+            [key: string]: any;
+        }): Promise<SodaDocument>;
         replaceOneAndGet(
-            newDocumentContent: NewSodaDocument
-        ): Promise<SodaDocument>;
-        replaceOneAndGet(
-            newDocumentContent: NewSodaDocument,
+            newDocumentContent: {
+                [key: string]: any;
+            },
             callback: (error: DBError, document: SodaDocument) => void
         ): void;
     }
@@ -2314,7 +2733,7 @@ declare namespace oracledb {
         /** Name of the index. */
         name: string;
         /** Each object targets a field in the indexed documents that has a scalar JSON value. */
-        fields: Array<BTreeIndexField>;
+        fields: BTreeIndexField[];
         /**
          * Specifies whether or not the index is unique.
          *
@@ -2369,7 +2788,7 @@ declare namespace oracledb {
         name: string;
     }
 
-    interface SodaOptions {
+    interface SodaCollectionOptions {
         /**
          * Metadata specifying various details about the collection, such as its database storage, whether it should
          * track version and time stamp document components, how such components are generated, and what document
