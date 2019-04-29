@@ -45,7 +45,8 @@ export interface TaskStatusAware<Result = any, Args extends any[] = any[]> exten
 export interface TaskCreator<K extends keyof TaskOptions<any>> extends MethodDecorator, PropertyDecorator {
     <R, A extends any[]>(func: TaskFunc<R, A>, options?: Pick<TaskOptions<WithoutPromise<R>>, K>): TaskStatusAware<WithoutPromise<R>, A>;
 
-    (options: Pick<TaskOptions<WithoutPromise<any>>, K>): PropertyDecorator | MethodDecorator;
+    (options: Pick<TaskOptions<WithoutPromise<any>>, K>): PropertyDecorator;
+    (options: Pick<TaskOptions<WithoutPromise<any>>, K>): MethodDecorator;
 }
 
 export interface TaskFactory extends TaskCreator<keyof TaskOptions<any>> {

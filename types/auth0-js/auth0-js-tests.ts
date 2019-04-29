@@ -126,8 +126,7 @@ webAuth.renewAuth({
 }, (err, authResult) => {});
 
 webAuth.changePassword({connection: 'the_connection',
-    email: 'me@example.com',
-    password: '123456'
+    email: 'me@example.com'
 }, (err) => {});
 
 webAuth.passwordlessStart({
@@ -250,7 +249,7 @@ authentication.getSSOData();
 authentication.getSSOData(true, (err, data) => {});
 
 authentication.dbConnection.signup({connection: 'bla', email: 'blabla', password: '123456'}, () => {});
-authentication.dbConnection.changePassword({connection: 'bla', email: 'blabla', password: '123456'}, () => {});
+authentication.dbConnection.changePassword({connection: 'bla', email: 'blabla'}, () => {});
 
 authentication.passwordless.start({ connection: 'bla', send: 'blabla' }, () => {});
 authentication.passwordless.verify({ connection: 'bla', verificationCode: 'asdfasd', email: 'me@example.com' }, () => {});

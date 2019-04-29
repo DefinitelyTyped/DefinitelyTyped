@@ -180,6 +180,7 @@ declare module "http" {
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
+        complete: boolean;
         connection: Socket;
         headers: IncomingHttpHeaders;
         rawHeaders: string[];

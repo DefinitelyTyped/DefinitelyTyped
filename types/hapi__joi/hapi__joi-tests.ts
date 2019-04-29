@@ -83,11 +83,9 @@ renOpts = { ignoreUndefined: bool };
 
 let emailOpts: Joi.EmailOptions = {};
 
-emailOpts = { errorLevel: num };
-emailOpts = { errorLevel: bool };
-emailOpts = { tldWhitelist: strArr };
-emailOpts = { tldWhitelist: obj };
-emailOpts = { minDomainAtoms: num };
+emailOpts = { allowUnicode: bool };
+emailOpts = { tlds: { allow: strArr } };
+emailOpts = { minDomainSegments: num };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
