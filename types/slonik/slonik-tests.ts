@@ -97,6 +97,34 @@ pool.connect(async (connection) => {
   });
 pool.query(sql`SELECT * FROM table WHERE name = '${VALUE}'`);
 
+const typedQuery = async () => {
+  interface Foo { foo: string; }
+  interface FooBar extends Foo { bar: number; }
+  const getFooQuery = (limit: number) =>
+    sql<Foo>`select foo from foobartable limit ${limit}`;
+
+  const getFooBarQuery = (limit: number) =>
+    sql<FooBar>`select foo, bar from foobartable limit ${limit}`;
+
+  // $ExpectType QueryResultType<FooBar>
+  await pool.query(getFooBarQuery(10));
+
+  // $ExpectType string
+  await pool.oneFirst(getFooQuery(10));
+
+  // $ExpectType FooBar
+  await pool.one(getFooBarQuery(10));
+
+  // $ExpectType string | null
+  await pool.maybeOneFirst(getFooQuery(10));
+
+  // $ExpectType FooBar | null
+  await pool.maybeOne(getFooBarQuery(10));
+
+  // $ExpectType FooBar[]
+  await pool.any(getFooBarQuery(10));
+};
+
 createPool('postgres://localhost', {
   interceptors: [
     {
