@@ -2247,7 +2247,7 @@ declare namespace _ {
         <T extends lodash.AnyKindOfDictionary>(paths: lodash.Many<lodash.PropertyName>, object: T | null | undefined): T;
         <T extends object, K extends keyof T>(paths: lodash.Many<K>): LodashOmit2x1<T, K>;
         <T extends object>(paths: lodash.__, object: T | null | undefined): LodashOmit2x2<T>;
-        <T extends object, K extends keyof T>(paths: lodash.Many<K>, object: T | null | undefined): Omit<T, K>;
+        <T extends object, K extends keyof T>(paths: lodash.Many<K>, object: T | null | undefined): lodash.Omit<T, K>;
         <T extends object>(paths: lodash.Many<lodash.PropertyName>, object: T | null | undefined): lodash.PartialObject<T>;
     }
     interface LodashOmit1x1 {
@@ -2255,9 +2255,9 @@ declare namespace _ {
         <T extends object>(object: T | null | undefined): lodash.PartialObject<T>;
     }
     type LodashOmit1x2<T> = (paths: lodash.Many<lodash.PropertyName>) => T;
-    type LodashOmit2x1<T, K extends keyof T> = (object: T | null | undefined) => Omit<T, K>;
+    type LodashOmit2x1<T, K extends keyof T> = (object: T | null | undefined) => lodash.Omit<T, K>;
     interface LodashOmit2x2<T> {
-        <K extends keyof T>(paths: lodash.Many<K>): Omit<T, K>;
+        <K extends keyof T>(paths: lodash.Many<K>): lodash.Omit<T, K>;
         (paths: lodash.Many<lodash.PropertyName>): lodash.PartialObject<T>;
     }
     interface LodashOmitBy {

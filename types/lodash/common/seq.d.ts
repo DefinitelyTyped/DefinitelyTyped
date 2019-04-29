@@ -3,8 +3,9 @@ declare module "../index" {
     // chain
     interface Stat {
         chain(value: string): ExpS;
-        chain<TrapAny extends { __trapAny: any }, T = any>(value: TrapAny | List<T> | null | undefined): ExpL<T>;
+        chain<TrapAny extends { __lodashAnyHack: any }>(value: TrapAny): ExpL<any>;
         chain<T extends (...args:any[]) => any>(value: T): ExpF<T>;
+        chain<T = any>(value: List<T> | null | undefined): ExpL<T>;
         chain<T extends object>(value: T | null | undefined): ExpO<T>;
         chain<T>(value: T): ExpU<T>;
     }

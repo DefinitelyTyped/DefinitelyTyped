@@ -2,12 +2,14 @@ import _ = require("../index");
 // tslint:disable-next-line:strict-export-declare-modifiers
 type GlobalPartial<T> = Partial<T>;
 declare module "../index" {
+    type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
     type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | ReadonlyArray<T>;
     interface Stat {
         (value: string): ImpS;
-        <TrapAny extends { __trapAny: any }, T = any>(value: TrapAny | List<T> | null | undefined): ImpL<T>;
+        <TrapAny extends { __trapAny: any }>(value: TrapAny): ImpL<any>;
         <T extends (...args:any[]) => any>(value: T): ImpF<T>;
+        <T = any>(value: List<T> | null | undefined): ImpL<T>;
         <T extends object>(value: T | null | undefined): ImpO<T>;
         <T>(value: T): ImpU<T>;
         VERSION: string;
