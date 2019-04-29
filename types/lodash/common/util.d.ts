@@ -338,7 +338,7 @@ declare module "../index" {
         iteratee<TFunction extends (...args: any[]) => any>(func: TFunction): TFunction;
         iteratee(func: string | object): (...args: any[]) => any;
     }
-    interface ImpF<T extends (...args: any[]) => any> {
+    interface ImpF<T extends (...args: any) => any> {
         iteratee(): ImpF<T>;
     }
     interface ImpL<T> {
@@ -350,7 +350,7 @@ declare module "../index" {
     interface ImpS {
         iteratee(): ImpF<(o: object) => boolean>;
     }
-    interface ExpF<T extends (...args: any[]) => any> {
+    interface ExpF<T extends (...args: any) => any> {
         iteratee(): ExpF<T>;
     }
     interface ExpL<T> {
@@ -460,13 +460,13 @@ declare module "../index" {
         over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): ImpF<(...args: any[]) => TResult[]>;
     }
     interface ImpF<T> {
-        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): ImpF<(...args: any[]) => (ReturnType<T> | TResult)[]>;
+        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): ImpF<(...args: any[]) => Array<ReturnType<T> | TResult>>;
     }
     interface ExpL<T> {
         over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): ExpF<(...args: any[]) => TResult[]>;
     }
     interface ExpF<T> {
-        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): ExpF<(...args: any[]) => (ReturnType<T> | TResult)[]>;
+        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): ExpF<(...args: any[]) => Array<ReturnType<T> | TResult>>;
     }
 
     interface Stat {
@@ -484,7 +484,6 @@ declare module "../index" {
     interface ExpF<T> {
         overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args: Parameters<T> | TArgs[]) => boolean[]>;
     }
-
 
     interface Stat {
         overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;

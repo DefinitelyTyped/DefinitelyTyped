@@ -12,7 +12,7 @@ declare module "../index" {
     interface ImpO<T> {
         castArray(): ImpL<T>;
     }
-    interface ImpF<T extends (...args: any[]) => any> {
+    interface ImpF<T extends (...args: any) => any> {
         castArray(): ImpL<T>;
     }
     interface ImpU<T> {
@@ -27,7 +27,7 @@ declare module "../index" {
     interface ExpO<T> {
         castArray(): ExpL<T>;
     }
-    interface ExpF<T extends (...args: any[]) => any> {
+    interface ExpF<T extends (...args: any) => any> {
         castArray(): ExpL<T>;
     }
     interface ExpU<T> {
@@ -517,7 +517,7 @@ declare module "../index" {
         toArray(): ImpL<T>;
     }
     interface ImpO<T> {
-        toArray(): ImpL<T[keyof T]>
+        toArray(): ImpL<T[keyof T]>;
     }
     interface ExpS {
         toArray(): ExpL<string>;
@@ -526,7 +526,7 @@ declare module "../index" {
         toArray(): ExpL<T>;
     }
     interface ExpO<T> {
-        toArray(): ExpL<T[keyof T]>
+        toArray(): ExpL<T[keyof T]>;
     }
 
     interface Stat {

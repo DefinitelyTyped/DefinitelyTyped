@@ -4,7 +4,7 @@ declare module "../index" {
     interface Stat {
         chain(value: string): ExpS;
         chain<TrapAny extends { __lodashAnyHack: any }>(value: TrapAny): ExpL<any>;
-        chain<T extends (...args:any[]) => any>(value: T): ExpF<T>;
+        chain<T extends (...args: any[]) => any>(value: T): ExpF<T>;
         chain<T = any>(value: List<T> | null | undefined): ExpL<T>;
         chain<T extends object>(value: T | null | undefined): ExpO<T>;
         chain<T>(value: T): ExpU<T>;
@@ -21,7 +21,7 @@ declare module "../index" {
     interface ImpU<T> {
         chain(): ExpU<T>;
     }
-    interface ImpF<T extends (...args: any[]) => any> {
+    interface ImpF<T extends (...args: any) => any> {
         chain(): ExpF<T>;
     }
     interface Exp<TValue> {
