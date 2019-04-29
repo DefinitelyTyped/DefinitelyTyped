@@ -29,7 +29,7 @@ declare namespace TransitionGroup {
  * automatically by the `<TransitionGroup>`. You can use _any_ `<Transition>`
  * component in a `<TransitionGroup>`, not just css.
  *
- * ```js
+ * ```jsx
  * import TransitionGroup from 'react-transition-group/TransitionGroup';
  *
  * class TodoList extends React.Component {
