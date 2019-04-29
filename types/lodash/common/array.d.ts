@@ -60,12 +60,12 @@ declare module "../index" {
         differenceBy<T>(array: List<T> | null | undefined, ...values: Array<List<T>>): T[];
     }
     interface ImpL<T> {
-        differenceBy<T2>(values1: T2, iteratee?: ValueIteratee<T | T2>): ImpL<T>;
+        differenceBy<T2>(values1: List<T2>, iteratee?: ValueIteratee<T | T2>): ImpL<T>;
         differenceBy(...values: Array<List<unknown> | ValueIteratee<T>>): ImpL<T>;
     }
     interface ExpL<T> {
-        differenceBy<T2>(values1: T2, iteratee?: ValueIteratee<T | T2>): ExpL<T>;
-        differenceBy<T>(...values: Array<List<unknown> | ValueIteratee<T>>): ExpL<T>;
+        differenceBy<T2>(values1: List<T2>, iteratee?: ValueIteratee<T | T2>): ExpL<T>;
+        differenceBy(...values: Array<List<unknown> | ValueIteratee<T>>): ExpL<T>;
     }
     interface Stat {
         differenceWith<T1, T2>(array: List<T1> | null | undefined, values: List<T2>, comparator: Comparator2<T1, T2>): T1[];
@@ -168,25 +168,25 @@ declare module "../index" {
         flatten<T>(array: List<Many<T>> | null | undefined): T[];
     }
     interface ImpS {
-        flatten(): ImpS;
+        flatten(): ImpL<string>;
     }
     interface ExpS {
-        flatten(): ExpS;
+        flatten(): ExpL<string>;
     }
     interface ImpL<T> {
-        flatten(): ImpL<T>;
+        flatten(): T extends Many<infer U> ? ImpL<U> : ImpL<T>;
     }
     interface ExpL<T> {
-        flatten(): ExpL<T>;
+        flatten(): T extends Many<infer U> ? ExpL<U> : ExpL<T>;
     }
     interface Stat {
         flattenDeep<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined): T[];
     }
     interface ImpL<T> {
-        flattenDeep(): ImpL<T[]>;
+        flattenDeep(): ImpL<T>;
     }
     interface ExpL<T> {
-        flattenDeep(): ExpL<T[]>;
+        flattenDeep(): ExpL<T>;
     }
     interface Stat {
         flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, depth?: number): T[];
@@ -216,7 +216,7 @@ declare module "../index" {
         head(): string | undefined;
     }
     interface ExpS {
-        head(): string | undefined;
+        head(): Exp<string | undefined>;
     }
     interface ImpL<T> {
         head(): T | undefined;
@@ -276,7 +276,7 @@ declare module "../index" {
         intersectionWith(...values: Array<List<unknown> | Comparator2<T,  never>>): ImpL<T>;
     }
     interface ExpL<T> {
-        intersectionWith<T, T2>(values: List<T2>, comparator: Comparator2<T, T2>): ExpL<T>;
+        intersectionWith<T2>(values: List<T2>, comparator: Comparator2<T, T2>): ExpL<T>;
         intersectionWith(...values: Array<List<unknown> | Comparator2<T,  never>>): ExpL<T>;
     }
     interface Stat {
@@ -286,13 +286,13 @@ declare module "../index" {
         join(separator?: string): string;
     }
     interface ExpS {
-        join(separator?: string): Exp<string>;
+        join(separator?: string): ExpS;
     }
     interface ImpL<T> {
         join(separator?: string): string;
     }
     interface ExpL<T> {
-        join(separator?: string): Exp<string>;
+        join(separator?: string): ExpS;
     }
     interface Stat {
         last<T>(array: List<T> | null | undefined): T | undefined;

@@ -133,17 +133,17 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _.chain(list).differenceBy(arrayParam, valueIterator); // $ExpectType ExpL<AbcObject>
     _.chain(list).differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, valueIterator); // $ExpectType ExpL<AbcObject>
     // $ExpectType ExpL<AbcObject>
-    _.chain(list).differenceBy<AbcObject>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, valueIterator);
+    _.chain(list).differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, valueIterator);
 
     _.chain(list).differenceBy(arrayParam, "a"); // $ExpectType ExpL<AbcObject>
     _.chain(list).differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, "a"); // $ExpectType ExpL<AbcObject>
     // $ExpectType ExpL<AbcObject>
-    _.chain(list).differenceBy<AbcObject>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, "a");
+    _.chain(list).differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, "a");
 
     _.chain(list).differenceBy(arrayParam, {a: 1}); // $ExpectType ExpL<AbcObject>
     _.chain(list).differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, 'a'); // $ExpectType ExpL<AbcObject>
     // $ExpectType ExpL<AbcObject>
-    _.chain(list).differenceBy<AbcObject>(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
+    _.chain(list).differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
 
     fp.differenceBy(valueIterator, list, arrayParam); // $ExpectType AbcObject[]
     fp.differenceBy<AbcObject, AbcObject>(valueIterator)(list)(listParam); // $ExpectType AbcObject[]
@@ -208,14 +208,14 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
             value; // $ExpectType T1 | T2 | T3
             return 0;
         });
-        // $ExpectType ImpL<(T1 | T2)>
+        // $ExpectType ImpL<T1 | T2>
         _([t1, t2]).differenceBy([t3], (value) => {
             value; // $ExpectType T1 | T2 | T3
             return 0;
         });
         // $ExpectType ImpL<T1>
         _([t1]).differenceBy([t2], [t3], [t4], [""], [42], (value) => {
-            value; // $ExpectType string | number | T1 | T2 | T3 | T4
+            value; // $ExpectType T1
             return 0;
         });
 
@@ -231,14 +231,14 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
             value; // $ExpectType T1 | T2 | T3
             return 0;
         });
-        // $ExpectType ExpL<(T1 | T2)>
+        // $ExpectType ExpL<T1 | T2>
         _.chain([t1, t2]).differenceBy([t3], (value) => {
             value; // $ExpectType T1 | T2 | T3
             return 0;
         });
         // $ExpectType ExpL<T1>
         _.chain([t1]).differenceBy([t2], [t3], [t4], [""], [42], (value) => {
-            value; // $ExpectType string | number | T1 | T2 | T3 | T4
+            value; // $ExpectType T1
             return 0;
         });
 
@@ -496,12 +496,12 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _.flattenDeep<number>({0: 1, 1: [2, [3, [4, 5]]], length: 2}); // $ExpectType number[]
 
     _([1, 2, 3]).flattenDeep(); // $ExpectType ImpL<number>
-    _([1, [2, [3, [4, 5]]]]).flattenDeep(); // $ExpectType ImpL<number>
-    _({0: 1, 1: [2, [3, [4, 5]]], length: 2}).flattenDeep(); // $ExpectType ImpL<number>
+    _([1, [2, [3, [4, 5]]]]).flattenDeep(); // $ExpectType ImpL<number | (number | (number | number[])[])[]>
+    _({0: 1, 1: [2, [3, [4, 5]]], length: 2}).flattenDeep(); // $ExpectType ImpL<number | (number | (number | number[])[])[]>
 
     _.chain([1, 2, 3]).flattenDeep(); // $ExpectType ExpL<number>
-    _.chain([1, [2, [3, [4, 5]]]]).flattenDeep(); // $ExpectType ExpL<number>
-    _.chain({0: 1, 1: [2, [3, [4, 5]]], length: 2}).flattenDeep(); // $ExpectType ExpL<number>
+    _.chain([1, [2, [3, [4, 5]]]]).flattenDeep(); // $ExpectType ExpL<number | (number | (number | number[])[])[]>
+    _.chain({0: 1, 1: [2, [3, [4, 5]]], length: 2}).flattenDeep(); // $ExpectType ExpL<number | (number | (number | number[])[])[]>
 
     fp.flattenDeep<number>([1, 2, 3]); // $ExpectType number[]
     fp.flattenDeep<number>([1, [2, [3, [4, 5]]]]); // $ExpectType number[]
@@ -803,16 +803,16 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(array).pull(); // $ExpectType ImpL<AbcObject>
     _(array).pull(abcObject); // $ExpectType ImpL<AbcObject>
     _(array).pull(abcObject, abcObject, abcObject); // $ExpectType ImpL<AbcObject>
-    _(list).pull(); // $ExpectType Imp<ArrayLike<AbcObject>>
-    _(list).pull(abcObject); // $ExpectType Imp<ArrayLike<AbcObject>>
-    _(list).pull(abcObject, abcObject, abcObject); // $ExpectType Imp<ArrayLike<AbcObject>>
+    _(list).pull(); // $ExpectType ImpL<AbcObject>
+    _(list).pull(abcObject); // $ExpectType ImpL<AbcObject>
+    _(list).pull(abcObject, abcObject, abcObject); // $ExpectType ImpL<AbcObject>
 
     _.chain(array).pull(); // $ExpectType ExpL<AbcObject>
     _.chain(array).pull(abcObject); // $ExpectType ExpL<AbcObject>
     _.chain(array).pull(abcObject, abcObject, abcObject); // $ExpectType ExpL<AbcObject>
-    _.chain(list).pull(); // $ExpectType Exp<ArrayLike<AbcObject>>
-    _.chain(list).pull(abcObject); // $ExpectType Exp<ArrayLike<AbcObject>>
-    _.chain(list).pull(abcObject, abcObject, abcObject); // $ExpectType Exp<ArrayLike<AbcObject>>
+    _.chain(list).pull(); // $ExpectType ExpL<AbcObject>
+    _.chain(list).pull(abcObject); // $ExpectType ExpL<AbcObject>
+    _.chain(list).pull(abcObject, abcObject, abcObject); // $ExpectType ExpL<AbcObject>
 
     fp.pull(abcObject, array); // $ExpectType AbcObject[]
     fp.pull(abcObject)(list); // $ExpectType ArrayLike<AbcObject>
@@ -833,16 +833,16 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(array).pullAt(); // $ExpectType ImpL<AbcObject>
     _(array).pullAt(1); // $ExpectType ImpL<AbcObject>
     _(array).pullAt([2, 3], 4); // $ExpectType ImpL<AbcObject>
-    _(list).pullAt(); // $ExpectType Imp<ArrayLike<AbcObject>>
-    _(list).pullAt(1); // $ExpectType Imp<ArrayLike<AbcObject>>
-    _(list).pullAt([2, 3], 4); // $ExpectType Imp<ArrayLike<AbcObject>>
+    _(list).pullAt(); // $ExpectType ImpL<AbcObject>
+    _(list).pullAt(1); // $ExpectType ImpL<AbcObject>
+    _(list).pullAt([2, 3], 4); // $ExpectType ImpL<AbcObject>
 
     _.chain(array).pullAt(); // $ExpectType ExpL<AbcObject>
     _.chain(array).pullAt(1); // $ExpectType ExpL<AbcObject>
     _.chain(array).pullAt([2, 3], 4); // $ExpectType ExpL<AbcObject>
-    _.chain(list).pullAt(); // $ExpectType Exp<ArrayLike<AbcObject>>
-    _.chain(list).pullAt(1); // $ExpectType Exp<ArrayLike<AbcObject>>
-    _.chain(list).pullAt([2, 3], 4); // $ExpectType Exp<ArrayLike<AbcObject>>
+    _.chain(list).pullAt(); // $ExpectType ExpL<AbcObject>
+    _.chain(list).pullAt(1); // $ExpectType ExpL<AbcObject>
+    _.chain(list).pullAt([2, 3], 4); // $ExpectType ExpL<AbcObject>
 
     fp.pullAt(1, array); // $ExpectType AbcObject[]
     fp.pullAt([2, 3], array); // $ExpectType AbcObject[]
@@ -864,13 +864,13 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
 
     _(array).pullAll(); // $ExpectType ImpL<AbcObject>
     _(array).pullAll(values); // $ExpectType ImpL<AbcObject>
-    _(list).pullAll(); // $ExpectType Imp<ArrayLike<AbcObject>>
-    _(list).pullAll(values); // $ExpectType Imp<ArrayLike<AbcObject>>
+    _(list).pullAll(); // $ExpectType ImpL<AbcObject>
+    _(list).pullAll(values); // $ExpectType ImpL<AbcObject>
 
     _.chain(array).pullAll(); // $ExpectType ExpL<AbcObject>
     _.chain(array).pullAll(values); // $ExpectType ExpL<AbcObject>
-    _.chain(list).pullAll(); // $ExpectType Exp<ArrayLike<AbcObject>>
-    _.chain(list).pullAll(values); // $ExpectType Exp<ArrayLike<AbcObject>>
+    _.chain(list).pullAll(); // $ExpectType ExpL<AbcObject>
+    _.chain(list).pullAll(values); // $ExpectType ExpL<AbcObject>
 
     fp.pullAll(values, array); // $ExpectType AbcObject[]
     fp.pullAll(values, list); // $ExpectType ArrayLike<AbcObject>
@@ -910,9 +910,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
         value; // $ExpectType AbcObject
         return 0;
     });
-    _(list).pullAllBy(); // $ExpectType Imp<ArrayLike<AbcObject>>
-    _(list).pullAllBy(values, "a"); // $ExpectType Imp<ArrayLike<AbcObject>>
-    // $ExpectType Imp<ArrayLike<AbcObject>>
+    _(list).pullAllBy(); // $ExpectType ImpL<AbcObject>
+    _(list).pullAllBy(values, "a"); // $ExpectType ImpL<AbcObject>
+    // $ExpectType ImpL<AbcObject>
     _(list).pullAllBy(values, (value) => {
         value; // $ExpectType AbcObject
         return 0;
@@ -925,9 +925,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
         value; // $ExpectType AbcObject
         return 0;
     });
-    _.chain(list).pullAllBy(); // $ExpectType Exp<ArrayLike<AbcObject>>
-    _.chain(list).pullAllBy(values, "a"); // $ExpectType Exp<ArrayLike<AbcObject>>
-    // $ExpectType Exp<ArrayLike<AbcObject>>
+    _.chain(list).pullAllBy(); // $ExpectType ExpL<AbcObject>
+    _.chain(list).pullAllBy(values, "a"); // $ExpectType ExpL<AbcObject>
+    // $ExpectType ExpL<AbcObject>
     _.chain(list).pullAllBy(values, (value) => {
         value; // $ExpectType AbcObject
         return 0;
