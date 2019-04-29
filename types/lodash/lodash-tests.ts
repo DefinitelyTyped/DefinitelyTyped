@@ -1001,8 +1001,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
         b; // $ExpectType AbcObject
         return true;
     });
-    _(list).pullAllWith(); // $ExpectType Imp<ArrayLike<AbcObject>>
-    // $ExpectType Imp<ArrayLike<AbcObject>>
+    _(list).pullAllWith(); // $ExpectType ImpL<AbcObject>
+    // $ExpectType ImpL<AbcObject>
     _(list).pullAllWith(values, (a, b) => {
         a; // $ExpectType AbcObject
         b; // $ExpectType AbcObject
@@ -1017,8 +1017,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
         b; // $ExpectType AbcObject
         return true;
     });
-    _.chain(list).pullAllWith(); // $ExpectType Exp<ArrayLike<AbcObject>>
-    // $ExpectType Exp<ArrayLike<AbcObject>>
+    _.chain(list).pullAllWith(); // $ExpectType ExpL<AbcObject>
+    // $ExpectType ExpL<AbcObject>
     _.chain(list).pullAllWith(values, (a, b) => {
         a; // $ExpectType AbcObject
         b; // $ExpectType AbcObject
@@ -1464,8 +1464,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
 
     _.zipObjectDeep(["a.b[0].c", "a.b[1].d"], [1, 2]); // $ExpectType object
     _.zipObjectDeep(listOfKeys, listOfValues); // $ExpectType object
-    _(listOfKeys).zipObjectDeep(listOfValues); // $ExpectType Imp<object>
-    _.chain(listOfKeys).zipObjectDeep(listOfValues); // $ExpectType Exp<object>
+    _(listOfKeys).zipObjectDeep(listOfValues); // $ExpectType ImpO<object>
+    _.chain(listOfKeys).zipObjectDeep(listOfValues); // $ExpectType ExpO<object>
     fp.zipObjectDeep(["a.b[0].c", "a.b[1].d"], [1, 2]); // $ExpectType object
     fp.zipObjectDeep(listOfKeys)(listOfValues); // $ExpectType object
 }
@@ -1571,12 +1571,12 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(list).at(0, "1", [2], ["3"], [4, "5"]); // $ExpectType ImpL<AbcObject>
     _(numericDictionary).at(0, 1, [2], [3], [4, 5]); // $ExpectType ImpL<AbcObject>
     _(dictionary).at("a", ["b", "c"]); // $ExpectType ImpL<AbcObject>
-    _(abcObject).at("a", ["b", "c"]); // $ExpectType ImpL<(string | number | boolean)>
+    _(abcObject).at("a", ["b", "c"]); // $ExpectType ImpL<string | number | boolean>
 
     _.chain(list).at(0, "1", [2], ["3"], [4, "5"]); // $ExpectType ExpL<AbcObject>
     _.chain(numericDictionary).at(0, 1, [2], [3], [4, 5]); // $ExpectType ExpL<AbcObject>
     _.chain(dictionary).at("a", ["b", "c"]); // $ExpectType ExpL<AbcObject>
-    _.chain(abcObject).at("a", ["b", "c"]); // $ExpectType ExpL<(string | number | boolean)>
+    _.chain(abcObject).at("a", ["b", "c"]); // $ExpectType ExpL<string | number | boolean>
 
     fp.at(0, list); // $ExpectType AbcObject[]
     fp.at(0)(list); // $ExpectType AbcObject[]
@@ -2012,7 +2012,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _.flatMapDeep(objNumericDictionary, { a: 42 }); // $ExpectType boolean[]
 
     _("abc").flatMapDeep(stringIterator); // $ExpectType ImpL<string>
-    _(numList).flatMapDeep(); // $ExpectType ImpL<number>
+    _(numList).flatMapDeep(); // $ExpectType ImpL<number | number[]>
     _(numList).flatMapDeep(listIterator); // $ExpectType ImpL<number>
     _(objList).flatMapDeep("a"); // $ExpectType ImpL<any>
     _(objList).flatMapDeep(["a", 42]); // $ExpectType ImpL<boolean>
@@ -2023,7 +2023,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(objNumericDictionary).flatMapDeep("a"); // $ExpectType ImpL<any>
 
     _.chain("abc").flatMapDeep(stringIterator); // $ExpectType ExpL<string>
-    _.chain(numList).flatMapDeep(); // $ExpectType ExpL<number>
+    _.chain(numList).flatMapDeep(); // $ExpectType ExpL<number | number[]>
     _.chain(numList).flatMapDeep(listIterator); // $ExpectType ExpL<number>
     _.chain(objList).flatMapDeep("a"); // $ExpectType ExpL<any>
     _.chain(objList).flatMapDeep(["a", 42]); // $ExpectType ExpL<boolean>

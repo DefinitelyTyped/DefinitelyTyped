@@ -366,10 +366,10 @@ declare module "../index" {
         pullAllWith<T1, T2>(array: List<T1>, values: List<T2>, comparator: Comparator2<T1, T2>): List<T1>;
     }
     interface ImpL<T> {
-        pullAllWith<T, T2>(values?: List<T2>, comparator?: Comparator2<T, T2>): ImpL<T>;
+        pullAllWith<T2>(values?: List<T2>, comparator?: Comparator2<T, T2>): ImpL<T>;
     }
     interface ExpL<T> {
-        pullAllWith<T, T2>(values?: List<T2>, comparator?: Comparator2<T, T2>): ExpL<T>;
+        pullAllWith<T2>(values?: List<T2>, comparator?: Comparator2<T, T2>): ExpL<T>;
     }
     interface Stat {
         pullAt<T>(array: T[], ...indexes: Array<Many<number>>): T[];
@@ -606,11 +606,11 @@ declare module "../index" {
         unzipWith<T>(array: List<List<T>> | null | undefined): T[][];
     }
     interface ImpL<T> {
-        unzipWith<TResult>(iteratee: (...values: Array<T extends List<infer U> ? U : unknown>) => TResult): Imp<TResult[]>;
+        unzipWith<TResult>(iteratee: (...values: Array<T extends List<infer U> ? U : unknown>) => TResult): ImpL<TResult>;
         unzipWith(): T extends List<infer U> ? ImpL<U[]> : unknown;
     }
     interface ExpL<T> {
-        unzipWith<TResult>(iteratee: (...values: Array<T extends List<infer U> ? U : unknown>) => TResult): Exp<TResult[]>;
+        unzipWith<TResult>(iteratee: (...values: Array<T extends List<infer U> ? U : unknown>) => TResult): ExpL<TResult>;
         unzipWith(): T extends List<infer U> ? ExpL<U[]> : unknown;
     }
     interface Stat {
@@ -670,14 +670,14 @@ declare module "../index" {
     }
     interface ExpL<T> {
         zip<T2>(arrays2: List<T2>): Exp<[T | undefined, T2 | undefined]>;
-        zip(...arrays: Array<List<T> | null | undefined>): Exp<Array<T | undefined>>;
+        zip(...arrays: Array<List<T> | null | undefined>): ExpL<Array<T | undefined>>;
     }
     interface Stat {
         zipObject<T>(props: List<PropertyName>, values: List<T>): Dictionary<T>;
         zipObject(props?: List<PropertyName>): Dictionary<undefined>;
     }
     interface ImpL<T> {
-        zipObject<U>(values: List<U>): Imp<Dictionary<T>>;
+        zipObject<U>(values: List<U>): Imp<Dictionary<U>>;
         zipObject(): Imp<Dictionary<undefined>>;
     }
     interface ExpL<T> {
