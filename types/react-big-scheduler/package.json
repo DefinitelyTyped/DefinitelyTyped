@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "react": "^16.0.0",
+        "moment": "^2.18.1"
+    }
+}
