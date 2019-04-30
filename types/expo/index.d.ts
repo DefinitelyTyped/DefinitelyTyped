@@ -2529,10 +2529,12 @@ export namespace SecureStore {
  * Segment
  */
 export namespace Segment {
-    function initialize(keys: {
-        androidWriteKey: string;
-        iosWriteKey: string;
-    }): void;
+    interface SegmentOptions {
+        androidWriteKey?: string;
+        iosWriteKey?: string;
+    }
+
+    function initialize(options: SegmentOptions): void;
     function identify(userId: string): void;
     function identifyWithTraits(userId: string, traits: object): void;
     function track(event: string): void;
