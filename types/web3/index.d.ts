@@ -17,6 +17,9 @@
 //                 Konstantin Melnikov <https://github.com/archangel-irk>
 //                 Asgeir Sognefest <https://github.com/sogasg>
 //                 Donam Kim <https://github.com/donamk>
+//                 Doug Kent <https://github.com/dkent600>
+//                 Daniel Zhou <https://github.com/nerddan>
+//                 Alex Kvak <https://github.com/alexkvak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 

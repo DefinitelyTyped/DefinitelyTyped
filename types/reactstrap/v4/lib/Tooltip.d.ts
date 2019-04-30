@@ -37,7 +37,5 @@ interface Props extends UncontrolledProps {
   isOpen?: boolean;
 }
 
-
-
 declare var Tooltip: React.StatelessComponent<Props>;
 export default Tooltip;

@@ -33,6 +33,8 @@ declare namespace spinner {
          * for circle or folding-cube); this can either be a hex value or a color word
          */
         color?: string;
+
+        style?: React.CSSProperties
 	}
 
 	export interface Spinner extends React.ComponentClass<SpinnerProps> {

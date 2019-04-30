@@ -15,5 +15,5 @@ io.sockets.on('connection', (socket) => {
     // a wrapper around socket.io.  Much less likely is either
     // a type error in the TypeScript definitions of socket.io or
     // an error in the Hapi docs.
-    socket.emit(<any> { msg: 'welcome' });
+    socket.emit({ msg: 'welcome' } as any);
 });

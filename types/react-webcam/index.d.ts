@@ -1,8 +1,9 @@
-// Type definitions for react-webcam 0.3
+// Type definitions for react-webcam 1.1
 // Project: https://github.com/mozmorris/react-webcam
 // Definitions by: Lucas Servén Marín <https://github.com/squat>
+//                 Søren Englund <https://github.com/englund92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.4
 
 import * as React from 'react';
 
@@ -20,15 +21,19 @@ declare class Webcam extends React.Component<Webcam.WebcamProps, Webcam.WebcamSt
 declare namespace Webcam {
     interface WebcamProps {
         audio?: boolean;
-        muted?: boolean;
+        onUserMedia?(): void;
+        onUserMediaError?(): void;
         height?: number|string;
         width?: number|string;
         screenshotFormat?: 'image/jpeg' | 'image/png' | 'image/webp';
         style?: React.CSSProperties;
         className?: string;
-        audioSource?: string;
-        videoSource?: string;
-        onUserMedia?(): void;
+        screenshotQuality?: number;
+        minScreenshotWidth?: number;
+        minScreenshotHeight?: number;
+        audioConstraints?: MediaStreamConstraints["audio"];
+        videoConstraints?: MediaStreamConstraints["video"];
+        imageSmoothing?: boolean;
     }
 
     interface WebcamState {

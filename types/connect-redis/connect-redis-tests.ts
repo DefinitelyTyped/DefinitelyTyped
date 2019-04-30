@@ -6,5 +6,8 @@ const store = new RedisStore({
     host: 'localhost',
     port: 6379,
     logErrors: error => console.warn(error),
-    scanCount: 80,
+	scanCount: 80,
+	ttl: (store, sess, sessionID) => {
+		return 60;
+	}
 });

@@ -1,4 +1,4 @@
-
+import {Path} from "./index";
 
 Path.map("/test/:id")
 .to(()=>{ });

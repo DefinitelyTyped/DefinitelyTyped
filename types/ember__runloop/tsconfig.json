@@ -28,6 +28,7 @@
         "index.d.ts",
         "types.d.ts",
         "-private/types.d.ts",
+        "-private/backburner.d.ts",
         "ember__runloop-tests.ts"
     ]
 }

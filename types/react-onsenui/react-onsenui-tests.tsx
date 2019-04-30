@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {
     SplitterSide, Splitter, SplitterContent,
-    Page, Input, Button, Radio, Checkbox, Select, Switch,
+    Page, Input, Button, Radio, Checkbox, Select, Switch, SearchInput,
 } from "react-onsenui";
 
 class AppState {
@@ -25,6 +25,7 @@ export class App extends React.Component<AppProps, AppState> {
     onRadioChange(event: Event) {}
     onCheckboxChange(event: Event) {}
     onSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {}
+    onSearchInputChange(event: Event) {}
 
     render() {
         return (
@@ -53,6 +54,7 @@ export class App extends React.Component<AppProps, AppState> {
                         </Select>
                         <Switch className='left' modifier='material' checked={true} inputId='switchId' name='switchTest' />
                         <Button name='someButton' onClick={this.onClick} />
+                        <SearchInput modifier='material' inputId='searchInputId' disabled={true} onChange={this.onSearchInputChange} value="Search value" />
 					</Page>
                 </SplitterContent>
             </Splitter>

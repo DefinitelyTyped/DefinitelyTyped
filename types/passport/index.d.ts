@@ -1,10 +1,11 @@
-// Type definitions for Passport 0.4
+// Type definitions for Passport 1.0
 // Project: http://passportjs.org
 // Definitions by: Horiuchi_H <https://github.com/horiuchi>
 //                 Eric Naeseth <https://github.com/enaeseth>
 //                 Igor Belagorudsky <https://github.com/theigor>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 //                 Daniel Perez Alvarez <https://github.com/danielpa9708>
+//                 Kevin Stiehl <https://github.com/kstiehl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -45,13 +46,14 @@ declare namespace passport {
         successMessage?: boolean | string;
         successRedirect?: string;
         successReturnToOrRedirect?: string;
+        state?: string;
         pauseStream?: boolean;
         userProperty?: string;
         passReqToCallback?: boolean;
         prompt?: string;
     }
 
-    interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {
+    interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet, AuthorizeOptions = AuthenticateOptions> {
         use(strategy: Strategy): this;
         use(name: string, strategy: Strategy): this;
         unuse(name: string): this;
@@ -62,7 +64,7 @@ declare namespace passport {
         authenticate(strategy: string | string[], callback?: (...args: any[]) => any): AuthenticateRet;
         authenticate(strategy: string | string[], options: AuthenticateOptions, callback?: (...args: any[]) => any): AuthenticateRet;
         authorize(strategy: string | string[], callback?: (...args: any[]) => any): AuthorizeRet;
-        authorize(strategy: string | string[], options: any, callback?: (...args: any[]) => any): AuthorizeRet;
+        authorize(strategy: string | string[], options: AuthorizeOptions, callback?: (...args: any[]) => any): AuthorizeRet;
         serializeUser<TUser, TID>(fn: (user: TUser, done: (err: any, id?: TID) => void) => void): void;
         deserializeUser<TUser, TID>(fn: (id: TID, done: (err: any, user?: TUser) => void) => void): void;
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;

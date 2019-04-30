@@ -105,9 +105,9 @@ function test_parsers() {
 
     const ByteLengthParser = new SerialPort.parsers.ByteLength({length: 8});
     const CCTalkParser = new SerialPort.parsers.CCTalk();
-    const DelimiterParser = new SerialPort.parsers.Delimiter({ delimiter: Buffer.from('EOL') });
-    const ReadlineParser = new SerialPort.parsers.Readline({ delimiter: '\r\n' });
-    const ReadyParser = new SerialPort.parsers.Ready({ data: 'READY' });
+    const DelimiterParser = new SerialPort.parsers.Delimiter({ delimiter: Buffer.from('EOL'), includeDelimiter: true });
+    const ReadlineParser = new SerialPort.parsers.Readline({ delimiter: '\r\n', includeDelimiter: false });
+    const ReadyParser = new SerialPort.parsers.Ready({ delimiter: 'READY' });
     const RegexParser = new SerialPort.parsers.Regex({regex: /.*/});
 
     port.pipe(ByteLengthParser);
@@ -125,4 +125,15 @@ function test_properties() {
     const binding: SerialPort.BaseBinding = port.binding;
     const isOpen: boolean = port.isOpen;
     const path: string = port.path;
+}
+
+function test_list_ports_promise() {
+    const ports = SerialPort
+        .list()
+        .then((ports: any) => {})
+        .catch((err: Error) => {});
+}
+
+function test_list_ports_callback() {
+    const ports = SerialPort.list((error: Error, port: any[]) => {});
 }

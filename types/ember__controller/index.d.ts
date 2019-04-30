@@ -1,4 +1,4 @@
-// Type definitions for @ember/controller 3.0
+// Type definitions for non-npm package @ember/controller 3.0
 // Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Fcontroller
 // Definitions by: Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -31,9 +31,11 @@ export interface ControllerMixin extends ActionHandler {
 export const ControllerMixin: Mixin<ControllerMixin>;
 // tslint:disable-next-line:no-empty-interface
 export default class Controller extends EmberObject.extend(ControllerMixin) {}
+export function inject(): ComputedProperty<Controller> & PropertyDecorator;
 export function inject<K extends keyof Registry>(
     name: K
-): ComputedProperty<Registry[K]>;
+): ComputedProperty<Registry[K]> & PropertyDecorator;
+export function inject(target: object, propertyKey: string | symbol): void;
 
 // A type registry for Ember `Controller`s. Meant to be declaration-merged
 // so string lookups resolve to the correct type.

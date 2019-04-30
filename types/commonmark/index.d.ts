@@ -1,18 +1,21 @@
 // Type definitions for commonmark.js 0.27
-// Project: https://github.com/jgm/commonmark.js
+// Project: https://github.com/jgm/commonmark.js, http://commonmark.org
 // Definitions by: Nico Jansen <https://github.com/nicojs>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export type NodeType =
+    'text' |'softbreak' | 'linebreak' | 'emph' | 'strong' | 'html_inline' | 'link' | 'image' | 'code' | 'document' | 'paragraph' |
+    'block_quote' | 'item' | 'list' | 'heading' | 'code_block' | 'html_block' | 'thematic_break' | 'custom_inline' | 'custom_block';
+
 export class Node {
-    constructor(nodeType: string, sourcepos?: Position);
+    constructor(nodeType: NodeType, sourcepos?: Position);
 
     /**
      * (read-only): a String, one of text, softbreak, linebreak, emph, strong, html_inline, link, image, code, document, paragraph,
      * block_quote, item, list, heading, code_block, html_block, thematic_break.
      */
-    readonly type: 'text' | 'softbreak' | 'linebreak' | 'emph' | 'strong' | 'html_inline' | 'link' | 'image' | 'code' | 'document' | 'paragraph' |
-        'block_quote' | 'item' | 'list' | 'heading' | 'code_block' | 'html_block' | 'thematic_break' | 'custom_inline' | 'custom_block';
+    readonly type: NodeType;
     /**
      * (read-only): a Node or null.
      */

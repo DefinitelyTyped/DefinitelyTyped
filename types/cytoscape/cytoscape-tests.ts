@@ -20,8 +20,8 @@ const parentCSS = {
   'padding-left': '10px',
   'padding-bottom': '10px',
   'padding-right': '10px',
-  'text-valign': 'top',
-  'text-halign': 'center',
+  'text-valign': 'top' as 'top',
+  'text-halign': 'center' as 'center',
   'background-color': '#CCC',
   'font-size': 40,
   'min-zoomed-font-size': 15
@@ -36,7 +36,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
       'text-halign': 'center',
       shape: 'rectangle',
       'min-zoomed-font-size': 20,
-      opacity: 1
+      opacity: 1,
+      width: 'mapData(weight, 40, 80, 20, 60)'
     }
   },
   {
@@ -125,7 +126,7 @@ cy.on('zoom', (event) => {
 cy.off('zoom');
 // events(cy); - TODO
 
-cy.add({ data: { id: 'g' }, position: {x: 200, y: 150} });
+cy.add({ data: { id: 'g', someOtherKey: 'value' }, position: {x: 200, y: 150} });
 cy.add([
   { data: { id: 'h' }, position: {x: 250, y: 100} }
 ]);

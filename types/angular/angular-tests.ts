@@ -294,6 +294,14 @@ foo.then((x) => {
     x.toFixed();
 });
 
+namespace TestPromiseInterop {
+    declare const promiseInterop: ng.IPromise<number>;
+    const ngStringPromise: ng.IPromise<string> =
+        promiseInterop.then((num) => Promise.resolve(String(num)));
+    const caughtStringPromise: ng.IPromise<string|number> =
+        promiseInterop.catch((reason) => Promise.resolve('oh noes'));
+}
+
 // $q signature tests
 namespace TestQ {
     interface AbcObject {
@@ -1502,16 +1510,28 @@ interface MyScope extends ng.IScope {
     foo: string;
 }
 
-const directiveCompileFnWithGeneric: ng.IDirectiveCompileFn<MyScope> = (
-        templateElement: JQLite,
-        templateAttributes: ng.IAttributes,
-        transclude: ng.ITranscludeFunction
-    ): ng.IDirectiveLinkFn<MyScope> => {
-    return (
-        scope: MyScope,
-        instanceElement: JQLite,
-        instanceAttributes: ng.IAttributes
-    ) => {
-        return null;
-    };
-};
+interface MyElement extends JQLite {
+    foo: string;
+}
+
+interface MyAttributes extends ng.IAttributes {
+    foo: string;
+}
+interface MyController extends ng.INgModelController {
+    foo: string;
+}
+
+angular.module('WithGenerics', [])
+    .directive('directiveUsingGenerics', () => {
+        return {
+            restrict: 'E',
+            link(scope: MyScope, element: MyElement, templateAttributes: MyAttributes, controller: MyController) {
+                scope['name'] = 'Jeff';
+            }
+        };
+    })
+    .directive('linkFunctionUsingGenerics', () => {
+        return (scope: MyScope, element: MyElement, templateAttributes: MyAttributes, controller: MyController) => {
+            scope['name'] = 'Jeff';
+        };
+    });

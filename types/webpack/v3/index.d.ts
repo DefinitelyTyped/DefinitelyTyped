@@ -10,8 +10,10 @@
 //                 Spencer Elliott <https://github.com/elliottsj>
 //                 Jason Cheatham <https://github.com/jason0x43>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
+//                 Ryan Waskiewicz <https://github.com/rwaskiewicz>
+//                 Kyle Uehlein <https://github.com/kuehlein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -338,7 +340,7 @@ declare namespace webpack {
     type ExternalsElement = string | RegExp | ExternalsObjectElement | ExternalsFunctionElement;
 
     interface ExternalsObjectElement {
-        [key: string]: boolean | string;
+        [key: string]: boolean | string | string[] | Record<string, string | string[]>;
     }
 
     type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
@@ -387,7 +389,7 @@ declare namespace webpack {
     }
     interface NewLoader {
         loader: string;
-        options?: { [name: string]: any };
+        options?: { [name: string]: any } | string;
     }
     type Loader = string | OldLoader | NewLoader;
 
@@ -453,7 +455,7 @@ declare namespace webpack {
         query?: { [name: string]: any };
     }
     interface NewLoaderRule extends BaseSingleLoaderRule {
-        options?: { [name: string]: any };
+        options?: { [name: string]: any } | string;
     }
     type LoaderRule = OldLoaderRule | NewLoaderRule;
     interface OldUseRule extends BaseDirectRule {

@@ -19,6 +19,6 @@ export function connect(
     mapDispatchToProps: MapDispatchToProps
 ): (<T extends wepy.Component>(original: T) => T);
 
-export function setStore(store: Store): void;
+export function setStore(store: Store<any, any>): void;
 
 export function getStore(): Store;

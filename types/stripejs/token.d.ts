@@ -57,10 +57,15 @@ export interface TokenData {
     name: string;
 
     /**
+     * The amount paid, not a decimal. In USD this is in cents.
+     */
+    amount?: number;
+
+    /**
      * Fields for billing address information.
      */
     address_line1: string;
-    address_line2: string;
+    address_line2?: string;
     address_city: string;
     address_state: string;
     address_zip: string;
@@ -69,7 +74,7 @@ export interface TokenData {
      * A two character country code identifying the country
      * @example 'US'
      */
-    address_country: string;
+    address_country?: string;
 
     /**
      * Used to add a card to an account

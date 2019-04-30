@@ -1,4 +1,4 @@
-// Type definitions for newman 3.10
+// Type definitions for newman 3.11
 // Project: https://github.com/postmanlabs/newman
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 //                 Graham McGregor <https://github.com/Graham42>
@@ -168,9 +168,12 @@ export interface NewmanRunExecutionAssertion {
     error: NewmanRunExecutionAssertionError;
 }
 export interface NewmanRunExecutionAssertionError {
+    name: string;
+    index: number;
+    test: string;
     message: string;
-}
-export interface NewmanRunFailure {
+    stack: string;
+}export interface NewmanRunFailure {
     error: NewmanRunExecutionAssertionError;
     /** The event where the failure occurred */
     at: string;

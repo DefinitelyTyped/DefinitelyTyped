@@ -47,3 +47,20 @@ $.notify({
 		'<a href="{3}" target="{4}" data-notify="url"></a>' +
 	'</div>'
 });
+
+const notifyResult = $.notify({
+	message: 'Callbacks have the popup element as an argument',
+},{
+	onShow: function($ele) {
+		notifyResult.$ele === $ele;
+	},
+	onShown: function($ele) {
+		notifyResult.$ele === $ele;
+	},
+	onClose: function($ele) {
+		notifyResult.$ele === $ele;
+	},
+	onClosed: function($ele) {
+		notifyResult.$ele === $ele;
+	},
+});

@@ -1,4 +1,4 @@
-// Type definitions for shot 3.4
+// Type definitions for shot 4.0
 // Project: https://github.com/hapijs/shot
 // Definitions by: AJP <https://github.com/AJamesPhillips>
 //                 Simon Schick <https://github.com/SimonSchick>
@@ -14,10 +14,9 @@ import { Readable, Stream } from "stream";
  * Injects a fake request into an HTTP server.
  * @param dispatchFunc  listener function. The same as you would pass to Http.createServer when making a node HTTP server. @see IListener
  * @param options  request options object @see RequestOptions
- * @param callback  the callback function @see Callback
  * @see {@link https://github.com/hapijs/shot/blob/master/API.md#shotinjectdispatchfunc-options-callback}
  */
-export function inject(dispatchFunc: Listener, options: RequestOptions, callback: (res: ResponseObject) => void): void;
+export function inject(dispatchFunc: Listener, options: RequestOptions): Promise<ResponseObject>;
 
 /**
  * Checks if given object obj is a Shot Request object.
@@ -33,22 +32,19 @@ export function isInjection(obj: any): boolean;
  */
 export type Listener = (req: SimulatedRequestObject, res: SimulatedResponseObject) => void;
 
-// disabled for backwards compat
-// tslint:disable:no-empty-interface
-
 /**
  * a simulated request object. Inherits from Stream.Readable.
  * @see {@link https://github.com/hapijs/shot/blob/master/API.md#shotinjectdispatchfunc-options-callback}
  */
+// tslint:disable-next-line:no-empty-interface
 export interface SimulatedRequestObject extends Readable {}
 
 /**
  * a simulated response object. Inherits from node's Http.ServerResponse.
  * @see {@link https://github.com/hapijs/shot/blob/master/API.md#shotinjectdispatchfunc-options-callback}
  */
+// tslint:disable-next-line:no-empty-interface
 export interface SimulatedResponseObject extends ServerResponse {}
-
-// tslint:enable:no-empty-interface
 
 /**
  * @see {@link https://github.com/hapijs/shot/blob/master/API.md#shotinjectdispatchfunc-options-callback}

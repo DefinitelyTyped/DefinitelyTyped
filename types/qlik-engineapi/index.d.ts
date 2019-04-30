@@ -1,4 +1,4 @@
-// Type definitions for qlik-engineapi 12.67
+// Type definitions for non-npm package qlik-engineapi 12.67
 // Project: http://help.qlik.com/en-US/sense-developer/November2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
 // Definitions by: Konrad Mattheis <https://github.com/konne>
 //                 Richard Ison <https://github.com/richardison>
@@ -392,6 +392,11 @@ declare namespace EngineAPI {
          * Array of dimension labels.
          */
         qFieldLabels: string[];
+
+        /**
+         * no docu
+         */
+        qLabelExpression: string;
     }
 
     /**
@@ -4063,7 +4068,7 @@ declare namespace EngineAPI {
         /**
          * Information about publishing and permissions.
          */
-        qMeta: INxMeta;
+        qMeta: INxMetaTitleDescriptionTag;
 
         /**
          * Identifier and type of the dimension.
@@ -4812,6 +4817,11 @@ declare namespace EngineAPI {
          * Information about the selections.
          */
         qSelectionInfo: INxSelectionInfo;
+
+        /**
+         * 	Name of the alternate state. Default is current selections $ .
+         */
+        qStateName: string;
     }
 
     /**
@@ -6874,9 +6884,7 @@ declare namespace EngineAPI {
     }
 
     interface IQVersion {
-        qVersion: {
-            qComponentVersion: string;
-        };
+        qComponentVersion: string;
     }
 
     interface IQConfig {
@@ -7086,7 +7094,7 @@ declare namespace EngineAPI {
          * Note: If no app is opened, an error message is returned:
          * For example code: 1007 and No active document and App invalid
          */
-        getActiveDoc(): Promise<IApp | string>; // ?Result
+        getActiveDoc(): Promise<IApp>; // ?Result
 
         /**
          * Retrieves the meta data of an app.
@@ -7223,7 +7231,7 @@ declare namespace EngineAPI {
          * The apps are located in C:\Users\<user name>\Documents\Qlik\Sense\Apps.
          * @returns Path of the folder where the apps are stored.
          */
-        getFolderItemsForPath(qPath: string): Promise<IFolderItem>;
+        getFolderItemsForPath(qPath: string): Promise<IFolderItem[]>;
 
         /**
          * Gets the list of all the script functions.
@@ -7232,7 +7240,7 @@ declare namespace EngineAPI {
          * >> Default is all groups.
          * @returns A Promise <Function> or undefined
          */
-        getFunctions(qGroup?: FunctionGroupType): Promise<IFunction | undefined>;
+        getFunctions(qGroup?: FunctionGroupType): Promise<IFunction[]>;
 
         /**
          * Retrieves information on the user interaction that is requested by the engine.
@@ -9285,7 +9293,7 @@ declare namespace EngineAPI {
      * GenericDimensionListLayout width extend GenericBaseLayout
      */
     interface IGenericDimensionListLayout extends IGenericBaseLayout {
-        qDimensionsListObject: IDimensionList;
+        qDimensionList: IDimensionList;
     }
 
     /**

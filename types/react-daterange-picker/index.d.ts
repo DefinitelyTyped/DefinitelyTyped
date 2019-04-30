@@ -3,6 +3,7 @@
 // Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Donald Ford <https://github.com/donaldtf>
+//                 Vlad Florescu <https://github.com/vladflorescu94>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -32,7 +33,7 @@ export interface Props<T = DateRangePicker> extends React.Props<T> {
     numberOfCalendars?: number;
     onHighlightDate?(date: Date): void;
     onHighlightRange?(date: Date): void;
-    onSelect?(value: Props): void;
+    onSelect?(value: OnSelectCallbackParam): void;
     onSelectStart?(value: momentRange.MomentRangeExtends): void;
     paginationArrowComponent?: React.ComponentClass<PaginationArrowProps> | React.SFC<PaginationArrowProps>;
     selectedLabel?: string;
@@ -62,4 +63,9 @@ export interface PaginationArrowProps<T = {}> extends React.Props<T> {
     disabled?: boolean;
     onTrigger?(): void;
     direction?: 'next' | 'previous';
+}
+
+export interface OnSelectCallbackParam {
+    start: moment.Moment;
+    end: moment.Moment;
 }
