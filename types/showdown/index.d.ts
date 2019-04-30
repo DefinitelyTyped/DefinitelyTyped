@@ -930,11 +930,44 @@ declare namespace Showdown {
     function setFlavor(name: Flavor): void;
 
     /**
+     * Get the "global" currently set flavor.
+     *
+     * @returns Returns string flavor name.
+     */
+    function getFlavor(): Flavor;
+
+    /**
+     * Get the options of a specified flavor. Returns undefined if the flavor was not found.
+     *
+     * @param name - Name of the flavor.
+     * @returns Returns options object of the given flavor `name`.
+     */
+    function getFlavorOptions(name: Flavor): ShowdownOptions | undefined;
+
+    /**
      * Retrieve the default options.
      */
     function getDefaultOptions(): ShowdownOptions;
 
-    /** 
+    /**
+     * Get a registered subParser.
+     *
+     * @param name - The parser name.
+     * @returns Returns the parser of the given `name`.
+     * @throws Throws if `name` is not of type string.
+     * @throws Throws if the parser is not exists.
+     */
+    function subParser(name: string): (...args: any[]) => string;;
+    /**
+     * Register a subParser.
+     *
+     * @param name - The name of the new parser.
+     * @param func - The handler function of the new parser.
+     * @throws Throws if `name` is not of type string.
+     */
+    function subParser(name: string, func: (...args: any[]) => string): void;
+
+    /**
      * Registered extensions
      *
      * @prarm name
@@ -958,4 +991,13 @@ declare namespace Showdown {
      * Reset extensions.
      */
     function resetExtensions(): void;
+
+    /**
+     * Checks if the given `ext` is a valid showdown extension.
+     *
+     * @param ext - The extension to checks.
+     * @returns Returns `true` if the extension is valid showdown extension, otherwise `false`.
+     */
+    function validateExtension(ext: (() => ShowdownExtension) | (() => ShowdownExtension[]) | ShowdownExtension): boolean;
+
 }
