@@ -5024,9 +5024,9 @@ fp.now(); // $ExpectType number
     _.entries(abcObject); // $ExpectType [string, any][]
     _(dictionary).entries(); // $ExpectType ImpL<[string, number]>
     _(numericDictionary).entries(); // $ExpectType ImpL<[string, number]>
-    _.chain(dictionary).entries(); // $ExpectType ExpL<[string, number]>
-    _.chain(numericDictionary).entries(); // $ExpectType ExpL<[string, number]>
-    _.chain(abcObject).entries(); // $ExpectType ExpL<[string, any]>
+    _.chain(dictionary).entries(); // $ExpectType Exp<[string, number][]>
+    _.chain(numericDictionary).entries(); // $ExpectType Exp<[string, number][]>
+    _.chain(abcObject).entries(); // $ExpectType Exp<[string, string | number | boolean][]>
     fp.entries(dictionary); // $ExpectType [string, number][]
 
     _.entriesIn(dictionary); // $ExpectType [string, number][]
@@ -5034,9 +5034,9 @@ fp.now(); // $ExpectType number
     _.entriesIn(abcObject); // $ExpectType [string, any][]
     _(dictionary).entriesIn(); // $ExpectType ImpL<[string, number]>
     _(numericDictionary).entriesIn(); // $ExpectType ImpL<[string, number]>
-    _.chain(dictionary).entriesIn(); // $ExpectType ExpL<[string, number]>
-    _.chain(numericDictionary).entriesIn(); // $ExpectType ExpL<[string, number]>
-    _.chain(abcObject).entriesIn(); // $ExpectType ExpL<[string, any]>
+    _.chain(dictionary).entriesIn(); // $ExpectType Exp<[string, number][]>
+    _.chain(numericDictionary).entriesIn(); // $ExpectType Exp<[string, number][]>
+    _.chain(abcObject).entriesIn(); // $ExpectType Exp<[string, string | number | boolean][]>
     fp.entriesIn(dictionary); // $ExpectType [string, number][]
 }
 
@@ -5100,10 +5100,10 @@ fp.now(); // $ExpectType number
     _.forIn(dictionary, dictionaryIterator); // $ExpectType Dictionary<number>
     _.forIn(object); // $ExpectType AbcObject | null | undefined
     _.forIn(object, objectIterator); // $ExpectType AbcObject | null | undefined
-    _(object).forIn(); // $ExpectType Imp<AbcObject | null | undefined>
-    _(object).forIn(objectIterator); // $ExpectType Imp<AbcObject | null | undefined>
-    _.chain(object).forIn(); // $ExpectType Exp<AbcObject | null | undefined>
-    _.chain(object).forIn(objectIterator); // $ExpectType Exp<AbcObject | null | undefined>
+    _(object).forIn(); // $ExpectType ImpO<AbcObject>
+    _(object).forIn(objectIterator); // $ExpectType ImpO<AbcObject>
+    _.chain(object).forIn(); // $ExpectType ExpO<AbcObject>
+    _.chain(object).forIn(objectIterator); // $ExpectType ExpO<AbcObject>
     fp.forIn(dictionaryIterator2, dictionary); // $ExpectType Dictionary<number>
     fp.forIn(objectIterator2)(object); // $ExpectType AbcObject | null | undefined
 
@@ -5111,10 +5111,10 @@ fp.now(); // $ExpectType number
     _.forInRight(dictionary, dictionaryIterator); // $ExpectType Dictionary<number>
     _.forInRight(object); // $ExpectType AbcObject | null | undefined
     _.forInRight(object, objectIterator); // $ExpectType AbcObject | null | undefined
-    _(object).forInRight(); // $ExpectType Imp<AbcObject | null | undefined>
-    _(object).forInRight(objectIterator); // $ExpectType Imp<AbcObject | null | undefined>
-    _.chain(object).forInRight(); // $ExpectType Exp<AbcObject | null | undefined>
-    _.chain(object).forInRight(objectIterator); // $ExpectType Exp<AbcObject | null | undefined>
+    _(object).forInRight(); // $ExpectType ImpO<AbcObject>
+    _(object).forInRight(objectIterator); // $ExpectType ImpO<AbcObject>
+    _.chain(object).forInRight(); // $ExpectType ExpO<AbcObject>
+    _.chain(object).forInRight(objectIterator); // $ExpectType ExpO<AbcObject>
     fp.forInRight(dictionaryIterator2, dictionary); // $ExpectType Dictionary<number>
     fp.forInRight(objectIterator2)(object); // $ExpectType AbcObject | null | undefined
 
@@ -5122,10 +5122,10 @@ fp.now(); // $ExpectType number
     _.forOwn(dictionary, dictionaryIterator); // $ExpectType Dictionary<number>
     _.forOwn(object); // $ExpectType AbcObject | null | undefined
     _.forOwn(object, objectIterator); // $ExpectType AbcObject | null | undefined
-    _(object).forOwn(); // $ExpectType Imp<AbcObject | null | undefined>
-    _(object).forOwn(objectIterator); // $ExpectType Imp<AbcObject | null | undefined>
-    _.chain(object).forOwn(); // $ExpectType Exp<AbcObject | null | undefined>
-    _.chain(object).forOwn(objectIterator); // $ExpectType Exp<AbcObject | null | undefined>
+    _(object).forOwn(); // $ExpectType ImpO<AbcObject>
+    _(object).forOwn(objectIterator); // $ExpectType ImpO<AbcObject>
+    _.chain(object).forOwn(); // $ExpectType ExpO<AbcObject>
+    _.chain(object).forOwn(objectIterator); // $ExpectType ExpO<AbcObject>
     fp.forOwn(dictionaryIterator2, dictionary); // $ExpectType Dictionary<number>
     fp.forOwn(objectIterator2)(object); // $ExpectType AbcObject | null | undefined
 
@@ -5133,10 +5133,10 @@ fp.now(); // $ExpectType number
     _.forOwnRight(dictionary, dictionaryIterator); // $ExpectType Dictionary<number>
     _.forOwnRight(object); // $ExpectType AbcObject | null | undefined
     _.forOwnRight(object, objectIterator); // $ExpectType AbcObject | null | undefined
-    _(object).forOwnRight(); // $ExpectType Imp<AbcObject | null | undefined>
-    _(object).forOwnRight(objectIterator); // $ExpectType Imp<AbcObject | null | undefined>
-    _.chain(object).forOwnRight(); // $ExpectType Exp<AbcObject | null | undefined>
-    _.chain(object).forOwnRight(objectIterator); // $ExpectType Exp<AbcObject | null | undefined>
+    _(object).forOwnRight(); // $ExpectType ImpO<AbcObject>
+    _(object).forOwnRight(objectIterator); // $ExpectType ImpO<AbcObject>
+    _.chain(object).forOwnRight(); // $ExpectType ExpO<AbcObject>
+    _.chain(object).forOwnRight(objectIterator); // $ExpectType ExpO<AbcObject>
     fp.forOwnRight(dictionaryIterator2, dictionary); // $ExpectType Dictionary<number>
     fp.forOwnRight(objectIterator2)(object); // $ExpectType AbcObject | null | undefined
 }
@@ -5269,17 +5269,17 @@ fp.now(); // $ExpectType number
     _.invertBy(numericDictionary, valueIterator); // $ExpectType Dictionary<string[]>
     _.invertBy(numericDictionary, {a: 1}); // $ExpectType Dictionary<string[]>
 
-    _("foo").invertBy(stringIterator); // $ExpectType ImpL<Dictionary<string>>
-    _(list).invertBy(); // $ExpectType ImpL<Dictionary<string>>
-    _(list).invertBy("a"); // $ExpectType ImpL<Dictionary<string>>
-    _(dictionary).invertBy(valueIterator); // $ExpectType ImpL<Dictionary<string>>
-    _(numericDictionary).invertBy({a: 1}); // $ExpectType ImpL<Dictionary<string>>
+    _("foo").invertBy(stringIterator); // $ExpectType Imp<Dictionary<string[]>>
+    _(list).invertBy(); // $ExpectType Imp<Dictionary<string[]>>
+    _(list).invertBy("a"); // $ExpectType Imp<Dictionary<string[]>>
+    _(dictionary).invertBy(valueIterator); // $ExpectType Imp<Dictionary<string[]>>
+    _(numericDictionary).invertBy({a: 1}); // $ExpectType Imp<Dictionary<string[]>>
 
-    _.chain("foo").invertBy(stringIterator); // $ExpectType ExpL<Dictionary<string>>
-    _.chain(list).invertBy(); // $ExpectType ExpL<Dictionary<string>>
-    _.chain(list).invertBy("a"); // $ExpectType ExpL<Dictionary<string>>
-    _.chain(dictionary).invertBy(valueIterator); // $ExpectType ExpL<Dictionary<string>>
-    _.chain(numericDictionary).invertBy({a: 1}); // $ExpectType ExpL<Dictionary<string>>
+    _.chain("foo").invertBy(stringIterator); // $ExpectType Exp<Dictionary<string[]>>
+    _.chain(list).invertBy(); // $ExpectType Exp<Dictionary<string[]>>
+    _.chain(list).invertBy("a"); // $ExpectType Exp<Dictionary<string[]>>
+    _.chain(dictionary).invertBy(valueIterator); // $ExpectType Exp<Dictionary<string[]>>
+    _.chain(numericDictionary).invertBy({a: 1}); // $ExpectType Exp<Dictionary<string[]>>
 
     fp.invertBy(stringIterator, "foo"); // $ExpectType Dictionary<string[]>
     fp.invertBy(stringIterator)("foo"); // $ExpectType Dictionary<string[]>
@@ -5437,7 +5437,7 @@ fp.now(); // $ExpectType number
     _.mapValues(abcObject); // $ExpectType AbcObject
     _.mapValues(abcObjectOrNull); // $ExpectType Partial<AbcObject>
 
-    // $ExpectType Imp<NumericDictionary<AbcObject>>
+    // $ExpectType ImpO<NumericDictionary<AbcObject>>
     _("foo").mapValues((char, index, str) => {
         char; // $ExpectType string
         index; // $ExpectType number
@@ -5445,7 +5445,7 @@ fp.now(); // $ExpectType number
         return abcObject;
     });
 
-    // $ExpectType Imp<Dictionary<string>>
+    // $ExpectType ImpO<{ [x: string]: string; }>
     _(dictionary).mapValues((value, key, collection) => {
         value;  // $ExpectType AbcObject
         key; // $ExpectType string
@@ -5453,16 +5453,15 @@ fp.now(); // $ExpectType number
         return "";
     });
 
-    // Can"t really support NumericDictionary fully, but it at least gets treated like a Dictionary
-    // $ExpectType Imp<Dictionary<string>>
+    // $ExpectType ImpO<{ [x: number]: string; }>
     _(numericDictionary).mapValues((value, key, collection) => {
         value;  // $ExpectType AbcObject
         key; // $ExpectType string
-        collection; // $ExpectType Dictionary<AbcObject>
+        collection; // $ExpectType NumericDictionary<AbcObject>
         return "";
     });
 
-    // $ExpectType Imp<{ a: string; b: string; c: string; }>
+    // $ExpectType ImpO<{ a: string; b: string; c: string; }>
     _(abcObject).mapValues((value, key, collection) => {
         value;  // $ExpectType string | number | boolean
         key; // $ExpectType string
@@ -5470,28 +5469,25 @@ fp.now(); // $ExpectType number
         return "";
     });
 
-    _(dictionary).mapValues({}); // $ExpectType Imp<Dictionary<boolean>>
-    // Can"t really support NumericDictionary fully, but it at least gets treated like a Dictionary
-    _(numericDictionary).mapValues({}); // $ExpectType Imp<Dictionary<boolean>>
-    _(abcObject).mapValues({}); // $ExpectType Imp<{ a: boolean; b: boolean; c: boolean; }>
+    _(dictionary).mapValues({}); // $ExpectType ImpO<{ [x: string]: boolean; }>
+    _(numericDictionary).mapValues({}); // $ExpectType ImpO<{ [x: number]: boolean; }>
+    _(abcObject).mapValues({}); // $ExpectType ImpO<{ a: boolean; b: boolean; c: boolean; }>
 
-    _(dictionary).mapValues("a"); // $ExpectType Imp<Dictionary<number>>
+    _(dictionary).mapValues("a"); // $ExpectType ImpO<Dictionary<number>>
     // Can"t really support NumericDictionary fully, but it at least gets treated like a Dictionary
-    _(numericDictionary).mapValues("a"); // $ExpectType Imp<Dictionary<number>>
+    _(numericDictionary).mapValues("a"); // $ExpectType ImpO<Dictionary<number>>
 
-    _(abcObject).mapValues(key); // $ExpectType Imp<{ a: any; b: any; c: any; }>
-    _(dictionary).mapValues(key); // $ExpectType Imp<Dictionary<any>>
-    // Can"t really support NumericDictionary fully, but it at least gets treated like a Dictionary
-    _(numericDictionary).mapValues(key); // $ExpectType Imp<Dictionary<any>>
+    _(abcObject).mapValues(key); // $ExpectType ImpO<{ a: any; b: any; c: any; }>
+    _(dictionary).mapValues(key); // $ExpectType ImpO<{ [x: string]: any; }>
+    _(numericDictionary).mapValues(key); // $ExpectType ImpO<{ [x: number]: any; }>
 
-    _("a").mapValues(); // $ExpectType Imp<NumericDictionary<string>>
-    _(dictionary).mapValues(); // $ExpectType Imp<Dictionary<AbcObject>>
-    // Can"t really support NumericDictionary fully, but it at least gets treated like a Dictionary
-    _(numericDictionary).mapValues(); // $ExpectType Imp<Dictionary<AbcObject>>
-    _(abcObject).mapValues(); // $ExpectType Imp<AbcObject>
-    _(abcObjectOrNull).mapValues(); // $ExpectType Imp<Partial<AbcObject>>
+    _("a").mapValues(); // $ExpectType ImpO<NumericDictionary<string>>
+    _(dictionary).mapValues(); // $ExpectType ImpO<Dictionary<AbcObject>>
+    _(numericDictionary).mapValues(); // $ExpectType ImpO<NumericDictionary<AbcObject>>
+    _(abcObject).mapValues(); // $ExpectType ImpO<AbcObject>
+    _(abcObjectOrNull).mapValues(); // $ExpectType ImpO<AbcObject>
 
-    // $ExpectType Exp<NumericDictionary<AbcObject>>
+    // $ExpectType ExpO<NumericDictionary<AbcObject>>
     _.chain("foo").mapValues((char, index, str) => {
         char; // $ExpectType string
         index; // $ExpectType number
@@ -5499,7 +5495,7 @@ fp.now(); // $ExpectType number
         return abcObject;
     });
 
-    // $ExpectType Exp<Dictionary<string>>
+    // $ExpectType ExpO<{ [x: string]: string; }>
     _.chain(dictionary).mapValues((value, key, collection) => {
         value;  // $ExpectType AbcObject
         key; // $ExpectType string
@@ -5507,16 +5503,15 @@ fp.now(); // $ExpectType number
         return "";
     });
 
-    // Can"t really support NumericDictionary fully, but it at least gets treated like a Dictionary
-    // $ExpectType Exp<Dictionary<string>>
+    // $ExpectType ExpO<{ [x: number]: string; }>
     _.chain(numericDictionary).mapValues((value, key, collection) => {
         value;  // $ExpectType AbcObject
         key; // $ExpectType string
-        collection; // $ExpectType Dictionary<AbcObject>
+        collection; // $ExpectType NumericDictionary<AbcObject>
         return "";
     });
 
-    // $ExpectType Exp<{ a: string; b: string; c: string; }>
+    // $ExpectType ExpO<{ a: string; b: string; c: string; }>
     _.chain(abcObject).mapValues((value, key, collection) => {
         value;  // $ExpectType string | number | boolean
         key; // $ExpectType string
@@ -5524,27 +5519,24 @@ fp.now(); // $ExpectType number
         return "";
     });
 
-    _.chain(dictionary).mapValues({}); // $ExpectType Exp<Dictionary<boolean>>
-    // Can"t really support NumericDictionary fully, but it at least gets treated like a Dictionary
-    _.chain(numericDictionary).mapValues({}); // $ExpectType Exp<Dictionary<boolean>>
-    _.chain(abcObject).mapValues({}); // $ExpectType Exp<{ a: boolean; b: boolean; c: boolean; }>
+    _.chain(dictionary).mapValues({}); // $ExpectType ExpO<{ [x: string]: boolean; }>
+    _.chain(numericDictionary).mapValues({}); // $ExpectType ExpO<{ [x: number]: boolean; }>
+    _.chain(abcObject).mapValues({}); // $ExpectType ExpO<{ a: boolean; b: boolean; c: boolean; }>
 
-    _.chain(dictionary).mapValues("a"); // $ExpectType Exp<Dictionary<number>>
+    _.chain(dictionary).mapValues("a"); // $ExpectType ExpO<Dictionary<number>>
     // Can"t really support NumericDictionary fully, but it at least gets treated like a Dictionary
-    _.chain(numericDictionary).mapValues("a"); // $ExpectType Exp<Dictionary<number>>
+    _.chain(numericDictionary).mapValues("a"); // $ExpectType ExpO<Dictionary<number>>
 
-    _.chain(abcObject).mapValues(key); // $ExpectType Exp<{ a: any; b: any; c: any; }>
-    _.chain(dictionary).mapValues(key); // $ExpectType Exp<Dictionary<any>>
-    // Can"t really support NumericDictionary fully, but it at least gets treated like a Dictionary
-    _.chain(numericDictionary).mapValues(key); // $ExpectType Exp<Dictionary<any>>
+    _.chain(abcObject).mapValues(key); // $ExpectType ExpO<{ a: any; b: any; c: any; }>
+    _.chain(dictionary).mapValues(key); // $ExpectType ExpO<{ [x: string]: any; }>
+    _.chain(numericDictionary).mapValues(key); // $ExpectType ExpO<{ [x: number]: any; }>
 
-    _.chain("a").mapValues(); // $ExpectType Exp<NumericDictionary<string>>
-    _.chain(dictionary).mapValues(); // $ExpectType Exp<Dictionary<AbcObject>>
-    // Can"t really support NumericDictionary fully, but it at least gets treated like a Dictionary
-    _.chain(numericDictionary).mapValues(); // $ExpectType Exp<Dictionary<AbcObject>>
+    _.chain("a").mapValues(); // $ExpectType ExpO<NumericDictionary<string>>
+    _.chain(dictionary).mapValues(); // $ExpectType ExpO<Dictionary<AbcObject>>
+    _.chain(numericDictionary).mapValues(); // $ExpectType ExpO<NumericDictionary<AbcObject>>
 
-    _.chain(abcObject).mapValues(); // $ExpectType Exp<AbcObject>
-    _.chain(abcObjectOrNull).mapValues(); // $ExpectType Exp<Partial<AbcObject>>
+    _.chain(abcObject).mapValues(); // $ExpectType ExpO<AbcObject>
+    _.chain(abcObjectOrNull).mapValues(); // $ExpectType ExpO<AbcObject>
 
     fp.mapValues(valueIterator)(dictionary); // $ExpectType Dictionary<boolean>
     fp.mapValues("a", dictionary); // $ExpectType Dictionary<number>

@@ -106,7 +106,7 @@ declare module "../index" {
         flowRight<A extends any[], R1, R2, R3>(f4: (a: R3) => Parameters<T>["0"], f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): ImpF<(...args: A) => ReturnType<T>>;
         flowRight<A extends any[], R1, R2>(f3: (a: R2) => Parameters<T>["0"], f2: (a: R1) => R2, f1: (...args: A) => R1): ImpF<(...args: A) => ReturnType<T>>;
         flowRight<A extends any[], R1>(f2: (a: R1) => Parameters<T>["0"], f1: (...args: A) => R1): ImpF<(...args: A) => ReturnType<T>>;
-        flowRight<A extends any[], R1>(f1: (...args: A) => Parameters<T>["0"]): ImpF<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[]>(f1: (...args: A) => Parameters<T>["0"]): ImpF<(...args: A) => ReturnType<T>>;
         flowRight(...func: Array<Many<(...args: any[]) => any>>): ImpF<(...args: any[]) => any>;
     }
     interface ExpF<T> {
@@ -115,7 +115,7 @@ declare module "../index" {
         flowRight<A extends any[], R1, R2, R3>(f4: (a: R3) => Parameters<T>["0"], f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): ExpF<(...args: A) => ReturnType<T>>;
         flowRight<A extends any[], R1, R2>(f3: (a: R2) => Parameters<T>["0"], f2: (a: R1) => R2, f1: (...args: A) => R1): ExpF<(...args: A) => ReturnType<T>>;
         flowRight<A extends any[], R1>(f2: (a: R1) => Parameters<T>["0"], f1: (...args: A) => R1): ExpF<(...args: A) => ReturnType<T>>;
-        flowRight<A extends any[], R1>(f1: (...args: A) => Parameters<T>["0"]): ExpF<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[]>(f1: (...args: A) => Parameters<T>["0"]): ExpF<(...args: A) => ReturnType<T>>;
         flowRight(...func: Array<Many<(...args: any[]) => any>>): ExpF<(...args: any[]) => any>;
     }
 

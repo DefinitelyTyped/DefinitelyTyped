@@ -160,13 +160,13 @@ declare module "../index" {
         entries(object?: object): Array<[string, any]>;
     }
     interface ImpO<T> {
-        entries(): Imp<Array<[string, keyof T]>>;
+        entries(): ImpL<[string, T[keyof T]]>;
     }
     interface Imp<TValue> {
-        entries(): Imp<Array<[string, any]>>;
+        entries(): ImpL<[string, any]>;
     }
     interface ExpO<T> {
-        entries(): Exp<Array<[string, keyof T]>>;
+        entries(): Exp<Array<[string, T[keyof T]]>>;
     }
     interface Exp<TValue> {
         entries(): Exp<Array<[string, any]>>;
@@ -176,13 +176,13 @@ declare module "../index" {
         entriesIn(object?: object): Array<[string, any]>;
     }
     interface ImpO<T> {
-        entriesIn(): Imp<Array<[string, keyof T]>>;
+        entriesIn(): ImpL<[string, T[keyof T]]>;
     }
     interface Imp<TValue> {
-        entriesIn(): Imp<Array<[string, any]>>;
+        entriesIn(): ImpL<[string, any]>;
     }
     interface ExpO<T> {
-        entriesIn(): Exp<Array<[string, keyof T]>>;
+        entriesIn(): Exp<Array<[string, T[keyof T]]>>;
     }
     interface Exp<TValue> {
         entriesIn(): Exp<Array<[string, any]>>;
@@ -297,19 +297,19 @@ declare module "../index" {
         functions(object: any): string[];
     }
     interface Imp<TValue> {
-        functions(): Imp<string[]>;
+        functions(): ImpL<string>;
     }
     interface Exp<TValue> {
-        functions(): Exp<string[]>;
+        functions(): ExpL<string>;
     }
     interface Stat {
         functionsIn<T extends {}>(object: any): string[];
     }
     interface Imp<TValue> {
-        functionsIn(): Imp<string[]>;
+        functionsIn(): ImpL<string>;
     }
     interface Exp<TValue> {
-        functionsIn(): Exp<string[]>;
+        functionsIn(): ExpL<string>;
     }
     interface Stat {
         get<TObject extends object, TKey extends keyof TObject>(object: TObject, path: TKey | [TKey]): TObject[TKey];
@@ -327,7 +327,7 @@ declare module "../index" {
         get(path: number | number[], defaultValue: string): string;
     }
     interface ImpO<T> {
-        get<TKey extends keyof T>(path: TKey | [TKey]): T[TKey] | undefined;
+        get<TKey extends keyof T>(path: TKey | [TKey]): T[TKey];
         get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): Exclude<T[TKey], undefined> | TDefault;
         get(path: PropertyPath, defaultValue?: any): any;
     }
@@ -336,13 +336,13 @@ declare module "../index" {
         get<TDefault>(path: number, defaultValue: TDefault): T | TDefault;
     }
     interface ExpS {
-        get(path: number | number[]): string;
-        get(path: number | number[], defaultValue: string): string;
+        get(path: number | number[]): ExpS;
+        get(path: number | number[], defaultValue: string): ExpS;
     }
     interface ExpO<T> {
-        get<TKey extends keyof T>(path: TKey | [TKey]): T[TKey] | undefined;
-        get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): Exclude<T[TKey], undefined> | TDefault;
-        get(path: PropertyPath, defaultValue?: any): any;
+        get<TKey extends keyof T>(path: TKey | [TKey]): Exp<T[TKey]>;
+        get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): Exp<Exclude<T[TKey], undefined> | TDefault>;
+        get(path: PropertyPath, defaultValue?: any): Exp<any>;
     }
     interface ExpL<T> {
         get(path: number): T;
@@ -410,35 +410,35 @@ declare module "../index" {
         keys(object?: any): string[];
     }
     interface Imp<TValue> {
-        keys(): Imp<string[]>;
+        keys(): ImpL<string>;
     }
     interface Exp<TValue> {
-        keys(): Exp<string[]>;
+        keys(): ExpL<string>;
     }
     interface Stat {
         keysIn(object?: any): string[];
     }
     interface Imp<TValue> {
-        keysIn(): Imp<string[]>;
+        keysIn(): ImpL<string>;
     }
     interface Exp<TValue> {
-        keysIn(): Exp<string[]>;
+        keysIn(): ExpL<string>;
     }
     interface Stat {
         mapKeys<T>(object: List<T> | null | undefined, iteratee?: ListIteratee<T>): Dictionary<T>;
         mapKeys<T extends object>(object: T | null | undefined, iteratee?: ObjectIteratee<T>): Dictionary<T[keyof T]>;
     }
     interface ImpL<T> {
-        mapKeys<T>(iteratee?: ListIteratee<T>): Imp<Dictionary<T>>;
+        mapKeys(iteratee?: ListIteratee<T>): Imp<Dictionary<T>>;
     }
     interface ImpO<T> {
         mapKeys(iteratee?: ObjectIteratee<T>): Imp<Dictionary<T[keyof T]>>;
     }
     interface ExpL<T> {
-        mapKeys<T>(iteratee?: ListIteratee<T>): Exp<Dictionary<T>>;
+        mapKeys(iteratee?: ListIteratee<T>): Exp<Dictionary<T>>;
     }
     interface ExpO<T> {
-        mapKeys(iteratee?: ObjectIteratee<T>): Imp<Dictionary<T[keyof T]>>;
+        mapKeys(iteratee?: ObjectIteratee<T>): Exp<Dictionary<T[keyof T]>>;
     }
     interface Stat {
         mapValues<TResult>(obj: string | null | undefined, callback: StringIterator<TResult>): NumericDictionary<TResult>;
@@ -455,38 +455,42 @@ declare module "../index" {
         mapValues<T extends object>(obj: T | null | undefined): PartialObject<T>;
     }
     interface ImpS {
-        mapValues<TResult>(callback: StringIterator<TResult>): Imp<NumericDictionary<TResult>>;
-        mapValues(): Imp<NumericDictionary<string>>;
+        mapValues<TResult>(callback: StringIterator<TResult>): ImpO<NumericDictionary<TResult>>;
+        mapValues(): ImpO<NumericDictionary<string>>;
     }
     interface ImpL<T> {
-        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): Imp<Dictionary<TResult>>;
-        mapValues<TKey extends keyof T>(iteratee: TKey): Imp<Dictionary<T[TKey]>>;
-        mapValues(iteratee: object): Imp<Dictionary<boolean>>;
-        mapValues(iteratee: string): Imp<Dictionary<any>>;
-        mapValues(): Imp<Dictionary<T>>;
+        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): ImpO<Dictionary<TResult>>;
+        mapValues<TKey extends keyof T>(iteratee: TKey): ImpO<Dictionary<T[TKey]>>;
+        mapValues(iteratee: object): ImpO<Dictionary<boolean>>;
+        mapValues(iteratee: string): ImpO<Dictionary<any>>;
+        mapValues(): ImpO<Dictionary<T>>;
     }
     interface ImpO<T> {
-        mapValues<TResult>(callback: ObjectIterator<T, TResult>): Imp<{ [P in keyof T]: TResult }>;
-        mapValues(iteratee: object): Imp<{ [P in keyof T]: boolean }>;
-        mapValues(iteratee: string): Imp<{ [P in keyof T]: any }>;
+        mapValues<TResult>(callback: ObjectIterator<T, TResult>): ImpO<{ [P in keyof T]: TResult }>;
+        mapValues<TResult>(callback: DictionaryIterator<T[keyof T], TResult>): ImpO<Dictionary<TResult>>;
+        mapValues(iteratee: object): ImpO<{ [P in keyof T]: boolean }>;
+        mapValues<TKey extends keyof T[keyof T]>(iteratee: TKey): ImpO<Dictionary<T[keyof T][TKey]>>;
+        mapValues(iteratee: string): ImpO<{ [P in keyof T]: any }>;
         mapValues(): ImpO<T>;
     }
     interface ExpS {
-        mapValues<TResult>(callback: StringIterator<TResult>): Exp<NumericDictionary<TResult>>;
-        mapValues(): Exp<NumericDictionary<string>>;
+        mapValues<TResult>(callback: StringIterator<TResult>): ExpO<NumericDictionary<TResult>>;
+        mapValues(): ExpO<NumericDictionary<string>>;
     }
     interface ExpL<T> {
-        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): Exp<Dictionary<TResult>>;
-        mapValues<TKey extends keyof T>(iteratee: TKey): Exp<Dictionary<T[TKey]>>;
-        mapValues(iteratee: object): Exp<Dictionary<boolean>>;
-        mapValues(iteratee: string): Exp<Dictionary<any>>;
-        mapValues(): Exp<Dictionary<T>>;
+        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): ExpO<Dictionary<TResult>>;
+        mapValues<TKey extends keyof T>(iteratee: TKey): ExpO<Dictionary<T[TKey]>>;
+        mapValues(iteratee: object): ExpO<Dictionary<boolean>>;
+        mapValues(iteratee: string): ExpO<Dictionary<any>>;
+        mapValues(): ExpO<Dictionary<T>>;
     }
     interface ExpO<T> {
-        mapValues<TResult>(callback: ObjectIterator<T, TResult>): Exp<{ [P in keyof T]: TResult }>;
-        mapValues(iteratee: object): Exp<{ [P in keyof T]: boolean }>;
-        mapValues(iteratee: string): Exp<{ [P in keyof T]: any }>;
-        mapValues(): ImpO<T>;
+        mapValues<TResult>(callback: ObjectIterator<T, TResult>): ExpO<{ [P in keyof T]: TResult }>;
+        mapValues<TResult>(callback: DictionaryIterator<T[keyof T], TResult>): ExpO<Dictionary<TResult>>;
+        mapValues(iteratee: object): ExpO<{ [P in keyof T]: boolean }>;
+        mapValues<TKey extends keyof T[keyof T]>(iteratee: TKey): ExpO<Dictionary<T[keyof T][TKey]>>;
+        mapValues(iteratee: string): ExpO<{ [P in keyof T]: any }>;
+        mapValues(): ExpO<T>;
     }
     interface Stat {
         merge<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
