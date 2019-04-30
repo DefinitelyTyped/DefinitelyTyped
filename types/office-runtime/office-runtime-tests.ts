@@ -3,8 +3,8 @@ office-runtime
 Copyright (c) Microsoft Corporation
 */
 
-OfficeRuntime.storage.getItem("foo").then(value => console.log(value));
-OfficeRuntime.storage.getItems(["foo", "bar"]).then(value => console.log(value));
+OfficeRuntime.storage.getItem("foo");
+OfficeRuntime.storage.getItems(["foo", "bar"]);
 
 OfficeRuntime.storage.setItem("foo", "bar");
 OfficeRuntime.storage.setItems({ foo: "value1", bar: "value2"});
