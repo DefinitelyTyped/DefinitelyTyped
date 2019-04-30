@@ -5,6 +5,7 @@
 //                 Brendan Forster <https://github.com/shiftkey>,
 //                 Mees van Dijk <https://github.com/mees->,
 //                 Justin Rockwood <https://github.com/jrockwood>
+//                 Sang Dang <https://github.com/sangdth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
