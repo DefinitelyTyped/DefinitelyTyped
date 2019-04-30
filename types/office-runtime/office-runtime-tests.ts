@@ -3,6 +3,17 @@ office-runtime
 Copyright (c) Microsoft Corporation
 */
 
+OfficeRuntime.storage.getItem("foo").then(value => console.log(value));
+OfficeRuntime.storage.getItems(["foo", "bar"]).then(value => console.log(value));
+
+OfficeRuntime.storage.setItem("foo", "bar");
+OfficeRuntime.storage.setItems({ foo: "value1", bar: "value2"});
+
+OfficeRuntime.storage.removeItem("foo");
+OfficeRuntime.storage.removeItems(["foo", "bar"]);
+
+OfficeRuntime.storage.getKeys();
+
 OfficeRuntime.AsyncStorage.getItem("foo", () => {
 
     // perform an action
@@ -15,11 +26,6 @@ OfficeRuntime.AsyncStorage.getItem("foo", () => {
  OfficeRuntime.AsyncStorage.removeItem("foo");
  OfficeRuntime.AsyncStorage.removeItem("foo", () => {
     // perform an action
- });
-
- OfficeRuntime.AsyncStorage.clear();
- OfficeRuntime.AsyncStorage.clear(() => {
-     // perform an action
  });
 
  OfficeRuntime.AsyncStorage.getAllKeys().then(keys => {
