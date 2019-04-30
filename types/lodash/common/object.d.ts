@@ -544,15 +544,15 @@ declare module "../index" {
         omit(...paths: Array<Many<PropertyName>>): ImpL<T>;
     }
     interface ImpO<T> {
-        omit<K extends keyof T>(...paths: Array<Many<K>>): Imp<Omit<T, K>>;
-        omit(...paths: Array<Many<PropertyName>>): Imp<PartialObject<T>>;
+        omit<K extends keyof T>(...paths: Array<Many<K>>): ImpO<Omit<T, K>>;
+        omit(...paths: Array<Many<PropertyName | IterateeShorthand<T>>>): ImpO<PartialObject<T>>;
     }
     interface ExpL<T> {
         omit(...paths: Array<Many<PropertyName>>): ExpL<T>;
     }
     interface ExpO<T> {
-        omit<K extends keyof T>(...paths: Array<Many<K>>): Exp<Omit<T, K>>;
-        omit(...paths: Array<Many<PropertyName>>): Exp<PartialObject<T>>;
+        omit<K extends keyof T>(...paths: Array<Many<K>>): ExpO<Omit<T, K>>;
+        omit(...paths: Array<Many<PropertyName>>): ExpO<PartialObject<T>>;
     }
     interface Stat {
         omitBy<T>(object: Dictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): Dictionary<T>;
@@ -560,13 +560,13 @@ declare module "../index" {
         omitBy<T extends object>(object: T | null | undefined, predicate: ValueKeyIteratee<T[keyof T]>): PartialObject<T>;
     }
     interface ImpL<T> {
-        omitBy(this: Imp<Dictionary<T> | null | undefined>, predicate?: ValueKeyIteratee<T>): Imp<Dictionary<T>>;
+        omitBy(predicate?: ValueKeyIteratee<T>): ImpO<Dictionary<T>>;
     }
     interface ImpO<T> {
         omitBy(predicate: ValueKeyIteratee<T[keyof T]>): ImpO<PartialObject<T>>;
     }
     interface ExpL<T> {
-        omitBy(this: Exp<Dictionary<T> | null | undefined>, predicate?: ValueKeyIteratee<T>): Exp<Dictionary<T>>;
+        omitBy(predicate?: ValueKeyIteratee<T>): ExpO<Dictionary<T>>;
     }
     interface ExpO<T> {
         omitBy(predicate: ValueKeyIteratee<T[keyof T]>): ExpO<PartialObject<T>>;
@@ -595,6 +595,7 @@ declare module "../index" {
         pickBy(predicate?: ValueKeyIteratee<T>): Imp<Dictionary<T>>;
     }
     interface ImpO<T> {
+        pickBy<S extends keyof T>(predicate: ValueKeyIterateeTypeGuard<keyof T, S>): ImpO<Dictionary<S>>;
         pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): ImpO<PartialObject<T>>;
     }
     interface ExpL<T> {
@@ -602,6 +603,7 @@ declare module "../index" {
         pickBy(predicate?: ValueKeyIteratee<T>): Exp<Dictionary<T>>;
     }
     interface ExpO<T> {
+        pickBy<S extends keyof T>(predicate: ValueKeyIterateeTypeGuard<keyof T, S>): ExpO<Dictionary<S>>;
         pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): ExpO<PartialObject<T>>;
     }
     interface Stat {
@@ -643,24 +645,20 @@ declare module "../index" {
         toPairs(object?: object): Array<[string, any]>;
     }
     interface Imp<TValue> {
-        toPairs<T>(this: Imp<Dictionary<T> | NumericDictionary<T>>): Imp<Array<[string, T]>>;
-        toPairs(): Imp<Array<[string, any]>>;
+        toPairs(): ImpL<[string, TValue extends Dictionary<infer U> ? U : any]>;
     }
     interface Exp<TValue> {
-        toPairs<T>(this: Exp<Dictionary<T> | NumericDictionary<T>>): Exp<Array<[string, T]>>;
-        toPairs(): Exp<Array<[string, any]>>;
+        toPairs<T>(): ExpL<[string, TValue extends Dictionary<infer U> ? U : any]>;
     }
     interface Stat {
         toPairsIn<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         toPairsIn(object?: object): Array<[string, any]>;
     }
     interface Imp<TValue> {
-        toPairsIn<T>(this: Imp<Dictionary<T> | NumericDictionary<T>>): Imp<Array<[string, T]>>;
-        toPairsIn(): Imp<Array<[string, any]>>;
+        toPairsIn(): ImpL<[string, TValue extends Dictionary<infer U> ? U : any]>;
     }
     interface Exp<TValue> {
-        toPairsIn<T>(this: Exp<Dictionary<T> | NumericDictionary<T>>): Exp<Array<[string, T]>>;
-        toPairsIn(): Exp<Array<[string, any]>>;
+        toPairsIn(): ExpL<[string, TValue extends Dictionary<infer U> ? U : any]>;
     }
     interface Stat {
         transform<T, TResult>(object: T[], iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;

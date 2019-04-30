@@ -5556,15 +5556,15 @@ fp.now(); // $ExpectType number
     _.omit(dictionary, "a"); // $ExpectType Dictionary<AbcObject>
     _.omit(numericDictionary, "a");  // $ExpectType NumericDictionary<AbcObject>
 
-    _(obj).omit("a"); // $ExpectType Imp<Pick<AbcObject, "b" | "c">>
-    _(obj).omit(["b", 1], 0, "a"); // $ExpectType Imp<Partial<AbcObject>>
-    _(dictionary).omit("a"); // $ExpectType Imp<Dictionary<AbcObject>>
-    _(numericDictionary).omit("a"); // $ExpectType Imp<NumericDictionary<AbcObject>>
+    _(obj).omit("a"); // $ExpectType ImpO<Pick<AbcObject, "b" | "c">>
+    _(obj).omit(["b", 1], 0, "a"); // $ExpectType ImpO<Partial<AbcObject>>
+    _(dictionary).omit("a"); // $ExpectType ImpO<Pick<Dictionary<AbcObject>, string | number>>
+    _(numericDictionary).omit(100); // $ExpectType ImpO<Pick<NumericDictionary<AbcObject>, number>>
 
-    _.chain(obj).omit("a"); // $ExpectType Exp<Pick<AbcObject, "b" | "c">>
-    _.chain(obj).omit(["b", 1], 0, "a"); // $ExpectType Exp<Partial<AbcObject>>
-    _.chain(dictionary).omit("a"); // $ExpectType Exp<Dictionary<AbcObject>>
-    _.chain(numericDictionary).omit("a"); // $ExpectType Exp<NumericDictionary<AbcObject>>
+    _.chain(obj).omit("a"); // $ExpectType ExpO<Pick<AbcObject, "b" | "c">>
+    _.chain(obj).omit(["b", 1], 0, "a"); // $ExpectType ExpO<Partial<AbcObject>>
+    _.chain(dictionary).omit("a"); // $ExpectType ExpO<Pick<Dictionary<AbcObject>, string | number>>
+    _.chain(numericDictionary).omit("a"); // $ExpectType ExpO<Partial<NumericDictionary<AbcObject>>>
 
     fp.omit("a", obj); // $ExpectType Pick<AbcObject, "b" | "c">
     fp.omit("a")(obj); // $ExpectType Partial<AbcObject>
@@ -5582,12 +5582,12 @@ fp.now(); // $ExpectType number
     _.omitBy(obj, predicate); // $ExpectType Partial<AbcObject>
     _.omitBy(dictionary, predicate2); // $ExpectType Dictionary<boolean>
     _.omitBy(numericDictionary, predicate2); // $ExpectType NumericDictionary<boolean>
-    _(obj).omitBy(predicate); // $ExpectType Imp<Partial<AbcObject>>
-    _(dictionary).omitBy(predicate2); // $ExpectType Imp<Dictionary<boolean>>
-    _(numericDictionary).omitBy(predicate2); // $ExpectType Imp<NumericDictionary<boolean>>
-    _.chain(obj).omitBy(predicate); // $ExpectType Exp<Partial<AbcObject>>
-    _.chain(dictionary).omitBy(predicate2); // $ExpectType Exp<Dictionary<boolean>>
-    _.chain(numericDictionary).omitBy(predicate2); // $ExpectType Exp<NumericDictionary<boolean>>
+    _(obj).omitBy(predicate); // $ExpectType ImpO<Partial<AbcObject>>
+    _(dictionary).omitBy(predicate2); // $ExpectType ImpO<Partial<Dictionary<boolean>>>
+    _(numericDictionary).omitBy(predicate2); // $ExpectType ImpO<Partial<NumericDictionary<boolean>>>
+    _.chain(obj).omitBy(predicate); // $ExpectType ExpO<Partial<AbcObject>>
+    _.chain(dictionary).omitBy(predicate2); // $ExpectType ExpO<Partial<Dictionary<boolean>>>
+    _.chain(numericDictionary).omitBy(predicate2); // $ExpectType ExpO<Partial<NumericDictionary<boolean>>>
     fp.omitBy(predicate, obj); // $ExpectType Partial<AbcObject>
     fp.omitBy(predicate2)(dictionary); // $ExpectType Dictionary<boolean>
     fp.omitBy(predicate2)(numericDictionary); // $ExpectType NumericDictionary<boolean>
@@ -5611,20 +5611,20 @@ fp.now(); // $ExpectType number
     result1 = _.pick(obj2, literalsArray);
     result1 = _.pick(obj2, roLiteralsArray);
 
-    _(obj1).pick("a"); // $ExpectType Imp<Partial<AbcObject>>
-    _(obj1).pick(0, "a"); // $ExpectType Imp<Partial<AbcObject>>
-    _(obj1).pick(["b", 1], 0, "a"); // $ExpectType Imp<Partial<AbcObject>>
-    _(obj1).pick(readonlyArray); // $ExpectType Imp<Partial<AbcObject>>
-    _(obj2).pick("a", "b"); // $ExpectType Imp<Pick<AbcObject, "a" | "b">>
-    let result2: _.Imp<Pick<AbcObject, "a" | "b">>;
+    _(obj1).pick("a"); // $ExpectType ImpO<Pick<AbcObject, "a">>
+    _(obj1).pick(0, "a"); // $ExpectType ImpO<Partial<AbcObject>>
+    _(obj1).pick(["b", 1], 0, "a"); // $ExpectType ImpO<Partial<AbcObject>>
+    _(obj1).pick(readonlyArray); // $ExpectType ImpO<Partial<AbcObject>>
+    _(obj2).pick("a", "b"); // $ExpectType ImpO<Pick<AbcObject, "a" | "b">>
+    let result2: _.ImpO<Pick<AbcObject, "a" | "b">>;
     result2 = _(obj2).pick(literalsArray);
     result2 = _(obj2).pick(roLiteralsArray);
 
-    _.chain(obj1).pick("a"); // $ExpectType Exp<Partial<AbcObject>>
-    _.chain(obj1).pick(0, "a"); // $ExpectType Exp<Partial<AbcObject>>
-    _.chain(obj1).pick(["b", 1], 0, "a"); // $ExpectType Exp<Partial<AbcObject>>
-    _.chain(obj1).pick(readonlyArray); // $ExpectType Exp<Partial<AbcObject>>
-    _.chain(obj2).pick("a", "b"); // $ExpectType Exp<Pick<AbcObject, "a" | "b">>
+    _.chain(obj1).pick("a"); // $ExpectType ExpO<Pick<AbcObject, "a">>
+    _.chain(obj1).pick(0, "a"); // $ExpectType ExpO<Partial<AbcObject>>
+    _.chain(obj1).pick(["b", 1], 0, "a"); // $ExpectType ExpO<Partial<AbcObject>>
+    _.chain(obj1).pick(readonlyArray); // $ExpectType ExpO<Partial<AbcObject>>
+    _.chain(obj2).pick("a", "b"); // $ExpectType ExpO<Pick<AbcObject, "a" | "b">>
     let result3: _.Exp<Pick<AbcObject, "a" | "b">>;
     result3 = _.chain(obj2).pick(literalsArray);
     result3 = _.chain(obj2).pick(roLiteralsArray);
@@ -5645,12 +5645,12 @@ fp.now(); // $ExpectType number
     _.pickBy(obj, predicate); // $ExpectType Partial<AbcObject>
     _.pickBy(dictionary, predicate2); // $ExpectType Dictionary<boolean>
     _.pickBy(numericDictionary, predicate2); // $ExpectType NumericDictionary<boolean>
-    _(obj).pickBy(predicate); // $ExpectType Imp<Partial<AbcObject>>
-    _(dictionary).pickBy(predicate2); // $ExpectType Imp<Dictionary<boolean>>
-    _(numericDictionary).pickBy(predicate2); // $ExpectType Imp<NumericDictionary<boolean>>
-    _.chain(obj).pickBy(predicate); // $ExpectType Exp<Partial<AbcObject>>
-    _.chain(dictionary).pickBy(predicate2); // $ExpectType Exp<Dictionary<boolean>>
-    _.chain(numericDictionary).pickBy(predicate2); // $ExpectType Exp<NumericDictionary<boolean>>
+    _(obj).pickBy(predicate); // $ExpectType ImpO<Partial<AbcObject>>
+    _(dictionary).pickBy(predicate2); // $ExpectType ImpO<Partial<Dictionary<boolean>>>
+    _(numericDictionary).pickBy(predicate2); // $ExpectType ImpO<Partial<NumericDictionary<boolean>>>
+    _.chain(obj).pickBy(predicate); // $ExpectType ExpO<Partial<AbcObject>>
+    _.chain(dictionary).pickBy(predicate2); // $ExpectType ExpO<Partial<Dictionary<boolean>>>
+    _.chain(numericDictionary).pickBy(predicate2); // $ExpectType ExpO<Partial<NumericDictionary<boolean>>>
     fp.pickBy(predicate, obj); // $ExpectType Partial<AbcObject>
     fp.pickBy(predicate2)(dictionary); // $ExpectType Dictionary<boolean>
     fp.pickBy(predicate2)(numericDictionary); // $ExpectType NumericDictionary<boolean>
@@ -5660,15 +5660,15 @@ fp.now(); // $ExpectType number
     const userDefinedTypeGuard = (item: string | number): item is number => typeof item === "number";
 
     _.pickBy(mixedDictionary, userDefinedTypeGuard); // $ExpectType Dictionary<number>
-    _(mixedDictionary).pickBy(userDefinedTypeGuard); // $ExpectType Imp<Dictionary<number>>
-    _.chain(mixedDictionary).pickBy(userDefinedTypeGuard); // $ExpectType Exp<Dictionary<number>>
+    _(mixedDictionary).pickBy(userDefinedTypeGuard); // $ExpectType ImpO<Dictionary<number>>
+    _.chain(mixedDictionary).pickBy(userDefinedTypeGuard); // $ExpectType ExpO<Dictionary<number>>
     fp.pickBy(userDefinedTypeGuard)(mixedDictionary); // $ExpectType Dictionary<number>
 
     const mixedNumericDictionary: _.NumericDictionary<string | number> | null | undefined = anything;
 
     _.pickBy(mixedNumericDictionary, userDefinedTypeGuard); // $ExpectType NumericDictionary<number>
-    _(mixedNumericDictionary).pickBy(userDefinedTypeGuard); // $ExpectType Imp<NumericDictionary<number>>
-    _.chain(mixedNumericDictionary).pickBy(userDefinedTypeGuard); // $ExpectType Exp<NumericDictionary<number>>
+    _(mixedNumericDictionary).pickBy(userDefinedTypeGuard); // $ExpectType ImpO<NumericDictionary<number>>
+    _.chain(mixedNumericDictionary).pickBy(userDefinedTypeGuard); // $ExpectType ExpO<NumericDictionary<number>>
     fp.pickBy(userDefinedTypeGuard)(mixedNumericDictionary); // $ExpectType NumericDictionary<number>
 }
 
