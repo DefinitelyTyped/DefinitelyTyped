@@ -3,10 +3,11 @@
 // Definitions by: Richard Natal <https://github.com/Bigous>
 //                 Connor Fitzgerald <https://github.com/CFitzgerald1995>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.2
 
 /// <reference types="node" />
 
-import { Duplex, Readable } from "stream";
+import { Duplex, Readable } from 'stream';
 
 declare namespace oracledb {
     /** Constant for the query result outFormat option. */
@@ -625,16 +626,12 @@ declare namespace oracledb {
          * @since 2.2
          * @see https://oracle.github.io/node-oracledb/doc/api.html#changingpassword
          */
-        changePassword(
-            user: string,
-            oldPassword: string,
-            newPassword: string
-        ): Promise<void>;
+        changePassword(user: string, oldPassword: string, newPassword: string): Promise<void>;
         changePassword(
             user: string,
             oldPassword: string,
             newPassword: string,
-            callback: (error: DBError) => void
+            callback: (error: DBError) => void,
         ): void;
 
         /**
@@ -656,10 +653,7 @@ declare namespace oracledb {
          */
         close(options: CloseConnectionOptions): Promise<void>;
         close(): Promise<void>;
-        close(
-            options: CloseConnectionOptions,
-            callback: (error: DBError) => void
-        ): void;
+        close(options: CloseConnectionOptions, callback: (error: DBError) => void): void;
         close(callback: (error: DBError) => void): void;
 
         /**
@@ -685,10 +679,7 @@ declare namespace oracledb {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#lobbinds
          */
         createLob(type: number): Promise<Lob>;
-        createLob(
-            type: number,
-            callback: (error: DBError, lob: Lob) => void
-        ): void;
+        createLob(type: number, callback: (error: DBError, lob: Lob) => void): void;
 
         /**
          * This call executes a single SQL or PL/SQL statement.
@@ -700,16 +691,12 @@ declare namespace oracledb {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
          * @see https://oracle.github.io/node-oracledb/doc/api.html#querystream For an alternative
          */
-        execute(
-            sql: string,
-            bindParams: BindParametersObject | any[],
-            options: ExecuteOptions
-        ): Promise<ExecuteResult>;
+        execute(sql: string, bindParams: BindParametersObject | any[], options: ExecuteOptions): Promise<Result>;
         execute(
             sql: string,
             bindParams: BindParametersObject | any[],
             options: ExecuteOptions,
-            callback: (error: DBError, result: ExecuteResult) => void
+            callback: (error: DBError, result: Result) => void,
         ): void;
 
         /**
@@ -721,14 +708,11 @@ declare namespace oracledb {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
          * @see https://oracle.github.io/node-oracledb/doc/api.html#querystream For an alternative
          */
-        execute(
-            sql: string,
-            bindParams: BindParametersObject | any[]
-        ): Promise<ExecuteResult>;
+        execute(sql: string, bindParams: BindParametersObject | any[]): Promise<Result>;
         execute(
             sql: string,
             bindParams: BindParametersObject | any[],
-            callback: (error: DBError, result: ExecuteResult) => void
+            callback: (error: DBError, result: Result) => void,
         ): void;
 
         /**
@@ -739,11 +723,8 @@ declare namespace oracledb {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
          * @see https://oracle.github.io/node-oracledb/doc/api.html#querystream For an alternative
          */
-        execute(sql: string): Promise<ExecuteResult>;
-        execute(
-            sql: string,
-            callback: (error: DBError, result: ExecuteResult) => void
-        ): void;
+        execute(sql: string): Promise<Result>;
+        execute(sql: string, callback: (error: DBError, result: Result) => void): void;
 
         /**
          * This method allows sets of data values to be bound to one DML or PL/SQL statement for execution.
@@ -791,8 +772,8 @@ declare namespace oracledb {
                       [parameter: string]: any;
                   }
                 | any[])[],
-            options: ExecuteManyOptions
-        ): Promise<ExecuteManyResult>;
+            options: ExecuteManyOptions,
+        ): Promise<Results>;
         executeMany(
             sql: string,
             binds: (
@@ -801,7 +782,7 @@ declare namespace oracledb {
                   }
                 | any[])[],
             options: ExecuteManyOptions,
-            callback: (error: DBError, result: ExecuteManyResult) => void
+            callback: (error: DBError, result: Results) => void,
         ): void;
 
         executeMany(
@@ -810,8 +791,8 @@ declare namespace oracledb {
                 | {
                       [parameter: string]: any;
                   }
-                | any[])[]
-        ): Promise<ExecuteManyResult>;
+                | any[])[],
+        ): Promise<Results>;
         executeMany(
             sql: string,
             binds: (
@@ -819,7 +800,7 @@ declare namespace oracledb {
                       [parameter: string]: any;
                   }
                 | any[])[],
-            callback: (error: DBError, result: ExecuteManyResult) => void
+            callback: (error: DBError, result: Results) => void,
         ): void;
 
         /**
@@ -838,26 +819,19 @@ declare namespace oracledb {
          * @param iterations The number of times the SQL should be executed.
          * @param options Optional parameter to control the execution.
          */
-        executeMany(
-            sql: string,
-            iterations: number,
-            options: ExecuteManyOptions
-        ): Promise<ExecuteManyResult>;
+        executeMany(sql: string, iterations: number, options: ExecuteManyOptions): Promise<Results>;
         executeMany(
             sql: string,
             iterations: number,
             options: ExecuteManyOptions,
-            callback: (error: DBError, result: ExecuteManyResult) => void
+            callback: (error: DBError, result: Results) => void,
         ): void;
 
-        executeMany(
-            sql: string,
-            iterations: number
-        ): Promise<ExecuteManyResult>;
+        executeMany(sql: string, iterations: number): Promise<Results>;
         executeMany(
             sql: string,
             iterations: number,
-            callback: (error: DBError, result: ExecuteManyResult) => void
+            callback: (error: DBError, result: Results) => void,
         ): void;
 
         /**
@@ -887,10 +861,7 @@ declare namespace oracledb {
          * @since 2.2
          */
         getStatementInfo(sql: string): Promise<StatementInfo>;
-        getStatementInfo(
-            sql: string,
-            callback: (error: DBError, info: StatementInfo) => void
-        ): void;
+        getStatementInfo(sql: string, callback: (error: DBError, info: StatementInfo) => void): void;
 
         /**
          * This method checks that a connection is currently usable and the network to the database is valid.
@@ -927,15 +898,8 @@ declare namespace oracledb {
          * @since 1.8
          * @see https://oracle.github.io/node-oracledb/doc/api.html#streamingresults
          */
-        queryStream(
-            sql: string,
-            bindParams: BindParametersObject | any[],
-            options: ExecuteOptions
-        ): Readable;
-        queryStream(
-            sql: string,
-            bindParams: BindParametersObject | any[]
-        ): Readable;
+        queryStream(sql: string, bindParams: BindParametersObject | any[], options: ExecuteOptions): Readable;
+        queryStream(sql: string, bindParams: BindParametersObject | any[]): Readable;
         queryStream(sql: string): Readable;
 
         /**
@@ -957,10 +921,7 @@ declare namespace oracledb {
          */
         release(options: CloseConnectionOptions): Promise<void>;
         release(): Promise<void>;
-        release(
-            options: CloseConnectionOptions,
-            callback: (error: DBError) => void
-        ): void;
+        release(options: CloseConnectionOptions, callback: (error: DBError) => void): void;
         release(callback: (error: DBError) => void): void;
 
         /**
@@ -992,11 +953,7 @@ declare namespace oracledb {
          * @param options Options that control the subscription.
          */
         subscribe(name: string, options: SubscribeOptions): Promise<void>;
-        subscribe(
-            name: string,
-            options: SubscribeOptions,
-            callback: (error: DBError) => void
-        ): void;
+        subscribe(name: string, options: SubscribeOptions, callback: (error: DBError) => void): void;
 
         /**
          * Unregister a Continuous Query Notification (CQN) subscription previously created with connection.subscribe().
@@ -1022,7 +979,7 @@ declare namespace oracledb {
         /** An array (bind by position) or object (bind by name) containing the bind values to use in the sql property. */
         binds?: BindParametersObject | any[];
         /** The notification callback that will be called whenever notifications are sent by the database. */
-        callback?: (message: SubscriptionMessage) => void;
+        callback: (message: SubscriptionMessage) => void;
         /**
          * An integer mask which currently, if set, can only contain the value SUBSCR_GROUPING_CLASS_TIME.
          * If this value is set then notifications are grouped by time into a single notification.
@@ -1060,7 +1017,7 @@ declare namespace oracledb {
         /** An integer mask containing one or more of the quality of service SUBSCR_QOS_* constants. */
         qos?: number;
         /** The SQL query string to use for notifications. */
-        sql?: string;
+        sql: string;
         /**
          * The number of seconds the subscription should remain active. Once this length of time has been reached,
          * the subscription is automatically unregistered and a deregistration notification is sent.
@@ -1075,14 +1032,14 @@ declare namespace oracledb {
         /** Name of the database which sent the notification. */
         dbName?: string;
         /** Array of objects specifying the queries which were affected by the Query Change notification. */
-        queries?: Array<{
+        queries?: {
             /** Array of objects specifying the queries which were affected by the Query Change notification. */
             tables: SubscriptionTables;
-        }>;
+        }[];
         /** Indicates whether the subscription is registerd with the database. */
         registered?: boolean;
         /** Array of objects specifying the tables which were affected by the notification. */
-        tables?: Array<SubscriptionTables>;
+        tables?: SubscriptionTables[];
         /** Buffer containing the identifier of the transaction which spawned the notification. */
         txId?: Buffer;
         /** Type of notification sent. One of the Subscribe Event Type Constants. */
@@ -1104,12 +1061,12 @@ declare namespace oracledb {
          * quality of service used when creating the subscription indicated the desire for ROWIDs and no
          * summary grouping took place.
          */
-        rows?: Array<{
+        rows?: {
             /** One of the CQN_OPCODE_* constants. */
             operation: number;
             /** ROWID of the row that was affected. */
             rowid: string;
-        }>;
+        }[];
     }
 
     /**
@@ -1117,9 +1074,9 @@ declare namespace oracledb {
      */
     interface StatementInfo {
         /** Array of strings corresponding to the unique names of the bind variables used in the SQL statement. */
-        bindNames?: Array<string>;
+        bindNames?: string[];
         /** Extended metadata properties. */
-        metaData?: Metadata;
+        metaData?: Array<Metadata>;
         /** One of the SQL Statement Type Constants. */
         statementType?: number;
     }
@@ -1441,6 +1398,9 @@ declare namespace oracledb {
         close(callback: (error: DBError) => void): void;
     }
 
+    /**
+     * Included in the result of a query execution to describe details of the columns involved.
+     */
     interface Metadata {
         /**
          * The column name follows Oracle’s standard name-casing rules. It will commonly be uppercase,
@@ -1477,6 +1437,9 @@ declare namespace oracledb {
         nullable: boolean;
     }
 
+    /**
+     * Contains a pool of connections to the database.
+     */
     interface Pool {
         /**
          * The number of currently active connections in the connection pool i.e. the number of connections currently “checked out” using getConnection().
@@ -1592,16 +1555,12 @@ declare namespace oracledb {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#connectionhandling
          * @see https://oracle.github.io/node-oracledb/doc/api.html#connpoolproxy
          */
+        getConnection(poolAttributes?: GetPooledConnectionOptions): Promise<Connection>;
         getConnection(
-            poolAttributes?: GetPooledConnectionAttributes
-        ): Promise<Connection>;
-        getConnection(
-            poolAttributes: GetPooledConnectionAttributes,
-            callback: (error: DBError, connection: Connection) => void
+            poolAttributes: GetPooledConnectionOptions,
+            callback: (error: DBError, connection: Connection) => void,
         ): void;
-        getConnection(
-            callback: (error: DBError, connection: Connection) => void
-        ): void;
+        getConnection(callback: (error: DBError, connection: Connection) => void): void;
         /**
          * This call closes connections in the pool and terminates the connection pool.
          *
@@ -1637,7 +1596,7 @@ declare namespace oracledb {
     /**
      * Used with pool.getConnection().
      */
-    interface GetPooledConnectionAttributes {
+    interface GetPooledConnectionOptions {
         /** Database user to retrieve the connection for. */
         user: string;
         /** Password of the specified user. */
@@ -1782,11 +1741,7 @@ declare namespace oracledb {
          */
         sessionCallback?:
             | string
-            | ((
-                  connection: Connection,
-                  requestedTag: string,
-                  callback: (error: DBError) => void
-              ) => string);
+            | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void);
         /**
          * The number of statements to be cached in the statement cache of each connection in the pool.
          * This optional property overrides the oracledb.stmtCacheSize property.
@@ -1802,7 +1757,7 @@ declare namespace oracledb {
     /**
      * Contains information regarding the outcome of a successful connection.execute().
      */
-    interface ExecuteResult {
+    interface Result {
         /**
          * For SELECT statements, this contains an array of objects describing details of columns for the select list.
          * For non queries, this property is undefined.
@@ -1857,7 +1812,7 @@ declare namespace oracledb {
     /**
      * Contains information regarding the outcome of a successful connection.executeMany().
      */
-    interface ExecuteManyResult {
+    interface Results {
         /**
          * An array of error objects that were reported during execution.
          *
@@ -1945,8 +1900,8 @@ declare namespace oracledb {
                     | {
                           [column: string]: any;
                       }
-                    | any[]
-            ) => void
+                    | any[],
+            ) => void,
         ): void;
 
         /**
@@ -1958,7 +1913,7 @@ declare namespace oracledb {
          * Different values of numRows may alter the time needed for fetching data from Oracle Database.
          * The value of fetchArraySize has no effect on getRows() performance or internal buffering.
          */
-        getRows(): Promise<number>;
+        getRows(numRows: number): Promise<void>;
         getRows(callback: (error: DBError, numRows: number) => void): void;
 
         /**
@@ -2017,19 +1972,13 @@ declare namespace oracledb {
          *
          * @since 3.0
          */
-        createCollection(
-            collectionName: string,
-            options?: SodaCollectionOptions
-        ): Promise<SodaCollection>;
+        createCollection(collectionName: string, options?: SodaCollectionOptions): Promise<SodaCollection>;
         createCollection(
             collectionName: string,
             options: SodaCollectionOptions,
-            callback: (error: DBError, collection: SodaCollection) => void
+            callback: (error: DBError, collection: SodaCollection) => void,
         ): void;
-        createCollection(
-            collectionName: string,
-            callback: (error: DBError, collection: SodaCollection) => void
-        ): void;
+        createCollection(collectionName: string, callback: (error: DBError, collection: SodaCollection) => void): void;
 
         /**
          * A synchronous method that constructs a proto SodaDocument object usable for SODA insert and replace methods.
@@ -2042,10 +1991,7 @@ declare namespace oracledb {
          * @param content The document content.
          * @param options Optional properties for the document to be created.
          */
-        createDocument(
-            content: string | Buffer | Record<string, any>,
-            options?: SodaDocumentOptions
-        ): SodaDocument;
+        createDocument(content: string | Buffer | Record<string, any>, options?: SodaDocumentOptions): SodaDocument;
 
         /**
          * Gets an array of collection names in alphabetical order.
@@ -2059,11 +2005,9 @@ declare namespace oracledb {
         getCollectionNames(options?: SodaCollectionNamesOptions): string[];
         getCollectionNames(
             options: SodaCollectionNamesOptions,
-            callback: (error: DBError, names: string[]) => void
+            callback: (error: DBError, names: string[]) => void,
         ): void;
-        getCollectionNames(
-            callback: (error: DBError, names: string[]) => void
-        ): void;
+        getCollectionNames(callback: (error: DBError, names: string[]) => void): void;
 
         /**
          * Opens an existing SodaCollection of the given name. The collection can then be used to access documents.
@@ -2079,10 +2023,7 @@ declare namespace oracledb {
          * @since 3.0
          */
         openCollection(collectionName: string): Promise<SodaCollection>;
-        openCollection(
-            collectionName: string,
-            callback: (error: DBError, collection: SodaCollection) => void
-        ): void;
+        openCollection(collectionName: string, callback: (error: DBError, collection: SodaCollection) => void): void;
     }
 
     /**
@@ -2146,13 +2087,8 @@ declare namespace oracledb {
          * @since 3.0
          * @see https://www.oracle.com/pls/topic/lookup?ctx=dblatest&id=GUID-4848E6A0-58A7-44FD-8D6D-A033D0CCF9CB
          */
-        createIndex(
-            indexSpec: BTreeIndex | SpatialIndex | SearchIndex
-        ): Promise<void>;
-        createIndex(
-            indexSpec: BTreeIndex | SpatialIndex | SearchIndex,
-            callback: (error: DBError) => void
-        ): void;
+        createIndex(indexSpec: BTreeIndex | SpatialIndex | SearchIndex): Promise<void>;
+        createIndex(indexSpec: BTreeIndex | SpatialIndex | SearchIndex, callback: (error: DBError) => void): void;
 
         /**
          * Drops the current collection.
@@ -2177,8 +2113,8 @@ declare namespace oracledb {
          *
          * @since 3.0
          */
-        drop(): Promise<DropResult>;
-        drop(callback: (error: DBError, result: DropResult) => void): void;
+        drop(): Promise<DropCollectionResult>;
+        drop(callback: (error: DBError, result: DropCollectionResult) => void): void;
 
         /**
          * Drops the specified index.
@@ -2191,14 +2127,11 @@ declare namespace oracledb {
          *
          * @since 3.0
          */
-        dropIndex(
-            indexName: string,
-            options?: DropIndexOptions
-        ): Promise<DropResult>;
+        dropIndex(indexName: string, options?: DropIndexOptions): Promise<DropCollectionResult>;
         dropIndex(
             indexName: string,
             options: DropIndexOptions,
-            callback: (error: DBError, result: DropResult) => void
+            callback: (error: DBError, result: DropCollectionResult) => void,
         ): void;
 
         /**
@@ -2228,9 +2161,7 @@ declare namespace oracledb {
          * @since 3.0
          */
         getDataGuide(): Promise<SodaDocument>;
-        getDataGuide(
-            callback: (error: DBError, document: SodaDocument) => void
-        ): void;
+        getDataGuide(callback: (error: DBError, document: SodaDocument) => void): void;
 
         /**
          * Inserts a given document to the collection. The input document can be either a JavaScript object representing
@@ -2249,10 +2180,7 @@ declare namespace oracledb {
          * @since 3.0
          */
         insertOne(newDocument: SodaDocument): Promise<void>;
-        insertOne(
-            newDocument: SodaDocument,
-            callback: (error: DBError) => void
-        ): void;
+        insertOne(newDocument: SodaDocument, callback: (error: DBError) => void): void;
 
         /**
          * Inserts a given document to the collection. The input document can be either a JavaScript object representing
@@ -2275,7 +2203,7 @@ declare namespace oracledb {
             newDocumentContent: {
                 [key: string]: any;
             },
-            callback: (error: DBError) => void
+            callback: (error: DBError) => void,
         ): Promise<void>;
 
         /**
@@ -2298,10 +2226,7 @@ declare namespace oracledb {
          * @since 3.0
          */
         insertOneAndGet(newDocument: SodaDocument): Promise<SodaDocument>;
-        insertOneAndGet(
-            newDocument: SodaDocument,
-            callback: (error: DBError, document: SodaDocument) => void
-        ): void;
+        insertOneAndGet(newDocument: SodaDocument, callback: (error: DBError, document: SodaDocument) => void): void;
 
         /**
          * Similar to sodaCollection.insertOne() but also returns the inserted document so system managed properties,
@@ -2322,14 +2247,12 @@ declare namespace oracledb {
          *
          * @since 3.0
          */
-        insertOneAndGet(newDocumentContent: {
-            [key: string]: any;
-        }): Promise<SodaDocument>;
+        insertOneAndGet(newDocumentContent: { [key: string]: any }): Promise<SodaDocument>;
         insertOneAndGet(
             newDocumentContent: {
                 [key: string]: any;
             },
-            callback: (error: DBError, document: SodaDocument) => void
+            callback: (error: DBError, document: SodaDocument) => void,
         ): Promise<void>;
     }
 
@@ -2409,9 +2332,7 @@ declare namespace oracledb {
          * @since 3.0
          */
         getNext(): Promise<SodaDocument>;
-        getNext(
-            callback: (error: DBError, document: SodaDocument) => void
-        ): void;
+        getNext(callback: (error: DBError, document: SodaDocument) => void): void;
     }
 
     /**
@@ -2515,9 +2436,7 @@ declare namespace oracledb {
          * connection is committed.
          */
         count(): Promise<SodaCountResult>;
-        count(
-            callback: (error: DBError, result: SodaCountResult) => void
-        ): void;
+        count(callback: (error: DBError, result: SodaCountResult) => void): void;
         /**
          * Returns a SodaDocumentCursor for documents that match the SodaOperation query criteria.
          * The cursor can be iterated over with sodaDocumentCursor.getNext() to access each SodaDocument.
@@ -2531,9 +2450,7 @@ declare namespace oracledb {
          * @since 3.0
          */
         getCursor(): Promise<SodaDocumentCursor>;
-        getCursor(
-            callback: (error: DBError, cursor: SodaDocumentCursor) => void
-        ): void;
+        getCursor(callback: (error: DBError, cursor: SodaDocumentCursor) => void): void;
         /**
          * Gets an array of SodaDocuments matching the SodaOperation query criteria. An empty array will be
          * returned when no documents match.
@@ -2547,9 +2464,7 @@ declare namespace oracledb {
          * @since 3.0
          */
         getDocuments(): Promise<SodaDocument[]>;
-        getDocuments(
-            callback: (error: DBError, documents: SodaDocument[]) => void
-        ): void;
+        getDocuments(callback: (error: DBError, documents: SodaDocument[]) => void): void;
         /**
          * Obtains one document matching the SodaOperation query criteria. If the criteria match more
          * than one document, then only the first is returned.
@@ -2562,9 +2477,7 @@ declare namespace oracledb {
          * @since 3.0
          */
         getOne(): Promise<SodaDocument>;
-        getOne(
-            callback: (error: DBError, document: SodaDocument) => void
-        ): void;
+        getOne(callback: (error: DBError, document: SodaDocument) => void): void;
         /**
          * Removes a set of documents matching the SodaOperation query criteria.
          *
@@ -2576,9 +2489,7 @@ declare namespace oracledb {
          * @since 3.0
          */
         remove(): Promise<SodaRemoveResult>;
-        remove(
-            callback: (error: DBError, result: SodaRemoveResult) => void
-        ): void;
+        remove(callback: (error: DBError, result: SodaRemoveResult) => void): void;
         /**
          * Replaces a document in a collection. The input document can be either a JavaScript object representing the
          * data content, or it can be an existing SodaDocument.
@@ -2602,10 +2513,7 @@ declare namespace oracledb {
          * @since 3.0
          */
         replaceOne(newDocument: SodaDocument): Promise<SodaReplaceOneResult>;
-        replaceOne(
-            newDocument: SodaDocument,
-            callback: (error: DBError, result: SodaReplaceOneResult) => void
-        ): void;
+        replaceOne(newDocument: SodaDocument, callback: (error: DBError, result: SodaReplaceOneResult) => void): void;
         /**
          * Replaces a document in a collection. The input document can be either a JavaScript object representing the
          * data content, or it can be an existing SodaDocument.
@@ -2628,14 +2536,12 @@ declare namespace oracledb {
          *
          * @since 3.0
          */
-        replaceOne(newDocumentContent: {
-            [key: string]: any;
-        }): Promise<SodaReplaceOneResult>;
+        replaceOne(newDocumentContent: { [key: string]: any }): Promise<SodaReplaceOneResult>;
         replaceOne(
             newDocumentContent: {
                 [key: string]: any;
             },
-            callback: (error: DBError, result: SodaReplaceOneResult) => void
+            callback: (error: DBError, result: SodaReplaceOneResult) => void,
         ): void;
         /**
          * Replaces a document in a collection. This is similar to replaceOne(), but also returns the result document,
@@ -2651,10 +2557,7 @@ declare namespace oracledb {
          * @since 3.0
          */
         replaceOneAndGet(newDocument: SodaDocument): Promise<SodaDocument>;
-        replaceOneAndGet(
-            newDocument: SodaDocument,
-            callback: (error: DBError, document: SodaDocument) => void
-        ): void;
+        replaceOneAndGet(newDocument: SodaDocument, callback: (error: DBError, document: SodaDocument) => void): void;
         /**
          * Replaces a document in a collection. This is similar to replaceOne(), but also returns the result document,
          * which contains all SodaDocument components (key, version, etc.) except for content.
@@ -2668,14 +2571,12 @@ declare namespace oracledb {
          *
          * @since 3.0
          */
-        replaceOneAndGet(newDocumentContent: {
-            [key: string]: any;
-        }): Promise<SodaDocument>;
+        replaceOneAndGet(newDocumentContent: { [key: string]: any }): Promise<SodaDocument>;
         replaceOneAndGet(
             newDocumentContent: {
                 [key: string]: any;
             },
-            callback: (error: DBError, document: SodaDocument) => void
+            callback: (error: DBError, document: SodaDocument) => void,
         ): void;
     }
 
@@ -2719,7 +2620,7 @@ declare namespace oracledb {
     /**
      * Returned from SODA collection.drop().
      */
-    interface DropResult {
+    interface DropCollectionResult {
         /** If the drop operation succeeded, dropped will be true. If no collection was found, dropped will be false. */
         dropped: boolean;
     }
@@ -2987,10 +2888,7 @@ declare namespace oracledb {
      * @param poolAttributes Provides connection credentials and pool-specific configuration properties, overriding the defualt pooling properties of the Oracledb object.
      */
     function createPool(poolAttributes: PoolAttributes): Promise<Pool>;
-    function createPool(
-        poolAttributes: PoolAttributes,
-        callback: (error: DBError, pool: Pool) => void
-    ): void;
+    function createPool(poolAttributes: PoolAttributes, callback: (error: DBError, pool: Pool) => void): void;
 
     /**
      * Obtains a connection from a pool in the connection pool cache.
@@ -3001,10 +2899,7 @@ declare namespace oracledb {
      * @param poolAlias Specifies which previously created pool in the connection pool cache to use to obtain the connection.
      */
     function getConnection(poolAlias: string): Promise<Connection>;
-    function getConnection(
-        poolAlias: string,
-        callback: (error: DBError, connection: Connection) => void
-    ): void;
+    function getConnection(poolAlias: string, callback: (error: DBError, connection: Connection) => void): void;
 
     /**
      * Obtains a connection from the default pool.
@@ -3013,9 +2908,7 @@ declare namespace oracledb {
      * However, in most cases, Oracle recommends getting connections from a connection pool.
      */
     function getConnection(): Promise<Connection>;
-    function getConnection(
-        callback: (error: DBError, connection: Connection) => void
-    ): void;
+    function getConnection(callback: (error: DBError, connection: Connection) => void): void;
 
     /**
      * Creates a new, standalone, non-pooled connection.
@@ -3025,12 +2918,10 @@ declare namespace oracledb {
      *
      * @param connectionAttributes Connection credentials and connection-specific configuration properties.
      */
-    function getConnection(
-        connectionAttributes: ConnectionAttributes
-    ): Promise<Connection>;
+    function getConnection(connectionAttributes: ConnectionAttributes): Promise<Connection>;
     function getConnection(
         connectionAttributes: ConnectionAttributes,
-        callback: (error: DBError, connection: Connection) => void
+        callback: (error: DBError, connection: Connection) => void,
     ): void;
 
     /**
