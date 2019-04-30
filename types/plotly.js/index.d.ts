@@ -553,7 +553,7 @@ export interface PlotData {
 	visible: boolean | 'legendonly';
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
-  width: number | number[];
+	width: number | number[];
 	boxmean: boolean | 'sd';
 	colorscale: string | Array<[number, string]>;
 	zsmooth: 'fast' | 'best' | false;
