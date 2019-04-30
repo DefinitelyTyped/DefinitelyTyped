@@ -1167,6 +1167,47 @@ declare namespace google {
         }
 
         //#endregion
+        //#region Dashboard
+
+        // https://developers.google.com/chart/interactive/docs/gallery/controls#dashboard
+        export class Dashboard {
+            constructor(containerRef: HTMLElement);
+            bind(controls: any, charts: ChartWrapper): google.visualization.Dashboard;
+            draw(dataTable: DataTable): void;
+            getSelection(): object[];
+        }
+
+        //#endregion
+        //#region ControlWrapper
+        // https://developers.google.com/chart/interactive/docs/gallery/controls#controlwrapperobject
+        export class ControlWrapper {
+            constructor(opt_spec?: ControlWrapperOptions)
+            draw(): void;
+            toJSON(): string;
+            clone(): ControlWrapper;
+            getControlType(): string;
+            getControlName(): string;
+            getControl(): ControlWrapper;
+            getContainerId(): string;
+            getOption(key: string, opt_default_val?: any): any;
+            getOptions(): Object;
+            getState(): Object;
+            setControlType(type): void;
+            setControlName(name: string): void;
+            setContainerId(id): void;
+            setOption(key, value): void;
+            setOptions(options_obj): void;
+            setState(state_obj): void;
+        }
+
+        export interface ControlWrapperOptions {        
+            controlType?: String;
+            containerId?: String;
+            options?: Object;
+            state?: Object;
+        }
+
+        //#endregion
         //#region Events
 
         namespace events {
