@@ -19,6 +19,7 @@
 //                 Vinit Sood <https://github.com/vinitsood>
 //                 Mattias Sämskar <https://github.com/mattiassamskar>
 //                 Julian Hundeloh <https://github.com/jaulz>
+//                 Matevz Poljanc <https://github.com/matevzpoljanc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -717,6 +718,24 @@ export class PlaybackObject {
      * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once it is unloaded, or rejects if unloading failed. See below for details on `PlaybackStatus`.
      */
     unloadAsync(): Promise<PlaybackStatus>;
+}
+// #endregion
+
+// #region BackgroundFetch
+/**
+ * BackgroundFetch
+ */
+export namespace BackgroundFetch {
+    function getStatusAsync(): Promise<Status>;
+    function registerTaskAsync(taskName: string): Promise<void>;
+    function unregisterTaskAsync(taskName: string): Promise<void>;
+    function setMinimumIntervalAsync(minimumInterval: number): Promise<void>;
+
+    enum Status {
+        Restricted = 1,
+        Denied = 2,
+        Available = 3
+    }
 }
 // #endregion
 
@@ -2221,6 +2240,8 @@ export namespace Location {
 
     interface LocationTaskOptions {
         accuracy?: number;
+        timeInterval: number;
+        distanceInterval: number;
         showsBackgroundLocationIndicator?: boolean;
     }
 
@@ -2244,7 +2265,7 @@ export namespace Location {
     function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData[]>;
     function requestPermissionsAsync(): Promise<void>;
     function hasServicesEnabledAsync(): Promise<boolean>;
-    function startgeocodUpdatesAsync(taskName: string, options: LocationTaskOptions): Promise<void>;
+    function startLocationUpdatesAsync(taskName: string, options: LocationTaskOptions): Promise<void>;
     function stopLocationUpdatesAsync(taskName: string): Promise<void>;
     function hasStartedLocationUpdatesAsync(taskName: string): Promise<boolean>;
     function startGeofencingAsync(taskName: string, regions: Region[]): Promise<void>;
