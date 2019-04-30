@@ -47,6 +47,12 @@ export interface AutocompleteProps<T> extends TextInputProperties {
     inputContainerStyle?: StyleProp<ViewStyle>;
 
     /**
+     * function
+     * keyExtractor will be called to get key for each item. It's up to you which string to return as a key.
+     */
+    keyExtractor?(item: T, i: number): string;
+
+    /**
      * style
      * These styles will be applied to the container which surrounds the result list.
      */
