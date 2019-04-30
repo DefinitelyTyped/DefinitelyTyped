@@ -1174,11 +1174,12 @@ declare namespace google {
             constructor(containerRef: HTMLElement);
             bind(controls: any, charts: ChartWrapper): google.visualization.Dashboard;
             draw(dataTable: DataTable): void;
-            getSelection(): object[];
+            getSelection(): Object[];
         }
 
         //#endregion
         //#region ControlWrapper
+        
         // https://developers.google.com/chart/interactive/docs/gallery/controls#controlwrapperobject
         export class ControlWrapper {
             constructor(opt_spec?: ControlWrapperOptions)
