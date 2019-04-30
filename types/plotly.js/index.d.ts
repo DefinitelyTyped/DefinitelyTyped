@@ -528,6 +528,7 @@ export interface PlotData {
 	visible: boolean | 'legendonly';
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
+    width: number | number[];
 }
 
 /**
