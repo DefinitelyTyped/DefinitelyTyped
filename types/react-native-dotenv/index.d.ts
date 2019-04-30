@@ -4,5 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-declare const _a: any;
-export = _a;
+interface Env {
+    [name: string]: string;
+}
+
+declare const env: Env;
+export = env;
