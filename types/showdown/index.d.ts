@@ -62,6 +62,13 @@ declare namespace Showdown {
     interface ShowdownExtension extends RegexReplaceExtension, FilterExtension {
     }
 
+    /**
+     * Showdown extensions store object.
+     */
+    interface ShowdownExtensions {
+        [name: string]: ShowdownExtension[]
+    }
+
     interface ConverterExtensions {
         language: ShowdownExtension[];
         output: ShowdownExtension[];
@@ -753,6 +760,10 @@ declare namespace Showdown {
          */
         splitAdjacentBlockquotes?: boolean;
 
+        /**
+         * For custom options {extension, subParser} And also an out-of-date definitions
+         */
+        [key:string]: any;
     }
 
 
@@ -760,11 +771,41 @@ declare namespace Showdown {
 
         extensions?: string | string[];
     }
-    
+
     /**
      * Showdown Flavor names.
      */
     type Flavor = 'github' | 'original' | 'ghost' | 'vanilla' | 'allOn';
+
+    /**
+    * Showdown option description.
+    */
+    interface ShowdownOptionDescription {
+        /**
+         * The default value of option.
+         */
+        defaultValue?: boolean;
+        /**
+         * The description of the option.
+         */
+        description?: string;
+        /**
+         * The type of the option value.
+         */
+        type?: 'boolean' | 'string' | 'integer'
+    }
+
+   /**
+    * Showdown options schema.
+    */
+    interface ShowdownOptionsSchema {
+        [key: string]: ShowdownOptionDescription;
+    }
+
+   /**
+    * Showdown subParser.
+    */
+    type SubParser = (...args: any[]) => string;
 
     /**
      * Showdown Converter prototype
@@ -879,13 +920,14 @@ declare namespace Showdown {
          * @constructor
          * @param converterOptions Configuration object, describes which extensions to apply
          */
-        new (converterOptions?: ConverterOptions): Converter;
+        new(converterOptions?: ConverterOptions): Converter;
     }
     /** 
      * Helper Interface 
      */
     interface Helper {
         replaceRecursiveRegExp(...args: any[]): string;
+        [key: string]: (...args: any[]) => any;
     }
 
     /** Constructor function for a Converter */
@@ -896,21 +938,21 @@ declare namespace Showdown {
      */
     var helper: Helper;
 
-    var extensions: { [name: string]: ShowdownExtension };
+    var extensions: ShowdownExtensions;
 
     /**
      * Setting a "global" option affects all instances of showdown
      * 
-     * @param optionKey
+     * @param key
      * @param value
      */
-    function setOption(optionKey: string, value: any): void;
+    function setOption(key: string, value: any): typeof Showdown;
 
     /**
      * Retrieve previous set global option.
-     * @param optionKey
+     * @param key
      */
-    function getOption(optionKey: string): any;
+    function getOption(key: string): any;
 
     /**
      * Retrieve previous set global options.
@@ -921,7 +963,7 @@ declare namespace Showdown {
      * Reset options.
      */
     function resetOptions(): void;
-    
+
     /**
      * Setting a "global" flavor affects all instances of showdown
      *
@@ -947,7 +989,7 @@ declare namespace Showdown {
     /**
      * Retrieve the default options.
      */
-    function getDefaultOptions(): ShowdownOptions;
+    function getDefaultOptions(simple?: boolean): ShowdownOptionsSchema | ShowdownOptions;
 
     /**
      * Get a registered subParser.
@@ -957,7 +999,8 @@ declare namespace Showdown {
      * @throws Throws if `name` is not of type string.
      * @throws Throws if the parser is not exists.
      */
-    function subParser(name: string): (...args: any[]) => string;;
+    function subParser(name: string): SubParser;
+
     /**
      * Register a subParser.
      *
@@ -965,20 +1008,31 @@ declare namespace Showdown {
      * @param func - The handler function of the new parser.
      * @throws Throws if `name` is not of type string.
      */
-    function subParser(name: string, func: (...args: any[]) => string): void;
+    function subParser(name: string, func: SubParser): void;
+
 
     /**
-     * Registered extensions
+     * Get a registered extension.
      *
-     * @prarm name
-     * @param extenstion
+     * @param name - The extension name.
+     * @returns Returns the extension of the given `name`.
+     * @throws Throws if `name` is not of type string.
+     * @throws Throws if the extension is not exists.
      */
-    function extension(name: string, extension: (() => ShowdownExtension) | (() => ShowdownExtension[]) | ShowdownExtension): void;
- 
+    function extension(name: string): ShowdownExtension;
+    /**
+     * Register a extension.
+     *
+     * @param name - The name of the new extension.
+     * @param ext - The extension.
+     * @throws Throws if `name` is not of type string.
+     */
+    function extension(name: string, ext: (() => ShowdownExtension) | (() => ShowdownExtension[]) | ShowdownExtension): void;
+
     /**
      * @return all extensions.
      */
-    function getAllExtensions(): { [name: string]: ShowdownExtension[] };
+    function getAllExtensions(): ShowdownExtensions;
 
     /**
      * Remove an extension.
