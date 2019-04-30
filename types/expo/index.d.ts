@@ -20,6 +20,7 @@
 //                 Mattias Sämskar <https://github.com/mattiassamskar>
 //                 Julian Hundeloh <https://github.com/jaulz>
 //                 Matevz Poljanc <https://github.com/matevzpoljanc>
+//                 Romain Faust <https://github.com/romain-faust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
