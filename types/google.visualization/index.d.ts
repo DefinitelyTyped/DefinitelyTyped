@@ -1192,17 +1192,17 @@ declare namespace google {
             getOption(key: string, opt_default_val?: any): any;
             getOptions(): Object;
             getState(): Object;
-            setControlType(type): void;
+            setControlType(type: string): void;
             setControlName(name: string): void;
-            setContainerId(id): void;
-            setOption(key, value): void;
-            setOptions(options_obj): void;
-            setState(state_obj): void;
+            setContainerId(id: number): void;
+            setOption(key: string, value: string): void;
+            setOptions(options_obj: Object): void;
+            setState(state_obj: Object): void;
         }
 
         export interface ControlWrapperOptions {        
-            controlType?: String;
-            containerId?: String;
+            controlType?: string;
+            containerId?: string;
             options?: Object;
             state?: Object;
         }
