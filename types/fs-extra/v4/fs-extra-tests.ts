@@ -15,7 +15,7 @@ const modeNum = 0;
 const modeStr = "";
 const object = {};
 const errorCallback = (err: Error) => { };
-const ensureOptions = fs.EnsureOptions = {
+const ensureOptions: fs.EnsureOptions = {
    mode: 0o700
 };
 const readOptions: fs.ReadOptions = {
