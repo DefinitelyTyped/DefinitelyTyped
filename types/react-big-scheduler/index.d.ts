@@ -2,6 +2,7 @@
 // Project: https://github.com/StephenChou1017/react-big-scheduler
 // Definitions by: Trent Jones <https://github.com/FizzBuzz791>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import * as moment from "moment";
