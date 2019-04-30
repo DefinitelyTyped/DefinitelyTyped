@@ -896,6 +896,8 @@ declare namespace Showdown {
      */
     var helper: Helper;
 
+    var extensions: { [name: string]: ShowdownExtension };
+
     /**
      * Setting a "global" option affects all instances of showdown
      * 
@@ -911,14 +913,35 @@ declare namespace Showdown {
     function getOption(optionKey: string): any;
 
     /**
+     * @return The extensions array.
+     */
+    function getOption(optionKey: string): any;
+
+    /**
      * Retrieve previous set global options.
      */
     function getOptions(): ShowdownOptions;
 
     /**
+     * Retrieve previous set global options.
+     */
+    function getOptions(): ShowdownOptions;
+    /**
      * Reset options.
      */
     function resetOptions(): void;
+    
+    /**
+     * Setting a "global" flavor affects all instances of showdown
+     *
+     * @param name
+     */
+    function setFlavor(name: Flavor): void;
+
+    /**
+     * Retrieve the default options.
+     */
+    function getDefaultOptions(): ShowdownOptions;
 
     /**
      * Retrieve the default options.
@@ -932,38 +955,12 @@ declare namespace Showdown {
      * @param extenstion
      */
     function extension(name: string, extension: (() => ShowdownExtension) | (() => ShowdownExtension[]) | ShowdownExtension): void;
-
-    /**
-     * @return The extensions array.
-     */
-    function getOption(optionKey: string): any;
-
-    var extensions: { [name: string]: ShowdownExtension };
-
-    /**
-     * Retrieve previous set global options.
-     */
-    function getOptions(): ShowdownOptions;
-
-    /**
-     * Retrieve the default options.
-     */
-    function getDefaultOptions(): ShowdownOptions;
-
+ 
     /**
      * @param obj An array of items
      * @param extenstion
      */
     function extension(name: string, extension: (() => ShowdownExtension) | (() => ShowdownExtension[]) | ShowdownExtension): void;
-
-    /**
-     * Get an extension.
-     *
-     * @param name
-     * @return The extensions array.
-     */
-
-    function resetExtensions(): void;
 
     /**
      * @return all extensions.
@@ -978,14 +975,16 @@ declare namespace Showdown {
     function removeExtension(name: string): void;
 
     /**
-     * Reset extensions.
+     * Get an extension.
+     *
+     * @param name
+     * @return The extensions array.
      */
+
     function resetExtensions(): void;
 
     /**
-     * Setting a "global" flavor affects all instances of showdown
-     *
-     * @param name
+     * Reset extensions.
      */
-    function setFlavor(name: Flavor): void;
+    function resetExtensions(): void;
 }
