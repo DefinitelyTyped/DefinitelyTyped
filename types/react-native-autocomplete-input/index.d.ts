@@ -12,6 +12,7 @@ import {
     StyleProp,
     TextInputProperties,
     ViewStyle,
+    FlatListProps,
 } from 'react-native';
 
 export interface AutocompleteProps<T> extends TextInputProperties {
@@ -32,6 +33,12 @@ export interface AutocompleteProps<T> extends TextInputProperties {
      * An array with suggestion items to be rendered in renderItem({ item, index }). Any array with length > 0 will open the suggestion list and any array with length < 1 will hide the list.
      */
     data: T[];
+
+    /**
+     * object
+     * Props to pass on to the underlying FlatList.
+     */
+    flatListProps?: Partial<FlatListProps<T>>;
 
     /**
      * style

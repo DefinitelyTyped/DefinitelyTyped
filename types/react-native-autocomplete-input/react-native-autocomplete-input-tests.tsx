@@ -24,6 +24,7 @@ class AutocompleteExample extends React.Component<{}, {query: string}> {
         return (<Autocomplete
             data={data}
             defaultValue={query}
+            flatListProps={{ onScroll: () => {} }}
             onChangeText={text => this.setState({ query: text })}
             renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => this.setState({ query: item.query })}>
