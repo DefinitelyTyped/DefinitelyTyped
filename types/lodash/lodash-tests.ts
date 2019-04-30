@@ -3296,8 +3296,8 @@ fp.now(); // $ExpectType number
     _.curry(testCurry)("1", _, true)(2); // $ExpectType [string, number, boolean]
     _.curry(testCurry)(_, 2)("1", true); // $ExpectType [string, number, boolean]
     _.curry(testCurry)(_.curry.placeholder, 2)("1", true); // $ExpectType [string, number, boolean]
-    _(testCurry).curry(); // $ExpectType Imp<CurriedFunction3<string, number, boolean, [string, number, boolean]>>
-    _.chain(testCurry).curry(); // $ExpectType Exp<CurriedFunction3<string, number, boolean, [string, number, boolean]>>
+    _(testCurry).curry(); // $ExpectType ImpF<CurriedFunction3<string, number, boolean, [string, number, boolean]>>
+    _.chain(testCurry).curry(); // $ExpectType ExpF<CurriedFunction3<string, number, boolean, [string, number, boolean]>>
 
     fp.curry(testCurry)("1", 2, true); // $ExpectType [string, number, boolean]
     fp.curry(testCurry)("1", 2)(true); // $ExpectType [string, number, boolean]
@@ -3324,8 +3324,8 @@ fp.now(); // $ExpectType number
     _.curryRight(testCurry)("1", _.curryRight.placeholder, true)(2); // $ExpectType [string, number, boolean]
     _.curryRight(testCurry)(true)("1", _)(2); // $ExpectType [string, number, boolean]
     _.curryRight(testCurry)(true)("1", _.curryRight.placeholder)(2); // $ExpectType [string, number, boolean]
-    _(testCurry).curryRight(); // $ExpectType Imp<RightCurriedFunction3<string, number, boolean, [string, number, boolean]>>
-    _.chain(testCurry).curryRight(); // $ExpectType Exp<RightCurriedFunction3<string, number, boolean, [string, number, boolean]>>
+    _(testCurry).curryRight(); // $ExpectType ImpF<RightCurriedFunction3<string, number, boolean, [string, number, boolean]>>
+    _.chain(testCurry).curryRight(); // $ExpectType ExpF<RightCurriedFunction3<string, number, boolean, [string, number, boolean]>>
 
     fp.curryRight(testCurry)("1", 2, true); // $ExpectType [string, number, boolean]
     fp.curryRight(testCurry)(true)("1", 2); // $ExpectType [string, number, boolean]
@@ -3392,8 +3392,8 @@ fp.now(); // $ExpectType number
 {
     // TODO: fix - output arguments should be reversed
     _.flip((a: string, b: number): boolean => true); // $ExpectType (a: string, b: number) => boolean
-    _((a: string, b: number): boolean => true).flip(); // $ExpectType Imp<(a: string, b: number) => boolean>
-    _.chain((a: string, b: number): boolean => true).flip(); // $ExpectType Exp<(a: string, b: number) => boolean>
+    _((a: string, b: number): boolean => true).flip(); // $ExpectType ImpF<(a: string, b: number) => boolean>
+    _.chain((a: string, b: number): boolean => true).flip(); // $ExpectType ExpF<(a: string, b: number) => boolean>
     fp.flip((a: string, b: number): boolean => true); // $ExpectType (a: string, b: number) => boolean
 }
 
@@ -3406,23 +3406,23 @@ fp.now(); // $ExpectType number
     const fn4 = (a: string): boolean => true;
     const fn5 = (): number => 0;
 
-    _.flow(fn2, fn1); // $ExpectType (a1: number, a2: number) => number
-    _.flow(fn2, fn1, fn1, fn1, fn1, fn1, fn1); // $ExpectType (a1: number, a2: number) => number
-    _.flow(fn2, fn1, fn3, fn4); // $ExpectType (a1: number, a2: number) => boolean
+    _.flow(fn2, fn1); // $ExpectType (m: number, n: number) => number
+    _.flow(fn2, fn1, fn1, fn1, fn1, fn1, fn1); // $ExpectType (m: number, n: number) => number
+    _.flow(fn2, fn1, fn3, fn4); // $ExpectType (m: number, n: number) => boolean
     _.flow([fn2, fn1, fn3, fn4]); // $ExpectType (...args: any[]) => any
     _.flow(fn5, fn1); // $ExpectType () => number
 
-    _(fn2).flow(fn1); // $ExpectType Imp<(a1: number, a2: number) => number>
-    _(fn2).flow(fn1, fn1); // $ExpectType Imp<(a1: number, a2: number) => number>
-    _(fn2).flow(fn1, fn1, fn1); // $ExpectType Imp<(a1: number, a2: number) => number>
-    _(fn2).flow([fn1, fn1, fn1]); // $ExpectType Imp<(...args: any[]) => any>
-    _(fn5).flow(fn1); // $ExpectType Imp<() => number>
+    _(fn2).flow(fn1); // $ExpectType ImpF<(m: number, n: number) => number>
+    _(fn2).flow(fn1, fn1); // $ExpectType ImpF<(m: number, n: number) => number>
+    _(fn2).flow(fn1, fn1, fn1); // $ExpectType ImpF<(m: number, n: number) => number>
+    _(fn2).flow([fn1, fn1, fn1]); // $ExpectType ImpF<(...args: any[]) => any>
+    _(fn5).flow(fn1); // $ExpectType ImpF<() => number>
 
-    _.chain(fn2).flow(fn1); // $ExpectType Exp<(a1: number, a2: number) => number>
-    _.chain(fn2).flow(fn1, fn1); // $ExpectType Exp<(a1: number, a2: number) => number>
-    _.chain(fn2).flow(fn1, fn1, fn1); // $ExpectType Exp<(a1: number, a2: number) => number>
-    _.chain(fn2).flow([fn1, fn1, fn1]); // $ExpectType Exp<(...args: any[]) => any>
-    _.chain(fn5).flow(fn1); // $ExpectType Exp<() => number>
+    _.chain(fn2).flow(fn1); // $ExpectType ExpF<(m: number, n: number) => number>
+    _.chain(fn2).flow(fn1, fn1); // $ExpectType ExpF<(m: number, n: number) => number>
+    _.chain(fn2).flow(fn1, fn1, fn1); // $ExpectType ExpF<(m: number, n: number) => number>
+    _.chain(fn2).flow([fn1, fn1, fn1]); // $ExpectType ExpF<(...args: any[]) => any>
+    _.chain(fn5).flow(fn1); // $ExpectType ExpF<() => number>
 
     fp.flow(fn1, fn1); // $ExpectType (a1: number) => number
     fp.flow(fn1, fn3); // $ExpectType (a1: number) => string
@@ -3437,23 +3437,23 @@ fp.now(); // $ExpectType number
     fp.flow([fn2, fn1, fn3, fn4]); // $ExpectType (...args: any[]) => any
     fp.flow(fn5, fn1); // $ExpectType () => number
 
-    _.flowRight(fn1, fn2); // $ExpectType (a1: number, a2: number) => number
-    _.flowRight(fn1, fn1, fn2); // $ExpectType (a1: number, a2: number) => number
-    _.flowRight(fn1, fn1, fn1, fn2); // $ExpectType (a1: number, a2: number) => number
+    _.flowRight(fn1, fn2); // $ExpectType (m: number, n: number) => number
+    _.flowRight(fn1, fn1, fn2); // $ExpectType (m: number, n: number) => number
+    _.flowRight(fn1, fn1, fn1, fn2); // $ExpectType (m: number, n: number) => number
     _.flowRight([fn1, fn1, fn1, fn2]); // $ExpectType (...args: any[]) => any
     _.flowRight(fn1, fn5); // $ExpectType () => number
 
-    _(fn1).flowRight(fn2); // $ExpectType Imp<(a1: number, a2: number) => number>
-    _(fn1).flowRight(fn1, fn2); // $ExpectType Imp<(a1: number, a2: number) => number>
-    _(fn1).flowRight(fn1, fn1, fn2); // $ExpectType Imp<(a1: number, a2: number) => number>
-    _(fn1).flowRight([fn1, fn1, fn2]); // $ExpectType Imp<(...args: any[]) => any>
-    _(fn1).flowRight(fn5); // $ExpectType Imp<() => number>
+    _(fn1).flowRight(fn2); // $ExpectType ImpF<(m: number, n: number) => number>
+    _(fn1).flowRight(fn1, fn2); // $ExpectType ImpF<(m: number, n: number) => number>
+    _(fn1).flowRight(fn1, fn1, fn2); // $ExpectType ImpF<(m: number, n: number) => number>
+    _(fn1).flowRight([fn1, fn1, fn2]); // $ExpectType ImpF<(...args: any[]) => any>
+    _(fn1).flowRight(fn5); // $ExpectType ImpF<() => number>
 
-    _.chain(fn1).flowRight(fn2); // $ExpectType Exp<(a1: number, a2: number) => number>
-    _.chain(fn1).flowRight(fn1, fn2); // $ExpectType Exp<(a1: number, a2: number) => number>
-    _.chain(fn1).flowRight(fn1, fn1, fn2); // $ExpectType Exp<(a1: number, a2: number) => number>
-    _.chain(fn1).flowRight([fn1, fn1, fn2]); // $ExpectType Exp<(...args: any[]) => any>
-    _.chain(fn1).flowRight(fn5); // $ExpectType Exp<() => number>
+    _.chain(fn1).flowRight(fn2); // $ExpectType ExpF<(m: number, n: number) => number>
+    _.chain(fn1).flowRight(fn1, fn2); // $ExpectType ExpF<(m: number, n: number) => number>
+    _.chain(fn1).flowRight(fn1, fn1, fn2); // $ExpectType ExpF<(m: number, n: number) => number>
+    _.chain(fn1).flowRight([fn1, fn1, fn2]); // $ExpectType ExpF<(...args: any[]) => any>
+    _.chain(fn1).flowRight(fn5); // $ExpectType ExpF<() => number>
 
     fp.flowRight(fn1, fn1); // $ExpectType (a1: number) => number
     fp.flowRight(fn3, fn1); // $ExpectType (a1: number) => string
@@ -3520,28 +3520,28 @@ fp.now(); // $ExpectType number
 // _.negate
 {
     _.negate((a1: number, a2: number): boolean => true); // $ExpectType (a1: number, a2: number) => boolean
-    _((a1: number, a2: number): boolean => true).negate(); // $ExpectType Imp<(a1: number, a2: number) => boolean>
-    _.chain((a1: number, a2: number): boolean => true).negate(); // $ExpectType Exp<(a1: number, a2: number) => boolean>
+    _((a1: number, a2: number): boolean => true).negate(); // $ExpectType ImpF<(a1: number, a2: number) => boolean>
+    _.chain((a1: number, a2: number): boolean => true).negate(); // $ExpectType ExpF<(a1: number, a2: number) => boolean>
     fp.negate((a1: number, a2: number): boolean => true); // $ExpectType (a1: number, a2: number) => boolean
 
     const userDefinedTypeGuard = (item: any): item is number => typeof item === "number";
 
-    _.negate(userDefinedTypeGuard); // $ExpectType (a1: any) => boolean
-    _(userDefinedTypeGuard).negate(); // $ExpectType Imp<(a1: any) => boolean>
-    _.chain(userDefinedTypeGuard).negate(); // $ExpectType Exp<(a1: any) => boolean>
+    _.negate(userDefinedTypeGuard); // $ExpectType (item: any) => boolean
+    _(userDefinedTypeGuard).negate(); // $ExpectType ImpF<(item: any) => boolean>
+    _.chain(userDefinedTypeGuard).negate(); // $ExpectType ExpF<(item: any) => boolean>
     fp.negate(userDefinedTypeGuard); // $ExpectType (a1: any) => boolean
 
-    _.negate((a1: number, a2: number, a3: number): boolean => true); // $ExpectType (...args: any[]) => boolean
-    _((a1: number, a2: number, a3: number): boolean => true).negate(); // $ExpectType Imp<(...args: any[]) => boolean>
-    _.chain((a1: number, a2: number, a3: number): boolean => true).negate(); // $ExpectType Exp<(...args: any[]) => boolean>
+    _.negate((a1: number, a2: number, a3: number): boolean => true); // $ExpectType (a1: number, a2: number, a3: number) => boolean
+    _((a1: number, a2: number, a3: number): boolean => true).negate(); // $ExpectType ImpF<(a1: number, a2: number, a3: number) => boolean>
+    _.chain((a1: number, a2: number, a3: number): boolean => true).negate(); // $ExpectType ExpF<(a1: number, a2: number, a3: number) => boolean>
     fp.negate((a1: number, a2: number, a3: number): boolean => true); // $ExpectType (...args: any[]) => boolean
 }
 
 // _.once
 {
     _.once((a: string, b: number): boolean => true); // $ExpectType (a: string, b: number) => boolean
-    _((a: string, b: number): boolean => true).once(); // $ExpectType Imp<(a: string, b: number) => boolean>
-    _.chain((a: string, b: number): boolean => true).once(); // $ExpectType Exp<(a: string, b: number) => boolean>
+    _((a: string, b: number): boolean => true).once(); // $ExpectType ImpF<(a: string, b: number) => boolean>
+    _.chain((a: string, b: number): boolean => true).once(); // $ExpectType ExpF<(a: string, b: number) => boolean>
     fp.once((a: string, b: number): boolean => true); // $ExpectType (a: string, b: number) => boolean
 }
 
@@ -3563,10 +3563,10 @@ fp.now(); // $ExpectType number
 {
     _.rest((a: string, b: number[]) => true); // $ExpectType (...args: any[]) => any
     _.rest((a: string, b: number[]) => true, 1); // $ExpectType (...args: any[]) => any
-    _((a: string, b: number[]) => true).rest(); // $ExpectType Imp<(...args: any[]) => any>
-    _((a: string, b: number[]) => true).rest(1); // $ExpectType Imp<(...args: any[]) => any>
-    _.chain((a: string, b: number[]) => true).rest(); // $ExpectType Exp<(...args: any[]) => any>
-    _.chain((a: string, b: number[]) => true).rest(1); // $ExpectType Exp<(...args: any[]) => any>
+    _((a: string, b: number[]) => true).rest(); // $ExpectType ImpF<(...args: any[]) => any>
+    _((a: string, b: number[]) => true).rest(1); // $ExpectType ImpF<(...args: any[]) => any>
+    _.chain((a: string, b: number[]) => true).rest(); // $ExpectType ExpF<(...args: any[]) => any>
+    _.chain((a: string, b: number[]) => true).rest(1); // $ExpectType ExpF<(...args: any[]) => any>
     fp.rest((a: string, b: number[]) => true); // $ExpectType (...args: any[]) => any
     fp.restFrom(1)((a: string, b: number[]) => true); // $ExpectType (...args: any[]) => any
 }
@@ -3574,8 +3574,8 @@ fp.now(); // $ExpectType number
 // _.spread
 {
     _.spread((a: Array<number | string>): boolean => true); // $ExpectType (...args: any[]) => boolean
-    _((a: Array<number | string>): boolean => true).spread(); // $ExpectType Imp<(...args: any[]) => boolean>
-    _.chain((a: Array<number | string>): boolean => true).spread(); // $ExpectType Exp<(...args: any[]) => boolean>
+    _((a: Array<number | string>): boolean => true).spread(); // $ExpectType ImpF<(...args: any[]) => boolean>
+    _.chain((a: Array<number | string>): boolean => true).spread(); // $ExpectType ExpF<(...args: any[]) => boolean>
     fp.spread((a: Array<number | string>): boolean => true); // $ExpectType (...args: any[]) => boolean
 }
 
@@ -3591,12 +3591,12 @@ fp.now(); // $ExpectType number
     _.throttle(func); // $ExpectType ((a: number, b: string) => boolean) & Cancelable
     _.throttle(func, 42); // $ExpectType ((a: number, b: string) => boolean) & Cancelable
     _.throttle(func, 42, options); // $ExpectType ((a: number, b: string) => boolean) & Cancelable
-    _(func).throttle(); // $ExpectType Imp<((a: number, b: string) => boolean) & Cancelable>
-    _(func).throttle(42); // $ExpectType Imp<((a: number, b: string) => boolean) & Cancelable>
-    _(func).throttle(42, options); // $ExpectType Imp<((a: number, b: string) => boolean) & Cancelable>
-    _.chain(func).throttle(); // $ExpectType Exp<((a: number, b: string) => boolean) & Cancelable>
-    _.chain(func).throttle(42); // $ExpectType Exp<((a: number, b: string) => boolean) & Cancelable>
-    _.chain(func).throttle(42, options); // $ExpectType Exp<((a: number, b: string) => boolean) & Cancelable>
+    _(func).throttle(); // $ExpectType ImpF<((a: number, b: string) => boolean) & Cancelable>
+    _(func).throttle(42); // $ExpectType ImpF<((a: number, b: string) => boolean) & Cancelable>
+    _(func).throttle(42, options); // $ExpectType ImpF<((a: number, b: string) => boolean) & Cancelable>
+    _.chain(func).throttle(); // $ExpectType ExpF<((a: number, b: string) => boolean) & Cancelable>
+    _.chain(func).throttle(42); // $ExpectType ExpF<((a: number, b: string) => boolean) & Cancelable>
+    _.chain(func).throttle(42, options); // $ExpectType ExpF<((a: number, b: string) => boolean) & Cancelable>
 
     fp.throttle(42, func); // $ExpectType ((a: number, b: string) => boolean) & Cancelable
     fp.throttle(42)(func); // $ExpectType ((a: number, b: string) => boolean) & Cancelable
@@ -3605,16 +3605,16 @@ fp.now(); // $ExpectType number
 // _.unary
 {
     _.unary((a: string, b: number): boolean => true); // $ExpectType (arg1: string) => boolean
-    _((a: string, b: number): boolean => true).unary(); // $ExpectType Imp<(arg1: string) => boolean>
-    _.chain((a: string, b: number): boolean => true).unary(); // $ExpectType Exp<(arg1: string) => boolean>
+    _((a: string, b: number): boolean => true).unary(); // $ExpectType ImpF<(arg1: string) => boolean>
+    _.chain((a: string, b: number): boolean => true).unary(); // $ExpectType ExpF<(arg1: string) => boolean>
     fp.unary((a: string, b: number): boolean => true); // $ExpectType (arg1: string) => boolean
 }
 
 // _.wrap
 {
     _.wrap("a", (arg1: string, ...args: number[]): boolean => true); // $ExpectType (...args: number[]) => boolean
-    _("a").wrap((arg1: string, ...args: number[]): boolean => true); // $ExpectType Imp<(...args: number[]) => boolean>
-    _.chain("a").wrap((arg1: string, ...args: number[]): boolean => true); // $ExpectType Exp<(...args: number[]) => boolean>
+    _("a").wrap((arg1: string, ...args: number[]): boolean => true); // $ExpectType ImpF<(...args: number[]) => boolean>
+    _.chain("a").wrap((arg1: string, ...args: number[]): boolean => true); // $ExpectType ExpF<(...args: number[]) => boolean>
     fp.wrap((arg1: string, ...args: number[]): boolean => true, "a"); // $ExpectType (...args: number[]) => boolean
     fp.wrap((arg1: string, ...args: number[]): boolean => true)("a"); // $ExpectType (...args: number[]) => boolean
 }
@@ -3684,7 +3684,7 @@ fp.now(); // $ExpectType number
 
         _.cloneWith(42, customizer); // $ExpectType string
         _(42).cloneWith(customizer); // $ExpectType string
-        _.chain(42).cloneWith<string>(customizer); // $ExpectType ExpS
+        _.chain(42).cloneWith<string>(customizer); // $ExpectType Exp<string>
 
         fp.cloneWith(customizer, 42); // $ExpectType string
         fp.cloneWith(customizer)(42); // $ExpectType string

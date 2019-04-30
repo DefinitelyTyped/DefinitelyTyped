@@ -209,23 +209,23 @@ declare module "../index" {
         (t1: T1, t2: __, t3: T3, t4: T4, t5: T5): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
-    interface Imp<TValue> {
-        curry: any;
-        // curry<T1, R>(this: Imp<(t1: T1) => R>, arity?: number): Imp<CurriedFunction1<T1, R>>;
-        // curry<T1, T2, R>(this: Imp<(t1: T1, t2: T2) => R>, arity?: number): Imp<CurriedFunction2<T1, T2, R>>;
-        // curry<T1, T2, T3, R>(this: Imp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number): Imp<CurriedFunction3<T1, T2, T3, R>>;
-        // curry<T1, T2, T3, T4, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number): Imp<CurriedFunction4<T1, T2, T3, T4, R>>;
-        // curry<T1, T2, T3, T4, T5, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number): Imp<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
-        // curry(arity?: number): Imp<(...args: any[]) => any>;
+    interface ImpF<T> {
+        curry(arity?: number):
+            T extends (arg1: infer T1) => infer R ? ImpF<CurriedFunction1<T1, R>> :
+            T extends (arg1: infer T1, arg2: infer T2) => infer R ? ImpF<CurriedFunction2<T1, T2, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? ImpF<CurriedFunction3<T1, T2, T3, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? ImpF<CurriedFunction4<T1, T2, T3, T4, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? ImpF<CurriedFunction5<T1, T2, T3, T4, T5, R>> :
+            ImpF<(...args: any[]) => any>;
     }
-    interface Exp<TValue> {
-        curry: any;
-        // curry<T1, R>(this: Exp<(t1: T1) => R>): Exp<CurriedFunction1<T1, R>>;
-        // curry<T1, T2, R>(this: Exp<(t1: T1, t2: T2) => R>): Exp<CurriedFunction2<T1, T2, R>>;
-        // curry<T1, T2, T3, R>(this: Exp<(t1: T1, t2: T2, t3: T3) => R>): Exp<CurriedFunction3<T1, T2, T3, R>>;
-        // curry<T1, T2, T3, T4, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>): Exp<CurriedFunction4<T1, T2, T3, T4, R>>;
-        // curry<T1, T2, T3, T4, T5, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>): Exp<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
-        // curry(arity?: number): Exp<(...args: any[]) => any>;
+    interface ExpF<T> {
+        curry(arity?: number):
+            T extends (arg1: infer T1) => infer R ? ExpF<CurriedFunction1<T1, R>> :
+            T extends (arg1: infer T1, arg2: infer T2) => infer R ? ExpF<CurriedFunction2<T1, T2, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? ExpF<CurriedFunction3<T1, T2, T3, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? ExpF<CurriedFunction4<T1, T2, T3, T4, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? ExpF<CurriedFunction5<T1, T2, T3, T4, T5, R>> :
+            ExpF<(...args: any[]) => any>;
     }
     interface CurryRight {
         <T1, R>(func: (t1: T1) => R, arity?: number): RightCurriedFunction1<T1, R>;
@@ -239,23 +239,23 @@ declare module "../index" {
     interface Stat {
         curryRight: CurryRight;
     }
-    interface Imp<TValue> {
-        curryRight: any;
-        // curryRight<T1, R>(this: Imp<(t1: T1) => R>, arity?: number): Imp<RightCurriedFunction1<T1, R>>;
-        // curryRight<T1, T2, R>(this: Imp<(t1: T1, t2: T2) => R>, arity?: number): Imp<RightCurriedFunction2<T1, T2, R>>;
-        // curryRight<T1, T2, T3, R>(this: Imp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number): Imp<RightCurriedFunction3<T1, T2, T3, R>>;
-        // curryRight<T1, T2, T3, T4, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number): Imp<RightCurriedFunction4<T1, T2, T3, T4, R>>;
-        // curryRight<T1, T2, T3, T4, T5, R>(this: Imp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number): Imp<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
-        // curryRight(arity?: number): Imp<(...args: any[]) => any>;
+    interface ImpF<T> {
+        curryRight(arity?: number):
+            T extends (arg1: infer T1) => infer R ? ImpF<RightCurriedFunction1<T1, R>> :
+            T extends (arg1: infer T1, arg2: infer T2) => infer R ? ImpF<RightCurriedFunction2<T1, T2, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? ImpF<RightCurriedFunction3<T1, T2, T3, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? ImpF<RightCurriedFunction4<T1, T2, T3, T4, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? ImpF<RightCurriedFunction5<T1, T2, T3, T4, T5, R>> :
+            ImpF<(...args: any[]) => any>;
     }
-    interface Exp<TValue> {
-        curryRight: any;
-        // curryRight<T1, R>(this: Exp<(t1: T1) => R>, arity?: number): Exp<RightCurriedFunction1<T1, R>>;
-        // curryRight<T1, T2, R>(this: Exp<(t1: T1, t2: T2) => R>, arity?: number): Exp<RightCurriedFunction2<T1, T2, R>>;
-        // curryRight<T1, T2, T3, R>(this: Exp<(t1: T1, t2: T2, t3: T3) => R>, arity?: number): Exp<RightCurriedFunction3<T1, T2, T3, R>>;
-        // curryRight<T1, T2, T3, T4, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number): Exp<RightCurriedFunction4<T1, T2, T3, T4, R>>;
-        // curryRight<T1, T2, T3, T4, T5, R>(this: Exp<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number): Exp<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
-        // curryRight(arity?: number): Exp<(...args: any[]) => any>;
+    interface ExpF<T> {
+        curryRight(arity?: number):
+            T extends (arg1: infer T1) => infer R ? ExpF<RightCurriedFunction1<T1, R>> :
+            T extends (arg1: infer T1, arg2: infer T2) => infer R ? ExpF<RightCurriedFunction2<T1, T2, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? ExpF<RightCurriedFunction3<T1, T2, T3, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? ExpF<RightCurriedFunction4<T1, T2, T3, T4, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? ExpF<RightCurriedFunction5<T1, T2, T3, T4, T5, R>> :
+            ExpF<(...args: any[]) => any>;
     }
     interface DebounceSettings {
         leading?: boolean;
@@ -269,7 +269,7 @@ declare module "../index" {
         debounce(wait?: number, options?: DebounceSettings): ImpF<T & Cancelable>;
     }
     interface ExpF<T extends (...args: any) => any> {
-        debounce(wait?: number, options?: DebounceSettings): Exp<T & Cancelable>;
+        debounce(wait?: number, options?: DebounceSettings): ExpF<T & Cancelable>;
     }
     interface Stat {
         defer(func: (...args: any[]) => any, ...args: any[]): number;
@@ -317,10 +317,10 @@ declare module "../index" {
         negate<T extends any[]>(predicate: (...args: T) => any): (...args: T) => boolean;
     }
     interface ImpF<T extends (...args: any) => any> {
-        negate(): Imp<(...args: Parameters<T>) => boolean>;
+        negate(): ImpF<(...args: Parameters<T>) => boolean>;
     }
     interface ExpF<T extends (...args: any) => any> {
-        negate(): Exp<(...args: Parameters<T>) => boolean>;
+        negate(): ExpF<(...args: Parameters<T>) => boolean>;
     }
     interface Stat {
         once<T extends (...args: any) => any>(func: T): T;
@@ -575,10 +575,10 @@ declare module "../index" {
         throttle<T extends (...args: any) => any>(func: T, wait?: number, options?: ThrottleSettings): T & Cancelable;
     }
     interface ImpF<T extends (...args: any) => any> {
-        throttle(wait?: number, options?: ThrottleSettings): Imp<T & Cancelable>;
+        throttle(wait?: number, options?: ThrottleSettings): ImpF<T & Cancelable>;
     }
     interface ExpF<T extends (...args: any) => any> {
-        throttle(wait?: number, options?: ThrottleSettings): Exp<T & Cancelable>;
+        throttle(wait?: number, options?: ThrottleSettings): ExpF<T & Cancelable>;
     }
     interface Stat {
         unary<T, TResult>(func: (arg1: T, ...args: any[]) => TResult): (arg1: T) => TResult;

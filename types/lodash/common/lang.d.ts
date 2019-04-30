@@ -16,7 +16,7 @@ declare module "../index" {
         castArray(): ImpL<T>;
     }
     interface ImpU<T> {
-        castArray(): ImpL<unknown>;
+        castArray(): ImpL<T>;
     }
     interface ExpL<T> {
         castArray(): ExpL<T>;
@@ -31,7 +31,7 @@ declare module "../index" {
         castArray(): ExpL<T>;
     }
     interface ExpU<T> {
-        castArray(): ExpL<unknown>;
+        castArray(): ExpL<T>;
     }
 
     interface Stat {
@@ -39,7 +39,7 @@ declare module "../index" {
     }
 
     interface Imp<TValue> {
-        clone(): Imp<TValue>;
+        clone(): TValue;
         cloneDeep(): TValue;
         cloneDeepWith(customizer: CloneDeepWithCustomizer<TValue>): any;
         cloneDeepWith(): TValue;
@@ -143,6 +143,8 @@ declare module "../index" {
     }
 
     interface Stat {
+        isArrayLike<T extends { __lodashAnyHack: any }>(t: T): boolean;
+        isArrayLike(value: ((...args: any[]) => any) | null | undefined): value is never;
         isArrayLike(value: any): value is { length: number };
     }
     interface Imp<TValue> {
@@ -153,6 +155,9 @@ declare module "../index" {
     }
 
     interface Stat {
+        isArrayLikeObject<T extends { __lodashAnyHack: any }>(value: T): boolean;
+        // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the Function type)
+        isArrayLikeObject(value: ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is never;
         isArrayLikeObject(value: any): value is object & { length: number };
     }
     interface Imp<TValue> {
