@@ -3,7 +3,7 @@
         "module": "commonjs",
         "lib": ["es6"],
         "esModuleInterop": true,
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
