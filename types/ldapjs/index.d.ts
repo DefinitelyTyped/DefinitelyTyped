@@ -304,22 +304,22 @@ export interface Server extends EventEmitter {
 	 */
 	listenFD(fileDescriptor: any): void;
 
-	bind(mount: string, ...cbHandlers: any): void;
-	add(mount: string, ...cbHandlers: any): void;
+	bind(mount: string, ...cbHandlers: any[]): void;
+	add(mount: string, ...cbHandlers: any[]): void;
 
-	search(ditHook: string, ...cbHandlers: any): void;
+	search(ditHook: string, ...cbHandlers: any[]): void;
 
-	modify(ditHook: string, ...cbHandlers: any): void;
+	modify(ditHook: string, ...cbHandlers: any[]): void;
 
-	del(ditHook: string, ...cbHandlers: any): void;
+	del(ditHook: string, ...cbHandlers: any[]): void;
 
-	compare(ditHook: string, ...cbHandlers: any): void;
+	compare(ditHook: string, ...cbHandlers: any[]): void;
 
-	modifyDN(ditHook: string, ...cbHandlers: any): void;
+	modifyDN(ditHook: string, ...cbHandlers: any[]): void;
 
-	exop(arbitraryHook: string, ...cbHandlers: any): void;
+	exop(arbitraryHook: string, ...cbHandlers: any[]): void;
 
-	unbind(...cbHandlers: any): void;
+	unbind(...cbHandlers: any[]): void;
 }
 export class SearchRequest {
 	baseObject: string;
