@@ -760,7 +760,7 @@ declare namespace Showdown {
 
         extensions?: string | string[];
     }
-
+    
     interface Converter {
         /**
          * @param text The input text (markdown)
@@ -821,6 +821,13 @@ declare namespace Showdown {
         setFlavor(name: 'github' | 'original' | 'ghost' | 'vanilla' | 'allOn'): void;
 
         /**
+         * Get the "local" currently set flavor of this converter.
+         *
+         * @returns Returns string flavor name.
+         */
+        getFlavor(): 'github' | 'original' | 'ghost' | 'vanilla' | 'allOn';
+
+        /**
          * Remove an extension from THIS converter.
          *
          * Note: This is a costly operation. It's better to initialize a new converter
@@ -830,7 +837,7 @@ declare namespace Showdown {
          */
         removeExtension(extensions: ShowdownExtension[] | ShowdownExtension): void;
 
-        
+
         /**
          * Get all extensions.
          *
