@@ -2542,7 +2542,7 @@ export namespace Segment {
     function groupWithTraits(groupId: string, traits: object): void;
     function reset(): void;
 
-    function alias(newId: string, options?: { [key: string]: any }): Promise<boolean>;
+    function alias(newId: string, options?: object): Promise<boolean>;
 
     function screen(screenName: string): void;
     function screenWithProperties(screenName: string, properties: object): void;
