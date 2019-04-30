@@ -43,6 +43,12 @@ declare global {
       constructor(initial_size?: number);
 
       /**
+       * Reset all the state in this FlatBufferBuilder
+       * so it can be reused to construct another buffer.
+       */
+      clear(): void;
+
+      /**
        * In order to save space, fields that are set to their default value
        * don't get serialized into the buffer. Forcing defaults provides a
        * way to manually disable this optimization.
@@ -210,6 +216,8 @@ declare global {
       constructor(bytes: Uint8Array);
 
       static allocate(byte_size: number): ByteBuffer;
+
+      clear(): void;
 
       bytes(): Uint8Array;
 

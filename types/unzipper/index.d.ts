@@ -7,7 +7,7 @@
 // TypeScript Version: 2.2
 /// <reference types="node" />
 
-import { Readable, Stream, PassThrough, Duplex } from "stream";
+import { Readable, Stream, PassThrough, Duplex, Transform } from "stream";
 import { ClientRequest, RequestOptions } from "http";
 
 export interface PullStream extends Duplex {
@@ -16,7 +16,9 @@ export interface PullStream extends Duplex {
 }
 
 export interface Entry extends PassThrough {
-    autodrain(): Promise<void>;
+    autodrain(): Transform & {
+        promise(): Promise<void>;
+    };
     buffer(): Promise<Buffer>;
     path: string;
 
@@ -77,31 +79,31 @@ export interface CentralDirectory {
     sizeOfCentralDirectory: number;
     offsetToStartOfCentralDirectory: number;
     commentLength: number;
-    files: [
-        {
-            signature: number;
-            versionMadeBy: number;
-            versionsNeededToExtract: number;
-            flags: number;
-            compressionMethod: number;
-            lastModifiedTime: number;
-            lastModifiedDate: number;
-            crc32: number;
-            compressedSize: number;
-            uncompressedSize: number;
-            fileNameLength: number;
-            extraFieldLength: number;
-            fileCommentLength: number;
-            diskNumber: number;
-            internalFileAttributes: number;
-            externalFileAttributes: number;
-            offsetToLocalFileHeader: number;
-            path: string;
-            comment: string;
-            stream: (password?: string) => Entry;
-            buffer: (password?: string) => Promise<Buffer>;
-        }
-    ];
+    files: File[];
+}
+
+export interface File {
+    signature: number;
+    versionMadeBy: number;
+    versionsNeededToExtract: number;
+    flags: number;
+    compressionMethod: number;
+    lastModifiedTime: number;
+    lastModifiedDate: number;
+    crc32: number;
+    compressedSize: number;
+    uncompressedSize: number;
+    fileNameLength: number;
+    extraFieldLength: number;
+    fileCommentLength: number;
+    diskNumber: number;
+    internalFileAttributes: number;
+    externalFileAttributes: number;
+    offsetToLocalFileHeader: number;
+    path: string;
+    comment: string;
+    stream: (password?: string) => Entry;
+    buffer: (password?: string) => Promise<Buffer>;
 }
 
 export class ParseOptions {

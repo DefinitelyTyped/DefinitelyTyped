@@ -1,1 +1,15 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // All are TODOs
+        "array-type": false,
+        "ban-types": false,
+        "callable-types": false,
+        "jsdoc-format": false,
+        "member-access": false,
+        "no-duplicate-imports": false,
+        "no-redundant-jsdoc-2": false,
+        "strict-export-declare-modifiers": false,
+        "typedef-whitespace": false
+    }
+}

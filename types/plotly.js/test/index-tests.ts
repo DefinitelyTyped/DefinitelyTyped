@@ -1,5 +1,5 @@
 import * as Plotly from 'plotly.js';
-import { Layout, PlotData, PlotlyHTMLElement, newPlot } from 'plotly.js';
+import { Datum, Layout, PlotData, PlotlyHTMLElement, newPlot } from 'plotly.js';
 
 const graphDiv = '#test';
 
@@ -251,6 +251,24 @@ const graphDiv = '#test';
 	};
 	Plotly.update(graphDiv, data_update, layout_update);
 })();
+
+(() => {
+	const update = {
+		title: {
+			text: 'some new title',
+			font: {
+				size: 1.2,
+			},
+			x: 0.9,
+			pad: {
+				t: 20
+			},
+		}, // updates the title
+		'xaxis.range': [0, 5],   // updates the xaxis range
+		'yaxis.range[1]': 15	 // updates the end of the yaxis range
+	} as Layout;
+	Plotly.relayout(graphDiv, update);
+})();
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -446,8 +464,8 @@ function rand() {
 	});
 
 	myPlot.on('plotly_selected', (data) => {
-		const x = [] as number[];
-		const y = [] as number[];
+		const x = [] as Datum[];
+		const y = [] as Datum[];
 		const N = 1000;
 		const color1 = '#7b3294';
 		const color1Light = '#c2a5cf';
@@ -546,5 +564,6 @@ function rand() {
 	myPlot.on('plotly_transitioninterrupted', () => {
 		console.log('transition interrupted');
 	});
+
+	myPlot.removeAllListeners('plotly_restyle');
 })();
-//////////////////////////////////////////////////////////////////////

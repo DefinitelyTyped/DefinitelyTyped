@@ -137,6 +137,7 @@ declare namespace Mail {
         dkim?: DKIM.Options;
         /** method to normalize header keys for custom caseing */
         normalizeHeaderKey?(key: string): string;
+        priority?: "high"|"normal"|"low";
     }
 
     type PluginFunction = (mail: MailMessage, callback: (err?: Error | null) => void) => void;

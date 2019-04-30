@@ -1,6 +1,8 @@
 // Type definitions for react-burger-menu 2.2
 // Project: https://github.com/negomi/react-burger-menu
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
+//                 David Acevedo <https://github.com/dacevedo12>
+//                 German Pineda <https://github.com/germanp173>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -16,6 +18,7 @@ export interface Styles {
     bmCross: Partial<CSSStyleDeclaration>;
     bmCrossButton: Partial<CSSStyleDeclaration>;
     bmItemList: Partial<CSSStyleDeclaration>;
+    bmMenuWrap: Partial<CSSStyleDeclaration>;
     bmMenu: Partial<CSSStyleDeclaration>;
     bmMorphShape: Partial<CSSStyleDeclaration>;
     bmOverlay: Partial<CSSStyleDeclaration>;
@@ -25,13 +28,19 @@ export interface Props {
     bodyClassName?: string;
     burgerBarClassName?: string;
     burgerButtonClassName?: string;
+    className?: string;
     crossButtonClassName?: string;
     crossClassName?: string;
     customBurgerIcon?: JSX.Element | false;
     customCrossIcon?: JSX.Element | false;
+    customOnKeyDown?(event: React.KeyboardEvent): void;
+    disableAutoFocus?: boolean;
+    disableCloseOnEsc?: boolean;
     disableOverlayClick?: boolean;
+    htmlClassName?: string;
     id?: string;
     isOpen?: boolean;
+    itemClassName?: string;
     itemListClassName?: string;
     menuClassName?: string;
     morphShapeClassName?: string;

@@ -1,4 +1,4 @@
-// Type definitions for @ember/array 3.0
+// Type definitions for non-npm package @ember/array 3.0
 // Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Farray
 // Definitions by: Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

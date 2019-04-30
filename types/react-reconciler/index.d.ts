@@ -1,4 +1,4 @@
-// Type definitions for react-reconciler 0.15
+// Type definitions for react-reconciler 0.18
 // Project: https://reactjs.org/
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,7 @@ declare function ReactReconciler<Type, Props, Container, Instance, TextInstance,
 ): ReactReconciler.Reconciler<Instance, TextInstance, Container, PublicInstance>;
 
 declare namespace ReactReconciler {
-    // react-ronciler/ReactFiber
+    // react-reconciler/ReactFiber
 
     // A Fiber is work on a Component that needs to be done or was done. There can
     // be more than one per component.
@@ -33,7 +33,11 @@ declare namespace ReactReconciler {
         // Unique identifier of this child.
         key: null | string;
 
-        // The function/class/module associated with this fiber.
+        // The value of element.type which is used to preserve the identity during
+        // reconciliation of this child.
+        elementType: any;
+
+        // The resolved function/class/ associated with this fiber.
         type: any;
 
         // The local state associated with this fiber.
@@ -74,7 +78,7 @@ declare namespace ReactReconciler {
         firstContextDependency: ContextDependency<any> | null;
 
         // Bitfield that describes properties about the fiber and its subtree. E.g.
-        // the AsyncMode flag indicates whether the subtree should be async-by-
+        // the ConcurrentMode flag indicates whether the subtree should be async-by-
         // default. When a fiber is created, it inherits the mode of its
         // parent. Additional flags can be set at creation time, but after that the
         // value should remain unchanged throughout the fiber's lifetime, particularly
@@ -197,7 +201,7 @@ declare namespace ReactReconciler {
         ): TextInstance;
 
         scheduleDeferredCallback(
-            callback: (deadline: Deadline) => void,
+            callback: () => any,
             options?: { timeout: number },
         ): any;
         cancelDeferredCallback(callbackID: any): void;
@@ -361,7 +365,7 @@ declare namespace ReactReconciler {
         ): ExpirationTime;
         createContainer(
             containerInfo: Container,
-            isAsync: boolean,
+            isConcurrent: boolean,
             hydrate: boolean,
         ): OpaqueRoot;
         updateContainer(
@@ -430,6 +434,11 @@ declare namespace ReactReconciler {
         // be retried.
         latestPingedTime: ExpirationTime;
 
+        pingCache:
+          | WeakMap<Thenable, Set<ExpirationTime>>
+          | Map<Thenable, Set<ExpirationTime>>
+          | null;
+
         // If an error is thrown, and there are no more updates in the queue, we try
         // rendering from the root one more time, synchronously, before handling
         // the error.
@@ -458,10 +467,10 @@ declare namespace ReactReconciler {
         nextScheduledRoot: FiberRoot | null;
     }
 
-    // The following attributes are only used by interaction tracking builds.
+    // The following attributes are only used by interaction tracing builds.
     // They enable interactions to be associated with their async work,
     // And expose interaction metadata to the React DevTools Profiler plugin.
-    // Note that these attributes are only defined when the enableSchedulerTracking flag is enabled.
+    // Note that these attributes are only defined when the enableSchedulerTracing flag is enabled.
     interface ProfilingOnlyFiberRootProperties {
         interactionThreadID: number;
         memoizedInteractions: Set<Interaction>;
@@ -472,9 +481,8 @@ declare namespace ReactReconciler {
 
     // react-reconciler/ReactFiberScheduler
 
-    interface Deadline {
-        timeRemaining: () => number;
-        didTimeout: boolean;
+    interface Thenable {
+        then(resolve: () => any, reject?: () => any): any;
     }
 
     // react-reconciler/ReactTypeOfMode
@@ -510,7 +518,7 @@ declare namespace ReactReconciler {
         lastCapturedEffect: Update<State> | null;
     }
 
-    // schedule/Tracking
+    // scheduler/Tracing
 
     interface Interaction {
         __count: number;
@@ -551,6 +559,7 @@ declare namespace ReactReconciler {
 
         _currentValue: T;
         _currentValue2: T;
+        _threadCount: number;
 
         // DEV only
         _currentRenderer?: object | null;
@@ -580,7 +589,9 @@ declare namespace ReactReconciler {
         | 13
         | 14
         | 15
-        | 16;
+        | 16
+        | 17
+        | 18;
 }
 
 export = ReactReconciler;

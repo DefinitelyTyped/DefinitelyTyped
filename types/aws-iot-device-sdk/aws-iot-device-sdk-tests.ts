@@ -101,3 +101,50 @@ const thingShadows = new awsIot.thingShadow({
 
   thingShadows.on("timeout", function(thingName: string, clientToken: string) {
   });
+
+const jobs = new awsIot.jobs({
+    keyPath: "",
+    certPath: "",
+    caPath: "",
+    clientId: "",
+    region: "",
+    baseReconnectTimeMs: 1000,
+    protocol: "wss",
+    port: 443,
+    host: "",
+    debug: false
+});
+
+jobs.subscribeToJobs("thingname", "operationname", (err, job) => {
+    console.error("Error", err);
+    if (err || !job) {
+        return;
+    }
+    console.log("job id", job.id);
+    console.log("job info", job.document);
+    console.log("job op", job.operation);
+    console.log("job status", job.status);
+    console.log("job status details", job.status.statusDetails);
+    console.log(
+        "job status details progress",
+        job.status.statusDetails.progress
+    );
+
+    job.inProgress({ progress: "1" }, err =>
+        console.error("Job progress error", err)
+    );
+    job.failed({ progress: "2" }, err =>
+        console.error("Job failed error", err)
+    );
+    job.succeeded({ progress: "3" }, err =>
+        console.error("Job failed error", err)
+    );
+});
+
+jobs.startJobNotifications("thingname", err =>
+    console.error("Start job notification error", err)
+);
+
+jobs.unsubscribeFromJobs("thingname", "operationame", err =>
+    console.error("Unsubscribe from jobs error", err)
+);

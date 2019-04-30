@@ -12,6 +12,7 @@ declare namespace ReactTagCloud {
         maxSize: number;
         minSize: number;
         shuffle?: boolean;
+        colorOptions?: object;
         renderer?: Function;
         className?: string;
         onClick?: Function;

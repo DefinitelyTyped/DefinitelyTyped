@@ -6,7 +6,7 @@ export interface BaseFieldArrayProps<P = {}> {
     component: ComponentType<P>;
     validate?: Validator | Validator[];
     warn?: Validator | Validator[];
-    withRef?: boolean;
+    forwardRef?: boolean;
     props?: P;
     rerenderOnEveryChange?: boolean;
 }
@@ -36,10 +36,11 @@ export interface FieldArrayFieldsProps<FieldValue> {
     getAll(): FieldValue[];
     removeAll(): void;
     insert(index: number, value: FieldValue): void;
+    name: string;
     length: number;
     map<R>(callback: FieldIterate<FieldValue, R>): R[];
     pop(): FieldValue;
-    push(value: FieldValue): void;
+    push(value?: FieldValue): void;
     remove(index: number): void;
     shift(): FieldValue;
     swap(indexA: number, indexB: number): void;

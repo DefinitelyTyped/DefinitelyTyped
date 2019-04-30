@@ -1,6 +1,6 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>, Ivan Bisultanov <https://github.com/IvanBisultanov>, Gleb Mazovetskiy <https://github.com/glebm>
+// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>, Ivan Bisultanov <https://github.com/IvanBisultanov>, Gleb Mazovetskiy <https://github.com/glebm>, Shrujal Shah <https://github.com/shrujalshah28>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
@@ -118,7 +118,7 @@ declare namespace google {
             setColumnLabel(columnIndex: number, label: string): void;
             setColumnProperty(columnIndex: number, name: string, value: any): void;
             setColumnProperties(columnIndex: number, properties: Properties): void;
-            setFormattedValue(rowIndex: number, columnIndex: number, formattedValue: string): void;
+            setFormattedValue(rowIndex: number, columnIndex: number, formattedValue: string | null): void;
             setProperty(rowIndex: number, columnIndex: number, name: string, value: any): void;
             setProperties(rowIndex: number, columnIndex: number, properties: Properties): void;
             setRowProperty(rowIndex: number, name: string, value: any): void;
@@ -478,6 +478,7 @@ declare namespace google {
             showColorCode?: boolean;
             textStyle?: ChartTextStyle;
             trigger?: string;
+            ignoreBounds?: boolean;
         }
 
         export interface ChartBoundingBox {
@@ -596,6 +597,7 @@ declare namespace google {
             chartArea?: ChartArea;
             colors?: string[];
             enableInteractivity?: boolean;
+            explorer?: ChartExplorer;
             focusTarget?: string;
             fontSize?: number;
             fontName?: string;

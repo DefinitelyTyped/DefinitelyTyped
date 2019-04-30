@@ -2,6 +2,8 @@
 // Project: https://github.com/emberjs/ember-qunit#readme
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
+//                 Steve Calvert <https://github.com/scalvert>
+//                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -45,6 +47,13 @@ declare module 'ember-qunit' {
      */
     export function setResolver(resolver: Ember.Resolver): void;
 
+    interface SetupTestOptions {
+        /**
+         * The resolver to use when instantiating container-managed entities in the test.
+         */
+        resolver?: Ember.Resolver;
+    }
+
     /**
      * Sets up acceptance tests.
      *
@@ -57,7 +66,7 @@ declare module 'ember-qunit' {
      * * `this.pauseTest` and `this.resumeTest` - allow easy pausing/resuming of tests.
      * * `this.element` which returns the DOM element representing the application's root element.
      */
-    export function setupApplicationTest(hooks: NestedHooks): void;
+    export function setupApplicationTest(hooks: NestedHooks, options?: SetupTestOptions): void;
 
     /**
      * Sets up tests that need to render snippets of templates.
@@ -78,7 +87,7 @@ declare module 'ember-qunit' {
      * * this.$(...) - When jQuery is present, executes a jQuery selector with
      * the current this.element as its root
      */
-    export function setupRenderingTest(hooks: NestedHooks): void;
+    export function setupRenderingTest(hooks: NestedHooks, options?: SetupTestOptions): void;
 
     /**
      * Sets up tests that do not need to render snippets of templates.
@@ -93,7 +102,7 @@ declare module 'ember-qunit' {
      * * this.set / this.setProperties - Allows setting values on the test context.
      * * this.get / this.getProperties - Retrieves values from the test context.
      */
-    export function setupTest(hooks: NestedHooks): void;
+    export function setupTest(hooks: NestedHooks, options?: SetupTestOptions): void;
 
     export class QUnitAdapter extends Ember.Test.Adapter { }
 
@@ -136,7 +145,7 @@ declare module 'ember-qunit' {
         /**
          * If `false` test isolation validation will be disabled.
          */
-        setupTestIsolationValidatoin?: boolean;
+        setupTestIsolationValidation?: boolean;
     }
 
     export function start(options?: QUnitStartOptions): void;

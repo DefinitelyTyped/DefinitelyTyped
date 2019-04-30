@@ -3,7 +3,8 @@
  * for more details, please see http://idangero.us/swiper/demos/
  * @author Eugene Matseruk
  */
-import { Swiper, Navigation, History } from 'swiper';
+import Swiper from 'swiper';
+import { Swiper as SwiperESM, Navigation, History } from 'swiper/dist/js/swiper.esm';
 
 const containerSelector = '.swiper-container';
 
@@ -12,6 +13,7 @@ const containerSelector = '.swiper-container';
  */
 function defaultDemo() {
     const swiper = new Swiper(containerSelector);
+    const swiper2 = new SwiperESM(containerSelector);
 }
 /**
  * 020-navigation
@@ -771,7 +773,7 @@ function slideableNavigation() {
  * Swiper module instalation.
  */
 function staticUseModules() {
-    Swiper.use([Navigation, History]);
+    SwiperESM.use([Navigation, History]);
 
     const swiper = new Swiper(containerSelector);
 }

@@ -1,12 +1,13 @@
-// Type definitions for react-native-scrollable-tab-view 0.8
-// Project: https://github.com/skv-headless/react-native-scrollable-tab-view
+// Type definitions for react-native-scrollable-tab-view 0.10
+// Project: https://github.com/brentvatne/react-native-scrollable-tab-view
 // Definitions by: CaiHuan <https://github.com/CaiHuan>
 //                 Egor Shulga <https://github.com/egorshulga>
+//                 ydostyle <https://github.com/ydostyle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { Animated, ScrollViewProps, ViewStyle, TextStyle } from 'react-native';
+import { Animated, ScrollViewProps, ViewStyle, TextStyle, StyleProp, LayoutChangeEvent } from 'react-native';
 
 export interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
     /**
@@ -57,7 +58,7 @@ export interface ScrollableTabViewProperties extends React.Props<ScrollableTabVi
     /**
      * style of the default tab bar's underline
      */
-    tabBarUnderlineStyle?: ViewStyle;
+    tabBarUnderlineStyle?: StyleProp<ViewStyle>;
 
     /**
      * color of the default tab bar's background, defaults to white
@@ -77,12 +78,12 @@ export interface ScrollableTabViewProperties extends React.Props<ScrollableTabVi
     /**
      * additional styles to the tab bar's text
      */
-    tabBarTextStyle?: TextStyle;
+    tabBarTextStyle?: StyleProp<TextStyle>;
 
     /**
      * style (View.propTypes.style)
      */
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
 
     /**
      * props that are applied to root ScrollView/ViewPagerAndroid.
@@ -125,7 +126,7 @@ export default class ScrollableTabView extends React.Component<ScrollableTabView
 // Each top-level child component should have a tabLabel prop
 // that can be used by the tab bar component to render out the labels.
 export type TabProps<T = {}> = T & {
-    tabLabel: React.ReactType;
+    tabLabel: React.ReactChild;
 };
 
 export interface DefaultTabBarProps {
@@ -139,7 +140,7 @@ export interface DefaultTabBarProps {
 }
 
 export type RenderTabProperties =
-    (name: string, pageIndex: number, isTabActive: boolean, goToPage: (pageNumber: number) => void) => JSX.Element;
+    (name: string, pageIndex: number, isTabActive: boolean, onPressHandler: (pageNumber: number) => void, onLayoutHandler?: (event: LayoutChangeEvent) => void) => JSX.Element;
 
 export class DefaultTabBar extends React.Component<TabBarProps<DefaultTabBarProps>> {
 }

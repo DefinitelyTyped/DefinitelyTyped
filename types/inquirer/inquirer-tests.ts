@@ -3,11 +3,10 @@ import inquirer = require("inquirer");
 inquirer.prompt(
     [
         /* Pass your questions in here */
-    ],
-    function(answers: inquirer.Answers) {
-        // Use user feedback for... whatever!!
-    }
-);
+    ]
+).then((answers: inquirer.Answers) => {
+    // Use user feedback for... whatever!!
+});
 
 //
 // examples/bottom-bar.js
@@ -87,11 +86,10 @@ inquirer.prompt<{ toppings: string }>(
                 return true;
             }
         }
-    ],
-    function(answers) {
-        console.log(JSON.stringify(answers, null, "  "));
-    }
-);
+    ]
+).then(answers => {
+    console.log(JSON.stringify(answers, null, "  "));
+});
 
 //
 // examples/expand.js
@@ -134,11 +132,10 @@ inquirer.prompt(
                 }
             ]
         }
-    ],
-    function(answers: inquirer.Answers) {
-        console.log(JSON.stringify(answers, null, "  "));
-    }
-);
+    ]
+).then((answers: inquirer.Answers) => {
+    console.log(JSON.stringify(answers, null, "  "));
+});
 
 //
 // examples/input.js
@@ -184,9 +181,9 @@ var questions = [
     }
 ];
 
-inquirer.prompt(questions, function(answers) {
-    console.log(JSON.stringify(answers, null, "  "));
-});
+inquirer.prompt(questions).then(
+    answers => console.log(JSON.stringify(answers, null, "  "))
+);
 
 //
 // examples/list.js
@@ -222,11 +219,10 @@ inquirer.prompt(
                 return val.toLowerCase();
             }
         }
-    ],
-    function(answers: inquirer.Answers) {
-        console.log(JSON.stringify(answers, null, "  "));
-    }
-);
+    ]
+).then((answers: inquirer.Answers) => {
+    console.log(JSON.stringify(answers, null, "  "));
+});
 
 //
 // examples/long-list.js
@@ -263,11 +259,10 @@ inquirer.prompt(
             paginated: true,
             choices: choices
         }
-    ],
-    function(answers: inquirer.Answers) {
-        console.log(JSON.stringify(answers, null, "  "));
-    }
-);
+    ]
+).then((answers: inquirer.Answers) => {
+    console.log(JSON.stringify(answers, null, "  "));
+});
 
 //
 // examples/nested-call.js
@@ -286,16 +281,15 @@ inquirer.prompt(
         name: "chocolate",
         message: "What's your favorite chocolate?",
         choices: ["Mars", "Oh Henry", "Hershey"]
-    },
-    function(answers: inquirer.Answers) {
-        inquirer.prompt({
-            type: "list",
-            name: "beverage",
-            message: "And your favorite beverage?",
-            choices: ["Pepsi", "Coke", "7up", "Mountain Dew", "Red Bull"]
-        });
     }
-);
+).then((answers: inquirer.Answers) => {
+    inquirer.prompt({
+        type: "list",
+        name: "beverage",
+        message: "And your favorite beverage?",
+        choices: ["Pepsi", "Coke", "7up", "Mountain Dew", "Red Bull"]
+    });
+});
 
 //
 // examples/password.js
@@ -315,11 +309,10 @@ inquirer.prompt(
             message: "Enter your git password",
             name: "password"
         }
-    ],
-    function(answers: inquirer.Answers) {
-        console.log(JSON.stringify(answers, null, "  "));
-    }
-);
+    ]
+).then((answers: inquirer.Answers) => {
+    console.log(JSON.stringify(answers, null, "  "));
+});
 
 //
 // examples/pizza.js
@@ -421,7 +414,7 @@ var questions2 = [
     }
 ];
 
-inquirer.prompt(questions, function(answers) {
+inquirer.prompt(questions).then(answers => {
     console.log("\nOrder receipt:");
     console.log(JSON.stringify(answers, null, "  "));
 });
@@ -460,11 +453,10 @@ inquirer.prompt(
                 return val.toLowerCase();
             }
         }
-    ],
-    function(answers: inquirer.Answers) {
-        console.log(JSON.stringify(answers, null, "  "));
-    }
-);
+    ]
+).then((answers: inquirer.Answers) => {
+    console.log(JSON.stringify(answers, null, "  "));
+});
 
 //
 // examples/recursive.js
@@ -495,9 +487,8 @@ var questions3 = [
 ];
 
 function ask() {
-    inquirer.prompt<{ tvShow: string; askAgain: boolean }>(questions3, function(
-        answers
-    ) {
+    inquirer.prompt<{ tvShow: string; askAgain: boolean }>(questions3)
+    .then((answers) => {
         output2.push(answers.tvShow);
         if (answers.askAgain) {
             ask();
@@ -560,7 +551,7 @@ function likesFood(aFood: string) {
     };
 }
 
-inquirer.prompt<Answers4>(questions, function(answers) {
+inquirer.prompt<Answers4>(questions).then(answers => {
     console.log(JSON.stringify(answers, null, "  "));
 });
 
@@ -579,11 +570,10 @@ inquirer.prompt(
             message: 'What do you want to do?',
             choices: immutableChoices
         }
-    ],
-    function(answers: inquirer.Answers) {
-        console.log(JSON.stringify(answers, null, '  '));
-    }
-);
+    ]
+).then((answers: inquirer.Answers) => {
+    console.log(JSON.stringify(answers, null, '  '));
+});
 
 //
 // Other tests not covered in the examples provided with inquirer
@@ -667,9 +657,10 @@ var questions = [
     }
 ];
 
-inquirer.createPromptModule({ output: process.stderr })(questions, function(answers) {
-    console.log(JSON.stringify(answers, null, "  "));
-});
+inquirer.createPromptModule({ output: process.stderr })(questions)
+    .then(answers => {
+            console.log(JSON.stringify(answers, null, "  "));
+        });
 
 // Work with JS inquirer but rejected by typing.
 inquirer.prompt([

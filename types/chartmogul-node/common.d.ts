@@ -1,5 +1,5 @@
 export interface Map {
-    [key: string]: any
+    [key: string]: any;
 }
 export interface CursorParams {
     page?: number;
@@ -15,9 +15,9 @@ export interface Cursor {
     total_pages?: number;
 }
 export interface Entries<T> extends Cursor {
-    entries: T[]
+    entries: T[];
 }
-interface Summary {
+export interface Summary {
     current: number;
     previous: number;
     ['percentage-change']: number;

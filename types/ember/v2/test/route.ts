@@ -86,6 +86,14 @@ Route.extend({
     },
 });
 
+class RedirectRoute extends Route {
+    redirect(model: {}, a: Ember.Transition) {
+        if (!model) {
+            this.transitionTo('there');
+        }
+    }
+}
+
 class RouteUsingClass extends Route.extend({
     randomProperty: 'the .extend + extends bit type-checks properly',
 }) {

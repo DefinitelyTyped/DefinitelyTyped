@@ -8,7 +8,13 @@ let localAudioTrack: Video.LocalAudioTrack | null = null;
 
 async function initRoom() {
   // Connect to Twilio without creating audio and video track
-  room = await Video.connect('$TOKEN', { name: 'room-name', video: false, audio: false });
+  room = await Video.connect('$TOKEN', {
+    name: 'room-name',
+    video: false,
+    audio: false,
+    dominantSpeaker: true,
+    networkQuality: true
+  });
   // Create local video track from default input
   localVideoTrack = await Video.createLocalVideoTrack({ name: 'camera' });
   // Create local audio track from default input
@@ -32,6 +38,7 @@ async function initRoom() {
 function unpublishTracks() {
   if (room && localVideoTrack) room.localParticipant.unpublishTrack(localVideoTrack);
   if (room && localAudioTrack) room.localParticipant.unpublishTrack(localAudioTrack);
+  if (room && localVideoTrack && localAudioTrack) room.localParticipant.unpublishTracks([localVideoTrack, localAudioTrack]);
 }
 
 function participantConnected(participant: Video.Participant) {

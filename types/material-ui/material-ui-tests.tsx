@@ -4227,7 +4227,7 @@ function wrapState(ComposedComponent: ComponentClass<__MaterialUI.List.Selectabl
   };
 }
 
-const SelectableList = wrapState(makeSelectable(List));
+const SelectableList = wrapState(makeSelectable<{}>(List));
 
 const ListExampleSelectable = () => (
   <Paper>

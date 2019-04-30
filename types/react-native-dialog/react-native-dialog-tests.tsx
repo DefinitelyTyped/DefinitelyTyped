@@ -2,6 +2,24 @@ import Dialog from "react-native-dialog";
 import { createRef, Component } from "react";
 
 class Example extends Component {
+    dynamicButtons() {
+        const buttonFunc = () => console.log('click');
+        const buttons = [
+            { label: 'Button 1', action: buttonFunc },
+            { label: 'Button 2', action: buttonFunc },
+        ];
+        return buttons.map(({ label , action }) =>
+            <Dialog.Button
+                label={label}
+                onPress={action}
+            />
+        );
+    }
+
+    singleButton() {
+        return (<Dialog.Button label="Click" onPress={() => null} />);
+    }
+
     render() {
         const ref = createRef();
 
@@ -23,6 +41,8 @@ class Example extends Component {
                     label="Validate"
                     onPress={() => console.log("test")}
                 />
+                {this.dynamicButtons()}
+                {this.singleButton()}
             </Dialog.Container>
         );
     }

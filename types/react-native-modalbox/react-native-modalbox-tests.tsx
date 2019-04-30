@@ -16,6 +16,8 @@ interface State {
   sliderValue: number;
 }
 
+const screen = Dimensions.get('window');
+
 class Example extends React.Component<{}, State> {
   modal1: Modal;
   modal2: Modal;

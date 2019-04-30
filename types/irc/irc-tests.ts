@@ -13,15 +13,15 @@ function test_bot() {
         console.log("Connected");
     });
 
-    bot.addListener('error', <irc.handlers.IError> ((message: irc.IMessage) => {
+    bot.addListener('error', ((message: irc.IMessage) => {
     console.error('ERROR: %s: %s', message.command, message.args.join(' '));
-    }));
+    }) as irc.handlers.IError);
 
-    bot.addListener('message#blah', <irc.handlers.IMessageChannel> ((from: string, message: string) => {
+    bot.addListener('message#blah', ((from: string, message: string) => {
     console.log('<%s> %s', from, message);
-    }));
+    }) as irc.handlers.IMessageChannel);
 
-    bot.addListener('message', <irc.handlers.IRecievedMessage> ((from: string, to: string, message: string) => {
+    bot.addListener('message', ((from: string, to: string, message: string) => {
     console.log('%s => %s: %s', from, to, message);
 
     if (to.match(/^[#&]/)) {
@@ -40,23 +40,23 @@ function test_bot() {
         // private message
         console.log('private message');
     }
-    }));
+    }) as irc.handlers.IRecievedMessage);
 
-    bot.addListener('pm', <irc.handlers.IPm> ((nick: string, message: string) => {
+    bot.addListener('pm', ((nick: string, message: string) => {
     console.log('Got private message from %s: %s', nick, message);
-    }));
+    }) as irc.handlers.IPm);
 
-    bot.addListener('join', <irc.handlers.IJoin> ((channel: string, who: string) => {
+    bot.addListener('join', ((channel: string, who: string) => {
     console.log('%s has joined %s', who, channel);
-    }));
+    }) as irc.handlers.IJoin);
 
-    bot.addListener('part', <irc.handlers.IPart> ((channel: string, who: string, reason: string) => {
+    bot.addListener('part', ((channel: string, who: string, reason: string) => {
     console.log('%s has left %s: %s', who, channel, reason);
-    }));
+    }) as irc.handlers.IPart);
 
-    bot.addListener('kick', <irc.handlers.IKick> ((channel: string, who: string, by: string, reason: string) => {
+    bot.addListener('kick', ((channel: string, who: string, by: string, reason: string) => {
     console.log('%s was kicked from %s by %s: %s', who, channel, by, reason);
-    }));
+    }) as irc.handlers.IKick);
 }
 
 function test_secure() {

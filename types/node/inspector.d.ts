@@ -8,7 +8,6 @@
 /**
  * The inspector module provides an API for interacting with the V8 inspector.
  */
-// tslint:disable-next-line:no-single-declare-module
 declare module "inspector" {
     import { EventEmitter } from 'events';
 
@@ -1717,8 +1716,29 @@ declare module "inspector" {
             awaitPromise?: boolean;
         }
 
+        interface SetAsyncCallStackDepthParameterType {
+            /**
+             * Maximum depth of async call stacks. Setting to `0` will effectively disable collecting async
+             * call stacks (default).
+             */
+            maxDepth: number;
+        }
+
         interface SetCustomObjectFormatterEnabledParameterType {
             enabled: boolean;
+        }
+
+        interface SetMaxCallStackSizeToCaptureParameterType {
+            size: number;
+        }
+
+        interface AddBindingParameterType {
+            name: string;
+            executionContextId?: ExecutionContextId;
+        }
+
+        interface RemoveBindingParameterType {
+            name: string;
         }
 
         interface AwaitPromiseReturnType {
@@ -1820,6 +1840,15 @@ declare module "inspector" {
             exceptionDetails?: ExceptionDetails;
         }
 
+        interface BindingCalledEventDataType {
+            name: string;
+            payload: string;
+            /**
+             * Identifier of the context where the call was made.
+             */
+            executionContextId: ExecutionContextId;
+        }
+
         interface ConsoleAPICalledEventDataType {
             /**
              * Type of the call.
@@ -1912,6 +1941,90 @@ declare module "inspector" {
         }
     }
 
+    namespace NodeTracing {
+        interface TraceConfig {
+            /**
+             * Controls how the trace buffer stores data.
+             */
+            recordMode?: string;
+            /**
+             * Included category filters.
+             */
+            includedCategories: string[];
+        }
+
+        interface StartParameterType {
+            traceConfig: TraceConfig;
+        }
+
+        interface GetCategoriesReturnType {
+            /**
+             * A list of supported tracing categories.
+             */
+            categories: string[];
+        }
+
+        interface DataCollectedEventDataType {
+            value: Array<{}>;
+        }
+    }
+
+    namespace NodeWorker {
+        type WorkerID = string;
+
+        /**
+         * Unique identifier of attached debugging session.
+         */
+        type SessionID = string;
+
+        interface WorkerInfo {
+            workerId: WorkerID;
+            type: string;
+            title: string;
+            url: string;
+        }
+
+        interface SendMessageToWorkerParameterType {
+            message: string;
+            /**
+             * Identifier of the session.
+             */
+            sessionId: SessionID;
+        }
+
+        interface EnableParameterType {
+            /**
+             * Whether to new workers should be paused until the frontend sends `Runtime.runIfWaitingForDebugger`
+             * message to run them.
+             */
+            waitForDebuggerOnStart: boolean;
+        }
+
+        interface AttachedToWorkerEventDataType {
+            /**
+             * Identifier assigned to the session used to send/receive messages.
+             */
+            sessionId: SessionID;
+            workerInfo: WorkerInfo;
+            waitingForDebugger: boolean;
+        }
+
+        interface DetachedFromWorkerEventDataType {
+            /**
+             * Detached session identifier.
+             */
+            sessionId: SessionID;
+        }
+
+        interface ReceivedMessageFromWorkerEventDataType {
+            /**
+             * Identifier of a session which sends a message.
+             */
+            sessionId: SessionID;
+            message: string;
+        }
+    }
+
     /**
      * The inspector.Session is used for dispatching messages to the V8 inspector back-end and receiving message responses and notifications.
      */
@@ -1958,6 +2071,7 @@ declare module "inspector" {
          * `messageAdded` notification.
          */
         post(method: "Console.enable", callback?: (err: Error | null) => void): void;
+
         /**
          * Continues execution until specific location is reached.
          */
@@ -2155,6 +2269,7 @@ declare module "inspector" {
          * Steps over the statement.
          */
         post(method: "Debugger.stepOver", callback?: (err: Error | null) => void): void;
+
         /**
          * Enables console to refer to the node with given id via $x (see Command Line API for more details
          * $x functions).
@@ -2193,6 +2308,7 @@ declare module "inspector" {
 
         post(method: "HeapProfiler.takeHeapSnapshot", params?: HeapProfiler.TakeHeapSnapshotParameterType, callback?: (err: Error | null) => void): void;
         post(method: "HeapProfiler.takeHeapSnapshot", callback?: (err: Error | null) => void): void;
+
         post(method: "Profiler.disable", callback?: (err: Error | null) => void): void;
 
         post(method: "Profiler.enable", callback?: (err: Error | null) => void): void;
@@ -2250,6 +2366,7 @@ declare module "inspector" {
          * @experimental
          */
         post(method: "Profiler.takeTypeProfile", callback?: (err: Error | null, params: Profiler.TakeTypeProfileReturnType) => void): void;
+
         /**
          * Add handler to promise with given promise object id.
          */
@@ -2349,10 +2466,22 @@ declare module "inspector" {
         post(method: "Runtime.runScript", callback?: (err: Error | null, params: Runtime.RunScriptReturnType) => void): void;
 
         /**
+         * Enables or disables async call stacks tracking.
+         */
+        post(method: "Runtime.setAsyncCallStackDepth", params?: Runtime.SetAsyncCallStackDepthParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.setAsyncCallStackDepth", callback?: (err: Error | null) => void): void;
+
+        /**
          * @experimental
          */
         post(method: "Runtime.setCustomObjectFormatterEnabled", params?: Runtime.SetCustomObjectFormatterEnabledParameterType, callback?: (err: Error | null) => void): void;
         post(method: "Runtime.setCustomObjectFormatterEnabled", callback?: (err: Error | null) => void): void;
+
+        /**
+         * @experimental
+         */
+        post(method: "Runtime.setMaxCallStackSizeToCapture", params?: Runtime.SetMaxCallStackSizeToCaptureParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.setMaxCallStackSizeToCapture", callback?: (err: Error | null) => void): void;
 
         /**
          * Terminate current or next JavaScript execution.
@@ -2360,10 +2489,68 @@ declare module "inspector" {
          * @experimental
          */
         post(method: "Runtime.terminateExecution", callback?: (err: Error | null) => void): void;
+
+        /**
+         * If executionContextId is empty, adds binding with the given name on the
+         * global objects of all inspected contexts, including those created later,
+         * bindings survive reloads.
+         * If executionContextId is specified, adds binding only on global object of
+         * given execution context.
+         * Binding function takes exactly one argument, this argument should be string,
+         * in case of any other input, function throws an exception.
+         * Each binding function call produces Runtime.bindingCalled notification.
+         * @experimental
+         */
+        post(method: "Runtime.addBinding", params?: Runtime.AddBindingParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.addBinding", callback?: (err: Error | null) => void): void;
+
+        /**
+         * This method does not remove binding function from global object but
+         * unsubscribes current runtime agent from Runtime.bindingCalled notifications.
+         * @experimental
+         */
+        post(method: "Runtime.removeBinding", params?: Runtime.RemoveBindingParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "Runtime.removeBinding", callback?: (err: Error | null) => void): void;
+
         /**
          * Returns supported domains.
          */
         post(method: "Schema.getDomains", callback?: (err: Error | null, params: Schema.GetDomainsReturnType) => void): void;
+
+        /**
+         * Gets supported tracing categories.
+         */
+        post(method: "NodeTracing.getCategories", callback?: (err: Error | null, params: NodeTracing.GetCategoriesReturnType) => void): void;
+
+        /**
+         * Start trace events collection.
+         */
+        post(method: "NodeTracing.start", params?: NodeTracing.StartParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "NodeTracing.start", callback?: (err: Error | null) => void): void;
+
+        /**
+         * Stop trace events collection. Remaining collected events will be sent as a sequence of
+         * dataCollected events followed by tracingComplete event.
+         */
+        post(method: "NodeTracing.stop", callback?: (err: Error | null) => void): void;
+
+        /**
+         * Sends protocol message over session with given id.
+         */
+        post(method: "NodeWorker.sendMessageToWorker", params?: NodeWorker.SendMessageToWorkerParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "NodeWorker.sendMessageToWorker", callback?: (err: Error | null) => void): void;
+
+        /**
+         * Instructs the inspector to attach to running workers. Will also attach to new workers
+         * as they start
+         */
+        post(method: "NodeWorker.enable", params?: NodeWorker.EnableParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "NodeWorker.enable", callback?: (err: Error | null) => void): void;
+
+        /**
+         * Detaches from all running workers and disables attaching to new workers as they are started.
+         */
+        post(method: "NodeWorker.disable", callback?: (err: Error | null) => void): void;
 
         // Events
 
@@ -2429,6 +2616,12 @@ declare module "inspector" {
         addListener(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
 
         /**
+         * Notification is issued every time when binding is called.
+         * @experimental
+         */
+        addListener(event: "Runtime.bindingCalled", listener: (message: InspectorNotification<Runtime.BindingCalledEventDataType>) => void): this;
+
+        /**
          * Issued when console API was called.
          */
         addListener(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
@@ -2464,6 +2657,33 @@ declare module "inspector" {
          */
         addListener(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
 
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        addListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        addListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
+
+        /**
+         * Issued when attached to a worker.
+         */
+        addListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+
+        /**
+         * Issued when detached from the worker.
+         */
+        addListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        addListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
+
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "inspectorNotification", message: InspectorNotification<{}>): boolean;
         emit(event: "Console.messageAdded", message: InspectorNotification<Console.MessageAddedEventDataType>): boolean;
@@ -2479,6 +2699,7 @@ declare module "inspector" {
         emit(event: "HeapProfiler.resetProfiles"): boolean;
         emit(event: "Profiler.consoleProfileFinished", message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>): boolean;
         emit(event: "Profiler.consoleProfileStarted", message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>): boolean;
+        emit(event: "Runtime.bindingCalled", message: InspectorNotification<Runtime.BindingCalledEventDataType>): boolean;
         emit(event: "Runtime.consoleAPICalled", message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>): boolean;
         emit(event: "Runtime.exceptionRevoked", message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>): boolean;
         emit(event: "Runtime.exceptionThrown", message: InspectorNotification<Runtime.ExceptionThrownEventDataType>): boolean;
@@ -2486,6 +2707,11 @@ declare module "inspector" {
         emit(event: "Runtime.executionContextDestroyed", message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>): boolean;
         emit(event: "Runtime.executionContextsCleared"): boolean;
         emit(event: "Runtime.inspectRequested", message: InspectorNotification<Runtime.InspectRequestedEventDataType>): boolean;
+        emit(event: "NodeTracing.dataCollected", message: InspectorNotification<NodeTracing.DataCollectedEventDataType>): boolean;
+        emit(event: "NodeTracing.tracingComplete"): boolean;
+        emit(event: "NodeWorker.attachedToWorker", message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>): boolean;
+        emit(event: "NodeWorker.detachedFromWorker", message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>): boolean;
+        emit(event: "NodeWorker.receivedMessageFromWorker", message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
 
@@ -2549,6 +2775,12 @@ declare module "inspector" {
         on(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
 
         /**
+         * Notification is issued every time when binding is called.
+         * @experimental
+         */
+        on(event: "Runtime.bindingCalled", listener: (message: InspectorNotification<Runtime.BindingCalledEventDataType>) => void): this;
+
+        /**
          * Issued when console API was called.
          */
         on(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
@@ -2583,6 +2815,33 @@ declare module "inspector" {
          * call).
          */
         on(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        on(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        on(event: "NodeTracing.tracingComplete", listener: () => void): this;
+
+        /**
+         * Issued when attached to a worker.
+         */
+        on(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+
+        /**
+         * Issued when detached from the worker.
+         */
+        on(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        on(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
 
@@ -2646,6 +2905,12 @@ declare module "inspector" {
         once(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
 
         /**
+         * Notification is issued every time when binding is called.
+         * @experimental
+         */
+        once(event: "Runtime.bindingCalled", listener: (message: InspectorNotification<Runtime.BindingCalledEventDataType>) => void): this;
+
+        /**
          * Issued when console API was called.
          */
         once(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
@@ -2680,6 +2945,33 @@ declare module "inspector" {
          * call).
          */
         once(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        once(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        once(event: "NodeTracing.tracingComplete", listener: () => void): this;
+
+        /**
+         * Issued when attached to a worker.
+         */
+        once(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+
+        /**
+         * Issued when detached from the worker.
+         */
+        once(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        once(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
 
@@ -2743,6 +3035,12 @@ declare module "inspector" {
         prependListener(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
 
         /**
+         * Notification is issued every time when binding is called.
+         * @experimental
+         */
+        prependListener(event: "Runtime.bindingCalled", listener: (message: InspectorNotification<Runtime.BindingCalledEventDataType>) => void): this;
+
+        /**
          * Issued when console API was called.
          */
         prependListener(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
@@ -2777,6 +3075,33 @@ declare module "inspector" {
          * call).
          */
         prependListener(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        prependListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        prependListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
+
+        /**
+         * Issued when attached to a worker.
+         */
+        prependListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+
+        /**
+         * Issued when detached from the worker.
+         */
+        prependListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        prependListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
 
@@ -2840,6 +3165,12 @@ declare module "inspector" {
         prependOnceListener(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
 
         /**
+         * Notification is issued every time when binding is called.
+         * @experimental
+         */
+        prependOnceListener(event: "Runtime.bindingCalled", listener: (message: InspectorNotification<Runtime.BindingCalledEventDataType>) => void): this;
+
+        /**
          * Issued when console API was called.
          */
         prependOnceListener(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
@@ -2874,6 +3205,33 @@ declare module "inspector" {
          * call).
          */
         prependOnceListener(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        prependOnceListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        prependOnceListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
+
+        /**
+         * Issued when attached to a worker.
+         */
+        prependOnceListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+
+        /**
+         * Issued when detached from the worker.
+         */
+        prependOnceListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        prependOnceListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
     }
 
     // Top Level API

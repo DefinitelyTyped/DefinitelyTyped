@@ -53,7 +53,7 @@ declare module 'catbox-redis' {
         sentinelName?: string;
       }
     }
-    class CatboxRedis extends Client {
+    class CatboxRedis<T> extends Client<T> {
       constructor(options: CatboxRedis.CatboxRedisOptions);
     }
     export = CatboxRedis;
