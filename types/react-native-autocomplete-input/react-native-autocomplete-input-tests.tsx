@@ -1,10 +1,8 @@
 import Autocomplete from 'react-native-autocomplete-input';
 import * as React from 'react';
 import {
-  StyleSheet,
   Text,
   TouchableOpacity,
-  View
 } from 'react-native';
 
 interface Item { query: string; value: string; }
