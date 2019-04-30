@@ -2551,8 +2551,8 @@ export namespace Segment {
 
     function flush(): void;
 
-    function getEnabledAsync(): void;
-    function setEnabledAsync(enabled: boolean): void;
+    function getEnabledAsync(): Promise<boolean>;
+    function setEnabledAsync(enabled: boolean): Promise<void>;
 }
 
 /**
