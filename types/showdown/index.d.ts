@@ -3,12 +3,18 @@
 // Definitions by: Hamed Baatour <https://github.com/hamedbaatour>,
 //                 cbowdon <https://github.com/cbowdon>,
 //                 Pei-Tang Huang <https://github.com/tan9>,
-//                 Ariel-Saldana <https://github.com/arielsaldana>
+//                 Ariel-Saldana <https://github.com/arielsaldana>,
+//                 Yisrael Eliav <https://github.com/yisraelx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Showdown;
 export as namespace showdown;
 
+/**
+ * Showdown namespace
+ *
+ * @see https://github.com/showdownjs/showdown/blob/master/src/showdown.js
+ */
 declare namespace Showdown {
 
     interface Extension {
@@ -79,7 +85,7 @@ declare namespace Showdown {
     }
 
     /**
-     * Showdown options
+     * Showdown options.
      *
      * @see https://github.com/showdownjs/showdown#valid-options
      * @see https://github.com/showdownjs/showdown/wiki/Showdown-options
@@ -808,7 +814,7 @@ declare namespace Showdown {
     type SubParser = (...args: any[]) => string;
 
     /**
-     * Showdown Converter prototype
+     * Showdown Converter prototype.
      *
      * @see https://github.com/showdownjs/showdown/blob/master/src/converter.js
      */
@@ -817,32 +823,32 @@ declare namespace Showdown {
         /**
          * Converts a markdown string into HTML string.
          * 
-         * @param text The input text (markdown)
-         * @return The output HTML
+         * @param text - The input text (markdown).
+         * @return The output HTML.
          */
         makeHtml(text: string): string;
 
         /**
          * Converts an HTML string into a markdown string.
          *
-         * @param src The input text (HTML)
+         * @param src - The input text (HTML)
          * @param [HTMLParser] A WHATWG DOM and HTML parser, such as JSDOM. If none is supplied, window.document will be used.
-         * @returns The output markdown
+         * @returns The output markdown.
          */
         makeMarkdown(src: string, HTMLParser?: HTMLDocument): string;
 
         /**
          * Setting a "local" option only affects the specified Converter object.
          *
-         * @param key the key of the option.
-         * @param value the value of the option.
+         * @param key - the key of the option.
+         * @param value - the value of the option.
          */
         setOption(key: string, value: any): void;
 
         /**
          * Get the option of this Converter instance.
          *
-         * @param key the key of the option.
+         * @param key - the key of the option.
          * @returns Returns the value of the given `key`.
          */
         getOption(key: string): any;
@@ -855,23 +861,23 @@ declare namespace Showdown {
         /**
          * Add extension to THIS converter.
          *
-         * @param extension The new extension to add.
-         * @param name The extension name.
+         * @param extension - The new extension to add.
+         * @param name - The extension name.
          */
         addExtension(extension: ShowdownExtension, name: string): void;
         addExtension(extension: ShowdownExtension[], name: string): void;
 
         /**
-         * Use a global registered extension with THIS converter
+         * Use a global registered extension with THIS converter.
          *
-         * @param extensionName Name of the previously registered extension.
+         * @param extensionName - Name of the previously registered extension.
          */
         useExtension(extensionName: string): void;
 
         /**
          * Set a "local" flavor for THIS Converter instance.
          *
-         * @param flavor The flavor name.
+         * @param flavor - The flavor name.
          */
         setFlavor(name: Flavor): void;
 
@@ -885,7 +891,7 @@ declare namespace Showdown {
         /**
          * Remove an extension from THIS converter.
          *
-         * @remarks This is a costly operation. It's better to initialize a new converter
+         * @remarks This is a costly operation. It's better to initialize a new converter.
          * and specify the extensions you wish to use.
          * @param extensions - The extensions to remove.
          */
@@ -907,7 +913,7 @@ declare namespace Showdown {
         getMetadata(raw?: boolean): string | Metadata
 
         /**
-         * Get the metadata format of the previously parsed document
+         * Get the metadata format of the previously parsed document.
          * 
          * @returns Returns the metadata format.
          */
@@ -918,10 +924,11 @@ declare namespace Showdown {
     interface ConverterStatic {
         /**
          * @constructor
-         * @param converterOptions Configuration object, describes which extensions to apply
+         * @param converterOptions - Configuration object, describes which extensions to apply.
          */
         new(converterOptions?: ConverterOptions): Converter;
     }
+
     /** 
      * Helper Interface 
      */
@@ -930,44 +937,53 @@ declare namespace Showdown {
         [key: string]: (...args: any[]) => any;
     }
 
-    /** Constructor function for a Converter */
+    /**
+     * Constructor function for a Converter.
+     */
     var Converter: ConverterStatic;
 
     /**
-     * Showdown helper
+     * Showdown helper.
      */
     var helper: Helper;
 
+    /**
+     * Showdown extensions.
+     */
     var extensions: ShowdownExtensions;
 
     /**
-     * Setting a "global" option affects all instances of showdown
+     * Setting a "global" option affects all instances of showdown.
      * 
-     * @param key
-     * @param value
+     * @param key - the option key.
+     * @param value - the option value.
      */
     function setOption(key: string, value: any): typeof Showdown;
 
     /**
-     * Retrieve previous set global option.
-     * @param key
+     * Get a "global" option.
+     *
+     * @param key - the option key.
+     * @returns Returns the value of the given `key`.
      */
     function getOption(key: string): any;
 
     /**
-     * Retrieve previous set global options.
+     * Get the "global" options.
+     *
+     * @returns Returns a options object.
      */
     function getOptions(): ShowdownOptions;
 
     /**
-     * Reset options.
+     * Reset "global" options to the default values.
      */
     function resetOptions(): void;
 
     /**
-     * Setting a "global" flavor affects all instances of showdown
+     * Setting a "global" flavor affects all instances of showdown.
      *
-     * @param name
+     * @param name - The flavor name.
      */
     function setFlavor(name: Flavor): void;
 
@@ -987,7 +1003,10 @@ declare namespace Showdown {
     function getFlavorOptions(name: Flavor): ShowdownOptions | undefined;
 
     /**
-     * Retrieve the default options.
+     * Get the default options.
+     *
+     * @param [simple=true] - If to returns the default showdown options or the showdown options schema.
+     * @returns Returns the options schema if `simple` is `false`, otherwise the default showdown options.
      */
     function getDefaultOptions(simple?: boolean): ShowdownOptionsSchema | ShowdownOptions;
 
@@ -1030,19 +1049,21 @@ declare namespace Showdown {
     function extension(name: string, ext: (() => ShowdownExtension) | (() => ShowdownExtension[]) | ShowdownExtension): void;
 
     /**
-     * @return all extensions.
+     * Get the "global" extensions.
+     *
+     * @return Returns all extensions.
      */
     function getAllExtensions(): ShowdownExtensions;
 
     /**
      * Remove an extension.
      *
-     * @param name
+     * @param name - The extension name.
      */
     function removeExtension(name: string): void;
 
     /**
-     * Reset extensions.
+     * Removes all extensions.
      */
     function resetExtensions(): void;
 
@@ -1053,5 +1074,4 @@ declare namespace Showdown {
      * @returns Returns `true` if the extension is valid showdown extension, otherwise `false`.
      */
     function validateExtension(ext: (() => ShowdownExtension) | (() => ShowdownExtension[]) | ShowdownExtension): boolean;
-
 }
