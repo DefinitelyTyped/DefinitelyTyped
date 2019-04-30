@@ -198,6 +198,9 @@ myQueue.on('active', (job: Queue.Job) => {
     job.discard();
 });
 
+// Get Redis clients
+const clients = myQueue.clients;
+
 // test all constructor options:
 
 new Queue('profile');
