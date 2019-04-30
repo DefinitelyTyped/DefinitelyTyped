@@ -744,7 +744,7 @@ declare namespace Bull {
     /**
      * Array of Redis clients the queue uses
      */
-    clients: Redis.Redis[]
+    clients: Redis.Redis[];
   }
 
   type EventCallback = () => void;
