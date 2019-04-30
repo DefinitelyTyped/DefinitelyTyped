@@ -486,13 +486,15 @@ declare module "../index" {
     }
     interface ImpL<T> {
         map<K extends keyof T>(key: K): ImpL<T[K]>;
-        map<TResult>(iteratee: ListIterator<T, TResult> | PropertyName): ImpL<TResult>;
+        map<TResult>(iteratee: ListIterator<T, TResult>): ImpL<TResult>;
+        map(iteratee: PropertyName): ImpL<any>;
         map(iteratee: [PropertyName, any] | object): ImpL<boolean>;
         map(): ImpL<T>;
     }
     interface ImpO<T> {
         map<K extends keyof T[keyof T]>(key: K): ImpL<T[keyof T][K]>;
-        map<TResult>(iteratee: ObjectIterator<T, TResult> | PropertyName): ImpL<TResult>;
+        map<TResult>(iteratee: ObjectIterator<T, TResult>): ImpL<TResult>;
+        map(iteratee: PropertyName): ImpL<any>;
         map(iteratee: [PropertyName, any] | object): ImpL<boolean>;
         map(): ImpL<T[keyof T]>;
     }
@@ -508,13 +510,15 @@ declare module "../index" {
     }
     interface ExpL<T> {
         map<K extends keyof T>(key: K): ExpL<T[K]>;
-        map<TResult>(iteratee: ListIterator<T, TResult> | PropertyName): ExpL<TResult>;
+        map<TResult>(iteratee: ListIterator<T, TResult>): ExpL<TResult>;
+        map(iteratee: PropertyName): ExpL<any>;
         map(iteratee: [PropertyName, any] | object): ExpL<boolean>;
         map(): ExpL<T>;
     }
     interface ExpO<T> {
         map<K extends keyof T[keyof T]>(key: K): ExpL<T[keyof T][K]>;
-        map<TResult>(iteratee: ObjectIterator<T, TResult> | PropertyName): ExpL<TResult>;
+        map<TResult>(iteratee: ObjectIterator<T, TResult>): ExpL<TResult>;
+        map(iteratee: PropertyName): ExpL<any>;
         map(iteratee: [PropertyName, any] | object): ExpL<boolean>;
         map(): ExpL<T[keyof T]>;
     }
@@ -534,20 +538,20 @@ declare module "../index" {
         orderBy(iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): ImpL<T>;
     }
     interface ImpO<T> {
-        orderBy(iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): Imp<Array<T[keyof T]>>;
+        orderBy(iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): ImpL<T[keyof T]>;
     }
     interface ExpL<T> {
         orderBy(iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): ExpL<T>;
     }
     interface ExpO<T> {
-        orderBy(iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): Exp<Array<T[keyof T]>>;
+        orderBy(iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): ExpL<T[keyof T]>;
     }
     interface Stat {
         partition<T>(collection: List<T> | null | undefined, callback: ValueIteratee<T>): [T[], T[]];
         partition<T extends object>(collection: T | null | undefined, callback: ValueIteratee<T[keyof T]>): [Array<T[keyof T]>, Array<T[keyof T]>];
     }
     interface ImpS {
-        partition(callback: StringIterator<NotVoid>): Imp<[string, string]>;
+        partition(callback: StringIterator<NotVoid>): Imp<[string[], string[]]>;
     }
     interface ImpL<T> {
         partition(callback: ValueIteratee<T>): Imp<[T[], T[]]>;
@@ -556,7 +560,7 @@ declare module "../index" {
         partition(callback: ValueIteratee<T[keyof T]>): Imp<[Array<T[keyof T]>, Array<T[keyof T]>]>;
     }
     interface ExpS {
-        partition(callback: StringIterator<NotVoid>): Exp<[string, string]>;
+        partition(callback: StringIterator<NotVoid>): Exp<[string[], string[]]>;
     }
     interface ExpL<T> {
         partition(callback: ValueIteratee<T>): Exp<[T[], T[]]>;
@@ -581,12 +585,12 @@ declare module "../index" {
         reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
     }
     interface ExpL<T> {
-        reduce<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
-        reduce(callback: MemoListIterator<T, T, List<T>>): T | undefined;
+        reduce<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): Exp<TResult>;
+        reduce(callback: MemoListIterator<T, T, List<T>>): Exp<T | undefined>;
     }
     interface ExpO<T> {
-        reduce<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
-        reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
+        reduce<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): Exp<TResult>;
+        reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): Exp<T[keyof T] | undefined>;
     }
     interface Stat {
         reduceRight<T, TResult>(collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult): TResult;
@@ -605,12 +609,12 @@ declare module "../index" {
         reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
     }
     interface ExpL<T> {
-        reduceRight<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
-        reduceRight(callback: MemoListIterator<T, T, List<T>>): T | undefined;
+        reduceRight<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): Exp<TResult>;
+        reduceRight(callback: MemoListIterator<T, T, List<T>>): Exp<T | undefined>;
     }
     interface ExpO<T> {
-        reduceRight<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
-        reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
+        reduceRight<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): Exp<TResult>;
+        reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): Exp<T[keyof T] | undefined>;
     }
     interface Stat {
         reject(collection: string | null | undefined, predicate?: StringIterator<boolean>): string[];
@@ -649,35 +653,35 @@ declare module "../index" {
         sample(): T[keyof T] | undefined;
     }
     interface ExpS {
-        sample(): string | undefined;
+        sample(): Exp<string | undefined>;
     }
     interface ExpL<T> {
-        sample(): T | undefined;
+        sample(): Exp<T | undefined>;
     }
     interface ExpO<T> {
-        sample(): T[keyof T] | undefined;
+        sample(): Exp<T[keyof T] | undefined>;
     }
     interface Stat {
         sampleSize<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, n?: number): T[];
         sampleSize<T extends object>(collection: T | null | undefined, n?: number): Array<T[keyof T]>;
     }
     interface ImpS {
-        sampleSize(n?: number): string | undefined;
+        sampleSize(n?: number): ImpL<string>;
     }
     interface ImpL<T> {
-        sampleSize(n?: number): T | undefined;
+        sampleSize(n?: number): ImpL<T>;
     }
     interface ImpO<T> {
-        sampleSize(n?: number): T[keyof T] | undefined;
+        sampleSize(n?: number): ImpL<T[keyof T]>;
     }
     interface ExpS {
-        sampleSize(n?: number): string | undefined;
+        sampleSize(n?: number): ExpL<string>;
     }
     interface ExpL<T> {
-        sampleSize(n?: number): T | undefined;
+        sampleSize(n?: number): ExpL<T>;
     }
     interface ExpO<T> {
-        sampleSize(n?: number): T[keyof T] | undefined;
+        sampleSize(n?: number): ExpL<T[keyof T]>;
     }
     interface Stat {
         shuffle<T>(collection: List<T> | null | undefined): T[];
@@ -693,7 +697,7 @@ declare module "../index" {
         shuffle(): ImpL<T[keyof T]>;
     }
     interface ExpS {
-        shuffle(): ImpL<string>;
+        shuffle(): ExpL<string>;
     }
     interface ExpL<T> {
         shuffle(): ExpL<T>;
@@ -721,10 +725,10 @@ declare module "../index" {
         some(predicate?: ObjectIterateeCustom<T, boolean>): boolean;
     }
     interface ExpL<T> {
-        some(predicate?: ListIterateeCustom<T, boolean>): boolean;
+        some(predicate?: ListIterateeCustom<T, boolean>): Exp<boolean>;
     }
     interface ExpO<T> {
-        some(predicate?: ObjectIterateeCustom<T, boolean>): boolean;
+        some(predicate?: ObjectIterateeCustom<T, boolean>): Exp<boolean>;
     }
     interface Stat {
         sortBy<T>(collection: List<T> | null | undefined, ...iteratees: Array<Many<ListIteratee<T>>>): T[];
@@ -740,6 +744,6 @@ declare module "../index" {
         sortBy(...iteratees: Array<Many<ListIteratee<T>>>): ExpL<T>;
     }
     interface ExpO<T> {
-        sortBy(...iteratees: Array<Many<ObjectIteratee<T>>>): ImpL<T[keyof T]>;
+        sortBy(...iteratees: Array<Many<ObjectIteratee<T>>>): ExpL<T[keyof T]>;
     }
 }

@@ -2741,8 +2741,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
         return 0;
     });
     _(list).map("a"); // $ExpectType ImpL<number>
-    var d = _.chain(dictionary)
-    var a = d.map('a')
     _(dictionary).map("a"); // $ExpectType ImpL<number>
     _(numericDictionary).map("a"); // $ExpectType ImpL<number>
     _(list).map("d.0.b"); // $ExpectType ImpL<any>
@@ -3258,10 +3256,10 @@ fp.now(); // $ExpectType number
 
     _.bindAll(object); // $ExpectType { a: () => void; b: () => void; c: () => void; }
     _.bindAll(object, "a", ["b", "c"]); // $ExpectType { a: () => void; b: () => void; c: () => void; }
-    _(object).bindAll(); // $ExpectType Imp<{ a: () => void; b: () => void; c: () => void; }>
-    _(object).bindAll("a", ["b", "c"]); // $ExpectType Imp<{ a: () => void; b: () => void; c: () => void; }>
-    _.chain(object).bindAll(); // $ExpectType Exp<{ a: () => void; b: () => void; c: () => void; }>
-    _.chain(object).bindAll("a", ["b", "c"]); // $ExpectType Exp<{ a: () => void; b: () => void; c: () => void; }>
+    _(object).bindAll(); // $ExpectType ImpO<{ a: () => void; b: () => void; c: () => void; }>
+    _(object).bindAll("a", ["b", "c"]); // $ExpectType ImpO<{ a: () => void; b: () => void; c: () => void; }>
+    _.chain(object).bindAll(); // $ExpectType ExpO<{ a: () => void; b: () => void; c: () => void; }>
+    _.chain(object).bindAll("a", ["b", "c"]); // $ExpectType ExpO<{ a: () => void; b: () => void; c: () => void; }>
     fp.bindAll("a", object); // $ExpectType { a: () => void; b: () => void; c: () => void; }
     fp.bindAll(["b", "c"])(object); // $ExpectType { a: () => void; b: () => void; c: () => void; }
 }
@@ -3357,8 +3355,8 @@ fp.now(); // $ExpectType number
     _.debounce(func, 42); // $ExpectType ((n: number, s: string) => boolean) & Cancelable
     _.debounce(func, 42, options); // $ExpectType ((n: number, s: string) => boolean) & Cancelable
 
-    _(func).debounce(42, options); // $ExpectType Imp<((n: number, s: string) => boolean) & Cancelable>
-    _.chain(func).debounce(42, options); // $ExpectType Exp<((n: number, s: string) => boolean) & Cancelable>
+    _(func).debounce(42, options); // $ExpectType ImpF<((n: number, s: string) => boolean) & Cancelable>
+    _.chain(func).debounce(42, options); // $ExpectType ExpF<((n: number, s: string) => boolean) & Cancelable>
     fp.debounce(42, func); // $ExpectType ((n: number, s: string) => boolean) & Cancelable
     fp.debounce(42)(func); // $ExpectType ((n: number, s: string) => boolean) & Cancelable
 }
