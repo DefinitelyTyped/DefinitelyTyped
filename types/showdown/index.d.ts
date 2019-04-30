@@ -766,15 +766,23 @@ declare namespace Showdown {
      */
     type Flavor = 'github' | 'original' | 'ghost' | 'vanilla' | 'allOn';
 
+    /**
+     * Showdown Converter prototype
+     *
+     * @see https://github.com/showdownjs/showdown/blob/master/src/converter.js
+     */
     interface Converter {
+
         /**
+         * Converts a markdown string into HTML string.
+         * 
          * @param text The input text (markdown)
          * @return The output HTML
          */
         makeHtml(text: string): string;
 
         /**
-         * Converts an HTML string into a markdown string
+         * Converts an HTML string into a markdown string.
          *
          * @param src The input text (HTML)
          * @param [HTMLParser] A WHATWG DOM and HTML parser, such as JSDOM. If none is supplied, window.document will be used.
@@ -785,17 +793,18 @@ declare namespace Showdown {
         /**
          * Setting a "local" option only affects the specified Converter object.
          *
-         * @param optionKey
-         * @param value
+         * @param key the key of the option.
+         * @param value the value of the option.
          */
-        setOption(optionKey: string, value: any): void;
+        setOption(key: string, value: any): void;
 
         /**
          * Get the option of this Converter instance.
          *
-         * @param optionKey
+         * @param key the key of the option.
+         * @returns Returns the value of the given `key`.
          */
-        getOption(optionKey: string): any;
+        getOption(key: string): any;
 
         /**
          * Get the options of this Converter instance.
@@ -805,8 +814,8 @@ declare namespace Showdown {
         /**
          * Add extension to THIS converter.
          *
-         * @param extension
-         * @param name
+         * @param extension The new extension to add.
+         * @param name The extension name.
          */
         addExtension(extension: ShowdownExtension, name: string): void;
         addExtension(extension: ShowdownExtension[], name: string): void;
@@ -819,9 +828,9 @@ declare namespace Showdown {
         useExtension(extensionName: string): void;
 
         /**
-         * Set a "local" flavor for THIS Converter instance
+         * Set a "local" flavor for THIS Converter instance.
          *
-         * @param flavor name
+         * @param flavor The flavor name.
          */
         setFlavor(name: Flavor): void;
 
@@ -835,13 +844,11 @@ declare namespace Showdown {
         /**
          * Remove an extension from THIS converter.
          *
-         * Note: This is a costly operation. It's better to initialize a new converter
+         * @remarks This is a costly operation. It's better to initialize a new converter
          * and specify the extensions you wish to use.
-         *
-         * @param extensions
+         * @param extensions - The extensions to remove.
          */
         removeExtension(extensions: ShowdownExtension[] | ShowdownExtension): void;
-
 
         /**
          * Get all extensions.
@@ -851,15 +858,17 @@ declare namespace Showdown {
         getAllExtensions(): ConverterExtensions;
 
         /**
-         * Get the metadata of the previously parsed document
-         * @param raw
-         * @returns {string|{}}
+         * Get the metadata of the previously parsed document.
+         * 
+         * @param raw - If to returns Row or Metadata.
+         * @returns Returns Row if `row` is `true`, otherwise Metadata.
          */
         getMetadata(raw?: boolean): string | Metadata
 
         /**
          * Get the metadata format of the previously parsed document
-         * @returns {string}
+         * 
+         * @returns Returns the metadata format.
          */
         getMetadataFormat(): string;
 
