@@ -186,6 +186,26 @@ declare namespace Showdown {
         prefixHeaderId?: string | boolean;
 
         /**
+         * Setting this option to true will prevent showdown from modifying the prefix.
+         * This might result in malformed IDs (if, for instance, the " char is used in the prefix).
+         * Has no effect if prefixHeaderId is set to false.
+         *
+         * @default false
+         * @since 1.7.3
+         */
+        rawPrefixHeaderId?: boolean;
+
+        /**
+         * Remove only spaces, ' and " from generated header ids (including prefixes),
+         * replacing them with dashes (-).
+         * WARNING: This might result in malformed ids.
+         *
+         * @default false
+         * @since 1.7.3
+         */
+        rawHeaderId?: boolean;
+
+        /**
          * Enable support for setting image dimensions from within markdown syntax.
          * 
          * @example
@@ -563,6 +583,33 @@ declare namespace Showdown {
          * @since 1.6.2
          */
         ghMentionsLink?: string;
+
+        /**
+         * Enables e-mail addresses encoding through the use of Character Entities, transforming ASCII e-mail addresses into its equivalent decimal entities.
+         *
+         * @remarks Prior to version 1.6.1, emails would always be obfuscated through dec and hex encoding.
+         * @example
+         * **input**:
+         *
+         * ```
+         * <myself@example.com>
+         * ```
+         *
+         * **encodeEmails** = false
+         *
+         * ```html
+         * <a href="mailto:myself@example.com">myself@example.com</a>
+         * ```
+         *
+         * **encodeEmails** = true
+         *
+         * ```html
+         * <a href="&#109;&#97;&#105;&#108;t&#x6f;&#x3a;&#109;&#x79;s&#x65;&#x6c;&#102;&#64;&#x65;xa&#109;&#112;&#108;&#101;&#x2e;c&#x6f;&#109;">&#x6d;&#121;s&#101;&#108;f&#x40;&#x65;&#120;a&#x6d;&#x70;&#108;&#x65;&#x2e;&#99;&#x6f;&#109;</a>
+         * ```
+         * @default true
+         * @since 1.6.1
+         */
+        encodeEmails?: boolean;
 
         /**
          * Open all links in new windows (by adding the attribute target="_blank" to <a> tags).
