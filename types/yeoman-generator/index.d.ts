@@ -13,7 +13,6 @@
 import { EventEmitter } from 'events';
 import * as inquirer from 'inquirer';
 import { Observable } from 'rxjs';
-import { DiffieHellman } from 'crypto';
 
 type Callback = (err: any) => void;
 
