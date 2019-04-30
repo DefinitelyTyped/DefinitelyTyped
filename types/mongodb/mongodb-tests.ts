@@ -132,6 +132,12 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
         cursor.forEach((bag) => { bag.color; }, () => {});
         collection.findOne({ color: 'white' }).then(b => { const _b: Bag = b; });
         collection.findOne<Bag>({ color: 'white' }).then(b => { b.cost; });
+        // test that additional options on FilterQuery work
+        const filterQuery: mongodb.FilterQuery<Bag> = {
+          color: 'black',
+        }
+        filterQuery.$or = [{ cost: { $exists: false } }];
+        collection.findOne<Bag>(filterQuery).then(b => { b.cost; });
     }
     {
         interface Payment {
