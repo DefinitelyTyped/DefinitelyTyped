@@ -761,6 +761,11 @@ declare namespace Showdown {
         extensions?: string | string[];
     }
     
+    /**
+     * Showdown Flavor names.
+     */
+    type Flavor = 'github' | 'original' | 'ghost' | 'vanilla' | 'allOn';
+
     interface Converter {
         /**
          * @param text The input text (markdown)
@@ -818,14 +823,14 @@ declare namespace Showdown {
          *
          * @param flavor name
          */
-        setFlavor(name: 'github' | 'original' | 'ghost' | 'vanilla' | 'allOn'): void;
+        setFlavor(name: Flavor): void;
 
         /**
          * Get the "local" currently set flavor of this converter.
          *
          * @returns Returns string flavor name.
          */
-        getFlavor(): 'github' | 'original' | 'ghost' | 'vanilla' | 'allOn';
+        getFlavor(): Flavor;
 
         /**
          * Remove an extension from THIS converter.
@@ -973,5 +978,5 @@ declare namespace Showdown {
      *
      * @param name
      */
-    function setFlavor(name: 'github' | 'original' | 'ghost' | 'vanilla' | 'allOn'): void;
+    function setFlavor(name: Flavor): void;
 }
