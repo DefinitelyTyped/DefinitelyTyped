@@ -374,7 +374,6 @@ interface FormatErrorParams {
   type: string;
   value?: any;
   originalValue?: any;
-  label?: string;
 }
 
 type LocaleValue =
