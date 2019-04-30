@@ -455,16 +455,19 @@ const validateOptions: ValidateOptions = {
 
 const localeNotType1: LocaleObject = {
     mixed: {
+        required: "message",
         notType: "message"
     }
 };
 const localeNotType2: LocaleObject = {
     mixed: {
+        required: "message",
         notType: () => "message"
     }
 };
 const localeNotType3: LocaleObject = {
     mixed: {
+        required: "message",
         notType: (_ref) => {
             const isCast: boolean = _ref.originalValue != null && _ref.originalValue !== _ref.value;
             const finalPartOfTheMessage = isCast
