@@ -2535,15 +2535,22 @@ export namespace Segment {
     }
 
     function initialize(options: SegmentOptions): void;
+
     function identify(userId: string): void;
     function identifyWithTraits(userId: string, traits: object): void;
-    function track(event: string): void;
-    function alias(newId: string, options?: { [key: string]: any }): Promise<boolean>;
+    function group(groupId: string): void;
+    function groupWithTraits(groupId: string, traits: object): void;
     function reset(): void;
-    function trackWithProperties(event: string, properties: object): void;
+
+    function alias(newId: string, options?: { [key: string]: any }): Promise<boolean>;
+
     function screen(screenName: string): void;
     function screenWithProperties(screenName: string, properties: object): void;
+    function track(event: string): void;
+    function trackWithProperties(event: string, properties: object): void;
+
     function flush(): void;
+
     function getEnabledAsync(): void;
     function setEnabledAsync(enabled: boolean): void;
 }
