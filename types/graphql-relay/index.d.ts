@@ -2,7 +2,7 @@
 // Project: https://github.com/graphql/graphql-relay-js
 // Definitions by: Arvitaly <https://github.com/arvitaly>, nitintutlani <https://github.com/nitintutlani>, Grelinfo <https://github.com/Grelinfo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import {
     GraphQLBoolean,
@@ -34,27 +34,20 @@ import {
  * whose return type is a connection type with forward pagination.
  */
 export interface ForwardConnectionArgs {
-    after?: ConnectionCursor | null;
-    first?: number | null;
+    after: { type: GraphQLScalarType };
+    first: { type: GraphQLScalarType };
 }
-export const forwardConnectionArgs: GraphQLFieldConfigArgumentMap & {
-    after?: ConnectionCursor | null;
-    first?: number | null;
-};
+export const forwardConnectionArgs: GraphQLFieldConfigArgumentMap & ForwardConnectionArgs;
 
 /**
  * Returns a GraphQLFieldConfigArgumentMap appropriate to include on a field
  * whose return type is a connection type with backward pagination.
  */
 export interface BackwardConnectionArgs {
-    before?: ConnectionCursor | null;
-    last?: number | null;
+    before: { type: GraphQLScalarType };
+    last: { type: GraphQLScalarType };
 }
-export const backwardConnectionArgs: GraphQLFieldConfigArgumentMap & {
-    before?: ConnectionCursor | null;
-    last?: number | null;
-};
-
+export const backwardConnectionArgs: GraphQLFieldConfigArgumentMap & BackwardConnectionArgs;
 /**
  * Returns a GraphQLFieldConfigArgumentMap appropriate to include on a field
  * whose return type is a connection type with bidirectional pagination.

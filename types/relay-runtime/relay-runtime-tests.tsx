@@ -7,6 +7,7 @@ import {
     ViewerHandler,
     RecordSourceInspector,
     commitLocalUpdate,
+    QueryResponseCache,
     ROOT_ID,
 } from "relay-runtime";
 
@@ -32,6 +33,9 @@ function fetchQuery(operation: any, variables: { [key: string]: string }, cacheC
 
 // Create a network layer from the fetch function
 const network = Network.create(fetchQuery);
+
+// Create a cache for storing query responses
+const cache = new QueryResponseCache({size: 250, ttl: 60000});
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Environment

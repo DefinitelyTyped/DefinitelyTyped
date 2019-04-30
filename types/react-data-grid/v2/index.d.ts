@@ -1,6 +1,9 @@
 // Type definitions for react-data-grid 2.0
 // Project: https://github.com/adazzle/react-data-grid.git
-// Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>, Martin Novak <https://github.com/martinnov92>
+// Definitions by: Simon Gellis <https://github.com/SupernaviX>, 
+//                 Kieran Peat <https://github.com/KieranPeat>, 
+//                 Martin Novak <https://github.com/martinnov92>,
+//                 Raghuram Iyer 'Ragzzy-R' <https://github.com/Ragzzy-R>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -62,17 +65,17 @@ declare namespace AdazzleReactDataGrid {
          * A toolbar to display above the grid.
          * Consider using the toolbar included in "react-data-grid/addons".
          */
-        toolbar?: React.ReactElement<any>
+        toolbar?: React.ReactElement
         /**
          * A context menu to disiplay when the user right-clicks a cell.
          * Consider using "react-contextmenu", included in "react-data-grid/addons".
          */
-        contextMenu?: React.ReactElement<any>
+        contextMenu?: React.ReactElement
         /**
          * A react component to customize how rows are rendered.
          * If you want to define your own, consider extending ReactDataGrid.Row.
          */
-        rowRenderer?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>
+        rowRenderer?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>
         /**
          * A component to display when there are no rows to render.
          */
@@ -230,7 +233,15 @@ declare namespace AdazzleReactDataGrid {
          * @param rowIdx zero index number of row clicked
          * @param row object behind the row
          */
-        onRowClick?: (rowIdx : number, row : object) => void
+        onRowClick?: (rowIdx: number, row: object) => void
+        
+        /**
+         * An event function called when a row is clicked.
+         * Clicking the header row will trigger a call with -1 for the rowIdx.
+         * @param rowIdx zero index number of row clicked
+         * @param row object behind the row
+         */
+        onRowDoubleClick?: (rowIdx : number, row : object) => void
 
         /**
          * An event function called when a row is expanded with the toggle
@@ -309,20 +320,20 @@ declare namespace AdazzleReactDataGrid {
         /**
          * A custom formatter for this column's filter.
          */
-        filterRenderer?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>;
+        filterRenderer?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>;
         /**
          * The editor for this column. Several editors are available in "react-data-grid/addons".
          * @default A simple text editor
          */
-        editor?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>
+        editor?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>
         /**
          * A custom read-only formatter for this column. An image formatter is available in "react-data-grid/addons".
          */
-        formatter?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>
+        formatter?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>
         /**
          * A custom formatter for this column's header.
          */
-        headerRenderer?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>
+        headerRenderer?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>
         /**
          * Events to be bound to the cells in this specific column.
          * Each event must respect this standard in order to work correctly:

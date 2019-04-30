@@ -9,10 +9,10 @@
 declare class Awesomplete {
     constructor(input: Element | HTMLElement | string, o?: Awesomplete.Options);
     static all: any[];
-    static $$(expr: string | NodeSelector, con?: any): NodeList;
+    static $$(expr: string | ParentNode, con?: any): NodeList;
     static ITEM: (text: string, input: string) => HTMLElement;
     static $: {
-        (expr: string|Element, con?: NodeSelector): string | Element;
+        (expr: string|Element, con?: ParentNode): string | Element;
         regExpEscape(s: { replace(arg0: RegExp, arg1: string): void }): any;
         create(tag: string, o: any): HTMLElement;
         fire(target: EventTarget, type: string, properties: any): any;

@@ -1,13 +1,18 @@
-// Type definitions for React Onsen UI (react-onsenui) 2.9.4
+// Type definitions for React Onsen UI (react-onsenui) 2.9.5
 // Project: https://onsen.io/v2/docs/guide/react/
 // Definitions by: Ozytis <https://ozytis.fr>,
 //                 Salim <https://github.com/salim7>,
 //                 Jemmyw <https://github.com/jemmyw>
+//                 Mikael Lirbank <https://github.com/lirbank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import Component = React.Component;
+
+export type HTMLAttributes<K extends keyof React.HTMLAttributes<{}>> = Partial<Pick<React.HTMLAttributes<{}>, K>>;
+export type InputHTMLAttributes<K extends keyof React.InputHTMLAttributes<{}>> = Partial<Pick<React.InputHTMLAttributes<{}>, K>>;
+
+export class Component<P = {}, S = {}> extends React.Component<HTMLAttributes<'id' | 'className' | 'style'> & P, S> {}
 
 export interface Modifiers_string {
     default?: string;
@@ -61,7 +66,6 @@ export class SplitterSide extends Component<{
     animationOptions?: AnimationOptions,
     openThreshold?: number,
     mode?: "collapse" | "split",
-    className?: string
 }, any> { }
 
 export class SplitterContent extends Component { }
@@ -111,14 +115,10 @@ export class Page extends Component<{
 export class Col extends Component<{
     verticalAlign?: "top" | "bottom" | "center",
     width?: string,
-    className?: string,
-    style?: React.CSSProperties,
 }, any> {}
 
 export class Row extends Component<{
     verticalAlign?: "top" | "bottom" | "center",
-    className?: string,
-    style?: React.CSSProperties,
 }, any> {}
 
 /*** Navigation ***/
@@ -152,8 +152,8 @@ export class Carousel extends Component<{
     fullscreen?: boolean,
     overscrollable?: boolean,
     centered?: boolean,
-    itemWidth?: number,
-    itemHeight?: number,
+    itemWidth?: number | string,
+    itemHeight?: number | string,
     autoScroll?: boolean,
     autoScrollRatio?: number,
     swipeable?: boolean,
@@ -167,7 +167,7 @@ export class Carousel extends Component<{
 }, any> {}
 
 export class CarouselItem extends Component<{
-    modifier: string
+    modifier?: string
 }, any> {}
 
 /*** AlertDialog ***/
@@ -238,8 +238,6 @@ export class Toast extends Component<{
     onPreHide?(): void,
     onPostHide?(): void,
     onDeviceBackButton?(): void,
-    className?: string,
-    style?: React.CSSProperties,
 }, any> {}
 
 export class ActionSheet extends Component<{
@@ -294,7 +292,6 @@ export class Fab extends Component<{
     disabled?: boolean,
     onClick?(e?: React.MouseEvent<HTMLElement>): void,
     name?: string,
-    className?: string
 }, any> {}
 
 export class Button extends Component<{
@@ -302,11 +299,10 @@ export class Button extends Component<{
     disabled?: boolean,
     ripple?: boolean,
     name?: string,
-    className?: string,
     onClick?(e?: React.MouseEvent<HTMLElement>): void
 }, any> {}
 
-export class Input extends Component<{
+export class Input extends Component<InputHTMLAttributes<'min' | 'max' | 'step'> & {
     modifier?: string,
     disabled?: boolean,
     readOnly?: boolean,
@@ -321,7 +317,6 @@ export class Input extends Component<{
     inputId?: string,
     float?: boolean,
     name?: string,
-    className?: string
 }, any> {}
 
 export class Radio extends Component<{
@@ -333,7 +328,6 @@ export class Radio extends Component<{
     defaultChecked?: boolean,
     inputId?: string,
     name?: string,
-    className?: string
 }, any> {}
 
 export class Checkbox extends Component<{
@@ -344,7 +338,6 @@ export class Checkbox extends Component<{
     checked?: boolean,
     inputId?: string,
     name?: string,
-    className?: string
 }, any> {}
 
 export class Range extends Component<{
@@ -373,7 +366,6 @@ export class Select extends Component<{
     form?: string,
     size?: string,
     name?: string,
-    className?: string
 }, any> {}
 
 export class Switch extends Component<{
@@ -383,7 +375,6 @@ export class Switch extends Component<{
     disabled?: boolean,
     inputId?: string,
     name?: string,
-    className?: string
 }, any> {}
 
 /**
@@ -436,14 +427,10 @@ export class List extends Component<{
     renderRow?(row: any, index?: number): JSX.Element | undefined,
     renderFooter?(): JSX.Element | undefined,
     renderHeader?(): JSX.Element | undefined,
-    className?: string,
-    style?: React.CSSProperties,
 }, any> {}
 
 export class ListHeader extends Component<{
     modifier?: string,
-    className?: string,
-    style?: React.CSSProperties,
 }, any> {}
 
 export class ListItem extends Component<{
@@ -452,15 +439,11 @@ export class ListItem extends Component<{
     tapBackgroundColor?: string,
     lockOnDrag?: boolean,
     onClick?: React.MouseEventHandler<any>,
-    className?: string,
-    style?: React.CSSProperties,
 }, any> {}
 
 export class ListTitle extends Component<{
     modifier?: string,
     onClick?: React.MouseEventHandler<any>,
-    className?: string,
-    style?: React.CSSProperties,
 }, any> {}
 
 export class Card extends Component<{
@@ -487,8 +470,6 @@ export class Segment extends Component<{
     tabbarId?: string,
     modifier?: string,
     onPostChange?(): void,
-    className?: string,
-    style?: React.CSSProperties,
 }, any> {}
 
 export type SpeedDialPosition = 'top' | 'right' | 'bottom' | 'left' |
@@ -500,13 +481,9 @@ export class SpeedDial extends Component<{
     position?: SpeedDialPosition,
     direction?: SpeedDialDirection,
     disabled?: boolean,
-    className?: string,
-    style?: React.CSSProperties,
 }, any> {}
 
 export class SpeedDialItem extends Component<{
     modifier?: string;
     onClick?(e?: React.MouseEvent<HTMLElement>): void,
-    className?: string,
-    style?: React.CSSProperties,
 }, any> {}

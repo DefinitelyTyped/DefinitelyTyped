@@ -7,7 +7,7 @@ declare module "../../index" {
     /**
      *   The background() function sets the color used for
      *   the background of the p5.js canvas. The default
-     *   background is light gray. This function is
+     *   background is transparent. This function is
      *   typically used within draw() to clear the display
      *   window at the beginning of each frame, but it can
      *   be used inside setup() to set the background on
@@ -44,7 +44,7 @@ declare module "../../index" {
     /**
      *   The background() function sets the color used for
      *   the background of the p5.js canvas. The default
-     *   background is light gray. This function is
+     *   background is transparent. This function is
      *   typically used within draw() to clear the display
      *   window at the beginning of each frame, but it can
      *   be used inside setup() to set the background on
@@ -85,7 +85,7 @@ declare module "../../index" {
     /**
      *   The background() function sets the color used for
      *   the background of the p5.js canvas. The default
-     *   background is light gray. This function is
+     *   background is transparent. This function is
      *   typically used within draw() to clear the display
      *   window at the beginning of each frame, but it can
      *   be used inside setup() to set the background on
@@ -125,7 +125,7 @@ declare module "../../index" {
     /**
      *   The background() function sets the color used for
      *   the background of the p5.js canvas. The default
-     *   background is light gray. This function is
+     *   background is transparent. This function is
      *   typically used within draw() to clear the display
      *   window at the beginning of each frame, but it can
      *   be used inside setup() to set the background on
@@ -171,7 +171,7 @@ declare module "../../index" {
     /**
      *   The background() function sets the color used for
      *   the background of the p5.js canvas. The default
-     *   background is light gray. This function is
+     *   background is transparent. This function is
      *   typically used within draw() to clear the display
      *   window at the beginning of each frame, but it can
      *   be used inside setup() to set the background on
@@ -208,7 +208,7 @@ declare module "../../index" {
     /**
      *   The background() function sets the color used for
      *   the background of the p5.js canvas. The default
-     *   background is light gray. This function is
+     *   background is transparent. This function is
      *   typically used within draw() to clear the display
      *   window at the beginning of each frame, but it can
      *   be used inside setup() to set the background on

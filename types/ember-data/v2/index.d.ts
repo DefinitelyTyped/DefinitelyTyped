@@ -525,7 +525,7 @@ export namespace DS {
          * invoking the callback with the name of each relationship and its relationship
          * descriptor.
          */
-        eachRelationship(callback: (name: string, details: RelationshipMeta<this>) => void, binding?: any): any;
+        eachRelationship<T extends Model>(this: T, callback: (name: string, details: RelationshipMeta<T>) => void, binding?: any): any;
         /**
          * Represents the model's class name as a string. This can be used to look up the model's class name through
          * `DS.Store`'s modelFor method.
@@ -1094,7 +1094,7 @@ export namespace DS {
          * This method unloads all records in the store.
          * It schedules unloading to happen during the next run loop.
          */
-        unloadAll<K extends keyof ModelRegistry>(modelName: K): void;
+        unloadAll<K extends keyof ModelRegistry>(modelName?: K): void;
         /**
          * DEPRECATED:
          * This method has been deprecated and is an alias for store.hasRecordForId, which should

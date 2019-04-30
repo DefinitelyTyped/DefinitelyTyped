@@ -43,6 +43,7 @@ export namespace ojMenu {
     }> {
     }
     interface ojBeforeOpen extends CustomEvent<{
+        openOptions: OpenOptions;
         [propName: string]: any;
     }> {
     }

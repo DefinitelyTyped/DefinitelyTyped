@@ -38,7 +38,8 @@ withPaginationModel.paginate({
     limit: 10,
     desc: true,
     paginationField: 'id',
-    raw: false
+    raw: false,
+    subQuery: false
 });
 
 // when 'raw' option is false or undefined
@@ -99,5 +100,6 @@ withPaginationCustomModel.customPaginate({
     limit: 10,
     desc: true,
     paginationField: 'id',
-    raw: false
+    raw: false,
+    subQuery: false
 });

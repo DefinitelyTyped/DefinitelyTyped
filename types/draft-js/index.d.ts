@@ -9,6 +9,8 @@
 //                 Santiago Vilar <https://github.com/smvilar>
 //                 Ulf Schwekendiek <https://github.com/sulf>
 //                 Pablo Varela <https://github.com/pablopunk>
+//                 Claudio Procida <https://github.com/claudiopro>
+//                 Kevin Hawkinson <https://github.com/khawkinson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -210,6 +212,8 @@ declare namespace Draft {
                 static isOptionKeyCommand(e: SyntheticKeyboardEvent): boolean;
 
                 static hasCommandModifier(e: SyntheticKeyboardEvent): boolean;
+
+                static isSoftNewlineEvent(e: SyntheticKeyboardEvent): boolean;
             }
 
             /**
@@ -622,7 +626,7 @@ declare namespace Draft {
 
             interface DraftBlockRenderConfig {
                 element: string;
-                wrapper?: React.ReactElement<any>;
+                wrapper?: React.ReactNode;
             }
 
             class EditorState extends Record {
@@ -754,6 +758,7 @@ declare namespace Draft {
 
                 createEntity(type: DraftEntityType, mutability: DraftEntityMutability, data?: Object): ContentState;
                 getEntity(key: string): EntityInstance;
+                getEntityMap(): any;
                 getLastCreatedEntityKey(): string;
                 mergeEntityData(key: string, toMerge: { [key: string]: any }): ContentState;
                 replaceEntityData(key: string, toMerge: { [key: string]: any }): ContentState;
@@ -989,6 +994,8 @@ import getVisibleSelectionRect = Draft.Component.Selection.getVisibleSelectionRe
 import DraftEditorCommand = Draft.Model.Constants.DraftEditorCommand;
 import DraftDragType = Draft.Model.Constants.DraftDragType;
 import DraftBlockType = Draft.Model.Constants.DraftBlockType;
+import DraftBlockRenderConfig = Draft.Model.ImmutableData.DraftBlockRenderConfig;
+import DraftBlockRenderMap = Draft.Component.Base.DraftBlockRenderMap;
 import DraftInlineStyleType = Draft.Model.Constants.DraftInlineStyleType;
 import DraftEntityMutability = Draft.Model.Constants.DraftEntityMutability;
 import DraftEntityType = Draft.Model.Constants.DraftEntityType;
@@ -1039,6 +1046,8 @@ export {
     DraftEditorCommand,
     DraftDragType,
     DraftBlockType,
+    DraftBlockRenderConfig,
+    DraftBlockRenderMap,
     DraftInlineStyleType,
     DraftEntityType,
     DraftEntityMutability,

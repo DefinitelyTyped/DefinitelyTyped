@@ -43,8 +43,8 @@ execa.shell('echo unicorns').then(result => result.stdout.toLocaleLowerCase());
     result = execa.shellSync('noop foo').stdout;
 }
 
-execa('echo', ['unicorns']).stdout.pipe(process.stdout);
-execa('echo', ['unicorns']).stderr.pipe(process.stderr);
+execa('echo', ['unicorns']).stdout!.pipe(process.stdout);
+execa('echo', ['unicorns']).stderr!.pipe(process.stderr);
 
 execa('forever', { extendEnv: false }).pid;
 execa('forever', { argv0: 'hi' }).pid;
@@ -85,7 +85,7 @@ async () => {
 
 async () => {
     const child = execa('stdin');
-    child.stdin.end('unicorns');
+    child.stdin!.end('unicorns');
     const { stdout } = await child;
     assert(stdout === 'unicorns');
 };
@@ -104,7 +104,7 @@ async () => {
         stdio: [null, 'ignore', null]
     });
 
-    child.stdout.setEncoding('utf8');
+    child.stdout!.setEncoding('utf8');
 
     assert(child.pid === 0);
     child.kill();

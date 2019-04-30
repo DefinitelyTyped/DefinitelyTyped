@@ -2,7 +2,7 @@
 // Project: https://github.com/vlucas/frisby
 // Definitions by: Johnny Li <https://github.com/johnny4753>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 ///<reference types="jasmine"/>
 

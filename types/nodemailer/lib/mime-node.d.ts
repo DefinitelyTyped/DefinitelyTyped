@@ -126,6 +126,9 @@ declare class MimeNode {
     /** Generates and returns SMTP envelope with the sender address and a list of recipients addresses */
     getEnvelope(): MimeNode.Envelope;
 
+    /** Returns Message-Id value. If it does not exist, then creates one */
+    messageId(): string;
+
     /** Sets pregenerated content that will be used as the output of this node */
     setRaw(raw: string | Buffer | Readable): this;
 }

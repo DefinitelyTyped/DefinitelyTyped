@@ -3,9 +3,16 @@ import * as ReactDOM from 'react-dom';
 
 // Import React Table
 import ReactTable, { Column, FinalState, Instance } from "react-table";
-import "react-table/react-table.css";
 
-const columns: Column[] = [
+interface Data {
+  firstName: string;
+  lastName: string;
+  age: number;
+  visits: number;
+  progress: number;
+}
+
+const columns: Array<Column<Data>> = [
   {
     Header: "Name",
     columns: [
@@ -16,7 +23,11 @@ const columns: Column[] = [
   {
     Header: "Info",
     columns: [
-      { Header: "Age", accessor: "age" },
+      {
+        Header: "Age",
+        accessor: (data: Data) => data.age,
+        Cell: props => <span className='number'>{props.value}</span>
+      },
       { Header: "Status", accessor: "status" }
     ]
   },
@@ -29,7 +40,7 @@ const columns: Column[] = [
 ];
 
 const Component = (props: {}) => {
-  const data = [
+  const data: Data[] = [
     { firstName: "plastic", lastName: "leather", age: 1, visits: 87, progress: 53 },
     { firstName: "eggs", lastName: "quartz", age: 13, visits: 78, progress: 82 },
     { firstName: "wash", lastName: "wrench", age: 29, visits: 75, progress: 49 },
@@ -156,9 +167,9 @@ const Component = (props: {}) => {
         }}
       >
         {(
-          state: FinalState,
+          state: FinalState<Data>,
           makeTable: () => React.ReactChild,
-          instance: Instance
+          instance: Instance<Data>
         ) => {
           return (
             <div

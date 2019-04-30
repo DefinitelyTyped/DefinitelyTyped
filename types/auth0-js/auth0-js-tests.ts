@@ -126,14 +126,19 @@ webAuth.renewAuth({
 }, (err, authResult) => {});
 
 webAuth.changePassword({connection: 'the_connection',
-    email: 'me@example.com',
-    password: '123456'
+    email: 'me@example.com'
 }, (err) => {});
 
 webAuth.passwordlessStart({
     connection: 'the_connection',
     email: 'me@example.com',
     send: 'code'
+}, (err, data) => {});
+
+webAuth.passwordlessLogin({
+    connection: 'the_connection',
+    phoneNumber: '123',
+    verificationCode: '456'
 }, (err, data) => {});
 
 webAuth.signupAndAuthorize({
@@ -173,7 +178,7 @@ webAuth.popup.signupAndLogin({ email: "", password: "", connection: "" }, (err, 
     // do something with data
 });
 
-webAuth.login({username: 'bar', password: 'foo'}, (err, data) => {});
+webAuth.login({username: 'bar', password: 'foo', state: '1234'}, (err, data) => {});
 
 webAuth.crossOriginAuthenticationCallback();
 
@@ -244,7 +249,7 @@ authentication.getSSOData();
 authentication.getSSOData(true, (err, data) => {});
 
 authentication.dbConnection.signup({connection: 'bla', email: 'blabla', password: '123456'}, () => {});
-authentication.dbConnection.changePassword({connection: 'bla', email: 'blabla', password: '123456'}, () => {});
+authentication.dbConnection.changePassword({connection: 'bla', email: 'blabla'}, () => {});
 
 authentication.passwordless.start({ connection: 'bla', send: 'blabla' }, () => {});
 authentication.passwordless.verify({ connection: 'bla', verificationCode: 'asdfasd', email: 'me@example.com' }, () => {});

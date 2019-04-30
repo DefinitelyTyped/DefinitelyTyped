@@ -1,4 +1,4 @@
-// Type definitions for HERE Maps API for JavaScript 3.0
+// Type definitions for non-npm package HERE Maps API for JavaScript 3.0
 // Project: https://developer.here.com/
 // Definitions by: Joshua Efiong <https://github.com/Josh-ES>
 //                 Bernd Hacker <https://github.com/denyo>

@@ -1,8 +1,8 @@
 // Type definitions for enzyme-adapter-react-15 1.0
-// Project: https://github.com/airbnb/enzyme
+// Project: https://github.com/airbnb/enzyme, http://airbnb.io/enzyme
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
 import { EnzymeAdapter } from 'enzyme';
 

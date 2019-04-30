@@ -1,4 +1,4 @@
-// Type definitions for SuperAgent 3.8
+// Type definitions for SuperAgent 4.1
 // Project: https://github.com/visionmedia/superagent
 // Definitions by: Nico Zelaya <https://github.com/NicoZelaya>
 //                 Michael Ledin <https://github.com/mxl>
@@ -6,6 +6,8 @@
 //                 Shrey Jain <https://github.com/shreyjain1994>
 //                 Alec Zopf <https://github.com/zopf>
 //                 Adam Haglund <https://github.com/beeequeue>
+//                 Lukas Elmer <https://github.com/lukaselmer>
+//                 Jesse Rogers <https://github.com/theQuazz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -45,7 +47,7 @@ declare namespace request {
         // tslint:disable-next-line:unified-signatures
         (method: string, url: string): SuperAgentRequest;
 
-        agent(): SuperAgent<SuperAgentRequest>;
+        agent(): this & Request;
         serialize: { [type: string]: Serializer };
         parse: { [type: string]: Parser };
     }
@@ -99,6 +101,7 @@ declare namespace request {
         files: any;
         forbidden: boolean;
         get(header: string): string;
+        get(header: 'Set-Cookie'): string[];
         header: any;
         info: boolean;
         links: object;
@@ -114,6 +117,7 @@ declare namespace request {
         type: string;
         unauthorized: boolean;
         xhr: XMLHttpRequest;
+        redirects: string[];
     }
 
     interface Request extends Promise<Response> {
@@ -126,7 +130,7 @@ declare namespace request {
         ca(cert: Buffer): this;
         cert(cert: Buffer | string): this;
         clearTimeout(): this;
-        end(callback?: CallbackHandler): this;
+        end(callback?: CallbackHandler): void;
         field(name: string, val: MultipartValue): this;
         field(fields: { [fieldName: string]: MultipartValue }): this;
         get(field: string): string;
@@ -147,12 +151,14 @@ declare namespace request {
         serialize(serializer: Serializer): this;
         set(field: object): this;
         set(field: string, val: string): this;
+        set(field: 'Cookie', val: string[]): this;
         timeout(ms: number | { deadline?: number, response?: number }): this;
         type(val: string): this;
         unset(field: string): this;
         use(fn: Plugin): this;
         withCredentials(): this;
         write(data: string | Buffer, encoding?: string): this;
+        maxResponseSize(size: number): this;
     }
 
     type Plugin = (req: SuperAgentRequest) => void;

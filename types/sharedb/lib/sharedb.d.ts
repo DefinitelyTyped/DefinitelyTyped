@@ -1,7 +1,26 @@
 import { EventEmitter } from 'events';
 
+export type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
+export interface JSONObject {
+  [name: string]: JSONValue;
+}
+export interface JSONArray extends Array<JSONValue> {}
+
 export type Path = ReadonlyArray<string|number>;
-export type Snapshot = number;
+export interface Snapshot {
+    id: string;
+    v: number;
+    type: string | null;
+    data: JSONObject | undefined;
+    m: SnapshotMeta | null;
+}
+
+export interface SnapshotMeta {
+    ctime: number;
+    mtime: number;
+    // Users can use server middleware to add additional metadata to snapshots.
+    [key: string]: JSONValue;
+}
 
 export interface AddNumOp { p: Path; na: number; }
 
@@ -82,4 +101,13 @@ export class Query extends EventEmitter {
     addListener(event: QueryEvent, callback: (...args: any[]) => any): this;
     removeListener(event: QueryEvent, listener: (...args: any[]) => any): this;
     destroy(): void;
+}
+
+export type RequestAction = 'qf' | 'qs' | 'qu' | 'bf' | 'bs' | 'bu' | 'f' | 's' | 'u' | 'op' | 'nf' | 'nt';
+
+export interface ClientRequest {
+    /** Short name of the request's action */
+    a: RequestAction;
+
+    [propertyName: string]: JSONValue;
 }

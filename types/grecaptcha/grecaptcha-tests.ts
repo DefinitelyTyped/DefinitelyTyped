@@ -18,9 +18,13 @@ const badge1: ReCaptchaV2.Badge = "bottomleft";
 const badge2: ReCaptchaV2.Badge = "bottomright";
 const badge3: ReCaptchaV2.Badge = "inline";
 
-const invisibleParams: ReCaptchaV2.Parameters = {
+const invisibleParams1: ReCaptchaV2.Parameters = {
   sitekey: "siteKey",
   badge: badge1,
+};
+
+const invisibleParams2: ReCaptchaV2.Parameters = {
+  badge: badge2,
 };
 
 const id1: number = grecaptcha.render("foo");

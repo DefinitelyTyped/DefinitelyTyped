@@ -2,7 +2,7 @@
 // Project: https://github.com/hapijs/bell
 // Definitions by: Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
 import { Server, Request, Plugin, AuthCredentials } from 'hapi';
 

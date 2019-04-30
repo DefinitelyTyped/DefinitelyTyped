@@ -1,5 +1,9 @@
 import Web3 = require("web3");
 import BigNumber = require("bn.js");
+import { TransactionReceipt, Log } from "web3/types";
+import PromiEvent from "web3/promiEvent";
+import { NEW_ABI_STANDARD, OLD_ABI_STANDARD } from "web3/test/abi-tests";
+import { Provider, JsonRPCResponse } from "web3/providers";
 
 const contractAddress = "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe";
 
@@ -8,13 +12,71 @@ const contractAddress = "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe";
 // --------------------------------------------------------------------------
 const web3 = new Web3();
 const myProvider = new web3.providers.HttpProvider("http://localhost:5454");
+
+const createFailingHttpProvider = (): Provider => ({
+  send(payload, callback) {
+    callback(new Error("Illegal!"));
+  }
+});
+
+const createSuccesfulHttpProvider = (): Provider => ({
+  send(payload, callback) {
+    const response = {};
+    callback(null, response as JsonRPCResponse);
+  }
+});
+
+const fakeProvider: Provider = createFailingHttpProvider();
+const otherFakeProvider: Provider = createSuccesfulHttpProvider();
+
+web3.setProvider(fakeProvider);
+web3.setProvider(otherFakeProvider);
 web3.setProvider(myProvider);
 web3.eth.setProvider(myProvider);
 
 //
 // web3.eth
 // --------------------------------------------------------------------------
+const logs: Promise<Log[]> = web3.eth.getPastLogs({
+    fromBlock: "latest",
+    address: contractAddress,
+    topics: [
+        null,
+        "0x1"
+    ]
+});
 const storage: Promise<string> = web3.eth.getStorageAt(contractAddress, 0);
+const balance1: Promise<string> = web3.eth.getBalance(contractAddress);
+const balance2: Promise<string> = web3.eth.getBalance(contractAddress, "latest");
+const balance3: Promise<string> = web3.eth.getBalance(contractAddress, 1);
+web3.eth.getBalance(contractAddress, "latest", (error: Error, balance: string) => { });
+web3.eth.getBalance(contractAddress, 1, (error: Error, balance: string) => { });
+
+const sendSignedTransactionTxReceipt0: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("",
+    (error: Error, txHash: string) => { });
+const sendSignedTransactionTxReceipt1: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
+    .on("transactionHash", (txHash: string) => { });
+const sendSignedTransactionTxReceipt2: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
+    .on("receipt", (txReceipt: TransactionReceipt) => {
+        const { status }: { status: boolean }  = txReceipt;
+    });
+const sendSignedTransactionTxReceipt3: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
+    .on("confirmation", (confNumber: number, receipt: TransactionReceipt) => { });
+const sendSignedTransactionTxReceipt4: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
+    .on("receipt", (txReceipt: TransactionReceipt) => { })
+    .on("confirmation", (confNumber: number, receipt: TransactionReceipt) => { });
+
+const sendTransactionTxReceipt0: PromiEvent<TransactionReceipt> = web3.eth.sendTransaction({ to: "0x1" },
+    (error: Error, txHash: string) => { });
+const sendTransactionTxReceipt1: PromiEvent<TransactionReceipt> = web3.eth.sendTransaction({ to: "0x1" })
+    .on("transactionHash", (txHash: string) => { });
+const sendTransactionTxReceipt2: PromiEvent<TransactionReceipt> = web3.eth.sendTransaction({ to: "0x1" })
+    .on("receipt", (txReceipt: TransactionReceipt) => { });
+const sendTransactionTxReceipt3: PromiEvent<TransactionReceipt> = web3.eth.sendTransaction({ to: "0x1" })
+    .on("confirmation", (confNumber: number, receipt: TransactionReceipt) => { });
+const sendTransactionTxReceipt4: PromiEvent<TransactionReceipt> = web3.eth.sendTransaction({ to: "0x1" })
+    .on("receipt", (txReceipt: TransactionReceipt) => { })
+    .on("confirmation", (confNumber: number, receipt: TransactionReceipt) => { });
 
 //
 // web3.eth.subscribe
@@ -92,6 +154,8 @@ web3.eth.personal.unlockAccount(
 //
 // web3.eth.abi
 // --------------------------------------------------------------------------
+const myContractOldAbi = new web3.eth.Contract(OLD_ABI_STANDARD);
+const myContractNewAbi = new web3.eth.Contract(NEW_ABI_STANDARD);
 
 //
 // web3.bzz
@@ -107,5 +171,16 @@ const shhPromise: Promise<string> = web3.shh.generateSymKeyFromPassword("xyz");
 // --------------------------------------------------------------------------
 const weiStr: string = web3.utils.toWei("100", "gwei");
 const weiBn: BigNumber = web3.utils.toWei(web3.utils.toBN("1"));
+// $ExpectError
+const weiNumber = web3.utils.toWei(100);
+
 const rndHex: string = Web3.utils.randomHex(10);
 const sha3: string = web3.utils.soliditySha3(0, 1, "abc");
+const fromWei1: string = web3.utils.fromWei(new BigNumber(1));
+const fromWei2: string = web3.utils.fromWei(new BigNumber(1), "gwei");
+const fromWei3: string = web3.utils.fromWei("1");
+const fromWei4: string = web3.utils.fromWei("1", "gwei");
+const fromWei5: string = web3.utils.fromWei(1);
+const fromWei6: string = web3.utils.fromWei(1, "gwei");
+const isStrictHexString: boolean = web3.utils.isHexStrict("0xc1912");
+const isStrictHexNumber: boolean = web3.utils.isHexStrict(0xc1912);

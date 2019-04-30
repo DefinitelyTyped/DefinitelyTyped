@@ -1,5 +1,5 @@
-// Type definitions for jsdom 11.12
-// Project: https://github.com/tmpvar/jsdom#readme
+// Type definitions for jsdom 12.2
+// Project: https://github.com/jsdom/jsdom
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 //                 Johan Palmfjord <https://github.com/palmfjord>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,7 +41,7 @@ export class JSDOM {
      * Behind the scenes, a jsdom Window is indeed a VM context.
      * To get access to this ability, use the runVMScript() method.
      */
-    runVMScript(script: Script): void;
+    runVMScript(script: Script): any;
 
     reconfigure(settings: ReconfigureSettings): void;
 }
@@ -65,7 +65,7 @@ export interface Options {
      */
     includeNodeLocations?: boolean;
     runScripts?: 'dangerously' | 'outside-only';
-    resources?: 'usable';
+    resources?: 'usable' | ResourceLoader;
     virtualConsole?: VirtualConsole;
     cookieJar?: CookieJar;
     beforeParse?(window: DOMWindow): void;
@@ -286,4 +286,23 @@ export const toughCookie: typeof tough;
 export interface ReconfigureSettings {
     windowTop?: DOMWindow;
     url?: string;
+}
+
+export interface FetchOptions {
+    cookieJar?: CookieJar;
+    referrer?: string;
+    accept?: string;
+    element?: HTMLScriptElement | HTMLLinkElement | HTMLIFrameElement | HTMLImageElement;
+}
+
+export interface ResourceLoaderConstructorOptions {
+    strictSSL?: boolean;
+    proxy?: string;
+    userAgent?: string;
+}
+
+export class ResourceLoader {
+    fetch(url: string, options: FetchOptions): Promise<Buffer> | null;
+
+    constructor(obj?: ResourceLoaderConstructorOptions);
 }

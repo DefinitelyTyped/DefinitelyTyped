@@ -70,9 +70,9 @@ declare namespace TestUtils {
     }
 
     export interface ShallowRenderer {
-        getRenderOutput<E extends ReactElement<any>>(): E;
-        getRenderOutput(): ReactElement<any>;
-        render(element: ReactElement<any>, context?: any): void;
+        getRenderOutput<E extends ReactElement>(): E;
+        getRenderOutput(): ReactElement;
+        render(element: ReactElement, context?: any): void;
         unmount(): void;
     }
 
@@ -129,13 +129,13 @@ declare namespace TestUtils {
         mocked: MockedComponentClass, mockTagName?: string): typeof TestUtils;
 
     export function isElementOfType<T extends HTMLElement>(
-        element: ReactElement<any>, type: string): element is ReactHTMLElement<T>;
+        element: ReactElement, type: string): element is ReactHTMLElement<T>;
     export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
-        element: ReactElement<any>, type: string): element is DOMElement<P, T>;
+        element: ReactElement, type: string): element is DOMElement<P, T>;
     export function isElementOfType<P>(
-        element: ReactElement<any>, type: SFC<P>): element is SFCElement<P>;
+        element: ReactElement, type: SFC<P>): element is SFCElement<P>;
     export function isElementOfType<P, T extends Component<P>, C extends ComponentClass<P>>(
-        element: ReactElement<any>, type: ClassType<P, T, C>): element is CElement<P, T>;
+        element: ReactElement, type: ClassType<P, T, C>): element is CElement<P, T>;
 
     export function isDOMComponent(instance: ReactInstance): instance is Element;
     export function isCompositeComponent(instance: ReactInstance): instance is Component<any>;
@@ -160,11 +160,11 @@ declare namespace TestUtils {
         root: Component<any>,
         tagName: string): Element;
 
-    export function scryRenderedComponentsWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
+    export function scryRenderedComponentsWithType<T extends Component<any>, C extends ComponentClass<any>>(
         root: Component<any>,
         type: ClassType<any, T, C>): T[];
 
-    export function findRenderedComponentWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
+    export function findRenderedComponentWithType<T extends Component<any>, C extends ComponentClass<any>>(
         root: Component<any>,
         type: ClassType<any, T, C>): T;
 

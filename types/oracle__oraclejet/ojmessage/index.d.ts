@@ -1,5 +1,6 @@
 import { JetElement, JetSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
 export interface ojMessage extends JetElement<ojMessageSettableProperties> {
+    displayOptions: ojMessage.DisplayOptions;
     message: ojMessage.Message;
     translations: {
         categories?: {
@@ -10,6 +11,7 @@ export interface ojMessage extends JetElement<ojMessageSettableProperties> {
         };
         labelCloseIcon?: string;
     };
+    onDisplayOptionsChanged: ((event: JetElementCustomEvent<ojMessage["displayOptions"]>) => any) | null;
     onMessageChanged: ((event: JetElementCustomEvent<ojMessage["message"]>) => any) | null;
     onTranslationsChanged: ((event: JetElementCustomEvent<ojMessage["translations"]>) => any) | null;
     onOjAnimateEnd: ((event: ojMessage.ojAnimateEnd) => any) | null;
@@ -39,10 +41,14 @@ export namespace ojMessage {
     }> {
     }
     interface ojClose extends CustomEvent<{
-        message: object;
+        message: Message;
         [propName: string]: any;
     }> {
     }
+    // tslint:disable-next-line interface-over-type-literal
+    type DisplayOptions = {
+        category?: 'header' | 'none' | 'auto';
+    };
     // tslint:disable-next-line interface-over-type-literal
     type Message = {
         icon?: string;
@@ -60,10 +66,12 @@ export interface ojMessageEventMap extends HTMLElementEventMap {
     'ojAnimateEnd': ojMessage.ojAnimateEnd;
     'ojAnimateStart': ojMessage.ojAnimateStart;
     'ojClose': ojMessage.ojClose;
+    'displayOptionsChanged': JetElementCustomEvent<ojMessage["displayOptions"]>;
     'messageChanged': JetElementCustomEvent<ojMessage["message"]>;
     'translationsChanged': JetElementCustomEvent<ojMessage["translations"]>;
 }
 export interface ojMessageSettableProperties extends JetSettableProperties {
+    displayOptions: ojMessage.DisplayOptions;
     message: ojMessage.Message;
     translations: {
         categories?: {

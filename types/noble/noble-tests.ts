@@ -35,14 +35,20 @@ noble.removeListener("discover", (peripheral: noble.Peripheral): void => {
     peripheral.disconnect((): void => {});
 });
 
+noble.removeAllListeners("stateChange");
+noble.removeAllListeners("scanStart");
+noble.removeAllListeners("scanStop");
+noble.removeAllListeners("discover");
+noble.removeAllListeners();
+
 var peripheral: noble.Peripheral = new noble.Peripheral();
 peripheral.uuid = "12ad4e81";
 peripheral.advertisement = {
     localName:        "device",
-    serviceData:      {
+    serviceData:      [{
         uuid: "180a",
         data: new Buffer(1)
-    },
+    }],
     txPowerLevel:     1,
     manufacturerData: new Buffer(1),
     serviceUuids:     ["0x180a", "0x180d"]

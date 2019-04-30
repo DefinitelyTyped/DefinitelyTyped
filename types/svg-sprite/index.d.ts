@@ -2,10 +2,9 @@
 // Project: https://github.com/jkphl/svg-sprite
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
-/// <reference types="vinyl" />
-
 import File = require('vinyl');
 import { Logger } from 'winston';
 

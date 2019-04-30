@@ -167,8 +167,8 @@ declare namespace NPM {
         Conf: ConfigStatic;
         defs: ConfigDefs;
 
-        get(setting: string): string;
-        set(setting: string, value: string): void;
+        get(setting: string): any;
+        set(setting: string, value: any): void;
 
         loadPrefix(cb: ErrorCallback): void;
         loadCAFile(caFilePath: string, cb: ErrorCallback): void;
