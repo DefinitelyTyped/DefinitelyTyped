@@ -814,11 +814,11 @@ declare namespace Showdown {
         useExtension(extensionName: string): void;
 
         /**
-         * Get all extensions.
+         * Set a "local" flavor for THIS Converter instance
          *
-         * @return all extensions.
+         * @param flavor name
          */
-        getAllExtensions(): ConverterExtensions;
+        setFlavor(name: 'github' | 'original' | 'ghost' | 'vanilla' | 'allOn'): void;
 
         /**
          * Remove an extension from THIS converter.
@@ -830,12 +830,13 @@ declare namespace Showdown {
          */
         removeExtension(extensions: ShowdownExtension[] | ShowdownExtension): void;
 
+        
         /**
-         * Set a "local" flavor for THIS Converter instance
+         * Get all extensions.
          *
-         * @param flavor name
+         * @return all extensions.
          */
-        setFlavor(name: 'github' | 'original' | 'ghost' | 'vanilla' | 'allOn'): void;
+        getAllExtensions(): ConverterExtensions;
 
         /**
          * Get the metadata of the previously parsed document
