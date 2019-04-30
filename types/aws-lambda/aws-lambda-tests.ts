@@ -965,7 +965,9 @@ const cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWS
 
     let s3Origin: AWSLambda.CloudFrontS3Origin = {
         authMethod: 'none',
-        customHeaders: {},
+        customHeaders: {
+          'content-type': [{ value: 'text/plain' }]
+        },
         domainName: 'example.com',
         path: '/',
         region: 'us-east-1'
