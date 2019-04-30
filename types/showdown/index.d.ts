@@ -272,6 +272,8 @@ declare namespace Showdown {
         simplifiedAutoLink?: boolean;
 
         /**
+         * @deprecated https://github.com/showdownjs/showdown/commit/d3ebff7ef0cde5abfc3874463946d5297fc82e78
+         * 
          * This option excludes trailing punctuation from autolinking urls.
          * Punctuation excluded: . ! ? ( ).
          *
