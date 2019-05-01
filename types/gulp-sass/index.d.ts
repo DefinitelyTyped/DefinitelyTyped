@@ -3,6 +3,7 @@
 // Definitions by: Asana <https://asana.com>
 //                 Yuma Hashimoto <https://github.com/yuma84>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 /// <reference types="node"/>
 
