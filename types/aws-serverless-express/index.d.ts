@@ -37,14 +37,7 @@ export function proxy(
     server: http.Server,
     event: any,
     context: lambda.Context,
-    resolutionMode: 'CONTEXT_SUCCEED',
-): ProxyResult;
-
-export function proxy(
-    server: http.Server,
-    event: any,
-    context: lambda.Context,
-    resolutionMode: 'PROMISE'
+    resolutionMode: 'CONTEXT_SUCCEED' | 'PROMISE',
 ): ProxyResult;
 
 export function proxy(
