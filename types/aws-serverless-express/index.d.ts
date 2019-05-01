@@ -38,7 +38,7 @@ export function proxy(
     event: any,
     context: lambda.Context,
     resolutionMode: 'CONTEXT_SUCCEED',
-): void;
+): ProxyResult;
 
 export function proxy(
     server: http.Server,
@@ -53,4 +53,4 @@ export function proxy(
     context: lambda.Context,
     resolutionMode: 'CALLBACK',
     callback?: (error: any, response: Response) => void
-): void;
+): ProxyResult;
