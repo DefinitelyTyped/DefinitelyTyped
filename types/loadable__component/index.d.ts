@@ -17,6 +17,10 @@ export interface Options {
 	ssr?: boolean;
 }
 
+export interface LoadableReadyOptions {
+  namespace?: string;
+}
+
 export type LoadableComponent<T> = React.ComponentType<T & { fallback?: JSX.Element }> & { preload(props?: T): void };
 export type LoadableLibrary<TModule> = React.ComponentType<{
 	fallback?: JSX.Element;
@@ -45,4 +49,4 @@ export namespace lazy {
 
 export function lazy<T>(loadFn: (props: T) => Promise<DefaultComponent<T>>): LoadableComponent<T>;
 
-export function loadableReady(done?: () => any): Promise<void>;
+export function loadableReady(done?: () => any, options?: LoadableReadyOptions): Promise<void>;
