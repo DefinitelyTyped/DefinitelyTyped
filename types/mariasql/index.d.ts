@@ -3,6 +3,11 @@
 // Definitions by: MichaelBennett <https://github.com/bennett000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var mariasql: mariasql.Client;
+
+export = mariasql;
+export as namespace mariasql;
+
 declare namespace mariasql {
     export interface MariaCallBackError {
         (error:Error):void
@@ -108,6 +113,3 @@ declare namespace mariasql {
         prototype: MariaClient;
     }
 }
-
-declare var Client:mariasql.Client;
-export = Client;
