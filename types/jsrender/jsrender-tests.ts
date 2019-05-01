@@ -1,4 +1,3 @@
-/// <reference types="jquery" />
 "use strict";
 (function() {
 
