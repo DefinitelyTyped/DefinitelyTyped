@@ -16,6 +16,9 @@ videoQueue.process((job, done) => {
     // job.data contains the custom data passed when the job was created
     // job.jobId contains id of this job.
 
+    // job.opts contains the options the job was created with
+    job.opts;
+
     // transcode video asynchronously and report progress
     job.progress(42);
 
