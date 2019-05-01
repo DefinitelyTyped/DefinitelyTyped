@@ -1,4 +1,4 @@
-// Type definitions for @loadable/component 5.6
+// Type definitions for @loadable/component 5.9
 // Project: https://github.com/smooth-code/loadable-components
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
