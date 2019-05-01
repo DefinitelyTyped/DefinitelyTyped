@@ -74,11 +74,35 @@ declare module "../index" {
     interface Stat {
         tap<T>(value: T, interceptor: (value: T) => void): T;
     }
-    interface Imp<TValue> {
-        tap(interceptor: (value: TValue) => void): this;
+    interface ImpF<T> {
+        tap(interceptor: (value: T) => void): this;
     }
-    interface Exp<TValue> {
-        tap(interceptor: (value: TValue) => void): this;
+    interface ImpS {
+        tap(interceptor: (value: string) => void): this;
+    }
+    interface ImpO<T> {
+        tap(interceptor: (value: T) => void): this;
+    }
+    interface ImpL<T> {
+        tap(interceptor: (value: List<T>) => void): this;
+    }
+    interface ImpU<T> {
+        tap(interceptor: (value: T) => void): this;
+    }
+    interface ExpF<T> {
+        tap(interceptor: (value: T) => void): this;
+    }
+    interface ExpS {
+        tap(interceptor: (value: string) => void): this;
+    }
+    interface ExpO<T> {
+        tap(interceptor: (value: T) => void): this;
+    }
+    interface ExpL<T> {
+        tap(interceptor: (value: List<T>) => void): this;
+    }
+    interface ExpU<T> {
+        tap(interceptor: (value: T) => void): this;
     }
     // thru
     interface Stat {

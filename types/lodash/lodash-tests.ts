@@ -5669,8 +5669,8 @@ fp.now(); // $ExpectType number
     const mixedNumericDictionary: _.NumericDictionary<string | number> | null | undefined = anything;
 
     _.pickBy(mixedNumericDictionary, userDefinedTypeGuard); // $ExpectType NumericDictionary<number>
-    _(mixedNumericDictionary).pickBy(userDefinedTypeGuard); // $ExpectType ImpO<NumericDictionary<number>>
-    _.chain(mixedNumericDictionary).pickBy(userDefinedTypeGuard); // $ExpectType ExpO<NumericDictionary<number>>
+    _(mixedNumericDictionary).pickBy(userDefinedTypeGuard); // $ExpectType ImpO<Dictionary<number>>
+    _.chain(mixedNumericDictionary).pickBy(userDefinedTypeGuard); // $ExpectType ExpO<Dictionary<number>>
     fp.pickBy(userDefinedTypeGuard)(mixedNumericDictionary); // $ExpectType NumericDictionary<number>
 }
 
@@ -5688,11 +5688,11 @@ fp.now(); // $ExpectType number
     _("abc").result<string>(["0"]); // $ExpectType string
     _("abc").result<string>([0], () => "_"); // $ExpectType string
     _({ a: () => true }).result<boolean>("a"); // $ExpectType boolean
-    _.chain("abc").result<string>("0"); // $ExpectType ExpS
-    _.chain("abc").result<string>(0, "_"); // $ExpectType ExpS
-    _.chain("abc").result<string>("0", () => "_"); // $ExpectType ExpS
-    _.chain("abc").result<string>(["0"]); // $ExpectType ExpS
-    _.chain("abc").result<string>([0], () => "_"); // $ExpectType ExpS
+    _.chain("abc").result<string>("0"); // $ExpectType Exp<string>
+    _.chain("abc").result<string>(0, "_"); // $ExpectType Exp<string>
+    _.chain("abc").result<string>("0", () => "_"); // $ExpectType Exp<string>
+    _.chain("abc").result<string>(["0"]); // $ExpectType Exp<string>
+    _.chain("abc").result<string>([0], () => "_"); // $ExpectType Exp<string>
     _.chain({ a: () => true }).result<boolean>("a"); // $ExpectType Exp<boolean>
 
     fp.result<string>("0", "abc"); // $ExpectType string
@@ -5798,9 +5798,9 @@ fp.now(); // $ExpectType number
         _.transform<number, AbcObject[]>(array, iterator); // $ExpectType AbcObject[]
         _.transform<number, AbcObject[]>(array, iterator, accumulator); // $ExpectType AbcObject[]
         _(array).transform(); // $ExpectType ImpL<any>
-        _(array).transform(iterator); // $ExpectType ImpL<AbcObject>
-        _(array).transform(iterator, accumulator); // $ExpectType ImpL<AbcObject>
-        _.chain(array).transform(iterator, accumulator); // $ExpectType ExpL<AbcObject>
+        _(array).transform(iterator); // $ExpectType Imp<AbcObject[]>
+        _(array).transform(iterator, accumulator); // $ExpectType Imp<AbcObject[]>
+        _.chain(array).transform(iterator, accumulator); // $ExpectType Exp<AbcObject[]>
     }
 
     {
@@ -5829,8 +5829,8 @@ fp.now(); // $ExpectType number
         const accumulator: AbcObject[] = [];
 
         _.transform<number, AbcObject[]>(dictionary, iterator, accumulator); // $ExpectType AbcObject[]
-        _(dictionary).transform(iterator, accumulator); // $ExpectType ImpL<AbcObject>
-        _.chain(dictionary).transform(iterator, accumulator); // $ExpectType ExpL<AbcObject>
+        _(dictionary).transform(iterator, accumulator); // $ExpectType Imp<AbcObject[]>
+        _.chain(dictionary).transform(iterator, accumulator); // $ExpectType Exp<AbcObject[]>
     }
 
     {
@@ -5958,11 +5958,11 @@ fp.now(); // $ExpectType number
 // _
 {
     _(""); // $ExpectType ImpS
-    _(42); // $ExpectType Imp<number>
-    _(true); // $ExpectType Imp<boolean>
+    _(42); // $ExpectType ImpU<number>
+    _(true); // $ExpectType ImpU<boolean>
     _([""]); // $ExpectType ImpL<string>
-    _({ a: "" }); // $ExpectType Imp<{ a: string; }>
-    _(array); // $ExpectType Imp<AbcObject[] | null | undefined>
+    _({ a: "" }); // $ExpectType ImpO<{ a: string; }>
+    _(array); // $ExpectType ImpL<AbcObject>
 }
 
 // _.chain
@@ -5970,9 +5970,9 @@ fp.now(); // $ExpectType number
     _.chain(""); // $ExpectType ExpS
     _("").chain(); // $ExpectType ExpS
     _.chain("").chain(); // $ExpectType ExpS
-    _.chain(42); // $ExpectType Exp<number>
+    _.chain(42); // $ExpectType ExpU<number>
     _.chain([""]); // $ExpectType ExpL<string>
-    _.chain({ a: 42 }); // $ExpectType Exp<{ a: number; }>
+    _.chain({ a: 42 }); // $ExpectType ExpO<{ a: number; }>
 }
 
 // _.tap
@@ -5996,9 +5996,9 @@ fp.now(); // $ExpectType number
     });
     // $ExpectType ImpL<boolean>
     _([true]).tap((value) => {
-        value; // $ExpectType boolean[]
+        value; // $ExpectType ArrayLike<boolean>
     });
-    // $ExpectType Imp<{ a: number; }>
+    // $ExpectType ImpO<{ a: number; }>
     _({ a: 42 }).tap((value) => {
         value; // $ExpectType { a: number; }
     });
@@ -6009,9 +6009,9 @@ fp.now(); // $ExpectType number
     });
     // $ExpectType ExpL<boolean>
     _.chain([true]).tap((value) => {
-        value; // $ExpectType boolean[]
+        value; // $ExpectType ArrayLike<boolean>
     });
-    // $ExpectType Exp<{ a: number; }>
+    // $ExpectType ExpO<{ a: number; }>
     _.chain({ a: 42 }).tap((value) => {
         value; // $ExpectType { a: number; }
     });

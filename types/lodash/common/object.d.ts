@@ -595,7 +595,7 @@ declare module "../index" {
         pickBy(predicate?: ValueKeyIteratee<T>): Imp<Dictionary<T>>;
     }
     interface ImpO<T> {
-        pickBy<S extends T[keyof T]>(predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>): ImpO<T extends NumericDictionary<unknown> ? NumericDictionary<S> : Dictionary<S>>;
+        pickBy<S extends T[keyof T]>(predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>): ImpO<NumericDictionary<unknown> extends T ? NumericDictionary<S> : Dictionary<S>>;
         pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): ImpO<PartialObject<T>>;
     }
     interface ExpL<T> {
@@ -603,7 +603,7 @@ declare module "../index" {
         pickBy(predicate?: ValueKeyIteratee<T>): Exp<Dictionary<T>>;
     }
     interface ExpO<T> {
-        pickBy<S extends keyof T>(predicate: ValueKeyIterateeTypeGuard<keyof T, S>): ExpO<Dictionary<S>>;
+        pickBy<S extends T[keyof T]>(predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>): ExpO<NumericDictionary<unknown> extends T ? NumericDictionary<S> : Dictionary<S>>;
         pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): ExpO<PartialObject<T>>;
     }
     interface Stat {
@@ -645,20 +645,20 @@ declare module "../index" {
         toPairs(object?: object): Array<[string, any]>;
     }
     interface Imp<TValue> {
-        toPairs(): ImpL<[string, TValue extends Dictionary<infer U> ? U : any]>;
+        toPairs(): ImpL<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
     interface Exp<TValue> {
-        toPairs<T>(): ExpL<[string, TValue extends Dictionary<infer U> ? U : any]>;
+        toPairs(): ExpL<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
     interface Stat {
         toPairsIn<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         toPairsIn(object?: object): Array<[string, any]>;
     }
     interface Imp<TValue> {
-        toPairsIn(): ImpL<[string, TValue extends Dictionary<infer U> ? U : any]>;
+        toPairsIn(): ImpL<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
     interface Exp<TValue> {
-        toPairsIn(): ExpL<[string, TValue extends Dictionary<infer U> ? U : any]>;
+        toPairsIn(): ExpL<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
     interface Stat {
         transform<T, TResult>(object: T[], iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
@@ -667,26 +667,20 @@ declare module "../index" {
         transform(object: object): Dictionary<any>;
     }
     interface ImpL<T> {
-        transform<TResult>(iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
+        transform<TResult>(iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): Imp<TResult>;
         transform(): ImpL<any>;
     }
     interface ImpO<T> {
         transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): Imp<TResult>;
-        transform(): ImpO<any>;
-    }
-    interface Imp<TValue> {
-        transform(): Imp<Dictionary<any>>;
+        transform(): Imp<T extends Dictionary<unknown> ? Dictionary<any> : T>;
     }
     interface ExpL<T> {
-        transform<TResult>(iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
+        transform<TResult>(iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): Exp<TResult>;
         transform(): ExpL<any>;
     }
     interface ExpO<T> {
         transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): Exp<TResult>;
-        transform(): ExpO<any>;
-    }
-    interface Exp<TValue> {
-        transform(): Exp<Dictionary<any>>;
+        transform(): Exp<T extends Dictionary<unknown> ? Dictionary<any> : T>;
     }
     interface Stat {
         unset(object: any, path: PropertyPath): boolean;
