@@ -1,4 +1,4 @@
-import Router, { withRouter, WithRouterProps } from "next-server/router";
+import Router, { useRouter, withRouter, WithRouterProps } from "next-server/router";
 import * as React from "react";
 import * as qs from "querystring";
 
@@ -151,6 +151,11 @@ const TestSFC2 = withRouter<TestSFCProps>(({ router }) => {
 const res3 = <TestSFC2 testProp="asdf" />;
 
 const TestSFC3 = withRouter(({ router }) => {
+    return <div>{router && router.query && router.query.test}</div>;
+});
+
+const TestHook = (() => {
+    const router = useRouter();
     return <div>{router && router.query && router.query.test}</div>;
 });
 

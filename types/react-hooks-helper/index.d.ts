@@ -41,10 +41,10 @@ export interface FormTarget {
     };
 }
 
-export type InputChange = (event: React.SyntheticEvent<HTMLInputElement> | React.ChangeEvent<HTMLInputElement>) => void;
-
-export type ChangeForm = (value: FormTarget) => any;
-
-export type SetForm = ChangeForm & InputChange;
+export type SetForm = (event:
+    | React.SyntheticEvent<HTMLInputElement>
+    | React.ChangeEvent<HTMLInputElement>
+    | FormTarget
+) => void;
 
 export function useForm<T>(defaultFormConfig: T): [T, SetForm];

@@ -11,6 +11,7 @@
 //                 Adam Misiorny <https://github.com/adam187>
 //                 Sara F-P <https://github.com/gretzky>
 //                 Chris LoPresto <https://github.com/chrislopresto>
+//                 Pedro Duarte <https://github.com/peduarte>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -28,6 +29,11 @@ export function num(n: any): boolean;
 export function px(n: any): string;
 
 export function createMediaQuery(n: number | string): string;
+
+export interface styleFn {
+    (...args: any[]): any;
+    propTypes?: string[];
+}
 
 export interface LowLevelStylefunctionArguments {
     prop: string;
@@ -73,53 +79,53 @@ export interface SpaceProps<TLength = TLengthStyledSystem> {
     m?: ResponsiveValue<CSS.MarginProperty<TLength>>;
     /** Margin on top, left, bottom and right */
     margin?: ResponsiveValue<CSS.MarginProperty<TLength>>;
-    /** Margin for the top */
+    /** Margin on top */
     mt?: ResponsiveValue<CSS.MarginTopProperty<TLength>>;
-    /** Margin for the top */
+    /** Margin on top */
     marginTop?: ResponsiveValue<CSS.MarginTopProperty<TLength>>;
-    /** Margin for the right */
+    /** Margin on right */
     mr?: ResponsiveValue<CSS.MarginRightProperty<TLength>>;
-    /** Margin for the right */
+    /** Margin on right */
     marginRight?: ResponsiveValue<CSS.MarginRightProperty<TLength>>;
-    /** Margin for the bottom */
+    /** Margin on bottom */
     mb?: ResponsiveValue<CSS.MarginBottomProperty<TLength>>;
-    /** Margin for the bottom */
+    /** Margin on bottom */
     marginBottom?: ResponsiveValue<CSS.MarginBottomProperty<TLength>>;
-    /** Margin for the left */
+    /** Margin on left */
     ml?: ResponsiveValue<CSS.MarginLeftProperty<TLength>>;
-    /** Margin for the left */
+    /** Margin on left */
     marginLeft?: ResponsiveValue<CSS.MarginLeftProperty<TLength>>;
-    /** Margin for the left and right */
+    /** Margin on left and right */
     mx?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
-    /** Margin for the top and bottom */
+    /** Margin on top and bottom */
     my?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
     /** Padding on top, left, bottom and right */
     p?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
     /** Padding on top, left, bottom and right */
     padding?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
-    /** Padding for the top */
+    /** Padding on top */
     pt?: ResponsiveValue<CSS.PaddingTopProperty<TLength>>;
-    /** Padding for the top */
+    /** Padding on top */
     paddingTop?: ResponsiveValue<CSS.PaddingTopProperty<TLength>>;
-    /** Padding for the right */
+    /** Padding on right */
     pr?: ResponsiveValue<CSS.PaddingRightProperty<TLength>>;
-    /** Padding for the right */
+    /** Padding on right */
     paddingRight?: ResponsiveValue<CSS.PaddingRightProperty<TLength>>;
-    /** Padding for the bottom */
+    /** Padding on bottom */
     pb?: ResponsiveValue<CSS.PaddingBottomProperty<TLength>>;
-    /** Padding for the bottom */
+    /** Padding on bottom */
     paddingBottom?: ResponsiveValue<CSS.PaddingBottomProperty<TLength>>;
-    /** Padding for the left */
+    /** Padding on left */
     pl?: ResponsiveValue<CSS.PaddingLeftProperty<TLength>>;
-    /** Padding for the left */
+    /** Padding on left */
     paddingLeft?: ResponsiveValue<CSS.PaddingLeftProperty<TLength>>;
-    /** Padding for the left and right */
+    /** Padding on left and right */
     px?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
-    /** Padding for the top and bottom */
+    /** Padding on top and bottom */
     py?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
 }
 
-export function space(...args: any[]): any;
+export const space: styleFn;
 
 export interface MarginProps extends Pick<SpaceProps, 'm' | 'margin' | 'mt' | 'marginTop' | 'mb' | 'marginBottom' | 'ml' | 'marginLeft' | 'mr' | 'marginRight'> {}
 export interface MarginTopProps extends Pick<SpaceProps, 'mt' | 'marginTop'> {}
@@ -127,11 +133,11 @@ export interface MarginBottomProps extends Pick<SpaceProps, 'mb' | 'marginBottom
 export interface MarginLeftProps extends Pick<SpaceProps, 'ml' | 'marginLeft'> {}
 export interface MarginRightProps extends Pick<SpaceProps, 'mr' | 'marginRight'> {}
 
-export function margin(...args: any[]): any;
-export function marginTop(...args: any[]): any;
-export function marginBottom(...args: any[]): any;
-export function marginLeft(...args: any[]): any;
-export function marginRight(...args: any[]): any;
+export const margin: styleFn;
+export const marginTop: styleFn;
+export const marginBottom: styleFn;
+export const marginLeft: styleFn;
+export const marginRight: styleFn;
 
 export interface PaddingProps extends Pick<SpaceProps, 'p' | 'padding' | 'pt' | 'paddingTop' | 'pb' | 'paddingBottom' | 'pl' | 'paddingLeft' | 'pr' | 'paddingRight'> {}
 export interface PaddingTopProps extends Pick<SpaceProps, 'pt' | 'paddingTop'> {}
@@ -139,23 +145,25 @@ export interface PaddingBottomProps extends Pick<SpaceProps, 'pb' | 'paddingBott
 export interface PaddingLeftProps extends Pick<SpaceProps, 'pl' | 'paddingLeft'> {}
 export interface PaddingRightProps extends Pick<SpaceProps, 'pr' | 'paddingRight'> {}
 
-export function padding(...args: any[]): any;
-export function paddingTop(...args: any[]): any;
-export function paddingBottom(...args: any[]): any;
-export function paddingLeft(...args: any[]): any;
-export function paddingRight(...args: any[]): any;
+export const padding: styleFn;
+export const paddingTop: styleFn;
+export const paddingBottom: styleFn;
+export const paddingLeft: styleFn;
+export const paddingRight: styleFn;
 
-export type ObjectOrArray<T> = T[] | { [K: string]: T };
+export type ObjectOrArray<T> = T[] | { [K: string]: T | ObjectOrArray<T> };
 
 export interface BaseTheme {
     breakpoints?: string[] | number[] | object;
     colors?: ObjectOrArray<CSS.ColorProperty>;
-    fontSizes?: number[];
-    space?: number[];
+    fontSizes?: ObjectOrArray<CSS.FontSizeProperty<number>>;
+    space?: ObjectOrArray<number | string>;
 }
 
 export interface Theme extends BaseTheme {
     borders?: ObjectOrArray<CSS.BorderProperty<{}>>;
+    borderStyles?: ObjectOrArray<CSS.BorderProperty<{}>>;
+    borderWidths?: ObjectOrArray<CSS.BorderWidthProperty<{}>>;
     buttons?: ObjectOrArray<CSS.StandardProperties>;
     colorStyles?: ObjectOrArray<CSS.StandardProperties>;
     fontWeights?: ObjectOrArray<CSS.FontWeightProperty>;
@@ -170,7 +178,9 @@ export interface Theme extends BaseTheme {
     opacity?: ObjectOrArray<CSS.GlobalsNumber>;
     radii?: ObjectOrArray<CSS.BorderRadiusProperty<{}>>;
     shadows?: ObjectOrArray<CSS.BoxShadowProperty>;
+    sizes?: ObjectOrArray<CSS.HeightProperty<{}> | CSS.WidthProperty<{}>>;
     textStyles?: ObjectOrArray<CSS.StandardProperties>;
+    zIndeces?: ObjectOrArray<CSS.ZIndexProperty>;
 }
 
 /**
@@ -190,7 +200,7 @@ export interface TextColorProps {
     color?: ResponsiveValue<CSS.ColorProperty>;
 }
 
-export function textColor(...args: any[]): any;
+export const textColor: styleFn;
 
 export interface BackgroundColorProps<TLength = TLengthStyledSystem> {
     /**
@@ -206,11 +216,11 @@ export interface BackgroundColorProps<TLength = TLengthStyledSystem> {
     backgroundColor?: ResponsiveValue<CSS.BackgroundProperty<TLength>>;
 }
 
-export function backgroundColor(...args: any[]): any;
+export const backgroundColor: styleFn;
 
 export interface ColorProps extends TextColorProps, BackgroundColorProps {}
 
-export function color(...args: any[]): any;
+export const color: styleFn;
 
 /**
  * Typography
@@ -231,12 +241,12 @@ export interface FontSizeProps<TLength = TLengthStyledSystem> {
     fontSize?: ResponsiveValue<CSS.FontSizeProperty<TLength>>;
 }
 
-export function fontSize(...args: any[]): any;
+export const fontSize: styleFn;
 
 export interface FontFamilyProps {
     fontFamily?: ResponsiveValue<CSS.FontFamilyProperty>;
 }
-export function fontFamily(...args: any[]): any;
+export const fontFamily: styleFn;
 
 export interface FontWeightProps {
     /**
@@ -249,7 +259,7 @@ export interface FontWeightProps {
     fontWeight?: ResponsiveValue<CSS.FontWeightProperty>;
 }
 
-export function fontWeight(...args: any[]): any;
+export const fontWeight: styleFn;
 
 export interface LineHeightProps<TLength = TLengthStyledSystem> {
     /**
@@ -262,7 +272,7 @@ export interface LineHeightProps<TLength = TLengthStyledSystem> {
      */
     lineHeight?: ResponsiveValue<CSS.LineHeightProperty<TLength>>;
 }
-export function lineHeight(...args: any[]): any;
+export const lineHeight: styleFn;
 
 export interface TextAlignProps {
     /**
@@ -273,7 +283,7 @@ export interface TextAlignProps {
     textAlign?: ResponsiveValue<CSS.TextAlignProperty>;
 }
 
-export function textAlign(...args: any[]): any;
+export const textAlign: styleFn;
 
 export interface FontStyleProps {
     /**
@@ -284,7 +294,7 @@ export interface FontStyleProps {
      */
     fontStyle?: ResponsiveValue<CSS.FontStyleProperty>;
 }
-export function fontStyle(...args: any[]): any;
+export const fontStyle: styleFn;
 
 export interface LetterSpacingProps<TLength = TLengthStyledSystem> {
     /**
@@ -294,7 +304,7 @@ export interface LetterSpacingProps<TLength = TLengthStyledSystem> {
      */
     letterSpacing?: ResponsiveValue<CSS.LetterSpacingProperty<TLength>>;
 }
-export function letterSpacing(...args: any[]): any;
+export const letterSpacing: styleFn;
 
 /**
  * Layout
@@ -311,7 +321,7 @@ export interface DisplayProps {
     display?: ResponsiveValue<CSS.DisplayProperty>;
 }
 
-export function display(...args: any[]): any;
+export const display: styleFn;
 
 export interface WidthProps<TLength = TLengthStyledSystem> {
     /**
@@ -325,7 +335,7 @@ export interface WidthProps<TLength = TLengthStyledSystem> {
     width?: ResponsiveValue<CSS.WidthProperty<TLength>>;
 }
 
-export function width(...args: any[]): any;
+export const width: styleFn;
 
 export interface MaxWidthProps<TLength = TLengthStyledSystem> {
     /**
@@ -337,7 +347,7 @@ export interface MaxWidthProps<TLength = TLengthStyledSystem> {
     maxWidth?: ResponsiveValue<CSS.MaxWidthProperty<TLength>>;
 }
 
-export function maxWidth(...args: any[]): any;
+export const maxWidth: styleFn;
 
 export interface MinWidthProps<TLength = TLengthStyledSystem> {
     /**
@@ -349,7 +359,7 @@ export interface MinWidthProps<TLength = TLengthStyledSystem> {
     minWidth?: ResponsiveValue<CSS.MinWidthProperty<TLength>>;
 }
 
-export function minWidth(...args: any[]): any;
+export const minWidth: styleFn;
 
 export interface HeightProps<TLength = TLengthStyledSystem> {
     /**
@@ -361,7 +371,7 @@ export interface HeightProps<TLength = TLengthStyledSystem> {
     height?: ResponsiveValue<CSS.HeightProperty<TLength>>;
 }
 
-export function height(...args: any[]): any;
+export const height: styleFn;
 
 export interface MaxHeightProps<TLength = TLengthStyledSystem> {
     /**
@@ -373,7 +383,7 @@ export interface MaxHeightProps<TLength = TLengthStyledSystem> {
     maxHeight?: ResponsiveValue<CSS.MaxHeightProperty<TLength>>;
 }
 
-export function maxHeight(...args: any[]): any;
+export const maxHeight: styleFn;
 
 export interface MinHeightProps<TLength = TLengthStyledSystem> {
     /**
@@ -385,13 +395,13 @@ export interface MinHeightProps<TLength = TLengthStyledSystem> {
     minHeight?: ResponsiveValue<CSS.MinHeightProperty<TLength>>;
 }
 
-export function minHeight(...args: any[]): any;
+export const minHeight: styleFn;
 
 export interface SizeProps<TLength = TLengthStyledSystem> {
     size?: ResponsiveValue<CSS.HeightProperty<TLength>>;
 }
 
-export function size(...args: any[]): any;
+export const size: styleFn;
 
 export interface VerticalAlignProps<TLength = TLengthStyledSystem> {
     /**
@@ -402,7 +412,7 @@ export interface VerticalAlignProps<TLength = TLengthStyledSystem> {
     verticalAlign?: ResponsiveValue<CSS.VerticalAlignProperty<TLength>>;
 }
 
-export function verticalAlign(...args: any[]): any;
+export const verticalAlign: styleFn;
 
 /**
  * Flexbox
@@ -420,7 +430,7 @@ export interface AlignItemsProps {
     alignItems?: ResponsiveValue<CSS.AlignItemsProperty>;
 }
 
-export function alignItems(...args: any[]): any;
+export const alignItems: styleFn;
 
 export interface AlignContentProps {
     /**
@@ -432,7 +442,7 @@ export interface AlignContentProps {
     alignContent?: ResponsiveValue<CSS.AlignContentProperty>;
 }
 
-export function alignContent(...args: any[]): any;
+export const alignContent: styleFn;
 
 export interface JustifyItemsProps {
     /**
@@ -444,7 +454,7 @@ export interface JustifyItemsProps {
     justifyItems?: ResponsiveValue<CSS.JustifyItemsProperty>;
 }
 
-export function justifyItems(...args: any[]): any;
+export const justifyItems: styleFn;
 
 export interface JustifyContentProps {
     /**
@@ -456,7 +466,7 @@ export interface JustifyContentProps {
     justifyContent?: ResponsiveValue<CSS.JustifyContentProperty>;
 }
 
-export function justifyContent(...args: any[]): any;
+export const justifyContent: styleFn;
 
 export interface FlexWrapProps {
     /**
@@ -468,7 +478,7 @@ export interface FlexWrapProps {
     flexWrap?: ResponsiveValue<CSS.FlexWrapProperty>;
 }
 
-export function flexWrap(...args: any[]): any;
+export const flexWrap: styleFn;
 
 export interface FlexBasisProps<TLength = TLengthStyledSystem> {
     // TODO: The FlexBasisValue currently really only exists for documentation
@@ -478,7 +488,7 @@ export interface FlexBasisProps<TLength = TLengthStyledSystem> {
     flexBasis?: ResponsiveValue<CSS.FlexBasisProperty<TLength>>;
 }
 
-export function flexBasis(...args: any[]): any;
+export const flexBasis: styleFn;
 
 export interface FlexDirectionProps {
     /**
@@ -490,7 +500,7 @@ export interface FlexDirectionProps {
     flexDirection?: ResponsiveValue<CSS.FlexDirectionProperty>;
 }
 
-export function flexDirection(...args: any[]): any;
+export const flexDirection: styleFn;
 
 export interface FlexProps<TLength = TLengthStyledSystem> {
     /**
@@ -502,7 +512,7 @@ export interface FlexProps<TLength = TLengthStyledSystem> {
     flex?: ResponsiveValue<CSS.FlexProperty<TLength>>;
 }
 
-export function flex(...args: any[]): any;
+export const flex: styleFn;
 
 export interface JustifySelfProps {
     /**
@@ -514,7 +524,7 @@ export interface JustifySelfProps {
     justifySelf?: ResponsiveValue<CSS.JustifySelfProperty>;
 }
 
-export function justifySelf(...args: any[]): any;
+export const justifySelf: styleFn;
 
 export interface AlignSelfProps {
     /**
@@ -528,7 +538,7 @@ export interface AlignSelfProps {
     alignSelf?: ResponsiveValue<CSS.AlignSelfProperty>;
 }
 
-export function alignSelf(...args: any[]): any;
+export const alignSelf: styleFn;
 
 export interface OrderProps {
     /**
@@ -540,7 +550,7 @@ export interface OrderProps {
     order?: ResponsiveValue<CSS.GlobalsNumber>;
 }
 
-export function order(...args: any[]): any;
+export const order: styleFn;
 
 /**
  * Grid Layout
@@ -558,7 +568,7 @@ export interface GridGapProps<TLength = TLengthStyledSystem> {
     gridGap?: ResponsiveValue<CSS.GridGapProperty<TLength>>;
 }
 
-export function gridGap(...args: any[]): any;
+export const gridGap: styleFn;
 
 export interface GridColumnGapProps<TLength = TLengthStyledSystem> {
     /**
@@ -571,7 +581,7 @@ export interface GridColumnGapProps<TLength = TLengthStyledSystem> {
     gridColumnGap?: ResponsiveValue<CSS.GridColumnGapProperty<TLength>>;
 }
 
-export function gridColumnGap(...args: any[]): any;
+export const gridColumnGap: styleFn;
 
 export interface GridRowGapProps<TLength = TLengthStyledSystem> {
     /**
@@ -584,7 +594,7 @@ export interface GridRowGapProps<TLength = TLengthStyledSystem> {
     gridRowGap?: ResponsiveValue<CSS.GridRowGapProperty<TLength>>;
 }
 
-export function gridRowGap(...args: any[]): any;
+export const gridRowGap: styleFn;
 
 export interface GridColumnProps {
     /**
@@ -597,7 +607,7 @@ export interface GridColumnProps {
     gridColumn?: ResponsiveValue<CSS.GridColumnProperty>;
 }
 
-export function gridColumn(...args: any[]): any;
+export const gridColumn: styleFn;
 
 export interface GridRowProps {
     /**
@@ -610,7 +620,7 @@ export interface GridRowProps {
     gridRow?: ResponsiveValue<CSS.GridRowProperty>;
 }
 
-export function gridRow(...args: any[]): any;
+export const gridRow: styleFn;
 
 export interface GridAutoFlowProps {
     /**
@@ -622,7 +632,7 @@ export interface GridAutoFlowProps {
     gridAutoFlow?: ResponsiveValue<CSS.GridAutoFlowProperty>;
 }
 
-export function gridAutoFlow(...args: any[]): any;
+export const gridAutoFlow: styleFn;
 
 export interface GridAutoColumnsProps<TLength = TLengthStyledSystem> {
     /**
@@ -633,7 +643,7 @@ export interface GridAutoColumnsProps<TLength = TLengthStyledSystem> {
     gridAutoColumns?: ResponsiveValue<CSS.GridAutoColumnsProperty<TLength>>;
 }
 
-export function gridAutoColumns(...args: any[]): any;
+export const gridAutoColumns: styleFn;
 
 export interface GridAutoRowsProps<TLength = TLengthStyledSystem> {
     /**
@@ -644,9 +654,9 @@ export interface GridAutoRowsProps<TLength = TLengthStyledSystem> {
     gridAutoRows?: ResponsiveValue<CSS.GridAutoRowsProperty<TLength>>;
 }
 
-export function gridAutoRows(...args: any[]): any;
+export const gridAutoRows: styleFn;
 
-export interface GridTemplatesColumnsProps<TLength = TLengthStyledSystem> {
+export interface GridTemplateColumnsProps<TLength = TLengthStyledSystem> {
     /**
      * The grid-template-columns CSS property defines the line names and track sizing functions of the grid columns.
      *
@@ -657,9 +667,9 @@ export interface GridTemplatesColumnsProps<TLength = TLengthStyledSystem> {
     >;
 }
 
-export function gridTemplateColumns(...args: any[]): any;
+export const gridTemplateColumns: styleFn;
 
-export interface GridTemplatesRowsProps<TLength = TLengthStyledSystem> {
+export interface GridTemplateRowsProps<TLength = TLengthStyledSystem> {
     /**
      * The grid-template-rows CSS property defines the line names and track sizing functions of the grid rows.
      *
@@ -668,7 +678,7 @@ export interface GridTemplatesRowsProps<TLength = TLengthStyledSystem> {
     gridTemplateRows?: ResponsiveValue<CSS.GridTemplateRowsProperty<TLength>>;
 }
 
-export function gridTemplateRows(...args: any[]): any;
+export const gridTemplateRows: styleFn;
 
 export interface GridTemplatesAreasProps {
     /**
@@ -679,7 +689,7 @@ export interface GridTemplatesAreasProps {
     gridTemplateAreas?: ResponsiveValue<CSS.GridTemplateAreasProperty>;
 }
 
-export function gridTemplateAreas(...args: any[]): any;
+export const gridTemplateAreas: styleFn;
 
 export interface GridAreaProps {
     /**
@@ -692,7 +702,7 @@ export interface GridAreaProps {
     gridArea?: ResponsiveValue<CSS.GridAreaProperty>;
 }
 
-export function gridArea(...args: any[]): any;
+export const gridArea: styleFn;
 
 /**
  * Borders
@@ -708,7 +718,7 @@ export interface BorderProps<TLength = TLengthStyledSystem> {
     border?: ResponsiveValue<CSS.BorderProperty<TLength>>;
 }
 
-export function border(...args: any[]): any;
+export const border: styleFn;
 
 export interface BorderWidthProps<TLength = TLengthStyledSystem> {
     /**
@@ -719,7 +729,7 @@ export interface BorderWidthProps<TLength = TLengthStyledSystem> {
     borderWidth?: ResponsiveValue<CSS.BorderWidthProperty<TLength>>;
 }
 
-export function borderWidth(...args: any[]): any;
+export const borderWidth: styleFn;
 
 export interface BorderStyleProps {
     /**
@@ -730,7 +740,7 @@ export interface BorderStyleProps {
     borderStyle?: ResponsiveValue<CSS.BorderStyleProperty>;
 }
 
-export function borderStyle(...args: any[]): any;
+export const borderStyle: styleFn;
 
 export interface BorderColorProps {
     /**
@@ -741,7 +751,7 @@ export interface BorderColorProps {
     borderColor?: ResponsiveValue<CSS.BorderColorProperty>;
 }
 
-export function borderColor(...args: any[]): any;
+export const borderColor: styleFn;
 
 export interface BorderTopProps<TLength = TLengthStyledSystem> {
     /**
@@ -753,7 +763,7 @@ export interface BorderTopProps<TLength = TLengthStyledSystem> {
     borderTop?: ResponsiveValue<CSS.BorderTopProperty<TLength>>;
 }
 
-export function borderTop(...args: any[]): any;
+export const borderTop: styleFn;
 
 export interface BorderRightProps<TLength = TLengthStyledSystem> {
     /**
@@ -765,7 +775,7 @@ export interface BorderRightProps<TLength = TLengthStyledSystem> {
     borderRight?: ResponsiveValue<CSS.BorderRightProperty<TLength>>;
 }
 
-export function borderRight(...args: any[]): any;
+export const borderRight: styleFn;
 
 export interface BorderBottomProps<TLength = TLengthStyledSystem> {
     /**
@@ -777,7 +787,7 @@ export interface BorderBottomProps<TLength = TLengthStyledSystem> {
     borderBottom?: ResponsiveValue<CSS.BorderBottomProperty<TLength>>;
 }
 
-export function borderBottom(...args: any[]): any;
+export const borderBottom: styleFn;
 
 export interface BorderLeftProps<TLength = TLengthStyledSystem> {
     /**
@@ -789,7 +799,7 @@ export interface BorderLeftProps<TLength = TLengthStyledSystem> {
     borderLeft?: ResponsiveValue<CSS.BorderLeftProperty<TLength>>;
 }
 
-export function borderLeft(...args: any[]): any;
+export const borderLeft: styleFn;
 
 export interface BorderRadiusProps<TLength = TLengthStyledSystem> {
     /**
@@ -801,7 +811,7 @@ export interface BorderRadiusProps<TLength = TLengthStyledSystem> {
     borderRadius?: ResponsiveValue<CSS.BorderRadiusProperty<TLength>>;
 }
 
-export function borderRadius(...args: any[]): any;
+export const borderRadius: styleFn;
 
 export interface BordersProps
     extends BorderProps,
@@ -814,7 +824,7 @@ export interface BordersProps
         BorderStyleProps,
         BorderRadiusProps {}
 
-export function borders(...args: any[]): any;
+export const borders: styleFn;
 
 export interface BoxShadowProps {
     /**
@@ -827,7 +837,7 @@ export interface BoxShadowProps {
     boxShadow?: ResponsiveValue<CSS.BoxShadowProperty | number>;
 }
 
-export function boxShadow(...arg: any[]): any;
+export const boxShadow: styleFn;
 
 export interface OpacityProps {
     /**
@@ -839,7 +849,7 @@ export interface OpacityProps {
     opacity?: ResponsiveValue<CSS.GlobalsNumber>;
 }
 
-export function opacity(...arg: any[]): any;
+export const opacity: styleFn;
 
 export interface OverflowProps {
     /**
@@ -851,7 +861,7 @@ export interface OverflowProps {
     overflow?: ResponsiveValue<CSS.OverflowProperty>;
 }
 
-export function overflow(...arg: any[]): any;
+export const overflow: styleFn;
 /**
  * Background
  */
@@ -866,7 +876,7 @@ export interface BackgroundProps<TLength = TLengthStyledSystem> {
     background?: ResponsiveValue<CSS.BackgroundProperty<TLength>>;
 }
 
-export function background(...args: any[]): any;
+export const background: styleFn;
 
 export interface BackgroundImageProps {
     /**
@@ -877,7 +887,7 @@ export interface BackgroundImageProps {
     backgroundImage?: ResponsiveValue<CSS.BackgroundImageProperty>;
 }
 
-export function backgroundImage(...args: any[]): any;
+export const backgroundImage: styleFn;
 
 export interface BackgroundSizeProps<TLength = TLengthStyledSystem> {
     /**
@@ -889,7 +899,7 @@ export interface BackgroundSizeProps<TLength = TLengthStyledSystem> {
     backgroundSize?: ResponsiveValue<CSS.BackgroundSizeProperty<TLength>>;
 }
 
-export function backgroundSize(...args: any[]): any;
+export const backgroundSize: styleFn;
 
 export interface BackgroundPositionProps<TLength = TLengthStyledSystem> {
     /**
@@ -903,7 +913,7 @@ export interface BackgroundPositionProps<TLength = TLengthStyledSystem> {
     >;
 }
 
-export function backgroundPosition(...args: any[]): any;
+export const backgroundPosition: styleFn;
 
 export interface BackgroundRepeatProps {
     /**
@@ -915,7 +925,7 @@ export interface BackgroundRepeatProps {
     backgroundRepeat?: ResponsiveValue<CSS.BackgroundRepeatProperty>;
 }
 
-export function backgroundRepeat(...args: any[]): any;
+export const backgroundRepeat: styleFn;
 
 /**
  * Position
@@ -931,7 +941,7 @@ export interface PositionProps {
     position?: ResponsiveValue<CSS.PositionProperty>;
 }
 
-export function position(...args: any[]): any;
+export const position: styleFn;
 
 export interface ZIndexProps {
     /**
@@ -943,7 +953,7 @@ export interface ZIndexProps {
     zIndex?: ResponsiveValue<CSS.ZIndexProperty>;
 }
 
-export function zIndex(...args: any[]): any;
+export const zIndex: styleFn;
 
 export interface TopProps<TLength = TLengthStyledSystem> {
     /**
@@ -955,7 +965,7 @@ export interface TopProps<TLength = TLengthStyledSystem> {
     top?: ResponsiveValue<CSS.TopProperty<TLength>>;
 }
 
-export function top(...args: any[]): any;
+export const top: styleFn;
 
 export interface RightProps<TLength = TLengthStyledSystem> {
     /**
@@ -967,7 +977,7 @@ export interface RightProps<TLength = TLengthStyledSystem> {
     right?: ResponsiveValue<CSS.RightProperty<TLength>>;
 }
 
-export function right(...args: any[]): any;
+export const right: styleFn;
 
 export interface BottomProps<TLength = TLengthStyledSystem> {
     /**
@@ -979,7 +989,7 @@ export interface BottomProps<TLength = TLengthStyledSystem> {
     bottom?: ResponsiveValue<CSS.BottomProperty<TLength>>;
 }
 
-export function bottom(...args: any[]): any;
+export const bottom: styleFn;
 
 export interface LeftProps<TLength = TLengthStyledSystem> {
     /**
@@ -991,25 +1001,25 @@ export interface LeftProps<TLength = TLengthStyledSystem> {
     left?: ResponsiveValue<CSS.LeftProperty<TLength>>;
 }
 
-export function left(...args: any[]): any;
+export const left: styleFn;
 
 export interface ButtonStyleProps {
     variant?: ResponsiveValue<string>;
 }
 
-export function buttonStyle(...args: any[]): any;
+export const buttonStyle: styleFn;
 
 export interface TextStyleProps {
     textStyle?: ResponsiveValue<string>;
 }
 
-export function textStyle(...args: any[]): any;
+export const textStyle: styleFn;
 
 export interface ColorStyleProps {
     colors?: ResponsiveValue<string>;
 }
 
-export function colorStyle(...args: any[]): any;
+export const colorStyle: styleFn;
 
 export interface StylesProps {
     space: typeof space;

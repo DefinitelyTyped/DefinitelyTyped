@@ -104,6 +104,34 @@ QUnit.module( "grouped tests argument hooks", function( hooks ) {
   } );
 } );
 
+QUnit.module.only( "exclusive module" , function( hooks ) {
+  hooks.beforeEach( function( assert ) {
+    assert.ok( true, "beforeEach called" );
+  } );
+
+  hooks.afterEach( function( assert ) {
+    assert.ok( true, "afterEach called" );
+  } );
+
+  QUnit.test( "call hooks", function( assert ) {
+    assert.expect( 2 );
+  } );
+
+  QUnit.module.only( "nested exclusive module", {
+    // This will run after the parent module's beforeEach hook
+    beforeEach: assert  => {
+      assert.ok( true, "nested beforeEach called" );
+    },
+    // This will run before the parent module's afterEach
+    afterEach: assert => {
+      assert.ok( true, "nested afterEach called" );
+    }
+  } );
+
+  QUnit.test( "call nested hooks", function( assert ) {
+    assert.expect( 4 );
+  } );
+});
 
 QUnit.test( "`ok` assertion defined in the callback parameter", function( assert ) {
  assert.ok( true, "on the object passed to the `test` function" );
