@@ -40,7 +40,7 @@ interface SassOptions {
     sourceMapContents?: boolean;
 }
 
-interface Options extends SassOptions {
+interface GulpSassOptions extends SassOptions {
     errLogToConsole?: boolean;
     onSuccess?: (css: string) => any;
     onError?: (err: Error) => any;
@@ -48,9 +48,9 @@ interface Options extends SassOptions {
 }
 
 interface Sass {
-    (opts?: Options): NodeJS.ReadWriteStream;
+    (opts?: GulpSassOptions): NodeJS.ReadWriteStream;
     logError(error?: string): void;
-    sync(options?: Options): NodeJS.ReadWriteStream;
+    sync(options?: GulpSassOptions): NodeJS.ReadWriteStream;
 }
 
 declare var _tmp: Sass;
