@@ -369,16 +369,14 @@ export class Ref {
 // tslint:disable-next-line:no-empty-interface
 export interface Lazy extends Schema<any> {}
 
-// tslint:disable-next-line:strict-export-declare-modifiers
-interface FormatErrorParams {
+export interface FormatErrorParams {
   path: string;
   type: string;
   value?: any;
   originalValue?: any;
 }
 
-// tslint:disable-next-line:strict-export-declare-modifiers
-type LocaleValue =
+export type LocaleValue =
     | string
     | ((params: FormatErrorParams) => string);
 
