@@ -25,16 +25,16 @@ declare module "../index" {
     }
 
     type ConformsPredicateObject<T> = {
-        [P in keyof T]?: (val: T[P]) => boolean;
+        [P in keyof T]: T[P] extends (arg: infer A) => any ? A : any
     };
     interface Stat {
         conforms<T>(source: ConformsPredicateObject<T>): (value: T) => boolean;
     }
     interface Imp<TValue> {
-        conforms<T>(this: Imp<ConformsPredicateObject<T>>): Imp<(value: T) => boolean>;
+        conforms(): Imp<(value: ConformsPredicateObject<TValue>) => boolean>;
     }
     interface Exp<TValue> {
-        conforms<T>(this: Exp<ConformsPredicateObject<T>>): Exp<(value: T) => boolean>;
+        conforms(): Exp<(value: ConformsPredicateObject<TValue>) => boolean>;
     }
 
     interface Stat {

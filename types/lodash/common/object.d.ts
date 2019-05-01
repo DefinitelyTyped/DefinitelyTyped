@@ -595,7 +595,7 @@ declare module "../index" {
         pickBy(predicate?: ValueKeyIteratee<T>): Imp<Dictionary<T>>;
     }
     interface ImpO<T> {
-        pickBy<S extends keyof T>(predicate: ValueKeyIterateeTypeGuard<keyof T, S>): ImpO<Dictionary<S>>;
+        pickBy<S extends T[keyof T]>(predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>): ImpO<T extends NumericDictionary<unknown> ? NumericDictionary<S> : Dictionary<S>>;
         pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): ImpO<PartialObject<T>>;
     }
     interface ExpL<T> {

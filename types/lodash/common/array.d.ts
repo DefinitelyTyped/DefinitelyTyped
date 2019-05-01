@@ -202,12 +202,10 @@ declare module "../index" {
         fromPairs(pairs: List<any[]> | null | undefined): Dictionary<any>;
     }
     interface ImpL<T> {
-        fromPairs(this: ImpL<[PropertyName, T]>): Imp<Dictionary<T>>;
-        fromPairs(): Imp<Dictionary<any>>;
+        fromPairs(): Imp<Dictionary<T extends [PropertyName, infer U] ? U : any>>;
     }
     interface ExpL<T> {
-        fromPairs<T>(this: ExpL<[PropertyName, T]>): Exp<Dictionary<T>>;
-        fromPairs(): Exp<Dictionary<any>>;
+        fromPairs(): Exp<Dictionary<T extends [PropertyName, infer U] ? U : any>>;
     }
     interface Stat {
         head<T>(array: List<T> | null | undefined): T | undefined;
