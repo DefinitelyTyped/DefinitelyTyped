@@ -284,11 +284,13 @@ export let version: string;
 export let types: SocketTypes;
 export let options: SocketOptions;
 
+type SocketType = keyof SocketTypes;
+
 /**
  * Creates a ZeroMQ socket of the specified type.
  * @return The created socket in an unconnected state.
  */
-export function socket(type: keyof SocketTypes | number, options?: any): Socket;
+export function socket(type: SocketType | number, options?: any): Socket;
 
 /**
  * Creates a ZeroMQ socket of the specified type.
