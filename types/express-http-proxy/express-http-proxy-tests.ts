@@ -12,6 +12,14 @@ proxy('www.google.com', {
 });
 
 proxy('www.google.com', {
+    limit: "10mb"
+});
+
+proxy('www.google.com', {
+    limit: 1024
+});
+
+proxy('www.google.com', {
     proxyReqOptDecorator(proxyReqOpts, srcReq) {
         console.log(proxyReqOpts.headers, proxyReqOpts.method);
         console.log(srcReq.url, srcReq.cookies);
