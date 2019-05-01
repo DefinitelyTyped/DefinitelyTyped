@@ -7,7 +7,7 @@
 
 /// <reference types="node"/>
 
-import { Importer } from 'node-sass';
+import { Options } from 'node-sass';
 
 interface SassResults {
     css: string;
@@ -21,23 +21,10 @@ interface SassResults {
     }
 }
 
-interface SassOptions {
-    file?: string;
-    data?: string;
+interface SassOptions extends Options {
     success?: (results: SassResults) => any;
     error?: (err: Error) => any;
-    importer?: Importer | Importer[];
-    includePaths?: string[];
     imagePaths?: string[];
-    indentedSyntax?: boolean;
-    omitSourceMapUrl?: boolean;
-    outFile?: string;
-    outputStyle?: string;
-    precision?: number;
-    sourceComments?: boolean;
-    sourceMap?: boolean | string;
-    sourceMapEmbed?: boolean;
-    sourceMapContents?: boolean;
 }
 
 interface GulpSassOptions extends SassOptions {
