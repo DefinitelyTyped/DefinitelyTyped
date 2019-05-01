@@ -7,7 +7,7 @@ declare module "../index" {
         camelCase(): string;
     }
     interface Exp<TValue> {
-        camelCase(): Exp<string>;
+        camelCase(): ExpS;
     }
 
     interface Stat {
@@ -17,7 +17,7 @@ declare module "../index" {
         capitalize(): string;
     }
     interface Exp<TValue> {
-        capitalize(): Exp<string>;
+        capitalize(): ExpS;
     }
 
     interface Stat {
@@ -27,7 +27,7 @@ declare module "../index" {
         deburr(): string;
     }
     interface Exp<TValue> {
-        deburr(): Exp<string>;
+        deburr(): ExpS;
     }
 
     interface Stat {
@@ -47,7 +47,7 @@ declare module "../index" {
         escape(): string;
     }
     interface Exp<TValue> {
-        escape(): Exp<string>;
+        escape(): ExpS;
     }
 
     interface Stat {
@@ -57,7 +57,7 @@ declare module "../index" {
         escapeRegExp(): string;
     }
     interface Exp<TValue> {
-        escapeRegExp(): Exp<string>;
+        escapeRegExp(): ExpS;
     }
 
     interface Stat {
@@ -67,7 +67,7 @@ declare module "../index" {
         kebabCase(): string;
     }
     interface Exp<TValue> {
-        kebabCase(): Exp<string>;
+        kebabCase(): ExpS;
     }
 
     interface Stat {
@@ -77,7 +77,7 @@ declare module "../index" {
         lowerCase(): string;
     }
     interface Exp<TValue> {
-        lowerCase(): Exp<string>;
+        lowerCase(): ExpS;
     }
 
     interface Stat {
@@ -87,7 +87,7 @@ declare module "../index" {
         lowerFirst(): string;
     }
     interface Exp<TValue> {
-        lowerFirst(): Exp<string>;
+        lowerFirst(): ExpS;
     }
 
     interface Stat {
@@ -97,7 +97,7 @@ declare module "../index" {
         pad(length?: number, chars?: string): string;
     }
     interface Exp<TValue> {
-        pad(length?: number, chars?: string): Exp<string>;
+        pad(length?: number, chars?: string): ExpS;
     }
 
     interface Stat {
@@ -107,7 +107,7 @@ declare module "../index" {
         padEnd(length?: number, chars?: string): string;
     }
     interface Exp<TValue> {
-        padEnd(length?: number, chars?: string): Exp<string>;
+        padEnd(length?: number, chars?: string): ExpS;
     }
 
     interface Stat {
@@ -117,7 +117,7 @@ declare module "../index" {
         padStart(length?: number, chars?: string): string;
     }
     interface Exp<TValue> {
-        padStart(length?: number, chars?: string): Exp<string>;
+        padStart(length?: number, chars?: string): ExpS;
     }
 
     interface Stat {
@@ -137,7 +137,7 @@ declare module "../index" {
         repeat(n?: number): string;
     }
     interface Exp<TValue> {
-        repeat(n?: number): Exp<string>;
+        repeat(n?: number): ExpS;
     }
     type ReplaceFunction = (match: string, ...args: any[]) => string;
 
@@ -150,8 +150,8 @@ declare module "../index" {
         replace(replacement: ReplaceFunction | string): string;
     }
     interface Exp<TValue> {
-        replace(pattern: RegExp | string, replacement: ReplaceFunction | string): Exp<string>;
-        replace(replacement: ReplaceFunction | string): Exp<string>;
+        replace(pattern: RegExp | string, replacement: ReplaceFunction | string): ExpS;
+        replace(replacement: ReplaceFunction | string): ExpS;
     }
 
     interface Stat {
@@ -161,7 +161,7 @@ declare module "../index" {
         snakeCase(): string;
     }
     interface Exp<TValue> {
-        snakeCase(): Exp<string>;
+        snakeCase(): ExpS;
     }
 
     interface Stat {
@@ -169,10 +169,10 @@ declare module "../index" {
         split(string: string, index: string | number, guard: object): string[];
     }
     interface Imp<TValue> {
-        split(separator?: RegExp | string, limit?: number): Imp<string[]>;
+        split(separator?: RegExp | string, limit?: number): ImpL<string>;
     }
     interface Exp<TValue> {
-        split(separator?: RegExp | string, limit?: number): Exp<string[]>;
+        split(separator?: RegExp | string, limit?: number): ExpL<string>;
     }
 
     interface Stat {
@@ -182,7 +182,7 @@ declare module "../index" {
         startCase(): string;
     }
     interface Exp<TValue> {
-        startCase(): Exp<string>;
+        startCase(): ExpS;
     }
 
     interface Stat {
@@ -219,7 +219,7 @@ declare module "../index" {
         toLower(): string;
     }
     interface Exp<TValue> {
-        toLower(): Exp<string>;
+        toLower(): ExpS;
     }
 
     interface Stat {
@@ -229,7 +229,7 @@ declare module "../index" {
         toUpper(): string;
     }
     interface Exp<TValue> {
-        toUpper(): Exp<string>;
+        toUpper(): ExpS;
     }
 
     interface Stat {
@@ -240,7 +240,7 @@ declare module "../index" {
         trim(chars?: string): string;
     }
     interface Exp<TValue> {
-        trim(chars?: string): Exp<string>;
+        trim(chars?: string): ExpS;
     }
 
     interface Stat {
@@ -251,7 +251,7 @@ declare module "../index" {
         trimEnd(chars?: string): string;
     }
     interface Exp<TValue> {
-        trimEnd(chars?: string): Exp<string>;
+        trimEnd(chars?: string): ExpS;
     }
 
     interface Stat {
@@ -262,7 +262,7 @@ declare module "../index" {
         trimStart(chars?: string): string;
     }
     interface Exp<TValue> {
-        trimStart(chars?: string): Exp<string>;
+        trimStart(chars?: string): ExpS;
     }
 
     interface TruncateOptions {
@@ -277,7 +277,7 @@ declare module "../index" {
         truncate(options?: TruncateOptions): string;
     }
     interface Exp<TValue> {
-        truncate(options?: TruncateOptions): Exp<string>;
+        truncate(options?: TruncateOptions): ExpS;
     }
 
     interface Stat {
@@ -287,7 +287,7 @@ declare module "../index" {
         unescape(): string;
     }
     interface Exp<TValue> {
-        unescape(): Exp<string>;
+        unescape(): ExpS;
     }
 
     interface Stat {
@@ -297,7 +297,7 @@ declare module "../index" {
         upperCase(): string;
     }
     interface Exp<TValue> {
-        upperCase(): Exp<string>;
+        upperCase(): ExpS;
     }
 
     interface Stat {
@@ -307,7 +307,7 @@ declare module "../index" {
         upperFirst(): string;
     }
     interface Exp<TValue> {
-        upperFirst(): Exp<string>;
+        upperFirst(): ExpS;
     }
 
     interface Stat {
@@ -318,6 +318,6 @@ declare module "../index" {
         words(pattern?: string | RegExp): string[];
     }
     interface Exp<TValue> {
-        words(pattern?: string | RegExp): Exp<string[]>;
+        words(pattern?: string | RegExp): ExpL<string>;
     }
 }

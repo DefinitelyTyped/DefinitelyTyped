@@ -6046,7 +6046,7 @@ fp.now(); // $ExpectType number
     });
     // $ExpectType Imp<number>
     _([true]).thru((value) => {
-        value; // $ExpectType boolean[]
+        value; // $ExpectType ArrayLike<boolean>
         return 1;
     });
     // $ExpectType Imp<number>
@@ -6062,7 +6062,7 @@ fp.now(); // $ExpectType number
     });
     // $ExpectType Exp<number>
     _.chain([true]).thru((value) => {
-        value; // $ExpectType boolean[]
+        value; // $ExpectType ArrayLike<boolean>
         return 1;
     });
     // $ExpectType Exp<number>
@@ -6078,10 +6078,10 @@ fp.now(); // $ExpectType number
 
 // _.prototype.commit
 {
-    _(42).commit(); // $ExpectType Imp<number>
-    _({ a: 42 }).commit(); // $ExpectType Imp<{ a: number; }>
-    _.chain(42).commit(); // $ExpectType Exp<number>
-    _.chain({ a: 42 }).commit(); // $ExpectType Exp<{ a: number; }>
+    _(42).commit(); // $ExpectType ImpU<number>
+    _({ a: 42 }).commit(); // $ExpectType ImpO<{ a: number; }>
+    _.chain(42).commit(); // $ExpectType ExpU<number>
+    _.chain({ a: 42 }).commit(); // $ExpectType ExpO<{ a: number; }>
 }
 
 // _.prototype.concat
@@ -6123,15 +6123,15 @@ fp.now(); // $ExpectType number
 
 // _.prototype.plant
 {
-    _(anything).plant(""); // $ExpectType ImpS
-    _(anything).plant(42); // $ExpectType Imp<number>
-    _(anything).plant([""]); // $ExpectType ImpL<string>
-    _(anything).plant({ a: 42 }); // $ExpectType Imp<{ a: number; }>
+    _(anything).plant(""); // $ExpectType ImpL<any>
+    _(anything).plant(42); // $ExpectType ImpL<any>
+    _(anything).plant([""]); // $ExpectType ImpL<any>
+    _(anything).plant({ a: 42 }); // $ExpectType ImpL<any>
 
-    _.chain(anything).plant(""); // $ExpectType ExpS
-    _.chain(anything).plant(42); // $ExpectType Exp<number>
-    _.chain(anything).plant([""]); // $ExpectType ExpL<string>
-    _.chain(anything).plant({ a: 42 }); // $ExpectType Exp<{ a: number; }>
+    _.chain(anything).plant(""); // $ExpectType ExpL<any>
+    _.chain(anything).plant(42); // $ExpectType ExpL<any>
+    _.chain(anything).plant([""]); // $ExpectType ExpL<any>
+    _.chain(anything).plant({ a: 42 }); // $ExpectType ExpL<any>
 }
 
 // _.prototype.reverse
@@ -6158,13 +6158,13 @@ fp.now(); // $ExpectType number
 // _.prototype.toJSON
 {
     _("").value(); // $ExpectType string
-    _([true]).value(); // $ExpectType boolean[]
+    _([true]).value(); // $ExpectType ArrayLike<boolean>
     _({ a: 42 }).value(); // $ExpectType { a: number; }
     _({ a: 42 }).valueOf(); // $ExpectType { a: number; }
     _({ a: 42 }).toJSON(); // $ExpectType { a: number; }
 
     _.chain("").value(); // $ExpectType string
-    _.chain([true]).value(); // $ExpectType boolean[]
+    _.chain([true]).value(); // $ExpectType ArrayLike<boolean>
     _.chain({ a: 42 }).value(); // $ExpectType { a: number; }
     _.chain({ a: 42 }).valueOf(); // $ExpectType { a: number; }
     _.chain({ a: 42 }).toJSON(); // $ExpectType { a: number; }
@@ -6584,12 +6584,12 @@ fp.now(); // $ExpectType number
 
     _(42).constant(); // $ExpectType Imp<() => number>
     _("a").constant(); // $ExpectType Imp<() => string>
-    _([true]).constant(); // $ExpectType ImpL<() => boolean>
+    _([true]).constant(); // $ExpectType Imp<() => ArrayLike<boolean>>
     _({ a: "" }).constant(); // $ExpectType Imp<() => { a: string; }>
 
     _.chain(42).constant(); // $ExpectType Exp<() => number>
     _.chain("a").constant(); // $ExpectType Exp<() => string>
-    _.chain([true]).constant(); // $ExpectType ExpL<() => boolean>
+    _.chain([true]).constant(); // $ExpectType Exp<() => ArrayLike<boolean>>
     _.chain({ a: "" }).constant(); // $ExpectType Exp<() => { a: string; }>
 
     fp.constant(42); // $ExpectType () => number
@@ -6617,11 +6617,11 @@ fp.now(); // $ExpectType number
     _(undefined).defaultTo({ a: "" }); // $ExpectType { a: string; }
 
     _.chain(42).defaultTo(42); // $ExpectType Exp<number>
-    const z1: _.Exp<number | string> = _.chain(undefined).defaultTo(42);
-    const z2: _.Exp<number | string> = _.chain(null).defaultTo(42);
+    const z1: _.Exp<number> = _.chain(undefined).defaultTo(42);
+    const z2: _.Exp<number> = _.chain(null).defaultTo(42);
     _.chain(NaN).defaultTo(42); // $ExpectType Exp<number>
     const z3: _.Exp<string> =  _.chain(undefined).defaultTo("default");
-    _.chain(undefined).defaultTo([true]); // $ExpectType ExpL<boolean>
+    _.chain(undefined).defaultTo([true]); // $ExpectType Exp<boolean[]>
     _.chain(undefined).defaultTo({ a: "" }); // $ExpectType Exp<{ a: string; }>
 
     const n: number = anything;
@@ -6641,11 +6641,11 @@ fp.now(); // $ExpectType number
     _.identity([""]); // $ExpectType string[]
     _.identity({ a: true }); // $ExpectType { a: boolean; }
     _(42).identity(); // $ExpectType number
-    _([""]).identity(); // $ExpectType string[]
+    _([""]).identity(); // $ExpectType ArrayLike<string>
     _({ a: true }).identity(); // $ExpectType { a: boolean; }
-    _.chain(42).identity(); // $ExpectType Exp<number>
+    _.chain(42).identity(); // $ExpectType ExpU<number>
     _.chain([""]).identity(); // $ExpectType ExpL<string>
-    _.chain({ a: true }).identity(); // $ExpectType Exp<{ a: boolean; }>
+    _.chain({ a: true }).identity(); // $ExpectType ExpO<{ a: boolean; }>
     fp.identity(42); // $ExpectType 42
     fp.identity([""]); // $ExpectType string[]
     fp.identity({ a: true }); // $ExpectType { a: boolean; }
@@ -6659,15 +6659,15 @@ fp.now(); // $ExpectType number
     _.iteratee({ a: 42 }); // $ExpectType (...args: any[]) => any
     _.iteratee(["a", 42]); // $ExpectType (...args: any[]) => any
 
-    _((a: AbcObject): boolean => anything).iteratee(); // $ExpectType Imp<(a: AbcObject) => boolean>
-    _("a").iteratee(); // $ExpectType Imp<(...args: any[]) => any>
-    _({ a: 42 }).iteratee(); // $ExpectType Imp<(...args: any[]) => any>
-    _(["a", 42]).iteratee(); // $ExpectType Imp<(...args: any[]) => any>
+    _((a: AbcObject): boolean => anything).iteratee(); // $ExpectType ImpF<(a: AbcObject) => boolean>
+    _("a").iteratee(); // $ExpectType ImpF<(o: object) => boolean>
+    _({ a: 42 }).iteratee(); // $ExpectType ImpF<(o: { a: number; }) => boolean>
+    _(["a", 42]).iteratee(); // $ExpectType ImpF<(o: object) => boolean>
 
-    _.chain((a: AbcObject): boolean => anything).iteratee(); // $ExpectType Exp<(a: AbcObject) => boolean>
-    _.chain("a").iteratee(); // $ExpectType Exp<(...args: any[]) => any>
-    _.chain({ a: 42 }).iteratee(); // $ExpectType Exp<(...args: any[]) => any>
-    _.chain(["a", 42]).iteratee(); // $ExpectType Exp<(...args: any[]) => any>
+    _.chain((a: AbcObject): boolean => anything).iteratee(); // $ExpectType ExpF<(a: AbcObject) => boolean>
+    _.chain("a").iteratee(); // $ExpectType ExpF<(o: object) => boolean>
+    _.chain({ a: 42 }).iteratee(); // $ExpectType ExpF<(o: { a: number; }) => boolean>
+    _.chain(["a", 42]).iteratee(); // $ExpectType ExpF<(o: object) => boolean>
 
     fp.iteratee((a: AbcObject): boolean => anything); // $ExpectType (a: AbcObject) => boolean
     fp.iteratee((...args: any[]): AbcObject => anything); // $ExpectType (...args: any[]) => AbcObject
@@ -6738,27 +6738,27 @@ fp.now(); // $ExpectType number
     const dest: AbcObject = anything;
     const options: {chain?: boolean} = {};
 
-    _.mixin(source); // $ExpectType LoDashStatic
-    _.mixin(source, options); // $ExpectType LoDashStatic
+    _.mixin(source); // $ExpectType Stat
+    _.mixin(source, options); // $ExpectType Stat
     _.mixin(dest, source); // $ExpectType AbcObject
     _.mixin(dest, source, options); // $ExpectType AbcObject
 
-    _(source).mixin(); // $ExpectType Imp<LoDashStatic>
-    _(source).mixin(options); // $ExpectType Imp<LoDashStatic>
-    _(dest).mixin(source); // $ExpectType Imp<AbcObject>
-    _(dest).mixin(source, options); // $ExpectType Imp<AbcObject>
+    _(source).mixin(); // $ExpectType Imp<Stat>
+    _(source).mixin(options); // $ExpectType Imp<Stat>
+    _(dest).mixin(source); // $ExpectType ImpO<AbcObject>
+    _(dest).mixin(source, options); // $ExpectType ImpO<AbcObject>
 
-    _.chain(source).mixin(); // $ExpectType Exp<LoDashStatic>
-    _.chain(source).mixin(options); // $ExpectType Exp<LoDashStatic>
-    _.chain(dest).mixin(source); // $ExpectType Exp<AbcObject>
-    _.chain(dest).mixin(source, options); // $ExpectType Exp<AbcObject>
+    _.chain(source).mixin(); // $ExpectType Exp<Stat>
+    _.chain(source).mixin(options); // $ExpectType Exp<Stat>
+    _.chain(dest).mixin(source); // $ExpectType ExpO<AbcObject>
+    _.chain(dest).mixin(source, options); // $ExpectType ExpO<AbcObject>
 }
 
 // _.noConflict
 {
-    _.noConflict(); // $ExpectType LoDashStatic
-    _(42).noConflict(); // $ExpectType LoDashStatic
-    _.chain(42).noConflict(); // $ExpectType Exp<LoDashStatic>
+    _.noConflict(); // $ExpectType Stat
+    _(42).noConflict(); // $ExpectType Stat
+    _.chain(42).noConflict(); // $ExpectType Exp<Stat>
     fp.noConflict(); // $ExpectType LoDashFp
 }
 
@@ -6790,15 +6790,15 @@ fp.now(); // $ExpectType number
     _.over([Math.max]); // $ExpectType (...args: any[]) => number[]
     _.over([Math.max], [Math.min]); // $ExpectType (...args: any[]) => number[]
 
-    _(Math.max).over<number>(); // $ExpectType ImpL<(...args: any[]) => number>
-    _(Math.max).over<number>(Math.min); // $ExpectType ImpL<(...args: any[]) => number>
-    _([Math.max]).over<number>(); // $ExpectType ImpL<(...args: any[]) => number>
-    _([Math.max]).over<number>([Math.min]); // $ExpectType ImpL<(...args: any[]) => number>
+    _(Math.max).over<number>(); // $ExpectType ImpF<(...args: any[]) => number[]>
+    _(Math.max).over<number>(Math.min); // $ExpectType ImpF<(...args: any[]) => number[]>
+    _([Math.max]).over<number>(); // $ExpectType ImpF<(...args: any[]) => number[]>
+    _([Math.max]).over<number>([Math.min]); // $ExpectType ImpF<(...args: any[]) => number[]>
 
-    _.chain(Math.max).over<number>(); // $ExpectType ExpL<(...args: any[]) => number>
-    _.chain(Math.max).over<number>(Math.min); // $ExpectType ExpL<(...args: any[]) => number>
-    _.chain([Math.max]).over<number>(); // $ExpectType ExpL<(...args: any[]) => number>
-    _.chain([Math.max]).over<number>([Math.min]); // $ExpectType ExpL<(...args: any[]) => number>
+    _.chain(Math.max).over<number>(); // $ExpectType ExpF<(...args: any[]) => number[]>
+    _.chain(Math.max).over<number>(Math.min); // $ExpectType ExpF<(...args: any[]) => number[]>
+    _.chain([Math.max]).over<number>(); // $ExpectType ExpF<(...args: any[]) => number[]>
+    _.chain([Math.max]).over<number>([Math.min]); // $ExpectType ExpF<(...args: any[]) => number[]>
 
     fp.over(Math.max); // $ExpectType (...args: any[]) => number[]
     fp.over([Math.max, Math.min]); // $ExpectType (...args: any[]) => number[]
@@ -6903,10 +6903,10 @@ fp.now(); // $ExpectType number
 
 // _.runInContext
 {
-    _.runInContext(); // $ExpectType LoDashStatic
-    _.runInContext({}); // $ExpectType LoDashStatic
-    _({}).runInContext(); // $ExpectType LoDashStatic
-    fp.runInContext({}); // $ExpectType LoDashStatic
+    _.runInContext(); // $ExpectType Stat
+    _.runInContext({}); // $ExpectType Stat
+    _({}).runInContext(); // $ExpectType Stat
+    fp.runInContext({}); // $ExpectType Stat
 }
 
 // _.stubArray

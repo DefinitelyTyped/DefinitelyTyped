@@ -6,8 +6,9 @@ declare module "../index" {
     type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | ReadonlyArray<T>;
     interface Stat {
-        (value: string | null | undefined): ImpS;
         <TrapAny extends { __trapAny: any }>(value: TrapAny): ImpL<any>;
+        <T extends null | undefined>(value: T): ImpU<T>;
+        (value: string | null | undefined): ImpS;
         <T extends (...args: any) => any>(value: T): ImpF<T>;
         <T = any>(value: List<T> | null | undefined): ImpL<T>;
         <T extends object>(value: T | null | undefined): ImpO<T>;
@@ -54,7 +55,7 @@ declare module "../index" {
     }
     interface ImpO<T> extends Imp<T> {
     }
-    interface ImpL<T> extends Imp<T> {
+    interface ImpL<T> extends Imp<List<T>> {
     }
     interface ImpU<T> extends Imp<T> {
     }
@@ -64,7 +65,7 @@ declare module "../index" {
     }
     interface ExpO<T> extends Exp<T> {
     }
-    interface ExpL<T> extends Exp<T> {
+    interface ExpL<T> extends Exp<List<T>> {
     }
     interface ExpU<T> extends Exp<T> {
     }

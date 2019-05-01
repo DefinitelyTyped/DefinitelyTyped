@@ -2,8 +2,9 @@ import _ = require("../index");
 declare module "../index" {
     // chain
     interface Stat {
-        chain(value: string | null | undefined): ExpS;
         chain<TrapAny extends { __lodashAnyHack: any }>(value: TrapAny): ExpL<any>;
+        chain<T extends null | undefined>(value: T): ExpU<T>;
+        chain(value: string | null | undefined): ExpS;
         chain<T extends (...args: any[]) => any>(value: T): ExpF<T>;
         chain<T = any>(value: List<T> | null | undefined): ExpL<T>;
         chain<T extends object>(value: T | null | undefined): ExpO<T>;
@@ -36,10 +37,10 @@ declare module "../index" {
     }
     // prototype.plant
     interface Imp<TValue> {
-        plant<T>(value: T): Imp<T>;
+        plant(value: unknown): this;
     }
     interface Exp<TValue> {
-        plant<T>(value: T): Exp<T>;
+        plant(value: unknown): this;
     }
     // prototype.reverse
     interface Imp<TValue> {
@@ -67,42 +68,21 @@ declare module "../index" {
         value(): TValue;
     }
     // prototype.valueOf
-    interface LoDashWrapper<TValue> {
+    interface Imp<TValue> {
+        valueOf(): TValue;
+    }
+    interface Exp<TValue> {
         valueOf(): TValue;
     }
     // tap
     interface Stat {
         tap<T>(value: T, interceptor: (value: T) => void): T;
     }
-    interface ImpF<T> {
-        tap(interceptor: (value: T) => void): this;
+    interface Imp<TValue> {
+        tap(interceptor: (value: TValue) => void): this;
     }
-    interface ImpS {
-        tap(interceptor: (value: string) => void): this;
-    }
-    interface ImpO<T> {
-        tap(interceptor: (value: T) => void): this;
-    }
-    interface ImpL<T> {
-        tap(interceptor: (value: List<T>) => void): this;
-    }
-    interface ImpU<T> {
-        tap(interceptor: (value: T) => void): this;
-    }
-    interface ExpF<T> {
-        tap(interceptor: (value: T) => void): this;
-    }
-    interface ExpS {
-        tap(interceptor: (value: string) => void): this;
-    }
-    interface ExpO<T> {
-        tap(interceptor: (value: T) => void): this;
-    }
-    interface ExpL<T> {
-        tap(interceptor: (value: List<T>) => void): this;
-    }
-    interface ExpU<T> {
-        tap(interceptor: (value: T) => void): this;
+    interface Exp<TValue> {
+        tap(interceptor: (value: TValue) => void): this;
     }
     // thru
     interface Stat {
