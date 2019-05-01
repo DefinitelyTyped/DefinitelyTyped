@@ -1,4 +1,4 @@
-// Type definitions for react-mentions 2.4
+// Type definitions for react-mentions 3.0
 // Project: https://github.com/signavio/react-mentions
 // Definitions by: Scott Willeke <https://github.com/activescott>
 //                 Eugene Fedorenko <https://github.com/efedorenko>
@@ -29,9 +29,7 @@ export interface MentionsInputProps {
      * If set to `true` spaces will not interrupt matching suggestions
      */
     allowSpaceInQuery?: boolean;
-    markup?: string;
     value?: string;
-    displayTransform?: DisplayTransformFunc;
     onChange?: OnChangeHandlerFunc;
     placeholder?: string;
     onBlur?: (event: React.FocusEvent<HTMLInputElement> | React.FocusEvent<HTMLTextAreaElement>, clickedSuggestion: boolean) => void;
@@ -40,7 +38,6 @@ export interface MentionsInputProps {
     children: React.ReactElement<MentionProps> | Array<React.ReactElement<MentionProps>>;
     className?: string;
     style?: any;
-    regex?: RegExp;
     suggestionsPortalHost?: Element;
     inputRef?: React.RefObject<HTMLTextAreaElement> | React.RefObject<HTMLInputElement>;
 }
@@ -73,15 +70,17 @@ export interface MentionsInputClass extends React.ComponentClass<MentionsInputPr
  * Props definition for a mention subelement.
  */
 export interface MentionProps {
-    type?: string;
     onAdd?: (id: string | number, display: string) => void;
     renderSuggestion?: (suggestion: SuggestionDataItem, search: string, highlightedDisplay: React.ReactNode, index: number, focused: boolean) => React.ReactNode;
     className?: string;
+    markup?: string;
+    displayTransform?: DisplayTransformFunc;
     trigger: string | RegExp;
     isLoading?: boolean;
     data: SuggestionDataItem[] | DataFunc;
     style?: any;
     appendSpaceOnAdd?: boolean;
+    regex?: RegExp;
 }
 
 /**
@@ -104,7 +103,7 @@ export interface SuggestionDataItem {
 /**
  * Defines the function signature for implementing @see MentionsInputProps.displayTransform
  */
-export type DisplayTransformFunc = (id: string, display: string, type: string) => string;
+export type DisplayTransformFunc = (id: string, display: string) => string;
 
 /**
  * Defines the function signature for implementing @see MentionsInputProps.onChange
