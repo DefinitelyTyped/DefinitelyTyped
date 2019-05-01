@@ -21,70 +21,8 @@ declare namespace OfficeRuntime {
     function displayWebDialog(url: string, options?: DisplayWebDialogOptions): Promise<Dialog>;
     /**
      * Asynchronous, global, and persistent key-value storage.
-     * AsyncStorage will be deprecated in the future, please use Office.Storage instead.
-     */
-    const AsyncStorage: AsyncStorage;
-    /**
-     * Asynchronous, global, and persistent key-value storage.
      */
     const storage: Storage;
-
-    /**
-     * Asynchronous, global, and persistent key-value storage.
-     * Storage limit is 10 MB per domain, which may be shared by multiple add-ins.
-     * @remarks Will be deprecated in the future, please use Office.Storage instead.
-     */
-    interface AsyncStorage {
-      /**
-       * Retrieves an item by key, then issues a callback.
-       * Returns a Promise.
-       * @param key The name of the key to retrieve. Must be a string.
-       * @param callback Returned result is a string.
-       */
-      getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string>;
-      /**
-       * Creates a new key-value pair in storage or updates an existing key with a new value.
-       * Returns a Promise.
-       * @param key The name of the key for the key-value pair. Must be a string.
-       * @param value The name of the value. Must be a string.
-       * @param callback
-       */
-      setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>;
-      /**
-       * Removes items by key and invokes a callback when finished.
-       * It returns a Promise that resolves to an object containing the keys and values requested.
-       * @param key The key of the item to be removed. Must be a string.
-       * @param callback
-       */
-      removeItem(key: string, callback?: (error?: Error) => void): Promise<void>;
-      /**
-       * Retrieves all keys and invokes a callback when finished.
-       * Returns a Promise.
-       * @param callback
-       */
-      getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string[]>;
-      /**
-       * Sets multiple key-value pairs and invokes a callback when finished.
-       * Returns a Promise.
-       * @param keyValuePairs Must be arrays of strings.
-       * @param callback
-       */
-      multiSet(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>;
-      /**
-       * Removes multiple items from storage and invokes a callback when finished.
-       * Returns a Promise.
-       * @param keys Keys of the items to be removed. Must be an array of strings.
-       * @param callback
-       */
-      multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<void>;
-      /**
-       * Retrieves multiple items from storage and invokes a callback when finished.
-       * Returns a Promise.
-       * @param keys Keys of the items to be retrieved. Must be an array of strings.
-       * @param callback
-       */
-      multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<string[][]>;
-    }
 
     /**
      * Asynchronous, global, and persistent key-value storage.
