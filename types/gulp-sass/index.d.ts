@@ -1,10 +1,12 @@
 // Type definitions for gulp-sass
 // Project: https://github.com/dlmanning/gulp-sass
 // Definitions by: Asana <https://asana.com>
+//                 Yuma Hashimoto <https://github.com/yuma84>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 
+import { Importer } from 'node-sass';
 
 interface SassResults {
     css: string;
@@ -23,6 +25,7 @@ interface SassOptions {
     data?: string;
     success?: (results: SassResults) => any;
     error?: (err: Error) => any;
+    importer?: Importer | Importer[];
     includePaths?: string[];
     imagePaths?: string[];
     indentedSyntax?: boolean;
