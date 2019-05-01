@@ -15,7 +15,8 @@ const modeNum = 0;
 const modeStr = "";
 const object = {};
 const errorCallback = (err: Error) => { };
-const ensureOptions: fs.EnsureOptions = {
+const ensureNum = 0o700;
+const ensureObj: fs.EnsureOptions = {
    mode: 0o700
 };
 const readOptions: fs.ReadOptions = {
@@ -159,11 +160,19 @@ fs.writeJSON(file, object, writeOptions).then(() => {
 fs.writeJsonSync(file, object, writeOptions);
 fs.writeJSONSync(file, object, writeOptions);
 
-fs.ensureDir(path, ensureOptions).then(() => {
+fs.ensureDir(path).then(() => {
 	// stub
 });
-fs.ensureDir(path, ensureOptions, errorCallback);
-fs.ensureDirSync(path, ensureOptions);
+fs.ensureDir(path, ensureObj).then(() => {
+	// stub
+});
+fs.ensureDir(path, ensureNum).then(() => {
+	// stub
+});
+fs.ensureDir(path, ensureObj, errorCallback);
+fs.ensureDir(path, ensureNum, errorCallback);
+fs.ensureDirSync(path, ensureObj);
+fs.ensureDirSync(path, ensureNum);
 
 fs.ensureFile(path).then(() => {
 	// stub
