@@ -25426,7 +25426,7 @@ declare namespace Excel {
         readonly legend: Excel.ChartLegend;
         /**
          *
-         * Encapsulates the options for the pivot chart. Read-only.
+         * Encapsulates the options for a pivot chart. Read-only.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -25584,7 +25584,7 @@ declare namespace Excel {
         set(properties: Excel.Chart): void;
         /**
          *
-         * Activate the chart in the Excel UI.
+         * Activates the chart in the Excel UI.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -25706,29 +25706,28 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Represents whether to display axis field buttons on a PivotChart.
-            The ShowAxisFieldButtons property corresponds to the Show Axis Field Buttons command on the Field Buttons drop-down list of the Analyze tab, which is available when a PivotChart is selected.
+         * Specifies whether or not to display the axis field buttons on a PivotChart. The ShowAxisFieldButtons property corresponds to the "Show Axis Field Buttons" command on the "Field Buttons" drop-down list of the "Analyze" tab, which is available when a PivotChart is selected.
          *
          * [Api set: ExcelApi 1.9]
          */
         showAxisFieldButtons: boolean;
         /**
          *
-         * Represents whether to display legend field buttons on a PivotChart.
+         * Specifies whether or not to display the legend field buttons on a PivotChart
          *
          * [Api set: ExcelApi 1.9]
          */
         showLegendFieldButtons: boolean;
         /**
          *
-         * Represents whether to display report filter field buttons on a PivotChart.
+         * Specifies whether or not to display the report filter field buttons on a PivotChart.
          *
          * [Api set: ExcelApi 1.9]
          */
         showReportFilterFieldButtons: boolean;
         /**
          *
-         * Represents whether to display show value field buttons on a PivotChart.
+         * Specifies whether or not to display the show value field buttons on a PivotChart
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -25806,14 +25805,14 @@ declare namespace Excel {
         readonly font: Excel.ChartFont;
         /**
          *
-         * Returns or sets an integer that represents the color scheme for the chart. Read/Write.
+         * Returns or sets color scheme of the chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
         colorScheme: Excel.ChartColorScheme | "ColorfulPalette1" | "ColorfulPalette2" | "ColorfulPalette3" | "ColorfulPalette4" | "MonochromaticPalette1" | "MonochromaticPalette2" | "MonochromaticPalette3" | "MonochromaticPalette4" | "MonochromaticPalette5" | "MonochromaticPalette6" | "MonochromaticPalette7" | "MonochromaticPalette8" | "MonochromaticPalette9" | "MonochromaticPalette10" | "MonochromaticPalette11" | "MonochromaticPalette12" | "MonochromaticPalette13";
         /**
          *
-         * True if the chart area of the chart has rounded corners. Read/Write.
+         * Specifies whether or not chart area of the chart has rounded corners. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -25938,14 +25937,14 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Encapsulates the bin options only for histogram chart and pareto chart. Read-only.
+         * Encapsulates the bin options for histogram charts and pareto charts. Read-only.
          *
          * [Api set: ExcelApi 1.9]
          */
         readonly binOptions: Excel.ChartBinOptions;
         /**
          *
-         * Encapsulates the options for the Box & Whisker chart. Read-only.
+         * Encapsulates the options for the box and whisker charts. Read-only.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -25966,7 +25965,7 @@ declare namespace Excel {
         readonly format: Excel.ChartSeriesFormat;
         /**
          *
-         * Encapsulates the options for the Map chart. Read-only.
+         * Encapsulates the options for a region map chart. Read-only.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -25987,14 +25986,14 @@ declare namespace Excel {
         readonly trendlines: Excel.ChartTrendlineCollection;
         /**
          *
-         * Represents the error bar object for a chart series.
+         * Represents the error bar object of a chart series.
          *
          * [Api set: ExcelApi 1.9]
          */
         readonly xErrorBars: Excel.ChartErrorBars;
         /**
          *
-         * Represents the error bar object for a chart series.
+         * Represents the error bar object of a chart series.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -26008,7 +26007,7 @@ declare namespace Excel {
         axisGroup: Excel.ChartAxisGroup | "Primary" | "Secondary";
         /**
          *
-         * Returns or sets the scale factor for bubbles in the specified chart group. Can be an integer value from 0 (zero) to 300, corresponding to a percentage of the default size. Applies only to bubble charts. Read/Write.
+         * This can be an integer value from 0 (zero) to 300, representing the percentage of the default size. This property only applies to bubble charts. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -26059,7 +26058,7 @@ declare namespace Excel {
         gapWidth: number;
         /**
          *
-         * Returns or sets the Color for maximum value of a region map chart series. Read/Write.
+         * Returns or sets the color for maximum value of a region map chart series. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -26080,7 +26079,7 @@ declare namespace Excel {
         gradientMaximumValue: number;
         /**
          *
-         * Returns or sets the Color for midpoint value of a region map chart series. Read/Write.
+         * Returns or sets the color for midpoint value of a region map chart series. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -26101,7 +26100,7 @@ declare namespace Excel {
         gradientMidpointValue: number;
         /**
          *
-         * Returns or sets the Color for minimum value of a region map chart series. Read/Write.
+         * Returns or sets the color for minimum value of a region map chart series. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -26192,7 +26191,7 @@ declare namespace Excel {
         overlap: number;
         /**
          *
-         * Returns or sets series parent label strategy area of a treemap chart. Read/Write.
+         * Returns or sets the series parent label strategy area for a treemap chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -26213,14 +26212,14 @@ declare namespace Excel {
         secondPlotSize: number;
         /**
          *
-         * Returns or sets if connector lines show in a waterfall chart. Read/Write.
+         * Specifies whether or not connector lines are shown in waterfall charts. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
         showConnectorLines: boolean;
         /**
          *
-         * True if Microsoft Excel show leaderlines for each datalabel in series. Read/Write.
+         * Specifies whether or not leader lines are displayed for each data label in the series. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -26248,7 +26247,7 @@ declare namespace Excel {
         splitType: Excel.ChartSplitType | "SplitByPosition" | "SplitByValue" | "SplitByPercentValue" | "SplitByCustomSplit";
         /**
          *
-         * Returns or sets the threshold value separating the two sections of either a pie of pie chart or a bar of pie chart. Read/Write.
+         * Returns or sets the threshold value that separates two sections of either a pie-of-pie chart or a bar-of-pie chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -26820,7 +26819,7 @@ declare namespace Excel {
         readonly left: number;
         /**
          *
-         * Represents whether the number format is linked to the cells (so that the number format changes in the labels when it changes in the cells).
+         * Represents whether or not the number format is linked to the cells. If true, the number format will change in the labels when it changes in the cells.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -27323,7 +27322,7 @@ declare namespace Excel {
         horizontalAlignment: Excel.ChartTextHorizontalAlignment | "Center" | "Left" | "Right" | "Justify" | "Distributed";
         /**
          *
-         * Represents whether the number format is linked to the cells (so that the number format changes in the labels when it changes in the cells).
+         * Represents whether or not the number format is linked to the cells. If true, the number format will change in the labels when it changes in the cells
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -27719,7 +27718,7 @@ declare namespace Excel {
     }
     /**
      *
-     * This object represents the attributes for chart error bars object.
+     * This object represents the attributes for a chart's error bars.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -27728,35 +27727,35 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Represents the formatting of chart ErrorBars.
+         * Specifies the formatting type of the error bars.
          *
          * [Api set: ExcelApi 1.9]
          */
         readonly format: Excel.ChartErrorBarsFormat;
         /**
          *
-         * Represents whether have the end style cap for the error bars.
+         * Specifies whether or not the error bars have an end style cap.
          *
          * [Api set: ExcelApi 1.9]
          */
         endStyleCap: boolean;
         /**
          *
-         * Represents which error-bar parts to include. See Excel.ChartErrorBarsInclude for details.
+         * Specifies which parts of the error bars to include.
          *
          * [Api set: ExcelApi 1.9]
          */
         include: Excel.ChartErrorBarsInclude | "Both" | "MinusValues" | "PlusValues";
         /**
          *
-         * Represents the range marked by error bars. See Excel.ChartErrorBarsType for details.
+         * The type of range marked by the error bars.
          *
          * [Api set: ExcelApi 1.9]
          */
         type: Excel.ChartErrorBarsType | "FixedValue" | "Percent" | "StDev" | "StError" | "Custom";
         /**
          *
-         * Represents whether shown error bars.
+         * Specifies whether or not the error bars are displayed.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -27813,7 +27812,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Represents chart line formatting.
+         * Represents the chart line formatting.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -28316,7 +28315,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Encapsulates the properties for Map chart.
+     * Encapsulates the properties for a region map chart.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -28325,21 +28324,21 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Returns or sets series map labels strategy of a region map chart. Read/Write.
+         * Returns or sets the series map labels strategy of a region map chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
         labelStrategy: Excel.ChartMapLabelStrategy | "None" | "BestFit" | "ShowAll";
         /**
          *
-         * Returns or sets series map area of a region map chart. Read/Write.
+         * Returns or sets the series mapping level of a region map chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
         level: Excel.ChartMapAreaLevel | "Automatic" | "DataOnly" | "City" | "County" | "State" | "Country" | "Continent" | "World";
         /**
          *
-         * Returns or sets series projection type of a region map chart. Read/Write.
+         * Returns or sets the series projection type of a region map chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -28790,7 +28789,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Encapsulates the bon options only for histogram chart and pareto chart.
+     * Encapsulates the bin options for histogram charts and pareto charts.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -28799,49 +28798,49 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Returns or sets if bin overflow enabled in a histogram chart or pareto chart. Read/Write.
+         * Specifies whether or not the bin overflow is enabled in a histogram chart or pareto chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
         allowOverflow: boolean;
         /**
          *
-         * Returns or sets if bin underflow enabled in a histogram chart or pareto chart. Read/Write.
+         * Specifies whether or not the bin underflow is enabled in a histogram chart or pareto chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
         allowUnderflow: boolean;
         /**
          *
-         * Returns or sets count of bin of a histogram chart or pareto chart. Read/Write.
+         * Returns or sets the bin count of a histogram chart or pareto chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
         count: number;
         /**
          *
-         * Returns or sets bin overflow value of a histogram chart or pareto chart. Read/Write.
+         * Returns or sets the bin overflow value of a histogram chart or pareto chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
         overflowValue: number;
         /**
          *
-         * Returns or sets bin type of a histogram chart or pareto chart. Read/Write.
+         * Returns or sets the bin's type for a histogram chart or pareto chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
         type: Excel.ChartBinType | "Category" | "Auto" | "BinWidth" | "BinCount";
         /**
          *
-         * Returns or sets bin underflow value of a histogram chart or pareto chart. Read/Write.
+         * Returns or sets the bin underflow value of a histogram chart or pareto chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
         underflowValue: number;
         /**
          *
-         * Returns or sets bin width value of a histogram chart or pareto chart. Read/Write.
+         * Returns or sets the bin width value of a histogram chart or pareto chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -28889,7 +28888,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the properties for Box & Whisker chart.
+     * Represents the properties of a box and whisker chart.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -28898,35 +28897,35 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Returns or sets quartile calculation type of a Box & whisker chart. Read/Write.
+         * Returns or sets the quartile calculation type of a box and whisker chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
         quartileCalculation: Excel.ChartBoxQuartileCalculation | "Inclusive" | "Exclusive";
         /**
          *
-         * Returns or sets if inner points showed in a Box & whisker chart. Read/Write.
+         * Specifies whether or not the inner points are shown in a box and whisker chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
         showInnerPoints: boolean;
         /**
          *
-         * Returns or sets if mean line showed in a Box & whisker chart. Read/Write.
+         * Specifies whether or not the mean line is shown in a box and whisker chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
         showMeanLine: boolean;
         /**
          *
-         * Returns or sets if mean marker showed in a Box & whisker chart. Read/Write.
+         * Specifies whether or not the mean marker is shown in a box and whisker chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
         showMeanMarker: boolean;
         /**
          *
-         * Returns or sets if outlier points showed in a Box & whisker chart. Read/Write.
+         * Specifies whether or not outlier points are shown in a box and whisker chart. Read/Write.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -36847,6 +36846,17 @@ declare namespace Excel {
         set(properties: Excel.Shape): void;
         /**
          *
+         * Copies and pastes a Shape object.
+            The pasted shape is copied to the same pixel location as this shape.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param destinationSheet The sheet to which the shape object will be pasted. The default value is the copied Shape's worksheet.
+         */
+        copyTo(destinationSheet?: Worksheet | string): Excel.Shape;
+        /**
+         *
          * Removes the shape from the worksheet.
          *
          * [Api set: ExcelApi 1.9]
@@ -38533,7 +38543,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the quartile calculation type of chart series layout, only applicable in Box & Whisker chart.
+     * Represents the quartile calculation type of chart series layout. Only applies to a box and whisker chart.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -38569,7 +38579,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Specifies the bins type of the Histogram chart series.
+     * Specifies the bin's type of a histogram chart or pareto chart series.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -38614,7 +38624,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents which error-bar parts to include.
+     * Represents which parts of the error bar to include.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -38638,7 +38648,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the mapping level of chart series, only applicable in RegionMap chart.
+     * Represents the mapping level of a chart series. This only applies to region map charts.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -38654,7 +38664,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the Gradient Style of chart series, only applicable in RegionMap chart.
+     * Represents the gradient style of a chart series. This is only applicable for region map charts.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -38664,7 +38674,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the Gradient Style of chart series, only applicable in RegionMap chart.
+     * Represents the gradient style type of a chart series. This is only applicable for region map charts.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -38725,7 +38735,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the region label strategy of chart series layout, only applicable in RegionMap chart.
+     * Represents the region level of a chart series layout. This only applies to region map charts.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -38736,7 +38746,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the region projection type of chart series layout, only applicable in RegionMap chart.
+     * Represents the region projection type of a chart series layout. This only applies to region map charts.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -38749,7 +38759,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the parent lable strategy type of chart series layout, only applicable in Treemap chart.
+     * Represents the parent label strategy of the chart series layout. This only applies to treemap charts
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -45798,7 +45808,7 @@ declare namespace Excel {
             legend?: Excel.Interfaces.ChartLegendUpdateData;
             /**
             *
-            * Encapsulates the options for the pivot chart.
+            * Encapsulates the options for a pivot chart.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -45924,29 +45934,28 @@ declare namespace Excel {
         interface ChartPivotOptionsUpdateData {
             /**
              *
-             * Represents whether to display axis field buttons on a PivotChart.
-            The ShowAxisFieldButtons property corresponds to the Show Axis Field Buttons command on the Field Buttons drop-down list of the Analyze tab, which is available when a PivotChart is selected.
+             * Specifies whether or not to display the axis field buttons on a PivotChart. The ShowAxisFieldButtons property corresponds to the "Show Axis Field Buttons" command on the "Field Buttons" drop-down list of the "Analyze" tab, which is available when a PivotChart is selected.
              *
              * [Api set: ExcelApi 1.9]
              */
             showAxisFieldButtons?: boolean;
             /**
              *
-             * Represents whether to display legend field buttons on a PivotChart.
+             * Specifies whether or not to display the legend field buttons on a PivotChart
              *
              * [Api set: ExcelApi 1.9]
              */
             showLegendFieldButtons?: boolean;
             /**
              *
-             * Represents whether to display report filter field buttons on a PivotChart.
+             * Specifies whether or not to display the report filter field buttons on a PivotChart.
              *
              * [Api set: ExcelApi 1.9]
              */
             showReportFilterFieldButtons?: boolean;
             /**
              *
-             * Represents whether to display show value field buttons on a PivotChart.
+             * Specifies whether or not to display the show value field buttons on a PivotChart
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -45970,14 +45979,14 @@ declare namespace Excel {
             font?: Excel.Interfaces.ChartFontUpdateData;
             /**
              *
-             * Returns or sets an integer that represents the color scheme for the chart. Read/Write.
+             * Returns or sets color scheme of the chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             colorScheme?: Excel.ChartColorScheme | "ColorfulPalette1" | "ColorfulPalette2" | "ColorfulPalette3" | "ColorfulPalette4" | "MonochromaticPalette1" | "MonochromaticPalette2" | "MonochromaticPalette3" | "MonochromaticPalette4" | "MonochromaticPalette5" | "MonochromaticPalette6" | "MonochromaticPalette7" | "MonochromaticPalette8" | "MonochromaticPalette9" | "MonochromaticPalette10" | "MonochromaticPalette11" | "MonochromaticPalette12" | "MonochromaticPalette13";
             /**
              *
-             * True if the chart area of the chart has rounded corners. Read/Write.
+             * Specifies whether or not chart area of the chart has rounded corners. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -45991,14 +46000,14 @@ declare namespace Excel {
         interface ChartSeriesUpdateData {
             /**
             *
-            * Encapsulates the bin options only for histogram chart and pareto chart.
+            * Encapsulates the bin options for histogram charts and pareto charts.
             *
             * [Api set: ExcelApi 1.9]
             */
             binOptions?: Excel.Interfaces.ChartBinOptionsUpdateData;
             /**
             *
-            * Encapsulates the options for the Box & Whisker chart.
+            * Encapsulates the options for the box and whisker charts.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -46019,21 +46028,21 @@ declare namespace Excel {
             format?: Excel.Interfaces.ChartSeriesFormatUpdateData;
             /**
             *
-            * Encapsulates the options for the Map chart.
+            * Encapsulates the options for a region map chart.
             *
             * [Api set: ExcelApi 1.9]
             */
             mapOptions?: Excel.Interfaces.ChartMapOptionsUpdateData;
             /**
             *
-            * Represents the error bar object for a chart series.
+            * Represents the error bar object of a chart series.
             *
             * [Api set: ExcelApi 1.9]
             */
             xErrorBars?: Excel.Interfaces.ChartErrorBarsUpdateData;
             /**
             *
-            * Represents the error bar object for a chart series.
+            * Represents the error bar object of a chart series.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -46047,7 +46056,7 @@ declare namespace Excel {
             axisGroup?: Excel.ChartAxisGroup | "Primary" | "Secondary";
             /**
              *
-             * Returns or sets the scale factor for bubbles in the specified chart group. Can be an integer value from 0 (zero) to 300, corresponding to a percentage of the default size. Applies only to bubble charts. Read/Write.
+             * This can be an integer value from 0 (zero) to 300, representing the percentage of the default size. This property only applies to bubble charts. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -46098,7 +46107,7 @@ declare namespace Excel {
             gapWidth?: number;
             /**
              *
-             * Returns or sets the Color for maximum value of a region map chart series. Read/Write.
+             * Returns or sets the color for maximum value of a region map chart series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -46119,7 +46128,7 @@ declare namespace Excel {
             gradientMaximumValue?: number;
             /**
              *
-             * Returns or sets the Color for midpoint value of a region map chart series. Read/Write.
+             * Returns or sets the color for midpoint value of a region map chart series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -46140,7 +46149,7 @@ declare namespace Excel {
             gradientMidpointValue?: number;
             /**
              *
-             * Returns or sets the Color for minimum value of a region map chart series. Read/Write.
+             * Returns or sets the color for minimum value of a region map chart series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -46231,7 +46240,7 @@ declare namespace Excel {
             overlap?: number;
             /**
              *
-             * Returns or sets series parent label strategy area of a treemap chart. Read/Write.
+             * Returns or sets the series parent label strategy area for a treemap chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -46252,14 +46261,14 @@ declare namespace Excel {
             secondPlotSize?: number;
             /**
              *
-             * Returns or sets if connector lines show in a waterfall chart. Read/Write.
+             * Specifies whether or not connector lines are shown in waterfall charts. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             showConnectorLines?: boolean;
             /**
              *
-             * True if Microsoft Excel show leaderlines for each datalabel in series. Read/Write.
+             * Specifies whether or not leader lines are displayed for each data label in the series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -46287,7 +46296,7 @@ declare namespace Excel {
             splitType?: Excel.ChartSplitType | "SplitByPosition" | "SplitByValue" | "SplitByPercentValue" | "SplitByCustomSplit";
             /**
              *
-             * Returns or sets the threshold value separating the two sections of either a pie of pie chart or a bar of pie chart. Read/Write.
+             * Returns or sets the threshold value that separates two sections of either a pie-of-pie chart or a bar-of-pie chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -46467,7 +46476,7 @@ declare namespace Excel {
             isBetweenCategories?: boolean;
             /**
              *
-             * Represents whether the number format is linked to the cells (so that the number format changes in the labels when it changes in the cells).
+             * Represents whether or not the number format is linked to the cells. If true, the number format will change in the labels when it changes in the cells.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -46704,7 +46713,7 @@ declare namespace Excel {
             horizontalAlignment?: Excel.ChartTextHorizontalAlignment | "Center" | "Left" | "Right" | "Justify" | "Distributed";
             /**
              *
-             * Represents whether the number format is linked to the cells (so that the number format changes in the labels when it changes in the cells).
+             * Represents whether or not the number format is linked to the cells. If true, the number format will change in the labels when it changes in the cells
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -46947,35 +46956,35 @@ declare namespace Excel {
         interface ChartErrorBarsUpdateData {
             /**
             *
-            * Represents the formatting of chart ErrorBars.
+            * Specifies the formatting type of the error bars.
             *
             * [Api set: ExcelApi 1.9]
             */
             format?: Excel.Interfaces.ChartErrorBarsFormatUpdateData;
             /**
              *
-             * Represents whether have the end style cap for the error bars.
+             * Specifies whether or not the error bars have an end style cap.
              *
              * [Api set: ExcelApi 1.9]
              */
             endStyleCap?: boolean;
             /**
              *
-             * Represents which error-bar parts to include. See Excel.ChartErrorBarsInclude for details.
+             * Specifies which parts of the error bars to include.
              *
              * [Api set: ExcelApi 1.9]
              */
             include?: Excel.ChartErrorBarsInclude | "Both" | "MinusValues" | "PlusValues";
             /**
              *
-             * Represents the range marked by error bars. See Excel.ChartErrorBarsType for details.
+             * The type of range marked by the error bars.
              *
              * [Api set: ExcelApi 1.9]
              */
             type?: Excel.ChartErrorBarsType | "FixedValue" | "Percent" | "StDev" | "StError" | "Custom";
             /**
              *
-             * Represents whether shown error bars.
+             * Specifies whether or not the error bars are displayed.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -46985,7 +46994,7 @@ declare namespace Excel {
         interface ChartErrorBarsFormatUpdateData {
             /**
             *
-            * Represents chart line formatting.
+            * Represents the chart line formatting.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -47119,21 +47128,21 @@ declare namespace Excel {
         interface ChartMapOptionsUpdateData {
             /**
              *
-             * Returns or sets series map labels strategy of a region map chart. Read/Write.
+             * Returns or sets the series map labels strategy of a region map chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             labelStrategy?: Excel.ChartMapLabelStrategy | "None" | "BestFit" | "ShowAll";
             /**
              *
-             * Returns or sets series map area of a region map chart. Read/Write.
+             * Returns or sets the series mapping level of a region map chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             level?: Excel.ChartMapAreaLevel | "Automatic" | "DataOnly" | "City" | "County" | "State" | "Country" | "Continent" | "World";
             /**
              *
-             * Returns or sets series projection type of a region map chart. Read/Write.
+             * Returns or sets the series projection type of a region map chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -47274,49 +47283,49 @@ declare namespace Excel {
         interface ChartBinOptionsUpdateData {
             /**
              *
-             * Returns or sets if bin overflow enabled in a histogram chart or pareto chart. Read/Write.
+             * Specifies whether or not the bin overflow is enabled in a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             allowOverflow?: boolean;
             /**
              *
-             * Returns or sets if bin underflow enabled in a histogram chart or pareto chart. Read/Write.
+             * Specifies whether or not the bin underflow is enabled in a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             allowUnderflow?: boolean;
             /**
              *
-             * Returns or sets count of bin of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin count of a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             count?: number;
             /**
              *
-             * Returns or sets bin overflow value of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin overflow value of a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             overflowValue?: number;
             /**
              *
-             * Returns or sets bin type of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin's type for a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             type?: Excel.ChartBinType | "Category" | "Auto" | "BinWidth" | "BinCount";
             /**
              *
-             * Returns or sets bin underflow value of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin underflow value of a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             underflowValue?: number;
             /**
              *
-             * Returns or sets bin width value of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin width value of a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -47326,35 +47335,35 @@ declare namespace Excel {
         interface ChartBoxwhiskerOptionsUpdateData {
             /**
              *
-             * Returns or sets quartile calculation type of a Box & whisker chart. Read/Write.
+             * Returns or sets the quartile calculation type of a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             quartileCalculation?: Excel.ChartBoxQuartileCalculation | "Inclusive" | "Exclusive";
             /**
              *
-             * Returns or sets if inner points showed in a Box & whisker chart. Read/Write.
+             * Specifies whether or not the inner points are shown in a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             showInnerPoints?: boolean;
             /**
              *
-             * Returns or sets if mean line showed in a Box & whisker chart. Read/Write.
+             * Specifies whether or not the mean line is shown in a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             showMeanLine?: boolean;
             /**
              *
-             * Returns or sets if mean marker showed in a Box & whisker chart. Read/Write.
+             * Specifies whether or not the mean marker is shown in a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             showMeanMarker?: boolean;
             /**
              *
-             * Returns or sets if outlier points showed in a Box & whisker chart. Read/Write.
+             * Specifies whether or not outlier points are shown in a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -51125,7 +51134,7 @@ declare namespace Excel {
             legend?: Excel.Interfaces.ChartLegendData;
             /**
             *
-            * Encapsulates the options for the pivot chart. Read-only.
+            * Encapsulates the options for a pivot chart. Read-only.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -51265,29 +51274,28 @@ declare namespace Excel {
         interface ChartPivotOptionsData {
             /**
              *
-             * Represents whether to display axis field buttons on a PivotChart.
-            The ShowAxisFieldButtons property corresponds to the Show Axis Field Buttons command on the Field Buttons drop-down list of the Analyze tab, which is available when a PivotChart is selected.
+             * Specifies whether or not to display the axis field buttons on a PivotChart. The ShowAxisFieldButtons property corresponds to the "Show Axis Field Buttons" command on the "Field Buttons" drop-down list of the "Analyze" tab, which is available when a PivotChart is selected.
              *
              * [Api set: ExcelApi 1.9]
              */
             showAxisFieldButtons?: boolean;
             /**
              *
-             * Represents whether to display legend field buttons on a PivotChart.
+             * Specifies whether or not to display the legend field buttons on a PivotChart
              *
              * [Api set: ExcelApi 1.9]
              */
             showLegendFieldButtons?: boolean;
             /**
              *
-             * Represents whether to display report filter field buttons on a PivotChart.
+             * Specifies whether or not to display the report filter field buttons on a PivotChart.
              *
              * [Api set: ExcelApi 1.9]
              */
             showReportFilterFieldButtons?: boolean;
             /**
              *
-             * Represents whether to display show value field buttons on a PivotChart.
+             * Specifies whether or not to display the show value field buttons on a PivotChart
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -51311,14 +51319,14 @@ declare namespace Excel {
             font?: Excel.Interfaces.ChartFontData;
             /**
              *
-             * Returns or sets an integer that represents the color scheme for the chart. Read/Write.
+             * Returns or sets color scheme of the chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             colorScheme?: Excel.ChartColorScheme | "ColorfulPalette1" | "ColorfulPalette2" | "ColorfulPalette3" | "ColorfulPalette4" | "MonochromaticPalette1" | "MonochromaticPalette2" | "MonochromaticPalette3" | "MonochromaticPalette4" | "MonochromaticPalette5" | "MonochromaticPalette6" | "MonochromaticPalette7" | "MonochromaticPalette8" | "MonochromaticPalette9" | "MonochromaticPalette10" | "MonochromaticPalette11" | "MonochromaticPalette12" | "MonochromaticPalette13";
             /**
              *
-             * True if the chart area of the chart has rounded corners. Read/Write.
+             * Specifies whether or not chart area of the chart has rounded corners. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -51332,14 +51340,14 @@ declare namespace Excel {
         interface ChartSeriesData {
             /**
             *
-            * Encapsulates the bin options only for histogram chart and pareto chart. Read-only.
+            * Encapsulates the bin options for histogram charts and pareto charts. Read-only.
             *
             * [Api set: ExcelApi 1.9]
             */
             binOptions?: Excel.Interfaces.ChartBinOptionsData;
             /**
             *
-            * Encapsulates the options for the Box & Whisker chart. Read-only.
+            * Encapsulates the options for the box and whisker charts. Read-only.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -51360,7 +51368,7 @@ declare namespace Excel {
             format?: Excel.Interfaces.ChartSeriesFormatData;
             /**
             *
-            * Encapsulates the options for the Map chart. Read-only.
+            * Encapsulates the options for a region map chart. Read-only.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -51381,14 +51389,14 @@ declare namespace Excel {
             trendlines?: Excel.Interfaces.ChartTrendlineData[];
             /**
             *
-            * Represents the error bar object for a chart series.
+            * Represents the error bar object of a chart series.
             *
             * [Api set: ExcelApi 1.9]
             */
             xErrorBars?: Excel.Interfaces.ChartErrorBarsData;
             /**
             *
-            * Represents the error bar object for a chart series.
+            * Represents the error bar object of a chart series.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -51402,7 +51410,7 @@ declare namespace Excel {
             axisGroup?: Excel.ChartAxisGroup | "Primary" | "Secondary";
             /**
              *
-             * Returns or sets the scale factor for bubbles in the specified chart group. Can be an integer value from 0 (zero) to 300, corresponding to a percentage of the default size. Applies only to bubble charts. Read/Write.
+             * This can be an integer value from 0 (zero) to 300, representing the percentage of the default size. This property only applies to bubble charts. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -51453,7 +51461,7 @@ declare namespace Excel {
             gapWidth?: number;
             /**
              *
-             * Returns or sets the Color for maximum value of a region map chart series. Read/Write.
+             * Returns or sets the color for maximum value of a region map chart series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -51474,7 +51482,7 @@ declare namespace Excel {
             gradientMaximumValue?: number;
             /**
              *
-             * Returns or sets the Color for midpoint value of a region map chart series. Read/Write.
+             * Returns or sets the color for midpoint value of a region map chart series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -51495,7 +51503,7 @@ declare namespace Excel {
             gradientMidpointValue?: number;
             /**
              *
-             * Returns or sets the Color for minimum value of a region map chart series. Read/Write.
+             * Returns or sets the color for minimum value of a region map chart series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -51586,7 +51594,7 @@ declare namespace Excel {
             overlap?: number;
             /**
              *
-             * Returns or sets series parent label strategy area of a treemap chart. Read/Write.
+             * Returns or sets the series parent label strategy area for a treemap chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -51607,14 +51615,14 @@ declare namespace Excel {
             secondPlotSize?: number;
             /**
              *
-             * Returns or sets if connector lines show in a waterfall chart. Read/Write.
+             * Specifies whether or not connector lines are shown in waterfall charts. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             showConnectorLines?: boolean;
             /**
              *
-             * True if Microsoft Excel show leaderlines for each datalabel in series. Read/Write.
+             * Specifies whether or not leader lines are displayed for each data label in the series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -51642,7 +51650,7 @@ declare namespace Excel {
             splitType?: Excel.ChartSplitType | "SplitByPosition" | "SplitByValue" | "SplitByPercentValue" | "SplitByCustomSplit";
             /**
              *
-             * Returns or sets the threshold value separating the two sections of either a pie of pie chart or a bar of pie chart. Read/Write.
+             * Returns or sets the threshold value that separates two sections of either a pie-of-pie chart or a bar-of-pie chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -51857,7 +51865,7 @@ declare namespace Excel {
             left?: number;
             /**
              *
-             * Represents whether the number format is linked to the cells (so that the number format changes in the labels when it changes in the cells).
+             * Represents whether or not the number format is linked to the cells. If true, the number format will change in the labels when it changes in the cells.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -52122,7 +52130,7 @@ declare namespace Excel {
             horizontalAlignment?: Excel.ChartTextHorizontalAlignment | "Center" | "Left" | "Right" | "Justify" | "Distributed";
             /**
              *
-             * Represents whether the number format is linked to the cells (so that the number format changes in the labels when it changes in the cells).
+             * Represents whether or not the number format is linked to the cells. If true, the number format will change in the labels when it changes in the cells
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -52379,35 +52387,35 @@ declare namespace Excel {
         interface ChartErrorBarsData {
             /**
             *
-            * Represents the formatting of chart ErrorBars.
+            * Specifies the formatting type of the error bars.
             *
             * [Api set: ExcelApi 1.9]
             */
             format?: Excel.Interfaces.ChartErrorBarsFormatData;
             /**
              *
-             * Represents whether have the end style cap for the error bars.
+             * Specifies whether or not the error bars have an end style cap.
              *
              * [Api set: ExcelApi 1.9]
              */
             endStyleCap?: boolean;
             /**
              *
-             * Represents which error-bar parts to include. See Excel.ChartErrorBarsInclude for details.
+             * Specifies which parts of the error bars to include.
              *
              * [Api set: ExcelApi 1.9]
              */
             include?: Excel.ChartErrorBarsInclude | "Both" | "MinusValues" | "PlusValues";
             /**
              *
-             * Represents the range marked by error bars. See Excel.ChartErrorBarsType for details.
+             * The type of range marked by the error bars.
              *
              * [Api set: ExcelApi 1.9]
              */
             type?: Excel.ChartErrorBarsType | "FixedValue" | "Percent" | "StDev" | "StError" | "Custom";
             /**
              *
-             * Represents whether shown error bars.
+             * Specifies whether or not the error bars are displayed.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -52417,7 +52425,7 @@ declare namespace Excel {
         interface ChartErrorBarsFormatData {
             /**
             *
-            * Represents chart line formatting.
+            * Represents the chart line formatting.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -52593,21 +52601,21 @@ declare namespace Excel {
         interface ChartMapOptionsData {
             /**
              *
-             * Returns or sets series map labels strategy of a region map chart. Read/Write.
+             * Returns or sets the series map labels strategy of a region map chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             labelStrategy?: Excel.ChartMapLabelStrategy | "None" | "BestFit" | "ShowAll";
             /**
              *
-             * Returns or sets series map area of a region map chart. Read/Write.
+             * Returns or sets the series mapping level of a region map chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             level?: Excel.ChartMapAreaLevel | "Automatic" | "DataOnly" | "City" | "County" | "State" | "Country" | "Continent" | "World";
             /**
              *
-             * Returns or sets series projection type of a region map chart. Read/Write.
+             * Returns or sets the series projection type of a region map chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -52762,49 +52770,49 @@ declare namespace Excel {
         interface ChartBinOptionsData {
             /**
              *
-             * Returns or sets if bin overflow enabled in a histogram chart or pareto chart. Read/Write.
+             * Specifies whether or not the bin overflow is enabled in a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             allowOverflow?: boolean;
             /**
              *
-             * Returns or sets if bin underflow enabled in a histogram chart or pareto chart. Read/Write.
+             * Specifies whether or not the bin underflow is enabled in a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             allowUnderflow?: boolean;
             /**
              *
-             * Returns or sets count of bin of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin count of a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             count?: number;
             /**
              *
-             * Returns or sets bin overflow value of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin overflow value of a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             overflowValue?: number;
             /**
              *
-             * Returns or sets bin type of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin's type for a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             type?: Excel.ChartBinType | "Category" | "Auto" | "BinWidth" | "BinCount";
             /**
              *
-             * Returns or sets bin underflow value of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin underflow value of a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             underflowValue?: number;
             /**
              *
-             * Returns or sets bin width value of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin width value of a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -52814,35 +52822,35 @@ declare namespace Excel {
         interface ChartBoxwhiskerOptionsData {
             /**
              *
-             * Returns or sets quartile calculation type of a Box & whisker chart. Read/Write.
+             * Returns or sets the quartile calculation type of a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             quartileCalculation?: Excel.ChartBoxQuartileCalculation | "Inclusive" | "Exclusive";
             /**
              *
-             * Returns or sets if inner points showed in a Box & whisker chart. Read/Write.
+             * Specifies whether or not the inner points are shown in a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             showInnerPoints?: boolean;
             /**
              *
-             * Returns or sets if mean line showed in a Box & whisker chart. Read/Write.
+             * Specifies whether or not the mean line is shown in a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             showMeanLine?: boolean;
             /**
              *
-             * Returns or sets if mean marker showed in a Box & whisker chart. Read/Write.
+             * Specifies whether or not the mean marker is shown in a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             showMeanMarker?: boolean;
             /**
              *
-             * Returns or sets if outlier points showed in a Box & whisker chart. Read/Write.
+             * Specifies whether or not outlier points are shown in a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -57848,7 +57856,7 @@ declare namespace Excel {
             legend?: Excel.Interfaces.ChartLegendLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Encapsulates the options for the pivot chart.
+            * For EACH ITEM in the collection: Encapsulates the options for a pivot chart.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -58029,7 +58037,7 @@ declare namespace Excel {
             legend?: Excel.Interfaces.ChartLegendLoadOptions;
             /**
             *
-            * Encapsulates the options for the pivot chart.
+            * Encapsulates the options for a pivot chart.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -58182,29 +58190,28 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * Represents whether to display axis field buttons on a PivotChart.
-            The ShowAxisFieldButtons property corresponds to the Show Axis Field Buttons command on the Field Buttons drop-down list of the Analyze tab, which is available when a PivotChart is selected.
+             * Specifies whether or not to display the axis field buttons on a PivotChart. The ShowAxisFieldButtons property corresponds to the "Show Axis Field Buttons" command on the "Field Buttons" drop-down list of the "Analyze" tab, which is available when a PivotChart is selected.
              *
              * [Api set: ExcelApi 1.9]
              */
             showAxisFieldButtons?: boolean;
             /**
              *
-             * Represents whether to display legend field buttons on a PivotChart.
+             * Specifies whether or not to display the legend field buttons on a PivotChart
              *
              * [Api set: ExcelApi 1.9]
              */
             showLegendFieldButtons?: boolean;
             /**
              *
-             * Represents whether to display report filter field buttons on a PivotChart.
+             * Specifies whether or not to display the report filter field buttons on a PivotChart.
              *
              * [Api set: ExcelApi 1.9]
              */
             showReportFilterFieldButtons?: boolean;
             /**
              *
-             * Represents whether to display show value field buttons on a PivotChart.
+             * Specifies whether or not to display the show value field buttons on a PivotChart
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58234,14 +58241,14 @@ declare namespace Excel {
             font?: Excel.Interfaces.ChartFontLoadOptions;
             /**
              *
-             * Returns or sets an integer that represents the color scheme for the chart. Read/Write.
+             * Returns or sets color scheme of the chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             colorScheme?: boolean;
             /**
              *
-             * True if the chart area of the chart has rounded corners. Read/Write.
+             * Specifies whether or not chart area of the chart has rounded corners. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58257,14 +58264,14 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * For EACH ITEM in the collection: Encapsulates the bin options only for histogram chart and pareto chart.
+            * For EACH ITEM in the collection: Encapsulates the bin options for histogram charts and pareto charts.
             *
             * [Api set: ExcelApi 1.9]
             */
             binOptions?: Excel.Interfaces.ChartBinOptionsLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Encapsulates the options for the Box & Whisker chart.
+            * For EACH ITEM in the collection: Encapsulates the options for the box and whisker charts.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -58285,7 +58292,7 @@ declare namespace Excel {
             format?: Excel.Interfaces.ChartSeriesFormatLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Encapsulates the options for the Map chart.
+            * For EACH ITEM in the collection: Encapsulates the options for a region map chart.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -58299,14 +58306,14 @@ declare namespace Excel {
             points?: Excel.Interfaces.ChartPointsCollectionLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Represents the error bar object for a chart series.
+            * For EACH ITEM in the collection: Represents the error bar object of a chart series.
             *
             * [Api set: ExcelApi 1.9]
             */
             xErrorBars?: Excel.Interfaces.ChartErrorBarsLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: Represents the error bar object for a chart series.
+            * For EACH ITEM in the collection: Represents the error bar object of a chart series.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -58320,7 +58327,7 @@ declare namespace Excel {
             axisGroup?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns or sets the scale factor for bubbles in the specified chart group. Can be an integer value from 0 (zero) to 300, corresponding to a percentage of the default size. Applies only to bubble charts. Read/Write.
+             * For EACH ITEM in the collection: This can be an integer value from 0 (zero) to 300, representing the percentage of the default size. This property only applies to bubble charts. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58371,7 +58378,7 @@ declare namespace Excel {
             gapWidth?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns or sets the Color for maximum value of a region map chart series. Read/Write.
+             * For EACH ITEM in the collection: Returns or sets the color for maximum value of a region map chart series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58392,7 +58399,7 @@ declare namespace Excel {
             gradientMaximumValue?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns or sets the Color for midpoint value of a region map chart series. Read/Write.
+             * For EACH ITEM in the collection: Returns or sets the color for midpoint value of a region map chart series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58413,7 +58420,7 @@ declare namespace Excel {
             gradientMidpointValue?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns or sets the Color for minimum value of a region map chart series. Read/Write.
+             * For EACH ITEM in the collection: Returns or sets the color for minimum value of a region map chart series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58504,7 +58511,7 @@ declare namespace Excel {
             overlap?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns or sets series parent label strategy area of a treemap chart. Read/Write.
+             * For EACH ITEM in the collection: Returns or sets the series parent label strategy area for a treemap chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58525,14 +58532,14 @@ declare namespace Excel {
             secondPlotSize?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns or sets if connector lines show in a waterfall chart. Read/Write.
+             * For EACH ITEM in the collection: Specifies whether or not connector lines are shown in waterfall charts. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             showConnectorLines?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: True if Microsoft Excel show leaderlines for each datalabel in series. Read/Write.
+             * For EACH ITEM in the collection: Specifies whether or not leader lines are displayed for each data label in the series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58560,7 +58567,7 @@ declare namespace Excel {
             splitType?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Returns or sets the threshold value separating the two sections of either a pie of pie chart or a bar of pie chart. Read/Write.
+             * For EACH ITEM in the collection: Returns or sets the threshold value that separates two sections of either a pie-of-pie chart or a bar-of-pie chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58583,14 +58590,14 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * Encapsulates the bin options only for histogram chart and pareto chart.
+            * Encapsulates the bin options for histogram charts and pareto charts.
             *
             * [Api set: ExcelApi 1.9]
             */
             binOptions?: Excel.Interfaces.ChartBinOptionsLoadOptions;
             /**
             *
-            * Encapsulates the options for the Box & Whisker chart.
+            * Encapsulates the options for the box and whisker charts.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -58611,7 +58618,7 @@ declare namespace Excel {
             format?: Excel.Interfaces.ChartSeriesFormatLoadOptions;
             /**
             *
-            * Encapsulates the options for the Map chart.
+            * Encapsulates the options for a region map chart.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -58625,14 +58632,14 @@ declare namespace Excel {
             points?: Excel.Interfaces.ChartPointsCollectionLoadOptions;
             /**
             *
-            * Represents the error bar object for a chart series.
+            * Represents the error bar object of a chart series.
             *
             * [Api set: ExcelApi 1.9]
             */
             xErrorBars?: Excel.Interfaces.ChartErrorBarsLoadOptions;
             /**
             *
-            * Represents the error bar object for a chart series.
+            * Represents the error bar object of a chart series.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -58646,7 +58653,7 @@ declare namespace Excel {
             axisGroup?: boolean;
             /**
              *
-             * Returns or sets the scale factor for bubbles in the specified chart group. Can be an integer value from 0 (zero) to 300, corresponding to a percentage of the default size. Applies only to bubble charts. Read/Write.
+             * This can be an integer value from 0 (zero) to 300, representing the percentage of the default size. This property only applies to bubble charts. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58697,7 +58704,7 @@ declare namespace Excel {
             gapWidth?: boolean;
             /**
              *
-             * Returns or sets the Color for maximum value of a region map chart series. Read/Write.
+             * Returns or sets the color for maximum value of a region map chart series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58718,7 +58725,7 @@ declare namespace Excel {
             gradientMaximumValue?: boolean;
             /**
              *
-             * Returns or sets the Color for midpoint value of a region map chart series. Read/Write.
+             * Returns or sets the color for midpoint value of a region map chart series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58739,7 +58746,7 @@ declare namespace Excel {
             gradientMidpointValue?: boolean;
             /**
              *
-             * Returns or sets the Color for minimum value of a region map chart series. Read/Write.
+             * Returns or sets the color for minimum value of a region map chart series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58830,7 +58837,7 @@ declare namespace Excel {
             overlap?: boolean;
             /**
              *
-             * Returns or sets series parent label strategy area of a treemap chart. Read/Write.
+             * Returns or sets the series parent label strategy area for a treemap chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58851,14 +58858,14 @@ declare namespace Excel {
             secondPlotSize?: boolean;
             /**
              *
-             * Returns or sets if connector lines show in a waterfall chart. Read/Write.
+             * Specifies whether or not connector lines are shown in waterfall charts. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             showConnectorLines?: boolean;
             /**
              *
-             * True if Microsoft Excel show leaderlines for each datalabel in series. Read/Write.
+             * Specifies whether or not leader lines are displayed for each data label in the series. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58886,7 +58893,7 @@ declare namespace Excel {
             splitType?: boolean;
             /**
              *
-             * Returns or sets the threshold value separating the two sections of either a pie of pie chart or a bar of pie chart. Read/Write.
+             * Returns or sets the threshold value that separates two sections of either a pie-of-pie chart or a bar-of-pie chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -59206,7 +59213,7 @@ declare namespace Excel {
             left?: boolean;
             /**
              *
-             * Represents whether the number format is linked to the cells (so that the number format changes in the labels when it changes in the cells).
+             * Represents whether or not the number format is linked to the cells. If true, the number format will change in the labels when it changes in the cells.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -59495,7 +59502,7 @@ declare namespace Excel {
             horizontalAlignment?: boolean;
             /**
              *
-             * Represents whether the number format is linked to the cells (so that the number format changes in the labels when it changes in the cells).
+             * Represents whether or not the number format is linked to the cells. If true, the number format will change in the labels when it changes in the cells
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -59762,7 +59769,7 @@ declare namespace Excel {
         }
         /**
          *
-         * This object represents the attributes for chart error bars object.
+         * This object represents the attributes for a chart's error bars.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -59770,35 +59777,35 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * Represents the formatting of chart ErrorBars.
+            * Specifies the formatting type of the error bars.
             *
             * [Api set: ExcelApi 1.9]
             */
             format?: Excel.Interfaces.ChartErrorBarsFormatLoadOptions;
             /**
              *
-             * Represents whether have the end style cap for the error bars.
+             * Specifies whether or not the error bars have an end style cap.
              *
              * [Api set: ExcelApi 1.9]
              */
             endStyleCap?: boolean;
             /**
              *
-             * Represents which error-bar parts to include. See Excel.ChartErrorBarsInclude for details.
+             * Specifies which parts of the error bars to include.
              *
              * [Api set: ExcelApi 1.9]
              */
             include?: boolean;
             /**
              *
-             * Represents the range marked by error bars. See Excel.ChartErrorBarsType for details.
+             * The type of range marked by the error bars.
              *
              * [Api set: ExcelApi 1.9]
              */
             type?: boolean;
             /**
              *
-             * Represents whether shown error bars.
+             * Specifies whether or not the error bars are displayed.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -59814,7 +59821,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * Represents chart line formatting.
+            * Represents the chart line formatting.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -60058,7 +60065,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Encapsulates the properties for Map chart.
+         * Encapsulates the properties for a region map chart.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -60066,21 +60073,21 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * Returns or sets series map labels strategy of a region map chart. Read/Write.
+             * Returns or sets the series map labels strategy of a region map chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             labelStrategy?: boolean;
             /**
              *
-             * Returns or sets series map area of a region map chart. Read/Write.
+             * Returns or sets the series mapping level of a region map chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             level?: boolean;
             /**
              *
-             * Returns or sets series projection type of a region map chart. Read/Write.
+             * Returns or sets the series projection type of a region map chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -60257,7 +60264,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Encapsulates the bon options only for histogram chart and pareto chart.
+         * Encapsulates the bin options for histogram charts and pareto charts.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -60265,49 +60272,49 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * Returns or sets if bin overflow enabled in a histogram chart or pareto chart. Read/Write.
+             * Specifies whether or not the bin overflow is enabled in a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             allowOverflow?: boolean;
             /**
              *
-             * Returns or sets if bin underflow enabled in a histogram chart or pareto chart. Read/Write.
+             * Specifies whether or not the bin underflow is enabled in a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             allowUnderflow?: boolean;
             /**
              *
-             * Returns or sets count of bin of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin count of a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             count?: boolean;
             /**
              *
-             * Returns or sets bin overflow value of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin overflow value of a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             overflowValue?: boolean;
             /**
              *
-             * Returns or sets bin type of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin's type for a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             type?: boolean;
             /**
              *
-             * Returns or sets bin underflow value of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin underflow value of a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             underflowValue?: boolean;
             /**
              *
-             * Returns or sets bin width value of a histogram chart or pareto chart. Read/Write.
+             * Returns or sets the bin width value of a histogram chart or pareto chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -60315,7 +60322,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents the properties for Box & Whisker chart.
+         * Represents the properties of a box and whisker chart.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -60323,35 +60330,35 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * Returns or sets quartile calculation type of a Box & whisker chart. Read/Write.
+             * Returns or sets the quartile calculation type of a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             quartileCalculation?: boolean;
             /**
              *
-             * Returns or sets if inner points showed in a Box & whisker chart. Read/Write.
+             * Specifies whether or not the inner points are shown in a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             showInnerPoints?: boolean;
             /**
              *
-             * Returns or sets if mean line showed in a Box & whisker chart. Read/Write.
+             * Specifies whether or not the mean line is shown in a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             showMeanLine?: boolean;
             /**
              *
-             * Returns or sets if mean marker showed in a Box & whisker chart. Read/Write.
+             * Specifies whether or not the mean marker is shown in a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
             showMeanMarker?: boolean;
             /**
              *
-             * Returns or sets if outlier points showed in a Box & whisker chart. Read/Write.
+             * Specifies whether or not outlier points are shown in a box and whisker chart. Read/Write.
              *
              * [Api set: ExcelApi 1.9]
              */
