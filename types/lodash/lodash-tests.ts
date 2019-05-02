@@ -6812,13 +6812,13 @@ fp.now(); // $ExpectType number
     _.overEvery([(number: number) => true]); // $ExpectType (...args: number[]) => boolean
     _.overEvery([(number: number) => true], [(number: number) => true]); // $ExpectType (...args: number[]) => boolean
 
-    _(Math.max).overEvery<number>(); // $ExpectType Imp<(...args: number[]) => boolean>
-    _(Math.max).overEvery((number: number) => true); // $ExpectType Imp<(...args: number[]) => boolean>
-    _([Math.max]).overEvery([(number: number) => true]); // $ExpectType Imp<(...args: number[]) => boolean>
+    _(Math.max).overEvery<number>(); // $ExpectType ImpF<(...args: number[]) => boolean>
+    _(Math.max).overEvery((number: number) => true); // $ExpectType ImpF<(...args: number[]) => boolean>
+    _([Math.max]).overEvery([(number: number) => true]); // $ExpectType ImpF<(...args: number[]) => boolean>
 
-    _.chain(Math.max).overEvery<number>(); // $ExpectType Exp<(...args: number[]) => boolean>
-    _.chain(Math.max).overEvery((number: number) => true); // $ExpectType Exp<(...args: number[]) => boolean>
-    _.chain([Math.max]).overEvery([(number: number) => true]); // $ExpectType Exp<(...args: number[]) => boolean>
+    _.chain(Math.max).overEvery<number>(); // $ExpectType ExpF<(...args: number[]) => boolean>
+    _.chain(Math.max).overEvery((number: number) => true); // $ExpectType ExpF<(...args: number[]) => boolean>
+    _.chain([Math.max]).overEvery([(number: number) => true]); // $ExpectType ExpF<(...args: number[]) => boolean>
 
     fp.overEvery((number: number) => true); // $ExpectType (...args: number[]) => boolean
     fp.overEvery([(number: number) => true, (number: number) => true]); // $ExpectType (...args: number[]) => boolean
@@ -6828,13 +6828,13 @@ fp.now(); // $ExpectType number
     _.overSome([(number: number) => true]); // $ExpectType (...args: number[]) => boolean
     _.overSome([(number: number) => true], [(number: number) => true]); // $ExpectType (...args: number[]) => boolean
 
-    _(Math.max).overSome<number>(); // $ExpectType Imp<(...args: number[]) => boolean>
-    _(Math.max).overSome((number: number) => true); // $ExpectType Imp<(...args: number[]) => boolean>
-    _([Math.max]).overSome([(number: number) => true]); // $ExpectType Imp<(...args: number[]) => boolean>
+    _(Math.max).overSome<number>(); // $ExpectType ImpF<(...args: number[]) => boolean>
+    _(Math.max).overSome((number: number) => true); // $ExpectType ImpF<(...args: number[]) => boolean>
+    _([Math.max]).overSome([(number: number) => true]); // $ExpectType ImpF<(...args: number[]) => boolean>
 
-    _.chain(Math.max).overSome<number>(); // $ExpectType Exp<(...args: number[]) => boolean>
-    _.chain(Math.max).overSome((number: number) => true); // $ExpectType Exp<(...args: number[]) => boolean>
-    _.chain([Math.max]).overSome([(number: number) => true]); // $ExpectType Exp<(...args: number[]) => boolean>
+    _.chain(Math.max).overSome<number>(); // $ExpectType ExpF<(...args: number[]) => boolean>
+    _.chain(Math.max).overSome((number: number) => true); // $ExpectType ExpF<(...args: number[]) => boolean>
+    _.chain([Math.max]).overSome([(number: number) => true]); // $ExpectType ExpF<(...args: number[]) => boolean>
 
     fp.overSome((number: number) => true); // $ExpectType (...args: number[]) => boolean
     fp.overSome([(number: number) => true, (number: number) => true]); // $ExpectType (...args: number[]) => boolean
@@ -7009,16 +7009,16 @@ _.templateSettings; // $ExpectType TemplateSettings
     };
 
     // with arity 0 function
-    _.partial(func0); // $ExpectType Function0<number>
+    _.partial(func0); // $ExpectType () => number
     // with arity 1 function
-    _.partial(func1, 42); // $ExpectType Function0<number>
-    _.partial(func1); // $ExpectType Function1<number, number>
+    _.partial(func1, 42); // $ExpectType () => number
+    _.partial(func1); // $ExpectType (arg1: number) => number
     // with arity 2 function
-    _.partial(func2); // $ExpectType Function2<number, string, number>
-    _.partial(func2, 42); // $ExpectType Function1<string, number>
+    _.partial(func2); // $ExpectType (arg1: number, arg2: string) => number
+    _.partial(func2, 42); // $ExpectType (arg2: string) => number
     _.partial(func2,  _, "foo"); // $ExpectType Function1<number, number>
     _.partial(func2, _.partial.placeholder, "foo"); // $ExpectType Function1<number, number>
-    _.partial(func2, 42, "foo"); // $ExpectType Function0<number>
+    _.partial(func2, 42, "foo"); // $ExpectType () => number
     // with arity 3 function
     _.partial(func3, 42,     _, true);
 

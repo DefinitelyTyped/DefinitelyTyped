@@ -269,32 +269,32 @@ declare module "../index" {
         overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
     interface ImpL<T> {
-        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: TArgs[]) => boolean[]>;
+        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: TArgs[]) => boolean>;
     }
     interface ImpF<T> {
-        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: Parameters<T> | TArgs[]) => boolean[]>;
+        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: Parameters<T> | TArgs[]) => boolean>;
     }
     interface ExpL<T> {
-        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args:  TArgs[]) => boolean[]>;
+        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args:  TArgs[]) => boolean>;
     }
     interface ExpF<T> {
-        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args: Parameters<T> | TArgs[]) => boolean[]>;
+        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args: Parameters<T> | TArgs[]) => boolean>;
     }
 
     interface Stat {
         overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
     interface ImpL<T> {
-        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: TArgs[]) => boolean[]>;
+        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: TArgs[]) => boolean>;
     }
     interface ImpF<T> {
-        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: Parameters<T> | TArgs[]) => boolean[]>;
+        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: Parameters<T> | TArgs[]) => boolean>;
     }
     interface ExpL<T> {
-        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args: TArgs[]) => boolean[]>;
+        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args: TArgs[]) => boolean>;
     }
     interface ExpF<T> {
-        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args: Parameters<T> | TArgs[]) => boolean[]>;
+        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args: Parameters<T> | TArgs[]) => boolean>;
     }
 
     interface Stat {
@@ -322,10 +322,10 @@ declare module "../index" {
         range(end: number, index: string | number, guard: object): number[];
     }
     interface Imp<TValue> {
-        range(end?: number, step?: number): Imp<number[]>;
+        range(end?: number, step?: number): ImpL<number>;
     }
     interface Exp<TValue> {
-        range(end?: number, step?: number): Exp<number[]>;
+        range(end?: number, step?: number): ExpL<number>;
     }
 
     interface Stat {
@@ -333,10 +333,10 @@ declare module "../index" {
         rangeRight(end: number, index: string | number, guard: object): number[];
     }
     interface Imp<TValue> {
-        rangeRight(end?: number, step?: number): Imp<number[]>;
+        rangeRight(end?: number, step?: number): ImpL<number>;
     }
     interface Exp<TValue> {
-        rangeRight(end?: number, step?: number): Exp<number[]>;
+        rangeRight(end?: number, step?: number): ExpL<number>;
     }
 
     interface Stat {
@@ -353,7 +353,7 @@ declare module "../index" {
         stubArray(): any[];
     }
     interface Exp<TValue> {
-        stubArray(): Exp<any[]>;
+        stubArray(): ExpL<any>;
     }
 
     interface Stat {
@@ -383,7 +383,7 @@ declare module "../index" {
         stubString(): string;
     }
     interface Exp<TValue> {
-        stubString(): Exp<string>;
+        stubString(): ExpS;
     }
 
     interface Stat {
@@ -405,18 +405,18 @@ declare module "../index" {
         times(): number[];
     }
     interface Exp<TValue> {
-        times<TResult>(iteratee: (num: number) => TResult): Exp<TResult[]>;
-        times(): Exp<number[]>;
+        times<TResult>(iteratee: (num: number) => TResult): ExpL<TResult>;
+        times(): ExpL<number>;
     }
 
     interface Stat {
         toPath(value: any): string[];
     }
     interface Imp<TValue> {
-        toPath(): Imp<string[]>;
+        toPath(): ImpL<string>;
     }
     interface Exp<TValue> {
-        toPath(): Exp<string[]>;
+        toPath(): ExpL<string>;
     }
 
     interface Stat {
@@ -426,6 +426,6 @@ declare module "../index" {
         uniqueId(): string;
     }
     interface Exp<TValue> {
-        uniqueId(): Exp<string>;
+        uniqueId(): ExpS;
     }
 }
