@@ -1,25 +1,25 @@
-// Type definitions for line-by-line 0.1.6
+// Type definitions for line-by-line 0.1
 // Project: https://github.com/Osterjour/line-by-line
 // Definitions by: Sean Roach <https://github.com/TheEdgyDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-import { EventEmitter } from "events"
-import { Readable } from "stream"
+import { EventEmitter } from "events";
+import { Readable } from "stream";
 
 interface LineByLineReaderOptions {
     /** The encoding to use. */
-    encoding?: "ascii" | "base64" | "utf8"
+    encoding?: "ascii" | "base64" | "utf8";
     /** If set to true, empty lines do not emit the "line" event. */
-    skipEmptyLines?: boolean
+    skipEmptyLines?: boolean;
 }
 
 interface LineByLineReaderFileOptions extends LineByLineReaderOptions {
     /** The `end` position in bytes to read from the file. */
-    end?: number
+    end?: number;
     /** The `start` position in bytes to read from the file. */
-    start?: number
+    start?: number;
 }
 
 declare class LineByLineReader extends EventEmitter {
@@ -28,47 +28,47 @@ declare class LineByLineReader extends EventEmitter {
      * @param filePath The path to the file to read.
      * @param options Optional. The options used when constructing the new `LineByLineReader` object.
      */
-    constructor(filePath: string, options?: LineByLineReaderFileOptions)
+    constructor(filePath: string, options?: LineByLineReaderFileOptions);
     /**
      * Constructs a new `LineByLineReader` from a readable stream.
      * @param stream The stream to read.
      * @param options Optional. The options used when constructing the new `LineByLineReader` object.
      */
-    constructor(stream: Readable, options?: LineByLineReaderOptions)
+    constructor(stream: Readable, options?: LineByLineReaderOptions);
 
     /**
      * Stops emitting "line" events, closes the file or stream, and emits the "end" event.
      */
-    public close(): void
+    close(): void;
 
     /**
      * Emitted if all lines are read.
      * @param event
      * @param listener
      */
-    public on(event: "end", listener: () => void): this
+    on(event: "end", listener: () => void): this;
     /**
      * Emitted if an error occured.
      * @param event
      * @param listener A listener that receives the error object.
      */
-    public on(event: "error", listener: (err: any) => void): this
+    on(event: "error", listener: (err: any) => void): this;
     /**
      * Emitted on every line read.
      * @param event
      * @param listener A listener that receives the line without the line terminator.
      */
-    public on(event: "line", listener: (line: string) => void): this
+    on(event: "line", listener: (line: string) => void): this;
 
     /**
      * Call this method to stop emitting "line" events.
      */
-    public pause(): void
+    pause(): void;
 
     /**
      * After calling this method, "line" events get emitted again.
      */
-    public resume(): void
+    resume(): void;
 }
 
-export = LineByLineReader
+export = LineByLineReader;
