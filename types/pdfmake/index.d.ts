@@ -101,9 +101,9 @@ declare module "pdfmake/build/pdfmake" {
 
     type TDocumentHeaderFooterFunction = (
         currentPage: number,
-        pageCount: number,
-        pageSize?: any
-    ) => any;
+        pageCount: number
+    ) => // pageSize?: any
+    any;
 
     type Margins = number | [number, number] | [number, number, number, number];
 
