@@ -129,8 +129,8 @@ declare namespace Bull {
     data: T;
 
     /**
-    * Options of the job
-    */
+     * Options of the job
+     */
     opts: JobOptions;
 
     /**
