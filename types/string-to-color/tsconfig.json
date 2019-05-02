@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "string-to-color-test.ts"
+        "string-to-color-tests.ts"
     ]
 }
