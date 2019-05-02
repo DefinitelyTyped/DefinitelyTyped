@@ -31,20 +31,20 @@ declare module "../index" {
         conforms<T>(source: ConformsPredicateObject<T>): (value: T) => boolean;
     }
     interface Imp<TValue> {
-        conforms(): Imp<(value: ConformsPredicateObject<TValue>) => boolean>;
+        conforms(): ImpF<(value: ConformsPredicateObject<TValue>) => boolean>;
     }
     interface Exp<TValue> {
-        conforms(): Exp<(value: ConformsPredicateObject<TValue>) => boolean>;
+        conforms(): ExpF<(value: ConformsPredicateObject<TValue>) => boolean>;
     }
 
     interface Stat {
         constant<T>(value: T): () => T;
     }
     interface Imp<TValue> {
-        constant(): Imp<() => TValue>;
+        constant(): ImpF<() => TValue>;
     }
     interface Exp<TValue> {
-        constant(): Exp<() => TValue>;
+        constant(): ExpF<() => TValue>;
     }
 
     interface Stat {
@@ -164,10 +164,10 @@ declare module "../index" {
         matches<T, V>(source: T): (value: V) => boolean;
     }
     interface Imp<TValue> {
-        matches<V>(): Imp<(value: V) => boolean>;
+        matches<V>(): ImpF<(value: V) => boolean>;
     }
     interface Exp<TValue> {
-        matches<V>(): Exp<(value: V) => boolean>;
+        matches<V>(): ExpF<(value: V) => boolean>;
     }
 
     interface Stat {
@@ -175,22 +175,22 @@ declare module "../index" {
         matchesProperty<T, V>(path: PropertyPath, srcValue: T): (value: V) => boolean;
     }
     interface Imp<TValue> {
-        matchesProperty<SrcValue>(srcValue: SrcValue): Imp<(value: any) => boolean>;
-        matchesProperty<SrcValue, Value>(srcValue: SrcValue): Imp<(value: Value) => boolean>;
+        matchesProperty<SrcValue>(srcValue: SrcValue): ImpF<(value: any) => boolean>;
+        matchesProperty<SrcValue, Value>(srcValue: SrcValue): ImpF<(value: Value) => boolean>;
     }
     interface Exp<TValue> {
-        matchesProperty<SrcValue>(srcValue: SrcValue): Exp<(value: any) => boolean>;
-        matchesProperty<SrcValue, Value>(srcValue: SrcValue): Exp<(value: Value) => boolean>;
+        matchesProperty<SrcValue>(srcValue: SrcValue): ExpF<(value: any) => boolean>;
+        matchesProperty<SrcValue, Value>(srcValue: SrcValue): ExpF<(value: Value) => boolean>;
     }
 
     interface Stat {
         method(path: PropertyPath, ...args: any[]): (object: any) => any;
     }
     interface Imp<TValue> {
-        method(...args: any[]): Imp<(object: any) => any>;
+        method(...args: any[]): ImpF<(object: any) => any>;
     }
     interface Exp<TValue> {
-        method(...args: any[]): Exp<(object: any) => any>;
+        method(...args: any[]): ExpF<(object: any) => any>;
     }
 
     interface Stat {
@@ -243,10 +243,10 @@ declare module "../index" {
         nthArg(n?: number): (...args: any[]) => any;
     }
     interface Imp<TValue> {
-        nthArg(): Imp<(...args: any[]) => any>;
+        nthArg(): ImpF<(...args: any[]) => any>;
     }
     interface Exp<TValue> {
-        nthArg(): Exp<(...args: any[]) => any>;
+        nthArg(): ExpF<(...args: any[]) => any>;
     }
 
     interface Stat {
@@ -301,10 +301,10 @@ declare module "../index" {
         property<TObj, TResult>(path: PropertyPath): (obj: TObj) => TResult;
     }
     interface Imp<TValue> {
-        property<TObj, TResult>(): Imp<(obj: TObj) => TResult>;
+        property<TObj, TResult>(): ImpF<(obj: TObj) => TResult>;
     }
     interface Exp<TValue> {
-        property<TObj, TResult>(): Exp<(obj: TObj) => TResult>;
+        property<TObj, TResult>(): ExpF<(obj: TObj) => TResult>;
     }
 
     interface Stat {

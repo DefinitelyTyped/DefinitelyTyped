@@ -89,9 +89,9 @@ declare module "../index" {
         thru<T, TResult>(value: T, interceptor: (value: T) => TResult): TResult;
     }
     interface Imp<TValue> {
-        thru<TResult>(interceptor: (value: TValue) => TResult): Imp<TResult>;
+        thru<TResult>(interceptor: (value: TValue) => TResult): ImpChain<TResult>;
     }
     interface Exp<TValue> {
-        thru<TResult>(interceptor: (value: TValue) => TResult): Exp<TResult>;
+        thru<TResult>(interceptor: (value: TValue) => TResult): ExpChain<TResult>;
     }
 }

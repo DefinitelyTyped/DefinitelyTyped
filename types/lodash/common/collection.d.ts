@@ -5,22 +5,22 @@ declare module "../index" {
         countBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]>): Dictionary<number>;
     }
     interface ImpO<T> {
-        countBy(iteratee?: ValueIteratee<T[keyof T]>): Imp<Dictionary<number>>;
+        countBy(iteratee?: ValueIteratee<T[keyof T]>): ImpO<Dictionary<number>>;
     }
     interface ImpS {
-        countBy(iteratee?: ValueIteratee<string>): Imp<Dictionary<number>>;
+        countBy(iteratee?: ValueIteratee<string>): ImpO<Dictionary<number>>;
     }
     interface ImpL<T> {
-        countBy(iteratee?: ValueIteratee<T>): Imp<Dictionary<number>>;
+        countBy(iteratee?: ValueIteratee<T>): ImpO<Dictionary<number>>;
     }
     interface ExpO<T> {
-        countBy(iteratee?: ValueIteratee<T[keyof T]>): Exp<Dictionary<number>>;
+        countBy(iteratee?: ValueIteratee<T[keyof T]>): ExpO<Dictionary<number>>;
     }
     interface ExpS {
-        countBy(iteratee?: ValueIteratee<string>): Exp<Dictionary<number>>;
+        countBy(iteratee?: ValueIteratee<string>): ExpO<Dictionary<number>>;
     }
     interface ExpL<T> {
-        countBy(iteratee?: ValueIteratee<T>): Exp<Dictionary<number>>;
+        countBy(iteratee?: ValueIteratee<T>): ExpO<Dictionary<number>>;
     }
     interface Stat {
         each: Stat['forEach'];
@@ -392,28 +392,28 @@ declare module "../index" {
         groupBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]>): Dictionary<Array<T[keyof T]>>;
     }
     interface ImpS {
-        groupBy(iteratee?: ValueIteratee<string>): Imp<Dictionary<string>>;
+        groupBy(iteratee?: ValueIteratee<string>): ImpO<Dictionary<string>>;
     }
     interface ImpL<T> {
-        groupBy(iteratee?: ValueIteratee<T>): Imp<Dictionary<T>>;
+        groupBy(iteratee?: ValueIteratee<T>): ImpO<Dictionary<T>>;
     }
     interface ImpO<T> {
-        groupBy(iteratee?: ValueIteratee<T[keyof T]>): Imp<Dictionary<Array<T[keyof T]>>>;
+        groupBy(iteratee?: ValueIteratee<T[keyof T]>): ImpO<Dictionary<Array<T[keyof T]>>>;
     }
     interface ImpU<T> {
-        groupBy(iteratee?: ValueIteratee<unknown>): Imp<Dictionary<unknown>>;
+        groupBy(iteratee?: ValueIteratee<unknown>): ImpO<Dictionary<unknown>>;
     }
     interface ExpS {
-        groupBy(iteratee?: ValueIteratee<string>): Exp<Dictionary<string>>;
+        groupBy(iteratee?: ValueIteratee<string>): ExpO<Dictionary<string>>;
     }
     interface ExpL<T> {
-        groupBy(iteratee?: ValueIteratee<T>): Exp<Dictionary<T>>;
+        groupBy(iteratee?: ValueIteratee<T>): ExpO<Dictionary<T>>;
     }
     interface ExpO<T> {
-        groupBy(iteratee?: ValueIteratee<T[keyof T]>): Exp<Dictionary<Array<T[keyof T]>>>;
+        groupBy(iteratee?: ValueIteratee<T[keyof T]>): ExpO<Dictionary<Array<T[keyof T]>>>;
     }
     interface ExpU<T> {
-        groupBy(iteratee?: ValueIteratee<unknown>): Exp<Dictionary<unknown>>;
+        groupBy(iteratee?: ValueIteratee<unknown>): ExpO<Dictionary<unknown>>;
     }
     interface Stat {
         includes<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: T, fromIndex?: number): boolean;
@@ -447,28 +447,28 @@ declare module "../index" {
         keyBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>): Dictionary<T[keyof T]>;
     }
     interface ImpS {
-        keyBy(iteratee?: ValueIterateeCustom<string, PropertyName>): Imp<Dictionary<string>>;
+        keyBy(iteratee?: ValueIterateeCustom<string, PropertyName>): ImpO<Dictionary<string>>;
     }
     interface ImpL<T> {
-        keyBy(iteratee?: ValueIterateeCustom<T, PropertyName>): Imp<Dictionary<T>>;
+        keyBy(iteratee?: ValueIterateeCustom<T, PropertyName>): ImpO<Dictionary<T>>;
     }
     interface ImpO<T> {
-        keyBy(iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>): Imp<Dictionary<T[keyof T]>>;
+        keyBy(iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>): ImpO<Dictionary<T[keyof T]>>;
     }
     interface ImpU<T> {
-        keyBy(iteratee?: ValueIterateeCustom<unknown, PropertyName>): Imp<Dictionary<unknown>>;
+        keyBy(iteratee?: ValueIterateeCustom<unknown, PropertyName>): ImpO<Dictionary<unknown>>;
     }
     interface ExpS {
-        keyBy(iteratee?: ValueIterateeCustom<string, PropertyName>): Exp<Dictionary<string>>;
+        keyBy(iteratee?: ValueIterateeCustom<string, PropertyName>): ExpO<Dictionary<string>>;
     }
     interface ExpL<T> {
-        keyBy(iteratee?: ValueIterateeCustom<T, PropertyName>): Exp<Dictionary<T>>;
+        keyBy(iteratee?: ValueIterateeCustom<T, PropertyName>): ExpO<Dictionary<T>>;
     }
     interface ExpO<T> {
-        keyBy(iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>): Exp<Dictionary<T[keyof T]>>;
+        keyBy(iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>): ExpO<Dictionary<T[keyof T]>>;
     }
     interface ExpU<T> {
-        keyBy(iteratee?: ValueIterateeCustom<unknown, PropertyName>): Exp<Dictionary<unknown>>;
+        keyBy(iteratee?: ValueIterateeCustom<unknown, PropertyName>): ExpO<Dictionary<unknown>>;
     }
     interface Stat {
         map<T, TResult>(collection: T[] | null | undefined, iteratee: ArrayIterator<T, TResult>): TResult[];

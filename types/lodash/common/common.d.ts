@@ -5,6 +5,22 @@ declare module "../index" {
     type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
     type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | ReadonlyArray<T>;
+    type ImpChain<T> =
+        T extends { __trapAny: any } ? ImpL<any> :
+        T extends null | undefined ? ImpU<T> :
+        T extends string | null | undefined ? ImpS :
+        T extends (...args: any) => any ? ImpF<T> :
+        T extends List<infer U> | null | undefined ? ImpL<U> :
+        T extends object | null | undefined ? ImpO<T> :
+        ImpU<T>;
+    type ExpChain<T> =
+        T extends { __trapAny: any } ? ExpL<any> :
+        T extends null | undefined ? ExpU<T> :
+        T extends string | null | undefined ? ExpS :
+        T extends (...args: any) => any ? ExpF<T> :
+        T extends List<infer U> | null | undefined ? ExpL<U> :
+        T extends object | null | undefined ? ExpO<T> :
+        ExpU<T>;
     interface Stat {
         <TrapAny extends { __trapAny: any }>(value: TrapAny): ImpL<any>;
         <T extends null | undefined>(value: T): ImpU<T>;

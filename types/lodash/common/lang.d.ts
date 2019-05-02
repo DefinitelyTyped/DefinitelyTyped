@@ -578,10 +578,10 @@ declare module "../index" {
         toPlainObject(value?: any): any;
     }
     interface Imp<TValue> {
-        toPlainObject(): Imp<any>;
+        toPlainObject(): ImpO<any>;
     }
     interface Exp<TValue> {
-        toPlainObject(): Exp<any>;
+        toPlainObject(): ExpO<any>;
     }
 
     interface Stat {

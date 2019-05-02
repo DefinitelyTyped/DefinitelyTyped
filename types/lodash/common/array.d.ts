@@ -124,10 +124,10 @@ declare module "../index" {
         fill<T, U>(array: List<U> | null | undefined, value: T, start?: number, end?: number): List<T | U>;
     }
     interface ImpL<T> {
-        fill<U>(value: U, start?: number, end?: number): Imp<List<T | U>>;
+        fill<U>(value: U, start?: number, end?: number): ImpL<T | U>;
     }
     interface ExpL<T> {
-        fill<U>(value: U, start?: number, end?: number): Exp<List<T | U>>;
+        fill<U>(value: U, start?: number, end?: number): ExpL<T | U>;
     }
     interface Stat {
         findIndex<T>(array: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): number;
@@ -202,10 +202,10 @@ declare module "../index" {
         fromPairs(pairs: List<any[]> | null | undefined): Dictionary<any>;
     }
     interface ImpL<T> {
-        fromPairs(): Imp<Dictionary<T extends [PropertyName, infer U] ? U : any>>;
+        fromPairs(): ImpO<Dictionary<T extends [PropertyName, infer U] ? U : any>>;
     }
     interface ExpL<T> {
-        fromPairs(): Exp<Dictionary<T extends [PropertyName, infer U] ? U : any>>;
+        fromPairs(): ExpO<Dictionary<T extends [PropertyName, infer U] ? U : any>>;
     }
     interface Stat {
         head<T>(array: List<T> | null | undefined): T | undefined;
@@ -675,12 +675,12 @@ declare module "../index" {
         zipObject(props?: List<PropertyName>): Dictionary<undefined>;
     }
     interface ImpL<T> {
-        zipObject<U>(values: List<U>): Imp<Dictionary<U>>;
-        zipObject(): Imp<Dictionary<undefined>>;
+        zipObject<U>(values: List<U>): ImpO<Dictionary<U>>;
+        zipObject(): ImpO<Dictionary<undefined>>;
     }
     interface ExpL<T> {
-        zipObject<U>(values: List<U>): Exp<Dictionary<U>>;
-        zipObject(): Exp<Dictionary<undefined>>;
+        zipObject<U>(values: List<U>): ExpO<Dictionary<U>>;
+        zipObject(): ExpO<Dictionary<undefined>>;
     }
     interface Stat {
         zipObjectDeep(paths?: List<PropertyPath>, values?: List<any>): object;

@@ -3,29 +3,29 @@ declare module "../index" {
     interface Stat {
         after<TFunc extends (...args: any[]) => any>(n: number, func: TFunc): TFunc;
     }
-    interface Imp<TValue> {
-        after<TFunc extends (...args: any[]) => any>(func: TFunc): Imp<TFunc>;
+    interface ImpU<T> {
+        after<TFunc extends (...args: any[]) => any>(func: TFunc): ImpF<TFunc>;
     }
-    interface Exp<TValue> {
-        after<TFunc extends (...args: any[]) => any>(func: TFunc): Exp<TFunc>;
+    interface ExpU<T> {
+        after<TFunc extends (...args: any[]) => any>(func: TFunc): ExpF<TFunc>;
     }
     interface Stat {
         ary(func: (...args: any[]) => any, n?: number): (...args: any[]) => any;
     }
-    interface Imp<TValue> {
-        ary(n?: number): Imp<(...args: any[]) => any>;
+    interface ImpF<T> {
+        ary(n?: number): ImpF<(...args: any[]) => any>;
     }
-    interface Exp<TValue> {
-        ary(n?: number): Exp<(...args: any[]) => any>;
+    interface ExpF<T> {
+        ary(n?: number): ExpF<(...args: any[]) => any>;
     }
     interface Stat {
         before<TFunc extends (...args: any[]) => any>(n: number, func: TFunc): TFunc;
     }
-    interface Imp<TValue> {
-        before<TFunc extends (...args: any[]) => any>(func: TFunc): Imp<TFunc>;
+    interface ImpU<T> {
+        before<TFunc extends (...args: any[]) => any>(func: TFunc): ImpF<TFunc>;
     }
-    interface Exp<TValue> {
-        before<TFunc extends (...args: any[]) => any>(func: TFunc): Exp<TFunc>;
+    interface ExpU<T> {
+        before<TFunc extends (...args: any[]) => any>(func: TFunc): ExpF<TFunc>;
     }
     interface FunctionBind {
         placeholder: __;
@@ -35,10 +35,10 @@ declare module "../index" {
         bind: FunctionBind;
     }
     interface Imp<TValue> {
-        bind(thisArg: any, ...partials: any[]): Imp<(...args: any[]) => any>;
+        bind(thisArg: any, ...partials: any[]): ImpF<(...args: any[]) => any>;
     }
     interface Exp<TValue> {
-        bind(thisArg: any, ...partials: any[]): Exp<(...args: any[]) => any>;
+        bind(thisArg: any, ...partials: any[]): ExpF<(...args: any[]) => any>;
     }
     interface FunctionBindKey {
         placeholder: __;
@@ -48,10 +48,10 @@ declare module "../index" {
         bindKey: FunctionBindKey;
     }
     interface Imp<TValue> {
-        bindKey(key: string, ...partials: any[]): Imp<(...args: any[]) => any>;
+        bindKey(key: string, ...partials: any[]): ImpF<(...args: any[]) => any>;
     }
     interface Exp<TValue> {
-        bindKey(key: string, ...partials: any[]): Exp<(...args: any[]) => any>;
+        bindKey(key: string, ...partials: any[]): ExpF<(...args: any[]) => any>;
     }
     interface Curry {
         <T1, R>(func: (t1: T1) => R, arity?: number): CurriedFunction1<T1, R>;
@@ -275,19 +275,19 @@ declare module "../index" {
         defer(func: (...args: any[]) => any, ...args: any[]): number;
     }
     interface Imp<TValue> {
-        defer(...args: any[]): Imp<number>;
+        defer(...args: any[]): ImpU<number>;
     }
     interface Exp<TValue> {
-        defer(...args: any[]): Exp<number>;
+        defer(...args: any[]): ExpU<number>;
     }
     interface Stat {
         delay(func: (...args: any[]) => any, wait: number, ...args: any[]): number;
     }
     interface Imp<TValue> {
-        delay(wait: number, ...args: any[]): Imp<number>;
+        delay(wait: number, ...args: any[]): ImpU<number>;
     }
     interface Exp<TValue> {
-        delay(wait: number, ...args: any[]): Exp<number>;
+        delay(wait: number, ...args: any[]): ExpU<number>;
     }
     interface Stat {
         flip<T extends (...args: any) => any>(func: T): T;
@@ -308,10 +308,10 @@ declare module "../index" {
         };
     }
     interface ImpF<T extends (...args: any) => any> {
-        memoize(resolver?: (...args: any[]) => any): Imp<T & MemoizedFunction>;
+        memoize(resolver?: (...args: any[]) => any): ImpF<T & MemoizedFunction>;
     }
     interface ExpF<T extends (...args: any) => any> {
-        memoize(resolver?: (...args: any[]) => any): Exp<T & MemoizedFunction>;
+        memoize(resolver?: (...args: any[]) => any): ExpF<T & MemoizedFunction>;
     }
     interface Stat {
         negate<T extends any[]>(predicate: (...args: T) => any): (...args: T) => boolean;
@@ -334,11 +334,11 @@ declare module "../index" {
     interface Stat {
         overArgs(func: (...args: any[]) => any, ...transforms: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
     }
-    interface Imp<TValue> {
-        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): Imp<(...args: any[]) => any>;
+    interface ImpF<T> {
+        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): ImpF<(...args: any[]) => any>;
     }
-    interface Exp<TValue> {
-        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): Exp<(...args: any[]) => any>;
+    interface ExpF<T> {
+        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): ExpF<(...args: any[]) => any>;
     }
     interface Stat {
         partial: Partial;
@@ -548,9 +548,6 @@ declare module "../index" {
         (func: (...args: any[]) => any, ...args: any[]): (...args: any[]) => any;
         placeholder: __;
     }
-    interface ImplicitPartialRight {
-        (...args: any[]): Imp<(...args: any[]) => any>;
-    }
     interface ImpF<T> {
         partialRight<T1>(arg1: T1, plc2: __): ImpF<
             T extends Function2<T1, infer T2, infer R> ? Function1<T2, R> :
@@ -736,11 +733,11 @@ declare module "../index" {
     interface Stat {
         rearg(func: (...args: any[]) => any, ...indexes: Array<Many<number>>): (...args: any[]) => any;
     }
-    interface Imp<TValue> {
-        rearg(...indexes: Array<Many<number>>): Imp<(...args: any[]) => any>;
+    interface ImpF<T> {
+        rearg(...indexes: Array<Many<number>>): ImpF<(...args: any[]) => any>;
     }
-    interface Exp<TValue> {
-        rearg(...indexes: Array<Many<number>>): Exp<(...args: any[]) => any>;
+    interface ExpF<T> {
+        rearg(...indexes: Array<Many<number>>): ExpF<(...args: any[]) => any>;
     }
     interface Stat {
         rest(func: (...args: any[]) => any, start?: number): (...args: any[]) => any;
