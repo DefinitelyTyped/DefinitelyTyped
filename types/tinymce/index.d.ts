@@ -55,6 +55,12 @@ export function walk(o: {}, f: () => void, n?: string, s?: string): void;
 
 export function init(settings: Settings): void;
 
+export function triggerSave(): void;
+
+export function get(id: string): Editor
+
+export function get(id: number): Editor
+
 export interface Settings {
   table_toolbar?: string;
 
