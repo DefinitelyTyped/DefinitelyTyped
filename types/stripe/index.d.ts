@@ -21,6 +21,7 @@
 //                 Jonas Keisel <https://github.com/0xJoKe>
 //                 Andrew Delianides <https://github.com/delianides>
 //                 Gokul Chandrasekaran <https://github.com/gokulchandra>
+//                 Behrooz Kamali <https://github.com/behroozk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1391,7 +1392,11 @@ declare namespace Stripe {
              */
             discount?: coupons.IDiscount;
 
+            name?: string;
+
             email?: string;
+
+            phone?: string;
 
             livemode: boolean;
 
@@ -1437,10 +1442,20 @@ declare namespace Stripe {
             description?: string;
 
             /**
+             * The customer’s full name or business name. This can be unset by updating the value to null and then saving.
+             */
+            name?: string;
+
+            /**
              * Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking.
              * This can be unset by updating the value to null and then saving.
              */
             email?: string;
+
+            /**
+             * The customer’s phone number. This can be unset by updating the value to null and then saving.
+             */
+            phone?: string;
 
             /**
              * The identifier of the plan to subscribe the customer to. If provided, the returned customer object will have a list of subscriptions
@@ -1506,10 +1521,20 @@ declare namespace Stripe {
             description?: string;
 
             /**
+             * The customer’s full name or business name. This can be unset by updating the value to null and then saving.
+             */
+            name?: string;
+
+            /**
              * Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking.
              * This can be unset by updating the value to null and then saving.
              */
             email?: string;
+
+            /**
+             * The customer’s phone number. This can be unset by updating the value to null and then saving.
+             */
+            phone?: string;
 
             /**
              * The prefix for the customer used to generate unique invoice numbers.
