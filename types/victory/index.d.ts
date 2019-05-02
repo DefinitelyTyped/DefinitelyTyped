@@ -7,6 +7,7 @@
 //                 James Lismore <https://github.com/jlismore>
 //                 Stack Builders <https://github.com/stackbuilders>
 //                 Esteban Ibarra <https://github.com/ibarrae>
+//                 Dominic Lee <https://github.com/dominictwlee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -905,10 +906,14 @@ declare module "victory" {
   /**
    * Category prop type
    */
-  type CategoryPropType = string[] | {
-    x: string[]
-    y: string[]
-  };
+  type CategoryPropType =
+    | string[]
+    | { x: string[] }
+    | { y: string[] }
+    | {
+        x: string[];
+        y: string[];
+      };
 
   /**
    * Data getter property type
@@ -944,6 +949,13 @@ declare module "victory" {
      * This value should be given as a number of pixels
      */
     height?: number;
+    /**
+     * The horizontal prop determines whether data will be plotted horizontally.
+     * When this prop is set to true, the independent variable will be plotted on the y axis
+     * and the dependent variable will be plotted on the x axis.
+     * @default false
+     */
+    horizontal?: boolean;
     /**
      * The padding props specifies the amount of padding in number of pixels between
      * the edge of the chart and any rendered child components. This prop can be given

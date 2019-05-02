@@ -3127,6 +3127,12 @@
             "asOfVersion": "5.0.1"
         },
         {
+            "libraryName": "trim-newlines",
+            "typingsPackageName": "trim-newlines",
+            "sourceRepoURL": "https://github.com/sindresorhus/trim-newlines",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "TsMonad",
             "typingsPackageName": "tsmonad",
             "sourceRepoURL": "https://github.com/cbowdon/TsMonad",

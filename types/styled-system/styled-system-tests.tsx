@@ -1,130 +1,131 @@
 import * as React from "react";
 import {
-    themeGet,
-    space,
-    width,
-    fontSize,
-    color,
-    fontFamily,
-    display,
-    SpaceProps,
-    WidthProps,
-    ColorProps,
-    TextColorProps,
-    DisplayProps,
-    FontSizeProps,
-    FontFamilyProps,
-    textAlign,
-    TextAlignProps,
-    background,
-    BackgroundProps,
-    maxWidth,
-    MaxWidthProps,
-    lineHeight,
-    LineHeightProps,
-    FontWeightProps,
-    fontWeight,
-    letterSpacing,
-    LetterSpacingProps,
-    minWidth,
-    MinWidthProps,
-    HeightProps,
-    height,
-    MaxHeightProps,
-    maxHeight,
-    minHeight,
-    MinHeightProps,
-    size,
-    SizeProps,
+    alignContent,
+    AlignContentProps,
     alignItems,
     AlignItemsProps,
-    AlignContentProps,
-    alignContent,
+    alignSelf,
+    AlignSelfProps,
+    background,
+    backgroundColor,
+    BackgroundColorProps,
+    backgroundImage,
+    BackgroundImageProps,
+    backgroundPosition,
+    BackgroundPositionProps,
+    BackgroundProps,
+    backgroundRepeat,
+    BackgroundRepeatProps,
+    backgroundSize,
+    BackgroundSizeProps,
+    border,
+    borderBottom,
+    borderColor,
+    BorderColorProps,
+    borderLeft,
+    BorderProps,
+    borderRadius,
+    BorderRadiusProps,
+    borderRight,
+    borders,
+    BordersProps,
+    borderTop,
+    bottom,
+    BottomProps,
+    boxShadow,
+    BoxShadowProps,
+    buttonStyle,
+    ButtonStyleProps,
+    color,
+    ColorProps,
+    colorStyle,
+    ColorStyleProps,
+    display,
+    DisplayProps,
+    flex,
+    flexBasis,
+    FlexBasisProps,
+    flexDirection,
+    FlexDirectionProps,
+    FlexProps,
+    flexWrap,
+    FlexWrapProps,
+    fontFamily,
+    FontFamilyProps,
+    fontSize,
+    FontSizeProps,
+    fontWeight,
+    FontWeightProps,
+    gridAutoColumns,
+    GridAutoColumnsProps,
+    gridAutoFlow,
+    GridAutoFlowProps,
+    gridAutoRows,
+    GridAutoRowsProps,
+    gridColumn,
+    gridColumnGap,
+    GridColumnGapProps,
+    GridColumnProps,
+    gridGap,
+    GridGapProps,
+    gridRow,
+    gridRowGap,
+    GridRowGapProps,
+    GridRowProps,
+    gridTemplateColumns,
+    gridTemplateRows,
+    GridTemplateColumnsProps,
+    GridTemplateRowsProps,
+    height,
+    HeightProps,
     justifyContent,
     JustifyContentProps,
     justifyItems,
     JustifyItemsProps,
-    FlexWrapProps,
-    flexWrap,
-    flexBasis,
-    FlexBasisProps,
-    borderColor,
-    BorderColorProps,
-    flexDirection,
-    FlexDirectionProps,
-    flex,
-    FlexProps,
     justifySelf,
     JustifySelfProps,
-    alignSelf,
-    AlignSelfProps,
-    borders,
-    BordersProps,
-    borderRadius,
-    BorderRadiusProps,
+    left,
+    LeftProps,
+    letterSpacing,
+    LetterSpacingProps,
+    lineHeight,
+    LineHeightProps,
+    maxHeight,
+    MaxHeightProps,
+    maxWidth,
+    MaxWidthProps,
+    minHeight,
+    MinHeightProps,
+    minWidth,
+    MinWidthProps,
     position,
     PositionProps,
+    right,
+    RightProps,
+    size,
+    SizeProps,
+    space,
+    SpaceProps,
+    textAlign,
+    TextAlignProps,
+    TextColorProps,
+    textStyle,
+    TextStyleProps,
+    top,
+    TopProps,
+    variant,
+    VariantArgs,
+    verticalAlign,
+    VerticalAlignProps,
+    width,
+    WidthProps,
     zIndex,
     ZIndexProps,
-    top,
-    bottom,
-    left,
-    right,
-    TopProps,
-    BottomProps,
-    LeftProps,
-    RightProps,
-    boxShadow,
-    BoxShadowProps,
-    backgroundImage,
-    backgroundPosition,
-    backgroundRepeat,
-    backgroundSize,
-    BackgroundImageProps,
-    BackgroundPositionProps,
-    BackgroundRepeatProps,
-    BackgroundSizeProps,
-    GridGapProps,
-    GridRowGapProps,
-    GridColumnGapProps,
-    GridRowProps,
-    GridColumnProps,
-    gridGap,
-    gridRowGap,
-    gridColumnGap,
-    gridRow,
-    gridColumn,
-    GridAutoFlowProps,
-    GridAutoColumnsProps,
-    GridAutoRowsProps,
-    GridTemplatesRowsProps,
-    GridTemplatesColumnsProps,
-    gridAutoFlow,
-    gridAutoRows,
-    gridAutoColumns,
-    gridTemplateColumns,
-    gridTemplateRows,
-    backgroundColor,
-    BackgroundColorProps,
-    border,
-    borderBottom,
-    borderLeft,
-    borderRight,
-    borderTop,
-    BorderProps,
-    textStyle,
-    colorStyle,
-    buttonStyle,
-    variant,
-    ColorStyleProps,
-    TextStyleProps,
-    VariantArgs,
-    ButtonStyleProps,
-    VerticalAlignProps,
-    verticalAlign,
     px,
     createMediaQuery,
     styles,
+    themeGet,
+    Theme,
 } from "styled-system";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
@@ -142,37 +143,38 @@ const boxStyle = variant({
 });
 
 interface BoxProps
-    extends SpaceProps,
-        WidthProps,
-        FontSizeProps,
-        ColorProps,
-        DisplayProps,
-        BackgroundProps,
+    extends AlignSelfProps,
         BackgroundColorProps,
-        MaxWidthProps,
-        MinWidthProps,
-        HeightProps,
-        MaxHeightProps,
-        MinHeightProps,
-        SizeProps,
-        BorderColorProps,
-        FlexProps,
-        JustifySelfProps,
-        AlignSelfProps,
-        BordersProps,
-        PositionProps,
-        ZIndexProps,
-        TopProps,
-        BottomProps,
-        LeftProps,
-        RightProps,
-        BoxShadowProps,
         BackgroundImageProps,
         BackgroundPositionProps,
+        BackgroundProps,
         BackgroundRepeatProps,
         BackgroundSizeProps,
+        BorderColorProps,
+        BorderProps,
+        BordersProps,
+        BottomProps,
+        BoxShadowProps,
+        ColorProps,
         ColorStyleProps,
+        DisplayProps,
+        FlexProps,
+        FontSizeProps,
+        HeightProps,
+        JustifySelfProps,
+        LeftProps,
+        MaxHeightProps,
+        MaxWidthProps,
+        MinHeightProps,
+        MinWidthProps,
+        PositionProps,
+        RightProps,
+        SizeProps,
+        SpaceProps,
         TextStyleProps,
+        TopProps,
+        WidthProps,
+        ZIndexProps,
         VerticalAlignProps {
             boxStyle?: string;
         }
@@ -262,8 +264,8 @@ interface GridComponentProps
         GridAutoFlowProps,
         GridAutoColumnsProps,
         GridAutoRowsProps,
-        GridTemplatesRowsProps,
-        GridTemplatesColumnsProps {}
+        GridTemplateRowsProps,
+        GridTemplateColumnsProps {}
 const Grid: React.ComponentType<GridComponentProps> = styled`
     ${gridGap};
     ${gridRowGap};
@@ -530,7 +532,163 @@ const test = () => (
         />
         // verticalAlign
         <Box verticalAlign="middle" />
+        // borders
+        <Box border="1px solid red" />
+        <Box borderTop="1px solid red" />
+        <Box borderRight="1px solid red" />
+        <Box borderBottom="1px solid red" />
+        <Box borderLeft="1px solid red" />
+        // borders (responsive)
+        <Box border={["1px solid red", "2px solid red"]} />
+        <Box borderTop={["1px solid red", "2px solid red"]} />
+        <Box borderRight={["1px solid red", "2px solid red"]} />
+        <Box borderBottom={["1px solid red", "2px solid red"]} />
+        <Box borderLeft={["1px solid red", "2px solid red"]} />
 
         <TestButton variant="primary" m={2} color="tomato" />
     </div>
 );
+
+// Test the `Theme` validates as per the Theme Spec:
+// https://styled-system.com/theme-specification
+// https://system-ui.com/theme/
+export const themeA: Theme = {
+    borders: ['1px solid red', '2px solid red'],
+    borderStyles: {
+        primary: {
+            border: '3px solid red'
+        },
+        disabled: {
+            border: '1px solid gray'
+        },
+    },
+    borderWidths: [0, 1, 3],
+    buttons: {
+        primary: {
+            color: 'blue'
+        },
+        danger: {
+            color: 'red'
+        }
+    },
+    breakpoints: ['40em', '52em', '64em'],
+    colors: {
+        black: 'hsl(0, 0%, 0%)',
+        blacks: [
+          'hsla(0, 0%, 0%, .9)',
+          'hsla(0, 0%, 0%, .1)',
+        ]
+    },
+    colorStyles: {
+        warning: {
+            color: 'black',
+            backgroundColor: 'orange',
+        },
+    },
+    fonts: {
+        normal: 'apple-system, BlinkMacSystemFont, sans-serif',
+        mono: 'Consolas, Courier, monospace',
+    },
+    fontWeights: [100, 400, 700],
+    fontSizes: [12, 14, 16],
+    heights: [0, '50vh', '100vh'],
+    letterSpacings: [-1, 1, 3],
+    lineHeights: [1, 1.25, 2],
+    maxHeights: ['50vh', '100vh'],
+    maxWidths: ['50%', '100%'],
+    minHeights: ['50vh', '100vh'],
+    minWidths: ['50%', '100%'],
+    opacity: [0, 0.25, 0.5, 0.75],
+    radii: [0, 3, 9],
+    shadows: ['1 1 3px -1 gray', '1 2 6px -1 gray'],
+    sizes: [0, '33%', '50%', '100%'],
+    space: [12, 14, 16],
+    textStyles: {
+        caps: {
+            textTransform: 'uppercase',
+            letterSpacing: '0.2em'
+        }
+    },
+    zIndeces: [-1, 0, 1, 9999]
+};
+
+// Some properties can be formatted differently
+export const themeB: Theme = {
+    space: ['12px', '14px', '16px'],
+    fontSizes: ['12px', '14px', '16px'],
+    lineHeights: ['14px', '14.5px', '16.5px'],
+};
+
+export const themeC: Theme = {
+    space: {
+        small: 12,
+        medium: '14px',
+    },
+    fontSizes: {
+        small: 12,
+        medium: '14px',
+    },
+};
+
+// All Style Functions contain `propTypes`
+export const alignContentPropTypes = alignContent.propTypes;
+export const alignItemsPropTypes = alignItems.propTypes;
+export const alignSelfPropTypes = alignSelf.propTypes;
+export const backgroundPropTypes = background.propTypes;
+export const backgroundColorPropTypes = backgroundColor.propTypes;
+export const backgroundImagePropTypes = backgroundImage.propTypes;
+export const backgroundPositionPropTypes = backgroundPosition.propTypes;
+export const backgroundRepeatPropTypes = backgroundRepeat.propTypes;
+export const backgroundSizePropTypes = backgroundSize.propTypes;
+export const borderPropTypes = border.propTypes;
+export const borderBottomPropTypes = borderBottom.propTypes;
+export const borderColorPropTypes = borderColor.propTypes;
+export const borderLeftPropTypes = borderLeft.propTypes;
+export const borderRadiusPropTypes = borderRadius.propTypes;
+export const borderRightPropTypes = borderRight.propTypes;
+export const bordersPropTypes = borders.propTypes;
+export const borderTopPropTypes = borderTop.propTypes;
+export const bottomPropTypes = bottom.propTypes;
+export const boxShadowPropTypes = boxShadow.propTypes;
+export const buttonStylePropTypes = buttonStyle.propTypes;
+export const colorPropTypes = color.propTypes;
+export const colorStylePropTypes = colorStyle.propTypes;
+export const displayPropTypes = display.propTypes;
+export const flexPropTypes = flex.propTypes;
+export const flexBasisPropTypes = flexBasis.propTypes;
+export const flexDirectionPropTypes = flexDirection.propTypes;
+export const flexWrapPropTypes = flexWrap.propTypes;
+export const fontFamilyPropTypes = fontFamily.propTypes;
+export const fontSizePropTypes = fontSize.propTypes;
+export const fontWeightPropTypes = fontWeight.propTypes;
+export const gridAutoColumnsPropTypes = gridAutoColumns.propTypes;
+export const gridAutoFlowPropTypes = gridAutoFlow.propTypes;
+export const gridAutoRowsPropTypes = gridAutoRows.propTypes;
+export const gridColumnPropTypes = gridColumn.propTypes;
+export const gridColumnGapPropTypes = gridColumnGap.propTypes;
+export const gridGapPropTypes = gridGap.propTypes;
+export const gridRowPropTypes = gridRow.propTypes;
+export const gridRowGapPropTypes = gridRowGap.propTypes;
+export const gridTemplateColumnsPropTypes = gridTemplateColumns.propTypes;
+export const gridTemplateRowsPropTypes = gridTemplateRows.propTypes;
+export const heightPropTypes = height.propTypes;
+export const justifyContentPropTypes = justifyContent.propTypes;
+export const justifyItemsPropTypes = justifyItems.propTypes;
+export const justifySelfPropTypes = justifySelf.propTypes;
+export const leftPropTypes = left.propTypes;
+export const letterSpacingPropTypes = letterSpacing.propTypes;
+export const lineHeightPropTypes = lineHeight.propTypes;
+export const maxHeightPropTypes = maxHeight.propTypes;
+export const maxWidthPropTypes = maxWidth.propTypes;
+export const minHeightPropTypes = minHeight.propTypes;
+export const minWidthPropTypes = minWidth.propTypes;
+export const positionPropTypes = position.propTypes;
+export const rightPropTypes = right.propTypes;
+export const sizePropTypes = size.propTypes;
+export const spacePropTypes = space.propTypes;
+export const textAlignPropTypes = textAlign.propTypes;
+export const textStylePropTypes = textStyle.propTypes;
+export const topPropTypes = top.propTypes;
+export const verticalAlignPropTypes = verticalAlign.propTypes;
+export const widthPropTypes = width.propTypes;
+export const zIndexPropTypes = zIndex.propTypes;

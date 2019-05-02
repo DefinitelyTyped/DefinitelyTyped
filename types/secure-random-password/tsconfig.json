@@ -6,8 +6,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "trim-newlines-tests.ts"
+        "secure-random-password-tests.ts"
     ]
 }
