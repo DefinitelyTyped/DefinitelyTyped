@@ -6,6 +6,7 @@
 //                 GP <https://github.com/paambaati>
 //                 Alex Ferrando <https://github.com/alferpal>
 //                 Oleksandr Sidko <https://github.com/mortiy>
+//                 Benjamin Beret <https://github.com/kouak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -280,6 +281,10 @@ declare namespace P {
          * Specify a search pattern according to {@link http://jmespath.org|jmespath}
          */
         search?: string;
+        /**
+         * Ignore one or several keys
+         */
+        ignore?: string;
     }
 
     type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';

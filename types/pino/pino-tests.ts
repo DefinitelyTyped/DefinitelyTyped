@@ -134,6 +134,7 @@ const pretty = pino({
 		levelFirst: false,
 		messageKey: 'msg',
 		translateTime: 'UTC:h:MM:ss TT Z',
-		search: 'foo == `bar`'
+        search: 'foo == `bar`',
+        ignore: 'pid,hostname',
 	}
 });
