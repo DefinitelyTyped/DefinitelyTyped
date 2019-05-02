@@ -48,13 +48,13 @@ declare module "../index" {
         cloneWith(): TValue;
     }
     interface Exp<TValue> {
-        clone(): Exp<TValue>;
-        cloneDeep(): Exp<TValue>;
+        clone(): this;
+        cloneDeep(): this;
         cloneDeepWith(customizer: CloneDeepWithCustomizer<TValue>): Exp<any>;
-        cloneDeepWith(): Exp<TValue>;
-        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<TValue, TResult>): Exp<TResult>;
-        cloneWith<TResult>(customizer: CloneWithCustomizer<TValue, TResult | undefined>): Exp<TResult | TValue>;
-        cloneWith(): Exp<TValue>;
+        cloneDeepWith(): this;
+        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<TValue, TResult>): ExpChain<TResult>;
+        cloneWith<TResult>(customizer: CloneWithCustomizer<TValue, TResult | undefined>): ExpChain<TResult | TValue>;
+        cloneWith(): this;
     }
 
     interface Stat {

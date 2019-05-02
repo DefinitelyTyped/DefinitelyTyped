@@ -37,7 +37,7 @@ declare module "../index" {
         endsWith(target?: string, position?: number): boolean;
     }
     interface Exp<TValue> {
-        endsWith(target?: string, position?: number): Exp<boolean>;
+        endsWith(target?: string, position?: number): ExpU<boolean>;
     }
 
     interface Stat {
@@ -127,7 +127,7 @@ declare module "../index" {
         parseInt(radix?: number): number;
     }
     interface Exp<TValue> {
-        parseInt(radix?: number): Exp<number>;
+        parseInt(radix?: number): ExpU<number>;
     }
 
     interface Stat {
@@ -192,7 +192,7 @@ declare module "../index" {
         startsWith(target?: string, position?: number): boolean;
     }
     interface Exp<TValue> {
-        startsWith(target?: string, position?: number): Exp<boolean>;
+        startsWith(target?: string, position?: number): ExpU<boolean>;
     }
 
     interface TemplateOptions extends TemplateSettings {
@@ -209,7 +209,7 @@ declare module "../index" {
         template(options?: TemplateOptions): TemplateExecutor;
     }
     interface Exp<TValue> {
-        template(options?: TemplateOptions): Exp<TemplateExecutor>;
+        template(options?: TemplateOptions): ExpF<TemplateExecutor>;
     }
 
     interface Stat {

@@ -7,7 +7,7 @@ declare module "../index" {
         add(addend: number): number;
     }
     interface Exp<TValue> {
-        add(addend: number): Exp<number>;
+        add(addend: number): ExpU<number>;
     }
 
     interface Stat {
@@ -17,7 +17,7 @@ declare module "../index" {
         ceil(precision?: number): number;
     }
     interface Exp<TValue> {
-        ceil(precision?: number): Exp<number>;
+        ceil(precision?: number): ExpU<number>;
     }
 
     interface Stat {
@@ -27,7 +27,7 @@ declare module "../index" {
         divide(divisor: number): number;
     }
     interface Exp<TValue> {
-        divide(divisor: number): Exp<number>;
+        divide(divisor: number): ExpU<number>;
     }
 
     interface Stat {
@@ -37,7 +37,7 @@ declare module "../index" {
         floor(precision?: number): number;
     }
     interface Exp<TValue> {
-        floor(precision?: number): Exp<number>;
+        floor(precision?: number): ExpU<number>;
     }
 
     interface Stat {
@@ -67,7 +67,7 @@ declare module "../index" {
         mean(): number;
     }
     interface Exp<TValue> {
-        mean(): Exp<number>;
+        mean(): ExpU<number>;
     }
 
     interface Stat {
@@ -77,7 +77,7 @@ declare module "../index" {
         meanBy(iteratee?: ValueIteratee<T>): number;
     }
     interface ExpL<T> {
-        meanBy(iteratee?: ValueIteratee<T>): Exp<number>;
+        meanBy(iteratee?: ValueIteratee<T>): ExpU<number>;
     }
 
     interface Stat {
@@ -107,7 +107,7 @@ declare module "../index" {
         multiply(multiplicand: number): number;
     }
     interface Exp<TValue> {
-        multiply(multiplicand: number): Exp<number>;
+        multiply(multiplicand: number): ExpU<number>;
     }
 
     interface Stat {
@@ -117,7 +117,7 @@ declare module "../index" {
         round(precision?: number): number;
     }
     interface Exp<TValue> {
-        round(precision?: number): Exp<number>;
+        round(precision?: number): ExpU<number>;
     }
 
     interface Stat {
@@ -127,7 +127,7 @@ declare module "../index" {
         subtract(subtrahend: number): number;
     }
     interface Exp<TValue> {
-        subtract(subtrahend: number): Exp<number>;
+        subtract(subtrahend: number): ExpU<number>;
     }
 
     interface Stat {
@@ -137,7 +137,7 @@ declare module "../index" {
         sum(): number;
     }
     interface Exp<TValue> {
-        sum(): Exp<number>;
+        sum(): ExpU<number>;
     }
 
     interface Stat {
@@ -147,6 +147,6 @@ declare module "../index" {
         sumBy(iteratee?: ((value: T) => number) | string): number;
     }
     interface ExpL<T> {
-        sumBy(iteratee?: ((value: T) => number) | string): Exp<number>;
+        sumBy(iteratee?: ((value: T) => number) | string): ExpU<number>;
     }
 }

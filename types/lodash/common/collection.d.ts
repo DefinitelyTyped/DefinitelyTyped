@@ -139,12 +139,12 @@ declare module "../index" {
         find(predicate?: DictionaryIteratee<unknown>, fromIndex?: number): unknown;
     }
     interface ExpL<T> {
-        find< S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): Exp<S|undefined>;
-        find(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): Exp<T|undefined>;
+        find< S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): ExpChain<S|undefined>;
+        find(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T|undefined>;
     }
     interface ExpO<T> {
-        find< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): Exp<S|undefined>;
-        find(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): Exp<T[keyof T]|undefined>;
+        find< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): ExpChain<S|undefined>;
+        find(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T[keyof T]|undefined>;
     }
     interface ExpU<T> {
         find(predicate?: DictionaryIteratee<unknown>, fromIndex?: number): ExpU<T>;
@@ -167,12 +167,12 @@ declare module "../index" {
         findLast(predicate?: DictionaryIteratee<unknown>, fromIndex?: number): unknown;
     }
     interface ExpL<T> {
-        findLast< S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): Exp<S|undefined>;
-        findLast(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): Exp<T|undefined>;
+        findLast< S extends T>(predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): ExpChain<S|undefined>;
+        findLast(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T|undefined>;
     }
     interface ExpO<T> {
-        findLast< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): Exp<S|undefined>;
-        findLast(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): Exp<T[keyof T]|undefined>;
+        findLast< S extends T[keyof T]>(predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): ExpChain<S|undefined>;
+        findLast(predicate?: ObjectIterateeCustom<T, boolean>, fromIndex?: number): ExpChain<T[keyof T]|undefined>;
     }
     interface ExpU<T> {
         findLast(predicate?: DictionaryIteratee<unknown>, fromIndex?: number): ExpU<T>;
@@ -585,12 +585,12 @@ declare module "../index" {
         reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
     }
     interface ExpL<T> {
-        reduce<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): Exp<TResult>;
-        reduce(callback: MemoListIterator<T, T, List<T>>): Exp<T | undefined>;
+        reduce<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): ExpChain<TResult>;
+        reduce(callback: MemoListIterator<T, T, List<T>>): ExpChain<T | undefined>;
     }
     interface ExpO<T> {
-        reduce<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): Exp<TResult>;
-        reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): Exp<T[keyof T] | undefined>;
+        reduce<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): ExpChain<TResult>;
+        reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): ExpChain<T[keyof T] | undefined>;
     }
     interface Stat {
         reduceRight<T, TResult>(collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult): TResult;
@@ -609,12 +609,12 @@ declare module "../index" {
         reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): T[keyof T] | undefined;
     }
     interface ExpL<T> {
-        reduceRight<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): Exp<TResult>;
-        reduceRight(callback: MemoListIterator<T, T, List<T>>): Exp<T | undefined>;
+        reduceRight<TResult>(callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): ExpChain<TResult>;
+        reduceRight(callback: MemoListIterator<T, T, List<T>>): ExpChain<T | undefined>;
     }
     interface ExpO<T> {
-        reduceRight<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): Exp<TResult>;
-        reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): Exp<T[keyof T] | undefined>;
+        reduceRight<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): ExpChain<TResult>;
+        reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): ExpChain<T[keyof T] | undefined>;
     }
     interface Stat {
         reject(collection: string | null | undefined, predicate?: StringIterator<boolean>): string[];
@@ -653,7 +653,7 @@ declare module "../index" {
         sample(): T[keyof T] | undefined;
     }
     interface ExpS {
-        sample(): Exp<string | undefined>;
+        sample(): ExpS;
     }
     interface ExpL<T> {
         sample(): Exp<T | undefined>;

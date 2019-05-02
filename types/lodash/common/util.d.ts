@@ -7,7 +7,7 @@ declare module "../index" {
         attempt<TResult>(...args: any[]): TResult | Error;
     }
     interface Exp<TValue> {
-        attempt<TResult>(...args: any[]): Exp<TResult | Error>;
+        attempt<TResult>(...args: any[]): ExpChain<TResult | Error>;
     }
 
     interface Stat {
@@ -236,7 +236,7 @@ declare module "../index" {
         noop(...args: any[]): void;
     }
     interface Exp<TValue> {
-        noop(...args: any[]): Exp<undefined>;
+        noop(...args: any[]): ExpU<undefined>;
     }
 
     interface Stat {
@@ -363,7 +363,7 @@ declare module "../index" {
         stubFalse(): false;
     }
     interface Exp<TValue> {
-        stubFalse(): Exp<false>;
+        stubFalse(): ExpU<false>;
     }
 
     interface Stat {
@@ -393,7 +393,7 @@ declare module "../index" {
         stubTrue(): true;
     }
     interface Exp<TValue> {
-        stubTrue(): Exp<true>;
+        stubTrue(): ExpU<true>;
     }
 
     interface Stat {

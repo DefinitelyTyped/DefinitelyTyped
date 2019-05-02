@@ -10,8 +10,8 @@ declare module "../index" {
         clamp(upper: number): number;
     }
     interface Exp<TValue> {
-        clamp(lower: number, upper: number): Exp<number>;
-        clamp(upper: number): Exp<number>;
+        clamp(lower: number, upper: number): ExpU<number>;
+        clamp(upper: number): ExpU<number>;
     }
     // inRange
     interface Stat {
@@ -21,7 +21,7 @@ declare module "../index" {
         inRange(start: number, end?: number): boolean;
     }
     interface Exp<TValue> {
-        inRange(start: number, end?: number): Exp<boolean>;
+        inRange(start: number, end?: number): ExpU<boolean>;
     }
     // random
     interface Stat {
@@ -35,7 +35,7 @@ declare module "../index" {
         random(max: number, floating?: boolean): number;
     }
     interface Exp<TValue> {
-        random(floating?: boolean): Exp<number>;
-        random(max: number, floating?: boolean): Exp<number>;
+        random(floating?: boolean): ExpU<number>;
+        random(max: number, floating?: boolean): ExpU<number>;
     }
 }

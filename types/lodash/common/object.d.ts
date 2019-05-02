@@ -166,10 +166,10 @@ declare module "../index" {
         entries(): ImpL<[string, any]>;
     }
     interface ExpO<T> {
-        entries(): Exp<Array<[string, T[keyof T]]>>;
+        entries(): ExpL<[string, T[keyof T]]>;
     }
     interface Exp<TValue> {
-        entries(): Exp<Array<[string, any]>>;
+        entries(): ExpL<[string, any]>;
     }
     interface Stat {
         entriesIn<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
@@ -182,10 +182,10 @@ declare module "../index" {
         entriesIn(): ImpL<[string, any]>;
     }
     interface ExpO<T> {
-        entriesIn(): Exp<Array<[string, T[keyof T]]>>;
+        entriesIn(): ExpL<[string, T[keyof T]]>;
     }
     interface Exp<TValue> {
-        entriesIn(): Exp<Array<[string, any]>>;
+        entriesIn(): ExpL<[string, any]>;
     }
     interface Stat {
         extend<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
@@ -340,13 +340,13 @@ declare module "../index" {
         get(path: number | number[], defaultValue: string): ExpS;
     }
     interface ExpO<T> {
-        get<TKey extends keyof T>(path: TKey | [TKey]): Exp<T[TKey]>;
-        get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): Exp<Exclude<T[TKey], undefined> | TDefault>;
+        get<TKey extends keyof T>(path: TKey | [TKey]): ExpChain<T[TKey]>;
+        get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): ExpChain<Exclude<T[TKey], undefined> | TDefault>;
         get(path: PropertyPath, defaultValue?: any): Exp<any>;
     }
     interface ExpL<T> {
-        get(path: number): T;
-        get<TDefault>(path: number, defaultValue: TDefault): T | TDefault;
+        get(path: number): ExpChain<T>;
+        get<TDefault>(path: number, defaultValue: TDefault): ExpChain<T | TDefault>;
     }
     interface Stat {
         has<T>(object: T, path: PropertyPath): boolean;
@@ -355,7 +355,7 @@ declare module "../index" {
         has(path: PropertyPath): boolean;
     }
     interface Exp<TValue> {
-        has(path: PropertyPath): Exp<boolean>;
+        has(path: PropertyPath): ExpU<boolean>;
     }
     interface Stat {
         hasIn<T>(object: T, path: PropertyPath): boolean;
@@ -364,7 +364,7 @@ declare module "../index" {
         hasIn(path: PropertyPath): boolean;
     }
     interface Exp<TValue> {
-        hasIn(path: PropertyPath): Exp<boolean>;
+        hasIn(path: PropertyPath): ExpU<boolean>;
     }
     interface Stat {
         invert(object: object): Dictionary<string>;
@@ -614,7 +614,7 @@ declare module "../index" {
         result<TResult>(path: PropertyPath, defaultValue?: TResult | ((...args: any[]) => TResult)): TResult;
     }
     interface Exp<TValue> {
-        result<TResult>(path: PropertyPath, defaultValue?: TResult | ((...args: any[]) => TResult)): Exp<TResult>;
+        result<TResult>(path: PropertyPath, defaultValue?: TResult | ((...args: any[]) => TResult)): ExpChain<TResult>;
     }
     interface Stat {
         set<T extends object>(object: T, path: PropertyPath, value: any): T;

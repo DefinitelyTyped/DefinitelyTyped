@@ -7,6 +7,6 @@ declare module "../index" {
         now(): number;
     }
     interface Exp<TValue> {
-        now(): Exp<number>;
+        now(): ExpU<number>;
     }
 }

@@ -458,8 +458,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _("abc").first(); // $ExpectType string | undefined
     _(list).first(); // $ExpectType AbcObject | undefined
 
-    _.chain("abc").first(); // $ExpectType Exp<string | undefined>
-    _.chain(list).first(); // $ExpectType Exp<AbcObject | undefined>
+    _.chain("abc").first(); // $ExpectType ExpS
+    _.chain(list).first(); // $ExpectType ExpO<AbcObject>
 
     fp.first("abc"); // $ExpectType string | undefined
     fp.first(list); // $ExpectType AbcObject | undefined
@@ -528,8 +528,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _("abc").head(); // $ExpectType string | undefined
     _(list).head(); // $ExpectType AbcObject | undefined
 
-    _.chain("abc").head(); // $ExpectType Exp<string | undefined>
-    _.chain(list).head(); // $ExpectType Exp<AbcObject | undefined>
+    _.chain("abc").head(); // $ExpectType ExpS
+    _.chain(list).head(); // $ExpectType ExpO<AbcObject>
 
     fp.head("abc"); // $ExpectType string | undefined
     fp.head(list); // $ExpectType AbcObject | undefined
@@ -771,8 +771,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _("abc").last(); // $ExpectType string | undefined
     _(list).last(); // $ExpectType AbcObject | undefined
 
-    _.chain("abc").last(); // $ExpectType Exp<string | undefined>
-    _.chain(list).last(); // $ExpectType Exp<AbcObject | undefined>
+    _.chain("abc").last(); // $ExpectType ExpS
+    _.chain(list).last(); // $ExpectType ExpO<AbcObject>
 
     fp.last("abc"); // $ExpectType string | undefined
     fp.last(list); // $ExpectType AbcObject | undefined
@@ -782,7 +782,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
 {
     _.nth(list, 42); // $ExpectType AbcObject | undefined
     _(list).nth(42); // $ExpectType AbcObject | undefined
-    _.chain(list).nth(42); // $ExpectType Exp<AbcObject | undefined>
+    _.chain(list).nth(42); // $ExpectType ExpO<AbcObject>
 
     fp.nth(42, list); // $ExpectType AbcObject | undefined
     fp.nth(42)(list); // $ExpectType AbcObject | undefined
@@ -1820,19 +1820,19 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(dictionary).find(["a", 5]); // $ExpectType AbcObject | undefined
     _([anything as AbcObject, null, undefined]).find((value: AbcObject | null | undefined): value is AbcObject | undefined => value !== null); // $ExpectType AbcObject | undefined
 
-    _.chain(list).find(); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(list).find(listIterator); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(list).find(listIterator, 1); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(list).find("a"); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(list).find({ a: 42 }); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(list).find(["a", 5]); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(dictionary).find(); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(dictionary).find(dictionaryIterator); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(dictionary).find(dictionaryIterator, 1); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(dictionary).find(""); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(dictionary).find({ a: 42 }); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(dictionary).find(["a", 5]); // $ExpectType Exp<AbcObject | undefined>
-    // $ExpectType Exp<AbcObject | undefined>
+    _.chain(list).find(); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(list).find(listIterator); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(list).find(listIterator, 1); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(list).find("a"); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(list).find({ a: 42 }); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(list).find(["a", 5]); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(dictionary).find(); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(dictionary).find(dictionaryIterator); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(dictionary).find(dictionaryIterator, 1); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(dictionary).find(""); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(dictionary).find({ a: 42 }); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(dictionary).find(["a", 5]); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    // $ExpectType ExpO<AbcObject> | ExpU<undefined>
     _.chain([anything as AbcObject, null, undefined]).find((value: AbcObject | null | undefined): value is AbcObject | undefined => value !== null);
 
     fp.find(valueIterator, list); // $ExpectType AbcObject | undefined
@@ -1879,19 +1879,19 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(dictionary).findLast(["a", 5]); // $ExpectType AbcObject | undefined
     _([anything as AbcObject, null, undefined]).findLast((value: AbcObject | null | undefined): value is AbcObject | undefined => value !== null); // $ExpectType AbcObject | undefined
 
-    _.chain(list).findLast(); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(list).findLast(listIterator); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(list).findLast(listIterator, 1); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(list).findLast("a"); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(list).findLast({ a: 42 }); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(list).findLast(["a", 5]); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(dictionary).findLast(); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(dictionary).findLast(dictionaryIterator); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(dictionary).findLast(dictionaryIterator, 1); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(dictionary).findLast(""); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(dictionary).findLast({ a: 42 }); // $ExpectType Exp<AbcObject | undefined>
-    _.chain(dictionary).findLast(["a", 5]); // $ExpectType Exp<AbcObject | undefined>
-    // $ExpectType Exp<AbcObject | undefined>
+    _.chain(list).findLast(); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(list).findLast(listIterator); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(list).findLast(listIterator, 1); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(list).findLast("a"); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(list).findLast({ a: 42 }); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(list).findLast(["a", 5]); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(dictionary).findLast(); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(dictionary).findLast(dictionaryIterator); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(dictionary).findLast(dictionaryIterator, 1); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(dictionary).findLast(""); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(dictionary).findLast({ a: 42 }); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    _.chain(dictionary).findLast(["a", 5]); // $ExpectType ExpO<AbcObject> | ExpU<undefined>
+    // $ExpectType ExpO<AbcObject> | ExpU<undefined>
     _.chain([anything as AbcObject, null, undefined]).findLast((value: AbcObject | null | undefined): value is AbcObject | undefined => value !== null);
 
     fp.findLast(valueIterator, list); // $ExpectType AbcObject | undefined
@@ -2885,8 +2885,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _([1, 2, 3]).reduce((sum, num) => sum + num); // $ExpectType number | undefined
     _({ a: 1, b: 2, c: 3 }).reduce((r: ABC, num: number, key: string) => r, initial); // $ExpectType ABC
 
-    _.chain([1, 2, 3]).reduce((sum, num) => sum + num); // $ExpectType Exp<number | undefined>
-    _.chain({ a: 1, b: 2, c: 3 }).reduce((r: ABC, num: number, key: string) => r, initial); // $ExpectType Exp<ABC>
+    _.chain([1, 2, 3]).reduce((sum, num) => sum + num); // $ExpectType ExpU<number> | ExpU<undefined>
+    _.chain({ a: 1, b: 2, c: 3 }).reduce((r: ABC, num: number, key: string) => r, initial); // $ExpectType ExpO<ABC>
 
     fp.reduce((s: string, num: number) => s + num, "", [1, 2, 3]); // $ExpectType string
     fp.reduce((s: string, num: number) => s + num)("")([1, 2, 3]); // $ExpectType string
@@ -2898,8 +2898,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _([1, 2, 3]).reduceRight((sum, num) => sum + num); // $ExpectType number | undefined
     _({ a: 1, b: 2, c: 3 }).reduceRight((r: ABC, num: number, key: string) => r, initial); // $ExpectType ABC
 
-    _.chain([1, 2, 3]).reduceRight((sum, num) => sum + num); // $ExpectType Exp<number | undefined>
-    _.chain({ a: 1, b: 2, c: 3 }).reduceRight((r: ABC, num: number, key: string) => r, initial); // $ExpectType Exp<ABC>
+    _.chain([1, 2, 3]).reduceRight((sum, num) => sum + num); // $ExpectType ExpU<number> | ExpU<undefined>
+    _.chain({ a: 1, b: 2, c: 3 }).reduceRight((r: ABC, num: number, key: string) => r, initial); // $ExpectType ExpO<ABC>
 
     fp.reduceRight((num: number, s: string) => s + num, "", [1, 2, 3]); // $ExpectType string
     fp.reduceRight((num: number, s: string) => s + num)("")([1, 2, 3]); // $ExpectType string
@@ -2960,7 +2960,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(numericDictionary).sample(); // $ExpectType string | undefined
     _({ a: "foo" }).sample(); // $ExpectType string | undefined
 
-    _.chain("abc").sample(); // $ExpectType Exp<string | undefined>
+    _.chain("abc").sample(); // $ExpectType ExpS
     _.chain(list).sample(); // $ExpectType Exp<string | undefined>
     _.chain(dictionary).sample(); // $ExpectType Exp<string | undefined>
     _.chain(numericDictionary).sample(); // $ExpectType Exp<string | undefined>
@@ -3644,7 +3644,7 @@ fp.now(); // $ExpectType number
     _(42).clone(); // $ExpectType number
     _({ a: { b: 42 } }).clone(); // $ExpectType { a: { b: number; }; }
     _.chain(42).clone(); // $ExpectType ExpU<number>
-    _.chain({ a: { b: 42 } }).clone(); // $ExpectType Exp<{ a: { b: number; }; }>
+    _.chain({ a: { b: 42 } }).clone(); // $ExpectType ExpO<{ a: { b: number; }; }>
     fp.clone(42); // $ExpectType 42
     fp.clone({ a: { b: 42 } }); // $ExpectType { a: { b: number; }; }
 }
@@ -3656,7 +3656,7 @@ fp.now(); // $ExpectType number
     _(42).cloneDeep(); // $ExpectType number
     _({ a: { b: 42 } }).cloneDeep(); // $ExpectType { a: { b: number; }; }
     _.chain(42).cloneDeep(); // $ExpectType ExpU<number>
-    _.chain({ a: { b: 42 } }).cloneDeep(); // $ExpectType Exp<{ a: { b: number; }; }>
+    _.chain({ a: { b: 42 } }).cloneDeep(); // $ExpectType ExpO<{ a: { b: number; }; }>
     fp.cloneDeep(42); // $ExpectType 42
     fp.cloneDeep({ a: { b: 42 } }); // $ExpectType { a: { b: number; }; }
 }
@@ -3684,7 +3684,7 @@ fp.now(); // $ExpectType number
 
         _.cloneWith(42, customizer); // $ExpectType string
         _(42).cloneWith(customizer); // $ExpectType string
-        _.chain(42).cloneWith<string>(customizer); // $ExpectType Exp<string>
+        _.chain(42).cloneWith<string>(customizer); // $ExpectType ExpS
 
         fp.cloneWith(customizer, 42); // $ExpectType string
         fp.cloneWith(customizer)(42); // $ExpectType string
@@ -5026,9 +5026,9 @@ fp.now(); // $ExpectType number
     _.entries(abcObject); // $ExpectType [string, any][]
     _(dictionary).entries(); // $ExpectType ImpL<[string, number]>
     _(numericDictionary).entries(); // $ExpectType ImpL<[string, number]>
-    _.chain(dictionary).entries(); // $ExpectType Exp<[string, number][]>
-    _.chain(numericDictionary).entries(); // $ExpectType Exp<[string, number][]>
-    _.chain(abcObject).entries(); // $ExpectType Exp<[string, string | number | boolean][]>
+    _.chain(dictionary).entries(); // $ExpectType ExpL<[string, number]>
+    _.chain(numericDictionary).entries(); // $ExpectType ExpL<[string, number]>
+    _.chain(abcObject).entries(); // $ExpectType ExpL<[string, string | number | boolean]>
     fp.entries(dictionary); // $ExpectType [string, number][]
 
     _.entriesIn(dictionary); // $ExpectType [string, number][]
@@ -5036,9 +5036,9 @@ fp.now(); // $ExpectType number
     _.entriesIn(abcObject); // $ExpectType [string, any][]
     _(dictionary).entriesIn(); // $ExpectType ImpL<[string, number]>
     _(numericDictionary).entriesIn(); // $ExpectType ImpL<[string, number]>
-    _.chain(dictionary).entriesIn(); // $ExpectType Exp<[string, number][]>
-    _.chain(numericDictionary).entriesIn(); // $ExpectType Exp<[string, number][]>
-    _.chain(abcObject).entriesIn(); // $ExpectType Exp<[string, string | number | boolean][]>
+    _.chain(dictionary).entriesIn(); // $ExpectType ExpL<[string, number]>
+    _.chain(numericDictionary).entriesIn(); // $ExpectType ExpL<[string, number]>
+    _.chain(abcObject).entriesIn(); // $ExpectType ExpL<[string, string | number | boolean]>
     fp.entriesIn(dictionary); // $ExpectType [string, number][]
 }
 
@@ -5188,12 +5188,12 @@ fp.now(); // $ExpectType number
     _.chain("abc").get(1); // $ExpectType ExpS
     _.chain("abc").get([0], "_");
     _.chain([42]).get(0, -1); // ExpectType ExpU<number>
-    _.chain({ a: { b: true } }).get("a"); // $ExpectType Exp<{ b: boolean; }>
-    _.chain({ a: { b: true } }).get(["a"]); // $ExpectType Exp<{ b: boolean; }>
+    _.chain({ a: { b: true } }).get("a"); // $ExpectType ExpO<{ b: boolean; }>
+    _.chain({ a: { b: true } }).get(["a"]); // $ExpectType ExpO<{ b: boolean; }>
     _.chain({ a: { b: true } }).get(["a", "b"]); // $ExpectType Exp<any>
-    _.chain({ a: undefined }).get("a"); // $ExpectType Exp<undefined>
-    _.chain({ a: value }).get("a", defaultValue); // $ExpectType Exp<string | boolean>
-    _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType ExpU<boolean>
+    _.chain({ a: undefined }).get("a"); // $ExpectType ExpU<undefined>
+    _.chain({ a: value }).get("a", defaultValue); // $ExpectType ExpS | ExpU<false> | ExpU<true>
+    _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType ExpU<false> | ExpU<true>
 
     fp.get(Symbol.iterator, []); // $ExpectType any
     fp.get(Symbol.iterator)([]); // $ExpectType any
@@ -5688,12 +5688,12 @@ fp.now(); // $ExpectType number
     _("abc").result<string>(["0"]); // $ExpectType string
     _("abc").result<string>([0], () => "_"); // $ExpectType string
     _({ a: () => true }).result<boolean>("a"); // $ExpectType boolean
-    _.chain("abc").result<string>("0"); // $ExpectType Exp<string>
-    _.chain("abc").result<string>(0, "_"); // $ExpectType Exp<string>
-    _.chain("abc").result<string>("0", () => "_"); // $ExpectType Exp<string>
-    _.chain("abc").result<string>(["0"]); // $ExpectType Exp<string>
-    _.chain("abc").result<string>([0], () => "_"); // $ExpectType Exp<string>
-    _.chain({ a: () => true }).result<boolean>("a"); // $ExpectType ExpU<boolean>
+    _.chain("abc").result<string>("0"); // $ExpectType ExpS
+    _.chain("abc").result<string>(0, "_"); // $ExpectType ExpS
+    _.chain("abc").result<string>("0", () => "_"); // $ExpectType ExpS
+    _.chain("abc").result<string>(["0"]); // $ExpectType ExpS
+    _.chain("abc").result<string>([0], () => "_"); // $ExpectType ExpS
+    _.chain({ a: () => true }).result<boolean>("a"); // $ExpectType ExpU<false> | ExpU<true>
 
     fp.result<string>("0", "abc"); // $ExpectType string
     fp.result("0")<string>("abc"); // $ExpectType string
@@ -6414,8 +6414,8 @@ fp.now(); // $ExpectType number
     _.template("", options); // $ExpectType TemplateExecutor
     _("").template(); // $ExpectType TemplateExecutor
     _("").template(options); // $ExpectType TemplateExecutor
-    _.chain("").template(); // $ExpectType Exp<TemplateExecutor>
-    _.chain("").template(options); // $ExpectType Exp<TemplateExecutor>
+    _.chain("").template(); // $ExpectType ExpF<TemplateExecutor>
+    _.chain("").template(options); // $ExpectType ExpF<TemplateExecutor>
 
     const result2 = fp.template("");
     result2(); // $ExpectType string
@@ -6557,7 +6557,7 @@ fp.now(); // $ExpectType number
     result = _(func).attempt<AbcObject>();
     result = _(func).attempt<AbcObject>("foo", "bar", "baz");
 
-    let explicitResult: _.Exp<Error | AbcObject>;
+    let explicitResult: _.ExpO<Error> | _.ExpO<AbcObject>;
     explicitResult = _.chain(func).attempt<AbcObject>();
     explicitResult = _.chain(func).attempt<AbcObject>("foo", "bar", "baz");
 
@@ -6621,8 +6621,8 @@ fp.now(); // $ExpectType number
     const z2: _.ExpU<number> = _.chain(null).defaultTo(42);
     _.chain(NaN).defaultTo(42); // $ExpectType ExpU<number>
     const z3: _.Exp<string> =  _.chain(undefined).defaultTo("default");
-    _.chain(undefined).defaultTo([true]); // $ExpectType Exp<boolean[]>
-    _.chain(undefined).defaultTo({ a: "" }); // $ExpectType Exp<{ a: string; }>
+    _.chain(undefined).defaultTo([true]); // $ExpectType ExpL<boolean>
+    _.chain(undefined).defaultTo({ a: "" }); // $ExpectType ExpO<{ a: string; }>
 
     const n: number = anything;
     fp.defaultTo(42, n); // $ExpectType number
@@ -6768,7 +6768,7 @@ fp.now(); // $ExpectType number
     _.noop(1); // $ExpectType void
     _.noop(true, "a", 1); // $ExpectType void
     _("a").noop(true, "a", 1); // $ExpectType void
-    _.chain("a").noop(true, "a", 1); // $ExpectType Exp<undefined>
+    _.chain("a").noop(true, "a", 1); // $ExpectType ExpU<undefined>
 
     fp.noop(); // $ExpectType void
     fp.noop(1); // $ExpectType void
@@ -6921,7 +6921,7 @@ fp.now(); // $ExpectType number
 {
     _.stubFalse(); // $ExpectType false
     _(anything).stubFalse(); // $ExpectType false
-    _.chain(anything).stubFalse(); // $ExpectType Exp<false>
+    _.chain(anything).stubFalse(); // $ExpectType ExpU<false>
     fp.stubFalse(); // $ExpectType false
 }
 
@@ -6945,7 +6945,7 @@ fp.now(); // $ExpectType number
 {
     _.stubTrue(); // $ExpectType true
     _(anything).stubTrue(); // $ExpectType true
-    _.chain(anything).stubTrue(); // $ExpectType Exp<true>
+    _.chain(anything).stubTrue(); // $ExpectType ExpU<true>
     fp.stubTrue(); // $ExpectType true
 }
 
