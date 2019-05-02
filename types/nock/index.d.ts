@@ -1,4 +1,4 @@
-// Type definitions for nock 10.0.1
+// Type definitions for nock 10.0
 // Project: https://github.com/nock/nock
 // Definitions by: bonnici <https://github.com/bonnici>
 //                 Horiuchi_H <https://github.com/horiuchi>
@@ -82,6 +82,7 @@ declare namespace nock {
         isDone(): boolean;
         restore(): void;
         pendingMocks(): string[];
+            function activeMocks(): string[];
     }
 
     interface Interceptor {
@@ -114,7 +115,7 @@ declare namespace nock {
         reqheaders?: { [key: string]: string | RegExp | { (headerValue: string): boolean; }; };
         badheaders?: string[];
         filteringScope?: { (scope: string): boolean; };
-        encodedQueryParams: boolean;
+        encodedQueryParams?: boolean;
     }
 
     interface RequestOptions {
