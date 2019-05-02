@@ -1,6 +1,6 @@
 import _ = require("../index");
 declare module "../index" {
-    interface Stat {
+    interface LoDashStatic {
         chunk<T>(array: List<T> | null | undefined, size?: number): T[][];
     }
     interface ImpL<T> {
@@ -9,7 +9,7 @@ declare module "../index" {
     interface ExpL<T> {
         chunk(size?: number): ExpL<T[]>;
     }
-    interface Stat {
+    interface LoDashStatic {
         compact<T>(array: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
     }
 
@@ -20,7 +20,7 @@ declare module "../index" {
     interface ExpL<T> {
         compact(): ExpL<Truthy<T>>;
     }
-    interface Stat {
+    interface LoDashStatic {
          concat<T>(array: Many<T>, ...values: Array<Many<T>>): T[];
     }
     interface ImpU<T> {
@@ -41,7 +41,7 @@ declare module "../index" {
     interface ExpO<T> {
         concat(...values: Array<Many<T>>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         difference<T>(array: List<T> | null | undefined, ...values: Array<List<T>>): T[];
     }
     interface ImpL<T> {
@@ -50,7 +50,7 @@ declare module "../index" {
     interface ExpL<T> {
         difference(...values: Array<List<T>>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         differenceBy<T1, T2>(array: List<T1> | null | undefined, values: List<T2>, iteratee: ValueIteratee<T1 | T2>): T1[];
         differenceBy<T1, T2, T3>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, iteratee: ValueIteratee<T1 | T2 | T3>): T1[];
         differenceBy<T1, T2, T3, T4>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, values3: List<T4>, iteratee: ValueIteratee<T1 | T2 | T3 | T4>): T1[];
@@ -67,7 +67,7 @@ declare module "../index" {
         differenceBy<T2>(values1: List<T2>, iteratee?: ValueIteratee<T | T2>): ExpL<T>;
         differenceBy(...values: Array<List<unknown> | ValueIteratee<T>>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         differenceWith<T1, T2>(array: List<T1> | null | undefined, values: List<T2>, comparator: Comparator2<T1, T2>): T1[];
         differenceWith<T1, T2, T3>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, comparator: Comparator2<T1, T2 | T3>): T1[];
         differenceWith<T1, T2, T3, T4>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>): T1[];
@@ -81,7 +81,7 @@ declare module "../index" {
         differenceWith< T2>(values: List<T2>, comparator: Comparator2<T, T2>): ExpL<T>;
         differenceWith< T2, T3, T4>(...values: Array<List<unknown> | Comparator2<T, never>>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         drop<T>(array: List<T> | null | undefined, n?: number): T[];
     }
     interface ImpL<T> {
@@ -90,7 +90,7 @@ declare module "../index" {
     interface ExpL<T> {
         drop(n?: number): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         dropRight<T>(array: List<T> | null | undefined, n?: number): T[];
     }
     interface ImpL<T> {
@@ -99,7 +99,7 @@ declare module "../index" {
     interface ExpL<T> {
         dropRight(n?: number): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         dropRightWhile<T>(array: List<T> | null | undefined, predicate?: ListIteratee<T>): T[];
     }
     interface ImpL<T> {
@@ -108,7 +108,7 @@ declare module "../index" {
     interface ExpL<T> {
         dropRightWhile(predicate?: ListIteratee<T>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         dropWhile<T>(array: List<T> | null | undefined, predicate?: ListIteratee<T>): T[];
     }
     interface ImpL<T> {
@@ -117,7 +117,7 @@ declare module "../index" {
     interface ExpL<T> {
         dropWhile(predicate?: ListIteratee<T>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         fill<T>(array: any[] | null | undefined, value: T): T[];
         fill<T>(array: List<any> | null | undefined, value: T): List<T>;
         fill<T, U>(array: U[] | null | undefined, value: T, start?: number, end?: number): Array<T | U>;
@@ -129,7 +129,7 @@ declare module "../index" {
     interface ExpL<T> {
         fill<U>(value: U, start?: number, end?: number): ExpL<T | U>;
     }
-    interface Stat {
+    interface LoDashStatic {
         findIndex<T>(array: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): number;
     }
     interface ImpL<T> {
@@ -138,7 +138,7 @@ declare module "../index" {
     interface ExpL<T> {
         findIndex(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): ExpU<number>;
     }
-    interface Stat {
+    interface LoDashStatic {
         findLastIndex<T>(array: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): number;
     }
     interface ImpL<T> {
@@ -147,8 +147,8 @@ declare module "../index" {
     interface ExpL<T> {
         findLastIndex(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): ExpU<number>;
     }
-    interface Stat {
-        first: Stat["head"];
+    interface LoDashStatic {
+        first: LoDashStatic["head"];
     }
     interface ImpS {
         first(): string | undefined;
@@ -164,7 +164,7 @@ declare module "../index" {
     }
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
     interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
-    interface Stat {
+    interface LoDashStatic {
         flatten<T>(array: List<Many<T>> | null | undefined): T[];
     }
     interface ImpS {
@@ -179,7 +179,7 @@ declare module "../index" {
     interface ExpL<T> {
         flatten(): T extends Many<infer U> ? ExpL<U> : ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         flattenDeep<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined): T[];
     }
     interface ImpL<T> {
@@ -188,7 +188,7 @@ declare module "../index" {
     interface ExpL<T> {
         flattenDeep(): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, depth?: number): T[];
     }
     interface ImpL<T> {
@@ -197,7 +197,7 @@ declare module "../index" {
     interface ExpL<T> {
         flattenDepth(depth?: number): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         fromPairs<T>(pairs: List<[PropertyName, T]> | null | undefined): Dictionary<T>;
         fromPairs(pairs: List<any[]> | null | undefined): Dictionary<any>;
     }
@@ -207,7 +207,7 @@ declare module "../index" {
     interface ExpL<T> {
         fromPairs(): ExpO<Dictionary<T extends [PropertyName, infer U] ? U : any>>;
     }
-    interface Stat {
+    interface LoDashStatic {
         head<T>(array: List<T> | null | undefined): T | undefined;
     }
     interface ImpS {
@@ -222,7 +222,7 @@ declare module "../index" {
     interface ExpL<T> {
         head(): ExpChain<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         indexOf<T>(array: List<T> | null | undefined, value: T, fromIndex?: number): number;
     }
     interface ImpL<T> {
@@ -231,7 +231,7 @@ declare module "../index" {
     interface ExpL<T> {
         indexOf(value: T, fromIndex?: number): ExpU<number>;
     }
-    interface Stat {
+    interface LoDashStatic {
         initial<T>(array: List<T> | null | undefined): T[];
     }
     interface ImpL<T> {
@@ -240,7 +240,7 @@ declare module "../index" {
     interface ExpL<T> {
         initial(): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         intersection<T>(...arrays: Array<List<T>>): T[];
     }
     interface ImpL<T> {
@@ -249,7 +249,7 @@ declare module "../index" {
     interface ExpL<T> {
         intersection(...arrays: Array<List<T>>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         intersectionBy<T1, T2>(array: List<T1> | null, values: List<T2>, iteratee: ValueIteratee<T1 | T2>): T1[];
         intersectionBy<T1, T2, T3>(array: List<T1> | null, values1: List<T2>, values2: List<T3>, iteratee: ValueIteratee<T1 | T2 | T3>): T1[];
         intersectionBy<T1, T2, T3, T4>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | ValueIteratee<T1 | T2 | T3 | T4>>): T1[];
@@ -263,7 +263,7 @@ declare module "../index" {
         intersectionBy<T2>(values: List<T2>, iteratee: ValueIteratee<T | T2>): ExpL<T>;
         intersectionBy(...values: Array<List<unknown> | ValueIteratee<T>>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         intersectionWith<T1, T2>(array: List<T1> | null | undefined, values: List<T2>, comparator: Comparator2<T1, T2>): T1[];
         intersectionWith<T1, T2, T3>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, comparator: Comparator2<T1, T2 | T3>): T1[];
         intersectionWith<T1, T2, T3, T4>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>): T1[];
@@ -277,7 +277,7 @@ declare module "../index" {
         intersectionWith<T2>(values: List<T2>, comparator: Comparator2<T, T2>): ExpL<T>;
         intersectionWith(...values: Array<List<unknown> | Comparator2<T,  never>>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         join(array: List<any> | null | undefined, separator?: string): string;
     }
     interface ImpS {
@@ -292,7 +292,7 @@ declare module "../index" {
     interface ExpL<T> {
         join(separator?: string): ExpS;
     }
-    interface Stat {
+    interface LoDashStatic {
         last<T>(array: List<T> | null | undefined): T | undefined;
     }
     interface ImpL<T> {
@@ -307,7 +307,7 @@ declare module "../index" {
     interface ExpS {
         last(): ExpS;
     }
-    interface Stat {
+    interface LoDashStatic {
         lastIndexOf<T>(array: List<T> | null | undefined, value: T, fromIndex?: true|number): number;
     }
     interface ImpL<T> {
@@ -316,7 +316,7 @@ declare module "../index" {
     interface ExpL<T> {
         lastIndexOf(value: T, fromIndex?: true|number): ExpU<number>;
     }
-    interface Stat {
+    interface LoDashStatic {
         nth<T>(array: List<T> | null | undefined, n?: number): T | undefined;
     }
     interface ImpL<T> {
@@ -325,7 +325,7 @@ declare module "../index" {
     interface ExpL<T> {
         nth(n?: number): ExpChain<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         pull<T>(array: T[], ...values: T[]): T[];
         pull<T>(array: List<T>, ...values: T[]): List<T>;
     }
@@ -335,7 +335,7 @@ declare module "../index" {
     interface ExpL<T> {
         pull(...values: T[]): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         pullAll<T>(array: T[], values?: List<T>): T[];
         pullAll<T>(array: List<T>, values?: List<T>): List<T>;
     }
@@ -345,7 +345,7 @@ declare module "../index" {
     interface ExpL<T> {
         pullAll(values?: List<T>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         pullAllBy<T>(array: T[], values?: List<T>, iteratee?: ValueIteratee<T>): T[];
         pullAllBy<T>(array: List<T>, values?: List<T>, iteratee?: ValueIteratee<T>): List<T>;
         pullAllBy<T1, T2>(array: T1[], values: List<T2>, iteratee: ValueIteratee<T1 | T2>): T1[];
@@ -357,7 +357,7 @@ declare module "../index" {
     interface ExpL<T> {
         pullAllBy<T2>(values?: List<T2>, iteratee?: ValueIteratee<T | T2>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         pullAllWith<T>(array: T[], values?: List<T>, comparator?: Comparator<T>): T[];
         pullAllWith<T>(array: List<T>, values?: List<T>, comparator?: Comparator<T>): List<T>;
         pullAllWith<T1, T2>(array: T1[], values: List<T2>, comparator: Comparator2<T1, T2>): T1[];
@@ -369,7 +369,7 @@ declare module "../index" {
     interface ExpL<T> {
         pullAllWith<T2>(values?: List<T2>, comparator?: Comparator2<T, T2>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         pullAt<T>(array: T[], ...indexes: Array<Many<number>>): T[];
         pullAt<T>(array: List<T>, ...indexes: Array<Many<number>>): List<T>;
     }
@@ -379,7 +379,7 @@ declare module "../index" {
     interface ExpL<T> {
         pullAt(...indexes: Array<Many<number>>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         remove<T>(array: List<T>, predicate?: ListIteratee<T>): T[];
     }
     interface ImpL<T> {
@@ -388,10 +388,10 @@ declare module "../index" {
     interface ExpL<T> {
         remove(predicate?: ListIteratee<T>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         reverse<TList extends List<any>>(array: TList): TList;
     }
-    interface Stat {
+    interface LoDashStatic {
         slice<T>(array: List<T> | null | undefined, start?: number, end?: number): T[];
     }
     interface ImpL<T> {
@@ -400,7 +400,7 @@ declare module "../index" {
     interface ExpL<T> {
         slice(start?: number, end?: number): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         sortedIndex<T>(array: List<T> | null | undefined, value: T): number;
     }
     interface ImpL<T> {
@@ -409,7 +409,7 @@ declare module "../index" {
     interface ExpL<T> {
         sortedIndex(value: T): ExpU<number>;
     }
-    interface Stat {
+    interface LoDashStatic {
         sortedIndex<T>(array: List<T> | null | undefined, value: T): number;
     }
     interface ImpL<T> {
@@ -418,7 +418,7 @@ declare module "../index" {
     interface ExpL<T> {
         sortedIndex(value: T): ExpU<number>;
     }
-    interface Stat {
+    interface LoDashStatic {
         sortedIndexBy<T>(array: List<T> | null | undefined, value: T, iteratee?: ValueIteratee<T>): number;
     }
     interface ImpL<T> {
@@ -427,7 +427,7 @@ declare module "../index" {
     interface ExpL<T> {
         sortedIndexBy(value: T, iteratee?: ValueIteratee<T>): ExpU<number>;
     }
-    interface Stat {
+    interface LoDashStatic {
         sortedIndexOf<T>(array: List<T> | null | undefined, value: T): number;
     }
     interface ImpL<T> {
@@ -436,7 +436,7 @@ declare module "../index" {
     interface ExpL<T> {
         sortedIndexOf(value: T): ExpU<number>;
     }
-    interface Stat {
+    interface LoDashStatic {
         sortedLastIndex<T>(array: List<T> | null | undefined, value: T): number;
     }
     interface ImpL<T> {
@@ -445,7 +445,7 @@ declare module "../index" {
     interface ExpL<T> {
         sortedLastIndex(value: T): ExpU<number>;
     }
-    interface Stat {
+    interface LoDashStatic {
         sortedLastIndexBy<T>(array: List<T> | null | undefined, value: T, iteratee: ValueIteratee<T>): number;
     }
     interface ImpL<T> {
@@ -454,7 +454,7 @@ declare module "../index" {
     interface ExpL<T> {
         sortedLastIndexBy(value: T, iteratee: ValueIteratee<T>): ExpU<number>;
     }
-    interface Stat {
+    interface LoDashStatic {
         sortedLastIndexOf<T>(array: List<T> | null | undefined, value: T): number;
     }
     interface ImpL<T> {
@@ -463,7 +463,7 @@ declare module "../index" {
     interface ExpL<T> {
         sortedLastIndexOf(value: T): ExpU<number>;
     }
-    interface Stat {
+    interface LoDashStatic {
         sortedUniq<T>(array: List<T> | null | undefined): T[];
     }
     interface ImpL<T> {
@@ -472,7 +472,7 @@ declare module "../index" {
     interface ExpL<T> {
         sortedUniq(): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         sortedUniqBy<T>(array: List<T> | null | undefined, iteratee: ValueIteratee<T>): T[];
     }
     interface ImpL<T> {
@@ -481,7 +481,7 @@ declare module "../index" {
     interface ExpL<T> {
         sortedUniqBy(iteratee: ValueIteratee<T>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         tail<T>(array: List<T> | null | undefined): T[];
     }
     interface ImpL<T> {
@@ -490,7 +490,7 @@ declare module "../index" {
     interface ExpL<T> {
         tail(): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         take<T>(array: List<T> | null | undefined, n?: number): T[];
     }
     interface ImpL<T> {
@@ -499,7 +499,7 @@ declare module "../index" {
     interface ExpL<T> {
         take(n?: number): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         takeRight<T>(array: List<T> | null | undefined, n?: number): T[];
     }
     interface ImpL<T> {
@@ -508,7 +508,7 @@ declare module "../index" {
     interface ExpL<T> {
         takeRight(n?: number): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         takeRightWhile<T>(array: List<T> | null | undefined, predicate?: ListIteratee<T>): T[];
     }
     interface ImpL<T> {
@@ -517,7 +517,7 @@ declare module "../index" {
     interface ExpL<T> {
         takeRightWhile(predicate?: ListIteratee<T>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         takeWhile<T>(array: List<T> | null | undefined, predicate?: ListIteratee<T>): T[];
     }
     interface ImpL<T> {
@@ -526,7 +526,7 @@ declare module "../index" {
     interface ExpL<T> {
         takeWhile(predicate?: ListIteratee<T>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         union<T>(...arrays: Array<List<T> | null | undefined>): T[];
     }
     interface ImpL<T> {
@@ -535,7 +535,7 @@ declare module "../index" {
     interface ExpL<T> {
         union(...arrays: Array<List<T> | null | undefined>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         unionBy<T>(arrays: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T[];
         unionBy<T>(arrays1: List<T> | null | undefined, arrays2: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T[];
         unionBy<T>(arrays1: List<T> | null | undefined, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T[];
@@ -550,7 +550,7 @@ declare module "../index" {
         unionBy(arrays2: List<T> | null | undefined, iteratee?: ValueIteratee<T>): ExpL<T>;
         unionBy(...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         unionWith<T>(arrays: List<T> | null | undefined, comparator?: Comparator<T>): T[];
         unionWith<T>(arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, comparator?: Comparator<T>): T[];
         unionWith<T>(arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...comparator: Array<Comparator<T> | List<T> | null | undefined>): T[];
@@ -563,7 +563,7 @@ declare module "../index" {
         unionWith(arrays2: List<T> | null | undefined, comparator?: Comparator<T>): ExpL<T>;
         unionWith(...comparator: Array<Comparator<T> | List<T> | null | undefined>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         uniq<T>(array: List<T> | null | undefined): T[];
     }
     interface ImpL<T> {
@@ -572,7 +572,7 @@ declare module "../index" {
     interface ExpL<T> {
         uniq(): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         uniqBy<T>(array: List<T> | null | undefined, iteratee: ValueIteratee<T>): T[];
     }
     interface ImpL<T> {
@@ -581,7 +581,7 @@ declare module "../index" {
     interface ExpL<T> {
         uniqBy(iteratee: ValueIteratee<T>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         uniqWith<T>(array: List<T> | null | undefined, comparator?: Comparator<T>): T[];
     }
     interface ImpL<T> {
@@ -590,7 +590,7 @@ declare module "../index" {
     interface ExpL<T> {
         uniqWith(comparator?: Comparator<T>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         unzip<T>(array: T[][] | List<List<T>> | null | undefined): T[][];
     }
     interface ImpL<T> {
@@ -599,7 +599,7 @@ declare module "../index" {
     interface ExpL<T> {
         unzip(): T extends List<infer U> ? ExpL<U[]> : unknown;
     }
-    interface Stat {
+    interface LoDashStatic {
         unzipWith<T, TResult>(array: List<List<T>> | null | undefined, iteratee: (...values: T[]) => TResult): TResult[];
         unzipWith<T>(array: List<List<T>> | null | undefined): T[][];
     }
@@ -611,7 +611,7 @@ declare module "../index" {
         unzipWith<TResult>(iteratee: (...values: Array<T extends List<infer U> ? U : unknown>) => TResult): ExpL<TResult>;
         unzipWith(): T extends List<infer U> ? ExpL<U[]> : unknown;
     }
-    interface Stat {
+    interface LoDashStatic {
         without<T>(array: List<T> | null | undefined, ...values: T[]): T[];
     }
     interface ImpL<T> {
@@ -620,7 +620,7 @@ declare module "../index" {
     interface ExpL<T> {
         without(...values: T[]): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         xor<T>(...arrays: Array<List<T> | null | undefined>): T[];
     }
     interface ImpL<T> {
@@ -629,7 +629,7 @@ declare module "../index" {
     interface ExpL<T> {
         xor(...arrays: Array<List<T> | null | undefined>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         xorBy<T>(arrays: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T[];
         xorBy<T>(arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T[];
         xorBy<T>(arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined>): T[];
@@ -642,7 +642,7 @@ declare module "../index" {
         xorBy(arrays2: List<T> | null | undefined, iteratee?: ValueIteratee<T>): ExpL<T>;
         xorBy(...iteratee: Array<ValueIteratee<T> | List<T> | null | undefined>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         xorWith<T>(arrays: List<T> | null | undefined, comparator?: Comparator<T>): T[];
         xorWith<T>(arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, comparator?: Comparator<T>): T[];
         xorWith<T>(arrays: List<T> | null | undefined, arrays2: List<T> | null | undefined, arrays3: List<T> | null | undefined, ...comparator: Array<Comparator<T> | List<T> | null | undefined>): T[];
@@ -655,7 +655,7 @@ declare module "../index" {
         xorWith(arrays2: List<T> | null | undefined, comparator?: Comparator<T>): ExpL<T>;
         xorWith(...comparator: Array<Comparator<T> | List<T> | null | undefined>): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         zip<T1, T2>(arrays1: List<T1>, arrays2: List<T2>): Array<[T1 | undefined, T2 | undefined]>;
         zip<T1, T2, T3>(arrays1: List<T1>, arrays2: List<T2>, arrays3: List<T3>): Array<[T1 | undefined, T2 | undefined, T3 | undefined]>;
         zip<T1, T2, T3, T4>(arrays1: List<T1>, arrays2: List<T2>, arrays3: List<T3>, arrays4: List<T4>): Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined]>;
@@ -670,7 +670,7 @@ declare module "../index" {
         zip<T2>(arrays2: List<T2>): ExpL<[T | undefined, T2 | undefined]>;
         zip(...arrays: Array<List<T> | null | undefined>): ExpL<Array<T | undefined>>;
     }
-    interface Stat {
+    interface LoDashStatic {
         zipObject<T>(props: List<PropertyName>, values: List<T>): Dictionary<T>;
         zipObject(props?: List<PropertyName>): Dictionary<undefined>;
     }
@@ -682,7 +682,7 @@ declare module "../index" {
         zipObject<U>(values: List<U>): ExpO<Dictionary<U>>;
         zipObject(): ExpO<Dictionary<undefined>>;
     }
-    interface Stat {
+    interface LoDashStatic {
         zipObjectDeep(paths?: List<PropertyPath>, values?: List<any>): object;
     }
     interface ImpL<T> {
@@ -691,7 +691,7 @@ declare module "../index" {
     interface ExpL<T> {
         zipObjectDeep(values?: List<any>): ExpO<object>;
     }
-    interface Stat {
+    interface LoDashStatic {
         zipWith<T, TResult>(arrays: List<T>, iteratee: (value1: T) => TResult): TResult[];
         zipWith<T1, T2, TResult>(arrays1: List<T1>, arrays2: List<T2>, iteratee: (value1: T1, value2: T2) => TResult): TResult[];
         zipWith<T1, T2, T3, TResult>(arrays1: List<T1>, arrays2: List<T2>, arrays3: List<T3>, iteratee: (value1: T1, value2: T2, value3: T3) => TResult): TResult[];

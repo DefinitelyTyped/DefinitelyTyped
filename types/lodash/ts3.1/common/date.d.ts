@@ -1,12 +1,12 @@
 import _ = require("../index");
 declare module "../index" {
-    interface Stat {
+    interface LoDashStatic {
         now(): number;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         now(): number;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         now(): ExpU<number>;
     }
 }

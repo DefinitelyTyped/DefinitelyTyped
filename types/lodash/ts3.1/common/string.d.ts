@@ -1,197 +1,197 @@
 import _ = require("../index");
 declare module "../index" {
-    interface Stat {
+    interface LoDashStatic {
         camelCase(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         camelCase(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         camelCase(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         capitalize(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         capitalize(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         capitalize(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         deburr(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         deburr(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         deburr(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         endsWith(string?: string, target?: string, position?: number): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         endsWith(target?: string, position?: number): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         endsWith(target?: string, position?: number): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         escape(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         escape(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         escape(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         escapeRegExp(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         escapeRegExp(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         escapeRegExp(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         kebabCase(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         kebabCase(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         kebabCase(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         lowerCase(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         lowerCase(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         lowerCase(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         lowerFirst(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         lowerFirst(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         lowerFirst(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         pad(string?: string, length?: number, chars?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         pad(length?: number, chars?: string): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         pad(length?: number, chars?: string): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         padEnd(string?: string, length?: number, chars?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         padEnd(length?: number, chars?: string): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         padEnd(length?: number, chars?: string): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         padStart(string?: string, length?: number, chars?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         padStart(length?: number, chars?: string): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         padStart(length?: number, chars?: string): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         parseInt(string: string, radix?: number): number;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         parseInt(radix?: number): number;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         parseInt(radix?: number): ExpU<number>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         repeat(string?: string, n?: number): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         repeat(n?: number): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         repeat(n?: number): ExpS;
     }
     type ReplaceFunction = (match: string, ...args: any[]) => string;
 
-    interface Stat {
+    interface LoDashStatic {
         replace(string: string, pattern: RegExp | string, replacement: ReplaceFunction | string): string;
         replace(pattern: RegExp | string, replacement: ReplaceFunction | string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         replace(pattern: RegExp | string, replacement: ReplaceFunction | string): string;
         replace(replacement: ReplaceFunction | string): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         replace(pattern: RegExp | string, replacement: ReplaceFunction | string): ExpS;
         replace(replacement: ReplaceFunction | string): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         snakeCase(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         snakeCase(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         snakeCase(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         split(string: string, separator?: RegExp | string, limit?: number): string[];
         split(string: string, index: string | number, guard: object): string[];
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         split(separator?: RegExp | string, limit?: number): ImpL<string>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         split(separator?: RegExp | string, limit?: number): ExpL<string>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         startCase(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         startCase(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         startCase(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         startsWith(string?: string, target?: string, position?: number): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         startsWith(target?: string, position?: number): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         startsWith(target?: string, position?: number): ExpU<boolean>;
     }
 
@@ -202,66 +202,66 @@ declare module "../index" {
         (data?: object): string;
         source: string;
     }
-    interface Stat {
+    interface LoDashStatic {
         template(string?: string, options?: TemplateOptions): TemplateExecutor;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         template(options?: TemplateOptions): TemplateExecutor;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         template(options?: TemplateOptions): ExpF<TemplateExecutor>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         toLower(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         toLower(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         toLower(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         toUpper(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         toUpper(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         toUpper(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         trim(string?: string, chars?: string): string;
         trim(string: string, index: string | number, guard: object): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         trim(chars?: string): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         trim(chars?: string): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         trimEnd(string?: string, chars?: string): string;
         trimEnd(string: string, index: string | number, guard: object): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         trimEnd(chars?: string): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         trimEnd(chars?: string): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         trimStart(string?: string, chars?: string): string;
         trimStart(string: string, index: string | number, guard: object): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         trimStart(chars?: string): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         trimStart(chars?: string): ExpS;
     }
 
@@ -270,54 +270,54 @@ declare module "../index" {
         omission?: string;
         separator?: string | RegExp;
     }
-    interface Stat {
+    interface LoDashStatic {
         truncate(string?: string, options?: TruncateOptions): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         truncate(options?: TruncateOptions): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         truncate(options?: TruncateOptions): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         unescape(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         unescape(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         unescape(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         upperCase(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         upperCase(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         upperCase(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         upperFirst(string?: string): string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         upperFirst(): string;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         upperFirst(): ExpS;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         words(string?: string, pattern?: string | RegExp): string[];
         words(string: string, index: string | number, guard: object): string[];
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         words(pattern?: string | RegExp): string[];
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         words(pattern?: string | RegExp): ExpL<string>;
     }
 }

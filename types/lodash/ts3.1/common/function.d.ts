@@ -1,6 +1,6 @@
 import _ = require("../index");
 declare module "../index" {
-    interface Stat {
+    interface LoDashStatic {
         after<TFunc extends (...args: any[]) => any>(n: number, func: TFunc): TFunc;
     }
     interface ImpU<T> {
@@ -9,7 +9,7 @@ declare module "../index" {
     interface ExpU<T> {
         after<TFunc extends (...args: any[]) => any>(func: TFunc): ExpF<TFunc>;
     }
-    interface Stat {
+    interface LoDashStatic {
         ary(func: (...args: any[]) => any, n?: number): (...args: any[]) => any;
     }
     interface ImpF<T> {
@@ -18,7 +18,7 @@ declare module "../index" {
     interface ExpF<T> {
         ary(n?: number): ExpF<(...args: any[]) => any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         before<TFunc extends (...args: any[]) => any>(n: number, func: TFunc): TFunc;
     }
     interface ImpU<T> {
@@ -31,26 +31,26 @@ declare module "../index" {
         placeholder: __;
         (func: (...args: any[]) => any, thisArg: any, ...partials: any[]): (...args: any[]) => any;
     }
-    interface Stat {
+    interface LoDashStatic {
         bind: FunctionBind;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         bind(thisArg: any, ...partials: any[]): ImpF<(...args: any[]) => any>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         bind(thisArg: any, ...partials: any[]): ExpF<(...args: any[]) => any>;
     }
     interface FunctionBindKey {
         placeholder: __;
         (object: object, key: string, ...partials: any[]): (...args: any[]) => any;
     }
-    interface Stat {
+    interface LoDashStatic {
         bindKey: FunctionBindKey;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         bindKey(key: string, ...partials: any[]): ImpF<(...args: any[]) => any>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         bindKey(key: string, ...partials: any[]): ExpF<(...args: any[]) => any>;
     }
     interface Curry {
@@ -62,7 +62,7 @@ declare module "../index" {
         (func: (...args: any[]) => any, arity?: number): (...args: any[]) => any;
         placeholder: __;
     }
-    interface Stat {
+    interface LoDashStatic {
         curry: Curry;
     }
     interface CurriedFunction1<T1, R> {
@@ -236,7 +236,7 @@ declare module "../index" {
         (func: (...args: any[]) => any, arity?: number): (...args: any[]) => any;
         placeholder: __;
     }
-    interface Stat {
+    interface LoDashStatic {
         curryRight: CurryRight;
     }
     interface ImpF<T> {
@@ -262,7 +262,7 @@ declare module "../index" {
         maxWait?: number;
         trailing?: boolean;
     }
-    interface Stat {
+    interface LoDashStatic {
         debounce<T extends (...args: any) => any>(func: T, wait?: number, options?: DebounceSettings): T & Cancelable;
     }
     interface ImpF<T extends (...args: any) => any> {
@@ -271,25 +271,25 @@ declare module "../index" {
     interface ExpF<T extends (...args: any) => any> {
         debounce(wait?: number, options?: DebounceSettings): ExpF<T & Cancelable>;
     }
-    interface Stat {
+    interface LoDashStatic {
         defer(func: (...args: any[]) => any, ...args: any[]): number;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         defer(...args: any[]): ImpU<number>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         defer(...args: any[]): ExpU<number>;
     }
-    interface Stat {
+    interface LoDashStatic {
         delay(func: (...args: any[]) => any, wait: number, ...args: any[]): number;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         delay(wait: number, ...args: any[]): ImpU<number>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         delay(wait: number, ...args: any[]): ExpU<number>;
     }
-    interface Stat {
+    interface LoDashStatic {
         flip<T extends (...args: any) => any>(func: T): T;
     }
     interface ImpF<T extends (...args: any) => any> {
@@ -301,7 +301,7 @@ declare module "../index" {
     interface MemoizedFunction {
         cache: MapCache;
     }
-    interface Stat {
+    interface LoDashStatic {
         memoize: {
             <T extends (...args: any) => any>(func: T, resolver?: (...args: any[]) => any): T & MemoizedFunction;
             Cache: MapCacheConstructor;
@@ -313,7 +313,7 @@ declare module "../index" {
     interface ExpF<T extends (...args: any) => any> {
         memoize(resolver?: (...args: any[]) => any): ExpF<T & MemoizedFunction>;
     }
-    interface Stat {
+    interface LoDashStatic {
         negate<T extends any[]>(predicate: (...args: T) => any): (...args: T) => boolean;
     }
     interface ImpF<T extends (...args: any) => any> {
@@ -322,7 +322,7 @@ declare module "../index" {
     interface ExpF<T extends (...args: any) => any> {
         negate(): ExpF<(...args: Parameters<T>) => boolean>;
     }
-    interface Stat {
+    interface LoDashStatic {
         once<T extends (...args: any) => any>(func: T): T;
     }
     interface ImpF<T extends (...args: any) => any> {
@@ -331,7 +331,7 @@ declare module "../index" {
     interface ExpF<T extends (...args: any) => any> {
         once(): ExpF<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         overArgs(func: (...args: any[]) => any, ...transforms: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
     }
     interface ImpF<T> {
@@ -340,10 +340,10 @@ declare module "../index" {
     interface ExpF<T> {
         overArgs(...transforms: Array<Many<(...args: any[]) => any>>): ExpF<(...args: any[]) => any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         partial: Partial;
     }
-    type __ = Stat;
+    type __ = LoDashStatic;
     type Function0<R> = () => R;
     type Function1<T1, R> = (t1: T1) => R;
     type Function2<T1, T2, R> = (t1: T1, t2: T2) => R;
@@ -510,7 +510,7 @@ declare module "../index" {
             >;
         partial(): ExpF<T extends (...ts: any[]) => any ? T : any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         partialRight: PartialRight;
     }
     interface PartialRight {
@@ -730,7 +730,7 @@ declare module "../index" {
         partialRight<TS extends any[]>(...ts: TS): ExpF<T extends (...args: TS) => infer R ? () => R : any>;
         partialRight(): ExpF<T extends (...ts: any[]) => any ? T : any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         rearg(func: (...args: any[]) => any, ...indexes: Array<Many<number>>): (...args: any[]) => any;
     }
     interface ImpF<T> {
@@ -739,7 +739,7 @@ declare module "../index" {
     interface ExpF<T> {
         rearg(...indexes: Array<Many<number>>): ExpF<(...args: any[]) => any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         rest(func: (...args: any[]) => any, start?: number): (...args: any[]) => any;
     }
     interface ImpF<T extends (...args: any) => any> {
@@ -748,7 +748,7 @@ declare module "../index" {
     interface ExpF<T extends (...args: any) => any> {
         rest(start?: number): ExpF<(...args: any[]) => any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         spread<TResult>(func: (...args: any[]) => TResult, start?: number): (...args: any[]) => TResult;
     }
     interface ImpF<T> {
@@ -761,7 +761,7 @@ declare module "../index" {
         leading?: boolean;
         trailing?: boolean;
     }
-    interface Stat {
+    interface LoDashStatic {
         throttle<T extends (...args: any) => any>(func: T, wait?: number, options?: ThrottleSettings): T & Cancelable;
     }
     interface ImpF<T extends (...args: any) => any> {
@@ -770,7 +770,7 @@ declare module "../index" {
     interface ExpF<T extends (...args: any) => any> {
         throttle(wait?: number, options?: ThrottleSettings): ExpF<T & Cancelable>;
     }
-    interface Stat {
+    interface LoDashStatic {
         unary<T, TResult>(func: (arg1: T, ...args: any[]) => TResult): (arg1: T) => TResult;
     }
     interface ImpF<T> {
@@ -779,13 +779,13 @@ declare module "../index" {
     interface ExpF<T> {
         unary(): ExpF<(arg1: Parameters<T>['0']) => ReturnType<T>>;
     }
-    interface Stat {
+    interface LoDashStatic {
         wrap<T, TArgs, TResult>(value: T, wrapper: (value: T, ...args: TArgs[]) => TResult): (...args: TArgs[]) => TResult;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): ImpF<(...args: TArgs[]) => TResult>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): ExpF<(...args: TArgs[]) => TResult>;
     }
 }

@@ -21,7 +21,7 @@ declare module "../index" {
         T extends List<infer U> | null | undefined ? ExpL<U> :
         T extends object | null | undefined ? ExpO<T> :
         ExpU<T>;
-    interface Stat {
+    interface LoDashStatic {
         <TrapAny extends { __trapAny: any }>(value: TrapAny): ImpL<any>;
         <T extends null | undefined>(value: T): ImpU<T>;
         (value: string | null | undefined): ImpS;
@@ -58,32 +58,32 @@ declare module "../index" {
         unshift(...items: T[]): this;
     }
     interface ExpL<T> {
-        pop(): Exp<T | undefined>;
+        pop(): LoDashExplicitWrapper<T | undefined>;
         push(...items: T[]): this;
-        shift(): Exp<T | undefined>;
+        shift(): LoDashExplicitWrapper<T | undefined>;
         sort(compareFn?: (a: T, b: T) => number): this;
         splice(start: number, deleteCount?: number, ...items: T[]): this;
         unshift(...items: T[]): this;
     }
-    interface ImpF<T extends (...args: any) => any> extends Imp<T> {
+    interface ImpF<T extends (...args: any) => any> extends LoDashImplicitWrapper<T> {
     }
-    interface ImpS extends Imp<string> {
+    interface ImpS extends LoDashImplicitWrapper<string> {
     }
-    interface ImpO<T> extends Imp<T> {
+    interface ImpO<T> extends LoDashImplicitWrapper<T> {
     }
-    interface ImpL<T> extends Imp<List<T>> {
+    interface ImpL<T> extends LoDashImplicitWrapper<List<T>> {
     }
-    interface ImpU<T> extends Imp<T> {
+    interface ImpU<T> extends LoDashImplicitWrapper<T> {
     }
-    interface ExpF<T extends (...args: any) => any> extends Exp<T> {
+    interface ExpF<T extends (...args: any) => any> extends LoDashExplicitWrapper<T> {
     }
-    interface ExpS extends Exp<string> {
+    interface ExpS extends LoDashExplicitWrapper<string> {
     }
-    interface ExpO<T> extends Exp<T> {
+    interface ExpO<T> extends LoDashExplicitWrapper<T> {
     }
-    interface ExpL<T> extends Exp<List<T>> {
+    interface ExpL<T> extends LoDashExplicitWrapper<List<T>> {
     }
-    interface ExpU<T> extends Exp<T> {
+    interface ExpU<T> extends LoDashExplicitWrapper<T> {
     }
     type NotVoid = unknown;
     type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialDeep<T>;
@@ -135,18 +135,18 @@ declare module "../index" {
         [P in keyof T]?: PartialDeep<T[P]>;
     };
     // For backwards compatibility
-    type LoDashImplicitArrayWrapper<T> = Imp<T[]>;
-    type LoDashImplicitNillableArrayWrapper<T> = Imp<T[] | null | undefined>;
-    type LoDashImplicitObjectWrapper<T> = Imp<T>;
-    type LoDashImplicitNillableObjectWrapper<T> = Imp<T | null | undefined>;
-    type LoDashImplicitNumberArrayWrapper = Imp<number[]>;
-    type LoDashImplicitStringWrapper = Imp<string>;
-    type LoDashExplicitArrayWrapper<T> = Exp<T[]>;
-    type LoDashExplicitNillableArrayWrapper<T> = Exp<T[] | null | undefined>;
-    type LoDashExplicitObjectWrapper<T> = Exp<T>;
-    type LoDashExplicitNillableObjectWrapper<T> = Exp<T | null | undefined>;
-    type LoDashExplicitNumberArrayWrapper = Exp<number[]>;
-    type LoDashExplicitStringWrapper = Exp<string>;
+    type LoDashImplicitArrayWrapper<T> = LoDashImplicitWrapper<T[]>;
+    type LoDashImplicitNillableArrayWrapper<T> = LoDashImplicitWrapper<T[] | null | undefined>;
+    type LoDashImplicitObjectWrapper<T> = LoDashImplicitWrapper<T>;
+    type LoDashImplicitNillableObjectWrapper<T> = LoDashImplicitWrapper<T | null | undefined>;
+    type LoDashImplicitNumberArrayWrapper = LoDashImplicitWrapper<number[]>;
+    type LoDashImplicitStringWrapper = LoDashImplicitWrapper<string>;
+    type LoDashExplicitArrayWrapper<T> = LoDashExplicitWrapper<T[]>;
+    type LoDashExplicitNillableArrayWrapper<T> = LoDashExplicitWrapper<T[] | null | undefined>;
+    type LoDashExplicitObjectWrapper<T> = LoDashExplicitWrapper<T>;
+    type LoDashExplicitNillableObjectWrapper<T> = LoDashExplicitWrapper<T | null | undefined>;
+    type LoDashExplicitNumberArrayWrapper = LoDashExplicitWrapper<number[]>;
+    type LoDashExplicitStringWrapper = LoDashExplicitWrapper<string>;
     type DictionaryIterator<T, TResult> = ObjectIterator<Dictionary<T>, TResult>;
     type DictionaryIteratee<T> = ObjectIteratee<Dictionary<T>>;
     type DictionaryIteratorTypeGuard<T, S extends T> = ObjectIteratorTypeGuard<Dictionary<T>, S>;

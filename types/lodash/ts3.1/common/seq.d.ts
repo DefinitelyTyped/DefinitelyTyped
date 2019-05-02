@@ -1,7 +1,7 @@
 import _ = require("../index");
 declare module "../index" {
     // chain
-    interface Stat {
+    interface LoDashStatic {
         chain<TrapAny extends { __lodashAnyHack: any }>(value: TrapAny): ExpL<any>;
         chain<T extends null | undefined>(value: T): ExpU<T>;
         chain(value: string | null | undefined): ExpS;
@@ -25,35 +25,35 @@ declare module "../index" {
     interface ImpF<T extends (...args: any) => any> {
         chain(): ExpF<T>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         chain(): this;
     }
     // prototype.commit
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         commit(): this;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         commit(): this;
     }
     // prototype.plant
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         plant(value: unknown): this;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         plant(value: unknown): this;
     }
     // prototype.reverse
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         reverse(): this;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         reverse(): this;
     }
     // prototype.toJSON
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         toJSON(): TValue;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         toJSON(): TValue;
     }
     // prototype.toString
@@ -61,37 +61,37 @@ declare module "../index" {
         toString(): string;
     }
     // prototype.value
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         value(): TValue;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         value(): TValue;
     }
     // prototype.valueOf
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         valueOf(): TValue;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         valueOf(): TValue;
     }
     // tap
-    interface Stat {
+    interface LoDashStatic {
         tap<T>(value: T, interceptor: (value: T) => void): T;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         tap(interceptor: (value: TValue) => void): this;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         tap(interceptor: (value: TValue) => void): this;
     }
     // thru
-    interface Stat {
+    interface LoDashStatic {
         thru<T, TResult>(value: T, interceptor: (value: T) => TResult): TResult;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         thru<TResult>(interceptor: (value: TValue) => TResult): ImpChain<TResult>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         thru<TResult>(interceptor: (value: TValue) => TResult): ExpChain<TResult>;
     }
 }

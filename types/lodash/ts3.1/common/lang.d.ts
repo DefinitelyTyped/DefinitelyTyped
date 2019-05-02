@@ -1,6 +1,6 @@
 import _ = require("../index");
 declare module "../index" {
-    interface Stat {
+    interface LoDashStatic {
         castArray<T>(value?: Many<T>): T[];
     }
     interface ImpL<T> {
@@ -34,11 +34,11 @@ declare module "../index" {
         castArray(): ExpL<T>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         clone<T>(value: T): T;
     }
 
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         clone(): TValue;
         cloneDeep(): TValue;
         cloneDeepWith(customizer: CloneDeepWithCustomizer<TValue>): any;
@@ -47,470 +47,470 @@ declare module "../index" {
         cloneWith<TResult>(customizer: CloneWithCustomizer<TValue, TResult | undefined>): TResult | TValue;
         cloneWith(): TValue;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         clone(): this;
         cloneDeep(): this;
-        cloneDeepWith(customizer: CloneDeepWithCustomizer<TValue>): Exp<any>;
+        cloneDeepWith(customizer: CloneDeepWithCustomizer<TValue>): LoDashExplicitWrapper<any>;
         cloneDeepWith(): this;
         cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<TValue, TResult>): ExpChain<TResult>;
         cloneWith<TResult>(customizer: CloneWithCustomizer<TValue, TResult | undefined>): ExpChain<TResult | TValue>;
         cloneWith(): this;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         cloneDeep<T>(value: T): T;
     }
     type CloneDeepWithCustomizer<TObject> = (value: any, key: number | string | undefined, object: TObject | undefined, stack: any) => any;
-    interface Stat {
+    interface LoDashStatic {
         cloneDeepWith<T>(value: T, customizer: CloneDeepWithCustomizer<T>): any;
         cloneDeepWith<T>(value: T): T;
     }
     type CloneWithCustomizer<TValue, TResult> = (value: TValue, key: number | string | undefined, object: any, stack: any) => TResult;
-    interface Stat {
+    interface LoDashStatic {
         cloneWith<T, TResult extends object | string | number | boolean | null>(value: T, customizer: CloneWithCustomizer<T, TResult>): TResult;
         cloneWith<T, TResult>(value: T, customizer: CloneWithCustomizer<T, TResult | undefined>): TResult | T;
         cloneWith<T>(value: T): T;
     }
-    interface Stat {
+    interface LoDashStatic {
         conformsTo<T>(object: T, source: ConformsPredicateObject<T>): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         conformsTo(source: ConformsPredicateObject<TValue>): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         conformsTo(source: ConformsPredicateObject<TValue>): ExpU<boolean>;
     }
     type CondPair<T, R> = [(val: T) => boolean, (val: T) => R];
-    interface Stat {
+    interface LoDashStatic {
         eq(value: any, other: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         eq(other: any): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         eq(other: any): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         gt(value: any, other: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         gt(other: any): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         gt(other: any): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         gte(value: any, other: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         gte(other: any): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         gte(other: any): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isArguments(value?: any): value is IArguments;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isArguments(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isArguments(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isArray(value?: any): value is any[];
         isArray<T>(value?: any): value is any[];
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isArray(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isArray(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isArrayBuffer(value?: any): value is ArrayBuffer;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isArrayBuffer(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isArrayBuffer(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isArrayLike<T extends { __lodashAnyHack: any }>(t: T): boolean;
         isArrayLike(value: ((...args: any[]) => any) | null | undefined): value is never;
         isArrayLike(value: any): value is { length: number };
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isArrayLike(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isArrayLike(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isArrayLikeObject<T extends { __lodashAnyHack: any }>(value: T): boolean;
         // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the Function type)
         isArrayLikeObject(value: ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is never;
         isArrayLikeObject(value: any): value is object & { length: number };
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isArrayLikeObject(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isArrayLikeObject(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isBoolean(value?: any): value is boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isBoolean(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isBoolean(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isBuffer(value?: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isBuffer(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isBuffer(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isDate(value?: any): value is Date;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isDate(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isDate(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isElement(value?: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isElement(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isElement(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isEmpty(value?: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isEmpty(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isEmpty(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isEqual(value: any, other: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isEqual(other: any): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isEqual(other: any): ExpU<boolean>;
     }
 
     type IsEqualCustomizer = (value: any, other: any, indexOrKey: PropertyName | undefined, parent: any, otherParent: any, stack: any) => boolean | undefined;
-    interface Stat {
+    interface LoDashStatic {
         isEqualWith(value: any, other: any, customizer?: IsEqualCustomizer): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isEqualWith(other: any, customizer?: IsEqualCustomizer): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isEqualWith(other: any, customizer?: IsEqualCustomizer): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isError(value: any): value is Error;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isError(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isError(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isFinite(value?: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isFinite(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isFinite(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isFunction(value: any): value is (...args: any[]) => any;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isFunction(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isFunction(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isInteger(value?: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isInteger(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isInteger(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isLength(value?: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isLength(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isLength(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isMap(value?: any): value is Map<any, any>;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isMap(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isMap(): ExpU<boolean>;
     }
 
     type isMatchCustomizer = (value: any, other: any, indexOrKey?: PropertyName) => boolean;
-    interface Stat {
+    interface LoDashStatic {
         isMatch(object: object, source: object): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isMatch(source: object): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isMatch(source: object): ExpU<boolean>;
     }
 
     type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName, object: object, source: object) => boolean;
-    interface Stat {
+    interface LoDashStatic {
         isMatchWith(object: object, source: object, customizer: isMatchWithCustomizer): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isMatchWith(source: object, customizer: isMatchWithCustomizer): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isMatchWith(source: object, customizer: isMatchWithCustomizer): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isNaN(value?: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isNaN(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isNaN(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isNative(value: any): value is (...args: any[]) => any;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isNative(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isNative(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isNil(value: any): value is null | undefined;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isNil(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isNil(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isNull(value: any): value is null;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isNull(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isNull(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isNumber(value?: any): value is number;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isNumber(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isNumber(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isObject(value?: any): value is object;
     }
-    interface Imp<TValue> {
-        isObject(): this is Imp<object>;
+    interface LoDashImplicitWrapper<TValue> {
+        isObject(): this is LoDashImplicitWrapper<object>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isObject(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isObjectLike(value?: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isObjectLike(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isObjectLike(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isPlainObject(value?: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isPlainObject(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isPlainObject(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isRegExp(value?: any): value is RegExp;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isRegExp(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isRegExp(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isSafeInteger(value: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isSafeInteger(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isSafeInteger(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isSet(value?: any): value is Set<any>;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isSet(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isSet(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isString(value?: any): value is string;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isString(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isString(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isSymbol(value: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isSymbol(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isSymbol(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isTypedArray(value: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isTypedArray(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isTypedArray(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isUndefined(value: any): value is undefined;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isUndefined(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isUndefined(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isWeakMap(value?: any): value is WeakMap<object, any>;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isWeakMap(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isWeakMap(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         isWeakSet(value?: any): value is WeakSet<object>;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         isWeakSet(): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         isWeakSet(): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         lt(value: any, other: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         lt(other: any): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         lt(other: any): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         lte(value: any, other: any): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         lte(other: any): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         lte(other: any): ExpU<boolean>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         toArray<T>(value:  Dictionary<T> | NumericDictionary<T> | null | undefined): T[];
         toArray<T>(value: T): Array<T[keyof T]>;
         toArray(): any[];
@@ -534,67 +534,67 @@ declare module "../index" {
         toArray(): ExpL<T[keyof T]>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         toFinite(value: any): number;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         toFinite(): number;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         toFinite(): ExpU<number>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         toInteger(value: any): number;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         toInteger(): number;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         toInteger(): ExpU<number>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         toLength(value: any): number;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         toLength(): number;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         toLength(): ExpU<number>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         toNumber(value: any): number;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         toNumber(): number;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         toNumber(): ExpU<number>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         toPlainObject(value?: any): any;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         toPlainObject(): ImpO<any>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         toPlainObject(): ExpO<any>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         toSafeInteger(value: any): number;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         toSafeInteger(): number;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         toSafeInteger(): ExpU<number>;
     }
 
-    interface Stat {
+    interface LoDashStatic {
         toString(value: any): string;
     }
 }

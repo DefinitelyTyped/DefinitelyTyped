@@ -3567,7 +3567,7 @@ declare namespace _ {
     type LodashResult1x2 = <TResult>(path: lodash.PropertyPath) => TResult;
     type LodashReverse = <TList extends lodash.List<any>>(array: TList) => TList;
     type LodashRound = (n: number) => number;
-    type LodashRunInContext = (context: object) => lodash.Stat;
+    type LodashRunInContext = (context: object) => lodash.LoDashStatic;
     interface LodashSample {
         <T>(collection: lodash.List<T> | lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): T | undefined;
         <T extends object>(collection: T | null | undefined): T[keyof T] | undefined;

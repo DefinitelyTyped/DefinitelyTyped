@@ -1,6 +1,6 @@
 import _ = require("../index");
 declare module "../index" {
-    interface Stat {
+    interface LoDashStatic {
         countBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): Dictionary<number>;
         countBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]>): Dictionary<number>;
     }
@@ -22,8 +22,8 @@ declare module "../index" {
     interface ExpL<T> {
         countBy(iteratee?: ValueIteratee<T>): ExpO<Dictionary<number>>;
     }
-    interface Stat {
-        each: Stat['forEach'];
+    interface LoDashStatic {
+        each: LoDashStatic['forEach'];
     }
     interface ImpS {
         each: ImpS['forEach'];
@@ -43,8 +43,8 @@ declare module "../index" {
     interface ExpO<T> {
         each: ExpO<T>['forEach'];
     }
-    interface Stat {
-        eachRight: Stat["forEachRight"];
+    interface LoDashStatic {
+        eachRight: LoDashStatic["forEachRight"];
     }
     interface ImpS {
         eachRight: ImpS['forEachRight'];
@@ -64,7 +64,7 @@ declare module "../index" {
     interface ExpO<T> {
         eachRight: ExpO<T>['forEachRight'];
     }
-    interface Stat {
+    interface LoDashStatic {
         every<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): boolean;
         every<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>): boolean;
     }
@@ -86,7 +86,7 @@ declare module "../index" {
     interface ExpO<T> {
         every(predicate?: ObjectIterateeCustom<T, boolean>): ExpU<boolean>;
     }
-    interface Stat {
+    interface LoDashStatic {
         filter(collection: string | null | undefined, predicate?: StringIterator<boolean>): string[];
         filter<T, S extends T>(collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>): S[];
         filter<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): T[];
@@ -121,7 +121,7 @@ declare module "../index" {
     interface ExpU<T> {
         filter(predicate?: DictionaryIteratee<unknown>): ExpU<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         find<T, S extends T>(collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
         find<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T|undefined;
         find<T extends object, S extends T[keyof T]>(collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
@@ -149,7 +149,7 @@ declare module "../index" {
     interface ExpU<T> {
         find(predicate?: DictionaryIteratee<unknown>, fromIndex?: number): ExpU<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         findLast<T, S extends T>(collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
         findLast<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): T|undefined;
         findLast<T extends object, S extends T[keyof T]>(collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
@@ -177,7 +177,7 @@ declare module "../index" {
     interface ExpU<T> {
         findLast(predicate?: DictionaryIteratee<unknown>, fromIndex?: number): ExpU<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         flatMap<T>(collection: Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined): T[];
         flatMap(collection: object | null | undefined): any[];
         flatMap<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, Many<TResult>>): TResult[];
@@ -225,7 +225,7 @@ declare module "../index" {
         flatMap(iteratee: [PropertyName, any] | object): ExpL<boolean>;
         flatMap(): ExpL<T[keyof T]>;
     }
-    interface Stat {
+    interface LoDashStatic {
         flatMapDeep<T>(collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined): T[];
         flatMapDeep<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>): TResult[];
         flatMapDeep<T extends object, TResult>(collection: T | null | undefined, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>): TResult[];
@@ -272,7 +272,7 @@ declare module "../index" {
         flatMapDeep(iteratee: [PropertyName, any] | object): ExpL<boolean>;
         flatMapDeep(): ExpL<T[keyof T]>;
     }
-    interface Stat {
+    interface LoDashStatic {
         flatMapDepth<T>(collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined): T[];
         flatMapDepth<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): TResult[];
         flatMapDepth<T extends object, TResult>(collection: T | null | undefined, iteratee: ObjectIterator<T, ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): TResult[];
@@ -319,7 +319,7 @@ declare module "../index" {
         flatMapDepth(iteratee: [PropertyName, any] | object, depth?: number): ExpL<boolean>;
         flatMapDepth(depth?: number): ExpL<T[keyof T]>;
     }
-    interface Stat {
+    interface LoDashStatic {
         forEach<T>(collection: T[], iteratee?: ArrayIterator<T, any>): T[];
         forEach(collection: string, iteratee?: StringIterator<any>): string;
         forEach<T>(collection: List<T>, iteratee?: ListIterator<T, any>): List<T>;
@@ -353,7 +353,7 @@ declare module "../index" {
     interface ExpU<T> {
         forEach(iteratee?: ObjectIterator<unknown, any>): ExpU<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         forEachRight<T>(collection: T[], iteratee?: ArrayIterator<T, any>): T[];
         forEachRight(collection: string, iteratee?: StringIterator<any>): string;
         forEachRight<T>(collection: List<T>, iteratee?: ListIterator<T, any>): List<T>;
@@ -387,7 +387,7 @@ declare module "../index" {
     interface ExpU<T> {
         forEachRight(iteratee?: ObjectIterator<unknown, any>): ExpU<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         groupBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): Dictionary<T[]>;
         groupBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]>): Dictionary<Array<T[keyof T]>>;
     }
@@ -415,7 +415,7 @@ declare module "../index" {
     interface ExpU<T> {
         groupBy(iteratee?: ValueIteratee<unknown>): ExpO<Dictionary<unknown>>;
     }
-    interface Stat {
+    interface LoDashStatic {
         includes<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: T, fromIndex?: number): boolean;
     }
     interface ImpO<T> {
@@ -430,19 +430,19 @@ declare module "../index" {
     interface ExpL<T> {
         includes(target: T, fromIndex?: number): ExpU<boolean>;
     }
-    interface Stat {
+    interface LoDashStatic {
         invokeMap(collection: object | null | undefined, methodName: string, ...args: any[]): any[];
         invokeMap<TResult>(collection: object | null | undefined, method: (...args: any[]) => TResult, ...args: any[]): TResult[];
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         invokeMap(methodName: string, ...args: any[]): ImpL<any>;
         invokeMap<TResult>(method: (...args: any[]) => TResult, ...args: any[]): ImpL<TResult>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         invokeMap(methodName: string, ...args: any[]): ExpL<any>;
         invokeMap<TResult>(method: (...args: any[]) => TResult, ...args: any[]): ExpL<TResult>;
     }
-    interface Stat {
+    interface LoDashStatic {
         keyBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIterateeCustom<T, PropertyName>): Dictionary<T>;
         keyBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>): Dictionary<T[keyof T]>;
     }
@@ -470,7 +470,7 @@ declare module "../index" {
     interface ExpU<T> {
         keyBy(iteratee?: ValueIterateeCustom<unknown, PropertyName>): ExpO<Dictionary<unknown>>;
     }
-    interface Stat {
+    interface LoDashStatic {
         map<T, TResult>(collection: T[] | null | undefined, iteratee: ArrayIterator<T, TResult>): TResult[];
         map<T, TResult>(collection: List<T> | null | undefined, iteratee: ListIterator<T, TResult>): TResult[];
         map<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined): T[];
@@ -528,7 +528,7 @@ declare module "../index" {
         map(iteratee?: object): ExpL<boolean>;
         map(): ExpL<unknown>;
     }
-    interface Stat {
+    interface LoDashStatic {
         orderBy<T>(collection: List<T> | null | undefined, iteratees?: Many<ListIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): T[];
         orderBy<T>(collection: List<T> | null | undefined, iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): T[];
         orderBy<T extends object>(collection: T | null | undefined, iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): Array<T[keyof T]>;
@@ -546,29 +546,29 @@ declare module "../index" {
     interface ExpO<T> {
         orderBy(iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): ExpL<T[keyof T]>;
     }
-    interface Stat {
+    interface LoDashStatic {
         partition<T>(collection: List<T> | null | undefined, callback: ValueIteratee<T>): [T[], T[]];
         partition<T extends object>(collection: T | null | undefined, callback: ValueIteratee<T[keyof T]>): [Array<T[keyof T]>, Array<T[keyof T]>];
     }
     interface ImpS {
-        partition(callback: StringIterator<NotVoid>): Imp<[string[], string[]]>;
+        partition(callback: StringIterator<NotVoid>): LoDashImplicitWrapper<[string[], string[]]>;
     }
     interface ImpL<T> {
-        partition(callback: ValueIteratee<T>): Imp<[T[], T[]]>;
+        partition(callback: ValueIteratee<T>): LoDashImplicitWrapper<[T[], T[]]>;
     }
     interface ImpO<T> {
-        partition(callback: ValueIteratee<T[keyof T]>): Imp<[Array<T[keyof T]>, Array<T[keyof T]>]>;
+        partition(callback: ValueIteratee<T[keyof T]>): LoDashImplicitWrapper<[Array<T[keyof T]>, Array<T[keyof T]>]>;
     }
     interface ExpS {
-        partition(callback: StringIterator<NotVoid>): Exp<[string[], string[]]>;
+        partition(callback: StringIterator<NotVoid>): LoDashExplicitWrapper<[string[], string[]]>;
     }
     interface ExpL<T> {
-        partition(callback: ValueIteratee<T>): Exp<[T[], T[]]>;
+        partition(callback: ValueIteratee<T>): LoDashExplicitWrapper<[T[], T[]]>;
     }
     interface ExpO<T> {
-        partition(callback: ValueIteratee<T[keyof T]>): Exp<[Array<T[keyof T]>, Array<T[keyof T]>]>;
+        partition(callback: ValueIteratee<T[keyof T]>): LoDashExplicitWrapper<[Array<T[keyof T]>, Array<T[keyof T]>]>;
     }
-    interface Stat {
+    interface LoDashStatic {
         reduce<T, TResult>(collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult): TResult;
         reduce<T, TResult>(collection: List<T> | null | undefined, callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
         reduce<T extends object, TResult>(collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
@@ -592,7 +592,7 @@ declare module "../index" {
         reduce<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): ExpChain<TResult>;
         reduce(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): ExpChain<T[keyof T] | undefined>;
     }
-    interface Stat {
+    interface LoDashStatic {
         reduceRight<T, TResult>(collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult): TResult;
         reduceRight<T, TResult>(collection: List<T> | null | undefined, callback: MemoListIterator<T, TResult, List<T>>, accumulator: TResult): TResult;
         reduceRight<T extends object, TResult>(collection: T | null | undefined, callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): TResult;
@@ -616,7 +616,7 @@ declare module "../index" {
         reduceRight<TResult>(callback: MemoObjectIterator<T[keyof T], TResult, T>, accumulator: TResult): ExpChain<TResult>;
         reduceRight(callback: MemoObjectIterator<T[keyof T], T[keyof T], T>): ExpChain<T[keyof T] | undefined>;
     }
-    interface Stat {
+    interface LoDashStatic {
         reject(collection: string | null | undefined, predicate?: StringIterator<boolean>): string[];
         reject<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): T[];
         reject<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>): Array<T[keyof T]>;
@@ -639,7 +639,7 @@ declare module "../index" {
     interface ExpO<T> {
         reject(predicate?: ObjectIterateeCustom<T, boolean>): ExpL<T[keyof T]>;
     }
-    interface Stat {
+    interface LoDashStatic {
         sample<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined): T | undefined;
         sample<T extends object>(collection: T | null | undefined): T[keyof T] | undefined;
     }
@@ -656,12 +656,12 @@ declare module "../index" {
         sample(): ExpS;
     }
     interface ExpL<T> {
-        sample(): Exp<T | undefined>;
+        sample(): LoDashExplicitWrapper<T | undefined>;
     }
     interface ExpO<T> {
-        sample(): Exp<T[keyof T] | undefined>;
+        sample(): LoDashExplicitWrapper<T[keyof T] | undefined>;
     }
-    interface Stat {
+    interface LoDashStatic {
         sampleSize<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, n?: number): T[];
         sampleSize<T extends object>(collection: T | null | undefined, n?: number): Array<T[keyof T]>;
     }
@@ -683,7 +683,7 @@ declare module "../index" {
     interface ExpO<T> {
         sampleSize(n?: number): ExpL<T[keyof T]>;
     }
-    interface Stat {
+    interface LoDashStatic {
         shuffle<T>(collection: List<T> | null | undefined): T[];
         shuffle<T extends object>(collection: T | null | undefined): Array<T[keyof T]>;
     }
@@ -705,16 +705,16 @@ declare module "../index" {
     interface ExpO<T> {
         shuffle(): ExpL<T[keyof T]>;
     }
-    interface Stat {
+    interface LoDashStatic {
         size(collection: object | string | null | undefined): number;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         size(): number;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         size(): ExpU<number>;
     }
-    interface Stat {
+    interface LoDashStatic {
         some<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): boolean;
         some<T extends object>(collection: T | null | undefined, predicate?: ObjectIterateeCustom<T, boolean>): boolean;
     }
@@ -730,7 +730,7 @@ declare module "../index" {
     interface ExpO<T> {
         some(predicate?: ObjectIterateeCustom<T, boolean>): ExpU<boolean>;
     }
-    interface Stat {
+    interface LoDashStatic {
         sortBy<T>(collection: List<T> | null | undefined, ...iteratees: Array<Many<ListIteratee<T>>>): T[];
         sortBy<T extends object>(collection: T | null | undefined, ...iteratees: Array<Many<ObjectIteratee<T>>>): Array<T[keyof T]>;
     }

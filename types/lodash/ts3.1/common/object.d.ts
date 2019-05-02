@@ -1,6 +1,6 @@
 import _ = require("../index");
 declare module "../index" {
-    interface Stat {
+    interface LoDashStatic {
         assign<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
         assign<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TObject & TSource1 & TSource2;
         assign<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TObject & TSource1 & TSource2 & TSource3;
@@ -24,7 +24,7 @@ declare module "../index" {
         assign(): ExpO<T>;
         assign(...otherArgs: any[]): ExpO<any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         assignIn<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
         assignIn<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TObject & TSource1 & TSource2;
         assignIn<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TObject & TSource1 & TSource2 & TSource3;
@@ -49,7 +49,7 @@ declare module "../index" {
         assignIn(...otherArgs: any[]): ExpO<any>;
     }
     type AssignCustomizer = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any;
-    interface Stat {
+    interface LoDashStatic {
         assignInWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
         assignInWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
         assignInWith<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3;
@@ -73,7 +73,7 @@ declare module "../index" {
         assignInWith(): ExpO<T>;
         assignInWith(...otherArgs: any[]): ExpO<any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         assignWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
         assignWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
         assignWith<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3;
@@ -97,7 +97,7 @@ declare module "../index" {
         assignWith(): ExpO<T>;
         assignWith(...otherArgs: any[]): ExpO<any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         at<T>(object:  Dictionary<T> | NumericDictionary<T> | null | undefined, ...props: PropertyPath[]): T[];
         at<T extends object>(object: T | null | undefined, ...props: Array<Many<keyof T>>): Array<T[keyof T]>;
     }
@@ -113,7 +113,7 @@ declare module "../index" {
     interface ExpL<T> {
         at(...props: PropertyPath[]): ExpL<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         create<T extends object, U extends object>(prototype: T, properties?: U): T & U;
     }
     interface ImpO<T> {
@@ -122,7 +122,7 @@ declare module "../index" {
     interface ExpO<T> {
         create<U extends object>(properties?: U): ExpO<T & U>;
     }
-    interface Stat {
+    interface LoDashStatic {
         defaults<TObject, TSource>(object: TObject, source: TSource): TSource & TObject;
         defaults<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TSource2 & TSource1 & TObject;
         defaults<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TSource3 & TSource2 & TSource1 & TObject;
@@ -146,7 +146,7 @@ declare module "../index" {
         defaults(): ExpO<T>;
         defaults(...sources: any[]): ExpO<any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         defaultsDeep(object: any, ...sources: any[]): any;
     }
     interface ImpO<T> {
@@ -155,39 +155,39 @@ declare module "../index" {
     interface ExpO<T> {
         defaultsDeep(...sources: any[]): ExpO<any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         entries<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         entries(object?: object): Array<[string, any]>;
     }
     interface ImpO<T> {
         entries(): ImpL<[string, T[keyof T]]>;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         entries(): ImpL<[string, any]>;
     }
     interface ExpO<T> {
         entries(): ExpL<[string, T[keyof T]]>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         entries(): ExpL<[string, any]>;
     }
-    interface Stat {
+    interface LoDashStatic {
         entriesIn<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         entriesIn(object?: object): Array<[string, any]>;
     }
     interface ImpO<T> {
         entriesIn(): ImpL<[string, T[keyof T]]>;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         entriesIn(): ImpL<[string, any]>;
     }
     interface ExpO<T> {
         entriesIn(): ExpL<[string, T[keyof T]]>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         entriesIn(): ExpL<[string, any]>;
     }
-    interface Stat {
+    interface LoDashStatic {
         extend<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
         extend<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TObject & TSource1 & TSource2;
         extend<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TObject & TSource1 & TSource2 & TSource3;
@@ -211,7 +211,7 @@ declare module "../index" {
         extend(): ExpO<T>;
         extend(...otherArgs: any[]): ExpO<any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         extendWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
         extendWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
         extendWith<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3;
@@ -235,83 +235,83 @@ declare module "../index" {
         extendWith(): ExpO<T>;
         extendWith(...otherArgs: any[]): ExpO<any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         findKey<T>(object: T | null | undefined, predicate?: ObjectIteratee<T>): string | undefined;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         findKey(predicate?: ObjectIteratee<TValue>): string | undefined;
     }
-    interface Exp<TValue> {
-        findKey(predicate?: ObjectIteratee<TValue>): Exp<string | undefined>;
+    interface LoDashExplicitWrapper<TValue> {
+        findKey(predicate?: ObjectIteratee<TValue>): LoDashExplicitWrapper<string | undefined>;
     }
-    interface Stat {
+    interface LoDashStatic {
         findLastKey<T>(object: T | null | undefined, predicate?: ObjectIteratee<T>): string | undefined;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         findLastKey(predicate?: ObjectIteratee<TValue>): string | undefined;
     }
-    interface Exp<TValue> {
-        findLastKey(predicate?: ObjectIteratee<TValue>): Exp<string | undefined>;
+    interface LoDashExplicitWrapper<TValue> {
+        findLastKey(predicate?: ObjectIteratee<TValue>): LoDashExplicitWrapper<string | undefined>;
     }
-    interface Stat {
+    interface LoDashStatic {
         forIn<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
         forIn<T>(object: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         forIn(iteratee?: ObjectIterator<TValue, any>): this;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         forIn(iteratee?: ObjectIterator<TValue, any>): this;
     }
-    interface Stat {
+    interface LoDashStatic {
         forInRight<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
         forInRight<T>(object: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         forInRight(iteratee?: ObjectIterator<TValue, any>): this;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         forInRight(iteratee?: ObjectIterator<TValue, any>): this;
     }
-    interface Stat {
+    interface LoDashStatic {
         forOwn<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
         forOwn<T>(object: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         forOwn(iteratee?: ObjectIterator<TValue, any>): this;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         forOwn(iteratee?: ObjectIterator<TValue, any>): this;
     }
-    interface Stat {
+    interface LoDashStatic {
         forOwnRight<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
         forOwnRight<T>(object: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         forOwnRight(iteratee?: ObjectIterator<TValue, any>): this;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         forOwnRight(iteratee?: ObjectIterator<TValue, any>): this;
     }
-    interface Stat {
+    interface LoDashStatic {
         functions(object: any): string[];
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         functions(): ImpL<string>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         functions(): ExpL<string>;
     }
-    interface Stat {
+    interface LoDashStatic {
         functionsIn<T extends {}>(object: any): string[];
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         functionsIn(): ImpL<string>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         functionsIn(): ExpL<string>;
     }
-    interface Stat {
+    interface LoDashStatic {
         get<TObject extends object, TKey extends keyof TObject>(object: TObject, path: TKey | [TKey]): TObject[TKey];
         get<TObject extends object, TKey extends keyof TObject>(object: TObject | null | undefined, path: TKey | [TKey]): TObject[TKey] | undefined;
         get<TObject extends object, TKey extends keyof TObject, TDefault>(object: TObject | null | undefined, path: TKey | [TKey], defaultValue: TDefault): Exclude<TObject[TKey], undefined> | TDefault;
@@ -342,40 +342,40 @@ declare module "../index" {
     interface ExpO<T> {
         get<TKey extends keyof T>(path: TKey | [TKey]): ExpChain<T[TKey]>;
         get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): ExpChain<Exclude<T[TKey], undefined> | TDefault>;
-        get(path: PropertyPath, defaultValue?: any): Exp<any>;
+        get(path: PropertyPath, defaultValue?: any): LoDashExplicitWrapper<any>;
     }
     interface ExpL<T> {
         get(path: number): ExpChain<T>;
         get<TDefault>(path: number, defaultValue: TDefault): ExpChain<T | TDefault>;
     }
-    interface Stat {
+    interface LoDashStatic {
         has<T>(object: T, path: PropertyPath): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         has(path: PropertyPath): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         has(path: PropertyPath): ExpU<boolean>;
     }
-    interface Stat {
+    interface LoDashStatic {
         hasIn<T>(object: T, path: PropertyPath): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         hasIn(path: PropertyPath): boolean;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         hasIn(path: PropertyPath): ExpU<boolean>;
     }
-    interface Stat {
+    interface LoDashStatic {
         invert(object: object): Dictionary<string>;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         invert(): ImpO<Dictionary<string>>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         invert(): ExpO<Dictionary<string>>;
     }
-    interface Stat {
+    interface LoDashStatic {
         invertBy<T>(object:  Dictionary<T> | NumericDictionary<T> | null | undefined, interatee?: ValueIteratee<T>): Dictionary<string[]>;
         invertBy<T extends object>(object: T | null | undefined, interatee?: ValueIteratee<T[keyof T]>): Dictionary<string[]>;
     }
@@ -397,34 +397,34 @@ declare module "../index" {
     interface ExpO<T> {
         invertBy(iteratee?: ValueIteratee<T[keyof T]>): ExpO<Dictionary<string[]>>;
     }
-    interface Stat {
+    interface LoDashStatic {
         invoke(object: any, path: PropertyPath, ...args: any[]): any;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         invoke(path: PropertyPath, ...args: any[]): any;
     }
-    interface Exp<TValue> {
-        invoke(path: PropertyPath, ...args: any[]): Exp<any>;
+    interface LoDashExplicitWrapper<TValue> {
+        invoke(path: PropertyPath, ...args: any[]): LoDashExplicitWrapper<any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         keys(object?: any): string[];
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         keys(): ImpL<string>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         keys(): ExpL<string>;
     }
-    interface Stat {
+    interface LoDashStatic {
         keysIn(object?: any): string[];
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         keysIn(): ImpL<string>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         keysIn(): ExpL<string>;
     }
-    interface Stat {
+    interface LoDashStatic {
         mapKeys<T>(object: List<T> | null | undefined, iteratee?: ListIteratee<T>): Dictionary<T>;
         mapKeys<T extends object>(object: T | null | undefined, iteratee?: ObjectIteratee<T>): Dictionary<T[keyof T]>;
     }
@@ -440,7 +440,7 @@ declare module "../index" {
     interface ExpO<T> {
         mapKeys(iteratee?: ObjectIteratee<T>): ExpO<Dictionary<T[keyof T]>>;
     }
-    interface Stat {
+    interface LoDashStatic {
         mapValues<TResult>(obj: string | null | undefined, callback: StringIterator<TResult>): NumericDictionary<TResult>;
         mapValues<T, TResult>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, callback: DictionaryIterator<T, TResult>): Dictionary<TResult>;
         mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
@@ -492,7 +492,7 @@ declare module "../index" {
         mapValues(iteratee: string): ExpO<{ [P in keyof T]: any }>;
         mapValues(): ExpO<T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         merge<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
         merge<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TObject & TSource1 & TSource2;
         merge<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TObject & TSource1 & TSource2 & TSource3;
@@ -516,7 +516,7 @@ declare module "../index" {
     type MergeWithCustomizer = { bivariantHack(value: any, srcValue: any, key: string, object: any, source: any): any; }["bivariantHack"];
     // TODO: Probably should just put all these methods on ImpO and forget about it.
     // oh, except for ImpL<any> I GUESS
-    interface Stat {
+    interface LoDashStatic {
         mergeWith<TObject, TSource>(object: TObject, source: TSource, customizer: MergeWithCustomizer): TObject & TSource;
         mergeWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: MergeWithCustomizer): TObject & TSource1 & TSource2;
         mergeWith<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, customizer: MergeWithCustomizer): TObject & TSource1 & TSource2 & TSource3;
@@ -537,7 +537,7 @@ declare module "../index" {
         mergeWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: MergeWithCustomizer): ExpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
         mergeWith(...otherArgs: any[]): ExpO<any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         omit<T extends object, K extends keyof T>(object: T | null | undefined, ...paths: Array<Many<K>>): Omit<T, K>;
         omit<T extends object>(object: T | null | undefined, ...paths: Array<Many<PropertyName>>): PartialObject<T>;
     }
@@ -555,7 +555,7 @@ declare module "../index" {
         omit<K extends keyof T>(...paths: Array<Many<K>>): ExpO<Omit<T, K>>;
         omit(...paths: Array<Many<PropertyName>>): ExpO<PartialObject<T>>;
     }
-    interface Stat {
+    interface LoDashStatic {
         omitBy<T>(object: Dictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): Dictionary<T>;
         omitBy<T>(object: NumericDictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): NumericDictionary<T>;
         omitBy<T extends object>(object: T | null | undefined, predicate: ValueKeyIteratee<T[keyof T]>): PartialObject<T>;
@@ -572,7 +572,7 @@ declare module "../index" {
     interface ExpO<T> {
         omitBy(predicate: ValueKeyIteratee<T[keyof T]>): ExpO<PartialObject<T>>;
     }
-    interface Stat {
+    interface LoDashStatic {
         pick<T extends object, U extends keyof T>(object: T, ...props: Array<Many<U>>): Pick<T, U>;
         pick<T>(object: T | null | undefined, ...props: PropertyPath[]): PartialDeep<T>;
     }
@@ -584,7 +584,7 @@ declare module "../index" {
         pick<U extends keyof T>(...props: Array<Many<U>>): ExpO<Pick<T, U>>;
         pick(...props: PropertyPath[]): ExpO<PartialObject<T>>;
     }
-    interface Stat {
+    interface LoDashStatic {
         pickBy<T, S extends T>(object: Dictionary<T> | null | undefined, predicate: ValueKeyIterateeTypeGuard<T, S>): Dictionary<S>;
         pickBy<T, S extends T>(object: NumericDictionary<T> | null | undefined, predicate: ValueKeyIterateeTypeGuard<T, S>): NumericDictionary<S>;
         pickBy<T>(object: Dictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): Dictionary<T>;
@@ -607,61 +607,61 @@ declare module "../index" {
         pickBy<S extends T[keyof T]>(predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>): ExpO<NumericDictionary<unknown> extends T ? NumericDictionary<S> : Dictionary<S>>;
         pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): ExpO<PartialObject<T>>;
     }
-    interface Stat {
+    interface LoDashStatic {
         result<TResult>(object: any, path: PropertyPath, defaultValue?: TResult | ((...args: any[]) => TResult)): TResult;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         result<TResult>(path: PropertyPath, defaultValue?: TResult | ((...args: any[]) => TResult)): TResult;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         result<TResult>(path: PropertyPath, defaultValue?: TResult | ((...args: any[]) => TResult)): ExpChain<TResult>;
     }
-    interface Stat {
+    interface LoDashStatic {
         set<T extends object>(object: T, path: PropertyPath, value: any): T;
         set<TResult>(object: object, path: PropertyPath, value: any): TResult;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         set(path: PropertyPath, value: any): this;
         set<TResult>(path: PropertyPath, value: any): ImpChain<TResult>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         set(path: PropertyPath, value: any): this;
         set<TResult>(path: PropertyPath, value: any): ExpChain<TResult>;
     }
     type SetWithCustomizer<T> = (nsValue: any, key: string, nsObject: T) => any;
-    interface Stat {
+    interface LoDashStatic {
         setWith<T extends object>(object: T, path: PropertyPath, value: any, customizer?: SetWithCustomizer<T>): T;
         setWith<T extends object, TResult>(object: T, path: PropertyPath, value: any, customizer?: SetWithCustomizer<T>): TResult;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         setWith(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): this;
         setWith<TResult>(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): ImpChain<TResult>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         setWith(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): this;
         setWith<TResult>(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): ExpChain<TResult>;
     }
-    interface Stat {
+    interface LoDashStatic {
         toPairs<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         toPairs(object?: object): Array<[string, any]>;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         toPairs(): ImpL<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         toPairs(): ExpL<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
-    interface Stat {
+    interface LoDashStatic {
         toPairsIn<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         toPairsIn(object?: object): Array<[string, any]>;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         toPairsIn(): ImpL<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         toPairsIn(): ExpL<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
-    interface Stat {
+    interface LoDashStatic {
         transform<T, TResult>(object: T[], iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
         transform<T, TResult>(object: Dictionary<T>, iteratee: MemoVoidDictionaryIterator<T, TResult>, accumulator?: TResult): TResult;
         transform(object: any[]): any[];
@@ -683,25 +683,25 @@ declare module "../index" {
         transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): ExpChain<TResult>;
         transform(): ExpChain<T extends Dictionary<unknown> ? Dictionary<any> : T>;
     }
-    interface Stat {
+    interface LoDashStatic {
         unset(object: any, path: PropertyPath): boolean;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         unset(path: PropertyPath): ImpU<boolean>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         unset(path: PropertyPath): ExpU<boolean>;
     }
-    interface Stat {
+    interface LoDashStatic {
         update(object: object, path: PropertyPath, updater: (value: any) => any): any;
     }
-    interface Imp<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         update(path: PropertyPath, updater: (value: any) => any): ImpO<any>;
     }
-    interface Exp<TValue> {
+    interface LoDashExplicitWrapper<TValue> {
         update(path: PropertyPath, updater: (value: any) => any): ExpO<any>;
     }
-    interface Stat {
+    interface LoDashStatic {
         updateWith<T extends object>(object: T, path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): T;
         updateWith<T extends object, TResult>(object: T, path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): TResult;
     }
@@ -713,7 +713,7 @@ declare module "../index" {
         updateWith(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): this;
         updateWith<TResult>(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): ExpO<TResult>;
     }
-    interface Stat {
+    interface LoDashStatic {
         values<T>(object: Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined): T[];
         values<T extends object>(object: T | null | undefined): Array<T[keyof T]>;
         values(object: any): any[];
@@ -730,7 +730,7 @@ declare module "../index" {
     interface ExpS {
         values(): ExpL<string>;
     }
-    interface Stat {
+    interface LoDashStatic {
         valuesIn<T>(object: Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined): T[];
         valuesIn<T extends object>(object: T | null | undefined): Array<T[keyof T]>;
     }
