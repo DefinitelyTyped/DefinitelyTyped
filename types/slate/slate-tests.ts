@@ -22,25 +22,21 @@ const data = Data.create({ foo: "bar " });
 const value = Value.create({ data });
 
 const node: BlockJSON = {
-	object: "block",
-	type: "paragraph",
-	nodes: [
-		{
-			object: "text",
-			key: "a",
-			leaves: [
-				{
-                    object: "leaf",
-					text: "example",
-					marks: [{
-                        data: { testData: "data"},
-                        type: "mark",
-                        object: "mark"
-                    }]
-				}
-			]
-		}
-	]
+    object: "block",
+    type: "paragraph",
+    data: {},
+    nodes: [
+        {
+            object: "text",
+            key: "a",
+            text: "example",
+            marks: [{
+                data: { testData: "data" },
+                type: "mark",
+                object: "mark"
+            }]
+        }
+    ]
 };
 
 const doc = Document.fromJSON({
@@ -362,7 +358,6 @@ editor
     path: 'a',
     offset: 0,
     text: 'text',
-    marks: [Mark.create({type: 'test_mark'})],
     data: Data.create({})
 })
 .applyOperation({
@@ -375,24 +370,18 @@ editor
 .applyOperation({
     type: "add_mark",
     path: 'a',
-    offset: 0,
-    length: 1,
     mark: Mark.create({type: 'test_mark'}),
     data: Data.create({})
 })
 .applyOperation({
     type: "remove_mark",
     path: 'a',
-    offset: 0,
-    length: 1,
     mark: Mark.create({type: 'test_mark'}),
     data: Data.create({})
 })
 .applyOperation({
     type: "set_mark",
     path: 'a',
-    offset: 0,
-    length: 1,
     properties: {type: 'test_mark'},
     newProperties: {type: 'new_test_mark'},
     data: Data.create({})

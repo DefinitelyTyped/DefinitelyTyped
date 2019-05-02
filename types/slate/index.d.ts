@@ -1,4 +1,4 @@
-// Type definitions for slate 0.44
+// Type definitions for slate 0.46
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -250,8 +250,9 @@ export interface TextProperties {
 
 export interface TextJSON {
     key?: string;
-    leaves: LeafJSON[];
     object: "text";
+    text?: string;
+    marks?: MarkJSON[];
 }
 
 export interface LeafAndOffset {
@@ -286,7 +287,6 @@ export class Text extends Immutable.Record({}) {
     searchLeafAtOffset(offset: number): LeafAndOffset;
     addMark(index: number, length: number, mark: Mark): Text;
     addMarks(index: number, lenght: number, marks: Immutable.Set<Mark>): Text;
-    getLeaves(decorations?: Range[]): Immutable.List<Leaf>;
     getActiveMarksBetweenOffsets(
         startOffset: number,
         endOffset: number
@@ -793,7 +793,6 @@ export interface InsertTextOperation {
     path: Path;
     offset: number;
     text: string;
-    marks: Mark[];
     data: Data;
 }
 
@@ -808,8 +807,6 @@ export interface RemoveTextOperation {
 export interface AddMarkOperation {
     type: "add_mark";
     path: Path;
-    offset: number;
-    length: number;
     mark: Mark;
     data: Data;
 }
@@ -817,8 +814,6 @@ export interface AddMarkOperation {
 export interface RemoveMarkOperation {
     type: "remove_mark";
     path: Path;
-    offset: number;
-    length: number;
     mark: Mark;
     data: Data;
 }
@@ -826,8 +821,6 @@ export interface RemoveMarkOperation {
 export interface SetMarkOperation {
     type: "set_mark";
     path: Path;
-    offset: number;
-    length: number;
     properties: MarkProperties;
     newProperties: MarkProperties;
     data: Data;
