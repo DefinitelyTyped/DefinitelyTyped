@@ -6,6 +6,7 @@
 //                 Joshua Cherry <https://github.com/tasadar2>
 //                 Arthur Corenzan <https://github.com/haggen>
 //                 Richard Lea <https://github.com/chigix>
+//                 Devid Farinelli <https://github.com/misterdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -87,7 +88,10 @@ declare class Generator extends EventEmitter {
     constructor(args: string|string[], options: {});
 
     env: {
-        error(...e: Error[]): void
+        error(...e: Error[]): void;
+        adapter: {
+            promptModule: inquirer.PromptModule;
+        };
     };
     args: {};
     resolved: string;
@@ -114,6 +118,7 @@ declare class Generator extends EventEmitter {
 
     // actions/help mixin
     argumentsHelp(): string;
+    async(): () => {};
     desc(description: string): this;
     help(): string;
     optionsHelp(): string;

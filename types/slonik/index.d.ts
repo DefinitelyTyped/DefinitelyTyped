@@ -3,7 +3,7 @@
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
 //                 Misha Kaletsky <https://github.com/mmkal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.1
 
 /// <reference types="node" />
 
@@ -41,11 +41,7 @@ export interface IdentifierListTokenType {
     type: typeof SlonikSymbol.IdentifierListTokenSymbol;
 }
 
-export interface SqlSqlTokenType {
-    sql: string;
-    type: typeof SlonikSymbol.SqlTokenSymbol;
-    values: PrimitiveValueExpressionType[];
-}
+export type SqlSqlTokenType<T> = TaggedTemplateLiteralInvocationType<T>;
 
 export interface RawSqlTokenType {
     sql: string;
@@ -106,7 +102,7 @@ export type SqlTokenType =
     IdentifierTokenType |
     IdentifierListTokenType |
     RawSqlTokenType |
-    SqlSqlTokenType |
+    SqlSqlTokenType<any> |
     TupleListSqlTokenType |
     TupleSqlTokenType |
     UnnestSqlTokenType |
@@ -195,10 +191,11 @@ export interface QueryType {
     values?: ReadonlyArray<PrimitiveValueExpressionType>;
 }
 
-export type QueryMethodType<R> = (
-    sql: TaggedTemplateLiteralInvocationType,
+export type QueryMethodType<RowType, Result> = (
+    sql: TaggedTemplateLiteralInvocationType<RowType>,
     values?: PrimitiveValueExpressionType[]
-) => Promise<R>;
+) => Promise<Result>;
+export type QueryMethodParams<T> = Parameters<QueryMethodType<T, never>>;
 
 export interface NoticeType {
     code: string;
@@ -224,16 +221,15 @@ export type QueryResultRowType<ColumnName extends string = string> = {
     [name in ColumnName]: QueryResultRowColumnType;
 };
 
-// TODO: Infer column names via generic
-export type QueryAnyFirstFunctionType = QueryMethodType<QueryResultRowColumnType[]>;
-export type QueryAnyFunctionType = QueryMethodType<QueryResultRowType[]>;
-export type QueryFunctionType = QueryMethodType<QueryResultType<QueryResultRowType>>;
-export type QueryManyFirstFunctionType = QueryMethodType<QueryResultRowColumnType[]>;
-export type QueryManyFunctionType = QueryMethodType<QueryResultRowType[]>;
-export type QueryMaybeOneFirstFunctionType = QueryMethodType<QueryResultRowColumnType>;
-export type QueryMaybeOneFunctionType = QueryMethodType<QueryResultRowType | null>;
-export type QueryOneFirstFunctionType = QueryMethodType<QueryResultRowColumnType>;
-export type QueryOneFunctionType = QueryMethodType<QueryResultRowType>;
+export type QueryAnyFirstFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<Array<T[keyof T]>>;
+export type QueryAnyFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T[]>;
+export type QueryFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<QueryResultType<T>>;
+export type QueryManyFirstFunctionType = QueryAnyFirstFunctionType;
+export type QueryManyFunctionType = QueryAnyFunctionType;
+export type QueryMaybeOneFirstFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T[keyof T] | null>;
+export type QueryMaybeOneFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T | null>;
+export type QueryOneFirstFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T[keyof T]>;
+export type QueryOneFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T>;
 
 export interface CommonQueryMethodsType {
     any: QueryAnyFunctionType;
@@ -288,7 +284,7 @@ export interface QueryContextType {
 //
 // SQL (TAGGED TEMPLATE)
 // ----------------------------------------------------------------------
-export interface TaggedTemplateLiteralInvocationType {
+export interface TaggedTemplateLiteralInvocationType<Result = QueryResultRowType> {
     sql: string;
     type: typeof SlonikSymbol.SqlTokenSymbol;
     values: ValueExpressionType[];
@@ -297,7 +293,8 @@ export interface TaggedTemplateLiteralInvocationType {
 export const sql: SqlTaggedTemplateType;
 
 export interface SqlTaggedTemplateType {
-    (template: TemplateStringsArray, ...vals: ValueExpressionType[]): SqlSqlTokenType;
+    // tslint:disable-next-line no-unnecessary-generics (the sql<Foo>`select foo` is cleaner in this case than casting with 'as')
+    <T = QueryResultRowType>(template: TemplateStringsArray, ...vals: ValueExpressionType[]): SqlSqlTokenType<T>;
     array: (
         values: PrimitiveValueExpressionType[],
         memberType: string

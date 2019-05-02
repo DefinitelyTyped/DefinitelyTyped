@@ -1,5 +1,5 @@
 declare class FileTransfer {
-    constructor(host: string, port?: number, timeout?: number)
+    constructor(host: string, port?: number, timeout?: number);
 
     /**
      * Starts the download of a File

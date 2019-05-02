@@ -698,6 +698,118 @@ stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     }
 );
 
+stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
+    {
+        business_profile: {
+            mcc: '1234',
+            name: 'My Amazing Company',
+            product_description: 'My Amazing Product',
+            support_address: {
+                line1: '42 Wallaby Way',
+                line2: 'Apt 1',
+                city: 'Sydney',
+                state: 'NSW',
+                postal_code: '1000',
+                country: 'Australia'
+            },
+            support_email: 'support@example.org',
+            support_phone: '+15555551212',
+            support_url: 'https://example.org',
+            url: 'https://example.org'
+        },
+        settings: {
+            branding: {
+                icon: 'https://example.org/icon.png',
+                logo: 'https://example.org/logo.png',
+                primary_color: '#a346b7'
+            },
+            card_payments: {
+                decline_on: {
+                    avs_failure: false,
+                    cvc_failure: false
+                },
+                statement_descriptor_prefix: 'foo'
+            },
+            dashboard: {
+                display_name: 'My Amazing Company',
+                timezone: 'America/Montreal'
+            },
+            payments: {
+                statement_descriptor: 'example.org'
+            },
+            payouts: {
+                debit_negative_balances: true,
+                schedule: {
+                    delay_days: 7,
+                    interval: 'daily',
+                    monthly_anchor: 1,
+                    weekly_anchor: 'monday'
+                },
+                statement_descriptor: 'foo'
+            }
+        }
+    }).then(
+    (account) => {
+        // asynchronously called
+    }
+);
+
+stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
+    {
+        business_profile: {
+            mcc: null,
+            name: null,
+            product_description: null,
+            support_address: {
+                line1: null,
+                line2: null,
+                city: null,
+                state: null,
+                postal_code: null,
+                country: null,
+            },
+            support_email: null,
+            support_phone: null,
+            support_url: null,
+            url: null
+        },
+        settings: {
+            branding: {
+                icon: null,
+                logo: null,
+                primary_color: null
+            },
+            card_payments: {
+                decline_on: {
+                    avs_failure: null,
+                    cvc_failure: null
+                },
+                statement_descriptor_prefix: null
+            },
+            dashboard: {
+                display_name: null,
+                timezone: null
+            },
+            payments: {
+                statement_descriptor: null
+            },
+            payouts: {
+                debit_negative_balances: null,
+                schedule: {
+                    delay_days: null,
+                    interval: null,
+                    monthly_anchor: null,
+                    weekly_anchor: null
+                },
+                statement_descriptor: null
+            }
+        }
+    }).then(
+    (account) => {
+        // asynchronously called
+    }
+);
+
 stripe.accounts.del("acct_17wV8KBoqMA9o2xk", (err, confirmation) => { });
 stripe.accounts.del("acct_17wV8KBoqMA9o2xk").then((confirmation) => { });
 
