@@ -24,7 +24,6 @@
         "cookies.d.ts",
         "queue.d.ts",
         "cache-backend-fs.d.ts",
-        "crawler.d.ts",
-        "../node/v7/index.d.ts"
+        "crawler.d.ts"
     ]
 }
