@@ -81,10 +81,10 @@ declare module "../index" {
         every(predicate?: DictionaryIteratee<unknown>): boolean;
     }
     interface ExpL<T> {
-        every(predicate?: ListIterateeCustom<T, boolean>): Exp<boolean>;
+        every(predicate?: ListIterateeCustom<T, boolean>): ExpU<boolean>;
     }
     interface ExpO<T> {
-        every(predicate?: ObjectIterateeCustom<T, boolean>): Exp<boolean>;
+        every(predicate?: ObjectIterateeCustom<T, boolean>): ExpU<boolean>;
     }
     interface Stat {
         filter(collection: string | null | undefined, predicate?: StringIterator<boolean>): string[];
@@ -425,10 +425,10 @@ declare module "../index" {
         includes(target: T, fromIndex?: number): boolean;
     }
     interface ExpO<T> {
-        includes(target: T[keyof T], fromIndex?: number): Exp<boolean>;
+        includes(target: T[keyof T], fromIndex?: number): ExpU<boolean>;
     }
     interface ExpL<T> {
-        includes(target: T, fromIndex?: number): Exp<boolean>;
+        includes(target: T, fromIndex?: number): ExpU<boolean>;
     }
     interface Stat {
         invokeMap(collection: object | null | undefined, methodName: string, ...args: any[]): any[];
@@ -712,7 +712,7 @@ declare module "../index" {
         size(): number;
     }
     interface Exp<TValue> {
-        size(): Exp<number>;
+        size(): ExpU<number>;
     }
     interface Stat {
         some<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): boolean;
@@ -725,10 +725,10 @@ declare module "../index" {
         some(predicate?: ObjectIterateeCustom<T, boolean>): boolean;
     }
     interface ExpL<T> {
-        some(predicate?: ListIterateeCustom<T, boolean>): Exp<boolean>;
+        some(predicate?: ListIterateeCustom<T, boolean>): ExpU<boolean>;
     }
     interface ExpO<T> {
-        some(predicate?: ObjectIterateeCustom<T, boolean>): Exp<boolean>;
+        some(predicate?: ObjectIterateeCustom<T, boolean>): ExpU<boolean>;
     }
     interface Stat {
         sortBy<T>(collection: List<T> | null | undefined, ...iteratees: Array<Many<ListIteratee<T>>>): T[];

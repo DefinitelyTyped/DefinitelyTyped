@@ -56,8 +56,8 @@ declare module "../index" {
         defaultTo<TDefault>(defaultValue: TDefault): TValue extends null | undefined ? TDefault : TValue | TDefault;
     }
     interface Exp<TValue> {
-        defaultTo(defaultValue: TValue): Exp<TValue>;
-        defaultTo<TDefault>(defaultValue: TDefault): Exp<TValue extends null | undefined ? TDefault : TValue | TDefault>;
+        defaultTo(defaultValue: TValue): ExpChain<TValue>;
+        defaultTo<TDefault>(defaultValue: TDefault): ExpChain<TValue extends null | undefined ? TDefault : TValue | TDefault>;
     }
 
     interface Stat {

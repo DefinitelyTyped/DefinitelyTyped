@@ -78,7 +78,7 @@ declare module "../index" {
         conformsTo(source: ConformsPredicateObject<TValue>): boolean;
     }
     interface Exp<TValue> {
-        conformsTo(source: ConformsPredicateObject<TValue>): Exp<boolean>;
+        conformsTo(source: ConformsPredicateObject<TValue>): ExpU<boolean>;
     }
     type CondPair<T, R> = [(val: T) => boolean, (val: T) => R];
     interface Stat {
@@ -88,7 +88,7 @@ declare module "../index" {
         eq(other: any): boolean;
     }
     interface Exp<TValue> {
-        eq(other: any): Exp<boolean>;
+        eq(other: any): ExpU<boolean>;
     }
 
     interface Stat {
@@ -98,7 +98,7 @@ declare module "../index" {
         gt(other: any): boolean;
     }
     interface Exp<TValue> {
-        gt(other: any): Exp<boolean>;
+        gt(other: any): ExpU<boolean>;
     }
 
     interface Stat {
@@ -108,7 +108,7 @@ declare module "../index" {
         gte(other: any): boolean;
     }
     interface Exp<TValue> {
-        gte(other: any): Exp<boolean>;
+        gte(other: any): ExpU<boolean>;
     }
 
     interface Stat {
@@ -118,7 +118,7 @@ declare module "../index" {
         isArguments(): boolean;
     }
     interface Exp<TValue> {
-        isArguments(): Exp<boolean>;
+        isArguments(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -129,7 +129,7 @@ declare module "../index" {
         isArray(): boolean;
     }
     interface Exp<TValue> {
-        isArray(): Exp<boolean>;
+        isArray(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -139,7 +139,7 @@ declare module "../index" {
         isArrayBuffer(): boolean;
     }
     interface Exp<TValue> {
-        isArrayBuffer(): Exp<boolean>;
+        isArrayBuffer(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -151,7 +151,7 @@ declare module "../index" {
         isArrayLike(): boolean;
     }
     interface Exp<TValue> {
-        isArrayLike(): Exp<boolean>;
+        isArrayLike(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -164,7 +164,7 @@ declare module "../index" {
         isArrayLikeObject(): boolean;
     }
     interface Exp<TValue> {
-        isArrayLikeObject(): Exp<boolean>;
+        isArrayLikeObject(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -174,7 +174,7 @@ declare module "../index" {
         isBoolean(): boolean;
     }
     interface Exp<TValue> {
-        isBoolean(): Exp<boolean>;
+        isBoolean(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -184,7 +184,7 @@ declare module "../index" {
         isBuffer(): boolean;
     }
     interface Exp<TValue> {
-        isBuffer(): Exp<boolean>;
+        isBuffer(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -194,7 +194,7 @@ declare module "../index" {
         isDate(): boolean;
     }
     interface Exp<TValue> {
-        isDate(): Exp<boolean>;
+        isDate(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -204,7 +204,7 @@ declare module "../index" {
         isElement(): boolean;
     }
     interface Exp<TValue> {
-        isElement(): Exp<boolean>;
+        isElement(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -214,7 +214,7 @@ declare module "../index" {
         isEmpty(): boolean;
     }
     interface Exp<TValue> {
-        isEmpty(): Exp<boolean>;
+        isEmpty(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -224,7 +224,7 @@ declare module "../index" {
         isEqual(other: any): boolean;
     }
     interface Exp<TValue> {
-        isEqual(other: any): Exp<boolean>;
+        isEqual(other: any): ExpU<boolean>;
     }
 
     type IsEqualCustomizer = (value: any, other: any, indexOrKey: PropertyName | undefined, parent: any, otherParent: any, stack: any) => boolean | undefined;
@@ -235,7 +235,7 @@ declare module "../index" {
         isEqualWith(other: any, customizer?: IsEqualCustomizer): boolean;
     }
     interface Exp<TValue> {
-        isEqualWith(other: any, customizer?: IsEqualCustomizer): Exp<boolean>;
+        isEqualWith(other: any, customizer?: IsEqualCustomizer): ExpU<boolean>;
     }
 
     interface Stat {
@@ -245,7 +245,7 @@ declare module "../index" {
         isError(): boolean;
     }
     interface Exp<TValue> {
-        isError(): Exp<boolean>;
+        isError(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -255,7 +255,7 @@ declare module "../index" {
         isFinite(): boolean;
     }
     interface Exp<TValue> {
-        isFinite(): Exp<boolean>;
+        isFinite(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -265,7 +265,7 @@ declare module "../index" {
         isFunction(): boolean;
     }
     interface Exp<TValue> {
-        isFunction(): Exp<boolean>;
+        isFunction(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -275,7 +275,7 @@ declare module "../index" {
         isInteger(): boolean;
     }
     interface Exp<TValue> {
-        isInteger(): Exp<boolean>;
+        isInteger(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -285,7 +285,7 @@ declare module "../index" {
         isLength(): boolean;
     }
     interface Exp<TValue> {
-        isLength(): Exp<boolean>;
+        isLength(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -295,7 +295,7 @@ declare module "../index" {
         isMap(): boolean;
     }
     interface Exp<TValue> {
-        isMap(): Exp<boolean>;
+        isMap(): ExpU<boolean>;
     }
 
     type isMatchCustomizer = (value: any, other: any, indexOrKey?: PropertyName) => boolean;
@@ -306,7 +306,7 @@ declare module "../index" {
         isMatch(source: object): boolean;
     }
     interface Exp<TValue> {
-        isMatch(source: object): Exp<boolean>;
+        isMatch(source: object): ExpU<boolean>;
     }
 
     type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName, object: object, source: object) => boolean;
@@ -317,7 +317,7 @@ declare module "../index" {
         isMatchWith(source: object, customizer: isMatchWithCustomizer): boolean;
     }
     interface Exp<TValue> {
-        isMatchWith(source: object, customizer: isMatchWithCustomizer): Exp<boolean>;
+        isMatchWith(source: object, customizer: isMatchWithCustomizer): ExpU<boolean>;
     }
 
     interface Stat {
@@ -327,7 +327,7 @@ declare module "../index" {
         isNaN(): boolean;
     }
     interface Exp<TValue> {
-        isNaN(): Exp<boolean>;
+        isNaN(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -337,7 +337,7 @@ declare module "../index" {
         isNative(): boolean;
     }
     interface Exp<TValue> {
-        isNative(): Exp<boolean>;
+        isNative(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -347,7 +347,7 @@ declare module "../index" {
         isNil(): boolean;
     }
     interface Exp<TValue> {
-        isNil(): Exp<boolean>;
+        isNil(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -357,7 +357,7 @@ declare module "../index" {
         isNull(): boolean;
     }
     interface Exp<TValue> {
-        isNull(): Exp<boolean>;
+        isNull(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -367,7 +367,7 @@ declare module "../index" {
         isNumber(): boolean;
     }
     interface Exp<TValue> {
-        isNumber(): Exp<boolean>;
+        isNumber(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -377,7 +377,7 @@ declare module "../index" {
         isObject(): this is Imp<object>;
     }
     interface Exp<TValue> {
-        isObject(): Exp<boolean>;
+        isObject(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -387,7 +387,7 @@ declare module "../index" {
         isObjectLike(): boolean;
     }
     interface Exp<TValue> {
-        isObjectLike(): Exp<boolean>;
+        isObjectLike(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -397,7 +397,7 @@ declare module "../index" {
         isPlainObject(): boolean;
     }
     interface Exp<TValue> {
-        isPlainObject(): Exp<boolean>;
+        isPlainObject(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -407,7 +407,7 @@ declare module "../index" {
         isRegExp(): boolean;
     }
     interface Exp<TValue> {
-        isRegExp(): Exp<boolean>;
+        isRegExp(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -417,7 +417,7 @@ declare module "../index" {
         isSafeInteger(): boolean;
     }
     interface Exp<TValue> {
-        isSafeInteger(): Exp<boolean>;
+        isSafeInteger(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -427,7 +427,7 @@ declare module "../index" {
         isSet(): boolean;
     }
     interface Exp<TValue> {
-        isSet(): Exp<boolean>;
+        isSet(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -437,7 +437,7 @@ declare module "../index" {
         isString(): boolean;
     }
     interface Exp<TValue> {
-        isString(): Exp<boolean>;
+        isString(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -447,7 +447,7 @@ declare module "../index" {
         isSymbol(): boolean;
     }
     interface Exp<TValue> {
-        isSymbol(): Exp<boolean>;
+        isSymbol(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -457,7 +457,7 @@ declare module "../index" {
         isTypedArray(): boolean;
     }
     interface Exp<TValue> {
-        isTypedArray(): Exp<boolean>;
+        isTypedArray(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -467,7 +467,7 @@ declare module "../index" {
         isUndefined(): boolean;
     }
     interface Exp<TValue> {
-        isUndefined(): Exp<boolean>;
+        isUndefined(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -477,7 +477,7 @@ declare module "../index" {
         isWeakMap(): boolean;
     }
     interface Exp<TValue> {
-        isWeakMap(): Exp<boolean>;
+        isWeakMap(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -487,7 +487,7 @@ declare module "../index" {
         isWeakSet(): boolean;
     }
     interface Exp<TValue> {
-        isWeakSet(): Exp<boolean>;
+        isWeakSet(): ExpU<boolean>;
     }
 
     interface Stat {
@@ -497,7 +497,7 @@ declare module "../index" {
         lt(other: any): boolean;
     }
     interface Exp<TValue> {
-        lt(other: any): Exp<boolean>;
+        lt(other: any): ExpU<boolean>;
     }
 
     interface Stat {
@@ -507,7 +507,7 @@ declare module "../index" {
         lte(other: any): boolean;
     }
     interface Exp<TValue> {
-        lte(other: any): Exp<boolean>;
+        lte(other: any): ExpU<boolean>;
     }
 
     interface Stat {
@@ -541,7 +541,7 @@ declare module "../index" {
         toFinite(): number;
     }
     interface Exp<TValue> {
-        toFinite(): Exp<number>;
+        toFinite(): ExpU<number>;
     }
 
     interface Stat {
@@ -551,7 +551,7 @@ declare module "../index" {
         toInteger(): number;
     }
     interface Exp<TValue> {
-        toInteger(): Exp<number>;
+        toInteger(): ExpU<number>;
     }
 
     interface Stat {
@@ -561,7 +561,7 @@ declare module "../index" {
         toLength(): number;
     }
     interface Exp<TValue> {
-        toLength(): Exp<number>;
+        toLength(): ExpU<number>;
     }
 
     interface Stat {
@@ -571,7 +571,7 @@ declare module "../index" {
         toNumber(): number;
     }
     interface Exp<TValue> {
-        toNumber(): Exp<number>;
+        toNumber(): ExpU<number>;
     }
 
     interface Stat {
@@ -591,7 +591,7 @@ declare module "../index" {
         toSafeInteger(): number;
     }
     interface Exp<TValue> {
-        toSafeInteger(): Exp<number>;
+        toSafeInteger(): ExpU<number>;
     }
 
     interface Stat {

@@ -405,11 +405,11 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(list).findIndex({a: 42}); // $ExpectType number
     _(list).findIndex(listIterator, 1); // $ExpectType number
 
-    _.chain(list).findIndex(); // $ExpectType Exp<number>
-    _.chain(list).findIndex(listIterator); // $ExpectType Exp<number>
-    _.chain(list).findIndex(""); // $ExpectType Exp<number>
-    _.chain(list).findIndex({a: 42}); // $ExpectType Exp<number>
-    _.chain(list).findIndex(listIterator, 1); // $ExpectType Exp<number>
+    _.chain(list).findIndex(); // $ExpectType ExpU<number>
+    _.chain(list).findIndex(listIterator); // $ExpectType ExpU<number>
+    _.chain(list).findIndex(""); // $ExpectType ExpU<number>
+    _.chain(list).findIndex({a: 42}); // $ExpectType ExpU<number>
+    _.chain(list).findIndex(listIterator, 1); // $ExpectType ExpU<number>
 
     fp.findIndex(valueIterator, list); // $ExpectType number
     fp.findIndex(valueIterator)(list); // $ExpectType number
@@ -433,11 +433,11 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(list).findLastIndex({a: 42}); // $ExpectType number
     _(list).findLastIndex(listIterator, 1); // $ExpectType number
 
-    _.chain(list).findLastIndex(); // $ExpectType Exp<number>
-    _.chain(list).findLastIndex(listIterator); // $ExpectType Exp<number>
-    _.chain(list).findLastIndex(""); // $ExpectType Exp<number>
-    _.chain(list).findLastIndex({a: 42}); // $ExpectType Exp<number>
-    _.chain(list).findLastIndex(listIterator, 1); // $ExpectType Exp<number>
+    _.chain(list).findLastIndex(); // $ExpectType ExpU<number>
+    _.chain(list).findLastIndex(listIterator); // $ExpectType ExpU<number>
+    _.chain(list).findLastIndex(""); // $ExpectType ExpU<number>
+    _.chain(list).findLastIndex({a: 42}); // $ExpectType ExpU<number>
+    _.chain(list).findLastIndex(listIterator, 1); // $ExpectType ExpU<number>
 
     fp.findLastIndex(valueIterator, list); // $ExpectType number
     fp.findLastIndex(valueIterator)(list); // $ExpectType number
@@ -544,8 +544,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _.indexOf(list, abcObject, 42); // $ExpectType number
     _(list).indexOf(abcObject); // $ExpectType number
     _(list).indexOf(abcObject, 42); // $ExpectType number
-    _.chain(list).indexOf(abcObject); // $ExpectType Exp<number>
-    _.chain(list).indexOf(abcObject, 42); // $ExpectType Exp<number>
+    _.chain(list).indexOf(abcObject); // $ExpectType ExpU<number>
+    _.chain(list).indexOf(abcObject, 42); // $ExpectType ExpU<number>
     fp.indexOf(abcObject, list); // $ExpectType number
     fp.indexOf(abcObject)(list); // $ExpectType number
     fp.indexOfFrom(abcObject)(42)(list); // $ExpectType number
@@ -554,21 +554,21 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _.lastIndexOf(list, abcObject, 42); // $ExpectType number
     _(list).lastIndexOf(abcObject); // $ExpectType number
     _(list).lastIndexOf(abcObject, 42); // $ExpectType number
-    _.chain(list).lastIndexOf(abcObject); // $ExpectType Exp<number>
-    _.chain(list).lastIndexOf(abcObject, 42); // $ExpectType Exp<number>
+    _.chain(list).lastIndexOf(abcObject); // $ExpectType ExpU<number>
+    _.chain(list).lastIndexOf(abcObject, 42); // $ExpectType ExpU<number>
     fp.lastIndexOf(abcObject, list); // $ExpectType number
     fp.lastIndexOf(abcObject)(list); // $ExpectType number
     fp.lastIndexOfFrom(abcObject)(42)(list); // $ExpectType number
 
     _.sortedIndexOf(list, abcObject); // $ExpectType number
     _(list).sortedIndexOf(abcObject); // $ExpectType number
-    _.chain(list).indexOf(abcObject); // $ExpectType Exp<number>
+    _.chain(list).indexOf(abcObject); // $ExpectType ExpU<number>
     fp.sortedIndexOf(abcObject, list); // $ExpectType number
     fp.sortedIndexOf(abcObject)(list); // $ExpectType number
 
     _.sortedLastIndexOf(list, abcObject); // $ExpectType number
     _(list).sortedLastIndexOf(abcObject); // $ExpectType number
-    _.chain(list).sortedLastIndexOf(abcObject); // $ExpectType Exp<number>
+    _.chain(list).sortedLastIndexOf(abcObject); // $ExpectType ExpU<number>
     fp.sortedLastIndexOf(abcObject, list); // $ExpectType number
     fp.sortedLastIndexOf(abcObject)(list); // $ExpectType number
 }
@@ -1109,9 +1109,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(list).sortedIndexBy(abcObject, valueIterator); // $ExpectType number
     _(list).sortedIndexBy(abcObject, ""); // $ExpectType number
     _(list).sortedIndexBy(abcObject, { a: 42 }); // $ExpectType number
-    _.chain(list).sortedIndexBy(abcObject, valueIterator); // $ExpectType Exp<number>
-    _.chain(list).sortedIndexBy(abcObject, ""); // $ExpectType Exp<number>
-    _.chain(list).sortedIndexBy(abcObject, { a: 42 }); // $ExpectType Exp<number>
+    _.chain(list).sortedIndexBy(abcObject, valueIterator); // $ExpectType ExpU<number>
+    _.chain(list).sortedIndexBy(abcObject, ""); // $ExpectType ExpU<number>
+    _.chain(list).sortedIndexBy(abcObject, { a: 42 }); // $ExpectType ExpU<number>
     fp.sortedIndexBy(valueIterator, abcObject, list); // $ExpectType number
     fp.sortedIndexBy(valueIterator)(abcObject)(list); // $ExpectType number
     fp.sortedIndexBy("a", abcObject, list); // $ExpectType number
@@ -1123,9 +1123,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(list).sortedLastIndexBy(abcObject, valueIterator); // $ExpectType number
     _(list).sortedLastIndexBy(abcObject, ""); // $ExpectType number
     _(list).sortedLastIndexBy(abcObject, { a: 42 }); // $ExpectType number
-    _.chain(list).sortedLastIndexBy(abcObject, valueIterator); // $ExpectType Exp<number>
-    _.chain(list).sortedLastIndexBy(abcObject, ""); // $ExpectType Exp<number>
-    _.chain(list).sortedLastIndexBy(abcObject, { a: 42 }); // $ExpectType Exp<number>
+    _.chain(list).sortedLastIndexBy(abcObject, valueIterator); // $ExpectType ExpU<number>
+    _.chain(list).sortedLastIndexBy(abcObject, ""); // $ExpectType ExpU<number>
+    _.chain(list).sortedLastIndexBy(abcObject, { a: 42 }); // $ExpectType ExpU<number>
     fp.sortedLastIndexBy(valueIterator, abcObject, list); // $ExpectType number
     fp.sortedLastIndexBy(valueIterator)(abcObject)(list); // $ExpectType number
     fp.sortedLastIndexBy("a", abcObject, list); // $ExpectType number
@@ -1137,13 +1137,13 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
 {
     _.sortedIndex(list, abcObject); // $ExpectType number
     _(list).sortedIndex(abcObject); // $ExpectType number
-    _.chain(list).sortedIndex(abcObject); // $ExpectType Exp<number>
+    _.chain(list).sortedIndex(abcObject); // $ExpectType ExpU<number>
     fp.sortedIndex(abcObject, list); // $ExpectType number
     fp.sortedIndex(abcObject)(list); // $ExpectType number
 
     _.sortedLastIndex(list, abcObject); // $ExpectType number
     _(list).sortedLastIndex(abcObject); // $ExpectType number
-    _.chain(list).sortedLastIndex(abcObject); // $ExpectType Exp<number>
+    _.chain(list).sortedLastIndex(abcObject); // $ExpectType ExpU<number>
     fp.sortedLastIndex(abcObject, list); // $ExpectType number
     fp.sortedLastIndex(abcObject)(list); // $ExpectType number
 }
@@ -1689,23 +1689,23 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(numericDictionary).every(["a", 42]); // $ExpectType boolean
     _(numericDictionary).every({ a: 42 }); // $ExpectType boolean
 
-    _.chain(list).every(); // $ExpectType Exp<boolean>
-    _.chain(list).every(listIterator); // $ExpectType Exp<boolean>
-    _.chain(list).every("a"); // $ExpectType Exp<boolean>
-    _.chain(list).every(["a", 42]); // $ExpectType Exp<boolean>
-    _.chain(list).every({ a: 42 }); // $ExpectType Exp<boolean>
+    _.chain(list).every(); // $ExpectType ExpU<boolean>
+    _.chain(list).every(listIterator); // $ExpectType ExpU<boolean>
+    _.chain(list).every("a"); // $ExpectType ExpU<boolean>
+    _.chain(list).every(["a", 42]); // $ExpectType ExpU<boolean>
+    _.chain(list).every({ a: 42 }); // $ExpectType ExpU<boolean>
 
-    _.chain(dictionary).every(); // $ExpectType Exp<boolean>
-    _.chain(dictionary).every(dictionaryIterator); // $ExpectType Exp<boolean>
-    _.chain(dictionary).every("a"); // $ExpectType Exp<boolean>
-    _.chain(dictionary).every(["a", 42]); // $ExpectType Exp<boolean>
-    _.chain(dictionary).every({ a: 42 }); // $ExpectType Exp<boolean>
+    _.chain(dictionary).every(); // $ExpectType ExpU<boolean>
+    _.chain(dictionary).every(dictionaryIterator); // $ExpectType ExpU<boolean>
+    _.chain(dictionary).every("a"); // $ExpectType ExpU<boolean>
+    _.chain(dictionary).every(["a", 42]); // $ExpectType ExpU<boolean>
+    _.chain(dictionary).every({ a: 42 }); // $ExpectType ExpU<boolean>
 
-    _.chain(numericDictionary).every(); // $ExpectType Exp<boolean>
-    _.chain(numericDictionary).every(numericDictionaryIterator); // $ExpectType Exp<boolean>
-    _.chain(numericDictionary).every("a"); // $ExpectType Exp<boolean>
-    _.chain(numericDictionary).every(["a", 42]); // $ExpectType Exp<boolean>
-    _.chain(numericDictionary).every({ a: 42 }); // $ExpectType Exp<boolean>
+    _.chain(numericDictionary).every(); // $ExpectType ExpU<boolean>
+    _.chain(numericDictionary).every(numericDictionaryIterator); // $ExpectType ExpU<boolean>
+    _.chain(numericDictionary).every("a"); // $ExpectType ExpU<boolean>
+    _.chain(numericDictionary).every(["a", 42]); // $ExpectType ExpU<boolean>
+    _.chain(numericDictionary).every({ a: 42 }); // $ExpectType ExpU<boolean>
 
     fp.every(valueIterator, list); // $ExpectType boolean
     fp.every("a")(list); // $ExpectType boolean
@@ -2524,10 +2524,10 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(dictionary).includes(abcObject); // $ExpectType boolean
     _(dictionary).includes(abcObject, 42); // $ExpectType boolean
 
-    _.chain(list).includes(abcObject); // $ExpectType Exp<boolean>
-    _.chain(list).includes(abcObject, 42); // $ExpectType Exp<boolean>
-    _.chain(dictionary).includes(abcObject); // $ExpectType Exp<boolean>
-    _.chain(dictionary).includes(abcObject, 42); // $ExpectType Exp<boolean>
+    _.chain(list).includes(abcObject); // $ExpectType ExpU<boolean>
+    _.chain(list).includes(abcObject, 42); // $ExpectType ExpU<boolean>
+    _.chain(dictionary).includes(abcObject); // $ExpectType ExpU<boolean>
+    _.chain(dictionary).includes(abcObject, 42); // $ExpectType ExpU<boolean>
 
     fp.includes(abcObject, list); // $ExpectType boolean
     fp.includes(abcObject)(list); // $ExpectType boolean
@@ -3020,9 +3020,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(list).size(); // $ExpectType number
     _(dictionary).size(); // $ExpectType number
     _("").size(); // $ExpectType number
-    _.chain(list).size(); // $ExpectType Exp<number>
-    _.chain(dictionary).size(); // $ExpectType Exp<number>
-    _.chain("").size(); // $ExpectType Exp<number>
+    _.chain(list).size(); // $ExpectType ExpU<number>
+    _.chain(dictionary).size(); // $ExpectType ExpU<number>
+    _.chain("").size(); // $ExpectType ExpU<number>
     fp.size(list); // $ExpectType number
     fp.size(dictionary); // $ExpectType number
     fp.size(""); // $ExpectType number
@@ -3068,23 +3068,23 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
     _(numericDictionary).some([subKey, 42]); // $ExpectType boolean
     _(numericDictionary).some({ a: 42 }); // $ExpectType boolean
 
-    _.chain(list).some(); // $ExpectType Exp<boolean>
-    _.chain(list).some(listIterator); // $ExpectType Exp<boolean>
-    _.chain(list).some(subKey); // $ExpectType Exp<boolean>
-    _.chain(list).some([subKey, 42]); // $ExpectType Exp<boolean>
-    _.chain(list).some({ a: 42 }); // $ExpectType Exp<boolean>
+    _.chain(list).some(); // $ExpectType ExpU<boolean>
+    _.chain(list).some(listIterator); // $ExpectType ExpU<boolean>
+    _.chain(list).some(subKey); // $ExpectType ExpU<boolean>
+    _.chain(list).some([subKey, 42]); // $ExpectType ExpU<boolean>
+    _.chain(list).some({ a: 42 }); // $ExpectType ExpU<boolean>
 
-    _.chain(dictionary).some(); // $ExpectType Exp<boolean>
-    _.chain(dictionary).some(dictionaryIterator); // $ExpectType Exp<boolean>
-    _.chain(dictionary).some(subKey); // $ExpectType Exp<boolean>
-    _.chain(dictionary).some([subKey, 42]); // $ExpectType Exp<boolean>
-    _.chain(dictionary).some({ a: 42 }); // $ExpectType Exp<boolean>
+    _.chain(dictionary).some(); // $ExpectType ExpU<boolean>
+    _.chain(dictionary).some(dictionaryIterator); // $ExpectType ExpU<boolean>
+    _.chain(dictionary).some(subKey); // $ExpectType ExpU<boolean>
+    _.chain(dictionary).some([subKey, 42]); // $ExpectType ExpU<boolean>
+    _.chain(dictionary).some({ a: 42 }); // $ExpectType ExpU<boolean>
 
-    _.chain(numericDictionary).some(); // $ExpectType Exp<boolean>
-    _.chain(numericDictionary).some(numericDictionaryIterator); // $ExpectType Exp<boolean>
-    _.chain(numericDictionary).some(subKey); // $ExpectType Exp<boolean>
-    _.chain(numericDictionary).some([subKey, 42]); // $ExpectType Exp<boolean>
-    _.chain(numericDictionary).some({ a: 42 }); // $ExpectType Exp<boolean>
+    _.chain(numericDictionary).some(); // $ExpectType ExpU<boolean>
+    _.chain(numericDictionary).some(numericDictionaryIterator); // $ExpectType ExpU<boolean>
+    _.chain(numericDictionary).some(subKey); // $ExpectType ExpU<boolean>
+    _.chain(numericDictionary).some([subKey, 42]); // $ExpectType ExpU<boolean>
+    _.chain(numericDictionary).some({ a: 42 }); // $ExpectType ExpU<boolean>
 
     fp.some(valueIterator, list); // $ExpectType boolean
     fp.some(subKey)(list); // $ExpectType boolean
@@ -3195,7 +3195,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType ExpL<number>
 
 _.now(); // $ExpectType number
 _({}).now(); // $ExpectType number
-_.chain({}).now(); // $ExpectType Exp<number>
+_.chain({}).now(); // $ExpectType ExpU<number>
 fp.now(); // $ExpectType number
 
 /************
@@ -3643,7 +3643,7 @@ fp.now(); // $ExpectType number
     _.clone({ a: { b: 42 } }); // $ExpectType { a: { b: number; }; }
     _(42).clone(); // $ExpectType number
     _({ a: { b: 42 } }).clone(); // $ExpectType { a: { b: number; }; }
-    _.chain(42).clone(); // $ExpectType Exp<number>
+    _.chain(42).clone(); // $ExpectType ExpU<number>
     _.chain({ a: { b: 42 } }).clone(); // $ExpectType Exp<{ a: { b: number; }; }>
     fp.clone(42); // $ExpectType 42
     fp.clone({ a: { b: 42 } }); // $ExpectType { a: { b: number; }; }
@@ -3655,7 +3655,7 @@ fp.now(); // $ExpectType number
     _.cloneDeep({ a: { b: 42 } }); // $ExpectType { a: { b: number; }; }
     _(42).cloneDeep(); // $ExpectType number
     _({ a: { b: 42 } }).cloneDeep(); // $ExpectType { a: { b: number; }; }
-    _.chain(42).cloneDeep(); // $ExpectType Exp<number>
+    _.chain(42).cloneDeep(); // $ExpectType ExpU<number>
     _.chain({ a: { b: 42 } }).cloneDeep(); // $ExpectType Exp<{ a: { b: number; }; }>
     fp.cloneDeep(42); // $ExpectType 42
     fp.cloneDeep({ a: { b: 42 } }); // $ExpectType { a: { b: number; }; }
@@ -3715,7 +3715,7 @@ fp.now(); // $ExpectType number
 {
     _.conformsTo({ foo: "foo" }, { foo: (v: string) => false }); // $ExpectType boolean
     _({ foo: "foo" }).conformsTo({ foo: (v: string) => false }); // $ExpectType boolean
-    _.chain({ foo: "foo" }).conformsTo({ foo: (v: string) => false }); // $ExpectType Exp<boolean>
+    _.chain({ foo: "foo" }).conformsTo({ foo: (v: string) => false }); // $ExpectType ExpU<boolean>
 
     fp.conformsTo({ foo: (v: string) => false }, { foo: "foo" }); // $ExpectType boolean
     fp.conformsTo({ foo: (v: string) => false })({ foo: "foo" }); // $ExpectType boolean
@@ -3725,7 +3725,7 @@ fp.now(); // $ExpectType number
 {
     _.eq(anything, anything); // $ExpectType boolean
     _(anything).eq(anything); // $ExpectType boolean
-    _.chain(anything).eq(anything); // $ExpectType Exp<boolean>
+    _.chain(anything).eq(anything); // $ExpectType ExpU<boolean>
 
     fp.eq(anything, anything); // $ExpectType boolean
     fp.eq(anything)(anything); // $ExpectType boolean
@@ -3735,7 +3735,7 @@ fp.now(); // $ExpectType number
 {
     _.gt(anything, anything); // $ExpectType boolean
     _(anything).gt(anything); // $ExpectType boolean
-    _.chain(anything).gt(anything); // $ExpectType Exp<boolean>
+    _.chain(anything).gt(anything); // $ExpectType ExpU<boolean>
 
     fp.gt(anything, anything); // $ExpectType boolean
     fp.gt(anything)(anything); // $ExpectType boolean
@@ -3745,7 +3745,7 @@ fp.now(); // $ExpectType number
 {
     _.gte(anything, anything); // $ExpectType boolean
     _(anything).gte(anything); // $ExpectType boolean
-    _.chain(anything).gte(anything); // $ExpectType Exp<boolean>
+    _.chain(anything).gte(anything); // $ExpectType ExpU<boolean>
 
     fp.gte(anything, anything); // $ExpectType boolean
     fp.gte(anything)(anything); // $ExpectType boolean
@@ -3769,7 +3769,7 @@ fp.now(); // $ExpectType number
 
     _.isArguments(""); // $ExpectType boolean
     _({}).isArguments(); // $ExpectType boolean
-    _.chain([]).isArguments(); // $ExpectType Exp<boolean>
+    _.chain([]).isArguments(); // $ExpectType ExpU<boolean>
     fp.isArguments(anything); // $ExpectType boolean
 }
 
@@ -3791,7 +3791,7 @@ fp.now(); // $ExpectType number
 
     _.isArray(anything); // $ExpectType boolean
     _({}).isArray(); // $ExpectType boolean
-    _.chain([]).isArray(); // $ExpectType Exp<boolean>
+    _.chain([]).isArray(); // $ExpectType ExpU<boolean>
     fp.isArray(anything); // $ExpectType boolean
 }
 
@@ -3813,7 +3813,7 @@ fp.now(); // $ExpectType number
 
     _.isArrayBuffer(anything); // $ExpectType boolean
     _({}).isArrayBuffer(); // $ExpectType boolean
-    _.chain([]).isArrayBuffer(); // $ExpectType Exp<boolean>
+    _.chain([]).isArrayBuffer(); // $ExpectType ExpU<boolean>
     fp.isArrayBuffer(anything); // $ExpectType boolean
 }
 
@@ -3903,7 +3903,7 @@ fp.now(); // $ExpectType number
 
     _.isArrayLike(anything); // $ExpectType boolean
     _({}).isArrayLike(); // $ExpectType boolean
-    _.chain([]).isArrayLike(); // $ExpectType Exp<boolean>
+    _.chain([]).isArrayLike(); // $ExpectType ExpU<boolean>
     fp.isArrayLike(anything); // $ExpectType boolean
 }
 
@@ -3993,7 +3993,7 @@ fp.now(); // $ExpectType number
 
     _.isArrayLikeObject(anything); // $ExpectType boolean
     _({}).isArrayLikeObject(); // $ExpectType boolean
-    _.chain([]).isArrayLikeObject(); // $ExpectType Exp<boolean>
+    _.chain([]).isArrayLikeObject(); // $ExpectType ExpU<boolean>
     fp.isArrayLikeObject(anything); // $ExpectType boolean
 }
 
@@ -4015,14 +4015,14 @@ fp.now(); // $ExpectType number
 
     _.isBoolean(anything); // $ExpectType boolean
     _({}).isBoolean(); // $ExpectType boolean
-    _.chain([]).isBoolean(); // $ExpectType Exp<boolean>
+    _.chain([]).isBoolean(); // $ExpectType ExpU<boolean>
 }
 
 // _.isBuffer
 {
     _.isBuffer(anything); // $ExpectType boolean
     _({}).isBuffer(); // $ExpectType boolean
-    _.chain([]).isBuffer(); // $ExpectType Exp<boolean>
+    _.chain([]).isBuffer(); // $ExpectType ExpU<boolean>
     fp.isBuffer(anything); // $ExpectType boolean
 }
 
@@ -4044,7 +4044,7 @@ fp.now(); // $ExpectType number
 
     _.isDate(anything); // $ExpectType boolean
     _({}).isDate(); // $ExpectType boolean
-    _.chain([]).isDate(); // $ExpectType Exp<boolean>
+    _.chain([]).isDate(); // $ExpectType ExpU<boolean>
     fp.isDate(anything); // $ExpectType boolean
 }
 
@@ -4052,7 +4052,7 @@ fp.now(); // $ExpectType number
 {
     _.isElement(anything); // $ExpectType boolean
     _({}).isElement(); // $ExpectType boolean
-    _.chain([]).isElement(); // $ExpectType Exp<boolean>
+    _.chain([]).isElement(); // $ExpectType ExpU<boolean>
     fp.isElement(anything); // $ExpectType boolean
 }
 
@@ -4060,7 +4060,7 @@ fp.now(); // $ExpectType number
 {
     _.isEmpty(anything); // $ExpectType boolean
     _({}).isEmpty(); // $ExpectType boolean
-    _.chain([]).isEmpty(); // $ExpectType Exp<boolean>
+    _.chain([]).isEmpty(); // $ExpectType ExpU<boolean>
     fp.isEmpty(anything); // $ExpectType boolean
 }
 
@@ -4068,7 +4068,7 @@ fp.now(); // $ExpectType number
 {
     _.isEqual(anything, anything); // $ExpectType boolean
     _(anything).isEqual(anything); // $ExpectType boolean
-    _.chain(anything).isEqual(anything); // $ExpectType Exp<boolean>
+    _.chain(anything).isEqual(anything); // $ExpectType ExpU<boolean>
 
     fp.isEqual(anything, anything); // $ExpectType boolean
     fp.isEqual(anything)(anything); // $ExpectType boolean
@@ -4081,7 +4081,7 @@ fp.now(); // $ExpectType number
 
     _.isEqualWith(anything, anything, customizer); // $ExpectType boolean
     _(anything).isEqualWith(anything, customizer); // $ExpectType boolean
-    _.chain(anything).isEqualWith(anything, customizer); // $ExpectType Exp<boolean>
+    _.chain(anything).isEqualWith(anything, customizer); // $ExpectType ExpU<boolean>
 
     fp.isEqualWith(customizer, anything, anything); // $ExpectType boolean
     fp.isEqualWith(customizer)(anything)(anything); // $ExpectType boolean
@@ -4127,7 +4127,7 @@ fp.now(); // $ExpectType number
 
     _.isError(anything); // $ExpectType boolean
     _({}).isError(); // $ExpectType boolean
-    _.chain([]).isError(); // $ExpectType Exp<boolean>
+    _.chain([]).isError(); // $ExpectType ExpU<boolean>
     fp.isError(anything); // $ExpectType boolean
 }
 
@@ -4135,7 +4135,7 @@ fp.now(); // $ExpectType number
 {
     _.isFinite(NaN); // $ExpectType boolean
     _(42).isFinite(); // $ExpectType boolean
-    _.chain([]).isFinite(); // $ExpectType Exp<boolean>
+    _.chain([]).isFinite(); // $ExpectType ExpU<boolean>
     fp.isFinite(anything); // $ExpectType boolean
 }
 
@@ -4165,7 +4165,7 @@ fp.now(); // $ExpectType number
 
     _.isFunction(anything); // $ExpectType boolean
     _({}).isFunction(); // $ExpectType boolean
-    _.chain([]).isFunction(); // $ExpectType Exp<boolean>
+    _.chain([]).isFunction(); // $ExpectType ExpU<boolean>
     fp.isFunction(anything); // $ExpectType boolean
 }
 
@@ -4173,7 +4173,7 @@ fp.now(); // $ExpectType number
 {
     _.isInteger(NaN); // $ExpectType boolean
     _(42).isInteger(); // $ExpectType boolean
-    _.chain([]).isInteger(); // $ExpectType Exp<boolean>
+    _.chain([]).isInteger(); // $ExpectType ExpU<boolean>
     fp.isInteger(anything); // $ExpectType boolean
 }
 
@@ -4181,7 +4181,7 @@ fp.now(); // $ExpectType number
 {
     _.isLength(NaN); // $ExpectType boolean
     _(42).isLength(); // $ExpectType boolean
-    _.chain([]).isLength(); // $ExpectType Exp<boolean>
+    _.chain([]).isLength(); // $ExpectType ExpU<boolean>
     fp.isLength(anything); // $ExpectType boolean
 }
 
@@ -4203,7 +4203,7 @@ fp.now(); // $ExpectType number
 
     _.isMap(anything); // $ExpectType boolean
     _({}).isMap(); // $ExpectType boolean
-    _.chain([]).isMap(); // $ExpectType Exp<boolean>
+    _.chain([]).isMap(); // $ExpectType ExpU<boolean>
     fp.isMap(anything); // $ExpectType boolean
 }
 
@@ -4211,7 +4211,7 @@ fp.now(); // $ExpectType number
 {
     _.isMatch({}, {}); // $ExpectType boolean
     _({}).isMatch({}); // $ExpectType boolean
-    _.chain({}).isMatch({}); // $ExpectType Exp<boolean>
+    _.chain({}).isMatch({}); // $ExpectType ExpU<boolean>
     fp.isMatch({}, {}); // $ExpectType boolean
     fp.isMatch({})({}); // $ExpectType boolean
 }
@@ -4222,7 +4222,7 @@ fp.now(); // $ExpectType number
 
     _.isMatchWith({}, {}, testIsMatchCustiomizerFn); // $ExpectType boolean
     _({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType boolean
-    _.chain({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType Exp<boolean>
+    _.chain({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType ExpU<boolean>
 
     fp.isMatchWith(testIsMatchCustiomizerFn, {}, {}); // $ExpectType boolean
     fp.isMatchWith(testIsMatchCustiomizerFn)({})({}); // $ExpectType boolean
@@ -4232,7 +4232,7 @@ fp.now(); // $ExpectType number
 {
     _.isNaN(NaN); // $ExpectType boolean
     _(42).isNaN(); // $ExpectType boolean
-    _.chain([]).isNaN(); // $ExpectType Exp<boolean>
+    _.chain([]).isNaN(); // $ExpectType ExpU<boolean>
     fp.isNaN(anything); // $ExpectType boolean
 }
 
@@ -4254,7 +4254,7 @@ fp.now(); // $ExpectType number
 
     _.isNative(anything); // $ExpectType boolean
     _({}).isNative(); // $ExpectType boolean
-    _.chain([]).isNative(); // $ExpectType Exp<boolean>
+    _.chain([]).isNative(); // $ExpectType ExpU<boolean>
     fp.isNative(anything); // $ExpectType boolean
 }
 
@@ -4262,7 +4262,7 @@ fp.now(); // $ExpectType number
 {
     _.isNil(null); // $ExpectType boolean
     _(undefined).isNil(); // $ExpectType boolean
-    _.chain(NaN).isNil(); // $ExpectType Exp<boolean>
+    _.chain(NaN).isNil(); // $ExpectType ExpU<boolean>
     fp.isNil(undefined); // $ExpectType boolean
 }
 
@@ -4270,7 +4270,7 @@ fp.now(); // $ExpectType number
 {
     _.isNull(null); // $ExpectType boolean
     _(undefined).isNull(); // $ExpectType boolean
-    _.chain(NaN).isNull(); // $ExpectType Exp<boolean>
+    _.chain(NaN).isNull(); // $ExpectType ExpU<boolean>
     fp.isNull(undefined); // $ExpectType boolean
 }
 
@@ -4292,7 +4292,7 @@ fp.now(); // $ExpectType number
 
     _.isNumber(NaN); // $ExpectType boolean
     _(42).isNumber(); // $ExpectType boolean
-    _.chain([]).isNumber(); // $ExpectType Exp<boolean>
+    _.chain([]).isNumber(); // $ExpectType ExpU<boolean>
     fp.isNumber(anything); // $ExpectType boolean
 }
 
@@ -4300,7 +4300,7 @@ fp.now(); // $ExpectType number
 {
     _.isObject(NaN); // $ExpectType boolean
     _(42).isObject(); // $ExpectType boolean
-    _.chain([]).isObject(); // $ExpectType Exp<boolean>
+    _.chain([]).isObject(); // $ExpectType ExpU<boolean>
     fp.isObject(anything); // $ExpectType boolean
     if (fp.isObject(anything)) {
         anything; // $ExpectType object
@@ -4314,7 +4314,7 @@ fp.now(); // $ExpectType number
 {
     _.isObjectLike(NaN); // $ExpectType boolean
     _(42).isObjectLike(); // $ExpectType boolean
-    _.chain([]).isObjectLike(); // $ExpectType Exp<boolean>
+    _.chain([]).isObjectLike(); // $ExpectType ExpU<boolean>
     fp.isObjectLike(anything); // $ExpectType boolean
 }
 
@@ -4322,7 +4322,7 @@ fp.now(); // $ExpectType number
 {
     _.isPlainObject(NaN); // $ExpectType boolean
     _(42).isPlainObject(); // $ExpectType boolean
-    _.chain([]).isPlainObject(); // $ExpectType Exp<boolean>
+    _.chain([]).isPlainObject(); // $ExpectType ExpU<boolean>
     fp.isPlainObject(anything); // $ExpectType boolean
 }
 
@@ -4346,7 +4346,7 @@ fp.now(); // $ExpectType number
 
     _.isRegExp(/./); // $ExpectType boolean
     _(42).isRegExp(); // $ExpectType boolean
-    _.chain([]).isRegExp(); // $ExpectType Exp<boolean>
+    _.chain([]).isRegExp(); // $ExpectType ExpU<boolean>
     fp.isRegExp(anything); // $ExpectType boolean
 }
 
@@ -4354,7 +4354,7 @@ fp.now(); // $ExpectType number
 {
     _.isSafeInteger(NaN); // $ExpectType boolean
     _(42).isSafeInteger(); // $ExpectType boolean
-    _.chain([]).isSafeInteger(); // $ExpectType Exp<boolean>
+    _.chain([]).isSafeInteger(); // $ExpectType ExpU<boolean>
     fp.isSafeInteger(anything); // $ExpectType boolean
 }
 
@@ -4376,7 +4376,7 @@ fp.now(); // $ExpectType number
 
     _.isSet(NaN); // $ExpectType boolean
     _(42).isSet(); // $ExpectType boolean
-    _.chain([]).isSet(); // $ExpectType Exp<boolean>
+    _.chain([]).isSet(); // $ExpectType ExpU<boolean>
     fp.isSet(anything); // $ExpectType boolean
 }
 
@@ -4398,7 +4398,7 @@ fp.now(); // $ExpectType number
 
     _.isString(""); // $ExpectType boolean
     _(42).isString(); // $ExpectType boolean
-    _.chain([]).isString(); // $ExpectType Exp<boolean>
+    _.chain([]).isString(); // $ExpectType ExpU<boolean>
     fp.isString(anything); // $ExpectType boolean
 }
 
@@ -4406,7 +4406,7 @@ fp.now(); // $ExpectType number
 {
     _.isSymbol(NaN); // $ExpectType boolean
     _(42).isSymbol(); // $ExpectType boolean
-    _.chain([]).isSymbol(); // $ExpectType Exp<boolean>
+    _.chain([]).isSymbol(); // $ExpectType ExpU<boolean>
     fp.isSymbol(anything); // $ExpectType boolean
 }
 
@@ -4414,7 +4414,7 @@ fp.now(); // $ExpectType number
 {
     _.isTypedArray(NaN); // $ExpectType boolean
     _(42).isTypedArray(); // $ExpectType boolean
-    _.chain([]).isTypedArray(); // $ExpectType Exp<boolean>
+    _.chain([]).isTypedArray(); // $ExpectType ExpU<boolean>
     fp.isTypedArray(anything); // $ExpectType boolean
 }
 
@@ -4422,7 +4422,7 @@ fp.now(); // $ExpectType number
 {
     _.isUndefined(null); // $ExpectType boolean
     _(undefined).isUndefined(); // $ExpectType boolean
-    _.chain(NaN).isUndefined(); // $ExpectType Exp<boolean>
+    _.chain(NaN).isUndefined(); // $ExpectType ExpU<boolean>
     fp.isUndefined(undefined); // $ExpectType boolean
 }
 
@@ -4444,7 +4444,7 @@ fp.now(); // $ExpectType number
 
     _.isWeakMap(NaN); // $ExpectType boolean
     _(42).isWeakMap(); // $ExpectType boolean
-    _.chain([]).isWeakMap(); // $ExpectType Exp<boolean>
+    _.chain([]).isWeakMap(); // $ExpectType ExpU<boolean>
     fp.isWeakMap(anything); // $ExpectType boolean
 }
 
@@ -4466,7 +4466,7 @@ fp.now(); // $ExpectType number
 
     _.isWeakSet(NaN); // $ExpectType boolean
     _(42).isWeakSet(); // $ExpectType boolean
-    _.chain([]).isWeakSet(); // $ExpectType Exp<boolean>
+    _.chain([]).isWeakSet(); // $ExpectType ExpU<boolean>
     fp.isWeakSet(anything); // $ExpectType boolean
 }
 
@@ -4474,7 +4474,7 @@ fp.now(); // $ExpectType number
 {
     _.lt(anything, anything); // $ExpectType boolean
     _(anything).lt(anything); // $ExpectType boolean
-    _.chain(anything).lt(anything); // $ExpectType Exp<boolean>
+    _.chain(anything).lt(anything); // $ExpectType ExpU<boolean>
 
     fp.lt(anything, anything); // $ExpectType boolean
     fp.lt(anything)(anything); // $ExpectType boolean
@@ -4484,7 +4484,7 @@ fp.now(); // $ExpectType number
 {
     _.lte(anything, anything); // $ExpectType boolean
     _(anything).lte(anything); // $ExpectType boolean
-    _.chain(anything).lte(anything); // $ExpectType Exp<boolean>
+    _.chain(anything).lte(anything); // $ExpectType ExpU<boolean>
 
     fp.lte(anything, anything); // $ExpectType boolean
     fp.lte(anything)(anything); // $ExpectType boolean
@@ -4549,8 +4549,8 @@ fp.now(); // $ExpectType number
     _.toFinite("3.2"); // $ExpectType number
     _(1).toFinite(); // $ExpectType number
     _("3.2").toFinite(); // $ExpectType number
-    _.chain(1).toFinite(); // $ExpectType Exp<number>
-    _.chain("3.2").toFinite(); // $ExpectType Exp<number>
+    _.chain(1).toFinite(); // $ExpectType ExpU<number>
+    _.chain("3.2").toFinite(); // $ExpectType ExpU<number>
     fp.toFinite(true); // $ExpectType number
     fp.toFinite(1); // $ExpectType number
     fp.toFinite("3.2"); // $ExpectType number
@@ -4563,8 +4563,8 @@ fp.now(); // $ExpectType number
     _.toInteger("3.2"); // $ExpectType number
     _(1).toInteger(); // $ExpectType number
     _("3.2").toInteger(); // $ExpectType number
-    _.chain(1).toInteger(); // $ExpectType Exp<number>
-    _.chain("3.2").toInteger(); // $ExpectType Exp<number>
+    _.chain(1).toInteger(); // $ExpectType ExpU<number>
+    _.chain("3.2").toInteger(); // $ExpectType ExpU<number>
     fp.toInteger(true); // $ExpectType number
     fp.toInteger(1); // $ExpectType number
     fp.toInteger("3.2"); // $ExpectType number
@@ -4577,8 +4577,8 @@ fp.now(); // $ExpectType number
     _.toLength("3.2"); // $ExpectType number
     _(1).toLength(); // $ExpectType number
     _("3.2").toLength(); // $ExpectType number
-    _.chain(1).toLength(); // $ExpectType Exp<number>
-    _.chain("3.2").toLength(); // $ExpectType Exp<number>
+    _.chain(1).toLength(); // $ExpectType ExpU<number>
+    _.chain("3.2").toLength(); // $ExpectType ExpU<number>
     fp.toLength(true); // $ExpectType number
     fp.toLength(1); // $ExpectType number
     fp.toLength("3.2"); // $ExpectType number
@@ -4591,8 +4591,8 @@ fp.now(); // $ExpectType number
     _.toNumber("3.2"); // $ExpectType number
     _(1).toNumber(); // $ExpectType number
     _("3.2").toNumber(); // $ExpectType number
-    _.chain(1).toNumber(); // $ExpectType Exp<number>
-    _.chain("3.2").toNumber(); // $ExpectType Exp<number>
+    _.chain(1).toNumber(); // $ExpectType ExpU<number>
+    _.chain("3.2").toNumber(); // $ExpectType ExpU<number>
     fp.toNumber(true); // $ExpectType number
     fp.toNumber(1); // $ExpectType number
     fp.toNumber("3.2"); // $ExpectType number
@@ -4605,8 +4605,8 @@ fp.now(); // $ExpectType number
     _.toSafeInteger("3.2"); // $ExpectType number
     _(1).toSafeInteger(); // $ExpectType number
     _("3.2").toSafeInteger(); // $ExpectType number
-    _.chain(1).toSafeInteger(); // $ExpectType Exp<number>
-    _.chain("3.2").toSafeInteger(); // $ExpectType Exp<number>
+    _.chain(1).toSafeInteger(); // $ExpectType ExpU<number>
+    _.chain("3.2").toSafeInteger(); // $ExpectType ExpU<number>
     fp.toSafeInteger(true); // $ExpectType number
     fp.toSafeInteger(1); // $ExpectType number
     fp.toSafeInteger("3.2"); // $ExpectType number
@@ -4620,7 +4620,7 @@ fp.now(); // $ExpectType number
 {
     _.add(1, 1); // $ExpectType number
     _(1).add(1); // $ExpectType number
-    _(1).chain().add(1); // $ExpectType Exp<number>
+    _(1).chain().add(1); // $ExpectType ExpU<number>
     fp.add(1, 1); // $ExpectType number
     fp.add(1)(1); // $ExpectType number
 }
@@ -4631,8 +4631,8 @@ fp.now(); // $ExpectType number
     _.ceil(6.004, 2); // $ExpectType number
     _(6.004).ceil(); // $ExpectType number
     _(6.004).ceil(2); // $ExpectType number
-    _(6.004).chain().ceil(); // $ExpectType Exp<number>
-    _(6.004).chain().ceil(2); // $ExpectType Exp<number>
+    _(6.004).chain().ceil(); // $ExpectType ExpU<number>
+    _(6.004).chain().ceil(2); // $ExpectType ExpU<number>
     fp.ceil(6.004); // $ExpectType number
 }
 
@@ -4640,7 +4640,7 @@ fp.now(); // $ExpectType number
 {
     _.divide(6, 4); // $ExpectType number
     _(6).divide(4); // $ExpectType number
-    _(6).chain().floor(4); // $ExpectType Exp<number>
+    _(6).chain().floor(4); // $ExpectType ExpU<number>
     fp.divide(6, 4); // $ExpectType number
     fp.divide(6)(4); // $ExpectType number
 }
@@ -4653,9 +4653,9 @@ fp.now(); // $ExpectType number
     _(4.006).floor(); // $ExpectType number
     _(0.046).floor(2); // $ExpectType number
     _(4060).floor(-2); // $ExpectType number
-    _(4.006).chain().floor(); // $ExpectType Exp<number>
-    _(0.046).chain().floor(2); // $ExpectType Exp<number>
-    _(4060).chain().floor(-2); // $ExpectType Exp<number>
+    _(4.006).chain().floor(); // $ExpectType ExpU<number>
+    _(0.046).chain().floor(2); // $ExpectType ExpU<number>
+    _(4060).chain().floor(-2); // $ExpectType ExpU<number>
     fp.floor(4.006); // $ExpectType number
 }
 
@@ -4713,7 +4713,7 @@ fp.now(); // $ExpectType number
 
     _.mean(list); // $ExpectType number
      _(list).mean(); // $ExpectType number
-    _.chain(list).mean(); // $ExpectType Exp<number>
+    _.chain(list).mean(); // $ExpectType ExpU<number>
     fp.mean(list); // $ExpectType number
 }
 
@@ -4724,7 +4724,7 @@ fp.now(); // $ExpectType number
     _.meanBy(list, (x) => x.a); // $ExpectType number
     _.meanBy(list, "a"); // $ExpectType number
     _(list).meanBy((x) => x.a); // $ExpectType number
-    _.chain(list).meanBy((x) => x.a); // $ExpectType Exp<number>
+    _.chain(list).meanBy((x) => x.a); // $ExpectType ExpU<number>
 
     fp.meanBy((x) => x.a, list); // $ExpectType number
     fp.meanBy((x: AbcObject) => x.a)(list); // $ExpectType number
@@ -4735,7 +4735,7 @@ fp.now(); // $ExpectType number
 {
     _.multiply(6, 4); // $ExpectType number
     _(6).multiply(4); // $ExpectType number
-    _(6).chain().multiply(4); // $ExpectType Exp<number>
+    _(6).chain().multiply(4); // $ExpectType ExpU<number>
     fp.multiply(6, 4); // $ExpectType number
     fp.multiply(6)(4); // $ExpectType number
 }
@@ -4746,8 +4746,8 @@ fp.now(); // $ExpectType number
     _.round(4.006, 2); // $ExpectType number
     _(4.006).round(); // $ExpectType number
     _(4.006).round(2); // $ExpectType number
-    _(4.006).chain().round(); // $ExpectType Exp<number>
-    _(4.006).chain().round(2); // $ExpectType Exp<number>
+    _(4.006).chain().round(); // $ExpectType ExpU<number>
+    _(4.006).chain().round(2); // $ExpectType ExpU<number>
     fp.round(4.006); // $ExpectType number
 }
 
@@ -4755,7 +4755,7 @@ fp.now(); // $ExpectType number
 {
     _.subtract(3, 2); // $ExpectType number
     _(3).subtract(2); // $ExpectType number
-    _(3).chain().subtract(2); // $ExpectType Exp<number>
+    _(3).chain().subtract(2); // $ExpectType ExpU<number>
     fp.subtract(3, 2); // $ExpectType number
     fp.subtract(3)(2); // $ExpectType number
 }
@@ -4766,7 +4766,7 @@ fp.now(); // $ExpectType number
 
     _.sum(list); // $ExpectType number
     _(list).sum(); // $ExpectType number
-    _(list).chain().sum(); // $ExpectType Exp<number>
+    _(list).chain().sum(); // $ExpectType ExpU<number>
     fp.sum(list); // $ExpectType number
 }
 
@@ -4778,8 +4778,8 @@ fp.now(); // $ExpectType number
     _.sumBy(list, "a"); // $ExpectType number
     _(list).sumBy(listIterator); // $ExpectType number
     _(list).sumBy("a"); // $ExpectType number
-    _(list).chain().sumBy(listIterator); // $ExpectType Exp<number>
-    _(list).chain().sumBy("a"); // $ExpectType Exp<number>
+    _(list).chain().sumBy(listIterator); // $ExpectType ExpU<number>
+    _(list).chain().sumBy("a"); // $ExpectType ExpU<number>
 
     fp.sumBy(listIterator, list); // $ExpectType number
     fp.sumBy("a")(list); // $ExpectType number
@@ -4795,7 +4795,7 @@ fp.now(); // $ExpectType number
     _.clamp(3, 4); // $ExpectType number
     _(3).clamp(2, 4); // $ExpectType number
     _(3).clamp(4); // $ExpectType number
-    _.chain(3).clamp(2, 4); // $ExpectType Exp<number>
+    _.chain(3).clamp(2, 4); // $ExpectType ExpU<number>
     fp.clamp(2, 4, 3); // $ExpectType number
     fp.clamp(2)(4)(3); // $ExpectType number
 }
@@ -4806,8 +4806,8 @@ fp.now(); // $ExpectType number
     _.inRange(4, 8); // $ExpectType boolean
     _(3).inRange(2, 4); // $ExpectType boolean
     _(4).inRange(8); // $ExpectType boolean
-    _.chain(3).inRange(2, 4); // $ExpectType Exp<boolean>
-    _.chain(4).inRange(8); // $ExpectType Exp<boolean>
+    _.chain(3).inRange(2, 4); // $ExpectType ExpU<boolean>
+    _.chain(4).inRange(8); // $ExpectType ExpU<boolean>
     fp.inRange(2, 4, 3); // $ExpectType boolean
     fp.inRange(2)(4)(3); // $ExpectType boolean
 }
@@ -4827,11 +4827,11 @@ fp.now(); // $ExpectType number
     _(1).random(true); // $ExpectType number
     _(true).random(); // $ExpectType number
 
-    _.chain(1).random(); // $ExpectType Exp<number>
-    _.chain(1).random(2); // $ExpectType Exp<number>
-    _.chain(1).random(2, true); // $ExpectType Exp<number>
-    _.chain(1).random(true); // $ExpectType Exp<number>
-    _.chain(true).random(); // $ExpectType Exp<number>
+    _.chain(1).random(); // $ExpectType ExpU<number>
+    _.chain(1).random(2); // $ExpectType ExpU<number>
+    _.chain(1).random(2, true); // $ExpectType ExpU<number>
+    _.chain(1).random(true); // $ExpectType ExpU<number>
+    _.chain(true).random(); // $ExpectType ExpU<number>
 
     fp.random(1, 2); // $ExpectType number
     fp.random(1)(2); // $ExpectType number
@@ -5187,13 +5187,13 @@ fp.now(); // $ExpectType number
 
     _.chain("abc").get(1); // $ExpectType ExpS
     _.chain("abc").get([0], "_");
-    _.chain([42]).get(0, -1); // ExpectType Exp<number>
+    _.chain([42]).get(0, -1); // ExpectType ExpU<number>
     _.chain({ a: { b: true } }).get("a"); // $ExpectType Exp<{ b: boolean; }>
     _.chain({ a: { b: true } }).get(["a"]); // $ExpectType Exp<{ b: boolean; }>
     _.chain({ a: { b: true } }).get(["a", "b"]); // $ExpectType Exp<any>
     _.chain({ a: undefined }).get("a"); // $ExpectType Exp<undefined>
     _.chain({ a: value }).get("a", defaultValue); // $ExpectType Exp<string | boolean>
-    _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType Exp<boolean>
+    _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType ExpU<boolean>
 
     fp.get(Symbol.iterator, []); // $ExpectType any
     fp.get(Symbol.iterator)([]); // $ExpectType any
@@ -5219,9 +5219,9 @@ fp.now(); // $ExpectType number
     _(abcObject).has(""); // $ExpectType boolean
     _(abcObject).has(42); // $ExpectType boolean
     _(abcObject).has(["", 42]); // $ExpectType boolean
-    _.chain(abcObject).has(""); // $ExpectType Exp<boolean>
-    _.chain(abcObject).has(42); // $ExpectType Exp<boolean>
-    _.chain(abcObject).has(["", 42]); // $ExpectType Exp<boolean>
+    _.chain(abcObject).has(""); // $ExpectType ExpU<boolean>
+    _.chain(abcObject).has(42); // $ExpectType ExpU<boolean>
+    _.chain(abcObject).has(["", 42]); // $ExpectType ExpU<boolean>
     fp.has("a", abcObject); // $ExpectType boolean
     fp.has("a")(abcObject); // $ExpectType boolean
     fp.has(["a", 42])(abcObject); // $ExpectType boolean
@@ -5232,9 +5232,9 @@ fp.now(); // $ExpectType number
     _(abcObject).hasIn(""); // $ExpectType boolean
     _(abcObject).hasIn(42); // $ExpectType boolean
     _(abcObject).hasIn(["", 42]); // $ExpectType boolean
-    _.chain(abcObject).hasIn(""); // $ExpectType Exp<boolean>
-    _.chain(abcObject).hasIn(42); // $ExpectType Exp<boolean>
-    _.chain(abcObject).hasIn(["", 42]); // $ExpectType Exp<boolean>
+    _.chain(abcObject).hasIn(""); // $ExpectType ExpU<boolean>
+    _.chain(abcObject).hasIn(42); // $ExpectType ExpU<boolean>
+    _.chain(abcObject).hasIn(["", 42]); // $ExpectType ExpU<boolean>
     fp.hasIn("a", abcObject); // $ExpectType boolean
     fp.hasIn("a")(abcObject); // $ExpectType boolean
     fp.hasIn(["a", 42])(abcObject); // $ExpectType boolean
@@ -5693,7 +5693,7 @@ fp.now(); // $ExpectType number
     _.chain("abc").result<string>("0", () => "_"); // $ExpectType Exp<string>
     _.chain("abc").result<string>(["0"]); // $ExpectType Exp<string>
     _.chain("abc").result<string>([0], () => "_"); // $ExpectType Exp<string>
-    _.chain({ a: () => true }).result<boolean>("a"); // $ExpectType Exp<boolean>
+    _.chain({ a: () => true }).result<boolean>("a"); // $ExpectType ExpU<boolean>
 
     fp.result<string>("0", "abc"); // $ExpectType string
     fp.result("0")<string>("abc"); // $ExpectType string
@@ -6204,8 +6204,8 @@ fp.now(); // $ExpectType number
     _.endsWith("abc", "c", 1); // $ExpectType boolean
     _("abc").endsWith("c"); // $ExpectType boolean
     _("abc").endsWith("c", 1); // $ExpectType boolean
-    _.chain("abc").endsWith("c"); // $ExpectType Exp<boolean>
-    _.chain("abc").endsWith("c", 1); // $ExpectType Exp<boolean>
+    _.chain("abc").endsWith("c"); // $ExpectType ExpU<boolean>
+    _.chain("abc").endsWith("c", 1); // $ExpectType ExpU<boolean>
     fp.endsWith("c", "abc"); // $ExpectType boolean
     fp.endsWith("c")("abc"); // $ExpectType boolean
 }
@@ -6307,8 +6307,8 @@ fp.now(); // $ExpectType number
     _.parseInt("08", 10); // $ExpectType number
     _("08").parseInt(); // $ExpectType number
     _("08").parseInt(10); // $ExpectType number
-    _.chain("08").parseInt(); // $ExpectType Exp<number>
-    _.chain("08").parseInt(10); // $ExpectType Exp<number>
+    _.chain("08").parseInt(); // $ExpectType ExpU<number>
+    _.chain("08").parseInt(10); // $ExpectType ExpU<number>
     fp.parseInt(10, "08"); // $ExpectType number
     fp.parseInt(10)("08"); // $ExpectType number
 }
@@ -6389,8 +6389,8 @@ fp.now(); // $ExpectType number
     _.startsWith("abc", "a", 1); // $ExpectType boolean
     _("abc").startsWith("a"); // $ExpectType boolean
     _("abc").startsWith("a", 1); // $ExpectType boolean
-    _.chain("abc").startsWith("a"); // $ExpectType Exp<boolean>
-    _.chain("abc").startsWith("a", 1); // $ExpectType Exp<boolean>
+    _.chain("abc").startsWith("a"); // $ExpectType ExpU<boolean>
+    _.chain("abc").startsWith("a", 1); // $ExpectType ExpU<boolean>
     fp.startsWith("a", "abc"); // $ExpectType boolean
     fp.startsWith("a")("abc"); // $ExpectType boolean
 }
@@ -6616,10 +6616,10 @@ fp.now(); // $ExpectType number
     _(undefined).defaultTo([true]); // $ExpectType boolean[]
     _(undefined).defaultTo({ a: "" }); // $ExpectType { a: string; }
 
-    _.chain(42).defaultTo(42); // $ExpectType Exp<number>
-    const z1: _.Exp<number> = _.chain(undefined).defaultTo(42);
-    const z2: _.Exp<number> = _.chain(null).defaultTo(42);
-    _.chain(NaN).defaultTo(42); // $ExpectType Exp<number>
+    _.chain(42).defaultTo(42); // $ExpectType ExpU<number>
+    const z1: _.ExpU<number> = _.chain(undefined).defaultTo(42);
+    const z2: _.ExpU<number> = _.chain(null).defaultTo(42);
+    _.chain(NaN).defaultTo(42); // $ExpectType ExpU<number>
     const z3: _.Exp<string> =  _.chain(undefined).defaultTo("default");
     _.chain(undefined).defaultTo([true]); // $ExpectType Exp<boolean[]>
     _.chain(undefined).defaultTo({ a: "" }); // $ExpectType Exp<{ a: string; }>

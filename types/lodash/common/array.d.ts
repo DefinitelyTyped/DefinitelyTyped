@@ -136,7 +136,7 @@ declare module "../index" {
         findIndex(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): number;
     }
     interface ExpL<T> {
-        findIndex(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): Exp<number>;
+        findIndex(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): ExpU<number>;
     }
     interface Stat {
         findLastIndex<T>(array: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): number;
@@ -145,7 +145,7 @@ declare module "../index" {
         findLastIndex(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): number;
     }
     interface ExpL<T> {
-        findLastIndex(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): Exp<number>;
+        findLastIndex(predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): ExpU<number>;
     }
     interface Stat {
         first: Stat["head"];
@@ -154,13 +154,13 @@ declare module "../index" {
         first(): string | undefined;
     }
     interface ExpS {
-        first(): Exp<string | undefined>;
+        first(): ExpS;
     }
     interface ImpL<T> {
         first(): T | undefined;
     }
     interface ExpL<T> {
-        first(): Exp<T | undefined>;
+        first(): ExpChain<T>;
     }
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
     interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
@@ -214,13 +214,13 @@ declare module "../index" {
         head(): string | undefined;
     }
     interface ExpS {
-        head(): Exp<string | undefined>;
+        head(): ExpS;
     }
     interface ImpL<T> {
         head(): T | undefined;
     }
     interface ExpL<T> {
-        head(): Exp<T | undefined>;
+        head(): ExpChain<T>;
     }
     interface Stat {
         indexOf<T>(array: List<T> | null | undefined, value: T, fromIndex?: number): number;
@@ -229,7 +229,7 @@ declare module "../index" {
         indexOf(value: T, fromIndex?: number): number;
     }
     interface ExpL<T> {
-        indexOf(value: T, fromIndex?: number): Exp<number>;
+        indexOf(value: T, fromIndex?: number): ExpU<number>;
     }
     interface Stat {
         initial<T>(array: List<T> | null | undefined): T[];
@@ -299,13 +299,13 @@ declare module "../index" {
         last(): T | undefined;
     }
     interface ExpL<T> {
-        last(): Exp<T | undefined>;
+        last(): ExpChain<T>;
     }
     interface ImpS {
         last(): string | undefined;
     }
     interface ExpS {
-        last(): Exp<string | undefined>;
+        last(): ExpS;
     }
     interface Stat {
         lastIndexOf<T>(array: List<T> | null | undefined, value: T, fromIndex?: true|number): number;
@@ -314,7 +314,7 @@ declare module "../index" {
         lastIndexOf(value: T, fromIndex?: true|number): number;
     }
     interface ExpL<T> {
-        lastIndexOf(value: T, fromIndex?: true|number): Exp<number>;
+        lastIndexOf(value: T, fromIndex?: true|number): ExpU<number>;
     }
     interface Stat {
         nth<T>(array: List<T> | null | undefined, n?: number): T | undefined;
@@ -323,7 +323,7 @@ declare module "../index" {
         nth(n?: number): T | undefined;
     }
     interface ExpL<T> {
-        nth(n?: number): Exp<T | undefined>;
+        nth(n?: number): ExpChain<T>;
     }
     interface Stat {
         pull<T>(array: T[], ...values: T[]): T[];
@@ -407,7 +407,7 @@ declare module "../index" {
         sortedIndex(value: T): number;
     }
     interface ExpL<T> {
-        sortedIndex(value: T): Exp<number>;
+        sortedIndex(value: T): ExpU<number>;
     }
     interface Stat {
         sortedIndex<T>(array: List<T> | null | undefined, value: T): number;
@@ -416,7 +416,7 @@ declare module "../index" {
         sortedIndex(value: T): number;
     }
     interface ExpL<T> {
-        sortedIndex(value: T): Exp<number>;
+        sortedIndex(value: T): ExpU<number>;
     }
     interface Stat {
         sortedIndexBy<T>(array: List<T> | null | undefined, value: T, iteratee?: ValueIteratee<T>): number;
@@ -425,7 +425,7 @@ declare module "../index" {
         sortedIndexBy(value: T, iteratee?: ValueIteratee<T>): number;
     }
     interface ExpL<T> {
-        sortedIndexBy(value: T, iteratee?: ValueIteratee<T>): Exp<number>;
+        sortedIndexBy(value: T, iteratee?: ValueIteratee<T>): ExpU<number>;
     }
     interface Stat {
         sortedIndexOf<T>(array: List<T> | null | undefined, value: T): number;
@@ -434,7 +434,7 @@ declare module "../index" {
         sortedIndexOf(value: T): number;
     }
     interface ExpL<T> {
-        sortedIndexOf(value: T): Exp<number>;
+        sortedIndexOf(value: T): ExpU<number>;
     }
     interface Stat {
         sortedLastIndex<T>(array: List<T> | null | undefined, value: T): number;
@@ -443,7 +443,7 @@ declare module "../index" {
         sortedLastIndex(value: T): number;
     }
     interface ExpL<T> {
-        sortedLastIndex(value: T): Exp<number>;
+        sortedLastIndex(value: T): ExpU<number>;
     }
     interface Stat {
         sortedLastIndexBy<T>(array: List<T> | null | undefined, value: T, iteratee: ValueIteratee<T>): number;
@@ -452,7 +452,7 @@ declare module "../index" {
         sortedLastIndexBy(value: T, iteratee: ValueIteratee<T>): number;
     }
     interface ExpL<T> {
-        sortedLastIndexBy(value: T, iteratee: ValueIteratee<T>): Exp<number>;
+        sortedLastIndexBy(value: T, iteratee: ValueIteratee<T>): ExpU<number>;
     }
     interface Stat {
         sortedLastIndexOf<T>(array: List<T> | null | undefined, value: T): number;
@@ -461,7 +461,7 @@ declare module "../index" {
         sortedLastIndexOf(value: T): number;
     }
     interface ExpL<T> {
-        sortedLastIndexOf(value: T): Exp<number>;
+        sortedLastIndexOf(value: T): ExpU<number>;
     }
     interface Stat {
         sortedUniq<T>(array: List<T> | null | undefined): T[];
@@ -667,7 +667,7 @@ declare module "../index" {
         zip(...arrays: Array<List<T> | null | undefined>): ImpL<Array<T | undefined>>;
     }
     interface ExpL<T> {
-        zip<T2>(arrays2: List<T2>): Exp<[T | undefined, T2 | undefined]>;
+        zip<T2>(arrays2: List<T2>): ExpL<[T | undefined, T2 | undefined]>;
         zip(...arrays: Array<List<T> | null | undefined>): ExpL<Array<T | undefined>>;
     }
     interface Stat {
