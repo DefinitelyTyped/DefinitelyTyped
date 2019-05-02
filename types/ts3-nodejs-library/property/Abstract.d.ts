@@ -2,7 +2,7 @@ import TeamSpeak3 = require('../TeamSpeak3');
 import { EventEmitter } from 'events';
 
 declare class Abstract extends EventEmitter {
-    constructor(parent: TeamSpeak3, props: any, namespace: string)
+    constructor(parent: TeamSpeak3, props: any, namespace: string);
 
     /**
      * retrieves the namespace of this class

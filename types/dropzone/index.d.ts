@@ -7,6 +7,7 @@
 //                 Sebastiaan de Rooij <https://github.com/Hikariii>
 //                 Ted Bicknell <https://github.com/tedbcsgpro>
 //                 Daniel Waxweiler <https://github.com/dwaxweiler>
+//                 PikachuEXE <https://github.com/PikachuEXE>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -141,6 +142,8 @@ declare namespace Dropzone {
 		maxfilesexceeded?(file: DropzoneFile): void;
 		maxfilesreached?(files: DropzoneFile[]): void;
 		queuecomplete?(): void;
+
+		transformFile?(file: DropzoneFile, done: (file: string | Blob) => void): void;
 
 		previewTemplate?: string;
 	}

@@ -9,7 +9,18 @@ interface ServerGroupListResponse {
 }
 
 declare class TeamSpeakServerGroup extends Abstract {
-    constructor(parent: TeamSpeak3, list: ServerGroupListResponse)
+    constructor(parent: TeamSpeak3, list: ServerGroupListResponse);
+
+    sgid: number;
+    name: string;
+    type: string;
+    iconid: string;
+    savedb: string;
+    sortid: string;
+    namemode: string;
+    nModifyp: string;
+    nMemberAddp: string;
+    nMemberRemovep: string;
 
     /**
      * Returns the Server Group ID
@@ -50,7 +61,12 @@ declare class TeamSpeakServerGroup extends Abstract {
      * @param - Whether the skip flag should be set Defaults to 0.
      * @param - Whether the negate flag should be set. Defaults to 0.
      */
-    addPerm(perm: string | number, value: number, skip?: number, negate?: number): Promise<any>;
+    addPerm(
+        perm: string | number,
+        value: number,
+        skip?: number,
+        negate?: number
+    ): Promise<any>;
 
     /**
      * Removes a set of specified permissions from the server group. A permission can be specified by permid or permsid.
