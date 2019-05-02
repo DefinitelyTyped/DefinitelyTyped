@@ -1,4 +1,4 @@
-// Type definitions for Lodash 4.14
+// Type definitions for Lo-Dash 4.14
 // Project: https://lodash.com
 // Definitions by: Brian Zengel <https://github.com/bczengel>,
 //                 Ilya Mochalov <https://github.com/chrootsu>,
@@ -10,7 +10,7 @@
 //                 Jack Moore <https://github.com/jtmthf>,
 //                 Dominique Rau <https://github.com/DomiR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 2.8
 
 /// <reference path="./common/common.d.ts" />
 /// <reference path="./common/array.d.ts" />
@@ -28,10 +28,10 @@
 export = _;
 export as namespace _;
 
-declare const _: _.Stat;
+declare const _: _.LoDashStatic;
 declare namespace _ {
     // tslint:disable-next-line no-empty-interface (This will be augmented)
-    interface Stat {}
+    interface LoDashStatic {}
 }
 
 // Backward compatibility with --target es5
