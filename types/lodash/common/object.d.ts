@@ -536,7 +536,6 @@ declare module "../index" {
         mergeWith(...otherArgs: any[]): Exp<any>;
     }
     interface Stat {
-        omit<T extends AnyKindOfDictionary>(object: T | null | undefined, ...paths: Array<Many<PropertyName>>): T;
         omit<T extends object, K extends keyof T>(object: T | null | undefined, ...paths: Array<Many<K>>): Omit<T, K>;
         omit<T extends object>(object: T | null | undefined, ...paths: Array<Many<PropertyName>>): PartialObject<T>;
     }

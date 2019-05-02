@@ -535,16 +535,16 @@ declare module "../index" {
         orderBy<T extends object>(collection: T | null | undefined, iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): Array<T[keyof T]>;
     }
     interface ImpL<T> {
-        orderBy(iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): ImpL<T>;
+        orderBy(iteratees?: Many<ListIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): ImpL<T>;
     }
     interface ImpO<T> {
-        orderBy(iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): ImpL<T[keyof T]>;
+        orderBy(iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): ImpL<T[keyof T]>;
     }
     interface ExpL<T> {
-        orderBy(iteratees?: Many<ListIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): ExpL<T>;
+        orderBy(iteratees?: Many<ListIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): ExpL<T>;
     }
     interface ExpO<T> {
-        orderBy(iteratees?: Many<ObjectIteratee<T>>, orders?: Many<boolean|"asc"|"desc">): ExpL<T[keyof T]>;
+        orderBy(iteratees?: Many<ObjectIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): ExpL<T[keyof T]>;
     }
     interface Stat {
         partition<T>(collection: List<T> | null | undefined, callback: ValueIteratee<T>): [T[], T[]];

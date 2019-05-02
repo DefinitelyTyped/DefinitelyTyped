@@ -5555,8 +5555,8 @@ fp.now(); // $ExpectType number
 
     _.omit(obj, "a"); // $ExpectType Pick<AbcObject, "b" | "c">
     _.omit(obj, ["b", 1], 0, "a"); // $ExpectType Partial<AbcObject>
-    _.omit(dictionary, "a"); // $ExpectType Dictionary<AbcObject>
-    _.omit(numericDictionary, "a");  // $ExpectType NumericDictionary<AbcObject>
+    _.omit(dictionary, "a"); // $ExpectType Pick<Dictionary<AbcObject>, string | number>
+    _.omit(numericDictionary, "a");  // $ExpectType Partial<NumericDictionary<AbcObject>>
 
     _(obj).omit("a"); // $ExpectType ImpO<Pick<AbcObject, "b" | "c">>
     _(obj).omit(["b", 1], 0, "a"); // $ExpectType ImpO<Partial<AbcObject>>
