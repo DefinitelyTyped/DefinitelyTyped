@@ -2,7 +2,8 @@ declare module "events" {
     class internal extends NodeJS.EventEmitter { }
 
     namespace internal {
-        function once(emitter: EventEmitter, event: string | symbol): Promise<any[]>;
+        // tslint:disable-next-line no-unnecessary-generics
+        function once<T extends any[]>(emitter: EventEmitter, event: string | symbol): Promise<T>;
          class EventEmitter extends internal {
             /** @deprecated since v4.0.0 */
             static listenerCount(emitter: EventEmitter, event: string | symbol): number;

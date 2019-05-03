@@ -33,11 +33,11 @@ const any: any = 1;
 }
 
 {
-    let result: Promise<number[]>;
+    let result: Promise<[number, string]>;
 
-    result = events.once(emitter, event);
+    result = events.once<[number, string]>(emitter, event);
 
-    emitter.emit(event, 42);
+    emitter.emit(event, 42, 'foobar');
 }
 
 {
