@@ -35,6 +35,11 @@ declare namespace pusher {
         /**
          * Forces the connection to use encrypted transports.
          */
+        forceTLS?: boolean;
+        /**
+         * Forces the connection to use encrypted transports.
+         * @deprecated
+         */
         encrypted?: boolean;
 
         /**

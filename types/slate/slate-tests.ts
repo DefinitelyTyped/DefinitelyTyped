@@ -74,10 +74,12 @@ const schema: SchemaProperties = {
                 }
             }
         },
+        marks: [{ type: 'bold' }, { type: t => ['bold', 'underline'].indexOf(t) !== -1 }]
     },
     blocks: {
         image: {
             isVoid: true,
+            marks: [{ type: 'bold' }, { type: t => ['bold', 'underline'].indexOf(t) !== -1 }]
         },
     },
 };

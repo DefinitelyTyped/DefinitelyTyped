@@ -593,10 +593,7 @@ declare namespace Dockerode {
     };
     NetworkMode?: string;
     PortBindings?: any;
-    RestartPolicy?: {
-      Name: string;
-      MaximumRetryCount: number;
-    };
+    RestartPolicy?: RestartPolicy;
     VolumeDriver?: string;
     VolumesFrom?: any;
     Mounts?: MountConfig;

@@ -1,12 +1,12 @@
-// Type definitions for non-npm package Sarif 2.0
+// Type definitions for non-npm package Sarif 2.1
 // Project: https://github.com/Microsoft/sarif-sdk
 // Definitions by: Rusty Scrivens <https://github.com/rscrivens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /**
- * Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-04-03 JSON Schema: a standard format for the
- * output of static analysis tools.
+ * Static Analysis Results Format (SARIF) Version 2.1.0-rtm.0 JSON Schema: a standard format for the output of static
+ * analysis tools.
  */
 export interface Log {
     /**
@@ -37,17 +37,17 @@ export interface Log {
 
 export namespace Log {
     type version =
-        "2.0.0-csd.2.beta.2019-04-03";
+        "2.1.0";
 }
 
 /**
- * The effective address of a reported issue.
+ * A physical or virtual address, or a range of addresses, in an 'addressable region' (memory or a binary file).
  */
 export interface Address {
     /**
-     * A base address rendered as an integer value.
+     * The address expressed as a byte offset from the start of the addressable region.
      */
-    baseAddress?: number;
+    absoluteAddress?: number;
 
     /**
      * A human-readable fully qualified name that is associated with the address.
@@ -55,14 +55,20 @@ export interface Address {
     fullyQualifiedName?: string;
 
     /**
-     * An index into run.addresses used to retrieve a cached instance to represent the address.
+     * The index within run.addresses of the cached object for this address.
      */
     index?: number;
 
     /**
-     * An open-ended string that identifies the address kind. 'section', 'segment' and 'module' are well-known values.
+     * An open-ended string that identifies the address kind. 'data', 'function', 'header','instruction', 'module',
+     * 'page', 'section', 'segment', 'stack', 'stackFrame', 'table' are well-known values.
      */
     kind?: string;
+
+    /**
+     * The number of bytes in this range of addresses.
+     */
+    length?: number;
 
     /**
      * A name that is associated with the address, e.g., '.text'.
@@ -70,15 +76,19 @@ export interface Address {
     name?: string;
 
     /**
-     * an offset from the base address, if present, rendered as an integer value.
+     * The byte offset of this address from the absolute or relative address of the parent object.
      */
-    offset?: number;
+    offsetFromParent?: number;
 
     /**
-     * An index into run.addresses to retrieve a parent address. The parent can provide a base address (from which the
-     * current offset value is relevant) and other details.
+     * The index within run.addresses of the parent object.
      */
     parentIndex?: number;
+
+    /**
+     * The address expressed as a byte offset from the absolute address of the top-most parent object.
+     */
+    relativeAddress?: number;
 
     /**
      * Key/value pairs that provide additional information about the address.
@@ -94,6 +104,11 @@ export interface Artifact {
      * The contents of the artifact.
      */
     contents?: ArtifactContent;
+
+    /**
+     * A short description of the artifact.
+     */
+    description?: Message;
 
     /**
      * Specifies the encoding for an artifact object that refers to a text file.
@@ -160,20 +175,24 @@ export namespace Artifact {
         "responseFile" |
         "resultFile" |
         "standardStream" |
-        "traceFile" |
-        "unmodifiedFile" |
-        "modifiedFile" |
-        "addedFile" |
-        "deletedFile" |
-        "renamedFile" |
-        "uncontrolledFile" |
+        "tracedFile" |
+        "unmodified" |
+        "modified" |
+        "added" |
+        "deleted" |
+        "renamed" |
+        "uncontrolled" |
         "driver" |
         "extension" |
         "translation" |
         "taxonomy" |
         "policy" |
         "referencedOnCommandLine" |
-        "memoryContents";
+        "memoryContents" |
+        "directory" |
+        "userSpecifiedConfiguration" |
+        "toolSpecifiedConfiguration" |
+        "debugOutputFile";
 }
 
 /**
@@ -226,6 +245,11 @@ export interface ArtifactContent {
  * Specifies the location of an artifact.
  */
 export interface ArtifactLocation {
+    /**
+     * A short description of the artifact location.
+     */
+    description?: Message;
+
     /**
      * The index within the run artifacts array of the artifact object associated with the artifact location.
      */
@@ -387,7 +411,7 @@ export interface EdgeTraversal {
     /**
      * The values of relevant expressions after the edge has been traversed.
      */
-    finalState?: { [key: string]: string };
+    finalState?: { [key: string]: MultiformatMessageString };
 
     /**
      * A message to display to the user as the edge is traversed.
@@ -528,7 +552,17 @@ export interface ExternalProperties {
     /**
      * The SARIF format version of this external properties object.
      */
-    version: ExternalProperties.version;
+    version?: ExternalProperties.version;
+
+    /**
+     * Requests that will be merged with a separate run.
+     */
+    webRequests?: WebRequest[];
+
+    /**
+     * Responses that will be merged with a separate run.
+     */
+    webResponses?: WebResponse[];
 
     /**
      * Key/value pairs that provide additional information about the external properties.
@@ -538,7 +572,7 @@ export interface ExternalProperties {
 
 export namespace ExternalProperties {
     type version =
-        "2.0.0-csd.2.beta.2019-04-03";
+        "2.1.0";
 }
 
 /**
@@ -642,6 +676,16 @@ export interface ExternalPropertyFileReferences {
     translations?: ExternalPropertyFileReference[];
 
     /**
+     * An array of external property files containing run.requests arrays to be merged with the root log file.
+     */
+    webRequests?: ExternalPropertyFileReference[];
+
+    /**
+     * An array of external property files containing run.responses arrays to be merged with the root log file.
+     */
+    webResponses?: ExternalPropertyFileReference[];
+
+    /**
      * Key/value pairs that provide additional information about the external property files.
      */
     properties?: PropertyBag;
@@ -655,7 +699,7 @@ export interface Fix {
     /**
      * One or more artifact changes that comprise a fix for a result.
      */
-    changes: ArtifactChange[];
+    artifactChanges: ArtifactChange[];
 
     /**
      * A message that describes the proposed fix, enabling viewers to present the proposed change to an end user.
@@ -682,11 +726,6 @@ export interface Graph {
      * An array of edge objects representing the edges of the graph.
      */
     edges?: Edge[];
-
-    /**
-     * A string that uniquely identifies the graph within a run.graphs or result.graphs array.
-     */
-    id: string;
 
     /**
      * An array of node objects representing the nodes of the graph.
@@ -716,12 +755,12 @@ export interface GraphTraversal {
     /**
      * Values of relevant expressions at the start of the graph traversal that remain constant for the graph traversal.
      */
-    immutableState?: { [key: string]: string };
+    immutableState?: { [key: string]: MultiformatMessageString };
 
     /**
      * Values of relevant expressions at the start of the graph traversal that may change during graph traversal.
      */
-    initialState?: { [key: string]: string };
+    initialState?: { [key: string]: MultiformatMessageString };
 
     /**
      * The index within the result.graphs to be associated with the result.
@@ -774,6 +813,11 @@ export interface Invocation {
      * An absolute URI specifying the location of the analysis tool's executable.
      */
     executableLocation?: ArtifactLocation;
+
+    /**
+     * Specifies whether the tool's execution completed successfully.
+     */
+    executionSuccessful: boolean;
 
     /**
      * The process exit code.
@@ -862,11 +906,6 @@ export interface Invocation {
     toolExecutionNotifications?: Notification[];
 
     /**
-     * A value indicating whether the tool's execution completed successfully.
-     */
-    toolExecutionSuccessful?: boolean;
-
-    /**
      * The working directory for the analysis tool run.
      */
     workingDirectory?: ArtifactLocation;
@@ -887,6 +926,11 @@ export interface Location {
     annotations?: Region[];
 
     /**
+     * Value that distinguishes this location from all other locations within a single result object.
+     */
+    id?: number;
+
+    /**
      * The logical location associated with the result.
      */
     logicalLocation?: LogicalLocation;
@@ -902,7 +946,38 @@ export interface Location {
     physicalLocation?: PhysicalLocation;
 
     /**
+     * An array of objects that describe relationships between this location and others.
+     */
+    relationships?: LocationRelationship[];
+
+    /**
      * Key/value pairs that provide additional information about the location.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * Information about the relation of one location to another.
+ */
+export interface LocationRelationship {
+    /**
+     * A description of the location relationship.
+     */
+    description?: Message;
+
+    /**
+     * A set of distinct strings that categorize the relationship. Well-known kinds include 'includes', 'isIncludedBy'
+     * and 'relevant'.
+     */
+    kinds?: string[];
+
+    /**
+     * A reference to the related location.
+     */
+    target: number;
+
+    /**
+     * Key/value pairs that provide additional information about the location relationship.
      */
     properties?: PropertyBag;
 }
@@ -995,7 +1070,7 @@ export interface MultiformatMessageString {
     /**
      * A plain text message string or format string.
      */
-    text?: string;
+    text: string;
 
     /**
      * Key/value pairs that provide additional information about the message.
@@ -1059,14 +1134,14 @@ export interface Notification {
     level?: Notification.level;
 
     /**
+     * The locations relevant to this notification.
+     */
+    locations?: Location[];
+
+    /**
      * A message that describes the condition that was encountered.
      */
     message: Message;
-
-    /**
-     * The artifact and region relevant to this notification.
-     */
-    physicalLocation?: PhysicalLocation;
 
     /**
      * The thread identifier of the code that generated the notification.
@@ -1112,11 +1187,6 @@ export interface PhysicalLocation {
      * around the region.
      */
     contextRegion?: Region;
-
-    /**
-     * Value that distinguishes this physical location from all other physical locations in this run object.
-     */
-    id?: number;
 
     /**
      * Specifies a portion of the artifact.
@@ -1353,7 +1423,7 @@ export interface ReportingDescriptor {
     /**
      * A stable, opaque identifier for the report.
      */
-    id?: string;
+    id: string;
 
     /**
      * A set of name/value pairs with arbitrary names. Each value is a multiformatMessageString object, which holds
@@ -1420,10 +1490,15 @@ export interface ReportingDescriptorReference {
  */
 export interface ReportingDescriptorRelationship {
     /**
-     * A set of distinct strings that categorize the relationshship. Well-known kinds include canPrecede, canFollow,
-     * willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.
+     * A description of the reporting descriptor relationship.
      */
-    kinds: string[];
+    description?: Message;
+
+    /**
+     * A set of distinct strings that categorize the relationship. Well-known kinds include 'canPrecede', 'canFollow',
+     * 'willPrecede', 'willFollow', 'superset', 'subset', 'equal', 'disjoint', 'relevant', and 'incomparable'.
+     */
+    kinds?: string[];
 
     /**
      * A reference to the related reporting descriptor.
@@ -1576,6 +1651,16 @@ export interface Result {
     taxa?: ReportingDescriptorReference[];
 
     /**
+     * A web request associated with this result.
+     */
+    webRequest?: WebRequest;
+
+    /**
+     * A web response associated with this result.
+     */
+    webResponse?: WebResponse;
+
+    /**
      * The URIs of the work items associated with this result.
      */
     workItemUris?: string[];
@@ -1592,7 +1677,8 @@ export namespace Result {
         "pass" |
         "fail" |
         "review" |
-        "open";
+        "open" |
+        "informational";
 
     type level =
         "none" |
@@ -1692,7 +1778,7 @@ export interface Run {
     /**
      * Specifies the default encoding for any artifact object that refers to a text file.
      */
-    defaultFileEncoding?: string;
+    defaultEncoding?: string;
 
     /**
      * Specifies the default source language for any artifact object that refers to a text file that contains source
@@ -1716,9 +1802,10 @@ export interface Run {
     invocations?: Invocation[];
 
     /**
-     * The language of the messages emitted into the log file during this run (expressed as an ISO 649 two-letter
-     * lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated
-     * with a country or region).
+     * The language of the messages emitted into the log file during this run (expressed as an ISO 639-1 two-letter
+     * lowercase culture code) and an optional region (expressed as an ISO 3166-1 two-letter uppercase subculture code
+     * associated with a country or region). The casing is recommended but not required (in order for this data to
+     * conform to RFC5646).
      */
     language?: string;
 
@@ -1726,11 +1813,6 @@ export interface Run {
      * An array of logical locations such as namespaces, types or functions.
      */
     logicalLocations?: LogicalLocation[];
-
-    /**
-     * The MIME type of all Markdown text message properties in the run. Default: "text/markdown;variant=GFM"
-     */
-    markdownMessageMimeType?: string;
 
     /**
      * An ordered list of character sequences that were treated as line breaks when computing region information for
@@ -1751,9 +1833,9 @@ export interface Run {
     policies?: ToolComponent[];
 
     /**
-     * The string used to replace sensitive information in a redaction-aware property.
+     * An array of strings used to replace sensitive information in a redaction-aware property.
      */
-    redactionToken?: string;
+    redactionTokens?: string[];
 
     /**
      * The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting
@@ -1765,6 +1847,11 @@ export interface Run {
      * Automation details that describe the aggregate of runs to which this run belongs.
      */
     runAggregates?: RunAutomationDetails[];
+
+    /**
+     * A specialLocations object that defines locations of special significance to SARIF consumers.
+     */
+    specialLocations?: SpecialLocations;
 
     /**
      * An array of toolComponent objects relevant to a taxonomy in which results are categorized.
@@ -1792,6 +1879,16 @@ export interface Run {
      * Specifies the revision in version control of the artifacts that were scanned.
      */
     versionControlProvenance?: VersionControlDetails[];
+
+    /**
+     * An array of request objects cached at run level.
+     */
+    webRequests?: WebRequest[];
+
+    /**
+     * An array of response objects cached at run level.
+     */
+    webResponses?: WebResponse[];
 
     /**
      * Key/value pairs that provide additional information about the run.
@@ -1833,6 +1930,21 @@ export interface RunAutomationDetails {
 
     /**
      * Key/value pairs that provide additional information about the run automation details.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * Defines locations of special significance to SARIF consumers.
+ */
+export interface SpecialLocations {
+    /**
+     * Provides a suggestion to SARIF consumers to display file paths relative to the specified location.
+     */
+    displayBase?: ArtifactLocation;
+
+    /**
+     * Key/value pairs that provide additional information about the special locations.
      */
     properties?: PropertyBag;
 }
@@ -1893,6 +2005,16 @@ export interface StackFrame {
  */
 export interface Suppression {
     /**
+     * A stable, unique identifer for the suprression in the form of a GUID.
+     */
+    guid?: string;
+
+    /**
+     * A string representing the justification for the suppression.
+     */
+    justification?: string;
+
+    /**
      * A string that indicates where the suppression is persisted.
      */
     kind: Suppression.kind;
@@ -1903,6 +2025,11 @@ export interface Suppression {
     location?: Location;
 
     /**
+     * A string that indicates the state of the suppression.
+     */
+    state?: Suppression.state;
+
+    /**
      * Key/value pairs that provide additional information about the suppression.
      */
     properties?: PropertyBag;
@@ -1910,10 +2037,13 @@ export interface Suppression {
 
 export namespace Suppression {
     type kind =
-        "suppressedInSource" |
-        "suppressedExternally" |
+        "inSource" |
+        "external";
+
+    type state =
+        "accepted" |
         "underReview" |
-        "suppressionRejected";
+        "rejected";
 }
 
 /**
@@ -1928,12 +2058,12 @@ export interface ThreadFlow {
     /**
      * Values of relevant expressions at the start of the thread flow that remain constant.
      */
-    immutableState?: { [key: string]: string };
+    immutableState?: { [key: string]: MultiformatMessageString };
 
     /**
      * Values of relevant expressions at the start of the thread flow that may change during thread flow execution.
      */
-    initialState?: { [key: string]: string };
+    initialState?: { [key: string]: MultiformatMessageString };
 
     /**
      * A temporally ordered array of 'threadFlowLocation' objects, each of which describes a location visited by the
@@ -1978,9 +2108,9 @@ export interface ThreadFlowLocation {
     index?: number;
 
     /**
-     * A set of distinct strings that categorize the thread flow location. Well-known kinds include acquire, release,
-     * enter, exit, call, return, branch, implicit, false, true, caution, danger, unknown, unreachable, taint,
-     * function, handler, lock, memory, resource, and scope.
+     * A set of distinct strings that categorize the thread flow location. Well-known kinds include 'acquire',
+     * 'release', 'enter', 'exit', 'call', 'return', 'branch', 'implicit', 'false', 'true', 'caution', 'danger',
+     * 'unknown', 'unreachable', 'taint', 'function', 'handler', 'lock', 'memory', 'resource', 'scope' and 'value'.
      */
     kinds?: string[];
 
@@ -2009,7 +2139,23 @@ export interface ThreadFlowLocation {
      * the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might
      * hold the current assumed values of a set of global variables.
      */
-    state?: { [key: string]: string };
+    state?: { [key: string]: MultiformatMessageString };
+
+    /**
+     * An array of references to rule or taxonomy reporting descriptors that are applicable to the thread flow
+     * location.
+     */
+    taxa?: ReportingDescriptorReference[];
+
+    /**
+     * A web request associated with this thread flow location.
+     */
+    webRequest?: WebRequest;
+
+    /**
+     * A web response associated with this thread flow location.
+     */
+    webResponse?: WebResponse;
 
     /**
      * Key/value pairs that provide additional information about the threadflow location.
@@ -2048,11 +2194,6 @@ export interface Tool {
  * A component, such as a plug-in or the driver, of the analysis tool that was run.
  */
 export interface ToolComponent {
-    /**
-     * The indices within the run artifacts array of the artifact objects associated with the tool component.
-     */
-    artifactIndices?: number[];
-
     /**
      * The component which is strongly associated with this component. For a translation, this refers to the component
      * which has been translated. For an extension, this is the driver that provides the extension's plugin model.
@@ -2100,15 +2241,21 @@ export interface ToolComponent {
     guid?: string;
 
     /**
+     * The absolute URI at which information about this version of the tool component can be found.
+     */
+    informationUri?: string;
+
+    /**
      * Specifies whether this object contains a complete definition of the localizable and/or non-localizable data for
      * this component, as opposed to including only data that is relevant to the results persisted to this log file.
      */
     isComprehensive?: boolean;
 
     /**
-     * The language of the the localized strings defined in this component (expressed as an ISO 649 two-letter
-     * lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated
-     * with a country or region).
+     * The language of the messages emitted into the log file during this run (expressed as an ISO 639-1 two-letter
+     * lowercase language code) and an optional region (expressed as an ISO 3166-1 two-letter uppercase subculture code
+     * associated with a country or region). The casing is recommended but not required (in order for this data to
+     * conform to RFC5646).
      */
     language?: string;
 
@@ -2117,6 +2264,11 @@ export interface ToolComponent {
      * translations.
      */
     localizedDataSemanticVersion?: string;
+
+    /**
+     * An array of the artifactLocation objects associated with the tool component.
+     */
+    locations?: ArtifactLocation[];
 
     /**
      * The minimum value of localizedDataSemanticVersion required in translations consumed by this component; used by
@@ -2248,7 +2400,7 @@ export interface TranslationMetadata {
     fullName?: string;
 
     /**
-     * The absolute URI from whichinformation related to the translation metadata can be downloaded.
+     * The absolute URI from which information related to the translation metadata can be downloaded.
      */
     informationUri?: string;
 
@@ -2306,6 +2458,107 @@ export interface VersionControlDetails {
 
     /**
      * Key/value pairs that provide additional information about the version control details.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * A web request object.
+ */
+export interface WebRequest {
+    /**
+     * The body of the request.
+     */
+    body?: ArtifactContent;
+
+    /**
+     * The request headers.
+     */
+    headers?: { [key: string]: string };
+
+    /**
+     * The index within the run.webRequests array of the request object associated with this result.
+     */
+    index?: number;
+
+    /**
+     * The HTTP method. Well-known values are 'GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'TRACE',
+     * 'CONNECT'.
+     */
+    method?: string;
+
+    /**
+     * The request parameters.
+     */
+    parameters?: { [key: string]: string };
+
+    /**
+     * The request protocol. Example: 'http'.
+     */
+    protocol?: string;
+
+    /**
+     * The target of the request.
+     */
+    target?: string;
+
+    /**
+     * The request version. Example: '1.1'.
+     */
+    version?: string;
+
+    /**
+     * Key/value pairs that provide additional information about the request.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * A web response object.
+ */
+export interface WebResponse {
+    /**
+     * The body of the response.
+     */
+    body?: ArtifactContent;
+
+    /**
+     * The response headers.
+     */
+    headers?: { [key: string]: string };
+
+    /**
+     * The index within the run.webResponses array of the response object associated with this result.
+     */
+    index?: number;
+
+    /**
+     * Specifies whether a response was received from the server.
+     */
+    noResponseReceived?: boolean;
+
+    /**
+     * The response protocol. Example: 'http'.
+     */
+    protocol?: string;
+
+    /**
+     * The response reason. Example: 'Not found'.
+     */
+    reasonPhrase?: string;
+
+    /**
+     * The response status code. Example: 451.
+     */
+    statusCode?: number;
+
+    /**
+     * The response version. Example: '1.1'.
+     */
+    version?: string;
+
+    /**
+     * Key/value pairs that provide additional information about the response.
      */
     properties?: PropertyBag;
 }
