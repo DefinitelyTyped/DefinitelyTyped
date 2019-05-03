@@ -11,7 +11,7 @@ declare class Client {
     onError: (err: any) => void;
     onConnect: () => void;
     onDisconnect: () => void;
-    onUpdate: (message: any) => void;
+    onDisconnect: (willReconnect: boolean, log: { code: number, explanation: string, reason: string, wasClean: boolean }) => void;
     connect(options: Client.ClientConnectOptions): Promise<any>;
     connect(): Promise<any>;
     disconnect(): Promise<any>;
