@@ -101,7 +101,7 @@ async function main() {
         "}",
         "",
     ].join(lineBreak);
-    const lodashFilePath = path.resolve(__dirname, "..", "..", "lowdb", "_lodash.d.ts");
+    const lodashFilePath = path.resolve(__dirname, "..", "..", "..", "lowdb", "_lodash.d.ts");
     fs.writeFile(lodashFilePath, lodashFile, (err) => {
         if (err)
             console.error(`Failed to write ${lodashFilePath}: `, err);
