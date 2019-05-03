@@ -31,7 +31,7 @@ declare namespace XRay {
     }
     type Selector = ScalarSelector | SelectorArray;
 
-    type AbortHandler<T extends any> = (data: T[], url: string) => boolean;
+    type AbortHandler = (data: any[], url: string) => boolean;
 
     interface Instance extends XRayCrawler.Instance {
         (
@@ -55,8 +55,7 @@ declare namespace XRay {
     interface InstanceInvocation {
         (callback: Callback): void;
         (source: string, callback: Callback): void;
-        // tslint:disable-next-line:no-unnecessary-generics
-        abort<T>(arg: AbortHandler<T>): this;
+        abort(arg: AbortHandler): this;
         paginate(selector: Selector): this;
         limit(n: number): this;
         stream(): NodeJS.ReadStream;

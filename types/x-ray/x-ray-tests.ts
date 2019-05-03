@@ -119,4 +119,4 @@ x(pagedUrl, '.js-issue-row', [{ id: '@id', title: 'a.h4' }])
 
 x(pagedUrl, '.js-issue-row', [{ id: '@id', title: 'a.h4' }])
     .paginate('.next_page@href')
-    .abort<{id: string}>(results => results.some(result => result.id === 'issue_40'));
+    .abort(results => results.some(result => result.id === 'issue_40'));
