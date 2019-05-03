@@ -171,7 +171,7 @@ declare module _ {
         map<T>(
             list: _.List<T>,
             iterator: _.IterateePropertyShorthand,
-            context?: any): T[];
+            context?: any): any[];
 
         map<T>(
             list: _.List<T>,
