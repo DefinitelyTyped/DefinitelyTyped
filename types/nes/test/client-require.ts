@@ -10,3 +10,4 @@ const options: Client.ClientConnectOptions = {
 }
 
 const client: Client = new Client('ws://localhost', options);
+client.onDisconnect = (willReconnect) => {}
