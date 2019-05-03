@@ -101,9 +101,9 @@ declare module "pdfmake/build/pdfmake" {
 
     type TDocumentHeaderFooterFunction = (
         currentPage: number,
-        pageCount: number
-    ) => // pageSize?: any
-    any;
+        pageCount: number,
+        pageSize?: { width: number; height: number }
+    ) => any;
 
     type Margins = number | [number, number] | [number, number, number, number];
 
@@ -155,7 +155,7 @@ declare module "pdfmake/build/pdfmake" {
 
     interface Table {
         body: Content[][] | TableCell[][];
-        // dontBreakRows?: boolean;
+        dontBreakRows?: () => boolean;
         headerRows?: number;
         heights?: Array<string | number> | TableRowFunction;
         layout?: string | TableLayoutFunctions;
@@ -163,7 +163,7 @@ declare module "pdfmake/build/pdfmake" {
     }
 
     interface Content {
-        style?: "string"; //string | string[];
+        style?: string | string[];
         margin?: Margins;
         text?: string | string[] | Content[];
         columns?: Content[];
@@ -181,15 +181,15 @@ declare module "pdfmake/build/pdfmake" {
     }
 
     interface TDocumentDefinitions {
-        // background?: any;
+        background?: () => any;
         compress?: boolean;
         content: string | Content;
         defaultStyle?: Style;
         footer?: TDocumentHeaderFooterFunction;
         header?: TDocumentHeaderFooterFunction;
-        // images?: any;
+        images?: any;
         info?: TDocumentInformation;
-        // pageBreakBefore?: any;
+        pageBreakBefore?: () => boolean;
         pageMargins?: Margins;
         pageOrientation?: PageOrientation;
         pageSize?: PageSize;
