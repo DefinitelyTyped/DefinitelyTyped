@@ -16,16 +16,16 @@ interface GridStack {
      *   Widget will be always placed even if result height is more than actual grid height. You need to use willItFit method before calling addWidget for additional check.
      *
      * @param {string | HTMLElement | JQuery} el widget to add
-     * @param {number} x widget position x
-     * @param {number} y widget position y
-     * @param {number} width  widget dimension width
-     * @param {number} height widget dimension height
-     * @param {boolean} autoPosition if true then x, y parameters will be ignored and widget will be places on the first available position
-     * @param {number} minWidth minimum width allowed during resize/creation
-     * @param {number} maxWidth maximum width allowed during resize/creation
-     * @param {number} minHeight minimum height allowed during resize/creation
-     * @param {number} maxHeight maximum height allowed during resize/creation
-     * @param {number | string} id value for data-gs-id
+     * @param {number} x widget position x (optional)
+     * @param {number} y widget position y (optional)
+     * @param {number} width  widget dimension width (optional)
+     * @param {number} height widget dimension height (optional)
+     * @param {boolean} autoPosition if true then x, y parameters will be ignored and widget will be places on the first available position (optional)
+     * @param {number} minWidth minimum width allowed during resize/creation (optional)
+     * @param {number} maxWidth maximum width allowed during resize/creation (optional)
+     * @param {number} minHeight minimum height allowed during resize/creation (optional)
+     * @param {number} maxHeight maximum height allowed during resize/creation (optional)
+     * @param {number | string} id value for data-gs-id (optional)
      */
     addWidget(el: string | HTMLElement | JQuery, x?: number, y?: number, width?: number, height?: number, autoPosition?: boolean, minWidth?: number, maxWidth?: number, minHeight?: number, maxHeight?: number, id?: number | string): JQuery
     /**
