@@ -35,6 +35,9 @@ proxy('www.google.com', {
         console.log(srcReq.url, srcReq.cookies);
         return proxyReqOpts;
     },
+});
+
+proxy('www.google.com', {
     userResHeaderDecorator(headers, userReq, userRes, proxyReq, proxyRes) {
         console.log(userReq.url, userRes.statusCode);
         console.log(proxyReq.url, proxyRes.statusCode);
