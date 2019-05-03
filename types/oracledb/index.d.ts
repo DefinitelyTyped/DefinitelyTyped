@@ -1761,7 +1761,7 @@ declare namespace oracledb {
          * Further statistics can be enabled by setting the createPool() poolAttrs parameter _enableStats to true.
          * Statistics can be output to the console by calling the pool._logStats() method.
          */
-        _enableStats: boolean;
+        _enableStats?: boolean;
     }
 
     /**
