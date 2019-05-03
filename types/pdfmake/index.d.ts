@@ -175,7 +175,7 @@ declare module 'pdfmake/build/pdfmake' {
         compress?: boolean;
         header?: TDocumentHeaderFooterFunction;
         footer?: TDocumentHeaderFooterFunction;
-        content: string | Content;
+        content: string | Content | Content[];
         styles?: Style;
         pageSize?: PageSize;
         pageOrientation?: PageOrientation;
