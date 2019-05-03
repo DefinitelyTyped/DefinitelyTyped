@@ -20,6 +20,16 @@ proxy('www.google.com', {
 });
 
 proxy('www.google.com', {
+    proxyErrorHandler: (err, res, next) => {
+        switch (err && err.code) {
+            case 'ECONNRESET':    { return res.status(405).send('504 became 405'); }
+            case 'ECONNREFUSED':  { return res.status(200).send('gotcher back'); }
+            default:              { next(err); }
+        }
+    },
+});
+
+proxy('www.google.com', {
     proxyReqOptDecorator(proxyReqOpts, srcReq) {
         console.log(proxyReqOpts.headers, proxyReqOpts.method);
         console.log(srcReq.url, srcReq.cookies);

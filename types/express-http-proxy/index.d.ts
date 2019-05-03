@@ -3,12 +3,13 @@
 // Definitions by:  ulrichb <https://github.com/ulrichb>
 //                  Daniel Schopf <https://github.com/Danscho>
 //                  Gabriel Fournier <https://github.com/carboneater>
+//                  Niek van Bennekom <https://github.com/niekvb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 import { RequestHandler, Request } from "express";
 import { RequestOptions, IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
-import { Response } from "express-serve-static-core";
+import { NextFunction, Response } from "express-serve-static-core";
 
 interface ProxyOptions {
     /**
@@ -17,6 +18,7 @@ interface ProxyOptions {
      * See https://github.com/stream-utils/raw-body/blob/master/index.d.ts
      */
     limit?: number | string;
+    proxyErrorHandler?: (err: any, res: Response, next: NextFunction) => any;
     proxyReqPathResolver?: (req: Request) => string;
     proxyReqOptDecorator?: (proxyReqOpts: RequestOptions, srcReq: Request) => RequestOptions;
     userResHeaderDecorator?: (headers: IncomingHttpHeaders, userReq: Request, userRes: Response, proxyReq: Request, proxyRes: Response) => OutgoingHttpHeaders;
