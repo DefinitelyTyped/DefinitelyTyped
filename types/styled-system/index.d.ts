@@ -127,7 +127,7 @@ export interface SpaceProps<TLength = TLengthStyledSystem> {
 
 export const space: styleFn;
 
-export interface MarginProps extends Pick<SpaceProps, 'm' | 'margin' | 'mt' | 'marginTop' | 'mb' | 'marginBottom' | 'ml' | 'marginLeft' | 'mr' | 'marginRight'> {}
+export interface MarginProps extends Pick<SpaceProps, 'm' | 'margin' | 'mt' | 'marginTop' | 'mb' | 'marginBottom' | 'ml' | 'marginLeft' | 'mr' | 'marginRight' | 'my' | 'mx'> {}
 export interface MarginTopProps extends Pick<SpaceProps, 'mt' | 'marginTop'> {}
 export interface MarginBottomProps extends Pick<SpaceProps, 'mb' | 'marginBottom'> {}
 export interface MarginLeftProps extends Pick<SpaceProps, 'ml' | 'marginLeft'> {}
@@ -139,7 +139,7 @@ export const marginBottom: styleFn;
 export const marginLeft: styleFn;
 export const marginRight: styleFn;
 
-export interface PaddingProps extends Pick<SpaceProps, 'p' | 'padding' | 'pt' | 'paddingTop' | 'pb' | 'paddingBottom' | 'pl' | 'paddingLeft' | 'pr' | 'paddingRight'> {}
+export interface PaddingProps extends Pick<SpaceProps, 'p' | 'padding' | 'pt' | 'paddingTop' | 'pb' | 'paddingBottom' | 'pl' | 'paddingLeft' | 'pr' | 'paddingRight' | 'py' | 'px'> {}
 export interface PaddingTopProps extends Pick<SpaceProps, 'pt' | 'paddingTop'> {}
 export interface PaddingBottomProps extends Pick<SpaceProps, 'pb' | 'paddingBottom'> {}
 export interface PaddingLeftProps extends Pick<SpaceProps, 'pl' | 'paddingLeft'> {}
