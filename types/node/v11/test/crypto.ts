@@ -594,8 +594,3 @@ import { promisify } from 'util';
     str = crypto.constants.defaultCoreCipherList;
     str = crypto.constants.defaultCipherList;
 }
-
-{
-    const sig: Buffer = crypto.sign('md5', Buffer.from(''), 'mykey');
-    const correct: Buffer = crypto.verify('md5', sig, 'mykey', sig);
-}

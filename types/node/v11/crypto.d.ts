@@ -145,11 +145,6 @@ declare module "crypto" {
     class KeyObject {
         private constructor();
         asymmetricKeyType?: KeyType;
-        /**
-         * For asymmetric keys, this property represents the size of the embedded key in
-         * bytes. This property is `undefined` for symmetric keys.
-         */
-        asymmetricKeySize?: number;
         export(options: KeyExportOptions<'pem'>): string | Buffer;
         export(options?: KeyExportOptions<'der'>): Buffer;
         symmetricSize?: number;
@@ -274,15 +269,9 @@ declare module "crypto" {
 
     function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
 
-    interface SigningOptions {
-        /**
-         * @See crypto.constants.RSA_PKCS1_PADDING
-         */
+    interface SignPrivateKeyInput extends PrivateKeyInput {
         padding?: number;
         saltLength?: number;
-    }
-
-    interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions {
     }
 
     type KeyLike = string | Buffer | KeyObject;
@@ -576,27 +565,4 @@ declare module "crypto" {
         function __promisify__(type: "ec", options: ECKeyPairOptions<'der', 'der'>): Promise<{ publicKey: Buffer, privateKey: Buffer }>;
         function __promisify__(type: "ec", options: ECKeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
     }
-
-    /**
-     * Calculates and returns the signature for `data` using the given private key and
-     * algorithm. If `algorithm` is `null` or `undefined`, then the algorithm is
-     * dependent upon the key type (especially Ed25519 and Ed448).
-     *
-     * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
-     * passed to [`crypto.createPrivateKey()`][].
-     */
-    function sign(algorithm: string | null | undefined, data: Binary, key: KeyLike | SignPrivateKeyInput): Buffer;
-
-    interface VerifyKeyWithOptions extends KeyObject, SigningOptions {
-    }
-
-    /**
-     * Calculates and returns the signature for `data` using the given private key and
-     * algorithm. If `algorithm` is `null` or `undefined`, then the algorithm is
-     * dependent upon the key type (especially Ed25519 and Ed448).
-     *
-     * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
-     * passed to [`crypto.createPublicKey()`][].
-     */
-    function verify(algorithm: string | null | undefined, data: Binary, key: KeyLike | VerifyKeyWithOptions, signature: Binary): Buffer;
 }
