@@ -22,7 +22,6 @@ declare namespace CustomFunctions {
     interface StreamingHandler<T> extends CancelableHandler {
         /**
          * Sets the returned result for a streaming custom function.
-         * @beta
          */
         setResult: (value: T | Error) => void;
     }
@@ -30,7 +29,6 @@ declare namespace CustomFunctions {
     interface CancelableHandler {
         /**
          * Handles what should occur when a custom function is canceled.
-         * @beta
          */
         onCanceled: () => void;
     }
