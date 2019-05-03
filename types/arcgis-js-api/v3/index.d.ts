@@ -14078,6 +14078,62 @@ declare module "esri/request" {
   export = request;
 }
 
+declare module "esri/styles/basic" {
+  var basic: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example: Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): {
+      /**
+       * Basemaps that this theme has schemes for. Example: ["streets","gray","topo","terrain","national-geographic","oceans","osm","satellite","hybrid","dark-gray"]
+       */
+      basemaps: string[];
+      /**
+       * Theme description. Example: "Default theme for basic visualization of features."
+       */
+      description: string;
+      /**
+       * Display label for theme.
+       */
+      label: string;
+      /**
+       * Name of the theme. The following themes are available: default.
+       */
+      name: string;
+    }[];
+
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: {
+      /**
+       * Name of the basemap.  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+       */
+      basemap: string;
+      /**
+       * Geometry type of features in your dataset.  Supported types: point, line, polygon.
+       */
+      geometryType: string;
+      /**
+       * Name of the theme.  Example: default.
+       */
+      theme: string;
+    }): {
+      /**
+       * Primary scheme is an object with properties based on the feature geometry type.
+       */
+      primaryScheme: any;
+      /**
+       * Secondary schemes.  It is an array of objects with properties identical to the primaryScheme.
+       */
+      secondaryScheme: any;
+    };
+  }
+  export = basic;
+}
+
 declare module "esri/support/expressionUtils" {
   /** A utility module that allows you to enable geometry operations referenced inside Arcade expressions. */
   var expressionUtils: {
