@@ -84,12 +84,12 @@ declare namespace MeteorAstronomy {
         getModifier(): any;
         raw(): T;
         raw(field: string): any;
-        raw(fields: string[]): Array<Partial<T>>;
-        save(options?: SaveAndValidateOptions<keyof T>, callback?: SaveAndValidateCallback): void;
-        save(options: SaveAndValidateOptions<keyof T> | SaveAndValidateCallback): void;
+        raw(fields: string[]): Partial<T>;
+        save(options: SaveAndValidateOptions<keyof T>, callback: SaveAndValidateCallback): void;
+        save(optionsOrCallback?: SaveAndValidateOptions<keyof T> | SaveAndValidateCallback): void;
         copy(save?: boolean): Model<T>;
-        validate(options?: SaveAndValidateOptions<keyof T>, callback?: SaveAndValidateCallback): void;
-        validate(options: SaveAndValidateOptions<keyof T> | SaveAndValidateCallback): void;
+        validate(options: SaveAndValidateOptions<keyof T>, callback: SaveAndValidateCallback): void;
+        validate(optionsOrCallback?: SaveAndValidateOptions<keyof T> | SaveAndValidateCallback): void;
         remove(callback?: RemoveCallback): void;
     };
 
