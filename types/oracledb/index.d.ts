@@ -526,7 +526,7 @@ declare namespace oracledb {
      * @see https://oracle.github.io/node-oracledb/doc/api.html#executebindParams
      */
     interface BindParametersObject {
-        [parameter: string]: BindParameter;
+        [parameter: string]: BindParameter | string | number;
     }
 
     interface CloseConnectionOptions {
@@ -1591,6 +1591,11 @@ declare namespace oracledb {
         terminate(drainTime?: number): Promise<void>;
         terminate(drainTime: number, callback: (error: DBError) => void): void;
         terminate(callback: (error: DBError) => void): void;
+
+        /**
+         * If _enableStats is true, this method can be used to output statistics to the console.
+         */
+        _logStats(): void;
     }
 
     /**
@@ -1752,6 +1757,11 @@ declare namespace oracledb {
          * If homogeneous is false, then the pool user name and password need to be specified only if the application wants that user to proxy the users supplied in subsequent pool.getConnection() calls.
          */
         user?: string;
+        /**
+         * Further statistics can be enabled by setting the createPool() poolAttrs parameter _enableStats to true.
+         * Statistics can be output to the console by calling the pool._logStats() method.
+         */
+        _enableStats: boolean;
     }
 
     /**
