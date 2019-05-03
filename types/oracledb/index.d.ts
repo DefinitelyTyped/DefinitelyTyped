@@ -526,7 +526,7 @@ declare namespace oracledb {
      * @see https://oracle.github.io/node-oracledb/doc/api.html#executebindParams
      */
     interface BindParametersObject {
-        [parameter: string]: BindParameter | string | number;
+        [parameter: string]: BindParameter | string | number | null;
     }
 
     interface CloseConnectionOptions {
