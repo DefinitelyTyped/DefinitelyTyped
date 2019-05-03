@@ -48,4 +48,4 @@ proxy('www.google.com', {
     }
 });
 
-proxy((req) => 'com.google.www'.split('.').reverse().join('.'));
+app.use('/proxy/:port', proxy((req) => 'localhost:' + req.params.port));
