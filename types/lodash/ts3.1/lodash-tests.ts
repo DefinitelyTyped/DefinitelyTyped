@@ -7037,7 +7037,7 @@ _.templateSettings; // $ExpectType TemplateSettings
     _.partialRight(func3, 42,     _, true);
 
     fp.partial(func1, [42]); // $ExpectType Function0<number>
-    fp.partial(func1)([42]); // $ExpectType Function0<number>
+    fp.partial<[], number, number>(func1)([42]); // $ExpectType Function0<number>
     fp.partial(func2)([fp.partial.placeholder, "foo"]); // $ExpectType Function1<number, number>
     fp.partialRight(func1, [42]); // $ExpectType Function0<number>
     fp.partialRight(func1)([42]); // $ExpectType Function0<number>
