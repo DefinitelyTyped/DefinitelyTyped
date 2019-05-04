@@ -5,7 +5,7 @@
 //                 Tobias Kraus <https://github.com/tobiaskraus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export class Delaunator<P> {
+export default class Delaunator<P> {
     /**
      * A Uint32Array array of triangle vertex indices (each group of three numbers forms a triangle).
      * All triangles are directed counterclockwise.
@@ -29,7 +29,7 @@ export class Delaunator<P> {
     /**
      * An array of input coordinates in the form [x0, y0, x1, y1, ....], of the type provided in the constructor (or Float64Array if you used Delaunator.from).
      */
-    coords: ArrayLike<number>|Float64Array;
+    coords: ArrayLike<number> | Float64Array;
 
     /**
      * Constructs a delaunay triangulation object given a typed array of point coordinates of the form: [x0, y0, x1, y1, ...].
