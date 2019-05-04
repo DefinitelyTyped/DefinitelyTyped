@@ -82,7 +82,7 @@ declare namespace nock {
         isDone(): boolean;
         restore(): void;
         pendingMocks(): string[];
-            function activeMocks(): string[];
+        activeMocks(): string[];
     }
 
     interface Interceptor {
