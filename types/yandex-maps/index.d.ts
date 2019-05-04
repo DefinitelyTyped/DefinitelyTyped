@@ -1385,7 +1385,7 @@ declare namespace ymaps {
 
 				add(object: object): this;
 
-				each(callback: (layer: Layer) => void, context?: object): void;
+				each(callback: (layer: ILayer) => void, context?: object): void;
 
 				getIterator(): IIterator;
 
