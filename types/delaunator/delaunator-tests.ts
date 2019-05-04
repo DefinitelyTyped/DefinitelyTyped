@@ -13,7 +13,7 @@ interface CustomPoint {
     x: number;
     y: number;
 }
-const customPoints = [{x: 168, y: 180}, {x: 168, y: 178}, {x: 168, y: 179}, {x: 168, y: 181}, {x: 168, y: 183}, {x: 167, y: 183}, {x: 167, y: 184}];
+const customPoints = [{ x: 168, y: 180 }, { x: 168, y: 178 }, { x: 168, y: 179 }, { x: 168, y: 181 }, { x: 168, y: 183 }, { x: 167, y: 183 }, { x: 167, y: 184 }];
 
 const getX = (point: CustomPoint) => point.x;
 const getY = (point: CustomPoint) => point.y;
@@ -23,7 +23,7 @@ Delaunator.from(customPoints, getX, getY);
 
 // To get the coordinates of all triangles, use:
 const triangles = d.triangles; // $ExpectType Uint32Array
-const halfedges = d.halfedges; // $ExpectType Uint32Array
+const halfedges = d.halfedges; // $ExpectType Int32Array
 const hull = d.hull; // $ExpectType Uint32Array
 const coords = d.coords; // $ExpectType ArrayLike<number> | Float64Array
 const coordinates: number[][][] = [];
