@@ -3588,3 +3588,5 @@ declare namespace ymaps {
     	removeAll(): Monitor;
 	}
 }
+
+export = ymaps;
