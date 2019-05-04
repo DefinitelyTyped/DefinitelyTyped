@@ -190,7 +190,7 @@ declare module "pdfmake/build/pdfmake" {
         images?: { [key: string]: string };
         info?: TDocumentInformation;
         pageBreakBefore?: (
-            currentNode?: any,
+            currentNode?: CurrentNode,
             followingNodesOnPage?: any,
             nodesOnNextPage?: any,
             previousNodesOnPage?: any
