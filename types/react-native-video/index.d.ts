@@ -23,6 +23,12 @@ export interface OnLoadData {
   };
 }
 
+export interface OnProgressData {
+  currentTime: number;
+  playableDuration: number;
+  seekableDuration: number;
+}
+
 export interface LoadError {
   error: {
     '': string;
@@ -74,16 +80,13 @@ export interface VideoProperties extends ViewProps {
   progressUpdateInterval?: number;
   useTextureView?: boolean;
   allowsExternalPlayback?: boolean;
+  audioOnly?: boolean;
 
   onLoadStart?(): void;
   onLoad?(data: OnLoadData): void;
   onBuffer?(): void;
   onError?(error: LoadError): void;
-  onProgress?(data: {
-    currentTime: number;
-    playableDuration: number;
-    seekableDuration: number;
-  }): void;
+  onProgress?(data: OnProgressData): void;
   onSeek?(): void;
   onEnd?(): void;
   onFullscreenPlayerWillPresent?(): void;

@@ -129,6 +129,11 @@ declare namespace Bull {
     data: T;
 
     /**
+     * Options of the job
+     */
+    opts: JobOptions;
+
+    /**
      * How many attempts where made to run this job
      */
     attemptsMade: number;
@@ -740,6 +745,11 @@ declare namespace Bull {
      * (even if there can be some delayed jobs not yet processed)
      */
     on(event: 'drained', callback: EventCallback): this; // tslint:disable-line unified-signatures
+
+    /**
+     * Array of Redis clients the queue uses
+     */
+    clients: Redis.Redis[];
   }
 
   type EventCallback = () => void;

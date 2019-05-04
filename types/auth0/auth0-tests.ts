@@ -234,5 +234,79 @@ management.getClients({fields:['name','client_metadata'], include_fields:true})
     // Handle the error
   });
 
-// Get all cients with params (with callback)
+// Get all clients with params (with callback)
 management.getClients({fields:['name','client_metadata'], include_fields:true}, (err:Error, clients:auth0.Client[]) => {});
+
+// Jobs
+management.getJob({
+    id: 'job_id'
+}).then((job) => console.log((<auth0.ExportUsersJob>job).fields));
+
+// job.type can be used as a discriminator for automatic type assertion (no casting needed)
+management.getJob({
+    id: 'job_id'
+}).then((job) => {
+    if (job.type === 'users_export') {
+        console.log(job.fields);
+    }
+});
+
+management.getJob({
+    id: 'job_id'
+}, (err, data) => console.log((<auth0.ExportUsersJob>data).fields));
+
+management.getJob({
+    id: 'job_id'
+}).then((job) => console.log((<auth0.ImportUsersJob>job).send_completion_email));
+
+management.getJob({
+    id: 'job_id'
+}, (err, data) => console.log((<auth0.ImportUsersJob>data).send_completion_email));
+
+management.getJob({
+    id: 'job_id'
+}).then((job) => console.log((<auth0.VerificationEmailJob>job).id));
+
+management.getJob({
+    id: 'job_id'
+}, (err, data) => console.log((<auth0.VerificationEmailJob>data).id));
+
+management.importUsers({
+    users: "some file data",
+    connection_id: 'con_id',
+    upsert: true
+}).then((results) => console.log(results));
+
+management.importUsers({
+    users: "some file data",
+    connection_id: 'con_id',
+    upsert: true
+}, (err, data) => console.log(data));
+
+management.exportUsers({
+    connection_id: 'con_id',
+    fields: [
+        { name: 'email', export_as: 'email_address' }
+    ],
+    format: "json",
+    limit: 500
+}).then((results) => console.log(results));
+
+management.exportUsers({
+    connection_id: 'con_id',
+    fields: [
+        { name: 'email', export_as: 'email_address' }
+    ],
+    format: "json",
+    limit: 500
+}, (err, data) => console.log(data));
+
+management.sendEmailVerification({
+    client_id: 'client_id',
+    user_id: 'user_id'
+}).then((results) => console.log(results));
+
+management.sendEmailVerification({
+    client_id: 'client_id',
+    user_id: 'user_id'
+}, (err, data) => console.log(data));

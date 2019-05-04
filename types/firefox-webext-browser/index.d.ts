@@ -2763,11 +2763,12 @@ declare namespace browser.runtime {
     interface Port {
         name: string;
         disconnect: () => void;
-        onDisconnect: WebExtEvent<() => void>;
-        onMessage: WebExtEvent<() => void>;
         postMessage: (message: object) => void;
         /** This property will **only** be present on ports passed to onConnect/onConnectExternal listeners. */
         sender?: MessageSender;
+        error?: Error;
+        onMessage: WebExtEvent<(response: object) => void>;
+        onDisconnect: WebExtEvent<(port: Port) => void>;
     }
 
     /** An object containing information about the script context that sent a message or request. */

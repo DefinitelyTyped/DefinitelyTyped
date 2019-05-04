@@ -1,4 +1,4 @@
-// Type definitions for express-graphql 0.6
+// Type definitions for express-graphql 0.8
 // Project: https://github.com/graphql/express-graphql
 // Definitions by: Isman Usoh <https://github.com/isman-usoh>
 //                 Nitin Tutlani <https://github.com/nitintutlani>
@@ -6,11 +6,21 @@
 //                 Ehsan Ziya <https://github.com/zya>
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Firede <https://github.com/firede>
+//                 Ivan Goncharov <https://github.com/IvanGoncharov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
 import { Request, Response } from "express";
-import { DocumentNode, GraphQLSchema, GraphQLError } from "graphql";
+import {
+    ExecutionArgs,
+    ExecutionResult,
+    DocumentNode,
+    GraphQLSchema,
+    GraphQLError,
+    GraphQLFieldResolver,
+    ValidationContext,
+    ASTVisitor,
+} from "graphql";
 export = graphqlHTTP;
 
 declare namespace graphqlHTTP {
@@ -47,17 +57,39 @@ declare namespace graphqlHTTP {
         pretty?: boolean | null;
 
         /**
+         * An optional array of validation rules that will be applied on the document
+         * in additional to those defined by the GraphQL spec.
+         */
+        validationRules?: Array<(ctx: ValidationContext) => ASTVisitor> | null;
+
+        /**
+         * An optional function which will be used to validate instead of default `validate`
+         * from `graphql-js`.
+         */
+        customValidateFn?: ((
+          schema: GraphQLSchema,
+          documentAST: DocumentNode,
+          rules: ReadonlyArray<any>,
+        ) => ReadonlyArray<GraphQLError>) | null;
+
+        /**
+         * An optional function which will be used to execute instead of default `execute`
+         * from `graphql-js`.
+         */
+        customExecuteFn?: ((args: ExecutionArgs) => Promise<ExecutionResult>) | null;
+
+        /**
          * An optional function which will be used to format any errors produced by
          * fulfilling a GraphQL operation. If no function is provided, GraphQL's
          * default spec-compliant `formatError` function will be used.
          */
-        formatError?: ((error: GraphQLError) => any) | null;
+        customFormatErrorFn?: ((error: GraphQLError) => any) | null;
 
         /**
-         * An optional array of validation rules that will be applied on the document
-         * in additional to those defined by the GraphQL spec.
+         * `formatError` is deprecated and replaced by `customFormatErrorFn`. It will
+         *  be removed in version 1.0.0.
          */
-        validationRules?: any[] | null;
+        formatError?: ((error: GraphQLError) => any) | null;
 
         /**
          * An optional function for adding additional metadata to the GraphQL response
@@ -75,6 +107,13 @@ declare namespace graphqlHTTP {
          * A boolean to optionally enable GraphiQL mode.
          */
         graphiql?: boolean | null;
+
+        /**
+         * A resolver function to use when one is not provided by the schema.
+         * If not provided, the default field resolver is used (which looks for a
+         * value or method on the source value with the field's name).
+         */
+        fieldResolver?: GraphQLFieldResolver<any, any> | null;
     }
 
     /**
@@ -100,6 +139,11 @@ declare namespace graphqlHTTP {
          * The result of executing the operation.
          */
         result: any;
+
+        /**
+         * A value to pass as the context to the graphql() function.
+         */
+        context?: any;
     }
 
     export interface GraphQLParams {

@@ -10,6 +10,27 @@
  */
 declare const uni: Uni;
 
+interface TabItem {
+    /**
+     * 被点击tabItem的序号，从0开始
+     *
+     * 参考: [http://uniapp.dcloud.io/frame?id=页面生命周期](http://uniapp.dcloud.io/frame?id=页面生命周期)
+     */
+    index?: number;
+    /**
+     * 被点击tabItem的页面路径
+     *
+     * 参考: [http://uniapp.dcloud.io/frame?id=页面生命周期](http://uniapp.dcloud.io/frame?id=页面生命周期)
+     */
+    pagePath?: string;
+    /**
+     * 被点击tabItem的按钮文字
+     *
+     * 参考: [http://uniapp.dcloud.io/frame?id=页面生命周期](http://uniapp.dcloud.io/frame?id=页面生命周期)
+     */
+    text?: string;
+}
+
 declare class Uni {
     /**
      * 发起网络请求
@@ -188,7 +209,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=setstoragesync](http://uniapp.dcloud.io/api/storage/storage?id=setstoragesync)
      */
-    setStorageSync(): void;
+    setStorageSync(key: string): any;
     /**
      * 从本地缓存中异步获取指定 key 对应的内容
      *
@@ -200,7 +221,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=getstoragesync](http://uniapp.dcloud.io/api/storage/storage?id=getstoragesync)
      */
-    getStorageSync(): void;
+    getStorageSync(key: string): any;
     /**
      * 异步获取当前storage的相关信息
      *
@@ -212,7 +233,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=getstorageinfosync](http://uniapp.dcloud.io/api/storage/storage?id=getstorageinfosync)
      */
-    getStorageInfoSync(): void;
+    getStorageInfoSync(): GetStorageInfoSuccess;
     /**
      * 从本地缓存中异步移除指定 key
      *
@@ -224,7 +245,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=removestoragesync](http://uniapp.dcloud.io/api/storage/storage?id=removestoragesync)
      */
-    removeStorageSync(): void;
+    removeStorageSync(key: string): any;
     /**
      * 清理本地数据缓存
      *
@@ -742,6 +763,12 @@ declare class Uni {
      */
     offWindowResize(callback: () => void): void;
     /**
+     * 动态加载网络字体
+     *
+     * 参考: [http://uniapp.dcloud.io/api/ui/font?id=loadfontface](http://uniapp.dcloud.io/api/ui/font?id=loadfontface)
+     */
+    loadFontFace(options: FontFace): void;
+    /**
      * 获取服务供应商
      *
      * 参考: [http://uniapp.dcloud.io/api/plugins/provider?id=getprovider](http://uniapp.dcloud.io/api/plugins/provider?id=getprovider)
@@ -765,30 +792,6 @@ declare class Uni {
      * 参考: [http://uniapp.dcloud.io/api/plugins/share?id=share](http://uniapp.dcloud.io/api/plugins/share?id=share)
      */
     share(options: ShareOptions): void;
-    /**
-     * 开启推送
-     *
-     * 参考: [http://uniapp.dcloud.io/api/plugins/push?id=subscribepush](http://uniapp.dcloud.io/api/plugins/push?id=subscribepush)
-     */
-    subscribePush(options: SubscribePushOptions): void;
-    /**
-     * 关闭推送
-     *
-     * 参考: [http://uniapp.dcloud.io/api/plugins/push?id=unsubscribepush](http://uniapp.dcloud.io/api/plugins/push?id=unsubscribepush)
-     */
-    unsubscribePush(options: UnscribePushOptions): void;
-    /**
-     * 监听透传数据
-     *
-     * 参考: [http://uniapp.dcloud.io/api/plugins/push?id=onpush](http://uniapp.dcloud.io/api/plugins/push?id=onpush)
-     */
-    onPush(options: OnPushOptions): void;
-    /**
-     * 移除监听透传数据
-     *
-     * 参考: [http://uniapp.dcloud.io/api/plugins/push?id=offpush](http://uniapp.dcloud.io/api/plugins/push?id=offpush)
-     */
-    offPush(options: OffPushOptions): void;
     /**
      * 支付
      *
@@ -906,11 +909,65 @@ interface GeneralCallbackResult {
     errMsg?: string;
 }
 
+interface FontFace {
+    /**
+     * 定义的字体名称
+     */
+    family?: string;
+    /**
+     * 字体资源的地址
+     */
+    source?: string;
+    /**
+     * 可选的字体描述符
+     */
+    desc?: FontFaceDesc;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?: () => void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?: () => void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?: () => void;
+}
+
+interface FontFaceDesc {
+    /**
+     * 字体样式
+     * - normal:
+     * - italic:
+     * - oblique:
+     */
+    style?: 'normal' | 'italic' | 'oblique';
+    /**
+     * 字体粗细
+     * - normal:
+     * - bold:
+     */
+    weight?: 'normal' | 'bold';
+    /**
+     * 设置小型大写字母的字体显示文本
+     * - normal:
+     * - small-caps:
+     * - inherit:
+     */
+    variant?: 'normal' | 'small-caps' | 'inherit';
+}
+
 interface RequestPaymentOptions {
     /**
-     * 分享服务提供商，通过 uni.getProvider 获取
+     * 支付服务提供商，通过 uni.getProvider 获取
+     * - alipay: 支付宝支付
+     * - wxpay: 微信支付
+     * - baidu: 百度收银台
+     * - appleiap: 苹果应用内支付
      */
-    provider?: string;
+    provider?: 'alipay' | 'wxpay' | 'baidu' | 'appleiap';
     /**
      * 订单数据
      */
@@ -2443,6 +2500,10 @@ interface MapContext {
      * 获取当前地图的缩放级别
      */
     getScale(options: MapContextGetScaleOptions): void;
+    /**
+     * 获取原生地图对象
+     */
+    $getAppMap(): object;
 }
 
 interface MapContextGetCenterLocationOptions {
@@ -5286,8 +5347,12 @@ interface GetProviderOptions {
 interface GetProviderRes {
     /**
      * 服务类型
+     * - oauth: 授权登录
+     * - share: 分享
+     * - payment: 支付
+     * - push: 推送
      */
-    service?: string;
+    service?: 'oauth' | 'share' | 'payment' | 'push';
     /**
      * 得到的服务供应商
      */
@@ -5296,9 +5361,13 @@ interface GetProviderRes {
 
 interface LoginOptions {
     /**
-     * 分享服务提供商，通过uni.getProvider获取，如果不设置则弹出分享列表选择界面
+     * 授权登录服务提供商，通过uni.getProvider获取，如果不设置则弹出分享列表选择界面
+     * - weixin: 微信登录
+     * - qq: QQ登录
+     * - sinaweibo: 新浪微博登录
+     * - xiaomi: 小米登录
      */
-    provider?: string;
+    provider?: 'weixin' | 'qq' | 'sinaweibo' | 'xiaomi';
     /**
      * 超时时间，单位 ms
      */
@@ -5364,9 +5433,13 @@ interface AuthorizeOptions {
 
 interface GetUserInfoOptions {
     /**
-     * 分享服务提供商，通过uni.getProvider获取
+     * 授权登录服务提供商，通过uni.getProvider获取
+     * - weixin: 微信登录
+     * - qq: QQ登录
+     * - sinaweibo: 新浪微博登录
+     * - xiaomi: 小米登录
      */
-    provider?: string;
+    provider?: 'weixin' | 'qq' | 'sinaweibo' | 'xiaomi';
     /**
      * 是否带上登录态信息，仅微信小程序生效。
      */
@@ -5438,8 +5511,11 @@ interface UserInfo {
 interface ShareOptions {
     /**
      * 分享服务提供商，通过uni.getProvider获取，如果不设置则弹出分享列表选择界面
+     * - sinaweibo: 新浪微博分享
+     * - qq: 分享到QQ好友
+     * - weixin: 分享微信消息、朋友圈及微信小程序
      */
-    provider?: string;
+    provider?: 'sinaweibo' | 'qq' | 'weixin';
     /**
      * 分享类型。默认图文0，纯文字1，纯图片2，音乐3，视频4，小程序5。
      * - 0: 图文
@@ -5516,9 +5592,12 @@ interface MiniProgramShareOptions {
 
 interface SubscribePushOptions {
     /**
-     * 分享推送提供商，通过uni.getProvider获取
+     * 推送服务提供商，通过uni.getProvider获取
+     * - unipush: UniPush
+     * - igexin: 个推
+     * - mipush: 小米推送
      */
-    provider?: string;
+    provider?: 'unipush' | 'igexin' | 'mipush';
     /**
      * 接口调用成功的回调函数
      */
@@ -5535,9 +5614,12 @@ interface SubscribePushOptions {
 
 interface UnscribePushOptions {
     /**
-     * 分享推送提供商，通过uni.getProvider获取
+     * 推送服务提供商，通过uni.getProvider获取
+     * - unipush: UniPush
+     * - igexin: 个推
+     * - mipush: 小米推送
      */
-    provider?: string;
+    provider?: 'unipush' | 'igexin' | 'mipush';
     /**
      * 接口调用成功的回调函数
      */
@@ -5554,9 +5636,12 @@ interface UnscribePushOptions {
 
 interface OnPushOptions {
     /**
-     * 分享推送提供商，通过uni.getProvider获取
+     * 推送服务提供商，通过uni.getProvider获取
+     * - unipush: UniPush
+     * - igexin: 个推
+     * - mipush: 小米推送
      */
-    provider?: string;
+    provider?: 'unipush' | 'igexin' | 'mipush';
     /**
      * 接收到透传数据回调，回调参数（Object）：messageId（消息id）、data（消息内容）
      */
@@ -5577,9 +5662,12 @@ interface OnPushOptions {
 
 interface OffPushOptions {
     /**
-     * 分享推送提供商，通过uni.getProvider获取
+     * 推送服务提供商，通过uni.getProvider获取
+     * - unipush: UniPush
+     * - igexin: 个推
+     * - mipush: 小米推送
      */
-    provider?: string;
+    provider?: 'unipush' | 'igexin' | 'mipush';
     /**
      * 接口调用成功的回调函数
      */

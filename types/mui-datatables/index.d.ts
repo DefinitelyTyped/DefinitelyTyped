@@ -122,7 +122,7 @@ export interface MUIDataTableOptions {
     textLabels?: MUIDataTableTextLabels;
     pagination?: boolean;
     selectableRows?: boolean;
-    IsRowSelectable?: (dataIndex: number) => boolean;
+    isRowSelectable?: (dataIndex: number) => boolean;
     resizableColumns?: boolean;
     expandableRows?: boolean;
     renderExpandableRow?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => React.ReactNode;
