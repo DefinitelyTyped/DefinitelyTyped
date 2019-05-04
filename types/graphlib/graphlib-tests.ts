@@ -42,4 +42,9 @@ function test_graph() {
   graphlib.alg.topsort(g);
   graphlib.alg.preorder(g, g.nodes());
   graphlib.alg.postorder(g, g.nodes());
+
+  const typed = new graphlib.Graph<number>();
+  typed.setEdge('a', 'b', 123, 'test');
+  const lablel:number = typed.edge('a', 'b');
+
 }

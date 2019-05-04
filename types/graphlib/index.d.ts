@@ -2,7 +2,7 @@
 // Project: https://github.com/cpettitt/graphlib
 // Definitions by: Dan Vanderkam <http://danvk.org/>, Dan Mironenko <wolfson@bracketedrebels.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.3
 
 declare module "graphlib" {
 	export interface GraphOptions {
@@ -18,68 +18,68 @@ declare module "graphlib" {
 		name?: string;
 	}
 
-	export class Graph {
+	export class Graph<L =any> {
 		constructor(options?: GraphOptions);
 
 		/**
 		 * Sets the default node label. This label will be assigned as default label
 		 * in case if no label was specified while setting a node.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument label - default node label.
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		setDefaultNodeLabel(label: any): Graph;
+		setDefaultNodeLabel(label: L): Graph<L>;
 
 		/**
 		 * Sets the default node label factory function. This function will be invoked
-		 * each time when setting a node with no label specified and returned value 
+		 * each time when setting a node with no label specified and returned value
 		 * will be used as a label for node.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument labelFn - default node label factory function.
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		setDefaultNodeLabel(labelFn: (v: string) => any): Graph;
+		setDefaultNodeLabel(labelFn: (v: string) => L): Graph<L>;
 
 		/**
 		 * Creates or updates the value for the node v in the graph. If label is supplied
 		 * it is set as the value for the node. If label is not supplied and the node was
 		 * created by this call then the default node label will be assigned.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument name - node name.
 		 * @argument label - value to set for node.
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		setNode(name: string, label?: any): Graph;
+		setNode(name: string, label?: L): Graph<L>;
 
 		/**
 		 * Invokes setNode method for each node in names list.
 		 * Complexity: O(|names|).
-		 * 
+		 *
 		 * @argument names - list of nodes names to be set.
 		 * @argument label - value to set for each node in list.
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		setNodes(names: string[], label?: any): Graph;
+		setNodes(names: string[], label?: L): Graph<L>;
 
 		/**
 		 * Sets node p as a parent for node v if it is defined, or removes the
 		 * parent for v if p is undefined. Method throws an exception in case of
 		 * invoking it in context of noncompound graph.
 		 * Average-case complexity: O(1).
-		 * 
+		 *
 		 * @argument v - node to be child for p.
 		 * @argument p - node to be parent for v.
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		setParent(v: string, p?: string): Graph;
+		setParent(v: string, p?: string): Graph<L>;
 
 		/**
 		 * Gets parent node for node v.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument v - node to get parent of.
 		 * @returns parent node name or void if v has no parent.
 		 */
@@ -88,7 +88,7 @@ declare module "graphlib" {
 		/**
 		 * Gets list of direct children of node v.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument v - node to get children of.
 		 * @returns children nodes names list.
 		 */
@@ -99,49 +99,49 @@ declare module "graphlib" {
 		 * are also removed. In case of compound graph, if parent is rejected by filter,
 		 * than all its children are rejected too.
 		 * Average-case complexity: O(|E|+|V|).
-		 * 
+		 *
 		 * @argument filter - filtration function detecting whether the node should stay or not.
 		 * @returns new graph made from current and nodes filtered.
 		 */
-		filterNodes(filter: (v: string) => boolean): Graph;
+		filterNodes(filter: (v: string) => boolean): Graph<L>;
 
 		/**
 		 * Sets the default edge label. This label will be assigned as default label
 		 * in case if no label was specified while setting an edge.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument label - default edge label.
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		setDefaultEdgeLabel(label: any): Graph;
+		setDefaultEdgeLabel(label: L): Graph<L>;
 
 		/**
 		 * Sets the default edge label factory function. This function will be invoked
-		 * each time when setting an edge with no label specified and returned value 
+		 * each time when setting an edge with no label specified and returned value
 		 * will be used as a label for edge.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument labelFn - default edge label factory function.
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		setDefaultEdgeLabel(labelFn: (v: string) => any): Graph;
+		setDefaultEdgeLabel(labelFn: (v: string) => L): Graph<L>;
 
 		/**
 		 * Establish an edges path over the nodes in nodes list. If some edge is already
 		 * exists, it will update its label, otherwise it will create an edge between pair
 		 * of nodes with label provided or default label if no label provided.
 		 * Complexity: O(|nodes|).
-		 * 
+		 *
 		 * @argument nodes - list of nodes to be connected in series.
 		 * @argument label - value to set for each edge between pairs of nodes.
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		setPath(nodes: string[], label?: any): Graph;
+		setPath(nodes: string[], label?: L): Graph<L>;
 
 		/**
 		 * Detects whether graph has a node with specified name or not.
-		 
-		 * 
+
+		 *
 		 * @argument name - name of the node.
 		 * @returns true if graph has node with specified name, false - otherwise.
 		 */
@@ -156,13 +156,13 @@ declare module "graphlib" {
 		 * @argument name - name of the node.
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		removeNode(name: string): Graph;
+		removeNode(name: string): Graph<L>;
 
 		/**
 		 * Gets all nodes of the graph. Note, the in case of compound graph subnodes are
 		 * not included in list.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @returns list of graph nodes.
 		 */
 		nodes(): string[];
@@ -170,10 +170,10 @@ declare module "graphlib" {
 		/**
 		 * Gets the label of node with specified name.
 		 * Complexity: O(|V|).
-		 * 
+		 *
 		 * @returns label value of the node.
 		 */
-		node(name: string): any;
+		node(name: string): L;
 
 		/**
 		 * Creates or updates the label for the edge (v, w) with the optionally supplied
@@ -181,32 +181,32 @@ declare module "graphlib" {
 		 * supplied and the edge was created by this call then the default edge label will
 		 * be assigned. The name parameter is only useful with multigraphs.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument v - edge source node.
 		 * @argument w - edge sink node.
 		 * @argument label - value to associate with the edge.
 		 * @argument name - unique name of the edge in order to identify it in multigraph.
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		setEdge(v: string, w: string, label?: any, name?: string): Graph;
+		setEdge(v: string, w: string, label?: L, name?: string): Graph<L>;
 
 		/**
-		 * Creates or updates the label for the specified edge. If label is supplied it is 
-		 * set as the value for the edge. If label is not supplied and the edge was created 
-		 * by this call then the default edge label will be assigned. The name parameter is 
+		 * Creates or updates the label for the specified edge. If label is supplied it is
+		 * set as the value for the edge. If label is not supplied and the edge was created
+		 * by this call then the default edge label will be assigned. The name parameter is
 		 * only useful with multigraphs.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument edge - edge descriptor.
 		 * @argument label - value to associate with the edge.
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		setEdge(edge: Edge, label?: any): Graph;
+		setEdge(edge: Edge, label?: L): Graph<L>;
 
 		/**
 		 * Gets edges of the graph. In case of compound graph subgraphs are not considered.
 		 * Complexity: O(|E|).
-		 * 
+		 *
 		 * @return graph edges list.
 		 */
 		edges(): Edge[];
@@ -214,27 +214,27 @@ declare module "graphlib" {
 		/**
 		 * Gets the label for the specified edge.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument v - edge source node.
 		 * @argument w - edge sink node.
 		 * @argument name - name of the edge (actual for multigraph).
 		 * @returns value associated with specified edge.
 		*/
-		edge(v: string, w: string, name?: string): any;
+		edge(v: string, w: string, name?: string): L;
 
 		/**
 		 * Gets the label for the specified edge.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument edge - edge descriptor.
 		 * @returns value associated with specified edge.
 		*/
-		edge(e: Edge): any;
+		edge(e: Edge): L;
 
 		/**
 		 * Detects whether the graph contains specified edge or not. No subgraphs are considered.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument v - edge source node.
 		 * @argument w - edge sink node.
 		 * @argument name - name of the edge (actual for multigraph).
@@ -245,7 +245,7 @@ declare module "graphlib" {
 		/**
 		 * Detects whether the graph contains specified edge or not. No subgraphs are considered.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument edge - edge descriptor.
 		 * @returns whether the graph contains the specified edge or not.
 		 */
@@ -254,28 +254,28 @@ declare module "graphlib" {
 		/**
 		 * Removes the specified edge from the graph. No subgraphs are considered.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument edge - edge descriptor.
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		removeEdge(edge: Edge): Graph;
+		removeEdge(edge: Edge): Graph<L>;
 
 		/**
 		 * Removes the specified edge from the graph. No subgraphs are considered.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @argument v - edge source node.
 		 * @argument w - edge sink node.
 		 * @argument name - name of the edge (actual for multigraph).
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		removeEdge(v: string, w: string, name?: string): Graph;
+		removeEdge(v: string, w: string, name?: string): Graph<L>;
 
 		/**
 		 * Return all edges that point to the node v. Optionally filters those edges down to just those
 		 * coming from node u. Behavior is undefined for undirected graphs - use nodeEdges instead.
 		 * Complexity: O(|E|).
-		 * 
+		 *
 		 * @argument v - edge sink node.
 		 * @argument w - edge source node.
 		 * @returns edges descriptors list if v is in the graph, or undefined otherwise.
@@ -286,7 +286,7 @@ declare module "graphlib" {
 		 * Return all edges that are pointed at by node v. Optionally filters those edges down to just
 		 * those point to w. Behavior is undefined for undirected graphs - use nodeEdges instead.
 		 * Complexity: O(|E|).
-		 * 
+		 *
 		 * @argument v - edge source node.
 		 * @argument w - edge sink node.
 		 * @returns edges descriptors list if v is in the graph, or undefined otherwise.
@@ -297,7 +297,7 @@ declare module "graphlib" {
 		 * Returns all edges to or from node v regardless of direction. Optionally filters those edges
 		 * down to just those between nodes v and w regardless of direction.
 		 * Complexity: O(|E|).
-		 * 
+		 *
 		 * @argument v - edge adjacent node.
 		 * @argument w - edge adjacent node.
 		 * @returns edges descriptors list if v is in the graph, or undefined otherwise.
@@ -308,7 +308,7 @@ declare module "graphlib" {
 		 * Return all nodes that are predecessors of the specified node or undefined if node v is not in
 		 * the graph. Behavior is undefined for undirected graphs - use neighbors instead.
 		 * Complexity: O(|V|).
-		 * 
+		 *
 		 * @argument v - node identifier.
 		 * @returns node identifiers list or undefined if v is not in the graph.
 		 */
@@ -318,7 +318,7 @@ declare module "graphlib" {
 		 * Return all nodes that are successors of the specified node or undefined if node v is not in
 		 * the graph. Behavior is undefined for undirected graphs - use neighbors instead.
 		 * Complexity: O(|V|).
-		 * 
+		 *
 		 * @argument v - node identifier.
 		 * @returns node identifiers list or undefined if v is not in the graph.
 		 */
@@ -328,7 +328,7 @@ declare module "graphlib" {
 		 * Return all nodes that are predecessors or successors of the specified node or undefined if
 		 * node v is not in the graph.
 		 * Complexity: O(|V|).
-		 * 
+		 *
 		 * @argument v - node identifier.
 		 * @returns node identifiers list or undefined if v is not in the graph.
 		 */
@@ -337,36 +337,36 @@ declare module "graphlib" {
 
 		/**
 		 * Whether graph was created with 'directed' flag set to true or not.
-		 * 
+		 *
 		 * @returns whether the graph edges have an orientation.
 		 */
 		isDirected(): boolean;
 
 		/**
 		 * Whether graph was created with 'multigraph' flag set to true or not.
-		 * 
+		 *
 		 * @returns whether the pair of nodes of the graph can have multiple edges.
 		 */
 		isMultigraph(): boolean;
 
 		/**
 		 * Whether graph was created with 'compound' flag set to true or not.
-		 * 
+		 *
 		 * @returns whether a node of the graph can have subnodes.
 		 */
 		isCompound(): boolean;
 
 		/**
 		 * Sets the label of the graph.
-		 * 
+		 *
 		 * @argument label - label value.
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		setGraph(label: string): Graph;
+		setGraph(label: string): Graph<L>;
 
 		/**
 		 * Gets the graph label.
-		 * 
+		 *
 		 * @returns currently assigned label for the graph or undefined if no label assigned.
 		 */
 		graph(): void | string;
@@ -374,7 +374,7 @@ declare module "graphlib" {
 		/**
 		 * Gets the number of nodes in the graph.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @returns nodes count.
 		 */
 		nodeCount(): number;
@@ -382,7 +382,7 @@ declare module "graphlib" {
 		/**
 		 * Gets the number of edges in the graph.
 		 * Complexity: O(1).
-		 * 
+		 *
 		 * @returns edges count.
 		 */
 		edgeCount(): number;
@@ -390,7 +390,7 @@ declare module "graphlib" {
 		/**
 		 * Gets list of nodes without in-edges.
 		 * Complexity: O(|V|).
-		 * 
+		 *
 		 * @returns the graph source nodes.
 		 */
 		sources(): string[];
@@ -398,7 +398,7 @@ declare module "graphlib" {
 		/**
 		 * Gets list of nodes without out-edges.
 		 * Complexity: O(|V|).
-		 * 
+		 *
 		 * @returns the graph source nodes.
 		 */
 		sinks(): string[];
@@ -408,7 +408,7 @@ declare module "graphlib" {
 		/**
 		 * Creates a JSON representation of the graph that can be serialized to a string with
 		 * JSON.stringify. The graph can later be restored using json.read.
-		 * 
+		 *
 		 * @argument graph - target to create JSON representation of.
 		 * @returns JSON serializable graph representation
 		 */
@@ -423,7 +423,7 @@ declare module "graphlib" {
 		 * // ['a', 'b']
 		 * g2.edges()
 		 * // [ { v: 'a', w: 'b' } ]
-		 * 
+		 *
 		 * @argument json - JSON serializable graph representation
 		 * @returns graph constructed acccording to specified representation
 		 */
@@ -440,7 +440,7 @@ declare module "graphlib" {
 		 * Finds all connected components in a graph and returns an array of these components.
 		 * Each component is itself an array that contains the ids of nodes in the component.
 		 * Complexity: O(|V|).
-		 * 
+		 *
 		 * @argument graph - graph to find components in.
 		 * @returns array of nodes list representing components
 		 */
@@ -498,7 +498,7 @@ declare module "graphlib" {
 		 * that cycle. Method alg.isAcyclic is more efficient if you only need to determine whether a graph has a
 		 * cycle or not.
 		 * Complexity: O(|V| + |E|).
-		 * 
+		 *
 		 * @argument graph - graph where to search cycles.
 		 * @returns cycles list.
 		 */
@@ -508,7 +508,7 @@ declare module "graphlib" {
 		 * Given a Graph, graph, this function returns true if the graph has no cycles and returns false if it
 		 * does. This algorithm returns as soon as it detects the first cycle. You can use alg.findCycles
 		 * to get the actual list of cycles in the graph.
-		 * 
+		 *
 		 * @argument graph - graph to detect whether it acyclic ot not.
 		 * @returns whether graph contain cycles or not.
 		 */
@@ -571,7 +571,7 @@ declare module "graphlib" {
 		 * Given a Graph graph this function applies topological sorting to it.
 		 * If the graph has a cycle it is impossible to generate such a list and CycleException is thrown.
 		 * Complexity: O(|V| + |E|).
-		 * 
+		 *
 		 * @argument graph - graph to apply topological sorting to.
 		 * @returns an array of nodes such that for each edge u -> v, u appears before v in the array.
 		 */
@@ -581,7 +581,7 @@ declare module "graphlib" {
 		 * Performs pre-order depth first traversal on the input graph. If the graph is
 		 * undirected then this algorithm will navigate using neighbors. If the graph
 		 * is directed then this algorithm will navigate using successors.
-		 * 
+		 *
 		 * @argument graph - depth first traversal target.
 		 * @argument vs - nodes list to traverse.
 		 * @returns the nodes in the order they were visited as a list of their names.
@@ -592,7 +592,7 @@ declare module "graphlib" {
 		 * Performs post-order depth first traversal on the input graph. If the graph is
 		 * undirected then this algorithm will navigate using neighbors. If the graph
 		 * is directed then this algorithm will navigate using successors.
-		 * 
+		 *
 		 * @argument graph - depth first traversal target.
 		 * @argument vs - nodes list to traverse.
 		 * @returns the nodes in the order they were visited as a list of their names.

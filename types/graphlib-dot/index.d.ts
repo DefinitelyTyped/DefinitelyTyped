@@ -2,6 +2,7 @@
 // Project: https://github.com/dagrejs/graphlib-dot, https://github.com/cpettitt/graphlib-dot
 // Definitions by: Dom Parfitt <https://github.com/DomParfitt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { Graph } from 'graphlib';
 
