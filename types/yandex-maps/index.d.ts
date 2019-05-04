@@ -3592,3 +3592,4 @@ declare namespace ymaps {
 }
 
 export = ymaps;
+export as namespace ymaps;
