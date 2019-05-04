@@ -2,7 +2,7 @@
 // Project: https://github.com/lapwinglabs/x-ray#readme
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.3
 
 /// <reference types="node" />
 
@@ -31,7 +31,7 @@ declare namespace XRay {
     }
     type Selector = ScalarSelector | SelectorArray;
 
-    type AbortHandler = (data: any[], url: string) => boolean;
+    type AbortHandler = (data: unknown[], url: string) => boolean;
 
     interface Instance extends XRayCrawler.Instance {
         (
