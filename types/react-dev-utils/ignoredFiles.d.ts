@@ -1,2 +1,2 @@
-declare const ignoredFiles : (appSrc : string) => RegExp
-export = ignoredFiles
+declare function ignoredFiles(appSrc : string): RegExp;
+export = ignoredFiles;

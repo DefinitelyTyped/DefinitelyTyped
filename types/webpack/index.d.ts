@@ -1265,19 +1265,19 @@ declare namespace webpack {
             issuer: string | undefined;
             issuerId: number | string | undefined;
             issuerName: string | undefined;
-            issuerPath: {
+            issuerPath: Array<{
                 id: number | string;
                 identifier: string;
                 name: string;
-                profile: any | undefined; // TODO
-            }[];
+                profile: any; // TODO
+            }>;
             modules: FnModules[];
             name: string;
             optimizationBailout?: string;
             optional: boolean;
             prefetched: boolean;
-            profile: any | undefined; // TODO
-            providedExports?: any | null; // TODO
+            profile: any; // TODO
+            providedExports?: any; // TODO
             reasons: {
                 explanation: string | undefined;
                 loc?: string;
@@ -1285,9 +1285,9 @@ declare namespace webpack {
                 moduleId: number | string | null;
                 moduleIdentifier: string | null;
                 moduleName: string |  null;
-                type: any | null; // TODO
-                userRequest: any | null; // TODO
-            }
+                type: any; // TODO
+                userRequest: any; // TODO
+            };
             size: number;
             source?: string;
             usedExports?: boolean;
@@ -1296,14 +1296,14 @@ declare namespace webpack {
         interface ToJsonOutput {
             _showErrors: boolean;
             _showWarnings: boolean;
-            assets?: {
+            assets?: Array<{
                 chunks: number[];
                 chunkNames: string[];
                 emitted: boolean;
                 isOverSizeLimit?: boolean;
                 name: string;
                 size: number;
-            }[]
+            }>;
             assetsByChunkName?: Record<string, Record<string, string[]>>;
             builtAt?: number;
             children?: ToJsonOptions[] & { name?: string };
@@ -1318,7 +1318,7 @@ declare namespace webpack {
                 initial: boolean;
                 modules?: FnModules[];
                 names: string[];
-                origins?: {
+                origins?: Array<{
                     moduleId: string | number | undefined;
                     module: string;
                     moduleIdentifier: string;
@@ -1326,7 +1326,7 @@ declare namespace webpack {
                     loc: string;
                     request: string;
                     reasons: string[];
-                }[]
+                }>;
                 parents: number[];
                 reason: string | undefined;
                 recorded: undefined;

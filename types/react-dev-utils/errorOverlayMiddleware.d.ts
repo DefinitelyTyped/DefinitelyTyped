@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express'
+import { RequestHandler } from 'express';
 
-declare const errorOverlayMiddleware : () => RequestHandler
-export = errorOverlayMiddleware
+declare function errorOverlayMiddleware(): RequestHandler;
+export = errorOverlayMiddleware;
