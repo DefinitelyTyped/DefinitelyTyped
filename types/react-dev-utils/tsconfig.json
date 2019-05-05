@@ -38,6 +38,7 @@
         "printHostingInstructions.d.ts",
         "WatchMissingNodeModulesPlugin.d.ts",
         "WebpackDevServerUtils.d.ts",
+        "webpackHotDevClient.d.ts",
         "test/eslintFormatter.ts",
         "test/noopServiceWorkerMiddleware.ts",
         "test/utils.ts",
