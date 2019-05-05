@@ -18,17 +18,16 @@ export function choosePort(host: string, defaultPort: number): Promise<number | 
 
 /**
  * Creates a Webpack compiler instance for WebpackDevServer with built-in
- * helpful messages. Takes the `require('webpack')` entry point as the first
- * argument. To provide the `urls` argument, use `prepareUrls()` described
- * below.
+ * helpful messages. Takes the `require('webpack')` entry point.
+ * To provide the `urls` argument, use `prepareUrls()` described below.
  */
-export function createCompiler(
-    _webpack: typeof webpack,
+export function createCompiler(opts: {
+    webpack: typeof webpack,
     config: webpack.Configuration,
     appName: string,
     urls: Urls,
     useYarn: boolean,
-): webpack.Compiler;
+}): webpack.Compiler;
 
 /**
  * Creates a WebpackDevServer `proxy` configuration object from the `proxy`
@@ -37,7 +36,7 @@ export function createCompiler(
 export function prepareProxy(
     proxySetting: any,
     appPublicFolder: string,
-): WebpackDevServer.Configuration;
+): WebpackDevServer.ProxyConfigArray;
 
 /**
  * Returns an object with local and remote URLs for the development server.
