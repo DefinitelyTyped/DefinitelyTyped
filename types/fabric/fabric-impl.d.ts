@@ -5281,13 +5281,13 @@ interface IUtilClass {
 	 * @param [properties] Properties shared by all instances of this class
 	 *                  (be careful modifying objects defined here as this would affect all instances)
 	 */
-	createClass(parent: Function, properties?: any): void;
+	createClass(parent: Function, properties?: any): any;
 	/**
 	 * Helper for creation of "classes".
 	 * @param [properties] Properties shared by all instances of this class
 	 *                  (be careful modifying objects defined here as this would affect all instances)
 	 */
-	createClass(properties?: any): void;
+	createClass(properties?: any): any;
 }
 
 interface IUtilObject {

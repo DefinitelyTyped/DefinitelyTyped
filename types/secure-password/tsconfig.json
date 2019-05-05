@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "rollup-plugin-commonjs-tests.ts"
+        "secure-password-tests.ts"
     ]
 }
