@@ -43,6 +43,8 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
             else if (result.recordset.length > 0) {
             }
         });
+        
+        requestQuery.query`SELECT * FROM TABLE`.then(res => { });
 
         getArticlesQuery = "SELECT 1 as value FROM TABLE";
 
@@ -55,6 +57,8 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
             else if (result.recordset.length > 0 && result.recordset[0].value) {
             }
         });
+        
+        requestQuery.query<Entity>`SELECT * FROM TABLE`.then(res => { });
 
         var requestStoredProcedure = new sql.Request(connection);
         var testId: number = 0;
@@ -172,7 +176,9 @@ function test_promise_returns() {
     request.batch<Entity>('create procedure #temporary as select * from table;select 1 as value').then((recordset) => { });
     request.bulk(new sql.Table("table_name")).then(() => { });
     request.query('SELECT 1').then((recordset) => { });
+    request.query`SELECT ${1} as value`.then(res => { });
     request.query<Entity>('SELECT 1 as value').then(res => { });
+    request.query<Entity>`SELECT ${1} as value`.then(res => { });
     request.execute('procedure_name').then((recordset) => { });
 }
 
