@@ -59,13 +59,15 @@ export type CreateCompilerOptionsTypescript = CreateCompilerOptions & {
      * Be sure to provide the `devSocket` argument above if this is set to `true`.
      */
     useTypescript: boolean;
-}
+};
 
 /**
  * Creates a Webpack compiler instance for WebpackDevServer with built-in
  * helpful messages.
  */
 export function createCompiler(opts: CreateCompilerOptions): webpack.Compiler;
+// if the signatures are merged, TS will not enforce that both useTypescript and devSocket are provided
+// tslint:disable-next-line:unified-signatures
 export function createCompiler(opts: CreateCompilerOptionsTypescript): webpack.Compiler;
 
 /**
