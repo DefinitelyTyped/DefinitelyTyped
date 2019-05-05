@@ -38,7 +38,7 @@ export interface CreateCompilerOptions {
      */
     webpack: typeof webpack;
 }
-export type CreateCompilerOptionsTypescript = CreateCompilerOptions & {
+export interface CreateCompilerOptionsTypescript extends CreateCompilerOptions {
     /**
      * Required if useTypeScript is `true`.
      * This is useful when running fork-ts-checker-webpack-plugin with `async: true` to
@@ -58,15 +58,15 @@ export type CreateCompilerOptionsTypescript = CreateCompilerOptions & {
      * If `true`, TypeScript type checking will be enabled.
      * Be sure to provide the `devSocket` argument above if this is set to `true`.
      */
-    useTypescript: boolean;
-};
+    useTypeScript: boolean;
+}
 
 /**
  * Creates a Webpack compiler instance for WebpackDevServer with built-in
  * helpful messages.
  */
 export function createCompiler(opts: CreateCompilerOptions): webpack.Compiler;
-// if the signatures are merged, TS will not enforce that both useTypescript and devSocket are provided
+// if the signatures are merged, TS will not enforce that both useTypeScript and devSocket are provided
 // tslint:disable-next-line:unified-signatures
 export function createCompiler(opts: CreateCompilerOptionsTypescript): webpack.Compiler;
 
