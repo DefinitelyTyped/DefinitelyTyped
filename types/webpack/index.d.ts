@@ -1333,7 +1333,7 @@ declare namespace webpack {
                 rendered: boolean;
                 size: number;
                 siblings: number[];
-            };
+            }[];
             entrypoints?: Record<string, ChunkGroup>;
             errors: string[];
             env?: Record<string, any>;
