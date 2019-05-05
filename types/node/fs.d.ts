@@ -2056,21 +2056,28 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function readdir(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string[]>;
+        function readdir(path: PathLike, options?: { encoding?: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | null): Promise<string[]>;
 
         /**
          * Asynchronous readdir(3) - read a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function readdir(path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer[]>;
+        function readdir(path: PathLike, options: { encoding: "buffer"; withFileTypes?: false } | "buffer"): Promise<Buffer[]>;
 
         /**
          * Asynchronous readdir(3) - read a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function readdir(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string[] | Buffer[]>;
+        function readdir(path: PathLike, options?: { encoding?: string | null; withFileTypes?: false } | string | null): Promise<string[] | Buffer[]>;
+
+        /**
+         * Asynchronous readdir(3) - read a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
+         */
+        function readdir(path: PathLike, options: { encoding?: string | null; withFileTypes: true }): Promise<Dirent[]>;
 
         /**
          * Asynchronous readlink(2) - read value of a symbolic link.
