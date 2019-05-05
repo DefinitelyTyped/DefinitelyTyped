@@ -509,6 +509,8 @@ declare namespace React {
         defaultProps?: Partial<P>;
         displayName?: string;
     }
+                     
+    type DRFC<T= {}> = FC<DeepReadonly<T>>
 
     interface RefForwardingComponent<T, P = {}> {
         (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
@@ -3007,7 +3009,7 @@ declare global {
     }
                     
     
-    export type DeepReadonly<T> =
+    type DeepReadonly<T> =
     T extends Function ? T :
     T extends ReadonlyArray<infer R> ? IDRArray<R> :
     T extends Map<infer K, infer V> ? IDRMap<K, V> :
