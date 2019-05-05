@@ -89,6 +89,8 @@ interface ExtendedUser extends User {
 {
     const array: Immutable.Immutable<User[]> = Immutable.from([ { firstName: 'Angry', lastName: 'Monkey' } ]);
 
+    const immutableElement: Immutable.Immutable<User> = array[0];
+
     // keys. Call the mutable array's 'keys' to ensure compatability
     const mutableKeys = array.asMutable().keys();
     const keys: typeof mutableKeys = array.keys();

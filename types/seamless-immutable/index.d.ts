@@ -93,7 +93,7 @@ declare namespace SeamlessImmutable {
     type ImmutableObject<T> = ImmutableObjectMixin<T> & { readonly [P in keyof T]: Immutable<T[P]> };
 
     /** An ImmutableArray provides read-only access to the array elements, and provides functions (such as `map()`) that return immutable data structures. */
-    type ImmutableArray<T> = Readonly<ImmutableArray.Remaining<T> & ImmutableArray.Additions<T> & ImmutableArray.Overrides<T>>;
+    type ImmutableArray<T> = Readonly<ImmutableArray.Remaining<T>> & ImmutableArray.Additions<T> & ImmutableArray.Overrides<T> & ImmutableArray.ReadOnlyIndexer<T>;
     namespace ImmutableArray {
         /** New methods added by seamless-immutable. */
         interface Additions<T> {
@@ -111,15 +111,20 @@ declare namespace SeamlessImmutable {
             map<TTarget>(mapFuction: (item: Immutable<T>) => TTarget): Immutable<TTarget[]>;
             filter(filterFunction: (item: Immutable<T>) => boolean): Immutable<T[]>;
             slice(start?: number, end?: number): Immutable<T[]>;
-            concat(...arr: Array<T|T[]|Immutable<T|T[]>>): Immutable<T[]>;
+            concat(...arr: Array<T|T[]|Immutable<T>|Array<Immutable<T>>|Immutable<T[]>>): Immutable<T[]>;
             reduce(callbackfn: (previousValue: Immutable<T>, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => T): Immutable<T>;
             reduce<TTarget>(callbackfn: (previousValue: TTarget, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
             reduceRight(callbackfn: (previousValue: Immutable<T>, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => T): Immutable<T>;
             reduceRight<TTarget>(callbackfn: (previousValue: TTarget, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
         }
 
+        /** Merging this into Overrides breaks stuff, so this is split out */
+        interface ReadOnlyIndexer<T> {
+            readonly [key: number]: Immutable<T>;
+        }
+
         /** These methods are banned by seamless-immutable. */
-        type MutatingArrayMethods = Extract<keyof any[], 'push' | 'pop' | 'sort' | 'splice' | 'shift' | 'unshift' | 'reverse'>;
+        type MutatingArrayMethods = Extract<keyof any[], 'push' | 'pop' | 'sort' | 'splice' | 'shift' | 'unshift' | 'reverse' | number>; // treating 'number' as a mutating method as it returns
 
         /** NOTE: These methods mutate data, but seamless-immutable does not ban them. We will ban them in our type definitions. */
         type AdditionalMutatingArrayMethods = Extract<keyof any[], 'copyWithin' | 'fill'>;
