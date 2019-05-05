@@ -32,8 +32,8 @@ declare namespace SeamlessImmutable {
         prototype?: any;
     }
 
-    interface AsMutableOptions<TDepthBoolean extends boolean = boolean> {
-        deep: TDepthBoolean;
+    interface AsMutableOptions<TDeep extends boolean = boolean> {
+        deep: TDeep;
     }
 
     interface ImmutableObjectMixin<T> {
@@ -93,7 +93,7 @@ declare namespace SeamlessImmutable {
     type ImmutableObject<T> = ImmutableObjectMixin<T> & { readonly [P in keyof T]: Immutable<T[P]> };
 
     /** An ImmutableArray provides read-only access to the array elements, and provides functions (such as `map()`) that return immutable data structures. */
-    type ImmutableArray<T> = Readonly<ImmutableArray.Remaining<T> & ImmutableArray.Additions<T> & ImmutableArray.Overrides<T>>;
+    type ImmutableArray<T> = Readonly<ImmutableArray.Remaining<T> & ImmutableArray.Additions<T> & ImmutableArray.Overrides<T> & ImmutableArray.Indexer<T>>;
     namespace ImmutableArray {
         /** New methods added by seamless-immutable. */
         interface Additions<T> {
@@ -118,6 +118,11 @@ declare namespace SeamlessImmutable {
             reduceRight<TTarget>(callbackfn: (previousValue: TTarget, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
         }
 
+        /** Merging this into Overrides breaks stuff, so this is split out */
+        interface Indexer<T> {
+            [key: number]: Immutable<T>;
+        }
+
         /** These methods are banned by seamless-immutable. */
         type MutatingArrayMethods = Extract<keyof any[], 'push' | 'pop' | 'sort' | 'splice' | 'shift' | 'unshift' | 'reverse'>;
 
@@ -125,7 +130,7 @@ declare namespace SeamlessImmutable {
         type AdditionalMutatingArrayMethods = Extract<keyof any[], 'copyWithin' | 'fill'>;
 
         /** The remaining properties on Array<T>, after we remove the mutating functions and the wrapped non-mutating functions. */
-        type Remaining<T> = Omit<T[], MutatingArrayMethods | AdditionalMutatingArrayMethods | keyof Overrides<any>>;
+        type Remaining<T> = Omit<T[], MutatingArrayMethods | AdditionalMutatingArrayMethods | keyof Overrides<any> | number>;
     }
 
     /** An ImmutableDate disables the use of mutating functions like `setDate` and `setFullYear`. */
