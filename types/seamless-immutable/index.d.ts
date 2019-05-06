@@ -124,7 +124,7 @@ declare namespace SeamlessImmutable {
         }
 
         /** These methods are banned by seamless-immutable. */
-        type MutatingArrayMethods = Extract<keyof any[], 'push' | 'pop' | 'sort' | 'splice' | 'shift' | 'unshift' | 'reverse'>; // treating 'number' as a mutating method as it returns
+        type MutatingArrayMethods = Extract<keyof any[], 'push' | 'pop' | 'sort' | 'splice' | 'shift' | 'unshift' | 'reverse' | number>;
 
         /** NOTE: These methods mutate data, but seamless-immutable does not ban them. We will ban them in our type definitions. */
         type AdditionalMutatingArrayMethods = Extract<keyof any[], 'copyWithin' | 'fill'>;
