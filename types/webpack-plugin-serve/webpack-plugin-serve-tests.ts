@@ -43,4 +43,4 @@ const newConfigWithGlobby = new WebpackPluginServe({
     glob: ['dist/**/public'],
     options: { onlyDirectories: true }
   }
-})
+});
