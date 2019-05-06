@@ -3,7 +3,10 @@ declare module "../index" {
     // chain
     interface LoDashStatic {
         /**
-         * @see _.chain
+         * Creates a lodash object that wraps value with explicit method chaining enabled.
+         *
+         * @param value The value to wrap.
+         * @return Returns the new lodash wrapper instance.
          */
         chain<TrapAny extends { __lodashAnyHack: any }>(value: TrapAny): CollectionChain<any>;
         /**
@@ -155,7 +158,13 @@ declare module "../index" {
     // tap
     interface LoDashStatic {
         /**
-         * @see _.tap
+         * This method invokes interceptor and returns value. The interceptor is invoked with one
+         * argument; (value). The purpose of this method is to "tap into" a method chain in order to perform operations
+         * on intermediate results within the chain.
+         *
+         * @param value The value to provide to interceptor.
+         * @param interceptor The function to invoke.
+         * @return Returns value.
          */
         tap<T>(value: T, interceptor: (value: T) => void): T;
     }
@@ -174,7 +183,11 @@ declare module "../index" {
     // thru
     interface LoDashStatic {
         /**
-         * @see _.thru
+         * This method is like _.tap except that it returns the result of interceptor.
+         *
+         * @param value The value to provide to interceptor.
+         * @param interceptor The function to invoke.
+         * @return Returns the result of interceptor.
          */
         thru<T, TResult>(value: T, interceptor: (value: T) => TResult): TResult;
     }

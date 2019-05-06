@@ -2,7 +2,10 @@ import _ = require("../index");
 declare module "../index" {
     interface LoDashStatic {
         /**
-         * @see _.camelCase
+         * Converts string to camel case.
+         *
+         * @param string The string to convert.
+         * @return Returns the camel cased string.
          */
         camelCase(string?: string): string;
     }
@@ -21,7 +24,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.capitalize
+         * Converts the first character of string to upper case and the remaining to lower case.
+         *
+         * @param string The string to capitalize.
+         * @return Returns the capitalized string.
          */
         capitalize(string?: string): string;
     }
@@ -40,7 +46,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.deburr
+         * Deburrs string by converting latin-1 supplementary letters to basic latin letters and removing combining
+         * diacritical marks.
+         *
+         * @param string The string to deburr.
+         * @return Returns the deburred string.
          */
         deburr(string?: string): string;
     }
@@ -59,7 +69,12 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.endsWith
+         * Checks if string ends with the given target string.
+         *
+         * @param string The string to search.
+         * @param target The string to search for.
+         * @param position The position to search from.
+         * @return Returns true if string ends with target, else false.
          */
         endsWith(string?: string, target?: string, position?: number): boolean;
     }
@@ -78,7 +93,21 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.escape
+         * Converts the characters "&", "<", ">", '"', "'", and "`" in string to their corresponding HTML entities.
+         *
+         * Note: No other characters are escaped. To escape additional characters use a third-party library like he.
+         *
+         * hough the ">" character is escaped for symmetry, characters like ">" and "/" don’t need escaping in HTML
+         * and have no special meaning unless they're part of a tag or unquoted attribute value. See Mathias Bynens’s
+         * article (under "semi-related fun fact") for more details.
+         *
+         * Backticks are escaped because in IE < 9, they can break out of attribute values or HTML comments. See #59,
+         * #102, #108, and #133 of the HTML5 Security Cheatsheet for more details.
+         *
+         * When working with HTML you should always quote attribute values to reduce XSS vectors.
+         *
+         * @param string The string to escape.
+         * @return Returns the escaped string.
          */
         escape(string?: string): string;
     }
@@ -97,7 +126,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.escapeRegExp
+         * Escapes the RegExp special characters "^", "$", "\", ".", "*", "+", "?", "(", ")", "[", "]",
+         * "{", "}", and "|" in string.
+         *
+         * @param string The string to escape.
+         * @return Returns the escaped string.
          */
         escapeRegExp(string?: string): string;
     }
@@ -116,7 +149,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.kebabCase
+         * Converts string to kebab case.
+         *
+         * @param string The string to convert.
+         * @return Returns the kebab cased string.
          */
         kebabCase(string?: string): string;
     }
@@ -135,7 +171,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.lowerCase
+         * Converts `string`, as space separated words, to lower case.
+         *
+         * @param string The string to convert.
+         * @return Returns the lower cased string.
          */
         lowerCase(string?: string): string;
     }
@@ -154,7 +193,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.lowerFirst
+         * Converts the first character of `string` to lower case.
+         *
+         * @param string The string to convert.
+         * @return Returns the converted string.
          */
         lowerFirst(string?: string): string;
     }
@@ -173,7 +215,13 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.pad
+         * Pads string on the left and right sides if it’s shorter than length. Padding characters are truncated if
+         * they can’t be evenly divided by length.
+         *
+         * @param string The string to pad.
+         * @param length The padding length.
+         * @param chars The string used as padding.
+         * @return Returns the padded string.
          */
         pad(string?: string, length?: number, chars?: string): string;
     }
@@ -192,7 +240,13 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.padEnd
+         * Pads string on the right side if it’s shorter than length. Padding characters are truncated if they exceed
+         * length.
+         *
+         * @param string The string to pad.
+         * @param length The padding length.
+         * @param chars The string used as padding.
+         * @return Returns the padded string.
          */
         padEnd(string?: string, length?: number, chars?: string): string;
     }
@@ -211,7 +265,13 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.padStart
+         * Pads string on the left side if it’s shorter than length. Padding characters are truncated if they exceed
+         * length.
+         *
+         * @param string The string to pad.
+         * @param length The padding length.
+         * @param chars The string used as padding.
+         * @return Returns the padded string.
          */
         padStart(string?: string, length?: number, chars?: string): string;
     }
@@ -230,7 +290,14 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.parseInt
+         * Converts string to an integer of the specified radix. If radix is undefined or 0, a radix of 10 is used
+         * unless value is a hexadecimal, in which case a radix of 16 is used.
+         *
+         * Note: This method aligns with the ES5 implementation of parseInt.
+         *
+         * @param string The string to convert.
+         * @param radix The radix to interpret value by.
+         * @return Returns the converted integer.
          */
         parseInt(string: string, radix?: number): number;
     }
@@ -249,7 +316,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.repeat
+         * Repeats the given string n times.
+         *
+         * @param string The string to repeat.
+         * @param n The number of times to repeat the string.
+         * @return Returns the repeated string.
          */
         repeat(string?: string, n?: number): string;
     }
@@ -269,7 +340,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.replace
+         * Replaces matches for pattern in string with replacement.
+         *
+         * Note: This method is based on String#replace.
+         *
+         * @return Returns the modified string.
          */
         replace(string: string, pattern: RegExp | string, replacement: ReplaceFunction | string): string;
         /**
@@ -300,7 +375,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.snakeCase
+         * Converts string to snake case.
+         *
+         * @param string The string to convert.
+         * @return Returns the snake cased string.
          */
         snakeCase(string?: string): string;
     }
@@ -319,7 +397,14 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.split
+         * Splits string by separator.
+         *
+         * Note: This method is based on String#split.
+         *
+         * @param string The string to trim.
+         * @param separator The separator pattern to split by.
+         * @param limit The length to truncate results to.
+         * @return Returns the new array of string segments.
          */
         split(string: string, separator?: RegExp | string, limit?: number): string[];
         /**
@@ -342,7 +427,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.startCase
+         * Converts string to start case.
+         *
+         * @param string The string to convert.
+         * @return Returns the start cased string.
          */
         startCase(string?: string): string;
     }
@@ -361,7 +449,12 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.startsWith
+         * Checks if string starts with the given target string.
+         *
+         * @param string The string to search.
+         * @param target The string to search for.
+         * @param position The position to search from.
+         * @return Returns true if string starts with target, else false.
          */
         startsWith(string?: string, target?: string, position?: number): boolean;
     }
@@ -393,7 +486,30 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.template
+         * Creates a compiled template function that can interpolate data properties in "interpolate" delimiters,
+         * HTML-escape interpolated data properties in "escape" delimiters, and execute JavaScript in "evaluate"
+         * delimiters. Data properties may be accessed as free variables in the template. If a setting object is
+         * provided it takes precedence over _.templateSettings values.
+         *
+         * Note: In the development build _.template utilizes
+         * [sourceURLs](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl) for easier
+         * debugging.
+         *
+         * For more information on precompiling templates see
+         * [lodash's custom builds documentation](https://lodash.com/custom-builds).
+         *
+         * For more information on Chrome extension sandboxes see
+         * [Chrome's extensions documentation](https://developer.chrome.com/extensions/sandboxingEval).
+         *
+         * @param string The template string.
+         * @param options The options object.
+         * @param options.escape The HTML "escape" delimiter.
+         * @param options.evaluate The "evaluate" delimiter.
+         * @param options.imports An object to import into the template as free variables.
+         * @param options.interpolate The "interpolate" delimiter.
+         * @param options.sourceURL The sourceURL of the template's compiled source.
+         * @param options.variable The data object variable name.
+         * @return Returns the compiled template function.
          */
         template(string?: string, options?: TemplateOptions): TemplateExecutor;
     }
@@ -412,7 +528,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.toLower
+         * Converts `string`, as a whole, to lower case.
+         *
+         * @param string The string to convert.
+         * @return Returns the lower cased string.
          */
         toLower(string?: string): string;
     }
@@ -431,7 +550,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.toUpper
+         * Converts `string`, as a whole, to upper case.
+         *
+         * @param string The string to convert.
+         * @return Returns the upper cased string.
          */
         toUpper(string?: string): string;
     }
@@ -450,7 +572,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.trim
+         * Removes leading and trailing whitespace or specified characters from string.
+         *
+         * @param string The string to trim.
+         * @param chars The characters to trim.
+         * @return Returns the trimmed string.
          */
         trim(string?: string, chars?: string): string;
         /**
@@ -473,7 +599,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.trimEnd
+         * Removes trailing whitespace or specified characters from string.
+         *
+         * @param string The string to trim.
+         * @param chars The characters to trim.
+         * @return Returns the trimmed string.
          */
         trimEnd(string?: string, chars?: string): string;
         /**
@@ -496,7 +626,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.trimStart
+         * Removes leading whitespace or specified characters from string.
+         *
+         * @param string The string to trim.
+         * @param chars The characters to trim.
+         * @return Returns the trimmed string.
          */
         trimStart(string?: string, chars?: string): string;
         /**
@@ -533,7 +667,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.truncate
+         * Truncates string if it’s longer than the given maximum string length. The last characters of the truncated
+         * string are replaced with the omission string which defaults to "…".
+         *
+         * @param string The string to truncate.
+         * @param options The options object or maximum string length.
+         * @return Returns the truncated string.
          */
         truncate(string?: string, options?: TruncateOptions): string;
     }
@@ -552,7 +691,14 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.unescape
+         * The inverse of _.escape; this method converts the HTML entities &amp;, &lt;, &gt;, &quot;, &#39;, and &#96;
+         * in string to their corresponding characters.
+         *
+         * Note: No other HTML entities are unescaped. To unescape additional HTML entities use a third-party library
+         * like he.
+         *
+         * @param string The string to unescape.
+         * @return Returns the unescaped string.
          */
         unescape(string?: string): string;
     }
@@ -571,7 +717,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.upperCase
+         * Converts `string`, as space separated words, to upper case.
+         *
+         * @param string The string to convert.
+         * @return Returns the upper cased string.
          */
         upperCase(string?: string): string;
     }
@@ -590,7 +739,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.upperFirst
+         * Converts the first character of `string` to upper case.
+         *
+         * @param string The string to convert.
+         * @return Returns the converted string.
          */
         upperFirst(string?: string): string;
     }
@@ -609,7 +761,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.words
+         * Splits `string` into an array of its words.
+         *
+         * @param string The string to inspect.
+         * @param pattern The pattern to match words.
+         * @return Returns the words of `string`.
          */
         words(string?: string, pattern?: string | RegExp): string[];
         /**

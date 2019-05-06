@@ -2,7 +2,32 @@ import _ = require("../index");
 declare module "../index" {
     interface LoDashStatic {
         /**
-         * @see _.assign
+         * Assigns own enumerable properties of source objects to the destination
+         * object. Source objects are applied from left to right. Subsequent sources
+         * overwrite property assignments of previous sources.
+         *
+         * **Note:** This method mutates `object` and is loosely based on
+         * [`Object.assign`](https://mdn.io/Object/assign).
+         *
+         * @category Object
+         * @param object The destination object.
+         * @param [sources] The source objects.
+         * @returns Returns `object`.
+         * @example
+         *
+         * function Foo() {
+         *   this.c = 3;
+         * }
+         *
+         * function Bar() {
+         *   this.e = 5;
+         * }
+         *
+         * Foo.prototype.d = 4;
+         * Bar.prototype.f = 6;
+         *
+         * _.assign({ 'a': 1 }, new Foo, new Bar);
+         * // => { 'a': 1, 'c': 3, 'e': 5 }
          */
         assign<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
         /**
@@ -80,7 +105,31 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.assignIn
+         * This method is like `_.assign` except that it iterates over own and
+         * inherited source properties.
+         *
+         * **Note:** This method mutates `object`.
+         *
+         * @alias extend
+         * @category Object
+         * @param object The destination object.
+         * @param [sources] The source objects.
+         * @returns Returns `object`.
+         * @example
+         *
+         * function Foo() {
+         *   this.b = 2;
+         * }
+         *
+         * function Bar() {
+         *   this.d = 4;
+         * }
+         *
+         * Foo.prototype.c = 3;
+         * Bar.prototype.e = 5;
+         *
+         * _.assignIn({ 'a': 1 }, new Foo, new Bar);
+         * // => { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5 }
          */
         assignIn<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
         /**
@@ -159,7 +208,29 @@ declare module "../index" {
     type AssignCustomizer = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any;
     interface LoDashStatic {
         /**
-         * @see _.assignInWith
+         * This method is like `_.assignIn` except that it accepts `customizer` which
+         * is invoked to produce the assigned values. If `customizer` returns `undefined`
+         * assignment is handled by the method instead. The `customizer` is invoked
+         * with five arguments: (objValue, srcValue, key, object, source).
+         *
+         * **Note:** This method mutates `object`.
+         *
+         * @alias extendWith
+         * @category Object
+         * @param object The destination object.
+         * @param sources The source objects.
+         * @param [customizer] The function to customize assigned values.
+         * @returns Returns `object`.
+         * @example
+         *
+         * function customizer(objValue, srcValue) {
+         *   return _.isUndefined(objValue) ? srcValue : objValue;
+         * }
+         *
+         * var defaults = _.partialRight(_.assignInWith, customizer);
+         *
+         * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
+         * // => { 'a': 1, 'b': 2 }
          */
         assignInWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
         /**
@@ -237,7 +308,28 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.assignWith
+         * This method is like `_.assign` except that it accepts `customizer` which
+         * is invoked to produce the assigned values. If `customizer` returns `undefined`
+         * assignment is handled by the method instead. The `customizer` is invoked
+         * with five arguments: (objValue, srcValue, key, object, source).
+         *
+         * **Note:** This method mutates `object`.
+         *
+         * @category Object
+         * @param object The destination object.
+         * @param sources The source objects.
+         * @param [customizer] The function to customize assigned values.
+         * @returns Returns `object`.
+         * @example
+         *
+         * function customizer(objValue, srcValue) {
+         *   return _.isUndefined(objValue) ? srcValue : objValue;
+         * }
+         *
+         * var defaults = _.partialRight(_.assignWith, customizer);
+         *
+         * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
+         * // => { 'a': 1, 'b': 2 }
          */
         assignWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
         /**
@@ -315,7 +407,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.at
+         * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
+         * specified as individual arguments or as arrays of keys.
+         *
+         * @param object The object to iterate over.
+         * @param props The property names or indexes of elements to pick, specified individually or in arrays.
+         * @return Returns the new array of picked elements.
          */
         at<T>(object:  Dictionary<T> | NumericDictionary<T> | null | undefined, ...props: PropertyPath[]): T[];
         /**
@@ -349,7 +446,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.create
+         * Creates an object that inherits from the given prototype object. If a properties object is provided its own
+         * enumerable properties are assigned to the created object.
+         *
+         * @param prototype The object to inherit from.
+         * @param properties The properties to assign to the object.
+         * @return Returns the new object.
          */
         create<T extends object, U extends object>(prototype: T, properties?: U): T & U;
     }
@@ -367,7 +469,15 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.defaults
+         * Assigns own enumerable properties of source object(s) to the destination object for all destination
+         * properties that resolve to undefined. Once a property is set, additional values of the same property are
+         * ignored.
+         *
+         * Note: This method mutates object.
+         *
+         * @param object The destination object.
+         * @param sources The source objects.
+         * @return The destination object.
          */
         defaults<TObject, TSource>(object: TObject, source: TSource): TSource & TObject;
         /**
@@ -445,7 +555,10 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.defaultsDeep
+         * This method is like _.defaults except that it recursively assigns default properties.
+         * @param object The destination object.
+         * @param sources The source objects.
+         * @return Returns object.
          */
         defaultsDeep(object: any, ...sources: any[]): any;
     }
@@ -463,7 +576,7 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.entries
+         * @see _.toPairs
          */
         entries<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         /**
@@ -687,7 +800,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.findKey
+         * This method is like _.find except that it returns the key of the first element predicate returns truthy for
+         * instead of the element itself.
+         *
+         * @param object The object to search.
+         * @param predicate The function invoked per iteration.
+         * @return Returns the key of the matched element, else undefined.
          */
         findKey<T>(object: T | null | undefined, predicate?: ObjectIteratee<T>): string | undefined;
     }
@@ -705,7 +823,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.findLastKey
+         * This method is like _.findKey except that it iterates over elements of a collection in the opposite order.
+         *
+         * @param object The object to search.
+         * @param predicate The function invoked per iteration.
+         * @return Returns the key of the matched element, else undefined.
          */
         findLastKey<T>(object: T | null | undefined, predicate?: ObjectIteratee<T>): string | undefined;
     }
@@ -723,7 +845,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.forIn
+         * Iterates over own and inherited enumerable properties of an object invoking iteratee for each property. The
+         * iteratee is invoked with three arguments: (value, key, object). Iteratee functions may
+         * exit iteration early by explicitly returning false.
+         *
+         * @param object The object to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @return Returns object.
          */
         forIn<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
         /**
@@ -745,7 +873,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.forInRight
+         * This method is like _.forIn except that it iterates over properties of object in the opposite order.
+         *
+         * @param object The object to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @return Returns object.
          */
         forInRight<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
         /**
@@ -767,7 +899,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.forOwn
+         * Iterates over own enumerable properties of an object invoking iteratee for each property. The iteratee is
+         * invoked with three arguments: (value, key, object). Iteratee functions may exit
+         * iteration early by explicitly returning false.
+         *
+         * @param object The object to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @return Returns object.
          */
         forOwn<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
         /**
@@ -789,7 +927,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.forOwnRight
+         * This method is like _.forOwn except that it iterates over properties of object in the opposite order.
+         *
+         * @param object The object to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @return Returns object.
          */
         forOwnRight<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
         /**
@@ -811,7 +953,23 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.functions
+         * Creates an array of function property names from own enumerable properties
+         * of `object`.
+         *
+         * @category Object
+         * @param object The object to inspect.
+         * @returns Returns the new array of property names.
+         * @example
+         *
+         * function Foo() {
+         *   this.a = _.constant('a');
+         *   this.b = _.constant('b');
+         * }
+         *
+         * Foo.prototype.c = _.constant('c');
+         *
+         * _.functions(new Foo);
+         * // => ['a', 'b']
          */
         functions(object: any): string[];
     }
@@ -829,7 +987,23 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.functionsIn
+         * Creates an array of function property names from own and inherited
+         * enumerable properties of `object`.
+         *
+         * @category Object
+         * @param object The object to inspect.
+         * @returns Returns the new array of property names.
+         * @example
+         *
+         * function Foo() {
+         *   this.a = _.constant('a');
+         *   this.b = _.constant('b');
+         * }
+         *
+         * Foo.prototype.c = _.constant('c');
+         *
+         * _.functionsIn(new Foo);
+         * // => ['a', 'b', 'c']
          */
         functionsIn<T extends {}>(object: any): string[];
     }
@@ -847,7 +1021,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.get
+         * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
+         * in its place.
+         *
+         * @param object The object to query.
+         * @param path The path of the property to get.
+         * @param defaultValue The value returned if the resolved value is undefined.
+         * @return Returns the resolved value.
          */
         get<TObject extends object, TKey extends keyof TObject>(object: TObject, path: TKey | [TKey]): TObject[TKey];
         /**
@@ -953,7 +1133,28 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.has
+         * Checks if `path` is a direct property of `object`.
+         *
+         * @category Object
+         * @param object The object to query.
+         * @param path The path to check.
+         * @returns Returns `true` if `path` exists, else `false`.
+         * @example
+         *
+         * var object = { 'a': { 'b': { 'c': 3 } } };
+         * var other = _.create({ 'a': _.create({ 'b': _.create({ 'c': 3 }) }) });
+         *
+         * _.has(object, 'a');
+         * // => true
+         *
+         * _.has(object, 'a.b.c');
+         * // => true
+         *
+         * _.has(object, ['a', 'b', 'c']);
+         * // => true
+         *
+         * _.has(other, 'a');
+         * // => false
          */
         has<T>(object: T, path: PropertyPath): boolean;
     }
@@ -971,7 +1172,27 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.hasIn
+         * Checks if `path` is a direct or inherited property of `object`.
+         *
+         * @category Object
+         * @param object The object to query.
+         * @param path The path to check.
+         * @returns Returns `true` if `path` exists, else `false`.
+         * @example
+         *
+         * var object = _.create({ 'a': _.create({ 'b': _.create({ 'c': 3 }) }) });
+         *
+         * _.hasIn(object, 'a');
+         * // => true
+         *
+         * _.hasIn(object, 'a.b.c');
+         * // => true
+         *
+         * _.hasIn(object, ['a', 'b', 'c']);
+         * // => true
+         *
+         * _.hasIn(object, 'b');
+         * // => false
          */
         hasIn<T>(object: T, path: PropertyPath): boolean;
     }
@@ -989,7 +1210,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.invert
+         * Creates an object composed of the inverted keys and values of object. If object contains duplicate values,
+         * subsequent values overwrite property assignments of previous values unless multiValue is true.
+         *
+         * @param object The object to invert.
+         * @param multiValue Allow multiple values per key.
+         * @return Returns the new inverted object.
          */
         invert(object: object): Dictionary<string>;
     }
@@ -1007,7 +1233,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.invertBy
+         * This method is like _.invert except that the inverted object is generated from the results of running each
+         * element of object through iteratee. The corresponding inverted value of each inverted key is an array of
+         * keys responsible for generating the inverted value. The iteratee is invoked with one argument: (value).
+         *
+         * @param object The object to invert.
+         * @param interatee The iteratee invoked per element.
+         * @return Returns the new inverted object.
          */
         invertBy<T>(object:  Dictionary<T> | NumericDictionary<T> | null | undefined, interatee?: ValueIteratee<T>): Dictionary<string[]>;
         /**
@@ -1053,7 +1285,10 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.invoke
+        * Invokes the method at path of object.
+        * @param object The object to query.
+        * @param path The path of the method to invoke.
+        * @param args The arguments to invoke the method with.
          */
         invoke(object: any, path: PropertyPath, ...args: any[]): any;
     }
@@ -1071,7 +1306,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.keys
+         * Creates an array of the own enumerable property names of object.
+         *
+         * Note: Non-object values are coerced to objects. See the ES spec for more details.
+         *
+         * @param object The object to query.
+         * @return Returns the array of property names.
          */
         keys(object?: any): string[];
     }
@@ -1089,7 +1329,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.keysIn
+         * Creates an array of the own and inherited enumerable property names of object.
+         *
+         * Note: Non-object values are coerced to objects.
+         *
+         * @param object The object to query.
+         * @return An array of property names.
          */
         keysIn(object?: any): string[];
     }
@@ -1107,7 +1352,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.mapKeys
+         * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
+         * by running each own enumerable property of object through iteratee.
+         *
+         * @param object The object to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @return Returns the new mapped object.
          */
         mapKeys<T>(object: List<T> | null | undefined, iteratee?: ListIteratee<T>): Dictionary<T>;
         /**
@@ -1141,7 +1391,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.mapValues
+        * Creates an object with the same keys as object and values generated by running each own
+        * enumerable property of object through iteratee. The iteratee function is
+        * invoked with three arguments: (value, key, object).
+        *
+        * @param object The object to iterate over.
+        * @param iteratee  The function invoked per iteration.
+        * @return Returns the new mapped object.
          */
         mapValues<TResult>(obj: string | null | undefined, callback: StringIterator<TResult>): NumericDictionary<TResult>;
         /**
@@ -1307,7 +1563,31 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.merge
+         * Recursively merges own and inherited enumerable properties of source
+         * objects into the destination object, skipping source properties that resolve
+         * to `undefined`. Array and plain object properties are merged recursively.
+         * Other objects and value types are overridden by assignment. Source objects
+         * are applied from left to right. Subsequent sources overwrite property
+         * assignments of previous sources.
+         *
+         * **Note:** This method mutates `object`.
+         *
+         * @category Object
+         * @param object The destination object.
+         * @param [sources] The source objects.
+         * @returns Returns `object`.
+         * @example
+         *
+         * var users = {
+         *   'data': [{ 'user': 'barney' }, { 'user': 'fred' }]
+         * };
+         *
+         * var ages = {
+         *   'data': [{ 'age': 36 }, { 'age': 40 }]
+         * };
+         *
+         * _.merge(users, ages);
+         * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
          */
         merge<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
         /**
@@ -1376,7 +1656,37 @@ declare module "../index" {
     // oh, except for Collection<any> I GUESS
     interface LoDashStatic {
         /**
-         * @see _.mergeWith
+         * This method is like `_.merge` except that it accepts `customizer` which
+         * is invoked to produce the merged values of the destination and source
+         * properties. If `customizer` returns `undefined` merging is handled by the
+         * method instead. The `customizer` is invoked with seven arguments:
+         * (objValue, srcValue, key, object, source, stack).
+         *
+         * @category Object
+         * @param object The destination object.
+         * @param sources The source objects.
+         * @param customizer The function to customize assigned values.
+         * @returns Returns `object`.
+         * @example
+         *
+         * function customizer(objValue, srcValue) {
+         *   if (_.isArray(objValue)) {
+         *     return objValue.concat(srcValue);
+         *   }
+         * }
+         *
+         * var object = {
+         *   'fruits': ['apple'],
+         *   'vegetables': ['beet']
+         * };
+         *
+         * var other = {
+         *   'fruits': ['banana'],
+         *   'vegetables': ['carrot']
+         * };
+         *
+         * _.merge(object, other, customizer);
+         * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
         mergeWith<TObject, TSource>(object: TObject, source: TSource, customizer: MergeWithCustomizer): TObject & TSource;
         /**
@@ -1442,7 +1752,20 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.omit
+         * The opposite of `_.pick`; this method creates an object composed of the
+         * own and inherited enumerable properties of `object` that are not omitted.
+         *
+         * @category Object
+         * @param object The source object.
+         * @param [paths] The property names to omit, specified
+         *  individually or in arrays..
+         * @returns Returns the new object.
+         * @example
+         *
+         * var object = { 'a': 1, 'b': '2', 'c': 3 };
+         *
+         * _.omit(object, ['a', 'c']);
+         * // => { 'b': '2' }
          */
         omit<T extends object, K extends keyof T>(object: T | null | undefined, ...paths: Array<Many<K>>): Omit<T, K>;
         /**
@@ -1484,7 +1807,20 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.omitBy
+         * The opposite of `_.pickBy`; this method creates an object composed of the
+         * own and inherited enumerable properties of `object` that `predicate`
+         * doesn't return truthy for.
+         *
+         * @category Object
+         * @param object The source object.
+         * @param [predicate=_.identity] The function invoked per property.
+         * @returns Returns the new object.
+         * @example
+         *
+         * var object = { 'a': 1, 'b': '2', 'c': 3 };
+         *
+         * _.omitBy(object, _.isNumber);
+         * // => { 'b': '2' }
          */
         omitBy<T>(object: Dictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): Dictionary<T>;
         /**
@@ -1522,7 +1858,19 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.pick
+         * Creates an object composed of the picked `object` properties.
+         *
+         * @category Object
+         * @param object The source object.
+         * @param [props] The property names to pick, specified
+         *  individually or in arrays.
+         * @returns Returns the new object.
+         * @example
+         *
+         * var object = { 'a': 1, 'b': '2', 'c': 3 };
+         *
+         * _.pick(object, ['a', 'c']);
+         * // => { 'a': 1, 'c': 3 }
          */
         pick<T extends object, U extends keyof T>(object: T, ...props: Array<Many<U>>): Pick<T, U>;
         /**
@@ -1552,7 +1900,19 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.pickBy
+         * Creates an object composed of the `object` properties `predicate` returns
+         * truthy for. The predicate is invoked with two arguments: (value, key).
+         *
+         * @category Object
+         * @param object The source object.
+         * @param [predicate=_.identity] The function invoked per property.
+         * @returns Returns the new object.
+         * @example
+         *
+         * var object = { 'a': 1, 'b': '2', 'c': 3 };
+         *
+         * _.pickBy(object, _.isNumber);
+         * // => { 'a': 1, 'c': 3 }
          */
         pickBy<T, S extends T>(object: Dictionary<T> | null | undefined, predicate: ValueKeyIterateeTypeGuard<T, S>): Dictionary<S>;
         /**
@@ -1614,7 +1974,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.result
+         * This method is like _.get except that if the resolved value is a function it’s invoked with the this binding
+         * of its parent object and its result is returned.
+         *
+         * @param object The object to query.
+         * @param path The path of the property to resolve.
+         * @param defaultValue The value returned if the resolved value is undefined.
+         * @return Returns the resolved value.
          */
         result<TResult>(object: any, path: PropertyPath, defaultValue?: TResult | ((...args: any[]) => TResult)): TResult;
     }
@@ -1632,7 +1998,14 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.set
+         * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
+         * missing index properties while objects are created for all other missing properties. Use _.setWith to
+         * customize path creation.
+         *
+         * @param object The object to modify.
+         * @param path The path of the property to set.
+         * @param value The value to set.
+         * @return Returns object.
          */
         set<T extends object>(object: T, path: PropertyPath, value: any): T;
         /**
@@ -1663,7 +2036,15 @@ declare module "../index" {
     type SetWithCustomizer<T> = (nsValue: any, key: string, nsObject: T) => any;
     interface LoDashStatic {
         /**
-         * @see _.setWith
+         * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
+         * path. If customizer returns undefined path creation is handled by the method instead. The customizer is
+         * invoked with three arguments: (nsValue, key, nsObject).
+         *
+         * @param object The object to modify.
+         * @param path The path of the property to set.
+         * @param value The value to set.
+         * @param customizer The function to customize assigned values.
+         * @return Returns object.
          */
         setWith<T extends object>(object: T, path: PropertyPath, value: any, customizer?: SetWithCustomizer<T>): T;
         /**
@@ -1693,7 +2074,10 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.toPairs
+         * Creates an array of own enumerable key-value pairs for object.
+         *
+         * @param object The object to query.
+         * @return Returns the new array of key-value pairs.
          */
         toPairs<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         /**
@@ -1715,7 +2099,10 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.toPairsIn
+         * Creates an array of own and inherited enumerable key-value pairs for object.
+         *
+         * @param object The object to query.
+         * @return Returns the new array of key-value pairs.
          */
         toPairsIn<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         /**
@@ -1737,7 +2124,15 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.transform
+         * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
+         * running each of its own enumerable properties through iteratee, with each invocation potentially mutating
+         * the accumulator object. The iteratee is invoked with four arguments: (accumulator,
+         * value, key, object). Iteratee functions may exit iteration early by explicitly returning false.
+         *
+         * @param object The object to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @param accumulator The custom accumulator value.
+         * @return Returns the accumulated value.
          */
         transform<T, TResult>(object: T[], iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
         /**
@@ -1795,7 +2190,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.unset
+         * Removes the property at path of object.
+         *
+         * Note: This method mutates object.
+         *
+         * @param object The object to modify.
+         * @param path The path of the property to unset.
+         * @return Returns true if the property is deleted, else false.
          */
         unset(object: any, path: PropertyPath): boolean;
     }
@@ -1813,7 +2214,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.update
+         * This method is like _.set except that accepts updater to produce the value to set. Use _.updateWith to
+         * customize path creation. The updater is invoked with one argument: (value).
+         *
+         * @param object The object to modify.
+         * @param path The path of the property to set.
+         * @param updater The function to produce the updated value.
+         * @return Returns object.
          */
         update(object: object, path: PropertyPath, updater: (value: any) => any): any;
     }
@@ -1831,7 +2238,26 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.updateWith
+         * This method is like `_.update` except that it accepts `customizer` which is
+         * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
+         * path creation is handled by the method instead. The `customizer` is invoked
+         * with three arguments: (nsValue, key, nsObject).
+         *
+         * **Note:** This method mutates `object`.
+         *
+         * @since 4.6.0
+         * @category Object
+         * @param object The object to modify.
+         * @param path The path of the property to set.
+         * @param updater The function to produce the updated value.
+         * @param [customizer] The function to customize assigned values.
+         * @returns Returns `object`.
+         * @example
+         *
+         * var object = {};
+         *
+         * _.updateWith(object, '[0][1]', _.constant('a'), Object);
+         * // => { '0': { '1': 'a' } }
          */
         updateWith<T extends object>(object: T, path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): T;
         /**
@@ -1861,7 +2287,10 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.values
+         * Creates an array of the own enumerable property values of object.
+         *
+         * @param object The object to query.
+         * @return Returns an array of property values.
          */
         values<T>(object: Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined): T[];
         /**
@@ -1899,7 +2328,10 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.valuesIn
+         * Creates an array of the own and inherited enumerable property values of object.
+         *
+         * @param object The object to query.
+         * @return Returns the array of property values.
          */
         valuesIn<T>(object: Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined): T[];
         /**

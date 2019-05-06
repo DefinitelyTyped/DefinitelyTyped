@@ -2,7 +2,12 @@ import _ = require("../index");
 declare module "../index" {
     interface LoDashStatic {
         /**
-         * @see _.chunk
+         * Creates an array of elements split into groups the length of size. If collection can’t be split evenly, the
+         * final chunk will be the remaining elements.
+         *
+         * @param array The array to process.
+         * @param size The length of each chunk.
+         * @return Returns the new array containing chunks.
          */
         chunk<T>(array: List<T> | null | undefined, size?: number): T[][];
     }
@@ -20,7 +25,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.compact
+         * Creates an array with all falsey values removed. The values false, null, 0, "", undefined, and NaN are
+         * falsey.
+         *
+         * @param array The array to compact.
+         * @return Returns the new array of filtered values.
          */
         compact<T>(array: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
     }
@@ -40,7 +49,23 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.concat
+         * Creates a new array concatenating `array` with any additional arrays
+         * and/or values.
+         *
+         * @category Array
+         * @param array The array to concatenate.
+         * @param [values] The values to concatenate.
+         * @returns Returns the new concatenated array.
+         * @example
+         *
+         * var array = [1];
+         * var other = _.concat(array, 2, [3], [[4]]);
+         *
+         * console.log(other);
+         * // => [1, 2, 3, [4]]
+         *
+         * console.log(array);
+         * // => [1]
          */
          concat<T>(array: Many<T>, ...values: Array<Many<T>>): T[];
     }
@@ -82,7 +107,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.difference
+         * Creates an array of unique array values not included in the other provided arrays using SameValueZero for
+         * equality comparisons.
+         *
+         * @param array The array to inspect.
+         * @param values The arrays of values to exclude.
+         * @return Returns the new array of filtered values.
          */
         difference<T>(array: List<T> | null | undefined, ...values: Array<List<T>>): T[];
     }
@@ -100,7 +130,14 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.differenceBy
+         * This method is like _.difference except that it accepts iteratee which is invoked for each element of array
+         * and values to generate the criterion by which uniqueness is computed. The iteratee is invoked with one
+         * argument: (value).
+         *
+         * @param array The array to inspect.
+         * @param values The values to exclude.
+         * @param iteratee The iteratee invoked per element.
+         * @returns Returns the new array of filtered values.
          */
         differenceBy<T1, T2>(array: List<T1> | null | undefined, values: List<T2>, iteratee: ValueIteratee<T1 | T2>): T1[];
         /**
@@ -150,7 +187,20 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.differenceWith
+         * Creates an array of unique `array` values not included in the other
+         * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+         * for equality comparisons.
+         *
+         * @category Array
+         * @param [values] The arrays to inspect.
+         * @param [comparator] The comparator invoked per element.
+         * @returns Returns the new array of filtered values.
+         * @example
+         *
+         * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
+
+         * _.differenceWith(objects, [{ 'x': 1, 'y': 2 }], _.isEqual);
+         * // => [{ 'x': 2, 'y': 1 }]
          */
         differenceWith<T1, T2>(array: List<T1> | null | undefined, values: List<T2>, comparator: Comparator2<T1, T2>): T1[];
         /**
@@ -188,7 +238,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.drop
+         * Creates a slice of array with n elements dropped from the beginning.
+         *
+         * @param array The array to query.
+         * @param n The number of elements to drop.
+         * @return Returns the slice of array.
          */
         drop<T>(array: List<T> | null | undefined, n?: number): T[];
     }
@@ -206,7 +260,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.dropRight
+         * Creates a slice of array with n elements dropped from the end.
+         *
+         * @param array The array to query.
+         * @param n The number of elements to drop.
+         * @return Returns the slice of array.
          */
         dropRight<T>(array: List<T> | null | undefined, n?: number): T[];
     }
@@ -224,7 +282,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.dropRightWhile
+         * Creates a slice of array excluding elements dropped from the end. Elements are dropped until predicate
+         * returns falsey. The predicate is invoked with three arguments: (value, index, array).
+         *
+         * @param array The array to query.
+         * @param predicate The function invoked per iteration.
+         * @return Returns the slice of array.
          */
         dropRightWhile<T>(array: List<T> | null | undefined, predicate?: ListIteratee<T>): T[];
     }
@@ -242,7 +305,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.dropWhile
+         * Creates a slice of array excluding elements dropped from the beginning. Elements are dropped until predicate
+         * returns falsey. The predicate is invoked with three arguments: (value, index, array).
+         *
+         * @param array The array to query.
+         * @param predicate The function invoked per iteration.
+         * @return Returns the slice of array.
          */
         dropWhile<T>(array: List<T> | null | undefined, predicate?: ListIteratee<T>): T[];
     }
@@ -260,7 +328,15 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.fill
+         * Fills elements of array with value from start up to, but not including, end.
+         *
+         * Note: This method mutates array.
+         *
+         * @param array The array to fill.
+         * @param value The value to fill array with.
+         * @param start The start position.
+         * @param end The end position.
+         * @return Returns array.
          */
         fill<T>(array: any[] | null | undefined, value: T): T[];
         /**
@@ -290,7 +366,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.findIndex
+         * This method is like _.find except that it returns the index of the first element predicate returns truthy
+         * for instead of the element itself.
+         *
+         * @param array The array to search.
+         * @param predicate The function invoked per iteration.
+         * @param fromIndex The index to search from.
+         * @return Returns the index of the found element, else -1.
          */
         findIndex<T>(array: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): number;
     }
@@ -308,7 +390,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.findLastIndex
+         * This method is like _.findIndex except that it iterates over elements of collection from right to left.
+         *
+         * @param array The array to search.
+         * @param predicate The function invoked per iteration.
+         * @param fromIndex The index to search from.
+         * @return Returns the index of the found element, else -1.
          */
         findLastIndex<T>(array: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>, fromIndex?: number): number;
     }
@@ -326,7 +413,7 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.first
+         * @see _.head
          */
         first: LoDashStatic["head"];
     }
@@ -358,7 +445,10 @@ declare module "../index" {
     interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
     interface LoDashStatic {
         /**
-         * @see _.flatten
+         * Flattens `array` a single level deep.
+         *
+         * @param array The array to flatten.
+         * @return Returns the new flattened array.
          */
         flatten<T>(array: List<Many<T>> | null | undefined): T[];
     }
@@ -388,7 +478,10 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.flattenDeep
+         * Recursively flattens a nested array.
+         *
+         * @param array The array to recursively flatten.
+         * @return Returns the new flattened array.
          */
         flattenDeep<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined): T[];
     }
@@ -406,7 +499,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.flattenDepth
+         * Recursively flatten array up to depth times.
+         *
+         * @param array The array to recursively flatten.
+         * @param number The maximum recursion depth.
+         * @return Returns the new flattened array.
          */
         flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, depth?: number): T[];
     }
@@ -424,7 +521,16 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.fromPairs
+         * The inverse of `_.toPairs`; this method returns an object composed
+         * from key-value `pairs`.
+         *
+         * @category Array
+         * @param pairs The key-value pairs.
+         * @returns Returns the new object.
+         * @example
+         *
+         * _.fromPairs([['fred', 30], ['barney', 40]]);
+         * // => { 'fred': 30, 'barney': 40 }
          */
         fromPairs<T>(pairs: List<[PropertyName, T]> | null | undefined): Dictionary<T>;
         /**
@@ -446,7 +552,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.head
+         * Gets the first element of array.
+         *
+         * @alias _.first
+         *
+         * @param array The array to query.
+         * @return Returns the first element of array.
          */
         head<T>(array: List<T> | null | undefined): T | undefined;
     }
@@ -476,7 +587,24 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.indexOf
+         * Gets the index at which the first occurrence of `value` is found in `array`
+         * using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+         * for equality comparisons. If `fromIndex` is negative, it's used as the offset
+         * from the end of `array`.
+         *
+         * @category Array
+         * @param array The array to search.
+         * @param value The value to search for.
+         * @param [fromIndex=0] The index to search from.
+         * @returns Returns the index of the matched value, else `-1`.
+         * @example
+         *
+         * _.indexOf([1, 2, 1, 2], 2);
+         * // => 1
+         *
+         * // using `fromIndex`
+         * _.indexOf([1, 2, 1, 2], 2, 2);
+         * // => 3
          */
         indexOf<T>(array: List<T> | null | undefined, value: T, fromIndex?: number): number;
     }
@@ -494,7 +622,10 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.initial
+         * Gets all but the last element of array.
+         *
+         * @param array The array to query.
+         * @return Returns the slice of array.
          */
         initial<T>(array: List<T> | null | undefined): T[];
     }
@@ -512,7 +643,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.intersection
+         * Creates an array of unique values that are included in all of the provided arrays using SameValueZero for
+         * equality comparisons.
+         *
+         * @param arrays The arrays to inspect.
+         * @return Returns the new array of shared values.
          */
         intersection<T>(...arrays: Array<List<T>>): T[];
     }
@@ -530,7 +665,22 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.intersectionBy
+         * This method is like `_.intersection` except that it accepts `iteratee`
+         * which is invoked for each element of each `arrays` to generate the criterion
+         * by which uniqueness is computed. The iteratee is invoked with one argument: (value).
+         *
+         * @category Array
+         * @param [arrays] The arrays to inspect.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns the new array of shared values.
+         * @example
+         *
+         * _.intersectionBy([2.1, 1.2], [4.3, 2.4], Math.floor);
+         * // => [2.1]
+         *
+         * // using the `_.property` iteratee shorthand
+         * _.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
+         * // => [{ 'x': 1 }]
          */
         intersectionBy<T1, T2>(array: List<T1> | null, values: List<T2>, iteratee: ValueIteratee<T1 | T2>): T1[];
         /**
@@ -568,7 +718,21 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.intersectionWith
+         * Creates an array of unique `array` values not included in the other
+         * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+         * for equality comparisons.
+         *
+         * @category Array
+         * @param [values] The arrays to inspect.
+         * @param [comparator] The comparator invoked per element.
+         * @returns Returns the new array of filtered values.
+         * @example
+         *
+         * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
+         * var others = [{ 'x': 1, 'y': 1 }, { 'x': 1, 'y': 2 }];
+
+         * _.intersectionWith(objects, others, _.isEqual);
+         * // => [{ 'x': 1, 'y': 2 }]
          */
         intersectionWith<T1, T2>(array: List<T1> | null | undefined, values: List<T2>, comparator: Comparator2<T1, T2>): T1[];
         /**
@@ -606,7 +770,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.join
+         * Converts all elements in `array` into a string separated by `separator`.
+         *
+         * @param array The array to convert.
+         * @param separator The element separator.
+         * @returns Returns the joined string.
          */
         join(array: List<any> | null | undefined, separator?: string): string;
     }
@@ -636,7 +804,10 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.last
+         * Gets the last element of array.
+         *
+         * @param array The array to query.
+         * @return Returns the last element of array.
          */
         last<T>(array: List<T> | null | undefined): T | undefined;
     }
@@ -666,7 +837,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.lastIndexOf
+         * This method is like _.indexOf except that it iterates over elements of array from right to left.
+         *
+         * @param array The array to search.
+         * @param value The value to search for.
+         * @param fromIndex The index to search from or true to perform a binary search on a sorted array.
+         * @return Returns the index of the matched value, else -1.
          */
         lastIndexOf<T>(array: List<T> | null | undefined, value: T, fromIndex?: true|number): number;
     }
@@ -684,7 +860,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.nth
+         * Gets the element at index `n` of `array`. If `n` is negative, the nth element from the end is returned.
+         *
+         * @param array array The array to query.
+         * @param value The index of the element to return.
+         * @return Returns the nth element of `array`.
          */
         nth<T>(array: List<T> | null | undefined, n?: number): T | undefined;
     }
@@ -702,7 +882,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.pull
+         * Removes all provided values from array using SameValueZero for equality comparisons.
+         *
+         * Note: Unlike _.without, this method mutates array.
+         *
+         * @param array The array to modify.
+         * @param values The values to remove.
+         * @return Returns array.
          */
         pull<T>(array: T[], ...values: T[]): T[];
         /**
@@ -724,7 +910,21 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.pullAll
+         * This method is like `_.pull` except that it accepts an array of values to remove.
+         *
+         * **Note:** Unlike `_.difference`, this method mutates `array`.
+         *
+         * @category Array
+         * @param array The array to modify.
+         * @param values The values to remove.
+         * @returns Returns `array`.
+         * @example
+         *
+         * var array = [1, 2, 3, 1, 2, 3];
+         *
+         * _.pull(array, [2, 3]);
+         * console.log(array);
+         * // => [1, 1]
          */
         pullAll<T>(array: T[], values?: List<T>): T[];
         /**
@@ -746,7 +946,24 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.pullAllBy
+         * This method is like `_.pullAll` except that it accepts `iteratee` which is
+         * invoked for each element of `array` and `values` to to generate the criterion
+         * by which uniqueness is computed. The iteratee is invoked with one argument: (value).
+         *
+         * **Note:** Unlike `_.differenceBy`, this method mutates `array`.
+         *
+         * @category Array
+         * @param array The array to modify.
+         * @param values The values to remove.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns `array`.
+         * @example
+         *
+         * var array = [{ 'x': 1 }, { 'x': 2 }, { 'x': 3 }, { 'x': 1 }];
+         *
+         * _.pullAllBy(array, [{ 'x': 1 }, { 'x': 3 }], 'x');
+         * console.log(array);
+         * // => [{ 'x': 2 }]
          */
         pullAllBy<T>(array: T[], values?: List<T>, iteratee?: ValueIteratee<T>): T[];
         /**
@@ -776,7 +993,24 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.pullAllWith
+         * This method is like `_.pullAll` except that it accepts `comparator` which is
+         * invoked to compare elements of array to values. The comparator is invoked with
+         * two arguments: (arrVal, othVal).
+         *
+         * **Note:** Unlike `_.differenceWith`, this method mutates `array`.
+         *
+         * @category Array
+         * @param array The array to modify.
+         * @param values The values to remove.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns `array`.
+         * @example
+         *
+         * var array = [{ 'x': 1, 'y': 2 }, { 'x': 3, 'y': 4 }, { 'x': 5, 'y': 6 }];
+         *
+         * _.pullAllWith(array, [{ 'x': 3, 'y': 4 }], _.isEqual);
+         * console.log(array);
+         * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
          */
         pullAllWith<T>(array: T[], values?: List<T>, comparator?: Comparator<T>): T[];
         /**
@@ -806,7 +1040,14 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.pullAt
+         * Removes elements from array corresponding to the given indexes and returns an array of the removed elements.
+         * Indexes may be specified as an array of indexes or as individual arguments.
+         *
+         * Note: Unlike _.at, this method mutates array.
+         *
+         * @param array The array to modify.
+         * @param indexes The indexes of elements to remove, specified as individual indexes or arrays of indexes.
+         * @return Returns the new array of removed elements.
          */
         pullAt<T>(array: T[], ...indexes: Array<Many<number>>): T[];
         /**
@@ -828,7 +1069,14 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.remove
+         * Removes all elements from array that predicate returns truthy for and returns an array of the removed
+         * elements. The predicate is invoked with three arguments: (value, index, array).
+         *
+         * Note: Unlike _.filter, this method mutates array.
+         *
+         * @param array The array to modify.
+         * @param predicate The function invoked per iteration.
+         * @return Returns the new array of removed elements.
          */
         remove<T>(array: List<T>, predicate?: ListIteratee<T>): T[];
     }
@@ -846,13 +1094,34 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.reverse
+         * Reverses `array` so that the first element becomes the last, the second
+         * element becomes the second to last, and so on.
+         *
+         * **Note:** This method mutates `array` and is based on
+         * [`Array#reverse`](https://mdn.io/Array/reverse).
+         *
+         * @category Array
+         * @returns Returns `array`.
+         * @example
+         *
+         * var array = [1, 2, 3];
+         *
+         * _.reverse(array);
+         * // => [3, 2, 1]
+         *
+         * console.log(array);
+         * // => [3, 2, 1]
          */
         reverse<TList extends List<any>>(array: TList): TList;
     }
     interface LoDashStatic {
         /**
-         * @see _.slice
+         * Creates a slice of array from start up to, but not including, end.
+         *
+         * @param array The array to slice.
+         * @param start The start position.
+         * @param end The end position.
+         * @return Returns the slice of array.
          */
         slice<T>(array: List<T> | null | undefined, start?: number, end?: number): T[];
     }
@@ -870,7 +1139,20 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.sortedIndex
+         * Uses a binary search to determine the lowest index at which `value` should
+         * be inserted into `array` in order to maintain its sort order.
+         *
+         * @category Array
+         * @param array The sorted array to inspect.
+         * @param value The value to evaluate.
+         * @returns Returns the index at which `value` should be inserted into `array`.
+         * @example
+         *
+         * _.sortedIndex([30, 50], 40);
+         * // => 1
+         *
+         * _.sortedIndex([4, 5], 4);
+         * // => 0
          */
         sortedIndex<T>(array: List<T> | null | undefined, value: T): number;
     }
@@ -888,7 +1170,20 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.sortedIndex
+         * Uses a binary search to determine the lowest index at which `value` should
+         * be inserted into `array` in order to maintain its sort order.
+         *
+         * @category Array
+         * @param array The sorted array to inspect.
+         * @param value The value to evaluate.
+         * @returns Returns the index at which `value` should be inserted into `array`.
+         * @example
+         *
+         * _.sortedIndex([30, 50], 40);
+         * // => 1
+         *
+         * _.sortedIndex([4, 5], 4);
+         * // => 0
          */
         sortedIndex<T>(array: List<T> | null | undefined, value: T): number;
     }
@@ -906,7 +1201,25 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.sortedIndexBy
+         * This method is like `_.sortedIndex` except that it accepts `iteratee`
+         * which is invoked for `value` and each element of `array` to compute their
+         * sort ranking. The iteratee is invoked with one argument: (value).
+         *
+         * @category Array
+         * @param array The sorted array to inspect.
+         * @param value The value to evaluate.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns the index at which `value` should be inserted into `array`.
+         * @example
+         *
+         * var dict = { 'thirty': 30, 'forty': 40, 'fifty': 50 };
+         *
+         * _.sortedIndexBy(['thirty', 'fifty'], 'forty', _.propertyOf(dict));
+         * // => 1
+         *
+         * // using the `_.property` iteratee shorthand
+         * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+         * // => 0
          */
         sortedIndexBy<T>(array: List<T> | null | undefined, value: T, iteratee?: ValueIteratee<T>): number;
     }
@@ -924,7 +1237,17 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.sortedIndexOf
+         * This method is like `_.indexOf` except that it performs a binary
+         * search on a sorted `array`.
+         *
+         * @category Array
+         * @param array The array to search.
+         * @param value The value to search for.
+         * @returns Returns the index of the matched value, else `-1`.
+         * @example
+         *
+         * _.sortedIndexOf([1, 1, 2, 2], 2);
+         * // => 2
          */
         sortedIndexOf<T>(array: List<T> | null | undefined, value: T): number;
     }
@@ -942,7 +1265,18 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.sortedLastIndex
+         * This method is like `_.sortedIndex` except that it returns the highest
+         * index at which `value` should be inserted into `array` in order to
+         * maintain its sort order.
+         *
+         * @category Array
+         * @param array The sorted array to inspect.
+         * @param value The value to evaluate.
+         * @returns Returns the index at which `value` should be inserted into `array`.
+         * @example
+         *
+         * _.sortedLastIndex([4, 5], 4);
+         * // => 1
          */
         sortedLastIndex<T>(array: List<T> | null | undefined, value: T): number;
     }
@@ -960,7 +1294,20 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.sortedLastIndexBy
+         * This method is like `_.sortedLastIndex` except that it accepts `iteratee`
+         * which is invoked for `value` and each element of `array` to compute their
+         * sort ranking. The iteratee is invoked with one argument: (value).
+         *
+         * @category Array
+         * @param array The sorted array to inspect.
+         * @param value The value to evaluate.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns the index at which `value` should be inserted into `array`.
+         * @example
+         *
+         * // using the `_.property` iteratee shorthand
+         * _.sortedLastIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
+         * // => 1
          */
         sortedLastIndexBy<T>(array: List<T> | null | undefined, value: T, iteratee: ValueIteratee<T>): number;
     }
@@ -978,7 +1325,17 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.sortedLastIndexOf
+         * This method is like `_.lastIndexOf` except that it performs a binary
+         * search on a sorted `array`.
+         *
+         * @category Array
+         * @param array The array to search.
+         * @param value The value to search for.
+         * @returns Returns the index of the matched value, else `-1`.
+         * @example
+         *
+         * _.sortedLastIndexOf([1, 1, 2, 2], 2);
+         * // => 3
          */
         sortedLastIndexOf<T>(array: List<T> | null | undefined, value: T): number;
     }
@@ -996,7 +1353,16 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.sortedUniq
+         * This method is like `_.uniq` except that it's designed and optimized
+         * for sorted arrays.
+         *
+         * @category Array
+         * @param array The array to inspect.
+         * @returns Returns the new duplicate free array.
+         * @example
+         *
+         * _.sortedUniq([1, 1, 2]);
+         * // => [1, 2]
          */
         sortedUniq<T>(array: List<T> | null | undefined): T[];
     }
@@ -1014,7 +1380,17 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.sortedUniqBy
+         * This method is like `_.uniqBy` except that it's designed and optimized
+         * for sorted arrays.
+         *
+         * @category Array
+         * @param array The array to inspect.
+         * @param [iteratee] The iteratee invoked per element.
+         * @returns Returns the new duplicate free array.
+         * @example
+         *
+         * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
+         * // => [1.1, 2.2]
          */
         sortedUniqBy<T>(array: List<T> | null | undefined, iteratee: ValueIteratee<T>): T[];
     }
@@ -1032,7 +1408,10 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.tail
+         * Gets all but the first element of array.
+         *
+         * @param array The array to query.
+         * @return Returns the slice of array.
          */
         tail<T>(array: List<T> | null | undefined): T[];
     }
@@ -1050,7 +1429,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.take
+         * Creates a slice of array with n elements taken from the beginning.
+         *
+         * @param array The array to query.
+         * @param n The number of elements to take.
+         * @return Returns the slice of array.
          */
         take<T>(array: List<T> | null | undefined, n?: number): T[];
     }
@@ -1068,7 +1451,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.takeRight
+         * Creates a slice of array with n elements taken from the end.
+         *
+         * @param array The array to query.
+         * @param n The number of elements to take.
+         * @return Returns the slice of array.
          */
         takeRight<T>(array: List<T> | null | undefined, n?: number): T[];
     }
@@ -1086,7 +1473,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.takeRightWhile
+         * Creates a slice of array with elements taken from the end. Elements are taken until predicate returns
+         * falsey. The predicate is invoked with three arguments: (value, index, array).
+         *
+         * @param array The array to query.
+         * @param predicate The function invoked per iteration.
+         * @return Returns the slice of array.
          */
         takeRightWhile<T>(array: List<T> | null | undefined, predicate?: ListIteratee<T>): T[];
     }
@@ -1104,7 +1496,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.takeWhile
+         * Creates a slice of array with elements taken from the beginning. Elements are taken until predicate returns
+         * falsey. The predicate is invoked with three arguments: (value, index, array).
+         *
+         * @param array The array to query.
+         * @param predicate The function invoked per iteration.
+         * @return Returns the slice of array.
          */
         takeWhile<T>(array: List<T> | null | undefined, predicate?: ListIteratee<T>): T[];
     }
@@ -1122,7 +1519,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.union
+         * Creates an array of unique values, in order, from all of the provided arrays using SameValueZero for
+         * equality comparisons.
+         *
+         * @param arrays The arrays to inspect.
+         * @return Returns the new array of combined values.
          */
         union<T>(...arrays: Array<List<T> | null | undefined>): T[];
     }
@@ -1140,7 +1541,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.unionBy
+         * This method is like `_.union` except that it accepts `iteratee` which is
+         * invoked for each element of each `arrays` to generate the criterion by which
+         * uniqueness is computed. The iteratee is invoked with one argument: (value).
+         *
+         * @param arrays The arrays to inspect.
+         * @param iteratee The iteratee invoked per element.
+         * @return Returns the new array of combined values.
          */
         unionBy<T>(arrays: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T[];
         /**
@@ -1182,7 +1589,21 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.unionWith
+         * This method is like `_.union` except that it accepts `comparator` which
+         * is invoked to compare elements of `arrays`. The comparator is invoked
+         * with two arguments: (arrVal, othVal).
+         *
+         * @category Array
+         * @param [arrays] The arrays to inspect.
+         * @param [comparator] The comparator invoked per element.
+         * @returns Returns the new array of combined values.
+         * @example
+         *
+         * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
+         * var others = [{ 'x': 1, 'y': 1 }, { 'x': 1, 'y': 2 }];
+         *
+         * _.unionWith(objects, others, _.isEqual);
+         * // => [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
          */
         unionWith<T>(arrays: List<T> | null | undefined, comparator?: Comparator<T>): T[];
         /**
@@ -1216,7 +1637,18 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.uniq
+         * Creates a duplicate-free version of an array, using
+         * [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
+         * for equality comparisons, in which only the first occurrence of each element
+         * is kept.
+         *
+         * @category Array
+         * @param array The array to inspect.
+         * @returns Returns the new duplicate free array.
+         * @example
+         *
+         * _.uniq([2, 1, 2]);
+         * // => [2, 1]
          */
         uniq<T>(array: List<T> | null | undefined): T[];
     }
@@ -1234,7 +1666,22 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.uniqBy
+         * This method is like `_.uniq` except that it accepts `iteratee` which is
+         * invoked for each element in `array` to generate the criterion by which
+         * uniqueness is computed. The iteratee is invoked with one argument: (value).
+         *
+         * @category Array
+         * @param array The array to inspect.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns the new duplicate free array.
+         * @example
+         *
+         * _.uniqBy([2.1, 1.2, 2.3], Math.floor);
+         * // => [2.1, 1.2]
+         *
+         * // using the `_.property` iteratee shorthand
+         * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+         * // => [{ 'x': 1 }, { 'x': 2 }]
          */
         uniqBy<T>(array: List<T> | null | undefined, iteratee: ValueIteratee<T>): T[];
     }
@@ -1252,7 +1699,20 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.uniqWith
+         * This method is like `_.uniq` except that it accepts `comparator` which
+         * is invoked to compare elements of `array`. The comparator is invoked with
+         * two arguments: (arrVal, othVal).
+         *
+         * @category Array
+         * @param array The array to inspect.
+         * @param [comparator] The comparator invoked per element.
+         * @returns Returns the new duplicate free array.
+         * @example
+         *
+         * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 },  { 'x': 1, 'y': 2 }];
+         *
+         * _.uniqWith(objects, _.isEqual);
+         * // => [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }]
          */
         uniqWith<T>(array: List<T> | null | undefined, comparator?: Comparator<T>): T[];
     }
@@ -1270,7 +1730,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.unzip
+         * This method is like _.zip except that it accepts an array of grouped elements and creates an array
+         * regrouping the elements to their pre-zip configuration.
+         *
+         * @param array The array of grouped elements to process.
+         * @return Returns the new array of regrouped elements.
          */
         unzip<T>(array: T[][] | List<List<T>> | null | undefined): T[][];
     }
@@ -1288,7 +1752,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.unzipWith
+         * This method is like _.unzip except that it accepts an iteratee to specify how regrouped values should be
+         * combined. The iteratee is invoked with four arguments: (accumulator, value, index, group).
+         *
+         * @param array The array of grouped elements to process.
+         * @param iteratee The function to combine regrouped values.
+         * @return Returns the new array of regrouped elements.
          */
         unzipWith<T, TResult>(array: List<List<T>> | null | undefined, iteratee: (...values: T[]) => TResult): TResult[];
         /**
@@ -1318,7 +1787,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.without
+         * Creates an array excluding all provided values using SameValueZero for equality comparisons.
+         *
+         * @param array The array to filter.
+         * @param values The values to exclude.
+         * @return Returns the new array of filtered values.
          */
         without<T>(array: List<T> | null | undefined, ...values: T[]): T[];
     }
@@ -1336,7 +1809,10 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.xor
+         * Creates an array of unique values that is the symmetric difference of the provided arrays.
+         *
+         * @param arrays The arrays to inspect.
+         * @return Returns the new array of values.
          */
         xor<T>(...arrays: Array<List<T> | null | undefined>): T[];
     }
@@ -1354,7 +1830,22 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.xorBy
+         * This method is like `_.xor` except that it accepts `iteratee` which is
+         * invoked for each element of each `arrays` to generate the criterion by which
+         * uniqueness is computed. The iteratee is invoked with one argument: (value).
+         *
+         * @category Array
+         * @param [arrays] The arrays to inspect.
+         * @param [iteratee=_.identity] The iteratee invoked per element.
+         * @returns Returns the new array of values.
+         * @example
+         *
+         * _.xorBy([2.1, 1.2], [4.3, 2.4], Math.floor);
+         * // => [1.2, 4.3]
+         *
+         * // using the `_.property` iteratee shorthand
+         * _.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
+         * // => [{ 'x': 2 }]
          */
         xorBy<T>(arrays: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T[];
         /**
@@ -1388,7 +1879,21 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.xorWith
+         * This method is like `_.xor` except that it accepts `comparator` which is
+         * invoked to compare elements of `arrays`. The comparator is invoked with
+         * two arguments: (arrVal, othVal).
+         *
+         * @category Array
+         * @param [arrays] The arrays to inspect.
+         * @param [comparator] The comparator invoked per element.
+         * @returns Returns the new array of values.
+         * @example
+         *
+         * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
+         * var others = [{ 'x': 1, 'y': 1 }, { 'x': 1, 'y': 2 }];
+         *
+         * _.xorWith(objects, others, _.isEqual);
+         * // => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
          */
         xorWith<T>(arrays: List<T> | null | undefined, comparator?: Comparator<T>): T[];
         /**
@@ -1422,7 +1927,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.zip
+         * Creates an array of grouped elements, the first of which contains the first elements of the given arrays,
+         * the second of which contains the second elements of the given arrays, and so on.
+         *
+         * @param arrays The arrays to process.
+         * @return Returns the new array of grouped elements.
          */
         zip<T1, T2>(arrays1: List<T1>, arrays2: List<T2>): Array<[T1 | undefined, T2 | undefined]>;
         /**
@@ -1464,7 +1973,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.zipObject
+         * This method is like _.fromPairs except that it accepts two arrays, one of property
+         * identifiers and one of corresponding values.
+         *
+         * @param props The property names.
+         * @param values The property values.
+         * @return Returns the new object.
          */
         zipObject<T>(props: List<PropertyName>, values: List<T>): Dictionary<T>;
         /**
@@ -1494,7 +2008,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.zipObjectDeep
+         * This method is like _.zipObject except that it supports property paths.
+         *
+         * @param paths The property names.
+         * @param values The property values.
+         * @return Returns the new object.
          */
         zipObjectDeep(paths?: List<PropertyPath>, values?: List<any>): object;
     }
@@ -1512,7 +2030,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.zipWith
+         * This method is like _.zip except that it accepts an iteratee to specify how grouped values should be
+         * combined. The iteratee is invoked with four arguments: (accumulator, value, index,
+         * group).
+         * @param arrays The arrays to process.
+         * @param iteratee The function to combine grouped values.
+         * @return Returns the new array of grouped elements.
          */
         zipWith<T, TResult>(arrays: List<T>, iteratee: (value1: T) => TResult): TResult[];
         /**

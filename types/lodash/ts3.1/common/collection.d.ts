@@ -2,7 +2,13 @@ import _ = require("../index");
 declare module "../index" {
     interface LoDashStatic {
         /**
-         * @see _.countBy
+         * Creates an object composed of keys generated from the results of running each element of collection through
+         * iteratee. The corresponding value of each key is the number of times the key was returned by iteratee. The
+         * iteratee is invoked with one argument: (value).
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @return Returns the composed aggregate object.
          */
         countBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): Dictionary<number>;
         /**
@@ -48,7 +54,7 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.each
+         * @see _.forEach
          */
         each: LoDashStatic['forEach'];
     }
@@ -90,7 +96,7 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.eachRight
+         * @see _.forEachRight
          */
         eachRight: LoDashStatic["forEachRight"];
     }
@@ -132,7 +138,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.every
+         * Checks if predicate returns truthy for all elements of collection. Iteration is stopped once predicate
+         * returns falsey. The predicate is invoked with three arguments: (value, index|key, collection).
+         *
+         * @param collection The collection to iterate over.
+         * @param predicate The function invoked per iteration.
+         * @return Returns true if all elements pass the predicate check, else false.
          */
         every<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): boolean;
         /**
@@ -166,7 +177,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.filter
+         * Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The
+         * predicate is invoked with three arguments: (value, index|key, collection).
+         *
+         * @param collection The collection to iterate over.
+         * @param predicate The function invoked per iteration.
+         * @return Returns the new filtered array.
          */
         filter(collection: string | null | undefined, predicate?: StringIterator<boolean>): string[];
         /**
@@ -240,7 +256,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.find
+         * Iterates over elements of collection, returning the first element predicate returns truthy for.
+         * The predicate is invoked with three arguments: (value, index|key, collection).
+         *
+         * @param collection The collection to search.
+         * @param predicate The function invoked per iteration.
+         * @param fromIndex The index to search from.
+         * @return Returns the matched element, else undefined.
          */
         find<T, S extends T>(collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
         /**
@@ -298,7 +320,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.findLast
+         * This method is like _.find except that it iterates over elements of a collection from
+         * right to left.
+         * @param collection Searches for a value in this list.
+         * @param predicate The function called per iteration.
+         * @param fromIndex The index to search from.
+         * @return The found element, else undefined.
          */
         findLast<T, S extends T>(collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>, fromIndex?: number): S|undefined;
         /**
@@ -356,7 +383,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.flatMap
+         * Creates an array of flattened values by running each element in collection through iteratee
+         * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
+         * (value, index|key, collection).
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @return Returns the new flattened array.
          */
         flatMap<T>(collection: Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined): T[];
         /**
@@ -458,7 +491,22 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.flatMapDeep
+         * This method is like `_.flatMap` except that it recursively flattens the
+         * mapped results.
+         *
+         * @since 4.7.0
+         * @category Collection
+         * @param collection The collection to iterate over.
+         * @param [iteratee=_.identity] The function invoked per iteration.
+         * @returns Returns the new flattened array.
+         * @example
+         *
+         * function duplicate(n) {
+         *   return [[[n, n]]];
+         * }
+         *
+         * _.flatMapDeep([1, 2], duplicate);
+         * // => [1, 1, 2, 2]
          */
         flatMapDeep<T>(collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined): T[];
         /**
@@ -556,7 +604,23 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.flatMapDepth
+         * This method is like `_.flatMap` except that it recursively flattens the
+         * mapped results up to `depth` times.
+         *
+         * @since 4.7.0
+         * @category Collection
+         * @param collection The collection to iterate over.
+         * @param [iteratee=_.identity] The function invoked per iteration.
+         * @param [depth=1] The maximum recursion depth.
+         * @returns Returns the new flattened array.
+         * @example
+         *
+         * function duplicate(n) {
+         *   return [[[n, n]]];
+         * }
+         *
+         * _.flatMapDepth([1, 2], duplicate, 2);
+         * // => [[1, 1], [2, 2]]
          */
         flatMapDepth<T>(collection: Dictionary<ListOfRecursiveArraysOrValues<T> | T> | NumericDictionary<ListOfRecursiveArraysOrValues<T> | T> | null | undefined): T[];
         /**
@@ -654,7 +718,16 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.forEach
+         * Iterates over elements of collection invoking iteratee for each element. The iteratee is invoked with three arguments:
+         * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
+         *
+         * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
+         * avoid this behavior _.forIn or _.forOwn may be used for object iteration.
+         *
+         * @alias _.each
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
          */
         forEach<T>(collection: T[], iteratee?: ArrayIterator<T, any>): T[];
         /**
@@ -724,7 +797,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.forEachRight
+         * This method is like _.forEach except that it iterates over elements of collection from right to left.
+         *
+         * @alias _.eachRight
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function called per iteration.
          */
         forEachRight<T>(collection: T[], iteratee?: ArrayIterator<T, any>): T[];
         /**
@@ -794,7 +872,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.groupBy
+         * Creates an object composed of keys generated from the results of running each element of collection through
+         * iteratee. The corresponding value of each key is an array of the elements responsible for generating the
+         * key. The iteratee is invoked with one argument: (value).
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @return Returns the composed aggregate object.
          */
         groupBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): Dictionary<T[]>;
         /**
@@ -840,7 +924,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.includes
+         * Checks if target is in collection using SameValueZero for equality comparisons. If fromIndex is negative,
+         * it’s used as the offset from the end of collection.
+         *
+         * @param collection The collection to search.
+         * @param target The value to search for.
+         * @param fromIndex The index to search from.
+         * @return True if the target element is found, else false.
          */
         includes<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: T, fromIndex?: number): boolean;
     }
@@ -870,7 +960,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.invokeMap
+        * Invokes the method named by methodName on each element in the collection returning
+        * an array of the results of each invoked method. Additional arguments will be provided
+        * to each invoked method. If methodName is a function it will be invoked for, and this
+        * bound to, each element in the collection.
+        * @param collection The collection to iterate over.
+        * @param methodName The name of the method to invoke.
+        * @param args Arguments to invoke the method with.
          */
         invokeMap(collection: object | null | undefined, methodName: string, ...args: any[]): any[];
         /**
@@ -900,7 +996,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.keyBy
+         * Creates an object composed of keys generated from the results of running each element of collection through
+         * iteratee. The corresponding value of each key is the last element responsible for generating the key. The
+         * iteratee function is invoked with one argument: (value).
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @return Returns the composed aggregate object.
          */
         keyBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIterateeCustom<T, PropertyName>): Dictionary<T>;
         /**
@@ -946,7 +1048,20 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.map
+         * Creates an array of values by running each element in collection through iteratee. The iteratee is
+         * invoked with three arguments: (value, index|key, collection).
+         *
+         * Many lodash methods are guarded to work as iteratees for methods like _.every, _.filter, _.map, _.mapValues,
+         * _.reject, and _.some.
+         *
+         * The guarded methods are:
+         * ary, callback, chunk, clone, create, curry, curryRight, drop, dropRight, every, fill, flatten, invert, max,
+         * min, parseInt, slice, sortBy, take, takeRight, template, trim, trimLeft, trimRight, trunc, random, range,
+         * sample, some, sum, uniq, and words
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @return Returns the new mapped array.
          */
         map<T, TResult>(collection: T[] | null | undefined, iteratee: ArrayIterator<T, TResult>): TResult[];
         /**
@@ -1085,7 +1200,29 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.orderBy
+         * This method is like `_.sortBy` except that it allows specifying the sort
+         * orders of the iteratees to sort by. If `orders` is unspecified, all values
+         * are sorted in ascending order. Otherwise, specify an order of "desc" for
+         * descending or "asc" for ascending sort order of corresponding values.
+         *
+         * @category Collection
+         * @param collection The collection to iterate over.
+         * @param [iteratees=[_.identity]] The iteratees to sort by.
+         * @param [orders] The sort orders of `iteratees`.
+         * @param- {Object} [guard] Enables use as an iteratee for functions like `_.reduce`.
+         * @returns Returns the new sorted array.
+         * @example
+         *
+         * var users = [
+         *   { 'user': 'fred',   'age': 48 },
+         *   { 'user': 'barney', 'age': 34 },
+         *   { 'user': 'fred',   'age': 42 },
+         *   { 'user': 'barney', 'age': 36 }
+         * ];
+         *
+         * // sort by `user` in ascending order and by `age` in descending order
+         * _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
+         * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
          */
         orderBy<T>(collection: List<T> | null | undefined, iteratees?: Many<ListIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): T[];
         /**
@@ -1127,7 +1264,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.partition
+        * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
+        * while the second of which contains elements predicate returns falsey for.
+        * The predicate is invoked with three arguments: (value, index|key, collection).
+        *
+        * @param collection The collection to iterate over.
+        * @param callback The function called per iteration.
+        * @return Returns the array of grouped elements.
          */
         partition<T>(collection: List<T> | null | undefined, callback: ValueIteratee<T>): [T[], T[]];
         /**
@@ -1173,7 +1316,15 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.reduce
+        * Reduces a collection to a value which is the accumulated result of running each
+        * element in the collection through the callback, where each successive callback execution
+        * consumes the return value of the previous execution. If accumulator is not provided the
+        * first element of the collection will be used as the initial accumulator value. The callback
+        * is invoked with four arguments: (accumulator, value, index|key, collection).
+        * @param collection The collection to iterate over.
+        * @param callback The function called per iteration.
+        * @param accumulator Initial value of the accumulator.
+        * @return Returns the accumulated value.
          */
         reduce<T, TResult>(collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult): TResult;
         /**
@@ -1239,7 +1390,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.reduceRight
+        * This method is like _.reduce except that it iterates over elements of a collection from
+        * right to left.
+        * @param collection The collection to iterate over.
+        * @param callback The function called per iteration.
+        * @param accumulator Initial value of the accumulator.
+        * @return The accumulated value.
          */
         reduceRight<T, TResult>(collection: T[] | null | undefined, callback: MemoListIterator<T, TResult, T[]>, accumulator: TResult): TResult;
         /**
@@ -1305,7 +1461,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.reject
+         * The opposite of _.filter; this method returns the elements of collection that predicate does not return
+         * truthy for.
+         *
+         * @param collection The collection to iterate over.
+         * @param predicate The function invoked per iteration.
+         * @return Returns the new filtered array.
          */
         reject(collection: string | null | undefined, predicate?: StringIterator<boolean>): string[];
         /**
@@ -1355,7 +1516,10 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.sample
+         * Gets a random element from collection.
+         *
+         * @param collection The collection to sample.
+         * @return Returns the random element.
          */
         sample<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined): T | undefined;
         /**
@@ -1401,7 +1565,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.sampleSize
+         * Gets n random elements at unique keys from collection up to the size of collection.
+         *
+         * @param collection The collection to sample.
+         * @param n The number of elements to sample.
+         * @return Returns the random elements.
          */
         sampleSize<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, n?: number): T[];
         /**
@@ -1447,7 +1615,10 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.shuffle
+         * Creates an array of shuffled values, using a version of the Fisher-Yates shuffle.
+         *
+         * @param collection The collection to shuffle.
+         * @return Returns the new shuffled array.
          */
         shuffle<T>(collection: List<T> | null | undefined): T[];
         /**
@@ -1493,7 +1664,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.size
+         * Gets the size of collection by returning its length for array-like values or the number of own enumerable
+         * properties for objects.
+         *
+         * @param collection The collection to inspect.
+         * @return Returns the size of collection.
          */
         size(collection: object | string | null | undefined): number;
     }
@@ -1511,7 +1686,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.some
+         * Checks if predicate returns truthy for any element of collection. Iteration is stopped once predicate
+         * returns truthy. The predicate is invoked with three arguments: (value, index|key, collection).
+         *
+         * @param collection The collection to iterate over.
+         * @param predicate The function invoked per iteration.
+         * @return Returns true if any element passes the predicate check, else false.
          */
         some<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): boolean;
         /**
@@ -1545,7 +1725,35 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.sortBy
+         * Creates an array of elements, sorted in ascending order by the results of
+         * running each element in a collection through each iteratee. This method
+         * performs a stable sort, that is, it preserves the original sort order of
+         * equal elements. The iteratees are invoked with one argument: (value).
+         *
+         * @category Collection
+         * @param collection The collection to iterate over.
+         * @param [iteratees=[_.identity]]
+         *  The iteratees to sort by, specified individually or in arrays.
+         * @returns Returns the new sorted array.
+         * @example
+         *
+         * var users = [
+         *   { 'user': 'fred',   'age': 48 },
+         *   { 'user': 'barney', 'age': 36 },
+         *   { 'user': 'fred',   'age': 42 },
+         *   { 'user': 'barney', 'age': 34 }
+         * ];
+         *
+         * _.sortBy(users, function(o) { return o.user; });
+         * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
+         *
+         * _.sortBy(users, ['user', 'age']);
+         * // => objects for [['barney', 34], ['barney', 36], ['fred', 42], ['fred', 48]]
+         *
+         * _.sortBy(users, 'user', function(o) {
+         *   return Math.floor(o.age / 10);
+         * });
+         * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 42]]
          */
         sortBy<T>(collection: List<T> | null | undefined, ...iteratees: Array<Many<ListIteratee<T>>>): T[];
         /**

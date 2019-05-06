@@ -2,7 +2,11 @@ import _ = require("../index");
 declare module "../index" {
     interface LoDashStatic {
         /**
-         * @see _.attempt
+         * Attempts to invoke func, returning either the result or the caught error object. Any additional arguments
+         * are provided to func when it’s invoked.
+         *
+         * @param func The function to attempt.
+         * @return Returns the func result or error object.
          */
         attempt<TResult>(func: (...args: any[]) => TResult, ...args: any[]): TResult | Error;
     }
@@ -21,7 +25,16 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.bindAll
+         * Binds methods of an object to the object itself, overwriting the existing method. Method names may be
+         * specified as individual arguments or as arrays of method names. If no method names are provided all
+         * enumerable function properties, own and inherited, of object are bound.
+         *
+         * Note: This method does not set the "length" property of bound functions.
+         *
+         * @param object The object to bind and assign the bound methods to.
+         * @param methodNames The object method names to bind, specified as individual method names or arrays of
+         * method names.
+         * @return Returns object.
          */
         bindAll<T>(object: T, ...methodNames: Array<Many<string>>): T;
     }
@@ -40,7 +53,31 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.cond
+         * Creates a function that iterates over `pairs` and invokes the corresponding
+         * function of the first predicate to return truthy. The predicate-function
+         * pairs are invoked with the `this` binding and arguments of the created
+         * function.
+         *
+         * @since 4.0.0
+         * @category Util
+         * @param pairs The predicate-function pairs.
+         * @returns Returns the new composite function.
+         * @example
+         *
+         * var func = _.cond([
+         *   [_.matches({ 'a': 1 }),           _.constant('matches A')],
+         *   [_.conforms({ 'b': _.isNumber }), _.constant('matches B')],
+         *   [_.stubTrue,                      _.constant('no match')]
+         * ]);
+         *
+         * func({ 'a': 1, 'b': 2 });
+         * // => 'matches A'
+         *
+         * func({ 'a': 0, 'b': 1 });
+         * // => 'matches B'
+         *
+         * func({ 'a': '1', 'b': '2' });
+         * // => 'no match'
          */
         cond<T, R>(pairs: Array<CondPair<T, R>>): (Target: T) => R;
     }
@@ -50,7 +87,8 @@ declare module "../index" {
     };
     interface LoDashStatic {
         /**
-         * @see _.conforms
+         * Creates a function that invokes the predicate properties of `source` with the corresponding
+         * property values of a given object, returning true if all predicates return truthy, else false.
          */
         conforms<T>(source: ConformsPredicateObject<T>): (value: T) => boolean;
     }
@@ -69,7 +107,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.constant
+         * Creates a function that returns value.
+         *
+         * @param value The value to return from the new function.
+         * @return Returns the new function.
          */
         constant<T>(value: T): () => T;
     }
@@ -88,7 +129,13 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.defaultTo
+         * Checks `value` to determine whether a default value should be returned in
+         * its place. The `defaultValue` is returned if `value` is `NaN`, `null`,
+         * or `undefined`.
+         *
+         * @param value The value to check.
+         * @param defaultValue The default value.
+         * @returns Returns the resolved value.
          */
         defaultTo<T>(value: T | null | undefined, defaultValue: T): T;
         /**
@@ -119,7 +166,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.flow
+         * Creates a function that returns the result of invoking the provided functions with the this binding of the
+         * created function, where each successive invocation is supplied the return value of the previous.
+         *
+         * @param funcs Functions to invoke.
+         * @return Returns the new function.
          */
         flow<A extends any[], R1, R2, R3, R4, R5, R6, R7>(f1: (...args: A) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (...args: A) => R7;
         /**
@@ -222,7 +273,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.flowRight
+         * This method is like _.flow except that it creates a function that invokes the provided functions from right
+         * to left.
+         *
+         * @param funcs Functions to invoke.
+         * @return Returns the new function.
          */
         flowRight<A extends any[], R1, R2, R3, R4, R5, R6, R7>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R7;
         /**
@@ -313,7 +368,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.identity
+         * This method returns the first argument provided to it.
+         *
+         * @param value Any value.
+         * @return Returns value.
          */
         identity<T>(value: T): T;
         /**
@@ -336,7 +394,31 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.iteratee
+         * Creates a function that invokes `func` with the arguments of the created
+         * function. If `func` is a property name the created callback returns the
+         * property value for a given element. If `func` is an object the created
+         * callback returns `true` for elements that contain the equivalent object properties, otherwise it returns `false`.
+         *
+         * @category Util
+         * @param [func=_.identity] The value to convert to a callback.
+         * @returns Returns the callback.
+         * @example
+         *
+         * var users = [
+         *   { 'user': 'barney', 'age': 36 },
+         *   { 'user': 'fred',   'age': 40 }
+         * ];
+         *
+         * // create custom iteratee shorthands
+         * _.iteratee = _.wrap(_.iteratee, function(callback, func) {
+         *   var p = /^(\S+)\s*([<>])\s*(\S+)$/.exec(func);
+         *   return !p ? callback(func) : function(object) {
+         *     return (p[2] == '>' ? object[p[1]] > p[3] : object[p[1]] < p[3]);
+         *   };
+         * });
+         *
+         * _.filter(users, 'age > 36');
+         * // => [{ 'user': 'fred', 'age': 40 }]
          */
         iteratee<TFunction extends (...args: any[]) => any>(func: TFunction): TFunction;
         /**
@@ -395,7 +477,15 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.matches
+         * Creates a function that performs a deep comparison between a given object and source, returning true if the
+         * given object has equivalent property values, else false.
+         *
+         * Note: This method supports comparing arrays, booleans, Date objects, numbers, Object objects, regexes, and
+         * strings. Objects are compared by their own, not inherited, enumerable properties. For comparing a single own
+         * or inherited property value see _.matchesProperty.
+         *
+         * @param source The object of property values to match.
+         * @return Returns the new function.
          */
         matches<T>(source: T): (value: any) => boolean;
         /**
@@ -418,7 +508,14 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.matchesProperty
+         * Creates a function that compares the property value of path on a given object to value.
+         *
+         * Note: This method supports comparing arrays, booleans, Date objects, numbers, Object objects, regexes, and
+         * strings. Objects are compared by their own, not inherited, enumerable properties.
+         *
+         * @param path The path of the property to get.
+         * @param srcValue The value to match.
+         * @return Returns the new function.
          */
         matchesProperty<T>(path: PropertyPath, srcValue: T): (value: any) => boolean;
         /**
@@ -449,7 +546,12 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.method
+         * Creates a function that invokes the method at path on a given object. Any additional arguments are provided
+         * to the invoked method.
+         *
+         * @param path The path of the method to invoke.
+         * @param args The arguments to invoke the method with.
+         * @return Returns the new function.
          */
         method(path: PropertyPath, ...args: any[]): (object: any) => any;
     }
@@ -468,7 +570,12 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.methodOf
+         * The opposite of _.method; this method creates a function that invokes the method at a given path on object.
+         * Any additional arguments are provided to the invoked method.
+         *
+         * @param object The object to query.
+         * @param args The arguments to invoke the method with.
+         * @return Returns the new function.
          */
         methodOf(object: object, ...args: any[]): (path: PropertyPath) => any;
     }
@@ -493,7 +600,17 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.mixin
+         * Adds all own enumerable function properties of a source object to the destination object. If object is a
+         * function then methods are added to its prototype as well.
+         *
+         * Note: Use _.runInContext to create a pristine lodash function to avoid conflicts caused by modifying
+         * the original.
+         *
+         * @param object The destination object.
+         * @param source The object of functions to add.
+         * @param options The options object.
+         * @param options.chain Specify whether the functions added are chainable.
+         * @return Returns object.
          */
         mixin<TObject>(object: TObject, source: Dictionary<(...args: any[]) => any>, options?: MixinOptions): TObject;
         /**
@@ -524,7 +641,9 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.noConflict
+         * Reverts the _ variable to its previous value and returns a reference to the lodash function.
+         *
+         * @return Returns the lodash function.
          */
         noConflict(): typeof _;
     }
@@ -543,7 +662,9 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.noop
+         * A no-operation function that returns undefined regardless of the arguments it receives.
+         *
+         * @return undefined
          */
         noop(...args: any[]): void;
     }
@@ -562,7 +683,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.nthArg
+         * Creates a function that returns its nth argument.
+         *
+         * @param n The index of the argument to return.
+         * @return Returns the new function.
          */
         nthArg(n?: number): (...args: any[]) => any;
     }
@@ -581,7 +705,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.over
+         * Creates a function that invokes iteratees with the arguments provided to the created function and returns
+         * their results.
+         *
+         * @param iteratees The iteratees to invoke.
+         * @return Returns the new function.
          */
         over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): (...args: any[]) => TResult[];
     }
@@ -612,7 +740,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.overEvery
+         * Creates a function that checks if all of the predicates return truthy when invoked with the arguments
+         * provided to the created function.
+         *
+         * @param predicates The predicates to check.
+         * @return Returns the new function.
          */
         overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
@@ -643,7 +775,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.overSome
+         * Creates a function that checks if any of the predicates return truthy when invoked with the arguments
+         * provided to the created function.
+         *
+         * @param predicates The predicates to check.
+         * @return Returns the new function.
          */
         overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
@@ -674,7 +810,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.property
+         * Creates a function that returns the property value at path on a given object.
+         *
+         * @param path The path of the property to get.
+         * @return Returns the new function.
          */
         property<TObj, TResult>(path: PropertyPath): (obj: TObj) => TResult;
     }
@@ -693,7 +832,11 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.propertyOf
+         * The opposite of _.property; this method creates a function that returns the property value at a given path
+         * on object.
+         *
+         * @param object The object to query.
+         * @return Returns the new function.
          */
         propertyOf<T extends {}>(object: T): (path: PropertyPath) => any;
     }
@@ -712,7 +855,14 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.range
+         * Creates an array of numbers (positive and/or negative) progressing from start up to, but not including, end.
+         * If end is not specified it’s set to start with start then set to 0. If end is less than start a zero-length
+         * range is created unless a negative step is specified.
+         *
+         * @param start The start of the range.
+         * @param end The end of the range.
+         * @param step The value to increment or decrement by.
+         * @return Returns a new range array.
          */
         range(start: number, end?: number, step?: number): number[];
         /**
@@ -735,7 +885,36 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.rangeRight
+         * This method is like `_.range` except that it populates values in
+         * descending order.
+         *
+         * @category Util
+         * @param start The start of the range.
+         * @param end The end of the range.
+         * @param step The value to increment or decrement by.
+         * @returns Returns the new array of numbers.
+         * @example
+         *
+         * _.rangeRight(4);
+         * // => [3, 2, 1, 0]
+         *
+         * _.rangeRight(-4);
+         * // => [-3, -2, -1, 0]
+         *
+         * _.rangeRight(1, 5);
+         * // => [4, 3, 2, 1]
+         *
+         * _.rangeRight(0, 20, 5);
+         * // => [15, 10, 5, 0]
+         *
+         * _.rangeRight(0, -4, -1);
+         * // => [-3, -2, -1, 0]
+         *
+         * _.rangeRight(1, 4, 0);
+         * // => [1, 1, 1]
+         *
+         * _.rangeRight(0);
+         * // => []
          */
         rangeRight(start: number, end?: number, step?: number): number[];
         /**
@@ -758,7 +937,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.runInContext
+         * Create a new pristine lodash function using the given context object.
+         *
+         * @param context The context object.
+         * @return Returns a new lodash function.
          */
         runInContext(context?: object): LoDashStatic;
     }
@@ -771,7 +953,9 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.stubArray
+         * This method returns a new empty array.
+         *
+         * @returns Returns the new empty array.
          */
         stubArray(): any[];
     }
@@ -790,7 +974,9 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.stubFalse
+         * This method returns `false`.
+         *
+         * @returns Returns `false`.
          */
         stubFalse(): false;
     }
@@ -809,7 +995,9 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.stubObject
+         * This method returns a new empty object.
+         *
+         * @returns Returns the new empty object.
          */
         stubObject(): any;
     }
@@ -828,7 +1016,9 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.stubString
+         * This method returns an empty string.
+         *
+         * @returns Returns the empty string.
          */
         stubString(): string;
     }
@@ -847,7 +1037,9 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.stubTrue
+         * This method returns `true`.
+         *
+         * @returns Returns `true`.
          */
         stubTrue(): true;
     }
@@ -866,7 +1058,12 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.times
+         * Invokes the iteratee function n times, returning an array of the results of each invocation. The iteratee
+         * is invoked with one argument; (index).
+         *
+         * @param n The number of times to invoke iteratee.
+         * @param iteratee The function invoked per iteration.
+         * @return Returns the array of results.
          */
         times<TResult>(n: number, iteratee: (num: number) => TResult): TResult[];
         /**
@@ -897,7 +1094,27 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.toPath
+         * Converts `value` to a property path array.
+         *
+         * @category Util
+         * @param value The value to convert.
+         * @returns Returns the new property path array.
+         * @example
+         *
+         * _.toPath('a.b.c');
+         * // => ['a', 'b', 'c']
+         *
+         * _.toPath('a[0].b.c');
+         * // => ['a', '0', 'b', 'c']
+         *
+         * var path = ['a', 'b', 'c'],
+         *     newPath = _.toPath(path);
+         *
+         * console.log(newPath);
+         * // => ['a', 'b', 'c']
+         *
+         * console.log(path === newPath);
+         * // => false
          */
         toPath(value: any): string[];
     }
@@ -916,7 +1133,10 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * @see _.uniqueId
+         * Generates a unique ID. If prefix is provided the ID is appended to it.
+         *
+         * @param prefix The value to prefix the ID with.
+         * @return Returns the unique ID.
          */
         uniqueId(prefix?: string): string;
     }

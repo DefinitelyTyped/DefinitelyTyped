@@ -2,7 +2,11 @@ import _ = require("../index");
 declare module "../index" {
     interface LoDashStatic {
         /**
-         * @see _.after
+         * The opposite of _.before; this method creates a function that invokes func once it’s called n or more times.
+         *
+         * @param n The number of calls before func is invoked.
+         * @param func The function to restrict.
+         * @return Returns the new restricted function.
          */
         after<TFunc extends (...args: any[]) => any>(n: number, func: TFunc): TFunc;
     }
@@ -20,7 +24,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.ary
+         * Creates a function that accepts up to n arguments ignoring any additional arguments.
+         *
+         * @param func The function to cap arguments for.
+         * @param n The arity cap.
+         * @returns Returns the new function.
          */
         ary(func: (...args: any[]) => any, n?: number): (...args: any[]) => any;
     }
@@ -38,7 +46,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.before
+         * Creates a function that invokes func, with the this binding and arguments of the created function, while
+         * it’s called less than n times. Subsequent calls to the created function return the result of the last func
+         * invocation.
+         *
+         * @param n The number of calls at which func is no longer invoked.
+         * @param func The function to restrict.
+         * @return Returns the new restricted function.
          */
         before<TFunc extends (...args: any[]) => any>(n: number, func: TFunc): TFunc;
     }
@@ -63,7 +77,18 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.bind
+         * Creates a function that invokes func with the this binding of thisArg and prepends any additional _.bind
+         * arguments to those provided to the bound function.
+         *
+         * The _.bind.placeholder value, which defaults to _ in monolithic builds, may be used as a placeholder for
+         * partially applied arguments.
+         *
+         * Note: Unlike native Function#bind this method does not set the "length" property of bound functions.
+         *
+         * @param func The function to bind.
+         * @param thisArg The this binding of func.
+         * @param partials The arguments to be partially applied.
+         * @return Returns the new bound function.
          */
         bind: FunctionBind;
     }
@@ -85,7 +110,19 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.bindKey
+         * Creates a function that invokes the method at object[key] and prepends any additional _.bindKey arguments
+         * to those provided to the bound function.
+         *
+         * This method differs from _.bind by allowing bound functions to reference methods that may be redefined
+         * or don’t yet exist. See Peter Michaux’s article for more details.
+         *
+         * The _.bindKey.placeholder value, which defaults to _ in monolithic builds, may be used as a placeholder
+         * for partially applied arguments.
+         *
+         * @param object The object the method belongs to.
+         * @param key The key of the method.
+         * @param partials The arguments to be partially applied.
+         * @return Returns the new bound function.
          */
         bindKey: FunctionBindKey;
     }
@@ -111,9 +148,6 @@ declare module "../index" {
         placeholder: __;
     }
     interface LoDashStatic {
-        /**
-         * @see _.curry
-         */
         curry: Curry;
     }
     interface CurriedFunction1<T1, R> {
@@ -294,9 +328,6 @@ declare module "../index" {
         placeholder: __;
     }
     interface LoDashStatic {
-        /**
-         * @see _.curryRight
-         */
         curryRight: CurryRight;
     }
     interface Function<T> {
@@ -339,7 +370,24 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.debounce
+         * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since
+         * the last time the debounced function was invoked. The debounced function comes with a cancel method to
+         * cancel delayed invocations and a flush method to immediately invoke them. Provide an options object to
+         * indicate that func should be invoked on the leading and/or trailing edge of the wait timeout. Subsequent
+         * calls to the debounced function return the result of the last func invocation.
+         *
+         * Note: If leading and trailing options are true, func is invoked on the trailing edge of the timeout only
+         * if the the debounced function is invoked more than once during the wait timeout.
+         *
+         * See David Corbacho’s article for details over the differences between _.debounce and _.throttle.
+         *
+         * @param func The function to debounce.
+         * @param wait The number of milliseconds to delay.
+         * @param options The options object.
+         * @param options.leading Specify invoking on the leading edge of the timeout.
+         * @param options.maxWait The maximum time func is allowed to be delayed before it’s invoked.
+         * @param options.trailing Specify invoking on the trailing edge of the timeout.
+         * @return Returns the new debounced function.
          */
         debounce<T extends (...args: any) => any>(func: T, wait?: number, options?: DebounceSettings): T & Cancelable;
     }
@@ -357,7 +405,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.defer
+         * Defers invoking the func until the current call stack has cleared. Any additional arguments are provided to
+         * func when it’s invoked.
+         *
+         * @param func The function to defer.
+         * @param args The arguments to invoke the function with.
+         * @return Returns the timer id.
          */
         defer(func: (...args: any[]) => any, ...args: any[]): number;
     }
@@ -375,7 +428,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.delay
+         * Invokes func after wait milliseconds. Any additional arguments are provided to func when it’s invoked.
+         *
+         * @param func The function to delay.
+         * @param wait The number of milliseconds to delay invocation.
+         * @param args The arguments to invoke the function with.
+         * @return Returns the timer id.
          */
         delay(func: (...args: any[]) => any, wait: number, ...args: any[]): number;
     }
@@ -393,7 +451,19 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.flip
+         * Creates a function that invokes `func` with arguments reversed.
+         *
+         * @category Function
+         * @param func The function to flip arguments for.
+         * @returns Returns the new function.
+         * @example
+         *
+         * var flipped = _.flip(function() {
+         *   return _.toArray(arguments);
+         * });
+         *
+         * flipped('a', 'b', 'c', 'd');
+         * // => ['d', 'c', 'b', 'a']
          */
         flip<T extends (...args: any) => any>(func: T): T;
     }
@@ -417,7 +487,14 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.memoize
+         * Creates a function that memoizes the result of func. If resolver is provided it determines the cache key for
+         * storing the result based on the arguments provided to the memoized function. By default, the first argument
+         * provided to the memoized function is coerced to a string and used as the cache key. The func is invoked with
+         * the this binding of the memoized function.
+         *
+         * @param func The function to have its output memoized.
+         * @param resolver The function to resolve the cache key.
+         * @return Returns the new memoizing function.
          */
         memoize: {
             <T extends (...args: any) => any>(func: T, resolver?: (...args: any[]) => any): T & MemoizedFunction;
@@ -438,7 +515,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.negate
+         * Creates a function that negates the result of the predicate func. The func predicate is invoked with
+         * the this binding and arguments of the created function.
+         *
+         * @param predicate The predicate to negate.
+         * @return Returns the new function.
          */
         negate<T extends any[]>(predicate: (...args: T) => any): (...args: T) => boolean;
     }
@@ -456,7 +537,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.once
+         * Creates a function that is restricted to invoking func once. Repeat calls to the function return the value
+         * of the first call. The func is invoked with the this binding and arguments of the created function.
+         *
+         * @param func The function to restrict.
+         * @return Returns the new restricted function.
          */
         once<T extends (...args: any) => any>(func: T): T;
     }
@@ -474,7 +559,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.overArgs
+         * Creates a function that runs each argument through a corresponding transform function.
+         *
+         * @param func The function to wrap.
+         * @param transforms The functions to transform arguments, specified as individual functions or arrays
+         * of functions.
+         * @return Returns the new function.
          */
         overArgs(func: (...args: any[]) => any, ...transforms: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
     }
@@ -492,7 +582,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.partial
+        * Creates a function that, when called, invokes func with any additional partial arguments
+        * prepended to those provided to the new function. This method is similar to _.bind except
+        * it does not alter the this binding.
+        * @param func The function to partially apply arguments to.
+        * @param args Arguments to be partially applied.
+        * @return The new partially applied function.
          */
         partial: Partial;
     }
@@ -761,7 +856,11 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.partialRight
+        * This method is like _.partial except that partial arguments are appended to those provided
+        * to the new function.
+        * @param func The function to partially apply arguments to.
+        * @param args Arguments to be partially applied.
+        * @return The new partially applied function.
          */
         partialRight: PartialRight;
     }
@@ -1128,7 +1227,12 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.rearg
+         * Creates a function that invokes func with arguments arranged according to the specified indexes where the
+         * argument value at the first index is provided as the first argument, the argument value at the second index
+         * is provided as the second argument, and so on.
+         * @param func The function to rearrange arguments for.
+         * @param indexes The arranged argument indexes, specified as individual indexes or arrays of indexes.
+         * @return Returns the new function.
          */
         rearg(func: (...args: any[]) => any, ...indexes: Array<Many<number>>): (...args: any[]) => any;
     }
@@ -1146,7 +1250,14 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.rest
+         * Creates a function that invokes func with the this binding of the created function and arguments from start
+         * and beyond provided as an array.
+         *
+         * Note: This method is based on the rest parameter.
+         *
+         * @param func The function to apply a rest parameter to.
+         * @param start The start position of the rest parameter.
+         * @return Returns the new function.
          */
         rest(func: (...args: any[]) => any, start?: number): (...args: any[]) => any;
     }
@@ -1164,7 +1275,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.spread
+         * Creates a function that invokes func with the this binding of the created function and an array of arguments
+         * much like Function#apply.
+         *
+         * Note: This method is based on the spread operator.
+         *
+         * @param func The function to spread arguments over.
+         * @return Returns the new function.
          */
         spread<TResult>(func: (...args: any[]) => TResult, start?: number): (...args: any[]) => TResult;
     }
@@ -1192,7 +1309,20 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.throttle
+         * Creates a throttled function that only invokes func at most once per every wait milliseconds. The throttled
+         * function comes with a cancel method to cancel delayed invocations and a flush method to immediately invoke
+         * them. Provide an options object to indicate that func should be invoked on the leading and/or trailing edge
+         * of the wait timeout. Subsequent calls to the throttled function return the result of the last func call.
+         *
+         * Note: If leading and trailing options are true, func is invoked on the trailing edge of the timeout only if
+         * the the throttled function is invoked more than once during the wait timeout.
+         *
+         * @param func The function to throttle.
+         * @param wait The number of milliseconds to throttle invocations to.
+         * @param options The options object.
+         * @param options.leading Specify invoking on the leading edge of the timeout.
+         * @param options.trailing Specify invoking on the trailing edge of the timeout.
+         * @return Returns the new throttled function.
          */
         throttle<T extends (...args: any) => any>(func: T, wait?: number, options?: ThrottleSettings): T & Cancelable;
     }
@@ -1210,7 +1340,16 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.unary
+         * Creates a function that accepts up to one argument, ignoring any
+         * additional arguments.
+         *
+         * @category Function
+         * @param func The function to cap arguments for.
+         * @returns Returns the new function.
+         * @example
+         *
+         * _.map(['6', '8', '10'], _.unary(parseInt));
+         * // => [6, 8, 10]
          */
         unary<T, TResult>(func: (arg1: T, ...args: any[]) => TResult): (arg1: T) => TResult;
     }
@@ -1228,7 +1367,13 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * @see _.wrap
+         * Creates a function that provides value to the wrapper function as its first argument. Any additional
+         * arguments provided to the function are appended to those provided to the wrapper function. The wrapper is
+         * invoked with the this binding of the created function.
+         *
+         * @param value The value to wrap.
+         * @param wrapper The wrapper function.
+         * @return Returns the new function.
          */
         wrap<T, TArgs, TResult>(value: T, wrapper: (value: T, ...args: TArgs[]) => TResult): (...args: TArgs[]) => TResult;
     }
