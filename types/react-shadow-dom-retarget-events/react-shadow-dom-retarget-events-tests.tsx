@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as retargetEvents from 'react-shadow-dom-retarget-events';
+import retargetEvents from 'react-shadow-dom-retarget-events';
 
 class App extends React.Component {
     render() {
