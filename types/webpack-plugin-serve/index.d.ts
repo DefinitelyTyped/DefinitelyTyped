@@ -1,4 +1,4 @@
-// Type definitions for webpack-plugin-serve 0.7
+// Type definitions for webpack-plugin-serve 0.10
 // Project: https://github.com/shellscape/webpack-plugin-serve
 // Definitions by: Matheus Gonçalves da Silva <https://github.com/PlayMa256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,6 +18,7 @@ import { Compiler } from 'webpack';
 import { Options as HistoryApiFallbackOptions } from 'connect-history-api-fallback';
 import { CompressOptions } from 'koa-compress';
 import { Options as KoaStaticOptions } from 'koa-static';
+import { Options as FastGlobOptions } from 'fast-glob';
 
 export interface Builtins {
     proxy: (args: HttpProxyMiddlewareConfig) => Proxy;
@@ -26,6 +27,11 @@ export interface Builtins {
     historyFallback: (opts: HistoryApiFallbackOptions) => void;
     websocket: () => void;
     four0four: (fn?: (ctx: Koa.Context) => void) => void;
+}
+
+export interface StaticObject {
+    glob?: string | string[];
+    options?: FastGlobOptions;
 }
 
 export interface WebpackPluginServeOptions {
@@ -54,7 +60,7 @@ export interface WebpackPluginServeOptions {
     };
     port?: number | Promise<number>;
     progress?: boolean | 'minimal';
-    static?: string | string[];
+    static?: string | string[] | StaticObject;
     status?: boolean;
     waitForBuild?: boolean;
 }
