@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { DragDropContext, Draggable, Droppable, DropResult, DragStart, DragUpdate, ResponderProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable, DropResult, DragStart, DragUpdate, ResponderProvided, DroppableStateSnapshot, resetServerContext } from 'react-beautiful-dnd';
 
 interface Item {
   id: string;
@@ -115,3 +115,5 @@ class App extends React.Component<{}, AppState> {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+resetServerContext();
