@@ -1307,7 +1307,7 @@ declare namespace webpack {
             assetsByChunkName?: Record<string, Record<string, string[]>>;
             builtAt?: number;
             children?: ToJsonOptions[] & { name?: string };
-            chunks?: {
+            chunks?: Array<{
                 children: number[];
                 childrenByOrder: Record<string, number[]>;
                 entry: boolean;
@@ -1333,7 +1333,7 @@ declare namespace webpack {
                 rendered: boolean;
                 size: number;
                 siblings: number[];
-            };
+            }>;
             entrypoints?: Record<string, ChunkGroup>;
             errors: string[];
             env?: Record<string, any>;
