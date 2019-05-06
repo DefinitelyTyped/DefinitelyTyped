@@ -3007,6 +3007,12 @@
             "asOfVersion": "5.2.0"
         },
         {
+            "libraryName": "strip-bom",
+            "typingsPackageName": "strip-bom",
+            "sourceRepoURL": "https://github.com/sindresorhus/strip-bom",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "strip-indent",
             "typingsPackageName": "strip-indent",
             "sourceRepoURL": "https://github.com/sindresorhus/strip-indent",
