@@ -6,29 +6,29 @@ declare module "../index" {
     type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | ReadonlyArray<T>;
     type ImpChain<T> =
-        T extends { __trapAny: any } ? ImpL<any> :
-        T extends null | undefined ? ImpU<T> :
-        T extends string | null | undefined ? ImpS :
-        T extends (...args: any) => any ? ImpF<T> :
-        T extends List<infer U> | null | undefined ? ImpL<U> :
-        T extends object | null | undefined ? ImpO<T> :
-        ImpU<T>;
+        T extends { __trapAny: any } ? Collection<any> :
+        T extends null | undefined ? Primitive<T> :
+        T extends string | null | undefined ? String :
+        T extends (...args: any) => any ? Function<T> :
+        T extends List<infer U> | null | undefined ? Collection<U> :
+        T extends object | null | undefined ? Object<T> :
+        Primitive<T>;
     type ExpChain<T> =
-        T extends { __trapAny: any } ? ExpL<any> :
-        T extends null | undefined ? ExpU<T> :
-        T extends string | null | undefined ? ExpS :
-        T extends (...args: any) => any ? ExpF<T> :
-        T extends List<infer U> | null | undefined ? ExpL<U> :
-        T extends object | null | undefined ? ExpO<T> :
-        ExpU<T>;
+        T extends { __trapAny: any } ? CollectionChain<any> :
+        T extends null | undefined ? PrimitiveChain<T> :
+        T extends string | null | undefined ? StringChain :
+        T extends (...args: any) => any ? FunctionChain<T> :
+        T extends List<infer U> | null | undefined ? CollectionChain<U> :
+        T extends object | null | undefined ? ObjectChain<T> :
+        PrimitiveChain<T>;
     interface LoDashStatic {
-        <TrapAny extends { __trapAny: any }>(value: TrapAny): ImpL<any>;
-        <T extends null | undefined>(value: T): ImpU<T>;
-        (value: string | null | undefined): ImpS;
-        <T extends (...args: any) => any>(value: T): ImpF<T>;
-        <T = any>(value: List<T> | null | undefined): ImpL<T>;
-        <T extends object>(value: T | null | undefined): ImpO<T>;
-        <T>(value: T): ImpU<T>;
+        <TrapAny extends { __trapAny: any }>(value: TrapAny): Collection<any>;
+        <T extends null | undefined>(value: T): Primitive<T>;
+        (value: string | null | undefined): String;
+        <T extends (...args: any) => any>(value: T): Function<T>;
+        <T = any>(value: List<T> | null | undefined): Collection<T>;
+        <T extends object>(value: T | null | undefined): Object<T>;
+        <T>(value: T): Primitive<T>;
         VERSION: string;
         templateSettings: TemplateSettings;
     }
@@ -49,7 +49,7 @@ declare module "../index" {
     interface MapCacheConstructor {
         new (): MapCache;
     }
-    interface ImpL<T> {
+    interface Collection<T> {
         pop(): T | undefined;
         push(...items: T[]): this;
         shift(): T | undefined;
@@ -57,7 +57,7 @@ declare module "../index" {
         splice(start: number, deleteCount?: number, ...items: T[]): this;
         unshift(...items: T[]): this;
     }
-    interface ExpL<T> {
+    interface CollectionChain<T> {
         pop(): LoDashExplicitWrapper<T | undefined>;
         push(...items: T[]): this;
         shift(): LoDashExplicitWrapper<T | undefined>;
@@ -65,25 +65,25 @@ declare module "../index" {
         splice(start: number, deleteCount?: number, ...items: T[]): this;
         unshift(...items: T[]): this;
     }
-    interface ImpF<T extends (...args: any) => any> extends LoDashImplicitWrapper<T> {
+    interface Function<T extends (...args: any) => any> extends LoDashImplicitWrapper<T> {
     }
-    interface ImpS extends LoDashImplicitWrapper<string> {
+    interface String extends LoDashImplicitWrapper<string> {
     }
-    interface ImpO<T> extends LoDashImplicitWrapper<T> {
+    interface Object<T> extends LoDashImplicitWrapper<T> {
     }
-    interface ImpL<T> extends LoDashImplicitWrapper<List<T>> {
+    interface Collection<T> extends LoDashImplicitWrapper<List<T>> {
     }
-    interface ImpU<T> extends LoDashImplicitWrapper<T> {
+    interface Primitive<T> extends LoDashImplicitWrapper<T> {
     }
-    interface ExpF<T extends (...args: any) => any> extends LoDashExplicitWrapper<T> {
+    interface FunctionChain<T extends (...args: any) => any> extends LoDashExplicitWrapper<T> {
     }
-    interface ExpS extends LoDashExplicitWrapper<string> {
+    interface StringChain extends LoDashExplicitWrapper<string> {
     }
-    interface ExpO<T> extends LoDashExplicitWrapper<T> {
+    interface ObjectChain<T> extends LoDashExplicitWrapper<T> {
     }
-    interface ExpL<T> extends LoDashExplicitWrapper<List<T>> {
+    interface CollectionChain<T> extends LoDashExplicitWrapper<List<T>> {
     }
-    interface ExpU<T> extends LoDashExplicitWrapper<T> {
+    interface PrimitiveChain<T> extends LoDashExplicitWrapper<T> {
     }
     type NotVoid = unknown;
     type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialDeep<T>;

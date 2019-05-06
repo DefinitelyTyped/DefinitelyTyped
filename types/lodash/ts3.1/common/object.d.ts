@@ -8,21 +8,21 @@ declare module "../index" {
         assign<TObject>(object: TObject): TObject;
         assign(object: any, ...otherArgs: any[]): any;
     }
-    interface ImpO<T> {
-        assign<TSource>(source: TSource): ImpO<T & TSource>;
-        assign<TSource1, TSource2>(source1: TSource1, source2: TSource2): ImpO<T & TSource1 & TSource2>;
-        assign<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ImpO<T & TSource1 & TSource2 & TSource3>;
-        assign<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ImpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        assign(): ImpO<T>;
-        assign(...otherArgs: any[]): ImpO<any>;
+    interface Object<T> {
+        assign<TSource>(source: TSource): Object<T & TSource>;
+        assign<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<T & TSource1 & TSource2>;
+        assign<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<T & TSource1 & TSource2 & TSource3>;
+        assign<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assign(): Object<T>;
+        assign(...otherArgs: any[]): Object<any>;
     }
-    interface ExpO<T> {
-        assign<TSource>(source: TSource): ExpO<T & TSource>;
-        assign<TSource1, TSource2>(source1: TSource1, source2: TSource2): ExpO<T & TSource1 & TSource2>;
-        assign<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ExpO<T & TSource1 & TSource2 & TSource3>;
-        assign<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ExpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        assign(): ExpO<T>;
-        assign(...otherArgs: any[]): ExpO<any>;
+    interface ObjectChain<T> {
+        assign<TSource>(source: TSource): ObjectChain<T & TSource>;
+        assign<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<T & TSource1 & TSource2>;
+        assign<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        assign<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assign(): ObjectChain<T>;
+        assign(...otherArgs: any[]): ObjectChain<any>;
     }
     interface LoDashStatic {
         assignIn<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
@@ -32,21 +32,21 @@ declare module "../index" {
         assignIn<TObject>(object: TObject): TObject;
         assignIn<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-    interface ImpO<T> {
-        assignIn<TSource>(source: TSource): ImpO<T & TSource>;
-        assignIn<TSource1, TSource2>(source1: TSource1, source2: TSource2): ImpO<T & TSource1 & TSource2>;
-        assignIn<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ImpO<T & TSource1 & TSource2 & TSource3>;
-        assignIn<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ImpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        assignIn(): ImpO<T>;
-        assignIn<TResult>(...otherArgs: any[]): ImpO<TResult>;
+    interface Object<T> {
+        assignIn<TSource>(source: TSource): Object<T & TSource>;
+        assignIn<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<T & TSource1 & TSource2>;
+        assignIn<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<T & TSource1 & TSource2 & TSource3>;
+        assignIn<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignIn(): Object<T>;
+        assignIn<TResult>(...otherArgs: any[]): Object<TResult>;
     }
-    interface ExpO<T> {
-        assignIn<TSource>(source: TSource): ExpO<T & TSource>;
-        assignIn<TSource1, TSource2>(source1: TSource1, source2: TSource2): ExpO<T & TSource1 & TSource2>;
-        assignIn<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ExpO<T & TSource1 & TSource2 & TSource3>;
-        assignIn<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ExpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        assignIn(): ExpO<T>;
-        assignIn(...otherArgs: any[]): ExpO<any>;
+    interface ObjectChain<T> {
+        assignIn<TSource>(source: TSource): ObjectChain<T & TSource>;
+        assignIn<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<T & TSource1 & TSource2>;
+        assignIn<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        assignIn<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignIn(): ObjectChain<T>;
+        assignIn(...otherArgs: any[]): ObjectChain<any>;
     }
     type AssignCustomizer = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any;
     interface LoDashStatic {
@@ -57,21 +57,21 @@ declare module "../index" {
         assignInWith<TObject>(object: TObject): TObject;
         assignInWith<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-    interface ImpO<T> {
-        assignInWith<TSource>(source: TSource, customizer: AssignCustomizer): ImpO<T & TSource>;
-        assignInWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ImpO<T & TSource1 & TSource2>;
-        assignInWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ImpO<T & TSource1 & TSource2 & TSource3>;
-        assignInWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ImpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        assignInWith(): ImpO<T>;
-        assignInWith<TResult>(...otherArgs: any[]): ImpO<TResult>;
+    interface Object<T> {
+        assignInWith<TSource>(source: TSource, customizer: AssignCustomizer): Object<T & TSource>;
+        assignInWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Object<T & TSource1 & TSource2>;
+        assignInWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3>;
+        assignInWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignInWith(): Object<T>;
+        assignInWith<TResult>(...otherArgs: any[]): Object<TResult>;
     }
-    interface ExpO<T> {
-        assignInWith<TSource>(source: TSource, customizer: AssignCustomizer): ExpO<T & TSource>;
-        assignInWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ExpO<T & TSource1 & TSource2>;
-        assignInWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ExpO<T & TSource1 & TSource2 & TSource3>;
-        assignInWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ExpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        assignInWith(): ExpO<T>;
-        assignInWith(...otherArgs: any[]): ExpO<any>;
+    interface ObjectChain<T> {
+        assignInWith<TSource>(source: TSource, customizer: AssignCustomizer): ObjectChain<T & TSource>;
+        assignInWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2>;
+        assignInWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        assignInWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignInWith(): ObjectChain<T>;
+        assignInWith(...otherArgs: any[]): ObjectChain<any>;
     }
     interface LoDashStatic {
         assignWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
@@ -81,46 +81,46 @@ declare module "../index" {
         assignWith<TObject>(object: TObject): TObject;
         assignWith<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-    interface ImpO<T> {
-        assignWith<TSource>(source: TSource, customizer: AssignCustomizer): ImpO<T & TSource>;
-        assignWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ImpO<T & TSource1 & TSource2>;
-        assignWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ImpO<T & TSource1 & TSource2 & TSource3>;
-        assignWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ImpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        assignWith(): ImpO<T>;
-        assignWith<TResult>(...otherArgs: any[]): ImpO<TResult>;
+    interface Object<T> {
+        assignWith<TSource>(source: TSource, customizer: AssignCustomizer): Object<T & TSource>;
+        assignWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Object<T & TSource1 & TSource2>;
+        assignWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3>;
+        assignWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignWith(): Object<T>;
+        assignWith<TResult>(...otherArgs: any[]): Object<TResult>;
     }
-    interface ExpO<T> {
-        assignWith<TSource>(source: TSource, customizer: AssignCustomizer): ExpO<T & TSource>;
-        assignWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ExpO<T & TSource1 & TSource2>;
-        assignWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ExpO<T & TSource1 & TSource2 & TSource3>;
-        assignWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ExpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        assignWith(): ExpO<T>;
-        assignWith(...otherArgs: any[]): ExpO<any>;
+    interface ObjectChain<T> {
+        assignWith<TSource>(source: TSource, customizer: AssignCustomizer): ObjectChain<T & TSource>;
+        assignWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2>;
+        assignWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        assignWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        assignWith(): ObjectChain<T>;
+        assignWith(...otherArgs: any[]): ObjectChain<any>;
     }
     interface LoDashStatic {
         at<T>(object:  Dictionary<T> | NumericDictionary<T> | null | undefined, ...props: PropertyPath[]): T[];
         at<T extends object>(object: T | null | undefined, ...props: Array<Many<keyof T>>): Array<T[keyof T]>;
     }
-    interface ImpO<T> {
-        at(...props: Array<Many<keyof T>>): ImpL<T[keyof T]>;
+    interface Object<T> {
+        at(...props: Array<Many<keyof T>>): Collection<T[keyof T]>;
     }
-    interface ImpL<T> {
-        at(...props: PropertyPath[]): ImpL<T>;
+    interface Collection<T> {
+        at(...props: PropertyPath[]): Collection<T>;
     }
-    interface ExpO<T> {
-        at(...props: Array<Many<keyof T>>): ExpL<T[keyof T]>;
+    interface ObjectChain<T> {
+        at(...props: Array<Many<keyof T>>): CollectionChain<T[keyof T]>;
     }
-    interface ExpL<T> {
-        at(...props: PropertyPath[]): ExpL<T>;
+    interface CollectionChain<T> {
+        at(...props: PropertyPath[]): CollectionChain<T>;
     }
     interface LoDashStatic {
         create<T extends object, U extends object>(prototype: T, properties?: U): T & U;
     }
-    interface ImpO<T> {
-        create<U extends object>(properties?: U): ImpO<T & U>;
+    interface Object<T> {
+        create<U extends object>(properties?: U): Object<T & U>;
     }
-    interface ExpO<T> {
-        create<U extends object>(properties?: U): ExpO<T & U>;
+    interface ObjectChain<T> {
+        create<U extends object>(properties?: U): ObjectChain<T & U>;
     }
     interface LoDashStatic {
         defaults<TObject, TSource>(object: TObject, source: TSource): TSource & TObject;
@@ -130,62 +130,62 @@ declare module "../index" {
         defaults<TObject>(object: TObject): TObject;
         defaults(object: any, ...sources: any[]): any;
     }
-    interface ImpO<T> {
-        defaults<TSource>(source: TSource): ImpO<TSource & T>;
-        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): ImpO<TSource2 & TSource1 & T>;
-        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ImpO<TSource3 & TSource2 & TSource1 & T>;
-        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ImpO<TSource4 & TSource3 & TSource2 & TSource1 & T>;
-        defaults(): ImpO<T>;
-        defaults(...sources: any[]): ImpO<any>;
+    interface Object<T> {
+        defaults<TSource>(source: TSource): Object<TSource & T>;
+        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<TSource3 & TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<TSource4 & TSource3 & TSource2 & TSource1 & T>;
+        defaults(): Object<T>;
+        defaults(...sources: any[]): Object<any>;
     }
-    interface ExpO<T> {
-        defaults<TSource>(source: TSource): ExpO<TSource & T>;
-        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): ExpO<TSource2 & TSource1 & T>;
-        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ExpO<TSource3 & TSource2 & TSource1 & T>;
-        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ExpO<TSource4 & TSource3 & TSource2 & TSource1 & T>;
-        defaults(): ExpO<T>;
-        defaults(...sources: any[]): ExpO<any>;
+    interface ObjectChain<T> {
+        defaults<TSource>(source: TSource): ObjectChain<TSource & T>;
+        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<TSource3 & TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<TSource4 & TSource3 & TSource2 & TSource1 & T>;
+        defaults(): ObjectChain<T>;
+        defaults(...sources: any[]): ObjectChain<any>;
     }
     interface LoDashStatic {
         defaultsDeep(object: any, ...sources: any[]): any;
     }
-    interface ImpO<T> {
-        defaultsDeep(...sources: any[]): ImpO<any>;
+    interface Object<T> {
+        defaultsDeep(...sources: any[]): Object<any>;
     }
-    interface ExpO<T> {
-        defaultsDeep(...sources: any[]): ExpO<any>;
+    interface ObjectChain<T> {
+        defaultsDeep(...sources: any[]): ObjectChain<any>;
     }
     interface LoDashStatic {
         entries<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         entries(object?: object): Array<[string, any]>;
     }
-    interface ImpO<T> {
-        entries(): ImpL<[string, T[keyof T]]>;
+    interface Object<T> {
+        entries(): Collection<[string, T[keyof T]]>;
     }
     interface LoDashImplicitWrapper<TValue> {
-        entries(): ImpL<[string, any]>;
+        entries(): Collection<[string, any]>;
     }
-    interface ExpO<T> {
-        entries(): ExpL<[string, T[keyof T]]>;
+    interface ObjectChain<T> {
+        entries(): CollectionChain<[string, T[keyof T]]>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        entries(): ExpL<[string, any]>;
+        entries(): CollectionChain<[string, any]>;
     }
     interface LoDashStatic {
         entriesIn<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         entriesIn(object?: object): Array<[string, any]>;
     }
-    interface ImpO<T> {
-        entriesIn(): ImpL<[string, T[keyof T]]>;
+    interface Object<T> {
+        entriesIn(): Collection<[string, T[keyof T]]>;
     }
     interface LoDashImplicitWrapper<TValue> {
-        entriesIn(): ImpL<[string, any]>;
+        entriesIn(): Collection<[string, any]>;
     }
-    interface ExpO<T> {
-        entriesIn(): ExpL<[string, T[keyof T]]>;
+    interface ObjectChain<T> {
+        entriesIn(): CollectionChain<[string, T[keyof T]]>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        entriesIn(): ExpL<[string, any]>;
+        entriesIn(): CollectionChain<[string, any]>;
     }
     interface LoDashStatic {
         extend<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
@@ -195,21 +195,21 @@ declare module "../index" {
         extend<TObject>(object: TObject): TObject;
         extend<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-    interface ImpO<T> {
-        extend<TSource>(source: TSource): ImpO<T & TSource>;
-        extend<TSource1, TSource2>(source1: TSource1, source2: TSource2): ImpO<T & TSource1 & TSource2>;
-        extend<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ImpO<T & TSource1 & TSource2 & TSource3>;
-        extend<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ImpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        extend(): ImpO<T>;
-        extend(...otherArgs: any[]): ImpO<any>;
+    interface Object<T> {
+        extend<TSource>(source: TSource): Object<T & TSource>;
+        extend<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<T & TSource1 & TSource2>;
+        extend<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<T & TSource1 & TSource2 & TSource3>;
+        extend<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        extend(): Object<T>;
+        extend(...otherArgs: any[]): Object<any>;
     }
-    interface ExpO<T> {
-        extend<TSource>(source: TSource): ExpO<T & TSource>;
-        extend<TSource1, TSource2>(source1: TSource1, source2: TSource2): ExpO<T & TSource1 & TSource2>;
-        extend<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ExpO<T & TSource1 & TSource2 & TSource3>;
-        extend<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ExpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        extend(): ExpO<T>;
-        extend(...otherArgs: any[]): ExpO<any>;
+    interface ObjectChain<T> {
+        extend<TSource>(source: TSource): ObjectChain<T & TSource>;
+        extend<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<T & TSource1 & TSource2>;
+        extend<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        extend<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        extend(): ObjectChain<T>;
+        extend(...otherArgs: any[]): ObjectChain<any>;
     }
     interface LoDashStatic {
         extendWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
@@ -219,21 +219,21 @@ declare module "../index" {
         extendWith<TObject>(object: TObject): TObject;
         extendWith<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-    interface ImpO<T> {
-        extendWith<TSource>(source: TSource, customizer: AssignCustomizer): ImpO<T & TSource>;
-        extendWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ImpO<T & TSource1 & TSource2>;
-        extendWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ImpO<T & TSource1 & TSource2 & TSource3>;
-        extendWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ImpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        extendWith(): ImpO<T>;
-        extendWith(...otherArgs: any[]): ImpO<any>;
+    interface Object<T> {
+        extendWith<TSource>(source: TSource, customizer: AssignCustomizer): Object<T & TSource>;
+        extendWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Object<T & TSource1 & TSource2>;
+        extendWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3>;
+        extendWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        extendWith(): Object<T>;
+        extendWith(...otherArgs: any[]): Object<any>;
     }
-    interface ExpO<T> {
-        extendWith<TSource>(source: TSource, customizer: AssignCustomizer): ExpO<T & TSource>;
-        extendWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ExpO<T & TSource1 & TSource2>;
-        extendWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ExpO<T & TSource1 & TSource2 & TSource3>;
-        extendWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ExpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        extendWith(): ExpO<T>;
-        extendWith(...otherArgs: any[]): ExpO<any>;
+    interface ObjectChain<T> {
+        extendWith<TSource>(source: TSource, customizer: AssignCustomizer): ObjectChain<T & TSource>;
+        extendWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2>;
+        extendWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        extendWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        extendWith(): ObjectChain<T>;
+        extendWith(...otherArgs: any[]): ObjectChain<any>;
     }
     interface LoDashStatic {
         findKey<T>(object: T | null | undefined, predicate?: ObjectIteratee<T>): string | undefined;
@@ -297,19 +297,19 @@ declare module "../index" {
         functions(object: any): string[];
     }
     interface LoDashImplicitWrapper<TValue> {
-        functions(): ImpL<string>;
+        functions(): Collection<string>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        functions(): ExpL<string>;
+        functions(): CollectionChain<string>;
     }
     interface LoDashStatic {
         functionsIn<T extends {}>(object: any): string[];
     }
     interface LoDashImplicitWrapper<TValue> {
-        functionsIn(): ImpL<string>;
+        functionsIn(): Collection<string>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        functionsIn(): ExpL<string>;
+        functionsIn(): CollectionChain<string>;
     }
     interface LoDashStatic {
         get<TObject extends object, TKey extends keyof TObject>(object: TObject, path: TKey | [TKey]): TObject[TKey];
@@ -322,29 +322,29 @@ declare module "../index" {
         get(object: null | undefined, path: PropertyPath): undefined;
         get(object: any, path: PropertyPath, defaultValue?: any): any;
     }
-    interface ImpS {
+    interface String {
         get(path: number | number[]): string;
         get(path: number | number[], defaultValue: string): string;
     }
-    interface ImpO<T> {
+    interface Object<T> {
         get<TKey extends keyof T>(path: TKey | [TKey]): T[TKey];
         get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): Exclude<T[TKey], undefined> | TDefault;
         get(path: PropertyPath, defaultValue?: any): any;
     }
-    interface ImpL<T> {
+    interface Collection<T> {
         get(path: number): T;
         get<TDefault>(path: number, defaultValue: TDefault): T | TDefault;
     }
-    interface ExpS {
-        get(path: number | number[]): ExpS;
-        get(path: number | number[], defaultValue: string): ExpS;
+    interface StringChain {
+        get(path: number | number[]): StringChain;
+        get(path: number | number[], defaultValue: string): StringChain;
     }
-    interface ExpO<T> {
+    interface ObjectChain<T> {
         get<TKey extends keyof T>(path: TKey | [TKey]): ExpChain<T[TKey]>;
         get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): ExpChain<Exclude<T[TKey], undefined> | TDefault>;
         get(path: PropertyPath, defaultValue?: any): LoDashExplicitWrapper<any>;
     }
-    interface ExpL<T> {
+    interface CollectionChain<T> {
         get(path: number): ExpChain<T>;
         get<TDefault>(path: number, defaultValue: TDefault): ExpChain<T | TDefault>;
     }
@@ -355,7 +355,7 @@ declare module "../index" {
         has(path: PropertyPath): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        has(path: PropertyPath): ExpU<boolean>;
+        has(path: PropertyPath): PrimitiveChain<boolean>;
     }
     interface LoDashStatic {
         hasIn<T>(object: T, path: PropertyPath): boolean;
@@ -364,38 +364,38 @@ declare module "../index" {
         hasIn(path: PropertyPath): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        hasIn(path: PropertyPath): ExpU<boolean>;
+        hasIn(path: PropertyPath): PrimitiveChain<boolean>;
     }
     interface LoDashStatic {
         invert(object: object): Dictionary<string>;
     }
     interface LoDashImplicitWrapper<TValue> {
-        invert(): ImpO<Dictionary<string>>;
+        invert(): Object<Dictionary<string>>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        invert(): ExpO<Dictionary<string>>;
+        invert(): ObjectChain<Dictionary<string>>;
     }
     interface LoDashStatic {
         invertBy<T>(object:  Dictionary<T> | NumericDictionary<T> | null | undefined, interatee?: ValueIteratee<T>): Dictionary<string[]>;
         invertBy<T extends object>(object: T | null | undefined, interatee?: ValueIteratee<T[keyof T]>): Dictionary<string[]>;
     }
-    interface ImpS {
-        invertBy(iteratee?: ValueIteratee<string>): ImpO<Dictionary<string[]>>;
+    interface String {
+        invertBy(iteratee?: ValueIteratee<string>): Object<Dictionary<string[]>>;
     }
-    interface ImpL<T> {
-        invertBy(iteratee?: ValueIteratee<T>): ImpO<Dictionary<string[]>>;
+    interface Collection<T> {
+        invertBy(iteratee?: ValueIteratee<T>): Object<Dictionary<string[]>>;
     }
-    interface ImpO<T> {
-        invertBy(iteratee?: ValueIteratee<T[keyof T]>): ImpO<Dictionary<string[]>>;
+    interface Object<T> {
+        invertBy(iteratee?: ValueIteratee<T[keyof T]>): Object<Dictionary<string[]>>;
     }
-    interface ExpS {
-        invertBy(iteratee?: ValueIteratee<string>): ExpO<Dictionary<string[]>>;
+    interface StringChain {
+        invertBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string[]>>;
     }
-    interface ExpL<T> {
-        invertBy(iteratee?: ValueIteratee<T>): ExpO<Dictionary<string[]>>;
+    interface CollectionChain<T> {
+        invertBy(iteratee?: ValueIteratee<T>): ObjectChain<Dictionary<string[]>>;
     }
-    interface ExpO<T> {
-        invertBy(iteratee?: ValueIteratee<T[keyof T]>): ExpO<Dictionary<string[]>>;
+    interface ObjectChain<T> {
+        invertBy(iteratee?: ValueIteratee<T[keyof T]>): ObjectChain<Dictionary<string[]>>;
     }
     interface LoDashStatic {
         invoke(object: any, path: PropertyPath, ...args: any[]): any;
@@ -410,35 +410,35 @@ declare module "../index" {
         keys(object?: any): string[];
     }
     interface LoDashImplicitWrapper<TValue> {
-        keys(): ImpL<string>;
+        keys(): Collection<string>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        keys(): ExpL<string>;
+        keys(): CollectionChain<string>;
     }
     interface LoDashStatic {
         keysIn(object?: any): string[];
     }
     interface LoDashImplicitWrapper<TValue> {
-        keysIn(): ImpL<string>;
+        keysIn(): Collection<string>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        keysIn(): ExpL<string>;
+        keysIn(): CollectionChain<string>;
     }
     interface LoDashStatic {
         mapKeys<T>(object: List<T> | null | undefined, iteratee?: ListIteratee<T>): Dictionary<T>;
         mapKeys<T extends object>(object: T | null | undefined, iteratee?: ObjectIteratee<T>): Dictionary<T[keyof T]>;
     }
-    interface ImpL<T> {
-        mapKeys(iteratee?: ListIteratee<T>): ImpO<Dictionary<T>>;
+    interface Collection<T> {
+        mapKeys(iteratee?: ListIteratee<T>): Object<Dictionary<T>>;
     }
-    interface ImpO<T> {
-        mapKeys(iteratee?: ObjectIteratee<T>): ImpO<Dictionary<T[keyof T]>>;
+    interface Object<T> {
+        mapKeys(iteratee?: ObjectIteratee<T>): Object<Dictionary<T[keyof T]>>;
     }
-    interface ExpL<T> {
-        mapKeys(iteratee?: ListIteratee<T>): ExpO<Dictionary<T>>;
+    interface CollectionChain<T> {
+        mapKeys(iteratee?: ListIteratee<T>): ObjectChain<Dictionary<T>>;
     }
-    interface ExpO<T> {
-        mapKeys(iteratee?: ObjectIteratee<T>): ExpO<Dictionary<T[keyof T]>>;
+    interface ObjectChain<T> {
+        mapKeys(iteratee?: ObjectIteratee<T>): ObjectChain<Dictionary<T[keyof T]>>;
     }
     interface LoDashStatic {
         mapValues<TResult>(obj: string | null | undefined, callback: StringIterator<TResult>): NumericDictionary<TResult>;
@@ -454,43 +454,43 @@ declare module "../index" {
         mapValues<T extends object>(obj: T): T;
         mapValues<T extends object>(obj: T | null | undefined): PartialObject<T>;
     }
-    interface ImpS {
-        mapValues<TResult>(callback: StringIterator<TResult>): ImpO<NumericDictionary<TResult>>;
-        mapValues(): ImpO<NumericDictionary<string>>;
+    interface String {
+        mapValues<TResult>(callback: StringIterator<TResult>): Object<NumericDictionary<TResult>>;
+        mapValues(): Object<NumericDictionary<string>>;
     }
-    interface ImpL<T> {
-        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): ImpO<Dictionary<TResult>>;
-        mapValues<TKey extends keyof T>(iteratee: TKey): ImpO<Dictionary<T[TKey]>>;
-        mapValues(iteratee: object): ImpO<Dictionary<boolean>>;
-        mapValues(iteratee: string): ImpO<Dictionary<any>>;
-        mapValues(): ImpO<Dictionary<T>>;
+    interface Collection<T> {
+        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): Object<Dictionary<TResult>>;
+        mapValues<TKey extends keyof T>(iteratee: TKey): Object<Dictionary<T[TKey]>>;
+        mapValues(iteratee: object): Object<Dictionary<boolean>>;
+        mapValues(iteratee: string): Object<Dictionary<any>>;
+        mapValues(): Object<Dictionary<T>>;
     }
-    interface ImpO<T> {
-        mapValues<TResult>(callback: ObjectIterator<T, TResult>): ImpO<{ [P in keyof T]: TResult }>;
-        mapValues<TResult>(callback: DictionaryIterator<T[keyof T], TResult>): ImpO<Dictionary<TResult>>;
-        mapValues(iteratee: object): ImpO<{ [P in keyof T]: boolean }>;
-        mapValues<TKey extends keyof T[keyof T]>(iteratee: TKey): ImpO<Dictionary<T[keyof T][TKey]>>;
-        mapValues(iteratee: string): ImpO<{ [P in keyof T]: any }>;
-        mapValues(): ImpO<T>;
+    interface Object<T> {
+        mapValues<TResult>(callback: ObjectIterator<T, TResult>): Object<{ [P in keyof T]: TResult }>;
+        mapValues<TResult>(callback: DictionaryIterator<T[keyof T], TResult>): Object<Dictionary<TResult>>;
+        mapValues(iteratee: object): Object<{ [P in keyof T]: boolean }>;
+        mapValues<TKey extends keyof T[keyof T]>(iteratee: TKey): Object<Dictionary<T[keyof T][TKey]>>;
+        mapValues(iteratee: string): Object<{ [P in keyof T]: any }>;
+        mapValues(): Object<T>;
     }
-    interface ExpS {
-        mapValues<TResult>(callback: StringIterator<TResult>): ExpO<NumericDictionary<TResult>>;
-        mapValues(): ExpO<NumericDictionary<string>>;
+    interface StringChain {
+        mapValues<TResult>(callback: StringIterator<TResult>): ObjectChain<NumericDictionary<TResult>>;
+        mapValues(): ObjectChain<NumericDictionary<string>>;
     }
-    interface ExpL<T> {
-        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): ExpO<Dictionary<TResult>>;
-        mapValues<TKey extends keyof T>(iteratee: TKey): ExpO<Dictionary<T[TKey]>>;
-        mapValues(iteratee: object): ExpO<Dictionary<boolean>>;
-        mapValues(iteratee: string): ExpO<Dictionary<any>>;
-        mapValues(): ExpO<Dictionary<T>>;
+    interface CollectionChain<T> {
+        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): ObjectChain<Dictionary<TResult>>;
+        mapValues<TKey extends keyof T>(iteratee: TKey): ObjectChain<Dictionary<T[TKey]>>;
+        mapValues(iteratee: object): ObjectChain<Dictionary<boolean>>;
+        mapValues(iteratee: string): ObjectChain<Dictionary<any>>;
+        mapValues(): ObjectChain<Dictionary<T>>;
     }
-    interface ExpO<T> {
-        mapValues<TResult>(callback: ObjectIterator<T, TResult>): ExpO<{ [P in keyof T]: TResult }>;
-        mapValues<TResult>(callback: DictionaryIterator<T[keyof T], TResult>): ExpO<Dictionary<TResult>>;
-        mapValues(iteratee: object): ExpO<{ [P in keyof T]: boolean }>;
-        mapValues<TKey extends keyof T[keyof T]>(iteratee: TKey): ExpO<Dictionary<T[keyof T][TKey]>>;
-        mapValues(iteratee: string): ExpO<{ [P in keyof T]: any }>;
-        mapValues(): ExpO<T>;
+    interface ObjectChain<T> {
+        mapValues<TResult>(callback: ObjectIterator<T, TResult>): ObjectChain<{ [P in keyof T]: TResult }>;
+        mapValues<TResult>(callback: DictionaryIterator<T[keyof T], TResult>): ObjectChain<Dictionary<TResult>>;
+        mapValues(iteratee: object): ObjectChain<{ [P in keyof T]: boolean }>;
+        mapValues<TKey extends keyof T[keyof T]>(iteratee: TKey): ObjectChain<Dictionary<T[keyof T][TKey]>>;
+        mapValues(iteratee: string): ObjectChain<{ [P in keyof T]: any }>;
+        mapValues(): ObjectChain<T>;
     }
     interface LoDashStatic {
         merge<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
@@ -499,23 +499,23 @@ declare module "../index" {
         merge<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         merge(object: any, ...otherArgs: any[]): any;
     }
-    interface ImpO<T> {
-        merge<TSource>(source: TSource): ImpO<T & TSource>;
-        merge<TSource1, TSource2>(source1: TSource1, source2: TSource2): ImpO<T & TSource1 & TSource2>;
-        merge<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ImpO<T & TSource1 & TSource2 & TSource3>;
-        merge<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ImpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        merge(...otherArgs: any[]): ImpO<any>;
+    interface Object<T> {
+        merge<TSource>(source: TSource): Object<T & TSource>;
+        merge<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<T & TSource1 & TSource2>;
+        merge<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<T & TSource1 & TSource2 & TSource3>;
+        merge<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        merge(...otherArgs: any[]): Object<any>;
     }
-    interface ExpO<T> {
-        merge<TSource>(source: TSource): ExpO<T & TSource>;
-        merge<TSource1, TSource2>(source1: TSource1, source2: TSource2): ExpO<T & TSource1 & TSource2>;
-        merge<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ExpO<T & TSource1 & TSource2 & TSource3>;
-        merge<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ExpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        merge(...otherArgs: any[]): ExpO<any>;
+    interface ObjectChain<T> {
+        merge<TSource>(source: TSource): ObjectChain<T & TSource>;
+        merge<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<T & TSource1 & TSource2>;
+        merge<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        merge<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        merge(...otherArgs: any[]): ObjectChain<any>;
     }
     type MergeWithCustomizer = { bivariantHack(value: any, srcValue: any, key: string, object: any, source: any): any; }["bivariantHack"];
-    // TODO: Probably should just put all these methods on ImpO and forget about it.
-    // oh, except for ImpL<any> I GUESS
+    // TODO: Probably should just put all these methods on Object and forget about it.
+    // oh, except for Collection<any> I GUESS
     interface LoDashStatic {
         mergeWith<TObject, TSource>(object: TObject, source: TSource, customizer: MergeWithCustomizer): TObject & TSource;
         mergeWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: MergeWithCustomizer): TObject & TSource1 & TSource2;
@@ -523,66 +523,66 @@ declare module "../index" {
         mergeWith<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: MergeWithCustomizer): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         mergeWith(object: any, ...otherArgs: any[]): any;
     }
-    interface ImpO<T> {
-        mergeWith<TSource>(source: TSource, customizer: MergeWithCustomizer): ImpO<T & TSource>;
-        mergeWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: MergeWithCustomizer): ImpO<T & TSource1 & TSource2>;
-        mergeWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: MergeWithCustomizer): ImpO<T & TSource1 & TSource2 & TSource3>;
-        mergeWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: MergeWithCustomizer): ImpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        mergeWith(...otherArgs: any[]): ImpO<any>;
+    interface Object<T> {
+        mergeWith<TSource>(source: TSource, customizer: MergeWithCustomizer): Object<T & TSource>;
+        mergeWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: MergeWithCustomizer): Object<T & TSource1 & TSource2>;
+        mergeWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: MergeWithCustomizer): Object<T & TSource1 & TSource2 & TSource3>;
+        mergeWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: MergeWithCustomizer): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        mergeWith(...otherArgs: any[]): Object<any>;
     }
-    interface ExpO<T> {
-        mergeWith<TSource>(source: TSource, customizer: MergeWithCustomizer): ExpO<T & TSource>;
-        mergeWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: MergeWithCustomizer): ExpO<T & TSource1 & TSource2>;
-        mergeWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: MergeWithCustomizer): ExpO<T & TSource1 & TSource2 & TSource3>;
-        mergeWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: MergeWithCustomizer): ExpO<T & TSource1 & TSource2 & TSource3 & TSource4>;
-        mergeWith(...otherArgs: any[]): ExpO<any>;
+    interface ObjectChain<T> {
+        mergeWith<TSource>(source: TSource, customizer: MergeWithCustomizer): ObjectChain<T & TSource>;
+        mergeWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: MergeWithCustomizer): ObjectChain<T & TSource1 & TSource2>;
+        mergeWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: MergeWithCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        mergeWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: MergeWithCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        mergeWith(...otherArgs: any[]): ObjectChain<any>;
     }
     interface LoDashStatic {
         omit<T extends object, K extends keyof T>(object: T | null | undefined, ...paths: Array<Many<K>>): Omit<T, K>;
         omit<T extends object>(object: T | null | undefined, ...paths: Array<Many<PropertyName>>): PartialObject<T>;
     }
-    interface ImpL<T> {
-        omit(...paths: Array<Many<PropertyName>>): ImpL<T>;
+    interface Collection<T> {
+        omit(...paths: Array<Many<PropertyName>>): Collection<T>;
     }
-    interface ImpO<T> {
-        omit<K extends keyof T>(...paths: Array<Many<K>>): ImpO<Omit<T, K>>;
-        omit(...paths: Array<Many<PropertyName | IterateeShorthand<T>>>): ImpO<PartialObject<T>>;
+    interface Object<T> {
+        omit<K extends keyof T>(...paths: Array<Many<K>>): Object<Omit<T, K>>;
+        omit(...paths: Array<Many<PropertyName | IterateeShorthand<T>>>): Object<PartialObject<T>>;
     }
-    interface ExpL<T> {
-        omit(...paths: Array<Many<PropertyName>>): ExpL<T>;
+    interface CollectionChain<T> {
+        omit(...paths: Array<Many<PropertyName>>): CollectionChain<T>;
     }
-    interface ExpO<T> {
-        omit<K extends keyof T>(...paths: Array<Many<K>>): ExpO<Omit<T, K>>;
-        omit(...paths: Array<Many<PropertyName>>): ExpO<PartialObject<T>>;
+    interface ObjectChain<T> {
+        omit<K extends keyof T>(...paths: Array<Many<K>>): ObjectChain<Omit<T, K>>;
+        omit(...paths: Array<Many<PropertyName>>): ObjectChain<PartialObject<T>>;
     }
     interface LoDashStatic {
         omitBy<T>(object: Dictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): Dictionary<T>;
         omitBy<T>(object: NumericDictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): NumericDictionary<T>;
         omitBy<T extends object>(object: T | null | undefined, predicate: ValueKeyIteratee<T[keyof T]>): PartialObject<T>;
     }
-    interface ImpL<T> {
-        omitBy(predicate?: ValueKeyIteratee<T>): ImpO<Dictionary<T>>;
+    interface Collection<T> {
+        omitBy(predicate?: ValueKeyIteratee<T>): Object<Dictionary<T>>;
     }
-    interface ImpO<T> {
-        omitBy(predicate: ValueKeyIteratee<T[keyof T]>): ImpO<PartialObject<T>>;
+    interface Object<T> {
+        omitBy(predicate: ValueKeyIteratee<T[keyof T]>): Object<PartialObject<T>>;
     }
-    interface ExpL<T> {
-        omitBy(predicate?: ValueKeyIteratee<T>): ExpO<Dictionary<T>>;
+    interface CollectionChain<T> {
+        omitBy(predicate?: ValueKeyIteratee<T>): ObjectChain<Dictionary<T>>;
     }
-    interface ExpO<T> {
-        omitBy(predicate: ValueKeyIteratee<T[keyof T]>): ExpO<PartialObject<T>>;
+    interface ObjectChain<T> {
+        omitBy(predicate: ValueKeyIteratee<T[keyof T]>): ObjectChain<PartialObject<T>>;
     }
     interface LoDashStatic {
         pick<T extends object, U extends keyof T>(object: T, ...props: Array<Many<U>>): Pick<T, U>;
         pick<T>(object: T | null | undefined, ...props: PropertyPath[]): PartialDeep<T>;
     }
-    interface ImpO<T> {
-        pick<U extends keyof T>(...props: Array<Many<U>>): ImpO<Pick<T, U>>;
-        pick(...props: PropertyPath[]): ImpO<PartialObject<T>>;
+    interface Object<T> {
+        pick<U extends keyof T>(...props: Array<Many<U>>): Object<Pick<T, U>>;
+        pick(...props: PropertyPath[]): Object<PartialObject<T>>;
     }
-    interface ExpO<T> {
-        pick<U extends keyof T>(...props: Array<Many<U>>): ExpO<Pick<T, U>>;
-        pick(...props: PropertyPath[]): ExpO<PartialObject<T>>;
+    interface ObjectChain<T> {
+        pick<U extends keyof T>(...props: Array<Many<U>>): ObjectChain<Pick<T, U>>;
+        pick(...props: PropertyPath[]): ObjectChain<PartialObject<T>>;
     }
     interface LoDashStatic {
         pickBy<T, S extends T>(object: Dictionary<T> | null | undefined, predicate: ValueKeyIterateeTypeGuard<T, S>): Dictionary<S>;
@@ -591,21 +591,21 @@ declare module "../index" {
         pickBy<T>(object: NumericDictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): NumericDictionary<T>;
         pickBy<T extends object>(object: T | null | undefined, predicate?: ValueKeyIteratee<T[keyof T]>): PartialObject<T>;
     }
-    interface ImpL<T> {
-        pickBy<S extends T>(predicate: ValueKeyIterateeTypeGuard<T, S>): ImpO<Dictionary<S>>;
-        pickBy(predicate?: ValueKeyIteratee<T>): ImpO<Dictionary<T>>;
+    interface Collection<T> {
+        pickBy<S extends T>(predicate: ValueKeyIterateeTypeGuard<T, S>): Object<Dictionary<S>>;
+        pickBy(predicate?: ValueKeyIteratee<T>): Object<Dictionary<T>>;
     }
-    interface ImpO<T> {
-        pickBy<S extends T[keyof T]>(predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>): ImpO<NumericDictionary<unknown> extends T ? NumericDictionary<S> : Dictionary<S>>;
-        pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): ImpO<PartialObject<T>>;
+    interface Object<T> {
+        pickBy<S extends T[keyof T]>(predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>): Object<NumericDictionary<unknown> extends T ? NumericDictionary<S> : Dictionary<S>>;
+        pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): Object<PartialObject<T>>;
     }
-    interface ExpL<T> {
-        pickBy<S extends T>(predicate: ValueKeyIterateeTypeGuard<T, S>): ExpO<Dictionary<S>>;
-        pickBy(predicate?: ValueKeyIteratee<T>): ExpO<Dictionary<T>>;
+    interface CollectionChain<T> {
+        pickBy<S extends T>(predicate: ValueKeyIterateeTypeGuard<T, S>): ObjectChain<Dictionary<S>>;
+        pickBy(predicate?: ValueKeyIteratee<T>): ObjectChain<Dictionary<T>>;
     }
-    interface ExpO<T> {
-        pickBy<S extends T[keyof T]>(predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>): ExpO<NumericDictionary<unknown> extends T ? NumericDictionary<S> : Dictionary<S>>;
-        pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): ExpO<PartialObject<T>>;
+    interface ObjectChain<T> {
+        pickBy<S extends T[keyof T]>(predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>): ObjectChain<NumericDictionary<unknown> extends T ? NumericDictionary<S> : Dictionary<S>>;
+        pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): ObjectChain<PartialObject<T>>;
     }
     interface LoDashStatic {
         result<TResult>(object: any, path: PropertyPath, defaultValue?: TResult | ((...args: any[]) => TResult)): TResult;
@@ -646,20 +646,20 @@ declare module "../index" {
         toPairs(object?: object): Array<[string, any]>;
     }
     interface LoDashImplicitWrapper<TValue> {
-        toPairs(): ImpL<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
+        toPairs(): Collection<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        toPairs(): ExpL<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
+        toPairs(): CollectionChain<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
     interface LoDashStatic {
         toPairsIn<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
         toPairsIn(object?: object): Array<[string, any]>;
     }
     interface LoDashImplicitWrapper<TValue> {
-        toPairsIn(): ImpL<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
+        toPairsIn(): Collection<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        toPairsIn(): ExpL<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
+        toPairsIn(): CollectionChain<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
     interface LoDashStatic {
         transform<T, TResult>(object: T[], iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
@@ -667,19 +667,19 @@ declare module "../index" {
         transform(object: any[]): any[];
         transform(object: object): Dictionary<any>;
     }
-    interface ImpL<T> {
+    interface Collection<T> {
         transform<TResult>(iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): ImpChain<TResult>;
-        transform(): ImpL<any>;
+        transform(): Collection<any>;
     }
-    interface ImpO<T> {
+    interface Object<T> {
         transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): ImpChain<TResult>;
         transform(): ImpChain<T extends Dictionary<unknown> ? Dictionary<any> : T>;
     }
-    interface ExpL<T> {
+    interface CollectionChain<T> {
         transform<TResult>(iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): ExpChain<TResult>;
-        transform(): ExpL<any>;
+        transform(): CollectionChain<any>;
     }
-    interface ExpO<T> {
+    interface ObjectChain<T> {
         transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): ExpChain<TResult>;
         transform(): ExpChain<T extends Dictionary<unknown> ? Dictionary<any> : T>;
     }
@@ -687,63 +687,63 @@ declare module "../index" {
         unset(object: any, path: PropertyPath): boolean;
     }
     interface LoDashImplicitWrapper<TValue> {
-        unset(path: PropertyPath): ImpU<boolean>;
+        unset(path: PropertyPath): Primitive<boolean>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        unset(path: PropertyPath): ExpU<boolean>;
+        unset(path: PropertyPath): PrimitiveChain<boolean>;
     }
     interface LoDashStatic {
         update(object: object, path: PropertyPath, updater: (value: any) => any): any;
     }
     interface LoDashImplicitWrapper<TValue> {
-        update(path: PropertyPath, updater: (value: any) => any): ImpO<any>;
+        update(path: PropertyPath, updater: (value: any) => any): Object<any>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        update(path: PropertyPath, updater: (value: any) => any): ExpO<any>;
+        update(path: PropertyPath, updater: (value: any) => any): ObjectChain<any>;
     }
     interface LoDashStatic {
         updateWith<T extends object>(object: T, path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): T;
         updateWith<T extends object, TResult>(object: T, path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): TResult;
     }
-    interface ImpO<T> {
+    interface Object<T> {
         updateWith(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): this;
-        updateWith<TResult>(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): ImpO<TResult>;
+        updateWith<TResult>(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): Object<TResult>;
     }
-    interface ExpO<T> {
+    interface ObjectChain<T> {
         updateWith(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): this;
-        updateWith<TResult>(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): ExpO<TResult>;
+        updateWith<TResult>(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): ObjectChain<TResult>;
     }
     interface LoDashStatic {
         values<T>(object: Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined): T[];
         values<T extends object>(object: T | null | undefined): Array<T[keyof T]>;
         values(object: any): any[];
     }
-    interface ImpS {
-        values(): ImpL<string>;
+    interface String {
+        values(): Collection<string>;
     }
-    interface ImpO<T> {
-        values(): ImpL<T[keyof T]>;
+    interface Object<T> {
+        values(): Collection<T[keyof T]>;
     }
-    interface ExpO<T> {
-        values(): ExpL<T[keyof T]>;
+    interface ObjectChain<T> {
+        values(): CollectionChain<T[keyof T]>;
     }
-    interface ExpS {
-        values(): ExpL<string>;
+    interface StringChain {
+        values(): CollectionChain<string>;
     }
     interface LoDashStatic {
         valuesIn<T>(object: Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined): T[];
         valuesIn<T extends object>(object: T | null | undefined): Array<T[keyof T]>;
     }
-    interface ImpS {
-        valuesIn(): ImpL<string>;
+    interface String {
+        valuesIn(): Collection<string>;
     }
-    interface ImpO<T> {
-        valuesIn(): ImpL<T[keyof T]>;
+    interface Object<T> {
+        valuesIn(): Collection<T[keyof T]>;
     }
-    interface ExpS {
-        valuesIn(): ExpL<string>;
+    interface StringChain {
+        valuesIn(): CollectionChain<string>;
     }
-    interface ExpO<T> {
-        valuesIn(): ExpL<T[keyof T]>;
+    interface ObjectChain<T> {
+        valuesIn(): CollectionChain<T[keyof T]>;
     }
 }

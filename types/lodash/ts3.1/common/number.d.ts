@@ -10,8 +10,8 @@ declare module "../index" {
         clamp(upper: number): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        clamp(lower: number, upper: number): ExpU<number>;
-        clamp(upper: number): ExpU<number>;
+        clamp(lower: number, upper: number): PrimitiveChain<number>;
+        clamp(upper: number): PrimitiveChain<number>;
     }
     // inRange
     interface LoDashStatic {
@@ -21,7 +21,7 @@ declare module "../index" {
         inRange(start: number, end?: number): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        inRange(start: number, end?: number): ExpU<boolean>;
+        inRange(start: number, end?: number): PrimitiveChain<boolean>;
     }
     // random
     interface LoDashStatic {
@@ -35,7 +35,7 @@ declare module "../index" {
         random(max: number, floating?: boolean): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        random(floating?: boolean): ExpU<number>;
-        random(max: number, floating?: boolean): ExpU<number>;
+        random(floating?: boolean): PrimitiveChain<number>;
+        random(max: number, floating?: boolean): PrimitiveChain<number>;
     }
 }

@@ -2,28 +2,28 @@ import _ = require("../index");
 declare module "../index" {
     // chain
     interface LoDashStatic {
-        chain<TrapAny extends { __lodashAnyHack: any }>(value: TrapAny): ExpL<any>;
-        chain<T extends null | undefined>(value: T): ExpU<T>;
-        chain(value: string | null | undefined): ExpS;
-        chain<T extends (...args: any[]) => any>(value: T): ExpF<T>;
-        chain<T = any>(value: List<T> | null | undefined): ExpL<T>;
-        chain<T extends object>(value: T | null | undefined): ExpO<T>;
-        chain<T>(value: T): ExpU<T>;
+        chain<TrapAny extends { __lodashAnyHack: any }>(value: TrapAny): CollectionChain<any>;
+        chain<T extends null | undefined>(value: T): PrimitiveChain<T>;
+        chain(value: string | null | undefined): StringChain;
+        chain<T extends (...args: any[]) => any>(value: T): FunctionChain<T>;
+        chain<T = any>(value: List<T> | null | undefined): CollectionChain<T>;
+        chain<T extends object>(value: T | null | undefined): ObjectChain<T>;
+        chain<T>(value: T): PrimitiveChain<T>;
     }
-    interface ImpL<T> {
-        chain(): ExpL<T>;
+    interface Collection<T> {
+        chain(): CollectionChain<T>;
     }
-    interface ImpS {
-        chain(): ExpS;
+    interface String {
+        chain(): StringChain;
     }
-    interface ImpO<T> {
-        chain(): ExpO<T>;
+    interface Object<T> {
+        chain(): ObjectChain<T>;
     }
-    interface ImpU<T> {
-        chain(): ExpU<T>;
+    interface Primitive<T> {
+        chain(): PrimitiveChain<T>;
     }
-    interface ImpF<T extends (...args: any) => any> {
-        chain(): ExpF<T>;
+    interface Function<T extends (...args: any) => any> {
+        chain(): FunctionChain<T>;
     }
     interface LoDashExplicitWrapper<TValue> {
         chain(): this;

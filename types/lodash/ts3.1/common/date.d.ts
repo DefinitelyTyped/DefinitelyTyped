@@ -7,6 +7,6 @@ declare module "../index" {
         now(): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        now(): ExpU<number>;
+        now(): PrimitiveChain<number>;
     }
 }

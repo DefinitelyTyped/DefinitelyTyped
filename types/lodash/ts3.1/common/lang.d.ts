@@ -1,37 +1,40 @@
 import _ = require("../index");
+// tslint:disable-next-line:strict-export-declare-modifiers
+type GlobalFunction = Function;
 declare module "../index" {
+    type FunctionBase = GlobalFunction;
     interface LoDashStatic {
         castArray<T>(value?: Many<T>): T[];
     }
-    interface ImpL<T> {
-        castArray(): ImpL<T>;
+    interface Collection<T> {
+        castArray(): Collection<T>;
     }
-    interface ImpS {
-        castArray(): ImpL<string>;
+    interface String {
+        castArray(): Collection<string>;
     }
-    interface ImpO<T> {
-        castArray(): ImpL<T>;
+    interface Object<T> {
+        castArray(): Collection<T>;
     }
-    interface ImpF<T extends (...args: any) => any> {
-        castArray(): ImpL<T>;
+    interface Function<T extends (...args: any) => any> {
+        castArray(): Collection<T>;
     }
-    interface ImpU<T> {
-        castArray(): ImpL<T>;
+    interface Primitive<T> {
+        castArray(): Collection<T>;
     }
-    interface ExpL<T> {
-        castArray(): ExpL<T>;
+    interface CollectionChain<T> {
+        castArray(): CollectionChain<T>;
     }
-    interface ExpS {
-        castArray(): ExpL<string>;
+    interface StringChain {
+        castArray(): CollectionChain<string>;
     }
-    interface ExpO<T> {
-        castArray(): ExpL<T>;
+    interface ObjectChain<T> {
+        castArray(): CollectionChain<T>;
     }
-    interface ExpF<T extends (...args: any) => any> {
-        castArray(): ExpL<T>;
+    interface FunctionChain<T extends (...args: any) => any> {
+        castArray(): CollectionChain<T>;
     }
-    interface ExpU<T> {
-        castArray(): ExpL<T>;
+    interface PrimitiveChain<T> {
+        castArray(): CollectionChain<T>;
     }
 
     interface LoDashStatic {
@@ -78,7 +81,7 @@ declare module "../index" {
         conformsTo(source: ConformsPredicateObject<TValue>): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        conformsTo(source: ConformsPredicateObject<TValue>): ExpU<boolean>;
+        conformsTo(source: ConformsPredicateObject<TValue>): PrimitiveChain<boolean>;
     }
     type CondPair<T, R> = [(val: T) => boolean, (val: T) => R];
     interface LoDashStatic {
@@ -88,7 +91,7 @@ declare module "../index" {
         eq(other: any): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        eq(other: any): ExpU<boolean>;
+        eq(other: any): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -98,7 +101,7 @@ declare module "../index" {
         gt(other: any): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        gt(other: any): ExpU<boolean>;
+        gt(other: any): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -108,7 +111,7 @@ declare module "../index" {
         gte(other: any): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        gte(other: any): ExpU<boolean>;
+        gte(other: any): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -118,7 +121,7 @@ declare module "../index" {
         isArguments(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isArguments(): ExpU<boolean>;
+        isArguments(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -129,7 +132,7 @@ declare module "../index" {
         isArray(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isArray(): ExpU<boolean>;
+        isArray(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -139,7 +142,7 @@ declare module "../index" {
         isArrayBuffer(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isArrayBuffer(): ExpU<boolean>;
+        isArrayBuffer(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -151,20 +154,20 @@ declare module "../index" {
         isArrayLike(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isArrayLike(): ExpU<boolean>;
+        isArrayLike(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
         isArrayLikeObject<T extends { __lodashAnyHack: any }>(value: T): boolean;
         // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the Function type)
-        isArrayLikeObject(value: ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is never;
+        isArrayLikeObject(value: ((...args: any[]) => any) | FunctionBase | string | boolean | number | null | undefined): value is never;
         isArrayLikeObject(value: any): value is object & { length: number };
     }
     interface LoDashImplicitWrapper<TValue> {
         isArrayLikeObject(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isArrayLikeObject(): ExpU<boolean>;
+        isArrayLikeObject(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -174,7 +177,7 @@ declare module "../index" {
         isBoolean(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isBoolean(): ExpU<boolean>;
+        isBoolean(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -184,7 +187,7 @@ declare module "../index" {
         isBuffer(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isBuffer(): ExpU<boolean>;
+        isBuffer(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -194,7 +197,7 @@ declare module "../index" {
         isDate(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isDate(): ExpU<boolean>;
+        isDate(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -204,7 +207,7 @@ declare module "../index" {
         isElement(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isElement(): ExpU<boolean>;
+        isElement(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -214,7 +217,7 @@ declare module "../index" {
         isEmpty(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isEmpty(): ExpU<boolean>;
+        isEmpty(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -224,7 +227,7 @@ declare module "../index" {
         isEqual(other: any): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isEqual(other: any): ExpU<boolean>;
+        isEqual(other: any): PrimitiveChain<boolean>;
     }
 
     type IsEqualCustomizer = (value: any, other: any, indexOrKey: PropertyName | undefined, parent: any, otherParent: any, stack: any) => boolean | undefined;
@@ -235,7 +238,7 @@ declare module "../index" {
         isEqualWith(other: any, customizer?: IsEqualCustomizer): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isEqualWith(other: any, customizer?: IsEqualCustomizer): ExpU<boolean>;
+        isEqualWith(other: any, customizer?: IsEqualCustomizer): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -245,7 +248,7 @@ declare module "../index" {
         isError(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isError(): ExpU<boolean>;
+        isError(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -255,7 +258,7 @@ declare module "../index" {
         isFinite(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isFinite(): ExpU<boolean>;
+        isFinite(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -265,7 +268,7 @@ declare module "../index" {
         isFunction(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isFunction(): ExpU<boolean>;
+        isFunction(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -275,7 +278,7 @@ declare module "../index" {
         isInteger(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isInteger(): ExpU<boolean>;
+        isInteger(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -285,7 +288,7 @@ declare module "../index" {
         isLength(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isLength(): ExpU<boolean>;
+        isLength(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -295,7 +298,7 @@ declare module "../index" {
         isMap(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isMap(): ExpU<boolean>;
+        isMap(): PrimitiveChain<boolean>;
     }
 
     type isMatchCustomizer = (value: any, other: any, indexOrKey?: PropertyName) => boolean;
@@ -306,7 +309,7 @@ declare module "../index" {
         isMatch(source: object): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isMatch(source: object): ExpU<boolean>;
+        isMatch(source: object): PrimitiveChain<boolean>;
     }
 
     type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName, object: object, source: object) => boolean;
@@ -317,7 +320,7 @@ declare module "../index" {
         isMatchWith(source: object, customizer: isMatchWithCustomizer): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isMatchWith(source: object, customizer: isMatchWithCustomizer): ExpU<boolean>;
+        isMatchWith(source: object, customizer: isMatchWithCustomizer): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -327,7 +330,7 @@ declare module "../index" {
         isNaN(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isNaN(): ExpU<boolean>;
+        isNaN(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -337,7 +340,7 @@ declare module "../index" {
         isNative(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isNative(): ExpU<boolean>;
+        isNative(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -347,7 +350,7 @@ declare module "../index" {
         isNil(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isNil(): ExpU<boolean>;
+        isNil(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -357,7 +360,7 @@ declare module "../index" {
         isNull(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isNull(): ExpU<boolean>;
+        isNull(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -367,7 +370,7 @@ declare module "../index" {
         isNumber(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isNumber(): ExpU<boolean>;
+        isNumber(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -377,7 +380,7 @@ declare module "../index" {
         isObject(): this is LoDashImplicitWrapper<object>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isObject(): ExpU<boolean>;
+        isObject(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -387,7 +390,7 @@ declare module "../index" {
         isObjectLike(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isObjectLike(): ExpU<boolean>;
+        isObjectLike(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -397,7 +400,7 @@ declare module "../index" {
         isPlainObject(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isPlainObject(): ExpU<boolean>;
+        isPlainObject(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -407,7 +410,7 @@ declare module "../index" {
         isRegExp(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isRegExp(): ExpU<boolean>;
+        isRegExp(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -417,7 +420,7 @@ declare module "../index" {
         isSafeInteger(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isSafeInteger(): ExpU<boolean>;
+        isSafeInteger(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -427,7 +430,7 @@ declare module "../index" {
         isSet(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isSet(): ExpU<boolean>;
+        isSet(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -437,7 +440,7 @@ declare module "../index" {
         isString(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isString(): ExpU<boolean>;
+        isString(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -447,7 +450,7 @@ declare module "../index" {
         isSymbol(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isSymbol(): ExpU<boolean>;
+        isSymbol(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -457,7 +460,7 @@ declare module "../index" {
         isTypedArray(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isTypedArray(): ExpU<boolean>;
+        isTypedArray(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -467,7 +470,7 @@ declare module "../index" {
         isUndefined(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isUndefined(): ExpU<boolean>;
+        isUndefined(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -477,7 +480,7 @@ declare module "../index" {
         isWeakMap(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isWeakMap(): ExpU<boolean>;
+        isWeakMap(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -487,7 +490,7 @@ declare module "../index" {
         isWeakSet(): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        isWeakSet(): ExpU<boolean>;
+        isWeakSet(): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -497,7 +500,7 @@ declare module "../index" {
         lt(other: any): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        lt(other: any): ExpU<boolean>;
+        lt(other: any): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -507,7 +510,7 @@ declare module "../index" {
         lte(other: any): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        lte(other: any): ExpU<boolean>;
+        lte(other: any): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -515,23 +518,23 @@ declare module "../index" {
         toArray<T>(value: T): Array<T[keyof T]>;
         toArray(): any[];
     }
-    interface ImpS {
-        toArray(): ImpL<string>;
+    interface String {
+        toArray(): Collection<string>;
     }
-    interface ImpL<T> {
-        toArray(): ImpL<T>;
+    interface Collection<T> {
+        toArray(): Collection<T>;
     }
-    interface ImpO<T> {
-        toArray(): ImpL<T[keyof T]>;
+    interface Object<T> {
+        toArray(): Collection<T[keyof T]>;
     }
-    interface ExpS {
-        toArray(): ExpL<string>;
+    interface StringChain {
+        toArray(): CollectionChain<string>;
     }
-    interface ExpL<T> {
-        toArray(): ExpL<T>;
+    interface CollectionChain<T> {
+        toArray(): CollectionChain<T>;
     }
-    interface ExpO<T> {
-        toArray(): ExpL<T[keyof T]>;
+    interface ObjectChain<T> {
+        toArray(): CollectionChain<T[keyof T]>;
     }
 
     interface LoDashStatic {
@@ -541,7 +544,7 @@ declare module "../index" {
         toFinite(): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        toFinite(): ExpU<number>;
+        toFinite(): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
@@ -551,7 +554,7 @@ declare module "../index" {
         toInteger(): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        toInteger(): ExpU<number>;
+        toInteger(): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
@@ -561,7 +564,7 @@ declare module "../index" {
         toLength(): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        toLength(): ExpU<number>;
+        toLength(): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
@@ -571,17 +574,17 @@ declare module "../index" {
         toNumber(): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        toNumber(): ExpU<number>;
+        toNumber(): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
         toPlainObject(value?: any): any;
     }
     interface LoDashImplicitWrapper<TValue> {
-        toPlainObject(): ImpO<any>;
+        toPlainObject(): Object<any>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        toPlainObject(): ExpO<any>;
+        toPlainObject(): ObjectChain<any>;
     }
 
     interface LoDashStatic {
@@ -591,7 +594,7 @@ declare module "../index" {
         toSafeInteger(): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        toSafeInteger(): ExpU<number>;
+        toSafeInteger(): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {

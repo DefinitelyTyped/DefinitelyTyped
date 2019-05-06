@@ -7,7 +7,7 @@ declare module "../index" {
         add(addend: number): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        add(addend: number): ExpU<number>;
+        add(addend: number): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
@@ -17,7 +17,7 @@ declare module "../index" {
         ceil(precision?: number): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        ceil(precision?: number): ExpU<number>;
+        ceil(precision?: number): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
@@ -27,7 +27,7 @@ declare module "../index" {
         divide(divisor: number): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        divide(divisor: number): ExpU<number>;
+        divide(divisor: number): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
@@ -37,26 +37,26 @@ declare module "../index" {
         floor(precision?: number): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        floor(precision?: number): ExpU<number>;
+        floor(precision?: number): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
         max<T>(collection: List<T> | null | undefined): T | undefined;
     }
-    interface ImpL<T> {
+    interface Collection<T> {
         max(): T | undefined;
     }
-    interface ExpL<T> {
+    interface CollectionChain<T> {
         max(): LoDashExplicitWrapper<T | undefined>;
     }
 
     interface LoDashStatic {
         maxBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T | undefined;
     }
-    interface ImpL<T> {
+    interface Collection<T> {
         maxBy(iteratee?: ValueIteratee<T>): T | undefined;
     }
-    interface ExpL<T> {
+    interface CollectionChain<T> {
         maxBy(iteratee?: ValueIteratee<T>): LoDashExplicitWrapper<T | undefined>;
     }
 
@@ -67,36 +67,36 @@ declare module "../index" {
         mean(): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        mean(): ExpU<number>;
+        mean(): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
         meanBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): number;
     }
-    interface ImpL<T> {
+    interface Collection<T> {
         meanBy(iteratee?: ValueIteratee<T>): number;
     }
-    interface ExpL<T> {
-        meanBy(iteratee?: ValueIteratee<T>): ExpU<number>;
+    interface CollectionChain<T> {
+        meanBy(iteratee?: ValueIteratee<T>): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
         min<T>(collection: List<T> | null | undefined): T | undefined;
     }
-    interface ImpL<T> {
+    interface Collection<T> {
         min(): T | undefined;
     }
-    interface ExpL<T> {
+    interface CollectionChain<T> {
         min(): LoDashExplicitWrapper<T | undefined>;
     }
 
     interface LoDashStatic {
         minBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): T | undefined;
     }
-    interface ImpL<T> {
+    interface Collection<T> {
         minBy(iteratee?: ValueIteratee<T>): T | undefined;
     }
-    interface ExpL<T> {
+    interface CollectionChain<T> {
         minBy(iteratee?: ValueIteratee<T>): LoDashExplicitWrapper<T | undefined>;
     }
 
@@ -107,7 +107,7 @@ declare module "../index" {
         multiply(multiplicand: number): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        multiply(multiplicand: number): ExpU<number>;
+        multiply(multiplicand: number): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
@@ -117,7 +117,7 @@ declare module "../index" {
         round(precision?: number): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        round(precision?: number): ExpU<number>;
+        round(precision?: number): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
@@ -127,7 +127,7 @@ declare module "../index" {
         subtract(subtrahend: number): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        subtract(subtrahend: number): ExpU<number>;
+        subtract(subtrahend: number): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
@@ -137,16 +137,16 @@ declare module "../index" {
         sum(): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        sum(): ExpU<number>;
+        sum(): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
         sumBy<T>(collection: List<T> | null | undefined, iteratee?: ((value: T) => number) | string): number;
     }
-    interface ImpL<T> {
+    interface Collection<T> {
         sumBy(iteratee?: ((value: T) => number) | string): number;
     }
-    interface ExpL<T> {
-        sumBy(iteratee?: ((value: T) => number) | string): ExpU<number>;
+    interface CollectionChain<T> {
+        sumBy(iteratee?: ((value: T) => number) | string): PrimitiveChain<number>;
     }
 }

@@ -31,20 +31,20 @@ declare module "../index" {
         conforms<T>(source: ConformsPredicateObject<T>): (value: T) => boolean;
     }
     interface LoDashImplicitWrapper<TValue> {
-        conforms(): ImpF<(value: ConformsPredicateObject<TValue>) => boolean>;
+        conforms(): Function<(value: ConformsPredicateObject<TValue>) => boolean>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        conforms(): ExpF<(value: ConformsPredicateObject<TValue>) => boolean>;
+        conforms(): FunctionChain<(value: ConformsPredicateObject<TValue>) => boolean>;
     }
 
     interface LoDashStatic {
         constant<T>(value: T): () => T;
     }
     interface LoDashImplicitWrapper<TValue> {
-        constant(): ImpF<() => TValue>;
+        constant(): Function<() => TValue>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        constant(): ExpF<() => TValue>;
+        constant(): FunctionChain<() => TValue>;
     }
 
     interface LoDashStatic {
@@ -70,25 +70,25 @@ declare module "../index" {
         flow<A extends any[], R1, R2>(f1: (...args: A) => R1, f2: (a: R1) => R2): (...args: A) => R2;
         flow(...func: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
     }
-    interface ImpF<T extends (...arg: any) => any> {
-        flow<R2, R3, R4, R5, R6, R7>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): ImpF<(...args: Parameters<T>) => R7>;
-        flow<R2, R3, R4, R5, R6, R7>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...func: Array<Many<(a: any) => any>>): ImpF<(...args: Parameters<T>) => any>;
-        flow<R2, R3, R4, R5, R6>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): ImpF<(...args: Parameters<T>) => R6>;
-        flow<R2, R3, R4, R5>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): ImpF<(...args: Parameters<T>) => R5>;
-        flow<R2, R3, R4>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): ImpF<(...args: Parameters<T>) => R4>;
-        flow<R2, R3>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3): ImpF<(...args: Parameters<T>) => R3>;
-        flow<R2>(f2: (a: ReturnType<T>) => R2): ImpF<(...args: Parameters<T>) => R2>;
-        flow(...func: Array<Many<(...args: any[]) => any>>): ImpF<(...args: any[]) => any>;
+    interface Function<T extends (...arg: any) => any> {
+        flow<R2, R3, R4, R5, R6, R7>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): Function<(...args: Parameters<T>) => R7>;
+        flow<R2, R3, R4, R5, R6, R7>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...func: Array<Many<(a: any) => any>>): Function<(...args: Parameters<T>) => any>;
+        flow<R2, R3, R4, R5, R6>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): Function<(...args: Parameters<T>) => R6>;
+        flow<R2, R3, R4, R5>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): Function<(...args: Parameters<T>) => R5>;
+        flow<R2, R3, R4>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): Function<(...args: Parameters<T>) => R4>;
+        flow<R2, R3>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3): Function<(...args: Parameters<T>) => R3>;
+        flow<R2>(f2: (a: ReturnType<T>) => R2): Function<(...args: Parameters<T>) => R2>;
+        flow(...func: Array<Many<(...args: any[]) => any>>): Function<(...args: any[]) => any>;
     }
-    interface ExpF<T> {
-        flow<R2, R3, R4, R5, R6, R7>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): ExpF<(...args: Parameters<T>) => R7>;
-        flow<R2, R3, R4, R5, R6, R7>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...func: Array<Many<(a: any) => any>>): ExpF<(...args: Parameters<T>) => any>;
-        flow<R2, R3, R4, R5, R6>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): ExpF<(...args: Parameters<T>) => R6>;
-        flow<R2, R3, R4, R5>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): ExpF<(...args: Parameters<T>) => R5>;
-        flow<R2, R3, R4>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): ExpF<(...args: Parameters<T>) => R4>;
-        flow<R2, R3>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3): ExpF<(...args: Parameters<T>) => R3>;
-        flow<R2>(f2: (a: ReturnType<T>) => R2): ExpF<(...args: Parameters<T>) => R2>;
-        flow(...func: Array<Many<(...args: any[]) => any>>): ExpF<(...args: any[]) => any>;
+    interface FunctionChain<T> {
+        flow<R2, R3, R4, R5, R6, R7>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): FunctionChain<(...args: Parameters<T>) => R7>;
+        flow<R2, R3, R4, R5, R6, R7>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7, ...func: Array<Many<(a: any) => any>>): FunctionChain<(...args: Parameters<T>) => any>;
+        flow<R2, R3, R4, R5, R6>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): FunctionChain<(...args: Parameters<T>) => R6>;
+        flow<R2, R3, R4, R5>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): FunctionChain<(...args: Parameters<T>) => R5>;
+        flow<R2, R3, R4>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): FunctionChain<(...args: Parameters<T>) => R4>;
+        flow<R2, R3>(f2: (a: ReturnType<T>) => R2, f3: (a: R2) => R3): FunctionChain<(...args: Parameters<T>) => R3>;
+        flow<R2>(f2: (a: ReturnType<T>) => R2): FunctionChain<(...args: Parameters<T>) => R2>;
+        flow(...func: Array<Many<(...args: any[]) => any>>): FunctionChain<(...args: any[]) => any>;
     }
 
     interface LoDashStatic {
@@ -100,23 +100,23 @@ declare module "../index" {
         flowRight<A extends any[], R1, R2>(f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R2;
         flowRight(...func: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
     }
-    interface ImpF<T> {
-        flowRight<A extends any[], R1, R2, R3, R4, R5>(f6: (a: R5) => Parameters<T>["0"], f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): ImpF<(...args: A) => ReturnType<T>>;
-        flowRight<A extends any[], R1, R2, R3, R4>(f5: (a: R4) => Parameters<T>["0"], f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): ImpF<(...args: A) => ReturnType<T>>;
-        flowRight<A extends any[], R1, R2, R3>(f4: (a: R3) => Parameters<T>["0"], f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): ImpF<(...args: A) => ReturnType<T>>;
-        flowRight<A extends any[], R1, R2>(f3: (a: R2) => Parameters<T>["0"], f2: (a: R1) => R2, f1: (...args: A) => R1): ImpF<(...args: A) => ReturnType<T>>;
-        flowRight<A extends any[], R1>(f2: (a: R1) => Parameters<T>["0"], f1: (...args: A) => R1): ImpF<(...args: A) => ReturnType<T>>;
-        flowRight<A extends any[]>(f1: (...args: A) => Parameters<T>["0"]): ImpF<(...args: A) => ReturnType<T>>;
-        flowRight(...func: Array<Many<(...args: any[]) => any>>): ImpF<(...args: any[]) => any>;
+    interface Function<T> {
+        flowRight<A extends any[], R1, R2, R3, R4, R5>(f6: (a: R5) => Parameters<T>["0"], f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): Function<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1, R2, R3, R4>(f5: (a: R4) => Parameters<T>["0"], f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): Function<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1, R2, R3>(f4: (a: R3) => Parameters<T>["0"], f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): Function<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1, R2>(f3: (a: R2) => Parameters<T>["0"], f2: (a: R1) => R2, f1: (...args: A) => R1): Function<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1>(f2: (a: R1) => Parameters<T>["0"], f1: (...args: A) => R1): Function<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[]>(f1: (...args: A) => Parameters<T>["0"]): Function<(...args: A) => ReturnType<T>>;
+        flowRight(...func: Array<Many<(...args: any[]) => any>>): Function<(...args: any[]) => any>;
     }
-    interface ExpF<T> {
-        flowRight<A extends any[], R1, R2, R3, R4, R5>(f6: (a: R5) => Parameters<T>["0"], f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): ExpF<(...args: A) => ReturnType<T>>;
-        flowRight<A extends any[], R1, R2, R3, R4>(f5: (a: R4) => Parameters<T>["0"], f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): ExpF<(...args: A) => ReturnType<T>>;
-        flowRight<A extends any[], R1, R2, R3>(f4: (a: R3) => Parameters<T>["0"], f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): ExpF<(...args: A) => ReturnType<T>>;
-        flowRight<A extends any[], R1, R2>(f3: (a: R2) => Parameters<T>["0"], f2: (a: R1) => R2, f1: (...args: A) => R1): ExpF<(...args: A) => ReturnType<T>>;
-        flowRight<A extends any[], R1>(f2: (a: R1) => Parameters<T>["0"], f1: (...args: A) => R1): ExpF<(...args: A) => ReturnType<T>>;
-        flowRight<A extends any[]>(f1: (...args: A) => Parameters<T>["0"]): ExpF<(...args: A) => ReturnType<T>>;
-        flowRight(...func: Array<Many<(...args: any[]) => any>>): ExpF<(...args: any[]) => any>;
+    interface FunctionChain<T> {
+        flowRight<A extends any[], R1, R2, R3, R4, R5>(f6: (a: R5) => Parameters<T>["0"], f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): FunctionChain<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1, R2, R3, R4>(f5: (a: R4) => Parameters<T>["0"], f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): FunctionChain<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1, R2, R3>(f4: (a: R3) => Parameters<T>["0"], f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): FunctionChain<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1, R2>(f3: (a: R2) => Parameters<T>["0"], f2: (a: R1) => R2, f1: (...args: A) => R1): FunctionChain<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[], R1>(f2: (a: R1) => Parameters<T>["0"], f1: (...args: A) => R1): FunctionChain<(...args: A) => ReturnType<T>>;
+        flowRight<A extends any[]>(f1: (...args: A) => Parameters<T>["0"]): FunctionChain<(...args: A) => ReturnType<T>>;
+        flowRight(...func: Array<Many<(...args: any[]) => any>>): FunctionChain<(...args: any[]) => any>;
     }
 
     interface LoDashStatic {
@@ -134,29 +134,29 @@ declare module "../index" {
         iteratee<TFunction extends (...args: any[]) => any>(func: TFunction): TFunction;
         iteratee(func: string | object): (...args: any[]) => any;
     }
-    interface ImpF<T extends (...args: any) => any> {
-        iteratee(): ImpF<T>;
+    interface Function<T extends (...args: any) => any> {
+        iteratee(): Function<T>;
     }
-    interface ImpL<T> {
-        iteratee(): ImpF<(o: object) => boolean>;
+    interface Collection<T> {
+        iteratee(): Function<(o: object) => boolean>;
     }
-    interface ImpO<T> {
-        iteratee(): ImpF<(o: T) => boolean>;
+    interface Object<T> {
+        iteratee(): Function<(o: T) => boolean>;
     }
-    interface ImpS {
-        iteratee(): ImpF<(o: object) => boolean>;
+    interface String {
+        iteratee(): Function<(o: object) => boolean>;
     }
-    interface ExpF<T extends (...args: any) => any> {
-        iteratee(): ExpF<T>;
+    interface FunctionChain<T extends (...args: any) => any> {
+        iteratee(): FunctionChain<T>;
     }
-    interface ExpL<T> {
-        iteratee(): ExpF<(o: object) => boolean>;
+    interface CollectionChain<T> {
+        iteratee(): FunctionChain<(o: object) => boolean>;
     }
-    interface ExpO<T> {
-        iteratee(): ExpF<(o: T) => boolean>;
+    interface ObjectChain<T> {
+        iteratee(): FunctionChain<(o: T) => boolean>;
     }
-    interface ExpS {
-        iteratee(): ExpF<(o: object) => boolean>;
+    interface StringChain {
+        iteratee(): FunctionChain<(o: object) => boolean>;
     }
 
     interface LoDashStatic {
@@ -164,10 +164,10 @@ declare module "../index" {
         matches<T, V>(source: T): (value: V) => boolean;
     }
     interface LoDashImplicitWrapper<TValue> {
-        matches<V>(): ImpF<(value: V) => boolean>;
+        matches<V>(): Function<(value: V) => boolean>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        matches<V>(): ExpF<(value: V) => boolean>;
+        matches<V>(): FunctionChain<(value: V) => boolean>;
     }
 
     interface LoDashStatic {
@@ -175,22 +175,22 @@ declare module "../index" {
         matchesProperty<T, V>(path: PropertyPath, srcValue: T): (value: V) => boolean;
     }
     interface LoDashImplicitWrapper<TValue> {
-        matchesProperty<SrcValue>(srcValue: SrcValue): ImpF<(value: any) => boolean>;
-        matchesProperty<SrcValue, Value>(srcValue: SrcValue): ImpF<(value: Value) => boolean>;
+        matchesProperty<SrcValue>(srcValue: SrcValue): Function<(value: any) => boolean>;
+        matchesProperty<SrcValue, Value>(srcValue: SrcValue): Function<(value: Value) => boolean>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        matchesProperty<SrcValue>(srcValue: SrcValue): ExpF<(value: any) => boolean>;
-        matchesProperty<SrcValue, Value>(srcValue: SrcValue): ExpF<(value: Value) => boolean>;
+        matchesProperty<SrcValue>(srcValue: SrcValue): FunctionChain<(value: any) => boolean>;
+        matchesProperty<SrcValue, Value>(srcValue: SrcValue): FunctionChain<(value: Value) => boolean>;
     }
 
     interface LoDashStatic {
         method(path: PropertyPath, ...args: any[]): (object: any) => any;
     }
     interface LoDashImplicitWrapper<TValue> {
-        method(...args: any[]): ImpF<(object: any) => any>;
+        method(...args: any[]): Function<(object: any) => any>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        method(...args: any[]): ExpF<(object: any) => any>;
+        method(...args: any[]): FunctionChain<(object: any) => any>;
     }
 
     interface LoDashStatic {
@@ -236,75 +236,75 @@ declare module "../index" {
         noop(...args: any[]): void;
     }
     interface LoDashExplicitWrapper<TValue> {
-        noop(...args: any[]): ExpU<undefined>;
+        noop(...args: any[]): PrimitiveChain<undefined>;
     }
 
     interface LoDashStatic {
         nthArg(n?: number): (...args: any[]) => any;
     }
     interface LoDashImplicitWrapper<TValue> {
-        nthArg(): ImpF<(...args: any[]) => any>;
+        nthArg(): Function<(...args: any[]) => any>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        nthArg(): ExpF<(...args: any[]) => any>;
+        nthArg(): FunctionChain<(...args: any[]) => any>;
     }
 
     interface LoDashStatic {
         over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): (...args: any[]) => TResult[];
     }
-    interface ImpL<T> {
-        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): ImpF<(...args: any[]) => TResult[]>;
+    interface Collection<T> {
+        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): Function<(...args: any[]) => TResult[]>;
     }
-    interface ImpF<T> {
-        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): ImpF<(...args: any[]) => Array<ReturnType<T> | TResult>>;
+    interface Function<T> {
+        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): Function<(...args: any[]) => Array<ReturnType<T> | TResult>>;
     }
-    interface ExpL<T> {
-        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): ExpF<(...args: any[]) => TResult[]>;
+    interface CollectionChain<T> {
+        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): FunctionChain<(...args: any[]) => TResult[]>;
     }
-    interface ExpF<T> {
-        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): ExpF<(...args: any[]) => Array<ReturnType<T> | TResult>>;
+    interface FunctionChain<T> {
+        over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): FunctionChain<(...args: any[]) => Array<ReturnType<T> | TResult>>;
     }
 
     interface LoDashStatic {
         overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
-    interface ImpL<T> {
-        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: TArgs[]) => boolean>;
+    interface Collection<T> {
+        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): Function<(...args: TArgs[]) => boolean>;
     }
-    interface ImpF<T> {
-        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: Parameters<T> | TArgs[]) => boolean>;
+    interface Function<T> {
+        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): Function<(...args: Parameters<T> | TArgs[]) => boolean>;
     }
-    interface ExpL<T> {
-        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args:  TArgs[]) => boolean>;
+    interface CollectionChain<T> {
+        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): FunctionChain<(...args:  TArgs[]) => boolean>;
     }
-    interface ExpF<T> {
-        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args: Parameters<T> | TArgs[]) => boolean>;
+    interface FunctionChain<T> {
+        overEvery<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): FunctionChain<(...args: Parameters<T> | TArgs[]) => boolean>;
     }
 
     interface LoDashStatic {
         overSome<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
-    interface ImpL<T> {
-        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: TArgs[]) => boolean>;
+    interface Collection<T> {
+        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): Function<(...args: TArgs[]) => boolean>;
     }
-    interface ImpF<T> {
-        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ImpF<(...args: Parameters<T> | TArgs[]) => boolean>;
+    interface Function<T> {
+        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): Function<(...args: Parameters<T> | TArgs[]) => boolean>;
     }
-    interface ExpL<T> {
-        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args: TArgs[]) => boolean>;
+    interface CollectionChain<T> {
+        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): FunctionChain<(...args: TArgs[]) => boolean>;
     }
-    interface ExpF<T> {
-        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): ExpF<(...args: Parameters<T> | TArgs[]) => boolean>;
+    interface FunctionChain<T> {
+        overSome<TArgs>(...iteratees: Array<Many<(...args: TArgs[]) => boolean>>): FunctionChain<(...args: Parameters<T> | TArgs[]) => boolean>;
     }
 
     interface LoDashStatic {
         property<TObj, TResult>(path: PropertyPath): (obj: TObj) => TResult;
     }
     interface LoDashImplicitWrapper<TValue> {
-        property<TObj, TResult>(): ImpF<(obj: TObj) => TResult>;
+        property<TObj, TResult>(): Function<(obj: TObj) => TResult>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        property<TObj, TResult>(): ExpF<(obj: TObj) => TResult>;
+        property<TObj, TResult>(): FunctionChain<(obj: TObj) => TResult>;
     }
 
     interface LoDashStatic {
@@ -322,10 +322,10 @@ declare module "../index" {
         range(end: number, index: string | number, guard: object): number[];
     }
     interface LoDashImplicitWrapper<TValue> {
-        range(end?: number, step?: number): ImpL<number>;
+        range(end?: number, step?: number): Collection<number>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        range(end?: number, step?: number): ExpL<number>;
+        range(end?: number, step?: number): CollectionChain<number>;
     }
 
     interface LoDashStatic {
@@ -333,10 +333,10 @@ declare module "../index" {
         rangeRight(end: number, index: string | number, guard: object): number[];
     }
     interface LoDashImplicitWrapper<TValue> {
-        rangeRight(end?: number, step?: number): ImpL<number>;
+        rangeRight(end?: number, step?: number): Collection<number>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        rangeRight(end?: number, step?: number): ExpL<number>;
+        rangeRight(end?: number, step?: number): CollectionChain<number>;
     }
 
     interface LoDashStatic {
@@ -353,7 +353,7 @@ declare module "../index" {
         stubArray(): any[];
     }
     interface LoDashExplicitWrapper<TValue> {
-        stubArray(): ExpL<any>;
+        stubArray(): CollectionChain<any>;
     }
 
     interface LoDashStatic {
@@ -363,7 +363,7 @@ declare module "../index" {
         stubFalse(): false;
     }
     interface LoDashExplicitWrapper<TValue> {
-        stubFalse(): ExpU<false>;
+        stubFalse(): PrimitiveChain<false>;
     }
 
     interface LoDashStatic {
@@ -383,7 +383,7 @@ declare module "../index" {
         stubString(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        stubString(): ExpS;
+        stubString(): StringChain;
     }
 
     interface LoDashStatic {
@@ -393,7 +393,7 @@ declare module "../index" {
         stubTrue(): true;
     }
     interface LoDashExplicitWrapper<TValue> {
-        stubTrue(): ExpU<true>;
+        stubTrue(): PrimitiveChain<true>;
     }
 
     interface LoDashStatic {
@@ -405,18 +405,18 @@ declare module "../index" {
         times(): number[];
     }
     interface LoDashExplicitWrapper<TValue> {
-        times<TResult>(iteratee: (num: number) => TResult): ExpL<TResult>;
-        times(): ExpL<number>;
+        times<TResult>(iteratee: (num: number) => TResult): CollectionChain<TResult>;
+        times(): CollectionChain<number>;
     }
 
     interface LoDashStatic {
         toPath(value: any): string[];
     }
     interface LoDashImplicitWrapper<TValue> {
-        toPath(): ImpL<string>;
+        toPath(): Collection<string>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        toPath(): ExpL<string>;
+        toPath(): CollectionChain<string>;
     }
 
     interface LoDashStatic {
@@ -426,6 +426,6 @@ declare module "../index" {
         uniqueId(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        uniqueId(): ExpS;
+        uniqueId(): StringChain;
     }
 }

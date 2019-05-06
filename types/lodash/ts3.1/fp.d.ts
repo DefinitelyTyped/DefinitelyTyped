@@ -1831,8 +1831,8 @@ declare namespace _ {
     }
     interface LodashIsArrayLikeObject {
         <T extends { __lodashAnyHack: any }>(value: T): boolean;
-        // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the Function type)
-        (value: ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is never;
+        // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the lodash.Function type)
+        (value: ((...args: any[]) => any) | lodash.FunctionBase | string | boolean | number | null | undefined): value is never;
         (value: any): value is object & { length: number };
     }
     type LodashIsBoolean = (value: any) => value is boolean;

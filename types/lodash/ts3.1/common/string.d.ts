@@ -7,7 +7,7 @@ declare module "../index" {
         camelCase(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        camelCase(): ExpS;
+        camelCase(): StringChain;
     }
 
     interface LoDashStatic {
@@ -17,7 +17,7 @@ declare module "../index" {
         capitalize(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        capitalize(): ExpS;
+        capitalize(): StringChain;
     }
 
     interface LoDashStatic {
@@ -27,7 +27,7 @@ declare module "../index" {
         deburr(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        deburr(): ExpS;
+        deburr(): StringChain;
     }
 
     interface LoDashStatic {
@@ -37,7 +37,7 @@ declare module "../index" {
         endsWith(target?: string, position?: number): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        endsWith(target?: string, position?: number): ExpU<boolean>;
+        endsWith(target?: string, position?: number): PrimitiveChain<boolean>;
     }
 
     interface LoDashStatic {
@@ -47,7 +47,7 @@ declare module "../index" {
         escape(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        escape(): ExpS;
+        escape(): StringChain;
     }
 
     interface LoDashStatic {
@@ -57,7 +57,7 @@ declare module "../index" {
         escapeRegExp(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        escapeRegExp(): ExpS;
+        escapeRegExp(): StringChain;
     }
 
     interface LoDashStatic {
@@ -67,7 +67,7 @@ declare module "../index" {
         kebabCase(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        kebabCase(): ExpS;
+        kebabCase(): StringChain;
     }
 
     interface LoDashStatic {
@@ -77,7 +77,7 @@ declare module "../index" {
         lowerCase(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        lowerCase(): ExpS;
+        lowerCase(): StringChain;
     }
 
     interface LoDashStatic {
@@ -87,7 +87,7 @@ declare module "../index" {
         lowerFirst(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        lowerFirst(): ExpS;
+        lowerFirst(): StringChain;
     }
 
     interface LoDashStatic {
@@ -97,7 +97,7 @@ declare module "../index" {
         pad(length?: number, chars?: string): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        pad(length?: number, chars?: string): ExpS;
+        pad(length?: number, chars?: string): StringChain;
     }
 
     interface LoDashStatic {
@@ -107,7 +107,7 @@ declare module "../index" {
         padEnd(length?: number, chars?: string): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        padEnd(length?: number, chars?: string): ExpS;
+        padEnd(length?: number, chars?: string): StringChain;
     }
 
     interface LoDashStatic {
@@ -117,7 +117,7 @@ declare module "../index" {
         padStart(length?: number, chars?: string): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        padStart(length?: number, chars?: string): ExpS;
+        padStart(length?: number, chars?: string): StringChain;
     }
 
     interface LoDashStatic {
@@ -127,7 +127,7 @@ declare module "../index" {
         parseInt(radix?: number): number;
     }
     interface LoDashExplicitWrapper<TValue> {
-        parseInt(radix?: number): ExpU<number>;
+        parseInt(radix?: number): PrimitiveChain<number>;
     }
 
     interface LoDashStatic {
@@ -137,7 +137,7 @@ declare module "../index" {
         repeat(n?: number): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        repeat(n?: number): ExpS;
+        repeat(n?: number): StringChain;
     }
     type ReplaceFunction = (match: string, ...args: any[]) => string;
 
@@ -150,8 +150,8 @@ declare module "../index" {
         replace(replacement: ReplaceFunction | string): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        replace(pattern: RegExp | string, replacement: ReplaceFunction | string): ExpS;
-        replace(replacement: ReplaceFunction | string): ExpS;
+        replace(pattern: RegExp | string, replacement: ReplaceFunction | string): StringChain;
+        replace(replacement: ReplaceFunction | string): StringChain;
     }
 
     interface LoDashStatic {
@@ -161,7 +161,7 @@ declare module "../index" {
         snakeCase(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        snakeCase(): ExpS;
+        snakeCase(): StringChain;
     }
 
     interface LoDashStatic {
@@ -169,10 +169,10 @@ declare module "../index" {
         split(string: string, index: string | number, guard: object): string[];
     }
     interface LoDashImplicitWrapper<TValue> {
-        split(separator?: RegExp | string, limit?: number): ImpL<string>;
+        split(separator?: RegExp | string, limit?: number): Collection<string>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        split(separator?: RegExp | string, limit?: number): ExpL<string>;
+        split(separator?: RegExp | string, limit?: number): CollectionChain<string>;
     }
 
     interface LoDashStatic {
@@ -182,7 +182,7 @@ declare module "../index" {
         startCase(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        startCase(): ExpS;
+        startCase(): StringChain;
     }
 
     interface LoDashStatic {
@@ -192,7 +192,7 @@ declare module "../index" {
         startsWith(target?: string, position?: number): boolean;
     }
     interface LoDashExplicitWrapper<TValue> {
-        startsWith(target?: string, position?: number): ExpU<boolean>;
+        startsWith(target?: string, position?: number): PrimitiveChain<boolean>;
     }
 
     interface TemplateOptions extends TemplateSettings {
@@ -209,7 +209,7 @@ declare module "../index" {
         template(options?: TemplateOptions): TemplateExecutor;
     }
     interface LoDashExplicitWrapper<TValue> {
-        template(options?: TemplateOptions): ExpF<TemplateExecutor>;
+        template(options?: TemplateOptions): FunctionChain<TemplateExecutor>;
     }
 
     interface LoDashStatic {
@@ -219,7 +219,7 @@ declare module "../index" {
         toLower(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        toLower(): ExpS;
+        toLower(): StringChain;
     }
 
     interface LoDashStatic {
@@ -229,7 +229,7 @@ declare module "../index" {
         toUpper(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        toUpper(): ExpS;
+        toUpper(): StringChain;
     }
 
     interface LoDashStatic {
@@ -240,7 +240,7 @@ declare module "../index" {
         trim(chars?: string): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        trim(chars?: string): ExpS;
+        trim(chars?: string): StringChain;
     }
 
     interface LoDashStatic {
@@ -251,7 +251,7 @@ declare module "../index" {
         trimEnd(chars?: string): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        trimEnd(chars?: string): ExpS;
+        trimEnd(chars?: string): StringChain;
     }
 
     interface LoDashStatic {
@@ -262,7 +262,7 @@ declare module "../index" {
         trimStart(chars?: string): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        trimStart(chars?: string): ExpS;
+        trimStart(chars?: string): StringChain;
     }
 
     interface TruncateOptions {
@@ -277,7 +277,7 @@ declare module "../index" {
         truncate(options?: TruncateOptions): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        truncate(options?: TruncateOptions): ExpS;
+        truncate(options?: TruncateOptions): StringChain;
     }
 
     interface LoDashStatic {
@@ -287,7 +287,7 @@ declare module "../index" {
         unescape(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        unescape(): ExpS;
+        unescape(): StringChain;
     }
 
     interface LoDashStatic {
@@ -297,7 +297,7 @@ declare module "../index" {
         upperCase(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        upperCase(): ExpS;
+        upperCase(): StringChain;
     }
 
     interface LoDashStatic {
@@ -307,7 +307,7 @@ declare module "../index" {
         upperFirst(): string;
     }
     interface LoDashExplicitWrapper<TValue> {
-        upperFirst(): ExpS;
+        upperFirst(): StringChain;
     }
 
     interface LoDashStatic {
@@ -318,6 +318,6 @@ declare module "../index" {
         words(pattern?: string | RegExp): string[];
     }
     interface LoDashExplicitWrapper<TValue> {
-        words(pattern?: string | RegExp): ExpL<string>;
+        words(pattern?: string | RegExp): CollectionChain<string>;
     }
 }

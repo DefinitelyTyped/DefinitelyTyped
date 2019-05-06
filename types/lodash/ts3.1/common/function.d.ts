@@ -3,29 +3,29 @@ declare module "../index" {
     interface LoDashStatic {
         after<TFunc extends (...args: any[]) => any>(n: number, func: TFunc): TFunc;
     }
-    interface ImpU<T> {
-        after<TFunc extends (...args: any[]) => any>(func: TFunc): ImpF<TFunc>;
+    interface Primitive<T> {
+        after<TFunc extends (...args: any[]) => any>(func: TFunc): Function<TFunc>;
     }
-    interface ExpU<T> {
-        after<TFunc extends (...args: any[]) => any>(func: TFunc): ExpF<TFunc>;
+    interface PrimitiveChain<T> {
+        after<TFunc extends (...args: any[]) => any>(func: TFunc): FunctionChain<TFunc>;
     }
     interface LoDashStatic {
         ary(func: (...args: any[]) => any, n?: number): (...args: any[]) => any;
     }
-    interface ImpF<T> {
-        ary(n?: number): ImpF<(...args: any[]) => any>;
+    interface Function<T> {
+        ary(n?: number): Function<(...args: any[]) => any>;
     }
-    interface ExpF<T> {
-        ary(n?: number): ExpF<(...args: any[]) => any>;
+    interface FunctionChain<T> {
+        ary(n?: number): FunctionChain<(...args: any[]) => any>;
     }
     interface LoDashStatic {
         before<TFunc extends (...args: any[]) => any>(n: number, func: TFunc): TFunc;
     }
-    interface ImpU<T> {
-        before<TFunc extends (...args: any[]) => any>(func: TFunc): ImpF<TFunc>;
+    interface Primitive<T> {
+        before<TFunc extends (...args: any[]) => any>(func: TFunc): Function<TFunc>;
     }
-    interface ExpU<T> {
-        before<TFunc extends (...args: any[]) => any>(func: TFunc): ExpF<TFunc>;
+    interface PrimitiveChain<T> {
+        before<TFunc extends (...args: any[]) => any>(func: TFunc): FunctionChain<TFunc>;
     }
     interface FunctionBind {
         placeholder: __;
@@ -35,10 +35,10 @@ declare module "../index" {
         bind: FunctionBind;
     }
     interface LoDashImplicitWrapper<TValue> {
-        bind(thisArg: any, ...partials: any[]): ImpF<(...args: any[]) => any>;
+        bind(thisArg: any, ...partials: any[]): Function<(...args: any[]) => any>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        bind(thisArg: any, ...partials: any[]): ExpF<(...args: any[]) => any>;
+        bind(thisArg: any, ...partials: any[]): FunctionChain<(...args: any[]) => any>;
     }
     interface FunctionBindKey {
         placeholder: __;
@@ -48,10 +48,10 @@ declare module "../index" {
         bindKey: FunctionBindKey;
     }
     interface LoDashImplicitWrapper<TValue> {
-        bindKey(key: string, ...partials: any[]): ImpF<(...args: any[]) => any>;
+        bindKey(key: string, ...partials: any[]): Function<(...args: any[]) => any>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        bindKey(key: string, ...partials: any[]): ExpF<(...args: any[]) => any>;
+        bindKey(key: string, ...partials: any[]): FunctionChain<(...args: any[]) => any>;
     }
     interface Curry {
         <T1, R>(func: (t1: T1) => R, arity?: number): CurriedFunction1<T1, R>;
@@ -209,23 +209,23 @@ declare module "../index" {
         (t1: T1, t2: __, t3: T3, t4: T4, t5: T5): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
-    interface ImpF<T> {
+    interface Function<T> {
         curry(arity?: number):
-            T extends (arg1: infer T1) => infer R ? ImpF<CurriedFunction1<T1, R>> :
-            T extends (arg1: infer T1, arg2: infer T2) => infer R ? ImpF<CurriedFunction2<T1, T2, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? ImpF<CurriedFunction3<T1, T2, T3, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? ImpF<CurriedFunction4<T1, T2, T3, T4, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? ImpF<CurriedFunction5<T1, T2, T3, T4, T5, R>> :
-            ImpF<(...args: any[]) => any>;
+            T extends (arg1: infer T1) => infer R ? Function<CurriedFunction1<T1, R>> :
+            T extends (arg1: infer T1, arg2: infer T2) => infer R ? Function<CurriedFunction2<T1, T2, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? Function<CurriedFunction3<T1, T2, T3, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? Function<CurriedFunction4<T1, T2, T3, T4, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? Function<CurriedFunction5<T1, T2, T3, T4, T5, R>> :
+            Function<(...args: any[]) => any>;
     }
-    interface ExpF<T> {
+    interface FunctionChain<T> {
         curry(arity?: number):
-            T extends (arg1: infer T1) => infer R ? ExpF<CurriedFunction1<T1, R>> :
-            T extends (arg1: infer T1, arg2: infer T2) => infer R ? ExpF<CurriedFunction2<T1, T2, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? ExpF<CurriedFunction3<T1, T2, T3, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? ExpF<CurriedFunction4<T1, T2, T3, T4, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? ExpF<CurriedFunction5<T1, T2, T3, T4, T5, R>> :
-            ExpF<(...args: any[]) => any>;
+            T extends (arg1: infer T1) => infer R ? FunctionChain<CurriedFunction1<T1, R>> :
+            T extends (arg1: infer T1, arg2: infer T2) => infer R ? FunctionChain<CurriedFunction2<T1, T2, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? FunctionChain<CurriedFunction3<T1, T2, T3, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? FunctionChain<CurriedFunction4<T1, T2, T3, T4, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? FunctionChain<CurriedFunction5<T1, T2, T3, T4, T5, R>> :
+            FunctionChain<(...args: any[]) => any>;
     }
     interface CurryRight {
         <T1, R>(func: (t1: T1) => R, arity?: number): RightCurriedFunction1<T1, R>;
@@ -239,23 +239,23 @@ declare module "../index" {
     interface LoDashStatic {
         curryRight: CurryRight;
     }
-    interface ImpF<T> {
+    interface Function<T> {
         curryRight(arity?: number):
-            T extends (arg1: infer T1) => infer R ? ImpF<RightCurriedFunction1<T1, R>> :
-            T extends (arg1: infer T1, arg2: infer T2) => infer R ? ImpF<RightCurriedFunction2<T1, T2, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? ImpF<RightCurriedFunction3<T1, T2, T3, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? ImpF<RightCurriedFunction4<T1, T2, T3, T4, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? ImpF<RightCurriedFunction5<T1, T2, T3, T4, T5, R>> :
-            ImpF<(...args: any[]) => any>;
+            T extends (arg1: infer T1) => infer R ? Function<RightCurriedFunction1<T1, R>> :
+            T extends (arg1: infer T1, arg2: infer T2) => infer R ? Function<RightCurriedFunction2<T1, T2, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? Function<RightCurriedFunction3<T1, T2, T3, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? Function<RightCurriedFunction4<T1, T2, T3, T4, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? Function<RightCurriedFunction5<T1, T2, T3, T4, T5, R>> :
+            Function<(...args: any[]) => any>;
     }
-    interface ExpF<T> {
+    interface FunctionChain<T> {
         curryRight(arity?: number):
-            T extends (arg1: infer T1) => infer R ? ExpF<RightCurriedFunction1<T1, R>> :
-            T extends (arg1: infer T1, arg2: infer T2) => infer R ? ExpF<RightCurriedFunction2<T1, T2, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? ExpF<RightCurriedFunction3<T1, T2, T3, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? ExpF<RightCurriedFunction4<T1, T2, T3, T4, R>> :
-            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? ExpF<RightCurriedFunction5<T1, T2, T3, T4, T5, R>> :
-            ExpF<(...args: any[]) => any>;
+            T extends (arg1: infer T1) => infer R ? FunctionChain<RightCurriedFunction1<T1, R>> :
+            T extends (arg1: infer T1, arg2: infer T2) => infer R ? FunctionChain<RightCurriedFunction2<T1, T2, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? FunctionChain<RightCurriedFunction3<T1, T2, T3, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? FunctionChain<RightCurriedFunction4<T1, T2, T3, T4, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? FunctionChain<RightCurriedFunction5<T1, T2, T3, T4, T5, R>> :
+            FunctionChain<(...args: any[]) => any>;
     }
     interface DebounceSettings {
         leading?: boolean;
@@ -265,37 +265,37 @@ declare module "../index" {
     interface LoDashStatic {
         debounce<T extends (...args: any) => any>(func: T, wait?: number, options?: DebounceSettings): T & Cancelable;
     }
-    interface ImpF<T extends (...args: any) => any> {
-        debounce(wait?: number, options?: DebounceSettings): ImpF<T & Cancelable>;
+    interface Function<T extends (...args: any) => any> {
+        debounce(wait?: number, options?: DebounceSettings): Function<T & Cancelable>;
     }
-    interface ExpF<T extends (...args: any) => any> {
-        debounce(wait?: number, options?: DebounceSettings): ExpF<T & Cancelable>;
+    interface FunctionChain<T extends (...args: any) => any> {
+        debounce(wait?: number, options?: DebounceSettings): FunctionChain<T & Cancelable>;
     }
     interface LoDashStatic {
         defer(func: (...args: any[]) => any, ...args: any[]): number;
     }
     interface LoDashImplicitWrapper<TValue> {
-        defer(...args: any[]): ImpU<number>;
+        defer(...args: any[]): Primitive<number>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        defer(...args: any[]): ExpU<number>;
+        defer(...args: any[]): PrimitiveChain<number>;
     }
     interface LoDashStatic {
         delay(func: (...args: any[]) => any, wait: number, ...args: any[]): number;
     }
     interface LoDashImplicitWrapper<TValue> {
-        delay(wait: number, ...args: any[]): ImpU<number>;
+        delay(wait: number, ...args: any[]): Primitive<number>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        delay(wait: number, ...args: any[]): ExpU<number>;
+        delay(wait: number, ...args: any[]): PrimitiveChain<number>;
     }
     interface LoDashStatic {
         flip<T extends (...args: any) => any>(func: T): T;
     }
-    interface ImpF<T extends (...args: any) => any> {
+    interface Function<T extends (...args: any) => any> {
         flip(): this;
     }
-    interface ExpF<T extends (...args: any) => any> {
+    interface FunctionChain<T extends (...args: any) => any> {
         flip(): this;
     }
     interface MemoizedFunction {
@@ -307,38 +307,38 @@ declare module "../index" {
             Cache: MapCacheConstructor;
         };
     }
-    interface ImpF<T extends (...args: any) => any> {
-        memoize(resolver?: (...args: any[]) => any): ImpF<T & MemoizedFunction>;
+    interface Function<T extends (...args: any) => any> {
+        memoize(resolver?: (...args: any[]) => any): Function<T & MemoizedFunction>;
     }
-    interface ExpF<T extends (...args: any) => any> {
-        memoize(resolver?: (...args: any[]) => any): ExpF<T & MemoizedFunction>;
+    interface FunctionChain<T extends (...args: any) => any> {
+        memoize(resolver?: (...args: any[]) => any): FunctionChain<T & MemoizedFunction>;
     }
     interface LoDashStatic {
         negate<T extends any[]>(predicate: (...args: T) => any): (...args: T) => boolean;
     }
-    interface ImpF<T extends (...args: any) => any> {
-        negate(): ImpF<(...args: Parameters<T>) => boolean>;
+    interface Function<T extends (...args: any) => any> {
+        negate(): Function<(...args: Parameters<T>) => boolean>;
     }
-    interface ExpF<T extends (...args: any) => any> {
-        negate(): ExpF<(...args: Parameters<T>) => boolean>;
+    interface FunctionChain<T extends (...args: any) => any> {
+        negate(): FunctionChain<(...args: Parameters<T>) => boolean>;
     }
     interface LoDashStatic {
         once<T extends (...args: any) => any>(func: T): T;
     }
-    interface ImpF<T extends (...args: any) => any> {
-        once(): ImpF<T>;
+    interface Function<T extends (...args: any) => any> {
+        once(): Function<T>;
     }
-    interface ExpF<T extends (...args: any) => any> {
-        once(): ExpF<T>;
+    interface FunctionChain<T extends (...args: any) => any> {
+        once(): FunctionChain<T>;
     }
     interface LoDashStatic {
         overArgs(func: (...args: any[]) => any, ...transforms: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
     }
-    interface ImpF<T> {
-        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): ImpF<(...args: any[]) => any>;
+    interface Function<T> {
+        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): Function<(...args: any[]) => any>;
     }
-    interface ExpF<T> {
-        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): ExpF<(...args: any[]) => any>;
+    interface FunctionChain<T> {
+        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): FunctionChain<(...args: any[]) => any>;
     }
     interface LoDashStatic {
         partial: Partial;
@@ -374,141 +374,141 @@ declare module "../index" {
         <TS extends any[], T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, ...ts: TS) => R, t1: T1, t2: T2, t3: T3, t4: T4): (...ts: TS) => R;
         placeholder: __;
     }
-    interface ImpF<T> {
-        partial<T2>(plc1: __, arg2: T2): ImpF<
+    interface Function<T> {
+        partial<T2>(plc1: __, arg2: T2): Function<
             T extends Function2<infer T1, T2, infer R> ? Function1<T1, R> :
             T extends Function3<infer T1, T2, infer T3, infer R> ? Function2<T1, T3, R> :
             T extends Function4<infer T1, T2, infer T3, infer T4, infer R> ? Function3<T1, T3, T4, R> :
             any
         >;
-        partial<T3>(plc1: __, plc2: __, arg3: T3): ImpF<
+        partial<T3>(plc1: __, plc2: __, arg3: T3): Function<
             T extends Function3<infer T1, infer T2, T3, infer R> ? Function2<T1, T2, R> :
             T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
             any
         >;
-        partial<T1, T3>(arg1: T1, plc2: __, arg3: T3): ImpF<
+        partial<T1, T3>(arg1: T1, plc2: __, arg3: T3): Function<
             T extends Function3<T1, infer T2, T3, infer R> ? Function1<T2, R> :
             T extends Function4<T1, infer T2, T3, infer T4, infer R> ? Function2<T2, T4, R> :
             any
         >;
-        partial<T2, T3>(plc1: __, arg2: T2, arg3: T3): ImpF<
+        partial<T2, T3>(plc1: __, arg2: T2, arg3: T3): Function<
             T extends Function3<infer T1, T2, T3, infer R> ? Function1<T1, R> :
             T extends Function4<infer T1, T2, T3, infer T4, infer R> ? Function2<T1, T4, R> :
             any
         >;
-        partial<T3>(plc1: __, plc2: __, arg3: T3): ImpF<
+        partial<T3>(plc1: __, plc2: __, arg3: T3): Function<
             T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
             any
         >;
-        partial<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): ImpF<
+        partial<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): Function<
             T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> :
             any
         >;
-        partial<T2, T4>(plc1: __, arg2: T2, plc3: __, arg4: T4): ImpF<
+        partial<T2, T4>(plc1: __, arg2: T2, plc3: __, arg4: T4): Function<
             T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> :
             any
         >;
-        partial<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): ImpF<
+        partial<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): Function<
             T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> :
             any
         >;
-        partial<T3, T4>(plc1: __, plc2: __, arg3: T3, arg4: T4): ImpF<
+        partial<T3, T4>(plc1: __, plc2: __, arg3: T3, arg4: T4): Function<
             T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> :
             any
         >;
-        partial<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): ImpF<
+        partial<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): Function<
             T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> :
             any
         >;
-        partial<T2, T3, T4>(plc1: __, arg2: T2, arg3: T3, arg4: T4): ImpF<
+        partial<T2, T3, T4>(plc1: __, arg2: T2, arg3: T3, arg4: T4): Function<
             T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> :
             any
         >;
-        partial<T1, T2, T3, T4>(arg1: T1, arg2: T2, arg3: T3, arg4: T4): ImpF<
+        partial<T1, T2, T3, T4>(arg1: T1, arg2: T2, arg3: T3, arg4: T4): Function<
             T extends (t1: T1, t2: T2, t3: T3, t4: T4, ...ts: infer TS) => infer R ? (...ts: TS) => R :
             any
             >;
-        partial<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3): ImpF<
+        partial<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3): Function<
             T extends (t1: T1, t2: T2, t3: T3, ...ts: infer TS) => infer R ? (...ts: TS) => R :
             any
             >;
-        partial<T1, T2>(arg1: T1, arg2: T2): ImpF<
+        partial<T1, T2>(arg1: T1, arg2: T2): Function<
             T extends (t1: T1, t2: T2, ...ts: infer TS) => infer R ? (...ts: TS) => R :
             any
             >;
-        partial<T1>(arg1: T1): ImpF<
+        partial<T1>(arg1: T1): Function<
             T extends (t1: T1, ...ts: infer TS) => infer R ? (...ts: TS) => R :
             any
             >;
-        partial(): ImpF<T extends (...ts: any[]) => any ? T : any>;
+        partial(): Function<T extends (...ts: any[]) => any ? T : any>;
     }
-    interface ExpF<T> {
-        partial<T2>(plc1: __, arg2: T2): ExpF<
+    interface FunctionChain<T> {
+        partial<T2>(plc1: __, arg2: T2): FunctionChain<
             T extends Function2<infer T1, T2, infer R> ? Function1<T1, R> :
             T extends Function3<infer T1, T2, infer T3, infer R> ? Function2<T1, T3, R> :
             T extends Function4<infer T1, T2, infer T3, infer T4, infer R> ? Function3<T1, T3, T4, R> :
             any
         >;
-        partial<T3>(plc1: __, plc2: __, arg3: T3): ExpF<
+        partial<T3>(plc1: __, plc2: __, arg3: T3): FunctionChain<
             T extends Function3<infer T1, infer T2, T3, infer R> ? Function2<T1, T2, R> :
             T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
             any
         >;
-        partial<T1, T3>(arg1: T1, plc2: __, arg3: T3): ExpF<
+        partial<T1, T3>(arg1: T1, plc2: __, arg3: T3): FunctionChain<
             T extends Function3<T1, infer T2, T3, infer R> ? Function1<T2, R> :
             T extends Function4<T1, infer T2, T3, infer T4, infer R> ? Function2<T2, T4, R> :
             any
         >;
-        partial<T2, T3>(plc1: __, arg2: T2, arg3: T3): ExpF<
+        partial<T2, T3>(plc1: __, arg2: T2, arg3: T3): FunctionChain<
             T extends Function3<infer T1, T2, T3, infer R> ? Function1<T1, R> :
             T extends Function4<infer T1, T2, T3, infer T4, infer R> ? Function2<T1, T4, R> :
             any
         >;
-        partial<T3>(plc1: __, plc2: __, arg3: T3): ExpF<
+        partial<T3>(plc1: __, plc2: __, arg3: T3): FunctionChain<
             T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
             any
         >;
-        partial<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): ExpF<
+        partial<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): FunctionChain<
             T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> :
             any
         >;
-        partial<T2, T4>(plc1: __, arg2: T2, plc3: __, arg4: T4): ExpF<
+        partial<T2, T4>(plc1: __, arg2: T2, plc3: __, arg4: T4): FunctionChain<
             T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> :
             any
         >;
-        partial<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): ExpF<
+        partial<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): FunctionChain<
             T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> :
             any
         >;
-        partial<T3, T4>(plc1: __, plc2: __, arg3: T3, arg4: T4): ExpF<
+        partial<T3, T4>(plc1: __, plc2: __, arg3: T3, arg4: T4): FunctionChain<
             T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> :
             any
         >;
-        partial<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): ExpF<
+        partial<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): FunctionChain<
             T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> :
             any
         >;
-        partial<T2, T3, T4>(plc1: __, arg2: T2, arg3: T3, arg4: T4): ExpF<
+        partial<T2, T3, T4>(plc1: __, arg2: T2, arg3: T3, arg4: T4): FunctionChain<
             T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> :
             any
         >;
-        partial<T1, T2, T3, T4>(arg1: T1, arg2: T2, arg3: T3, arg4: T4): ExpF<
+        partial<T1, T2, T3, T4>(arg1: T1, arg2: T2, arg3: T3, arg4: T4): FunctionChain<
             T extends (t1: T1, t2: T2, t3: T3, t4: T4, ...ts: infer TS) => infer R ? (...ts: TS) => R :
             any
             >;
-        partial<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3): ExpF<
+        partial<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3): FunctionChain<
             T extends (t1: T1, t2: T2, t3: T3, ...ts: infer TS) => infer R ? (...ts: TS) => R :
             any
             >;
-        partial<T1, T2>(arg1: T1, arg2: T2): ExpF<
+        partial<T1, T2>(arg1: T1, arg2: T2): FunctionChain<
             T extends (t1: T1, t2: T2, ...ts: infer TS) => infer R ? (...ts: TS) => R :
             any
             >;
-        partial<T1>(arg1: T1): ExpF<
+        partial<T1>(arg1: T1): FunctionChain<
             T extends (t1: T1, ...ts: infer TS) => infer R ? (...ts: TS) => R :
             any
             >;
-        partial(): ExpF<T extends (...ts: any[]) => any ? T : any>;
+        partial(): FunctionChain<T extends (...ts: any[]) => any ? T : any>;
     }
     interface LoDashStatic {
         partialRight: PartialRight;
@@ -548,214 +548,214 @@ declare module "../index" {
         (func: (...args: any[]) => any, ...args: any[]): (...args: any[]) => any;
         placeholder: __;
     }
-    interface ImpF<T> {
-        partialRight<T1>(arg1: T1, plc2: __): ImpF<
+    interface Function<T> {
+        partialRight<T1>(arg1: T1, plc2: __): Function<
             T extends Function2<T1, infer T2, infer R> ? Function1<T2, R> :
             any
         >;
-        partialRight<T2>(arg2: T2): ImpF<
+        partialRight<T2>(arg2: T2): Function<
             T extends Function2<infer T1, T2, infer R> ? Function1<T1, R> : any
             >;
-        partialRight<T1>(arg1: T1, plc2: __, plc3: __): ImpF<
+        partialRight<T1>(arg1: T1, plc2: __, plc3: __): Function<
             T extends Function3<T1, infer T2, infer T3, infer R> ? Function2<T2, T3, R> :
             any
         >;
-        partialRight<T2>(arg2: T2, plc3: __): ImpF<
+        partialRight<T2>(arg2: T2, plc3: __): Function<
             T extends Function3<infer T1, T2, infer T3, infer R> ? Function2<T1, T3, R> :
             any
         >;
-        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __): ImpF<
+        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __): Function<
             T extends Function3<T1, T2, infer T3, infer R> ? Function1<T3, R> :
             any
         >;
-        partialRight<T3>(arg3: T3): ImpF<
+        partialRight<T3>(arg3: T3): Function<
             T extends Function3<infer T1, infer T2, T3, infer R> ? Function2<T1, T2, R> :
             any
         >;
-        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3): ImpF<
+        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3): Function<
             T extends Function3<T1, infer T2, T3, infer R> ? Function1<T2, R> :
             any
         >;
-        partialRight<T2, T3>(arg2: T2, arg3: T3): ImpF<
+        partialRight<T2, T3>(arg2: T2, arg3: T3): Function<
             T extends Function3<infer T1, T2, T3, infer R> ? Function1<T1, R> :
             any
         >;
-        partialRight<T1>(arg1: T1, plc2: __, plc3: __, plc4: __): ImpF<
+        partialRight<T1>(arg1: T1, plc2: __, plc3: __, plc4: __): Function<
             T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function3<T2, T3, T4, R> :
             any
         >;
-        partialRight<T2>(arg2: T2, plc3: __, plc4: __): ImpF<
+        partialRight<T2>(arg2: T2, plc3: __, plc4: __): Function<
             T extends Function4<infer T1, T2, infer T3, infer T4, infer R> ? Function3<T1, T3, T4, R> :
             any
         >;
-        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __, plc4: __): ImpF<
+        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __, plc4: __): Function<
             T extends Function4<T1, T2, infer T3, infer T4, infer R> ? Function2<T3, T4, R> :
             any
         >;
-        partialRight<T3>(arg3: T3, plc4: __): ImpF<
+        partialRight<T3>(arg3: T3, plc4: __): Function<
             T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
             any
         >;
-        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3, plc4: __): ImpF<
+        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3, plc4: __): Function<
             T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function2<T2, T4, R> :
             any
         >;
-        partialRight<T2, T3>(arg2: T2, arg3: T3, plc4: __): ImpF<
+        partialRight<T2, T3>(arg2: T2, arg3: T3, plc4: __): Function<
             T extends Function4<infer T1, T2, T3, infer T4, infer R> ? Function2<T1, T4, R> :
             any
         >;
-        partialRight<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3, plc4: __): ImpF<
+        partialRight<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3, plc4: __): Function<
             T extends Function4<T1, T2, T3, infer T4, infer R> ? Function1<T4, R> :
             any
         >;
-        partialRight<T4>(arg4: T4): ImpF<
+        partialRight<T4>(arg4: T4): Function<
             T extends Function4<infer T1, infer T2, infer T3, T4, infer R> ? Function3<T1, T2, T3, R> :
             any
         >;
-        partialRight<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): ImpF<
+        partialRight<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): Function<
             T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> :
             any
         >;
-        partialRight<T2, T4>(arg2: T2, plc3: __, arg4: T4): ImpF<
+        partialRight<T2, T4>(arg2: T2, plc3: __, arg4: T4): Function<
             T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> :
             any
         >;
-        partialRight<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): ImpF<
+        partialRight<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): Function<
             T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> :
             any
         >;
-        partialRight<T3, T4>(arg3: T3, arg4: T4): ImpF<
+        partialRight<T3, T4>(arg3: T3, arg4: T4): Function<
             T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> :
             any
         >;
-        partialRight<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): ImpF<
+        partialRight<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): Function<
             T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> :
             any
         >;
-        partialRight<T2, T3, T4>(arg2: T2, arg3: T3, arg4: T4): ImpF<
+        partialRight<T2, T3, T4>(arg2: T2, arg3: T3, arg4: T4): Function<
             T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> :
             any
         >;
-        partialRight<TS extends any[]>(...ts: TS): ImpF<T extends (...args: TS) => infer R ? () => R : any>;
-        partialRight(): ImpF<T extends (...ts: any[]) => any ? T : any>;
+        partialRight<TS extends any[]>(...ts: TS): Function<T extends (...args: TS) => infer R ? () => R : any>;
+        partialRight(): Function<T extends (...ts: any[]) => any ? T : any>;
     }
-    interface ExpF<T> {
-        partialRight<T1>(arg1: T1, plc2: __): ExpF<
+    interface FunctionChain<T> {
+        partialRight<T1>(arg1: T1, plc2: __): FunctionChain<
             T extends Function2<T1, infer T2, infer R> ? Function1<T2, R> :
             any
         >;
-        partialRight<T2>(arg2: T2): ExpF<
+        partialRight<T2>(arg2: T2): FunctionChain<
             T extends Function2<infer T1, T2, infer R> ? Function1<T1, R> : any
             >;
-        partialRight<T1>(arg1: T1, plc2: __, plc3: __): ExpF<
+        partialRight<T1>(arg1: T1, plc2: __, plc3: __): FunctionChain<
             T extends Function3<T1, infer T2, infer T3, infer R> ? Function2<T2, T3, R> :
             any
         >;
-        partialRight<T2>(arg2: T2, plc3: __): ExpF<
+        partialRight<T2>(arg2: T2, plc3: __): FunctionChain<
             T extends Function3<infer T1, T2, infer T3, infer R> ? Function2<T1, T3, R> :
             any
         >;
-        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __): ExpF<
+        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __): FunctionChain<
             T extends Function3<T1, T2, infer T3, infer R> ? Function1<T3, R> :
             any
         >;
-        partialRight<T3>(arg3: T3): ExpF<
+        partialRight<T3>(arg3: T3): FunctionChain<
             T extends Function3<infer T1, infer T2, T3, infer R> ? Function2<T1, T2, R> :
             any
         >;
-        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3): ExpF<
+        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3): FunctionChain<
             T extends Function3<T1, infer T2, T3, infer R> ? Function1<T2, R> :
             any
         >;
-        partialRight<T2, T3>(arg2: T2, arg3: T3): ExpF<
+        partialRight<T2, T3>(arg2: T2, arg3: T3): FunctionChain<
             T extends Function3<infer T1, T2, T3, infer R> ? Function1<T1, R> :
             any
         >;
-        partialRight<T1>(arg1: T1, plc2: __, plc3: __, plc4: __): ExpF<
+        partialRight<T1>(arg1: T1, plc2: __, plc3: __, plc4: __): FunctionChain<
             T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function3<T2, T3, T4, R> :
             any
         >;
-        partialRight<T2>(arg2: T2, plc3: __, plc4: __): ExpF<
+        partialRight<T2>(arg2: T2, plc3: __, plc4: __): FunctionChain<
             T extends Function4<infer T1, T2, infer T3, infer T4, infer R> ? Function3<T1, T3, T4, R> :
             any
         >;
-        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __, plc4: __): ExpF<
+        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __, plc4: __): FunctionChain<
             T extends Function4<T1, T2, infer T3, infer T4, infer R> ? Function2<T3, T4, R> :
             any
         >;
-        partialRight<T3>(arg3: T3, plc4: __): ExpF<
+        partialRight<T3>(arg3: T3, plc4: __): FunctionChain<
             T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
             any
         >;
-        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3, plc4: __): ExpF<
+        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3, plc4: __): FunctionChain<
             T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function2<T2, T4, R> :
             any
         >;
-        partialRight<T2, T3>(arg2: T2, arg3: T3, plc4: __): ExpF<
+        partialRight<T2, T3>(arg2: T2, arg3: T3, plc4: __): FunctionChain<
             T extends Function4<infer T1, T2, T3, infer T4, infer R> ? Function2<T1, T4, R> :
             any
         >;
-        partialRight<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3, plc4: __): ExpF<
+        partialRight<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3, plc4: __): FunctionChain<
             T extends Function4<T1, T2, T3, infer T4, infer R> ? Function1<T4, R> :
             any
         >;
-        partialRight<T4>(arg4: T4): ExpF<
+        partialRight<T4>(arg4: T4): FunctionChain<
             T extends Function4<infer T1, infer T2, infer T3, T4, infer R> ? Function3<T1, T2, T3, R> :
             any
         >;
-        partialRight<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): ExpF<
+        partialRight<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): FunctionChain<
             T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> :
             any
         >;
-        partialRight<T2, T4>(arg2: T2, plc3: __, arg4: T4): ExpF<
+        partialRight<T2, T4>(arg2: T2, plc3: __, arg4: T4): FunctionChain<
             T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> :
             any
         >;
-        partialRight<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): ExpF<
+        partialRight<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): FunctionChain<
             T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> :
             any
         >;
-        partialRight<T3, T4>(arg3: T3, arg4: T4): ExpF<
+        partialRight<T3, T4>(arg3: T3, arg4: T4): FunctionChain<
             T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> :
             any
         >;
-        partialRight<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): ExpF<
+        partialRight<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): FunctionChain<
             T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> :
             any
         >;
-        partialRight<T2, T3, T4>(arg2: T2, arg3: T3, arg4: T4): ExpF<
+        partialRight<T2, T3, T4>(arg2: T2, arg3: T3, arg4: T4): FunctionChain<
             T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> :
             any
         >;
-        partialRight<TS extends any[]>(...ts: TS): ExpF<T extends (...args: TS) => infer R ? () => R : any>;
-        partialRight(): ExpF<T extends (...ts: any[]) => any ? T : any>;
+        partialRight<TS extends any[]>(...ts: TS): FunctionChain<T extends (...args: TS) => infer R ? () => R : any>;
+        partialRight(): FunctionChain<T extends (...ts: any[]) => any ? T : any>;
     }
     interface LoDashStatic {
         rearg(func: (...args: any[]) => any, ...indexes: Array<Many<number>>): (...args: any[]) => any;
     }
-    interface ImpF<T> {
-        rearg(...indexes: Array<Many<number>>): ImpF<(...args: any[]) => any>;
+    interface Function<T> {
+        rearg(...indexes: Array<Many<number>>): Function<(...args: any[]) => any>;
     }
-    interface ExpF<T> {
-        rearg(...indexes: Array<Many<number>>): ExpF<(...args: any[]) => any>;
+    interface FunctionChain<T> {
+        rearg(...indexes: Array<Many<number>>): FunctionChain<(...args: any[]) => any>;
     }
     interface LoDashStatic {
         rest(func: (...args: any[]) => any, start?: number): (...args: any[]) => any;
     }
-    interface ImpF<T extends (...args: any) => any> {
-        rest(start?: number): ImpF<(...args: any[]) => any>;
+    interface Function<T extends (...args: any) => any> {
+        rest(start?: number): Function<(...args: any[]) => any>;
     }
-    interface ExpF<T extends (...args: any) => any> {
-        rest(start?: number): ExpF<(...args: any[]) => any>;
+    interface FunctionChain<T extends (...args: any) => any> {
+        rest(start?: number): FunctionChain<(...args: any[]) => any>;
     }
     interface LoDashStatic {
         spread<TResult>(func: (...args: any[]) => TResult, start?: number): (...args: any[]) => TResult;
     }
-    interface ImpF<T> {
-        spread(start?: number): ImpF<(...args: any[]) => ReturnType<T>>;
+    interface Function<T> {
+        spread(start?: number): Function<(...args: any[]) => ReturnType<T>>;
     }
-    interface ExpF<T> {
-        spread(start?: number): ExpF<(...args: any[]) => ReturnType<T>>;
+    interface FunctionChain<T> {
+        spread(start?: number): FunctionChain<(...args: any[]) => ReturnType<T>>;
     }
     interface ThrottleSettings {
         leading?: boolean;
@@ -764,28 +764,28 @@ declare module "../index" {
     interface LoDashStatic {
         throttle<T extends (...args: any) => any>(func: T, wait?: number, options?: ThrottleSettings): T & Cancelable;
     }
-    interface ImpF<T extends (...args: any) => any> {
-        throttle(wait?: number, options?: ThrottleSettings): ImpF<T & Cancelable>;
+    interface Function<T extends (...args: any) => any> {
+        throttle(wait?: number, options?: ThrottleSettings): Function<T & Cancelable>;
     }
-    interface ExpF<T extends (...args: any) => any> {
-        throttle(wait?: number, options?: ThrottleSettings): ExpF<T & Cancelable>;
+    interface FunctionChain<T extends (...args: any) => any> {
+        throttle(wait?: number, options?: ThrottleSettings): FunctionChain<T & Cancelable>;
     }
     interface LoDashStatic {
         unary<T, TResult>(func: (arg1: T, ...args: any[]) => TResult): (arg1: T) => TResult;
     }
-    interface ImpF<T> {
-        unary(): ImpF<(arg1: Parameters<T>['0']) => ReturnType<T>>;
+    interface Function<T> {
+        unary(): Function<(arg1: Parameters<T>['0']) => ReturnType<T>>;
     }
-    interface ExpF<T> {
-        unary(): ExpF<(arg1: Parameters<T>['0']) => ReturnType<T>>;
+    interface FunctionChain<T> {
+        unary(): FunctionChain<(arg1: Parameters<T>['0']) => ReturnType<T>>;
     }
     interface LoDashStatic {
         wrap<T, TArgs, TResult>(value: T, wrapper: (value: T, ...args: TArgs[]) => TResult): (...args: TArgs[]) => TResult;
     }
     interface LoDashImplicitWrapper<TValue> {
-        wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): ImpF<(...args: TArgs[]) => TResult>;
+        wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): Function<(...args: TArgs[]) => TResult>;
     }
     interface LoDashExplicitWrapper<TValue> {
-        wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): ExpF<(...args: TArgs[]) => TResult>;
+        wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): FunctionChain<(...args: TArgs[]) => TResult>;
     }
 }
