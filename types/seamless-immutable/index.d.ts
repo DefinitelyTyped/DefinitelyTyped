@@ -63,9 +63,9 @@ declare namespace SeamlessImmutable {
         getIn(propertyPath: string[]): Immutable<any>;
         getIn<TValue>(propertyPath: string[], defaultValue: TValue): Immutable<TValue>;
 
-        asMutable(opts?: AsMutableOptions<true>): T;
         asMutable(opts?: AsMutableOptions<false>): { [K in keyof T]: Immutable<T[K]> };
-        asMutable(opts?: AsMutableOptions): T | { [K in keyof T]: Immutable<T[K]> };
+        asMutable(opts: AsMutableOptions<true>): T;
+        asMutable(opts: AsMutableOptions): T | { [K in keyof T]: Immutable<T[K]> };
 
         merge(part: DeepPartial<T>, config?: MergeConfig): Immutable<T>;
 
@@ -97,9 +97,9 @@ declare namespace SeamlessImmutable {
     namespace ImmutableArray {
         /** New methods added by seamless-immutable. */
         interface Additions<T> {
-            asMutable(opts?: AsMutableOptions<true>): T[];
             asMutable(opts?: AsMutableOptions<false>): Array<Immutable<T>>;
-            asMutable(opts?: AsMutableOptions): T | Array<Immutable<T>>;
+            asMutable(opts: AsMutableOptions<true>): T[];
+            asMutable(opts: AsMutableOptions): T[] | Array<Immutable<T>>;
 
             asObject<U extends object = {}, K extends keyof U = keyof U>(toKeyValue: (item: T) => [K, U[K]]): Immutable<U>;
             flatMap<TTarget>(mapFunction: (item: T) => TTarget): Immutable<TTarget extends any[] ? TTarget : TTarget[]>;
@@ -124,7 +124,7 @@ declare namespace SeamlessImmutable {
         }
 
         /** These methods are banned by seamless-immutable. */
-        type MutatingArrayMethods = Extract<keyof any[], 'push' | 'pop' | 'sort' | 'splice' | 'shift' | 'unshift' | 'reverse' | number>; // treating 'number' as a mutating method as it returns
+        type MutatingArrayMethods = Extract<keyof any[], 'push' | 'pop' | 'sort' | 'splice' | 'shift' | 'unshift' | 'reverse'>; // treating 'number' as a mutating method as it returns
 
         /** NOTE: These methods mutate data, but seamless-immutable does not ban them. We will ban them in our type definitions. */
         type AdditionalMutatingArrayMethods = Extract<keyof any[], 'copyWithin' | 'fill'>;

@@ -15,6 +15,13 @@ interface ExtendedUser extends User {
     address: Address;
 }
 
+// A result type for asMutable({ deep: false } | undefined)
+interface NonDeepMutableExtendedUser {
+    firstName: string;
+    lastName: string;
+    address: Immutable.Immutable<Address>;
+}
+
 //
 // Constructors
 // ---------------------------------------------------------------
@@ -89,7 +96,16 @@ interface ExtendedUser extends User {
 {
     const array: Immutable.Immutable<User[]> = Immutable.from([ { firstName: 'Angry', lastName: 'Monkey' } ]);
 
+    // note that Immutable.Immutable<User> is assignable to User so this isn't a perfect test
     const immutableElement: Immutable.Immutable<User> = array[0];
+
+    // note that Immutable.Immutable<User> is assignable to User so these first two aren't a perfect test
+    const asMutableDefault: Array<Immutable.Immutable<User>> = array.asMutable();
+    const asMutableNotDeep: Array<Immutable.Immutable<User>> = array.asMutable({ deep: false });
+    const asMutableDeep: User[] = array.asMutable({ deep: true });
+
+    const opaqueMutableParam = { deep: true };
+    const asMutableOpaque: Array<User | Immutable.Immutable<User>> = array.asMutable(opaqueMutableParam);
 
     // keys. Call the mutable array's 'keys' to ensure compatability
     const mutableKeys = array.asMutable().keys();
@@ -121,7 +137,7 @@ interface ExtendedUser extends User {
     slice4.asMutable();
 
     // concat. Call the mutable array's 'concat' with the same args to ensure compatability. Make sure the output array is immutable.
-    array.asMutable().concat({ firstName: 'Happy', lastName: 'Cat' });
+    array.asMutable().concat(Immutable({ firstName: 'Happy', lastName: 'Cat' }));
     const concat: Immutable.Immutable<User[]> = array
         .concat({ firstName: 'Happy', lastName: 'Cat' }, { firstName: 'Silly', lastName: 'Cat' })
         .concat([{firstName: 'saucy', lastName: 'Cat'}], {firstName: 'Fussy', lastName: 'Cat'})
@@ -206,8 +222,12 @@ interface ExtendedUser extends User {
     const updatedUser12: Immutable.Immutable<ExtendedUser> = immutableUserEx.setIn([ data.propertyId, 'line1' ], 'Small house');
 
     // asMutable
-    const mutableUser21: User = immutableUser.asMutable();
-    const mutableUser22: User = immutableUser.asMutable({ deep: true });
+    const mutableUser21: NonDeepMutableExtendedUser = immutableUserEx.asMutable();
+    const mutableUser22: NonDeepMutableExtendedUser = immutableUserEx.asMutable({ deep: false });
+    const mutableUser23: ExtendedUser = immutableUserEx.asMutable({ deep: true });
+
+    const opaqueMutableParam = { deep: true }; // treats as { deep: boolean }
+    const mutableUser24: ExtendedUser | NonDeepMutableExtendedUser = immutableUserEx.asMutable(opaqueMutableParam);
 
     // merge: merged part is strongly checked as a deeply partial object
     const mergedUser: Immutable.Immutable<User> = immutableUserEx.merge({ address: { line1: 'Small house' }, firstName: 'Jack' });
