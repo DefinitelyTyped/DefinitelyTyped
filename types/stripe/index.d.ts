@@ -1742,6 +1742,12 @@ declare namespace Stripe {
              */
             invoice_prefix?: string;
 
+            /**
+             * Customer's full name.  It's displayed alongside the customer in your dashboard.  This can be unset by updating
+             * the value to null and then saving.
+             */
+            name?: string;
+
             shipping?: IShippingInformation;
 
             /**
