@@ -75,6 +75,9 @@ declare namespace Showdown {
         [name: string]: ShowdownExtension[]
     }
 
+    /**
+     * Showdown converter extensions store object.
+     */
     interface ConverterExtensions {
         language: ShowdownExtension[];
         output: ShowdownExtension[];
@@ -867,8 +870,7 @@ declare namespace Showdown {
          * @param extension - The new extension to add.
          * @param name - The extension name.
          */
-        addExtension(extension: ShowdownExtension, name: string): void;
-        addExtension(extension: ShowdownExtension[], name: string): void;
+        addExtension(extension: (() => ShowdownExtension[] | ShowdownExtension)  | ShowdownExtension[] | ShowdownExtension, name?: string): void;
 
         /**
          * Use a global registered extension with THIS converter.
@@ -1041,7 +1043,7 @@ declare namespace Showdown {
      * @throws Throws if `name` is not of type string.
      * @throws Throws if the extension is not exists.
      */
-    function extension(name: string): ShowdownExtension;
+    function extension(name: string): ShowdownExtension[];
     /**
      * Register a extension.
      *
@@ -1049,7 +1051,7 @@ declare namespace Showdown {
      * @param ext - The extension.
      * @throws Throws if `name` is not of type string.
      */
-    function extension(name: string, ext: (() => ShowdownExtension) | (() => ShowdownExtension[]) | ShowdownExtension): void;
+    function extension(name: string, ext: (() => ShowdownExtension[] | ShowdownExtension)  | ShowdownExtension[] | ShowdownExtension): void;
 
     /**
      * Get the "global" extensions.
@@ -1076,5 +1078,5 @@ declare namespace Showdown {
      * @param ext - The extension to checks.
      * @returns Returns `true` if the extension is valid showdown extension, otherwise `false`.
      */
-    function validateExtension(ext: (() => ShowdownExtension) | (() => ShowdownExtension[]) | ShowdownExtension): boolean;
+    function validateExtension(ext: ShowdownExtension[] | ShowdownExtension): boolean;
 }
