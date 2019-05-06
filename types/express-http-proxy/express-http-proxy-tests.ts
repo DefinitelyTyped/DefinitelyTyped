@@ -35,6 +35,9 @@ proxy('www.google.com', {
         console.log(srcReq.url, srcReq.cookies);
         return proxyReqOpts;
     },
+});
+
+proxy('www.google.com', {
     userResHeaderDecorator(headers, userReq, userRes, proxyReq, proxyRes) {
         console.log(userReq.url, userRes.statusCode);
         console.log(proxyReq.url, proxyRes.statusCode);
@@ -45,4 +48,4 @@ proxy('www.google.com', {
     }
 });
 
-proxy((req) => 'com.google.www'.split('.').reverse().join('.'));
+app.use('/proxy/:port', proxy((req) => 'localhost:' + req.params.port));

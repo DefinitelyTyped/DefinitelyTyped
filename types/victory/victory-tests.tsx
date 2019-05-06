@@ -487,6 +487,7 @@ test = (
         { y: 6, x: 'B' },
         { y: 7, x: 'C' },
       ]}
+      y0={(d) => d.y - 1}
     />
   </VictoryChart>
 );

@@ -7,9 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { RequestHandler, Request } from "express";
+import { RequestHandler, Request, Response, NextFunction } from "express";
 import { RequestOptions, IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
-import { NextFunction, Response } from "express-serve-static-core";
 
 interface ProxyOptions {
     /**
