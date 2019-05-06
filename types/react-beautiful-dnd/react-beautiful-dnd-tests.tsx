@@ -1,6 +1,15 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { DragDropContext, Draggable, Droppable, DropResult, DragStart, DragUpdate, ResponderProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DropResult,
+  DragStart,
+  DragUpdate,
+  ResponderProvided,
+  DroppableStateSnapshot
+} from "react-beautiful-dnd";
 
 interface Item {
   id: string;
@@ -8,12 +17,10 @@ interface Item {
 }
 
 const getItems = (count: number): Item[] => {
-  return Array
-    .from({length: count}, (v, k) => k)
-    .map(k => ({
-      id: `item-${k}`,
-      content: `item ${k}`
-    }));
+  return Array.from({ length: count }, (v, k) => k).map(k => ({
+    id: `item-${k}`,
+    content: `item ${k}`
+  }));
 };
 
 const reorder = (list: any[], startIndex: number, endIndex: number) => {
@@ -25,13 +32,17 @@ const reorder = (list: any[], startIndex: number, endIndex: number) => {
 };
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
-  userSelect: 'none',
-  background: isDragging ? 'lightgreen' : 'grey',
+  userSelect: "none",
+  background: isDragging ? "lightgreen" : "grey",
   ...draggableStyle
 });
 
 const getListStyle = (snapshot: DroppableStateSnapshot) => ({
-  background: snapshot.draggingFromThisWith ? 'lightpink' : snapshot.isDraggingOver ? 'lightblue' : 'lightgrey',
+  background: snapshot.draggingFromThisWith
+    ? "lightpink"
+    : snapshot.isDraggingOver
+    ? "lightblue"
+    : "lightgrey",
   width: 250
 });
 
@@ -79,30 +90,60 @@ class App extends React.Component<{}, AppState> {
       result.destination.index
     );
 
-    this.setState({items});
+    this.setState({ items });
   }
 
   render() {
     return (
-      <DragDropContext onBeforeDragStart={this.onBeforeDragStart} onDragStart={this.onDragStart} onDragUpdate={this.onDragUpdate} onDragEnd={this.onDragEnd}>
-        <Droppable droppableId="droppable" ignoreContainerClipping={false} isCombineEnabled={true}>
+      <DragDropContext
+        onBeforeDragStart={this.onBeforeDragStart}
+        onDragStart={this.onDragStart}
+        onDragUpdate={this.onDragUpdate}
+        onDragEnd={this.onDragEnd}
+      >
+        <Droppable
+          droppableId="droppable"
+          ignoreContainerClipping={false}
+          isCombineEnabled={true}
+        >
           {(provided, snapshot) => (
-            <div ref={provided.innerRef} style={getListStyle(snapshot)} {...provided.droppableProps}>
+            <div
+              ref={provided.innerRef}
+              style={getListStyle(snapshot)}
+              {...provided.droppableProps}
+            >
               {this.state.items.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index} shouldRespectForceTouch={false}>
-                  {(provided, snapshot) => (
-                    <div>
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-                      >
-                        {item.content}
+                <Draggable
+                  key={item.id}
+                  draggableId={item.id}
+                  index={index}
+                  shouldRespectForceTouch={false}
+                >
+                  {(provided, snapshot) => {
+                    const onBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+                      if (provided.dragHandleProps) {
+                        provided.dragHandleProps.onBlur(e);
+                      }
+                      console.log(e);
+                    };
+                    return (
+                      <div>
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          style={getItemStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )}
+                          onBlur={onBlur}
+                        >
+                          {item.content}
+                        </div>
+                        {provided.placeholder}
                       </div>
-                      {provided.placeholder}
-                    </div>
-                  )}
+                    );
+                  }}
                 </Draggable>
               ))}
               {provided.placeholder}
@@ -114,4 +155,4 @@ class App extends React.Component<{}, AppState> {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById("app"));
