@@ -300,7 +300,7 @@ declare namespace Backbone {
         matches(attrs: any): boolean;
     }
 
-    class Collection<TModel extends Model> extends ModelBase implements Events {
+    class Collection<TModel extends Model = Model> extends ModelBase implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -492,7 +492,7 @@ declare namespace Backbone {
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
-   interface ViewOptions<TModel extends Model> {
+   interface ViewOptions<TModel extends Model = Model> {
       model?: TModel;
        // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
       collection?: Backbone.Collection<any>; //was: Collection<TModel>;
@@ -504,7 +504,7 @@ declare namespace Backbone {
       attributes?: {[id: string]: any};
     }
 
-    class View<TModel extends Model> extends EventsMixin implements Events {
+    class View<TModel extends Model = Model> extends EventsMixin implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -547,7 +547,7 @@ declare namespace Backbone {
     }
 
     // SYNC
-    function sync(method: string, model: Model | Collection<Model>, options?: JQueryAjaxSettings): any;
+    function sync(method: string, model: Model | Collection, options?: JQueryAjaxSettings): any;
     function ajax(options?: JQueryAjaxSettings): JQueryXHR;
     var emulateHTTP: boolean;
     var emulateJSON: boolean;

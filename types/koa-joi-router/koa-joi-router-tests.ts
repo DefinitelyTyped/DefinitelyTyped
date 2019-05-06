@@ -132,6 +132,34 @@ router().get('/', handler1);
 
 router().get('/', {meta: {desc: 'desc'}}, handler1);
 
+router().get('/user', {
+    validate: {
+        query: {
+          id: Joi.number(),
+          name: Joi.string(),
+        }
+    }
+}, (ctx: koa.Context) => {
+    ctx.status = 201;
+    ctx.body = ctx.request.params;
+});
+
+const spec9: router.Config = {
+    validate: {
+        body: {
+          name: Joi.string(),
+        },
+        type: 'json'
+    }
+};
+
+const spec9Handler = (ctx: koa.Context) => {
+    ctx.status = 201;
+    ctx.body = ctx.request.params;
+};
+
+router().get('/user', spec9, spec9Handler);
+
 const middleware1 = async (ctx: koa.Context, next: () => Promise<any>) => {
   console.log('middleware1');
   await next();

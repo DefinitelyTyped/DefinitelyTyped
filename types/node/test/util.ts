@@ -117,11 +117,11 @@ import { readFile } from 'fs';
     // util.promisify
     const readPromised = util.promisify(readFile);
     const sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
-    const arg0: () => Promise<number> = util.promisify((cb: (err: Error, result: number) => void): void => { });
-    const arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
-    const arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
-    const arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
-    const cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error) => void): void => { cb(); }); // tslint:disable-line void-return
+    const arg0: () => Promise<number> = util.promisify((cb: (err: Error | null, result: number) => void): void => { });
+    const arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error | null) => void): void => { });
+    const arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => { });
+    const arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error | null) => void): void => { });
+    const cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); }); // tslint:disable-line void-return
     assert(typeof util.promisify.custom === 'symbol');
     // util.deprecate
     const foo = () => {};

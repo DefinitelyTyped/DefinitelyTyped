@@ -1,6 +1,7 @@
-// Type definitions for jest-when 1.1
+// Type definitions for jest-when 2.4
 // Project: https://github.com/timkindberg/jest-when#readme
 // Definitions by: Alden Taylor <https://github.com/aldentaylor>
+//                 Trung Dang <https://github.com/immanuel192>
 //                 Gregor Stamać <https://github.com/gstamac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -16,6 +17,8 @@ export interface WhenMock<T = any, Y extends any[] = any> extends jest.MockInsta
   mockResolvedValueOnce(value: jest.ResolvedValue<T>): this;
   mockRejectedValue(value: jest.RejectedValue<T>): this;
   mockRejectedValueOnce(value: jest.RejectedValue<T>): this;
+  mockImplementation(fn: (...args: Y) => T): this;
+  mockImplementationOnce(fn?: (...args: Y) => T): this;
 }
 
 export type When = <T, Y extends any[]>(fn: jest.MockInstance<T, Y>) => WhenMock<T, Y>;

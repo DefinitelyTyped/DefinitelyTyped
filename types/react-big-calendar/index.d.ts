@@ -10,6 +10,7 @@
 //                 Panagiotis Rikarnto Siavelis <https://github.com/siavelis>
 //                 Tomas Hubelbauer <https://github.com/TomasHubelbauer>
 //                 Lucas Silva Souza <https://github.com/lksilva>
+//                 Siarhey Belofost <https://github.com/SergeyBelofost>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
@@ -279,6 +280,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     components?: Components<TEvent>;
     messages?: Messages;
     titleAccessor?: keyof TEvent | ((event: TEvent) => string);
+    tooltipAccessor?: keyof TEvent | ((event: TEvent) => string);
     allDayAccessor?: keyof TEvent | ((event: TEvent) => boolean);
     startAccessor?: keyof TEvent | ((event: TEvent) => Date);
     endAccessor?: keyof TEvent | ((event: TEvent) => Date);

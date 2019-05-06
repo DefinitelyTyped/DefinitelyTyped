@@ -59,7 +59,8 @@ const chart: Chart = new Chart(ctx, {
                         borderDash: [5, 15],
                         borderDashOffset: 2,
                         zeroLineBorderDash: [5, 15],
-                        zeroLineBorderDashOffset: 2
+                        zeroLineBorderDashOffset: 2,
+                        lineWidth: [1, 2, 3]
                     }
                 }
             ]

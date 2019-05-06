@@ -196,6 +196,8 @@ class Library extends Backbone.Collection<Book> {
 
 class Books extends Backbone.Collection<Book> { }
 
+class ArbitraryCollection extends Backbone.Collection { }
+
 function test_collection() {
 
     var books = new Books();
@@ -481,5 +483,29 @@ namespace v1Changes {
         // Test for Backbone.sync override.
         Backbone.sync('create', new Employee());
         Backbone.sync('read', new EmployeeCollection());
+    }
+}
+
+interface BookViewOptions extends Backbone.ViewOptions<Book> {
+    featured: boolean;
+}
+
+class BookView extends Backbone.View<Book> {
+    featured: boolean;
+    constructor(options: BookViewOptions) {
+        super(options);
+        this.featured = !!options.featured;
+    }
+}
+
+interface ModellessViewOptions extends Backbone.ViewOptions {
+    color?: string;
+}
+
+class ModellessView extends Backbone.View {
+    color: string;
+    constructor(options: ModellessViewOptions) {
+        super(options);
+        this.color = options.color;
     }
 }
