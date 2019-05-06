@@ -2773,6 +2773,12 @@
             "asOfVersion": "9.3.1"
         },
         {
+            "libraryName": "rollup-plugin-delete",
+            "typingsPackageName": "rollup-plugin-delete",
+            "sourceRepoURL": "https://github.com/vladshcherbin/rollup-plugin-delete",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "rollup-plugin-node-resolve",
             "typingsPackageName": "rollup-plugin-node-resolve",
             "sourceRepoURL": "https://github.com/rollup/rollup-plugin-node-resolve",
