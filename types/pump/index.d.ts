@@ -1,6 +1,6 @@
-// Type definitions for pump 1.0
+// Type definitions for pump 1.1
 // Project: https://github.com/mafintosh/pump
-// Definitions by: Tomek Łaziuk <https://github.com/tlaziuk>
+// Definitions by: Tomek Łaziuk <https://github.com/tlaziuk>, Jason Cordial <https://github.com/jcordial>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
