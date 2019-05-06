@@ -775,7 +775,10 @@ declare namespace Showdown {
 
     interface ConverterOptions extends ShowdownOptions {
 
-        extensions?: string | string[];
+        /**
+         * Add extensions to the new converter can be showdown extensions or "global" extensions name.
+         */
+        extensions?: ((() => ShowdownExtension[] | ShowdownExtension)  | ShowdownExtension[] | ShowdownExtension | string)[];
     }
 
     /**
