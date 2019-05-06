@@ -283,6 +283,19 @@ function Argv$command() {
         )
         .help()
         .argv;
+
+    yargs
+        .command('get <source> [proxy]', 'make a get HTTP request', yargs => {
+            yargs.positional('source', {
+                describe: 'URL to fetch content from',
+                type: 'string',
+                default: 'http://www.google.com'
+            }).positional('proxy', {
+                describe: 'optional proxy URL'
+            });
+        })
+        .help()
+        .argv;
 }
 
 function Argv$completion_sync() {

@@ -7,6 +7,7 @@
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
 //                 Steffen Viken Valvåg <https://github.com/steffenvv>
 //                 Emily Marigold Klassen <https://github.com/forivall>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -59,10 +60,19 @@ declare namespace yargs {
         coerce<K extends string, V>(key: K | ReadonlyArray<K>, func: (arg: any) => V): Argv<T & { [key in K]: V | undefined }>;
         coerce<O extends { [key: string]: (arg: any) => any }>(opts: O): Argv<Omit<T, keyof O> & { [key in keyof O]: ReturnType<O[key]> | undefined }>;
 
-        command<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
+        /**
+         * Define the commands exposed by your application.
+         * @param command Should be a string representing the command or an array of strings representing the command and its aliases.
+         * @param description Use to provide a description for each command your application accepts (the values stored in `argv._`).
+         * Set `description` to false to create a hidden command. Hidden commands don't show up in the help output and aren't available for completion.
+         * @param [builder] Object to give hints about the options that your command accepts.
+         * Can also be a function. This function is executed with a yargs instance, and can be used to provide advanced command specific help.
+         * @param [handler] Function, which will be executed with the parsed `argv` object.
+         */
+        command<U = T>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U> | void, handler?: (args: Arguments<U>) => void): Argv<T>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, description: string, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, U>): Argv<U>;
-        command<U>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
+        command<U = T>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: (args: Argv<T>) => Argv<U> | void, handler?: (args: Arguments<U>) => void): Argv<T>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<U>;
         command<U>(module: CommandModule<T, U>): Argv<U>;
