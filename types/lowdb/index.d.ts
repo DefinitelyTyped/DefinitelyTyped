@@ -5,24 +5,24 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { LoDashStatic, ExpO } from "lodash";
+import { LoDashStatic, ObjectChain } from "lodash";
 declare module "lodash" {
-    interface ExpO<T> {
+    interface ObjectChain<T> {
         /**
          * @description Be careful: This function overwrites the whole database.
          */
         write(): T & Promise<T>;
     }
-    interface ExpU<T> {
+    interface PrimitiveChain<T> {
         write(): T & Promise<T>;
     }
-    interface ExpL<T> {
+    interface CollectionChain<T> {
         write(): ArrayLike<T> & Promise<ArrayLike<T>>;
     }
-    interface ExpF<T> {
+    interface FunctionChain<T> {
         write(): T & Promise<T>;
     }
-    interface ExpS {
+    interface StringChain {
         write(): string & Promise<string>;
     }
 }
@@ -67,7 +67,7 @@ declare namespace Lowdb {
     setState: (state: SchemaT) => this;
   }
 
-  interface LowdbSync<SchemaT> extends LowdbBase<SchemaT>, ExpO<SchemaT> {
+  interface LowdbSync<SchemaT> extends LowdbBase<SchemaT>, ObjectChain<SchemaT> {
     _: LoDashStatic;
     read: () => this;
     /**
@@ -76,7 +76,7 @@ declare namespace Lowdb {
     write<T = void>(returnValue?: T): T & Promise<T>;
   }
 
-  interface LowdbAsync<SchemaT> extends LowdbBase<SchemaT>, ExpO<SchemaT> {
+  interface LowdbAsync<SchemaT> extends LowdbBase<SchemaT>, ObjectChain<SchemaT> {
     _: LoDashStatic;
     read: () => Promise<this>;
     /**

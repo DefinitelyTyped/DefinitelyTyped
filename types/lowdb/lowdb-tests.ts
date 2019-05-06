@@ -105,7 +105,7 @@ async () => {
     .write();
 };
 
-declare const lodashChain: _.ExpO<ExampleSchema>;
+declare const lodashChain: _.ObjectChain<ExampleSchema>;
 
 // let's also ensure we didn't break lodash.chain through extension
 const weDidNotBreakLodash: ArrayLike<{ name: string }> = lodashChain
