@@ -3891,7 +3891,7 @@ interface TextOptions extends IObjectOptions {
      * Contains characters bounding boxes for each line and char
      * @type Array of char grapheme bounding boxes
      */
-    __charBounds?: { width: number, left: number, height: number, kernedWidth: number, deltaY: number }[][],
+    __charBounds?: Array<Array<{ width: number, left: number, height: number, kernedWidth: number, deltaY: number }>>,
 }
 export interface Text extends TextOptions { }
 export class Text extends Object {
@@ -4723,7 +4723,7 @@ export class Textbox extends IText {
      * @private
      * @type {Array} Line style { line: number, offset: number }
      */
-    _styleMap?: { line: number, offset: number }[];
+    _styleMap?: Array<{ line: number, offset: number }>;
 	/**
 	 * Returns fabric.Textbox instance from an object representation
 	 * @static
