@@ -1663,6 +1663,12 @@ declare namespace Stripe {
             email?: string;
 
             /**
+             * Customer's full name.  It's displayed alongside the customer in your dashboard.  This can be unset by updating
+             * the value to null and then saving.
+             */
+            name?: string;
+
+            /**
              * The identifier of the plan to subscribe the customer to. If provided, the returned customer object will have a list of subscriptions
              * that the customer is currently subscribed to. If you subscribe a customer to a plan without a free trial, the customer must have a
              * valid card as well.
