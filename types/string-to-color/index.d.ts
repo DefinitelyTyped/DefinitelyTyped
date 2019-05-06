@@ -4,7 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-
-declare module "string-to-color" {
-    export default function generate(obj:any): string;
-}
+export default function generate(obj:any): string;
