@@ -7611,7 +7611,7 @@ declare namespace chrome.tabs {
      * @param tabId Optional. The ID of the tab to be discarded. If specified, the tab will be discarded unless it's active or already discarded. If omitted, the browser will discard the least important tab. This can fail if no discardable tabs exist.
      * @param callback Called after the operation is completed.
      */
-    export function discard(tabId: number, callback: (tab: Tab) => void): void;
+    export function discard(tabId?: number, callback?: (tab: Tab) => void): void;
 
     /**
      * Fired when the highlighted or selected tabs in a window changes.
