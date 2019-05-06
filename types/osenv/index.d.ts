@@ -1,5 +1,5 @@
 // Type definitions for osenv 0.1
-// Project: https://www.npmjs.com/package/osenv
+// Project: https://github.com/npm/osenv
 // Definitions by:  Adam Zerella <https://github.com/adamzerella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -34,14 +34,14 @@ export function home(cb?: (home: string, error?: string) => void): string;
 export function path(cb?: (path: string, error?: string) => void): string;
 
 /**
- * Return the executable name of the editor program. 
- * This uses the EDITOR and VISUAL environment variables, 
+ * Return the executable name of the editor program.
+ * This uses the EDITOR and VISUAL environment variables,
  * and falls back to vi on Unix, or notepad.exe on Windows.
  */
 export function editor(cb?: (editor: string, error?: string) => void): string;
 
 /**
- * The SHELL on Unix, which Windows calls the ComSpec. 
+ * The SHELL on Unix, which Windows calls the ComSpec.
  * Defaults to 'bash' or 'cmd'.
  */
 export function shell(cb?: (shell: string, error?: string) => void): string;
