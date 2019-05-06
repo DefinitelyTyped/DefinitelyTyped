@@ -36132,7 +36132,7 @@ declare namespace Excel {
         getItem(commentId: string): Excel.Comment;
         /**
          *
-         *  Gets a comment from the collection based on its position.
+         * Gets a comment from the collection based on its position.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36397,7 +36397,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Get author email of the comment reply.
+         * Gets the author's  email of the comment reply.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36405,7 +36405,7 @@ declare namespace Excel {
         readonly authorEmail: string;
         /**
          *
-         * Get author name of the comment reply.
+         * Gets the author's  name of the comment reply.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36413,7 +36413,7 @@ declare namespace Excel {
         readonly authorName: string;
         /**
          *
-         * Get or set the content.
+         * Gets or sets the comment's content.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36421,7 +36421,7 @@ declare namespace Excel {
         content: string;
         /**
          *
-         * Get creation time of the comment reply.
+         * Gets the creation time of the comment reply.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
