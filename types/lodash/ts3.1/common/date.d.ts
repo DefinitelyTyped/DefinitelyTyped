@@ -4,9 +4,15 @@ declare module "../index" {
         now(): number;
     }
     interface LoDashImplicitWrapper<TValue> {
+        /**
+         * @see _.now
+         */
         now(): number;
     }
     interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.now
+         */
         now(): PrimitiveChain<number>;
     }
 }
