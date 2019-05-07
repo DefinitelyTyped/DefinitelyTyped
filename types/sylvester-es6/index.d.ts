@@ -14,9 +14,9 @@ declare module 'sylvester-es6' {
         /**
          * Constructor function.
          *
-         * @param {Vector|Array<number} elements The elements.
+         * @param {Vector|ReadonlyArray<number} elements The elements.
          */
-        constructor(elements: Vector|Array<number>);
+        constructor(elements: Vector|ReadonlyArray<number>);
 
         static i: Vector;
         static j: Vector;
@@ -39,7 +39,7 @@ declare module 'sylvester-es6' {
         /**
          * Gets an array containing the vector's elements.
          */
-        elements: Array<number>;
+        elements: ReadonlyArray<number>;
 
         /**
          * Returns element i of the vector.
@@ -59,9 +59,9 @@ declare module 'sylvester-es6' {
         /**
          * Returns true if the vector is equal to the argument.
          *
-         * @param {Vector|Array<number>} vector The vector to compare equality.
+         * @param {Vector|ReadonlyArray<number>} vector The vector to compare equality.
          */
-        eql(vector: Vector|Array<number>): boolean;
+        eql(vector: Vector|ReadonlyArray<number>): boolean;
 
         /**
          * Returns a copy of the vector.
@@ -118,16 +118,16 @@ declare module 'sylvester-es6' {
         /**
          * Returns the result of adding the argument to the vector.
          *
-         * @param {Vector|Array<number>} vector The vector.
+         * @param {Vector|ReadonlyArray<number>} vector The vector.
          */
-        add(vector: Vector|Array<number>): Vector;
+        add(vector: Vector|ReadonlyArray<number>): Vector;
 
         /**
          * Returns the result of subtracting the argument from the vector.
          *
-         * @param {Vector|Array<number>} vector The vector.
+         * @param {Vector|ReadonlyArray<number>} vector The vector.
          */
-        subtract(vector: Vector|Array<number>): Vector;
+        subtract(vector: Vector|ReadonlyArray<number>): Vector;
 
         /**
          * Returns the result of multiplying the elements of the vector by the argument.
@@ -146,16 +146,16 @@ declare module 'sylvester-es6' {
         /**
          * Returns the scalar product of the vector with the argument. Both vectors must have equal dimensionality.
          *
-         * @param: {Vector|Array<number>} vector The other vector.
+         * @param: {Vector|ReadonlyArray<number>} vector The other vector.
          */
-        dot(vector: Vector|Array<number>): number;
+        dot(vector: Vector|ReadonlyArray<number>): number;
 
         /**
          * Returns the vector product of the vector with the argument. Both vectors must have dimensionality 3.
          *
-         * @param {Vector|Array<number>} vector The other vector.
+         * @param {Vector|ReadonlyArray<number>} vector The other vector.
          */
-        cross(vector: Vector|Array<number>): Vector;
+        cross(vector: Vector|ReadonlyArray<number>): Vector;
 
         /**
          * Returns the (absolute) largest element of the vector.
@@ -237,25 +237,25 @@ declare module 'sylvester-es6' {
         /**
          * Set vector's elements from an array.
          *
-         * @param {Vector|Array<number>} els The elements.
+         * @param {Vector|ReadonlyArray<number>} els The elements.
          */
-        setElements(els: Vector|Array<number>): Vector;
+        setElements(els: Vector|ReadonlyArray<number>): Vector;
     }
 
     export class Vertex extends Vector {
         /**
          * The constructor function.
          *
-         * @param {Vector|Array<number>} point The vector point.
+         * @param {Vector|ReadonlyArray<number>} point The vector point.
          */
-        constructor(point: Vector|Array<number>);
+        constructor(point: Vector|ReadonlyArray<number>);
 
         /**
          * Convert points into an array of Vertex.
          *
-         * @param {Array<Vector>|Array<Array<number>>} points The points to convert.
+         * @param {ReadonlyArray<Vector>|ReadonlyArray<ReadonlyArray<number>>} points The points to convert.
          */
-        static convert(points: Array<Vector>|Array<Array<number>>): Array<Vertex>;
+        static convert(points: ReadonlyArray<Vector>|ReadonlyArray<ReadonlyArray<number>>): ReadonlyArray<Vertex>;
 
         /**
          * Returns true iff the vertex's internal angle is 0 <= x < 180
@@ -285,9 +285,9 @@ declare module 'sylvester-es6' {
         /**
          * Constructor function.
          *
-         * @param {Array<number>|Array<Array<number>>|Vector|Matrix} elements The elements.
+         * @param {ReadonlyArray<number>|ReadonlyArray<ReadonlyArray<number>>|Vector|Matrix} elements The elements.
          */
-        constructor(elements: Array<number>|Array<Array<number>>|Vector|Matrix);
+        constructor(elements: ReadonlyArray<number>|ReadonlyArray<ReadonlyArray<number>>|Vector|Matrix);
 
         /**
          * Identity matrix of size n.
@@ -301,7 +301,7 @@ declare module 'sylvester-es6' {
          *
          * @param {any} elements The elements.
          */
-        static Diagonal(elements: Array<number>|Array<Array<number>>|Vector | Matrix): Matrix;
+        static Diagonal(elements: ReadonlyArray<number>|ReadonlyArray<ReadonlyArray<number>>|Vector | Matrix): Matrix;
 
         /**
          * Rotation matrix about some axis. If no axis is supplied, assume we're after a 2D transform.
@@ -334,7 +334,7 @@ declare module 'sylvester-es6' {
         /**
          * Gets a nested array containing the matrix's elements.
          */
-        elements: Array<Array<number>>;
+        elements: ReadonlyArray<ReadonlyArray<number>>;
 
         /**
          * Returns element (i,j) of the matrix.
@@ -379,9 +379,9 @@ declare module 'sylvester-es6' {
          * Returns true if the matrix is equal to the argument. You can supply a vector as the argument,
          * in which case the receiver must be a one-column matrix equal to the vector.
          *
-         * @param {Vector|Matrix|Array<number>|Array<Array<number>>} matrix The argument to compare.
+         * @param {Vector|Matrix|ReadonlyArray<number>|ReadonlyArray<ReadonlyArray<number>>} matrix The argument to compare.
          */
-        eql(matrix: Vector|Matrix|Array<number>|Array<Array<number>>): boolean;
+        eql(matrix: Vector|Matrix|ReadonlyArray<number>|ReadonlyArray<ReadonlyArray<number>>): boolean;
 
         /**
          * Returns a copy of the matrix.
@@ -526,9 +526,9 @@ declare module 'sylvester-es6' {
         /**
          * Returns the result of attaching the given argument to the right-hand side of the matrix.
          *
-         * @param {Vector|Matrix|Array<number>|Array<Array<number>>} matrix The matrix or vector.
+         * @param {Vector|Matrix|ReadonlyArray<number>|ReadonlyArray<ReadonlyArray<number>>} matrix The matrix or vector.
          */
-        augment(matrix: Vector|Matrix|Array<number>|Array<Array<number>>): Matrix;
+        augment(matrix: Vector|Matrix|ReadonlyArray<number>|ReadonlyArray<ReadonlyArray<number>>): Matrix;
 
         /**
          * Returns the inverse (if one exists) using Gauss-Jordan.
@@ -558,19 +558,19 @@ declare module 'sylvester-es6' {
          * Set the matrix's elements from an array. If the argument passed is a vector, the resulting matrix
          * will be a single column.
          *
-         * @param {Array<number>|Array<Array<number>>|Vector|Matrix} matrix The elements.
+         * @param {ReadonlyArray<number>|ReadonlyArray<ReadonlyArray<number>>|Vector|Matrix} matrix The elements.
          */
-        setElements(matrix: Array<number>|Array<Array<number>>|Vector|Matrix): Matrix;
+        setElements(matrix: ReadonlyArray<number>|ReadonlyArray<ReadonlyArray<number>>|Vector|Matrix): Matrix;
     }
 
     export class Line {
         /**
          * Constructor function.
          *
-         * @param Array<number>|Vector anchor The anchor vector.
-         * @param Array<number>|Vector direction The direction vector.
+         * @param ReadonlyArray<number>|Vector anchor The anchor vector.
+         * @param ReadonlyArray<number>|Vector direction The direction vector.
          */
-        constructor(anchor: Array<number>|Vector, direction: Array<number>|Vector);
+        constructor(anchor: ReadonlyArray<number>|Vector, direction: ReadonlyArray<number>|Vector);
 
         static X: Line;
         static Y: Line;
@@ -601,9 +601,9 @@ declare module 'sylvester-es6' {
         /**
          * Returns the result of translating the line by the given vector/array.
          *
-         * @param {Vector|Array<number>} vector The translation vector.
+         * @param {Vector|ReadonlyArray<number>} vector The translation vector.
          */
-        translate(vector: Vector|Array<number>): Line;
+        translate(vector: Vector|ReadonlyArray<number>): Line;
 
         /**
          * Returns true if the line is parallel to the argument. Here, 'parallel to' means that the argument's
@@ -652,9 +652,9 @@ declare module 'sylvester-es6' {
         /**
          * Returns the point on the line that is closest to the given point or line.
          *
-         * @param {Vector|Line|Array<number>} obj The object.
+         * @param {Vector|Line|ReadonlyArray<number>} obj The object.
          */
-        pointClosestTo(obj: Vector|Line|Array<number>): Vector;
+        pointClosestTo(obj: Vector|Line|ReadonlyArray<number>): Vector;
 
         /**
          * Returns a copy of the line rotated by t radians about the given line. Works by finding the argument's
@@ -677,20 +677,20 @@ declare module 'sylvester-es6' {
         /**
          * Set the line's anchor point and direction.
          *
-         * @param {Array<number>|Vector} anchor The anchor vector.
-         * @param {Array<number>|Vector} direction The direction vector.
+         * @param {ReadonlyArray<number>|Vector} anchor The anchor vector.
+         * @param {ReadonlyArray<number>|Vector} direction The direction vector.
          */
-        setVectors(anchor: Array<number>|Vector, direction: Array<number>|Vector): Line;
+        setVectors(anchor: ReadonlyArray<number>|Vector, direction: ReadonlyArray<number>|Vector): Line;
     }
 
     export class LineSegment {
         /**
          * Constructor function.
          *
-         * @param {Vector|Array<number>} v1 The first vector.
-         * @param {Vector|Array<number>} v2 The second vector.
+         * @param {Vector|ReadonlyArray<number>} v1 The first vector.
+         * @param {Vector|ReadonlyArray<number>} v2 The second vector.
          */
-        constructor(v1: Vector|Array<number>, v2: Vector|Array<number>);
+        constructor(v1: Vector|ReadonlyArray<number>, v2: Vector|ReadonlyArray<number>);
 
         /**
          * Whether a segment is equal to this segment.
@@ -727,9 +727,9 @@ declare module 'sylvester-es6' {
         /**
          * Translates this segment given a vector.
          *
-         * @param {Vector|Array<number>} vector The vector to translate
+         * @param {Vector|ReadonlyArray<number>} vector The vector to translate
          */
-        translate(vector: Vector|Array<number>): LineSegment;
+        translate(vector: Vector|ReadonlyArray<number>): LineSegment;
 
         /**
          * Returns true if the line is parallel to the argument. Here, 'parallel to' means that the argument's
@@ -771,36 +771,36 @@ declare module 'sylvester-es6' {
         /**
          * Returns the point on the line that is closest to the given point or line.
          *
-         * @param {Vector|Line|Array<number>} obj The object.
+         * @param {Vector|Line|ReadonlyArray<number>} obj The object.
          */
-        pointClosestTo(obj: Vector|Line|Array<number>): Vector;
+        pointClosestTo(obj: Vector|Line|ReadonlyArray<number>): Vector;
 
         /**
          * Sets the initial point of the line segments
          *
-         * @param {Vector|Array<number>} startPoint The start vector.
-         * @param {Vector|Array<number>} endPoint The end vector.
+         * @param {Vector|ReadonlyArray<number>} startPoint The start vector.
+         * @param {Vector|ReadonlyArray<number>} endPoint The end vector.
          */
-        setPoints(startPoint: Vector|Array<number>, endPoint: Vector|Array<number>): LineSegment | null;
+        setPoints(startPoint: Vector|ReadonlyArray<number>, endPoint: Vector|ReadonlyArray<number>): LineSegment | null;
     }
 
     export class Plane {
         /**
          * Constructor function.
          *
-         * @param {Array<number>|Vector} anchor The anchor vector.
-         * @param {Array<number>|Vector} normal The normal vector.
+         * @param {ReadonlyArray<number>|Vector} anchor The anchor vector.
+         * @param {ReadonlyArray<number>|Vector} normal The normal vector.
          */
-        constructor(anchor: Array<number>|Vector, normal: Array<number>|Vector);
+        constructor(anchor: ReadonlyArray<number>|Vector, normal: ReadonlyArray<number>|Vector);
 
         /**
          * Constructor function.
          *
-         * @param {Array<number>|Vector} anchor The anchor vector.
-         * @param {Array<number>|Vector} v1 The first direction vector.
-         * @param {Array<number>|Vecotr} v2 The second direction vector.
+         * @param {ReadonlyArray<number>|Vector} anchor The anchor vector.
+         * @param {ReadonlyArray<number>|Vector} v1 The first direction vector.
+         * @param {ReadonlyArray<number>|Vecotr} v2 The second direction vector.
          */
-        constructor(anchor: Array<number>|Vector, v1: Array<number>|Vector, v2: Array<number>|Vector);
+        constructor(anchor: ReadonlyArray<number>|Vector, v1: ReadonlyArray<number>|Vector, v2: ReadonlyArray<number>|Vector);
 
         static XY: Plane;
         static YZ: Plane;
@@ -810,9 +810,9 @@ declare module 'sylvester-es6' {
         /**
          * Constructs a plane from a list of points.
          * 
-         * @param {Array<Array<number>>|Array<Vector>} points List of vectors.
+         * @param {ReadonlyArray<ReadonlyArray<number>>|ReadonlyArray<Vector>} points List of vectors.
          */
-        static fromPoints(points: Array<Array<number>>|Array<Vector>): Plane;
+        static fromPoints(points: ReadonlyArray<ReadonlyArray<number>>|ReadonlyArray<Vector>): Plane;
 
         /**
          * Gets the 3D vector corresponding to a point in the plane.
@@ -839,9 +839,9 @@ declare module 'sylvester-es6' {
         /**
          * Returns the result of translating the plane by the given vector.
          *
-         * @param {Array<number>|Vector} vector The translation vector.
+         * @param {ReadonlyArray<number>|Vector} vector The translation vector.
          */
-        translate(vector: Array<number>|Vector): Plane;
+        translate(vector: ReadonlyArray<number>|Vector): Plane;
 
         /**
          * Returns true if the plane is parallel to the argument. Will return true if the planes are equal,
@@ -896,9 +896,9 @@ declare module 'sylvester-es6' {
         /**
          * Returns the point in the plane closest to the given point.
          *
-         * @param {Vector|Array<number>} point The point.
+         * @param {Vector|ReadonlyArray<number>} point The point.
          */
-        pointClosestTo(point: Vector|Array<number>): Vector;
+        pointClosestTo(point: Vector|ReadonlyArray<number>): Vector;
 
         /**
          * Returns a copy of the plane, rotated by t radians about the given line. See notes on Line#rotate.
@@ -918,20 +918,20 @@ declare module 'sylvester-es6' {
         /**
          * Sets the anchor point and normal to the plane. Normal vector is normalised before storage.
          *
-         * @param {Array<number>|Vector} anchor The anchor vector.
-         * @param {Array<number>|Vector} normal The normal vector.
+         * @param {ReadonlyArray<number>|Vector} anchor The anchor vector.
+         * @param {ReadonlyArray<number>|Vector} normal The normal vector.
          */
-        setVectors(anchor: Array<number>|Vector, normal: Array<number>|Vector): Plane;
+        setVectors(anchor: ReadonlyArray<number>|Vector, normal: ReadonlyArray<number>|Vector): Plane;
 
         /**
          * Sets the anchor point and normal to the plane. The normal is calculated by assuming the three points
          * should lie in the same plane. Normal vector is normalised before storage.
          *
-         * @param {Array<number>|Vector} anchor The anchor vector.
-         * @param {Array<number>|Vector} v1 The first direction vector.
-         * @param {Array<number>|Vector} v2 The second direction vector.
+         * @param {ReadonlyArray<number>|Vector} anchor The anchor vector.
+         * @param {ReadonlyArray<number>|Vector} v1 The first direction vector.
+         * @param {ReadonlyArray<number>|Vector} v2 The second direction vector.
          */
-        setVectors(anchor: Array<number>|Vector, v1: Array<number>|Vector, v2: Array<number>|Vector): Plane;
+        setVectors(anchor: ReadonlyArray<number>|Vector, v1: ReadonlyArray<number>|Vector, v2: ReadonlyArray<number>|Vector): Plane;
     }
 
     export class LinkedListNode {
@@ -1017,7 +1017,7 @@ declare module 'sylvester-es6' {
         /**
          * Convert this linked list into an array.
          */
-        toArray(): Array<any>;
+        toArray(): ReadonlyArray<any>;
     }
 
     export class CircularLinkedList extends LinkedList {
@@ -1027,7 +1027,7 @@ declare module 'sylvester-es6' {
          * @param {Array} list The array that the list is based on.
          * @param {Boolean} useNodes Whether it should create using the nodes or not.
          */
-        static fromArray(list: Array<any>, useNodes: boolean): CircularLinkedList
+        static fromArray(list: ReadonlyArray<any>, useNodes: boolean): CircularLinkedList
 
         /**
          * Appends a node into the list.
@@ -1078,10 +1078,10 @@ declare module 'sylvester-es6' {
         /**
          * Constructor function.
          *
-         * @param {Array<Vector>|Array<Array<number>>} points The points for the polygon.
+         * @param {ReadonlyArray<Vector>|ReadonlyArray<ReadonlyArray<number>>} points The points for the polygon.
          * @param {Plane} plane The plane that constructs the polygon.
          */
-        constructor(points: Array<Vector>|Array<Array<number>>, plane: Plane);
+        constructor(points: ReadonlyArray<Vector>|ReadonlyArray<ReadonlyArray<number>>, plane: Plane);
 
         /**
          * The vertices of the polygon.
@@ -1110,9 +1110,9 @@ declare module 'sylvester-es6' {
         /**
          * Translate the polygon given a vector.
          *
-         * @param {Vector|Array<number>} vector The specified vector.
+         * @param {Vector|ReadonlyArray<number>} vector The specified vector.
          */
-        translate(vector: Vector|Array<number>): Polygon;
+        translate(vector: Vector|ReadonlyArray<number>): Polygon;
 
         /**
          * Rotates the polygon.
@@ -1126,9 +1126,9 @@ declare module 'sylvester-es6' {
          * Scale the polygon.
          *
          * @param {Number} k The scale factor.
-         * @param {Array<number>} point The anchor point of the scale.
+         * @param {ReadonlyArray<number>} point The anchor point of the scale.
          */
-        scale(k: number, point: Array<number>): Polygon;
+        scale(k: number, point: ReadonlyArray<number>): Polygon;
 
         /**
          * Updates the plane properties of all the cached triangles belonging to the
@@ -1175,23 +1175,23 @@ declare module 'sylvester-es6' {
         /**
          * Whether the polygon contains a point.
          *
-         * @param {Vector|Array<number>} point The point to check.
+         * @param {Vector|ReadonlyArray<number>} point The point to check.
          */
-        contains(point: Vector|Array<number>): boolean;
+        contains(point: Vector|ReadonlyArray<number>): boolean;
 
         /**
          * Whether the polygon contains a point.
          *
-         * @param {Vector|Array<number>} point The point to check.
+         * @param {Vector|ReadonlyArray<number>} point The point to check.
          */
-        containsByWindingNumber(point: Vector|Array<number>): boolean;
+        containsByWindingNumber(point: Vector|ReadonlyArray<number>): boolean;
 
         /**
          * Whether the point is an edge in the polygon.
          *
-         * @param {Vector|Array<number>} point The point to check.
+         * @param {Vector|ReadonlyArray<number>} point The point to check.
          */
-        hasEdgeContaining(point: Vector|Array<number>): boolean;
+        hasEdgeContaining(point: Vector|ReadonlyArray<number>): boolean;
 
         /**
          * Converts the polygon into triangles.
@@ -1210,10 +1210,10 @@ declare module 'sylvester-es6' {
         /**
          * Set the vertices of the polygon.
          *
-         * @param {Array<Vector>|Array<Array<number>>} points The points for the polygon.
+         * @param {ReadonlyArray<Vector>|ReadonlyArray<ReadonlyArray<number>>} points The points for the polygon.
          * @param {Plane} plane The plane for the polygon.
          */
-        setVertices(points: Array<Vector>|Array<Array<number>>, plane: Plane): Polygon;
+        setVertices(points: ReadonlyArray<Vector>|ReadonlyArray<ReadonlyArray<number>>, plane: Plane): Polygon;
 
         /**
          * Populates the vertex type lists.
