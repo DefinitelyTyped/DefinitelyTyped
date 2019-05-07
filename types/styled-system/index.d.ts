@@ -52,7 +52,7 @@ export function compose(
     ...funcs: Array<(...args: any[]) => any>
 ): (...args: any[]) => any;
 
-export function mapProps(mapper: (...args: any[]) => any): (func: any[]) => (...props: any[]) => any;
+export function mapProps(mapper: (...args: any[]) => any): (func: any) => (...props: any[]) => any;
 
 export interface VariantArgs {
     key?: string;
