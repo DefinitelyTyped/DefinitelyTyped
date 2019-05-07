@@ -57,6 +57,7 @@ import {
     FontSizeProps,
     fontWeight,
     FontWeightProps,
+    get,
     gridAutoColumns,
     GridAutoColumnsProps,
     gridAutoFlow,
@@ -117,6 +118,7 @@ import {
     SizeProps,
     space,
     SpaceProps,
+    style,
     textAlign,
     TextAlignProps,
     TextColorProps,
@@ -664,7 +666,7 @@ export const themeC: Theme = {
 };
 
 // Test that the mapProps definition is correct.
-// https://github.com/styled-system/styled-system/blob/master/src/index.js#L262
+// https://github.com/styled-system/styled-system/blob/master/src/index.js#L149
 const margins = mapProps(props => ({
     ...props,
     mt: is(props.my) ? props.my : props.mt,
@@ -680,6 +682,17 @@ const margins = mapProps(props => ({
       marginRight
     )
   );
+
+// Test that the style definition is correct.
+// https://github.com/styled-system/styled-system/blob/master/src/index.js#L62
+const customFontSize = style({
+    prop: 'fontSize',
+    cssProperty: 'fontSize',
+    alias: 'fs',
+    key: 'fontSizes',
+    transformValue: (n, scale) => px(get(scale, n)),
+    scale: [8, 16, 32]
+});
 
 // All Style Functions contain `propTypes`
 export const alignContentPropTypes = alignContent.propTypes;
