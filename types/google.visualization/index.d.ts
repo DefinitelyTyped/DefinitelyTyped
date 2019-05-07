@@ -1172,7 +1172,7 @@ declare namespace google {
         // https://developers.google.com/chart/interactive/docs/gallery/controls#dashboard
         export class Dashboard {
             constructor(containerRef: HTMLElement);
-            bind(controls: any, charts: ChartWrapper): google.visualization.Dashboard;
+            bind(controls: ControlWrapper | ControlWrapper[], charts: ChartWrapper | ChartWrapper[]): google.visualization.Dashboard;
             draw(dataTable: DataTable): void;
             getSelection(): Object[];
         }
