@@ -855,7 +855,7 @@ const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Te
 const ShareTest = () => {
     Share.share(
         { title: "title", message: "message" },
-        { dialogTitle: "dialogTitle", excludedActivityTypes: ["activity"], tintColor: "red" }
+        { dialogTitle: "dialogTitle", excludedActivityTypes: ["activity"], tintColor: "red", subject: "Email subject" }
     );
     Share.share({ title: "title", url: "url" });
     Share.share({ message: "message" }).then(result => {
