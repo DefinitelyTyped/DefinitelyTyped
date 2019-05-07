@@ -1,4 +1,4 @@
-// Type definitions for gulp-sass
+// Type definitions for gulp-sass 4.0.2
 // Project: https://github.com/dlmanning/gulp-sass
 // Definitions by: Asana <https://asana.com>
 //                 Yuma Hashimoto <https://github.com/yuma84>
