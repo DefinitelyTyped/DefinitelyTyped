@@ -18661,7 +18661,7 @@ declare namespace Excel {
         type: "WorksheetRowSorted";
         /**
          *
-         * Gets the id of the worksheet in which the sorting happened.
+         * Gets the id of the worksheet where the sorting happened.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -18702,7 +18702,7 @@ declare namespace Excel {
         type: "WorksheetColumnSorted";
         /**
          *
-         * Gets the id of the worksheet in which the sorting happened.
+         * Gets the id of the worksheet where the sorting happened.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -18756,7 +18756,7 @@ declare namespace Excel {
         address: string;
         /**
          *
-         * The distance, in points, from the left-clicked/tapped point to the left(right for RTL) gridline edge of the left-clicked/tapped cell.
+         * The distance, in points, from the left-clicked/tapped point to the left (right for RTL) gridline edge of the left-clicked/tapped cell.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37981,7 +37981,7 @@ declare namespace Excel {
         readonly id: string;
         /**
          *
-         * True if all filters currently applied on the slicer is cleared.
+         * True if all filters currently applied on the slicer are cleared.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
