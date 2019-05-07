@@ -1202,7 +1202,7 @@ declare namespace google {
         }
 
         export interface ControlWrapperOptions {        
-            controlType?: string;
+            controlType: string;
             containerId: string;
             options?: Object;
             state?: Object;
