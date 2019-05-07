@@ -38247,7 +38247,7 @@ declare namespace Excel {
         readonly key: string;
         /**
          *
-         * Represents the value displayed on UI.
+         * Represents the value displayed in the UI.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
