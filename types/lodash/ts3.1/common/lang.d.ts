@@ -54,6 +54,12 @@ declare module "../index" {
          */
         castArray(): CollectionChain<string>;
     }
+    interface StringNullableChain {
+        /**
+         * @see _.castArray
+         */
+        castArray(): CollectionChain<string | undefined>;
+    }
     interface ObjectChain<T> {
         /**
          * @see _.castArray
@@ -1430,6 +1436,12 @@ declare module "../index" {
         toArray(): Collection<T[keyof T]>;
     }
     interface StringChain {
+        /**
+         * @see _.toArray
+         */
+        toArray(): CollectionChain<string>;
+    }
+    interface StringNullableChain {
         /**
          * @see _.toArray
          */

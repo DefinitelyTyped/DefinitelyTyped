@@ -474,6 +474,12 @@ declare module "../index" {
          */
         iteratee(): FunctionChain<(o: object) => boolean>;
     }
+    interface StringNullableChain {
+        /**
+         * @see _.iteratee
+         */
+        iteratee(): FunctionChain<(o: object) => boolean>;
+    }
 
     interface LoDashStatic {
         /**

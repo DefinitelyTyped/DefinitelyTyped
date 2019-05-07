@@ -427,7 +427,13 @@ declare module "../index" {
         /**
          * @see _.first
          */
-        first(): StringChain;
+        first(): StringNullableChain;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.first
+         */
+        first(): StringNullableChain;
     }
     interface Collection<T> {
         /**
@@ -439,7 +445,7 @@ declare module "../index" {
         /**
          * @see _.first
          */
-        first(): ExpChain<T>;
+        first(): ExpChain<T | undefined>;
     }
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
     interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
@@ -459,6 +465,12 @@ declare module "../index" {
         flatten(): Collection<string>;
     }
     interface StringChain {
+        /**
+         * @see _.flatten
+         */
+        flatten(): CollectionChain<string>;
+    }
+    interface StringNullableChain {
         /**
          * @see _.flatten
          */
@@ -573,6 +585,12 @@ declare module "../index" {
          */
         head(): StringChain;
     }
+    interface StringNullableChain {
+        /**
+         * @see _.head
+         */
+        head(): StringNullableChain;
+    }
     interface Collection<T> {
         /**
          * @see _.head
@@ -583,7 +601,7 @@ declare module "../index" {
         /**
          * @see _.head
          */
-        head(): ExpChain<T>;
+        head(): ExpChain<T | undefined>;
     }
     interface LoDashStatic {
         /**
@@ -790,6 +808,12 @@ declare module "../index" {
          */
         join(separator?: string): StringChain;
     }
+    interface StringNullableChain {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): StringChain;
+    }
     interface Collection<T> {
         /**
          * @see _.join
@@ -821,7 +845,7 @@ declare module "../index" {
         /**
          * @see _.last
          */
-        last(): ExpChain<T>;
+        last(): ExpChain<T | undefined>;
     }
     interface String {
         /**
@@ -833,7 +857,13 @@ declare module "../index" {
         /**
          * @see _.last
          */
-        last(): StringChain;
+        last(): StringNullableChain;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.last
+         */
+        last(): StringNullableChain;
     }
     interface LoDashStatic {
         /**
@@ -878,7 +908,7 @@ declare module "../index" {
         /**
          * @see _.nth
          */
-        nth(n?: number): ExpChain<T>;
+        nth(n?: number): ExpChain<T | undefined>;
     }
     interface LoDashStatic {
         /**

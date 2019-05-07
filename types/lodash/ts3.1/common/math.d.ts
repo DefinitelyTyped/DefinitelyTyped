@@ -113,7 +113,7 @@ declare module "../index" {
         /**
          * @see _.max
          */
-        max(): LoDashExplicitWrapper<T | undefined>;
+        max(): ExpChain<T | undefined>;
     }
 
     interface LoDashStatic {
@@ -149,7 +149,7 @@ declare module "../index" {
         /**
          * @see _.maxBy
          */
-        maxBy(iteratee?: ValueIteratee<T>): LoDashExplicitWrapper<T | undefined>;
+        maxBy(iteratee?: ValueIteratee<T>): ExpChain<T | undefined>;
     }
 
     interface LoDashStatic {
@@ -228,7 +228,7 @@ declare module "../index" {
         /**
          * @see _.min
          */
-        min(): LoDashExplicitWrapper<T | undefined>;
+        min(): ExpChain<T | undefined>;
     }
 
     interface LoDashStatic {
@@ -264,7 +264,7 @@ declare module "../index" {
         /**
          * @see _.minBy
          */
-        minBy(iteratee?: ValueIteratee<T>): LoDashExplicitWrapper<T | undefined>;
+        minBy(iteratee?: ValueIteratee<T>): ExpChain<T | undefined>;
     }
 
     interface LoDashStatic {

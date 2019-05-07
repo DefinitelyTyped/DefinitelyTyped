@@ -819,7 +819,7 @@ declare module "../index" {
         /**
          * @see _.findKey
          */
-        findKey(predicate?: ObjectIteratee<TValue>): LoDashExplicitWrapper<string | undefined>;
+        findKey(predicate?: ObjectIteratee<TValue>): StringNullableChain;
     }
     interface LoDashStatic {
         /**
@@ -841,7 +841,7 @@ declare module "../index" {
         /**
          * @see _.findLastKey
          */
-        findLastKey(predicate?: ObjectIteratee<TValue>): LoDashExplicitWrapper<string | undefined>;
+        findLastKey(predicate?: ObjectIteratee<TValue>): StringNullableChain;
     }
     interface LoDashStatic {
         /**
@@ -1107,6 +1107,16 @@ declare module "../index" {
          */
         get(path: number | number[], defaultValue: string): StringChain;
     }
+    interface StringNullableChain {
+        /**
+         * @see _.get
+         */
+        get(path: number | number[]): StringNullableChain;
+        /**
+         * @see _.get
+         */
+        get(path: number | number[], defaultValue: string): StringChain;
+    }
     interface ObjectChain<T> {
         /**
          * @see _.get
@@ -1266,6 +1276,12 @@ declare module "../index" {
         invertBy(iteratee?: ValueIteratee<T[keyof T]>): Object<Dictionary<string[]>>;
     }
     interface StringChain {
+        /**
+         * @see _.invertBy
+         */
+        invertBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string[]>>;
+    }
+    interface StringNullableChain {
         /**
          * @see _.invertBy
          */
@@ -1504,6 +1520,16 @@ declare module "../index" {
         mapValues(): Object<T>;
     }
     interface StringChain {
+        /**
+         * @see _.mapValues
+         */
+        mapValues<TResult>(callback: StringIterator<TResult>): ObjectChain<NumericDictionary<TResult>>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues(): ObjectChain<NumericDictionary<string>>;
+    }
+    interface StringNullableChain {
         /**
          * @see _.mapValues
          */
@@ -2326,6 +2352,12 @@ declare module "../index" {
          */
         values(): CollectionChain<string>;
     }
+    interface StringNullableChain {
+        /**
+         * @see _.values
+         */
+        values(): CollectionChain<string>;
+    }
     interface LoDashStatic {
         /**
          * Creates an array of the own and inherited enumerable property values of object.
@@ -2352,6 +2384,12 @@ declare module "../index" {
         valuesIn(): Collection<T[keyof T]>;
     }
     interface StringChain {
+        /**
+         * @see _.valuesIn
+         */
+        valuesIn(): CollectionChain<string>;
+    }
+    interface StringNullableChain {
         /**
          * @see _.valuesIn
          */

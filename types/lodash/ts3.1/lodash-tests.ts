@@ -459,8 +459,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _("abc").first(); // $ExpectType string | undefined
     _(list).first(); // $ExpectType AbcObject | undefined
 
-    _.chain("abc").first(); // $ExpectType StringChain
-    _.chain(list).first(); // $ExpectType ObjectChain<AbcObject>
+    _.chain("abc").first(); // $ExpectType StringNullableChain
+    _.chain(list).first(); // $ExpectType PrimitiveChain<undefined> | ObjectChain<AbcObject>
 
     fp.first("abc"); // $ExpectType string | undefined
     fp.first(list); // $ExpectType AbcObject | undefined
@@ -530,7 +530,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _(list).head(); // $ExpectType AbcObject | undefined
 
     _.chain("abc").head(); // $ExpectType StringChain
-    _.chain(list).head(); // $ExpectType ObjectChain<AbcObject>
+    _.chain(list).head(); // $ExpectType PrimitiveChain<undefined> | ObjectChain<AbcObject>
 
     fp.head("abc"); // $ExpectType string | undefined
     fp.head(list); // $ExpectType AbcObject | undefined
@@ -772,8 +772,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _("abc").last(); // $ExpectType string | undefined
     _(list).last(); // $ExpectType AbcObject | undefined
 
-    _.chain("abc").last(); // $ExpectType StringChain
-    _.chain(list).last(); // $ExpectType ObjectChain<AbcObject>
+    _.chain("abc").last(); // $ExpectType StringNullableChain
+    _.chain(list).last(); // $ExpectType PrimitiveChain<undefined> | ObjectChain<AbcObject>
 
     fp.last("abc"); // $ExpectType string | undefined
     fp.last(list); // $ExpectType AbcObject | undefined
@@ -783,7 +783,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 {
     _.nth(list, 42); // $ExpectType AbcObject | undefined
     _(list).nth(42); // $ExpectType AbcObject | undefined
-    _.chain(list).nth(42); // $ExpectType ObjectChain<AbcObject>
+    _.chain(list).nth(42); // $ExpectType PrimitiveChain<undefined> | ObjectChain<AbcObject>
 
     fp.nth(42, list); // $ExpectType AbcObject | undefined
     fp.nth(42)(list); // $ExpectType AbcObject | undefined
@@ -2277,7 +2277,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
         collection; // $ExpectType string
     });
 
-    // $ExpectType StringChain
+    // $ExpectType StringNullableChain
     _.chain(nilStr).forEach((value, index, collection) => {
         value; // $ExpectType string
         index; // $ExpectType number
@@ -2961,11 +2961,11 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _(numericDictionary).sample(); // $ExpectType string | undefined
     _({ a: "foo" }).sample(); // $ExpectType string | undefined
 
-    _.chain("abc").sample(); // $ExpectType StringChain
-    _.chain(list).sample(); // $ExpectType LoDashExplicitWrapper<string | undefined>
-    _.chain(dictionary).sample(); // $ExpectType LoDashExplicitWrapper<string | undefined>
-    _.chain(numericDictionary).sample(); // $ExpectType LoDashExplicitWrapper<string | undefined>
-    _.chain({ a: "foo" }).sample(); // $ExpectType LoDashExplicitWrapper<string | undefined>
+    _.chain("abc").sample(); // $ExpectType StringNullableChain
+    _.chain(list).sample(); // $ExpectType StringChain | PrimitiveChain<undefined>
+    _.chain(dictionary).sample(); // $ExpectType StringChain | PrimitiveChain<undefined>
+    _.chain(numericDictionary).sample(); // $ExpectType StringChain | PrimitiveChain<undefined>
+    _.chain({ a: "foo" }).sample(); // $ExpectType StringChain | PrimitiveChain<undefined>
 
     fp.sample("abc"); // $ExpectType string | undefined
     fp.sample(list); // $ExpectType string | undefined
@@ -4667,12 +4667,12 @@ fp.now(); // $ExpectType number
 
     _.max(list); // $ExpectType string | undefined
      _(list).max(); // $ExpectType string | undefined
-    _.chain(list).max(); // $ExpectType LoDashExplicitWrapper<string | undefined>
+    _.chain(list).max(); // $ExpectType StringChain | PrimitiveChain<undefined>
     fp.max(list); // $ExpectType string | undefined
 
     _.min(list); // $ExpectType string | undefined
      _(list).min(); // $ExpectType string | undefined
-    _.chain(list).min(); // $ExpectType LoDashExplicitWrapper<string | undefined>
+    _.chain(list).min(); // $ExpectType StringChain | PrimitiveChain<undefined>
     fp.min(list); // $ExpectType string | undefined
 }
 
@@ -4687,9 +4687,9 @@ fp.now(); // $ExpectType number
     _(list).maxBy(valueIterator); // $ExpectType AbcObject | undefined
     _(list).maxBy("a"); // $ExpectType AbcObject | undefined
     _(list).maxBy({ a: 42 }); // $ExpectType AbcObject | undefined
-    _.chain(list).maxBy(valueIterator); // $ExpectType LoDashExplicitWrapper<AbcObject | undefined>
-    _.chain(list).maxBy("a"); // $ExpectType LoDashExplicitWrapper<AbcObject | undefined>
-    _.chain(list).maxBy({ a: 42 }); // $ExpectType LoDashExplicitWrapper<AbcObject | undefined>
+    _.chain(list).maxBy(valueIterator); // $ExpectType PrimitiveChain<undefined> | ObjectChain<AbcObject>
+    _.chain(list).maxBy("a"); // $ExpectType PrimitiveChain<undefined> | ObjectChain<AbcObject>
+    _.chain(list).maxBy({ a: 42 }); // $ExpectType PrimitiveChain<undefined> | ObjectChain<AbcObject>
     fp.maxBy(valueIterator)(list); // $ExpectType AbcObject | undefined
     fp.maxBy("a", list); // $ExpectType AbcObject | undefined
     fp.maxBy({ a: 42 }, list); // $ExpectType AbcObject | undefined
@@ -4700,9 +4700,9 @@ fp.now(); // $ExpectType number
     _(list).minBy(valueIterator); // $ExpectType AbcObject | undefined
     _(list).minBy("a"); // $ExpectType AbcObject | undefined
     _(list).minBy({ a: 42 }); // $ExpectType AbcObject | undefined
-    _.chain(list).minBy(valueIterator); // $ExpectType LoDashExplicitWrapper<AbcObject | undefined>
-    _.chain(list).minBy("a"); // $ExpectType LoDashExplicitWrapper<AbcObject | undefined>
-    _.chain(list).minBy({ a: 42 }); // $ExpectType LoDashExplicitWrapper<AbcObject | undefined>
+    _.chain(list).minBy(valueIterator); // $ExpectType PrimitiveChain<undefined> | ObjectChain<AbcObject>
+    _.chain(list).minBy("a"); // $ExpectType PrimitiveChain<undefined> | ObjectChain<AbcObject>
+    _.chain(list).minBy({ a: 42 }); // $ExpectType PrimitiveChain<undefined> | ObjectChain<AbcObject>
     fp.minBy(valueIterator)(list); // $ExpectType AbcObject | undefined
     fp.minBy("a", list); // $ExpectType AbcObject | undefined
     fp.minBy({ a: 42 }, list); // $ExpectType AbcObject | undefined
@@ -5059,11 +5059,11 @@ fp.now(); // $ExpectType number
     _({ a: "" }).findKey(""); // $ExpectType string | undefined
     _({ a: { b: 5 } }).findKey({ b: 42 }); // $ExpectType string | undefined
     _({ a: { b: 5 } }).findKey(["b", 5]); // $ExpectType string | undefined
-    _.chain({ a: "" }).findKey(); // $ExpectType LoDashExplicitWrapper<string | undefined>
-    _.chain({ a: "" }).findKey(predicateFn); // $ExpectType LoDashExplicitWrapper<string | undefined>
-    _.chain({ a: "" }).findKey(""); // $ExpectType LoDashExplicitWrapper<string | undefined>
-    _.chain({ a: { b: 5 } }).findKey({ b: 42 }); // $ExpectType LoDashExplicitWrapper<string | undefined>
-    _.chain({ a: { b: 5 } }).findKey(["b", 5]); // $ExpectType LoDashExplicitWrapper<string | undefined>
+    _.chain({ a: "" }).findKey(); // $ExpectType StringNullableChain
+    _.chain({ a: "" }).findKey(predicateFn); // $ExpectType StringNullableChain
+    _.chain({ a: "" }).findKey(""); // $ExpectType StringNullableChain
+    _.chain({ a: { b: 5 } }).findKey({ b: 42 }); // $ExpectType StringNullableChain
+    _.chain({ a: { b: 5 } }).findKey(["b", 5]); // $ExpectType StringNullableChain
     fp.findKey(predicateFn2, { a: 1 }); // $ExpectType string | undefined
     fp.findKey(predicateFn2)({ a: 1 }); // $ExpectType string | undefined
 
@@ -5077,11 +5077,11 @@ fp.now(); // $ExpectType number
     _({ a: "" }).findLastKey(""); // $ExpectType string | undefined
     _({ a: { b: 5 } }).findLastKey({ b: 42 }); // $ExpectType string | undefined
     _({ a: { b: 5 } }).findLastKey(["b", 5]); // $ExpectType string | undefined
-    _.chain({ a: "" }).findLastKey(); // $ExpectType LoDashExplicitWrapper<string | undefined>
-    _.chain({ a: "" }).findLastKey(predicateFn); // $ExpectType LoDashExplicitWrapper<string | undefined>
-    _.chain({ a: "" }).findLastKey(""); // $ExpectType LoDashExplicitWrapper<string | undefined>
-    _.chain({ a: { b: 5 } }).findLastKey({ b: 42 }); // $ExpectType LoDashExplicitWrapper<string | undefined>
-    _.chain({ a: { b: 5 } }).findLastKey(["b", 5]); // $ExpectType LoDashExplicitWrapper<string | undefined>
+    _.chain({ a: "" }).findLastKey(); // $ExpectType StringNullableChain
+    _.chain({ a: "" }).findLastKey(predicateFn); // $ExpectType StringNullableChain
+    _.chain({ a: "" }).findLastKey(""); // $ExpectType StringNullableChain
+    _.chain({ a: { b: 5 } }).findLastKey({ b: 42 }); // $ExpectType StringNullableChain
+    _.chain({ a: { b: 5 } }).findLastKey(["b", 5]); // $ExpectType StringNullableChain
     fp.findLastKey(predicateFn2, { a: 1 }); // $ExpectType string | undefined
     fp.findLastKey(predicateFn2)({ a: 1 }); // $ExpectType string | undefined
 }

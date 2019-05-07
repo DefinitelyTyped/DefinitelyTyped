@@ -16,7 +16,11 @@ declare module "../index" {
         /**
          * @see _.chain
          */
-        chain(value: string | null | undefined): StringChain;
+        chain(value: string): StringChain;
+        /**
+         * @see _.chain
+         */
+        chain(value: string | null | undefined): StringNullableChain;
         /**
          * @see _.chain
          */

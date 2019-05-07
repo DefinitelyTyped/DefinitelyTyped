@@ -16,7 +16,8 @@ declare module "../index" {
     type ExpChain<T> =
         T extends { __trapAny: any } ? CollectionChain<any> :
         T extends null | undefined ? PrimitiveChain<T> :
-        T extends string | null | undefined ? StringChain :
+        T extends string ? StringChain :
+        T extends string | null | undefined ? StringNullableChain :
         T extends (...args: any) => any ? FunctionChain<T> :
         T extends List<infer U> | null | undefined ? CollectionChain<U> :
         T extends object | null | undefined ? ObjectChain<T> :
@@ -200,9 +201,13 @@ declare module "../index" {
     }
     interface StringChain extends LoDashExplicitWrapper<string> {
     }
+    interface StringNullableChain extends LoDashExplicitWrapper<string | undefined> {
+    }
     interface ObjectChain<T> extends LoDashExplicitWrapper<T> {
     }
     interface CollectionChain<T> extends LoDashExplicitWrapper<List<T>> {
+    }
+    interface CollectionNullableChain<T> extends LoDashExplicitWrapper<List<T> | undefined> {
     }
     interface PrimitiveChain<T> extends LoDashExplicitWrapper<T> {
     }

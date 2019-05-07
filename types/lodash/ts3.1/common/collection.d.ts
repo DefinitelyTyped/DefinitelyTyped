@@ -46,6 +46,12 @@ declare module "../index" {
          */
         countBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<number>>;
     }
+    interface StringNullableChain {
+        /**
+         * @see _.countBy
+         */
+        countBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<number>>;
+    }
     interface CollectionChain<T> {
         /**
          * @see _.countBy
@@ -81,6 +87,12 @@ declare module "../index" {
          * @see _.each
          */
         each: StringChain['forEach'];
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.each
+         */
+        each: StringNullableChain['forEach'];
     }
     interface CollectionChain<T> {
         /**
@@ -123,6 +135,12 @@ declare module "../index" {
          * @see _.eachRight
          */
         eachRight: StringChain['forEachRight'];
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.eachRight
+         */
+        eachRight: StringNullableChain['forEachRight'];
     }
     interface CollectionChain<T> {
         /**
@@ -229,6 +247,12 @@ declare module "../index" {
         filter(predicate?: ObjectIterateeCustom<T, boolean>): Collection<T[keyof T]>;
     }
     interface StringChain {
+        /**
+         * @see _.filter
+         */
+        filter(predicate?: StringIterator<boolean>): CollectionChain<string>;
+    }
+    interface StringNullableChain {
         /**
          * @see _.filter
          */
@@ -461,6 +485,16 @@ declare module "../index" {
          */
         flatMap(): CollectionChain<string>;
     }
+    interface StringNullableChain {
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(iteratee: StringIterator<Many<TResult>>): CollectionChain<TResult>;
+        /**
+         * @see _.flatMap
+         */
+        flatMap(): CollectionChain<string>;
+    }
     interface CollectionChain<T> {
         /**
          * @see _.flatMap
@@ -565,6 +599,16 @@ declare module "../index" {
         flatMapDeep(): Collection<T[keyof T]>;
     }
     interface StringChain {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>): CollectionChain<TResult>;
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(): CollectionChain<string>;
+    }
+    interface StringNullableChain {
         /**
          * @see _.flatMapDeep
          */
@@ -688,6 +732,16 @@ declare module "../index" {
          */
         flatMapDepth(depth?: number): CollectionChain<string>;
     }
+    interface StringNullableChain {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult> | TResult>, depth?: number): CollectionChain<TResult>;
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(depth?: number): CollectionChain<string>;
+    }
     interface CollectionChain<T> {
         /**
          * @see _.flatMapDepth
@@ -783,6 +837,12 @@ declare module "../index" {
          */
         forEach(iteratee?: StringIterator<any>): StringChain;
     }
+    interface StringNullableChain {
+        /**
+         * @see _.forEach
+         */
+        forEach(iteratee?: StringIterator<any>): StringNullableChain;
+    }
     interface ObjectChain<T> {
         /**
          * @see _.forEach
@@ -858,6 +918,12 @@ declare module "../index" {
          */
         forEachRight(iteratee?: StringIterator<any>): StringChain;
     }
+    interface StringNullableChain {
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight(iteratee?: StringIterator<any>): StringNullableChain;
+    }
     interface ObjectChain<T> {
         /**
          * @see _.forEachRight
@@ -905,6 +971,12 @@ declare module "../index" {
         groupBy(iteratee?: ValueIteratee<T[keyof T]>): Object<Dictionary<Array<T[keyof T]>>>;
     }
     interface StringChain {
+        /**
+         * @see _.groupBy
+         */
+        groupBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string>>;
+    }
+    interface StringNullableChain {
         /**
          * @see _.groupBy
          */
@@ -1034,6 +1106,12 @@ declare module "../index" {
          */
         keyBy(iteratee?: ValueIterateeCustom<string, PropertyName>): ObjectChain<Dictionary<string>>;
     }
+    interface StringNullableChain {
+        /**
+         * @see _.keyBy
+         */
+        keyBy(iteratee?: ValueIterateeCustom<string, PropertyName>): ObjectChain<Dictionary<string>>;
+    }
     interface CollectionChain<T> {
         /**
          * @see _.keyBy
@@ -1145,6 +1223,16 @@ declare module "../index" {
         map(): Collection<T[keyof T]>;
     }
     interface StringChain {
+        /**
+         * @see _.map
+         */
+        map<TResult>(iteratee: StringIterator<TResult>): CollectionChain<TResult>;
+        /**
+         * @see _.map
+         */
+        map(): CollectionChain<string>;
+    }
+    interface StringNullableChain {
         /**
          * @see _.map
          */
@@ -1297,6 +1385,12 @@ declare module "../index" {
         partition(callback: ValueIteratee<T[keyof T]>): LoDashImplicitWrapper<[Array<T[keyof T]>, Array<T[keyof T]>]>;
     }
     interface StringChain {
+        /**
+         * @see _.partition
+         */
+        partition(callback: StringIterator<NotVoid>): LoDashExplicitWrapper<[string[], string[]]>;
+    }
+    interface StringNullableChain {
         /**
          * @see _.partition
          */
@@ -1502,6 +1596,12 @@ declare module "../index" {
          */
         reject(predicate?: StringIterator<boolean>): CollectionChain<string>;
     }
+    interface StringNullableChain {
+        /**
+         * @see _.reject
+         */
+        reject(predicate?: StringIterator<boolean>): CollectionChain<string>;
+    }
     interface CollectionChain<T> {
         /**
          * @see _.reject
@@ -1549,19 +1649,25 @@ declare module "../index" {
         /**
          * @see _.sample
          */
-        sample(): StringChain;
+        sample(): StringNullableChain;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.sample
+         */
+        sample(): StringNullableChain;
     }
     interface CollectionChain<T> {
         /**
          * @see _.sample
          */
-        sample(): LoDashExplicitWrapper<T | undefined>;
+        sample(): ExpChain<T | undefined>;
     }
     interface ObjectChain<T> {
         /**
          * @see _.sample
          */
-        sample(): LoDashExplicitWrapper<T[keyof T] | undefined>;
+        sample(): ExpChain<T[keyof T] | undefined>;
     }
     interface LoDashStatic {
         /**
@@ -1596,6 +1702,12 @@ declare module "../index" {
         sampleSize(n?: number): Collection<T[keyof T]>;
     }
     interface StringChain {
+        /**
+         * @see _.sampleSize
+         */
+        sampleSize(n?: number): CollectionChain<string>;
+    }
+    interface StringNullableChain {
         /**
          * @see _.sampleSize
          */
@@ -1645,6 +1757,12 @@ declare module "../index" {
         shuffle(): Collection<T[keyof T]>;
     }
     interface StringChain {
+        /**
+         * @see _.shuffle
+         */
+        shuffle(): CollectionChain<string>;
+    }
+    interface StringNullableChain {
         /**
          * @see _.shuffle
          */
