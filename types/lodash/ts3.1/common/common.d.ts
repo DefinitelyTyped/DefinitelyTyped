@@ -90,7 +90,7 @@ declare module "../index" {
         * toString, toUpper, trim, trimEnd, trimStart, truncate, unescape, uniqueId, upperCase,
         * upperFirst, value, and words.
         **/
-        <TrapAny extends { __trapAny: any }>(value: TrapAny): Collection<any>;
+        <TrapAny extends { __trapAny: any }>(value: TrapAny): Collection<any> & Function<any> & Object<any> & Primitive<any> & String;
         <T extends null | undefined>(value: T): Primitive<T>;
         (value: string | null | undefined): String;
         <T extends (...args: any) => any>(value: T): Function<T>;
@@ -179,9 +179,9 @@ declare module "../index" {
         unshift(...items: T[]): this;
     }
     interface CollectionChain<T> {
-        pop(): LoDashExplicitWrapper<T | undefined>;
+        pop(): ExpChain<T | undefined>;
         push(...items: T[]): this;
-        shift(): LoDashExplicitWrapper<T | undefined>;
+        shift(): ExpChain<T | undefined>;
         sort(compareFn?: (a: T, b: T) => number): this;
         splice(start: number, deleteCount?: number, ...items: T[]): this;
         unshift(...items: T[]): this;
