@@ -63,7 +63,7 @@ declare module "pdfmake/build/pdfmake" {
         | 'RA2'
         | 'RA3'
         | 'RA4'
-        | 'SRA1
+        | 'SRA1'
         | 'SRA2'
         | 'SRA3'
         | 'SRA4'
