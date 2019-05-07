@@ -96,10 +96,10 @@ interface NonDeepMutableExtendedUser {
 {
     const array: Immutable.Immutable<User[]> = Immutable.from([ { firstName: 'Angry', lastName: 'Monkey' } ]);
 
-    // note that Immutable.Immutable<User> is assignable to User so this isn't a perfect test
     const immutableElement: Immutable.Immutable<User> = array[0];
+    // $ExpectError
+    immutableElement.firstName = 'Krusty';
 
-    // note that Immutable.Immutable<User> is assignable to User so these first two aren't a perfect test
     const asMutableDefault: Array<Immutable.Immutable<User>> = array.asMutable();
     // Can't mutate beyond 1 level deep (in this case only the array itself is mutable, not the items)
     // $ExpectError
@@ -110,7 +110,7 @@ interface NonDeepMutableExtendedUser {
     // $ExpectError
     asMutableNotDeep[0].firstName = 'Krusty';
 
-    // _Can_ mutate beyond 1 level deep (in this case only the array itself is mutable, not the items)
+    // Can mutate at any depth
     const asMutableDeep: User[] = array.asMutable({ deep: true });
     asMutableDeep[0].firstName = 'Krusty';
 
@@ -244,7 +244,7 @@ interface NonDeepMutableExtendedUser {
     // $ExpectError
     mutableUser22.address.line1 = 'Example';
 
-    // Can mutate _beyond_ 1 level deep
+    // Can mutate at any depth
     const mutableUser23: ExtendedUser = immutableUserEx.asMutable({ deep: true });
     mutableUser23.firstName = 'Krusty';
     mutableUser23.address.line1 = 'Example';
