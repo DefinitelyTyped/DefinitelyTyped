@@ -36204,7 +36204,7 @@ declare namespace Excel {
         readonly replies: Excel.CommentReplyCollection;
         /**
          *
-         * Gets the author's email of the comment.
+         * Gets the email of the comment's author.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36212,7 +36212,7 @@ declare namespace Excel {
         readonly authorEmail: string;
         /**
          *
-         * Gets the author's name of the comment.
+         * Gets the name of the comment's author.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36266,7 +36266,7 @@ declare namespace Excel {
         delete(): void;
         /**
          *
-         * Get location of the comment.
+         * Gets the cell where this comment is located.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36397,7 +36397,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Gets the author's  email of the comment reply.
+         * Gets the email of the comment reply's author.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36405,7 +36405,7 @@ declare namespace Excel {
         readonly authorEmail: string;
         /**
          *
-         * Gets the author's  name of the comment reply.
+         * Gets the name of the comment reply's author.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36459,7 +36459,7 @@ declare namespace Excel {
         delete(): void;
         /**
          *
-         * Get location of the comment reply.
+         * Gets the cell where this comment reply is located.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36467,7 +36467,7 @@ declare namespace Excel {
         getLocation(): Excel.Range;
         /**
          *
-         * Get its parent comment of this reply.
+         * Gets the parent comment of this reply.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
