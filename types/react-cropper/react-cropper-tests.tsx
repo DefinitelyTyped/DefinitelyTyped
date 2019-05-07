@@ -37,5 +37,5 @@ function testCropperRef() {
         }}
     />;
 
-    const refIsOptional = <Cropper />
+    const refIsOptional = <Cropper />;
 }
