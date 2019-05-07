@@ -912,6 +912,26 @@ declare namespace Showdown {
     interface Converter {
 
         /**
+         * Listen to an event.
+         *
+         * @param name - The event name.
+         * @param callback - The function that will be called when the event occurs.
+         * @throws Throws if the type of `name` is not string.
+         * @throws Throws if the type of `callback` is not function.
+         * @example
+         * ```ts
+         * let converter: Converter = new Converter();
+         * converter
+         *   .listen('hashBlock.before', (evtName, text, converter, options, globals) => {
+         *     // ... do stuff to text ...
+         *     return text;
+         *   })
+         *   .makeHtml('...');
+         * ```
+         */
+        listen(name: string, callback: EventListener): Converter;
+
+        /**
          * Converts a markdown string into HTML string.
          * 
          * @param text - The input text (markdown).
@@ -931,21 +951,23 @@ declare namespace Showdown {
         /**
          * Setting a "local" option only affects the specified Converter object.
          *
-         * @param key - the key of the option.
-         * @param value - the value of the option.
+         * @param key - The key of the option.
+         * @param value - The value of the option.
          */
         setOption(key: string, value: any): void;
 
         /**
          * Get the option of this Converter instance.
          *
-         * @param key - the key of the option.
+         * @param key - The key of the option.
          * @returns Returns the value of the given `key`.
          */
         getOption(key: string): any;
 
         /**
          * Get the options of this Converter instance.
+         * 
+         * @returns Returns the current convertor options object.
          */
         getOptions(): ShowdownOptions;
 

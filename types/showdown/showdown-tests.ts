@@ -83,6 +83,7 @@ configuredConverter.addExtension([combinedExt]);
 configuredConverter.addExtension(() => markdownToShowdownExt);
 configuredConverter.removeExtension(combinedExt);
 configuredConverter.addExtension(() => [listenToCodeBlocksExt, combinedExt]);
+configuredConverter.listen('unescapeSpecialChars.after', (evtName, text) => `"${ text }"`);
 
 showdown.extension('myExt', function () {
   var matches: string[] = [];
