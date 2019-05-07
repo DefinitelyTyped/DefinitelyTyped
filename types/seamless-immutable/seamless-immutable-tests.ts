@@ -101,8 +101,18 @@ interface NonDeepMutableExtendedUser {
 
     // note that Immutable.Immutable<User> is assignable to User so these first two aren't a perfect test
     const asMutableDefault: Array<Immutable.Immutable<User>> = array.asMutable();
+    // Can't mutate beyond 1 level deep (in this case only the array itself is mutable, not the items)
+    // $ExpectError
+    asMutableDefault[0].firstName = 'Krusty';
+
     const asMutableNotDeep: Array<Immutable.Immutable<User>> = array.asMutable({ deep: false });
+    // Can't mutate beyond 1 level deep (in this case only the array itself is mutable, not the items)
+    // $ExpectError
+    asMutableNotDeep[0].firstName = 'Krusty';
+
+    // _Can_ mutate beyond 1 level deep (in this case only the array itself is mutable, not the items)
     const asMutableDeep: User[] = array.asMutable({ deep: true });
+    asMutableDeep[0].firstName = 'Krusty';
 
     const opaqueMutableParam = { deep: true };
     const asMutableOpaque: Array<User | Immutable.Immutable<User>> = array.asMutable(opaqueMutableParam);
@@ -222,9 +232,22 @@ interface NonDeepMutableExtendedUser {
     const updatedUser12: Immutable.Immutable<ExtendedUser> = immutableUserEx.setIn([ data.propertyId, 'line1' ], 'Small house');
 
     // asMutable
-    const mutableUser21: NonDeepMutableExtendedUser = immutableUserEx.asMutable();
-    const mutableUser22: NonDeepMutableExtendedUser = immutableUserEx.asMutable({ deep: false });
+    // Can't mutate beyond 1 level deep
+    const mutableUser21 = immutableUserEx.asMutable();
+    mutableUser21.firstName = 'Krusty';
+    // $ExpectError
+    mutableUser21.address.line1 = 'Example';
+
+    // Can't mutate beyond 1 level deep
+    const mutableUser22 = immutableUserEx.asMutable({ deep: false });
+    mutableUser22.firstName = 'Krusty';
+    // $ExpectError
+    mutableUser22.address.line1 = 'Example';
+
+    // Can mutate _beyond_ 1 level deep
     const mutableUser23: ExtendedUser = immutableUserEx.asMutable({ deep: true });
+    mutableUser23.firstName = 'Krusty';
+    mutableUser23.address.line1 = 'Example';
 
     const opaqueMutableParam = { deep: true }; // treats as { deep: boolean }
     const mutableUser24: ExtendedUser | NonDeepMutableExtendedUser = immutableUserEx.asMutable(opaqueMutableParam);
