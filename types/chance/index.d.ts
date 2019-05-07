@@ -194,6 +194,7 @@ declare namespace Chance {
     interface WordOptions {
         length: number;
         syllables: number;
+        capitalize: boolean;
     }
 
     interface StringOptions {

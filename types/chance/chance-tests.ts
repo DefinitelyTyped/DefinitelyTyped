@@ -95,9 +95,10 @@ const languages: string[] = chance.locales();
 const regions: string[] = chance.locales({region: true});
 
 let word: string = chance.word();
-word = chance.word({syllables: 10, length: 10});
+word = chance.word({syllables: 10, length: 10, capitalize: true});
 word = chance.word({syllables: 10});
 word = chance.word({length: 10});
+word = chance.word({capitalize: true});
 
 let randomString: string = chance.string();
 randomString = chance.string({pool: 'abcdef', length: 10});
