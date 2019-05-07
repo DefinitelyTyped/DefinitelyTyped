@@ -12,6 +12,7 @@
 //                 Sara F-P <https://github.com/gretzky>
 //                 Chris LoPresto <https://github.com/chrislopresto>
 //                 Pedro Duarte <https://github.com/peduarte>
+//                 Dhalton Huber <https://github.com/Dhalton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

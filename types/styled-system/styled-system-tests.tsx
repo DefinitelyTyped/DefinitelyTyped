@@ -40,6 +40,7 @@ import {
     ColorProps,
     colorStyle,
     ColorStyleProps,
+    compose,
     display,
     DisplayProps,
     flex,
@@ -78,6 +79,7 @@ import {
     GridTemplateRowsProps,
     height,
     HeightProps,
+    is,
     justifyContent,
     JustifyContentProps,
     justifyItems,
@@ -90,8 +92,13 @@ import {
     LetterSpacingProps,
     lineHeight,
     LineHeightProps,
+    mapProps,
     margin,
+    marginBottom,
+    marginLeft,
     MarginProps,
+    marginRight,
+    marginTop,
     maxHeight,
     MaxHeightProps,
     maxWidth,
@@ -655,6 +662,24 @@ export const themeC: Theme = {
         medium: '14px',
     },
 };
+
+// Test that the mapProps definition is correct.
+// https://github.com/styled-system/styled-system/blob/master/src/index.js#L262
+const margins = mapProps(props => ({
+    ...props,
+    mt: is(props.my) ? props.my : props.mt,
+    mb: is(props.my) ? props.my : props.mb,
+    ml: is(props.mx) ? props.mx : props.ml,
+    mr: is(props.mx) ? props.mx : props.mr,
+}))(
+    compose(
+      margin,
+      marginTop,
+      marginBottom,
+      marginLeft,
+      marginRight
+    )
+  );
 
 // All Style Functions contain `propTypes`
 export const alignContentPropTypes = alignContent.propTypes;
