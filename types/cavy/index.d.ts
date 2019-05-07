@@ -1,4 +1,4 @@
-// Type definitions for cavy 0.6
+// Type definitions for cavy 2.0
 // Project: https://github.com/pixielabs/cavy
 // Definitions by: Tyler Hoffman <https://github.com/tyler-hoffman>
 //                 Abigail McPhillips <https://github.com/AbigailMcP>
@@ -17,7 +17,7 @@ export type WithTestHook<T extends {}> = T & { generateTestHook: TestHookGenerat
 
 export function hook<T extends {}>(component: React.ComponentClass<WithTestHook<T>>): React.ComponentClass<T>;
 
-export function useCavy<T extends {}>(): TestHookGenerator;
+export function useCavy(): TestHookGenerator;
 
 export interface TesterProps {
     specs: Array<(spec: TestScope) => void>;

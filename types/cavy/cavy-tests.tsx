@@ -24,12 +24,12 @@ const SampleFunctionComponent: React.FunctionComponent = () => {
   const generateTestHook = useCavy();
   return (
     <View ref={generateTestHook(`FunctionView.Sample`)}></View>
-  )
-}
+  );
+};
 
 function sampleSpec(spec: TestScope) {
   spec.describe('it has a name and callback', () => {
-    spec.beforeEach(function() {});
+    spec.beforeEach(() => {});
 
     spec.it('it has a name and callback', async () => {
       spec.component.reRender(); // $ExpectType void
