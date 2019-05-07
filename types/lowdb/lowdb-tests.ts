@@ -27,10 +27,10 @@ db.get("posts")
   .write();
 
 low(adapterAsync).then(dbAsync => {
-  const writeAction: Promise<Post> = dbAsync
+    const writeAction: Promise<Post> = (dbAsync
     .get("posts")
     .push({ title: "async hello" })
-    .last()
+    .last() as _.ObjectChain<Post>)
     .assign({ id: Date.now().toString() })
     .write();
 
@@ -44,9 +44,9 @@ low(adapterAsync).then(dbAsync => {
     .find({})
     .value();
 
-  const tuple: ArrayLike<boolean | number> & Promise<ArrayLike<boolean | number>> = dbAsync
+  const tuple: ArrayLike<boolean | number> & Promise<ArrayLike<boolean | number>> = (dbAsync
     .get("posts")
-    .first()
+    .first() as _.ObjectChain<Post>)
     .get("tuple")
     .write();
 });
