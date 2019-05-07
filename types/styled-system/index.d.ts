@@ -39,9 +39,9 @@ export interface styleFn {
 export interface LowLevelStylefunctionArguments {
     prop: string;
     cssProperty?: string;
+    alias?: string;
     key?: string;
-    getter?: () => any;
-    transformValue?: (n: string | number) => any;
+    transformValue?: (n: string | number, scale: Array<string | number>) => any;
     scale?: Array<string | number>;
 }
 
