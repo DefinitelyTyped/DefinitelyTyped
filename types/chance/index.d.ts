@@ -97,8 +97,8 @@ declare namespace Chance {
         depth(opts?: Options): number;
         geohash(opts?: Options): string;
         latitude(opts?: Options): number;
-        locale(opts?: LocaleOptions): string;
-        locales(opts?: LocaleOptions): string;
+        locale(opts?: {region: true}): string;
+        locales(opts?: {region: true}): string[];
         longitude(opts?: Options): number;
         phone(opts?: Options): string;
         postal(): string;
@@ -259,10 +259,6 @@ declare namespace Chance {
         day?: number;
         min?: Date;
         max?: Date;
-    }
-
-    interface LocaleOptions {
-        region: boolean;
     }
 
     interface Month {

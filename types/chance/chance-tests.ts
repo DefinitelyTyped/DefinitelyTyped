@@ -91,8 +91,8 @@ date = chance.date({max});
 const language: string = chance.locale();
 const region: string = chance.locale({region: true});
 
-const languages: string = chance.locales();
-const regions: string = chance.locales({region: true});
+const languages: string[] = chance.locales();
+const regions: string[] = chance.locales({region: true});
 
 let word: string = chance.word();
 word = chance.word({syllables: 10, length: 10});
