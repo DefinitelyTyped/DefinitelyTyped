@@ -1780,7 +1780,8 @@ declare namespace fabric {
 		 * @param [options] Options object
 		 */
 		constructor(element: HTMLCanvasElement | string, options?: ICanvasOptions);
-
+        
+        freeDrawingBrush: BaseBrush;
 		_objects: Object[];
 		/**
 		 * Renders both the top canvas and the secondary container canvas.
