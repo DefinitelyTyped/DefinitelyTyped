@@ -16,8 +16,29 @@ var markdownToShowdownExt = {
 };
 var commaExt: showdown.FilterExtension = {type: 'output', filter: text => text.replace(',', '')};
 var myExt: showdown.ShowdownExtension = { type: 'lang', filter: (text, converter) => { return text.replace('#', '*') } };
+var someExtArray: showdown.ShowdownExtension[] = [markdownToShowdownExt, commaExt];
+var listenToCodeBlocksExt = {
+  type: 'listener',
+  listeners: {
+    "codeBlocks.before": (evtName: string) => {
+      console.log(evtName);
+    },
+    "codeBlocks.after": (evtName: string, text: string) => {
+      console.log(evtName);
+      return text;
+    }
+  }
+};
+var combinedExt = {
+  type: 'lang',
+  regex: /\s+/g,
+  replace: ' ',
+  listeners: {'paragraphs.after': console.log}
+};
 
 showdown.extension('my-ext', myExt);
+showdown.extension('listen-ext', listenToCodeBlocksExt);
+showdown.extension('combinedExt', () => [combinedExt]);
 
 var preloadedExtensions = [ 'my-ext' ],
     extensionsConverter = new showdown.Converter({ extensions: preloadedExtensions });
@@ -47,7 +68,7 @@ console.log(extensionsConverter.makeHtml(exampleMarkdown));
 // should log '<p>*hello, markdown</p>'
 
 console.log(multipleExtensionsConverter.makeHtml(exampleMarkdown));
-// should log '<h1 id="helloshowdown">Hello showdown</h1>'
+// should log '<p>*Hello showdown</p>'
 
 console.log(configuredConverter.makeHtml(exampleMarkdown));
 // should log '<span>*hello,_markdown</p>'
@@ -56,8 +77,12 @@ console.log(configuredConverter.makeHtml(exampleMarkdown));
 console.log(converter.makeMarkdown(exampleHTML));
 // should log '#hello, markdown'
 
+configuredConverter.useExtension('listen-ext');
 configuredConverter.addExtension(commaExt);
+configuredConverter.addExtension([combinedExt]);
 configuredConverter.addExtension(() => markdownToShowdownExt);
+configuredConverter.removeExtension(combinedExt);
+configuredConverter.addExtension(() => [listenToCodeBlocksExt, combinedExt]);
 
 showdown.extension('myExt', function () {
   var matches: string[] = [];
@@ -88,7 +113,7 @@ showdown.extension('myExt', function () {
 
 showdown.extension('myExt');
 showdown.removeExtension('myExt');
-showdown.extension('myExt', [commaExt,  markdownToShowdownExt]);
+showdown.extension('myExt', someExtArray);
 showdown.resetExtensions()
 showdown.extension('commaExt', () => commaExt)
 
