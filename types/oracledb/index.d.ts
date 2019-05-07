@@ -9,7 +9,7 @@
 
 import { Duplex, Readable } from 'stream';
 
-declare namespace oracledb {
+declare namespace OracleDB {
     /** Constant for the query result outFormat option. */
     const ARRAY: number;
     /** Constant for the query result outFormat option. */
@@ -2946,4 +2946,4 @@ declare namespace oracledb {
     function getPool(poolAlias?: string): Pool;
 }
 
-export = oracledb;
+export = OracleDB;
