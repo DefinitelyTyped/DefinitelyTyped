@@ -41,7 +41,7 @@ export interface ClickOutComponentClass<P> extends React.ComponentClass<P> {
 
 export type OnClickOutProps<P> = WithoutInjectedClickOutProps<P> & AdditionalProps;
 
-interface WrapperClass<P, C> {
+export interface WrapperClass<P, C> {
     new (): WrapperInstance<P, C>;
 }
 

@@ -19,6 +19,8 @@
 //                 Vinit Sood <https://github.com/vinitsood>
 //                 Mattias Sämskar <https://github.com/mattiassamskar>
 //                 Julian Hundeloh <https://github.com/jaulz>
+//                 Matevz Poljanc <https://github.com/matevzpoljanc>
+//                 Romain Faust <https://github.com/romain-faust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -717,6 +719,24 @@ export class PlaybackObject {
      * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once it is unloaded, or rejects if unloading failed. See below for details on `PlaybackStatus`.
      */
     unloadAsync(): Promise<PlaybackStatus>;
+}
+// #endregion
+
+// #region BackgroundFetch
+/**
+ * BackgroundFetch
+ */
+export namespace BackgroundFetch {
+    function getStatusAsync(): Promise<Status>;
+    function registerTaskAsync(taskName: string): Promise<void>;
+    function unregisterTaskAsync(taskName: string): Promise<void>;
+    function setMinimumIntervalAsync(minimumInterval: number): Promise<void>;
+
+    enum Status {
+        Restricted = 1,
+        Denied = 2,
+        Available = 3
+    }
 }
 // #endregion
 
@@ -2221,6 +2241,8 @@ export namespace Location {
 
     interface LocationTaskOptions {
         accuracy?: number;
+        timeInterval: number;
+        distanceInterval: number;
         showsBackgroundLocationIndicator?: boolean;
     }
 
@@ -2244,7 +2266,7 @@ export namespace Location {
     function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData[]>;
     function requestPermissionsAsync(): Promise<void>;
     function hasServicesEnabledAsync(): Promise<boolean>;
-    function startgeocodUpdatesAsync(taskName: string, options: LocationTaskOptions): Promise<void>;
+    function startLocationUpdatesAsync(taskName: string, options: LocationTaskOptions): Promise<void>;
     function stopLocationUpdatesAsync(taskName: string): Promise<void>;
     function hasStartedLocationUpdatesAsync(taskName: string): Promise<boolean>;
     function startGeofencingAsync(taskName: string, regions: Region[]): Promise<void>;
@@ -2508,21 +2530,30 @@ export namespace SecureStore {
  * Segment
  */
 export namespace Segment {
-    function initialize(keys: {
-        androidWriteKey: string;
-        iosWriteKey: string;
-    }): void;
+    interface SegmentOptions {
+        androidWriteKey?: string;
+        iosWriteKey?: string;
+    }
+
+    function initialize(options: SegmentOptions): void;
+
     function identify(userId: string): void;
     function identifyWithTraits(userId: string, traits: object): void;
-    function track(event: string): void;
-    function alias(newId: string, options?: { [key: string]: any }): Promise<boolean>;
+    function group(groupId: string): void;
+    function groupWithTraits(groupId: string, traits: object): void;
     function reset(): void;
-    function trackWithProperties(event: string, properties: object): void;
+
+    function alias(newId: string, options?: object): Promise<boolean>;
+
     function screen(screenName: string): void;
     function screenWithProperties(screenName: string, properties: object): void;
+    function track(event: string): void;
+    function trackWithProperties(event: string, properties: object): void;
+
     function flush(): void;
-    function getEnabledAsync(): void;
-    function setEnabledAsync(enabled: boolean): void;
+
+    function getEnabledAsync(): Promise<boolean>;
+    function setEnabledAsync(enabled: boolean): Promise<void>;
 }
 
 /**
@@ -2610,146 +2641,30 @@ export namespace SQLite {
 /**
  * Svg
  */
-export interface SvgCommonProps {
-    fill?: string;
-    fillOpacity?: number | string;
-    fillRule?: 'nonzero' | 'evenodd';
-    opacity?: number | string;
-    stroke?: string;
-    strokeWidth?: number | string;
-    strokeOpacity?: number | string;
-    strokeLinecap?: string;
-    strokeLinejoin?: string;
-    strokeDasharray?: any[];
-    strokeDashoffset?: any;
-    transform?: string | object;
-    x?: number | string;
-    y?: number | string;
-    rotate?: number | string;
-    rotation?: number | string;
-    scale?: number | string;
-    origin?: number | string;
-    originX?: number | string;
-    originY?: number | string;
-    id?: string;
-    disabled?: boolean;
-    onPress?: () => any;
-    onPressIn?: () => any;
-    onPressOut?: () => any;
-    onLongPress?: () => any;
-    delayPressIn?: number;
-    delayPressOut?: number;
-    delayLongPress?: number;
-}
+import * as RNSvg from 'react-native-svg';
 
-export interface SvgRectProps extends SvgCommonProps {
-    width: number | string;
-    height: number | string;
-    rx?: number | string;
-    ry?: number | string;
-}
-
-export interface SvgCircleProps extends SvgCommonProps {
-    cx: number | string;
-    cy: number | string;
-    r: number | string;
-}
-
-export interface SvgEllipseProps extends SvgCommonProps {
-    cx: number | string;
-    cy: number | string;
-    rx: number | string;
-    ry: number | string;
-}
-
-export interface SvgLineProps extends SvgCommonProps {
-    x1: number | string;
-    y1: number | string;
-    x2: number | string;
-    y2: number | string;
-}
-
-export interface SvgPolyProps extends SvgCommonProps {
-    points: string;
-}
-
-export interface SvgPathProps extends SvgCommonProps {
-    d: string;
-}
-
-export interface SvgTextProps extends SvgCommonProps {
-    textAnchor?: string;
-    fontSize?: number | string;
-    fontWeight?: string;
-}
-
-export interface SvgTSpanProps extends SvgTextProps {
-    dx?: string;
-    dy?: string;
-}
-
-export interface SvgTextPathProps extends SvgCommonProps {
-    href?: string;
-    startOffset?: string;
-}
-
-export interface SvgUseProps extends SvgCommonProps {
-    href: string;
-    x: number | string;
-    y: number | string;
-    width?: number | string;
-    height?: number | string;
-}
-
-export interface SvgSymbolProps extends SvgCommonProps {
-    viewBox: string;
-    preserveAspectRatio?: string;
-    width: number | string;
-    height: number | string;
-}
-
-export interface SvgLinearGradientProps extends SvgCommonProps {
-    x1: number | string;
-    x2: number | string;
-    y1: number | string;
-    y2: number | string;
-}
-
-export interface SvgRadialGradientProps extends SvgCommonProps {
-    cx: number | string;
-    cy: number | string;
-    rx: number | string;
-    ry: number | string;
-    fx: number | string;
-    fy: number | string;
-    gradientUnits?: string;
-}
-
-export interface SvgStopProps extends SvgCommonProps {
-    offset?: string;
-    stopColor?: string;
-    stopOpacity?: string;
-}
-
-export class Svg extends Component<{ width: number, height: number, viewBox?: string, preserveAspectRatio?: string }> {
-    static Circle: ComponentClass<SvgCircleProps>;
-    static ClipPath: ComponentClass<SvgCommonProps>;
-    static Defs: ComponentClass;
-    static Ellipse: ComponentClass<SvgEllipseProps>;
-    static G: ComponentClass<SvgCommonProps>;
-    static Line: ComponentClass<SvgLineProps>;
-    static LinearGradient: ComponentClass<SvgLinearGradientProps>;
-    static Path: ComponentClass<SvgPathProps>;
-    static Polygon: ComponentClass<SvgPolyProps>;
-    static Polyline: ComponentClass<SvgPolyProps>;
-    static RadialGradient: ComponentClass<SvgRadialGradientProps>;
-    static Rect: ComponentClass<SvgRectProps>;
-    static Stop: ComponentClass<SvgStopProps>;
-    static Symbol: ComponentClass<SvgSymbolProps>;
-    static Text: ComponentClass<SvgTextProps>;
-    static TextPath: ComponentClass<SvgTextPathProps>;
-    static TSpan: ComponentClass<SvgTSpanProps>;
-    static Use: ComponentClass<SvgUseProps>;
+export class Svg extends RNSvg.Svg {
+    static Circle: typeof RNSvg.Circle;
+    static ClipPath: typeof RNSvg.ClipPath;
+    static Defs: typeof RNSvg.Defs;
+    static Ellipse: typeof RNSvg.Ellipse;
+    static G: typeof RNSvg.G;
+    static Image: typeof RNSvg.Image;
+    static Line: typeof RNSvg.Line;
+    static LinearGradient: typeof RNSvg.LinearGradient;
+    static Mask: typeof RNSvg.Mask;
+    static Path: typeof RNSvg.Path;
+    static Pattern: typeof RNSvg.Pattern;
+    static Polygon: typeof RNSvg.Polygon;
+    static Polyline: typeof RNSvg.Polyline;
+    static RadialGradient: typeof RNSvg.RadialGradient;
+    static Rect: typeof RNSvg.Rect;
+    static Stop: typeof RNSvg.Stop;
+    static Symbol: typeof RNSvg.Symbol;
+    static Text: typeof RNSvg.Text;
+    static TextPath: typeof RNSvg.TextPath;
+    static TSpan: typeof RNSvg.TSpan;
+    static Use: typeof RNSvg.Use;
 }
 // #endregion
 

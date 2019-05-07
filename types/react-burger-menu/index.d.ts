@@ -34,7 +34,7 @@ export interface Props {
     customBurgerIcon?: JSX.Element | false;
     customCrossIcon?: JSX.Element | false;
     customOnKeyDown?(event: React.KeyboardEvent): void;
-    disableAutoFocus?: string;
+    disableAutoFocus?: boolean;
     disableCloseOnEsc?: boolean;
     disableOverlayClick?: boolean;
     htmlClassName?: string;

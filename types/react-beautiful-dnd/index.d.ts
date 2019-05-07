@@ -71,9 +71,9 @@ export interface DragStart {
 }
 
 export interface DragUpdate extends DragStart {
-    destination?: DraggableLocation | null;
+    destination?: DraggableLocation;
     // populated when a draggable is dragging over another in combine mode
-    combine?: Combine | null;
+    combine?: Combine;
 }
 
 // details of the item that is being combined with
@@ -211,3 +211,5 @@ export interface DraggableProps {
 }
 
 export class Draggable extends React.Component<DraggableProps> { }
+
+export function resetServerContext(): void;

@@ -412,7 +412,7 @@ declare namespace Chart {
         color?: ChartColor;
         borderDash?: number[];
         borderDashOffset?: number;
-        lineWidth?: number;
+        lineWidth?: number | number[];
         drawBorder?: boolean;
         drawOnChartArea?: boolean;
         drawTicks?: boolean;

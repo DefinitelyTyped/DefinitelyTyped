@@ -18,7 +18,7 @@ declare namespace YT
 	/**
 	 * State of a video player.
 	 */
-	export enum PlayerState
+	export const enum PlayerState
 	{
 		UNSTARTED = -1,
 		ENDED = 0,
@@ -31,7 +31,7 @@ declare namespace YT
 	/**
 	 * Known causes for player errors.
 	 */
-	export enum PlayerError
+	export const enum PlayerError
 	{
 		/**
 		 * The request contained an invalid parameter value.
@@ -62,7 +62,7 @@ declare namespace YT
 	/**
 	 * Whether to auto-hide video controls.
 	 */
-	export enum AutoHide
+	export const enum AutoHide
 	{
 		/**
 		 * Controls are visible throughout the video
@@ -83,7 +83,7 @@ declare namespace YT
 	/**
 	 * Whether to autoplay the video.
 	 */
-	export enum AutoPlay
+	export const enum AutoPlay
 	{
 		/**
 		 * Video does not autoplay.
@@ -99,7 +99,7 @@ declare namespace YT
 	/**
 	 * Whether to use user-preferred or forced caption loading.
 	 */
-	export enum ClosedCaptionsLoadPolicy
+	export const enum ClosedCaptionsLoadPolicy
 	{
 		/**
 		 * Defaults to the user's preferences.
@@ -120,7 +120,7 @@ declare namespace YT
 	/**
 	 * How video controls are shown.
 	 */
-	export enum Controls
+	export const enum Controls
 	{
 		/**
 		 * Player controls do not display.
@@ -141,7 +141,7 @@ declare namespace YT
 	/**
 	 * Whether to allow keyboard controls.
 	 */
-	export enum KeyboardControls
+	export const enum KeyboardControls
 	{
 		/**
 		 * Keyboard controls are enabled.
@@ -157,7 +157,7 @@ declare namespace YT
 	/**
 	 * Whether the JavaScript API should be enabled.
 	 */
-	export enum JsApi
+	export const enum JsApi
 	{
 		/**
 		 * JavaScript API will be disabled.
@@ -173,7 +173,7 @@ declare namespace YT
 	/**
 	 * Whether to display the full-screen button.
 	 */
-	export enum FullscreenButton
+	export const enum FullscreenButton
 	{
 		/**
 		 * The full screen button is hidden.
@@ -189,7 +189,7 @@ declare namespace YT
 	/**
 	 * Whether to show video annotations.
 	 */
-	export enum IvLoadPolicy
+	export const enum IvLoadPolicy
 	{
 		/**
 		 * Video annotations will be shown.
@@ -225,7 +225,7 @@ declare namespace YT
 	/**
 	 * Whether a single video should be looped.
 	 */
-	export enum Loop
+	export const enum Loop
 	{
 		/**
 		 * Video or playlist will be played only once.
@@ -241,7 +241,7 @@ declare namespace YT
 	/**
 	 * Comma separated list of video IDs to play after the URL path's video.
 	 */
-	export enum ModestBranding
+	export const enum ModestBranding
 	{
 		/**
 		 * Player will contain full YouTube branding.
@@ -253,11 +253,11 @@ declare namespace YT
 		 */
 		Modest = 1
 	}
-	
+
 	/**
 	 * Whether to playback video inline or full-screen in an HTML5 player on iOS
 	 */
-	export enum PlaysInline
+	export const enum PlaysInline
 	{
 		/**
 		 * Playback in fullscreen.
@@ -273,7 +273,7 @@ declare namespace YT
 	/**
 	 * Whether to show related videos after the video finishes.
 	 */
-	export enum RelatedVideos
+	export const enum RelatedVideos
 	{
 		/**
 		 * Hide related videos after playback is complete.
@@ -285,11 +285,11 @@ declare namespace YT
 		 */
 		Show = 1
 	}
-	
+
 	/**
 	 * Whether to show video information before playing.
 	 */
-	export enum ShowInfo
+	export const enum ShowInfo
 	{
 		/**
 		 * Hide video title and uploader before video starts playing.
@@ -542,7 +542,7 @@ declare namespace YT
 		 * Comma separated list of video IDs to play after the URL path's video.
 		 */
 		playlist?: string;
-		
+
 		/**
 		 * Whether videos play inline or fullscreen in an HTML5 player on iOS. (currently by default, Fullscreen).
 		 */

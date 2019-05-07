@@ -161,3 +161,45 @@ uri.search(true) === "?hello=mars&foo=bar"
 uri.search("?hello=world&hello=mars&foo=bar&mine=true");
 uri.removeSearch(["hello", "foo"]);
 uri.search(true) === "?mine=true"
+
+/*
+Tests for is()
+From: https://medialize.github.io/URI.js/docs.html#is
+*/
+var uri = new URI("?hello=world&hello=mars&foo=bar");
+uri.is("relative") === true;
+uri.is("absolute") === false;
+uri.is("urn") === false;
+uri.is("url") === true;
+uri.is("domain") === false;
+uri.is("name") === false;
+uri.is("sld") === false;
+uri.is("idn") === false;
+uri.is("punycode") === false;
+uri.is("ip") === false;
+uri.is("ip4") === false;
+uri.is("ipv4") === false;
+uri.is("inet4") === false;
+uri.is("ip6") === false;
+uri.is("ipv6") === false;
+uri.is("inet6") === false;
+
+/*
+Tests for URI.build()
+From: https://medialize.github.io/URI.js/docs.html#static-build
+*/
+URI.build({
+    protocol: 'mailto',
+    path: 'mail@example.org',
+    urn: true
+}) === 'mailto:mail@example.org'
+
+/*
+Tests for URI.parse()
+From: https://medialize.github.io/URI.js/docs.html#static-parse
+*/
+var parts = URI.parse('mailto:mail@example.org');
+parts.path === "mail@example.org";
+parts.preventInvalidHostname = false;
+parts.protocol === "mailto";
+parts.urn === true;

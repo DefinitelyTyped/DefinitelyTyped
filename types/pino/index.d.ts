@@ -280,6 +280,10 @@ declare namespace P {
          * Specify a search pattern according to {@link http://jmespath.org|jmespath}
          */
         search?: string;
+        /**
+         * Ignore one or several keys. Example: "time,hostname"
+         */
+        ignore?: string;
     }
 
     type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
