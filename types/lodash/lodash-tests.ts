@@ -3519,6 +3519,17 @@ fp.now(); // $ExpectType number
 
 // _.negate
 {
+    const fnWithRestParameters: (...args: number[]) => boolean = anything;
+    // Ideally these would capture all parameters, but it's not easily done
+    // without generic rest parameters, which requires TS 3.0, which these types
+    // don't currently support.
+    // Note: these tests should be tested without `strictFunctionTypes`, as
+    // overload behaviour differs in that case.
+    _.negate(fnWithRestParameters); // $ExpectType (a1: number) => boolean
+    _(fnWithRestParameters).negate(); // $ExpectType LoDashImplicitWrapper<(a1: number) => boolean>
+    _.chain(fnWithRestParameters).negate(); // $ExpectType LoDashExplicitWrapper<(a1: number) => boolean>
+    fp.negate(fnWithRestParameters); // $ExpectType (a1: number) => boolean
+
     _.negate((a1: number, a2: number): boolean => true); // $ExpectType (a1: number, a2: number) => boolean
     _((a1: number, a2: number): boolean => true).negate(); // $ExpectType LoDashImplicitWrapper<(a1: number, a2: number) => boolean>
     _.chain((a1: number, a2: number): boolean => true).negate(); // $ExpectType LoDashExplicitWrapper<(a1: number, a2: number) => boolean>
