@@ -4966,7 +4966,7 @@ export interface MapViewProps extends ViewProps {
      * Static value. Use 'region' instead to control state.
      */
     initialRegion?: MapViewRegion;
-    
+  
     /**
      * When this property is set to true and a valid camera is associated with the map,
      * the camera’s heading angle is used to rotate the plane of the map around its center point.
