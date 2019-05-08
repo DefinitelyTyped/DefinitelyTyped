@@ -13,6 +13,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+declare module "fabric" {
+    export = fabric;
+}
+
 declare namespace fabric {
 
 	export const isLikelyNode: boolean;
