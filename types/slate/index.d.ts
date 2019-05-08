@@ -39,6 +39,9 @@ export interface Rules {
     first?: ObjectAndType | ObjectAndType[];
     isVoid?: boolean;
     last?: ObjectAndType | ObjectAndType[];
+    marks?: Array<{
+        type: string | ((type: string) => boolean)
+    }>;
     nodes?: Array<{
         min?: number;
         max?: number;

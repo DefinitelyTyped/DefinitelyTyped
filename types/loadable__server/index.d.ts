@@ -1,4 +1,4 @@
-// Type definitions for @loadable/server 5.8
+// Type definitions for @loadable/server 5.9
 // Project: https://github.com/smooth-code/loadable-components
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Luis Herranz <https://github.com/luisherranz>
@@ -16,6 +16,10 @@ export type ChunkExtractorOptions = {
 	 * Optional output path (only for `requireEntrypoint`)
 	 */
 	outputPath?: string;
+  /**
+   * Optional namespace in case of multiple apps on same page
+   */
+  namespace?: string;
 } & ({
 	/**
 	 * Stats file path generated using `@loadable/webpack-plugin`

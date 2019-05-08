@@ -3581,8 +3581,12 @@ export class Object {
      */
     _getTransformedDimensions(skewX?: number, skewY?: number): { x: number, y: number };
 
+    /**
+     * @private
+     * @param {CanvasRenderingContext2D} ctx Context to render on
+     */
+    _renderFill(ctx: CanvasRenderingContext2D): void;
 	/**
-	 *
 	 * @param ctx
 	 * @private
 	 */
@@ -3882,6 +3886,12 @@ interface TextOptions extends IObjectOptions {
 	 * @type Array
 	 */
 	stateProperties?: string[];
+    /**
+     * @private
+     * Contains characters bounding boxes for each line and char
+     * @type Array of char grapheme bounding boxes
+     */
+    __charBounds?: Array<Array<{ width: number, left: number, height: number, kernedWidth: number, deltaY: number }>>,
 }
 export interface Text extends TextOptions { }
 export class Text extends Object {
@@ -3903,6 +3913,13 @@ export class Text extends Object {
      * @type RegExp
      */
     _reSpacesAndTabs: RegExp;
+    /**
+     * Use this regular expression to filter for whitespace that is not a new line.
+     * Mostly used when text is 'justify' aligned.
+     * @private
+     * @type RegExp
+     */
+    _reSpaceAndTab: RegExp;
     /**
      * List of line heights
      * @private
@@ -4118,6 +4135,29 @@ export class Text extends Object {
      * @return {Object} style object
      */
     _getStyleDeclaration(lineIndex: number, charIndex: number): any;
+    /**
+     * measure and return the width of a single character.
+     * possibly overridden to accommodate different measure logic or
+     * to hook some external lib for character measurement
+     * @private
+     * @param {String} char to be measured
+     * @param {Object} charStyle style of char to be measured
+     * @param {String} [previousChar] previous char
+     * @param {Object} [prevCharStyle] style of previous char
+     * @return {Object} object contained char width anf kerned width
+     */
+    _measureChar(_char: string, charStyle: any, previousChar: string, prevCharStyle: any): { width: number, kernedWidth: number };
+    /**
+     * @private
+     * @param {String} method
+     * @param {CanvasRenderingContext2D} ctx Context to render on
+     * @param {String} line Content of the line
+     * @param {Number} left
+     * @param {Number} top
+     * @param {Number} lineIndex
+     * @param {Number} charOffset
+     */
+    _renderChars(method: string, ctx: CanvasRenderingContext2D, line: string, left: number, top: number, lineIndex: number): void;
 }
 interface ITextOptions extends TextOptions {
 	/**
@@ -4571,6 +4611,15 @@ export class IText extends Text {
      * @private
      */
     _updateTextarea(): void;
+    /**
+     * Default event handler for the basic functionalities needed on _mouseDown
+     * can be overridden to do something different.
+     * Scope of this implementation is: find the click position, set selectionStart
+     * find selectionEnd, initialize the drawing of either cursor or selection area
+     * @private
+     * @param {Object} Options (seems to have an event `e` parameter
+     */
+    _mouseDownHandler(options: any): void;
 }
 interface ITextboxOptions extends ITextOptions {
 	/**
@@ -4601,6 +4650,11 @@ interface ITextboxOptions extends ITextOptions {
 	 * @since 2.6.0
 	 */
 	splitByGrapheme?: boolean;
+    /**
+     * Is the text wrapping
+     * @type Boolean
+     */
+    isWrapping?: boolean;
 }
 export interface Textbox extends ITextboxOptions{}
 export class Textbox extends IText {
@@ -4650,6 +4704,26 @@ export class Textbox extends IText {
      * @returns {number}
      */
     _measureWord(word: string[], lineIndex: number, charOffset: number): number;
+    /**
+     * Wraps text using the 'width' property of Textbox. First this function
+     * splits text on newlines, so we preserve newlines entered by the user.
+     * Then it wraps each line using the width of the Textbox by calling
+     * _wrapLine().
+     * @param {Array} lines The string array of text that is split into lines
+     * @param {Number} desiredWidth width you want to wrap to
+     * @returns {Array} Array of lines
+     */
+    _wrapText(lines: string[], desiredWidth: number): string[];
+    /**
+     * Style objects for each line
+     * Generate an object that translates the style object so that it is
+     * broken up by visual lines (new lines and automatic wrapping).
+     * The original text styles object is broken up by actual lines (new lines only),
+     * which is only sufficient for Text / IText
+     * @private
+     * @type {Array} Line style { line: number, offset: number }
+     */
+    _styleMap?: Array<{ line: number, offset: number }>;
 	/**
 	 * Returns fabric.Textbox instance from an object representation
 	 * @static

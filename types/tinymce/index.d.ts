@@ -3,6 +3,7 @@
 // Definitions by: Martin Duparc <https://github.com/martinduparc>
 //                 Poul Poulsen <https://github.com/ipoul>
 //                 Nico Hartto <https://github.com/nicohartto>
+//                 Ashley Workman <https://github.com/CymruKakashi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -53,6 +54,10 @@ export function trim(s: string): string;
 export function walk(o: {}, f: () => void, n?: string, s?: string): void;
 
 export function init(settings: Settings): void;
+
+export function triggerSave(): void;
+
+export function get(id: string | number): Editor;
 
 export interface Settings {
   table_toolbar?: string;
@@ -320,6 +325,20 @@ export interface Settings {
   imagetools_toolbar?: string;
 
   imagetools_api_key?: string;
+
+  spellchecker_rpc_url?: string;
+
+  spellchecker_language?: string;
+
+  spellchecker_languages?: string;
+
+  spellchecker_dialog?: boolean;
+
+  spellchecker_whitelist?: string[];
+
+  spellchecker_on_load?: boolean;
+
+  spellchecker_active?: boolean;
 }
 
 export namespace settings {

@@ -648,6 +648,10 @@ declare module "./index" {
             iteratees?: _.Many<_.ObjectIteratee<T>>,
             orders?: _.Many<boolean|"asc"|"desc">
         ): LoDashExplicitSyncWrapper<Array<T[keyof T]>>;
+        partition<T, U extends T>(
+            this: LoDashExplicitSyncWrapper<_.List<T> | null | undefined>,
+            callback: _.ValueIteratorTypeGuard<T, U>
+        ): LoDashExplicitSyncWrapper<[U[], Array<Exclude<T, U>>]>;
         partition<T>(
             this: LoDashExplicitSyncWrapper<_.List<T> | null | undefined>,
             callback: _.ValueIteratee<T>
@@ -2244,6 +2248,10 @@ declare module "./index" {
             iteratees?: _.Many<_.ObjectIteratee<T>>,
             orders?: _.Many<boolean|"asc"|"desc">
         ): LoDashExplicitAsyncWrapper<Array<T[keyof T]>>;
+        partition<T, U extends T>(
+            this: LoDashExplicitAsyncWrapper<_.List<T> | null | undefined>,
+            callback: _.ValueIteratorTypeGuard<T, U>
+        ): LoDashExplicitAsyncWrapper<[U[], Array<Exclude<T, U>>]>;
         partition<T>(
             this: LoDashExplicitAsyncWrapper<_.List<T> | null | undefined>,
             callback: _.ValueIteratee<T>

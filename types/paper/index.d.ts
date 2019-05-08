@@ -3033,14 +3033,14 @@ declare module paper {
          * @param location - the curve location at which to divide the existing curve by inserting a new segment
          * @returns the newly inserted segment if the location is valid, {code null} otherwise
          */
-        divideAt(location: CurveLocation): Path;
+        divideAt(location: CurveLocation): Segment;
 
         /**
          * Divides the path on the curve at the given offset into two curves, by inserting a new segment at the given location.
          * @param offset - the offset at which to divide the existing curve by inserting a new segment
          * @returns the newly inserted segment if the location is valid, {code null} otherwise
          */
-        divideAt(offset: number): Path;
+        divideAt(offset: number): Segment;
 
         /**
          * Splits the path at the given offset. After splitting, the path will be open. If the path was open already, splitting will result in two paths.
