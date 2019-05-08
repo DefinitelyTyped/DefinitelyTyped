@@ -6661,12 +6661,12 @@ fp.now(); // $ExpectType number
     _.iteratee(["a", 42]); // $ExpectType (...args: any[]) => any
 
     _((a: AbcObject): boolean => anything).iteratee(); // $ExpectType Function<(a: AbcObject) => boolean>
-    _("a").iteratee(); // $ExpectType Function<(o: object) => boolean>
+    _("a").iteratee(); // $ExpectType Function<(o: object) => any>
     _({ a: 42 }).iteratee(); // $ExpectType Function<(o: { a: number; }) => boolean>
     _(["a", 42]).iteratee(); // $ExpectType Function<(o: object) => boolean>
 
     _.chain((a: AbcObject): boolean => anything).iteratee(); // $ExpectType FunctionChain<(a: AbcObject) => boolean>
-    _.chain("a").iteratee(); // $ExpectType FunctionChain<(o: object) => boolean>
+    _.chain("a").iteratee(); // $ExpectType FunctionChain<(o: object) => any>
     _.chain({ a: 42 }).iteratee(); // $ExpectType FunctionChain<(o: { a: number; }) => boolean>
     _.chain(["a", 42]).iteratee(); // $ExpectType FunctionChain<(o: object) => boolean>
 
