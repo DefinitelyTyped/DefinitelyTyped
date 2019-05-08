@@ -226,6 +226,7 @@ stripe.charges.markAsFraudulent('ch_15fvyXEe31JkLCeQOo0SwFk9').then((refunds) =>
 // ##################################################################################
 
 stripe.customers.create({
+    name: 'John Doe',
     description: 'Customer for test@example.com',
     source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
     metadata: { test: "123", test2: 123 } // IOptionsMetadata test
@@ -260,8 +261,16 @@ stripe.customers.create({
     customer.subscriptions.del("sub_8Eluur5KoIKxuy").then((subscription) => { });
     customer.subscriptions.deleteDiscount("sub_8Eluur5KoIKxuy").then((confirmation) => { });
 
-    // IMetadata tests:
     const str = '123';
+    // IAddress tests:
+    customer.address.line1 === str;
+    customer.address.line2 === str;
+    customer.address.city === str;
+    customer.address.postal_code === str;
+    customer.address.state === str;
+    customer.address.country === str;
+
+    // IMetadata tests:
     customer.metadata["test"] === str;
     customer.metadata.test1 === str;
 
@@ -282,6 +291,27 @@ stripe.customers.create({
     };
     metadata = {};
     metadata = null;
+});
+
+// With address
+stripe.customers.create({
+    name: 'John Doe',
+    address: {
+        line1: '96 Road Drive',
+        country: 'United Kingdom'
+    }
+}, (err, customer) => {
+    // asynchronously called
+});
+stripe.customers.create({
+    name: 'John Doe',
+    address: {
+        line1: '96 Road Drive',
+        line2: 'Something',
+        city: 'London'
+    }
+}, (err, customer) => {
+    // asynchronously called
 });
 
 stripe.customers.create({
@@ -330,10 +360,14 @@ stripe.customers.retrieve("cus_5rfJKDJkuxzh5Q").then((customer) => {
 });
 
 stripe.customers.update("cus_5rfJKDJkuxzh5Q", {
-    description: "Customer for test@example.com"
+    name: 'John Doe',
+    description: "Customer for test@example.com",
+    address: {
+        line1: '2 New Road',
+    }
 }, (err, customer) => {
     // asynchronously called
-    });
+});
 stripe.customers.update("cus_5rfJKDJkuxzh5Q", {
     description: "Customer for test@example.com"
 }).then((customer) => {
