@@ -16,7 +16,7 @@ capacitor
 
 // read data from the very beginning
 setTimeout(() => {
-  capacitor.createReadStream().pipe(/* elsewhere */);
+  capacitor.createReadStream() /* .pipe(...elsewhere...) */;
 
   // you can destroy a capacitor as soon as no more read streams are needed
   // without worrying if existing streams are fully consumed
