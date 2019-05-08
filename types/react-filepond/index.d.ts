@@ -88,11 +88,11 @@ interface ServerUrl {
 interface FilePondServerConfigProps {
     instantUpload?: boolean;
     server?: string | {
-        process: string | ServerUrl;
-        revert: string | ServerUrl;
-        restore: string | ServerUrl;
-        load: string | ServerUrl;
-        fetch: string | ServerUrl;
+        process?: string | ServerUrl;
+        revert?: string | ServerUrl;
+        restore?: string | ServerUrl;
+        load?: string | ServerUrl;
+        fetch?: string | ServerUrl;
     };
 }
 
