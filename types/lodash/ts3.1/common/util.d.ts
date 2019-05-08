@@ -448,7 +448,7 @@ declare module "../index" {
         /**
          * @see _.iteratee
          */
-        iteratee(): Function<(o: object) => boolean>;
+        iteratee(): Function<(o: object) => any>;
     }
     interface FunctionChain<T extends (...args: any) => any> {
         /**
@@ -472,13 +472,13 @@ declare module "../index" {
         /**
          * @see _.iteratee
          */
-        iteratee(): FunctionChain<(o: object) => boolean>;
+        iteratee(): FunctionChain<(o: object) => any>;
     }
     interface StringNullableChain {
         /**
          * @see _.iteratee
          */
-        iteratee(): FunctionChain<(o: object) => boolean>;
+        iteratee(): FunctionChain<(o: object) => any>;
     }
 
     interface LoDashStatic {
