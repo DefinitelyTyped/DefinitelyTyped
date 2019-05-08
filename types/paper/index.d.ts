@@ -1390,7 +1390,9 @@ declare module paper {
         /**
          * The path style of the item.
          */
-        style: Style;
+        style: Partial<Style>;
+        getStyle(): Style;
+        setStyle(value: Partial<Style>): void;
 
         /**
          * Specifies whether the item is locked. When set to true, item interactions with the mouse are disabled.
@@ -1551,6 +1553,8 @@ declare module paper {
          * The color of the stroke.
          */
         strokeColor: Color | string | null;
+        getStrokeColor(): Color;
+        setStrokeColor(value: Color | string | null): void;
 
         /**
          * The width of the stroke.
@@ -1599,6 +1603,8 @@ declare module paper {
          * The fill color of the item.
          */
         fillColor: Color | string | null;
+        getFillColor(): Color;
+        setFillColor(value: Color | string | null): void;
 
         /**
          * The fill-rule with which the shape gets filled. Please note that only modern browsers support fill-rules other than 'nonzero'.
@@ -1611,6 +1617,8 @@ declare module paper {
          * The shadow color.
          */
         shadowColor: Color | string | null;
+        getShadowColor(): Color;
+        setShadowColor(value: Color | string | null): void;
 
         /**
          * The shadow’s blur radius.
@@ -1628,6 +1636,8 @@ declare module paper {
          * The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.
          */
         selectedColor: Color | string;
+        getSelectedColor(): Color;
+        setSelectedColor(value: Color | string): void;
 
         /**
          * Item level handler function to be called on each frame of an animation.
@@ -4092,7 +4102,9 @@ declare module paper {
         /**
          * The currently active path style. All selected items and newly created items will be styled with this style.
          */
-        currentStyle: Style;
+        currentStyle: Partial<Style>;
+        getCurrentStyle(): Style;
+        setCurrentStyle(value: Partial<Style>): void;
 
         /**
          * The index of the project in the paperScope.projects list.
@@ -4309,121 +4321,129 @@ declare module paper {
          * The view that this style belongs to.
          * Read only.
          */
-        readonly view?: View;
+        readonly view: View;
 
         /**
          * The color of the stroke.
          */
-        strokeColor?: Color | string;
+        strokeColor: Color | string | null;
+        getStrokeColor(): Color;
+        setStrokeColor(value: Color | string | null): void;
 
         /**
          * The width of the stroke.
          * Default: 1
          */
-        strokeWidth?: number;
+        strokeWidth: number;
 
         /**
          * The shape to be used at the beginning and end of open Path items, when they have a stroke.
          * Values: 'round', 'square', 'butt'
          * Default: 'butt'
          */
-        strokeCap?: string;
+        strokeCap: string;
 
         /**
          * The shape to be used at the segments and corners of Path items when they have a stroke.
          * Values: 'miter', 'round', 'bevel'
          * Default: 'miter'
          */
-        strokeJoin?: string;
+        strokeJoin: string;
 
         /**
          * Specifies whether the stroke is to be drawn taking the current affine transformation into account (the default behavior), or whether it should appear as a non-scaling stroke.
          * Default: true
          */
-        strokeScaling?: boolean;
+        strokeScaling: boolean;
 
         /**
          * The dash offset of the stroke.
          * Default: 0
          */
-        dashOffset?: number;
+        dashOffset: number;
 
         /**
          * Specifies an array containing the dash and gap lengths of the stroke.
          * Default: []
          */
-        dashArray?: number[];
+        dashArray: number[];
 
         /**
          * The miter limit of the stroke. When two line segments meet at a sharp angle and miter joins have been specified for strokeJoin, it is possible for the miter to extend far beyond the strokeWidth of the path. The miterLimit imposes a limit on the ratio of the miter length to the strokeWidth.
          * Default: 10
          */
-        miterLimit?: number;
+        miterLimit: number;
 
         /**
          * The fill color.
          */
-        fillColor?: Color | string;
+        fillColor: Color | string | null;
+        getFillColor(): Color;
+        setFillColor(value: Color | string | null): void;
 
         /**
          * The fill-rule with which the shape gets filled. Please note that only modern browsers support fill-rules other than 'nonzero'.
          * Values: 'nonzero', 'evenodd'
          * Default: 'nonzero'
          */
-        fillRule?: string;
+        fillRule: string;
 
         /**
          * The shadow color.
          */
-        shadowColor?: Color | string;
+        shadowColor: Color | string | null;
+        getShadowColor(): Color;
+        setShadowColor(value: Color | string | null): void;
 
         /**
          * The shadow's blur radius.
          * Default: 0
          */
-        shadowBlur?: number;
+        shadowBlur: number;
 
         /**
          * The shadow's offset.
          * Default: 0
          */
-        shadowOffset?: number | number[] | {x: number, y: number} | Point;
+        shadowOffset: number | number[] | {x: number, y: number} | Point;
 
         /**
          * The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.
          */
-        selectedColor?: Color | string;
+        selectedColor: Color | string | null;
+        getSelectedColor(): Color;
+        setSelectedColor(value: Color | string | null): void;
 
         /**
          * The font-family to be used in text content.
          * Default: 'sans-serif'
          */
-        fontFamily?: string;
+        fontFamily: string;
 
         /**
          * The font-weight to be used in text content.
          * Default: 'normal'
          */
-        fontWeight?: string | number;
+        fontWeight: string | number;
 
         /**
          * The font size of text content, as {@Number} in pixels, or as {@String} with optional units 'px', 'pt' and 'em'.
          * Default: 10
          */
-        fontSize?: string | number;
+        fontSize: string | number;
 
         /**
          * The text leading of text content.
          * Default: fontSize * 1.2
          */
-        leading?: number | string;
+        leading: number | string;
 
         /**
          * The justification of text paragraphs.
          * Values: 'left', 'right', 'center'
          * Default: 'left'
          */
-        justification?: string;
+        justification: string;
 
     }
     export interface IHSBColor {
@@ -4803,7 +4823,9 @@ declare module paper {
         /**
          * The color of the gradient stop.
          */
-        color: Color;
+        color: Color | string;
+        getColor(): Color;
+        setColor(value: Color | string): void;
 
         /**
          * Returns a copy of the gradient-stop
