@@ -87,6 +87,7 @@ import {
     ViewPropTypes,
     requireNativeComponent,
     Keyboard,
+    NetInfo,
 } from "react-native";
 
 declare module "react-native" {
@@ -869,4 +870,9 @@ const ShareTest = () => {
 const KeyboardTest = () => {
     const subscriber = Keyboard.addListener("keyboardDidHide", (event) => {event});
     subscriber.remove();
+}
+
+const NetInfoTest = () => {
+    const subscription = NetInfo.addEventListener('connectionChange', (result) => console.log(result));
+    subscription.remove();
 }

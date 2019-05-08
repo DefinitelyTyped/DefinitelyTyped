@@ -13,16 +13,11 @@
             "../"
         ],
         "types": [],
-        "paths": {
-            "@google-cloud/pubsub": [
-                "google-cloud__pubsub"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "google-cloud__pubsub-tests.ts"
+        "react-big-scheduler-tests.ts"
     ]
 }
