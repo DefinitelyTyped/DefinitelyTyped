@@ -31,7 +31,7 @@ declare module paper {
          * classes match. If they do not match, a newly created object is returned
          * instead.
          */
-        static importJSON<T = any>(json: object | any[] | string, target?: T): T;
+        static importJSON(json: object | any[] | string, target?: any): any;
         static importJSON<T extends Base>(json: T, target?: T): T;
 
         /**
@@ -52,6 +52,7 @@ declare module paper {
          * instead.
          */
         importJSON(json: string): void;
+        importJSON<T extends Base>(json: T): T;
 
         /**
          * Exports (serializes) this object to a JSON data object or string.
