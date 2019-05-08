@@ -1,5 +1,5 @@
 // Type definitions for sylvester-es6 0.0
-// Project: https://github.com/pithumke/sylvester-es6
+// Project: https://github.com/pithumke/sylvester
 // Definitions by: briwa <https://github.com/briwa>
 //                 Stephane Alie <https://github.com/StephaneAlie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
