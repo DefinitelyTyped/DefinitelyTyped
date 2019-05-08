@@ -1152,32 +1152,32 @@ declare module paper {
         modulo(size: number[]): Size;
         modulo(size: number): Size;
 
-		/**
-		 * Sets the size with the given width and height values.
+        /**
+         * Sets the size with the given width and height values.
          * @param width - the width
          * @param height - the height
-		 */
-		set(width: number, height: number): Size;
+         */
+        set(width: number, height: number): Size;
 
-		/**
-		 * Sets the size using the numbers in the given array as dimensions.
+        /**
+         * Sets the size using the numbers in the given array as dimensions.
          * @param array - an array of numbers
-		 */
-		set(array: number[]): Size;
+         */
+        set(array: number[]): Size;
 
-		/**
-		 * Sets the size using the properties in the given object.
+        /**
+         * Sets the size using the properties in the given object.
          * @param object - the object literal containing properies (width:10, height:10 etc)
-		 */
-		set(object: any): Size;
+         */
+        set(object: any): Size;
 
-		/**
-		 * Sets the size using the coordinates of the given Size object.
+        /**
+         * Sets the size using the coordinates of the given Size object.
          * @param size - the size to duplicate from
          */
-		set(size: Size): Size;
+        set(size: Size): Size;
 
-		/**
+        /**
          * Sets the size using the point.x and point.y values of the given Point object.
          * @param point - the point from which to create a size
          */
@@ -5495,7 +5495,7 @@ declare module paper {
 
     }
 
-	export interface Settings {
+    export interface Settings {
         /**
          * controls whether newly created items are automatically inserted into the scene graph, by adding them to project.activeLayer — default: true
          */
