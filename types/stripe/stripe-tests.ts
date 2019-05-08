@@ -230,7 +230,7 @@ stripe.customers.create({
     phone: '15551234567',
     description: 'Customer for test@example.com',
     source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
-    metadata: { test: "123", test2: 123 }, // IOptionsMetadata test
+    metadata: { test: "123", test2: 123 } // IOptionsMetadata test
 }, (err, customer) => {
     // asynchronously called
     });
