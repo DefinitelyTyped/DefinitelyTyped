@@ -32,7 +32,7 @@ declare namespace mapboxgl {
         // Lookup
         | 'at' | 'get' | 'has' | 'length'
         // Decision
-        | '!=' | '<' | '<=' | '==' | '>' | '>=' | 'all' | 'any' | 'case' | 'match'
+        | '!' | '!=' | '<' | '<=' | '==' | '>' | '>=' | 'all' | 'any' | 'case' | 'match'
         // Ramps, scales, curves
         | 'interpolate' | 'interpolate-hcl' | 'interpolate-lab' | 'step'
         // Variable binding
@@ -207,7 +207,7 @@ declare namespace mapboxgl {
 
         jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): this;
 
-        easeTo(options: mapboxgl.CameraOptions & mapboxgl.AnimationOptions & {delayEndEvents?: number}, eventData?: mapboxgl.EventData): this;
+        easeTo(options: mapboxgl.EaseToOptions, eventData?: mapboxgl.EventData): this;
 
         flyTo(options: mapboxgl.FlyToOptions, eventData?: mapboxgl.EventData): this;
 
@@ -1191,6 +1191,13 @@ declare namespace mapboxgl {
         speed?: number;
         screenSpeed?: number;
         maxDuration?: number;
+    }
+
+    /**
+     * EaseToOptions
+     */
+    export interface EaseToOptions extends AnimationOptions, CameraOptions {
+        delayEndEvents?: number;
     }
 
     export interface FitBoundsOptions extends mapboxgl.FlyToOptions {

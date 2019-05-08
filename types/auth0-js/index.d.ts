@@ -616,7 +616,6 @@ export interface Auth0DelegationToken {
 export interface ChangePasswordOptions {
     connection: string;
     email: string;
-    password?: string;
 }
 
 export interface PasswordlessStartOptions {

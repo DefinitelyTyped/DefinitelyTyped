@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-tables 0.1
+// Type definitions for prosemirror-tables 0.7
 // Project: https://github.com/ProseMirror/prosemirror-tables
 // Definitions by: Oscar Wallhult <https://github.com/superchu>
 //                 Eduard Shvedai <https://github.com/eshvedai>
@@ -9,6 +9,10 @@
 import { EditorState, Plugin, SelectionRange, Transaction, PluginKey } from 'prosemirror-state';
 import { Node as ProsemirrorNode, NodeSpec, Slice, ResolvedPos, Schema } from 'prosemirror-model';
 import { NodeView } from 'prosemirror-view';
+
+export interface TableEditingOptions {
+  allowTableNodeSelection?: boolean;
+}
 
 export interface TableNodesOptions {
   tableGroup?: string;
@@ -109,7 +113,7 @@ export class TableMap {
   static get(table: ProsemirrorNode): TableMap;
 }
 
-export function tableEditing(): Plugin;
+export function tableEditing(options?: TableEditingOptions): Plugin;
 
 export function deleteTable<S extends Schema = any>(
   state: EditorState<S>,

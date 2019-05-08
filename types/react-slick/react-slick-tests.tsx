@@ -55,6 +55,7 @@ const defaultSettings: Settings = {
   useCSS: true,
   variableWidth: false,
   vertical: false,
+  verticalSwiping: false,
   waitForAnimate: true,
   afterChange: (currentSlide: number) => { },
   beforeChange: (currentSlide: number, nextSlide: number) => { },

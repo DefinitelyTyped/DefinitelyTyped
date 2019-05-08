@@ -306,7 +306,7 @@ got('http://todomvc.com', { retry: 2 });
 got('http://todomvc.com', {
     retry: {
         retries: 2,
-        methods: ['GET'],
+        methods: ['GET', 'POST'],
         statusCodes: [408, 504],
         maxRetryAfter: 1,
         errorCodes: ['ETIMEDOUT']
