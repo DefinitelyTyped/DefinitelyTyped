@@ -6,7 +6,7 @@ declare module "../index" {
     type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | ReadonlyArray<T>;
     type ImpChain<T> =
-        T extends { __trapAny: any } ? Collection<any> :
+        T extends { __trapAny: any } ? Collection<any> & Function<any> & Object<any> & Primitive<any> & String :
         T extends null | undefined ? Primitive<T> :
         T extends string | null | undefined ? String :
         T extends (...args: any) => any ? Function<T> :
@@ -14,7 +14,7 @@ declare module "../index" {
         T extends object | null | undefined ? Object<T> :
         Primitive<T>;
     type ExpChain<T> =
-        T extends { __trapAny: any } ? CollectionChain<any> :
+        T extends { __trapAny: any } ? CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain :
         T extends null | undefined ? PrimitiveChain<T> :
         T extends string ? StringChain :
         T extends string | null | undefined ? StringNullableChain :

@@ -583,7 +583,7 @@ declare module "../index" {
         /**
          * @see _.head
          */
-        head(): StringChain;
+        head(): StringNullableChain;
     }
     interface StringNullableChain {
         /**
