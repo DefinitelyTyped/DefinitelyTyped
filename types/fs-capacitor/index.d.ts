@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
+/// <reference types="node" />
+
 import { ReadStream as FSReadStream, WriteStream as FSWriteStream } from "fs";
 
 export class ReadAfterDestroyedError extends Error {}

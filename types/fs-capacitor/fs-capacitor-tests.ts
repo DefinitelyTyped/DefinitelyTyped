@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { createReadStream, createWriteStream } from "fs";
 import { WriteStream } from "fs-capacitor";
 
