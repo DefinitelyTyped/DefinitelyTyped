@@ -25,5 +25,7 @@
         "dtslint": "latest",
         "types-publisher": "github:Microsoft/types-publisher#production"
     },
-    "dependencies": {}
+    "dependencies": {
+        "csstype": "^2.6.4"
+    }
 }
