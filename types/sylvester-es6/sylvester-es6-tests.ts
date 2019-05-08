@@ -374,7 +374,7 @@ const polygonInspect = polygon2.inspect();
 // PRECISION
 const precision = PRECISION;
 
-// gUtils
+// glUtils
 const mht1 = mht(matrix1);
 const makeLookAt1 = makeLookAt(1, 2, 3, 4, 5, 6, 7, 8, 9);
 const makeOrtho1 = makeOrtho(1, 2, 3, 4, 5, 6);
