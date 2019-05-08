@@ -130,7 +130,7 @@ declare namespace jest {
     /**
      * Returns whether the given function is a mock function.
      */
-    function isMockFunction(fn: any): fn is Mock;
+    function isMockFunction<T>(fn: T): fn is Mock<T>;
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
