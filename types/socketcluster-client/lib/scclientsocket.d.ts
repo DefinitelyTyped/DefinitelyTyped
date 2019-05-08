@@ -13,19 +13,19 @@ declare class SCClientSocket extends Emitter {
         [channelName: string]: SCChannel;
     };
 
-    CONNECTING: "connecting";
-    OPEN: "open";
-    CLOSED: "closed";
+    readonly CONNECTING: "connecting";
+    readonly OPEN: "open";
+    readonly CLOSED: "closed";
 
     state: SCClientSocket.States;
     getState(): SCClientSocket.States;
 
-    AUTHENTICATED: "authenticated";
-    UNAUTHENTICATED: "unauthenticated";
+    readonly AUTHENTICATED: "authenticated";
+    readonly UNAUTHENTICATED: "unauthenticated";
 
     authState: SCClientSocket.AuthStates;
 
-    PENDING: "pending";
+    readonly PENDING: "pending";
 
     pendingReconnect: boolean;
     pendingReconnectTimeout: number;
