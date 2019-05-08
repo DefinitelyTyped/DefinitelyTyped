@@ -21,6 +21,7 @@
 //                 Francesco Moro <https://github.com/franzmoro>
 //                 Wojciech Tyczynski <https://github.com/tykus160>
 //                 Jake Bloom <https://github.com/jakebloom>
+//                 Ceyhun Ozugur <https://github.com/ceyhun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -7965,13 +7966,13 @@ export interface PermissionsAndroidStatic {
      * (https://developer.android.com/training/permissions/requesting.html#explain)
      * and then shows the system permission dialog
      */
-    request(permission: Permission, rationale?: Rationale): Promise<string>;
+    request(permission: Permission, rationale?: Rationale): Promise<PermissionStatus>;
     /**
      * Prompts the user to enable multiple permissions in the same dialog and
      * returns an object with the permissions as keys and strings as values
      * indicating whether the user allowed or denied the request
      */
-    requestMultiple(permissions: Array<string>): Promise<{ [permission: string]: PermissionStatus }>;
+    requestMultiple(permissions: Array<Permission>): Promise<{ [key in Permission]: PermissionStatus }>;
 }
 
 export interface PushNotificationPermissions {
