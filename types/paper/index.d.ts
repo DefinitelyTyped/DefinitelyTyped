@@ -31,7 +31,8 @@ declare module paper {
          * classes match. If they do not match, a newly created object is returned
          * instead.
          */
-        static importJSON<T = any>(json: string, target?: T): T;
+        static importJSON<T = any>(json: object | any[] | string, target?: T): T;
+        static importJSON<T extends Base>(json: T, target?: T): T;
 
         /**
          * Exports (serializes) object to a JSON data object or string.
@@ -42,7 +43,8 @@ declare module paper {
          * @option [options.precision=5] - the amount of fractional digits in numbers used in JSON data.
          * @return the exported JSON data
          */
-        static exportJSON(obj: any, options?: { asString?: boolean; precision?: number; }): string;
+        static exportJSON(obj: any, options?: { asString?: true; precision?: number; }): string;
+        static exportJSON(obj: any, options: { asString: false; precision?: number; }): object | any[];
 
         /**
          * Imports (deserializes) the stored JSON data into the object, if the
@@ -60,7 +62,8 @@ declare module paper {
          * @option [options.precision=5] - the amount of fractional digits in numbers used in JSON data.
          * @return the exported JSON data
          */
-        exportJSON(options?: { asString?: boolean; precision?: number; }): string;
+        exportJSON(options?: { asString?: true; precision?: number; }): string;
+        exportJSON(options: { asString: false; precision?: number; }): object | any[];
 
         /**
          * Renders base objects to strings in object literal notation.
@@ -133,7 +136,6 @@ declare module paper {
      * This class is optimized for speed and minimizes calculations based on its knowledge of the underlying matrix (as opposed to say simply performing matrix multiplication).
      */
     export class Matrix extends Base {
-
         /**
          * Creates a 2D affine transform.
          * @param a - the a property of the transform
