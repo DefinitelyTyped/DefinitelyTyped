@@ -975,13 +975,11 @@ export const PRECISION: number;
 
 /**
  * Converts a matrix into a MHTML.
- *
  */
 export function mht(m: Matrix): string;
 
 /**
  * Creates a look-at matrix given the parameters.
- *
  */
 export function makeLookAt(
     ex: number, ey: number, ez: number,
@@ -990,7 +988,6 @@ export function makeLookAt(
 
 /**
  * Creates an ortho-matrix given the parameters.
- *
  */
 export function makeOrtho(
     left: number, right: number,
@@ -999,7 +996,6 @@ export function makeOrtho(
 
 /**
  * Creates a perspective matrix given the parameters.
- *
  */
 export function makePerspective(
     fovy: number, aspect: number,
@@ -1007,7 +1003,6 @@ export function makePerspective(
 
 /**
  * Creates a frustum-matrix given the parameters.
- *
  */
 export function makeFrustum(
     left: number, right: number,
