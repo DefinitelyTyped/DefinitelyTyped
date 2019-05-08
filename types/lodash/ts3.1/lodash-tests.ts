@@ -529,7 +529,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _("abc").head(); // $ExpectType string | undefined
     _(list).head(); // $ExpectType AbcObject | undefined
 
-    _.chain("abc").head(); // $ExpectType StringChain
+    _.chain("abc").head(); // $ExpectType StringNullableChain
     _.chain(list).head(); // $ExpectType PrimitiveChain<undefined> | ObjectChain<AbcObject>
 
     fp.head("abc"); // $ExpectType string | undefined
