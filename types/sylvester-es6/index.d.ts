@@ -13,7 +13,7 @@ export class Vector {
     /**
      * Constructor function.
      */
-    constructor(elements: Vector|Array<number>);
+    constructor(elements: Vector|number[]);
 
     static i: Vector;
     static j: Vector;
@@ -32,7 +32,7 @@ export class Vector {
     /**
      * Gets an array containing the vector's elements.
      */
-    elements: Array<number>;
+    elements: number[];
 
     /**
      * Returns element i of the vector.
@@ -52,7 +52,7 @@ export class Vector {
     /**
      * Returns true if the vector is equal to the argument.
      */
-    eql(vector: Vector|Array<number>): boolean;
+    eql(vector: Vector|number[]): boolean;
 
     /**
      * Returns a copy of the vector.
@@ -97,12 +97,12 @@ export class Vector {
     /**
      * Returns the result of adding the argument to the vector.
      */
-    add(vector: Vector|Array<number>): Vector;
+    add(vector: Vector|number[]): Vector;
 
     /**
      * Returns the result of subtracting the argument from the vector.
      */
-    subtract(vector: Vector|Array<number>): Vector;
+    subtract(vector: Vector|number[]): Vector;
 
     /**
      * Returns the result of multiplying the elements of the vector by the argument.
@@ -117,14 +117,14 @@ export class Vector {
     /**
      * Returns the scalar product of the vector with the argument. Both vectors must have equal dimensionality.
      *
-     * @param: {Vector|Array<number>} vector The other vector.
+     * @param: {Vector|number[]} vector The other vector.
      */
-    dot(vector: Vector|Array<number>): number;
+    dot(vector: Vector|number[]): number;
 
     /**
      * Returns the vector product of the vector with the argument. Both vectors must have dimensionality 3.
      */
-    cross(vector: Vector|Array<number>): Vector;
+    cross(vector: Vector|number[]): Vector;
 
     /**
      * Returns the (absolute) largest element of the vector.
@@ -191,19 +191,19 @@ export class Vector {
     /**
      * Set vector's elements from an array.
      */
-    setElements(els: Vector|Array<number>): Vector;
+    setElements(els: Vector|number[]): Vector;
 }
 
 export class Vertex extends Vector {
     /**
      * The constructor function.
      */
-    constructor(point: Vector|Array<number>);
+    constructor(point: Vector|number[]);
 
     /**
      * Convert points into an array of Vertex.
      */
-    static convert(points: Array<Vector>|Array<Array<number>>): Array<Vertex>;
+    static convert(points: Vector[]|number[][]): Vertex[];
 
     /**
      * Returns true iff the vertex's internal angle is 0 <= x < 180
@@ -227,7 +227,7 @@ export class Matrix {
     /**
      * Constructor function.
      */
-    constructor(elements: Array<number>|Array<Array<number>>|Vector|Matrix);
+    constructor(elements: number[]|number[][]|Vector|Matrix);
 
     /**
      * Identity matrix of size n.
@@ -237,7 +237,7 @@ export class Matrix {
     /**
      * Diagonal matrix - all off-diagonal elements are zero
      */
-    static Diagonal(elements: Array<number>|Array<Array<number>>|Vector | Matrix): Matrix;
+    static Diagonal(elements: number[]|number[][]|Vector | Matrix): Matrix;
 
     /**
      * Rotation matrix about some axis. If no axis is supplied, assume we're after a 2D transform.
@@ -261,7 +261,7 @@ export class Matrix {
     /**
      * Gets a nested array containing the matrix's elements.
      */
-    elements: Array<Array<number>>;
+    elements: number[][];
 
     /**
      * Returns element (i,j) of the matrix.
@@ -297,7 +297,7 @@ export class Matrix {
      * Returns true if the matrix is equal to the argument. You can supply a vector as the argument,
      * in which case the receiver must be a one-column matrix equal to the vector.
      */
-    eql(matrix: Vector|Matrix|Array<number>|Array<Array<number>>): boolean;
+    eql(matrix: Vector|Matrix|number[]|number[][]): boolean;
 
     /**
      * Returns a copy of the matrix.
@@ -417,7 +417,7 @@ export class Matrix {
     /**
      * Returns the result of attaching the given argument to the right-hand side of the matrix.
      */
-    augment(matrix: Vector|Matrix|Array<number>|Array<Array<number>>): Matrix;
+    augment(matrix: Vector|Matrix|number[]|number[][]): Matrix;
 
     /**
      * Returns the inverse (if one exists) using Gauss-Jordan.
@@ -445,14 +445,14 @@ export class Matrix {
      * Set the matrix's elements from an array. If the argument passed is a vector, the resulting matrix
      * will be a single column.
      */
-    setElements(matrix: Array<number>|Array<Array<number>>|Vector|Matrix): Matrix;
+    setElements(matrix: number[]|number[][]|Vector|Matrix): Matrix;
 }
 
 export class Line {
     /**
      * Constructor function.
      */
-    constructor(anchor: Array<number>|Vector, direction: Array<number>|Vector);
+    constructor(anchor: number[]|Vector, direction: number[]|Vector);
 
     static X: Line;
     static Y: Line;
@@ -481,7 +481,7 @@ export class Line {
     /**
      * Returns the result of translating the line by the given vector/array.
      */
-    translate(vector: Vector|Array<number>): Line;
+    translate(vector: Vector|number[]): Line;
 
     /**
      * Returns true if the line is parallel to the argument. Here, 'parallel to' means that the argument's
@@ -518,7 +518,7 @@ export class Line {
     /**
      * Returns the point on the line that is closest to the given point or line.
      */
-    pointClosestTo(obj: Vector|Line|Array<number>): Vector;
+    pointClosestTo(obj: Vector|Line|number[]): Vector;
 
     /**
      * Returns a copy of the line rotated by t radians about the given line. Works by finding the argument's
@@ -536,14 +536,14 @@ export class Line {
     /**
      * Set the line's anchor point and direction.
      */
-    setVectors(anchor: Array<number>|Vector, direction: Array<number>|Vector): Line;
+    setVectors(anchor: number[]|Vector, direction: number[]|Vector): Line;
 }
 
 export class LineSegment {
     /**
      * Constructor function.
      */
-    constructor(v1: Vector|Array<number>, v2: Vector|Array<number>);
+    constructor(v1: Vector|number[], v2: Vector|number[]);
 
     /**
      * Whether a segment is equal to this segment.
@@ -578,7 +578,7 @@ export class LineSegment {
     /**
      * Translates this segment given a vector.
      */
-    translate(vector: Vector|Array<number>): LineSegment;
+    translate(vector: Vector|number[]): LineSegment;
 
     /**
      * Returns true if the line is parallel to the argument. Here, 'parallel to' means that the argument's
@@ -610,19 +610,19 @@ export class LineSegment {
     /**
      * Returns the point on the line that is closest to the given point or line.
      */
-    pointClosestTo(obj: Vector|Line|Array<number>): Vector;
+    pointClosestTo(obj: Vector|Line|number[]): Vector;
 
     /**
      * Sets the initial point of the line segments
      */
-    setPoints(startPoint: Vector|Array<number>, endPoint: Vector|Array<number>): LineSegment | null;
+    setPoints(startPoint: Vector|number[], endPoint: Vector|number[]): LineSegment | null;
 }
 
 export class Plane {
     /**
      * Constructor function.
      */
-    constructor(anchor: Array<number>|Vector, v1: Array<number>|Vector, v2?: Array<number>|Vector);
+    constructor(anchor: number[]|Vector, v1: number[]|Vector, v2?: number[]|Vector);
 
     static XY: Plane;
     static YZ: Plane;
@@ -632,7 +632,7 @@ export class Plane {
     /**
      * Constructs a plane from a list of points.
      */
-    static fromPoints(points: Array<Array<number>>|Array<Vector>): Plane;
+    static fromPoints(points: number[][]|Vector[]): Plane;
 
     /**
      * Gets the 3D vector corresponding to a point in the plane.
@@ -657,7 +657,7 @@ export class Plane {
     /**
      * Returns the result of translating the plane by the given vector.
      */
-    translate(vector: Array<number>|Vector): Plane;
+    translate(vector: number[]|Vector): Plane;
 
     /**
      * Returns true if the plane is parallel to the argument. Will return true if the planes are equal,
@@ -700,7 +700,7 @@ export class Plane {
     /**
      * Returns the point in the plane closest to the given point.
      */
-    pointClosestTo(point: Vector|Array<number>): Vector;
+    pointClosestTo(point: Vector|number[]): Vector;
 
     /**
      * Returns a copy of the plane, rotated by t radians about the given line. See notes on Line#rotate.
@@ -716,7 +716,7 @@ export class Plane {
      * Sets the anchor point and normal to the plane. The normal is calculated by assuming the three points
      * should lie in the same plane. Normal vector is normalised before storage.
      */
-    setVectors(anchor: Array<number>|Vector, v1: Array<number>|Vector, v2?: Array<number>|Vector): Plane;
+    setVectors(anchor: number[]|Vector, v1: number[]|Vector, v2?: number[]|Vector): Plane;
 }
 
 export class LinkedListNode {
@@ -791,14 +791,14 @@ export class LinkedList {
     /**
      * Convert this linked list into an array.
      */
-    toArray(): Array<any>;
+    toArray(): any[];
 }
 
 export class CircularLinkedList extends LinkedList {
     /**
      * Creates a linked list from an array
      */
-    static fromArray(list: Array<any>, useNodes: boolean): CircularLinkedList;
+    static fromArray(list: any[], useNodes: boolean): CircularLinkedList;
 
     /**
      * Appends a node into the list.
@@ -835,7 +835,7 @@ export class Polygon {
     /**
      * Constructor function.
      */
-    constructor(points: Array<Vector>|Array<Array<number>>, plane: Plane);
+    constructor(points: Vector[]|number[][], plane: Plane);
 
     /**
      * The vertices of the polygon.
@@ -860,7 +860,7 @@ export class Polygon {
     /**
      * Translate the polygon given a vector.
      */
-    translate(vector: Vector|Array<number>): Polygon;
+    translate(vector: Vector|number[]): Polygon;
 
     /**
      * Rotates the polygon.
@@ -870,7 +870,7 @@ export class Polygon {
     /**
      * Scale the polygon.
      */
-    scale(k: number, point: Array<number>): Polygon;
+    scale(k: number, point: number[]): Polygon;
 
     /**
      * Updates the plane properties of all the cached triangles belonging to the
@@ -911,17 +911,17 @@ export class Polygon {
     /**
      * Whether the polygon contains a point.
      */
-    contains(point: Vector|Array<number>): boolean;
+    contains(point: Vector|number[]): boolean;
 
     /**
      * Whether the polygon contains a point.
      */
-    containsByWindingNumber(point: Vector|Array<number>): boolean;
+    containsByWindingNumber(point: Vector|number[]): boolean;
 
     /**
      * Whether the point is an edge in the polygon.
      */
-    hasEdgeContaining(point: Vector|Array<number>): boolean;
+    hasEdgeContaining(point: Vector|number[]): boolean;
 
     /**
      * Converts the polygon into triangles.
@@ -940,7 +940,7 @@ export class Polygon {
     /**
      * Set the vertices of the polygon.
      */
-    setVertices(points: Array<Vector>|Array<Array<number>>, plane: Plane): Polygon;
+    setVertices(points: Vector[]|number[][], plane: Plane): Polygon;
 
     /**
      * Populates the vertex type lists.
