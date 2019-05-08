@@ -4965,7 +4965,7 @@ export interface MapViewProps extends ViewProps {
      * Sets an initial region as a starting point to display on the map.
      * Static value. Use 'region' instead to control state.
      */
-    initialRegion?: MapViewRegion;
+    initalRegion?: MapViewRegion;
   
     /**
      * When this property is set to true and a valid camera is associated with the map,
