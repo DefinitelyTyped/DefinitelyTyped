@@ -604,6 +604,10 @@ if (!scope.isDone()) {
 }
 console.error('pending mocks: %j', nock.pendingMocks());
 
+/// .activeMocks()
+nock.activeMocks(); // $ExpectType string[]
+nock('http://example.com').activeMocks(); // $ExpectType string[]
+
 // Logging
 google = nock('http://google.com').log(console.log);
 
