@@ -94,3 +94,12 @@ transTyped('name');
 const transReturn = db.transaction(() => 1);
 // $ExpectType number
 transReturn();
+
+db.backup('backup-today.db')
+    .then(({ totalPages, remainingPages }) => {});
+const paused = false;
+db.backup('backup-today.db', {
+    progress({ totalPages: t, remainingPages: r }) {
+        return paused ? 0 : 200;
+    }
+});

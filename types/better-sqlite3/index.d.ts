@@ -71,6 +71,7 @@ declare namespace BetterSqlite3 {
         loadExtension(path: string): this;
         close(): this;
         defaultSafeIntegers(toggleState?: boolean): this;
+        backup(destinationFile: string, options?: Database.BackupOptions): Promise<Database.BackupMetadata>;
     }
 
     interface DatabaseConstructor {
@@ -119,6 +120,14 @@ declare namespace Database {
         step: (total: any, next: any) => any;
         inverse?: (total: any, dropped: any) => any;
         result?: (total: any) => any;
+    }
+
+    interface BackupMetadata {
+        totalPages: number;
+        remainingPages: number;
+    }
+    interface BackupOptions {
+        progress: (info: BackupMetadata) => number;
     }
 
     type Integer = typeof Integer;
