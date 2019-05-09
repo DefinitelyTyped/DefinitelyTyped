@@ -1191,15 +1191,13 @@ declare namespace Stripe {
             currency: string;
 
             /**
-             * A fee in pence that will be applied to the charge and transferred to the
-             * application owner's Stripe account. To use an application fee, the request
-             * must be made on behalf of another account, using the Stripe-Account
-             * header, an OAuth key, or the destination parameter. For more
-             * information, see the application fees documentation.
-             *
-             * Connect only.
+             * A fee in cents that will be applied to the charge and transferred
+             * to the application owner’s Stripe account. The request must be
+             * made with an OAuth key or the Stripe-Account header in order to
+             * take an application fee. For more information, see the
+             * application fees documentation.
              */
-            application_fee?: number;
+            application_fee_amount?: number;
 
             /**
              * Whether or not to immediately capture the charge. When false, the charge
