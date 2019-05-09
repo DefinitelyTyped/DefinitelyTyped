@@ -1,3 +1,6 @@
+// package: google.protobuf
+// file: source_context.proto
+
 import * as jspb from "../../index";
 
 export class SourceContext extends jspb.Message {

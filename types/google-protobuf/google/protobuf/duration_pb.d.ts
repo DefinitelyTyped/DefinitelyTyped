@@ -1,3 +1,6 @@
+// package: google.protobuf
+// file: duration.proto
+
 import * as jspb from "../../index";
 
 export class Duration extends jspb.Message {
