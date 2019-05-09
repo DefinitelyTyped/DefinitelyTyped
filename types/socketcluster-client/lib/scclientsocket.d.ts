@@ -1,6 +1,7 @@
 import Emitter = require("component-emitter");
 import { SCServer } from "socketcluster-server";
 import { SCAuthEngine } from "sc-auth";
+import { SocketProtocolIgnoreStatuses, SocketProtocolErrorStatuses } from "sc-errors";
 import { SCChannel, SCChannelOptions, ChannelState } from "sc-channel";
 import WebSocket = require("ws");
 
@@ -8,6 +9,7 @@ declare class SCClientSocket extends Emitter {
     constructor(opts: SCClientSocket.ClientOptions);
 
     id: string;
+    clientId: string;
 
     channels: {
         [channelName: string]: SCChannel;
@@ -29,6 +31,27 @@ declare class SCClientSocket extends Emitter {
 
     pendingReconnect: boolean;
     pendingReconnectTimeout: number;
+
+    ackTimeout: number;
+    connectTimeout: number;
+
+    pingTimeout: number;
+    pingTimeoutDisabled: boolean;
+
+    channelPrefix: string | null;
+    disconnectOnUnload: boolean;
+
+    authTokenName: string;
+
+    connectAttempts: number;
+
+    options: SCClientSocket.ClientOptions;
+
+    authEngine: SCAuthEngine;
+    codecEngine: SCServer.SCCodecEngine;
+
+    readonly ignoreStatuses: SocketProtocolIgnoreStatuses;
+    readonly errorStatuses: SocketProtocolErrorStatuses;
 
     getBytesReceived(): number;
 
