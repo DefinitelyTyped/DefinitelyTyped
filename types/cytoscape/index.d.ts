@@ -3668,7 +3668,7 @@ declare namespace cytoscape {
              * Smaller node shapes, like triangle, will not be as aesthetically pleasing.
              * Also note that edge arrows are unsupported for haystack edges.
              */
-            "curve-style"?: "haystack" | "bezier" | "unbundled" | "segments";
+            "curve-style"?: "haystack" | "straight" | "bezier" | "unbundled-bezier" | "segments" | "taxi";
             /**
              * The colour of the edge’s line.
              */
