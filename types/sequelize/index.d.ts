@@ -5003,16 +5003,18 @@ declare namespace sequelize {
 
     }
 
+    type IndexType = 'UNIQUE' | 'FULLTEXT' | 'SPATIAL';
+
     interface DefineIndexOptions {
         /**
          * The index type
          */
-        indicesType?: 'UNIQUE' | 'FULLTEXT' | 'SPATIAL';
+        indicesType?: IndexType;
 
         /**
          * The index type
          */
-        type?: 'UNIQUE' | 'FULLTEXT' | 'SPATIAL';
+        type?: IndexType;
 
         /**
          * The name of the index. Default is __
