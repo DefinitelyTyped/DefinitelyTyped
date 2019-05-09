@@ -8,13 +8,14 @@
 declare function gulpStylus(options?: gulpStylus.Options): NodeJS.ReadWriteStream;
 
 declare namespace gulpStylus {
+    interface VariableDefinitions {
+        [variableName: string]: any;
+    }
     interface Options {
         compress?: boolean;
         linenos?: boolean;
         'include css'?: boolean;
-        rawDefine?: {
-            data: any
-        };
+        rawDefine?: VariableDefinitions;
     }
 }
 

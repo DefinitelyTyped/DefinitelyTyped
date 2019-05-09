@@ -10,6 +10,7 @@
 //                  Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
 //                  Diamond Lewis <https://github.com/dplewis>
 //                  Jong Eun Lee <https://github.com/yomybaby>
+//                  Julien Quere <https://github.com/jlnquere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -784,10 +785,14 @@ subscription.on('close', () => {});
             original?: Parse.Object;
         }
 
-        interface AfterSaveRequest extends TriggerRequest { }
+        interface AfterSaveRequest extends TriggerRequest {
+            context: object;
+        }
         interface AfterDeleteRequest extends TriggerRequest { }
         interface BeforeDeleteRequest extends TriggerRequest { }
-        interface BeforeSaveRequest extends TriggerRequest { }
+        interface BeforeSaveRequest extends TriggerRequest {
+            context: object;
+        }
 
         // Read preference describes how MongoDB driver route read operations to the members of a replica set.
         enum ReadPreferenceOption {

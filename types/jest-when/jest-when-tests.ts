@@ -89,4 +89,28 @@ describe('mock-when test', () => {
     }
     expect(testPassed).toBeTruthy();
   });
+
+  it('should support for mockImplementation', () => {
+    const fn = jest.fn();
+    const expectValue = { a: 1, b: 2 };
+    when(fn).calledWith(
+      expect.anything()
+    ).mockImplementation(() => (expectValue));
+
+    const result = fn('whatever');
+    expect(result).toMatchObject(expectValue);
+  });
+
+  it('should support for mockImplementationOnce', () => {
+    const fn = jest.fn();
+    const expectValue = { a: 1, b: 2 };
+    when(fn).calledWith(
+      expect.anything()
+    ).mockImplementationOnce(() => (expectValue));
+
+    const result = fn('whatever');
+    const result2 = fn('whatever');
+    expect(result).toMatchObject(expectValue);
+    expect(result2).toEqual(undefined);
+  });
 });

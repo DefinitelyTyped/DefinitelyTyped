@@ -32,8 +32,8 @@ declare namespace SeamlessImmutable {
         prototype?: any;
     }
 
-    interface AsMutableOptions {
-        deep: boolean;
+    interface AsMutableOptions<TDeep extends boolean = boolean> {
+        deep: TDeep;
     }
 
     interface ImmutableObjectMixin<T> {
@@ -63,7 +63,9 @@ declare namespace SeamlessImmutable {
         getIn(propertyPath: string[]): Immutable<any>;
         getIn<TValue>(propertyPath: string[], defaultValue: TValue): Immutable<TValue>;
 
-        asMutable(opts?: AsMutableOptions): T;
+        asMutable(opts?: AsMutableOptions<false>): { [K in keyof T]: Immutable<T[K]> };
+        asMutable(opts: AsMutableOptions<true>): T;
+        asMutable(opts: AsMutableOptions): T | { [K in keyof T]: Immutable<T[K]> };
 
         merge(part: DeepPartial<T>, config?: MergeConfig): Immutable<T>;
 
@@ -91,29 +93,38 @@ declare namespace SeamlessImmutable {
     type ImmutableObject<T> = ImmutableObjectMixin<T> & { readonly [P in keyof T]: Immutable<T[P]> };
 
     /** An ImmutableArray provides read-only access to the array elements, and provides functions (such as `map()`) that return immutable data structures. */
-    type ImmutableArray<T> = Readonly<ImmutableArray.Remaining<T> & ImmutableArray.Additions<T> & ImmutableArray.Overrides<T>>;
+    type ImmutableArray<T> = Readonly<ImmutableArray.Remaining<T>> & ImmutableArray.Additions<T> & ImmutableArray.Overrides<T> & ImmutableArray.ReadOnlyIndexer<T>;
     namespace ImmutableArray {
         /** New methods added by seamless-immutable. */
         interface Additions<T> {
-            asMutable(opts?: AsMutableOptions): T[];
+            asMutable(opts?: AsMutableOptions<false>): Array<Immutable<T>>;
+            asMutable(opts: AsMutableOptions<true>): T[];
+            asMutable(opts: AsMutableOptions): T[] | Array<Immutable<T>>;
+
             asObject<U extends object = {}, K extends keyof U = keyof U>(toKeyValue: (item: T) => [K, U[K]]): Immutable<U>;
             flatMap<TTarget>(mapFunction: (item: T) => TTarget): Immutable<TTarget extends any[] ? TTarget : TTarget[]>;
         }
 
         /** Custom implementation of the array functions, which return Immutable. */
         interface Overrides<T> {
-            map<TTarget>(mapFuction: (item: T) => TTarget): Immutable<TTarget[]>;
-            filter(filterFunction: (item: T) => boolean): Immutable<T[]>;
+            forEach(callbackfn: (value: Immutable<T>, index: number, array: Immutable<T[]>) => void, thisArg?: any): void;
+            map<TTarget>(mapFuction: (item: Immutable<T>) => TTarget): Immutable<TTarget[]>;
+            filter(filterFunction: (item: Immutable<T>) => boolean): Immutable<T[]>;
             slice(start?: number, end?: number): Immutable<T[]>;
-            concat(...arr: Array<T|T[]>): Immutable<T[]>;
-            reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T): Immutable<T>;
-            reduce<TTarget>(callbackfn: (previousValue: TTarget, currentValue: T, currentIndex: number, array: T[]) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
-            reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T): Immutable<T>;
-            reduceRight<TTarget>(callbackfn: (previousValue: TTarget, currentValue: T, currentIndex: number, array: T[]) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
+            concat(...arr: Array<T|T[]|Immutable<T>|Array<Immutable<T>>|Immutable<T[]>>): Immutable<T[]>;
+            reduce(callbackfn: (previousValue: Immutable<T>, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => T): Immutable<T>;
+            reduce<TTarget>(callbackfn: (previousValue: TTarget, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
+            reduceRight(callbackfn: (previousValue: Immutable<T>, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => T): Immutable<T>;
+            reduceRight<TTarget>(callbackfn: (previousValue: TTarget, currentValue: Immutable<T>, currentIndex: number, array: Immutable<T[]>) => TTarget, initialValue?: TTarget): Immutable<TTarget>;
+        }
+
+        /** Merging this into Overrides breaks stuff, so this is split out */
+        interface ReadOnlyIndexer<T> {
+            readonly [key: number]: Immutable<T>;
         }
 
         /** These methods are banned by seamless-immutable. */
-        type MutatingArrayMethods = Extract<keyof any[], 'push' | 'pop' | 'sort' | 'splice' | 'shift' | 'unshift' | 'reverse'>;
+        type MutatingArrayMethods = Extract<keyof any[], 'push' | 'pop' | 'sort' | 'splice' | 'shift' | 'unshift' | 'reverse' | number>;
 
         /** NOTE: These methods mutate data, but seamless-immutable does not ban them. We will ban them in our type definitions. */
         type AdditionalMutatingArrayMethods = Extract<keyof any[], 'copyWithin' | 'fill'>;
@@ -160,7 +171,7 @@ declare namespace SeamlessImmutable {
 
     function from<T>(obj: T, options?: Options): Immutable<T>;
 
-    function isImmutable(target: any): boolean;
+    function isImmutable<T>(target: T | Immutable<T>): target is Immutable<T>;
     function ImmutableError(message: string): Error;
 
     function replace<T, S>(obj: Immutable<T>, valueObj: S, options?: ReplaceConfig): Immutable<S>;

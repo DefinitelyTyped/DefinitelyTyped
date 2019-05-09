@@ -23,6 +23,13 @@ task1.match({
     rejected: error => error.message,
 });
 
+// $ExpectType string | number
+task1.match({
+    resolved: res => 1,
+    pending: (txt, num) => txt,
+    rejected: error => error.message,
+});
+
 // wrap
 const task2 = task(func);
 const task2ToString = task2.wrap(inner => {
@@ -36,3 +43,13 @@ task2ToString.result; // $ExpectType string | undefined
 const task3 = task(func, { result: 1, state: 'resolved' });
 task3.setState({ result: 2, state: 'pending' });
 task3.setState({ result: '2', state: 'pending' }); // $ExpectError
+
+class TestClass {
+    @task fieldWithArrowFn = () => {};
+    @task({ swallow: true }) fieldWithArrowFn2 = () => {};
+    fieldWithArrowFn3 = task(() => {}, { swallow: true });
+
+    @task method() {}
+
+    @task({ swallow: true }) method2() {}
+}

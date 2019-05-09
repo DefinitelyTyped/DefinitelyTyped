@@ -9,7 +9,18 @@ interface ServerListResponse {
 }
 
 declare class TeamSpeakServer extends Abstract {
-    constructor(parent: TeamSpeak3, list: ServerListResponse)
+    constructor(parent: TeamSpeak3, list: ServerListResponse);
+
+    id: number;
+    port: number;
+    status: string;
+    clientsonline: number;
+    queryclientsonline: number;
+    maxclients: number;
+    uptime: number;
+    name: string;
+    autostart: number;
+    uniqueIdentifier: string;
 
     /**
      * Selects the Virtual Server
