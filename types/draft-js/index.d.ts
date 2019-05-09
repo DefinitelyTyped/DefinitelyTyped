@@ -121,6 +121,8 @@ declare namespace Draft {
                 ariaLabel?: string;
                 ariaMultiline?: boolean;
 
+                role?: string;
+
                 webDriverTestID?: string;
 
                 /**
