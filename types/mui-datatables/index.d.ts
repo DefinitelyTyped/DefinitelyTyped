@@ -4,7 +4,7 @@
 //                 Ankith Konda <https://github.com/ankithkonda>
 //                 Herman "Von" Waters IV <https://github.com/hwatersiv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.2
 
 import * as React from 'react';
 import { ComponentNameToClassKey } from '@material-ui/core/styles/overrides';
