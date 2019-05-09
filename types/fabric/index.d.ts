@@ -1786,6 +1786,7 @@ declare namespace fabric
         constructor(element: HTMLCanvasElement | string, options?: ICanvasOptions);
 
         _objects: Object[];
+        freeDrawingBrush: BaseBrush;
         /**
          * Renders both the top canvas and the secondary container canvas.
          * @return {fabric.Canvas} instance
