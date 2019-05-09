@@ -17,7 +17,7 @@ declare class PushNotifications {
     setOptions(opts: PushNotifications.Settings): void;
     sendWith(method: PushNotifications.PushMethod, regIds: string[], data: PushNotifications.Data, cb: PushNotifications.Callback): void;
     send(registrationIds: PushNotifications.RegistrationId|PushNotifications.RegistrationId[], data: PushNotifications.Data, cb: PushNotifications.Callback): void;
-    send(registrationIds: PushNotifications.RegistrationId|PushNotifications.RegistrationId[], data: PushNotifications.Data): Promise<Result>;
+    send(registrationIds: PushNotifications.RegistrationId|PushNotifications.RegistrationId[], data: PushNotifications.Data): Promise<PushNotifications.Result>;
 }
 
 declare namespace PushNotifications {
