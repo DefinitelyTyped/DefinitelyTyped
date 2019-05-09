@@ -3707,16 +3707,8 @@ export type AzimuthProperty =
 // Unrecognized properties are assumed to be media queries
 // or pseudo selectors w/ nested style objects.
 // See: https://github.com/styletron/styletron-standard
-
-// Ideally I want to write:
-// interface StyleObject extends Properties {
-//     [extend: string]: StyleObject;
-// }
-
-// TODO: Change this any type to be a StyleObject, if possible.
-export interface StyleObject extends Properties {
-    [extend: string]: any;
-}
+export type StyleObject = Properties &
+    { [key in string]: Properties[keyof Properties] | StyleObject };
 
 export interface StandardEngine {
     renderStyle(style: StyleObject): string;
