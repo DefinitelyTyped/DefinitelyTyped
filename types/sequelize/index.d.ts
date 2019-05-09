@@ -5007,7 +5007,17 @@ declare namespace sequelize {
         /**
          * The index type
          */
+        indicesType?: 'UNIQUE' | 'FULLTEXT' | 'SPATIAL';
+
+        /**
+         * The index type
+         */
         type?: 'UNIQUE' | 'FULLTEXT' | 'SPATIAL';
+
+        /**
+         * The name of the index. Default is __
+         */
+        indexName?: string;
 
         /**
          * Create a unique index

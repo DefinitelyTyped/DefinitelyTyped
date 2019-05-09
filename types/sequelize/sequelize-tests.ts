@@ -1195,7 +1195,9 @@ queryInterface.createTable( 'table', { name : { type : Sequelize.STRING } }, { s
 queryInterface.addIndex( { schema : 'a', tableName : 'c' }, ['d', 'e'], { logging : function() {} }, 'schema_table' );
 queryInterface.showIndex( { schema : 'schema', tableName : 'table' }, { logging : function() {} } );
 queryInterface.addIndex( 'Group', ['from'] );
-queryInterface.addIndex( 'Group', ['from'], { name: 'group_from' } );
+queryInterface.addIndex( 'Group', ['from'], { indexName: 'group_from' });
+queryInterface.addIndex( 'Group', ['from'], { type: 'FULLTEXT' });
+queryInterface.addIndex( 'Group', ['from'], { indicesType: 'FULLTEXT' } );
 queryInterface.addIndex( 'Group', ['from'], { concurrently: true } );
 queryInterface.addIndex( 'Group', ['data'], { using: 'gin', operator: 'jsonb_path_ops' } );
 queryInterface.addIndex( 'Group', { fields: ['data'], using: 'gin', operator: 'jsonb_path_ops' } );
