@@ -48,4 +48,8 @@ proxy('www.google.com', {
     }
 });
 
+proxy('www.google.com', {
+    preserveHostHdr: true
+});
+
 app.use('/proxy/:port', proxy((req) => 'localhost:' + req.params.port));
