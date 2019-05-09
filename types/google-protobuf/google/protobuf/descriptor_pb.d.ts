@@ -177,14 +177,14 @@ export class DescriptorProto extends jspb.Message {
 export namespace DescriptorProto {
   export type AsObject = {
     name?: string,
-    fieldList: Array<FieldDescriptorProto.AsObject>,
+    fieldList: Array<AsObject>,
     extensionList: Array<FieldDescriptorProto.AsObject>,
-    nestedTypeList: Array<DescriptorProto.AsObject>,
+    nestedTypeList: Array<AsObject>,
     enumTypeList: Array<EnumDescriptorProto.AsObject>,
-    extensionRangeList: Array<DescriptorProto.ExtensionRange.AsObject>,
+    extensionRangeList: Array<ExtensionRange.AsObject>,
     oneofDeclList: Array<OneofDescriptorProto.AsObject>,
     options?: MessageOptions.AsObject,
-    reservedRangeList: Array<DescriptorProto.ReservedRange.AsObject>,
+    reservedRangeList: Array<ReservedRange.AsObject>,
     reservedNameList: Array<string>,
   }
 
@@ -338,8 +338,8 @@ export namespace FieldDescriptorProto {
   export type AsObject = {
     name?: string,
     number?: number,
-    label?: FieldDescriptorProto.Label,
-    type?: FieldDescriptorProto.Type,
+    label?: Label,
+    type?: Type,
     typeName?: string,
     extendee?: string,
     defaultValue?: string,
@@ -445,7 +445,7 @@ export namespace EnumDescriptorProto {
     name?: string,
     valueList: Array<EnumValueDescriptorProto.AsObject>,
     options?: EnumOptions.AsObject,
-    reservedRangeList: Array<EnumDescriptorProto.EnumReservedRange.AsObject>,
+    reservedRangeList: Array<EnumReservedRange.AsObject>,
     reservedNameList: Array<string>,
   }
 
@@ -721,7 +721,7 @@ export namespace FileOptions {
     javaMultipleFiles?: boolean,
     javaGenerateEqualsAndHash?: boolean,
     javaStringCheckUtf8?: boolean,
-    optimizeFor?: FileOptions.OptimizeMode,
+    optimizeFor?: OptimizeMode,
     goPackage?: string,
     ccGenericServices?: boolean,
     javaGenericServices?: boolean,
@@ -840,9 +840,9 @@ export class FieldOptions extends jspb.Message {
 
 export namespace FieldOptions {
   export type AsObject = {
-    ctype?: FieldOptions.CType,
+    ctype?: CType,
     packed?: boolean,
-    jstype?: FieldOptions.JSType,
+    jstype?: JSType,
     lazy?: boolean,
     deprecated?: boolean,
     weak?: boolean,
@@ -1003,7 +1003,7 @@ export class MethodOptions extends jspb.Message {
 export namespace MethodOptions {
   export type AsObject = {
     deprecated?: boolean,
-    idempotencyLevel?: MethodOptions.IdempotencyLevel,
+    idempotencyLevel?: IdempotencyLevel,
     uninterpretedOptionList: Array<UninterpretedOption.AsObject>,
   }
 
@@ -1064,7 +1064,7 @@ export class UninterpretedOption extends jspb.Message {
 
 export namespace UninterpretedOption {
   export type AsObject = {
-    nameList: Array<UninterpretedOption.NamePart.AsObject>,
+    nameList: Array<NamePart.AsObject>,
     identifierValue?: string,
     positiveIntValue?: number,
     negativeIntValue?: number,
@@ -1120,7 +1120,7 @@ export class SourceCodeInfo extends jspb.Message {
 
 export namespace SourceCodeInfo {
   export type AsObject = {
-    locationList: Array<SourceCodeInfo.Location.AsObject>,
+    locationList: Array<Location.AsObject>,
   }
 
   export class Location extends jspb.Message {
@@ -1188,7 +1188,7 @@ export class GeneratedCodeInfo extends jspb.Message {
 
 export namespace GeneratedCodeInfo {
   export type AsObject = {
-    annotationList: Array<GeneratedCodeInfo.Annotation.AsObject>,
+    annotationList: Array<Annotation.AsObject>,
   }
 
   export class Annotation extends jspb.Message {
