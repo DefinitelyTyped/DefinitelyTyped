@@ -7,6 +7,7 @@
 // TypeScript Version: 3.1
 
 import * as React from 'react';
+import { ComponentNameToClassKey } from '@material-ui/core/styles/overrides';
 
 interface MUIDataTableData {
     index: number;
@@ -156,7 +157,15 @@ export interface MUIDataTableOptions {
     onRowsSelect?: (currentRowsSelected: any[], rowsSelected: any[]) => void;
     onRowsDelete?: (rowsDeleted: any[]) => void;
     onRowClick?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
-    onCellClick?: (colData: any, cellMeta: { colIndex: number, rowIndex: number, dataIndex: number, event: React.MouseEvent }) => void;
+    onCellClick?: (
+        colData: any,
+        cellMeta: {
+            colIndex: number;
+            rowIndex: number;
+            dataIndex: number;
+            event: React.MouseEvent;
+        }
+    ) => void;
     onChangePage?: (currentPage: number) => void;
     onChangeRowsPerPage?: (numberOfRows: number) => void;
     onSearchChange?: (searchText: string) => void;
@@ -367,3 +376,57 @@ export const TableToolbarSelect: React.Component<MUIDataTableToolbarSelect>;
 export const TableViewCol: React.Component<MUIDataTableViewCol>;
 
 export default MUIDataTable;
+
+declare module '@material-ui/core/styles/overrides' {
+    interface ComponentNameToClassKey {
+        MUIDataTable: 'root' | 'paper' | 'tableRoot' | 'responsiveScroll' | 'caption' | 'liveAnnounce';
+
+        MUIDataTableBody: 'root' | 'emptyTitle';
+
+        MUIDataTableBodyCell: 'root' | 'cellHide' | 'cellStacked' | 'responsiveStacked';
+
+        MUIDataTableBodyRow: 'root' | 'hover' | 'responsiveStacked';
+
+        MUIDataTableFilter:
+            | 'root'
+            | 'header'
+            | 'title'
+            | 'noMargin'
+            | 'reset'
+            | 'resetLink'
+            | 'filtersSelected'
+            | 'checkboxListTitle'
+            | 'checkboxFormGroup'
+            | 'checkboxFormControl'
+            | 'checkboxFormControlLabel'
+            | 'checkboxIcon'
+            | 'checkbox'
+            | 'checked'
+            | 'selectRoot'
+            | 'selectFormControl'
+            | 'textFieldRoot'
+            | 'textFieldFormControl';
+
+        MUIDataTableFilterList: 'root' | 'chip';
+
+        MUIDataTableHead: 'main' | 'responsiveStacked';
+
+        MUIDataTableHeadCell: 'root' | 'fixedHeader' | 'tooltip' | 'mypopper' | 'data' | 'sortAction' | 'sortActive' | 'toolButton';
+
+        MUIDataTableHeadRow: 'root';
+
+        MUIDataTablePagination: 'root' | 'toolbar' | 'selectRoot';
+
+        MUIDataTableResize: 'root' | 'resizer';
+
+        MUIDataTableSearch: 'main' | 'searchIcon' | 'searchText' | 'clearIcon';
+
+        MUIDataTableSelectCell: 'root' | 'fixedHeader' | 'icon' | 'expanded' | 'hide' | 'headerCell' | 'checkboxRoot' | 'checked' | 'disabled';
+
+        MUIDataTableToolbar: 'root' | 'left' | 'actions' | 'titleRoot' | 'titleText' | 'icon' | 'iconActive' | 'filterPaper' | 'searchIcon' | 'spacer';
+
+        MUIDataTableToolbarSelect: 'root' | 'title' | 'iconButton' | 'deleteIcon';
+
+        MUIDataTableViewCol: 'root' | 'title' | 'formGroup' | 'formControl' | 'checkbox' | 'checkboxRoot' | 'checked' | 'label';
+    }
+}
