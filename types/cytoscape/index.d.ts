@@ -4080,7 +4080,7 @@ declare namespace cytoscape {
             /**
              * The shape to use for the label background.
              */
-            "text-background-shape": "ractangle" | "roundrectangle";
+            "text-background-shape": "rectangle" | "roundrectangle";
 
             /**
              * Border:
