@@ -17,7 +17,7 @@ declare module "fabric" {
     export = fabric;
 }
 
-declare namespace fabric 
+declare namespace fabric {
 
     export const isLikelyNode: boolean;
     export const isTouchSupported: boolean;
