@@ -17,19 +17,19 @@ type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A)
   : never;
 
 declare namespace BetterSqlite3 {
-    interface Statement {
+    interface Statement<BindParameters extends any[]> {
         database: Database;
         source: string;
         reader: boolean;
 
-        run(...params: any[]): Database.RunResult;
-        get(...params: any[]): any;
-        all(...params: any[]): any[];
-        iterate(...params: any[]): IterableIterator<any>;
+        run(...params: BindParameters): Database.RunResult;
+        get(...params: BindParameters): any;
+        all(...params: BindParameters): any[];
+        iterate(...params: BindParameters): IterableIterator<any>;
         pluck(toggleState?: boolean): this;
         expand(toggleState?: boolean): this;
         raw(toggleState?: boolean): this;
-        bind(...params: any[]): this;
+        bind(...params: BindParameters): this;
         columns(): ColumnDefinition[];
         safeIntegers(toggleState?: boolean): this;
     }
@@ -43,11 +43,11 @@ declare namespace BetterSqlite3 {
     }
 
     interface Transaction<F extends VariableArgFunction> {
-        (...params: ArgumentTypes<F>): any;
-        default(...params: ArgumentTypes<F>): any;
-        deferred(...params: ArgumentTypes<F>): any;
-        immediate(...params: ArgumentTypes<F>): any;
-        exclusive(...params: ArgumentTypes<F>): any;
+        (...params: ArgumentTypes<F>): ReturnType<F>;
+        default(...params: ArgumentTypes<F>): ReturnType<F>;
+        deferred(...params: ArgumentTypes<F>): ReturnType<F>;
+        immediate(...params: ArgumentTypes<F>): ReturnType<F>;
+        exclusive(...params: ArgumentTypes<F>): ReturnType<F>;
     }
 
     interface Database {
@@ -57,7 +57,10 @@ declare namespace BetterSqlite3 {
         open: boolean;
         inTransaction: boolean;
 
-        prepare(source: string): Statement;
+        // tslint:disable-next-line no-unnecessary-generics
+        prepare<BindParameters extends any[] | {} = any[]>(source: string): BindParameters extends any[]
+          ? Statement<BindParameters>
+          : Statement<[BindParameters]>;
         transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
         exec(source: string): this;
         pragma(source: string, options?: Database.PragmaOptions): any;
@@ -120,7 +123,9 @@ declare namespace Database {
 
     type Integer = typeof Integer;
     type SqliteError = typeof SqliteError;
-    type Statement = BetterSqlite3.Statement;
+    type Statement<BindParameters extends any[] | {} = any[]> = BindParameters extends any[]
+      ? BetterSqlite3.Statement<BindParameters>
+      : BetterSqlite3.Statement<[BindParameters]>;
     type ColumnDefinition = BetterSqlite3.ColumnDefinition;
     type Transaction = BetterSqlite3.Transaction<VariableArgFunction>;
     type Database = BetterSqlite3.Database;
