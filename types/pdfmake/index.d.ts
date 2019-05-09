@@ -181,7 +181,7 @@ declare module "pdfmake/build/pdfmake" {
     }
 
     interface TDocumentDefinitions {
-        background?: () => string | string;
+        background?: ((currentPage: number, pageSize: PageSize) => string | Content | null) | string;
         compress?: boolean;
         content: string | Content;
         defaultStyle?: Style;
