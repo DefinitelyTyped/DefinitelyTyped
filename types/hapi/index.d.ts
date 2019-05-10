@@ -4034,7 +4034,7 @@ export namespace Lifecycle {
 
 export namespace Util {
     interface Dictionary<T> {
-        [key: string]: T;
+        [key: string]: T | Dictionary<T>;
     }
 
     type HTTP_METHODS_PARTIAL_LOWERCASE = 'get' | 'post' | 'put' | 'patch' | 'delete' | 'options';
