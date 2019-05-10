@@ -962,7 +962,7 @@ declare module "../index" {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<T>): Object<Dictionary<T>>;
+        groupBy(iteratee?: ValueIteratee<T>): Object<Dictionary<T[]>>;
     }
     interface Object<T> {
         /**
@@ -986,7 +986,7 @@ declare module "../index" {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<T>): ObjectChain<Dictionary<T>>;
+        groupBy(iteratee?: ValueIteratee<T>): ObjectChain<Dictionary<T[]>>;
     }
     interface ObjectChain<T> {
         /**
