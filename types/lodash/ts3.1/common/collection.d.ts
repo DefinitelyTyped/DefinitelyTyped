@@ -956,7 +956,7 @@ declare module "../index" {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<string>): Object<Dictionary<string>>;
+        groupBy(iteratee?: ValueIteratee<string>): Object<Dictionary<string[]>>;
     }
     interface Collection<T> {
         /**
@@ -974,7 +974,7 @@ declare module "../index" {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string>>;
+        groupBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string[]>>;
     }
     interface StringNullableChain {
         /**
