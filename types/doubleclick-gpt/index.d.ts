@@ -60,6 +60,7 @@ declare namespace googletag {
         advertiserId: string;
         campaignId: string;
         creativeId?: number;
+        creativeTemplateId?: number;
         lineItemId?: number;
     }
 
@@ -78,7 +79,7 @@ declare namespace googletag {
         defineSlot(adUnitPath: string, size: GeneralSize, opt_div?: string): Slot;
         destroySlots(opt_slots?: Slot[]): boolean;
         disablePublisherConsole(): void;
-        display(div?: string | Element): void;
+        display(divOrSlot?: string | Element | Slot ): void;
         enableServices(): void;
         getVersion(): string;
         openConsole(opt_div?: string): void;
@@ -184,6 +185,10 @@ declare namespace googletag {
             sourceAgnosticCreativeId?: number;
             sourceAgnosticLineItemId?: number;
         }
+
+        interface SlotRequestedEvent extends Event {}
+        
+        interface SlotResponseReceived extends Event {}
 
         interface SlotVisibilityChangedEvent extends Event {
             inViewPercentage: number;
