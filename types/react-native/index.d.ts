@@ -1158,7 +1158,7 @@ export interface TextInputAndroidProps {
      * - `no` - not important for autofill
      * - `noExcludeDescendants` - this view and its children aren't important for autofill
      * - `yes` - is important for autofill
-     * - `yesExcludeDescendants` - this view and its children is important for autofill
+     * - `yesExcludeDescendants` - this view is important for autofill but its children aren't
      */
     importantForAutofill?:
         | "auto"
