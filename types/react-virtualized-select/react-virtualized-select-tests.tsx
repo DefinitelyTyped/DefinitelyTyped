@@ -13,6 +13,8 @@ class ExampleSelectAsync extends VirtualizedSelect<Example> {
 
 class ExampleSelectCreatable extends VirtualizedSelect<Example> {
 }
+class ExampleSelectOptionHeightFunc extends VirtualizedSelect<Example> {
+}
 
 <div>
     <VirtualizedSelect
@@ -32,5 +34,8 @@ class ExampleSelectCreatable extends VirtualizedSelect<Example> {
     <ExampleSelectCreatable
       selectComponent={ReactSelect.Creatable}
       isValidNewOption={(arg: {label: string}) => arg.label.length > 1}
+    />
+    <ExampleSelectOptionHeightFunc
+      optionHeight={() => 5}
     />
 </div>;
