@@ -1,0 +1,5 @@
+{
+    "dependencies": {
+        "@types/styletron-standard": "^1.0.0"
+    }
+}
