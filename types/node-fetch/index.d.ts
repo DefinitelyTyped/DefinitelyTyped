@@ -12,6 +12,7 @@
 
 import { Agent } from "http";
 import { URLSearchParams } from "url";
+import { AbortSignal } from 'abort-controller';
 
 export class Request extends Body {
     constructor(input: string | { href: string } | Request, init?: RequestInit);
@@ -22,6 +23,7 @@ export class Request extends Body {
     redirect: RequestRedirect;
     referrer: string;
     url: string;
+    signal?: AbortSignal;
 
     // node-fetch extensions to the whatwg/fetch spec
     agent?: Agent;
@@ -41,6 +43,7 @@ export interface RequestInit {
     headers?: HeadersInit;
     method?: string;
     redirect?: RequestRedirect;
+    signal?: AbortSignal;
 
     // node-fetch extensions
     agent?: Agent; // =null http.Agent instance, allows custom proxy, certificate etc.
