@@ -2375,6 +2375,8 @@ export interface ServerEvents extends Podium {
 
     on(criteria: 'stop' | ServerEventCriteria<'stop'>, listener: StopEventHandler): void;
 
+    on<T extends string, U extends Podium.Listener>(criteria: T | ServerEventCriteria<T>, listener: U): void;
+
     /**
      * Same as calling [server.events.on()](https://github.com/hapijs/hapi/blob/master/API.md#server.events.on()) with the count option set to 1.
      * @param criteria - the subscription criteria which must be one of:
@@ -2396,6 +2398,8 @@ export interface ServerEvents extends Podium {
     once(criteria: 'start' | ServerEventCriteria<'start'>, listener: StartEventHandler): void;
 
     once(criteria: 'stop' | ServerEventCriteria<'stop'>, listener: StopEventHandler): void;
+
+    once<T extends string, U extends Podium.Listener>(criteria: T | ServerEventCriteria<T>, listener: U): void;
 
     /**
      * Same as calling server.events.on() with the count option set to 1.
