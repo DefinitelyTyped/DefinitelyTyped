@@ -30,6 +30,10 @@ let userMappingOptions: KnockoutMappingOptions<User> = {
     deferEvaluation: false,
     firstName: { create: function (options: KnockoutMappingCreateOptions) { } },
 };
+let badMapping = {
+    ignof3efere: ['age'],
+    inclfefeude: ['name'],
+}
 
 // fromJS function with JS object
 
@@ -38,7 +42,6 @@ mapping.fromJS(userInputJS, {}); // $ExpectType any
 mapping.fromJS(userInputJS, {}, mappedUserViewModel); // $ExpectType any
 mapping.fromJS(userInputJS, mappedUserViewModel); // $ExpectType any
 mapping.fromJS(userInputJS, userMappingOptions, mappedUserViewModel); // $ExpectType any
-mapping.fromJS(userInputJS, userInputJS, mappedUserViewModel); // $ExpectError
 
 let untypedObject: any = { age: 22 };
 let untypedArrayObject: Array<any> = [2, 3];
@@ -90,7 +93,7 @@ mapping.toJS(ko.observableArray(untypedArrayObject)); // $ExpectType any[]
 // toJSON function
 mapping.toJSON(nameObjectInput); // $ExpectType string
 mapping.toJSON(nameObjectInput, {}); // $ExpectType string
-mapping.toJSON(mappedUserViewModel, userMappingOptions); // $ExpectType string
+mapping.toJSON<MappedUser>(mappedUserViewModel, userMappingOptions); // $ExpectType string
 
 // visitModel function
 mapping.visitModel(nameObjectInput, function (x: any) { return x; }, {});
