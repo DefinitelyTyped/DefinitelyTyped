@@ -4,8 +4,9 @@
 //                 Bradley Odell <https://github.com/BTOdell>
 //                 Tobias Kraus <https://github.com/tobiaskraus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
-export default class Delaunator<P> {
+declare class Delaunator<P> {
     /**
      * A Uint32Array array of triangle vertex indices (each group of three numbers forms a triangle).
      * All triangles are directed counterclockwise.
@@ -48,3 +49,5 @@ export default class Delaunator<P> {
      */
     static from<P>(points: ArrayLike<P>, getX: (point: P) => number, getY: (point: P) => number): Delaunator<P>;
 }
+
+export = Delaunator;
