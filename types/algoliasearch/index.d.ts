@@ -1519,7 +1519,7 @@ declare namespace algoliasearch {
   }
 
   interface Task {
-    taskID: number;
+    taskID: Record<string, number>;
     createdAt: string;
     objectID?: string;
   }
