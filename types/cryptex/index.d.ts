@@ -8,10 +8,12 @@
 // typically, you find these in cryptex.json
 export interface CryptexConfig {
     keySource: string;
-    keySourceOpts: {
+    keySourceOpts?: {
         dataKey?: string;
         region?: string;
     };
+    algorithm?: string;
+    secretEncoding?: string;
     secrets: object;
 }
 // constructor and update params
