@@ -88,6 +88,7 @@ import {
     requireNativeComponent,
     Keyboard,
     NetInfo,
+    PermissionsAndroid,
 } from "react-native";
 
 declare module "react-native" {
@@ -875,4 +876,36 @@ const KeyboardTest = () => {
 const NetInfoTest = () => {
     const subscription = NetInfo.addEventListener('connectionChange', (result) => console.log(result));
     subscription.remove();
+}
+
+const PermissionsAndroidTest = () => {
+    PermissionsAndroid.request('android.permission.CAMERA').then(result => {
+        switch (result) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    })
+
+    PermissionsAndroid.requestMultiple(['android.permission.CAMERA', 'android.permission.ACCESS_FINE_LOCATION']).then(results => {
+        switch (results['android.permission.CAMERA']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.ACCESS_FINE_LOCATION']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    })
 }
