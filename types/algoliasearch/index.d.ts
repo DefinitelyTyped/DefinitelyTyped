@@ -8,6 +8,7 @@
 //                 Nery Ortez <https://github.com/neryortez>
 //                 Antoine Rousseau <https://github.com/antoinerousseau>
 //                 Luca Pasquale <https://github.com/lucapasquale>
+//                 Alexandre Deve <https://github.com/adeve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1880,9 +1881,86 @@ declare namespace algoliasearch {
   }
 }
 
-declare function algoliasearch(
-  applicationId: string,
-  apiKey: string,
-  options?: algoliasearch.ClientOptions
-): algoliasearch.Client;
+
+declare namespace algoliasearchInitPlaces {
+
+    interface QueryInterface {
+        query?: string;
+        type?: "city" | "country" | "address" | "busStop" | "trainStation" | "townhall" | "airport";
+        hitsPerPage?: number;
+        language?: string;
+        countries?: string;
+        aroundLatLng?: string;
+        aroundLatLngViaIP?: string;
+        aroundRadius?: number;
+        getRankingInfo?: boolean;
+    }
+
+    interface PlaceInterface {
+        search(e: QueryInterface, f: (err: any, response: ResultInterface) => void): void;
+    }
+
+    interface ResultInterface {
+        hits: HitInterface[];
+        degradedQuery: boolean;
+        nbHits: number;
+        params: string;
+        processingTimeMS: number;
+        query: string;
+    }
+
+    interface HitInterface {
+        admin_level: number;
+        administrative: string[];
+        country: { default: string; [key: string]: string };
+        country_code: string;
+        county: { default: string; [key: string]: string };
+        district: string;
+        importance: number;
+        is_city: boolean;
+        is_country: boolean;
+        is_highway: boolean;
+        is_popular: boolean;
+        is_suburb: boolean;
+        locale_names: { default: string; [key: string]: string };
+        objectID: string;
+        population: number;
+        postcode: string[];
+        geoloc: { lat: number; lng: number };
+        highlightResult: HighlightResultInterface;
+        tags: string[];
+    }
+
+    interface valueInterface {
+        value: string;
+        matchLevel: string;
+        matchedWords: string[];
+    }
+
+    interface HighlightResultInterface {
+        administrative: valueInterface;
+        country: {
+            default: valueInterface;
+            [key: string]: valueInterface;
+        };
+        county: { default: string; [key: string]: string };
+        locale_names: { default: string[]; [key: string]: string[] };
+        postcode: valueInterface[];
+    }
+}
+
+export interface AlgoliasearchInstance {
+    (
+        applicationId: string,
+        apiKey: string,
+        options?: algoliasearch.ClientOptions,
+    ): algoliasearch.Client;
+}
+
+export interface AlgoliaStatic extends AlgoliasearchInstance {
+    initPlaces(apiKey: string, applicationId: string): algoliasearchInitPlaces.PlaceInterface;
+}
+
+declare const algoliasearch: AlgoliaStatic;
+
 export = algoliasearch;
