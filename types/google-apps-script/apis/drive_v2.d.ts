@@ -86,6 +86,8 @@ declare namespace GoogleAppsScript {
         insert(resource: Schema.Drive, requestId: string): Drive.Schema.Drive;
         // Lists the user's shared drives.
         list(): Drive.Schema.DriveList;
+        // Lists the user's shared drives.
+        list(optionalArgs: object): Drive.Schema.DriveList;
         // Permanently deletes a shared drive for which the user is an organizer. The shared drive cannot contain any untrashed items.
         remove(driveId: string): void;
         // Restores a shared drive to the default view.
