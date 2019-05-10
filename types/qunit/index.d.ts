@@ -320,6 +320,24 @@ interface Config {
     }[];
 }
 
+/**
+ * An object, ultimately passed to module(),
+ * that may have one or more QUnit module hooks
+ * 
+ * @example
+ * 
+ * // Passing the hooks to `module()`
+ * module('my module', {
+ *   beforeEach() {
+ *     console.log('test begin ', performance.now())
+ *   },
+ *   afterEach() {
+ *     console.log('test end ', performance.now())
+ *   }
+ * }, function() {
+ *    // tests
+ * })
+ */
 interface Hooks {
 
     /**
@@ -345,6 +363,22 @@ interface Hooks {
 
 }
 
+/**
+ * An object passed to the QUnit "nested" callback,
+ * allowing setup of lifecycle hooks
+ * 
+ * @example
+ * 
+ * module('my module', function(hooks) {
+ *   hooks.beforeEach(function () {
+ *     console.log('test begin ', performance.now())
+ *   });
+ *   hooks.afterEach(function () {
+ *     console.log('test end ', performance.now())
+ *   });
+ * });
+ * 
+ */
 interface NestedHooks {
     /**
      * Runs after the last test. If additional tests are defined after the
