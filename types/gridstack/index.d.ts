@@ -1,6 +1,9 @@
-// Type definitions for Gridstack
+// Type definitions for Gridstack 0.4
 // Project: http://troolee.github.io/gridstack.js/
-// Definitions by: Pascal Senn <https://github.com/PascalSenn>, Ricky Blankenaufulland <https://github.com/ZoolWay>, Sl1MBoy <https://github.com/Sl1MBoy>, John Archer <https://github.com/JohnArcher>
+// Definitions by: Pascal Senn <https://github.com/PascalSenn>
+//                 Ricky Blankenaufulland <https://github.com/ZoolWay>
+//                 Sl1MBoy <https://github.com/Sl1MBoy>
+//                 John Archer <https://github.com/JohnArcher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
