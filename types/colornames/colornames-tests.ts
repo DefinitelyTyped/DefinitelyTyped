@@ -2,13 +2,13 @@ import colorNames = require("colornames");
 
 // $ExpectType string | undefined
 const color = colorNames("red");
-// $ExpectType string
+// $ExpectType string | undefined
 color;
-// $ExpectType undefined
+// $ExpectType string | undefined
 const undefinedColor = colorNames("donkey");
-// $ExpectType undefined
+// $ExpectType string | undefined
 undefinedColor;
-// $ExpectType string
+// $ExpectType Color
 const blue = colorNames.get("blue");
 // $ExpectType boolean | undefined
 blue.css;
