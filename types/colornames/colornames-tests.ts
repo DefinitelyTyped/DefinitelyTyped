@@ -1,13 +1,9 @@
 import colorNames = require("colornames");
 
 // $ExpectType string | undefined
-const color = colorNames("red");
+colorNames("red");
 // $ExpectType string | undefined
-color;
-// $ExpectType string | undefined
-const undefinedColor = colorNames("donkey");
-// $ExpectType string | undefined
-undefinedColor;
+colorNames("donkey");
 // $ExpectType Color
 const blue = colorNames.get("blue");
 // $ExpectType boolean | undefined
