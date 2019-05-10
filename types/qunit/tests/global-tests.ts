@@ -242,31 +242,31 @@ QUnit.log(function( details ) {
   console.log( output );
 });
 
-QUnit.log(function( details: QUnit.LogDetails ) {
+QUnit.log(function( details ) {
   let x: { actual: number; expected: number; message: string; module: string; name: string; result: boolean; runtime: number; source: string } = details;
   x = details;
 });
 
-QUnit.begin(function( details: QUnit.BeginDetails ) {
+QUnit.begin(function( details ) {
   console.log( "Total tests running: ", details.totalTests);
 });
 
-QUnit.done(function( details: QUnit.DoneDetails ) {
+QUnit.done(function( details ) {
   console.log( "Finished. Failed/total: ", details.failed, details.total, details.passed, details.runtime );
 });
 
-QUnit.moduleDone(function( details: QUnit.ModuleDoneDetails ) {
+QUnit.moduleDone(function( details ) {
   console.log( "Finished running: ", details.name, "Failed/total: ", details.failed, details.total, details.passed, details.runtime );
 });
 
-QUnit.moduleStart(function( details: QUnit.ModuleStartDetails ) {
+QUnit.moduleStart(function( details ) {
   console.log( "Now running: ", details.name );
 });
-QUnit.testDone(function( details: QUnit.TestDoneDetails ) {
+QUnit.testDone(function( details ) {
   console.log( "Finished running: ", details.name, "Failed/total: ", details.failed, details.total, details.passed, details.runtime);
 });
 
-QUnit.testStart(function( details: QUnit.TestStartDetails ) {
+QUnit.testStart(function( details ) {
   console.log( "Now running: ", details.name, ' from module ', details.module );
 });
 

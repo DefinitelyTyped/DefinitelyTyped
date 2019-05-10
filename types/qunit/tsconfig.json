@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "qunit-tests.ts"
+        "tests/global-tests.ts",
+        "tests/es6-module-tests.ts"
     ]
 }
