@@ -53,7 +53,7 @@ interface GlobalResolver {
     /**
      * Gets the color with the specified name.
      */
-    (name: string): Color;
+    (name: string): string | undefined;
 
     /**
      * Provides the functionality to query colors.
