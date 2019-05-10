@@ -42,7 +42,7 @@ type IterateFunction<T, R> = (item: T, index: number, arrayLength: number) => Re
 
 declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   [Symbol.toStringTag]: "Promise";
-  
+
   /**
    * Create a new promise. The passed in function will receive functions
    * `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
