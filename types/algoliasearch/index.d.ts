@@ -981,7 +981,7 @@ declare namespace algoliasearch {
   }
   interface BrowseResponse {
     cursor?: string;
-    hits: {}[];
+    hits: {objectID: string}[];
     params: string;
     query: string;
     processingTimeMS: number;
