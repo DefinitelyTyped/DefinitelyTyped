@@ -102,6 +102,7 @@ export interface MUIDataTableColumnOptions {
     filter?: boolean;
     filterList?: string[];
     filterOptions?: string[];
+    filterType?: 'dropdown' | 'checkbox' | 'multiselect' | 'textField';
     sort?: boolean;
     searchable?: boolean;
     sortDirection?: 'asc' | 'desc';
