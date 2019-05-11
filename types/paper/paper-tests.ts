@@ -85,6 +85,21 @@ paper.settings.insertItems = true
 const paperScope = new paper.PaperScope();
 paperScope.settings.insertItems = false;
 
+// When multiple paper scopes may be in play you have to use the classes from inside
+// the right scope to create new objects rather than the global classes from the
+// module's default export,
+const scopedRectangle: paper.Rectangle = new paperScope.Rectangle(2,2,7,7);
+const scopedPoint: paper.Point = new paperScope.Point(25, 25);
+const scopedPath: paper.Path = new paperScope.Path.Line(new paperScope.Point(0,0), scopedPoint);
+const scopedTool: paper.Tool = new paperScope.Tool();
+const scopedMatrix: paper.Matrix = new paperScope.Matrix(1,2,3,4,5,6);
+const scopedLayer: paper.Layer = new paperScope.Layer([]);
+const scopedShape: paper.Shape = paperScope.Shape.Circle(new paperScope.Point(20,20),5);
+const scopedRaster: paper.Raster = new paperScope.Raster('http://github.com/favicon.png');
+const scopedProject: paper.Project = new paperScope.Project('id');
+const scopedColor: paper.Color = new paperScope.Color(255, 255, 255);
+const scopedPointText: paper.PointText = new paperScope.PointText(new paperScope.Point(1,1));
+
 function Examples() {
     function BooleanOperations(){
         let text = new paper.PointText({

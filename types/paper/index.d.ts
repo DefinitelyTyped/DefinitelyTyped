@@ -1236,6 +1236,37 @@ declare module paper {
          */
         static get(id: string): PaperScope;
 
+        /**
+         * All the classes for paper can be constructed via the PaperScope instance, so
+         * that they are associated with that scope
+         */
+        Matrix: typeof Matrix;
+        Point: typeof Point;
+        Rectangle: typeof Rectangle;
+        Size: typeof Size;
+        PaperScope: typeof PaperScope;
+        Item: typeof Item;
+        Group: typeof Group;
+        Layer: typeof Layer;
+        Shape: typeof Shape;
+        Raster: typeof Raster;
+        PlacedSymbol: typeof PlacedSymbol;
+        PathItem: typeof PathItem;
+        Path: typeof Path;
+        CompoundPath: typeof CompoundPath;
+        Segment: typeof Segment;
+        Curve: typeof Curve;
+        CurveLocation: typeof CurveLocation;
+        Project: typeof Project;
+        Symbol: typeof Symbol;
+        Style: typeof Style;
+        Color: typeof Color;
+        Gradient: typeof Gradient;
+        GradientStop: typeof GradientStop;
+        View: typeof View;
+        Tool: typeof Tool;
+        TextItem: typeof TextItem;
+        PointText: typeof PointText;
     }
     export interface IHitTestOptions{
 
