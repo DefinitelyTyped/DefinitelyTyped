@@ -4,10 +4,12 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { TimeoutsOptions } from "retry";
+
 export interface LockOptions {
     stale?: number; // default: 10000
     update?: number; // default: stale/2
-    retries?: number; // default: 0
+    retries?: number | TimeoutsOptions; // default: 0
     realpath?: boolean; // default: true
     fs?: any; // default: graceful-fs
     onCompromised?: (err: Error) => any; // default: (err) => throw err
