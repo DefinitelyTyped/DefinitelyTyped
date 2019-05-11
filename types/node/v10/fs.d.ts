@@ -17,24 +17,29 @@ declare module "fs" {
         isSymbolicLink(): boolean;
         isFIFO(): boolean;
         isSocket(): boolean;
-        dev: number;
-        ino: number;
-        mode: number;
-        nlink: number;
-        uid: number;
-        gid: number;
-        rdev: number;
-        size: number;
-        blksize: number;
-        blocks: number;
-        atimeMs: number;
-        mtimeMs: number;
-        ctimeMs: number;
-        birthtimeMs: number;
+        dev: number | bigint;
+        ino: number | bigint;
+        mode: number | bigint;
+        nlink: number | bigint;
+        uid: number | bigint;
+        gid: number | bigint;
+        rdev: number | bigint;
+        size: number | bigint;
+        blksize: number | bigint;
+        blocks: number | bigint;
+        atimeMs: number | bigint;
+        mtimeMs: number | bigint;
+        ctimeMs: number | bigint;
+        birthtimeMs: number | bigint;
         atime: Date;
         mtime: Date;
         ctime: Date;
         birthtime: Date;
+    }
+
+    interface Options {
+        /// Whether the numeric values in the returned fs.Stats object should be bigint. Default: false.
+        bigint?: boolean
     }
 
     class Dirent {
@@ -371,6 +376,13 @@ declare module "fs" {
      */
     function stat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
 
+    /**
+     * Asynchronous stat(2) - Get file status.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Options
+     */
+    function stat(path: PathLike, options: Options, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
+
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace stat {
         /**
@@ -384,13 +396,20 @@ declare module "fs" {
      * Synchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function statSync(path: PathLike): Stats;
+    function statSync(path: PathLike, options?: Options): Stats;
 
     /**
      * Asynchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
     function fstat(fd: number, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
+
+    /**
+     * Asynchronous fstat(2) - Get file status.
+     * @param fd A file descriptor.
+     * @param options Options
+     */
+    function fstat(fd: number, options: Options, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace fstat {
@@ -405,13 +424,20 @@ declare module "fs" {
      * Synchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
-    function fstatSync(fd: number): Stats;
+    function fstatSync(fd: number, options?: Options): Stats;
 
     /**
      * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
     function lstat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
+
+    /**
+     * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Options
+     */
+    function lstat(path: PathLike, options: Options, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace lstat {
@@ -426,7 +452,7 @@ declare module "fs" {
      * Synchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function lstatSync(path: PathLike): Stats;
+    function lstatSync(path: PathLike, options?: Options): Stats;
 
     /**
      * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
@@ -1858,7 +1884,7 @@ declare module "fs" {
             /**
              * Asynchronous fstat(2) - Get file status.
              */
-            stat(): Promise<Stats>;
+            stat(options?: Options): Promise<Stats>;
 
             /**
              * Asynchronous ftruncate(2) - Truncate a file to a specified length.
@@ -2095,13 +2121,13 @@ declare module "fs" {
          * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function lstat(path: PathLike): Promise<Stats>;
+        function lstat(path: PathLike, options?: Options): Promise<Stats>;
 
         /**
          * Asynchronous stat(2) - Get file status.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function stat(path: PathLike): Promise<Stats>;
+        function stat(path: PathLike, options?: Options): Promise<Stats>;
 
         /**
          * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
