@@ -18,7 +18,7 @@ declare namespace parse {
 
     interface Parser extends stream.Transform {}
     class Parser {
-        constructor(options: Options);
+        constructor(options?: Options);
         __push(line: any): any ;
         __write(chars: any, end: any, callback: any): any;
     }
