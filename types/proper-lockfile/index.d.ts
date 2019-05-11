@@ -3,6 +3,7 @@
 // Definitions by: Nikita Volodin <https://github.com/qlonik>
 //                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { TimeoutsOptions } from "retry";
 
