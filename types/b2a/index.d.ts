@@ -6,14 +6,14 @@
 /**
  * Converts base64 string back into original text
  */
-declare function atob (base64: string): string;
+declare function atob(base64: string): string;
 
 /**
  * Converts text into base64 string
  */
-declare function btoa (text: string): string;
+declare function btoa(text: string): string;
 
 export {
     atob,
     btoa
-}
+};
