@@ -1504,6 +1504,7 @@ export namespace Icon {
 
     class Default extends Icon<DefaultIconOptions> {
         static imagePath?: string;
+        _getIconUrl: (name: string) => string;
         constructor(options?: DefaultIconOptions);
     }
 }
