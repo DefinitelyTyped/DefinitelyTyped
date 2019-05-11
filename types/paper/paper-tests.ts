@@ -39,11 +39,11 @@ dottedLineTool.onMouseUp = function(event: any) {
 // These objects are to make sure older code which didn't have the IHitTestOptions available still work.
 let hitOptionsEmpty = {};
 let hitOptionsPartial = {tolerance: 0, extra: true};
-let hitOptionsFull = {tolerance: 0, class: 'Path', match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
+let hitOptionsFull: paper.IHitTestOptions = {tolerance: 0, class: paper.Path, match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
 // These objects are to make sure new code which uses the IHitTestOptions work.
 let hitOptionsInterfaceEmpty:paper.IHitTestOptions = {};
 let hitOptionsInterfacePartial:paper.IHitTestOptions = {match: (hit: paper.HitResult)=>{return true;}};
-let hitOptionsInterfaceFull:paper.IHitTestOptions = {tolerance: 0, class: 'Path', match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
+let hitOptionsInterfaceFull:paper.IHitTestOptions = {tolerance: 0, class: paper.Path, match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
 let compoundPath: paper.CompoundPath = new paper.CompoundPath(dottedLinePath);
 let hitTestPoint = dottedLinePath.segments[0].point;
 let hitTestResult: paper.HitResult | null;

@@ -1278,7 +1278,7 @@ declare module paper {
         /**
          * only hit-test again a certain item class and its sub-classes: Group, Layer, Path, CompoundPath, Shape, Raster, PlacedSymbol, PointText, etc.
          */
-        class?: string;
+        class?: Function;
 
         /**
          * a match function to be called for each found hit result: Return true to return the result, false to keep searching
