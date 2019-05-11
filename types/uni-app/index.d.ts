@@ -2292,7 +2292,7 @@ interface GetStorageOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (res: any) => void;
     /**
      * 接口调用失败的回调函数
      */
