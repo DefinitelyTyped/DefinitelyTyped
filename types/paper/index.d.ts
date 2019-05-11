@@ -1715,7 +1715,7 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: IHitTestOptions): HitResult;
+        hitTest(point: Point, options?: IHitTestOptions): HitResult | null;
 
         /**
          * Performs a hit-test on the item and its children (if it is a Group or Layer) at the location of the specified point, returning all found hits.
@@ -4171,7 +4171,7 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: IHitTestOptions): HitResult;
+        hitTest(point: Point, options?: IHitTestOptions): HitResult | null;
 
         /**
          * Performs a hit-test on the item and its children (if it is a Group or Layer) at the location of the specified point, returning all found hits.

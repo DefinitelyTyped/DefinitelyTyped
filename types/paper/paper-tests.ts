@@ -46,7 +46,7 @@ let hitOptionsInterfacePartial:paper.IHitTestOptions = {match: (hit: paper.HitRe
 let hitOptionsInterfaceFull:paper.IHitTestOptions = {tolerance: 0, class: 'Path', match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
 let compoundPath: paper.CompoundPath = new paper.CompoundPath(dottedLinePath);
 let hitTestPoint = dottedLinePath.segments[0].point;
-let hitTestResult: paper.HitResult;
+let hitTestResult: paper.HitResult | null;
 let hitTestResults: paper.HitResult[];
 // These are Item hit tests
 hitTestResult = compoundPath.hitTest(hitTestPoint);
