@@ -176,7 +176,7 @@ export interface MuiDatatablesTableState {
 }
 
 export interface MUIDataTableProps {
-    title: string;
+    title: string | React.ReactNode;
     columns: MUIDataTableColumnDef[];
     data: Array<object | number[] | string[]>;
     options?: MUIDataTableOptions;
