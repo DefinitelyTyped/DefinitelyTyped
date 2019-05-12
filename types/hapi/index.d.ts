@@ -2375,7 +2375,7 @@ export interface ServerEvents extends Podium {
 
     on(criteria: 'stop' | ServerEventCriteria<'stop'>, listener: StopEventHandler): void;
 
-    on<T extends string, U extends Podium.Listener>(criteria: T | ServerEventCriteria<T>, listener: U): void;
+    on<T extends string>(criteria: T | ServerEventCriteria<T>, listener: Podium.Listener): void;
 
     /**
      * Same as calling [server.events.on()](https://github.com/hapijs/hapi/blob/master/API.md#server.events.on()) with the count option set to 1.
@@ -2399,7 +2399,7 @@ export interface ServerEvents extends Podium {
 
     once(criteria: 'stop' | ServerEventCriteria<'stop'>, listener: StopEventHandler): void;
 
-    once<T extends string, U extends Podium.Listener>(criteria: T | ServerEventCriteria<T>, listener: U): void;
+    once<T extends string>(criteria: T | ServerEventCriteria<T>, listener: Podium.Listener): void;
 
     /**
      * Same as calling server.events.on() with the count option set to 1.
