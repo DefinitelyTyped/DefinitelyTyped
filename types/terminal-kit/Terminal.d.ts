@@ -488,7 +488,7 @@ declare namespace Terminal {
   interface GridMenuOptions {
     y?: number;
     x?: number;
-    width: number;
+    width?: number;
     style?: CTerminal;
     selectedStyle?: CTerminal;
     leftPadding?: string;
