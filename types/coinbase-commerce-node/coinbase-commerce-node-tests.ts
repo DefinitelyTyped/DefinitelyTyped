@@ -289,15 +289,24 @@ const eventResponseExample: EventResource = {
     }
 };
 
+/**
+ * Retrieve an event by ID.
+ */
 Event.retrieve(eventResponseExample.id).then((event) => {
     const type: 'event' = event.resource;
 });
 
+/**
+ * Get a paginated list of events.
+ */
 Event.list({}).then(([events, paginationInfo]) => {
     const type: 'event' = events[0].resource;
     const results: number = paginationInfo.total;
 });
 
+/**
+ * Fetch all available events.
+ */
 Event.all({}).then((events) => {
     const type: 'event' = events[0].resource;
 });
