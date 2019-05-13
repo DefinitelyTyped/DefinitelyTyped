@@ -21,6 +21,11 @@ interface Options {
     }
 }
 
+/**
+ * Coinbase-Commerce-Node entry point.
+ *
+ * @link https://github.com/JorgenVatle/coinbase-commerce-node#usage
+ */
 export class Client {
 
     /**
