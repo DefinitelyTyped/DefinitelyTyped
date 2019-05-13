@@ -29,6 +29,11 @@ interface KeyVal {
 }
 
 /**
+ * Omit a property from the given type.
+ */
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+/**
  * Node callback
  */
 type Callback<T> = (error: any, response: T) => void;
@@ -379,6 +384,45 @@ export interface CheckoutResource extends CreateCheckout {
 }
 
 /**
+ * Event Resource.
+ *
+ * @link
+ */
+export interface EventResource {
+
+    /**
+     * Event UUID.
+     */
+    id: string;
+
+    /**
+     * Resource name.
+     */
+    resource: 'event';
+
+    /**
+     * Event type.
+     */
+    type: 'charge:created' | 'charge:confirmed' | 'charge:failed' | 'charge:delayed' | 'charge:pending';
+
+    /**
+     * Event creation time.
+     */
+    created_at: Timestamp;
+
+    /**
+     * API version of the `data` payload.
+     */
+    api_version: string;
+
+    /**
+     * Event Payload.
+     * Resource of the associated object at the time of the event.
+     */
+    data: Omit<ChargeResource | CheckoutResource, 'resource'>;
+}
+
+/**
  * Coinbase-Commerce-Node entry point.
  *
  * @link https://github.com/coinbase/coinbase-commerce-node#usage
@@ -504,6 +548,30 @@ export module resources {
          * Delete a checkout by ID.
          */
         public static deleteById(checkoutId: CheckoutResource['id'], callback?: Callback<Checkout>): Promise<Checkout>;
+
+    }
+
+    /**
+     * Event class.
+     *
+     * @link https://github.com/coinbase/coinbase-commerce-node#events
+     */
+    export class Event extends Resource<EventResource> {
+
+        /**
+         * Retrieve a event by ID.
+         */
+        public static retrieve(eventId: EventResource['id'], callback?: Callback<Event>): Promise<Event>;
+
+        /**
+         * List events.
+         */
+        public static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Event>): Promise<[Event[], Pagination]>;
+
+        /**
+         * Fetch all events.
+         */
+        public static all(paginationOptions: PaginationRequest, callback?: Callback<Event[]>): Promise<Event[]>
 
     }
 
