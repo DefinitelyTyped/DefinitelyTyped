@@ -96,6 +96,8 @@ export interface CreateACharge {
 
 /**
  * Charge creation response.
+ *
+ * @link https://commerce.coinbase.com/docs/api/#charge-resource
  */
 type CreateAChargeResponse = any;
 
