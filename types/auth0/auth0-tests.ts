@@ -5,6 +5,11 @@ const management = new auth0.ManagementClient({
   domain: '{YOUR_ACCOUNT}.auth0.com'
 });
 
+const uManagement = new auth0.ManagementClient<{aTest: string},{uTest: string}>({
+    token: '{YOUR_API_V2_TOKEN}',
+    domain: '{YOUR_ACCOUNT}.auth0.com'
+});
+
 const auth = new auth0.AuthenticationClient({
   domain: '{YOUR_ACCOUNT}.auth0.com',
   clientId: '{OPTIONAL_CLIENT_ID}',
@@ -151,6 +156,8 @@ management
 management
   .updateUserMetadata({id: "user_id"}, {"key": "value"});
 
+uManagement.updateAppMetadata({id: "user_id"},{aTest: 'test'});
+
 // Update user metadata with JSON object
 management
     .updateUserMetadata({id: "user_id"}, {
@@ -161,6 +168,7 @@ management
         another: "value"
       }
     });
+uManagement.updateUserMetadata({id: "user_id"}, { uTest: "value"});
 
 // Update user metadata using callback
 management
