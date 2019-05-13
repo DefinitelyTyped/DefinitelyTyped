@@ -31,6 +31,6 @@ export class Client {
     /**
      * Setup client.
      */
-    init(apiKey: string, baseApiUrl?: string, apiVersion?: string, timeout?: number): Options;
+    public init(apiKey: string, baseApiUrl?: string, apiVersion?: string, timeout?: number): Options;
 
 }
