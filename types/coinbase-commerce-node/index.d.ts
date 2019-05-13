@@ -41,13 +41,48 @@ type FiatCurrency = 'USD' | 'GBP' | 'EUR' | string;
 /**
  * Crypto currency.
  */
-type CryptoCurrency = 'BTC' | 'ETH'  | 'BCH' | 'LTC';
+type CryptoCurrency = 'BTC' | 'ETH' | 'BCH' | 'LTC';
+
+/**
+ * Full crypto currency name.
+ */
+type CryptoName = 'bitcoin' | 'ethereum' | 'bitcoincash' | 'litecoin';
 
 /**
  * Pricing type.
  */
 type PricingType = 'no_price' | 'fixed_price'
 
+/**
+ * Timestamp string.
+ * ISO 8601
+ */
+type Timestamp = string;
+
+/**
+ * Payment status.
+ */
+type PaymentStatus = 'NEW' | 'PENDING' | 'CONFIRMED' | 'UNRESOLVED' | 'RESOLVED'
+
+/**
+ * Price object.
+ */
+interface Price {
+    amount: string;
+    currency: CryptoCurrency | FiatCurrency;
+}
+
+/**
+ * Pricing object.
+ */
+interface Pricing extends CryptoPricing {
+    local: Price;
+}
+
+/**
+ * Crypto pricing object.
+ */
+type CryptoPricing = Record<CryptoName, Price>;
 
 /**
  * Create a charge.
@@ -99,7 +134,123 @@ export interface CreateACharge {
  *
  * @link https://commerce.coinbase.com/docs/api/#charge-resource
  */
-type CreateAChargeResponse = any;
+interface ChargeResource {
+
+    /**
+     * Charge UUID
+     */
+    id: string;
+
+    /**
+     * Resource name.
+     */
+    resource: 'charge';
+
+    /**
+     * User fiendly primary key.
+     */
+    code: string;
+
+    /**
+     * Charge name.
+     */
+    name: string;
+
+    /**
+     * Charge description.
+     */
+    description: string;
+
+    /**
+     * Charge image URL.
+     */
+    logo_url: string;
+
+    /**
+     * Hosted charge URL.
+     */
+    hosted_url: string;
+
+    /**
+     * Charge creation time.
+     */
+    created_at: Timestamp;
+
+    /**
+     * Charge expiration time.
+     */
+    expires_at: Timestamp;
+
+    /**
+     * Charge confirmation time.
+     */
+    confirmed_at: Timestamp;
+
+    /**
+     * Associated checkout resource.
+     */
+    checkout: {
+        id: string;
+    };
+
+    /**
+     * Array of status update objects.
+     */
+    timeline: {
+
+        /**
+         * Timeline entry timestamp.
+         */
+        time: Timestamp;
+
+        /**
+         * Timeline entry status.
+         */
+        status: PaymentStatus;
+
+        /**
+         * Timeline entry context.
+         */
+        context?: 'UNDERPAID';
+
+    }[];
+
+    /**
+     * Charge metadata provided by you, the developer.
+     */
+    metadata: KeyVal;
+
+    /**
+     * Pricing type.
+     */
+    pricing_type: PricingType;
+
+    /**
+     * Charge price information object.
+     */
+    pricing: Pricing;
+
+    /**
+     * Array of charge payment objects.
+     */
+    payments: {
+        network: CryptoCurrency;
+        transaction_id: string;
+        status: PaymentStatus;
+        value: Pricing;
+        block: {
+            height: number;
+            hash: string;
+            confirmations_accumulated: number;
+            confirmations_required: number;
+        }
+    }[];
+
+    /**
+     * Set of addresses associated with the charge.
+     */
+    addresses: Record<CryptoName, string>;
+}
 
 /**
  * Coinbase-Commerce-Node entry point.
