@@ -104,7 +104,7 @@ type CreateAChargeResponse = any;
 /**
  * Coinbase-Commerce-Node entry point.
  *
- * @link https://github.com/JorgenVatle/coinbase-commerce-node#usage
+ * @link https://github.com/coinbase/coinbase-commerce-node#usage
  */
 export class Client {
 
