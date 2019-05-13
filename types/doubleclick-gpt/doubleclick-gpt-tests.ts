@@ -303,8 +303,6 @@ googletag.pubads().addEventListener("slotResponseReceived", (event) => {
     }
 });
 
-
-
 googletag.pubads().addEventListener("slotVisibilityChanged", (event) => {
     if (event.slot === targetSlot) {
         console.log(event.inViewPercentage);
