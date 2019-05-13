@@ -6,7 +6,6 @@
 //                 Simon Knott <https://github.com/skn0tt>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
-//                 Naoufal El Yousfi <https://github.com/nelyousfi>
 //                 Alex Dunne <https://github.com/alexdunne>
 //                 Manuel Alabor <https://github.com/swissmanu>
 //                 Michele Bombardi <https://github.com/bm-software>
@@ -20,6 +19,8 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Francesco Moro <https://github.com/franzmoro>
 //                 Wojciech Tyczynski <https://github.com/tykus160>
+//                 Jake Bloom <https://github.com/jakebloom>
+//                 Ceyhun Ozugur <https://github.com/ceyhun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -4104,10 +4105,12 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     columnWrapperStyle?: StyleProp<ViewStyle>;
 
     /**
-     * When false tapping outside of the focused text input when the keyboard
-     * is up dismisses the keyboard. When true the scroll view will not catch
-     * taps and the keyboard will not dismiss automatically. The default value
-     * is false.
+     * Determines when the keyboard should stay visible after a tap.
+     * - 'never' (the default), tapping outside of the focused text input when the keyboard is up dismisses the keyboard. When this happens, children won't receive the tap.
+     * - 'always', the keyboard will not dismiss automatically, and the scroll view will not catch taps, but children of the scroll view can catch taps.
+     * - 'handled', the keyboard will not dismiss automatically when the tap was handled by a children, (or captured by an ancestor).
+     * - false, deprecated, use 'never' instead
+     * - true, deprecated, use 'always' instead
      */
     keyboardShouldPersistTaps?: boolean | "always" | "never" | "handled";
 
@@ -6584,10 +6587,12 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
     keyboardDismissMode?: "none" | "interactive" | "on-drag";
 
     /**
-     * When false tapping outside of the focused text input when the keyboard
-     * is up dismisses the keyboard. When true the scroll view will not catch
-     * taps and the keyboard will not dismiss automatically. The default value
-     * is false.
+     * Determines when the keyboard should stay visible after a tap.
+     * - 'never' (the default), tapping outside of the focused text input when the keyboard is up dismisses the keyboard. When this happens, children won't receive the tap.
+     * - 'always', the keyboard will not dismiss automatically, and the scroll view will not catch taps, but children of the scroll view can catch taps.
+     * - 'handled', the keyboard will not dismiss automatically when the tap was handled by a children, (or captured by an ancestor).
+     * - false, deprecated, use 'never' instead
+     * - true, deprecated, use 'always' instead
      */
     keyboardShouldPersistTaps?: boolean | "always" | "never" | "handled";
 
@@ -6942,6 +6947,7 @@ export type ShareOptions = {
     dialogTitle?: string;
     excludedActivityTypes?: Array<string>;
     tintColor?: string;
+    subject?: string;
 };
 
 export type ShareSharedAction = {
@@ -7702,6 +7708,10 @@ export interface ConnectionInfo {
     effectiveType: EffectiveConnectionType;
 }
 
+interface NetInfoEventListener {
+    remove: () => void;
+}
+
 export interface NetInfoStatic {
     /**
      * This function is deprecated. Use `getConnectionInfo` instead. Returns a promise that
@@ -7720,7 +7730,7 @@ export interface NetInfoStatic {
      *   the network status changes. The argument to the event handler is one of the deprecated
      *   connectivity types listed above.
      */
-    addEventListener: (eventName: string, listener: (result: ConnectionInfo | ConnectionType) => void) => void;
+    addEventListener: (eventName: string, listener: (result: ConnectionInfo | ConnectionType) => void) => NetInfoEventListener;
 
     /**
      * Removes the listener for network status changes.
@@ -7746,7 +7756,7 @@ export interface NetInfoStatic {
         /**
          * eventName is expected to be `change`(deprecated) or `connectionChange`
          */
-        addEventListener: (eventName: string, listener: (result: boolean) => void) => void;
+        addEventListener: (eventName: string, listener: (result: boolean) => void) => NetInfoEventListener;
 
         /**
          * eventName is expected to be `change`(deprecated) or `connectionChange`
@@ -7955,13 +7965,13 @@ export interface PermissionsAndroidStatic {
      * (https://developer.android.com/training/permissions/requesting.html#explain)
      * and then shows the system permission dialog
      */
-    request(permission: Permission, rationale?: Rationale): Promise<string>;
+    request(permission: Permission, rationale?: Rationale): Promise<PermissionStatus>;
     /**
      * Prompts the user to enable multiple permissions in the same dialog and
      * returns an object with the permissions as keys and strings as values
      * indicating whether the user allowed or denied the request
      */
-    requestMultiple(permissions: Array<string>): Promise<{ [permission: string]: PermissionStatus }>;
+    requestMultiple(permissions: Array<Permission>): Promise<{ [key in Permission]: PermissionStatus }>;
 }
 
 export interface PushNotificationPermissions {
