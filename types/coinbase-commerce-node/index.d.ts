@@ -565,4 +565,20 @@ export module resources {
 
     }
 
+    /**
+     * Webhook class.
+     *
+     * @link https://github.com/coinbase/coinbase-commerce-node#webhooks
+     */
+    export class Webhook {
+
+        /**
+         * Verify a signature header.
+         *
+         * @link https://github.com/coinbase/coinbase-commerce-node#verify-signature-header
+         */
+        static verifySigHeader(rawBody: string, signature: string, sharedSecret: string): void;
+
+    }
+
 }
