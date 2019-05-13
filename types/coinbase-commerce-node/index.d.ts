@@ -94,6 +94,8 @@ export interface CreateACharge {
     cancel_url?: string;
 }
 
+type CreateAChargeResponse = any;
+
 /**
  * Coinbase-Commerce-Node entry point.
  *
@@ -130,7 +132,12 @@ export module resources {
         /**
          * Save Charge to Coinbase Commerce's servers.
          */
-        public save(callback: Callback): Promise<any>;
+        public save(callback: Callback): Promise<CreateAChargeResponse>;
+
+        /**
+         * Immidiately create a charge.
+         */
+        public static create(chargeData: CreateACharge, callback: Callback): Promise<CreateAChargeResponse>;
 
     }
 
