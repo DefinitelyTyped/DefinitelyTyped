@@ -72,7 +72,7 @@ type Timestamp = string;
 /**
  * Payment status.
  */
-type PaymentStatus = 'NEW' | 'PENDING' | 'CONFIRMED' | 'UNRESOLVED' | 'RESOLVED'
+type PaymentStatus = 'NEW' | 'PENDING' | 'CONFIRMED' | 'UNRESOLVED' | 'RESOLVED' | 'EXPIRED';
 
 /**
  * Price object.
