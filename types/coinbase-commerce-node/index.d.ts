@@ -130,7 +130,7 @@ export module resources {
         /**
          * Save Charge to Coinbase Commerce's servers.
          */
-        save(callback: Callback): Promise<any>;
+        public save(callback: Callback): Promise<any>;
 
     }
 
