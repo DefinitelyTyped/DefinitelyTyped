@@ -290,7 +290,7 @@ interface ChargeResource {
      * Array of charge payment objects.
      */
     payments: {
-        network: CryptoCurrency;
+        network: CryptoName;
         transaction_id: string;
         status: PaymentStatus;
         value: Pricing;
