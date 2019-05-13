@@ -1,8 +1,9 @@
-// Type definitions for non-npm package Google Publisher Tag 238.0
+// Type definitions for non-npm package Google Publisher Tag v2019041801
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 //                 Steven Joyce <https://github.com/steven-joyce>
 //                 Joe Flateau <https://github.com/joeflateau>
+//                 Vanessa Garcia <https://github.com/vanessa-lyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
