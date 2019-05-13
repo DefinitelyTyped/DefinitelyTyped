@@ -8,7 +8,6 @@
 
 import { IncomingMessage } from "http";
 
-
 // https://github.com/panva/node-openid-client/tree/master/docs#issuer
 
 export interface IssuerMetadata {
@@ -72,7 +71,6 @@ export class Client {
 }
 
 export class TokenSet {
-
     readonly access_token?: string;
     readonly token_type?: string;
     readonly id_token?: string;
@@ -83,18 +81,16 @@ export class TokenSet {
     claims(): { readonly [name: string]: {} | null | undefined };
 }
 
-
 export namespace generators {
-
     // https://github.com/panva/node-openid-client/tree/master/docs#generators
 
-    export function random(bytes?: number): string;
+    function random(bytes?: number): string;
 
-    export function state(bytes?: number): string;
+    function state(bytes?: number): string;
 
-    export function nonce(bytes?: number): string;
+    function nonce(bytes?: number): string;
 
-    export function codeVerifier(bytes?: number): string;
+    function codeVerifier(bytes?: number): string;
 
-    export function codeChallenge(verifier: string): string;
+    function codeChallenge(verifier: string): string;
 }
