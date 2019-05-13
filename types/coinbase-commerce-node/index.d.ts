@@ -34,6 +34,11 @@ interface KeyVal {
 type Callback<T> = (error: any, response: T) => void;
 
 /**
+ * Pagination callback.
+ */
+type PaginationCallback<T> = (error: any, response: T[], pagination: Pagination) => void;
+
+/**
  * Fiat currency.
  */
 type FiatCurrency = 'USD' | 'GBP' | 'EUR' | string;
@@ -83,6 +88,55 @@ interface Pricing extends CryptoPricing {
  * Crypto pricing object.
  */
 type CryptoPricing = Record<CryptoName, Price>;
+
+/**
+ * Pagination request.
+ *
+ * @link https://commerce.coinbase.com/docs/api/#pagination
+ */
+interface PaginationRequest {
+
+    /**
+     * Order of resources in the response.
+     *
+     * default: desc
+     */
+    order?: 'asc' | 'desc',
+
+    /**
+     * Number of results per call.
+     *
+     * Accepted values: 0 - 100
+     * Default: 25
+     */
+    limit?: number;
+
+    /**
+     * A cursor for use in pagination.
+     * This is a resource ID that defines your place in the list.
+     */
+    starting_after?: string | null;
+
+    /**
+     * A cursor for use in pagination.
+     * This is a resource ID that defines your place in the list.
+     */
+    ending_before?: string | null;
+
+}
+
+/**
+ * Pagination response.
+ *
+ * @link https://commerce.coinbase.com/docs/api/#pagination
+ */
+interface Pagination extends Pick<PaginationRequest, 'order' & 'starting_after' & 'ending_before' & 'limit'> {
+    total: number;
+    yielded: number;
+    previous_url: null | string;
+    next_uri: null | string;
+    cursor_range: [string, string];
+}
 
 /**
  * Create a charge.
@@ -294,6 +348,11 @@ export module resources {
          * Immidiately create a charge.
          */
         public static create(chargeData: CreateACharge, callback: Callback<ChargeResource>): Promise<ChargeResource>;
+
+        /**
+         * List charges.
+         */
+        public static list(search: Partial<ChargeResource>, callback: PaginationCallback<ChargeResource>): Promise<[ChargeResource[], Pagination]>;
 
     }
 
