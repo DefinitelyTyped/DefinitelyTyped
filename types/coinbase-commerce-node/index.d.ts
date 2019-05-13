@@ -323,46 +323,60 @@ export class Client {
 export module resources {
 
     /**
-     * Charge class extends CreateACharge's properties.
+     * Resource class.
      */
-    interface Charge extends CreateACharge {}
-
-    /**
-     * Create a charge.
-     *
-     * @link https://commerce.coinbase.com/docs/api/#create-a-charge
-     */
-    export class Charge {
+    abstract class ResourceClass<Request, Response> {
 
         /**
          * Charge constructor.
          */
-        public constructor(data: CreateACharge);
+        public constructor(data: Request);
 
         /**
          * Save Charge to Coinbase Commerce's servers.
          */
-        public save(callback?: Callback<ChargeResource>): Promise<ChargeResource>;
+        public save(callback?: Callback<Response>): Promise<Response>;
 
-        /**
-         * Immidiately create a charge.
-         */
-        public static create(chargeData: CreateACharge, callback?: Callback<ChargeResource>): Promise<ChargeResource>;
-
-        /**
-         * List charges.
-         */
-        public static list(paginationOptions: Partial<PaginationRequest>, callback?: PaginationCallback<ChargeResource>): Promise<[ChargeResource[], Pagination]>;
-
-        /**
-         * Retrieve a charge by ID.
-         */
-        public static retrieve(chargeId: string, callback?: Callback<ChargeResource>): Promise<ChargeResource>;
-
-        /**
-         * Retrieve all charges.
-         */
-        public static all(paginationOptions: Partial<PaginationRequest>, callback?: Callback<ChargeResource[]>): Promise<ChargeResource[]>;
     }
+
+    /**
+     * Resource object
+     * All coinbase-commerce-node resources implement the following static methods.
+     *
+     * @link https://github.com/coinbase/coinbase-commerce-node#documentation
+     */
+    interface Resource<Request, Resource> {
+        /**
+         * Create new resource class.
+         */
+        new(data: Partial<Request>): ResourceClass<Request, Resource> & Request;
+
+        /**
+         * Immidiately create a resource.
+         */
+        create(chargeData: Request, callback?: Callback<Resource>): Promise<Resource>;
+
+        /**
+         * List resources.
+         */
+        list(paginationOptions: Partial<PaginationRequest>, callback?: PaginationCallback<Resource>): Promise<[Resource[], Pagination]>;
+
+        /**
+         * Retrieve a resource by ID.
+         */
+        retrieve(chargeId: string, callback?: Callback<Resource>): Promise<Resource>;
+
+        /**
+         * Retrieve all resources.
+         */
+        all(paginationOptions: Partial<PaginationRequest>, callback?: Callback<Resource[]>): Promise<Resource[]>;
+    }
+
+    /**
+     * Charge Class
+     *
+     * @link https://commerce.coinbase.com/docs/api/#charges
+     */
+    export interface Charge extends Resource<CreateACharge, ChargeResource> {}
 
 }
