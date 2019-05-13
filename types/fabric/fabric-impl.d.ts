@@ -1,5 +1,5 @@
 declare namespace fabric {
-	
+
 	export const isLikelyNode: boolean;
 	export const isTouchSupported: boolean;
 	export const version: string;
