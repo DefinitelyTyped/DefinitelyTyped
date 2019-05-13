@@ -1,4 +1,5 @@
 import { ChargeResource, Client, CreateCharge, resources as Resource } from 'coinbase-commerce-node';
+import { CheckoutResource, CreateCheckout } from './index';
 
 /**
  * Initialize client.
@@ -10,7 +11,7 @@ Client.init('some-api-key', 'http://example.com', 'v0.0.1', 2000);
  *
  * @link https://commerce.coinbase.com/docs/api/#create-a-charge
  */
-const exampleRequest: CreateCharge = {
+const chargeCreateExample: CreateCharge = {
     name: 'The Sovereign Individual',
     description: 'Mastering the Transition to the Information Age',
     local_price: {
@@ -31,7 +32,7 @@ const exampleRequest: CreateCharge = {
  *
  * @link https://commerce.coinbase.com/docs/api/#charge-resource
  */
-const exampleResponse: ChargeResource = {
+const chargeResponseExample: ChargeResource = {
     id: 'f765421f2-1451-fafb-a513-aac6c819fba9',
     resource: 'charge',
     code: '66BEOV2A',
@@ -102,9 +103,45 @@ const exampleResponse: ChargeResource = {
 /**
  * Create an example charge and fetch the same charge by its ID.
  */
-Resource.Charge.create(exampleRequest).then((response: ChargeResource) => {
+Resource.Charge.create(chargeCreateExample).then((response: ChargeResource) => {
     return Resource.Charge.retrieve(response.id)
 }).then((response) => {
     const id: string = response.id;
     const resource: 'charge' = response.resource;
 });
+
+
+/**
+ * Checkout create example.
+ *
+ * @link https://commerce.coinbase.com/docs/api/#create-a-checkout
+ */
+const checkoutCreateExample: CreateCheckout = {
+    name: 'The Sovereign Individual',
+    description: 'Mastering the Transition to the Information Age',
+    local_price: {
+        amount: '100.00',
+        currency: 'USD'
+    },
+    pricing_type: 'fixed_price',
+    requested_info: ['email']
+};
+
+/**
+ * Checkout resource example
+ *
+ * @link https://commerce.coinbase.com/docs/api/#checkout-resource
+ */
+const checkoutResponseExample: CheckoutResource = {
+    id: '30934862-d980-46cb-9402-43c81b0cabd5',
+    resource: 'checkout',
+    name: 'The Sovereign Individual',
+    description: 'Mastering the Transition to the Information Age',
+    logo_url: 'https://commerce.coinbase.com/charges/ybjknds.png',
+    requested_info: [ 'name', 'email' ],
+    pricing_type: 'fixed_price',
+    local_price: {
+        amount: '100.0',
+        currency: 'USD'
+    }
+};
