@@ -1945,14 +1945,45 @@ declare namespace algoliasearchInitPlaces {
          * Endpoint to search.
          * https://community.algolia.com/places/api-clients.html#endpoints
          */
-        search(e: QueryInterface, f: (err: any, response: ResultInterface) => void): void;
+        search(e: QueryInterface, f: (err: any, response: ResultSearchInterface) => void): void;
+        /**
+         * Reverse geocoding means converting a location (latitude and longitude) to a readable address.
+         * https://community.algolia.com/places/api-clients.html#endpoints
+         */
+        reverse(e: QueryReverseInterface, f: (err: any, response: ResultSearchInterface) => void): void;
     }
+
+    /**
+     * Params for endpoint reverse.
+     * https://community.algolia.com/places/api-clients.html#reverse-geocoding
+     */
+    interface QueryReverseInterface {
+        /**
+         * Force to first search around a specific latitude longitude.
+         * The option value must be provided as a string: latitude,longitude like 12.232,23.1.
+         * The default is to search around the location of the user determined via his IP address (geoip).
+         * https://community.algolia.com/places/api-clients.html#api-options-aroundLatLng
+         */
+        aroundLatLng: string;
+        /**
+         * Restrict the search results to a specific type.
+         * https://community.algolia.com/places/api-clients.html#api-options-type
+         */
+        hitsPerPage?: number;
+        /**
+         * If specified, restrict the search results to a single language. You can pass two letters country codes (ISO 639-1).
+         * Warning: language parameter is case sensitive and should be lowercase otherwise it will fallback to default language.
+         * https://community.algolia.com/places/api-clients.html#api-options-language
+         */
+        language?: string;
+    }
+
 
     /**
      * Result of search.
      * https://community.algolia.com/places/api-clients.html#json-answer
      */
-    interface ResultInterface {
+    interface ResultSearchInterface {
         /**
          * Contains all the hits matching the query.
          * https://community.algolia.com/places/api-clients.html#json-answer
