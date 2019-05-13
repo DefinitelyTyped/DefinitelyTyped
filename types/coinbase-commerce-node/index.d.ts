@@ -215,7 +215,7 @@ interface ChargeResource extends CreateCharge {
     /**
      * Charge image URL.
      */
-    logo_url: string;
+    logo_url?: string;
 
     /**
      * Hosted charge URL.
@@ -235,12 +235,12 @@ interface ChargeResource extends CreateCharge {
     /**
      * Charge confirmation time.
      */
-    confirmed_at: Timestamp;
+    confirmed_at?: Timestamp;
 
     /**
      * Associated checkout resource.
      */
-    checkout: {
+    checkout?: {
         id: string;
     };
 
