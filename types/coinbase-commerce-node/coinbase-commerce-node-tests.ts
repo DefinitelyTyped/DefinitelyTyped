@@ -12,6 +12,7 @@ import {
 const Checkout = Resource.Checkout;
 const Charge = Resource.Charge;
 const Event = Resource.Event;
+const Webhook = Resource.Webhook;
 
 /**
  * Initialize client.
@@ -307,3 +308,10 @@ const paginationExample: Pagination = {
     next_uri: 'https://api.commerce.coinbase.com/checkouts?limit=20&starting_after=fb6721f2-1622-48f0-b713-aac6c819b67a',
     cursor_range: ['a76721f2-1611-48fb-a513-aac6c819a9d6', 'fb6721f2-1622-48f0-b713-aac6c819b67a']
 };
+
+/**
+ * Verify a signature header.
+ *
+ * @link https://github.com/coinbase/coinbase-commerce-node#verify-signature-header
+ */
+const shouldBeVoid: void = Webhook.verifySigHeader(JSON.stringify(eventResponseExample), 'some-signature', 'my-secret');
