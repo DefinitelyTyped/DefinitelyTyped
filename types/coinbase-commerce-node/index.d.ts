@@ -422,6 +422,11 @@ export module resources {
          * Save new resource to Coinbase Commerce.
          */
         public insert(callback?: Callback<this>): Promise<this>;
+
+        /**
+         * Update the current resource.
+         */
+        public update(callback?: Callback<this>): Promise<this>;
     }
 
     /**
