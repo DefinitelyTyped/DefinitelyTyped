@@ -31,7 +31,7 @@ interface KeyVal {
 /**
  * Node callback
  */
-type Callback = (error: any, response: any) => void;
+type Callback<T> = (error: any, response: T) => void;
 
 /**
  * Fiat currency.
@@ -288,12 +288,12 @@ export module resources {
         /**
          * Save Charge to Coinbase Commerce's servers.
          */
-        public save(callback: Callback): Promise<ChargeResource>;
+        public save(callback: Callback<ChargeResource>): Promise<ChargeResource>;
 
         /**
          * Immidiately create a charge.
          */
-        public static create(chargeData: CreateACharge, callback: Callback): Promise<ChargeResource>;
+        public static create(chargeData: CreateACharge, callback: Callback<ChargeResource>): Promise<ChargeResource>;
 
     }
 
