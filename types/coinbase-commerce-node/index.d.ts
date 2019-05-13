@@ -312,6 +312,42 @@ interface ChargeResource {
 }
 
 /**
+ * Create a checkout.
+ *
+ * @link https://commerce.coinbase.com/docs/api/#create-a-checkout
+ */
+export interface CreateCheckout {
+
+    /**
+     * Checkout name.
+     * 100 characters or less.
+     */
+    name: string;
+
+    /**
+     * More detailed description.
+     * 200 characters or less.
+     */
+    description: string;
+
+    /**
+     * Checkout pricing type.
+     */
+    pricing_type: PricingType;
+
+    /**
+     * Price in local fiat currency.
+     */
+    local_price?: Price<FiatCurrency>,
+
+    /**
+     * Information to collect from the customer.
+     */
+    requested_info: ('email' | 'name')[]
+
+}
+
+/**
  * Coinbase-Commerce-Node entry point.
  *
  * @link https://github.com/coinbase/coinbase-commerce-node#usage
@@ -378,7 +414,6 @@ export module resources {
          * Retrieve a charge by ID.
          */
         public static retrieve(chargeId: string, callback?: Callback<ChargeResource>): Promise<ChargeResource>;
-
 
     }
 
