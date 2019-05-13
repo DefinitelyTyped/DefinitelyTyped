@@ -415,7 +415,7 @@ export module resources {
         /**
          * Delete the current resource.
          */
-        public delete(callback?: Callback<void>): Promise<void>;
+        public delete(callback?: Callback<this>): Promise<this>;
 
     }
 
