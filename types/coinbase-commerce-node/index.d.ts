@@ -195,7 +195,7 @@ export interface CreateCharge {
  *
  * @link https://commerce.coinbase.com/docs/api/#charge-resource
  */
-interface ChargeResource {
+interface ChargeResource extends CreateCharge {
 
     /**
      * Charge UUID
@@ -211,16 +211,6 @@ interface ChargeResource {
      * User fiendly primary key.
      */
     code: string;
-
-    /**
-     * Charge name.
-     */
-    name: string;
-
-    /**
-     * Charge description.
-     */
-    description: string;
 
     /**
      * Charge image URL.
@@ -280,11 +270,6 @@ interface ChargeResource {
      * Charge metadata provided by you, the developer.
      */
     metadata: KeyVal;
-
-    /**
-     * Pricing type.
-     */
-    pricing_type: PricingType;
 
     /**
      * Charge price information object.
