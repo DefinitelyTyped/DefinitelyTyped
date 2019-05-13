@@ -135,7 +135,7 @@ interface PaginationRequest {
 export interface Pagination extends Pick<PaginationRequest, 'order' | 'starting_after' | 'ending_before' | 'limit'> {
     total: number;
     yielded: number;
-    previous_url: null | string;
+    previous_uri: null | string;
     next_uri: null | string;
     cursor_range: [string, string];
 }
