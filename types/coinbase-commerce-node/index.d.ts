@@ -87,7 +87,9 @@ interface Pricing extends CryptoPricing {
 /**
  * Crypto pricing object.
  */
-type CryptoPricing = Record<CryptoName, Price>;
+type CryptoPricing = {
+    [key in CryptoName]?: Price<CryptoCurrency>;
+}
 
 /**
  * Pagination request.
@@ -303,7 +305,7 @@ interface ChargeResource {
     /**
      * Set of addresses associated with the charge.
      */
-    addresses: Record<CryptoName, string>;
+    addresses: Partial<Record<CryptoName, string>>;
 }
 
 /**
