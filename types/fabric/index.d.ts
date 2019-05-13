@@ -12,4 +12,5 @@
 //                 Codertx <https://github.com/codertx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
-export import * as fabric from './fabric-impl';
+export import fabric = require('./fabric-impl');
+export * from './fabric-impl';
