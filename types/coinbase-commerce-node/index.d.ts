@@ -72,9 +72,9 @@ type PaymentStatus = 'NEW' | 'PENDING' | 'CONFIRMED' | 'UNRESOLVED' | 'RESOLVED'
 /**
  * Price object.
  */
-interface Price {
+interface Price<Currency = CryptoCurrency | FiatCurrency> {
     amount: string;
-    currency: CryptoCurrency | FiatCurrency;
+    currency: Currency;
 }
 
 /**
@@ -165,7 +165,7 @@ export interface CreateACharge {
     /**
      * Price in local fiat currency.
      */
-    local_price?: FiatCurrency;
+    local_price?: Price<FiatCurrency>;
 
     /**
      * Optional key value pairs for your own use.
