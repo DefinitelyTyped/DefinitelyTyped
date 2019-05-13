@@ -81,7 +81,7 @@ interface Price<Currency = CryptoCurrency | FiatCurrency> {
  * Pricing object.
  */
 interface Pricing extends CryptoPricing {
-    local: Price;
+    local: Price<FiatCurrency>;
 }
 
 /**
