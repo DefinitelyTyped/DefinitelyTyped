@@ -1,4 +1,4 @@
-// Type definitions for styled-system 4.1
+// Type definitions for styled-system 4.2
 // Project: https://github.com/jxnblk/styled-system#readme
 // Definitions by: Marshall Bowers <https://github.com/maxdeviant>
 //                 Ben McCormick <https://github.com/phobon>
@@ -12,6 +12,7 @@
 //                 Sara F-P <https://github.com/gretzky>
 //                 Chris LoPresto <https://github.com/chrislopresto>
 //                 Pedro Duarte <https://github.com/peduarte>
+//                 Dhalton Huber <https://github.com/Dhalton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -38,9 +39,9 @@ export interface styleFn {
 export interface LowLevelStylefunctionArguments {
     prop: string;
     cssProperty?: string;
+    alias?: string;
     key?: string;
-    getter?: () => any;
-    transformValue?: (n: string | number) => any;
+    transformValue?: (n: string | number, scale: Array<string | number>) => any;
     scale?: Array<string | number>;
 }
 
@@ -52,7 +53,7 @@ export function compose(
     ...funcs: Array<(...args: any[]) => any>
 ): (...args: any[]) => any;
 
-export function mapProps(mapper: (...args: any[]) => any): (func: any[]) => (...props: any[]) => any;
+export function mapProps(mapper: (...args: any[]) => any): (func: any) => (...props: any[]) => any;
 
 export interface VariantArgs {
     key?: string;
