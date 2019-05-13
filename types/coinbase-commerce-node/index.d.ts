@@ -408,9 +408,14 @@ export module resources {
         public constructor(data: Request);
 
         /**
-         * Save Charge to Coinbase Commerce's servers.
+         * Save the current resource to Coinbase Commerce's servers.
          */
         public save(callback?: Callback<Response>): Promise<Response>;
+
+        /**
+         * Delete the current resource.
+         */
+        public delete(callback?: Callback<void>): Promise<void>;
 
     }
 
