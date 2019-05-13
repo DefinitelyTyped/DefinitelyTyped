@@ -1,4 +1,4 @@
-// Type definitions for passport-saml 1.0
+// Type definitions for passport-saml 1.1
 // Project: https://github.com/bergie/passport-saml
 // Definitions by: Chris Barth <https://github.com/cjbarth>
 //                 Damian Assennato <https://github.com/dassennato>
@@ -30,8 +30,8 @@ export type VerifyWithoutRequest = (profile: object, done: VerifiedCallback) => 
 export class Strategy extends passport.Strategy {
     constructor(config: SamlConfig, verify: VerifyWithRequest | VerifyWithoutRequest);
     authenticate(req: express.Request, options: AuthenticateOptions | AuthorizeOptions): void;
-    logout(req: express.Request, callback: (err: Error | null, url: string) => void): void;
-    generateServiceProviderMetadata(decryptionCert?: string, signingCert?: string): string;
+    logout(req: express.Request, callback: (err: Error | null, url?: string) => void): void;
+    generateServiceProviderMetadata(decryptionCert: string | null, signingCert?: string | null): string;
 }
 
 export type CertCallback = (callback: (err: Error | null, cert?: string | string[]) => void) => void;
