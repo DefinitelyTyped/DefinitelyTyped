@@ -1879,10 +1879,8 @@ declare namespace algoliasearch {
   interface MultiResponse<T=any> {
     results: Response<T>[];
   }
-}
 
-declare namespace algoliasearchInitPlaces {
-
+  namespace Places {
     interface PlaceInterface {
         /**
          * Endpoint to search.
@@ -2191,6 +2189,7 @@ declare namespace algoliasearchInitPlaces {
         matchLevel: string;
         matchedWords: string[];
     }
+  }
 
 }
 
@@ -2203,7 +2202,7 @@ interface AlgoliasearchInstance {
 }
 
 interface AlgoliaStatic extends AlgoliasearchInstance {
-    initPlaces(apiKey: string, applicationId: string): algoliasearchInitPlaces.PlaceInterface;
+    initPlaces(apiKey: string, applicationId: string): algoliasearch.Places.PlaceInterface;
 }
 
 declare const algoliasearch: AlgoliaStatic;
