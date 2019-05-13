@@ -342,22 +342,22 @@ export module resources {
         /**
          * Save Charge to Coinbase Commerce's servers.
          */
-        public save(callback: Callback<ChargeResource>): Promise<ChargeResource>;
+        public save(callback?: Callback<ChargeResource>): Promise<ChargeResource>;
 
         /**
          * Immidiately create a charge.
          */
-        public static create(chargeData: CreateACharge, callback: Callback<ChargeResource>): Promise<ChargeResource>;
+        public static create(chargeData: CreateACharge, callback?: Callback<ChargeResource>): Promise<ChargeResource>;
 
         /**
          * List charges.
          */
-        public static list(paginationOptions: Partial<PaginationRequest>, callback: PaginationCallback<ChargeResource>): Promise<[ChargeResource[], Pagination]>;
+        public static list(paginationOptions: Partial<PaginationRequest>, callback?: PaginationCallback<ChargeResource>): Promise<[ChargeResource[], Pagination]>;
 
         /**
          * Retrieve a charge by ID.
          */
-        public static retrieve(chargeId: string, callback: Callback<ChargeResource>): Promise<ChargeResource>;
+        public static retrieve(chargeId: string, callback?: Callback<ChargeResource>): Promise<ChargeResource>;
     }
 
 }
