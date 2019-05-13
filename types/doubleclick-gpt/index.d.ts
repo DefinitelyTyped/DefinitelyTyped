@@ -3,6 +3,7 @@
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 //                 Steven Joyce <https://github.com/steven-joyce>
 //                 Joe Flateau <https://github.com/joeflateau>
+//                 Vanessa Garcia <https://github.com/vanessa-lyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
