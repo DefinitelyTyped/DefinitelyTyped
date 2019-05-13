@@ -122,7 +122,7 @@ export module resources {
      *
      * @link https://commerce.coinbase.com/docs/api/#create-a-charge
      */
-    class Charge {
+    export class Charge {
 
         /**
          * Charge constructor.
