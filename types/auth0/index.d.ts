@@ -110,6 +110,69 @@ export interface Rule {
   order?: number;
 }
 
+export interface Role {
+    id?: string;
+    name?: string;
+    description?: string;
+}
+
+export interface GetRolesData extends ObjectWithId {
+    name_filter?: string;
+    per_page?: number;
+    page?: number;
+}
+
+export interface GetRolesDataPaged extends GetRolesData {
+    include_totals: boolean;
+}
+
+export interface RolePage extends Page {
+    roles: Role[];
+}
+
+export interface CreateRoleData {
+    name: string;
+    description?: string;
+}
+
+export interface UpdateRoleData {
+    name?: string;
+    description?: string;
+}
+
+export interface RolesData {
+    roles: string[];
+}
+
+export interface Permission {
+    resource_server_identifier?: string;
+    permission_name?: string;
+    resource_server_name?: string;
+    description?: string;
+}
+
+export interface PermissionsData {
+    permissions: PermissionData[]
+}
+
+export interface PermissionData {
+    resource_server_identifier: string;
+    permission_name: string;
+}
+
+export interface GetRoleUsersData extends ObjectWithId {
+    per_page?: number;
+    page?: number;
+}
+
+export interface GetRoleUsersDataPaged extends GetRoleUsersData {
+    include_totals: boolean;
+}
+
+export interface PermissionPage extends Page {
+    permissions: Permission[];
+}
+
 export interface Client {
   /**
    * The name of the client.
@@ -360,6 +423,24 @@ export interface Page {
 
 export interface UserPage extends Page {
   users: User[];
+}
+
+export interface GetUserRolesData extends ObjectWithId  {
+    page?: number;
+    per_page?: number;
+}
+
+export interface GetUserRolesDataPaged extends GetUserRolesData {
+    include_totals: boolean;
+}
+
+export interface GetUserPermissionsData extends ObjectWithId {
+    page?: number;
+    per_page?: number;
+}
+
+export interface GetUserPermissionsDataPaged extends GetUserPermissionsData {
+    include_totals: boolean;
 }
 
 export interface Identity {
@@ -768,8 +849,43 @@ export class ManagementClient {
   deleteDeviceCredential(params: ClientParams): Promise<User>;
   deleteDeviceCredential(params: ClientParams, cb: (err: Error, data: any) => void): void;
 
+  // Roles
+  getRoles(): Promise<Role[]>;
+  getRoles(cb: (err: Error, roles: Role[]) => void): void;
+  getRoles(params: GetRolesData): Promise<Role[]>;
+  getRoles(params: GetRolesData, cb: (err: Error, roles: Role[]) => void): void;
+  getRoles(params: GetRolesDataPaged): Promise<RolePage>;
+  getRoles(params: GetRolesDataPaged, cb: (err: Error, rolePage: RolePage) => void): void;
 
-  // Rules
+  createRole(data: CreateRoleData): Promise<Role>;
+  createRole(data: CreateRoleData, cb: (err: Error, role: Role) => void): void;
+
+  getRole(params: ObjectWithId): Promise<Role>;
+  getRole(params: ObjectWithId, cb: (err: Error, role: Role) => void): void;
+
+  deleteRole(params: ObjectWithId): Promise<void>;
+  deleteRole(params: ObjectWithId, cb: (err: Error) => void): void;
+
+  updateRole(params: ObjectWithId, data: UpdateRoleData): Promise<Role>;
+  updateRole(params: ObjectWithId, data: UpdateRoleData, cb: (err: Error, role: Role) => void): void;
+
+  getPermissionsInRole(params: ObjectWithId): Promise<Permission[]>;
+  getPermissionsInRole(params: ObjectWithId, cb: (err: Error, permissions: Permission[]) => void): void;
+
+  removePermissionsFromRole(params: ObjectWithId, data: PermissionsData): Promise<void>;
+  removePermissionsFromRole(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
+
+  addPermissionsInRole(params: ObjectWithId, data: PermissionsData): Promise<void>;
+  addPermissionsInRole(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
+
+  getUsersInRole(params: ObjectWithId): Promise<User[]>;
+  getUsersInRole(params: ObjectWithId, cb: (err: Error, users: User[]) => void): void;
+  getUsersInRole(params: GetRoleUsersData): Promise<User[]>;
+  getUsersInRole(params: GetRoleUsersData, cb: (err: Error, users: User[]) => void): void;
+  getUsersInRole(params: GetRoleUsersDataPaged): Promise<UserPage>;
+  getUsersInRole(params: GetRoleUsersDataPaged, cb: (err: Error, userPage: UserPage) => void): void;
+
+    // Rules
   getRules(): Promise<Rule[]>;
   getRules(cb: (err: Error, rules: Rule[]) => void): void;
 
@@ -827,6 +943,34 @@ export class ManagementClient {
   linkUsers(userId: string, params: LinkAccountsParams): Promise<any>;
   linkUsers(userId: string, params: LinkAccountsParams, cb: (err: Error, data: any) => void): void;
 
+  // User roles
+  getUserRoles(params: ObjectWithId): Promise<Role[]>;
+  getUserRoles(params: ObjectWithId, cb: (err: Error, roles: Role[]) => void): void;
+  getUserRoles(params: GetUserRolesData): Promise<Role[]>;
+  getUserRoles(params: GetUserRolesData, cb: (err: Error, roles: Role[]) => void): void;
+  getUserRoles(params: GetUserRolesDataPaged): Promise<RolePage>;
+  getUserRoles(params: GetUserRolesDataPaged, cb: (err: Error, rolePage: RolePage) => void): void;
+
+  removeRolesFromUser(params: ObjectWithId, data: RolesData): Promise<void>;
+  removeRolesFromUser(params: ObjectWithId, data: RolesData, cb: (err: Error) => void): void
+
+  // The lowercase 't' is like this in the auth0 sdk
+  assignRolestoUser(params: ObjectWithId, data: RolesData): Promise<void>;
+  assignRolestoUser(params: ObjectWithId, data: RolesData, cb: (err: Error) => void): void;
+
+  // User permissions
+  getUserPermissions(params: ObjectWithId): Promise<Permission[]>;
+  getUserPermissions(params: ObjectWithId, cb: (err: Error, permissions: Permission[]) => void): void;
+  getUserPermissions(params: GetUserPermissionsData): Promise<Permission[]>;
+  getUserPermissions(params: GetUserPermissionsData, cb: (err: Error, permissions: Permission[]) => void): void;
+  getUserPermissions(params: GetUserPermissionsDataPaged): Promise<PermissionPage>;
+  getUserPermissions(params: GetUserPermissionsDataPaged, cb: (err: Error, permissionPage: PermissionPage) => void): void;
+
+  removePermissionsFromUser(params: ObjectWithId, data: PermissionsData): Promise<void>;
+  removePermissionsFromUser(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
+
+  assignPermissionsToUser(params: ObjectWithId, data: PermissionsData): Promise<void>;
+  assignPermissionsToUser(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
 
   // Tokens
   getBlacklistedTokens(): Promise<any>;

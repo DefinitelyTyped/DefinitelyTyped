@@ -91,6 +91,7 @@ function ShallowWrapperTest() {
     let reactElement: ReactElement;
     let reactElements: ReactElement[];
     let domElement: Element;
+    let buttonElement: HTMLButtonElement;
     let boolVal: boolean;
     let stringVal: string;
     let numOrStringVal: number | string | undefined;
@@ -317,6 +318,7 @@ function ShallowWrapperTest() {
 
     function test_getDOMNode() {
         domElement = shallowWrapper.getDOMNode();
+        buttonElement = shallowWrapper.getDOMNode<HTMLButtonElement>();
     }
 
     function test_at() {
@@ -498,6 +500,7 @@ function ReactWrapperTest() {
     let reactElement: ReactElement;
     let reactElements: ReactElement[];
     let domElement: Element;
+    let buttonElement: HTMLButtonElement;
     let boolVal: boolean;
     let stringVal: string;
     let elementWrapper: ReactWrapper<HTMLAttributes<{}>>;
@@ -718,6 +721,7 @@ function ReactWrapperTest() {
 
     function test_getDOMNode() {
         domElement = reactWrapper.getDOMNode();
+        buttonElement = reactWrapper.getDOMNode<HTMLButtonElement>();
     }
 
     function test_at() {

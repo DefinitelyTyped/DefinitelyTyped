@@ -23,6 +23,7 @@ declare namespace nock {
     function isActive(): boolean;
     function isDone(): boolean;
     function pendingMocks(): string[];
+    function activeMocks(): string[];
     function removeInterceptor(interceptor: Interceptor | RequestOptions): boolean;
     function disableNetConnect(): void;
     function enableNetConnect(matcher?: string | RegExp): void;
@@ -81,6 +82,7 @@ declare namespace nock {
         isDone(): boolean;
         restore(): void;
         pendingMocks(): string[];
+        activeMocks(): string[];
     }
 
     interface Interceptor {
@@ -113,6 +115,7 @@ declare namespace nock {
         reqheaders?: { [key: string]: string | RegExp | { (headerValue: string): boolean; }; };
         badheaders?: string[];
         filteringScope?: { (scope: string): boolean; };
+        encodedQueryParams?: boolean;
     }
 
     interface RequestOptions {

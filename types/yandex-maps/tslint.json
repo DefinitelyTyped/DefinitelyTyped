@@ -1,6 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        "export-just-namespace": false,
         // TODOs
         "no-any-union": false,
         "no-unnecessary-class": false,

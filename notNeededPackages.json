@@ -1159,6 +1159,12 @@
             "asOfVersion": "9.1.0"
         },
         {
+            "libraryName": "@google-cloud/pubsub",
+            "typingsPackageName": "google-cloud__pubsub",
+            "sourceRepoURL": "https://github.com/googleapis/nodejs-pubsub",
+            "asOfVersion": "0.26.0"
+        },
+        {
             "libraryName": "Google Cloud Storage",
             "typingsPackageName": "google-cloud__storage",
             "sourceRepoURL": "https://github.com/googleapis/nodejs-storage",
@@ -2773,6 +2779,12 @@
             "asOfVersion": "9.3.1"
         },
         {
+            "libraryName": "rollup-plugin-delete",
+            "typingsPackageName": "rollup-plugin-delete",
+            "sourceRepoURL": "https://github.com/vladshcherbin/rollup-plugin-delete",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "rollup-plugin-node-resolve",
             "typingsPackageName": "rollup-plugin-node-resolve",
             "sourceRepoURL": "https://github.com/rollup/rollup-plugin-node-resolve",
@@ -3001,6 +3013,12 @@
             "asOfVersion": "5.2.0"
         },
         {
+            "libraryName": "strip-bom",
+            "typingsPackageName": "strip-bom",
+            "sourceRepoURL": "https://github.com/sindresorhus/strip-bom",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "strip-indent",
             "typingsPackageName": "strip-indent",
             "sourceRepoURL": "https://github.com/sindresorhus/strip-indent",
@@ -3125,6 +3143,12 @@
             "typingsPackageName": "trash",
             "sourceRepoURL": "https://github.com/sindresorhus/trash",
             "asOfVersion": "5.0.1"
+        },
+        {
+            "libraryName": "trim-newlines",
+            "typingsPackageName": "trim-newlines",
+            "sourceRepoURL": "https://github.com/sindresorhus/trim-newlines",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "TsMonad",

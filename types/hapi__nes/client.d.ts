@@ -10,7 +10,7 @@ declare class Client {
     constructor(url: string, options?: Client.ClientOptions);
     onError: (err: any) => void;
     onConnect: () => void;
-    onDisconnect: () => void;
+    onDisconnect: (willReconnect: boolean, log: { code: number, explanation: string, reason: string, wasClean: boolean }) => void;
     onUpdate: (message: any) => void;
     connect(options: Client.ClientConnectOptions): Promise<any>;
     connect(): Promise<any>;
