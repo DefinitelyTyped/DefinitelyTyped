@@ -94,6 +94,9 @@ export interface CreateACharge {
     cancel_url?: string;
 }
 
+/**
+ * Charge creation response.
+ */
 type CreateAChargeResponse = any;
 
 /**
