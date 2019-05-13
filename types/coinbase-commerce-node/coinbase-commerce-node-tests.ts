@@ -6,7 +6,7 @@ import { ChargeResource, Client, CreateACharge, resources as Resource } from 'co
 Client.init('some-api-key', 'http://example.com', 'v0.0.1', 2000);
 
 /**
- * Build example request
+ * Prebuilt example request
  *
  * @link https://commerce.coinbase.com/docs/api/#create-a-charge
  */
@@ -26,6 +26,11 @@ const exampleRequest: CreateACharge = {
     cancel_url: 'https://charge/canceled/page',
 };
 
+/**
+ * Prebuilt example response.
+ *
+ * @link https://commerce.coinbase.com/docs/api/#charge-resource
+ */
 const exampleResponse: ChargeResource = {
     id: 'f765421f2-1451-fafb-a513-aac6c819fba9',
     resource: 'charge',
