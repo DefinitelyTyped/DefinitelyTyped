@@ -1,4 +1,12 @@
-import { ChargeResource, CheckoutResource, CreateCheckout, Client, CreateCharge, resources as Resource } from 'coinbase-commerce-node';
+import {
+    Pagination,
+    ChargeResource,
+    CheckoutResource,
+    CreateCheckout,
+    Client,
+    CreateCharge,
+    resources as Resource
+} from 'coinbase-commerce-node';
 
 const Checkout = Resource.Checkout;
 const Charge = Resource.Charge;
@@ -112,6 +120,18 @@ Charge.create(chargeCreateExample).then((response: Resource.Charge) => {
     const resource: 'charge' = response.resource;
 });
 
+/**
+ * List out all available charges.
+ */
+Charge.list({}).then(([list, paginationInfo]) => {
+    const results: number = paginationInfo.total;
+
+    list.forEach((entry) => {
+        const id: string = entry.id;
+        const resource: 'charge' = entry.resource;
+    });
+});
+
 
 /**
  * Checkout create example.
@@ -140,7 +160,7 @@ const checkoutResponseExample: CheckoutResource = {
     name: 'The Sovereign Individual',
     description: 'Mastering the Transition to the Information Age',
     logo_url: 'https://commerce.coinbase.com/charges/ybjknds.png',
-    requested_info: [ 'name', 'email' ],
+    requested_info: ['name', 'email'],
     pricing_type: 'fixed_price',
     local_price: {
         amount: '100.0',
@@ -158,3 +178,32 @@ Checkout.create(checkoutCreateExample).then((response: Resource.Checkout) => {
 }).then((response) => {
     return Checkout.deleteById(response.id);
 });
+
+/**
+ * List out all available checkouts.
+ */
+Checkout.list({}).then(([list, paginationInfo]) => {
+    const results: number = paginationInfo.total;
+
+    list.forEach((entry) => {
+        const id: string = entry.id;
+        const resource: 'checkout' = entry.resource;
+    });
+});
+
+/**
+ * Pagination example.
+ *
+ * @link https://commerce.coinbase.com/docs/api/#pagination
+ */
+const paginationExample: Pagination = {
+    "order": "desc",
+    "starting_after": null,
+    "ending_before": null,
+    "total": 25,
+    "yielded": 20,
+    "limit": 20,
+    "previous_uri": null,
+    "next_uri": "https://api.commerce.coinbase.com/checkouts?limit=20&starting_after=fb6721f2-1622-48f0-b713-aac6c819b67a",
+    "cursor_range": ["a76721f2-1611-48fb-a513-aac6c819a9d6", "fb6721f2-1622-48f0-b713-aac6c819b67a"]
+};
