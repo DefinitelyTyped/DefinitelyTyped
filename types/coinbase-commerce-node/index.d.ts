@@ -358,6 +358,11 @@ export module resources {
          * Retrieve a charge by ID.
          */
         public static retrieve(chargeId: string, callback?: Callback<ChargeResource>): Promise<ChargeResource>;
+
+        /**
+         * Retrieve all charges.
+         */
+        public static all(paginationOptions: Partial<PaginationRequest>, callback?: Callback<ChargeResource[]>): Promise<ChargeResource[]>;
     }
 
 }
