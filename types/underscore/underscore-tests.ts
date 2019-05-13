@@ -9,6 +9,7 @@ _.each({ one: 1, two: 2, three: 3 }, (value, key) => alert(value.toString()));
 
 _.map([1, 2, 3], (num) => num * 3);
 _.map({ one: 1, two: 2, three: 3 }, (value, key) => value * 3);
+let plucked: string[] = _.map([{key: 'apples'}, {key: 'oranges'}], 'key');
 
 //var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);	// https://typescript.codeplex.com/workitem/1960
 var sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num, 0);
