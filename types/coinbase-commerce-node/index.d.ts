@@ -288,12 +288,12 @@ export module resources {
         /**
          * Save Charge to Coinbase Commerce's servers.
          */
-        public save(callback: Callback): Promise<CreateAChargeResponse>;
+        public save(callback: Callback): Promise<ChargeResource>;
 
         /**
          * Immidiately create a charge.
          */
-        public static create(chargeData: CreateACharge, callback: Callback): Promise<CreateAChargeResponse>;
+        public static create(chargeData: CreateACharge, callback: Callback): Promise<ChargeResource>;
 
     }
 
