@@ -132,6 +132,16 @@ Charge.list({}).then(([list, paginationInfo]) => {
     });
 });
 
+/**
+ * Fetch all available charges.
+ */
+Charge.all({}).then((list) => {
+    list.forEach((entry) => {
+        const id: string = entry.id;
+        const resource: 'charge' = entry.resource;
+    });
+});
+
 
 /**
  * Checkout create example.
@@ -185,6 +195,16 @@ Checkout.create(checkoutCreateExample).then((response: Resource.Checkout) => {
 Checkout.list({}).then(([list, paginationInfo]) => {
     const results: number = paginationInfo.total;
 
+    list.forEach((entry) => {
+        const id: string = entry.id;
+        const resource: 'checkout' = entry.resource;
+    });
+});
+
+/**
+ * Fetch all available checkouts.
+ */
+Checkout.all({}).then((list) => {
     list.forEach((entry) => {
         const id: string = entry.id;
         const resource: 'checkout' = entry.resource;
