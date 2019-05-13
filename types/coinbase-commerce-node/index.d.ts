@@ -41,7 +41,7 @@ type FiatCurrency = 'USD' | 'GBP' | 'EUR' | string;
 /**
  * Crypto currency.
  */
-type CryptoCurrency = 'BTC' | 'ETH' | 'ETC' | 'BCH' | 'LTC';
+type CryptoCurrency = 'BTC' | 'ETH'  | 'BCH' | 'LTC';
 
 /**
  * Pricing type.
