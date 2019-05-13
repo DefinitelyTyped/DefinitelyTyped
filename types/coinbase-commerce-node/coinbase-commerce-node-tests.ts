@@ -1,4 +1,4 @@
-import { ChargeResource, Client, CreateACharge, resources as Resource } from 'coinbase-commerce-node';
+import { ChargeResource, Client, CreateCharge, resources as Resource } from 'coinbase-commerce-node';
 
 /**
  * Initialize client.
@@ -10,7 +10,7 @@ Client.init('some-api-key', 'http://example.com', 'v0.0.1', 2000);
  *
  * @link https://commerce.coinbase.com/docs/api/#create-a-charge
  */
-const exampleRequest: CreateACharge = {
+const exampleRequest: CreateCharge = {
     name: 'The Sovereign Individual',
     description: 'Mastering the Transition to the Information Age',
     local_price: {

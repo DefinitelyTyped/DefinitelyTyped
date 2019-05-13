@@ -145,7 +145,7 @@ interface Pagination extends Pick<PaginationRequest, 'order' & 'starting_after' 
  *
  * @link https://commerce.coinbase.com/docs/api/#charge-resource
  */
-export interface CreateACharge {
+export interface CreateCharge {
 
     /**
      * Charge name.
@@ -350,19 +350,19 @@ export module resources {
     /**
      * Merge CreateACharge with Charge class.
      */
-    interface Charge extends CreateACharge {}
+    interface Charge extends CreateCharge {}
 
     /**
      * Charge Class
      *
      * @link https://commerce.coinbase.com/docs/api/#charges
      */
-    export class Charge extends Resource<CreateACharge, ChargeResource> {
+    export class Charge extends Resource<CreateCharge, ChargeResource> {
 
         /**
          * Create a charge.
          */
-        public static create(chargeData: CreateACharge, callback?: Callback<ChargeResource>): Promise<ChargeResource>;
+        public static create(chargeData: CreateCharge, callback?: Callback<ChargeResource>): Promise<ChargeResource>;
 
         /**
          * List charges.
