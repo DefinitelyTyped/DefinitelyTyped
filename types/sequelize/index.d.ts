@@ -1274,6 +1274,7 @@ declare namespace sequelize {
         constraints?: boolean;
         foreignKeyConstraint?: boolean;
 
+        scope?: AssociationScope;
     }
 
     /**
