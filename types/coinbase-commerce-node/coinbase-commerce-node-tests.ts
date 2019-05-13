@@ -105,7 +105,7 @@ const chargeResponseExample: ChargeResource = {
 /**
  * Create an example charge and fetch the same charge by its ID.
  */
-Charge.create(chargeCreateExample).then((response: ChargeResource) => {
+Charge.create(chargeCreateExample).then((response: Resource.Charge) => {
     return Charge.retrieve(response.id)
 }).then((response) => {
     const id: string = response.id;
@@ -151,7 +151,7 @@ const checkoutResponseExample: CheckoutResource = {
 /**
  * Create, get and update and delete a Checkout resource.
  */
-Checkout.create(checkoutCreateExample).then((response) => {
+Checkout.create(checkoutCreateExample).then((response: Resource.Checkout) => {
     return Checkout.retrieve(response.id);
 }).then((response) => {
     return Checkout.updateById(response.id, { name: 'some-name', description: 'some-description' });
