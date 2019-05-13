@@ -1,3 +1,8 @@
-import * as ol from 'openlayers';
+declare module 'ol/AssertionError' {
 
-export default ol.AssertionError;
+  export default class AssertionError extends Error {
+    constructor(code: number);
+    code: number;
+  }
+
+}

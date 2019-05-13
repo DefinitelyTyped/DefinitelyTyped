@@ -1,3 +1,9 @@
-import * as ol from 'openlayers';
+declare module 'ol/Disposable' {
 
-export default ol.Disposable;
+  export default class Disposable {
+    constructor();
+    protected disposeInternal(): void;
+    dispose(): void;
+  }
+
+}

@@ -1,3 +1,12 @@
-import * as ol from 'openlayers';
+declare module 'ol/Kinetic' {
 
-export default ol.Kinetic;
+  export default class Kinetic {
+    constructor(decay: number, minVelocity: number, delay: number);
+    begin(): void;
+    end(): boolean;
+    getAngle(): number;
+    getDistance(): number;
+    update(x: number, y: number): void;
+  }
+
+}
