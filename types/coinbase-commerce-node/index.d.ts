@@ -293,7 +293,10 @@ interface ChargeResource {
         network: CryptoName;
         transaction_id: string;
         status: PaymentStatus;
-        value: Pricing;
+        value:  {
+            local: Price<FiatCurrency>,
+            crypto: Price<CryptoCurrency>,
+        };
         block: {
             height: number;
             hash: string;
