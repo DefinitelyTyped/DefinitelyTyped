@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Box, Flex, Text, Heading, Button, Link, Image, Card } from "rebass";
+import "styled-components/macro";
 
 const CustomComponent: React.FunctionComponent = ({ children }) => {
     return <div>{children}</div>;
@@ -14,7 +15,7 @@ ExtendedBox.defaultProps = {
     p: 3
 };
 
-() => (
+export default () => (
     <Box width={1} css={{ height: "100vh" }} py={[1, 2, 3]} ml="1em">
         <Flex width={1} alignItems="center" justifyContent="center">
             <Heading fontSize={5} fontWeight="bold">
@@ -49,6 +50,13 @@ ExtendedBox.defaultProps = {
                 CustomComponent
             </Box>
             <ExtendedBox m={2}>ExtendedBox</ExtendedBox>
+            <Box
+                css={`
+                    color: red;
+                `}
+            >
+                String css prop
+            </Box>
         </Flex>
     </Box>
 );
