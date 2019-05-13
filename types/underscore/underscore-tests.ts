@@ -285,6 +285,12 @@ var fibonacci = _.memoize(function (n) {
 	return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
 });
 
+class MyClass {};
+
+var classMemoized = _.memoize<MyClass>(function (classInstance) {
+	return new classInstance();
+});
+
 var log = _.bind(console.log, console);
 _.delay(log, 1000, 'logged later');
 
