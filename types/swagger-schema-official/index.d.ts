@@ -97,7 +97,7 @@ export interface Path {
 
 // ----------------------------- Operation -----------------------------------
 export interface Operation {
-  responses: { [responseName: string]: Response | Reference};
+  responses: { [responseName: string]: Response | Reference };
   summary?: string;
   description?: string;
   externalDocs?: ExternalDocs;
@@ -129,7 +129,7 @@ export interface BaseSchema {
   format?: string;
   title?: string;
   description?: string;
-  default?: string|boolean|number|{};
+  default?: string | boolean | number | {};
   multipleOf?: number;
   maximum?: number;
   exclusiveMaximum?: boolean;
@@ -145,14 +145,14 @@ export interface BaseSchema {
   minProperties?: number;
   enum?: Array<string | boolean | number | {}>;
   type?: string;
-  items?: Schema|Schema[];
+  items?: Schema | Schema[];
 }
 
 export interface Schema extends BaseSchema {
   $ref?: string;
   allOf?: Schema[];
   additionalProperties?: Schema;
-  properties?: {[propertyName: string]: Schema};
+  properties?: { [propertyName: string]: Schema };
   discriminator?: string;
   readOnly?: boolean;
   xml?: XML;
@@ -171,7 +171,7 @@ export interface XML {
 
 // ----------------------------- Security ------------------------------------
 export interface BaseSecurity {
-  type: 'basic' || 'apiKey' || 'oauth2';
+  type: 'basic' | 'apiKey' | 'oauth2';
   description?: string;
 }
 
@@ -187,7 +187,7 @@ export interface ApiKeySecurity extends BaseSecurity {
 
 export interface BaseOAuthSecuirty extends BaseSecurity {
   type: 'oauth2';
-  flow: 'accessCode' || 'application' || 'implicit' || 'password';
+  flow: 'accessCode' | 'application' | 'implicit' | 'password';
 }
 
 export interface OAuth2ImplicitSecurity extends BaseOAuthSecuirty {
@@ -205,14 +205,14 @@ export interface OAuth2PasswordSecurity extends BaseOAuthSecuirty {
 
 export interface OAuth2ApplicationSecurity extends BaseOAuthSecuirty {
   type: 'oauth2';
-  flow: 'application';  
+  flow: 'application';
   tokenUrl: string;
   scopes?: OAuthScope[];
 }
 
 export interface OAuth2AccessCodeSecurity extends BaseOAuthSecuirty {
   type: 'oauth2';
-  flow: 'accessCode';  
+  flow: 'accessCode';
   tokenUrl: string;
   authorizationUrl: string;
   scopes?: OAuthScope[];
@@ -240,11 +240,11 @@ export interface Spec {
   schemes?: string[];
   consumes?: string[];
   produces?: string[];
-  paths: {[pathName: string]: Path};
-  definitions?: {[definitionsName: string]: Schema };
-  parameters?: {[parameterName: string]: BodyParameter|QueryParameter};
-  responses?: {[responseName: string]: Response };
-  security?: Array<{[securityDefinitionName: string]: string[]}>;
-  securityDefinitions?: { [securityDefinitionName: string]: Security};
+  paths: { [pathName: string]: Path };
+  definitions?: { [definitionsName: string]: Schema };
+  parameters?: { [parameterName: string]: BodyParameter | QueryParameter };
+  responses?: { [responseName: string]: Response };
+  security?: Array<{ [securityDefinitionName: string]: string[] }>;
+  securityDefinitions?: { [securityDefinitionName: string]: Security };
   tags?: Tag[];
 }
