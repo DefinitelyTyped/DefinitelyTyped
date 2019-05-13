@@ -142,6 +142,27 @@ Charge.all({}).then((list) => {
     });
 });
 
+/**
+ * insert, save, update and delete a Charge resource.
+ */
+new Charge(chargeCreateExample).insert().then((charge) => {
+    const resource: 'charge' = charge.resource;
+    charge.name = 'some-new-name';
+
+    return charge.save();
+}).then((charge) => {
+    const resource: 'charge' = charge.resource;
+    charge.description = 'some-new-description';
+
+    return charge.update();
+}).then((charge) => {
+    const resource: 'charge' = charge.resource;
+
+    return charge.delete();
+}).then((charge) => {
+    const resource: 'charge' = charge.resource;
+});
+
 
 /**
  * Checkout create example.
@@ -187,6 +208,27 @@ Checkout.create(checkoutCreateExample).then((response: Resource.Checkout) => {
     return Checkout.updateById(response.id, { name: 'some-name', description: 'some-description' });
 }).then((response) => {
     return Checkout.deleteById(response.id);
+});
+
+/**
+ * insert, save, update and delete a Checkout resource.
+ */
+new Checkout(checkoutCreateExample).insert().then((checkout) => {
+    const resource: 'checkout' = checkout.resource;
+    checkout.name = 'some-new-name';
+
+    return checkout.save();
+}).then((checkout) => {
+    const resource: 'checkout' = checkout.resource;
+    checkout.description = 'some-new-description';
+
+    return checkout.update();
+}).then((checkout) => {
+    const resource: 'checkout' = checkout.resource;
+
+    return checkout.delete();
+}).then((checkout) => {
+    const resource: 'checkout' = checkout.resource;
 });
 
 /**
