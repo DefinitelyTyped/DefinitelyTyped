@@ -1,4 +1,4 @@
-// Type definitions for coinbase-commerce-node 1.0.0
+// Type definitions for coinbase-commerce-node 1.0
 // Project: https://github.com/coinbase/coinbase-commerce-node
 // Definitions by: Jørgen Vatle <https://github.com/JorgenVatle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,23 +9,16 @@
 interface Options {
     url: string;
     body: string;
-    method: 'GET' | 'POST' | 'DELETE' | 'PUT',
-    timeout: number,
+    method: 'GET' | 'POST' | 'DELETE' | 'PUT';
+    timeout: number;
     headers: {
-        [key: string]: any,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'User-Agent': string,
-        'X-CC-Api-Key': string,
-        'X-CC-Version': string,
-    }
-}
-
-/**
- * Key-value object.
- */
-interface KeyVal {
-    [key: string]: any;
+        [key: string]: any;
+        'Content-Type': 'application/json';
+        'Accept': 'application/json';
+        'User-Agent': string;
+        'X-CC-Api-Key': string;
+        'X-CC-Version': string;
+    };
 }
 
 /**
@@ -61,7 +54,7 @@ type CryptoName = 'bitcoin' | 'ethereum' | 'bitcoincash' | 'litecoin';
 /**
  * Pricing type.
  */
-type PricingType = 'no_price' | 'fixed_price'
+type PricingType = 'no_price' | 'fixed_price';
 
 /**
  * Timestamp string.
@@ -73,6 +66,20 @@ type Timestamp = string;
  * Payment status.
  */
 type PaymentStatus = 'NEW' | 'PENDING' | 'CONFIRMED' | 'UNRESOLVED' | 'RESOLVED' | 'EXPIRED';
+
+/**
+ * Crypto pricing object.
+ */
+type CryptoPricing = {
+    [key in CryptoName]?: Price<CryptoCurrency>;
+};
+
+/**
+ * Key-value object.
+ */
+interface KeyVal {
+    [key: string]: any;
+}
 
 /**
  * Price object.
@@ -90,25 +97,17 @@ interface Pricing extends CryptoPricing {
 }
 
 /**
- * Crypto pricing object.
- */
-type CryptoPricing = {
-    [key in CryptoName]?: Price<CryptoCurrency>;
-}
-
-/**
  * Pagination request.
  *
  * @link https://commerce.coinbase.com/docs/api/#pagination
  */
 interface PaginationRequest {
-
     /**
      * Order of resources in the response.
      *
      * default: desc
      */
-    order?: 'asc' | 'desc',
+    order?: 'asc' | 'desc';
 
     /**
      * Number of results per call.
@@ -129,7 +128,6 @@ interface PaginationRequest {
      * This is a resource ID that defines your place in the list.
      */
     ending_before?: string | null;
-
 }
 
 /**
@@ -137,7 +135,7 @@ interface PaginationRequest {
  *
  * @link https://commerce.coinbase.com/docs/api/#pagination
  */
-export interface Pagination extends Pick<PaginationRequest, 'order' | 'starting_after' | 'ending_before' | 'limit'> {
+interface Pagination extends Pick<PaginationRequest, 'order' | 'starting_after' | 'ending_before' | 'limit'> {
     total: number;
     yielded: number;
     previous_uri: null | string;
@@ -150,24 +148,23 @@ export interface Pagination extends Pick<PaginationRequest, 'order' | 'starting_
  *
  * @link https://commerce.coinbase.com/docs/api/#charge-resource
  */
-export interface CreateCharge {
-
+interface CreateCharge {
     /**
      * Charge name.
      * 100 characters or less.
      */
-    name: string,
+    name: string;
 
     /**
      * More detailed description of the charge.
      * 200 characters or less.
      */
-    description: string,
+    description: string;
 
     /**
      * Charge pricing type.
      */
-    pricing_type: PricingType,
+    pricing_type: PricingType;
 
     /**
      * Price in local fiat currency.
@@ -177,12 +174,12 @@ export interface CreateCharge {
     /**
      * Optional key value pairs for your own use.
      */
-    metadata?: KeyVal,
+    metadata?: KeyVal;
 
     /**
      * Redirect the user to this URL on completion.
      */
-    redirect_url?: string,
+    redirect_url?: string;
 
     /**
      * Redirect the user to this URL on cancel.
@@ -196,7 +193,6 @@ export interface CreateCharge {
  * @link https://commerce.coinbase.com/docs/api/#charge-resource
  */
 interface ChargeResource extends CreateCharge {
-
     /**
      * Charge UUID
      */
@@ -247,8 +243,7 @@ interface ChargeResource extends CreateCharge {
     /**
      * Array of status update objects.
      */
-    timeline: {
-
+    timeline: Array<{
         /**
          * Timeline entry timestamp.
          */
@@ -263,8 +258,7 @@ interface ChargeResource extends CreateCharge {
          * Timeline entry context.
          */
         context?: 'UNDERPAID';
-
-    }[];
+    }>;
 
     /**
      * Charge metadata provided by you, the developer.
@@ -279,13 +273,13 @@ interface ChargeResource extends CreateCharge {
     /**
      * Array of charge payment objects.
      */
-    payments: {
+    payments: Array<{
         network: CryptoName;
         transaction_id: string;
         status: PaymentStatus;
-        value:  {
-            local: Price<FiatCurrency>,
-            crypto: Price<CryptoCurrency>,
+        value: {
+            local: Price<FiatCurrency>;
+            crypto: Price<CryptoCurrency>;
         };
         block: {
             height: number;
@@ -293,7 +287,7 @@ interface ChargeResource extends CreateCharge {
             confirmations_accumulated: number;
             confirmations_required: number;
         }
-    }[];
+    }>;
 
     /**
      * Set of addresses associated with the charge.
@@ -306,8 +300,7 @@ interface ChargeResource extends CreateCharge {
  *
  * @link https://commerce.coinbase.com/docs/api/#create-a-checkout
  */
-export interface CreateCheckout {
-
+interface CreateCheckout {
     /**
      * Checkout name.
      * 100 characters or less.
@@ -328,13 +321,12 @@ export interface CreateCheckout {
     /**
      * Price in local fiat currency.
      */
-    local_price?: Price<FiatCurrency>,
+    local_price?: Price<FiatCurrency>;
 
     /**
      * Information to collect from the customer.
      */
-    requested_info?: ('email' | 'name')[]
-
+    requested_info?: Array<'email' | 'name'>;
 }
 
 /**
@@ -342,15 +334,14 @@ export interface CreateCheckout {
  *
  * @link https://commerce.coinbase.com/docs/api/#update-a-checkout
  */
-export type UpdateCheckout = Pick<CreateCheckout, 'name' | 'description' | 'local_price' | 'requested_info'>
+type UpdateCheckout = Pick<CreateCheckout, 'name' | 'description' | 'local_price' | 'requested_info'>;
 
 /**
  * Checkout Resource.
  *
  * @link https://commerce.coinbase.com/docs/api/#checkout-resource
  */
-export interface CheckoutResource extends CreateCheckout {
-
+interface CheckoutResource extends CreateCheckout {
     /**
      * Checkout UUID.
      */
@@ -365,7 +356,6 @@ export interface CheckoutResource extends CreateCheckout {
      * Checkout image URL.
      */
     logo_url?: string;
-
 }
 
 /**
@@ -373,8 +363,7 @@ export interface CheckoutResource extends CreateCheckout {
  *
  * @link
  */
-export interface EventResource {
-
+interface EventResource {
     /**
      * Event UUID.
      */
@@ -412,17 +401,14 @@ export interface EventResource {
  *
  * @link https://github.com/coinbase/coinbase-commerce-node#usage
  */
-export class Client {
-
+export namespace Client {
     /**
      * Setup client.
      */
-    public static init(apiKey: string, baseApiUrl?: string, apiVersion?: string, timeout?: number): Options;
-
+    function init(apiKey: string, baseApiUrl?: string, apiVersion?: string, timeout?: number): Options;
 }
 
-export module resources {
-
+export namespace resources {
     /**
      * Resource object
      * All coinbase-commerce-node resources implement the following static methods.
@@ -430,32 +416,31 @@ export module resources {
      * @link https://github.com/coinbase/coinbase-commerce-node#documentation
      */
     abstract class Resource<Request> {
-
         /**
          * Charge constructor.
          */
-        public constructor(data: Request);
+        constructor(data: Request);
 
         /**
          * Save the current resource.
          * Creates a new resource if it doesn't already exist in Coinbase Commerce's systems.
          */
-        public save(callback?: Callback<this>): Promise<this>;
+        save(callback?: Callback<this>): Promise<this>;
 
         /**
          * Delete the current resource.
          */
-        public delete(callback?: Callback<this>): Promise<this>;
+        delete(callback?: Callback<this>): Promise<this>;
 
         /**
          * Save new resource to Coinbase Commerce.
          */
-        public insert(callback?: Callback<this>): Promise<this>;
+        insert(callback?: Callback<this>): Promise<this>;
 
         /**
          * Update the current resource.
          */
-        public update(callback?: Callback<this>): Promise<this>;
+        update(callback?: Callback<this>): Promise<this>;
     }
 
     /**
@@ -468,28 +453,26 @@ export module resources {
      *
      * @link https://github.com/coinbase/coinbase-commerce-node#charges
      */
-    export class Charge extends Resource<CreateCharge> {
-
+    class Charge extends Resource<CreateCharge> {
         /**
          * Create a charge.
          */
-        public static create(chargeData: CreateCharge, callback?: Callback<Charge>): Promise<Charge>;
+        static create(chargeData: CreateCharge, callback?: Callback<Charge>): Promise<Charge>;
 
         /**
          * List charges.
          */
-        public static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Charge>): Promise<[Charge[], Pagination]>;
+        static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Charge>): Promise<[Charge[], Pagination]>;
 
         /**
          * Fetch all charges.
          */
-        public static all(paginationOptions: PaginationRequest, callback?: Callback<Charge[]>): Promise<Charge[]>
+        static all(paginationOptions: PaginationRequest, callback?: Callback<Charge[]>): Promise<Charge[]>;
 
         /**
          * Retrieve a charge by ID.
          */
-        public static retrieve(chargeId: ChargeResource['id'], callback?: Callback<Charge>): Promise<Charge>;
-
+        static retrieve(chargeId: ChargeResource['id'], callback?: Callback<Charge>): Promise<Charge>;
     }
 
     /**
@@ -502,38 +485,36 @@ export module resources {
      *
      * @link https://github.com/coinbase/coinbase-commerce-node#checkouts
      */
-    export class Checkout extends Resource<CreateCheckout> {
-
+    class Checkout extends Resource<CreateCheckout> {
         /**
          * Create a checkout.
          */
-        public static create(checkoutData: CreateCheckout, callback?: Callback<Checkout>): Promise<Checkout>;
+        static create(checkoutData: CreateCheckout, callback?: Callback<Checkout>): Promise<Checkout>;
 
         /**
          * List checkouts.
          */
-        public static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Checkout>): Promise<[Checkout[], Pagination]>;
+        static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Checkout>): Promise<[Checkout[], Pagination]>;
 
         /**
          * Fetch all checkouts.
          */
-        public static all(paginationOptions: PaginationRequest, callback?: Callback<Checkout[]>): Promise<Checkout[]>
+        static all(paginationOptions: PaginationRequest, callback?: Callback<Checkout[]>): Promise<Checkout[]>;
 
         /**
          * Retrieve a checkout by ID.
          */
-        public static retrieve(checkoutId: CheckoutResource['id'], callback?: Callback<Checkout>): Promise<Checkout>;
+        static retrieve(checkoutId: CheckoutResource['id'], callback?: Callback<Checkout>): Promise<Checkout>;
 
         /**
          * Update a checkout by ID.
          */
-        public static updateById(checkoutId: CheckoutResource['id'], update: UpdateCheckout, callback?: Callback<Checkout>): Promise<Checkout>
+        static updateById(checkoutId: CheckoutResource['id'], update: UpdateCheckout, callback?: Callback<Checkout>): Promise<Checkout>;
 
         /**
          * Delete a checkout by ID.
          */
-        public static deleteById(checkoutId: CheckoutResource['id'], callback?: Callback<Checkout>): Promise<Checkout>;
-
+        static deleteById(checkoutId: CheckoutResource['id'], callback?: Callback<Checkout>): Promise<Checkout>;
     }
 
     /**
@@ -546,23 +527,21 @@ export module resources {
      *
      * @link https://github.com/coinbase/coinbase-commerce-node#events
      */
-    export class Event extends Resource<EventResource> {
-
+    class Event extends Resource<EventResource> {
         /**
          * Retrieve a event by ID.
          */
-        public static retrieve(eventId: EventResource['id'], callback?: Callback<Event>): Promise<Event>;
+        static retrieve(eventId: EventResource['id'], callback?: Callback<Event>): Promise<Event>;
 
         /**
          * List events.
          */
-        public static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Event>): Promise<[Event[], Pagination]>;
+        static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Event>): Promise<[Event[], Pagination]>;
 
         /**
          * Fetch all events.
          */
-        public static all(paginationOptions: PaginationRequest, callback?: Callback<Event[]>): Promise<Event[]>
-
+        static all(paginationOptions: PaginationRequest, callback?: Callback<Event[]>): Promise<Event[]>;
     }
 
     /**
@@ -570,15 +549,28 @@ export module resources {
      *
      * @link https://github.com/coinbase/coinbase-commerce-node#webhooks
      */
-    export class Webhook {
-
+    namespace Webhook {
         /**
          * Verify a signature header.
          *
          * @link https://github.com/coinbase/coinbase-commerce-node#verify-signature-header
          */
-        static verifySigHeader(rawBody: string, signature: string, sharedSecret: string): void;
-
+        function verifySigHeader(rawBody: string, signature: string, sharedSecret: string): void;
     }
 
+    export {
+        Webhook,
+        Event,
+        Charge,
+        Checkout,
+    };
 }
+
+export {
+    Pagination,
+    ChargeResource,
+    CheckoutResource,
+    CreateCheckout,
+    EventResource,
+    CreateCharge,
+};

@@ -112,12 +112,11 @@ const chargeResponseExample: ChargeResource = {
     }
 };
 
-
 /**
  * Create an example charge and fetch the same charge by its ID.
  */
 Charge.create(chargeCreateExample).then((response: Resource.Charge) => {
-    return Charge.retrieve(response.id)
+    return Charge.retrieve(response.id);
 }).then((response) => {
     const id: string = response.id;
     const resource: 'charge' = response.resource;
@@ -165,7 +164,6 @@ new Charge(chargeCreateExample).insert().then((charge) => {
 }).then((charge) => {
     const resource: 'charge' = charge.resource;
 });
-
 
 /**
  * Checkout create example.
@@ -314,4 +312,5 @@ const paginationExample: Pagination = {
  *
  * @link https://github.com/coinbase/coinbase-commerce-node#verify-signature-header
  */
+// tslint:disable-next-line:void-return
 const shouldBeVoid: void = Webhook.verifySigHeader(JSON.stringify(eventResponseExample), 'some-signature', 'my-secret');
