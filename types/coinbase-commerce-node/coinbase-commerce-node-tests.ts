@@ -293,8 +293,9 @@ Event.retrieve(eventResponseExample.id).then((event) => {
     const type: 'event' = event.resource;
 });
 
-Event.list({}).then((events) => {
+Event.list({}).then(([events, paginationInfo]) => {
     const type: 'event' = events[0].resource;
+    const results: number = paginationInfo.total;
 });
 
 Event.all({}).then((events) => {
