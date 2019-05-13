@@ -408,7 +408,8 @@ export module resources {
         public constructor(data: Request);
 
         /**
-         * Save the current resource to Coinbase Commerce's servers.
+         * Save the current resource.
+         * Creates a new resource if it doesn't already exist in Coinbase Commerce's systems.
          */
         public save(callback?: Callback<Response>): Promise<Response>;
 
@@ -417,6 +418,10 @@ export module resources {
          */
         public delete(callback?: Callback<this>): Promise<this>;
 
+        /**
+         * Save new resource to Coinbase Commerce.
+         */
+        public insert(callback?: Callback<this>): Promise<this>;
     }
 
     /**
