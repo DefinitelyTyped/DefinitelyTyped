@@ -352,7 +352,7 @@ export module resources {
         /**
          * List charges.
          */
-        public static list(search: Partial<ChargeResource>, callback: PaginationCallback<ChargeResource>): Promise<[ChargeResource[], Pagination]>;
+        public static list(paginationOptions: Partial<PaginationRequest>, callback: PaginationCallback<ChargeResource>): Promise<[ChargeResource[], Pagination]>;
 
     }
 
