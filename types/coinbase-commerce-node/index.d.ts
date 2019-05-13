@@ -348,6 +348,13 @@ export interface CreateCheckout {
 }
 
 /**
+ * Update a checkout resource.
+ *
+ * @link https://commerce.coinbase.com/docs/api/#update-a-checkout
+ */
+export type UpdateCheckout = Pick<CreateCheckout, 'name' | 'description' | 'local_price' | 'requested_info'>
+
+/**
  * Checkout Resource.
  *
  * @link https://commerce.coinbase.com/docs/api/#checkout-resource
@@ -437,7 +444,7 @@ export module resources {
         /**
          * Retrieve a charge by ID.
          */
-        public static retrieve(chargeId: string, callback?: Callback<ChargeResource>): Promise<ChargeResource>;
+        public static retrieve(chargeId: ChargeResource['id'], callback?: Callback<ChargeResource>): Promise<ChargeResource>;
 
     }
 
@@ -471,7 +478,12 @@ export module resources {
         /**
          * Retrieve a checkout by ID.
          */
-        public static retrieve(checkoutId: string, callback?: Callback<CheckoutResource>): Promise<CheckoutResource>;
+        public static retrieve(checkoutId: CheckoutResource['id'], callback?: Callback<CheckoutResource>): Promise<CheckoutResource>;
+
+        /**
+         * Update a checkout by ID.
+         */
+        public static updateById(checkoutId: CheckoutResource['id'], update: UpdateCheckout, callback: Callback<CheckoutResource>): Promise<CheckoutResource>
 
     }
 
