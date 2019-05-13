@@ -508,7 +508,7 @@ export module resources {
     }
 
     /**
-     * Merge CreateACheckout with Checkout class.
+     * Merge CheckoutResource with Checkout class.
      */
     interface Checkout extends CheckoutResource {}
 
@@ -550,6 +550,11 @@ export module resources {
         public static deleteById(checkoutId: CheckoutResource['id'], callback?: Callback<Checkout>): Promise<Checkout>;
 
     }
+
+    /**
+     * Merge EventResource with Event class.
+     */
+    interface Event extends EventResource {}
 
     /**
      * Event class.
