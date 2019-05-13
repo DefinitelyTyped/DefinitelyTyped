@@ -1882,6 +1882,35 @@ declare namespace algoliasearch {
 }
 
 declare namespace algoliasearchInitPlaces {
+
+    interface PlaceInterface {
+        /**
+         * Endpoint to search.
+         * https://community.algolia.com/places/api-clients.html#endpoints
+         */
+        search(e: QueryInterface, cb: (err: Error, response: ResultSearchInterface) => void): void;
+
+        /**
+         * Endpoint to search.
+         * https://community.algolia.com/places/api-clients.html#endpoints
+         */
+        search(e: QueryInterface): Promise<ResultSearchInterface>;
+        // search(e: LocalizedQueryInterface): Promise<LocalizedResultSearchInterface>;
+
+        /**
+         * Reverse geocoding means converting a location (latitude and longitude) to a readable address.
+         * https://community.algolia.com/places/api-clients.html#endpoints
+         */
+        reverse(e: QueryReverseInterface, cb: (err: Error, response: ResultSearchInterface) => void): void;
+
+
+        /**
+         * Reverse geocoding means converting a location (latitude and longitude) to a readable address.
+         * https://community.algolia.com/places/api-clients.html#endpoints
+         */
+        reverse(e: QueryReverseInterface): Promise<ResultSearchInterface>;
+    }
+
     /**
      * Restrict the search results to a specific type.
      * https://community.algolia.com/places/api-clients.html#api-options-type
@@ -1940,32 +1969,6 @@ declare namespace algoliasearchInitPlaces {
         getRankingInfo?: boolean;
     }
 
-    interface PlaceInterface {
-        /**
-         * Endpoint to search.
-         * https://community.algolia.com/places/api-clients.html#endpoints
-         */
-        search(e: QueryInterface, cb: (err: Error, response: ResultSearchInterface) => void): void;
-
-        /**
-         * Endpoint to search.
-         * https://community.algolia.com/places/api-clients.html#endpoints
-         */
-        search(e: QueryInterface): Promise<ResultSearchInterface>;
-
-        /**
-         * Reverse geocoding means converting a location (latitude and longitude) to a readable address.
-         * https://community.algolia.com/places/api-clients.html#endpoints
-         */
-        reverse(e: QueryReverseInterface, cb: (err: Error, response: ResultSearchInterface) => void): void;
-
-        /**
-         * Reverse geocoding means converting a location (latitude and longitude) to a readable address.
-         * https://community.algolia.com/places/api-clients.html#endpoints
-         */
-        reverse(e: QueryReverseInterface): Promise<ResultSearchInterface>;
-    }
-
     /**
      * Params for endpoint reverse.
      * https://community.algolia.com/places/api-clients.html#reverse-geocoding
@@ -1991,7 +1994,6 @@ declare namespace algoliasearchInitPlaces {
         language?: string;
     }
 
-
     /**
      * Result of search.
      * https://community.algolia.com/places/api-clients.html#json-answer
@@ -2001,7 +2003,7 @@ declare namespace algoliasearchInitPlaces {
          * Contains all the hits matching the query.
          * https://community.algolia.com/places/api-clients.html#json-answer
          */
-        hits: HitInterface[];
+        hits: HitInterface[] | LocalizedHitInterface[];
         /**
          * Query fallback if query retrieve any result
          * https://community.algolia.com/places/api-clients.html#json-answer
@@ -2029,22 +2031,21 @@ declare namespace algoliasearchInitPlaces {
         query: string;
     }
 
-
     /**
-     * Hit of search.
+     * Hit of search localized.
      * https://community.algolia.com/places/api-clients.html#api-suggestion-name
      */
-    interface HitInterface {
+    interface LocalizedHitInterface {
         /**
          * List of associated administrative region names.
          * https://community.algolia.com/places/api-clients.html#api-suggestion-administrative
          */
-        administrative: string[];
+        administrative?: string[];
         /**
          * Associated country name.
          * https://community.algolia.com/places/api-clients.html#api-suggestion-country
-        */
-        country: { default: string; [key: string]: string };
+         */
+        country: string;
         /**
          * Two letters country code (ISO 639-1).
          * https://community.algolia.com/places/api-clients.html#api-suggestion-countryCode
@@ -2054,22 +2055,22 @@ declare namespace algoliasearchInitPlaces {
          * List of the associated county names. If no language parameter is specified, retrieves all of them.
          * https://community.algolia.com/places/api-clients.html#api-suggestion-county
          */
-        county: { default: string; [key: string]: string };
+        county?: string[];
         /**
          * https://community.algolia.com/places/api-clients.html#api-suggestion-city
          * List of the associated city names. If no language parameter is specified, retrieves all of them.
          */
-        city: { default: string[]; [key: string]: string[] };
-        /**
-         * Associated population.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-population
-         */
-        population: number;
+        city?: string[];
         /**
          * List of associated postcodes.
          * https://community.algolia.com/places/api-clients.html#api-suggestion-postcode
          */
-        postcode: string[];
+        postcodes?: string[];
+        /**
+         * Associated population.
+         * https://community.algolia.com/places/api-clients.html#api-suggestion-population
+         */
+        population?: number;
         /**
          * Associated list of latitude and longitude.
          * https://community.algolia.com/places/api-clients.html#api-suggestion-latlng
@@ -2093,7 +2094,83 @@ declare namespace algoliasearchInitPlaces {
          * https://community.algolia.com/places/api-clients.html#api-suggestion-name
          * List of names of the place. If no language parameter is specified, retrieves all of them.
          */
-        locale_names: { default: string; [key: string]: string };
+        locale_names: string[];
+        admin_level: number;
+        district: string;
+        importance: number;
+        is_city: boolean;
+        is_country: boolean;
+        is_highway: boolean;
+        is_popular: boolean;
+        is_suburb: boolean;
+        objectID: string;
+        tags: string[];
+    }
+
+    /**
+     * Hit of search.
+     * https://community.algolia.com/places/api-clients.html#api-suggestion-name
+     */
+    interface HitInterface {
+        /**
+         * List of associated administrative region names.
+         * https://community.algolia.com/places/api-clients.html#api-suggestion-administrative
+         */
+        administrative?: string[];
+        /**
+         * Associated country name.
+         * https://community.algolia.com/places/api-clients.html#api-suggestion-country
+         */
+        country: { default: string; [key: string]: string };
+        /**
+         * Two letters country code (ISO 639-1).
+         * https://community.algolia.com/places/api-clients.html#api-suggestion-countryCode
+         */
+        country_code: string;
+        /**
+         * List of the associated county names. If no language parameter is specified, retrieves all of them.
+         * https://community.algolia.com/places/api-clients.html#api-suggestion-county
+         */
+        county?: { default: string[]; [key: string]: string[] };
+        /**
+         * https://community.algolia.com/places/api-clients.html#api-suggestion-city
+         * List of the associated city names. If no language parameter is specified, retrieves all of them.
+         */
+        city?: { default: string[]; [key: string]: string[] };
+        /**
+         * Associated population.
+         * https://community.algolia.com/places/api-clients.html#api-suggestion-population
+         */
+        population?: number;
+        /**
+         * List of associated postcodes.
+         * https://community.algolia.com/places/api-clients.html#api-suggestion-postcode
+         */
+        postcode?: string[];
+        /**
+         * Associated list of latitude and longitude.
+         * https://community.algolia.com/places/api-clients.html#api-suggestion-latlng
+         */
+        geoloc: { lat: number; lng: number };
+        /**
+         * The associated highlighting information.
+         * https://community.algolia.com/places/api-clients.html#api-suggestion-highlightResult
+         */
+        highlightResult: {
+            administrative: highlightResultValueInterface;
+            country: {
+                default: highlightResultValueInterface;
+                [key: string]: highlightResultValueInterface;
+            };
+            county: { default: string; [key: string]: string };
+            locale_names: { default: string[]; [key: string]: string[] };
+            postcode: highlightResultValueInterface[];
+        }
+        /**
+         * https://community.algolia.com/places/api-clients.html#api-suggestion-name
+         * List of names of the place. If no language parameter is specified, retrieves all of them.
+         */
+        locale_names: { default: string[]; [key: string]: string[] };
         admin_level: number;
         district: string;
         importance: number;
