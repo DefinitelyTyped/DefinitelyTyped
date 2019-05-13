@@ -1,4 +1,4 @@
-// Type definitions for wouter 1.2.1
+// Type definitions for wouter 1.2
 // Project: https://github.com/molefrog/wouter#readme
 // Definitions by: Tolkunov Alexander <https://github.com/StrayFromThePath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -35,7 +35,7 @@ export const Redirect: React.FunctionComponent<RedirectProps>;
 
 export interface SwitchProps {
     location?: string;
-    children: React.ReactElement<RouteProps>[];
+    children: Array<React.ReactElement<RouteProps>>;
 }
 export const Switch: React.FunctionComponent<SwitchProps>;
 
@@ -49,7 +49,7 @@ export interface RouterProps {
     history: History;
     matcher: (pattern: string, path: Path) => Match;
 }
-export const Router: React.FunctionComponent<Partial<RouterProps>>
+export const Router: React.FunctionComponent<Partial<RouterProps>>;
 
 export function useRouter(): RouterProps;
 

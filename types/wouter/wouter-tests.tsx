@@ -10,7 +10,7 @@ import {
     Redirect,
 } from 'wouter';
 
-const Inbox = () => <h1>Inbox</h1>
+const Inbox = () => <h1>Inbox</h1>;
 const BaseTest = () => (
     <div className="app">
         <Link href="/users/alex">
@@ -39,7 +39,7 @@ const SwitchTest = () => (
         <Route path="/b">B</Route>
         <Route path="/c">C</Route>
     </Switch>
-)
+);
 
 const UseRouteTest = () => {
     const [match, params] = useRoute('/users/:name');
@@ -62,7 +62,7 @@ const UseRouterTest = () => {
             <div onClick={() => history.push('/orders')}>Orders</div>
         </div>
     );
-}
+};
 
 const useLocationTest = () => {
     const [location, navigate] = useLocation();
@@ -72,7 +72,7 @@ const useLocationTest = () => {
             <div>Current location: {location}</div>
             <div onClick={() => navigate('/home')}>Home</div>
         </div>
-    )
-}
+    );
+};
 
-<Redirect to="/users" />
+<Redirect to="/users" />;
