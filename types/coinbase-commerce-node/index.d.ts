@@ -316,7 +316,7 @@ export class Client {
     /**
      * Setup client.
      */
-    public init(apiKey: string, baseApiUrl?: string, apiVersion?: string, timeout?: number): Options;
+    public static init(apiKey: string, baseApiUrl?: string, apiVersion?: string, timeout?: number): Options;
 
 }
 
