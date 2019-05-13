@@ -1097,6 +1097,16 @@ declare module "../index" {
          */
         get<TDefault>(path: number, defaultValue: TDefault): T | TDefault;
     }
+    interface Primitive<T> {
+        /**
+         * @see _.get
+         */
+        get(path: PropertyPath): any;
+        /**
+         * @see _.get
+         */
+        get(path: PropertyPath, defaultValue: any): any;
+    }
     interface StringChain {
         /**
          * @see _.get
@@ -1140,6 +1150,16 @@ declare module "../index" {
          * @see _.get
          */
         get<TDefault>(path: number, defaultValue: TDefault): ExpChain<T | TDefault>;
+    }
+    interface PrimitiveChain<T> {
+        /**
+         * @see _.get
+         */
+        get(path: PropertyPath): ExpChain<any>;
+        /**
+         * @see _.get
+         */
+        get(path: PropertyPath, defaultValue: any): ExpChain<any>;
     }
     interface LoDashStatic {
         /**

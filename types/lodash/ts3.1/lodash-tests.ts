@@ -5176,6 +5176,7 @@ fp.now(); // $ExpectType number
     _.get({ a: value }, "a", defaultValue); // $ExpectType string | boolean
     _.get({ a: undefined }, "a", defaultValue); // $ExpectType boolean
 
+    _(42).get("toString"); // $ExpectType any
     _("abc").get(1); // $ExpectType string
     _("abc").get([0], "_");
     _([42]).get(0, -1); // $ExpectType number
@@ -5186,6 +5187,7 @@ fp.now(); // $ExpectType number
     _({ a: value }).get("a", defaultValue); // $ExpectType string | boolean
     _({ a: undefined }).get("a", defaultValue); // $ExpectType boolean
 
+    _.chain(42).get("toString");
     _.chain("abc").get(1); // $ExpectType StringChain
     _.chain("abc").get([0], "_");
     _.chain([42]).get(0, -1); // ExpectType PrimitiveChain<number>
