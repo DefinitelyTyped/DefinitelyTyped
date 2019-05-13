@@ -1,5 +1,7 @@
-import { ChargeResource, Client, CreateCharge, resources as Resource } from 'coinbase-commerce-node';
-import { CheckoutResource, CreateCheckout } from './index';
+import { ChargeResource, CheckoutResource, CreateCheckout, Client, CreateCharge, resources as Resource } from 'coinbase-commerce-node';
+
+const Checkout = Resource.Checkout;
+const Charge = Resource.Charge;
 
 /**
  * Initialize client.
@@ -103,8 +105,8 @@ const chargeResponseExample: ChargeResource = {
 /**
  * Create an example charge and fetch the same charge by its ID.
  */
-Resource.Charge.create(chargeCreateExample).then((response: ChargeResource) => {
-    return Resource.Charge.retrieve(response.id)
+Charge.create(chargeCreateExample).then((response: ChargeResource) => {
+    return Charge.retrieve(response.id)
 }).then((response) => {
     const id: string = response.id;
     const resource: 'charge' = response.resource;
@@ -145,3 +147,14 @@ const checkoutResponseExample: CheckoutResource = {
         currency: 'USD'
     }
 };
+
+/**
+ * Create, get and update and delete a Checkout resource.
+ */
+Checkout.create(checkoutCreateExample).then((response) => {
+    return Checkout.retrieve(response.id);
+}).then((response) => {
+    return Checkout.updateById(response.id, { name: 'some-name', description: 'some-description' });
+}).then((response) => {
+    return Checkout.deleteById(response.id);
+});
