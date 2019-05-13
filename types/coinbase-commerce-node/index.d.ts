@@ -323,9 +323,12 @@ export class Client {
 export module resources {
 
     /**
-     * Resource class.
+     * Resource object
+     * All coinbase-commerce-node resources implement the following static methods.
+     *
+     * @link https://github.com/coinbase/coinbase-commerce-node#documentation
      */
-    abstract class ResourceClass<Request, Response> {
+    abstract class Resource<Request, Response> {
 
         /**
          * Charge constructor.
@@ -340,43 +343,38 @@ export module resources {
     }
 
     /**
-     * Resource object
-     * All coinbase-commerce-node resources implement the following static methods.
-     *
-     * @link https://github.com/coinbase/coinbase-commerce-node#documentation
+     * Merge CreateACharge with Charge class.
      */
-    interface Resource<Request, Resource> {
-        /**
-         * Create new resource class.
-         */
-        new(data: Partial<Request>): ResourceClass<Request, Resource> & Request;
-
-        /**
-         * Immidiately create a resource.
-         */
-        create(chargeData: Request, callback?: Callback<Resource>): Promise<Resource>;
-
-        /**
-         * List resources.
-         */
-        list(paginationOptions: Partial<PaginationRequest>, callback?: PaginationCallback<Resource>): Promise<[Resource[], Pagination]>;
-
-        /**
-         * Retrieve a resource by ID.
-         */
-        retrieve(chargeId: string, callback?: Callback<Resource>): Promise<Resource>;
-
-        /**
-         * Retrieve all resources.
-         */
-        all(paginationOptions: Partial<PaginationRequest>, callback?: Callback<Resource[]>): Promise<Resource[]>;
-    }
+    interface Charge extends CreateACharge {}
 
     /**
      * Charge Class
      *
      * @link https://commerce.coinbase.com/docs/api/#charges
      */
-    export interface Charge extends Resource<CreateACharge, ChargeResource> {}
+    export class Charge extends Resource<CreateACharge, ChargeResource> {
+
+        /**
+         * Create a charge.
+         */
+        public static create(chargeData: CreateACharge, callback?: Callback<ChargeResource>): Promise<ChargeResource>;
+
+        /**
+         * List charges.
+         */
+        public static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<ChargeResource>): Promise<[ChargeResource[], Pagination]>;
+
+        /**
+         * Fetch all charges.
+         */
+        public static all(paginationOptions: PaginationRequest, callback?: Callback<ChargeResource[]>): Promise<ChargeResource[]>
+
+        /**
+         * Retrieve a charge by ID.
+         */
+        public static retrieve(chargeId: string, callback?: Callback<ChargeResource>): Promise<ChargeResource>;
+
+
+    }
 
 }
