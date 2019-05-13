@@ -441,4 +441,38 @@ export module resources {
 
     }
 
+    /**
+     * Merge CreateACheckout with Checkout class.
+     */
+    interface Checkout extends CreateCheckout {}
+
+    /**
+     * Checkout Class
+     *
+     * @link https://commerce.coinbase.com/docs/api/#checkouts
+     */
+    export class Checkout extends Resource<CreateCheckout, CheckoutResource> {
+
+        /**
+         * Create a checkout.
+         */
+        public static create(checkoutData: CreateCheckout, callback?: Callback<CheckoutResource>): Promise<CheckoutResource>;
+
+        /**
+         * List checkouts.
+         */
+        public static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<CheckoutResource>): Promise<[CheckoutResource[], Pagination]>;
+
+        /**
+         * Fetch all checkouts.
+         */
+        public static all(paginationOptions: PaginationRequest, callback?: Callback<CheckoutResource[]>): Promise<CheckoutResource[]>
+
+        /**
+         * Retrieve a checkout by ID.
+         */
+        public static retrieve(checkoutId: string, callback?: Callback<CheckoutResource>): Promise<CheckoutResource>;
+
+    }
+
 }
