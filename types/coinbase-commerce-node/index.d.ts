@@ -400,7 +400,7 @@ export module resources {
      *
      * @link https://github.com/coinbase/coinbase-commerce-node#documentation
      */
-    abstract class Resource<Request, Response> {
+    abstract class Resource<Request> {
 
         /**
          * Charge constructor.
@@ -411,7 +411,7 @@ export module resources {
          * Save the current resource.
          * Creates a new resource if it doesn't already exist in Coinbase Commerce's systems.
          */
-        public save(callback?: Callback<Response>): Promise<Response>;
+        public save(callback?: Callback<this>): Promise<this>;
 
         /**
          * Delete the current resource.
@@ -439,27 +439,27 @@ export module resources {
      *
      * @link https://commerce.coinbase.com/docs/api/#charges
      */
-    export class Charge extends Resource<CreateCharge, ChargeResource> {
+    export class Charge extends Resource<CreateCharge> {
 
         /**
          * Create a charge.
          */
-        public static create(chargeData: CreateCharge, callback?: Callback<ChargeResource>): Promise<ChargeResource>;
+        public static create(chargeData: CreateCharge, callback?: Callback<Charge>): Promise<Charge>;
 
         /**
          * List charges.
          */
-        public static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<ChargeResource>): Promise<[ChargeResource[], Pagination]>;
+        public static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Charge>): Promise<[Charge[], Pagination]>;
 
         /**
          * Fetch all charges.
          */
-        public static all(paginationOptions: PaginationRequest, callback?: Callback<ChargeResource[]>): Promise<ChargeResource[]>
+        public static all(paginationOptions: PaginationRequest, callback?: Callback<Charge[]>): Promise<Charge[]>
 
         /**
          * Retrieve a charge by ID.
          */
-        public static retrieve(chargeId: ChargeResource['id'], callback?: Callback<ChargeResource>): Promise<ChargeResource>;
+        public static retrieve(chargeId: ChargeResource['id'], callback?: Callback<Charge>): Promise<Charge>;
 
     }
 
@@ -473,37 +473,37 @@ export module resources {
      *
      * @link https://commerce.coinbase.com/docs/api/#checkouts
      */
-    export class Checkout extends Resource<CreateCheckout, CheckoutResource> {
+    export class Checkout extends Resource<CreateCheckout> {
 
         /**
          * Create a checkout.
          */
-        public static create(checkoutData: CreateCheckout, callback?: Callback<CheckoutResource>): Promise<CheckoutResource>;
+        public static create(checkoutData: CreateCheckout, callback?: Callback<Checkout>): Promise<Checkout>;
 
         /**
          * List checkouts.
          */
-        public static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<CheckoutResource>): Promise<[CheckoutResource[], Pagination]>;
+        public static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Checkout>): Promise<[Checkout[], Pagination]>;
 
         /**
          * Fetch all checkouts.
          */
-        public static all(paginationOptions: PaginationRequest, callback?: Callback<CheckoutResource[]>): Promise<CheckoutResource[]>
+        public static all(paginationOptions: PaginationRequest, callback?: Callback<Checkout[]>): Promise<Checkout[]>
 
         /**
          * Retrieve a checkout by ID.
          */
-        public static retrieve(checkoutId: CheckoutResource['id'], callback?: Callback<CheckoutResource>): Promise<CheckoutResource>;
+        public static retrieve(checkoutId: CheckoutResource['id'], callback?: Callback<Checkout>): Promise<Checkout>;
 
         /**
          * Update a checkout by ID.
          */
-        public static updateById(checkoutId: CheckoutResource['id'], update: UpdateCheckout, callback?: Callback<CheckoutResource>): Promise<CheckoutResource>
+        public static updateById(checkoutId: CheckoutResource['id'], update: UpdateCheckout, callback?: Callback<Checkout>): Promise<Checkout>
 
         /**
          * Delete a checkout by ID.
          */
-        public static deleteById(checkoutId: CheckoutResource['id'], callback?: Callback<void>): Promise<void>;
+        public static deleteById(checkoutId: CheckoutResource['id'], callback?: Callback<Checkout>): Promise<Checkout>;
 
     }
 
