@@ -354,6 +354,10 @@ export module resources {
          */
         public static list(paginationOptions: Partial<PaginationRequest>, callback: PaginationCallback<ChargeResource>): Promise<[ChargeResource[], Pagination]>;
 
+        /**
+         * Retrieve a charge by ID.
+         */
+        public static retrieve(chargeId: string, callback: Callback<ChargeResource>): Promise<ChargeResource>;
     }
 
 }
