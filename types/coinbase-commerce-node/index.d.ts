@@ -343,7 +343,7 @@ export interface CreateCheckout {
     /**
      * Information to collect from the customer.
      */
-    requested_info: ('email' | 'name')[]
+    requested_info?: ('email' | 'name')[]
 
 }
 
