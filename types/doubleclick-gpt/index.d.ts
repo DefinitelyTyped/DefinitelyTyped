@@ -97,6 +97,7 @@ declare namespace googletag {
         getAdUnitPath(): string;
         getAttributeKeys(): string[];
         getCategoryExclusions(): string[];
+        getContentUrl: () => string;
         getResponseInformation(): ResponseInformation;
         getSlotElementId(): string;
         getTargeting(key: string): string[];
