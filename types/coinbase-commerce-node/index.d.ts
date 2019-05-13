@@ -432,7 +432,7 @@ export module resources {
     /**
      * Merge CreateACharge with Charge class.
      */
-    interface Charge extends CreateCharge {}
+    interface Charge extends ChargeResource {}
 
     /**
      * Charge Class
@@ -466,7 +466,7 @@ export module resources {
     /**
      * Merge CreateACheckout with Checkout class.
      */
-    interface Checkout extends CreateCheckout {}
+    interface Checkout extends CheckoutResource {}
 
     /**
      * Checkout Class
