@@ -4,10 +4,31 @@ import SelectBase, { Props as SelectProps } from './Select';
 import { ActionMeta, InputActionMeta, ValueType } from './types';
 
 export interface DefaultProps<OptionType> {
+  defaultInputValue: string;
+  defaultMenuIsOpen: boolean;
+  defaultValue: ValueType<OptionType>;
+}
+
+export interface Props<OptionType> {
   defaultInputValue?: string;
   defaultMenuIsOpen?: boolean;
   defaultValue?: ValueType<OptionType>;
+  inputValue?: string;
+  menuIsOpen?: boolean;
+  value?: ValueType<OptionType>;
+  onChange?: (value: ValueType<OptionType>, actionMeta: ActionMeta) => void;
 }
+
+type StateProps<T extends SelectProps<any>> = Pick<T, Exclude<keyof T,
+  | 'inputValue'
+  | 'value'
+  | 'menuIsOpen'
+  | 'onChange'
+  | 'onInputChange'
+  | 'onMenuClose'
+  | 'onMenuOpen'
+>>;
+
 interface State<OptionType> {
   inputValue: string;
   menuIsOpen: boolean;
@@ -19,7 +40,7 @@ type GetOptionType<T> = T extends SelectBase<infer OT> ? OT : never;
 export class StateManager<
   OptionType = { label: string; value: string },
   T extends SelectBase<OptionType> = SelectBase<OptionType>
-> extends Component<SelectProps<OptionType> & DefaultProps<OptionType>, State<OptionType>> {
+> extends Component<StateProps<SelectProps<OptionType>> & Props<OptionType> & SelectProps<OptionType>, State<OptionType>> {
   static defaultProps: DefaultProps<any>;
 
   select: T;
@@ -28,8 +49,8 @@ export class StateManager<
   blur(): void;
   getProp(key: string): any;
   callProp(name: string, ...args: any[]): any;
-  onChange: (value: any, actionMeta: ActionMeta) => void;
-  onInputChange: (value: any, actionMeta: InputActionMeta) => void;
+  onChange: (value: ValueType<OptionType>, actionMeta: ActionMeta) => void;
+  onInputChange: (value: ValueType<OptionType>, actionMeta: InputActionMeta) => void;
   onMenuOpen: () => void;
   onMenuClose: () => void;
 }
