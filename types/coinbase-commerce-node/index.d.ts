@@ -348,6 +348,30 @@ export interface CreateCheckout {
 }
 
 /**
+ * Checkout Resource.
+ *
+ * @link https://commerce.coinbase.com/docs/api/#checkout-resource
+ */
+export interface CheckoutResource extends CreateCheckout {
+
+    /**
+     * Checkout UUID.
+     */
+    id: string;
+
+    /**
+     * Resource name.
+     */
+    resource: 'checkout';
+
+    /**
+     * Checkout image URL.
+     */
+    logo_url?: string;
+
+}
+
+/**
  * Coinbase-Commerce-Node entry point.
  *
  * @link https://github.com/coinbase/coinbase-commerce-node#usage
