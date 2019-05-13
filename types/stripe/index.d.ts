@@ -1620,7 +1620,15 @@ declare namespace Stripe {
 
             metadata: IMetadata;
 
-            name: string | null;
+            /**
+             * The customer’s full name or business name.
+             */
+            name?: string | null;
+
+            /**
+             * The customer’s phone number.
+             */
+            phone?: string;
 
             /**
              * Shipping information associated with the customer.
@@ -1670,9 +1678,14 @@ declare namespace Stripe {
             email?: string;
 
             /**
-             * The customer’s full name or business name.
+             * The customer’s full name or business name. This can be unset by updating the value to null and then saving.
              */
             name?: string;
+
+            /**
+             * The customer’s phone number. This can be unset by updating the value to null and then saving.
+             */
+            phone?: string;
 
             /**
              * The identifier of the plan to subscribe the customer to. If provided, the returned customer object will have a list of subscriptions
@@ -1746,9 +1759,14 @@ declare namespace Stripe {
             email?: string;
 
             /**
-             * The customer’s full name or business name.
+             * The customer’s full name or business name. This can be unset by updating the value to null and then saving.
              */
             name?: string;
+
+            /**
+             * The customer’s phone number. This can be unset by updating the value to null and then saving.
+             */
+            phone?: string;
 
             /**
              * The prefix for the customer used to generate unique invoice numbers.
