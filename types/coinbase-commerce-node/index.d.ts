@@ -437,7 +437,7 @@ export module resources {
     /**
      * Charge Class
      *
-     * @link https://commerce.coinbase.com/docs/api/#charges
+     * @link https://github.com/coinbase/coinbase-commerce-node#charges
      */
     export class Charge extends Resource<CreateCharge> {
 
@@ -469,9 +469,9 @@ export module resources {
     interface Checkout extends CheckoutResource {}
 
     /**
-     * Checkout Class
+     * Checkout class.
      *
-     * @link https://commerce.coinbase.com/docs/api/#checkouts
+     * @link https://github.com/coinbase/coinbase-commerce-node#checkouts
      */
     export class Checkout extends Resource<CreateCheckout> {
 
