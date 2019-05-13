@@ -485,6 +485,11 @@ export module resources {
          */
         public static updateById(checkoutId: CheckoutResource['id'], update: UpdateCheckout, callback: Callback<CheckoutResource>): Promise<CheckoutResource>
 
+        /**
+         * Delete a checkout by ID.
+         */
+        public static deleteById(checkoutId: CheckoutResource['id'], callback: Callback<void>): Promise<void>;
+
     }
 
 }
