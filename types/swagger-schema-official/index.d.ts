@@ -171,39 +171,48 @@ export interface XML {
 
 // ----------------------------- Security ------------------------------------
 export interface BaseSecurity {
-  type: string;
+  type: 'basic' || 'apiKey' || 'oauth2';
   description?: string;
 }
 
-// tslint:disable-next-line no-empty-interface
 export interface BasicAuthenticationSecurity extends BaseSecurity {
-  // It's the exact same interface as BaseSecurity
+  type: 'basic';
 }
 
 export interface ApiKeySecurity extends BaseSecurity {
+  type: 'apiKey';
   name: string;
   in: string;
 }
 
 export interface BaseOAuthSecuirty extends BaseSecurity {
-  flow: string;
+  type: 'oauth2';
+  flow: 'accessCode' || 'application' || 'implicit' || 'password';
 }
 
 export interface OAuth2ImplicitSecurity extends BaseOAuthSecuirty {
+  type: 'oauth2';
+  flow: 'implicit';
   authorizationUrl: string;
 }
 
 export interface OAuth2PasswordSecurity extends BaseOAuthSecuirty {
+  type: 'oauth2';
+  flow: 'password';
   tokenUrl: string;
   scopes?: OAuthScope[];
 }
 
 export interface OAuth2ApplicationSecurity extends BaseOAuthSecuirty {
+  type: 'oauth2';
+  flow: 'application';  
   tokenUrl: string;
   scopes?: OAuthScope[];
 }
 
 export interface OAuth2AccessCodeSecurity extends BaseOAuthSecuirty {
+  type: 'oauth2';
+  flow: 'accessCode';  
   tokenUrl: string;
   authorizationUrl: string;
   scopes?: OAuthScope[];
