@@ -49,7 +49,7 @@ export interface Rules {
     }>;
     normalize?: (editor: Editor, error: SlateError) => void;
     parent?: ObjectAndType | ObjectAndType[];
-    text?: RegExp;
+    text?: RegExp | ((text: string) => boolean);
 }
 
 export interface SchemaProperties {
