@@ -7,7 +7,7 @@ import fetch, {
     FetchError
 } from "node-fetch";
 import { Agent } from "http";
-import { AbortSignal, createAbortSignal } from 'abort-controller';
+import { AbortController, AbortSignal } from 'abort-controller';
 
 function test_fetchUrlWithOptions() {
     const headers = new Headers();
@@ -20,7 +20,7 @@ function test_fetchUrlWithOptions() {
         redirect: "manual",
         size: 100,
         timeout: 5000,
-        signal: createAbortSignal()
+        signal: new AbortController().signal,
     };
     handlePromise(
         fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions)
