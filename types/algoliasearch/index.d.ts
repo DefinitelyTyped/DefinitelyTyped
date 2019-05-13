@@ -1945,12 +1945,25 @@ declare namespace algoliasearchInitPlaces {
          * Endpoint to search.
          * https://community.algolia.com/places/api-clients.html#endpoints
          */
-        search(e: QueryInterface, f: (err: any, response: ResultSearchInterface) => void): void;
+        search(e: QueryInterface, cb: (err: Error, response: ResultSearchInterface) => void): void;
+
+        /**
+         * Endpoint to search.
+         * https://community.algolia.com/places/api-clients.html#endpoints
+         */
+        search(e: QueryInterface): Promise<ResultSearchInterface>;
+
         /**
          * Reverse geocoding means converting a location (latitude and longitude) to a readable address.
          * https://community.algolia.com/places/api-clients.html#endpoints
          */
-        reverse(e: QueryReverseInterface, f: (err: any, response: ResultSearchInterface) => void): void;
+        reverse(e: QueryReverseInterface, cb: (err: Error, response: ResultSearchInterface) => void): void;
+
+        /**
+         * Reverse geocoding means converting a location (latitude and longitude) to a readable address.
+         * https://community.algolia.com/places/api-clients.html#endpoints
+         */
+        reverse(e: QueryReverseInterface): Promise<ResultSearchInterface>;
     }
 
     /**
