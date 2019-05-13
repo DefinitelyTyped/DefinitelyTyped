@@ -132,7 +132,7 @@ interface PaginationRequest {
  *
  * @link https://commerce.coinbase.com/docs/api/#pagination
  */
-export interface Pagination extends Pick<PaginationRequest, 'order' & 'starting_after' & 'ending_before' & 'limit'> {
+export interface Pagination extends Pick<PaginationRequest, 'order' | 'starting_after' | 'ending_before' | 'limit'> {
     total: number;
     yielded: number;
     previous_url: null | string;
