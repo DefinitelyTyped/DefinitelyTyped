@@ -423,8 +423,8 @@ declare module "crypto" {
 
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
-        cipher: string;
-        passphrase: string;
+        cipher?: string;
+        passphrase?: string;
     }
 
     interface KeyPairKeyObjectResult {
