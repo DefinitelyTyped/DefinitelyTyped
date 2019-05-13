@@ -11,7 +11,7 @@ import _Vue, { PluginObject } from "vue";
 declare module "vue/types/vue" {
   interface Vue {
     $i18n: Ii18n;
-    $t(key: string, options?: any, pluralization?: number): string | undefined; 
+    $t(key: string, options?: any, pluralization?: number): string | undefined;
     $t(key: string, defaultValue: string, options?: any, pluralization?: number): string | undefined;
   }
 
