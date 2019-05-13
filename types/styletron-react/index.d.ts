@@ -2,7 +2,7 @@
 // Project: https://github.com/styletron/styletron
 // Definitions by: Eric Taylor <https://github.com/erictaylor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.9
 
 import * as React from 'react';
 import { driver, StandardEngine, StyleObject } from 'styletron-standard';
