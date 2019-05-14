@@ -191,11 +191,6 @@ interface ChargeBase {
     pricing_type: PricingType;
 
     /**
-     * Price in local fiat currency.
-     */
-    local_price?: Price<FiatCurrency>;
-
-    /**
      * Optional key value pairs for your own use.
      */
     metadata?: KeyVal;
