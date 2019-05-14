@@ -5389,6 +5389,15 @@ fp.now(); // $ExpectType number
 
 // _.mapValues
 {
+    const abcObjectRecord: Record<'a' | 'b' | 'c', string> = anything;
+    // $ExpectType { a: string; b: string; c: string; }
+    _.mapValues(abcObjectRecord, (value, key, collection) => {
+        value;  // $ExpectType string
+        key; // $ExpectType string
+        collection; // $ExpectType Record<"a" | "b" | "c", string>
+        return "";
+    });
+
     const abcObjectOrNull: AbcObject | null = anything;
     const key: string = anything;
 
@@ -5400,7 +5409,7 @@ fp.now(); // $ExpectType number
         return abcObject;
     });
 
-    // $ExpectType Dictionary<string>
+    // $ExpectType { [x: string]: string; }
     _.mapValues(dictionary, (value, key, collection) => {
         value;  // $ExpectType AbcObject
         key; // $ExpectType string
@@ -5408,12 +5417,11 @@ fp.now(); // $ExpectType number
         return "";
     });
 
-    // Can"t really support NumericDictionary fully, but it at least gets treated like a Dictionary
-    // $ExpectType Dictionary<string>
+    // $ExpectType { [x: number]: string; }
     _.mapValues(numericDictionary, (value, key, collection) => {
         value;  // $ExpectType AbcObject
         key; // $ExpectType string
-        collection; // $ExpectType Dictionary<AbcObject>
+        collection; // $ExpectType NumericDictionary<AbcObject>
         return "";
     });
 
