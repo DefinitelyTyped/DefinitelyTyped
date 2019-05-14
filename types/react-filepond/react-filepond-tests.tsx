@@ -31,7 +31,13 @@ class App extends React.Component<{}, AppState> {
                     ref={ref => this.pond = ref}
                     allowMultiple={true}
                     maxFiles={3}
-                    server='/api'
+                    server={{
+                        process: (field, file, metadata, load, error, progress, abort) => {},
+                        revert: (id, load, error) => {},
+                        restore: (id, load, error, progress, abort, headers) => {},
+                        load: (source, load, error, progress, abort, headers) => {},
+                        fetch: (url, load, error, progress, abort, headers) => {},
+                    }}
                     oninit={() => this.handleInit() }
                     onupdatefiles={(fileItems) => {
                         // Set current file objects to this.state

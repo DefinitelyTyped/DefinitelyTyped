@@ -80,7 +80,11 @@ export class LambdaLog extends EventEmitter {
 
     constructor(options?: LambdaLogOptions, levels?: any);
 
-    log(level: string, msg: string, meta: object, tags: string[]): string;
+    log(level: string, msg: string, meta?: object, tags?: string[]): string;
+    info(msg: string, meta?: object, tags?: string[]): string;
+    warn(msg: string, meta?: object, tags?: string[]): string;
+    error(msg: string | Error, meta?: object, tags?: string[]): string;
+    debug(msg: string, meta?: object, tags?: string[]): string;
 
     assert(
         test: any,

@@ -116,7 +116,7 @@ export interface Role {
     description?: string;
 }
 
-export interface GetRolesData extends ObjectWithId {
+export interface GetRolesData {
     name_filter?: string;
     per_page?: number;
     page?: number;

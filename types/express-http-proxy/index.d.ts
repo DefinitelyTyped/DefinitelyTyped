@@ -21,6 +21,7 @@ interface ProxyOptions {
     proxyReqPathResolver?: (req: Request) => string;
     proxyReqOptDecorator?: (proxyReqOpts: RequestOptions, srcReq: Request) => RequestOptions;
     userResHeaderDecorator?: (headers: IncomingHttpHeaders, userReq: Request, userRes: Response, proxyReq: Request, proxyRes: Response) => OutgoingHttpHeaders;
+    preserveHostHdr?: boolean;
 }
 
 declare function proxy(host: string|((req: Request) => string), options?: ProxyOptions): RequestHandler;

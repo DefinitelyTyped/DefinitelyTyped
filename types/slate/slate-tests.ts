@@ -74,7 +74,8 @@ const schema: SchemaProperties = {
                 }
             }
         },
-        marks: [{ type: 'bold' }, { type: t => ['bold', 'underline'].indexOf(t) !== -1 }]
+        marks: [{ type: 'bold' }, { type: t => ['bold', 'underline'].indexOf(t) !== -1 }],
+        text: /^Test$/
     },
     blocks: {
         image: {
@@ -82,6 +83,14 @@ const schema: SchemaProperties = {
             marks: [{ type: 'bold' }, { type: t => ['bold', 'underline'].indexOf(t) !== -1 }]
         },
     },
+};
+
+const schema2: SchemaProperties = {
+    document: {
+        text(text) {
+            return true;
+        }
+    }
 };
 
 const pluginCommandName = 'plugin_command';

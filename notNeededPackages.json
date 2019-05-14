@@ -1159,6 +1159,12 @@
             "asOfVersion": "9.1.0"
         },
         {
+            "libraryName": "@google-cloud/pubsub",
+            "typingsPackageName": "google-cloud__pubsub",
+            "sourceRepoURL": "https://github.com/googleapis/nodejs-pubsub",
+            "asOfVersion": "0.26.0"
+        },
+        {
             "libraryName": "Google Cloud Storage",
             "typingsPackageName": "google-cloud__storage",
             "sourceRepoURL": "https://github.com/googleapis/nodejs-storage",
@@ -1217,6 +1223,12 @@
             "typingsPackageName": "handsontable",
             "sourceRepoURL": "https://handsontable.com/",
             "asOfVersion": "0.35.0"
+        },
+        {
+            "libraryName": "hapi-auth-jwt2",
+            "typingsPackageName": "hapi-auth-jwt2",
+            "sourceRepoURL": "https://github.com/dwyl/hapi-auth-jwt2/",
+            "asOfVersion": "8.6.1"
         },
         {
             "libraryName": "hard-rejection",
