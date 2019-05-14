@@ -1355,6 +1355,7 @@ declare namespace CodeMirror {
      */
     interface Mode<T> {
         name?: string;
+        dependencies?: Mode<any>[]
 
         /**
          * This function should read one token from the stream it is given as an argument, optionally update its state,
