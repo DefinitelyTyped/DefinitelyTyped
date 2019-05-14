@@ -358,13 +358,13 @@ export namespace entities {
         }
 
         interface DateTimePeriod {
-            startDateTime: DateTime;
-            endDateTime: DateTime;
+            startDateTime: string;
+            endDateTime: string;
         }
 
         interface DatePeriod {
-            startDate: Date;
-            endDate: Date;
+            startDate: string;
+            endDate: string;
         }
         interface TimePeriod {
             startTime: string;

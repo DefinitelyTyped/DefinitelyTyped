@@ -3255,7 +3255,7 @@ declare namespace Office {
          * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
          *
-         * Excel for Windows desktop, iPad, and Excel Online: `Office.FileType.Compressed`
+         * Excel for Windows desktop and Excel Online: `Office.FileType.Compressed`
          * 
          * Excel for Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
          *
@@ -3290,7 +3290,7 @@ declare namespace Office {
          * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
          *
-         * Excel for Windows desktop, iPad, and Excel Online: `Office.FileType.Compressed`
+         * Excel for Windows desktop and Excel Online: `Office.FileType.Compressed`
          * 
          * Excel for Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
          *
@@ -15869,7 +15869,8 @@ declare namespace Office {
      * **Important**: The RoamingSettings object is initialized from the persisted storage only when the add-in is first loaded. 
      * For task panes, this means that it is only initialized when the task pane first opens. 
      * If the task pane navigates to another page or reloads the current page, the in-memory object is reset to its initial values, even if 
-     * your add-in has persisted changes. The persisted changes will not be available until the task pane is closed and reopened.
+     * your add-in has persisted changes.
+     * The persisted changes will not be available until the task pane (or item in the case of UI-less add-ins) is closed and reopened.
      *
      * [Api set: Mailbox 1.0]
      *
@@ -16760,7 +16761,7 @@ declare namespace OfficeExtension {
 
     /**
      * A Promise object that represents a deferred interaction with the host Office application. 
-     * The publicly-consumable {@link Office.OfficeExtension.Promise} is available starting in ExcelApi 1.2 and WordApi 1.2. 
+     * The publicly-consumable OfficeExtension.Promise is available starting in ExcelApi 1.2 and WordApi 1.2. 
      * Promises can be chained via ".then", and errors can be caught via ".catch". 
      * Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. 
      * When a browser-provided native Promise implementation is available, OfficeExtension.Promise will switch to use the native Promise instead.

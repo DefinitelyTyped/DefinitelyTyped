@@ -129,6 +129,11 @@ declare namespace Bull {
     data: T;
 
     /**
+     * Options of the job
+     */
+    opts: JobOptions;
+
+    /**
      * How many attempts where made to run this job
      */
     attemptsMade: number;

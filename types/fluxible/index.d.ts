@@ -90,7 +90,7 @@ export class Fluxible {
      * @param callback
      * @async Rehydration may require more asset loading or async IO calls
      */
-    rehydrate(state: any): void;
+    rehydrate(state: any, callback?: (err: Error, context: FluxibleContext) => void): void;
 }
 
 /**

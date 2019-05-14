@@ -734,7 +734,7 @@ export type CodePipelineCloudWatchEvent =
  */
 export interface CloudFrontHeaders {
     [name: string]: Array<{
-        key: string;
+        key?: string;
         value: string;
     }>;
 }

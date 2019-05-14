@@ -257,7 +257,7 @@ export interface Area {
  *
  * @property {string} [taskbarIconGroup=<application uuid>] - _Windows_.
  * Specify a taskbar group for the window.
- * _If omitted, defaults to app's uuid (`fin.desktop.Application.getCurrent().uuid`)._
+ * _If omitted, defaults to app's uuid (`fin.Application.getCurrentSync().identity.uuid`)._
  *
  * @property {string} [url="about:blank"]
  * The URL of the window.
@@ -423,7 +423,7 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      */
     getAllFrames(): Promise<Array<FrameInfo>>;
     /**
-     * Gets the current bounds (top, left, width, height) of the window.
+     * Gets the current bounds (top, bottom, right, left, width, height) of the window.
      * @return {Promise.<Bounds>}
      * @tutorial Window.getBounds
     */
@@ -499,7 +499,7 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      */
     executeJavaScript(code: string): Promise<void>;
     /**
-     * Flashes the window’s frame and taskbar icon until stopFlashing is called.
+     * Flashes the window’s frame and taskbar icon until stopFlashing is called or until a focus event is fired.
      * @return {Promise.<void>}
      * @tutorial Window.flash
      */
@@ -511,8 +511,8 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      */
     stopFlashing(): Promise<void>;
     /**
-     * Retrieves an array containing wrapped fin.desktop.Windows that are grouped with this
-     * window. If a window is not in a group an empty array is returned. Please note that
+     * Retrieves an array containing wrapped fin.Windows that are grouped with this window.
+     * If a window is not in a group an empty array is returned. Please note that
      * calling window is included in the result array.
      * @return {Promise.<Array<_Window>>}
      * @tutorial Window.getGroup
@@ -556,6 +556,12 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      * @tutorial Window.getState
      */
     getState(): Promise<string>;
+    /**
+     * Gets the [Window Object](https://developer.mozilla.org/en-US/docs/Web/API/Window) previously getNativeWindow
+     * @return {object}
+     * @tutorial Window.getWebWindow
+     */
+    getWebWindow(): Window;
     /**
      * Determines if the window is a main window.
      * @return {boolean}
@@ -690,7 +696,8 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      */
     showDeveloperTools(): Promise<void>;
     /**
-     * Updates the window using the passed options
+     * Updates the window using the passed options.
+     * Values that are objects are deep-merged, overwriting only the values that are provided.
      * @param {*} options Changes a window's options that were defined upon creation. See tutorial
      * @return {Promise.<void>}
      * @tutorial Window.updateOptions
@@ -718,7 +725,7 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      */
     setZoomLevel(level: number): Promise<void>;
     /**
-     * Navigates the window to a specified URL.
+     * Navigates the window to a specified URL. The url must contain the protocol prefix such as http:// or https://.
      * @param {string} url - The URL to navigate the window to.
      * @return {Promise.<void>}
      * @tutorial Window.navigate

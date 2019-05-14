@@ -132,4 +132,7 @@ function importLibLoader() {
 
     // Should return a promise
     loadableReady().then(() => {});
+
+    // Should allow passing options with namespace
+    loadableReady(() => {}, { namespace: 'foo' });
 }

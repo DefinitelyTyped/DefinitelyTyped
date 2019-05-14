@@ -40,6 +40,7 @@ import {
     ColorProps,
     colorStyle,
     ColorStyleProps,
+    compose,
     display,
     DisplayProps,
     flex,
@@ -56,6 +57,7 @@ import {
     FontSizeProps,
     fontWeight,
     FontWeightProps,
+    get,
     gridAutoColumns,
     GridAutoColumnsProps,
     gridAutoFlow,
@@ -73,11 +75,12 @@ import {
     GridRowGapProps,
     GridRowProps,
     gridTemplateColumns,
-    gridTemplateRows,
     GridTemplateColumnsProps,
+    gridTemplateRows,
     GridTemplateRowsProps,
     height,
     HeightProps,
+    is,
     justifyContent,
     JustifyContentProps,
     justifyItems,
@@ -90,6 +93,13 @@ import {
     LetterSpacingProps,
     lineHeight,
     LineHeightProps,
+    mapProps,
+    margin,
+    marginBottom,
+    marginLeft,
+    MarginProps,
+    marginRight,
+    marginTop,
     maxHeight,
     MaxHeightProps,
     maxWidth,
@@ -98,6 +108,8 @@ import {
     MinHeightProps,
     minWidth,
     MinWidthProps,
+    padding,
+    PaddingProps,
     position,
     PositionProps,
     right,
@@ -106,6 +118,7 @@ import {
     SizeProps,
     space,
     SpaceProps,
+    style,
     textAlign,
     TextAlignProps,
     TextColorProps,
@@ -288,6 +301,15 @@ const TestButton: React.ComponentType<ButtonProps> = styled`
     ${buttonStyle}
     ${space}
     ${styles.textColor}
+`;
+
+interface SpacerProps
+    extends MarginProps,
+        PaddingProps {}
+
+const Spacer: React.ComponentType<SpacerProps> = styled`
+    ${margin};
+    ${padding};
 `;
 
 const test = () => (
@@ -546,6 +568,19 @@ const test = () => (
         <Box borderLeft={["1px solid red", "2px solid red"]} />
 
         <TestButton variant="primary" m={2} color="tomato" />
+
+        <Spacer m={[1, 2, 3]} p={[1, 2, 3]} />
+        <Spacer ml={[1, 2, 3]} pl={[1, 2, 3]} />
+        <Spacer mr={[1, 2, 3]} pr={[1, 2, 3]} />
+        <Spacer mt={[1, 2, 3]} pt={[1, 2, 3]} />
+        <Spacer mb={[1, 2, 3]} pb={[1, 2, 3]} />
+        <Spacer mx={[1, 2, 3]} px={[1, 2, 3]} />
+        <Spacer my={[1, 2, 3]} py={[1, 2, 3]} />
+        <Spacer margin={[1, 2, 3]} padding={[1, 2, 3]} />
+        <Spacer marginLeft={[1, 2, 3]} paddingLeft={[1, 2, 3]} />
+        <Spacer marginRight={[1, 2, 3]} paddingRight={[1, 2, 3]} />
+        <Spacer marginTop={[1, 2, 3]} paddingTop={[1, 2, 3]} />
+        <Spacer marginBottom={[1, 2, 3]} paddingBottom={[1, 2, 3]} />
     </div>
 );
 
@@ -630,6 +665,35 @@ export const themeC: Theme = {
     },
 };
 
+// Test that the mapProps definition is correct.
+// https://github.com/styled-system/styled-system/blob/master/src/index.js#L149
+const margins = mapProps(props => ({
+    ...props,
+    mt: is(props.my) ? props.my : props.mt,
+    mb: is(props.my) ? props.my : props.mb,
+    ml: is(props.mx) ? props.mx : props.ml,
+    mr: is(props.mx) ? props.mx : props.mr,
+}))(
+    compose(
+      margin,
+      marginTop,
+      marginBottom,
+      marginLeft,
+      marginRight
+    )
+  );
+
+// Test that the style definition is correct.
+// https://github.com/styled-system/styled-system/blob/master/src/index.js#L62
+const customFontSize = style({
+    prop: 'fontSize',
+    cssProperty: 'fontSize',
+    alias: 'fs',
+    key: 'fontSizes',
+    transformValue: (n, scale) => px(get(scale, n)),
+    scale: [8, 16, 32]
+});
+
 // All Style Functions contain `propTypes`
 export const alignContentPropTypes = alignContent.propTypes;
 export const alignItemsPropTypes = alignItems.propTypes;
@@ -678,10 +742,12 @@ export const justifySelfPropTypes = justifySelf.propTypes;
 export const leftPropTypes = left.propTypes;
 export const letterSpacingPropTypes = letterSpacing.propTypes;
 export const lineHeightPropTypes = lineHeight.propTypes;
+export const marginPropTypes = margin.propTypes;
 export const maxHeightPropTypes = maxHeight.propTypes;
 export const maxWidthPropTypes = maxWidth.propTypes;
 export const minHeightPropTypes = minHeight.propTypes;
 export const minWidthPropTypes = minWidth.propTypes;
+export const paddingPropTypes = padding.propTypes;
 export const positionPropTypes = position.propTypes;
 export const rightPropTypes = right.propTypes;
 export const sizePropTypes = size.propTypes;

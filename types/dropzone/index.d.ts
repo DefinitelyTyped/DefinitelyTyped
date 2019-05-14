@@ -98,7 +98,7 @@ declare namespace Dropzone {
 
 		accept?(file: DropzoneFile, done: (error?: string | Error) => void): void;
 		chunksUploaded?(file: DropzoneFile, done: (error?: string | Error) => void): void; 
-		init?(): void;
+		init?(this : Dropzone): void;
 		forceFallback?: boolean;
 		fallback?(): void;
 		resize?(file: DropzoneFile, width?: number, height?: number, resizeMethod?: string): DropzoneResizeInfo;

@@ -1087,6 +1087,13 @@ declare module "victory" {
      * @default "y"
      */
     y?: DataGetterPropType;
+    /**
+     * Use y0 data accessor prop to determine how the component defines the baseline y0 data.
+     * This prop is useful for defining custom baselines for components like VictoryBar or VictoryArea.
+     * This prop may be given in a variety of formats.
+     * @example 'last_quarter_profit', () => 10, 1, 'employees.salary', ["employees", "salary"]
+     */
+    y0?: DataGetterPropType;
   }
 
   // Common labable interface
