@@ -3,7 +3,7 @@
 // that is not needed for the browser. The browser will only need the nes client.
 // If you are using CommonJS you can load the client with require('nes/client').
 
-import Client = require('@hapi/nes/client');
+import Client = require('@hapi/nes/lib/client');
 
 const options: Client.ClientConnectOptions = {
     delay: 3

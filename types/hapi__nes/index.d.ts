@@ -25,7 +25,7 @@
  */
 
 import { Plugin } from '@hapi/hapi';
-import NesClient = require('@hapi/nes/client');
+import NesClient = require('@hapi/nes/lib/client');
 
 declare module '@hapi/hapi' {
     interface Server {
