@@ -283,7 +283,7 @@ interface ChargeResource extends BaseCharge {
         /**
          * Timeline entry context.
          */
-        context?: 'UNDERPAID';
+        context?: 'UNDERPAID' | 'OVERPAID' | 'DELAYED' | 'MULTIPLE' | 'MANUAL' | 'OTHER';
     }>;
 
     /**
