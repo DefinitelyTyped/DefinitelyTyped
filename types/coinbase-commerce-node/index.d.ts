@@ -484,11 +484,11 @@ export namespace resources {
      *
      * @link https://github.com/coinbase/coinbase-commerce-node#charges
      */
-    class Charge extends Resource<BaseCharge> {
+    class Charge extends Resource<CreateCharge> {
         /**
          * Create a charge.
          */
-        static create(chargeData: BaseCharge, callback?: Callback<Charge>): Promise<Charge>;
+        static create(chargeData: CreateCharge, callback?: Callback<Charge>): Promise<Charge>;
 
         /**
          * List charges.
