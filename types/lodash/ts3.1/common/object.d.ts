@@ -1419,10 +1419,6 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<T, TResult>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, callback: DictionaryIterator<T, TResult>): Dictionary<TResult>;
-        /**
-         * @see _.mapValues
-         */
         mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
         /**
          * @see _.mapValues

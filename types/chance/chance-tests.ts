@@ -26,6 +26,7 @@ const secondCurrency = currencyPair[1];
 declare namespace Chance {
     interface Chance {
         time(): string;
+        mixinWithArgs(argv1: number, argv2: string): string;
     }
 }
 
@@ -35,6 +36,9 @@ chance.mixin({
         const m = chance.minute();
         return `${h}:${m}`;
     },
+    mixinWithArgs(argv1: number, argv2: string) {
+        return `${argv1} - ${argv2}`;
+    }
 });
 
 const chanceConstructedWithSeed100 = new Chance(100);
