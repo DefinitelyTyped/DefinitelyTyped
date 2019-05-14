@@ -145,11 +145,34 @@ interface Pagination extends Pick<PaginationRequest, 'order' | 'starting_after' 
 }
 
 /**
- * Create a charge.
- *
- * @link https://commerce.coinbase.com/docs/api/#charge-resource
+ * No price resource.
  */
-interface CreateCharge {
+interface NoPrice {
+    /**
+     * Pricing type.
+     */
+    pricing_type: 'no_price';
+}
+
+/**
+ * Fixed price resource.
+ */
+interface FixedPrice {
+    /**
+     * Pricing type
+     */
+    pricing_type: 'fixed_price';
+
+    /**
+     * Local price in fiat currency.
+     */
+    local_price: Price<FiatCurrency>;
+}
+
+/**
+ * Base charge properties.
+ */
+interface ChargeBase {
     /**
      * Charge name.
      * 100 characters or less.
@@ -189,11 +212,18 @@ interface CreateCharge {
 }
 
 /**
+ * Create a charge.
+ *
+ * @link https://commerce.coinbase.com/docs/api/#charge-resource
+ */
+type CreateCharge = ChargeBase & (FixedPrice | NoPrice);
+
+/**
  * Charge creation response.
  *
  * @link https://commerce.coinbase.com/docs/api/#charge-resource
  */
-interface ChargeResource extends CreateCharge {
+interface ChargeResource extends ChargeBase {
     /**
      * Charge UUID
      */
@@ -297,11 +327,9 @@ interface ChargeResource extends CreateCharge {
 }
 
 /**
- * Create a checkout.
- *
- * @link https://commerce.coinbase.com/docs/api/#create-a-checkout
+ * Base checkout properties.
  */
-interface CreateCheckout {
+interface BaseCheckout {
     /**
      * Checkout name.
      * 100 characters or less.
@@ -331,6 +359,13 @@ interface CreateCheckout {
 }
 
 /**
+ * Create a checkout.
+ *
+ * @link https://commerce.coinbase.com/docs/api/#create-a-checkout
+ */
+type CreateCheckout = BaseCheckout & (FixedPrice | NoPrice);
+
+/**
  * Update a checkout resource.
  *
  * @link https://commerce.coinbase.com/docs/api/#update-a-checkout
@@ -342,7 +377,7 @@ type UpdateCheckout = Pick<CreateCheckout, 'name' | 'description' | 'local_price
  *
  * @link https://commerce.coinbase.com/docs/api/#checkout-resource
  */
-interface CheckoutResource extends CreateCheckout {
+interface CheckoutResource extends BaseCheckout {
     /**
      * Checkout UUID.
      */
@@ -454,11 +489,11 @@ export namespace resources {
      *
      * @link https://github.com/coinbase/coinbase-commerce-node#charges
      */
-    class Charge extends Resource<CreateCharge> {
+    class Charge extends Resource<ChargeBase> {
         /**
          * Create a charge.
          */
-        static create(chargeData: CreateCharge, callback?: Callback<Charge>): Promise<Charge>;
+        static create(chargeData: ChargeBase, callback?: Callback<Charge>): Promise<Charge>;
 
         /**
          * List charges.
