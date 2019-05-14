@@ -102,6 +102,7 @@ export interface MUIDataTableColumnOptions {
     filter?: boolean;
     filterList?: string[];
     filterOptions?: string[];
+    filterType?: 'dropdown' | 'checkbox' | 'multiselect' | 'textField';
     sort?: boolean;
     searchable?: boolean;
     sortDirection?: 'asc' | 'desc';
@@ -170,7 +171,7 @@ export interface MUIDataTableOptions {
 export type MUIDataTableColumnDef = string | MUIDataTableColumn;
 
 export interface MUIDataTableProps {
-    title: string;
+    title: string | React.ReactNode;
     columns: MUIDataTableColumnDef[];
     data: Array<object | number[] | string[]>;
     options?: MUIDataTableOptions;
