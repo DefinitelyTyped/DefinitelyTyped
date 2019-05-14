@@ -10,6 +10,8 @@
 
 /// <reference types="node" />
 
+import { ReadStream } from 'fs';
+import { ClientRequest } from "http";
 import { Url } from 'url';
 
 export = nock;
@@ -39,14 +41,25 @@ declare namespace nock {
 
     let back: NockBack;
 
+    interface POJO { [k: string]: any; }
+    type RequestBodyMatcher = string | Buffer | RegExp | POJO | { (body: any): boolean; };
+    interface RequestHeaderMatcher { [key: string]: string | RegExp | { (headerValue: string): boolean; }; }
+
     interface HttpHeaders { [key: string]: string | string[] | { (req: any, res: any, body: string): any; }; }
     type InterceptFunction = (
         uri: string | RegExp | { (uri: string): boolean; },
-        requestBody?: string | RegExp | { (body: any): boolean; } | any,
+        requestBody?: RequestBodyMatcher,
         interceptorOptions?: Options
     ) => Interceptor;
+
+    type ReplyBody = string | Buffer | ReadStream | POJO;
     type ReplyCallback = (err: any, result: ReplyCallbackResult) => void;
-    type ReplyCallbackResult = string | [number, string | any] | [number, string | any, HttpHeaders] | any;
+    type ReplyCallbackResult = ReplyBody | [number, ReplyBody] | [number, ReplyBody, HttpHeaders];
+    interface ReplyCallbackContext extends Interceptor {
+        req: ClientRequest & {
+            headers: { [k: string]: string }
+        };
+    }
 
     interface Scope extends NodeJS.EventEmitter {
         get: InterceptFunction;
@@ -61,7 +74,7 @@ declare namespace nock {
         intercept: (
             uri: string | RegExp | { (uri: string): boolean; },
             method: string,
-            requestBody?: string | RegExp | { (body: any): boolean; } | any,
+            requestBody?: RequestBodyMatcher,
             options?: Options
         ) => Interceptor;
 
@@ -86,12 +99,19 @@ declare namespace nock {
     }
 
     interface Interceptor {
-        query(params: boolean | { (queryObject: any): boolean; } | any): this;
+        query(params: boolean | string | { (queryObject: any): boolean; } | POJO): this;
 
-        reply(responseCode: number, body?: string | any, headers?: HttpHeaders): Scope;
-        reply(responseCode: number, callback: (uri: string, body: string, cb?: ReplyCallback) => ReplyCallbackResult, headers?: HttpHeaders): Scope;
-        reply(callback: (uri: string, body: string, cb?: ReplyCallback) => ReplyCallbackResult, headers?: HttpHeaders): Scope;
-        replyWithError(errorMessage: string | any): Scope;
+        // tslint (as of 5.16) is under the impression that the callback types can be unified,
+        // however, doing so causes the params to lose their inherited types during use.
+        /* tslint:disable:unified-signatures */
+        reply(callback: (this: ReplyCallbackContext, uri: string, body: ReplyBody, cb: ReplyCallback) => void): Scope;
+        reply(callback: (this: ReplyCallbackContext, uri: string, body: ReplyBody) => ReplyCallbackResult): Scope;
+        reply(responseCode: number, callback: (this: ReplyCallbackContext, uri: string, body: ReplyBody, cb: ReplyCallback) => void): Scope;
+        reply(responseCode: number, callback: (this: ReplyCallbackContext, uri: string, body: ReplyBody) => ReplyCallbackResult): Scope;
+        reply(responseCode: number, body?: ReplyBody, headers?: HttpHeaders): Scope;
+        /* tslint:enable:unified-signatures */
+
+        replyWithError(errorMessage: string | POJO): Scope;
         replyWithFile(responseCode: number, fileName: string, headers?: HttpHeaders): Scope;
 
         matchHeader(name: string, value: string | RegExp | { (value: string): boolean; }): this;
@@ -112,7 +132,7 @@ declare namespace nock {
 
     interface Options {
         allowUnmocked?: boolean;
-        reqheaders?: { [key: string]: string | RegExp | { (headerValue: string): boolean; }; };
+        reqheaders?: RequestHeaderMatcher;
         badheaders?: string[];
         filteringScope?: { (scope: string): boolean; };
         encodedQueryParams?: boolean;
@@ -147,11 +167,11 @@ declare namespace nock {
         port?: number | string;
         method?: string;
         path: string;
-        body?: string | any;
+        body?: RequestBodyMatcher;
         status?: number;
-        response?: string | any;
+        response?: ReplyBody;
         headers?: HttpHeaders;
-        reqheaders?: { [key: string]: string | RegExp | { (headerValue: string): boolean; }; };
+        reqheaders?: RequestHeaderMatcher;
         options?: Options;
     }
 
