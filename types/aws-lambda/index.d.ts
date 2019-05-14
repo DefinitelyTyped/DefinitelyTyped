@@ -26,6 +26,8 @@
 //                 James Gregory <https://github.com/jagregory>
 //                 Erik Dalén <https://github.com/dalen>
 //                 Loïk Gaonac'h <https://github.com/loikg>
+//                 Roberto Zen <https://github.com/skyzenr>
+//                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -34,7 +36,7 @@ export interface APIGatewayEventRequestContext {
     accountId: string;
     apiId: string;
     authorizer?: AuthResponseContext | null;
-    connectedAt: number;
+    connectedAt?: number;
     connectionId?: string;
     domainName?: string;
     eventType?: string;
@@ -83,6 +85,24 @@ export interface APIGatewayProxyEvent {
     resource: string;
 }
 export type APIGatewayEvent = APIGatewayProxyEvent; // Old name
+
+// https://docs.aws.amazon.com/elasticloadbalancing/latest/application/lambda-functions.html
+export interface ALBEventRequestContext {
+    elb: {
+        targetGroupArn: string;
+    };
+}
+export interface ALBEvent {
+    requestContext: ALBEventRequestContext;
+    httpMethod: string;
+    path: string;
+    queryStringParameters?: { [parameter: string]: string }; // URL encoded
+    headers?: { [header: string]: string };
+    multiValueQueryStringParameters?: { [parameter: string]: string[] }; // URL encoded
+    multiValueHeaders?: { [header: string]: string[] };
+    body: string | null;
+    isBase64Encoded: boolean;
+}
 
 // API Gateway CustomAuthorizer "event"
 export interface CustomAuthorizerEvent {
@@ -472,6 +492,15 @@ export interface APIGatewayProxyResult {
 }
 export type ProxyResult = APIGatewayProxyResult; // Old name
 
+export interface ALBResult {
+    statusCode: number;
+    statusDescription: string;
+    headers?: { [header: string]: boolean | number | string };
+    multiValueHeaders?: { [header: string]: Array<boolean | number | string> };
+    body: string;
+    isBase64Encoded: boolean;
+}
+
 /**
  * API Gateway CustomAuthorizer AuthResponse.
  * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
@@ -705,7 +734,7 @@ export type CodePipelineCloudWatchEvent =
  */
 export interface CloudFrontHeaders {
     [name: string]: Array<{
-        key: string;
+        key?: string;
         value: string;
     }>;
 }
@@ -877,11 +906,17 @@ export interface SQSRecordAttributes {
     SenderId: string;
     ApproximateFirstReceiveTimestamp: string;
 }
+
+export type SQSMessageAttributeDataType = 'String' | 'Number' | 'Binary' | string;
+
 export interface SQSMessageAttribute {
-    Name: string;
-    Type: string;
-    Value: string;
+    stringValue?: string;
+    binaryValue?: string;
+    stringListValues: never[]; // Not implemented. Reserved for future use.
+    binaryListValues: never[]; // Not implemented. Reserved for future use.
+    dataType: SQSMessageAttributeDataType;
 }
+
 export interface SQSMessageAttributes {
     [name: string]: SQSMessageAttribute;
 }
@@ -1049,6 +1084,9 @@ export type APIGatewayProxyHandler = Handler<APIGatewayProxyEvent, APIGatewayPro
 export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
 export type ProxyHandler = APIGatewayProxyHandler; // Old name
 export type ProxyCallback = APIGatewayProxyCallback; // Old name
+
+export type ALBHandler = Handler<ALBEvent, ALBResult>;
+export type ALBCallback = Callback<ALBResult>;
 
 // TODO: IoT
 

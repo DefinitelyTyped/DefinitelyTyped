@@ -93,10 +93,10 @@ export function registerFormat<T extends string = never>(
     name: Format | T,
     format: FormatResultFn | string
 ): void;
-export function registerTransform<T extends string = never>(
-    name: Transform | T,
-    valueTransforms: ValueTransform[] | T[]
-): void;
+export function registerTransform<
+    T extends string = never,
+    V extends string = never
+>(name: Transform | T, valueTransforms: ValueTransform[] | V[]): void;
 export function registerValueTransform<T extends string = never>(
     name: ValueTransform | T,
     predicate: (prop: Prop) => boolean,

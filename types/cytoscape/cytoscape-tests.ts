@@ -20,8 +20,8 @@ const parentCSS = {
   'padding-left': '10px',
   'padding-bottom': '10px',
   'padding-right': '10px',
-  'text-valign': 'top',
-  'text-halign': 'center',
+  'text-valign': 'top' as 'top',
+  'text-halign': 'center' as 'center',
   'background-color': '#CCC',
   'font-size': 40,
   'min-zoomed-font-size': 15
@@ -47,7 +47,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
   {
     selector: 'edge',
     css: {
-      'target-arrow-shape': 'triangle'
+      'target-arrow-shape': 'triangle',
+      'curve-style': 'taxi',
     }
   },
   {
@@ -57,6 +58,14 @@ const showAllStyle: cytoscape.Stylesheet[] = [
       'line-color': 'black',
       'target-arrow-color': 'black',
       'source-arrow-color': 'black'
+    }
+  },
+  {
+    selector: 'node.lesstext',
+    style: {
+      label: 'data(name)',
+      'text-wrap': 'ellipsis',
+      'text-max-width': '200',
     }
   }
 ];

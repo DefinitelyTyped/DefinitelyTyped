@@ -25,7 +25,7 @@ afterEach(() => {
 test('array', () => {
     const title = 'add(augend, addend)';
 
-    const tester = jest.fn(opts => {
+    const tester = jest.fn((opts, cb) => {
         expect(add(opts.augend, opts.addend)).toBe(opts.total);
     });
 
@@ -59,7 +59,7 @@ test('object', () => {
 
     const title = 'add(augend, addend)';
 
-    const tester = jest.fn(opts => {
+    const tester = jest.fn((opts, cb) => {
         expect(subtract(opts.minuend, opts.subtrahend)).toBe(opts.difference);
     });
 

@@ -98,6 +98,7 @@ const defaultLocale = getDefaultLocale();
 	showDisabledMonthNavigation
 	showMonthDropdown
 	showMonthYearDropdown
+	showMonthYearPicker
 	showTimeSelect
 	showTimeSelectOnly
 	showWeekNumbers
@@ -116,10 +117,22 @@ const defaultLocale = getDefaultLocale();
 	weekLabel=""
 	withPortal
 	yearDropdownItemNumber={1}
+	timeInputLabel=""
+	inlineFocusSelectedMonth={false}
+	onDayMouseEnter={(date: Date) => {}}
+	onMonthMouseLeave={() => {}}
 >
 	<div />
 	<span />
 </DatePicker>;
+
+<DatePicker
+    minDate={null}
+    maxDate={null}
+    startDate={null}
+    endDate={null}
+    onChange={() => null}
+/>;
 
 function handleRef(ref: DatePicker | null) {
     if (ref) {

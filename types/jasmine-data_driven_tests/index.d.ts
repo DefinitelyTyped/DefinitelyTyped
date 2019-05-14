@@ -6,6 +6,8 @@
 
 declare var all: JasmineDataDrivenTest;
 declare var xall: JasmineDataDrivenTest;
+declare var using: JasmineDataDrivenTest;
+declare var xusing: JasmineDataDrivenTest;
 
 interface JasmineDataDrivenTest {
     <T, U, V, W, X, Y, Z>(

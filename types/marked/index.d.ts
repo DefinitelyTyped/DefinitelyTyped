@@ -4,6 +4,7 @@
 //                 BendingBender <https://github.com/BendingBender>
 //                 CrossR <https://github.com/CrossR>
 //                 Mike Wickett <https://github.com/mwickett>
+//                 Hitomi Hatsukaze <https://github.com/htkzhtm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace marked;
@@ -76,6 +77,17 @@ declare namespace marked {
      */
     function setOptions(options: MarkedOptions): typeof marked;
 
+    class InlineLexer {
+        constructor(links: string[], options?: MarkedOptions);
+        static rules: Rules;
+        static output(src: string, links: string[], options?: MarkedOptions): string;
+        output(src: string): string;
+        static escapes(text: string): string;
+        outputLink(cap: string[], link: string): string;
+        smartypants(text: string): string;
+        mangle(text: string): string;
+    }
+
     class Renderer {
         constructor(options?: MarkedOptions);
         code(code: string, language: string, isEscaped: boolean): string;
@@ -102,11 +114,33 @@ declare namespace marked {
         text(text: string): string;
     }
 
-    class Lexer {
-        rules: Rules;
-        tokens: TokensList;
+    class TextRenderer {
+        strong(text: string): string;
+        em(text: string): string;
+        codespan(text: string): string;
+        del(text: string): string;
+        text(text: string): string;
+        link(href: string, title: string, text: string): string;
+        image(href: string, title: string, text: string): string;
+        br(): string;
+    }
+
+    class Parser {
         constructor(options?: MarkedOptions);
+        static parse(src: TokensList, options?: MarkedOptions): string;
+        parse(src: TokensList): string;
+        next(): Token;
+        peek(): Token | number;
+        parseText(): string;
+        tok(): string;
+    }
+
+    class Lexer {
+        constructor(options?: MarkedOptions);
+        static rules: Rules;
+        static lex(src: TokensList, options?: MarkedOptions): TokensList;
         lex(src: string): TokensList;
+        token(src: string, top: boolean): TokensList;
     }
 
     class Slugger {

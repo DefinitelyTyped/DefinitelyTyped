@@ -13,18 +13,59 @@ import stream = require("stream");
 import tls = require("tls");
 
 export interface EscapeFunctions {
+    /**
+     * Escape an untrusted string to be used as a SQL value. Use this on user
+     * provided data.
+     * @param value Value to escape
+     * @param stringifyObjects If true, don't convert objects into SQL lists
+     * @param timeZone Convert dates from UTC to the given timezone.
+     */
     escape(value: any, stringifyObjects?: boolean, timeZone?: string): string;
 
+    /**
+     * Escape an untrusted string to be used as a SQL identifier (database,
+     * table, or column name). Use this on user provided data.
+     * @param value Value to escape.
+     * @param forbidQualified Don't allow qualified identifiers (eg escape '.')
+     */
     escapeId(value: string, forbidQualified?: boolean): string;
 
+    /**
+     * Safely format a SQL query containing multiple untrusted values.
+     * @param sql Query, with insertion points specified with ? (for values) or
+     * ?? (for identifiers)
+     * @param values Array of objects to insert.
+     * @param stringifyObjects If true, don't convert objects into SQL lists
+     * @param timeZone Convert dates from UTC to the given timezone.
+     */
     format(sql: string, values: any[], stringifyObjects?: boolean, timeZone?: string): string;
 }
 
-// implements EscapeFunctions
+/**
+ * Escape an untrusted string to be used as a SQL value. Use this on user
+ * provided data.
+ * @param value Value to escape
+ * @param stringifyObjects If true, don't convert objects into SQL lists
+ * @param timeZone Convert dates from UTC to the given timezone.
+ */
 export function escape(value: any, stringifyObjects?: boolean, timeZone?: string): string;
 
+/**
+ * Escape an untrusted string to be used as a SQL identifier (database,
+ * table, or column name). Use this on user provided data.
+ * @param value Value to escape.
+ * @param forbidQualified Don't allow qualified identifiers (eg escape '.')
+ */
 export function escapeId(value: string, forbidQualified?: boolean): string;
 
+/**
+ * Safely format a SQL query containing multiple untrusted values.
+ * @param sql Query, with insertion points specified with ? (for values) or
+ * ?? (for identifiers)
+ * @param values Array of objects to insert.
+ * @param stringifyObjects If true, don't convert objects into SQL lists
+ * @param timeZone Convert dates from UTC to the given timezone.
+ */
 export function format(sql: string, values: any[], stringifyObjects?: boolean, timeZone?: string): string;
 
 export function createConnection(connectionUri: string | ConnectionConfig): Connection;
@@ -33,6 +74,12 @@ export function createPool(config: PoolConfig | string): Pool;
 
 export function createPoolCluster(config?: PoolClusterConfig): PoolCluster;
 
+/**
+ * Create a string that will be inserted unescaped with format(), escape().
+ * Note: the value will still be escaped if used as an identifier (??) by
+ * format().
+ * @param sql
+ */
 export function raw(sql: string): () => string;
 
 export interface Connection extends EscapeFunctions {
@@ -69,33 +116,72 @@ export interface Connection extends EscapeFunctions {
     statistics(options?: QueryOptions, callback?: (err: MysqlError) => void): void;
     statistics(callback: (err: MysqlError) => void): void;
 
+    /**
+     * Close the connection. Any queued data (eg queries) will be sent first. If
+     * there are any fatal errors, the connection will be immediately closed.
+     * @param callback Handler for any fatal error
+     */
     end(callback?: (err: MysqlError, ...args: any[]) => void): void;
     end(options: any, callback: (err: MysqlError, ...args: any[]) => void): void;
 
+    /**
+     * Close the connection immediately, without waiting for any queued data (eg
+     * queries) to be sent. No further events or callbacks will be triggered.
+     */
     destroy(): void;
 
+    /**
+     * Pause the connection. No more 'result' events will fire until resume() is
+     * called.
+     */
     pause(): void;
 
+    /**
+     * Resume the connection.
+     */
     resume(): void;
 
     on(ev: 'drain' | 'connect', callback: () => void): Connection;
 
+    /**
+     * Set handler to be run when the connection is closed.
+     */
     on(ev: 'end', callback: (err?: MysqlError) => void): Connection;
 
     on(ev: 'fields', callback: (fields: any[]) => void): Connection;
 
+    /**
+     * Set handler to be run when a a fatal error occurs.
+     */
     on(ev: 'error', callback: (err: MysqlError) => void): Connection;
 
-    on(ev: 'enqueue', callback: (...args: any[]) => void): Connection;
+    /**
+     * Set handler to be run when a callback has been queued to wait for an
+     * available connection.
+     */
+    // tslint:disable-next-line:unified-signatures
+    on(ev: 'enqueue', callback: (err?: MysqlError) => void): Connection;
 
-    on(ev: string, callback: (...args: any[]) => void): this;
+    /**
+     * Set handler to be run on a certain event.
+     */
+    on(ev: string, callback: (...args: any[]) => void): Connection;
 }
 
 export interface PoolConnection extends Connection {
     release(): void;
 
+    /**
+     * Close the connection. Any queued data (eg queries) will be sent first. If
+     * there are any fatal errors, the connection will be immediately closed.
+     * @param callback Handler for any fatal error
+     */
     end(): void;
 
+    /**
+     * Close the connection immediately, without waiting for any queued data (eg
+     * queries) to be sent. No further events or callbacks will be triggered.
+     */
     destroy(): void;
 }
 
@@ -108,16 +194,52 @@ export interface Pool extends EscapeFunctions {
 
     releaseConnection(connection: PoolConnection): void;
 
+    /**
+     * Close the connection. Any queued data (eg queries) will be sent first. If
+     * there are any fatal errors, the connection will be immediately closed.
+     * @param callback Handler for any fatal error
+     */
     end(callback?: (err: MysqlError) => void): void;
 
     query: QueryFunction;
 
-    on(ev: 'connection' | 'acquire' | 'release', callback: (connection: PoolConnection) => void): Pool;
+    /**
+     * Set handler to be run when a new connection is made within the pool.
+     */
+    on(ev: 'connection', callback: (connection: PoolConnection) => void): Pool;
 
+    /**
+     * Set handler to be run when a connection is acquired from the pool. This
+     * is called after all acquiring activity has been performed on the
+     * connection, right before the connection is handed to the callback of the
+     * acquiring code.
+     */
+    // tslint:disable-next-line:unified-signatures
+    on(ev: 'acquire', callback: (connection: PoolConnection) => void): Pool;
+
+    /**
+     * Set handler to be run when a connection is released back to the pool.
+     * This is called after all release activity has been performed on the
+     * connection, so the connection will be listed as free at the time of the
+     * event.
+     */
+    // tslint:disable-next-line:unified-signatures
+    on(ev: 'release', callback: (connection: PoolConnection) => void): Pool;
+
+    /**
+     * Set handler to be run when a a fatal error occurs.
+     */
     on(ev: 'error', callback: (err: MysqlError) => void): Pool;
 
+    /**
+     * Set handler to be run when a callback has been queued to wait for an
+     * available connection.
+     */
     on(ev: 'enqueue', callback: (err?: MysqlError) => void): Pool;
 
+    /**
+     * Set handler to be run on a certain event.
+     */
     on(ev: string, callback: (...args: any[]) => void): Pool;
 }
 
@@ -128,6 +250,11 @@ export interface PoolCluster {
 
     add(id: string, config: PoolConfig): void;
 
+    /**
+     * Close the connection. Any queued data (eg queries) will be sent first. If
+     * there are any fatal errors, the connection will be immediately closed.
+     * @param callback Handler for any fatal error
+     */
     end(callback?: (err: MysqlError) => void): void;
 
     of(pattern: string, selector?: string): Pool;
@@ -144,9 +271,15 @@ export interface PoolCluster {
 
     getConnection(pattern: string, selector: string, callback: (err: MysqlError, connection: PoolConnection) => void): void;
 
+    /**
+     * Set handler to be run on a certain event.
+     */
     on(ev: string, callback: (...args: any[]) => void): PoolCluster;
 
-    on(ev: 'remove' | 'offline' | 'remove', callback: (nodeId: string) => void): PoolCluster;
+    /**
+     * Set handler to be run when a node is removed or goes offline.
+     */
+    on(ev: 'remove' | 'offline', callback: (nodeId: string) => void): PoolCluster;
 }
 
 // related to Query
@@ -214,15 +347,15 @@ export interface Query {
     on(ev: 'end', callback: () => void): Query;
 }
 
-export interface GeometryType extends Array<{x: number, y: number} | GeometryType> {
+export interface GeometryType extends Array<{ x: number, y: number } | GeometryType> {
     x: number;
     y: number;
 }
 
 export type TypeCast = boolean | (
     (field: FieldInfo
-        & { type: string, length: number, string(): string, buffer(): Buffer, geometry(): null |  GeometryType},
-    next: () => void) => any);
+        & { type: string, length: number, string(): string, buffer(): Buffer, geometry(): null | GeometryType },
+        next: () => void) => any);
 
 export type queryCallback = (err: MysqlError | null, results?: any, fields?: FieldInfo[]) => void;
 

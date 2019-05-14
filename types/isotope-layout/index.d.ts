@@ -101,7 +101,7 @@ declare namespace Isotope {
         /**
          * Sorts items according to which property of getSortData. The value of sortBy needs to match a key name in getSortData.
          */
-        sortBy?: string;
+        sortBy?: string | string[];
         /**
          * Staggers item transitions, so items transition incrementally after one another. Set as a CSS time format, '0.03s', or as a number in milliseconds, 30.
          */
@@ -284,6 +284,10 @@ declare global {
          * Get the Isotope instance from a jQuery object. Isotope instances are useful to access Isotope properties.
          */
         data(methodName: 'isotope'): Isotope;
+        /**
+         * Filters, sorts, and lays out items.
+         */
+        isotope(): JQuery;
         /**
          * Lays out specified items.
          * @param elements Array of Isotope.Items

@@ -70,7 +70,7 @@ export interface Schema<T> {
     withMutation(fn: (current: this) => void): void;
     default(value: any): this;
     default(): T;
-    nullable(isNullable: boolean): this;
+    nullable(isNullable?: boolean): this;
     required(message?: TestOptionsMessage): this;
     notRequired(): this;
     typeError(message?: TestOptionsMessage): this;
@@ -106,6 +106,7 @@ export interface StringSchemaConstructor {
 }
 
 export interface StringSchema extends Schema<string> {
+    length(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
     min(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
     max(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
     matches(
@@ -295,7 +296,7 @@ export interface SchemaDescription {
     type: string;
     label: string;
     meta: object;
-    tests: string[];
+    tests: Array<{ name: string, params: object }>;
     fields: object;
 }
 
@@ -368,8 +369,19 @@ export class Ref {
 // tslint:disable-next-line:no-empty-interface
 export interface Lazy extends Schema<any> {}
 
+export interface FormatErrorParams {
+  path: string;
+  type: string;
+  value?: any;
+  originalValue?: any;
+}
+
+export type LocaleValue =
+    | string
+    | ((params: FormatErrorParams) => string);
+
 export interface LocaleObject {
-    mixed?: { [key in keyof MixedSchema]?: string };
+    mixed?: { [key in keyof MixedSchema]?: string; } & { notType?: LocaleValue };
     string?: { [key in keyof StringSchema]?: string };
     number?: { [key in keyof NumberSchema]?: string };
     boolean?: { [key in keyof BooleanSchema]?: string };

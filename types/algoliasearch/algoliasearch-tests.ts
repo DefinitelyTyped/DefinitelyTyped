@@ -98,6 +98,7 @@ let _algoliaIndexSettings: IndexSettings = {
   placeholders: { '': [''] },
   camelCaseAttributes: [''],
   sortFacetValuesBy: 'count',
+  queryLanguages: ['fr', 'es'],
 };
 
 let _algoliaQueryParameters: QueryParameters = {
@@ -147,6 +148,7 @@ let _algoliaQueryParameters: QueryParameters = {
   tagFilters: [''],
   facetFilters: [''],
   analytics: false,
+  clickAnalytics: true,
   analyticsTags: [''],
   synonyms: true,
   replaceSynonymsInHighlight: false,
@@ -204,6 +206,11 @@ browser.on('error', function onError(err) {
 });
 
 browser.stop();
+
+index.setSettings({ hitsPerPage: 10 }, () => {})
+index.setSettings({ hitsPerPage: 10 }, { forwardToReplicas: true }, () => {})
+index.setSettings({ hitsPerPage: 10 }).then(() => {})
+index.setSettings({ hitsPerPage: 10 }, { forwardToReplicas: true }).then(() => {})
 
 index.browse("", {
   advancedSyntax: false,

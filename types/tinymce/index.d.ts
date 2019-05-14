@@ -3,6 +3,7 @@
 // Definitions by: Martin Duparc <https://github.com/martinduparc>
 //                 Poul Poulsen <https://github.com/ipoul>
 //                 Nico Hartto <https://github.com/nicohartto>
+//                 Ashley Workman <https://github.com/CymruKakashi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -53,6 +54,10 @@ export function trim(s: string): string;
 export function walk(o: {}, f: () => void, n?: string, s?: string): void;
 
 export function init(settings: Settings): void;
+
+export function triggerSave(): void;
+
+export function get(id: string | number): Editor;
 
 export interface Settings {
   table_toolbar?: string;
@@ -320,6 +325,20 @@ export interface Settings {
   imagetools_toolbar?: string;
 
   imagetools_api_key?: string;
+
+  spellchecker_rpc_url?: string;
+
+  spellchecker_language?: string;
+
+  spellchecker_languages?: string;
+
+  spellchecker_dialog?: boolean;
+
+  spellchecker_whitelist?: string[];
+
+  spellchecker_on_load?: boolean;
+
+  spellchecker_active?: boolean;
 }
 
 export namespace settings {
@@ -394,7 +413,7 @@ export class Editor extends util.Observable {
 
   addCommand(name: string, callback: (ui: boolean, value: {}) => boolean, scope?: {}): void;
 
-  addContextToolbar(predicate: () => void, items: string): void;
+  addContextToolbar(predicate: ((el: Node) => boolean) | string, items: string): void;
 
   addMenuItem(name: string, settings: {}): void;
 
@@ -414,7 +433,7 @@ export class Editor extends util.Observable {
 
   execCallback(name: string): {};
 
-  execCommand(cmd: string, ui: boolean, value?: any, args?: {}): void;
+  execCommand(cmd: string, ui?: boolean, value?: any, args?: {}): void;
 
   focus(skipFocus: boolean): void;
 
@@ -838,7 +857,7 @@ export namespace dom {
 
     insertAfter<T>(node: Element, referenceNode: Element): Element | T[];
 
-    is(elm: Node, selector: string): void;
+    is(elm: Node, selector: string): boolean;
 
     isBlock(node: Node): boolean;
 
@@ -1072,7 +1091,7 @@ export namespace dom {
 
     setContent(content: string, args?: {}): void;
 
-    setCursorLocation(node?: html.Node, offset?: number): void;
+    setCursorLocation(node?: Node, offset?: number): void;
 
     setNode(elm: Element): Element;
 

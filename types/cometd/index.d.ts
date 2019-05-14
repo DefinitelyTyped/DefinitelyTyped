@@ -70,6 +70,15 @@ export interface Configuration {
      * CometD may fail to remain within the max URI length when encoded in JSON.
      */
     maxURILength?: number;
+    /**
+     * Uses the scheduler service available in Web Workers via Worker.setTimeout(fn, delay) rather
+     * than using that available via Window.setTimeout(fn, delay). Browsers are now throttling the
+     * Window scheduler in background tabs to save battery in mobile devices, so the Window scheduler
+     * events are delayed by possibly several seconds, causing CometD sessions to timeout on the
+     * server. The Worker scheduler is not throttled and guarantees that scheduler events happen
+     * on time.
+     */
+    useWorkerScheduler?: boolean;
 }
 
 export interface Message {

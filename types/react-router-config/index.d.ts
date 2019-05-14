@@ -15,12 +15,14 @@ export interface RouteConfigComponentProps<Params extends { [K in keyof Params]?
 }
 
 export interface RouteConfig {
+    key?: React.Key;
     location?: Location;
     component?: React.ComponentType<RouteConfigComponentProps<any>> | React.ComponentType;
     path?: string;
     exact?: boolean;
     strict?: boolean;
     routes?: RouteConfig[];
+    [propName: string]: any;
 }
 
 export interface MatchedRoute<Params extends { [K in keyof Params]?: string }> {

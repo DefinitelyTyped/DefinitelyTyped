@@ -1,4 +1,4 @@
-// Type definitions for Cytoscape.js 3.3
+// Type definitions for Cytoscape.js 3.4
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
@@ -3229,7 +3229,7 @@ declare namespace cytoscape {
          * This finds the shortest path from the starting node to all other nodes in the collection.
          * http://js.cytoscape.org/#eles.bellmanFord
          */
-        bellmanFort(options: SearchBellmanFordOptions): SearchBellmanFordResult;
+        bellmanFord(options: SearchBellmanFordOptions): SearchBellmanFordResult;
         /**
          * Perform Kruskal's algorithm on the elements in the collection,
          * returning the minimum spanning tree, assuming undirected edges.
@@ -3466,8 +3466,12 @@ declare namespace cytoscape {
         /**
          * http://js.cytoscape.org/#style/node-body
          */
-        interface Node extends Partial<Overlay>, PaddingNode {
+        interface Node extends Partial<Overlay>, PaddingNode, Partial<Labels> {
             "label"?: string;
+            /**
+             * The CSS content field
+             */
+            "content"?: string;
             /**
              * The width of the node’s body.
              * This property can take on the special value label
@@ -3664,7 +3668,7 @@ declare namespace cytoscape {
              * Smaller node shapes, like triangle, will not be as aesthetically pleasing.
              * Also note that edge arrows are unsupported for haystack edges.
              */
-            "curve-style"?: "haystack" | "bezier" | "unbundled" | "segments";
+            "curve-style"?: "haystack" | "straight" | "bezier" | "unbundled-bezier" | "segments" | "taxi";
             /**
              * The colour of the edge’s line.
              */
@@ -3935,7 +3939,7 @@ declare namespace cytoscape {
              *  * "none" for no wrapping (including manual newlines ) or
              *  * "wrap" for manual and/ or autowrapping.
              */
-            "text-wrap": "none" | "wrap";
+            "text-wrap": "none" | "wrap" | "ellipsis";
             /**
              * The maximum width for wrapped text,
              * applied when "text-wrap" is set to wrap.
@@ -4076,7 +4080,7 @@ declare namespace cytoscape {
             /**
              * The shape to use for the label background.
              */
-            "text-background-shape": "ractangle" | "roundrectangle";
+            "text-background-shape": "rectangle" | "roundrectangle";
 
             /**
              * Border:

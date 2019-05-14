@@ -53,6 +53,12 @@ traverse(ast, {
     }
 });
 
+// Node type checks
+t.isIdentifier(t.identifier("id"));
+t.isIdentifier(exp);
+t.isIdentifier(null);
+t.isIdentifier(undefined);
+
 // TypeScript Types
 // TODO: Test all variants of these functions' signatures
 
@@ -109,7 +115,7 @@ t.TSTypeParameterDeclaration([param]);
 t.TSTypeParameterInstantiation([any]);
 t.TSTypePredicate(id, t.TSTypeAnnotation(any));
 t.TSTypeQuery(id);
-t.TSTypeReference(id);
+t.TSTypeReference(id, t.TSTypeParameterInstantiation([any]));
 t.TSUndefinedKeyword();
 t.TSUnionType([any]);
 t.TSVoidKeyword();

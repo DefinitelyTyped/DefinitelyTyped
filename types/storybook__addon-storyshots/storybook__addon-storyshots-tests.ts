@@ -1,4 +1,11 @@
-import initStoryshots, { multiSnapshotWithOptions, snapshotWithOptions, getSnapshotFileName, renderOnly, imageSnapshot } from "@storybook/addon-storyshots";
+import initStoryshots, {
+    getSnapshotFileName,
+    imageSnapshot,
+    multiSnapshotWithOptions,
+    renderOnly,
+    renderWithOptions,
+    snapshotWithOptions,
+} from "@storybook/addon-storyshots";
 import { shallow, ShallowWrapper } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import 'jest';
@@ -24,6 +31,18 @@ initStoryshots({
 initStoryshots({
     configPath: "",
     test: renderOnly
+});
+
+initStoryshots({
+    configPath: "",
+    test: renderWithOptions()
+});
+
+initStoryshots({
+    configPath: "",
+    test: renderWithOptions({
+        createNodeMock: () => undefined,
+    })
 });
 
 initStoryshots({

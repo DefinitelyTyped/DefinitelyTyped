@@ -16,6 +16,9 @@ videoQueue.process((job, done) => {
     // job.data contains the custom data passed when the job was created
     // job.jobId contains id of this job.
 
+    // job.opts contains the options that were passed to the job
+    job.opts;
+
     // transcode video asynchronously and report progress
     job.progress(42);
 
@@ -69,6 +72,19 @@ imageQueue.process((job, done) => {
 videoQueue.add({video: 'http://example.com/video1.mov'});
 audioQueue.add({audio: 'http://example.com/audio1.mp3'});
 imageQueue.add({image: 'http://example.com/image1.tiff'});
+
+//////////////////////////////////////////////////////////////////////////////////
+//
+// Test Redis Cluster connexion
+//
+//////////////////////////////////////////////////////////////////////////////////
+
+const clusterQueue = new Queue('queue on redis cluster', {
+    prefix: 'cluster-test',
+    createClient: (clusterUri: Redis.ClusterNode) => {
+        return new Redis.Cluster([{port: 6379, host: '127.0.0.1'}]);
+    }
+});
 
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -184,6 +200,9 @@ myQueue.on('active', (job: Queue.Job) => {
 
     job.discard();
 });
+
+// Get Redis clients
+const clients = myQueue.clients;
 
 // test all constructor options:
 

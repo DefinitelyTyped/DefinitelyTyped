@@ -1,4 +1,4 @@
-// Type definitions for slate 0.43
+// Type definitions for slate 0.44
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -8,6 +8,8 @@
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Irwan Fario Subastian <https://github.com/isubasti>
 //                 Hanna Greaves <https://github.com/sgreav>
+//                 Jack Allen <https://github.com/jackall3n>
+//                 Benjamin Evenson <https://github.com/benjiro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
@@ -37,6 +39,9 @@ export interface Rules {
     first?: ObjectAndType | ObjectAndType[];
     isVoid?: boolean;
     last?: ObjectAndType | ObjectAndType[];
+    marks?: Array<{
+        type: string | ((type: string) => boolean)
+    }>;
     nodes?: Array<{
         min?: number;
         max?: number;
@@ -44,7 +49,7 @@ export interface Rules {
     }>;
     normalize?: (editor: Editor, error: SlateError) => void;
     parent?: ObjectAndType | ObjectAndType[];
-    text?: RegExp;
+    text?: RegExp | ((text: string) => boolean);
 }
 
 export interface SchemaProperties {
@@ -401,8 +406,6 @@ declare class BaseNode<
     findDescendants(iterator: (node: Node) => boolean): Node | null;
     getActiveMarksAtRange(range: Range): Immutable.Set<Mark>;
     getAncestors(path: Path): Immutable.List<Node> | null;
-    getBlocksAtRange(range: Range): Immutable.List<Block>;
-    getBlocksAtRangeAsArray(range: Range): Block[];
     getBlocks(): Immutable.List<Block>;
     getBlocksAsArray(): Block[];
     getBlocksByType(type: string): Immutable.List<Block>;
@@ -432,6 +435,8 @@ declare class BaseNode<
     getInsertMarksAtRange(range: Range): Immutable.Set<Mark>;
     getKeysToPathsTable(): object;
     getLastText(): Text | null;
+    getLeafBlocksAtRange(range: Range): Immutable.List<Block>;
+    getLeafBlocksAtRangeAsArray(range: Range): Block[];
     getMarks(): Immutable.Set<Mark>;
     getMarksAsArray(): Mark[];
     getMarksAtPosition(key: string, offset: number): Immutable.Set<Mark>;
@@ -460,6 +465,8 @@ declare class BaseNode<
     getPreviousNode(path: Path): Node | null;
     getPreviousSibling(path: Path): Node | null;
     getPreviousText(path: Path): Text | null;
+    getRootBlocksAtRange(range: Range): Immutable.List<Block>;
+    getRootInlinesAtRange(range: Range): Immutable.List<Block>;
     getSelectionIndexes(
         range: Range,
         isSelected?: boolean
@@ -786,91 +793,107 @@ export type Operation =
 
 export interface InsertTextOperation {
     type: "insert_text";
-    path: number[];
+    path: Path;
     offset: number;
     text: string;
     marks: Mark[];
+    data: Data;
 }
 
 export interface RemoveTextOperation {
     type: "remove_text";
-    path: number[];
+    path: Path;
     offset: number;
     text: string;
+    data: Data;
 }
 
 export interface AddMarkOperation {
     type: "add_mark";
-    path: number[];
+    path: Path;
     offset: number;
     length: number;
     mark: Mark;
+    data: Data;
 }
 
 export interface RemoveMarkOperation {
     type: "remove_mark";
-    path: number[];
+    path: Path;
     offset: number;
     length: number;
     mark: Mark;
+    data: Data;
 }
 
 export interface SetMarkOperation {
     type: "set_mark";
-    path: number[];
+    path: Path;
     offset: number;
     length: number;
-    mark: Mark;
     properties: MarkProperties;
+    newProperties: MarkProperties;
+    data: Data;
 }
 
 export interface InsertNodeOperation {
     type: "insert_node";
-    path: number[];
+    path: Path;
     node: Node;
+    data: Data;
 }
 
 export interface MergeNodeOperation {
     type: "merge_node";
-    path: number[];
+    path: Path;
     position: number;
+    properties: NodeProperties;
+    data: Data;
 }
 
 export interface MoveNodeOperation {
     type: "move_node";
-    path: number[];
-    newPath: number[];
+    path: Path;
+    newPath: Path | number[];
+    data: Data;
 }
 
 export interface RemoveNodeOperation {
     type: "remove_node";
-    path: number[];
+    path: Path;
     node: Node;
+    data: Data;
 }
 
 export interface SetNodeOperation {
     type: "set_node";
-    path: number[];
-    properties: BlockProperties | InlineProperties | TextProperties;
+    path: Path;
+    properties: NodeProperties;
+    newProperties: NodeProperties;
+    data: Data;
 }
 
 export interface SplitNodeOperation {
     type: "split_node";
-    path: number[];
+    path: Path;
     position: number;
     target: number;
+    properties: NodeProperties;
+    data: Data;
 }
 
 export interface SetSelectionOperation {
     type: "set_selection";
-    properties: RangeProperties;
-    selection: Range;
+    properties: SelectionProperties;
+    newProperties: SelectionProperties;
+    data: Data;
 }
 
 export interface SetValueOperation {
     type: "set_value";
     properties: ValueProperties;
-    value: Value;
+    newProperties: ValueProperties;
+    data: Data;
 }
 
 export interface Operations {
@@ -883,6 +906,8 @@ export type ErrorCode =
     | "child_required"
     | "child_type_invalid"
     | "child_unknown"
+    | "child_min_invalid"
+    | "child_max_invalid"
     | "first_child_object_invalid"
     | "first_child_type_invalid"
     | "last_child_object_invalid"
@@ -956,9 +981,35 @@ export interface PathUtils {
     ): Immutable.List<number>;
 }
 
+export interface Command {
+    type: string;
+    args: any[];
+}
+
+export interface Query {
+    type: string;
+    args: any[];
+}
+
+export type CommandFunc = (editor: Editor, ...args: any[]) => Editor;
+export type QueryFunc = (editor: Editor, ...args: any[]) => any;
+
+export interface Plugin {
+    normalizeNode?: (node: Node, editor: Editor, next: () => void) => ((editor: Editor) => void) | void;
+    onChange?: (editor: Editor, next: () => void) => void;
+    onCommand?: (command: Command, editor: Editor, next: () => void) => void;
+    onConstruct?: (editor: Editor, next: () => void) => void;
+    onQuery?: (query: Query, editor: Editor, next: () => void) => void;
+    validateNode?: (node: Node, editor: Editor, next: () => void) => SlateError | void;
+
+    commands?: {[name: string]: CommandFunc};
+    queries?: {[name: string]: QueryFunc};
+    schema?: SchemaProperties;
+}
+
 export interface EditorProperties {
     onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
-    plugins?: any[];
+    plugins?: Plugin[];
     readOnly?: boolean;
     value?: Value;
 }
@@ -966,7 +1017,8 @@ export interface EditorProperties {
 export class Editor implements Controller {
     object: "editor";
     onChange: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
-    plugins: any[];
+    operations: Immutable.List<Operation>;
+    plugins: Plugin[];
     readOnly: boolean;
     value: Value;
     constructor(attributes: EditorProperties)
@@ -997,8 +1049,8 @@ export class Editor implements Controller {
     insertText(text: string): Editor;
     setBlocks(properties: BlockProperties | string): Editor;
     setInlines(properties: InlineProperties | string): Editor;
-    splitBlock(depth: number): Editor;
-    splitInline(depth: number): Editor;
+    splitBlock(depth?: number): Editor;
+    splitInline(depth?: number): Editor;
     removeMark(mark: Mark | MarkProperties | string): Editor;
     replaceMark(
         mark: Mark | MarkProperties | string,
@@ -1144,7 +1196,7 @@ export class Editor implements Controller {
     moveToStartOfPreviousText(): Editor;
     moveToStartOfText(): Editor;
     moveToRangeOfDocument(): Editor;
-    moveToRangeOf(node: Node): Editor;
+    moveToRangeOfNode(node: Node): Editor;
     select(properties: Range | RangeProperties): Editor;
     addMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
     deleteAtRange(range: Range): Editor;
@@ -1162,8 +1214,8 @@ export class Editor implements Controller {
     insertTextAtRange(range: Range, text: string): Editor;
     setBlocksAtRange(range: Range, properties: BlockProperties | string): Editor;
     setInlinesAtRange(range: Range, properties: InlineProperties | string): Editor;
-    splitBlockAtRange(range: Range, depth: number): Editor;
-    splitInlineAtRange(range: Range, depth: number): Editor;
+    splitBlockAtRange(range: Range, depth?: number): Editor;
+    splitInlineAtRange(range: Range, depth?: number): Editor;
     removeMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
     toggleMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
     unwrapBlockAtRange(range: Range, properties: BlockProperties | string): Editor;
@@ -1221,6 +1273,7 @@ export class Editor implements Controller {
     replaceNodeByPath(path: Path, newNode: Node): Editor;
     removeTextByKey(key: string, offset: number, length: number): Editor;
     removeTextByPath(path: Path, offset: number, length: number): Editor;
+    setDecorations(decorations: Immutable.List<Decoration> | Decoration[]): Editor;
     setMarkByKey(
         key: string,
         offset: number,
@@ -1933,7 +1986,7 @@ export interface Controller {
     /**
      * Move the current selection's anchor to the start of the provided node and its focus to the end of it.
      */
-    moveToRangeOf(node: Node): Controller;
+    moveToRangeOfNode(node: Node): Controller;
     /**
      * Merge the current selection with the provided properties
      */

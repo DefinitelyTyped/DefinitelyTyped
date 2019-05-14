@@ -87,6 +87,9 @@ function testSandbox() {
     const privateFooFoo: sinon.SinonStub = privateFooStubbedInstance.foo;
     const clsBar: number = stubInstance.bar;
     const privateFooBar: number = privateFooStubbedInstance.bar;
+    sb.createStubInstance(cls, {
+        bar: 1
+    });
 }
 
 function testFakeServer() {

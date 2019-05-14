@@ -11,7 +11,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import "node";
+/// <reference types="node" />
 
 export as namespace Papa;
 

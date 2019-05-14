@@ -51,4 +51,4 @@ export class MDCList {
   getDefaultFoundation(): MDCListFoundation;
 }
 
-export { MDCListFoundation};
+export {  MDCListFoundation };

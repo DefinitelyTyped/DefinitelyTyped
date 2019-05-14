@@ -29,3 +29,7 @@ extendedLog("Testing this is also an IDebugger.");
 
 const extendedWithCustomDelimiter: debug1.Debugger = log.extend('with-delim', '.');
 extendedWithCustomDelimiter("Testing this is an IDebugger, too.");
+
+debug2.log = console.log.bind(console);
+const anotherLogger = debug2("DefinitelyTyped:error");
+anotherLogger("This should be printed to stdout");

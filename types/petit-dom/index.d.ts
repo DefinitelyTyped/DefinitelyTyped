@@ -98,6 +98,7 @@ export namespace PetitDom {
     };
 
     interface IntrinsicProps {
+        content?: Content | ReadonlyArray<Content>;
         key?: Key;
     }
 
@@ -153,8 +154,8 @@ export namespace PetitDom {
         readonly props: P & IntrinsicProps;
     }
 
-    interface DomElements extends HTMLElementTagNameMap, SVGElementTagNameMap {
-        "main": HTMLMainElement;
+    interface DomElements extends HTMLElementTagNameMap, Pick<SVGElementTagNameMap, Exclude<keyof SVGElementTagNameMap, "a" | "script" | "style" | "title">> {
+        "main": HTMLElement;
     }
 }
 

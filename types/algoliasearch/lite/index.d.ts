@@ -1,4 +1,4 @@
-// Type definitions for algoliasearch-client-js 3.30.0
+// Type definitions for algoliasearch-client-js 3.30.1
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
@@ -7,6 +7,7 @@
 //                 Claas Brüggemann <https://github.com/ClaasBrueggemann>
 //                 Kai Eichinger <https://github.com/keichinger>
 //                 Nery Ortez <https://github.com/neryortez>
+//                 Antoine Rousseau <https://github.com/antoinerousseau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -506,6 +507,12 @@ declare namespace algoliasearch {
      */
     analytics?: boolean;
     /**
+     * If set to true, enables the Click Analytics feature
+     * default false
+     * https://www.algolia.com/doc/api-reference/api-parameters/clickAnalytics/
+     */
+    clickAnalytics?: boolean;
+    /**
      * If set, tag your query with the specified identifiers
      * default: []
      * https://www.algolia.com/doc/api-reference/api-parameters/analyticsTags/
@@ -534,9 +541,16 @@ declare namespace algoliasearch {
     userData?: string | object;
 
     /**
+     * Controls how facet values are sorted.
      * https://www.algolia.com/doc/api-reference/api-parameters/sortFacetValuesBy/
      */
     sortFacetValuesBy?: 'count' | 'alpha';
+    /**
+     * Sets the languages to be used by language-specific settings and functionalities
+     * such as ignorePlurals, removeStopWords, and CJK word-detection.
+     * https://www.algolia.com/doc/api-reference/api-parameters/queryLanguages/
+     */
+    queryLanguages?: Array<'af' | 'ar' | 'az' | 'bg' | 'bn' | 'ca' | 'cs' | 'cy' | 'da' | 'de' | 'el' | 'en' | 'eo' | 'es' | 'et' | 'eu' | 'fa' | 'fi' | 'fo' | 'fr' | 'ga' | 'gl' | 'he' | 'hi' | 'hu' | 'hy' | 'id' | 'is' | 'it' | 'ja' | 'ka' | 'kk' | 'ko' | 'ku' | 'ky' | 'lt' | 'lv' | 'mi' | 'mn' | 'mr' | 'ms' | 'mt' | 'nb' | 'nl' | 'no' | 'ns' | 'pl' | 'ps' | 'pt' | 'pt-br' | 'qu' | 'ro' | 'ru' | 'sk' | 'sq' | 'sv' | 'sw' | 'ta' | 'te' | 'th' | 'tl' | 'tn' | 'tr' | 'tt' | 'uk' | 'ur' | 'uz' | 'zh'>;
   }
 
   namespace SearchForFacetValues {

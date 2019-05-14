@@ -1,4 +1,4 @@
-// Type definitions for react-sketchapp 0.13
+// Type definitions for react-sketchapp 0.16
 // Project: https://github.com/airbnb/react-sketchapp
 // Definitions by: Rico Kahler <https://github.com/ricokahler>
 //                 DomiR <https://github.com/DomiR>
@@ -59,6 +59,30 @@ export function renderToJSON(element: JSX.Element): any;
 
 // https://github.com/airbnb/react-sketchapp/blob/v0.12.1/src/types.js#L59
 export type Color = string | number;
+
+/**
+ * Additional prop type interfaces
+ */
+export interface ResizingConstraintPropTypes {
+    top?: boolean;
+    right?: boolean;
+    bottom?: boolean;
+    left?: boolean;
+    fixedHeight?: boolean;
+    fixedWidth?: boolean;
+}
+
+export interface ShadowsPropTypes {
+    shadowColor?: string | number;
+    shadowOffset?: {
+      width?: number;
+      height?: number;
+    };
+    shadowOpacity?: number;
+    shadowRadius?: number;
+    shadowSpread?: number;
+    shadowInner?: boolean;
+}
 
 /**
  * The [`StyleSheet` api uses numbers as IDs][0] to pull registered styles. The component props
@@ -163,7 +187,7 @@ export interface TextStyle extends Style {
  * DocumentProps, a Document does not take any props but children
  */
 export interface DocumentProps {
-    children?: any;
+    children?: Array<React.ReactElement<PageProps, any>> | React.ReactElement<PageProps, any>;
 }
 
 /**
@@ -177,7 +201,7 @@ export class Document extends React.Component<DocumentProps, any> {}
  */
 export interface PageProps {
     name?: string;
-    children?: any;
+    children?: React.ReactNode[] | React.ReactNode;
 }
 
 /**
@@ -195,7 +219,7 @@ export interface ArtboardProps {
      * The name to be displayed in the Sketch Layer List
      */
     name?: string;
-    children?: any;
+    children?: React.ReactNode[] | React.ReactNode;
     style?: Style | StyleReference;
 }
 /**
@@ -213,7 +237,7 @@ export type ResizeMode =
     | 'repeat'
     | 'none';
 export interface ImageProps {
-    children?: any;
+    children?: React.ReactNode[] | React.ReactNode;
     source?: ImageSource;
     style?: Style | StyleReference;
     resizeMode: ResizeMode;
@@ -243,8 +267,10 @@ export class Text extends React.Component<TextProps, any> {}
 // View
 export interface ViewProps {
     name?: string;
-    children?: any;
+    children?: React.ReactNode[] | React.ReactNode;
     style?: Style | StyleReference;
+    resizingConstraint?: ResizingConstraintPropTypes;
+    shadows?: ShadowsPropTypes[];
 }
 /** View primitives */
 export class View extends React.Component<ViewProps, any> {}
@@ -256,7 +282,7 @@ export const StyleSheet: {
      * Create an optimized `StyleSheet` reference from a style object.
      */
     create: <T extends { [key: string]: Style | TextStyle }>(
-        t: T
+        t: T,
     ) => { [P in keyof T]: StyleReference };
     /**
      * Flatten an array of style objects into one aggregated object, or look up the definition for a
@@ -267,7 +293,7 @@ export const StyleSheet: {
             | Array<Style | TextStyle | StyleReference>
             | StyleReference
             | undefined
-            | Style
+            | Style,
     ) => Style | TextStyle; // returns the expanded style or expanded style reference which conforms
     // to the `Style | TextStyle` interface
     /**
@@ -286,7 +312,7 @@ export const TextStyles: {
      */
     create: (
         options: { context: SketchContext; clearExistingStyles?: boolean },
-        styles: { [key: string]: TextStyle }
+        styles: { [key: string]: TextStyle },
     ) => any;
     /**
      * Find a stored native Sketch style object for a given JavaScript style object. You probably
@@ -316,7 +342,7 @@ export const TextStyles: {
  */
 export function makeSymbol<P>(
     node: React.ComponentClass<P> | ((props: P) => JSX.Element),
-    name?: string
+    name?: string,
 ): React.ComponentClass<P & { overrides?: { [key: string]: any } }>;
 
 /**
@@ -329,3 +355,6 @@ export const Platform: {
     Version: 1;
     select: (obj: any) => any;
 };
+
+// Svg, similar to https://github.com/react-native-community/react-native-svg
+export { default as Svg, SvgProps } from './lib/components/Svg';

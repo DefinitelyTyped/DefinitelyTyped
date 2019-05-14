@@ -402,6 +402,7 @@ map = map
 	.panTo(latLngTuple, panOptions)
 	.panBy(point)
 	.panBy(pointTuple)
+	.panBy(pointTuple, { animate: false, duration: 1, easeLinearity: 1, noMoveStart: true })
 	.setMaxBounds(latLngBounds)
 	.setMaxBounds(latLngBoundsLiteral)
 	.setMinZoom(5)
@@ -506,7 +507,10 @@ export class MyNewControl extends L.Control {
 L.marker([1, 2], {
 	icon: L.icon({
 		iconUrl: 'my-icon.png'
-	})
+	}),
+	autoPan: true,
+	autoPanPadding: [10, 20],
+	autoPanSpeed: 5,
 }).bindPopup('<p>Hi</p>');
 
 L.marker([1, 2], {

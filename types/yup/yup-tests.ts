@@ -13,7 +13,8 @@ import {
     TestOptions,
     ValidateOptions,
     NumberSchema,
-    TestContext
+    TestContext,
+    LocaleObject
 } from "yup";
 
 // reach function
@@ -148,6 +149,7 @@ mixed.default({ number: 5 });
 mixed.default(() => ({ number: 5 }));
 mixed.default();
 mixed.nullable(true);
+mixed.nullable();
 mixed.required();
 mixed.required("Foo");
 mixed.required(() => "Foo");
@@ -291,6 +293,8 @@ strSchema.isValid("hello"); // => true
 strSchema.required();
 strSchema.required("req");
 strSchema.required(() => "req");
+strSchema.length(5, "message");
+strSchema.length(5, () => "message");
 strSchema.min(5, "message");
 strSchema.min(5, () => "message");
 strSchema.max(5, "message");
@@ -380,7 +384,9 @@ arrSchema.min(5, "min");
 arrSchema.min(5, () => "min");
 arrSchema.compact((value, index, array) => value === array[index]);
 
-yup.array(); // $ExpectType ArraySchema<{}>
+const arr = yup.array();
+const top = (<T>(x?: T): T => x!)();
+const validArr: yup.ArraySchema<typeof top> = arr;
 yup.array(yup.string()); // $ExpectType ArraySchema<string>
 yup.array().of(yup.string()); // $ExpectType ArraySchema<string>
 
@@ -417,7 +423,7 @@ const description: SchemaDescription = {
     type: "type",
     label: "label",
     meta: { key: "value" },
-    tests: ["test1", "test2"],
+    tests: [{ name: "test1", params: {} }, { name: "test2", params: {} }],
     fields: { key: "value" }
 };
 
@@ -444,6 +450,33 @@ const validateOptions: ValidateOptions = {
     recursive: true,
     context: {
         key: "value"
+    }
+};
+
+const localeNotType1: LocaleObject = {
+    mixed: {
+        required: "message",
+        notType: "message"
+    }
+};
+const localeNotType2: LocaleObject = {
+    mixed: {
+        required: "message",
+        notType: () => "message"
+    }
+};
+const localeNotType3: LocaleObject = {
+    mixed: {
+        required: "message",
+        notType: (_ref) => {
+            const isCast: boolean = _ref.originalValue != null && _ref.originalValue !== _ref.value;
+            const finalPartOfTheMessage = isCast
+                ? ` (cast from the value '${_ref.originalValue}').`
+                : '.';
+
+            return `${_ref.path} must be a '${_ref.type}'` +
+                ` but the final value was: '${_ref.value}'${finalPartOfTheMessage}`;
+        }
     }
 };
 

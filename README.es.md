@@ -332,5 +332,3 @@ Es más apropiado importar este módulo utilizando la sintaxis `import foo = req
 Este proyecto es licenciado bajo la licencia MIT.
 
 Los derechos de autor de cada archivo de definición son respectivos de cada contribuidor listado al comienzo de cada archivo de definición.
-
-[![Analytics](https://ga-beacon.appspot.com/UA-47495295-4/borisyankov/DefinitelyTyped)](https://github.com/igrigorik/ga-beacon)

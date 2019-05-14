@@ -3,6 +3,7 @@
     "rules": {
         // TODO
         "dt-header": false,
+        "npm-naming": false,
         "unified-signatures": false,
         "no-declare-current-package": false,
         "no-single-declare-module": false

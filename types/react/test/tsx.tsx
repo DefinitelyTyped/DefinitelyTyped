@@ -53,6 +53,13 @@ FunctionComponent2.defaultProps = {
     <b>bar</b>
 </div>;
 
+// button type attribute
+<button type="submit">foo</button>;
+<button type="reset">foo</button>;
+<button type="button">foo</button>;
+<button type="botton">foo</button>; // $ExpectError
+<button type={"botton" as string}>foo</button>; // $ExpectError
+
 interface Props {
     hello: string;
 }
@@ -222,9 +229,7 @@ const Memoized5 = React.memo<{ test: boolean }>(
 
 <Memoized5 test/>;
 
-// for some reason the ExpectType doesn't work if the type is namespaced
-// $ExpectType NamedExoticComponent<{}>
-const Memoized6 = React.memo(props => null);
+const Memoized6: React.NamedExoticComponent<object> = React.memo(props => null);
 <Memoized6/>;
 // $ExpectError
 <Memoized6 foo/>;
@@ -315,6 +320,41 @@ const ForwardRef3 = React.forwardRef(
 
 <ForwardRef3 ref={divFnRef}/>;
 <ForwardRef3 ref={divRef}/>;
+
+const Profiler = React.unstable_Profiler;
+
+// 'id' is missing
+<Profiler />; // $ExpectError
+// 'onRender' is missing
+<Profiler id="test" />; // $ExpectError
+// 'number' is not assignable to 'string'
+<Profiler id={2} />; // $ExpectError
+
+<Profiler
+  id="test"
+  onRender={(
+    id,
+    phase,
+    actualDuration,
+    baseDuration,
+    startTime,
+    commitTime,
+    interactions
+  ) => {
+    const message = `${id} ${phase} took ${actualDuration.toFixed(2)}s actual, ${baseDuration.toFixed(2)}s base`;
+
+    const commitMessage = `commit started ${startTime.toFixed(2)} within ${commitTime}`;
+
+    const interactionsSummary = Array.from(interactions)
+      .map(interaction => {
+        return `${interaction.id}: '${interaction.name}' started at ${interaction.timestamp.toFixed(2)}`;
+      })
+      .join("\n");
+    const interactionMessage = `there were ${interactions.size} interactions:\n${interactionsSummary}`;
+  }}
+>
+  <div />
+</Profiler>;
 
 type ImgProps = React.ComponentProps<'img'>;
 // $ExpectType "async" | "auto" | "sync" | undefined
