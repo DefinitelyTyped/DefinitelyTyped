@@ -1,26 +1,17 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["dom", "es6"],
+        "lib": ["es6", "dom"],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": ["../"],
-        "paths": {
-            "@storybook/react": ["storybook__react"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": [
-        "index.d.ts",
-        "components/Marked.d.ts",
-        "registerWithPanelTitle/index.d.ts",
-        "html/index.d.ts",
-        "storybook-readme-tests.tsx"
-    ]
+    "files": ["index.d.ts", "difflib-tests.ts"]
 }

@@ -3520,6 +3520,12 @@ fp.now(); // $ExpectType number
 
 // _.negate
 {
+    const fnWithRestParameters: (...args: number[]) => boolean = anything;
+    _.negate(fnWithRestParameters); // $ExpectType (...args: number[]) => boolean
+    _(fnWithRestParameters).negate(); // $ExpectType Function<(...args: number[]) => boolean>
+    _.chain(fnWithRestParameters).negate(); // $ExpectType FunctionChain<(...args: number[]) => boolean>
+    fp.negate(fnWithRestParameters); // $ExpectType (...args: number[]) => boolean
+
     _.negate((a1: number, a2: number): boolean => true); // $ExpectType (a1: number, a2: number) => boolean
     _((a1: number, a2: number): boolean => true).negate(); // $ExpectType Function<(a1: number, a2: number) => boolean>
     _.chain((a1: number, a2: number): boolean => true).negate(); // $ExpectType FunctionChain<(a1: number, a2: number) => boolean>
@@ -5383,6 +5389,15 @@ fp.now(); // $ExpectType number
 
 // _.mapValues
 {
+    const abcObjectRecord: Record<'a' | 'b' | 'c', string> = anything;
+    // $ExpectType { a: string; b: string; c: string; }
+    _.mapValues(abcObjectRecord, (value, key, collection) => {
+        value;  // $ExpectType string
+        key; // $ExpectType string
+        collection; // $ExpectType Record<"a" | "b" | "c", string>
+        return "";
+    });
+
     const abcObjectOrNull: AbcObject | null = anything;
     const key: string = anything;
 
@@ -5394,7 +5409,7 @@ fp.now(); // $ExpectType number
         return abcObject;
     });
 
-    // $ExpectType Dictionary<string>
+    // $ExpectType { [x: string]: string; }
     _.mapValues(dictionary, (value, key, collection) => {
         value;  // $ExpectType AbcObject
         key; // $ExpectType string
@@ -5402,12 +5417,11 @@ fp.now(); // $ExpectType number
         return "";
     });
 
-    // Can"t really support NumericDictionary fully, but it at least gets treated like a Dictionary
-    // $ExpectType Dictionary<string>
+    // $ExpectType { [x: number]: string; }
     _.mapValues(numericDictionary, (value, key, collection) => {
         value;  // $ExpectType AbcObject
         key; // $ExpectType string
-        collection; // $ExpectType Dictionary<AbcObject>
+        collection; // $ExpectType NumericDictionary<AbcObject>
         return "";
     });
 
