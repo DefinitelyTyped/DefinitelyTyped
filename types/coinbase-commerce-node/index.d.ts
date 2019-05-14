@@ -360,7 +360,7 @@ type CreateCheckout = BaseCheckout & (FixedPrice | NoPrice);
  *
  * @link https://commerce.coinbase.com/docs/api/#update-a-checkout
  */
-type UpdateCheckout = Pick<CreateCheckout, 'name' | 'description' | 'requested_info'> & Partial<Pick<CreateCheckout, 'local_price'>>;
+type UpdateCheckout = Omit<CreateCheckout, 'pricing_type'>;
 
 /**
  * Checkout Resource.
