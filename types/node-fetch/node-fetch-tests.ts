@@ -7,7 +7,7 @@ import fetch, {
     FetchError
 } from "node-fetch";
 import { Agent } from "http";
-import { AbortController, AbortSignal } from 'abort-controller';
+import { AbortController, AbortSignal } from "abort-controller";
 
 function test_fetchUrlWithOptions() {
     const headers = new Headers();

@@ -12,7 +12,7 @@
 
 import { Agent } from "http";
 import { URLSearchParams } from "url";
-import { AbortSignal } from 'abort-controller';
+import { AbortSignal } from "abort-controller";
 
 export class Request extends Body {
     constructor(input: string | { href: string } | Request, init?: RequestInit);
