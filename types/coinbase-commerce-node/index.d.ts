@@ -172,7 +172,7 @@ interface FixedPrice {
 /**
  * Base charge properties.
  */
-interface ChargeBase {
+interface BaseCharge {
     /**
      * Charge name.
      * 100 characters or less.
@@ -211,14 +211,14 @@ interface ChargeBase {
  *
  * @link https://commerce.coinbase.com/docs/api/#charge-resource
  */
-type CreateCharge = ChargeBase & (FixedPrice | NoPrice);
+type CreateCharge = BaseCharge & (FixedPrice | NoPrice);
 
 /**
  * Charge creation response.
  *
  * @link https://commerce.coinbase.com/docs/api/#charge-resource
  */
-interface ChargeResource extends ChargeBase {
+interface ChargeResource extends BaseCharge {
     /**
      * Charge UUID
      */
@@ -484,11 +484,11 @@ export namespace resources {
      *
      * @link https://github.com/coinbase/coinbase-commerce-node#charges
      */
-    class Charge extends Resource<ChargeBase> {
+    class Charge extends Resource<BaseCharge> {
         /**
          * Create a charge.
          */
-        static create(chargeData: ChargeBase, callback?: Callback<Charge>): Promise<Charge>;
+        static create(chargeData: BaseCharge, callback?: Callback<Charge>): Promise<Charge>;
 
         /**
          * List charges.
