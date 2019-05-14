@@ -47,7 +47,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
   {
     selector: 'edge',
     css: {
-      'target-arrow-shape': 'triangle'
+      'target-arrow-shape': 'triangle',
+      'curve-style': 'taxi',
     }
   },
   {
@@ -57,6 +58,14 @@ const showAllStyle: cytoscape.Stylesheet[] = [
       'line-color': 'black',
       'target-arrow-color': 'black',
       'source-arrow-color': 'black'
+    }
+  },
+  {
+    selector: 'node.lesstext',
+    style: {
+      label: 'data(name)',
+      'text-wrap': 'ellipsis',
+      'text-max-width': '200',
     }
   }
 ];

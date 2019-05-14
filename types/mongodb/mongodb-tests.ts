@@ -106,8 +106,8 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
         cursor = cursor.hint('age_1');
         cursor = cursor.limit(1);
         cursor = cursor.map((result) => {});
-        cursor = cursor.max(1);
-        cursor = cursor.min(1);
+        cursor = cursor.max({ age: 130 });
+        cursor = cursor.min({ age: 18 });
         cursor = cursor.maxAwaitTimeMS(1);
         cursor = cursor.maxScan({});
         cursor = cursor.maxTimeMS(1);

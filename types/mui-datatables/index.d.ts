@@ -18,7 +18,7 @@ interface MUIDataTableStateRows {
     lookup: any;
 }
 
-interface MUIDataTableState {
+export interface MUIDataTableState {
     announceText: string | null;
     activeColumn: string | null;
     page: number;
@@ -122,7 +122,7 @@ export interface MUIDataTableOptions {
     textLabels?: MUIDataTableTextLabels;
     pagination?: boolean;
     selectableRows?: boolean;
-    IsRowSelectable?: (dataIndex: number) => boolean;
+    isRowSelectable?: (dataIndex: number) => boolean;
     resizableColumns?: boolean;
     expandableRows?: boolean;
     renderExpandableRow?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => React.ReactNode;
@@ -163,17 +163,11 @@ export interface MUIDataTableOptions {
     onFilterChange?: (changedColumn: string, filterList: any[]) => void;
     onColumnSortChange?: (changedColumn: string, direction: string) => void;
     onColumnViewChange?: (changedColumn: string, action: string) => void;
-    onTableChange?: (action: string, tableState: object) => void;
+    onTableChange?: (action: string, tableState: MUIDataTableState) => void;
     setRowProps?: (row: any[], rowIndex: number) => object;
 }
 
 export type MUIDataTableColumnDef = string | MUIDataTableColumn;
-
-export interface MuiDatatablesTableState {
-    page: number;
-    rowsPerPage: number;
-    filterList: any[];
-}
 
 export interface MUIDataTableProps {
     title: string;

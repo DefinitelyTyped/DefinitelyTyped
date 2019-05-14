@@ -1,5 +1,5 @@
-// Type definitions for nock v9.3.3
-// Project: https://github.com/node-nock/nock
+// Type definitions for nock 10.0
+// Project: https://github.com/nock/nock
 // Definitions by: bonnici <https://github.com/bonnici>
 //                 Horiuchi_H <https://github.com/horiuchi>
 //                 afharo <https://github.com/afharo>
@@ -17,38 +17,38 @@ export = nock;
 declare function nock(basePath: string | RegExp | Url, options?: nock.Options): nock.Scope;
 
 declare namespace nock {
-    export function cleanAll(): void;
+    function cleanAll(): void;
 
-    export function activate(): void;
-    export function isActive(): boolean;
-    export function isDone(): boolean;
-    export function pendingMocks(): string[];
-    export function removeInterceptor(interceptor: Interceptor | RequestOptions): boolean;
-    export function disableNetConnect(): void;
-    export function enableNetConnect(matcher?: string | RegExp): void;
+    function activate(): void;
+    function isActive(): boolean;
+    function isDone(): boolean;
+    function pendingMocks(): string[];
+    function activeMocks(): string[];
+    function removeInterceptor(interceptor: Interceptor | RequestOptions): boolean;
+    function disableNetConnect(): void;
+    function enableNetConnect(matcher?: string | RegExp): void;
 
-    export function load(path: string): Scope[];
-    export function loadDefs(path: string): NockDefinition[];
-    export function define(defs: NockDefinition[]): Scope[];
+    function load(path: string): Scope[];
+    function loadDefs(path: string): NockDefinition[];
+    function define(defs: NockDefinition[]): Scope[];
 
-    export var emitter: NodeJS.EventEmitter;
+    let emitter: NodeJS.EventEmitter;
 
-    export var recorder: Recorder;
-    export function restore(): void;
+    let recorder: Recorder;
+    function restore(): void;
 
-    export var back: NockBack;
+    let back: NockBack;
 
-    type HttpHeaders = { [key: string]: string | string[] | { (req: any, res: any, body: string): any; }; };
+    interface HttpHeaders { [key: string]: string | string[] | { (req: any, res: any, body: string): any; }; }
     type InterceptFunction = (
         uri: string | RegExp | { (uri: string): boolean; },
         requestBody?: string | RegExp | { (body: any): boolean; } | any,
         interceptorOptions?: Options
     ) => Interceptor;
-    export type ReplyCallback = (err: any, result: ReplyCallbackResult) => void;
+    type ReplyCallback = (err: any, result: ReplyCallbackResult) => void;
     type ReplyCallbackResult = string | [number, string | any] | [number, string | any, HttpHeaders] | any;
 
-
-    export interface Scope extends NodeJS.EventEmitter {
+    interface Scope extends NodeJS.EventEmitter {
         get: InterceptFunction;
         post: InterceptFunction;
         put: InterceptFunction;
@@ -64,7 +64,6 @@ declare namespace nock {
             requestBody?: string | RegExp | { (body: any): boolean; } | any,
             options?: Options
         ) => Interceptor;
-
 
         defaultReplyHeaders(headers: HttpHeaders): this;
         matchHeader(name: string, value: string | RegExp | { (value: string): boolean; }): this;
@@ -83,10 +82,11 @@ declare namespace nock {
         isDone(): boolean;
         restore(): void;
         pendingMocks(): string[];
+        activeMocks(): string[];
     }
 
-    export interface Interceptor {
-        query(params: boolean | { (querObject: any): boolean; } | any): this;
+    interface Interceptor {
+        query(params: boolean | { (queryObject: any): boolean; } | any): this;
 
         reply(responseCode: number, body?: string | any, headers?: HttpHeaders): Scope;
         reply(responseCode: number, callback: (uri: string, body: string, cb?: ReplyCallback) => ReplyCallbackResult, headers?: HttpHeaders): Scope;
@@ -94,6 +94,7 @@ declare namespace nock {
         replyWithError(errorMessage: string | any): Scope;
         replyWithFile(responseCode: number, fileName: string, headers?: HttpHeaders): Scope;
 
+        matchHeader(name: string, value: string | RegExp | { (value: string): boolean; }): this;
         basicAuth(options: { user: string; pass?: string; }): this;
 
         times(newCounter: number): this;
@@ -109,14 +110,15 @@ declare namespace nock {
         socketDelay(timeMs: number): this;
     }
 
-    export interface Options {
+    interface Options {
         allowUnmocked?: boolean;
         reqheaders?: { [key: string]: string | RegExp | { (headerValue: string): boolean; }; };
         badheaders?: string[];
         filteringScope?: { (scope: string): boolean; };
+        encodedQueryParams?: boolean;
     }
 
-    export interface RequestOptions {
+    interface RequestOptions {
         proto?: string;
         _https_?: boolean;
         hostname?: string;
@@ -126,13 +128,13 @@ declare namespace nock {
         path?: string;
     }
 
-    export interface Recorder {
+    interface Recorder {
         rec(options?: boolean | RecorderOptions): void;
         clear(): void;
         play(): string[] | NockDefinition[];
     }
 
-    export interface RecorderOptions {
+    interface RecorderOptions {
         dont_print?: boolean;
         output_objects?: boolean;
         enable_reqheaders_recording?: boolean;
@@ -140,7 +142,7 @@ declare namespace nock {
         use_separator?: boolean;
     }
 
-    export interface NockDefinition {
+    interface NockDefinition {
         scope: string;
         port?: number | string;
         method?: string;
@@ -153,9 +155,9 @@ declare namespace nock {
         options?: Options;
     }
 
-    export type NockBackMode = "wild" | "dryrun" | "record" | "lockdown";
+    type NockBackMode = "wild" | "dryrun" | "record" | "lockdown";
 
-    export interface NockBack {
+    interface NockBack {
         fixtures: string;
         setMode(mode: NockBackMode): void;
 
@@ -164,13 +166,13 @@ declare namespace nock {
         (fixtureName: string, options?: NockBackOptions): Promise<{ nockDone: () => void, context: NockBackContext }>;
     }
 
-    export interface NockBackContext {
-      scopes: Scope[];
-      assertScopesFinished(): void;
-      isLoaded: boolean;
+    interface NockBackContext {
+        scopes: Scope[];
+        assertScopesFinished(): void;
+        isLoaded: boolean;
     }
 
-    export interface NockBackOptions {
+    interface NockBackOptions {
         before?: (def: NockDefinition) => void;
         after?: (scope: Scope) => void;
         afterRecord?: (defs: NockDefinition[]) => NockDefinition[];
