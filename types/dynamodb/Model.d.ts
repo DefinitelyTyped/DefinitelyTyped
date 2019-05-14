@@ -1,6 +1,6 @@
 import { AnySchema } from 'joi';
 import * as bunyan from 'bunyan';
-import { DynamoDB } from 'aws-sdk';
+import { GetItemInput, DynamoDB } from './DynamoDB';
 
 import { Callback } from './Callback';
 import { Query } from './Query';
@@ -100,23 +100,17 @@ export namespace Model {
         (
             hashKey: string,
             rangeKey: string,
-            options: DynamoDB.GetItemInput,
+            options: object,
             callback: Callback,
         ): void;
         (
-            data: { [key: string]: any } | string,
-            options: DynamoDB.GetItemInput,
+            data: object | string,
+            options: object | string,
             callback: Callback,
         ): void;
-        (data: { [key: string]: any } | string, callback: Callback): void;
-        (
-            hashKey: string,
-            rangeKey: string,
-            options: DynamoDB.GetItemInput,
-        ): Promise<any>;
-        (hashKey: string, options?: DynamoDB.GetItemInput | string): Promise<
-            any
-        >;
+        (data: object | string, callback: Callback): void;
+        (hashKey: string, rangeKey: string, options: object): Promise<any>;
+        (hashKey: string, options?: object | string): Promise<any>;
     }
 
     interface CreateOperation {

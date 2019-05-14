@@ -1,6 +1,5 @@
 import * as dynamo from 'dynamodb';
-import Joi from 'joi';
-import AWS from 'aws-sdk';
+import * as Joi from 'joi';
 
 dynamo.AWS.config.loadFromPath('credentials.json');
 dynamo.AWS.config.update({ region: 'REGION' });
@@ -131,14 +130,6 @@ Event = dynamo.define('Event', {
 });
 
 Account.config({ tableName: 'AccountsTable' });
-
-const d = new AWS.DynamoDB();
-
-Account.config({ dynamodb: d });
-
-// or globally use custom DynamoDB instance
-// all defined models will now use this driver
-dynamo.dynamoDriver(d);
 
 Account.create(
     { email: 'foo@example.com', name: 'Foo Bar', age: 21 },

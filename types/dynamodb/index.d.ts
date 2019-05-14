@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import AWS, { DynamoDB } from 'aws-sdk';
 import { AnySchema } from 'joi';
 import * as bunyan from 'bunyan';
 import { callbackify } from 'util';
@@ -12,6 +11,7 @@ import { Readable } from 'stream';
 
 import { Callback } from './Callback';
 import { Model } from './Model';
+import { DynamoDB, Projection, DocumentClient, DynamoDbSet } from './DynamoDB';
 
 interface CreateTablesOptions {
     [key: string]: { readCapacity: number; writeCapacity: number };
@@ -28,7 +28,7 @@ interface IndexDefinition {
     rangeKey?: string;
     name: string;
     type: 'local' | 'global';
-    projection?: DynamoDB.Projection;
+    projection?: Projection;
 }
 
 export interface DefineConfig {
@@ -46,14 +46,9 @@ export interface DefineConfig {
 
 export const log: bunyan;
 export function dynamoDriver(driver?: DynamoDB): DynamoDB;
-export function documentClient(
-    docClient?: DynamoDB.DocumentClient,
-): DynamoDB.DocumentClient;
+export function documentClient(docClient?: DocumentClient): DocumentClient;
 export function reset(): void;
-export function Set(
-    data: ReadonlyArray<any>,
-    type: string,
-): DynamoDB.DocumentClient.DynamoDbSet;
+export function Set(data: ReadonlyArray<any>, type: string): DynamoDbSet;
 export function define(name: string, config: DefineConfig): typeof Model;
 export function model(name: string, model?: Model): typeof Model;
 export const createTables: CreateTables;
@@ -69,4 +64,6 @@ export const models: {
     [key: string]: typeof Model;
 };
 
-export { AWS, Model };
+export const AWS: any;
+
+export { Model };
