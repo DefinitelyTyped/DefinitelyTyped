@@ -193,7 +193,7 @@ declare module "../index" {
     }
     interface Object<T> extends LoDashImplicitWrapper<T> {
     }
-    interface Collection<T> extends LoDashImplicitWrapper<List<T>> {
+    interface Collection<T> extends LoDashImplicitWrapper<T[]> {
     }
     interface Primitive<T> extends LoDashImplicitWrapper<T> {
     }
@@ -205,9 +205,7 @@ declare module "../index" {
     }
     interface ObjectChain<T> extends LoDashExplicitWrapper<T> {
     }
-    interface CollectionChain<T> extends LoDashExplicitWrapper<List<T>> {
-    }
-    interface CollectionNullableChain<T> extends LoDashExplicitWrapper<List<T> | undefined> {
+    interface CollectionChain<T> extends LoDashExplicitWrapper<T[]> {
     }
     interface PrimitiveChain<T> extends LoDashExplicitWrapper<T> {
     }

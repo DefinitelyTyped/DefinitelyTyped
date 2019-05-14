@@ -6011,7 +6011,7 @@ fp.now(); // $ExpectType number
     });
     // $ExpectType Collection<boolean>
     _([true]).tap((value) => {
-        value; // $ExpectType ArrayLike<boolean>
+        value; // $ExpectType boolean[]
     });
     // $ExpectType Object<{ a: number; }>
     _({ a: 42 }).tap((value) => {
@@ -6024,7 +6024,7 @@ fp.now(); // $ExpectType number
     });
     // $ExpectType CollectionChain<boolean>
     _.chain([true]).tap((value) => {
-        value; // $ExpectType ArrayLike<boolean>
+        value; // $ExpectType boolean[]
     });
     // $ExpectType ObjectChain<{ a: number; }>
     _.chain({ a: 42 }).tap((value) => {
@@ -6061,7 +6061,7 @@ fp.now(); // $ExpectType number
     });
     // $ExpectType Primitive<number>
     _([true]).thru((value) => {
-        value; // $ExpectType ArrayLike<boolean>
+        value; // $ExpectType boolean[]
         return 1;
     });
     // $ExpectType Primitive<number>
@@ -6077,7 +6077,7 @@ fp.now(); // $ExpectType number
     });
     // $ExpectType PrimitiveChain<number>
     _.chain([true]).thru((value) => {
-        value; // $ExpectType ArrayLike<boolean>
+        value; // $ExpectType boolean[]
         return 1;
     });
     // $ExpectType PrimitiveChain<number>
@@ -6173,13 +6173,13 @@ fp.now(); // $ExpectType number
 // _.prototype.toJSON
 {
     _("").value(); // $ExpectType string
-    _([true]).value(); // $ExpectType ArrayLike<boolean>
+    _([true]).value(); // $ExpectType boolean[]
     _({ a: 42 }).value(); // $ExpectType { a: number; }
     _({ a: 42 }).valueOf(); // $ExpectType { a: number; }
     _({ a: 42 }).toJSON(); // $ExpectType { a: number; }
 
     _.chain("").value(); // $ExpectType string
-    _.chain([true]).value(); // $ExpectType ArrayLike<boolean>
+    _.chain([true]).value(); // $ExpectType boolean[]
     _.chain({ a: 42 }).value(); // $ExpectType { a: number; }
     _.chain({ a: 42 }).valueOf(); // $ExpectType { a: number; }
     _.chain({ a: 42 }).toJSON(); // $ExpectType { a: number; }
@@ -6599,12 +6599,12 @@ fp.now(); // $ExpectType number
 
     _(42).constant(); // $ExpectType Function<() => number>
     _("a").constant(); // $ExpectType Function<() => string>
-    _([true]).constant(); // $ExpectType Function<() => ArrayLike<boolean>>
+    _([true]).constant(); // $ExpectType Function<() => boolean[]>
     _({ a: "" }).constant(); // $ExpectType Function<() => { a: string; }>
 
     _.chain(42).constant(); // $ExpectType FunctionChain<() => number>
     _.chain("a").constant(); // $ExpectType FunctionChain<() => string>
-    _.chain([true]).constant(); // $ExpectType FunctionChain<() => ArrayLike<boolean>>
+    _.chain([true]).constant(); // $ExpectType FunctionChain<() => boolean[]>
     _.chain({ a: "" }).constant(); // $ExpectType FunctionChain<() => { a: string; }>
 
     fp.constant(42); // $ExpectType () => number
@@ -6656,7 +6656,7 @@ fp.now(); // $ExpectType number
     _.identity([""]); // $ExpectType string[]
     _.identity({ a: true }); // $ExpectType { a: boolean; }
     _(42).identity(); // $ExpectType number
-    _([""]).identity(); // $ExpectType ArrayLike<string>
+    _([""]).identity(); // $ExpectType string[]
     _({ a: true }).identity(); // $ExpectType { a: boolean; }
     _.chain(42).identity(); // $ExpectType PrimitiveChain<number>
     _.chain([""]).identity(); // $ExpectType CollectionChain<string>
