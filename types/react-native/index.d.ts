@@ -3178,7 +3178,7 @@ export interface PickerPropsIOS extends ViewProps {
      * Style to apply to each of the item labels.
      * @platform ios
      */
-    itemStyle?: StyleProp<ViewStyle>;
+    itemStyle?: StyleProp<TextStyle>;
 }
 
 export interface PickerPropsAndroid extends ViewProps {
