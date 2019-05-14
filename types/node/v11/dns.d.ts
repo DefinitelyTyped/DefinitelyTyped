@@ -289,4 +289,60 @@ declare module "dns" {
         reverse: typeof reverse;
         cancel(): void;
     }
+
+    namespace promises {
+        function getServers(): string[];
+
+        function lookup(hostname: string, family: number): Promise<{ address: string, family: number }>;
+        function lookup(hostname: string, options: LookupOneOptions): Promise<{ address: string, family: number }>;
+        function lookup(hostname: string, options: LookupAllOptions): Promise<{ addresses: LookupAddress[] }>;
+        function lookup(hostname: string, options: LookupOptions): Promise<{ address: string | LookupAddress[], family: number }>;
+        function lookup(hostname: string): Promise<{ address: string, family: number }>;
+
+        function lookupService(address: string, port: number): Promise<{ hostname: string, service: string }>;
+        
+        function resolve(hostname: string): Promise<string[]>;
+        function resolve(hostname: string, rrtype: "A"): Promise<string[]>;
+        function resolve(hostname: string, rrtype: "AAAA"): Promise<string[]>;
+        function resolve(hostname: string, rrtype: "ANY"): Promise<AnyRecord[]>;
+        function resolve(hostname: string, rrtype: "CNAME"): Promise<string[]>;
+        function resolve(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
+        function resolve(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
+        function resolve(hostname: string, rrtype: "NS"): Promise<string[]>;
+        function resolve(hostname: string, rrtype: "PTR"): Promise<string[]>;
+        function resolve(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
+        function resolve(hostname: string, rrtype: "SRV"): Promise<SrvRecord[]>;
+        function resolve(hostname: string, rrtype: "TXT"): Promise<string[][]>;
+        function resolve(hostname: string, rrtype: string): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]>;
+
+        function resolve4(hostname: string): Promise<string[]>;
+        function resolve4(hostname: string, options: ResolveWithTtlOptions): Promise<RecordWithTtl[]>;
+        function resolve4(hostname: string, options: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
+
+        function resolve6(hostname: string): Promise<string[]>;
+        function resolve6(hostname: string, options: ResolveWithTtlOptions): Promise<RecordWithTtl[]>;
+        function resolve6(hostname: string, options: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
+
+        function resolveAny(hostname: string): Promise<AnyRecord[]>;
+
+        function resolveCname(hostname: string): Promise<string[]>;
+
+        function resolveMx(hostname: string): Promise<MxRecord[]>;
+
+        function resolveNaptr(hostname: string): Promise<NaptrRecord[]>;
+
+        function resolveNs(hostname: string): Promise<string[]>;
+
+        function resolvePtr(hostname: string): Promise<string[]>;
+
+        function resolveSoa(hostname: string): Promise<SoaRecord>;
+
+        function resolveSrv(hostname: string): Promise<SrvRecord[]>;
+
+        function resolveTxt(hostname: string): Promise<string[][]>;
+
+        function reverse(ip: string): Promise<string[]>;
+
+        function setServers(servers: string[]): void;
+    }
 }
