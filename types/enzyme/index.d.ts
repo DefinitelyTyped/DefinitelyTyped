@@ -9,6 +9,7 @@
 //                 Torgeir Hovden <https://github.com/thovden>
 //                 Martin Hochel <https://github.com/hotell>
 //                 Christian Rackerseder <https://github.com/screendriver>
+//                 Mateusz Sokoła <https://github.com/mateuszsokola>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -156,7 +157,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns the outer most DOMComponent of the current wrapper.
      */
-    getDOMNode(): Element;
+    getDOMNode<T extends Element = Element>(): T;
 
     /**
      * Returns a wrapper around the node at a given index of the current wrapper.

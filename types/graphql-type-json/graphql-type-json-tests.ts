@@ -1,20 +1,26 @@
 import { GraphQLObjectType, GraphQLInputObjectType } from "graphql";
-import * as GraphQLJSON from "graphql-type-json";
+import GraphQLJSON, { GraphQLJSONObject } from "graphql-type-json";
 
 const TestType = new GraphQLObjectType({
     name: "TestType",
     fields: {
-        test: {
+        testValue: {
             type: GraphQLJSON
-        }
+        },
+        testObject: {
+          type: GraphQLJSONObject
+      }
     }
 });
 
 const TestInputType = new GraphQLInputObjectType({
     name: "TestInputType",
     fields: {
-        test: {
-            type: GraphQLJSON
-        }
+      testValue: {
+          type: GraphQLJSON
+      },
+      testObject: {
+        type: GraphQLJSONObject
     }
+  }
 });

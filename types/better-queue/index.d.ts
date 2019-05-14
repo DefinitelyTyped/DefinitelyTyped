@@ -78,6 +78,8 @@ declare namespace BetterQueue {
     | 'batch_finish'
     | 'batch_failed'
     | 'batch_progress'
+    | 'drain'
+    | 'empty'
     | 'error';
 
   type TicketEvent =
