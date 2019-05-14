@@ -209,7 +209,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=setstoragesync](http://uniapp.dcloud.io/api/storage/storage?id=setstoragesync)
      */
-    setStorageSync(key: string): any;
+    setStorageSync(key: string, value: any): any;
     /**
      * 从本地缓存中异步获取指定 key 对应的内容
      *
@@ -2292,7 +2292,7 @@ interface GetStorageOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (res: any) => void;
     /**
      * 接口调用失败的回调函数
      */
