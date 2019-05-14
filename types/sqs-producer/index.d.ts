@@ -7,9 +7,11 @@
 import { SQS } from "aws-sdk";
 
 export interface Options {
+  accessKeyId?: string;
+  batchSize?: number;
   queueUrl: string;
   region?: string;
-  batchSize?: number;
+  secretAccessKey?: string;
   sqs?: SQS;
 }
 
