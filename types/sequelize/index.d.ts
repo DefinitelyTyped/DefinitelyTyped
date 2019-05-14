@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.27.11
+// Type definitions for Sequelize 4.28.0
 // Project: http://sequelizejs.com, https://github.com/sequelize/sequelize
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -17,6 +17,7 @@
 //                 Antoine Boisadam <https://github.com/Antoine38660>
 //                 Dima Smirnov <https://github.com/smff>
 //                 Duy Truong <https://github.com/truongkhanhduy95>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -4337,6 +4338,7 @@ declare namespace sequelize {
         /**
          * Adds a new index to a table
          */
+        addIndex(tableName: string | Object, options: DefineIndexOptions & { fields: string[] }, rawTablename?: string): Promise<void>;
         addIndex(tableName: string | Object, attributes: string[], options?: DefineIndexOptions,
             rawTablename?: string): Promise<void>;
 
@@ -5001,16 +5003,33 @@ declare namespace sequelize {
 
     }
 
+    type IndexType = 'UNIQUE' | 'FULLTEXT' | 'SPATIAL';
+
     interface DefineIndexOptions {
         /**
          * The index type
          */
-        indicesType?: 'UNIQUE' | 'FULLTEXT' | 'SPATIAL';
+        indicesType?: IndexType;
+
+        /**
+         * The index type
+         */
+        type?: IndexType;
 
         /**
          * The name of the index. Default is __
          */
         indexName?: string;
+
+        /**
+         * Create a unique index
+         */
+        unique?: boolean;
+
+        /**
+         * The name of the index. Default is Default is <table>_<attr1>_<attr2>
+         */
+        name?: string;
 
         /**
          * For FULLTEXT columns set your parser
@@ -5026,6 +5045,16 @@ declare namespace sequelize {
          * A function that receives the sql query, e.g. console.log
          */
         logging?: Function;
+
+        /**
+         * Create an unique index
+         */
+        using?: string;
+
+        /**
+         * Index operator
+         */
+        operator?: string;
 
         /**
          * A hash of attributes to limit your index(Filtered Indexes - MSSQL & PostgreSQL only)

@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "hapi-auth-jwt2-tests.ts"
+        "sc-errors-tests.ts"
     ]
 }

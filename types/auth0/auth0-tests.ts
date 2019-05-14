@@ -388,14 +388,12 @@ management.sendEmailVerification({
 // Roles
 management.getRoles().then(roles => console.log(roles));
 management.getRoles((err, data) => console.log(data));
-management.getRoles({id: "role_id"}).then(roles => console.log(roles));
-management.getRoles({id: "role_id"}, (err, data) => console.log(data));
-management.getRoles({id: "role_id", name_filter: "Admin"}).then(roles => console.log(roles));
-management.getRoles({id: "role_id", name_filter: "Admin"}, (err, data) => console.log(data));
-management.getRoles({id: "role_id", per_page: 12}).then(roles => console.log(roles));
-management.getRoles({id: "role_id", per_page: 12}, (err, data) => console.log(data));
-management.getRoles({id: "role_id", include_totals: true}).then(rolePage => console.log(rolePage));
-management.getRoles({id: "role_id", include_totals: true}, (err, data) => console.log(data));
+management.getRoles({name_filter: "Admin"}).then(roles => console.log(roles));
+management.getRoles({name_filter: "Admin"}, (err, data) => console.log(data));
+management.getRoles({per_page: 12}).then(roles => console.log(roles));
+management.getRoles({per_page: 12}, (err, data) => console.log(data));
+management.getRoles({include_totals: true}).then(rolePage => console.log(rolePage));
+management.getRoles({include_totals: true}, (err, data) => console.log(data));
 
 management.createRole({
     name: "Admin",

@@ -3668,7 +3668,7 @@ declare namespace cytoscape {
              * Smaller node shapes, like triangle, will not be as aesthetically pleasing.
              * Also note that edge arrows are unsupported for haystack edges.
              */
-            "curve-style"?: "haystack" | "bezier" | "unbundled" | "segments";
+            "curve-style"?: "haystack" | "straight" | "bezier" | "unbundled-bezier" | "segments" | "taxi";
             /**
              * The colour of the edge’s line.
              */
@@ -3939,7 +3939,7 @@ declare namespace cytoscape {
              *  * "none" for no wrapping (including manual newlines ) or
              *  * "wrap" for manual and/ or autowrapping.
              */
-            "text-wrap": "none" | "wrap";
+            "text-wrap": "none" | "wrap" | "ellipsis";
             /**
              * The maximum width for wrapped text,
              * applied when "text-wrap" is set to wrap.
@@ -4080,7 +4080,7 @@ declare namespace cytoscape {
             /**
              * The shape to use for the label background.
              */
-            "text-background-shape": "ractangle" | "roundrectangle";
+            "text-background-shape": "rectangle" | "roundrectangle";
 
             /**
              * Border:

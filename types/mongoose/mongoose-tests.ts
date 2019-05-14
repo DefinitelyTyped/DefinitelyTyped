@@ -2017,8 +2017,8 @@ const addFieldsAgg: mongoose.Aggregate<any> = aggregatePrototypeGraphLookup.addF
 
 MyModel.findById('foo').then((doc: mongoose.Document) => {
   const a: boolean = doc.isDirectSelected('bar');
-  const b: boolean = doc.isDeleted();
-  doc.isDeleted(true);
+  const b: boolean = doc.$isDeleted();
+  doc.$isDeleted(true);
 });
 
 MyModel.translateAliases({});
