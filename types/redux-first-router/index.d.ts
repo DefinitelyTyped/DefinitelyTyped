@@ -35,7 +35,7 @@ export type RouteThunk<TState = any> = (
 export type RouteObject<TKeys = {}, TState = any> = TKeys & {
     capitalizedWords?: boolean;
     navKey?: string;
-    path: string;
+    path?: string;
     thunk?: RouteThunk<TState>;
     fromPath?(path: string, key?: string): string;
     toPath?(param: string, key?: string): string;
