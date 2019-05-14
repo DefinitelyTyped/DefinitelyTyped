@@ -1,4 +1,4 @@
-// Type definitions for truffle-privatekey-provider 1.1.0
+// Type definitions for truffle-privatekey-provider 1.1
 // Project: https://github.com/nosuchip/truffle-privatekey-provider
 // Definitions by: Miguel Mota <https://github.com/miguelmota>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,5 +15,4 @@ declare class PrivateKeyProvider {
     send(...args: any[]): any;
 
     sendAsync(...args: any[]): void;
-
 }
