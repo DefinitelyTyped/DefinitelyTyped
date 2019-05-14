@@ -1,4 +1,4 @@
-// Type definitions for okta-vue 1.0
+// Type definitions for okta-vue 1.1
 // Project: https://github.com/okta/okta-oidc-js/tree/master/packages/okta-vue, https://github.com/okta/okta-oidc-js
 // Definitions by: Mike Dodge <https://github.com/innovation-team>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,6 +14,8 @@ declare namespace OktaVuePlugin {
 		redirect_uri: string;
         scope?: string;
         response_type?: string;
+        storage?: 'localStorage' | 'sessionStorage' | 'cookie';
+        auto_renew?: boolean;
 	}
 
     interface OktaOpenIDOptions {
@@ -42,7 +44,7 @@ declare module 'vue/types/vue' {
             getIdToken(): Promise<string>;
             getAccessToken(): Promise<string>;
             getUser(): Promise<any>;
-            authRedirectGuardd(): Promise<NavigationGuard>;
+            authRedirectGuard(): Promise<NavigationGuard>;
         };
     }
 }

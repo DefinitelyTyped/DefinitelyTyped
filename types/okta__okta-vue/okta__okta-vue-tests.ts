@@ -6,7 +6,9 @@ Vue.use(Auth, {
   issuer: 'https://{yourOktaDomain}.com/oauth2/default',
   client_id: '{client_id}',
   redirect_uri: 'http://localhost:{port}/implicit/callback',
-  scope: 'openid profile email'
+  scope: 'openid profile email',
+  storage: 'cookie',
+  auto_renew: false
 });
 
 Vue.use(Router);
