@@ -7,6 +7,13 @@ const producer = Producer.create({
   region: 'eu-west-1'
 });
 
+const producer2 = Producer.create({
+  accessKeyId: 'AKIAIOSFODNN7EXAMPLE',
+  queueUrl: 'https://sqs.eu-west-1.amazonaws.com/account-id/queue-name',
+  region: 'eu-west-1',
+  secretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+});
+
 // send messages to the queue
 producer.send(['msg1', 'msg2'], err => {
   if (err) console.log(err);
