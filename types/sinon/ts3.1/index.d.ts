@@ -218,22 +218,22 @@ declare namespace Sinon {
          * Returns true if the spy was called before @param anotherSpy
          * @param anotherSpy
          */
-        calledBefore(anotherSpy: SinonSpy<any[]>): boolean;
+        calledBefore(anotherSpy: SinonSpy): boolean;
         /**
          * Returns true if the spy was called after @param anotherSpy
          * @param anotherSpy
          */
-        calledAfter(anotherSpy: SinonSpy<any[]>): boolean;
+        calledAfter(anotherSpy: SinonSpy): boolean;
         /**
          * Returns true if spy was called before @param anotherSpy, and no spy calls occurred between spy and @param anotherSpy.
          * @param anotherSpy
          */
-        calledImmediatelyBefore(anotherSpy: SinonSpy<any[]>): boolean;
+        calledImmediatelyBefore(anotherSpy: SinonSpy): boolean;
         /**
          * Returns true if spy was called after @param anotherSpy, and no spy calls occurred between @param anotherSpy and spy.
          * @param anotherSpy
          */
-        calledImmediatelyAfter(anotherSpy: SinonSpy<any[]>): boolean;
+        calledImmediatelyAfter(anotherSpy: SinonSpy): boolean;
         /**
          * Creates a spy that only records calls when the received arguments match those passed to withArgs.
          * This is useful to be more expressive in your assertions, where you can access the spy with the same call.
@@ -1157,32 +1157,32 @@ declare namespace Sinon {
          * Passes if spy was never called
          * @param spy
          */
-        notCalled(spy: SinonSpy<any[]>): void;
+        notCalled(spy: SinonSpy): void;
         /**
          * Passes if spy was called at least once.
          */
-        called(spy: SinonSpy<any[]>): void;
+        called(spy: SinonSpy): void;
         /**
          * Passes if spy was called once and only once.
          */
-        calledOnce(spy: SinonSpy<any[]>): void;
+        calledOnce(spy: SinonSpy): void;
         /**
          * Passes if spy was called exactly twice.
          */
-        calledTwice(spy: SinonSpy<any[]>): void;
+        calledTwice(spy: SinonSpy): void;
         /**
          * Passes if spy was called exactly three times.
          */
-        calledThrice(spy: SinonSpy<any[]>): void;
+        calledThrice(spy: SinonSpy): void;
         /**
          * Passes if spy was called exactly num times.
          */
-        callCount(spy: SinonSpy<any[]>, count: number): void;
+        callCount(spy: SinonSpy, count: number): void;
         /**
          * Passes if provided spies were called in the specified order.
          * @param spies
          */
-        callOrder(...spies: Array<SinonSpy<any>>): void;
+        callOrder(...spies: SinonSpy[]): void;
         /**
          * Passes if spy was ever called with obj as its this value.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledOn(spy.firstCall, arg1, arg2, ...);.
@@ -1191,7 +1191,7 @@ declare namespace Sinon {
         /**
          * Passes if spy was always called with obj as its this value.
          */
-        alwaysCalledOn(spy: SinonSpy<any[]>, obj: any): void;
+        alwaysCalledOn(spy: SinonSpy, obj: any): void;
         /**
          * Passes if spy was called with the provided arguments.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWith(spy.firstCall, arg1, arg2, ...);.
@@ -1271,15 +1271,15 @@ declare namespace Sinon {
         /**
          * Like threw, only required for all calls to the spy.
          */
-        alwaysThrew(spy: SinonSpy<any[]>): void;
+        alwaysThrew(spy: SinonSpy): void;
         /**
          * Like threw, only required for all calls to the spy.
          */
-        alwaysThrew(spy: SinonSpy<any[]>, exception: string): void;
+        alwaysThrew(spy: SinonSpy, exception: string): void;
         /**
          * Like threw, only required for all calls to the spy.
          */
-        alwaysThrew(spy: SinonSpy<any[]>, exception: any): void;
+        alwaysThrew(spy: SinonSpy, exception: any): void;
         /**
          * Uses sinon.match to test if the arguments can be considered a match.
          */
