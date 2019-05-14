@@ -56,6 +56,6 @@ proxy('www.google.com', {
     parseReqBody: true
 });
 
-let proxyOptions: proxy.ProxyOptions;
+const proxyOptions: proxy.ProxyOptions = {};
 
 app.use('/proxy/:port', proxy((req) => 'localhost:' + req.params.port));
