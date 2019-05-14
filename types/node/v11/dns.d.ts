@@ -300,7 +300,7 @@ declare module "dns" {
         function lookup(hostname: string): Promise<{ address: string, family: number }>;
 
         function lookupService(address: string, port: number): Promise<{ hostname: string, service: string }>;
-        
+
         function resolve(hostname: string): Promise<string[]>;
         function resolve(hostname: string, rrtype: "A"): Promise<string[]>;
         function resolve(hostname: string, rrtype: "AAAA"): Promise<string[]>;
