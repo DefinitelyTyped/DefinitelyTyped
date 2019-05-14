@@ -8,15 +8,15 @@ import { VueConstructor, PluginFunction } from 'vue';
 import { NavigationGuard } from 'vue-router';
 
 declare namespace OktaVuePlugin {
-	interface OktaVueOptions {
-		issuer: string;
-		client_id: string;
-		redirect_uri: string;
+    interface OktaVueOptions {
+        issuer: string;
+        client_id: string;
+        redirect_uri: string;
         scope?: string;
         response_type?: string;
         storage?: 'localStorage' | 'sessionStorage' | 'cookie';
         auto_renew?: boolean;
-	}
+    }
 
     interface OktaOpenIDOptions {
         sessionToken?: string;
@@ -27,7 +27,7 @@ declare namespace OktaVuePlugin {
         nonce?: string;
     }
 
-	function install(vm: VueConstructor, options: OktaVueOptions): PluginFunction<VueConstructor>;
+    function install(vm: VueConstructor, options: OktaVueOptions): PluginFunction<VueConstructor>;
     function handleCallback(): VueConstructor;
 }
 declare function OktaVuePlugin(): PluginFunction<VueConstructor>;
