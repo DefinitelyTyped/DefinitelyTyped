@@ -18,6 +18,14 @@
     },
     "files": [
         "index.d.ts",
+        "dist/globalize.d.ts",
+        "dist/globalize/currency.d.ts",
+        "dist/globalize/date.d.ts",
+        "dist/globalize/message.d.ts",
+        "dist/globalize/number.d.ts",
+        "dist/globalize/plural.d.ts",
+        "dist/globalize/relative-time.d.ts",
+        "dist/globalize/unit.d.ts",
         "globalize-tests.ts"
     ]
 }

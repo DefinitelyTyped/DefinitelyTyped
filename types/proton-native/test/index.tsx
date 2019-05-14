@@ -48,7 +48,7 @@ class RadioTest extends React.Component {
       return (
         <App>
             <Window title="Example" size={{w: 500, h: 500}}>
-                <RadioButtons enabled={true}>
+                <RadioButtons onSelect={selected => selected.toFixed()} enabled={true}>
                     <RadioButtons.Item>Option 1</RadioButtons.Item>
                     <RadioButtons.Item>Option 2</RadioButtons.Item>
                 </RadioButtons>
@@ -118,9 +118,43 @@ class GridTest extends React.Component {
                     >
                         <Form><ColorButton label={"Test"}/></Form>
                     </Box>
+                    <Box
+                        align={{h: false, v: false}}
+                        row={2}
+                        column={0}
+                        span={{x: 2, y: 1}}
+                    >
+                        <Form><ColorButton label={"Spans Two Columns"}/></Form>
+                    </Box>
                 </Grid>
                 </Window>
             </App>
+        );
+    }
+}
+
+class AreaTest extends React.Component {
+    render() {
+        return (
+            <Area>
+                <Area.Group width={30} height={20}>
+                    <Area.Rectangle height={10} width={20} x={30} y={40} />
+                    <Area.Path d="test" fillMode="nonzero" />
+                    <Area.Text
+                        style={{
+                            fontSize: 30,
+                            fontWeight: "maximum",
+                            textAlign: "center",
+                            textStretch: "ultraCondensed",
+                        }}
+                    >
+                        Parent text
+                        <Area.Text>
+                            Nested Text
+                        </Area.Text>
+                    </Area.Text>
+                </Area.Group>
+            </Area>
         );
     }
 }

@@ -1,4 +1,4 @@
-// Type definitions for Google Tag Manager API v2 2.0
+// Type definitions for non-npm package Google Tag Manager API v2 2.0
 // Project: https://developers.google.com/tag-manager/api/v2/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

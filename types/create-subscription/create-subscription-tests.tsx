@@ -105,15 +105,7 @@ declare const wrongPromise: Promise<number>;
 </PromiseSubscription>;
 
 // $ExpectError
-const MismatchSubscription = createSubscription({
-    getCurrentValue: (a: number) => null,
-    subscribe: (a: string, callback) => (() => undefined)
-});
+const MismatchSubscription = createSubscription({ getCurrentValue: (a: number) => null, subscribe: (a: string, callback) => (() => undefined) });
 
 // $ExpectError
-const NoUnsubscribe = createSubscription({
-    getCurrentValue: (a: number) => a,
-    subscribe: (a: number, callback) => {
-        // oops, should've returned a callback here
-    }
-});
+const NoUnsubscribe = createSubscription({ getCurrentValue: (a: number) => a, subscribe: (a: number, callback) => { /* oops, should've returned a callback here */ }});

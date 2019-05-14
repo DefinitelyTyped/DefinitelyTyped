@@ -1,6 +1,7 @@
-// Type definitions for cote 0.14
+// Type definitions for cote 0.19
 // Project: https://github.com/dashersw/cote#readme
 // Definitions by: makepost <https://github.com/makepost>
+//                 Labat Robin <https://github.com/roblabat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter2 } from "eventemitter2";
@@ -55,7 +56,7 @@ export class Requester extends Component {
      * @param event Request.
      * @param callback Function to execute after getting a result.
      */
-    send<T extends Event>(event: T, callback: (result: any) => void): void;
+    send<T extends Event>(event: T, callback: (error: any, result: any) => void): void;
 }
 
 /**
@@ -100,7 +101,7 @@ export class Responder extends Component {
     on<T extends Event>(
         type: string | string[],
         listener: (
-            ((event: T, callback: (result: any) => void) => void) |
+            ((event: T, callback: (error: any, result: any) => void) => void) |
             ((event: T) => Promise<any>)
         )
     ): this;
@@ -114,6 +115,11 @@ export interface ResponderAdvertisement extends Advertisement {
      * Request types that a Responder can listen to.
      */
     respondsTo?: string[];
+
+    /**
+     * Advertisement attribute that lets you target a subgroup of responders using the __subset property of a request.
+     */
+    subset?: string;
 }
 
 export class Publisher extends Component {

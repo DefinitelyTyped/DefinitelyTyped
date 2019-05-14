@@ -3,7 +3,9 @@
         "index.d.ts",
         "test/index.ts",
         "test/tsx.tsx",
-        "test/cssProperties.tsx"
+        "test/cssProperties.tsx",
+        "test/managedAttributes.tsx",
+        "test/hooks.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -13,7 +15,7 @@
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

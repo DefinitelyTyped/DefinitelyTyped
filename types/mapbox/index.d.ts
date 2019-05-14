@@ -1,6 +1,7 @@
 // Type definitions for Mapbox 1.6
-// Project: https://www.mapbox.com/mapbox.js/
+// Project: https://www.mapbox.com/mapbox.js/, https://github.com/mapbox/mapbox-sdk-js
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen>
+//                 Florian Luccioni <https://github.com/Fluccioni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -152,6 +153,20 @@ declare global {
 			 */
 			getGeoJSON(): any;
 		}
+
+        // StyleLayer
+        //////////////////////////////////////////////////////////////////////
+
+        /**
+         * L.mapbox.styleLayer provides a way to integrate styles created with Mapbox Studio into your map.
+         */
+        function styleLayer(url: string, options?: StyleLayerOptions): StyleLayer;
+
+        interface StyleLayerOptions extends Leaflet.TileLayerOptions {
+            sanitizer?(template: string): string;
+        }
+
+        type StyleLayer = Leaflet.TileLayer;
 
 		//////////////////////////////////////////////////////////////////////
 		////////////////////////////// GEOCODING /////////////////////////////

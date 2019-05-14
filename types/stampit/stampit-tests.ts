@@ -1,6 +1,6 @@
 import stampit = require('stampit');
 
-const a = stampit().init((options) => {
+const a = stampit().init(function(options) {
     const a = options.args[0];
     this.getA = () => {
         return a;
@@ -142,3 +142,22 @@ t.thing; // 'initialized',
 t.foo(); // 'foo',
 
 t.bar(); // 'bar'
+
+interface SomeStampInstance {
+    a: string;
+    b: string;
+}
+
+// Test import of stamp type
+interface SomeStamp extends stampit.Stamp {
+    (params: { a: number; b: boolean}): SomeStampInstance;
+}
+
+const SomeStamp = stampit()
+    .init(function(params: { a: number; b: boolean}) {
+        this.a = '' + a;
+        this.b = '' + b;
+    }) as SomeStamp;
+
+SomeStamp({ a: 1, b: false }); // $ExpectType SomeStampInstance
+SomeStamp({ a: 1, b: false }).a; // $ExpectType string

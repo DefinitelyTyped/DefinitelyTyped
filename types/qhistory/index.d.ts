@@ -1,8 +1,8 @@
 // Type definitions for qhistory 1.0
 // Project: https://github.com/pshrmn/qhistory#readme
-// Definitions by: Diogo Franco <https://github.com/Kovensky>
+// Definitions by: Jessica Franco <https://github.com/Jessidhia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 export as namespace qhistory;
 

@@ -17,12 +17,9 @@ interface PagerState {
 }
 
 class Pager extends React.Component<{}, PagerState> {
-	constructor() {
-		super({});
-		this.state = {
-			pageIndex: 0
-		};
-	}
+	state = {
+		pageIndex: 0
+	};
 	setPageIndex = (pageIndex: number) => {
 		this.setState({ pageIndex });
 	}

@@ -1,8 +1,10 @@
-// Type definitions for react-image-crop 3.0
+// Type definitions for react-image-crop 7.0
 // Project: https://github.com/DominicTobias/react-image-crop
 // Definitions by: Daniela Yassuda <https://github.com/danielasy>
+//                 Elias Chaaya <https://github.com/chaaya>
+//                 Søren Englund <https://github.com/englund0110>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component, CSSProperties, ReactNode } from 'react';
 
@@ -11,17 +13,10 @@ export as namespace ReactCrop;
 declare namespace ReactCrop {
     interface Crop {
         aspect?: number;
-        x: number;
-        y: number;
+        x?: number;
+        y?: number;
         width?: number;
         height?: number;
-    }
-
-    interface PixelCrop {
-        x: number;
-        y: number;
-        width: number;
-        height: number;
     }
 
     interface ReactCropProps {
@@ -33,21 +28,24 @@ declare namespace ReactCrop {
         maxWidth?: number;
         maxHeight?: number;
         keepSelection?: boolean;
-        onChange: (crop: Crop, pixelCrop: PixelCrop) => void;
-        onComplete?: (crop: Crop, pixelCrop: PixelCrop) => void;
+        onChange: (crop: Crop) => void;
+        onComplete?: (crop: Crop) => void;
         onImageLoaded?: (target: HTMLImageElement) => void;
         onDragStart?: () => void;
         onDragEnd?: () => void;
         disabled?: boolean;
-        crossorigin?: string;
+        crossorigin?: 'anonymous' | 'use-credentials';
         children?: ReactNode;
         style?: CSSProperties;
         imageStyle?: CSSProperties;
+        onImageError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
+        className?: string;
+        locked?: boolean;
+        renderSelectionAddon?: (state: any) => ReactNode;
     }
 
-    function getPixelCrop(image: HTMLImageElement, percentCrop: Crop): Crop;
-    function makeAspectCrop(crop: Crop, imageAspect: number): Crop;
-    function containCrop(crop: Crop, imageAspect: number): Crop;
+    function makeAspectCrop(crop: Crop, image: HTMLImageElement): Crop;
+    function containCrop(previousCrop: Crop, crop: Crop, image: HTMLImageElement): Crop;
 }
 
 declare class ReactCrop extends Component<ReactCrop.ReactCropProps> {
@@ -62,6 +60,7 @@ declare class ReactCrop extends Component<ReactCrop.ReactCropProps> {
         width: number,
         height: number,
     };
+    resolveCrop: (crop: ReactCrop.Crop, image: HTMLImageElement) => ReactCrop.Crop;
     dragCrop: () => ReactCrop.Crop;
     resizeCrop: () => ReactCrop.Crop;
     straightenYPath: (clientX: number) => number;

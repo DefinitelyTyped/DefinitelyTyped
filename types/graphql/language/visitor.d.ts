@@ -33,9 +33,9 @@ export type VisitFn<TAnyNode, TVisitedNode = TAnyNode> = (
     parent: TAnyNode | ReadonlyArray<TAnyNode> | undefined,
     // The key path to get to this node from the root node.
     path: ReadonlyArray<string | number>,
-    // All nodes and Arrays visited before reaching this node.
+    // All nodes and Arrays visited before reaching parent of this node.
     // These correspond to array indices in `path`.
-    // Note: ancestors includes arrays which contain the visited node.
+    // Note: ancestors includes arrays which contain the parent of visited node.
     ancestors: ReadonlyArray<TAnyNode | ReadonlyArray<TAnyNode>>
 ) => any;
 

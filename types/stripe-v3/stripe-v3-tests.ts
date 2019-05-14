@@ -6,6 +6,7 @@ declare function it(desc: string, fn: () => void): void;
 describe("Stripe", () => {
     it("should excercise all Stripe API", () => {
         const stripe = Stripe('public-key');
+        const stripeWithBetaOption = Stripe('public-key', { betas: ['beta-feature'] });
         const elements = stripe.elements();
         const style = {
             base: {
@@ -14,6 +15,7 @@ describe("Stripe", () => {
                 fontFamily: 'Roboto, "Helvetica Neue", sans-serif',
                 fontSmoothing: 'antialiased',
                 fontSize: '16px',
+                fontWeight: 'bold',
                 '::placeholder': {
                     color: '#aab7c4'
                 }
@@ -27,6 +29,9 @@ describe("Stripe", () => {
         card.mount(document.createElement('div'));
         card.on('ready', () => {
             console.log('ready');
+        });
+        card.on('change', (resp: stripe.elements.ElementChangeResponse) => {
+            console.log(resp.elementType);
         });
         card.on('change', (resp: stripe.elements.ElementChangeResponse) => {
             console.log(resp.brand);
@@ -180,6 +185,7 @@ describe("Stripe v2 & v3", () => {
                 fontFamily: 'Roboto, "Helvetica Neue", sans-serif',
                 fontSmoothing: 'antialiased',
                 fontSize: '16px',
+                fontWeight: 500,
                 '::placeholder': {
                     color: '#aab7c4'
                 }
@@ -208,5 +214,17 @@ describe("Stripe v2 & v3", () => {
             (error: stripe.Error) => {
                 console.error(error);
             });
+
+        elements.create('iban', {
+            supportedCountries: ['SEPA'],
+            placeholderCountry: 'AT'
+        });
+        const idealBank = elements.create('idealBank');
+        idealBank.on('change', (resp: stripe.elements.ElementChangeResponse) => {
+            if (resp.value && typeof resp.value !== 'object') {
+                console.log(resp.value.length);
+                const string: string = resp.value;
+            }
+        });
     });
 });

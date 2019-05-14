@@ -11,6 +11,7 @@
 *.csproj
 *.map
 *.swp
+*.code-workspace
 .DS_Store
 
 _Resharper.DefinitelyTyped
@@ -46,6 +47,7 @@ npm-debug.log
 .settings/launch.json
 .vs
 .vscode
+.history
 
 # yarn
 yarn.lock

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import ParserStream from "parse5-parser-stream";
+import * as ParserStream from "parse5-parser-stream";
 
 /**
  * Converts plain text files into HTML document as required by [HTML specification](https://html.spec.whatwg.org/#read-text).
@@ -28,6 +28,10 @@ import ParserStream from "parse5-parser-stream";
  * file.pipe(converter);
  * ```
  */
-export default class PlainTextConversionStream<TDocument> extends ParserStream<
+declare class PlainTextConversionStream<TDocument> extends ParserStream<
     TDocument
 > {}
+
+declare namespace PlainTextConversionStream {}
+
+export = PlainTextConversionStream;

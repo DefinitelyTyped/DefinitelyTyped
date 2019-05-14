@@ -47,9 +47,9 @@ declare namespace Mail {
         /** optional content type for the attachment, if not set will be derived from the filename property */
         contentType?: string;
         /** optional transfer encoding for the attachment, if not set it will be derived from the contentType property. Example values: quoted-printable, base64. If it is unset then base64 encoding is used for the attachment. If it is set to false then previous default applies (base64 for most, 7bit for text). */
-        contentTransferEncoding?: string;
+        contentTransferEncoding?: '7bit' | 'base64' | 'quoted-printable' | false;
         /** optional content disposition type for the attachment, defaults to ‘attachment’ */
-        contentDisposition?: string;
+        contentDisposition?: 'attachment' | 'inline';
         /** is an object of additional headers */
         headers?: Headers;
         /** an optional value that overrides entire node content in the mime message. If used then all other options set for this node are ignored. */
@@ -137,6 +137,7 @@ declare namespace Mail {
         dkim?: DKIM.Options;
         /** method to normalize header keys for custom caseing */
         normalizeHeaderKey?(key: string): string;
+        priority?: "high"|"normal"|"low";
     }
 
     type PluginFunction = (mail: MailMessage, callback: (err?: Error | null) => void) => void;
@@ -165,7 +166,7 @@ declare class Mail extends EventEmitter {
     verify(callback: (err: Error | null, success: true) => void): void;
     verify(): Promise<true>;
 
-    use(step: string, plugin: Mail.PluginFunction): void; // TODO Plugin?
+    use(step: string, plugin: Mail.PluginFunction): this;
 
     /** Sends an email using the preselected transport object */
     sendMail(mailOptions: Mail.Options, callback: (err: Error | null, info: SentMessageInfo) => void): void;

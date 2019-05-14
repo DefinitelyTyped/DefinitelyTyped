@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2019-04-26
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,8 +10,7 @@ declare namespace GoogleAppsScript {
   export module JDBC {
     /**
      * The JDBC service allows scripts to connect to Google Cloud SQL, MySQL,
-     *  Microsoft SQL Server, and Oracle databases. For more information, see the
-     *  guide to JDBC.
+     * Microsoft SQL Server, and Oracle databases. For more information, see the guide to JDBC.
      */
     export interface Jdbc {
       getCloudSqlConnection(url: string): JdbcConnection;
@@ -29,7 +28,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC Array. For documentation of this class, see java.sql.Array.
+     * A JDBC Array. For documentation of this class, see java.sql.Array
+     * .
      */
     export interface JdbcArray {
       free(): void;
@@ -42,7 +42,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC Blob. For documentation of this class, see java.sql.Blob.
+     * A JDBC Blob. For documentation of this class, see java.sql.Blob
+     * .
      */
     export interface JdbcBlob {
       free(): void;
@@ -61,10 +62,7 @@ declare namespace GoogleAppsScript {
 
     /**
      * A JDBC CallableStatement. For documentation of this class, see
-     *  java.sql.CallableStatement.
-     * See also
-     *
-     *  CallableStatement
+     * java.sql.CallableStatement.
      */
     export interface JdbcCallableStatement {
       addBatch(): void;
@@ -234,7 +232,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC Clob. For documentation of this class, see java.sql.Clob.
+     * A JDBC Clob. For documentation of this class, see java.sql.Clob
+     * .
      */
     export interface JdbcClob {
       free(): void;
@@ -252,7 +251,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC Connection. For documentation of this class, see java.sql.Connection.
+     * A JDBC Connection. For documentation of this class, see
+     * java.sql.Connection.
      */
     export interface JdbcConnection {
       clearWarnings(): void;
@@ -299,8 +299,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC DatabaseMetaData. For documentation of this class, see
-     *  java.sql.DatabaseMetaData.
+     * A JDBC database metadata object. For documentation of this class, see
+     * java.sql.DatabaseMetaData.
      */
     export interface JdbcDatabaseMetaData {
       allProceduresAreCallable(): boolean;
@@ -478,7 +478,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC Date. For documentation of this class, see java.sql.Date.
+     * A JDBC Date. For documentation of this class, see java.sql.Date
+     * .
      */
     export interface JdbcDate {
       after(when: JdbcDate): boolean;
@@ -495,7 +496,7 @@ declare namespace GoogleAppsScript {
 
     /**
      * A JDBC ParameterMetaData. For documentation of this class, see
-     *  java.sql.ParameterMetaData.
+     * java.sql.ParameterMetaData.
      */
     export interface JdbcParameterMetaData {
       getParameterClassName(param: Integer): string;
@@ -511,7 +512,7 @@ declare namespace GoogleAppsScript {
 
     /**
      * A JDBC PreparedStatement. For documentation of this class, see
-     *  java.sql.PreparedStatement.
+     * java.sql.PreparedStatement.
      */
     export interface JdbcPreparedStatement {
       addBatch(): void;
@@ -603,7 +604,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC ResultSet. For documentation of this class, see java.sql.ResultSet.
+     * A JDBC ResultSet. For documentation of this class, see java.sql.ResultSet
+     * .
      */
     export interface JdbcResultSet {
       absolute(row: Integer): boolean;
@@ -749,7 +751,7 @@ declare namespace GoogleAppsScript {
 
     /**
      * A JDBC ResultSetMetaData. For documentation of this class, see
-     *  java.sql.ResultSetMetaData.
+     * java.sql.ResultSetMetaData.
      */
     export interface JdbcResultSetMetaData {
       getCatalogName(column: Integer): string;
@@ -776,14 +778,16 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC RowId. For documentation of this class, see java.sql.RowId.
+     * A JDBC RowId. For documentation of this class, see java.sql.RowId
+     * .
      */
     export interface JdbcRowId {
       getBytes(): Byte[];
     }
 
     /**
-     * A JDBC SQLXML. For documentation of this class, see java.sql.SQLXML.
+     * A JDBC SQLXML. For documentation of this class, see java.sql.SQLXML
+     * .
      */
     export interface JdbcSQLXML {
       free(): void;
@@ -792,10 +796,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC Savepoint. For documentation of this class, see java.sql.Savepoint.
-     * See also
-     *
-     * Savepoint
+     * A JDBC Savepoint. For documentation of this class, see java.sql.Savepoint
+     * .
      */
     export interface JdbcSavepoint {
       getSavepointId(): Integer;
@@ -803,7 +805,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC Statement. For documentation of this class, see java.sql.Statement.
+     * A JDBC Statement. For documentation of this class, see java.sql.Statement
+     * .
      */
     export interface JdbcStatement {
       addBatch(sql: string): void;
@@ -849,7 +852,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC Struct. For documentation of this class, see java.sql.Struct.
+     * A JDBC Struct. For documentation of this class, see java.sql.Struct
+     * .
      */
     export interface JdbcStruct {
       getAttributes(): Object[];
@@ -857,7 +861,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC Time. For documentation of this class, see java.sql.Time.
+     * A JDBC Time. For documentation of this class, see java.sql.Time
+     * .
      */
     export interface JdbcTime {
       after(when: JdbcTime): boolean;
@@ -873,7 +878,8 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC Timestamp. For documentation of this class, see java.sql.Timestamp.
+     * A JDBC Timestamp. For documentation of this class, see java.sql.Timestamp
+     * .
      */
     export interface JdbcTimestamp {
       after(when: JdbcTimestamp): boolean;

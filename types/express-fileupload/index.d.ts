@@ -1,6 +1,8 @@
-// Type definitions for express-fileupload 0.1
+// Type definitions for express-fileupload 1.1
 // Project: https://github.com/richardgirges/express-fileupload#readme
 // Definitions by: Gintautas Miselis <https://github.com/Naktibalda>
+//                 Sefa Ilkimen <https://github.com/silkimen>
+//                 Tomas Vosicky <https://github.com/vosatom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -28,13 +30,19 @@ declare namespace fileUpload {
         encoding: string;
         mimetype: string;
         data: Buffer;
+        size: number;
+        tempFilePath: string;
+        truncated: boolean;
+        md5: string;
         mv(path: string, callback: (err: any) => void): void;
+        mv(path: string): Promise<void>;
     }
 
     interface Options {
         debug?: boolean;
         safeFileNames?: boolean;
         preserveExtension?: boolean | string | number;
+        abortOnLimit?: boolean;
         [property: string]: any;
     }
 }

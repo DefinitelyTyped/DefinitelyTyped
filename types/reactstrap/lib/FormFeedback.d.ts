@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type FormFeedbackProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export interface FormFeedbackProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   tag?: string;
   className?: string;
   cssModule?: CSSModule;
   valid?: boolean;
-} & T;
+}
 
-declare class FormFeedback<T = {[key: string]: any}> extends React.Component<FormFeedbackProps<T>> {}
+declare class FormFeedback<T = {[key: string]: any}> extends React.Component<FormFeedbackProps> {}
 export default FormFeedback;

@@ -1,4 +1,4 @@
-// Type definitions for jQuery File Upload Plugin 5.40.1
+// Type definitions for jQuery File Upload Plugin 9.22.0
 // Project: https://github.com/blueimp/jQuery-File-Upload
 // Definitions by: Rob Alarcon <https://github.com/rob-alarcon/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,7 @@
 
 /// <reference types="jquery"/>
 
-// Interface options for the plugin 
+// Interface options for the plugin
 interface JQueryFileInputOptions {
 
     /**
@@ -106,8 +106,8 @@ interface JQueryFileInputOptions {
      */
     redirectParamName?: string;
 
-	// The HTTP request method must be "POST" or "PUT"
-	type?: string,
+    // The HTTP request method must be "POST" or "PUT"
+    type?: string,
 
     /**
      * Set the following option to the location of a postMessage window,
@@ -199,7 +199,7 @@ interface JQueryFileInputOptions {
      * handlers using jQuery's Deferred callbacks:
      * data.submit().done(func).fail(func).always(func);
      */
-    add?:  (e: JQueryEventObject, data: JQueryFileInputOptions) => void;
+    add?:  (e: JQueryEventObject, data: JqueryFileUploadAddObject) => void;
 
     // The plugin options are used as settings object for the ajax calls.
     // The following are jQuery ajax settings required for the file uploads:
@@ -209,7 +209,7 @@ interface JQueryFileInputOptions {
 
     cache?: boolean;
     timeout?: number;
-    
+
     active?: Function;
     progress?: (e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void;
     send?: (e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void;
@@ -217,13 +217,13 @@ interface JQueryFileInputOptions {
     // Validation
 
     /**
-    * The maximum allowed file size in bytes.
-    * Type: integer
-    * Default: undefined
-    * Example: 10000000 // 10 MB
-    * Note: This option has only an effect for browsers supporting the File API.
-    * @see https://github.com/blueimp/jQuery-File-Upload/wiki/Options#maxfilesize
-    */
+     * The maximum allowed file size in bytes.
+     * Type: integer
+     * Default: undefined
+     * Example: 10000000 // 10 MB
+     * Note: This option has only an effect for browsers supporting the File API.
+     * @see https://github.com/blueimp/jQuery-File-Upload/wiki/Options#maxfilesize
+     */
     maxFileSize?: number;
 
     // Other callbacks:
@@ -243,7 +243,7 @@ interface JQueryFileInputOptions {
     chunkfail?: (e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void;
     chunkalways?: (e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void;
 
-    // Others 
+    // Others
     url?: string;
     files?: any;
 
@@ -263,6 +263,12 @@ interface JQuery {
     fileupload(action: string, message:string, settings: JQueryFileInputOptions | string): JQueryFileUpload;
 }
 
+interface JqueryFileUploadEnhancedPromise<T> extends JQueryPromise<T>{
+    success: JQueryPromise<T>['done'],
+    error: JQueryPromise<T>['fail'],
+    complete: JQueryPromise<T>['always'],
+}
+
 interface JQuerySupport {
     fileInput?: boolean;
 }
@@ -273,6 +279,20 @@ interface JQueryFileUploadChangeObject {
     files: File[];
     form?: JQuery;
     originalFiles: File[];
+}
+
+interface JqueryFileUploadConvenienceObject {
+    abort: () => JqueryFileUploadEnhancedPromise<any>;
+    process: (resolveFunc?: Function, rejectFunc?: Function) => JqueryFileUploadEnhancedPromise<any>;
+    processing: () => JqueryFileUploadEnhancedPromise<any>;
+    progress: () => JqueryFileUploadEnhancedPromise<any>;
+    response: () => JqueryFileUploadEnhancedPromise<any>;
+    submit<T>():  JqueryFileUploadEnhancedPromise<T>;
+    state: () => JqueryFileUploadEnhancedPromise<any>;
+}
+
+interface JqueryFileUploadAddObject extends JQueryFileUploadChangeObject, JqueryFileUploadConvenienceObject {
+    paramName?: string | string[];
 }
 
 interface JQueryFileUploadProgressAllObject {

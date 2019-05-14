@@ -1,9 +1,13 @@
 // Type definitions for relay-runtime 1.3
-// Project: https://github.com/facebook/relay
+// Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.9
+
+// Prettified with:
+// $ prettier --parser typescript --tab-width 4 --semi --trailing-comma es5 --write --print-width 120 \
+//   types/{react-relay,relay-runtime}/{,*}/*.ts*
 
 /**
  * SOURCE:
@@ -19,6 +23,7 @@ export type RelayMutationRequest = any;
 export type RelayQueryRequest = any;
 export type ConcreteFragmentDefinition = object;
 export type ConcreteOperationDefinition = object;
+export type ReaderFragment = object;
 
 /**
  * FIXME: RelayContainer used to be typed with ReactClass<any>, but
@@ -41,11 +46,23 @@ export type ConcreteFragment = any;
 export type ConcreteRequest = any;
 export type ConcreteBatchRequest = any;
 
+export function getRequest(taggedNode: GraphQLTaggedNode): ConcreteRequest;
+
 export type RequestNode = ConcreteRequest | ConcreteBatchRequest;
 
-// Using `enum` here to create a distinct type and `const` to ensure it doesn’t leave any generated code.
-// tslint:disable-next-line:no-const-enum
-export const enum FragmentReference {}
+export interface OperationBase {
+    variables: object;
+    response: object;
+}
+export interface OperationDefaults {
+    variables: Variables;
+    response: Variables;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// Constants
+// ~~~~~~~~~~~~~~~~~~~~~
+export const ROOT_ID: string;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // RelayQL
@@ -121,6 +138,24 @@ export type SubscribeFunction = (
 ) => RelayObservable<QueryPayload> | Disposable;
 
 // ~~~~~~~~~~~~~~~~~~~~~
+// RelayQueryResponseCache
+// Version: Relay 1.3.0
+// File: https://github.com/facebook/relay/blob/master/packages/relay-runtime/network/RelayQueryResponseCache.js
+// ~~~~~~~~~~~~~~~~~~~~~
+
+/**
+ * A cache for storing query responses, featuring:
+ * - `get` with TTL
+ * - cache size limiting, with least-recently *updated* entries purged first
+ */
+export class QueryResponseCache {
+    constructor(options: {size: number; ttl: number});
+    clear(): void;
+    get(queryID: string, variables: Variables): QueryPayload | null;
+    set(queryID: string, variables: Variables, payload: QueryPayload): void;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~
 // RelayStoreTypes
 // Version: Relay 1.3.0
 // File: https://github.com/facebook/relay/blob/master/packages/relay-runtime/store/RelayStoreTypes.js
@@ -136,11 +171,11 @@ export type StoreUpdater = (store: RecordSourceProxy) => void;
  * order to easily access the root fields of a query/mutation as well as a
  * second argument of the response object of the mutation.
  */
-export type SelectorStoreUpdater = (
+export type SelectorStoreUpdater<T = any> = (
     store: RecordSourceSelectorProxy,
     // Actually RelayCombinedEnvironmentTypes#SelectorData, but mixed is
     // inconvenient to access deeply in product code.
-    data: any // FLOW FIXME
+    data: T
 ) => void;
 
 /**
@@ -176,7 +211,7 @@ export interface RecordProxy {
 export interface RecordSourceProxy {
     create(dataID: DataID, typeName: string): RecordProxy;
     delete(dataID: DataID): void;
-    get(dataID: DataID): Array<RecordProxy | null> | null;
+    get(dataID: DataID): RecordProxy | null;
     getRoot(): RecordProxy;
 }
 
@@ -479,7 +514,9 @@ export interface CUnstableEnvironmentCore<TEnvironment, TFragment, TGraphQLTagge
         operationVariables: Variables,
         fragments: CFragmentMap<TFragment>,
         props: Props
-    ): { [key: string]: CSelector<TNode> | Array<CSelector<TNode>> | null | undefined };
+    ): {
+        [key: string]: CSelector<TNode> | Array<CSelector<TNode>> | null | undefined;
+    };
 
     /**
      * Given a mapping of keys -> results and a mapping of keys -> fragments,
@@ -995,24 +1032,28 @@ export type Observable<T> = RelayObservable<T>;
 // commitLocalUpdate
 // ~~~~~~~~~~~~~~~~~~~~~
 // exposed through RelayModern, not Runtime directly
-export type commitLocalUpdate = (environment: Environment, updater: StoreUpdater) => void;
+export function commitLocalUpdate(environment: Environment, updater: StoreUpdater): void;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // commitRelayModernMutation
 // ~~~~~~~~~~~~~~~~~~~~~
 // exposed through RelayModern, not Runtime directly
-export interface MutationConfig<T> {
+export interface MutationConfig<T extends OperationBase> {
     configs?: RelayMutationConfig[];
     mutation: GraphQLTaggedNode;
-    variables: Variables;
+    variables: T["variables"];
     uploadables?: UploadableMap;
-    onCompleted?(response: T, errors: PayloadError[] | null | undefined): void;
+    onCompleted?(response: T["response"], errors: PayloadError[] | null | undefined): void;
     onError?(error?: Error): void;
-    optimisticUpdater?: SelectorStoreUpdater;
-    optimisticResponse?: object;
-    updater?: SelectorStoreUpdater;
+    optimisticUpdater?: SelectorStoreUpdater<T["response"]>;
+    optimisticResponse?: T["response"];
+    updater?: SelectorStoreUpdater<T["response"]>;
 }
-export function commitRelayModernMutation(environment: Environment, config: MutationConfig<any>): Disposable;
+export function commitRelayModernMutation<T extends OperationBase = OperationDefaults>(
+    environment: Environment,
+    // tslint:disable-next-line:no-unnecessary-generics
+    config: MutationConfig<T>
+): Disposable;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // applyRelayModernOptimisticMutation

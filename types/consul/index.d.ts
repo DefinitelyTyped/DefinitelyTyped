@@ -625,6 +625,7 @@ declare namespace Consul {
             dc?: string;
             tag?: string;
             passing?: boolean;
+            near?: string;
         }
 
         interface StateOptions extends CommonOptions {

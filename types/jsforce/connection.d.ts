@@ -7,11 +7,21 @@ import { SObject } from './salesforce-object';
 import { Analytics } from './api/analytics';
 import { Chatter } from './api/chatter';
 import { Metadata } from './api/metadata';
+import { Apex } from './api/apex';
 import { Bulk } from './bulk';
 import { Cache } from './cache'
 import { OAuth2, Streaming } from '.';
+import { HttpApiOptions } from './http-api'
+import { LimitsInfo } from './limits-info';
 
-export type Callback<T> = (err: Error, result: T) => void;
+export type Callback<T> = (err: Error | null, result: T) => void;
+// The type for these options was determined by looking at the usage
+// of the options object in Connection.create and other methods
+// go to http://jsforce.github.io/jsforce/doc/connection.js.html#line568
+// and search for options
+export interface RestApiOptions {
+    headers?: { [x: string]: string }
+}
 
 // These are pulled out because according to http://jsforce.github.io/jsforce/doc/connection.js.html#line49
 // the oauth options can either be in the `oauth2` proeprty OR spread across the main connection
@@ -93,24 +103,24 @@ export type ConnectionEvent = "refresh";
  */
 export abstract class BaseConnection extends EventEmitter {
     _baseUrl(): string;
-    request(info: RequestInfo | string, options?: Object, callback?: (err: Error, Object: object) => void): Promise<Object>;
+    request(info: RequestInfo | string, options?: HttpApiOptions, callback?: (err: Error, Object: object) => void): Promise<Object>;
     query<T>(soql: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
     queryMore<T>(locator: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Promise<QueryResult<T>>;
-    create<T>(type: string, records: Record<T> | Array<Record<T>>, options?: Object,
+    create<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    insert<T>(type: string, records: Record<T> | Array<Record<T>>, options?: Object,
+    insert<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    retrieve<T>(type: string, ids: string | string[], options?: Object,
+    retrieve<T>(type: string, ids: string | string[], options?: RestApiOptions,
         callback?: (err: Error, result: Record<T> | Array<Record<T>>) => void): Promise<(Record<T> | Array<Record<T>>)>;
-    update<T>(type: string, records: Record<T> | Array<Record<T>>, options?: Object,
+    update<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | Array<Record<T>>) => void): Promise<(RecordResult | RecordResult[])>;
-    upsert<T>(type: string, records: Record<T> | Array<Record<T>>, extIdField: string, options?: Object,
+    upsert<T>(type: string, records: Record<T> | Array<Record<T>>, extIdField: string, options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    del<T>(type: string, ids: string | string[], options?: Object,
+    del<T>(type: string, ids: string | string[], options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    delete<T>(type: string, ids: string | string[], options?: Object,
+    delete<T>(type: string, ids: string | string[], options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    destroy<T>(type: string, ids: string | string[], options?: Object,
+    destroy<T>(type: string, ids: string | string[], options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
     describe$: {
         /** Returns a value from the cache if it exists, otherwise calls Connection.describe */
@@ -124,7 +134,8 @@ export abstract class BaseConnection extends EventEmitter {
         clear(): void;
     }
     describeGlobal<T>(callback?: (err: Error, result: DescribeGlobalResult) => void): Promise<DescribeGlobalResult>;
-    sobject<T>(resource: string): SObject<T>;
+    // we want any object to be accepted if the user doesn't decide to give an explicit type
+    sobject<T = object>(resource: string): SObject<T>;
 }
 
 export class Connection extends BaseConnection {
@@ -132,6 +143,7 @@ export class Connection extends BaseConnection {
 
     tooling: Tooling;
     analytics: Analytics;
+    apex: Apex;
     chatter: Chatter;
     metadata: Metadata;
     bulk: Bulk;
@@ -149,9 +161,13 @@ export class Connection extends BaseConnection {
     login(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
     loginByOAuth2(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
     loginBySoap(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
+    logout(revoke: boolean, callback?: (err: Error, res: undefined) => void): Promise<void>;
     logout(callback?: (err: Error, res: undefined) => void): Promise<void>;
+    logoutByOAuth2(revoke: boolean, callback?: (err: Error, res: undefined) => void): Promise<void>;
     logoutByOAuth2(callback?: (err: Error, res: undefined) => void): Promise<void>;
+    logoutBySoap(revoke: boolean, callback?: (err: Error, res: undefined) => void): Promise<void>;
     logoutBySoap(callback?: (err: Error, res: undefined) => void): Promise<void>;
+    limits(callback?: (err: Error, res: undefined) => void): Promise<LimitsInfo>;
 }
 
 export class Tooling extends BaseConnection {

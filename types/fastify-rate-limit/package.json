@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "fastify": "^1.11.2"
+    }
+}

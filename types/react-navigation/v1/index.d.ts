@@ -11,13 +11,12 @@
 //                 Qibang Sun <https://github.com/bang88>
 //                 Sergei Butko: <https://github.com/svbutko>
 //                 Veit Lehmann: <https://github.com/levito>
-//                 Roberto Huertas: <https://github.com/robertohuertasm>
 //                 Steven Miller <https://github.com/YourGamesBeOver>
 //                 Armando Assuncao <https://github.com/ArmandoAssuncao>
 //                 Ciaran Liedeman <https://github.com/cliedeman>
 //                 Edward Sammut Alessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /**
  * Reference: https://github.com/react-navigation/react-navigation/tree/3f3ef6485c8932f49fddc3dd2c508629110bf2b6
@@ -290,17 +289,17 @@ export interface NavigationStackViewConfig {
 
 export interface NavigationStackScreenOptions {
   title?: string;
-  header?: (React.ReactElement<any> | ((headerProps: HeaderProps) => React.ReactElement<any>)) | null;
+  header?: (React.ReactElement | ((headerProps: HeaderProps) => React.ReactElement)) | null;
   headerTransparent?: boolean;
-  headerTitle?: string | React.ReactElement<any>;
+  headerTitle?: string | React.ReactElement;
   headerTitleStyle?: StyleProp<TextStyle>;
   headerTintColor?: string;
-  headerLeft?: React.ReactElement<any>;
+  headerLeft?: React.ReactElement;
   headerBackTitle?: string | null;
   headerTruncatedBackTitle?: string;
   headerBackTitleStyle?: StyleProp<TextStyle>;
   headerPressColorAndroid?: string;
-  headerRight?: React.ReactElement<any>;
+  headerRight?: React.ReactElement;
   headerStyle?: StyleProp<ViewStyle>;
   headerBackground?: React.ReactNode | React.ReactType;
   gesturesEnabled?: boolean;
@@ -368,16 +367,12 @@ export interface TabScene {
 export interface NavigationTabScreenOptions {
   title?: string;
   tabBarIcon?:
-    React.ReactElement<any>
-    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
-      any
-    > | null));
+    React.ReactElement
+    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement | null));
   tabBarLabel?:
     string
-    | React.ReactElement<any>
-    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
-      any
-    > | string | null));
+    | React.ReactElement
+    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement | string | null));
   tabBarVisible?: boolean;
   tabBarTestIDProps?: { testID?: string, accessibilityLabel?: string };
   tabBarOnPress?: (options: {
@@ -389,16 +384,12 @@ export interface NavigationTabScreenOptions {
 export interface NavigationDrawerScreenOptions {
   title?: string;
   drawerIcon?:
-    React.ReactElement<any>
-    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
-      any
-    > | null));
+    React.ReactElement
+    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement | null));
   drawerLabel?:
     string
-    | React.ReactElement<any>
-    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
-      any
-    > | null));
+    | React.ReactElement
+    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement | null));
 }
 
 export interface NavigationRouteConfigMap {
@@ -558,7 +549,7 @@ export type NavigationAnimationSetter = (
   lastState: NavigationState
 ) => void;
 
-export type NavigationSceneRenderer = () => (React.ReactElement<any> | null);
+export type NavigationSceneRenderer = () => (React.ReactElement | null);
 
 export type NavigationStyleInterpolator = (
   props: NavigationSceneRendererProps
@@ -738,7 +729,7 @@ export interface TabBarTopProps {
     scene: TabScene,
     jumpToIndex: (index: number) => void,
   }) => void;
-  renderIcon: (scene: TabScene) => React.ReactElement<any>;
+  renderIcon: (scene: TabScene) => React.ReactElement;
   labelStyle?: TextStyle;
   iconStyle?: ViewStyle;
 }

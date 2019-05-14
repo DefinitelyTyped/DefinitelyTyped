@@ -20,8 +20,8 @@ declare module __ScrollIntoView {
     }
 
     /** type will be 'complete' if the scroll completed or 'canceled' if the current scroll was canceled by a new scroll */
-    type callbackParamterType = "complete" | "canceled"
-    type Callback = (type: callbackParamterType) => void
+    type callbackParameterType = "complete" | "canceled"
+    type Callback = (type: callbackParameterType) => void
 
     interface ScrollIntoView {
         (target: HTMLElement, callback?: __ScrollIntoView.Callback) : void

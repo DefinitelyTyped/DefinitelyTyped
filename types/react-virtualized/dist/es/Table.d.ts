@@ -183,19 +183,15 @@ export class Column extends Component<ColumnProps> {
 }
 
 export type RowMouseEventHandlerParams = {
-    rowData: {
-        columnData: object;
-        id: string;
-        index: number;
-    };
+    rowData: any
     index: number;
-    event: React.SyntheticEvent<React.MouseEvent<any>>;
+    event: React.MouseEvent<any>;
 };
 
 export type HeaderMouseEventHandlerParams = {
     dataKey: string;
     columnData: any;
-    event: React.SyntheticEvent<React.MouseEvent<any>>;
+    event: React.MouseEvent<any>;
 };
 
 // ref: https://github.com/bvaughn/react-virtualized/blob/master/docs/Table.md

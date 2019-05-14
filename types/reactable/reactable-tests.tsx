@@ -65,7 +65,7 @@ export class FullblownReactableTestComponent extends React.Component {
             );
         }
         return (
-            <PersonTable>
+            <PersonTable defaultSort={{ column: "name", direction: 'asc' }}>
                 <PersonTableHeader>
                     {columns}
                 </PersonTableHeader>

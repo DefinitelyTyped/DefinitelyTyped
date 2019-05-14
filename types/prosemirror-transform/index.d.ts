@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-transform 1.0
+// Type definitions for prosemirror-transform 1.1
 // Project: https://github.com/ProseMirror/prosemirror-transform
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -143,6 +143,12 @@ export class Mapping implements Mappable {
    * mirroring information).
    */
   appendMapping(mapping: Mapping): void;
+  /**
+   * Finds the offset of the step map that mirrors the map at the
+   * given offset, in this mapping (as per the second argument to
+   * appendMap).
+   */
+  getMirror(n: number): number | undefined | null;
   /**
    * Append the inverse of the given mapping to this one.
    */
@@ -549,4 +555,16 @@ export function insertPoint<S extends Schema = any>(
   doc: ProsemirrorNode<S>,
   pos: number,
   nodeType: NodeType<S>
+): number | null | undefined;
+/**
+ * Finds a position at or around the given position where the given
+ * slice can be inserted. Will look at parent nodes' nearest boundary
+ * and try there, even if the original position wasn't directly at
+ * the start or end of that node. Returns null when no position was
+ * found.
+ */
+export function dropPoint<S extends Schema = any>(
+  doc: ProsemirrorNode<S>,
+  pos: number,
+  slice: Slice<S>
 ): number | null | undefined;

@@ -453,6 +453,7 @@ declare module 'leaflet' {
 		interface DrawErrorOptions {
 			color?: string;
 			timeout?: number;
+			message?: string;
 		}
 	}
 

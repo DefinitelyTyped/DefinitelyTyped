@@ -1,5 +1,5 @@
 // Type definitions for haversine 1.1
-// Project: https://github.com/njj/haversine
+// Project: https://github.com/njj/haversine, https://github.com/niix/haversine
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -14,6 +14,11 @@ declare namespace haversine {
         lat: number;
     }
 
+    interface CoordinateLatLng {
+        lat: number;
+        lng: number;
+    }
+
     type LatLonTuple = [number, number];
 
     interface GeoJSON {
@@ -22,7 +27,7 @@ declare namespace haversine {
         };
     }
 
-    type Coordinate = (CoordinateLongitudeLatitude | CoordinateLonLat | LatLonTuple | GeoJSON);
+    type Coordinate = (CoordinateLongitudeLatitude | CoordinateLonLat | CoordinateLatLng | LatLonTuple | GeoJSON);
 
     interface Options {
         /**
@@ -36,7 +41,7 @@ declare namespace haversine {
         /**
          * Format of coordinate arguments.
          */
-        format?: '[lat,lon]' | '[lon,lat]' | '{lon,lat}' | 'geojson';
+        format?: '[lat,lon]' | '[lon,lat]' | '{lon,lat}' | '{lat,lng}' | 'geojson';
     }
 }
 

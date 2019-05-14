@@ -1,10 +1,9 @@
-import ValidationContext from "../ValidationContext";
+import { ValidationContext } from "../ValidationContext";
 import { ASTVisitor } from "../../language/visitor";
-import { GraphQLType } from "../../type/definition";
 
-export function inlineFragmentOnNonCompositeErrorMessage(type: GraphQLType): string;
+export function inlineFragmentOnNonCompositeErrorMessage(type: string): string;
 
-export function fragmentOnNonCompositeErrorMessage(fragName: string, type: GraphQLType): string;
+export function fragmentOnNonCompositeErrorMessage(fragName: string, type: string): string;
 
 /**
  * Fragments on composite type

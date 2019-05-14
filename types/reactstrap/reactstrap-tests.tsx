@@ -35,6 +35,7 @@ import {
   Col,
   Container,
   Collapse,
+  CustomInput,
   Fade,
   Form,
   FormFeedback,
@@ -73,10 +74,17 @@ import {
   UncontrolledButtonDropdown,
   UncontrolledDropdown,
   UncontrolledTooltip,
+  UncontrolledCollapse,
+  UncontrolledCarousel,
   TabContent,
   Table,
   Tag,
-  Tooltip
+  Toast,
+  ToastBody,
+  ToastHeader,
+  Tooltip,
+  Spinner,
+  UncontrolledPopover,
 } from 'reactstrap';
 
 // --------------- Alert
@@ -100,6 +108,7 @@ const Examplea = (props: any) => {
 };
 
 class AlertExample extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -275,7 +284,16 @@ const Example13 = (
   </div>
 );
 
+interface CustomButtonProps extends ButtonProps {
+  customProp: string;
+}
+// NOTE: not adding the <{}> causes the generic parameter to be a spread type of CustomButtonProps,
+// for some reason this causes children to be inferred as being 'ReactNode & {}' which makes the spread
+// invalid. TS3.2 bug?
+const CustomButton: React.SFC<CustomButtonProps> = props => <Button<{}> {...props}/>;
+
 class Example14 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -324,6 +342,7 @@ class Example14 extends React.Component<any, any> {
 
 // ------------- Button Dropdown
 class Example15 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -554,14 +573,14 @@ const Example27 = (props: any) => {
   return (
     <Row noGutters>
       <Col sm="6">
-        <Card block>
+        <Card body>
           <CardTitle>Special Title Treatment</CardTitle>
           <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
           <Button>Go somewhere</Button>
         </Card>
       </Col>
       <Col sm="6">
-        <Card block>
+        <Card body>
           <CardTitle>Special Title Treatment</CardTitle>
           <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
           <Button>Go somewhere</Button>
@@ -574,17 +593,17 @@ const Example27 = (props: any) => {
 const Example28 = (props: any) => {
   return (
     <div>
-      <Card block>
+      <Card body>
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button>Go somewhere</Button>
       </Card>
-      <Card block className="text-center">
+      <Card body className="text-center">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button>Go somewhere</Button>
       </Card>
-      <Card block className="text-right">
+      <Card body className="text-right">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button>Go somewhere</Button>
@@ -666,32 +685,32 @@ const Example31 = (props: any) => {
 const Example32 = (props: any) => {
   return (
     <div>
-      <Card block inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
+      <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button>Button</Button>
       </Card>
-      <Card block inverse color="primary">
+      <Card body inverse color="primary">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block inverse color="success">
+      <Card body inverse color="success">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block inverse color="info">
+      <Card body inverse color="info">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block inverse color="warning">
+      <Card body inverse color="warning">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block inverse color="danger">
+      <Card body inverse color="danger">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
@@ -703,32 +722,32 @@ const Example32 = (props: any) => {
 const Example33 = (props: any) => {
   return (
     <div>
-      <Card block outline color="secondary">
+      <Card body outline color="secondary">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button>Button</Button>
       </Card>
-      <Card block outline color="primary">
+      <Card body outline color="primary">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block outline color="success">
+      <Card body outline color="success">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block outline color="info">
+      <Card body outline color="info">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block outline color="warning">
+      <Card body outline color="warning">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
       </Card>
-      <Card block outline color="danger">
+      <Card body outline color="danger">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
@@ -834,7 +853,7 @@ const Example36 = (props: any) => {
           <Button>Button</Button>
         </CardBody>
       </Card>
-      <Card block inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
+      <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button>Button</Button>
@@ -853,7 +872,7 @@ const Example36 = (props: any) => {
           <Button>Button</Button>
         </CardBody>
       </Card>
-      <Card block inverse color="primary">
+      <Card body inverse color="primary">
         <CardTitle>Special Title Treatment</CardTitle>
         <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
         <Button color="secondary">Button</Button>
@@ -865,6 +884,7 @@ const Example36 = (props: any) => {
 // ------------------ Collapse
 
 class Example37 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -895,6 +915,7 @@ class Example37 extends React.Component<any, any> {
 }
 
 class Example38 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.onOpened = this.onOpened.bind(this);
@@ -939,6 +960,7 @@ class Example38 extends React.Component<any, any> {
 // ------- Dropdown
 
 class Example39 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -1015,6 +1037,7 @@ const Example42 = (props: any) => (
 );
 
 class Example43 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -1949,6 +1972,7 @@ const Example71 = () => {
 
 // --------------- Modal
 class ModalExample72 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -1988,6 +2012,7 @@ class ModalExample72 extends React.Component<any, any> {
 }
 
 class ModalExample73 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -2048,6 +2073,7 @@ class ModalExample73 extends React.Component<any, any> {
 }
 
 class ModalExample74 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -2104,7 +2130,106 @@ class ModalExample74 extends React.Component<any, any> {
   }
 }
 
+class ModalExampleDestructuring extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      modal: false,
+      unmountOnClose: true
+    };
+
+    this.toggle = this.toggle.bind(this);
+    this.changeUnmountOnClose = this.changeUnmountOnClose.bind(this);
+  }
+
+  toggle() {
+    this.setState((prevState: any) => ({
+      modal: !prevState.modal
+    }));
+  }
+
+  changeUnmountOnClose(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    this.setState({ unmountOnClose: JSON.parse(value) });
+  }
+
+  render() {
+    return (
+      <div>
+        <Form inline onSubmit={(e) => e.preventDefault()}>
+          <FormGroup>
+            <Label for="unmountOnClose">UnmountOnClose value</Label>{' '}
+            <Input type="select" name="unmountOnClose" id="unmountOnClose" onChange={this.changeUnmountOnClose}>
+              <option value="true">true</option>
+              <option value="false">false</option>
+            </Input>
+          </FormGroup>
+          {' '}
+          <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+        </Form>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} unmountOnClose={this.state.unmountOnClose} scrollable>
+          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalBody>
+            <Input type="textarea" placeholder="Write something (data should remain in modal if unmountOnClose is set to false)" rows={5} />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
+            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
+      </div>
+    );
+  }
+}
+
+class ModalExampleFocusAfterClose extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      open: false,
+      focusAfterClose: true
+    };
+    this.toggle = this.toggle.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
+  }
+
+  toggle() {
+    this.setState({ open: !this.state.open });
+  }
+
+  handleSelectChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    this.setState({ focusAfterClose: JSON.parse(value) });
+  }
+
+  render() {
+    return (
+      <div>
+        <Form inline onSubmit={(e) => e.preventDefault()}>
+          <FormGroup>
+            <Label for="focusAfterClose">Focus After Close</Label>
+            <Input className="mx-2" type="select" id="focusAfterClose" onChange={this.handleSelectChange}>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </Input>
+          </FormGroup>
+          <Button color="danger" onClick={this.toggle}>Open</Button>
+        </Form>
+        <Modal returnFocusAfterClose={this.state.focusAfterClose} isOpen={this.state.open}>
+          <ModalBody>
+            Observe the "Open" button. It will be focused after close when "returnFocusAfterClose" is true and will not be focused if "returnFocusAfterClose" is false.
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.toggle}>Close</Button>
+          </ModalFooter>
+        </Modal>
+      </div>
+    );
+  }
+}
+
 class Example75 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2158,6 +2283,7 @@ class Example75 extends React.Component<any, any> {
 }
 
 class Example76 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2253,6 +2379,7 @@ class Example78 extends React.Component<any, any> {
 }
 
 class Example79 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2303,6 +2430,7 @@ class Example79 extends React.Component<any, any> {
 }
 
 class Example80 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2356,7 +2484,10 @@ class Example80 extends React.Component<any, any> {
 class Example81 extends React.Component {
   render() {
     return (
-      <Pagination>
+      <Pagination aria-label="Page navigation example">
+        <PaginationItem>
+          <PaginationLink first href="#" />
+        </PaginationItem>
         <PaginationItem>
           <PaginationLink previous href="#" />
         </PaginationItem>
@@ -2388,6 +2519,9 @@ class Example81 extends React.Component {
         <PaginationItem>
           <PaginationLink next href="#" />
         </PaginationItem>
+        <PaginationItem>
+          <PaginationLink last href="#" />
+        </PaginationItem>
       </Pagination>
     );
   }
@@ -2396,7 +2530,10 @@ class Example81 extends React.Component {
 class Example82 extends React.Component {
   render() {
     return (
-      <Pagination>
+      <Pagination aria-label="Page navigation example">
+        <PaginationItem disabled>
+          <PaginationLink first href="#" />
+        </PaginationItem>
         <PaginationItem disabled>
           <PaginationLink previous href="#" />
         </PaginationItem>
@@ -2428,6 +2565,9 @@ class Example82 extends React.Component {
         <PaginationItem>
           <PaginationLink next href="#" />
         </PaginationItem>
+        <PaginationItem>
+          <PaginationLink last href="#" />
+        </PaginationItem>
       </Pagination>
     );
   }
@@ -2436,7 +2576,10 @@ class Example82 extends React.Component {
 class Example83 extends React.Component {
   render() {
     return (
-      <Pagination size="lg">
+      <Pagination size="lg" aria-label="Page navigation example">
+        <PaginationItem>
+          <PaginationLink first href="#" />
+        </PaginationItem>
         <PaginationItem>
           <PaginationLink previous href="#" />
         </PaginationItem>
@@ -2457,6 +2600,9 @@ class Example83 extends React.Component {
         </PaginationItem>
         <PaginationItem>
           <PaginationLink next href="#" />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink last href="#" />
         </PaginationItem>
       </Pagination>
     );
@@ -2466,7 +2612,10 @@ class Example83 extends React.Component {
 class Example84 extends React.Component {
   render() {
     return (
-      <Pagination size="sm">
+      <Pagination size="sm" aria-label="Page navigation example">
+        <PaginationItem>
+          <PaginationLink first href="#" />
+        </PaginationItem>
         <PaginationItem>
           <PaginationLink previous href="#" />
         </PaginationItem>
@@ -2488,6 +2637,9 @@ class Example84 extends React.Component {
         <PaginationItem>
           <PaginationLink next href="#" />
         </PaginationItem>
+        <PaginationItem>
+          <PaginationLink last href="#" />
+        </PaginationItem>
       </Pagination>
     );
   }
@@ -2495,6 +2647,7 @@ class Example84 extends React.Component {
 
 // ------------------------- Popover
 class Example85 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2526,6 +2679,7 @@ class Example85 extends React.Component<any, any> {
 }
 
 class PopoverItem extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2557,6 +2711,7 @@ class PopoverItem extends React.Component<any, any> {
 }
 
 class PopoverExampleMulti extends React.Component<any, {popovers: Array<{placement: string; text: string; }>}> {
+  state: {popovers: Array<{placement: string; text: string; }>};
   constructor(props: any) {
     super(props);
 
@@ -2589,6 +2744,17 @@ class PopoverExampleMulti extends React.Component<any, {popovers: Array<{placeme
           return <PopoverItem key={i} item={popover} id={i} />;
         })}
       </div>
+    );
+  }
+}
+
+class PopoverExampleFlipFade extends React.Component<any, any> {
+  render() {
+    return (
+      <Popover target="dummy" flip fade>
+        <PopoverHeader>Popover Title</PopoverHeader>
+        <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+      </Popover>
     );
   }
 }
@@ -3059,6 +3225,7 @@ class Example100 extends React.Component {
 }
 
 class Example101 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3107,14 +3274,14 @@ class Example101 extends React.Component<any, any> {
           <TabPane tabId="2">
             <Row>
               <Col sm="6">
-                <Card block>
+                <Card body>
                   <CardTitle>Special Title Treatment</CardTitle>
                   <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
                   <Button>Go somewhere</Button>
                 </Card>
               </Col>
               <Col sm="6">
-                <Card block>
+                <Card body>
                   <CardTitle>Special Title Treatment</CardTitle>
                   <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
                   <Button>Go somewhere</Button>
@@ -3129,6 +3296,7 @@ class Example101 extends React.Component<any, any> {
 }
 
 class Example102 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3157,6 +3325,7 @@ class Example102 extends React.Component<any, any> {
 }
 
 class Example103 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3185,6 +3354,7 @@ class Example103 extends React.Component<any, any> {
 }
 
 class TooltipItem extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3215,6 +3385,7 @@ class TooltipItem extends React.Component<any, any> {
 }
 
 class TooltipExampleMulti extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3247,6 +3418,16 @@ class TooltipExampleMulti extends React.Component<any, any> {
           return <TooltipItem key={i} item={tooltip} id={i} />;
         })}
       </div>
+    );
+  }
+}
+
+class TooltipExampleFlipFade {
+  render() {
+    return (
+      <Tooltip target="dummy" flip fade>
+        Tooltip Content!
+      </Tooltip>
     );
   }
 }
@@ -3344,6 +3525,7 @@ class Example107 extends React.Component {
 }
 
 class Example108 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3360,7 +3542,7 @@ class Example108 extends React.Component<any, any> {
   render() {
     return (
       <div>
-        <Navbar color="faded" dark toggleable>
+        <Navbar color="faded" dark expand>
           <NavbarToggler onClick={this.toggle} />
           <NavbarBrand href="/">reactstrap</NavbarBrand>
           <Collapse isOpen={this.state.isOpen} navbar>
@@ -3380,6 +3562,7 @@ class Example108 extends React.Component<any, any> {
 }
 
 class Example109 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3416,7 +3599,8 @@ class Example109 extends React.Component<any, any> {
 }
 
 class Example110 extends React.Component<any, any> {
-  constructor(props: any) {
+   state: any;
+   constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -3452,6 +3636,7 @@ class Example110 extends React.Component<any, any> {
 }
 
 class Example111 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3488,6 +3673,7 @@ class Example111 extends React.Component<any, any> {
 }
 
 class Example112 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3539,24 +3725,25 @@ const Example113 = (props: any) => {
   };
 
 class Example114 extends React.Component<any, any> {
-private element: HTMLElement;
+    state: any;
+    private element: HTMLElement;
 
-refFn(r: HTMLElement | null) {
-    if (r) {
-        this.element = r;
+    refFn(r: HTMLElement | null) {
+        if (r) {
+            this.element = r;
+        }
     }
-}
 
-render() {
-    return (
-    <div>
-        <p>Somewhere in here is a <a href="#" ref={this.refFn}>tooltip</a>.</p>
-        <Tooltip placement="bottom-start" isOpen={this.state.tooltipOpen} target={this.element}>
-        Hello world!
-        </Tooltip>
-    </div>
-    );
-}
+    render() {
+        return (
+        <div>
+            <p>Somewhere in here is a <a href="#" ref={this.refFn}>tooltip</a>.</p>
+            <Tooltip placement="bottom-start" isOpen={this.state.tooltipOpen} target={this.element}>
+            Hello world!
+            </Tooltip>
+        </div>
+        );
+    }
 }
 
 class Example115 extends React.Component<any, any> {
@@ -3582,6 +3769,7 @@ class Example115 extends React.Component<any, any> {
 
     private animating: boolean;
 
+    state: any;
     constructor(props: any) {
       super(props);
       this.state = { activeIndex: 0 };
@@ -3711,10 +3899,11 @@ function Example117() {
     <UncontrolledButtonDropdown ref={ref}/>;
     <UncontrolledDropdown ref={ref}/>;
     <UncontrolledTooltip ref={ref} target={null as any}/>;
+    <UncontrolledCollapse ref={ref} target={null as any}/>;
 }
 
 function Example118() {
-    const ref: string | ((e: any) => void) | React.RefObject<any> = null as any;
+    const ref: React.Ref<any> = React.createRef();
 
     <Button innerRef={ref}/>;
     <CardLink innerRef={ref}/>;
@@ -3727,7 +3916,7 @@ import { default as Alert_ } from './lib/Alert'; /* tslint:disable-line: no-rela
 import { default as Badge_ } from './lib/Badge'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Breadcrumb_ } from './lib/Breadcrumb'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as BreadcrumbItem_ } from './lib/BreadcrumbItem'; /* tslint:disable-line: no-relative-import-in-test */
-import { default as Button_ } from './lib/Button'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Button_, ButtonProps } from './lib/Button'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as ButtonDropdown_ } from './lib/ButtonDropdown'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as ButtonGroup_ } from './lib/ButtonGroup'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as ButtonToolbar_ } from './lib/ButtonToolbar'; /* tslint:disable-line: no-relative-import-in-test */
@@ -3752,6 +3941,7 @@ import { default as CarouselCaption_ } from './lib/CarouselCaption'; /* tslint:d
 import { default as Col_ } from './lib/Col'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Collapse_ } from './lib/Collapse'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Container_ } from './lib/Container'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CustomInput_ } from './lib/CustomInput'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Dropdown_ } from './lib/Dropdown'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as DropdownItem_ } from './lib/DropdownItem'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as DropdownMenu_ } from './lib/DropdownMenu'; /* tslint:disable-line: no-relative-import-in-test */
@@ -3800,6 +3990,7 @@ import { UncontrolledAlert as UncontrolledAlert_ } from './lib/Uncontrolled'; /*
 import { UncontrolledButtonDropdown as UncontrolledButtonDropdown_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
 import { UncontrolledDropdown as UncontrolledDropdown_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
 import { UncontrolledTooltip as UncontrolledTooltip_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
+import { UncontrolledCollapse as UncontrolledCollapse_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
 
 function AnyPropExample() {
   return (
@@ -3833,6 +4024,7 @@ function AnyPropExample() {
       <Col_ foo={1} bar={false} foobar="example" />
       <Collapse_ foo={1} bar={false} foobar="example" />
       <Container_ foo={1} bar={false} foobar="example" />
+      <CustomInput_ foo={1} bar={false} foobar="example" type="file" />
       <Dropdown_ foo={1} bar={false} foobar="example" />
       <DropdownItem_ foo={1} bar={false} foobar="example" />
       <DropdownMenu_ foo={1} bar={false} foobar="example" />
@@ -3881,6 +4073,7 @@ function AnyPropExample() {
       <UncontrolledButtonDropdown_ foo={1} bar={false} foobar="example" />
       <UncontrolledDropdown_ foo={1} bar={false} foobar="example" />
       <UncontrolledTooltip_ foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledCollapse_ foo={1} bar={false} foobar="example" target="" />
     </React.Fragment >
   );
 }
@@ -3919,6 +4112,7 @@ class CarouselCaptionGeneric extends CarouselCaption<GenericInterface> {}
 class ColGeneric extends Col<GenericInterface> {}
 class CollapseGeneric extends Collapse<GenericInterface> {}
 class ContainerGeneric extends Container<GenericInterface> {}
+class CustomInputGeneric extends CustomInput<GenericInterface> {}
 class DropdownGeneric extends Dropdown<GenericInterface> {}
 class DropdownItemGeneric extends DropdownItem<GenericInterface> {}
 class DropdownMenuGeneric extends DropdownMenu<GenericInterface> {}
@@ -3967,6 +4161,7 @@ class UncontrolledAlertGeneric extends UncontrolledAlert<GenericInterface> {}
 class UncontrolledButtonDropdownGeneric extends UncontrolledButtonDropdown<GenericInterface> {}
 class UncontrolledDropdownGeneric extends UncontrolledDropdown<GenericInterface> {}
 class UncontrolledTooltipGeneric extends UncontrolledTooltip<GenericInterface> {}
+class UncontrolledCollapseGeneric extends UncontrolledCollapse<GenericInterface> {}
 
 function GenericPropExample() {
   return (
@@ -4000,6 +4195,7 @@ function GenericPropExample() {
       <ColGeneric foo={1} bar={false} foobar="example" />
       <CollapseGeneric foo={1} bar={false} foobar="example" />
       <ContainerGeneric foo={1} bar={false} foobar="example" />
+      <CustomInputGeneric foo={1} bar={false} foobar="example" type="file" />
       <DropdownGeneric foo={1} bar={false} foobar="example" />
       <DropdownItemGeneric foo={1} bar={false} foobar="example" />
       <DropdownMenuGeneric foo={1} bar={false} foobar="example" />
@@ -4048,6 +4244,287 @@ function GenericPropExample() {
       <UncontrolledButtonDropdownGeneric foo={1} bar={false} foobar="example" />
       <UncontrolledDropdownGeneric foo={1} bar={false} foobar="example" />
       <UncontrolledTooltipGeneric foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledCollapseGeneric foo={1} bar={false} foobar="example" target="" />
     </React.Fragment >
   );
+}
+
+class Example119 extends React.Component<any, any> {
+  render() {
+    return (
+      <Form>
+        <FormGroup>
+          <Label for="exampleCheckbox">Checkboxes</Label>
+          <div>
+            <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Check this custom checkbox" />
+            <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="Or this one" />
+            <CustomInput type="checkbox" id="exampleCustomCheckbox3" label={<span>Or this one</span>} />
+            <CustomInput type="checkbox" id="exampleCustomCheckbox4" label="But not this disabled one" disabled />
+            <CustomInput type="checkbox" id="exampleCustomCheckbox5" label="Can't click this label to check!" htmlFor="exampleCustomCheckbox5_X" disabled />
+          </div>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCheckbox">Radios</Label>
+          <div>
+            <CustomInput type="radio" id="exampleCustomRadio" name="customRadio" label="Select this custom radio" />
+            <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="Or this one" />
+            <CustomInput type="radio" id="exampleCustomRadio3" name="customRadio" label={<span>Or this one</span>} />
+            <CustomInput type="radio" id="exampleCustomRadio4" label="But not this disabled one" disabled />
+            <CustomInput type="radio" id="exampleCustomRadio5" label="Can't click this label to select!" htmlFor="exampleCustomRadio5_X" disabled />
+          </div>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCheckbox">Inline</Label>
+          <div>
+            <CustomInput type="checkbox" id="exampleCustomInline" label="An inline custom input" inline />
+            <CustomInput type="checkbox" id="exampleCustomInline2" label="and another one" inline />
+            <CustomInput type="checkbox" id="exampleCustomInline3" label={<span>and this one</span>} inline />
+          </div>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomSelect">Custom Select</Label>
+          <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
+            <option value="">Select</option>
+            <option>Value 1</option>
+            <option>Value 2</option>
+            <option>Value 3</option>
+            <option>Value 4</option>
+            <option>Value 5</option>
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomMutlipleSelect">Custom Multiple Select</Label>
+          <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" multiple>
+            <option value="">Select</option>
+            <option>Value 1</option>
+            <option>Value 2</option>
+            <option>Value 3</option>
+            <option>Value 4</option>
+            <option>Value 5</option>
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomSelectDisabled">Custom Select Disabled</Label>
+          <CustomInput type="select" id="exampleCustomSelectDisabled" name="customSelect" disabled>
+            <option value="">Select</option>
+            <option>Value 1</option>
+            <option>Value 2</option>
+            <option>Value 3</option>
+            <option>Value 4</option>
+            <option>Value 5</option>
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomMutlipleSelectDisabled">Custom Multiple Select Disabled</Label>
+          <CustomInput type="select" id="exampleCustomMutlipleSelectDisabled" name="customSelect" multiple disabled>
+            <option value="">Select</option>
+            <option>Value 1</option>
+            <option>Value 2</option>
+            <option>Value 3</option>
+            <option>Value 4</option>
+            <option>Value 5</option>
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomFileBrowser">File Browser</Label>
+          <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" />
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomFileBrowser">File Browser with Custom Label</Label>
+          <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" label="Yo, pick a file!" />
+          <CustomInput type="file" id="exampleCustomFileBrowser1" name="customFile" label={<span>Yo, pick a file!</span>} />
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomFileBrowser">File Browser Disabled</Label>
+          <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" disabled />
+        </FormGroup>
+      </Form>
+    );
+  }
+}
+
+class Example120 extends React.Component<any, any> {
+  render() {
+    return (
+      <Table borderless>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </Table>
+    );
+  }
+}
+
+class Example121 extends React.Component<any, any> {
+  render() {
+    return (
+      <UncontrolledDropdown className="some-class" setActiveFromChild>
+        <DropdownToggle caret>
+          Dropdown
+        </DropdownToggle>
+        <DropdownMenu>
+          <DropdownItem header>Header</DropdownItem>
+          <DropdownItem disabled>Action</DropdownItem>
+          <DropdownItem>Another Action</DropdownItem>
+          <DropdownItem divider />
+          <DropdownItem>Another Action</DropdownItem>
+        </DropdownMenu>
+      </UncontrolledDropdown>
+    );
+  }
+}
+
+class Example122 extends React.Component<any, any> {
+  state: any;
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      dropdownOpen: false
+    };
+  }
+
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+
+  render() {
+    return (
+      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+        <DropdownToggle caret>
+          Dropdown
+        </DropdownToggle>
+        <DropdownMenu persist>
+          <DropdownItem header>Header</DropdownItem>
+          <DropdownItem disabled>Action</DropdownItem>
+          <DropdownItem>Another Action</DropdownItem>
+          <DropdownItem divider />
+          <DropdownItem>Another Action</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    );
+  }
+}
+
+function Example123() {
+  return(
+    <div>
+      <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>
+        Toggle
+      </Button>
+      <UncontrolledCollapse toggler="#toggler">
+        <Card>
+          <CardBody>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt magni, voluptas debitis
+            similique porro a molestias consequuntur earum odio officiis natus, amet hic, iste sed
+            dignissimos esse fuga! Minus, alias.
+          </CardBody>
+        </Card>
+      </UncontrolledCollapse>
+    </div>
+  );
+}
+
+function Example124()  {
+  // https://reactstrap.github.io/components/carousel/
+  const items = [
+    {
+      src: 'data:image/svg+xml...',
+      altText: 'Slide 1',
+      caption: 'Slide 1'
+    },
+    {
+      src: 'data:image/svg+xml...',
+      altText: 'Slide 2',
+      caption: 'Slide 2'
+    },
+    {
+      src: 'data:image/svg+xml...',
+      altText: 'Slide 3',
+      caption: 'Slide 3'
+    }
+  ];
+
+  return (
+    <UncontrolledCarousel items={items} />
+  );
+}
+
+function Example125() {
+  return (
+    <div>
+      <Spinner />
+      <Spinner color="primary" />
+      <Spinner size="sm" />
+      <Spinner type="grow" />
+      <Spinner color="success" size="sm" type="grow" />
+      <Spinner className="customClass" />
+    </div>
+  );
+}
+
+function Example126() {
+    return (
+        <div>
+            <UncontrolledPopover placement="bottom" target="UncontrolledPopover">
+                <PopoverHeader>Popover Title</PopoverHeader>
+                <PopoverBody>Lorem ipsum dolor sit amet</PopoverBody>
+            </UncontrolledPopover>
+            <UncontrolledPopover defaultOpen={true} placement="bottom" target="UncontrolledPopover">
+                <PopoverHeader>Popover Title</PopoverHeader>
+                <PopoverBody>Lorem ipsum dolor sit amet</PopoverBody>
+            </UncontrolledPopover>
+        </div>
+    );
+}
+
+function Example127() {
+    return (
+        <div>
+            <Toast>
+                <ToastHeader icon="primary">
+                    Reactstrap
+                </ToastHeader>
+                <ToastBody>
+                    This is a toast with a primary icon — check it out!
+                </ToastBody>
+            </Toast>
+            <Toast fade={false}>
+                <ToastHeader icon={<Spinner/>} toggle={() => {}}>
+                    Reactstrap
+                </ToastHeader>
+                <ToastBody>
+                    This is a toast with a custom icon — check it out!
+                </ToastBody>
+            </Toast>
+        </div>
+    );
 }
