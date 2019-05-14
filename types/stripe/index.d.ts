@@ -303,43 +303,7 @@ declare namespace Stripe {
                 /**
                  * The company’s primary address.
                  */
-                address?: {
-                    /**
-                     * City, district, suburb, town, or village.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    city?: string;
-
-                    /**
-                     * Two-letter country code (ISO 3166-1 alpha-2).
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    country?: string;
-
-                    /**
-                     * Address line 1 (e.g., street, PO Box, or company name).
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    line1?: string;
-
-                    /**
-                     * Address line 2 (e.g., apartment, suite, unit, or building).
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    line2?: string;
-
-                    /**
-                     * ZIP or postal code.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    postal_code?: string;
-
-                    /**
-                     * State, county, province, or region.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    state?: string;
-                };
+                address?: IAddress;
 
                 /**
                  * The Kana variation of the company’s primary address (Japan only).
@@ -504,43 +468,7 @@ declare namespace Stripe {
                 /**
                  * The individual’s primary address.
                  */
-                address?: {
-                    /**
-                     * City, district, suburb, town, or village.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    city?: string;
-
-                    /**
-                     * Two-letter country code (ISO 3166-1 alpha-2).
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    country?: string;
-
-                    /**
-                     * Address line 1 (e.g., street, PO Box, or company name).
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    line1?: string;
-
-                    /**
-                     * Address line 2 (e.g., apartment, suite, unit, or building).
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    line2?: string;
-
-                    /**
-                     * ZIP or postal code.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    postal_code?: string;
-
-                    /**
-                     * State, county, province, or region.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    state?: string;
-                };
+                address?: IAddress;
 
                 /**
                  * The Kana variation of the the individual’s primary address (Japan only).
