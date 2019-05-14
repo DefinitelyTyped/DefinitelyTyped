@@ -20,7 +20,7 @@ export interface BaseProps extends React.Props<any> {
     as?: React.ReactType;
     css?:
         | StyledComponents.CSSObject
-        | StyledComponents.BaseThemedCssFunction<any>
+        | StyledComponents.FlattenSimpleInterpolation
         | string;
 }
 

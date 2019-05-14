@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Box, Flex, Text, Heading, Button, Link, Image, Card } from "rebass";
 import "styled-components/macro";
 
@@ -14,6 +14,13 @@ const ExtendedBox = styled(Box)`
 ExtendedBox.defaultProps = {
     p: 3
 };
+
+const boxCss = css`
+    background: purple;
+    color: white;
+`;
+
+const CssBox = () => <Box css={boxCss} />;
 
 export default () => (
     <Box width={1} css={{ height: "100vh" }} py={[1, 2, 3]} ml="1em">
@@ -57,6 +64,8 @@ export default () => (
             >
                 String css prop
             </Box>
+
+            <CssBox />
         </Flex>
     </Box>
 );
