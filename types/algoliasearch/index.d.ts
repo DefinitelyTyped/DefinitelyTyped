@@ -101,7 +101,7 @@ declare namespace algoliasearch {
     copyIndex(
       from: string,
       to: string,
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateIndexTask) => void
     ): void;
     /**
      * Copy settings of an index from a specific index to a new one
@@ -111,7 +111,7 @@ declare namespace algoliasearch {
       from: string,
       to: string,
       scope: ('settings' | 'synonyms' | 'rules')[],
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateIndexTask) => void
     ): void;
     /**
      * Copy settings of an index from a specific index to a new one
@@ -121,7 +121,7 @@ declare namespace algoliasearch {
       from: string,
       to: string,
       scope?: ('settings' | 'synonyms' | 'rules')[]
-    ): Promise<Task>;
+    ): Promise<UpdateIndexTask>;
     /**
      * Move index to a new one (and will overwrite the original one)
      * https://github.com/algolia/algoliasearch-client-js#move-index---moveindex
@@ -129,13 +129,13 @@ declare namespace algoliasearch {
     moveIndex(
       from: string,
       to: string,
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateIndexTask) => void
     ): void;
     /**
      * Move index to a new one (and will overwrite the original one)
      * https://github.com/algolia/algoliasearch-client-js#move-index---moveindex
      */
-    moveIndex(from: string, to: string): Promise<Task>;
+    moveIndex(from: string, to: string): Promise<UpdateIndexTask>;
     /**
      * Generate a public API key
      * https://github.com/algolia/algoliasearch-client-js#generate-key---generatesecuredapikey
@@ -145,12 +145,12 @@ declare namespace algoliasearch {
      * Perform multiple operations with one API call to reduce latency
      * https://github.com/algolia/algoliasearch-client-js#custom-batch---batch
      */
-    batch(action: Action[], cb: (err: Error, res: Task) => void): void;
+    batch(action: Action[], cb: (err: Error, res: BatchTask) => void): void;
     /**
      * Perform multiple operations with one API call to reduce latency
      * https://github.com/algolia/algoliasearch-client-js#custom-batch---batch
      */
-    batch(action: Action[]): Promise<Task>;
+    batch(action: Action[]): Promise<BatchTask>;
     /**
      * Lists global API Keys
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
@@ -287,7 +287,12 @@ declare namespace algoliasearch {
      * Add list of objects
      * https://github.com/algolia/algoliasearch-client-js#add-objects---addobjects
      */
-    addObjects(objects: {}[], cb: (err: Error, res: Task) => void): void;
+    addObjects(objects: {}[], cb: (err: Error, res: MultiObjectTask) => void): void;
+    /**
+     * Add list of objects
+     * https://github.com/algolia/algoliasearch-client-js#add-objects---addobjects
+     */
+    addObjects(objects: {}[]): Promise<MultiObjectTask>;
     /**
      * Add or replace a specific object
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
@@ -1522,6 +1527,31 @@ declare namespace algoliasearch {
     taskID: number;
     createdAt: string;
     objectID?: string;
+  }
+
+  /**
+   * https://www.algolia.com/doc/api-reference/api-methods/add-objects/?language=javascript#response
+   */
+  interface MultiObjectTask {
+    objectIDs: string[];
+    taskID: number;
+  }
+
+  /**
+   * https://www.algolia.com/doc/api-reference/api-methods/move-index/?language=javascript#response
+   * https://www.algolia.com/doc/api-reference/api-methods/copy-index/?language=javascript#response
+   */
+  interface UpdateIndexTask {
+    updatedAt: string;
+    taskID: number;
+  }
+
+  /**
+   * https://www.algolia.com/doc/api-reference/api-methods/batch/?language=javascript#response
+   */
+  interface BatchTask {
+    objectIDs: string[];
+    taskID: Record<string, number>;
   }
 
   interface TaskStatus {
