@@ -139,12 +139,12 @@ declare namespace Sinon {
          * Returns true if the spy call occurred before another spy call.
          * @param call
          */
-        calledBefore(call: SinonSpyCall<any[]>): boolean;
+        calledBefore(call: SinonSpyCall): boolean;
         /**
          * Returns true if the spy call occurred after another spy call.
          * @param call
          */
-        calledAfter(call: SinonSpyCall<any[]>): boolean;
+        calledAfter(call: SinonSpyCall): boolean;
     }
 
     interface SinonSpy<TArgs extends any[] = any[], TReturnValue = any>
