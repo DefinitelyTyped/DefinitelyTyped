@@ -3,6 +3,8 @@
 // Definitions by: Ethan Rubio <https://github.com/ethanrubio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare namespace stringHash {};
+    
 declare function stringHash(str: string): number;
 
 export = stringHash;
