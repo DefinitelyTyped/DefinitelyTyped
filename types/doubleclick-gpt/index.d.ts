@@ -32,6 +32,14 @@ declare namespace googletag {
             listener: (event: events.SlotRenderEndedEvent) => void
         ): Service;
         addEventListener(
+            eventType: "slotRequested",
+              listener: (event: events.SlotRequestedEvent) => void
+        ): Service;
+        addEventListener(
+            eventType: "slotResponseReceived",
+              listener: (event: events.SlotResponseReceived) => void
+        ): Service;
+        addEventListener(
           eventType: "slotVisibilityChanged",
             listener: (event: events.SlotVisibilityChangedEvent) => void
         ): Service;
