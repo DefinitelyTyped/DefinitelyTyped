@@ -343,11 +343,6 @@ interface BaseCheckout {
     pricing_type: PricingType;
 
     /**
-     * Price in local fiat currency.
-     */
-    local_price?: Price<FiatCurrency>;
-
-    /**
      * Information to collect from the customer.
      */
     requested_info?: Array<'email' | 'name'>;
@@ -387,6 +382,11 @@ interface CheckoutResource extends BaseCheckout {
      * Checkout image URL.
      */
     logo_url?: string;
+
+    /**
+     * Price in local fiat currency.
+     */
+    local_price?: Price<FiatCurrency>;
 }
 
 /**
