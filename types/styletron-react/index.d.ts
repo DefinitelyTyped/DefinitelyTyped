@@ -2,7 +2,7 @@
 // Project: https://github.com/styletron/styletron
 // Definitions by: Eric Taylor <https://github.com/erictaylor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.1
 
 import * as React from 'react';
 import { driver, StandardEngine, StyleObject } from 'styletron-standard';
@@ -11,10 +11,8 @@ export { StyleObject, StandardEngine };
 
 // From styletron-react types
 export interface Reducer {
-    // Static reducer
-    (style: StyleObject): StyleObject;
-    // Dynamic reducer
-    (style: StyleObject, props: object): StyleObject;
+    // Static reducer = no props, dynamic requires props object
+    (style: StyleObject, props?: object): StyleObject;
 }
 
 export interface AssignmentCommutativeReducerContainer {
@@ -216,9 +214,9 @@ export function composeStatic(
     reducerContainer: ReducerContainer
 ): Styletron;
 
-export function composeDynamic<P>(
+export function composeDynamic(
     styletron: Styletron,
-    reducer: (style: StyleObject, props: P) => StyleObject
+    reducer: (style: StyleObject, props: object) => StyleObject
 ): Styletron;
 
 export function staticComposeShallow(
@@ -231,28 +229,28 @@ export function staticComposeDeep(
     style: StyleObject
 ): ReturnType<typeof composeStatic>;
 
-export function dynamicComposeShallow<P>(
+export function dynamicComposeShallow(
     styletron: Styletron,
-    styleArg: (props: P) => StyleObject
+    styleArg: (props: object) => StyleObject
 ): ReturnType<typeof composeDynamic>;
 
-export function dynamicComposeDeep<P>(
+export function dynamicComposeDeep(
     styletron: Styletron,
-    styleArg: (props: P) => StyleObject
+    styleArg: (props: object) => StyleObject
 ): ReturnType<typeof composeDynamic>;
 
-export function autoComposeShallow<P>(
+export function autoComposeShallow(
     styletron: Styletron,
-    styleArg: StyleObject | ((props: P) => StyleObject)
+    styleArg: StyleObject | ((props: object) => StyleObject)
 ): ReturnType<typeof staticComposeShallow>;
 
-export function autoComposeDeep<P>(
+export function autoComposeDeep(
     styletron: Styletron,
     styleArg: StyleObject
 ): ReturnType<typeof staticComposeDeep>;
-export function autoComposeDeep<P>(
+export function autoComposeDeep(
     styletron: Styletron,
-    styleArg: (props: P) => StyleObject
+    styleArg: (props: object) => StyleObject
 ): ReturnType<typeof dynamicComposeDeep>;
 
 export function createShallowMergeReducer(
