@@ -2547,7 +2547,7 @@ declare namespace React {
         hr: DetailedHTMLFactory<HTMLAttributes<HTMLHRElement>, HTMLHRElement>;
         html: DetailedHTMLFactory<HtmlHTMLAttributes<HTMLHtmlElement>, HTMLHtmlElement>;
         i: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        iframe: DetailedHTMLFactory<IframeHTMLAttributes<HTMLElement>, HTMLIFrameElement>;
+        iframe: DetailedHTMLFactory<IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>;
         img: DetailedHTMLFactory<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
         input: DetailedHTMLFactory<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
         ins: DetailedHTMLFactory<InsHTMLAttributes<HTMLModElement>, HTMLModElement>;
