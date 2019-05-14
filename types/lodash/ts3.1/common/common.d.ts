@@ -7,7 +7,7 @@ declare module "../index" {
     type Many<T> = T | ReadonlyArray<T>;
     type ImpChain<T> =
         T extends { __trapAny: any } ? Collection<any> & Function<any> & Object<any> & Primitive<any> & String :
-        T extends null | undefined ? Primitive<T> :
+        T extends null | undefined ? never :
         T extends string | null | undefined ? String :
         T extends (...args: any) => any ? Function<T> :
         T extends List<infer U> | null | undefined ? Collection<U> :
@@ -15,7 +15,7 @@ declare module "../index" {
         Primitive<T>;
     type ExpChain<T> =
         T extends { __trapAny: any } ? CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain :
-        T extends null | undefined ? PrimitiveChain<T> :
+        T extends null | undefined ? never :
         T extends string ? StringChain :
         T extends string | null | undefined ? StringNullableChain :
         T extends (...args: any) => any ? FunctionChain<T> :
