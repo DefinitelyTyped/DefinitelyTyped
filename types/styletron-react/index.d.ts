@@ -169,45 +169,13 @@ export function createStyledElementComponent(
     styletron: Styletron
 ): StyletronComponent<any>;
 
-// export const withTransform: WithTransformFn;
-export function withTransform<C extends StyletronComponent<any>, P>(
-    component: C,
-    style: (style: StyleObject, props: P) => StyleObject
-): StyletronComponent<React.ComponentProps<C> & P>;
+export const withTransform: WithTransformFn;
 
-// export const withStyleDeep: WithStyleFn;
-export function withStyleDeep<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
-    P
->(
-    component: C,
-    style: (props: P) => StyleObject
-): StyletronComponent<
-    Pick<
-        React.ComponentProps<C>,
-        Exclude<keyof React.ComponentProps<C>, { className: string }>
-    > &
-        P
->;
-export function withStyleDeep<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
->(
-    component: C,
-    style: StyleObject
-): StyletronComponent<
-    Pick<
-        React.ComponentProps<C>,
-        Exclude<keyof React.ComponentProps<C>, { className: string }>
-    >
->;
+export const withStyleDeep: WithStyleFn;
 
 export const withStyle: typeof withStyleDeep;
 
-// export const withWrapper: WithWrapperFn;
-export function withWrapper<C extends StyletronComponent<any>, P>(
-    component: C,
-    wrapper: (component: C) => React.ComponentType<P>
-): StyletronComponent<React.ComponentProps<C> & P>;
+export const withWrapper: WithWrapperFn;
 
 export function composeStatic(
     styletron: Styletron,
