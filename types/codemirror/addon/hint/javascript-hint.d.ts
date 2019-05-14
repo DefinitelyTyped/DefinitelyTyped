@@ -1,0 +1,23 @@
+// Type definitions for CodeMirror
+// Project: https://github.com/codemirror/CodeMirror
+// Definitions by: orblazer <https://github.com/orblazer>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// See docs https://codemirror.net/doc/manual.html#active-line
+
+import * as CodeMirror from "codemirror";
+
+declare module "codemirror" {
+    interface JavascriptHintOptions {
+        globalScope?: any;
+        additionalContext?: { [key: string]: any }
+        useGlobalScope?: boolean
+    }
+
+    interface Hint {
+        javascript: HintFunction<JavascriptHintOptions>;
+        coffeescript: HintFunction<JavascriptHintOptions>;
+    }
+
+    var hint: Hint;
+}

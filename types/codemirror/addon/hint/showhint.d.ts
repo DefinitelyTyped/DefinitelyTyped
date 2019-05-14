@@ -44,8 +44,8 @@ declare module "codemirror" {
         showHint: (options: ShowHintOptions) => void;
     }
 
-    interface HintFunction {
-        (cm: CodeMirror.Editor): Hints;
+    interface HintFunction<Opts = any> {
+        (cm: CodeMirror.Editor, options?: Opts): Hints;
     }
 
     interface AsyncHintFunction {
