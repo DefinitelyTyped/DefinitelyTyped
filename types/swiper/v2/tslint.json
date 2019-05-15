@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODOs
+        "no-single-declare-module": false,
+        "prefer-template": false,
+        "npm-naming": false,
+        "dt-header": false
+    }
+}
