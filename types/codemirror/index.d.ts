@@ -46,7 +46,7 @@ declare namespace CodeMirror {
 
     /** An object containing default values for all options.
     You can assign to its properties to modify defaults (though this won't affect editors that have already been created). */
-    var defaults: any;
+    var defaults: CodeMirror.EditorConfiguration;
 
     /** If you want to define extra methods in terms of the CodeMirror API, it is possible to use defineExtension.
     This will cause the given value(usually a method) to be added to all CodeMirror instances created from then on. */
@@ -58,18 +58,24 @@ declare namespace CodeMirror {
     /** Similarly, defineOption can be used to define new options for CodeMirror.
     The updateFunc will be called with the editor instance and the new value when an editor is initialized,
     and whenever the option is modified through setOption. */
-    function defineOption(name: string, default_: any, updateFunc: Function): void;
+    function defineOption(name: string, defaultValue: any, updateFunc: (instance: CodeMirror.Editor, newVal: any, oldVal: any) => void): void;
 
     /** If your extention just needs to run some code whenever a CodeMirror instance is initialized, use CodeMirror.defineInitHook.
     Give it a function as its only argument, and from then on, that function will be called (with the instance as argument)
     whenever a new CodeMirror instance is initialized. */
-    function defineInitHook(func: Function): void;
+    function defineInitHook(func: (instance: CodeMirror.Editor) => void): void;
 
     /** Registers a helper value with the given name in the given namespace (type). This is used to define functionality
     that may be looked up by mode. Will create (if it doesn't already exist) a property on the CodeMirror object for
     the given type, pointing to an object that maps names to values. I.e. after doing
     CodeMirror.registerHelper("hint", "foo", myFoo), the value CodeMirror.hint.foo will point to myFoo. */
-    function registerHelper(namespace: string, name: string, helper: any): void;
+    function registerHelper(type: string, name: string, helper: any): void;
+
+    /**
+     * Acts like registerHelper, but also registers this helper as 'global', meaning that it will be included by getHelpers
+     * whenever the given predicate returns true when called with the local mode and editor.
+     */
+    function registerGlobalHelper(type: string, name: string, predicate: (mode: Mode<any>, instance: CodeMirror.Editor) => boolean, value: any): void;
 
     /** Given a state object, returns a {state, mode} object with the inner mode and its state for the current position. */
     function innerMode(mode: Mode<any>, state: any): { state: any, mode: Mode<any> };
@@ -181,10 +187,10 @@ declare namespace CodeMirror {
         findWordAt(pos: CodeMirror.Position): CodeMirror.Range;
 
         /** Change the configuration of the editor. option should the name of an option, and value should be a valid value for that option. */
-        setOption(option: string, value: any): void;
+        setOption<T = any>(option: string, value: T): void;
 
         /** Retrieves the current value of the given option for this editor instance. */
-        getOption(option: string): any;
+        getOption<T = any>(option: string): T;
 
         /** Attach an additional keymap to the editor.
         This is mostly useful for add - ons that need to register some key handlers without trampling on the extraKeys option.
@@ -425,8 +431,8 @@ declare namespace CodeMirror {
          * representing the text that replaced the changed range (split by line). removed is the text that used to be between from and to, which is
          * overwritten by this change. This event is fired before the end of an operation, before the DOM updates happen.
          */
-        on(eventName: 'change', handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeLinkedList) => void ): void;
-        off(eventName: 'change', handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeLinkedList) => void ): void;
+        on(eventName: 'change', handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeCancellable) => void ): void;
+        off(eventName: 'change', handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeCancellable) => void ): void;
 
         /** Like the "change" event, but batched per operation, passing an
          * array containing all the changes that happened in the operation.
@@ -1027,8 +1033,8 @@ declare namespace CodeMirror {
     }
 
     interface PositionConstructor {
-        new (line: number, ch?: number, sticky?: string): Position;
-        (line: number, ch?: number, sticky?: string): Position;
+        new (line: number, ch?: number, sticky?: "before" | "after"): Position;
+        (line: number, ch?: number, sticky?: "before" | "after"): Position;
     }
 
     interface Selection {
