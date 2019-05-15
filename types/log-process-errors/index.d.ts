@@ -46,14 +46,14 @@ export interface LogProcessErrorsOptions {
      *
      * @link https://github.com/ehmicky/log-process-errors/blob/master/docs/API.md#testing
      */
-    testing: 'ava' | 'mocha' | 'jasmine' | 'tape' | 'node-tap';
+    testing?: 'ava' | 'mocha' | 'jasmine' | 'tape' | 'node-tap';
 
     /**
      * Whether or not to colorize messages.
      *
      * @link https://github.com/ehmicky/log-process-errors/blob/master/docs/API.md#colors
      */
-    colors: boolean;
+    colors?: boolean;
 }
 
 /**
