@@ -33,7 +33,6 @@
 import { ObjectID, Timestamp } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
-import { checkServerIdentity } from "tls";
 
 export function connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
 export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
@@ -316,10 +315,6 @@ export interface SSLOptions {
      * Default: true; Validate mongod server certificate against ca (mongod server >=2.4 with ssl support required)
      */
     sslValidate?: boolean;
-    /**
-     * Default: true; Server identity checking during SSL
-     */
-    checkServerIdentity?: boolean | typeof checkServerIdentity;
     /**
      * Array of valid certificates either as Buffers or Strings
      */
