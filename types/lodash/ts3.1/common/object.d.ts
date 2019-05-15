@@ -1125,7 +1125,7 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: []): T[TKey] extends Array<any> ? ExpChain<Exclude<T[TKey], undefined>> : never;
+        get<TKey extends keyof T>(path: TKey | [TKey], defaultValue: []): T[TKey] extends any[] ? ExpChain<Exclude<T[TKey], undefined>> : ExpChain<Exclude<T[TKey], undefined> | []>;
         /**
          * @see _.get
          */
