@@ -243,7 +243,13 @@ function login(user: string) {
             login(user);
         });
 
-    Yadda.createInstance(library, { ctx: {} });
+    const scenario_context: Yadda.Context.Properties = {
+        ctx: {}
+    };
+
+    Yadda.createInstance(library, scenario_context);
+
+    Yadda.createInstance(library, new Yadda.Context(scenario_context));
 }
 
 {
