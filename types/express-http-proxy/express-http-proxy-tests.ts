@@ -52,4 +52,10 @@ proxy('www.google.com', {
     preserveHostHdr: true
 });
 
+proxy('www.google.com', {
+    parseReqBody: true
+});
+
+const proxyOptions: proxy.ProxyOptions = {};
+
 app.use('/proxy/:port', proxy((req) => 'localhost:' + req.params.port));

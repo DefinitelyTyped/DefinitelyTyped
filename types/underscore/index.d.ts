@@ -3,7 +3,6 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov>,
 //                 Josh Baldwin <https://github.com/jbaldwin>,
 //                 Christopher Currens <https://github.com/ccurrens>,
-//                 Cassey Lottman <https://github.com/clottman>,
 //                 Ard Timmerman <https://github.com/confususs>,
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>,
 //                 Florian Keller <https://github.com/ffflorian>

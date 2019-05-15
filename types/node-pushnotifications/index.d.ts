@@ -17,7 +17,7 @@ declare class PushNotifications {
     setOptions(opts: PushNotifications.Settings): void;
     sendWith(method: PushNotifications.PushMethod, regIds: string[], data: PushNotifications.Data, cb: PushNotifications.Callback): void;
     send(registrationIds: PushNotifications.RegistrationId|PushNotifications.RegistrationId[], data: PushNotifications.Data, cb: PushNotifications.Callback): void;
-    send(registrationIds: PushNotifications.RegistrationId|PushNotifications.RegistrationId[], data: PushNotifications.Data): Promise<any>;
+    send(registrationIds: PushNotifications.RegistrationId|PushNotifications.RegistrationId[], data: PushNotifications.Data): Promise<PushNotifications.Result[]>;
 }
 
 declare namespace PushNotifications {
@@ -181,6 +181,19 @@ declare namespace PushNotifications {
         duration?: string;
         /** ADM */
         consolidationKey?: string;
+    }
+    interface Message {
+        regId: string;
+        originalRegId?: string;
+        messageId?: string;
+        error?: Error | null;
+        errorMsg?: string;
+    }
+    interface Result {
+        method: string;
+        success: number;
+        failure: number;
+        message: Message[];
     }
     type PushMethod = (regIds: string[], data: Data, settings: Settings) => void;
     type Callback = (err: any, result: any) => void;
