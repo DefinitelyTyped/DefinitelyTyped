@@ -1,4 +1,6 @@
-import { NodeOptions } from './index';
+import { NodeOptions } from 'vis';
+import vis from 'vis';
+
 // Test DataSet constructor
 new vis.DataSet();
 new vis.DataSet({});
