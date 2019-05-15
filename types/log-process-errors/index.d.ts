@@ -61,4 +61,4 @@ export interface LogProcessErrorsOptions {
  *
  * @link https://github.com/ehmicky/log-process-errors/blob/master/docs/API.md#logprocesserrorsoptions
  */
-export default function LogProcessErrors(options?: LogProcessErrorsOptions): () => void;
+export default function logProcessErrors(options?: LogProcessErrorsOptions): () => void;
