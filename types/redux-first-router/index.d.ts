@@ -296,8 +296,8 @@ export interface Options<TKeys = {}, TState = any> {
     extra?: any;
 }
 
-export type Params = object;
-export type Payload = object;
+export type Params = { [key: string]: any };
+export type Payload = { [key: string]: any };
 
 export type DisplayConfirmLeave = (message: string, callback: (unblock: boolean) => void) => void;
 
