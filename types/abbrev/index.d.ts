@@ -10,6 +10,7 @@ declare function abbrev(...words: string[]): {[abbreviation: string]: string};
 
 declare namespace abbrev {
     function monkeyPatch(): void;
+    function foo(): void;
 }
 
 declare global {

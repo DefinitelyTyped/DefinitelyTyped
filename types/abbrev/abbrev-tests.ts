@@ -6,6 +6,7 @@ abbrs = abbrev('foo', 'fool', 'folding', 'flop');
 abbrs = abbrev(['foo', 'fool', 'folding', 'flop']);
 
 abbrev.monkeyPatch();
+abbrev.foo();
 
 abbrs = [].abbrev();
 const roArr: ReadonlyArray<string> = [];
