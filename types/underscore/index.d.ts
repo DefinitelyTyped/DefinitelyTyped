@@ -3812,14 +3812,14 @@ declare module _ {
         * @param key Property of the object.
         * @return Function which accept an object an returns the value of key in that object.
         **/
-        property(key: string): (object: Object) => any;
+        property(key: string | string[]): (object: Object) => any;
 
         /**
         * Returns a function that will itself return the value of a object key property.
         * @param key The object to get the property value from.
         * @return Function which accept a key property in `object` and returns its value.
         **/
-        propertyOf(object: Object): (key: string) => any;
+        propertyOf(object: Object): (key: string | string[]) => any;
 
         /**
         * Performs an optimized deep comparison between the two objects,
