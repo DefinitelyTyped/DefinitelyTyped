@@ -19,6 +19,11 @@
     },
     "files": [
         "index.d.ts",
-        "tablesorter-tests.ts"
+        "test/main.ts",
+        "test/Events.ts",
+        "test/Methods.ts",
+        "test/Settings.ts",
+        "test/Triggers.ts",
+        "test/Variables.ts"
     ]
 }
