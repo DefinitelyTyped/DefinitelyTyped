@@ -4,56 +4,58 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-/**
- * Log level
- */
-export type LogLevel = 'debug' | 'info' | 'warn' | 'error' | 'silent' | 'default';
-
-/**
- * Exception type.
- */
-export type ExceptionType = 'uncaughtException' | 'unhandledRejection' | 'rejectionHandled' | 'multipleResolves' | 'warning';
-
-/**
- * log-process-errors constructor options.
- */
-export interface LogProcessErrorsOptions {
+declare namespace logProcessErrors {
     /**
-     * Override logger
-     *
-     * @link https://github.com/ehmicky/log-process-errors/blob/master/docs/API.md#log
+     * Log level
      */
-    log?(error: Error, level: LogLevel): Promise<void> | void;
+    export type LogLevel = 'debug' | 'info' | 'warn' | 'error' | 'silent' | 'default';
 
     /**
-     * Which log level to use for different exceptions.
-     *
-     * https://github.com/ehmicky/log-process-errors/blob/master/docs/API.md#log
+     * Exception type.
      */
-    level?: Partial<Record<ExceptionType, LogLevel>> & {
-        default?(error: Error): 'silent' | 'default';
-    };
+    export type ExceptionType = 'uncaughtException' | 'unhandledRejection' | 'rejectionHandled' | 'multipleResolves' | 'warning';
 
     /**
-     * Which process should trigger `process.exit(1)`
-     *
-     * @link https://github.com/ehmicky/log-process-errors/blob/master/docs/API.md#exiton
+     * log-process-errors constructor options.
      */
-    exitOn?: ExceptionType[];
+    export interface Options {
+        /**
+         * Override logger
+         *
+         * @link https://github.com/ehmicky/log-process-errors/blob/master/docs/API.md#log
+         */
+        log?(error: Error, level: LogLevel): Promise<void> | void;
 
-    /**
-     * When running tests, makes them fail if there are any process errors.
-     *
-     * @link https://github.com/ehmicky/log-process-errors/blob/master/docs/API.md#testing
-     */
-    testing?: 'ava' | 'mocha' | 'jasmine' | 'tape' | 'node-tap';
+        /**
+         * Which log level to use for different exceptions.
+         *
+         * https://github.com/ehmicky/log-process-errors/blob/master/docs/API.md#log
+         */
+        level?: Partial<Record<ExceptionType, LogLevel>> & {
+            default?(error: Error): 'silent' | 'default';
+        };
 
-    /**
-     * Whether or not to colorize messages.
-     *
-     * @link https://github.com/ehmicky/log-process-errors/blob/master/docs/API.md#colors
-     */
-    colors?: boolean;
+        /**
+         * Which process should trigger `process.exit(1)`
+         *
+         * @link https://github.com/ehmicky/log-process-errors/blob/master/docs/API.md#exiton
+         */
+        exitOn?: ExceptionType[];
+
+        /**
+         * When running tests, makes them fail if there are any process errors.
+         *
+         * @link https://github.com/ehmicky/log-process-errors/blob/master/docs/API.md#testing
+         */
+        testing?: 'ava' | 'mocha' | 'jasmine' | 'tape' | 'node-tap';
+
+        /**
+         * Whether or not to colorize messages.
+         *
+         * @link https://github.com/ehmicky/log-process-errors/blob/master/docs/API.md#colors
+         */
+        colors?: boolean;
+    }
 }
 
 /**
@@ -61,4 +63,6 @@ export interface LogProcessErrorsOptions {
  *
  * @link https://github.com/ehmicky/log-process-errors/blob/master/docs/API.md#logprocesserrorsoptions
  */
-export default function logProcessErrors(options?: LogProcessErrorsOptions): () => void;
+declare function logProcessErrors(options?: logProcessErrors.Options): () => void;
+
+export = logProcessErrors;
