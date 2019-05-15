@@ -5960,7 +5960,6 @@ export type PlatformOSType = "ios" | "android" | "macos" | "windows" | "web";
 
 interface PlatformStatic {
     isTV: boolean;
-    OS: PlatformOSType;
     Version: number | string;
 
     /**
@@ -5970,8 +5969,25 @@ interface PlatformStatic {
 }
 
 interface PlatformIOSStatic extends PlatformStatic {
+    OS: 'ios';
     isPad: boolean;
     isTVOS: boolean;
+}
+
+interface PlatformAndroidStatic extends PlatformStatic {
+    OS: 'android';
+}
+
+interface PlatformMacOSStatic extends PlatformStatic {
+    OS: 'macos';
+}
+
+interface PlatformWindowsOSStatic extends PlatformStatic {
+    OS: 'windows';
+}
+
+interface PlatformWebStatic extends PlatformStatic {
+    OS: 'web';
 }
 
 /**
@@ -9470,8 +9486,7 @@ interface NativeModulesStatic {
  * <code>const MyModule = NativeModules.ModuleName</code>
  */
 export const NativeModules: NativeModulesStatic;
-export const Platform: PlatformStatic;
-export const PlatformIOS: PlatformIOSStatic;
+export const Platform: PlatformIOSStatic | PlatformAndroidStatic | PlatformWindowsOSStatic | PlatformMacOSStatic | PlatformWebStatic;
 export const PixelRatio: PixelRatioStatic;
 
 /**
