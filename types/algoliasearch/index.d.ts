@@ -2073,7 +2073,7 @@ declare namespace algoliasearch {
          * Associated list of latitude and longitude.
          * https://community.algolia.com/places/api-clients.html#api-suggestion-latlng
          */
-        geoloc: { lat: number; lng: number };
+        _geoloc: { lat: number; lng: number };
         /**
          * The associated highlighting information.
          * https://community.algolia.com/places/api-clients.html#api-suggestion-highlightResult
