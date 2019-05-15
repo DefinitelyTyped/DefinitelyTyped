@@ -2,6 +2,7 @@
 // Project: https://github.com/gregnb/mui-datatables
 // Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
 //                 Ankith Konda <https://github.com/ankithkonda>
+//                 Herman "Von" Waters IV <https://github.com/hwatersiv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -9,7 +10,7 @@ import * as React from 'react';
 
 interface MUIDataTableData {
     index: number;
-    data: Array<object|number[]|string[]>;
+    data: Array<object | number[] | string[]>;
 }
 
 interface MUIDataTableStateRows {
@@ -17,7 +18,7 @@ interface MUIDataTableStateRows {
     lookup: any;
 }
 
-interface MUIDataTableState {
+export interface MUIDataTableState {
     announceText: string | null;
     activeColumn: string | null;
     page: number;
@@ -97,16 +98,18 @@ export interface MUIDataTableTextLabels {
 
 export interface MUIDataTableColumnOptions {
     display?: 'true' | 'false' | 'excluded';
+    empty?: boolean;
     filter?: boolean;
     filterList?: string[];
     filterOptions?: string[];
+    filterType?: 'dropdown' | 'checkbox' | 'multiselect' | 'textField';
     sort?: boolean;
     searchable?: boolean;
     sortDirection?: 'asc' | 'desc';
     print?: boolean;
     download?: boolean;
     hint?: string;
-    customHeadRender?: (columnMeta: MUIDataTableCustomHeadRenderer, updateDirection: (params: any) => any) => string;
+    customHeadRender?: (columnMeta: MUIDataTableCustomHeadRenderer, updateDirection: (params: any) => any) => string | React.ReactNode;
     customBodyRender?: (value: any, tableMeta: MUIDataTableMeta, updateValue: (s: any, c: any, p: any) => any) => string | React.ReactNode;
     setCellProps?: (cellValue: string, rowIndex: number, columnIndex: number) => object;
 }
@@ -120,7 +123,7 @@ export interface MUIDataTableOptions {
     textLabels?: MUIDataTableTextLabels;
     pagination?: boolean;
     selectableRows?: boolean;
-    IsRowSelectable?: (dataIndex: number) => boolean;
+    isRowSelectable?: (dataIndex: number) => boolean;
     resizableColumns?: boolean;
     expandableRows?: boolean;
     renderExpandableRow?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => React.ReactNode;
@@ -161,22 +164,16 @@ export interface MUIDataTableOptions {
     onFilterChange?: (changedColumn: string, filterList: any[]) => void;
     onColumnSortChange?: (changedColumn: string, direction: string) => void;
     onColumnViewChange?: (changedColumn: string, action: string) => void;
-    onTableChange?: (action: string, tableState: object) => void;
+    onTableChange?: (action: string, tableState: MUIDataTableState) => void;
     setRowProps?: (row: any[], rowIndex: number) => object;
 }
 
 export type MUIDataTableColumnDef = string | MUIDataTableColumn;
 
-export interface MuiDatatablesTableState {
-    page: number;
-    rowsPerPage: number;
-    filterList: any[];
-}
-
 export interface MUIDataTableProps {
-    title: string;
+    title: string | React.ReactNode;
     columns: MUIDataTableColumnDef[];
-    data: Array<object|number[]|string[]>;
+    data: Array<object | number[] | string[]>;
     options?: MUIDataTableOptions;
 }
 
@@ -193,7 +190,7 @@ export interface MUIDataTablePopover {
 }
 
 export interface MUIDataTableBody {
-    data: Array<object|number[]|string[]>;
+    data: Array<object | number[] | string[]>;
     count: number;
     columns: MUIDataTableColumnDef[];
     options: object;

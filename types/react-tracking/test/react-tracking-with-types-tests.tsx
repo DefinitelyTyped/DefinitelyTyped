@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Track, track as _track, TrackingProp } from 'react-tracking';
+import { Track, track as _track, TrackingProp, Options, Decorator } from 'react-tracking';
 
 function customEventReporter(data: { page?: string }) {}
 

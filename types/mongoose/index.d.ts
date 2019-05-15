@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.3.4
+// Type definitions for Mongoose 5.5
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -22,6 +22,8 @@
 //                 Orblazer <https://github.com/orblazer>
 //                 HughKu <https://github.com/HughKu>
 //                 Erik Lopez <https://github.com/niuware>
+//                 Vlad Melnik <https://github.com/vladmel1234>
+//                 Jarom Loveridge <https://github.com/jloveridge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -40,7 +42,7 @@
  *   which version we are on.
  *
  * For major releases:
- * - Refer to the updated docs at http://mongoosejs.com/docs/api.html
+ * - Refer to the updated docs at https//mongoosejs.com/docs/api.html
  * - On the left-hand side of the docs is a list of .js files. Reset and update the TODO list below
  *   then go through one-by-one, making any updates to params list, return type, etc. For documentation
  *   changes just copy/paste them into here.
@@ -88,7 +90,7 @@ declare module "mongoose" {
   export var SchemaTypes: typeof Schema.Types;
 
   /** Expose connection states for user-land */
-  export var STATES: any;
+  export var STATES: ConnectionStates;
   /** The default connection of the mongoose module. */
   export var connection: Connection;
   /** Models registred on the default mongoose connection. */
@@ -103,8 +105,8 @@ declare module "mongoose" {
    * Options passed take precedence over options included in connection strings.
    * @returns pseudo-promise wrapper around this
    */
-  export function connect(uris: string, options: ConnectionOptions, callback: (err: mongodb.MongoError) => void): null;
-  export function connect(uris: string, callback: (err: mongodb.MongoError) => void): null;
+  export function connect(uris: string, options: ConnectionOptions, callback: (err: mongodb.MongoError) => void): Promise<Mongoose>;
+  export function connect(uris: string, callback: (err: mongodb.MongoError) => void): Promise<Mongoose>;
   export function connect(uris: string, options?: ConnectionOptions): Promise<Mongoose>;
 
   /**
@@ -127,7 +129,7 @@ declare module "mongoose" {
    * Disconnects all connections.
    * @param fn called after all connection close.
    */
-  export function disconnect(fn: (error?: any) => void): null;
+  export function disconnect(fn: (error?: any) => void): void;
   /** Disconnects all connections. */
   export function disconnect(): Promise<void>;
 
@@ -201,49 +203,34 @@ declare module "mongoose" {
     constructor(base: typeof mongoose);
 
     /**
-     * Opens the connection to MongoDB.
-     * @deprecated open() is deprecated in mongoose >= 4.11.0
-     * @param mongodb://uri or the host to which you are connecting
-     * @param database database name
-     * @param port database port
-     * @param options Mongoose forces the db option forceServerObjectId false and cannot be overridden.
-     *   Mongoose defaults the server auto_reconnect options to true which can be overridden.
-     *   See the node-mongodb-native driver instance for options that it understands.
-     *   Options passed take precedence over options included in connection strings.
-     */
-    open(connection_string: string, database?: string, port?: number,
-      options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
-
-    /**
     * Opens the connection to MongoDB.
-    * @param mongodb://uri or the host to which you are connecting
-    * @param database database name
-    * @param port database port
+    * @param uri mongodb connection string
     * @param options Mongoose forces the db option forceServerObjectId false and cannot be overridden.
     *   Mongoose defaults the server auto_reconnect options to true which can be overridden.
     *   See the node-mongodb-native driver instance for options that it understands.
     *   Options passed take precedence over options included in connection strings.
     */
-    openUri(connection_string: string, database?: string, port?: number,
-      options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
+    openUri(uri: string, options?: ConnectionOptions): Promise<Connection>;
+    openUri(uri: string, callback: (err: any, conn?: Connection) => void): Connection;
+    openUri(
+        uri: string,
+        options: ConnectionOptions,
+        callback?: (err: any, conn?: Connection) => void
+    ): Connection & {
+        then: Promise<Connection>["then"];
+        catch: Promise<Connection>["catch"];
+      };
 
     /** Helper for dropDatabase() */
     dropDatabase(callback?: (err: any) => void): Promise<any>;
 
     /** Helper for creating a collection */
-    createCollection(name: string, options?: mongodb.CollectionCreateOptions, cb?: (err: any, collection: mongodb.Collection) => void): Promise<void>;
+    createCollection<T = any>(name: string, options?: mongodb.CollectionCreateOptions): Promise<mongodb.Collection<T>>;
+    createCollection<T = any>(name: string, cb: (err: any, collection: mongodb.Collection<T>) => void): Promise<void>;
+    createCollection<T = any>(name: string, options: mongodb.CollectionCreateOptions, cb?: (err: any, collection: mongodb.Collection) => void): Promise<mongodb.Collection<T>>;
 
     /** Helper for dropCollection() */
     dropCollection(name: string, callback?: (err: any) => void): Promise<void>;
-
-    /**
-     * Opens the connection to a replica set.
-     * @param uris comma-separated mongodb:// URIs
-     * @param database database name if not included in uris
-     * @param options passed to the internal driver
-     */
-    openSet(uris: string, database?: string, options?: ConnectionOpenSetOptions,
-      callback?: (err: any) => void): any;
 
     /** Closes the connection */
     close(callback?: (err: any) => void): Promise<void>;
@@ -311,6 +298,9 @@ declare module "mongoose" {
      * Each state change emits its associated event name.
      */
     readyState: number;
+
+    /** mapping of ready states */
+    states: ConnectionStates;
   }
 
   /**
@@ -323,109 +313,14 @@ declare module "mongoose" {
    * for all available options.
    *
    */
-  interface ConnectionOptionsBase {
+  interface ConnectionOptions extends mongodb.MongoClientOptions {
+    /** mongoose-specific options */
+    /** See https://mongoosejs.com/docs/guide.html#bufferCommands */
+    bufferCommands?: boolean;
     /** database Name for Mongodb Atlas Connection */
     dbName?: string;
     /** passed to the connection db instance */
     db?: any;
-    /** passed to the connection server instance(s) */
-    server?: any;
-    /** passed to the connection ReplSet instance */
-    replset?: any;
-    /** username for authentication */
-    user?: string;
-    /** password for authentication */
-    pass?: string;
-    /** options for authentication (see http://mongodb.github.com/node-mongodb-native/api-generated/db.html#authenticate) */
-    auth?: any;
-    /** Use ssl connection (needs to have a mongod server with ssl support) (default: true) */
-    ssl?: boolean;
-    /** Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher) */
-    sslValidate?: boolean;
-    /** Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons. */
-    poolSize?: number;
-    /** Reconnect on error (default: true) */
-    autoReconnect?: boolean;
-    /** TCP Connection keep alive enabled (default: true) */
-    keepAlive?: boolean;
-    /** The number of milliseconds to wait before initiating keepAlive on the TCP socket (default 30000) */
-    keepAliveInitialDelay?: number;
-    /** TCP Connection timeout setting (default: 30000) */
-    connectTimeoutMS?: number;
-    /** TCP Socket timeout setting (default: 360000) */
-    socketTimeoutMS?: number;
-    /** If the database authentication is dependent on another databaseName. */
-    authSource?: string;
-    /** If you're connected to a single server or mongos proxy (as opposed to a replica set),
-     * the MongoDB driver will try to reconnect every reconnectInterval milliseconds for reconnectTries
-     * times, and give up afterward. When the driver gives up, the mongoose connection emits a
-     * reconnectFailed event. (default: 30) */
-    reconnectTries?: number;
-    /** Will wait # milliseconds between retries (default: 1000) */
-    reconnectInterval?: number;
-    /** The name of the replicaset to connect to. */
-    replicaSet?: string;
-    /** The current value of the parameter native_parser */
-    nativeParser?: boolean;
-    /** Auth mechanism */
-    authMechanism?: any;
-    /** Specify a journal write concern (default: false). */
-    journal?: boolean;
-    /** The write concern */
-    w?: number | string;
-    /** The write concern timeout. */
-    wTimeoutMS?: number;
-    /** The ReadPreference mode as listed here: http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html */
-    readPreference?: string;
-    /** An object representing read preference tags, see: http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html */
-    readPreferencetags?: object;
-    /** Triggers the server instance to call ismaster (default: true). */
-    monitoring?: boolean;
-    /** The interval of calling ismaster when monitoring is enabled (default: 10000). */
-    haInterval?: number;
-    /** Enable the wrapping of the callback in the current domain, disabled by default to avoid perf hit (default: false). */
-    domainsEnabled?: boolean;
-    /** How long driver keeps waiting for servers to come back up (default: Number.MAX_VALUE) */
-    bufferMaxEntries?: number;
-
-    /** additional SSL configuration options */
-    /** Array of valid certificates either as Buffers or Strings */
-    sslCA?: ReadonlyArray<Buffer | string>;
-    /** Array of revocation certificates either as Buffers or Strings (needs to have a mongod server with ssl support, 2.4 or higher) */
-    sslCRL?: ReadonlyArray<Buffer | string>;
-    /** SSL certificate */
-    sslCert?: Buffer | string;
-    /** SSL private key */
-    sslKey?: Buffer | string;
-    /** SSL Certificate pass phrase */
-    sslPass?: Buffer | string;
-    /** Default: true; Server identity checking during SSL */
-    checkServerIdentity?: boolean | Function;
-    /** String containing the server name requested via TLS SNI. */
-    servername?: string;
-
-    /** Passed directly through to tls.createSecureContext. See https://nodejs.org/dist/latest-v9.x/docs/api/tls.html#tls_tls_createsecurecontext_options for more info. */
-    ciphers?: string;
-    ecdhCurve?: string;
-
-    /** Flag for using new URL string parser instead of current (deprecated) one */
-    useNewUrlParser?: boolean;
-    /** Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify(). */
-    useFindAndModify?: boolean;
-    /** If true, this connection will use createIndex() instead of ensureIndex() for automatic index builds via Model.init(). */
-    useCreateIndex?: boolean;
-
-    // TODO
-    safe?: any;
-    fsync?: any;
-    rs_name?: any;
-    slaveOk?: any;
-    authdb?: any;
-  }
-
-  /** See the node-mongodb-native driver instance for options that it understands. */
-  interface ConnectionOpenOptions extends ConnectionOptionsBase {
-    /** mongoose-specific options */
     config?: {
       /**
        * set to false to disable automatic index creation for all
@@ -434,29 +329,35 @@ declare module "mongoose" {
       autoIndex?: boolean;
     };
     autoIndex?: boolean;
-  }
 
-  /** See the node-mongodb-native driver instance for options that it understands. */
-  interface ConnectionOpenSetOptions extends ConnectionOptionsBase {
-    /**
-     * If true, enables High Availability support for mongos
-     * If connecting to multiple mongos servers, set the mongos option to true.
-     */
-    mongos?: boolean;
+    /** Specify a journal write concern (default: false). */
+    journal?: boolean;
 
-    /** sets the underlying driver's promise library (see http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html) */
-    promiseLibrary?: any;
+    /** The current value of the parameter native_parser */
+    nativeParser?: boolean;
 
-    /** See http://mongoosejs.com/docs/connections.html#use-mongo-client **/
+    safe?: any;
+    slaveOk?: boolean;
+
+    /** username for authentication */
+    user?: string;
+    /** password for authentication */
+    pass?: string;
+
+    /** If true, this connection will use createIndex() instead of ensureIndex() for automatic index builds via Model.init(). */
+    useCreateIndex?: boolean;
+    /** See https://mongoosejs.com/docs/connections.html#use-mongo-client **/
     useMongoClient?: boolean;
+    /** Flag for using new URL string parser instead of current (deprecated) one */
+    useNewUrlParser?: boolean;
+    /** Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify(). */
+    useFindAndModify?: boolean;
 
-    /** See http://mongoosejs.com/docs/guide.html#bufferCommands */
-    bufferCommands?: boolean;
+    // Legacy properties - passed to the connection server instance(s)
+    mongos?: any;
+    server?: any;
+    replset?: any;
   }
-
-  interface ConnectionOptions extends
-    ConnectionOpenOptions,
-    ConnectionOpenSetOptions { }
 
   interface ClientSession extends mongodb.ClientSession { }
 
@@ -496,7 +397,15 @@ declare module "mongoose" {
     startSession(options?: mongodb.SessionOptions, cb?: (err: any, session: mongodb.ClientSession) => void): Promise<mongodb.ClientSession>;
 
     /** Expose the possible connection states. */
-    static STATES: any;
+    static STATES: ConnectionStates;
+  }
+
+  enum ConnectionStates {
+    disconnected = 0,
+    connected = 1,
+    connecting = 2,
+    disconnecting = 3,
+    uninitialized = 99,
   }
 
   /*
@@ -690,9 +599,9 @@ declare module "mongoose" {
 
   /*
    * section querycursor.js
-   * http://mongoosejs.com/docs/api.html#querycursor-js
+   * https://mongoosejs.com/docs/api.html#querycursor-js
    *
-   * Callback signatures are from: http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#close
+   * Callback signatures are from: https://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#close
    * QueryCursor can only be accessed by query#cursor(), we only
    *   expose its interface to enable type-checking.
    */
@@ -853,11 +762,11 @@ declare module "mongoose" {
      * @param method name of the method to hook
      * @param fn callback
      */
-    post<T extends Document>(method: string, fn: (
+    post<T extends Document>(method: string | RegExp, fn: (
       doc: T, next: (err?: NativeError) => void
     ) => void): this;
 
-    post<T extends Document>(method: string, fn: (
+    post<T extends Document>(method: string | RegExp, fn: (
       error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
     ) => void): this;
 
@@ -931,7 +840,7 @@ declare module "mongoose" {
       errorCb?: HookErrorCallback
     ): this;
     pre<T extends Document | Model<Document> | Query<any> | Aggregate<any>>(
-      method: string,
+      method: string | RegExp,
       parallel: boolean,
       fn: HookAsyncCallback<T>,
       errorCb?: HookErrorCallback
@@ -1259,11 +1168,13 @@ declare module "mongoose" {
     }
 
     interface ValidateOpts extends ValidateOptsBase {
+      /** deprecated */
       isAsync?: false;
       validator?: RegExp | ValidateFn<any>;
     }
 
     interface AsyncValidateOpts extends ValidateOptsBase {
+      /** deprecated */
       isAsync: true;
       validator: AsyncValidateFn<any>;
     }
@@ -3319,9 +3230,9 @@ declare module "mongoose" {
     model<T extends Document>(name: string): Model<T>;
 
     /** Override whether mongoose thinks this doc is deleted or not */
-    isDeleted(isDeleted: boolean): void;
+    $isDeleted(isDeleted: boolean): void;
     /** whether mongoose thinks this doc is deleted. */
-    isDeleted(): boolean;
+    $isDeleted(): boolean;
 
     /**
      * Removes this document from the db.

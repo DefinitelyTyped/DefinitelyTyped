@@ -5,6 +5,11 @@ const management = new auth0.ManagementClient({
   domain: '{YOUR_ACCOUNT}.auth0.com'
 });
 
+const uManagement = new auth0.ManagementClient<{aTest: string},{uTest: string}>({
+    token: '{YOUR_API_V2_TOKEN}',
+    domain: '{YOUR_ACCOUNT}.auth0.com'
+});
+
 const auth = new auth0.AuthenticationClient({
   domain: '{YOUR_ACCOUNT}.auth0.com',
   clientId: '{OPTIONAL_CLIENT_ID}',
@@ -151,6 +156,8 @@ management
 management
   .updateUserMetadata({id: "user_id"}, {"key": "value"});
 
+uManagement.updateAppMetadata({id: "user_id"},{aTest: 'test'});
+
 // Update user metadata with JSON object
 management
     .updateUserMetadata({id: "user_id"}, {
@@ -161,6 +168,7 @@ management
         another: "value"
       }
     });
+uManagement.updateUserMetadata({id: "user_id"}, { uTest: "value"});
 
 // Update user metadata using callback
 management
@@ -182,6 +190,80 @@ management.getUsersByEmail('email@address.com', (err, users) => {
 
 management.getUsersByEmail('email@address.com').then((users) => {
   console.log(users);
+});
+
+management.getUserRoles({id: "user_id"}).then(roles => console.log(roles));
+management.getUserRoles({id: "user_id"}, (err, data) => console.log(data));
+management.getUserRoles({id: "user_id", per_page: 3}).then(roles => console.log(roles));
+management.getUserRoles({id: "user_id", per_page: 3}, (err, data) => console.log(data));
+management.getUserRoles({id: "user_id", include_totals: true}).then(rolePage => console.log(rolePage));
+management.getUserRoles({id: "user_id", include_totals: true}, (err, data) => console.log(data));
+
+management.removeRolesFromUser({id: "user_id"}, { roles: [ "role_id" ] })
+    .then(() => console.log("It worked"))
+    .catch(err => console.log("Something went wrong " + err));
+management.removeRolesFromUser({id: "user_id"}, { roles: [ "role_id" ] }, err => {
+    if (err) {
+        console.error("Something went wrong " + err);
+    } else {
+        console.log("It worked");
+    }
+});
+
+management.assignRolestoUser({id: "user_id"}, { roles: [ "role_id" ] })
+    .then(() => console.log("It worked"))
+    .catch(err => console.log("Something went wrong " + err));
+management.assignRolestoUser({id: "user_id"}, { roles: [ "role_id" ] }, err => {
+    if (err) {
+        console.error("Something went wrong " + err);
+    } else {
+        console.log("It worked");
+    }
+});
+
+management.getUserPermissions({id: "user_id"}).then(permissions => console.log(permissions));
+management.getUserPermissions({id: "user_id"}, (err, data) => console.log(data));
+management.getUserPermissions({id: "user_id", per_page: 3}).then(permissions => console.log(permissions));
+management.getUserPermissions({id: "user_id", per_page: 3}, (err, data) => console.log(data));
+management.getUserPermissions({id: "user_id", include_totals: true}).then(permissionPage => console.log(permissionPage));
+management.getUserPermissions({id: "user_id", include_totals: true}, (err, data) => console.log(data));
+
+management.removePermissionsFromUser({id: "user_id"}, {
+        permissions: [
+            { permission_name: "god:mode", resource_server_identifier: "https://my.api.com" }
+        ]
+    })
+    .then(() => console.log("It worked"))
+    .catch(err => console.log("Something went wrong " + err));
+management.removePermissionsFromUser({id: "user_id"}, {
+    permissions: [
+        { permission_name: "god:mode", resource_server_identifier: "https://my.api.com" }
+    ]
+}, (err) => {
+    if (err) {
+        console.error("Something went wrong " + err);
+    } else {
+        console.log("It worked");
+    }
+});
+
+management.assignPermissionsToUser({id: "user_id"}, {
+        permissions: [
+            { permission_name: "god:mode", resource_server_identifier: "https://my.api.com" }
+        ]
+    })
+    .then(() => console.log("It worked"))
+    .catch(err => console.log("Something went wrong " + err));
+management.assignPermissionsToUser({id: "user_id"}, {
+    permissions: [
+        { permission_name: "god:mode", resource_server_identifier: "https://my.api.com" }
+    ]
+}, (err) => {
+    if (err) {
+        console.error("Something went wrong " + err);
+    } else {
+        console.log("It worked");
+    }
 });
 
 // Using different client settings.
@@ -234,5 +316,168 @@ management.getClients({fields:['name','client_metadata'], include_fields:true})
     // Handle the error
   });
 
-// Get all cients with params (with callback)
+// Get all clients with params (with callback)
 management.getClients({fields:['name','client_metadata'], include_fields:true}, (err:Error, clients:auth0.Client[]) => {});
+
+// Jobs
+management.getJob({
+    id: 'job_id'
+}).then((job) => console.log((<auth0.ExportUsersJob>job).fields));
+
+// job.type can be used as a discriminator for automatic type assertion (no casting needed)
+management.getJob({
+    id: 'job_id'
+}).then((job) => {
+    if (job.type === 'users_export') {
+        console.log(job.fields);
+    }
+});
+
+management.getJob({
+    id: 'job_id'
+}, (err, data) => console.log((<auth0.ExportUsersJob>data).fields));
+
+management.getJob({
+    id: 'job_id'
+}).then((job) => console.log((<auth0.ImportUsersJob>job).send_completion_email));
+
+management.getJob({
+    id: 'job_id'
+}, (err, data) => console.log((<auth0.ImportUsersJob>data).send_completion_email));
+
+management.getJob({
+    id: 'job_id'
+}).then((job) => console.log((<auth0.VerificationEmailJob>job).id));
+
+management.getJob({
+    id: 'job_id'
+}, (err, data) => console.log((<auth0.VerificationEmailJob>data).id));
+
+management.importUsers({
+    users: "some file data",
+    connection_id: 'con_id',
+    upsert: true
+}).then((results) => console.log(results));
+
+management.importUsers({
+    users: "some file data",
+    connection_id: 'con_id',
+    upsert: true
+}, (err, data) => console.log(data));
+
+management.exportUsers({
+    connection_id: 'con_id',
+    fields: [
+        { name: 'email', export_as: 'email_address' }
+    ],
+    format: "json",
+    limit: 500
+}).then((results) => console.log(results));
+
+management.exportUsers({
+    connection_id: 'con_id',
+    fields: [
+        { name: 'email', export_as: 'email_address' }
+    ],
+    format: "json",
+    limit: 500
+}, (err, data) => console.log(data));
+
+management.sendEmailVerification({
+    client_id: 'client_id',
+    user_id: 'user_id'
+}).then((results) => console.log(results));
+
+management.sendEmailVerification({
+    client_id: 'client_id',
+    user_id: 'user_id'
+}, (err, data) => console.log(data));
+
+// Roles
+management.getRoles().then(roles => console.log(roles));
+management.getRoles((err, data) => console.log(data));
+management.getRoles({name_filter: "Admin"}).then(roles => console.log(roles));
+management.getRoles({name_filter: "Admin"}, (err, data) => console.log(data));
+management.getRoles({per_page: 12}).then(roles => console.log(roles));
+management.getRoles({per_page: 12}, (err, data) => console.log(data));
+management.getRoles({include_totals: true}).then(rolePage => console.log(rolePage));
+management.getRoles({include_totals: true}, (err, data) => console.log(data));
+
+management.createRole({
+    name: "Admin",
+    description: "I have all the power"
+}).then(role => console.log(role));
+management.createRole({
+    name: "Admin",
+    description: "I have all the power"
+}, (err, data) => console.log(data));
+
+management.getRole({id: "role_id"}).then(role => console.log(role));
+management.getRole({id: "role_id"}, (err, data) => console.log(data));
+
+
+management.deleteRole({id: "role_id"})
+    .then(() => console.log("It worked"))
+    .catch(err => console.error("Something went wrong " + err));
+management.deleteRole({id: "role_id"}, err => {
+    if (err) {
+        console.error("Something went wrong " + err);
+    } else {
+        console.log("It worked");
+    }
+});
+
+management.updateRole({id: "role_id"}, {
+    name: "The new name"
+}).then(role => console.log(role));
+management.updateRole({id: "role_id"}, {
+    name: "The new name"
+}, (err, data) => console.log(data));
+
+management.getPermissionsInRole({id: "role_id"}).then(permissions => console.log(permissions));
+management.getPermissionsInRole({id: "role_id"}, (err, data) => console.log(data));
+
+management.removePermissionsFromRole({id: "role_id"}, {
+        permissions: [
+            { permission_name: "eat:cake", resource_server_identifier: "https://my.api.com" }
+        ]
+    })
+    .then(() => console.log("It worked"))
+    .catch(err => console.log("Something went wrong " + err));
+management.removePermissionsFromRole({id: "role_id"}, {
+    permissions: [
+        { permission_name: "eat:cake", resource_server_identifier: "https://my.api.com" }
+    ]
+}, err => {
+    if (err) {
+        console.error("Something went wrong " + err);
+    } else {
+        console.log("It worked");
+    }
+});
+
+management.addPermissionsInRole({id: "role_id"}, {
+        permissions: [
+            { permission_name: "eat:cake", resource_server_identifier: "https://my.api.com" }
+        ]
+    })
+    .then(() => console.log("It worked"))
+    .catch(err => console.log("Something went wrong " + err));
+management.addPermissionsInRole({id: "role_id"}, {
+    permissions: [
+        { permission_name: "eat:cake", resource_server_identifier: "https://my.api.com" }
+    ]
+}, err => {
+    if (err) {
+        console.error("Something went wrong " + err);
+    } else {
+        console.log("It worked");
+    }
+});
+
+management.getUsersInRole({id: "role_id"}).then(users => console.log(users));
+management.getUsersInRole({id: "role_id"}, (err, data) => console.log(data));
+management.getUsersInRole({id: "role_id", per_page: 8}).then(users => console.log(users));
+management.getUsersInRole({id: "role_id", per_page: 8}, (err, data) => console.log(data));
+management.getUsersInRole({id: "role_id", include_totals: true}).then(userPage => console.log(userPage));
+management.getUsersInRole({id: "role_id", include_totals: true}, (err, data) => console.log(data));
