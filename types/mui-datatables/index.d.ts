@@ -1,4 +1,4 @@
-// Type definitions for mui-datatables 2.0
+// Type definitions for mui-datatables 2.1
 // Project: https://github.com/gregnb/mui-datatables
 // Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
 //                 Ankith Konda <https://github.com/ankithkonda>
@@ -115,57 +115,58 @@ export interface MUIDataTableColumnOptions {
 }
 
 export interface MUIDataTableOptions {
-    page?: number;
+    caseSensitive?: boolean;
     count?: number;
-    serverSide?: boolean;
-    rowsSelected?: any[];
-    filterType?: 'dropdown' | 'checkbox' | 'multiselect' | 'textField';
-    textLabels?: MUIDataTableTextLabels;
-    pagination?: boolean;
-    selectableRows?: boolean;
-    isRowSelectable?: (dataIndex: number) => boolean;
-    resizableColumns?: boolean;
-    expandableRows?: boolean;
-    renderExpandableRow?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => React.ReactNode;
-    customToolbar?: () => React.ReactNode;
     customFooter?: (rowCount: number, page: number, rowsPerPage: number, changeRowsPerPage: () => any, changePage: number) => React.ReactNode;
+    customSearch?: (searchQuery: string, currentRow: any[], columns: any[]) => boolean;
+    customSort?: (data: any[], colIndex: number, order: string) => any[];
+    customToolbar?: () => React.ReactNode;
     customToolbarSelect?: (
         selectedRows: {
-            data: Array<{ index: number; dataIndex: number }>;
-            lookup: { [key: number]: boolean };
+            data: Array<{ index: number; dataIndex: number }>,
+            lookup: { [key: number]: boolean }
         },
         displayData: Array<{ data: any[]; dataIndex: number }>,
         setSelectedRows: (rows: number[]) => void
     ) => React.ReactNode;
-    customSort?: (data: any[], colIndex: number, order: string) => any[];
-    customSearch?: (searchQuery: string, currentRow: any[], columns: any[]) => boolean;
-    elevation?: number;
-    caseSensitive?: boolean;
-    responsive?: 'stacked' | 'scroll';
-    rowsPerPage?: number;
-    rowsPerPageOptions?: number[];
-    rowHover?: boolean;
-    fixedHeader?: boolean;
-    sortFilterList?: boolean;
-    sort?: boolean;
-    filter?: boolean;
-    search?: boolean;
-    print?: boolean;
     download?: boolean;
     downloadOptions?: { filename: string; separator: string };
-    viewColumns?: boolean;
-    onRowsSelect?: (currentRowsSelected: any[], rowsSelected: any[]) => void;
-    onRowsDelete?: (rowsDeleted: any[]) => void;
-    onRowClick?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
+    elevation?: number;
+    expandableRows?: boolean;
+    filter?: boolean;
+    filterType?: 'dropdown' | 'checkbox' | 'multiselect' | 'textField';
+    fixedHeader?: boolean;
+    isRowSelectable?: (dataIndex: number) => boolean;
     onCellClick?: (colData: any, cellMeta: { colIndex: number, rowIndex: number, dataIndex: number, event: React.MouseEvent }) => void;
     onChangePage?: (currentPage: number) => void;
     onChangeRowsPerPage?: (numberOfRows: number) => void;
-    onSearchChange?: (searchText: string) => void;
-    onFilterChange?: (changedColumn: string, filterList: any[]) => void;
     onColumnSortChange?: (changedColumn: string, direction: string) => void;
     onColumnViewChange?: (changedColumn: string, action: string) => void;
+    onDownload?: (buildHead: (columns: any) => string, buildBody: (data: any) => string, columns: any, data: any) => string;
+    onFilterChange?: (changedColumn: string, filterList: any[]) => void;
+    onRowClick?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
+    onRowsDelete?: (rowsDeleted: any[]) => void;
+    onRowsSelect?: (currentRowsSelected: any[], rowsSelected: any[]) => void;
+    onSearchChange?: (searchText: string) => void;
     onTableChange?: (action: string, tableState: MUIDataTableState) => void;
+    page?: number;
+    pagination?: boolean;
+    print?: boolean;
+    renderExpandableRow?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => React.ReactNode;
+    resizableColumns?: boolean;
+    responsive?: 'stacked' | 'scroll';
+    rowHover?: boolean;
+    rowsPerPage?: number;
+    rowsPerPageOptions?: number[];
+    rowsSelected?: any[];
+    search?: boolean;
+    selectableRows?: boolean;
+    serverSide?: boolean;
     setRowProps?: (row: any[], rowIndex: number) => object;
+    sort?: boolean;
+    sortFilterList?: boolean;
+    textLabels?: MUIDataTableTextLabels;
+    viewColumns?: boolean;
 }
 
 export type MUIDataTableColumnDef = string | MUIDataTableColumn;
