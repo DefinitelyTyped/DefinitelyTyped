@@ -13,6 +13,7 @@
 //                 Avraham Essoudry <https://github.com/avrahamcool>
 //                 Dmitriy Trifonov <https://github.com/divideby>
 //                 Sam Welek <https://github.com/tiberiushunter>
+//                 Slaven Tomac <https://github.com/slavede>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
