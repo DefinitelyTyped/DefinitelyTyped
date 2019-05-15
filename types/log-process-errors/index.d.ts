@@ -8,17 +8,17 @@ declare namespace logProcessErrors {
     /**
      * Log level
      */
-    export type LogLevel = 'debug' | 'info' | 'warn' | 'error' | 'silent' | 'default';
+    type LogLevel = 'debug' | 'info' | 'warn' | 'error' | 'silent' | 'default';
 
     /**
      * Exception type.
      */
-    export type ExceptionType = 'uncaughtException' | 'unhandledRejection' | 'rejectionHandled' | 'multipleResolves' | 'warning';
+    type ExceptionType = 'uncaughtException' | 'unhandledRejection' | 'rejectionHandled' | 'multipleResolves' | 'warning';
 
     /**
      * log-process-errors constructor options.
      */
-    export interface Options {
+    interface Options {
         /**
          * Override logger
          *
