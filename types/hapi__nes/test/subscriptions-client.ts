@@ -18,10 +18,10 @@ client.connect().then(() => {
 
 import NesClient = require('@hapi/nes/lib/client');
 
-var client = new NesClient('ws://localhost');
+var client = new NesClient.Client('ws://localhost');
 client.connect().then(() => {
 
-    const handler: NesClient.Handler = (update, flags) => {
+    const handler: NesClient.Client.Handler = (update, flags) => {
 
         // update -> { id: 5, status: 'complete' }
         // Second publish is not received (doesn't match)

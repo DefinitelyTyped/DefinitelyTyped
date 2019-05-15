@@ -12,7 +12,7 @@ client.connect({ auth: { headers: { authorization: 'Basic am9objpzZWNyZXQ=' } } 
 
 import NesClient = require('@hapi/nes/lib/client');
 
-var client = new NesClient('ws://localhost');
+var client = new NesClient.Client('ws://localhost');
 client.connect({ auth: { headers: { authorization: 'Basic am9objpzZWNyZXQ=' } } }).then(() => {
 
     return client.request('hello');

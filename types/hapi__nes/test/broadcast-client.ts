@@ -15,7 +15,7 @@ client.connect().then(() => {
 
 import NesClient = require('@hapi/nes/lib/client');
 
-var client = new NesClient('ws://localhost');
+var client = new NesClient.Client('ws://localhost');
 client.connect().then(() => {
 
     client.onUpdate = function (update) {

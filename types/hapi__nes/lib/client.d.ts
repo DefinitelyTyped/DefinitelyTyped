@@ -54,4 +54,4 @@ declare namespace Client {
     }
 }
 
-export = Client;
+export { Client };
