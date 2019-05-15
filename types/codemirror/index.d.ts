@@ -11,8 +11,8 @@
 export = CodeMirror;
 export as namespace CodeMirror;
 
-declare function CodeMirror(callback: (host: HTMLElement) => void , options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
-declare function CodeMirror(host: HTMLElement, options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
+declare function CodeMirror(fn: (place: Element) => void , options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
+declare function CodeMirror(place: Element, options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 
 declare namespace CodeMirror {
     export var Doc : CodeMirror.DocConstructor;
@@ -22,7 +22,7 @@ declare namespace CodeMirror {
 
     /** Find the column position at a given string index using a given tabsize. */
     function countColumn(line: string, index: number | null, tabSize: number): number;
-    function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
+    function fromTextArea(place: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
 
     /** Split a string by new line. */
     function splitLines(text: string): Array<string>;
@@ -222,7 +222,7 @@ declare namespace CodeMirror {
 
         /** Sets the gutter marker for the given gutter (identified by its CSS class, see the gutters option) to the given value.
         Value can be either null, to clear the marker, or a DOM element, to set it. The DOM element will be shown in the specified gutter next to the specified line. */
-        setGutterMarker(line: any, gutterID: string, value: HTMLElement | null): CodeMirror.LineHandle;
+        setGutterMarker(line: any, gutterID: string, value: Element | null): CodeMirror.LineHandle;
 
         /** Remove all gutter markers in the gutter with the given ID. */
         clearGutter(gutterID: string): void;
@@ -266,13 +266,13 @@ declare namespace CodeMirror {
         /** Puts node, which should be an absolutely positioned DOM node, into the editor, positioned right below the given { line , ch } position.
         When scrollIntoView is true, the editor will ensure that the entire node is visible (if possible).
         To remove the widget again, simply use DOM methods (move it somewhere else, or call removeChild on its parent). */
-        addWidget(pos: CodeMirror.Position, node: HTMLElement, scrollIntoView: boolean): void;
+        addWidget(pos: CodeMirror.Position, node: Element, scrollIntoView: boolean): void;
 
         /** Adds a line widget, an element shown below a line, spanning the whole of the editor's width, and moving the lines below it downwards.
         line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
         options, when given, should be an object that configures the behavior of the widget.
         Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
-        addLineWidget(line: any, node: HTMLElement, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
+        addLineWidget(line: any, node: Element, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
 
 
         /** Programatically set the size of the editor (overriding the applicable CSS rules).
@@ -399,13 +399,13 @@ declare namespace CodeMirror {
         getInputField(): HTMLTextAreaElement;
 
         /** Returns the DOM node that represents the editor, and controls its size. Remove this from your tree to delete an editor instance. */
-        getWrapperElement(): HTMLElement;
+        getWrapperElement(): Element;
 
         /** Returns the DOM node that is responsible for the scrolling of the editor. */
-        getScrollerElement(): HTMLElement;
+        getScrollerElement(): Element;
 
         /** Fetches the DOM node that contains the editor gutters. */
-        getGutterElement(): HTMLElement;
+        getGutterElement(): Element;
 
 
 
@@ -531,8 +531,8 @@ declare namespace CodeMirror {
 
         /** Fired whenever a line is (re-)rendered to the DOM. Fired right after the DOM element is built, before it is added to the document.
         The handler may mess with the style of the resulting element, or add event handlers, but should not try to change the state of the editor. */
-        on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void ): void;
-        off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void ): void;
+        on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: Element) => void ): void;
+        off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: Element) => void ): void;
 
         /**
          * Fired when CodeMirror is handling a DOM event of this type. You can preventDefault the event, or give it a truthy codemirrorIgnore
@@ -734,7 +734,7 @@ declare namespace CodeMirror {
         and the second explicitly removes the bookmark. */
         setBookmark(pos: CodeMirror.Position, options?: {
             /** Can be used to display a DOM node at the current location of the bookmark (analogous to the replacedWith option to markText). */
-            widget?: HTMLElement;
+            widget?: Element;
 
             /** By default, text typed when the cursor is on top of the bookmark will end up to the right of the bookmark.
             Set this option to true to make it go to the left instead. */
@@ -754,7 +754,7 @@ declare namespace CodeMirror {
         line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
         options, when given, should be an object that configures the behavior of the widget.
         Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
-        addLineWidget(line: any, node: HTMLElement, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
+        addLineWidget(line: any, node: Element, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
 
         /** Remove the line widget */
         removeLineWidget(widget: CodeMirror.LineWidget): void;
@@ -1317,7 +1317,7 @@ declare namespace CodeMirror {
 
         /** Use a given node to display this range.Implies both collapsed and atomic.
         The given DOM node must be an inline element(as opposed to a block element). */
-        replacedWith?: HTMLElement;
+        replacedWith?: Element;
 
         /** When replacedWith is given, this determines whether the editor will
          * capture mouse and drag events occurring in this widget. Default is
@@ -1729,7 +1729,7 @@ declare namespace CodeMirror {
     /**
      * A function that calculates either a two-way or three-way merge between different sets of content.
      */
-    function MergeView(element: HTMLElement, options?: MergeView.MergeViewEditorConfiguration): MergeView.MergeViewEditor;
+    function MergeView(element: Element, options?: MergeView.MergeViewEditorConfiguration): MergeView.MergeViewEditor;
 
     namespace MergeView {
       /**
