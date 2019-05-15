@@ -171,11 +171,11 @@ declare namespace CodeMirror {
         Will return a position that is produced by moving amount times the distance specified by unit.
         When visually is true , motion in right - to - left text will be visual rather than logical.
         When the motion was clipped by hitting the end or start of the document, the returned value will have a hitSide property set to true. */
-        findPosH(start: CodeMirror.Position, amount: number, unit: string, visually: boolean): { line: number; ch: number; hitSide?: boolean; };
+        findPosH(start: CodeMirror.Position, amount: number, unit: "char" | "column" | "word", visually: boolean): { line: number; ch: number; hitSide?: boolean; };
 
         /** Similar to findPosH , but used for vertical motion.unit may be "line" or "page".
         The other arguments and the returned value have the same interpretation as they have in findPosH. */
-        findPosV(start: CodeMirror.Position, amount: number, unit: string): { line: number; ch: number; hitSide?: boolean; };
+        findPosV(start: CodeMirror.Position, amount: number, unit: "line" | "page"): { line: number; ch: number; hitSide?: boolean; };
 
         /** Returns the start and end of the 'word' (the stretch of letters, whitespace, or punctuation) at the given position. */
         findWordAt(pos: CodeMirror.Position): CodeMirror.Range;
@@ -202,10 +202,10 @@ declare namespace CodeMirror {
         mode can be a mode spec or a mode object (an object with a token method). The options parameter is optional. If given, it should be an object.
         Currently, only the opaque option is recognized. This defaults to off, but can be given to allow the overlay styling, when not null,
         to override the styling of the base mode entirely, instead of the two being applied together. */
-        addOverlay(mode: any, options?: any): void;
+        addOverlay(mode: string | object, options?: CodeMirror.OverlayOptions): void;
 
         /** Pass this the exact argument passed for the mode parameter to addOverlay to remove an overlay again. */
-        removeOverlay(mode: any): void;
+        removeOverlay(mode: string | object): void;
 
 
         /** Retrieve the currently active document from an editor. */
@@ -249,30 +249,10 @@ declare namespace CodeMirror {
         If includeWidgets is true and the line has line widgets, the position above the first line widget is returned. */
         heightAtLine(line: any, mode?: CoordsMode, includeWidgets?: boolean): number;
 
-        /** Returns the line number, text content, and marker status of the given line, which can be either a number or a line handle. */
-        lineInfo(line: any): {
-            line: any;
-            handle: any;
-            text: string;
-            /** Object mapping gutter IDs to marker elements. */
-            gutterMarkers: any;
-            textClass: string;
-            bgClass: string;
-            wrapClass: string;
-            /** Array of line widgets attached to this line. */
-            widgets: any;
-        };
-
         /** Puts node, which should be an absolutely positioned DOM node, into the editor, positioned right below the given { line , ch } position.
         When scrollIntoView is true, the editor will ensure that the entire node is visible (if possible).
         To remove the widget again, simply use DOM methods (move it somewhere else, or call removeChild on its parent). */
         addWidget(pos: CodeMirror.Position, node: Element, scrollIntoView: boolean): void;
-
-        /** Adds a line widget, an element shown below a line, spanning the whole of the editor's width, and moving the lines below it downwards.
-        line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
-        options, when given, should be an object that configures the behavior of the widget.
-        Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
-        addLineWidget(line: any, node: Element, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
 
 
         /** Programatically set the size of the editor (overriding the applicable CSS rules).
@@ -357,10 +337,26 @@ declare namespace CodeMirror {
         /** This is similar to getTokenAt, but collects all tokens for a given line into an array. */
         getLineTokens(line: number, precise?: boolean): Token[];
 
-        /** Returns the mode's parser state, if any, at the end of the given line number.
-        If no line number is given, the state at the end of the document is returned.
-        This can be useful for storing parsing errors in the state, or getting other kinds of contextual information for a line. */
-        getStateAfter(line?: number): any;
+        /**
+         * Fetch the set of applicable helper values for the given position. Helpers provide a way to look up functionality
+         * appropriate for a mode. The type argument provides the helper namespace (see registerHelper), in which the values
+         * will be looked up. When the mode itself has a property that corresponds to the type, that directly determines the
+         * keys that are used to look up the helper values (it may be either a single string, or an array of strings). Failing
+         * that, the mode's helperType property and finally the mode's name are used.
+         */
+        getHelpers(pos: CodeMirror.Position, type: string): Array<object>
+
+        /**
+         * Returns the first applicable helper value. See getHelpers.
+         */
+        getHelper(pos: CodeMirror.Position, type: string): object
+
+        /**
+         * Returns the mode's parser state, if any, at the end of the given line number. If no line number is given, the state at
+         * the end of the document is returned. This can be useful for storing parsing errors in the state, or getting other kinds
+         * of contextual information for a line. precise is defined as in getTokenAt().
+         */
+        getStateAfter(line?: number, precise?: boolean): any;
 
         /** CodeMirror internally buffers changes and only updates its DOM structure after it has finished performing some operation.
         If you need to perform a lot of operations on a CodeMirror instance, you can call this method with a function argument.
@@ -372,6 +368,8 @@ declare namespace CodeMirror {
         function, you can call startOperation to tell CodeMirror to start buffering changes, and endOperation to actually render all the updates. Be careful: if you use this
         API and forget to call endOperation, the editor will just never update. */
         startOperation(): void;
+
+        /** See startOperation */
         endOperation(): void;
 
         /** Adjust the indentation of the given line.
@@ -380,7 +378,7 @@ declare namespace CodeMirror {
         "smart" Use the mode's smart indentation if available, behave like "prev" otherwise.
         "add" Increase the indentation of the line by one indent unit.
         "subtract" Reduce the indentation of the line. */
-        indentLine(line: number, dir?: string): void;
+        indentLine(line: number, dir?: "prev" | "smart" | "add" | "subtract" | number): void;
 
         /** Tells you whether the editor's content can be edited by the user. */
         isReadOnly(): boolean;
@@ -395,8 +393,13 @@ declare namespace CodeMirror {
         /** Give the editor focus. */
         focus(): void;
 
-        /** Returns the hidden textarea used to read input. */
-        getInputField(): HTMLTextAreaElement;
+        /**
+         * Allow the given string to be translated with the phrases option.
+         */
+        phrase(text: string): string;
+
+        /** Returns the input field for the editor. Will be a textarea or an editable div, depending on the value of the inputStyle option. */
+        getInputField(): Element;
 
         /** Returns the DOM node that represents the editor, and controls its size. Remove this from your tree to delete an editor instance. */
         getWrapperElement(): Element;
@@ -794,13 +797,6 @@ declare namespace CodeMirror {
          */
         lineInfo(line: number | CodeMirror.LineHandle): CodeMirror.LineInfo;
 
-        /**
-         * Puts node, which should be an absolutely positioned DOM node, into the editor, positioned right below the given {line, ch} position.
-         * When scrollIntoView is true, the editor will ensure that the entire node is visible (if possible). To remove the widget again, simply
-         * use DOM methods (move it somewhere else, or call removeChild on its parent).
-         */
-        addWidget(pos: CodeMirror.Position, node: Element, scrollIntoView: boolean): void;
-
         /** Adds a line widget, an element shown below a line, spanning the whole of the editor's width, and moving the lines below it downwards.
         line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
         options, when given, should be an object that configures the behavior of the widget.
@@ -939,6 +935,19 @@ declare namespace CodeMirror {
          */
         on(eventName: 'redraw', handler: () => void) : void;
         off(eventName: 'redraw', handler: () => void) : void;
+    }
+
+    interface OverlayOptions {
+        /**
+         * Defaults to off, but can be given to allow the overlay styling, when not null, to override the styling of the base mode
+         * entirely, instead of the two being applied together.
+         */
+        opaque?: boolean;
+        /**
+         * Determines the ordering in which the overlays are applied. Those with high priority are applied after those with lower
+         * priority, and able to override the opaqueness of the ones that come before. Defaults to 0.
+         */
+        priority?: number;
     }
 
     interface SelectionOptions {
