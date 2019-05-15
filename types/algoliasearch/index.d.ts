@@ -2063,7 +2063,7 @@ declare namespace algoliasearch {
          * List of associated postcodes.
          * https://community.algolia.com/places/api-clients.html#api-suggestion-postcode
          */
-        postcodes?: string[];
+        postcode?: string[];
         /**
          * Associated population.
          * https://community.algolia.com/places/api-clients.html#api-suggestion-population
