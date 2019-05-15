@@ -236,6 +236,12 @@ export class MongoNetworkError extends MongoError {
 }
 
 
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoParseError.html */
+export class MongoParseError extends MongoError {
+    constructor(message: string);
+}
+
+
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#.connect */
 export interface MongoClientOptions extends
     DbCreateOptions,
