@@ -99,7 +99,7 @@ declare namespace Chartist {
     interface IChartistSeriesData {
         name?: string;
         value?: number;
-        data?: Array<number>;
+        data?: Array<number> | Array<{ x: number, y: number }> | Array<{ x: Date, y: number }>;
         className?: string;
         meta?: any;
     }
