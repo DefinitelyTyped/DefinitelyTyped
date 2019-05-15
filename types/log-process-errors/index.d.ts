@@ -2,6 +2,7 @@
 // Project: https://git.io/fhSGY
 // Definitions by: Jørgen Vatle <https://github.com/JorgenVatle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /**
  * Log level
