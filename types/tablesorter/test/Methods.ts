@@ -41,14 +41,14 @@ export class TestMethods<T extends HTMLElement> {
      * Tests for the methods.
      */
     Test() {
-        const $: JQueryStatic<T> = null;
+        const $: JQueryStatic<T> = {} as any;
         const tableElement = this.table[0];
         const config = this.table[0].config;
-        const parser: Parser<T> = null;
-        const widget: Widget<T> = null;
-        const parsedCellCallback = (cell: ParsedCell): void => null;
-        const ajaxSettings: JQuery.AjaxSettings = null;
-        const request: JQuery.jqXHR = null;
+        const parser: Parser<T> = {} as any;
+        const widget: Widget<T> = {} as any;
+        const parsedCellCallback = (cell: ParsedCell): void => { };
+        const ajaxSettings: JQuery.AjaxSettings = {} as any;
+        const request: JQuery.jqXHR = {} as any;
         const storageConfig: StorageConfiguration = {
             group: "",
             id: "",
@@ -134,12 +134,12 @@ export class TestMethods<T extends HTMLElement> {
             0,
             parsedCellCallback,
             (index, element) => {
-            // $ExpectType number
-            index;
-            // $ExpectType HTMLElement
-            element;
-            return true;
-        });
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                element;
+                return true;
+            });
         $.tablesorter.getColumnText(tableElement, 0);
         $.tablesorter.getColumnText(tableElement, 0, parsedCellCallback);
         $.tablesorter.getColumnText(tableElement, 0, parsedCellCallback, "*");
@@ -150,21 +150,21 @@ export class TestMethods<T extends HTMLElement> {
             0,
             parsedCellCallback,
             (index, element) => {
-            // $ExpectType number
-            index;
-            // $ExpectType HTMLElement
-            element;
-            return true;
-        });
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                element;
+                return true;
+            });
 
-        // $ExpectType string | boolean
-        $.tablesorter.getData($(), config.headers, "sorter");
-        // $ExpectType string | boolean
-        $.tablesorter.getData($()[0], config.headers, "sorter");
-        // $ExpectType StringSorting
-        $.tablesorter.getData($(), config.headers, "string");
-        // $ExpectType StringSorting
-        $.tablesorter.getData($()[0], config.headers, "string");
+        // $ExpectType string | boolean | undefined
+        $.tablesorter.getData($(), config.headers[0], "sorter");
+        // $ExpectType string | boolean | undefined
+        $.tablesorter.getData($()[0], config.headers[0], "sorter");
+        // $ExpectType StringSorting | undefined
+        $.tablesorter.getData($(), config.headers[0], "string");
+        // $ExpectType StringSorting | undefined
+        $.tablesorter.getData($()[0], config.headers[0], "string");
 
         // $ExpectType string[]
         $.tablesorter.getFilters(this.table);

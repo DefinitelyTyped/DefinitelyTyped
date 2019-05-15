@@ -8,7 +8,7 @@ export class TestVariables<T extends HTMLElement> {
      * Tests for the variables.
      */
     Test() {
-        const $: JQueryStatic<T> = null;
+        const $: JQueryStatic<T> = {} as any;
         const table = $<T>()[0];
         const config = table.config;
         const widgetOptions = config.widgetOptions;

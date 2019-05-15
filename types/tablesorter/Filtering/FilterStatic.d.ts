@@ -84,5 +84,5 @@ export interface FilterStatic<TElement = HTMLElement> {
      * @param options
      * The options to add.
      */
-    processOptions(table: JQuery<TElement> | TElement, column: number, options: ReadonlyArray<any>): string[];
+    processOptions(table: JQuery<TElement> | TElement, column: number | null | undefined, options: ReadonlyArray<any>): string[];
 }
