@@ -1,5 +1,5 @@
 import { NodeOptions } from 'vis';
-import vis from 'vis';
+import vis = require('vis');
 
 // Test DataSet constructor
 new vis.DataSet();
@@ -37,7 +37,7 @@ data.add([
 ]);
 
 // subscribe to any change in the DataSet
-data.on('*', (event, properties, senderId) => {
+data.on('*', (event: any, properties: any, senderId: any) => {
   console.log('event', event, properties);
 });
 
@@ -57,7 +57,7 @@ console.log('item1', item1);
 
 // retrieve a filtered subset of the data
 let items = data.get({
-  filter: (item) => {
+  filter: (item: any) => {
     return item.group === 1;
   }
 });
@@ -80,7 +80,7 @@ console.log('formatted items', items);
 data = new vis.DataSet<TestData>();
 
 // subscribe to any change in the DataSet
-data.on('*', (event, properties, senderId) => {
+data.on('*', (event: any, properties: any, senderId: any) => {
   console.log('event:', event, 'properties:', properties, 'senderId:', senderId);
 });
 
@@ -135,14 +135,14 @@ const dataset = new vis.DataSet<TestData>();
 
 // retrieve all items having a property group with value 2
 const group2 = dataset.get({
-  filter: (item) => {
+  filter: (item: any) => {
     return (item.group === 2);
   }
 });
 
 // retrieve all items having a property balance with a value above zero
 const positiveBalance = dataset.get({
-  filter: (item) => {
+  filter: (item: any) => {
     return item.balance !== undefined && item.balance > 0;
   }
 });
@@ -228,21 +228,21 @@ let nodeWidthConstraintOptions: NodeOptions = {
     widthConstraint: {
         maximum: 100
     }
-}
+};
 nodeWidthConstraintOptions = {
     widthConstraint: false
-}
+};
 nodeWidthConstraintOptions = {
     widthConstraint: {
         minimum: 1,
         maximum: 5
     }
-}
+};
 nodeWidthConstraintOptions = {
     widthConstraint: {
         minimum: 1
     }
-}
+};
 nodeWidthConstraintOptions = {
     widthConstraint: 150
-}
+};
