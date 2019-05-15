@@ -12,6 +12,7 @@
 
 import { EventEmitter } from "events";
 import { ChildProcess } from "child_process";
+import { Device } from "./DeviceDescriptors";
 
 /** Wraps a DOM element into an ElementHandle instance */
 export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
@@ -2249,3 +2250,9 @@ export function executablePath(): string;
 export function launch(options?: LaunchOptions): Promise<Browser>;
 /** This methods attaches Puppeteer to an existing Chromium instance. */
 export function createBrowserFetcher(options?: FetcherOptions): BrowserFetcher;
+/** Predefigned puppeter devices */
+export const devices: {
+  [key: string]: Device;
+};
+/** Errors */
+export const error: Error | undefined;
