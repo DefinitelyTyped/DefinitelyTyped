@@ -1,4 +1,4 @@
-import encode  = require("form-urlencoded");
+import encode = require("form-urlencoded");
 
 const opts: encode.FormEncodedOptions = {
     sorted: true,
