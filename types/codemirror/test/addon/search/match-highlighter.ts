@@ -1,6 +1,5 @@
+import CodeMirror = require("codemirror");
 
-
-
-var myCodeMirror: CodeMirror.Editor = CodeMirror(document.body, {
+const opt: CodeMirror.EditorConfiguration = {
     highlightSelectionMatches: true
-});
+};
