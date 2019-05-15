@@ -1,3 +1,4 @@
+import { NodeOptions } from './index';
 // Test DataSet constructor
 new vis.DataSet();
 new vis.DataSet({});
@@ -217,3 +218,29 @@ options = {
 };
 
 network.setOptions(options);
+
+//
+// should accept different formats of widthConstraint for NodeOptions
+//
+let nodeWidthConstraintOptions: NodeOptions = {
+    widthConstraint: {
+        maximum: 100
+    }
+}
+nodeWidthConstraintOptions = {
+    widthConstraint: false
+}
+nodeWidthConstraintOptions = {
+    widthConstraint: {
+        minimum: 1,
+        maximum: 5
+    }
+}
+nodeWidthConstraintOptions = {
+    widthConstraint: {
+        minimum: 1
+    }
+}
+nodeWidthConstraintOptions = {
+    widthConstraint: 150
+}
