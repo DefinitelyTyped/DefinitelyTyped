@@ -15,17 +15,17 @@ export class TestMethods<T extends HTMLElement> {
     /**
      * A set of sort-definitions for testing.
      */
-    protected sorting: SortDefinition[] = [[0, SortDefinitionOrder.Ascending], [1, 0]];
+    protected sorting: ReadonlyArray<SortDefinition> = [[0, SortDefinitionOrder.Ascending], [1, 0]];
 
     /**
      * A set of relative sort-definitions for testing.
      */
-    protected relativeSorting: RelativeSortDefinition[] = [[0, RelativeSorting.Opposite], [1, RelativeSorting.Same]];
+    protected relativeSorting: ReadonlyArray<RelativeSortDefinition> = [[0, RelativeSorting.Opposite], [1, RelativeSorting.Same]];
 
     /**
      * A set of mixed sort-definitions for testing.
      */
-    protected mixedSorting: Array<SortDefinition | RelativeSortDefinition> = [
+    protected mixedSorting: ReadonlyArray<SortDefinition | RelativeSortDefinition> = [
         [0, SortDefinitionOrder.Descending],
         [1, RelativeSorting.Opposite]];
 

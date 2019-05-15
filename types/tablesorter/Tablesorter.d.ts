@@ -84,7 +84,7 @@ export interface Tablesorter<TElement = HTMLElement> {
      * @param apply
      * A value indicating whether to apply the filter after setting the filter-text.
      */
-    setFilters(table: JQuery<TElement> | TElement, filter: string[], apply?: boolean): void;
+    setFilters(table: JQuery<TElement> | TElement, filter: ReadonlyArray<string>, apply?: boolean): void;
 
     /**
      * Adds instance-methods to the tablesorter.
@@ -197,7 +197,7 @@ export interface Tablesorter<TElement = HTMLElement> {
      * @param callback
      * A callback for post-processing the table.
      */
-    sortOn(config: TablesorterConfigurationStore<TElement>, sort: Array<(SortDefinition | RelativeSortDefinition)>, callback?: TriggerCallbackHandler<TElement>): void;
+    sortOn(config: TablesorterConfigurationStore<TElement>, sort: ReadonlyArray<(SortDefinition | RelativeSortDefinition)>, callback?: TriggerCallbackHandler<TElement>): void;
 
     /**
      * Resets the sorting.
@@ -277,7 +277,7 @@ export interface Tablesorter<TElement = HTMLElement> {
      * @param callback
      * A callback for post-processing the table.
      */
-    addRows(config: TablesorterConfigurationStore<TElement>, rows: JQuery | string, resort: boolean | SortDefinition[], callback?: TriggerCallbackHandler<TElement>): void;
+    addRows(config: TablesorterConfigurationStore<TElement>, rows: JQuery | string, resort: boolean | ReadonlyArray<SortDefinition>, callback?: TriggerCallbackHandler<TElement>): void;
 
     /**
      * Clears all table-bodies inside the specified `table`.
@@ -324,7 +324,7 @@ export interface Tablesorter<TElement = HTMLElement> {
      * @param refreshing
      * A value indicating whether to keep the id of the widget in the `widgets`-option.
      */
-    removeWidget(table: JQuery<TElement> | TElement, id: string | string[] | boolean, refreshing?: boolean): void;
+    removeWidget(table: JQuery<TElement> | TElement, id: string | ReadonlyArray<string> | boolean, refreshing?: boolean): void;
 
     /**
      * Refreshes the widgets.
@@ -357,7 +357,7 @@ export interface Tablesorter<TElement = HTMLElement> {
      * @param callback
      * A callback for post-processing the table.
      */
-    update(config: TablesorterConfigurationStore<TElement>, sorting?: boolean | SortDefinition[], callback?: TriggerCallbackHandler<TElement>): void;
+    update(config: TablesorterConfigurationStore<TElement>, sorting?: boolean | ReadonlyArray<SortDefinition>, callback?: TriggerCallbackHandler<TElement>): void;
 
     /**
      * Updates the data of the table-body.
@@ -368,7 +368,7 @@ export interface Tablesorter<TElement = HTMLElement> {
      * @param callback
      * A callback for post-processing the table.
      */
-    updateRows(config: TablesorterConfigurationStore<TElement>, sorting?: boolean | SortDefinition[], callback?: TriggerCallbackHandler<TElement>): void;
+    updateRows(config: TablesorterConfigurationStore<TElement>, sorting?: boolean | ReadonlyArray<SortDefinition>, callback?: TriggerCallbackHandler<TElement>): void;
 
     /**
      * Updates the cache and optionally adds new `tbody`s.
@@ -399,7 +399,7 @@ export interface Tablesorter<TElement = HTMLElement> {
      * @param callback
      * A callback for post-processing the table.
      */
-    updateCell(config: TablesorterConfigurationStore<TElement>, cell: JQuery, sorting?: boolean | SortDefinition[], callback?: TriggerCallbackHandler<TElement>): void;
+    updateCell(config: TablesorterConfigurationStore<TElement>, cell: JQuery, sorting?: boolean | ReadonlyArray<SortDefinition>, callback?: TriggerCallbackHandler<TElement>): void;
 
     /**
      * Updates the table-headers.
@@ -424,7 +424,7 @@ export interface Tablesorter<TElement = HTMLElement> {
      * @param callback
      * A callback for post-processing the table.
      */
-    updateAll(config: TablesorterConfigurationStore<TElement>, sorting?: boolean | SortDefinition[], callback?: TriggerCallbackHandler<TElement>): void;
+    updateAll(config: TablesorterConfigurationStore<TElement>, sorting?: boolean | ReadonlyArray<SortDefinition>, callback?: TriggerCallbackHandler<TElement>): void;
 
     /**
      * Restores the headers of a table.
@@ -564,7 +564,7 @@ export interface Tablesorter<TElement = HTMLElement> {
      * @return
      * A value indicating whether a `SortDefinition` for the specified `column` exists.
      */
-    isValueInArray(value: number, array: Array<[number, any]>): boolean;
+    isValueInArray(value: number, array: ReadonlyArray<[number, any]>): boolean;
 
     /**
      * Replaces all accent characters in the `text`.

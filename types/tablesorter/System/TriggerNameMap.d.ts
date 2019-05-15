@@ -10,7 +10,7 @@ export interface TriggerNameMap<TElement = HTMLElement> {
     /**
      * Applies a sort to the table.
      */
-    sorton: [Array<(SortDefinition | RelativeSortDefinition)>, TriggerCallbackHandler<TElement>?];
+    sorton: [ReadonlyArray<(SortDefinition | RelativeSortDefinition)>, TriggerCallbackHandler<TElement>?];
 
     /**
      * Resets the sorting.
@@ -45,17 +45,17 @@ export interface TriggerNameMap<TElement = HTMLElement> {
     /**
      * Removes widgets.
      */
-    removeWidget: string | string[] | boolean;
+    removeWidget: string | ReadonlyArray<string> | boolean;
 
     /**
      * Updates the data of the table-body.
      */
-    update: [boolean | SortDefinition[], TriggerCallbackHandler<TElement>?];
+    update: [boolean | ReadonlyArray<SortDefinition>, TriggerCallbackHandler<TElement>?];
 
     /**
      * Updates the data of the table-body.
      */
-    updateRows: [boolean | SortDefinition[], TriggerCallbackHandler<TElement>?];
+    updateRows: [boolean | ReadonlyArray<SortDefinition>, TriggerCallbackHandler<TElement>?];
 
     /**
      * Updates the cache and optionally adds new `tbody`s.
@@ -65,7 +65,7 @@ export interface TriggerNameMap<TElement = HTMLElement> {
     /**
      * Updates the cell of the table.
      */
-    updateCell: [JQuery, (boolean | SortDefinition[])?, TriggerCallbackHandler<TElement>?];
+    updateCell: [JQuery, (boolean | ReadonlyArray<SortDefinition>)?, TriggerCallbackHandler<TElement>?];
 
     /**
      * Updates the table-headers.
@@ -75,12 +75,12 @@ export interface TriggerNameMap<TElement = HTMLElement> {
     /**
      * Updates the data of the whole table.
      */
-    updateAll: [(boolean | SortDefinition[])?, TriggerCallbackHandler<TElement>?];
+    updateAll: [(boolean | ReadonlyArray<SortDefinition>)?, TriggerCallbackHandler<TElement>?];
 
     /**
      * Performs a search.
      */
-    search: [string[]?] | boolean;
+    search: [ReadonlyArray<string>?] | boolean;
 
     /**
      * Opens the specified page.

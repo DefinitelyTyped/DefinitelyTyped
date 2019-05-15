@@ -36,7 +36,7 @@ export interface FilterStatic<TElement = HTMLElement> {
      * @param visibleOnly
      * A value indicating whether the new options should only include visible row-values if no `options` are defined.
      */
-    buildSelect(table: JQuery<TElement> | TElement, column: number, options: any[] | string | JQuery, replace: boolean, visibleOnly?: boolean): void;
+    buildSelect(table: JQuery<TElement> | TElement, column: number, options: ReadonlyArray<any> | string | JQuery, replace: boolean, visibleOnly?: boolean): void;
 
     /**
      * Gets all available column-values of a column.
@@ -73,17 +73,6 @@ export interface FilterStatic<TElement = HTMLElement> {
     getOptions(table: JQuery<TElement> | TElement, column: number, visibleOnly?: boolean): string[];
 
     /**
-     * Processes and sorts the options according to the options of the specified `table`.
-     *
-     * @param table
-     * The table to process the options for.
-     *
-     * @param options
-     * The options to add.
-     */
-    processOptions<T>(table: JQuery<TElement> | TElement, options: T[]): T[];
-
-    /**
      * Processes and sorts the options according to the options of the specified `column`.
      *
      * @param table
@@ -95,5 +84,5 @@ export interface FilterStatic<TElement = HTMLElement> {
      * @param options
      * The options to add.
      */
-    processOptions(table: JQuery<TElement> | TElement, column: number, options: any[]): string[];
+    processOptions(table: JQuery<TElement> | TElement, column: number, options: ReadonlyArray<any>): string[];
 }
