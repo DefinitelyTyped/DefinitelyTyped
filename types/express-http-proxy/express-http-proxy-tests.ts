@@ -49,6 +49,15 @@ proxy('www.google.com', {
 });
 
 proxy('www.google.com', {
+    userResDecorator(proxyRes, proxyResData, userReq, userRes) {
+        console.log(userReq.url, userRes.statusCode);
+        const data = JSON.parse(proxyResData.toString("utf8"));
+        data.newProperty = "exciting data";
+        return JSON.stringify(data);
+    }
+});
+
+proxy('www.google.com', {
     preserveHostHdr: true
 });
 

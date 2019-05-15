@@ -23,6 +23,7 @@ declare namespace proxy {
         proxyReqPathResolver?: (req: Request) => string;
         proxyReqOptDecorator?: (proxyReqOpts: RequestOptions, srcReq: Request) => RequestOptions;
         userResHeaderDecorator?: (headers: IncomingHttpHeaders, userReq: Request, userRes: Response, proxyReq: Request, proxyRes: Response) => OutgoingHttpHeaders;
+        userResDecorator?: (proxyRes: Response, proxyResData: any, userReq: Request, userRes: Response) => Buffer | string;
         preserveHostHdr?: boolean;
         parseReqBody?: boolean;
     }
