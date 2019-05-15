@@ -2,6 +2,7 @@
 // Project: https://github.com/monterail/vuelidate
 // Definitions by: Jan Esser <https://github.com/janesser>
 //                 Jubair Saidi <https://github.com/jubairsaidi>
+//                 Manuel Habert <https://github.com/braiinzz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
