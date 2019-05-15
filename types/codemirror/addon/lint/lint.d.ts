@@ -8,6 +8,11 @@
 import * as CodeMirror from "codemirror";
 
 declare module "codemirror" {
+    interface LintHelper {
+    }
+
+    var lint: LintHelper;
+
     /**
      * async specifies that the lint process runs asynchronously. hasGutters specifies that lint errors should be displayed in the CodeMirror
      * gutter, note that you must use this in conjunction with [ "CodeMirror-lint-markers" ] as an element in the gutters argument on

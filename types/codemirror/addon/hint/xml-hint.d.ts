@@ -13,9 +13,7 @@ declare module "codemirror" {
         quoteChar?: string;
     }
 
-    interface Hint {
+    interface HintHelper {
         xml: HintFunction<XmlHintOptions>;
     }
-
-    var hint: Hint;
 }

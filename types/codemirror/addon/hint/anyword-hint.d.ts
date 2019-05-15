@@ -14,9 +14,7 @@ declare module "codemirror" {
         list?: (Hint | string)[];
     }
 
-    interface Hint {
+    interface HintHelper {
         anyword: HintFunction<AnywordHintOptions>;
     }
-
-    var hint: Hint;
 }

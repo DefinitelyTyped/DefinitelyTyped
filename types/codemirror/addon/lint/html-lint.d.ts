@@ -8,9 +8,7 @@
 import * as CodeMirror from "codemirror";
 
 declare module "codemirror" {
-    interface Lint {
+    interface LintHelper {
         html: Linter;
     }
-
-    var lint: Lint;
 }

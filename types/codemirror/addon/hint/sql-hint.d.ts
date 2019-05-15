@@ -19,9 +19,7 @@ declare module "codemirror" {
         disableKeywords?: string[];
     }
 
-    interface Hint {
+    interface HintHelper {
         sql: HintFunction<SqlHintOptions>;
     }
-
-    var hint: Hint;
 }

@@ -14,10 +14,8 @@ declare module "codemirror" {
         useGlobalScope?: boolean
     }
 
-    interface Hint {
+    interface HintHelper {
         javascript: HintFunction<JavascriptHintOptions>;
         coffeescript: HintFunction<JavascriptHintOptions>;
     }
-
-    var hint: Hint;
 }

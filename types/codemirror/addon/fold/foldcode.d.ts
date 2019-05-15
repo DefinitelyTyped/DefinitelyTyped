@@ -8,18 +8,18 @@
 import * as CodeMirror from "codemirror";
 
 declare module "codemirror" {
-    interface FoldHelper {
+    interface FoldFunction {
         (cm: Editor, start: Position): { from: Position; to: Position };
     }
-    interface Fold {
+    interface FoldHelper {
         combine(): (cm: Editor, start: Position) => Position;
-        auto: FoldHelper;
+        auto: FoldFunction;
     }
 
-    var fold: Fold;
+    var fold: FoldHelper;
 
     interface FoldOptions {
-        rangeFinder?: FoldHelper;
+        rangeFinder?: FoldFunction;
         widget?: string;
         minFoldSize?: number;
         scanUp?: boolean;
@@ -27,10 +27,10 @@ declare module "codemirror" {
     }
 
     interface FoldCodeOptions extends FoldOptions {
-        call?: FoldHelper;
+        call?: FoldFunction;
     }
 
-    function newFoldFunction(rangeFinder: FoldHelper, widget: string): (cm: Editor, pos: Position) => void
+    function newFoldFunction(rangeFinder: FoldFunction, widget: string): (cm: Editor, pos: Position) => void
 
     interface EditorConfiguration {
         /**

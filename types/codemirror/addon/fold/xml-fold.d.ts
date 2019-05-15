@@ -8,9 +8,7 @@
 import * as CodeMirror from "codemirror";
 
 declare module "codemirror" {
-    interface Fold {
-        xml: FoldHelper;
+    interface FoldHelper {
+        xml: FoldFunction;
     }
-
-    var fold: Fold;
 }

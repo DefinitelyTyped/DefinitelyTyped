@@ -8,11 +8,9 @@
 import * as CodeMirror from "codemirror";
 
 declare module "codemirror" {
-    interface Fold {
-        brace: FoldHelper;
-        import: FoldHelper;
-        include: FoldHelper;
+    interface FoldHelper {
+        brace: FoldFunction;
+        import: FoldFunction;
+        include: FoldFunction;
     }
-
-    var fold: Fold;
 }

@@ -8,9 +8,7 @@
 import * as CodeMirror from "codemirror";
 
 declare module "codemirror" {
-    interface Hint {
+    interface HintHelper {
         css: HintFunction<void>;
     }
-
-    var hint: Hint;
 }

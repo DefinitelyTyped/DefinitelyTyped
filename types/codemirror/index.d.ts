@@ -11,8 +11,8 @@
 export = CodeMirror;
 export as namespace CodeMirror;
 
-declare function CodeMirror(host: HTMLElement, options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 declare function CodeMirror(callback: (host: HTMLElement) => void , options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
+declare function CodeMirror(host: HTMLElement, options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 
 declare namespace CodeMirror {
     export var Doc : CodeMirror.DocConstructor;
@@ -864,7 +864,7 @@ declare namespace CodeMirror {
          * (such as getValue). When a specific string is given, lines will only be split on that string, and output
          * will, by default, use that same separator.
          */
-        lineSeparator?: number | null;
+        lineSeparator?: string | null;
 
         /**
          * The theme to style the editor with. You must make sure the CSS file defining the corresponding .cm-s-[name]
@@ -1113,12 +1113,13 @@ declare namespace CodeMirror {
         /**
          * Highlighting is done by a pseudo background - thread that will work for workTime milliseconds, and then use timeout to sleep
          * for workDelay milliseconds.
-         * The defaults are 200 and 300, you can change these options to make the highlighting more or less aggressive.
+         * The defaults are 200, you can change these options to make the highlighting more or less aggressive.
          */
         workTime?: number;
 
         /**
          * See workTime.
+         * The defaults are 300, you can change these options to make the highlighting more or less aggressive.
          */
         workDelay?: number;
 
@@ -1171,7 +1172,7 @@ declare namespace CodeMirror {
         /**
          * Specifies whether or not autocapitalization will be enabled on the input.
          */
-        autocapitalize?: string;
+        autocapitalize?: boolean;
     }
 
     interface TextMarkerOptions {
