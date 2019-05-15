@@ -6,6 +6,4 @@
 
 declare function camelcaseKeysDeep(obj: object): {};
 
-declare namespace camelcaseKeysDeep {}
-
 export = camelcaseKeysDeep;

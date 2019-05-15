@@ -1,13 +1,13 @@
-import * as camelcaseKeysDeep from "camelcase-keys-deep";
+import camelcaseKeysDeep = require('camelcase-keys-deep');
 
 interface Point {
-    point_x: string;
-    point_y: string;
+    point_x: number;
+    point_y: number;
 }
 
 const foo: Point = {
-    point_x: "",
-    point_y: "",
+    point_x: 1,
+    point_y: 2,
 };
 
 camelcaseKeysDeep(foo) as Point; // => {pointX: 1, pointY: 2}
