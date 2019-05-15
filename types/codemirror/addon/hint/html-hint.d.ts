@@ -9,6 +9,6 @@ import * as CodeMirror from "codemirror";
 
 declare module "codemirror" {
     interface HintHelper {
-        html: HintFunction<XMLHintOptions>;
+        html: HintFunction<XmlHintOptions>;
     }
 }

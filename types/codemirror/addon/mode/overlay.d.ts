@@ -20,5 +20,5 @@ declare module "codemirror" {
         streamSeen: any;
     }
 
-    function overlayMode(base: Mode<any>, overlay: Mode<any>, combine): Mode<OverlayState>;
+    function overlayMode(base: Mode<any>, overlay: Mode<any>, combine?: boolean): Mode<OverlayState>;
 }

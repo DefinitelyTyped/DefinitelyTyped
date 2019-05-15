@@ -46,15 +46,6 @@ declare module "codemirror" {
     }
 
     interface Editor {
-        /** An extension of the existing CodeMirror typings for the Editor.on("keyup", func) syntax */
-        on(
-            eventName: string,
-            handler: (doc: CodeMirror.Doc, event: any) => void
-        ): void;
-        off(
-            eventName: string,
-            handler: (doc: CodeMirror.Doc, event: any) => void
-        ): void;
         showHint: (options: ShowHintOptions) => void;
     }
 
@@ -70,17 +61,6 @@ declare module "codemirror" {
     interface ShowHintOptions {
         completeSingle: boolean;
         hint: HintFunction | AsyncHintFunction;
-    }
-
-    /** The Handle used to interact with the autocomplete dialog box.*/
-    interface Handle {
-        moveFocus(n: number, avoidWrap: boolean): void;
-        setFocus(n: number): void;
-        menuSize(): number;
-        length: number;
-        close(): void;
-        pick(): void;
-        data: any;
     }
 
     interface EditorConfiguration {

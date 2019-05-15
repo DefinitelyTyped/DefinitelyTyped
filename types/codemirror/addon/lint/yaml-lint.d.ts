@@ -9,6 +9,6 @@ import * as CodeMirror from "codemirror";
 
 declare module "codemirror" {
     interface LintHelper {
-        json: Linter<void>;
+        yaml: Linter<void>;
     }
 }

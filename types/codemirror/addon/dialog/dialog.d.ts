@@ -8,11 +8,11 @@
 import * as CodeMirror from "codemirror";
 
 declare module "codemirror" {
-    interface CloseFuntion {
+    interface CloseFunction {
        (): void;
     }
     interface KeyEvent {
-      (event: KeyboardEvent, value: string, close: CloseFuntion): boolean;
+      (event: KeyboardEvent, value: string, close: CloseFunction): boolean;
     }
     interface ButtonCallback {
       (cm: CodeMirror.Editor): void
@@ -47,7 +47,7 @@ declare module "codemirror" {
       /**
        * A callback that will be called after the dialog has been closed and removed from the DOM.
        */
-      onClose?: (instance: HTMLElement) => void;
+      onClose?: (instance: Element) => void;
     }
 
     interface NotificationOptions extends DialogOptions {
@@ -55,7 +55,7 @@ declare module "codemirror" {
        * The amount of time after which the notification will be automatically closed. If duration is zero, the dialog
        * will not be closed automatically.
        */
-      dutation?: number;
+      duration?: number;
     }
 
     interface Editor {
@@ -66,7 +66,7 @@ declare module "codemirror" {
          * @param callback the callback when press "enter"
          * @param options optional options object
          */
-        openDialog(template: HTMLElement, callback: (value: string, event: KeyboardEvent) => void, options?: OpenDialogOptions): CloseFuntion;
+        openDialog(template: Element, callback: (value: string, event: KeyboardEvent) => void, options?: OpenDialogOptions): CloseFunction;
         /**
          * That simply shows an HTML fragment as a notification at the top of the editor. If a notification is opened while another
          * is opened, it will close the currently opened one and open the new one immediately.
@@ -74,13 +74,13 @@ declare module "codemirror" {
          * @param callback the callback when press "enter"
          * @param options optional options object
          */
-        openNotification(template: HTMLElement, options?: NotificationOptions): CloseFuntion;
+        openNotification(template: Element, options?: NotificationOptions): CloseFunction;
         /**
          *
          * @param template the DOM template
          * @param callbacks the callbacks when click on button
          * @param options optional options object
          */
-        openConfirm(template: HTMLElement, callbacks: ButtonCallback[], options?: DialogOptions): CloseFuntion;
+        openConfirm(template: Element, callbacks: ButtonCallback[], options?: DialogOptions): CloseFunction;
     }
 }

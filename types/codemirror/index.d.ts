@@ -330,7 +330,7 @@ declare namespace CodeMirror {
         refresh(): void;
 
         /** Gets the inner mode at a given position. This will return the same as getMode for simple modes, but will return an inner mode for nesting modes (such as htmlmixed). */
-        getModeAt(pos: Position): any;
+        getModeAt<T>(pos: Position): Mode<T>;
 
         /** Retrieves information about the token the current mode found before the given position (a {line, ch} object). */
         getTokenAt(pos: CodeMirror.Position, precise?: boolean): Token;

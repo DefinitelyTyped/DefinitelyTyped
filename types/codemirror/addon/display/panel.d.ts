@@ -41,7 +41,7 @@ declare module "codemirror" {
          * @param node the DOM node
          * @param options optional options object
          */
-        addPanel(node: HTMLElement, options?: ShowPanelOptions): Panel;
+        addPanel(node: Element, options?: ShowPanelOptions): Panel;
 
     }
 }
