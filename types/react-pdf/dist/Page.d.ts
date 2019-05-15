@@ -2,16 +2,14 @@ import * as React from 'react';
 
 export type RenderFunction = () => JSX.Element;
 
-/* tslint:disable:ban-types */
 export interface PDFPageItem {
     _transport: object;
     commonObjs: object;
-    getAnnotations: Function;
-    getTextContent: Function;
-    getViewport: Function;
-    render: Function;
+    getAnnotations: (...args: any[]) => any;
+    getTextContent: (...args: any[]) => any;
+    getViewport: (...args: any[]) => any;
+    render: (...args: any[]) => any;
 }
-/* tslint:enable:ban-types */
 
 export interface TextLayerItemInternal {
     fontName: string;

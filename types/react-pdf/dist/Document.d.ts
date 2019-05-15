@@ -74,8 +74,7 @@ export interface Props {
      * Function called when a password-protected PDF is loaded.
      * Defaults to a function that prompts the user for password.
      */
-    // tslint:disable-next-line:ban-types
-    onPassword?: (callback: Function) => void;
+    onPassword?: (callback: (...args: any[]) => any) => void;
 
     /**
      * Function called in case of an error while retrieving document source from `file` prop.

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Document, Page } from 'react-pdf';
 
 interface State {
-    numPages?: number;
+    numPages: number | null;
     pageNumber: number;
 }
 
