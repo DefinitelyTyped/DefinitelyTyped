@@ -80,6 +80,6 @@
         "test/addon/mode/mode.ts",
         "test/addon/scroll/scrollpastend.ts",
         "test/addon/search/match-highlighter.ts",
-        "test/addon/selection/active-line.ts",
+        "test/addon/selection/active-line.ts"
     ]
 }
