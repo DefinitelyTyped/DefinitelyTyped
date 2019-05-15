@@ -16,5 +16,5 @@ declare module "codemirror" {
         inner: any;
     }
 
-    function multiplexingMode(outer: any, ...other: any): Mode<MultiplexState>;
+    function multiplexingMode(outer: any, ...other: any[]): Mode<MultiplexState>;
 }
