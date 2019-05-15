@@ -87,6 +87,9 @@ import {
     ViewPropTypes,
     requireNativeComponent,
     Keyboard,
+    NetInfo,
+    PermissionsAndroid,
+    Platform,
 } from "react-native";
 
 declare module "react-native" {
@@ -855,7 +858,7 @@ const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Te
 const ShareTest = () => {
     Share.share(
         { title: "title", message: "message" },
-        { dialogTitle: "dialogTitle", excludedActivityTypes: ["activity"], tintColor: "red" }
+        { dialogTitle: "dialogTitle", excludedActivityTypes: ["activity"], tintColor: "red", subject: "Email subject" }
     );
     Share.share({ title: "title", url: "url" });
     Share.share({ message: "message" }).then(result => {
@@ -870,3 +873,58 @@ const KeyboardTest = () => {
     const subscriber = Keyboard.addListener("keyboardDidHide", (event) => {event});
     subscriber.remove();
 }
+
+const NetInfoTest = () => {
+    const subscription = NetInfo.addEventListener('connectionChange', (result) => console.log(result));
+    subscription.remove();
+}
+
+const PermissionsAndroidTest = () => {
+    PermissionsAndroid.request('android.permission.CAMERA').then(result => {
+        switch (result) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    })
+
+    PermissionsAndroid.requestMultiple(['android.permission.CAMERA', 'android.permission.ACCESS_FINE_LOCATION']).then(results => {
+        switch (results['android.permission.CAMERA']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.ACCESS_FINE_LOCATION']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    })
+}
+
+// Platform
+const PlatformTest = () => {
+    switch (Platform.OS) {
+        case 'ios':
+            if (!Platform.isPad) {
+                return 32;
+            } else {
+                return 44;
+            }
+        case 'android':
+        case 'macos':
+        case 'windows':
+            return Platform.isTV ? 64 : 56;
+        default:
+            return Platform.isTV ? 40 : 44;
+    }
+};

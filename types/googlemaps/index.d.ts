@@ -2305,6 +2305,12 @@ declare namespace google.maps {
      * @param noWrap Set noWrap to true to enable values outside of this range.
      */
     constructor(lat: number, lng: number, noWrap?: boolean);
+    /**
+     * Creates a LatLng object representing a geographic point.
+     * @param literal Object literal.
+     * @param noWrap Set noWrap to true to enable values outside of this range.
+     */
+    constructor(literal: LatLngLiteral, noWrap?: boolean);
     /** Comparison function. */
     equals(other: LatLng): boolean;
     /** Returns the latitude in degrees. */

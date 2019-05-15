@@ -226,6 +226,8 @@ stripe.charges.markAsFraudulent('ch_15fvyXEe31JkLCeQOo0SwFk9').then((refunds) =>
 // ##################################################################################
 
 stripe.customers.create({
+    name: 'John Doe',
+    phone: '15551234567',
     description: 'Customer for test@example.com',
     source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
     metadata: { test: "123", test2: 123 } // IOptionsMetadata test
@@ -260,8 +262,16 @@ stripe.customers.create({
     customer.subscriptions.del("sub_8Eluur5KoIKxuy").then((subscription) => { });
     customer.subscriptions.deleteDiscount("sub_8Eluur5KoIKxuy").then((confirmation) => { });
 
-    // IMetadata tests:
     const str = '123';
+    // IAddress tests:
+    customer.address.line1 === str;
+    customer.address.line2 === str;
+    customer.address.city === str;
+    customer.address.postal_code === str;
+    customer.address.state === str;
+    customer.address.country === str;
+
+    // IMetadata tests:
     customer.metadata["test"] === str;
     customer.metadata.test1 === str;
 
@@ -282,6 +292,27 @@ stripe.customers.create({
     };
     metadata = {};
     metadata = null;
+});
+
+// With address
+stripe.customers.create({
+    name: 'John Doe',
+    address: {
+        line1: '96 Road Drive',
+        country: 'United Kingdom'
+    }
+}, (err, customer) => {
+    // asynchronously called
+});
+stripe.customers.create({
+    name: 'John Doe',
+    address: {
+        line1: '96 Road Drive',
+        line2: 'Something',
+        city: 'London'
+    }
+}, (err, customer) => {
+    // asynchronously called
 });
 
 stripe.customers.create({
@@ -330,10 +361,15 @@ stripe.customers.retrieve("cus_5rfJKDJkuxzh5Q").then((customer) => {
 });
 
 stripe.customers.update("cus_5rfJKDJkuxzh5Q", {
-    description: "Customer for test@example.com"
+    name: 'John Doe',
+    phone: '15551234567',
+    description: "Customer for test@example.com",
+    address: {
+        line1: '2 New Road',
+    }
 }, (err, customer) => {
     // asynchronously called
-    });
+});
 stripe.customers.update("cus_5rfJKDJkuxzh5Q", {
     description: "Customer for test@example.com"
 }).then((customer) => {
@@ -691,6 +727,118 @@ stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
             interval: "monthly",
             monthly_anchor: 4,
             weekly_anchor: "monday"
+        }
+    }).then(
+    (account) => {
+        // asynchronously called
+    }
+);
+
+stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
+    {
+        business_profile: {
+            mcc: '1234',
+            name: 'My Amazing Company',
+            product_description: 'My Amazing Product',
+            support_address: {
+                line1: '42 Wallaby Way',
+                line2: 'Apt 1',
+                city: 'Sydney',
+                state: 'NSW',
+                postal_code: '1000',
+                country: 'Australia'
+            },
+            support_email: 'support@example.org',
+            support_phone: '+15555551212',
+            support_url: 'https://example.org',
+            url: 'https://example.org'
+        },
+        settings: {
+            branding: {
+                icon: 'https://example.org/icon.png',
+                logo: 'https://example.org/logo.png',
+                primary_color: '#a346b7'
+            },
+            card_payments: {
+                decline_on: {
+                    avs_failure: false,
+                    cvc_failure: false
+                },
+                statement_descriptor_prefix: 'foo'
+            },
+            dashboard: {
+                display_name: 'My Amazing Company',
+                timezone: 'America/Montreal'
+            },
+            payments: {
+                statement_descriptor: 'example.org'
+            },
+            payouts: {
+                debit_negative_balances: true,
+                schedule: {
+                    delay_days: 7,
+                    interval: 'daily',
+                    monthly_anchor: 1,
+                    weekly_anchor: 'monday'
+                },
+                statement_descriptor: 'foo'
+            }
+        }
+    }).then(
+    (account) => {
+        // asynchronously called
+    }
+);
+
+stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
+    {
+        business_profile: {
+            mcc: null,
+            name: null,
+            product_description: null,
+            support_address: {
+                line1: null,
+                line2: null,
+                city: null,
+                state: null,
+                postal_code: null,
+                country: null,
+            },
+            support_email: null,
+            support_phone: null,
+            support_url: null,
+            url: null
+        },
+        settings: {
+            branding: {
+                icon: null,
+                logo: null,
+                primary_color: null
+            },
+            card_payments: {
+                decline_on: {
+                    avs_failure: null,
+                    cvc_failure: null
+                },
+                statement_descriptor_prefix: null
+            },
+            dashboard: {
+                display_name: null,
+                timezone: null
+            },
+            payments: {
+                statement_descriptor: null
+            },
+            payouts: {
+                debit_negative_balances: null,
+                schedule: {
+                    delay_days: null,
+                    interval: null,
+                    monthly_anchor: null,
+                    weekly_anchor: null
+                },
+                statement_descriptor: null
+            }
         }
     }).then(
     (account) => {

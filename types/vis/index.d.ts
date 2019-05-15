@@ -12,6 +12,7 @@
 //                 dcop <https://github.com/dcop>
 //                 Avraham Essoudry <https://github.com/avrahamcool>
 //                 Dmitriy Trifonov <https://github.com/divideby>
+//                 Sam Welek <https://github.com/tiberiushunter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
@@ -1870,14 +1871,17 @@ export interface EdgeOptions {
     to?: boolean | {
       enabled?: boolean,
       scaleFactor?: number,
+      type?: string
     },
     middle?: boolean | {
       enabled?: boolean,
       scaleFactor?: number,
+      type?: string
     },
     from?: boolean | {
       enabled?: boolean,
       scaleFactor?: number,
+      type?: string
     }
   };
 

@@ -19,6 +19,8 @@
 //                 Vinit Sood <https://github.com/vinitsood>
 //                 Mattias Sämskar <https://github.com/mattiassamskar>
 //                 Julian Hundeloh <https://github.com/jaulz>
+//                 Matevz Poljanc <https://github.com/matevzpoljanc>
+//                 Romain Faust <https://github.com/romain-faust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -717,6 +719,24 @@ export class PlaybackObject {
      * Returns a `Promise` that is fulfilled with the `PlaybackStatus` of the `playbackObject` once it is unloaded, or rejects if unloading failed. See below for details on `PlaybackStatus`.
      */
     unloadAsync(): Promise<PlaybackStatus>;
+}
+// #endregion
+
+// #region BackgroundFetch
+/**
+ * BackgroundFetch
+ */
+export namespace BackgroundFetch {
+    function getStatusAsync(): Promise<Status>;
+    function registerTaskAsync(taskName: string): Promise<void>;
+    function unregisterTaskAsync(taskName: string): Promise<void>;
+    function setMinimumIntervalAsync(minimumInterval: number): Promise<void>;
+
+    enum Status {
+        Restricted = 1,
+        Denied = 2,
+        Available = 3
+    }
 }
 // #endregion
 
@@ -2221,6 +2241,8 @@ export namespace Location {
 
     interface LocationTaskOptions {
         accuracy?: number;
+        timeInterval: number;
+        distanceInterval: number;
         showsBackgroundLocationIndicator?: boolean;
     }
 
@@ -2244,7 +2266,7 @@ export namespace Location {
     function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData[]>;
     function requestPermissionsAsync(): Promise<void>;
     function hasServicesEnabledAsync(): Promise<boolean>;
-    function startgeocodUpdatesAsync(taskName: string, options: LocationTaskOptions): Promise<void>;
+    function startLocationUpdatesAsync(taskName: string, options: LocationTaskOptions): Promise<void>;
     function stopLocationUpdatesAsync(taskName: string): Promise<void>;
     function hasStartedLocationUpdatesAsync(taskName: string): Promise<boolean>;
     function startGeofencingAsync(taskName: string, regions: Region[]): Promise<void>;
@@ -2508,21 +2530,30 @@ export namespace SecureStore {
  * Segment
  */
 export namespace Segment {
-    function initialize(keys: {
-        androidWriteKey: string;
-        iosWriteKey: string;
-    }): void;
+    interface SegmentOptions {
+        androidWriteKey?: string;
+        iosWriteKey?: string;
+    }
+
+    function initialize(options: SegmentOptions): void;
+
     function identify(userId: string): void;
     function identifyWithTraits(userId: string, traits: object): void;
-    function track(event: string): void;
-    function alias(newId: string, options?: { [key: string]: any }): Promise<boolean>;
+    function group(groupId: string): void;
+    function groupWithTraits(groupId: string, traits: object): void;
     function reset(): void;
-    function trackWithProperties(event: string, properties: object): void;
+
+    function alias(newId: string, options?: object): Promise<boolean>;
+
     function screen(screenName: string): void;
     function screenWithProperties(screenName: string, properties: object): void;
+    function track(event: string): void;
+    function trackWithProperties(event: string, properties: object): void;
+
     function flush(): void;
-    function getEnabledAsync(): void;
-    function setEnabledAsync(enabled: boolean): void;
+
+    function getEnabledAsync(): Promise<boolean>;
+    function setEnabledAsync(enabled: boolean): Promise<void>;
 }
 
 /**

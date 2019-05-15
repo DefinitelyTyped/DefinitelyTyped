@@ -24,7 +24,7 @@ class Demo extends React.Component {
 }
 
 function testCropperRef() {
-    <Cropper
+    const refIsWorking = <Cropper
         ref={(el: Cropper) => {
             // $ExpectError el can be null
             el.getCroppedCanvas();
@@ -36,4 +36,6 @@ function testCropperRef() {
             }
         }}
     />;
+
+    const refIsOptional = <Cropper />;
 }

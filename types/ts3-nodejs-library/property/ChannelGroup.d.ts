@@ -8,7 +8,18 @@ interface ChannelGroupListResponse {
 }
 
 declare class TeamSpeakChannelGroup extends Abstract {
-    constructor(parent: TeamSpeak3, list: ChannelGroupListResponse)
+    constructor(parent: TeamSpeak3, list: ChannelGroupListResponse);
+
+    cgid: number;
+    name: string;
+    type: string;
+    iconid: string;
+    savedb: string;
+    sortid: string;
+    namemode: string;
+    nModifyp: string;
+    nMemberAddp: string;
+    nMemberRemovep: string;
 
     /**
      * Deletes the channel group. If force is set to 1, the channel group will be deleted even if there are clients within.
@@ -45,7 +56,12 @@ declare class TeamSpeakChannelGroup extends Abstract {
      * @param - Whether the skip flag should be set. Defaults to 0.
      * @param - Whether the negate flag should be set. DEfaults to 0.
      */
-    addPerm(perm: string | number, value: number, skip?: number, negate?: number): Promise<any>;
+    addPerm(
+        perm: string | number,
+        value: number,
+        skip?: number,
+        negate?: number
+    ): Promise<any>;
 
     /**
      * Removes a set of specified permissions from the channel group. A permission can be specified by permid or permsid.

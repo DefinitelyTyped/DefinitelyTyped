@@ -175,7 +175,7 @@ declare module "backbone" {
         fetch(options?: ModelFetchWithCacheOptions): JQueryXHR;
     }
 
-    interface CollectionWithCache extends Collection<Model> {
+    interface CollectionWithCache extends Collection {
 
         fetch(options?: CollectionFetchWithCacheOptions): JQueryXHR;
     }
