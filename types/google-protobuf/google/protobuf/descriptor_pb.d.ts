@@ -177,7 +177,7 @@ export class DescriptorProto extends jspb.Message {
 export namespace DescriptorProto {
   export type AsObject = {
     name?: string,
-    fieldList: Array<AsObject>,
+    fieldList: Array<FieldDescriptorProto.AsObject>,
     extensionList: Array<FieldDescriptorProto.AsObject>,
     nestedTypeList: Array<AsObject>,
     enumTypeList: Array<EnumDescriptorProto.AsObject>,
