@@ -18,7 +18,7 @@ interface MUIDataTableStateRows {
     lookup: any;
 }
 
-interface MUIDataTableState {
+export interface MUIDataTableState {
     announceText: string | null;
     activeColumn: string | null;
     page: number;
@@ -102,6 +102,7 @@ export interface MUIDataTableColumnOptions {
     filter?: boolean;
     filterList?: string[];
     filterOptions?: string[];
+    filterType?: 'dropdown' | 'checkbox' | 'multiselect' | 'textField';
     sort?: boolean;
     searchable?: boolean;
     sortDirection?: 'asc' | 'desc';
@@ -147,7 +148,7 @@ export interface MUIDataTableOptions {
     onRowsDelete?: (rowsDeleted: any[]) => void;
     onRowsSelect?: (currentRowsSelected: any[], rowsSelected: any[]) => void;
     onSearchChange?: (searchText: string) => void;
-    onTableChange?: (action: string, tableState: object) => void;
+    onTableChange?: (action: string, tableState: MUIDataTableState) => void;
     page?: number;
     pagination?: boolean;
     print?: boolean;
@@ -170,14 +171,8 @@ export interface MUIDataTableOptions {
 
 export type MUIDataTableColumnDef = string | MUIDataTableColumn;
 
-export interface MuiDatatablesTableState {
-    page: number;
-    rowsPerPage: number;
-    filterList: any[];
-}
-
 export interface MUIDataTableProps {
-    title: string;
+    title: string | React.ReactNode;
     columns: MUIDataTableColumnDef[];
     data: Array<object | number[] | string[]>;
     options?: MUIDataTableOptions;

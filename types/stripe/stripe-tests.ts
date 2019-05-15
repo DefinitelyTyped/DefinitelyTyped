@@ -227,6 +227,7 @@ stripe.charges.markAsFraudulent('ch_15fvyXEe31JkLCeQOo0SwFk9').then((refunds) =>
 
 stripe.customers.create({
     name: 'John Doe',
+    phone: '15551234567',
     description: 'Customer for test@example.com',
     source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
     metadata: { test: "123", test2: 123 } // IOptionsMetadata test
@@ -361,6 +362,7 @@ stripe.customers.retrieve("cus_5rfJKDJkuxzh5Q").then((customer) => {
 
 stripe.customers.update("cus_5rfJKDJkuxzh5Q", {
     name: 'John Doe',
+    phone: '15551234567',
     description: "Customer for test@example.com",
     address: {
         line1: '2 New Road',

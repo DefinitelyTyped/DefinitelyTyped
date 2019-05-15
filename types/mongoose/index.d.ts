@@ -3230,9 +3230,9 @@ declare module "mongoose" {
     model<T extends Document>(name: string): Model<T>;
 
     /** Override whether mongoose thinks this doc is deleted or not */
-    isDeleted(isDeleted: boolean): void;
+    $isDeleted(isDeleted: boolean): void;
     /** whether mongoose thinks this doc is deleted. */
-    isDeleted(): boolean;
+    $isDeleted(): boolean;
 
     /**
      * Removes this document from the db.

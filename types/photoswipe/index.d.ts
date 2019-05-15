@@ -1,6 +1,7 @@
 // Type definitions for PhotoSwipe 4.0.8
 // Project: http://photoswipe.com/
 // Definitions by: Xiaohan Zhang <https://github.com/hellochar>
+//                 PikachuEXE <https://github.com/PikachuEXE>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PhotoSwipe {
@@ -20,6 +21,10 @@ declare namespace PhotoSwipe {
          * The height of this image.
          */
         h: number;
+        /**
+         * The url to small image placeholder, large image will be loaded on top
+         */
+        msrc?: string;
 
         /**
          * Internal property added by PhotoSwipe.
