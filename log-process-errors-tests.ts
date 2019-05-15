@@ -1,4 +1,4 @@
-import LogProcessErrors, { LogLevel } from './index';
+import LogProcessErrors, { LogLevel } from 'log-process-errors';
 
 /**
  * Initialize log-process-errors with example options.
