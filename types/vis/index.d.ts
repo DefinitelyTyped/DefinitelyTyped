@@ -1861,6 +1861,9 @@ export interface NodeOptions {
 
   value?: number;
 
+  /** If false, no widthConstraint is applied. If a number is specified, the minimum and maximum widths of the node are set to the value. The node's label's lines will be broken on spaces to stay below the maximum and the node's width will be set to the minimum if less than the value. */
+  widthConstraint?: number | boolean | { minimum?: number, maximum?: number }
+
   x?: number;
 
   y?: number;
