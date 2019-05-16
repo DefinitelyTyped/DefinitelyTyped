@@ -353,7 +353,7 @@ declare namespace Stripe {
                 /**
                  * Whether the company’s business ID number was provided.
                  */
-                tax_id_provided: boolean;
+                tax_id_provided?: boolean;
 
                 /**
                  * The jurisdiction in which the tax_id is registered (Germany-based companies only).
@@ -364,7 +364,7 @@ declare namespace Stripe {
                 /**
                  * Whether the company’s business VAT number was provided.
                  */
-                vat_id_provided: boolean;
+                vat_id_provided?: boolean;
             };
 
             /**
@@ -437,7 +437,7 @@ declare namespace Stripe {
                 /**
                  * Whether the individual’s personal ID number was provided.
                  */
-                id_number_provided: boolean;
+                id_number_provided?: boolean;
 
                 /**
                  * The individual’s last name.
@@ -481,7 +481,7 @@ declare namespace Stripe {
                 /**
                  * Whether the individual’s last 4 SSN digits was provided.
                  */
-                ssn_last_4_provided: boolean;
+                ssn_last_4_provided?: boolean;
 
                 /**
                  * The individual’s verification document information.
