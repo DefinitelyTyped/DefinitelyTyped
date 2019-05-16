@@ -75,7 +75,7 @@ export interface Obj extends IType {
     getProp(prop: string): AVal;
     /** Call the given function for all properties of the object, including properties that are added in the future. */
     forAllProps(f: (prop: string, val: AVal, local: boolean) => void): void;
-    gatherProperties(f: Function, depth: number): void;
+    gatherProperties(f: (...args: any[]) => void, depth: number): void;
 }
 
 interface FnConstructor {
@@ -109,7 +109,7 @@ export interface Prim extends IType {
     /** Get an `AVal` that represents the named property of this type. */
     getProp(prop: string): AVal;
     getType(): Prim;
-    gatherProperties(f: Function, depth: number): void;
+    gatherProperties(f: (...args: any[]) => void, depth: number): void;
 }
 
 interface ArrConstructor {
@@ -207,7 +207,7 @@ export interface AVal extends ANull {
      * or properties will have, when possible, an `originNode`
      * property pointing to an AST node.
      */
-    gatherProperties(f: Function, depth: number): void;
+    gatherProperties(f: (...args: any[]) => void, depth: number): void;
     originNode?: ESTree.Node;
     /** An object mapping the object’s known properties to AVals. Don’t manipulate this directly (ever), only use it if you have to iterate over the properties. */
     props: Partial<Readonly<{
