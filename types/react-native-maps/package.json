@@ -1,0 +1,23 @@
+{
+  "name": "rnm-types-fix",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^16.8.17",
+    "@types/react-native": "^0.57.56",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5",
+    "typescript-tslint-plugin": "^0.3.1"
+  },
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-native": "^0.59.8",
+    "react-native-maps": "^0.24.2"
+  }
+}
