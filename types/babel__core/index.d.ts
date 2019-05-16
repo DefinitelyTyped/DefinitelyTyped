@@ -26,6 +26,7 @@ export {
 export type Node = t.Node;
 export type ParseResult = t.File | t.Program;
 export const version: string;
+export const DEFAULT_EXTENSIONS: ['.js', '.jsx', '.es6', '.es', '.mjs'];
 
 export interface TransformOptions {
     /**

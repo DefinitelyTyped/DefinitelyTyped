@@ -1225,6 +1225,12 @@
             "asOfVersion": "0.35.0"
         },
         {
+            "libraryName": "hapi-auth-jwt2",
+            "typingsPackageName": "hapi-auth-jwt2",
+            "sourceRepoURL": "https://github.com/dwyl/hapi-auth-jwt2/",
+            "asOfVersion": "8.6.1"
+        },
+        {
             "libraryName": "hard-rejection",
             "typingsPackageName": "hard-rejection",
             "sourceRepoURL": "https://github.com/sindresorhus/hard-rejection",

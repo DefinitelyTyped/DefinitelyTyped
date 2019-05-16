@@ -1,4 +1,4 @@
-// Type definitions for react-tracking 5.0
+// Type definitions for react-tracking 6.0
 // Project: https://github.com/NYTimes/react-tracking
 // Definitions by: Eloy Durán <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,7 +17,7 @@ export interface TrackingProp {
 
 type Falsy = false | null | undefined | "";
 
-interface Options<T> {
+export interface Options<T> {
     /**
      * By default, data tracking objects are pushed to `window.dataLayer[]`. This is a good default if you use Google
      * Tag Manager. You can override this by passing in a dispatch function as a second parameter to the tracking
@@ -56,7 +56,13 @@ export type TrackingInfo<T, P, S> = T | ((props: P, state: S, args: any[any]) =>
 // through a JSX component that be used without casting.
 type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction;
 type MethodDecorator = <T>(target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => TypedPropertyDescriptor<T>;
-type Decorator = ClassDecorator & MethodDecorator;
+export type Decorator = ClassDecorator & MethodDecorator;
+
+export type TrackingContext<T = any> = React.Context<{
+    tracking: Options<T> & { data?: {} }
+}>;
+
+export const ReactTrackingContext: TrackingContext;
 
 /**
  * This is the type of the `track` function. It’s declared as an interface so that consumers can extend the typing and

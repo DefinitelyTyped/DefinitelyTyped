@@ -24,9 +24,14 @@ const logInstance = new log.LambdaLog({
         };
     }
 });
+<<<<<<< HEAD
 logInstance.log("customLevel", "custom", { key: "value" });
 logInstance.info("info", { key: "value" });
 logInstance.warn("warn", { key: "value" });
 logInstance.error(new Error("This is an error"), { key: "value" });
 logInstance.debug("debug", { key: "value" });
 logInstance.assert(true, "this will print");
+=======
+log.log("info", "Some Message", {}, ["tag1", "tag2"]);
+log.info("info", { key: "value" });
+>>>>>>> upstream/master

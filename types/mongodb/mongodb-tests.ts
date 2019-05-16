@@ -344,3 +344,7 @@ mongodb.connect(connectionString).then((client) => {
         testCollectionReduceFunction
     );
 });
+
+// Test other error classes
+new mongodb.MongoNetworkError('network error');
+new mongodb.MongoParseError('parse error');

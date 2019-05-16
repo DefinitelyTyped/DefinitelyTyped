@@ -8,7 +8,6 @@
 //                 Synarque <https://github.com/synarque>
 //                 Justin Rockwood <https://github.com/jrockwood>
 //                 Keith Kelly <https://github.com/kwkelly>
-//                 Junyoung Clare Jang <https://github.com/Ailrun>
 //                 Richard Lea <https://github.com/chigix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
