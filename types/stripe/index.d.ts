@@ -308,96 +308,12 @@ declare namespace Stripe {
                 /**
                  * The Kana variation of the company’s primary address (Japan only).
                  */
-                address_kana?: {
-                    /**
-                     * City or ward.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    city?: string;
-
-                    /**
-                     * Two-letter country code (ISO 3166-1 alpha-2).
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    country?: string;
-
-                    /**
-                     * Block or building number.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    line1?: string;
-
-                    /**
-                     * Building details.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    line2?: string;
-
-                    /**
-                     * Postal code.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    postal_code?: string;
-
-                    /**
-                     * Prefecture.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    state?: string;
-
-                    /**
-                     * Town or cho-me.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    town?: string;
-                };
+                address_kana?: IAddressKana;
 
                 /**
                  * The Kanji variation of the company’s primary address (Japan only).
                  */
-                address_kanji?: {
-                    /**
-                     * City or ward.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    city?: string;
-
-                    /**
-                     * Two-letter country code (ISO 3166-1 alpha-2).
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    country?: string;
-
-                    /**
-                     * Block or building number.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    line1?: string;
-
-                    /**
-                     * Building details.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    line2?: string;
-
-                    /**
-                     * Postal code.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    postal_code?: string;
-
-                    /**
-                     * Prefecture.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    state?: string;
-
-                    /**
-                     * Town or cho-me.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    town?: string;
-                };
+                address_kanji?: IAddressKanji;
 
                 /**
                  * Whether the company’s directors have been provided. Set this Boolean
@@ -473,96 +389,12 @@ declare namespace Stripe {
                 /**
                  * The Kana variation of the the individual’s primary address (Japan only).
                  */
-                address_kana?: {
-                    /**
-                     * City or ward.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    city?: string;
-
-                    /**
-                     * Two-letter country code (ISO 3166-1 alpha-2).
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    country?: string;
-
-                    /**
-                     * Block or building number.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    line1?: string;
-
-                    /**
-                     * Building details.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    line2?: string;
-
-                    /**
-                     * Postal code.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    postal_code?: string;
-
-                    /**
-                     * Prefecture.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    state?: string;
-
-                    /**
-                     * Town or cho-me.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    town?: string;
-                };
+                address_kana?: IAddressKana;
 
                 /**
                  * The Kanji variation of the the individual’s primary address (Japan only).
                  */
-                address_kanji?: {
-                    /**
-                     * City or ward.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    city?: string;
-
-                    /**
-                     * Two-letter country code (ISO 3166-1 alpha-2).
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    country?: string;
-
-                    /**
-                     * Block or building number.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    line1?: string;
-
-                    /**
-                     * Building details.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    line2?: string;
-
-                    /**
-                     * Postal code.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    postal_code?: string;
-
-                    /**
-                     * Prefecture.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    state?: string;
-
-                    /**
-                     * Town or cho-me.
-                     * This can be unset by updating the value to null and then saving.
-                     */
-                    town?: string;
-                };
+                address_kanji?: IAddressKanji;
 
                 /**
                  * The individual’s date of birth.
@@ -8885,6 +8717,94 @@ declare namespace Stripe {
          * 2-letter country code
          */
         country?: string;
+    }
+
+    interface IAddressKana {
+        /**
+         * City or ward.
+         * This can be unset by updating the value to null and then saving.
+         */
+        city?: string;
+
+        /**
+         * Two-letter country code (ISO 3166-1 alpha-2).
+         * This can be unset by updating the value to null and then saving.
+         */
+        country?: string;
+
+        /**
+         * Block or building number.
+         * This can be unset by updating the value to null and then saving.
+         */
+        line1?: string;
+
+        /**
+         * Building details.
+         * This can be unset by updating the value to null and then saving.
+         */
+        line2?: string;
+
+        /**
+         * Postal code.
+         * This can be unset by updating the value to null and then saving.
+         */
+        postal_code?: string;
+
+        /**
+         * Prefecture.
+         * This can be unset by updating the value to null and then saving.
+         */
+        state?: string;
+
+        /**
+         * Town or cho-me.
+         * This can be unset by updating the value to null and then saving.
+         */
+        town?: string;
+    }
+
+    interface IAddressKanji {
+        /**
+         * City or ward.
+         * This can be unset by updating the value to null and then saving.
+         */
+        city?: string;
+
+        /**
+         * Two-letter country code (ISO 3166-1 alpha-2).
+         * This can be unset by updating the value to null and then saving.
+         */
+        country?: string;
+
+        /**
+         * Block or building number.
+         * This can be unset by updating the value to null and then saving.
+         */
+        line1?: string;
+
+        /**
+         * Building details.
+         * This can be unset by updating the value to null and then saving.
+         */
+        line2?: string;
+
+        /**
+         * Postal code.
+         * This can be unset by updating the value to null and then saving.
+         */
+        postal_code?: string;
+
+        /**
+         * Prefecture.
+         * This can be unset by updating the value to null and then saving.
+         */
+        state?: string;
+
+        /**
+         * Town or cho-me.
+         * This can be unset by updating the value to null and then saving.
+         */
+        town?: string;
     }
 
     interface IShippingInformation {
