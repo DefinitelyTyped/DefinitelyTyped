@@ -1253,7 +1253,7 @@ declare namespace braintree {
             threeDSecureVision?: string;
             xid?: string;
         };
-        transactionSource?: string;
+        transactionSource?: TransactionRequestSource;
     }
 
     export interface AuthorizationAdjustment {
@@ -1299,6 +1299,13 @@ declare namespace braintree {
     export type PaymentInstrumentType = 'android_pay_card' | 'apple_pay_card' | 'credit_card' | 'masterpass_card' | 'paypal_account' | 'samsung_pay_card' | 'venmo_account' | 'visa_checkout_card';
 
     export type TransactionProcessorResponseType = 'approved' | 'soft_declined' | 'hard_declined';
+
+    export enum TransactionRequestSource {
+        recurring =  'recurring',
+        unscheduled = 'unscheduled',
+        recurring_first = 'recurring_first',
+        moto = 'moto',
+    }
 
     export interface TransactionRiskData {
         decision: string;
