@@ -54,7 +54,7 @@ export interface ReceivedAction {
     type: string;
     payload: Payload;
     meta?: object;
-    query?: object;
+    query?: Query;
     search?: string;
     navKey?: Nullable<string>;
 }
@@ -62,11 +62,11 @@ export interface ReceivedAction {
 export interface ReceivedActionMeta {
     type: string;
     payload: Payload;
-    query?: object;
+    query?: Query;
     navKey?: Nullable<string>;
     meta: {
         notFoundPath?: string;
-        query?: object;
+        query?: Query;
         search?: string;
     };
 }
@@ -83,7 +83,7 @@ export interface Location {
     pathname: string;
     type: string;
     payload: Payload;
-    query?: object;
+    query?: Query;
     search?: string;
 }
 
@@ -91,7 +91,7 @@ export interface LocationState<TKeys = {}, TState = any> {
     pathname: string;
     type: string;
     payload: Payload;
-    query?: object;
+    query?: Query;
     search?: string;
     prev: Location;
     kind: Nullable<string>;
@@ -122,7 +122,7 @@ export interface Meta {
     location: ActionMetaLocation;
     notFoundPath?: string;
     navigation?: NavigationAction;
-    query?: object;
+    query?: Query;
     search?: string;
 }
 
@@ -130,7 +130,7 @@ export interface Action {
     type: string;
     payload?: Payload;
     meta?: Meta;
-    query?: object;
+    query?: Query;
     navKey?: Nullable<string>;
 }
 
@@ -296,11 +296,16 @@ export interface Options<TKeys = {}, TState = any> {
     extra?: any;
 }
 
+export interface Query {
+    [key: string]: string;
+}
+
 export interface Params {
     [key: string]: any;
 }
 
 export interface Payload {
+    query?: Query;
     [key: string]: any;
 }
 
