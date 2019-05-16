@@ -8,8 +8,9 @@
 import * as CodeMirror from "codemirror";
 
 declare module "codemirror" {
-    interface ContinueComments {
-        key: string;
+    interface ContinueCommentsOptions {
+        key?: string;
+        continueLineComment?: boolean;
     }
 
     interface EditorConfiguration {
@@ -19,6 +20,6 @@ declare module "codemirror" {
          * shortcut. Set to an object, it will use the key property for a custom shortcut and the boolean continueLineComment property
          * to determine whether single-line comments should be continued (defaulting to true).
          */
-        continueComments?: string | ContinueComments;
+        continueComments?: boolean | string | ContinueCommentsOptions;
     }
 }
