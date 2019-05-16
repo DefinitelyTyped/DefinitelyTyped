@@ -575,29 +575,29 @@ export namespace resources {
         static all(paginationOptions: PaginationRequest, callback?: Callback<Event[]>): Promise<Event[]>;
     }
 
-    /**
-     * Webhook class.
-     *
-     * @link https://github.com/coinbase/coinbase-commerce-node#webhooks
-     */
-    namespace Webhook {
-        /**
-         * Verify a signature header.
-         *
-         * @link https://github.com/coinbase/coinbase-commerce-node#verify-signature-header
-         */
-        function verifySigHeader(rawBody: string, signature: string, sharedSecret: string): void;
-    }
-
     export {
-        Webhook,
         Event,
         Charge,
         Checkout,
     };
 }
 
+/**
+ * Webhook class.
+ *
+ * @link https://github.com/coinbase/coinbase-commerce-node#webhooks
+ */
+declare namespace Webhook {
+    /**
+     * Verify a signature header.
+     *
+     * @link https://github.com/coinbase/coinbase-commerce-node#verify-signature-header
+     */
+    function verifySigHeader(rawBody: string, signature: string, sharedSecret: string): void;
+}
+
 export {
+    Webhook,
     Pagination,
     ChargeResource,
     CheckoutResource,

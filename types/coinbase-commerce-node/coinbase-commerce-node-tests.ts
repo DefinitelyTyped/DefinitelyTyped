@@ -6,13 +6,13 @@ import {
     Client,
     EventResource,
     CreateCharge,
+    Webhook,
     resources as Resource
 } from 'coinbase-commerce-node';
 
 const Checkout = Resource.Checkout;
 const Charge = Resource.Charge;
 const Event = Resource.Event;
-const Webhook = Resource.Webhook;
 
 /**
  * Initialize client.
