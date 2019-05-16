@@ -118,6 +118,7 @@ interface ArrConstructor {
 }
 export const Arr: ArrConstructor;
 export interface Arr extends Obj {
+    name: "Array";
     getType(): Arr;
 }
 interface TypeConstructor {
