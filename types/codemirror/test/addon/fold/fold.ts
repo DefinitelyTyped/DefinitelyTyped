@@ -2,11 +2,10 @@ import CodeMirror = require("codemirror");
 
 const editor: CodeMirror.Editor = CodeMirror(document.body);
 const position: CodeMirror.Position = { line: 0, ch: 0 };
-type Result = { from: CodeMirror.Position; to: CodeMirror.Position };
 const foldFunction: CodeMirror.FoldFunction = (
     cm: CodeMirror.Editor,
     start: CodeMirror.Position
-): { from: CodeMirror.Position; to: CodeMirror.Position } => ({
+): CodeMirror.PositionRange => ({
     from: position,
     to: position
 });
@@ -20,16 +19,16 @@ const editorOpt: CodeMirror.EditorConfiguration = {
 
 // Check helpers
 const combine: (cm: CodeMirror.Editor, start: CodeMirror.Position) => CodeMirror.Position = CodeMirror.fold.combine();
-const auto: Result = CodeMirror.fold.auto(editor, position);
-const brace: Result = CodeMirror.fold.brace(editor, position);
-const import_: Result = CodeMirror.fold.import(editor, position);
-const include: Result = CodeMirror.fold.include(editor, position);
-const comment: Result = CodeMirror.fold.comment({
+const auto: CodeMirror.PositionRange = CodeMirror.fold.auto(editor, position);
+const brace: CodeMirror.PositionRange = CodeMirror.fold.brace(editor, position);
+const import_: CodeMirror.PositionRange = CodeMirror.fold.import(editor, position);
+const include: CodeMirror.PositionRange = CodeMirror.fold.include(editor, position);
+const comment: CodeMirror.PositionRange = CodeMirror.fold.comment({
   test: (config: CodeMirror.EditorConfiguration, modeOption: any) => ({})
 });
-const indent: Result = CodeMirror.fold.indent(editor, position);
-const markdown: Result = CodeMirror.fold.markdown(editor, position);
-const xml: Result = CodeMirror.fold.xml(editor, position);
+const indent: CodeMirror.PositionRange = CodeMirror.fold.indent(editor, position);
+const markdown: CodeMirror.PositionRange = CodeMirror.fold.markdown(editor, position);
+const xml: CodeMirror.PositionRange = CodeMirror.fold.xml(editor, position);
 
 // Check commands
 CodeMirror.commands.toggleFold(editor);

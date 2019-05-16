@@ -9,7 +9,7 @@ import * as CodeMirror from "codemirror";
 
 declare module "codemirror" {
     interface FoldFunction {
-        (cm: Editor, start: Position): { from: Position; to: Position };
+        (cm: Editor, start: Position): PositionRange;
     }
     interface FoldHelper {
         combine(): (cm: Editor, start: Position) => Position;

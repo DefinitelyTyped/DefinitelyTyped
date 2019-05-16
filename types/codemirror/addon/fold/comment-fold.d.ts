@@ -9,6 +9,6 @@ import * as CodeMirror from "codemirror";
 
 declare module "codemirror" {
     interface FoldHelper {
-        comment(mode: ModeMap): { from: Position; to: Position };
+        comment(mode: ModeMap): PositionRange;
     }
 }
