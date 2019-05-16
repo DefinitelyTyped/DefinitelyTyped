@@ -1,4 +1,4 @@
-// Type definitions for lambda-log 2.2.0
+// Type definitions for lambda-log 2.2
 // Project: https://github.com/KyleRoss/node-lambda-log
 // Definitions by: Andrés Reyes Monge <https://github.com/armonge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
