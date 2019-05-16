@@ -939,46 +939,167 @@ export namespace KeyUtils {
 export type useMemoization = () => void;
 export type resetMemoization = () => void;
 
-export interface PathUtils {
-    compare(
+export namespace PathUtils {
+    /**
+     * Compare paths `path` and `target` to see which is before or after.
+     */
+    function compare(
         path: Immutable.List<number>,
         target: Immutable.List<number>
     ): number | null;
-    create(attrs: Immutable.List<number> | string): Immutable.List<number>;
-    crop(
+
+    /**
+     * Create a path from `attrs`.
+     */
+    function create(
+        attrs: Immutable.List<number> | number[]
+    ): Immutable.List<number>;
+
+    /**
+     * Crop paths `a` and `b` to an equal size, defaulting to the shortest.
+     */
+    function crop(
         a: Immutable.List<number>,
         b: Immutable.List<number>,
         size?: number
     ): Array<Immutable.List<number>>;
-    decrement(
+
+    /**
+     * Decrement a `path` by `n` at `index`, defaulting to the last index.
+     */
+    function decrement(
         path: Immutable.List<number>,
         n?: number,
         index?: number
     ): Immutable.List<number>;
-    increment(
+
+    /**
+     * Get all ancestor paths of the given path.
+     */
+    function getAncestors(
+        path: Immutable.List<number>
+    ): Immutable.List<number>;
+
+    /**
+     * Increment a `path` by `n` at `index`, defaulting to the last index.
+     */
+    function increment(
         path: Immutable.List<number>,
         n?: number,
         index?: number
     ): Immutable.List<number>;
-    isAbove(
+
+    /**
+     * Is a `path` above another `target` path?
+     */
+    function isAbove(
         path: Immutable.List<number>,
         target: Immutable.List<number>
     ): boolean;
-    isAfter(
+
+    /**
+     * Is a `path` after another `target` path in a document?
+     */
+    function isAfter(
         path: Immutable.List<number>,
         target: Immutable.List<number>
     ): boolean;
-    isBefore(
+
+    /**
+     * Is a `path` before another `target` path in a document?
+     */
+    function isBefore(
         path: Immutable.List<number>,
         target: Immutable.List<number>
     ): boolean;
-    lift(path: Immutable.List<number>): Immutable.List<number>;
-    max(a: Immutable.List<number>, b: Immutable.List<number>): number;
-    min(a: Immutable.List<number>, b: Immutable.List<number>): number;
-    relate(
+
+    /**
+     * Is a `path` equal to another `target` path in a document?
+     */
+    function isEqual(
+        path: Immutable.List<number>,
+        target: Immutable.List<number>
+    ): boolean;
+
+    /**
+     * Is a `path` older than a `target` path? Meaning that it ends as an older
+     * sibling of one of the indexes in the target.
+     */
+    function isOlder(
+        path: Immutable.List<number>,
+        target: Immutable.List<number>
+    ): boolean;
+
+    /**
+     * Is an `any` object a path?
+     */
+    function isPath(
+        any: any
+    ): boolean;
+
+    /**
+     * Is a `path` a sibling of a `target` path?
+     */
+    function isSibling(
+        path: Immutable.List<number>,
+        target: Immutable.List<number>
+    ): boolean;
+
+    /**
+     * Is a `path` younger than a `target` path? Meaning that it ends as a younger
+     * sibling of one of the indexes in the target.
+     */
+    function isYounger(
+        path: Immutable.List<number>,
+        target: Immutable.List<number>
+    ): boolean;
+
+    /**
+     * Lift a `path` to refer to its `n`th ancestor.
+     */
+    function lift(
+        path: Immutable.List<number>
+    ): Immutable.List<number>;
+
+    /**
+     * Drop a `path`, returning a relative path from a depth of `n`.
+     */
+    function drop(
+        path: Immutable.List<number>,
+        n?: number
+    ): Immutable.List<number>;
+
+    /**
+     * Get the maximum length of paths `a` and `b`.
+     */
+    function max(
+        a: Immutable.List<number>,
+        b: Immutable.List<number>
+    ): number;
+
+    /**
+     * Get the minimum length of paths `a` and `b`.
+     */
+    function min(
+        a: Immutable.List<number>,
+        b: Immutable.List<number>
+    ): number;
+
+    /**
+     * Get the common ancestor path of path `a` and path `b`.
+     */
+    function relate(
         a: Immutable.List<number>,
         b: Immutable.List<number>
     ): Immutable.List<number>;
+
+    /**
+     * Transform a `path` by an `operation`, adjusting it to stay current.
+     */
+    function transform(
+        path: Immutable.List<number>,
+        operation: Operation
+    ): Immutable.List<Immutable.List<number>>;
 }
 
 export interface Command {

@@ -7,6 +7,7 @@ import {
     Editor,
     KeyUtils,
     Range,
+    PathUtils,
     Point,
     Inline,
     Mark,
@@ -15,7 +16,7 @@ import {
     Node,
     Command,
     Query,
-    Decoration,
+    Decoration
 } from "slate";
 
 const data = Data.create({ foo: "bar " });
@@ -464,3 +465,34 @@ editor
 KeyUtils.setGenerator(() => "Test");
 KeyUtils.create();
 KeyUtils.resetGenerator();
+
+const pathA = PathUtils.create([0, 1, 2, 3]);
+const pathB = PathUtils.create([1, 2, 3, 4]);
+
+PathUtils.compare(pathA, pathB);
+PathUtils.crop(pathA, pathB, 1);
+PathUtils.decrement(pathA, 1, 2);
+PathUtils.getAncestors(pathA);
+PathUtils.increment(pathA, 1, 2);
+PathUtils.isAbove(pathA, pathB);
+PathUtils.isAfter(pathA, pathB);
+PathUtils.isBefore(pathA, pathB);
+PathUtils.isEqual(pathA, pathB);
+PathUtils.isOlder(pathA, pathB);
+PathUtils.isPath("path");
+PathUtils.isSibling(pathA, pathB);
+PathUtils.isYounger(pathA, pathB);
+PathUtils.lift(pathA);
+PathUtils.drop(pathA);
+PathUtils.max(pathA, pathB);
+PathUtils.min(pathA, pathB);
+PathUtils.relate(pathA, pathB);
+
+PathUtils.transform(pathA, {
+    type: "insert_text",
+    path: 'a',
+    offset: 0,
+    text: 'text',
+    marks: [Mark.create({type: 'test_mark'})],
+    data: Data.create({})
+});
