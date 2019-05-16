@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { PassThrough } from 'stream';
+import { PassThrough, Readable } from 'stream';
 
 declare namespace DKIM {
     interface OptionalOptions {
@@ -39,7 +39,7 @@ declare class DKIM {
 
     constructor(options: DKIM.Options);
 
-    sign(input: NodeJS.ReadableStream | Buffer | string, extraOptions: DKIM.Options): PassThrough;
+    sign(input: string | Buffer | Readable, extraOptions: DKIM.Options): PassThrough;
 }
 
 export = DKIM;
