@@ -593,7 +593,7 @@ declare namespace Webhook {
      *
      * @link https://github.com/coinbase/coinbase-commerce-node#verify-signature-header
      */
-    export function verifySigHeader(rawBody: string, signature: string, sharedSecret: string): void;
+    function verifySigHeader(rawBody: string, signature: string, sharedSecret: string): void;
 }
 
 export {
