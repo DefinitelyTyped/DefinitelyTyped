@@ -1278,7 +1278,7 @@ declare module paper {
         /**
          * only hit-test against a certain item class and its sub-classes: Group, Layer, Path, CompoundPath, Shape, Raster, PlacedSymbol, PointText, etc.
          */
-        class?: { new(...args: any[]): Item; };
+        class?: new(...args: any[]) => Item;
 
         /**
          * a match function to be called for each found hit result: Return true to return the result, false to keep searching
