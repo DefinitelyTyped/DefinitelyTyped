@@ -222,13 +222,13 @@ declare namespace Stripe {
              * Information about the company or business.
              * This field is null unless business_type is set to company.
              */
-            company?: ICompanyCreationOptions;
+            company?: ICompanyCreateUpdateOptions;
 
             /**
              * Information about the person represented by the account.
              * This field is null unless business_type is set to individual.
              */
-            individual?: IIndividualCreationOptions;
+            individual?: IIndividualCreateUpdateOptions;
         }
 
         interface IAccountShared {
@@ -578,13 +578,13 @@ declare namespace Stripe {
              * Information about the company or business.
              * This field is null unless business_type is set to company.
              */
-            company?: ICompanyUpdateOptions;
+            company?: ICompanyCreateUpdateOptions;
 
             /**
              * Information about the person represented by the account.
              * This field is null unless business_type is set to individual.
              */
-            individual?: IIndividualUpdateOptions;
+            individual?: IIndividualCreateUpdateOptions;
         }
 
         interface IExternalAccountCreationOptions extends IDataOptionsWithMetadata {
@@ -700,7 +700,7 @@ declare namespace Stripe {
             tax_id_registrar?: string;
         }
 
-        interface ICompanyUpdateOptions extends ICompanyShared {
+        interface ICompanyCreateUpdateOptions extends ICompanyShared {
             /**
              * The business ID number of the company, as appropriate for the company’s country.
              * (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a
@@ -714,8 +714,6 @@ declare namespace Stripe {
              */
             vat_id?: string;
         }
-
-        interface ICompanyCreationOptions extends ICompanyUpdateOptions {}
 
         interface ICompany extends ICompanyShared {
             /**
@@ -761,7 +759,7 @@ declare namespace Stripe {
                  * The four-digit year of birth.
                  */
                 year: number;
-            }
+            };
 
             /**
              * The individual's email address.
@@ -866,7 +864,7 @@ declare namespace Stripe {
             ssn_last_4_provided: boolean;
         }
 
-        interface IIndividualUpdateOptions extends IIndividualShared {
+        interface IIndividualCreateUpdateOptions extends IIndividualShared {
             /**
              * The government-issued ID number of the individual, as appropriate for the representative’s country.
              * (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada).
@@ -881,8 +879,6 @@ declare namespace Stripe {
              */
             ssn_last_4?: string;
         }
-
-        interface IIndividualCreationOptions extends IIndividualUpdateOptions {}
     }
 
     namespace applicationFees {
