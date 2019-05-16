@@ -309,9 +309,9 @@ gm(src)
 	.format({ bufferStream: true }, (err, format) => {
 	})
 	.identify((err, info) => {
-    })
-    .identify(customFormat, (err, info) => {
-    })
+	})
+	.identify(customFormat, (err, info) => {
+	})
 	.identify({ bufferStream: true }, (err, info) => {
 	})
 	.res((err, resolution) => {
