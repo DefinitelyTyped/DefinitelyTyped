@@ -292,8 +292,6 @@ const eventChargeResponseExample: EventResource<ChargeResource> = {
     data: chargeResponseExample,
 };
 
-
-
 /**
  * Retrieve an event by ID.
  */
