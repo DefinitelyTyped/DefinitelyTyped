@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Track, track as _track, TrackingProp, Options, Decorator } from 'react-tracking';
+import { Track, track as _track, TrackingProp, Options, Decorator, TrackingContext, ReactTrackingContext } from 'react-tracking';
 
 function customEventReporter(data: { page?: string }) {}
 
@@ -70,3 +70,18 @@ class Test extends React.Component<any, null> {
         );
     }
 }
+
+const TestContext = () => {
+    const trackingContext = {
+        tracking: {
+            data: { foo: 'bar' },
+            dispatch: (data: {}) => data,
+            process: (x: string) => x
+        }
+    };
+    return (
+        <ReactTrackingContext.Provider value={trackingContext}>
+            <div>hello how are you</div>
+        </ReactTrackingContext.Provider>
+    );
+};
