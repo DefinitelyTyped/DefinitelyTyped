@@ -66,7 +66,7 @@ declare namespace prompts {
         initial?: string | number | boolean | Date;
         style?: string;
         format?: PrevCaller<T, void>;
-        validate?: PrevCaller<T, void>;
+        validate?: PrevCaller<T, boolean | string>;
         onState?: PrevCaller<T, void>;
         min?: number;
         max?: number;
