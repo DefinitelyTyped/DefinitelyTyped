@@ -587,7 +587,7 @@ export namespace resources {
  *
  * @link https://github.com/coinbase/coinbase-commerce-node#webhooks
  */
-declare module Webhook {
+declare namespace Webhook {
     /**
      * Verify a signature header.
      *
