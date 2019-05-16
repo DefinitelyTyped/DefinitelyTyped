@@ -7,6 +7,7 @@
 //                 jscinoz <https://github.com/jscinoz>
 //                 surgeboris <https://github.com/surgeboris>
 //                 geirsagberg <https://github.com/geirsagberg>
+//                 Harry Hedger <https://github.com/hedgerh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
