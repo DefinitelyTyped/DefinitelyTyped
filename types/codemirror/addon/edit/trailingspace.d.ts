@@ -3,7 +3,7 @@
 // Definitions by: orblazer <https://github.com/orblazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// See docs https://codemirror.net/doc/manual.html#addon_matchtags
+// See docs https://codemirror.net/doc/manual.html#addon_trailingspace
 
 import * as CodeMirror from "codemirror";
 
