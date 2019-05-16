@@ -11,11 +11,11 @@ export interface Context {
     parent?: Server;
     topScope: Scope;
     /** The primitive number type. */
-    num: Type;
+    num: Prim & { name: "number" };
     /** The primitive string type. */
-    str: Type;
+    str: Prim & { name: "string" };
     /** The primitive boolean type. */
-    bool: Type;
+    bool: Prim & { name: "bool" };
 }
 /** Returns the current context object. */
 export function cx(): Context;
