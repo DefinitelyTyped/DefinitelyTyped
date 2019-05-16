@@ -11,11 +11,11 @@ export interface Context {
     parent?: Server;
     topScope: Scope;
     /** The primitive number type. */
-    num: Prim & { name: "number" };
+    num: Type;
     /** The primitive string type. */
-    str: Prim & { name: "string" };
+    str: Type;
     /** The primitive boolean type. */
-    bool: Prim & { name: "bool" };
+    bool: Type;
 }
 /** Returns the current context object. */
 export function cx(): Context;
@@ -56,7 +56,7 @@ export interface Obj extends IType {
     /** The name of the type, if any. */
     name: string | undefined;
     /** The prototype of the object, or null. */
-    proto: Obj | null;
+    proto: (Obj & { name: string }) | null;
     /** An object mapping the object’s known properties to AVals. Don’t manipulate this directly (ever), only use it if you have to iterate over the properties. */
     props: Readonly<{
         [key: string]: AVal;
@@ -104,8 +104,8 @@ export const Prim: PrimConstructor;
 export interface Prim extends IType {
     /** The name of the type, if any. */
     name: "string" | "bool" | "number";
-    /** The prototype of the object. */
-    proto: Obj;
+    /** The prototype of the object, or null. */
+    proto: Obj & { name: string };
     /** Get an `AVal` that represents the named property of this type. */
     getProp(prop: string): AVal;
     getType(): Prim;
