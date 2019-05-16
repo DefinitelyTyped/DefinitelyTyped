@@ -209,11 +209,6 @@ declare namespace Stripe {
 
         interface IAccountShared {
             /**
-             * An account token, used to securely provide details to the account.
-             */
-            account_token?: string;
-
-            /**
              * Optional information related to the business.
              */
             business_profile?: {
@@ -774,6 +769,11 @@ declare namespace Stripe {
                  */
                 routing_number?: string;
             };
+
+            /**
+             * An account token, used to securely provide details to the account.
+             */
+            account_token?: string;
         }
 
         interface IExternalAccountCreationOptions extends IDataOptionsWithMetadata {
