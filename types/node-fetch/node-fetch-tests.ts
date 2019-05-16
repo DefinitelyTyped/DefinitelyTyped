@@ -117,9 +117,7 @@ function test_Blob() {
 
 function test_ResponseInit() {
     fetch("http://test.com", {}).then(response => {
-        new Response(response.body, {
-            url: response.url,
-        });
+        new Response(response.body);
         new Response(response.body, {
             url: response.url,
             size: response.size,
