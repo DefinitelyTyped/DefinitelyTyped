@@ -1,18 +1,13 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
+        "lib": ["es6", "dom"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -59,8 +54,14 @@
         "addon/mode/loadmode.d.ts",
         "addon/mode/multiplex.d.ts",
         "addon/mode/overlay.d.ts",
+        "addon/scroll/annotatescrollbar.d.ts",
         "addon/scroll/scrollpastend.d.ts",
+        "addon/scroll/simplescrollbars.d.ts",
+        "addon/search/jump-to-line.d.ts",
         "addon/search/match-highlighter.d.ts",
+        "addon/search/matchesonscrollbar.d.ts",
+        "addon/search/search.d.ts",
+        "addon/search/searchcursor.d.ts",
         "addon/selection/active-line.d.ts",
         "test/index.ts",
         "test/editor.ts",
@@ -78,8 +79,8 @@
         "test/addon/hint/hint.ts",
         "test/addon/lint/lint.ts",
         "test/addon/mode/mode.ts",
-        "test/addon/scroll/scrollpastend.ts",
-        "test/addon/search/match-highlighter.ts",
+        "test/addon/scroll/scroll.ts",
+        "test/addon/search/search.ts",
         "test/addon/selection/active-line.ts"
     ]
 }
