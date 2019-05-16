@@ -424,7 +424,7 @@ interface EventResource {
      * Event Payload.
      * Resource of the associated object at the time of the event.
      */
-    data: ChargeResource | CheckoutResource;
+    data: ChargeResource & CheckoutResource;
 }
 
 /**
