@@ -1276,9 +1276,9 @@ declare module paper {
         tolerance?: number;
 
         /**
-         * only hit-test again a certain item class and its sub-classes: Group, Layer, Path, CompoundPath, Shape, Raster, PlacedSymbol, PointText, etc.
+         * only hit-test against a certain item class and its sub-classes: Group, Layer, Path, CompoundPath, Shape, Raster, PlacedSymbol, PointText, etc.
          */
-        class?: Function;
+        class?: { new(...args: any[]): Item; };
 
         /**
          * a match function to be called for each found hit result: Return true to return the result, false to keep searching
