@@ -70,3 +70,12 @@ const searchCursor3: CodeMirror.SearchCursor = doc.getSearchCursor(
     { from: position, to: position },
     searchOpt
 );
+
+// Check search cursor
+const findNext: boolean | RegExpExecArray = searchCursor.findNext()
+const findPrev: boolean | RegExpExecArray = searchCursor.findPrevious()
+const find: boolean | RegExpExecArray = searchCursor.find(true)
+const from: CodeMirror.Position = searchCursor.from()
+const to: CodeMirror.Position = searchCursor.to()
+searchCursor.replace("test")
+searchCursor.replace("test", "test")
