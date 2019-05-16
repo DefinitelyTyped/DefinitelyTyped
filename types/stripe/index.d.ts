@@ -351,12 +351,9 @@ declare namespace Stripe {
                 phone?: string;
 
                 /**
-                 * The business ID number of the company, as appropriate for the company’s
-                 * country. (Examples are an Employer ID Number in the U.S., a Business
-                 * Number in Canada, or a Company Number in the UK.)
-                 * This can be unset by updating the value to null and then saving.
+                 * Whether the company’s business ID number was provided.
                  */
-                tax_id?: string;
+                tax_id_provided: boolean;
 
                 /**
                  * The jurisdiction in which the tax_id is registered (Germany-based companies only).
@@ -365,10 +362,9 @@ declare namespace Stripe {
                 tax_id_registrar?: string;
 
                 /**
-                 * The VAT number of the company.
-                 * This can be unset by updating the value to null and then saving.
+                 * Whether the company’s business VAT number was provided.
                  */
-                vat_id?: string;
+                vat_id_provided: boolean;
             };
 
             /**
@@ -439,13 +435,9 @@ declare namespace Stripe {
                 gender?: "male" | "female";
 
                 /**
-                 * The government-issued ID number of the individual, as appropriate for the
-                 * representative’s country. (Examples are a Social Security Number in the U.S.,
-                 * or a Social Insurance Number in Canada). Instead of the number itself, you can
-                 * also provide a PII token created with Stripe.js. This can be unset by updating
-                 * the value to null and then saving.
+                 * Whether the individual’s personal ID number was provided.
                  */
-                id_number?: string;
+                id_number_provided: boolean;
 
                 /**
                  * The individual’s last name.
@@ -487,10 +479,9 @@ declare namespace Stripe {
                 phone?: string;
 
                 /**
-                 * The last four digits of the individual’s Social Security Number (U.S. only).
-                 * This can be unset by updating the value to null and then saving.
+                 * Whether the individual’s last 4 SSN digits was provided.
                  */
-                ssn_last_4?: string;
+                ssn_last_4_provided: boolean;
 
                 /**
                  * The individual’s verification document information.
