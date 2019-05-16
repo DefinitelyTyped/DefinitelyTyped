@@ -227,21 +227,21 @@ export interface AVal extends ANull {
  */
 export const ANull: ANull;
 export interface ANull {
-    addType(...args: unknown[]): void;
-    propagate(...args: unknown[]): void;
-    getProp(...args: unknown[]): ANull;
-    forAllProps(...args: unknown[]): void;
-    hasType(...args: unknown[]): boolean;
-    isEmpty(...args: unknown[]): boolean;
-    getFunctionType(...args: unknown[]): ANull | undefined;
-    getObjType(...args: unknown[]): ANull | undefined | null;
-    getSymbolType(...args: unknown[]): ANull | undefined;
-    getType(...args: unknown[]): ANull | undefined | null;
-    gatherProperties(...args: unknown[]): void;
-    propagatesTo(): unknown;
-    typeHint(...args: unknown[]): ANull | undefined | null;
-    propHint(...args: unknown[]): string | undefined;
-    toString(...args: unknown[]): string;
+    addType(...args: any[]): void;
+    propagate(...args: any[]): void;
+    getProp(...args: any[]): ANull;
+    forAllProps(...args: any[]): void;
+    hasType(...args: any[]): boolean;
+    isEmpty(...args: any[]): boolean;
+    getFunctionType(...args: any[]): ANull | undefined;
+    getObjType(...args: any[]): ANull | undefined | null;
+    getSymbolType(...args: any[]): ANull | undefined;
+    getType(...args: any[]): ANull | undefined | null;
+    gatherProperties(...args: any[]): void;
+    propagatesTo(): any;
+    typeHint(...args: any[]): ANull | undefined | null;
+    propHint(...args: any[]): string | undefined;
+    toString(...args: any[]): string;
 }
 
 // #### Constraints ####
