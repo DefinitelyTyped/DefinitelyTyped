@@ -394,7 +394,7 @@ interface CheckoutResource extends BaseCheckout {
  *
  * @link
  */
-interface EventResource {
+interface EventResource<T = ChargeResource | CheckoutResource> {
     /**
      * Event UUID.
      */
@@ -408,7 +408,7 @@ interface EventResource {
     /**
      * Event type.
      */
-    type: 'charge:created' | 'charge:confirmed' | 'charge:failed' | 'charge:delayed' | 'charge:pending';
+    type: 'charge:created' | 'charge:confirmed' | 'charge:failed' | 'charge:delayed' | 'charge:pending' | 'charge:resolved';
 
     /**
      * Event creation time.
@@ -424,7 +424,7 @@ interface EventResource {
      * Event Payload.
      * Resource of the associated object at the time of the event.
      */
-    data: ChargeResource | CheckoutResource;
+    data: T;
 }
 
 /**
