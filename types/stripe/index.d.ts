@@ -173,6 +173,18 @@ declare namespace Stripe {
                  */
                 fields_needed: string[];
             };
+
+            /**
+             * Information about the company or business.
+             * This field is null unless business_type is set to company.
+             */
+            company?: ICompany;
+
+            /**
+             * Information about the person represented by the account.
+             * This field is null unless business_type is set to individual.
+             */
+            individual?: IIndividual;
         }
 
         interface IAccountCreationOptions extends IAccountUpdateOptions {
@@ -205,6 +217,18 @@ declare namespace Stripe {
              * management directly with them. Possible values are custom and standard.
              */
             type: "custom" | "standard";
+
+            /**
+             * Information about the company or business.
+             * This field is null unless business_type is set to company.
+             */
+            company?: ICompanyCreationOptions;
+
+            /**
+             * Information about the person represented by the account.
+             * This field is null unless business_type is set to individual.
+             */
+            individual?: IIndividualCreationOptions;
         }
 
         interface IAccountShared {
@@ -289,222 +313,6 @@ declare namespace Stripe {
              * The business type. Can be individual or company.
              */
             business_type?: "individual" | "company";
-
-            /**
-             * Information about the company or business.
-             * This field is null unless business_type is set to company.
-             */
-            company?: {
-                /**
-                 * The company’s primary address.
-                 */
-                address?: IAddress;
-
-                /**
-                 * The Kana variation of the company’s primary address (Japan only).
-                 */
-                address_kana?: IAddressKana;
-
-                /**
-                 * The Kanji variation of the company’s primary address (Japan only).
-                 */
-                address_kanji?: IAddressKanji;
-
-                /**
-                 * Whether the company’s directors have been provided. Set this Boolean
-                 * to true after creating all the company’s directors with the Persons API
-                 * for accounts with a relationship.director requirement. This value is
-                 * not automatically set to true after creating directors, so it needs to
-                 * be updated to indicate all directors have been provided.
-                 */
-                directors_provided?: boolean;
-
-                /**
-                 * The company’s legal name.
-                 * This can be unset by updating the value to null and then saving.
-                 */
-                name?: string;
-
-                /**
-                 * The Kana variation of the company’s legal name (Japan only).
-                 * This can be unset by updating the value to null and then saving.
-                 */
-                name_kana?: string;
-
-                /**
-                 * The Kanji variation of the company’s legal name (Japan only).
-                 * This can be unset by updating the value to null and then saving.
-                 */
-                name_kanji?: string;
-
-                /**
-                 * Whether the company’s owners have been provided. Set this Boolean
-                 * to true after creating all the company’s owners with the Persons API
-                 * for accounts with a relationship.owner requirement.
-                 */
-                owners_provided?: boolean;
-
-                /**
-                 * The company’s phone number (used for verification).
-                 * This can be unset by updating the value to null and then saving.
-                 */
-                phone?: string;
-
-                /**
-                 * Whether the company’s business ID number was provided.
-                 */
-                tax_id_provided?: boolean;
-
-                /**
-                 * The jurisdiction in which the tax_id is registered (Germany-based companies only).
-                 * This can be unset by updating the value to null and then saving.
-                 */
-                tax_id_registrar?: string;
-
-                /**
-                 * Whether the company’s business VAT number was provided.
-                 */
-                vat_id_provided?: boolean;
-            };
-
-            /**
-             * Information about the person represented by the account.
-             * This field is null unless business_type is set to individual.
-             */
-            individual?: {
-                /**
-                 * The individual’s primary address.
-                 */
-                address?: IAddress;
-
-                /**
-                 * The Kana variation of the the individual’s primary address (Japan only).
-                 */
-                address_kana?: IAddressKana;
-
-                /**
-                 * The Kanji variation of the the individual’s primary address (Japan only).
-                 */
-                address_kanji?: IAddressKanji;
-
-                /**
-                 * The individual’s date of birth.
-                 */
-                dob?: {
-                    /**
-                     * The day of birth, between 1 and 31.
-                     */
-                    day: number;
-                    /**
-                     * The month of birth, between 1 and 12.
-                     */
-                    month: number;
-                    /**
-                     * The four-digit year of birth.
-                     */
-                    year: number;
-                }
-
-                /**
-                 * The individual's email address.
-                 */
-                email?: string;
-
-                /**
-                 * The individual’s first name.
-                 * This can be unset by updating the value to null and then saving.
-                 */
-                first_name?: string;
-
-                /**
-                 * The Kana variation of the the individual’s first name (Japan only).
-                 * This can be unset by updating the value to null and then saving.
-                 */
-                first_name_kana?: string;
-
-                /**
-                 * The Kanji variation of the individual’s first name (Japan only).
-                 * This can be unset by updating the value to null and then saving.
-                 */
-                first_name_kanji?: string;
-
-                /**
-                 * The individual’s gender (International regulations require either “male” or “female”).
-                 * This can be unset by updating the value to null and then saving.
-                 */
-                gender?: "male" | "female";
-
-                /**
-                 * Whether the individual’s personal ID number was provided.
-                 */
-                id_number_provided?: boolean;
-
-                /**
-                 * The individual’s last name.
-                 * This can be unset by updating the value to null and then saving.
-                 */
-                last_name?: string;
-
-                /**
-                 * The Kana varation of the individual’s last name (Japan only).
-                 * This can be unset by updating the value to null and then saving.
-                 */
-                last_name_kana?: string;
-
-                /**
-                 * The Kanji varation of the individual’s last name (Japan only).
-                 * This can be unset by updating the value to null and then saving.
-                 */
-                last_name_kanji?: string;
-
-                /**
-                 * The individual’s maiden name.
-                 * This can be unset by updating the value to null and then saving.
-                 */
-                maiden_name?: string;
-
-                /**
-                 * Set of key-value pairs that you can attach to an object. This can be useful
-                 * for storing additional information about the object in a structured format.
-                 * Individual keys can be unset by posting an empty value to them.
-                 * All keys can be unset by posting an empty value to metadata.
-                 */
-                metadata?: {
-                    [key: string]: string;
-                };
-
-                /**
-                 * The individual’s phone number.
-                 */
-                phone?: string;
-
-                /**
-                 * Whether the individual’s last 4 SSN digits was provided.
-                 */
-                ssn_last_4_provided?: boolean;
-
-                /**
-                 * The individual’s verification document information.
-                 */
-                verification?: {
-                    /**
-                     * An identifying document, either a passport or local ID card.
-                     */
-                    document?: {
-                        /**
-                         * The back of an ID returned by a file upload with a purpose value of identity_document.
-                         * This can be unset by updating the value to null and then saving.
-                         */
-                        back?: string;
-
-                        /**
-                         * The front of an ID returned by a file upload with a purpose value of identity_document.
-                         * This can be unset by updating the value to null and then saving.
-                         */
-                        front?: string;
-                    }
-                };
-            };
 
             /**
              * Three-letter ISO currency code representing the default currency for the
@@ -765,6 +573,18 @@ declare namespace Stripe {
              * An account token, used to securely provide details to the account.
              */
             account_token?: string;
+
+            /**
+             * Information about the company or business.
+             * This field is null unless business_type is set to company.
+             */
+            company?: ICompanyUpdateOptions;
+
+            /**
+             * Information about the person represented by the account.
+             * This field is null unless business_type is set to individual.
+             */
+            individual?: IIndividualUpdateOptions;
         }
 
         interface IExternalAccountCreationOptions extends IDataOptionsWithMetadata {
@@ -816,6 +636,253 @@ declare namespace Stripe {
              */
             url: string;
         }
+
+        interface ICompanyShared {
+            /**
+             * The company’s primary address.
+             */
+            address?: IAddress;
+
+            /**
+             * The Kana variation of the company’s primary address (Japan only).
+             */
+            address_kana?: IAddressKana;
+
+            /**
+             * The Kanji variation of the company’s primary address (Japan only).
+             */
+            address_kanji?: IAddressKanji;
+
+            /**
+             * Whether the company’s directors have been provided. Set this Boolean
+             * to true after creating all the company’s directors with the Persons API
+             * for accounts with a relationship.director requirement. This value is
+             * not automatically set to true after creating directors, so it needs to
+             * be updated to indicate all directors have been provided.
+             */
+            directors_provided?: boolean;
+
+            /**
+             * The company’s legal name.
+             * This can be unset by updating the value to null and then saving.
+             */
+            name?: string;
+
+            /**
+             * The Kana variation of the company’s legal name (Japan only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            name_kana?: string;
+
+            /**
+             * The Kanji variation of the company’s legal name (Japan only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            name_kanji?: string;
+
+            /**
+             * Whether the company’s owners have been provided. Set this Boolean
+             * to true after creating all the company’s owners with the Persons API
+             * for accounts with a relationship.owner requirement.
+             */
+            owners_provided?: boolean;
+
+            /**
+             * The company’s phone number (used for verification).
+             * This can be unset by updating the value to null and then saving.
+             */
+            phone?: string;
+
+            /**
+             * The jurisdiction in which the tax_id is registered (Germany-based companies only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            tax_id_registrar?: string;
+        }
+
+        interface ICompanyUpdateOptions extends ICompanyShared {
+            /**
+             * The business ID number of the company, as appropriate for the company’s country.
+             * (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a
+             * Company Number in the UK.) This can be unset by updating the value to null and then saving.
+             */
+            tax_id?: string;
+
+            /**
+             * The VAT number of the company.
+             * This can be unset by updating the value to null and then saving.
+             */
+            vat_id?: string;
+        }
+
+        interface ICompanyCreationOptions extends ICompanyUpdateOptions {}
+
+        interface ICompany extends ICompanyShared {
+            /**
+             * Whether the company’s business ID number was provided.
+             */
+            tax_id_provided?: boolean;
+
+            /**
+             * Whether the company’s business VAT number was provided.
+             */
+            vat_id_provided?: boolean;
+        }
+
+        interface IIndividualShared {
+            /**
+             * The individual’s primary address.
+             */
+            address?: IAddress;
+
+            /**
+             * The Kana variation of the the individual’s primary address (Japan only).
+             */
+            address_kana?: IAddressKana;
+
+            /**
+             * The Kanji variation of the the individual’s primary address (Japan only).
+             */
+            address_kanji?: IAddressKanji;
+
+            /**
+             * The individual’s date of birth.
+             */
+            dob?: {
+                /**
+                 * The day of birth, between 1 and 31.
+                 */
+                day: number;
+                /**
+                 * The month of birth, between 1 and 12.
+                 */
+                month: number;
+                /**
+                 * The four-digit year of birth.
+                 */
+                year: number;
+            }
+
+            /**
+             * The individual's email address.
+             */
+            email?: string;
+
+            /**
+             * The individual’s first name.
+             * This can be unset by updating the value to null and then saving.
+             */
+            first_name?: string;
+
+            /**
+             * The Kana variation of the the individual’s first name (Japan only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            first_name_kana?: string;
+
+            /**
+             * The Kanji variation of the individual’s first name (Japan only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            first_name_kanji?: string;
+
+            /**
+             * The individual’s gender (International regulations require either “male” or “female”).
+             * This can be unset by updating the value to null and then saving.
+             */
+            gender?: "male" | "female";
+
+            /**
+             * The individual’s last name.
+             * This can be unset by updating the value to null and then saving.
+             */
+            last_name?: string;
+
+            /**
+             * The Kana varation of the individual’s last name (Japan only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            last_name_kana?: string;
+
+            /**
+             * The Kanji varation of the individual’s last name (Japan only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            last_name_kanji?: string;
+
+            /**
+             * The individual’s maiden name.
+             * This can be unset by updating the value to null and then saving.
+             */
+            maiden_name?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful
+             * for storing additional information about the object in a structured format.
+             * Individual keys can be unset by posting an empty value to them.
+             * All keys can be unset by posting an empty value to metadata.
+             */
+            metadata?: {
+                [key: string]: string;
+            };
+
+            /**
+             * The individual’s phone number.
+             */
+            phone?: string;
+
+            /**
+             * The individual’s verification document information.
+             */
+            verification?: {
+                /**
+                 * An identifying document, either a passport or local ID card.
+                 */
+                document?: {
+                    /**
+                     * The back of an ID returned by a file upload with a purpose value of identity_document.
+                     * This can be unset by updating the value to null and then saving.
+                     */
+                    back?: string;
+
+                    /**
+                     * The front of an ID returned by a file upload with a purpose value of identity_document.
+                     * This can be unset by updating the value to null and then saving.
+                     */
+                    front?: string;
+                }
+            };
+        }
+
+        interface IIndividual extends IIndividualShared {
+            /**
+             * Whether the individual’s personal ID number was provided.
+             */
+            id_number_provided: boolean;
+
+            /**
+             * Whether the individual’s last 4 SSN digits was provided.
+             */
+            ssn_last_4_provided: boolean;
+        }
+
+        interface IIndividualUpdateOptions extends IIndividualShared {
+            /**
+             * The government-issued ID number of the individual, as appropriate for the representative’s country.
+             * (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada).
+             * Instead of the number itself, you can also provide a PII token created with Stripe.js.
+             * This can be unset by updating the value to null and then saving.
+             */
+            id_number?: string;
+
+            /**
+             * The last four digits of the individual’s Social Security Number (U.S. only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            ssn_last_4?: string;
+        }
+
+        interface IIndividualCreationOptions extends IIndividualUpdateOptions {}
     }
 
     namespace applicationFees {
