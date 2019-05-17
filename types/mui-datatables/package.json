@@ -1,6 +1,8 @@
 {
     "private": true,
     "dependencies": {
-        "@material-ui/core": ">=3"
+        "@material-ui/core": ">=3",
+        "csstype": "^2.0.0",
+        "indefinite-observable": "^1.0.1"
     }
 }
