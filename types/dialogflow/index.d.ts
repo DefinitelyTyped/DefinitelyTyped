@@ -698,7 +698,7 @@ export interface QueryResult {
 export interface Status {
     code: StatusCode;
     message: string;
-    details: any[];
+    details: Any[]
 }
 
 export type StatusCode =
@@ -1253,3 +1253,7 @@ export interface WebhookResponse {
 
 // Internal Types
 type NonEmptyArray<T> = T[] & {0: T};
+interface Any {
+    [key: string]: any;
+    "@type": string,
+}
