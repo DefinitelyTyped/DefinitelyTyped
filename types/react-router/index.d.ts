@@ -23,7 +23,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 import * as React from 'react';
 import * as H from 'history';
