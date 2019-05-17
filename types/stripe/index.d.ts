@@ -2739,6 +2739,26 @@ declare namespace Stripe {
              * belonging to the customer associated with the invoice being paid.
              */
             source?: sources.ISourceCreationOptions;
+
+            /**
+             * Boolean representing whether an invoice is paid outside of Stripe.
+             * This will result in no charge being made.
+             */
+            paid_out_of_band?: boolean;
+
+            /**
+             * In cases where the source used to pay the invoice has insufficient
+             * funds, passing forgive=true controls whether a charge should be
+             * attempted for the full amount available on the source, up to the
+             * amount to fully pay the invoice. This effectively forgives the
+             * difference between the amount available on the source and the amount due.
+             * Passing forgive=false will fail the charge if the source hasn’t
+             * been pre-funded with the right amount. An example for this case is
+             * with ACH Credit Transfers and wires: if the amount wired is less
+             * than the amount due by a small amount, you might want to forgive
+             * the difference.
+             */
+            forgive?: boolean;
         }
 
         interface IInvoiceListOptions extends IListOptions {

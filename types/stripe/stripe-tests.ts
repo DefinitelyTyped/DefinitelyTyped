@@ -1149,6 +1149,14 @@ stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", { source: "source_id" }).then
     // asynchronously called
 });
 
+stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", { paid_out_of_band: true }).then((invoice) => {
+    // asynchronously called
+});
+
+stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", { forgive: true }).then((invoice) => {
+    // asynchronously called
+});
+
 stripe.invoices.list(
     { customer: "cus_5rfJKDJkuxzh5Q", limit: 3 },
     (err, invoices) => {
