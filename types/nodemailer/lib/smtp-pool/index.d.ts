@@ -2,13 +2,13 @@
 
 import { EventEmitter } from 'events';
 
-import { Transport, TransportOptions } from '..';
-import * as shared from './shared';
+import { Transport, TransportOptions } from '../..';
+import * as shared from '../shared';
 
-import Mail = require('./mailer');
-import MailMessage = require('./mailer/mail-message');
-import MimeNode = require('./mime-node');
-import SMTPConnection = require('./smtp-connection');
+import Mail = require('../mailer');
+import MailMessage = require('../mailer/mail-message');
+import MimeNode = require('../mime-node');
+import SMTPConnection = require('../smtp-connection');
 
 declare namespace SMTPPool {
     interface MailOptions extends Mail.Options {
@@ -40,6 +40,9 @@ declare namespace SMTPPool {
     }
 }
 
+/**
+ * Creates a SMTP pool transport object for Nodemailer
+ */
 declare class SMTPPool extends EventEmitter implements Transport {
     options: SMTPPool.Options;
 

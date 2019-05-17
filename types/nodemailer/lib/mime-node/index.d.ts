@@ -2,8 +2,8 @@
 
 import { Readable, ReadableOptions, Transform } from 'stream';
 
-import Mail = require('./mailer');
-import SMTPConnection = require('./smtp-connection');
+import Mail = require('../mailer');
+import SMTPConnection = require('../smtp-connection');
 
 declare namespace MimeNode {
     interface Addresses {

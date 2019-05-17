@@ -5,10 +5,10 @@ import * as net from 'net';
 import { Readable } from 'stream';
 import * as tls from 'tls';
 
-import * as shared from './shared';
+import * as shared from '../shared';
 
-import MimeNode = require('./mime-node');
-import XOAuth2 = require('./xoauth2');
+import MimeNode = require('../mime-node');
+import XOAuth2 = require('../xoauth2');
 
 type ms = number;
 

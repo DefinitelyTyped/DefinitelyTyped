@@ -1,5 +1,7 @@
 /// <reference types="node" />
 
+import { PassThrough, Readable } from 'stream';
+
 declare namespace DKIM {
     interface OptionalOptions {
         /** optional location for cached messages. If not set then caching is not used. */
@@ -36,6 +38,8 @@ declare class DKIM {
     keys: Array<string | { key: string; passphrase: string }>;
 
     constructor(options: DKIM.Options);
+
+    sign(input: string | Buffer | Readable, extraOptions: DKIM.Options): PassThrough;
 }
 
 export = DKIM;
