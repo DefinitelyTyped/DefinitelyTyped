@@ -87,9 +87,9 @@ export type ActionFunction4<T1, T2, T3, T4, R> = (t1: T1, t2: T2, t3: T3, t4: T4
 export type ActionFunctionAny<R> = (...args: any[]) => R;
 
 // https://github.com/redux-utilities/redux-actions/blob/v2.3.0/src/createAction.js#L6
-export function createAction<T extends ActionType = ActionType>(
+export function createAction<Payload = any, T extends ActionType = ActionType>(
     actionType: T,
-): ActionFunctionAny<Action<any>>;
+): ActionFunctionAny<Action<Payload, T>>;
 
 export function createAction<Payload, T extends ActionType = ActionType>(
     actionType: T,
