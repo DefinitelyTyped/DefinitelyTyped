@@ -1026,8 +1026,10 @@ declare global {
             /**
              * Terminates the adapter execution but does not disable the adapter
              * @param reason (optional) A message to print into the log prior to termination
+             * @param exitCode (optional) The exit code to use for termination
              */
-            terminate(reason?: string): never;
+            terminate(reason?: string, exitCode?: number): never;
+            terminate(exitCode: number): never;
 
             /** Restarts the adapter */
             restart(): never;
