@@ -1,3 +1,5 @@
+// TypeScript Version: 2.9
+
 import * as React from "react";
 import { Redirect } from "react-router";
 
