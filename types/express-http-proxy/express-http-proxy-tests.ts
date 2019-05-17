@@ -37,6 +37,15 @@ proxy('www.google.com', {
     },
 });
 
+
+proxy('www.google.com', {
+    proxyReqOptDecorator: function(proxyReqOpts, srcReq) {
+      return new Promise(function(resolve, reject) {
+        resolve(proxyReqOpts);
+      })
+    }
+});
+
 proxy('www.google.com', {
     userResHeaderDecorator(headers, userReq, userRes, proxyReq, proxyRes) {
         console.log(userReq.url, userRes.statusCode);
@@ -56,6 +65,21 @@ proxy('www.google.com', {
         return JSON.stringify(data);
     }
 });
+
+proxy('www.google.com', {
+    userResDecorator(proxyRes, proxyResData, userReq, userRes) {
+        // some code
+        return proxyResData;
+    }
+});
+
+proxy('www.google.com', {
+    userResDecorator(proxyRes, proxyResData, userReq, userRes) {
+        // some code
+        return Promise.resolve(proxyResData);
+    }
+});
+
 
 proxy('www.google.com', {
     preserveHostHdr: true
