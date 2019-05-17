@@ -71,6 +71,11 @@ export class Client {
 
     userinfo(accessToken: string | TokenSet): Promise<{ readonly [name: string]: {} | null | undefined }>;
 
+    grant(body: {
+        readonly grant_type: "authorization_code" | "client_credentials" | "password" | "refresh_token" | string;
+        readonly [name: string]: string | undefined;
+    }): Promise<TokenSet>;
+
     introspect(token: string, tokenTypeHint?: string, extras?: { readonly introspectBody?: {} }):
         Promise<{ readonly [name: string]: {} | null | undefined }>;
 }

@@ -38,15 +38,23 @@ async (req: IncomingMessage) => {
     //
 
     const params = client.callbackParams(req);
-    const tokenSet = await client.callback('https://client.example.com/callback', params, { code_verifier });
-    console.log(tokenSet.id_token, tokenSet.access_token, tokenSet.refresh_token);
-    console.log(tokenSet.expired(), tokenSet.claims()["some claim name"]);
+    const callbackResponse = await client.callback('https://client.example.com/callback', params, { code_verifier });
+    console.log(callbackResponse.id_token, callbackResponse.access_token, callbackResponse.refresh_token);
+    console.log(callbackResponse.expired(), callbackResponse.claims()["some claim name"]);
 
     //
 
     await client.userinfo("access token");
-    const userinfo = await client.userinfo(tokenSet);
+    const userinfo = await client.userinfo(callbackResponse);
     console.log(userinfo["some user info name"]);
+
+    //
+
+    const grantResponse = await client.grant({
+        grant_type: "client_credentials",
+        acr_values: "acr_values",
+    });
+    console.log(grantResponse.access_token);
 
     //
 
