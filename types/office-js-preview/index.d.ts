@@ -8933,7 +8933,7 @@ declare namespace Office {
         /**
          * Gets a value that indicates whether the attachment should be displayed in the body of the item.
          */
-        isInline: boolean
+        isInline: boolean;
         /**
          * Gets the name of the attachment.
          */
