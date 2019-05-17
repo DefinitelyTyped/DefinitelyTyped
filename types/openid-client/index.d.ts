@@ -68,6 +68,9 @@ export class Client {
     }): Promise<TokenSet>;
 
     userinfo(accessToken: string | TokenSet): Promise<{ readonly [name: string]: {} | null | undefined }>;
+
+    introspect(token: string, tokenTypeHint?: string, extras?: { readonly introspectBody?: {} }):
+        Promise<{ readonly [name: string]: {} | null | undefined }>;
 }
 
 export class TokenSet {
