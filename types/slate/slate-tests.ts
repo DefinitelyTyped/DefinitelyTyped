@@ -86,6 +86,7 @@ const schema: SchemaProperties = {
 
 const pluginCommandName = 'plugin_command';
 const pluginQueryName = 'plugin_query';
+const pluginQueryResult = 1000;
 
 const plugin: Plugin = {
     normalizeNode: (node: Node, editor: Editor, next: () => void) => next(),
@@ -96,7 +97,7 @@ const plugin: Plugin = {
     validateNode: (node: Node, editor: Editor, next: () => void) => next(),
 
     commands: { [pluginCommandName]: (editor: Editor, ...args: any[]) => editor },
-    queries: { [pluginQueryName]: (editor: Editor, ...args: any[]) => editor },
+    queries: { [pluginQueryName]: (editor: Editor, ...args: any[]) => pluginQueryResult },
     schema: {...schema},
 };
 
@@ -118,6 +119,8 @@ editor.setReadOnly(true).setValue(value);
 editor.command("testCommand");
 editor.query("testQuery");
 editor.run("testCommand");
+editor.run("testCommand");
+const result: number = editor.query(pluginQueryName);
 
 // Test all editor commands
 editor
