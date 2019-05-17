@@ -698,7 +698,7 @@ export interface QueryResult {
 export interface Status {
     code: StatusCode;
     message: string;
-    details: Any[]
+    details: Any[];
 }
 
 export type StatusCode =
@@ -853,8 +853,7 @@ export type StatusCode =
     // Unrecoverable data loss or corruption.
     //
     // HTTP Mapping: 500 Internal Server Error
-    | 1 // DATA_LOSS
-
+    | 1; // DATA_LOSS
 
 export interface Agent {
     parent: string;
@@ -883,12 +882,10 @@ export interface EntityType {
     autoExpansionMode: EntityAutoExpansionMode;
 }
 
-
 export type MatchMode =
     | "MATCH_MODE_UNSPECIFIED"
     | "MATCH_MODE_HYBRID"
-    | "MATCH_MODE_ML_ONLY"
-
+    | "MATCH_MODE_ML_ONLY";
 
 export interface Credentials {
     client_email: string;
@@ -912,16 +909,15 @@ export interface EntitySynonyms {
 
 export type EntityKind =
     | "KIND_MAP"
-    | "KIND_LIST"
+    | "KIND_LIST";
 
 export type EntityAutoExpansionMode =
     | "AUTO_EXPANSION_MODE_DEFAULT"
-    | "AUTO_EXPANSION_MODE_UNSPECIFIED"
+    | "AUTO_EXPANSION_MODE_UNSPECIFIED";
 
 export type IntentView =
     | "INTENT_VIEW_UNSPECIFIED"
-    | "INTENT_VIEW_FULL"
-
+    | "INTENT_VIEW_FULL";
 
 export interface Intent {
     name?: string;
@@ -983,7 +979,7 @@ export type Platform =
     | "SKYPE"
     | "LINE"
     | "VIBER"
-    | "ACTIONS_ON_GOOGLE"
+    | "ACTIONS_ON_GOOGLE";
 
 export interface MessageBase {
     platform?: Platform;
@@ -1154,7 +1150,7 @@ export type AudioEncoding =
     | "AUDIO_ENCODING_AMR"
     | "AUDIO_ENCODING_AMR_WB"
     | "AUDIO_ENCODING_OGG_OPUS"
-    | "AUDIO_ENCODING_SPEEX_WITH_HEADER_BYTE"
+    | "AUDIO_ENCODING_SPEEX_WITH_HEADER_BYTE";
 
 export interface InputAudioConfig {
     // required by the documentation https://cloud.google.com/dialogflow-enterprise/docs/reference/rest/v2beta1/QueryInput
@@ -1170,7 +1166,7 @@ export type OutputAudioEncoding =
     | "OUTPUT_AUDIO_ENCODING_UNSPECIFIED"
     | "OUTPUT_AUDIO_ENCODING_LINEAR_16"
     | "OUTPUT_AUDIO_ENCODING_MP3"
-    | "OUTPUT_AUDIO_ENCODING_OGG_OPUS"
+    | "OUTPUT_AUDIO_ENCODING_OGG_OPUS";
 
 export interface OutputAudioConfig {
     audioEncoding: OutputAudioEncoding;
@@ -1190,7 +1186,7 @@ export type SsmlVoiceGender =
     | "SSML_VOICE_GENDER_UNSPECIFIED"
     | "SSML_VOICE_GENDER_MALE"
     | "SSML_VOICE_GENDER_FEMALE"
-    | "SSML_VOICE_GENDER_NEUTRAL"
+    | "SSML_VOICE_GENDER_NEUTRAL";
 
 export interface VoiceSelectionParams {
     name?: string;
@@ -1217,7 +1213,6 @@ export interface QueryParams {
 export interface SentimentAnalysisRequestConfig {
     analyzeQueryTextSentiment: boolean;
 }
-
 
 export interface LatLong {
     latitude: number;
@@ -1251,9 +1246,10 @@ export interface WebhookResponse {
     followupEventInput?: EventInput;
 }
 
-// Internal Types
+// Internal Types and Disabling Auto-Export
+export {};
 type NonEmptyArray<T> = T[] & {0: T};
 interface Any {
     [key: string]: any;
-    "@type": string,
+    "@type": string;
 }
