@@ -1,6 +1,6 @@
-// Type definitions for dialogflow 0.6
+// Type definitions for dialogflow 0.9
 // Project: https://github.com/googleapis/nodejs-dialogflow
-// Definitions by: Daniel Dyla <https://github.com/dyladan>
+// Definitions by: Daniel Dyla <https://github.com/dyladan>, Tom Carrio <https://github.com/tcarrio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
