@@ -1,15 +1,10 @@
 {
     "compilerOptions": {
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
+        "lib": ["es6", "dom"],
         "jsx": "react",
         "strictNullChecks": true,
         "strictFunctionTypes": false,
@@ -40,6 +35,7 @@
         "test/Switch.tsx",
         "test/InheritingRoute.tsx",
         "test/WithRouter.tsx",
-        "test/RouterContext.tsx"
+        "test/RouterContext.tsx",
+        "test/Redirect.tsx"
     ]
 }
