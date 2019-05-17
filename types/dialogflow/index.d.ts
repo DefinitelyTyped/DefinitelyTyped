@@ -906,7 +906,7 @@ export interface ClientOptions {
 }
 
 export interface EntitySynonyms {
-    synonyms: string[] & {0: string};
+    synonyms: NonEmptyArray<string>;
     value: string;
 }
 
@@ -1173,7 +1173,7 @@ export type OutputAudioEncoding =
     | "OUTPUT_AUDIO_ENCODING_OGG_OPUS"
 
 export interface OutputAudioConfig {
-    audioEncoding: any;
+    audioEncoding: OutputAudioEncoding;
     sampleRateHertz?: number;
     synthesizeSpeechConfig?: SynthesizeSpeechConfig;
 }
@@ -1211,7 +1211,7 @@ export interface QueryParams {
     sessionEntityTypes?: SessionEntityType[];
     payload?: any;
     knowledgeBaseNames?: string[];
-    sentimentAnalysisRequestConfig?: any;
+    sentimentAnalysisRequestConfig?: SentimentAnalysisRequestConfig;
 }
 
 export interface SentimentAnalysisRequestConfig {
@@ -1250,3 +1250,6 @@ export interface WebhookResponse {
     outputContexts?: Context[];
     followupEventInput?: EventInput;
 }
+
+// Internal Types
+type NonEmptyArray<T> = T[] & {0: T};
