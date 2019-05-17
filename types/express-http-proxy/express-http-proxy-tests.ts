@@ -37,12 +37,11 @@ proxy('www.google.com', {
     },
 });
 
-
 proxy('www.google.com', {
-    proxyReqOptDecorator: function(proxyReqOpts, srcReq) {
-      return new Promise(function(resolve, reject) {
+    proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+      return new Promise((resolve, reject) => {
         resolve(proxyReqOpts);
-      })
+      });
     }
 });
 
@@ -79,7 +78,6 @@ proxy('www.google.com', {
         return Promise.resolve(proxyResData);
     }
 });
-
 
 proxy('www.google.com', {
     preserveHostHdr: true
