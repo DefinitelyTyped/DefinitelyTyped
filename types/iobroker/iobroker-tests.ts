@@ -272,6 +272,11 @@ adapter.unsubscribeForeignStatesAsync("*").catch(handleError);
 
 adapter.getHistory("state.id", {}, (err, result: ioBroker.GetHistoryResult) => {});
 
+adapter.terminate();
+adapter.terminate(1);
+adapter.terminate("Reason");
+adapter.terminate("Reason", 4);
+
 // Repro from https://github.com/ioBroker/adapter-core/issues/3
 const repro1: ioBroker.ObjectChangeHandler = (id, obj) => {
     if (!obj || !obj.common) return;
