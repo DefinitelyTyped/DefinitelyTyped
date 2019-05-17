@@ -218,6 +218,7 @@ actionMetaFrom2Args.meta.remote;
 typedState = typedActionHandlerReducerMetaMap({ value: 0 }, actionMetaFrom2Args);
 
 const act0 = ReduxActions.createAction('ACTION0');
+act0().type; // $ExpectType 'ACTION0'
 // https://github.com/redux-utilities/redux-actions/blob/v2.3.0/src/__tests__/createAction-test.js#L111
 act0().payload; // $ExpectType any
 act0().payload === undefined;
@@ -226,37 +227,46 @@ act0({ foo: 'bar' }).payload.foo === 'bar';
 
 // https://github.com/redux-utilities/redux-actions/blob/v2.3.0/src/__tests__/createAction-test.js#L122
 const act0_meta = ReduxActions.createAction('ACTION0_META', null, () => ({ foo: 'bar' }));
+act0_meta().type; // $ExpectType 'ACTION0_META'
 act0_meta().payload; // $ExpectType any
 act0_meta().meta.foo === 'bar';
 
 const act1 = ReduxActions.createAction<string>('ACTION1');
+act1().type; // $ExpectType string
 act1('hello').payload; // $ExpectType string
 act1('hello').payload === 'hello';
 
 const act1_meta = ReduxActions.createAction('ACTION1_META', null, (foo: string) => ({ foo }));
+act1_meta().type; // $ExpectType 'ACTION1_META'
 act1_meta('hello').payload; // $ExpectType any
 act1_meta('hello').payload === 'hello';
 act1_meta('hello').meta.foo === 'hello';
 
 const act1_type_meta = ReduxActions.createAction('ACTION1_TYPE_META', (x: number) => x, () => ({ foo: 'bar' }));
+act1_type_meta().type; // $ExpectType 'ACTION1_TYPE_META'
 act1_type_meta(42).payload; // $ExpectType number
 act1_type_meta(42).meta.foo === 'bar';
 
 const act1_identity = ReduxActions.createAction('ACTION1_IDENTITY', (x: string) => x);
+act1_identity('hello').type; // $ExpectType 'ACTION1_IDENTITY'
 act1_identity('hello').payload; // $ExpectType string
 act1_identity('hello').payload === 'hello';
 
 const act2 = ReduxActions.createAction('ACTION2', (s: {load: boolean}) => s);
+act2({load: true}).type; // $ExpectType 'ACTION2'
 act2({load: true}).payload.load; // $ExpectType boolean
 
 const act3 = ReduxActions.createAction('ACTION3', (s: string) => ({s}));
+act3('hello').type; // $ExpectType 'ACTION3'
 act3('hello').payload.s === 'hello';
 
 const act4 = ReduxActions.createAction('ACTION4', null, (x1: string, x2: number) => ({}));
+act4('hello', 42).type; // $ExpectType 'ACTION4'
 act4('hello', 42).payload; // $ExpectType any
 Object.getOwnPropertyNames(act4('hello', 42).payload).length === 2;
 
 const act5 = ReduxActions.createAction('ACTION5', null, (...args: any[]) => ({}));
+act5('hello', 42).type; // $ExpectType 'ACTION5'
 act5('hello', 42).payload; // $ExpectType any
 Object.getOwnPropertyNames(act5('hello', 42).payload).length === 2;
 
@@ -275,11 +285,11 @@ actions0_actionTwo('value', 2).payload[1] === 2;
 interface Actions1Payload {
     [key: string]: number;
 }
-const { actions1_actionOne } = ReduxActions.createActions({
+const { ACTION_ONE } = ReduxActions.createActions({
     ACTION_ONE: (key: string, value: number): Actions1Payload => ({ [key]: value })
 });
-actions1_actionOne('value', 1).payload; // $ExpectType Actions1Payload
-actions1_actionOne('value', 1).payload.value === 1;
+ACTION_ONE('value', 1).payload; // $ExpectType Actions1Payload
+ACTION_ONE('value', 1).payload.value === 1;
 
 const options: ReduxActions.Options = {
     prefix: 'TEST'
@@ -300,7 +310,7 @@ ReduxActions.handleAction(act3, (state, action) => {
     return { hello: action.payload.s };
 }, {hello: 'greetings'});
 
-ReduxActions.handleAction(ReduxActions.combineActions(act1, act3, act2), (state, action) => state + 1, 0);
+ReduxActions.handleAction(ReduxActions.combineActions(act3, act2), (state, action) => state + 1, 0);
 
 ReduxActions.handleActions({
     [`${ReduxActions.combineActions(act1, act3, act2)}`](state, action) {
