@@ -237,6 +237,7 @@ declare namespace GoogleAppsScript {
       getCc(): string;
       getDate(): Date;
       getFrom(): string;
+      getHeader(name: string): string;
       getId(): string;
       getPlainBody(): string;
       getRawContent(): string;
