@@ -35,9 +35,9 @@ const RedirectWithValidTypedState = () => {
 
 const RedirectWithInvalidTypedState = () => {
     return (
-        //$ExpectError
+        // $ExpectError
         <Redirect<State>
-            //$ExpectError
+            // $ExpectError
             to={{
                 pathname: "/somewhere",
                 state: {
