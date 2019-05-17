@@ -20,7 +20,7 @@ const RedirectWithoutTypedState = () => {
     );
 };
 
-const RedirectWithTypedState = () => {
+const RedirectWithValidTypedState = () => {
     return (
         <Redirect<State>
             to={{
@@ -33,4 +33,24 @@ const RedirectWithTypedState = () => {
     );
 };
 
-export { RedirectWithoutTypedState, RedirectWithTypedState };
+const RedirectWithInvalidTypedState = () => {
+    return (
+        //$ExpectError
+        <Redirect<State>
+            //$ExpectError
+            to={{
+                pathname: "/somewhere",
+                state: {
+                    foo: true,
+                    bar: "this should fail"
+                }
+            }}
+        />
+    );
+};
+
+export {
+    RedirectWithoutTypedState,
+    RedirectWithValidTypedState,
+    RedirectWithInvalidTypedState
+};
