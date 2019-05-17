@@ -1,4 +1,4 @@
-// Type definitions for koa-bodyparser 4.2
+// Type definitions for koa-bodyparser 4.3
 // Project: https://github.com/koajs/body-parser
 // Definitions by: Jerry Chin <https://github.com/hellopao>
 //                 Anup Kishore <https://github.com/anup-2s>
