@@ -53,7 +53,7 @@ export interface PromptProps {
   when?: boolean;
 }
 export class Prompt extends React.Component<PromptProps, any> { }
-export interface RedirectProps<S> {
+export interface RedirectProps<S = any> {
   to: H.LocationDescriptor<S>;
   push?: boolean;
   from?: string;
