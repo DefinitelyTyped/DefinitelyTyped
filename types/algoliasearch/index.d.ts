@@ -9,7 +9,7 @@
 //                 Antoine Rousseau <https://github.com/antoinerousseau>
 //                 Luca Pasquale <https://github.com/lucapasquale>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
