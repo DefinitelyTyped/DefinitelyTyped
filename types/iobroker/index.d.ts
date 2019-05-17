@@ -1344,13 +1344,25 @@ declare global {
             // subscriptions
 
             /** Subscribe to changes of objects in this instance */
-            subscribeObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            subscribeObjects(pattern: string, callback?: ErrorCallback): void;
+            subscribeObjects(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Subscribe to changes of objects in this instance */
+            subscribeObjectsAsync(pattern: string, options?: unknown): Promise<void>;
             /** Subscribe to changes of objects (which might not belong to this adapter) */
-            subscribeForeignObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            subscribeForeignObjects(pattern: string, callback?: ErrorCallback): void;
+            subscribeForeignObjects(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Subscribe to changes of objects (which might not belong to this adapter) */
+            subscribeForeignObjectsAsync(pattern: string, options?: unknown): Promise<void>;
             /** Unsubscribe from changes of objects in this instance */
-            unsubscribeObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            unsubscribeObjects(pattern: string, callback?: ErrorCallback): void;
+            unsubscribeObjects(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Unsubscribe from changes of objects in this instance */
+            unsubscribeObjectsAsync(pattern: string, options?: unknown): Promise<void>;
             /** Unsubscribe from changes of objects (which might not belong to this adapter) */
-            unsubscribeForeignObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            unsubscribeForeignObjects(pattern: string, callback?: ErrorCallback): void;
+            unsubscribeForeignObjects(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Unsubscribe from changes of objects (which might not belong to this adapter) */
+            unsubscribeForeignObjectsAsync(pattern: string, options?: unknown): Promise<void>;
 
             /** Subscribe to changes of states in this instance */
             subscribeStates(pattern: string, callback?: ErrorCallback): void;

@@ -269,6 +269,10 @@ adapter.subscribeStatesAsync("*").catch(handleError);
 adapter.subscribeForeignStatesAsync("*").catch(handleError);
 adapter.unsubscribeStatesAsync("*").catch(handleError);
 adapter.unsubscribeForeignStatesAsync("*").catch(handleError);
+adapter.subscribeObjectsAsync("*").catch(handleError);
+adapter.subscribeForeignObjectsAsync("*").catch(handleError);
+adapter.unsubscribeObjectsAsync("*").catch(handleError);
+adapter.unsubscribeForeignObjectsAsync("*").catch(handleError);
 
 adapter.getHistory("state.id", {}, (err, result: ioBroker.GetHistoryResult) => {});
 
