@@ -694,6 +694,12 @@ const customFontSize = style({
     scale: [8, 16, 32]
 });
 
+const centerWithGenerics = style<boolean>({
+    prop: 'center',
+    cssProperty: 'justify-content',
+    transformValue: shouldCenter => shouldCenter ? 'center' : 'flex-start'
+});
+
 // All Style Functions contain `propTypes`
 export const alignContentPropTypes = alignContent.propTypes;
 export const alignItemsPropTypes = alignItems.propTypes;

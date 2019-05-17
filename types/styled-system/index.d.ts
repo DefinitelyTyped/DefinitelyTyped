@@ -36,17 +36,20 @@ export interface styleFn {
     propTypes?: string[];
 }
 
-export interface LowLevelStylefunctionArguments {
-    prop: string;
-    cssProperty?: string;
-    alias?: string;
-    key?: string;
-    transformValue?: (n: string | number, scale: Array<string | number>) => any;
-    scale?: Array<string | number>;
+export type Scale = object | Array<string | number>;
+
+export interface LowLevelStylefunctionArguments<N> {
+  prop: string;
+  cssProperty?: string;
+  alias?: string;
+  key?: string;
+  transformValue?: (n: N, scale?: Scale) => any;
+  scale?: Scale;
 }
 
-export function style(
-    args: LowLevelStylefunctionArguments
+export function style<N = string | number>(
+  // tslint:disable-next-line no-unnecessary-generics
+  args: LowLevelStylefunctionArguments<N>
 ): { [cssProp: string]: string };
 
 export function compose(
