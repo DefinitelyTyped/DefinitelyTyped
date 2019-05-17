@@ -19,7 +19,7 @@
  * @see {@link https://github.com/hapijs/catbox#client}
  */
 export class Client<T> implements ClientApi<T> {
-    constructor(engine: EnginePrototypeOrObject, options: ClientOptions);
+    constructor(engine: EnginePrototypeOrObject, options?: ClientOptions);
 
     /** start() - creates a connection to the cache server. Must be called before any other method is available. */
     start(): Promise<void>;
