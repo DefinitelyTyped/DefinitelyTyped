@@ -5,6 +5,11 @@ async (req: IncomingMessage) => {
     const issuer = await Issuer.discover('https://accounts.google.com');
     console.log('Discovered issuer %O', issuer.metadata.issuer);
 
+    issuer.keystore();
+    issuer.keystore(true);
+
+    //
+
     const client = new issuer.Client({
         client_id: 'c',
         client_secret: 's',
