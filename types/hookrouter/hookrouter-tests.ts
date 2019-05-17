@@ -18,7 +18,6 @@ import {
     prepareRoute,
     useQueryParams
 } from 'hookrouter';
-import * as React from 'react';
 
 // $ExpectType AProps
 setLinkProps({ href: '/route' });
@@ -73,9 +72,6 @@ usePath(true, true);
 
 // $ExpectType string
 getWorkingPath('id');
-
-// $ExpectType ReactNode
-useRoutes({ '/route:id': ({ id }) => React.createElement('div', { children: 'Route Component' }) });
 
 // $ExpectType string
 getTitle();
