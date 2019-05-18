@@ -7,7 +7,6 @@ import { DOMWorld } from "./DOMWorld";
 import { NetworkManager } from "./NetworkManager";
 
 export interface Frame extends Contentable, Evalable, Evaluateable, ExecutionContextable, FrameBase {
-    // constructor(frameManager: FrameManager, client: CDPSession, parentFrame: Frame | null | undefined, frameId: string);
     _mainWorld: DOMWorld;
     /** childFrames */
     childFrames(): Frame[];

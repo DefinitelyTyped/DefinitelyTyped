@@ -13,7 +13,6 @@ import { ElementHandle } from "./JSHandle";
  * exposing only the "interesting" nodes of the tree.
  */
 export interface Accessibility {
-    // constructor(client: CDPSession);
     snapshot(options?: SnapshopOptions): Promise<AXNode>;
 }
 

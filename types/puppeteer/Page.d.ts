@@ -15,9 +15,6 @@ import { Worker } from "./Worker";
 
 /** Page provides methods to interact with a single tab in Chromium. One Browser instance might have multiple Page instances. */
 export interface Page extends Contentable, Evalable, Evaluateable, EventEmitter, FrameBase, WaitForable {
-  // static create(client:CDPSession, target:Target, ignoreHTTPSErrors:boolean, defaultViewport:Viewport, screenshotTaskQueue:TaskQueue): Promise<Page>;
-  // constructor(client: CDPSession, target: Target, ignoreHTTPSErrors: boolean, screenshotTaskQueue: TaskQueue);
-
   /**
    * Adds the listener function to the end of the listeners array for the event named `eventName`.
    * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
