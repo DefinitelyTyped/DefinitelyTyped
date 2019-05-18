@@ -3,7 +3,7 @@ import { ExecutionContext } from "./ExecutionContext";
 import { Contentable, Evalable, Evaluateable, FrameBase, ExecutionContextable } from "./able";
 import { NavigationOptions, DirectNavigationOptions } from "./common";
 import { Page } from "./Page";
-import { NetworkManager, Response } from "./NetworkManager";
+import { Response } from "./NetworkManager";
 
 export interface Frame extends Contentable, Evalable, Evaluateable, ExecutionContextable, FrameBase {
   /** childFrames */
@@ -14,15 +14,4 @@ export interface Frame extends Contentable, Evalable, Evaluateable, ExecutionCon
   name(): string;
   /** Returns parent frame, if any. Detached frames and main frames return null. */
   parentFrame(): Frame | null;
-}
-
-export interface FrameManager extends EventEmitter {
-  executionContextById(contextId: number): ExecutionContext;
-  frame(frameId: number): Frame | null;
-  frames(): Frame[];
-  mainFrame(): Frame;
-  page(): Page;
-  waitForFrameNavigation(frame: Frame, options: NavigationOptions): Promise<Response>;
-  navigateFrame(frame: Frame, url: string, options?: DirectNavigationOptions): Promise<Response>;
-  networkManager(): NetworkManager;
 }

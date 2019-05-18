@@ -1,16 +1,6 @@
 import { EventEmitter } from "events";
-import { FrameManager, Frame } from "./FrameManager";
+import { Frame } from "./FrameManager";
 import { JSHandle } from "./JSHandle";
-
-export interface NetworkManager extends EventEmitter {
-    setFrameManager(frameManager: FrameManager): void;
-    authenticate(option: { [key: string]: string }): Promise<any>;
-    extraHTTPHeaders(): { [key: string]: string };
-    setOfflineMode(enabled: boolean): Promise<void>;
-    setUserAgent(userAgent: string): Promise<void>;
-    setCacheEnabled(enabled?: boolean): Promise<void>;
-    setRequestInterception(enabled: boolean): Promise<void>;
-}
 
 /** Response class represents responses which are received by page. */
 export interface Response {
