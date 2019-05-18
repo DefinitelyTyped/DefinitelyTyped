@@ -8,7 +8,7 @@ import { Keyboard, Mouse, Touchscreen } from "./Input";
 import { JSHandle, Base64ScreenShotOptions, BinaryScreenShotOptions, ScreenshotOptions } from "./JSHandle";
 import { Target } from "./Target";
 import { Coverage } from "./Coverage";
-import { ConsoleMessage, Headers, Request } from "./NetworkManager";
+import { ConsoleMessage, Headers, Request, Response } from "./NetworkManager";
 import { Dialog } from "./Dialog";
 import { Worker } from "./Worker";
 

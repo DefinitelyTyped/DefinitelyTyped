@@ -16,30 +16,6 @@ export interface JSONObject {
     [key: string]: Serializable;
 }
 export type SerializableOrJSHandle = Serializable | JSHandle;
-// WARN NOT used
-export type PageEvents =
-    | "close"
-    | "console"
-    | "dialog"
-    | "error"
-    | "frameattached"
-    | "framedetached"
-    | "framenavigated"
-    | "load"
-    | "pageerror"
-    | "request"
-    | "requestfailed"
-    | "requestfinished"
-    | "response"
-    | "workercreated"
-    | "workerdestroyed";
-
-// WARN NOT used
-export type BrowserEvents =
-    | "disconnected"
-    | "targetchanged"
-    | "targetcreated"
-    | "targetdestroyed";
 
 export interface Viewport {
     /** The page width in pixels. */
