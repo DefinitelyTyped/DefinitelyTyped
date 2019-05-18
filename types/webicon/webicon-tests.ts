@@ -186,7 +186,7 @@ export class WebiconTests {
         /**
          * Configuring `webicon` using a configuration-handler.
          */
-        $().webicon(
+        $().webicons(
             (config) => {
                 // $ExpectType PublicApi
                 config;
@@ -466,6 +466,6 @@ export class WebiconTests {
             svgIconSize: 1
         };
 
-        $().webicon(config);
+        $().webicons(config);
     }
 }

@@ -61,7 +61,7 @@ declare global {
          * @param config
          * The configuration for initializing web-icons.
          */
-        webicon(config: Config): this;
+        webicons(config: Config): this;
         
         /**
          * Initializes the web-icons.
@@ -69,6 +69,6 @@ declare global {
          * @param configurationHandler
          * A callback for configuring the web-icons.
          */
-        webicon(configurationHandler: ConfigurationHandler): this;
+        webicons(configurationHandler: ConfigurationHandler): this;
     }
 }
