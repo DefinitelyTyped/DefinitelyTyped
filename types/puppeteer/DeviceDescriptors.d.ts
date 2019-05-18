@@ -1,13 +1,6 @@
-declare namespace devices {
-  interface Viewport {
-    width: number;
-    height: number;
-    deviceScaleFactor: number;
-    isMobile: boolean;
-    hasTouch: boolean;
-    isLandscape: boolean;
-  }
+import { Viewport } from "./common";
 
+declare namespace devices {
   interface Device {
     name: string;
     userAgent: string;
