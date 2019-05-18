@@ -470,87 +470,11 @@ export function batch(cb: () => void): void;
 // tslint:disable:no-unnecessary-generics
 
 /**
- * A hook to bind action creators to the redux store's `dispatch` function
- * similar to how redux's `bindActionCreators` works.
+ * A hook to access the redux `dispatch` function.
  *
- * Supports passing a single action creator, an array/tuple of action
- * creators, or an object of action creators.
- *
- * Any arguments passed to the created callbacks are passed through to
- * your functions.
- *
- * This hook takes a dependencies array as an optional second argument,
- * which when passed ensures referential stability of the created callbacks.
- *
- * @param actions the action creators to bind
- * @param deps (optional) dependencies array to control referential stability
- *
- * @returns callback(s) bound to store's `dispatch` function
- *
- * @example
- *
- * import React from 'react'
- * import { useActions } from 'react-redux'
- *
- * const increaseCounter = (amount: number) => ({
- *   type: 'increase-counter',
- *   amount,
- * })
- *
- * export const CounterComponent = ({ value }: { value: number }) => {
- *   // supports passing an object of action creators
- *   const { increaseCounterByOne, increaseCounterByTwo } = useActions({
- *     increaseCounterByOne: () => increaseCounter(1),
- *     increaseCounterByTwo: () => increaseCounter(2),
- *   }, [])
- *
- *   // supports passing an array/tuple of action creators
- *   const [increaseCounterByThree, increaseCounterByFour] = useActions([
- *     () => increaseCounter(3),
- *     () => increaseCounter(4),
- *   ], [])
- *
- *   // supports passing a single action creator
- *   const increaseCounterBy5 = useActions(() => increaseCounter(5), [])
- *
- *   // passes through any arguments to the callback
- *   const increaseCounterByX = useActions(x => increaseCounter(x), [])
- *
- *   return (
- *     <div>
- *       <span>{value}</span>
- *       <button onClick={increaseCounterByOne}>Increase counter by 1</button>
- *     </div>
- *   )
- * }
- */
-export function useActions<
-    T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
-export function useActions<
-    T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
-export function useActions<
-    T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
-export function useActions<
-    T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
-export function useActions<
-    T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]
->(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
-export function useActions<T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
-export function useActions<T extends [ActionCreator<any>, ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
-export function useActions<T extends [ActionCreator<any>, ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
-export function useActions<T extends [ActionCreator<any>]>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
-export function useActions<T extends ReadonlyArray<ActionCreator<any>>>(actions: T, deps?: ReadonlyArray<any>): ResolveArrayThunks<T>;
-export function useActions<T extends { [key: string]: ActionCreator<any> }>(actions: T, deps?: ReadonlyArray<any>): ResolveThunks<T>;
-export function useActions<T extends ActionCreator<any>>(actions: T, deps?: ReadonlyArray<any>): HandleThunkActionCreator<T>;
-
-/**
- * A hook to access the redux `dispatch` function. Note that in most cases where you
- * might want to use this hook it is recommended to use `useActions` instead to bind
- * action creators to the `dispatch` function.
+ * Note for `redux-thunk` users: the return type of the returned `dispatch` functions for thunks is incorrect.
+ * However, it is possible to get a correctly typed `dispatch` function by creating your own custom hook typed
+ * from the store's dispatch function like this: `const useThunkDispatch = () => useDispatch<typeof store.dispatch>();`
  *
  * @returns redux store's `dispatch` function
  *
@@ -561,28 +485,26 @@ export function useActions<T extends ActionCreator<any>>(actions: T, deps?: Read
  *
  * export const CounterComponent = ({ value }) => {
  *   const dispatch = useDispatch()
- *   const increaseCounter = useCallback(() => dispatch({ type: 'increase-counter' }), [])
  *   return (
  *     <div>
  *       <span>{value}</span>
- *       <button onClick={increaseCounter}>Increase counter</button>
+ *       <button onClick={() => dispatch({ type: 'increase-counter' })}>
+ *         Increase counter
+ *       </button>
  *     </div>
  *   )
  * }
  */
-export function useDispatch<A extends Action = any>(): Dispatch<A>;
+// NOTE: the first overload below and note above can be removed if redux-thunk typings add an overload for
+// the Dispatch function (see also this PR: https://github.com/reduxjs/redux-thunk/pull/247)
+export function useDispatch<TDispatch = Dispatch<any>>(): TDispatch;
+export function useDispatch<A extends Action = AnyAction>(): Dispatch<A>;
 
 /**
  * A hook to access the redux store's state. This hook takes a selector function
  * as an argument. The selector is called with the store state.
  *
- * This hook takes a dependencies array as an optional second argument, which
- * when passed ensures referential stability of the selector (this is primarily
- * useful if you provide a selector that memoizes values).
- *
  * @param selector the selector function
- * @param deps (optional) dependencies array to control referential stability
- * of the selector
  *
  * @returns the selected state
  *
@@ -593,11 +515,11 @@ export function useDispatch<A extends Action = any>(): Dispatch<A>;
  * import { RootState } from './store'
  *
  * export const CounterComponent = () => {
- *   const counter = useSelector((state: RootState) => state.counter, [])
+ *   const counter = useSelector((state: RootState) => state.counter)
  *   return <div>{counter}</div>
  * }
  */
-export function useSelector<TState, TSelected>(selector: (state: TState) => TSelected, deps?: ReadonlyArray<any>): TSelected;
+export function useSelector<TState, TSelected>(selector: (state: TState) => TSelected): TSelected;
 
 /**
  * A hook to access the redux store.

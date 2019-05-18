@@ -21,7 +21,6 @@ import {
     ReactReduxContextValue,
     Selector,
     MapDispatchToProps,
-    useActions,
     useDispatch,
     useSelector,
     useStore,
@@ -106,7 +105,7 @@ function MapDispatch() {
 
     class TestComponent extends React.Component<OwnProps & DispatchProps> { }
 
-    const mapDispatchToProps = ({ onClick: () => {} });
+    const mapDispatchToProps = ({ onClick: () => { } });
 
     const TestNull = connect(
         null,
@@ -1299,107 +1298,28 @@ function TestSelector() {
     notSimpleSelect(state); // $ExpectError
 }
 
-function testUseActions() {
-    const actionCreator1 = (selected: boolean) => ({
-        type: "ACTION_CREATOR_1",
-        payload: selected,
-    });
-    const actionCreator2 = ({ items }: { items: string[] }) => ({
-        type: "ACTION_CREATOR_2",
-        payload: {
-            items
-        }
-    });
-    const thunkActionCreator = () => {
-        return (dispatch: Dispatch) => {
-            return dispatch({
-                type: "THUNK_ACTION_CREATOR",
-                payload: [],
-            });
-        };
-    };
-    function testUseActionsSingle() {
-        const boundAction1 = useActions(actionCreator1);
-        boundAction1(); // $ExpectError
-        boundAction1(true);
-
-        useActions(actionCreator1, [actionCreator1]);
-    }
-    function testUseActionsThunk() {
-        const boundThunk = useActions(thunkActionCreator);
-        const result = boundThunk();
-        result.payload[0];
-        result.payload.data; // $ExpectError
-
-        useActions(thunkActionCreator, [thunkActionCreator]);
-    }
-    function testUseActionsArray() {
-        const [
-            boundAction1,
-            boundAction2,
-            boundThunk,
-        ] = useActions([actionCreator1, actionCreator2, thunkActionCreator]);
-        boundAction1(); // $ExpectError
-        boundAction2(true); // $ExpectError
-        boundAction1(true);
-        boundAction2({ items: ["a"] });
-        const result = boundThunk();
-        result.payload[0];
-        result.payload.data; // $ExpectError
-
-        useActions([actionCreator1, actionCreator2, thunkActionCreator], [actionCreator1]);
-    }
-    function testUseActionsArrayExtraneous() {
-        const [
-            boundAction1,
-            nonexistentAction, // $ExpectError
-        ] = useActions([actionCreator1], []);
-    }
-
-    function testUseActionsObject() {
-        const {
-            actionCreator1: boundAction1,
-            actionCreator2: boundAction2,
-            thunkActionCreator: boundThunk,
-        } = useActions({ actionCreator1, actionCreator2, thunkActionCreator });
-        boundAction1(); // $ExpectError
-        boundAction2(true); // $ExpectError
-        boundAction1(true);
-        boundAction2({ items: ["a"] });
-        const result = boundThunk();
-        result.payload[0];
-        result.payload.data; // $ExpectError
-        // deps
-        useActions({ actionCreator1, actionCreator2, thunkActionCreator }, [actionCreator1]);
-    }
-
-    function testUseActionsObjectExtraneous() {
-        const {
-            actionCreator1: boundAction1,
-            nonexistentAction, // $ExpectError
-        } = useActions({ actionCreator1 });
-        useActions({ actionCreator1 }, [actionCreator1]);
-    }
-}
-
 function testUseDispatch() {
-    const actionCreator1 = (selected: boolean) => ({
-        type: "ACTION_CREATOR_1",
+    const actionCreator = (selected: boolean) => ({
+        type: "ACTION_CREATOR",
         payload: selected,
     });
-    const thunkActionCreator = () => {
+    const thunkActionCreator = (selected: boolean) => {
         return (dispatch: Dispatch) => {
-            return dispatch({
-                type: "THUNK_ACTION_CREATOR",
-                payload: [],
-            });
+            return dispatch(actionCreator(selected));
         };
     };
 
     const dispatch = useDispatch();
-    dispatch(actionCreator1(true));
-    dispatch(thunkActionCreator());
+    dispatch(actionCreator(true));
+    dispatch(thunkActionCreator(true));
     dispatch(true);
+
+    type ThunkAction<TReturnType> = (dispatch: Dispatch) => TReturnType;
+    type ThunkDispatch = <TReturnType>(action: ThunkAction<TReturnType>) => TReturnType;
+    // tslint:disable-next-line:no-unnecessary-callback-wrapper (required for the generic parameter)
+    const useThunkDispatch = () => useDispatch<ThunkDispatch>();
+    const thunkDispatch = useThunkDispatch();
+    const result: ReturnType<typeof actionCreator> = thunkDispatch(thunkActionCreator(true));
 }
 
 function testUseSelector() {
@@ -1421,7 +1341,7 @@ function testUseSelector() {
     active === {}; // $ExpectError
 
     const { extraneous } = useSelector(selector); // $ExpectError
-    useSelector(selector, [counter]);
+    useSelector(selector);
 }
 
 function testUseStore() {
