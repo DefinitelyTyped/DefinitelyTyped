@@ -5,7 +5,7 @@ import { SvgIcon } from "./SvgIcon";
  */
 export interface SvgIconSet extends SvgIcon {
     /**
-     * A value indicating whether icons must be 
+     * A value indicating whether the icons are loaded separately.
      */
     cumulative?: false;
 }

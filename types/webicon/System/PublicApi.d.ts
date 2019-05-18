@@ -1,10 +1,10 @@
+import { CssClassConfig } from "../Icon/CssClassConfig";
+import { CssIconSet } from "../Icon/CssIconSet";
 import { ImageIcon } from "../Icon/ImageIcon";
 import { SvgCumulativeIconSet } from "../Icon/SvgCumulativeIconSet";
 import { SvgIcon } from "../Icon/SvgIcon";
 import { SvgIconSet } from "../Icon/SvgIconSet";
 import { UrlConfig } from "../Web/UrlConfig";
-import { CssClassConfig } from "../Icon/CssClassConfig";
-import { CssIconSet } from "../Icon/CssIconSet";
 import { IconLoadedEventHandler } from "./IconLoadedEventHandler";
 import { Injector } from "./Injector";
 
@@ -39,7 +39,7 @@ export interface PublicApi {
      * Additional options for the icon-set.
      */
     svgSet(id: string, urlConfig: UrlConfig<undefined>, options?: SvgIconSet): this;
-    
+
     /**
      * Adds an icon-set.
      *

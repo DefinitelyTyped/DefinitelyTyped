@@ -1,4 +1,4 @@
-import { SizeableOptions } from "webicon/Icon/Options/SizeableOptions";
+import { SizeableOptions } from "../Icon/Options/SizeableOptions";
 import { CssClassConfig } from "../Icon/CssClassConfig";
 import { AliasOptions } from "../Icon/Options/AliasOptions";
 import { CssIconSetOptions } from "../Icon/Options/CssIconSetOptions";
@@ -6,7 +6,6 @@ import { ImageIconOptions } from "../Icon/Options/ImageIconOptions";
 import { SvgCumulativeIconSetOptions } from "../Icon/Options/SvgCumulativeIconSetOptions";
 import { SvgIconOptions } from "../Icon/Options/SvgIconOptions";
 import { SvgIconSetOptions } from "../Icon/Options/SvgIconSetOptions";
-import { UrlConfig } from "../Web/UrlConfig";
 import { Identifiable } from "./Identifiable";
 import { IdentityMap } from "./IdentityMap";
 
