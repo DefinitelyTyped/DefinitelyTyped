@@ -119,7 +119,6 @@ editor.setReadOnly(true).setValue(value);
 editor.command("testCommand");
 editor.query("testQuery");
 editor.run("testCommand");
-editor.run("testCommand");
 const result: number = editor.query(pluginQueryName);
 
 // Test all editor commands
