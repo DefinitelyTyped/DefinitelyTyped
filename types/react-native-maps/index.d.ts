@@ -1,5 +1,5 @@
 // Type definitions for react-native-maps 0.24.2
-// Project: https://github.com/facebook/react-native
+// Project: https://github.com/react-native-community/react-native-maps
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
