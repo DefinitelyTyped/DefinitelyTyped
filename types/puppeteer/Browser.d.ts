@@ -271,4 +271,3 @@ export interface BrowserContextEventObj {
     /** Emitted when a target is destroyed, for example when a page is closed. */
     targetdestroyed: Target;
 }
-

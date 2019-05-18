@@ -48,8 +48,8 @@ export interface LaunchOptions extends ChromeArgOptions, BrowserOptions, Timeout
   pipe?: boolean;
 }
 /**
-* Defines `headless`, `args`, `userDataDir`, `devtools`
-*/
+ * Defines `headless`, `args`, `userDataDir`, `devtools`
+ */
 export interface ChromeArgOptions {
   /**
    * Whether to run browser in headless mode.
@@ -71,4 +71,3 @@ export interface ChromeArgOptions {
    */
   devtools?: boolean;
 }
-

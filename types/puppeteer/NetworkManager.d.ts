@@ -244,4 +244,3 @@ export interface Overrides {
     postData?: string;
     headers?: Headers;
 }
-

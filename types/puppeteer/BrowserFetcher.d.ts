@@ -1,5 +1,3 @@
-
-
 export type Platform = "mac" | "win32" | "win64" | "linux";
 
 /** BrowserFetcher can download and manage different versions of Chromium. */
@@ -34,6 +32,4 @@ export interface FetcherOptions {
     path?: string;
     /** Possible values are: `mac`, `win32`, `win64`, `linux`. Defaults to the current platform. */
     platform?: Platform;
-  }
-  
-  
+}

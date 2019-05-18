@@ -1,4 +1,3 @@
-
 import { Contentable, Evalable, Evaluateable, FrameBase, WaitForable } from "./able";
 import { EventEmitter } from "events";
 import { Accessibility } from "./Accessibility";

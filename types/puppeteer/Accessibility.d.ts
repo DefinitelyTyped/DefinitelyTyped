@@ -134,4 +134,4 @@ export interface AXNode {
      * Child nodes of this node, if any.
      */
     children: AXNode[];
-}  
+}

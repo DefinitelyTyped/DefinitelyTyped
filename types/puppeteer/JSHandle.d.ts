@@ -1,5 +1,5 @@
-import { Evalable } from './able'
-import { ExecutionContext } from './ExecutionContext'
+import { Evalable } from './able';
+import { ExecutionContext } from './ExecutionContext';
 import { Keys, ClickOptions } from './Input';
 import { Frame } from './FrameManager';
 
@@ -38,9 +38,9 @@ export interface JSHandle {
   jsonValue(): Promise<any>;
 }
 /**
-* Represents an in-page DOM element. ElementHandles can be created with the `$`, `waitForSelector`, `waitForXPath`... methods.
-* implemented in JSHamdle.js
-*/
+ * Represents an in-page DOM element. ElementHandles can be created with the `$`, `waitForSelector`, `waitForXPath`... methods.
+ * implemented in JSHamdle.js
+ */
 export interface ElementHandle<E extends Element = Element> extends JSHandle, Evalable {
   /**
    * This method returns the value resolve to the bounding box of the element (relative to the main frame), or null if the element is not visible.
@@ -183,4 +183,3 @@ export interface BoundingBox {
   /** The height. */
   height: number;
 }
-

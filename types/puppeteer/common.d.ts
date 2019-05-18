@@ -159,4 +159,3 @@ export interface TimeoutSettings {
     navigationTimeout(): number;
     timeout(): number;
 }
-

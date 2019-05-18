@@ -1,4 +1,5 @@
-import { ScriptTagOptions, StyleTagOptions, NavigationOptions, Timeoutable, EvaluateFn, UnwrapElementHandle, WrapElementHandle, SerializableOrJSHandle, DirectNavigationOptions, PageFnOptions } from "./common";
+import { ScriptTagOptions, StyleTagOptions, NavigationOptions, Timeoutable, EvaluateFn, UnwrapElementHandle,  WrapElementHandle, SerializableOrJSHandle, DirectNavigationOptions,
+    PageFnOptions } from "./common";
 import { ElementHandle, JSHandle } from "./JSHandle";
 import { ClickOptions } from "./Input";
 import { Target } from "./Target";
@@ -67,9 +68,9 @@ export interface Contentable {
 }
 
 /**
-* Implented by `DOMWorld`, `Frame`, `JSHandle`, `ElementHandle`, `Page`.
-* Defines `$eval`, `$$eval` `$`, `$$`, `$x` 
-*/
+ * Implented by `DOMWorld`, `Frame`, `JSHandle`, `ElementHandle`, `Page`.
+ * Defines `$eval`, `$$eval` `$`, `$$`, `$x`
+ */
 export interface Evalable {
     /**
      * The method runs querySelector.
@@ -83,7 +84,7 @@ export interface Evalable {
      * If no elements match the selector, the return value resolve to [].
      * @param selector A selector to query element for
      * @since 0.13.0
-       */
+     */
     $$(selector: string): Promise<ElementHandle[]>;
 
     /**
@@ -275,22 +276,22 @@ export interface Evalable {
 export type EvaluateFnReturnType<T extends EvaluateFn> = T extends ((...args: any[]) => infer R) ? R : any;
 
 /**
-* Implemented by `DOMWorld`, `ExecutionContext`, `Frame`, `Page`, `Worker`
-* Defines `evaluate`, `evaluateHandle`
-*/
+ * Implemented by `DOMWorld`, `ExecutionContext`, `Frame`, `Page`, `Worker`
+ * Defines `evaluate`, `evaluateHandle`
+ */
 export interface Evaluateable {
     /**
-    * If the function passed to the `evaluate` returns a Promise,
-    * then `evaluate` would wait for the promise to resolve and return its value.
-    *
-    * If the function passed to the `evaluate` returns a non-Serializable value,
-    * then `evaluate` resolves to `undefined`.
-    * 
-    * If `pageFunction` is a string args is ignore
-    * 
-    * @param pageFunction Function to be evaluated in browser context
-    * @param args Arguments to pass to `pageFunction`
-    */
+     * If the function passed to the `evaluate` returns a Promise,
+     * then `evaluate` would wait for the promise to resolve and return its value.
+     *
+     * If the function passed to the `evaluate` returns a non-Serializable value,
+     * then `evaluate` resolves to `undefined`.
+     *
+     * If `pageFunction` is a string args is ignore
+     *
+     * @param pageFunction Function to be evaluated in browser context
+     * @param args Arguments to pass to `pageFunction`
+     */
     evaluate<T extends EvaluateFn>(
         pageFunction: T,
         ...args: SerializableOrJSHandle[]
@@ -302,7 +303,7 @@ export interface Evaluateable {
      * Evaluates a function in the page context.
      * If the function, passed to the `evaluateHandle`, returns a Promise, then `evaluateHandle`
      * would wait for the promise to resolve and return its value.
-     * 
+     *
      * If `pageFunction` is a string args is ignore
      * @param pageFunction The function to be evaluated in the page context.
      * @param args The arguments to pass to the `pageFunction`.
@@ -327,7 +328,6 @@ export interface ExecutionContextable {
  * Defines `focus`, `hover`
  */
 export interface FocusHoverable {
-
     /** This method fetches an element with selector and focuses it. */
     focus(selector: string): Promise<void>;
     /**
@@ -344,7 +344,6 @@ export interface FocusHoverable {
  * contains `goto`, `url`, `waitFor`, `waitForNavigation`
  */
 export interface FrameBase extends WaitForable {
-
     /**
      * Navigates to a URL.
      * @param url URL to navigate page to. The url should include scheme, e.g. `https://`
@@ -383,9 +382,9 @@ export interface FrameBase extends WaitForable {
 }
 
 /**
-* implemented by `DOMWorld`, `Frame` and `Page`
-* Defines `waitForFunction`, `waitForSelector`, `waitForXPath`
-*/
+ * implemented by `DOMWorld`, `Frame` and `Page`
+ * Defines `waitForFunction`, `waitForSelector`, `waitForXPath`
+ */
 export interface WaitForable {
     /**
      * Allows waiting for various conditions.
@@ -434,4 +433,3 @@ export interface WaitForSelectorOptions extends Timeoutable {
 export interface WaitForSelectorOptionsHidden extends WaitForSelectorOptions {
     hidden: true;
 }
-

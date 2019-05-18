@@ -1,3 +1,3 @@
 export interface TaskQueue {
-    postTask(task: Function): Promise<any>;
+    postTask(task: () => void): Promise<any>;
 }

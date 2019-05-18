@@ -17,7 +17,7 @@ export function launch(options?: LaunchOptions): Promise<Browser>;
 export function createBrowserFetcher(options?: FetcherOptions): BrowserFetcher;
 /**
  * Predefigned puppeter devices
- * 
+ *
  * see DeviceDescriptors.js for full list
  * @since 1.15.0
  */
@@ -25,10 +25,11 @@ export const devices: {
   [key: string]: Device;
 };
 /**
- * Puppeteer methods might throw errors if they are unable to fufill a request. For example, page.waitForSelector(selector[, options]) might fail if the selector doesn't match any nodes during the given timeframe.
- * 
+ * Puppeteer methods might throw errors if they are unable to fufill a request. For example, page.waitForSelector(selector[, options])
+ * might fail if the selector doesn't match any nodes during the given timeframe.
+ *
  * For certain types of errors Puppeteer uses specific error classes. These classes are available via puppeteer.errors
- * 
+ *
  * @since 1.15.0
  */
 export const error: Error | undefined;
