@@ -7,7 +7,6 @@ import { DOMWorld } from "./DOMWorld";
 import { NetworkManager } from "./NetworkManager";
 
 export interface Frame extends Contentable, Evalable, Evaluateable, ExecutionContextable, FrameBase {
-    _mainWorld: DOMWorld;
     /** childFrames */
     childFrames(): Frame[];
     /** Returns `true` if the frame has been detached, or `false` otherwise. */
