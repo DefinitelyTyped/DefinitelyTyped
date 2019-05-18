@@ -3,8 +3,7 @@ import { ExecutionContext } from "./ExecutionContext";
 import { Contentable, Evalable, Evaluateable, FrameBase, ExecutionContextable } from "./able";
 import { NavigationOptions, DirectNavigationOptions } from "./common";
 import { Page } from "./Page";
-import { DOMWorld } from "./DOMWorld";
-import { NetworkManager } from "./NetworkManager";
+import { NetworkManager, Response } from "./NetworkManager";
 
 export interface Frame extends Contentable, Evalable, Evaluateable, ExecutionContextable, FrameBase {
   /** childFrames */

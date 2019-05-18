@@ -1,6 +1,7 @@
 import { CDPSession } from "./common";
 import { BrowserContext, Browser } from "./Browser";
 import { Page } from "./Page";
+import { Worker } from "./Worker";
 
 export type TargetType = "page" | "background_page" | "service_worker" | "browser" | "other";
 
