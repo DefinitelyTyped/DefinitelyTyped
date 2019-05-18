@@ -1,10 +1,11 @@
-// Type definitions for puppeteer 1.12
+// Type definitions for puppeteer 1.15.0
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 Konstantin Simon Maria Möllers <https://github.com/ksm2>
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Serban Ghita <https://github.com/SerbanGhita>
+//                 Uriel Chemouni <https://github.com/urielch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -13,6 +14,7 @@
 import { EventEmitter } from "events";
 import { ChildProcess } from "child_process";
 import { Device } from "./DeviceDescriptors";
+import { Key } from "readline";
 
 /** Wraps a DOM element into an ElementHandle instance */
 export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
@@ -35,8 +37,32 @@ export type SerializableOrJSHandle = Serializable | JSHandle;
 
 export type Platform = "mac" | "win32" | "win64" | "linux";
 
-/** Defines `$eval` and `$$eval` for Page, Frame and ElementHandle. */
+/**
+ * Implented by `DOMWorld`, `Frame`, `JSHandle`, `ElementHandle`, `Page`.
+ * Defines `$eval`, `$$eval` `$`, `$$`, `$x` 
+ */
 export interface Evalable {
+  /**
+   * The method runs querySelector.
+   * If there's no such element within the frame, the method will resolve to null.
+   * @param selector A selector to query element for
+   * @since 0.13.0
+   */
+  $(selector: string): Promise<ElementHandle | null>;
+  /**
+   * The method runs element.querySelectorAll within the page / frame.
+   * If no elements match the selector, the return value resolve to [].
+   * @param selector A selector to query element for
+   * @since 0.13.0
+     */
+  $$(selector: string): Promise<ElementHandle[]>;
+
+  /**
+   * The method evaluates the XPath expression.
+   * @param expression XPath expression to evaluate.
+   */
+  $x(expression: string): Promise<ElementHandle[]>;
+
   /**
    * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
    * If there's no element matching `selector`, the method throws an error.
@@ -138,7 +164,8 @@ export interface Evalable {
    */
   $$eval<R>(
     selector: string,
-    pageFunction: (elements: Element[]) => R | Promise<R>,
+    pageFunction: EvaluateFn,
+    ...args: any[],
   ): Promise<WrapElementHandle<R>>;
 
   /**
@@ -215,6 +242,153 @@ export interface Evalable {
     ...args: SerializableOrJSHandle[]
   ): Promise<WrapElementHandle<R>>;
 }
+/**
+ * Implemented by `DOMWorld`, `ExecutionContext`, `Frame`, `Page`, `Worker`
+ * Defines `evaluate`, `evaluateHandle`
+ */
+export interface Evaluateable {
+  /**
+  * If the function passed to the `evaluate` returns a Promise,
+  * then `evaluate` would wait for the promise to resolve and return its value.
+  *
+  * If the function passed to the `evaluate` returns a non-Serializable value,
+  * then `evaluate` resolves to `undefined`.
+  * 
+  * If `pageFunction` is a string args is ignore
+  * 
+  * @param pageFunction Function to be evaluated in browser context
+  * @param args Arguments to pass to `pageFunction`
+  */
+  evaluate<T extends EvaluateFn>(
+    pageFunction: T,
+    ...args: SerializableOrJSHandle[]
+  ): Promise<EvaluateFnReturnType<T>>;
+
+  /**
+   * The only difference between `evaluate` and `evaluateHandle` is
+   * that `evaluateHandle` returns in-page object (JSHandle).
+   * Evaluates a function in the page context.
+   * If the function, passed to the `evaluateHandle`, returns a Promise, then `evaluateHandle`
+   * would wait for the promise to resolve and return its value.
+   * 
+   * If `pageFunction` is a string args is ignore
+   * @param pageFunction The function to be evaluated in the page context.
+   * @param args The arguments to pass to the `pageFunction`.
+   * @returns A promise which resolves to return value of `pageFunction`.
+   */
+  evaluateHandle<T>(
+    pageFunction: EvaluateFn,
+    ...args: SerializableOrJSHandle[],
+  ): Promise<T>;
+}
+
+/**
+ * Implemented by `DOMWorld`, `Frame`, `JSHandle`
+ * Defines `focus`, `hover`
+ */
+export interface FocusHoverable {
+
+  /** This method fetches an element with selector and focuses it. */
+  focus(selector: string): Promise<void>;
+  /**
+   * This method fetches an element with `selector`, scrolls it into view if needed,
+   * and then uses page.mouse to hover over the center of the element. If there's no
+   * element matching `selector`, the method throws an error.
+   * @param selector A selector to search for element to hover. If there are multiple elements satisfying the selector, the first will be hovered.
+   */
+  hover(selector: string): Promise<void>;
+}
+
+/**
+ * Implemented by `DOMWorld`, `Frame`, `Page`
+ * Defines `addScriptTag`, `addStyleTag`, `click`, `content`, `select`, `setContent`, `tap`, `title`, `type`
+ */
+export interface Contentable {
+  /** Adds a `<script>` tag into the page with the desired url or content. */
+  addScriptTag(options: ScriptTagOptions): Promise<void>;
+
+  /** Adds a `<link rel="stylesheet">` tag into the page with the desired url or a `<style type="text/css">` tag with the content. */
+  addStyleTag(options: StyleTagOptions): Promise<void>;
+
+  /**
+   * This method fetches an element with selector, scrolls it into view if needed, and
+   * then uses `page.mouse` to click in the center of the element. If there's no element
+   * matching selector, the method throws an error.
+   * @param selector A selector to search for element to click. If there are multiple elements satisfying the selector, the first will be clicked.
+   * @param options Specifies the click options.
+   */
+  click(selector: string, options?: ClickOptions): Promise<void>;
+
+  /** Gets the full HTML contents of the page, including the doctype. */
+  content(): Promise<string>;
+
+  /**
+   * Triggers a `change` and `input` event once all the provided options have been selected.
+   * If there's no `<select>` element matching selector, the method throws an error.
+   * @param selector A selector to query page for.
+   * @param values Values of options to select. If the `<select>` has the `multiple` attribute,
+   * all values are considered, otherwise only the first one is taken into account.
+   */
+  select(selector: string, ...values: string[]): Promise<string[]>;
+
+  /**
+   * Sets the page content.
+   * @param html HTML markup to assign to the page.
+   * @param options The navigation parameters.
+   */
+  setContent(html: string, options?: NavigationOptions): Promise<void>;
+
+  /**
+   * This method fetches an element with `selector`, scrolls it into view if needed,
+   * and then uses page.touchscreen to tap in the center of the element.
+   * @param selector A `selector` to search for element to tap. If there are multiple elements
+   * satisfying the selector, the first will be tapped.
+   */
+  tap(selector: string): Promise<void>;
+
+  /**
+   * Returns the page's title.
+   */
+  title(): Promise<string>;
+
+  /**
+   * Sends a `keydown`, `keypress/input`, and `keyup` event for each character in the text.
+   * @param selector A selector of an element to type into. If there are multiple elements satisfying the selector, the first will be used.
+   * @param text: A text to type into a focused element.
+   * @param options: The typing parameters.
+   */
+  type(selector: string, text: string, options?: { delay: number }): Promise<void>;
+}
+
+/**
+ * implemented by `DOMWorld`, `Frame` and `Page`
+ * Defines `waitForFunction`, `waitForSelector`, `waitForXPath`
+ */
+export interface WaitForable {
+  /**
+   * Allows waiting for various conditions.
+   */
+  waitForFunction(
+    fn: EvaluateFn,
+    options?: PageFnOptions,
+    ...args: SerializableOrJSHandle[]
+  ): Promise<JSHandle>;
+
+  waitForSelector(
+    selector: string,
+    options?: WaitForSelectorOptions,
+  ): Promise<ElementHandle>;
+
+  waitForSelector(
+    selector: string,
+    options?: WaitForSelectorOptionsHidden,
+  ): Promise<ElementHandle | null>;
+
+  waitForXPath(
+    xpath: string,
+    options?: WaitForSelectorOptions,
+  ): Promise<ElementHandle>;
+}
 
 /** Keyboard provides an api for managing a virtual keyboard. */
 export interface Keyboard {
@@ -223,10 +397,10 @@ export interface Keyboard {
    * @param key Name of key to press, such as ArrowLeft.
    * @param options Specifies a input text event.
    */
-  down(key: string, options?: { text?: string }): Promise<void>;
+  down(key: Keys, options?: { text?: string }): Promise<void>;
 
   /** Shortcut for `keyboard.down` and `keyboard.up`. */
-  press(key: string, options?: { text?: string, delay?: number }): Promise<void>;
+  press(key: Keys, options?: { text?: string, delay?: number }): Promise<void>;
 
   /** Dispatches a `keypress` and `input` event. This does not send a `keydown` or keyup `event`. */
   sendCharacter(char: string): Promise<void>;
@@ -242,7 +416,7 @@ export interface Keyboard {
    * Dispatches a keyup event.
    * @param key Name of key to release, such as ArrowLeft.
    */
-  up(key: string): Promise<void>;
+  up(key: Keys): Promise<void>;
 }
 
 export interface MousePressOptions {
@@ -519,12 +693,16 @@ export type LoadEvent =
   | "networkidle0"
   | "networkidle2";
 
+/**
+ * Implemented by `NavigationOptions`, `PageFnOptions`, `WaitForSelectorOptions`, `LaunchOptions`
+ * Defines `timeout`
+ */
 export interface Timeoutable {
-    /**
-     * Maximum navigation time in milliseconds, pass 0 to disable timeout.
-     * @default 30000
-     */
-    timeout?: number;
+  /**
+   * Maximum navigation time in milliseconds, pass 0 to disable timeout.
+   * @default 30000
+   */
+  timeout?: number;
 }
 
 /** The navigation options. */
@@ -678,11 +856,11 @@ export interface ScreenshotOptions {
 }
 
 export interface BinaryScreenShotOptions extends ScreenshotOptions {
-    encoding?: "binary";
+  encoding?: "binary";
 }
 
 export interface Base64ScreenShotOptions extends ScreenshotOptions {
-    encoding: "base64";
+  encoding: "base64";
 }
 
 /** Options for `addStyleTag` */
@@ -743,57 +921,15 @@ export interface Box {
  * The Worker class represents a WebWorker.
  * The events workercreated and workerdestroyed are emitted on the page object to signal the worker lifecycle.
  */
-export interface Worker {
-  /**
-   * If the function passed to the `worker.evaluate` returns a Promise,
-   * then `worker.evaluate` would wait for the promise to resolve and return its value.
-   *
-   * If the function passed to the `worker.evaluate` returns a non-Serializable value,
-   * then `worker.evaluate` resolves to `undefined`.
-   */
-  evaluate<T extends EvaluateFn>(
-    pageFunction: T,
-    ...args: SerializableOrJSHandle[],
-  ): Promise<EvaluateFnReturnType<T>>;
-
-  /**
-   * The only difference between `worker.evaluate` and `worker.evaluateHandle` is
-   * that `worker.evaluateHandle` returns in-page object (JSHandle).
-   */
-  evaluateHandle<T>(
-    pageFunction: (...args: any[]) => T | Promise<T>,
-    ...args: SerializableOrJSHandle[],
-  ): Promise<T>;
-
-  executionContext(): Promise<ExecutionContext>;
-
+export interface Worker extends Evaluateable, EventEmitter, ExecutionContextable {
   url(): string;
 }
 
 /**
- * Represents an in-page DOM element. ElementHandles can be created with the page.$ method.
+ * Represents an in-page DOM element. ElementHandles can be created with the `$`, `waitForSelector`, `waitForXPath`... methods.
+ * implemented in JSHamdle.js
  */
 export interface ElementHandle<E extends Element = Element> extends JSHandle, Evalable {
-  /**
-   * The method runs element.querySelector within the page.
-   * If no element matches the selector, the return value resolve to null.
-   * @param selector A selector to query element for
-   * @since 0.13.0
-   */
-  $(selector: string): Promise<ElementHandle | null>;
-
-  /**
-   * The method runs element.querySelectorAll within the page.
-   * If no elements match the selector, the return value resolve to [].
-   * @param selector A selector to query element for
-   * @since 0.13.0
-   */
-  $$(selector: string): Promise<ElementHandle[]>;
-
-  /**
-   * @param selector XPath expression to evaluate.
-   */
-  $x(expression: string): Promise<ElementHandle[]>;
   /**
    * This method returns the value resolve to the bounding box of the element (relative to the main frame), or null if the element is not visible.
    */
@@ -832,8 +968,10 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle, Ev
    * Focuses the element, and then uses keyboard.down and keyboard.up.
    * @param key Name of key to press, such as ArrowLeft. See USKeyboardLayout for a list of all key names.
    * @param options The text and delay options.
+   * @param options.text If specified, generates an input event with this text.
+   * @param options.delay Time to wait between keydown and keyup in milliseconds. Defaults to 0.
    */
-  press(key: string, options?: { text?: string, delay?: number }): Promise<void>;
+  press(key: Keys, options?: { text?: string, delay?: number }): Promise<void>;
   /**
    * This method scrolls element into view if needed, and then uses page.screenshot to take a screenshot of the element.
    * If the element is detached from DOM, the method throws an error.
@@ -852,6 +990,7 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle, Ev
    * Focuses the element, and then sends a keydown, keypress/input, and keyup event for each character in the text.
    * @param text A text to type into a focused element.
    * @param options The typing options.
+   * @param options.delay Time to wait between key presses in milliseconds. Defaults to 0.
    */
   type(text: string, options?: { delay: number }): Promise<void>;
   /**
@@ -862,19 +1001,14 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle, Ev
 }
 
 /** The class represents a context for JavaScript execution. */
-export interface ExecutionContext {
-  evaluate<F extends EvaluateFn>(
-    fn: F,
-    ...args: SerializableOrJSHandle[]
-  ): Promise<EvaluateFnReturnType<F>>;
-  evaluateHandle(
-    fn: EvaluateFn,
-    ...args: SerializableOrJSHandle[]
-  ): Promise<JSHandle>;
+export interface ExecutionContext extends Evaluateable {
   queryObjects(prototypeHandle: JSHandle): JSHandle;
 }
 
-/** JSHandle represents an in-page JavaScript object. */
+/**
+ * JSHandle represents an in-page JavaScript object.
+ * Defines `asElement`, `dispose`, `executionContext`, `getProperties`, `getProperty`, `jsonValue`
+ */
 export interface JSHandle {
   /**
    * Returns a ElementHandle
@@ -1015,7 +1149,7 @@ export interface Request {
   headers(): Headers;
 
   /** Whether this request is driving frame's navigation. */
-   isNavigationRequest(): boolean;
+  isNavigationRequest(): boolean;
 
   /** Returns the request's method (GET, POST, etc.) */
 
@@ -1069,23 +1203,23 @@ export interface RespondOptions {
 }
 
 export interface RemoteInfo {
-    /** the IP address of the remote server */
-    ip: string;
-    /** the port used to connect to the remote server */
-    port: number;
+  /** the IP address of the remote server */
+  ip: string;
+  /** the port used to connect to the remote server */
+  port: number;
 }
 
 export interface SecurityDetails {
-    /** A string with the name of issuer of the certificate. (e.g. "Let's Encrypt Authority X3"). */
-    issuer(): string;
-    /** String with the security protocol (e.g. TLS 1.2). */
-    protocol(): string;
-    /** Name of the subject to which the certificate was issued to (e.g. "www.example.com"). */
-    subjectName(): string;
-    /** Timestamp stating the start of validity of the certificate. */
-    validFrom(): number;
-    /** Timestamp stating the end of validity of the certificate. */
-    validTo(): number;
+  /** A string with the name of issuer of the certificate. (e.g. "Let's Encrypt Authority X3"). */
+  issuer(): string;
+  /** String with the security protocol (e.g. TLS 1.2). */
+  protocol(): string;
+  /** Name of the subject to which the certificate was issued to (e.g. "www.example.com"). */
+  subjectName(): string;
+  /** Timestamp stating the start of validity of the certificate. */
+  validFrom(): number;
+  /** Timestamp stating the end of validity of the certificate. */
+  validTo(): number;
 }
 
 /** Response class represents responses which are received by page. */
@@ -1142,42 +1276,60 @@ export interface WaitForSelectorOptionsHidden extends WaitForSelectorOptions {
   hidden: true;
 }
 
-export interface FrameBase extends Evalable {
+export interface NetworkManager extends EventEmitter {
+  setFrameManager(frameManager: FrameManager): void;
+  authenticate(option: { [key: string]: string }): Promise<any>;
+  extraHTTPHeaders(): { [key: string]: string };
+  setOfflineMode(enabled: boolean): Promise<void>;
+  setUserAgent(userAgent: string): Promise<void>;
+  setCacheEnabled(enabled?: boolean): Promise<void>;
+  setRequestInterception(enabled: boolean): Promise<void>;
+}
+
+export interface FrameManager extends EventEmitter {
+  executionContextById(contextId: number): ExecutionContext;
+  frame(frameId: number): Frame | null;
+  frames(): Frame[];
+  mainFrame(): Frame;
+  page(): Page;
+  waitForFrameNavigation(frame: Frame, options: NavigationOptions): Promise<Response>;
+  navigateFrame(frame: Frame, url: string, options?: DirectNavigationOptions): Promise<Response>;
+  networkManager(): NetworkManager;
+}
+
+/**
+ * Implemented by `DOMWorld`, `Frame`, `Worker`
+ * Defines `executionContext`
+ */
+export interface ExecutionContextable {
+  executionContext(): Promise<ExecutionContext>;
+}
+/**
+ * implemented in TimeoutSettings.js
+ */
+export interface TimeoutSettings {
+  setDefaultTimeout(timeout: number): void;
+  setDefaultNavigationTimeout(timeout: number): void;
+  navigationTimeout(): number;
+  timeout(): number;
+}
+
+/**
+ * internaly stored in `Frame._mainWorld` and `Frame._secondaryWorld`
+ */
+export interface DOMWorld extends Contentable, Evalable, Evaluateable, ExecutionContextable, FocusHoverable, WaitForable {
+  // constructor(frameManager: FrameManager, frame: Frame, timeoutSettings: TimeoutSettings);
   /**
-   * The method queries frame for the selector.
-   * If there's no such element within the frame, the method will resolve to null.
+   * return parent Frame
    */
-  $(selector: string): Promise<ElementHandle | null>;
+  frame: () => Frame;
+}
 
-  /**
-   * The method runs document.querySelectorAll within the frame.
-   * If no elements match the selector, the return value resolve to [].
-   */
-  $$(selector: string): Promise<ElementHandle[]>;
-
-  /**
-   * The method evaluates the XPath expression.
-   * @param expression XPath expression to evaluate.
-   */
-  $x(expression: string): Promise<ElementHandle[]>;
-
-  /** Adds a `<script>` tag into the page with the desired url or content. */
-  addScriptTag(options: ScriptTagOptions): Promise<void>;
-
-  /** Adds a `<link rel="stylesheet">` tag into the page with the desired url or a `<style type="text/css">` tag with the content. */
-  addStyleTag(options: StyleTagOptions): Promise<void>;
-
-  /**
-   * This method fetches an element with selector, scrolls it into view if needed, and
-   * then uses `page.mouse` to click in the center of the element. If there's no element
-   * matching selector, the method throws an error.
-   * @param selector A selector to search for element to click. If there are multiple elements satisfying the selector, the first will be clicked.
-   * @param options Specifies the click options.
-   */
-  click(selector: string, options?: ClickOptions): Promise<void>;
-
-  /** Gets the full HTML contents of the page, including the doctype. */
-  content(): Promise<string>;
+/**
+ * implemented by `Frame` and `Page`
+ * contains `goto`, `url`, `waitFor`, `waitForNavigation`
+ */
+export interface FrameBase extends WaitForable {
 
   /**
    * Navigates to a URL.
@@ -1185,77 +1337,6 @@ export interface FrameBase extends Evalable {
    * @param options The navigation parameters.
    */
   goto(url: string, options?: DirectNavigationOptions): Promise<Response | null>;
-
-  /**
-   * Evaluates a function in the browser context.
-   * If the function, passed to the frame.evaluate, returns a Promise, then frame.evaluate would wait for the promise to resolve and return its value.
-   * If the function passed into frame.evaluate returns a non-Serializable value, then frame.evaluate resolves to undefined.
-   * @param fn Function to be evaluated in browser context
-   * @param args Arguments to pass to `fn`
-   */
-  evaluate<F extends EvaluateFn>(
-    fn: F,
-    ...args: SerializableOrJSHandle[]
-  ): Promise<EvaluateFnReturnType<F>>;
-
-  /**
-   * Evaluates a function in the page context.
-   * If the function, passed to the page.evaluateHandle, returns a Promise, then page.evaluateHandle
-   * would wait for the promise to resolve and return its value.
-   * @param fn The function to be evaluated in the page context.
-   * @param args The arguments to pass to the `fn`.
-   * @returns A promise which resolves to return value of `fn`.
-   */
-  evaluateHandle(
-    fn: EvaluateFn,
-    ...args: SerializableOrJSHandle[]
-  ): Promise<JSHandle>;
-
-  /** This method fetches an element with selector and focuses it. */
-  focus(selector: string): Promise<void>;
-
-  /**
-   * This method fetches an element with `selector`, scrolls it into view if needed,
-   * and then uses page.mouse to hover over the center of the element. If there's no
-   * element matching `selector`, the method throws an error.
-   * @param selector A selector to search for element to hover. If there are multiple elements satisfying the selector, the first will be hovered.
-   */
-  hover(selector: string): Promise<void>;
-
-  /**
-   * Triggers a `change` and `input` event once all the provided options have been selected.
-   * If there's no `<select>` element matching selector, the method throws an error.
-   * @param selector A selector to query page for.
-   * @param values Values of options to select. If the `<select>` has the `multiple` attribute,
-   * all values are considered, otherwise only the first one is taken into account.
-   */
-  select(selector: string, ...values: string[]): Promise<string[]>;
-
-  /**
-   * Sets the page content.
-   * @param html HTML markup to assign to the page.
-   * @param options The navigation parameters.
-   */
-  setContent(html: string, options?: NavigationOptions): Promise<void>;
-
-  /**
-   * This method fetches an element with `selector`, scrolls it into view if needed,
-   * and then uses page.touchscreen to tap in the center of the element.
-   * @param selector A `selector` to search for element to tap. If there are multiple elements
-   * satisfying the selector, the first will be tapped.
-   */
-  tap(selector: string): Promise<void>;
-
-  /** Returns page's title. */
-  title(): Promise<string>;
-
-  /**
-   * Sends a `keydown`, `keypress/input`, and `keyup` event for each character in the text.
-   * @param selector A selector of an element to type into. If there are multiple elements satisfying the selector, the first will be used.
-   * @param text: A text to type into a focused element.
-   * @param options: The typing parameters.
-   */
-  type(selector: string, text: string, options?: { delay: number }): Promise<void>;
 
   /** Returns frame's url. */
   url(): string;
@@ -1281,39 +1362,18 @@ export interface FrameBase extends Evalable {
   ): Promise<JSHandle>;
 
   /**
-   * Allows waiting for various conditions.
-   */
-  waitForFunction(
-    fn: EvaluateFn,
-    options?: PageFnOptions,
-    ...args: SerializableOrJSHandle[]
-  ): Promise<JSHandle>;
-
-  /**
    * Wait for the page navigation occur.
    * @param options The navigation parameters.
    */
   waitForNavigation(options?: NavigationOptions): Promise<Response>;
-
-  waitForSelector(
-    selector: string,
-    options?: WaitForSelectorOptions,
-  ): Promise<ElementHandle>;
-  waitForSelector(
-      selector: string,
-      options?: WaitForSelectorOptionsHidden,
-  ): Promise<ElementHandle | null>;
-
-  waitForXPath(
-    xpath: string,
-    options?: WaitForSelectorOptions,
-  ): Promise<ElementHandle>;
 }
 
-export interface Frame extends FrameBase {
+
+export interface Frame extends Contentable, Evalable, Evaluateable, ExecutionContextable, FrameBase {
+  // constructor(frameManager: FrameManager, client: CDPSession, parentFrame: Frame | null | undefined, frameId: string);
+  _mainWorld: DOMWorld;
+  /** childFrames */
   childFrames(): Frame[];
-  /** Execution context associated with this frame. */
-  executionContext(): ExecutionContext;
   /** Returns `true` if the frame has been detached, or `false` otherwise. */
   isDetached(): boolean;
   /** Returns frame's name attribute as specified in the tag. */
@@ -1529,11 +1589,20 @@ export interface SnapshopOptions {
  * exposing only the "interesting" nodes of the tree.
  */
 export interface Accessibility {
+  // constructor(client: CDPSession);
   snapshot(options?: SnapshopOptions): Promise<AXNode>;
 }
 
+
+interface TaskQueue {
+  postTask(task: Function): Promise<any>;
+}
+
 /** Page provides methods to interact with a single tab in Chromium. One Browser instance might have multiple Page instances. */
-export interface Page extends EventEmitter, FrameBase {
+export interface Page extends Contentable, Evalable, Evaluateable, EventEmitter, FrameBase, WaitForable {
+  // static create(client:CDPSession, target:Target, ignoreHTTPSErrors:boolean, defaultViewport:Viewport, screenshotTaskQueue:TaskQueue): Promise<Page>;
+  // constructor(client: CDPSession, target: Target, ignoreHTTPSErrors: boolean, screenshotTaskQueue: TaskQueue);
+
   /**
    * Adds the listener function to the end of the listeners array for the event named `eventName`.
    * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
@@ -1596,19 +1665,6 @@ export interface Page extends EventEmitter, FrameBase {
 
   /** Emulates the media. */
   emulateMedia(mediaType: MediaType | null): Promise<void>;
-
-  /**
-   * Evaluates a function in the page context.
-   * If the function, passed to the page.evaluateHandle, returns a Promise, then page.evaluateHandle
-   * would wait for the promise to resolve and return its value.
-   * @param fn The function to be evaluated in the page context.
-   * @param args The arguments to pass to the `fn`.
-   * @returns A promise which resolves to return value of `fn`.
-   */
-  evaluateHandle(
-    fn: EvaluateFn,
-    ...args: SerializableOrJSHandle[]
-  ): Promise<JSHandle>;
 
   /**
    * Adds a function which would be invoked in one of the following scenarios: whenever the page is navigated; whenever the child frame is attached or navigated.
@@ -1779,9 +1835,6 @@ export interface Page extends EventEmitter, FrameBase {
   /** @returns The target this page was created from */
   target(): Target;
 
-  /** Returns the page's title. */
-  title(): Promise<string>;
-
   /** Returns the virtual touchscreen object. */
   touchscreen: Touchscreen;
 
@@ -1811,7 +1864,7 @@ export interface Page extends EventEmitter, FrameBase {
 }
 
 export interface TargetAwaiter {
-    waitForTarget(predicate: (target: Target) => boolean, options?: Timeoutable): Promise<Target>;
+  waitForTarget(predicate: (target: Target) => boolean, options?: Timeoutable): Promise<Target>;
 }
 
 /** A Browser is created when Puppeteer connects to a Chromium instance, either through puppeteer.launch or puppeteer.connect. */
@@ -2075,29 +2128,34 @@ export interface LaunchOptions extends ChromeArgOptions, BrowserOptions, Timeout
    */
   pipe?: boolean;
 }
-
+/**
+ * Defines `headless`, `args`, `userDataDir`, `devtools`
+ */
 export interface ChromeArgOptions {
-    /**
-     * Whether to run browser in headless mode.
-     * @default true unless the devtools option is true.
-     */
-    headless?: boolean;
-    /**
-     * Additional arguments to pass to the browser instance.
-     * The list of Chromium flags can be found here.
-     */
-    args?: string[];
-    /**
-     * Path to a User Data Directory.
-     */
-    userDataDir?: string;
-    /**
-     * Whether to auto-open a DevTools panel for each tab.
-     * If this option is true, the headless option will be set false.
-     */
-    devtools?: boolean;
+  /**
+   * Whether to run browser in headless mode.
+   * @default true unless the devtools option is true.
+   */
+  headless?: boolean;
+  /**
+   * Additional arguments to pass to the browser instance.
+   * The list of Chromium flags can be found here.
+   */
+  args?: string[];
+  /**
+   * Path to a User Data Directory.
+   */
+  userDataDir?: string;
+  /**
+   * Whether to auto-open a DevTools panel for each tab.
+   * If this option is true, the headless option will be set false.
+   */
+  devtools?: boolean;
 }
 
+/**
+ * Defines `ignoreHTTPSErrors`, `defaultViewport`, `slowMo`
+ */
 export interface BrowserOptions {
   /**
    * Whether to ignore HTTPS errors during navigation.
@@ -2203,7 +2261,7 @@ export interface StartCoverageOptions {
 export interface CoverageEntry {
   url: string;
   text: string;
-  ranges: Array<{start: number, end: number}>;
+  ranges: Array<{ start: number, end: number }>;
 }
 
 /** BrowserFetcher can download and manage different versions of Chromium. */
@@ -2250,9 +2308,50 @@ export function executablePath(): string;
 export function launch(options?: LaunchOptions): Promise<Browser>;
 /** This methods attaches Puppeteer to an existing Chromium instance. */
 export function createBrowserFetcher(options?: FetcherOptions): BrowserFetcher;
-/** Predefigned puppeter devices */
+/**
+ * Predefigned puppeter devices
+ * 
+ * see DeviceDescriptors.js for full list
+ */
 export const devices: {
   [key: string]: Device;
 };
-/** Errors */
 export const error: Error | undefined;
+
+
+
+export type KeysF = 'F1' |  'F2' | 'F3' | 'F4' | 'F5' | 'F6' | 'F7' | 'F8' | 'F9' |'F10' | 'F11' | 'F12' | 'F13' | 'F14' | 'F15' | 'F16' | 'F17' | 'F18' | 'F19' |'F20' | 'F21' | 'F22' | 'F23' | 'F24';
+export type KeysDigits = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'Digit0' | 'Digit1' | 'Digit2' | 'Digit3' | 'Digit4' | 'Digit5' | 'Digit6' | 'Digit7' | 'Digit8' | 'Digit9';
+export type KeysNumpad = 'Numpad0' | 'Numpad1' | 'Numpad2' | 'Numpad3' | 'Numpad4' | 'Numpad5' | 'Numpad6' | 'Numpad7' | 'Numpad8' | 'Numpad9' | 'NumpadAdd' | 'NumpadDecimal' | 'NumpadDivide' | 'NumpadEnter' | 'NumpadEqual' | 'NumpadMultiply' | 'NumpadSubtract';
+export type KeysAlpha = 'KeyA' | 'KeyB' | 'KeyC' | 'KeyD' | 'KeyE' | 'KeyF' | 'KeyG' | 'KeyH' | 'KeyI' | 'KeyJ' | 'KeyK' | 'KeyL' | 'KeyM' | 'KeyN' | 'KeyO' | 'KeyP' | 'KeyQ' | 'KeyR' | 'KeyS' | 'KeyT' | 'KeyU' | 'KeyV' | 'KeyW' | 'KeyX' | 'KeyY' | 'KeyZ' |
+'A' |  'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K'  | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'Tab' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' |
+'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z';
+
+export type KeysSpecial = '\n' | '\r' | '\u0000';
+
+export type KeysOther = ' ' | '!' | '"' | '#' | '$' | '%' | '&' | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | "'" | ']' | '^' | '_' | '`' |
+'{' | '|' | '}' | '~';
+export type KeysOtherNamed =  'Abort' | 'Accept' | 'Alt' | 'AltGraph' | 'AltLeft' | 'AltRight' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'Attn' | 'AudioVolumeDown' | 'AudioVolumeMute' | 'AudioVolumeUp' |
+'Backquote' | 'Backslash' | 'Backspace' | 'BracketLeft' | 'BracketRight' | 'Cancel' | 'CapsLock' | 'Clear' | 'Comma' | 'ContextMenu' | 'Control' | 'ControlLeft' | 'ControlRight' | 'Convert' |
+'CrSel' | 'Delete' | 'Eject' | 'End' | 'Enter' | 'Equal' | 'EraseEof' | 'Escape' | 'ExSel' | 'Execute' |
+'MediaPlayPause' | 'MediaStop' | 'MediaTrackNext' | 'MediaTrackPrevious' | 'Meta' | 'MetaLeft' | 'MetaRight' | 'Minus' | 'ModeChange' |
+'PageDown' | 'PageUp' | 'Pause' | 'Period' | 'Play' | 'Power' | 'Print' | 'PrintScreen' | 'Props' | 'Quote' | 
+'NonConvert' | 'NumLock' | 'Open' | 'ScrollLock' | 'Select' | 'Semicolon' | 'Shift' | 'ShiftLeft' | 'ShiftRight' | 'Slash' | 'Space' | 
+'Help' | 'Home' |'Insert' |'ZoomOut';
+
+export type Keys = KeysOther | KeysSpecial | KeysDigits | KeysF | KeysNumpad | KeysAlpha | KeysOtherNamed;
+
+export type KeyMapDefinition = {
+  [key in Keys]: KeyDefinition;
+};
+
+export interface KeyDefinition {
+  keyCode: number;
+  shiftKeyCode?: number;
+  key: string;
+  shiftKey?: string;
+  code: string;
+  text?: string;
+  shiftText?: string;
+  location?: number;
+}
