@@ -19,5 +19,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "test/MarkerTest.tsx", "test/MarkerTest.tsx"]
+    "files": ["index.d.ts"]
 }
