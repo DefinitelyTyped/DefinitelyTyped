@@ -1,10 +1,12 @@
-import { ScriptTagOptions, StyleTagOptions, NavigationOptions, Timeoutable, EvaluateFn, UnwrapElementHandle,  WrapElementHandle, SerializableOrJSHandle, DirectNavigationOptions,
-    PageFnOptions } from "./common";
+import { ScriptTagOptions, StyleTagOptions, NavigationOptions, Timeoutable, EvaluateFn, UnwrapElementHandle, SerializableOrJSHandle, DirectNavigationOptions, PageFnOptions } from "./common";
 import { ElementHandle, JSHandle } from "./JSHandle";
 import { ClickOptions } from "./Input";
 import { Target } from "./Target";
 import { ExecutionContext } from "./ExecutionContext";
 import { Response } from "./NetworkManager";
+
+/** Wraps a DOM element into an ElementHandle instance */
+export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
 
 /**
  * Implemented by `DOMWorld`, `Frame`, `Page`

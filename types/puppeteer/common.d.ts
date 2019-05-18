@@ -1,9 +1,6 @@
 import { JSHandle, ElementHandle } from "./JSHandle";
 import { EventEmitter } from "events";
 
-/** Wraps a DOM element into an ElementHandle instance */
-export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
-
 /** Unwraps a DOM element out of an ElementHandle instance */
 export type UnwrapElementHandle<X> = X extends ElementHandle<infer E> ? E : X;
 
