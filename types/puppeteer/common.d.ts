@@ -74,42 +74,8 @@ export interface NavigationOptions extends Timeoutable {
 }
 
 /**
- * Navigation options for `page.goto`.
+ * implemented in Connection.js
  */
-export interface DirectNavigationOptions extends NavigationOptions {
-    /**
-     * Referer header value.
-     * If provided it will take preference over the referer header value set by
-     * [page.setExtraHTTPHeaders()](#pagesetextrahttpheadersheaders).
-     */
-    referer?: string;
-}
-
-/** Options for `addStyleTag` */
-export interface StyleTagOptions {
-    /** Url of the <link> tag. */
-    url?: string;
-    /** Path to the CSS file to be injected into frame. If `path` is a relative path, then it is resolved relative to current working directory. */
-    path?: string;
-    /** Raw CSS content to be injected into frame. */
-    content?: string;
-}
-/** Options for `addScriptTag` */
-export interface ScriptTagOptions {
-    /** Url of a script to be added. */
-    url?: string;
-    /** Path to the JavaScript file to be injected into frame. If `path` is a relative path, then it is resolved relative to current working directory. */
-    path?: string;
-    /** Raw JavaScript content to be injected into frame. */
-    content?: string;
-    /** Script type. Use 'module' in order to load a Javascript ES6 module. */
-    type?: string;
-}
-
-export interface PageFnOptions extends Timeoutable {
-    polling?: "raf" | "mutation" | number;
-}
-
 export interface CDPSession extends EventEmitter {
     /**
      * Detaches session from target. Once detached, session won't emit any events and can't be used

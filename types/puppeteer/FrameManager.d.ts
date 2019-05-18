@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 import { ExecutionContext } from "./ExecutionContext";
 import { Contentable, Evalable, Evaluateable, FrameBase, ExecutionContextable } from "./able";
-import { NavigationOptions, DirectNavigationOptions } from "./common";
+import { NavigationOptions } from "./common";
 import { Page } from "./Page";
 import { Response } from "./NetworkManager";
 

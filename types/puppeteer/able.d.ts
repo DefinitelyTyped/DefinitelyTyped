@@ -1,4 +1,4 @@
-import { ScriptTagOptions, StyleTagOptions, NavigationOptions, Timeoutable, EvaluateFn, UnwrapElementHandle, SerializableOrJSHandle, DirectNavigationOptions, PageFnOptions } from "./common";
+import { NavigationOptions, Timeoutable, EvaluateFn, UnwrapElementHandle, SerializableOrJSHandle } from "./common";
 import { ElementHandle, JSHandle } from "./JSHandle";
 import { ClickOptions } from "./Input";
 import { Target } from "./Target";
@@ -7,6 +7,28 @@ import { Response } from "./NetworkManager";
 
 /** Wraps a DOM element into an ElementHandle instance */
 export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
+
+/** Options for `addScriptTag` */
+export interface ScriptTagOptions {
+    /** Url of a script to be added. */
+    url?: string;
+    /** Path to the JavaScript file to be injected into frame. If `path` is a relative path, then it is resolved relative to current working directory. */
+    path?: string;
+    /** Raw JavaScript content to be injected into frame. */
+    content?: string;
+    /** Script type. Use 'module' in order to load a Javascript ES6 module. */
+    type?: string;
+}
+
+/** Options for `addStyleTag` */
+export interface StyleTagOptions {
+    /** Url of the <link> tag. */
+    url?: string;
+    /** Path to the CSS file to be injected into frame. If `path` is a relative path, then it is resolved relative to current working directory. */
+    path?: string;
+    /** Raw CSS content to be injected into frame. */
+    content?: string;
+}
 
 /**
  * Implemented by `DOMWorld`, `Frame`, `Page`
@@ -342,6 +364,18 @@ export interface FocusHoverable {
 }
 
 /**
+ * Navigation options for `page.goto`.
+ */
+export interface DirectNavigationOptions extends NavigationOptions {
+    /**
+     * Referer header value.
+     * If provided it will take preference over the referer header value set by
+     * [page.setExtraHTTPHeaders()](#pagesetextrahttpheadersheaders).
+     */
+    referer?: string;
+}
+
+/**
  * implemented by `Frame` and `Page`
  * contains `goto`, `url`, `waitFor`, `waitForNavigation`
  */
@@ -381,6 +415,10 @@ export interface FrameBase extends WaitForable {
      * @param options The navigation parameters.
      */
     waitForNavigation(options?: NavigationOptions): Promise<Response>;
+}
+
+export interface PageFnOptions extends Timeoutable {
+    polling?: "raf" | "mutation" | number;
 }
 
 /**
