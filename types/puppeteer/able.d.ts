@@ -196,8 +196,8 @@ export interface Evalable {
      */
     $$eval<R>(
         selector: string,
-        pageFunction: EvaluateFn,
-        ...args: any[]
+        pageFunction: (elements: Element[], ...args: any[]) => R | Promise<R>,
+        ...args: SerializableOrJSHandle[]
     ): Promise<WrapElementHandle<R>>;
 
     /**

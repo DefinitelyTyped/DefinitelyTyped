@@ -331,7 +331,7 @@ puppeteer.launch().then(async browser => {
   const someElement = await page.$$eval(
     '.someClassName',
     (
-      elements, // $ExpectType ElementHandle<Element>[]
+      elements, // $ExpectType Element[]
     ) => {
       console.log(elements.length);
       console.log(elements[0].outerHTML);
