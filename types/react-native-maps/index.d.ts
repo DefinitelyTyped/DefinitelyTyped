@@ -20,36 +20,6 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Francesco Moro <https://github.com/franzmoro>
 //                 Wojciech Tyczynski <https://github.com/tykus160>
-//                 Paito Anderson <https://github.com/PaitoAnderson>
-//                 Peter Zavadsky <https://github.com/zavadpe>
-//                 Hein Rutjes <https://github.com/IjzerenHein>
-//                 Dan Tamas <https://github.com/rborn>
-//                 Alberto Martínez <https://github.com/aMarCruz>
-//                 Yusuke Shibahara <https://github.com/unosk>
-//                 Denis Oblogin <https://github.com/ukrbublik>
-//                 Tim O. Peters <https://github.com/timotew>
-//                 P.J. Swesey <https://github.com/swese44>
-//                 MarkRunWu <https://github.com/MarkRunWu>
-//                 RalfNieuwenhuizen <https://github.com/RalfNieuwenhuizen>
-//                 Rafael Lincoln <https://github.com/rafaellincoln>
-//                 Radovan Šmitala <https://github.com/radeno>
-//                 Ivan Pusic <https://github.com/ivpusic>
-//                 Michael Elsdörfer <https://github.com/miracle2k>
-//                 Mellet Solbakk <https://github.com/mellet>
-//                 Mellet Solbakk <https://github.com/mellet>
-//                 Nizam Moidu <https://github.com/netmaxt3r>
-//                 Marcel Kalveram <https://github.com/marcelkalveram>
-//                 Jason Li <https://github.com/lijason103>
-//                 JulienR2 <https://github.com/julienR2>
-//                 Ho Yin (Michael) Cheng <https://github.com/hysan>
-//                 Guilherme Eduardo Gulinoski Teixeira <https://github.com/GuilhermeEd>
-//                 lantz moore <https://github.com/mizerlou>
-//                 Almir Kadric <https://github.com/AlmirKadric>
-//                 origins-hongyi <https://github.com/fozhao>
-//                 Christoph <https://github.com/Stophface>
-//                 Budi Adiono <https://github.com/budiadiono>
-//                 Alexander Veligurov <https://github.com/alvelig>
-//                 Adrian Stutz <https://github.com/sttz>
 //                 Chris Shaffer <https://github.com/methodbox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
