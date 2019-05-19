@@ -1,7 +1,7 @@
 import * as React from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import PrismSyntaxHighlighter from "react-syntax-highlighter/prism";
-import PrismLightHighlighter, { registerLanguage } from "react-syntax-highlighter/prism-light";
+import { Prism as PrismSyntaxHighlighter } from "react-syntax-highlighter";
+import { PrismLight as PrismLightHighlighter } from "react-syntax-highlighter";
 import jsx from 'react-syntax-highlighter/languages/prism/jsx';
 import { docco } from "react-syntax-highlighter/dist/styles/hljs";
 import { atomDark } from "react-syntax-highlighter/dist/styles/prism";
@@ -53,7 +53,7 @@ function primsLightHighlighter(): JSX.Element {
     }
 }
 `;
-    registerLanguage('jsx', jsx);
+    PrismLightHighlighter.registerLanguage('jsx', jsx);
 
     return (
         <PrismLightHighlighter language="jsx" style={atomDark}>
@@ -99,7 +99,7 @@ function linePropsObject() {
         }
     }
     `;
-    
+
     const lineProps = {
         otherProp: 'otherProp',
         className: 'some-classname',
@@ -126,7 +126,7 @@ function lineTagPropsFunction() {
         }
     }
     `;
-    
+
     const lineProps = (lineNumber: number) => ({
         otherProp: 'otherProp',
         className: 'some-classname',

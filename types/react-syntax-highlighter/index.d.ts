@@ -1,4 +1,4 @@
-// Type definitions for react-syntax-highlighter 10.1
+// Type definitions for react-syntax-highlighter 10.2
 // Project: https://github.com/conorhastings/react-syntax-highlighter
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 //                 Aimee Gamble-Milner <https://github.com/ajgamble-milner>
@@ -21,25 +21,18 @@ interface SyntaxHighlighterProps {
 }
 
 declare module 'react-syntax-highlighter' {
-    import SyntaxHighlighter from 'react-syntax-highlighter/light';
-    export default SyntaxHighlighter;
-}
-
-declare module 'react-syntax-highlighter/light' {
     import * as React from 'react';
-    export function registerLanguage(name: string, func: any): void;
-    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {}
-}
-
-declare module 'react-syntax-highlighter/prism' {
-    import SyntaxHighlighter from 'react-syntax-highlighter/prism-light';
-    export default SyntaxHighlighter;
-}
-
-declare module 'react-syntax-highlighter/prism-light' {
-    import * as React from 'react';
-    export function registerLanguage(name: string, func: any): void;
-    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {}
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
+        static registerLanguage(name: string, func: any): void;
+    }
+    export {
+        SyntaxHighlighter as LightAsync,
+        SyntaxHighlighter as Light,
+        SyntaxHighlighter as PrismAsyncLight,
+        SyntaxHighlighter as PrismAsync,
+        SyntaxHighlighter as PrismLight,
+        SyntaxHighlighter as Prism
+    }
 }
 
 declare module 'react-syntax-highlighter/dist/styles/hljs' {
