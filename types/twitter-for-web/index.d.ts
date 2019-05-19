@@ -4,7 +4,6 @@
 //                 Lucretiel <https://github.com/Lucretiel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /**
  * The interface for Twitter for Websites, before with widgets.js script has
  * loaded. Users should use `ready` to await the script.
@@ -55,7 +54,11 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createShareButton(url: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): Promise<HTMLElement>;
+    createShareButton(
+        url: string,
+        target: HTMLElement,
+        options?: TwitterButtonWidgetOptions
+    ): Promise<HTMLElement>;
     /**
      * Create a follow button for a user.
      *
@@ -63,7 +66,11 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createFollowButton(screen_name: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): Promise<HTMLElement>;
+    createFollowButton(
+        screen_name: string,
+        target: HTMLElement,
+        options?: TwitterButtonWidgetOptions
+    ): Promise<HTMLElement>;
     /**
      * Create a hashtag button for a hashtag.
      *
@@ -71,7 +78,11 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createHashtagButton(hashtag: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): Promise<HTMLElement>;
+    createHashtagButton(
+        hashtag: string,
+        target: HTMLElement,
+        options?: TwitterButtonWidgetOptions
+    ): Promise<HTMLElement>;
     /**
      * Create a mention button for a user.
      *
@@ -79,7 +90,11 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createMentionButton(screen_name: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): Promise<HTMLElement>;
+    createMentionButton(
+        screen_name: string,
+        target: HTMLElement,
+        options?: TwitterButtonWidgetOptions
+    ): Promise<HTMLElement>;
     /**
      * Create a timeline widget.
      *
@@ -87,7 +102,11 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createTimeline(source: TwitterTimelineWidgetDataSource, target: HTMLElement, options?: TwitterTimelineWidgetOptions): Promise<HTMLElement>;
+    createTimeline(
+        source: TwitterTimelineWidgetDataSource,
+        target: HTMLElement,
+        options?: TwitterTimelineWidgetOptions
+    ): Promise<HTMLElement>;
     /**
      * Create an embedded Tweet for a Tweet.
      *
@@ -95,7 +114,11 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createTweet(tweetId: string, target: HTMLElement, options?: TwitterTweetWidgetOptions): Promise<HTMLElement>;
+    createTweet(
+        tweetId: string,
+        target: HTMLElement,
+        options?: TwitterTweetWidgetOptions
+    ): Promise<HTMLElement>;
 }
 
 /**
@@ -180,55 +203,61 @@ interface TwitterTweetWidgetOptions extends TwitterWidgetOptions {
     theme?: "dark" | "light";
 }
 
-interface ScreenNameDataSource {
-    screenName: string
-}
+type TwitterTimelineWidgetProfileDataSource =
+    | {
+          sourceType: "profile";
+          screenName: string;
+      }
+    | {
+          sourceType: "profile";
+          userId: string;
+      };
 
-interface UserIdDataSource {
-    userId: string
-}
+type TwitterTimelineWidgetLikesDataSource =
+    | {
+          sourceType: "likes";
+          screenName: string;
+      }
+    | {
+          sourceType: "likes";
+          userId: string;
+      };
 
-// TODO: it's not clear that `|` enforces true mutual exclusion. Look into using
-// https://www.npmjs.com/package/ts-xor.
-type DataSource = (ScreenNameDataSource | UserIdDataSource)
-
-type TwitterTimelineWidgetProfileDataSource = {sourceType: "profile"} & DataSource;
-
-type TwitterTimelineWidgetLikesDataSource = {sourceType: "likes"} & DataSource;
-
-type TwitterTimelineWidgetListDataSource = {
-    sourceType: "list"
-} & ({
-    ownerScreenName: string,
-    slug: string
-} | {
-    id: string
-});
+type TwitterTimelineWidgetListDataSource =
+    | {
+          sourceType: "list";
+          ownerScreenName: string;
+          slug: string;
+      }
+    | {
+          sourceType: "list";
+          id: string;
+      };
 
 interface TwitterTimelineWidgetCollectionDataSource {
-    sourceType: "collection",
-    id: string,
+    sourceType: "collection";
+    id: string;
 }
 
 interface TwitterTimelineWidgetUrlDataSource {
-    sourceType: "url",
-    url: string,
+    sourceType: "url";
+    url: string;
 }
 
-type TwitterTimelineWidgetDataSource = (
-    TwitterTimelineWidgetProfileDataSource |
-    TwitterTimelineWidgetLikesDataSource |
-    TwitterTimelineWidgetListDataSource |
-    TwitterTimelineWidgetCollectionDataSource |
-    TwitterTimelineWidgetUrlDataSource |
-    string
-);
+type TwitterTimelineWidgetDataSource =
+    | TwitterTimelineWidgetProfileDataSource
+    | TwitterTimelineWidgetLikesDataSource
+    | TwitterTimelineWidgetListDataSource
+    | TwitterTimelineWidgetCollectionDataSource
+    | TwitterTimelineWidgetUrlDataSource
+    | string;
 
 /**
  * Base type for TwitterTimelineWidgetOptions. TwitterTimelineWidgetOptions can
  * use all options of tweet widgets and button widgets
  */
-type TwitterTimelineWidgetBaseOptions = (TwitterTweetWidgetOptions & TwitterButtonWidgetOptions)
+type TwitterTimelineWidgetBaseOptions = TwitterTweetWidgetOptions &
+    TwitterButtonWidgetOptions;
 /**
  * The interface for additional options for embedded Timelines.
  */
@@ -241,7 +270,6 @@ type TwitterTimelineWidgetOptions = TwitterTimelineWidgetBaseOptions & {
      * Fix the height of the embedded widget.
      */
     height?: number;
-
 
     /**
      * Adjust the color of borders inside the widget.
@@ -260,7 +288,7 @@ type TwitterTimelineWidgetOptions = TwitterTimelineWidgetBaseOptions & {
      * Show Tweets in response to another Tweet or account
      */
     showReplies?: boolean;
-}
+};
 
 /**
  * The interface for Twitter events.
