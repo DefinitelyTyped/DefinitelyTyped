@@ -1,6 +1,6 @@
 import { Evalable } from './able';
 import { ExecutionContext } from './ExecutionContext';
-import { Keys, ClickOptions } from './Input';
+import { KeyboardKey, ClickOptions } from './Input';
 import { Frame } from './FrameManager';
 
 /**
@@ -83,7 +83,7 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle, Ev
    * @param options.text If specified, generates an input event with this text.
    * @param options.delay Time to wait between keydown and keyup in milliseconds. Defaults to 0.
    */
-  press(key: Keys, options?: { text?: string, delay?: number }): Promise<void>;
+  press(key: KeyboardKey, options?: { text?: string, delay?: number }): Promise<void>;
   /**
    * This method scrolls element into view if needed, and then uses page.screenshot to take a screenshot of the element.
    * If the element is detached from DOM, the method throws an error.

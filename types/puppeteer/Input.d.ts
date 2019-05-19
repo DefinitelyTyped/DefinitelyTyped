@@ -1,27 +1,28 @@
-export type KeysF = 'F1' | 'F2' | 'F3' | 'F4' | 'F5' | 'F6' | 'F7' | 'F8' | 'F9' | 'F10' | 'F11' | 'F12' | 'F13' | 'F14' | 'F15' | 'F16' | 'F17' | 'F18' | 'F19' | 'F20' | 'F21' | 'F22' | 'F23' |
- 'F24';
-export type KeysDigits = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'Digit0' | 'Digit1' | 'Digit2' | 'Digit3' | 'Digit4' | 'Digit5' | 'Digit6' | 'Digit7' | 'Digit8' | 'Digit9';
-export type KeysNumpad = 'Numpad0' | 'Numpad1' | 'Numpad2' | 'Numpad3' | 'Numpad4' | 'Numpad5' | 'Numpad6' | 'Numpad7' | 'Numpad8' | 'Numpad9' |
-  'NumpadAdd' | 'NumpadDecimal' | 'NumpadDivide' | 'NumpadEnter' | 'NumpadEqual' | 'NumpadMultiply' | 'NumpadSubtract';
-export type KeysAlpha = 'KeyA' | 'KeyB' | 'KeyC' | 'KeyD' | 'KeyE' | 'KeyF' | 'KeyG' | 'KeyH' | 'KeyI' | 'KeyJ' | 'KeyK' | 'KeyL' | 'KeyM' | 'KeyN' | 'KeyO' | 'KeyP' | 'KeyQ' | 'KeyR' | 'KeyS' |
-  'KeyT' | 'KeyU' | 'KeyV' | 'KeyW' | 'KeyX' | 'KeyY' | 'KeyZ' |
+export type KeyboardKeyF = 'F1' | 'F2' | 'F3' | 'F4' | 'F5' | 'F6' | 'F7' | 'F8' | 'F9' | 'F10' | 'F11' | 'F12' | 'F13' | 'F14' | 'F15' | 'F16' | 'F17' | 'F18' | 'F19' | 'F20' | 'F21' | 'F22' |
+ 'F23' | 'F24';
+export type KeyboardKeyDigits = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'Digit0' | 'Digit1' | 'Digit2' | 'Digit3' | 'Digit4' | 'Digit5' | 'Digit6' | 'Digit7' | 'Digit8' |
+ 'Digit9';
+export type KeyboardKeyNumpad = 'Numpad0' | 'Numpad1' | 'Numpad2' | 'Numpad3' | 'Numpad4' | 'Numpad5' | 'Numpad6' | 'Numpad7' | 'Numpad8' | 'Numpad9' | 'NumpadAdd' | 'NumpadDecimal' |
+ 'NumpadDivide' | 'NumpadEnter' | 'NumpadEqual' | 'NumpadMultiply' | 'NumpadSubtract';
+export type KeyboardKeyAlpha = 'KeyA' | 'KeyB' | 'KeyC' | 'KeyD' | 'KeyE' | 'KeyF' | 'KeyG' | 'KeyH' | 'KeyI' | 'KeyJ' | 'KeyK' | 'KeyL' | 'KeyM' | 'KeyN' | 'KeyO' | 'KeyP' | 'KeyQ' | 'KeyR' |
+ 'KeyS' | 'KeyT' | 'KeyU' | 'KeyV' | 'KeyW' | 'KeyX' | 'KeyY' | 'KeyZ' |
   'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'Tab' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' |
   'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z';
 
-export type KeysSpecial = '\n' | '\r' | '\u0000';
+export type KeyboardKeySpecial = '\n' | '\r' | '\u0000';
 
-export type KeysOther = ' ' | '!' | '"' | '#' | '$' | '%' | '&' | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | "'" | ']' | '^' | '_' | '`' |
-  '{' | '|' | '}' | '~';
-export type KeysOtherNamed = 'Abort' | 'Accept' | 'Alt' | 'AltGraph' | 'AltLeft' | 'AltRight' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'Attn' | 'AudioVolumeDown' | 'AudioVolumeMute' |
-  'AudioVolumeUp' | 'Backquote' | 'Backslash' | 'Backspace' | 'BracketLeft' | 'BracketRight' | 'Cancel' | 'CapsLock' | 'Clear' | 'Comma' | 'ContextMenu' | 'Control' | 'ControlLeft' | 'ControlRight' |
-  'Convert' | 'CrSel' | 'Delete' | 'Eject' | 'End' | 'Enter' | 'Equal' | 'EraseEof' | 'Escape' | 'ExSel' | 'Execute' | 'MediaPlayPause' | 'MediaStop' | 'MediaTrackNext' | 'MediaTrackPrevious' |
-  'Meta' | 'MetaLeft' | 'MetaRight' | 'Minus' | 'ModeChange' | 'PageDown' | 'PageUp' | 'Pause' | 'Period' | 'Play' | 'Power' | 'Print' | 'PrintScreen' | 'Props' | 'Quote' | 'NonConvert' | 'NumLock' |
-  'Open' | 'ScrollLock' | 'Select' | 'Semicolon' | 'Shift' | 'ShiftLeft' | 'ShiftRight' | 'Slash' | 'Space' | 'Help' | 'Home' | 'Insert' | 'ZoomOut';
+export type KeyboardKeyOther = ' ' | '!' | '"' | '#' | '$' | '%' | '&' | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | "'" | ']' | '^' | '_' |
+ '`' | '{' | '|' | '}' | '~';
+export type KeyboardKeyOtherNamed = 'Abort' | 'Accept' | 'Alt' | 'AltGraph' | 'AltLeft' | 'AltRight' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'Attn' | 'AudioVolumeDown' |
+ 'AudioVolumeMute' | 'AudioVolumeUp' | 'Backquote' | 'Backslash' | 'Backspace' | 'BracketLeft' | 'BracketRight' | 'Cancel' | 'CapsLock' | 'Clear' | 'Comma' | 'ContextMenu' | 'Control' |
+ 'ControlLeft' | 'ControlRight' | 'Convert' | 'CrSel' | 'Delete' | 'Eject' | 'End' | 'Enter' | 'Equal' | 'EraseEof' | 'Escape' | 'ExSel' | 'Execute' | 'MediaPlayPause' | 'MediaStop' |
+ 'MediaTrackNext' | 'MediaTrackPrevious' | 'Meta' | 'MetaLeft' | 'MetaRight' | 'Minus' | 'ModeChange' | 'PageDown' | 'PageUp' | 'Pause' | 'Period' | 'Play' | 'Power' | 'Print' | 'PrintScreen' |
+ 'Props' | 'Quote' | 'NonConvert' | 'NumLock' | 'Open' | 'ScrollLock' | 'Select' | 'Semicolon' | 'Shift' | 'ShiftLeft' | 'ShiftRight' | 'Slash' | 'Space' | 'Help' | 'Home' | 'Insert' | 'ZoomOut';
 
-export type Keys = KeysOther | KeysSpecial | KeysDigits | KeysF | KeysNumpad | KeysAlpha | KeysOtherNamed;
+export type KeyboardKey = KeyboardKeyOther | KeyboardKeySpecial | KeyboardKeyDigits | KeyboardKeyF | KeyboardKeyNumpad | KeyboardKeyAlpha | KeyboardKeyOtherNamed;
 
 export type KeyMapDefinition = {
-  [key in Keys]: KeyDefinition;
+  [key in KeyboardKey]: KeyDefinition;
 };
 
 export interface KeyDefinition {
@@ -56,10 +57,10 @@ export interface Keyboard {
    * @param key Name of key to press, such as ArrowLeft.
    * @param options Specifies a input text event.
    */
-  down(key: Keys, options?: { text?: string }): Promise<void>;
+  down(key: KeyboardKey, options?: { text?: string }): Promise<void>;
 
   /** Shortcut for `keyboard.down` and `keyboard.up`. */
-  press(key: Keys, options?: { text?: string, delay?: number }): Promise<void>;
+  press(key: KeyboardKey, options?: { text?: string, delay?: number }): Promise<void>;
 
   /** Dispatches a `keypress` and `input` event. This does not send a `keydown` or keyup `event`. */
   sendCharacter(char: string): Promise<void>;
@@ -75,7 +76,7 @@ export interface Keyboard {
    * Dispatches a keyup event.
    * @param key Name of key to release, such as ArrowLeft.
    */
-  up(key: Keys): Promise<void>;
+  up(key: KeyboardKey): Promise<void>;
 }
 
 export interface MousePressOptions {
