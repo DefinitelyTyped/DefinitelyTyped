@@ -4,8 +4,6 @@ import { Target } from "./Target";
 import { ExecutionContext } from "./ExecutionContext";
 import { Response } from "./NetworkManager";
 
-
-
 /** Unwraps a DOM element out of an ElementHandle instance */
 export type UnwrapElementHandle<X> = X extends ElementHandle<infer E> ? E : X;
 

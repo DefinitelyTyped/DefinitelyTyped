@@ -22,9 +22,9 @@ export function launch(options?: LaunchOptions): Promise<Browser>;
 export function createBrowserFetcher(options?: FetcherOptions): BrowserFetcher;
 /**
  * Predefigned puppeter devices as `Nexus 7`, `Nexus 7 landscape`, `iPhone X`, `iPhone X landscape`...
- * 
+ *
  * see https://github.com/GoogleChrome/puppeteer/blob/master/lib/DeviceDescriptors.js for full list
- * 
+ *
  * @since 1.15.0
  */
 export const devices: {

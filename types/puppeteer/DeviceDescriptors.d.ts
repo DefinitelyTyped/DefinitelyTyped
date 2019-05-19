@@ -10,4 +10,3 @@ export interface Device {
   userAgent: string;
   viewport: Viewport;
 }
-
