@@ -92,7 +92,7 @@ export interface Contentable {
 }
 
 /**
- * Implented by `DOMWorld`, `Frame`, `JSHandle`, `ElementHandle`, `Page`.
+ * Implemented by `DOMWorld`, `Frame`, `JSHandle`, `ElementHandle`, `Page`.
  * Defines `$eval`, `$$eval` `$`, `$$`, `$x`
  */
 export interface Evalable {
@@ -377,7 +377,7 @@ export interface DirectNavigationOptions extends NavigationOptions {
 
 /**
  * implemented by `Frame` and `Page`
- * contains `goto`, `url`, `waitFor`, `waitForNavigation`
+ * Defines `goto`, `url`, `waitFor`, `waitForNavigation`
  */
 export interface FrameBase extends WaitForable {
     /**
