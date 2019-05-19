@@ -203,36 +203,30 @@ interface TwitterTweetWidgetOptions extends TwitterWidgetOptions {
     theme?: "dark" | "light";
 }
 
-type TwitterTimelineWidgetProfileDataSource =
-    | {
-          sourceType: "profile";
-          screenName: string;
-      }
-    | {
-          sourceType: "profile";
-          userId: string;
-      };
+type TwitterTimelineWidgetProfileDataSource = {
+    sourceType: "profile";
+    screenName: string;
+} | {
+    sourceType: "profile";
+    userId: string;
+};
 
-type TwitterTimelineWidgetLikesDataSource =
-    | {
-          sourceType: "likes";
-          screenName: string;
-      }
-    | {
-          sourceType: "likes";
-          userId: string;
-      };
+type TwitterTimelineWidgetLikesDataSource = {
+    sourceType: "likes";
+    screenName: string;
+} | {
+    sourceType: "likes";
+    userId: string;
+};
 
-type TwitterTimelineWidgetListDataSource =
-    | {
-          sourceType: "list";
-          ownerScreenName: string;
-          slug: string;
-      }
-    | {
-          sourceType: "list";
-          id: string;
-      };
+type TwitterTimelineWidgetListDataSource = {
+    sourceType: "list";
+    ownerScreenName: string;
+    slug: string;
+} | {
+    sourceType: "list";
+    id: string;
+};
 
 interface TwitterTimelineWidgetCollectionDataSource {
     sourceType: "collection";
@@ -244,13 +238,14 @@ interface TwitterTimelineWidgetUrlDataSource {
     url: string;
 }
 
-type TwitterTimelineWidgetDataSource =
-    | TwitterTimelineWidgetProfileDataSource
-    | TwitterTimelineWidgetLikesDataSource
-    | TwitterTimelineWidgetListDataSource
-    | TwitterTimelineWidgetCollectionDataSource
-    | TwitterTimelineWidgetUrlDataSource
-    | string;
+type TwitterTimelineWidgetDataSource = (
+    TwitterTimelineWidgetProfileDataSource |
+    TwitterTimelineWidgetLikesDataSource |
+    TwitterTimelineWidgetListDataSource |
+    TwitterTimelineWidgetCollectionDataSource |
+    TwitterTimelineWidgetUrlDataSource |
+    string
+);
 
 /**
  * Base type for TwitterTimelineWidgetOptions. TwitterTimelineWidgetOptions can
