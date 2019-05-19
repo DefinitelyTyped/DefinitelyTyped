@@ -1,9 +1,5 @@
-import { EventEmitter } from "events";
-import { ExecutionContext } from "./ExecutionContext";
-import { Contentable, Evalable, Evaluateable, FrameBase, ExecutionContextable } from "./able";
-import { NavigationOptions } from "./common";
+import { Contentable, Evalable, Evaluateable, ExecutionContextable, FrameBase } from "./able";
 import { Page } from "./Page";
-import { Response } from "./NetworkManager";
 
 export interface Frame extends Contentable, Evalable, Evaluateable, ExecutionContextable, FrameBase {
   /** childFrames */

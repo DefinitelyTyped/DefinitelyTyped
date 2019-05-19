@@ -1,5 +1,10 @@
+/**
+ * Definition from Launcher.js
+ * https://github.com/GoogleChrome/puppeteer/blob/master/lib/Launcher.js
+ */
+
 import { BrowserOptions } from "./Browser";
-import { Timeoutable } from "./common";
+import { Timeoutable } from "./able";
 
 export interface LaunchOptions extends ChromeArgOptions, BrowserOptions, Timeoutable {
   /**

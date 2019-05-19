@@ -1,3 +1,8 @@
+/**
+ * Definition from JSHandle.js
+ * https://github.com/GoogleChrome/puppeteer/blob/master/lib/JSHandle.js
+ */
+
 import { Evalable } from './able';
 import { ExecutionContext } from './ExecutionContext';
 import { KeyboardKey, ClickOptions } from './Input';

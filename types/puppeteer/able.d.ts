@@ -1,9 +1,65 @@
-import { NavigationOptions, Timeoutable, EvaluateFn, UnwrapElementHandle, SerializableOrJSHandle } from "./common";
 import { ElementHandle, JSHandle } from "./JSHandle";
 import { ClickOptions } from "./Input";
 import { Target } from "./Target";
 import { ExecutionContext } from "./ExecutionContext";
 import { Response } from "./NetworkManager";
+
+
+
+/** Unwraps a DOM element out of an ElementHandle instance */
+export type UnwrapElementHandle<X> = X extends ElementHandle<infer E> ? E : X;
+
+export type Serializable =
+    | number
+    | string
+    | boolean
+    | null
+    | JSONArray
+    | JSONObject;
+export interface JSONArray extends Array<Serializable> { }
+export interface JSONObject {
+    [key: string]: Serializable;
+}
+export type SerializableOrJSHandle = Serializable | JSHandle;
+
+export interface Viewport {
+    /** The page width in pixels. */
+    width: number;
+    /** The page height in pixels. */
+    height: number;
+    /**
+     * Specify device scale factor (can be thought of as dpr).
+     * @default 1
+     */
+    deviceScaleFactor?: number;
+    /**
+     * Whether the `meta viewport` tag is taken into account.
+     * @default false
+     */
+    isMobile?: boolean;
+    /**
+     * Specifies if viewport supports touch events.
+     * @default false
+     */
+    hasTouch?: boolean;
+    /**
+     * Specifies if viewport is in landscape mode.
+     * @default false
+     */
+    isLandscape?: boolean;
+}
+
+export type EvaluateFn = string | ((...args: any[]) => any);
+
+/**
+ * implemented in TimeoutSettings.js
+ */
+export interface TimeoutSettings {
+    setDefaultTimeout(timeout: number): void;
+    setDefaultNavigationTimeout(timeout: number): void;
+    navigationTimeout(): number;
+    timeout(): number;
+}
 
 /** Wraps a DOM element into an ElementHandle instance */
 export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
@@ -28,6 +84,21 @@ export interface StyleTagOptions {
     path?: string;
     /** Raw CSS content to be injected into frame. */
     content?: string;
+}
+
+export type LoadEvent =
+    | "load"
+    | "domcontentloaded"
+    | "networkidle0"
+    | "networkidle2";
+
+/** The navigation options. */
+export interface NavigationOptions extends Timeoutable {
+    /**
+     * When to consider navigation succeeded.
+     * @default load Navigation is consider when the `load` event is fired.
+     */
+    waitUntil?: LoadEvent | LoadEvent[];
 }
 
 /**
@@ -451,6 +522,22 @@ export interface WaitForable {
     ): Promise<ElementHandle>;
 }
 
+/**
+ * Implemented by `NavigationOptions`, `PageFnOptions`, `WaitForSelectorOptions`, `LaunchOptions`
+ * Defines `timeout`
+ */
+export interface Timeoutable {
+    /**
+     * Maximum navigation time in milliseconds, pass 0 to disable timeout.
+     * @default 30000
+     */
+    timeout?: number;
+}
+
+/**
+ * Implemented by `Browser`, `BrowserContext`
+ * Defines `TargetAwaiter`
+ */
 export interface TargetAwaiter {
     waitForTarget(predicate: (target: Target) => boolean, options?: Timeoutable): Promise<Target>;
 }

@@ -1,3 +1,8 @@
+/**
+ * Definition from Browser.js
+ * https://github.com/GoogleChrome/puppeteer/blob/master/lib/Browser.js
+ */
+
 import { EventEmitter } from "events";
 import { Page } from "./Page";
 import { ChildProcess } from "child_process";

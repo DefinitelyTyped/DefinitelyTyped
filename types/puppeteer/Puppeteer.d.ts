@@ -1,3 +1,8 @@
+/**
+ * Definition from Puppeteer.js
+ * https://github.com/GoogleChrome/puppeteer/blob/master/lib/Puppeteer.js
+ */
+
 import { EventEmitter } from "events";
 import { ChildProcess } from "child_process";
 import { Device } from "./DeviceDescriptors";
@@ -16,9 +21,10 @@ export function launch(options?: LaunchOptions): Promise<Browser>;
 /** This methods attaches Puppeteer to an existing Chromium instance. */
 export function createBrowserFetcher(options?: FetcherOptions): BrowserFetcher;
 /**
- * Predefigned puppeter devices
- *
- * see DeviceDescriptors.js for full list
+ * Predefigned puppeter devices as `Nexus 7`, `Nexus 7 landscape`, `iPhone X`, `iPhone X landscape`...
+ * 
+ * see https://github.com/GoogleChrome/puppeteer/blob/master/lib/DeviceDescriptors.js for full list
+ * 
  * @since 1.15.0
  */
 export const devices: {

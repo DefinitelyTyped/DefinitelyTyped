@@ -1,4 +1,9 @@
-import { CDPSession } from "./common";
+/**
+ * Definition from Target.js
+ * https://github.com/GoogleChrome/puppeteer/blob/master/lib/Target.js
+ */
+
+import { CDPSession } from "./Connection";
 import { BrowserContext, Browser } from "./Browser";
 import { Page } from "./Page";
 import { Worker } from "./Worker";

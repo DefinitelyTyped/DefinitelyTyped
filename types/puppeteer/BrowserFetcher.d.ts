@@ -1,3 +1,8 @@
+/**
+ * Definition from BrowserFetcher.js
+ * https://github.com/GoogleChrome/puppeteer/blob/master/lib/BrowserFetcher.js
+ */
+
 export type Platform = "mac" | "win32" | "win64" | "linux";
 
 /** BrowserFetcher can download and manage different versions of Chromium. */

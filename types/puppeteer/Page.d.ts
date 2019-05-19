@@ -1,7 +1,10 @@
-import { Contentable, Evalable, Evaluateable, FrameBase, WaitForable } from "./able";
+/**
+ * Definition from Page.js
+ * https://github.com/GoogleChrome/puppeteer/blob/master/lib/Page.js
+ */
+import { Contentable, Evalable, EvaluateFn, Evaluateable, FrameBase, NavigationOptions, SerializableOrJSHandle, Timeoutable, Viewport, WaitForable } from "./able";
 import { EventEmitter } from "events";
 import { Accessibility } from "./Accessibility";
-import { SerializableOrJSHandle, EvaluateFn, NavigationOptions, Timeoutable, Viewport } from "./common";
 import { Browser, BrowserContext } from "./Browser";
 import { Frame } from "./FrameManager";
 import { Keyboard, Mouse, Touchscreen } from "./Input";

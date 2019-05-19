@@ -1,3 +1,8 @@
+/**
+ * Definition from Accessibility.js
+ * https://github.com/GoogleChrome/puppeteer/blob/master/lib/Accessibility.js
+ */
+
 import { ElementHandle } from "./JSHandle";
 
 /**

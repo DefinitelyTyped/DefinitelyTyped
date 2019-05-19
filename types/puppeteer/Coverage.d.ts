@@ -1,3 +1,8 @@
+/**
+ * Definition from Coverage.js
+ * https://github.com/GoogleChrome/puppeteer/blob/master/lib/Coverage.js
+ */
+
 export interface Coverage {
   startCSSCoverage(options?: StartCoverageOptions): Promise<void>;
   startJSCoverage(options?: StartCoverageOptions): Promise<void>;

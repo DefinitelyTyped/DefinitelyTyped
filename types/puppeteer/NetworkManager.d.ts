@@ -1,3 +1,8 @@
+/**
+ * Definition from NetworkManager.js
+ * https://github.com/GoogleChrome/puppeteer/blob/master/lib/NetworkManager.js
+ */
+
 import { EventEmitter } from "events";
 import { Frame } from "./FrameManager";
 import { JSHandle } from "./JSHandle";

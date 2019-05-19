@@ -1,7 +1,5 @@
 import * as puppeteer from "puppeteer";
 import { TimeoutError } from "puppeteer/Errors";
-import * as Devices from "puppeteer/DeviceDescriptors";
-
 // Accessibility
 
 (async () => {
@@ -120,7 +118,7 @@ puppeteer.launch().then(async browser => {
   });
 
   await page.emulateMedia("screen");
-  await page.emulate(Devices['test']);
+  await page.emulate(puppeteer.devices['test']);
   await page.pdf({ path: "page.pdf" });
 
   await page.setRequestInterception(true);

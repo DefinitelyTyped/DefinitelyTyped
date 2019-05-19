@@ -1,3 +1,8 @@
+/**
+ * Definition from Worker.js
+ * https://github.com/GoogleChrome/puppeteer/blob/master/lib/Worker.js
+ */
+
 import { Evaluateable, ExecutionContextable } from "./able";
 import { EventEmitter } from "events";
 
