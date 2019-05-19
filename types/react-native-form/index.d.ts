@@ -7,14 +7,14 @@
 import { Component } from 'react';
 import { ViewProps } from 'react-native';
 
-interface FormProps extends ViewProps {
+export interface FormProps extends ViewProps {
     customFields?: {
         [key: string]: {
             callbackProp: string;
             controlled: boolean;
             valueProp: string;
         }
-    },
+    };
     ref: string;
 }
 
