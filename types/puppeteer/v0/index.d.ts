@@ -127,26 +127,6 @@ export interface ConsoleMessage {
   'profile' | 'profileEnd' | 'count' | 'timeEnd';
 }
 
-export type PageEvents =
-  | "console"
-  | "dialog"
-  | "error"
-  | "frameattached"
-  | "framedetached"
-  | "framenavigated"
-  | "load"
-  | "pageerror"
-  | "request"
-  | "requestfailed"
-  | "requestfinished"
-  | "response";
-
-export type BrowserEvents =
-  | "disconnected"
-  | "targetchanged"
-  | "targetcreated"
-  | "targetdestroyed";
-
 export interface AuthOptions {
   username: string;
   password: string;
