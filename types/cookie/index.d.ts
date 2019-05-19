@@ -72,7 +72,7 @@ export interface CookieSerializeOptions {
      * - `'strict'` will set the `SameSite` attribute to Strict for strict same
      * site enforcement.
      */
-    sameSite?: boolean | 'lax' | 'strict';
+    sameSite?: boolean | 'lax' | 'strict' | 'none';
     /**
      * Specifies the boolean value for the `Secure` `Set-Cookie` attribute. When
      * truthy, the `Secure` attribute is set, otherwise it is not. By default,
