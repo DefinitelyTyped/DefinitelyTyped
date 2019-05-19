@@ -1,6 +1,7 @@
 // Type definitions for Twitter for Websites
 // Project: https://dev.twitter.com/web/
 // Definitions by: Chitoku <https://github.com/chitoku-k>
+//                 Lucretiel <https://github.com/Lucretiel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -195,18 +196,14 @@ type TwitterTimelineWidgetProfileDataSource = {sourceType: "profile"} & DataSour
 
 type TwitterTimelineWidgetLikesDataSource = {sourceType: "likes"} & DataSource;
 
-interface ListSlugDataSource {
+type TwitterTimelineWidgetListDataSource = {
+    sourceType: "list"
+} & ({
     ownerScreenName: string,
     slug: string
-}
-
-interface ListIdDataSource {
+} | {
     id: string
-}
-
-type ListDataSource = ListSlugDataSource | ListIdDataSource
-
-type TwitterTimelineWidgetListDataSource = {sourceType: "list"} & ListDataSource;
+});
 
 interface TwitterTimelineWidgetCollectionDataSource {
     sourceType: "collection",

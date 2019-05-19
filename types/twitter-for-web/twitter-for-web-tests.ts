@@ -62,27 +62,35 @@ function getReady() {
 
         function createProfileTimeline() {
             twttr.widgets
-                .createTimeline({
-                    sourceType: "profile",
-                    screenName: "screen_name"
-                }, document.getElementById("timeline"), {
-                    width: 450,
-                    height: 700,
-                    related: "twitterdev,twitterapi"
-                })
+                .createTimeline(
+                    {
+                        sourceType: "profile",
+                        screenName: "screen_name"
+                    },
+                    document.getElementById("timeline"),
+                    {
+                        width: 450,
+                        height: 700,
+                        related: "twitterdev,twitterapi"
+                    }
+                )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
                 });
 
             twttr.widgets
-                .createTimeline({
-                    sourceType: "profile",
-                    userId: "123345",
-                }, document.getElementById("timeline"), {
-                    width: 450,
-                    height: 700,
-                    related: "twitterdev,twitterapi"
-                })
+                .createTimeline(
+                    {
+                        sourceType: "profile",
+                        userId: "123345"
+                    },
+                    document.getElementById("timeline"),
+                    {
+                        width: 450,
+                        height: 700,
+                        related: "twitterdev,twitterapi"
+                    }
+                )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
                 });
@@ -90,27 +98,35 @@ function getReady() {
 
         function createLikesTimeline() {
             twttr.widgets
-                .createTimeline({
-                    sourceType: "likes",
-                    screenName: "screen_name"
-                }, document.getElementById("timeline"), {
-                    width: 450,
-                    height: 700,
-                    related: "twitterdev,twitterapi"
-                })
+                .createTimeline(
+                    {
+                        sourceType: "likes",
+                        screenName: "screen_name"
+                    },
+                    document.getElementById("timeline"),
+                    {
+                        width: 450,
+                        height: 700,
+                        related: "twitterdev,twitterapi"
+                    }
+                )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
                 });
 
             twttr.widgets
-                .createTimeline({
-                    sourceType: "likes",
-                    userId: "123345",
-                }, document.getElementById("timeline"), {
-                    width: 450,
-                    height: 700,
-                    related: "twitterdev,twitterapi"
-                })
+                .createTimeline(
+                    {
+                        sourceType: "likes",
+                        userId: "123345"
+                    },
+                    document.getElementById("timeline"),
+                    {
+                        width: 450,
+                        height: 700,
+                        related: "twitterdev,twitterapi"
+                    }
+                )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
                 });
@@ -118,28 +134,36 @@ function getReady() {
 
         function createListTimeline() {
             twttr.widgets
-                .createTimeline({
-                    sourceType: "list",
-                    id: "123345"
-                }, document.getElementById("timeline"), {
-                    width: 450,
-                    height: 700,
-                    related: "twitterdev,twitterapi"
-                })
+                .createTimeline(
+                    {
+                        sourceType: "list",
+                        id: "123345"
+                    },
+                    document.getElementById("timeline"),
+                    {
+                        width: 450,
+                        height: 700,
+                        related: "twitterdev,twitterapi"
+                    }
+                )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
                 });
 
             twttr.widgets
-                .createTimeline({
-                    sourceType: "list",
-                    slug: "slug",
-                    ownerScreenName: "screen_name",
-                }, document.getElementById("timeline"), {
-                    width: 450,
-                    height: 700,
-                    related: "twitterdev,twitterapi"
-                })
+                .createTimeline(
+                    {
+                        sourceType: "list",
+                        slug: "slug",
+                        ownerScreenName: "screen_name"
+                    },
+                    document.getElementById("timeline"),
+                    {
+                        width: 450,
+                        height: 700,
+                        related: "twitterdev,twitterapi"
+                    }
+                )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
                 });
@@ -147,14 +171,18 @@ function getReady() {
 
         function createCollectionTimeline() {
             twttr.widgets
-                .createTimeline({
-                    sourceType: "collection",
-                    id: "123345"
-                }, document.getElementById("timeline"), {
-                    width: 450,
-                    height: 700,
-                    related: "twitterdev,twitterapi"
-                })
+                .createTimeline(
+                    {
+                        sourceType: "collection",
+                        id: "123345"
+                    },
+                    document.getElementById("timeline"),
+                    {
+                        width: 450,
+                        height: 700,
+                        related: "twitterdev,twitterapi"
+                    }
+                )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
                 });
@@ -162,14 +190,18 @@ function getReady() {
 
         function createUrlTimeline() {
             twttr.widgets
-                .createTimeline({
-                    sourceType: "url",
-                    url: "https://twitter.com/example_timeline"
-                }, document.getElementById("timeline"), {
-                    width: 450,
-                    height: 700,
-                    related: "twitterdev,twitterapi"
-                })
+                .createTimeline(
+                    {
+                        sourceType: "url",
+                        url: "https://twitter.com/example_timeline"
+                    },
+                    document.getElementById("timeline"),
+                    {
+                        width: 450,
+                        height: 700,
+                        related: "twitterdev,twitterapi"
+                    }
+                )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
                 });
