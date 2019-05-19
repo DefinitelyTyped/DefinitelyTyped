@@ -235,7 +235,7 @@ type TwitterTimelineWidgetBaseOptions = (TwitterTweetWidgetOptions & TwitterButt
 /**
  * The interface for additional options for embedded Timelines.
  */
-interface TwitterTimelineWidgetOptions extends TwitterTimelineWidgetBaseOptions {
+type TwitterTimelineWidgetOptions = TwitterTimelineWidgetBaseOptions & {
     /**
      * Apply the specified aria-polite behavior to the rendered timeline.
      */
@@ -244,6 +244,8 @@ interface TwitterTimelineWidgetOptions extends TwitterTimelineWidgetBaseOptions 
      * Fix the height of the embedded widget.
      */
     height?: number;
+
+
     /**
      * Adjust the color of borders inside the widget.
      */
