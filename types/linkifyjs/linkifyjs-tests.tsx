@@ -1,6 +1,7 @@
 import * as React from "react";
 import linkifyHtml from "linkifyjs/html";
 import Linkify from "linkifyjs/react";
+import linkifyStr from "linkifyjs/string";
 
 declare function describe(desc: string, f: () => void): void;
 
@@ -103,7 +104,7 @@ describe("linkifyjs/html", () => {
     linkifyHtml(
         // tslint:disable-next-line:prefer-template
         'Please ignore <script>var a = {}; a.com = "Hi";</script> \n' +
-            "but do <span>b.ca</span>",
+        "but do <span>b.ca</span>",
         {
             ignoreTags: ["script", "style"]
         }
@@ -224,4 +225,11 @@ describe("linkifyjs/react", () => {
             <span>{content}</span>
         </Linkify>;
     }
+});
+
+describe("linkifyjs/string", () => {
+    const options = {};
+    const str = '<p>For help with GitHub.com, please email support@github.com</p>';
+    const result1: string = linkifyStr(str, options);
+    const result2: string = linkifyStr(str);
 });
