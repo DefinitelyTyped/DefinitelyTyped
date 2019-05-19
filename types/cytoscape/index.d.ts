@@ -6,7 +6,7 @@
 //                  Jan-Niclas Struewer <https://github.com/janniclas>
 //                  Cerberuser <https://github.com/cerberuser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-//
+///
 // Translation from Objects in help to Typescript interface.
 // http://js.cytoscape.org/#notation/functions
 // TypeScript Version: 2.3
@@ -81,7 +81,7 @@ declare namespace cytoscape {
         /**
          * Scratchpad data (usually temp or nonserialisable data)
          */
-        scatch?: Scratchpad;
+        scratch?: Scratchpad;
         /**
          * The model position of the node (optional on init, mandatory after)
          */
@@ -4874,4 +4874,26 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#extensions
      */
     function use(module: Ext): void;
+
+    /**
+    * Helper function that provides a functional syntax for adding styles.
+    * Note: Review the docs and source if you experience issues with this module.
+    * Docs: http://js.cytoscape.org/#style/format
+    * Original JS Source: https://github.com/cytoscape/cytoscape.js/blob/unstable/src/stylesheet.js
+    */
+    interface StylesheetHelper {
+        instanceString(): string
+        selector(s: string): StylesheetHelper
+        css(value: {}): StylesheetHelper
+        css(name: string, value: {}): StylesheetHelper
+        style(value: {}): StylesheetHelper
+        style(name: string, value: {}): StylesheetHelper
+        generateStyle(cy: Stylesheet): Stylesheet
+        appendToStyle(style: Stylesheet): Stylesheet
+    }
+    /**
+    * Creates and returns a new StylesheetHelper that provides a functional syntax for adding styles.
+    * http://js.cytoscape.org/#style/format
+    */
+    function stylesheet(): StylesheetHelper;
 }
