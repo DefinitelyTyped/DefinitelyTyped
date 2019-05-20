@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "@types/applepayjs": "^3.0.0",
+    "@types/googlepay": "^0.2.1"
+  }
+}

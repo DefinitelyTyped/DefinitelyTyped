@@ -1,4 +1,4 @@
-import { ApplePay } from "..";
+import { ApplePay, HostedFieldsHostedFieldsFieldName } from "..";
 import * as braintree from "..";
 
 let version: string = braintree.VERSION;
@@ -72,6 +72,8 @@ braintree.client.create({
       console.log(`Error Code: ${error.code}, Type: ${error.type}, Message: ${error.message}, Details: ${error.details}`);
       return;
     }
+
+    hostedFieldsInstance.setPlaceholder
 
     let form = new HTMLFormElement();
 
@@ -155,7 +157,7 @@ braintree.client.create({
     hostedFieldsInstance.on('cardTypeChange', function (event: braintree.HostedFieldsStateObject) {
       // Update the placeholder value if there is only one possible card type
       if (event.cards.length === 1) {
-        braintree.hostedFields.setPlaceholder('cvv', event.cards[0].code.name, function (placeholderErr: braintree.BraintreeError) {
+        hostedFieldsInstance.setPlaceholder('cvv', event.cards[0].code.name, function (placeholderErr: braintree.BraintreeError) {
           if (placeholderErr) {
             // Handle errors, such as invalid field name
             console.error(placeholderErr);
@@ -174,10 +176,10 @@ braintree.client.create({
     hostedFieldsInstance.clear('cvv');
     hostedFieldsInstance.clear('expirationDate');
 
-    var state = braintree.hostedFields.getState();
+    var state = hostedFieldsInstance.getState();
 
     var formValid = Object.keys(state.fields).every(function (key) {
-      return state.fields[key].isValid;
+      return state.fields[key as HostedFieldsHostedFieldsFieldName].isValid;
     });
   });
 
@@ -189,7 +191,7 @@ braintree.client.create({
       return;
     }
 
-    let request = {
+    let request: ApplePayJS.ApplePayPaymentRequest = {
       countryCode: 'US',
       currencyCode: 'USD',
       supportedNetworks: ['visa', 'masterCard'],
@@ -204,7 +206,7 @@ braintree.client.create({
   });
 
   braintree.applePay.create({ client: clientInstance }, function (createErr, applePayInstance) {
-    let request = {
+    let request: ApplePayJS.ApplePayPaymentRequest = {
       countryCode: 'US',
       currencyCode: 'USD',
       supportedNetworks: ['visa', 'masterCard'],
@@ -212,10 +214,10 @@ braintree.client.create({
       total: { label: 'Your Label', amount: '10.00' },
     };
 
-    var session = new braintree.ApplePaySession(1, request);
+    var session = new ApplePaySession(1, request);
 
     session.onvalidatemerchant = function (event: { validationURL: string }) {
-      braintree.applePay.performValidation({
+      applePayInstance.performValidation({
         validationURL: event.validationURL
       }, function (err, validationData) {
         if (err) {
@@ -229,7 +231,7 @@ braintree.client.create({
   });
 
   braintree.applePay.create({ client: clientInstance }, function (createErr, applePayInstance) {
-    let request = {
+    let request: ApplePayJS.ApplePayPaymentRequest = {
       countryCode: 'US',
       currencyCode: 'USD',
       supportedNetworks: ['visa', 'masterCard'],
@@ -237,10 +239,10 @@ braintree.client.create({
       total: { label: 'Your Label', amount: '10.00' },
     };
 
-    var session = new braintree.ApplePaySession(1, request);
+    var session = new ApplePaySession(1, request);
 
     session.onpaymentauthorized = function (event) {
-      braintree.applePay.tokenize({
+      applePayInstance.tokenize({
         token: event.payment.token
       }, function (err, tokenizedPayload) {
         if (err) {
@@ -395,47 +397,51 @@ braintree.client.create({
 let existingNonce = "fake-valid-nonce";
 let submitNonceToServer: (nonce: string) => void;
 
-braintree.threeDSecure.verifyCard({
-  nonce: existingNonce,
-  amount: 123.45, // $ExpectType number
-  addFrame: function (err, iframe) {
-    // Set up your UI and add the iframe.
-    let my3DSContainer = document.createElement('div');
-    my3DSContainer.appendChild(iframe);
-    document.body.appendChild(my3DSContainer);
-  },
-  removeFrame: function () {
-    let my3DSContainer = document.createElement('div');
+braintree.threeDSecure.create({}, (err, threeDSecureInstance) => {
 
-    // Remove UI that you added in addFrame.
-    document.body.removeChild(my3DSContainer);
-  }
-}, function (err: braintree.BraintreeError, payload: braintree.ThreeDSecureVerifyPayload) {
-  if (err) {
-    console.error(err);
-    return;
-  }
+  threeDSecureInstance.verifyCard({
+    nonce: existingNonce,
+    amount: 123.45, // $ExpectType number
+    addFrame: function (err, iframe) {
+      // Set up your UI and add the iframe.
+      let my3DSContainer = document.createElement('div');
+      my3DSContainer.appendChild(iframe);
+      document.body.appendChild(my3DSContainer);
+    },
+    removeFrame: function () {
+      let my3DSContainer = document.createElement('div');
 
-  if (payload.liabilityShifted) {
-    // Liablity has shifted
-    submitNonceToServer(payload.nonce);
-  } else if (payload.liabilityShiftPossible) {
-    // Liablity may still be shifted
-    // Decide if you want to submit the nonce
-  } else {
-    // Liablity has not shifted and will not shift
-    // Decide if you want to submit the nonce
-  }
+      // Remove UI that you added in addFrame.
+      document.body.removeChild(my3DSContainer);
+    }
+  }, function (err: braintree.BraintreeError, payload: braintree.ThreeDSecureVerifyPayload) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    if (payload.liabilityShifted) {
+      // Liablity has shifted
+      submitNonceToServer(payload.nonce);
+    } else if (payload.liabilityShiftPossible) {
+      // Liablity may still be shifted
+      // Decide if you want to submit the nonce
+    } else {
+      // Liablity has not shifted and will not shift
+      // Decide if you want to submit the nonce
+    }
+  });
+
+  threeDSecureInstance.cancelVerifyCard(function (err: braintree.BraintreeError, verifyPayload: braintree.ThreeDSecureVerifyPayload) {
+    if (err) {
+      // Handle error
+      console.log(err.message); // No verification payload available
+      return;
+    }
+
+    verifyPayload.nonce; // The nonce returned from the 3ds lookup call
+    verifyPayload.liabilityShifted; // boolean
+    verifyPayload.liabilityShiftPossible; // boolean
+  });
 });
 
-braintree.threeDSecure.cancelVerifyCard(function (err: braintree.BraintreeError, verifyPayload: braintree.ThreeDSecureVerifyPayload) {
-  if (err) {
-    // Handle error
-    console.log(err.message); // No verification payload available
-    return;
-  }
-
-  verifyPayload.nonce; // The nonce returned from the 3ds lookup call
-  verifyPayload.liabilityShifted; // boolean
-  verifyPayload.liabilityShiftPossible; // boolean
-});

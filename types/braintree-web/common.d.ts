@@ -6,7 +6,7 @@
  * @description The Node.js-style callback pattern used throughout the SDK.
  * @returns {void}
  */
-export type callback = (err?: BraintreeError, data?: any) => void;
+export type callback<T = any> = (err?: BraintreeError, data?: T) => void;
 
 export namespace BraintreeError {
   /**
@@ -48,4 +48,19 @@ export interface BraintreeError {
    * @description Additional information about the error, such as an underlying network error response.
    */
   details: any;
+}
+
+
+export type BinBool = 'Yes' | 'No' | 'Unknown';
+
+export interface BinData {
+  commercial: BinBool;
+  countryOfIssuance: string;
+  debit: BinBool;
+  durbinRegulated: BinBool;
+  healthcare: BinBool;
+  issuingBank: string;
+  payroll: BinBool;
+  prepaid: BinBool;
+  productId: string;
 }
