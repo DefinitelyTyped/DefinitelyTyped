@@ -1,5 +1,5 @@
-// Type definitions for dwt 14.3
-// Project: https://www.dynamsoft.com/products/webtwain_overview.aspx
+// Type definitions for dwt 13.4
+// Project: http://www.dynamsoft.com/Products/WebTWAIN_Overview.aspx
 // Definitions by: Xiao Ling <https://github.com/yushulx>
 //                 Josh Hall <https://github.com/jbh>
 //                 Lincoln Hu <https://github.com/lincoln2018>
