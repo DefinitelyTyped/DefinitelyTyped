@@ -5201,6 +5201,7 @@ fp.now(); // $ExpectType number
     _.chain({ a: undefined }).get("a"); // $ExpectType never
     _.chain({ a: value }).get("a", defaultValue); // $ExpectType StringChain | PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
+    _.chain({ a: [1] }).get("a", []).map((val) => val.toFixed()); // $ExpectType CollectionChain<string>
 
     fp.get(Symbol.iterator, []); // $ExpectType any
     fp.get(Symbol.iterator)([]); // $ExpectType any
