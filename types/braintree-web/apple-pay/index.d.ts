@@ -157,7 +157,7 @@ declare class ApplePay {
             displayName?: string;
             merchantIdentifier?: string;
         },
-        callback: callback<any>
+        callback: callback
     ): void;
     performValidation(options: {
         validationURL: string;

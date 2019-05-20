@@ -46,7 +46,7 @@ declare class AmericanExpress {
    *   });
    * });
    */
-  getRewardsBalance(options: { nonce: string }, callback: callback<any>): void;
+  getRewardsBalance(options: { nonce: string }, callback: callback): void;
   getRewardsBalance(options: { nonce: string }): Promise<any>;
 
   /**
@@ -70,7 +70,7 @@ declare class AmericanExpress {
    *   });
    * });
    */
-  getExpressCheckoutProfile(options: { nonce: string }, callback: callback<any>): void;
+  getExpressCheckoutProfile(options: { nonce: string }, callback: callback): void;
   getExpressCheckoutProfile(options: { nonce: string }): Promise<any>;
 
   /**
