@@ -19,10 +19,10 @@
     },
     "files": [
         "index.d.ts",
-        "lib/app.d.ts",
-        "lib/page.d.ts",
-        "lib/common.d.ts",
-        "lib/vue.d.ts",
+        "app.d.ts",
+        "page.d.ts",
+        "common.d.ts",
+        "vue.d.ts",
         "uni-app-tests.ts"
     ]
 }
