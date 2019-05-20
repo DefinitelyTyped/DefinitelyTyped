@@ -6,3 +6,5 @@ const client = new CatboxMemory<string>({
     maxByteSize: 1024,
     minCleanupIntervalMsec: 1000,
 });
+
+const client2 = new CatboxMemory<string>();
