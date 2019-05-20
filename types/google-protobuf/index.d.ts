@@ -109,8 +109,8 @@ export abstract class Message {
   static equals(m1: Message, m2: Message): boolean;
   static compareExtensions(extension1: {}, extension2: {}): boolean;
   static compareFields(field1: any, field2: any): boolean;
-  cloneMessage(): Message;
-  clone(): Message;
+  cloneMessage<T extends Message>(): T;
+  clone<T extends Message>(): T;
   static clone<T extends Message>(msg: T): T;
   static cloneMessage<T extends Message>(msg: T): T;
   static copyInto(fromMessage: Message, toMessage: Message): void;
