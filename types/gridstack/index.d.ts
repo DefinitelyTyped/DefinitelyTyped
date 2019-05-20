@@ -12,6 +12,8 @@ interface JQuery {
     data(key: "gridstack"): GridStack;
 }
 
+type GridStackWidgetType = string | HTMLElement | JQuery;
+
 interface GridStack {
     /**
      * Creates new widget and returns it.
@@ -30,7 +32,7 @@ interface GridStack {
      * @param {number} maxHeight maximum height allowed during resize/creation (optional)
      * @param {number | string} id value for data-gs-id (optional)
      */
-    addWidget(el: string | HTMLElement | JQuery, x?: number, y?: number, width?: number, height?: number, autoPosition?: boolean, minWidth?: number, maxWidth?: number, minHeight?: number, maxHeight?: number, id?: number | string): JQuery
+    addWidget(el: GridStackWidgetType, x?: number, y?: number, width?: number, height?: number, autoPosition?: boolean, minWidth?: number, maxWidth?: number, minHeight?: number, maxHeight?: number, id?: number | string): JQuery
     /**
     * Initializes batch updates. You will see no changes until commit method is called.
     */
@@ -95,10 +97,10 @@ interface GridStack {
     isAreaEmpty(x: number, y: number, width: number, height: number): void
     /**
     * Locks/unlocks widget.
-    * @param {HTMLElement} el widget to modify.
+    * @param {string | HTMLElement | JQuery} el widget to modify.
     * @param {boolean} val if true widget will be locked.
     */
-    locked(el: HTMLElement, val: boolean): void
+    locked(el: GridStackWidgetType, val: boolean): void
     /**
      * If you add elements to your gridstack container by hand, you have to tell gridstack afterwards to make them widgets.
      *
@@ -106,51 +108,51 @@ interface GridStack {
      *
      * @param {string | HTMLElement | JQuery} el widget to add
      */
-    makeWidget(el: string | HTMLElement | JQuery): JQuery
+    makeWidget(el: GridStackWidgetType): JQuery
     /**
      * Set the maxWidth for a widget.
-    * @param {HTMLElement} el widget to modify.
+    * @param {string | HTMLElement | JQuery} el widget to modify.
     * @param {number} val A numeric value of the number of columns
      */
-    maxWidth(el: HTMLElement, val: number): void
+    maxWidth(el: GridStackWidgetType, val: number): void
     /**
     * Set the minWidth for a widget.
-    * @param {HTMLElement} el widget to modify.
+    * @param {string | HTMLElement | JQuery} el widget to modify.
     * @param {number} val A numeric value of the number of columns
     */
-    minWidth(el: HTMLElement, val: number): void
+    minWidth(el: GridStackWidgetType, val: number): void
     /**
     * Set the maxHeight for a widget.
-    * @param {HTMLElement} el widget to modify.
+    * @param {string | HTMLElement | JQuery} el widget to modify.
     * @param {number} val A numeric value of the number of rows
     */
-    maxHeight(el: HTMLElement, val: number): void
+    maxHeight(el: GridStackWidgetType, val: number): void
     /**
     * Set the minHeight for a widget.
-    * @param {HTMLElement} el widget to modify.
+    * @param {string | HTMLElement | JQuery} el widget to modify.
     * @param {number} val A numeric value of the number of rows
     */
-    minHeight(el: HTMLElement, val: number): void
+    minHeight(el: GridStackWidgetType, val: number): void
     /**
    * Enables/Disables moving.
-   * @param {HTMLElement} el widget to modify.
+   * @param {string | HTMLElement | JQuery} el widget to modify.
    * @param {number} val if true widget will be draggable.
    */
-    movable(el: HTMLElement, val: boolean): void
+    movable(el: GridStackWidgetType, val: boolean): void
     /**
     * Changes widget position
-    * @param {HTMLElement} el  widget to modify
+    * @param {string | HTMLElement | JQuery} el  widget to modify
     * @param {number} x new position x. If value is null or undefined it will be ignored.
     * @param {number} y new position y. If value is null or undefined it will be ignored.
     *
     */
-    move(el: HTMLElement, x: number, y: number): void
+    move(el: GridStackWidgetType, x: number, y: number): void
     /**
     * Removes widget from the grid.
-    * @param {HTMLElement} el  widget to modify
+    * @param {string | HTMLElement | JQuery} el  widget to modify
     * @param {boolean} detachNode if false DOM node won't be removed from the tree (Optional. Default true).
     */
-    removeWidget(el: HTMLElement, detachNode?: boolean): void
+    removeWidget(el: GridStackWidgetType, detachNode?: boolean): void
     /**
     * Removes all widgets from the grid.
     * @param {boolean} detachNode if false DOM node won't be removed from the tree (Optional. Default true).
@@ -158,17 +160,17 @@ interface GridStack {
     removeAll(detachNode?: boolean): void
     /**
     * Changes widget size
-    * @param {HTMLElement} el  widget to modify
+    * @param {string | HTMLElement | JQuery} el  widget to modify
     * @param {number} width new dimensions width. If value is null or undefined it will be ignored.
     * @param {number} height  new dimensions height. If value is null or undefined it will be ignored.
     */
-    resize(el: HTMLElement, width: number, height: number): void
+    resize(el: GridStackWidgetType, width: number, height: number): void
     /**
     * Enables/Disables resizing.
-    * @param {HTMLElement} el  widget to modify
+    * @param {string | HTMLElement | JQuery} el  widget to modify
     * @param {boolean} val  if true widget will be resizable.
     */
-    resizable(el: HTMLElement, val: boolean): void
+    resizable(el: GridStackWidgetType, val: boolean): void
     /**
      * Toggle the grid animation state. Toggles the grid-stack-animate class.
      * @param {boolean} doAnimate if true the grid will animate.
@@ -189,13 +191,13 @@ interface GridStack {
     setStatic(staticValue: boolean): void
     /**
     * Updates widget position/size.
-    * @param {HTMLElement} el  widget to modify
+    * @param {string | HTMLElement | JQuery} el  widget to modify
     * @param {number} x new position x. If value is null or undefined it will be ignored.
     * @param {number} y new position y. If value is null or undefined it will be ignored.
     * @param {number} width new dimensions width. If value is null or undefined it will be ignored.
     * @param {number} height  new dimensions height. If value is null or undefined it will be ignored.
     */
-    update(el: HTMLElement, x: number, y: number, width: number, height: number): void
+    update(el: GridStackWidgetType, x: number, y: number, width: number, height: number): void
     /**
      * Sets the vertial margin
      * @param {number} value new vertical margin value.
@@ -211,9 +213,6 @@ interface GridStack {
     * @param {boolean} autoPosition  if true then x, y parameters will be ignored and widget will be places on the first available position
     */
     willItFit(x: number, y: number, width: number, height: number, autoPosition: boolean): boolean
-
-
-
 }
 /**
 * Defines the coordiantes of a object
