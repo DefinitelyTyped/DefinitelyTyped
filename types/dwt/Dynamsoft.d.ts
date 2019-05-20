@@ -1,38 +1,49 @@
-declare namespace Dynamsoft {
-    let Lib: DynamsoftLib;
-    let WebTwainEnv: dwtEnv;
-    namespace WebTwain {
-        namespace Addon {
-            let OCRPro: OCRProAddon;
-        }
-    }
-    namespace DWT {
-        let defaultEnv: dwtEnv;
-    }
+// Type definitions for dwt 14.3.1
+// Project: http://www.dynamsoft.com/Products/WebTWAIN_Overview.aspx
+// Definitions by: Xiao Ling <https://github.com/yushulx>
+//                 Josh Hall <https://github.com/jbh>
+//                 Lincoln Hu <https://github.com/lincoln2018>
+//                 Tom Kent <https://github.com/Tom-Dynamsoft>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.2.2
+
+/*!
+* Product: Dynamsoft Web Twain
+* Web Site: http://www.dynamsoft.com
+*
+* Copyright 2019, Dynamsoft Corporation
+* Author: Dynamsoft Support Team
+*/
+
+interface DynamsoftStatic<TElement extends Node = HTMLElement> {
+	Lib: DynamsoftLib,
+    WebTwainEnv: dwtEnv
 }
 
-declare const dwt: WebTwain;
 
 interface dwtEnv {
+    AutoLoad: boolean;
+    ProductKey: string;
+    Trial: boolean;
+    Containers: Container[];
+    IfUseActiveXForIE10Plus: boolean;
+    ResourcesPath: string;
+	
+    RegisterEvent(event: string, fn: (...args: any[]) => void): void;
+    GetWebTwain(cid: string): WebTwain;
+    Load(): void;
+    Unload(): void;
+	
+	
+    Debug: boolean;
     ActiveXInstallWithCAB: boolean;
     ActiveXVersion: string;
-    AutoLoad: boolean;
-    CloseDialog(): void;
     ContainerMap: {};
-    Containers: Container[];
     CreateDWTObject(newObjID: string, successFn: (dwtObject: WebTwain) => void, failurefn: (...args: any[]) => void): void;
-    CreateDWTObject(newObjID: string, ip: number | string, port: number | string, portSSL: number | string, successFn: (dwtObject: WebTwain) => void, failurefn: (...args: any[]) => void): void;
-    Debug: boolean;
     DeleteDWTObject(objID: string): void;
     DynamicContainers: string[];
     DynamicDWTMap: {};
-    GetWebTwain(cid: string): WebTwain;
     IfInstallDWTModuleWithZIP: boolean;
-    IfUpdateService: boolean;
-    IfUseActiveXForIE10Plus: boolean;
-    JSVersion: string;
-    Load(): void;
-
     /*ignored
     OnWebTwainInitMessage  OnWebTwainNeedUpgrade  OnWebTwainNeedUpgradeWebJavascript  OnWebTwainNotFound  OnWebTwainOldPluginNotAllowed
     */
@@ -44,15 +55,13 @@ interface dwtEnv {
     OnWebTwainReady
     */
 
+    JSVersion: string;
     PluginVersion: string;
-    ProductKey: string;
-    RegisterEvent(event: string, fn: (...args: any[]) => void): void;
-    RemoveAllAuthorizations(): void;
-    ResourcesPath: string;
     ServerVersionInfo: string;
+	
+    RemoveAllAuthorizations(): void;
     ShowDialog(_dialogWidth: number, _dialogHeight: number, _strDialogMessageWithHtmlFormat: string, _bChangeImage: boolean, bHideCloseButton: boolean): void;
-    Trial: boolean;
-    Unload(): void;
+    CloseDialog(): void;
     UseDefaultInstallUI: boolean;
     initQueue: any[];
     inited: boolean;
@@ -73,7 +82,7 @@ interface DynamsoftLib {
         cUrlIndex  dcpCallbackType  dcpStatus  detectType  getVersionArray  global_dlg  hideMask  isDWTVersionLatest  onNoControl
         onNotAllowedForChrome  ports  scriptLoaded  showMask  starting  tryTimes*/
         ssl: boolean;
-    };
+    }
 
     /*ignored
     detectButton  dialog  dialogShowStatus  dlgProgress  dlgRef  drawBoxBorder  drawImageWithHermite
@@ -86,7 +95,7 @@ interface DynamsoftLib {
         bIE: boolean, bLinux: boolean, bMac: boolean, bSafari: boolean, bWin: boolean, bWin64: boolean,
         basePath: string, iPluginLength: number, isX64: boolean, pathType: number,
         strChromeVersion: string, strFirefoxVersion: string, strIEVersion: string
-    };
+    }
 
     /*ignored
     error  escapeHtml  escapeRegExp  extend  filter  fireEvent  fromUnicode  get  getColor  getCss
@@ -102,6 +111,10 @@ interface DynamsoftLib {
     */
     hideMask(): void;
     showMask(): void;
+}
+
+interface DynamsoftWebTwain {
+    Addon: DynamsoftWebTwainAddon
 }
 
 /**
