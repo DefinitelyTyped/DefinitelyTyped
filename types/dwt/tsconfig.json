@@ -20,7 +20,6 @@
     "files": [
         "index.d.ts",
         "Dynamsoft.d.ts",
-        "WebTWAIN.d.ts",
         "mbc.d.ts",
         "dbr.d.ts",
         "addon.ocr.d.ts",
