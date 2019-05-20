@@ -40,6 +40,7 @@ import {
     ColorProps,
     colorStyle,
     ColorStyleProps,
+    compose,
     display,
     DisplayProps,
     flex,
@@ -56,6 +57,7 @@ import {
     FontSizeProps,
     fontWeight,
     FontWeightProps,
+    get,
     gridAutoColumns,
     GridAutoColumnsProps,
     gridAutoFlow,
@@ -78,6 +80,7 @@ import {
     GridTemplateRowsProps,
     height,
     HeightProps,
+    is,
     justifyContent,
     JustifyContentProps,
     justifyItems,
@@ -90,8 +93,13 @@ import {
     LetterSpacingProps,
     lineHeight,
     LineHeightProps,
+    mapProps,
     margin,
+    marginBottom,
+    marginLeft,
     MarginProps,
+    marginRight,
+    marginTop,
     maxHeight,
     MaxHeightProps,
     maxWidth,
@@ -110,6 +118,7 @@ import {
     SizeProps,
     space,
     SpaceProps,
+    style,
     textAlign,
     TextAlignProps,
     TextColorProps,
@@ -655,6 +664,35 @@ export const themeC: Theme = {
         medium: '14px',
     },
 };
+
+// Test that the mapProps definition is correct.
+// https://github.com/styled-system/styled-system/blob/master/src/index.js#L149
+const margins = mapProps(props => ({
+    ...props,
+    mt: is(props.my) ? props.my : props.mt,
+    mb: is(props.my) ? props.my : props.mb,
+    ml: is(props.mx) ? props.mx : props.ml,
+    mr: is(props.mx) ? props.mx : props.mr,
+}))(
+    compose(
+      margin,
+      marginTop,
+      marginBottom,
+      marginLeft,
+      marginRight
+    )
+  );
+
+// Test that the style definition is correct.
+// https://github.com/styled-system/styled-system/blob/master/src/index.js#L62
+const customFontSize = style({
+    prop: 'fontSize',
+    cssProperty: 'fontSize',
+    alias: 'fs',
+    key: 'fontSizes',
+    transformValue: (n, scale) => px(get(scale, n)),
+    scale: [8, 16, 32]
+});
 
 // All Style Functions contain `propTypes`
 export const alignContentPropTypes = alignContent.propTypes;

@@ -89,6 +89,7 @@ import {
     Keyboard,
     NetInfo,
     PermissionsAndroid,
+    Platform,
 } from "react-native";
 
 declare module "react-native" {
@@ -909,3 +910,21 @@ const PermissionsAndroidTest = () => {
         }
     })
 }
+
+// Platform
+const PlatformTest = () => {
+    switch (Platform.OS) {
+        case 'ios':
+            if (!Platform.isPad) {
+                return 32;
+            } else {
+                return 44;
+            }
+        case 'android':
+        case 'macos':
+        case 'windows':
+            return Platform.isTV ? 64 : 56;
+        default:
+            return Platform.isTV ? 40 : 44;
+    }
+};

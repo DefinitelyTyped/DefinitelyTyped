@@ -1,8 +1,9 @@
-// Type definitions for non-npm package Google Publisher Tag 238.0
+// Type definitions for non-npm package Google Publisher Tag 2019041801.0
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 //                 Steven Joyce <https://github.com/steven-joyce>
 //                 Joe Flateau <https://github.com/joeflateau>
+//                 Vanessa Garcia <https://github.com/vanessa-lyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -29,6 +30,14 @@ declare namespace googletag {
         addEventListener(
           eventType: "slotRenderEnded",
             listener: (event: events.SlotRenderEndedEvent) => void
+        ): Service;
+        addEventListener(
+            eventType: "slotRequested",
+              listener: (event: events.SlotRequestedEvent) => void
+        ): Service;
+        addEventListener(
+            eventType: "slotResponseReceived",
+              listener: (event: events.SlotResponseReceived) => void
         ): Service;
         addEventListener(
           eventType: "slotVisibilityChanged",
@@ -60,6 +69,7 @@ declare namespace googletag {
         advertiserId: string;
         campaignId: string;
         creativeId?: number;
+        creativeTemplateId?: number;
         lineItemId?: number;
     }
 
@@ -78,7 +88,7 @@ declare namespace googletag {
         defineSlot(adUnitPath: string, size: GeneralSize, opt_div?: string): Slot;
         destroySlots(opt_slots?: Slot[]): boolean;
         disablePublisherConsole(): void;
-        display(div?: string | Element): void;
+        display(divOrSlot?: string | Element | Slot): void;
         enableServices(): void;
         getVersion(): string;
         openConsole(opt_div?: string): void;
@@ -184,6 +194,12 @@ declare namespace googletag {
             sourceAgnosticCreativeId?: number;
             sourceAgnosticLineItemId?: number;
         }
+
+        // tslint:disable-next-line:no-empty-interface
+        interface SlotRequestedEvent extends Event {}
+
+        // tslint:disable-next-line:no-empty-interface
+        interface SlotResponseReceived extends Event {}
 
         interface SlotVisibilityChangedEvent extends Event {
             inViewPercentage: number;

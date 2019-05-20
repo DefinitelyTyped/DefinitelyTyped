@@ -5,6 +5,11 @@ const management = new auth0.ManagementClient({
   domain: '{YOUR_ACCOUNT}.auth0.com'
 });
 
+const uManagement = new auth0.ManagementClient<{aTest: string},{uTest: string}>({
+    token: '{YOUR_API_V2_TOKEN}',
+    domain: '{YOUR_ACCOUNT}.auth0.com'
+});
+
 const auth = new auth0.AuthenticationClient({
   domain: '{YOUR_ACCOUNT}.auth0.com',
   clientId: '{OPTIONAL_CLIENT_ID}',
@@ -151,6 +156,8 @@ management
 management
   .updateUserMetadata({id: "user_id"}, {"key": "value"});
 
+uManagement.updateAppMetadata({id: "user_id"},{aTest: 'test'});
+
 // Update user metadata with JSON object
 management
     .updateUserMetadata({id: "user_id"}, {
@@ -161,6 +168,7 @@ management
         another: "value"
       }
     });
+uManagement.updateUserMetadata({id: "user_id"}, { uTest: "value"});
 
 // Update user metadata using callback
 management
@@ -388,14 +396,12 @@ management.sendEmailVerification({
 // Roles
 management.getRoles().then(roles => console.log(roles));
 management.getRoles((err, data) => console.log(data));
-management.getRoles({id: "role_id"}).then(roles => console.log(roles));
-management.getRoles({id: "role_id"}, (err, data) => console.log(data));
-management.getRoles({id: "role_id", name_filter: "Admin"}).then(roles => console.log(roles));
-management.getRoles({id: "role_id", name_filter: "Admin"}, (err, data) => console.log(data));
-management.getRoles({id: "role_id", per_page: 12}).then(roles => console.log(roles));
-management.getRoles({id: "role_id", per_page: 12}, (err, data) => console.log(data));
-management.getRoles({id: "role_id", include_totals: true}).then(rolePage => console.log(rolePage));
-management.getRoles({id: "role_id", include_totals: true}, (err, data) => console.log(data));
+management.getRoles({name_filter: "Admin"}).then(roles => console.log(roles));
+management.getRoles({name_filter: "Admin"}, (err, data) => console.log(data));
+management.getRoles({per_page: 12}).then(roles => console.log(roles));
+management.getRoles({per_page: 12}, (err, data) => console.log(data));
+management.getRoles({include_totals: true}).then(rolePage => console.log(rolePage));
+management.getRoles({include_totals: true}, (err, data) => console.log(data));
 
 management.createRole({
     name: "Admin",

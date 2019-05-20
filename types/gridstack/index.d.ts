@@ -1,6 +1,9 @@
-// Type definitions for Gridstack
+// Type definitions for Gridstack 0.4
 // Project: http://troolee.github.io/gridstack.js/
-// Definitions by: Pascal Senn <https://github.com/PascalSenn>, Ricky Blankenaufulland <https://github.com/ZoolWay>, Sl1MBoy <https://github.com/Sl1MBoy>
+// Definitions by: Pascal Senn <https://github.com/PascalSenn>
+//                 Ricky Blankenaufulland <https://github.com/ZoolWay>
+//                 Sl1MBoy <https://github.com/Sl1MBoy>
+//                 John Archer <https://github.com/JohnArcher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -16,13 +19,18 @@ interface GridStack {
      *   Widget will be always placed even if result height is more than actual grid height. You need to use willItFit method before calling addWidget for additional check.
      *
      * @param {string | HTMLElement | JQuery} el widget to add
-     * @param {number} x widget position x
-     * @param {number} y widget position y
-     * @param {number} width  widget dimension width
-     * @param {number} height widget dimension height
-     * @param {boolean} autoPosition if true then x, y parameters will be ignored and widget will be places on the first available position
+     * @param {number} x widget position x (optional)
+     * @param {number} y widget position y (optional)
+     * @param {number} width  widget dimension width (optional)
+     * @param {number} height widget dimension height (optional)
+     * @param {boolean} autoPosition if true then x, y parameters will be ignored and widget will be places on the first available position (optional)
+     * @param {number} minWidth minimum width allowed during resize/creation (optional)
+     * @param {number} maxWidth maximum width allowed during resize/creation (optional)
+     * @param {number} minHeight minimum height allowed during resize/creation (optional)
+     * @param {number} maxHeight maximum height allowed during resize/creation (optional)
+     * @param {number | string} id value for data-gs-id (optional)
      */
-    addWidget(el: string | HTMLElement | JQuery, x?: number, y?: number, width?: number, height?: number, autoPosition?: boolean, minWidth?: number, maxWidth?: number, minHeight?: number, maxHeight?: number, id?: number): JQuery
+    addWidget(el: string | HTMLElement | JQuery, x?: number, y?: number, width?: number, height?: number, autoPosition?: boolean, minWidth?: number, maxWidth?: number, minHeight?: number, maxHeight?: number, id?: number | string): JQuery
     /**
     * Initializes batch updates. You will see no changes until commit method is called.
     */
@@ -61,17 +69,17 @@ interface GridStack {
     * Enables/disables widget moving.
     * This is a shortcut for:
     * grid.movable(this.container.children('.' + this.opts.itemClass), doEnable);
-    * @param {boolean} doEnable 
+    * @param {boolean} doEnable
     * @param {boolean} includeNewWidgets will force new widgets to be draggable
     */
     enableMove(doEnable: boolean, includeNewWidgets: boolean): void
     /**
      * Enables/disables widget resizing.
-     * @param {boolean} doEnable 
+     * @param {boolean} doEnable
      * @param {boolean} includeNewWidgets will force new widgets to be resizable
      */
     enableResize(doEnable: boolean, includeNewWidgets: boolean): void
-    /** 
+    /**
     * Get the position of the cell under a pixel on screen.
     * @param  {MousePosition}  position the position of the pixel to resolve in absolute coordinates, as an object with top and leftproperties
     * @param  {boolean}  useOffset if true, value will be based on offset vs position (Optional. Default false). Useful when grid is within position: relative element.
@@ -92,7 +100,7 @@ interface GridStack {
     */
     locked(el: HTMLElement, val: boolean): void
     /**
-     * If you add elements to your gridstack container by hand, you have to tell gridstack afterwards to make them widgets. 
+     * If you add elements to your gridstack container by hand, you have to tell gridstack afterwards to make them widgets.
      *
      *   If you want gridstack to add the elements for you, use addWidget instead. Makes the given element a widget and returns it.
      *
@@ -123,7 +131,7 @@ interface GridStack {
     * @param {number} val A numeric value of the number of rows
     */
     minHeight(el: HTMLElement, val: number): void
-    /** 
+    /**
    * Enables/Disables moving.
    * @param {HTMLElement} el widget to modify.
    * @param {number} val if true widget will be draggable.
@@ -167,8 +175,8 @@ interface GridStack {
      */
     setAnimation(doAnimate: boolean): void
     /**
-     * (Experimental) Modify number of columns in the grid. 
-     * Will attempt to update existing widgets to conform to new number of columns. 
+     * (Experimental) Modify number of columns in the grid.
+     * Will attempt to update existing widgets to conform to new number of columns.
      * Requires gridstack-extra.css or gridstack-extra.min.css.
      * @param {number} gridWidth Integer between 1 and 12.
      * @param {boolean} doNotPropagate if true existing widgets will not be updated.
@@ -204,7 +212,7 @@ interface GridStack {
     */
     willItFit(x: number, y: number, width: number, height: number, autoPosition: boolean): boolean
 
-    
+
 
 }
 /**
@@ -258,7 +266,7 @@ interface IGridstackOptions {
      */
     cellHeight?: number;
     /**
-     * class that implement drag'n'drop functionallity for gridstack. 
+     * class that implement drag'n'drop functionallity for gridstack.
      * If false grid will be static. (default: null - first available plugin will be used)
      */
     ddPlugin?: any;
@@ -319,7 +327,7 @@ interface IGridstackOptions {
     */
     resizable?: {};
     /**
-     * if true widgets could be removed by dragging outside of the grid. It could also be a jQuery selector string, 
+     * if true widgets could be removed by dragging outside of the grid. It could also be a jQuery selector string,
      */
     removable?: boolean | string;
     /**

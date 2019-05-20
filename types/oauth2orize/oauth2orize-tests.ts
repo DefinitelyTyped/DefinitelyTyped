@@ -91,3 +91,9 @@ server.deserializeClient((id, done) => {
   server.token();
   server.errorHandler();
 // );
+
+// Test errors
+const tokenError = new oauth2orize.TokenError('Incorrect token', 'invalid_grant');
+const code: string = tokenError.code;
+new oauth2orize.AuthorizationError('Incorrect token', 'access_denied');
+new oauth2orize.OAuth2Error();
