@@ -38,18 +38,18 @@ export interface styleFn {
 
 export type Scale = object | Array<string | number>;
 
-export interface LowLevelStylefunctionArguments<N> {
+export interface LowLevelStylefunctionArguments<N, S> {
   prop: string;
   cssProperty?: string;
   alias?: string;
   key?: string;
-  transformValue?: (n: N, scale?: Scale) => any;
-  scale?: Scale;
+  transformValue?: (n: N, scale?: S) => any;
+  scale?: S;
 }
 
-export function style<N = string | number>(
+export function style<N = string | number, S = Scale>(
   // tslint:disable-next-line no-unnecessary-generics
-  args: LowLevelStylefunctionArguments<N>
+  args: LowLevelStylefunctionArguments<N, S>
 ): { [cssProp: string]: string };
 
 export function compose(
