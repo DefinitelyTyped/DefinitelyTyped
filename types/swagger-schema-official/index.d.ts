@@ -188,7 +188,7 @@ export interface ApiKeySecurity extends BaseSecurity {
 export interface BaseOAuthSecuirty extends BaseSecurity {
   type: 'oauth2';
   flow: 'accessCode' | 'application' | 'implicit' | 'password';
-  scopes?: OAuthScope[];    
+  scopes?: OAuthScope[];
 }
 
 export interface OAuth2ImplicitSecurity extends BaseOAuthSecuirty {
