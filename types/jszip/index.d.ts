@@ -132,6 +132,7 @@ declare namespace JSZip {
         checkCRC32?: boolean;
         optimizedBinaryString?: boolean;
         createFolders?: boolean;
+        decodeFileName?(filenameBytes: Uint8Array): string;
     }
 }
 
