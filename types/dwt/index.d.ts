@@ -24,12 +24,3 @@
 /// <reference path="dbr.d.ts" />
 /// <reference path="Dynamsoft.d.ts" />
 /// <reference path="mbc.d.ts" />
-
-
-/**
- * @class
- */
-// properties (get/set) / sync functions
-interface WebTwain {
-
-}
