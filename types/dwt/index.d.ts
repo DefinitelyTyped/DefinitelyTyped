@@ -1,4 +1,4 @@
-// Type definitions for dwt 14.4
+// Type definitions for dwt 14.3
 // Project: https://www.dynamsoft.com/products/webtwain_overview.aspx
 // Definitions by: Xiao Ling <https://github.com/yushulx>
 //                 Josh Hall <https://github.com/jbh>
@@ -7,12 +7,3 @@
 //                 Dave Sueltenfuss <https://github.com/dsueltenfuss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
-
-/// <reference path="addon.ocr.d.ts" />
-/// <reference path="addon.ocrp.d.ts" />
-/// <reference path="addon.pdf.d.ts" />
-/// <reference path="addon.webcam.d.ts" />
-/// <reference path="dbr.d.ts" />
-/// <reference path="dwt.d.ts" />
-/// <reference path="Dynamsoft.d.ts" />
-/// <reference path="mbc.d.ts" />
