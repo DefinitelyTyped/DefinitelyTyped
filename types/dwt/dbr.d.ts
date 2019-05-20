@@ -1,3 +1,23 @@
+/// <reference path="mbc.d.ts" />
+// Type definitions for dwt 14.3.1
+// Project: https://www.dynamsoft.com/products/webtwain_overview.aspx
+// Definitions by: Xiao Ling <https://github.com/yushulx>
+//                 Josh Hall <https://github.com/jbh>
+//                 Lincoln Hu <https://github.com/lincoln2018>
+//                 Tom Kent <https://github.com/Tom-Dynamsoft>
+//                 Dave Sueltenfuss <https://github.com/dsueltenfuss>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.2.2
+
+/*!
+* Product: Dynamsoft Web Twain
+* Web Site: http://www.dynamsoft.com
+*
+* Copyright 2019, Dynamsoft Corporation
+* Author: Dynamsoft Support Team
+*/
+
+
 interface RunTimeSetting {
     mAntiDamageLevel: number;
     mBarcodeFormatIds: number;
@@ -31,17 +51,6 @@ interface dbrEnv {
 }
 
 declare namespace dynamsoft {
-    let TaskQueue: TaskQueue;
-    let dbrEnv: dbrEnv;
-    /**dbrMasterPage20170526 */
-    let dcp: {
-        ifCheck64bitServiceFirst: boolean;
-    };
-    /**dwtDbrDemo20170613 */
-    let initOrder: any;
-    let lib: any;
-    let managerEnv: any;
-    let navInfo: any;
     namespace BarcodeReader {
         /** Barcode Formats */
         enum EnumBarcodeFormat {
@@ -129,6 +138,7 @@ declare namespace dynamsoft {
             ETS_Prelocalized = 0,
             ETS_Recognized = 2
         }
+
     }
 
     class BarcodeReader {
@@ -137,7 +147,25 @@ declare namespace dynamsoft {
         static name: string;
         static length: number;
         static version: string;
-        // appendTplStringToRuntimeSettings(b, d):
+        /**
+         * Constructs a new KPainter
+         */
+        constructor(dbrKey?: string)
+    }
+    let TaskQueue: TaskQueue;
+    let dbrEnv: dbrEnv;
+    /**dbrMasterPage20170526 */
+    let dcp: {
+        ifCheck64bitServiceFirst: boolean;
+    };
+    /**dwtDbrDemo20170613 */
+    let initOrder: any;
+    let lib: any;
+    let managerEnv: any;
+    let navInfo: any;
+    interface BarcodeReader {
+
+        //appendTplStringToRuntimeSettings(b, d):
         /**
          * Read barcode from the source image.
          * @method BarcodeReader#decode
@@ -169,7 +197,8 @@ declare namespace dynamsoft {
         // ie6-9 does not support '.catch(function(ex){...})'
         if(ex){alert(ex.message||ex);}
     });
-    ```    
+    ```
+     
          */
         decode(source: string): Promise<any>;
 
@@ -184,9 +213,5 @@ declare namespace dynamsoft {
         outputSettingsToString(): any;
         resetRuntimeSettings(): void;
         updateRuntimeSettings(setting: RunTimeSetting): void;
-        /**
-         * Constructs a new barcode reader
-         */
-        constructor(dbrKey?: string);
     }
 }
