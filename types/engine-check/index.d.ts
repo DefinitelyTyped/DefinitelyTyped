@@ -3,9 +3,12 @@
 // Definitions by: jgeth <https://github.com/jgeth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface EngineCheckOptions {
-    searchRoot?: string;
-    silent?: boolean;
-    debug?: boolean;
+declare namespace engineCheck {
+    interface Options {
+        searchRoot?: string;
+        silent?: boolean;
+        debug?: boolean;
+    }
 }
-export function checkVersion(options?: EngineCheckOptions): void;
+declare function engineCheck(options?: engineCheck.Options): void;
+export = engineCheck;
