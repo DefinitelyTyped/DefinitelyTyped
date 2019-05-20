@@ -42,7 +42,7 @@ class AspectRatioTest extends React.Component<{}, TestState> {
                     aspect: 16 / 9,
                     width: 50,
                 },
-                image.width / image.height,
+                image,
             ),
         });
     }
@@ -76,9 +76,13 @@ class CompleteTest extends React.Component<{}, TestState> {
                     aspect: 16 / 9,
                     width: 20,
                 },
-                image.width / image.height,
+                image,
             ),
         });
+    }
+
+    onImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+        console.warn('Error loading image');
     }
 
     render() {
@@ -99,6 +103,9 @@ class CompleteTest extends React.Component<{}, TestState> {
                 onDragStart={() => console.log('Drag start')}
                 onDragEnd={() => console.log('Drag end')}
                 crossorigin="anonymous"
+                onImageError={this.onImageError}
+                className="my-cropper"
+                locked={false}
             />
         );
     }

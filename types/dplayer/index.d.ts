@@ -1,4 +1,4 @@
-// Type definitions for dplayer 1.24
+// Type definitions for dplayer 1.25
 // Project: https://github.com/DIYgod/DPlayer#readme
 // Definitions by: Guanyunhan <https://github.com/Guanyunhan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,6 +9,7 @@ export type Preload = 'none' | 'metadata' | 'auto';
 export type VideoType = 'auto' | 'hls' | 'flv' | 'dash' | 'webtorrent' | 'normal';
 export type SubTitleType = 'webvtt' | 'ass';
 export type DirectionType = 'top' | 'right' | 'bottom';
+export type FullScreenType = 'web' | 'browser';
 
 export enum DPlayerEvents {
   abort = 'abort',
@@ -98,12 +99,20 @@ export interface DPlayerHighLightItem {
   time: number;
 }
 
+export interface DPlayerVideoQuality {
+  name: string;
+  url: string;
+  type?: string;
+}
+
 export interface DPlayerVideo {
   url: string;
   pic?: string;
   thumbnails?: string;
   type?: VideoType | string;
   customType?: any;
+  quality?: DPlayerVideoQuality[];
+  defaultQuality?: number;
 }
 
 export interface DPlayerSubTitle {
@@ -131,8 +140,31 @@ export interface DPlayerAPIBackend {
   send(endpoint: any, danmakuData: DPlayerDanmakuItem, callback: () => void): void;
 }
 
+export interface Danmaku {
+  send(danmaku: DPlayerDanmakuItem, callback: () => void): void;
+
+  draw(danmaku: DPlayerDanmakuItem): void;
+
+  opacity(percentage: number): void;
+
+  clear(): void;
+
+  hide(): void;
+
+  show(): void;
+}
+
+export interface FullScreen {
+  request(type: FullScreenType): void;
+
+  cancel(type: FullScreenType): void;
+}
+
 export default class DPlayer {
   events: any;
+  video: HTMLVideoElement;
+  danmaku: Danmaku;
+  fullScreen: FullScreen;
 
   constructor(options: DPlayerOptions);
 

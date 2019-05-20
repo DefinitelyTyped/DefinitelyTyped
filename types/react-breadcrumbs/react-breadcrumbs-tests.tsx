@@ -1,18 +1,35 @@
-import * as React from 'react';
-import * as ReactRouter from "react-router";
-import Breadcrumbs = require('react-breadcrumbs');
+import * as React from "react";
+import { Breadcrumbs, Breadcrumb } from "react-breadcrumbs";
 
-interface MyComponentProps extends ReactRouter.RouteComponentProps<{}, { id: number }> {
+class Wrapper extends React.Component {
+    render() {
+        return <div>{this.props.children}</div>;
+    }
 }
 
-class MyComponent extends React.Component<MyComponentProps> {
+function FunctionWrapper(props: { children?: React.ReactNode }) {
+    return <div>{props.children}</div>;
+}
+
+class MyComponent extends React.Component {
     render() {
         return (
             <div>
                 <Breadcrumbs
-                    routes={this.props.routes}
-                    params={this.props.params}
+                    className="demo__crumbs"
+                    hidden
+                    setCrumbs={crumbs => null}
+                    wrapper={Wrapper}
                 />
+
+                <Breadcrumbs
+                    className="demo__crumbs"
+                    wrapper={FunctionWrapper}
+                />
+
+                <Breadcrumb data={{ title: "Dashboard", pathname: "/" }} />
+
+                <Breadcrumb data={{ pathname: "/dashboard" }} hidden />
             </div>
         );
     }

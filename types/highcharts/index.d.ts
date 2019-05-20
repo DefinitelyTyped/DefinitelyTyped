@@ -1,9 +1,11 @@
-// Type definitions for Highcharts 5.0.13
+// Type definitions for Highcharts 5.0
 // Project: http://www.highcharts.com/
 // Definitions by: Damiano Gambarotto <https://github.com/damianog>
 //                 Dan Lewi Harkestad <https://github.com/baltie>
 //                 Albert Ozimek <https://github.com/AlbertOzimek>
 //                 Juliën Hanssens <https://github.com/hanssens>
+//                 Johns Gresham <https://github.com/jgresham>
+//                 ArunkeshavaReddy Sankaramaddi <https://github.com/Arunkeshavareddy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -2233,6 +2235,10 @@ declare namespace Highcharts {
          */
         resetZoomButton?: ChartResetZoomButton;
         /**
+         * Options for a scrollable plot area
+         */
+        scrollablePlotArea?: ScrollablePropArea;
+        /**
          * The background color of the marker square when selecting (zooming in on) an area of the chart.
          * @default 'rgba(69,114,167,0.25)'
          * @since 2.1.7
@@ -2977,6 +2983,21 @@ declare namespace Highcharts {
          */
         printChart?: string;
         /**
+         * The text for the label for the "from" input box in the range selector.
+         * @default 'From'
+         */
+        rangeSelectorFrom?: string;
+        /**
+         * The text for the label for the "to" input box in the range selector.
+         * @default 'To'
+         */
+        rangeSelectorTo?: string;
+        /**
+         * The text for the label for the range selector buttons.
+         * @default 'Zoom'
+         */
+        rangeSelectorZoom?: String;
+        /**
          * The text for the label appearing when a chart is zoomed.
          * @default 'Reset zoom'
          * @since 1.2.4
@@ -3478,6 +3499,11 @@ declare namespace Highcharts {
          * @since 5.0.0
          */
         update(options: TitleOptions): void;
+    }
+
+    interface ScrollablePropArea {
+        minWidth?: number;
+        scrollPositionX?: number;
     }
 
     /**
@@ -4433,7 +4459,10 @@ declare namespace Highcharts {
          * @default 'Solid'
          */
         dashStyle?: string;
-        dataLabels?: DataLabels;
+        /**
+         * Gantt charts use one or more data labels for each series, for showing multiple date periods.
+         */
+        dataLabels?: DataLabels | DataLabels[];
         /**
          * Enable or disable the mouse tracking for a specific series. This includes point tooltips and click events on
          * graphs and points. For large datasets it improves performance.
@@ -4645,6 +4674,14 @@ declare namespace Highcharts {
          */
         lineColor?: string | Gradient;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
+        /**
          * A separate color for the negative part of the area.
          * @since 3.0
          */
@@ -4743,12 +4780,20 @@ declare namespace Highcharts {
          */
         grouping?: boolean;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
          * The maximum allowed pixel width for a column, translated to the height of a bar in a bar chart. This prevents the
          * columns from becoming too wide when there is a small number of points in the chart.
          * @default null
          * @since 4.1.8
          */
         maxPointWidth?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
         /**
          * The minimal height for a column or width for a bar. By default, 0 values are not shown. To visualize a 0 (or
          * close to zero) point, set the minimal point length to a pixel value like 3. In stacked column charts,
@@ -4844,6 +4889,10 @@ declare namespace Highcharts {
          */
         displayNegative?: boolean;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
          * Maximum bubble size. Bubbles will automatically size between the minSize and maxSize to reflect the z value of
          * each bubble. Can be either pixels (when no unit is given), or a percentage of the smallest one of the plot width
          * and height.
@@ -4851,6 +4900,10 @@ declare namespace Highcharts {
          * @since 3.0
          */
         maxSize?: string | number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
         /**
          * Minimum bubble size. Bubbles will automatically size between the minSize and maxSize to reflect the z value of
          * each bubble. Can be either pixels (when no unit is given), or a percentage of the smallest one of the plot width
@@ -5137,6 +5190,14 @@ declare namespace Highcharts {
          */
         dial?: Dial;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
+        /**
          * Allow the dial to overshoot the end of the perimeter axis by this many degrees. Say if the gauge axis goes from 0
          * to 60, a value of 100, or 1000, will show 5 degrees beyond the end of the axis. Defaults to 0.
          * @default 0
@@ -5205,12 +5266,20 @@ declare namespace Highcharts {
          */
         cropTreshold?: number;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
          * The maximum allowed pixel width for a column, translated to the height of a bar in a bar chart. This prevents the
          * columns from becoming too wide when there is a small number of points in the chart.
          * @default null
          * @since 4.1.8
          */
         maxPointWidth?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
         /**
          * The row size - how many Y axis units each heatmap row should span.
          * @default 1
@@ -5229,6 +5298,14 @@ declare namespace Highcharts {
     }
 
     interface LineChart extends SeriesChart {
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
         /**
          * Whether to apply steps to the line. Possible values are left, center and right. Prior to 2.3.5, only left was
          * supported.
@@ -5300,6 +5377,14 @@ declare namespace Highcharts {
          */
         innerSize?: number | string;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
+        /**
          * The minimum size for a pie in response to auto margins. The pie will try to shrink to make room for data labels
          * in side the plot area, but only to this size.
          * @default 80
@@ -5346,6 +5431,14 @@ declare namespace Highcharts {
          * @default 0
          */
         lineWidth?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
     }
 
     interface PyramidChart extends SeriesChart {
@@ -5420,7 +5513,16 @@ declare namespace Highcharts {
         width?: number | string;
     }
 
-    interface ScatterChart extends SeriesChart { }
+    interface ScatterChart extends SeriesChart {
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
+    }
 
     /**
      * A gauge showing values using a filled arc with colors indicating the value. The solid gauge plots values against the
@@ -5456,7 +5558,16 @@ declare namespace Highcharts {
         wrap?: boolean;
     }
 
-    interface SplineChart extends SeriesChart { }
+    interface SplineChart extends SeriesChart {
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
+    }
 
     /**
      * The size of the point shape is determined by its value relative to its siblings values. Requires the module
@@ -5529,12 +5640,20 @@ declare namespace Highcharts {
          */
         levels?: TreeMapLevel[];
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
          * The maximum allowed pixel width for a column, translated to the height of a bar in a bar chart. This prevents the
          * columns from becoming too wide when there is a small number of points in the chart.
          * @default null
          * @since 4.1.8
          */
         maxPointWidth?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
         /**
          * The sort index of the point inside the treemap level.
          * @since 4.1.10
@@ -5599,6 +5718,14 @@ declare namespace Highcharts {
          * @since 5.0.12
          */
         exposeElementToA11y?: boolean;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
         /**
          * This option decides which algorithm is used for placement, and rotation of a word. The choice of algorith is
          * therefore a crucial part of the resulting layout of the wordcloud. It is possible for users to add their own
@@ -5800,6 +5927,14 @@ declare namespace Highcharts {
          */
         legendIndex?: number;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
+        /**
          * The name of the series as shown in the legend, tooltip etc.
          */
         name?: string;
@@ -5834,6 +5969,10 @@ declare namespace Highcharts {
          * Define the visual z index of the series.
          */
         zIndex?: number;
+        /**
+         * When using any indicators, Define the indicators name like 'candlesticksss'.
+         */
+        linkedTo?: string;
     }
 
     interface SeriesOptions extends IndividualSeriesOptions, SeriesChart { }
@@ -5849,6 +5988,7 @@ declare namespace Highcharts {
     interface ColumnRangeChartSeriesOptions extends IndividualSeriesOptions, ColumnRangeChart { }
     interface ErrorBarChartSeriesOptions extends IndividualSeriesOptions, ErrorBarChart { }
     interface FunnelChartSeriesOptions extends IndividualSeriesOptions, FunnelChart { }
+    interface GanttChartSeriesOptions extends IndividualSeriesOptions, SeriesChart { }
     interface GaugeChartSeriesOptions extends IndividualSeriesOptions, GaugeChart { }
     interface HeatMapSeriesOptions extends IndividualSeriesOptions, HeatMapChart { }
     interface LineChartSeriesOptions extends IndividualSeriesOptions, LineChart { }
@@ -5889,6 +6029,10 @@ declare namespace Highcharts {
          * @since 3.0.8
          */
         drilldown?: string;
+        /**
+         * The end value of the point. For gantt datetime axes, the end value is the timestamp in milliseconds since 1970.
+         */
+		end?: number;
         /**
          * Individual point events
          */
@@ -5968,6 +6112,10 @@ declare namespace Highcharts {
          * @default false
          */
         sliced?: boolean;
+        /**
+         * The start value of the point. For gantt datetime axes, the start value is the timestamp in milliseconds since 1970.
+         */
+        start?: number;
         /**
          * The value of the point, resulting in a relative area of the point in the treemap.
          */
@@ -6543,6 +6691,16 @@ declare namespace Highcharts {
         yAxis?: AxisOptions[] | AxisOptions;
     }
 
+    /**
+     * The Gantt chart uses different plot options than the base Highcharts chart Options.
+     */
+    interface GanttOptions extends Options {
+        /**
+         * The specific Gantt Series to append the GanttChart.
+         */
+        series?: GanttChartSeriesOptions[];
+    }
+
     interface GlobalOptions extends Options {
         /**
          * Global options that don't apply to each chart. These options, like the lang options, must be set using the
@@ -6623,16 +6781,10 @@ declare namespace Highcharts {
         /**
          * Set new categories for the axis. Redraws.
          * @param categories The new category names.
+         * @param redraw Whether to redraw the axis or wait for an explicit call to chart.redraw().
          * @since 1.2.0
          */
-        setCategories(categories: string[]): void;
-        /**
-         * Set new categories for the axis.
-         * @param categories The new category names.
-         * @param  redraw     Whether to redraw the axis or wait for an explicit call to chart.redraw().
-         * @since 1.2.0
-         */
-        setCategories(categories: string[], redraw: boolean): void;
+        setCategories(categories: string[], redraw?: boolean): void;
         /**
          * Set the minimum and maximum of the axes after render time. If the startOnTick and endOnTick options are true, the
          * minimum and maximum values are rounded off to the nearest tick. To prevent this, these options can be set to
@@ -6745,22 +6897,6 @@ declare namespace Highcharts {
         /**
          * Exporting module required. Submit an SVG version of the chart to a server along with some parameters for
          * conversion.
-         * @since 2.0
-         */
-        exportChart(): void;
-        /**
-         * Exporting module required. Submit an SVG version of the chart to a server along with some parameters for
-         * conversion.
-         * @param options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method.
-         * All options default to the values given in the exporting config options. filename: the filename for the export without extension,
-         * url: the URL for the server module to do the conversion, width: the width of the PNG or JPEG image generated on the server,
-         * type: the MIME type of the converted image, sourceWidth: the width of the source (in-page) chart, sourceHeight: the height of the source chart.
-         * @since 2.0
-         */
-        exportChart(options: ExportingOptions): void;
-        /**
-         * Exporting module required. Submit an SVG version of the chart to a server along with some parameters for
-         * conversion.
          * @param options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method.
          * All options default to the values given in the exporting config options. filename: the filename for the export without extension,
          * url: the URL for the server module to do the conversion, width: the width of the PNG or JPEG image generated on the server,
@@ -6768,31 +6904,17 @@ declare namespace Highcharts {
          * @param chartOptions Additional chart options for the exported chart. For example a different background color can be added here.
          * @since 2.0
          */
-        exportChart(options: ExportingOptions, chartOptions: Options): void;
+        exportChart(options?: ExportingOptions, chartOptions?: Options): void;
         /**
          * Export the chart to a PNG or SVG without sending it to a server. Requires
          * modules/exporting.js and modules/offline-exporting.js.
-         * @since 2.0
-         */
-        exportChartLocal(): void;
-        /**
-         * Export the chart to a PNG or SVG without sending it to a server. Requires
-         * modules/exporting.js and modules/offline-exporting.js.
-         * @param options Exporting options. Same as
-         * the exportChart params.
-         * @since 2.0
-         */
-        exportChartLocal(options: ExportingOptions): void;
-        /**
-         * Export the chart to a PNG or SVG without sending it to a server.
-         * Requires modules/exporting.js and modules/offline-exporting.js.
          * @param options Exporting options. Same as
          * the exportChart params.
          * @param chartOptions Additional chart options for the
          * exported chart. Same as the exportChart params.
          * @since 2.0
          */
-        exportChartLocal(options: ExportingOptions, chartOptions: Options): void;
+        exportChartLocal(options?: ExportingOptions, chartOptions?: Options): void;
         /**
          * Get an axis, series or point by its id as given in the configuration options.
          * @param  id The id of the axis, series or point to get.
@@ -6936,23 +7058,12 @@ declare namespace Highcharts {
         /**
          * This is the constructor for creating a new chart object.
          * @param  options The chart options
-         */
-        new (options: Options): ChartObject;
-        /**
-         * This is the constructor for creating a new chart object.
-         * @param options The chart options
          * @param callback A function to execute when the chart object is finished loading and rendering. In most cases the chart is built in one thread,
          * but in Internet Explorer version 8 or less the chart is sometimes initiated before the document is ready,
          * and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart().
          * s a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
          */
-        new (options: Options, callback: (chart: ChartObject) => void): ChartObject;
-        /**
-         * This is the constructor for creating a new chart object.
-         * @param renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
-         * @param options The chart options
-         */
-        new (renderTo: string | HTMLElement, options: Options): ChartObject;
+        new (options: Options, callback?: (chart: ChartObject) => void): ChartObject;
         /**
          * This is the constructor for creating a new chart object.
          * @param renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
@@ -6962,7 +7073,7 @@ declare namespace Highcharts {
          * and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart().
          * As a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
          */
-        new (renderTo: string | HTMLElement, options: Options, callback: (chart: ChartObject) => void): ChartObject;
+        new (renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
     }
 
     /**
@@ -7173,7 +7284,11 @@ declare namespace Highcharts {
          * As Highcharts.Chart, but without need for the new keyword.
          * @since 4.2.0
          */
-        chart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
+		chart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
+		/**
+		 * Highcharts ganttChart which doesn't require the new keyword. Required Highcharts Gantt module.
+		 */
+		ganttChart(renderTo: string | HTMLElement, options: GanttOptions, callback?: (chart: ChartObject) => void): ChartObject;
         /**
          * An array containing the current chart objects in the page. A chart's position in the array is preserved
          * throughout the page's lifetime. When a chart is destroyed, the array item becomes undefined.
@@ -7540,17 +7655,10 @@ declare global {
          * Creates a new Highcharts.Chart for the current JQuery selector; usually
          * a div selected by $('#container')
          * @param options Options for this chart
-         * @return current {JQuery} selector the current JQuery selector
-         */
-        highcharts(options: Highcharts.Options): JQuery;
-        /**
-         * Creates a new Highcharts.Chart for the current JQuery selector; usually
-         * a div selected by $('#container')
-         * @param options Options for this chart
          * @param callback Callback function used to manipulate the constructed chart instance
          * @return current {JQuery} selector the current JQuery selector
          */
-        highcharts(options: Highcharts.Options, callback: (chart: Highcharts.ChartObject) => void): JQuery;
+        highcharts(options: Highcharts.Options, callback?: (chart: Highcharts.ChartObject) => void): JQuery;
     }
 }
 

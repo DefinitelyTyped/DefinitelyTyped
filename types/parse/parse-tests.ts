@@ -1,22 +1,3 @@
-
-
-function test_events() {
-
-    const object = new Parse.Events();
-    object.on("alert", (eventName: string) => alert("Triggered " + eventName));
-
-    object.trigger("alert", "an event");
-
-    const onChange = () => console.log('whatever');
-    let context: any;
-
-    object.off("change", onChange);
-    object.off("change");
-    object.off(null, onChange);
-    object.off(null, null, context);
-    object.off();
-}
-
 class GameScore extends Parse.Object {
 
     constructor(options?: any) {
@@ -31,6 +12,10 @@ class Game extends Parse.Object {
 
         super("Game", options);
     }
+}
+
+function test_config() {
+    Parse.Config.save({ foo: 'bar' });
 }
 
 function test_object() {
@@ -70,10 +55,18 @@ function test_object() {
     gameScore.increment("score");
     gameScore.addUnique("skills", "flying");
     gameScore.addUnique("skills", "kungfu");
-
+    gameScore.addAll("skills", ["kungfu"]);
+    gameScore.addAllUnique("skills", ["kungfu"]);
+    gameScore.remove('skills', 'flying');
+    gameScore.removeAll('skills', ["kungFu"]);
     game.set("gameScore", gameScore);
 
     const gameCopy = Game.fromJSON(JSON.parse(JSON.stringify(game)), true);
+
+    const object = new Parse.Object('TestObject');
+    object.equals(gameScore);
+    object.fetchWithInclude(['key1', 'key2']);
+
 }
 
 function test_query() {
@@ -106,6 +99,7 @@ function test_query() {
     // Restricts to wins >= 50
     query.greaterThanOrEqualTo("wins", 50);
 
+    query.containedBy('place', ['1', '2']);
     // Finds scores from any of Jonathan, Dario, or Shawn
     query.containedIn("playerName",
         ["Jonathan Walsh", "Dario Wunsch", "Shawn Simon"]);
@@ -128,13 +122,15 @@ function test_query() {
 
     // Find objects where the array in arrayKey contains all of the elements 2, 3, and 4.
     query.containsAll("arrayKey", [2, 3, 4]);
+    query.containsAllStartingWith("arrayKey", [2, 3, 4]);
 
     query.startsWith("name", "Big Daddy's");
     query.equalTo("score", gameScore);
     query.exists("score");
     query.include("score");
     query.include(["score.team"]);
-
+    query.includeAll();
+    query.sortByTextScore();
     // Find objects that match the aggregation pipeline
     query.aggregate({
         group:{
@@ -148,13 +144,26 @@ function test_query() {
     const testQuery = Parse.Query.or(query, query);
 }
 
-class TestCollection extends Parse.Collection<Object> {
+async function test_query_promise() {
+    // Test promise with a query
+    const findQuery = new Parse.Query('Test');
+    findQuery.find()
+    .then(() => {
+        // success
+    }).catch(() => {
+        // error
+    });
 
-    constructor(models?: Parse.Object[]) {
-
-        super(models);
+    const getQuery = new Parse.Query('Test');
+    try {
+        await getQuery.get('objectId');
+    }
+    catch (error) {
+        // noop
     }
 }
+
+
 
 function return_a_generic_query(): Parse.Query<Game> {
     return new Parse.Query(Game);
@@ -162,49 +171,6 @@ function return_a_generic_query(): Parse.Query<Game> {
 
 function return_a_query(): Parse.Query {
     return new Parse.Query(Game);
-}
-
-function test_collections() {
-
-    let collection = new TestCollection();
-
-    const query = new Parse.Query(Game);
-    query.equalTo("temperature", "hot");
-    query.greaterThan("degreesF", 100);
-
-    collection = query.collection();
-
-    collection.comparator = (object) => {
-        return object.get("temperature");
-    };
-
-    collection.add([
-        { "name": "Duke" },
-        { "name": "Scarlett" }
-    ]);
-
-    collection.fetch().then(
-        (data) => {
-
-        },
-        (error) => {
-            console.log("Error: " + error.code + " " + error.message);
-        }
-    );
-
-    const model = collection.at(0);
-
-    // Or you can get it by Parse objectId.
-    const modelAgain = collection.get(model.id);
-
-    // Remove "Duke" from the collection.
-    collection.remove(model);
-
-    // Completely replace all items in the collection.
-    collection.reset([
-        { "name": "Hawk" },
-        { "name": "Jane" }
-    ]);
 }
 
 function test_file() {
@@ -271,6 +237,15 @@ function test_user() {
     user.signUp(null, { useMasterKey: true });
 }
 
+async function test_user_currentAsync() {
+    const asyncUser = await Parse.User.currentAsync();
+    if (asyncUser) {
+        asyncUser.set('email', 'email@example.com');
+    } else if (asyncUser === null) {
+        Parse.User.logIn('email@example.com', 'my pass');
+    }
+}
+
 function test_user_acl_roles() {
 
     const user = new Parse.User();
@@ -289,6 +264,12 @@ function test_user_acl_roles() {
     }
 
     Parse.User.become("session-token-here").then(function (user) {
+        // The current user is now set to user.
+    }, function (error) {
+        // The token could not be validated.
+    });
+
+    Parse.User.hydrate({}).then(function (user) {
         // The current user is now set to user.
     }, function (error) {
         // The token could not be validated.
@@ -394,33 +375,40 @@ function test_cloud_functions() {
     });
 
     Parse.Cloud.afterSave('MyCustomClass', (request: Parse.Cloud.AfterSaveRequest) => {
+        if(!request.context) {
+            throw new Error('Request context should be defined')
+        }
         // result
     });
 
-    Parse.Cloud.beforeDelete('MyCustomClass', (request: Parse.Cloud.BeforeDeleteRequest,
-        response: Parse.Cloud.BeforeDeleteResponse) => {
+    Parse.Cloud.beforeDelete('MyCustomClass', (request: Parse.Cloud.BeforeDeleteRequest) => {
+        // result
+    });
+
+    Parse.Cloud.beforeDelete('MyCustomClass', async (request: Parse.Cloud.BeforeDeleteRequest) => {
         // result
     });
 
     const CUSTOM_ERROR_INVALID_CONDITION = 1001
     const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002
 
-    Parse.Cloud.beforeSave('MyCustomClass', (request: Parse.Cloud.BeforeSaveRequest,
-        response: Parse.Cloud.BeforeSaveResponse) => {
-
+    Parse.Cloud.beforeSave('MyCustomClass', async (request: Parse.Cloud.BeforeSaveRequest) => {
+        
             if (request.object.isNew()) {
-                if (!request.object.has('immutable')) return response.error('Field immutable is required')
+                if (!request.object.has('immutable')) throw new Error('Field immutable is required')
             } else {
                 const original = request.original;
                 if (original == null) { // When the object is not new, request.original must be defined
-                    return response.error(CUSTOM_ERROR_INVALID_CONDITION, 'Original must me defined for an existing object')
+                    throw new Parse.Error(CUSTOM_ERROR_INVALID_CONDITION, 'Original must me defined for an existing object')
                 }
 
                 if (original.get('immutable') !== request.object.get('immutable')) {
-                    return response.error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed')
+                    throw new Parse.Error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed')
                 }
             }
-            response.success()
+            if(!request.context) {
+                throw new Error('Request context should be defined')
+            }
     });
 
     Parse.Cloud.beforeFind('MyCustomClass', (request: Parse.Cloud.BeforeFindRequest) => {
@@ -436,6 +424,30 @@ function test_cloud_functions() {
         request.readPreference = Parse.Cloud.ReadPreferenceOption.Secondary
         request.readPreference = Parse.Cloud.ReadPreferenceOption.SecondaryPreferred
         request.readPreference = Parse.Cloud.ReadPreferenceOption.Nearest
+    });
+
+    Parse.Cloud.beforeFind('MyCustomClass', (request: Parse.Cloud.BeforeFindRequest) => {
+        let query = request.query; // the Parse.Query
+
+        return new Parse.Query("QueryMe!");
+    });
+
+    Parse.Cloud.beforeFind('MyCustomClass', async (request: Parse.Cloud.BeforeFindRequest) => {
+        let query = request.query; // the Parse.Query
+
+        return new Parse.Query("QueryMe, IN THE FUTURE!");
+    });
+
+    Parse.Cloud.afterFind('MyCustomClass', async (request: Parse.Cloud.AfterFindRequest) => {
+        return new Parse.Object('MyCustomClass');
+    });
+
+    Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
+        return 'Some result';
+    });
+
+    Parse.Cloud.job('AJob', (request: Parse.Cloud.JobRequest) => {
+        request.message('Message to associate with this job run');
     });
 }
 
@@ -500,34 +512,6 @@ function test_push() {
         });
 }
 
-function test_view() {
-
-    const model = Parse.User.current();
-    const view = new Parse.View<Parse.User>();
-}
-
-function test_promise() {
-    let resolved = Parse.Promise.as(true);
-    let rejected = Parse.Promise.error("an error object");
-    Parse.Promise.when([resolved, rejected]).then(function () {
-        // success
-    }, function () {
-        // failed
-    });
-
-    // Test promise with a query
-    const query = new Parse.Query('Test');
-    query.find()
-    .then(() => {
-        // success
-    }).catch(() => {
-        // error
-    });
-
-    // can check whether an object is a Parse.Promise object or not
-    Parse.Promise.is(resolved);
-}
-
 function test_batch_operations() {
     const game1 = new Game()
     const game2 = new Game()
@@ -557,5 +541,51 @@ function test_query_subscribe() {
     subscription.on('create', (game: any) => {
         console.log(game);
     });
+
+    // unsubscribe
+    subscription.unsubscribe();
 }
 
+function test_serverURL() {
+    Parse.serverURL = 'http://localhost:1337/parse';
+}
+function test_polygon() {
+    const point = new Parse.GeoPoint(1,2);
+    const polygon1 = new Parse.Polygon([[0,0], [1,0], [1,1], [0,1]]);
+    const polygon2 = new Parse.Polygon([point, point, point]);
+    polygon1.equals(polygon2);
+    polygon1.containsPoint(point);
+
+    const query = new Parse.Query('TestObject');
+    query.polygonContains('key', point);
+    query.withinPolygon('key', [point, point, point]);
+}
+
+async function test_local_datastore() {
+    Parse.enableLocalDatastore();
+    const name = 'test_pin';
+    const obj = new Parse.Object('TestObject');
+    await obj.pin();
+    await obj.unPin();
+    await obj.isPinned();
+    await obj.pinWithName(name);
+    await obj.unPinWithName(name);
+    await obj.fetchFromLocalDatastore();
+
+    await Parse.Object.pinAll([obj]);
+    await Parse.Object.unPinAll([obj]);
+    await Parse.Object.pinAllWithName(name, [obj]);
+    await Parse.Object.unPinAllWithName(name, [obj]);
+    await Parse.Object.unPinAllObjects();
+    await Parse.Object.unPinAllObjectsWithName(name);
+
+    const flag = Parse.isLocalDatastoreEnabled();
+    const LDS = await Parse.dumpLocalDatastore();
+
+    const query = new Parse.Query('TestObject');
+    query.fromPin();
+    query.fromPinWithName(name);
+    query.fromLocalDatastore();
+
+    Parse.setLocalDatastoreController({});
+}

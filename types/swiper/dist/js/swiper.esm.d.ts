@@ -1,9 +1,9 @@
-import Swiper, { DOM7Element } from '../..';
+import Swiper, { DOM7Element } from '../../index';
 
 // Reexport everything from `swiper` except the default export of the
 // `Swiper` class, which is instead provided as a named export by
 // `swiper.esm`.
-export * from '../..';
+export * from '../../index';
 export { Swiper };
 
 /*

@@ -44,6 +44,8 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
             }
         });
 
+        requestQuery.query`SELECT * FROM TABLE`.then(res => { });
+
         getArticlesQuery = "SELECT 1 as value FROM TABLE";
 
         requestQuery.query<Entity>(getArticlesQuery, function (err, result) {
@@ -172,6 +174,7 @@ function test_promise_returns() {
     request.batch<Entity>('create procedure #temporary as select * from table;select 1 as value').then((recordset) => { });
     request.bulk(new sql.Table("table_name")).then(() => { });
     request.query('SELECT 1').then((recordset) => { });
+    request.query`SELECT ${1} as value`.then(res => { });
     request.query<Entity>('SELECT 1 as value').then(res => { });
     request.execute('procedure_name').then((recordset) => { });
 }
@@ -187,6 +190,16 @@ function test_request_constructor() {
     var request2 = new sql.Request(preparedStatment);
     var request3 = new sql.Request(transaction);
     var request4 = new sql.Request();
+}
+
+function test_prepared_statement_constructor() {
+    // Request can be constructed with a connection, preparedStatment, transaction or no arguments
+    var connection: sql.ConnectionPool = new sql.ConnectionPool(config);
+    var preparedStatment = new sql.PreparedStatement(connection);
+    var transaction = new sql.Transaction(connection);
+
+    var preparedSatement1 = new sql.PreparedStatement(connection);
+    var preparedSatement2 = new sql.PreparedStatement(transaction);
 }
 
 function test_classes_extend_eventemitter() {

@@ -1,7 +1,13 @@
 // Type definitions for Underscore 1.8
 // Project: http://underscorejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, Josh Baldwin <https://github.com/jbaldwin>, Christopher Currens <https://github.com/ccurrens>, Cassey Lottman <https://github.com/clottman>, Ard Timmerman <https://github.com/confususs>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>,
+//                 Josh Baldwin <https://github.com/jbaldwin>,
+//                 Christopher Currens <https://github.com/ccurrens>,
+//                 Ard Timmerman <https://github.com/confususs>,
+//                 Julian Gonggrijp <https://github.com/jgonggrijp>,
+//                 Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare var _: _.UnderscoreStatic;
 export = _;
@@ -69,6 +75,10 @@ declare module _ {
         [index: string]: T;
     }
 
+    interface Predicate<T> {
+        (value: T): boolean;
+    }
+
     interface ListIterator<T, TResult> {
         (value: T, index: number, list: List<T>): TResult;
     }
@@ -100,6 +110,7 @@ declare module _ {
         * @param key First argument to Underscore object functions.
         **/
         <T>(value: _.Dictionary<T>): Underscore<T>;
+        <T>(value: _.List<T>): Underscore<T>;
         <T>(value: Array<T>): Underscore<T>;
         <T>(value: T): Underscore<T>;
 
@@ -165,7 +176,7 @@ declare module _ {
         map<T>(
             list: _.List<T>,
             iterator: _.IterateePropertyShorthand,
-            context?: any): T[];
+            context?: any): any[];
 
         map<T>(
             list: _.List<T>,
@@ -553,8 +564,12 @@ declare module _ {
         * @param propertyName The property to look for on each element within `list`.
         * @return The list of elements within `list` that have the property `propertyName`.
         **/
-        pluck<T extends {}>(
+        pluck<T extends {}, K extends keyof T>(
             list: _.List<T>,
+            propertyName: K): T[K][];
+
+        pluck(
+            list: _.List<any>,
             propertyName: string): any[];
 
         /**
@@ -3432,9 +3447,9 @@ declare module _ {
         * @param hashFn Hash function for storing the result of `fn`.
         * @return Memoized version of `fn`.
         **/
-        memoize(
-            fn: Function,
-            hashFn?: (...args: any[]) => string): Function;
+        memoize<T = Function>(
+            fn: T,
+            hashFn?: (...args: any[]) => string): T;
 
         /**
         * Much like setTimeout, invokes function after wait milliseconds. If you pass the optional arguments,
@@ -3782,7 +3797,7 @@ declare module _ {
         * @param attrs Object with key values pair
         * @return Predicate function
         **/
-        matches<T>(attrs: T): _.ListIterator<T, boolean>;
+        matches<T>(attrs: T): _.Predicate<T>;
 
         /**
         * Returns a predicate function that will tell you if a passed in object contains all of the key/value properties present in attrs.
@@ -3790,21 +3805,21 @@ declare module _ {
         * @param attrs Object with key values pair
         * @return Predicate function
         **/
-        matcher<T>(attrs: T): _.ListIterator<T, boolean>;
+        matcher<T>(attrs: T): _.Predicate<T>;
 
         /**
         * Returns a function that will itself return the key property of any passed-in object.
         * @param key Property of the object.
         * @return Function which accept an object an returns the value of key in that object.
         **/
-        property(key: string): (object: Object) => any;
+        property(key: string | string[]): (object: Object) => any;
 
         /**
         * Returns a function that will itself return the value of a object key property.
         * @param key The object to get the property value from.
         * @return Function which accept a key property in `object` and returns its value.
         **/
-        propertyOf(object: Object): (key: string) => any;
+        propertyOf(object: Object): (key: string | string[]) => any;
 
         /**
         * Performs an optimized deep comparison between the two objects,

@@ -7,7 +7,7 @@
  *                                                                         *
  ***************************************************************************/
 
-/** 
+/**
  * @author Richard <richardo2016@gmail.com>
  *
  */
@@ -63,8 +63,8 @@
 /// <reference path="xml.d.ts" />
 /// <reference path="constants.d.ts" />
 
-import _Global from 'global';
-import _Process from 'process';
+import _Global = require('global');
+import _Process = require('process');
 
 type GlobalExportsType = any;
 interface ModuleType {

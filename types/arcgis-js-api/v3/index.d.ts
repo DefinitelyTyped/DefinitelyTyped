@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.26
+// Type definitions for ArcGIS API for JavaScript 3.28
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -560,7 +560,7 @@ declare module "esri" {
     /** An array of driving time break values. */
     breakValues?: number[];
     /** The point feature layer around which drive-time areas will be drawn. */
-    inputLayer: FeatureLayer;
+    inputLayers: FeatureLayer[];
     /** The geometry type of the input layer. */
     inputType?: string;
     /** Reference to the map object. */
@@ -1351,6 +1351,8 @@ declare module "esri" {
     clip?: number;
     /** If the widget is enabled and layers can be swiped. */
     enabled?: boolean;
+    /** Indicates whether layer placement should be inverted (switched). */
+    invertPlacement?: boolean;
     /** The layers to be swiped. */
     layers: Layer[];
     /** The number of pixels to place the tool from the left of the map. */
@@ -2532,7 +2534,7 @@ declare module "esri/Credential" {
   class Credential {
     /** Token expiration time specified as number of milliseconds since 1 January 1970 00:00:00 UTC. */
     expires: number;
-    /** Indicates whether this credential belongs to a user with admin privileges. */
+    /** Indicates that this credential was created to access the ArcGIS REST Admin service */
     isAdmin: boolean;
     /** The Identity Manager's  setOAuthRedirectionHandler returns an object that contains a "state" parameter. */
     oAuthState: any;
@@ -2600,6 +2602,12 @@ declare module "esri/IdentityManagerBase" {
     tokenValidity: number;
     /** If your application is on the same domain as *.arcgis.com or ArcGIS Enterprise Server, the IdentityManager will redirect the user to its sign-in page. */
     useSignInPage: boolean;
+    /**
+     * Returns a Credential object if the user has already signed in to access the given resource and is allowed to do so when using the given application id.
+     * @param resUrl The resource URL.
+     * @param appId The registered OAuth application id.
+     */
+    checkAppAccess(resUrl: string, appId: string): any;
     /**
      * Returns the credential (via Deferred) if the user has already signed in to access the given resource.
      * @param resUrl The resource URL.
@@ -2891,7 +2899,7 @@ declare module "esri/SnappingManager" {
 }
 
 declare module "esri/SpatialReference" {
-  /** The spatial reference of a map, layer, or inputs to and outputs from a task. */
+  /** Defines the spatial reference of a map, layer, or task parameters. */
   class SpatialReference {
     /** The well-known ID of a spatial reference. */
     wkid: number;
@@ -2951,6 +2959,54 @@ declare module "esri/TimeExtent" {
     offset(offsetValue: number, offsetUnits: string): TimeExtent;
   }
   export = TimeExtent;
+}
+
+declare module "esri/arcadeProfiles/fieldCalculateProfile" {
+  /** Module that implements the Arcade field calculate profile in web apps that calculate field values using Arcade expressions. */
+  var fieldCalculateProfile: {
+    /**
+     * Initializes the field calculate profile for the given Arcade expressions.
+     * @param expressions An array of Arcade expressions intended for use in the calculate profile.
+     */
+    initialize(expressions: string[]): any;
+  };
+  export = fieldCalculateProfile;
+}
+
+declare module "esri/arcadeProfiles/labelingProfile" {
+  /** Module that implements the Arcade labeling profile in web apps that label features using Arcade expressions. */
+  var labelingProfile: {
+    /**
+     * Initializes the labeling profile for the given Arcade expressions.
+     * @param expressions An array of Arcade expressions intended for use in a label class.
+     */
+    initialize(expressions: string[]): any;
+  };
+  export = labelingProfile;
+}
+
+declare module "esri/arcadeProfiles/popupProfile" {
+  /** Module that implements the Arcade popup profile for web apps that contain popups that reference Arcade expressions. */
+  var popupProfile: {
+    /**
+     * Initializes the popup profile for the given Arcade expressions.
+     * @param expressions An array of Arcade expressions intended for use in a popup template.
+     */
+    initialize(expressions: string[]): any;
+  };
+  export = popupProfile;
+}
+
+declare module "esri/arcadeProfiles/visualizationProfile" {
+  /** Module that implements the Arcade visualization profile in web apps that render features using Arcade expressions. */
+  var visualizationProfile: {
+    /**
+     * Initializes the visualization profile for the given Arcade expressions.
+     * @param expressions An array of Arcade expressions intended for use in a renderer.
+     */
+    initialize(expressions: string[]): any;
+  };
+  export = visualizationProfile;
 }
 
 declare module "esri/arcgis/OAuthInfo" {
@@ -3421,19 +3477,19 @@ declare module "esri/basemaps" {
   var basemaps: {
     /** The Light Gray Canvas basemap is designed to be used as a neutral background map for overlaying and emphasizing other map layers. */
     gray: any;
-    /** The World Imagery map is a detailed imagery map layer and labels that is designed to be used as a basemap for various maps and applications. */
+    /** The World Imagery with Labels map is a detailed imagery map layer and labels that is designed to be used as a basemap for various maps and applications: https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer   https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer */
     hybrid: any;
     /** The Ocean Basemap is designed to be used as a basemap by marine GIS professionals and as a reference map by anyone interested in ocean data. */
     oceans: any;
     /** The OpenStreetMap is a community map layer that is designed to be used as a basemap for various maps and applications. */
     osm: any;
-    /** The World Imagery map is a detailed imagery map layer that is designed to be used as a basemap for various maps and applications. */
+    /** The World Imagery map is a detailed imagery map layer that is designed to be used as a basemap for various maps and applications:  https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer. */
     satellite: any;
-    /** The Streets basemap presents a multiscale street map for the world. */
+    /** The Streets basemap presents a multiscale street map for the world: https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer. */
     streets: any;
     /** The Terrain with Labels basemap is designed to be used to overlay and emphasize other thematic map layers. */
     terrain: any;
-    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings. */
+    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings: https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer */
     topo: any;
   };
   export = basemaps;
@@ -4827,6 +4883,8 @@ declare module "esri/dijit/LayerSwipe" {
     clip: number;
     /** If the widget is enabled and layers can be swiped. */
     enabled: boolean;
+    /** Indicates whether layer placement should be inverted (switched). */
+    invertPlacement: boolean;
     /** The layers to be swiped. */
     layers: Layer[];
     /** The number of pixels to place the tool from the left of the map. */
@@ -6285,7 +6343,7 @@ declare module "esri/dijit/analysis/CreateDriveTimeAreas" {
     /** An array of driving time break values. */
     breakValues: number[];
     /** The point feature layer around which drive-time areas will be drawn. */
-    inputLayer: FeatureLayer;
+    inputLayers: FeatureLayer[];
     /** The geometry type of the input layer. */
     inputType: string;
     /** Reference to the map object. */
@@ -9073,6 +9131,8 @@ declare module "esri/graphic" {
     getNode(): any;
     /** Returns one or more DOM nodes used to draw the graphic. */
     getNodes(): any;
+    /** Applicable to label graphics. */
+    getParentGraphic(): Graphic;
     /** Returns the dojox/gfx/shape.Shape of the Esri graphic. */
     getShape(): any;
     /** Returns one or more dojox/gfx/shape.Shape used to draw the graphic. */
@@ -9168,8 +9228,9 @@ declare module "esri/lang" {
      * @param data The data object used in the substitution.
      * @param template The template used for the substitution.
      * @param first When true, returns only the first property found in the data object.
+     * @param format The format object used in the substitution.
      */
-    substitute(data: any, template?: string, first?: boolean): string;
+    substitute(data: any, template?: string, first?: boolean, format?: any): string;
     /**
      * Iterates through the argument array and searches for the identifier to which the argument value matches.
      * @param array The argument array for testing.
@@ -9940,6 +10001,8 @@ declare module "esri/layers/FeatureLayer" {
     displayField: string;
     /** Indicates the field names for the editor fields. */
     editFieldsInfo: any;
+    /** Applicable to ArcGIS Online hosted feature services. */
+    editingInfo: any;
     /** The array of fields in the layer. */
     fields: Field[];
     /** The full extent of the layer. */
@@ -9994,6 +10057,8 @@ declare module "esri/layers/FeatureLayer" {
     supportsAttachmentsByUploadId: boolean;
     /** When true, the layer supports the Calculate REST operation when updating features. */
     supportsCalculate: boolean;
+    /** If true, the layer supports a user-defined field description. */
+    supportsFieldDescription: boolean;
     /** When true, the layer supports statistical functions in query operations. */
     supportsStatistics: boolean;
     /** When true, the layer is suspended. */
@@ -10314,6 +10379,8 @@ declare module "esri/layers/FeatureLayer" {
     on(type: "query-limit-exceeded", listener: (event: { target: FeatureLayer }) => void): esri.Handle;
     /** Fires when queryRelatedFeatures() is complete. */
     on(type: "query-related-features-complete", listener: (event: { relatedFeatures: any; target: FeatureLayer }) => void): esri.Handle;
+    /** Fires right before the actual refresh kicks in for the layer, and only fires when the refresh is triggered by the refreshInterval. */
+    on(type: "refresh-tick", listener: (event: { target: FeatureLayer }) => void): esri.Handle;
     /** Fires when a layer resumes drawing. */
     on(type: "resume", listener: (event: { target: FeatureLayer }) => void): esri.Handle;
     /** Fires when a layer's minScale and/or maxScale is changed. */
@@ -10406,6 +10473,8 @@ declare module "esri/layers/Field" {
   class Field {
     /** The alias name for the field. */
     alias: string;
+    /** A string that describes the default value set for a field. */
+    defaultValue: string;
     /** Domain associated with the field. */
     domain: Domain;
     /** Indicates whether the field is editable. */
@@ -12419,7 +12488,7 @@ declare module "esri/map" {
     getMinScale(): number;
     /** Returns the minimum zoom level of the map. */
     getMinZoom(): number;
-    /** Returns the current map scale. */
+    /** Returns the map scale at the center of the view. */
     getScale(): number;
     /** Returns the current zoom level of the map. */
     getZoom(): number;
@@ -14007,6 +14076,108 @@ declare module "esri/request" {
     setRequestPreCallback(callbackFunction: Function): void;
   };
   export = request;
+}
+
+declare module "esri/styles/basic" {
+  /** This module contains a collection of themes suitable for basic visualization of features i.e. */
+  var basic: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = basic;
+}
+
+declare module "esri/styles/choropleth" {
+  /** This module contains a collection of themes suitable for unclassed and classed choropleth mapping. */
+  var choropleth: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = choropleth;
+}
+
+declare module "esri/styles/heatmap" {
+  /** This module contains a collection of themes suitable for visualizing features using a heatmap. */
+  var heatmap: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = heatmap;
+}
+
+declare module "esri/styles/relationship" {
+  /** This module contains a collection of color schemes suitable for creating relationship (or bivariate choropleth) visualizations. */
+  var relationship: {
+    /**
+     * Returns themes available for the given basemap.
+     * @param basemap Specifies the basemap name if you only want themes applicable to a specific basemap, for example: streets, gray, topo,  terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap: string): any[];
+    /**
+     * Returns the primary and secondary color schemes for the given theme, basemap, and geometry type.
+     * @param params See the params Object Specifications table below for a description of the method parameters.
+     */
+    getSchemes(params: any): any;
+  };
+  export = relationship;
+}
+
+declare module "esri/styles/size" {
+  /** This module contains a collection of themes useful for visualizing points and lines by varying their size to show data. */
+  var size: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = size;
+}
+
+declare module "esri/styles/type" {
+  /** This module contains a collection of themes suitable for visualizing features by their type. */
+  var type: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = type;
 }
 
 declare module "esri/support/expressionUtils" {

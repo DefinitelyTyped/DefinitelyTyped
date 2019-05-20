@@ -1,5 +1,5 @@
-// Type definitions for plotly.js 1.38
-// Project: https://plot.ly/javascript/
+// Type definitions for plotly.js 1.44
+// Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
 //                 Frederik Aalund <https://github.com/frederikaalund>
@@ -10,6 +10,9 @@
 //                 Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
 //                 Jon Freedman <https://github.com/jonfreedman>
 //                 Megan Riel-Mehan <https://github.com/meganrm>
+//                 Josh Miles <https://github.com/milesjos>
+//                 Pramod Mathai  <https://github.com/skippercool>
+//                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -205,7 +208,17 @@ export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLEl
 
 // Layout
 export interface Layout {
-	title: string;
+	title: string | Partial<{
+		text: string;
+		font: Partial<Font>;
+		xref: 'container' | 'paper';
+		yref: 'container' | 'paper';
+		x: number;
+		y: number;
+		xanchor: 'auto' | 'left' | 'center' | 'right';
+		yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+		pad: Partial<Padding>
+	}>;
 	titlefont: Partial<Font>;
 	autosize: boolean;
 	showlegend: boolean;
@@ -250,7 +263,7 @@ export interface Layout {
 	ternary: {}; // TODO
 	geo: {}; // TODO
 	mapbox: {}; // TODO
-	radialaxis: {}; // TODO
+	radialaxis: Partial<Axis>;
 	angularaxis: {}; // TODO
 	direction: 'clockwise' | 'counterclockwise';
 	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable';
@@ -264,6 +277,8 @@ export interface Layout {
 	font: Partial<Font>;
 	scene: Partial<Scene>;
 	barmode: "stack" | "group" | "overlay" | "relative";
+	bargap: number;
+	bargroupgap: number;
 }
 
 export interface Legend extends Label {
@@ -479,7 +494,9 @@ export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 // Bar Scatter
 export interface PlotData {
-	type: 'bar' | 'histogram' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' | 'surface';
+	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'mesh3d' |
+		'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
+		'scatterpolar' | 'scatterternary' | 'surface';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -515,21 +532,46 @@ export interface PlotData {
 	'x' | 'x+text' | 'x+name' |
 	'x+y' | 'x+y+text' | 'x+y+name' |
 	'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
-	'y+x' | 'y+x+text' | 'y+x+name' |
+	'y+name'| 'y+x' | 'y+x+text' | 'y+x+name' |
 	'y+z' | 'y+z+text' | 'y+z+name' |
 	'y+x+z' | 'y+x+z+text' | 'y+x+z+name' |
 	'z+x' | 'z+x+text' | 'z+x+name' |
 	'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
 	'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
 	hoverlabel: Partial<Label>;
+	textinfo: 'label' | 'label+text' | 'label+value' | 'label+percent' | 'label+text+value'
+	| 'label+text+percent' | 'label+value+percent' | 'text' | 'text+value' | 'text+percent'
+	| 'text+value+percent' | 'value' | 'value+percent' | 'percent' | 'none';
+	textposition: "top left" | "top center" | "top right" | "middle left"
+	| "middle center" | "middle right" | "bottom left" | "bottom center" | "bottom right" | "inside";
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
 	legendgroup: string;
 	name: string;
+	stackgroup: string;
 	connectgaps: boolean;
 	visible: boolean | 'legendonly';
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
+	width: number | number[];
+	boxmean: boolean | 'sd';
+	colorscale: string | Array<[number, string]>;
+	zsmooth: 'fast' | 'best' | false;
+	ygap: number;
+	xgap: number;
+	transpose: boolean;
+	autobinx: boolean;
+	xbins: {
+		start: number | string;
+		end: number | string;
+		size: number | string;
+	};
+	values: Datum[];
+	labels: Datum[];
+	hole: number;
+	rotation: number;
+	theta: Datum[];
+	r: Datum[];
 }
 
 /**
@@ -618,6 +660,7 @@ export interface ColorBar {
 export interface PlotMarker {
 	symbol: string | string[]; // Drawing.symbolList
 	color: Color | Color[];
+	colors: Color[];
 	colorscale: string | string[] | Array<Array<(string | number)>>;
 	cauto: boolean;
 	cmax: number;
@@ -769,7 +812,7 @@ export interface Config {
 	 * function to add the background color to a different container
 	 * or 'opaque' to ensure there's white behind it
 	 */
-	setBackground: string | 'opaque' | 'transparent';
+	setBackground: () => string | 'opaque' | 'transparent';
 
 	/** URL to topojson files used in geo charts */
 	topojsonURL: string;
@@ -792,6 +835,9 @@ export interface Config {
 
 	/** Which localization should we use? Should be a string like 'en' or 'en-US' */
 	locale: string;
+
+	/** Make the chart responsive to window size */
+	responsive: boolean;
 }
 
 // Components

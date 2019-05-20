@@ -3,7 +3,7 @@
 
 import * as Hapi from '../../';
 
-var request: Hapi.Request = <any> {};
+declare const request: Hapi.Request;
 
 request.getLog();
 request.getLog('error');

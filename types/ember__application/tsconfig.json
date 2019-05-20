@@ -21,8 +21,10 @@
             "@ember/engine/*": ["ember__engine/*"],
             "@ember/routing": ["ember__routing"],
             "@ember/routing/*": ["ember__routing/*"],
+            "@ember/service": ["ember__service"],
             "@ember/application": ["ember__application"],
-            "@ember/application/*": ["ember__application/*"]
+            "@ember/application/*": ["ember__application/*"],
+            "@ember/controller": ["ember__controller"]
         },
         "types": [],
         "noEmit": true,

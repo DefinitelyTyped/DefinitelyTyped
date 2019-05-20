@@ -10,3 +10,8 @@ const typography = new Typography({
 typography.createStyles(); // $ExpectType string
 typography.toJSON(); // $ExpectType object
 typography.options; // $ExpectType TypographyOptions
+typography.rhythm(2); // $ExpectType string
+typography.scale(2 / 5); // $ExpectType BaseLine
+typography.adjustFontSizeTo(); // $ExpectType object
+typography.linesForFontSize(1); // $ExpectType number
+typography.establishBaseline(); // $ExpectType BaseLine

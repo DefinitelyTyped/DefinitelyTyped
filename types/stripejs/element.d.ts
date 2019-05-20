@@ -47,21 +47,9 @@ export interface ElementCreatorOptions {
      * The translation that should be used for the element text
      * `auto` defaults to the browser language
      *
-     * NOTE: Only use the `string` option in combination with
-     * @see isLanguageTag
-     *
      * @default 'auto'
      */
     locale?: 'auto' | 'da' | 'de' | 'en' | 'es' | 'fi' | 'fr' | 'it' | 'ja' | 'no' | 'nl' | 'sv' | 'zh' | string;
-
-    /**
-     * Whether or not the locale is written in a language code
-     * This can be used in combination with localization libraries so that language names won't have to be formatted
-     * @example `en-US`
-     *
-     * @since 0.1.0
-     */
-    isIETFLocaleTag?: boolean;
 }
 
 export interface FontCSSElement {
@@ -175,10 +163,15 @@ export interface StripeElement {
  * The type of element that can be created by the ElementCreator
  * @see ElementCreator
  */
-export type ElementType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode';
+export type ElementType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton';
 
 // --- ELEMENT EVENTS --- //
 export interface OnChange {
+    /**
+     * The type of the Element that changed.
+     */
+    elementType: ElementType;
+
     /**
      * true if the value is empty
      */
@@ -307,6 +300,7 @@ export interface PaymentButtonOptions {
         complete?: PaymentRequestButtonStyle;
         empty?: PaymentRequestButtonStyle;
         invalid?: PaymentRequestButtonStyle;
+        paymentRequestButton?: PaymentRequestButtonStyle;
     };
 }
 

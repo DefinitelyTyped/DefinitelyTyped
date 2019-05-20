@@ -27,3 +27,4 @@ BSD-2-Clause
 [Aakash Goenka](https://github.com/a-k-g)
 [Rafal2228](https://github.com/rafal2228)
 [Beeno Tung](https://github.com/beenotung)
+[Nikita Koryabkin](https://github.com/Apologiz)

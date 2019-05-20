@@ -1,5 +1,11 @@
 import * as React from 'react';
-import ReactInfiniteCalendar from 'react-infinite-calendar';
+import ReactInfiniteCalendar, {
+    Calendar,
+    withRange,
+    withKeyboardSupport,
+    withMultipleDates,
+    withDateSelection
+} from 'react-infinite-calendar';
 
 const test: React.SFC = () => (
     <ReactInfiniteCalendar
@@ -59,3 +65,8 @@ const test: React.SFC = () => (
         tabIndex={1}
     />
 );
+
+const testWithRange = withRange(Calendar);
+const testWithDateSelection = withDateSelection(Calendar);
+const testWithKeyboardSupport = withKeyboardSupport(Calendar);
+const testWithMultipleDate = withMultipleDates(Calendar);

@@ -65,4 +65,11 @@ export class Foo2 extends Ember.Object {
         name
     });
   }
+
+  bar() {
+      Ember.notifyPropertyChange(this, 'name');
+      Ember.notifyPropertyChange(this); // $ExpectError
+      Ember.notifyPropertyChange('name'); // $ExpectError
+      Ember.notifyPropertyChange(this, 'name', 'bar'); // $ExpectError
+  }
 }

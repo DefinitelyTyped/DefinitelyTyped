@@ -972,8 +972,8 @@ function test_trigger() {
         .trigger("click", ["foo", "bar"]);
 
     var event = jQuery.Event("logged");
-    (<any>event).user = "foo";
-    (<any>event).pass = "bar";
+    (event as any).user = "foo";
+    (event as any).pass = "bar";
     $("body").trigger(event);
 
     // Adapted from jQuery documentation which may be wrong on this occasion
@@ -1594,7 +1594,7 @@ function test_eventParams() {
         $('#log').html(e.type + ': ' + e.which);
     });
     $(window).on('mousewheel', (e) => {
-        var delta = (<WheelEvent>e.originalEvent).deltaY;
+        var delta = (e.originalEvent as WheelEvent).deltaY;
     });
     $( "p" ).click(function( event ) {
       alert( event.currentTarget === this ); // true
@@ -2715,7 +2715,7 @@ function test_fn_extend() {
 }
 
 function test_jquery() {
-    var a = <any>{ what: "A regular JS object" },
+    var a: any = { what: "A regular JS object" },
     b = $('body');
     if (a.jquery) {
         alert(' a is a jQuery object! ');

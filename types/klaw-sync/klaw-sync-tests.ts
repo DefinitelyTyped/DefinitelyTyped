@@ -18,7 +18,8 @@ const options: klawSync.Options = {
         return item.path.indexOf('node_modules') < 0
     },
     depthLimit: 5,
-    fs
+    fs,
+    traverseAll: true
 }
 
 klawSync('/some/dir', options).forEach(outputMessage)

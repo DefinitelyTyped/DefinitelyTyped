@@ -1,7 +1,9 @@
 import * as React from "react";
-import { storiesOf } from "@storybook/react";
-import { withDocs, withReadme, doc } from "storybook-readme";
+import { storiesOf, addDecorator } from "@storybook/react";
+import { withDocs, withReadme, doc, addReadme, configureReadme, addFooter, addHeader } from "storybook-readme";
 import Marked from "storybook-readme/components/Marked";
+import registerWithPanelTitle from "storybook-readme/registerWithPanelTitle";
+import { addReadme as addHtmlReadme } from "storybook-readme/html";
 
 // Possibly any .md files or strings
 const DocExample1 = `
@@ -16,6 +18,32 @@ A very simple component with markdown
 
 // Here are the examples for a type compatibility. Please look https://github.com/tuchk4/storybook-readme for actual usages
 
+// Tests for v5
+registerWithPanelTitle("Custom Name Here");
+addDecorator(addReadme);
+addDecorator(addHtmlReadme);
+storiesOf('addParameter Example', module)
+  .addParameters({
+    readme: {
+      content: DocExample1,
+      sidebar: DocExample2,
+    },
+  })
+  .add('addParameter', () => <div>add Parameter</div>);
+
+configureReadme({
+  header: 'Header text here',
+  footer: 'Footer text here',
+  StoryPreview: ({ children }) => <div>{children}</div>,
+  DocPreview: ({ children }) => <div>{children}</div>,
+  HeaderPreview: ({ children }) => <div>{children}</div>,
+  FooterPreview: ({ children }) => <div>{children}</div>,
+});
+
+addFooter("Add Footer here");
+addHeader("Add Header here");
+
+// !~~~~~ Belows are for backwardCompatibility with v4 ~~~~~!
 // withReadme usages. Both Decorator/HOC style
 storiesOf("withReadme Example", module)
   .addDecorator(withReadme(DocExample1))

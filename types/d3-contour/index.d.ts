@@ -1,10 +1,10 @@
-// Type definitions for d3-contour 1.2
+// Type definitions for d3-contour 1.3
 // Project: https://d3js.org/d3-contour/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Hugues Stefanski <https://github.com/Ledragon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.2.0
+// Last module patch version validated against: 1.3.2
 
 import { MultiPolygon } from 'geojson';
 import { ThresholdNumberArrayGenerator, ThresholdCountGenerator } from 'd3-array';
@@ -168,6 +168,18 @@ export interface ContourDensity<Datum = [number, number]> {
      * y-coordinate.
      */
     y(y: (d: Datum) => number): this;
+
+    /**
+     * Returns the current point weight accessor.
+     */
+    weight(): (d: Datum) => number;
+
+    /**
+     * Sets the point weight accessor and returns the density contour estimator.
+     *
+     * @param weight A point weight accessor function.
+     */
+    weight(weight: (d: Datum) => number): this;
 
     /**
      * Returns the current size, which defaults to [960, 500].

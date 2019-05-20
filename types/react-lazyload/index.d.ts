@@ -1,10 +1,11 @@
-// Type definitions for react-lazyload ver 2.3
+// Type definitions for react-lazyload ver 2.5
 // Project: https://github.com/jasonslyvia/react-lazyload
 // Definitions by: m0a <https://github.com/m0a>
+//                 svobik7 <https://github.com/svobik7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from "react";
+import { Component, ReactNode } from "react";
 
 export interface LazyLoadProps {
     once?: boolean;
@@ -13,11 +14,12 @@ export interface LazyLoadProps {
     overflow?: boolean;
     resize?: boolean;
     scroll?: boolean;
-    children?: JSX.Element;
+    children?: ReactNode;
     throttle?: number | boolean;
     debounce?: number | boolean;
-    placeholder?: any;
+    placeholder?: ReactNode;
     unmountIfInvisible?: boolean;
+    scrollContainer?: string | Element;
 }
 
 export default class LazyLoad extends Component<LazyLoadProps> {

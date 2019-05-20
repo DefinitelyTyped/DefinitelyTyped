@@ -1,4 +1,4 @@
-// Type definitions for office-runtime 1.0
+// Type definitions for non-npm package office-runtime 1.0
 // Project: https://github.com/OfficeDev/office-js
 // Definitions by: Michael Zlatskovsky <https://github.com/Zlatkovsky>, Michelle Scharlock <https://github.com/mscharlock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,117 +9,105 @@ office-runtime
 Copyright (c) Microsoft Corporation
 */
 
-/** Office Runtime namespace */
+/**
+ * Office runtime namespace.
+ */
 declare namespace OfficeRuntime {
     /**
-     * Enables you to pop up a web dialog box.
-     * @param url
-     * @param options
+     * Method that enables a pop up web dialog box.
+     * @param url Must be a string.
+     * @param options Optional parameter. Must be of type DisplayWebDialogOptions.
      */
-    function displayWebDialog(url: string, options: DisplayWebDialogOptions): Promise<Dialog>;
+    function displayWebDialog(url: string, options?: DisplayWebDialogOptions): Promise<Dialog>;
     /**
-     * Asynchronous, global, and persistent key-value storage that can be used by Excel Custom Functions.
+     * Asynchronous, global, and persistent key-value storage.
      */
-    const AsyncStorage: AsyncStorage;
-    /**
-     * Asynchronous, global, and persistent key-value storage that can be used by Excel Custom Functions.
-     * @beta
-     *
-     * @remarks
-     * Each add-in instance has its own storage partition, unique to a user and their device.
-     *
-     * The default amount of total storage allowed per add-in is 5MB.
-     *
-     * Each method listed below returns a Promise object.
-     *
-     */
-    interface AsyncStorage {
-        /**
-         * @beta
-         * Retrieves an object based on a key and invokes a callback when finished. Returns a Promise.
-         */
-        getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string>;
-        /**
-         * @beta
-         * Assigns the value for a key-value pair and invokes a callback when finished. Returns a Promise.
-         */
-        setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>;
-        /**
-         * @beta
-         * Removes an item for specified key and invokes a callback when finished. Returns a Promise.
-         */
-        removeItem(key: string, callback?: (error?: Error) => void): Promise<void>;
-        /**
-         * @beta
-         * Returns a Promise with all keys.
-         */
-        getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string[]>;
-        /**
-         * @beta
-         * Stores multiple key-value pairs in one batch. Returns a Promise. When a key doesn't exist, returns null.
-         */
-        multiSet(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>;
-        /**
-         * @beta
-         * Deletes a batch of keys, specified in the `keys` array.
-         */
-        multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<void>;
-        /**
-         * @beta
-         * Fetches a batch of keys, specified in the `keys` array. When a key doesn't exist, returns null.
-         */
-        multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<string[][]>;
-    }
-    /**
-     * @beta
-     * Object representing the dialog box.
-     */
-    interface Dialog {
-        /**
-         * @beta
-         * Method that closes a dialog box.
-         */
-        close(): Promise<void>;
-    }
+    const storage: Storage;
 
     /**
-     * Provides options for how a dialog is displayed.
+     * Asynchronous, global, and persistent key-value storage.
+     * @remarks
+     * Storage limit is 10 MB per domain, which may be shared by multiple add-ins.
      */
+    interface Storage {
+      /**
+       * Retrieves an item from storage based on its key.
+       * Returns a Promise. In the event the Promise does not resolve, returns null.
+       * @param key Key of item to be retrieved. Must be a string.
+       */
+      getItem(key: string): Promise<string | null>;
+      /**
+       * Sets a key-value pair into storage or updates an existing key-value pair.
+       * Returns a Promise.
+       * @param key Key of item to be set. Must be a string.
+       * @param value Must be a string.
+       */
+      setItem(key: string, value: string): Promise<void>;
+      /**
+       * Removes an item from storage based on its key.
+       * Returns a Promise.
+       * @param key Key of item to be removed. Must be a string.
+       */
+      removeItem(key: string): Promise<void>;
+      /**
+       * Retrieves multiple items from storage based on their key.
+       * Returns a Promise. In the event the Promise does not resolve, returns null.
+       * @param keys Keys of items to be removed. Must be an array of strings.
+       */
+      getItems(keys: string[]): Promise<{ [key: string]: string | null }>;
+      /**
+       * Sets multiple items into storage or updates multiple items within storage.
+       * Returns a Promise.
+       * @param keyValues Key-value pairs to be set. Must be strings.
+       */
+      setItems(keyValues: { [key: string]: string }): Promise<void>;
+      /**
+       * Removes multiple items from storage.
+       * Returns a Promise.
+       * @param keys Keys of items to be removed. Must be an array of strings.
+       */
+      removeItems(keys: string[]): Promise<void>;
+      /**
+       * Retrieves an array of all keys from storage.
+       *  Returns a Promise.
+       */
+      getKeys(): Promise<string[]>;
+    }
+
+    /** Object representing the dialog box. */
+    interface Dialog {
+      /** Method to close a dialog box. Returns a Promise. */
+      close(): Promise<void>;
+    }
+
+    /** Provides display options and actions a dialog box may take. */
     interface DisplayWebDialogOptions {
-        /**
-         * @beta
-         * Determines whether the dialog box displays as a popup (false) or within an IFrame (true). This setting is only applicable to custom functions running on Excel Online.
-         */
-        displayInIFrame?: boolean;
-        /**
-         * @beta
-         * Defines the height of the dialog box as a percentage of the current display.
-         */
-        height?: string;
-        /**
-         * @beta
-         * Defines the width of the dialog box as a percentage of the current display.
-         */
-        width?: string;
-        /**
-         * @beta
-         * True if title is hidden from the dialog box.
-         */
-        hideTitle?: boolean;
-        /**
-         * @beta
-         * Callback that is run when the dialog box is closed.
-         */
-        onClose?: () => void;
-        /**
-         * @beta
-         * Callback that is run when the dialog sends a message to its parent.
-         */
-        onMessage?(message: string, dialog?: Dialog): void;
-        /*
-         * @beta
-         * Callback that is run when the dialog box sends an error.
-         */
-        onRuntimeError?(error: Error, dialog?: Dialog): void;
+      /**
+       * Optional parameter that determines whether the dialog box displays as a popup (false) or within an IFrame (true).
+       * This setting is only applicable to custom functions running on Excel Online.
+       */
+      displayInIFrame?: boolean;
+      /**
+       * Optional parameter that defines the height of the dialog box as a percentage of the current display.
+       * For example, accepts strings such as: '50%', '50'.
+       */
+      height?: string;
+      /**
+       * Optional parameter that defines the width of dialog as a percentage of window.
+       * For example, accepts strings such as: '50%', '50'.
+       */
+      width?: string;
+      /**
+       * Optional callback that runs when the dialog box sends a message to its parent.
+       */
+      onMessage?: (message: string, dialog?: Dialog) => void;
+      /**
+       * Optional callback that runs when the dialog box is closed.
+       */
+      onClose?: () => void;
+      /**
+       * Optional callback that runs when the dialog box sends an error.
+       */
+      onRuntimeError?: (error: Error, dialog?: Dialog) => void;
     }
 }

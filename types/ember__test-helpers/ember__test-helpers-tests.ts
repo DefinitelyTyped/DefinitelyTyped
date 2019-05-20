@@ -11,6 +11,7 @@ import {
     blur,
     triggerEvent,
     triggerKeyEvent,
+    typeIn,
     fillIn,
     render,
     find,
@@ -54,6 +55,7 @@ test('DOM interactions', async () => {
     await triggerEvent(messageElement, 'custom-event');
     await triggerKeyEvent(messageElement, 'keydown', 'Enter', { ctrlKey: true });
     await fillIn(messageElement, 'content');
+    await typeIn(messageElement, 'content');
 
     const allMessages = findAll('.message');
     for (const element of allMessages) {

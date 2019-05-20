@@ -4,9 +4,9 @@ bCss = js_beautify.css_beautify("body{display:none;}");
 let bHtml = js_beautify.html("<div/>");
 bHtml = js_beautify.html_beautify("<div/>");
 
-let optHtml = <HTMLBeautifyOptions> {};
-let optCss = <CSSBeautifyOptions> {};
-let optjs = <JsBeautifyOptions> {};
+let optHtml: HTMLBeautifyOptions = {};
+let optCss: CSSBeautifyOptions = {};
+let optjs: JsBeautifyOptions = {};
 
 var simple: string = js_beautify("console.log('Hello world!');");
 var full: string = js_beautify(
@@ -25,6 +25,7 @@ var full: string = js_beautify(
         "keep_array_indentation": false,
         "keep_function_indentation": false,
         "space_before_conditional": true,
+        "space_in_empty_paren": true,
         "break_chained_methods": false,
         "eval_code": false,
         "unescape_strings": false,

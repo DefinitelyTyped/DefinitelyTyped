@@ -20,7 +20,8 @@ https://developers.google.com/api-client-library/javascript/reference/referenced
     }).then(function() {
       // 3. Initialize and make the API request.
       return gapi.client.people.people.get({
-        resourceName: 'people/me'
+        resourceName: 'people/me',
+        personFields: 'name'
       });
     }).then(function(response) {
       console.log(response.result);

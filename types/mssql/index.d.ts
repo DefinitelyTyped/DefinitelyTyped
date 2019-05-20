@@ -7,6 +7,8 @@
 //                 Jørgen Elgaard Larsen <https://github.com/elhaard>
 //                 Peter Keuter <https://github.com/pkeuter>
 //                 David Gasperoni <https://github.com/mcdado>
+//                 Jeff Wooden <https://github.com/woodenconsulting>
+//                 Cahil Foley <https://github.com/cahilfoley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -272,7 +274,9 @@ export declare class Request extends events.EventEmitter {
     public output(name: string, type: (() => ISqlType) | ISqlType, value?: any): Request;
     public pipe(stream: NodeJS.WritableStream): NodeJS.WritableStream;
     public query(command: string): Promise<IResult<any>>;
+    public query(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
     public query<Entity>(command: string): Promise<IResult<Entity>>;
+    public query<Entity>(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
     public query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;
     public batch(batch: string): Promise<IResult<any>>;
     public batch<Entity>(batch: string): Promise<IResult<Entity>>;
@@ -281,6 +285,8 @@ export declare class Request extends events.EventEmitter {
     public bulk(table: Table): Promise<number>;
     public bulk(table: Table, callback: (err: Error, rowCount: any) => void): void;
     public cancel(): void;
+    public pause(): boolean;
+    public resume(): boolean;
 }
 
 export declare class RequestError implements Error {
@@ -288,6 +294,12 @@ export declare class RequestError implements Error {
     public name: string;
     public message: string;
     public code: string;
+    public number?: number;
+    public state?: number;
+    public class?: number;
+    public lineNumber?: number;
+    public serverName?: string;
+    public procName?: string;
 }
 
 export declare class Transaction extends events.EventEmitter {
@@ -316,6 +328,7 @@ export declare class PreparedStatement extends events.EventEmitter {
     public parameters: IRequestParameters;
     public stream: any;
     public constructor(connection?: ConnectionPool);
+    public constructor(transaction: Transaction);
     public input(name: string, type: (() => ISqlType) | ISqlType): PreparedStatement;
     public output(name: string, type: (() => ISqlType) | ISqlType): PreparedStatement;
     public prepare(statement?: string): Promise<void>;

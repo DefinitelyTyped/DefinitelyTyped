@@ -1,10 +1,11 @@
-// Type definitions for i18next 11.9
+// Type definitions for i18next 12.1
 // Project: http://i18next.com
 // Definitions by: Michael Ledin <https://github.com/mxl>
 //                 Budi Irawan <https://github.com/deerawan>
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Silas Rech <https://github.com/lenovouser>
 //                 Philipp Katz <https://github.com/qqilihq>
+//                 Milan Konir <https://github.com/butchyyyy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -158,6 +159,12 @@ declare namespace i18next {
          * @default undefined
          */
         resources?: Resource;
+
+        /**
+         * Allow initializing with bundled resources while using a backend to load non bundled ones.
+         * @default false
+         */
+        partialBundledLanguages?: boolean;
 
         /**
          * language to use (overrides language detection)
@@ -385,6 +392,12 @@ declare namespace i18next {
          * Compatibility JSON version
          */
         compatibilityJSON?: string;
+
+        /**
+         * options for i18n nessage format - check documentation of plugin
+         * @default undefined
+         */
+        i18nFormat?: object;
     }
 
     // Add an indexer to assure that interpolation arguments can be passed

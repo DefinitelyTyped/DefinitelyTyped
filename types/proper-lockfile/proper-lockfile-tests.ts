@@ -39,7 +39,15 @@ check('some/file')
         // isLocked will be true if 'some/file' is locked, false otherwise
     });
 
+lock('', { lockfilePath: 'some/file-lock' })
+    .then((release) => release());
+
 const release = lockSync('some/file'); // $ExpectType () => void
 release(); // $ExpectType void
 unlockSync('some/file'); // $ExpectType void
+unlockSync('', { lockfilePath: 'some/file-lock' }); // $ExpectType void
 checkSync('some/file'); // $ExpectType boolean
+checkSync('', { lockfilePath: 'some/file-lock' }); // $ExpectType boolean
+
+lock('', { retries: 5 });
+lock('', { retries: { retries: 5, factor: 2, minTimeout: 100, randomize: true } });

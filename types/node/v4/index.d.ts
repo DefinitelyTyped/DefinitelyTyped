@@ -672,14 +672,14 @@ declare module "http" {
     // incoming headers will never contain number
     export interface IncomingHttpHeaders {
         'accept'?: string;
-        'access-control-allow-origin'?: string;
-        'access-control-allow-credentials'?: string;
-        'access-control-expose-headers'?: string;
-        'access-control-max-age'?: string;
-        'access-control-allow-methods'?: string;
-        'access-control-allow-headers'?: string;
         'accept-patch'?: string;
         'accept-ranges'?: string;
+        'access-control-allow-credentials'?: string;
+        'access-control-allow-headers'?: string;
+        'access-control-allow-methods'?: string;
+        'access-control-allow-origin'?: string;
+        'access-control-expose-headers'?: string;
+        'access-control-max-age'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
@@ -703,9 +703,9 @@ declare module "http" {
         'retry-after'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
+        'tk'?: string;
         'trailer'?: string;
         'transfer-encoding'?: string;
-        'tk'?: string;
         'upgrade'?: string;
         'user-agent'?: string;
         'vary'?: string;
@@ -785,6 +785,7 @@ declare module "http" {
         write(str: string, encoding?: string, cb?: Function): boolean;
         write(str: string, encoding?: string, fd?: string): boolean;
 
+        readonly path: string;
         write(chunk: any, encoding?: string): void;
         abort(): void;
         setTimeout(timeout: number, callback?: Function): void;
@@ -2055,7 +2056,7 @@ declare module "path" {
     /**
      * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
      *
-     * Starting from leftmost {from} paramter, resolves {to} to an absolute path.
+     * Starting from leftmost {from} parameter, resolves {to} to an absolute path.
      *
      * If {to} isn't already absolute, {from} arguments are prepended in right to left order, until an absolute path is found. If after using all {from} paths still no absolute path is found, the current working directory is used as well. The resulting path is normalized, and trailing slashes are removed unless the path gets resolved to the root directory.
      *

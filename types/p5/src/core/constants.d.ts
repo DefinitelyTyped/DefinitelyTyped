@@ -128,6 +128,7 @@ declare module "../../index" {
     readonly NORMAL: NORMAL;
     readonly ITALIC: ITALIC;
     readonly BOLD: BOLD;
+    readonly BOLDITALIC: BOLDITALIC;
     readonly LANDSCAPE: LANDSCAPE;
     readonly PORTRAIT: PORTRAIT;
     readonly GRID: GRID;

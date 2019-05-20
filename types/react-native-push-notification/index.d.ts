@@ -14,7 +14,7 @@ export interface PushNotificationPermissions {
 export interface PushNotification {
     foreground: boolean;
     userInteraction: boolean;
-    message: string|object;
+    message: string | object;
     data: object;
     badge: number;
     alert: object;
@@ -23,7 +23,7 @@ export interface PushNotification {
 }
 
 export interface PushNotificationOptions {
-    onRegister?: (token: { os: string, token: string }) => void;
+    onRegister?: (token: { os: string; token: string }) => void;
     onNotification?: (notification: PushNotification) => void;
     senderID?: string;
     permissions?: PushNotificationPermissions;
@@ -31,7 +31,8 @@ export interface PushNotificationOptions {
     requestPermissions?: boolean;
 }
 
-export type RepeatType = 'week' | 'day' | 'hour' | 'minute' | 'time';
+export type PriorityType = "max" | "high" | "low" | "min" | "default";
+export type RepeatType = "week" | "day" | "hour" | "minute" | "time";
 
 export class PushNotificationObject {
     /* Android only properties */
@@ -48,6 +49,7 @@ export class PushNotificationObject {
     tag?: string;
     group?: string;
     ongoing?: boolean;
+    priority?: PriorityType;
 
     /* iOS only properties */
     alertAction?: any;
@@ -73,16 +75,22 @@ export interface PushNotification {
     unregister(): void;
     localNotification(details: PushNotificationObject): void;
     localNotificationSchedule(details: PushNotificationScheduleObject): void;
-    requestPermissions(): void;
+    requestPermissions(
+        permissions?: Array<"alert" | "badge" | "sound">
+    ): Promise<PushNotificationPermissions>;
     presentLocalNotification(details: PushNotificationObject): void;
     scheduleLocalNotification(details: PushNotificationScheduleObject): void;
     cancelLocalNotifications(details: object): void;
     cancelAllLocalNotifications(): void;
     setApplicationIconBadgeNumber(badgeCount: number): void;
     getApplicationIconBadgeNumber(callback: (badgeCount: number) => void): void;
-    popInitialNotification(callback: (notification: PushNotification | null) => void): void;
+    popInitialNotification(
+        callback: (notification: PushNotification | null) => void
+    ): void;
     abandonPermissions(): void;
-    checkPermissions(callback: (permissions: PushNotificationPermissions) => void): void;
+    checkPermissions(
+        callback: (permissions: PushNotificationPermissions) => void
+    ): void;
     registerNotificationActions(actions: string[]): void;
     clearAllNotifications(): void;
 }

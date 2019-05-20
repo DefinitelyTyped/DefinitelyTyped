@@ -1,6 +1,7 @@
 // Type definitions for scroll-into-view 1.6.0
 // Project: https://github.com/KoryNunn/scroll-into-view
 // Definitions by: zivni <https://github.com/zivni>
+//                 Thibaut <https://github.com/Thibaut-Fatus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module __ScrollIntoView {
@@ -17,11 +18,15 @@ declare module __ScrollIntoView {
         top?: number
         /** 0 to 1, default 0.5 (center) */
         left?: number
+        /** pixels to offset top alignment */
+        topOffset?: number
+        /** pixels to offset left alignment */
+        leftOffset?: number
     }
 
     /** type will be 'complete' if the scroll completed or 'canceled' if the current scroll was canceled by a new scroll */
-    type callbackParamterType = "complete" | "canceled"
-    type Callback = (type: callbackParamterType) => void
+    type callbackParameterType = "complete" | "canceled"
+    type Callback = (type: callbackParameterType) => void
 
     interface ScrollIntoView {
         (target: HTMLElement, callback?: __ScrollIntoView.Callback) : void

@@ -5,9 +5,10 @@ export type Direction =
   | "up"
   | "down"
   | "left"
-  | "right"
+  | "right";
 
-export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export interface UncontrolledDropdownProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   isOpen?: boolean;
   toggle?: () => void;
   className?: string;
@@ -15,20 +16,16 @@ export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   nav?: boolean;
   inNavbar?: boolean;
   setActiveFromChild?: boolean;
-} & T;
+}
 
-export type UncontrolledDropdownProps<T = {}> = UncontrolledProps<T>;
-
-export type Props<T = {}> = UncontrolledProps<T> & {
+export interface DropdownProps extends UncontrolledDropdownProps {
   disabled?: boolean;
   direction?: Direction;
   group?: boolean;
   size?: string;
   tag?: React.ReactType;
   addonType?: boolean | 'prepend' | 'append';
-};
+}
 
-export type DropdownProps<T = {}> = Props<T>;
-
-declare class Dropdown<T = {[key: string]: any}> extends React.Component<DropdownProps<T>> {}
+declare class Dropdown<T = {[key: string]: any}> extends React.Component<DropdownProps> {}
 export default Dropdown;
