@@ -72,7 +72,8 @@ graph
     .cooldownTicks(Infinity)
     .cooldownTime(15000)
     .onEngineTick(() => {})
-    .onEngineStop(() => {});
+    .onEngineStop(() => {})
+    .refresh();
 
 graph
     .onNodeClick(() => {})
