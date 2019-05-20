@@ -1,4 +1,4 @@
-// Type definitions for browser-sync 2.26.5
+// Type definitions for browser-sync 2.26
 // Project: http://www.browsersync.io/
 // Definitions by: Asana <https://asana.com>,
 //                 Joe Skeen <https://github.com/joeskeen>
