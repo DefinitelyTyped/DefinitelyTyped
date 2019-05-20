@@ -21,9 +21,9 @@ declare namespace proxy {
         limit?: number | string;
         proxyErrorHandler?: (err: any, res: Response, next: NextFunction) => any;
         proxyReqPathResolver?: (req: Request) => string;
-        proxyReqOptDecorator?: (proxyReqOpts: RequestOptions, srcReq: Request) => RequestOptions;
+        proxyReqOptDecorator?: (proxyReqOpts: RequestOptions, srcReq: Request) => RequestOptions | Promise<RequestOptions>;
         userResHeaderDecorator?: (headers: IncomingHttpHeaders, userReq: Request, userRes: Response, proxyReq: Request, proxyRes: Response) => OutgoingHttpHeaders;
-        userResDecorator?: (proxyRes: Response, proxyResData: any, userReq: Request, userRes: Response) => Buffer | string;
+        userResDecorator?: (proxyRes: Response, proxyResData: any, userReq: Request, userRes: Response) => Buffer | string | Promise<Buffer|string>;
         preserveHostHdr?: boolean;
         parseReqBody?: boolean;
     }
