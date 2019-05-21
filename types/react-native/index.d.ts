@@ -19,7 +19,6 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Francesco Moro <https://github.com/franzmoro>
 //                 Wojciech Tyczynski <https://github.com/tykus160>
-//                 Jake Bloom <https://github.com/jakebloom>
 //                 Ceyhun Ozugur <https://github.com/ceyhun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -7876,13 +7875,16 @@ type PresentLocalNotificationDetails = {
 };
 
 type ScheduleLocalNotificationDetails = {
-    fireDate: Date;
-    alertBody: string;
-    alertAction: string;
-    soundName?: string;
-    category?: string;
-    userInfo?: Object;
+    alertAction?: string;
+    alertBody?: string;
+    alertTitle?: string
     applicationIconBadgeNumber?: number;
+    category?: string;
+    fireDate?: Date;
+    isSilent?: boolean;
+    repeatInterval?: 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute';
+    soundName?: string;
+    userInfo?: Object;
 };
 
 export type PushNotificationEventName = "notification" | "localNotification" | "register" | "registrationError";
