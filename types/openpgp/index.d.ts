@@ -1565,6 +1565,8 @@ export namespace key {
          */
         constructor(packetlist: packet.List);
 
+        primaryKey: Key;
+
         /**
          * Transforms packetlist to structured key data
          * @param packetlist The packets that form a key

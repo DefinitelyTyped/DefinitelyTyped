@@ -180,6 +180,12 @@ openpgp.initWorker({
     return verified.signatures[0].valid;
 })();
 
+(async () => {
+    const publicKey = (await openpgp.key.readArmored(spubkey));
+
+    return publicKey.keys[0].primaryKey.getFingerprint()/* as string*/
+})
+
 // Open PGP Tests
 
 
