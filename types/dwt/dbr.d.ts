@@ -42,6 +42,14 @@ interface dbrEnv {
     onAutoConnectServiceError(status: any): void;
 }
 
+function Task(bLoadingWhenPush: boolean): void;
+
+interface TaskQueue {
+	push(task: Task, context: any, args: []): void;
+    unshift(task: Task, context: any, args: []): void;
+    next(): void;
+}
+
 declare namespace dynamsoft {
     namespace BarcodeReader {
         /** Barcode Formats */
@@ -196,7 +204,7 @@ declare namespace dynamsoft {
         outputSettingsToString(): any;
         resetRuntimeSettings(): void;
         updateRuntimeSettings(setting: RunTimeSetting): void;
-    };
+    }
 	
     let TaskQueue: TaskQueue;
     let dbrEnv: dbrEnv;
