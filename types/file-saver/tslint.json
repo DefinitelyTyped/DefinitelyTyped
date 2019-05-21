@@ -1,6 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "export-just-namespace": false
+        "export-just-namespace": false,
+        "unified-signatures": false
     }
 }
