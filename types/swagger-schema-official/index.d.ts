@@ -185,31 +185,31 @@ export interface ApiKeySecurity extends BaseSecurity {
   in: 'query' | 'header';
 }
 
-export interface BaseOAuthSecuirty extends BaseSecurity {
+export interface BaseOAuthSecurity extends BaseSecurity {
   type: 'oauth2';
   flow: 'accessCode' | 'application' | 'implicit' | 'password';
   scopes?: OAuthScope;
 }
 
-export interface OAuth2ImplicitSecurity extends BaseOAuthSecuirty {
+export interface OAuth2ImplicitSecurity extends BaseOAuthSecurity {
   type: 'oauth2';
   flow: 'implicit';
   authorizationUrl: string;
 }
 
-export interface OAuth2PasswordSecurity extends BaseOAuthSecuirty {
+export interface OAuth2PasswordSecurity extends BaseOAuthSecurity {
   type: 'oauth2';
   flow: 'password';
   tokenUrl: string;
 }
 
-export interface OAuth2ApplicationSecurity extends BaseOAuthSecuirty {
+export interface OAuth2ApplicationSecurity extends BaseOAuthSecurity {
   type: 'oauth2';
   flow: 'application';
   tokenUrl: string;
 }
 
-export interface OAuth2AccessCodeSecurity extends BaseOAuthSecuirty {
+export interface OAuth2AccessCodeSecurity extends BaseOAuthSecurity {
   type: 'oauth2';
   flow: 'accessCode';
   tokenUrl: string;
