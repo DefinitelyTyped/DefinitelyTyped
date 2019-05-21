@@ -19,7 +19,7 @@ declare class Client {
     request(options: string | Client.ClientRequestOptions): Promise<any>;
     message(message: any): Promise<any>;
     subscribe(path: string, handler: Client.Handler): Promise<any>;
-    unsubscribe(path: string, handler: Client.Handler): Promise<any>;
+    unsubscribe(path: string, handler?: Client.Handler): Promise<any>;
     subscriptions(): string[];
     overrideReconnectionAuth(auth: any): void;
 }
@@ -54,4 +54,4 @@ declare namespace Client {
     }
 }
 
-export = Client;
+export { Client };
