@@ -19,6 +19,7 @@
     },
     "files": [
         "dwt-tests.ts",
-        "index.d.ts"
+        "index.d.ts",
+        "Dynamsoft.d.ts"
     ]
 }
