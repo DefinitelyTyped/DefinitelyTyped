@@ -25,7 +25,6 @@
         "addon.ocrp.d.ts",
         "addon.pdf.d.ts",
         "addon.webcam.d.ts",
-        "dbr.d.ts",
-        "mbc.d.ts"
+        "dbr.d.ts"
     ]
 }
