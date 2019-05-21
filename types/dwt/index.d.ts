@@ -6,7 +6,7 @@
 //                 Tom Kent <https://github.com/Tom-Dynamsoft>
 //                 Dave Sueltenfuss <https://github.com/dsueltenfuss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.1
 
 /// <reference path="Dynamsoft.d.ts" />
 /// <reference path="addon.ocr.d.ts" />
