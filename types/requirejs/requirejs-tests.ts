@@ -2,7 +2,7 @@
 
 // this test does not actually reference amd module 'main.ts', create one yourself.
 
-require.config({
+requirejs.config({
 	baseUrl: '../Definitions',
 
 	// Requires versions afaik
@@ -31,20 +31,20 @@ require.config({
 // load AMD module main.ts (compiled to main.js)
 // and include shims $, _, Backbone
 
-require(['main'], (main: any, $: any, _: any, Backbone: any) => {
+requirejs(['main'], (main: any, $: any, _: any, Backbone: any) => {
 
 	var app = main.AppMain();
 	app.run();
 
 });
 
-var recOne = require.config({ baseUrl: 'js' });
+var recOne = requirejs.config({ baseUrl: 'js' });
 recOne(['core'], function (core: any) {/*some code*/});
 
 // Tests for 'module' magic module typings
 // (Using 'module' only actually makes sense in an external module)
 
-import module = require('module');
+import module = require('requirejs/module');
 
 var moduleConfig: any = module.config();
 var moduleId: string = module.id;
