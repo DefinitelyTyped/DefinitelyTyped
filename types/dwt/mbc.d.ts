@@ -1,7 +1,7 @@
 // tslint:disable:jsdoc-format
 // tslint:disable:max-line-length
 // tslint:disable:no-irregular-whitespace
-// TypeScript Version: 3.2.2
+// TypeScript Version: 2.4
 
 /*!
 * Product: Dynamsoft Web Twain
@@ -31,7 +31,6 @@ painter = new MBC('xxxxx');
 */
 
 // export = KPainter;
-
 declare class MBC {
     /**
      * Tell this painter the directory where you place`cv-wasm.js` and`cv-wasm.wasm`.
