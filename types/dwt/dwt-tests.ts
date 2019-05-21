@@ -2,7 +2,7 @@
 // tslint:disable:max-line-length
 // tslint:disable:no-irregular-whitespace
 
-import * as Dynamsoft from './index.d.ts';
+import * as Dynamsoft from './index';
 
 function dwtOnReady() {
     const DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');    // Get the Dynamic Web TWAIN object that is embeded in the div with id 'dwtcontrolContainer'
