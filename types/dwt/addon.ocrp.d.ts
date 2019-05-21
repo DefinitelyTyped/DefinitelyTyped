@@ -1,12 +1,3 @@
-// Type definitions for dwt 14.3.1
-// Project: https://www.dynamsoft.com/products/webtwain_overview.aspx
-// Definitions by: Xiao Ling <https://github.com/yushulx>
-//                 Josh Hall <https://github.com/jbh>
-//                 Lincoln Hu <https://github.com/lincoln2018>
-//                 Tom Kent <https://github.com/Tom-Dynamsoft>
-//                 Dave Sueltenfuss <https://github.com/dsueltenfuss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2.2
 
 /*!
 * Product: Dynamsoft Web Twain
@@ -15,60 +6,59 @@
 * Copyright 2019, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
 */
-
 interface Redaction {
-    FindText: string,
+    FindText: string;
     FindTextFlags: EnumDWT_OCRFindTextFlags.OCRFT_WHOLEWORD;
     FindTextAction: EnumDWT_OCRFindTextAction.OCRFT_MARKFORREDACT;
 }
 
 interface OCRZone {
-    left: number,
-    top: number,
-    right: number,
-    bottom: number
+    left: number;
+    top: number;
+    right: number;
+    bottom: number;
 }
 
 interface OCRReadPara {
-    STWAIN: WebTwain,
-    AjaxFunctionUrl: string,
-    FunctionName: string,
-    ImageIndex: number,
-    FileNames: string,
-    Type: string,
-    AryZone: number[],
-    JsonString: string,
-    OnSuccess(): void,
-    OnFailure(): void
+    STWAIN: WebTwain;
+    AjaxFunctionUrl: string;
+    FunctionName: string;
+    ImageIndex: number;
+    FileNames: string;
+    Type: string;
+    AryZone: number[];
+    JsonString: string;
+    OnSuccess(): void;
+    OnFailure(): void;
 }
 
 interface OCRError {
-    responseText: string,
-    errorString: string
+    responseText: string;
+    errorString: string;
 }
 
 interface Settings {
-    RecognitionModule: string,
+    RecognitionModule: string;
     Languages: string
-    OutputFormat: EnumDWT_OCRProOutputFormat,
-    PDFVersion: EnumDWT_OCRProPDFVersion,
-    PDFAVersion: EnumDWT_OCRProPDFAVersion,
-    LicenseChecker: string,
-    Redaction: Redaction
+    OutputFormat: EnumDWT_OCRProOutputFormat;
+    PDFVersion: EnumDWT_OCRProPDFVersion;
+    PDFAVersion: EnumDWT_OCRProPDFAVersion;
+    LicenseChecker: string;
+    Redaction: Redaction;
 }
 
 interface DynamsoftLib {
-    NewRedaction(): Redaction,
-    NewOCRReadPara(): OCRReadPara,
-    NewOCRZone(): OCRZone
+    NewRedaction(): Redaction;
+    NewOCRReadPara(): OCRReadPara;
+    NewOCRZone(): OCRZone;
 }
 
 interface DynamsoftWebTwainAddon {
     OCRPro: {
-        NewOCRError(): OCRError,
-        NewOCRReadPara(): OCRReadPara,
-        NewOCRZone(): OCRZone,
-        NewSettings(): Settings
+        NewOCRError(): OCRError;
+        NewOCRReadPara(): OCRReadPara;
+        NewOCRZone(): OCRZone;
+        NewSettings(): Settings;
     }
 }
 
@@ -127,12 +117,11 @@ declare enum EnumDWT_OCRProType {
 }
 
 interface OCRPro {
-
     /**
      * Returns whether OCR Pro addon is installed
      * @return {boolean}
      */
-    IsModuleInstalled(): boolean
+    IsModuleInstalled(): boolean;
 
     /**
      *  Downloads and installs the ocr add-on on the local system. 

@@ -1,12 +1,3 @@
-// Type definitions for dwt 14.3.1
-// Project: https://www.dynamsoft.com/products/webtwain_overview.aspx
-// Definitions by: Xiao Ling <https://github.com/yushulx>
-//                 Josh Hall <https://github.com/jbh>
-//                 Lincoln Hu <https://github.com/lincoln2018>
-//                 Tom Kent <https://github.com/Tom-Dynamsoft>
-//                 Dave Sueltenfuss <https://github.com/dsueltenfuss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2.2
 
 /*!
 * Product: Dynamsoft Web Twain
@@ -70,26 +61,26 @@ MBC.loadCvScriptAsync(function(bSuccess){
 }
 
 interface rectangle {
-    left: number,
-    top: number,
-    right: number,
-    bottom: number
+    left: number;
+    top: number;
+    right: number;
+    bottom: number;
 }
 
 interface point {
-    x: number,
-    y: number
+    x: number;
+    y: number;
 }
 
 interface cornerPoints {
-    leftTop: point,
-    rightTop: point,
-    leftBottom: point,
-    rightBottom: point
+    leftTop: point;
+    rightTop: point;
+    leftBottom: point;
+    rightBottom: point;
 }
 
 declare class TaskQueue {
-    _queue: Array<any>;
+    _queue: [];
     isWorking: boolean;
     timeout: number;
     /**
@@ -105,7 +96,6 @@ interface TaskQueue {
 }
 
 declare class KPainter {
-
     /**
      * Constructs a new KPainter
      */
@@ -294,7 +284,7 @@ painter.addImageAsync(image, function(bSuccess){
 });
 ```
      */
-    addImageAsync(imgData: Blob | HTMLCanvasElement | HTMLImageElement | string | Array<string>, callback?: () => void): void;
+    addImageAsync(imgData: Blob | HTMLCanvasElement | HTMLImageElement | string | string[], callback?: () => void): void;
 
     /**
     The image whose width or height larger than`addedImageMaxWH` would be compressed when adding.
@@ -633,7 +623,7 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
     |  |  |  |
     | * (return value)* | `Array` | A array of the protected numbers. |
      */
-    getProtectedSteps(): Array<number>;
+    getProtectedSteps(): number[];
 
     /**
      * Undo an editing step.Can only process in `Editing` mode.
@@ -896,7 +886,7 @@ painter.onCropRectChange = function(){
     | isAbsolute | `boolean` | Default`false`, get precentage(-50 % ~50 %) array. |
     
      */
-    getCropRectArea(isAbsolute: boolean): Array<rectangle>;
+    getCropRectArea(isAbsolute: boolean): rectangle[];
 
     /**
      * Crop the selected area.Can only process in `Editing` mode.
@@ -909,7 +899,7 @@ painter.onCropRectChange = function(){
     | array * (optional) * | `Array` | A array of[left, top, right, bottom]\(each - 0.5 ~0.5\).Default use an area accroding to`Crop Rect`. |
      
      */
-    cropAsync(callback?: () => void, array?: Array<rectangle>): void;
+    cropAsync(callback?: () => void, array?: rectangle[]): void;
 
 
     //# Free Transform
@@ -952,7 +942,7 @@ painter.onCropRectChange = function(){
     | * (return value)* | `Array` | A array of[[x0, y0], [x1, y1], [x2, y2], [x3, y3]].x0, y0...is from - 0.5 to 0.5.|
     
      */
-    getFreeTransformCornerPos(): Array<cornerPoints>;
+    getFreeTransformCornerPos(): cornerPoints[];
 
     /**
      * Binding a function that would be called when the`FreeTransform` corner position change.
@@ -988,7 +978,7 @@ painter.onFreeTransformCornerPosChange = function(){
     | cornerPoints * (optional) * | `Array` | A array of[[x0, y0], [x1, y1], [x2, y2], [x3, y3]].x0, y0...is from - 0.5 to 0.5. |
     | importSrc * (optional) * | | TUDO.Not show for user. |
      */
-    freeTransformAsync(callback?: () => void, cornerPoints?: Array<cornerPoints>, importSrc?: any): any;
+    freeTransformAsync(callback?: () => void, cornerPoints?: cornerPoints[], importSrc?: any): any;
 
     /**
      * 

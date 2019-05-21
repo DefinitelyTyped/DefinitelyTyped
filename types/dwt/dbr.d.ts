@@ -1,13 +1,3 @@
-/// <reference path="mbc.d.ts" />
-// Type definitions for dwt 14.3.1
-// Project: https://www.dynamsoft.com/products/webtwain_overview.aspx
-// Definitions by: Xiao Ling <https://github.com/yushulx>
-//                 Josh Hall <https://github.com/jbh>
-//                 Lincoln Hu <https://github.com/lincoln2018>
-//                 Tom Kent <https://github.com/Tom-Dynamsoft>
-//                 Dave Sueltenfuss <https://github.com/dsueltenfuss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2.2
 
 /*!
 * Product: Dynamsoft Web Twain
@@ -16,7 +6,6 @@
 * Copyright 2019, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
 */
-
 
 interface RunTimeSetting {
     mAntiDamageLevel: number;
@@ -138,7 +127,6 @@ declare namespace dynamsoft {
             ETS_Prelocalized = 0,
             ETS_Recognized = 2
         }
-
     }
 
     class BarcodeReader {
@@ -150,7 +138,7 @@ declare namespace dynamsoft {
         /**
          * Constructs a new KPainter
          */
-        constructor(dbrKey?: string)
+        constructor(dbrKey?: string);
     }
     let TaskQueue: TaskQueue;
     let dbrEnv: dbrEnv;

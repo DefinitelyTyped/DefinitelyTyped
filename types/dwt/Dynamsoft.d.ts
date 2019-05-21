@@ -1,11 +1,3 @@
-// Type definitions for dwt 14.3.1
-// Project: http://www.dynamsoft.com/Products/WebTWAIN_Overview.aspx
-// Definitions by: Xiao Ling <https://github.com/yushulx>
-//                 Josh Hall <https://github.com/jbh>
-//                 Lincoln Hu <https://github.com/lincoln2018>
-//                 Tom Kent <https://github.com/Tom-Dynamsoft>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2.2
 
 /*!
 * Product: Dynamsoft Web Twain
@@ -16,10 +8,9 @@
 */
 
 interface DynamsoftStatic<TElement extends Node = HTMLElement> {
-	Lib: DynamsoftLib,
-    WebTwainEnv: dwtEnv
+	Lib: DynamsoftLib;
+    WebTwainEnv: dwtEnv;
 }
-
 
 interface dwtEnv {
     AutoLoad: boolean;
@@ -28,13 +19,12 @@ interface dwtEnv {
     Containers: Container[];
     IfUseActiveXForIE10Plus: boolean;
     ResourcesPath: string;
-	
+
     RegisterEvent(event: string, fn: (...args: any[]) => void): void;
     GetWebTwain(cid: string): WebTwain;
     Load(): void;
     Unload(): void;
-	
-	
+
     Debug: boolean;
     ActiveXInstallWithCAB: boolean;
     ActiveXVersion: string;
@@ -54,7 +44,6 @@ interface dwtEnv {
     /*ignored
     OnWebTwainReady
     */
-
     JSVersion: string;
     PluginVersion: string;
     ServerVersionInfo: string;
@@ -82,7 +71,7 @@ interface DynamsoftLib {
         cUrlIndex  dcpCallbackType  dcpStatus  detectType  getVersionArray  global_dlg  hideMask  isDWTVersionLatest  onNoControl
         onNotAllowedForChrome  ports  scriptLoaded  showMask  starting  tryTimes*/
         ssl: boolean;
-    }
+    };
 
     /*ignored
     detectButton  dialog  dialogShowStatus  dlgProgress  dlgRef  drawBoxBorder  drawImageWithHermite
@@ -95,7 +84,7 @@ interface DynamsoftLib {
         bIE: boolean, bLinux: boolean, bMac: boolean, bSafari: boolean, bWin: boolean, bWin64: boolean,
         basePath: string, iPluginLength: number, isX64: boolean, pathType: number,
         strChromeVersion: string, strFirefoxVersion: string, strIEVersion: string
-    }
+    };
 
     /*ignored
     error  escapeHtml  escapeRegExp  extend  filter  fireEvent  fromUnicode  get  getColor  getCss
@@ -114,7 +103,7 @@ interface DynamsoftLib {
 }
 
 interface DynamsoftWebTwain {
-    Addon: DynamsoftWebTwainAddon
+    Addon: DynamsoftWebTwainAddon;
 }
 
 /**
