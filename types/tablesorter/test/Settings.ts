@@ -51,18 +51,18 @@ export class TestSettings<T extends HTMLElement> {
             debug: true,
             delayInit: true,
             duplicateSpan: true,
-            emptyTo: EmptySorting.Top,
+            emptyTo: "top",
             headers: {
                 0: {
                     dateFormat: "yyyy-mm-dd",
-                    empty: EmptySorting.Max,
-                    filter: ColumnFilter.Parsed,
-                    lockedOrder: SortOrder.Ascending,
+                    empty: "emptyMax",
+                    filter: "parsed",
+                    lockedOrder: "asc",
                     parser: "date",
                     resizable: true,
-                    sortInitialOrder: SortOrder.Ascending,
+                    sortInitialOrder: "asc",
                     sorter: "date",
-                    string: StringSorting.Zero
+                    string: "zero"
                 },
                 3: {
                     parser: "ipAddress",
@@ -117,17 +117,17 @@ export class TestSettings<T extends HTMLElement> {
             selectorSort: "th, td",
             serverSideSorting: true,
             showProcessing: true,
-            sortAppend: [[1, 0], [2, SortDefinitionOrder.Descending]],
-            sortForce: [[0, SortDefinitionOrder.Descending], [1, SortDefinitionOrder.Ascending]],
-            sortInitialOrder: SortOrder.Ascending,
-            sortList: [[0, SortDefinitionOrder.Ascending], [1, SortDefinitionOrder.Ascending]],
+            sortAppend: [[1, 0], [2, 1]],
+            sortForce: [[0, 1], [1, 1]],
+            sortInitialOrder: "asc",
+            sortList: [[0, 1], [1, 1]],
             sortLocaleCompare: true,
             sortMultiSortKey: "bubbles",
             sortReset: true,
             sortResetKey: "shiftKey",
             sortRestart: true,
             sortStable: true,
-            stringTo: StringSorting.Max,
+            stringTo: "top",
             tabIndex: true,
             tableClass: "tablesorter-table",
             textAttribute: "data-text",
@@ -145,7 +145,7 @@ export class TestSettings<T extends HTMLElement> {
                 table;
                 return x.localeCompare(y);
             },
-            theme: CoreTheme.Bootstrap,
+            theme: "bootstrap",
             usNumberFormat: true,
             widgetClass: "pleas-load-me-the-widget-named-{name}",
             widgetOptions,
@@ -173,8 +173,8 @@ export class TestSettings<T extends HTMLElement> {
          * Sorting relatively
          */
         settings.sortAppend = {
-            0: [[1, RelativeSorting.Opposite]],
-            1: [[2, RelativeSorting.Descending]]
+            0: [[1, "o"]],
+            1: [[2, "d"]]
         };
 
         /**
@@ -273,8 +273,8 @@ export class TestSettings<T extends HTMLElement> {
             filter_ignoreCase: true,
             filter_liveSearch: true,
             filter_matchType: {
-                input: MatchType.Wildcard,
-                select: MatchType.Exact
+                input: "exact",
+                select: "match"
             },
             filter_onlyAvail: "filter-onlyAvail",
             filter_placeholder: {
@@ -316,7 +316,7 @@ export class TestSettings<T extends HTMLElement> {
             storage_fixedUrl: "/this/is/my/awesome/table/url",
             storage_group: "data-awesome-table-group",
             storage_page: "data-awesome-table-page",
-            storage_storageType: StorageType.Cookie,
+            storage_storageType: "c",
             storage_tableId: "myAwesomeTable",
             zebra: ["even", "odd"]
         };

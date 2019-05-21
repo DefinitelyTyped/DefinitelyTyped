@@ -1,29 +1,28 @@
 /**
  * Represents an event which uses pager-settings for processing.
  */
-export enum PagerEventMap {
+export type PagerEventMap =
     /**
      * Indicates the `pagerInitialized`-event.
      */
-    "pagerInitialized",
+    "pagerInitialized" |
 
     /**
      * Indicates the `pageMoved`-event.
      */
-    "pageMoved",
+    "pageMoved" |
 
     /**
      * Indicates the `pagerChange`-event.
      */
-    "pagerChange",
+    "pagerChange" |
 
     /**
      * Indicates the `pagerComplete`-event.
      */
-    "pagerComplete",
+    "pagerComplete" |
 
     /**
      * Indicates the `pagerBeforeInitialized`-event.
      */
-    "pagerBeforeInitialized",
-}
+    "pagerBeforeInitialized";
