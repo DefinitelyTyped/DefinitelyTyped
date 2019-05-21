@@ -43,7 +43,7 @@ interface dbrEnv {
 }
 
 declare namespace dynamsoft {
-    class BarcodeReader {
+    namespace BarcodeReader {
         /** Barcode Formats */
         enum EnumBarcodeFormat {
             All = 503317503,
@@ -130,12 +130,14 @@ declare namespace dynamsoft {
             ETS_Prelocalized = 0,
             ETS_Recognized = 2
         }
-
         static BarcodeReaderException(): any;
         static initServiceConnection(): Promise<any>;
         static name: string;
         static length: number;
         static version: string;
+	}
+	
+    class BarcodeReader {
         /**
          * Constructs a new KPainter
          */
