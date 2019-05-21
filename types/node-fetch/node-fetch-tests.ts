@@ -50,6 +50,21 @@ function test_fetchUrlWithRequestObject() {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
+        },
+        signal: {
+            aborted: false,
+
+            addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
+                capture?: boolean,
+                once?: boolean,
+                passive?: boolean
+            }) => undefined,
+
+            removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
+                capture?: boolean
+            }) => undefined,
+
+            dispatchEvent: (event: any) => false
         }
     };
     const request: Request = new Request(

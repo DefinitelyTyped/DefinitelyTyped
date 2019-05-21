@@ -14,6 +14,28 @@
 import { Agent } from "http";
 import { URLSearchParams } from "url";
 
+// This is defined here to prevent a dependency on a particular implementation
+// like the `abort-controller` package, and to avoid requiring the `dom` library
+// in `tsconfig.json`.
+type Event = any;
+export interface AbortSignal {
+    aborted: boolean;
+
+    addEventListener: (type: "abort", listener: ((this: AbortSignal, event: Event) => any), options?: boolean | {
+        capture?: boolean,
+        once?: boolean,
+        passive?: boolean
+    }) => void;
+
+    removeEventListener: (type: "abort", listener: ((this: AbortSignal, event: Event) => any), options?: boolean | {
+        capture?: boolean
+    }) => void;
+
+    dispatchEvent: (event: Event) => boolean;
+
+    onabort?: null | ((this: AbortSignal, event: Event) => void);
+}
+
 export class Request extends Body {
     constructor(input: string | { href: string } | Request, init?: RequestInit);
     clone(): Request;
@@ -42,6 +64,7 @@ export interface RequestInit {
     headers?: HeadersInit;
     method?: string;
     redirect?: RequestRedirect;
+    signal?: AbortSignal | null;
 
     // node-fetch extensions
     agent?: Agent; // =null http.Agent instance, allows custom proxy, certificate etc.
