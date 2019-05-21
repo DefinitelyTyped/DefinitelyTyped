@@ -489,7 +489,13 @@ declare namespace braintree {
     placeholder?: string;
     type?: string;
     formatInput?: boolean;
+    maskInput?: any;
     select?: boolean | { options: string[] };
+    maxCardLength?: number;
+    maxlength?: number;
+    minlength?: number;
+    prefill?: string;
+    rejectUnsupportedCards?: boolean;
   }
 
   /**
