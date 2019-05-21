@@ -88,12 +88,9 @@ interface TaskQueue {
     next(): void;
 }
 
-declare class KPainter {
-	/**
-     * Constructs a new KPainter
-     */
-    constructor(mbcKey?: string);
-	
+declare function KPainter(mbcKey?: string): void;
+
+interface KPainter {
     /**
      * @example    
 ```javascript
