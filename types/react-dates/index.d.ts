@@ -106,7 +106,25 @@ declare namespace ReactDates {
         onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void;
 
         // day presentation and interaction related props
-        renderCalendarDay?: (day: momentPropTypes.momentObj) => string | JSX.Element;
+        renderCalendarDay?: (
+            props: {
+                day: momentPropTypes.momentObj | null;
+                key: number;
+                daySize: number;
+                isFocused: boolean;
+                isOutsideDay: boolean;
+                modifiers: string[];
+                onDayClick: (day: momentPropTypes.momentObj, e: any) => void;
+                onDayMouseEnter: (day: momentPropTypes.momentObj, e: any) => void;
+                onDayMouseLeave: (day: momentPropTypes.momentObj, e: any) => void;
+                phrases: DateRangePickerPhrases;
+                ariaLabelFormat?: string;
+                tabIndex: 0 | -1;
+                renderDayContents:
+                    | ((day: momentPropTypes.momentObj) => string | JSX.Element)
+                    | null;
+            }
+        ) => string | JSX.Element;
         renderDayContents?: (day: momentPropTypes.momentObj) => string | JSX.Element;
         minimumNights?: number;
         enableOutsideDays?: boolean;
