@@ -295,10 +295,10 @@ declare enum EnumDWT_Cap {
     CAP_PRINTERINDEX = 4136,
     /** Specifies the appropriate current CAP_PRINTER device mode.
      *  Note:
-     *  • TWPM_SINGLESTRING specifies that the printed text will consist of a single string.
-     *  • TWPM _MULTISTRING specifies that the printed text will consist of an enumerated list of
+     *  O TWPM_SINGLESTRING specifies that the printed text will consist of a single string.
+     *  O TWPM _MULTISTRING specifies that the printed text will consist of an enumerated list of
      *  strings to be printed in order.
-     *  • TWPM _COMPOUNDSTRING specifies that the printed string will consist of a compound of a
+     *  O TWPM _COMPOUNDSTRING specifies that the printed string will consist of a compound of a
      *  String followed by a value followed by a suffix string.
      */
     CAP_PRINTERMODE = 4137,
