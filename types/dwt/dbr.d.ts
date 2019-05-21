@@ -42,11 +42,9 @@ interface dbrEnv {
     onAutoConnectServiceError(status: any): void;
 }
 
-function Task(bLoadingWhenPush: boolean): void;
-
 interface TaskQueue {
-	push(task: Task, context: any, args: []): void;
-    unshift(task: Task, context: any, args: []): void;
+	push(task: (bLoadingWhenPush: boolean) => void, context: any, args: []): void;
+    unshift(task: (bLoadingWhenPush: boolean) => void, context: any, args: []): void;
     next(): void;
 }
 
