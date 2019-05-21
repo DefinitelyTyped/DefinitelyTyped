@@ -26,11 +26,8 @@
 /// <reference path="Dynamsoft.d.ts" />
 /// <reference path="mbc.d.ts" />
 
-declare module {
-    export = Dynamsoft;
-}
-
 declare const Dynamsoft: DynamsoftStatic;
+export = DynamsoftStatic;
 
 /** Border Styles */
 declare enum EnumDWT_BorderStyle {
