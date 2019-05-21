@@ -8,7 +8,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2.2
 
-export = Dynamsoft;
 declare module 'dwt' {
 	export = Dynamsoft;	
 }
