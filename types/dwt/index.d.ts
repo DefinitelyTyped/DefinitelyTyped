@@ -26,9 +26,6 @@
 /// <reference path="Dynamsoft.d.ts" />
 /// <reference path="mbc.d.ts" />
 
-declare const Dynamsoft: DynamsoftStatic;
-export = DynamsoftStatic;
-
 /** Border Styles */
 declare enum EnumDWT_BorderStyle {
     /** No border. */
@@ -3706,3 +3703,6 @@ interface WebTwain {
     ...other internal ones
     */
 }
+
+declare const Dynamsoft: DynamsoftStatic;
+export = Dynamsoft;
