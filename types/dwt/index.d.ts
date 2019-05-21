@@ -13,8 +13,8 @@
 /// <reference path="addon.ocrp.d.ts" />
 /// <reference path="addon.pdf.d.ts" />
 /// <reference path="addon.webcam.d.ts" />
-// / < reference path="dbr.d.ts" />
-// / < reference path="mbc.d.ts" />
+/// <reference path="dbr.d.ts" />
+/// <reference path="mbc.d.ts" />
 
 /*!
 * Based on Dynamsoft WebTwain JavaScript Intellisense
