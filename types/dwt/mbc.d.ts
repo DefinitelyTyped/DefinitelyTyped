@@ -159,7 +159,7 @@ painter.onStartLoading = function(){
      */
     onFinishLoading: () => void;
 
-    //# Image Store
+    // # Image Store
     /**
      * Show file choose window by click the hidden file input.Can't process during `Editing` mode.
      * @example
