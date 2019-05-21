@@ -83,29 +83,21 @@ interface cornerPoints {
 }
 
 declare class TaskQueue {
-    _queue: [];
-    isWorking: boolean;
-    timeout: number;
-    /**
+	push(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
+    unshift(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
+    next(): void;
+	/**
      * Constructs a new task queue
      */
     constructor();
 }
 
-interface TaskQueue {
-    push(task: any, context?: any, args?: any): void;
-    unshift(task: any, context?: any, args?: any): void;
-    next(): void;
-}
-
 declare class KPainter {
-    /**
+	/**
      * Constructs a new KPainter
      */
     constructor(mbcKey?: string);
-}
-
-interface KPainter {
+	
     /**
      * @example    
 ```javascript
