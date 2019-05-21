@@ -8,17 +8,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-/// <reference path="Dynamsoft.d.ts" />
-/// <reference path="addon.ocr.d.ts" />
-/// <reference path="addon.ocrp.d.ts" />
-/// <reference path="addon.pdf.d.ts" />
-/// <reference path="addon.webcam.d.ts" />
-// / < reference path="dbr.d.ts" />
-// / < reference path="mbc.d.ts" />
-
-declare const Dynamsoft: DynamsoftStatic;
-export = Dynamsoft;
-
 /*!
 * Based on Dynamsoft WebTwain JavaScript Intellisense
 * Product: Dynamsoft Web Twain
@@ -3707,3 +3696,14 @@ interface WebTwain {
     */
 	Addon: DynamsoftWebTwainAddon;
 }
+
+/// <reference path="Dynamsoft.d.ts" />
+/// <reference path="addon.ocr.d.ts" />
+/// <reference path="addon.ocrp.d.ts" />
+/// <reference path="addon.pdf.d.ts" />
+/// <reference path="addon.webcam.d.ts" />
+// / < reference path="dbr.d.ts" />
+// / < reference path="mbc.d.ts" />
+
+declare const Dynamsoft: DynamsoftStatic;
+export = Dynamsoft;
