@@ -29,7 +29,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
-declare module 'module' {
+declare module 'requirejs/module' {
 	var mod: {
 		config: () => any;
 		id: string;
