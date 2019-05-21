@@ -30,6 +30,7 @@ declare namespace FileSaver {
      * @param disableAutoBOM - Optional & defaults to `false`. Set to `true` if you want FileSaver.js to automatically provide Unicode text encoding hints
      * @deprecated use `{ autoBom: false }` as the third argument
      */
+    // tslint:disable-next-line:unified-signatures
     function saveAs(data: Blob | string, filename?: string, disableAutoBOM?: boolean): void;
 }
 
