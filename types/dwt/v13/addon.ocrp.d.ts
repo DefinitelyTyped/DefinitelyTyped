@@ -57,15 +57,6 @@ interface DynamsoftLib {
     NewOCRZone(): OCRZone;
 }
 
-interface DynamsoftWebTwainAddon {
-    OCRPro: {
-        NewOCRError(): OCRError;
-        NewOCRReadPara(): OCRReadPara;
-        NewOCRZone(): OCRZone;
-        NewSettings(): Settings;
-    }
-}
-
 declare enum EnumDWT_OCRFindTextFlags {
     OCRFT_WHOLEWORD = 1,
     OCRFT_MATCHCASE = 2,
@@ -171,8 +162,13 @@ interface OCRPro {
      * @return {void}
      */
     RecognizeSelectedImages(optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: () => void): void;
+	
+	NewOCRError(): OCRError;
+	NewOCRReadPara(): OCRReadPara;
+	NewOCRZone(): OCRZone;
+	NewSettings(): Settings;
 }
 
-interface WebTwainAddon {
+interface DynamsoftWebTwainAddon {
     OCRPro: OCRPro;
 }
