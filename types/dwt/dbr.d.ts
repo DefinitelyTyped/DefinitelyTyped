@@ -105,10 +105,12 @@ declare namespace dynamsoft {
             DBR_RESERVEDINFO_NOT_MATCHED = -10040,
             DBR_DBRERR_AZTEC_LICENSE_INVALID = -10041
         }
+		
         enum EnumConflictMode {
             ECM_Ignore = 1,
             ECM_Overwrite = 2
         }
+		
         enum EnumImagePixelFormat {
             IPF_Binary = 0,
             IPF_BinaryInverted = 1,
@@ -119,22 +121,19 @@ declare namespace dynamsoft {
             IPF_RGB_888 = 6,
             IPF_ARGB_8888 = 7
         }
+		
         enum EnumResultType {
             EDT_CandidateText = 2,
             EDT_PartialText = 3,
             EDT_RawText = 1,
             EDT_StandardText = 0
         }
+		
         enum EnumTerminateStage {
             ETS_Localized = 1,
             ETS_Prelocalized = 0,
             ETS_Recognized = 2
         }
-        static BarcodeReaderException(): any;
-        static initServiceConnection(): Promise<any>;
-        static name: string;
-        static length: number;
-        static version: string;
 	}
 	
     class BarcodeReader {
@@ -143,6 +142,12 @@ declare namespace dynamsoft {
          */
         constructor(dbrKey?: string);
 
+        static BarcodeReaderException(): any;
+        static initServiceConnection(): Promise<any>;
+        static name: string;
+        static length: number;
+        static version: string;
+		
         // appendTplStringToRuntimeSettings(b, d):
         /** 
          * Read barcode from the source image.
