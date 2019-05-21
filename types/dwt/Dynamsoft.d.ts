@@ -1,4 +1,3 @@
-
 /*!
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com

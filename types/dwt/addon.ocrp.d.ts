@@ -1,4 +1,3 @@
-
 /*!
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
@@ -6,6 +5,7 @@
 * Copyright 2019, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
 */
+
 interface Redaction {
     FindText: string;
     FindTextFlags: EnumDWT_OCRFindTextFlags.OCRFT_WHOLEWORD;
@@ -39,7 +39,7 @@ interface OCRError {
 
 interface Settings {
     RecognitionModule: string;
-    Languages: string
+    Languages: string;
     OutputFormat: EnumDWT_OCRProOutputFormat;
     PDFVersion: EnumDWT_OCRProPDFVersion;
     PDFAVersion: EnumDWT_OCRProPDFAVersion;
@@ -59,7 +59,7 @@ interface DynamsoftWebTwainAddon {
         NewOCRReadPara(): OCRReadPara;
         NewOCRZone(): OCRZone;
         NewSettings(): Settings;
-    }
+    };
 }
 
 declare enum EnumDWT_OCRFindTextFlags {

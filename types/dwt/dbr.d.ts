@@ -1,4 +1,3 @@
-
 /*!
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
@@ -40,7 +39,7 @@ interface dbrEnv {
 }
 
 declare namespace dynamsoft {
-    namespace BarcodeReader {
+    class BarcodeReader {
         /** Barcode Formats */
         enum EnumBarcodeFormat {
             All = 503317503,
@@ -127,9 +126,7 @@ declare namespace dynamsoft {
             ETS_Prelocalized = 0,
             ETS_Recognized = 2
         }
-    }
 
-    class BarcodeReader {
         static BarcodeReaderException(): any;
         static initServiceConnection(): Promise<any>;
         static name: string;
@@ -139,22 +136,9 @@ declare namespace dynamsoft {
          * Constructs a new KPainter
          */
         constructor(dbrKey?: string);
-    }
-    let TaskQueue: TaskQueue;
-    let dbrEnv: dbrEnv;
-    /**dbrMasterPage20170526 */
-    let dcp: {
-        ifCheck64bitServiceFirst: boolean;
-    };
-    /**dwtDbrDemo20170613 */
-    let initOrder: any;
-    let lib: any;
-    let managerEnv: any;
-    let navInfo: any;
-    interface BarcodeReader {
 
-        //appendTplStringToRuntimeSettings(b, d):
-        /**
+        // appendTplStringToRuntimeSettings(b, d):
+        /** 
          * Read barcode from the source image.
          * @method BarcodeReader#decode
          * @param {string} source specifies the image to read on
@@ -201,5 +185,17 @@ declare namespace dynamsoft {
         outputSettingsToString(): any;
         resetRuntimeSettings(): void;
         updateRuntimeSettings(setting: RunTimeSetting): void;
-    }
+    };
+	
+    let TaskQueue: TaskQueue;
+    let dbrEnv: dbrEnv;
+    /**dbrMasterPage20170526 */
+    let dcp: {
+        ifCheck64bitServiceFirst: boolean;
+    };
+    /**dwtDbrDemo20170613 */
+    let initOrder: any;
+    let lib: any;
+    let managerEnv: any;
+    let navInfo: any;
 }

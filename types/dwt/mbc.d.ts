@@ -1,4 +1,4 @@
-
+// TypeScript Version: 3.2.2
 /*!
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
@@ -7,7 +7,7 @@
 * Author: Dynamsoft Support Team
 */
 
-/*
+/** 
  
 ## `constructor` MBC()
  
@@ -26,7 +26,7 @@ painter = new MBC('xxxxx');
 ```
 */
 
-//export = KPainter;
+// export = KPainter;
 
 declare class MBC {
     /**
@@ -144,8 +144,6 @@ document.getElementById('image-container').appendChild(imgCopyed);
      */
     getImage(isOri: boolean, index: number): HTMLImageElement;
 
-
-
     /**
      * Binding a function that would be called when starting an expensive operation.    
     * Syntax:* `function(){}`    
@@ -171,7 +169,6 @@ painter.onStartLoading = function(){
     onFinishLoading: () => void;
 
     //# Image Store
-
     /**
      * Show file choose window by click the hidden file input.Can't process during `Editing` mode.
      * @example
@@ -391,7 +388,6 @@ document.getElementById('btn-toThisPage').addEventListener('click', function(){
      */
     getWidth(index: number): number;
 
-
     /**
      * Get height of current image in the MBC instance.
     
@@ -480,8 +476,7 @@ painter.bindThumbnailBox(document.getElementById('div-thumbnailContainer'));
      */
     unbindThumbnailBox(container: HTMLElement): boolean;
 
-    //# Gesture
-
+    // # Gesture
     /**
      * 
     Set the zoom rate when user left double click.
@@ -521,7 +516,6 @@ painter.onUpdateImgPosZoom(function(){
      */
     onUpdateImgPosZoom: () => void;
 
-
     /**
      * Get the zoom of current image or canvas(in `Editing` mode).
     
@@ -532,7 +526,6 @@ painter.onUpdateImgPosZoom(function(){
     | * (return value)* | `Number` | |
      */
     getZoom(): number;
-
 
     /**
      * Set the zoom of current image or canvas(in `Editing` mode).
@@ -547,10 +540,9 @@ painter.onUpdateImgPosZoom(function(){
      */
     setZoom(num: number, isRate: boolean): number;
 
-    //# Basic Editor
-
+    // # Basic Editor
     /**
-     * The can - not - store step(freeTransform, brush) will generate a step image.If the step images' count over `stepImgsGCThreshold`, oldest not protected one would be GC.
+	* The can - not - store step(freeTransform, brush) will generate a step image.If the step images' count over `stepImgsGCThreshold`, oldest not protected one would be GC.
     
     * Syntax:* `.stepImgsGCThreshold = 10;`
      */
@@ -612,7 +604,6 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
     
      */
     removeProtectedStep(index: number): boolean;
-
 
     /**
      * Get All protected steps.Can only process in `Editing` mode.
@@ -748,7 +739,6 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
      */
     mirror(): boolean;
 
-
     /**
      * Flip.Can only process in `Editing` mode.
     
@@ -795,8 +785,7 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
      */
     getEditHeight(): number;
 
-    //# Crop
-
+    // # Crop
     /**
      * Whether show`Crop Rect` UI when enter`Editing` mode
     
@@ -901,13 +890,10 @@ painter.onCropRectChange = function(){
      */
     cropAsync(callback?: () => void, array?: rectangle[]): void;
 
-
-    //# Free Transform
-
+    // # Free Transform
     /**
      * You should call`KPainter.loadCvScriptAsync()` first before use`FreeTransform` mode.
      */
-
     /**
      * Detect a document.Would auto call`setFreeTransformCornerPos()` after detected.Can only process in `FreeTransform` mode.
      
@@ -1003,11 +989,10 @@ painter.onFreeTransformCornerPosChange = function(){
      */
     exitFreeTransformModeAsync(callback?: () => void): any;
 
-    //# Video
-
+    // # Video
     videoSettings: MediaStreamConstraints;
 
-    //## `MediaStreamConstraints`.videoSettings
+    // ## `MediaStreamConstraints`.videoSettings
     /**
     A[MediaStreamConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamConstraints).
     
@@ -1021,7 +1006,6 @@ painter.onFreeTransformCornerPosChange = function(){
     | videoSettings * (optional) * | `MediaStreamConstraints` | A[MediaStreamConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamConstraints). *reference:* [getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) |
      */
     showVideo(callback?: () => void, videoSettings?: MediaStreamConstraints): boolean;
-
 
     /**
      * Syntax:* `.grabVideo()`

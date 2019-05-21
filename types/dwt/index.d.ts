@@ -1,4 +1,4 @@
-// Type definitions for dwt 14.3.1
+// Type definitions for dwt 14.3
 // Project: https://www.dynamsoft.com/products/webtwain_overview.aspx
 // Definitions by: Xiao Ling <https://github.com/yushulx>
 //                 Josh Hall <https://github.com/jbh>
@@ -6,7 +6,7 @@
 //                 Tom Kent <https://github.com/Tom-Dynamsoft>
 //                 Dave Sueltenfuss <https://github.com/dsueltenfuss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.2.2
 
 /*!
 * Based on Dynamsoft WebTwain JavaScript Intellisense
@@ -26,7 +26,7 @@
 /// <reference path="Dynamsoft.d.ts" />
 /// <reference path="mbc.d.ts" />
 
-declare module 'dwt' {
+declare module {
     export = Dynamsoft;
 }
 
