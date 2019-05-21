@@ -1,4 +1,4 @@
-// Type definitions for fetch-mock 7.2
+// Type definitions for fetch-mock 7.3
 // Project: https://github.com/wheresrhys/fetch-mock, http://www.wheresrhys.co.uk/fetch-mock
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Tamir Duberstein <https://github.com/tamird>
@@ -153,6 +153,11 @@ declare namespace fetchMock {
          * key/value map of express style path params to match
          */
         params?: { [key: string]: string };
+
+        /**
+         * A function for arbitrary matching
+         */
+        functionMatcher?: MockMatcherFunction;
 
         /**
          * as specified above

@@ -17,6 +17,11 @@ fetchMock.mock("express:/users/:user", 200, {
     }
 });
 fetchMock.mock("http://test.com", 200, {
+    functionMatcher: (url, opts) => {
+        return url.includes("test.com");
+    }
+});
+fetchMock.mock("http://test.com", 200, {
     repeat: 2
 });
 fetchMock.mock(/test\.com/, 200);
