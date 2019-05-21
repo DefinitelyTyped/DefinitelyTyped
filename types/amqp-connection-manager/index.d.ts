@@ -6,7 +6,7 @@
 
 import { ConfirmChannel, Connection, Message, Options, Replies } from "amqplib";
 import { EventEmitter } from "events";
-import { SecureContextOptions } from "tls";
+import { ConnectionOptions } from "tls";
 
 /**
  * connect() options
@@ -32,7 +32,7 @@ export interface AmqpConnectionManagerOptions {
 	/**
 	 * TLS options
 	 */
-	connectionOptions?: SecureContextOptions;
+	connectionOptions?: ConnectionOptions;
 }
 
 /**
