@@ -8,6 +8,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+/// <reference path="Dynamsoft.d.ts" />
+/// <reference path="addon.ocr.d.ts" />
+/// <reference path="addon.ocrp.d.ts" />
+/// <reference path="addon.pdf.d.ts" />
+/// <reference path="addon.webcam.d.ts" />
+// / < reference path="dbr.d.ts" />
+// / < reference path="mbc.d.ts" />
+
+declare const Dynamsoft: DynamsoftStatic;
+export = Dynamsoft;
+
 /*!
 * Based on Dynamsoft WebTwain JavaScript Intellisense
 * Product: Dynamsoft Web Twain
@@ -17,10 +28,6 @@
 * Author: Dynamsoft Support Team
 * Version: 14.3.1
 */
-
-/// <reference path="Dynamsoft.d.ts" />
-
-export = DynamsoftStatic;
 
 /** Border Styles */
 declare enum EnumDWT_BorderStyle {
@@ -3698,4 +3705,5 @@ interface WebTwain {
 
     ...other internal ones
     */
+	Addon: DynamsoftWebTwainAddon;
 }

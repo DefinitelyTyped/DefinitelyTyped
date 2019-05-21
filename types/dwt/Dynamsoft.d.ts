@@ -105,10 +105,6 @@ interface DynamsoftLib {
     showMask(): void;
 }
 
-interface DynamsoftWebTwain {
-    Addon: DynamsoftWebTwainAddon;
-}
-
 /**
  * interface for a DWT container which basically defines a DIV on the page
  */
