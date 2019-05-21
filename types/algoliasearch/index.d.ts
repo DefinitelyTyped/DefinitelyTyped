@@ -1910,32 +1910,51 @@ declare namespace algoliasearch {
   }
 
   namespace Places {
+    interface LanguageInterface {
+      /**
+       * If specified, restrict the search results to a single language. You can pass two letters country codes (ISO 639-1).
+       * Warning: language parameter is case sensitive and should be lowercase otherwise it will fallback to default language.
+       * https://community.algolia.com/places/api-clients.html#api-options-language
+       */
+      language: string
+    }
+
     interface PlaceInterface {
         /**
          * Endpoint to search.
          * https://community.algolia.com/places/api-clients.html#endpoints
          */
-        search(e: QueryInterface, cb: (err: Error, response: ResultSearchInterface) => void): void;
+
+        /**
+         * If specified, restrict the search results to a single language. You can pass two letters country codes (ISO 639-1).
+         * Warning: language parameter is case sensitive and should be lowercase otherwise it will fallback to default language.
+         * https://community.algolia.com/places/api-clients.html#api-options-language
+         */
+
+        search(e: QueryInterface, cb: (err: Error, response: ResultSearchInterface<HitInterface>) => void): void;
+        search(e: QueryInterface & LanguageInterface, cb: (err: Error, response: ResultSearchInterface<LocalizedHitInterface>) => void): void;
 
         /**
          * Endpoint to search.
          * https://community.algolia.com/places/api-clients.html#endpoints
          */
-        search(e: QueryInterface): Promise<ResultSearchInterface>;
-        // search(e: LocalizedQueryInterface): Promise<LocalizedResultSearchInterface>;
+        search(e: QueryInterface): Promise<ResultSearchInterface<HitInterface>>;
+        search(e: QueryInterface & LanguageInterface): Promise<ResultSearchInterface<LocalizedHitInterface>>;
 
         /**
          * Reverse geocoding means converting a location (latitude and longitude) to a readable address.
          * https://community.algolia.com/places/api-clients.html#endpoints
          */
-        reverse(e: QueryReverseInterface, cb: (err: Error, response: ResultSearchInterface) => void): void;
+        reverse(e: QueryReverseInterface, cb: (err: Error, response: ResultSearchInterface<HitInterface>) => void): void;
+        reverse(e: QueryReverseInterface & LanguageInterface, cb: (err: Error, response: ResultSearchInterface<LocalizedHitInterface>) => void): void;
 
 
         /**
          * Reverse geocoding means converting a location (latitude and longitude) to a readable address.
          * https://community.algolia.com/places/api-clients.html#endpoints
          */
-        reverse(e: QueryReverseInterface): Promise<ResultSearchInterface>;
+        reverse(e: QueryReverseInterface): Promise<ResultSearchInterface<HitInterface>>;
+        reverse(e: QueryReverseInterface  & LanguageInterface): Promise<ResultSearchInterface<LocalizedHitInterface>>;
     }
 
     /**
@@ -1957,12 +1976,6 @@ declare namespace algoliasearch {
          * https://community.algolia.com/places/api-clients.html#api-options-type
          */
         hitsPerPage?: number;
-        /**
-         * If specified, restrict the search results to a single language. You can pass two letters country codes (ISO 639-1).
-         * Warning: language parameter is case sensitive and should be lowercase otherwise it will fallback to default language.
-         * https://community.algolia.com/places/api-clients.html#api-options-language
-         */
-        language?: string;
         /**
          * If specified, restrict the search results to a specific list of comma-separated countries. You can pass two letters country codes (ISO 3166-1).
          * Default: Search on the whole planet.
@@ -2013,24 +2026,18 @@ declare namespace algoliasearch {
          * https://community.algolia.com/places/api-clients.html#api-options-type
          */
         hitsPerPage?: number;
-        /**
-         * If specified, restrict the search results to a single language. You can pass two letters country codes (ISO 639-1).
-         * Warning: language parameter is case sensitive and should be lowercase otherwise it will fallback to default language.
-         * https://community.algolia.com/places/api-clients.html#api-options-language
-         */
-        language?: string;
     }
 
     /**
      * Result of search.
      * https://community.algolia.com/places/api-clients.html#json-answer
      */
-    interface ResultSearchInterface {
+    interface ResultSearchInterface<T extends HitInterface | LocalizedHitInterface> {
         /**
          * Contains all the hits matching the query.
          * https://community.algolia.com/places/api-clients.html#json-answer
          */
-        hits: HitInterface[] | LocalizedHitInterface[];
+        hits: T[];
         /**
          * Query fallback if query retrieve any result
          * https://community.algolia.com/places/api-clients.html#json-answer
