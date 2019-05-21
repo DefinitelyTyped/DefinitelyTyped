@@ -19,6 +19,3 @@
 */
 
 /// <reference path="Dynamsoft.d.ts" />
-
-declare const Dynamsoft: DynamsoftStatic;
-export = Dynamsoft;
