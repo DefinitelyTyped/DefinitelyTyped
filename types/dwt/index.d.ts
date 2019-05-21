@@ -3706,3 +3706,6 @@ interface WebTwain {
 
 declare const Dynamsoft: DynamsoftStatic;
 export = Dynamsoft;
+declare module 'dwt' {
+	export = Dynamsoft;	
+}
