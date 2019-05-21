@@ -17,5 +17,3 @@
 * Author: Dynamsoft Support Team
 * Version: 14.3.1
 */
-
-/// <reference path="Dynamsoft.d.ts" />
