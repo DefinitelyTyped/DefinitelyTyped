@@ -1,19 +1,18 @@
 /**
  * Defines a concept for filtering.
  */
-export enum ColumnFilter {
+export type ColumnFilter =
     /**
      * Indicates disabled filtering.
      */
-    None = "false",
+    "false" |
 
     /**
      * Indicates filtering on parsed data.
      */
-    Parsed = "parsed",
+    "parsed" |
 
     /**
      * Indicates filtering on raw data.
      */
-    Default = "default"
-}
+    "default";
