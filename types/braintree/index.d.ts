@@ -62,7 +62,7 @@ declare namespace braintree {
         settlementBatchSumary: T extends SettlementBatchSummary ? SettlementBatchSummary : never;
         subscription: T extends Subscription ? Subscription : never;
         transaction: T extends Transaction ? Transaction : never;
-        clientToken: T extends ClientToken ? ClientToken : never;
+        clientToken: T extends ClientToken ? string : never;
     }
 
     /**
@@ -81,7 +81,7 @@ declare namespace braintree {
     }
 
     interface ClientTokenGateway {
-        generate(request: ClientTokenRequest): Promise<ClientToken>;
+        generate(request: ClientTokenRequest): Promise<ValidatedResponse<ClientToken>>;
     }
 
     interface CreditCardGateway {
