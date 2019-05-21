@@ -2032,7 +2032,7 @@ declare namespace algoliasearch {
      * Result of search.
      * https://community.algolia.com/places/api-clients.html#json-answer
      */
-    interface ResultSearchInterface<T> {
+    interface ResultSearchInterface<T extends HitInterface | LocalizedHitInterface> {
         /**
          * Contains all the hits matching the query.
          * https://community.algolia.com/places/api-clients.html#json-answer
