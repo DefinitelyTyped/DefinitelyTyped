@@ -972,6 +972,35 @@ declare namespace mapboxgl {
     }
 
     /**
+     * MercatorCoordinate
+     */
+    export class MercatorCoordinate {
+        /** The x component of the position. */
+        x: number;
+
+        /** The y component of the position. */
+        y: number;
+
+        /**
+         * The z component of the position.
+         *
+         * @default 0
+         */
+        z?: number;
+
+        constructor(x: number, y: number, z?: number);
+
+        /** Returns the altitude in meters of the coordinate. */
+        toAltitude(): number;
+
+        /** Returns the LngLat for the coordinate. */
+        toLngLat(): LngLat;
+
+        /** Project a LngLat to a MercatorCoordinate. */
+        static fromLngLat(lngLatLike: LngLatLike, altitude?: number): MercatorCoordinate;
+    }
+
+    /**
      * Marker
      */
     export class Marker extends Evented {
