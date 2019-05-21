@@ -42,14 +42,10 @@ interface dbrEnv {
     onAutoConnectServiceError(status: any): void;
 }
 
-declare class TaskQueue {
+interface TaskQueue {
 	push(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
     unshift(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
     next(): void;
-	/**
-     * Constructs a new task queue
-     */
-    constructor();	
 }
 
 declare namespace dynamsoft {
