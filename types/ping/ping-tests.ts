@@ -13,10 +13,8 @@ const config: PingConfig = {
     extra: [],
 };
 
-sys.probe('test', (isAlive, err) => {
-    if (isAlive === true) {
-
-    }
+sys.probe('test', (isAlive: boolean, err: any) => {
+    const alive: boolean = isAlive;
 });
 
 async function test() {

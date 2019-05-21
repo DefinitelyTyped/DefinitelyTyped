@@ -2,6 +2,7 @@
 // Project: http://github.com/danielzzz/node-ping
 // Definitions by: Richard Honor <https://github.com/RMHonor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export interface PingConfig {
     /**
@@ -80,7 +81,7 @@ export interface PingConfig {
      * @param config Optional configuration
      */
     probe(addr: string, cb: (isAlive: boolean, error: any) => void, config?: PingConfig): void;
-  }
+  };
 
   export const promise: {
     /**
@@ -90,4 +91,4 @@ export interface PingConfig {
      * @param config Optional configuration
      */
     probe(addr: string, config?: PingConfig): Promise<PingResponse>;
-  }
+  };
