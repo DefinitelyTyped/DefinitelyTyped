@@ -237,11 +237,11 @@ declare enum EnumDWT_Cap {
     CAP_PRINTERINDEX = 4136,
     /** Specifies the appropriate current CAP_PRINTER device mode.
      *  Note:
-     *  ? TWPM_SINGLESTRING specifies that the printed text will consist of a single string.
-     *  ? TWPM _MULTISTRING specifies that the printed text will consist of an enumerated list of
-     *  strings to be printed in order.
-     *  ? TWPM _COMPOUNDSTRING specifies that the printed string will consist of a compound of a
-     *  String followed by a value followed by a suffix string.
+     *  O TWPM_SINGLESTRING specifies that the printed text will consist of a single string.
+     *  O TWPM _MULTISTRING specifies that the printed text will consist of an enumerated list of
+     *    strings to be printed in order.
+     *  O TWPM _COMPOUNDSTRING specifies that the printed string will consist of a compound of a
+     *    String followed by a value followed by a suffix string.
      */
     CAP_PRINTERMODE = 4137,
     /** Specifies the string(s) that are to be used in the string component when the current
@@ -399,7 +399,7 @@ declare enum EnumDWT_Cap {
     ICAP_BITORDER = 4380,
     /** Used for CCITT Group 3 2-dimensional compression. The 'K' factor indicates how often the
      *  new compression baseline should be re-established. A value of 2 or 4 is common in facsimile
-     *  communication. A value of zero in this field will indicate an infinite K factor¡ªthe baseline is
+     *  communication. A value of zero in this field will indicate an infinite K factorâ€”the baseline is
      *  only calculated at the beginning of the transfer.
      */
     ICAP_CCITTKFACTOR = 4381,
@@ -468,11 +468,11 @@ declare enum EnumDWT_Cap {
     ICAP_MINIMUMWIDTH = 4401,
     /** Use this capability to have the Source discard blank images. The Application never sees these
      *  images during the scanning session.
-     *  TWBP_DISABLE ¨C this must be the default state for the Source. It indicates that all images will
+     *  TWBP_DISABLE â€“ this must be the default state for the Source. It indicates that all images will
      *  be delivered to the Application, none of them will be discarded.
-     *  TWBP_AUTO ¨C if this is used, then the Source will decide if an image is blank or not and discard
+     *  TWBP_AUTO â€“ if this is used, then the Source will decide if an image is blank or not and discard
      *  as appropriate.
-     *  If the specified value is a positive number in the range 0 to 231¨C1, then this capability will use it
+     *  If the specified value is a positive number in the range 0 to 231â€“1, then this capability will use it
      *  as the byte size cutoff point to identify which images are to be discarded. If the size of the image
      *  is less than or equal to this value, then it will be discarded. If the size of the image is greater
      *  than this value, then it will be kept so that it can be transferred to the Application.
@@ -2768,7 +2768,7 @@ interface WebTwain {
      * @param {string} InitialDir The initial directory. The algorithm for selecting the initial directory varies on different platforms.
      * @param {bool} AllowMultiSelect True -- allows users to select more than one file, False -- only allows to select one file.
      * @param {bool} OverwritePrompt True -- If a file already exists with the same name, the old file will be simply overwritten, False -- not allows to save and overwrite a same name file.
-     * @param {int} Flags If this parameter equals 0, the program will be initiated with the default flags, otherwise initiated with the cumstom value and parameters "AllowMultiSelect" and "OverwritePrompt" will be useless.
+     * @param {int} Flags If this parameter equals 0, the program will be initiated with the default flags, otherwise initiated with the cumstom value and paramters "AllowMultiSelect" and "OverwritePrompt" will be useless.
      * @return {bool}
      */
     ShowFileDialog(SaveDialog: boolean, Filter: string, FilterIndex: number, DefExtension: string, InitialDir: string, AllowMultiSelect: boolean, OverwritePrompt: boolean, Flags: number): boolean;
