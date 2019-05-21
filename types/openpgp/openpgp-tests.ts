@@ -8,14 +8,10 @@ const options: openpgp.KeyOptions = {
         name: 'Jon Smith',
         email: 'jon.smith@example.org',
     }, {
-        name: undefined,
         email: 'jon.smith@example.org',
     }, {
         name: 'Jon Smith',
-        email: undefined,
     }, {
-        name: undefined,
-        email: undefined,
     }],
     passphrase: 'super long and hard to guess secret'
 };
@@ -165,7 +161,7 @@ openpgp.initWorker({
         armor: false,
         detached: false,
     }).then(s => s.message/* as openpgp.message.Message*/);
-    
+
     const verifyOptions: openpgp.VerifyOptions = {
         message,
         signature,

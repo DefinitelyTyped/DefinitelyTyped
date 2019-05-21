@@ -8,14 +8,10 @@ var options: openpgp.KeyOptions = {
         name: 'Jon Smith',
         email: 'jon.smith@example.org',
     }, {
-        name: undefined,
         email: 'jon.smith@example.org',
     }, {
         name: 'Jon Smith',
-        email: undefined,
     }, {
-        name: undefined,
-        email: undefined,
     }],
     passphrase: 'super long and hard to guess secret'
 };
