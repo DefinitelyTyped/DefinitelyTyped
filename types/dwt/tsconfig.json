@@ -20,6 +20,10 @@
     "files": [
         "dwt-tests.ts",
         "index.d.ts",
-        "Dynamsoft.d.ts"
+        "Dynamsoft.d.ts",
+		"addon.ocr.d.ts",
+        "addon.ocrp.d.ts",
+        "addon.pdf.d.ts",
+        "addon.webcam.d.ts"
     ]
 }
