@@ -9,6 +9,7 @@
 //                 Fumiaki Matsushima <https://github.com/mtsmfm>
 //                 Colin Doig <https://github.com/captain-igloo>
 //                 Felix Chen <https://github.com/ChenNima>
+//                 Katsuya Hino <https://github.com/dobogo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -147,6 +148,11 @@ declare namespace fetchMock {
          * key/value map of query strings to match, in any order
          */
         query?: { [key: string]: string };
+
+        /**
+         * key/value map of express style path params to match
+         */
+        params?: { [key: string]: string };
 
         /**
          * as specified above
