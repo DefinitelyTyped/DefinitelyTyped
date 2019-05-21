@@ -1,7 +1,6 @@
 // tslint:disable:jsdoc-format
 // tslint:disable:max-line-length
 // tslint:disable:no-irregular-whitespace
-// TypeScript Version: 2.4
 
 /*!
 * Product: Dynamsoft Web Twain
@@ -67,7 +66,6 @@ declare enum EnumDWT_OCROutputFormat {
  * @class
  */
 interface OCR {
-
     /**
      *  Downloads and installs the ocr add-on on the local system. 
      * @method Dynamsoft.WebTwain#Download 
@@ -199,7 +197,6 @@ interface OCR {
      * @return {boolean}
      */
     SetOutputFormat(value: EnumDWT_OCROutputFormat): void;
-
 }
 
 interface WebTwainAddon {
