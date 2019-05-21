@@ -114,7 +114,7 @@ export interface ClientOptions {
     /**
      * this will store items under keys that start with this value.
      */
-    partition: string;
+    partition?: string;
 }
 
 export type PolicyOptionVariants<T> = PolicyOptions<T> | DecoratedPolicyOptions<T>;
