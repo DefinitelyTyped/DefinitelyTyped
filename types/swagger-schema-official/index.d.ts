@@ -182,7 +182,7 @@ export interface BasicAuthenticationSecurity extends BaseSecurity {
 export interface ApiKeySecurity extends BaseSecurity {
   type: 'apiKey';
   name: string;
-  in: string;
+  in: 'query' | 'header';
 }
 
 export interface BaseOAuthSecuirty extends BaseSecurity {
