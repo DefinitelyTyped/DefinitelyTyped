@@ -4807,8 +4807,8 @@ export function getWorker(): worker.async_proxy.AsyncProxy | null;
 export function destroyWorker(): void;
 
 export interface UserID {
-    name: string;
-    email: string;
+    name: string | undefined;
+    email: string | undefined;
 }
 
 export interface KeyOptions {
