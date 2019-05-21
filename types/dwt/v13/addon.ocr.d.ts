@@ -1,6 +1,7 @@
 // tslint:disable:jsdoc-format
 // tslint:disable:max-line-length
 // tslint:disable:no-irregular-whitespace
+// TypeScript Version: 2.4
 
 /*!
 * Product: Dynamsoft Web Twain

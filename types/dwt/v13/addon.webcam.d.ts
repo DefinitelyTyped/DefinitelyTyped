@@ -126,57 +126,56 @@ declare enum EnumDWT_CameraControlProperty {
 }
 
 interface WebcamMediaType {
-    GetCount(): number,
-    Get(index: number): string,
-    GetCurrent(): string
+    GetCount(): number;
+    Get(index: number): string;
+    GetCurrent(): string;
 }
 
 interface WebcamResolution {
-    GetCount(): number,
-    Get(index: number): string,
-    GetCurrent(): string
+    GetCount(): number;
+    Get(index: number): string;
+    GetCurrent(): string;
 }
 
 interface WebcamFrameRate {
-    GetCount(): number,
-    Get(index: number): string,
-    GetCurrent(): string
+    GetCount(): number;
+    Get(index: number): string;
+    GetCurrent(): string;
 }
 
 interface CameraControlMoreSetting {
-    GetMinValue(): number,
-    GetMaxValue(): number,
-    GetSteppingDelta(): number,
-    GetDefaultValue(): number,
-    GetIfAuto(): boolean
+    GetMinValue(): number;
+    GetMaxValue(): number;
+    GetSteppingDelta(): number;
+    GetDefaultValue(): number;
+    GetIfAuto(): boolean;
 }
 
 interface CameraControlSetting {
-    GetValue(): number,
-    GetIfAuto(): boolean
+    GetValue(): number;
+    GetIfAuto(): boolean;
 }
 
 interface VideoPropertyMoreSetting {
-    GetMinValue(): number,
-    GetMaxValue(): number,
-    GetSteppingDelta(): number,
-    GetDefaultValue(): number,
-    GetIfAuto(): boolean
+    GetMinValue(): number;
+    GetMaxValue(): number;
+    GetSteppingDelta(): number;
+    GetDefaultValue(): number;
+    GetIfAuto(): boolean;
 }
 
 interface VideoPropertySetting {
-    GetValue(): number,
-    GetIfAuto(): boolean
+    GetValue(): number;
+    GetIfAuto(): boolean;
 }
 
 /**
  * @class
  */
 interface Webcam {
-
-    IsModuleInstalled(): boolean
-    GetFramePartURL(): string
-    GetFrameURL(): string
+    IsModuleInstalled(): boolean;
+    GetFramePartURL(): string;
+    GetFrameURL(): string;
 
     /**
      *  Download and install webcam add-on on the local system. 
@@ -186,14 +185,14 @@ interface Webcam {
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the download fails. Please refer to the function prototype OnFailure.
      * @return {boolean}
      */
-    Download(remoteFile: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: () => void): void
+    Download(remoteFile: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: () => void): void;
 
     /**
      *  Return supported webcam source names. 
      * @method Dynamsoft.WebTwain#GetSourceList 
      * @return {string array}
      */
-    GetSourceList(): string[]
+    GetSourceList(): string[];
 
     /**
      *  Select the source with the specified name. 
@@ -201,14 +200,14 @@ interface Webcam {
      * @param {string} strSourceName The source name.
      * @return {boolean}
      */
-    SelectSource(strSourceName: string): boolean
+    SelectSource(strSourceName: string): boolean;
 
     /**
      *  Close the selected source and release the webcam. 
      * @method Dynamsoft.WebTwain#CloseSource 
      * @return {boolean}
      */
-    CloseSource(): boolean
+    CloseSource(): boolean;
 
     /**
      *  Show video stream in a specified container
@@ -218,14 +217,14 @@ interface Webcam {
      * @param {function} onFrameCaptured callback of the operation to capture
      * @return {void}
      */
-    PlayVideo(DWObject: WebTwain, quality: number, onFrameCaptured: () => void): void
+    PlayVideo(DWObject: WebTwain, quality: number, onFrameCaptured: () => void): void;
 
     /**
      *  Stop the video stream in the specified container
      * @method Dynamsoft.WebTwain#StopVideo 
      * @return {boolean}
      */
-    StopVideo(): boolean
+    StopVideo(): boolean;
 
     /**
      *  Capture image from the specified webcam. 
@@ -234,28 +233,28 @@ interface Webcam {
      * @param {function} OnCaptureError The function to call when the capture fails. Please refer to the function prototype OnCaptureError.
      * @return {void}
      */
-    CaptureImage(OnCaptureSuccess: () => void, OnCaptureError: () => void): void
+    CaptureImage(OnCaptureSuccess: () => void, OnCaptureError: () => void): void;
 
     /**
      *  Returns the media type for a camera. 
      * @method Dynamsoft.WebTwain#GetMediaType 
      * @return {class MediaType}
      */
-    GetMediaType(): WebcamMediaType
+    GetMediaType(): WebcamMediaType;
 
     /**
      *  Returns the count in the media type list. 
      * @method Dynamsoft.WebTwain#GetResolution 
      * @return {class Resolution}
      */
-    GetResolution(): WebcamResolution
+    GetResolution(): WebcamResolution;
 
     /**
      *  Returns the frame rate for a camera. 
      * @method Dynamsoft.WebTwain#GetFrameRate 
      * @return {class FrameRate}
      */
-    GetFrameRate(): WebcamFrameRate
+    GetFrameRate(): WebcamFrameRate;
 
     /**
      *  Set the media type of the current selected source by the value. 
@@ -263,7 +262,7 @@ interface Webcam {
      * @param {string} value The new media type value.
      * @return {boolean}
      */
-    SetMediaType(value: string): boolean
+    SetMediaType(value: string): boolean;
 
     /**
      *  Set the resolution of the current camera source. 
@@ -271,7 +270,7 @@ interface Webcam {
      * @param {string} value The new resolution value.
      * @return {boolean}
      */
-    SetResolution(value: string): boolean
+    SetResolution(value: string): boolean;
 
     /**
      *  Set current frame rate. 
@@ -279,7 +278,7 @@ interface Webcam {
      * @param {number} value The new frame rate value.
      * @return {boolean}
      */
-    SetFrameRate(value: number): boolean
+    SetFrameRate(value: number): boolean;
 
     /**
      *  Gets the current setting of a video property. 
@@ -287,7 +286,7 @@ interface Webcam {
      * @param {EnumDWT_VideoProperty} property The property.
      * @return {class VideoPropertySetting}
      */
-    GetVideoPropertySetting(property: EnumDWT_VideoProperty): VideoPropertySetting
+    GetVideoPropertySetting(property: EnumDWT_VideoProperty): VideoPropertySetting;
 
     /**
      *  Gets the range and default value of a specified video property. 
@@ -295,7 +294,7 @@ interface Webcam {
      * @param {EnumDWT_VideoProperty} property The property.
      * @return {class VideoPropertyMoreSetting}
      */
-    GetVideoPropertyMoreSetting(property: EnumDWT_VideoProperty): VideoPropertyMoreSetting
+    GetVideoPropertyMoreSetting(property: EnumDWT_VideoProperty): VideoPropertyMoreSetting;
 
     /**
      *  Gets the current setting of a camera property. 
@@ -303,7 +302,7 @@ interface Webcam {
      * @param {EnumDWT_CameraControlProperty} property The property.
      * @return {class CameraControlPropertySetting}
      */
-    GetCameraControlPropertySetting(property: EnumDWT_CameraControlProperty): CameraControlSetting
+    GetCameraControlPropertySetting(property: EnumDWT_CameraControlProperty): CameraControlSetting;
 
     /**
      *  Gets the range and default value of a specified camera property. 
@@ -311,8 +310,7 @@ interface Webcam {
      * @param {EnumDWT_CameraControlProperty} property The property.
      * @return {class CameraControlPropertyMoreSetting}
      */
-    GetCameraControlPropertyMoreSetting(property: EnumDWT_CameraControlProperty): CameraControlMoreSetting
-
+    GetCameraControlPropertyMoreSetting(property: EnumDWT_CameraControlProperty): CameraControlMoreSetting;
 
     /**
      *  Sets video quality for a specified property. 
@@ -322,7 +320,7 @@ interface Webcam {
      * @param {boolean} auto The desired control setting, whether the setting is controlled manually or automatically.
      * @return {boolean}
      */
-    SetVideoPropertySetting(property: EnumDWT_VideoProperty, value: number, auto: boolean): boolean
+    SetVideoPropertySetting(property: EnumDWT_VideoProperty, value: number, auto: boolean): boolean;
 
     /**
      *  Sets video rotate mode.
@@ -330,7 +328,7 @@ interface Webcam {
      * @param {EnumDWT_VideoRotateMode} enumAngle The rotate angle.
      * @return {boolean}
      */
-    SetVideoRotateMode(enumAngle: EnumDWT_VideoRotateMode): boolean
+    SetVideoRotateMode(enumAngle: EnumDWT_VideoRotateMode): boolean;
 
     /**
      *  Sets a specified property on the camera. 
@@ -340,7 +338,7 @@ interface Webcam {
      * @param {boolean} auto The desired control setting, whether the setting is controlled manually or automatically.
      * @return {boolean}
      */
-    SetCameraControlPropertySetting(property: EnumDWT_CameraControlProperty, value: number, auto: boolean): boolean
+    SetCameraControlPropertySetting(property: EnumDWT_CameraControlProperty, value: number, auto: boolean): boolean;
 }
 
 interface WebTwainAddon {

@@ -1,6 +1,7 @@
 // tslint:disable:jsdoc-format
 // tslint:disable:max-line-length
 // tslint:disable:no-irregular-whitespace
+// TypeScript Version: 2.4
 
 /*!
 * Product: Dynamsoft Web Twain
@@ -11,58 +12,58 @@
 */
 
 interface Redaction {
-    FindText: string,
+    FindText: string;
     FindTextFlags: EnumDWT_OCRFindTextFlags.OCRFT_WHOLEWORD;
     FindTextAction: EnumDWT_OCRFindTextAction.OCRFT_MARKFORREDACT;
 }
 
 interface OCRZone {
-    left: number,
-    top: number,
-    right: number,
-    bottom: number
+    left: number;
+    top: number;
+    right: number;
+    bottom: number;
 }
 
 interface OCRReadPara {
-    STWAIN: WebTwain,
-    AjaxFunctionUrl: string,
-    FunctionName: string,
-    ImageIndex: number,
-    FileNames: string,
-    Type: string,
-    AryZone: number[],
-    JsonString: string,
-    OnSuccess(): void,
-    OnFailure(): void
+    STWAIN: WebTwain;
+    AjaxFunctionUrl: string;
+    FunctionName: string;
+    ImageIndex: number;
+    FileNames: string;
+    Type: string;
+    AryZone: number[];
+    JsonString: string;
+    OnSuccess(): void;
+    OnFailure(): void;
 }
 
 interface OCRError {
-    responseText: string,
-    errorString: string
+    responseText: string;
+    errorString: string;
 }
 
 interface Settings {
-    RecognitionModule: string,
-    Languages: string
-    OutputFormat: EnumDWT_OCRProOutputFormat,
-    PDFVersion: EnumDWT_OCRProPDFVersion,
-    PDFAVersion: EnumDWT_OCRProPDFAVersion,
-    LicenseChecker: string,
-    Redaction: Redaction
+    RecognitionModule: string;
+    Languages: string;
+    OutputFormat: EnumDWT_OCRProOutputFormat;
+    PDFVersion: EnumDWT_OCRProPDFVersion;
+    PDFAVersion: EnumDWT_OCRProPDFAVersion;
+    LicenseChecker: string;
+    Redaction: Redaction;
 }
 
 interface DynamsoftLib {
-    NewRedaction(): Redaction,
-    NewOCRReadPara(): OCRReadPara,
-    NewOCRZone(): OCRZone
+    NewRedaction(): Redaction;
+    NewOCRReadPara(): OCRReadPara;
+    NewOCRZone(): OCRZone;
 }
 
 interface DynamsoftWebTwainAddon {
     OCRPro: {
-        NewOCRError(): OCRError,
-        NewOCRReadPara(): OCRReadPara,
-        NewOCRZone(): OCRZone,
-        NewSettings(): Settings
+        NewOCRError(): OCRError;
+        NewOCRReadPara(): OCRReadPara;
+        NewOCRZone(): OCRZone;
+        NewSettings(): Settings;
     }
 }
 
@@ -126,7 +127,7 @@ interface OCRPro {
      * Returns whether OCR Pro addon is installed
      * @return {boolean}
      */
-    IsModuleInstalled(): boolean
+    IsModuleInstalled(): boolean;
 
     /**
      *  Downloads and installs the ocr add-on on the local system. 
