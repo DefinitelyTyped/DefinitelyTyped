@@ -114,7 +114,6 @@ interface Container {
     Height: string | number;
 }
 
-
 /** Border Styles */
 declare enum EnumDWT_BorderStyle {
     /** No border. */
