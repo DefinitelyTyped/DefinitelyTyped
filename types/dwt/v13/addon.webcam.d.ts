@@ -341,6 +341,6 @@ interface Webcam {
     SetCameraControlPropertySetting(property: EnumDWT_CameraControlProperty, value: number, auto: boolean): boolean;
 }
 
-interface DynamsoftWebTwainAddon {
+interface WebTwainAddon {
     Webcam: Webcam;
 }

@@ -1,9 +1,3 @@
-// tslint:disable:jsdoc-format
-// tslint:disable:max-line-length
-// tslint:disable:no-irregular-whitespace
-
-import * as Dynamsoft from 'dwt';
-
 function dwtOnReady() {
     const DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');    // Get the Dynamic Web TWAIN object that is embeded in the div with id 'dwtcontrolContainer'
     if (DWObject) {
@@ -104,14 +98,4 @@ function downloadImage() {
     DWObject.HTTPPort = 80;                
     DWObject.HTTPDownload("www.dynamsoft.com", "img.png", () => {}, (errorCode: number, errorString: string) => {});
   }
-}
-
-function loadPDF() {
-    const DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
-    if (DWObject) {
-		DWObject.Addon.PDF.SetResolution(200);
-		DWObject.Addon.PDF.SetConvertMode(1);
-        DWObject.IfShowFileDialog = true;
-        DWObject.LoadImageEx(" ", 5);
-    }
 }
