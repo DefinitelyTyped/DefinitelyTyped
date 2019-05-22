@@ -63,6 +63,18 @@ declare module 'bootbot' {
         LOCATION = 'location',
         PHONE_NUMBER = 'user_phone_number'
     }
+    export enum TemplateType {
+        BUTTON = 'button',
+        TEMPLATE = 'template',
+        MEDIA = 'media',
+        GENERIC = 'generic',
+        LIST = 'list',
+        OPEN_GRAPH = 'open_graph',
+        AIRLINE_BOARDINGPASS = 'airline_boardingpass',
+        AIRLINE_CHECKIN = 'airline_checkin',
+        AIRLINE_ITINERARY = 'airline_itinerary',
+        AIRLINE_UPDATE = 'airline_update'
+    }
     export enum WebviewHeightRatioType {
         COMPACT = 'compact',
         TALL = 'tall',
@@ -70,6 +82,23 @@ declare module 'bootbot' {
     }
     export enum WebviewShareButtonType {
         HIDE = 'hide'
+    }
+    export enum TopElementStyle {
+        COMPACT = 'compact',
+        LARGE = 'large'
+    }
+    export enum MediaType {
+        IMAGE = 'image',
+        VIDEO = 'video'
+    }
+    export enum SeatType {
+        ECONOMY = 'economy',
+        COMFORT = 'comfort'
+    }
+    export enum AirlineUpdateType {
+        DELAY = 'delay',
+        GATE_CHANGE = 'gate_change',
+        CANCELLATION = 'cancellation'
     }
 
     export interface MessagePayload {
@@ -128,7 +157,7 @@ declare module 'bootbot' {
         title: string
         payload: string
     }
-    export interface ShereButton {
+    export interface ShareButton {
         type: ButtonType.ELEMENT_SHARE
         share_contents?: any
     }
@@ -141,7 +170,7 @@ declare module 'bootbot' {
         fallback_url?: string
         webview_share_button?: WebviewShareButtonType
     }
-    export type Button = QuickReplyButton | CallButton | LogInButton | LogOutButton | PostbackButton | ShereButton | URLButton
+    export type Button = QuickReplyButton | CallButton | LogInButton | LogOutButton | PostbackButton | ShareButton | URLButton
 
 
     export interface SendMessageOptions {
@@ -259,4 +288,184 @@ declare module 'bootbot' {
         get (property: string): any
         set (property: string, value: any): any
     }
+
+
+    export interface ButtonTemplate {
+        text: string
+        buttons: Array<Button>
+        sharable?: boolean
+    }
+    export interface GenericTemplatePostbackButton {
+        type: ButtonType
+        title: string
+        url?: string
+        payload?: string
+    }
+    export interface GenericTemplate {
+        title: string
+        subtitle?: string
+        image_url?: string
+        default_action?: {
+            type: string
+            title: string
+            url: string
+        }
+        buttons: Array<PostbackButton>
+    }
+    export interface ListTemplate {
+        top_element_style?: TopElementStyle
+        buttons?: Array<Button>
+        elements?: Array<Element>
+        sharable?: boolean
+    }
+    export interface MediaTemplateElement {
+        media_type: MediaType
+        attachment_id: string
+        url: string
+        buttons: Array<Button>
+    }
+    export interface MediaTemplate {
+        template_type: TemplateType.MEDIA
+        elements: Array<Element>
+        sharable?: boolean
+    }
+    export interface OpenGraphTemplateElement {
+        url: string
+        buttons: Array<Button>
+    }
+    export interface OpenGraphTemplate {
+        template_type: TemplateType.OPEN_GRAPH
+        elements: Array<OpenGraphTemplateElement>
+    }
+    export interface ReceiptTemplateElement {
+        title: string
+        subtitle?: string
+        quantity?: number
+        price: number
+        currency?: string
+        image_url?: string
+    }
+    export interface ReceiptTemplateAddress {
+        street_1: string
+        street_2?: string
+        city: string
+        postal_code: string
+        state: string
+        country: string
+    }
+    export interface ReceiptTemplateSummary {
+        subtotal?: number
+        shipping_cost?: number
+        total_tax?: number
+        total_cost: number
+    }
+    export interface ReceiptTemplate {
+        template_type: string
+        recipient_name: string
+        merchant_name?: string
+        order_number: string
+        currency: string
+        payment_method: string
+        timestamp?: string
+        elements?: Array<ReceiptTemplateElement>
+        address?: ReceiptTemplateAddress
+        summary: ReceiptTemplateSummary
+    }
+    export interface FieldsTemplate {
+        label: string
+        value: string
+    }
+    export interface AirportTemplate {
+        airport_code: string
+        city: string
+        terminal?: string
+        gate?: string
+    }
+    export interface FlightScheduleTemplate {
+        boarding_time?: string
+        departure_time?: string
+        arrival_time?: string
+    }
+    export interface FlightInfoTemplate {
+        flight_number: string
+        departure_airport: AirportTemplate
+        arrival_airport: AirportTemplate
+        flight_schedule: FlightScheduleTemplate
+    }
+    export interface PassengerInfoTemplate {
+        passenger_id: string
+        ticket_number?: string
+        name: string
+    }
+    export interface BoardingPassTemplate {
+        passenger_name: string
+        pnr_number: string
+        travel_class?: string
+        seat?: string
+        auxiliary_fields?: Array<FieldsTemplate>
+        secondary_fields?: Array<FieldsTemplate>
+        logo_image_url: string
+        header_image_url?: string
+        header_text_field?: FieldsTemplate
+        qr_code: string
+        barcode_image_url: string
+        above_bar_code_image_url: string
+        flight_info: FlightInfoTemplate
+    }
+    export interface AirlineBoardingPassTemplate {
+        template_type: TemplateType.AIRLINE_BOARDINGPASS
+        intro_message: string
+        locale: string
+        theme_color?: string
+        boarding_pass: Array<BoardingPassTemplate>
+    }
+    export interface AirlineCheckInTemplate {
+        template_type: TemplateType.AIRLINE_CHECKIN
+        intro_message: string
+        locale: string
+        pnr_number?: string
+        checkin_url: string
+        flight_info: Array<FlightInfoTemplate>
+    }
+    export interface ProductInfoTemplate {
+        title: string
+        value: string
+    }
+    export interface PassengerSegmentInfoTemplate {
+        segment_id: string
+        passenger_id: string
+        seat: string
+        seat_type: SeatType
+        product_info: ProductInfoTemplate
+    }
+    export interface PriceInfoTemplate {
+        title: string
+        amount: number
+        currency?: string
+    }
+    export interface AirlineItineraryTemplate {
+        template_type: TemplateType.AIRLINE_ITINERARY
+        intro_message: string
+        locale: string
+        theme_color?: string
+        pnr_number: string
+        passenger_info: Array<PassengerInfoTemplate>
+        flight_info: Array<FlightInfoTemplate>
+        passenger_segment_info: Array<PassengerSegmentInfoTemplate>
+        price_info?: Array<PriceInfoTemplate>
+        base_price?: number
+        tax?: number
+        total_price: number
+        currrency: string
+    }
+    export interface AirlineUpdateTemplate {
+        template_type: TemplateType.AIRLINE_UPDATE
+        intro_message: string
+        theme_color?: string
+        update_type: AirlineUpdateType
+        locale: string
+        pnr_number?: string
+        flight_info: FlightInfoTemplate
+    }
+    export type Template = ButtonTemplate | GenericTemplate | ListTemplate | MediaTemplate | OpenGraphTemplate | ReceiptTemplate | AirlineBoardingPassTemplate | AirlineCheckInTemplate | AirlineItineraryTemplate | AirlineUpdateTemplate
 }
