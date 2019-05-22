@@ -119,7 +119,7 @@ export interface ForNumericStatement extends Base<Type.ForNumericStatement> {
 export interface ForGenericStatement extends Base<Type.ForGenericStatement> {
     variables: Identifier[];
     iterators: Expression[];
-    body: Chunk;
+    body: Statement[];
 }
 
 export interface Chunk extends Base<Type.Chunk> {
