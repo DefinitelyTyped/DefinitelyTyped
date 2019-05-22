@@ -90,6 +90,7 @@ import {
     NetInfo,
     PermissionsAndroid,
     Platform,
+    PushNotificationIOS,
 } from "react-native";
 
 declare module "react-native" {
@@ -928,3 +929,20 @@ const PlatformTest = () => {
             return Platform.isTV ? 40 : 44;
     }
 };
+
+// Push notification
+const PushNotificationTest = () => {
+    PushNotificationIOS.scheduleLocalNotification({
+        alertAction: 'view',
+        alertBody: 'Look at me!',
+        alertTitle: 'Hello!',
+        applicationIconBadgeNumber: 999,
+        category: 'engagement',
+        fireDate: (new Date()).toISOString(),
+        isSilent: false,
+        repeatInterval: 'minute',
+        userInfo: {
+            abc: 123,
+        },
+    });
+}
