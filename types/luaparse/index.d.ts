@@ -22,9 +22,9 @@ export interface Options {
     /** A callback which will be invoked when a syntax node has been completed. The node which has been created will be passed as the only parameter. */
     onCreateNode: (node: Node) => void;
     /** A callback which will be invoked when a new scope is created. */
-    onCreateScope: (scope: Object) => void;
+    onCreateScope: () => void;
     /** A callback which will be invoked when the current scope is destroyed. */
-    onDestroyScope: (scope: Object) => void;
+    onDestroyScope: () => void;
     /** A callback which will be invoked when a local variable is declared. The identifier will be passed as the only parameter. */
     onLocalDeclaration: (identifier: ast.Identifier) => void;
     /** The version of Lua the parser will target; supported values are '5.1', '5.2', '5.3' and 'LuaJIT'. */
@@ -33,10 +33,18 @@ export interface Options {
     extendedIdentifiers: false;
 }
 
+export interface Token {
+    type: number;
+    value: string;
+    line: number;
+    lineStart: number;
+    range: [number, number];
+}
+
 export interface Parser {
     write(segment: string): void;
     end(segment: string): ast.Chunk;
-    lex(): Object;
+    lex(): Token;
 }
 
 export function parse(code: string, options: Partial<Options> & { wait: true }): Parser;
