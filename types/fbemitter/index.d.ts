@@ -15,7 +15,7 @@ export declare class EventSubscription {
 
 }
 
-export declare class EventEmitter {
+export declare class EventEmitter<T extends string = string> {
 
     constructor();
 
@@ -24,19 +24,19 @@ export declare class EventEmitter {
      * emitted. An optional calling context may be provided. The data arguments
      * emitted will be passed to the listener function.
      */
-    addListener(eventType: string, listener: Function, context?: any): EventSubscription;
+    addListener(eventType: T, listener: Function, context?: any): EventSubscription;
 
     /**
      * Similar to addListener, except that the listener is removed after it is
      * invoked once.
      */
-    once(eventType: string, listener: Function, context?: any): EventSubscription;
+    once(eventType: T, listener: Function, context?: any): EventSubscription;
 
     /**
      * Removes all of the registered listeners, including those registered as
      * listener maps.
      */
-    removeAllListeners(eventType?: string): void;
+    removeAllListeners(eventType?: T): void;
 
     /**
      * Provides an API that can be called during an eventing cycle to remove the
@@ -52,12 +52,12 @@ export declare class EventEmitter {
      * Returns an array of listeners that are currently registered for the given
      * event.
      */
-    listeners(eventType: string): Function[];
+    listeners(eventType: T): Function[];
 
     /**
      * Emits an event of the given type with the given data. All handlers of that
      * particular type will be notified.
      */
-    emit(eventType: string, ...data: any[]): void;
+    emit(eventType: T, ...data: any[]): void;
 
 }
