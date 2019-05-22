@@ -16,7 +16,6 @@
 //                 Nikita Moshensky <https://github.com/moshensky>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 Jack Leigh <https://github.com/leighman>
-//                 Keagan McClelland <https://github.com/CaptJakk>
 //                 Tomas Szabo <https://github.com/deftomat>
 //                 Bonggyun Lee <https://github.com/deptno>
 //                 Maciek Blim <https://github.com/blimusiek>
@@ -28,6 +27,7 @@
 //                 Nitesh Phadatare <https://github.com/minitesh>
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
 //                 Pierre-Antoine Mills <https://github.com/pirix-gh>
+//                 Brekk Bockrath <https://github.com/brekk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
@@ -647,40 +647,32 @@ declare namespace R {
     }
 
     type PipeWithFns<V0, T> = [
-        (x0: V0) => T,
+        (x0: V0) => T
     ] | [
         (x0: V0) => any,
-        (x: any) => T,
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => T,
+        (x: any) => T
     ] | [
         (x0: V0) => any,
         (x: any) => any,
-        (x: any) => any,
-        (x: any) => T,
+        (x: any) => T
     ] | [
         (x0: V0) => any,
         (x: any) => any,
         (x: any) => any,
-        (x: any) => any,
-        (x: any) => T,
+        (x: any) => T
     ] | [
         (x0: V0) => any,
         (x: any) => any,
         (x: any) => any,
         (x: any) => any,
-        (x: any) => any,
-        (x: any) => T,
+        (x: any) => T
     ] | [
         (x0: V0) => any,
         (x: any) => any,
         (x: any) => any,
         (x: any) => any,
         (x: any) => any,
-        (x: any) => any,
-        (x: any) => T,
+        (x: any) => T
     ] | [
         (x0: V0) => any,
         (x: any) => any,
@@ -688,8 +680,7 @@ declare namespace R {
         (x: any) => any,
         (x: any) => any,
         (x: any) => any,
-        (x: any) => any,
-        (x: any) => T,
+        (x: any) => T
     ] | [
         (x0: V0) => any,
         (x: any) => any,
@@ -698,8 +689,7 @@ declare namespace R {
         (x: any) => any,
         (x: any) => any,
         (x: any) => any,
-        (x: any) => any,
-        (x: any) => T,
+        (x: any) => T
     ] | [
         (x0: V0) => any,
         (x: any) => any,
@@ -709,45 +699,47 @@ declare namespace R {
         (x: any) => any,
         (x: any) => any,
         (x: any) => any,
+        (x: any) => T
+    ] | [
+        (x0: V0) => any,
         (x: any) => any,
-        (x: any) => T,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => T
     ];
 
     type ComposeWithFns<V0, T> = [
-        (x0: V0) => T,
+        (x0: V0) => T
     ] | [
         (x: any) => T,
-        (x: V0) => any,
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: V0) => any,
+        (x: V0) => any
     ] | [
         (x: any) => T,
         (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any,
+        (x: V0) => any
     ] | [
         (x: any) => T,
         (x: any) => any,
         (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any,
+        (x: V0) => any
     ] | [
         (x: any) => T,
         (x: any) => any,
         (x: any) => any,
         (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any,
+        (x: V0) => any
     ] | [
         (x: any) => T,
         (x: any) => any,
         (x: any) => any,
         (x: any) => any,
         (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any,
+        (x: V0) => any
     ] | [
         (x: any) => T,
         (x: any) => any,
@@ -755,8 +747,7 @@ declare namespace R {
         (x: any) => any,
         (x: any) => any,
         (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any,
+        (x: V0) => any
     ] | [
         (x: any) => T,
         (x: any) => any,
@@ -765,8 +756,7 @@ declare namespace R {
         (x: any) => any,
         (x: any) => any,
         (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any,
+        (x: V0) => any
     ] | [
         (x: any) => T,
         (x: any) => any,
@@ -776,8 +766,18 @@ declare namespace R {
         (x: any) => any,
         (x: any) => any,
         (x: any) => any,
+        (x: V0) => any
+    ] | [
+        (x: any) => T,
         (x: any) => any,
-        (x: V0) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: any) => any,
+        (x: V0) => any
     ];
 
     type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };

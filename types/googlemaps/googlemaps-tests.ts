@@ -247,44 +247,327 @@ var mapTypeStyle: google.maps.MapTypeStyle ={
 
 
 /***** MARKERS *****/
-// https://developers.google.com/maps/documentation/javascript/markers
-map.setCenter({ lat: 59.332457, lng: 18.064790 });
-// Marker with map and LatLngLiteral position
-let markerSimple = new google.maps.Marker({
-    label: "A",
-    position: { lat: 59.33555, lng: 18.029851 },
-    map: map,
-    title: 'Hello World!'
-});
 
-// Marker without map and LatLng position
-let markerRemovable = new google.maps.Marker({
-    position: new google.maps.LatLng(59.337647,18.089950),
-    title:"Hello World!"
-});
-markerRemovable.setMap(map);   // Add marker
-markerRemovable.setMap(null);  // Remove marker, should accept null
+// Marker class
 
-// Marker with animation
-// The following example creates a marker in Stockholm, Sweden using a DROP
-// animation. Clicking on the marker will toggle the animation between a BOUNCE
-// animation and no animation.
-let markerBounce = new google.maps.Marker({
-    map: map,
+google.maps.Marker.MAX_ZINDEX; // $ExpectType number
+google.maps.Marker.MAX_ZINDEX = 10; // $ExpectError
+
+// Marker constructor
+
+const marker = new google.maps.Marker();
+
+const markerWithEmptyOptions = new google.maps.Marker({});
+const markerWithEmptyReadonlyOptions = new google.maps.Marker({} as google.maps.ReadonlyMarkerOptions);
+
+const markerWithAllOptions = new google.maps.Marker({
+    anchorPoint: new google.maps.Point(0, 0),
+    animation: google.maps.Animation.BOUNCE,
+    clickable: true,
+    crossOnDrag: true,
+    cursor: 'test',
     draggable: true,
-    animation: google.maps.Animation.DROP,
-    position: { lat: 59.327, lng: 18.067 }
+    icon: 'test',
+    label: 'test',
+    map: new google.maps.Map(document.createElement('div')),
+    opacity: 0.5,
+    optimized: true,
+    position: { lat: 0, lng: 0 },
+    title: 'test',
+    visible: true,
+    zIndex: 0,
 });
-markerBounce.addListener("click", toggleBounce);
+const markerWithAllReadonlyOptions = new google.maps.Marker({
+    anchorPoint: new google.maps.Point(0, 0),
+    animation: google.maps.Animation.BOUNCE,
+    clickable: true,
+    crossOnDrag: true,
+    cursor: 'test',
+    draggable: true,
+    icon: 'test',
+    label: 'test',
+    map: new google.maps.Map(document.createElement('div')),
+    opacity: 0.5,
+    optimized: true,
+    position: { lat: 0, lng: 0 },
+    title: 'test',
+    visible: true,
+    zIndex: 0,
+} as google.maps.ReadonlyMarkerOptions);
 
-function toggleBounce() {
-    if (markerBounce.getAnimation() !== null) {
-        markerBounce.setAnimation(null);
-    } else {
-        markerBounce.setAnimation(google.maps.Animation.BOUNCE);
-    }
-}
+// Marker methods
 
+marker.getAnimation(); // $ExpectType Animation | null | undefined
+
+marker.getClickable(); // $ExpectType boolean
+
+marker.getCursor(); // $ExpectType string | null | undefined
+
+marker.getDraggable(); // $ExpectType boolean | null | undefined
+
+marker.getIcon(); // $ExpectType string | ReadonlyIcon | ReadonlySymbol | null | undefined
+
+marker.getLabel(); // $ExpectType ReadonlyMarkerLabel | null | undefined
+
+marker.getMap(); // $ExpectType Map | StreetViewPanorama | null | undefined
+
+marker.getOpacity(); // $ExpectType number | null | undefined
+
+marker.getPosition(); // $ExpectType LatLng | null | undefined
+
+marker.getShape(); // $ExpectType MarkerShapeCircle | MarkerShapeRect | MarkerShapePoly | null | undefined
+
+marker.getTitle(); // $ExpectType string | null | undefined
+
+marker.getVisible(); // $ExpectType boolean
+
+marker.getZIndex(); // $ExpectType number | null | undefined
+
+marker.setAnimation(google.maps.Animation.BOUNCE);
+marker.setAnimation(null);
+
+marker.setClickable(true);
+
+marker.setCursor('test');
+marker.setCursor(null);
+
+marker.setDraggable(true);
+marker.setDraggable(null);
+
+marker.setIcon({
+    anchor: new google.maps.Point(0, 0),
+    labelOrigin: new google.maps.Point(0, 0),
+    origin: new google.maps.Point(0, 0),
+    scaledSize: new google.maps.Size(10, 10),
+    size: new google.maps.Size(10, 10),
+    url: 'test',
+});
+marker.setIcon({
+    anchor: new google.maps.Point(0, 0),
+    labelOrigin: new google.maps.Point(0, 0),
+    origin: new google.maps.Point(0, 0),
+    scaledSize: new google.maps.Size(10, 10),
+    size: new google.maps.Size(10, 10),
+    url: 'test',
+} as google.maps.ReadonlyIcon);
+marker.setIcon({url: 'test'});
+marker.setIcon({
+    anchor: new google.maps.Point(0, 0),
+    fillColor: 'black',
+    fillOpacity: 0,
+    labelOrigin: new google.maps.Point(0, 0),
+    path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+    rotation: 0,
+    scale: 1,
+    strokeColor: 'black',
+    strokeOpacity: 0,
+    strokeWeight: 0
+});
+marker.setIcon({
+    anchor: new google.maps.Point(0, 0),
+    fillColor: 'black',
+    fillOpacity: 0,
+    labelOrigin: new google.maps.Point(0, 0),
+    path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+    rotation: 0,
+    scale: 1,
+    strokeColor: 'black',
+    strokeOpacity: 0,
+    strokeWeight: 0
+} as google.maps.ReadonlySymbol);
+marker.setIcon({}); // $ExpectError
+marker.setIcon('test');
+marker.setIcon(null);
+
+marker.setLabel({
+    text: 'test',
+    color: 'test',
+    fontFamily: 'test',
+    fontSize: 'test',
+    fontWeight: 'test',
+});
+marker.setLabel({
+    text: 'test',
+    color: 'test',
+    fontFamily: 'test',
+    fontSize: 'test',
+    fontWeight: 'test',
+} as google.maps.ReadonlyMarkerLabel);
+marker.setLabel({text: 'test'});
+marker.setLabel({text: 'test'} as google.maps.ReadonlyMarkerLabel);
+marker.setLabel({}); // $ExpectError
+marker.setLabel('test');
+marker.setLabel(null);
+
+marker.setMap(new google.maps.Map(document.createElement('div')));
+marker.setMap(
+    new google.maps.StreetViewPanorama(document.createElement('div'))
+);
+marker.setMap(null);
+
+marker.setOpacity(0.5);
+marker.setOpacity(null);
+
+marker.setOptions({
+    anchorPoint: new google.maps.Point(0, 0),
+    animation: google.maps.Animation.BOUNCE,
+    clickable: true,
+    crossOnDrag: true,
+    cursor: '',
+    draggable: true,
+    icon: '',
+    label: '',
+    map: map,
+    opacity: 0.5,
+    optimized: true,
+    position: { lat: 0, lng: 0 },
+    title: '',
+    visible: true,
+    zIndex: 0,
+});
+marker.setOptions({
+    anchorPoint: new google.maps.Point(0, 0),
+    animation: google.maps.Animation.BOUNCE,
+    clickable: true,
+    crossOnDrag: true,
+    cursor: '',
+    draggable: true,
+    icon: '',
+    label: '',
+    map: map,
+    opacity: 0.5,
+    optimized: true,
+    position: { lat: 0, lng: 0 },
+    title: '',
+    visible: true,
+    zIndex: 0,
+} as google.maps.ReadonlyMarkerOptions);
+marker.setOptions({});
+marker.setOptions({} as google.maps.ReadonlyMarkerOptions);
+
+marker.setPosition(new google.maps.LatLng(0, 0));
+marker.setPosition({lat: 0, lng: 0});
+marker.setPosition({lat: 0, lng: 0} as google.maps.ReadonlyLatLngLiteral);
+marker.setPosition(null);
+
+marker.setShape({type: 'circle'}); // $ExpectError
+marker.setShape({type: 'circle', coords: []}); // $ExpectError
+marker.setShape({type: 'circle', coords: [0]}); // $ExpectError
+marker.setShape({type: 'circle', coords: [0, 0]}); // $ExpectError
+marker.setShape({type: 'circle', coords: [0, 0, 10]});
+marker.setShape({type: 'circle', coords: [0, 0, 10, 0]}); // $ExpectError
+marker.setShape({type: 'rect'}); // $ExpectError
+marker.setShape({type: 'rect', coords: [0]}); // $ExpectError
+marker.setShape({type: 'rect', coords: [0, 0]}); // $ExpectError
+marker.setShape({type: 'rect', coords: [0, 0, 10]}); // $ExpectError
+marker.setShape({type: 'rect', coords: [0, 0, 10, 10]});
+marker.setShape({type: 'rect', coords: [0, 0, 10, 10, 10]}); // $ExpectError
+marker.setShape({type: 'poly'}); // $ExpectError
+marker.setShape({type: 'poly', coords: [0]}); // $ExpectError
+marker.setShape({type: 'poly', coords: [0, 0]}); // $ExpectError
+marker.setShape({type: 'poly', coords: [0, 0, 10]}); // $ExpectError
+marker.setShape({type: 'poly', coords: [0, 0, 10, 10]});
+marker.setShape({type: 'poly', coords: [0, 0, 10, 10, 10]});
+marker.setShape({type: 'poly', coords: [0, 0, 10, 10, 10, 10]});
+marker.setShape({type: 'test'}); // $ExpectError
+marker.setShape({type: 'test', coords: [0]}); // $ExpectError
+marker.setShape({type: 'test', coords: [0, 0]}); // $ExpectError
+marker.setShape({type: 'test', coords: [0, 0, 0]}); // $ExpectError
+marker.setShape({type: 'test', coords: [0, 0, 0, 0]}); // $ExpectError
+marker.setShape({}); // $ExpectError
+marker.setShape(null);
+
+marker.setTitle('test');
+marker.setTitle(null);
+
+marker.setVisible(true);
+
+marker.setZIndex(0);
+marker.setZIndex(null);
+
+// Marker events
+
+marker.addListener('animation_changed', () => {});
+
+marker.addListener('animation_changed', (event) => {}); // $ExpectError
+
+marker.addListener('click', (event) => {
+    event; // $ExpectType MouseEvent
+});
+
+marker.addListener('clickable_changed', () => {});
+
+marker.addListener('clickable_changed', (event) => {}); // $ExpectError
+
+marker.addListener('cursor_changed', () => {});
+
+marker.addListener('cursor_changed', (event) => {}); // $ExpectError
+
+marker.addListener('dblclick', (event) => {
+    event; // $ExpectType MouseEvent
+});
+
+marker.addListener('drag', (event) => {
+    event; // $ExpectType MouseEvent
+});
+
+marker.addListener('dragend', (event) => {
+    event; // $ExpectType MouseEvent
+});
+
+marker.addListener('draggable_changed', (event) => {}); // $ExpectError
+
+marker.addListener('dragstart', (event) => {
+    event; // $ExpectType MouseEvent
+});
+
+marker.addListener('flat_changed', () => {});
+
+marker.addListener('flat_changed', (event) => {}); // $ExpectError
+
+marker.addListener('icon_changed', () => {});
+
+marker.addListener('icon_changed', (event) => {}); // $ExpectError
+
+marker.addListener('mousedown', (event) => {
+    event; // $ExpectType MouseEvent
+});
+
+marker.addListener('mouseout', (event) => {
+    event; // $ExpectType MouseEvent
+});
+
+marker.addListener('mouseover', (event) => {
+    event; // $ExpectType MouseEvent
+});
+
+marker.addListener('mouseup', (event) => {
+    event; // $ExpectType MouseEvent
+});
+
+marker.addListener('position_changed', () => {});
+
+marker.addListener('position_changed', (event) => {}); // $ExpectError
+
+marker.addListener('rightclick', (event) => {
+    event; // $ExpectType MouseEvent
+});
+
+marker.addListener('shape_changed', () => {});
+
+marker.addListener('shape_changed', (event) => {}); // $ExpectError
+
+marker.addListener('title_changed', () => {});
+
+marker.addListener('title_changed', (event) => {}); // $ExpectError
+
+marker.addListener('visible_changed', () => {});
+
+marker.addListener('visible_changed', (event) => {}); // $ExpectError
+
+marker.addListener('zindex_changed', () => {});
+
+marker.addListener('zindex_changed', (event) => {}); // $ExpectError
 
 
 /***** OverlayView *****/
@@ -381,13 +664,13 @@ mvcArrayStr.setAt(0, "z");
 /***** HeatMaps *****/
 
 let heatmap = new google.maps.visualization.HeatmapLayer({
-    data: [new google.maps.LatLng(37.782551, -122.445368), new google.maps.LatLng(37.782745, -122.444586), new google.maps.LatLng(37.782842, -122.443688)],
+    data: [new google.maps.LatLng(37.782551, -122.445368), new google.maps.LatLng(37.782745, -122.444586), new google.maps.LatLng({lat: 37.782842, lng: -122.443688})],
     map: map
 });
 
 // setData Should Accept MVCArray<LatLng>
 heatmap.setData(new google.maps.MVCArray<google.maps.LatLng>(
-    [new google.maps.LatLng(37.782551, -122.445368), new google.maps.LatLng(37.782745, -122.444586), new google.maps.LatLng(37.782842, -122.443688)]
+    [new google.maps.LatLng(37.782551, -122.445368), new google.maps.LatLng(37.782745, -122.444586), new google.maps.LatLng({lat: 37.782842,  lng: -122.443688})]
 ));
 
 // getData Should return MVCArray<LatLng>
@@ -398,7 +681,7 @@ console.log(heatmapDataMvcLL.getAt(0).lat()); // should not throw
 heatmap.setData(new google.maps.MVCArray<google.maps.visualization.WeightedLocation>([
     { weight: 1, location: new google.maps.LatLng(37.782551, -122.445368) },
     { weight: 2, location: new google.maps.LatLng(37.782745, -122.444586) },
-    { weight: 3, location: new google.maps.LatLng(37.782842, -122.443688) }
+    { weight: 3, location: new google.maps.LatLng({lat: 37.782842,  lng: -122.443688}) }
 ]));
 
 // getData Should return MVCArray<LatLng>
@@ -406,12 +689,12 @@ let heatmapDataWL = heatmap.getData<google.maps.visualization.WeightedLocation>(
 console.log(heatmapDataWL.getAt(0).weight); // should not throw
 
 // setData Should Accept LatLng[]
-heatmap.setData([new google.maps.LatLng(37.782551, -122.445368), new google.maps.LatLng(37.782745, -122.444586), new google.maps.LatLng(37.782842, -122.443688)]);
+heatmap.setData([new google.maps.LatLng(37.782551, -122.445368), new google.maps.LatLng(37.782745, -122.444586), new google.maps.LatLng({lat: 37.782842,  lng: -122.443688})]);
 
 // setData Should Accept WeightedLocation[]
 heatmap.setData([
     { weight: 1, location: new google.maps.LatLng(37.782551, -122.445368) },
-    { weight: 2, location: new google.maps.LatLng(37.782745, -122.444586) }
+    { weight: 2, location: new google.maps.LatLng({lat: 37.782745,  lng: -122.444586}) }
 ]);
 
 /***** google.maps.places.PlacesService *****/

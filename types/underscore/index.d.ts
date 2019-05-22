@@ -1,8 +1,13 @@
 // Type definitions for Underscore 1.8
 // Project: http://underscorejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, Josh Baldwin <https://github.com/jbaldwin>, Christopher Currens <https://github.com/ccurrens>, Cassey Lottman <https://github.com/clottman>, Ard Timmerman <https://github.com/confususs>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>,
+//                 Josh Baldwin <https://github.com/jbaldwin>,
+//                 Christopher Currens <https://github.com/ccurrens>,
+//                 Ard Timmerman <https://github.com/confususs>,
+//                 Julian Gonggrijp <https://github.com/jgonggrijp>,
+//                 Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare var _: _.UnderscoreStatic;
 export = _;
@@ -171,7 +176,7 @@ declare module _ {
         map<T>(
             list: _.List<T>,
             iterator: _.IterateePropertyShorthand,
-            context?: any): T[];
+            context?: any): any[];
 
         map<T>(
             list: _.List<T>,
@@ -3442,9 +3447,9 @@ declare module _ {
         * @param hashFn Hash function for storing the result of `fn`.
         * @return Memoized version of `fn`.
         **/
-        memoize(
-            fn: Function,
-            hashFn?: (...args: any[]) => string): Function;
+        memoize<T = Function>(
+            fn: T,
+            hashFn?: (...args: any[]) => string): T;
 
         /**
         * Much like setTimeout, invokes function after wait milliseconds. If you pass the optional arguments,
@@ -3807,14 +3812,14 @@ declare module _ {
         * @param key Property of the object.
         * @return Function which accept an object an returns the value of key in that object.
         **/
-        property(key: string): (object: Object) => any;
+        property(key: string | string[]): (object: Object) => any;
 
         /**
         * Returns a function that will itself return the value of a object key property.
         * @param key The object to get the property value from.
         * @return Function which accept a key property in `object` and returns its value.
         **/
-        propertyOf(object: Object): (key: string) => any;
+        propertyOf(object: Object): (key: string | string[]) => any;
 
         /**
         * Performs an optimized deep comparison between the two objects,

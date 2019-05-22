@@ -2,19 +2,18 @@ import * as React from 'react';
 import { CSSModule } from '../index';
 import { FadeProps } from './Fade';
 
-export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export interface UncontrolledAlertProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   className?: string;
   cssModule?: CSSModule;
   color?: string;
   tag?: React.ReactType;
   transition?: FadeProps;
-} & T;
-export type UncontrolledAlertProps<T = {}> = UncontrolledProps<T>;
-
-export type AlertProps<T = {}> = UncontrolledAlertProps<T> & {
+}
+export interface AlertProps extends UncontrolledAlertProps {
   isOpen?: boolean;
   toggle?: () => void;
-};
+}
 
-declare class Alert<T = {[key: string]: any}> extends React.Component<AlertProps<T>> {}
+declare class Alert<T = {[key: string]: any}> extends React.Component<AlertProps> {}
 export default Alert;

@@ -8,7 +8,6 @@
 //                 Synarque <https://github.com/synarque>
 //                 Justin Rockwood <https://github.com/jrockwood>
 //                 Keith Kelly <https://github.com/kwkelly>
-//                 Junyoung Clare Jang <https://github.com/Ailrun>
 //                 Richard Lea <https://github.com/chigix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -77,7 +76,7 @@ declare namespace inquirer {
          * Possible values:
          * <ul>
          *      <li>input</li>
-	     *      <li>number</li>
+         *      <li>number</li>
          *      <li>confirm</li>
          *      <li>list</li>
          *      <li>rawlist</li>
@@ -285,6 +284,7 @@ declare namespace inquirer {
             name?: string;
             value?: any;
             type?: string;
+            short?: string;
             extra?: any;
             key?: string;
             checked?: boolean;

@@ -19,6 +19,7 @@ class CalendarEvent {
     end: Date;
     desc: string;
     resourceId?: string;
+    tooltip?: string;
 
     constructor(_title: string, _start: Date, _end: Date, _allDay?: boolean, _desc?: string, _resourceId?: string) {
         this.title = _title;
@@ -85,6 +86,25 @@ class CalendarResource {
     ReactDOM.render(<DnD localizer={localizer} />, document.body);
 }
 
+// overriding 'views' props
+{
+    const DaySFC: React.SFC = () => null;
+    // supplying object to 'views' prop with only some of the supported views.
+    // A view can be a boolean or an SFC
+    ReactDOM.render(<BigCalendar
+                        localizer={BigCalendar.momentLocalizer(moment)}
+                        views={{
+                            day: DaySFC,
+                            work_week: true
+                        }}
+    />, document.body);
+}
+
+// optional 'views' prop
+{
+    ReactDOM.render(<BigCalendar localizer={BigCalendar.momentLocalizer(moment)} />, document.body);
+}
+
 {
     class MyCalendar extends BigCalendar<CalendarEvent, CalendarResource> {}
 
@@ -120,6 +140,7 @@ class CalendarResource {
               rtl={true}
               eventPropGetter={(event, start, end, isSelected) => ({ className: 'some-class' })}
               titleAccessor={'title'}
+              tooltipAccessor={'tooltip'}
               allDayAccessor={(event: CalendarEvent) => !!event.allDay}
               startAccessor={'start'}
               endAccessor={(event: CalendarEvent) => event.end || event.start}

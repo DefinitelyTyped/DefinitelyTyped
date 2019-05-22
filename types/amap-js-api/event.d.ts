@@ -8,10 +8,9 @@ declare namespace AMap {
          * @param once 触发一次
          * @param unshift 更改事件顺序
          */
-        on<E extends Event, C = this>(
+        on<C = this>(
             eventName: string,
-            // tslint:disable-next-line:no-unnecessary-generics
-            handler: (this: C, event: E) => void,
+            handler: (this: C, event: any) => void,
             context?: C,
             once?: boolean,
             unshift?: boolean
@@ -22,10 +21,9 @@ declare namespace AMap {
          * @param handler 事件功能函数
          * @param context 事件上下文
          */
-        off<E extends Event, C = this>(
+        off<C = this>(
             eventName: string,
-            // tslint:disable-next-line
-            handler: ((this: C, event: E) => void) | 'mv',
+            handler: ((this: C, event: any) => void) | 'mv',
             context?: C
         ): this;
         /**
@@ -61,13 +59,11 @@ declare namespace AMap {
          * @param handler 事件功能函数
          * @param context 事件上下文
          */
-        function addListener<I extends EventEmitter, E extends Event, C = I>(
+        function addListener<I extends EventEmitter, C = I>(
             // tslint:disable-next-line: no-unnecessary-generics
             instance: I,
             eventName: string,
-            // tslint:disable-next-line: no-unnecessary-generics
-            handler: (this: C, event: E) => void,
-            // tslint:disable-next-line: no-unnecessary-generics
+            handler: (this: C, event: any) => void,
             context?: C
         ): EventListener<1>;
         /**
@@ -77,13 +73,11 @@ declare namespace AMap {
          * @param handler 事件功能函数
          * @param context 事件上下文
          */
-        function addListenerOnce<I extends EventEmitter, E extends Event, C = I>(
+        function addListenerOnce<I extends EventEmitter, C = I>(
             // tslint:disable-next-line: no-unnecessary-generics
             instance: I,
             eventName: string,
-            // tslint:disable-next-line: no-unnecessary-generics
-            handler: (this: C, event: E) => void,
-            // tslint:disable-next-line: no-unnecessary-generics
+            handler: (this: C, event: any) => void,
             context?: C
         ): EventListener<1>;
         /**

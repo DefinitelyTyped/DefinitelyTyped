@@ -162,7 +162,7 @@ export function range<T extends number>(min?: number, max?: number): PropTypes.R
 
 export function range(min?: number, max?: number): PropTypes.Requireable<number>;
 
-export function ref(): PropTypes.Requireable<ReactLegacyRefLike<HTMLElement>>;
+export function ref<T = HTMLElement>(): PropTypes.Requireable<ReactLegacyRefLike<T>>;
 
 export function requiredBy<P>(
     requiredByPropName: string,

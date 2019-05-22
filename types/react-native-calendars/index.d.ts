@@ -169,8 +169,8 @@ export type CalendarMarkingProps =
 export interface DayComponentProps {
     date: DateObject;
     marking: false | Marking[];
-    onPress: () => any;
-    onLongPress: () => any;
+    onPress: (date: DateObject) => any;
+    onLongPress: (date: DateObject) => any;
     state: '' | 'selected' | 'disabled' | 'today';
     theme: CalendarTheme;
 }

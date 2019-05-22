@@ -10,6 +10,8 @@
 //                 Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
 //                 Jon Freedman <https://github.com/jonfreedman>
 //                 Megan Riel-Mehan <https://github.com/meganrm>
+//                 Josh Miles <https://github.com/milesjos>
+//                 Pramod Mathai  <https://github.com/skippercool>
 //                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -275,6 +277,8 @@ export interface Layout {
 	font: Partial<Font>;
 	scene: Partial<Scene>;
 	barmode: "stack" | "group" | "overlay" | "relative";
+	bargap: number;
+	bargroupgap: number;
 }
 
 export interface Legend extends Label {
@@ -528,7 +532,7 @@ export interface PlotData {
 	'x' | 'x+text' | 'x+name' |
 	'x+y' | 'x+y+text' | 'x+y+name' |
 	'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
-	'y+x' | 'y+x+text' | 'y+x+name' |
+	'y+name'| 'y+x' | 'y+x+text' | 'y+x+name' |
 	'y+z' | 'y+z+text' | 'y+z+name' |
 	'y+x+z' | 'y+x+z+text' | 'y+x+z+name' |
 	'z+x' | 'z+x+text' | 'z+x+name' |
@@ -544,10 +548,12 @@ export interface PlotData {
 	fillcolor: string;
 	legendgroup: string;
 	name: string;
+	stackgroup: string;
 	connectgaps: boolean;
 	visible: boolean | 'legendonly';
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
+	width: number | number[];
 	boxmean: boolean | 'sd';
 	colorscale: string | Array<[number, string]>;
 	zsmooth: 'fast' | 'best' | false;
@@ -806,7 +812,7 @@ export interface Config {
 	 * function to add the background color to a different container
 	 * or 'opaque' to ensure there's white behind it
 	 */
-	setBackground: string | 'opaque' | 'transparent';
+	setBackground: () => string | 'opaque' | 'transparent';
 
 	/** URL to topojson files used in geo charts */
 	topojsonURL: string;

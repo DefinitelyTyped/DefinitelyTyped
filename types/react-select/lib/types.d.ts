@@ -1,13 +1,14 @@
 import * as React from 'react';
+import { Props as SelectProps } from './Select';
 
-export type OptionsType<OptionType> = OptionType[];
+export type OptionsType<OptionType> = ReadonlyArray<OptionType>;
 
 export interface GroupType<OptionType> {
   options: OptionsType<OptionType>;
   [key: string]: any;
 }
 
-export type GroupedOptionsType<UnionOptionType> = Array<GroupType<UnionOptionType>>;
+export type GroupedOptionsType<UnionOptionType> = ReadonlyArray<GroupType<UnionOptionType>>;
 
 export type ValueType<OptionType> = OptionType | OptionsType<OptionType> | null | undefined;
 
@@ -48,7 +49,7 @@ export interface CommonProps<OptionType> {
   isMulti: boolean;
   options: OptionsType<OptionType>;
   selectOption: (option: OptionType) => void;
-  selectProps: any;
+  selectProps: SelectProps<OptionType>;
   setValue: (value: ValueType<OptionType>, action: ActionTypes) => void;
 }
 

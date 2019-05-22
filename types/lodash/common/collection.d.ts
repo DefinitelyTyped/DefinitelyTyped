@@ -1777,6 +1777,10 @@ declare module "../index" {
         * @param callback The function called per iteration.
         * @return Returns the array of grouped elements.
         **/
+        partition<T, U extends T>(
+            collection: List<T> | null | undefined,
+            callback: ValueIteratorTypeGuard<T, U>
+        ): [U[], Array<Exclude<T, U>>];
         partition<T>(
             collection: List<T> | null | undefined,
             callback: ValueIteratee<T>
@@ -1795,6 +1799,10 @@ declare module "../index" {
         /**
          * @see _.partition
          */
+        partition<T, U extends T>(
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            callback: ValueIteratorTypeGuard<T, U>
+        ): LoDashImplicitWrapper<[U[], Array<Exclude<T, U>>]>;
         partition<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             callback: ValueIteratee<T>
@@ -1813,6 +1821,10 @@ declare module "../index" {
         /**
          * @see _.partition
          */
+        partition<T, U extends T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            callback: ValueIteratorTypeGuard<T, U>
+        ): LoDashExplicitWrapper<[U[], Array<Exclude<T, U>>]>;
         partition<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             callback: ValueIteratee<T>

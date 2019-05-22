@@ -6,6 +6,7 @@
 //                 Antonio Román <https://github.com/kyranet>
 //                 Andrew Leedham <https://github.com/AndrewLeedham>
 //                 Jason Li <https://github.com/JasonLi914>
+//                 Brandon Wilson <https://github.com/wilsonianb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -116,9 +117,17 @@ export class Headers implements Iterable<[string, string]> {
     [Symbol.iterator](): Iterator<[string, string]>;
 }
 
+type BlobPart = ArrayBuffer | ArrayBufferView | Blob | string;
+
+interface BlobOptions {
+    type?: string;
+    endings?: "transparent" | "native";
+}
+
 export class Blob {
-    type: string;
-    size: number;
+    constructor(blobParts?: BlobPart[], options?: BlobOptions);
+    readonly type: string;
+    readonly size: number;
     slice(start?: number, end?: number): Blob;
 }
 
@@ -130,8 +139,10 @@ export class Body {
     bodyUsed: boolean;
     buffer(): Promise<Buffer>;
     json(): Promise<any>;
+    size: number;
     text(): Promise<string>;
     textConverted(): Promise<string>;
+    timeout: number;
 }
 
 export class FetchError extends Error {
@@ -149,10 +160,8 @@ export class Response extends Body {
     clone(): Response;
     headers: Headers;
     ok: boolean;
-    size: number;
     status: number;
     statusText: string;
-    timeout: number;
     type: ResponseType;
     url: string;
 }
@@ -167,16 +176,26 @@ export type ResponseType =
 
 export interface ResponseInit {
     headers?: HeadersInit;
-    status: number;
+    size?: number;
+    status?: number;
     statusText?: string;
+    timeout?: number;
+    url?: string;
 }
 
 export type HeadersInit = Headers | string[][] | { [key: string]: string };
-export type BodyInit = ArrayBuffer | ArrayBufferView | NodeJS.ReadableStream | string | URLSearchParams;
+// HeaderInit is exported to support backwards compatibility. See PR #34382
+export type HeaderInit = HeadersInit;
+export type BodyInit =
+    ArrayBuffer
+    | ArrayBufferView
+    | NodeJS.ReadableStream
+    | string
+    | URLSearchParams;
 export type RequestInfo = string | Request;
 
 declare function fetch(
-    url: string | Request,
+    url: RequestInfo,
     init?: RequestInit
 ): Promise<Response>;
 

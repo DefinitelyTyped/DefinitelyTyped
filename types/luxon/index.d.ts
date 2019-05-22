@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.12
+// Type definitions for luxon 1.13
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -6,6 +6,7 @@
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Pietro Vismara <https://github.com/pietrovismara>
 //                 Janeene Beeforth <https://github.com/dawnmist>
+//                 Jason Yu <https://github.com/ycmjason>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -507,4 +508,18 @@ export class Zone {
 
 export class IANAZone extends Zone {
     constructor(ianaString: string);
+    static create(name: string): IANAZone;
+    static isValidSpecifier(s: string): boolean;
+    static isValidZone(zone: string): boolean;
+    static resetCache(): void;
 }
+
+export class FixedOffsetZone extends Zone {
+    static utcInstance: string;
+    static instance(offset: number): FixedOffsetZone;
+    static parseSpecifier(s: string): FixedOffsetZone;
+}
+
+export class InvalidZone extends Zone { }
+
+export class LocalZone extends Zone { }
