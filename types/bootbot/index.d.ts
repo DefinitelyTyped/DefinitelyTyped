@@ -1,8 +1,7 @@
-// Type definitions for Express 4.16
-// Project: http://expressjs.com
+// Type definitions for bootbot 1.0.16
+// Project: https://github.com/Charca/bootbot
 // Definitions by: Vladyslav Kyrychenko <https://github.com/kirick1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4.5
 
 /// <reference types="node" />
 
