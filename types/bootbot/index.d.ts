@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
 export enum MessagingType {
     RESPONSE = 'RESPONSE',
     UPDATE = 'UPDATE',
