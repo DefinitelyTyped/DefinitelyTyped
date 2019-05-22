@@ -1018,6 +1018,12 @@ declare module "../index" {
          */
         includes(target: T, fromIndex?: number): boolean;
     }
+    interface String {
+        /**
+         * @see _.includes
+         */
+        includes(target: string, fromIndex?: number): boolean;
+    }
     interface ObjectChain<T> {
         /**
          * @see _.includes
@@ -1029,6 +1035,12 @@ declare module "../index" {
          * @see _.includes
          */
         includes(target: T, fromIndex?: number): PrimitiveChain<boolean>;
+    }
+    interface StringChain {
+        /**
+         * @see _.includes
+         */
+        includes(target: string, fromIndex?: number): PrimitiveChain<boolean>;
     }
     interface LoDashStatic {
         /**
