@@ -199,6 +199,6 @@ interface OCR {
     SetOutputFormat(value: EnumDWT_OCROutputFormat): void;
 }
 
-interface DynamsoftWebTwainAddon {
+interface WebTwainAddon {
     OCR: OCR;
 }

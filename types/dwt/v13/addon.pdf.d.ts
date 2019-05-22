@@ -71,6 +71,10 @@ interface PDF {
     IsTextBasedPDF(localFile: string): boolean;
 }
 
-interface DynamsoftWebTwainAddon {
+interface WebTwainAddon {
     PDF: PDF;
+}
+
+interface WebTwain {
+    Addon: WebTwainAddon;
 }
