@@ -39,14 +39,14 @@ dottedLineTool.onMouseUp = function(event: any) {
 // These objects are to make sure older code which didn't have the IHitTestOptions available still work.
 let hitOptionsEmpty = {};
 let hitOptionsPartial = {tolerance: 0, extra: true};
-let hitOptionsFull = {tolerance: 0, class: 'Path', match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
+let hitOptionsFull: paper.IHitTestOptions = {tolerance: 0, class: paper.Path, match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
 // These objects are to make sure new code which uses the IHitTestOptions work.
 let hitOptionsInterfaceEmpty:paper.IHitTestOptions = {};
 let hitOptionsInterfacePartial:paper.IHitTestOptions = {match: (hit: paper.HitResult)=>{return true;}};
-let hitOptionsInterfaceFull:paper.IHitTestOptions = {tolerance: 0, class: 'Path', match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
+let hitOptionsInterfaceFull:paper.IHitTestOptions = {tolerance: 0, class: paper.Path, match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
 let compoundPath: paper.CompoundPath = new paper.CompoundPath(dottedLinePath);
 let hitTestPoint = dottedLinePath.segments[0].point;
-let hitTestResult: paper.HitResult;
+let hitTestResult: paper.HitResult | null;
 let hitTestResults: paper.HitResult[];
 // These are Item hit tests
 hitTestResult = compoundPath.hitTest(hitTestPoint);
@@ -84,6 +84,21 @@ paper.view.scaling = new paper.Point(1, 1);
 paper.settings.insertItems = true
 const paperScope = new paper.PaperScope();
 paperScope.settings.insertItems = false;
+
+// When multiple paper scopes may be in play you have to use the classes from inside
+// the right scope to create new objects rather than the global classes from the
+// module's default export,
+const scopedRectangle: paper.Rectangle = new paperScope.Rectangle(2,2,7,7);
+const scopedPoint: paper.Point = new paperScope.Point(25, 25);
+const scopedPath: paper.Path = new paperScope.Path.Line(new paperScope.Point(0,0), scopedPoint);
+const scopedTool: paper.Tool = new paperScope.Tool();
+const scopedMatrix: paper.Matrix = new paperScope.Matrix(1,2,3,4,5,6);
+const scopedLayer: paper.Layer = new paperScope.Layer([]);
+const scopedShape: paper.Shape = paperScope.Shape.Circle(new paperScope.Point(20,20),5);
+const scopedRaster: paper.Raster = new paperScope.Raster('http://github.com/favicon.png');
+const scopedProject: paper.Project = new paperScope.Project('id');
+const scopedColor: paper.Color = new paperScope.Color(255, 255, 255);
+const scopedPointText: paper.PointText = new paperScope.PointText(new paperScope.Point(1,1));
 
 function Examples() {
     function BooleanOperations(){

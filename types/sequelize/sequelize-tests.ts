@@ -136,6 +136,7 @@ User.hasMany( User, {
     foreignKey : 'parent',
     foreignKeyConstraint : true
 } );
+User.hasOne( Task, { foreignKey : 'userId', as : 'activeTasks', scope : { active : true } } );
 
 User.belongsToMany( Task, { through : 'UserTasks' } );
 User.belongsToMany( User, { through : Task } );

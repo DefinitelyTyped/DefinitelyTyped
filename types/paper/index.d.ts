@@ -1279,6 +1279,37 @@ declare module paper {
          */
         static get(id: string): PaperScope;
 
+        /**
+         * All the classes for paper can be constructed via the PaperScope instance, so
+         * that they are associated with that scope
+         */
+        Matrix: typeof Matrix;
+        Point: typeof Point;
+        Rectangle: typeof Rectangle;
+        Size: typeof Size;
+        PaperScope: typeof PaperScope;
+        Item: typeof Item;
+        Group: typeof Group;
+        Layer: typeof Layer;
+        Shape: typeof Shape;
+        Raster: typeof Raster;
+        PlacedSymbol: typeof PlacedSymbol;
+        PathItem: typeof PathItem;
+        Path: typeof Path;
+        CompoundPath: typeof CompoundPath;
+        Segment: typeof Segment;
+        Curve: typeof Curve;
+        CurveLocation: typeof CurveLocation;
+        Project: typeof Project;
+        Symbol: typeof Symbol;
+        Style: typeof Style;
+        Color: typeof Color;
+        Gradient: typeof Gradient;
+        GradientStop: typeof GradientStop;
+        View: typeof View;
+        Tool: typeof Tool;
+        TextItem: typeof TextItem;
+        PointText: typeof PointText;
     }
     export interface IHitTestOptions{
 
@@ -1288,9 +1319,9 @@ declare module paper {
         tolerance?: number;
 
         /**
-         * only hit-test again a certain item class and its sub-classes: Group, Layer, Path, CompoundPath, Shape, Raster, PlacedSymbol, PointText, etc.
+         * only hit-test against a certain item class and its sub-classes: Group, Layer, Path, CompoundPath, Shape, Raster, PlacedSymbol, PointText, etc.
          */
-        class?: string;
+        class?: new(...args: any[]) => Item;
 
         /**
          * a match function to be called for each found hit result: Return true to return the result, false to keep searching
@@ -1768,7 +1799,7 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: IHitTestOptions): HitResult;
+        hitTest(point: Point, options?: IHitTestOptions): HitResult | null;
 
         /**
          * Performs a hit-test on the item and its children (if it is a Group or Layer) at the location of the specified point, returning all found hits.
@@ -4197,7 +4228,7 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: IHitTestOptions): HitResult;
+        hitTest(point: Point, options?: IHitTestOptions): HitResult | null;
 
         /**
          * Performs a hit-test on the item and its children (if it is a Group or Layer) at the location of the specified point, returning all found hits.

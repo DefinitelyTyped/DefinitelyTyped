@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-12-26
+// Type definitions for Google Apps Script 2019-05-20
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -204,7 +204,7 @@ declare namespace GoogleAppsScript {
        * A comma-separated list of email addresses to BCC.
        */
     }
-    
+
     /**
      * A user-created label in a user's Gmail account.
      */
@@ -237,6 +237,7 @@ declare namespace GoogleAppsScript {
       getCc(): string;
       getDate(): Date;
       getFrom(): string;
+      getHeader(name: string): string;
       getId(): string;
       getPlainBody(): string;
       getRawContent(): string;

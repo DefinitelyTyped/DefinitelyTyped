@@ -387,6 +387,7 @@ _.isObject({});
 _.isObject(1);
 
 _.property('name')(moe);
+_.property(['name'])(moe);
 
 
 // (() => { return _.isArguments(arguments); })(1, 2, 3);

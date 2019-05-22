@@ -617,6 +617,11 @@ declare namespace Bull {
     removeRepeatable(name: string, repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId }): Promise<void>;
 
     /**
+     * Removes a given repeatable job by key.
+     */
+    removeRepeatableByKey(key: string): Promise<void>;
+
+    /**
      * Returns a promise that will return an array of job instances of the given types.
      * Optional parameters for range and ordering are provided.
      */

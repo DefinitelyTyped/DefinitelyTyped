@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-05-20
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -84,9 +84,11 @@ declare namespace GoogleAppsScript {
      */
     export interface LinearOptimizationEngine {
       addConstraint(lowerBound: Number, upperBound: Number): LinearOptimizationConstraint;
+      addConstraints(lowerBounds: Number[], upperBounds: Number[], variableNames: string[][], coefficients: Number[][]): LinearOptimizationEngine;
       addVariable(name: string, lowerBound: Number, upperBound: Number): LinearOptimizationEngine;
       addVariable(name: string, lowerBound: Number, upperBound: Number, type: VariableType): LinearOptimizationEngine;
       addVariable(name: string, lowerBound: Number, upperBound: Number, type: VariableType, objectiveCoefficient: Number): LinearOptimizationEngine;
+      addVariables(names: string[], lowerBounds: Number[], upperBounds: Number[], types: VariableType[], objectiveCoefficients: Number[]): LinearOptimizationEngine;
       setMaximization(): LinearOptimizationEngine;
       setMinimization(): LinearOptimizationEngine;
       setObjectiveCoefficient(variableName: string, coefficient: Number): LinearOptimizationEngine;

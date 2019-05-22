@@ -18,6 +18,7 @@
 //                 Dima Smirnov <https://github.com/smff>
 //                 Duy Truong <https://github.com/truongkhanhduy95>
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
+//                 Dan Rumney <https://github.com/dancrumb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1273,6 +1274,7 @@ declare namespace sequelize {
         constraints?: boolean;
         foreignKeyConstraint?: boolean;
 
+        scope?: AssociationScope;
     }
 
     /**

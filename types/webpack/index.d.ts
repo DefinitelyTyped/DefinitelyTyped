@@ -1158,6 +1158,7 @@ declare namespace webpack {
         type Preset
             = boolean
             | 'errors-only'
+            | 'errors-warnings'
             | 'minimal'
             | 'none'
             | 'normal'

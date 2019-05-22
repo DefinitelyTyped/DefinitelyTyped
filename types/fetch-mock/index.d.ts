@@ -1,4 +1,4 @@
-// Type definitions for fetch-mock 7.2
+// Type definitions for fetch-mock 7.3
 // Project: https://github.com/wheresrhys/fetch-mock, http://www.wheresrhys.co.uk/fetch-mock
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Tamir Duberstein <https://github.com/tamird>
@@ -9,6 +9,7 @@
 //                 Fumiaki Matsushima <https://github.com/mtsmfm>
 //                 Colin Doig <https://github.com/captain-igloo>
 //                 Felix Chen <https://github.com/ChenNima>
+//                 Katsuya Hino <https://github.com/dobogo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -141,12 +142,22 @@ declare namespace fetchMock {
         /**
          * key/value map of headers to match
          */
-        headers?: { [key: string]: string };
+        headers?: { [key: string]: string | number };
 
         /**
          * key/value map of query strings to match, in any order
          */
         query?: { [key: string]: string };
+
+        /**
+         * key/value map of express style path params to match
+         */
+        params?: { [key: string]: string };
+
+        /**
+         * A function for arbitrary matching
+         */
+        functionMatcher?: MockMatcherFunction;
 
         /**
          * as specified above
