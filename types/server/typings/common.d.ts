@@ -16,10 +16,7 @@ export type LogLevel =
     | "info"
     | "debug";
 
-export type LogFn = {
-    (message: string): void;
-    (template: string, ...tokens: string[]): void;
-};
+export type LogFn = (template: string, ...tokens: string[]) => void;
 
 export interface Context {
     options: Options;
