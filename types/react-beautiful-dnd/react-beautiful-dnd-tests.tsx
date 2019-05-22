@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { DragDropContext, Draggable, Droppable, DropResult, DragStart, DragUpdate, ResponderProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable, DropResult, DragStart, DragUpdate, ResponderProvided, DroppableStateSnapshot, resetServerContext } from 'react-beautiful-dnd';
 
 interface Item {
   id: string;
@@ -89,7 +89,7 @@ class App extends React.Component<{}, AppState> {
           {(provided, snapshot) => (
             <div ref={provided.innerRef} style={getListStyle(snapshot)} {...provided.droppableProps}>
               {this.state.items.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index} shouldRespectForceTouch={false}>
+                <Draggable key={item.id} draggableId={item.id} index={index} shouldRespectForcePress>
                   {(provided, snapshot) => (
                     <div>
                       <div
@@ -115,3 +115,5 @@ class App extends React.Component<{}, AppState> {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+resetServerContext();

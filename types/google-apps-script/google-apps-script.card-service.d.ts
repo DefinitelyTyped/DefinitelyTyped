@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-04-09
+// Type definitions for Google Apps Script 2019-05-20
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -388,7 +388,7 @@ declare namespace GoogleAppsScript {
      *     var multilineKeyValue = CardService.newKeyValue()
      *         .setTopLabel("Top label - single line)")
      *         .setContent("Content can be multiple lines")
-     *     .setMultiline(true)
+     *         .setMultiline(true)
      *         .setBottomLabel("Bottom label - single line");
      */
     export interface KeyValue {
@@ -443,11 +443,6 @@ declare namespace GoogleAppsScript {
     export interface Notification {
       setText(text: string): Notification;
     }
-
-    /**
-     * Type of notification to show.
-     */
-    export enum NotificationType { INFO, ERROR, WARNING }
 
     /**
      * An enum that specifies what to do when a URL opened through an OpenLink is closed.

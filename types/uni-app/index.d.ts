@@ -1,4 +1,4 @@
-// Type definitions for non-npm package uni-app 1.0
+// Type definitions for non-npm package uni-app 1.1
 // Project: https://github.com/dcloudio/uni-app
 // Definitions by: DCloud <https://github.com/dcloudio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,6 +11,18 @@
 declare const uni: Uni;
 
 declare class Uni {
+    /**
+     * 将 Base64 字符串转成 ArrayBuffer 对象
+     *
+     * 参考: [http://uniapp.dcloud.io/api/base64ToArrayBuffer?id=base64toarraybuffer](http://uniapp.dcloud.io/api/base64ToArrayBuffer?id=base64toarraybuffer)
+     */
+    base64ToArrayBuffer(base64: string): ArrayBuffer;
+    /**
+     * 将 ArrayBuffer 对象转成 Base64 字符串
+     *
+     * 参考: [http://uniapp.dcloud.io/api/arrayBufferToBase64?id=arraybuffertobase64](http://uniapp.dcloud.io/api/arrayBufferToBase64?id=arraybuffertobase64)
+     */
+    arrayBufferToBase64(arrayBuffer: ArrayBuffer): string;
     /**
      * 发起网络请求
      *
@@ -108,6 +120,12 @@ declare class Uni {
      */
     saveImageToPhotosAlbum(options: SaveImageToPhotosAlbumOptions): void;
     /**
+     * 压缩图片
+     *
+     * 参考: [http://uniapp.dcloud.io/api/media/image?id=compressimage](http://uniapp.dcloud.io/api/media/image?id=compressimage)
+     */
+    compressImage(options: CompressImageOptions): void;
+    /**
      * 录音管理
      *
      * 参考: [http://uniapp.dcloud.io/api/media/record-manager?id=getrecordermanager](http://uniapp.dcloud.io/api/media/record-manager?id=getrecordermanager)
@@ -188,7 +206,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=setstoragesync](http://uniapp.dcloud.io/api/storage/storage?id=setstoragesync)
      */
-    setStorageSync(): void;
+    setStorageSync(key: string, value: any): void;
     /**
      * 从本地缓存中异步获取指定 key 对应的内容
      *
@@ -200,19 +218,19 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=getstoragesync](http://uniapp.dcloud.io/api/storage/storage?id=getstoragesync)
      */
-    getStorageSync(): void;
+    getStorageSync(key: string): any;
     /**
-     * 异步获取当前storage的相关信息
+     * 异步获取当前 storage 的相关信息
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=getstorageinfo](http://uniapp.dcloud.io/api/storage/storage?id=getstorageinfo)
      */
     getStorageInfo(options: GetStorageInfoOptions): void;
     /**
-     * 同步获取当前storage的相关信息
+     * 同步获取当前 storage 的相关信息
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=getstorageinfosync](http://uniapp.dcloud.io/api/storage/storage?id=getstorageinfosync)
      */
-    getStorageInfoSync(): void;
+    getStorageInfoSync(): GetStorageInfoSuccess;
     /**
      * 从本地缓存中异步移除指定 key
      *
@@ -224,7 +242,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=removestoragesync](http://uniapp.dcloud.io/api/storage/storage?id=removestoragesync)
      */
-    removeStorageSync(): void;
+    removeStorageSync(key: string): void;
     /**
      * 清理本地数据缓存
      *
@@ -766,30 +784,6 @@ declare class Uni {
      */
     share(options: ShareOptions): void;
     /**
-     * 开启推送
-     *
-     * 参考: [http://uniapp.dcloud.io/api/plugins/push?id=subscribepush](http://uniapp.dcloud.io/api/plugins/push?id=subscribepush)
-     */
-    subscribePush(options: SubscribePushOptions): void;
-    /**
-     * 关闭推送
-     *
-     * 参考: [http://uniapp.dcloud.io/api/plugins/push?id=unsubscribepush](http://uniapp.dcloud.io/api/plugins/push?id=unsubscribepush)
-     */
-    unsubscribePush(options: UnscribePushOptions): void;
-    /**
-     * 监听透传数据
-     *
-     * 参考: [http://uniapp.dcloud.io/api/plugins/push?id=onpush](http://uniapp.dcloud.io/api/plugins/push?id=onpush)
-     */
-    onPush(options: OnPushOptions): void;
-    /**
-     * 移除监听透传数据
-     *
-     * 参考: [http://uniapp.dcloud.io/api/plugins/push?id=offpush](http://uniapp.dcloud.io/api/plugins/push?id=offpush)
-     */
-    offPush(options: OffPushOptions): void;
-    /**
      * 支付
      *
      * 参考: [http://uniapp.dcloud.io/api/plugins/payment?id=requestpayment](http://uniapp.dcloud.io/api/plugins/payment?id=requestpayment)
@@ -897,6 +891,12 @@ declare class Uni {
      * 参考: [http://uniapp.dcloud.io/api/system/gyroscope?id=stopgyroscope](http://uniapp.dcloud.io/api/system/gyroscope?id=stopgyroscope)
      */
     stopGyroscope(options: StopGyroscopeOptions): void;
+    /**
+     * 动态加载网络字体
+     *
+     * 参考: [http://uniapp.dcloud.io/api/ui/font?id=loadfontface](http://uniapp.dcloud.io/api/ui/font?id=loadfontface)
+     */
+    loadFontFace(options: LoadFontFaceOptions): void;
 }
 
 interface GeneralCallbackResult {
@@ -908,9 +908,13 @@ interface GeneralCallbackResult {
 
 interface RequestPaymentOptions {
     /**
-     * 分享服务提供商，通过 uni.getProvider 获取
+     * 支付服务提供商，通过 uni.getProvider 获取
+     * - alipay: 支付宝支付
+     * - wxpay: 微信支付
+     * - baidu: 百度收银台
+     * - appleiap: 苹果应用内支付
      */
-    provider?: string;
+    provider?: 'alipay' | 'wxpay' | 'baidu' | 'appleiap';
     /**
      * 订单数据
      */
@@ -1411,6 +1415,36 @@ interface SaveImageToPhotosAlbumOptions {
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?: () => void;
+}
+
+interface CompressImageOptions {
+    /**
+     * 图片路径，图片的路径，可以是相对路径、临时文件路径、存储文件路径
+     */
+    src?: string;
+    /**
+     * 压缩质量，范围0～100，数值越小，质量越低，压缩率越高（仅对jpg有效）
+     */
+    quality?: number;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?: () => void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?: (result: CompressImageSuccessData) => void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?: () => void;
+}
+
+interface CompressImageSuccessData {
+    /**
+     * 压缩后图片的临时文件路径
+     */
+    tempFilePath?: string;
 }
 
 interface StartRecordOptions {
@@ -2210,9 +2244,9 @@ interface SetStorageOptions {
      */
     key?: string;
     /**
-     * 需要存储的内容
+     * 需要存储的内容，只支持原生类型、及能够通过 JSON.stringify 序列化的对象
      */
-    data?: object | string;
+    data?: any;
     /**
      * 接口调用成功的回调函数
      */
@@ -2235,7 +2269,7 @@ interface GetStorageOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (result: any) => void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2263,11 +2297,11 @@ interface GetStorageInfoOptions {
 
 interface GetStorageInfoSuccess {
     /**
-     * 当前storage中所有的key
+     * 当前storage中所有的 key
      */
-    keys?: string | any [];
+    keys?: string [];
     /**
-     * 当前占用的空间大小, 单位kb
+     * 当前占用的空间大小, 单位 kb
      */
     currentSize?: number;
     /**
@@ -2443,6 +2477,10 @@ interface MapContext {
      * 获取当前地图的缩放级别
      */
     getScale(options: MapContextGetScaleOptions): void;
+    /**
+     * 获取原生地图对象 plus.maps.Map
+     */
+    $getAppMap(): any;
 }
 
 interface MapContextGetCenterLocationOptions {
@@ -5286,8 +5324,12 @@ interface GetProviderOptions {
 interface GetProviderRes {
     /**
      * 服务类型
+     * - oauth: 授权登录
+     * - share: 分享
+     * - payment: 支付
+     * - push: 推送
      */
-    service?: string;
+    service?: 'oauth' | 'share' | 'payment' | 'push';
     /**
      * 得到的服务供应商
      */
@@ -5296,9 +5338,13 @@ interface GetProviderRes {
 
 interface LoginOptions {
     /**
-     * 分享服务提供商，通过uni.getProvider获取，如果不设置则弹出分享列表选择界面
+     * 授权登录服务提供商，通过uni.getProvider获取，如果不设置则弹出分享列表选择界面
+     * - weixin: 微信登录
+     * - qq: QQ登录
+     * - sinaweibo: 新浪微博登录
+     * - xiaomi: 小米登录
      */
-    provider?: string;
+    provider?: 'weixin' | 'qq' | 'sinaweibo' | 'xiaomi';
     /**
      * 超时时间，单位 ms
      */
@@ -5364,9 +5410,13 @@ interface AuthorizeOptions {
 
 interface GetUserInfoOptions {
     /**
-     * 分享服务提供商，通过uni.getProvider获取
+     * 授权登录服务提供商，通过uni.getProvider获取
+     * - weixin: 微信登录
+     * - qq: QQ登录
+     * - sinaweibo: 新浪微博登录
+     * - xiaomi: 小米登录
      */
-    provider?: string;
+    provider?: 'weixin' | 'qq' | 'sinaweibo' | 'xiaomi';
     /**
      * 是否带上登录态信息，仅微信小程序生效。
      */
@@ -5438,8 +5488,11 @@ interface UserInfo {
 interface ShareOptions {
     /**
      * 分享服务提供商，通过uni.getProvider获取，如果不设置则弹出分享列表选择界面
+     * - sinaweibo: 新浪微博分享
+     * - qq: 分享到QQ好友
+     * - weixin: 分享微信消息、朋友圈及微信小程序
      */
-    provider?: string;
+    provider?: 'sinaweibo' | 'qq' | 'weixin';
     /**
      * 分享类型。默认图文0，纯文字1，纯图片2，音乐3，视频4，小程序5。
      * - 0: 图文
@@ -5516,9 +5569,12 @@ interface MiniProgramShareOptions {
 
 interface SubscribePushOptions {
     /**
-     * 分享推送提供商，通过uni.getProvider获取
+     * 推送服务提供商，通过uni.getProvider获取
+     * - unipush: UniPush
+     * - igexin: 个推
+     * - mipush: 小米推送
      */
-    provider?: string;
+    provider?: 'unipush' | 'igexin' | 'mipush';
     /**
      * 接口调用成功的回调函数
      */
@@ -5535,9 +5591,12 @@ interface SubscribePushOptions {
 
 interface UnscribePushOptions {
     /**
-     * 分享推送提供商，通过uni.getProvider获取
+     * 推送服务提供商，通过uni.getProvider获取
+     * - unipush: UniPush
+     * - igexin: 个推
+     * - mipush: 小米推送
      */
-    provider?: string;
+    provider?: 'unipush' | 'igexin' | 'mipush';
     /**
      * 接口调用成功的回调函数
      */
@@ -5554,9 +5613,12 @@ interface UnscribePushOptions {
 
 interface OnPushOptions {
     /**
-     * 分享推送提供商，通过uni.getProvider获取
+     * 推送服务提供商，通过uni.getProvider获取
+     * - unipush: UniPush
+     * - igexin: 个推
+     * - mipush: 小米推送
      */
-    provider?: string;
+    provider?: 'unipush' | 'igexin' | 'mipush';
     /**
      * 接收到透传数据回调，回调参数（Object）：messageId（消息id）、data（消息内容）
      */
@@ -5577,9 +5639,12 @@ interface OnPushOptions {
 
 interface OffPushOptions {
     /**
-     * 分享推送提供商，通过uni.getProvider获取
+     * 推送服务提供商，通过uni.getProvider获取
+     * - unipush: UniPush
+     * - igexin: 个推
+     * - mipush: 小米推送
      */
-    provider?: string;
+    provider?: 'unipush' | 'igexin' | 'mipush';
     /**
      * 接口调用成功的回调函数
      */
@@ -6229,4 +6294,61 @@ interface StopGyroscopeOptions {
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?: () => void;
+}
+
+interface StopGyroscopeOptions {
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?: () => void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?: () => void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?: () => void;
+}
+
+interface LoadFontFaceOptions {
+    /**
+     * 定义的字体名称
+     */
+    family?: string;
+    /**
+     * 字体资源的地址。建议格式为 TTF 和 WOFF，WOFF2 在低版本的iOS上会不兼容。
+     */
+    source?: string;
+    /**
+     * 可选的字体描述符
+     */
+    desc?: LoadFontFaceOptionsDesc;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?: () => void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?: () => void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?: () => void;
+}
+
+interface LoadFontFaceOptionsDesc {
+    /**
+     * 字体样式，可选值为 normal、italic、oblique
+     */
+    style?: string;
+    /**
+     * 字体粗细，可选值为 normal、bold、100、200../ 900
+     */
+    weight?: string;
+    /**
+     * 设置小型大写字母的字体显示文本，可选值为 normal、small-caps、inherit
+     */
+    variant?: string;
 }

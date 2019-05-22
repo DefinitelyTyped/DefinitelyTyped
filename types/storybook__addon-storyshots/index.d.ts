@@ -1,4 +1,4 @@
-// Type definitions for @storybook/addon-storyshots 3.4
+// Type definitions for @storybook/addon-storyshots 4.0
 // Project: https://github.com/storybooks/storybook/tree/master/addons/storyshots, https://github.com/storybooks/storybook/tree/master/addons/storyshots/storyshots-core
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -58,6 +58,8 @@ export function snapshotWithOptions(options: SnapshotOptions): Test;
 
 export const renderOnly: Test;
 
+export function renderWithOptions(options?: SnapshotOptions): Test;
+
 export function getSnapshotFileName(context: StoryContext): string;
 
 // tslint:disable-next-line no-unnecessary-generics
@@ -70,7 +72,7 @@ export interface InitOptions<Rendered = any> {
     storyNameRegex?: RegExp;
     framework?: string;
     test?: Test;
-    renderer?: (node: React.ReactElement) => Rendered;
+    renderer?: (node: JSX.Element) => Rendered;
     serializer?: (rendered: Rendered) => any;
     integrityOptions?: {};
 }

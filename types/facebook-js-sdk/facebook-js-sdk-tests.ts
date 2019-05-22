@@ -182,3 +182,14 @@ FB.ui({
     method: 'canvas_preview',
     canvas_id: '<CANVAS_ID>'
 });
+
+FB.Event.subscribe('auth.authResponseChange', response => {
+    if (response.status === 'connected') {
+        response.authResponse.accessToken;
+    }
+});
+
+FB.Event.unsubscribe('auth.authResponseChange', () => {});
+
+FB.api('/me', response => {});
+FB.api('/me', 'get', { fields: ['last_name'] }, response => {});

@@ -14,11 +14,11 @@ export const TestElement: React.FC = () => {
   return (
     <>
       <LoginButton popup="popopfile.html"/>
-      <LogoutButton/>
+      <LogoutButton className="logoutButton"/>
       <AuthButton popup="popufile.html" login="Log in" logout="Log out"/>
       <LoggedIn>You are logged in</LoggedIn>
       <LoggedOut>You are logged out</LoggedOut>
-      <Like>Like this page</Like>
+      <Like onSubmit={() => undefined}>Like this page</Like>
     </>
   );
 };

@@ -459,7 +459,7 @@ export interface CognitoIdentity {
 
 export interface ClientContext {
     client: ClientContextClient;
-    custom?: any;
+    Custom?: any;
     env: ClientContextEnv;
 }
 
@@ -734,7 +734,7 @@ export type CodePipelineCloudWatchEvent =
  */
 export interface CloudFrontHeaders {
     [name: string]: Array<{
-        key: string;
+        key?: string;
         value: string;
     }>;
 }

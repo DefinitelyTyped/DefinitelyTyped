@@ -33,7 +33,8 @@ const options: mongodb.MongoClientOptions = {
     promoteBuffers: false,
     useNewUrlParser: false,
     authMechanism: 'SCRAM-SHA-1',
-    forceServerObjectId: false
+    forceServerObjectId: false,
+    promiseLibrary: Promise,
 };
 
 mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError, client: mongodb.MongoClient) => {
@@ -105,8 +106,8 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
         cursor = cursor.hint('age_1');
         cursor = cursor.limit(1);
         cursor = cursor.map((result) => {});
-        cursor = cursor.max(1);
-        cursor = cursor.min(1);
+        cursor = cursor.max({ age: 130 });
+        cursor = cursor.min({ age: 18 });
         cursor = cursor.maxAwaitTimeMS(1);
         cursor = cursor.maxScan({});
         cursor = cursor.maxTimeMS(1);
@@ -343,3 +344,7 @@ mongodb.connect(connectionString).then((client) => {
         testCollectionReduceFunction
     );
 });
+
+// Test other error classes
+new mongodb.MongoNetworkError('network error');
+new mongodb.MongoParseError('parse error');

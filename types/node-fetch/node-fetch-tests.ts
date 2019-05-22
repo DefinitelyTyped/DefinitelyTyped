@@ -114,3 +114,17 @@ function test_Blob() {
     new Blob(["beep", "boop"], { endings: "native" });
     new Blob(["beep", "boop"], { type: "text/plain" });
 }
+
+function test_ResponseInit() {
+    fetch("http://test.com", {}).then(response => {
+        new Response(response.body);
+        new Response(response.body, {
+            url: response.url,
+            size: response.size,
+            status: response.status,
+            statusText: response.statusText,
+            headers: response.headers,
+            timeout: response.timeout
+        });
+    });
+}

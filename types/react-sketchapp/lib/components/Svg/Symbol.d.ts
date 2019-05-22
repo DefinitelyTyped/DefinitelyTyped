@@ -4,7 +4,7 @@ export interface SymbolProps {
     id: string;
     viewBox?: string;
     preserveAspectRatio?: string;
-    children: React.ReactChild[] | React.ReactChild;
+    children: React.ReactNode[] | React.ReactNode;
 }
 
 export default class Symbol extends React.Component<SymbolProps> {}
