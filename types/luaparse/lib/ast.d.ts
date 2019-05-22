@@ -29,6 +29,7 @@ export const enum Type {
     TableConstructorExpression = "TableConstructorExpression",
     UnaryExpression = "UnaryExpression",
     BinaryExpression = "BinaryExpression",
+    LogicalExpression = "LogicalExpression",
     MemberExpression = "MemberExpression",
     IndexExpression = "IndexExpression",
     CallExpression = "CallExpression",
@@ -185,6 +186,12 @@ export interface BinaryExpression extends Base<Type.BinaryExpression> {
     right: Expression;
 }
 
+export interface LogicalExpression extends Base<Type.LogicalExpression> {
+    operator: "or" | "and";
+    left: Expression;
+    right: Expression;
+}
+
 export interface MemberExpression extends Base<Type.MemberExpression> {
     indexer: string;
     identifier: Identifier;
@@ -246,6 +253,7 @@ export type Node =
     TableValue |
     TableConstructorExpression |
     BinaryExpression |
+    LogicalExpression |
     UnaryExpression |
     MemberExpression |
     IndexExpression |
@@ -264,6 +272,7 @@ export type Expression =
     VarargLiteral |
     TableConstructorExpression |
     BinaryExpression |
+    LogicalExpression |
     UnaryExpression |
     MemberExpression |
     IndexExpression |
