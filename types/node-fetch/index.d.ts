@@ -17,24 +17,8 @@ import { URLSearchParams } from "url";
 // `Event` and `AbortSignal` are defined here to prevent a dependency on a particular implementation
 // like the `abort-controller` package, and to avoid requiring the `dom` library
 // in `tsconfig.json`.
-type Event = any;
-export interface AbortSignal {
-    aborted: boolean;
-
-    addEventListener: (type: "abort", listener: ((this: AbortSignal, event: Event) => any), options?: boolean | {
-        capture?: boolean,
-        once?: boolean,
-        passive?: boolean
-    }) => void;
-
-    removeEventListener: (type: "abort", listener: ((this: AbortSignal, event: Event) => any), options?: boolean | {
-        capture?: boolean
-    }) => void;
-
-    dispatchEvent: (event: Event) => boolean;
-
-    onabort?: null | ((this: AbortSignal, event: Event) => void);
-}
+import { AbortSignal } from "./AbortSignal";
+export * from "./AbortSignal";
 
 export class Request extends Body {
     constructor(input: string | { href: string } | Request, init?: RequestInit);
