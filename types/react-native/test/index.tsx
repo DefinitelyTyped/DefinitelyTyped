@@ -938,7 +938,7 @@ const PushNotificationTest = () => {
         alertTitle: 'Hello!',
         applicationIconBadgeNumber: 999,
         category: 'engagement',
-        fireDate: new Date(),
+        fireDate: (new Date()).toISOString(),
         isSilent: false,
         repeatInterval: 'minute',
         userInfo: {
