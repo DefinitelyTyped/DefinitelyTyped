@@ -1882,9 +1882,11 @@ declare namespace OracleDB {
          *
          * Different values of numRows may alter the time needed for fetching data from Oracle Database.
          * The value of fetchArraySize has no effect on getRows() performance or internal buffering.
+         * 
+         * @param numRows The number of rows to fetch
          */
-        getRows(numRows: number): Promise<void>;
-        getRows(callback: (error: DBError, numRows: number) => void): void;
+        getRows(numRows: number): Promise<(Record<string, any> | any[])[]>;
+        getRows(numRows: number, callback: (error: DBError, rows: (Record<string, any> | any[])[]) => void): void;
 
         /**
          * This synchronous method converts a ResultSet into a stream.
