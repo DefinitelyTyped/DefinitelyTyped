@@ -19,6 +19,6 @@
       "index.d.ts",
       "linkifyjs-tests.tsx",
       "react.d.ts",
-      "string.d.ts",
+      "string.d.ts"
     ]
 }
