@@ -19,7 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "node-fetch-tests.ts",
-        "AbortSignal.d.ts"
+        "externals.d.ts",
+        "node-fetch-tests.ts"
     ]
 }
