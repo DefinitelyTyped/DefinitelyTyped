@@ -16,6 +16,11 @@ export type LogLevel =
     | "info"
     | "debug";
 
+export type LogFn = {
+    (message: string): void;
+    (template: string, ...tokens: string[]): void;
+};
+
 export interface Context {
     options: Options;
     data: any;
@@ -35,6 +40,7 @@ export interface Context {
     error: Error;
     req: express.Request;
     res: express.Response;
+    log: { [key in LogLevel]: LogFn };
 }
 
 export type Middleware = (ctx: Context) => Reply | BasicType | void;
