@@ -25,5 +25,8 @@
         "dtslint": "latest",
         "types-publisher": "github:Microsoft/types-publisher#production"
     },
-    "dependencies": {}
+    "dependencies": {
+        "snabbdom": "^0.7.3",
+        "snabbdom-testing-library": "0.0.1"
+    }
 }
