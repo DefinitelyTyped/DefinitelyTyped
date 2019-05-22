@@ -14,7 +14,7 @@
 import { Agent } from "http";
 import { URLSearchParams } from "url";
 
-// This is defined here to prevent a dependency on a particular implementation
+// `Event` and `AbortSignal` are defined here to prevent a dependency on a particular implementation
 // like the `abort-controller` package, and to avoid requiring the `dom` library
 // in `tsconfig.json`.
 type Event = any;
