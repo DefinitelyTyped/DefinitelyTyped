@@ -230,6 +230,10 @@ describe("linkifyjs/react", () => {
 });
 
 describe("linkifyjs/string", () => {
+    /**
+     * The following tests were based on the documentation:
+     * https://soapbox.github.io/linkifyjs/docs/linkify-string.html
+     */
     const options: LinkifyOptions = {};
     const str = '<p>For help with GitHub.com, please email support@github.com</p>';
     const result1: string = linkifyStr(str, options);
@@ -237,6 +241,10 @@ describe("linkifyjs/string", () => {
 });
 
 describe("linkifyjs/element", () => {
+    /**
+     * The following tests were based on the documentation:
+     * https://soapbox.github.io/linkifyjs/docs/linkify-element.html
+     */
     const options: LinkifyOptions = {};
     const result1: HTMLElement = linkifyElement(document.body, options, document);
     const result2: HTMLElement = linkifyElement(document.body, options);
