@@ -1,7 +1,8 @@
 // Type definitions for json-stream-stringify 2.0
 // Project: https://github.com/Faleij/json-stream-stringify#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Sega Yuu <https://github.com/segayuu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 /// <reference types="node" />
 import { Readable } from "stream";
 
