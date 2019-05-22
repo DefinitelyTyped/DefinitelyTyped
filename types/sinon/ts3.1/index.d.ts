@@ -135,16 +135,21 @@ declare namespace Sinon {
          */
         lastArg: any;
 
+        /* tslint:disable:no-unnecessary-generics */
+
         /**
          * Returns true if the spy call occurred before another spy call.
          * @param call
+         *
          */
-        calledBefore(call: SinonSpyCall): boolean;
+        calledBefore<TSpyArgs extends any[]>(call: SinonSpyCall<TSpyArgs>): boolean;
         /**
          * Returns true if the spy call occurred after another spy call.
          * @param call
          */
-        calledAfter(call: SinonSpyCall): boolean;
+        calledAfter<TSpyArgs extends any[]>(call: SinonSpyCall<TSpyArgs>): boolean;
+
+        /* tslint:enable:no-unnecessary-generics */
     }
 
     interface SinonSpy<TArgs extends any[] = any[], TReturnValue = any>
@@ -214,26 +219,32 @@ declare namespace Sinon {
 
         // Methods
         (...args: TArgs): TReturnValue;
+
+        /* tslint:disable:no-unnecessary-generics */
+
         /**
          * Returns true if the spy was called before @param anotherSpy
          * @param anotherSpy
          */
-        calledBefore(anotherSpy: SinonSpy): boolean;
+        calledBefore<TSpyArgs extends any[]>(anotherSpy: SinonSpy<TSpyArgs>): boolean;
         /**
          * Returns true if the spy was called after @param anotherSpy
          * @param anotherSpy
          */
-        calledAfter(anotherSpy: SinonSpy): boolean;
+        calledAfter<TSpyArgs extends any[]>(anotherSpy: SinonSpy<TSpyArgs>): boolean;
         /**
          * Returns true if spy was called before @param anotherSpy, and no spy calls occurred between spy and @param anotherSpy.
          * @param anotherSpy
          */
-        calledImmediatelyBefore(anotherSpy: SinonSpy): boolean;
+        calledImmediatelyBefore<TSpyArgs extends any[]>(anotherSpy: SinonSpy<TSpyArgs>): boolean;
         /**
          * Returns true if spy was called after @param anotherSpy, and no spy calls occurred between @param anotherSpy and spy.
          * @param anotherSpy
          */
-        calledImmediatelyAfter(anotherSpy: SinonSpy): boolean;
+        calledImmediatelyAfter<TSpyArgs extends any[]>(anotherSpy: SinonSpy<TSpyArgs>): boolean;
+
+        /* tslint:enable:no-unnecessary-generics */
+
         /**
          * Creates a spy that only records calls when the received arguments match those passed to withArgs.
          * This is useful to be more expressive in your assertions, where you can access the spy with the same call.
@@ -628,12 +639,14 @@ declare namespace Sinon {
     }
 
     interface SinonStubStatic {
-        // Disable rule so assignment to typed stub works (see examples in tests).
+        /* tslint:disable:no-unnecessary-generics */
+
         /**
          * Creates an anonymous stub function
          */
-        // tslint:disable-next-line no-unnecessary-generics
-        <TArgs extends any[]= any[], R = any>(): SinonStub<TArgs, R>;
+        <TArgs extends any[] = any[], R = any>(): SinonStub<TArgs, R>;
+
+        /* tslint:enable:no-unnecessary-generics */
 
         /**
          * Stubs all the object’s methods.
@@ -1153,36 +1166,38 @@ declare namespace Sinon {
         pass(assertion: any): void; // Overridable
 
         // Methods
+        /* tslint:disable:no-unnecessary-generics */
+
         /**
          * Passes if spy was never called
          * @param spy
          */
-        notCalled(spy: SinonSpy): void;
+        notCalled<TArgs extends any[]>(spy: SinonSpy<TArgs>): void;
         /**
          * Passes if spy was called at least once.
          */
-        called(spy: SinonSpy): void;
+        called<TArgs extends any[]>(spy: SinonSpy<TArgs>): void;
         /**
          * Passes if spy was called once and only once.
          */
-        calledOnce(spy: SinonSpy): void;
+        calledOnce<TArgs extends any[]>(spy: SinonSpy<TArgs>): void;
         /**
          * Passes if spy was called exactly twice.
          */
-        calledTwice(spy: SinonSpy): void;
+        calledTwice<TArgs extends any[]>(spy: SinonSpy<TArgs>): void;
         /**
          * Passes if spy was called exactly three times.
          */
-        calledThrice(spy: SinonSpy): void;
+        calledThrice<TArgs extends any[]>(spy: SinonSpy<TArgs>): void;
         /**
          * Passes if spy was called exactly num times.
          */
-        callCount(spy: SinonSpy, count: number): void;
+        callCount<TArgs extends any[]>(spy: SinonSpy<TArgs>, count: number): void;
         /**
          * Passes if provided spies were called in the specified order.
          * @param spies
          */
-        callOrder(...spies: SinonSpy<any>[]): void;
+        callOrder(...spies: Array<SinonSpy<any>>): void;
         /**
          * Passes if spy was ever called with obj as its this value.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledOn(spy.firstCall, arg1, arg2, ...);.
@@ -1191,7 +1206,10 @@ declare namespace Sinon {
         /**
          * Passes if spy was always called with obj as its this value.
          */
-        alwaysCalledOn(spy: SinonSpy, obj: any): void;
+        alwaysCalledOn<TArgs extends any[]>(spy: SinonSpy<TArgs>, obj: any): void;
+
+        /* tslint:enable:no-unnecessary-generics */
+
         /**
          * Passes if spy was called with the provided arguments.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWith(spy.firstCall, arg1, arg2, ...);.
@@ -1268,18 +1286,24 @@ declare namespace Sinon {
          * It’s possible to assert on a dedicated spy call: sinon.assert.threw(spy.thirdCall, exception);.
          */
         threw<TArgs extends any[]>(spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>, exception: any): void;
+
+        /* tslint:disable:no-unnecessary-generics */
+
         /**
          * Like threw, only required for all calls to the spy.
          */
-        alwaysThrew(spy: SinonSpy): void;
+        alwaysThrew<TArgs extends any[]>(spy: SinonSpy<TArgs>): void;
         /**
          * Like threw, only required for all calls to the spy.
          */
-        alwaysThrew(spy: SinonSpy, exception: string): void;
+        alwaysThrew<TArgs extends any[]>(spy: SinonSpy<TArgs>, exception: string): void;
         /**
          * Like threw, only required for all calls to the spy.
          */
-        alwaysThrew(spy: SinonSpy, exception: any): void;
+        alwaysThrew<TArgs extends any[]>(spy: SinonSpy<TArgs>, exception: any): void;
+
+        /* tslint:enable:no-unnecessary-generics */
+
         /**
          * Uses sinon.match to test if the arguments can be considered a match.
          */
