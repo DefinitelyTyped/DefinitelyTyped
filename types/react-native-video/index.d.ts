@@ -36,7 +36,7 @@ export interface LoadError {
   };
 }
 
-export interface onSeekData {
+export interface OnSeekData {
   currentTime: number;
   seekTime: number;
   target?: number;
