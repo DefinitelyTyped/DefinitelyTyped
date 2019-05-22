@@ -36,12 +36,19 @@ export class Request extends Body {
     timeout: number;
 }
 
+// minimal type definition for AbortSignal https://dom.spec.whatwg.org/#interface-AbortSignal
+interface AbortSignal {
+    aborted: boolean;
+    onabort: function;
+}
+
 export interface RequestInit {
     // whatwg/fetch standard options
     body?: BodyInit;
     headers?: HeadersInit;
     method?: string;
     redirect?: RequestRedirect;
+    signal?: AbortSignal;
 
     // node-fetch extensions
     agent?: Agent; // =null http.Agent instance, allows custom proxy, certificate etc.
