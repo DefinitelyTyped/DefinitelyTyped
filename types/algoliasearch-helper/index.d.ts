@@ -478,6 +478,7 @@ declare namespace algoliasearchHelper {
     getHierarchicalRefinement(facetName: string): string[];
     getNumericRefinements(facetName: string): SearchParameters.OperatorList[];
     getNumericRefinement(attribute: string, operator: SearchParameters.Operator): Array<number | number[]>;
+    getQueryParams(): any;
     getQueryParameter(paramName: string): any;
     getRefinedDisjunctiveFacets(facet: string, value: any): string[];
     getRefinedHierarchicalFacets(facet: string, value: any): string[];
