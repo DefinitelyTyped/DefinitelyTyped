@@ -784,7 +784,7 @@ function ReactWrapperTest() {
 
     function test_setState() {
         reactWrapper = reactWrapper.setState({ stateProperty: 'state' });
-        reactWrapper = reactWrapper.setState({ stateProperty: 'state' }, () => console.log('state set'))
+        reactWrapper = reactWrapper.setState({ stateProperty: 'state' }, () => console.log('state set'));
     }
 
     function test_setProps() {
