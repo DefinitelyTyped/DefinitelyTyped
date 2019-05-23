@@ -1,4 +1,5 @@
-import BootBot from "bootbot";
+import BootBot = require("bootbot");
+
 
 const bot = new BootBot({
     accessToken: '0123456789',
