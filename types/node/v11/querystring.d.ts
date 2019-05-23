@@ -20,12 +20,12 @@ declare module "querystring" {
     function stringify(obj?: ParsedUrlQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;
     function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
     /**
-    * The querystring.encode() function is an alias for querystring.stringify().
-    */
-    function encode(obj?: ParsedQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;
+     * The querystring.encode() function is an alias for querystring.stringify().
+     */
+    function encode(obj?: ParsedUrlQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;
     /**
-    * The querystring.decode() function is an alias for querystring.parse().
-    */
+     * The querystring.decode() function is an alias for querystring.parse().
+     */
     function decode(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
     function escape(str: string): string;
     function unescape(str: string): string;
