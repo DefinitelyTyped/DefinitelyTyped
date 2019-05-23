@@ -36,7 +36,7 @@ app.service('users').hooks({
 
 app.service('users').get(0); // app: Service<User>
 let x = app.service('user');  // never
-x = (() => { throw new Error })(); // only never can be assigned to never
+x = (() => { throw new Error(); })(); // only never can be assigned to never
 
 const app2 = feathers();
 app2.service('users').get(0); // app2: Service<any>
