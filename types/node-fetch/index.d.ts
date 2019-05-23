@@ -13,6 +13,7 @@
 
 import { Agent } from "http";
 import { URLSearchParams } from "url";
+import { AbortSignal } from "./externals";
 
 export class Request extends Body {
     constructor(input: string | { href: string } | Request, init?: RequestInit);

@@ -2,7 +2,7 @@
 // implementation like the `abort-controller` package, and to avoid requiring
 // the `dom` library in `tsconfig.json`.
 
-interface AbortSignal {
+export interface AbortSignal {
     aborted: boolean;
 
     addEventListener: (type: "abort", listener: ((this: AbortSignal, event: any) => any), options?: boolean | {
