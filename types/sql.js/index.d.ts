@@ -12,7 +12,8 @@ export type ParamsObject = Record<string, ValueType>;
 export type ParamsCallback = (obj: ParamsObject) => void;
 
 export interface Config {
-    locateFile(fileName?: string): string;
+    locateFile?(fileName?: string): string;
+    wasmBinary?: Uint8Array;
 }
 
 export interface QueryResults {
