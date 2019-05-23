@@ -583,6 +583,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "csv-parse",
+            "typingsPackageName": "csv-parse",
+            "sourceRepoURL": "https://github.com/adaltas/node-csv-parse",
+            "asOfVersion": "1.2.2"
+        },
+        {
             "libraryName": "cycled",
             "typingsPackageName": "cycled",
             "sourceRepoURL": "https://github.com/sindresorhus/cycled",

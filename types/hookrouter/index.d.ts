@@ -42,7 +42,7 @@ export function resolvePath(inPath: string): string;
 export function prepareRoute(inRoute: string): [RegExp, string[]];
 export function navigate(
 	url: string,
-	replace: true,
+	replace?: boolean,
 	queryParams?: HookRouter.QueryParams | null,
 	replaceQueryParams?: boolean
 ): void;
@@ -51,6 +51,6 @@ export function getPath(): string;
 export function usePath(active?: boolean, withBasePath?: boolean): string;
 export function updatePathHooks(): void;
 export function getWorkingPath(parentRouterId: string): string;
-export function useRoutes(routeObj: HookRouter.RouteObject): React.ReactNode;
+export function useRoutes(routeObj: HookRouter.RouteObject): any;
 export function useTitle(inString: string): void;
 export function getTitle(): string;

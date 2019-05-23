@@ -1433,7 +1433,7 @@ export class Editor implements Controller {
     undo(): Editor;
     snapshotSelection(): Editor;
     command(name: string, ...args: any[]): Editor;
-    query(query: string, ...args: any[]): Editor;
+    query(query: string, ...args: any[]): any;
     registerCommand(command: string): Editor;
     registerQuery(query: string): Editor;
     applyOperation(operation: Operation): Editor;
@@ -2461,7 +2461,7 @@ export interface Controller {
      */
     snapshotSelection(): Controller;
     command(name: string, ...args: any[]): Controller;
-    query(query: string, ...args: any[]): Controller;
+    query(query: string, ...args: any[]): any;
     /**
      * Add a new command by type to the controller. This will make the command available as a top-level method on the controller
      */

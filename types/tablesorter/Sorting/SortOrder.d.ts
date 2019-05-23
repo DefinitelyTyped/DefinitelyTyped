@@ -1,14 +1,13 @@
 /**
  * Defines a sort-order.
  */
-export enum SortOrder {
+export type SortOrder =
     /**
      * Indicates ascending sorting.
      */
-    Ascending = "asc",
+    "asc" |
 
     /**
      * Indicates descending sorting.
      */
-    Descending = "desc"
-}
+    "desc";

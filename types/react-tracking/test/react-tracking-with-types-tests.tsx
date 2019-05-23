@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Track, track as _track, TrackingProp, Options, Decorator, TrackingContext, ReactTrackingContext } from 'react-tracking';
+import { Track, track as _track, TrackingProp, Options, Decorator, TrackingContext, ReactTrackingContext, useTracking } from 'react-tracking';
+import { string } from 'prop-types';
 
 function customEventReporter(data: { page?: string }) {}
 
@@ -85,3 +86,17 @@ const TestContext = () => {
         </ReactTrackingContext.Provider>
     );
 };
+
+interface Trackables {
+    page: string;
+    app: string;
+}
+
+const App = track()((props: { foo: string }) => {
+    const tracking = useTracking<Trackables>();
+    return <div onClick={() => {
+        tracking.trackEvent({
+            page: 'Home'
+        });
+    }}/>;
+});

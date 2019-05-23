@@ -544,7 +544,7 @@ str = cloudwatchLogsDecodedData.logEvents[0].extractedFields!["example"];
 
 /* ClientContext */
 clientContextClient = clientCtx.client;
-anyObj = clientCtx.custom;
+anyObj = clientCtx.Custom;
 clientContextEnv = clientCtx.env;
 
 /* ClientContextEnv */

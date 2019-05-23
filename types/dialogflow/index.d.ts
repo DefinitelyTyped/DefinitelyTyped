@@ -1,6 +1,6 @@
-// Type definitions for dialogflow 0.6
+// Type definitions for dialogflow 0.9
 // Project: https://github.com/googleapis/nodejs-dialogflow
-// Definitions by: Daniel Dyla <https://github.com/dyladan>
+// Definitions by: Daniel Dyla <https://github.com/dyladan>, Tom Carrio <https://github.com/tcarrio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -698,19 +698,19 @@ export interface QueryResult {
 export interface Status {
     code: StatusCode;
     message: string;
-    details: any[];
+    details: Any[];
 }
 
-export enum StatusCode {
+export type StatusCode =
     // Not an error; returned on success
     //
     // HTTP Mapping: 200 OK
-    OK = 0,
+    | 0 // OK
 
     // The operation was cancelled, typically by the caller.
     //
     // HTTP Mapping: 499 Client Closed Request
-    CANCELLED = 1,
+    | 1 // CANCELLED
 
     // Unknown error.  For example, this error may be returned when
     // a `Status` value received from another address space belongs to
@@ -719,7 +719,7 @@ export enum StatusCode {
     // may be converted to this error.
     //
     // HTTP Mapping: 500 Internal Server Error
-    UNKNOWN = 2,
+    | 2 // UNKNOWN
 
     // The client specified an invalid argument.  Note that this differs
     // from `FAILED_PRECONDITION`.  `INVALID_ARGUMENT` indicates arguments
@@ -727,7 +727,7 @@ export enum StatusCode {
     // (e.g., a malformed file name).
     //
     // HTTP Mapping: 400 Bad Request
-    INVALID_ARGUMENT = 3,
+    | 3 // INVALID_ARGUMENT
 
     // The deadline expired before the operation could complete. For operations
     // that change the state of the system, this error may be returned
@@ -736,7 +736,7 @@ export enum StatusCode {
     // enough for the deadline to expire.
     //
     // HTTP Mapping: 504 Gateway Timeout
-    DEADLINE_EXCEEDED = 4,
+    | 4 // DEADLINE_EXCEEDED
 
     // Some requested entity (e.g., file or directory) was not found.
     //
@@ -747,13 +747,13 @@ export enum StatusCode {
     // must be used.
     //
     // HTTP Mapping: 404 Not Found
-    NOT_FOUND = 5,
+    | 5 // NOT_FOUND
 
     // The entity that a client attempted to create (e.g., file or directory)
     // already exists.
     //
     // HTTP Mapping: 409 Conflict
-    ALREADY_EXISTS = 6,
+    | 6 // ALREADY_EXISTS
 
     // The caller does not have permission to execute the specified
     // operation. `PERMISSION_DENIED` must not be used for rejections
@@ -765,19 +765,19 @@ export enum StatusCode {
     // other pre-conditions.
     //
     // HTTP Mapping: 403 Forbidden
-    PERMISSION_DENIED = 7,
+    | 7 // PERMISSION_DENIED
 
     // The request does not have valid authentication credentials for the
     // operation.
     //
     // HTTP Mapping: 401 Unauthorized
-    UNAUTHENTICATED = 16,
+    | 16 // UNAUTHENTICATED
 
     // Some resource has been exhausted, perhaps a per-user quota, or
     // perhaps the entire file system is out of space.
     //
     // HTTP Mapping: 429 Too Many Requests
-    RESOURCE_EXHAUSTED = 8,
+    | 8 // RESOURCE_EXHAUSTED
 
     // The operation was rejected because the system is not in a state
     // required for the operation's execution.  For example, the directory
@@ -797,7 +797,7 @@ export enum StatusCode {
     //      the files are deleted from the directory.
     //
     // HTTP Mapping: 400 Bad Request
-    FAILED_PRECONDITION = 9,
+    | 9 // FAILED_PRECONDITION
 
     // The operation was aborted, typically due to a concurrency issue such as
     // a sequencer check failure or transaction abort.
@@ -806,7 +806,7 @@ export enum StatusCode {
     // `ABORTED`, and `UNAVAILABLE`.
     //
     // HTTP Mapping: 409 Conflict
-    ABORTED = 10,
+    | 10 // ABORTED
 
     // The operation was attempted past the valid range.  E.g., seeking or
     // reading past end-of-file.
@@ -825,20 +825,20 @@ export enum StatusCode {
     // they are done.
     //
     // HTTP Mapping: 400 Bad Request
-    OUT_OF_RANGE = 11,
+    | 11 // OUT_OF_RANGE
 
     // The operation is not implemented or is not supported/enabled in this
     // service.
     //
     // HTTP Mapping: 501 Not Implemented
-    UNIMPLEMENTED = 12,
+    | 12 // UNIMPLEMENTED
 
     // Internal errors.  This means that some invariants expected by the
     // underlying system have been broken.  This error code is reserved
     // for serious errors.
     //
     // HTTP Mapping: 500 Internal Server Error
-    INTERNAL = 13,
+    | 13 // INTERNAL
 
     // The service is currently unavailable.  This is most likely a
     // transient condition, which can be corrected by retrying with
@@ -848,13 +848,12 @@ export enum StatusCode {
     // `ABORTED`, and `UNAVAILABLE`.
     //
     // HTTP Mapping: 503 Service Unavailable
-    UNAVAILABLE = 14,
+    | 14 // UNAVAILABLE
 
     // Unrecoverable data loss or corruption.
     //
     // HTTP Mapping: 500 Internal Server Error
-    DATA_LOSS = 15
-}
+    | 1; // DATA_LOSS
 
 export interface Agent {
     parent: string;
@@ -876,18 +875,17 @@ export interface Context<N = string, T = any> {
 }
 
 export interface EntityType {
-    name: string;
+    name?: string;
     entities: EntitySynonyms[];
     displayName: string;
     kind: EntityKind;
     autoExpansionMode: EntityAutoExpansionMode;
 }
 
-export enum MatchMode {
-    MATCH_MODE_UNSPECIFIED = "MATCH_MODE_UNSPECIFIED",
-    MATCH_MODE_HYBRID = "MATCH_MODE_HYBRID",
-    MATCH_MODE_ML_ONLY = "MATCH_MODE_ML_ONLY"
-}
+export type MatchMode =
+    | "MATCH_MODE_UNSPECIFIED"
+    | "MATCH_MODE_HYBRID"
+    | "MATCH_MODE_ML_ONLY";
 
 export interface Credentials {
     client_email: string;
@@ -905,27 +903,24 @@ export interface ClientOptions {
 }
 
 export interface EntitySynonyms {
-    synonyms: string[];
+    synonyms: NonEmptyArray<string>;
     value: string;
 }
 
-export enum EntityKind {
-    KIND_MAP = "KIND_MAP",
-    KIND_LIST = "KIND_LIST"
-}
+export type EntityKind =
+    | "KIND_MAP"
+    | "KIND_LIST";
 
-export enum EntityAutoExpansionMode {
-    AUTO_EXPANSION_MODE_DEFAULT = "AUTO_EXPANSION_MODE_DEFAULT",
-    AUTO_EXPANSION_MODE_UNSPECIFIED = "AUTO_EXPANSION_MODE_UNSPECIFIED"
-}
+export type EntityAutoExpansionMode =
+    | "AUTO_EXPANSION_MODE_DEFAULT"
+    | "AUTO_EXPANSION_MODE_UNSPECIFIED";
 
-export enum IntentView {
-    INTENT_VIEW_UNSPECIFIED = "INTENT_VIEW_UNSPECIFIED",
-    INTENT_VIEW_FULL = "INTENT_VIEW_FULL"
-}
+export type IntentView =
+    | "INTENT_VIEW_UNSPECIFIED"
+    | "INTENT_VIEW_FULL";
 
 export interface Intent {
-    name: string;
+    name?: string;
     displayName: string;
     webhookState?: string;
     priority?: number;
@@ -946,7 +941,7 @@ export interface Intent {
 }
 
 export interface TrainingPhrase {
-    name: string;
+    name?: string;
     type: string;
     parts: Part[];
     timesAddedCount?: number;
@@ -975,17 +970,16 @@ export interface FollowupIntentInfo {
     parentFollowupIntentName: string;
 }
 
-export enum Platform {
-    PLATFORM_UNSPECIFIED,
-    FACEBOOK,
-    SLACK,
-    TELEGRAM,
-    KIK,
-    SKYPE,
-    LINE,
-    VIBER,
-    ACTIONS_ON_GOOGLE
-}
+export type Platform =
+    | "PLATFORM_UNSPECIFIED"
+    | "FACEBOOK"
+    | "SLACK"
+    | "TELEGRAM"
+    | "KIK"
+    | "SKYPE"
+    | "LINE"
+    | "VIBER"
+    | "ACTIONS_ON_GOOGLE";
 
 export interface MessageBase {
     platform?: Platform;
@@ -1148,7 +1142,15 @@ export interface TextInput {
     languageCode: string;
 }
 
-// TODO export enum AudioEncoding
+export type AudioEncoding =
+    | "AUDIO_ENCODING_UNSPECIFIED"
+    | "AUDIO_ENCODING_LINEAR_16"
+    | "AUDIO_ENCODING_FLAC"
+    | "AUDIO_ENCODING_MULAW"
+    | "AUDIO_ENCODING_AMR"
+    | "AUDIO_ENCODING_AMR_WB"
+    | "AUDIO_ENCODING_OGG_OPUS"
+    | "AUDIO_ENCODING_SPEEX_WITH_HEADER_BYTE";
 
 export interface InputAudioConfig {
     // required by the documentation https://cloud.google.com/dialogflow-enterprise/docs/reference/rest/v2beta1/QueryInput
@@ -1160,10 +1162,14 @@ export interface InputAudioConfig {
     model?: string;
 }
 
-// TODO export enum OutputAudioEncoding
+export type OutputAudioEncoding =
+    | "OUTPUT_AUDIO_ENCODING_UNSPECIFIED"
+    | "OUTPUT_AUDIO_ENCODING_LINEAR_16"
+    | "OUTPUT_AUDIO_ENCODING_MP3"
+    | "OUTPUT_AUDIO_ENCODING_OGG_OPUS";
 
 export interface OutputAudioConfig {
-    audioEncoding: any;
+    audioEncoding: OutputAudioEncoding;
     sampleRateHertz?: number;
     synthesizeSpeechConfig?: SynthesizeSpeechConfig;
 }
@@ -1176,7 +1182,11 @@ export interface SynthesizeSpeechConfig {
     voice?: VoiceSelectionParams;
 }
 
-// TODO export enum SsmlVoiceGender
+export type SsmlVoiceGender =
+    | "SSML_VOICE_GENDER_UNSPECIFIED"
+    | "SSML_VOICE_GENDER_MALE"
+    | "SSML_VOICE_GENDER_FEMALE"
+    | "SSML_VOICE_GENDER_NEUTRAL";
 
 export interface VoiceSelectionParams {
     name?: string;
@@ -1197,10 +1207,12 @@ export interface QueryParams {
     sessionEntityTypes?: SessionEntityType[];
     payload?: any;
     knowledgeBaseNames?: string[];
-    sentimentAnalysisRequestConfig?: any;
+    sentimentAnalysisRequestConfig?: SentimentAnalysisRequestConfig;
 }
 
-// TODO export interface SentimentAnalysisRequestConfig
+export interface SentimentAnalysisRequestConfig {
+    analyzeQueryTextSentiment: boolean;
+}
 
 export interface LatLong {
     latitude: number;
@@ -1232,4 +1244,12 @@ export interface WebhookResponse {
     payload?: any;
     outputContexts?: Context[];
     followupEventInput?: EventInput;
+}
+
+// Internal Types and Disabling Auto-Export
+export {};
+type NonEmptyArray<T> = T[] & {0: T};
+interface Any {
+    [key: string]: any;
+    "@type": string;
 }
