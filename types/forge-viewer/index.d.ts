@@ -357,6 +357,7 @@ declare namespace Autodesk {
         let theExtensionManager: ExtensionManager;
 
         interface InitializerOptions {
+            api?: string;
             env?: string;
             webGLHelpLink?: string;
             getAccessToken?(callback?: (accessToken: string, expires: number) => void): void;
