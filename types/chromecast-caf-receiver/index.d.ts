@@ -2,7 +2,7 @@
 // Project: https://github.com/googlecast
 // Definitions by: Craig Bruce <https://github.com/craigrbruce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.0
 
 /// <reference path="./cast.framework.d.ts" />
 /// <reference path="./cast.framework.breaks.d.ts" />
