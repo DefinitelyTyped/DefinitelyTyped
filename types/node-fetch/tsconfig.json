@@ -19,7 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "externals.d.ts",
         "node-fetch-tests.ts"
-    ]
+    ],
+    "include": ["externals.d.ts"]
 }
