@@ -24,7 +24,7 @@ declare module "querystring" {
      */
     function encode(obj?: ParsedUrlQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;
     /**
-     * The querystring.encode() function is an alias for querystring.stringify().
+     * The querystring.decode() function is an alias for querystring.parse().
      */
     function decode(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
     function escape(str: string): string;
