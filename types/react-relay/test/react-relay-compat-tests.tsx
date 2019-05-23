@@ -1,13 +1,13 @@
-import * as React from "react";
+import * as React from 'react';
 import {
     QueryRenderer as CompatQueryRenderer,
     createFragmentContainer as createFragmentContainerCompat,
     commitMutation as commitMutationCompat,
     CompatEnvironment,
     RelayPaginationProp as RelayPaginationPropCompat,
-} from "react-relay/compat";
+} from 'react-relay/compat';
 
-import { configs, mutation, optimisticResponse } from "./react-relay-tests";
+import { configs, mutation, optimisticResponse } from './react-relay-tests';
 
 // testting compat mutation with classic environment
 function markNotificationAsReadCompat(environment: CompatEnvironment, source: string, storyID: string) {
@@ -24,13 +24,13 @@ function markNotificationAsReadCompat(environment: CompatEnvironment, source: st
         optimisticResponse,
         variables,
         onCompleted: (response, errors) => {
-            console.log("Response received from server.");
+            console.log('Response received from server.');
         },
         onError: err => console.error(err),
         updater: (store, data) => {
             const field = store.get(storyID);
             if (field) {
-                field.setValue(data.story, "story");
+                field.setValue(data.story, 'story');
             }
         },
     });

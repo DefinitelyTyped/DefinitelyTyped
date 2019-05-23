@@ -1,7 +1,7 @@
 // tslint:disable:interface-over-type-literal
 
-import * as React from "react";
-import { Environment, Network, RecordSource, Store, ConnectionHandler } from "relay-runtime";
+import * as React from 'react';
+import { Environment, Network, RecordSource, Store, ConnectionHandler } from 'relay-runtime';
 
 import {
     graphql,
@@ -15,13 +15,13 @@ import {
     RelayRefetchProp,
     RelayPaginationProp,
     RelayProp,
-} from "react-relay";
+} from 'react-relay';
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Environment
 // ~~~~~~~~~~~~~~~~~~~~~
 function fetchQuery(operation: any, variables: any, cacheConfig: {}) {
-    return fetch("/graphql");
+    return fetch('/graphql');
 }
 const network = Network.create(fetchQuery);
 const source = new RecordSource();
@@ -59,7 +59,7 @@ const MyQueryRenderer = (props: { name: string; show: boolean }) => (
                 : null
         }
         variables={{
-            pageID: "110798995619330",
+            pageID: '110798995619330',
         }}
         render={({ error, props }) => {
             if (error) {
@@ -82,7 +82,7 @@ const MyEmptyQueryRenderer = () => (
             if (error) {
                 return <div>{error.message}</div>;
             } else if (props) {
-                throw new Error("This code path should never be hit");
+                throw new Error('This code path should never be hit');
             }
             return <div>Loading</div>;
         }}
@@ -102,7 +102,7 @@ type Story_story = {
     readonly id: string;
     readonly text: string;
     readonly isPublished: boolean;
-    readonly " $refType": Story_story$ref;
+    readonly ' $refType': Story_story$ref;
 };
 
 const Story = (() => {
@@ -141,7 +141,7 @@ const Story = (() => {
         render() {
             return (
                 <div>
-                    {this.props.story.isPublished ? "" : "Draft: "}
+                    {this.props.story.isPublished ? '' : 'Draft: '}
                     {this.props.story.text}
                     {this.state.isLoading && <span>♺</span>}
                     <button onClick={() => this.props.onLike(this.props.story.id)}>LIKE</button>
@@ -172,7 +172,7 @@ const Story = (() => {
 
     function doesNotRequireRelayPropToBeProvided() {
         const onLike = (id: string) => console.log(`Liked story #${id}`);
-        const story: { " $fragmentRefs": Story_story$ref } = {} as any;
+        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
         <StoryRefetchContainer story={story} onLike={onLike} />;
     }
 
@@ -192,15 +192,15 @@ type FeedStories_feed = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly id: string;
-            readonly " $fragmentRefs": Story_story$ref & FeedStories_feed$ref;
+            readonly ' $fragmentRefs': Story_story$ref & FeedStories_feed$ref;
         };
-        readonly " $fragmentRefs": FeedStory_edges$ref;
+        readonly ' $fragmentRefs': FeedStory_edges$ref;
     }>;
-    readonly " $refType": FeedStories_feed$ref;
+    readonly ' $refType': FeedStories_feed$ref;
 };
 type FeedStory_edges = ReadonlyArray<{
     readonly publishedAt: string;
-    readonly " $refType": FeedStory_edges$ref;
+    readonly ' $refType': FeedStory_edges$ref;
 }>;
 
 const Feed = (() => {
@@ -212,7 +212,7 @@ const Feed = (() => {
     }
 
     const FeedStoryEdges: React.SFC<{ edges: FeedStory_edges }> = ({ edges }) => (
-        <div>{edges.map(({ publishedAt }) => publishedAt).join(", ")}</div>
+        <div>{edges.map(({ publishedAt }) => publishedAt).join(', ')}</div>
     );
 
     const FeedStoryEdgesFragmentContainer = createFragmentContainer(FeedStoryEdges, {
@@ -254,7 +254,7 @@ const Feed = (() => {
 
     function doesNotRequireRelayPropToBeProvided() {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
-        const feed: { " $fragmentRefs": FeedStories_feed$ref } = {} as any;
+        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
         <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} />;
     }
 
@@ -274,11 +274,10 @@ type UserFeed_user = {
             readonly endCursor?: string | null;
             readonly hasNextPage: boolean;
         };
-        readonly " $fragmentRefs": FeedStories_feed$ref;
+        readonly ' $fragmentRefs': FeedStories_feed$ref;
     };
-    readonly " $refType": UserFeed_user$ref;
+    readonly ' $refType': UserFeed_user$ref;
 };
-
 () => {
     interface Props {
         relay: RelayPaginationProp;
@@ -332,7 +331,7 @@ type UserFeed_user = {
             `,
         },
         {
-            direction: "forward",
+            direction: 'forward',
             getConnectionFromProps(props) {
                 return props.user && props.user.feed;
             },
@@ -363,7 +362,7 @@ type UserFeed_user = {
     );
 
     function doesNotRequireRelayPropToBeProvided() {
-        const user: { " $fragmentRefs": UserFeed_user$ref } = {} as any;
+        const user: { ' $fragmentRefs': UserFeed_user$ref } = {} as any;
         <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} />;
     }
 };
@@ -384,38 +383,38 @@ export const mutation = graphql`
 export const optimisticResponse = {
     markReadNotification: {
         notification: {
-            seenState: "SEEN" as "SEEN",
+            seenState: 'SEEN' as 'SEEN',
         },
     },
 };
 
 export const configs = [
     {
-        type: "NODE_DELETE" as "NODE_DELETE",
-        deletedIDFieldName: "destroyedShipId",
+        type: 'NODE_DELETE' as 'NODE_DELETE',
+        deletedIDFieldName: 'destroyedShipId',
     },
     {
-        type: "RANGE_ADD" as "RANGE_ADD",
-        parentID: "shipId",
+        type: 'RANGE_ADD' as 'RANGE_ADD',
+        parentID: 'shipId',
         connectionInfo: [
             {
-                key: "AddShip_ships",
-                rangeBehavior: "append",
+                key: 'AddShip_ships',
+                rangeBehavior: 'append',
             },
         ],
-        edgeName: "newShipEdge",
+        edgeName: 'newShipEdge',
     },
     {
-        type: "RANGE_DELETE" as "RANGE_DELETE",
-        parentID: "todoId",
+        type: 'RANGE_DELETE' as 'RANGE_DELETE',
+        parentID: 'todoId',
         connectionKeys: [
             {
-                key: "RemoveTags_tags",
-                rangeBehavior: "append",
+                key: 'RemoveTags_tags',
+                rangeBehavior: 'append',
             },
         ],
-        pathToConnection: ["todo", "tags"],
-        deletedIDFieldName: "removedTagId",
+        pathToConnection: ['todo', 'tags'],
+        deletedIDFieldName: 'removedTagId',
     },
 ];
 
@@ -430,7 +429,7 @@ function markNotificationAsRead(source: string, storyID: string) {
     type MyMutationResponse = {
         readonly markReadNotification: {
             readonly notification: {
-                readonly seenState: "SEEN" | "UNSEEN";
+                readonly seenState: 'SEEN' | 'UNSEEN';
             };
         };
     };
@@ -451,7 +450,7 @@ function markNotificationAsRead(source: string, storyID: string) {
         },
         onCompleted: (response, errors) => {
             if (errors) {
-                console.log(`Errors received from server: ${errors.map(error => error.message).join(", ")}`);
+                console.log(`Errors received from server: ${errors.map(error => error.message).join(', ')}`);
             } else {
                 console.log(`Response received from server: ${response.markReadNotification.notification.seenState}`);
             }
@@ -460,7 +459,7 @@ function markNotificationAsRead(source: string, storyID: string) {
         updater: (store, data) => {
             const story = store.get(storyID);
             if (story) {
-                story.setValue(data.markReadNotification.notification.seenState, "seenState");
+                story.setValue(data.markReadNotification.notification.seenState, 'seenState');
             }
         },
     });
@@ -479,7 +478,7 @@ const subscription = graphql`
     }
 `;
 const variables = {
-    storyID: "123",
+    storyID: '123',
 };
 requestSubscription(
     modernEnvironment, // see Environment docs
@@ -492,12 +491,12 @@ requestSubscription(
         // example of a custom updater
         updater: store => {
             // Get the notification
-            const rootField = store.getRootField("markReadNotification");
-            const notification = !!rootField && rootField.getLinkedRecord("notification");
+            const rootField = store.getRootField('markReadNotification');
+            const notification = !!rootField && rootField.getLinkedRecord('notification');
             // Add it to a connection
-            const viewer = store.getRoot().getLinkedRecord("viewer");
-            const notifications = ConnectionHandler.getConnection(viewer, "notifications");
-            const edge = ConnectionHandler.createEdge(store, notifications, notification, "<TypeOfNotificationsEdge>");
+            const viewer = store.getRoot().getLinkedRecord('viewer');
+            const notifications = ConnectionHandler.getConnection(viewer, 'notifications');
+            const edge = ConnectionHandler.createEdge(store, notifications, notification, '<TypeOfNotificationsEdge>');
             ConnectionHandler.insertEdgeAfter(notifications, edge);
         },
     }

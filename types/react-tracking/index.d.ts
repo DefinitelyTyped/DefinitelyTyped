@@ -5,18 +5,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react'
+import * as React from 'react';
 
 export interface TrackingProp<P = {}> {
-    trackEvent(data: Partial<P>): any
+    trackEvent(data: Partial<P>): any;
 
     /**
      * This method returns all of the contextual tracking data up until this point in the component hierarchy.
      */
-    getTrackingData(): {}
+    getTrackingData(): {};
 }
 
-type Falsy = false | null | undefined | ''
+type Falsy = false | null | undefined | '';
 
 export interface Options<T> {
     /**
@@ -25,7 +25,7 @@ export interface Options<T> {
      * decorator `{ dispatch: fn() }` on some top-level component high up in your app (typically some root-level
      * component that wraps your entire app).
      */
-    dispatch?(data: T): any
+    dispatch?(data: T): any;
 
     /**
      * To dispatch tracking data when a component mounts, you can pass in `{ dispatchOnMount: true }` as the second
@@ -36,7 +36,7 @@ export interface Options<T> {
      * returned from this function call will be merged with the context data and then dispatched. A use case for this
      * would be that you want to provide extra tracking data without adding it to the context.
      */
-    dispatchOnMount?: boolean | ((contextData: T) => T)
+    dispatchOnMount?: boolean | ((contextData: T) => T);
 
     /**
      * When there's a need to implicitly dispatch an event with some data for every component, you can define an
@@ -48,33 +48,33 @@ export interface Options<T> {
      * A common use case for this is to dispatch a `pageview` event for every component in the application that has a
      * `page` property on its `trackingData`.
      */
-    process?(ownTrackingData: T): T | Falsy
+    process?(ownTrackingData: T): T | Falsy;
 }
 
-export type TrackingInfo<T, P, S> = T | ((props: P, state: S, args: any[any]) => T)
+export type TrackingInfo<T, P, S> = T | ((props: P, state: S, args: any[any]) => T);
 
 // Duplicated from ES6 lib to remove the `void` typing, otherwise `track` can’t be used as a HOC function that passes
 // through a JSX component that be used without casting.
-type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction
+type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction;
 type MethodDecorator = <T>(
     target: object,
     propertyKey: string | symbol,
     descriptor: TypedPropertyDescriptor<T>
-) => TypedPropertyDescriptor<T>
-export type Decorator = ClassDecorator & MethodDecorator
+) => TypedPropertyDescriptor<T>;
+export type Decorator = ClassDecorator & MethodDecorator;
 
 /**
  * A React context used to support passing and dispatching tracking data throughout a tree of components.
  */
 export type TrackingContext<T = any> = React.Context<{
-    tracking: Options<T> & { data?: {} }
-}>
-export const ReactTrackingContext: TrackingContext
+    tracking: Options<T> & { data?: {} };
+}>;
+export const ReactTrackingContext: TrackingContext;
 
 /**
  * A React hook used to tap into the tracking context.
  */
-export function useTracking<P = {}>(): TrackingProp<P>
+export function useTracking<P = {}>(): TrackingProp<P>;
 
 /**
  * This is the type of the `track` function. It’s declared as an interface so that consumers can extend the typing and
@@ -83,8 +83,8 @@ export function useTracking<P = {}>(): TrackingProp<P>
  * For examples of such extensions see: https://github.com/artsy/reaction/blob/master/src/utils/track.ts
  */
 export interface Track<T = any, P = any, S = any> {
-    <K extends keyof T>(trackingInfo?: TrackingInfo<Pick<T, K>, P, S>, options?: Options<Partial<T>>): Decorator
+    <K extends keyof T>(trackingInfo?: TrackingInfo<Pick<T, K>, P, S>, options?: Options<Partial<T>>): Decorator;
 }
 
-export const track: Track
-export default track
+export const track: Track;
+export default track;

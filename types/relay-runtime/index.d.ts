@@ -149,7 +149,7 @@ export type SubscribeFunction = (
  * - cache size limiting, with least-recently *updated* entries purged first
  */
 export class QueryResponseCache {
-    constructor(options: {size: number; ttl: number});
+    constructor(options: { size: number; ttl: number });
     clear(): void;
     get(queryID: string, variables: Variables): QueryPayload | null;
     set(queryID: string, variables: Variables, payload: QueryPayload): void;
@@ -564,11 +564,11 @@ export interface RerunParam {
     max_runs: number;
 }
 export interface FIELDS_CHANGE {
-    type: "FIELDS_CHANGE";
+    type: 'FIELDS_CHANGE';
     fieldIDs: { [fieldName: string]: DataID | DataID[] };
 }
 export interface RANGE_ADD {
-    type: "RANGE_ADD";
+    type: 'RANGE_ADD';
     parentName?: string;
     parentID?: string;
     connectionInfo?: Array<{
@@ -581,14 +581,14 @@ export interface RANGE_ADD {
     rangeBehaviors?: RangeBehaviors;
 }
 export interface NODE_DELETE {
-    type: "NODE_DELETE";
+    type: 'NODE_DELETE';
     parentName?: string;
     parentID?: string;
     connectionName?: string;
     deletedIDFieldName: string;
 }
 export interface RANGE_DELETE {
-    type: "RANGE_DELETE";
+    type: 'RANGE_DELETE';
     parentName?: string;
     parentID?: string;
     connectionKeys?: Array<{
@@ -600,7 +600,7 @@ export interface RANGE_DELETE {
     pathToConnection: string[];
 }
 export interface REQUIRED_CHILDREN {
-    type: "REQUIRED_CHILDREN";
+    type: 'REQUIRED_CHILDREN';
     children: RelayConcreteNode[];
 }
 export type RelayMutationConfig = FIELDS_CHANGE | RANGE_ADD | NODE_DELETE | RANGE_DELETE | REQUIRED_CHILDREN;
@@ -613,11 +613,7 @@ export type RelayMutationTransactionCommitFailureCallback = (
     transaction: RelayMutationTransaction,
     preventAutoRollback: () => void
 ) => void;
-export type RelayMutationTransactionCommitSuccessCallback = (
-    response: {
-        [key: string]: any;
-    }
-) => void;
+export type RelayMutationTransactionCommitSuccessCallback = (response: { [key: string]: any }) => void;
 export interface NetworkLayer {
     sendMutation(request: RelayMutationRequest): Promise<any> | null;
     sendQueries(requests: RelayQueryRequest[]): Promise<any> | null;
@@ -636,16 +632,16 @@ export interface ReadyState {
     ready: boolean;
     stale: boolean;
 }
-export type RelayContainerErrorEventType = "CACHE_RESTORE_FAILED" | "NETWORK_QUERY_ERROR";
+export type RelayContainerErrorEventType = 'CACHE_RESTORE_FAILED' | 'NETWORK_QUERY_ERROR';
 export type RelayContainerLoadingEventType =
-    | "ABORT"
-    | "CACHE_RESTORED_REQUIRED"
-    | "CACHE_RESTORE_START"
-    | "NETWORK_QUERY_RECEIVED_ALL"
-    | "NETWORK_QUERY_RECEIVED_REQUIRED"
-    | "NETWORK_QUERY_START"
-    | "STORE_FOUND_ALL"
-    | "STORE_FOUND_REQUIRED";
+    | 'ABORT'
+    | 'CACHE_RESTORED_REQUIRED'
+    | 'CACHE_RESTORE_START'
+    | 'NETWORK_QUERY_RECEIVED_ALL'
+    | 'NETWORK_QUERY_RECEIVED_REQUIRED'
+    | 'NETWORK_QUERY_START'
+    | 'STORE_FOUND_ALL'
+    | 'STORE_FOUND_REQUIRED';
 export type ReadyStateChangeCallback = (readyState: ReadyState) => void;
 export interface ReadyStateEvent {
     type: RelayContainerLoadingEventType | RelayContainerErrorEventType;
@@ -669,13 +665,11 @@ export interface QueryPayload {
 export interface RelayQuerySet {
     [queryName: string]: any;
 }
-export type RangeBehaviorsFunction = (
-    connectionArgs: {
-        [argName: string]: any;
-    }
-) => "APPEND" | "IGNORE" | "PREPEND" | "REFETCH" | "REMOVE";
+export type RangeBehaviorsFunction = (connectionArgs: {
+    [argName: string]: any;
+}) => 'APPEND' | 'IGNORE' | 'PREPEND' | 'REFETCH' | 'REMOVE';
 export interface RangeBehaviorsObject {
-    [key: string]: "APPEND" | "IGNORE" | "PREPEND" | "REFETCH" | "REMOVE";
+    [key: string]: 'APPEND' | 'IGNORE' | 'PREPEND' | 'REFETCH' | 'REMOVE';
 }
 export type RangeBehaviors = RangeBehaviorsFunction | RangeBehaviorsObject;
 
@@ -781,7 +775,7 @@ export class RecordSource {
     delete(dataID: DataID): void;
     get(dataID: DataID): RelayInMemoryRecordSource | null;
     getRecordIDs(): DataID[];
-    getStatus(dataID: DataID): "EXISTENT" | "NONEXISTENT" | "UNKNOWN";
+    getStatus(dataID: DataID): 'EXISTENT' | 'NONEXISTENT' | 'UNKNOWN';
     has(dataID: DataID): boolean;
     load(dataID: DataID, callback: (error: Error | null, record: RelayInMemoryRecordSource | null) => void): void;
     remove(dataID: DataID): void;
@@ -1041,13 +1035,13 @@ export function commitLocalUpdate(environment: Environment, updater: StoreUpdate
 export interface MutationConfig<T extends OperationBase> {
     configs?: RelayMutationConfig[];
     mutation: GraphQLTaggedNode;
-    variables: T["variables"];
+    variables: T['variables'];
     uploadables?: UploadableMap;
-    onCompleted?(response: T["response"], errors: PayloadError[] | null | undefined): void;
+    onCompleted?(response: T['response'], errors: PayloadError[] | null | undefined): void;
     onError?(error?: Error): void;
-    optimisticUpdater?: SelectorStoreUpdater<T["response"]>;
-    optimisticResponse?: T["response"];
-    updater?: SelectorStoreUpdater<T["response"]>;
+    optimisticUpdater?: SelectorStoreUpdater<T['response']>;
+    optimisticResponse?: T['response'];
+    updater?: SelectorStoreUpdater<T['response']>;
 }
 export function commitRelayModernMutation<T extends OperationBase = OperationDefaults>(
     environment: Environment,

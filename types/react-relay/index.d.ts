@@ -20,29 +20,31 @@ export {
     fetchRelayModernQuery as fetchQuery,
     GraphQLTaggedNode,
     requestRelaySubscription as requestSubscription,
-} from "relay-runtime";
+} from 'relay-runtime';
 
-import * as React from "react";
-import * as RelayRuntimeTypes from "relay-runtime";
+import * as React from 'react';
+import * as RelayRuntimeTypes from 'relay-runtime';
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Utility types
 // ~~~~~~~~~~~~~~~~~~~~~
 
 export interface _RefType<T> {
-    " $refType": T;
+    ' $refType': T;
 }
 export interface _FragmentRefs<T> {
-    " $fragmentRefs": T;
+    ' $fragmentRefs': T;
 }
 
 export type FragmentOrRegularProp<T> = T extends _RefType<infer U>
     ? _FragmentRefs<U>
-    : T extends ReadonlyArray<_RefType<infer U>> ? ReadonlyArray<_FragmentRefs<U>> : T;
+    : T extends ReadonlyArray<_RefType<infer U>>
+    ? ReadonlyArray<_FragmentRefs<U>>
+    : T;
 
 export type MappedFragmentProps<T> = { [K in keyof T]: FragmentOrRegularProp<T[K]> };
 
-export type RemoveRelayProp<P> = Pick<P, Exclude<keyof P, "relay">>;
+export type RemoveRelayProp<P> = Pick<P, Exclude<keyof P, 'relay'>>;
 
 export interface ComponentRef {
     componentRef?: (ref: any) => void;
@@ -92,11 +94,11 @@ export const graphql: GraphqlInterface;
 
 export interface QueryRendererProps<T extends RelayRuntimeTypes.OperationBase = RelayRuntimeTypes.OperationDefaults> {
     cacheConfig?: RelayRuntimeTypes.CacheConfig;
-    dataFrom?: "NETWORK_ONLY"|"STORE_THEN_NETWORK";
+    dataFrom?: 'NETWORK_ONLY' | 'STORE_THEN_NETWORK';
     environment: RelayRuntimeTypes.Environment;
     query?: RelayRuntimeTypes.GraphQLTaggedNode | null;
-    render(readyState: ReadyState<T["response"]>): React.ReactNode;
-    variables: T["variables"];
+    render(readyState: ReadyState<T['response']>): React.ReactNode;
+    variables: T['variables'];
     rerunParamExperimental?: RelayRuntimeTypes.RerunParam;
 }
 export interface ReadyState<T extends RelayRuntimeTypes.Variables = RelayRuntimeTypes.Variables> {
@@ -153,7 +155,7 @@ export function FragmentVariablesGetter(
     totalCount: number
 ): RelayRuntimeTypes.Variables;
 export interface ConnectionConfig<P> {
-    direction?: "backward" | "forward";
+    direction?: 'backward' | 'forward';
     getConnectionFromProps?(props: P): ConnectionData | undefined | null;
     getFragmentVariables?: typeof FragmentVariablesGetter;
     getVariables(
@@ -196,6 +198,4 @@ export function createRefetchContainer<P>(
 // Context
 // ~~~~~~~~~~~~~~~~~~~~~
 
-export const ReactRelayContext: React.Context<
-    RelayRuntimeTypes.CRelayContext<RelayRuntimeTypes.Environment>
->;
+export const ReactRelayContext: React.Context<RelayRuntimeTypes.CRelayContext<RelayRuntimeTypes.Environment>>;
