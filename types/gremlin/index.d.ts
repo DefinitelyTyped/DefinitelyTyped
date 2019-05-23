@@ -68,10 +68,10 @@ export class EnumValue {
 }
 
 export class P {
-  constructor(operator: string, value: any, other?: any);
+  constructor(operator: EnumValue, value: any, other?: any);
   toString(): string;
-  and(): P;
-  or(): P;
+  and(arg?: any): P;
+  or(arg?: any): P;
   static between(...args: any[]): P;
   static eq(...args: any[]): P;
   static gt(...args: any[]): P;
@@ -88,10 +88,10 @@ export class P {
 }
 
 export class TextP {
-  constructor(operator: string, value: any, other?: any);
+  constructor(operator: EnumValue, value: string, other?: any);
   toString(): string;
-  and(arg: any): P;
-  or(arg: any): P;
+  and(arg?: any): P;
+  or(arg?: any): P;
   static containing(...args: any[]): TextP;
   static endingWith(...args: any[]): TextP;
   static notContaining(...args: any[]): TextP;
@@ -101,7 +101,7 @@ export class TextP {
 }
 
 export class Traversal {
-  constructor(graph: Graph, traversalStrategies: TraversalStrategies, bytecode: Bytecode);
+  constructor(graph: Graph | null, traversalStrategies: TraversalStrategies | null, bytecode: Bytecode);
   // [asyncIteratorSymbol: symbol | SymbolConstructor](): Traversal; // How can I implement this?
   getBytecode(): Bytecode;
   toList(): Promise<Traverser[]>;
@@ -126,21 +126,88 @@ export class Traverser {
   constructor(object: any, bulk?: number);
 }
 
-export const barrier: { [key: string]: EnumValue; };
-export const cardinality: { [key: string]: EnumValue; };
-export const column: { [key: string]: EnumValue; };
-export const direction: { [key: string]: EnumValue; };
-export const graphSONVersion: { [key: string]: EnumValue; };
-export const gryoVersion: { [key: string]: EnumValue; };
-export const operator: { [key: string]: EnumValue; };
-export const order: { [key: string]: EnumValue; };
-export const pick: { [key: string]: EnumValue; };
-export const pop: { [key: string]: EnumValue; };
-export const scope: { [key: string]: EnumValue; };
-export const t: { [key: string]: EnumValue; };
+export const barrier: {
+  normsack: EnumValue;
+};
+
+export const cardinality: {
+  list: EnumValue;
+  set: EnumValue;
+  single: EnumValue;
+};
+
+export const column: {
+  keys: EnumValue;
+  values: EnumValue;
+};
+
+export const direction: {
+  both: EnumValue;
+  in: EnumValue;
+  out: EnumValue;
+};
+
+export const graphSONVersion: {
+  "v1_0": EnumValue;
+  "v2_0": EnumValue;
+  "v3_0": EnumValue;
+};
+
+export const gryoVersion: {
+  "v1_0": EnumValue;
+  "v3_0": EnumValue;
+};
+
+export interface Operator {
+  addall: EnumValue;
+  and: EnumValue;
+  assign: EnumValue;
+  div: EnumValue;
+  max: EnumValue;
+  min: EnumValue;
+  minus: EnumValue;
+  mult: EnumValue;
+  or: EnumValue;
+  sum: EnumValue;
+  sumlong: EnumValue;
+}
+
+export const operator: Operator;
+
+export const order: {
+  asc: EnumValue;
+  decr: EnumValue;
+  desc: EnumValue;
+  incr: EnumValue;
+  shuffle: EnumValue;
+};
+
+export const pick: {
+  any: EnumValue;
+  none: EnumValue;
+};
+
+export const pop: {
+  all: EnumValue;
+  first: EnumValue;
+  last: EnumValue;
+  mixed: EnumValue;
+};
+
+export const scope: {
+  global: EnumValue;
+  local: EnumValue;
+};
+
+export const t: {
+  id: EnumValue;
+  key: EnumValue;
+  label: EnumValue;
+  value: EnumValue;
+};
 
 export class GraphTraversal extends Traversal {
-  constructor(graph: Graph, traversalStrategies: TraversalStrategies, bytecode: Bytecode);
+  constructor(graph: Graph | null, traversalStrategies: TraversalStrategies | null, bytecode: Bytecode);
   V(...args: any[]): GraphTraversal;
   addE(...args: any[]): GraphTraversal;
   addV(...args: any[]): GraphTraversal;
@@ -245,7 +312,7 @@ export class GraphTraversal extends Traversal {
 }
 
 export class GraphTraversalSource {
-  constructor(graph: Graph, traversalStrategies: TraversalStrategies, bytecode: Bytecode);
+  constructor(graph: Graph | null, traversalStrategies: TraversalStrategies | null, bytecode: Bytecode);
   withRemote(remoteConnection: RemoteConnection): GraphTraversalSource;
   toString(): string;
   with_(...args: any[]): GraphTraversalSource;
