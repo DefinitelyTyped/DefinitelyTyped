@@ -460,7 +460,7 @@ declare namespace algoliasearchHelper {
       'index',
       'facets', 'disjunctiveFacets', 'facetsRefinements',
       'facetsExcludes', 'disjunctiveFacetsRefinements',
-      'numericRefinements', 'tagRefinements', 'hierarchicalFacets', 'hierarchicalFacetsRefinements'  
+      'numericRefinements', 'tagRefinements', 'hierarchicalFacets', 'hierarchicalFacetsRefinements'
     ];
 
     constructor(newParameters?: QueryParameters)
