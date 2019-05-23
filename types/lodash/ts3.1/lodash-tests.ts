@@ -3161,7 +3161,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.orderBy("acbd", [(value) => 1, (value) => 2], [true, false]); // $ExpectType string[]
     _.orderBy(list, (value) => 1); // $ExpectType AbcObject[]
     _.orderBy(list, (value) => 1, true); // $ExpectType AbcObject[]
-    _.orderBy(list, [(value) => 1, (value) => 2], [true, false]); // $ExpectType AbcObject[]
+    _.orderBy(list, [(value) => 1, 'third', (value) => 2], [true, false]); // $ExpectType AbcObject[]
     _.orderBy(dictionary, (value) => 1); // $ExpectType AbcObject[]
     _.orderBy(dictionary, (value) => 1, true); // $ExpectType AbcObject[]
     _.orderBy(numericDictionary, (value) => 1); // $ExpectType AbcObject[]
@@ -3177,7 +3177,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.chain(list).orderBy((value) => 1); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).orderBy((value) => 1, true); // $ExpectType CollectionChain<AbcObject>
-    _.chain(list).orderBy([(value) => 1, (value) => 2], true); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).orderBy([(value) => 1, 'third', (value) => 2], true); // $ExpectType CollectionChain<AbcObject>
     _.chain(dictionary).orderBy((value) => 1); // $ExpectType CollectionChain<AbcObject>
     _.chain(dictionary).orderBy((value) => 1, true); // $ExpectType CollectionChain<AbcObject>
     _.chain(numericDictionary).orderBy((value) => 1); // $ExpectType CollectionChain<AbcObject>
