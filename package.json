@@ -23,8 +23,21 @@
     },
     "devDependencies": {
         "dtslint": "latest",
+        "husky": ">=1",
+        "lint-staged": ">=8",
         "prettier": "^1.17.1",
         "types-publisher": "github:Microsoft/types-publisher#production"
     },
-    "dependencies": {}
+    "dependencies": {},
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.(d.ts|ts)": [
+            "prettier --write",
+            "git add"
+        ]
+    }
 }
