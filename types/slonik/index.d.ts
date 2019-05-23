@@ -491,7 +491,10 @@ export interface ClientUserConfigurationType extends ClientConfigurationType {}
 export class SlonikError extends Error {}
 export class NotFoundError extends SlonikError {}
 export class DataIntegrityError extends SlonikError {}
-export class IntegrityConstraintViolationError extends SlonikError {}
+export class IntegrityConstraintViolationError extends SlonikError {
+  constraint: string;
+  constructor (error: Error, constraint: string);
+}
 export class NotNullIntegrityConstraintViolationError extends IntegrityConstraintViolationError {}
 export class ForeignKeyIntegrityConstraintViolationError extends IntegrityConstraintViolationError {}
 export class UniqueIntegrityConstraintViolationError extends IntegrityConstraintViolationError {}
