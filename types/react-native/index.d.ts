@@ -7876,13 +7876,16 @@ type PresentLocalNotificationDetails = {
 };
 
 type ScheduleLocalNotificationDetails = {
-    fireDate: Date;
-    alertBody: string;
-    alertAction: string;
-    soundName?: string;
-    category?: string;
-    userInfo?: Object;
+    alertAction?: string;
+    alertBody?: string;
+    alertTitle?: string
     applicationIconBadgeNumber?: number;
+    category?: string;
+    fireDate?: number | string;
+    isSilent?: boolean;
+    repeatInterval?: 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute';
+    soundName?: string;
+    userInfo?: Object;
 };
 
 export type PushNotificationEventName = "notification" | "localNotification" | "register" | "registrationError";
