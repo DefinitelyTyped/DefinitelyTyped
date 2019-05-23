@@ -51,16 +51,27 @@ export type TextTrackEdgeType =
     | "RAISED"
     | "DEPRESSED";
 
-export type Command =
-    | "PAUSE"
-    | "SEEK"
-    | "STREAM_VOLUME"
-    | "STREAM_MUTE"
-    | "ALL_BASIC_MEDIA"
-    | "QUEUE_NEXT"
-    | "QUEUE_PREV"
-    | "QUEUE_SHUFFLE"
-    | "SKIP_AD";
+export namespace Command {
+    const ALL_BASIC_MEDIA: number;
+    const DISLIKE: number;
+    const EDIT_TRACKS: number;
+    const FOLLOW: number;
+    const LIKE: number;
+    const PAUSE: number;
+    const PLAYBACK_RATE: number;
+    const QUEUE_NEXT: number;
+    const QUEUE_PREV: number;
+    const QUEUE_REPEAT: number;
+    const QUEUE_REPEAT_ALL: number;
+    const QUEUE_REPEAT_ONE: number;
+    const QUEUE_SHUFFLE: number;
+    const SEEK: number;
+    const SKIP_AD: number;
+    const STREAM_MUTE: number;
+    const STREAM_TRANSFER: number;
+    const STREAM_VOLUME: number;
+    const UNFOLLOW: number;
+}
 
 export type SeekResumeState = "PLAYBACK_START" | "PLAYBACK_PAUSE";
 
