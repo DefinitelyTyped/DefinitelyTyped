@@ -34,13 +34,14 @@ app.service('users').hooks({
     }
 });
 
-app.service('users'); // Service<User>
-app.service('user');  // never
+app.service('users').get(0); // app: Service<User>
+let x = app.service('user');  // never
+x = (() => { throw new Error })(); // only never can be assigned to never
 
 const app2 = feathers();
-app2.service('users'); // Service<any>
-app2.service('user');  // Service<any>
+app2.service('users').get(0); // app2: Service<any>
+app2.service('user').get(0);  // app2 :Service<any>
 
-const app3 = feathers<never>();
-app3.service('users'); // Service<any>
-app3.service('user');  // Service<any>
+const app3 = feathers<{}>();
+app3.service('users').get(0); // Service<any>
+app3.service('user').get(0);  // Service<any>

@@ -177,7 +177,7 @@ declare namespace feathers {
 
     type Service<T> = ServiceOverloads<T> & ServiceAddons<T> & ServiceMethods<T>;
 
-    interface Application<ServiceTypes = never> extends EventEmitter {
+    interface Application<ServiceTypes = {}> extends EventEmitter {
         get(name: string): any;
 
         set(name: string, value: any): this;
@@ -198,7 +198,7 @@ declare namespace feathers {
 
         service<L extends keyof ServiceTypes>(location: L): Service<ServiceTypes[L]>;
 
-        service(location: string): [ServiceTypes] extends [never] ? Service<any> : never;
+        service(location: string): keyof ServiceTypes extends never ? Service<any> : never;
 
         use(path: string, service: Partial<ServiceMethods<any> & SetupMethod> | Application<any>, options?: any): this;
 
