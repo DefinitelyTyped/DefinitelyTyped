@@ -1,5 +1,5 @@
 import classNames = require('classnames');
-import * as classNames2 from 'classnames';
+import classNames2 from 'classnames';
 import * as cn from 'classnames/bind';
 
 classNames2('foo', 'bar'); // => 'foo bar'
