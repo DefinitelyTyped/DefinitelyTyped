@@ -2524,11 +2524,15 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _(list).includes(abcObject, 42); // $ExpectType boolean
     _(dictionary).includes(abcObject); // $ExpectType boolean
     _(dictionary).includes(abcObject, 42); // $ExpectType boolean
+    _('hi').includes('h'); // $ExpectType boolean
+    _('hi').includes('h', 0); // $ExpectType boolean
 
     _.chain(list).includes(abcObject); // $ExpectType PrimitiveChain<boolean>
     _.chain(list).includes(abcObject, 42); // $ExpectType PrimitiveChain<boolean>
     _.chain(dictionary).includes(abcObject); // $ExpectType PrimitiveChain<boolean>
     _.chain(dictionary).includes(abcObject, 42); // $ExpectType PrimitiveChain<boolean>
+    _.chain('hi').includes('h'); // $ExpectType PrimitiveChain<boolean>
+    _.chain('hi').includes('h', 0); // $ExpectType PrimitiveChain<boolean>
 
     fp.includes(abcObject, list); // $ExpectType boolean
     fp.includes(abcObject)(list); // $ExpectType boolean
