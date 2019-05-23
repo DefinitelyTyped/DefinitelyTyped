@@ -271,7 +271,7 @@ declare namespace Chart {
         fontColor?: ChartColor;
         fontFamily?: string;
         padding?: number;
-        generateLabels?(chart: ChartData): ChartLegendLabelItem[];
+        generateLabels?(chart: Chart): ChartLegendLabelItem[];
         filter?(legendItem: ChartLegendLabelItem, data: ChartData): any;
         usePointStyle?: boolean;
     }
