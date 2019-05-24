@@ -86,6 +86,7 @@ declare class Stripe {
     ephemeralKeys: Stripe.resources.EphemeralKeys;
     usageRecords: Stripe.resources.UsageRecords;
     usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
+    sources: Stripe.resources.Sources;
 
     setHost(host: string): void;
     setHost(host: string, port: string|number): void;
@@ -108,6 +109,10 @@ declare namespace Stripe {
     // Helper
     type IBankAccount = bankAccounts.IBankAccount;
     type ICard = cards.ICard;
+    type ISource = sources.ISource;
+
+    /** Any Stripe source, including a bank account, credit/debit card, or less common "Source" types (see https://stripe.com/docs/api/sources/object). */
+    type IStripeSource = cards.ICard | bitcoinReceivers.IBitcoinReceiver | bankAccounts.IBankAccount | sources.ISource;
 
     namespace accounts {
         interface IAccount extends IResourceObject, IAccountShared {
@@ -1142,7 +1147,7 @@ declare namespace Stripe {
              * For most Stripe users, the source of every charge is a credit or debit card.
              * This hash is then the card object describing that card.
              */
-            source: cards.ICard | bitcoinReceivers.IBitcoinReceiver | bankAccounts.IBankAccount;
+            source: IStripeSource;
 
             /**
              * The transfer ID which created this charge. Only present if the charge came
@@ -1287,7 +1292,7 @@ declare namespace Stripe {
              * below. Although not all information is required, the extra info helps
              * prevent fraud.
              */
-            source?: sources.ISourceCreationOptions;
+            source?: string | cards.ICardSourceCreationOptions;
 
             /**
              * An arbitrary string to be displayed on your customer's credit card
@@ -1599,7 +1604,7 @@ declare namespace Stripe {
             /**
              * ID of the default source attached to this customer. [Expandable]
              */
-            default_source: string | cards.ICard | bitcoinReceivers.IBitcoinReceiver | bankAccounts.IBankAccount | null;
+            default_source: string | IStripeSource | null;
 
             /**
              * Whether or not the latest charge for the customer's latest invoice has failed
@@ -1637,7 +1642,7 @@ declare namespace Stripe {
             /**
              * The customer’s payment sources, if any
              */
-            sources?: IList<cards.ICard | bitcoinReceivers.IBitcoinReceiver | bankAccounts.IBankAccount>;
+            sources?: IList<IStripeSource>;
 
             cards?: resources.CustomerCards;
 
@@ -1706,7 +1711,7 @@ declare namespace Stripe {
              * The source can either be a token, like the ones returned by our Stripe.js, or
              * a dictionary containing a user’s credit card details.
              */
-            source?: sources.ISourceCreationOptionsExtended;
+            source?: string | cards.ICardSourceCreationOptionsExtended;
 
             /**
              * A positive decimal (with at most two decimal places) between 1 and 100.
@@ -1783,7 +1788,7 @@ declare namespace Stripe {
              * default, use the card creation API. Whenever you attach a card to a
              * customer, Stripe will automatically validate the card.
              */
-            source?: sources.ISourceCreationOptionsExtended;
+            source?: string | cards.ICardSourceCreationOptionsExtended;
         }
 
         interface ICustomerListOptions extends IListOptionsCreated {
@@ -1801,11 +1806,11 @@ declare namespace Stripe {
              * dictionary containing a user’s credit card details (with the options shown
              * below). Stripe will automatically validate the card.
              */
-            source: sources.ISourceCreationOptions;
+            source: string | cards.ICardSourceCreationOptions;
         }
 
         interface ICustomerCardSourceCreationOptions extends ICustomerSourceCreationOptions {
-            source: cards.ISourceCreationOptions;
+            source: cards.ICardSourceCreationOptions;
         }
 
         interface IBankAccountSourceListOptions extends IListOptions {
@@ -1814,6 +1819,10 @@ declare namespace Stripe {
 
         interface ICardSourceListOptions extends IListOptions {
             object: "card";
+        }
+
+        interface ISourceListOptions extends IListOptions {
+            object: "source";
         }
     }
 
@@ -2745,7 +2754,7 @@ declare namespace Stripe {
              * A payment source to be charged. The source must be the ID of a source
              * belonging to the customer associated with the invoice being paid.
              */
-            source?: sources.ISourceCreationOptions;
+            source?: string | cards.ICardSourceCreationOptions;
 
             /**
              * Boolean representing whether an invoice is paid outside of Stripe.
@@ -3251,7 +3260,7 @@ declare namespace Stripe {
              *
              * Either source or customer is required
              */
-            source?: sources.ISourceCreationOptions;
+            source?: string | cards.ICardSourceCreationOptions;
 
             /**
              * A fee in cents/pence that will be applied to the order and transferred to the application owner's Stripe account. To use an application
@@ -3690,9 +3699,7 @@ declare namespace Stripe {
              */
             source:
                 | string
-                | cards.ICard
-                | bitcoinReceivers.IBitcoinReceiver
-                | bankAccounts.IBankAccount;
+                | IStripeSource;
 
             /**
              * Extra information about a PaymentIntent. This will appear on your customer’s statement when this PaymentIntent succeeds in creating a charge.
@@ -4790,7 +4797,7 @@ declare namespace Stripe {
              * Otherwise, if you do not pass a customer, a object containing a
              * user's credit card details, with the options described below.
              */
-            card?: sources.ISourceCreationOptions;
+            card?: string | cards.ICardSourceCreationOptions;
         }
 
         interface IBankAccountTokenCreationOptions extends ITokenCreationOptionsBase {
@@ -5526,7 +5533,7 @@ declare namespace Stripe {
             name?: string;
         }
 
-        interface ISourceCreationOptions {
+        interface ICardSourceCreationOptions {
             /**
              * The type of payment source. Should be "card".
              */
@@ -5569,7 +5576,7 @@ declare namespace Stripe {
             metadata?: IOptionsMetadata;
         }
 
-        interface ISourceCreationOptionsExtended extends ISourceCreationOptions {
+        interface ICardSourceCreationOptionsExtended extends ICardSourceCreationOptions {
             /**
              * Required when adding a card to an account (not applicable to a
              * customers or recipients). The card (which must be a debit card) can be
@@ -5812,7 +5819,7 @@ declare namespace Stripe {
              */
             coupon?: string;
 
-            source?: sources.ISourceCreationOptions;
+            source?: string | cards.ICardSourceCreationOptions;
 
             /**
              * The quantity you'd like to apply to the subscription you're creating. For example, if your plan is £10/user/month, and your customer
@@ -5926,7 +5933,7 @@ declare namespace Stripe {
              */
             quantity?: number;
 
-            source?: sources.ISourceCreationOptions;
+            source?: string | cards.ICardSourceCreationOptions;
 
             /**
              * A positive decimal (with at most two decimal places) between 1 and 100. This represents the percentage of the subscription invoice
@@ -6295,38 +6302,144 @@ declare namespace Stripe {
         }
     }
 
+    /**
+     * Stripe Sources documentation: https://stripe.com/docs/sources
+     * Stripe Sources API documentation: https://stripe.com/docs/api/sources
+     */
     namespace sources {
-        /**
-         * The source can either be a token, like the ones returned by our
-         * Stripe.js, or a object containing a user's credit card details (with
-         * the options shown below). You must provide a source if the
-         * customer does not already have a valid source attached, and you
-         * are subscribing the customer for a plan that is not free. Passing
-         * source will create a new source object, make it the customer
-         * default source, and delete the old customer default if one exists.
-         * If you want to add an additional source to use with subscriptions,
-         * instead use the card creation API to add the card and then the
-         * customer update API to set it as the default. Whenever you
-         * attach a card to a customer, Stripe will automatically validate the
-         * card.
-         */
-        type ISourceCreationOptions = string | cards.ISourceCreationOptions;
+        /** Source object: https://stripe.com/docs/api/sources/object */
+        interface ISource extends IResourceObject {
+            id: string;
+            object: "source";
+            ach_credit_transfer?: {
+                account_number: string;
+                routing_number: string;
+                fingerprint: string;
+                bank_name: string;
+                swift_code: string;
+                refund_routing_number?: string | null;
+                refund_account_holder_type?: string | null;
+                refund_account_holder_name?: string | null;
+            };
+            amount?: number | null;
+            client_secret: string;
+            code_verification?: {
+                attempts_remaining: number
+                status: "pending" | "succeeded" | "failed"
+            };
+            created: number;
+            currency?: string;
+            customer?: string;
+            flow: "redirect" | "receiver" | "code_verification" | "none";
+            livemode: boolean;
+            metadata: IMetadata;
+            owner: {
+                address?: IAddress | null;
+                email?: string | null;
+                name?: string | null;
+                phone?: string | null;
+                verified_address?: IAddress | null;
+                verified_email?: string | null;
+                verified_name?: string | null;
+                verified_phone?: string | null;
+            };
+            receiver?: {
+                address: string;
+                amount_charged: number;
+                amount_received: number;
+                amount_returned: number;
+                refund_attributes_method: "email" | "manual" | "none";
+                refund_attributes_status: "missing" | "requested" | "available";
+            };
+            redirect?: {
+                failure_reason?: "user_abort" | "declined" | "processing_error";
+                return_url: string;
+                status: "pending" | "succeeded" | "not_required" | "failed";
+                url: string;
+            };
+            statement_descriptor?: string | null;
+            status: "canceled" | "chargeable" | "consumed" | "failed" | "pending";
+            type: "ach_credit_transfer" | "ach_debit" | "alipay" | "bancontact" | "card" | "card_present" | "eps" | "giropay" | "ideal" | "multibanco" | "p24" | "sepa_debit" | "sofort" | "three_d_secure" | "wechat";
+            usage: "reusable" | "single_use";
+        }
 
-        /**
-         * The source can either be a token, like the ones returned by our
-         * Stripe.js, or a object containing a user's credit card details (with
-         * the options shown below). You must provide a source if the
-         * customer does not already have a valid source attached, and you
-         * are subscribing the customer for a plan that is not free. Passing
-         * source will create a new source object, make it the customer
-         * default source, and delete the old customer default if one exists.
-         * If you want to add an additional source to use with subscriptions,
-         * instead use the card creation API to add the card and then the
-         * customer update API to set it as the default. Whenever you
-         * attach a card to a customer, Stripe will automatically validate the
-         * card.
-         */
-        type ISourceCreationOptionsExtended = string | cards.ISourceCreationOptionsExtended;
+        interface ISourceCreationOptions extends IDataOptionsWithMetadata {
+            type: ISource["type"];
+            amount?: number;
+            currency?: string;
+            flow?: ISource["flow"];
+            mandate?: {
+                acceptance?: {
+                    status: "accepted" | "refused";
+                    date?: number;
+                    ip?: string;
+                    offline?: {
+                        contact_email: string;
+                    };
+                    online?: {
+                        date: number;
+                        ip: string;
+                        user_agent: string;
+                    };
+                    type: "online" | "offline";
+                    user_agent?: string;
+                };
+                amount?: number | null;
+                currency?: string;
+                interval?: "one_time" | "scheduled" | "variable";
+                notification_method?: "email" | "manual" | "none";
+            };
+            metadata?: IMetadata;
+            owner?: {
+                address?: IAddress | null;
+                email?: string;
+                name?: string;
+                phone?: string;
+            };
+            receiver?: {
+                refund_attributes_method?: "email" | "manual";
+            };
+            redirect?: {
+                return_url: string;
+            };
+            statement_descriptor?: string;
+            token?: string;
+            usage?: ISource["usage"];
+        }
+
+        interface ISourceUpdateOptions extends IDataOptionsWithMetadata {
+            mandate?: {
+                acceptance?: {
+                    status: "accepted" | "refused";
+                    date?: number;
+                    ip?: string;
+                    offline?: {
+                        contact_email: string;
+                    }
+                    online?: {
+                        date?: number;
+                        ip?: string;
+                        user_agent?: string;
+                    }
+                    type: "online" | "offline";
+                    user_agent?: string;
+                }
+                amount?: number | null;
+                currency?: string;
+                interval?: "one_time" | "scheduled" | "variable";
+                notification_method?: "email" | "manual" | "none";
+            };
+            owner?: {
+                address?: Partial<IAddress> | null;
+                email?: string | null;
+                name?: string | null;
+                phone?: string | null;
+            };
+        }
+
+        interface ISourceRetrieveOptions {
+            client_secret?: string;
+        }
     }
 
     namespace countrySpecs {
@@ -7048,10 +7161,10 @@ declare namespace Stripe {
              * @returns Returns the card object.
              */
             create(data: {
-                card?: sources.ISourceCreationOptionsExtended;
+                card?: string | cards.ICardSourceCreationOptionsExtended;
             }, options: HeaderOptions, response?: IResponseFn<cards.ICard>): Promise<cards.ICard>;
             create(data: {
-                card?: sources.ISourceCreationOptionsExtended;
+                card?: string | cards.ICardSourceCreationOptionsExtended;
             }, response?: IResponseFn<cards.ICard>): Promise<cards.ICard>;
 
             /**
@@ -7197,10 +7310,10 @@ declare namespace Stripe {
              * @deprecated
              */
             createCard(customerId: string, data: {
-                card?: sources.ISourceCreationOptionsExtended;
+                card?: string | cards.ICardSourceCreationOptionsExtended;
             }, options: HeaderOptions, response?: IResponseFn<cards.ICard>): Promise<cards.ICard>;
             createCard(customerId: string, data: {
-                card?: sources.ISourceCreationOptionsExtended;
+                card?: string | cards.ICardSourceCreationOptionsExtended;
             }, response?: IResponseFn<cards.ICard>): Promise<cards.ICard>;
 
             /**
@@ -7288,8 +7401,8 @@ declare namespace Stripe {
              *
              * @param customerId The customer ID to which to add the card.
              */
-            createSource(customerId: string, data: customers.ICustomerSourceCreationOptions, options: HeaderOptions, response?: IResponseFn<cards.ICard | bankAccounts.IBankAccount>): Promise<cards.ICard | bankAccounts.IBankAccount>;
-            createSource(customerId: string, data: customers.ICustomerSourceCreationOptions, response?: IResponseFn<cards.ICard | bankAccounts.IBankAccount>): Promise<cards.ICard | bankAccounts.IBankAccount>;
+            createSource(customerId: string, data: customers.ICustomerSourceCreationOptions, options: HeaderOptions, response?: IResponseFn<IStripeSource>): Promise<IStripeSource>;
+            createSource(customerId: string, data: customers.ICustomerSourceCreationOptions, response?: IResponseFn<IStripeSource>): Promise<IStripeSource>;
 
             /**
              * You can see a list of the cards belonging to a customer or recipient. Note that the 10 most recent
@@ -7322,6 +7435,9 @@ declare namespace Stripe {
             listSources(customerId: string, data: customers.IBankAccountSourceListOptions, options: HeaderOptions, response?: IResponseFn<IList<bankAccounts.IBankAccount>>): Promise<IList<bankAccounts.IBankAccount>>;
             listSources(customerId: string, data: customers.IBankAccountSourceListOptions, response?: IResponseFn<IList<bankAccounts.IBankAccount>>): Promise<IList<bankAccounts.IBankAccount>>;
 
+            listSources(customerId: string, data: customers.ISourceListOptions, options: HeaderOptions, response?: IResponseFn<IList<sources.ISource>>): Promise<IList<sources.ISource>>;
+            listSources(customerId: string, data: customers.ISourceListOptions, response?: IResponseFn<IList<sources.ISource>>): Promise<IList<sources.ISource>>;
+
             /**
              * By default, you can see the 10 most recent cards/bank accounts stored on a customer or recipient directly on the customer or recipient object, but
              * you can also retrieve details about a specific card/bank account stored on the customer or recipient.
@@ -7331,8 +7447,8 @@ declare namespace Stripe {
              * @param customerId The ID of the customer whose card needs to be retrieved.
              * @param sourceId The ID of the source to be retrieved.
              */
-            retrieveSource(customerId: string, sourceId: string, options: HeaderOptions, response?: IResponseFn<cards.ICard | bankAccounts.IBankAccount>): Promise<cards.ICard | bankAccounts.IBankAccount>;
-            retrieveSource(customerId: string, sourceId: string, response?: IResponseFn<cards.ICard | bankAccounts.IBankAccount>): Promise<cards.ICard | bankAccounts.IBankAccount>;
+            retrieveSource(customerId: string, sourceId: string, options: HeaderOptions, response?: IResponseFn<IStripeSource>): Promise<IStripeSource>;
+            retrieveSource(customerId: string, sourceId: string, response?: IResponseFn<IStripeSource>): Promise<IStripeSource>;
 
             /**
              * If you need to update only some card details, like the billing address or expiration date, you can do so without having to re-enter the
@@ -7356,7 +7472,7 @@ declare namespace Stripe {
              * @param customerId The ID of the customer whose card needs to be retrieved.
              * @param sourceId The ID of the bank account to be updated.
              */
-            updateSource(customerId: string, sourceId: string, data: bankAccounts.IBankAccountUpdateOptions, options: HeaderOptions, response?: IResponseFn<cards.ICard>): Promise<cards.ICard>;
+            updateSource(customerId: string, sourceId: string, data: bankAccounts.IBankAccountUpdateOptions, options: HeaderOptions, response?: IResponseFn<bankAccounts.IBankAccount>): Promise<bankAccounts.IBankAccount>;
             updateSource(customerId: string, sourceId: string, data: bankAccounts.IBankAccountUpdateOptions, response?: IResponseFn<bankAccounts.IBankAccount>): Promise<bankAccounts.IBankAccount>;
 
             /**
@@ -8290,6 +8406,20 @@ declare namespace Stripe {
             list(data: refunds.IRefundListOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
             list(options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
             list(response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
+        }
+
+        class Sources extends StripeResource {
+            /** Create Source: https://stripe.com/docs/api/sources/create */
+            create(data: sources.ISourceCreationOptions, options: HeaderOptions, response?: IResponseFn<sources.ISource>): Promise<sources.ISource>;
+            create(data: sources.ISourceCreationOptions, response?: IResponseFn<sources.ISource>): Promise<sources.ISource>;
+
+            /** Update Source: https://stripe.com/docs/api/sources/update */
+            update(id: string, data: sources.ISourceUpdateOptions, options: HeaderOptions, response?: IResponseFn<sources.ISource>): Promise<sources.ISource>;
+            update(id: string, data: sources.ISourceUpdateOptions, response?: IResponseFn<sources.ISource>): Promise<sources.ISource>;
+
+            /** Retrieve Source: https://stripe.com/docs/api/sources/retrieve */
+            retrieve(id: string, data: sources.ISourceRetrieveOptions | undefined, options: HeaderOptions, response?: IResponseFn<sources.ISource>): Promise<sources.ISource>;
+            retrieve(id: string, data?: sources.ISourceRetrieveOptions, response?: IResponseFn<sources.ISource>): Promise<sources.ISource>;
         }
 
         class Tokens extends StripeResource {
