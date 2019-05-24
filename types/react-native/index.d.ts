@@ -3992,7 +3992,7 @@ export class Image extends ImageBase {
     static getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
     static prefetch(url: string): any;
     static abortPrefetch?(requestId: number): void;
-    static queryCache?(urls: string[]): Promise<Map<string, "memory" | "disk">>;
+    static queryCache?(urls: string[]): Promise<{[url: string]: "memory" | "disk" | "disk/memory"}>;
 
     /**
      * @see https://facebook.github.io/react-native/docs/image.html#resolveassetsource
@@ -4013,7 +4013,7 @@ export class ImageBackground extends ImageBackgroundBase {
     getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
     prefetch(url: string): any;
     abortPrefetch?(requestId: number): void;
-    queryCache?(urls: string[]): Promise<Map<string, "memory" | "disk">>;
+    queryCache?(urls: string[]): Promise<{[url: string]: "memory" | "disk" | "disk/memory"}>;
 }
 
 export interface ViewToken {
