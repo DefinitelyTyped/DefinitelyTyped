@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { Props as SelectProps } from './Select';
 
-export type OptionsType<OptionType> = ReadonlyArray<OptionType> & OptionType[];
+export type OptionsType<OptionType> = ReadonlyArray<OptionType> & Array<OptionType>;
 
 export interface GroupType<OptionType> {
   options: OptionsType<OptionType>;
   [key: string]: any;
 }
 
-export type GroupedOptionsType<UnionOptionType> = ReadonlyArray<GroupType<UnionOptionType>> & GroupType<UnionOptionType>[];
+export type GroupedOptionsType<UnionOptionType> = ReadonlyArray<GroupType<UnionOptionType>> & Array<GroupType<UnionOptionType>>;
 
 export type ValueType<OptionType> = OptionType | OptionsType<OptionType> | null | undefined;
 

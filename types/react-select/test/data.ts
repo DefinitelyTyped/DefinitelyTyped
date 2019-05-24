@@ -1,4 +1,4 @@
-import { GroupedOptionsType, GroupType } from "react-select/lib/types";
+import { GroupedOptionsType, GroupType, OptionsType } from "react-select/lib/types";
 
 export interface ColourOption {
   value: string;
@@ -7,7 +7,7 @@ export interface ColourOption {
   disabled?: boolean;
 }
 
-export const colourOptions: ReadonlyArray<ColourOption> & ColourOption[] = [
+export const colourOptions: OptionsType<ColourOption> = [
   { value: 'ocean', label: 'Ocean', color: '#00B8D9' },
   { value: 'blue', label: 'Blue', color: '#0052CC', disabled: true },
   { value: 'purple', label: 'Purple', color: '#5243AA' },
