@@ -1,4 +1,4 @@
-// Type definitions for heroku-logger 0.1
+// Type definitions for heroku-logger 1.0
 // Project: https://github.com/ianstormtaylor/heroku-logger
 // Definitions by: Kyle Vogt <https://github.com/kylevogt>
 //                 Alejandro Moran <https://github.com/AlejandroMoran>
