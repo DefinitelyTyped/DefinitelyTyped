@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+/// <reference types="node" />
+
 declare namespace Recipe {
     type CommentOptionsFlag =
         | "invisible"
@@ -191,6 +193,8 @@ declare namespace Recipe {
 declare class Recipe {
     constructor(src: string, output: string, options?: Recipe.RecipeOptions);
 
+    constructor(buffer: Buffer, options?: Recipe.RecipeOptions);
+
     comment(
         text: string,
         x: number,
@@ -276,6 +280,8 @@ declare class Recipe {
     ): Recipe;
 
     endPDF(callback?: () => any): Recipe;
+
+    endPDF(callback?: (buffer: Buffer) => any): Recipe;
 }
 
 export = Recipe;
