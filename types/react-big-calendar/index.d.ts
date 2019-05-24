@@ -11,6 +11,7 @@
 //                 Tomas Hubelbauer <https://github.com/TomasHubelbauer>
 //                 Lucas Silva Souza <https://github.com/lksilva>
 //                 Siarhey Belofost <https://github.com/SergeyBelofost>
+//                 Mark Nelissen <https://github.com/marknelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
@@ -33,9 +34,9 @@ export type Navigate = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 
 export interface Event {
     allDay?: boolean;
-    title: string;
-    start: Date;
-    end: Date;
+    title?: string;
+    start?: Date;
+    end?: Date;
     resource?: any;
 }
 export interface DateRange {
