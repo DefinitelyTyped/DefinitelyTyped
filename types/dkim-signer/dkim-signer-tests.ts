@@ -12,5 +12,5 @@ const dkimOptions: DKIMSignOptions = {
 };
 
 // generate signature header field
-const signature: string = DKIMSign(rfc822message, dkimOptions);
-console.log(signature);
+// $ExpectType string
+DKIMSign(rfc822message, dkimOptions);
