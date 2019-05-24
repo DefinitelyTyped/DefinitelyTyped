@@ -955,7 +955,7 @@ export interface Part {
 }
 
 export interface Parameter {
-    name: string;
+    name?: string;
     displayName: string;
     value?: string;
     defaultValue?: string;
