@@ -1,11 +1,11 @@
-import * as neffos from "neffos";
+import neffos = require("neffos.js");
 
 const wsURL = "ws://localhost:8080/echo";
 const noOpErr = new Error("no op");
 
 async function asumeExample() {
     try {
-        var conn = await neffos.dial(wsURL, {
+        const conn = await neffos.dial(wsURL, {
             default: { // "default" namespace.
                 _OnNamespaceConnected: (ns: neffos.NSConn, msg: neffos.Message): Error => {
                     return noOpErr;
@@ -31,11 +31,10 @@ async function asumeExample() {
             }
         });
 
-
         const nsConn = await conn.connect("default");
         nsConn.emit("chat", "Hello from client side!");
 
-        let msg = new neffos.Message();
+        const msg = new neffos.Message();
         msg.Namespace = "default";
         msg.Event = "chat";
         msg.Body = "Hello from client (again) using the conn's write method!";
