@@ -2060,7 +2060,7 @@ declare module "mongoose" {
      */
     populate(path: string | any, select?: string | any, model?: any,
       match?: any, options?: any): this;
-    populate(options: ModelPopulateOptions | ModelPopulateOptions[]): this;
+    populate(options: QueryPopulateOptions | QueryPopulateOptions[]): this;
 
     /**
      * Determines the MongoDB nodes from which to read.
@@ -3307,7 +3307,7 @@ declare module "mongoose" {
     session?: ClientSession | null;
   }
 
-  interface ModelPopulateOptions {
+  interface QueryPopulateOptions {
     /** space delimited path(s) to populate */
     path: string;
     /** optional fields to select */
@@ -3319,7 +3319,12 @@ declare module "mongoose" {
     /** optional query options like sort, limit, etc */
     options?: any;
     /** deep populate */
-    populate?: ModelPopulateOptions | ModelPopulateOptions[];
+    populate?: QueryPopulateOptions | QueryPopulateOptions[];
+  }
+
+  interface ModelPopulateOptions extends QueryPopulateOptions {
+    /** optional, if true Mongoose will always set path to an array. Inferred from schema by default */
+    justOne?: boolean;
   }
 
   interface ModelUpdateOptions extends ModelOptions {
