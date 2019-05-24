@@ -1,13 +1,13 @@
 import { GroupedOptionsType, GroupType } from "react-select/lib/types";
 
 export interface ColourOption {
-    value: string;
-    label: string;
-    color: string;
-    disabled?: boolean;
+  value: string;
+  label: string;
+  color: string;
+  disabled?: boolean;
 }
 
-export const colourOptions: ReadonlyArray<ColourOption> = [
+export const colourOptions: ReadonlyArray<ColourOption> & ColourOption[] = [
   { value: 'ocean', label: 'Ocean', color: '#00B8D9' },
   { value: 'blue', label: 'Blue', color: '#0052CC', disabled: true },
   { value: 'purple', label: 'Purple', color: '#5243AA' },
@@ -21,9 +21,9 @@ export const colourOptions: ReadonlyArray<ColourOption> = [
 ];
 
 export interface FlavourOption {
-    value: string;
-    label: string;
-    rating: 'safe' | 'good' | 'wild' | 'crazy';
+  value: string;
+  label: string;
+  rating: 'safe' | 'good' | 'wild' | 'crazy';
 }
 
 export const flavourOptions: FlavourOption[] = [
@@ -34,8 +34,8 @@ export const flavourOptions: FlavourOption[] = [
 ];
 
 export interface StateOption {
-    value: string;
-    label: string;
+  value: string;
+  label: string;
 }
 
 export const stateOptions: StateOption[] = [
@@ -121,12 +121,12 @@ export const optionLength = [
 // }
 
 const colourGroup: GroupType<ColourOption> = {
-    label: 'Colours',
-    options: colourOptions
+  label: 'Colours',
+  options: colourOptions
 };
 const flavourGroup: GroupType<FlavourOption> = {
-    label: 'Flavours',
-    options: flavourOptions,
+  label: 'Flavours',
+  options: flavourOptions,
 };
 
-export const groupedOptions: GroupedOptionsType<ColourOption | FlavourOption> = [ colourGroup, flavourGroup ];
+export const groupedOptions: GroupedOptionsType<ColourOption | FlavourOption> = [colourGroup, flavourGroup];
