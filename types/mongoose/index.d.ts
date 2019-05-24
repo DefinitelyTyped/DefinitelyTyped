@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.5
+// Type definitions for Mongoose 5.5.1
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -1967,6 +1967,9 @@ declare module "mongoose" {
     maxscan(val: number): this;
     /** Specifies the maxScan option. Cannot be used with distinct() */
     maxScan(val: number): this;
+
+    /** Specifies the maxTimeMS options. */
+    maxTimeMS(val: number): this;
 
     /**
      * Merges another Query or conditions object into this one.
