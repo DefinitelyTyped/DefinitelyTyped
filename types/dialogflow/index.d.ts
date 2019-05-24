@@ -870,11 +870,23 @@ export interface Agent {
     classificationThreshold?: number;
 }
 
-export interface Context<N = string, T = any> {
-    name: N;
+export interface Context {
+    name?: string;
     lifespanCount?: number;
-    parameters?: T;
+    parameters?: ContextParameter;
 }
+
+export interface ContextParameter {
+    [key: string]: Value;
+}
+
+export type Value =
+    | "null_value"
+    | "number_value"
+    | "string_value"
+    | "bool_value"
+    | "struct_value"
+    | "list_value";
 
 export interface EntityType {
     name?: string;
