@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Props as SelectProps } from './Select';
 
-export type OptionsType<OptionType> = ReadonlyArray<OptionType> & Array<OptionType>;
+export type OptionsType<OptionType> = ReadonlyArray<OptionType> & OptionType[];
 
 export interface GroupType<OptionType> {
   options: OptionsType<OptionType>;
