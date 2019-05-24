@@ -1,6 +1,8 @@
-// Type definitions for dialogflow 0.9
+// Type definitions for dialogflow 1.0
 // Project: https://github.com/googleapis/nodejs-dialogflow
-// Definitions by: Daniel Dyla <https://github.com/dyladan>, Tom Carrio <https://github.com/tcarrio>
+// Definitions by: Daniel Dyla <https://github.com/dyladan>
+//                 Tom Carrio <https://github.com/tcarrio>
+//                 Khalil Choudhry <https://github.com/khalilchoudhry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -677,7 +679,7 @@ export interface QueryResult {
     speechRecognitionConfidence: number;
     action: string;
     parameters: any;
-    allRequiredParamsSent: boolean;
+    allRequiredParamsPresent: boolean;
     fulfillmentText: string;
     fulfillmentMessages: Message[];
     webhookSource: string;
