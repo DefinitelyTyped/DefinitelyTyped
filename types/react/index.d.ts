@@ -1914,6 +1914,7 @@ declare namespace React {
         marginHeight?: number;
         marginWidth?: number;
         name?: string;
+        referrerPolicy?: string;
         sandbox?: string;
         scrolling?: string;
         seamless?: boolean;

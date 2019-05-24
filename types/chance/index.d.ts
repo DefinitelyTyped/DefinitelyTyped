@@ -286,7 +286,7 @@ declare namespace Chance {
     }
 
     interface MixinDescriptor {
-        [id: string]: () => any;
+        [id: string]: (...args: any[]) => any;
     }
 
     interface Setter {

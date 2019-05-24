@@ -1,4 +1,4 @@
-// Type definitions for stripe 6.25
+// Type definitions for stripe 6.26
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -1191,15 +1191,13 @@ declare namespace Stripe {
             currency: string;
 
             /**
-             * A fee in pence that will be applied to the charge and transferred to the
-             * application owner's Stripe account. To use an application fee, the request
-             * must be made on behalf of another account, using the Stripe-Account
-             * header, an OAuth key, or the destination parameter. For more
-             * information, see the application fees documentation.
-             *
-             * Connect only.
+             * A fee in cents that will be applied to the charge and transferred
+             * to the application owner’s Stripe account. The request must be
+             * made with an OAuth key or the Stripe-Account header in order to
+             * take an application fee. For more information, see the
+             * application fees documentation.
              */
-            application_fee?: number;
+            application_fee_amount?: number;
 
             /**
              * Whether or not to immediately capture the charge. When false, the charge
@@ -4939,6 +4937,13 @@ declare namespace Stripe {
              * See the Connect documentation for details.
              */
             transfer_group?: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for
+             * displaying to users. This can be unset by updating the value
+             * to null and then saving.
+             */
+            description?: string;
         }
 
         interface ITransferUpdateOptions extends IDataOptionsWithMetadata {

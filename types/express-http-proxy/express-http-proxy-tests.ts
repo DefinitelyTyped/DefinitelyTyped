@@ -38,6 +38,14 @@ proxy('www.google.com', {
 });
 
 proxy('www.google.com', {
+    proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+      return new Promise((resolve, reject) => {
+        resolve(proxyReqOpts);
+      });
+    }
+});
+
+proxy('www.google.com', {
     userResHeaderDecorator(headers, userReq, userRes, proxyReq, proxyRes) {
         console.log(userReq.url, userRes.statusCode);
         console.log(proxyReq.url, proxyRes.statusCode);
@@ -49,7 +57,36 @@ proxy('www.google.com', {
 });
 
 proxy('www.google.com', {
+    userResDecorator(proxyRes, proxyResData, userReq, userRes) {
+        console.log(userReq.url, userRes.statusCode);
+        const data = JSON.parse(proxyResData.toString("utf8"));
+        data.newProperty = "exciting data";
+        return JSON.stringify(data);
+    }
+});
+
+proxy('www.google.com', {
+    userResDecorator(proxyRes, proxyResData, userReq, userRes) {
+        // some code
+        return proxyResData;
+    }
+});
+
+proxy('www.google.com', {
+    userResDecorator(proxyRes, proxyResData, userReq, userRes) {
+        // some code
+        return Promise.resolve(proxyResData);
+    }
+});
+
+proxy('www.google.com', {
     preserveHostHdr: true
 });
+
+proxy('www.google.com', {
+    parseReqBody: true
+});
+
+const proxyOptions: proxy.ProxyOptions = {};
 
 app.use('/proxy/:port', proxy((req) => 'localhost:' + req.params.port));

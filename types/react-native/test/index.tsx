@@ -89,6 +89,8 @@ import {
     Keyboard,
     NetInfo,
     PermissionsAndroid,
+    Platform,
+    PushNotificationIOS,
 } from "react-native";
 
 declare module "react-native" {
@@ -908,4 +910,39 @@ const PermissionsAndroidTest = () => {
                 break;
         }
     })
+}
+
+// Platform
+const PlatformTest = () => {
+    switch (Platform.OS) {
+        case 'ios':
+            if (!Platform.isPad) {
+                return 32;
+            } else {
+                return 44;
+            }
+        case 'android':
+        case 'macos':
+        case 'windows':
+            return Platform.isTV ? 64 : 56;
+        default:
+            return Platform.isTV ? 40 : 44;
+    }
+};
+
+// Push notification
+const PushNotificationTest = () => {
+    PushNotificationIOS.scheduleLocalNotification({
+        alertAction: 'view',
+        alertBody: 'Look at me!',
+        alertTitle: 'Hello!',
+        applicationIconBadgeNumber: 999,
+        category: 'engagement',
+        fireDate: (new Date()).toISOString(),
+        isSilent: false,
+        repeatInterval: 'minute',
+        userInfo: {
+            abc: 123,
+        },
+    });
 }

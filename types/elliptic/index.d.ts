@@ -10,7 +10,7 @@ import BN = require("bn.js");
 export const utils: any;
 export const rand: any;
 
-export type BNInput = string | BN | number | Buffer | number[];
+export type BNInput = string | BN | number | Buffer | Uint8Array | number[];
 
 export const version: number;
 

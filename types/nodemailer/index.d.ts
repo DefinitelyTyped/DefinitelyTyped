@@ -1,4 +1,4 @@
-// Type definitions for Nodemailer 4.6
+// Type definitions for Nodemailer 6.1
 // Project: https://github.com/nodemailer/nodemailer, https://nodemailer.com
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Piotr Roszatycki <https://github.com/dex4er>
