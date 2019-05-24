@@ -298,6 +298,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     defaultDate?: Date;
     className?: string;
     elementProps?: React.HTMLAttributes<HTMLElement>;
+    onShowMore?: (events: TEvent[], date: Date) => void;
 }
 
 export interface ViewStatic {
