@@ -20,7 +20,7 @@
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 //                 Dan Rumney <https://github.com/dancrumb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 // ***************************** IMPORTANT NOTE *****************************
 // These types are for the 4.x branch of Sequelize. As of Sequelize 5.0,
