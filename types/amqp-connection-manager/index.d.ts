@@ -6,7 +6,7 @@
 
 import { ConfirmChannel, Connection, Message, Options, Replies } from "amqplib";
 import { EventEmitter } from "events";
-import { SecureContextOptions } from "tls";
+import { ConnectionOptions } from "tls";
 
 /**
  * connect() options
@@ -31,8 +31,11 @@ export interface AmqpConnectionManagerOptions {
 
 	/**
 	 * TLS options
+	 *
+	 * These are passed through directly to amqplib (http://www.squaremobius.net/amqp.node/channel_api.html#connect),
+	 * which in turn passes them through to tls.connect (https://nodejs.org/api/tls.html#tls_tls_connect_options_callback)
 	 */
-	connectionOptions?: SecureContextOptions;
+	connectionOptions?: ConnectionOptions;
 }
 
 /**
