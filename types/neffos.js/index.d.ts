@@ -76,10 +76,10 @@ declare module "neffos" {
     /* The emit method sends a message to the server with its `Message.Namespace` filled to this specific namespace. */
     emit(event: string, body: WSData): boolean;
     /* See `Conn.ask`. */
-    ask(event: string, body: WSData): Promise<Message | Error>;
+    ask(event: string, body: WSData): Promise<Message>;
     /* The joinRoom method can be used to join to a specific room, rooms are dynamic.
        Returns a `Room` or an error. */
-    joinRoom(roomName: string): Promise<Room | Error>;
+    joinRoom(roomName: string): Promise<Room>;
     /* The room method returns a joined `Room`. */
     room(roomName: string): Room;
     /* The leaveAll method sends a leave room signal to all rooms and fires the `OnRoomLeave` and `OnRoomLeft` (if no error caused) events. */
@@ -145,13 +145,13 @@ declare module "neffos" {
     /* ID is the generated connection ID from the server-side, all connected namespaces(`NSConn` instances)
       that belong to that connection have the same ID. It is available immediately after the `dial`. */
     ID: string;
-    constructor(conn: WebSocket, connHandler: Namespaces, protocols?: string[]);
+    constructor(conn: any, connHandler: Namespaces, protocols?: string[]);
     /* The connect method returns a new connected to the specific "namespace" `NSConn` instance or an error. */
-    connect(namespace: string): Promise<NSConn | Error>;
+    connect(namespace: string): Promise<NSConn>;
     /* The namespace method returns an already connected `NSConn`. */
     namespace(namespace: string): NSConn;
     /* The ask method writes a message to the server and blocks until a response or an error. */
-    ask(msg: Message): Promise<Message | Error>;
+    ask(msg: Message): Promise<Message>;
     /* The isClosed method reports whether this connection is closed. */
     isClosed(): boolean;
     /* The write method writes a message to the server and reports whether the connection is still available. */
