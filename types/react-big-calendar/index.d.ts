@@ -33,9 +33,9 @@ export type Navigate = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 
 export interface Event {
     allDay?: boolean;
-    title: string;
-    start: Date;
-    end: Date;
+    title?: string;
+    start?: Date;
+    end?: Date;
     resource?: any;
 }
 export interface DateRange {
