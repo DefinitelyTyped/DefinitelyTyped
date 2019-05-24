@@ -1223,7 +1223,7 @@ declare namespace AceAjax {
          * Set a new font size (in pixels) for the editor text.
          * @param size A font size ( _e.g._ "12px")
         **/
-        setFontSize(size: string): void;
+        setFontSize(size: number): void;
 
         /**
          * Brings the current `textInput` into focus.
