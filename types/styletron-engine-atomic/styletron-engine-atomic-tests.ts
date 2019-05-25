@@ -5,11 +5,11 @@ import {
 
 const validOptions = {
     prefix: 'test-prefix__'
-}
+};
 
 const invalidOptions = {
     hydrate: 'erroneous hydration'
-}
+};
 
 new Client(validOptions);
 new Client(invalidOptions); // $ExpectError
