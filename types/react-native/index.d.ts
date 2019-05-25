@@ -9120,18 +9120,28 @@ export type KeyboardEventEasing =
     | "linear"
     | "keyboard";
 
-type ScreenRect = {
+export type KeyboardEventCoordinates = {
     screenX: number;
     screenY: number;
     width: number;
     height: number;
 };
 
-export interface KeyboardEvent {
+export type KeyboardEvent = AndroidKeyboardEvent | IOSKeyboardEvent;
+
+interface BaseKeyboardEvent {
     duration: number;
     easing: KeyboardEventEasing;
-    endCoordinates: ScreenRect;
-    startCoordinates: ScreenRect;
+    endCoordinates: KeyboardEventCoordinates;
+}
+
+export interface AndroidKeyboardEvent extends BaseKeyboardEvent {
+    duration: 0;
+    easing: "keyboard";
+}
+
+export interface IOSKeyboardEvent extends BaseKeyboardEvent {
+    startCoordinates: KeyboardEventCoordinates;
     isEventFromThisApp: boolean;
 }
 

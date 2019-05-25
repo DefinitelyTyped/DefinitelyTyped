@@ -91,6 +91,8 @@ import {
     PermissionsAndroid,
     Platform,
     PushNotificationIOS,
+    IOSKeyboardEvent,
+    AndroidKeyboardEvent
 } from "react-native";
 
 declare module "react-native" {
@@ -878,9 +880,27 @@ const ShareTest = () => {
 };
 
 const KeyboardTest = () => {
-    const subscriber = Keyboard.addListener("keyboardDidHide", (event) => {event});
+    const keyboardEventHandler = (evt: KeyboardEvent) => {
+        switch (Platform.OS) {
+            case "ios": {
+                const event = evt as IOSKeyboardEvent;
+                event.isEventFromThisApp;
+                break;
+            }
+            case "android": {
+                const event = evt as AndroidKeyboardEvent;
+                event.endCoordinates;
+                break;
+            }
+        }
+    };
+
+    const subscriber = Keyboard.addListener(
+        "keyboardDidHide",
+        keyboardEventHandler
+    );
     subscriber.remove();
-}
+};
 
 const NetInfoTest = () => {
     const subscription = NetInfo.addEventListener('connectionChange', (result) => console.log(result));
