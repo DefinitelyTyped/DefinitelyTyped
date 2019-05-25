@@ -24,7 +24,7 @@ newDoc
     .endPage()
     .endPDF();
 
-let inBuffer: Buffer = fs.readFileSync("test.pdf");
+const inBuffer: Buffer = fs.readFileSync("test.pdf");
 
 const bufferDoc = new Recipe(inBuffer);
 
