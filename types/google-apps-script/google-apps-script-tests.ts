@@ -28,7 +28,7 @@ CalendarApp.GuestStatus.NO;
 
 // test for URLFetchRequestOptions.payload
 import URLFetchRequestOptions = GoogleAppsScript.URL_Fetch.URLFetchRequestOptions;
-const postTest = (payload: Object): string => {
+const postTest = (payload: object): string => {
   const url = 'http://httpbin.org/post';
   const params: URLFetchRequestOptions = {
     method: 'post',

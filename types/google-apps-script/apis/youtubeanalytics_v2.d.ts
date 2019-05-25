@@ -113,7 +113,7 @@ declare namespace GoogleAppsScript {
         columnHeaders?: YoutubeAnalytics_v2.Schema.ResultTableColumnHeader[];
         errors?: YoutubeAnalytics_v2.Schema.Errors;
         kind?: string;
-        rows?: Object[][];
+        rows?: object[][];
       }
       export interface ResultTableColumnHeader {
         columnType?: string;

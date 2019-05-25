@@ -124,13 +124,13 @@ declare namespace GoogleAppsScript {
         kind?: string;
       }
       export interface Location {
-        accuracy?: Number;
+        accuracy?: number;
         address?: string;
         displayName?: string;
         id?: string;
         kind?: string;
-        latitude?: Number;
-        longitude?: Number;
+        latitude?: number;
+        longitude?: number;
         timestamp?: string;
       }
       export interface LocationsListResponse {

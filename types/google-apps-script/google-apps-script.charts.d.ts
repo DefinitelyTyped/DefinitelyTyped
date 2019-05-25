@@ -59,9 +59,9 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): AreaChartBuilder;
       setLegendPosition(position: Position): AreaChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): AreaChartBuilder;
-      setOption(option: string, value: Object): AreaChartBuilder;
+      setOption(option: string, value: object): AreaChartBuilder;
       setPointStyle(style: PointStyle): AreaChartBuilder;
-      setRange(start: Number, end: Number): AreaChartBuilder;
+      setRange(start: number, end: number): AreaChartBuilder;
       setStacked(): AreaChartBuilder;
       setTitle(chartTitle: string): AreaChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): AreaChartBuilder;
@@ -110,8 +110,8 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): BarChartBuilder;
       setLegendPosition(position: Position): BarChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): BarChartBuilder;
-      setOption(option: string, value: Object): BarChartBuilder;
-      setRange(start: Number, end: Number): BarChartBuilder;
+      setOption(option: string, value: object): BarChartBuilder;
+      setRange(start: number, end: number): BarChartBuilder;
       setStacked(): BarChartBuilder;
       setTitle(chartTitle: string): BarChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): BarChartBuilder;
@@ -232,7 +232,7 @@ declare namespace GoogleAppsScript {
      * These options are immutable.
      */
     export interface ChartOptions {
-      get(option: string): Object;
+      get(option: string): object;
     }
 
     /**
@@ -344,8 +344,8 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): ColumnChartBuilder;
       setLegendPosition(position: Position): ColumnChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): ColumnChartBuilder;
-      setOption(option: string, value: Object): ColumnChartBuilder;
-      setRange(start: Number, end: Number): ColumnChartBuilder;
+      setOption(option: string, value: object): ColumnChartBuilder;
+      setRange(start: number, end: number): ColumnChartBuilder;
       setStacked(): ColumnChartBuilder;
       setTitle(chartTitle: string): ColumnChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): ColumnChartBuilder;
@@ -496,9 +496,9 @@ declare namespace GoogleAppsScript {
      */
     export interface DataTableBuilder {
       addColumn(type: ColumnType, label: string): DataTableBuilder;
-      addRow(values: Object[]): DataTableBuilder;
+      addRow(values: object[]): DataTableBuilder;
       build(): DataTable;
-      setValue(row: Integer, column: Integer, value: Object): DataTableBuilder;
+      setValue(row: Integer, column: Integer, value: object): DataTableBuilder;
     }
 
     /**
@@ -570,7 +570,7 @@ declare namespace GoogleAppsScript {
      */
     export interface DataViewDefinitionBuilder {
       build(): DataViewDefinition;
-      setColumns(columns: Object[]): DataViewDefinitionBuilder;
+      setColumns(columns: object[]): DataViewDefinitionBuilder;
     }
 
     /**
@@ -609,9 +609,9 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): LineChartBuilder;
       setLegendPosition(position: Position): LineChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): LineChartBuilder;
-      setOption(option: string, value: Object): LineChartBuilder;
+      setOption(option: string, value: object): LineChartBuilder;
       setPointStyle(style: PointStyle): LineChartBuilder;
-      setRange(start: Number, end: Number): LineChartBuilder;
+      setRange(start: number, end: number): LineChartBuilder;
       setTitle(chartTitle: string): LineChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): LineChartBuilder;
       setXAxisTextStyle(textStyle: TextStyle): LineChartBuilder;
@@ -741,7 +741,7 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): PieChartBuilder;
       setLegendPosition(position: Position): PieChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): PieChartBuilder;
-      setOption(option: string, value: Object): PieChartBuilder;
+      setOption(option: string, value: object): PieChartBuilder;
       setTitle(chartTitle: string): PieChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): PieChartBuilder;
     }
@@ -789,17 +789,17 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): ScatterChartBuilder;
       setLegendPosition(position: Position): ScatterChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): ScatterChartBuilder;
-      setOption(option: string, value: Object): ScatterChartBuilder;
+      setOption(option: string, value: object): ScatterChartBuilder;
       setPointStyle(style: PointStyle): ScatterChartBuilder;
       setTitle(chartTitle: string): ScatterChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): ScatterChartBuilder;
       setXAxisLogScale(): ScatterChartBuilder;
-      setXAxisRange(start: Number, end: Number): ScatterChartBuilder;
+      setXAxisRange(start: number, end: number): ScatterChartBuilder;
       setXAxisTextStyle(textStyle: TextStyle): ScatterChartBuilder;
       setXAxisTitle(title: string): ScatterChartBuilder;
       setXAxisTitleTextStyle(textStyle: TextStyle): ScatterChartBuilder;
       setYAxisLogScale(): ScatterChartBuilder;
-      setYAxisRange(start: Number, end: Number): ScatterChartBuilder;
+      setYAxisRange(start: number, end: number): ScatterChartBuilder;
       setYAxisTextStyle(textStyle: TextStyle): ScatterChartBuilder;
       setYAxisTitle(title: string): ScatterChartBuilder;
       setYAxisTitleTextStyle(textStyle: TextStyle): ScatterChartBuilder;
@@ -910,7 +910,7 @@ declare namespace GoogleAppsScript {
       setFirstRowNumber(number: Integer): TableChartBuilder;
       setInitialSortingAscending(column: Integer): TableChartBuilder;
       setInitialSortingDescending(column: Integer): TableChartBuilder;
-      setOption(option: string, value: Object): TableChartBuilder;
+      setOption(option: string, value: object): TableChartBuilder;
       showRowNumberColumn(showRowNumber: boolean): TableChartBuilder;
       useAlternatingRowStyle(alternate: boolean): TableChartBuilder;
     }
@@ -953,7 +953,7 @@ declare namespace GoogleAppsScript {
     export interface TextStyle {
       getColor(): string;
       getFontName(): string;
-      getFontSize(): Number;
+      getFontSize(): number;
     }
 
     /**
@@ -972,7 +972,7 @@ declare namespace GoogleAppsScript {
       build(): TextStyle;
       setColor(cssValue: string): TextStyleBuilder;
       setFontName(fontName: string): TextStyleBuilder;
-      setFontSize(fontSize: Number): TextStyleBuilder;
+      setFontSize(fontSize: number): TextStyleBuilder;
     }
 
   }

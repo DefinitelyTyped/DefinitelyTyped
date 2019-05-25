@@ -394,7 +394,7 @@ declare namespace GoogleAppsScript {
         bubbleLabels?: Sheets_v4.Schema.ChartData;
         bubbleMaxRadiusSize?: number;
         bubbleMinRadiusSize?: number;
-        bubbleOpacity?: Number;
+        bubbleOpacity?: number;
         bubbleSizes?: Sheets_v4.Schema.ChartData;
         bubbleTextStyle?: Sheets_v4.Schema.TextFormat;
         domain?: Sheets_v4.Schema.ChartData;
@@ -479,10 +479,10 @@ declare namespace GoogleAppsScript {
         spreadsheetId?: string;
       }
       export interface Color {
-        alpha?: Number;
-        blue?: Number;
-        green?: Number;
-        red?: Number;
+        alpha?: number;
+        blue?: number;
+        green?: number;
+        red?: number;
       }
       export interface ConditionValue {
         relativeDate?: string;
@@ -521,7 +521,7 @@ declare namespace GoogleAppsScript {
       export interface DataFilterValueRange {
         dataFilter?: Sheets_v4.Schema.DataFilter;
         majorDimension?: string;
-        values?: Object[][];
+        values?: object[][];
       }
       export interface DataValidationRule {
         condition?: Sheets_v4.Schema.BooleanCondition;
@@ -653,7 +653,7 @@ declare namespace GoogleAppsScript {
         boolValue?: boolean;
         errorValue?: Sheets_v4.Schema.ErrorValue;
         formulaValue?: string;
-        numberValue?: Number;
+        numberValue?: number;
         stringValue?: string;
       }
       export interface FilterCriteria {
@@ -724,16 +724,16 @@ declare namespace GoogleAppsScript {
         startRowIndex?: number;
       }
       export interface HistogramChartSpec {
-        bucketSize?: Number;
+        bucketSize?: number;
         legendPosition?: string;
-        outlierPercentile?: Number;
+        outlierPercentile?: number;
         series?: Sheets_v4.Schema.HistogramSeries[];
         showItemDividers?: boolean;
       }
       export interface HistogramRule {
-        end?: Number;
-        interval?: Number;
-        start?: Number;
+        end?: number;
+        interval?: number;
+        start?: number;
       }
       export interface HistogramSeries {
         barColor?: Sheets_v4.Schema.Color;
@@ -753,7 +753,7 @@ declare namespace GoogleAppsScript {
         value?: string;
       }
       export interface IterativeCalculationSettings {
-        convergenceThreshold?: Number;
+        convergenceThreshold?: number;
         maxIterations?: number;
       }
       export interface LineStyle {
@@ -823,7 +823,7 @@ declare namespace GoogleAppsScript {
       export interface PieChartSpec {
         domain?: Sheets_v4.Schema.ChartData;
         legendPosition?: string;
-        pieHole?: Number;
+        pieHole?: number;
         series?: Sheets_v4.Schema.ChartData;
         threeDimensional?: boolean;
       }
@@ -1071,8 +1071,8 @@ declare namespace GoogleAppsScript {
         hintedLevels?: number;
         labels?: Sheets_v4.Schema.ChartData;
         levels?: number;
-        maxValue?: Number;
-        minValue?: Number;
+        maxValue?: number;
+        minValue?: number;
         parentLabels?: Sheets_v4.Schema.ChartData;
         sizeData?: Sheets_v4.Schema.ChartData;
         textFormat?: Sheets_v4.Schema.TextFormat;
@@ -1179,7 +1179,7 @@ declare namespace GoogleAppsScript {
       export interface ValueRange {
         majorDimension?: string;
         range?: string;
-        values?: Object[][];
+        values?: object[][];
       }
       export interface WaterfallChartColumnStyle {
         color?: Sheets_v4.Schema.Color;
