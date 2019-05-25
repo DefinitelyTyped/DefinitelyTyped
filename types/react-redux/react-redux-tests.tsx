@@ -20,6 +20,7 @@ import {
     ReactReduxContext,
     ReactReduxContextValue,
     Selector,
+    shallowEqual,
     MapDispatchToProps,
     useDispatch,
     useSelector,
@@ -1298,6 +1299,15 @@ function TestSelector() {
     notSimpleSelect(state); // $ExpectError
 }
 
+function testShallowEqual() {
+    shallowEqual(); // $ExpectError
+    shallowEqual('a'); // $ExpectError
+    shallowEqual('a', 'a');
+    shallowEqual({ test: 'test' }, { test: 'test' });
+    shallowEqual({ test: 'test' }, 'a');
+    const x: boolean = shallowEqual('a', 'a');
+}
+
 function testUseDispatch() {
     const actionCreator = (selected: boolean) => ({
         type: "ACTION_CREATOR",
@@ -1342,6 +1352,20 @@ function testUseSelector() {
 
     const { extraneous } = useSelector(selector); // $ExpectError
     useSelector(selector);
+
+    useSelector(selector, 'a'); // $ExpectError
+    useSelector(selector, (l, r) => l === r);
+    useSelector(selector, (l, r) => {
+        // $ExpectType { counter: number; active: string; }
+        l;
+        return l === r;
+    });
+
+    useSelector(selector, shallowEqual);
+    const compare = (_l: number, _r: number) => true;
+    useSelector(() => 1, compare);
+    const compare2 = (_l: number, _r: string) => true;
+    useSelector(() => 1, compare2); // $ExpectError
 }
 
 function testUseStore() {

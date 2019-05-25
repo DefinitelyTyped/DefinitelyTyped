@@ -467,6 +467,13 @@ export const ReactReduxContext: Context<ReactReduxContextValue>;
  */
 export function batch(cb: () => void): void;
 
+/**
+ * Compares two arbitrary values for shallow equality. Object values are compared based on their keys, i.e. they must
+ * have the same keys and for each key the value must be equal according to the `Object.is()` algorithm. Non-object
+ * values are also compared with the same algorithm as `Object.is()`.
+ */
+export function shallowEqual(left: any, right: any): boolean;
+
 // tslint:disable:no-unnecessary-generics
 
 /**
