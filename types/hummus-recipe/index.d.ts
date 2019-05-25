@@ -188,6 +188,10 @@ declare namespace Recipe {
         rotation?: number;
         rotationOrigin?: number[];
     }
+
+    type EndPDFCallback1 = () => any;
+    type EndPDFCallback2 = (buffer: Buffer) => any;
+    type EndPDFCallback = EndPDFCallback1 | EndPDFCallback2;
 }
 
 declare class Recipe {
@@ -279,9 +283,7 @@ declare class Recipe {
         options?: Recipe.RectangleOptions
     ): Recipe;
 
-    endPDF(callback?: () => any): Recipe;
-
-    endPDF(callback?: (buffer: Buffer) => any): Recipe;
+    endPDF(callback?: Recipe.EndPDFCallback): Recipe;
 }
 
 export = Recipe;
