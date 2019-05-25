@@ -504,7 +504,12 @@ export function useDispatch<A extends Action = AnyAction>(): Dispatch<A>;
  * A hook to access the redux store's state. This hook takes a selector function
  * as an argument. The selector is called with the store state.
  *
+ * This hook takes an optional equality comparison function as the second parameter
+ * that allows you to customize the way the selected state is compared to determine
+ * whether the component needs to be re-rendered.
+ *
  * @param selector the selector function
+ * @param equalityFn the function that will be used to determine equality
  *
  * @returns the selected state
  *
@@ -519,7 +524,10 @@ export function useDispatch<A extends Action = AnyAction>(): Dispatch<A>;
  *   return <div>{counter}</div>
  * }
  */
-export function useSelector<TState, TSelected>(selector: (state: TState) => TSelected): TSelected;
+export function useSelector<TState, TSelected>(
+    selector: (state: TState) => TSelected,
+    equalityFn?: (left: TSelected, right: TSelected) => boolean
+): TSelected;
 
 /**
  * A hook to access the redux store.
