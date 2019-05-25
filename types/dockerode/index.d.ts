@@ -1150,7 +1150,7 @@ declare class Dockerode {
 
   createSecret(options: {}, callback: Callback<any>): void;
   createSecret(options: {}): Promise<any>;
-  
+
   createConfig(options: {}, callback: Callback<any>): void;
   createConfig(options: {}): Promise<any>;
 
