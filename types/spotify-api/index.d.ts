@@ -416,6 +416,14 @@ declare namespace SpotifyApi {
     interface UsersTopTracksResponse extends PagingObject<TrackObjectFull> {}
 
     /**
+     * Get a User’s Recently Played Tracks
+     * 
+     * GET /v1/me/player/recently-played
+     * https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
+     */
+    interface UsersRecentlyPlayedTracksResponse extends CursorBasedPagingObject<PlayHistoryObject> {}
+
+    /**
      * Get recommendations based on seeds
      * 
      * GET /v1/recommendations
@@ -700,6 +708,7 @@ declare namespace SpotifyApi {
      */
     interface CursorObject {
         after: string
+        before?: string
     }
 
     /**
@@ -776,7 +785,7 @@ declare namespace SpotifyApi {
         limit: number,
         next: string,
         cursors: CursorObject,
-        total: number
+        total?: number
     }
 
     /**
@@ -939,4 +948,24 @@ declare namespace SpotifyApi {
         uri: string
     }
 
+    /**
+     * Context Object
+     * [](https://developer.spotify.com/web-api/object-model/#context-object)
+     */
+    interface ContextObject {
+        type: string,
+        href: string,
+        external_urls: ExternalUrlObject,
+        uri: string
+    }
+
+    /**
+     * Play History Object
+     * [](https://developer.spotify.com/web-api/web-api-personalization-endpoints/get-recently-played/#play-history-object)
+     */
+    interface PlayHistoryObject {
+        track: TrackObjectSimplified,
+        played_at: string,
+        context: ContextObject
+    }
 }
