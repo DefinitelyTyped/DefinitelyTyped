@@ -125,6 +125,17 @@ declare namespace SpotifyApi {
         offset?: Object;
     }
 
+    interface PlayParameterObject {
+        device_id?: string;
+        context_uri?: string;
+        uris?: string[];
+        offset?: {
+            position?: number;
+            uri?: string;
+        };
+        position_ms?: number;
+    }
+
     //
     // Responses from the Spotify Web API in the same order as in the API endpoint docs seen here:
     // [API Endpoint Reference](https://developer.spotify.com/web-api/endpoint-reference/)
