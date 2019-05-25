@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "module": "commonjs",
+        "lib": ["dom", "es6"],
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "target": "es5",
+        "typeRoots": ["../"],
+        "types": []
+    },
+    "files": ["index.d.ts", "vx__point-tests.ts"]
+}
